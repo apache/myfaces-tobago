@@ -16,52 +16,52 @@
  */
 
 QUnit.test("ajax excecute", function (assert) {
-  let $in1 = jQueryFrameFn("#page\\:mainForm\\:in1\\:\\:field");
-  let $in2 = jQueryFrameFn("#page\\:mainForm\\:in2\\:\\:field");
-  let $in3 = jQueryFrameFn("#page\\:mainForm\\:in3\\:\\:field");
-  let $in4 = jQueryFrameFn("#page\\:mainForm\\:in4\\:\\:field");
-  let $clearButton = jQueryFrameFn("#page\\:mainForm\\:clear");
-  let $submitButton = jQueryFrameFn("#page\\:mainForm\\:submit");
-  let $reloadButton = jQueryFrameFn("#page\\:mainForm\\:reload");
+  let in1Fn = jQueryFrameFn("#page\\:mainForm\\:in1\\:\\:field");
+  let in2Fn = jQueryFrameFn("#page\\:mainForm\\:in2\\:\\:field");
+  let in3Fn = jQueryFrameFn("#page\\:mainForm\\:in3\\:\\:field");
+  let in4Fn = jQueryFrameFn("#page\\:mainForm\\:in4\\:\\:field");
+  let clearButtonFn = jQueryFrameFn("#page\\:mainForm\\:clear");
+  let submitButtonFn = jQueryFrameFn("#page\\:mainForm\\:submit");
+  let reloadButtonFn = jQueryFrameFn("#page\\:mainForm\\:reload");
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $in1().val("a");
-    $in2().val("b");
-    $in3().val("c");
-    $in4().val("d");
-    $clearButton().click();
+    in1Fn().val("a");
+    in2Fn().val("b");
+    in3Fn().val("c");
+    in4Fn().val("d");
+    clearButtonFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal($in1().val(), "");
-    assert.equal($in2().val(), "");
-    assert.equal($in3().val(), "");
-    assert.equal($in4().val(), "");
+    assert.equal(in1Fn().val(), "");
+    assert.equal(in2Fn().val(), "");
+    assert.equal(in3Fn().val(), "");
+    assert.equal(in4Fn().val(), "");
   });
   TTT.action(function () {
-    $in1().val("a");
-    $in2().val("b");
-    $in3().val("c");
-    $in4().val("d");
-    $submitButton().click();
+    in1Fn().val("a");
+    in2Fn().val("b");
+    in3Fn().val("c");
+    in4Fn().val("d");
+    submitButtonFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal($in1().val(), "a");
-    assert.equal($in2().val(), "b");
-    assert.equal($in3().val(), "c");
-    assert.equal($in4().val(), "");
+    assert.equal(in1Fn().val(), "a");
+    assert.equal(in2Fn().val(), "b");
+    assert.equal(in3Fn().val(), "c");
+    assert.equal(in4Fn().val(), "");
   });
   TTT.action(function () {
-    $reloadButton().click();
+    reloadButtonFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal($in1().val(), "a");
-    assert.equal($in2().val(), "");
-    assert.equal($in3().val(), "c");
-    assert.equal($in4().val(), "");
+    assert.equal(in1Fn().val(), "a");
+    assert.equal(in2Fn().val(), "");
+    assert.equal(in3Fn().val(), "c");
+    assert.equal(in4Fn().val(), "");
   });
   TTT.startTest();
 });

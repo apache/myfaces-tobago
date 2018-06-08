@@ -16,50 +16,50 @@
  */
 
 QUnit.test("Basics: Name", function (assert) {
-  let $colName = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
-  let $rows = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  let colNameFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
+  let rowsFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
 
   let TTT = new TobagoTestTools(assert);
-  if (!$colName().hasClass("tobago-sheet-header-markup-ascending")) {
+  if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      $colName().click();
+      colNameFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok($colName().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok($colName().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk($colName().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    $leftPaging().val("22").trigger("blur");
+    leftPagingFn().val("22").trigger("blur");
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Earth", "365.26", "",
         "Elara", "259.65", "1905",
         "Enceladus", "1.37", "1789",
         "Epimetheus", "0.69", "1980");
   });
   TTT.action(function () {
-    $colName().click();
+    colNameFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Proteus", "1.12", "1989",
         "Prospero", "-1962.95", "1999",
         "Prometheus", "0.61", "1980",
         "Praxidike", "625.3", "2000");
   });
   TTT.action(function () {
-    $colName().click();
+    colNameFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Earth", "365.26", "",
         "Elara", "259.65", "1905",
         "Enceladus", "1.37", "1789",
@@ -69,50 +69,50 @@ QUnit.test("Basics: Name", function (assert) {
 });
 
 QUnit.test("Basics: Period", function (assert) {
-  let $colPeriod = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnPeriod_sorter");
-  let $rows = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  let colPeriodFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnPeriod_sorter");
+  let rowsFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
 
   let TTT = new TobagoTestTools(assert);
-  if (!$colPeriod().hasClass("tobago-sheet-header-markup-ascending")) {
+  if (!colPeriodFn().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      $colPeriod().click();
+      colPeriodFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok($colPeriod().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok($colPeriod().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk($colPeriod().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colPeriodFn().hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok(colPeriodFn().hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colPeriodFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    $leftPaging().val("29").trigger("blur");
+    leftPagingFn().val("29").trigger("blur");
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Rosalind", "0.56", "1986",
         "Pan", "0.58", "1990",
         "Atlas", "0.6", "1980",
         "Prometheus", "0.61", "1980");
   });
   TTT.action(function () {
-    $colPeriod().click();
+    colPeriodFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Callisto", "16.69", "1610",
         "Titan", "15.95", "1655",
         "Oberon", "13.46", "1787",
         "Titania", "8.71", "1787");
   });
   TTT.action(function () {
-    $colPeriod().click();
+    colPeriodFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Rosalind", "0.56", "1986",
         "Pan", "0.58", "1990",
         "Atlas", "0.6", "1980",
@@ -122,51 +122,51 @@ QUnit.test("Basics: Period", function (assert) {
 });
 
 QUnit.test("Basics: Year", function (assert) {
-  let $colYear = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnDiscoverYear_sorter");
-  let $rows = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  let colYearFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnDiscoverYear_sorter");
+  let rowsFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
 
   let TTT = new TobagoTestTools(assert);
-  if (!$colYear().hasClass("tobago-sheet-header-markup-ascending")) {
+  if (!colYearFn().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      $colYear().click();
+      colYearFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok($colYear().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok($colYear().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk($colYear().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colYearFn().hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok(colYearFn().hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colYearFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    $leftPaging().val("22").trigger("blur");
+    leftPagingFn().val("22").trigger("blur");
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal($rows().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1789", "row0col2");
-    assert.equal($rows().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row1col2");
-    assert.equal($rows().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row2col2");
-    assert.equal($rows().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1848", "row3col2");
+    assert.equal(rowsFn().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1789", "row0col2");
+    assert.equal(rowsFn().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row1col2");
+    assert.equal(rowsFn().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row2col2");
+    assert.equal(rowsFn().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1848", "row3col2");
   });
   TTT.action(function () {
-    $colYear().click();
+    colYearFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal($rows().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row0col2");
-    assert.equal($rows().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row1col2");
-    assert.equal($rows().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row2col2");
-    assert.equal($rows().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1986", "row3col2");
+    assert.equal(rowsFn().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row0col2");
+    assert.equal(rowsFn().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row1col2");
+    assert.equal(rowsFn().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row2col2");
+    assert.equal(rowsFn().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1986", "row3col2");
   });
   TTT.action(function () {
-    $colYear().click();
+    colYearFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal($rows().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1789", "row0col2");
-    assert.equal($rows().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row1col2");
-    assert.equal($rows().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row2col2");
-    assert.equal($rows().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1848", "row3col2");
+    assert.equal(rowsFn().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1789", "row0col2");
+    assert.equal(rowsFn().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row1col2");
+    assert.equal(rowsFn().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row2col2");
+    assert.equal(rowsFn().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1848", "row3col2");
   });
   TTT.startTest();
 });
@@ -176,39 +176,39 @@ QUnit.test("Basics: Year", function (assert) {
  * 2. goto line 9
  */
 QUnit.test("Basics: left paging", function (assert) {
-  let $colName = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
-  let $rows = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  let colNameFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
+  let rowsFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
 
   let TTT = new TobagoTestTools(assert);
-  if (!$colName().hasClass("tobago-sheet-header-markup-ascending")) {
+  if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      $colName().click();
+      colNameFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok($colName().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok($colName().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk($colName().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    $leftPaging().val("8").trigger("blur");
+    leftPagingFn().val("8").trigger("blur");
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Bianca", "0.43", "1986",
         "Caliban", "-579.39", "1997",
         "Callirrhoe", "758.8", "2000",
         "Callisto", "16.69", "1610");
   });
   TTT.action(function () {
-    $leftPaging().val("9").trigger("blur");
+    leftPagingFn().val("9").trigger("blur");
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Caliban", "-579.39", "1997",
         "Callirrhoe", "758.8", "2000",
         "Callisto", "16.69", "1610",
@@ -223,62 +223,62 @@ QUnit.test("Basics: left paging", function (assert) {
  * 3. goto page 13
  */
 QUnit.test("Basics: center paging", function (assert) {
-  let $colName = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
-  let $rows = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
-  let $centerPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-center li .page-link");
+  let colNameFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
+  let rowsFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  let centerPagingFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-center li .page-link");
 
   let TTT = new TobagoTestTools(assert);
-  if (!$colName().hasClass("tobago-sheet-header-markup-ascending")) {
+  if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      $colName().click();
+      colNameFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok($colName().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok($colName().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk($colName().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    $leftPaging().val("1").trigger("blur");
+    leftPagingFn().val("1").trigger("blur");
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "1986U10", "0.64", "1999",
         "Adrastea", "0.3", "1979",
         "Amalthea", "0.5", "1892",
         "Ananke", "-629.77", "1951");
   });
   TTT.action(function () {
-    $centerPaging().eq(6).click();
+    centerPagingFn().eq(6).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Epimetheus", "0.69", "1980",
         "Erinome", "728.3", "2000",
         "Europa", "3.55", "1610",
         "Galatea", "0.43", "1989");
   });
   TTT.action(function () {
-    $centerPaging().eq(10).click();
+    centerPagingFn().eq(10).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Phoebe", "-550.48", "1898",
         "Pluto", "90800.0", "1930",
         "Portia", "0.51", "1986",
         "Praxidike", "625.3", "2000");
   });
   TTT.action(function () {
-    $centerPaging().eq(3).click();
+    centerPagingFn().eq(3).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Neptune", "60190.0", "1846",
         "Nereid", "360.13", "1949",
         "Oberon", "13.46", "1787",
@@ -295,85 +295,85 @@ QUnit.test("Basics: center paging", function (assert) {
  * 5. goto page 14
  */
 QUnit.test("Basics: right paging", function (assert) {
-  let $colName = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
-  let $rows = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
-  let $rightPaging = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-right .page-link");
-  let $jumpToPage = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-right .page-link input");
+  let colNameFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
+  let rowsFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  let rightPagingFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-right .page-link");
+  let jumpToPageFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-right .page-link input");
 
   let TTT = new TobagoTestTools(assert);
-  if (!$colName().hasClass("tobago-sheet-header-markup-ascending")) {
+  if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      $colName().click();
+      colNameFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok($colName().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok($colName().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk($colName().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    $leftPaging().val("22").trigger("blur");
+    leftPagingFn().val("22").trigger("blur");
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Earth", "365.26", "",
         "Elara", "259.65", "1905",
         "Enceladus", "1.37", "1789",
         "Epimetheus", "0.69", "1980");
   });
   TTT.action(function () {
-    $rightPaging().eq(0).click();
+    rightPagingFn().eq(0).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "1986U10", "0.64", "1999",
         "Adrastea", "0.3", "1979",
         "Amalthea", "0.5", "1892",
         "Ananke", "-629.77", "1951");
   });
   TTT.action(function () {
-    $rightPaging().eq(3).click();
+    rightPagingFn().eq(3).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Ariel", "2.52", "1851",
         "Atlas", "0.6", "1980",
         "Belinda", "0.62", "1986",
         "Bianca", "0.43", "1986");
   });
   TTT.action(function () {
-    $rightPaging().eq(4).click();
+    rightPagingFn().eq(4).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Triton", "-5.88", "1846",
         "Umbriel", "4.14", "1851",
         "Uranus", "30685.0", "1781",
         "Venus", "224.7", "");
   });
   TTT.action(function () {
-    $rightPaging().eq(1).click();
+    rightPagingFn().eq(1).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Thebe", "0.67", "1979",
         "Themisto", "130.02", "2000",
         "Titan", "15.95", "1655",
         "Titania", "8.71", "1787");
   });
   TTT.action(function () {
-    $jumpToPage().val("14").trigger("blur");
+    jumpToPageFn().val("14").trigger("blur");
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Neptune", "60190.0", "1846",
         "Nereid", "360.13", "1949",
         "Oberon", "13.46", "1787",
@@ -383,50 +383,50 @@ QUnit.test("Basics: right paging", function (assert) {
 });
 
 QUnit.test("Custom Sorting: Name", function (assert) {
-  let $colName = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
-  let $rows = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  let colNameFn = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
+  let rowsFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
 
   let TTT = new TobagoTestTools(assert);
-  if (!$colName().hasClass("tobago-sheet-header-markup-ascending")) {
+  if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      $colName().click();
+      colNameFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok($colName().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok($colName().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk($colName().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    $leftPaging().val("22").trigger("blur");
+    leftPagingFn().val("22").trigger("blur");
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Earth", "365.26", "",
         "Elara", "259.65", "1905",
         "Enceladus", "1.37", "1789",
         "Epimetheus", "0.69", "1980");
   });
   TTT.action(function () {
-    $colName().click();
+    colNameFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Proteus", "1.12", "1989",
         "Prospero", "-1962.95", "1999",
         "Prometheus", "0.61", "1980",
         "Praxidike", "625.3", "2000");
   });
   TTT.action(function () {
-    $colName().click();
+    colNameFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Earth", "365.26", "",
         "Elara", "259.65", "1905",
         "Enceladus", "1.37", "1789",
@@ -436,50 +436,50 @@ QUnit.test("Custom Sorting: Name", function (assert) {
 });
 
 QUnit.test("Custom Sorting: Period", function (assert) {
-  let $colPeriod = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnPeriod_sorter");
-  let $rows = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  let colPeriodFn = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnPeriod_sorter");
+  let rowsFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
 
   let TTT = new TobagoTestTools(assert);
-  if (!$colPeriod().hasClass("tobago-sheet-header-markup-ascending")) {
+  if (!colPeriodFn().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      $colPeriod().click();
+      colPeriodFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok($colPeriod().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok($colPeriod().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk($colPeriod().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colPeriodFn().hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok(colPeriodFn().hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colPeriodFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    $leftPaging().val("29").trigger("blur");
+    leftPagingFn().val("29").trigger("blur");
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Mimas", "0.94", "1789",
         "Proteus", "1.12", "1989",
         "Deimos", "1.26", "1877",
         "Enceladus", "1.37", "1789");
   });
   TTT.action(function () {
-    $colPeriod().click();
+    colPeriodFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Elara", "259.65", "1905",
         "Lysithea", "259.22", "1938",
         "Himalia", "250.57", "1904",
         "Leda", "238.72", "1974");
   });
   TTT.action(function () {
-    $colPeriod().click();
+    colPeriodFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Mimas", "0.94", "1789",
         "Proteus", "1.12", "1989",
         "Deimos", "1.26", "1877",
@@ -489,51 +489,51 @@ QUnit.test("Custom Sorting: Period", function (assert) {
 });
 
 QUnit.test("Custom Sorting: Year", function (assert) {
-  let $colYear = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnYear_sorter");
-  let $rows = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  let colYearFn = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnYear_sorter");
+  let rowsFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
 
   let TTT = new TobagoTestTools(assert);
-  if (!$colYear().hasClass("tobago-sheet-header-markup-ascending")) {
+  if (!colYearFn().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      $colYear().click();
+      colYearFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok($colYear().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok($colYear().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk($colYear().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colYearFn().hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok(colYearFn().hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colYearFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    $leftPaging().val("22").trigger("blur");
+    leftPagingFn().val("22").trigger("blur");
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal($rows().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1789", "row0col2");
-    assert.equal($rows().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row1col2");
-    assert.equal($rows().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row2col2");
-    assert.equal($rows().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1848", "row3col2");
+    assert.equal(rowsFn().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1789", "row0col2");
+    assert.equal(rowsFn().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row1col2");
+    assert.equal(rowsFn().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row2col2");
+    assert.equal(rowsFn().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1848", "row3col2");
   });
   TTT.action(function () {
-    $colYear().click();
+    colYearFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal($rows().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row0col2");
-    assert.equal($rows().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row1col2");
-    assert.equal($rows().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row2col2");
-    assert.equal($rows().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1986", "row3col2");
+    assert.equal(rowsFn().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row0col2");
+    assert.equal(rowsFn().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row1col2");
+    assert.equal(rowsFn().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row2col2");
+    assert.equal(rowsFn().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1986", "row3col2");
   });
   TTT.action(function () {
-    $colYear().click();
+    colYearFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal($rows().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1789", "row0col2");
-    assert.equal($rows().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row1col2");
-    assert.equal($rows().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row2col2");
-    assert.equal($rows().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1848", "row3col2");
+    assert.equal(rowsFn().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1789", "row0col2");
+    assert.equal(rowsFn().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row1col2");
+    assert.equal(rowsFn().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row2col2");
+    assert.equal(rowsFn().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1848", "row3col2");
   });
   TTT.startTest();
 });
@@ -543,39 +543,39 @@ QUnit.test("Custom Sorting: Year", function (assert) {
  * 2. goto line 9
  */
 QUnit.test("Custom Sorting: left paging", function (assert) {
-  let $colName = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
-  let $rows = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  let colNameFn = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
+  let rowsFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
 
   let TTT = new TobagoTestTools(assert);
-  if (!$colName().hasClass("tobago-sheet-header-markup-ascending")) {
+  if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      $colName().click();
+      colNameFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok($colName().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok($colName().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk($colName().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    $leftPaging().val("8").trigger("blur");
+    leftPagingFn().val("8").trigger("blur");
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Bianca", "0.43", "1986",
         "Caliban", "-579.39", "1997",
         "Callirrhoe", "758.8", "2000",
         "Callisto", "16.69", "1610");
   });
   TTT.action(function () {
-    $leftPaging().val("9").trigger("blur");
+    leftPagingFn().val("9").trigger("blur");
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Caliban", "-579.39", "1997",
         "Callirrhoe", "758.8", "2000",
         "Callisto", "16.69", "1610",
@@ -590,62 +590,62 @@ QUnit.test("Custom Sorting: left paging", function (assert) {
  * 3. goto page 13
  */
 QUnit.test("Custom Sorting: center paging", function (assert) {
-  let $colName = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
-  let $rows = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
-  let $centerPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-center li .page-link");
+  let colNameFn = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
+  let rowsFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  let centerPagingFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-center li .page-link");
 
   let TTT = new TobagoTestTools(assert);
-  if (!$colName().hasClass("tobago-sheet-header-markup-ascending")) {
+  if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      $colName().click();
+      colNameFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok($colName().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok($colName().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk($colName().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    $leftPaging().val("1").trigger("blur");
+    leftPagingFn().val("1").trigger("blur");
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "1986U10", "0.64", "1999",
         "Adrastea", "0.3", "1979",
         "Amalthea", "0.5", "1892",
         "Ananke", "-629.77", "1951");
   });
   TTT.action(function () {
-    $centerPaging().eq(6).click();
+    centerPagingFn().eq(6).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Epimetheus", "0.69", "1980",
         "Erinome", "728.3", "2000",
         "Europa", "3.55", "1610",
         "Galatea", "0.43", "1989");
   });
   TTT.action(function () {
-    $centerPaging().eq(10).click();
+    centerPagingFn().eq(10).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Phoebe", "-550.48", "1898",
         "Pluto", "90800.0", "1930",
         "Portia", "0.51", "1986",
         "Praxidike", "625.3", "2000");
   });
   TTT.action(function () {
-    $centerPaging().eq(3).click();
+    centerPagingFn().eq(3).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Neptune", "60190.0", "1846",
         "Nereid", "360.13", "1949",
         "Oberon", "13.46", "1787",
@@ -662,84 +662,84 @@ QUnit.test("Custom Sorting: center paging", function (assert) {
  * 5. goto page 14
  */
 QUnit.test("Custom Sorting: right paging", function (assert) {
-  let $colName = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
-  let $rows = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  let $leftPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
-  let $rightPaging = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-right .page-link");
+  let colNameFn = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
+  let rowsFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  let rightPagingFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-right .page-link");
 
   let TTT = new TobagoTestTools(assert);
-  if (!$colName().hasClass("tobago-sheet-header-markup-ascending")) {
+  if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      $colName().click();
+      colNameFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok($colName().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok($colName().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk($colName().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-sortable"));
+    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    $leftPaging().val("22").trigger("blur");
+    leftPagingFn().val("22").trigger("blur");
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Earth", "365.26", "",
         "Elara", "259.65", "1905",
         "Enceladus", "1.37", "1789",
         "Epimetheus", "0.69", "1980");
   });
   TTT.action(function () {
-    $rightPaging().eq(0).click();
+    rightPagingFn().eq(0).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "1986U10", "0.64", "1999",
         "Adrastea", "0.3", "1979",
         "Amalthea", "0.5", "1892",
         "Ananke", "-629.77", "1951");
   });
   TTT.action(function () {
-    $rightPaging().eq(3).click();
+    rightPagingFn().eq(3).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Ariel", "2.52", "1851",
         "Atlas", "0.6", "1980",
         "Belinda", "0.62", "1986",
         "Bianca", "0.43", "1986");
   });
   TTT.action(function () {
-    $rightPaging().eq(4).click();
+    rightPagingFn().eq(4).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Triton", "-5.88", "1846",
         "Umbriel", "4.14", "1851",
         "Uranus", "30685.0", "1781",
         "Venus", "224.7", "");
   });
   TTT.action(function () {
-    $rightPaging().eq(1).click();
+    rightPagingFn().eq(1).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Thebe", "0.67", "1979",
         "Themisto", "130.02", "2000",
         "Titan", "15.95", "1655",
         "Titania", "8.71", "1787");
   });
   TTT.action(function () {
-    $rightPaging().find("input").val("14").trigger("blur");
+    rightPagingFn().find("input").val("14").trigger("blur");
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    ajaxExecuteBodyTableCheck(assert, $rows,
+    ajaxExecuteBodyTableCheck(assert, rowsFn,
         "Neptune", "60190.0", "1846",
         "Nereid", "360.13", "1949",
         "Oberon", "13.46", "1787",
@@ -748,20 +748,20 @@ QUnit.test("Custom Sorting: right paging", function (assert) {
   TTT.startTest();
 });
 
-function ajaxExecuteBodyTableCheck(assert, $rows, row0col0, row0col1, row0col2, row1col0, row1col1, row1col2,
+function ajaxExecuteBodyTableCheck(assert, rowsFn, row0col0, row0col1, row0col2, row1col0, row1col1, row1col2,
                                    row2col0, row2col1, row2col2, row3col0, row3col1, row3col2) {
-  let $row0Col0 = $rows().eq(0).find(".tobago-sheet-cell").eq(0).text().trim();
-  let $row0Col1 = $rows().eq(0).find(".tobago-sheet-cell").eq(1).text().trim();
-  let $row0Col2 = $rows().eq(0).find(".tobago-sheet-cell").eq(2).text().trim();
-  let $row1Col0 = $rows().eq(1).find(".tobago-sheet-cell").eq(0).text().trim();
-  let $row1Col1 = $rows().eq(1).find(".tobago-sheet-cell").eq(1).text().trim();
-  let $row1Col2 = $rows().eq(1).find(".tobago-sheet-cell").eq(2).text().trim();
-  let $row2Col0 = $rows().eq(2).find(".tobago-sheet-cell").eq(0).text().trim();
-  let $row2Col1 = $rows().eq(2).find(".tobago-sheet-cell").eq(1).text().trim();
-  let $row2Col2 = $rows().eq(2).find(".tobago-sheet-cell").eq(2).text().trim();
-  let $row3Col0 = $rows().eq(3).find(".tobago-sheet-cell").eq(0).text().trim();
-  let $row3Col1 = $rows().eq(3).find(".tobago-sheet-cell").eq(1).text().trim();
-  let $row3Col2 = $rows().eq(3).find(".tobago-sheet-cell").eq(2).text().trim();
+  let $row0Col0 = rowsFn().eq(0).find(".tobago-sheet-cell").eq(0).text().trim();
+  let $row0Col1 = rowsFn().eq(0).find(".tobago-sheet-cell").eq(1).text().trim();
+  let $row0Col2 = rowsFn().eq(0).find(".tobago-sheet-cell").eq(2).text().trim();
+  let $row1Col0 = rowsFn().eq(1).find(".tobago-sheet-cell").eq(0).text().trim();
+  let $row1Col1 = rowsFn().eq(1).find(".tobago-sheet-cell").eq(1).text().trim();
+  let $row1Col2 = rowsFn().eq(1).find(".tobago-sheet-cell").eq(2).text().trim();
+  let $row2Col0 = rowsFn().eq(2).find(".tobago-sheet-cell").eq(0).text().trim();
+  let $row2Col1 = rowsFn().eq(2).find(".tobago-sheet-cell").eq(1).text().trim();
+  let $row2Col2 = rowsFn().eq(2).find(".tobago-sheet-cell").eq(2).text().trim();
+  let $row3Col0 = rowsFn().eq(3).find(".tobago-sheet-cell").eq(0).text().trim();
+  let $row3Col1 = rowsFn().eq(3).find(".tobago-sheet-cell").eq(1).text().trim();
+  let $row3Col2 = rowsFn().eq(3).find(".tobago-sheet-cell").eq(2).text().trim();
 
   assert.equal($row0Col0, row0col0, "row0col0");
   assert.equal($row0Col1, row0col1, "row0col1");

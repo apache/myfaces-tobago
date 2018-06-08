@@ -16,24 +16,24 @@
  */
 
 QUnit.test("ajax excecute", function (assert) {
-  let $timestamp = jQueryFrameFn("#page\\:mainForm\\:timestamp span");
-  let $text = jQueryFrameFn("#page\\:mainForm\\:outText span");
-  let $tip = jQueryFrameFn("#page\\:mainForm\\:outTip span");
-  let $button = jQueryFrameFn("#page\\:mainForm\\:ajaxButton");
+  let timestampFn = jQueryFrameFn("#page\\:mainForm\\:timestamp span");
+  let textFn = jQueryFrameFn("#page\\:mainForm\\:outText span");
+  let tipFn = jQueryFrameFn("#page\\:mainForm\\:outTip span");
+  let buttonFn = jQueryFrameFn("#page\\:mainForm\\:ajaxButton");
 
-  let timestampValue = $timestamp().text();
-  let textValue = $text().text();
-  let tipValue = $tip().attr('title');
+  let timestampValue = timestampFn().text();
+  let textValue = textFn().text();
+  let tipValue = tipFn().attr('title');
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $button().click();
+    buttonFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.notEqual($timestamp().text(), timestampValue);
-    assert.equal($text().text(), textValue);
-    assert.equal($tip().attr('title'), tipValue);
+    assert.notEqual(timestampFn().text(), timestampValue);
+    assert.equal(textFn().text(), textValue);
+    assert.equal(tipFn().attr('title'), tipValue);
   });
   TTT.startTest();
 });

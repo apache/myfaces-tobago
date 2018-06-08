@@ -16,41 +16,41 @@
  */
 
 QUnit.test("Add a river and reset.", function (assert) {
-  let $name = jQueryFrameFn("#page\\:mainForm\\:add\\:inName\\:\\:field");
-  let $length = jQueryFrameFn("#page\\:mainForm\\:add\\:inLength\\:\\:field");
-  let $discharge = jQueryFrameFn("#page\\:mainForm\\:add\\:inDischarge\\:\\:field");
-  let $add = jQueryFrameFn("#page\\:mainForm\\:add\\:buttonAdd");
-  let $reset = jQueryFrameFn("#page\\:mainForm\\:reset\\:buttonReset");
-  let $forEachBoxes = jQueryFrameFn("#page\\:mainForm\\:forEach .tobago-box");
-  let $uiRepeatSections = jQueryFrameFn("#page\\:mainForm\\:uiRepeat .tobago-section");
+  let nameFn = jQueryFrameFn("#page\\:mainForm\\:add\\:inName\\:\\:field");
+  let lengthFn = jQueryFrameFn("#page\\:mainForm\\:add\\:inLength\\:\\:field");
+  let dischargeFn = jQueryFrameFn("#page\\:mainForm\\:add\\:inDischarge\\:\\:field");
+  let addFn = jQueryFrameFn("#page\\:mainForm\\:add\\:buttonAdd");
+  let resetFn = jQueryFrameFn("#page\\:mainForm\\:reset\\:buttonReset");
+  let forEachBoxesFn = jQueryFrameFn("#page\\:mainForm\\:forEach .tobago-box");
+  let uiRepeatSectionsFn = jQueryFrameFn("#page\\:mainForm\\:uiRepeat .tobago-section");
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $reset().click();
+    resetFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
-    assert.equal($forEachBoxes().length, 3);
-    assert.equal($uiRepeatSections().length, 3);
+    assert.equal(forEachBoxesFn().length, 3);
+    assert.equal(uiRepeatSectionsFn().length, 3);
   });
   TTT.action(function () {
-    $name().val("Mississippi");
-    $length().val("6275");
-    $discharge().val("16200");
-    $add().click();
+    nameFn().val("Mississippi");
+    lengthFn().val("6275");
+    dischargeFn().val("16200");
+    addFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
-    assert.equal($forEachBoxes().length, 4);
-    assert.equal($uiRepeatSections().length, 4);
+    assert.equal(forEachBoxesFn().length, 4);
+    assert.equal(uiRepeatSectionsFn().length, 4);
   });
   TTT.action(function () {
-    $reset().click();
+    resetFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
-    assert.equal($forEachBoxes().length, 3);
-    assert.equal($uiRepeatSections().length, 3);
+    assert.equal(forEachBoxesFn().length, 3);
+    assert.equal(uiRepeatSectionsFn().length, 3);
   });
   TTT.startTest();
 });

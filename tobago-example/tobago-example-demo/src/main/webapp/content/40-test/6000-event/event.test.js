@@ -17,62 +17,62 @@
 
 QUnit.test("tc:button", function (assert) {
   let eventNames = ["click", "dblclick", "focus", "blur"];
-  let $eventComponent = jQueryFrameFn("#page\\:mainForm\\:buttonevent");
-  let $ajaxComponent = jQueryFrameFn("#page\\:mainForm\\:buttonajax");
-  testEvent(assert, "button", eventNames, $eventComponent, $ajaxComponent, null);
+  let eventComponentFn = jQueryFrameFn("#page\\:mainForm\\:buttonevent");
+  let ajaxComponentFn = jQueryFrameFn("#page\\:mainForm\\:buttonajax");
+  testEvent(assert, "button", eventNames, eventComponentFn, ajaxComponentFn, null);
 });
 
 QUnit.test("tc:in", function (assert) {
   let eventNames = ["change", "click", "dblclick", "focus", "blur"];
-  let $eventComponent = jQueryFrameFn("#page\\:mainForm\\:inevent\\:\\:field");
-  let $ajaxComponent = jQueryFrameFn("#page\\:mainForm\\:inajax\\:\\:field");
-  let changeValue = function ($component) {
-    let oldValue = $component().val();
+  let eventComponentFn = jQueryFrameFn("#page\\:mainForm\\:inevent\\:\\:field");
+  let ajaxComponentFn = jQueryFrameFn("#page\\:mainForm\\:inajax\\:\\:field");
+  let changeValue = function (componentFn) {
+    let oldValue = componentFn().val();
     let newValue = "hello";
     if (oldValue === "hello") {
       newValue = "hello there!"
     }
-    $component().val(newValue);
+    componentFn().val(newValue);
   };
-  testEvent(assert, "in", eventNames, $eventComponent, $ajaxComponent, changeValue);
+  testEvent(assert, "in", eventNames, eventComponentFn, ajaxComponentFn, changeValue);
 });
 
 QUnit.test("tc:row", function (assert) {
   let eventNames = ["click", "dblclick"];
-  let $eventComponent = jQueryFrameFn("#page\\:mainForm\\:sheetevent\\:0\\:selectPlanet");
-  let $ajaxComponent = jQueryFrameFn("#page\\:mainForm\\:sheetajax\\:0\\:selectPlanet");
-  testEvent(assert, "row", eventNames, $eventComponent, $ajaxComponent, null);
+  let eventComponentFn = jQueryFrameFn("#page\\:mainForm\\:sheetevent\\:0\\:selectPlanet");
+  let ajaxComponentFn = jQueryFrameFn("#page\\:mainForm\\:sheetajax\\:0\\:selectPlanet");
+  testEvent(assert, "row", eventNames, eventComponentFn, ajaxComponentFn, null);
 });
 
 QUnit.test("tc:selectBooleanCheckbox", function (assert) {
   let eventNames = ["change", "click", "dblclick", "focus", "blur"];
-  let $eventComponent = jQueryFrameFn("#page\\:mainForm\\:selectBooleanCheckboxevent\\:\\:field");
-  let $ajaxComponent = jQueryFrameFn("#page\\:mainForm\\:selectBooleanCheckboxajax\\:\\:field");
-  let changeValue = function ($component) {
+  let eventComponentFn = jQueryFrameFn("#page\\:mainForm\\:selectBooleanCheckboxevent\\:\\:field");
+  let ajaxComponentFn = jQueryFrameFn("#page\\:mainForm\\:selectBooleanCheckboxajax\\:\\:field");
+  let changeValue = function (componentFn) {
     let currentEvent = jQueryFrame("#page\\:mainForm\\:outEventName span").text();
     if (currentEvent !== "click") {
-      $component().prop("checked", !$component().prop("checked"));
+      componentFn().prop("checked", !componentFn().prop("checked"));
     }
   };
-  testEvent(assert, "selectBooleanCheckbox", eventNames, $eventComponent, $ajaxComponent, changeValue);
+  testEvent(assert, "selectBooleanCheckbox", eventNames, eventComponentFn, ajaxComponentFn, changeValue);
 });
 
 QUnit.test("tc:textarea", function (assert) {
   let eventNames = ["change", "click", "dblclick", "focus", "blur"];
-  let $eventComponent = jQueryFrameFn("#page\\:mainForm\\:textareaevent\\:\\:field");
-  let $ajaxComponent = jQueryFrameFn("#page\\:mainForm\\:textareaajax\\:\\:field");
-  let changeValue = function ($component) {
-    let oldValue = $component().val();
+  let eventComponentFn = jQueryFrameFn("#page\\:mainForm\\:textareaevent\\:\\:field");
+  let ajaxComponentFn = jQueryFrameFn("#page\\:mainForm\\:textareaajax\\:\\:field");
+  let changeValue = function (componentFn) {
+    let oldValue = componentFn().val();
     let newValue = "hello";
     if (oldValue === "hello") {
       newValue = "hello there!"
     }
-    $component().val(newValue);
+    componentFn().val(newValue);
   };
-  testEvent(assert, "textarea", eventNames, $eventComponent, $ajaxComponent, changeValue);
+  testEvent(assert, "textarea", eventNames, eventComponentFn, ajaxComponentFn, changeValue);
 });
 
-function testEvent(assert, componentName, eventNames, $eventComponent, $ajaxComponent, changeValueFunc) {
+function testEvent(assert, componentName, eventNames, eventComponentFn, ajaxComponentFn, changeValueFunc) {
   let oldActionCount;
   let oldActionListenerCount;
   let oldAjaxListenerCount;
@@ -95,9 +95,9 @@ function testEvent(assert, componentName, eventNames, $eventComponent, $ajaxComp
       oldTimestamp = getTimestamp();
 
       if (changeValueFunc !== null) {
-        changeValueFunc($eventComponent);
+        changeValueFunc(eventComponentFn);
       }
-      $eventComponent().trigger(eventName);
+      eventComponentFn().trigger(eventName);
     });
     TTT.waitForResponse();
     TTT.asserts(5, function () {
@@ -121,9 +121,9 @@ function testEvent(assert, componentName, eventNames, $eventComponent, $ajaxComp
       oldTimestamp = getTimestamp();
 
       if (changeValueFunc !== null) {
-        changeValueFunc($ajaxComponent);
+        changeValueFunc(ajaxComponentFn);
       }
-      $ajaxComponent().trigger(eventName);
+      ajaxComponentFn().trigger(eventName);
     });
     TTT.waitForResponse();
     TTT.asserts(5, function () {

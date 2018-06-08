@@ -16,302 +16,302 @@
  */
 
 QUnit.test("Simple Collapsible Box: show -> hide transition", function (assert) {
-  let $show = jQueryFrameFn("#page\\:mainForm\\:controller\\:show");
-  let $hide = jQueryFrameFn("#page\\:mainForm\\:controller\\:hide");
-  let $content = jQueryFrameFn("#page\\:mainForm\\:controller\\:content");
+  let showFn = jQueryFrameFn("#page\\:mainForm\\:controller\\:show");
+  let hideFn = jQueryFrameFn("#page\\:mainForm\\:controller\\:hide");
+  let contentFn = jQueryFrameFn("#page\\:mainForm\\:controller\\:content");
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $show().click();
+    showFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal($content().length, 1);
+    assert.equal(contentFn().length, 1);
   });
   TTT.action(function () {
-    $hide().click();
+    hideFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal($content().length, 0);
+    assert.equal(contentFn().length, 0);
   });
   TTT.startTest();
 });
 
 QUnit.test("Simple Collapsible Box: hide -> show transition", function (assert) {
-  let $show = jQueryFrameFn("#page\\:mainForm\\:controller\\:show");
-  let $hide = jQueryFrameFn("#page\\:mainForm\\:controller\\:hide");
-  let $content = jQueryFrameFn("#page\\:mainForm\\:controller\\:content");
+  let showFn = jQueryFrameFn("#page\\:mainForm\\:controller\\:show");
+  let hideFn = jQueryFrameFn("#page\\:mainForm\\:controller\\:hide");
+  let contentFn = jQueryFrameFn("#page\\:mainForm\\:controller\\:content");
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $hide().click();
+    hideFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal($content().length, 0);
+    assert.equal(contentFn().length, 0);
   });
   TTT.action(function () {
-    $show().click();
+    showFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal($content().length, 1);
+    assert.equal(contentFn().length, 1);
   });
   TTT.startTest();
 });
 
 QUnit.test("Full Server Request: open both boxes", function (assert) {
-  let $show1 = jQueryFrameFn("#page\\:mainForm\\:server\\:show1");
-  let $show2 = jQueryFrameFn("#page\\:mainForm\\:server\\:show2");
-  let $content1 = jQueryFrameFn("#page\\:mainForm\\:server\\:content1");
-  let $content2 = jQueryFrameFn("#page\\:mainForm\\:server\\:content2");
-  let content2Length = $content2().length;
+  let show1Fn = jQueryFrameFn("#page\\:mainForm\\:server\\:show1");
+  let show2Fn = jQueryFrameFn("#page\\:mainForm\\:server\\:show2");
+  let content1Fn = jQueryFrameFn("#page\\:mainForm\\:server\\:content1");
+  let content2Fn = jQueryFrameFn("#page\\:mainForm\\:server\\:content2");
+  let content2Length = content2Fn().length;
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $show1().click();
+    show1Fn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
-    assert.equal($content1().length, 1);
-    assert.equal($content2().length, content2Length);
+    assert.equal(content1Fn().length, 1);
+    assert.equal(content2Fn().length, content2Length);
   });
   TTT.action(function () {
-    $show2().click();
+    show2Fn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
-    assert.equal($content1().length, 1);
-    assert.equal($content2().length, 1);
+    assert.equal(content1Fn().length, 1);
+    assert.equal(content2Fn().length, 1);
   });
   TTT.startTest();
 });
 
 QUnit.test("Full Server Request: open box 1, close box 2", function (assert) {
-  let $show1 = jQueryFrameFn("#page\\:mainForm\\:server\\:show1");
-  let $hide2 = jQueryFrameFn("#page\\:mainForm\\:server\\:hide2");
-  let $content1 = jQueryFrameFn("#page\\:mainForm\\:server\\:content1");
-  let $content2 = jQueryFrameFn("#page\\:mainForm\\:server\\:content2");
-  let content2Length = $content2().length;
+  let show1Fn = jQueryFrameFn("#page\\:mainForm\\:server\\:show1");
+  let hide2Fn = jQueryFrameFn("#page\\:mainForm\\:server\\:hide2");
+  let content1Fn = jQueryFrameFn("#page\\:mainForm\\:server\\:content1");
+  let content2Fn = jQueryFrameFn("#page\\:mainForm\\:server\\:content2");
+  let content2Length = content2Fn().length;
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $show1().click();
+    show1Fn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
-    assert.equal($content1().length, 1);
-    assert.equal($content2().length, content2Length);
+    assert.equal(content1Fn().length, 1);
+    assert.equal(content2Fn().length, content2Length);
   });
   TTT.action(function () {
-    $hide2().click();
+    hide2Fn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
-    assert.equal($content1().length, 1);
-    assert.equal($content2().length, 0);
+    assert.equal(content1Fn().length, 1);
+    assert.equal(content2Fn().length, 0);
   });
   TTT.startTest();
 });
 
 QUnit.test("Full Server Request: close box 1, open box 2", function (assert) {
-  let $hide1 = jQueryFrameFn("#page\\:mainForm\\:server\\:hide1");
-  let $show2 = jQueryFrameFn("#page\\:mainForm\\:server\\:show2");
-  let $content1 = jQueryFrameFn("#page\\:mainForm\\:server\\:content1");
-  let $content2 = jQueryFrameFn("#page\\:mainForm\\:server\\:content2");
-  let content2Length = $content2().length;
+  let hide1Fn = jQueryFrameFn("#page\\:mainForm\\:server\\:hide1");
+  let show2Fn = jQueryFrameFn("#page\\:mainForm\\:server\\:show2");
+  let content1Fn = jQueryFrameFn("#page\\:mainForm\\:server\\:content1");
+  let content2Fn = jQueryFrameFn("#page\\:mainForm\\:server\\:content2");
+  let content2Length = content2Fn().length;
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $hide1().click();
+    hide1Fn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
-    assert.equal($content1().length, 0);
-    assert.equal($content2().length, content2Length);
+    assert.equal(content1Fn().length, 0);
+    assert.equal(content2Fn().length, content2Length);
   });
   TTT.action(function () {
-    $show2().click();
+    show2Fn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
-    assert.equal($content1().length, 0);
-    assert.equal($content2().length, 1);
+    assert.equal(content1Fn().length, 0);
+    assert.equal(content2Fn().length, 1);
   });
   TTT.startTest();
 });
 
 QUnit.test("Full Server Request: close both boxes", function (assert) {
-  let $hide1 = jQueryFrameFn("#page\\:mainForm\\:server\\:hide1");
-  let $hide2 = jQueryFrameFn("#page\\:mainForm\\:server\\:hide2");
-  let $content1 = jQueryFrameFn("#page\\:mainForm\\:server\\:content1");
-  let $content2 = jQueryFrameFn("#page\\:mainForm\\:server\\:content2");
-  let content2Length = $content2().length;
+  let hide1Fn = jQueryFrameFn("#page\\:mainForm\\:server\\:hide1");
+  let hide2Fn = jQueryFrameFn("#page\\:mainForm\\:server\\:hide2");
+  let content1Fn = jQueryFrameFn("#page\\:mainForm\\:server\\:content1");
+  let content2Fn = jQueryFrameFn("#page\\:mainForm\\:server\\:content2");
+  let content2Length = content2Fn().length;
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $hide1().click();
+    hide1Fn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
-    assert.equal($content1().length, 0);
-    assert.equal($content2().length, content2Length);
+    assert.equal(content1Fn().length, 0);
+    assert.equal(content2Fn().length, content2Length);
   });
   TTT.action(function () {
-    $hide2().click();
+    hide2Fn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
-    assert.equal($content1().length, 0);
-    assert.equal($content2().length, 0);
+    assert.equal(content1Fn().length, 0);
+    assert.equal(content2Fn().length, 0);
   });
   TTT.startTest();
 });
 
 QUnit.test("Client Side: show -> hide transition", function (assert) {
-  let $show = jQueryFrameFn("#page\\:mainForm\\:client\\:showNoRequestBox");
-  let $hide = jQueryFrameFn("#page\\:mainForm\\:client\\:hideNoRequestBox");
-  let $box = jQueryFrameFn("#page\\:mainForm\\:client\\:noRequestBox");
+  let showFn = jQueryFrameFn("#page\\:mainForm\\:client\\:showNoRequestBox");
+  let hideFn = jQueryFrameFn("#page\\:mainForm\\:client\\:hideNoRequestBox");
+  let boxFn = jQueryFrameFn("#page\\:mainForm\\:client\\:noRequestBox");
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $show().click();
+    showFn().click();
   });
   TTT.asserts(1, function () {
-    assert.equal($box().hasClass("tobago-collapsed"), false);
+    assert.equal(boxFn().hasClass("tobago-collapsed"), false);
   });
   TTT.action(function () {
-    $hide().click();
+    hideFn().click();
   });
   TTT.asserts(1, function () {
-    assert.equal($box().hasClass("tobago-collapsed"), true);
+    assert.equal(boxFn().hasClass("tobago-collapsed"), true);
   });
   TTT.startTest();
 });
 
 QUnit.test("Client Side: hide -> show transition", function (assert) {
-  let $show = jQueryFrameFn("#page\\:mainForm\\:client\\:showNoRequestBox");
-  let $hide = jQueryFrameFn("#page\\:mainForm\\:client\\:hideNoRequestBox");
-  let $box = jQueryFrameFn("#page\\:mainForm\\:client\\:noRequestBox");
+  let showFn = jQueryFrameFn("#page\\:mainForm\\:client\\:showNoRequestBox");
+  let hideFn = jQueryFrameFn("#page\\:mainForm\\:client\\:hideNoRequestBox");
+  let boxFn = jQueryFrameFn("#page\\:mainForm\\:client\\:noRequestBox");
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $hide().click();
+    hideFn().click();
   });
   TTT.asserts(1, function () {
-    assert.equal($box().hasClass("tobago-collapsed"), true);
+    assert.equal(boxFn().hasClass("tobago-collapsed"), true);
   });
   TTT.action(function () {
-    $show().click();
+    showFn().click();
   });
   TTT.asserts(1, function () {
-    assert.equal($box().hasClass("tobago-collapsed"), false);
+    assert.equal(boxFn().hasClass("tobago-collapsed"), false);
   });
   TTT.startTest();
 });
 
 QUnit.test("Client Side: hide content and submit empty string", function (assert) {
-  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  let $show = jQueryFrameFn("#page\\:mainForm\\:client\\:showNoRequestBox");
-  let $hide = jQueryFrameFn("#page\\:mainForm\\:client\\:hideNoRequestBox");
-  let $box = jQueryFrameFn("#page\\:mainForm\\:client\\:noRequestBox");
-  let $in = jQueryFrameFn("#page\\:mainForm\\:client\\:inNoRequestBox\\:\\:field");
-  let $submit = jQueryFrameFn("#page\\:mainForm\\:client\\:submitNoRequestBox");
+  let messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let showFn = jQueryFrameFn("#page\\:mainForm\\:client\\:showNoRequestBox");
+  let hideFn = jQueryFrameFn("#page\\:mainForm\\:client\\:hideNoRequestBox");
+  let boxFn = jQueryFrameFn("#page\\:mainForm\\:client\\:noRequestBox");
+  let inFn = jQueryFrameFn("#page\\:mainForm\\:client\\:inNoRequestBox\\:\\:field");
+  let submitFn = jQueryFrameFn("#page\\:mainForm\\:client\\:submitNoRequestBox");
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $hide().click();
+    hideFn().click();
   });
   TTT.asserts(1, function () {
-    assert.equal($box().hasClass("tobago-collapsed"), true);
+    assert.equal(boxFn().hasClass("tobago-collapsed"), true);
   });
   TTT.action(function () {
-    $in().val("");
-    $submit().click();
+    inFn().val("");
+    submitFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal($messages().length, 1);
+    assert.equal(messagesFn().length, 1);
   });
   TTT.startTest();
 });
 
 QUnit.test("Ajax: show -> hide transition", function (assert) {
-  let $show = jQueryFrameFn("#page\\:mainForm\\:ajax\\:showAjaxBox");
-  let $hide = jQueryFrameFn("#page\\:mainForm\\:ajax\\:hideAjaxBox");
-  let $in = jQueryFrameFn("#page\\:mainForm\\:ajax\\:inAjaxBox\\:\\:field");
+  let showFn = jQueryFrameFn("#page\\:mainForm\\:ajax\\:showAjaxBox");
+  let hideFn = jQueryFrameFn("#page\\:mainForm\\:ajax\\:hideAjaxBox");
+  let inFn = jQueryFrameFn("#page\\:mainForm\\:ajax\\:inAjaxBox\\:\\:field");
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $show().click();
+    showFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal($in().length, 1);
+    assert.equal(inFn().length, 1);
   });
   TTT.action(function () {
-    $hide().click();
+    hideFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal($in().length, 0);
+    assert.equal(inFn().length, 0);
   });
   TTT.startTest();
 });
 
 QUnit.test("Ajax: hide -> show transition", function (assert) {
-  let $show = jQueryFrameFn("#page\\:mainForm\\:ajax\\:showAjaxBox");
-  let $hide = jQueryFrameFn("#page\\:mainForm\\:ajax\\:hideAjaxBox");
-  let $in = jQueryFrameFn("#page\\:mainForm\\:ajax\\:inAjaxBox\\:\\:field");
+  let showFn = jQueryFrameFn("#page\\:mainForm\\:ajax\\:showAjaxBox");
+  let hideFn = jQueryFrameFn("#page\\:mainForm\\:ajax\\:hideAjaxBox");
+  let inFn = jQueryFrameFn("#page\\:mainForm\\:ajax\\:inAjaxBox\\:\\:field");
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $hide().click();
+    hideFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal($in().length, 0);
+    assert.equal(inFn().length, 0);
   });
   TTT.action(function () {
-    $show().click();
+    showFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal($in().length, 1);
+    assert.equal(inFn().length, 1);
   });
   TTT.startTest();
 });
 
 QUnit.test("Ajax: hide content and submit empty string", function (assert) {
-  let $messages = jQueryFrameFn("#page\\:messages .tobago-messages");
-  let $show = jQueryFrameFn("#page\\:mainForm\\:ajax\\:showAjaxBox");
-  let $hide = jQueryFrameFn("#page\\:mainForm\\:ajax\\:hideAjaxBox");
-  let $in = jQueryFrameFn("#page\\:mainForm\\:ajax\\:inAjaxBox\\:\\:field");
-  let $submit = jQueryFrameFn("#page\\:mainForm\\:ajax\\:submitAjaxBox");
+  let messagesFn = jQueryFrameFn("#page\\:messages .tobago-messages");
+  let showFn = jQueryFrameFn("#page\\:mainForm\\:ajax\\:showAjaxBox");
+  let hideFn = jQueryFrameFn("#page\\:mainForm\\:ajax\\:hideAjaxBox");
+  let inFn = jQueryFrameFn("#page\\:mainForm\\:ajax\\:inAjaxBox\\:\\:field");
+  let submitFn = jQueryFrameFn("#page\\:mainForm\\:ajax\\:submitAjaxBox");
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $show().click();
+    showFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal($in().length, 1);
+    assert.equal(inFn().length, 1);
   });
   TTT.action(function () {
-    $in().val("");
-    $hide().click();
+    inFn().val("");
+    hideFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal($in().length, 0);
+    assert.equal(inFn().length, 0);
   });
   TTT.action(function () {
-    $submit().click();
+    submitFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal($messages().length, 0);
+    assert.equal(messagesFn().length, 0);
   });
   TTT.startTest();
 });

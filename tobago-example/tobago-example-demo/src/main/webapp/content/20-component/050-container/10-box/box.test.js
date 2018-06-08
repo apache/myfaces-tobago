@@ -16,99 +16,99 @@
  */
 
 QUnit.test("Accordion: Box 1: 'hide' to 'show' to 'hide'", function (assert) {
-  let $box = jQueryFrameFn("#page\\:mainForm\\:accordionBox1");
-  let $showBox = jQueryFrameFn("#page\\:mainForm\\:showBox1");
-  let $hideBox = jQueryFrameFn("#page\\:mainForm\\:hideBox1");
-  let $boxBody = jQueryFrameFn("#page\\:mainForm\\:accordionBox1 .card-body");
+  let boxFn = jQueryFrameFn("#page\\:mainForm\\:accordionBox1");
+  let showBoxFn = jQueryFrameFn("#page\\:mainForm\\:showBox1");
+  let hideBoxFn = jQueryFrameFn("#page\\:mainForm\\:hideBox1");
+  let boxBodyFn = jQueryFrameFn("#page\\:mainForm\\:accordionBox1 .card-body");
 
   let TTT = new TobagoTestTools(assert);
   TTT.asserts(3, function () {
-    assert.equal($showBox().length, 1);
-    assert.equal($hideBox().length, 0);
-    assert.equal($boxBody().text().trim().length, 0);
+    assert.equal(showBoxFn().length, 1);
+    assert.equal(hideBoxFn().length, 0);
+    assert.equal(boxBodyFn().text().trim().length, 0);
   });
   TTT.action(function () {
-    $showBox().click();
+    showBoxFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($showBox().length, 0);
-    assert.equal($hideBox().length, 1);
-    assert.notEqual($boxBody().text().trim().length, 0);
+    assert.equal(showBoxFn().length, 0);
+    assert.equal(hideBoxFn().length, 1);
+    assert.notEqual(boxBodyFn().text().trim().length, 0);
   });
   TTT.action(function () {
-    $hideBox().click();
+    hideBoxFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($showBox().length, 1);
-    assert.equal($hideBox().length, 0);
-    assert.equal($boxBody().text().trim().length, 0);
+    assert.equal(showBoxFn().length, 1);
+    assert.equal(hideBoxFn().length, 0);
+    assert.equal(boxBodyFn().text().trim().length, 0);
   });
   TTT.startTest();
 });
 
 QUnit.test("Accordion: Box 2: 'hide' to 'show' to 'hide'", function (assert) {
-  let $box = jQueryFrameFn("#page\\:mainForm\\:accordionBox2");
-  let $showBox = jQueryFrameFn("#page\\:mainForm\\:showBox2");
-  let $hideBox = jQueryFrameFn("#page\\:mainForm\\:hideBox2");
-  let $boxBody = jQueryFrameFn("#page\\:mainForm\\:accordionBox2 .card-body");
+  let boxFn = jQueryFrameFn("#page\\:mainForm\\:accordionBox2");
+  let showBoxFn = jQueryFrameFn("#page\\:mainForm\\:showBox2");
+  let hideBoxFn = jQueryFrameFn("#page\\:mainForm\\:hideBox2");
+  let boxBodyFn = jQueryFrameFn("#page\\:mainForm\\:accordionBox2 .card-body");
 
   let TTT = new TobagoTestTools(assert);
   TTT.asserts(3, function () {
-    assert.equal($showBox().length, 1);
-    assert.equal($hideBox().length, 0);
-    assert.equal($boxBody().text().trim().length, 0);
+    assert.equal(showBoxFn().length, 1);
+    assert.equal(hideBoxFn().length, 0);
+    assert.equal(boxBodyFn().text().trim().length, 0);
   });
   TTT.action(function () {
-    $showBox().click();
+    showBoxFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($showBox().length, 0);
-    assert.equal($hideBox().length, 1);
-    assert.notEqual($boxBody().text().trim().length, 0);
+    assert.equal(showBoxFn().length, 0);
+    assert.equal(hideBoxFn().length, 1);
+    assert.notEqual(boxBodyFn().text().trim().length, 0);
   });
   TTT.action(function () {
-    $hideBox().click();
+    hideBoxFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($showBox().length, 1);
-    assert.equal($hideBox().length, 0);
-    assert.equal($boxBody().text().trim().length, 0);
+    assert.equal(showBoxFn().length, 1);
+    assert.equal(hideBoxFn().length, 0);
+    assert.equal(boxBodyFn().text().trim().length, 0);
   });
   TTT.startTest();
 });
 
 QUnit.test("Accordion: Box 3: 'hide' to 'show' to 'hide'", function (assert) {
-  let $box = jQueryFrameFn("#page\\:mainForm\\:accordionBox3");
-  let $showBox = jQueryFrameFn("#page\\:mainForm\\:showBox3");
-  let $hideBox = jQueryFrameFn("#page\\:mainForm\\:hideBox3");
+  let boxFn = jQueryFrameFn("#page\\:mainForm\\:accordionBox3");
+  let showBoxFn = jQueryFrameFn("#page\\:mainForm\\:showBox3");
+  let hideBoxFn = jQueryFrameFn("#page\\:mainForm\\:hideBox3");
 
   let TTT = new TobagoTestTools(assert);
   TTT.asserts(3, function () {
-    assert.ok($box().hasClass("tobago-collapsed"));
-    assert.equal($showBox().length, 1);
-    assert.equal($hideBox().length, 0);
+    assert.ok(boxFn().hasClass("tobago-collapsed"));
+    assert.equal(showBoxFn().length, 1);
+    assert.equal(hideBoxFn().length, 0);
   });
   TTT.action(function () {
-    $showBox().click();
+    showBoxFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.notOk($box().hasClass("tobago-collapsed"));
-    assert.equal($showBox().length, 0);
-    assert.equal($hideBox().length, 1);
+    assert.notOk(boxFn().hasClass("tobago-collapsed"));
+    assert.equal(showBoxFn().length, 0);
+    assert.equal(hideBoxFn().length, 1);
   });
   TTT.action(function () {
-    $hideBox().click();
+    hideBoxFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.ok($box().hasClass("tobago-collapsed"));
-    assert.equal($showBox().length, 1);
-    assert.equal($hideBox().length, 0);
+    assert.ok(boxFn().hasClass("tobago-collapsed"));
+    assert.equal(showBoxFn().length, 1);
+    assert.equal(hideBoxFn().length, 0);
   });
   TTT.startTest();
 });

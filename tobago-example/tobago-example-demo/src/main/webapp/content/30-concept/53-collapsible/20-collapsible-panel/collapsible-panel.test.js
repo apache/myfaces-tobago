@@ -16,230 +16,230 @@
  */
 
 QUnit.test("Simple Panel", function (assert) {
-  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  let $show = jQueryFrameFn("#\\page\\:mainForm\\:simple\\:showSimple");
-  let $hide = jQueryFrameFn("#\\page\\:mainForm\\:simple\\:hideSimple");
-  let $submit = jQueryFrameFn("#\\page\\:mainForm\\:simple\\:submitSimple");
-  let $panelCollapsed = jQueryFrameFn("#page\\:mainForm\\:simple\\:simplePanel\\:\\:collapse");
-  let $in = jQueryFrameFn("#page\\:mainForm\\:simple\\:inSimple\\:\\:field");
+  let messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let showFn = jQueryFrameFn("#\\page\\:mainForm\\:simple\\:showSimple");
+  let hideFn = jQueryFrameFn("#\\page\\:mainForm\\:simple\\:hideSimple");
+  let submitFn = jQueryFrameFn("#\\page\\:mainForm\\:simple\\:submitSimple");
+  let panelCollapsedFn = jQueryFrameFn("#page\\:mainForm\\:simple\\:simplePanel\\:\\:collapse");
+  let inFn = jQueryFrameFn("#page\\:mainForm\\:simple\\:inSimple\\:\\:field");
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $show().click();
+    showFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
-    assert.equal($panelCollapsed().val(), "false");
-    assert.equal($in().length, 1);
+    assert.equal(panelCollapsedFn().val(), "false");
+    assert.equal(inFn().length, 1);
   });
   TTT.action(function () {
-    $in().val("some text");
-    $submit().click();
+    inFn().val("some text");
+    submitFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($messages().length, 0);
-    assert.equal($panelCollapsed().val(), "false");
-    assert.equal($in().length, 1);
+    assert.equal(messagesFn().length, 0);
+    assert.equal(panelCollapsedFn().val(), "false");
+    assert.equal(inFn().length, 1);
   });
   TTT.action(function () {
-    $in().val("");
-    $submit().click();
+    inFn().val("");
+    submitFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($messages().length, 1);
-    assert.equal($panelCollapsed().val(), "false");
-    assert.equal($in().length, 1);
+    assert.equal(messagesFn().length, 1);
+    assert.equal(panelCollapsedFn().val(), "false");
+    assert.equal(inFn().length, 1);
   });
   TTT.action(function () {
-    $hide().click();
+    hideFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($messages().length, 0);
-    assert.equal($panelCollapsed().val(), "true");
-    assert.equal($in().length, 0);
+    assert.equal(messagesFn().length, 0);
+    assert.equal(panelCollapsedFn().val(), "true");
+    assert.equal(inFn().length, 0);
   });
   TTT.action(function () {
-    $submit().click();
+    submitFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($messages().length, 0);
-    assert.equal($panelCollapsed().val(), "true");
-    assert.equal($in().length, 0);
+    assert.equal(messagesFn().length, 0);
+    assert.equal(panelCollapsedFn().val(), "true");
+    assert.equal(inFn().length, 0);
   });
   TTT.startTest();
 });
 
 QUnit.test("Full Server Request", function (assert) {
-  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  let $show = jQueryFrameFn("#\\page\\:mainForm\\:server\\:showServer");
-  let $hide = jQueryFrameFn("#\\page\\:mainForm\\:server\\:hideServer");
-  let $submit = jQueryFrameFn("#\\page\\:mainForm\\:server\\:submitServer");
-  let $panelCollapsed = jQueryFrameFn("#page\\:mainForm\\:server\\:serverPanel\\:\\:collapse");
-  let $in = jQueryFrameFn("#page\\:mainForm\\:server\\:inServer\\:\\:field");
+  let messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let showFn = jQueryFrameFn("#\\page\\:mainForm\\:server\\:showServer");
+  let hideFn = jQueryFrameFn("#\\page\\:mainForm\\:server\\:hideServer");
+  let submitFn = jQueryFrameFn("#\\page\\:mainForm\\:server\\:submitServer");
+  let panelCollapsedFn = jQueryFrameFn("#page\\:mainForm\\:server\\:serverPanel\\:\\:collapse");
+  let inFn = jQueryFrameFn("#page\\:mainForm\\:server\\:inServer\\:\\:field");
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $show().click();
+    showFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
-    assert.equal($panelCollapsed().val(), "false");
-    assert.equal($in().length, 1);
+    assert.equal(panelCollapsedFn().val(), "false");
+    assert.equal(inFn().length, 1);
   });
   TTT.action(function () {
-    $in().val("some text");
-    $submit().click();
+    inFn().val("some text");
+    submitFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($messages().length, 0);
-    assert.equal($panelCollapsed().val(), "false");
-    assert.equal($in().length, 1);
+    assert.equal(messagesFn().length, 0);
+    assert.equal(panelCollapsedFn().val(), "false");
+    assert.equal(inFn().length, 1);
   });
   TTT.action(function () {
-    $in().val("");
-    $submit().click();
+    inFn().val("");
+    submitFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($messages().length, 1);
-    assert.equal($panelCollapsed().val(), "false");
-    assert.equal($in().length, 1);
+    assert.equal(messagesFn().length, 1);
+    assert.equal(panelCollapsedFn().val(), "false");
+    assert.equal(inFn().length, 1);
   });
   TTT.action(function () {
-    $hide().click();
+    hideFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($messages().length, 0);
-    assert.equal($panelCollapsed().val(), "true");
-    assert.equal($in().length, 0);
+    assert.equal(messagesFn().length, 0);
+    assert.equal(panelCollapsedFn().val(), "true");
+    assert.equal(inFn().length, 0);
   });
   TTT.action(function () {
-    $submit().click();
+    submitFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($messages().length, 0);
-    assert.equal($panelCollapsed().val(), "true");
-    assert.equal($in().length, 0);
+    assert.equal(messagesFn().length, 0);
+    assert.equal(panelCollapsedFn().val(), "true");
+    assert.equal(inFn().length, 0);
   });
   TTT.startTest();
 });
 
 QUnit.test("Client Side", function (assert) {
-  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  let $show = jQueryFrameFn("#\\page\\:mainForm\\:client\\:showClient");
-  let $hide = jQueryFrameFn("#\\page\\:mainForm\\:client\\:hideClient");
-  let $submit = jQueryFrameFn("#\\page\\:mainForm\\:client\\:submitClient");
-  let $panelCollapsed = jQueryFrameFn("#page\\:mainForm\\:client\\:clientPanel\\:\\:collapse");
-  let $in = jQueryFrameFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
+  let messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let showFn = jQueryFrameFn("#\\page\\:mainForm\\:client\\:showClient");
+  let hideFn = jQueryFrameFn("#\\page\\:mainForm\\:client\\:hideClient");
+  let submitFn = jQueryFrameFn("#\\page\\:mainForm\\:client\\:submitClient");
+  let panelCollapsedFn = jQueryFrameFn("#page\\:mainForm\\:client\\:clientPanel\\:\\:collapse");
+  let inFn = jQueryFrameFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $show().click();
+    showFn().click();
   });
   TTT.asserts(2, function () {
-    assert.equal($panelCollapsed().val(), "false");
-    assert.equal($in().length, 1);
+    assert.equal(panelCollapsedFn().val(), "false");
+    assert.equal(inFn().length, 1);
   });
   TTT.action(function () {
-    $in().val("some text");
-    $submit().click();
+    inFn().val("some text");
+    submitFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($messages().length, 0);
-    assert.equal($panelCollapsed().val(), "false");
-    assert.equal($in().length, 1);
+    assert.equal(messagesFn().length, 0);
+    assert.equal(panelCollapsedFn().val(), "false");
+    assert.equal(inFn().length, 1);
   });
   TTT.action(function () {
-    $in().val("");
-    $submit().click();
+    inFn().val("");
+    submitFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($messages().length, 1);
-    assert.equal($panelCollapsed().val(), "false");
-    assert.equal($in().length, 1);
+    assert.equal(messagesFn().length, 1);
+    assert.equal(panelCollapsedFn().val(), "false");
+    assert.equal(inFn().length, 1);
   });
   TTT.action(function () {
-    $hide().click();
+    hideFn().click();
   });
   TTT.asserts(3, function () {
-    assert.equal($messages().length, 1);
-    assert.equal($panelCollapsed().val(), "true");
-    assert.equal($in().length, 1);
+    assert.equal(messagesFn().length, 1);
+    assert.equal(panelCollapsedFn().val(), "true");
+    assert.equal(inFn().length, 1);
   });
   TTT.action(function () {
-    $submit().click();
+    submitFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($messages().length, 1);
-    assert.equal($panelCollapsed().val(), "false");
-    assert.equal($in().length, 1);
+    assert.equal(messagesFn().length, 1);
+    assert.equal(panelCollapsedFn().val(), "false");
+    assert.equal(inFn().length, 1);
   });
   TTT.startTest();
 });
 
 QUnit.test("Ajax", function (assert) {
-  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  let $show = jQueryFrameFn("#\\page\\:mainForm\\:ajax\\:showAjax");
-  let $hide = jQueryFrameFn("#\\page\\:mainForm\\:ajax\\:hideAjax");
-  let $submit = jQueryFrameFn("#\\page\\:mainForm\\:ajax\\:submitAjax");
-  let $panelCollapsed = jQueryFrameFn("#page\\:mainForm\\:ajax\\:ajaxPanel\\:\\:collapse");
-  let $in = jQueryFrameFn("#page\\:mainForm\\:ajax\\:inAjax\\:\\:field");
+  let messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let showFn = jQueryFrameFn("#\\page\\:mainForm\\:ajax\\:showAjax");
+  let hideFn = jQueryFrameFn("#\\page\\:mainForm\\:ajax\\:hideAjax");
+  let submitFn = jQueryFrameFn("#\\page\\:mainForm\\:ajax\\:submitAjax");
+  let panelCollapsedFn = jQueryFrameFn("#page\\:mainForm\\:ajax\\:ajaxPanel\\:\\:collapse");
+  let inFn = jQueryFrameFn("#page\\:mainForm\\:ajax\\:inAjax\\:\\:field");
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $show().click();
+    showFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
-    assert.equal($panelCollapsed().val(), "false");
-    assert.equal($in().length, 1);
+    assert.equal(panelCollapsedFn().val(), "false");
+    assert.equal(inFn().length, 1);
   });
   TTT.action(function () {
-    $in().val("some text");
-    $submit().click();
+    inFn().val("some text");
+    submitFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($messages().length, 0);
-    assert.equal($panelCollapsed().val(), "false");
-    assert.equal($in().length, 1);
+    assert.equal(messagesFn().length, 0);
+    assert.equal(panelCollapsedFn().val(), "false");
+    assert.equal(inFn().length, 1);
   });
   TTT.action(function () {
-    $in().val("");
-    $submit().click();
+    inFn().val("");
+    submitFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($messages().length, 1);
-    assert.equal($panelCollapsed().val(), "false");
-    assert.equal($in().length, 1);
+    assert.equal(messagesFn().length, 1);
+    assert.equal(panelCollapsedFn().val(), "false");
+    assert.equal(inFn().length, 1);
   });
   TTT.action(function () {
-    $hide().click();
+    hideFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
-    assert.equal($panelCollapsed().val(), "true");
-    assert.equal($in().length, 0);
+    assert.equal(panelCollapsedFn().val(), "true");
+    assert.equal(inFn().length, 0);
   });
   TTT.action(function () {
-    $submit().click();
+    submitFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($messages().length, 0);
-    assert.equal($panelCollapsed().val(), "true");
-    assert.equal($in().length, 0);
+    assert.equal(messagesFn().length, 0);
+    assert.equal(panelCollapsedFn().val(), "true");
+    assert.equal(inFn().length, 0);
   });
   TTT.startTest();
 });

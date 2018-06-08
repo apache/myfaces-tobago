@@ -16,169 +16,169 @@
  */
 
 QUnit.test("Simple Popup", function (assert) {
-  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  let $open = jQueryFrameFn("#page\\:mainForm\\:simple\\:open1");
-  let $submitOnPage = jQueryFrameFn("#page\\:mainForm\\:simple\\:submitOnPage1");
-  let $in = jQueryFrameFn("#page\\:mainForm\\:simple\\:controllerPopup\\:in1\\:\\:field");
-  let $submitOnPopup = jQueryFrameFn("#page\\:mainForm\\:simple\\:controllerPopup\\:submitOnPopup1");
-  let $close = jQueryFrameFn("#page\\:mainForm\\:simple\\:controllerPopup\\:close1");
+  let messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let openFn = jQueryFrameFn("#page\\:mainForm\\:simple\\:open1");
+  let submitOnPageFn = jQueryFrameFn("#page\\:mainForm\\:simple\\:submitOnPage1");
+  let inFn = jQueryFrameFn("#page\\:mainForm\\:simple\\:controllerPopup\\:in1\\:\\:field");
+  let submitOnPopupFn = jQueryFrameFn("#page\\:mainForm\\:simple\\:controllerPopup\\:submitOnPopup1");
+  let closeFn = jQueryFrameFn("#page\\:mainForm\\:simple\\:controllerPopup\\:close1");
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $open().click();
+    openFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal($in().length, 1);
+    assert.equal(inFn().length, 1);
   });
   TTT.action(function () {
-    $in().val("some text");
-    $submitOnPopup().click();
+    inFn().val("some text");
+    submitOnPopupFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($messages().length, 0);
-    assert.equal($in().length, 1);
-    assert.equal($in().val(), "some text");
+    assert.equal(messagesFn().length, 0);
+    assert.equal(inFn().length, 1);
+    assert.equal(inFn().val(), "some text");
   });
   TTT.action(function () {
-    $in().val("");
-    $submitOnPopup().click();
+    inFn().val("");
+    submitOnPopupFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($messages().length, 1);
-    assert.equal($in().length, 1);
-    assert.equal($in().val(), "");
+    assert.equal(messagesFn().length, 1);
+    assert.equal(inFn().length, 1);
+    assert.equal(inFn().val(), "");
   });
   TTT.action(function () {
-    $close().click();
+    closeFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal($in().length, 0);
+    assert.equal(inFn().length, 0);
   });
   TTT.action(function () {
-    $submitOnPage().click();
+    submitOnPageFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal($messages().length, 0);
+    assert.equal(messagesFn().length, 0);
   });
   TTT.startTest();
 });
 
 QUnit.test("Full Server Request", function (assert) {
-  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  let $open = jQueryFrameFn("#page\\:mainForm\\:server\\:open2");
-  let $submitOnPage = jQueryFrameFn("#page\\:mainForm\\:server\\:submitOnPage2");
-  let $in = jQueryFrameFn("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:in2\\:\\:field");
-  let $submitOnPopup = jQueryFrameFn("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:submitOnPopup2");
-  let $close = jQueryFrameFn("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:close2");
+  let messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let openFn = jQueryFrameFn("#page\\:mainForm\\:server\\:open2");
+  let submitOnPageFn = jQueryFrameFn("#page\\:mainForm\\:server\\:submitOnPage2");
+  let inFn = jQueryFrameFn("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:in2\\:\\:field");
+  let submitOnPopupFn = jQueryFrameFn("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:submitOnPopup2");
+  let closeFn = jQueryFrameFn("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:close2");
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $open().click();
+    openFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal($in().length, 1);
+    assert.equal(inFn().length, 1);
   });
   TTT.action(function () {
-    $in().val("some text");
-    $submitOnPopup().click();
+    inFn().val("some text");
+    submitOnPopupFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($messages().length, 0);
-    assert.equal($in().length, 1);
-    assert.equal($in().val(), "some text");
+    assert.equal(messagesFn().length, 0);
+    assert.equal(inFn().length, 1);
+    assert.equal(inFn().val(), "some text");
   });
   TTT.action(function () {
-    $in().val("");
-    $submitOnPopup().click();
+    inFn().val("");
+    submitOnPopupFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal($messages().length, 1);
-    assert.equal($in().length, 1);
-    assert.equal($in().val(), "");
+    assert.equal(messagesFn().length, 1);
+    assert.equal(inFn().length, 1);
+    assert.equal(inFn().val(), "");
   });
   TTT.action(function () {
-    $close().click();
+    closeFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal($in().length, 0);
+    assert.equal(inFn().length, 0);
   });
   TTT.action(function () {
-    $submitOnPage().click();
+    submitOnPageFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal($messages().length, 0);
+    assert.equal(messagesFn().length, 0);
   });
   TTT.startTest();
 });
 
 QUnit.test("Client Side", function (assert) {
-  let $messages = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  let $open = jQueryFrameFn("#page\\:mainForm\\:client\\:open3");
-  let $submitOnPage = jQueryFrameFn("#page\\:mainForm\\:client\\:submitOnPage3");
-  let $popupCollapsed = jQueryFrameFn("#page\\:mainForm\\:client\\:clientPopup\\:\\:collapse");
-  let $in = jQueryFrameFn("#page\\:mainForm\\:client\\:clientPopup\\:in3\\:\\:field");
-  let $submitOnPopup = jQueryFrameFn("#page\\:mainForm\\:client\\:clientPopup\\:submitOnPopup3");
-  let $close = jQueryFrameFn("#page\\:mainForm\\:client\\:clientPopup\\:close3");
+  let messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  let openFn = jQueryFrameFn("#page\\:mainForm\\:client\\:open3");
+  let submitOnPageFn = jQueryFrameFn("#page\\:mainForm\\:client\\:submitOnPage3");
+  let popupCollapsedFn = jQueryFrameFn("#page\\:mainForm\\:client\\:clientPopup\\:\\:collapse");
+  let inFn = jQueryFrameFn("#page\\:mainForm\\:client\\:clientPopup\\:in3\\:\\:field");
+  let submitOnPopupFn = jQueryFrameFn("#page\\:mainForm\\:client\\:clientPopup\\:submitOnPopup3");
+  let closeFn = jQueryFrameFn("#page\\:mainForm\\:client\\:clientPopup\\:close3");
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $open().click();
+    openFn().click();
   });
   TTT.asserts(1, function () {
-    assert.equal($popupCollapsed().val(), "false");
+    assert.equal(popupCollapsedFn().val(), "false");
   });
   TTT.action(function () {
-    $close().click();
+    closeFn().click();
   });
   TTT.asserts(1, function () {
-    assert.equal($popupCollapsed().val(), "true");
+    assert.equal(popupCollapsedFn().val(), "true");
   });
   TTT.action(function () {
-    $open().click();
+    openFn().click();
   });
   TTT.asserts(1, function () {
-    assert.equal($popupCollapsed().val(), "false");
+    assert.equal(popupCollapsedFn().val(), "false");
   });
   TTT.action(function () {
-    $in().val("some text");
-    $submitOnPopup().click();
+    inFn().val("some text");
+    submitOnPopupFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
-    assert.equal($messages().length, 0);
-    assert.equal($popupCollapsed().val(), "true");
+    assert.equal(messagesFn().length, 0);
+    assert.equal(popupCollapsedFn().val(), "true");
   });
   TTT.action(function () {
-    $open().click();
+    openFn().click();
   });
   TTT.asserts(1, function () {
-    assert.equal($popupCollapsed().val(), "false");
+    assert.equal(popupCollapsedFn().val(), "false");
   });
   TTT.action(function () {
-    $in().val("");
-    $submitOnPopup().click();
+    inFn().val("");
+    submitOnPopupFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
-    assert.equal($messages().length, 1);
-    assert.equal($popupCollapsed().val(), "true");
+    assert.equal(messagesFn().length, 1);
+    assert.equal(popupCollapsedFn().val(), "true");
   });
   TTT.action(function () {
-    $submitOnPage().click();
+    submitOnPageFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal($messages().length, 1);
+    assert.equal(messagesFn().length, 1);
   });
   TTT.startTest();
 });

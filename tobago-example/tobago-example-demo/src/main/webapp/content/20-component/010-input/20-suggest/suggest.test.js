@@ -44,85 +44,85 @@ QUnit.test("Basics: 'Mars'", function (assert) {
 });
 
 function testMarsBasics(assert, inputString, expectedLength) {
-  let $in = jQueryFrameFn("#page\\:mainForm\\:inBasic\\:\\:field");
-  let $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
+  let inFn = jQueryFrameFn("#page\\:mainForm\\:inBasic\\:\\:field");
+  let suggestionsFn = getSuggestions("#page\\:mainForm\\:inBasic");
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $in().val(inputString).trigger('input');
+    inFn().val(inputString).trigger('input');
   });
   TTT.waitForResponse();
   TTT.asserts(expectedLength + 1, function () {
-    assert.equal($suggestions().length, expectedLength);
+    assert.equal(suggestionsFn().length, expectedLength);
     for (i = 0; i < expectedLength; i++) {
-      assert.ok($suggestions().eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
+      assert.ok(suggestionsFn().eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
   });
   TTT.startTest();
 }
 
 QUnit.test("Basics: Add 'eus' and click first entry.", function (assert) {
-  let $in = jQueryFrameFn("#page\\:mainForm\\:inBasic\\:\\:field");
-  let $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
+  let inFn = jQueryFrameFn("#page\\:mainForm\\:inBasic\\:\\:field");
+  let suggestionsFn = getSuggestions("#page\\:mainForm\\:inBasic");
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $in().val("eus").trigger('input');
+    inFn().val("eus").trigger('input');
   });
   TTT.waitForResponse();
   TTT.asserts(5, function () {
-    assert.equal($in().val(), "eus");
-    assert.equal($suggestions().length, 3);
-    assert.equal($suggestions().eq(0).find("strong").text(), "eus");
-    assert.equal($suggestions().eq(1).find("strong").text(), "eus");
-    assert.equal($suggestions().eq(2).find("strong").text(), "eus");
+    assert.equal(inFn().val(), "eus");
+    assert.equal(suggestionsFn().length, 3);
+    assert.equal(suggestionsFn().eq(0).find("strong").text(), "eus");
+    assert.equal(suggestionsFn().eq(1).find("strong").text(), "eus");
+    assert.equal(suggestionsFn().eq(2).find("strong").text(), "eus");
   });
   TTT.action(function () {
-    $suggestions().eq(0).click();
+    suggestionsFn().eq(0).click();
   });
   TTT.asserts(1, function () {
-    assert.equal($in().val(), "Prometheus");
+    assert.equal(inFn().val(), "Prometheus");
 
   });
   TTT.startTest();
 });
 
 QUnit.test("Advanced: 'C'", function (assert) {
-  let $in = jQueryFrameFn("#page\\:mainForm\\:inAdvanced\\:\\:field");
-  let $suggestions = getSuggestions("#page\\:mainForm\\:inAdvanced");
+  let inFn = jQueryFrameFn("#page\\:mainForm\\:inAdvanced\\:\\:field");
+  let suggestionsFn = getSuggestions("#page\\:mainForm\\:inAdvanced");
   let suggestionDelay = 2000;
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $in().val("C").trigger('input');
+    inFn().val("C").trigger('input');
   });
   TTT.waitMs(suggestionDelay);
   TTT.asserts(1, function () {
-    assert.equal($suggestions().length, 0);
+    assert.equal(suggestionsFn().length, 0);
   });
   TTT.startTest();
 });
 
 QUnit.test("Advanced: 'Ca'", function (assert) {
-  let $in = jQueryFrameFn("#page\\:mainForm\\:inAdvanced\\:\\:field");
-  let $suggestions = getSuggestions("#page\\:mainForm\\:inAdvanced");
+  let inFn = jQueryFrameFn("#page\\:mainForm\\:inAdvanced\\:\\:field");
+  let suggestionsFn = getSuggestions("#page\\:mainForm\\:inAdvanced");
   let suggestionDelay = 2000;
   let startTime = Date.now();
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $in().val("Ca").trigger('input');
+    inFn().val("Ca").trigger('input');
   });
   TTT.waitMs(200); // default suggestion delay
   TTT.asserts(1, function () {
     // Nothing happen, because the delay is greater than the default delay.
-    assert.equal($suggestions().length, 0);
+    assert.equal(suggestionsFn().length, 0);
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal($suggestions().length, 2);
-    assert.equal($suggestions().eq(0).find("strong").text(), "Ca");
-    assert.equal($suggestions().eq(1).find("strong").text(), "Ca");
+    assert.equal(suggestionsFn().length, 2);
+    assert.equal(suggestionsFn().eq(0).find("strong").text(), "Ca");
+    assert.equal(suggestionsFn().eq(1).find("strong").text(), "Ca");
     assert.ok(Date.now() - startTime >= suggestionDelay, "Delay for suggest popup must be greater/equal "
         + suggestionDelay);
   });
@@ -130,17 +130,17 @@ QUnit.test("Advanced: 'Ca'", function (assert) {
 });
 
 QUnit.test("Client side: 'Ju'", function (assert) {
-  let $in = jQueryFrameFn("#page\\:mainForm\\:inClient\\:\\:field");
-  let $suggestions = getSuggestions("#page\\:mainForm\\:inClient");
+  let inFn = jQueryFrameFn("#page\\:mainForm\\:inClient\\:\\:field");
+  let suggestionsFn = getSuggestions("#page\\:mainForm\\:inClient");
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $in().val("Ju").trigger('input');
+    inFn().val("Ju").trigger('input');
   });
   TTT.asserts(3, function () {
-    assert.equal($suggestions().length, 2);
-    assert.equal($suggestions().eq(0).find("strong").text(), "Ju");
-    assert.equal($suggestions().eq(1).find("strong").text(), "Ju");
+    assert.equal(suggestionsFn().length, 2);
+    assert.equal(suggestionsFn().eq(0).find("strong").text(), "Ju");
+    assert.equal(suggestionsFn().eq(1).find("strong").text(), "Ju");
   });
   TTT.startTest();
 });

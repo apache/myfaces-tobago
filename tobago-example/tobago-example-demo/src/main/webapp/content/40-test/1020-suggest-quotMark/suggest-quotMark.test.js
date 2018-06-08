@@ -44,18 +44,18 @@ QUnit.test("Basics: 'Mars'", function (assert) {
 });
 
 function testMarsBasics(assert, inputString, expectedLength) {
-  let $in = jQueryFrameFn("#page\\:mainForm\\:input\\:\\:field");
-  let $suggestions = getSuggestions("#page\\:mainForm\\:input");
+  let inFn = jQueryFrameFn("#page\\:mainForm\\:input\\:\\:field");
+  let suggestionsFn = getSuggestions("#page\\:mainForm\\:input");
 
   let TTT = new TobagoTestTools(assert);
   TTT.action(function () {
-    $in().val(inputString).trigger('input');
+    inFn().val(inputString).trigger('input');
   });
   TTT.waitForResponse();
   TTT.asserts(expectedLength + 1, function () {
-    assert.equal($suggestions().length, expectedLength);
+    assert.equal(suggestionsFn().length, expectedLength);
     for (i = 0; i < expectedLength; i++) {
-      assert.ok($suggestions().eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
+      assert.ok(suggestionsFn().eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
   });
   TTT.startTest();
