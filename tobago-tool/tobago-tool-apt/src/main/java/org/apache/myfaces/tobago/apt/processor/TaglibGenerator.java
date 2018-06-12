@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.apt.processor;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.myfaces.tobago.apt.AnnotationUtils;
+import org.apache.myfaces.tobago.apt.annotation.ConverterTag;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
@@ -496,6 +497,16 @@ public class TaglibGenerator extends AbstractGenerator {
     final SimpleTag simpleTag = typeElement.getAnnotation(SimpleTag.class);
     if (simpleTag != null) {
       addLeafTextElement(simpleTag.faceletHandler(), "handler-class", tagElement, document);
+    }
+
+    final ConverterTag converterTag = typeElement.getAnnotation(ConverterTag.class);
+    if (converterTag != null) {
+      final Element converterElement = document.createElement("converter");
+      tagElement.appendChild(converterElement);
+      addLeafTextElement(converterTag.converterId(), "converter-id", converterElement, document);
+      if (StringUtils.isNotBlank(converterTag.faceletHandler())) {
+        addLeafTextElement(converterTag.faceletHandler(), "handler-class", converterElement, document);
+      }
     }
 
     final ValidatorTag validatorTag = typeElement.getAnnotation(ValidatorTag.class);
