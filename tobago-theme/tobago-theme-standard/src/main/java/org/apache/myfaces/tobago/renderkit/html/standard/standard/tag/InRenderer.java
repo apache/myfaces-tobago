@@ -79,7 +79,7 @@ public class InRenderer extends InputRendererBase {
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
-    if (currentValue != null) {
+    if (currentValue != null && !password) {
       writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);
     }
     if (title != null) {
