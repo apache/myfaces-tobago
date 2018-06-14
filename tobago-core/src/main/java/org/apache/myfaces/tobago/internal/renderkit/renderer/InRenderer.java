@@ -96,7 +96,7 @@ public class InRenderer extends LabelLayoutRendererBase {
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(fieldId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
-    if (currentValue != null) {
+    if (currentValue != null && !password) {
       writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);
     }
     if (title != null) {
