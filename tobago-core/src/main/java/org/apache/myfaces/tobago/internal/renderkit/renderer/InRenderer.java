@@ -102,7 +102,7 @@ public class InRenderer extends MessageLayoutRendererBase {
       writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     }
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
-    if (currentValue != null) {
+    if (currentValue != null && !password) {
       writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);
     }
     if (title != null) {

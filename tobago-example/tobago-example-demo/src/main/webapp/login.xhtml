@@ -37,8 +37,8 @@
       <tc:link label="admin/admin" omit="true">
         <tc:dataAttribute name="login" value='{"username": "admin", "password": "admin"}'/>
       </tc:link>).</p>
-    <tc:in id="username" value="#{loginController.username}" label="User" focus="true"/>
-    <tc:in id="password" value="#{loginController.password}" password="true" label="Password"/>
+    <tc:in id="username" value="#{loginController.username}" label="User" focus="true" required="true"/>
+    <tc:in id="password" value="#{loginController.password}" password="true" label="Password" required="true"/>
     <tc:button id="login" action="#{loginController.login}" label="Login" defaultCommand="true"
                disabled="#{request.userPrincipal != null}"/>
     <tc:button id="logout" action="#{loginController.logout}" label="Logout '#{request.userPrincipal.name}'"
