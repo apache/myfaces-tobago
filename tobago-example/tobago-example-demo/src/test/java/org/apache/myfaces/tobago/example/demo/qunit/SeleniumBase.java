@@ -65,7 +65,7 @@ abstract class SeleniumBase {
   }
 
   void setupBrowser(final Browser browser) throws MalformedURLException {
-    MutableCapabilities options = null;
+    MutableCapabilities options;
     switch (browser) {
       case chrome:
         options = new ChromeOptions();
@@ -111,14 +111,20 @@ abstract class SeleniumBase {
 
   void parseQUnitResults(final Browser browser, final String portContextPath, final String path)
       throws UnknownHostException {
-    WebElement qunitBanner = waitForQUnitBanner();
+    WebElement qunitBanner;
+    try {
+      qunitBanner = waitForQUnitBanner();
+    } catch (Exception e) {
+      qunitBanner = webDriver.findElement(By.id("qunit-banner"));
+    }
+
     WebElement qunitTestResult = webDriver.findElement(By.id("qunit-testresult"));
     WebElement qunitTests = webDriver.findElement(By.id("qunit-tests"));
 
     final List<WebElement> testCases = qunitTests.findElements(By.xpath("li"));
     Assert.assertTrue("There must be at least one test case.", testCases.size() > 0);
 
-    final boolean testFailed = qunitBanner.getAttribute("class").equals("qunit-fail");
+    final boolean testFailed = !qunitBanner.getAttribute("class").equals("qunit-pass");
 
     int testCaseCount = 1;
     final StringBuilder stringBuilder = new StringBuilder();
