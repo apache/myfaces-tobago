@@ -160,7 +160,14 @@ TobagoTestTools.prototype = {
 
     jQuery("#page\\:testframe").on("load", function () {
       if (!isFinished() && !isTimeout()) {
-        responses++;
+
+        /**
+         * we need to wait for the fully loaded DOM, otherwise an action function may executed to early and some events
+         * like 'componentFn().click()' cannot triggered correctly.
+         */
+        jQuery("#page\\:testframe").ready(function () {
+          responses++;
+        });
 
         // we need to re-initiate the ajax listener
         TobagoFrame().registerListener(detectAjaxResponse, TobagoFrame().Phase.AFTER_UPDATE);
