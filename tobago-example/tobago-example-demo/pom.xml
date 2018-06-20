@@ -749,38 +749,6 @@
     </profile>
 
     <profile>
-      <id>tomee</id>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.tomee</groupId>
-          <artifactId>apache-tomee</artifactId>
-          <version>${tomee.version}</version>
-          <classifier>webprofile</classifier>
-          <type>zip</type>
-          <scope>test</scope>
-          <exclusions>
-            <exclusion>
-              <groupId>org.slf4j</groupId>
-              <artifactId>slf4j-jdk14</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.tomee</groupId>
-          <artifactId>arquillian-tomee-remote</artifactId>
-          <version>${tomee.version}</version>
-          <scope>test</scope>
-          <exclusions>
-            <exclusion>
-              <groupId>org.slf4j</groupId>
-              <artifactId>slf4j-jdk14</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
       <id>docker-qunit-tests</id>
       <build>
         <plugins>
