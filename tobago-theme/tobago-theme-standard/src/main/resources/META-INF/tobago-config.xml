@@ -356,8 +356,7 @@
         </renderer>
       </renderers>
       <resources production="true">
-        <script name="/tobago/standard/jquery/jquery-2.2.4.min.js"/>
-        <!--<script name="/tobago/standard/jquery/jquery-3.3.1.min.js"/>-->
+        <script name="/tobago/standard/jquery/jquery-3.3.1.min.js"/>
         <script name="/tobago/standard/jquery-ui/1.12.1.custom/jquery-ui.min.js"/>
         <script name="/tobago/standard/tether/1.1.1/js/tether.min.js"/>
         <script name="/tobago/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"/>
@@ -371,8 +370,7 @@
         <style name="/tobago/standard/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css"/>
       </resources>
       <resources production="false">
-        <script name="/tobago/standard/jquery/jquery-2.2.4.js"/>
-        <!--<script name="/tobago/standard/jquery/jquery-3.3.1.js"/>-->
+        <script name="/tobago/standard/jquery/jquery-3.3.1.js"/>
         <script name="/tobago/standard/jquery-ui/1.12.1.custom/jquery-ui.js"/>
         <script name="/tobago/standard/tether/1.1.1/js/tether.js"/>
         <script name="/tobago/standard/bootstrap/4.0.0-alpha.5/js/bootstrap.js"/>
