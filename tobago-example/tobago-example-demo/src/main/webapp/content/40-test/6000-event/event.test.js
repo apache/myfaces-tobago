@@ -116,7 +116,7 @@ function testInEvent(assert, eventName) {
   testEvent(assert, "in", function() {
     var $inputField = jQueryFrame("#page\\:mainForm\\:inevent" + eventName + "\\:\\:field");
     var newValue = "hello";
-    if (newValue == $inputField.val()) {
+    if (newValue === $inputField.val()) {
       newValue = "hi there";
     }
     $inputField.val(newValue);
@@ -128,7 +128,7 @@ function testInAjax(assert, eventName) {
   testAjax(assert, "in", function() {
     var $inputField = jQueryFrame("#page\\:mainForm\\:inajax" + eventName + "\\:\\:field");
     var newValue = "hello";
-    if (newValue == $inputField.val()) {
+    if (newValue === $inputField.val()) {
       newValue = "hi there";
     }
     $inputField.val(newValue);
@@ -140,7 +140,7 @@ function testRowEvent(assert, eventName) {
   var newSelectedPlanet = "Venus";
   testEvent(assert, "row", function() {
     var $row = jQueryFrame("#page\\:mainForm\\:sheetevent" + eventName + "\\:1\\:selectPlanet");
-    if (getSelectedPlanet() == newSelectedPlanet) {
+    if (getSelectedPlanet() === newSelectedPlanet) {
       $row = jQueryFrame("#page\\:mainForm\\:sheetevent" + eventName + "\\:4\\:selectPlanet");
       newSelectedPlanet = "Jupiter";
     }
@@ -152,7 +152,7 @@ function testRowAjax(assert, eventName) {
   var newSelectedPlanet = "Venus";
   testAjax(assert, "row", function() {
     var $row = jQueryFrame("#page\\:mainForm\\:sheetajax" + eventName + "\\:1\\:selectPlanet");
-    if (getSelectedPlanet() == newSelectedPlanet) {
+    if (getSelectedPlanet() === newSelectedPlanet) {
       $row = jQueryFrame("#page\\:mainForm\\:sheetajax" + eventName + "\\:4\\:selectPlanet");
       newSelectedPlanet = "Jupiter";
     }
@@ -164,7 +164,7 @@ function testEvent(assert, componentName, componentFunc, event,
                    incAction, incActionListener, incAjaxListener, incValueChangeListener, changePlanet) {
   assert.expect(6);
   var changeActiveComponent = jQueryFrame("#page\\:mainForm\\:compTestSection > div > h1 > span").text()
-      != "<tc:" + componentName + ">";
+      !== "<tc:" + componentName + ">";
   var done = assert.async(1 + changeActiveComponent);
 
   var oldActionCount;
@@ -179,7 +179,7 @@ function testEvent(assert, componentName, componentFunc, event,
     var step = 1;
 
     jQuery("#page\\:testframe").on("load", function() {
-      if (step == 1) {
+      if (step === 1) {
         oldActionCount = getActionCount();
         oldActionListenerCount = getActionListenerCount();
         oldAjaxListenerCount = getAjaxListenerCount();
@@ -188,7 +188,7 @@ function testEvent(assert, componentName, componentFunc, event,
         oldPlanet = getSelectedPlanet();
 
         componentFunc().trigger(event);
-      } else if (step == 2) {
+      } else if (step === 2) {
         validateEvent(assert, oldActionCount, oldActionListenerCount, oldAjaxListenerCount,
             oldValueChangeListenerCount, oldTimestamp, oldPlanet, incAction, incActionListener, incAjaxListener,
             incValueChangeListener, changePlanet);
@@ -257,7 +257,7 @@ function testAjax(assert, componentName, componentFunc, event,
     var step = 1;
 
     jQuery("#page\\:testframe").on("load", function() {
-      if (step == 1) {
+      if (step === 1) {
         oldActionCount = getActionCount();
         oldActionListenerCount = getActionListenerCount();
         oldAjaxListenerCount = getAjaxListenerCount();
@@ -301,12 +301,12 @@ function validateAjax(assert, done, oldActionCount, oldActionListenerCount, oldA
     var newTimestamp = getTimestamp();
     var newPlanet = getSelectedPlanet();
 
-    return newActionCount == (oldActionCount + incAction)
-    && newActionListenerCount == (oldActionListenerCount + incActionListener)
-    && newAjaxListenerCount == (oldAjaxListenerCount + incAjaxListener)
-    && newValueChangeListenerCount == (oldValueChangeListenerCount + incValueChangeListener)
+    return newActionCount === (oldActionCount + incAction)
+    && newActionListenerCount === (oldActionListenerCount + incActionListener)
+    && newAjaxListenerCount === (oldAjaxListenerCount + incAjaxListener)
+    && newValueChangeListenerCount === (oldValueChangeListenerCount + incValueChangeListener)
     && newTimestamp > oldTimestamp
-    && changePlanet ? newPlanet != oldPlanet : newPlanet == oldPlanet;
+    && changePlanet ? newPlanet !== oldPlanet : newPlanet === oldPlanet;
   }, function() {
     var newActionCount = getActionCount();
     var newActionListenerCount = getActionListenerCount();
@@ -357,7 +357,7 @@ function getSelectedPlanet() {
 
 function activateComponent(componentName) {
   jQueryFrame("#page\\:mainForm\\:componentTable .tobago-sheet-row").each(function() {
-    if (jQuery(this).find("td").eq(0).find("span").text() == componentName) {
+    if (jQuery(this).find("td").eq(0).find("span").text() === componentName) {
       this.click();
     }
   });

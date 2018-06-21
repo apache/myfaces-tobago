@@ -43,7 +43,7 @@ QUnit.test("submit inner form 1 without violations", function (assert) {
   waitForAjax(function () {
     $form1InputField = jQueryFrame(Selectors.form1InputField);
     $form1OutputField = jQueryFrame(Selectors.form1OutputField);
-    return $form1InputField.val() == "Alice" && $form1OutputField.text() == "Alice";
+    return $form1InputField.val() === "Alice" && $form1OutputField.text() === "Alice";
   }, function () {
     $form1InputField = jQueryFrame(Selectors.form1InputField);
     $form1OutputField = jQueryFrame(Selectors.form1OutputField);

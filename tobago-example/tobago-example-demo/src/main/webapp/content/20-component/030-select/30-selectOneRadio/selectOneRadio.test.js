@@ -71,8 +71,8 @@ QUnit.test("ajax: select Mars", function (assert) {
 
   waitForAjax(function () {
     $moons = jQueryFrame("#page\\:mainForm\\:moonradio li label");
-    return $moons.eq(0).text() == "Phobos"
-        && $moons.eq(1).text() == "Deimos";
+    return $moons.eq(0).text() === "Phobos"
+        && $moons.eq(1).text() === "Deimos";
   }, function () {
     $moons = jQueryFrame("#page\\:mainForm\\:moonradio li label");
     assert.equal($moons.eq(0).text(), "Phobos");
@@ -93,10 +93,10 @@ QUnit.test("ajax: select Jupiter", function (assert) {
 
   waitForAjax(function () {
     $moons = jQueryFrame("#page\\:mainForm\\:moonradio li label");
-    return $moons.eq(0).text() == "Europa"
-        && $moons.eq(1).text() == "Ganymed"
-        && $moons.eq(2).text() == "Io"
-        && $moons.eq(3).text() == "Kallisto";
+    return $moons.eq(0).text() === "Europa"
+        && $moons.eq(1).text() === "Ganymed"
+        && $moons.eq(2).text() === "Io"
+        && $moons.eq(3).text() === "Kallisto";
   }, function () {
     $moons = jQueryFrame("#page\\:mainForm\\:moonradio li label");
     assert.equal($moons.eq(0).text(), "Europa");

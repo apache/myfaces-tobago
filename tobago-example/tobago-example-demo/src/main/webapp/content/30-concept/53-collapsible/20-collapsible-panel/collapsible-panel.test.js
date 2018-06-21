@@ -281,7 +281,7 @@ QUnit.test("Ajax", function (assert) {
     $panelCollapsed = jQueryFrame(pc);
     $in = jQueryFrame(i);
     return step === 1
-        && $panelCollapsed.val() == "false"
+        && $panelCollapsed.val() === "false"
         && $in.length === 1;
   }, function () {
     $panelCollapsed = jQueryFrame(pc);
@@ -330,7 +330,7 @@ QUnit.test("Ajax", function (assert) {
         $panelCollapsed = jQueryFrame(pc);
         $in = jQueryFrame(i);
         return step === 4
-            && $panelCollapsed.val() == "true"
+            && $panelCollapsed.val() === "true"
             && $in.length === 0;
       }, function () {
         $panelCollapsed = jQueryFrame(pc);

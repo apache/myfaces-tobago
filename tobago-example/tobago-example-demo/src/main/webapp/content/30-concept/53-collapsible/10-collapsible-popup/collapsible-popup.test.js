@@ -35,7 +35,7 @@ QUnit.test("Simple Popup", function (assert) {
   $open.click();
 
   jQuery("#page\\:testframe").on("load", function () {
-    if (step == 1) {
+    if (step === 1) {
       $in = jQueryFrame(inSelector);
       $submitOnPopup = jQueryFrame(submitOnPopupSelector);
 
@@ -44,7 +44,7 @@ QUnit.test("Simple Popup", function (assert) {
       $submitOnPopup.click();
 
       done();
-    } else if (step == 2) {
+    } else if (step === 2) {
       $messages = jQueryFrame(messagesSelector);
       $in = jQueryFrame(inSelector);
       $submitOnPopup = jQueryFrame(submitOnPopupSelector);
@@ -56,7 +56,7 @@ QUnit.test("Simple Popup", function (assert) {
       $submitOnPopup.click();
 
       done();
-    } else if (step == 3) {
+    } else if (step === 3) {
       $messages = jQueryFrame(messagesSelector);
       $in = jQueryFrame(inSelector);
       $close = jQueryFrame(closeSelector);
@@ -67,7 +67,7 @@ QUnit.test("Simple Popup", function (assert) {
       $close.click();
 
       done();
-    } else if (step == 4) {
+    } else if (step === 4) {
       $submitOnPage = jQueryFrame(submitOnPageSelector);
       $in = jQueryFrame(inSelector);
 
@@ -75,7 +75,7 @@ QUnit.test("Simple Popup", function (assert) {
       $submitOnPage.click();
 
       done();
-    } else if (step == 5) {
+    } else if (step === 5) {
       $messages = jQueryFrame(messagesSelector);
 
       assert.equal($messages.length, 0);
@@ -106,7 +106,7 @@ QUnit.test("Full Server Request", function (assert) {
   $open.click();
 
   jQuery("#page\\:testframe").on("load", function () {
-    if (step == 1) {
+    if (step === 1) {
       $in = jQueryFrame(inSelector);
       $submitOnPopup = jQueryFrame(submitOnPopupSelector);
 
@@ -115,7 +115,7 @@ QUnit.test("Full Server Request", function (assert) {
       $submitOnPopup.click();
 
       done();
-    } else if (step == 2) {
+    } else if (step === 2) {
       $messages = jQueryFrame(messagesSelector);
       $in = jQueryFrame(inSelector);
       $submitOnPopup = jQueryFrame(submitOnPopupSelector);
@@ -127,7 +127,7 @@ QUnit.test("Full Server Request", function (assert) {
       $submitOnPopup.click();
 
       done();
-    } else if (step == 3) {
+    } else if (step === 3) {
       $messages = jQueryFrame(messagesSelector);
       $in = jQueryFrame(inSelector);
       $close = jQueryFrame(closeSelector);
@@ -138,7 +138,7 @@ QUnit.test("Full Server Request", function (assert) {
       $close.click();
 
       done();
-    } else if (step == 4) {
+    } else if (step === 4) {
       $submitOnPage = jQueryFrame(submitOnPageSelector);
       $in = jQueryFrame(inSelector);
 
@@ -146,7 +146,7 @@ QUnit.test("Full Server Request", function (assert) {
       $submitOnPage.click();
 
       done();
-    } else if (step == 5) {
+    } else if (step === 5) {
       $messages = jQueryFrame(messagesSelector);
 
       assert.equal($messages.length, 0);
@@ -186,7 +186,7 @@ QUnit.test("Client Sided", function (assert) {
   $submitOnPopup.click();
 
   jQuery("#page\\:testframe").on("load", function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame(messagesSelector);
       $open = jQueryFrame(openSelector);
       $popupCollapsed = jQueryFrame(popupCollapsedSelector);
@@ -201,7 +201,7 @@ QUnit.test("Client Sided", function (assert) {
       $submitOnPopup.click();
 
       done();
-    } else if (step == 2) {
+    } else if (step === 2) {
       $messages = jQueryFrame(messagesSelector);
       $submitOnPage = jQueryFrame(submitOnPageSelector);
       $popupCollapsed = jQueryFrame(popupCollapsedSelector);
@@ -211,7 +211,7 @@ QUnit.test("Client Sided", function (assert) {
       $submitOnPage.click();
 
       done();
-    } else if (step == 3) {
+    } else if (step === 3) {
       $messages = jQueryFrame(messagesSelector);
 
       assert.equal($messages.length, 1);

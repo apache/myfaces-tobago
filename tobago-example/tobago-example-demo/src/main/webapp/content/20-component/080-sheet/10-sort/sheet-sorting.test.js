@@ -41,13 +41,13 @@ QUnit.test("Basics: Name", function(assert) {
   var $rows = jQueryFrame(Selectors.s1rows);
   var $leftPaging = jQueryFrame(Selectors.s1leftPaging);
 
-  if ($colName.find(".fa-angle-up").length != 1) {
+  if ($colName.find(".fa-angle-up").length !== 1) {
     $colName.click();
   }
 
   waitForAjax(function() {
     $colName = jQueryFrame(Selectors.s1colName);
-    return $colName.find(".fa-angle-up").length == 1;
+    return $colName.find(".fa-angle-up").length === 1;
   }, function() {
     $colName = jQueryFrame(Selectors.s1colName);
     assert.equal($colName.find(".fa-angle-up").length, 1);
@@ -121,13 +121,13 @@ QUnit.test("Basics: Period", function(assert) {
   var $rows = jQueryFrame(Selectors.s1rows);
   var $leftPaging = jQueryFrame(Selectors.s1leftPaging);
 
-  if ($colPeriod.find(".fa-angle-up").length != 1) {
+  if ($colPeriod.find(".fa-angle-up").length !== 1) {
     $colPeriod.click();
   }
 
   waitForAjax(function() {
     $colPeriod = jQueryFrame(Selectors.s1colPeriod);
-    return $colPeriod.find(".fa-angle-up").length == 1;
+    return $colPeriod.find(".fa-angle-up").length === 1;
   }, function() {
     $colPeriod = jQueryFrame(Selectors.s1colPeriod);
     assert.equal($colPeriod.find(".fa-angle-up").length, 1);
@@ -201,13 +201,13 @@ QUnit.test("Basics: Year", function(assert) {
   var $rows = jQueryFrame(Selectors.s1rows);
   var $leftPaging = jQueryFrame(Selectors.s1leftPaging);
 
-  if ($colYear.find(".fa-angle-up").length != 1) {
+  if ($colYear.find(".fa-angle-up").length !== 1) {
     $colYear.click();
   }
 
   waitForAjax(function() {
     $colYear = jQueryFrame(Selectors.s1colYear);
-    return $colYear.find(".fa-angle-up").length == 1;
+    return $colYear.find(".fa-angle-up").length === 1;
   }, function() {
     $colYear = jQueryFrame(Selectors.s1colYear);
     assert.equal($colYear.find(".fa-angle-up").length, 1);
@@ -218,10 +218,10 @@ QUnit.test("Basics: Year", function(assert) {
 
     waitForAjax(function() {
       $rows = jQueryFrame(Selectors.s1rows);
-      return $rows.eq(0).find(".tobago-sheet-cell span").eq(2).text() == "1789"
-          && $rows.eq(1).find(".tobago-sheet-cell span").eq(2).text() == "1846"
-          && $rows.eq(2).find(".tobago-sheet-cell span").eq(2).text() == "1846"
-          && $rows.eq(3).find(".tobago-sheet-cell span").eq(2).text() == "1848";
+      return $rows.eq(0).find(".tobago-sheet-cell span").eq(2).text() === "1789"
+          && $rows.eq(1).find(".tobago-sheet-cell span").eq(2).text() === "1846"
+          && $rows.eq(2).find(".tobago-sheet-cell span").eq(2).text() === "1846"
+          && $rows.eq(3).find(".tobago-sheet-cell span").eq(2).text() === "1848";
     }, function() {
       $rows = jQueryFrame(Selectors.s1rows);
       assert.equal($rows.eq(0).find(".tobago-sheet-cell span").eq(2).text(), "1789", "row0col2");
@@ -234,10 +234,10 @@ QUnit.test("Basics: Year", function(assert) {
 
       waitForAjax(function() {
         $rows = jQueryFrame(Selectors.s1rows);
-        return $rows.eq(0).find(".tobago-sheet-cell span").eq(2).text() == "1989"
-            && $rows.eq(1).find(".tobago-sheet-cell span").eq(2).text() == "1989"
-            && $rows.eq(2).find(".tobago-sheet-cell span").eq(2).text() == "1989"
-            && $rows.eq(3).find(".tobago-sheet-cell span").eq(2).text() == "1986";
+        return $rows.eq(0).find(".tobago-sheet-cell span").eq(2).text() === "1989"
+            && $rows.eq(1).find(".tobago-sheet-cell span").eq(2).text() === "1989"
+            && $rows.eq(2).find(".tobago-sheet-cell span").eq(2).text() === "1989"
+            && $rows.eq(3).find(".tobago-sheet-cell span").eq(2).text() === "1986";
       }, function() {
         $rows = jQueryFrame(Selectors.s1rows);
         assert.equal($rows.eq(0).find(".tobago-sheet-cell span").eq(2).text(), "1989", "row0col2");
@@ -250,10 +250,10 @@ QUnit.test("Basics: Year", function(assert) {
 
         waitForAjax(function() {
           $rows = jQueryFrame(Selectors.s1rows);
-          return $rows.eq(0).find(".tobago-sheet-cell span").eq(2).text() == "1789"
-              && $rows.eq(1).find(".tobago-sheet-cell span").eq(2).text() == "1846"
-              && $rows.eq(2).find(".tobago-sheet-cell span").eq(2).text() == "1846"
-              && $rows.eq(3).find(".tobago-sheet-cell span").eq(2).text() == "1848";
+          return $rows.eq(0).find(".tobago-sheet-cell span").eq(2).text() === "1789"
+              && $rows.eq(1).find(".tobago-sheet-cell span").eq(2).text() === "1846"
+              && $rows.eq(2).find(".tobago-sheet-cell span").eq(2).text() === "1846"
+              && $rows.eq(3).find(".tobago-sheet-cell span").eq(2).text() === "1848";
         }, function() {
           $rows = jQueryFrame(Selectors.s1rows);
           assert.equal($rows.eq(0).find(".tobago-sheet-cell span").eq(2).text(), "1789", "row0col2");
@@ -279,13 +279,13 @@ QUnit.test("Basics: left paging", function(assert) {
   var $rows = jQueryFrame(Selectors.s1rows);
   var $leftPaging = jQueryFrame(Selectors.s1leftPaging);
 
-  if ($colName.find(".fa-angle-up").length != 1) {
+  if ($colName.find(".fa-angle-up").length !== 1) {
     $colName.click();
   }
 
   waitForAjax(function() {
     $colName = jQueryFrame(Selectors.s1colName);
-    return $colName.find(".fa-angle-up").length == 1;
+    return $colName.find(".fa-angle-up").length === 1;
   }, function() {
     $colName = jQueryFrame(Selectors.s1colName);
     assert.equal($colName.find(".fa-angle-up").length, 1);
@@ -347,13 +347,13 @@ QUnit.test("Basics: center paging", function(assert) {
   var $leftPaging = jQueryFrame(Selectors.s1leftPaging);
   var $centerPaging = jQueryFrame(Selectors.s1centerPaging);
 
-  if ($colName.find(".fa-angle-up").length != 1) {
+  if ($colName.find(".fa-angle-up").length !== 1) {
     $colName.click();
   }
 
   waitForAjax(function() {
     $colName = jQueryFrame(Selectors.s1colName);
-    return $colName.find(".fa-angle-up").length == 1;
+    return $colName.find(".fa-angle-up").length === 1;
   }, function() {
     $colName = jQueryFrame(Selectors.s1colName);
     assert.equal($colName.find(".fa-angle-up").length, 1);
@@ -457,13 +457,13 @@ QUnit.test("Basics: right paging", function(assert) {
   var $leftPaging = jQueryFrame(Selectors.s1leftPaging);
   var $rightPaging = jQueryFrame(Selectors.s1rightPaging);
 
-  if ($colName.find(".fa-angle-up").length != 1) {
+  if ($colName.find(".fa-angle-up").length !== 1) {
     $colName.click();
   }
 
   waitForAjax(function() {
     $colName = jQueryFrame(Selectors.s1colName);
-    return $colName.find(".fa-angle-up").length == 1;
+    return $colName.find(".fa-angle-up").length === 1;
   }, function() {
     $colName = jQueryFrame(Selectors.s1colName);
     assert.equal($colName.find(".fa-angle-up").length, 1);
@@ -679,13 +679,13 @@ QUnit.test("Custom Sorting: Period", function(assert) {
   var $rows = jQueryFrame(Selectors.s2rows);
   var $leftPaging = jQueryFrame(Selectors.s2leftPaging);
 
-  if ($colPeriod.find(".fa-angle-up").length != 1) {
+  if ($colPeriod.find(".fa-angle-up").length !== 1) {
     $colPeriod.click();
   }
 
   waitForAjax(function() {
     $colPeriod = jQueryFrame(Selectors.s2colPeriod);
-    return $colPeriod.find(".fa-angle-up").length == 1;
+    return $colPeriod.find(".fa-angle-up").length === 1;
   }, function() {
     $colPeriod = jQueryFrame(Selectors.s2colPeriod);
     assert.equal($colPeriod.find(".fa-angle-up").length, 1);
@@ -759,13 +759,13 @@ QUnit.test("Custom Sorting: Year", function(assert) {
   var $rows = jQueryFrame(Selectors.s2rows);
   var $leftPaging = jQueryFrame(Selectors.s2leftPaging);
 
-  if ($colYear.find(".fa-angle-up").length != 1) {
+  if ($colYear.find(".fa-angle-up").length !== 1) {
     $colYear.click();
   }
 
   waitForAjax(function() {
     $colYear = jQueryFrame(Selectors.s2colYear);
-    return $colYear.find(".fa-angle-up").length == 1;
+    return $colYear.find(".fa-angle-up").length === 1;
   }, function() {
     $colYear = jQueryFrame(Selectors.s2colYear);
     assert.equal($colYear.find(".fa-angle-up").length, 1);
@@ -776,10 +776,10 @@ QUnit.test("Custom Sorting: Year", function(assert) {
 
     waitForAjax(function() {
       $rows = jQueryFrame(Selectors.s2rows);
-      return $rows.eq(0).find(".tobago-sheet-cell span").eq(2).text() == "1789"
-          && $rows.eq(1).find(".tobago-sheet-cell span").eq(2).text() == "1846"
-          && $rows.eq(2).find(".tobago-sheet-cell span").eq(2).text() == "1846"
-          && $rows.eq(3).find(".tobago-sheet-cell span").eq(2).text() == "1848";
+      return $rows.eq(0).find(".tobago-sheet-cell span").eq(2).text() === "1789"
+          && $rows.eq(1).find(".tobago-sheet-cell span").eq(2).text() === "1846"
+          && $rows.eq(2).find(".tobago-sheet-cell span").eq(2).text() === "1846"
+          && $rows.eq(3).find(".tobago-sheet-cell span").eq(2).text() === "1848";
     }, function() {
       $rows = jQueryFrame(Selectors.s2rows);
       assert.equal($rows.eq(0).find(".tobago-sheet-cell span").eq(2).text(), "1789", "row0col2");
@@ -792,10 +792,10 @@ QUnit.test("Custom Sorting: Year", function(assert) {
 
       waitForAjax(function() {
         $rows = jQueryFrame(Selectors.s2rows);
-        return $rows.eq(0).find(".tobago-sheet-cell span").eq(2).text() == "1989"
-            && $rows.eq(1).find(".tobago-sheet-cell span").eq(2).text() == "1989"
-            && $rows.eq(2).find(".tobago-sheet-cell span").eq(2).text() == "1989"
-            && $rows.eq(3).find(".tobago-sheet-cell span").eq(2).text() == "1986";
+        return $rows.eq(0).find(".tobago-sheet-cell span").eq(2).text() === "1989"
+            && $rows.eq(1).find(".tobago-sheet-cell span").eq(2).text() === "1989"
+            && $rows.eq(2).find(".tobago-sheet-cell span").eq(2).text() === "1989"
+            && $rows.eq(3).find(".tobago-sheet-cell span").eq(2).text() === "1986";
       }, function() {
         $rows = jQueryFrame(Selectors.s2rows);
         assert.equal($rows.eq(0).find(".tobago-sheet-cell span").eq(2).text(), "1989", "row0col2");
@@ -808,10 +808,10 @@ QUnit.test("Custom Sorting: Year", function(assert) {
 
         waitForAjax(function() {
           $rows = jQueryFrame(Selectors.s2rows);
-          return $rows.eq(0).find(".tobago-sheet-cell span").eq(2).text() == "1789"
-              && $rows.eq(1).find(".tobago-sheet-cell span").eq(2).text() == "1846"
-              && $rows.eq(2).find(".tobago-sheet-cell span").eq(2).text() == "1846"
-              && $rows.eq(3).find(".tobago-sheet-cell span").eq(2).text() == "1848";
+          return $rows.eq(0).find(".tobago-sheet-cell span").eq(2).text() === "1789"
+              && $rows.eq(1).find(".tobago-sheet-cell span").eq(2).text() === "1846"
+              && $rows.eq(2).find(".tobago-sheet-cell span").eq(2).text() === "1846"
+              && $rows.eq(3).find(".tobago-sheet-cell span").eq(2).text() === "1848";
         }, function() {
           $rows = jQueryFrame(Selectors.s2rows);
           assert.equal($rows.eq(0).find(".tobago-sheet-cell span").eq(2).text(), "1789", "row0col2");
@@ -837,13 +837,13 @@ QUnit.test("Custom Sorting: left paging", function(assert) {
   var $rows = jQueryFrame(Selectors.s2rows);
   var $leftPaging = jQueryFrame(Selectors.s2leftPaging);
 
-  if ($colName.find(".fa-angle-up").length != 1) {
+  if ($colName.find(".fa-angle-up").length !== 1) {
     $colName.click();
   }
 
   waitForAjax(function() {
     $colName = jQueryFrame(Selectors.s2colName);
-    return $colName.find(".fa-angle-up").length == 1;
+    return $colName.find(".fa-angle-up").length === 1;
   }, function() {
     $colName = jQueryFrame(Selectors.s2colName);
     assert.equal($colName.find(".fa-angle-up").length, 1);
@@ -905,13 +905,13 @@ QUnit.test("Custom Sorting: center paging", function(assert) {
   var $leftPaging = jQueryFrame(Selectors.s2leftPaging);
   var $centerPaging = jQueryFrame(Selectors.s2centerPaging);
 
-  if ($colName.find(".fa-angle-up").length != 1) {
+  if ($colName.find(".fa-angle-up").length !== 1) {
     $colName.click();
   }
 
   waitForAjax(function() {
     $colName = jQueryFrame(Selectors.s2colName);
-    return $colName.find(".fa-angle-up").length == 1;
+    return $colName.find(".fa-angle-up").length === 1;
   }, function() {
     $colName = jQueryFrame(Selectors.s2colName);
     assert.equal($colName.find(".fa-angle-up").length, 1);
@@ -1164,10 +1164,10 @@ function ajaxWaitingBodyTableCheck($rows, row0col0, row0col1, row0col2, row1col0
   var $row3Col1 = $rows.eq(3).find(".tobago-sheet-cell span").eq(1).text();
   var $row3Col2 = $rows.eq(3).find(".tobago-sheet-cell span").eq(2).text();
 
-  return $row0Col0 == row0col0 && $row0Col1 == row0col1 && $row0Col2 == row0col2
-      && $row1Col0 == row1col0 && $row1Col1 == row1col1 && $row1Col2 == row1col2
-      && $row2Col0 == row2col0 && $row2Col1 == row2col1 && $row2Col2 == row2col2
-      && $row3Col0 == row3col0 && $row3Col1 == row3col1 && $row3Col2 == row3col2;
+  return $row0Col0 === row0col0 && $row0Col1 === row0col1 && $row0Col2 === row0col2
+      && $row1Col0 === row1col0 && $row1Col1 === row1col1 && $row1Col2 === row1col2
+      && $row2Col0 === row2col0 && $row2Col1 === row2col1 && $row2Col2 === row2col2
+      && $row3Col0 === row3col0 && $row3Col1 === row3col1 && $row3Col2 === row3col2;
 }
 
 function ajaxExecuteBodyTableCheck(assert, $rows, row0col0, row0col1, row0col2, row1col0, row1col1, row1col2,

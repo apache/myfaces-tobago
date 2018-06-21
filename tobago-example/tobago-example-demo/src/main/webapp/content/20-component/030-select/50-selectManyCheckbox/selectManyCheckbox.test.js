@@ -71,7 +71,7 @@ QUnit.test("ajax: click 'Two'", function (assert) {
 
   waitForAjax(function () {
     $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
-    return $output.text() == newOutputValue;
+    return $output.text() === newOutputValue;
   }, function () {
     $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
     assert.equal($output.text(), newOutputValue);
@@ -97,7 +97,7 @@ QUnit.test("ajax: click 'Three'", function (assert) {
 
   waitForAjax(function () {
     $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
-    return $output.text() == newOutputValue;
+    return $output.text() === newOutputValue;
   }, function () {
     $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
     assert.equal($output.text(), newOutputValue);
@@ -123,7 +123,7 @@ QUnit.test("ajax: click 'Two'", function (assert) {
 
   waitForAjax(function () {
     $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
-    return $output.text() == newOutputValue;
+    return $output.text() === newOutputValue;
   }, function () {
     $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
     assert.equal($output.text(), newOutputValue);

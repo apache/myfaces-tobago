@@ -35,7 +35,7 @@ QUnit.test("Simple Panel", function (assert) {
   $show.click();
 
   jQuery("#page\\:testframe").on("load", function () {
-    if (step == 1) {
+    if (step === 1) {
       $sectionCollapsed = jQueryFrame(sc);
       $in = jQueryFrame(i);
       $submit = jQueryFrame(s);
@@ -47,7 +47,7 @@ QUnit.test("Simple Panel", function (assert) {
 
       step++;
       done();
-    } else if (step == 2) {
+    } else if (step === 2) {
       $messages = jQueryFrame(m);
       $sectionCollapsed = jQueryFrame(sc);
       $in = jQueryFrame(i);
@@ -61,7 +61,7 @@ QUnit.test("Simple Panel", function (assert) {
 
       step++;
       done();
-    } else if (step == 3) {
+    } else if (step === 3) {
       $messages = jQueryFrame(m);
       $sectionCollapsed = jQueryFrame(sc);
       $in = jQueryFrame(i);
@@ -74,7 +74,7 @@ QUnit.test("Simple Panel", function (assert) {
 
       step++;
       done();
-    } else if (step == 4) {
+    } else if (step === 4) {
       $messages = jQueryFrame(m);
       $sectionCollapsed = jQueryFrame(sc);
       $in = jQueryFrame(i);
@@ -87,7 +87,7 @@ QUnit.test("Simple Panel", function (assert) {
 
       step++;
       done();
-    } else if (step == 5) {
+    } else if (step === 5) {
       $messages = jQueryFrame(m);
       $sectionCollapsed = jQueryFrame(sc);
       $in = jQueryFrame(i);
@@ -122,7 +122,7 @@ QUnit.test("Full Server Request", function (assert) {
   $show.click();
 
   jQuery("#page\\:testframe").on("load", function () {
-    if (step == 1) {
+    if (step === 1) {
       $sectionCollapsed = jQueryFrame(sc);
       $in = jQueryFrame(i);
       $submit = jQueryFrame(s);
@@ -134,7 +134,7 @@ QUnit.test("Full Server Request", function (assert) {
 
       step++;
       done();
-    } else if (step == 2) {
+    } else if (step === 2) {
       $messages = jQueryFrame(m);
       $sectionCollapsed = jQueryFrame(sc);
       $in = jQueryFrame(i);
@@ -148,7 +148,7 @@ QUnit.test("Full Server Request", function (assert) {
 
       step++;
       done();
-    } else if (step == 3) {
+    } else if (step === 3) {
       $messages = jQueryFrame(m);
       $sectionCollapsed = jQueryFrame(sc);
       $in = jQueryFrame(i);
@@ -161,7 +161,7 @@ QUnit.test("Full Server Request", function (assert) {
 
       step++;
       done();
-    } else if (step == 4) {
+    } else if (step === 4) {
       $messages = jQueryFrame(m);
       $sectionCollapsed = jQueryFrame(sc);
       $in = jQueryFrame(i);
@@ -174,7 +174,7 @@ QUnit.test("Full Server Request", function (assert) {
 
       step++;
       done();
-    } else if (step == 5) {
+    } else if (step === 5) {
       $messages = jQueryFrame(m);
       $sectionCollapsed = jQueryFrame(sc);
       $in = jQueryFrame(i);
@@ -213,7 +213,7 @@ QUnit.test("Client Sided", function (assert) {
   $submit.click();
 
   jQuery("#page\\:testframe").on("load", function () {
-    if (step == 1) {
+    if (step === 1) {
       $messages = jQueryFrame(m);
       $sectionCollapsed = jQueryFrame(sc);
       $in = jQueryFrame(i);
@@ -227,7 +227,7 @@ QUnit.test("Client Sided", function (assert) {
 
       step++;
       done();
-    } else if (step == 2) {
+    } else if (step === 2) {
       $messages = jQueryFrame(m);
       $sectionCollapsed = jQueryFrame(sc);
       $in = jQueryFrame(i);
@@ -246,7 +246,7 @@ QUnit.test("Client Sided", function (assert) {
 
       step++;
       done();
-    } else if (step == 3) {
+    } else if (step === 3) {
       $messages = jQueryFrame(m);
       $sectionCollapsed = jQueryFrame(sc);
       $in = jQueryFrame(i);
@@ -282,9 +282,9 @@ QUnit.test("Ajax", function (assert) {
   waitForAjax(function () {
     $sectionCollapsed = jQueryFrame(sc);
     $in = jQueryFrame(i);
-    return step == 1
-        && $sectionCollapsed.val() == "false"
-        && $in.length == 1;
+    return step === 1
+        && $sectionCollapsed.val() === "false"
+        && $in.length === 1;
   }, function () {
     $sectionCollapsed = jQueryFrame(sc);
     $in = jQueryFrame(i);
@@ -300,7 +300,7 @@ QUnit.test("Ajax", function (assert) {
   });
 
   jQuery("#page\\:testframe").on("load", function () {
-    if (step == 2) {
+    if (step === 2) {
       $messages = jQueryFrame(m);
       $sectionCollapsed = jQueryFrame(sc);
       $in = jQueryFrame(i);
@@ -314,7 +314,7 @@ QUnit.test("Ajax", function (assert) {
 
       step++;
       done();
-    } else if (step == 3) {
+    } else if (step === 3) {
       $messages = jQueryFrame(m);
       $sectionCollapsed = jQueryFrame(sc);
       $in = jQueryFrame(i);
@@ -331,9 +331,9 @@ QUnit.test("Ajax", function (assert) {
       waitForAjax(function () {
         $sectionCollapsed = jQueryFrame(sc);
         $in = jQueryFrame(i);
-        return step == 4
-            && $sectionCollapsed.val() == "true"
-            && $in.length == 0;
+        return step === 4
+            && $sectionCollapsed.val() === "true"
+            && $in.length === 0;
       }, function () {
         $sectionCollapsed = jQueryFrame(sc);
         $in = jQueryFrame(i);
@@ -346,7 +346,7 @@ QUnit.test("Ajax", function (assert) {
         step++;
         done();
       });
-    } else if (step == 5) {
+    } else if (step === 5) {
       $messages = jQueryFrame(m);
       $sectionCollapsed = jQueryFrame(sc);
       $in = jQueryFrame(i);

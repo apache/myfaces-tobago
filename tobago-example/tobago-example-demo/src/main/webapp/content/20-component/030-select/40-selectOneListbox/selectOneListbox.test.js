@@ -69,7 +69,7 @@ QUnit.test("ajax: select Everest", function (assert) {
 
   waitForAjax(function () {
     $output = jQueryFrame("#page\\:mainForm\\:selectedMountain span");
-    return $output.text() == "8848 m";
+    return $output.text() === "8848 m";
   }, function () {
     $output = jQueryFrame("#page\\:mainForm\\:selectedMountain span");
     assert.equal($output.text(), "8848 m");
@@ -91,7 +91,7 @@ QUnit.test("ajax: select Makalu", function (assert) {
 
   waitForAjax(function () {
     $output = jQueryFrame("#page\\:mainForm\\:selectedMountain span");
-    return $output.text() == "8481 m";
+    return $output.text() === "8481 m";
   }, function () {
     $output = jQueryFrame("#page\\:mainForm\\:selectedMountain span");
     assert.equal($output.text(), "8481 m");

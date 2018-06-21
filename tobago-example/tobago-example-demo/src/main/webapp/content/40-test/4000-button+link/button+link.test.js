@@ -50,13 +50,13 @@ function testStandardCommands(commandSelector, destinationSectionSelector, asser
   $command[0].click();
 
   jQuery("#page\\:testframe").on("load", function() {
-    if (step == 1) {
+    if (step === 1) {
       $destinationSection = jQueryFrame(destinationSectionSelector);
       assert.equal($destinationSection.length, 1);
 
       var $back = jQueryFrame("#page\\:back");
       $back[0].click();
-    } else if (step == 2) {
+    } else if (step === 2) {
       $command = jQueryFrame(commandSelector);
       assert.equal($command.length, 1);
     }

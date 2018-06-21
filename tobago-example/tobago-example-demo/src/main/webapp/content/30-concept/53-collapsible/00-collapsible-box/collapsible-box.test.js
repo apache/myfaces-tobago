@@ -404,7 +404,7 @@ QUnit.test("Ajax: hide content and submit empty string", function (assert) {
 
   waitForAjax(function () {
     $in = jQueryFrame(i);
-    return step == 1 && $in.length == 1;
+    return step === 1 && $in.length === 1;
   }, function () {
     $hide = jQueryFrame(h);
     $in = jQueryFrame(i);
@@ -419,7 +419,7 @@ QUnit.test("Ajax: hide content and submit empty string", function (assert) {
 
   waitForAjax(function () {
     $in = jQueryFrame(i);
-    return step == 2 && $in.length == 0;
+    return step === 2 && $in.length === 0;
   }, function () {
     $in = jQueryFrame(i);
     $submit = jQueryFrame(s);
