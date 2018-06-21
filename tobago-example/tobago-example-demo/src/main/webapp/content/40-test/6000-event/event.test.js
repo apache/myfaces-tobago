@@ -178,7 +178,7 @@ function testEvent(assert, componentName, componentFunc, event,
     activateComponent(componentName);
     var step = 1;
 
-    jQuery("#page\\:testframe").load(function() {
+    jQuery("#page\\:testframe").on("load", function() {
       if (step == 1) {
         oldActionCount = getActionCount();
         oldActionListenerCount = getActionListenerCount();
@@ -206,7 +206,7 @@ function testEvent(assert, componentName, componentFunc, event,
 
     componentFunc().trigger(event);
 
-    jQuery("#page\\:testframe").load(function() {
+    jQuery("#page\\:testframe").on("load", function() {
       validateEvent(assert, oldActionCount, oldActionListenerCount, oldAjaxListenerCount, oldValueChangeListenerCount,
           oldTimestamp, oldPlanet, incAction, incActionListener, incAjaxListener, incValueChangeListener, changePlanet);
 
@@ -256,7 +256,7 @@ function testAjax(assert, componentName, componentFunc, event,
     activateComponent(componentName);
     var step = 1;
 
-    jQuery("#page\\:testframe").load(function() {
+    jQuery("#page\\:testframe").on("load", function() {
       if (step == 1) {
         oldActionCount = getActionCount();
         oldActionListenerCount = getActionListenerCount();

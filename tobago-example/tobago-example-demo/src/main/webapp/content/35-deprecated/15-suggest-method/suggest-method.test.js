@@ -23,15 +23,16 @@ QUnit.test("Deprecated: 'Chile'", function (assert) {
   var done = assert.async();
 
   var $in = jQueryFrame("#page\\:mainForm\\:deprecated\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:deprecated");
+  var s = "#page\\:mainForm\\:deprecated";
+  var $suggestions = getSuggestions(s);
 
   $in.val(inputString).trigger('input');
 
   waitForAjax(function () {
-    $suggestions = jQueryFrame($suggestions.selector);
+    $suggestions = getSuggestions(s);
     return $suggestions.length == expectedLength;
   }, function () {
-    $suggestions = jQueryFrame($suggestions.selector);
+    $suggestions = getSuggestions(s);
 
     assert.equal($suggestions.length, expectedLength);
     for (i = 0; i < expectedLength; i++) {
@@ -50,15 +51,16 @@ QUnit.test("Replacement: 'Chile'", function (assert) {
   var done = assert.async();
 
   var $in = jQueryFrame("#page\\:mainForm\\:replacement\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:replacement");
+  var s = "#page\\:mainForm\\:replacement";
+  var $suggestions = getSuggestions(s);
 
   $in.val(inputString).trigger('input');
 
   waitForAjax(function () {
-    $suggestions = jQueryFrame($suggestions.selector);
+    $suggestions = getSuggestions(s);
     return $suggestions.length == expectedLength;
   }, function () {
-    $suggestions = jQueryFrame($suggestions.selector);
+    $suggestions = getSuggestions(s);
 
     assert.equal($suggestions.length, expectedLength);
     for (i = 0; i < expectedLength; i++) {

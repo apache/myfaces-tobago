@@ -28,7 +28,7 @@ QUnit.test("submit: select A", function (assert) {
   $selectC.prop("checked", false);
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
+  jQuery("#page\\:testframe").on("load", function () {
     var $output = jQueryFrame("#page\\:mainForm\\:submitOutput span");
     assert.equal($output.text(), "A ");
     done();
@@ -48,7 +48,7 @@ QUnit.test("submit: select B and C", function (assert) {
   $selectC.prop("checked", true);
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
+  jQuery("#page\\:testframe").on("load", function () {
     var $output = jQueryFrame("#page\\:mainForm\\:submitOutput span");
     assert.equal($output.text(), "B C ");
     done();
@@ -64,10 +64,10 @@ QUnit.test("ajax: select D", function (assert) {
   $selectD.prop("checked", true).trigger("change");
 
   waitForAjax(function () {
-    $outputD = jQueryFrame($outputD.selector);
-    return $outputD.text() == "true";
+    $outputD = jQueryFrame("#page\\:mainForm\\:outputD span");
+    return $outputD.text() === "true";
   }, function () {
-    $outputD = jQueryFrame($outputD.selector);
+    $outputD = jQueryFrame("#page\\:mainForm\\:outputD span");
     assert.equal($outputD.text(), "true");
     done();
   });
@@ -82,10 +82,10 @@ QUnit.test("ajax: deselect D", function (assert) {
   $selectD.prop("checked", false).trigger("change");
 
   waitForAjax(function () {
-    $outputD = jQueryFrame($outputD.selector);
-    return $outputD.text() == "false";
+    $outputD = jQueryFrame("#page\\:mainForm\\:outputD span");
+    return $outputD.text() === "false";
   }, function () {
-    $outputD = jQueryFrame($outputD.selector);
+    $outputD = jQueryFrame("#page\\:mainForm\\:outputD span");
     assert.equal($outputD.text(), "false");
     done();
   });
@@ -100,10 +100,10 @@ QUnit.test("ajax: select E", function (assert) {
   $selectE.prop("checked", true).trigger("change");
 
   waitForAjax(function () {
-    $outputE = jQueryFrame($outputE.selector);
-    return $outputE.text() == "true";
+    $outputE = jQueryFrame("#page\\:mainForm\\:outputE span");
+    return $outputE.text() === "true";
   }, function () {
-    $outputE = jQueryFrame($outputE.selector);
+    $outputE = jQueryFrame("#page\\:mainForm\\:outputE span");
     assert.equal($outputE.text(), "true");
     done();
   });
@@ -118,10 +118,10 @@ QUnit.test("ajax: deselect E", function (assert) {
   $selectE.prop("checked", false).trigger("change");
 
   waitForAjax(function () {
-    $outputE = jQueryFrame($outputE.selector);
-    return $outputE.text() == "false";
+    $outputE = jQueryFrame("#page\\:mainForm\\:outputE span");
+    return $outputE.text() === "false";
   }, function () {
-    $outputE = jQueryFrame($outputE.selector);
+    $outputE = jQueryFrame("#page\\:mainForm\\:outputE span");
     assert.equal($outputE.text(), "false");
     done();
   });
@@ -136,10 +136,10 @@ QUnit.test("ajax: select F", function (assert) {
   $selectF.prop("checked", true).trigger("change");
 
   waitForAjax(function () {
-    $outputF = jQueryFrame($outputF.selector);
-    return $outputF.text() == "true";
+    $outputF = jQueryFrame("#page\\:mainForm\\:outputF span");
+    return $outputF.text() === "true";
   }, function () {
-    $outputF = jQueryFrame($outputF.selector);
+    $outputF = jQueryFrame("#page\\:mainForm\\:outputF span");
     assert.equal($outputF.text(), "true");
     done();
   });
@@ -154,10 +154,10 @@ QUnit.test("ajax: deselect F", function (assert) {
   $selectF.prop("checked", false).trigger("change");
 
   waitForAjax(function () {
-    $outputF = jQueryFrame($outputF.selector);
-    return $outputF.text() == "false";
+    $outputF = jQueryFrame("#page\\:mainForm\\:outputF span");
+    return $outputF.text() === "false";
   }, function () {
-    $outputF = jQueryFrame($outputF.selector);
+    $outputF = jQueryFrame("#page\\:mainForm\\:outputF span");
     assert.equal($outputF.text(), "false");
     done();
   });

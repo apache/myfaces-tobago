@@ -19,15 +19,16 @@ QUnit.test("Required: Submit without content.", function (assert) {
   assert.expect(1);
   var done = assert.async();
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var m = "#page\\:messages .tobago-messages";
+  var $messages = jQueryFrame(m);
   var $in = jQueryFrame("#page\\:mainForm\\:required\\:in\\:\\:field");
   var $submit = jQueryFrame("#page\\:mainForm\\:required\\:submit");
 
   $in.val("");
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
+  jQuery("#page\\:testframe").on("load", function () {
+    $messages = jQueryFrame(m);
     assert.equal($messages.length, 1);
     done();
   });
@@ -37,15 +38,16 @@ QUnit.test("Required: Submit with content.", function (assert) {
   assert.expect(1);
   var done = assert.async();
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var m = "#page\\:messages .tobago-messages";
+  var $messages = jQueryFrame(m);
   var $in = jQueryFrame("#page\\:mainForm\\:required\\:in\\:\\:field");
   var $submit = jQueryFrame("#page\\:mainForm\\:required\\:submit");
 
   $in.val("some content");
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
+  jQuery("#page\\:testframe").on("load", function () {
+    $messages = jQueryFrame(m);
     assert.equal($messages.length, 0);
     done();
   });
@@ -56,16 +58,17 @@ QUnit.test("Length: Submit single character.", function (assert) {
   var done = assert.async();
   var step = 1;
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var m = "#page\\:messages .tobago-messages";
+  var $messages = jQueryFrame(m);
   var $in = jQueryFrame("#page\\:mainForm\\:length\\:in2\\:\\:field");
   var $submit = jQueryFrame("#page\\:mainForm\\:length\\:submit2");
 
   $in.val("a");
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
+  jQuery("#page\\:testframe").on("load", function () {
     if (step === 1) {
-      $messages = jQueryFrame($messages.selector);
+      $messages = jQueryFrame(m);
       assert.equal($messages.length, 1);
 
       step++;
@@ -79,16 +82,17 @@ QUnit.test("Length: Submit three characters.", function (assert) {
   var done = assert.async();
   var step = 1;
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var m = "#page\\:messages .tobago-messages";
+  var $messages = jQueryFrame(m);
   var $in = jQueryFrame("#page\\:mainForm\\:length\\:in2\\:\\:field");
   var $submit = jQueryFrame("#page\\:mainForm\\:length\\:submit2");
 
   $in.val("abc");
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
+  jQuery("#page\\:testframe").on("load", function () {
     if (step === 1) {
-      $messages = jQueryFrame($messages.selector);
+      $messages = jQueryFrame(m);
       assert.equal($messages.length, 0);
 
       step++;
@@ -102,16 +106,17 @@ QUnit.test("Length: Submit five characters.", function (assert) {
   var done = assert.async();
   var step = 1;
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var m = "#page\\:messages .tobago-messages";
+  var $messages = jQueryFrame(m);
   var $in = jQueryFrame("#page\\:mainForm\\:length\\:in2\\:\\:field");
   var $submit = jQueryFrame("#page\\:mainForm\\:length\\:submit2");
 
   $in.val("abcde");
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
+  jQuery("#page\\:testframe").on("load", function () {
     if (step === 1) {
-      $messages = jQueryFrame($messages.selector);
+      $messages = jQueryFrame(m);
       assert.equal($messages.length, 1);
 
       step++;

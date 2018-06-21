@@ -15,20 +15,34 @@
  * limitations under the License.
  */
 
+Selectors = {};
+Selectors.testframe = "#page\\:testframe";
+Selectors.messages = "#page\\:messages .tobago-messages";
+Selectors.textarea = "#page\\:mainForm\\:required\\:textarea\\:\\:field";
+Selectors.requiredSubmit = "#page\\:mainForm\\:required\\:submit";
+Selectors.lengthField = "#page\\:mainForm\\:validateLength\\:in\\:\\:field";
+Selectors.lengthSubmit = "#page\\:mainForm\\:validateLength\\:submit";
+Selectors.rangeField = "#page\\:mainForm\\:validateRange\\:in\\:\\:field";
+Selectors.rangeSubmit = "#page\\:mainForm\\:validateRange\\:submit";
+Selectors.regexField = "#page\\:mainForm\\:regexValidation\\:in\\:\\:field";
+Selectors.regexSubmit = "#page\\:mainForm\\:regexValidation\\:submit";
+Selectors.customField = "#page\\:mainForm\\:customValidator\\:in\\:\\:field";
+Selectors.customSubmit = "#page\\:mainForm\\:customValidator\\:submit";
+
 QUnit.test("Required: Submit without content.", function (assert) {
   assert.expect(2);
   var done = assert.async();
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $textarea = jQueryFrame("#page\\:mainForm\\:required\\:textarea\\:\\:field");
+  var $messages = jQueryFrame(Selectors.messages);
+  var $textarea = jQueryFrame(Selectors.textarea);
   var textareaValue = $textarea.val();
-  var $submit = jQueryFrame("#page\\:mainForm\\:required\\:submit");
+  var $submit = jQueryFrame(Selectors.requiredSubmit);
 
   $textarea.val("");
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
+  jQuery(Selectors.testframe).on("load", function () {
+    $messages = jQueryFrame(Selectors.messages);
     assert.equal($messages.length, 1);
     assert.equal($textarea.val(), textareaValue);
     done();
@@ -39,16 +53,16 @@ QUnit.test("Required: Submit with content.", function (assert) {
   assert.expect(2);
   var done = assert.async();
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $textarea = jQueryFrame("#page\\:mainForm\\:required\\:textarea\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:required\\:submit");
+  var $messages = jQueryFrame(Selectors.messages);
+  var $textarea = jQueryFrame(Selectors.textarea);
+  var $submit = jQueryFrame(Selectors.requiredSubmit);
 
   $textarea.val("some content");
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
-    $textarea = jQueryFrame($textarea.selector);
+  jQuery(Selectors.testframe).on("load", function () {
+    $messages = jQueryFrame(Selectors.messages);
+    $textarea = jQueryFrame(Selectors.textarea);
     assert.equal($messages.length, 0);
     assert.equal($textarea.val(), "some content");
     done();
@@ -59,15 +73,15 @@ QUnit.test("Validate Length: Submit single character.", function (assert) {
   assert.expect(1);
   var done = assert.async();
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $in = jQueryFrame("#page\\:mainForm\\:validateLength\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:validateLength\\:submit");
+  var $messages = jQueryFrame(Selectors.messages);
+  var $in = jQueryFrame(Selectors.lengthField);
+  var $submit = jQueryFrame(Selectors.lengthSubmit);
 
   $in.val("a");
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
+  jQuery(Selectors.testframe).on("load", function () {
+    $messages = jQueryFrame(Selectors.messages);
     assert.equal($messages.length, 1);
     done();
   });
@@ -77,15 +91,15 @@ QUnit.test("Validate Length: Submit two character.", function (assert) {
   assert.expect(1);
   var done = assert.async();
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $in = jQueryFrame("#page\\:mainForm\\:validateLength\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:validateLength\\:submit");
+  var $messages = jQueryFrame(Selectors.messages);
+  var $in = jQueryFrame(Selectors.lengthField);
+  var $submit = jQueryFrame(Selectors.lengthSubmit);
 
   $in.val("ab");
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
+  jQuery(Selectors.testframe).on("load", function () {
+    $messages = jQueryFrame(Selectors.messages);
     assert.equal($messages.length, 0);
     done();
   });
@@ -95,15 +109,15 @@ QUnit.test("Validate Range: Submit no number.", function (assert) {
   assert.expect(1);
   var done = assert.async();
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $in = jQueryFrame("#page\\:mainForm\\:validateRange\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:validateRange\\:submit");
+  var $messages = jQueryFrame(Selectors.messages);
+  var $in = jQueryFrame(Selectors.rangeField);
+  var $submit = jQueryFrame(Selectors.rangeSubmit);
 
   $in.val("no number");
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
+  jQuery(Selectors.testframe).on("load", function () {
+    $messages = jQueryFrame(Selectors.messages);
     assert.equal($messages.length, 1);
     done();
   });
@@ -113,15 +127,15 @@ QUnit.test("Validate Range: Submit number '2' which is out of range.", function 
   assert.expect(1);
   var done = assert.async();
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $in = jQueryFrame("#page\\:mainForm\\:validateRange\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:validateRange\\:submit");
+  var $messages = jQueryFrame(Selectors.messages);
+  var $in = jQueryFrame(Selectors.rangeField);
+  var $submit = jQueryFrame(Selectors.rangeSubmit);
 
   $in.val("2");
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
+  jQuery(Selectors.testframe).on("load", function () {
+    $messages = jQueryFrame(Selectors.messages);
     assert.equal($messages.length, 1);
     done();
   });
@@ -131,15 +145,15 @@ QUnit.test("Validate Range: Submit number '78' which is out of range.", function
   assert.expect(1);
   var done = assert.async();
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $in = jQueryFrame("#page\\:mainForm\\:validateRange\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:validateRange\\:submit");
+  var $messages = jQueryFrame(Selectors.messages);
+  var $in = jQueryFrame(Selectors.rangeField);
+  var $submit = jQueryFrame(Selectors.rangeSubmit);
 
   $in.val("78");
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
+  jQuery(Selectors.testframe).on("load", function () {
+    $messages = jQueryFrame(Selectors.messages);
     assert.equal($messages.length, 1);
     done();
   });
@@ -149,15 +163,15 @@ QUnit.test("Validate Range: Submit number '64' which is within the range.", func
   assert.expect(1);
   var done = assert.async();
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $in = jQueryFrame("#page\\:mainForm\\:validateRange\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:validateRange\\:submit");
+  var $messages = jQueryFrame(Selectors.messages);
+  var $in = jQueryFrame(Selectors.rangeField);
+  var $submit = jQueryFrame(Selectors.rangeSubmit);
 
   $in.val("64");
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
+  jQuery(Selectors.testframe).on("load", function () {
+    $messages = jQueryFrame(Selectors.messages);
     assert.equal($messages.length, 0);
     done();
   });
@@ -167,15 +181,15 @@ QUnit.test("Regex Validation: Submit 'T' which violates the pattern.", function 
   assert.expect(1);
   var done = assert.async();
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $in = jQueryFrame("#page\\:mainForm\\:regexValidation\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:regexValidation\\:submit");
+  var $messages = jQueryFrame(Selectors.messages);
+  var $in = jQueryFrame(Selectors.regexField);
+  var $submit = jQueryFrame(Selectors.regexSubmit);
 
   $in.val("T");
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
+  jQuery(Selectors.testframe).on("load", function () {
+    $messages = jQueryFrame(Selectors.messages);
     assert.equal($messages.length, 1);
     done();
   });
@@ -185,15 +199,15 @@ QUnit.test("Regex Validation: Submit '3' which violates the pattern.", function 
   assert.expect(1);
   var done = assert.async();
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $in = jQueryFrame("#page\\:mainForm\\:regexValidation\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:regexValidation\\:submit");
+  var $messages = jQueryFrame(Selectors.messages);
+  var $in = jQueryFrame(Selectors.regexField);
+  var $submit = jQueryFrame(Selectors.regexSubmit);
 
   $in.val("3");
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
+  jQuery(Selectors.testframe).on("load", function () {
+    $messages = jQueryFrame(Selectors.messages);
     assert.equal($messages.length, 1);
     done();
   });
@@ -203,15 +217,15 @@ QUnit.test("Regex Validation: Submit 'T3' which is accepted.", function (assert)
   assert.expect(1);
   var done = assert.async();
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $in = jQueryFrame("#page\\:mainForm\\:regexValidation\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:regexValidation\\:submit");
+  var $messages = jQueryFrame(Selectors.messages);
+  var $in = jQueryFrame(Selectors.regexField);
+  var $submit = jQueryFrame(Selectors.regexSubmit);
 
   $in.val("T3");
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
+  jQuery(Selectors.testframe).on("load", function () {
+    $messages = jQueryFrame(Selectors.messages);
     assert.equal($messages.length, 0);
     done();
   });
@@ -221,15 +235,15 @@ QUnit.test("Custom Validator: Submit rejected string.", function (assert) {
   assert.expect(1);
   var done = assert.async();
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $in = jQueryFrame("#page\\:mainForm\\:customValidator\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:customValidator\\:submit");
+  var $messages = jQueryFrame(Selectors.messages);
+  var $in = jQueryFrame(Selectors.customField);
+  var $submit = jQueryFrame(Selectors.customSubmit);
 
   $in.val("java");
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
+  jQuery(Selectors.testframe).on("load", function () {
+    $messages = jQueryFrame(Selectors.messages);
     assert.equal($messages.length, 1);
     done();
   });
@@ -239,15 +253,15 @@ QUnit.test("Custom Validator: Submit accepted string.", function (assert) {
   assert.expect(1);
   var done = assert.async();
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $in = jQueryFrame("#page\\:mainForm\\:customValidator\\:in\\:\\:field");
-  var $submit = jQueryFrame("#page\\:mainForm\\:customValidator\\:submit");
+  var $messages = jQueryFrame(Selectors.messages);
+  var $in = jQueryFrame(Selectors.customField);
+  var $submit = jQueryFrame(Selectors.customSubmit);
 
   $in.val("tobago");
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
-    $messages = jQueryFrame($messages.selector);
+  jQuery(Selectors.testframe).on("load", function () {
+    $messages = jQueryFrame(Selectors.messages);
     assert.equal($messages.length, 0);
     done();
   });

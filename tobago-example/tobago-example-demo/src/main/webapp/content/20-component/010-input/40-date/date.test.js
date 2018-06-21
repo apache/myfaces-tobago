@@ -61,11 +61,11 @@ QUnit.test("submit", function(assert) {
   assert.ok(jQueryFrame(".bootstrap-datetimepicker-widget").get(0),
       ".bootstrap-datetimepicker-widget should be available");
 
-  $days = jQueryFrame($days.selector);
+  $days = jQueryFrame(".bootstrap-datetimepicker-widget .day");
   var day22 = 0;
   for (i = 0; i < $days.length; i++) {
-    $days = jQueryFrame($days.selector);
-    if ($days.eq(i).text() == "22") {
+    $days = jQueryFrame(".bootstrap-datetimepicker-widget .day");
+    if ($days.eq(i).text() === "22") {
       day22 = i;
       break;
     }
@@ -76,7 +76,7 @@ QUnit.test("submit", function(assert) {
   assert.equal($dateField.val(), "01.06.2016");
   $submitButton.click();
 
-  jQuery("#page\\:testframe").load(function () {
+  jQuery("#page\\:testframe").on("load", function () {
     $outField = jQueryFrame("#page\\:mainForm\\:formSubmit\\:output span");
     assert.equal($outField.text(), "01.06.2016");
     done();
@@ -101,10 +101,10 @@ QUnit.test("ajax", function (assert) {
   assert.equal($dateField.val(), today);
 
   waitForAjax(function () {
-    $outField = jQueryFrame($outField.selector);
-    return $outField.text() == today;
+    $outField = jQueryFrame("#page\\:mainForm\\:outputfield span");
+    return $outField.text() === today;
   }, function () {
-    $outField = jQueryFrame($outField.selector);
+    $outField = jQueryFrame("#page\\:mainForm\\:outputfield span");
     assert.equal($outField.text(), today);
     done();
   });

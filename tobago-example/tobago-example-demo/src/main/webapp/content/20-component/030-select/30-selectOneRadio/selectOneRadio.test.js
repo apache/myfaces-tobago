@@ -30,7 +30,7 @@ QUnit.test("submit: Addition (2 + 4)", function (assert) {
   $number2.eq(2).prop("checked", true); // Select 4
   $submitAdd.click();
 
-  jQuery("#page\\:testframe").load(function () {
+  jQuery("#page\\:testframe").on("load", function () {
     var $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
     assert.equal($output.text(), "6");
     done();
@@ -52,7 +52,7 @@ QUnit.test("submit: Subtraction (4 - 1)", function (assert) {
   $number2.eq(2).prop("checked", false);
   $submitSub.click();
 
-  jQuery("#page\\:testframe").load(function () {
+  jQuery("#page\\:testframe").on("load", function () {
     var $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
     assert.equal($output.text(), "3");
     done();
@@ -70,11 +70,11 @@ QUnit.test("ajax: select Mars", function (assert) {
   $planet.eq(1).prop("checked", true).trigger("change"); // Mars.
 
   waitForAjax(function () {
-    $moons = jQueryFrame($moons.selector);
+    $moons = jQueryFrame("#page\\:mainForm\\:moonradio li label");
     return $moons.eq(0).text() == "Phobos"
         && $moons.eq(1).text() == "Deimos";
   }, function () {
-    $moons = jQueryFrame($moons.selector);
+    $moons = jQueryFrame("#page\\:mainForm\\:moonradio li label");
     assert.equal($moons.eq(0).text(), "Phobos");
     assert.equal($moons.eq(1).text(), "Deimos");
     done();
@@ -92,13 +92,13 @@ QUnit.test("ajax: select Jupiter", function (assert) {
   $planet.eq(2).prop("checked", true).trigger("change"); // Jupiter.
 
   waitForAjax(function () {
-    $moons = jQueryFrame($moons.selector);
+    $moons = jQueryFrame("#page\\:mainForm\\:moonradio li label");
     return $moons.eq(0).text() == "Europa"
         && $moons.eq(1).text() == "Ganymed"
         && $moons.eq(2).text() == "Io"
         && $moons.eq(3).text() == "Kallisto";
   }, function () {
-    $moons = jQueryFrame($moons.selector);
+    $moons = jQueryFrame("#page\\:mainForm\\:moonradio li label");
     assert.equal($moons.eq(0).text(), "Europa");
     assert.equal($moons.eq(1).text(), "Ganymed");
     assert.equal($moons.eq(2).text(), "Io");

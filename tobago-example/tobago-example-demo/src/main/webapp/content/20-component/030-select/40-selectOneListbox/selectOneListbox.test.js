@@ -28,7 +28,7 @@ QUnit.test("submit: select 'Nile'", function (assert) {
   $rivers.eq(4).prop("selected", false); // Paraná River
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
+  jQuery("#page\\:testframe").on("load", function () {
     var $output = jQueryFrame("#page\\:mainForm\\:riverOutput span");
     assert.equal($output.text(), "6853 km");
     done();
@@ -48,7 +48,7 @@ QUnit.test("submit: select 'Yangtze'", function (assert) {
   $rivers.eq(4).prop("selected", false); // Paraná River
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
+  jQuery("#page\\:testframe").on("load", function () {
     var $output = jQueryFrame("#page\\:mainForm\\:riverOutput span");
     assert.equal($output.text(), "6300 km");
     done();
@@ -68,10 +68,10 @@ QUnit.test("ajax: select Everest", function (assert) {
   $mountains.eq(0).prop("selected", true).trigger("change"); // Everest
 
   waitForAjax(function () {
-    $output = jQueryFrame($output.selector);
+    $output = jQueryFrame("#page\\:mainForm\\:selectedMountain span");
     return $output.text() == "8848 m";
   }, function () {
-    $output = jQueryFrame($output.selector);
+    $output = jQueryFrame("#page\\:mainForm\\:selectedMountain span");
     assert.equal($output.text(), "8848 m");
     done();
   });
@@ -90,10 +90,10 @@ QUnit.test("ajax: select Makalu", function (assert) {
   $mountains.eq(4).prop("selected", true).trigger("change"); // Everest
 
   waitForAjax(function () {
-    $output = jQueryFrame($output.selector);
+    $output = jQueryFrame("#page\\:mainForm\\:selectedMountain span");
     return $output.text() == "8481 m";
   }, function () {
-    $output = jQueryFrame($output.selector);
+    $output = jQueryFrame("#page\\:mainForm\\:selectedMountain span");
     assert.equal($output.text(), "8481 m");
     done();
   });

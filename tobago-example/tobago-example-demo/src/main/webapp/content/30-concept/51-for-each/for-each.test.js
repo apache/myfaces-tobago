@@ -20,24 +20,31 @@ QUnit.test("Add a river and reset.", function (assert) {
   var done = assert.async(3);
   var step = 1;
 
-  var $name = jQueryFrame("#page\\:mainForm\\:add\\:inName\\:\\:field");
-  var $length = jQueryFrame("#page\\:mainForm\\:add\\:inLength\\:\\:field");
-  var $discharge = jQueryFrame("#page\\:mainForm\\:add\\:inDischarge\\:\\:field");
-  var $add = jQueryFrame("#page\\:mainForm\\:add\\:button");
-  var $reset = jQueryFrame("#page\\:mainForm\\:reset\\:button");
-  var $forEachBoxes = jQueryFrame("#page\\:mainForm\\:forEach .tobago-box");
-  var $uiRepeatSections = jQueryFrame("#page\\:mainForm\\:uiRepeat .tobago-section");
+  var n = "#page\\:mainForm\\:add\\:inName\\:\\:field";
+  var $name = jQueryFrame(n);
+  var l = "#page\\:mainForm\\:add\\:inLength\\:\\:field";
+  var $length = jQueryFrame(l);
+  var d = "#page\\:mainForm\\:add\\:inDischarge\\:\\:field";
+  var $discharge = jQueryFrame(d);
+  var a = "#page\\:mainForm\\:add\\:button";
+  var $add = jQueryFrame(a);
+  var r = "#page\\:mainForm\\:reset\\:button";
+  var $reset = jQueryFrame(r);
+  var feb = "#page\\:mainForm\\:forEach .tobago-box";
+  var $forEachBoxes = jQueryFrame(feb);
+  var urs = "#page\\:mainForm\\:uiRepeat .tobago-section";
+  var $uiRepeatSections = jQueryFrame(urs);
 
   $reset.click();
 
-  jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
-      $name = jQueryFrame($name.selector);
-      $length = jQueryFrame($length.selector);
-      $discharge = jQueryFrame($discharge.selector);
-      $add = jQueryFrame($add.selector);
-      $forEachBoxes = jQueryFrame($forEachBoxes.selector);
-      $uiRepeatSections = jQueryFrame($uiRepeatSections.selector);
+  jQuery("#page\\:testframe").on("load", function () {
+    if (step === 1) {
+      $name = jQueryFrame(n);
+      $length = jQueryFrame(l);
+      $discharge = jQueryFrame(d);
+      $add = jQueryFrame(a);
+      $forEachBoxes = jQueryFrame(feb);
+      $uiRepeatSections = jQueryFrame(urs);
 
       assert.equal($forEachBoxes.length, 3);
       assert.equal($uiRepeatSections.length, 3);
@@ -48,10 +55,10 @@ QUnit.test("Add a river and reset.", function (assert) {
       $add.click();
 
       done();
-    } else if (step == 2) {
-      $reset = jQueryFrame($reset.selector);
-      $forEachBoxes = jQueryFrame($forEachBoxes.selector);
-      $uiRepeatSections = jQueryFrame($uiRepeatSections.selector);
+    } else if (step === 2) {
+      $reset = jQueryFrame(r);
+      $forEachBoxes = jQueryFrame(feb);
+      $uiRepeatSections = jQueryFrame(urs);
 
       assert.equal($forEachBoxes.length, 4);
       assert.equal($uiRepeatSections.length, 4);
@@ -59,9 +66,9 @@ QUnit.test("Add a river and reset.", function (assert) {
       $reset.click();
 
       done();
-    } else if (step == 3) {
-      $forEachBoxes = jQueryFrame($forEachBoxes.selector);
-      $uiRepeatSections = jQueryFrame($uiRepeatSections.selector);
+    } else if (step === 3) {
+      $forEachBoxes = jQueryFrame(feb);
+      $uiRepeatSections = jQueryFrame(urs);
 
       assert.equal($forEachBoxes.length, 3);
       assert.equal($uiRepeatSections.length, 3);

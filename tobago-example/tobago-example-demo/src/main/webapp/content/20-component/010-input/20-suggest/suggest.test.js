@@ -23,18 +23,18 @@ QUnit.test("Basics: 'C'", function(assert) {
   var done = assert.async();
 
   var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
+  var $suggestions = getSuggestionsInBasic();
 
   $in.val(inputString).trigger('input');
 
   waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    $suggestions = getSuggestionsInBasic();
+    return $suggestions.length === expectedLength;
   }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
+    $suggestions = getSuggestionsInBasic();
 
     assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
+    for (var i = 0; i < expectedLength; i++) {
       assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
 
@@ -51,18 +51,18 @@ QUnit.test("Basics: 'Ch'", function(assert) {
   var done = assert.async();
 
   var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
+  var $suggestions = getSuggestionsInBasic();
 
   $in.val(inputString).trigger('input');
 
   waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    $suggestions = getSuggestionsInBasic();
+    return $suggestions.length === expectedLength;
   }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
+    $suggestions = getSuggestionsInBasic();
 
     assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
+    for (var i = 0; i < expectedLength; i++) {
       assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
 
@@ -78,18 +78,18 @@ QUnit.test("Basics: 'Chi'", function(assert) {
   var done = assert.async();
 
   var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
+  var $suggestions = getSuggestionsInBasic();
 
   $in.val(inputString).trigger('input');
 
   waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    $suggestions = getSuggestionsInBasic();
+    return $suggestions.length === expectedLength;
   }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
+    $suggestions = getSuggestionsInBasic();
 
     assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
+    for (var i = 0; i < expectedLength; i++) {
       assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
 
@@ -105,18 +105,18 @@ QUnit.test("Basics: 'Chil'", function(assert) {
   var done = assert.async();
 
   var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
+  var $suggestions = getSuggestionsInBasic();
 
   $in.val(inputString).trigger('input');
 
   waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    $suggestions = getSuggestionsInBasic();
+    return $suggestions.length === expectedLength;
   }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
+    $suggestions = getSuggestionsInBasic();
 
     assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
+    for (var i = 0; i < expectedLength; i++) {
       assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
 
@@ -132,18 +132,18 @@ QUnit.test("Basics: 'Chile'", function(assert) {
   var done = assert.async();
 
   var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
+  var $suggestions = getSuggestionsInBasic();
 
   $in.val(inputString).trigger('input');
 
   waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    $suggestions = getSuggestionsInBasic();
+    return $suggestions.length === expectedLength;
   }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
+    $suggestions = getSuggestionsInBasic();
 
     assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
+    for (var i = 0; i < expectedLength; i++) {
       assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
 
@@ -159,18 +159,18 @@ QUnit.test("Basics: 'Chile '", function(assert) {
   var done = assert.async();
 
   var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
+  var $suggestions = getSuggestionsInBasic();
 
   $in.val(inputString).trigger('input');
 
   waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    $suggestions = getSuggestionsInBasic();
+    return $suggestions.length === expectedLength;
   }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
+    $suggestions = getSuggestionsInBasic();
 
     assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
+    for (var i = 0; i < expectedLength; i++) {
       assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
 
@@ -186,18 +186,18 @@ QUnit.test("Basics: 'Chile ('", function(assert) {
   var done = assert.async();
 
   var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
+  var $suggestions = getSuggestionsInBasic();
 
   $in.val(inputString).trigger('input');
 
   waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    $suggestions = getSuggestionsInBasic();
+    return $suggestions.length === expectedLength;
   }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
+    $suggestions = getSuggestionsInBasic();
 
     assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
+    for (var i = 0; i < expectedLength; i++) {
       assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
 
@@ -213,18 +213,18 @@ QUnit.test("Basics: 'Chile (e'", function(assert) {
   var done = assert.async();
 
   var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
+  var $suggestions = getSuggestionsInBasic();
 
   $in.val(inputString).trigger('input');
 
   waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    $suggestions = getSuggestionsInBasic();
+    return $suggestions.length === expectedLength;
   }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
+    $suggestions = getSuggestionsInBasic();
 
     assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
+    for (var i = 0; i < expectedLength; i++) {
       assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
 
@@ -240,18 +240,18 @@ QUnit.test("Basics: 'Chile (es'", function(assert) {
   var done = assert.async();
 
   var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
+  var $suggestions = getSuggestionsInBasic();
 
   $in.val(inputString).trigger('input');
 
   waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    $suggestions = getSuggestionsInBasic();
+    return $suggestions.length === expectedLength;
   }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
+    $suggestions = getSuggestionsInBasic();
 
     assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
+    for (var i = 0; i < expectedLength; i++) {
       assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
 
@@ -267,18 +267,18 @@ QUnit.test("Basics: 'Chile (esp'", function(assert) {
   var done = assert.async();
 
   var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
+  var $suggestions = getSuggestionsInBasic();
 
   $in.val(inputString).trigger('input');
 
   waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    $suggestions = getSuggestionsInBasic();
+    return $suggestions.length === expectedLength;
   }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
+    $suggestions = getSuggestionsInBasic();
 
     assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
+    for (var i = 0; i < expectedLength; i++) {
       assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
 
@@ -294,18 +294,18 @@ QUnit.test("Basics: 'Chile (espa'", function(assert) {
   var done = assert.async();
 
   var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
+  var $suggestions = getSuggestionsInBasic();
 
   $in.val(inputString).trigger('input');
 
   waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    $suggestions = getSuggestionsInBasic();
+    return $suggestions.length === expectedLength;
   }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
+    $suggestions = getSuggestionsInBasic();
 
     assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
+    for (var i = 0; i < expectedLength; i++) {
       assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
 
@@ -321,18 +321,18 @@ QUnit.test("Basics: 'Chile (espan'", function(assert) {
   var done = assert.async();
 
   var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
+  var $suggestions = getSuggestionsInBasic();
 
   $in.val(inputString).trigger('input');
 
   waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    $suggestions = getSuggestionsInBasic();
+    return $suggestions.length === expectedLength;
   }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
+    $suggestions = getSuggestionsInBasic();
 
     assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
+    for (var i = 0; i < expectedLength; i++) {
       assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
 
@@ -348,18 +348,18 @@ QUnit.test("Basics: 'Chile (espanj'", function(assert) {
   var done = assert.async();
 
   var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
+  var $suggestions = getSuggestionsInBasic();
 
   $in.val(inputString).trigger('input');
 
   waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    $suggestions = getSuggestionsInBasic();
+    return $suggestions.length === expectedLength;
   }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
+    $suggestions = getSuggestionsInBasic();
 
     assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
+    for (var i = 0; i < expectedLength; i++) {
       assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
 
@@ -375,18 +375,18 @@ QUnit.test("Basics: 'Chile (espanja'", function(assert) {
   var done = assert.async();
 
   var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
+  var $suggestions = getSuggestionsInBasic();
 
   $in.val(inputString).trigger('input');
 
   waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    $suggestions = getSuggestionsInBasic();
+    return $suggestions.length === expectedLength;
   }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
+    $suggestions = getSuggestionsInBasic();
 
     assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
+    for (var i = 0; i < expectedLength; i++) {
       assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
 
@@ -402,18 +402,18 @@ QUnit.test("Basics: 'Chile (espanja)'", function(assert) {
   var done = assert.async();
 
   var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
+  var $suggestions = getSuggestionsInBasic();
 
   $in.val(inputString).trigger('input');
 
   waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == expectedLength;
+    $suggestions = getSuggestionsInBasic();
+    return $suggestions.length === expectedLength;
   }, function() {
-    $suggestions = jQueryFrame($suggestions.selector);
+    $suggestions = getSuggestionsInBasic();
 
     assert.equal($suggestions.length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
+    for (var i = 0; i < expectedLength; i++) {
       assert.ok($suggestions.eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
 
@@ -426,22 +426,23 @@ QUnit.test("Basics: Add 'Belgiu' and click first entry.", function(assert) {
   var done = assert.async();
 
   assert.equal(1, 1);
-  var $in = jQueryFrame("#page\\:mainForm\\:inBasic\\:\\:field");
+  var inSelector = "#page\\:mainForm\\:inBasic\\:\\:field";
+  var $in = jQueryFrame(inSelector);
   assert.equal(1, 1);
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inBasic");
+  var $suggestions = getSuggestionsInBasic();
   assert.equal(1, 1);
 
   $in.val("Belgiu").trigger('input');
   assert.equal($in.val(), "Belgiu");
 
   waitForAjax(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
-    return $suggestions.length == 2;
+    $suggestions = getSuggestionsInBasic();
+    return $suggestions.length === 2;
   }, function() {
     assert.equal(1, 1);
-    $in = jQueryFrame($in.selector);
+    $in = jQueryFrame(inSelector);
     assert.equal(1, 1);
-    $suggestions = jQueryFrame($suggestions.selector);
+    $suggestions = getSuggestionsInBasic();
     assert.equal(1, 1);
 
     assert.equal($suggestions.length, 2);
@@ -462,17 +463,17 @@ QUnit.test("Advanced: 'H'", function(assert) {
   var done = assert.async();
 
   var $in = jQueryFrame("#page\\:mainForm\\:inAdvanced\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inAdvanced");
+  var $suggestions = getSuggestionsInAdvanced();
   var suggestionDelay = 2000;
 
   $in.val("H").trigger('input');
 
   setTimeout(function() {
     waitForAjax(function() {
-      $suggestions = jQueryFrame($suggestions.selector);
-      return $suggestions.length == 0;
+      $suggestions = getSuggestionsInAdvanced();
+      return $suggestions.length === 0;
     }, function() {
-      $suggestions = jQueryFrame($suggestions.selector);
+      $suggestions = getSuggestionsInAdvanced();
       assert.equal($suggestions.length, 0);
       done();
     });
@@ -483,14 +484,15 @@ QUnit.test("Advanced: 'Ho'", function(assert) {
   assert.expect(4);
   var done = assert.async(2);
 
-  var $in = jQueryFrame("#page\\:mainForm\\:inAdvanced\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inAdvanced");
+  var inSelector = "#page\\:mainForm\\:inAdvanced\\:\\:field";
+  var $in = jQueryFrame(inSelector);
+  var $suggestions = getSuggestionsInAdvanced();
   var suggestionDelay = 2000;
 
   $in.val("Ho").trigger('input');
 
   setTimeout(function() {
-    $suggestions = jQueryFrame($suggestions.selector);
+    $suggestions = getSuggestionsInAdvanced();
 
     // Nothing happen, because the delay is greater than the default delay.
     assert.equal($suggestions.length, 0);
@@ -500,15 +502,15 @@ QUnit.test("Advanced: 'Ho'", function(assert) {
 
   setTimeout(function() {
     waitForAjax(function() {
-      $in = jQueryFrame($in.selector);
-      $suggestions = jQueryFrame($suggestions.selector);
+      $in = jQueryFrame(inSelector);
+      $suggestions = getSuggestionsInAdvanced();
 
-      return $suggestions.length == 2
-          && $suggestions.eq(0).find("strong").text() == "ho"
-          && $suggestions.eq(1).find("strong").text() == "ho";
+      return $suggestions.length === 2
+          && $suggestions.eq(0).find("strong").text() === "ho"
+          && $suggestions.eq(1).find("strong").text() === "ho";
     }, function() {
-      $in = jQueryFrame($in.selector);
-      $suggestions = jQueryFrame($suggestions.selector);
+      $in = jQueryFrame(inSelector);
+      $suggestions = getSuggestionsInAdvanced();
 
       assert.equal($suggestions.length, 2);
       assert.equal($suggestions.eq(0).find("strong").text(), "ho");
@@ -523,17 +525,29 @@ QUnit.test("Client sided: 'Korean'", function(assert) {
   assert.expect(5);
 
   var $in = jQueryFrame("#page\\:mainForm\\:inClient\\:\\:field");
-  var $suggestions = getSuggestions("#page\\:mainForm\\:inClient");
+  var $suggestions = getSuggestionsInClient();
 
   $in.val("Korean").trigger('input');
 
-  $suggestions = jQueryFrame($suggestions.selector);
+  $suggestions = getSuggestionsInClient();
   assert.equal($suggestions.length, 4);
   assert.equal($suggestions.eq(0).find("strong").text(), "Korean");
   assert.equal($suggestions.eq(1).find("strong").text(), "Korean");
   assert.equal($suggestions.eq(2).find("strong").text(), "Korean");
   assert.equal($suggestions.eq(3).find("strong").text(), "Korean");
 });
+
+function getSuggestionsInBasic() {
+  return getSuggestions("#page\\:mainForm\\:inBasic")
+}
+
+function getSuggestionsInAdvanced() {
+  return getSuggestions("#page\\:mainForm\\:inAdvanced")
+}
+
+function getSuggestionsInClient() {
+  return getSuggestions("#page\\:mainForm\\:inClient");
+}
 
 function getSuggestions(id) {
   return jQueryFrame(Tobago.Utils.escapeClientId(

@@ -19,9 +19,12 @@ QUnit.test("ajax excecute", function (assert) {
   assert.expect(3);
   var done = assert.async();
 
-  var $timestamp = jQueryFrame("#page\\:mainForm\\:timestamp span");
-  var $text = jQueryFrame("#page\\:mainForm\\:outText span");
-  var $tip = jQueryFrame("#page\\:mainForm\\:outTip span");
+  var ts = "#page\\:mainForm\\:timestamp span";
+  var $timestamp = jQueryFrame(ts);
+  var tx = "#page\\:mainForm\\:outText span";
+  var $text = jQueryFrame(tx);
+  var tp = "#page\\:mainForm\\:outTip span";
+  var $tip = jQueryFrame(tp);
   var $button = jQueryFrame("#page\\:mainForm\\:ajaxButton");
 
   var timestampValue = $timestamp.text();
@@ -31,17 +34,17 @@ QUnit.test("ajax excecute", function (assert) {
   $button.click();
 
   waitForAjax(function () {
-    $timestamp = jQueryFrame($timestamp.selector);
-    $text = jQueryFrame($text.selector);
-    $tip = jQueryFrame($tip.selector);
+    $timestamp = jQueryFrame(ts);
+    $text = jQueryFrame(tx);
+    $tip = jQueryFrame(tp);
 
     return $timestamp.text() !== timestampValue
         && $text.text() === textValue
         && $tip.attr('title') === tipValue;
   }, function () {
-    $timestamp = jQueryFrame($timestamp.selector);
-    $text = jQueryFrame($text.selector);
-    $tip = jQueryFrame($tip.selector);
+    $timestamp = jQueryFrame(ts);
+    $text = jQueryFrame(tx);
+    $tip = jQueryFrame(tp);
 
     assert.notEqual($timestamp.text(), timestampValue);
     assert.equal($text.text(), textValue);

@@ -20,19 +20,24 @@ QUnit.test("Simple Popup", function (assert) {
   var done = assert.async(5);
   var step = 1;
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var messagesSelector = "#page\\:messages .tobago-messages";
+  var $messages = jQueryFrame(messagesSelector);
   var $open = jQueryFrame("#page\\:mainForm\\:simple\\:open1");
-  var $submitOnPage = jQueryFrame("#page\\:mainForm\\:simple\\:submitOnPage1");
-  var $in = jQueryFrame("#page\\:mainForm\\:simple\\:controllerPopup\\:in1\\:\\:field");
-  var $submitOnPopup = jQueryFrame("#page\\:mainForm\\:simple\\:controllerPopup\\:submitOnPopup1");
-  var $close = jQueryFrame("#page\\:mainForm\\:simple\\:controllerPopup\\:close1");
+  var submitOnPageSelector = "#page\\:mainForm\\:simple\\:submitOnPage1";
+  var $submitOnPage = jQueryFrame(submitOnPageSelector);
+  var inSelector = "#page\\:mainForm\\:simple\\:controllerPopup\\:in1\\:\\:field";
+  var $in = jQueryFrame(inSelector);
+  var submitOnPopupSelector = "#page\\:mainForm\\:simple\\:controllerPopup\\:submitOnPopup1";
+  var $submitOnPopup = jQueryFrame(submitOnPopupSelector);
+  var closeSelector = "#page\\:mainForm\\:simple\\:controllerPopup\\:close1";
+  var $close = jQueryFrame(closeSelector);
 
   $open.click();
 
-  jQuery("#page\\:testframe").load(function () {
+  jQuery("#page\\:testframe").on("load", function () {
     if (step == 1) {
-      $in = jQueryFrame($in.selector);
-      $submitOnPopup = jQueryFrame($submitOnPopup.selector);
+      $in = jQueryFrame(inSelector);
+      $submitOnPopup = jQueryFrame(submitOnPopupSelector);
 
       assert.equal($in.length, 1);
       $in.val("some text");
@@ -40,9 +45,9 @@ QUnit.test("Simple Popup", function (assert) {
 
       done();
     } else if (step == 2) {
-      $messages = jQueryFrame($messages.selector);
-      $in = jQueryFrame($in.selector);
-      $submitOnPopup = jQueryFrame($submitOnPopup.selector);
+      $messages = jQueryFrame(messagesSelector);
+      $in = jQueryFrame(inSelector);
+      $submitOnPopup = jQueryFrame(submitOnPopupSelector);
 
       assert.equal($messages.length, 0);
       assert.equal($in.length, 1);
@@ -52,9 +57,9 @@ QUnit.test("Simple Popup", function (assert) {
 
       done();
     } else if (step == 3) {
-      $messages = jQueryFrame($messages.selector);
-      $in = jQueryFrame($in.selector);
-      $close = jQueryFrame($close.selector);
+      $messages = jQueryFrame(messagesSelector);
+      $in = jQueryFrame(inSelector);
+      $close = jQueryFrame(closeSelector);
 
       assert.equal($messages.length, 1);
       assert.equal($in.length, 1);
@@ -63,15 +68,15 @@ QUnit.test("Simple Popup", function (assert) {
 
       done();
     } else if (step == 4) {
-      $submitOnPage = jQueryFrame($submitOnPage.selector);
-      $in = jQueryFrame($in.selector);
+      $submitOnPage = jQueryFrame(submitOnPageSelector);
+      $in = jQueryFrame(inSelector);
 
       assert.equal($in.length, 0);
       $submitOnPage.click();
 
       done();
     } else if (step == 5) {
-      $messages = jQueryFrame($messages.selector);
+      $messages = jQueryFrame(messagesSelector);
 
       assert.equal($messages.length, 0);
 
@@ -86,19 +91,24 @@ QUnit.test("Full Server Request", function (assert) {
   var done = assert.async(5);
   var step = 1;
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var messagesSelector = "#page\\:messages .tobago-messages";
+  var $messages = jQueryFrame(messagesSelector);
   var $open = jQueryFrame("#page\\:mainForm\\:server\\:open2");
-  var $submitOnPage = jQueryFrame("#page\\:mainForm\\:server\\:submitOnPage2");
-  var $in = jQueryFrame("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:in2\\:\\:field");
-  var $submitOnPopup = jQueryFrame("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:submitOnPopup2");
-  var $close = jQueryFrame("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:close2");
+  var submitOnPageSelector = "#page\\:mainForm\\:server\\:submitOnPage2";
+  var $submitOnPage = jQueryFrame(submitOnPageSelector);
+  var inSelector = "#page\\:mainForm\\:server\\:fullServerRequestPopup\\:in2\\:\\:field";
+  var $in = jQueryFrame(inSelector);
+  var submitOnPopupSelector = "#page\\:mainForm\\:server\\:fullServerRequestPopup\\:submitOnPopup2";
+  var $submitOnPopup = jQueryFrame(submitOnPopupSelector);
+  var closeSelector = "#page\\:mainForm\\:server\\:fullServerRequestPopup\\:close2";
+  var $close = jQueryFrame(closeSelector);
 
   $open.click();
 
-  jQuery("#page\\:testframe").load(function () {
+  jQuery("#page\\:testframe").on("load", function () {
     if (step == 1) {
-      $in = jQueryFrame($in.selector);
-      $submitOnPopup = jQueryFrame($submitOnPopup.selector);
+      $in = jQueryFrame(inSelector);
+      $submitOnPopup = jQueryFrame(submitOnPopupSelector);
 
       assert.equal($in.length, 1);
       $in.val("some text");
@@ -106,9 +116,9 @@ QUnit.test("Full Server Request", function (assert) {
 
       done();
     } else if (step == 2) {
-      $messages = jQueryFrame($messages.selector);
-      $in = jQueryFrame($in.selector);
-      $submitOnPopup = jQueryFrame($submitOnPopup.selector);
+      $messages = jQueryFrame(messagesSelector);
+      $in = jQueryFrame(inSelector);
+      $submitOnPopup = jQueryFrame(submitOnPopupSelector);
 
       assert.equal($messages.length, 0);
       assert.equal($in.length, 1);
@@ -118,9 +128,9 @@ QUnit.test("Full Server Request", function (assert) {
 
       done();
     } else if (step == 3) {
-      $messages = jQueryFrame($messages.selector);
-      $in = jQueryFrame($in.selector);
-      $close = jQueryFrame($close.selector);
+      $messages = jQueryFrame(messagesSelector);
+      $in = jQueryFrame(inSelector);
+      $close = jQueryFrame(closeSelector);
 
       assert.equal($messages.length, 1);
       assert.equal($in.length, 1);
@@ -129,15 +139,15 @@ QUnit.test("Full Server Request", function (assert) {
 
       done();
     } else if (step == 4) {
-      $submitOnPage = jQueryFrame($submitOnPage.selector);
-      $in = jQueryFrame($in.selector);
+      $submitOnPage = jQueryFrame(submitOnPageSelector);
+      $in = jQueryFrame(inSelector);
 
       assert.equal($in.length, 0);
       $submitOnPage.click();
 
       done();
     } else if (step == 5) {
-      $messages = jQueryFrame($messages.selector);
+      $messages = jQueryFrame(messagesSelector);
 
       assert.equal($messages.length, 0);
 
@@ -152,12 +162,18 @@ QUnit.test("Client Sided", function (assert) {
   var done = assert.async(3);
   var step = 1;
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
-  var $open = jQueryFrame("#page\\:mainForm\\:client\\:open3");
-  var $submitOnPage = jQueryFrame("#page\\:mainForm\\:client\\:submitOnPage3");
-  var $popupCollapsed = jQueryFrame("#page\\:mainForm\\:client\\:clientPopup\\:\\:collapse");
-  var $in = jQueryFrame("#page\\:mainForm\\:client\\:clientPopup\\:in3\\:\\:field");
-  var $submitOnPopup = jQueryFrame("#page\\:mainForm\\:client\\:clientPopup\\:submitOnPopup3");
+  var messagesSelector = "#page\\:messages .tobago-messages";
+  var $messages = jQueryFrame(messagesSelector);
+  var openSelector = "#page\\:mainForm\\:client\\:open3";
+  var $open = jQueryFrame(openSelector);
+  var submitOnPageSelector = "#page\\:mainForm\\:client\\:submitOnPage3";
+  var $submitOnPage = jQueryFrame(submitOnPageSelector);
+  var popupCollapsedSelector = "#page\\:mainForm\\:client\\:clientPopup\\:\\:collapse";
+  var $popupCollapsed = jQueryFrame(popupCollapsedSelector);
+  var inSelector = "#page\\:mainForm\\:client\\:clientPopup\\:in3\\:\\:field";
+  var $in = jQueryFrame(inSelector);
+  var submitOnPopupSelector = "#page\\:mainForm\\:client\\:clientPopup\\:submitOnPopup3";
+  var $submitOnPopup = jQueryFrame(submitOnPopupSelector);
   var $close = jQueryFrame("#page\\:mainForm\\:client\\:clientPopup\\:close3");
 
   $open.click();
@@ -169,13 +185,13 @@ QUnit.test("Client Sided", function (assert) {
   $in.val("some text");
   $submitOnPopup.click();
 
-  jQuery("#page\\:testframe").load(function () {
+  jQuery("#page\\:testframe").on("load", function () {
     if (step == 1) {
-      $messages = jQueryFrame($messages.selector);
-      $open = jQueryFrame($open.selector);
-      $popupCollapsed = jQueryFrame($popupCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $submitOnPopup = jQueryFrame($submitOnPopup.selector);
+      $messages = jQueryFrame(messagesSelector);
+      $open = jQueryFrame(openSelector);
+      $popupCollapsed = jQueryFrame(popupCollapsedSelector);
+      $in = jQueryFrame(inSelector);
+      $submitOnPopup = jQueryFrame(submitOnPopupSelector);
 
       assert.equal($messages.length, 0);
       assert.equal($popupCollapsed.val(), "true");
@@ -186,9 +202,9 @@ QUnit.test("Client Sided", function (assert) {
 
       done();
     } else if (step == 2) {
-      $messages = jQueryFrame($messages.selector);
-      $submitOnPage = jQueryFrame($submitOnPage.selector);
-      $popupCollapsed = jQueryFrame($popupCollapsed.selector);
+      $messages = jQueryFrame(messagesSelector);
+      $submitOnPage = jQueryFrame(submitOnPageSelector);
+      $popupCollapsed = jQueryFrame(popupCollapsedSelector);
 
       assert.equal($messages.length, 1);
       assert.equal($popupCollapsed.val(), "true");
@@ -196,7 +212,7 @@ QUnit.test("Client Sided", function (assert) {
 
       done();
     } else if (step == 3) {
-      $messages = jQueryFrame($messages.selector);
+      $messages = jQueryFrame(messagesSelector);
 
       assert.equal($messages.length, 1);
 

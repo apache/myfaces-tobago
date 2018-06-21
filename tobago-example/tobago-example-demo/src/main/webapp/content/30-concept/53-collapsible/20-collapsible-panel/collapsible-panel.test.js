@@ -20,20 +20,25 @@ QUnit.test("Simple Panel", function (assert) {
   var done = assert.async(5);
   var step = 1;
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var m = "#page\\:messages .tobago-messages";
+  var $messages = jQueryFrame(m);
   var $show = jQueryFrame("#\\page\\:mainForm\\:simple\\:showSimple");
-  var $hide = jQueryFrame("#\\page\\:mainForm\\:simple\\:hideSimple");
-  var $submit = jQueryFrame("#\\page\\:mainForm\\:simple\\:submitSimple");
-  var $panelCollapsed = jQueryFrame("#page\\:mainForm\\:simple\\:simplePanel\\:\\:collapse");
-  var $in = jQueryFrame("#page\\:mainForm\\:simple\\:inSimple\\:\\:field");
+  var h = "#\\page\\:mainForm\\:simple\\:hideSimple";
+  var $hide = jQueryFrame(h);
+  var s = "#\\page\\:mainForm\\:simple\\:submitSimple";
+  var $submit = jQueryFrame(s);
+  var pc = "#page\\:mainForm\\:simple\\:simplePanel\\:\\:collapse";
+  var $panelCollapsed = jQueryFrame(pc);
+  var i = "#page\\:mainForm\\:simple\\:inSimple\\:\\:field";
+  var $in = jQueryFrame(i);
 
   $show.click();
 
-  jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
-      $panelCollapsed = jQueryFrame($panelCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $submit = jQueryFrame($submit.selector);
+  jQuery("#page\\:testframe").on("load", function () {
+    if (step === 1) {
+      $panelCollapsed = jQueryFrame(pc);
+      $in = jQueryFrame(i);
+      $submit = jQueryFrame(s);
 
       assert.equal($panelCollapsed.val(), "false");
       assert.equal($in.length, 1);
@@ -42,11 +47,11 @@ QUnit.test("Simple Panel", function (assert) {
 
       step++;
       done();
-    } else if (step == 2) {
-      $messages = jQueryFrame($messages.selector);
-      $panelCollapsed = jQueryFrame($panelCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $submit = jQueryFrame($submit.selector);
+    } else if (step === 2) {
+      $messages = jQueryFrame(m);
+      $panelCollapsed = jQueryFrame(pc);
+      $in = jQueryFrame(i);
+      $submit = jQueryFrame(s);
 
       assert.equal($messages.length, 0);
       assert.equal($panelCollapsed.val(), "false");
@@ -56,11 +61,11 @@ QUnit.test("Simple Panel", function (assert) {
 
       step++;
       done();
-    } else if (step == 3) {
-      $messages = jQueryFrame($messages.selector);
-      $panelCollapsed = jQueryFrame($panelCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $hide = jQueryFrame($hide.selector);
+    } else if (step === 3) {
+      $messages = jQueryFrame(m);
+      $panelCollapsed = jQueryFrame(pc);
+      $in = jQueryFrame(i);
+      $hide = jQueryFrame(h);
 
       assert.equal($messages.length, 1);
       assert.equal($panelCollapsed.val(), "false");
@@ -69,11 +74,11 @@ QUnit.test("Simple Panel", function (assert) {
 
       step++;
       done();
-    } else if (step == 4) {
-      $messages = jQueryFrame($messages.selector);
-      $panelCollapsed = jQueryFrame($panelCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $submit = jQueryFrame($submit.selector);
+    } else if (step === 4) {
+      $messages = jQueryFrame(m);
+      $panelCollapsed = jQueryFrame(pc);
+      $in = jQueryFrame(i);
+      $submit = jQueryFrame(s);
 
       assert.equal($messages.length, 0);
       assert.equal($panelCollapsed.val(), "true");
@@ -82,10 +87,10 @@ QUnit.test("Simple Panel", function (assert) {
 
       step++;
       done();
-    } else if (step == 5) {
-      $messages = jQueryFrame($messages.selector);
-      $panelCollapsed = jQueryFrame($panelCollapsed.selector);
-      $in = jQueryFrame($in.selector);
+    } else if (step === 5) {
+      $messages = jQueryFrame(m);
+      $panelCollapsed = jQueryFrame(pc);
+      $in = jQueryFrame(i);
 
       assert.equal($messages.length, 0);
       assert.equal($panelCollapsed.val(), "true");
@@ -101,20 +106,25 @@ QUnit.test("Full Server Request", function (assert) {
   var done = assert.async(5);
   var step = 1;
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var m = "#page\\:messages .tobago-messages";
+  var $messages = jQueryFrame(m);
   var $show = jQueryFrame("#\\page\\:mainForm\\:server\\:showServer");
-  var $hide = jQueryFrame("#\\page\\:mainForm\\:server\\:hideServer");
-  var $submit = jQueryFrame("#\\page\\:mainForm\\:server\\:submitServer");
-  var $panelCollapsed = jQueryFrame("#page\\:mainForm\\:server\\:serverPanel\\:\\:collapse");
-  var $in = jQueryFrame("#page\\:mainForm\\:server\\:inServer\\:\\:field");
+  var h = "#\\page\\:mainForm\\:server\\:hideServer";
+  var $hide = jQueryFrame(h);
+  var s = "#\\page\\:mainForm\\:server\\:submitServer";
+  var $submit = jQueryFrame(s);
+  var pc = "#page\\:mainForm\\:server\\:serverPanel\\:\\:collapse";
+  var $panelCollapsed = jQueryFrame(pc);
+  var i = "#page\\:mainForm\\:server\\:inServer\\:\\:field";
+  var $in = jQueryFrame(i);
 
   $show.click();
 
-  jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
-      $panelCollapsed = jQueryFrame($panelCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $submit = jQueryFrame($submit.selector);
+  jQuery("#page\\:testframe").on("load", function () {
+    if (step === 1) {
+      $panelCollapsed = jQueryFrame(pc);
+      $in = jQueryFrame(i);
+      $submit = jQueryFrame(s);
 
       assert.equal($panelCollapsed.val(), "false");
       assert.equal($in.length, 1);
@@ -123,11 +133,11 @@ QUnit.test("Full Server Request", function (assert) {
 
       step++;
       done();
-    } else if (step == 2) {
-      $messages = jQueryFrame($messages.selector);
-      $panelCollapsed = jQueryFrame($panelCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $submit = jQueryFrame($submit.selector);
+    } else if (step === 2) {
+      $messages = jQueryFrame(m);
+      $panelCollapsed = jQueryFrame(pc);
+      $in = jQueryFrame(i);
+      $submit = jQueryFrame(s);
 
       assert.equal($messages.length, 0);
       assert.equal($panelCollapsed.val(), "false");
@@ -137,11 +147,11 @@ QUnit.test("Full Server Request", function (assert) {
 
       step++;
       done();
-    } else if (step == 3) {
-      $messages = jQueryFrame($messages.selector);
-      $panelCollapsed = jQueryFrame($panelCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $hide = jQueryFrame($hide.selector);
+    } else if (step === 3) {
+      $messages = jQueryFrame(m);
+      $panelCollapsed = jQueryFrame(pc);
+      $in = jQueryFrame(i);
+      $hide = jQueryFrame(h);
 
       assert.equal($messages.length, 1);
       assert.equal($panelCollapsed.val(), "false");
@@ -150,11 +160,11 @@ QUnit.test("Full Server Request", function (assert) {
 
       step++;
       done();
-    } else if (step == 4) {
-      $messages = jQueryFrame($messages.selector);
-      $panelCollapsed = jQueryFrame($panelCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $submit = jQueryFrame($submit.selector);
+    } else if (step === 4) {
+      $messages = jQueryFrame(m);
+      $panelCollapsed = jQueryFrame(pc);
+      $in = jQueryFrame(i);
+      $submit = jQueryFrame(s);
 
       assert.equal($messages.length, 0);
       assert.equal($panelCollapsed.val(), "true");
@@ -163,10 +173,10 @@ QUnit.test("Full Server Request", function (assert) {
 
       step++;
       done();
-    } else if (step == 5) {
-      $messages = jQueryFrame($messages.selector);
-      $panelCollapsed = jQueryFrame($panelCollapsed.selector);
-      $in = jQueryFrame($in.selector);
+    } else if (step === 5) {
+      $messages = jQueryFrame(m);
+      $panelCollapsed = jQueryFrame(pc);
+      $in = jQueryFrame(i);
 
       assert.equal($messages.length, 0);
       assert.equal($panelCollapsed.val(), "true");
@@ -182,12 +192,17 @@ QUnit.test("Client Sided", function (assert) {
   var done = assert.async(3);
   var step = 1;
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var m = "#page\\:messages .tobago-messages";
+  var $messages = jQueryFrame(m);
   var $show = jQueryFrame("#\\page\\:mainForm\\:client\\:showClient");
-  var $hide = jQueryFrame("#\\page\\:mainForm\\:client\\:hideClient");
-  var $submit = jQueryFrame("#\\page\\:mainForm\\:client\\:submitClient");
-  var $panelCollapsed = jQueryFrame("#page\\:mainForm\\:client\\:clientPanel\\:\\:collapse");
-  var $in = jQueryFrame("#page\\:mainForm\\:client\\:inClient\\:\\:field");
+  var h = "#\\page\\:mainForm\\:client\\:hideClient";
+  var $hide = jQueryFrame(h);
+  var s = "#\\page\\:mainForm\\:client\\:submitClient";
+  var $submit = jQueryFrame(s);
+  var pc = "#page\\:mainForm\\:client\\:clientPanel\\:\\:collapse";
+  var $panelCollapsed = jQueryFrame(pc);
+  var i = "#page\\:mainForm\\:client\\:inClient\\:\\:field";
+  var $in = jQueryFrame(i);
 
   $show.click();
   assert.equal($panelCollapsed.val(), "false");
@@ -195,12 +210,12 @@ QUnit.test("Client Sided", function (assert) {
   $in.val("some text");
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
-    if (step == 1) {
-      $messages = jQueryFrame($messages.selector);
-      $panelCollapsed = jQueryFrame($panelCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $submit = jQueryFrame($submit.selector);
+  jQuery("#page\\:testframe").on("load", function () {
+    if (step === 1) {
+      $messages = jQueryFrame(m);
+      $panelCollapsed = jQueryFrame(pc);
+      $in = jQueryFrame(i);
+      $submit = jQueryFrame(s);
 
       assert.equal($messages.length, 0);
       assert.equal($panelCollapsed.val(), "false");
@@ -210,12 +225,12 @@ QUnit.test("Client Sided", function (assert) {
 
       step++;
       done();
-    } else if (step == 2) {
-      $messages = jQueryFrame($messages.selector);
-      $panelCollapsed = jQueryFrame($panelCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $hide = jQueryFrame($hide.selector);
-      $submit = jQueryFrame($submit.selector);
+    } else if (step === 2) {
+      $messages = jQueryFrame(m);
+      $panelCollapsed = jQueryFrame(pc);
+      $in = jQueryFrame(i);
+      $hide = jQueryFrame(h);
+      $submit = jQueryFrame(s);
 
       assert.equal($messages.length, 1);
       assert.equal($panelCollapsed.val(), "false");
@@ -229,10 +244,10 @@ QUnit.test("Client Sided", function (assert) {
 
       step++;
       done();
-    } else if (step == 3) {
-      $messages = jQueryFrame($messages.selector);
-      $panelCollapsed = jQueryFrame($panelCollapsed.selector);
-      $in = jQueryFrame($in.selector);
+    } else if (step === 3) {
+      $messages = jQueryFrame(m);
+      $panelCollapsed = jQueryFrame(pc);
+      $in = jQueryFrame(i);
 
       assert.equal($messages.length, 1);
       assert.equal($panelCollapsed.val(), "false");
@@ -248,25 +263,30 @@ QUnit.test("Ajax", function (assert) {
   var done = assert.async(5);
   var step = 1;
 
-  var $messages = jQueryFrame("#page\\:messages .tobago-messages");
+  var m = "#page\\:messages .tobago-messages";
+  var $messages = jQueryFrame(m);
   var $show = jQueryFrame("#\\page\\:mainForm\\:ajax\\:showAjax");
-  var $hide = jQueryFrame("#\\page\\:mainForm\\:ajax\\:hideAjax");
-  var $submit = jQueryFrame("#\\page\\:mainForm\\:ajax\\:submitAjax");
-  var $panelCollapsed = jQueryFrame("#page\\:mainForm\\:ajax\\:ajaxPanel\\:\\:collapse");
-  var $in = jQueryFrame("#page\\:mainForm\\:ajax\\:inAjax\\:\\:field");
+  var h = "#\\page\\:mainForm\\:ajax\\:hideAjax";
+  var $hide = jQueryFrame(h);
+  var s = "#\\page\\:mainForm\\:ajax\\:submitAjax";
+  var $submit = jQueryFrame(s);
+  var pc = "#page\\:mainForm\\:ajax\\:ajaxPanel\\:\\:collapse";
+  var $panelCollapsed = jQueryFrame(pc);
+  var i = "#page\\:mainForm\\:ajax\\:inAjax\\:\\:field";
+  var $in = jQueryFrame(i);
 
   $show.click();
 
   waitForAjax(function () {
-    $panelCollapsed = jQueryFrame($panelCollapsed.selector);
-    $in = jQueryFrame($in.selector);
-    return step == 1
+    $panelCollapsed = jQueryFrame(pc);
+    $in = jQueryFrame(i);
+    return step === 1
         && $panelCollapsed.val() == "false"
-        && $in.length == 1;
+        && $in.length === 1;
   }, function () {
-    $panelCollapsed = jQueryFrame($panelCollapsed.selector);
-    $in = jQueryFrame($in.selector);
-    $submit = jQueryFrame($submit.selector);
+    $panelCollapsed = jQueryFrame(pc);
+    $in = jQueryFrame(i);
+    $submit = jQueryFrame(s);
 
     assert.equal($panelCollapsed.val(), "false");
     assert.equal($in.length, 1);
@@ -277,12 +297,12 @@ QUnit.test("Ajax", function (assert) {
     done();
   });
 
-  jQuery("#page\\:testframe").load(function () {
-    if (step == 2) {
-      $messages = jQueryFrame($messages.selector);
-      $panelCollapsed = jQueryFrame($panelCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $submit = jQueryFrame($submit.selector);
+  jQuery("#page\\:testframe").on("load", function () {
+    if (step === 2) {
+      $messages = jQueryFrame(m);
+      $panelCollapsed = jQueryFrame(pc);
+      $in = jQueryFrame(i);
+      $submit = jQueryFrame(s);
 
       assert.equal($messages.length, 0);
       assert.equal($panelCollapsed.val(), "false");
@@ -292,11 +312,11 @@ QUnit.test("Ajax", function (assert) {
 
       step++;
       done();
-    } else if (step == 3) {
-      $messages = jQueryFrame($messages.selector);
-      $panelCollapsed = jQueryFrame($panelCollapsed.selector);
-      $in = jQueryFrame($in.selector);
-      $hide = jQueryFrame($hide.selector);
+    } else if (step === 3) {
+      $messages = jQueryFrame(m);
+      $panelCollapsed = jQueryFrame(pc);
+      $in = jQueryFrame(i);
+      $hide = jQueryFrame(h);
 
       assert.equal($messages.length, 1);
       assert.equal($panelCollapsed.val(), "false");
@@ -307,15 +327,15 @@ QUnit.test("Ajax", function (assert) {
       done();
 
       waitForAjax(function () {
-        $panelCollapsed = jQueryFrame($panelCollapsed.selector);
-        $in = jQueryFrame($in.selector);
-        return step == 4
+        $panelCollapsed = jQueryFrame(pc);
+        $in = jQueryFrame(i);
+        return step === 4
             && $panelCollapsed.val() == "true"
-            && $in.length == 0;
+            && $in.length === 0;
       }, function () {
-        $panelCollapsed = jQueryFrame($panelCollapsed.selector);
-        $in = jQueryFrame($in.selector);
-        $submit = jQueryFrame($submit.selector);
+        $panelCollapsed = jQueryFrame(pc);
+        $in = jQueryFrame(i);
+        $submit = jQueryFrame(s);
 
         assert.equal($panelCollapsed.val(), "true");
         assert.equal($in.length, 0);
@@ -324,10 +344,10 @@ QUnit.test("Ajax", function (assert) {
         step++;
         done();
       });
-    } else if (step == 5) {
-      $messages = jQueryFrame($messages.selector);
-      $panelCollapsed = jQueryFrame($panelCollapsed.selector);
-      $in = jQueryFrame($in.selector);
+    } else if (step === 5) {
+      $messages = jQueryFrame(m);
+      $panelCollapsed = jQueryFrame(pc);
+      $in = jQueryFrame(i);
 
       assert.equal($messages.length, 0);
       assert.equal($panelCollapsed.val(), "true");

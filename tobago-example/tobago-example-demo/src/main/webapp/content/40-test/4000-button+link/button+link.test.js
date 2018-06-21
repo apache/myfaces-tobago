@@ -19,51 +19,45 @@ QUnit.test("Standard Action Button", function(assert) {
   assert.expect(2);
   var done = assert.async(2);
 
-  var $command = jQueryFrame("#page\\:mainForm\\:standardButtonAction");
-  var $destinationSection = jQueryFrame("#page\\:actionSection");
-  testStandardCommands($command, $destinationSection, assert, done);
+  testStandardCommands("#page\\:mainForm\\:standardButtonAction", "#page\\:actionSection", assert, done);
 });
 
 QUnit.test("Standard Link Button", function(assert) {
   assert.expect(2);
   var done = assert.async(2);
 
-  var $command = jQueryFrame("#page\\:mainForm\\:standardButtonLink");
-  var $destinationSection = jQueryFrame("#page\\:linkSection");
-  testStandardCommands($command, $destinationSection, assert, done);
+  testStandardCommands("#page\\:mainForm\\:standardButtonLink", "#page\\:linkSection", assert, done);
 });
 
 QUnit.test("Standard Action Link", function(assert) {
   assert.expect(2);
   var done = assert.async(2);
 
-  var $command = jQueryFrame("#page\\:mainForm\\:standardLinkAction");
-  var $destinationSection = jQueryFrame("#page\\:actionSection");
-  testStandardCommands($command, $destinationSection, assert, done);
+  testStandardCommands("#page\\:mainForm\\:standardLinkAction", "#page\\:actionSection", assert, done);
 });
 
 QUnit.test("Standard Link Link", function(assert) {
   assert.expect(2);
   var done = assert.async(2);
 
-  var $command = jQueryFrame("#page\\:mainForm\\:standardLinkLink");
-  var $destinationSection = jQueryFrame("#page\\:linkSection");
-  testStandardCommands($command, $destinationSection, assert, done);
+  testStandardCommands("#page\\:mainForm\\:standardLinkLink", "#page\\:linkSection", assert, done);
 });
 
-function testStandardCommands($command, $destinationSection, assert, done) {
+function testStandardCommands(commandSelector, destinationSectionSelector, assert, done) {
   var step = 1;
+  var $command = jQueryFrame(commandSelector);
+  var $destinationSection = jQueryFrame(destinationSectionSelector);
   $command[0].click();
 
-  jQuery("#page\\:testframe").load(function() {
+  jQuery("#page\\:testframe").on("load", function() {
     if (step == 1) {
-      $destinationSection = jQueryFrame($destinationSection.selector);
+      $destinationSection = jQueryFrame(destinationSectionSelector);
       assert.equal($destinationSection.length, 1);
 
       var $back = jQueryFrame("#page\\:back");
       $back[0].click();
     } else if (step == 2) {
-      $command = jQueryFrame($command.selector);
+      $command = jQueryFrame(commandSelector);
       assert.equal($command.length, 1);
     }
     step++;
@@ -93,21 +87,19 @@ QUnit.test("Target Action Link", function(assert) {
   assert.expect(1);
   var done = assert.async();
 
-  var $command = jQueryFrame("#page\\:mainForm\\:targetLinkAction");
-  var $destinationSection = jQueryTargetFrame("#page\\:actionSection");
-  testTargetCommands($command, $destinationSection, assert, done);
+  testTargetCommands("#page\\:mainForm\\:targetLinkAction", "#page\\:actionSection", assert, done);
 });
 
 QUnit.test("Target Link Link", function(assert) {
   assert.expect(1);
   var done = assert.async();
 
-  var $command = jQueryFrame("#page\\:mainForm\\:targetLinkLink");
-  var $destinationSection = jQueryTargetFrame("#page\\:linkSection");
-  testTargetCommands($command, $destinationSection, assert, done);
+  testTargetCommands("#page\\:mainForm\\:targetLinkLink", "#page\\:linkSection", assert, done);
 });
 
-function testTargetCommands($command, $destinationSection, assert, done) {
+function testTargetCommands(commandSelector, destinationSectionSelector, assert, done) {
+  var $command = jQueryFrame(commandSelector);
+  var $destinationSection = jQueryFrame(destinationSectionSelector);
   $command[0].click();
 
   /*
@@ -115,10 +107,10 @@ function testTargetCommands($command, $destinationSection, assert, done) {
    * so the waitForAjax() method is used instead.
    */
   waitForAjax(function() {
-    $destinationSection = jQueryTargetFrame($destinationSection.selector);
-    return $destinationSection.length == 1;
+    $destinationSection = jQueryTargetFrame(destinationSectionSelector);
+    return $destinationSection.length === 1;
   }, function() {
-    $destinationSection = jQueryTargetFrame($destinationSection.selector);
+    $destinationSection = jQueryTargetFrame(destinationSectionSelector);
     assert.equal($destinationSection.length, 1);
     done();
   });

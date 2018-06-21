@@ -26,7 +26,7 @@ QUnit.test("submit: Alice", function (assert) {
   $bob.prop("selected", false);
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
+  jQuery("#page\\:testframe").on("load", function () {
     var $output = jQueryFrame("#page\\:mainForm\\:outputPerson span");
     assert.equal($output.text(), "Alice Anderson");
     done();
@@ -44,7 +44,7 @@ QUnit.test("submit: Bob", function (assert) {
   $bob.prop("selected", true);
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
+  jQuery("#page\\:testframe").on("load", function () {
     var $output = jQueryFrame("#page\\:mainForm\\:outputPerson span");
     assert.equal($output.text(), "Bob Brunch");
     done();
@@ -62,11 +62,11 @@ QUnit.test("ajax: select Mars", function (assert) {
   $mars.prop("selected", true).trigger("change");
 
   waitForAjax(function () {
-    $moons = jQueryFrame($moons.selector);
+    $moons = jQueryFrame("#page\\:mainForm\\:moonbox\\:\\:field option");
     return $moons.eq(0).text() == "Phobos"
         && $moons.eq(1).text() == "Deimos";
   }, function () {
-    $moons = jQueryFrame($moons.selector);
+    $moons = jQueryFrame("#page\\:mainForm\\:moonbox\\:\\:field option");
     assert.equal($moons.eq(0).text(), "Phobos");
     assert.equal($moons.eq(1).text(), "Deimos");
     done();
@@ -84,13 +84,13 @@ QUnit.test("ajax: select Jupiter", function (assert) {
   $jupiter.prop("selected", true).trigger("change");
 
   waitForAjax(function () {
-    $moons = jQueryFrame($moons.selector);
+    $moons = jQueryFrame("#page\\:mainForm\\:moonbox\\:\\:field option");
     return $moons.eq(0).text() == "Europa"
         && $moons.eq(1).text() == "Ganymed"
         && $moons.eq(2).text() == "Io"
         && $moons.eq(3).text() == "Kallisto";
   }, function () {
-    $moons = jQueryFrame($moons.selector);
+    $moons = jQueryFrame("#page\\:mainForm\\:moonbox\\:\\:field option");
     assert.equal($moons.eq(0).text(), "Europa");
     assert.equal($moons.eq(1).text(), "Ganymed");
     assert.equal($moons.eq(2).text(), "Io");

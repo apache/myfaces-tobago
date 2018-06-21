@@ -16,7 +16,10 @@
  */
 
 function jQueryFrame(expression) {
-  return document.getElementById("page:testframe").contentWindow.jQuery(expression);
+  var elementById = document.getElementById("page:testframe");
+  var contentWindow = elementById.contentWindow;
+  console.log("expression=" + expression);
+  return contentWindow.jQuery(expression);
 }
 
 /**

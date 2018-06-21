@@ -27,18 +27,18 @@ QUnit.test("Open 'Simple Popup' and press 'Cancel'.", function(assert) {
   assert.equal($popup.attr("value"), "true");
   $openButton.click();
 
-  jQuery("#page\\:testframe").load(function() {
+  jQuery("#page\\:testframe").on("load", function() {
     if (step == 1) {
-      $popup = jQueryFrame($popup.selector);
+      $popup = jQueryFrame("#page\\:mainForm\\:form1\\:popup input");
       assert.equal($popup.attr("value"), "false");
 
-      $cancelButton = jQueryFrame($cancelButton.selector);
+      $cancelButton = jQueryFrame("#page\\:mainForm\\:form1\\:popup\\:cancel1");
       $cancelButton.click();
 
       step++;
       done();
     } else if (step == 2) {
-      $popup = jQueryFrame($popup.selector);
+      $popup = jQueryFrame("#page\\:mainForm\\:form1\\:popup input");
       assert.equal($popup.attr("value"), "true");
 
       done();
@@ -62,11 +62,11 @@ QUnit.test("Open 'Simple Popup', press 'Submit' while field is empty. Press 'Can
   assert.equal($popup.attr("value"), "true");
   $openButton.click();
 
-  jQuery("#page\\:testframe").load(function() {
+  jQuery("#page\\:testframe").on("load", function() {
     if (step == 1) {
-      $popup = jQueryFrame($popup.selector);
-      $inputField = jQueryFrame($inputField.selector);
-      $submitButton = jQueryFrame($submitButton.selector);
+      $popup = jQueryFrame("#page\\:mainForm\\:form1\\:popup input");
+      $inputField = jQueryFrame("#page\\:mainForm\\:form1\\:popup\\:in1\\:\\:field");
+      $submitButton = jQueryFrame("#page\\:mainForm\\:form1\\:popup\\:submit1");
 
       assert.equal($popup.attr("value"), "false");
       $inputField.val("");
@@ -75,8 +75,8 @@ QUnit.test("Open 'Simple Popup', press 'Submit' while field is empty. Press 'Can
       step++;
       done();
     } else if (step == 2) {
-      $popup = jQueryFrame($popup.selector);
-      $cancelButton = jQueryFrame($cancelButton.selector);
+      $popup = jQueryFrame("#page\\:mainForm\\:form1\\:popup input");
+      $cancelButton = jQueryFrame("#page\\:mainForm\\:form1\\:popup\\:cancel1");
 
       assert.equal($popup.attr("value"), "false");
       $cancelButton.click();
@@ -84,8 +84,8 @@ QUnit.test("Open 'Simple Popup', press 'Submit' while field is empty. Press 'Can
       step++;
       done();
     } else if (step == 3) {
-      $popup = jQueryFrame($popup.selector);
-      $output = jQueryFrame($output.selector);
+      $popup = jQueryFrame("#page\\:mainForm\\:form1\\:popup input");
+      $output = jQueryFrame("#page\\:mainForm\\:form1\\:output span");
 
       assert.equal($popup.attr("value"), "true");
       assert.equal($output.text(), outputValue);
@@ -110,11 +110,11 @@ QUnit.test("Open 'Simple Popup', press 'Submit' while field has content. Press '
   assert.equal($popup.attr("value"), "true");
   $openButton.click();
 
-  jQuery("#page\\:testframe").load(function() {
+  jQuery("#page\\:testframe").on("load", function() {
     if (step == 1) {
-      $popup = jQueryFrame($popup.selector);
-      $inputField = jQueryFrame($inputField.selector);
-      $submitButton = jQueryFrame($submitButton.selector);
+      $popup = jQueryFrame("#page\\:mainForm\\:form1\\:popup input");
+      $inputField = jQueryFrame("#page\\:mainForm\\:form1\\:popup\\:in1\\:\\:field");
+      $submitButton = jQueryFrame("#page\\:mainForm\\:form1\\:popup\\:submit1");
 
       assert.equal($popup.attr("value"), "false");
       $inputField.val("Hello Popup!");
@@ -123,8 +123,8 @@ QUnit.test("Open 'Simple Popup', press 'Submit' while field has content. Press '
       step++;
       done();
     } else if (step == 2) {
-      $popup = jQueryFrame($popup.selector);
-      $cancelButton = jQueryFrame($cancelButton.selector);
+      $popup = jQueryFrame("#page\\:mainForm\\:form1\\:popup input");
+      $cancelButton = jQueryFrame("#page\\:mainForm\\:form1\\:popup\\:cancel1");
 
       assert.equal($popup.attr("value"), "false");
       $cancelButton.click();
@@ -132,8 +132,8 @@ QUnit.test("Open 'Simple Popup', press 'Submit' while field has content. Press '
       step++;
       done();
     } else if (step == 3) {
-      $popup = jQueryFrame($popup.selector);
-      $output = jQueryFrame($output.selector);
+      $popup = jQueryFrame("#page\\:mainForm\\:form1\\:popup input");
+      $output = jQueryFrame("#page\\:mainForm\\:form1\\:output span");
 
       assert.equal($popup.attr("value"), "true");
       assert.equal($output.text(), "Hello Popup!");
@@ -159,11 +159,11 @@ QUnit.test("Open 'Simple Popup', press 'Submit & Close' while field is empty. Pr
   assert.equal($popup.attr("value"), "true");
   $openButton.click();
 
-  jQuery("#page\\:testframe").load(function() {
+  jQuery("#page\\:testframe").on("load", function() {
     if (step == 1) {
-      $popup = jQueryFrame($popup.selector);
-      $inputField = jQueryFrame($inputField.selector);
-      $submitCloseButton = jQueryFrame($submitCloseButton.selector);
+      $popup = jQueryFrame("#page\\:mainForm\\:form1\\:popup input");
+      $inputField = jQueryFrame("#page\\:mainForm\\:form1\\:popup\\:in1\\:\\:field");
+      $submitCloseButton = jQueryFrame("#page\\:mainForm\\:form1\\:popup\\:submitClose1");
 
       assert.equal($popup.attr("value"), "false");
       $inputField.val("");
@@ -172,8 +172,8 @@ QUnit.test("Open 'Simple Popup', press 'Submit & Close' while field is empty. Pr
       step++;
       done();
     } else if (step == 2) {
-      $popup = jQueryFrame($popup.selector);
-      $cancelButton = jQueryFrame($cancelButton.selector);
+      $popup = jQueryFrame("#page\\:mainForm\\:form1\\:popup input");
+      $cancelButton = jQueryFrame("#page\\:mainForm\\:form1\\:popup\\:cancel1");
 
       assert.equal($popup.attr("value"), "false");
       $cancelButton.click();
@@ -181,8 +181,8 @@ QUnit.test("Open 'Simple Popup', press 'Submit & Close' while field is empty. Pr
       step++;
       done();
     } else if (step == 3) {
-      $popup = jQueryFrame($popup.selector);
-      $output = jQueryFrame($output.selector);
+      $popup = jQueryFrame("#page\\:mainForm\\:form1\\:popup input");
+      $output = jQueryFrame("#page\\:mainForm\\:form1\\:output span");
 
       assert.equal($popup.attr("value"), "true");
       assert.equal($output.text(), outputValue);
@@ -207,11 +207,11 @@ QUnit.test("Open 'Simple Popup', press 'Submit & Close' while field has content.
   assert.equal($popup.attr("value"), "true");
   $openButton.click();
 
-  jQuery("#page\\:testframe").load(function() {
+  jQuery("#page\\:testframe").on("load", function() {
     if (step == 1) {
-      $popup = jQueryFrame($popup.selector);
-      $inputField = jQueryFrame($inputField.selector);
-      $submitCloseButton = jQueryFrame($submitCloseButton.selector);
+      $popup = jQueryFrame("#page\\:mainForm\\:form1\\:popup input");
+      $inputField = jQueryFrame("#page\\:mainForm\\:form1\\:popup\\:in1\\:\\:field");
+      $submitCloseButton = jQueryFrame("#page\\:mainForm\\:form1\\:popup\\:submitClose1");
 
       assert.equal($popup.attr("value"), "false");
       $inputField.val("press submit and close test");
@@ -220,8 +220,8 @@ QUnit.test("Open 'Simple Popup', press 'Submit & Close' while field has content.
       step++;
       done();
     } else if (step == 2) {
-      $popup = jQueryFrame($popup.selector);
-      $output = jQueryFrame($output.selector);
+      $popup = jQueryFrame("#page\\:mainForm\\:form1\\:popup input");
+      $output = jQueryFrame("#page\\:mainForm\\:form1\\:output span");
 
       assert.equal($popup.attr("value"), "true");
       assert.equal($output.text(), "press submit and close test");
@@ -266,12 +266,12 @@ QUnit.test("Open 'Client Popup', press 'Submit' while field is empty. Press 'Can
   $submitButton.click();
 
   waitForAjax(function() {
-    $messages = jQueryFrame($messages.selector);
+    $messages = jQueryFrame("#page\\:mainForm\\:form2\\:clientPopup\\:messages");
     return $messages.length == 1;
   }, function() {
-    $output = jQueryFrame($output.selector);
-    $messages = jQueryFrame($messages.selector);
-    $cancelButton = jQueryFrame($cancelButton.selector);
+    $output = jQueryFrame("#page\\:mainForm\\:form2\\:output span");
+    $messages = jQueryFrame("#page\\:mainForm\\:form2\\:clientPopup\\:messages");
+    $cancelButton = jQueryFrame("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
 
     assert.equal($messages.length, 1);
     $cancelButton.click();
@@ -301,12 +301,12 @@ QUnit.test("Open 'Client Popup', press 'Submit' while field has content. Press '
   $submitButton.click();
 
   waitForAjax(function() {
-    $messages = jQueryFrame($messages.selector);
+    $messages = jQueryFrame("#page\\:mainForm\\:form2\\:clientPopup\\:messages");
     return $messages.length == 0;
   }, function() {
-    $output = jQueryFrame($output.selector);
-    $messages = jQueryFrame($messages.selector);
-    $cancelButton = jQueryFrame($cancelButton.selector);
+    $output = jQueryFrame("#page\\:mainForm\\:form2\\:out span");
+    $messages = jQueryFrame("#page\\:mainForm\\:form2\\:clientPopup\\:messages");
+    $cancelButton = jQueryFrame("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
 
     assert.equal($messages.length, 0);
     $cancelButton.click();
@@ -334,9 +334,9 @@ QUnit.test("Open 'Client Popup', press 'Submit & Close' while field is empty.", 
   $inputField.val("");
   $submitCloseButton.click();
 
-  jQuery("#page\\:testframe").load(function() {
-    $popup = jQueryFrame($popup.selector);
-    $output = jQueryFrame($output.selector);
+  jQuery("#page\\:testframe").on("load", function() {
+    $popup = jQueryFrame("#page\\:mainForm\\:form2\\:clientPopup input");
+    $output = jQueryFrame("#page\\:mainForm\\:form2\\:output span");
 
     assert.equal($popup.attr("value"), "true");
     assert.equal($output.text(), outputValue);
@@ -361,9 +361,9 @@ QUnit.test("Open 'Simple Popup', press 'Submit & Close' while field has content.
   $inputField.val("test client popup - submit and close button");
   $submitCloseButton.click();
 
-  jQuery("#page\\:testframe").load(function() {
-    $popup = jQueryFrame($popup.selector);
-    $output = jQueryFrame($output.selector);
+  jQuery("#page\\:testframe").on("load", function() {
+    $popup = jQueryFrame("#page\\:mainForm\\:form2\\:clientPopup input");
+    $output = jQueryFrame("#page\\:mainForm\\:form2\\:out span");
 
     assert.equal($popup.attr("value"), "true");
     assert.equal($output.text(), "test client popup - submit and close button");

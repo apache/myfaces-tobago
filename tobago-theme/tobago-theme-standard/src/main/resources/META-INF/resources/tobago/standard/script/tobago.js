@@ -623,7 +623,7 @@ var Tobago = {
     if (self == top) {
       jQuery(".tobago-page-preventFrameAttacks").removeClass("tobago-page-preventFrameAttacks");
     } else {
-      if (jQuery(".tobago-page-preventFrameAttacks").size() > 0) { // preventFrameAttacks is true
+      if (jQuery(".tobago-page-preventFrameAttacks").length > 0) { // preventFrameAttacks is true
         var page = Tobago.findPage();
         page.attr("title", "This application can't be used embedded inside an other site " +
         "(configuration: prevent-frame-attacks=true)!");

@@ -27,7 +27,7 @@ QUnit.test("submit: select cat", function (assert) {
   $animals.eq(3).prop("checked", false);
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
+  jQuery("#page\\:testframe").on("load", function () {
     var $output = jQueryFrame("#page\\:mainForm\\:animalsOutput span");
     assert.equal($output.text(), "Cat ");
     done();
@@ -46,7 +46,7 @@ QUnit.test("submit: select fox and rabbit", function (assert) {
   $animals.eq(3).prop("checked", true);
   $submit.click();
 
-  jQuery("#page\\:testframe").load(function () {
+  jQuery("#page\\:testframe").on("load", function () {
     var $output = jQueryFrame("#page\\:mainForm\\:animalsOutput span");
     assert.equal($output.text(), "Fox Rabbit ");
     done();
@@ -70,10 +70,10 @@ QUnit.test("ajax: click 'Two'", function (assert) {
   }
 
   waitForAjax(function () {
-    $output = jQueryFrame($output.selector);
+    $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
     return $output.text() == newOutputValue;
   }, function () {
-    $output = jQueryFrame($output.selector);
+    $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
     assert.equal($output.text(), newOutputValue);
     done();
   });
@@ -96,10 +96,10 @@ QUnit.test("ajax: click 'Three'", function (assert) {
   }
 
   waitForAjax(function () {
-    $output = jQueryFrame($output.selector);
+    $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
     return $output.text() == newOutputValue;
   }, function () {
-    $output = jQueryFrame($output.selector);
+    $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
     assert.equal($output.text(), newOutputValue);
     done();
   });
@@ -122,10 +122,10 @@ QUnit.test("ajax: click 'Two'", function (assert) {
   }
 
   waitForAjax(function () {
-    $output = jQueryFrame($output.selector);
+    $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
     return $output.text() == newOutputValue;
   }, function () {
-    $output = jQueryFrame($output.selector);
+    $output = jQueryFrame("#page\\:mainForm\\:resultOutput span");
     assert.equal($output.text(), newOutputValue);
     done();
   });

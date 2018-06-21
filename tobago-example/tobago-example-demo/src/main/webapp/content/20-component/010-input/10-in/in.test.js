@@ -40,10 +40,10 @@ QUnit.test("ajax change event", function (assert) {
   assert.equal($inputField.val(), "qwe");
 
   waitForAjax(function () {
-    $outputField = jQueryFrame($outputField.selector);
+    $outputField = jQueryFrame("#page\\:mainForm\\:outputAjax span:first");
     return $outputField.text() == "qwe";
   }, function () {
-    $outputField = jQueryFrame($outputField.selector);
+    $outputField = jQueryFrame("#page\\:mainForm\\:outputAjax span:first");
     assert.equal($outputField.text(), "qwe");
     done();
   });
