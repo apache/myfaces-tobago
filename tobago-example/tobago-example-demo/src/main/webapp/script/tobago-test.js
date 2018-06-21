@@ -55,3 +55,11 @@ QUnit.test("wait for test", function (assert) {
     }
   }, 50);
 });
+
+/**
+ * Possibility to check if a number is not the same but quite the same with a tolerance value.
+ */
+QUnit.assert.similar = function(actual, expected, tolerance, message) {
+  QUnit.assert.ok(Math.abs(actual - expected) < tolerance,
+      "actual=" + actual  + " expected=" + expected  + " tolerance=" + tolerance  + " " + message);
+};
