@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
+
 QUnit.test("Simple Panel", function (assert) {
   assert.expect(14);
   var done = assert.async(5);
@@ -259,7 +259,7 @@ QUnit.test("Client Sided", function (assert) {
     }
   });
 });
-*/
+
 QUnit.test("Ajax", function (assert) {
   assert.expect(13);
   var done = assert.async(5);
