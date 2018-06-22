@@ -43,6 +43,8 @@ $gray-700: #495057 !default;
 $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 $black: #000 !default;
+$body-bg: $white !default;
+$table-dark-color: $body-bg !default;
 $headings-font-weight: 500;
 $navbar-dark-active-color: rgba($white, 1) !default;
 $navbar-light-active-color: rgba($black, .9) !default;
@@ -620,6 +622,10 @@ a.tobago-messages-button {
 /* make sure, tc:out has always the same height, no matter if value is empty */
 span.tobago-out:empty:before {
   content: "\200b";
+}
+
+.table-dark .form-control-plaintext {
+  color: $table-dark-color;
 }
 
 /* page ----------------------------------------------------------- */

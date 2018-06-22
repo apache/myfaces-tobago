@@ -27,7 +27,7 @@
   <artifactId>tobago-theme</artifactId>
 
   <properties>
-    <bootstrap.version>4.0.0</bootstrap.version>
+    <bootstrap.version>4.1.1</bootstrap.version>
     <theme.name>undefined-theme-name</theme.name>
   </properties>
 
@@ -88,7 +88,7 @@
                   <url>https://github.com/twbs/bootstrap/archive/v${bootstrap.version}.zip</url>
                   <unpack>true</unpack>
                   <outputDirectory>${project.build.directory}</outputDirectory>
-                  <md5>0cb02a456664efeadd84601f53143530</md5>
+                  <md5>618559275f196318cc65f6fae87c5f15</md5>
                 </configuration>
               </execution>
             </executions>
@@ -268,7 +268,7 @@
 
             <!-- optional -->
             <configuration>
-              <nodeVersion>v8.9.3</nodeVersion> <!-- contains npm 5.5.1 -->
+              <nodeVersion>v8.11.3</nodeVersion> <!-- contains npm 5.6.0 -->
 
               <!-- optional: Where to download Node.js binary from. Defaults to http://nodejs.org/dist/ -->
               <!--<nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>-->
