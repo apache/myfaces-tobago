@@ -67,7 +67,8 @@ public class ConvertDateTimeHandler extends ConverterHandler {
           converter = (Converter) valueExpression.getValue(faceletContext);
         }
         if (converter == null) {
-          converter = FacesContext.getCurrentInstance().getApplication().createConverter(DateTimeConverter.CONVERTER_ID);
+          converter = FacesContext.getCurrentInstance().getApplication()
+              .createConverter(DateTimeConverter.CONVERTER_ID);
           DateTimeConverter dtConverter = (DateTimeConverter) converter;
 
           if (locale != null) {

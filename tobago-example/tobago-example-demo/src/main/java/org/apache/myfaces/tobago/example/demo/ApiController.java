@@ -68,7 +68,7 @@ public class ApiController implements Serializable {
     this.onlyCurrent = onlyCurrent;
   }
 
-  public String getVersion4_3_0() {
+  public String getVersion430() {
     return Release.v4_3_0.getVersion();
   }
 }

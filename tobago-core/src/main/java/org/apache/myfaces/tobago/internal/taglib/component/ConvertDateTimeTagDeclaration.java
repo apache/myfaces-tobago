@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.apt.annotation.ConverterTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.convert.DateTimeConverter;
-import org.apache.myfaces.tobago.facelets.ConvertDateTimeHandler;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasFor;
 
 import javax.el.ValueExpression;
@@ -40,7 +39,8 @@ import javax.el.ValueExpression;
 public interface ConvertDateTimeTagDeclaration extends HasFor {
 
   /**
-   * A ValueExpression that evaluates to an instance of {@link ConvertDateTimeHandler}.
+   * A ValueExpression that evaluates to an instance of
+   * {@link org.apache.myfaces.tobago.facelets.ConvertDateTimeHandler}.
    */
   @TagAttribute(name = "binding", type = "org.apache.myfaces.tobago.convert.DateTimeConverter")
   void setBinding(ValueExpression binding);
