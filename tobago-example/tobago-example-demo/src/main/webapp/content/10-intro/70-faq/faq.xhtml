@@ -70,8 +70,7 @@
 &lt;/context-param></code></pre>
   </tc:section>
 
-  <tc:section id="tobago-myfaces-extension">Can I mix Tobago and MyFaces extensions in the same web application?
-    >
+  <tc:section id="tobago-myfaces-extension" label="Can I mix Tobago and MyFaces extensions in the same web application?">
     <p>JSF only supports one renderkit (renderkitId) per page (f:view).
       Because Tobago has it's own renderkitId you cannot use any non-Tobago
       components that need a renderer.
@@ -79,8 +78,7 @@
   </tc:section>
 
   <tc:section id="tobago-layout" label="How do I use GridLayout in Tobago?">
-          <pre><code class="language-markup">
-        &lt;tc:gridLayout rows="auto 100px 1fr 2fr" /></code></pre>
+          <pre><code class="language-markup">&lt;tc:gridLayout rows="auto 100px 1fr 2fr" /></code></pre>
     <p>
       The attribute 'fixed' means a theme dependent height of one row (i.e. in Speyside
       a row is typically 20px high.) In a 'fixed' row all one height unit high elements find their place
@@ -141,18 +139,14 @@
     <p>
       Example layout of a theme jar:
     </p>
-    <pre><code class="language-markup">
-        /META-INF/tobago-config.xml
-        (resource-path/html/theme-name)
-        /org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/tobago.css (standard styles)
-        /org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/tobago-menu.css (menu styles)
-        /org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/tobago-sheet.css (sheet styles)
-        /org/apache/myfaces/tobago/renderkit/html/xxxxx/msie/style/tobago.css (different styles for msie)</code></pre>
+    <pre><code class="language-markup">/META-INF/tobago-config.xml (resource-path/html/theme-name)
+/org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/tobago.css (standard styles)
+/org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/tobago-menu.css (menu styles)
+/org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/tobago-sheet.css (sheet styles)
+/org/apache/myfaces/tobago/renderkit/html/xxxxx/msie/style/tobago.css (different styles for msie)</code></pre>
 
     Property and resource loading and renderer loading is done in the following order
-    <pre><code class="language-markup">
-        resource-path/content-type/theme/client/[tag(for renderer)|property|style|script|image]_locale
-        .(class|property|property.xml|css|js|gif|png...]</code></pre>
+    <pre><code class="language-markup">resource-path/content-type/theme/client/[tag(for renderer)|property|style|script|image]_locale.(class|property|property.xml|css|js|gif|png...]</code></pre>
 
     for example OutRenderer<br/>
 
@@ -215,16 +209,14 @@
       If you want to set up a different mirror for some reason, you can use
       your ~/.m2/settings.xml and add the following lines:
     </p>
-    <pre><code class="language-markup">
-        &lt;mirrors>
-        &lt;mirror>
-        &lt;id>mirror ID&lt;/id>
-        &lt;name>Give it a name&lt;/name>
-        &lt;url>The URL of the mirror&lt;/url>
-        &lt;mirrorOf>The server ID of the repository being mirrored.
-        This must not match the mirror ID&lt;/mirrorOf>
-        &lt;/mirror>
-        &lt;/mirrors></code></pre>
+    <pre><code class="language-markup">&lt;mirrors>
+  &lt;mirror>
+    &lt;id>mirror ID&lt;/id>
+    &lt;name>Give it a name&lt;/name>
+    &lt;url>The URL of the mirror&lt;/url>
+    &lt;mirrorOf>The server ID of the repository being mirrored. This must not match the mirror ID&lt;/mirrorOf>
+  &lt;/mirror>
+&lt;/mirrors></code></pre>
     <p>See:
       <a href="http://maven.apache.org/guides/mini/guide-mirror-settings.html">
         Guide to mirror settings
@@ -243,16 +235,14 @@
       repository, you can configure Maven not to fetch them but use
       the ones already in your local repository by adding the following to your ~/.m2/settings.xml:
     </p>
-    <pre><code class="language-markup">
-        &lt;settings>
-        &lt;offline/>
-        &lt;/settings></code></pre>
+    <pre><code class="language-markup">&lt;settings>
+  &lt;offline/>
+&lt;/settings></code></pre>
     <p>or use the mvn -o switch.</p>
   </tc:section>
 
   <tc:section id="checkstyle" label="How do I perform a local checkstyle check?">
-          <pre><code class="language-markup">
-        mvn compile checkstyle:check</code></pre>
+    <pre><code class="language-markup">mvn compile checkstyle:check</code></pre>
   </tc:section>
 
   <tc:section id="checkstyle-vdl"
@@ -266,36 +256,34 @@
     <p>
       Configure in the applications pom.xml an entry like this example
     </p>
-    <pre><code class="language-markup">    &lt;profile>
-          &lt;id>checkstyle-for-view-definition-language&lt;/id>
-          &lt;build>
-          &lt;plugins>
-          &lt;plugin>
-          &lt;groupId>org.apache.maven.plugins&lt;/groupId>
-          &lt;artifactId>maven-checkstyle-plugin&lt;/artifactId>
-          &lt;configuration>
+    <pre><code class="language-markup">&lt;profile>
+  &lt;id>checkstyle-for-view-definition-language&lt;/id>
+  &lt;build>
+    &lt;plugins>
+      &lt;plugin>
+        &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+        &lt;artifactId>maven-checkstyle-plugin&lt;/artifactId>
+        &lt;configuration>
           &lt;configLocation>META-INF/checkstyle-tobago.xml&lt;/configLocation>
           &lt;includes>**/*.xhtml&lt;/includes>
           &lt;excludes>**/*.java&lt;/excludes>
           &lt;sourceDirectory>src/main/webapp&lt;/sourceDirectory>
-          &lt;/configuration>
-          &lt;dependencies>
+        &lt;/configuration>
+        &lt;dependencies>
           &lt;dependency>
-          &lt;groupId>org.apache.myfaces.tobago&lt;/groupId>
-          &lt;artifactId>tobago-core&lt;/artifactId>
-          &lt;version>\${tobago.version}&lt;/version>
+            &lt;groupId>org.apache.myfaces.tobago&lt;/groupId>
+            &lt;artifactId>tobago-core&lt;/artifactId>
+            &lt;version>\${tobago.version}&lt;/version>
           &lt;/dependency>
-          &lt;/dependencies>
-          &lt;/plugin>
-          &lt;/plugins>
-          &lt;/build>
-          &lt;/profile>
-        </code></pre>
+        &lt;/dependencies>
+      &lt;/plugin>
+    &lt;/plugins>
+  &lt;/build>
+&lt;/profile></code></pre>
     <p>
       To perform a check call
     </p>
-    <pre><code class="language-markup">
-          mvn checkstyle:check -Pcheckstyle-for-view-definition-language</code></pre>
+    <pre><code class="language-markup">mvn checkstyle:check -Pcheckstyle-for-view-definition-language</code></pre>
     <p>
       You will find the result in target/checkstyle-result.xml
     </p>
@@ -307,8 +295,7 @@
     a directory like C:\Dokumente und Einstellungen\MyUser\Apache Projects\
     the path will be too long. A workaround will be checking out in an other directory
     or register a new drive letter and check it out in X:
-    <pre><code class="language-markup">
-        SUBST X: "C:\Dokumente und Einstellungen\MyUser\Apache Projects\"</code></pre>
+    <pre><code class="language-markup">SUBST X: "C:\Dokumente und Einstellungen\MyUser\Apache Projects\"</code></pre>
   </tc:section>
 
   <tc:section id="integrationTest" label="How can I run the integration tests?">
@@ -353,7 +340,7 @@ mvn -Pdocker-qunit-tests docker:stop</code></pre>
     <ol>
       <li>start demo
         <pre><code class="language-markup">cd tobago-example/tobago-example-demo
-            mvn clean jetty:run</code></pre>
+mvn clean jetty:run</code></pre>
       </li>
       <li>open 'Test' menu in the header of the Tobago-Demo-Page
         <ol>
@@ -382,7 +369,7 @@ mvn -Pdocker-qunit-tests docker:stop</code></pre>
         to the <code>sample.test.js</code>.
 
         <pre><code class="language-js">QUnit.test("Testtitle", function(assert) { 
-...
+  ...
 });</code></pre>
 
         <ol>
@@ -449,8 +436,8 @@ public void testname() throws UnsupportedEncodingException, InterruptedException
       <li>
         Unpack the server anywhere in you file system, e.g. like this
         <pre><code class="language-markup">mkdir /opt/wlp-developers-runtime-8.5.5.0
-            cd /opt/wlp-developers-runtime-8.5.5.0
-            java -jar ~/Downloads/wlp-developers-runtime-8.5.5.0.jar</code></pre>
+cd /opt/wlp-developers-runtime-8.5.5.0
+java -jar ~/Downloads/wlp-developers-runtime-8.5.5.0.jar</code></pre>
       </li>
       <li>
         Adding your server home to a property in the settings.xml of Maven
@@ -474,9 +461,9 @@ public void testname() throws UnsupportedEncodingException, InterruptedException
       In our case we have the following features:
     </p>
     <pre><code class="language-markup">&lt;feature>cdi-1.0&lt;/feature>
-          &lt;feature>jsp-2.2&lt;/feature>
-          &lt;feature>servlet-3.0&lt;/feature>
-          &lt;feature>jsf-2.0&lt;/feature></code></pre>
+&lt;feature>jsp-2.2&lt;/feature>
+&lt;feature>servlet-3.0&lt;/feature>
+&lt;feature>jsf-2.0&lt;/feature></code></pre>
     <ul>
       <li>
         Start the server
@@ -527,9 +514,8 @@ public void testname() throws UnsupportedEncodingException, InterruptedException
       </li>
     </ul>
     Please also consider the plugin configuration in the tobago-example/pom.xml
-    <pre><code class="language-markup">
-        &lt;groupId>com.ibm.websphere.wlp.maven.plugins&lt;/groupId>
-        &lt;artifactId>liberty-maven-plugin&lt;/artifactId></code></pre>
+    <pre><code class="language-markup">&lt;groupId>com.ibm.websphere.wlp.maven.plugins&lt;/groupId>
+&lt;artifactId>liberty-maven-plugin&lt;/artifactId></code></pre>
   </tc:section>
 
   <tc:section id="portlet" label="How to setup my project to work with Portlets?">
