@@ -16,13 +16,13 @@
  */
 
 QUnit.test("Deprecated: 'Ma'", function (assert) {
-  let inputString = "Ma";
-  let expectedLength = 4;
+  var inputString = "Ma";
+  var expectedLength = 4;
 
-  let inFn = jQueryFrameFn("#page\\:mainForm\\:deprecated\\:\\:field");
-  let suggestionsFn = getSuggestions("#page\\:mainForm\\:deprecated");
+  var inFn = jQueryFrameFn("#page\\:mainForm\\:deprecated\\:\\:field");
+  var suggestionsFn = getSuggestions("#page\\:mainForm\\:deprecated");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().val(inputString).trigger('input');
   });
@@ -37,13 +37,13 @@ QUnit.test("Deprecated: 'Ma'", function (assert) {
 });
 
 QUnit.test("Replacement: 'Ma'", function (assert) {
-  let inputString = "Ma";
-  let expectedLength = 4;
+  var inputString = "Ma";
+  var expectedLength = 4;
 
-  let inFn = jQueryFrameFn("#page\\:mainForm\\:replacement\\:\\:field");
-  let suggestionsFn = getSuggestions("#page\\:mainForm\\:replacement");
+  var inFn = jQueryFrameFn("#page\\:mainForm\\:replacement\\:\\:field");
+  var suggestionsFn = getSuggestions("#page\\:mainForm\\:replacement");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().val(inputString).trigger('input');
   });

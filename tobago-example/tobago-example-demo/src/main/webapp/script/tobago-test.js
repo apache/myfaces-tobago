@@ -26,12 +26,12 @@ function jQueryFrameFn(expression) {
 }
 
 QUnit.test("wait for test", function (assert) {
-  let done = assert.async();
+  var done = assert.async();
 
-  let startTime = new Date().getTime();
-  let contentWindowName = "";
-  let waitingDone = false;
-  let interval = setInterval(function () {
+  var startTime = new Date().getTime();
+  var contentWindowName = "";
+  var waitingDone = false;
+  var interval = setInterval(function () {
     contentWindowName = document.getElementById("page:testframe").contentWindow.name;
     waitingDone = (contentWindowName !== "page:testframe" && contentWindowName !== "ds-tempWindowId")
         || new RegExp('[\?&]base=([^&#]*)').exec(window.location.href)[1].indexOf("error%2F") === 0;
@@ -45,194 +45,15 @@ QUnit.test("wait for test", function (assert) {
 
 QUnit.test("duplicated IDs", function (assert) {
   function getDuplicatedIDs() {
-    let duplicatedIDs = [];
+    var duplicatedIDs = [];
     jQueryFrame('[id]').each(function () {
-      let ids = jQueryFrame('[id="' + this.id + '"]');
+      var ids = jQueryFrame('[id="' + this.id + '"]');
       if (ids.length > 1 && ids[0] === this)
         duplicatedIDs.push(this.id);
     });
     return duplicatedIDs;
   }
 
-  let duplicatedIDs = getDuplicatedIDs();
+  var duplicatedIDs = getDuplicatedIDs();
   assert.equal(duplicatedIDs.length, 0, "duplicated IDs are: " + duplicatedIDs);
 });
-
-function TobagoTestTools(assert) {
-  this.assert = assert;
-  this.steps = [];
-}
-
-TobagoTestTools.stepType = {
-  ACTION: 1,
-  WAIT_RESPONSE: 2,
-  WAIT_MS: 3,
-  ASSERTS: 4
-};
-TobagoTestTools.prototype = {
-  action: function (func) {
-    this.steps.push({
-      type: TobagoTestTools.stepType.ACTION,
-      func: func
-    })
-  },
-  waitForResponse: function () {
-    this.steps.push({
-      type: TobagoTestTools.stepType.WAIT_RESPONSE
-    })
-  },
-  waitMs: function (ms) {
-    this.steps.push({
-      type: TobagoTestTools.stepType.WAIT_MS,
-      ms: ms ? ms : 0
-    })
-  },
-  asserts: function (numOfAssertions, func) {
-    this.steps.push({
-      type: TobagoTestTools.stepType.ASSERTS,
-      numOfAssertions: numOfAssertions ? numOfAssertions : 0,
-      func: func
-    })
-  },
-  startTest: function () {
-    let steps = this.steps.slice(0);
-    let stepStarted = 0;
-    let stepFinished = 0;
-    let responses = 0;
-    let timeoutTimestamp = Date.now();
-
-    function getAssertExpect() {
-      let expect = 0;
-      steps.forEach(function (step) {
-        if (step.type === TobagoTestTools.stepType.ASSERTS) {
-          expect += step.numOfAssertions;
-        }
-      });
-      return expect;
-    }
-
-    function getAssertAsync() {
-      let async = 0;
-      steps.forEach(function (step) {
-        if (step.type === TobagoTestTools.stepType.ASSERTS) {
-          async++;
-        }
-      });
-      return async;
-    }
-
-    this.assert.expect(getAssertExpect());
-    let done = this.assert.async(getAssertAsync());
-    let assert = this.assert;
-
-    function isFinished() {
-      return stepStarted >= steps.length && stepFinished >= steps.length;
-    }
-
-    function isTimeout() {
-      return Date.now() > timeoutTimestamp + 20000;
-    }
-
-    function startNextPhase() {
-      return stepStarted === stepFinished;
-    }
-
-    function resetTimeout() {
-      timeoutTimestamp = Date.now();
-    }
-
-    function increaseStepFinished() {
-      stepFinished++;
-      resetTimeout();
-    }
-
-    function detectAjaxResponse() {
-      if (!isFinished() && !isTimeout()) {
-        responses++;
-      }
-    }
-
-    function TobagoFrame() {
-      return document.getElementById("page:testframe").contentWindow.Tobago;
-    }
-
-    TobagoFrame().registerListener(detectAjaxResponse, TobagoFrame().Phase.AFTER_UPDATE);
-
-    jQuery("#page\\:testframe").on("load", function () {
-      if (!isFinished() && !isTimeout()) {
-
-        /**
-         * we need to wait for the fully loaded DOM, otherwise an action function may executed to early and some events
-         * like 'componentFn().click()' cannot triggered correctly.
-         */
-        jQuery("#page\\:testframe").ready(function () {
-          responses++;
-        });
-
-        // we need to re-initiate the ajax listener
-        TobagoFrame().registerListener(detectAjaxResponse, TobagoFrame().Phase.AFTER_UPDATE);
-      }
-    });
-
-    function cycle() {
-      if (!isFinished() && !isTimeout()) {
-        if (steps[stepFinished].type === TobagoTestTools.stepType.ACTION) {
-          if (startNextPhase()) {
-            stepStarted++;
-            responses = 0; // maybe next step is 'wait for response'
-            steps[stepFinished].func();
-            increaseStepFinished();
-          }
-
-          if (startNextPhase()) {
-            cycle();
-          } else {
-            setTimeout(cycle, 50);
-          }
-        } else if (steps[stepFinished].type === TobagoTestTools.stepType.WAIT_RESPONSE) {
-          if (startNextPhase()) {
-            stepStarted++;
-          }
-
-          if (responses > 0) {
-            responses = 0;
-            increaseStepFinished();
-          }
-
-          if (startNextPhase()) {
-            cycle();
-          } else {
-            setTimeout(cycle, 50);
-          }
-        } else if (steps[stepFinished].type === TobagoTestTools.stepType.WAIT_MS) {
-          if (startNextPhase()) {
-            stepStarted++;
-            setTimeout(function () {
-              increaseStepFinished();
-              cycle();
-            }, steps[stepFinished].ms);
-          } else {
-            setTimeout(cycle, 50);
-          }
-        } else if (steps[stepFinished].type === TobagoTestTools.stepType.ASSERTS) {
-          if (startNextPhase()) {
-            stepStarted++;
-            steps[stepFinished].func();
-            increaseStepFinished();
-            done();
-          }
-
-          if (startNextPhase()) {
-            cycle();
-          } else {
-            setTimeout(cycle, 50);
-          }
-        }
-      } else if (isTimeout()) {
-        assert.ok(false, "Timeout!");
-      }
-    }
-
-    cycle();
-  }
-};

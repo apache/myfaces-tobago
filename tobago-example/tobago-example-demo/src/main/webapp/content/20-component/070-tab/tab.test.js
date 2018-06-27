@@ -16,12 +16,12 @@
  */
 
 QUnit.test("Client: Select Tab 3", function (assert) {
-  let hiddenInputFn = jQueryFrameFn("#page\\:mainForm\\:tabGroupClient\\:\\:activeIndex");
-  let tab1Fn = jQueryFrameFn("#page\\:mainForm\\:tab1Client");
-  let tab3Fn = jQueryFrameFn("#page\\:mainForm\\:tab3Client");
-  let tab3linkFn = jQueryFrameFn("#page\\:mainForm\\:tab3Client .nav-link");
+  var hiddenInputFn = jQueryFrameFn("#page\\:mainForm\\:tabGroupClient\\:\\:activeIndex");
+  var tab1Fn = jQueryFrameFn("#page\\:mainForm\\:tab1Client");
+  var tab3Fn = jQueryFrameFn("#page\\:mainForm\\:tab3Client");
+  var tab3linkFn = jQueryFrameFn("#page\\:mainForm\\:tab3Client .nav-link");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.asserts(5, function () {
     assert.equal(hiddenInputFn().val(), 0);
     assert.ok(tab1Fn().hasClass("tobago-tab-markup-selected"));
@@ -43,12 +43,12 @@ QUnit.test("Client: Select Tab 3", function (assert) {
 });
 
 QUnit.test("Ajax: Select Tab 3", function (assert) {
-  let hiddenInputFn = jQueryFrameFn("#page\\:mainForm\\:tabGroupAjax\\:\\:activeIndex");
-  let tab1Fn = jQueryFrameFn("#page\\:mainForm\\:tab1Ajax");
-  let tab3Fn = jQueryFrameFn("#page\\:mainForm\\:tab3Ajax");
-  let tab3linkFn = jQueryFrameFn("#page\\:mainForm\\:tab3Ajax .nav-link");
+  var hiddenInputFn = jQueryFrameFn("#page\\:mainForm\\:tabGroupAjax\\:\\:activeIndex");
+  var tab1Fn = jQueryFrameFn("#page\\:mainForm\\:tab1Ajax");
+  var tab3Fn = jQueryFrameFn("#page\\:mainForm\\:tab3Ajax");
+  var tab3linkFn = jQueryFrameFn("#page\\:mainForm\\:tab3Ajax .nav-link");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.asserts(5, function () {
     assert.equal(hiddenInputFn().val(), 0);
     assert.ok(tab1Fn().hasClass("tobago-tab-markup-selected"));
@@ -71,12 +71,12 @@ QUnit.test("Ajax: Select Tab 3", function (assert) {
 });
 
 QUnit.test("FullReload: Select Tab 3", function (assert) {
-  let hiddenInputFn = jQueryFrameFn("#page\\:mainForm\\:tabGroupFullReload\\:\\:activeIndex");
-  let tab1Fn = jQueryFrameFn("#page\\:mainForm\\:tab1FullReload");
-  let tab3Fn = jQueryFrameFn("#page\\:mainForm\\:tab3FullReload");
-  let tab3linkFn = jQueryFrameFn("#page\\:mainForm\\:tab3FullReload .nav-link");
+  var hiddenInputFn = jQueryFrameFn("#page\\:mainForm\\:tabGroupFullReload\\:\\:activeIndex");
+  var tab1Fn = jQueryFrameFn("#page\\:mainForm\\:tab1FullReload");
+  var tab3Fn = jQueryFrameFn("#page\\:mainForm\\:tab3FullReload");
+  var tab3linkFn = jQueryFrameFn("#page\\:mainForm\\:tab3FullReload .nav-link");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.asserts(5, function () {
     assert.equal(hiddenInputFn().val(), 0);
     assert.ok(tab1Fn().hasClass("tobago-tab-markup-selected"));

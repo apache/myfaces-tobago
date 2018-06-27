@@ -16,12 +16,12 @@
  */
 
 QUnit.test("Execute 'AJAX' entry in dropdown menu", function (assert) {
-  let dropdownMenuButtonFn = jQueryFrameFn("#page\\:mainForm\\:dropdownMenuButton\\:\\:command");
-  let ajaxEntryFn = jQueryFrameFn("#page\\:mainForm\\:ajaxEntry");
-  let inputFn = jQueryFrameFn("#page\\:mainForm\\:inputAjax\\:\\:field");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:outputAjax .tobago-out");
+  var dropdownMenuButtonFn = jQueryFrameFn("#page\\:mainForm\\:dropdownMenuButton\\:\\:command");
+  var ajaxEntryFn = jQueryFrameFn("#page\\:mainForm\\:ajaxEntry");
+  var inputFn = jQueryFrameFn("#page\\:mainForm\\:inputAjax\\:\\:field");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:outputAjax .tobago-out");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.asserts(1, function () {
     assert.equal(ajaxEntryFn().parents(".tobago-page-menuStore").length, 0, "Dropdown menu should be closed.");
   });

@@ -16,9 +16,9 @@
  */
 
 QUnit.test("Date - f:convertDateTime", function (assert) {
-  let inputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesDateInput\\:\\:field");
-  let datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:myfacesDateInput .datepickerbutton");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesDateOutput .tobago-out");
+  var inputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesDateInput\\:\\:field");
+  var datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:myfacesDateInput .datepickerbutton");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesDateOutput .tobago-out");
 
   testConvertDateTime(assert,
       inputFn, datepickerButtonFn, outputFn,
@@ -27,9 +27,9 @@ QUnit.test("Date - f:convertDateTime", function (assert) {
 });
 
 QUnit.test("Date - tc:convertDateTime", function (assert) {
-  let inputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoDateInput\\:\\:field");
-  let datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:tobagoDateInput .datepickerbutton");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoDateOutput .tobago-out");
+  var inputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoDateInput\\:\\:field");
+  var datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:tobagoDateInput .datepickerbutton");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoDateOutput .tobago-out");
 
   testConvertDateTime(assert,
       inputFn, datepickerButtonFn, outputFn,
@@ -38,9 +38,9 @@ QUnit.test("Date - tc:convertDateTime", function (assert) {
 });
 
 QUnit.test("Calendar - tc:convertDateTime", function (assert) {
-  let inputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoDateInput\\:\\:field");
-  let datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:tobagoDateInput .datepickerbutton");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoDateOutput .tobago-out");
+  var inputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoDateInput\\:\\:field");
+  var datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:tobagoDateInput .datepickerbutton");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoDateOutput .tobago-out");
 
   testConvertDateTime(assert,
       inputFn, datepickerButtonFn, outputFn,
@@ -49,9 +49,9 @@ QUnit.test("Calendar - tc:convertDateTime", function (assert) {
 });
 
 QUnit.test("LocalDate - f:convertDateTime", function (assert) {
-  let inputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesLocalDateInput\\:\\:field");
-  let datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:myfacesLocalDateInput .datepickerbutton");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesLocalDateOutput .tobago-out");
+  var inputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesLocalDateInput\\:\\:field");
+  var datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:myfacesLocalDateInput .datepickerbutton");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesLocalDateOutput .tobago-out");
 
   if (inputFn().length > 0) {
     testConvertDateTime(assert,
@@ -64,9 +64,9 @@ QUnit.test("LocalDate - f:convertDateTime", function (assert) {
 });
 
 QUnit.test("LocalDate - tc:convertDateTime", function (assert) {
-  let inputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoLocalDateInput\\:\\:field");
-  let datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:tobagoLocalDateInput .datepickerbutton");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoLocalDateOutput .tobago-out");
+  var inputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoLocalDateInput\\:\\:field");
+  var datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:tobagoLocalDateInput .datepickerbutton");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoLocalDateOutput .tobago-out");
 
   testConvertDateTime(assert,
       inputFn, datepickerButtonFn, outputFn,
@@ -75,9 +75,9 @@ QUnit.test("LocalDate - tc:convertDateTime", function (assert) {
 });
 
 QUnit.test("LocalTime - f:convertDateTime", function (assert) {
-  let inputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesLocalTimeInput\\:\\:field");
-  let datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:myfacesLocalTimeInput .datepickerbutton");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesLocalTimeOutput .tobago-out");
+  var inputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesLocalTimeInput\\:\\:field");
+  var datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:myfacesLocalTimeInput .datepickerbutton");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesLocalTimeOutput .tobago-out");
 
   if (inputFn().length > 0) {
     testConvertDateTime(assert,
@@ -90,9 +90,9 @@ QUnit.test("LocalTime - f:convertDateTime", function (assert) {
 });
 
 QUnit.test("LocalTime - tc:convertDateTime", function (assert) {
-  let inputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoLocalTimeInput\\:\\:field");
-  let datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:tobagoLocalTimeInput .datepickerbutton");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoLocalTimeOutput .tobago-out");
+  var inputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoLocalTimeInput\\:\\:field");
+  var datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:tobagoLocalTimeInput .datepickerbutton");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoLocalTimeOutput .tobago-out");
 
   testConvertDateTime(assert,
       inputFn, datepickerButtonFn, outputFn,
@@ -101,9 +101,9 @@ QUnit.test("LocalTime - tc:convertDateTime", function (assert) {
 });
 
 QUnit.test("LocalDateTime - f:convertDateTime", function (assert) {
-  let inputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesLocalDateTimeInput\\:\\:field");
-  let datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:myfacesLocalDateTimeInput .datepickerbutton");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesLocalDateTimeOutput .tobago-out");
+  var inputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesLocalDateTimeInput\\:\\:field");
+  var datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:myfacesLocalDateTimeInput .datepickerbutton");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesLocalDateTimeOutput .tobago-out");
 
   if (inputFn().length > 0) {
     testConvertDateTime(assert,
@@ -116,9 +116,9 @@ QUnit.test("LocalDateTime - f:convertDateTime", function (assert) {
 });
 
 QUnit.test("LocalDateTime - tc:convertDateTime", function (assert) {
-  let inputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoLocalDateTimeInput\\:\\:field");
-  let datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:tobagoLocalDateTimeInput .datepickerbutton");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoLocalDateTimeOutput .tobago-out");
+  var inputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoLocalDateTimeInput\\:\\:field");
+  var datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:tobagoLocalDateTimeInput .datepickerbutton");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoLocalDateTimeOutput .tobago-out");
 
   testConvertDateTime(assert,
       inputFn, datepickerButtonFn, outputFn,
@@ -127,9 +127,9 @@ QUnit.test("LocalDateTime - tc:convertDateTime", function (assert) {
 });
 
 QUnit.test("OffsetTime - f:convertDateTime", function (assert) {
-  let inputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesOffsetTimeInput\\:\\:field");
-  let datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:myfacesOffsetTimeInput .datepickerbutton");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesOffsetTimeOutput .tobago-out");
+  var inputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesOffsetTimeInput\\:\\:field");
+  var datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:myfacesOffsetTimeInput .datepickerbutton");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesOffsetTimeOutput .tobago-out");
 
   if (inputFn().length > 0) {
     testConvertDateTime(assert,
@@ -142,9 +142,9 @@ QUnit.test("OffsetTime - f:convertDateTime", function (assert) {
 });
 
 QUnit.test("OffsetTime - tc:convertDateTime", function (assert) {
-  let inputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoOffsetTimeInput\\:\\:field");
-  let datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:tobagoOffsetTimeInput .datepickerbutton");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoOffsetTimeOutput .tobago-out");
+  var inputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoOffsetTimeInput\\:\\:field");
+  var datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:tobagoOffsetTimeInput .datepickerbutton");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoOffsetTimeOutput .tobago-out");
 
   testConvertDateTime(assert,
       inputFn, datepickerButtonFn, outputFn,
@@ -153,9 +153,9 @@ QUnit.test("OffsetTime - tc:convertDateTime", function (assert) {
 });
 
 QUnit.test("OffsetDateTime - f:convertDateTime", function (assert) {
-  let inputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesOffsetDateTimeInput\\:\\:field");
-  let datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:myfacesOffsetDateTimeInput .datepickerbutton");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesOffsetDateTimeOutput .tobago-out");
+  var inputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesOffsetDateTimeInput\\:\\:field");
+  var datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:myfacesOffsetDateTimeInput .datepickerbutton");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesOffsetDateTimeOutput .tobago-out");
 
   if (inputFn().length > 0) {
     testConvertDateTime(assert,
@@ -168,9 +168,9 @@ QUnit.test("OffsetDateTime - f:convertDateTime", function (assert) {
 });
 
 QUnit.test("OffsetDateTime - tc:convertDateTime", function (assert) {
-  let inputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoOffsetDateTimeInput\\:\\:field");
-  let datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:tobagoOffsetDateTimeInput .datepickerbutton");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoOffsetDateTimeOutput .tobago-out");
+  var inputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoOffsetDateTimeInput\\:\\:field");
+  var datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:tobagoOffsetDateTimeInput .datepickerbutton");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoOffsetDateTimeOutput .tobago-out");
 
   testConvertDateTime(assert,
       inputFn, datepickerButtonFn, outputFn,
@@ -179,9 +179,9 @@ QUnit.test("OffsetDateTime - tc:convertDateTime", function (assert) {
 });
 
 QUnit.test("ZonedDateTime - f:convertDateTime", function (assert) {
-  let inputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesZonedDateTimeInput\\:\\:field");
-  let datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:myfacesZonedDateTimeInput .datepickerbutton");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesZonedDateTimeOutput .tobago-out");
+  var inputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesZonedDateTimeInput\\:\\:field");
+  var datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:myfacesZonedDateTimeInput .datepickerbutton");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesZonedDateTimeOutput .tobago-out");
 
   if (inputFn().length > 0) {
     testConvertDateTime(assert,
@@ -194,9 +194,9 @@ QUnit.test("ZonedDateTime - f:convertDateTime", function (assert) {
 });
 
 QUnit.test("ZonedDateTime - tc:convertDateTime", function (assert) {
-  let inputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoZonedDateTimeInput\\:\\:field");
-  let datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:tobagoZonedDateTimeInput .datepickerbutton");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoZonedDateTimeOutput .tobago-out");
+  var inputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoZonedDateTimeInput\\:\\:field");
+  var datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:tobagoZonedDateTimeInput .datepickerbutton");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:tobagoZonedDateTimeOutput .tobago-out");
 
   testConvertDateTime(assert,
       inputFn, datepickerButtonFn, outputFn,
@@ -207,9 +207,9 @@ QUnit.test("ZonedDateTime - tc:convertDateTime", function (assert) {
 function testConvertDateTime(assert, inputFn, datepickerButtonFn, outputFn,
                              expectPattern, expectCalendarIcon, expectClockIcon,
                              inputValue, expectOutputValue) {
-  let submitButtonFn = jQueryFrameFn("#page\\:mainForm\\:submitButton");
+  var submitButtonFn = jQueryFrameFn("#page\\:mainForm\\:submitButton");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.asserts(3, function () {
     assert.equal(inputFn().data("tobago-pattern"), expectPattern);
     assert.equal(datepickerButtonFn().find(".fa-calendar").length, expectCalendarIcon);

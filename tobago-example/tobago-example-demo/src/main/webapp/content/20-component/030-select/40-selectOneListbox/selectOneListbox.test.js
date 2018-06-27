@@ -16,11 +16,11 @@
  */
 
 QUnit.test("submit: select 'Nile'", function (assert) {
-  let riversFn = jQueryFrameFn("#page\\:mainForm\\:riverList option");
-  let submitFn = jQueryFrameFn("#page\\:mainForm\\:riverSubmit");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:riverOutput span");
+  var riversFn = jQueryFrameFn("#page\\:mainForm\\:riverList option");
+  var submitFn = jQueryFrameFn("#page\\:mainForm\\:riverSubmit");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:riverOutput span");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     riversFn().eq(0).prop("selected", true); // Nile
     riversFn().eq(1).prop("selected", false); // Amazon
@@ -37,11 +37,11 @@ QUnit.test("submit: select 'Nile'", function (assert) {
 });
 
 QUnit.test("submit: select 'Yangtze'", function (assert) {
-  let riversFn = jQueryFrameFn("#page\\:mainForm\\:riverList option");
-  let submitFn = jQueryFrameFn("#page\\:mainForm\\:riverSubmit");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:riverOutput span");
+  var riversFn = jQueryFrameFn("#page\\:mainForm\\:riverList option");
+  var submitFn = jQueryFrameFn("#page\\:mainForm\\:riverSubmit");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:riverOutput span");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     riversFn().eq(0).prop("selected", false); // Nile
     riversFn().eq(1).prop("selected", false); // Amazon
@@ -59,10 +59,10 @@ QUnit.test("submit: select 'Yangtze'", function (assert) {
 });
 
 QUnit.test("ajax: select Everest", function (assert) {
-  let mountainsFn = jQueryFrameFn("#page\\:mainForm\\:mountainList option");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedMountain span");
+  var mountainsFn = jQueryFrameFn("#page\\:mainForm\\:mountainList option");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedMountain span");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     mountainsFn().eq(1).prop("selected", false);
     mountainsFn().eq(2).prop("selected", false);
@@ -78,10 +78,10 @@ QUnit.test("ajax: select Everest", function (assert) {
 });
 
 QUnit.test("ajax: select Makalu", function (assert) {
-  let mountainsFn = jQueryFrameFn("#page\\:mainForm\\:mountainList option");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedMountain span");
+  var mountainsFn = jQueryFrameFn("#page\\:mainForm\\:mountainList option");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedMountain span");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     mountainsFn().eq(0).prop("selected", false);
     mountainsFn().eq(1).prop("selected", false);

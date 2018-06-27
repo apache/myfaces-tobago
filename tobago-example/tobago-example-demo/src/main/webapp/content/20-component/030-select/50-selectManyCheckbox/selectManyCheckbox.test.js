@@ -16,11 +16,11 @@
  */
 
 QUnit.test("submit: select cat", function (assert) {
-  let animalsFn = jQueryFrameFn("#page\\:mainForm\\:animals input");
-  let submitFn = jQueryFrameFn("#page\\:mainForm\\:submit");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:animalsOutput span");
+  var animalsFn = jQueryFrameFn("#page\\:mainForm\\:animals input");
+  var submitFn = jQueryFrameFn("#page\\:mainForm\\:submit");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:animalsOutput span");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     animalsFn().eq(0).prop("checked", true);
     animalsFn().eq(1).prop("checked", false);
@@ -36,11 +36,11 @@ QUnit.test("submit: select cat", function (assert) {
 });
 
 QUnit.test("submit: select fox and rabbit", function (assert) {
-  let animalsFn = jQueryFrameFn("#page\\:mainForm\\:animals input");
-  let submitFn = jQueryFrameFn("#page\\:mainForm\\:submit");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:animalsOutput span");
+  var animalsFn = jQueryFrameFn("#page\\:mainForm\\:animals input");
+  var submitFn = jQueryFrameFn("#page\\:mainForm\\:submit");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:animalsOutput span");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     animalsFn().eq(0).prop("checked", false);
     animalsFn().eq(1).prop("checked", false);
@@ -56,11 +56,11 @@ QUnit.test("submit: select fox and rabbit", function (assert) {
 });
 
 QUnit.test("ajax: click 'Two'", function (assert) {
-  let number2Fn = jQueryFrameFn("#page\\:mainForm\\:numbers\\:\\:1");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:resultOutput span");
-  let newOutputValue;
+  var number2Fn = jQueryFrameFn("#page\\:mainForm\\:numbers\\:\\:1");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:resultOutput span");
+  var newOutputValue;
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     if (number2Fn().prop("checked")) {
       newOutputValue = parseInt(outputFn().text()) - 2;
@@ -78,11 +78,11 @@ QUnit.test("ajax: click 'Two'", function (assert) {
 });
 
 QUnit.test("ajax: click 'Three'", function (assert) {
-  let number3Fn = jQueryFrameFn("#page\\:mainForm\\:numbers\\:\\:2");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:resultOutput span");
-  let newOutputValue;
+  var number3Fn = jQueryFrameFn("#page\\:mainForm\\:numbers\\:\\:2");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:resultOutput span");
+  var newOutputValue;
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     if (number3Fn().prop("checked")) {
       newOutputValue = parseInt(outputFn().text()) - 3;
@@ -100,11 +100,11 @@ QUnit.test("ajax: click 'Three'", function (assert) {
 });
 
 QUnit.test("ajax: click 'Two'", function (assert) {
-  let number2Fn = jQueryFrameFn("#page\\:mainForm\\:numbers\\:\\:1");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:resultOutput span");
-  let newOutputValue;
+  var number2Fn = jQueryFrameFn("#page\\:mainForm\\:numbers\\:\\:1");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:resultOutput span");
+  var newOutputValue;
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     if (number2Fn().prop("checked")) {
       newOutputValue = parseInt(outputFn().text()) - 2;

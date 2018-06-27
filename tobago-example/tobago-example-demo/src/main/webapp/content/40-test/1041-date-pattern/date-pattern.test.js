@@ -30,10 +30,10 @@ TestDateTime = {};
 
 TestDateTime.testDate = function () {
 
-  let date;
-  let format = "dd.mm.yy";
-  let initial = "13.05.2014";
-  let result;
+  var date;
+  var format = "dd.mm.yy";
+  var initial = "13.05.2014";
+  var result;
 
   date = moment(initial, format);
   result = moment(date).format(format);
@@ -48,10 +48,10 @@ TestDateTime.testDate = function () {
 
 TestDateTime.testTime = function () {
 
-  let date;
-  let format = "HH:mm:ss";
-  let initial = "14:06:55";
-  let result;
+  var date;
+  var format = "HH:mm:ss";
+  var initial = "14:06:55";
+  var result;
 
   date = moment(initial, format);
   result = moment(date).format(format);
@@ -66,12 +66,12 @@ TestDateTime.testTime = function () {
 
 TestDateTime.testBoth = function () {
 
-  let date, dateT;
-  let formatD = "dd.mm.yy";
-  let formatT = "HH:mm:ss";
-  let initial = "13.05.2014 13:05:55";
-  let result;
-  let separator = " ";
+  var date, dateT;
+  var formatD = "dd.mm.yy";
+  var formatT = "HH:mm:ss";
+  var initial = "13.05.2014 13:05:55";
+  var result;
+  var separator = " ";
 
   date = moment(initial, formatD + ' ' +  formatT);
   dateT = {

@@ -16,44 +16,44 @@
  */
 
 QUnit.test("Test h1", function (assert) {
-  let alinkFn = jQueryFrameFn("#page\\:mainForm\\:link1");
-  let buttonlinkFn = jQueryFrameFn("#page\\:mainForm\\:actionLink1");
+  var alinkFn = jQueryFrameFn("#page\\:mainForm\\:link1");
+  var buttonlinkFn = jQueryFrameFn("#page\\:mainForm\\:actionLink1");
   testFont(assert, alinkFn, buttonlinkFn);
 });
 
 QUnit.test("Test h2", function (assert) {
-  let alinkFn = jQueryFrameFn("#page\\:mainForm\\:link2");
-  let buttonlinkFn = jQueryFrameFn("#page\\:mainForm\\:actionLink2");
+  var alinkFn = jQueryFrameFn("#page\\:mainForm\\:link2");
+  var buttonlinkFn = jQueryFrameFn("#page\\:mainForm\\:actionLink2");
   testFont(assert, alinkFn, buttonlinkFn);
 });
 
 QUnit.test("Test h3", function (assert) {
-  let alinkFn = jQueryFrameFn("#page\\:mainForm\\:link3");
-  let buttonlinkFn = jQueryFrameFn("#page\\:mainForm\\:actionLink3");
+  var alinkFn = jQueryFrameFn("#page\\:mainForm\\:link3");
+  var buttonlinkFn = jQueryFrameFn("#page\\:mainForm\\:actionLink3");
   testFont(assert, alinkFn, buttonlinkFn);
 });
 
 QUnit.test("Test h4", function (assert) {
-  let alinkFn = jQueryFrameFn("#page\\:mainForm\\:link4");
-  let buttonlinkFn = jQueryFrameFn("#page\\:mainForm\\:actionLink4");
+  var alinkFn = jQueryFrameFn("#page\\:mainForm\\:link4");
+  var buttonlinkFn = jQueryFrameFn("#page\\:mainForm\\:actionLink4");
   testFont(assert, alinkFn, buttonlinkFn);
 });
 
 QUnit.test("Test h5", function (assert) {
-  let alinkFn = jQueryFrameFn("#page\\:mainForm\\:link5");
-  let buttonlinkFn = jQueryFrameFn("#page\\:mainForm\\:actionLink5");
+  var alinkFn = jQueryFrameFn("#page\\:mainForm\\:link5");
+  var buttonlinkFn = jQueryFrameFn("#page\\:mainForm\\:actionLink5");
   testFont(assert, alinkFn, buttonlinkFn);
 });
 
 QUnit.test("Test h6", function (assert) {
-  let alinkFn = jQueryFrameFn("#page\\:mainForm\\:link6");
-  let buttonlinkFn = jQueryFrameFn("#page\\:mainForm\\:actionLink6");
+  var alinkFn = jQueryFrameFn("#page\\:mainForm\\:link6");
+  var buttonlinkFn = jQueryFrameFn("#page\\:mainForm\\:actionLink6");
   testFont(assert, alinkFn, buttonlinkFn);
 });
 
 QUnit.test("Test no heading", function (assert) {
-  let alinkFn = jQueryFrameFn("#page\\:mainForm\\:link0");
-  let buttonlinkFn = jQueryFrameFn("#page\\:mainForm\\:actionLink0");
+  var alinkFn = jQueryFrameFn("#page\\:mainForm\\:link0");
+  var buttonlinkFn = jQueryFrameFn("#page\\:mainForm\\:actionLink0");
   testFont(assert, alinkFn, buttonlinkFn);
 });
 
@@ -68,12 +68,12 @@ function testFont(assert, alinkFn, buttonlinkFn) {
 }
 
 QUnit.test("Ajax reload for section 2", function (assert) {
-  let reloadButtonFn = jQueryFrameFn("#page\\:mainForm\\:reloadSection2");
-  let section2HeaderFn = jQueryFrameFn("#page\\:mainForm\\:levelTwoSection h3");
-  let timestampFn = jQueryFrameFn("#page\\:mainForm\\:timestamp span");
-  let firstTimestamp = timestampFn().text();
+  var reloadButtonFn = jQueryFrameFn("#page\\:mainForm\\:reloadSection2");
+  var section2HeaderFn = jQueryFrameFn("#page\\:mainForm\\:levelTwoSection h3");
+  var timestampFn = jQueryFrameFn("#page\\:mainForm\\:timestamp span");
+  var firstTimestamp = timestampFn().text();
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.asserts(1, function () {
     assert.equal(section2HeaderFn().length, 1);
   });

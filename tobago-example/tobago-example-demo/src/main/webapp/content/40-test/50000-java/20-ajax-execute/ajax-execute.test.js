@@ -16,15 +16,15 @@
  */
 
 QUnit.test("ajax excecute", function (assert) {
-  let in1Fn = jQueryFrameFn("#page\\:mainForm\\:in1\\:\\:field");
-  let in2Fn = jQueryFrameFn("#page\\:mainForm\\:in2\\:\\:field");
-  let in3Fn = jQueryFrameFn("#page\\:mainForm\\:in3\\:\\:field");
-  let in4Fn = jQueryFrameFn("#page\\:mainForm\\:in4\\:\\:field");
-  let clearButtonFn = jQueryFrameFn("#page\\:mainForm\\:clear");
-  let submitButtonFn = jQueryFrameFn("#page\\:mainForm\\:submit");
-  let reloadButtonFn = jQueryFrameFn("#page\\:mainForm\\:reload");
+  var in1Fn = jQueryFrameFn("#page\\:mainForm\\:in1\\:\\:field");
+  var in2Fn = jQueryFrameFn("#page\\:mainForm\\:in2\\:\\:field");
+  var in3Fn = jQueryFrameFn("#page\\:mainForm\\:in3\\:\\:field");
+  var in4Fn = jQueryFrameFn("#page\\:mainForm\\:in4\\:\\:field");
+  var clearButtonFn = jQueryFrameFn("#page\\:mainForm\\:clear");
+  var submitButtonFn = jQueryFrameFn("#page\\:mainForm\\:submit");
+  var reloadButtonFn = jQueryFrameFn("#page\\:mainForm\\:reload");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     in1Fn().val("a");
     in2Fn().val("b");

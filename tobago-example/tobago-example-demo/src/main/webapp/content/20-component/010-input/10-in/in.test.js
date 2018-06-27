@@ -16,10 +16,10 @@
  */
 
 QUnit.test("inputfield with label", function (assert) {
-  let labelFn = jQueryFrameFn("#page\\:mainForm\\:iNormal > label");
-  let inputFieldFn = jQueryFrameFn("#page\\:mainForm\\:iNormal\\:\\:field");
+  var labelFn = jQueryFrameFn("#page\\:mainForm\\:iNormal > label");
+  var inputFieldFn = jQueryFrameFn("#page\\:mainForm\\:iNormal\\:\\:field");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.asserts(2, function () {
     assert.equal(labelFn().text(), "Input");
     assert.equal(inputFieldFn().val(), "Some Text");
@@ -34,10 +34,10 @@ QUnit.test("inputfield with label", function (assert) {
 });
 
 QUnit.test("ajax change event", function (assert) {
-  let inputFieldFn = jQueryFrameFn("#page\\:mainForm\\:inputAjax\\:\\:field");
-  let outputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outputAjax span:first");
+  var inputFieldFn = jQueryFrameFn("#page\\:mainForm\\:inputAjax\\:\\:field");
+  var outputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outputAjax span:first");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.asserts(2, function () {
     assert.equal(inputFieldFn().val(), "");
     assert.equal(outputFieldFn().text(), "");

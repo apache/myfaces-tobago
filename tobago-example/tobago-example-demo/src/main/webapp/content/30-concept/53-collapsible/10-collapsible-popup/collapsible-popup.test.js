@@ -16,14 +16,14 @@
  */
 
 QUnit.test("Simple Popup", function (assert) {
-  let messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  let openFn = jQueryFrameFn("#page\\:mainForm\\:simple\\:open1");
-  let submitOnPageFn = jQueryFrameFn("#page\\:mainForm\\:simple\\:submitOnPage1");
-  let inFn = jQueryFrameFn("#page\\:mainForm\\:simple\\:controllerPopup\\:in1\\:\\:field");
-  let submitOnPopupFn = jQueryFrameFn("#page\\:mainForm\\:simple\\:controllerPopup\\:submitOnPopup1");
-  let closeFn = jQueryFrameFn("#page\\:mainForm\\:simple\\:controllerPopup\\:close1");
+  var messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  var openFn = jQueryFrameFn("#page\\:mainForm\\:simple\\:open1");
+  var submitOnPageFn = jQueryFrameFn("#page\\:mainForm\\:simple\\:submitOnPage1");
+  var inFn = jQueryFrameFn("#page\\:mainForm\\:simple\\:controllerPopup\\:in1\\:\\:field");
+  var submitOnPopupFn = jQueryFrameFn("#page\\:mainForm\\:simple\\:controllerPopup\\:submitOnPopup1");
+  var closeFn = jQueryFrameFn("#page\\:mainForm\\:simple\\:controllerPopup\\:close1");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     openFn().click();
   });
@@ -69,14 +69,14 @@ QUnit.test("Simple Popup", function (assert) {
 });
 
 QUnit.test("Full Server Request", function (assert) {
-  let messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  let openFn = jQueryFrameFn("#page\\:mainForm\\:server\\:open2");
-  let submitOnPageFn = jQueryFrameFn("#page\\:mainForm\\:server\\:submitOnPage2");
-  let inFn = jQueryFrameFn("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:in2\\:\\:field");
-  let submitOnPopupFn = jQueryFrameFn("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:submitOnPopup2");
-  let closeFn = jQueryFrameFn("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:close2");
+  var messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  var openFn = jQueryFrameFn("#page\\:mainForm\\:server\\:open2");
+  var submitOnPageFn = jQueryFrameFn("#page\\:mainForm\\:server\\:submitOnPage2");
+  var inFn = jQueryFrameFn("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:in2\\:\\:field");
+  var submitOnPopupFn = jQueryFrameFn("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:submitOnPopup2");
+  var closeFn = jQueryFrameFn("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:close2");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     openFn().click();
   });
@@ -122,15 +122,15 @@ QUnit.test("Full Server Request", function (assert) {
 });
 
 QUnit.test("Client Side", function (assert) {
-  let messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  let openFn = jQueryFrameFn("#page\\:mainForm\\:client\\:open3");
-  let submitOnPageFn = jQueryFrameFn("#page\\:mainForm\\:client\\:submitOnPage3");
-  let popupCollapsedFn = jQueryFrameFn("#page\\:mainForm\\:client\\:clientPopup\\:\\:collapse");
-  let inFn = jQueryFrameFn("#page\\:mainForm\\:client\\:clientPopup\\:in3\\:\\:field");
-  let submitOnPopupFn = jQueryFrameFn("#page\\:mainForm\\:client\\:clientPopup\\:submitOnPopup3");
-  let closeFn = jQueryFrameFn("#page\\:mainForm\\:client\\:clientPopup\\:close3");
+  var messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  var openFn = jQueryFrameFn("#page\\:mainForm\\:client\\:open3");
+  var submitOnPageFn = jQueryFrameFn("#page\\:mainForm\\:client\\:submitOnPage3");
+  var popupCollapsedFn = jQueryFrameFn("#page\\:mainForm\\:client\\:clientPopup\\:\\:collapse");
+  var inFn = jQueryFrameFn("#page\\:mainForm\\:client\\:clientPopup\\:in3\\:\\:field");
+  var submitOnPopupFn = jQueryFrameFn("#page\\:mainForm\\:client\\:clientPopup\\:submitOnPopup3");
+  var closeFn = jQueryFrameFn("#page\\:mainForm\\:client\\:clientPopup\\:close3");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     openFn().click();
   });

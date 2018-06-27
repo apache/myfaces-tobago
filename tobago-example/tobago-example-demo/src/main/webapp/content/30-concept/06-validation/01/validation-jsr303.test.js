@@ -16,11 +16,11 @@
  */
 
 QUnit.test("Required: Submit without content.", function (assert) {
-  let messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  let inFn = jQueryFrameFn("#page\\:mainForm\\:required\\:in1\\:\\:field");
-  let submitFn = jQueryFrameFn("#page\\:mainForm\\:required\\:submit1");
+  var messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  var inFn = jQueryFrameFn("#page\\:mainForm\\:required\\:in1\\:\\:field");
+  var submitFn = jQueryFrameFn("#page\\:mainForm\\:required\\:submit1");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().val("");
     submitFn().click();
@@ -33,11 +33,11 @@ QUnit.test("Required: Submit without content.", function (assert) {
 });
 
 QUnit.test("Required: Submit with content.", function (assert) {
-  let messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  let inFn = jQueryFrameFn("#page\\:mainForm\\:required\\:in1\\:\\:field");
-  let submitFn = jQueryFrameFn("#page\\:mainForm\\:required\\:submit1");
+  var messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  var inFn = jQueryFrameFn("#page\\:mainForm\\:required\\:in1\\:\\:field");
+  var submitFn = jQueryFrameFn("#page\\:mainForm\\:required\\:submit1");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().val("some content");
     submitFn().click();
@@ -50,11 +50,11 @@ QUnit.test("Required: Submit with content.", function (assert) {
 });
 
 QUnit.test("Length: Submit single character.", function (assert) {
-  let messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  let inFn = jQueryFrameFn("#page\\:mainForm\\:length\\:in2\\:\\:field");
-  let submitFn = jQueryFrameFn("#page\\:mainForm\\:length\\:submit2");
+  var messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  var inFn = jQueryFrameFn("#page\\:mainForm\\:length\\:in2\\:\\:field");
+  var submitFn = jQueryFrameFn("#page\\:mainForm\\:length\\:submit2");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().val("a");
     submitFn().click();
@@ -67,11 +67,11 @@ QUnit.test("Length: Submit single character.", function (assert) {
 });
 
 QUnit.test("Length: Submit three characters.", function (assert) {
-  let messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  let inFn = jQueryFrameFn("#page\\:mainForm\\:length\\:in2\\:\\:field");
-  let submitFn = jQueryFrameFn("#page\\:mainForm\\:length\\:submit2");
+  var messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  var inFn = jQueryFrameFn("#page\\:mainForm\\:length\\:in2\\:\\:field");
+  var submitFn = jQueryFrameFn("#page\\:mainForm\\:length\\:submit2");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().val("abc");
     submitFn().click();
@@ -84,11 +84,11 @@ QUnit.test("Length: Submit three characters.", function (assert) {
 });
 
 QUnit.test("Length: Submit five characters.", function (assert) {
-  let messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  let inFn = jQueryFrameFn("#page\\:mainForm\\:length\\:in2\\:\\:field");
-  let submitFn = jQueryFrameFn("#page\\:mainForm\\:length\\:submit2");
+  var messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
+  var inFn = jQueryFrameFn("#page\\:mainForm\\:length\\:in2\\:\\:field");
+  var submitFn = jQueryFrameFn("#page\\:mainForm\\:length\\:submit2");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().val("abcde");
     submitFn().click();

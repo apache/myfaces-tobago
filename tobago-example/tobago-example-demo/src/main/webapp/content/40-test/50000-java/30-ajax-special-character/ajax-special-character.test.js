@@ -16,16 +16,16 @@
  */
 
 QUnit.test("ajax excecute", function (assert) {
-  let timestampFn = jQueryFrameFn("#page\\:mainForm\\:timestamp span");
-  let textFn = jQueryFrameFn("#page\\:mainForm\\:outText span");
-  let tipFn = jQueryFrameFn("#page\\:mainForm\\:outTip span");
-  let buttonFn = jQueryFrameFn("#page\\:mainForm\\:ajaxButton");
+  var timestampFn = jQueryFrameFn("#page\\:mainForm\\:timestamp span");
+  var textFn = jQueryFrameFn("#page\\:mainForm\\:outText span");
+  var tipFn = jQueryFrameFn("#page\\:mainForm\\:outTip span");
+  var buttonFn = jQueryFrameFn("#page\\:mainForm\\:ajaxButton");
 
-  let timestampValue = timestampFn().text();
-  let textValue = textFn().text();
-  let tipValue = tipFn().attr('title');
+  var timestampValue = timestampFn().text();
+  var textValue = textFn().text();
+  var tipValue = tipFn().attr('title');
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     buttonFn().click();
   });

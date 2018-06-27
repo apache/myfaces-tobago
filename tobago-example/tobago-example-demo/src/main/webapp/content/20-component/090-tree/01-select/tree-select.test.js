@@ -16,14 +16,14 @@
  */
 
 QUnit.test("single: select Music, select Mathematics", function (assert) {
-  let musicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:3\\:select");
-  let mathematicsFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedNodesOutput span");
-  let selectableNoneFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:0");
-  let selectableSingleFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:1");
-  let inputFn = jQueryFrameFn(".tobago-treeSelect input");
+  var musicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:3\\:select");
+  var mathematicsFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedNodesOutput span");
+  var selectableNoneFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:0");
+  var selectableSingleFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:1");
+  var inputFn = jQueryFrameFn(".tobago-treeSelect input");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectableNoneFn().prop("checked", true).trigger("change");
   });
@@ -56,14 +56,14 @@ QUnit.test("single: select Music, select Mathematics", function (assert) {
 });
 
 QUnit.test("singleLeafOnly: select Classic, select Mathematics", function (assert) {
-  let classicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:4\\:select");
-  let mathematicsFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedNodesOutput span");
-  let selectableNoneFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:0");
-  let selectableSingleLeafOnlyFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:2");
-  let inputFn = jQueryFrameFn(".tobago-treeSelect input");
+  var classicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:4\\:select");
+  var mathematicsFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedNodesOutput span");
+  var selectableNoneFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:0");
+  var selectableSingleLeafOnlyFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:2");
+  var inputFn = jQueryFrameFn(".tobago-treeSelect input");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectableNoneFn().prop("checked", true).trigger("change");
   });
@@ -96,14 +96,14 @@ QUnit.test("singleLeafOnly: select Classic, select Mathematics", function (asser
 });
 
 QUnit.test("multi: select Music, select Mathematics, deselect Music", function (assert) {
-  let musicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:3\\:select");
-  let mathematicsFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedNodesOutput span");
-  let selectableNoneFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:0");
-  let selectableMultiFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:3");
-  let inputFn = jQueryFrameFn(".tobago-treeSelect input");
+  var musicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:3\\:select");
+  var mathematicsFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedNodesOutput span");
+  var selectableNoneFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:0");
+  var selectableMultiFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:3");
+  var inputFn = jQueryFrameFn(".tobago-treeSelect input");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectableNoneFn().prop("checked", true).trigger("change");
   });
@@ -143,14 +143,14 @@ QUnit.test("multi: select Music, select Mathematics, deselect Music", function (
 });
 
 QUnit.test("multiLeafOnly: select Classic, select Mathematics, deselect Classic", function (assert) {
-  let classicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:4\\:select");
-  let mathematicsFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedNodesOutput span");
-  let selectableNoneFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:0");
-  let selectableMultiLeafOnlyFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:4");
-  let inputFn = jQueryFrameFn(".tobago-treeSelect input");
+  var classicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:4\\:select");
+  var mathematicsFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedNodesOutput span");
+  var selectableNoneFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:0");
+  var selectableMultiLeafOnlyFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:4");
+  var inputFn = jQueryFrameFn(".tobago-treeSelect input");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectableNoneFn().prop("checked", true).trigger("change");
   });
@@ -190,15 +190,15 @@ QUnit.test("multiLeafOnly: select Classic, select Mathematics, deselect Classic"
 });
 
 QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", function (assert) {
-  let musicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:3\\:select");
-  let classicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:4\\:select");
-  let mathematicsFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedNodesOutput span");
-  let selectableNoneFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:0");
-  let selectableMultiCascadeFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:5");
-  let inputFn = jQueryFrameFn(".tobago-treeSelect input");
+  var musicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:3\\:select");
+  var classicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:4\\:select");
+  var mathematicsFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedNodesOutput span");
+  var selectableNoneFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:0");
+  var selectableMultiCascadeFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:5");
+  var inputFn = jQueryFrameFn(".tobago-treeSelect input");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectableNoneFn().prop("checked", true).trigger("change");
   });

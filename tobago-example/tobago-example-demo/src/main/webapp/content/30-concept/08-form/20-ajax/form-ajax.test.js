@@ -16,12 +16,12 @@
  */
 
 QUnit.test("submit inner form 1 without violations", function (assert) {
-  let form1InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
-  let buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:submit1");
-  let alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
+  var form1InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
+  var form1OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
+  var buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:submit1");
+  var alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     form1InputFieldFn().val("Alice");
     buttonFn().click();
@@ -37,14 +37,14 @@ QUnit.test("submit inner form 1 without violations", function (assert) {
 
 
 QUnit.test("submit inner form 2, violate required field", function (assert) {
-  let form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
-  let form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
-  let buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:submit2");
-  let alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
+  var form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
+  var form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
+  var buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:submit2");
+  var alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
 
-  let form2OutputFieldValue = form2OutputFieldFn().text();
+  var form2OutputFieldValue = form2OutputFieldFn().text();
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     form2InputFieldFn().val("");
     buttonFn().click();
@@ -59,12 +59,12 @@ QUnit.test("submit inner form 2, violate required field", function (assert) {
 });
 
 QUnit.test("submit inner form 2 without violations", function (assert) {
-  let form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
-  let form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
-  let buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:submit2");
-  let alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
+  var form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
+  var form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
+  var buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:submit2");
+  var alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     form2InputFieldFn().val("Bob");
     buttonFn().click();
@@ -79,20 +79,20 @@ QUnit.test("submit inner form 2 without violations", function (assert) {
 });
 
 QUnit.test("submit outer form, violate both required fields", function (assert) {
-  let form1InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
-  let form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
-  let form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
-  let outerFormInputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
-  let outerFormOutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:out span");
-  let buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:submit");
-  let alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
+  var form1InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
+  var form1OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
+  var form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
+  var form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
+  var outerFormInputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
+  var outerFormOutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:out span");
+  var buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:submit");
+  var alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
 
-  let form1OutputFieldValue = form1OutputFieldFn().text();
-  let form2OutputFieldValue = form2OutputFieldFn().text();
-  let outerFormOutputFieldValue = outerFormOutputFieldFn().text();
+  var form1OutputFieldValue = form1OutputFieldFn().text();
+  var form2OutputFieldValue = form2OutputFieldFn().text();
+  var outerFormOutputFieldValue = outerFormOutputFieldFn().text();
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     form1InputFieldFn().val("Charlie");
     form2InputFieldFn().val("");
@@ -113,20 +113,20 @@ QUnit.test("submit outer form, violate both required fields", function (assert) 
 });
 
 QUnit.test("submit outer form, violate required field in form 2", function (assert) {
-  let form1InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
-  let form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
-  let form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
-  let outerFormInputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
-  let outerFormOutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:out span");
-  let buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:submit");
-  let alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
+  var form1InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
+  var form1OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
+  var form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
+  var form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
+  var outerFormInputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
+  var outerFormOutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:out span");
+  var buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:submit");
+  var alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
 
-  let form1OutputFieldValue = form1OutputFieldFn().text();
-  let form2OutputFieldValue = form2OutputFieldFn().text();
-  let outerFormOutputFieldValue = outerFormOutputFieldFn().text();
+  var form1OutputFieldValue = form1OutputFieldFn().text();
+  var form2OutputFieldValue = form2OutputFieldFn().text();
+  var outerFormOutputFieldValue = outerFormOutputFieldFn().text();
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     form1InputFieldFn().val("Dave");
     form2InputFieldFn().val("");
@@ -147,20 +147,20 @@ QUnit.test("submit outer form, violate required field in form 2", function (asse
 });
 
 QUnit.test("submit outer form, violate required field in outer form", function (assert) {
-  let form1InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
-  let form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
-  let form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
-  let outerFormInputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
-  let outerFormOutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:out span");
-  let buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:submit");
-  let alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
+  var form1InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
+  var form1OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
+  var form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
+  var form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
+  var outerFormInputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
+  var outerFormOutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:out span");
+  var buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:submit");
+  var alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
 
-  let form1OutputFieldValue = form1OutputFieldFn().text();
-  let form2OutputFieldValue = form2OutputFieldFn().text();
-  let outerFormOutputFieldValue = outerFormOutputFieldFn().text();
+  var form1OutputFieldValue = form1OutputFieldFn().text();
+  var form2OutputFieldValue = form2OutputFieldFn().text();
+  var outerFormOutputFieldValue = outerFormOutputFieldFn().text();
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     form1InputFieldFn().val("Frank");
     form2InputFieldFn().val("Grace");
@@ -181,16 +181,16 @@ QUnit.test("submit outer form, violate required field in outer form", function (
 });
 
 QUnit.test("submit outer form without violations", function (assert) {
-  let form1InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
-  let form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
-  let form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
-  let outerFormInputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
-  let outerFormOutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:out span");
-  let buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:submit");
-  let alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
+  var form1InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
+  var form1OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
+  var form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
+  var form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
+  var outerFormInputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
+  var outerFormOutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:out span");
+  var buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:submit");
+  var alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     form1InputFieldFn().val("Hank");
     form2InputFieldFn().val("Irene");
@@ -211,20 +211,20 @@ QUnit.test("submit outer form without violations", function (assert) {
 });
 
 QUnit.test("submit inner forms, violate required field in form 2", function (assert) {
-  let form1InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
-  let form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
-  let form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
-  let outerFormInputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
-  let outerFormOutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:out span");
-  let buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:submitInnerForms");
-  let alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
+  var form1InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
+  var form1OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
+  var form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
+  var form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
+  var outerFormInputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
+  var outerFormOutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:out span");
+  var buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:submitInnerForms");
+  var alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
 
-  let form1OutputFieldValue = form1OutputFieldFn().text();
-  let form2OutputFieldValue = form2OutputFieldFn().text();
-  let outerFormOutputFieldValue = outerFormOutputFieldFn().text();
+  var form1OutputFieldValue = form1OutputFieldFn().text();
+  var form2OutputFieldValue = form2OutputFieldFn().text();
+  var outerFormOutputFieldValue = outerFormOutputFieldFn().text();
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     form1InputFieldFn().val("Kate");
     form2InputFieldFn().val("");
@@ -245,18 +245,18 @@ QUnit.test("submit inner forms, violate required field in form 2", function (ass
 });
 
 QUnit.test("submit inner forms without violations", function (assert) {
-  let form1InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
-  let form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
-  let form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
-  let outerFormInputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
-  let outerFormOutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:out span");
-  let buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:submitInnerForms");
-  let alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
+  var form1InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
+  var form1OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
+  var form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
+  var form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
+  var outerFormInputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
+  var outerFormOutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:out span");
+  var buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:submitInnerForms");
+  var alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
 
-  let outerFormOutputFieldValue = outerFormOutputFieldFn().text();
+  var outerFormOutputFieldValue = outerFormOutputFieldFn().text();
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     form1InputFieldFn().val("Mike");
     form2InputFieldFn().val("Neil");
@@ -277,20 +277,20 @@ QUnit.test("submit inner forms without violations", function (assert) {
 });
 
 QUnit.test("submit outer value, violate required field", function (assert) {
-  let form1InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
-  let form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
-  let form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
-  let outerFormInputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
-  let outerFormOutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:out span");
-  let buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:submitOuterValue");
-  let alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
+  var form1InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
+  var form1OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
+  var form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
+  var form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
+  var outerFormInputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
+  var outerFormOutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:out span");
+  var buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:submitOuterValue");
+  var alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
 
-  let form1OutputFieldValue = form1OutputFieldFn().text();
-  let form2OutputFieldValue = form2OutputFieldFn().text();
-  let outerFormOutputFieldValue = outerFormOutputFieldFn().text();
+  var form1OutputFieldValue = form1OutputFieldFn().text();
+  var form2OutputFieldValue = form2OutputFieldFn().text();
+  var outerFormOutputFieldValue = outerFormOutputFieldFn().text();
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     form1InputFieldFn().val("Oscar");
     form2InputFieldFn().val("Penny");
@@ -311,19 +311,19 @@ QUnit.test("submit outer value, violate required field", function (assert) {
 });
 
 QUnit.test("submit outer value without violations", function (assert) {
-  let form1InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
-  let form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
-  let form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
-  let outerFormInputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
-  let outerFormOutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:out span");
-  let buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:submitOuterValue");
-  let alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
+  var form1InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
+  var form1OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
+  var form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
+  var form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
+  var outerFormInputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
+  var outerFormOutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:out span");
+  var buttonFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:submitOuterValue");
+  var alertFn = jQueryFrameFn("#page\\:messages .alert-danger label");
 
-  let form1OutputFieldValue = form1OutputFieldFn().text();
-  let form2OutputFieldValue = form2OutputFieldFn().text();
+  var form1OutputFieldValue = form1OutputFieldFn().text();
+  var form2OutputFieldValue = form2OutputFieldFn().text();
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     form1InputFieldFn().val("Quin");
     form2InputFieldFn().val("Sue");

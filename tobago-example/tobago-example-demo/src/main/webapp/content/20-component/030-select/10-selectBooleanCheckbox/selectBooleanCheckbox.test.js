@@ -16,13 +16,13 @@
  */
 
 QUnit.test("submit: select A", function (assert) {
-  let selectAFn = jQueryFrameFn("#page\\:mainForm\\:selectA input");
-  let selectBFn = jQueryFrameFn("#page\\:mainForm\\:selectB input");
-  let selectCFn = jQueryFrameFn("#page\\:mainForm\\:selectC input");
-  let submitFn = jQueryFrameFn("#page\\:mainForm\\:submit");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:submitOutput span");
+  var selectAFn = jQueryFrameFn("#page\\:mainForm\\:selectA input");
+  var selectBFn = jQueryFrameFn("#page\\:mainForm\\:selectB input");
+  var selectCFn = jQueryFrameFn("#page\\:mainForm\\:selectC input");
+  var submitFn = jQueryFrameFn("#page\\:mainForm\\:submit");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:submitOutput span");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectAFn().prop("checked", true);
     selectBFn().prop("checked", false);
@@ -37,13 +37,13 @@ QUnit.test("submit: select A", function (assert) {
 });
 
 QUnit.test("submit: select B and C", function (assert) {
-  let selectAFn = jQueryFrameFn("#page\\:mainForm\\:selectA input");
-  let selectBFn = jQueryFrameFn("#page\\:mainForm\\:selectB input");
-  let selectCFn = jQueryFrameFn("#page\\:mainForm\\:selectC input");
-  let submitFn = jQueryFrameFn("#page\\:mainForm\\:submit");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:submitOutput span");
+  var selectAFn = jQueryFrameFn("#page\\:mainForm\\:selectA input");
+  var selectBFn = jQueryFrameFn("#page\\:mainForm\\:selectB input");
+  var selectCFn = jQueryFrameFn("#page\\:mainForm\\:selectC input");
+  var submitFn = jQueryFrameFn("#page\\:mainForm\\:submit");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:submitOutput span");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectAFn().prop("checked", false);
     selectBFn().prop("checked", true);
@@ -58,10 +58,10 @@ QUnit.test("submit: select B and C", function (assert) {
 });
 
 QUnit.test("ajax: select D", function (assert) {
-  let selectDFn = jQueryFrameFn("#page\\:mainForm\\:selectD input");
-  let outputDFn = jQueryFrameFn("#page\\:mainForm\\:outputD span");
+  var selectDFn = jQueryFrameFn("#page\\:mainForm\\:selectD input");
+  var outputDFn = jQueryFrameFn("#page\\:mainForm\\:outputD span");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectDFn().prop("checked", true).trigger("change");
   });
@@ -73,10 +73,10 @@ QUnit.test("ajax: select D", function (assert) {
 });
 
 QUnit.test("ajax: deselect D", function (assert) {
-  let selectDFn = jQueryFrameFn("#page\\:mainForm\\:selectD input");
-  let outputDFn = jQueryFrameFn("#page\\:mainForm\\:outputD span");
+  var selectDFn = jQueryFrameFn("#page\\:mainForm\\:selectD input");
+  var outputDFn = jQueryFrameFn("#page\\:mainForm\\:outputD span");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectDFn().prop("checked", false).trigger("change");
   });
@@ -88,10 +88,10 @@ QUnit.test("ajax: deselect D", function (assert) {
 });
 
 QUnit.test("ajax: select E", function (assert) {
-  let selectEFn = jQueryFrameFn("#page\\:mainForm\\:selectE input");
-  let outputEFn = jQueryFrameFn("#page\\:mainForm\\:outputE span");
+  var selectEFn = jQueryFrameFn("#page\\:mainForm\\:selectE input");
+  var outputEFn = jQueryFrameFn("#page\\:mainForm\\:outputE span");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectEFn().prop("checked", true).trigger("change");
   });
@@ -103,10 +103,10 @@ QUnit.test("ajax: select E", function (assert) {
 });
 
 QUnit.test("ajax: deselect E", function (assert) {
-  let selectEFn = jQueryFrameFn("#page\\:mainForm\\:selectE input");
-  let outputEFn = jQueryFrameFn("#page\\:mainForm\\:outputE span");
+  var selectEFn = jQueryFrameFn("#page\\:mainForm\\:selectE input");
+  var outputEFn = jQueryFrameFn("#page\\:mainForm\\:outputE span");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectEFn().prop("checked", false).trigger("change");
   });
@@ -118,10 +118,10 @@ QUnit.test("ajax: deselect E", function (assert) {
 });
 
 QUnit.test("ajax: select F", function (assert) {
-  let selectFFn = jQueryFrameFn("#page\\:mainForm\\:selectF input");
-  let outputFFn = jQueryFrameFn("#page\\:mainForm\\:outputF span");
+  var selectFFn = jQueryFrameFn("#page\\:mainForm\\:selectF input");
+  var outputFFn = jQueryFrameFn("#page\\:mainForm\\:outputF span");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectFFn().prop("checked", true).trigger("change");
   });
@@ -133,10 +133,10 @@ QUnit.test("ajax: select F", function (assert) {
 });
 
 QUnit.test("ajax: deselect F", function (assert) {
-  let selectFFn = jQueryFrameFn("#page\\:mainForm\\:selectF input");
-  let outputFFn = jQueryFrameFn("#page\\:mainForm\\:outputF span");
+  var selectFFn = jQueryFrameFn("#page\\:mainForm\\:selectF input");
+  var outputFFn = jQueryFrameFn("#page\\:mainForm\\:outputF span");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectFFn().prop("checked", false).trigger("change");
   });

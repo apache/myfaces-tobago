@@ -18,10 +18,10 @@
 QUnit.test("No label set", function (assert) {
   assert.expect(5);
 
-  let $section = jQueryFrame("#page\\:mainForm\\:sectionNoLabel");
-  let $rootDiv = $section.find(".tobago-section-content > div");
-  let $label = $rootDiv.find("label");
-  let $input = $rootDiv.find("input");
+  var $section = jQueryFrame("#page\\:mainForm\\:sectionNoLabel");
+  var $rootDiv = $section.find(".tobago-section-content > div");
+  var $label = $rootDiv.find("label");
+  var $input = $rootDiv.find("input");
 
   assert.equal($rootDiv.attr('id'), "page:mainForm:inNoLabel");
   assert.equal($label.length, 0);
@@ -34,10 +34,10 @@ QUnit.test("No label set", function (assert) {
 QUnit.test("labelLayout=none", function (assert) {
   assert.expect(5);
 
-  let $section = jQueryFrame("#page\\:mainForm\\:sectionNone");
-  let $rootDiv = $section.find(".tobago-section-content > div");
-  let $label = $rootDiv.find("label");
-  let $input = $rootDiv.find("input");
+  var $section = jQueryFrame("#page\\:mainForm\\:sectionNone");
+  var $rootDiv = $section.find(".tobago-section-content > div");
+  var $label = $rootDiv.find("label");
+  var $input = $rootDiv.find("input");
 
   assert.equal($rootDiv.attr('id'), "page:mainForm:inNone");
   assert.equal($label.length, 0);
@@ -50,9 +50,9 @@ QUnit.test("labelLayout=none", function (assert) {
 QUnit.test("labelLayout=skip", function (assert) {
   assert.expect(3);
 
-  let $section = jQueryFrame("#page\\:mainForm\\:sectionSkip");
-  let $rootInput = $section.find(".tobago-section-content > input");
-  let $label = $section.find("label");
+  var $section = jQueryFrame("#page\\:mainForm\\:sectionSkip");
+  var $rootInput = $section.find(".tobago-section-content > input");
+  var $label = $section.find("label");
 
   assert.equal($label.length, 0);
   assert.equal($rootInput.attr('id'), "page:mainForm:inSkip");
@@ -63,10 +63,10 @@ QUnit.test("labelLayout=skip", function (assert) {
 QUnit.test("labelLayout=top", function (assert) {
   assert.expect(5);
 
-  let $section = jQueryFrame("#page\\:mainForm\\:sectionTop");
-  let $rootDiv = $section.find(".tobago-section-content > div");
-  let $label = $rootDiv.find("label");
-  let $input = $rootDiv.find("input");
+  var $section = jQueryFrame("#page\\:mainForm\\:sectionTop");
+  var $rootDiv = $section.find(".tobago-section-content > div");
+  var $label = $rootDiv.find("label");
+  var $input = $rootDiv.find("input");
 
   assert.equal($rootDiv.attr('id'), "page:mainForm:inTop");
   assert.equal($label.attr('for'), "page:mainForm:inTop::field");
@@ -79,10 +79,10 @@ QUnit.test("labelLayout=top", function (assert) {
 QUnit.test("labelLayout=flowLeft", function (assert) {
   assert.expect(5);
 
-  let $section = jQueryFrame("#page\\:mainForm\\:sectionFlowLeft");
-  let $rootDiv = $section.find(".tobago-section-content > div");
-  let $label = $rootDiv.find("label");
-  let $input = $rootDiv.find("input");
+  var $section = jQueryFrame("#page\\:mainForm\\:sectionFlowLeft");
+  var $rootDiv = $section.find(".tobago-section-content > div");
+  var $label = $rootDiv.find("label");
+  var $input = $rootDiv.find("input");
 
   assert.equal($rootDiv.attr('id'), "page:mainForm:inFlowLeft");
   assert.equal($label.attr('for'), "page:mainForm:inFlowLeft::field");
@@ -95,10 +95,10 @@ QUnit.test("labelLayout=flowLeft", function (assert) {
 QUnit.test("labelLayout=flowRight", function (assert) {
   assert.expect(5);
 
-  let $section = jQueryFrame("#page\\:mainForm\\:sectionFlowRight");
-  let $rootDiv = $section.find(".tobago-section-content > div");
-  let $label = $rootDiv.find("label");
-  let $input = $rootDiv.find("input");
+  var $section = jQueryFrame("#page\\:mainForm\\:sectionFlowRight");
+  var $rootDiv = $section.find(".tobago-section-content > div");
+  var $label = $rootDiv.find("label");
+  var $input = $rootDiv.find("input");
 
   assert.equal($rootDiv.attr('id'), "page:mainForm:inFlowRight");
   assert.equal($label.attr('for'), "page:mainForm:inFlowRight::field");
@@ -111,10 +111,10 @@ QUnit.test("labelLayout=flowRight", function (assert) {
 QUnit.test("labelLayout=flexLeft", function (assert) {
   assert.expect(5);
 
-  let $section = jQueryFrame("#page\\:mainForm\\:sectionFlexLeft");
-  let $rootDiv = $section.find(".tobago-section-content > div");
-  let $label = $rootDiv.find("label");
-  let $input = $rootDiv.find("input");
+  var $section = jQueryFrame("#page\\:mainForm\\:sectionFlexLeft");
+  var $rootDiv = $section.find(".tobago-section-content > div");
+  var $label = $rootDiv.find("label");
+  var $input = $rootDiv.find("input");
 
   assert.equal($rootDiv.attr('id'), "page:mainForm:inFlexLeft");
   assert.equal($label.attr('for'), "page:mainForm:inFlexLeft::field");
@@ -127,10 +127,10 @@ QUnit.test("labelLayout=flexLeft", function (assert) {
 QUnit.test("labelLayout=flexRight", function (assert) {
   assert.expect(5);
 
-  let $section = jQueryFrame("#page\\:mainForm\\:sectionFlexRight");
-  let $rootDiv = $section.find(".tobago-section-content > div");
-  let $label = $rootDiv.find("label");
-  let $input = $rootDiv.find("input");
+  var $section = jQueryFrame("#page\\:mainForm\\:sectionFlexRight");
+  var $rootDiv = $section.find(".tobago-section-content > div");
+  var $label = $rootDiv.find("label");
+  var $input = $rootDiv.find("input");
 
   assert.equal($rootDiv.attr('id'), "page:mainForm:inFlexRight");
   assert.equal($label.attr('for'), "page:mainForm:inFlexRight::field");
@@ -143,12 +143,12 @@ QUnit.test("labelLayout=flexRight", function (assert) {
 QUnit.test("labelLayout=segmentLeft", function (assert) {
   assert.expect(7);
 
-  let $section = jQueryFrame("#page\\:mainForm\\:sectionSegmentLeft");
-  let $segmentLayout = $section.find(".tobago-section-content > div");
-  let $labelSegment = $segmentLayout.find(".col-3 > div");
-  let $inputSegment = $segmentLayout.find(".col-9 > div");
-  let $label = $labelSegment.find("label");
-  let $input = $inputSegment.find("input");
+  var $section = jQueryFrame("#page\\:mainForm\\:sectionSegmentLeft");
+  var $segmentLayout = $section.find(".tobago-section-content > div");
+  var $labelSegment = $segmentLayout.find(".col-3 > div");
+  var $inputSegment = $segmentLayout.find(".col-9 > div");
+  var $label = $labelSegment.find("label");
+  var $input = $inputSegment.find("input");
 
   assert.equal($labelSegment.attr('id'), "page:mainForm:inSegmentLeft::label");
   assert.equal($label.attr('for'), "page:mainForm:inSegmentLeft::field");
@@ -163,12 +163,12 @@ QUnit.test("labelLayout=segmentLeft", function (assert) {
 QUnit.test("labelLayout=segmentRight", function (assert) {
   assert.expect(7);
 
-  let $section = jQueryFrame("#page\\:mainForm\\:sectionSegmentRight");
-  let $segmentLayout = $section.find(".tobago-section-content > div");
-  let $labelSegment = $segmentLayout.find(".col-3 > div");
-  let $inputSegment = $segmentLayout.find(".col-9 > div");
-  let $label = $labelSegment.find("label");
-  let $input = $inputSegment.find("input");
+  var $section = jQueryFrame("#page\\:mainForm\\:sectionSegmentRight");
+  var $segmentLayout = $section.find(".tobago-section-content > div");
+  var $labelSegment = $segmentLayout.find(".col-3 > div");
+  var $inputSegment = $segmentLayout.find(".col-9 > div");
+  var $label = $labelSegment.find("label");
+  var $input = $inputSegment.find("input");
 
   assert.equal($labelSegment.attr('id'), "page:mainForm:inSegmentRight::label");
   assert.equal($label.attr('for'), "page:mainForm:inSegmentRight::field");
@@ -183,6 +183,6 @@ QUnit.test("labelLayout=segmentRight", function (assert) {
 QUnit.test("Number of data-tobago-markup attributes", function (assert) {
   assert.expect(1);
 
-  let $dataTobagoMarkups = jQueryFrame("#page\\:content .tobago-section-content [data-tobago-markup]");
+  var $dataTobagoMarkups = jQueryFrame("#page\\:content .tobago-section-content [data-tobago-markup]");
   assert.equal($dataTobagoMarkups.length, 12, "Two for segment layout components, one for all other components");
 });

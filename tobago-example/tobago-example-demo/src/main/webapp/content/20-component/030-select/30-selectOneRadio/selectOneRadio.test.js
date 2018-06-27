@@ -16,12 +16,12 @@
  */
 
 QUnit.test("submit: Addition (2 + 4)", function (assert) {
-  let number1Fn = jQueryFrameFn("#page\\:mainForm\\:selectNum1 input");
-  let number2Fn = jQueryFrameFn("#page\\:mainForm\\:selectNum2 input");
-  let submitAddFn = jQueryFrameFn("#page\\:mainForm\\:submitAdd");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:resultOutput span");
+  var number1Fn = jQueryFrameFn("#page\\:mainForm\\:selectNum1 input");
+  var number2Fn = jQueryFrameFn("#page\\:mainForm\\:selectNum2 input");
+  var submitAddFn = jQueryFrameFn("#page\\:mainForm\\:submitAdd");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:resultOutput span");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     number1Fn().eq(0).prop("checked", false);
     number1Fn().eq(1).prop("checked", true); // Select 2
@@ -39,12 +39,12 @@ QUnit.test("submit: Addition (2 + 4)", function (assert) {
 });
 
 QUnit.test("submit: Subtraction (4 - 1)", function (assert) {
-  let number1Fn = jQueryFrameFn("#page\\:mainForm\\:selectNum1 input");
-  let number2Fn = jQueryFrameFn("#page\\:mainForm\\:selectNum2 input");
-  let submitSubFn = jQueryFrameFn("#page\\:mainForm\\:submitSub");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:resultOutput span");
+  var number1Fn = jQueryFrameFn("#page\\:mainForm\\:selectNum1 input");
+  var number2Fn = jQueryFrameFn("#page\\:mainForm\\:selectNum2 input");
+  var submitSubFn = jQueryFrameFn("#page\\:mainForm\\:submitSub");
+  var outputFn = jQueryFrameFn("#page\\:mainForm\\:resultOutput span");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     number1Fn().eq(0).prop("checked", false);
     number1Fn().eq(1).prop("checked", false);
@@ -62,10 +62,10 @@ QUnit.test("submit: Subtraction (4 - 1)", function (assert) {
 });
 
 QUnit.test("ajax: select Mars", function (assert) {
-  let planetFn = jQueryFrameFn("#page\\:mainForm\\:selectPlanet input");
-  let moonsFn = jQueryFrameFn("#page\\:mainForm\\:moonradio label.form-check-label");
+  var planetFn = jQueryFrameFn("#page\\:mainForm\\:selectPlanet input");
+  var moonsFn = jQueryFrameFn("#page\\:mainForm\\:moonradio label.form-check-label");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     planetFn().eq(0).prop("checked", false);
     planetFn().eq(2).prop("checked", false);
@@ -80,10 +80,10 @@ QUnit.test("ajax: select Mars", function (assert) {
 });
 
 QUnit.test("ajax: select Jupiter", function (assert) {
-  let planetFn = jQueryFrameFn("#page\\:mainForm\\:selectPlanet input");
-  let moonsFn = jQueryFrameFn("#page\\:mainForm\\:moonradio label.form-check-label");
+  var planetFn = jQueryFrameFn("#page\\:mainForm\\:selectPlanet input");
+  var moonsFn = jQueryFrameFn("#page\\:mainForm\\:moonradio label.form-check-label");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     planetFn().eq(0).prop("checked", false);
     planetFn().eq(1).prop("checked", false);

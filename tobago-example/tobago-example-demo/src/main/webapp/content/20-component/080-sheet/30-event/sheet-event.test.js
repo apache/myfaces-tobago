@@ -16,13 +16,13 @@
  */
 
 QUnit.test("On click with ajax", function (assert) {
-  let oneClickAjaxFn = jQueryFrameFn("#page\\:mainForm\\:changeExample\\:\\:0");
-  let venusFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:2\\:sample0");
-  let jupiterFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:5\\:sample0");
-  let saturnFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:6\\:sample0");
-  let namefieldFn = jQueryFrameFn("#page\\:mainForm\\:name\\:\\:field");
+  var oneClickAjaxFn = jQueryFrameFn("#page\\:mainForm\\:changeExample\\:\\:0");
+  var venusFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:2\\:sample0");
+  var jupiterFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:5\\:sample0");
+  var saturnFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:6\\:sample0");
+  var namefieldFn = jQueryFrameFn("#page\\:mainForm\\:name\\:\\:field");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     oneClickAjaxFn().click();
   });
@@ -57,13 +57,13 @@ QUnit.test("On click with ajax", function (assert) {
 });
 
 QUnit.test("On click with full request", function (assert) {
-  let oneClickFullRequestFn = jQueryFrameFn("#page\\:mainForm\\:changeExample\\:\\:1");
-  let venusFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:2\\:sample1");
-  let jupiterFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:5\\:sample1");
-  let saturnFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:6\\:sample1");
-  let namefieldFn = jQueryFrameFn("#page\\:mainForm\\:name\\:\\:field");
+  var oneClickFullRequestFn = jQueryFrameFn("#page\\:mainForm\\:changeExample\\:\\:1");
+  var venusFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:2\\:sample1");
+  var jupiterFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:5\\:sample1");
+  var saturnFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:6\\:sample1");
+  var namefieldFn = jQueryFrameFn("#page\\:mainForm\\:name\\:\\:field");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     oneClickFullRequestFn().click();
   });
@@ -98,13 +98,13 @@ QUnit.test("On click with full request", function (assert) {
 });
 
 QUnit.test("On double click with full request", function (assert) {
-  let doubleClickFullRequestFn = jQueryFrameFn("#page\\:mainForm\\:changeExample\\:\\:2");
-  let venusFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:2\\:sample2");
-  let jupiterFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:5\\:sample2");
-  let saturnFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:6\\:sample2");
-  let namefieldFn = jQueryFrameFn("#page\\:mainForm\\:name\\:\\:field");
+  var doubleClickFullRequestFn = jQueryFrameFn("#page\\:mainForm\\:changeExample\\:\\:2");
+  var venusFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:2\\:sample2");
+  var jupiterFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:5\\:sample2");
+  var saturnFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:6\\:sample2");
+  var namefieldFn = jQueryFrameFn("#page\\:mainForm\\:name\\:\\:field");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     doubleClickFullRequestFn().click();
   });
@@ -139,15 +139,15 @@ QUnit.test("On double click with full request", function (assert) {
 });
 
 QUnit.test("Open popup on click with ajax", function (assert) {
-  let radioButtonFn = jQueryFrameFn("#page\\:mainForm\\:changeExample\\:\\:3");
-  let venusFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:2\\:sample3");
-  let jupiterFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:5\\:sample3");
-  let saturnFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:6\\:sample3");
-  let popupFn = jQueryFrameFn("#page\\:mainForm\\:popup");
-  let nameFn = jQueryFrameFn("#page\\:mainForm\\:popup\\:popupName\\:\\:field");
-  let cancelFn = jQueryFrameFn("#page\\:mainForm\\:popup\\:cancel");
+  var radioButtonFn = jQueryFrameFn("#page\\:mainForm\\:changeExample\\:\\:3");
+  var venusFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:2\\:sample3");
+  var jupiterFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:5\\:sample3");
+  var saturnFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:6\\:sample3");
+  var popupFn = jQueryFrameFn("#page\\:mainForm\\:popup");
+  var nameFn = jQueryFrameFn("#page\\:mainForm\\:popup\\:popupName\\:\\:field");
+  var cancelFn = jQueryFrameFn("#page\\:mainForm\\:popup\\:cancel");
 
-  let TTT = new TobagoTestTools(assert);
+  var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     radioButtonFn().click();
   });
