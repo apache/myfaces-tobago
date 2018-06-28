@@ -60,7 +60,7 @@ public final class ClientPropertiesKey implements Serializable {
     contentType = clientProperties.getContentType();
     theme = clientProperties.getTheme();
     userAgent = clientProperties.getUserAgent();
-    locale = viewRoot.getLocale();
+    locale = viewRoot != null ? viewRoot.getLocale() : null;
     hashCode = calcHashCode();
   }
 
