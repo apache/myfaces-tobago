@@ -78,6 +78,8 @@ $fa-check-square-o: "\f046";
 $fa-circle-thin: "\f1db";
 $fa-dot-circle-o: "\f192";
 $zero-width-space: "\200b";
+$fa-toggle-off: "\f204";
+$fa-toggle-on: "\f205";
 
 /* badge -------------------------------------------------------------- */
 .tobago-badge {
@@ -834,7 +836,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* selectBooleanCheckbox, selectManyCheckbox, selectOneRadio ------------------------------ */
-.tobago-selectBooleanCheckbox, .tobago-selectManyCheckbox, .tobago-selectOneRadio {
+
+.tobago-selectBooleanCheckbox, .tobago-selectBooleanToggle,
+.tobago-selectManyCheckbox, .tobago-selectManyToggle,
+.tobago-selectOneRadio {
   .form-check-label {
     input {
       position: absolute;
@@ -847,7 +852,7 @@ h1, h2, h3, h4, h5, h6 {
       font-style: normal;
       display: inline-block;
       transition: all 0.2s;
-      position: absolute;
+      position: relative;
       margin-left: -$form-check-input-gutter;
     }
     img {
@@ -859,13 +864,42 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.tobago-selectBooleanToggle, .tobago-selectManyToggle {
+  .form-check-label {
+    .tobago-inputPseudo:before {
+      font-size: larger;
+    }
+  }
+}
+
 .tobago-selectBooleanCheckbox, .tobago-selectManyCheckbox {
   .form-check-label {
     .tobago-inputPseudo:before {
       content: $fa-square-o;
+      position: absolute;
     }
     input[type="checkbox"]:checked + .tobago-inputPseudo:before {
       content: $fa-check-square-o;
+    }
+    input[type="checkbox"]:focus:not(:disabled) + .tobago-inputPseudo:before,
+    input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before {
+      text-shadow: 0 0 1px black;
+    }
+    input[type="checkbox"]:disabled + .tobago-inputPseudo:before {
+      opacity: 0.5;
+    }
+  }
+}
+
+.tobago-selectBooleanToggle, .tobago-selectManyToggle {
+  .form-check-label {
+    .tobago-inputPseudo:before {
+      content: $fa-toggle-off;
+      position: relative;
+      margin-right: 0.5rem;
+    }
+    input[type="checkbox"]:checked + .tobago-inputPseudo:before {
+      content: $fa-toggle-on;
     }
     input[type="checkbox"]:focus:not(:disabled) + .tobago-inputPseudo:before,
     input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before {
@@ -881,6 +915,7 @@ h1, h2, h3, h4, h5, h6 {
   .form-check-label {
     .tobago-inputPseudo:before {
       content: $fa-circle-thin;
+      position: absolute;
     }
     input[type="radio"]:checked + .tobago-inputPseudo:before {
       content: $fa-dot-circle-o;
@@ -905,6 +940,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* inline */
+.tobago-selectBooleanToggle.form-check,
 .tobago-selectBooleanCheckbox.form-check {
   padding-top: calc(#{$input-btn-padding-y} - #{$input-btn-border-width} * 2);
   padding-bottom: calc(#{$input-btn-padding-y} - #{$input-btn-border-width} * 2);
@@ -915,7 +951,9 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.tobago-selectManyCheckbox-inline, .tobago-selectOneRadio-inline {
+.tobago-selectManyToggle-inline,
+.tobago-selectManyCheckbox-inline,
+.tobago-selectOneRadio-inline {
   padding-top: calc(#{$input-btn-padding-y} - #{$input-btn-border-width} * 2);
   padding-bottom: calc(#{$input-btn-padding-y} - #{$input-btn-border-width} * 2);
 

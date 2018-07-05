@@ -75,6 +75,7 @@
   <entry key="object">External Object (iframe)</entry>
   <entry key="select">Select Controls</entry>
   <entry key="selectBooleanCheckbox">Checkbox</entry>
+  <entry key="selectBooleanToggle">Toggle</entry>
   <entry key="selectOneChoice">Dropdown Box</entry>
   <entry key="selectOneRadio">Radio Button</entry>
   <entry key="selectOneListbox">Singleselection List</entry>

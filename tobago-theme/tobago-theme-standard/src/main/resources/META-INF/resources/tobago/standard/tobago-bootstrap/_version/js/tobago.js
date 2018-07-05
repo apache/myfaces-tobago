@@ -1237,6 +1237,24 @@ Tobago.registerListener(Tobago.SelectBooleanCheckbox.init, Tobago.Phase.AFTER_UP
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+Tobago.SelectBooleanToggle = {};
+
+Tobago.SelectBooleanToggle.init = function(elements) {
+  var toggles = Tobago.Utils.selectWithJQuery(elements, ".tobago-selectBooleanToggle input[readonly]");
+  toggles.each(function() {
+    // Save the initial state to restore it, when the user tries to manipulate it.
+    var initial = jQuery(this).is(":checked");
+    jQuery(this).click(function() {
+      jQuery(this).prop("checked", initial);
+    });
+  });
+};
+
+Tobago.registerListener(Tobago.SelectBooleanToggle.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.SelectBooleanToggle.init, Tobago.Phase.AFTER_UPDATE);
+
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 Tobago.SelectManyCheckbox = {};
 
 Tobago.SelectManyCheckbox.init = function(elements) {

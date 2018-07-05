@@ -9752,32 +9752,45 @@ h1 > .fa:first-child, h1 > img, h2 > .fa:first-child, h2 > img, h3 > .fa:first-c
 }
 
 /* selectBooleanCheckbox, selectManyCheckbox, selectOneRadio ------------------------------ */
-.tobago-selectBooleanCheckbox .form-check-label input, .tobago-selectManyCheckbox .form-check-label input, .tobago-selectOneRadio .form-check-label input {
+.tobago-selectBooleanCheckbox .form-check-label input, .tobago-selectBooleanToggle .form-check-label input,
+.tobago-selectManyCheckbox .form-check-label input, .tobago-selectManyToggle .form-check-label input,
+.tobago-selectOneRadio .form-check-label input {
   position: absolute;
   opacity: 0;
   z-index: -1;
 }
 
-.tobago-selectBooleanCheckbox .form-check-label .tobago-inputPseudo:before, .tobago-selectManyCheckbox .form-check-label .tobago-inputPseudo:before, .tobago-selectOneRadio .form-check-label .tobago-inputPseudo:before {
+.tobago-selectBooleanCheckbox .form-check-label .tobago-inputPseudo:before, .tobago-selectBooleanToggle .form-check-label .tobago-inputPseudo:before,
+.tobago-selectManyCheckbox .form-check-label .tobago-inputPseudo:before, .tobago-selectManyToggle .form-check-label .tobago-inputPseudo:before,
+.tobago-selectOneRadio .form-check-label .tobago-inputPseudo:before {
   font-family: FontAwesome;
   font-size: large;
   font-style: normal;
   display: inline-block;
   transition: all 0.2s;
-  position: absolute;
+  position: relative;
   margin-left: -1.25rem;
 }
 
-.tobago-selectBooleanCheckbox .form-check-label img, .tobago-selectManyCheckbox .form-check-label img, .tobago-selectOneRadio .form-check-label img {
+.tobago-selectBooleanCheckbox .form-check-label img, .tobago-selectBooleanToggle .form-check-label img,
+.tobago-selectManyCheckbox .form-check-label img, .tobago-selectManyToggle .form-check-label img,
+.tobago-selectOneRadio .form-check-label img {
   margin-right: 0.3em;
 }
 
-.tobago-selectBooleanCheckbox .form-check-label:after, .tobago-selectManyCheckbox .form-check-label:after, .tobago-selectOneRadio .form-check-label:after {
+.tobago-selectBooleanCheckbox .form-check-label:after, .tobago-selectBooleanToggle .form-check-label:after,
+.tobago-selectManyCheckbox .form-check-label:after, .tobago-selectManyToggle .form-check-label:after,
+.tobago-selectOneRadio .form-check-label:after {
   content: "​";
+}
+
+.tobago-selectBooleanToggle .form-check-label .tobago-inputPseudo:before, .tobago-selectManyToggle .form-check-label .tobago-inputPseudo:before {
+  font-size: larger;
 }
 
 .tobago-selectBooleanCheckbox .form-check-label .tobago-inputPseudo:before, .tobago-selectManyCheckbox .form-check-label .tobago-inputPseudo:before {
   content: "";
+  position: absolute;
 }
 
 .tobago-selectBooleanCheckbox .form-check-label input[type="checkbox"]:checked + .tobago-inputPseudo:before, .tobago-selectManyCheckbox .form-check-label input[type="checkbox"]:checked + .tobago-inputPseudo:before {
@@ -9794,8 +9807,29 @@ h1 > .fa:first-child, h1 > img, h2 > .fa:first-child, h2 > img, h3 > .fa:first-c
   opacity: 0.5;
 }
 
+.tobago-selectBooleanToggle .form-check-label .tobago-inputPseudo:before, .tobago-selectManyToggle .form-check-label .tobago-inputPseudo:before {
+  content: "";
+  position: relative;
+  margin-right: 0.5rem;
+}
+
+.tobago-selectBooleanToggle .form-check-label input[type="checkbox"]:checked + .tobago-inputPseudo:before, .tobago-selectManyToggle .form-check-label input[type="checkbox"]:checked + .tobago-inputPseudo:before {
+  content: "";
+}
+
+.tobago-selectBooleanToggle .form-check-label input[type="checkbox"]:focus:not(:disabled) + .tobago-inputPseudo:before,
+.tobago-selectBooleanToggle .form-check-label input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before, .tobago-selectManyToggle .form-check-label input[type="checkbox"]:focus:not(:disabled) + .tobago-inputPseudo:before,
+.tobago-selectManyToggle .form-check-label input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before {
+  text-shadow: 0 0 1px black;
+}
+
+.tobago-selectBooleanToggle .form-check-label input[type="checkbox"]:disabled + .tobago-inputPseudo:before, .tobago-selectManyToggle .form-check-label input[type="checkbox"]:disabled + .tobago-inputPseudo:before {
+  opacity: 0.5;
+}
+
 .tobago-selectOneRadio .form-check-label .tobago-inputPseudo:before {
   content: "";
+  position: absolute;
 }
 
 .tobago-selectOneRadio .form-check-label input[type="radio"]:checked + .tobago-inputPseudo:before {
@@ -9817,23 +9851,30 @@ h1 > .fa:first-child, h1 > img, h2 > .fa:first-child, h2 > img, h3 > .fa:first-c
 }
 
 /* inline */
+.tobago-selectBooleanToggle.form-check,
 .tobago-selectBooleanCheckbox.form-check {
   padding-top: calc(0.375rem - 2px * 2);
   padding-bottom: calc(0.375rem - 2px * 2);
   margin-bottom: 0;
 }
 
-.tobago-selectManyCheckbox-inline, .tobago-selectOneRadio-inline {
+.tobago-selectManyToggle-inline,
+.tobago-selectManyCheckbox-inline,
+.tobago-selectOneRadio-inline {
   padding-top: calc(0.375rem - 2px * 2);
   padding-bottom: calc(0.375rem - 2px * 2);
 }
 
-.tobago-selectManyCheckbox-inline .form-check.form-check-inline, .tobago-selectOneRadio-inline .form-check.form-check-inline {
+.tobago-selectManyToggle-inline .form-check.form-check-inline,
+.tobago-selectManyCheckbox-inline .form-check.form-check-inline,
+.tobago-selectOneRadio-inline .form-check.form-check-inline {
   margin-bottom: 0;
   padding-left: 1rem;
 }
 
-.tobago-selectManyCheckbox-inline .form-check.form-check-inline .form-check-label, .tobago-selectOneRadio-inline .form-check.form-check-inline .form-check-label {
+.tobago-selectManyToggle-inline .form-check.form-check-inline .form-check-label,
+.tobago-selectManyCheckbox-inline .form-check.form-check-inline .form-check-label,
+.tobago-selectOneRadio-inline .form-check.form-check-inline .form-check-label {
   vertical-align: baseline;
 }
 

@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 /**
- * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectBooleanCheckboxTagDeclaration}
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectBooleanToggleTagDeclaration}
  */
-public abstract class AbstractUISelectBooleanCheckbox extends AbstractUISelectBoolean {
+public abstract class AbstractUISelectBooleanToggle extends AbstractUISelectBoolean {
 }

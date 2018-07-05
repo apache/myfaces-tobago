@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectBoolean;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 
@@ -40,12 +40,12 @@ public class SelectBooleanCheckboxInsideCommandRenderer extends SelectBooleanChe
   }
 
   @Override
-  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectBooleanCheckbox select) {
+  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {
     return new CssItem[]{BootstrapClass.DROPDOWN_ITEM};
   }
 
   @Override
-  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBooleanCheckbox select) {
+  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {
     return new CssItem[]{};
   }
 }

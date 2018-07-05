@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectBoolean;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
@@ -70,7 +70,7 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
 
   @Override
   protected void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUISelectBooleanCheckbox select = (AbstractUISelectBooleanCheckbox) component;
+    final AbstractUISelectBoolean select = (AbstractUISelectBoolean) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final String clientId = select.getClientId(facesContext);
@@ -90,8 +90,8 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     }
 
     writer.writeClassAttribute(
-        TobagoClass.SELECT_BOOLEAN_CHECKBOX,
-        TobagoClass.SELECT_BOOLEAN_CHECKBOX.createMarkup(markup),
+        getTobagoClass(),
+        getTobagoClass().createMarkup(markup),
         getOuterCssItems(facesContext, select),
         disabled ? BootstrapClass.DISABLED : null,
         select.getCustomClass());
@@ -133,6 +133,10 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     }
   }
 
+  protected TobagoClass getTobagoClass() {
+    return TobagoClass.SELECT_BOOLEAN_CHECKBOX;
+  }
+
   @Override
   protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
@@ -140,17 +144,17 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     writer.endElement(HtmlElements.DIV);
   }
 
-  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBooleanCheckbox select) {
+  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {
     return new CssItem[]{BootstrapClass.FORM_CHECK};
   }
 
-  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectBooleanCheckbox select) {
+  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {
     return null;
   }
 
   @Override
   protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
-    final AbstractUISelectBooleanCheckbox select = (AbstractUISelectBooleanCheckbox) component;
+    final AbstractUISelectBoolean select = (AbstractUISelectBoolean) component;
     return select.getFieldId(facesContext);
   }
 }

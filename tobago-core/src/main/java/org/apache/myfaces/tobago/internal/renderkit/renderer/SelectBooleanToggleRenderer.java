@@ -17,10 +17,13 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-/**
- * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectBooleanCheckboxTagDeclaration}
- */
-public abstract class AbstractUISelectBooleanCheckbox extends AbstractUISelectBoolean {
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+
+public class SelectBooleanToggleRenderer extends SelectBooleanCheckboxRenderer {
+
+  protected TobagoClass getTobagoClass() {
+    return TobagoClass.SELECT_BOOLEAN_TOGGLE;
+  }
 }

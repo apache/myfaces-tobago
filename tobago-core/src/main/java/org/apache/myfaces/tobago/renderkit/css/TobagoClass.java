@@ -23,8 +23,6 @@ import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.layout.AlignItems;
 import org.apache.myfaces.tobago.layout.JustifyContent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -161,6 +159,7 @@ public enum TobagoClass implements CssItem {
   SECTION__CONTENT("tobago-section-content"),
   SEGMENT_LAYOUT("tobago-segmentLayout"),
   SELECT_BOOLEAN_CHECKBOX("tobago-selectBooleanCheckbox"),
+  SELECT_BOOLEAN_TOGGLE("tobago-selectBooleanToggle"),
   SELECT_MANY_CHECKBOX("tobago-selectManyCheckbox"),
   SELECT_MANY_CHECKBOX__INLINE("tobago-selectManyCheckbox-inline"),
   SELECT_MANY_LISTBOX("tobago-selectManyListbox"),
@@ -229,8 +228,6 @@ public enum TobagoClass implements CssItem {
   TREE_NODE__TOGGLE("tobago-treeNode-toggle"),
   TREE_SELECT("tobago-treeSelect"),
   TREE_SELECT__LABEL("tobago-treeSelect-label");
-
-  private static final Logger LOG = LoggerFactory.getLogger(TobagoClass.class);
 
   private final String name;
 
