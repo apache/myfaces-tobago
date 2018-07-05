@@ -63,6 +63,16 @@
     <param-value>true</param-value>
   </context-param>
 
+  <context-param>
+    <param-name>org.apache.myfaces.NUMBER_OF_VIEWS_IN_SESSION</param-name>
+    <param-value>20</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>org.apache.myfaces.NUMBER_OF_SEQUENTIAL_VIEWS_IN_SESSION</param-name>
+    <param-value>4</param-value>
+  </context-param>
+
   <listener>
     <listener-class>org.apache.myfaces.tobago.example.demo.info.ActivitySessionListener</listener-class>
   </listener>
