@@ -80,8 +80,10 @@ function testEvent(assert, componentName, eventNames, eventComponentFn, ajaxComp
   var oldTimestamp;
 
   var TTT = new TobagoTestTool(assert);
-  for (i = 0; i < eventNames.length; i++) {
-    var eventName = eventNames[i];
+  for (var i = 0; i < eventNames.length; i++) {
+    // need 'let' here, otherwise all tests are executed with last eventName in array
+    // also work in IE11
+    let eventName = eventNames[i];
 
     TTT.action(function () {
       activateComponent(componentName, eventName);
