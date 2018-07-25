@@ -166,9 +166,11 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
       if (style == null) {
         style = (UIStyle) ComponentUtils.createComponent(
             facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style, null);
-        style.setTransient(true);
         component.getChildren().add(style);
       }
+      // Style must be transient to avoid creating a new instance of GridSpan while restore state
+      // https://issues.apache.org/jira/browse/TOBAGO-1909
+      style.setTransient(true);
 
       final Integer gridColumn = (Integer) attributes.get(Attributes.gridColumn.getName());
       final Integer columnSpan = (Integer) attributes.get(Attributes.columnSpan.getName());
