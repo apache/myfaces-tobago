@@ -31,25 +31,25 @@ TobagoTestTool.prototype = {
     this.steps.push({
       type: TobagoTestTool.stepType.ACTION,
       func: func
-    })
+    });
   },
   waitForResponse: function () {
     this.steps.push({
       type: TobagoTestTool.stepType.WAIT_RESPONSE
-    })
+    });
   },
   waitMs: function (ms) {
     this.steps.push({
       type: TobagoTestTool.stepType.WAIT_MS,
       ms: ms ? ms : 0
-    })
+    });
   },
   asserts: function (numOfAssertions, func) {
     this.steps.push({
       type: TobagoTestTool.stepType.ASSERTS,
       numOfAssertions: numOfAssertions ? numOfAssertions : 0,
       func: func
-    })
+    });
   },
   startTest: function () {
     var steps = this.steps.slice(0);

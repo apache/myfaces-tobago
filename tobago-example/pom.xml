@@ -165,6 +165,16 @@
     </dependency>
   </dependencies>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>jstl</artifactId>
+        <version>1.2</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <profiles>
 
     <profile>
@@ -322,6 +332,10 @@
           <version>${mojarra20.version}</version>
           <scope>runtime</scope>
         </dependency>
+        <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jstl</artifactId>
+        </dependency>
       </dependencies>
     </profile>
 
@@ -349,6 +363,10 @@
           <version>${mojarra21.version}</version>
           <scope>runtime</scope>
         </dependency>
+        <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jstl</artifactId>
+        </dependency>
       </dependencies>
     </profile>
 
@@ -375,6 +393,10 @@
           <artifactId>jsf-impl</artifactId>
           <version>${mojarra22.version}</version>
           <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jstl</artifactId>
         </dependency>
       </dependencies>
     </profile>

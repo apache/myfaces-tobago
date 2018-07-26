@@ -330,6 +330,8 @@ mvn verify -Pqunit-integration-tests</code></pre>
       <p>To run the integration tests:</p>
       <pre><code class="language-markup">cd tobago-example/tobago-example-demo
 mvn -Pdocker-qunit-tests</code></pre>
+      <p>The docker container can be rebuild with:</p>
+      <pre><code class="language-markup">mvn package -Pdocker-qunit-tests docker:build</code></pre>
       <p>You can also just start/stop the docker container manually to run the tests from your IDE.</p>
       <pre><code class="language-markup">mvn -Pdocker-qunit-tests docker:start
 mvn -Pdocker-qunit-tests docker:stop</code></pre>

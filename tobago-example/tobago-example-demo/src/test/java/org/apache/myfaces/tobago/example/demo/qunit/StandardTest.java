@@ -30,12 +30,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.LinkedList;
+import java.time.LocalTime;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 class StandardTest extends SeleniumBase {
@@ -49,49 +45,36 @@ class StandardTest extends SeleniumBase {
   @Test
   void testSinglePage() throws MalformedURLException, UnknownHostException, UnsupportedEncodingException {
     final Browser browser = Browser.chrome;
-    final String portContextPath = getServerPortWithContextPath()[0];
+    final String serverUrl = getServerUrls().get(0);
     final String path = "content/10-intro/intro.xhtml";
 
-    LOG.info("browser: " + browser + " - port and context path: " + portContextPath + " - path: " + path);
+    LOG.info("browser: " + browser + " - url: " + serverUrl + "/" + path);
 
-    setupBrowser(browser);
-    setupWebDriver(portContextPath, path, false);
-
-    parseQUnitResults(browser, portContextPath, path);
+    setupWebDriver(browser, serverUrl, path, false);
+    parseQUnitResults(browser, serverUrl, path);
   }
 
   @ParameterizedTest
   @MethodSource("standardTestProvider")
-  void testStandard(Browser browser, String portContextPath, String path) throws MalformedURLException,
-      UnknownHostException, UnsupportedEncodingException {
-    LOG.info("browser: " + browser + " - port and context path: " + portContextPath + " - path: " + path);
+  void testStandard(Browser browser, String serverUrl, String path, LocalTime startTime, int testSize, int testNo)
+      throws MalformedURLException, UnsupportedEncodingException {
 
-    setupBrowser(browser);
-    setupWebDriver(portContextPath, path, false);
+    double percent = 100 * (double) testNo / testSize;
+    final String timeLeft = getTimeLeft(startTime, testSize, testNo);
 
-    parseQUnitResults(browser, portContextPath, path);
+    LOG.info("(" + String.format("%.2f", percent) + " % complete" + " | time left: " + timeLeft + ")"
+        + " browser: " + browser + " - url: " + serverUrl + "/" + path);
+
+    if (isIgnored(serverUrl, path)) {
+      logIgnoreMessage(serverUrl, path);
+    } else {
+      setupWebDriver(browser, serverUrl, path, false);
+      parseQUnitResults(browser, serverUrl, path);
+    }
   }
 
   private static Stream<Arguments> standardTestProvider() throws IOException {
-    final List<String> paths = Files.walk(Paths.get("src/main/webapp/content/"))
-        .filter(Files::isRegularFile)
-        .map(Path::toString)
-        .filter(s -> s.endsWith(".test.js"))
-        .map(s -> s.substring("src/main/webapp/".length()))
-        .sorted()
-        .map(s -> s.substring(0, s.length() - 8) + ".xhtml")
-        .collect(Collectors.toList());
-
-    List<Arguments> arguments = new LinkedList<>();
-
-    for (Browser browser : Browser.values()) {
-      for (String portWithContextPath : getServerPortWithContextPath()) {
-        for (String path : paths) {
-          arguments.add(Arguments.of(browser, portWithContextPath, path));
-        }
-      }
-    }
-
-    return arguments.stream();
+    final List<String> paths = getStandardTestPaths();
+    return getArguments(paths);
   }
 }

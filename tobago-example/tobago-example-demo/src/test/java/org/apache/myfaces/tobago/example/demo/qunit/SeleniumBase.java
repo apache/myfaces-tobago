@@ -19,76 +19,218 @@
 
 package org.apache.myfaces.tobago.example.demo.qunit;
 
-import org.junit.Assert;
-import org.junit.jupiter.api.AfterEach;
+import org.apache.commons.lang3.time.DurationFormatUtils;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.params.provider.Arguments;
 import org.openqa.selenium.By;
-import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 abstract class SeleniumBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(SeleniumBase.class);
 
-  private WebDriver webDriver;
+  private static WebDriver chromeDriver;
+  private static List<String> serverUrls = new ArrayList<>();
+  private static Map<String, String> ignores = new HashMap<>();
 
-  @AfterEach
-  void tearDown() {
-    if (webDriver != null) {
-      webDriver.quit();
+  @BeforeAll
+  static void setUp() {
+    ignores.put(":8083/tobago-example-demo-myfaces-2.3",
+        "MyFaces 2.3 don't work with Tomcat 8.5 and openjdk10");
+    ignores.put("tobago-example-demo-mojarra-2.0",
+        "Ajax events don't work with Mojarra 2.0: https://issues.apache.org/jira/browse/TOBAGO-1589");
+    ignores.put("tobago-example-demo-mojarra-2.3",
+        "Currently Tobago demo don't run with Mojarra 2.3 on Tomcat 8.5");
+
+    ignores.put("content/40-test/6000-event/event.xhtml",
+        "Focus/blur event can only be fired if the browser window is in foreground." +
+            " This cannot be guaranteed in selenium tests."
+            + " event.test.js contain focus/blur events");
+
+    final String tobago1910 = "TreeSelect: Single selection nodes are not deselected correctly with mojarra: " +
+        "https://issues.apache.org/jira/browse/TOBAGO-1910";
+    ignores.put("tobago-example-demo-mojarra-2.1/content/20-component/090-tree/01-select/tree-select.xhtml",
+        tobago1910);
+    ignores.put("tobago-example-demo-mojarra-2.2/content/20-component/090-tree/01-select/tree-select.xhtml",
+        tobago1910);
+  }
+
+  @AfterAll
+  static void tearDown() {
+    if (chromeDriver != null) {
+      chromeDriver.quit();
     }
   }
 
   enum Browser {
-    chrome, firefox
+    chrome
+    //, firefox // TODO implement firefox
   }
 
-  static String[] getServerPortWithContextPath() {
-    return new String[]{"8081/tobago-example-demo"};
-  }
+  static List<String> getServerUrls() throws UnknownHostException, MalformedURLException {
+    if (serverUrls.size() <= 0) {
+      final String hostAddress = InetAddress.getLocalHost().getHostAddress();
 
-  void setupBrowser(final Browser browser) throws MalformedURLException {
-    MutableCapabilities options;
-    switch (browser) {
-      case chrome:
-        options = new ChromeOptions();
-        break;
-      case firefox:
-      default:
-        options = new FirefoxOptions();
-        break;
+      List<String> ports = new ArrayList<>();
+      ports.add("8082"); // Tomcat JRE 8
+      ports.add("8083"); // Tomcat JRE 10
+
+      List<String> contextPaths = new ArrayList<>();
+      contextPaths.add("tobago-example-demo"); // MyFaces 2.0
+      contextPaths.add("tobago-example-demo-myfaces-2.1");
+      contextPaths.add("tobago-example-demo-myfaces-2.2");
+      contextPaths.add("tobago-example-demo-myfaces-2.3");
+      contextPaths.add("tobago-example-demo-mojarra-2.0");
+      contextPaths.add("tobago-example-demo-mojarra-2.1");
+      contextPaths.add("tobago-example-demo-mojarra-2.2");
+      contextPaths.add("tobago-example-demo-mojarra-2.3");
+
+      for (String port : ports) {
+        for (String contextPath : contextPaths) {
+          String url = "http://" + hostAddress + ":" + port + "/" + contextPath;
+          final int status = getStatus(url);
+          if (status == 200) {
+            serverUrls.add(url);
+          } else {
+            LOG.warn("\n⚠️ IGNORED: Tests for " + url + ":\n Server status: " + status);
+          }
+        }
+      }
     }
-    webDriver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
+
+    return serverUrls;
   }
 
-  void setupWebDriver(final String portContextPath, final String path, final boolean accessTest)
-      throws UnknownHostException, UnsupportedEncodingException {
-    final String hostAddress = InetAddress.getLocalHost().getHostAddress();
+  private static int getStatus(String url) throws MalformedURLException {
+    URL siteURL = new URL(url);
+    try {
+      HttpURLConnection connection = (HttpURLConnection) siteURL.openConnection();
+      connection.setRequestMethod("GET");
+      connection.connect();
+      return connection.getResponseCode();
+    } catch (IOException e) {
+      return -1;
+    }
+  }
+
+  static List<String> getStandardTestPaths() throws IOException {
+    return Files.walk(Paths.get("src/main/webapp/content/"))
+        .filter(Files::isRegularFile)
+        .map(Path::toString)
+        .filter(s -> s.endsWith(".test.js"))
+        .map(s -> s.substring("src/main/webapp/".length()))
+        .sorted()
+        .map(s -> s.substring(0, s.length() - 8) + ".xhtml")
+        .collect(Collectors.toList());
+  }
+
+  boolean isIgnored(final String serverUrl, final String path) {
+    final String url = serverUrl + "/" + path;
+    for (String key : ignores.keySet()) {
+      if (url.contains(key)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  void logIgnoreMessage(final String serverUrl, final String path) {
+    final String url = serverUrl + "/" + path;
+    for (final Map.Entry<String, String> ignore : ignores.entrySet()) {
+      if (url.contains(ignore.getKey())) {
+        final String message = ignore.getValue();
+        LOG.info("\n⚠️ IGNORED: Test for " + url + ":\n" + message);
+        return;
+      }
+    }
+  }
+
+  void setupWebDriver(final Browser browser, final String serverUrl, final String path, final boolean accessTest)
+      throws MalformedURLException, UnsupportedEncodingException {
+    if (Browser.chrome.equals(browser)
+        && (chromeDriver == null) || ((RemoteWebDriver) chromeDriver).getSessionId() == null) {
+      chromeDriver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), new ChromeOptions());
+    }
+
     final String base = path.substring(0, path.length() - 6);
-    final String url = "http://" + hostAddress + ":" + portContextPath + "/test.xhtml?base="
+    final String url = serverUrl + "/test.xhtml?base="
         + URLEncoder.encode(base, "UTF-8") + (accessTest ? "&accessTest=true" : "");
-    webDriver.get(url);
+    getWebDriver(browser).get(url);
   }
 
-  WebDriver getWebDriver() {
-    return webDriver;
+  WebDriver getWebDriver(Browser browser) {
+    if (Browser.chrome.equals(browser)) {
+      return chromeDriver;
+    } else {
+      return null;
+    }
+  }
+
+  static Stream<Arguments> getArguments(final List<String> paths) throws MalformedURLException, UnknownHostException {
+    final LocalTime startTime = LocalTime.now();
+    final int testSize = Browser.values().length * getServerUrls().size() * paths.size();
+
+    List<Arguments> arguments = new LinkedList<>();
+
+    int testNo = 1;
+    for (String serverUrl : getServerUrls()) {
+      for (String path : paths) {
+        for (Browser browser : Browser.values()) {
+          arguments.add(Arguments.of(browser, serverUrl, path, startTime, testSize, testNo));
+          testNo++;
+        }
+      }
+    }
+
+    return arguments.stream();
+  }
+
+  String getTimeLeft(final LocalTime startTime, final int testSize, final int testNo) {
+    final LocalTime now = LocalTime.now();
+    final Duration completeWaitTime = Duration.between(startTime, now).dividedBy(testNo).multipliedBy(testSize);
+    final LocalTime endTime = LocalTime.from(startTime).plus(completeWaitTime);
+    final Duration timeLeft = Duration.between(LocalTime.now(), endTime);
+
+    if (timeLeft.toHours() > 0) {
+      return DurationFormatUtils.formatDuration(timeLeft.toMillis(), "H'h' m'm' s's'");
+    } else if (timeLeft.toMinutes() > 0) {
+      return DurationFormatUtils.formatDuration(timeLeft.toMillis(), "m'm' s's'");
+    } else if (timeLeft.toMillis() >= 0) {
+      return DurationFormatUtils.formatDuration(timeLeft.toMillis(), "s's'");
+    } else {
+      return "---";
+    }
   }
 
   /**
@@ -97,7 +239,7 @@ abstract class SeleniumBase {
    *
    * @return qunit-banner web element
    */
-  WebElement waitForQUnitBanner() {
+  WebElement waitForQUnitBanner(final WebDriver webDriver) {
     final FluentWait<WebDriver> fluentWait = new FluentWait<>(webDriver)
         .withTimeout(Duration.ofSeconds(90))
         .pollingEvery(Duration.ofSeconds(1))
@@ -109,11 +251,11 @@ abstract class SeleniumBase {
     return qunitBanner;
   }
 
-  void parseQUnitResults(final Browser browser, final String portContextPath, final String path)
-      throws UnknownHostException {
+  void parseQUnitResults(final Browser browser, final String serverUrl, final String path) {
+    final WebDriver webDriver = getWebDriver(browser);
     WebElement qunitBanner;
     try {
-      qunitBanner = waitForQUnitBanner();
+      qunitBanner = waitForQUnitBanner(webDriver);
     } catch (Exception e) {
       qunitBanner = webDriver.findElement(By.id("qunit-banner"));
     }
@@ -122,7 +264,7 @@ abstract class SeleniumBase {
     WebElement qunitTests = webDriver.findElement(By.id("qunit-tests"));
 
     final List<WebElement> testCases = qunitTests.findElements(By.xpath("li"));
-    Assert.assertTrue("There must be at least one test case.", testCases.size() > 0);
+    Assertions.assertTrue(testCases.size() > 0, "There must be at least one test case.");
 
     final boolean testFailed = !qunitBanner.getAttribute("class").equals("qunit-pass");
 
@@ -188,16 +330,15 @@ abstract class SeleniumBase {
       }
     }
 
-    final String hostAddress = InetAddress.getLocalHost().getHostAddress();
-    final String url = "http://" + hostAddress + ":" + portContextPath + "/" + path;
+    final String url = serverUrl + "/" + path;
     if (testFailed) {
-      final String message = "\n❌ FAILED: Tests with '" + browser + "' for " + url + "\n" + stringBuilder.toString();
+      final String message = "\n❌ FAILED: Test with '" + browser + "' for " + url + "\n" + stringBuilder.toString();
       LOG.warn(message);
-      Assert.fail(message);
+      Assertions.fail(message);
     } else {
-      final String message = "\n✅ PASSED: Tests with '" + browser + "' for " + url + "\n" + stringBuilder.toString();
+      final String message = "\n✅ PASSED: Test with '" + browser + "' for " + url + "\n" + stringBuilder.toString();
       LOG.info(message);
-      Assert.assertTrue(message, true);
+      Assertions.assertTrue(true, message);
     }
   }
 

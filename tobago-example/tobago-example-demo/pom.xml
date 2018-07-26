@@ -38,10 +38,12 @@
     <tomee.version>7.0.4</tomee.version>
     <meecrowave.version>1.2.1</meecrowave.version>
     <tomcat.version>9.0.5</tomcat.version>
+    <exec.version>1.6.0</exec.version>
+    <finalName>tobago-example-demo</finalName>
   </properties>
 
   <build>
-    <finalName>tobago-example-demo</finalName>
+    <finalName>${finalName}</finalName>
     <testResources>
       <testResource>
         <directory>src/test/resources</directory>
@@ -758,29 +760,120 @@
       <build>
         <plugins>
           <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>${exec.version}</version>
+            <executions>
+              <execution>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>mvn</executable>
+                  <arguments>
+                    <argument>clean</argument>
+                    <argument>package</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>com.soebes.maven.plugins</groupId>
+            <artifactId>iterator-maven-plugin</artifactId>
+            <version>0.5.1</version>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>iterator</goal>
+                </goals>
+                <configuration>
+                  <items>
+                    <item>myfaces-2.1</item>
+                    <item>myfaces-2.2</item>
+                    <item>myfaces-2.3</item>
+                    <item>mojarra-2.0</item>
+                    <item>mojarra-2.1</item>
+                    <item>mojarra-2.2</item>
+                    <item>mojarra-2.3</item>
+                  </items>
+                  <pluginExecutors>
+                    <pluginExecutor>
+                      <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>${exec.version}</version>
+                      </plugin>
+                      <goal>exec</goal>
+                      <configuration>
+                        <executable>mvn</executable>
+                        <arguments>
+                          <argument>package</argument>
+                          <argument>-Djsf=@item@</argument>
+                          <argument>-DfinalName=tobago-example-demo-@item@</argument>
+                        </arguments>
+                      </configuration>
+                    </pluginExecutor>
+                  </pluginExecutors>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
             <groupId>io.fabric8</groupId>
             <artifactId>docker-maven-plugin</artifactId>
             <version>0.25.2</version>
             <configuration>
+              <startParallel>true</startParallel>
+              <sourceDirectory>src/main/docker-tests</sourceDirectory>
               <images>
                 <image>
-                  <name>tomcat:8.5-jre8</name>
+                  <name>tobago/tomcat8.5-jre8</name>
+                  <build>
+                    <from>tomcat:8.5-jre8</from>
+                    <tags>
+                      <tag>${project.parent.version}</tag>
+                    </tags>
+                    <assembly>
+                      <descriptor>assembly.xml</descriptor>
+                      <basedir>/usr/local/tomcat</basedir>
+                    </assembly>
+                  </build>
                   <run>
                     <ports>
-                      <port>8081:8080</port>
+                      <port>8082:8080</port>
                     </ports>
-                    <volumes>
-                      <bind>
-                        <volume>
-                          ${project.build.directory}/${project.artifactId}:/usr/local/tomcat/webapps/${project.artifactId}
-                        </volume>
-                      </bind>
-                    </volumes>
                     <wait>
                       <http>
-                        <url>http://localhost:8081/${project.artifactId}</url>
+                        <url>http://localhost:8082/${project.artifactId}</url>
                       </http>
-                      <time>60000</time>
+                      <time>180000</time>
+                    </wait>
+                  </run>
+                </image>
+                <image>
+                  <name>tobago/tomcat8.5-jre10</name>
+                  <build>
+                    <from>tomcat:8.5-jre10</from>
+                    <tags>
+                      <tag>${project.parent.version}</tag>
+                    </tags>
+                    <assembly>
+                      <descriptor>assembly.xml</descriptor>
+                      <basedir>/usr/local/tomcat</basedir>
+                    </assembly>
+                  </build>
+                  <run>
+                    <ports>
+                      <port>8083:8080</port>
+                    </ports>
+                    <wait>
+                      <http>
+                        <url>http://localhost:8083/${project.artifactId}</url>
+                      </http>
+                      <time>180000</time>
                     </wait>
                   </run>
                 </image>
@@ -842,7 +935,7 @@
                       <port>5557:5555</port>
                     </ports>
                     <!-- Set shm size to avoid firefox crashes: https://github.com/SeleniumHQ/docker-selenium/tree/3.12.0-boron#running-the-images -->
-                    <shmSize>2147483648</shmSize>
+                    <shmSize>1073741824</shmSize>
                     <wait>
                       <http>
                         <url>http://localhost:5557</url>
