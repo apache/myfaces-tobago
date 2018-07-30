@@ -25,4 +25,5 @@ import javax.faces.component.UIOutput;
 
 public abstract class AbstractUIBadge extends UIOutput implements Visual {
 
+  public abstract String getTip();
 }
