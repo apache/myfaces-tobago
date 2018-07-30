@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.UILabel;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
@@ -64,15 +65,17 @@ public class LabelRenderer extends RendererBase implements ComponentSystemEventL
       forId = corresponding != null ? corresponding.getClientId(facesContext) : null;
     }
     final String clientId = label.getClientId(facesContext);
+    final Markup markup = label.getMarkup();
 
     writer.startElement(HtmlElements.LABEL);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
     writer.writeClassAttribute(
         TobagoClass.LABEL,
+        TobagoClass.LABEL.createMarkup(markup),
         BootstrapClass.COL_FORM_LABEL,
         label.getCustomClass());
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(label.getMarkup()), false);
+    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     if (forId != null) {
       writer.writeAttribute(HtmlAttributes.FOR, forId, false);
     }
@@ -86,7 +89,8 @@ public class LabelRenderer extends RendererBase implements ComponentSystemEventL
     writer.endElement(HtmlElements.LABEL);
   }
 
-  /** Encodes the text inside of the label.
+  /**
+   * Encodes the text inside of the label.
    * Can be overwritten in other themes.
    */
   protected void encodeTextContent(
