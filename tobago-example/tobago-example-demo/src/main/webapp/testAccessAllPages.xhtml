@@ -25,14 +25,16 @@
   <tc:style file="#{request.contextPath}/style/tobago.css"/>
   <tc:script file="#{request.contextPath}/script/tobago-testAll.js"/>
 
-  <c:forEach items="#{testController.allTestPages}" var="testPage">
-    <div class="testframe-wrapper">
-      <div>
-        <tc:link label="open in new tab" link="test.xhtml?base=#{testPage.base}&amp;accessTest=true" target="_blank"/>
+  <tc:panel rendered="#{facesContext.isProjectStage('Development')}">
+    <c:forEach items="#{testController.allTestPages}" var="testPage">
+      <div class="testframe-wrapper">
+        <div>
+          <tc:link label="open in new tab" link="test.xhtml?base=#{testPage.base}&amp;accessTest=true" target="_blank"/>
+        </div>
+        <tc:object id="#{testPage.id}" name="test.xhtml?base=#{testPage.base}&amp;accessTest=true">
+          <tc:style height="300px"/>
+        </tc:object>
       </div>
-      <tc:object id="#{testPage.id}" name="test.xhtml?base=#{testPage.base}&amp;accessTest=true">
-        <tc:style height="300px"/>
-      </tc:object>
-    </div>
-  </c:forEach>
+    </c:forEach>
+  </tc:panel>
 </ui:composition>

@@ -28,7 +28,9 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.File;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,15 +57,18 @@ public class TestController implements Serializable {
     return viewId.substring(1, viewId.length() - 6); //remove leading '/' and trailing '.xhtml'
   }
 
-  public List<TestPage> getAllTestPages() {
+  public List<TestPage> getAllTestPages() throws UnsupportedEncodingException {
     final List<TestPage> pages = new ArrayList<>();
 
-    final File rootDir = new File("src/main/webapp/content");
+    String realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
+    realPath = realPath.endsWith("/") ? realPath : realPath.concat("/");
+
+    final File rootDir = new File(realPath + "content");
     if (rootDir.exists()) {
       int idCount = 1;
       for (final String page : getXHTMLs(rootDir)) {
-        final String base = page.substring(16, page.length() - 6);
-        pages.add(new TestPage("tp" + idCount++, base));
+        final String base = page.substring(realPath.length(), page.length() - ".xhtml".length());
+        pages.add(new TestPage("tp" + idCount++, URLEncoder.encode(base, "UTF-8")));
       }
     }
     return pages;
@@ -82,15 +87,18 @@ public class TestController implements Serializable {
     return xhtmls;
   }
 
-  public List<TestPage> getTestPages() {
+  public List<TestPage> getTestPages() throws UnsupportedEncodingException {
     final List<TestPage> testPages = new ArrayList<>();
 
-    int idCount = 1;
-    final File rootDir = new File("src/main/webapp/content");
+    String realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
+    realPath = realPath.endsWith("/") ? realPath : realPath.concat("/");
+
+    final File rootDir = new File(realPath + "content");
     if (rootDir.exists()) {
+      int idCount = 1;
       for (final String testJs : getTestJs(rootDir)) {
-        final String base = testJs.substring(16, testJs.length() - 8);
-        testPages.add(new TestPage("tp" + idCount++, base));
+        final String base = testJs.substring(realPath.length(), testJs.length() - ".test.js".length());
+        testPages.add(new TestPage("tp" + idCount++, URLEncoder.encode(base, "UTF-8")));
       }
     }
     return testPages;
