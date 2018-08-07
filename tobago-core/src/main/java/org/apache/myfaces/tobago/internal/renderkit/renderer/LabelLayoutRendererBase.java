@@ -53,41 +53,13 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
 
     encodeBeginSurroundingLabel(facesContext, component);
 
-    switch (getType(component)) {
-      case segmentLeft:
-        if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentRight) {
-          encodeBeginMessageField(facesContext, component);
-        }
-        break;
-      case segmentRight:
-        if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentLeft) {
-          encodeBeginMessageField(facesContext, component);
-        }
-        break;
-      default:
-        encodeBeginMessageField(facesContext, component);
-        break;
-    }
+    encodeBeginMessageField(facesContext, component);
   }
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    switch (getType(component)) {
-      case segmentLeft:
-        if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentRight) {
-          encodeEndMessageField(facesContext, component);
-        }
-        break;
-      case segmentRight:
-        if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentLeft) {
-          encodeEndMessageField(facesContext, component);
-        }
-        break;
-      default:
-        encodeEndMessageField(facesContext, component);
-        break;
-    }
+    encodeEndMessageField(facesContext, component);
 
     // render the styles here, because inside of <select> its not possible.
     if (component.getRendersChildren()) {
@@ -139,7 +111,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     // - flowLeft (todo)
     // - flowRight (todo)
     // - skip
-    final LabelLayout labelLayout = getType(component);
+    final LabelLayout labelLayout = ((SupportsLabelLayout) component).getLabelLayout();
     final boolean flex;
     switch (labelLayout) {
       case skip:
@@ -205,7 +177,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
       throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final LabelLayout labelLayout = getType(component);
+    final LabelLayout labelLayout = ((SupportsLabelLayout) component).getLabelLayout();
 
     switch (labelLayout) {
       case skip:
@@ -240,12 +212,6 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
       }
       writer.endElement(HtmlElements.LABEL);
     }
-  }
-
-  private LabelLayout getType(final UIComponent component) {
-    return component instanceof SupportsLabelLayout
-        ? ((SupportsLabelLayout) component).getLabelLayout()
-        : LabelLayout.skip;
   }
 
   protected abstract String getFieldId(final FacesContext facesContext, final UIComponent component);

@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.component.LabelLayout;
+import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -39,12 +41,30 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
 
   @Override
   public void encodeBeginMessageField(final FacesContext facesContext, final UIComponent component) throws IOException {
+
+    final LabelLayout labelLayout = ((SupportsLabelLayout) component).getLabelLayout();
+    final LabelLayout segment = LabelLayout.getSegment(facesContext);
+
+    if (labelLayout == LabelLayout.segmentLeft && segment != LabelLayout.segmentRight ||
+        labelLayout == LabelLayout.segmentRight && segment != LabelLayout.segmentLeft) {
+      return; // skip, because this component is the label
+    }
+
     encodeBeginSurroundingMessage(facesContext, component);
     encodeBeginField(facesContext, component);
   }
 
   @Override
   public void encodeEndMessageField(final FacesContext facesContext, final UIComponent component) throws IOException {
+
+    final LabelLayout labelLayout = ((SupportsLabelLayout) component).getLabelLayout();
+    final LabelLayout segment = LabelLayout.getSegment(facesContext);
+
+    if (labelLayout == LabelLayout.segmentLeft && segment != LabelLayout.segmentRight ||
+        labelLayout == LabelLayout.segmentRight && segment != LabelLayout.segmentLeft) {
+      return; // skip, because this component is the label
+    }
+
     encodeEndField(facesContext, component);
     encodeEndSurroundingMessage(facesContext, component);
   }
