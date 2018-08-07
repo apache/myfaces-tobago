@@ -121,13 +121,8 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
         flex = true;
         break;
       case segmentLeft:
-        if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentLeft) {
-          clientId += ComponentUtils.SUB_SEPARATOR + "label";
-        }
-        flex = false;
-        break;
       case segmentRight:
-        if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentRight) {
+        if (LabelLayout.getSegment(facesContext) == labelLayout) {
           clientId += ComponentUtils.SUB_SEPARATOR + "label";
         }
         flex = false;
@@ -136,7 +131,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
       case top:
       case flowLeft:
       case flowRight:
-      default: // none, top, segmentLeft, segmentRight, flowLeft, flowRight
+      default:
         flex = false;
     }
 
@@ -159,12 +154,8 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
       case flowRight:
         break;
       case segmentLeft:
-        if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentLeft) {
-          encodeLabel(facesContext, component, writer, labelLayout);
-        }
-        break;
       case segmentRight:
-        if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentRight) {
+        if (LabelLayout.getSegment(facesContext) == labelLayout) {
           encodeLabel(facesContext, component, writer, labelLayout);
         }
         break;
