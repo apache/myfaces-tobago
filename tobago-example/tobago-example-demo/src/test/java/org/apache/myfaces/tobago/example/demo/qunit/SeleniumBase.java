@@ -74,12 +74,12 @@ abstract class SeleniumBase {
         "Currently Tobago demo don't run with Mojarra 2.3 on Tomcat 8.5");
 
     ignores.put("content/40-test/6000-event/event.xhtml",
-        "Focus/blur event can only be fired if the browser window is in foreground." +
-            " This cannot be guaranteed in selenium tests."
+        "Focus/blur event can only be fired if the browser window is in foreground."
+            + " This cannot be guaranteed in selenium tests."
             + " event.test.js contain focus/blur events");
 
-    final String tobago1910 = "TreeSelect: Single selection nodes are not deselected correctly with mojarra: " +
-        "https://issues.apache.org/jira/browse/TOBAGO-1910";
+    final String tobago1910 = "TreeSelect: Single selection nodes are not deselected correctly with mojarra: "
+        + "https://issues.apache.org/jira/browse/TOBAGO-1910";
     ignores.put("tobago-example-demo-mojarra-2.1/content/20-component/090-tree/01-select/tree-select.xhtml",
         tobago1910);
     ignores.put("tobago-example-demo-mojarra-2.2/content/20-component/090-tree/01-select/tree-select.xhtml",

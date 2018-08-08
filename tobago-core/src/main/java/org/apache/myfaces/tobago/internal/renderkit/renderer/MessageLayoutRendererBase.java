@@ -45,8 +45,8 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
     final LabelLayout labelLayout = ((SupportsLabelLayout) component).getLabelLayout();
     final LabelLayout segment = LabelLayout.getSegment(facesContext);
 
-    if (labelLayout == LabelLayout.segmentLeft && segment != LabelLayout.segmentRight ||
-        labelLayout == LabelLayout.segmentRight && segment != LabelLayout.segmentLeft) {
+    if (labelLayout == LabelLayout.segmentLeft && segment != LabelLayout.segmentRight
+        || labelLayout == LabelLayout.segmentRight && segment != LabelLayout.segmentLeft) {
       return; // skip, because this component is the label
     }
 
@@ -60,8 +60,8 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
     final LabelLayout labelLayout = ((SupportsLabelLayout) component).getLabelLayout();
     final LabelLayout segment = LabelLayout.getSegment(facesContext);
 
-    if (labelLayout == LabelLayout.segmentLeft && segment != LabelLayout.segmentRight ||
-        labelLayout == LabelLayout.segmentRight && segment != LabelLayout.segmentLeft) {
+    if (labelLayout == LabelLayout.segmentLeft && segment != LabelLayout.segmentRight
+        || labelLayout == LabelLayout.segmentRight && segment != LabelLayout.segmentLeft) {
       return; // skip, because this component is the label
     }
 
