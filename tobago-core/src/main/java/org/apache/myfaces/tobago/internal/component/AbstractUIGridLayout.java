@@ -58,6 +58,8 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
 
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.GridLayout";
 
+  private static final int STEP = 5;
+
   protected static final UIComponent SPAN = new UIPanel();
 
   /**
@@ -91,13 +93,12 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
   public abstract void setColumns(String columns);
 
   protected UIComponent[][] layout(
-      final int columnsCount, final int initalRowsCount, final List<UIComponent> components) {
+      final int columnsCount, final int initialRowsCount, final List<UIComponent> components) {
     assert columnsCount > 0;
-    assert initalRowsCount > 0;
+    assert initialRowsCount > 0;
 
     final FacesContext facesContext = FacesContext.getCurrentInstance();
-    UIComponent[][] cells = new UIComponent[initalRowsCount][columnsCount];
-    int rowsCount = initalRowsCount;
+    UIComponent[][] cells = new UIComponent[initialRowsCount][columnsCount];
 
     // #1 put all components with "gridRow" and "gridColumn" set into the grid cells
     for (final UIComponent component : components) {
@@ -110,17 +111,15 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
           LOG.warn("gridColumn {} > columnsCount {} in component '{}'!", gridColumn, columnsCount,
               component.getClientId(facesContext));
         } else {
-          if (gridRow > rowsCount) {
+          if (gridRow > cells.length) {
             if (LOG.isDebugEnabled()) {
-              LOG.debug("expanding, because gridRow {} > rowCount {} in component '{}'!", gridRow, rowsCount,
+              LOG.debug("expanding, because gridRow {} > rowCount {} in component '{}'!", gridRow, cells.length,
                   component.getClientId(facesContext));
             }
             // ensure enough rows
-            cells = expand(cells, gridRow, initalRowsCount);
-            rowsCount = cells.length;
+            cells = expand(cells, gridRow);
           }
-          cells = set(cells, gridColumn - 1, gridRow - 1, component, initalRowsCount);
-          rowsCount = cells.length;
+          cells = set(cells, gridColumn - 1, gridRow - 1, component);
         }
       } else if (gridColumn != null) {
         LOG.warn("gridColumn is set to {}, but gridRow not in component '{}'!", gridColumn,
@@ -148,13 +147,11 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
             i = 0;
             j++;
           }
-          if (j >= rowsCount) {
-            cells = expand(cells, j + 1, initalRowsCount);
-            rowsCount = cells.length;
+          if (j >= cells.length) {
+            cells = expand(cells, j + 1);
           }
         }
-        cells = set(cells, i, j, component, initalRowsCount);
-        rowsCount = cells.length;
+        cells = set(cells, i, j, component);
       }
     }
 
@@ -198,8 +195,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
    * @param component    Component to set
    */
   private UIComponent[][] set(
-      final UIComponent[][] initialCells, final Integer column, final Integer row, final UIComponent component,
-      final int initalRowsCount) {
+      final UIComponent[][] initialCells, final Integer column, final Integer row, final UIComponent component) {
 
     UIComponent[][] cells = initialCells;
 
@@ -222,7 +218,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
           break;
         }
         if (j >= cells.length) {
-          cells = expand(cells, j + 1, initalRowsCount);
+          cells = expand(cells, j + 1);
         }
         if (j == row && i == column) {
           cells[j][i] = component;
@@ -237,8 +233,16 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
     return cells;
   }
 
+  /**
+   * @deprecated since 4.3.0, please use {@link #expand(UIComponent[][], Integer)}
+   */
+  @Deprecated
   protected UIComponent[][] expand(final UIComponent[][] cells, final Integer minRows, final int step) {
-    final int rows = (int) Math.ceil((double) minRows / step) * step;
+    return expand(cells, minRows);
+  }
+
+  protected UIComponent[][] expand(final UIComponent[][] cells, final Integer minRows) {
+    final int rows = (int) Math.ceil((double) minRows / STEP) * STEP;
     final int columns = cells[0].length;
 
     final UIComponent[][] result = new UIComponent[rows][columns];
