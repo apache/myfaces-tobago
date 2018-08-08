@@ -128,10 +128,6 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
         + "┃█┃◌┃\n"
         + "┣━╋━┫\n"
         + "┃◌┃◌┃\n"
-        + "┣━╋━┫\n"
-        + "┃◌┃◌┃\n"
-        + "┣━╋━┫\n"
-        + "┃◌┃◌┃\n"
         + "┗━┻━┛\n", toString(cells));
 
     Assert.assertEquals(a, cells[0][0]);
@@ -150,8 +146,6 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
     Assert.assertEquals(N, cells[6][1]);
     Assert.assertEquals(N, cells[7][0]);
     Assert.assertEquals(N, cells[7][1]);
-    Assert.assertEquals(N, cells[8][0]);
-    Assert.assertEquals(N, cells[8][1]);
   }
 
   @Test
@@ -241,7 +235,7 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
 
     Assert.assertEquals(array[0][0], expand[0][0]);
     Assert.assertEquals(array[2][4], expand[2][4]);
-    Assert.assertEquals(10, expand.length);
+    Assert.assertEquals(7, expand.length);
     Assert.assertEquals(5, expand[0].length);
 
     Assert.assertEquals(null, expand[1][1]);

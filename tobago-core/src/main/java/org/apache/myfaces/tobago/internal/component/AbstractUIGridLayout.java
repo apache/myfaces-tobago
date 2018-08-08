@@ -148,7 +148,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
             j++;
           }
           if (j >= cells.length) {
-            cells = expand(cells, j + 1);
+            cells = expand(cells, j + STEP);
           }
         }
         cells = set(cells, i, j, component);
@@ -193,6 +193,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
    * @param column       Zero based column position
    * @param row          Zero based row position
    * @param component    Component to set
+   * @return The result cells, possibly the initial array or a new array
    */
   private UIComponent[][] set(
       final UIComponent[][] initialCells, final Integer column, final Integer row, final UIComponent component) {
@@ -218,7 +219,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
           break;
         }
         if (j >= cells.length) {
-          cells = expand(cells, j + 1);
+          cells = expand(cells, j + STEP);
         }
         if (j == row && i == column) {
           cells[j][i] = component;
@@ -234,15 +235,14 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
   }
 
   /**
-   * @deprecated since 4.3.0, please use {@link #expand(UIComponent[][], Integer)}
+   * @deprecated since 4.3.0, please use {@link #expand(UIComponent[][], int)}
    */
   @Deprecated
   protected UIComponent[][] expand(final UIComponent[][] cells, final Integer minRows, final int step) {
     return expand(cells, minRows);
   }
 
-  protected UIComponent[][] expand(final UIComponent[][] cells, final Integer minRows) {
-    final int rows = (int) Math.ceil((double) minRows / STEP) * STEP;
+  protected UIComponent[][] expand(final UIComponent[][] cells, final int rows) {
     final int columns = cells[0].length;
 
     final UIComponent[][] result = new UIComponent[rows][columns];
