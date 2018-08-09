@@ -81,7 +81,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
           continue;
         }
         if (child instanceof AbstractUIStyle) {
-          // will be rendered in {@link encodeEnd}
+          // will be rendered in {@link #encodeEnd}
           continue;
         }
 
@@ -101,16 +101,6 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     String clientId = component.getClientId(facesContext);
     final Markup markup = (Markup) ComponentUtils.getAttribute(component, Attributes.markup);
 
-    // possible values:
-    // - none
-    // - flexLeft (default)
-    // - flexRight
-    // - top
-    // - segmentLeft (todo)
-    // - segmentRight (todo)
-    // - flowLeft (todo)
-    // - flowRight (todo)
-    // - skip
     final LabelLayout labelLayout = ((SupportsLabelLayout) component).getLabelLayout();
     final boolean flex;
     switch (labelLayout) {
