@@ -24,8 +24,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.apache.myfaces.tobago.model.SelectItem;
 
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import javax.inject.Singleton;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.InputStreamReader;
 import java.io.Serializable;
@@ -37,7 +37,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Singleton
+//XXX Using SessionScoped, because Singleton is not passivation capable.
+@SessionScoped
 @Named
 public class AstroData implements Serializable {
 
