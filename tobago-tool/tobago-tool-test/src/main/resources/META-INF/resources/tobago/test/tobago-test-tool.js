@@ -15,10 +15,7 @@
  * limitations under the License.
  */
 
-function TobagoTestTool(assert) {
-  this.assert = assert;
-  this.steps = [];
-}
+TobagoTestTool = {};
 
 TobagoTestTool.stepType = {
   ACTION: 1,
@@ -26,6 +23,49 @@ TobagoTestTool.stepType = {
   WAIT_MS: 3,
   ASSERTS: 4
 };
+
+TobagoTestTool.msie = navigator.userAgent.indexOf("MSIE") > -1 || navigator.userAgent.indexOf("Trident") > -1;
+
+TobagoTestTool.COLUMN_START = TobagoTestTool.msie ? "-ms-grid-column" : "grid-column-start";
+TobagoTestTool.COLUMN_END = TobagoTestTool.msie ? "-ms-grid-column-span" : "grid-column-end";
+TobagoTestTool.ROW_START = TobagoTestTool.msie ? "-ms-grid-row" : "grid-row-start";
+TobagoTestTool.ROW_END = TobagoTestTool.msie ? "-ms-grid-row-span" : "grid-row-end";
+
+TobagoTestTool.checkGridCss = function (assert, $element, columnStart, columnEnd, rowStart, rowEnd) {
+
+  columnEnd = TobagoTestTool.convertGridCss(columnEnd);
+  rowEnd = TobagoTestTool.convertGridCss(rowEnd);
+
+  assert.equal($element.css(TobagoTestTool.COLUMN_START), columnStart);
+  assert.equal($element.css(TobagoTestTool.COLUMN_END), columnEnd);
+  assert.equal($element.css(TobagoTestTool.ROW_START), rowStart);
+  assert.equal($element.css(TobagoTestTool.ROW_END), rowEnd);
+};
+
+TobagoTestTool.convertGridCss = function (end) {
+  if (TobagoTestTool.msie) {
+    switch (end) {
+      case "auto":
+        return "1";
+      case "span 2":
+        return "2";
+      case "span 3":
+        return "3";
+      case "span 4":
+        return "4";
+      default:
+        return end;
+    }
+  } else {
+    return end;
+  }
+};
+
+function TobagoTestTool(assert) {
+  this.assert = assert;
+  this.steps = [];
+}
+
 TobagoTestTool.prototype = {
   action: function (func) {
     this.steps.push({

@@ -59,13 +59,13 @@ public class GridSpan {
 
   public String encode() {
     if (start != null) {
-      if (span != null) {
+      if (span != null && span != 1) {
         return start + "/span " + span;
       } else {
         return start.toString();
       }
     } else {
-      if (span != null) { // XXX "auto" not supported by MS IE
+      if (span != null && span != 1) { // XXX "auto" not supported by MS IE
         return "auto/span " + span;
       } else {
         return "auto";

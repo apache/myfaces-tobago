@@ -41,31 +41,33 @@
   </p>
 
   <tc:box label="Personal Information">
-    <tc:gridLayout columns="1fr 2fr" rows="auto auto auto auto auto 1fr">
+    <tc:gridLayout columns="100px 1fr 100px 2fr" rows="auto auto auto auto auto 1fr">
       <tc:style minHeight="600px"/>
 
-      <tc:selectOneChoice label="Salutation">
+      <tc:selectOneChoice label="Salutation" labelLayout="gridLeft">
         <f:selectItem itemLabel="none"/>
         <f:selectItem itemLabel="Mr."/>
         <f:selectItem itemLabel="Mrs."/>
       </tc:selectOneChoice>
-      <tc:panel/>
-
-      <tc:in label="First Name"/>
-      <tc:in label="Last Name"/>
-
-      <tc:in label="c/o">
+      <tc:panel>
         <tc:gridLayoutConstraint columnSpan="2"/>
+      </tc:panel>
+
+      <tc:in label="First Name" labelLayout="gridLeft"/>
+      <tc:in label="Last Name" labelLayout="gridLeft"/>
+
+      <tc:in label="c/o" labelLayout="gridLeft">
+        <tc:gridLayoutConstraint columnSpan="4"/>
       </tc:in>
 
-      <tc:in label="Street"/>
-      <tc:in label="No"/>
+      <tc:in label="Street" labelLayout="gridLeft"/>
+      <tc:in label="No" labelLayout="gridLeft"/>
 
-      <tc:in label="ZIP"/>
-      <tc:in label="City"/>
+      <tc:in label="ZIP" labelLayout="gridLeft"/>
+      <tc:in label="City" labelLayout="gridLeft"/>
 
-      <tc:textarea label="Note">
-        <tc:gridLayoutConstraint columnSpan="2"/>
+      <tc:textarea label="Note" labelLayout="gridLeft">
+        <tc:gridLayoutConstraint columnSpan="4"/>
       </tc:textarea>
     </tc:gridLayout>
   </tc:box>

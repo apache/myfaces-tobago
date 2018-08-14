@@ -126,9 +126,13 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     }
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeIdAttribute(clientId);
+    if (labelLayout == LabelLayout.gridLeft || labelLayout == LabelLayout.gridRight
+        || labelLayout == LabelLayout.gridTop || labelLayout == LabelLayout.gridBottom) {
+      writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "label");
+    } else {
+      writer.writeIdAttribute(clientId);
+    }
     writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
-
     writer.writeClassAttribute(
         flex ? TobagoClass.FLEX_LAYOUT : null,
         flex ? BootstrapClass.D_FLEX : null,
@@ -151,6 +155,25 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
         break;
       default:
         encodeLabel(facesContext, component, writer, labelLayout);
+    }
+
+    switch (labelLayout) {
+      case gridLeft:
+      case gridRight:
+      case gridTop:
+      case gridBottom:
+        writer.endElement(HtmlElements.DIV);
+
+        writer.startElement(HtmlElements.DIV);
+        writer.writeIdAttribute(clientId);
+        writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
+        writer.writeClassAttribute(
+            TobagoClass.LABEL__CONTAINER,
+            BootstrapClass.FORM_GROUP,
+            ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,
+            markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
+        break;
+      default:
     }
   }
 

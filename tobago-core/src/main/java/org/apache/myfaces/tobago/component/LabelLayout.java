@@ -19,13 +19,13 @@
 
 package org.apache.myfaces.tobago.component;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 public enum LabelLayout {
 
   /**
-   * do not render the label
-   * same behavior as component without label attribute
+   * do not render the label - same behavior as component without label attribute
    */
   none,
 
@@ -67,7 +67,27 @@ public enum LabelLayout {
   /**
    * skip rendering the surrounding container.
    */
-  skip;
+  skip,
+
+  /**
+   * grid layout: let the label be on the left cell and the input on the right cell. It uses 2 cells instead of one.
+   */
+  gridLeft,
+
+  /**
+   * grid layout: let the label be on the right cell and the input on the left cell. It uses 2 cells instead of one.
+   */
+  gridRight,
+
+  /**
+   * grid layout: let the label be on the top cell and the input on the bottom cell. It uses 2 cells instead of one.
+   */
+  gridTop,
+
+  /**
+   * grid layout: let the label be on the bottom cell and the input on the top cell. It uses 2 cells instead of one.
+   */
+  gridBottom;
 
   private static final String SEGMENT_TO_RENDER_KEY = LabelLayout.class.getName();
 
@@ -88,5 +108,25 @@ public enum LabelLayout {
 
   public static void removeSegment(final FacesContext facesContext) {
     facesContext.getAttributes().remove(SEGMENT_TO_RENDER_KEY);
+  }
+
+  public static boolean isGridLeft(final UIComponent component) {
+    return component instanceof SupportsLabelLayout
+        && ((SupportsLabelLayout) component).getLabelLayout() == LabelLayout.gridLeft;
+  }
+
+  public static boolean isGridRight(final UIComponent component) {
+    return component instanceof SupportsLabelLayout
+        && ((SupportsLabelLayout) component).getLabelLayout() == LabelLayout.gridRight;
+  }
+
+  public static boolean isGridTop(final UIComponent component) {
+    return component instanceof SupportsLabelLayout
+        && ((SupportsLabelLayout) component).getLabelLayout() == LabelLayout.gridTop;
+  }
+
+  public static boolean isGridBottom(final UIComponent component) {
+    return component instanceof SupportsLabelLayout
+        && ((SupportsLabelLayout) component).getLabelLayout() == LabelLayout.gridBottom;
   }
 }

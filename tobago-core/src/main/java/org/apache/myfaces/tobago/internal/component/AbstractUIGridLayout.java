@@ -21,10 +21,12 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.component.Visual;
+import org.apache.myfaces.tobago.internal.util.StyleRenderUtils;
 import org.apache.myfaces.tobago.layout.GridSpan;
 import org.apache.myfaces.tobago.layout.MeasureList;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -159,27 +161,49 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
     for (final UIComponent component : components) {
       final Map<String, Object> attributes = component.getAttributes();
 
-      UIStyle style = ComponentUtils.findChild(component, UIStyle.class);
-      if (style == null) {
-        style = (UIStyle) ComponentUtils.createComponent(
+      final int gridColumn = (Integer) attributes.get(Attributes.gridColumn.getName());
+      final Integer columnSpan = (Integer) attributes.get(Attributes.columnSpan.getName());
+      final int gridRow = (Integer) attributes.get(Attributes.gridRow.getName());
+      final Integer rowSpan = (Integer) attributes.get(Attributes.rowSpan.getName());
+      final boolean labeledLeft = LabelLayout.isGridLeft(component);
+      final boolean labeledRight = LabelLayout.isGridRight(component);
+      final boolean labeledHorizontal = labeledLeft || labeledRight;
+      final boolean labeledTop = LabelLayout.isGridTop(component);
+      final boolean labeledBottom = LabelLayout.isGridBottom(component);
+      final boolean labeledVertical = labeledTop || labeledBottom;
+      final boolean labeled = labeledHorizontal || labeledVertical;
+
+      // field style
+
+      UIStyle fieldStyle = ComponentUtils.findChild(component, UIStyle.class);
+      if (fieldStyle == null) {
+        fieldStyle = (UIStyle) ComponentUtils.createComponent(
             facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style, null);
-        component.getChildren().add(style);
+        component.getChildren().add(fieldStyle);
       }
       // Style must be transient to avoid creating a new instance of GridSpan while restore state
       // https://issues.apache.org/jira/browse/TOBAGO-1909
-      style.setTransient(true);
+      fieldStyle.setTransient(true);
 
-      final Integer gridColumn = (Integer) attributes.get(Attributes.gridColumn.getName());
-      final Integer columnSpan = (Integer) attributes.get(Attributes.columnSpan.getName());
-      if (gridColumn != null) {
-        style.setGridColumn(GridSpan.valueOf(gridColumn, columnSpan));
+      fieldStyle.setGridColumn(
+          GridSpan.valueOf(labeledLeft ? gridColumn + 1 : gridColumn, labeledHorizontal ? columnSpan - 1 : columnSpan));
+      fieldStyle.setGridRow(
+          GridSpan.valueOf(labeledTop ? gridRow + 1 : gridRow, labeledVertical ? rowSpan - 1 : rowSpan));
+
+      // label style
+
+      if (labeled) {
+        final UIStyle labelStyle = (UIStyle) ComponentUtils.createComponent(
+            facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style, null);
+        component.getChildren().add(labelStyle);
+        labelStyle.setTransient(true);
+        labelStyle.setSelector(StyleRenderUtils.encodeIdSelector(
+            component.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "label"));
+
+        labelStyle.setGridColumn(GridSpan.valueOf(labeledRight ? gridColumn + columnSpan - 1 : gridColumn, null));
+        labelStyle.setGridRow(GridSpan.valueOf(labeledBottom ? gridRow + rowSpan - 1 : gridRow, null));
       }
 
-      final Integer gridRow = (Integer) attributes.get(Attributes.gridRow.getName());
-      final Integer rowSpan = (Integer) attributes.get(Attributes.rowSpan.getName());
-      if (gridRow != null) {
-        style.setGridRow(GridSpan.valueOf(gridRow, rowSpan));
-      }
     }
 
     return cells;
@@ -201,14 +225,12 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
     UIComponent[][] cells = initialCells;
 
     final Map<String, Object> attributes = component.getAttributes();
-    Integer rowSpan = (Integer) attributes.get(Attributes.rowSpan.getName());
-    if (rowSpan == null) {
-      rowSpan = 1;
-    }
-    Integer columnSpan = (Integer) attributes.get(Attributes.columnSpan.getName());
-    if (columnSpan == null) {
-      columnSpan = 1;
-    }
+    int rowSpan = ComponentUtils.getIntAttribute(component, Attributes.rowSpan,
+        LabelLayout.isGridTop(component) || LabelLayout.isGridBottom(component) ? 2 : 1);
+    ComponentUtils.setAttribute(component, Attributes.rowSpan, rowSpan);
+    int columnSpan = ComponentUtils.getIntAttribute(component, Attributes.columnSpan,
+        LabelLayout.isGridLeft(component) || LabelLayout.isGridRight(component) ? 2 : 1);
+    ComponentUtils.setAttribute(component, Attributes.columnSpan, columnSpan);
 
     // the span area
     for (int j = row; j < rowSpan + row; j++) {
@@ -221,7 +243,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
         if (j >= cells.length) {
           cells = expand(cells, j + STEP);
         }
-        if (j == row && i == column) {
+        if (j == row && i == column) { // position
           cells[j][i] = component;
           attributes.put(Attributes.gridRow.getName(), j + 1);
           attributes.put(Attributes.gridColumn.getName(), i + 1);

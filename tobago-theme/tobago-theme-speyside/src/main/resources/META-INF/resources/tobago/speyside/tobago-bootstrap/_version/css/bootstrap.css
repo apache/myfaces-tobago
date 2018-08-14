@@ -9000,34 +9000,16 @@ XXX workaround for Bootstrap with datetimepicker needed for popups
 .tobago-gridLayout {
   display: -ms-grid;
   display: grid;
-  /*
-      border-spacing: 5px;
-      border-collapse: separate;
-  */
   border-spacing: 0;
   border-collapse: collapse;
+  grid-column-gap: 1rem;
+  -webkit-column-gap: 1rem;
+  -moz-column-gap: 1rem;
+  column-gap: 1rem;
 }
 
-table.tobago-gridLayout > tbody > tr > td {
-  vertical-align: top;
-  padding: 0;
-  border-left: 5px solid transparent;
-  border-top: 5px solid transparent;
+.tobago-label-container > .tobago-textarea, .tobago-label-container > .tobago-selectOneChoice, .tobago-label-container > .tobago-selectManyListbox, .tobago-label-container > .tobago-selectManyShuttle {
   height: 100%;
-  /* needed for Firefox */
-}
-
-table.tobago-gridLayout > tbody > tr > td > * {
-  height: 100%;
-  width: 100%;
-}
-
-table.tobago-gridLayout > tbody > tr > td:first-child {
-  border-left: 0;
-}
-
-table.tobago-gridLayout > tbody > tr:first-child > td {
-  border-top: 0;
 }
 
 /* header ----------------------------------------------------------- */
