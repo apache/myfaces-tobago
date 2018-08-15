@@ -15,7 +15,10 @@
  * limitations under the License.
  */
 
-TobagoTestTool = {};
+function TobagoTestTool(assert) {
+  this.assert = assert;
+  this.steps = [];
+}
 
 TobagoTestTool.stepType = {
   ACTION: 1,
@@ -60,11 +63,6 @@ TobagoTestTool.convertGridCss = function (end) {
     return end;
   }
 };
-
-function TobagoTestTool(assert) {
-  this.assert = assert;
-  this.steps = [];
-}
 
 TobagoTestTool.prototype = {
   action: function (func) {
