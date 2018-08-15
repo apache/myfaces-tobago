@@ -188,6 +188,14 @@ public enum DataAttributes implements MarkupLanguageAttributes {
 
   SUGGEST_UPDATE("data-tobago-suggest-update"),
 
+  /**
+   * The mode of the tab switch: client, reloadTab, reloadPage.
+   */
+  SWITCH_TYPE("data-tobago-switch-type"),
+
+  /**
+   * The index of the tab inside the tab group.
+   */
   TAB_GROUP_INDEX("data-tobago-tab-group-index"),
 
   TARGET("data-target"),

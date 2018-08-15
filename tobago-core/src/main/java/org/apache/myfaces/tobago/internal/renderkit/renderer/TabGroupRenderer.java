@@ -157,7 +157,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
         tabGroup.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
-    writer.writeAttribute(HtmlAttributes.SWITCHTYPE, switchType.name(), false);
+    writer.writeAttribute(DataAttributes.SWITCH_TYPE, switchType.name(), false);
 
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);

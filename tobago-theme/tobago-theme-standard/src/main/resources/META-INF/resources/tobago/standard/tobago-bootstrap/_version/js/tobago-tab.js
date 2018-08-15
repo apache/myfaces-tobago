@@ -39,7 +39,7 @@ Tobago.TabGroup.init = function (elements) {
 
       $hiddenInput.val(tabGroupIndex);
 
-      if ($tabGroup.attr("switchtype") === "client") {
+      if ($tabGroup.data("tobago-switch-type") === "client") {
 
         //remove data-markup, markup-css-class and .active from tabs/tab-content
         $tabGroup.find(".tobago-tab .nav-link.active").each(function () {
