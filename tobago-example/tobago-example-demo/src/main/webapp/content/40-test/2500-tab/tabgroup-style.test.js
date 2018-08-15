@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-QUnit.test("test numbers of tabgroupindex", function (assert) {
+QUnit.test("test numbers of tab-group-index", function (assert) {
   var $tabOne = jQueryFrame("#page\\:mainForm\\:tabOne");
   var $tabTwo = jQueryFrame("#page\\:mainForm\\:tabTwo");
   var $tabThree = jQueryFrame("#page\\:mainForm\\:tabThree");
@@ -27,16 +27,16 @@ QUnit.test("test numbers of tabgroupindex", function (assert) {
   var $tabFourContent = jQueryFrame("#page\\:mainForm\\:tabFour\\:\\:content");
   var $tabFiveContent = jQueryFrame("#page\\:mainForm\\:tabFive\\:\\:content");
 
-  assert.equal($tabOne.attr("tabgroupindex"), "0");
-  assert.equal($tabTwo.attr("tabgroupindex"), "1");
+  assert.equal($tabOne.data("tobago-tab-group-index"), "0");
+  assert.equal($tabTwo.data("tobago-tab-group-index"), "1");
   assert.equal($tabThree.length, 0, "Tab three is not rendered");
-  assert.equal($tabFour.attr("tabgroupindex"), "3");
-  assert.equal($tabFive.attr("tabgroupindex"), "4");
+  assert.equal($tabFour.data("tobago-tab-group-index"), "3");
+  assert.equal($tabFive.data("tobago-tab-group-index"), "4");
 
-  assert.equal($tabOneContent.attr("tabgroupindex"), "0");
-  assert.equal($tabTwoContent.attr("tabgroupindex"), "1");
+  assert.equal($tabOneContent.data("tobago-tab-group-index"), "0");
+  assert.equal($tabTwoContent.data("tobago-tab-group-index"), "1");
   assert.equal($tabThreeContent.length, 0, "Tab three content is not rendered");
-  assert.equal($tabFiveContent.attr("tabgroupindex"), "4");
+  assert.equal($tabFiveContent.data("tobago-tab-group-index"), "4");
 
   assert.ok($tabOne.hasClass("tobago-tab-markup-selected"));
   assert.notOk($tabTwo.hasClass("tobago-tab-markup-selected"));

@@ -123,7 +123,10 @@ public enum HtmlAttributes implements MarkupLanguageAttributes {
 
   /**
    * The index of the tab inside the tab group.
+   *
+   * @deprecated since 4.3.0, please use {@link DataAttributes#TAB_GROUP_INDEX}
    */
+  @Deprecated
   TABGROUPINDEX("tabgroupindex"),
   /**
    * The mode of the tab switch: client, reloadTab, reloadPage.

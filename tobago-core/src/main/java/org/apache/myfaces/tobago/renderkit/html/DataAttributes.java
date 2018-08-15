@@ -188,6 +188,8 @@ public enum DataAttributes implements MarkupLanguageAttributes {
 
   SUGGEST_UPDATE("data-tobago-suggest-update"),
 
+  TAB_GROUP_INDEX("data-tobago-tab-group-index"),
+
   TARGET("data-target"),
 
   TITLE("data-title"),

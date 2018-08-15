@@ -61,7 +61,7 @@
     <tc:script onload="TobagoAssert.assertLayout('page:rows:a-2', 6, 81, 100, 50);"/>
 
     <!--click the tab to display the elements, they can only be measured if they are not hidden.-->
-    <tc:script onload="jQuery(Tobago.Utils.escapeClientId('page:tabGroup')).find('.tobago-tab[tabgroupindex=1]').click();"/>
+    <tc:script onload="jQuery(Tobago.Utils.escapeClientId('page:tabGroup')).find('.tobago-tab[data-tobago-tab-group-index=1]').click();"/>
 
     <tc:script onload="TobagoAssert.assertLayout('page:columns:a-3', 6, 26, 100, 50);"/>
     <tc:script onload="TobagoAssert.assertLayout('page:columns:a-4', 111, 26, 100, 50);"/>

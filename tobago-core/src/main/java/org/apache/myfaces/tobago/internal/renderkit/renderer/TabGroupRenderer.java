@@ -258,7 +258,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
               barFacet != null ? TobagoClass.TAB__BAR_FACET : null,
               tab.getCustomClass());
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
-          writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);
+          writer.writeAttribute(DataAttributes.TAB_GROUP_INDEX, index);
           final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, tab);
           if (title != null) {
             writer.writeAttribute(HtmlAttributes.TITLE, title, true);
@@ -352,7 +352,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TABPANEL.toString(), false);
           writer.writeIdAttribute(getTabPanelId(facesContext, tab));
 
-          writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);
+          writer.writeAttribute(DataAttributes.TAB_GROUP_INDEX, index);
 
           tab.encodeAll(facesContext);
 

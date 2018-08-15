@@ -35,7 +35,7 @@ Tobago.TabGroup.init = function (elements) {
     $tabGroup.find(".tobago-tabGroup-header:first .tobago-tab .nav-link:not(.disabled)").click(function () {
       var $navLink = jQuery(this);
       var $tab = $navLink.parent(".tobago-tab");
-      var tabGroupIndex = $tab.attr("tabgroupindex");
+      var tabGroupIndex = $tab.data("tobago-tab-group-index");
 
       $hiddenInput.val(tabGroupIndex);
 
@@ -57,7 +57,7 @@ Tobago.TabGroup.init = function (elements) {
         Tobago.Utils.addDataMarkup($tab, markupString);
         $tab.addClass(markupCssClass);
         $navLink.addClass("active");
-        $tabContent.find(".tobago-tab-content.tab-pane[tabgroupindex=" + tabGroupIndex + "]").addClass("active");
+        $tabContent.find(".tobago-tab-content.tab-pane[data-tobago-tab-group-index=" + tabGroupIndex + "]").addClass("active");
       }
     });
   });
