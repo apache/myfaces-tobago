@@ -138,7 +138,13 @@
       <xs:element name="decode-line-feed" type="xs:boolean" minOccurs="0" default="true">
         <xs:annotation>
           <xs:documentation>
-            Use LF instead of CR+LF in textarea.
+            Use LF instead of CR+LF in textarea while decoding.
+            HTTP transports usually a line break with CR+LF
+            (see https://www.w3.org/TR/html401/interact/forms.html#h-17.13.4).
+            When this property is set to true (by default), the Java bean will get the string only with LF ('\n').
+
+            When this property is set to false, there might be a conflict with the length validator,
+            because you have 2 character for each line break.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
