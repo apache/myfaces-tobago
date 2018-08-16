@@ -31,6 +31,7 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +69,8 @@ public class TestController implements Serializable {
       int idCount = 1;
       for (final String page : getXHTMLs(rootDir)) {
         final String base = page.substring(realPath.length(), page.length() - ".xhtml".length());
-        pages.add(new TestPage("tp" + idCount++, URLEncoder.encode(base, "UTF-8")));
+        pages.add(new TestPage("tp" + idCount++, URLEncoder.encode(base, StandardCharsets.UTF_8.name())));
+        // todo: StandardCharsets.UTF_8.name() can be simplified with Java 10
       }
     }
     return pages;
@@ -98,7 +100,8 @@ public class TestController implements Serializable {
       int idCount = 1;
       for (final String testJs : getTestJs(rootDir)) {
         final String base = testJs.substring(realPath.length(), testJs.length() - ".test.js".length());
-        testPages.add(new TestPage("tp" + idCount++, URLEncoder.encode(base, "UTF-8")));
+        testPages.add(new TestPage("tp" + idCount++, URLEncoder.encode(base, StandardCharsets.UTF_8.name())));
+        // todo: StandardCharsets.UTF_8.name() can be simplified with Java 10
       }
     }
     return testPages;

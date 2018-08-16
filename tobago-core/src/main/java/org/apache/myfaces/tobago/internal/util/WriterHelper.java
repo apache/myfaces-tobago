@@ -21,9 +21,13 @@ package org.apache.myfaces.tobago.internal.util;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public abstract class WriterHelper {
   protected static final char[] EMPTY = new char[0];
+  private static final Charset UTF8 = StandardCharsets.UTF_8;
+
   //
   // Entities from HTML 4.0, section 24.2.1; character codes 0xA0 to 0xFF
   //
@@ -129,10 +133,20 @@ public abstract class WriterHelper {
   private final ResponseWriterBuffer buffer;
   private final boolean utf8;
 
+  /**
+   * @deprecated since 4.3.0
+   */
+  @Deprecated
   public WriterHelper(final Writer out, final String characterEncoding) {
     this.out = out;
     buffer = new ResponseWriterBuffer(out);
-    utf8 = "utf-8".equalsIgnoreCase(characterEncoding);
+    utf8 = UTF8.name().equalsIgnoreCase(characterEncoding);
+  }
+
+  public WriterHelper(final Writer out, final Charset charset) {
+    this.out = out;
+    buffer = new ResponseWriterBuffer(out);
+    utf8 = UTF8.equals(charset);
   }
 
   public void writeAttributeValue(final String text)

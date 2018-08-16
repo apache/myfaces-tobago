@@ -30,6 +30,8 @@ import javax.faces.component.UIComponent;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URI;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
@@ -51,12 +53,20 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   private final String contentType;
 
-  private final String characterEncoding;
+  private final Charset charset;
 
+  /**
+   * @deprecated since 4.3.0
+   */
+  @Deprecated
   protected TobagoResponseWriterBase(final Writer writer, final String contentType, final String characterEncoding) {
+    this(writer, contentType, characterEncoding != null ? Charset.forName(characterEncoding) : StandardCharsets.UTF_8);
+  }
+
+  protected TobagoResponseWriterBase(final Writer writer, final String contentType, final Charset charset) {
     this.writer = writer;
     this.contentType = contentType;
-    this.characterEncoding = characterEncoding != null ? characterEncoding : "UTF-8";
+    this.charset = charset != null ? charset : StandardCharsets.UTF_8;
   }
 
   protected final Writer getWriter() {
@@ -181,7 +191,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   @Override
   public String getCharacterEncoding() {
-    return characterEncoding;
+    return charset.name();
   }
 
   @Override

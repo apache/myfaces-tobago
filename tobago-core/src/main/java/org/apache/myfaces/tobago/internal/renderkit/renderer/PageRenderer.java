@@ -282,7 +282,7 @@ public class PageRenderer extends RendererBase {
       writer.writeAttribute(HtmlAttributes.ENCTYPE, enctype, false);
     }
     // TODO: enable configuration of  'accept-charset'
-    writer.writeAttribute(HtmlAttributes.ACCEPT_CHARSET, AbstractUIPage.FORM_ACCEPT_CHARSET, false);
+    writer.writeAttribute(HtmlAttributes.ACCEPT_CHARSET, AbstractUIPage.FORM_ACCEPT_CHARSET.name(), false);
     // TODO evaluate 'accept' attribute usage
     //writer.writeAttribute(HtmlAttributes.ACCEPT, );
     writer.writeAttribute(DataAttributes.CONTEXT_PATH, contextPath, true);

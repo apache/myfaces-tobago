@@ -25,16 +25,26 @@ import org.apache.myfaces.tobago.internal.util.WriterHelper;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 
 public final class XmlResponseWriter extends TobagoResponseWriterBase {
 
   private final WriterHelper helper;
 
+  /**
+   * @deprecated since 4.3.0
+   */
+  @Deprecated
   public XmlResponseWriter(
       final Writer writer, final String contentType, final String characterEncoding) {
-    super(writer, contentType, characterEncoding);
-    this.helper = new HtmlWriterHelper(writer, characterEncoding);
+    this(writer, contentType, Charset.forName(characterEncoding));
+  }
+
+  public XmlResponseWriter(
+      final Writer writer, final String contentType, final Charset charset) {
+    super(writer, contentType, charset);
+    this.helper = new HtmlWriterHelper(writer, charset);
   }
 
   @Override
@@ -78,7 +88,7 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
 
   @Override
   public ResponseWriter cloneWithWriter(final Writer originalWriter) {
-    return new XmlResponseWriter(originalWriter, getContentType(), getCharacterEncoding());
+    return new XmlResponseWriter(originalWriter, getContentType(), Charset.forName(getCharacterEncoding()));
   }
 
   @Override

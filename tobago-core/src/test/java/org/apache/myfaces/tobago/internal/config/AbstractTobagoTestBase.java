@@ -42,6 +42,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Locale;
 
@@ -72,7 +73,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     super.setUp();
 
     stringWriter = new StringWriter();
-    getFacesContext().setResponseWriter(new HtmlResponseWriter(stringWriter, "", "UTF-8"));
+    getFacesContext().setResponseWriter(new HtmlResponseWriter(stringWriter, "", StandardCharsets.UTF_8));
 
     // Tobago specific extensions
 

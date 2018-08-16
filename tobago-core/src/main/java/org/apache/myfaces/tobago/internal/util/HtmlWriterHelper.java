@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.util;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.nio.charset.Charset;
 
 public final class HtmlWriterHelper extends WriterHelper {
 
@@ -56,8 +57,16 @@ public final class HtmlWriterHelper extends WriterHelper {
 
   }
 
+  /**
+   * @deprecated since 4.3.0
+   */
+  @Deprecated
   public HtmlWriterHelper(final Writer out, final String characterEncoding) {
-    super(out, characterEncoding);
+    this(out, Charset.forName(characterEncoding));
+  }
+
+  public HtmlWriterHelper(final Writer out, final Charset charset) {
+    super(out, charset);
   }
 
   @Override

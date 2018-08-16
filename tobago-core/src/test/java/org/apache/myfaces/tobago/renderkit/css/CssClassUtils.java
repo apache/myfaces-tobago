@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.css;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ class CssClassUtils {
 
     final List<CssItem> missing = new ArrayList<>();
 
-    final String fileContent = new String(Files.readAllBytes(Paths.get(cssFileName)), Charset.forName("UTF-8"));
+    final String fileContent = new String(Files.readAllBytes(Paths.get(cssFileName)), StandardCharsets.UTF_8);
 
     for (final CssItem cssItem : cssItems) {
       if (!containsClassName(fileContent, cssItem.getName())) {

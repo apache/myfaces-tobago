@@ -34,6 +34,7 @@ import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -157,7 +158,7 @@ public class NavigationTree implements Serializable {
     final ExternalContext externalContext = facesContext.getExternalContext();
     final String viewId = facesContext.getViewRoot().getViewId();
     try (final InputStream resourceAsStream = externalContext.getResourceAsStream(viewId)) {
-      return IOUtils.toString(resourceAsStream, "UTF-8");
+      return IOUtils.toString(resourceAsStream, StandardCharsets.UTF_8);
     } catch (final IOException e) {
       LOG.error("", e);
       return "error";

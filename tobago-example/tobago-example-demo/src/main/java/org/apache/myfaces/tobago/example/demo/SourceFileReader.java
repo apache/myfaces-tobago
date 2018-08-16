@@ -27,6 +27,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 public abstract class SourceFileReader {
 
@@ -39,7 +40,7 @@ public abstract class SourceFileReader {
     final String file = viewId.substring(0, viewId.lastIndexOf("/")) + "/" + filename;
     try (final InputStream resourceAsStream = externalContext.getResourceAsStream(file)) {
       if (resourceAsStream != null) {
-        return IOUtils.toString(resourceAsStream, "UTF-8");
+        return IOUtils.toString(resourceAsStream, StandardCharsets.UTF_8);
       }
     } catch (final IOException e) {
       LOG.error("", e);

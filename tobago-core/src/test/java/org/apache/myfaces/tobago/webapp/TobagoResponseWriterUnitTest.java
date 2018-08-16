@@ -30,6 +30,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 
 public class TobagoResponseWriterUnitTest extends AbstractJsfTestCase {
 
@@ -41,7 +42,7 @@ public class TobagoResponseWriterUnitTest extends AbstractJsfTestCase {
   public void setUp() throws Exception {
     super.setUp();
     stringWriter = new StringWriter();
-    writer = new HtmlResponseWriter(stringWriter, "", "UTF-8");
+    writer = new HtmlResponseWriter(stringWriter, "", StandardCharsets.UTF_8);
   }
 
   @Test
@@ -133,7 +134,8 @@ public class TobagoResponseWriterUnitTest extends AbstractJsfTestCase {
 
   @Test
   public void testNonUtf8() throws IOException {
-    try (final TobagoResponseWriter writer1 = new HtmlResponseWriter(stringWriter, "", "ISO-8859-1")) {
+    try (final TobagoResponseWriter writer1
+             = new HtmlResponseWriter(stringWriter, "", StandardCharsets.ISO_8859_1)) {
       writer1.startElement(HtmlElements.INPUT);
       writer1.writeAttribute(HtmlAttributes.VALUE, "Gutschein über 100 €.", true);
       writer1.writeAttribute(HtmlAttributes.READONLY, true);
@@ -145,7 +147,8 @@ public class TobagoResponseWriterUnitTest extends AbstractJsfTestCase {
 
   @Test
   public void testCharArray() throws IOException {
-    final TobagoResponseWriter xmlResponseWriter = new XmlResponseWriter(stringWriter, "text/xml", "ISO-8859-1");
+    final TobagoResponseWriter xmlResponseWriter
+        = new XmlResponseWriter(stringWriter, "text/xml", StandardCharsets.ISO_8859_1);
     xmlResponseWriter.writeText("123".toCharArray(), 0, 3);
     Assert.assertEquals("123", stringWriter.toString());
   }

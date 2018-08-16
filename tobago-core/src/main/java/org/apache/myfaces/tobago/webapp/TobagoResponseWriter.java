@@ -35,6 +35,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 
 /**
  * <p> This provides an alternative ResponseWriter interfaces, which allows optimizations. E. g. some attributes needed
@@ -263,7 +264,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
     }
     String characterEncoding = getCharacterEncoding();
     if (characterEncoding == null) {
-      characterEncoding = "UTF-8";
+      characterEncoding = StandardCharsets.UTF_8.name();
     }
 
     return contentType + "; charset=" + characterEncoding;

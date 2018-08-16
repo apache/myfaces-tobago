@@ -25,6 +25,7 @@ import org.junit.Test;
 
 import java.io.CharArrayWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class HtmlWriterHelperUnitTest {
 
@@ -77,7 +78,7 @@ public class HtmlWriterHelperUnitTest {
   @Test
   public void testTexts() {
     final CharArrayWriter writer = new CharArrayWriter();
-    final HtmlWriterHelper helper = new HtmlWriterHelper(writer, "");
+    final HtmlWriterHelper helper = new HtmlWriterHelper(writer, StandardCharsets.ISO_8859_1);
 
     for (int i = 0; i < ESCAPED_TEXTS.length; i++) {
       testText(helper, writer, RAW_TEXTS[i], ESCAPED_TEXTS[i]);
@@ -87,7 +88,7 @@ public class HtmlWriterHelperUnitTest {
   @Test
   public void testAttributes() {
     final CharArrayWriter writer = new CharArrayWriter();
-    final HtmlWriterHelper helper = new HtmlWriterHelper(writer, "");
+    final HtmlWriterHelper helper = new HtmlWriterHelper(writer, StandardCharsets.ISO_8859_1);
 
     for (int i = 0; i < ESCAPED_ATTRIBUTES.length; i++) {
       testAttributeValue(helper, writer, RAW_TEXTS[i], ESCAPED_ATTRIBUTES[i]);

@@ -30,6 +30,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.FilterChain;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 @WebFilter(urlPatterns = "/*")
 public class FixCharacterEncodingFilter implements Filter {
@@ -48,7 +49,7 @@ public class FixCharacterEncodingFilter implements Filter {
       final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain filterChain)
       throws IOException, ServletException {
     if (servletRequest.getCharacterEncoding() == null) {
-      servletRequest.setCharacterEncoding("UTF-8");
+      servletRequest.setCharacterEncoding(StandardCharsets.UTF_8.name());
     }
     filterChain.doFilter(servletRequest, servletResponse);
   }

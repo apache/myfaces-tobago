@@ -38,6 +38,7 @@ import javax.faces.render.Renderer;
 import javax.faces.render.ResponseStateManager;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -80,14 +81,15 @@ public class TobagoRenderKit extends RenderKit {
   public ResponseWriter createResponseWriter(
       final Writer writer, final String contentType, final String characterEncoding) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final Charset charset = Charset.forName(characterEncoding);
     TobagoResponseWriter responseWriter;
     if (facesContext.getPartialViewContext().isAjaxRequest()) {
-      responseWriter = new XmlResponseWriter(writer, CONTENT_TYPE_TEXT_XML, characterEncoding);
+      responseWriter = new XmlResponseWriter(writer, CONTENT_TYPE_TEXT_XML, charset);
     } else {
       if (contentType != null && !contentType.contains(CONTENT_TYPE_TEXT_HTML)) {
         LOG.warn("Content-Type '{}' not supported! Using '{}'", contentType, CONTENT_TYPE_TEXT_HTML);
       }
-      responseWriter = new HtmlResponseWriter(writer, CONTENT_TYPE_TEXT_HTML, characterEncoding);
+      responseWriter = new HtmlResponseWriter(writer, CONTENT_TYPE_TEXT_HTML, charset);
       // XXX enable xhtml here, by hand:
       //      responseWriter = new XmlResponseWriter(writer, "application/xhtml+xml", characterEncoding);
     }

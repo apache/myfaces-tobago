@@ -28,6 +28,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
 /**
@@ -39,7 +41,7 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Clien
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Page";
 
-  public static final String FORM_ACCEPT_CHARSET = "utf-8";
+  public static final Charset FORM_ACCEPT_CHARSET = StandardCharsets.UTF_8;
 
   private String formId;
 
