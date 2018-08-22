@@ -1963,7 +1963,7 @@ select.form-control:focus::-ms-value {
   padding-bottom: 0.375rem;
   margin-bottom: 0;
   line-height: 1.5;
-  color: #212529;
+  color: #777777;
   background-color: transparent;
   border: solid transparent;
   border-width: 1px 0;
