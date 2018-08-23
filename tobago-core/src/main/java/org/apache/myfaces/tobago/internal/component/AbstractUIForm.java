@@ -29,5 +29,6 @@ public abstract class AbstractUIForm extends AbstractUIFormBase {
   /**
    * @deprecated since 4.0.0.
    */
+  @Deprecated
   public abstract boolean isInline();
 }
