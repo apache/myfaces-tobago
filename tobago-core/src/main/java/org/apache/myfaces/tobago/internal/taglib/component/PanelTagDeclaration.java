@@ -46,7 +46,6 @@ import javax.faces.component.UIPanel;
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.PANEL,
-    interfaces = "org.apache.myfaces.tobago.component.Visual",
     facets = {
         @Facet(name = Facets.RELOAD, description = "Contains an instance of UIReload",
             allowedChildComponenents = "org.apache.myfaces.tobago.Reload"),

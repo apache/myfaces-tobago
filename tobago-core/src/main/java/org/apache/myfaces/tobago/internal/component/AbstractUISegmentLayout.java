@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.layout.MeasureList;
 
 /**
@@ -27,7 +26,7 @@ import org.apache.myfaces.tobago.layout.MeasureList;
  *
  * @since 3.0.0
  */
-public abstract class AbstractUISegmentLayout extends AbstractUILayoutBase implements Visual {
+public abstract class AbstractUISegmentLayout extends AbstractUILayoutBase {
 
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.SegmentLayout";
 

@@ -37,7 +37,7 @@ import javax.faces.component.UIPanel;
 @Tag(name = "bar")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIBar",
-    uiComponentBaseClass = "javax.faces.component.UIPanel",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIBar",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.BAR,
     interfaces = {

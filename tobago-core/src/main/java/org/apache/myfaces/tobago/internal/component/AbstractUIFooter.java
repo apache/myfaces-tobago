@@ -19,15 +19,5 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.Visual;
-
-import javax.faces.component.UIGraphic;
-
-/**
- * {@link org.apache.myfaces.tobago.internal.taglib.component.ImageTagDeclaration}
- */
-public abstract class AbstractUIImage extends UIGraphic implements Visual {
-
-  public abstract boolean isDisabled();
-  public abstract String getAlt();
+public abstract class AbstractUIFooter extends AbstractUIPanelBase {
 }

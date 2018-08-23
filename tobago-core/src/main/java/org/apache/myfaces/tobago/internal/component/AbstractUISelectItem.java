@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,7 @@ import javax.faces.context.FacesContext;
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectItemTagDeclaration}
  */
-public class AbstractUISelectItem extends UISelectItem {
+public abstract class AbstractUISelectItem extends UISelectItem implements Visual {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISelectItem.class);
 

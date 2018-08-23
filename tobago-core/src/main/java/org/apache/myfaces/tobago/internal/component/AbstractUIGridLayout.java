@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIStyle;
-import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.util.StyleRenderUtils;
 import org.apache.myfaces.tobago.layout.GridSpan;
 import org.apache.myfaces.tobago.layout.MeasureList;
@@ -53,8 +52,7 @@ import java.util.Map;
  */
 @Preliminary
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
-public abstract class AbstractUIGridLayout extends AbstractUILayoutBase
-    implements Visual, ComponentSystemEventListener {
+public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implements ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIGridLayout.class);
 

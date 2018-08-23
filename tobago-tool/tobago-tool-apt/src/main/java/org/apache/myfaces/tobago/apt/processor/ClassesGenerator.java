@@ -169,9 +169,9 @@ public class ClassesGenerator extends AbstractGenerator {
     final ComponentPropertyInfo componentPropertyInfo = (ComponentPropertyInfo) info.fill(new ComponentPropertyInfo());
     componentInfo.addImport(componentPropertyInfo.getUnmodifiedType());
     componentInfo.addImport("javax.faces.context.FacesContext");
-    if ("markup".equals(info.getName())) {
-      componentInfo.addInterface("org.apache.myfaces.tobago.component.Visual");
-    }
+//    if ("markup".equals(info.getName())) {
+//      componentInfo.addInterface("org.apache.myfaces.tobago.component.Visual");
+//    }
     if ("requiredMessage".equals(info.getName())) {
       componentInfo.setMessages(true);
     }

@@ -38,7 +38,7 @@ import javax.faces.event.PostAddToViewEvent;
  * @since 3.0.0
  */
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public abstract class AbstractUIFlexLayout extends AbstractUILayoutBase implements Visual {
+public abstract class AbstractUIFlexLayout extends AbstractUILayoutBase {
 
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.FlexLayout";
 
