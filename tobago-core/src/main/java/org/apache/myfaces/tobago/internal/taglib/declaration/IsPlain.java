@@ -17,30 +17,25 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.component;
+package org.apache.myfaces.tobago.internal.taglib.declaration;
 
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.renderkit.css.CustomClass;
-
-public interface Visual {
-
-  Markup getMarkup();
-
-  void setMarkup(Markup markup);
-
-  CustomClass getCustomClass();
-
-  void setCustomClass(CustomClass customClass);
+public interface IsPlain {
 
   /**
-   * The renderer is an id that is used by Tobago to gather information about the components which are
-   * configured in the theme configuration files. E. g. the preferredWidth of a component.
-   * @return The renderer type.
+   * This attribute is useful for tc:out if labelLayout=skip is set.
+   * Use true, if you want to only render the text (no surrounding tag).
+   * Use false, if you enable the possibility to apply styles to the output.
+   *
+   * For tc:form there will no div tag be rendered. So, the content
+   * can be used freely from layout managers.
+   *
+   * But, no AJAX is possible for components with "plain" set,
+   * because there is no client element with an "id" in the DOM.
    */
-  String getRendererType();
-
-  default boolean isPlain() {
-    return false;
-  }
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  void setPlain(String plain);
 }

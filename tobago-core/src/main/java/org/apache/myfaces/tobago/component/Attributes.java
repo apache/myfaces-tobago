@@ -71,11 +71,19 @@ public enum Attributes {
   columnSpan,
   columnSpacing,
   columns,
+  /**
+   * @deprecated since 4.3.0
+   */
+  @Deprecated
   compact,
   confirmation,
   content,
   converter,
   customClass,
+  /**
+   * @deprecated since 4.0.0
+   */
+  @Deprecated
   createSpan,
   css,
   cssClassesBlocks,
@@ -299,6 +307,7 @@ public enum Attributes {
   pagingTarget,
   password,
   placeholder,
+  plain,
   popupClose,
   popupList,
   popupReset,

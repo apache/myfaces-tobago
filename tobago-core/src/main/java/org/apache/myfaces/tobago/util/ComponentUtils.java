@@ -92,7 +92,7 @@ public final class ComponentUtils {
   }
 
   public static boolean hasErrorMessages(final FacesContext context) {
-    for (final Iterator iter = context.getMessages(); iter.hasNext();) {
+    for (final Iterator iter = context.getMessages(); iter.hasNext(); ) {
       final FacesMessage message = (FacesMessage) iter.next();
       if (FacesMessage.SEVERITY_ERROR.compareTo(message.getSeverity()) <= 0) {
         return true;
@@ -143,8 +143,8 @@ public final class ComponentUtils {
   }
 
   /**
-   * Tries to walk up the parents to find the UIViewRoot, if not found, then go to FaceletContext's FacesContext for
-   * the view root.
+   * Tries to walk up the parents to find the UIViewRoot, if not found, then go to FaceletContext's FacesContext for the
+   * view root.
    */
   public static UIViewRoot findViewRoot(final FaceletContext faceletContext, final UIComponent component) {
     final UIViewRoot viewRoot = findAncestor(component, UIViewRoot.class);
@@ -227,8 +227,7 @@ public final class ComponentUtils {
   }
 
   /**
-   * Find all sub forms of a component, and collects it.
-   * It does not find sub forms of sub forms.
+   * Find all sub forms of a component, and collects it. It does not find sub forms of sub forms.
    */
   public static List<AbstractUIForm> findSubForms(final UIComponent component) {
     final List<AbstractUIForm> collect = new ArrayList<>();
@@ -314,11 +313,9 @@ public final class ComponentUtils {
   }
 
   /**
-   * Looks for the attribute "for" in the component. If there is any
-   * search for the component which is referenced by the "for" attribute,
-   * and return their clientId.
-   * If there is no "for" attribute, return the "clientId" of the parent
-   * (if it has a parent). This is useful for labels.
+   * Looks for the attribute "for" in the component. If there is any search for the component which is referenced by the
+   * "for" attribute, and return their clientId. If there is no "for" attribute, return the "clientId" of the parent (if
+   * it has a parent). This is useful for labels.
    */
   public static String findClientIdFor(final UIComponent component, final FacesContext facesContext) {
     final UIComponent forComponent = findFor(component);
@@ -344,10 +341,9 @@ public final class ComponentUtils {
   }
 
   /**
-   * Looks for the attribute "for" of the component.
-   * In case that the value is equals to "@auto" the children of the parent will be
-   * checked if they are of the type of the parameter clazz. The "id" of the first one will be used to reset the "for"
-   * attribute of the component.
+   * Looks for the attribute "for" of the component. In case that the value is equals to "@auto" the children of the
+   * parent will be checked if they are of the type of the parameter clazz. The "id" of the first one will be used to
+   * reset the "for" attribute of the component.
    */
   public static void evaluateAutoFor(final UIComponent component, final Class<? extends UIComponent> clazz) {
     final String forComponent = getStringAttribute(component, Attributes.forValue);
@@ -550,7 +546,7 @@ public final class ComponentUtils {
   }
 
   public static RendererBase getRenderer(final FacesContext facesContext, final String family,
-      final String rendererType) {
+                                         final String rendererType) {
     if (rendererType == null) {
       return null;
     }
@@ -759,7 +755,7 @@ public final class ComponentUtils {
     if (container instanceof UIComponent) {
       final String clientId = ((UIComponent) container).getClientId(facesContext);
       FacesMessage.Severity max = null;
-      for (final Iterator ids = facesContext.getClientIdsWithMessages(); ids.hasNext();) {
+      for (final Iterator ids = facesContext.getClientIdsWithMessages(); ids.hasNext(); ) {
         final String id = (String) ids.next();
         if (id != null && id.startsWith(clientId)) {
           final Iterator messages = facesContext.getMessages(id);
@@ -777,8 +773,7 @@ public final class ComponentUtils {
   }
 
   /**
-   * Adding a data attribute to the component.
-   * The name must start with "data-", e. g. "data-tobago-foo" or "data-bar"
+   * Adding a data attribute to the component. The name must start with "data-", e. g. "data-tobago-foo" or "data-bar"
    */
   public static void putDataAttributeWithPrefix(
       final UIComponent component, final DataAttributes name, final Object value) {
@@ -790,8 +785,7 @@ public final class ComponentUtils {
   }
 
   /**
-   * Adding a data attribute to the component.
-   * The name should not start with "data-", e. g. "tobago-foo" or "bar"
+   * Adding a data attribute to the component. The name should not start with "data-", e. g. "tobago-foo" or "bar"
    */
   public static void putDataAttribute(final UIComponent component, final Object name, final Object value) {
     Map<Object, Object> map = getDataAttributes(component);
@@ -885,20 +879,20 @@ public final class ComponentUtils {
 
   private static void addLayoutChildren(final UIComponent component, final List<UIComponent> result) {
     for (final UIComponent child : component.getChildren()) {
-      if (child instanceof Visual) {
+      if (child instanceof Visual && !((Visual) child).isPlain()) {
         result.add(child);
       } else {
-        // Child seems to be transparent for layout, like UIForm.
+        // Child seems to be transparent for layout, like UIForm with "plain" set.
         // So we try to add the inner components.
         addLayoutChildren(child, result);
       }
     }
 
     final UIComponent child = component.getFacet(UIComponent.COMPOSITE_FACET_NAME);
-    if (child instanceof Visual) {
+    if (child instanceof Visual && !((Visual) child).isPlain()) {
       result.add(child);
     } else if (child != null) {
-      // Child seems to be transparent for layout, like UIForm.
+      // Child seems to be transparent for layout, like UIForm with "plain" set.
       // So we try to add the inner components.
       addLayoutChildren(child, result);
     }

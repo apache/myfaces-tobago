@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsPlain;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIForm;
@@ -48,7 +49,7 @@ import javax.faces.component.UIForm;
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponenents = "ALL")
-public interface FormTagDeclaration extends HasBinding, HasId, IsVisual {
+public interface FormTagDeclaration extends HasBinding, HasId, IsVisual, IsPlain {
 
   /**
    * Flag indicating this component should rendered as an inline element.

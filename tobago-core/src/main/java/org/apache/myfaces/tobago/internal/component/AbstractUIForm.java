@@ -26,5 +26,8 @@ public abstract class AbstractUIForm extends AbstractUIFormBase {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Form";
 
+  /**
+   * @deprecated since 4.0.0.
+   */
   public abstract boolean isInline();
 }

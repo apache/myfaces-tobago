@@ -37,23 +37,29 @@ public class FormRenderer extends RendererBase {
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
     final AbstractUIForm form = (AbstractUIForm) component;
-    final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final String clientId = form.getClientId(facesContext);
-    final boolean inline = form.isInline();
 
-    writer.startElement(HtmlElements.DIV);
-    writer.writeIdAttribute(clientId);
-    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(form.getMarkup()), false);
-    writer.writeClassAttribute(
-        TobagoClass.FORM,
-        inline ? BootstrapClass.D_INLINE : null,
-        form.getCustomClass());
+    if (!form.isPlain()) {
+      final TobagoResponseWriter writer = getResponseWriter(facesContext);
+      final String clientId = form.getClientId(facesContext);
+      final boolean inline = form.isInline();
 
+      writer.startElement(HtmlElements.DIV);
+      writer.writeIdAttribute(clientId);
+      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(form.getMarkup()), false);
+      writer.writeClassAttribute(
+          TobagoClass.FORM,
+          inline ? BootstrapClass.D_INLINE : null,
+          form.getCustomClass());
+    }
   }
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.endElement(HtmlElements.DIV);
+    final AbstractUIForm form = (AbstractUIForm) component;
+
+    if (!form.isPlain()) {
+      final TobagoResponseWriter writer = getResponseWriter(facesContext);
+      writer.endElement(HtmlElements.DIV);
+    }
   }
 }

@@ -31,9 +31,8 @@ import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -44,8 +43,6 @@ import java.util.List;
  * Renders the 12 columns grid layout.
  */
 public class SegmentLayoutRenderer extends RendererBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(SegmentLayoutRenderer.class);
 
   @Override
   public boolean getRendersChildren() {
@@ -80,7 +77,8 @@ public class SegmentLayoutRenderer extends RendererBase {
       return;
     }
 
-    final List<UIComponent> children = segmentLayout.getChildren();
+//    final List<UIComponent> children = segmentLayout.getChildren();
+    final List<UIComponent> children = ComponentUtils.findLayoutChildren(segmentLayout);
     final BootstrapClass.Generator generator = new BootstrapClass.Generator(
         segmentLayout.getExtraSmall(),
         segmentLayout.getSmall(),

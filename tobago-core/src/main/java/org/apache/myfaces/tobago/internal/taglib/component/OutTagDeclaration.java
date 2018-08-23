@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasSanitize;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsPlain;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIOutput;
@@ -56,7 +57,7 @@ import javax.faces.component.UIOutput;
 
 public interface OutTagDeclaration
     extends HasIdBindingAndRendered, HasConverter, HasTip, HasValue, IsVisual,
-    HasSanitize, HasLabel, HasLabelLayout {
+    HasSanitize, HasLabel, HasLabelLayout, IsPlain {
 
   /**
    * Flag indicating that characters that are
@@ -90,7 +91,10 @@ public interface OutTagDeclaration
    * This attribute is useful if labelLayout=skip is set.
    * Use true, if you want to only render the text (no surrounding tag).
    * Use false, if you enable the possibility to apply styles to the output.
+   *
+   * @deprecated since 4.3.0. Use attribute 'plain' instead.
    */
+  @Deprecated
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setCompact(String compact);

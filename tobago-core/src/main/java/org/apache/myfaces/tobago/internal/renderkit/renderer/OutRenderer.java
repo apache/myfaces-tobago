@@ -57,10 +57,10 @@ public class OutRenderer extends MessageLayoutRendererBase {
 
     final boolean escape = out.isEscape();
     final boolean keepLineBreaks = out.isKeepLineBreaks();
-    final boolean compact = out.isCompact() || !out.isCreateSpan();
+    final boolean plain = out.isPlain() || out.isCompact() || !out.isCreateSpan();
     final Markup markup = out.getMarkup();
 
-    if (!compact) {
+    if (!plain) {
       writer.startElement(HtmlElements.SPAN);
       if (out.isLabelLayoutSkip()) {
         writer.writeIdAttribute(out.getClientId());
@@ -107,9 +107,9 @@ public class OutRenderer extends MessageLayoutRendererBase {
 
     final UIOut out = (UIOut) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final boolean compact = out.isCompact() || !out.isCreateSpan();
+    final boolean plain = out.isPlain() || out.isCompact() || !out.isCreateSpan();
 
-    if (!compact) {
+    if (!plain) {
       writer.endElement(HtmlElements.SPAN);
     }
   }
