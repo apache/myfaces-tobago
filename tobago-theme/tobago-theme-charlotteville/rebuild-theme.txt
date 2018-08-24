@@ -84,7 +84,7 @@
 [INFO] 
 [WARNING] npm WARN bootstrap@4.1.1 requires a peer of jquery@1.9.1 - 3 but none is installed. You must install peer dependencies yourself.
 [ERROR] 
-[INFO] added 1613 packages in 71.675s
+[INFO] added 1613 packages in 100.962s
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.6:npm (step #8: npm run css-compile) @ tobago-theme-charlotteville ---
 [INFO] Running 'npm run css-compile' in __CURRENT__/tobago-theme-charlotteville/target/bootstrap
@@ -93,11 +93,11 @@
 [INFO] > node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap.scss dist/css/bootstrap.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-grid.scss dist/css/bootstrap-grid.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-reboot.scss dist/css/bootstrap-reboot.css
 [INFO] 
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap.css.map
+[ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap.css
 [ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-grid.css
+[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-grid.css.map
 [ERROR] Rendering Complete, saving .css file...
 [ERROR] Wrote CSS to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-reboot.css
 [ERROR] Wrote Source Map to __CURRENT__/tobago-theme-charlotteville/target/bootstrap/dist/css/bootstrap-reboot.css.map
@@ -135,16 +135,16 @@
 [INFO] > npm-run-all --parallel js-compile-*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.1.1 js-compile-plugins __CURRENT__/tobago-theme-charlotteville/target/bootstrap
-[INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
-[INFO] 
-[INFO] 
 [INFO] > bootstrap@4.1.1 js-compile-standalone __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] > rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
 [INFO] 
 [INFO] 
 [INFO] > bootstrap@4.1.1 js-compile-bundle __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] > rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.1.1 js-compile-plugins __CURRENT__/tobago-theme-charlotteville/target/bootstrap
+[INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
 [INFO] 
 [INFO] 
 [INFO] > bootstrap@4.1.1 js-compile-plugins-coverage __CURRENT__/tobago-theme-charlotteville/target/bootstrap
@@ -155,8 +155,8 @@
 [ERROR] 
 [ERROR] __CURRENT__/tobago-theme-charlotteville/target/bootstrap/js/src/index.js → dist/js/bootstrap.bundle.js...
 [INFO] 🎉  Successfully compiled 12 files with Babel.
-[ERROR] created dist/js/bootstrap.js in 9.2s
-[ERROR] created dist/js/bootstrap.bundle.js in 9.6s
+[ERROR] created dist/js/bootstrap.js in 16.6s
+[ERROR] created dist/js/bootstrap.bundle.js in 17.9s
 [INFO] 🎉  Successfully compiled 12 files with Babel.
 [INFO] 
 [INFO] > bootstrap@4.1.1 js-minify __CURRENT__/tobago-theme-charlotteville/target/bootstrap
@@ -174,8 +174,8 @@
 [INFO] > bootstrap@4.1.1 js-minify-bundle __CURRENT__/tobago-theme-charlotteville/target/bootstrap
 [INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.bundle.js.map,includeSources,url=bootstrap.bundle.min.js.map" --output dist/js/bootstrap.bundle.min.js dist/js/bootstrap.bundle.js
 [INFO] 
-[ERROR] INFO: Using input source map: dist/js/bootstrap.bundle.js.map
 [ERROR] INFO: Using input source map: dist/js/bootstrap.js.map
+[ERROR] INFO: Using input source map: dist/js/bootstrap.bundle.js.map
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-charlotteville ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
@@ -193,7 +193,7 @@
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
 [INFO] Copying 6 resources
 [INFO] 
-[INFO] --- maven-compiler-plugin:3.6.2:compile (default-compile) @ tobago-theme-charlotteville ---
+[INFO] --- maven-compiler-plugin:3.8.0:compile (default-compile) @ tobago-theme-charlotteville ---
 [INFO] No sources to compile
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:testResources (default-testResources) @ tobago-theme-charlotteville ---
@@ -202,7 +202,7 @@
 [INFO] Copying 3 resources
 [INFO] Copying 3 resources
 [INFO] 
-[INFO] --- maven-compiler-plugin:3.6.2:testCompile (default-testCompile) @ tobago-theme-charlotteville ---
+[INFO] --- maven-compiler-plugin:3.8.0:testCompile (default-testCompile) @ tobago-theme-charlotteville ---
 [INFO] No sources to compile
 [INFO] 
 [INFO] --- maven-surefire-plugin:2.19.1:test (default-test) @ tobago-theme-charlotteville ---
@@ -219,6 +219,6 @@
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 02:38 min
-[INFO] Finished at: 2018-08-14T23:20:42+02:00
+[INFO] Total time: 03:28 min
+[INFO] Finished at: 2018-08-24T13:00:08+02:00
 [INFO] ------------------------------------------------------------------------

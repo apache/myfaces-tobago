@@ -9386,6 +9386,32 @@ a.tobago-messages-button {
   flex: 1 0 0px;
 }
 
+.tobago-messages .alert.alert-dismissible {
+  padding-left: 3rem;
+}
+
+.tobago-messages .alert.alert-dismissible:before {
+  font-family: FontAwesome;
+  position: absolute;
+  left: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: 3rem;
+  text-align: center;
+}
+
+.tobago-messages .alert.alert-dismissible.alert-danger:before {
+  content: "";
+}
+
+.tobago-messages .alert.alert-dismissible.alert-warning:before {
+  content: "";
+}
+
+.tobago-messages .alert.alert-dismissible.alert-info:before {
+  content: "";
+}
+
 /* nav ----------------------------------------------------------- */
 /* styles for drop down menu first level */
 .dropdown-toggle:focus, .dropdown-toggle:hover {

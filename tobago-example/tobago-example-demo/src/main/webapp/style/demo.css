@@ -65,3 +65,34 @@ pre, code {
 .old-planet {
   background-color: #b3d4fc;
 }
+
+/*.alert.alert-dismissible {
+  padding-left: 2.75rem;
+}
+
+.alert.alert-dismissible:before {
+  font-family: FontAwesome;
+  position: absolute;
+  left: 0;
+  width: 2.75rem;
+  text-align: center;
+  padding-left: 1rem;
+  padding-right: 0.75rem;
+}
+
+.alert.alert-dismissible.alert-danger:before {
+  !* exclamation-circle *!
+  !*content: "\f06a";*!
+  !* times-circle *!
+  content: "\f057";
+}
+
+!* fa-exclamation-triangle *!
+.alert.alert-dismissible.alert-warning:before {
+  content: "\f071";
+}
+
+!* info *!
+.alert.alert-dismissible.alert-info:before {
+  content: "\f129";
+}*/
