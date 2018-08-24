@@ -303,11 +303,11 @@ XXX workaround for Bootstrap with datetimepicker needed for popups
   border-collapse: collapse;
   grid-column-gap: $spacer-x; // old
   column-gap: $spacer-x;
-}
 
-.tobago-label-container > {
-  .tobago-textarea, .tobago-selectOneChoice, .tobago-selectManyListbox, .tobago-selectManyShuttle {
-    height: 100%;
+  .tobago-label-container > {
+    .tobago-textarea, .tobago-selectManyListbox, .tobago-selectManyShuttle {
+      height: 100%;
+    }
   }
 }
 
