@@ -19,6 +19,7 @@
 XXX used variables: only for the IDE, will not really used by the build system, because this
 XXX code will be inserted after the _variables.scss
 */
+$alert-padding-x: 1.25rem !default;
 $border-radius: .25rem !default;
 $zindex-dropdown: 1000 !default;
 $zindex-popover: 1060 !default;
@@ -77,7 +78,10 @@ $fa-square-o: "\f096";
 $fa-check-square-o: "\f046";
 $fa-circle-thin: "\f1db";
 $fa-dot-circle-o: "\f192";
+$fa-exclamation-triangle: "\f071";
 $zero-width-space: "\200b";
+$fa-info: "\f129";
+$fa-times-circle: "\f057";
 $fa-toggle-off: "\f204";
 $fa-toggle-on: "\f205";
 
@@ -485,6 +489,35 @@ a.tobago-messages-button {
 .tobago-flexLayout.tobago-messages-container > {
   .twitter-typeahead, .tobago-input-group-outer, .tobago-selectManyShuttle, .tobago-file {
     flex: 1 0 0px;
+  }
+}
+
+.tobago-messages {
+  $alert-icon-padding-x: $alert-padding-x / 1.25;
+  $alert-icon-width: $alert-icon-padding-x + 1rem + $alert-icon-padding-x;
+
+  .alert.alert-dismissible {
+    padding-left: $alert-icon-width;
+
+    &:before {
+      font-family: FontAwesome;
+      position: absolute;
+      left: 0;
+      padding-left: $alert-icon-padding-x;
+      padding-right: $alert-icon-padding-x;
+      width: $alert-icon-width;
+      text-align: center;
+    }
+
+    &.alert-danger:before {
+      content: $fa-times-circle;
+    }
+    &.alert-warning:before {
+      content: $fa-exclamation-triangle;
+    }
+    &.alert-info:before {
+      content: $fa-info;
+    }
   }
 }
 
