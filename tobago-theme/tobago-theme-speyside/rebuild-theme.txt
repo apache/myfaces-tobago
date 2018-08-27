@@ -16,11 +16,11 @@
 [INFO] --- maven-remote-resources-plugin:1.5:process (process-resource-bundles) @ tobago-theme-speyside ---
 [INFO] 
 [INFO] --- download-maven-plugin:1.4.0:wget (step #1: download-bootstrap) @ tobago-theme-speyside ---
-[INFO] Got from cache: __REPO__/.cache/download-maven-plugin/v4.1.1.zip_9d8bf5ad4bedc2bb8f0f97e5be65d63d
+[INFO] Got from cache: __REPO__/.cache/download-maven-plugin/v4.1.3.zip_ca0d7247b0da605e0109271cfcdc07bb
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:copy-resources (step #2: copy-bootstrap) @ tobago-theme-speyside ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] Copying 434 resources
+[INFO] Copying 437 resources
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:copy-resources (step #3: copy-custom) @ tobago-theme-speyside ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
@@ -34,16 +34,16 @@
 [INFO] Unpacking __REPO__/org/apache/myfaces/tobago/tobago-core/4.3.0-SNAPSHOT/tobago-core-4.3.0-SNAPSHOT.jar to __CURRENT__/tobago-theme-speyside/target/bootstrap with includes "**/*.scss" and excludes ""
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.6:install-node-and-npm (step #6: install node and npm) @ tobago-theme-speyside ---
-[INFO] Installing node version v8.11.3
-[INFO] Unpacking __REPO__/com/github/eirslett/node/8.11.3/node-8.11.3-darwin-x64.tar.gz into __CURRENT__/tobago-theme-speyside/target/frontend/node/tmp
-[INFO] Copying node binary from __CURRENT__/tobago-theme-speyside/target/frontend/node/tmp/node-v8.11.3-darwin-x64/bin/node to __CURRENT__/tobago-theme-speyside/target/frontend/node/node
+[INFO] Installing node version v8.11.4
+[INFO] Unpacking __REPO__/com/github/eirslett/node/8.11.4/node-8.11.4-darwin-x64.tar.gz into __CURRENT__/tobago-theme-speyside/target/frontend/node/tmp
+[INFO] Copying node binary from __CURRENT__/tobago-theme-speyside/target/frontend/node/tmp/node-v8.11.4-darwin-x64/bin/node to __CURRENT__/tobago-theme-speyside/target/frontend/node/node
 [INFO] Extracting NPM
 [INFO] Installed node locally.
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.6:npm (step #7: npm install) @ tobago-theme-speyside ---
 [INFO] Running 'npm install' in __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] 
-[INFO] > fsevents@1.1.3 install __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/fsevents
+[INFO] > fsevents@1.2.4 install __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/fsevents
 [INFO] > node install
 [INFO] 
 [INFO] [fsevents] Success: "__CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/fsevents/lib/binding/Release/node-v57-darwin-x64/fse.node" already installed
@@ -53,129 +53,165 @@
 [INFO] > node-gyp rebuild > build_log.txt 2>&1 || exit 0
 [INFO] 
 [INFO] 
-[INFO] > iltorb@1.3.10 install __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/iltorb
-[INFO] > detect-libc prebuild-install || node-gyp rebuild
-[INFO] 
-[INFO] 
-[INFO] > node-sass@4.8.3 install __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/node-sass
+[INFO] > node-sass@4.9.1 install __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/node-sass
 [INFO] > node scripts/install.js
 [INFO] 
-[INFO] Cached binary found at __HOME__/.npm/node-sass/4.8.3/darwin-x64-57_binding.node
+[INFO] Cached binary found at __HOME__/.npm/node-sass/4.9.1/darwin-x64-57_binding.node
 [INFO] 
-[INFO] > node-sass@4.8.3 postinstall __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/node-sass
+[INFO] > node-sass@4.9.1 postinstall __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/node-sass
 [INFO] > node scripts/build.js
 [INFO] 
 [INFO] Binary found at __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/node-sass/vendor/darwin-x64-57/binding.node
 [INFO] Testing binary
 [INFO] Binary is fine
 [INFO] 
-[INFO] > nodemon@1.17.3 postinstall __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/nodemon
-[INFO] > node -e "console.log('\u001b[32mLove nodemon? You can now support the project via the open collective:\u001b[22m\u001b[39m\n > \u001b[96m\u001b[1mhttps://opencollective.com/nodemon/donate\u001b[0m\n')" || exit 0
+[INFO] > nodemon@1.17.5 postinstall __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/nodemon
+[INFO] > node bin/postinstall || exit 0
 [INFO] 
-[INFO] Love nodemon? You can now support the project via the open collective:
-[INFO]  > https://opencollective.com/nodemon/donate
-[INFO] 
-[INFO] 
-[INFO] > sinon@4.5.0 postinstall __CURRENT__/tobago-theme-speyside/target/bootstrap/node_modules/sinon
-[INFO] > node scripts/support-sinon.js
-[INFO] 
-[INFO] Have some ❤️ for Sinon? You can support the project via Open Collective:
-[INFO]  > https://opencollective.com/sinon/donate
-[INFO] 
-[WARNING] npm WARN bootstrap@4.1.1 requires a peer of jquery@1.9.1 - 3 but none is installed. You must install peer dependencies yourself.
+[WARNING] npm WARN bootstrap@4.1.3 requires a peer of jquery@1.9.1 - 3 but none is installed. You must install peer dependencies yourself.
 [ERROR] 
-[INFO] added 1613 packages in 101.475s
+[INFO] added 1416 packages in 101.491s
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.6:npm (step #8: npm run css-compile) @ tobago-theme-speyside ---
 [INFO] Running 'npm run css-compile' in __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] 
-[INFO] > bootstrap@4.1.1 css-compile __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > bootstrap@4.1.3 css-compile __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap.scss dist/css/bootstrap.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-grid.scss dist/css/bootstrap-grid.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-reboot.scss dist/css/bootstrap-reboot.css
 [INFO] 
-[ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap.css.map
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap.css
-[ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-grid.css
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-grid.css.map
-[ERROR] Rendering Complete, saving .css file...
-[ERROR] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-reboot.css
-[ERROR] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-reboot.css.map
+[INFO] Rendering Complete, saving .css file...
+[INFO] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap.css.map
+[INFO] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap.css
+[INFO] Rendering Complete, saving .css file...
+[INFO] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-grid.css.map
+[INFO] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-grid.css
+[INFO] Rendering Complete, saving .css file...
+[INFO] Wrote CSS to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-reboot.css
+[INFO] Wrote Source Map to __CURRENT__/tobago-theme-speyside/target/bootstrap/dist/css/bootstrap-reboot.css.map
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.6:npm (step #9: npm run css-prefix) @ tobago-theme-speyside ---
 [INFO] Running 'npm run css-prefix' in __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] 
-[INFO] > bootstrap@4.1.1 css-prefix __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > bootstrap@4.1.3 css-prefix __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > postcss --config build/postcss.config.js --replace "dist/css/*.css" "!dist/css/*.min.css"
 [INFO] 
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.6:npm (step #10: npm run css-minify) @ tobago-theme-speyside ---
 [INFO] Running 'npm run css-minify' in __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] 
-[INFO] > bootstrap@4.1.1 css-minify __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > bootstrap@4.1.3 css-minify __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap.min.css dist/css/bootstrap.css && cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap-grid.min.css dist/css/bootstrap-grid.css && cleancss --level 1 --source-map --source-map-inline-sources --output dist/css/bootstrap-reboot.min.css dist/css/bootstrap-reboot.css
 [INFO] 
 [INFO] 
 [INFO] --- frontend-maven-plugin:1.6:npm (step #11: npm run js) @ tobago-theme-speyside ---
 [INFO] Running 'npm run js' in __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] 
-[INFO] > bootstrap@4.1.1 js __CURRENT__/tobago-theme-speyside/target/bootstrap
-[INFO] > npm-run-all js-lint* js-compile js-minify
+[INFO] > bootstrap@4.1.3 js __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > npm-run-all js-lint* js-compile js-minify js-copy
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.1.1 js-lint __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > bootstrap@4.1.3 js-lint __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > eslint js/src js/tests build/
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.1.1 js-lint-docs __CURRENT__/tobago-theme-speyside/target/bootstrap
-[INFO] > eslint assets/js/ docs/ sw.js
+[INFO] > bootstrap@4.1.3 js-lint-docs __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > eslint site/docs/4.1/assets/js/ site/sw.js
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.1.1 js-compile __CURRENT__/tobago-theme-speyside/target/bootstrap
-[INFO] > npm-run-all --parallel js-compile-*
+[INFO] > bootstrap@4.1.3 js-compile __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > npm-run-all --parallel js-compile-* --sequential js-copy
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.1.1 js-compile-plugins __CURRENT__/tobago-theme-speyside/target/bootstrap
-[INFO] > cross-env PLUGINS=true babel js/src/ --out-dir js/dist/ --source-maps
-[INFO] 
-[INFO] 
-[INFO] > bootstrap@4.1.1 js-compile-bundle __CURRENT__/tobago-theme-speyside/target/bootstrap
-[INFO] > rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
-[INFO] 
-[INFO] 
-[INFO] > bootstrap@4.1.1 js-compile-standalone __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > bootstrap@4.1.3 js-compile-standalone __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.1.1 js-compile-plugins-coverage __CURRENT__/tobago-theme-speyside/target/bootstrap
-[INFO] > cross-env PLUGINS=true NODE_ENV=test babel js/src/ --out-dir js/coverage/dist/ --source-maps
+[INFO] > bootstrap@4.1.3 js-compile-bundle __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap
 [INFO] 
+[INFO] 
+[INFO] > bootstrap@4.1.3 js-compile-plugins-coverage __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > cross-env NODE_ENV=test node build/build-plugins.js
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.1.3 js-compile-plugins __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > node build/build-plugins.js
+[INFO] 
+[INFO] Building Alert plugin...
+[INFO] Building Button plugin...
+[INFO] Building Carousel plugin...
+[INFO] Building Collapse plugin...
+[INFO] Building Dropdown plugin...
+[INFO] Building Modal plugin...
+[INFO] Building Popover plugin...
+[INFO] Building ScrollSpy plugin...
+[INFO] Building Tab plugin...
+[INFO] Building Tooltip plugin...
+[INFO] Building Util plugin...
 [ERROR] 
 [ERROR] __CURRENT__/tobago-theme-speyside/target/bootstrap/js/src/index.js → dist/js/bootstrap.js...
+[INFO] Building Alert plugin...
 [ERROR] 
 [ERROR] __CURRENT__/tobago-theme-speyside/target/bootstrap/js/src/index.js → dist/js/bootstrap.bundle.js...
-[INFO] 🎉  Successfully compiled 12 files with Babel.
-[ERROR] created dist/js/bootstrap.js in 15s
-[ERROR] created dist/js/bootstrap.bundle.js in 15.5s
-[INFO] 🎉  Successfully compiled 12 files with Babel.
+[INFO] Building Button plugin...
+[INFO] Building Carousel plugin...
+[INFO] Building Collapse plugin...
+[INFO] Building Dropdown plugin...
+[INFO] Building Modal plugin...
+[INFO] Building Popover plugin...
+[INFO] Building ScrollSpy plugin...
+[INFO] Building Tab plugin...
+[INFO] Building Tooltip plugin...
+[INFO] Building Util plugin...
+[INFO] Building Util plugin... Done !
+[INFO] Building Alert plugin... Done !
+[INFO] Building Carousel plugin... Done !
+[INFO] Building Button plugin... Done !
+[INFO] Building Collapse plugin... Done !
+[INFO] Building Modal plugin... Done !
+[INFO] Building Popover plugin... Done !
+[INFO] Building Dropdown plugin... Done !
+[INFO] Building ScrollSpy plugin... Done !
+[INFO] Building Tooltip plugin... Done !
+[INFO] Building Tab plugin... Done !
+[ERROR] created dist/js/bootstrap.js in 18s
+[ERROR] created dist/js/bootstrap.bundle.js in 18.6s
+[INFO] Building Alert plugin... Done !
+[INFO] Building Button plugin... Done !
+[INFO] Building Util plugin... Done !
+[INFO] Building Carousel plugin... Done !
+[INFO] Building Collapse plugin... Done !
+[INFO] Building Dropdown plugin... Done !
+[INFO] Building Popover plugin... Done !
+[INFO] Building Modal plugin... Done !
+[INFO] Building ScrollSpy plugin... Done !
+[INFO] Building Tab plugin... Done !
+[INFO] Building Tooltip plugin... Done !
 [INFO] 
-[INFO] > bootstrap@4.1.1 js-minify __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > bootstrap@4.1.3 js-copy __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > shx mkdir -p site/docs/4.1/dist/ && shx cp -r dist/js/ site/docs/4.1/dist/
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.1.3 js-minify __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > npm-run-all --parallel js-minify-*
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.1.1 js-minify-docs __CURRENT__/tobago-theme-speyside/target/bootstrap
-[INFO] > uglifyjs --mangle --comments "/^!/" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js "assets/js/src/*.js"
-[INFO] 
-[INFO] 
-[INFO] > bootstrap@4.1.1 js-minify-standalone __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > bootstrap@4.1.3 js-minify-standalone __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map" --output dist/js/bootstrap.min.js dist/js/bootstrap.js
 [INFO] 
 [INFO] 
-[INFO] > bootstrap@4.1.1 js-minify-bundle __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > bootstrap@4.1.3 js-minify-bundle __CURRENT__/tobago-theme-speyside/target/bootstrap
 [INFO] > uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/js/bootstrap.bundle.js.map,includeSources,url=bootstrap.bundle.min.js.map" --output dist/js/bootstrap.bundle.min.js dist/js/bootstrap.bundle.js
+[INFO] 
+[INFO] 
+[INFO] > bootstrap@4.1.3 js-minify-docs __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > uglifyjs --mangle --comments "/^!/" --output site/docs/4.1/assets/js/docs.min.js site/docs/4.1/assets/js/vendor/anchor.min.js site/docs/4.1/assets/js/vendor/clipboard.min.js site/docs/4.1/assets/js/vendor/holder.min.js "site/docs/4.1/assets/js/src/*.js"
 [INFO] 
 [ERROR] INFO: Using input source map: dist/js/bootstrap.js.map
 [ERROR] INFO: Using input source map: dist/js/bootstrap.bundle.js.map
+[INFO] 
+[INFO] > bootstrap@4.1.3 js-copy __CURRENT__/tobago-theme-speyside/target/bootstrap
+[INFO] > shx mkdir -p site/docs/4.1/dist/ && shx cp -r dist/js/ site/docs/4.1/dist/
+[INFO] 
 [INFO] 
 [INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tobago-theme-speyside ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
@@ -219,6 +255,6 @@
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 03:30 min
-[INFO] Finished at: 2018-08-24T13:00:10+02:00
+[INFO] Total time: 03:47 min
+[INFO] Finished at: 2018-08-27T16:04:42+02:00
 [INFO] ------------------------------------------------------------------------
