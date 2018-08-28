@@ -66,12 +66,19 @@ public class LabelRenderer extends RendererBase implements ComponentSystemEventL
     }
     final String clientId = label.getClientId(facesContext);
     final Markup markup = label.getMarkup();
+    final boolean required;
+    if (corresponding instanceof UIInput) {
+      required = ((UIInput) corresponding).isRequired();
+    } else {
+      required = false;
+    }
 
     writer.startElement(HtmlElements.LABEL);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
     writer.writeClassAttribute(
         TobagoClass.LABEL,
         TobagoClass.LABEL.createMarkup(markup),
+        required ? TobagoClass.REQUIRED : null,
         BootstrapClass.COL_FORM_LABEL,
         label.getCustomClass());
     writer.writeIdAttribute(clientId);

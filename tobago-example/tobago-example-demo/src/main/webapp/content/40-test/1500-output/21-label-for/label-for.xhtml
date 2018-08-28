@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="Label 'for'-attribute"/>
+  <p>Test if 'required' is set correctly on tc:label.</p>
+
+  <tc:segmentLayout medium="4seg 8seg">
+    <tc:label id="inLabel" for="in" value="In"/>
+    <tc:in id="in" required="true"/>
+
+    <tc:label id="dateLabel" for="date" value="Date"/>
+    <tc:date id="date" required="true"/>
+
+    <tc:label id="fileLabel" for="file" value="File"/>
+    <tc:file id="file" required="true"/>
+
+    <tc:label id="textareaLabel" for="textarea" value="Textarea"/>
+    <tc:textarea id="textarea" required="true"/>
+
+    <tc:label id="selectBooleanCheckboxLabel" for="selectBooleanCheckbox" value="Checkbox"/>
+    <tc:selectBooleanCheckbox id="selectBooleanCheckbox" required="true"/>
+
+    <tc:label id="selectBooleanToggleLabel" for="selectBooleanToggle" value="Toggle"/>
+    <tc:selectBooleanToggle id="selectBooleanToggle" required="true"/>
+
+    <tc:label id="selectOneRadioLabel" for="selectOneRadio" value="Radio Buttons"/>
+    <tc:selectOneRadio id="selectOneRadio" required="true">
+      <tc:selectItem itemLabel="Item One" itemValue="one"/>
+      <tc:selectItem itemLabel="Item Two" itemValue="two"/>
+    </tc:selectOneRadio>
+
+    <tc:label id="selectManyCheckboxLabel" for="selectManyCheckbox" value="Checkboxes"/>
+    <tc:selectManyCheckbox id="selectManyCheckbox" required="true">
+      <tc:selectItem itemLabel="Item One" itemValue="one"/>
+      <tc:selectItem itemLabel="Item Two" itemValue="two"/>
+    </tc:selectManyCheckbox>
+
+    <tc:label id="selectOneChoiceLabel" for="selectOneChoice" value="Dropdown"/>
+    <tc:selectOneChoice id="selectOneChoice" required="true">
+      <tc:selectItem itemLabel="Item One" itemValue="one"/>
+      <tc:selectItem itemLabel="Item Two" itemValue="two"/>
+    </tc:selectOneChoice>
+
+    <tc:label id="selectOneListboxLabel" for="selectOneListbox" value="Listbox (single selection)"/>
+    <tc:selectOneListbox id="selectOneListbox" required="true">
+      <tc:selectItem itemLabel="Item One" itemValue="one"/>
+      <tc:selectItem itemLabel="Item Two" itemValue="two"/>
+    </tc:selectOneListbox>
+
+    <tc:label id="selectManyListboxLabel" for="selectManyListbox" value="Listbox (multiple selection)"/>
+    <tc:selectManyListbox id="selectManyListbox" required="true">
+      <tc:selectItem itemLabel="Item One" itemValue="one"/>
+      <tc:selectItem itemLabel="Item Two" itemValue="two"/>
+    </tc:selectManyListbox>
+
+    <tc:label id="selectManyShuttleLabel" for="selectManyShuttle" value="Shuttle"/>
+    <tc:selectManyShuttle id="selectManyShuttle" required="true">
+      <tc:selectItem itemLabel="Item One" itemValue="one"/>
+      <tc:selectItem itemLabel="Item Two" itemValue="two"/>
+    </tc:selectManyShuttle>
+
+    <tc:label id="starsLabel" for="stars" value="Stars"/>
+    <tc:stars id="stars" required="true"/>
+  </tc:segmentLayout>
+</ui:composition>
