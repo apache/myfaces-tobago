@@ -10514,7 +10514,8 @@ fixme: there is a problem with the selectManyShuttle with this style.
   display: none;
 }
 
-.tobago-required .tobago-label:after {
+.tobago-required .tobago-label:after,
+.tobago-required.tobago-label:after {
   content: "*";
   color: #ff00be;
 }
