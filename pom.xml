@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>17</version>
+    <version>19</version>
   </parent>
   <groupId>org.apache.myfaces.tobago</groupId>
   <artifactId>tobago</artifactId>
@@ -40,8 +40,8 @@
     <myfaces22.version>2.2.12</myfaces22.version>
     <mojarra20.version>2.0.11-04</mojarra20.version>
     <mojarra21.version>2.1.29-08</mojarra21.version>
-    <mojarra22.version>2.2.14</mojarra22.version>
-    <slf4j.version>1.7.22</slf4j.version>
+    <mojarra22.version>2.2.16</mojarra22.version>
+    <slf4j.version>1.7.25</slf4j.version>
     <logback.version>1.2.3</logback.version>
     <commons-collection.version>3.2.2</commons-collection.version>
     <maven.compile.source>1.6</maven.compile.source>
