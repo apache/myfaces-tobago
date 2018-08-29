@@ -483,7 +483,7 @@ var Tobago = {
   },
 
   setActionPosition: function(source) {
-    var offset = jQuery(source).offset();
+    var offset = (source && source.offset) ? jQuery(source).offset() : null;
     var sourceWidth = Tobago.getWidth(source);
     var sourceHeight = Tobago.getHeight(source);
     Tobago.actionPosition.value

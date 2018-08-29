@@ -173,7 +173,7 @@ Tobago.Menu.open = function(event) {
   var sub = li.tobagoMenu_findSubMenu();
 
   // close menus in other branches
-  li.siblings().tobagoMenu_findSubMenu().find('ol').andSelf().css('visibility', 'hidden');
+  li.siblings().tobagoMenu_findSubMenu().find('ol').addBack().css('visibility', 'hidden');
 
   // close sub sub menu
   sub.children().find("ol").css('visibility', 'hidden');
@@ -284,7 +284,7 @@ Tobago.Menu.switchOn = function(menuBar, menu) {
 
 Tobago.Menu.switchOff = function(menuBar) {
   menuBar.find("ol")
-      .add(menuBar.find('li').tobagoMenu_findSubMenu().find('ol').andSelf())
+      .add(menuBar.find('li').tobagoMenu_findSubMenu().find('ol').addBack())
       .css('visibility', 'hidden');
   menuBar.find('li').add(menuBar.find('li').tobagoMenu_findSubMenu().find('li'))
       .unbind('mouseover', Tobago.Menu.mouseOver)
@@ -397,7 +397,7 @@ Tobago.Menu.init = function(elements) {
   if (elements) {
     // this is ajax case: the commands are just removed from elements, so get them from the data store
     menu = Tobago.Utils.selectWithJQuery(elements, ".tobago-menu-markup-top")
-        .tobagoMenu_findSubMenu().find('.tobago-menu').andSelf();
+        .tobagoMenu_findSubMenu().find('.tobago-menu').addBack();
   } else {
     menu = jQuery(".tobago-menu").not(".tobago-menu-markup-top");
   }
