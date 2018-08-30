@@ -20,6 +20,8 @@
 package org.apache.myfaces.tobago.facelets;
 
 import org.apache.myfaces.tobago.convert.DateTimeConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.el.ELException;
 import javax.el.ValueExpression;
@@ -36,9 +38,9 @@ import javax.faces.view.facelets.TagException;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import static org.apache.myfaces.tobago.internal.util.Deprecation.LOG;
-
 public class ConvertDateTimeHandler extends ConverterHandler {
+
+  private static final Logger LOG = LoggerFactory.getLogger(ConvertDateTimeHandler.class);
 
   private final TagAttribute binding;
   private final TagAttribute locale;
