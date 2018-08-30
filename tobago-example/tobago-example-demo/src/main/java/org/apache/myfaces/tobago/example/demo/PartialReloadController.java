@@ -64,6 +64,7 @@ public class PartialReloadController {
   }
 
   private String waitAndReload(final long delay) {
+    LOG.info("I'm waiting now for {} ms.", delay);
     synchronized (this) {
       try {
         wait(delay);
@@ -71,6 +72,7 @@ public class PartialReloadController {
         //
       }
     }
+    LOG.info("My waiting for {} ms is done.", delay);
     return logAndNavigate(null);
   }
 
