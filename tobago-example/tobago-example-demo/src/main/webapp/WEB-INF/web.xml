@@ -110,7 +110,6 @@
   </listener>
 -->
 
-<!--
   <filter>
     <filter-name>LoggingMdcFilter</filter-name>
     <filter-class>org.apache.myfaces.tobago.internal.webapp.LoggingMdcFilter</filter-class>
@@ -119,7 +118,6 @@
     <filter-name>LoggingMdcFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
--->
 
   <!-- FacesServlet -->
 
