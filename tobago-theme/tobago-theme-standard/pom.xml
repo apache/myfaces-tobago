@@ -140,6 +140,16 @@
       <version>2.22.2</version>
     </dependency>
     <dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
+        <artifactId>tobago-pack-jquery-ui-widget</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
+        <artifactId>tobago-pack-typeahead</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.webjars</groupId>
         <artifactId>Eonasdan-bootstrap-datetimepicker</artifactId>
       <version>4.17.47</version>

@@ -39,14 +39,14 @@
       <resources production="true">
         <includes>
           <script name="/webjars/jquery/3.3.1-1/jquery.min.js"/>
-          <script name="/tobago/standard/jquery-ui/1.12.1.custom/jquery-ui.min.js"/>
+          <script name="/tobago/pack/jquery-ui/1.12.1.custom/jquery-ui.min.js"/>
           <script name="/webjars/tether/1.4.0/js/tether.min.js"/>
           <script name="/webjars/popper.js/1.14.3/popper.min.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/bootstrap.min.js"/>
           <script name="/webjars/momentjs/2.22.2/min/moment-with-locales.min.js"/>
           <script name="/webjars/Eonasdan-bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago.min.js"/>
-          <script name="/tobago/standard/typeahead/0.11.1-patched-with-1212/typeahead.min.js"/>
+          <script name="/tobago/pack/typeahead/0.11.1-patched-with-1212/typeahead.min.js"/>
           <style name="/webjars/tether/1.4.0/css/tether.min.css"/>
           <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/bootstrap.min.css"/>
           <style name="/webjars/font-awesome/4.7.0/css/font-awesome.min.css"/>
@@ -56,7 +56,7 @@
       <resources production="false">
         <includes>
           <script name="/webjars/jquery/3.3.1-1/jquery.js"/>
-          <script name="/tobago/standard/jquery-ui/1.12.1.custom/jquery-ui.js"/>
+          <script name="/tobago/pack/jquery-ui/1.12.1.custom/jquery-ui.js"/>
           <script name="/webjars/tether/1.4.0/js/tether.js"/>
           <script name="/webjars/popper.js/1.14.3/popper.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/bootstrap.js"/>
@@ -78,7 +78,7 @@
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-tab.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-tree.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-utils.js"/>
-          <script name="/tobago/standard/typeahead/0.11.1-patched-with-1212/typeahead.js"/>
+          <script name="/tobago/pack/typeahead/0.11.1-patched-with-1212/typeahead.js"/>
           <style name="/webjars/tether/1.4.0/css/tether.css"/>
           <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/bootstrap.css"/>
           <style name="/webjars/font-awesome/4.7.0/css/font-awesome.css"/>
