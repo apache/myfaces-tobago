@@ -173,9 +173,10 @@
   </welcome-file-list>
 
   <session-config>
+    <!-- for WebSphere you need to comment out this block, because WebSphere want to set it himself -->
     <cookie-config>
       <http-only>true</http-only>
-      <!--only for https-->
+      <!-- with secure=true you can only use https, not http -->
       <!--<secure>true</secure>-->
     </cookie-config>
   </session-config>
