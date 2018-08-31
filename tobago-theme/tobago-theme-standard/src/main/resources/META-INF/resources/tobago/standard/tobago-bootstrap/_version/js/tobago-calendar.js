@@ -39,6 +39,14 @@ Tobago.DateTime.init = function (elements) {
             clear: 'fa fa-trash',
             close: 'fa fa-times'
           },
+          keyBinds: {
+            enter: function () {
+              $date.trigger(jQuery.Event("keypress", {
+                which: 13,
+                target: $date[0]
+              }));
+            }
+          },
           widgetParent: '.tobago-page-menuStore'
         };
 
