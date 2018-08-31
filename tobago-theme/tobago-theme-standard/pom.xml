@@ -187,7 +187,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
-        <artifactId>tobago-pack-jquery-ui-widget</artifactId>
+        <artifactId>tobago-pack-jquery-ui</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
