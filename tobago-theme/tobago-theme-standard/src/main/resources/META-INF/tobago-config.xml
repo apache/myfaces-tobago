@@ -41,7 +41,7 @@
           <script name="/webjars/jquery/3.3.1-1/jquery.min.js"/>
           <script name="/tobago/pack/jquery-ui/1.12.1.custom/jquery-ui.min.js"/>
           <script name="/webjars/tether/1.4.0/js/tether.min.js"/>
-          <script name="/webjars/popper.js/1.14.3/popper.min.js"/>
+          <script name="/webjars/popper.js/1.14.3/umd/popper.min.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/bootstrap.min.js"/>
           <script name="/webjars/momentjs/2.22.2/min/moment-with-locales.min.js"/>
           <script name="/webjars/Eonasdan-bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"/>
@@ -58,7 +58,7 @@
           <script name="/webjars/jquery/3.3.1-1/jquery.js"/>
           <script name="/tobago/pack/jquery-ui/1.12.1.custom/jquery-ui.js"/>
           <script name="/webjars/tether/1.4.0/js/tether.js"/>
-          <script name="/webjars/popper.js/1.14.3/popper.js"/>
+          <script name="/webjars/popper.js/1.14.3/umd/popper.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/bootstrap.js"/>
           <script name="/webjars/momentjs/2.22.2/min/moment-with-locales.js"/>
           <script name="/webjars/Eonasdan-bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.js"/>
