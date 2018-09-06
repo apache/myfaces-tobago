@@ -40,6 +40,7 @@ import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.model.PageState;
 import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -724,6 +725,12 @@ public class PageRenderer extends PageRendererBase {
 
   @Override
   public Measure getWidth(final FacesContext facesContext, final Configurable component) {
+    final UIPage page = (UIPage) component;
+    final PageState pageState = page.getPageState(facesContext);
+    final int fromState = pageState != null ? pageState.getClientWidth() : 0;
+    if (fromState > 0) {
+      return Measure.valueOf(fromState);
+    }
     // width of the actual browser window
     final Measure width = ClientProperties.getInstance(facesContext).getPageWidth();
     if (width != null) {
@@ -735,6 +742,12 @@ public class PageRenderer extends PageRendererBase {
 
   @Override
   public Measure getHeight(final FacesContext facesContext, final Configurable component) {
+    final UIPage page = (UIPage) component;
+    final PageState pageState = page.getPageState(facesContext);
+    final int fromState = pageState != null ? pageState.getClientHeight() : 0;
+    if (fromState > 0) {
+      return Measure.valueOf(fromState);
+    }
     // height of the actual browser window
     final Measure height = ClientProperties.getInstance(facesContext).getPageHeight();
     if (height != null) {
