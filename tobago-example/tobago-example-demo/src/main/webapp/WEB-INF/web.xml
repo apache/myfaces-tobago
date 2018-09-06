@@ -66,9 +66,21 @@
     <param-value>20</param-value>
   </context-param>
 
+  <!-- required for multi-window with MyFaces -->
   <context-param>
     <param-name>org.apache.myfaces.NUMBER_OF_SEQUENTIAL_VIEWS_IN_SESSION</param-name>
     <param-value>4</param-value>
+  </context-param>
+
+  <!--
+  required for multi-window with WAS 8.5.5.x
+  this parameter fixes the problem
+  See: http://www-01.ibm.com/support/docview.wss?uid=swg1PI27290
+  But they don't tell, how the fix works
+   -->
+  <context-param>
+    <param-name>com.ibm.ws.jsf.enableRemoveRestoredViewState</param-name>
+    <param-value>true</param-value>
   </context-param>
 
   <filter>
