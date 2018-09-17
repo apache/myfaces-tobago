@@ -76,11 +76,12 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     }
 
     final AbstractUIFile file = (AbstractUIFile) component;
+    final boolean multiple = file.isMultiple() && !file.isRequired();
     final Object request = facesContext.getExternalContext().getRequest();
     if (request instanceof HttpServletRequest) {
       try {
         final HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        if (file.isMultiple()) {
+        if (multiple) {
           final List<Part> parts = new ArrayList<>();
           for (final Part part : httpServletRequest.getParts()) {
             if (file.getClientId(facesContext).equals(part.getName())) {
@@ -92,11 +93,14 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
           }
         } else {
           final Part part = httpServletRequest.getPart(file.getClientId(facesContext));
+          final String submittedFileName = PartUtils.getSubmittedFileName(part);
           if (LOG.isDebugEnabled()) {
             LOG.debug("Uploaded file '{}', size={}, type='{}'",
-                PartUtils.getSubmittedFileName(part), part.getSize(), part.getContentType());
+                submittedFileName, part.getSize(), part.getContentType());
           }
-          file.setSubmittedValue(new HttpPartWrapper(part));
+          if (submittedFileName.length() > 0) {
+            file.setSubmittedValue(new HttpPartWrapper(part));
+          }
         }
       } catch (final Exception e) {
         LOG.error("", e);
@@ -116,6 +120,10 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     final String clientId = file.getClientId(facesContext);
     final String fieldId = file.getFieldId(facesContext);
     final String accept = createAcceptFromValidators(file);
+    final boolean multiple = file.isMultiple() && !file.isRequired();
+    if (file.isMultiple() && file.isRequired()) {
+      LOG.warn("Required multiple file upload is not supported."); //TODO TOBAGO-1930
+    }
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -149,7 +157,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
 
     // invisible file input
     writer.startElement(HtmlElements.INPUT);
-    writer.writeAttribute(HtmlAttributes.MULTIPLE, file.isMultiple());
+    writer.writeAttribute(HtmlAttributes.MULTIPLE, multiple);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.FILE);
     writer.writeAttribute(HtmlAttributes.ACCEPT, accept, true);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
