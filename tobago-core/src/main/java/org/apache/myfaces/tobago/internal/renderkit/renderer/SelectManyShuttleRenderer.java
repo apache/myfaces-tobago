@@ -102,9 +102,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
 
     writer.endElement(HtmlElements.SELECT);
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(TobagoClass.SELECT_MANY_SHUTTLE__TOOL_BAR);
-    writer.startElement(HtmlElements.DIV);
-    writer.endElement(HtmlElements.DIV);
+    writer.writeClassAttribute(TobagoClass.SELECT_MANY_SHUTTLE__TOOL_BAR, BootstrapClass.BTN_GROUP_VERTICAL);
     createButton(facesContext, component, writer, disabled | readonly,
         Icons.ANGLE_DOUBLE_RIGHT, "addAll", TobagoClass.SELECT_MANY_SHUTTLE__ADD_ALL);
     createButton(facesContext, component, writer, disabled | readonly,
@@ -113,8 +111,6 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
         Icons.ANGLE_LEFT, "remove", TobagoClass.SELECT_MANY_SHUTTLE__REMOVE);
     createButton(facesContext, component, writer, disabled | readonly,
         Icons.ANGLE_DOUBLE_LEFT, "removeAll", TobagoClass.SELECT_MANY_SHUTTLE__REMOVE_ALL);
-    writer.startElement(HtmlElements.DIV);
-    writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
     final String selectedLabel = select.getSelectedLabel();
     if (selectedLabel != null) {
