@@ -82,6 +82,7 @@ public enum BootstrapClass implements CssItem {
   BTN_DANGER("btn-danger"),
   BTN_DARK("btn-dark"),
   BTN_GROUP("btn-group"),
+  BTN_GROUP_VERTICAL("btn-group-vertical"),
   BTN_INFO("btn-info"),
   BTN_LIGHT("btn-light"),
   BTN_LINK("btn-link"),
