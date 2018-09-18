@@ -28,6 +28,11 @@ import java.io.Serializable;
 public class SelectOneChoiceController extends PlanetExample implements Serializable {
 
   private String person;
+  private Salutation salutation;
+
+  public Salutation[] getSalutations() {
+    return Salutation.values();
+  }
 
   public String getPerson() {
     return person;
@@ -35,5 +40,13 @@ public class SelectOneChoiceController extends PlanetExample implements Serializ
 
   public void setPerson(final String person) {
     this.person = person;
+  }
+
+  public Salutation getSalutation() {
+    return salutation;
+  }
+
+  public void setSalutation(Salutation salutation) {
+    this.salutation = salutation;
   }
 }

@@ -69,6 +69,15 @@
     <tc:button id="submit" label="Submit"/>
   </tc:section>
 
+  <tc:section label="Java enum as value">
+    <tc:selectOneChoice id="selectSalutation" label="Salutation" value="#{selectOneChoiceController.salutation}">
+      <tc:selectItems value="#{selectOneChoiceController.salutations}" var="s"
+                      itemLabel="#{s.label}" itemValue="#{s}" itemImage="#{s.icon}"/>
+    </tc:selectOneChoice>
+    <tc:out id="outputSalutation" label="Selected Salutation" value="#{selectOneChoiceController.salutation.label}"/>
+    <tc:button id="submit2" label="Submit"/>
+  </tc:section>
+
   <tc:section label="Ajax">
     <p>Select a planet and a moon. The list of moons depends on the selected planet.
       The planet-dropdownbox contain a <code class="language-markup">&lt;f:ajax render="moonbox"/></code>.

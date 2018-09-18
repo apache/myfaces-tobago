@@ -19,30 +19,25 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import javax.faces.context.FacesContext;
+
 public enum Salutation {
 
-  UNKNOWN("basic_itemUnknown"),
+  UNKNOWN, MR, MRS;
 
-  MR("basic_itemMr"),
-
-  MRS("basic_itemMrs");
-
-  private String key;
-
-  Salutation(final String key) {
-    this.key = key;
+  public String getLabel() {
+    // XXX This implementation is only for demo. This should be optimized/cached.
+    return DemoBundle.getString(FacesContext.getCurrentInstance(), getClass().getSimpleName() + "_" + name());
   }
 
-  public String getKey() {
-    return key;
-  }
-
-  public static Salutation getSalutation(final String key) {
-    for (final Salutation salutation : values()) {
-      if (salutation.getKey().equals(key)) {
-        return salutation;
-      }
+  public String getIcon() {
+    switch (this) {
+      case MR:
+        return "fa-male";
+      case MRS:
+        return "fa-female";
+      default:
+        return null;
     }
-    return null;
   }
 }

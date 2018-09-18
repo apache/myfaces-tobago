@@ -58,9 +58,9 @@
   <entry key="basic_sampleInputTitle">Eingabe Beispiele</entry>
   <entry key="basic_sampleSelectTitle">Auswahl Beispiele</entry>
   <entry key="basic_sampleLinkTitle">Steuerungs Beispiele</entry>
-  <entry key="basic_itemUnknown">keine</entry>
-  <entry key="basic_itemMr">Herr</entry>
-  <entry key="basic_itemMrs">Frau</entry>
+  <entry key="Salutation_UNKNOWN">keine</entry>
+  <entry key="Salutation_MR">Herr</entry>
+  <entry key="Salutation_MRS">Frau</entry>
   <entry key="basic_textboxLabel">Eingabefeld</entry>
   <entry key="basic_textboxTip">Ein einfaches Eingabefeld</entry>
   <entry key="basic_suggestLabel">Vorschlag (AJAX)</entry>

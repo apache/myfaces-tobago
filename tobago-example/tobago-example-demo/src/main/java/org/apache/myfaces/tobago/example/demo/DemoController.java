@@ -61,10 +61,6 @@ public class DemoController implements Serializable {
   private String radioValue;
   private Currency[] currencyItems;
 
-  private Salutation singleValue;
-
-  private Salutation[] multiValue;
-
   /*
     @Required
   */
@@ -96,24 +92,9 @@ public class DemoController implements Serializable {
         Currency.getInstance("USD"),
         Currency.getInstance("EUR")
     };
-    singleValue = Salutation.UNKNOWN;
     treeSelectMode = TREE_SELECT_MODE_KEYS[3];
     treeListboxSelectMode = TREELISTBOX_SELECT_MODE_KEYS[0];
-    multiValue = new Salutation[0];
     sheetConfig = new SheetConfig();
-  }
-
-  private static SelectItem[] getSalutationSelectItems() {
-    final Salutation[] salutations = Salutation.values();
-    final SelectItem[] items = new SelectItem[salutations.length];
-    for (int i = 0; i < items.length; i++) {
-      final String label = DemoBundle.getString(FacesContext.getCurrentInstance(), salutations[i].getKey());
-      if (LOG.isTraceEnabled()) {
-        LOG.trace("label = " + label + "");
-      }
-      items[i] = new SelectItem(salutations[i], label);
-    }
-    return items;
   }
 
   private static SelectItem[] getSelectItems(final Selectable[] keys) {
@@ -166,10 +147,6 @@ public class DemoController implements Serializable {
     return currencyItems;
   }
 
-  public SelectItem[] getItems() {
-    return getSalutationSelectItems();
-  }
-
   public SelectItem[] getItems2() {
     return getSelectItems(TREE_SELECT_MODE_KEYS);
 
@@ -192,22 +169,6 @@ public class DemoController implements Serializable {
 
   public void setRadioValue(final String radioValue) {
     this.radioValue = radioValue;
-  }
-
-  public Salutation getSingleValue() {
-    return singleValue;
-  }
-
-  public void setSingleValue(final Salutation singleValue) {
-    this.singleValue = singleValue;
-  }
-
-  public Salutation[] getMultiValue() {
-    return multiValue;
-  }
-
-  public void setMultiValue(final Salutation[] multiValue) {
-    this.multiValue = multiValue;
   }
 
   public Date getBasicDate() {
