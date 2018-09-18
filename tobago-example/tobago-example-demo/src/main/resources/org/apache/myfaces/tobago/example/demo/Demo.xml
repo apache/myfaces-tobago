@@ -217,9 +217,9 @@
   <entry key="basic_sampleInputTitle">Basic Input Examples</entry>
   <entry key="basic_sampleSelectTitle">Basic Select Examples</entry>
   <entry key="basic_sampleLinkTitle">Basic Controls Examples</entry>
-  <entry key="basic_itemUnknown">none</entry>
-  <entry key="basic_itemMr">Mr.</entry>
-  <entry key="basic_itemMrs">Mrs.</entry>
+  <entry key="Salutation_UNKNOWN">none</entry>
+  <entry key="Salutation_MR">Mr.</entry>
+  <entry key="Salutation_MRS">Mrs.</entry>
   <entry key="basic_textboxLabel">Inputfield</entry>
   <entry key="basic_textboxTip">A simple input field</entry>
   <entry key="basic_suggestLabel">Suggest (AJAX)</entry>
