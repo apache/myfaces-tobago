@@ -268,7 +268,7 @@ var Tobago = {
         this.destroyJsObject(obj);
       } else if (typeof obj == 'Array') {
         obj.length = 0;
-        delete obj;
+//        delete obj; // not allowed in strict mode
       }
     }
   },
@@ -278,7 +278,7 @@ var Tobago = {
       for (var item in obj) {
         delete obj[item];
       }
-      delete obj;
+      // delete obj; // not allowed in strict mode
     } catch (ex) {
       // ignore
     }

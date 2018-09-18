@@ -36,22 +36,18 @@
       <versioned>true</versioned>
       <resources production="true">
         <includes>
-          <script name="/tobago/charlotteville/tobago-bootstrap/${project.version}/js/bootstrap.min.js"/>
-          <style name="/tobago/charlotteville/tobago-bootstrap/${project.version}/css/bootstrap.min.css"/>
+          <style name="/tobago/charlotteville/tobago-bootstrap/${project.version}/css/tobago.min.css"/>
         </includes>
         <excludes>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/bootstrap.min.js"/>
-          <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/bootstrap.min.css"/>
+          <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/tobago.min.css"/>
         </excludes>
       </resources>
       <resources production="false">
         <includes>
-          <script name="/tobago/charlotteville/tobago-bootstrap/${project.version}/js/bootstrap.js"/>
-          <style name="/tobago/charlotteville/tobago-bootstrap/${project.version}/css/bootstrap.css"/>
+          <style name="/tobago/charlotteville/tobago-bootstrap/${project.version}/css/tobago.css"/>
         </includes>
         <excludes>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/bootstrap.js"/>
-          <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/bootstrap.css"/>
+          <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/tobago.css"/>
         </excludes>
       </resources>
     </theme-definition>
