@@ -910,33 +910,32 @@
               <exclude>DEPENDENCIES</exclude>
 
               <!-- bootstrap -->
-              <exclude>**/tobago/*/bootstrap/**/bootstrap*.*</exclude>
-              <exclude>**/tobago/*/tobago-bootstrap/**/bootstrap*.*</exclude>
-              <exclude>**/append-tobago-theme-to-bootstrap.patch</exclude>
+              <!--<exclude>**/tobago/*/bootstrap/**/bootstrap*.*</exclude>-->
+              <!--<exclude>**/tobago/*/tobago-bootstrap/**/bootstrap*.*</exclude>-->
 
               <!-- popper js -->
-              <exclude>**/tobago/**/popper*.*</exclude>
+              <!--<exclude>**/tobago/**/popper*.*</exclude>-->
 
               <!-- bootstrap datetimepicker -->
-              <exclude>**/tobago/standard/bootstrap-datetimepicker/**/bootstrap*.*</exclude>
+              <!--<exclude>**/tobago/standard/bootstrap-datetimepicker/**/bootstrap*.*</exclude>-->
 
               <!-- font-awesome -->
-              <exclude>**/tobago/standard/font-awesome/**/font*awesome*.*</exclude>
+              <!--<exclude>**/tobago/standard/font-awesome/**/font*awesome*.*</exclude>-->
 
               <!-- jQuery -->
-              <exclude>**/tobago/standard/jquery/**/jquery*.*</exclude>
+              <!--<exclude>**/tobago/standard/jquery/**/jquery*.*</exclude>-->
 
               <!-- jQuery UI -->
-              <exclude>**/tobago/standard/jquery-ui/**/jquery*.*</exclude>
+              <!--<exclude>**/tobago/standard/jquery-ui/**/jquery*.*</exclude>-->
 
               <!-- moment -->
-              <exclude>**/tobago/standard/moment/**/moment*.*</exclude>
+              <!--<exclude>**/tobago/standard/moment/**/moment*.*</exclude>-->
 
               <!-- tether -->
-              <exclude>**/tobago/standard/tether/**/tether*.*</exclude>
+              <!--<exclude>**/tobago/standard/tether/**/tether*.*</exclude>-->
 
               <!-- typeahead -->
-              <exclude>**/tobago/standard/typeahead/**/typeahead*.*</exclude>
+              <!--<exclude>**/tobago/standard/typeahead/**/typeahead*.*</exclude>-->
 
               <!-- prism (tobago-example-demo) -->
               <exclude>**/src/main/webapp/script/prism*.*</exclude>
