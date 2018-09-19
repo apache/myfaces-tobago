@@ -52,11 +52,6 @@
   </lifecycle>
 
   <converter>
-    <converter-id>salutationId</converter-id>
-    <converter-class>org.apache.myfaces.tobago.example.demo.SalutationConverter</converter-class>
-  </converter>
-
-  <converter>
     <converter-id>org.apache.myfaces.tobago.example.demo.OnOffConverter</converter-id>
     <converter-class>org.apache.myfaces.tobago.example.demo.OnOffConverter</converter-class>
   </converter>
