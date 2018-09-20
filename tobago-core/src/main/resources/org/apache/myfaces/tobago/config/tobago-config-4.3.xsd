@@ -340,14 +340,15 @@
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="excludes" type="tobago:excludes-type" minOccurs="0"/>
+      <xs:element name="includes" type="tobago:includes-excludes-type" minOccurs="0"/>
+      <xs:element name="excludes" type="tobago:includes-excludes-type" minOccurs="0"/>
       <xs:element name="script" type="tobago:script-type" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="style" type="tobago:style-type" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
     <xs:attribute name="production" type="xs:boolean" use="required"/>
   </xs:complexType>
 
-  <xs:complexType name="excludes-type">
+  <xs:complexType name="includes-excludes-type">
     <xs:sequence>
       <xs:element name="script" type="tobago:script-type" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="style" type="tobago:style-type" minOccurs="0" maxOccurs="unbounded"/>
