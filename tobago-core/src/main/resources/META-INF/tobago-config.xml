@@ -21,7 +21,7 @@
     xmlns="http://myfaces.apache.org/tobago/tobago-config"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-4.3.xsd"
-    version="4.3">
+    version="5.0">
 
   <name>tobago-config</name>
 
