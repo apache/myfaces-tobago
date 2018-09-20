@@ -36,16 +36,14 @@
       <versioned>true</versioned>
       <resources production="true">
         <excludes>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/bootstrap.min.js"/>
-          <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/bootstrap.min.css"/>
+          <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/tobago.min.css"/>
         </excludes>
         <script name="/tobago/charlotteville/tobago-bootstrap/${project.version}/js/bootstrap.min.js"/>
         <style name="/tobago/charlotteville/tobago-bootstrap/${project.version}/css/bootstrap.min.css"/>
       </resources>
       <resources production="false">
         <excludes>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/bootstrap.js"/>
-          <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/bootstrap.css"/>
+          <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/tobago.css"/>
         </excludes>
         <script name="/tobago/charlotteville/tobago-bootstrap/${project.version}/js/bootstrap.js"/>
         <style name="/tobago/charlotteville/tobago-bootstrap/${project.version}/css/bootstrap.css"/>

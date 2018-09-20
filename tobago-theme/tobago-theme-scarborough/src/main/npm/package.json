@@ -1,0 +1,45 @@
+{
+  "name": "tobago-theme-scarborough",
+  "version": "4.3.0-SNAPSHOT",
+  "xxx_version": "${project.version}",
+  "description": "The 'scarborough' theme of the Tobago framework",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apache/myfaces-tobago.git"
+  },
+  "keywords": [
+    "jsf"
+  ],
+  "author": "The MyFaces Team",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://issues.apache.org/jira/projects/TOBAGO/"
+  },
+  "homepage": "https://myfaces.apache.org/tobago/",
+  "scripts": {
+    "css": "npm-run-all --parallel css-compile --sequential css-prefix css-minify",
+    "xxx_todo_css-lint": "",
+    "css-compile": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/tobago-theme.scss css/tobago.css",
+    "css-prefix": "postcss --config postcss.config.js --replace \"css/*.css\" \"!css/*.min.css\"",
+    "css-minify": "cleancss --level 1 --source-map --source-map-inline-sources --output css/tobago.min.css css/tobago.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "ajv": "^6.5.3",
+    "ajv-keywords": "^3.2.0",
+    "autoprefixer": "^8.6.5",
+    "clean-css-cli": "^4.1.11",
+    "eslint": "^5.5.0",
+    "eslint-plugin-compat": "^2.5.1",
+    "jquery": "^3.3.1",
+    "npm-run-all": "^4.1.3",
+    "popper.js": "^1.14.3",
+    "postcss-cli": "^5.0.1",
+    "node-sass": "^4.9.1",
+    "rollup": "^0.62.0",
+    "bootstrap": "4.1.3"
+  },
+  "dependencies": {
+  }
+}

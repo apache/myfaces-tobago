@@ -28,6 +28,7 @@
 
   <properties>
     <theme.name>charlotteville</theme.name>
+    <frontend.skip>false</frontend.skip>
   </properties>
 
   <dependencies>
