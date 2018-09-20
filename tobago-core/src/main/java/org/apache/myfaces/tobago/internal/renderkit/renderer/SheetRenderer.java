@@ -51,6 +51,7 @@ import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.layout.TextAlign;
+import org.apache.myfaces.tobago.layout.VerticalAlign;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.model.SheetState;
@@ -82,7 +83,6 @@ import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -713,6 +713,7 @@ public class SheetRenderer extends RendererBase {
               markup = Markup.NULL;
             }
             markup = markup.add(getMarkupForAlign(normalColumn));
+            markup = markup.add(getMarkupForVerticalAlign(normalColumn));
             writer.writeClassAttribute(
                 TobagoClass.SHEET__CELL,
                 TobagoClass.SHEET__CELL.createMarkup(markup),
@@ -837,6 +838,21 @@ public class SheetRenderer extends RendererBase {
           return Markup.CENTER;
         case justify:
           return Markup.JUSTIFY;
+        default:
+          // nothing to do
+      }
+    }
+    return null;
+  }
+
+  private Markup getMarkupForVerticalAlign(final UIColumn column) {
+    final String verticalAlign = ComponentUtils.getStringAttribute(column, Attributes.verticalAlign);
+    if (verticalAlign != null) {
+      switch (VerticalAlign.valueOf(verticalAlign)) {
+        case bottom:
+          return Markup.BOTTOM;
+        case middle:
+          return Markup.MIDDLE;
         default:
           // nothing to do
       }

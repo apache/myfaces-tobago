@@ -405,6 +405,7 @@ public enum Attributes {
   value,
   valueChangeListener,
   var,
+  verticalAlign,
   unit,
   unselectedLabel,
   update,

@@ -64,6 +64,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup BADGE = valueOf("badge");
   public static final Markup BIG = valueOf("big");
   public static final Markup BORDERED = valueOf("bordered");
+  public static final Markup BOTTOM = valueOf("bottom");
   public static final Markup CENTER = valueOf("center");
   public static final Markup CLICKABLE = valueOf("clickable");
   public static final Markup DANGER = valueOf("danger");
@@ -99,6 +100,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup LOCAL_MENU = valueOf("localMenu");
   public static final Markup MARKED = valueOf("marked");
   public static final Markup MEDIUM = valueOf("medium");
+  public static final Markup MIDDLE = valueOf("middle");
   public static final Markup MODAL = valueOf("modal");
   public static final Markup NONE = valueOf("none");
   public static final Markup NUMBER = valueOf("number");
@@ -144,6 +146,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final String STRING_BADGE = "badge";
   public static final String STRING_BIG = "big";
   public static final String STRING_BORDERED = "bordered";
+  public static final String STRING_BOTTOM = "bottom";
   public static final String STRING_CENTER = "center";
   public static final String STRING_CLICKABLE = "clickable";
   public static final String STRING_DANGER = "danger";
@@ -179,6 +182,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final String STRING_LOCAL_MENU = "localMenu";
   public static final String STRING_MARKED = "marked";
   public static final String STRING_MEDIUM = "medium";
+  public static final String STRING_MIDDLE = "middle";
   public static final String STRING_MODAL = "modal";
   public static final String STRING_NONE = "none";
   public static final String STRING_NUMBER = "number";
