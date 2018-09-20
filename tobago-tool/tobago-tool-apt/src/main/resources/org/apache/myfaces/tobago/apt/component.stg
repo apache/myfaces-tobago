@@ -334,6 +334,10 @@ TextAlignProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+VerticalAlignProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 SuggestFilterProperty(property) ::= <<
 <NormalProperty(property)>
 >>

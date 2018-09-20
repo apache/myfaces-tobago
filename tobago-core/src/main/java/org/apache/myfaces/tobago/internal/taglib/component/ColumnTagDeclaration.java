@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
+import org.apache.myfaces.tobago.layout.VerticalAlign;
 
 import javax.faces.component.UIColumn;
 
@@ -49,11 +50,23 @@ import javax.faces.component.UIColumn;
 public interface ColumnTagDeclaration
     extends HasIdBindingAndRendered, HasLabel, HasTip, IsVisual {
   /**
-   * Alignment of this column.
+   * Horizontal alignment of this column.
+   * Possible values: left (default), right, center, justify
    */
   @TagAttribute
   @UIComponentTagAttribute()
   void setAlign(String align);
+
+  /**
+   * Vertical alignment of this column.
+   * Possible values:
+   * {@link VerticalAlign#top} (default),
+   * {@link VerticalAlign#bottom},
+   * {@link VerticalAlign#middle}
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  void setVerticalAlign(String verticalAlign); //TODO: use VerticalAlign enum instead of string
 
   /**
    * Flag indicating whether or not this column is sortable.
