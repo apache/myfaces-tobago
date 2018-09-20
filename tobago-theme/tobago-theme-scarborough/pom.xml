@@ -29,7 +29,6 @@
 
   <properties>
     <theme.name>scarborough</theme.name>
-    <frontend.skip>false</frontend.skip>
   </properties>
 
   <dependencies>

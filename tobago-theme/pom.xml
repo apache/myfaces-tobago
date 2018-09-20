@@ -15,8 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
@@ -30,7 +29,6 @@
   <properties>
     <bootstrap.version>4.1.3</bootstrap.version>
     <theme.name>undefined-theme-name</theme.name>
-    <frontend.skip>true</frontend.skip>
   </properties>
 
   <modules>
@@ -64,175 +62,305 @@
         <targetPath>META-INF/resources/tobago/${theme.name}/tobago-bootstrap/${project.version}</targetPath>
       </resource>
     </resources>
-
     <plugins>
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>2.7</version>
-        <executions>
-          <execution>
-            <!-- copy customization to target/bootstrap -->
-            <id>step #1: copy-custom</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${project.build.directory}/npm</outputDirectory>
-              <resources>
-                <resource>
-                  <directory>src/main/npm</directory>
-                  <includes>
-                    <include>**/*</include>
-                  </includes>
-                </resource>
-                <resource>
-                  <directory>src/main</directory>
-                  <includes>
-                    <include>scss/*</include>
-                  </includes>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-          <execution>
-            <!-- copy the lock to src to be under source control -->
-            <id>step #6: copy-bootstrap-dist to src</id>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>
-                ${basedir}/src/main/npm
-              </outputDirectory>
-              <resources>
-                <resource>
-                  <directory>${project.build.directory}/npm</directory>
-                  <includes>
-                    <include>package-lock.json</include>
-                  </includes>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-          <execution>
-            <!-- copy the result to target/classes -->
-            <id>step #7: copy-bootstrap-dist to target</id>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>
-                ${project.build.outputDirectory}/META-INF/resources/tobago/${theme.name}/tobago-bootstrap/${project.version}
-              </outputDirectory>
-              <resources>
-                <resource>
-                  <directory>${project.build.directory}/npm</directory>
-                  <includes>
-                    <include>css/tobago.css</include>
-                    <include>css/tobago.min.css</include>
-                    <include>css/tobago.css.map</include>
-                    <include>css/tobago.min.css.map</include>
-                  </includes>
-                </resource>
-              </resources>
-              <!-- overwrite, because the default maven-resources-plugin step copies an older version to here -->
-              <overwrite>true</overwrite>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.1.1</version>
-        <executions>
-          <execution>
-            <!-- copy customization to target/bootstrap -->
-            <id>step #2: unpack-custom</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>unpack</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${project.build.directory}/npm</outputDirectory>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>org.apache.myfaces.tobago</groupId>
-                  <artifactId>tobago-core</artifactId>
-                  <version>${project.version}</version>
-                </artifactItem>
-              </artifactItems>
-              <includes>**/*.scss</includes>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>com.github.eirslett</groupId>
-        <artifactId>frontend-maven-plugin</artifactId>
-        <version>1.6</version>
-
-        <!-- optional -->
-        <configuration>
-          <nodeVersion>v8.11.4</nodeVersion> <!-- contains npm 5.6.0 -->
-
-          <!-- optional: Where to download Node.js binary from. Defaults to http://nodejs.org/dist/ -->
-          <!--<nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>-->
-
-          <!-- optional: Where to download NPM binary from. Defaults to http://registry.npmjs.org/npm/-/ -->
-          <!--<npmDownloadRoot>https://registry.npmjs.org/npm/-/</npmDownloadRoot>-->
-
-          <!-- optional: Registry override, passed as the registry option during npm install if set. -->
-          <!--<npmRegistryURL>https://registry.npmjs.org/</npmRegistryURL>-->
-
-          <!-- optional: where to install node and npm. Defaults to the working directory -->
-          <installDirectory>${project.build.directory}/npm</installDirectory>
-          <workingDirectory>${project.build.directory}/npm</workingDirectory>
-          <skip>${frontend.skip}</skip>
-        </configuration>
-
-        <executions>
-
-          <execution>
-            <!-- install "node" and "npm" -->
-            <id>step #3: install node and npm</id>
-            <goals>
-              <goal>install-node-and-npm</goal>
-            </goals>
-            <phase>generate-resources</phase>
-          </execution>
-
-          <execution>
-            <!-- install all other required stuff for "bootstrap" -->
-            <id>step #4: npm install</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <phase>generate-resources</phase>
-            <configuration>
-              <!--<arguments>install jquery popper.js ajv-keywords eslint-plugin-compat ajv eslint</arguments>-->
-              <arguments>install</arguments>
-            </configuration>
-          </execution>
-
-          <execution>
-            <!-- build "Tobago with Bootstrap" -->
-            <id>step #5: npm run css</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <phase>generate-resources</phase>
-            <configuration>
-              <arguments>run css</arguments>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
     </plugins>
   </build>
+
+  <profiles>
+
+    <profile>
+      <id>rebuild-theme</id>
+      <build>
+        <plugins>
+
+          <plugin>
+            <groupId>com.googlecode.maven-download-plugin</groupId>
+            <artifactId>download-maven-plugin</artifactId>
+            <version>1.4.0</version>
+            <executions>
+              <execution>
+                <id>step #1: download-bootstrap</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>wget</goal>
+                </goals>
+                <configuration>
+                  <url>https://github.com/twbs/bootstrap/archive/v${bootstrap.version}.zip</url>
+                  <unpack>true</unpack>
+                  <outputDirectory>${project.build.directory}</outputDirectory>
+                  <md5>15016b550b7f78fcd8ff0c5ce5e55ae0</md5>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <!-- alternative way, if there is no direct download of a release (e.g. to test current snapshot) -->
+<!--
+          <plugin>
+            <artifactId>maven-scm-plugin</artifactId>
+            <version>1.9.5</version>
+            <executions>
+              <execution>
+                &lt;!&ndash;load Bootstrap sources via git to target/checkout &ndash;&gt;
+                <id>step #1: checkout-bootstrap</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>checkout</goal>
+                </goals>
+                <configuration>
+                  <connectionUrl>scm:git:https://github.com/twbs/bootstrap</connectionUrl>
+                  <skipCheckoutIfExists>true</skipCheckoutIfExists>
+                  <scmVersion>v${bootstrap.version}</scmVersion>
+                  <scmVersionType>branch</scmVersionType>
+                  <checkoutDirectory>${project.build.directory}/bootstrap-${bootstrap.version}</checkoutDirectory>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+-->
+
+          <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.7</version>
+            <executions>
+              <execution>
+                <!-- copy Bootstrap to target/bootstrap -->
+                <id>step #2: copy-bootstrap</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>copy-resources</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${project.build.directory}/bootstrap</outputDirectory>
+                  <resources>
+                    <resource>
+                      <directory>${project.build.directory}/bootstrap-${bootstrap.version}</directory>
+                      <exclude>scss/_custom.scss</exclude>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+              <execution>
+                <!-- copy customization to target/bootstrap -->
+                <id>step #3: copy-custom</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>copy-resources</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${project.build.directory}/bootstrap</outputDirectory>
+                  <resources>
+                    <resource>
+                      <directory>src/main</directory>
+                      <includes>
+                        <include>scss/*</include>
+                      </includes>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+              <execution>
+                <!-- copy the result to src to be under source control -->
+                <id>step #12: copy-bootstrap-dist to src</id>
+                <phase>process-resources</phase>
+                <goals>
+                  <goal>copy-resources</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>
+                    ${basedir}/src/main/resources/META-INF/resources/tobago/${theme.name}/tobago-bootstrap/_version
+                  </outputDirectory>
+                  <resources>
+                    <resource>
+                      <directory>${project.build.directory}/bootstrap/dist</directory>
+                      <includes>
+                        <include>css/bootstrap.css</include>
+                        <include>css/bootstrap.min.css</include>
+                        <include>css/bootstrap.css.map</include>
+                        <include>css/bootstrap.min.css.map</include>
+                        <include>js/bootstrap.js</include>
+                        <include>js/bootstrap.min.js</include>
+                      </includes>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+              <execution>
+                <!-- copy the result to target/classes -->
+                <id>step #13: copy-bootstrap-dist to target</id>
+                <phase>process-resources</phase>
+                <goals>
+                  <goal>copy-resources</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>
+                    ${project.build.outputDirectory}/META-INF/resources/tobago/${theme.name}/tobago-bootstrap/${project.version}
+                  </outputDirectory>
+                  <resources>
+                    <resource>
+                      <directory>${project.build.directory}/bootstrap/dist</directory>
+                      <includes>
+                        <include>css/bootstrap.css</include>
+                        <include>css/bootstrap.min.css</include>
+                        <include>css/bootstrap.css.map</include>
+                        <include>css/bootstrap.min.css.map</include>
+                        <include>js/bootstrap.js</include>
+                        <include>js/bootstrap.min.js</include>
+                      </includes>
+                    </resource>
+                  </resources>
+                  <!-- overwrite, because the default maven-resources-plugin step copies an older version to here -->
+                  <overwrite>true</overwrite>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-patch-plugin</artifactId>
+            <version>1.2</version>
+            <configuration>
+              <patches>
+                <patch>append-tobago-theme-to-bootstrap.patch</patch>
+              </patches>
+              <targetDirectory>${project.build.directory}/bootstrap</targetDirectory>
+            </configuration>
+            <executions>
+              <execution>
+                <!-- copy the result to target/classes -->
+                <id>step #4: append-tobago-theme-to-bootstrap</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>apply</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>3.0.2</version>
+            <executions>
+              <execution>
+                <!-- copy customization to target/bootstrap -->
+                <id>step #5: unpack-custom</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>unpack</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${project.build.directory}/bootstrap</outputDirectory>
+                  <artifactItems>
+                    <artifactItem>
+                      <groupId>org.apache.myfaces.tobago</groupId>
+                      <artifactId>tobago-core</artifactId>
+                      <version>${project.version}</version>
+                    </artifactItem>
+                  </artifactItems>
+                  <includes>**/*.scss</includes>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <groupId>com.github.eirslett</groupId>
+            <artifactId>frontend-maven-plugin</artifactId>
+            <version>1.6</version>
+
+            <!-- optional -->
+            <configuration>
+              <nodeVersion>v8.11.4</nodeVersion> <!-- contains npm 5.6.0 -->
+
+              <!-- optional: Where to download Node.js binary from. Defaults to http://nodejs.org/dist/ -->
+              <!--<nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>-->
+
+              <!-- optional: Where to download NPM binary from. Defaults to http://registry.npmjs.org/npm/-/ -->
+              <!--<npmDownloadRoot>https://registry.npmjs.org/npm/-/</npmDownloadRoot>-->
+
+              <!-- optional: Registry override, passed as the registry option during npm install if set. -->
+              <!--<npmRegistryURL>https://registry.npmjs.org/</npmRegistryURL>-->
+
+              <!-- optional: where to install node and npm. Defaults to the working directory -->
+              <installDirectory>${project.build.directory}/frontend</installDirectory>
+              <workingDirectory>${project.build.directory}/bootstrap</workingDirectory>
+            </configuration>
+
+            <executions>
+
+              <execution>
+                <!-- install "node" and "npm" -->
+                <id>step #6: install node and npm</id>
+                <goals>
+                  <goal>install-node-and-npm</goal>
+                </goals>
+                <phase>generate-resources</phase>
+              </execution>
+
+              <execution>
+                <!-- install all other required stuff for "bootstrap" -->
+                <id>step #7: npm install</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <phase>generate-resources</phase>
+                <configuration>
+                  <arguments>install</arguments>
+                </configuration>
+              </execution>
+
+              <execution>
+                <!-- build "bootstrap" -->
+                <id>step #8: npm run css-compile</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <phase>generate-resources</phase>
+                <configuration>
+                  <arguments>run css-compile</arguments>
+                </configuration>
+              </execution>
+
+              <execution>
+                <!-- build "bootstrap" -->
+                <id>step #9: npm run css-prefix</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <phase>generate-resources</phase>
+                <configuration>
+                  <arguments>run css-prefix</arguments>
+                </configuration>
+              </execution>
+
+              <execution>
+                <!-- build "bootstrap" -->
+                <id>step #10: npm run css-minify</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <phase>generate-resources</phase>
+                <configuration>
+                  <arguments>run css-minify</arguments>
+                </configuration>
+              </execution>
+
+              <execution>
+                <!-- build "bootstrap" -->
+                <id>step #11: npm run js</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <phase>generate-resources</phase>
+                <configuration>
+                  <arguments>run js</arguments>
+                </configuration>
+              </execution>
+
+            </executions>
+          </plugin>
+
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>

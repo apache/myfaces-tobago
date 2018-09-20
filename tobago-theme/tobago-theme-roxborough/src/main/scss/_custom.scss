@@ -15,6 +15,11 @@
  * limitations under the License.
  */
 
+// Bootstrap overrides
+//
+// Copy variables from `_variables.scss` to this file to override default values
+// without modifying source files.
+
 $orange: #d68200;
 $green: #1C690A;
 $blue: #130E8F;
@@ -63,11 +68,11 @@ $input-color:                           $gray-400;
 $input-border-color:                    $gray-600;
 $input-btn-border-width:                $border-width;
 $input-focus-bg:                        $input-bg;
-$input-focus-border-color:              lighten($primary, 25%);
+$input-focus-border-color:              lighten(theme-color("primary"), 25%);
 $input-focus-color:                     $gray-400;
 $input-placeholder-color:               $gray-600;
 
-$link-color: lighten($secondary, 20%);
+$link-color: lighten(theme-color("secondary"), 20%);
 $link-hover-color: lighten($link-color, 25%);
 
 $navbar-light-color: $orange;

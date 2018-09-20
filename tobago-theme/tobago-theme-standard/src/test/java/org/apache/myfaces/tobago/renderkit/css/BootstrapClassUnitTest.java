@@ -65,7 +65,7 @@ public class BootstrapClassUnitTest {
   }
 
   /**
-   * This test checks, if every item of the {@link BootstrapClass} occurs in the tobago.css.
+   * This test checks, if every item of the {@link BootstrapClass} occurs in the bootstrap.css.
    */
   @Test
   public void testCompareBootstrapCss() throws IOException, NoSuchFieldException {
@@ -80,10 +80,10 @@ public class BootstrapClassUnitTest {
     }
 
     final List<CssItem> missing = CssClassUtils.compareCss(
-        "target/npm/css/tobago.css",
+        "src/main/resources/META-INF/resources/tobago/standard/tobago-bootstrap/_version/css/bootstrap.css",
         toCheck.toArray(new BootstrapClass[0]));
 
-    Assert.assertTrue("These classes are missing in tobago.css: " + missing, missing.isEmpty());
+    Assert.assertTrue("These classes are missing in bootstrap.css: " + missing, missing.isEmpty());
   }
 
   @Test

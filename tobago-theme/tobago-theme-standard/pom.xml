@@ -29,7 +29,6 @@
 
   <properties>
     <theme.name>standard</theme.name>
-    <frontend.skip>false</frontend.skip>
   </properties>
 
   <build>
@@ -119,11 +118,6 @@
       <groupId>org.webjars</groupId>
       <artifactId>jquery</artifactId>
       <version>3.3.1-1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>bootstrap</artifactId>
-      <version>4.1.3</version>
     </dependency>
     <dependency>
       <groupId>org.webjars</groupId>

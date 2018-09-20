@@ -29,7 +29,6 @@
 
   <properties>
     <theme.name>roxborough</theme.name>
-    <frontend.skip>false</frontend.skip>
   </properties>
 
   <dependencies>
