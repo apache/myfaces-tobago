@@ -90,7 +90,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int FALLBACK = 761243362;
   private static final int VERSIONED = -1407102089;
   private static final int RESOURCES = -1983070683;
-  private static final int INCLUDES = 90259659;
   private static final int EXCLUDES = 1994055129;
   private static final int SANITIZER = 1807639849;
   private static final int SANITIZER_CLASS = -974266412;
@@ -256,7 +255,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case TYPE:
       case RENDERERS:
       case RENDERER:
-      case INCLUDES:
         // nothing to do
         break;
 
@@ -420,7 +418,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case PROPERTIES:
       case MIME_TYPES:
       case MARKUP:
-      case INCLUDES:
         // nothing to do
         break;
 
@@ -451,9 +448,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
 
     final SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
     final Schema schema;
-    if ("4.3".equals(version.getVersion())) {
-      schema = schemaFactory.newSchema(getClass().getResource(TOBAGO_CONFIG_XSD_4_3));
-    } else if ("4.0".equals(version.getVersion())) {
+    if ("4.0".equals(version.getVersion())) {
       schema = schemaFactory.newSchema(getClass().getResource(TOBAGO_CONFIG_XSD_4_0));
     } else if ("3.0".equals(version.getVersion())) {
       schema = schemaFactory.newSchema(getClass().getResource(TOBAGO_CONFIG_XSD_3_0));
