@@ -23,9 +23,4 @@ package org.apache.myfaces.tobago.internal.component;
  * {@link org.apache.myfaces.tobago.internal.taglib.component.TreeNodeTagDeclaration}
  */
 public abstract class AbstractUITreeNode extends AbstractUITreeNodeBase {
-
-  @Override
-  public String getLabel() {
-    return null;
-  }
 }
