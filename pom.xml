@@ -958,6 +958,9 @@
               <exclude>**/*.ipr</exclude>
               <exclude>**/*.iws</exclude>
 
+              <!-- json -->
+              <exclude>**/*.json</exclude>
+
               <!-- photo shop -->
               <exclude>**/*.psd</exclude>
 
