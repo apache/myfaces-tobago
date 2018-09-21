@@ -39,16 +39,30 @@ public class TobagoContext {
 
   public static final String BEAN_NAME = "tobagoContext";
 
+  /**
+   * @deprecated Works not correctly with locales.
+   */
+  @Deprecated
   private static final TobagoResourceBundle RESOURCE_BUNDLE = new TobagoResourceBundle();
+  /**
+   * @deprecated Works not correctly with locales.
+   */
+  @Deprecated
   private static final TobagoMessageBundle MESSAGE_BUNDLE = new TobagoMessageBundle();
 
   private Theme theme;
   private UserAgent userAgent;
 
+  /**
+   * Attention: Works not correctly with locales.
+   */
   public TobagoResourceBundle getResourceBundle() {
     return RESOURCE_BUNDLE;
   }
 
+  /**
+   * Attention: Works not correctly with locales.
+   */
   public TobagoMessageBundle getMessageBundle() {
     return MESSAGE_BUNDLE;
   }

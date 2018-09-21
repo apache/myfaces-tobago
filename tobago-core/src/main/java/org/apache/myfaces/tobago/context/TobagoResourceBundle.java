@@ -25,7 +25,12 @@ import javax.faces.context.FacesContext;
  * This ResourceBundle encapsulate string resources of Tobago components.
  * This class works like the Java resource bundle mechanism for the resource bundle {@value BUNDLE_NAME}.
  * Supports XML properties files.
+ *
+ * Warning: The locale selection doesn't work correctly.
+ *
+ * @deprecated since 4.3.0, use standard ResourceBundles (without XML) support please.
  */
+@Deprecated
 public class TobagoResourceBundle extends TobagoBundle {
 
   public static final String VAR = "tobagoResourceBundle";
