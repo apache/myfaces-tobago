@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.context;
 
+import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.util.CookieUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
@@ -40,7 +41,15 @@ public class TobagoContext implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoContext.class);
 
+  /**
+   * @deprecated Works not correctly with locales.
+   */
+  @Deprecated
   private static final TobagoResourceBundle RESOURCE_BUNDLE = new TobagoResourceBundle();
+  /**
+   * @deprecated Works not correctly with locales.
+   */
+  @Deprecated
   private static final TobagoMessageBundle MESSAGE_BUNDLE = new TobagoMessageBundle();
 
   private Theme theme;
@@ -48,10 +57,18 @@ public class TobagoContext implements Serializable {
   private String focusId;
   private String enctype;
 
+  /**
+   * Attention: Works not correctly with locales.
+   */
+  @Preliminary
   public TobagoResourceBundle getResourceBundle() {
     return RESOURCE_BUNDLE;
   }
 
+  /**
+   * Attention: Works not correctly with locales.
+   */
+  @Preliminary
   public TobagoMessageBundle getMessageBundle() {
     return MESSAGE_BUNDLE;
   }

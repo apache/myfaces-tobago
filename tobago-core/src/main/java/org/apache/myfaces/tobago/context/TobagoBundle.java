@@ -40,8 +40,12 @@ import java.util.Set;
  * and adds the functionality of the tobago themes and also supports XML properties files.
  * This class should be extended and used in the faces-config.xml.
  *
+ * Warning: The locale selection doesn't work correctly.
+ *
  * @since 1.5.0
+ * @deprecated since 4.3.0, use standard ResourceBundles (without XML) support please.
  */
+@Deprecated
 public class TobagoBundle extends ResourceBundle {
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoBundle.class);
