@@ -32,8 +32,7 @@ import java.util.List;
 /**
  * Base class for tree node.
  */
-public abstract class AbstractUITreeNodeBase
-    extends AbstractUIColumn implements Visual {
+public abstract class AbstractUITreeNodeBase extends AbstractUIColumnBase implements Visual {
 
   @Override
   public void encodeBegin(final FacesContext facesContext) throws IOException {

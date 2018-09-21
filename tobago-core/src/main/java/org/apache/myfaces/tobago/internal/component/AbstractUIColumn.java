@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.layout.VerticalAlign;
+
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.ColumnTagDeclaration}
  */
@@ -27,4 +29,6 @@ public abstract class AbstractUIColumn extends AbstractUIColumnBase {
 //  public abstract Measure getWidth();
 
   public abstract String getLabel();
+
+  public abstract VerticalAlign getVerticalAlign();
 }

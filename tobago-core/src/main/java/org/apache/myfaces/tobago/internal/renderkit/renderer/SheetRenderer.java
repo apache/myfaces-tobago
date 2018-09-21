@@ -36,6 +36,7 @@ import org.apache.myfaces.tobago.event.SheetAction;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnBase;
+import org.apache.myfaces.tobago.internal.component.AbstractUIColumnSelector;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.component.AbstractUIRow;
@@ -703,24 +704,26 @@ public class SheetRenderer extends RendererBase {
           rowClass,
           sheet.isRowVisible() ? null : BootstrapClass.D_NONE);
 
-      for (final UIColumn column : columns) {
+      for (final AbstractUIColumnBase column : columns) {
         if (column.isRendered()) {
-          if (column instanceof AbstractUIColumn) {
-            final AbstractUIColumn normalColumn = (AbstractUIColumn) column;
+          if (column instanceof AbstractUIColumn || column instanceof AbstractUIColumnSelector) {
             writer.startElement(HtmlElements.TD);
-            Markup markup = normalColumn.getMarkup();
+            Markup markup = column.getMarkup();
             if (markup == null) {
               markup = Markup.NULL;
             }
-            markup = markup.add(getMarkupForAlign(normalColumn));
-            markup = markup.add(getMarkupForVerticalAlign(normalColumn));
+            if (column instanceof AbstractUIColumn) {
+              final AbstractUIColumn normalColumn = (AbstractUIColumn) column;
+              markup = markup.add(getMarkupForAlign(normalColumn));
+              markup = markup.add(getMarkupForVerticalAlign(normalColumn));
+            }
             writer.writeClassAttribute(
                 TobagoClass.SHEET__CELL,
                 TobagoClass.SHEET__CELL.createMarkup(markup),
-                normalColumn.getCustomClass());
+                column.getCustomClass());
 
-            if (normalColumn instanceof UIColumnSelector) {
-              final UIColumnSelector selector = (UIColumnSelector) normalColumn;
+            if (column instanceof AbstractUIColumnSelector) {
+              final AbstractUIColumnSelector selector = (AbstractUIColumnSelector) column;
               writer.startElement(HtmlElements.INPUT);
               writer.writeNameAttribute(sheetId + "_data_row_selector_" + rowIndex);
               if (selectable.isSingle()) {
@@ -735,7 +738,7 @@ public class SheetRenderer extends RendererBase {
                   TobagoClass.SHEET__COLUMN_SELECTOR);
               writer.endElement(HtmlElements.INPUT);
             } else /*if (normalColumn instanceof AbstractUIColumnNode)*/ {
-              normalColumn.encodeAll(facesContext);
+              column.encodeAll(facesContext);
             } /*else {
               final List<UIComponent> children = sheet.getRenderedChildrenOf(normalColumn);
               for (final UIComponent grandKid : children) {
@@ -845,10 +848,10 @@ public class SheetRenderer extends RendererBase {
     return null;
   }
 
-  private Markup getMarkupForVerticalAlign(final UIColumn column) {
-    final String verticalAlign = ComponentUtils.getStringAttribute(column, Attributes.verticalAlign);
+  private Markup getMarkupForVerticalAlign(final AbstractUIColumn column) {
+    final VerticalAlign verticalAlign = column.getVerticalAlign();
     if (verticalAlign != null) {
-      switch (VerticalAlign.valueOf(verticalAlign)) {
+      switch (verticalAlign) {
         case bottom:
           return Markup.BOTTOM;
         case middle:
