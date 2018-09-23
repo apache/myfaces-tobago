@@ -51,7 +51,9 @@
     <required.maven.version>3.0.4</required.maven.version>
     <maven-pmd-plugin.version>3.8</maven-pmd-plugin.version>
     <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
+    <!-- XXX can be set to 11, after releasing checkstyle-rules 11 -->
     <checkstyle-rules.version>10</checkstyle-rules.version>
+    <!--<checkstyle-rules.version>11</checkstyle-rules.version>-->
   </properties>
 
   <issueManagement>
@@ -1020,9 +1022,11 @@
         <plugin>
           <groupId>org.owasp</groupId>
           <artifactId>dependency-check-maven</artifactId>
-          <version>3.1.1</version>
+          <version>3.3.2</version>
           <configuration>
-            <failBuildOnCVSS>0</failBuildOnCVSS>
+            <failBuildOnCVSS>4.4</failBuildOnCVSS>
+            <!-- XXX can be set to 0, after releasing checkstyle-rules 11 -->
+            <!--<failBuildOnCVSS>0</failBuildOnCVSS>-->
             <suppressionFile>tobago/dependency-check-suppression.xml</suppressionFile>
           </configuration>
           <dependencies>
