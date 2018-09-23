@@ -40,10 +40,14 @@
   <entry key="intro">Intro</entry>
   <entry key="getting_started">Getting started</entry>
   <entry key="whats_new">What's new?</entry>
+  <entry key="new_in_4_3">Tobago 4.3</entry>
   <entry key="new_in_4_2">Tobago 4.2</entry>
   <entry key="new_in_4_1">Tobago 4.1</entry>
   <entry key="new_in_4_0">Tobago 4</entry>
+  <entry key="new_in_3_1">Tobago 3.1</entry>
   <entry key="new_in_3_0">Tobago 3</entry>
+  <entry key="new_in_2_2">Tobago 2.2</entry>
+  <entry key="new_in_2_1">Tobago 2.1</entry>
   <entry key="new_in_2_0">Tobago 2</entry>
   <entry key="migration">Migration</entry>
   <entry key="migration15">1.0 to 1.5</entry>

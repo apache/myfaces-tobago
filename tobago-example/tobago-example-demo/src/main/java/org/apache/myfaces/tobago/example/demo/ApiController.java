@@ -71,4 +71,9 @@ public class ApiController implements Serializable {
   public String getVersion430() {
     return Release.v4_3_0.getVersion();
   }
+
+  public String getJiraUrl(final String version) {
+    final Release release = Release.valueOf("v" + version.replaceAll("\\.", "_"));
+    return "https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&version=" + release.getJira();
+  }
 }
