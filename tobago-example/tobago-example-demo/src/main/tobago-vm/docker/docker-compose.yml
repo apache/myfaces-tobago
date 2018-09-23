@@ -21,14 +21,17 @@ services:
       - "80:80"
 # todo     - "443:443"
     links:
+#      - demo-5-release
+#      - demo-5-staging
+      - demo-5-snapshot
       - demo-4-release
-#      - demo-4-staging
+      - demo-4-staging
       - demo-4-snapshot
       - demo-3-release
-#      - demo-3-staging
+      - demo-3-staging
       - demo-3-snapshot
       - demo-2-release
-#      - demo-2-staging
+      - demo-2-staging
       - demo-2-snapshot
       - demo-1-5-release
 #      - demo-1-5-staging
@@ -37,14 +40,17 @@ services:
 #      - demo-1-0-staging
 #      - demo-1-0-snapshot
     depends_on:
+#      - demo-5-release
+#      - demo-5-staging
+      - demo-5-snapshot
       - demo-4-release
-#      - demo-4-staging
+      - demo-4-staging
       - demo-4-snapshot
       - demo-3-release
-#      - demo-3-staging
+      - demo-3-staging
       - demo-3-snapshot
       - demo-2-release
-#      - demo-2-staging
+      - demo-2-staging
       - demo-2-snapshot
       - demo-1-5-release
 #      - demo-1-5-staging
@@ -52,6 +58,28 @@ services:
       - demo-1-0-release
 #      - demo-1-0-staging
 #      - demo-1-0-snapshot
+#  demo-5-release:
+#    build: tomcat
+#    environment:
+#      - TOBAGO_VERSION=4.2.1
+#      - CONTEXT_PATH=demo-5-release
+#    volumes:
+#      - /opt/docker/artifacts:/opt/docker/artifacts
+#  demo-5-staging:
+#    build: tomcat
+#    environment:
+#      - TOBAGO_VERSION=4.2.1
+#      - STAGING_NUMBER=1134
+#      - CONTEXT_PATH=demo-5-staging
+#    volumes:
+#      - /opt/docker/artifacts:/opt/docker/artifacts
+  demo-5-snapshot:
+    build: tomcat
+    environment:
+      - TOBAGO_VERSION=5.0.0-SNAPSHOT
+      - CONTEXT_PATH=demo-5-snapshot
+    volumes:
+      - /opt/docker/artifacts:/opt/docker/artifacts
   demo-4-release:
     build: tomcat
     environment:
@@ -59,18 +87,18 @@ services:
       - CONTEXT_PATH=demo-4-release
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
-#  demo-4-staging:
-#    build: tomcat
-#    environment:
-#      - TOBAGO_VERSION=4.2.1
-#      - STAGING_NUMBER=1134
-#      - CONTEXT_PATH=demo-4-staging
-#    volumes:
-#      - /opt/docker/artifacts:/opt/docker/artifacts
+  demo-4-staging:
+    build: tomcat
+    environment:
+      - TOBAGO_VERSION=4.3.0
+      - STAGING_NUMBER=1141
+      - CONTEXT_PATH=demo-4-staging
+    volumes:
+      - /opt/docker/artifacts:/opt/docker/artifacts
   demo-4-snapshot:
     build: tomcat
     environment:
-      - TOBAGO_VERSION=4.3.0-SNAPSHOT
+      - TOBAGO_VERSION=4.3.1-SNAPSHOT
       - CONTEXT_PATH=demo-4-snapshot
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
@@ -81,18 +109,18 @@ services:
       - CONTEXT_PATH=demo-3-release
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
-#  demo-3-staging:
-#    build: tomcat
-#    environment:
-#      - TOBAGO_VERSION=3.0.6
-#      - STAGING_NUMBER=1118
-#      - CONTEXT_PATH=demo-3-staging
-#    volumes:
-#      - /opt/docker/artifacts:/opt/docker/artifacts
+  demo-3-staging:
+    build: tomcat
+    environment:
+      - TOBAGO_VERSION=3.1.0
+      - STAGING_NUMBER=1140
+      - CONTEXT_PATH=demo-3-staging
+    volumes:
+      - /opt/docker/artifacts:/opt/docker/artifacts
   demo-3-snapshot:
     build: tomcat
     environment:
-      - TOBAGO_VERSION=3.1.0-SNAPSHOT
+      - TOBAGO_VERSION=3.1.1-SNAPSHOT
       - CONTEXT_PATH=demo-3-snapshot
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
@@ -103,18 +131,18 @@ services:
       - CONTEXT_PATH=demo-2-release
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
-#  demo-2-staging:
-#    build: tomcat
-#    environment:
-#      - TOBAGO_VERSION=2.1.1
-#      - STAGING_NUMBER=1125
-#      - CONTEXT_PATH=demo-2-staging
-#    volumes:
-#      - /opt/docker/artifacts:/opt/docker/artifacts
+  demo-2-staging:
+    build: tomcat
+    environment:
+      - TOBAGO_VERSION=2.2.0
+      - STAGING_NUMBER=1139
+      - CONTEXT_PATH=demo-2-staging
+    volumes:
+      - /opt/docker/artifacts:/opt/docker/artifacts
   demo-2-snapshot:
     build: tomcat
     environment:
-      - TOBAGO_VERSION=2.1.2-SNAPSHOT
+      - TOBAGO_VERSION=2.2.1-SNAPSHOT
       - CONTEXT_PATH=demo-2-snapshot
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
