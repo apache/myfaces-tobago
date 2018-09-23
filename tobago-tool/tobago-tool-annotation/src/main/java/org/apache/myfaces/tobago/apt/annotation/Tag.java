@@ -31,9 +31,10 @@ public @interface Tag {
   String name();
 
   /**
-   * Should be BodyContent.JSP in any case, because there might be a child tag with a specific function.
-   * e.g. &lt;tc:dataAttribute>
-   * @deprecated
+   * Should be BodyContent.JSP in any case, because there might be a child tag with a specific function. e.g.
+   * &lt;tc:dataAttribute>
+   *
+   * @deprecated since 2.0.8
    */
   @Deprecated
   BodyContent bodyContent() default BodyContent.JSP;
@@ -42,6 +43,6 @@ public @interface Tag {
 
   String deprecatedName() default "";
 
-  boolean isBodyTag() default false; 
+  boolean isBodyTag() default false;
 
 }

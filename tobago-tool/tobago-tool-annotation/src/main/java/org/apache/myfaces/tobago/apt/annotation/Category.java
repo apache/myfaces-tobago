@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.apt.annotation;
 
 public enum Category {
-  
+
   GENERAL, DATA, APPEARANCE, EVENT, ADVANCED;
 
   public String toString() {
