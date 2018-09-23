@@ -190,8 +190,8 @@
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-validation_1.0_spec</artifactId>
-          <version>1.1</version>
+          <artifactId>geronimo-validation_1.1_spec</artifactId>
+          <version>1.0</version>
           <scope>provided</scope>
         </dependency>
         <dependency>
@@ -226,8 +226,8 @@
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-validation_1.0_spec</artifactId>
-          <version>1.1</version>
+          <artifactId>geronimo-validation_1.1_spec</artifactId>
+          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
@@ -284,8 +284,8 @@
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-validation_1.0_spec</artifactId>
-          <version>1.1</version>
+          <artifactId>geronimo-validation_1.1_spec</artifactId>
+          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
@@ -342,8 +342,8 @@
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-validation_1.0_spec</artifactId>
-          <version>1.1</version>
+          <artifactId>geronimo-validation_1.1_spec</artifactId>
+          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
@@ -400,8 +400,8 @@
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-validation_1.0_spec</artifactId>
-          <version>1.1</version>
+          <artifactId>geronimo-validation_1.1_spec</artifactId>
+          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
@@ -458,8 +458,8 @@
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-validation_1.0_spec</artifactId>
-          <version>1.1</version>
+          <artifactId>geronimo-validation_1.1_spec</artifactId>
+          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
@@ -516,8 +516,8 @@
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-validation_1.0_spec</artifactId>
-          <version>1.1</version>
+          <artifactId>geronimo-validation_1.1_spec</artifactId>
+          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>

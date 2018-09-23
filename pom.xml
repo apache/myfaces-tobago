@@ -616,6 +616,7 @@
             <groupId>org.apache.myfaces.buildtools</groupId>
             <artifactId>checkstyle-rules</artifactId>
             <version>6</version>
+            <!--<version>${checkstyle-rules.version}</version>-->
           </dependency>
         </dependencies>
       </plugin>
@@ -1008,11 +1009,14 @@
         <plugin>
           <groupId>org.owasp</groupId>
           <artifactId>dependency-check-maven</artifactId>
-          <version>3.1.0</version>
+          <version>3.3.2</version>
           <configuration>
-            <!-- XXX can be set to 0, after releasing checkstyle-rules 10 -->
-            <failBuildOnCVSS>5.5</failBuildOnCVSS>
+            <failBuildOnCVSS>7.6</failBuildOnCVSS>
+            <!-- XXX can be set to 0, after releasing checkstyle-rules 11 -->
+            <!--<failBuildOnCVSS>0</failBuildOnCVSS>-->
             <suppressionFile>tobago/dependency-check-suppression-for-tobago-2.0.xml</suppressionFile>
+            <!-- XXX can be set to 2.x, after releasing checkstyle-rules 11 -->
+            <!--<suppressionFile>tobago/dependency-check-suppression-for-tobago-2.x.xml</suppressionFile>-->
           </configuration>
           <dependencies>
             <dependency>
@@ -1536,7 +1540,9 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jsf.target>2.0</jsf.target>
     <required.maven.version>2.2.1</required.maven.version>
-    <checkstyle-rules.version>9</checkstyle-rules.version>
+    <!-- XXX can be set to 11, after releasing checkstyle-rules 11 -->
+    <checkstyle-rules.version>10</checkstyle-rules.version>
+    <!--<checkstyle-rules.version>11</checkstyle-rules.version>-->
     <tobago.basedir>${project.basedir}</tobago.basedir>
   </properties>
 </project>
