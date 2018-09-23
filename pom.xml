@@ -50,6 +50,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <required.maven.version>3.0.4</required.maven.version>
+    <checkstyle-rules.version>11-SNAPSHOT</checkstyle-rules.version>
   </properties>
 
   <issueManagement>
@@ -983,11 +984,18 @@
         <plugin>
           <groupId>org.owasp</groupId>
           <artifactId>dependency-check-maven</artifactId>
-          <version>1.4.5</version>
+          <version>3.3.2</version>
           <configuration>
-            <!-- TBD: check which score can be accepted -->
-            <failBuildOnCVSS>3</failBuildOnCVSS>
+            <failBuildOnCVSS>0</failBuildOnCVSS>
+            <suppressionFile>tobago/dependency-check-suppression-for-tobago-3.x.xml</suppressionFile>
           </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>org.apache.myfaces.buildtools</groupId>
+              <artifactId>checkstyle-rules</artifactId>
+              <version>${checkstyle-rules.version}</version>
+            </dependency>
+          </dependencies>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
