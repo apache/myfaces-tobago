@@ -24,20 +24,15 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 public interface HasLink {
   /**
-   * Link to an arbitrary URL, either an internal link or an external link.
-
-   * <dl>
-   *   <dt>internal absolute link</dt>
-   *   <dd>Starts with a slash '/' character. The context path will be added.
-   *       A session id will be added, if needed.</dd>
-   *   <dt>external link</dt>
-   *   <dd>Starts with protocol followed by a colon ':' character.
-   *       The link will not be modified.</dd>
-   *   <dt>internal relative link</dt>
-   *   <dd>Any other strings. A session id will be added, if needed.</dd>
-   * </dl>
+   * <p>
+   * Link to an arbitrary URL, either an internal link or an external link. For internal URLs, a session id will be
+   * added, if needed (when cookies disabled). The context path needs to be added manually e.g. #{request.contextPath}.
+   * For JSF navigation to a viewId use the outcome attribute!
+   * </p>
    *
-   * @param link The external or internal link.
+   * <p>
+   * The semantic of this attributes has been changed from Tobago 3 to 4!
+   * </p>
    */
   @TagAttribute
   @UIComponentTagAttribute()
