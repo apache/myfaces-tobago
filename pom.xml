@@ -50,7 +50,9 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <required.maven.version>3.0.4</required.maven.version>
-    <checkstyle-rules.version>11-SNAPSHOT</checkstyle-rules.version>
+    <!-- XXX can be set to 11, after releasing checkstyle-rules 11 -->
+    <checkstyle-rules.version>10</checkstyle-rules.version>
+    <!--<checkstyle-rules.version>11</checkstyle-rules.version>-->
   </properties>
 
   <issueManagement>
@@ -578,6 +580,7 @@
             <groupId>org.apache.myfaces.buildtools</groupId>
             <artifactId>checkstyle-rules</artifactId>
             <version>6</version>
+            <!--<version>${checkstyle-rules.version}</version>-->
           </dependency>
         </dependencies>
       </plugin>
@@ -723,6 +726,7 @@
               <groupId>org.apache.myfaces.buildtools</groupId>
               <artifactId>checkstyle-rules</artifactId>
               <version>6</version>
+              <!--<version>${checkstyle-rules.version}</version>-->
             </dependency>
           </dependencies>
         </plugin>
@@ -986,8 +990,12 @@
           <artifactId>dependency-check-maven</artifactId>
           <version>3.3.2</version>
           <configuration>
-            <failBuildOnCVSS>0</failBuildOnCVSS>
-            <suppressionFile>tobago/dependency-check-suppression-for-tobago-3.x.xml</suppressionFile>
+            <failBuildOnCVSS>4.4</failBuildOnCVSS>
+            <!-- XXX can be set to 0, after releasing checkstyle-rules 11 -->
+            <!--<failBuildOnCVSS>0</failBuildOnCVSS>-->
+            <suppressionFile>tobago/dependency-check-suppression.xml</suppressionFile>
+            <!-- XXX can be set to 2.x, after releasing checkstyle-rules 11 -->
+            <!--<suppressionFile>tobago/dependency-check-suppression-for-tobago-3.x.xml</suppressionFile>-->
           </configuration>
           <dependencies>
             <dependency>
