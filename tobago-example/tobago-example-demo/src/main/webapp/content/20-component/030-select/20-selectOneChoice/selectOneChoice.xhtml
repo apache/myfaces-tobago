@@ -72,7 +72,7 @@
   <tc:section label="Java enum as value">
     <tc:selectOneChoice id="selectSalutation" label="Salutation" value="#{selectOneChoiceController.salutation}">
       <tc:selectItems value="#{selectOneChoiceController.salutations}" var="s"
-                      itemLabel="#{s.label}" itemValue="#{s}" itemImage="#{s.icon}"/>
+                      itemLabel="#{s.label}" itemValue="#{s}"/>
     </tc:selectOneChoice>
     <tc:out id="outputSalutation" label="Selected Salutation" value="#{selectOneChoiceController.salutation.label}"/>
     <tc:button id="submit2" label="Submit"/>
