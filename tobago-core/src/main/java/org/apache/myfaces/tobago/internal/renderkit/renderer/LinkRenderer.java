@@ -19,12 +19,28 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+
+import javax.faces.context.FacesContext;
 
 public class LinkRenderer extends CommandRendererBase {
 
   @Override
   protected TobagoClass getRendererCssClass() {
     return TobagoClass.LINK;
+  }
+
+  @Override
+  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUICommand command) {
+    final Markup markup = command.getMarkup() != null ? command.getMarkup() : Markup.NULL;
+
+    return new CssItem[]{
+        BootstrapClass.textColor(markup),
+        BootstrapClass.fontStyle(markup)
+    };
   }
 }

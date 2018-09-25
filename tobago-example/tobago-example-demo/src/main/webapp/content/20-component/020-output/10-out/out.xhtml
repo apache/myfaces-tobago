@@ -38,6 +38,25 @@
               labelLayout="skip" plain="true"/>
     </tc:section>
   </tc:section>
+  <tc:section label="Markups">
+    <tc:segmentLayout extraSmall="4seg">
+      <tc:out value="thin" markup="thin"/>
+      <tc:out value="normal"/>
+      <tc:out value="bold" markup="bold"/>
+      <tc:out value="italic" markup="italic"/>
+    </tc:segmentLayout>
+    <tc:segmentLayout extraSmall="4seg">
+      <tc:out value="primary" markup="primary"/>
+      <tc:out value="secondary" markup="secondary"/>
+      <tc:out value="success" markup="success"/>
+      <tc:out value="danger" markup="danger"/>
+      <tc:out value="warning" markup="warning"/>
+      <tc:out value="info" markup="info"/>
+      <tc:out value="light" markup="light"/>
+      <tc:out value="dark" markup="dark"/>
+      <tc:out value="muted" markup="muted"/>
+    </tc:segmentLayout>
+  </tc:section>
   <tc:section label="Escape">
     <p>If the given string to the outputfield is HTML/XML code, it will be escaped by default.
       But you can turn it off with the <code>escape</code> attribute.</p>
