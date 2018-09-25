@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.css;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.layout.AlignItems;
 import org.apache.myfaces.tobago.layout.JustifyContent;
 import org.apache.myfaces.tobago.layout.Margin;
@@ -258,6 +259,9 @@ public enum BootstrapClass implements CssItem {
   FLEX_COLUMN_REVERSE("flex-column-reverse"),
   FLEX_ROW("flex-row"),
   FLEX_ROW_REVERSE("flex-row-reverse"),
+  FONT_ITALIC("font-italic"),
+  FONT_WEIGHT_BOLD("font-weight-bold"),
+  FONT_WEIGHT_LIGHT("font-weight-light"),
   FORM_CHECK("form-check"),
   FORM_CHECK_INLINE("form-check-inline"),
   FORM_CHECK_INPUT("form-check-input"),
@@ -462,6 +466,14 @@ public enum BootstrapClass implements CssItem {
   ROW("row"),
   SHOW("show"),
   SR_ONLY("sr-only"),
+  TEXT_DANGER("text-danger"),
+  TEXT_DARK("text-dark"),
+  TEXT_INFO("text-info"),
+  TEXT_LIGHT("text-light"),
+  TEXT_PRIMARY("text-primary"),
+  TEXT_SECONDARY("text-secondary"),
+  TEXT_SUCCESS("text-success"),
+  TEXT_WARNING("text-warning"),
   TEXT_CENTER("text-center"),
   TEXT_JUSTIFY("text-justify"),
   TEXT_LEFT("text-left"),
@@ -583,6 +595,44 @@ public enum BootstrapClass implements CssItem {
       default:
         LOG.warn("Not a bootstrap class defined for {}", textAlign);
         return BootstrapClass.TEXT_LEFT;
+    }
+  }
+
+  public static CssItem textColor(final Markup markup) {
+    if (markup == null || markup.contains(Markup.NONE)) {
+      return null;
+    } else if (markup.contains(Markup.PRIMARY)) {
+      return BootstrapClass.TEXT_PRIMARY;
+    } else if (markup.contains(Markup.SECONDARY)) {
+      return BootstrapClass.TEXT_SECONDARY;
+    } else if (markup.contains(Markup.SUCCESS)) {
+      return BootstrapClass.TEXT_SUCCESS;
+    } else if (markup.contains(Markup.DANGER)) {
+      return BootstrapClass.TEXT_DANGER;
+    } else if (markup.contains(Markup.WARNING)) {
+      return BootstrapClass.TEXT_WARNING;
+    } else if (markup.contains(Markup.INFO)) {
+      return BootstrapClass.TEXT_INFO;
+    } else if (markup.contains(Markup.LIGHT)) {
+      return BootstrapClass.TEXT_LIGHT;
+    } else if (markup.contains(Markup.DARK)) {
+      return BootstrapClass.TEXT_DARK;
+    } else {
+      return null;
+    }
+  }
+
+  public static CssItem fontStyle(final Markup markup) {
+    if (markup == null || markup.contains(Markup.NONE)) {
+      return null;
+    } else if (markup.contains(Markup.BOLD)) {
+      return BootstrapClass.FONT_WEIGHT_BOLD;
+    } else if (markup.contains(Markup.THIN)) {
+      return BootstrapClass.FONT_WEIGHT_LIGHT;
+    } else if (markup.contains(Markup.ITALIC)) {
+      return BootstrapClass.FONT_ITALIC;
+    } else {
+      return null;
     }
   }
 

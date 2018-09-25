@@ -63,6 +63,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup ASCENDING = valueOf("ascending");
   public static final Markup BADGE = valueOf("badge");
   public static final Markup BIG = valueOf("big");
+  public static final Markup BOLD = valueOf("bold");
   public static final Markup BORDERED = valueOf("bordered");
   public static final Markup BOTTOM = valueOf("bottom");
   public static final Markup CENTER = valueOf("center");
@@ -88,6 +89,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup HOVER = valueOf("hover");
   public static final Markup INFO = valueOf("info");
   public static final Markup INLINE = valueOf("inline");
+  public static final Markup ITALIC = valueOf("italic");
   public static final Markup JUSTIFY = valueOf("justify");
   /**
    * @deprecated since 4.0.0, please use {@link #DARK}
@@ -136,6 +138,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup STRIPED = valueOf("striped");
   public static final Markup STRONG = valueOf("strong");
   public static final Markup SUCCESS = valueOf("success");
+  public static final Markup THIN = valueOf("thin");
   public static final Markup TOGGLER_LEFT = valueOf("togglerLeft");
   public static final Markup TOP = valueOf("top");
   public static final Markup VERTICALLY = valueOf("vertically");
@@ -145,6 +148,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final String STRING_ASCENDING = "ascending";
   public static final String STRING_BADGE = "badge";
   public static final String STRING_BIG = "big";
+  public static final String STRING_BOLD = "bold";
   public static final String STRING_BORDERED = "bordered";
   public static final String STRING_BOTTOM = "bottom";
   public static final String STRING_CENTER = "center";
@@ -170,6 +174,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final String STRING_HOVER = "hover";
   public static final String STRING_INFO = "info";
   public static final String STRING_INLINE = "inline";
+  public static final String STRING_ITALIC = "italic";
   public static final String STRING_JUSTIFY = "justify";
   /**
    * @deprecated since 4.0.0, please use {@link #DARK}
@@ -218,6 +223,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final String STRING_STRIPED = "striped";
   public static final String STRING_STRONG = "strong";
   public static final String STRING_SUCCESS = "success";
+  public static final String STRING_THIN = "thin";
   public static final String STRING_TOGGLER_LEFT = "togglerLeft";
   public static final String STRING_TOP = "top";
   public static final String STRING_VERTICALLY = "vertically";
