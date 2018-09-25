@@ -110,10 +110,6 @@ Tobago.Sheet.prototype.reloadWithAction = function(source, action) {
 
 Tobago.Sheet.setup2 = function (sheets) {
 
-  jQuery(sheets).each(function() {
-    Tobago.Sheet.resetInputFieldSize(jQuery(this));
-  });
-
   // synchronize column widths
   jQuery(sheets).each(function() {
 
@@ -230,7 +226,6 @@ Tobago.Sheet.setup2 = function (sheets) {
         var columnWidth = event.data.originalHeaderColumnWidth + delta;
         event.data.headerColumn.attr("width", columnWidth);
         event.data.bodyColumn.attr("width", columnWidth);
-        Tobago.Sheet.resetInputFieldSize(headerColumn.closest("table"));
         Tobago.clearSelection();
         return false;
       });
@@ -669,14 +664,6 @@ Tobago.Sheet.deselectRow = function($selected, rowIndex, $row, $checkbox) {
   $row.removeClass("tobago-sheet-row-markup-selected table-info");
 //  checkbox.prop("checked", false); Async because of TOBAGO-1312
   setTimeout(function() {$checkbox.prop("checked", false);}, 0);
-};
-
-Tobago.Sheet.resetInputFieldSize = function (table) {
-  var span = table.find("td>div>span");
-  span.children("input,select").each(function () {
-    var input = jQuery(this);
-    input.outerWidth(input.parent().width());
-  });
 };
 
 Tobago.Sheet.isInputElement = function($element) {
