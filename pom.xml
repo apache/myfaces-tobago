@@ -1011,12 +1011,8 @@
           <artifactId>dependency-check-maven</artifactId>
           <version>3.3.2</version>
           <configuration>
-            <failBuildOnCVSS>7.6</failBuildOnCVSS>
-            <!-- XXX can be set to 0, after releasing checkstyle-rules 11 -->
-            <!--<failBuildOnCVSS>0</failBuildOnCVSS>-->
-            <suppressionFile>tobago/dependency-check-suppression-for-tobago-2.0.xml</suppressionFile>
-            <!-- XXX can be set to 2.x, after releasing checkstyle-rules 11 -->
-            <!--<suppressionFile>tobago/dependency-check-suppression-for-tobago-2.x.xml</suppressionFile>-->
+            <failBuildOnCVSS>0</failBuildOnCVSS>
+            <suppressionFile>tobago/dependency-check-suppression-for-tobago-2.x.xml</suppressionFile>
           </configuration>
           <dependencies>
             <dependency>
@@ -1540,9 +1536,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jsf.target>2.0</jsf.target>
     <required.maven.version>2.2.1</required.maven.version>
-    <!-- XXX can be set to 11, after releasing checkstyle-rules 11 -->
-    <checkstyle-rules.version>10</checkstyle-rules.version>
-    <!--<checkstyle-rules.version>11</checkstyle-rules.version>-->
+    <checkstyle-rules.version>11</checkstyle-rules.version>
     <tobago.basedir>${project.basedir}</tobago.basedir>
   </properties>
 </project>
