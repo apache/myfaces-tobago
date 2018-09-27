@@ -50,6 +50,7 @@ $headings-font-weight: 500;
 $navbar-dark-active-color: rgba($white, 1) !default;
 $navbar-light-active-color: rgba($black, .9) !default;
 $border-width: 1px !default;
+$input-color: $gray-700 !default;
 $input-btn-border-width: $border-width !default; // For form controls and buttons
 $input-btn-padding-y: .5rem !default;
 $input-btn-padding-x: .75rem !default;
@@ -84,6 +85,9 @@ $fa-info: "\f129";
 $fa-times-circle: "\f057";
 $fa-toggle-off: "\f204";
 $fa-toggle-on: "\f205";
+
+/* non-bootstrap variabled --------------------------------------- */
+$form-disabled-alpha: 0.5;
 
 /* badge -------------------------------------------------------------- */
 .tobago-badge {
@@ -202,6 +206,9 @@ button.tobago-button {
   &::-ms-clear {
     /* Remove IE10's "clear field" X button */
     display: none;
+  }
+  &:disabled {
+    color: rgba($input-color, $form-disabled-alpha);
   }
 }
 
@@ -338,6 +345,9 @@ XXX workaround for Bootstrap with datetimepicker needed for popups
 
 /* in ----------------------------------------------------------- */
 .tobago-in {
+  &:disabled {
+    color: rgba($input-color, $form-disabled-alpha);
+  }
 }
 
 .tobago-in-markup-number {
@@ -1482,6 +1492,9 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 
 /* textarea --------------------------------------------------------- */
 .tobago-textarea {
+  &:disabled {
+    color: rgba($input-color, $form-disabled-alpha);
+  }
 }
 
 /* facesMessages messageLayout focus shadows ------------------------ */
