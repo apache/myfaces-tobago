@@ -47,38 +47,50 @@ public class MessagesController implements Serializable {
 
   public void createFatalMessage() {
     FacesContext.getCurrentInstance().addMessage(null,
-            new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fatal Message", "Details of fatal message."));
+        new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fatal Message", "Details of fatal message."));
   }
 
   public void createErrorMessage() {
     FacesContext.getCurrentInstance().addMessage(null,
-            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error Message", "Details of error message."));
+        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error Message", "Details of error message."));
   }
 
   public void createWarnMessage() {
     FacesContext.getCurrentInstance().addMessage(null,
-            new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn Message", "Details of warn message."));
+        new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn Message", "Details of warn message."));
   }
 
   public void createInfoMessage() {
     FacesContext.getCurrentInstance().addMessage(null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO, "Info Message", "Details of info message."));
+        new FacesMessage(FacesMessage.SEVERITY_INFO, "Info Message", "Details of info message."));
   }
 
   public void createSevenMessages() {
     FacesContext.getCurrentInstance().addMessage(null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO, "First Message - Info", null));
+        new FacesMessage(FacesMessage.SEVERITY_INFO, "First Message - Info", null));
     FacesContext.getCurrentInstance().addMessage(null,
-            new FacesMessage(FacesMessage.SEVERITY_FATAL, "Second Message - Fatal", null));
+        new FacesMessage(FacesMessage.SEVERITY_FATAL, "Second Message - Fatal", null));
     FacesContext.getCurrentInstance().addMessage(null,
-            new FacesMessage(FacesMessage.SEVERITY_WARN, "Third Message - Warn", null));
+        new FacesMessage(FacesMessage.SEVERITY_WARN, "Third Message - Warn", null));
     FacesContext.getCurrentInstance().addMessage(null,
-            new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fourth Message - Fatal", null));
+        new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fourth Message - Fatal", null));
     FacesContext.getCurrentInstance().addMessage(null,
-            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fifth Message - Error", null));
+        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fifth Message - Error", null));
     FacesContext.getCurrentInstance().addMessage(null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO, "Sixth Message - Info", null));
+        new FacesMessage(FacesMessage.SEVERITY_INFO, "Sixth Message - Info", null));
     FacesContext.getCurrentInstance().addMessage(null,
-            new FacesMessage(FacesMessage.SEVERITY_WARN, "Seventh Message - Warn", null));
+        new FacesMessage(FacesMessage.SEVERITY_WARN, "Seventh Message - Warn", null));
+  }
+
+  public void createSummaryDetailMessages() {
+    FacesContext.getCurrentInstance().addMessage(null,
+        new FacesMessage(FacesMessage.SEVERITY_INFO, "Summary only", null));
+    FacesContext.getCurrentInstance().addMessage(null,
+        new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Details only"));
+    FacesContext.getCurrentInstance().addMessage(null,
+        new FacesMessage(FacesMessage.SEVERITY_INFO, "Summary", "Details"));
+    FacesContext.getCurrentInstance().addMessage(null,
+        new FacesMessage(FacesMessage.SEVERITY_INFO, "Summary and details are equal strings",
+            "Summary and details are equal strings"));
   }
 }
