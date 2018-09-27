@@ -153,25 +153,25 @@ public class MessagesRenderer extends RendererBase {
 
     final String summary = message.getSummary();
     final String detail = message.getDetail();
+    final boolean showSummary = summary != null && messages.isShowSummary() && summary.length() > 0;
+    final boolean showDetails = detail != null && messages.isShowDetail() && detail.length() > 0;
     writer.startElement(HtmlElements.LABEL);
     if (clientId != null) {
       writer.writeAttribute(HtmlAttributes.FOR, clientId, false);
     }
     writer.writeAttribute(HtmlAttributes.TITLE, detail, true);
-    boolean writeEmptyText = true;
-    if (summary != null && messages.isShowSummary()) {
+
+    if (showSummary && showDetails && !summary.equals(detail)) {
+      writer.startElement(HtmlElements.STRONG);
       writer.writeText(summary);
-      writeEmptyText = false;
-      if (detail != null && messages.isShowDetail()) {
-        writer.writeText(" ");
-      }
-    }
-    if (detail != null && messages.isShowDetail()) {
-      writeEmptyText = false;
+      writer.endElement(HtmlElements.STRONG);
       writer.writeText(detail);
-    }
-    if (writeEmptyText) {
-      writer.writeText("");
+    } else if (showSummary) {
+      writer.writeText(summary);
+    } else if (showDetails) {
+      writer.writeText(detail);
+    } else {
+      writer.writeText(message.getSeverity().toString());
     }
     writer.endElement(HtmlElements.LABEL);
 
