@@ -414,7 +414,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     builder.append(sanitizer);
     builder.append(", \nautoAccessKeyFromLabel=");
     builder.append(autoAccessKeyFromLabel);
-    builder.append(", \n=classicDateTimePicker");
+    builder.append(", \nclassicDateTimePicker=");
     builder.append(classicDateTimePicker);
     // to see only different (ignore alternative names for the same theme)
     builder.append(", \nthemes=");
