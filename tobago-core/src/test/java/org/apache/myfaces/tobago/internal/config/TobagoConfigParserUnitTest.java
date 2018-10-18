@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
-import org.junit.Assert;
 import org.apache.myfaces.tobago.context.ThemeImpl;
+import org.junit.Assert;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
@@ -64,9 +64,9 @@ public class TobagoConfigParserUnitTest {
     Assert.assertEquals("my-before-1", fragment.getBefore().get(0));
     Assert.assertEquals("my-before-2", fragment.getBefore().get(1));
 
-    Assert.assertEquals(false, fragment.getCreateSessionSecret().booleanValue());
-    Assert.assertEquals(false, fragment.getCheckSessionSecret().booleanValue());
-    Assert.assertEquals(false, fragment.getPreventFrameAttacks().booleanValue());
+    Assert.assertFalse(fragment.getCreateSessionSecret());
+    Assert.assertFalse(fragment.getCheckSessionSecret());
+    Assert.assertFalse(fragment.getPreventFrameAttacks());
 
     final Map<String, String> directiveMap = fragment.getContentSecurityPolicy().getDirectiveMap();
     final Set<Map.Entry<String, String>> entries = directiveMap.entrySet();

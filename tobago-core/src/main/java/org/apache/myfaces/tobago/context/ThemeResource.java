@@ -27,6 +27,7 @@ import java.io.Serializable;
 public class ThemeResource implements Serializable {
 
   private String name;
+  private int priority;
 
   public String getName() {
     return name;
@@ -34,6 +35,14 @@ public class ThemeResource implements Serializable {
 
   public void setName(final String name) {
     this.name = name;
+  }
+
+  public int getPriority() {
+    return priority;
+  }
+
+  public void setPriority(int priority) {
+    this.priority = priority;
   }
 
   @Override

@@ -364,10 +364,12 @@
 
   <xs:complexType name="script-type">
     <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="priority" type="xs:unsignedShort"/>
   </xs:complexType>
 
   <xs:complexType name="style-type">
     <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="priority" type="xs:unsignedShort"/>
   </xs:complexType>
 
   <xs:simpleType name="name-type">

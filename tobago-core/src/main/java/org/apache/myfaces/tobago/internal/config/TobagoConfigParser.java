@@ -104,6 +104,14 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int EXTENSION = -612557761;
   private static final int TYPE = 3575610;
 
+  private static final String ATTR_MODE = "mode";
+  private static final String ATTR_PRODUCTION = "production";
+  private static final String ATTR_NAME = "name";
+  private static final String ATTR_KEY = "key";
+  private static final String ATTR_PRIORITY = "priority";
+
+  private static final int MAX_PRIORITY = 65536;
+
   private TobagoConfigFragment tobagoConfig;
   private ThemeImpl currentTheme;
   private Boolean production;
@@ -181,7 +189,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         break;
 
       case CONTENT_SECURITY_POLICY:
-        final String mode = attributes.getValue("mode");
+        final String mode = attributes.getValue(ATTR_MODE);
         tobagoConfig.setContentSecurityPolicy(new ContentSecurityPolicy(mode));
         break;
 
@@ -191,7 +199,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         break;
 
       case RESOURCES:
-        production = Boolean.parseBoolean(attributes.getValue("production"));
+        production = Boolean.parseBoolean(attributes.getValue(ATTR_PRODUCTION));
         break;
 
       case EXCLUDES:
@@ -200,7 +208,9 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
 
       case SCRIPT:
         final ThemeScript script = new ThemeScript();
-        script.setName(attributes.getValue("name"));
+        script.setName(attributes.getValue(ATTR_NAME));
+        final String scriptPriority = attributes.getValue(ATTR_PRIORITY);
+        script.setPriority(scriptPriority != null ? Integer.parseUnsignedInt(scriptPriority) : MAX_PRIORITY);
         if (production) {
           currentTheme.getProductionResources().addScript(script, exclude);
         } else {
@@ -210,7 +220,9 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
 
       case STYLE:
         final ThemeStyle style = new ThemeStyle();
-        style.setName(attributes.getValue("name"));
+        style.setName(attributes.getValue(ATTR_NAME));
+        final String stylePriority = attributes.getValue(ATTR_PRIORITY);
+        style.setPriority(stylePriority != null ? Integer.parseUnsignedInt(stylePriority) : MAX_PRIORITY);
         if (production) {
           currentTheme.getProductionResources().addStyle(style, exclude);
         } else {
@@ -223,11 +235,11 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         break;
 
       case ENTRY:
-        entryKey = attributes.getValue("key");
+        entryKey = attributes.getValue(ATTR_KEY);
         break;
 
       case DIRECTIVE:
-        directiveName = attributes.getValue("name");
+        directiveName = attributes.getValue(ATTR_NAME);
         break;
 
       case NAME:

@@ -133,6 +133,32 @@ public class TobagoConfigMergingUnitTest {
     Assert.assertEquals("test/three", mimeTypes.get("test-3"));
   }
 
+  @Test
+  public void testResourcePriority()
+      throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
+
+    final TobagoConfigImpl config = loadAndMerge(
+        "tobago-config-5.0.xml", "tobago-config-5.0-replace.xml");
+
+    final String[] expected = new String[] {
+        "script-1.js",
+        "script-2.js",
+        "script-3-replacement.js",
+        "script-4.js",
+        "script-5.js",
+        "script-undefined-a.js",
+        "script-undefined-b.js",
+        "script-undefined-c.js",
+        "script-undefined-d.js",
+        "script-undefined-e.js"
+    };
+
+    config.resolveThemes();
+    final String[] scripts = config.getDefaultTheme().getScriptResources(true);
+
+    Assert.assertArrayEquals(expected, scripts);
+  }
+
   public static TobagoConfigImpl loadAndMerge(final String... names)
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 

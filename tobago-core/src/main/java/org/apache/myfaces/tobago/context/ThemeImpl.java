@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ThemeImpl implements Theme, Serializable {
@@ -158,24 +159,16 @@ public class ThemeImpl implements Theme, Serializable {
 
   public void init() {
     checkLocked();
-    productionScripts = new String[productionResources.getScriptList().size()];
-    for (int i = 0; i < productionResources.getScriptList().size(); i++) {
-      productionScripts[i] = productionResources.getScriptList().get(i).getName();
-    }
-    productionStyles = new String[productionResources.getStyleList().size()];
-    for (int i = 0; i < productionResources.getStyleList().size(); i++) {
-      productionStyles[i] = productionResources.getStyleList().get(i).getName();
-    }
+    productionScripts = sort(productionResources.getScriptList());
+    productionStyles = sort(productionResources.getStyleList());
+    scripts = sort(resources.getScriptList());
+    styles = sort(resources.getStyleList());
+  }
 
-    scripts = new String[resources.getScriptList().size()];
-    for (int i = 0; i < resources.getScriptList().size(); i++) {
-      scripts[i] = resources.getScriptList().get(i).getName();
-    }
-    styles = new String[resources.getStyleList().size()];
-    for (int i = 0; i < resources.getStyleList().size(); i++) {
-      styles[i] = resources.getStyleList().get(i).getName();
-    }
-
+  private String[] sort(List<? extends ThemeResource> list) {
+    final List<ThemeResource> copy = new ArrayList<>(list);
+    copy.sort(Comparator.comparingInt(ThemeResource::getPriority));
+    return copy.stream().map(ThemeResource::getName).toArray(String[]::new);
   }
 
   @Override
