@@ -20,8 +20,8 @@
 <tobago-config
     xmlns="http://myfaces.apache.org/tobago/tobago-config"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-2.0.xsd"
-    version="2.0">
+    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-2.3.xsd"
+    version="2.3">
 
   <name>tobago-theme-standard</name>
 
@@ -384,40 +384,40 @@
         </renderer>
       </renderers>
       <resources production="true">
-        <script name="script/contrib/jquery-3.3.1.js"/>
-        <script name="script/contrib/jquery-ui-1.10.4.custom.js"/>
-        <script name="script/contrib/jquery-ui-timepicker-addon-1.4.5.js"/>
-        <script name="script/tobago.js"/>
-        <style name="style/contrib/ui-lightness/jquery-ui-1.10.4.custom.css"/>
-        <style name="style/contrib/jquery-ui-timepicker-addon-1.4.5.css"/>
-        <style name="style/tobago.css"/>
+        <script priority="10" name="script/contrib/jquery-3.3.1.js"/>
+        <script priority="20" name="script/contrib/jquery-ui-1.10.4.custom.js"/>
+        <script priority="30" name="script/contrib/jquery-ui-timepicker-addon-1.4.5.js"/>
+        <script priority="40" name="script/tobago.js"/>
+        <style priority="10" name="style/contrib/ui-lightness/jquery-ui-1.10.4.custom.css"/>
+        <style priority="20" name="style/contrib/jquery-ui-timepicker-addon-1.4.5.css"/>
+        <style priority="30" name="style/tobago.css"/>
         <!-- backward compatibility -->
-        <style name="style/style.css"/>
+        <style priority="40" name="style/style.css"/>
       </resources>
       <resources production="false">
-        <script name="script/contrib/jquery-3.3.1.js"/>
-        <script name="script/contrib/jquery-ui-1.10.4.custom.js"/>
-        <script name="script/contrib/jquery-ui-timepicker-addon-1.4.5.js"/>
-        <script name="script/tobago.js"/>
-        <script name="script/tobago-calendar.js"/>
-        <script name="script/tobago-console.js"/>
-        <script name="script/tobago-converter.js"/>
-        <script name="script/tobago-file.js"/>
-        <script name="script/tobago-in.js"/>
-        <script name="script/tobago-menu.js"/>
-        <script name="script/tobago-overlay.js"/>
-        <script name="script/tobago-popup.js"/>
-        <script name="script/tobago-sheet.js"/>
-        <script name="script/tobago-suggest.js"/>
-        <script name="script/tobago-tab.js"/>
-        <script name="script/tobago-tree.js"/>
-        <script name="script/tobago-utils.js"/>
-        <script name="script/tobago-logging.js"/>
-        <style name="style/contrib/ui-lightness/jquery-ui-1.10.4.custom.css"/>
-        <style name="style/contrib/jquery-ui-timepicker-addon-1.4.5.css"/>
-        <style name="style/tobago.css"/>
+        <script priority="10" name="script/contrib/jquery-3.3.1.js"/>
+        <script priority="20" name="script/contrib/jquery-ui-1.10.4.custom.js"/>
+        <script priority="30" name="script/contrib/jquery-ui-timepicker-addon-1.4.5.js"/>
+        <script priority="40" name="script/tobago.js"/>
+        <script priority="50" name="script/tobago-calendar.js"/>
+        <script priority="60" name="script/tobago-console.js"/>
+        <script priority="70" name="script/tobago-converter.js"/>
+        <script priority="80" name="script/tobago-file.js"/>
+        <script priority="90" name="script/tobago-in.js"/>
+        <script priority="100" name="script/tobago-menu.js"/>
+        <script priority="110" name="script/tobago-overlay.js"/>
+        <script priority="120" name="script/tobago-popup.js"/>
+        <script priority="130" name="script/tobago-sheet.js"/>
+        <script priority="140" name="script/tobago-suggest.js"/>
+        <script priority="150" name="script/tobago-tab.js"/>
+        <script priority="160" name="script/tobago-tree.js"/>
+        <script priority="170" name="script/tobago-utils.js"/>
+        <script priority="180" name="script/tobago-logging.js"/>
+        <style priority="10" name="style/contrib/ui-lightness/jquery-ui-1.10.4.custom.css"/>
+        <style priority="20" name="style/contrib/jquery-ui-timepicker-addon-1.4.5.css"/>
+        <style priority="30" name="style/tobago.css"/>
         <!-- backward compatibility -->
-        <style name="style/style.css"/>
+        <style priority="40" name="style/style.css"/>
       </resources>
     </theme-definition>
   </theme-definitions>

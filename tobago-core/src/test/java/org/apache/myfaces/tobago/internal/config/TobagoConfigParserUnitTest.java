@@ -66,9 +66,9 @@ public class TobagoConfigParserUnitTest {
     Assert.assertEquals("my-resource-1", fragment.getResourceDirs().get(0));
     Assert.assertEquals("my-resource-2", fragment.getResourceDirs().get(1));
 
-    Assert.assertEquals(false, fragment.getCreateSessionSecret().booleanValue());
-    Assert.assertEquals(false, fragment.getCheckSessionSecret().booleanValue());
-    Assert.assertEquals(false, fragment.getPreventFrameAttacks().booleanValue());
+    Assert.assertFalse(fragment.getCreateSessionSecret());
+    Assert.assertFalse(fragment.getCheckSessionSecret());
+    Assert.assertFalse(fragment.getPreventFrameAttacks());
 
     Assert.assertEquals(2, fragment.getContentSecurityPolicy().getDirectiveList().size());
     Assert.assertEquals("default-src 'self'", fragment.getContentSecurityPolicy().getDirectiveList().get(0));
