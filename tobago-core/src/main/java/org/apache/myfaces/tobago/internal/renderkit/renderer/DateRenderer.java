@@ -97,6 +97,7 @@ public class DateRenderer extends InRenderer {
         BootstrapDateTimePickerClass.DATEPICKERBUTTON);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     writer.writeAttribute(HtmlAttributes.DISABLED, date.isDisabled() || date.isReadonly());
+    writer.writeAttribute(HtmlAttributes.TABINDEX, date.getTabIndex());
 
     final boolean hasDate = StringUtils.containsAny(pattern, "yYMDdE");
     final boolean hasTime = StringUtils.containsAny(pattern, "Hhms");
