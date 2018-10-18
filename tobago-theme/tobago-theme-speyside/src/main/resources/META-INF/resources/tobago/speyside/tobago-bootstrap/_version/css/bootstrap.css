@@ -8863,6 +8863,7 @@ XXX used variables: only for the IDE, will not really used by the build system, 
 XXX code will be inserted after the _variables.scss
 */
 /* used icons ---------------------------------------------------- */
+/* non-bootstrap variabled --------------------------------------- */
 /* badge -------------------------------------------------------------- */
 .badge.btn {
   border: 0;
@@ -8965,6 +8966,10 @@ button.tobago-button:disabled img, button.tobago-button:disabled span {
 .tobago-date::-ms-clear {
   /* Remove IE10's "clear field" X button */
   display: none;
+}
+
+.tobago-date:disabled {
+  color: rgba(73, 80, 87, 0.5);
 }
 
 /* for pickers with more than one icon, e.g. date-time picker */
@@ -9078,6 +9083,10 @@ XXX workaround for Bootstrap with datetimepicker needed for popups
 }
 
 /* in ----------------------------------------------------------- */
+.tobago-in:disabled {
+  color: rgba(73, 80, 87, 0.5);
+}
+
 .tobago-in-markup-number {
   text-align: right;
 }
@@ -10231,6 +10240,10 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 }
 
 /* textarea --------------------------------------------------------- */
+.tobago-textarea:disabled {
+  color: rgba(73, 80, 87, 0.5);
+}
+
 /* facesMessages messageLayout focus shadows ------------------------ */
 .tobago-date-markup-fatal.border-danger:focus, .tobago-date-markup-error.border-danger:focus,
 .tobago-in-markup-fatal.border-danger:focus,
