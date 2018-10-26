@@ -211,7 +211,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         final ThemeScript script = new ThemeScript();
         script.setName(attributes.getValue(ATTR_NAME));
         final String scriptPriority = attributes.getValue(ATTR_PRIORITY);
-        script.setPriority(scriptPriority != null ? Integer.parseUnsignedInt(scriptPriority) : MAX_PRIORITY);
+        script.setPriority(scriptPriority != null ? Integer.parseInt(scriptPriority) : MAX_PRIORITY);
         if (production) {
           currentTheme.getProductionResources().addScript(script, exclude);
         } else {
@@ -223,7 +223,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         final ThemeStyle style = new ThemeStyle();
         style.setName(attributes.getValue(ATTR_NAME));
         final String stylePriority = attributes.getValue(ATTR_PRIORITY);
-        style.setPriority(stylePriority != null ? Integer.parseUnsignedInt(stylePriority) : MAX_PRIORITY);
+        style.setPriority(stylePriority != null ? Integer.parseInt(stylePriority) : MAX_PRIORITY);
         if (production) {
           currentTheme.getProductionResources().addStyle(style, exclude);
         } else {
