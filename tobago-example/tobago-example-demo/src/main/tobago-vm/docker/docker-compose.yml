@@ -134,15 +134,15 @@ services:
   demo-2-staging:
     build: tomcat
     environment:
-      - TOBAGO_VERSION=2.2.0
-      - STAGING_NUMBER=1139
+      - TOBAGO_VERSION=2.3.0
+      - STAGING_NUMBER=1143
       - CONTEXT_PATH=demo-2-staging
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
   demo-2-snapshot:
     build: tomcat
     environment:
-      - TOBAGO_VERSION=2.3.0-SNAPSHOT
+      - TOBAGO_VERSION=2.3.1-SNAPSHOT
       - CONTEXT_PATH=demo-2-snapshot
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
