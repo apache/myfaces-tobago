@@ -33,4 +33,10 @@
     </locale-config>
   </application>
 
+  <factory>
+    <exception-handler-factory>
+      org.apache.myfaces.tobago.context.TobagoExceptionHandlerFactory
+    </exception-handler-factory>
+  </factory>
+
 </faces-config>
