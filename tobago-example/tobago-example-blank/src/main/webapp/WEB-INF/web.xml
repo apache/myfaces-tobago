@@ -48,7 +48,7 @@
 
   <servlet-mapping>
     <servlet-name>FacesServlet</servlet-name>
-    <url-pattern>/faces/*</url-pattern>
+    <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
 
   <!-- The Usual Welcome File List -->
