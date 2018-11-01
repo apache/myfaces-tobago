@@ -88,8 +88,8 @@ public class BeanComparator extends ComparatorBase implements Serializable {
     final Object obj1;
     final Object obj2;
     try {
-      obj1 = new PropertyDescriptor(property, param1.getClass()).getReadMethod().invoke(param1);
-      obj2 = new PropertyDescriptor(property, param1.getClass()).getReadMethod().invoke(param2);
+      obj1 = new PropertyDescriptor(property, param1.getClass(), property, null).getReadMethod().invoke(param1);
+      obj2 = new PropertyDescriptor(property, param1.getClass(), property, null).getReadMethod().invoke(param2);
     } catch (final Exception e) {
       LOG.error(e.getMessage(), e);
       return 0;
