@@ -148,7 +148,7 @@
   </servlet-mapping>
 
   <!-- Error handling, see also these classes:
-       org.apache.myfaces.tobago.example.demo.TestExceptionHandler
+       org.apache.myfaces.tobago.example.demo.TobagoExceptionHandler
        org.apache.myfaces.tobago.example.demo.DeltaSpikeClientWindowConfig
    -->
 
