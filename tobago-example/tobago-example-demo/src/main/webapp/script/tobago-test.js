@@ -57,3 +57,7 @@ QUnit.test("duplicated IDs", function (assert) {
   var duplicatedIDs = getDuplicatedIDs();
   assert.equal(duplicatedIDs.length, 0, "duplicated IDs are: " + duplicatedIDs);
 });
+
+QUnit.test("test '???'", function (assert) {
+  assert.equal(jQueryFrame("*:contains('???')").length, 0, "There must no '???' on the site.");
+});
