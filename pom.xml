@@ -1022,7 +1022,7 @@
           <artifactId>dependency-check-maven</artifactId>
           <version>3.3.3</version>
           <configuration>
-            <failBuildOnCVSS>0</failBuildOnCVSS>
+            <failBuildOnCVSS>4.4</failBuildOnCVSS>
             <suppressionFile>tobago/dependency-check-suppression.xml</suppressionFile>
           </configuration>
           <dependencies>
