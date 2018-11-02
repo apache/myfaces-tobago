@@ -90,15 +90,15 @@ services:
   demo-4-staging:
     build: tomcat
     environment:
-      - TOBAGO_VERSION=4.3.0
-      - STAGING_NUMBER=1141
+      - TOBAGO_VERSION=4.3.1
+      - STAGING_NUMBER=1144
       - CONTEXT_PATH=demo-4-staging
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
   demo-4-snapshot:
     build: tomcat
     environment:
-      - TOBAGO_VERSION=4.3.1-SNAPSHOT
+      - TOBAGO_VERSION=4.3.2-SNAPSHOT
       - CONTEXT_PATH=demo-4-snapshot
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
@@ -127,7 +127,7 @@ services:
   demo-2-release:
     build: tomcat
     environment:
-      - TOBAGO_VERSION=2.2.0
+      - TOBAGO_VERSION=2.3.0
       - CONTEXT_PATH=demo-2-release
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
