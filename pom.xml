@@ -33,6 +33,31 @@
   </prerequisites>
   <url>http://myfaces.apache.org/tobago</url>
   <inceptionYear>2002</inceptionYear>
+
+  <properties>
+    <myfaces20.version>2.0.24</myfaces20.version>
+    <myfaces21.version>2.1.18</myfaces21.version>
+    <myfaces22.version>2.2.12</myfaces22.version>
+    <mojarra20.version>2.0.11-04</mojarra20.version>
+    <mojarra21.version>2.1.29-08</mojarra21.version>
+    <mojarra22.version>2.2.16</mojarra22.version>
+    <slf4j.version>1.7.25</slf4j.version>
+    <logback.version>1.2.3</logback.version>
+    <log4j.version>1.2.17</log4j.version>
+    <commons-io.version>2.4</commons-io.version>
+    <commons-lang.version>2.6</commons-lang.version>
+    <commons-logging.version>1.1.1</commons-logging.version>
+    <commons-collection.version>3.2.2</commons-collection.version>
+    <maven.compile.source>1.5</maven.compile.source>
+    <maven.compile.target>1.5</maven.compile.target>
+    <maven.compile.encoding>UTF-8</maven.compile.encoding>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jsf.target>2.0</jsf.target>
+    <required.maven.version>2.2.1</required.maven.version>
+    <checkstyle-rules.version>11</checkstyle-rules.version>
+    <tobago.basedir>${project.basedir}</tobago.basedir>
+  </properties>
+
   <issueManagement>
     <system>jira</system>
     <url>https://issues.apache.org/jira/browse/TOBAGO</url>
@@ -1516,27 +1541,4 @@
     </contributor>
   </contributors>
 
-  <properties>
-    <myfaces20.version>2.0.24</myfaces20.version>
-    <myfaces21.version>2.1.18</myfaces21.version>
-    <myfaces22.version>2.2.12</myfaces22.version>
-    <mojarra20.version>2.0.11-04</mojarra20.version>
-    <mojarra21.version>2.1.29-08</mojarra21.version>
-    <mojarra22.version>2.2.16</mojarra22.version>
-    <slf4j.version>1.7.25</slf4j.version>
-    <logback.version>1.2.3</logback.version>
-    <log4j.version>1.2.17</log4j.version>
-    <commons-io.version>2.4</commons-io.version>
-    <commons-lang.version>2.6</commons-lang.version>
-    <commons-logging.version>1.1.1</commons-logging.version>
-    <commons-collection.version>3.2.2</commons-collection.version>
-    <maven.compile.source>1.5</maven.compile.source>
-    <maven.compile.target>1.5</maven.compile.target>
-    <maven.compile.encoding>UTF-8</maven.compile.encoding>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <jsf.target>2.0</jsf.target>
-    <required.maven.version>2.2.1</required.maven.version>
-    <checkstyle-rules.version>11</checkstyle-rules.version>
-    <tobago.basedir>${project.basedir}</tobago.basedir>
-  </properties>
 </project>
