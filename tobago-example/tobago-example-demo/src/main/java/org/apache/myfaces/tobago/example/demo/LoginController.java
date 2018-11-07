@@ -28,7 +28,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
@@ -41,17 +40,16 @@ public class LoginController {
   private String username;
   private String password;
 
-  public String login() throws ServletException, IOException {
+  public Outcome login() throws ServletException {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final ExternalContext externalContext = facesContext.getExternalContext();
     final HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
-    final HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
 
     LOG.info("Try to login user: '{}'", username);
     request.login(username, password);
     LOG.info("Successful login user: '{}'", username);
 
-    return "/content/30-concept/80-security/20-roles/x-login.xhtml?faces-redirect=true";
+    return Outcome.CONCEPT_SECURITY_ROLES_XLOGIN;
   }
 
   public String logout() throws ServletException, IOException {

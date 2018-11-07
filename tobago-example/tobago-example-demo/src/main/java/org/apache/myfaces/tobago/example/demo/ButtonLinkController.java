@@ -30,18 +30,18 @@ public class ButtonLinkController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(ButtonLinkController.class);
 
-  public String linkToComponentsRoot() {
+  public Outcome linkToComponentsRoot() {
     LOG.info("link to components root");
-    return "/content/20-component/component.xhtml?faces-redirect=true";
+    return Outcome.COMPONENT_COMPONENT;
   }
 
-  public String actionPage() {
+  public Outcome actionPage() {
     LOG.info("link to action.xhtml");
-    return "/content/40-test/4000-button+link/x-action.xhtml?faces-redirect=true";
+    return Outcome.TEST_BUTTONLINK_XACTION;
   }
 
-  public String targetActionPage() {
+  public Outcome targetActionPage() {
     LOG.info("link to targetAction.xhtml");
-    return "/content/40-test/4000-button+link/x-targetAction.xhtml";
+    return Outcome.TEST_BUTTONLINK_XTARGETACTION;
   }
 }
