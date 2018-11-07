@@ -83,7 +83,7 @@ services:
   demo-4-release:
     build: tomcat
     environment:
-      - TOBAGO_VERSION=4.3.0
+      - TOBAGO_VERSION=4.3.1
       - CONTEXT_PATH=demo-4-release
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
