@@ -60,7 +60,8 @@ public class ImageRenderer extends RendererBase {
       writer.writeClassAttribute(
           Icons.FA,
           Icons.custom(value),
-          disabled ? BootstrapClass.DISABLED : null);
+          disabled ? BootstrapClass.DISABLED : null,
+          image.getCustomClass());
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
       writer.endElement(HtmlElements.I);
     } else {
