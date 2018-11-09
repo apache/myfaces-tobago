@@ -40,6 +40,7 @@ import java.util.Map;
 
 /**
  * CSS classes for the Bootstrap Library.
+ *
  * @since 3.0.0
  */
 public enum BootstrapClass implements CssItem {
@@ -551,29 +552,24 @@ public enum BootstrapClass implements CssItem {
     if (severity == null) {
       return null;
     }
-
-    switch (severity.getOrdinal()) {
-      case 1:
-        return BootstrapClass.BORDER_INFO;
-      case 2:
-        return BootstrapClass.BORDER_WARNING;
-      default:
-        return BootstrapClass.BORDER_DANGER;
-    }
+    return getSeverityCssItem(severity, BORDER_INFO, BORDER_WARNING, BORDER_DANGER);
   }
 
   public static CssItem buttonColor(final FacesMessage.Severity severity) {
     if (severity == null) {
       return null;
     }
+    return getSeverityCssItem(severity, BTN_INFO, BTN_WARNING, BTN_DANGER);
+  }
 
-    switch (severity.getOrdinal()) {
-      case 1:
-        return BootstrapClass.BTN_INFO;
-      case 2:
-        return BootstrapClass.BTN_WARNING;
-      default:
-        return BootstrapClass.BTN_DANGER;
+  private static CssItem getSeverityCssItem(FacesMessage.Severity severity,
+      BootstrapClass info, BootstrapClass warning, BootstrapClass error) {
+    if (severity.equals(FacesMessage.SEVERITY_INFO)) {
+      return info;
+    } else if (severity.equals(FacesMessage.SEVERITY_WARN)) {
+      return warning;
+    } else {
+      return error;
     }
   }
 
