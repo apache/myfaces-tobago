@@ -37,6 +37,12 @@
     <param-value>true</param-value>
   </context-param>
 
+<!-- enable for websockets -->
+  <context-param>
+    <param-name>javax.faces.ENABLE_WEBSOCKET_ENDPOINT</param-name>
+    <param-value>true</param-value>
+  </context-param>
+
    <!-- disable error handling from myfaces, needed for the demo -->
   <context-param>
     <param-name>org.apache.myfaces.ERROR_HANDLING</param-name>
