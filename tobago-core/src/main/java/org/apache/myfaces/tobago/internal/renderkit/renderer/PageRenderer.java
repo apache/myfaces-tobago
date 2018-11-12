@@ -83,6 +83,7 @@ public class PageRenderer extends RendererBase {
 
   private static final String LAST_FOCUS_ID = "lastFocusId";
   private static final String HEAD_TARGET = "head";
+  private static final String BODY_TARGET = "body";
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
@@ -330,6 +331,7 @@ public class PageRenderer extends RendererBase {
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIPage page = (UIPage) component;
+    final UIViewRoot viewRoot = facesContext.getViewRoot();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final String clientId = page.getClientId(facesContext);
     final Application application = facesContext.getApplication();
@@ -360,6 +362,11 @@ public class PageRenderer extends RendererBase {
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.NOSCRIPT);
     writer.endElement(HtmlElements.DIV);
+
+    final List<UIComponent> bodyResources = viewRoot.getComponentResources(facesContext, BODY_TARGET);
+    for (final UIComponent bodyResource : bodyResources) {
+      bodyResource.encodeAll(facesContext);
+    }
 
     if (!portlet) {
       writer.endElement(HtmlElements.BODY);
