@@ -21,16 +21,21 @@ package org.apache.myfaces.tobago.context;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.util.CookieUtils;
+import org.apache.myfaces.tobago.util.MessageUtils;
+import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 @ManagedBean
 @RequestScoped
@@ -40,20 +45,31 @@ public class TobagoContext implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoContext.class);
 
-  private static final TobagoResourceBundle RESOURCE_BUNDLE = new TobagoResourceBundle();
-  private static final TobagoMessageBundle MESSAGE_BUNDLE = new TobagoMessageBundle();
-
   private Theme theme;
   private UserAgent userAgent;
   private String focusId;
   private String enctype;
 
-  public TobagoResourceBundle getResourceBundle() {
-    return RESOURCE_BUNDLE;
+  /**
+   * @deprecated Please use {@link ResourceUtils#getString} in Java or #{tobagoResourceBundle.key} in Facelets.
+   */
+  @Deprecated
+  public ResourceBundle getResourceBundle() {
+    final UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
+    final Locale locale = viewRoot != null
+        ? viewRoot.getLocale() : FacesContext.getCurrentInstance().getApplication().getDefaultLocale();
+    return ResourceBundle.getBundle("tobagoResourceBundle", locale);
   }
 
-  public TobagoMessageBundle getMessageBundle() {
-    return MESSAGE_BUNDLE;
+  /**
+   * @deprecated Please use {@link MessageUtils}.
+   */
+  @Deprecated
+  public ResourceBundle getMessageBundle() {
+    final UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
+    final Locale locale = viewRoot != null
+        ? viewRoot.getLocale() : FacesContext.getCurrentInstance().getApplication().getDefaultLocale();
+    return ResourceBundle.getBundle("org.apache.myfaces.tobago.context.TobagoMessage", locale);
   }
 
   public TobagoConfig getTobagoConfig() {

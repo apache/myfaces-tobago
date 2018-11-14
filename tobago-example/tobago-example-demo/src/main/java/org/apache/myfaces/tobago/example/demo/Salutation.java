@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import javax.faces.context.FacesContext;
+import org.apache.myfaces.tobago.util.ResourceUtils;
 
 public enum Salutation {
 
@@ -27,7 +27,7 @@ public enum Salutation {
 
   public String getLabel() {
     // XXX This implementation is only for demo. This should be optimized/cached.
-    return DemoBundle.getString(FacesContext.getCurrentInstance(), getClass().getSimpleName() + "_" + name());
+    return ResourceUtils.getString("demoBundle", Salutation.class.getSimpleName() + "_" + name());
   }
 
   public String getIcon() {

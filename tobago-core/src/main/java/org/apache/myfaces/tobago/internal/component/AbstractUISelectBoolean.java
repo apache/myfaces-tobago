@@ -54,8 +54,8 @@ public abstract class AbstractUISelectBoolean extends UISelectBoolean
       if (convertedValue instanceof Boolean && !((Boolean) convertedValue)
           // String: e. g. if there is no ValueExpression
           || convertedValue instanceof String && !Boolean.parseBoolean((String) convertedValue)) {
-        MessageUtils.addMessage(
-            facesContext, this, FacesMessage.SEVERITY_ERROR, REQUIRED_MESSAGE_ID, new Object[]{getId()});
+        facesContext.addMessage(getClientId(facesContext),
+            MessageUtils.getMessage(facesContext, FacesMessage.SEVERITY_ERROR, REQUIRED_MESSAGE_ID, getId()));
         setValid(false);
         return;
       }

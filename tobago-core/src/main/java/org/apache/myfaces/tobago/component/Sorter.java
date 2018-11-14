@@ -231,8 +231,16 @@ public class Sorter {
   }
 
   private void addNotSortableMessage(final FacesContext facesContext, final UIColumn column) {
-    MessageUtils.addMessage(facesContext, column, FacesMessage.SEVERITY_WARN,
-        AbstractUISheet.NOT_SORTABLE_MESSAGE_ID, new Object[]{MessageUtils.getLabel(facesContext, column)});
+    if (column != null) {
+      final String label = MessageUtils.getLabel(facesContext, column);
+      facesContext.addMessage(column.getClientId(facesContext),
+          MessageUtils.getMessage(
+              facesContext, FacesMessage.SEVERITY_WARN, AbstractUISheet.NOT_SORTABLE_COL_MESSAGE_ID, label));
+    } else {
+      facesContext.addMessage(null,
+          MessageUtils.getMessage(
+              facesContext, FacesMessage.SEVERITY_WARN, AbstractUISheet.NOT_SORTABLE_MESSAGE_ID));
+    }
   }
 
   private UIComponent getFirstSortableChild(final List<UIComponent> children) {

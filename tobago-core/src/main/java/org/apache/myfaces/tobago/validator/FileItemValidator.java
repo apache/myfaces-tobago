@@ -57,10 +57,8 @@ public class FileItemValidator implements Validator, StateHolder {
     if (value != null && component instanceof AbstractUIFile) {
       final Part file = (Part) value;
       if (maxSize != null && file.getSize() > maxSize) {
-        final FacesMessage facesMessage = MessageUtils.getMessage(
-            facesContext, facesContext.getViewRoot().getLocale(), FacesMessage.SEVERITY_ERROR,
-            SIZE_LIMIT_MESSAGE_ID, maxSize, component.getId());
-        throw new ValidatorException(facesMessage);
+        throw new ValidatorException(MessageUtils.getMessage(
+            facesContext, FacesMessage.SEVERITY_ERROR, SIZE_LIMIT_MESSAGE_ID, maxSize, component.getId()));
       }
       // Check only a valid file
       if (file.getSize() > 0 && contentType != null && contentType.length > 0) {
@@ -78,10 +76,8 @@ public class FileItemValidator implements Validator, StateHolder {
           } else {
             message = Arrays.toString(contentType);
           }
-          final FacesMessage facesMessage = MessageUtils.getMessage(
-              facesContext, facesContext.getViewRoot().getLocale(), FacesMessage.SEVERITY_ERROR,
-              CONTENT_TYPE_MESSAGE_ID, message, component.getId());
-          throw new ValidatorException(facesMessage);
+          throw new ValidatorException(MessageUtils.getMessage(
+              facesContext, FacesMessage.SEVERITY_ERROR, CONTENT_TYPE_MESSAGE_ID, message, component.getId()));
         }
       }
     }

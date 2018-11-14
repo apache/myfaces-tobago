@@ -56,8 +56,8 @@ public abstract class AbstractUIFile extends UIInput implements SupportsLabelLay
   }
 
   private void addErrorMessage(final FacesContext facesContext) {
-    MessageUtils.addMessage(
-        facesContext, this, FacesMessage.SEVERITY_ERROR, REQUIRED_MESSAGE_ID, new Object[]{getId()});
+    facesContext.addMessage(getClientId(facesContext),
+        MessageUtils.getMessage(facesContext, FacesMessage.SEVERITY_ERROR, REQUIRED_MESSAGE_ID, getId()));
   }
 
   public abstract boolean isDisabled();

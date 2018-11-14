@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<tobago-config
+    xmlns="http://myfaces.apache.org/tobago/tobago-config"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-2.3.xsd"
+    version="2.3">
+
+  <name>my-name</name>
+
+  <ordering>
+    <after>
+      <name>my-after</name>
+    </after>
+    <before>
+      <name>my-before-1</name>
+      <name>my-before-2</name>
+    </before>
+  </ordering>
+
+  <theme-config>
+    <default-theme>my-theme-1</default-theme>
+    <supported-theme>my-theme-2</supported-theme>
+  </theme-config>
+
+  <create-session-secret>false</create-session-secret>
+  <check-session-secret>false</check-session-secret>
+  <prevent-frame-attacks>false</prevent-frame-attacks>
+  <set-nosniff-header>false</set-nosniff-header>
+
+  <theme-definitions>
+    <theme-definition>
+      <name>my-theme-1</name>
+      <display-name>My Theme 1</display-name>
+      <resource-path>/my/path-1</resource-path>
+      <versioned>true</versioned>
+      <resources production="true">
+        <script name="script-1.js" priority="1"/>
+        <script name="script-undefined-a.js"/>
+        <script name="script-4.js" priority="4"/>
+        <script name="script-undefined-b.js"/>
+        <script name="script-3.js" priority="3"/>
+        <script name="script-undefined-c.js"/>
+        <script name="script-5.js" priority="5"/>
+        <script name="script-undefined-d.js"/>
+        <script name="script-2.js" priority="2"/>
+        <script name="script-undefined-e.js"/>
+        <style name="style-2.css" priority="2"/>
+        <style name="style.css"/>
+        <style name="style-1.css" priority="1"/>
+      </resources>
+    </theme-definition>
+
+    <theme-definition>
+      <name>my-theme-2</name>
+      <resource-path>/my/path-1</resource-path>
+      <fallback>my-theme-2</fallback>
+      <resources production="false"/>
+    </theme-definition>
+
+  </theme-definitions>
+
+</tobago-config>

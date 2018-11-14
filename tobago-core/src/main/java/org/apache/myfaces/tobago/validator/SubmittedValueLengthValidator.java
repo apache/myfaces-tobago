@@ -83,16 +83,12 @@ public class SubmittedValueLengthValidator extends LengthValidator {
     if (value != null && uiComponent instanceof EditableValueHolder) {
       final String submittedValue = ((EditableValueHolder) uiComponent).getSubmittedValue().toString();
       if (maximum != null && submittedValue.length() > maximum) {
-        final Object[] args = {maximum, uiComponent.getId()};
-        final FacesMessage facesMessage = MessageUtils.getMessage(facesContext,
-            facesContext.getViewRoot().getLocale(), FacesMessage.SEVERITY_ERROR, MAXIMUM_MESSAGE_ID, args);
-        throw new ValidatorException(facesMessage);
+        throw new ValidatorException(MessageUtils.getMessage(
+            facesContext, FacesMessage.SEVERITY_ERROR, MAXIMUM_MESSAGE_ID, maximum, uiComponent.getId()));
       }
       if (minimum != null && submittedValue.length() < minimum) {
-        final Object[] args = {minimum, uiComponent.getId()};
-        final FacesMessage facesMessage = MessageUtils.getMessage(facesContext,
-            facesContext.getViewRoot().getLocale(), FacesMessage.SEVERITY_ERROR, MINIMUM_MESSAGE_ID, args);
-        throw new ValidatorException(facesMessage);
+        throw new ValidatorException(MessageUtils.getMessage(
+            facesContext, FacesMessage.SEVERITY_ERROR, MINIMUM_MESSAGE_ID, minimum, uiComponent.getId()));
       }
     }
   }

@@ -50,12 +50,8 @@
           <tc:box label="selectable">
             <tc:selectOneRadio id="selectable" value="#{treeSelectController.selectable}">
               <f:ajax render="examplePanel selectedNodesOutput"/>
-              <tc:selectItem itemLabel="none" itemValue="none"/>
-              <tc:selectItem itemLabel="single" itemValue="single"/>
-              <tc:selectItem itemLabel="singleLeafOnly" itemValue="singleLeafOnly"/>
-              <tc:selectItem itemLabel="multi" itemValue="multi"/>
-              <tc:selectItem itemLabel="multiLeafOnly" itemValue="multiLeafOnly"/>
-              <tc:selectItem itemLabel="multiCascade" itemValue="multiCascade"/>
+              <tc:selectItems var="mode" value="#{treeSelectController.selectModes}"
+                              itemLabel="#{mode.name()} (#{demoBundle[mode.name()]})" itemValue="#{mode.name()}"/>
             </tc:selectOneRadio>
           </tc:box>
         </tc:panel>

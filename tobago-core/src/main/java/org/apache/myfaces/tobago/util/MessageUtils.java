@@ -20,13 +20,11 @@
 package org.apache.myfaces.tobago.util;
 
 import org.apache.myfaces.tobago.application.LabelValueExpressionFacesMessage;
-import org.apache.myfaces.tobago.context.TobagoContext;
-import org.apache.myfaces.tobago.context.TobagoMessageBundle;
-import org.apache.myfaces.tobago.context.TobagoResourceBundle;
 
 import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import java.text.MessageFormat;
 import java.util.Locale;
@@ -34,8 +32,9 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
- * Utility to create and add {@link FacesMessage} object to the context. The message will be internationalized with a
- * bundle in the following order: <ol> <li>Application bundle</li> <li>Tobago bundle</li> <li>Default JSF bundle</li>
+ * Utility to get internationalized error messages and create and add {@link FacesMessage} object to the context. The
+ * message will be internationalized with a bundle in the following order: <ol> <li>Application bundle</li> <li>Tobago
+ * bundle</li> <li>Default JSF bundle</li>
  * </ol>
  */
 public final class MessageUtils {
@@ -45,13 +44,29 @@ public final class MessageUtils {
   private MessageUtils() {
   }
 
+  /**
+   * @deprecated Since 5.0.0. Please use {@link #getMessage(FacesContext, FacesMessage.Severity, String, Object...)}.
+   */
+  @Deprecated
   public static void addMessage(
       final FacesContext facesContext, final UIComponent component, final FacesMessage.Severity severity,
       final String messageId, final Object[] args) {
     facesContext.addMessage(component != null ? component.getClientId(facesContext) : null,
-        getMessage(facesContext, facesContext.getViewRoot().getLocale(), severity, messageId, args));
+        getMessage(facesContext, severity, messageId, args));
   }
 
+  public static FacesMessage getMessage(
+      final FacesContext facesContext, final FacesMessage.Severity severity, final String messageId,
+      final Object... args) {
+    final UIViewRoot viewRoot = facesContext.getViewRoot();
+    final Locale locale = viewRoot != null ? viewRoot.getLocale() : null;
+    return getMessage(facesContext, locale, severity, messageId, args);
+  }
+
+  /**
+   * @deprecated Since 5.0.0. Please use {@link #getMessage(FacesContext, FacesMessage.Severity, String, Object...)}.
+   */
+  @Deprecated
   public static FacesMessage getMessage(
       final FacesContext facesContext, final Locale locale,
       final FacesMessage.Severity severity, final String messageId, final Object... args) {
@@ -61,7 +76,8 @@ public final class MessageUtils {
     String detail = getBundleString(appBundle, messageId + DETAIL_SUFFIX);
 
     if (summary == null || detail == null) {
-      final TobagoMessageBundle tobagoMessages = TobagoContext.getInstance(facesContext).getMessageBundle();
+      final ResourceBundle tobagoMessages
+          = ResourceBundle.getBundle("org.apache.myfaces.tobago.context.TobagoMessageBundle", locale);
       if (summary == null) {
         summary = getBundleString(tobagoMessages, messageId);
       }
@@ -70,7 +86,8 @@ public final class MessageUtils {
       }
 
       if (summary == null || detail == null) {
-        final TobagoResourceBundle tobagoBundle = TobagoContext.getInstance(facesContext).getResourceBundle();
+        final ResourceBundle tobagoBundle
+            = ResourceBundle.getBundle("org.apache.myfaces.tobago.context.TobagoResourceBundle", locale);
         if (summary == null) {
           summary = getBundleString(tobagoBundle, messageId);
         }

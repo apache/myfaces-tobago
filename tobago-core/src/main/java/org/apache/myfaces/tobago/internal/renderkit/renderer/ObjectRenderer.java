@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.UIObject;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.context.TobagoResourceBundle;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -29,6 +28,7 @@ import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -60,14 +60,12 @@ public class ObjectRenderer extends RendererBase {
         object.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
 
-    String noframes = TobagoResourceBundle.getString(facesContext, "browser.noframe.message.prefix");
-    writer.writeText(noframes);
+    writer.writeText(ResourceUtils.getString(facesContext, "browser.noframe.message.prefix"));
     writer.writeText(" ");
     if (object.getSrc() != null) {
       writer.writeText(object.getSrc());
     }
-    noframes = TobagoResourceBundle.getString(facesContext, "browser.noframe.message.postfix");
-    writer.writeText(" " + noframes);
+    writer.writeText(" " + ResourceUtils.getString(facesContext, "browser.noframe.message.postfix"));
 
     writer.endElement(HtmlElements.IFRAME);
   }

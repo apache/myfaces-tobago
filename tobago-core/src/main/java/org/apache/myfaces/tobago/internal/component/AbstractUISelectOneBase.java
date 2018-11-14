@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.MessageUtils;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UIInput;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 
@@ -38,7 +37,7 @@ public abstract class AbstractUISelectOneBase extends javax.faces.component.UISe
 
   @Override
   public void validate(final FacesContext facesContext) {
-    if (isRequired()  && !isReadonly()) {
+    if (isRequired() && !isReadonly()) {
       final Object submittedValue = getSubmittedValue();
       if (submittedValue == null || "".equals(submittedValue)) {
         if (getRequiredMessage() != null) {
@@ -46,8 +45,9 @@ public abstract class AbstractUISelectOneBase extends javax.faces.component.UISe
           facesContext.addMessage(getClientId(facesContext), new FacesMessage(FacesMessage.SEVERITY_ERROR,
               requiredMessage, requiredMessage));
         } else {
-          MessageUtils.addMessage(facesContext, this, FacesMessage.SEVERITY_ERROR,
-              UIInput.REQUIRED_MESSAGE_ID, new Object[]{MessageUtils.getLabel(facesContext, this)});
+          facesContext.addMessage(getClientId(facesContext),
+              MessageUtils.getMessage(facesContext, FacesMessage.SEVERITY_ERROR, MESSAGE_VALUE_REQUIRED,
+                  MessageUtils.getLabel(facesContext, this)));
         }
         setValid(false);
       }

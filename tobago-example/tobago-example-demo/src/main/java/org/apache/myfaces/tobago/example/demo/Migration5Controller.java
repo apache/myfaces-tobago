@@ -17,28 +17,17 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.context;
+package org.apache.myfaces.tobago.example.demo;
 
-import javax.faces.context.FacesContext;
+import javax.inject.Named;
+import javax.inject.Singleton;
+import java.io.Serializable;
 
-/**
- * This ResourceBundle encapsulate the messages (e. g. validation) of Tobago components.
- * This class works like the Java resource bundle mechanism for the resource bundle {@value BUNDLE_NAME}.
- * Supports XML properties files.
- *
- * @since 1.5.0
- */
-public class TobagoMessageBundle extends TobagoBundle {
+@Singleton
+@Named
+public class Migration5Controller extends SourceFileReader implements Serializable {
 
-  public static final String VAR = "tobagoMessageBundle";
-  public static final String BUNDLE_NAME = "org.apache.myfaces.tobago.context.TobagoMessage";
-
-  public TobagoMessageBundle() {
-    super(BUNDLE_NAME);
-  }
-
-
-  public static String getString(final FacesContext facesContext, final String key) {
-    return facesContext.getApplication().getResourceBundle(facesContext, VAR).getString(key);
+  public String getJavaSource() {
+    return getSource("ConvertXmlToProperties.java");
   }
 }

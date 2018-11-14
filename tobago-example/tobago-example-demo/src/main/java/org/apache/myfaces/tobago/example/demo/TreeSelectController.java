@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.myfaces.tobago.model.Selectable;
+
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -28,11 +30,24 @@ import java.io.Serializable;
 @Named
 public class TreeSelectController implements Serializable {
 
+  private static final Selectable[] TREE_SELECT_MODE_KEYS = {
+    Selectable.none,
+    Selectable.single,
+    Selectable.singleLeafOnly,
+    Selectable.multi,
+    Selectable.multiLeafOnly,
+    Selectable.multiCascade
+  };
+
   private DefaultMutableTreeNode sample;
   private String selectable = "multi";
 
   public TreeSelectController() {
     sample = CategoryTree.createSample();
+  }
+
+  public Selectable[] getSelectModes() {
+    return TREE_SELECT_MODE_KEYS;
   }
 
   public DefaultMutableTreeNode getSample() {

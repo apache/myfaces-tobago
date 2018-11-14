@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.context.TobagoContext;
-import org.apache.myfaces.tobago.context.TobagoResourceBundle;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.HttpPartWrapper;
@@ -36,6 +35,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.validator.FileItemValidator;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -164,7 +164,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     writer.writeIdAttribute(fieldId);
     writer.writeClassAttribute(TobagoClass.FILE__REAL);
     writer.writeNameAttribute(clientId);
-    final String multiFormat = TobagoResourceBundle.getString(facesContext, "tobago.file.multiFormat");
+    final String multiFormat = ResourceUtils.getString(facesContext,"tobago.file.multiFormat");
     writer.writeAttribute(DataAttributes.dynamic("tobago-file-multi-format"), multiFormat, true);
     // readonly seems not making sense in browsers.
     writer.writeAttribute(HtmlAttributes.DISABLED, file.isDisabled() || file.isReadonly());

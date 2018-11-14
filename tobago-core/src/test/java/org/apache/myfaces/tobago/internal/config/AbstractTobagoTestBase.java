@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.config;
 
 import org.apache.myfaces.test.base.junit4.AbstractJsfTestCase;
+import org.apache.myfaces.test.config.ResourceBundleVarNames;
 import org.apache.myfaces.test.mock.MockFacesContext;
 import org.apache.myfaces.test.mock.MockHttpServletRequest;
 import org.apache.myfaces.tobago.component.UIButton;
@@ -45,6 +46,8 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Locale;
+
+import static org.apache.myfaces.tobago.util.ResourceUtils.TOBAGO_RESOURCE_BUNDLE;
 
 /**
  * <p>Abstract JUnit test case base class, which sets up the JavaServer Faces
@@ -106,6 +109,11 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(UIButton.COMPONENT_TYPE, UIButton.class.getName());
     application.addComponent(UIPopup.COMPONENT_TYPE, UIPopup.class.getName());
     application.addComponent(UIStyle.COMPONENT_TYPE, UIStyle.class.getName());
+
+    application.setMessageBundle("org.apache.myfaces.tobago.context.TobagoMessageBundle");
+
+    ResourceBundleVarNames.addVarName(TOBAGO_RESOURCE_BUNDLE,
+        "org.apache.myfaces.tobago.context.TobagoResourceBundle");
 
     tobagoConfig.lock();
   }

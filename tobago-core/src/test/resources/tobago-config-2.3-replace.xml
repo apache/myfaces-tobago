@@ -17,24 +17,37 @@
  * limitations under the License.
 -->
 
-<!-- XXX Schema is NOT official from logback -->
-<configuration
-    xmlns="http://ch.qos.logback/xml/ns/logback"
+<tobago-config
+    xmlns="http://myfaces.apache.org/tobago/tobago-config"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://ch.qos.logback/xml/ns/logback https://raw.github.com/enricopulatzo/logback-XSD/master/src/main/xsd/logback.xsd">
+    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-2.3.xsd"
+    version="2.3">
 
-  <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder>
-      <!-- wide -->
-      <!--<pattern>%date{"yyyy-MM-dd'T'HH:mm:ss,SSSXXX", UTC} %-5level [%-20.20thread] %-50.50logger{50}:%-20.20method:%-4.4line [%mdc] %msg%n</pattern>-->
-      <!-- small -->
-      <pattern>%date{"ss,SSS"} %1level %-20.20logger{20}:%-4.4line %msg%n</pattern>
-    </encoder>
-  </appender>
+  <name>my-name-replace</name>
 
-  <logger name="org.apache.myfaces.tobago.example.demo" level="debug"/>
+  <ordering>
+    <after>
+      <name>my-name</name>
+    </after>
+  </ordering>
 
-  <root level="info">
-    <appender-ref ref="console" />
-  </root>
-</configuration>
+  <theme-config>
+    <default-theme>my-theme-3</default-theme>
+  </theme-config>
+
+  <theme-definitions>
+    <theme-definition>
+      <name>my-theme-3</name>
+      <resource-path>/my/path-1</resource-path>
+      <fallback>my-theme-3</fallback>
+      <resources production="true">
+        <excludes>
+          <script name="script-3.js"/>
+        </excludes>
+        <script name="script-3-replacement.js" priority="3"/>
+      </resources>
+    </theme-definition>
+
+  </theme-definitions>
+
+</tobago-config>

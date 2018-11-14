@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.model.TreePath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.context.FacesContext;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,8 +32,8 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
   private static final Logger LOG = LoggerFactory.getLogger(NavigationNode.class);
 
   private final String name;
+  private final String key;
   private final String branch;
-  private final String title;
   private final String outcome;
 
   private NavigationTree tree;
@@ -52,16 +51,8 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
     matcher.find();
     branch = matcher.group(1);
     name = matcher.group(2);
-    final String extension = matcher.group(3);
-    final String key = name.replaceAll("\\+|\\-", "_");
-    String t;
-    try {
-      t = DemoBundle.getString(FacesContext.getCurrentInstance(), key);
-    } catch (final Exception e) {
-      LOG.error("Not found key '{}' in bundle", key);
-      t = name;
-    }
-    title = t;
+//    final String extension = matcher.group(3);
+    key = name.replaceAll("[+-]", "_");
   }
 
   @Override
@@ -97,8 +88,8 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
     return branch;
   }
 
-  public String getTitle() {
-    return title;
+  public String getKey() {
+    return key;
   }
 
   public String getOutcome() {
