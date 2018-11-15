@@ -423,8 +423,6 @@ public class SheetRenderer extends RendererBase {
           } else {
             writer.writeText(formatted);
           }
-        } else {
-          writer.write(ResourceUtils.getString(facesContext, "sheetPagingInfoEmptyRow"));
         }
         ComponentUtils.removeFacet(sheet, Facets.pagerRow);
         writer.endElement(HtmlElements.SPAN);
@@ -518,8 +516,6 @@ public class SheetRenderer extends RendererBase {
           } else {
             writer.writeText(formatted);
           }
-        } else {
-          writer.writeText(ResourceUtils.getString(facesContext, "sheetPagingInfoEmptyPage"));
         }
         ComponentUtils.removeFacet(sheet, Facets.pagerPage);
         writer.endElement(HtmlElements.SPAN);
@@ -765,14 +761,19 @@ public class SheetRenderer extends RendererBase {
 
     if (emptySheet && showHeader) {
       writer.startElement(HtmlElements.TR);
+      int countColumns = 0;
       for (final UIColumn column : columns) {
         if (!(column instanceof AbstractUIRow)) {
-          writer.startElement(HtmlElements.TD);
-          writer.startElement(HtmlElements.DIV);
-          writer.endElement(HtmlElements.DIV);
-          writer.endElement(HtmlElements.TD);
+          countColumns++;
         }
       }
+      writer.startElement(HtmlElements.TD);
+      writer.writeAttribute(HtmlAttributes.COLSPAN, countColumns);
+      writer.startElement(HtmlElements.DIV);
+      writer.writeClassAttribute(BootstrapClass.TEXT_CENTER);
+      writer.writeText(ResourceUtils.getString(facesContext, "sheetPagingInfoEmptyRow"));
+      writer.endElement(HtmlElements.DIV);
+      writer.endElement(HtmlElements.TD);
       if (!autoLayout) {
         writer.startElement(HtmlElements.TD);
         writer.writeClassAttribute(TobagoClass.SHEET__CELL, TobagoClass.SHEET__CELL.createMarkup(Markup.FILLER));
