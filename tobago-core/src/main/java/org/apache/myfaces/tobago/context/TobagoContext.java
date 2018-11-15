@@ -21,8 +21,6 @@ package org.apache.myfaces.tobago.context;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.util.CookieUtils;
-import org.apache.myfaces.tobago.util.MessageUtils;
-import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +49,8 @@ public class TobagoContext implements Serializable {
   private String enctype;
 
   /**
-   * @deprecated Please use {@link ResourceUtils#getString} in Java or #{tobagoResourceBundle.key} in Facelets.
+   * @deprecated Please use {@link org.apache.myfaces.tobago.util.ResourceUtils#getString} in Java or
+   * #{tobagoResourceBundle.key} in Facelets.
    */
   @Deprecated
   public ResourceBundle getResourceBundle() {
@@ -62,7 +61,7 @@ public class TobagoContext implements Serializable {
   }
 
   /**
-   * @deprecated Please use {@link MessageUtils}.
+   * @deprecated Please use {@link org.apache.myfaces.tobago.util.MessageUtils}.
    */
   @Deprecated
   public ResourceBundle getMessageBundle() {
