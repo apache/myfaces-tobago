@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButtons;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
+import org.apache.myfaces.tobago.layout.Orientation;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -55,7 +56,8 @@ public class ButtonsRenderer extends RendererBase {
     writer.writeClassAttribute(
         TobagoClass.BUTTONS,
         TobagoClass.BUTTONS.createMarkup(markup),
-        BootstrapClass.BTN_GROUP,
+        Orientation.vertical.equals(buttons.getOrientation())
+            ? BootstrapClass.BTN_GROUP_VERTICAL : BootstrapClass.BTN_GROUP,
         buttons.getCustomClass());
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.GROUP.toString(), false);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, buttons);

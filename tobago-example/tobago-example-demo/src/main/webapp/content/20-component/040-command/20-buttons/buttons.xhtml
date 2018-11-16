@@ -25,9 +25,11 @@
   <p>Buttons can be grouped with the <code class="language-markup">&lt;tc:buttons/></code> tag.
     Just add some <code class="language-markup">&lt;tc:button/></code> tags.</p>
   <p>Tag Library Documentation:
-    <tc:link label="&lt;tc:buttons/>" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/buttons.html"/>
+    <tc:link label="&lt;tc:buttons/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/buttons.html"/>
     |
-    <tc:link label="&lt;tc:button/>" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/button.html"/></p>
+    <tc:link label="&lt;tc:button/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/button.html"/></p>
 
   <tc:section label="Basics">
     <p>A simple example with three buttons.</p>
@@ -76,6 +78,20 @@
           <tc:link label="Action 3.2"/>
         </tc:link>
       </tc:button>
+      <tc:button label="Center"/>
+      <tc:button label="Right"/>
+    </tc:buttons>
+  </tc:section>
+
+  <tc:section label="Vertical">
+    <p>Vertical link group.</p>
+    <pre><code class="language-markup">&lt;tc:buttons orientation="vertical">
+  &lt;tc:button label="Left"/>
+  &lt;tc:button label="Center"/>
+  &lt;tc:button label="Right"/>
+&lt;/tc:buttons></code></pre>
+    <tc:buttons orientation="vertical">
+      <tc:button label="Left"/>
       <tc:button label="Center"/>
       <tc:button label="Right"/>
     </tc:buttons>

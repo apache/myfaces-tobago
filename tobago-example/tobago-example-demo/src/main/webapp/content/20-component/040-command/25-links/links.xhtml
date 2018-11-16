@@ -30,9 +30,11 @@
   <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
            link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/buttons.html"/>
   <p>Tag Library Documentation:
-    <tc:link label="&lt;tc:links/>" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/links.html"/>
+    <tc:link label="&lt;tc:links/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/links.html"/>
     |
-    <tc:link label="&lt;tc:link/>" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/link.html"/></p>
+    <tc:link label="&lt;tc:link/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/link.html"/></p>
 
   <tc:section label="Basics">
     <p>A simple example with three links.</p>
@@ -69,6 +71,20 @@
           <tc:link label="Action 3"/>
         </tc:link>
       </tc:link>
+      <tc:link label="Center"/>
+      <tc:link label="Right"/>
+    </tc:links>
+  </tc:section>
+
+  <tc:section label="Vertical">
+    <p>Vertical link group.</p>
+    <pre><code class="language-markup">&lt;tc:links orientation="vertical">
+  &lt;tc:link label="Left"/>
+  &lt;tc:link label="Center"/>
+  &lt;tc:link label="Right"/>
+&lt;/tc:links></code></pre>
+    <tc:links orientation="vertical">
+      <tc:link label="Left"/>
       <tc:link label="Center"/>
       <tc:link label="Right"/>
     </tc:links>

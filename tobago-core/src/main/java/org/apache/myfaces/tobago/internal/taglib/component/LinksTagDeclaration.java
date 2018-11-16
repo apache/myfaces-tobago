@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasOrientation;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
@@ -42,5 +43,5 @@ import javax.faces.component.UIPanel;
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
     rendererType = {RendererTypes.LINKS, RendererTypes.LINKS_INSIDE_BAR})
-public interface LinksTagDeclaration extends HasIdBindingAndRendered, IsVisual, HasTip {
+public interface LinksTagDeclaration extends HasIdBindingAndRendered, IsVisual, HasTip, HasOrientation {
 }

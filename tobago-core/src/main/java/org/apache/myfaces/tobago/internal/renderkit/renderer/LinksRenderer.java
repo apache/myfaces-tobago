@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUILink;
 import org.apache.myfaces.tobago.internal.component.AbstractUILinks;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
+import org.apache.myfaces.tobago.layout.Orientation;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
@@ -45,7 +46,11 @@ public class LinksRenderer extends RendererBase {
     writer.startElement(HtmlElements.UL);
     writer.writeIdAttribute(links.getClientId(facesContext));
     writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(links.getMarkup()), false);
-    writer.writeClassAttribute(TobagoClass.LINKS, getExtraCssItem(), links.getCustomClass());
+    writer.writeClassAttribute(
+        TobagoClass.LINKS,
+        getExtraCssItem(),
+        Orientation.vertical.equals(links.getOrientation()) ? BootstrapClass.FLEX_COLUMN : null,
+        links.getCustomClass());
   }
 
   @Override

@@ -17,14 +17,23 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.internal.taglib.declaration;
 
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.layout.Orientation;
 
-/**
- * {@link org.apache.myfaces.tobago.internal.taglib.component.ButtonsTagDeclaration}
- */
-public abstract class AbstractUIButtons extends AbstractUIPanelBase {
+public interface HasOrientation {
 
-  public abstract Orientation getOrientation();
+  /**
+   * Set the orientation of the component.
+   * Allowed values: horizontal, vertical
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.Orientation",
+      allowedValues = {
+          Orientation.HORIZONTAL, Orientation.VERTICAL
+      })
+  void setOrientation(String orientation);
 }
