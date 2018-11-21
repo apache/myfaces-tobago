@@ -130,6 +130,7 @@ public enum Release {
   v4_3_0("12342850"),
   v4_3_1("12343951", true),
   v4_3_2("12344394", false, true),
+  v4_3_3("12344541", false, true),
 
   v5_0_0("12338729", false, true),
   v5_0_1("12344151", false, true),
