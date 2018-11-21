@@ -88,8 +88,8 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     if (!disabled) {
       if (link) {
         final String href = RenderUtils.generateUrl(facesContext, command);
-        writer.writeAttribute(HtmlAttributes.HREF, href, false);
-        writer.writeAttribute(HtmlAttributes.TARGET, target, false);
+        writer.writeAttribute(HtmlAttributes.HREF, href, true);
+        writer.writeAttribute(HtmlAttributes.TARGET, target, true);
 
         command.setOmit(true);
       }
