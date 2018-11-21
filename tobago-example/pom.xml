@@ -64,6 +64,7 @@
       <plugin>
         <!-- usage: mvn clean package tomee:run -Djsf=provided -->
         <groupId>org.apache.openejb.maven</groupId>
+        <!--<groupId>org.apache.tomee.maven</groupId> for version >= 7 -->
         <artifactId>tomee-maven-plugin</artifactId>
         <version>1.7.5</version>
         <configuration>
