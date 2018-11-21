@@ -24,7 +24,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.application.Application;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -62,9 +63,17 @@ public class LocaleController implements Serializable {
 
   public String submit() {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("invoke!!!");
+      LOG.debug("submit locale");
     }
-    return null;
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final UIViewRoot viewRoot = facesContext.getViewRoot();
+    if (viewRoot != null) {
+      return viewRoot.getViewId();
+    } else {
+      facesContext.addMessage(null,
+          new FacesMessage(FacesMessage.SEVERITY_WARN, "ViewRoot not found!", null));
+      return Outcome.CONCEPT_LOCALE.toString();
+    }
   }
 
 // ///////////////////////////////////////////// logic

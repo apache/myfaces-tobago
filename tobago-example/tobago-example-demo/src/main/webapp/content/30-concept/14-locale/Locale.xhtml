@@ -20,7 +20,7 @@
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
 
   Tobago supports internationalization and localization.
   <ul>
@@ -29,22 +29,29 @@
     <li>Like content, images and scripts can be localized.</li>
   </ul>
 
-  <tc:out value="#{translatedBundle.not_translated}"/>
+  <tc:out value="#{demoBundle.not_translated}"/>
 
-  (Current problem: this value is one request behind!)
-  <tc:out label="Short" value="#{translatedBundle.locale_short}"/>
-
-  <tc:image value="#{request.contextPath}#{localeController.imageCountryName}">
-    <tc:style width="100px" height="100px"/>
-  </tc:image>
-
-  <tc:selectOneChoice value="#{localeController.locale}"
-                      label="Locale">
+  <tc:selectOneChoice value="#{localeController.locale}" label="Locale">
     <f:selectItems value="#{localeController.localeItems}"/>
+    <tc:event action="#{localeController.submit}"/>
   </tc:selectOneChoice>
 
-  <tc:flowLayout textAlign="right">
-    <tc:button action="#{localeController.submit}" label="Submit"/>
-  </tc:flowLayout>
+  <tc:in label="ISO 639 / 3166" value="#{demoBundle.locale_short}" readonly="true"/>
+
+  <p>
+    The localization of JSF works with Java resource bundles.
+    These bundles needs to be definded in the <code>faces-config.xml</code> under the
+    section <code>&lt;resource-bundle&gt;</code>.
+  </p>
+
+  <p>
+    <tc:image value="#{request.contextPath}#{localeController.imageCountryName}">
+      <tc:style width="100px" height="100px"/>
+    </tc:image>
+  </p>
+
+  <p>
+    The image url will be evaluated by the Java Bean  <code>LocaleController</code>.
+  </p>
 
 </ui:composition>
