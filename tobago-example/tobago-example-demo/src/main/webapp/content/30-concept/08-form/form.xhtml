@@ -21,15 +21,15 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{demoBundle.form} &lt;tc:form>"/>
+
   <p>Tobago supports nested forms and can treat each form separately.
     Values can be stored separately into the model, while already filled input elements keep their values (temporarily).
     Forms are added by the <code class="language-markup">&lt;tc:form/></code> tag.</p>
   <p>Forms are also relevant for
-    <tc:link label="#{demoBundle.default_command}"
+    <tc:link label="Default Command"
              outcome="/content/20-component/040-command/10-default/default-command.xhtml"/>.</p>
   <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
-           link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/form.html"/>
+           link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/form.html"/>
 
   <tc:section label="Example">
     <p>This small example contain two separate forms, each surrounded by a content box.

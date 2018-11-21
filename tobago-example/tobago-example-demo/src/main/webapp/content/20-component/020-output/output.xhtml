@@ -22,43 +22,42 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
-  <ui:param name="title" value="#{demoBundle.output}"/>
   <ui:param name="hideGlobalMessages" value="true"/>
 
   <p>The output components display data in different ways.</p>
 
-  <tc:section label="#{demoBundle.output}">
+  <tc:section label="Output">
     <pre><code class="language-markup">&lt;tc:out label="Output" value="Some Text"/></code></pre>
     <tc:out id="o1" label="Output" value="Some Text"/>
   </tc:section>
 
-  <tc:section label="#{demoBundle.label}">
+  <tc:section label="Label">
     <pre><code class="language-markup">&lt;tc:label value="Some Text"/></code></pre>
     <tc:label value="Some Text"/>
   </tc:section>
 
-  <tc:section label="#{demoBundle.badge}">
+  <tc:section label="Badge">
     <pre><code class="language-markup">&lt;tc:badge value="Badge"/></code></pre>
     <tc:badge value="Badge"/>
   </tc:section>
 
-  <tc:section label="#{demoBundle.messages}">
+  <tc:section label="Messages">
     <pre><code class="language-markup">&lt;tc:messages/></code></pre>
     <tc:messages/>
     <tc:button id="b1" label="Create Info Message" action="#{messagesController.createInfoMessage}"/>
   </tc:section>
 
-  <tc:section label="#{demoBundle.image}">
+  <tc:section label="Image">
     <pre><code class="language-markup">&lt;tc:image value="image/tobago_head.png"/></code></pre>
     <tc:image value="/image/tobago_head.png"/>
   </tc:section>
 
-  <tc:section label="#{demoBundle.progress}">
+  <tc:section label="Progress">
     <pre><code class="language-markup">&lt;tc:progress value="2" max="3"/></code></pre>
     <tc:progress value="2" max="3"/>
   </tc:section>
 
-  <tc:section label="#{demoBundle.object}">
+  <tc:section label="Object">
     <pre><code class="language-markup">&lt;tc:object src="https://www.openstreetmap.org/..."/></code></pre>
     <tc:object src="https://www.openstreetmap.org/export/embed.html?bbox=-60.75,11.15,-60.6,11.35">
       <tc:style width="100%" height="50vmin"/>

@@ -21,21 +21,30 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{demoBundle.locale} - #{demoBundle.locale_title}"/>
 
-  <tc:out escape="false" value="#{demoBundle.locale_text}"/>
+  Tobago supports internationalization and localization.
+  <ul>
+    <li>Unicode is used internally.</li>
+    <li>Content in different languages can be provided by resource bundles.</li>
+    <li>Like content, images and scripts can be localized.</li>
+  </ul>
+
+  <tc:out value="#{translatedBundle.not_translated}"/>
+
+  (Current problem: this value is one request behind!)
+  <tc:out label="Short" value="#{translatedBundle.locale_short}"/>
 
   <tc:image value="#{request.contextPath}#{localeController.imageCountryName}">
     <tc:style width="100px" height="100px"/>
   </tc:image>
 
   <tc:selectOneChoice value="#{localeController.locale}"
-                      label="#{demoBundle.locale}">
+                      label="Locale">
     <f:selectItems value="#{localeController.localeItems}"/>
   </tc:selectOneChoice>
 
   <tc:flowLayout textAlign="right">
-    <tc:button action="#{localeController.submit}" label="#{demoBundle.locale_submit}"/>
+    <tc:button action="#{localeController.submit}" label="Submit"/>
   </tc:flowLayout>
 
 </ui:composition>

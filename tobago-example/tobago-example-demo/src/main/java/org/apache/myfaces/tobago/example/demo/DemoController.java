@@ -21,9 +21,7 @@ package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.deltaspike.core.api.scope.WindowScoped;
 import org.apache.myfaces.tobago.component.UISheet;
-import org.apache.myfaces.tobago.model.SelectItem;
 import org.apache.myfaces.tobago.model.Selectable;
-import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -98,20 +96,6 @@ public class DemoController implements Serializable {
     sheetConfig = new SheetConfig();
   }
 
-  private static SelectItem[] getSelectItems(final Selectable[] keys) {
-    final SelectItem[] items = new SelectItem[keys.length];
-    for (int i = 0; i < items.length; i++) {
-      final FacesContext facesContext = FacesContext.getCurrentInstance();
-      final String label
-          = ResourceUtils.getString(facesContext, "demoBundle", keys[i].name());
-      if (LOG.isTraceEnabled()) {
-        LOG.trace("label = " + label + "");
-      }
-      items[i] = new SelectItem(keys[i], label);
-    }
-    return items;
-  }
-
   public void click(final ActionEvent actionEvent) {
     LOG.info("click the action listener");
     lastAction = actionEvent.getComponent().getId();
@@ -148,22 +132,6 @@ public class DemoController implements Serializable {
 
   public Currency[] getCurrencyItems() {
     return currencyItems;
-  }
-
-  public SelectItem[] getItems2() {
-    return getSelectItems(TREE_SELECT_MODE_KEYS);
-
-  }
-
-
-  public SelectItem[] getTreeSelectModeItems() {
-    return getSelectItems(TREE_SELECT_MODE_KEYS);
-
-  }
-
-  public SelectItem[] getTreeListboxSelectModeItems() {
-    return getSelectItems(TREELISTBOX_SELECT_MODE_KEYS);
-
   }
 
   public String getRadioValue() {

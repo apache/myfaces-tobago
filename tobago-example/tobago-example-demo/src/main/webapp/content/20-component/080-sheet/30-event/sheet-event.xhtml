@@ -22,7 +22,7 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{demoBundle.sheet_event} &lt;tc:row>"/>
+
   <p>A <code class="language-markup">&lt;tc:sheet/&gt;</code> can contain a
     <code class="language-markup">&lt;tc:row/&gt;</code> tag with a containing <code
             class="language-markup">&lt;tc:event/&gt;</code> tag.
@@ -43,7 +43,7 @@
       <tc:box label="Solar Objects">
         <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" columns="1fr" markup="small">
           <tc:style maxHeight="486px"/>
-          <tc:column label="#{demoBundle.solarArrayName}">
+          <tc:column label="Name">
             <tc:out value="#{object.name}" id="t_name" labelLayout="skip"/>
           </tc:column>
           <tc:row id="sample0" rendered="#{sheetController.columnEventSample == 0}">

@@ -19,15 +19,19 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.util.ResourceUtils;
-
 public enum Salutation {
 
   UNKNOWN, MR, MRS;
 
   public String getLabel() {
-    // XXX This implementation is only for demo. This should be optimized/cached.
-    return ResourceUtils.getString("demoBundle", Salutation.class.getSimpleName() + "_" + name());
+    switch (this) {
+      case MR:
+        return "Mr.";
+      case MRS:
+        return "Mrs.";
+      default:
+        return "none";
+    }
   }
 
   public String getIcon() {

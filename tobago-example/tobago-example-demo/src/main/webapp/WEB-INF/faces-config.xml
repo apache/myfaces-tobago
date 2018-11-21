@@ -44,6 +44,26 @@
       <base-name>org.apache.myfaces.tobago.example.demo.DemoBundle</base-name>
       <var>demoBundle</var>
     </resource-bundle>
+    <resource-bundle>
+      <base-name>org.apache.myfaces.tobago.example.demo.CharlottevilleBundle</base-name>
+      <var>charlottevilleBundle</var>
+    </resource-bundle>
+    <resource-bundle>
+      <base-name>org.apache.myfaces.tobago.example.demo.RoxboroughBundle</base-name>
+      <var>roxboroughBundle</var>
+    </resource-bundle>
+    <resource-bundle>
+      <base-name>org.apache.myfaces.tobago.example.demo.ScarboroughBundle</base-name>
+      <var>scarboroughBundle</var>
+    </resource-bundle>
+    <resource-bundle>
+      <base-name>org.apache.myfaces.tobago.example.demo.SpeysideBundle</base-name>
+      <var>speysideBundle</var>
+    </resource-bundle>
+    <resource-bundle>
+      <base-name>org.apache.myfaces.tobago.example.demo.StandardBundle</base-name>
+      <var>standardBundle</var>
+    </resource-bundle>
   </application>
 
   <lifecycle>

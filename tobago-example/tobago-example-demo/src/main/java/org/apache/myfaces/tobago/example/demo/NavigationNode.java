@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,7 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
   private static final Logger LOG = LoggerFactory.getLogger(NavigationNode.class);
 
   private final String name;
-  private final String key;
+  private final String label;
   private final String branch;
   private final String outcome;
 
@@ -52,7 +53,7 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
     branch = matcher.group(1);
     name = matcher.group(2);
 //    final String extension = matcher.group(3);
-    key = name.replaceAll("[+-]", "_");
+    label = StringUtils.firstToUpperCase(name.replaceAll("[+-]", " "));
   }
 
   @Override
@@ -88,8 +89,8 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
     return branch;
   }
 
-  public String getKey() {
-    return key;
+  public String getLabel() {
+    return label;
   }
 
   public String getOutcome() {

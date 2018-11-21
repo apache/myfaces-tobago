@@ -22,18 +22,18 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{demoBundle.popup} &lt;tc:popup>"/>
+
   <p>A popup dialog is created with <code class="language-markup">&lt;tc:popup/></code>.
     It can be filled with other components.</p>
   <p>The popup dialog is based on the
-    <tc:link label="#{demoBundle.collapsible}"
+    <tc:link label="Collapsible"
              outcome="/content/30-concept/53-collapsible/collapsible.xhtml"/> concept.</p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:popup/>" image="#{request.contextPath}/image/feather-leaf.png"
-             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/popup.html"/>
+             link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/popup.html"/>
     |
     <tc:link label="&lt;tc:operation/>" image="#{request.contextPath}/image/feather-leaf.png"
-             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/operation.html"/></p>
+             link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/operation.html"/></p>
 
   <tc:section label="Client Side Popup">
     <tc:form id="form2">

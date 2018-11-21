@@ -22,19 +22,19 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns="http://www.w3.org/1999/xhtml">
-  <ui:param name="title" value="#{demoBundle.sheet_filter} &lt;tc:sheet/>"/>
+
   <p>Filtering is not a explicit feature of the sheet. It is done in the controller.</p>
   <p>To add filtering components to the header of a sheet, use
     <code class="language-markup">&lt;f:facet name="header"></code>.</p>
   <p><b>Warning:</b> Paging currently doesn't work with filters!</p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:sheet/>" image="#{request.contextPath}/image/feather-leaf.png"
-             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/sheet.html"/>
+             link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/sheet.html"/>
     |
     <tc:link label="&lt;tc:column/>" image="#{request.contextPath}/image/feather-leaf.png"
-             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/column.html"/></p>
+             link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/column.html"/></p>
 
-  <tc:section label="#{demoBundle.sheet_filter}">
+  <tc:section label="Filtering">
     <p>Add a search string to the inputfield or change the value of the dropdown boxes to filter the sheet.
       If an inputfield lost focus the filtering will be executed.</p>
     <tc:sheet id="sheet" value="#{sheetFilterController.filteredSolarList}" var="object" rows="15">

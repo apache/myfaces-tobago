@@ -21,31 +21,37 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-  <ui:param name="title" value="#{demoBundle.format}"/>
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
   <p>Use the EL functions from <code>tc:format1</code> to <code>tc:format9</code>
     to replace up to 9 variables in a given internationalized text.
-    This work like in <tc:link label="java.text.MessageFormat"
-                               link="https://docs.oracle.com/javase/6/docs/api/java/text/MessageFormat.html"/>.</p>
+    This work like in
+    <tc:link label="java.text.MessageFormat"
+             link="https://docs.oracle.com/javase/6/docs/api/java/text/MessageFormat.html"/>.</p>
+
+  <ui:param name="format1text" value="The equatorial radius of the sun is {0} km."/>
+  <ui:param name="format3text"
+            value="The temperature of the sun is {0} K on the surface, but {1} K in the center and {2} K in the corona."/>
+  <ui:param name="format9text" value="Just reordering: {4} - {1} - {6} - {8} - {5} - {3} - {0} - {7} - {2}"/>
 
   <tc:section label="Format 1">
-    <p>The message format is: "#{demoBundle.format1}"</p>
-    <pre><code class="language-markup">&lt;tc:out value="\#{tc:format1(demoBundle.format1, 695700)}"/></code></pre>
-    <tc:out id="o1" value="#{tc:format1(demoBundle.format1, 695700)}"/>
+    <p>The message format is: "#{format1text}"</p>
+    <pre><code class="language-markup">&lt;tc:out value="\#{tc:format1(format1text, 695700)}"/></code></pre>
+    <tc:out id="o1" value="#{tc:format1(format1text, 695700)}"/>
   </tc:section>
 
   <tc:section label="Format 3">
-    <p>The message format is: "#{demoBundle.format3}"</p>
+    <p>The message format is: "#{format3text}"</p>
     <pre><code
-            class="language-markup">&lt;tc:out value="\#{tc:format3(demoBundle.format3, 5800, 15700000, 5000000)}"/></code></pre>
-    <tc:out id="o2" value="#{tc:format3(demoBundle.format3, 5800, 15700000, 5000000)}"/>
+        class="language-markup">&lt;tc:out value="\#{tc:format3(format3text, 5800, 15700000, 5000000)}"/></code></pre>
+    <tc:out id="o2" value="#{tc:format3(format3text, 5800, 15700000, 5000000)}"/>
   </tc:section>
 
   <tc:section label="Format 9">
-    <p>The message format is: "#{demoBundle.format9}"</p>
+    <p>The message format is: "#{format9text}"</p>
     <pre><code
-            class="language-markup">&lt;tc:out value="\#{tc:format9(demoBundle.format9, 0, 1, 2, 3, 4, 5, 6, 7, 8)}"/></code></pre>
-    <tc:out id="o3" value="#{tc:format9(demoBundle.format9, 0, 1, 2, 3, 4, 5, 6, 7, 8)}"/>
+        class="language-markup">&lt;tc:out value="\#{tc:format9(format9text, 0, 1, 2, 3, 4, 5, 6, 7, 8)}"/></code></pre>
+    <tc:out id="o3" value="#{tc:format9(format9text, 0, 1, 2, 3, 4, 5, 6, 7, 8)}"/>
   </tc:section>
 
   <tc:section label="UpperCase">

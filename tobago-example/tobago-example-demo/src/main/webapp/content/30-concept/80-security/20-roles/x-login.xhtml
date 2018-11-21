@@ -24,12 +24,12 @@
   <ui:param name="title" value="Login"/>
   <tc:panel rendered="#{request.userPrincipal != null}">
   <p>You are now logged in as user '#{request.userPrincipal.name}'</p>
-  <p>To log out, you may use the menu entry <tc:badge value="#{demoBundle.menu_config}"/>
+  <p>To log out, you may use the menu entry <tc:badge value="Configuration"/>
     → <tc:badge value="Logout '#{request.userPrincipal.name}'"/></p>
   </tc:panel>
   <tc:panel rendered="#{request.userPrincipal == null}">
   <p>You are not logged in!</p>
-  <p>To log in, you may use the menu entry <tc:badge value="#{demoBundle.menu_config}"/>
+  <p>To log in, you may use the menu entry <tc:badge value="Configuration"/>
     → <tc:badge value="Login"/></p>
   </tc:panel>
 

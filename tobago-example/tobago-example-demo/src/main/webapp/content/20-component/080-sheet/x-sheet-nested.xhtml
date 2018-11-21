@@ -24,7 +24,7 @@
 
     <tc:sheet value="#{sheetController.solarList}" id="sheet"
               columns="1fr 2fr" var="luminary">
-      <tc:column label="#{demoBundle.solarArrayName}" id="name" sortable="true" markup="#{luminary.markup}">
+      <tc:column label="Name" id="name" sortable="true" markup="#{luminary.markup}">
         <tc:out value="#{luminary.name}" id="t_name"/>
       </tc:column>
       <tc:column label="Chemical Composition" id="cc" sortable="false" resizable="false"

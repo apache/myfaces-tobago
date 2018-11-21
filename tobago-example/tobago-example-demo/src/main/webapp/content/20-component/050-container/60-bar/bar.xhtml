@@ -22,14 +22,14 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{demoBundle.bar} &lt;tc:bar>"/>
+
   <p><code class="language-markup">&lt;tc:bar/></code> is a container which display elements in one single line
     as long as there is enough space.
     If space is too narrow, the bar collapse. Hidden items are accessible by clicking on the bar-icon.</p>
   <p>Additionally the facet <code class="language-markup">&lt;f:facet name="brand"/></code> can be added.
     It shows the 'brand', a logo, text or both on the left site of the bar.</p>
   <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
-           link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/bar.html"/>
+           link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/bar.html"/>
 
   <tc:section label="Example">
     <p>This example show a dark bar with a 'brand' facet, a menu and right side content inside an 'after' facet.</p>

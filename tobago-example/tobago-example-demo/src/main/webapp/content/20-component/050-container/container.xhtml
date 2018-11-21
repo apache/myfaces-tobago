@@ -21,20 +21,20 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{demoBundle.container}"/>
+
   <p>With the container components, content can be shown in different ways.</p>
 
-  <tc:section label="#{demoBundle.box}">
+  <tc:section label="Box">
     <pre><code class="language-markup">&lt;tc:box label="Box">Content&lt;/tc:box></code></pre>
     <tc:box label="Box">Content</tc:box>
   </tc:section>
 
-  <tc:section label="#{demoBundle.panel}">
+  <tc:section label="Panel">
     <pre><code class="language-markup">&lt;tc:panel>Content&lt;/tc:panel></code></pre>
     <tc:panel>Content</tc:panel>
   </tc:section>
 
-  <tc:section label="#{demoBundle.separator}">
+  <tc:section label="Separator">
     <pre><code class="language-markup">&lt;p>Content&lt;/p>
 &lt;tc:separator/>
 &lt;p>Content&lt;/p></code></pre>
@@ -43,12 +43,12 @@
     <p>Content</p>
   </tc:section>
 
-  <tc:section label="#{demoBundle.section}">
+  <tc:section label="Section">
     <pre><code class="language-markup">&lt;tc:section label="Section">Content&lt;/tc:section></code></pre>
     <tc:section label="Section">Content</tc:section>
   </tc:section>
 
-  <tc:section label="#{demoBundle.header_footer}">
+  <tc:section label="Header and Footer">
     <pre><code class="language-markup">&lt;tc:header>Header-Content&lt;/tc:header>
 &lt;p>Content between header and footer.&lt;/p>
 &lt;tc:footer>Footer-Content&lt;/tc:footer></code></pre>

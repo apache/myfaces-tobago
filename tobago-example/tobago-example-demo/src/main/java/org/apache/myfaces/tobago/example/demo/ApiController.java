@@ -19,6 +19,9 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.enterprise.context.RequestScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
@@ -30,6 +33,8 @@ import java.util.List;
 @RequestScoped
 @Named
 public class ApiController implements Serializable {
+
+  private static final Logger LOG = LoggerFactory.getLogger(ApiController.class);
 
   private List<Release> releases;
   private boolean onlyCurrent = true;
@@ -70,6 +75,16 @@ public class ApiController implements Serializable {
 
   public String getVersion430() {
     return Release.v4_3_0.getVersion();
+  }
+
+  public String getCurrentRelease() {
+    for (Release release : releases) {
+      if (release.isCurrent()) {
+        return release.getVersion();
+      }
+    }
+    LOG.error("No current release found!");
+    return "4.3.1"; // should not happen
   }
 
   public String getJiraUrl(final String version) {

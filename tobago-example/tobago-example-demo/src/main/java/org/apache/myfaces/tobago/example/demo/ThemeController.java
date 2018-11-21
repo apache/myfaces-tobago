@@ -23,6 +23,9 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.util.ObjectUtils;
+import org.apache.myfaces.tobago.util.ResourceUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -35,6 +38,8 @@ import java.util.List;
 @SessionScoped
 @Named
 public class ThemeController implements Serializable {
+
+  private static final Logger LOG = LoggerFactory.getLogger(ThemeController.class);
 
   private Theme theme;
   private SelectItem[] themeItems;
@@ -68,15 +73,12 @@ public class ThemeController implements Serializable {
     this.themeItems = themeItems;
   }
 
-  public String submit() {
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-    TobagoContext.getInstance(facesContext).setTheme(theme);
-    return null;
+  public void submit() {
+    TobagoContext.getInstance(FacesContext.getCurrentInstance()).setTheme(theme);
   }
 
   public String getLocalizedTheme() {
-    for (int i = 0; i < themeItems.length; i++) {
-      final SelectItem themeItem = themeItems[i];
+    for (final SelectItem themeItem : themeItems) {
       if (ObjectUtils.equals(themeItem.getValue(), theme)) {
         return themeItem.getLabel();
       }
@@ -84,4 +86,16 @@ public class ThemeController implements Serializable {
     return "???";
   }
 
+  /**
+   * We have defined one {@link java.util.ResourceBundle} per theme and use it.
+   */
+  public String getLocalizedString(final String key) {
+    try {
+      final FacesContext facesContext = FacesContext.getCurrentInstance();
+      return ResourceUtils.getString(facesContext, theme.getName() + "Bundle", key);
+    } catch (Exception e) {
+      LOG.error("Resource not found for key '{}' and theme '{}'", key, theme.getName());
+      return "???";
+    }
+  }
 }

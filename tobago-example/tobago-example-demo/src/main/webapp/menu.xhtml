@@ -41,15 +41,15 @@
 
         <tc:links id="commands">
 
-          <tc:link id="config" label="#{demoBundle.menu_config}" omit="true">
-            <tc:link label="#{demoBundle.menu_themes}" omit="true">
+          <tc:link id="config" label="Configuration" omit="true">
+            <tc:link label="Theme" omit="true">
               <tc:selectOneRadio value="#{themeController.theme}">
                 <tc:event action="#{themeController.submit}"/>
                 <tc:selectItems value="#{themeController.themeItems}"/>
               </tc:selectOneRadio>
             </tc:link>
             <!--<tc:link action="#{themeController.resetTheme}" label="Reset Theme"/>-->
-            <tc:link label="#{demoBundle.menu_locale}">
+            <tc:link label="Locale">
               <tc:selectOneRadio value="#{localeController.locale}">
                 <tc:event action="#{localeController.submit}"/>
                 <tc:selectItems value="#{localeController.localeItems}"/>
@@ -60,14 +60,14 @@
             <tc:link action="#{loginController.resetSession}" label="Reset Session"/>
           </tc:link>
 
-          <tc:link label="#{demoBundle.menu_test}" omit="true">
-            <tc:link id="runtest" label="#{demoBundle.menu_runTest}" outcome="/test.xhtml"
+          <tc:link label="Test" omit="true">
+            <tc:link id="runtest" label="Run test" outcome="/test.xhtml"
                      immediate="true" disabled="#{!testController.hasTest()}">
               <f:param name="base" value="#{testController.base}"/>
             </tc:link>
-            <tc:link label="#{demoBundle.menu_runTestAll}" outcome="/testAll.xhtml" target="_blank"
+            <tc:link label="Run all tests" outcome="/testAll.xhtml" target="_blank"
                      immediate="true" rendered="#{facesContext.isProjectStage('Development')}"/>
-            <tc:link label="#{demoBundle.menu_accessAllPages}" outcome="/testAccessAllPages.xhtml" target="_blank"
+            <tc:link label="Access all pages" outcome="/testAccessAllPages.xhtml" target="_blank"
                      immediate="true" rendered="#{facesContext.isProjectStage('Development')}"/>
           </tc:link>
 
@@ -94,8 +94,7 @@
 
           <tc:link label="Info" omit="true">
             <tc:link label="About" omit="true">
-              <tc:dataAttribute name="alert-text"
-                                value="#{demoBundle.pageTitle} - #{info.version} - #{demoBundle.tobago_url}"/>
+              <tc:dataAttribute name="alert-text" value="Tobago Demo - #{info.version}"/>
             </tc:link>
             <tc:link omit="true" label="Client Info" id="headerInfo">
               <tc:operation name="show" for=":::info"/>
@@ -129,16 +128,16 @@
                            image="fa-angle-left"
                            action="#{navigationState.gotoPrevious}"
                            disabled="#{navigationState.first}"
-                           tip="#{demoBundle.footer_previous}"/>
+                           tip="Previous"/>
                 <tc:button immediate="true" id="next"
                            image="fa-angle-right"
                            action="#{navigationState.gotoNext}"
                            disabled="#{navigationState.last}"
-                           tip="#{demoBundle.footer_next}"/>
+                           tip="Next"/>
               </tc:buttons>
               <tc:button action="#{navigationState.toggleViewSource}"
                          image="fa-code"
-                         immediate="true" tip="#{demoBundle.footer_viewSource}"/>
+                         immediate="true" tip="View Source"/>
             </tc:flexLayout>
           </tc:form>
         </tc:flexLayout>

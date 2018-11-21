@@ -20,7 +20,6 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:demo="http://myfaces.apache.org/tobago/example/demo">
-  <ui:param name="title" value="#{demoBundle.collapsible}"/>
 
   <p>
     <span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_DANGER')}">Warning!</span>
@@ -28,21 +27,20 @@
   </p>
 
   <p>The collapsible concept is the base for
-    <tc:link label="#{demoBundle.box}" outcome="/content/20-component/050-container/10-box/box.xhtml"/>,
-    <tc:link label="#{demoBundle.popup}" outcome="/content/20-component/060-popup/popup.xhtml"/>,
-    <tc:link label="#{demoBundle.panel}" outcome="/content/20-component/050-container/20-panel/panel.xhtml"/>
+    <tc:link label="Box" outcome="/content/20-component/050-container/10-box/box.xhtml"/>,
+    <tc:link label="Popup" outcome="/content/20-component/060-popup/popup.xhtml"/>,
+    <tc:link label="Panel" outcome="/content/20-component/050-container/20-panel/panel.xhtml"/>
     and
-    <tc:link label="#{demoBundle.section}"
+    <tc:link label="Section"
              outcome="/content/20-component/050-container/40-section/section.xhtml"/>.
     It determines how parts or whole components are shown or hidden.
-    For example, a #{demoBundle.popup} is hidden completely while for #{demoBundle.box} only the content
+    For example, a popup is hidden completely while for box only the content
     could be hidden.</p>
 
   <tc:section label="States">
     <p>There are four possible states - visible, hidden, absent and none.<br/>
-    The value 'none' deactivate this feature and is the default for #{demoBundle.box}, #{demoBundle.panel} and
-     #{demoBundle.section}.</p>
-    <p>The (not-'none') states are explained using the following #{demoBundle.box}es.</p>
+    The value 'none' deactivate this feature and is the default for box, panel and section.</p>
+    <p>The (not-'none') states are explained using the following boxes.</p>
     <p>The 'visible' state show the content of the box like you expected.
       <br/>
       The 'hidden' state hide the content via CSS. You can see is still in the source code.
@@ -79,7 +77,7 @@
         Possible values are <code>absent</code> which is the default and <code>hidden</code>.
         It has only an effect if <code>collapsed="true"</code>.</p>
       <ul>
-        <li><code>absent</code> (default for #{demoBundle.popup}): Hidden components have the state 'hidden'.</li>
+        <li><code>absent</code> (default for popup): Hidden components have the state 'hidden'.</li>
         <li><code>hidden</code>: Hidden components have the state 'absent'.</li>
       </ul>
     </tc:section>

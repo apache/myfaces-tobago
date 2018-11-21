@@ -50,8 +50,6 @@ public class ServerInfo {
   private static final String CONFIG_FILE_DEFAULT = "/etc/tobago-example-demo.properties";
   private static final String ENABLED_KEY = "server.info.enabled";
 
-  private static final String LAST_RELEASED_VERSION = "4.1.0";
-
   private String version;
 
   /**
@@ -107,13 +105,5 @@ public class ServerInfo {
 
   public boolean isEnabled() {
     return enabled;
-  }
-
-  public String getStableVersion() {
-    if (version == null || version.endsWith("-SNAPSHOT")) {
-      return LAST_RELEASED_VERSION;
-    } else {
-      return version;
-    }
   }
 }

@@ -21,17 +21,31 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="#{demoBundle.sheet} &lt;tc:sheet>"/>
+
+  The sheet control is a simple solution for displaying table based
+  information. The essential features are:
+  <ul>
+    <li>Sorting</li>
+    <li>Paging</li>
+    <li>Tree table</li>
+    <li>Inline editing</li>
+    <li>Column resizing</li>
+    <li>Inline-Editing</li>
+    <li>Styling</li>
+    <li>Header customization</li>
+  </ul>
+  This example shows an application specific sorter, which sorts the sun to the top every time.
+
   <p>A <code class="language-markup">&lt;tc:sheet/></code> tag can contain any number of
     <code class="language-markup">&lt;tc:column/></code> tags.
     The <code class="language-markup">&lt;tc:column/></code> tag is a container, which may contain
     outputfields, labels, progress bars or even tab groups.</p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:sheet/>" image="#{request.contextPath}/image/feather-leaf.png"
-             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/sheet.html"/>
+             link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/sheet.html"/>
     |
     <tc:link label="&lt;tc:column/>" image="#{request.contextPath}/image/feather-leaf.png"
-             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/column.html"/></p>
+             link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/column.html"/></p>
 
   <tc:section label="Basics">
     <p>Two attributes should be recognized in a sheet.

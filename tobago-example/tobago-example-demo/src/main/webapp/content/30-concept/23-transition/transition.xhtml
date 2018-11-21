@@ -22,14 +22,13 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
-  <ui:param name="title" value="#{demoBundle.transition}"/>
   <p>For command components like a link or a button, the <code>transition</code> attribute is available.
     It shows a loading animation if the site don't respond in a certain amount of time.
     By default, the value is 'true'.</p>
   <p>Tag Library Documentation:
-    <tc:link label="&lt;tc:link/>" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/link.html"/>
+    <tc:link label="&lt;tc:link/>" image="#{request.contextPath}/image/feather-leaf.png" link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/link.html"/>
     |
-    <tc:link label="&lt;tc:button/>" image="#{request.contextPath}/image/feather-leaf.png" link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/button.html"/></p>
+    <tc:link label="&lt;tc:button/>" image="#{request.contextPath}/image/feather-leaf.png" link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/button.html"/></p>
 
   <tc:section label="Basics">
     <p>By following one of the links, the site waits five seconds.

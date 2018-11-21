@@ -24,8 +24,10 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns="http://www.w3.org/1999/xhtml">
   <f:view locale="#{localeController.locale}">
-    <tc:page applicationIcon="#{request.contextPath}/icon/favicon.ico" label="#{demoBundle.pageTitle} - #{title}"
+    <tc:page applicationIcon="#{request.contextPath}/icon/favicon.ico"
+             label="Tobago Demo - #{navigationState.currentNode.label}"
              id="page">
+      <tc:attribute name="label" value="#{title}" mode="valueIfSet"/>
 
       <!--
             <tc:dataAttribute name="tobago-log-level" value="DEBUG"/>
@@ -50,7 +52,8 @@
         <tc:panel>
           <tc:messages id="messages" orderBy="severity" rendered="#{!hideGlobalMessages}"/>
 
-          <tc:section label="#{title}" id="content">
+          <tc:section label="#{navigationState.currentNode.label}" id="content">
+            <tc:attribute name="label" value="#{title}" mode="valueIfSet"/>
             <tc:form id="mainForm">
               <ui:insert/>
             </tc:form>
@@ -82,7 +85,7 @@
 
       <tc:footer fixed="true">
         © 2005-2018 Apache Software Foundation, Licensed under the <a
-              href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
+          href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
       </tc:footer>
 
     </tc:page>

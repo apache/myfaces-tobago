@@ -22,7 +22,7 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{demoBundle.sheet}"/>
+
   <p>For more complex headers, which can span over columns and/or rows use a
     <code class="language-markup">&lt;f:facet name="header"></code>in the sheet.
     The facet could be filled with <code class="language-markup">&lt;tc:out/></code> tags
@@ -34,13 +34,13 @@
     to set a span over columns or rows.</p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:sheet/>" image="#{request.contextPath}/image/feather-leaf.png"
-             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/sheet.html"/>
+             link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/sheet.html"/>
     |
     <tc:link label="&lt;tc:column/>" image="#{request.contextPath}/image/feather-leaf.png"
-             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/column.html"/>
+             link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/column.html"/>
     |
     <tc:link label="&lt;tc:span/>" image="#{request.contextPath}/image/feather-leaf.png"
-             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/gridLayoutConstraint.html"/></p>
+             link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/gridLayoutConstraint.html"/></p>
 
   <tc:section label="Multi-Header">
     <p>For multi-header sheets, you should consider to use <code>markup="bordered"</code> for better appearance.</p>

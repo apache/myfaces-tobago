@@ -22,15 +22,15 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{demoBundle.tree_select} &lt;treeSelect>"/>
+
   <p>The <code class="language-markup">&lt;tc:treeSelect/></code> tag can be used instead of
     <code class="language-markup">&lt;treeLabel/></code> to add radio buttons or checkboxes in front of the nodes.</p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:tree/>" image="#{request.contextPath}/image/feather-leaf.png"
-             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/tree.html"/>
+             link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/tree.html"/>
     |
     <tc:link label="&lt;tc:treeSelect/>" image="#{request.contextPath}/image/feather-leaf.png"
-             link="#{demoBundle.tagDocUrl}/#{info.stableVersion}/tld/tc/treeSelect.html"/></p>
+             link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/treeSelect.html"/></p>
 
   <tc:section label="Example">
     <p>The <code class="language-markup">&lt;tc:tree/></code> tag must use the <code>selectable</code> attribute.
@@ -51,7 +51,7 @@
             <tc:selectOneRadio id="selectable" value="#{treeSelectController.selectable}">
               <f:ajax render="examplePanel selectedNodesOutput"/>
               <tc:selectItems var="mode" value="#{treeSelectController.selectModes}"
-                              itemLabel="#{mode.name()} (#{demoBundle[mode.name()]})" itemValue="#{mode.name()}"/>
+                              itemLabel="#{mode.name()}" itemValue="#{mode.name()}"/>
             </tc:selectOneRadio>
           </tc:box>
         </tc:panel>

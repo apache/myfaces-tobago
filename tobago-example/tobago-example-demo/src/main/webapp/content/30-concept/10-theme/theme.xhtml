@@ -22,7 +22,7 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{demoBundle.theme}"/>
+
   <p>Tobago supports a big variety of displaying controls, so called designs or themes.</p>
 
   <tc:form id="theme">
@@ -32,15 +32,11 @@
         for each supported theme.</p>
       <tc:selectOneChoice label="Theme" value="#{themeController.theme}">
         <f:selectItems value="#{themeController.themeItems}"/>
+        <tc:event action="#{themeController.submit}"/>
       </tc:selectOneChoice>
-      <tc:button label="Submit" action="#{themeController.submit}"/>
 
       <tc:separator/>
-      <tc:figure>
-        <f:facet name="label">
-          <!-- todo: theme dependent text -->
-          <tc:out id="o1" value="#{demoBundle.theme_photo} (TODO: theme dependent text)"/>
-        </f:facet>
+      <tc:figure label="#{themeController.getLocalizedString('theme_photo')}">
         <tc:image value="/image/#{tobagoContext.theme.name}/theme-photo.jpg"/>
       </tc:figure>
     </tc:section>
