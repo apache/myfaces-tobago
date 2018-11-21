@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -17,11 +15,13 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/main.xhtml"
+<ui:composition template="/plain.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-  <ui:param name="title" value="Transition after sleep"/>
 
-  <tc:button label="Back" outcome="/content/30-concept/23-transition/Transition.xhtml"/>
-
+  <tc:section id="actionSection" label="Action">
+    <p>This page should be accessed by an link/button with <code>action</code> attribute.</p>
+    <tc:button id="back" label="Back" outcome="/content/40-test/4000-button-link/Button_Link.xhtml"/>
+  </tc:section>
 </ui:composition>

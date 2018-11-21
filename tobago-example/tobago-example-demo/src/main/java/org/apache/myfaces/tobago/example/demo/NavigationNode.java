@@ -53,7 +53,7 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
     branch = matcher.group(1);
     name = matcher.group(2);
 //    final String extension = matcher.group(3);
-    label = StringUtils.firstToUpperCase(name.replaceAll("[+-]", " "));
+    label = StringUtils.firstToUpperCase(name.replaceAll("[_]", " "));
   }
 
   @Override
