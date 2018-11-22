@@ -155,7 +155,7 @@ public class LocaleController implements Serializable {
   }
 
   public void setLocale(final Locale locale) {
-    if (!ObjectUtils.equals(this.locale , locale)) {
+    if (!ObjectUtils.equals(this.locale, locale)) {
       events.fire(new LocaleChanged());
     }
     this.locale = locale;
