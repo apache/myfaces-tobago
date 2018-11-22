@@ -29,24 +29,24 @@ public class ResourcesUtilsUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void testDefault() {
-    Assert.assertEquals("Locale", ResourceUtils.getString("configLocale"));
+    Assert.assertEquals("First Page", ResourceUtils.getString("sheet.first"));
   }
 
   @Test
   public void testGermany() {
     facesContext.getViewRoot().setLocale(Locale.GERMANY);
-    Assert.assertEquals("Sprache", ResourceUtils.getString("configLocale"));
+    Assert.assertEquals("erste Seite", ResourceUtils.getString("sheet.first"));
   }
 
   @Test
   public void testSpanish() {
     facesContext.getViewRoot().setLocale(Locale.forLanguageTag("es"));
-    Assert.assertEquals("Idioma", ResourceUtils.getString("configLocale"));
+    Assert.assertEquals("Primera Página", ResourceUtils.getString("sheet.first"));
  }
 
   @Test
   public void testFallback() {
     facesContext.getViewRoot().setLocale(Locale.forLanguageTag("ja"));
-    Assert.assertEquals("Locale", ResourceUtils.getString("configLocale"));
+    Assert.assertEquals("First Page", ResourceUtils.getString("sheet.first"));
   }
 }

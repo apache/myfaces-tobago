@@ -164,7 +164,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     writer.writeIdAttribute(fieldId);
     writer.writeClassAttribute(TobagoClass.FILE__REAL);
     writer.writeNameAttribute(clientId);
-    final String multiFormat = ResourceUtils.getString(facesContext, "tobago.file.multiFormat");
+    final String multiFormat = ResourceUtils.getString(facesContext, "file.selected");
     writer.writeAttribute(DataAttributes.dynamic("tobago-file-multi-format"), multiFormat, true);
     // readonly seems not making sense in browsers.
     writer.writeAttribute(HtmlAttributes.DISABLED, file.isDisabled() || file.isReadonly());

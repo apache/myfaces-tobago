@@ -19,29 +19,27 @@
 
 package org.apache.myfaces.tobago.event;
 
-import org.apache.myfaces.tobago.internal.util.StringUtils;
-
 public enum SheetAction {
 
   /**
    * First page is requested
    */
-  first,
+  first("sheet.first"),
 
   /**
    * Previous page is requested
    */
-  prev,
+  prev("sheet.prev"),
 
   /**
    * Next page is requested
    */
-  next,
+  next("sheet.next"),
 
   /**
    * Last page is requested
    */
-  last,
+  last("sheet.last"),
 
   /**
    * A specified row is requested
@@ -51,17 +49,20 @@ public enum SheetAction {
   /**
    * A specified page is requested
    */
-  toPage,
+  toPage("sheet.toPage"),
 
   /**
    * Sorting
    */
-  sort;
+  sort();
 
   private String bundleKey;
 
   SheetAction() {
-    this.bundleKey = "sheet" + StringUtils.firstToUpperCase(name());
+  }
+
+  SheetAction(final String bundleKey) {
+    this.bundleKey = bundleKey;
   }
 
   public String getBundleKey() {

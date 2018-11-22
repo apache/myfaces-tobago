@@ -374,7 +374,7 @@ public class SheetRenderer extends RendererBase {
         writer.startElement(HtmlElements.LI);
         writer.writeClassAttribute(BootstrapClass.PAGE_ITEM);
         writer.writeAttribute(HtmlAttributes.TITLE,
-            ResourceUtils.getString(facesContext, "sheetPagingInfoRowPagingTip"), true);
+            ResourceUtils.getString(facesContext, "sheet.setRow"), true);
         writer.startElement(HtmlElements.SPAN);
         writer.writeClassAttribute(TobagoClass.SHEET__PAGING_TEXT, BootstrapClass.PAGE_LINK);
         if (sheet.getRowCount() != 0) {
@@ -386,17 +386,9 @@ public class SheetRenderer extends RendererBase {
           final boolean unknown = !sheet.hasRowCount();
           final String key; // plural
           if (unknown) {
-            if (first == last1) {
-              key = "sheetPagingInfoUndefinedSingleRow";
-            } else {
-              key = "sheetPagingInfoUndefinedRows";
-            }
+            key = first == last1 ? "sheet.rowX" : "sheet.rowXtoY";
           } else {
-            if (first == last1) {
-              key = "sheetPagingInfoSingleRow";
-            } else {
-              key = "sheetPagingInfoRows";
-            }
+            key = first == last1 ? "sheet.rowXofZ" : "sheet.rowXtoYofZ";
           }
           final String inputMarker = "{#}";
           final Object[] args = {inputMarker, last1 == -1 ? "?" : last1, unknown ? "" : sheet.getRowCount()};
@@ -471,7 +463,7 @@ public class SheetRenderer extends RendererBase {
         writer.startElement(HtmlElements.SPAN);
         writer.writeClassAttribute(TobagoClass.SHEET__PAGING_TEXT, BootstrapClass.PAGE_LINK);
         writer.writeAttribute(HtmlAttributes.TITLE,
-            ResourceUtils.getString(facesContext, "sheetPagingInfoPagePagingTip"), true);
+            ResourceUtils.getString(facesContext, "sheet.setPage"), true);
         if (sheet.getRowCount() != 0) {
           final Locale locale = facesContext.getViewRoot().getLocale();
           final int first = sheet.getCurrentPage() + 1;
@@ -479,17 +471,9 @@ public class SheetRenderer extends RendererBase {
           final int pages = unknown ? -1 : sheet.getPages();
           final String key;
           if (unknown) {
-            if (first == pages) {
-              key = "sheetPagingInfoUndefinedSinglePage";
-            } else {
-              key = "sheetPagingInfoUndefinedPages";
-            }
+            key = first == pages ? "sheet.pageX" : "sheet.pageXtoY";
           } else {
-            if (first == pages) {
-              key = "sheetPagingInfoSinglePage";
-            } else {
-              key = "sheetPagingInfoPages";
-            }
+            key = first == pages ? "sheet.pageXofZ" : "sheet.pageXtoYofZ";
           }
           final String inputMarker = "{#}";
           final Object[] args = {inputMarker, pages == -1 ? "?" : pages};
@@ -771,7 +755,7 @@ public class SheetRenderer extends RendererBase {
       writer.writeAttribute(HtmlAttributes.COLSPAN, countColumns);
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(BootstrapClass.TEXT_CENTER);
-      writer.writeText(ResourceUtils.getString(facesContext, "sheetPagingInfoEmptyRow"));
+      writer.writeText(ResourceUtils.getString(facesContext, "sheet.empty"));
       writer.endElement(HtmlElements.DIV);
       writer.endElement(HtmlElements.TD);
       if (!autoLayout) {
@@ -949,7 +933,7 @@ public class SheetRenderer extends RendererBase {
                 } else {
                   tip += " - ";
                 }
-                tip += ResourceUtils.getString(facesContext, "sheetTipSorting");
+                tip += ResourceUtils.getString(facesContext, "sheet.sorting");
 
                 markup = markup.add(Markup.SORTABLE);
 
@@ -957,10 +941,10 @@ public class SheetRenderer extends RendererBase {
                 if (column.getId().equals(sheetState.getSortedColumnId())) {
                   final String sortTitle;
                   if (sheetState.isAscending()) {
-                    sortTitle = ResourceUtils.getString(facesContext, "sheetAscending");
+                    sortTitle = ResourceUtils.getString(facesContext, "sheet.ascending");
                     markup = markup.add(Markup.ASCENDING);
                   } else {
-                    sortTitle = ResourceUtils.getString(facesContext, "sheetDescending");
+                    sortTitle = ResourceUtils.getString(facesContext, "sheet.descending");
                     markup = markup.add(Markup.DESCENDING);
                   }
                   if (sortTitle != null) {
@@ -980,7 +964,7 @@ public class SheetRenderer extends RendererBase {
               writer.writeClassAttribute(TobagoClass.SHEET__COLUMN_SELECTOR);
               writer.writeAttribute(
                   HtmlAttributes.TITLE,
-                  ResourceUtils.getString(facesContext, "sheetMenuSelect"),
+                  ResourceUtils.getString(facesContext, "sheet.selectAll"),
                   true);
               writer.endElement(HtmlElements.INPUT);
             } else {

@@ -358,7 +358,7 @@ public class PageRenderer extends RendererBase {
     writer.startElement(HtmlElements.NOSCRIPT);
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(TobagoClass.PAGE__NOSCRIPT);
-    writer.writeText(ResourceUtils.getString(facesContext, "pageNoscript"));
+    writer.writeText(ResourceUtils.getString(facesContext, "page.noscript"));
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.NOSCRIPT);
     writer.endElement(HtmlElements.DIV);

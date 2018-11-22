@@ -60,12 +60,11 @@ public class ObjectRenderer extends RendererBase {
         object.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
 
-    writer.writeText(ResourceUtils.getString(facesContext, "browser.noframe.message.prefix"));
+    writer.writeText(ResourceUtils.getString(facesContext, "object.noframe"));
     writer.writeText(" ");
     if (object.getSrc() != null) {
       writer.writeText(object.getSrc());
     }
-    writer.writeText(" " + ResourceUtils.getString(facesContext, "browser.noframe.message.postfix"));
 
     writer.endElement(HtmlElements.IFRAME);
   }
