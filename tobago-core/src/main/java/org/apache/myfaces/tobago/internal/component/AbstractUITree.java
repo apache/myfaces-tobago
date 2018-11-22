@@ -37,8 +37,6 @@ import javax.faces.context.FacesContext;
  */
 public abstract class AbstractUITree extends AbstractUIData implements NamingContainer, Visual {
 
-  public static final String MESSAGE_NOT_LEAF = "tobago.tree.MESSAGE_NOT_LEAF";
-
   /**
    * @deprecated since 2.0.0
    */

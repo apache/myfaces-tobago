@@ -72,8 +72,8 @@ public abstract class AbstractUISheet extends AbstractUIData
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Data";
 
   public static final String SORTER_ID = "sorter";
-  public static final String NOT_SORTABLE_COL_MESSAGE_ID = "org.apache.myfaces.tobago.Sheet.SORTING_COL_ERROR";
-  public static final String NOT_SORTABLE_MESSAGE_ID = "org.apache.myfaces.tobago.Sheet.SORTING_ERROR";
+  public static final String NOT_SORTABLE_COL_MESSAGE_ID = "org.apache.myfaces.tobago.UISheet.SORTING_COL";
+  public static final String NOT_SORTABLE_MESSAGE_ID = "org.apache.myfaces.tobago.UISheet.SORTING";
 
   private SheetState state;
   private transient MeasureList columnLayout;

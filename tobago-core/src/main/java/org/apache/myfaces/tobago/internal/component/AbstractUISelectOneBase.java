@@ -33,7 +33,7 @@ import javax.faces.context.FacesContext;
 public abstract class AbstractUISelectOneBase extends javax.faces.component.UISelectOne
     implements Visual, SupportsLabelLayout, ClientBehaviorHolder {
 
-  public static final String MESSAGE_VALUE_REQUIRED = "tobago.SelectOne.MESSAGE_VALUE_REQUIRED";
+  public static final String MESSAGE_VALUE_REQUIRED = "org.apache.myfaces.tobago.UISelectOne.REQUIRED";
 
   @Override
   public void validate(final FacesContext facesContext) {
