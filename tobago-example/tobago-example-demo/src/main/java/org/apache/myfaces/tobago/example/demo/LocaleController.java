@@ -19,16 +19,19 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.application.Application;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Event;
+import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 import java.io.Serializable;
@@ -46,6 +49,9 @@ public class LocaleController implements Serializable {
   private static final Logger LOG = LoggerFactory.getLogger(LocaleController.class);
 
   private Locale locale;
+
+  @Inject
+  private Event<LocaleChanged> events;
 
   public LocaleController() {
 
@@ -149,6 +155,9 @@ public class LocaleController implements Serializable {
   }
 
   public void setLocale(final Locale locale) {
+    if (!ObjectUtils.equals(this.locale , locale)) {
+      events.fire(new LocaleChanged());
+    }
     this.locale = locale;
   }
 

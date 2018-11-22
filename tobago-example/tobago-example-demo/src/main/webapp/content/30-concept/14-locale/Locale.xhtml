@@ -18,9 +18,10 @@
 -->
 
 <ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+                xmlns:f="http://java.sun.com/jsf/core">
 
   Tobago supports internationalization and localization.
   <ul>
@@ -53,5 +54,43 @@
   <p>
     The image url will be evaluated by the Java Bean  <code>LocaleController</code>.
   </p>
+
+  <tc:tabGroup>
+    <tc:tab label="Tobago Resource Bundle">
+      <p>
+      Tobago comes with a resource bundle
+      <code>org.apache.myfaces.tobago.context.TobagoResourceBundle</code> mapped to
+      <code>tobagoResourceBundle</code>.
+      This bundle contails translated text fragments used by Tobago e. g.
+      for label of components.
+      It's easy to expand this bundle to support more languages.
+      </p>
+      <p>
+        The next table shows the keys and the translation with the locale of the current session.
+        The locale can be changed with the selector above.
+      </p>
+      <tc:sheet var="entry" value="#{bundleController.resources}" markup="small">
+        <tc:style maxHeight="500px"/>
+        <tc:column label="Key" sortable="true">
+          <tc:out value="#{entry.key}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="Value" sortable="true">
+          <tc:out value="#{entry.value}" labelLayout="skip"/>
+        </tc:column>
+      </tc:sheet>
+    </tc:tab>
+    <tc:tab label="Tobago Message Bundle">
+      Tobago comes with a message bundle for Tobago specific (info/warn/error) messages.
+      <tc:sheet var="entry" value="#{bundleController.messages}" markup="small">
+        <tc:style maxHeight="500px"/>
+        <tc:column label="Key" sortable="true">
+          <tc:out value="#{entry.key}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="Value" sortable="true">
+          <tc:out value="#{entry.value}" labelLayout="skip"/>
+        </tc:column>
+      </tc:sheet>
+    </tc:tab>
+  </tc:tabGroup>
 
 </ui:composition>
