@@ -29,21 +29,29 @@
   <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
            link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/messages.html"/>
 
-  <tc:section label="Create Message">
-    <p>To create messages, press one of the following buttons. The message will be displayed in the tabgroup.</p>
-    <p>If you are using ajax, make sure to rerender the <code class="language-markup">&lt;tc:message/></code> tag.</p>
-    <tc:button label="Fatal" action="#{messagesController.createFatalMessage}"/>
-    <tc:button label="Error" action="#{messagesController.createErrorMessage}"/>
-    <tc:button label="Warn" action="#{messagesController.createWarnMessage}"/>
-    <tc:button label="Info" action="#{messagesController.createInfoMessage}"/>
-    <tc:button label="7 Messages" action="#{messagesController.createSevenMessages}"/>
-    <tc:button label="7 Messages (Ajax)" action="#{messagesController.createSevenMessages}">
-      <f:ajax render="tabGroup"/>
-    </tc:button>
-    <tc:button label="Summary/Details" action="#{messagesController.createSummaryDetailMessages}"/>
+  <tc:section label="Show Messages in different style">
+    <tc:box label="Create a message">
+      <tc:buttons>
+      <tc:button label="Fatal" action="#{messagesController.createFatalMessage}"/>
+      <tc:button label="Error" action="#{messagesController.createErrorMessage}"/>
+      <tc:button label="Warn" action="#{messagesController.createWarnMessage}"/>
+      <tc:button label="Info" action="#{messagesController.createInfoMessage}"/>
+      <tc:button label="7 Messages" action="#{messagesController.createSevenMessages}"/>
+      <tc:button label="7 Messages (Ajax)" action="#{messagesController.createSevenMessages}">
+        <f:ajax render="tabGroup"/>
+      </tc:button>
+      <tc:button label="Summary/Details" action="#{messagesController.createSummaryDetailMessages}"/>
+      </tc:buttons>
+
+      <p>To create messages, press one of the buttons. The message will be displayed in the tabgroup below.</p>
+    </tc:box>
+    <p>
+      <tc:badge value="Hint" markup="warning"/>
+      If you are using AJAX, make sure to udpate the <code class="language-markup">&lt;tc:message/></code> tag.
+    </p>
   </tc:section>
 
-  <tc:tabGroup id="tabGroup" switchType="reloadPage">
+  <tc:tabGroup id="tabGroup" switchType="client">
     <tc:tab label="Without attributes">
       <p>On this tab, you can see how messages are displayed if no attribute are set for the
         <code class="language-markup">&lt;tc:messages/></code> tag.</p>
