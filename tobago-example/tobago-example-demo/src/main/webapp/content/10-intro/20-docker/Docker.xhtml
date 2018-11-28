@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+
+  <p>
+    To run the examples, or other Tobago applications (or any web applications), you
+    may want to use docker. You don't need to install an JavaEE server by yourself,
+    just run it in Docker.
+  </p>
+
+  <tc:script file="docker.js"/>
+
+  <tc:section id="cli" label="Command Line Configurator">
+
+    <tc:segmentLayout medium="6seg;6seg">
+
+      <tc:selectOneChoice label="Server" value="#{dockerController.server}">
+        <tc:selectItems value="#{dockerController.servers}" var="server"
+                        itemLabel="#{server.displayName}" itemValue="#{server}"/>
+        <f:ajax execute="@this" render="cli"/>
+      </tc:selectOneChoice>
+
+      <tc:selectOneChoice label="Tag" value="#{dockerController.tag}">
+        <tc:selectItems value="#{dockerController.tags}" var="tag"
+                        itemLabel="#{tag}" itemValue="#{tag}"/>
+        <f:ajax execute="@this" render="cli"/>
+      </tc:selectOneChoice>
+
+      <tc:in label="HTTP Port" value="#{dockerController.port}">
+        <f:validateLongRange minimum="1" maximum="65535"/>
+        <f:ajax execute="@this" render="cli"/>
+      </tc:in>
+
+      <tc:in label="HTTPS Port" value="#{dockerController.sslPort}" disabled="#{not dockerController.server.ssl}">
+        <f:validateLongRange minimum="1" maximum="65535"/>
+        <f:ajax execute="@this" render="cli"/>
+      </tc:in>
+
+    </tc:segmentLayout>
+
+    <tc:box label="Docker Command">
+    <pre><code class="language-bash" id="commandLine"><tc:out
+        keepLineBreaks="false" value="#{dockerController.commandLine}"/></code></pre>
+
+      <tc:button id="toClipboardButton" label="Copy Commands" omit="true"/>
+
+      <tc:button label="Browse via HTTP" link="#{dockerController.url}"/>
+      <tc:button label="Browse via HTTPS" link="#{dockerController.sslUrl}" disabled="#{not dockerController.server.ssl}"/>
+    </tc:box>
+
+  </tc:section>
+
+</ui:composition>
