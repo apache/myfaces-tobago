@@ -1,6 +1,6 @@
 {
   "name": "tobago-theme-charlotteville",
-  "version": "4.3.0-SNAPSHOT",
+  "version": "5.0.0-SNAPSHOT",
   "xxx_version": "${project.version}",
   "description": "The 'charlotteville' theme of the Tobago framework",
   "main": "index.js",
