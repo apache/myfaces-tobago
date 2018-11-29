@@ -44,6 +44,22 @@ public enum DockerServer implements Serializable {
       new String[]{
           "webProfile7",
           "webProfile8"},
+      true),
+  wildfly(
+      "Wildfly",
+      "/opt/jboss/wildfly/standalone/deployments/demo.war",
+      8080,
+      8443,
+      "jboss/wildfly",
+      new String[]{
+          "8.2.1.Final",
+          "9.0.2.Final",
+          "10.1.0.Final",
+          "11.0.0.Final",
+          "12.0.0.Final",
+          "13.0.0.Final",
+          "14.0.1.Final"
+      },
       true);
 
   private String displayName;

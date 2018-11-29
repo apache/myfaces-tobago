@@ -207,14 +207,16 @@
       <groupId>org.apache.geronimo.specs</groupId>
       <artifactId>geronimo-annotation_1.0_spec</artifactId>
       <!-- compile or provided depends on the used server -->
-      <scope>compile</scope>
+      <scope>provided</scope>
     </dependency>
 
+<!--
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-validator</artifactId>
       <version>4.3.2.Final</version>
     </dependency>
+-->
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpcore</artifactId>

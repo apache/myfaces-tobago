@@ -84,37 +84,18 @@
   </listener>
 
   <!-- activate this for some containers -->
-  <!--<listener>
+  <!--
+  <listener>
     <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
-  </listener>-->
+  </listener>
+  -->
 
-<!-- this is not needed for websphere 8.5 -->
-<!-- and neither for tomcat if setup correctly... but needed for jetty -->
+  <!-- activate this for some containers -->
+  <!--
   <listener>
     <listener-class>org.apache.webbeans.servlet.WebBeansConfigurationListener</listener-class>
   </listener>
-
-
-<!-- this is an alternative to the WebBeansConfigurationListener
-     you need it e.g. for Tomcat 5.5 or WebSphere 6.1 (see TOBAGO-1043)
--->
-<!--
-  <filter>
-      <filter-name>webbeans</filter-name>
-      <filter-class>org.apache.webbeans.servlet.WebBeansConfigurationFilter</filter-class>
-    </filter>
-
-  <filter-mapping>
-      <filter-name>webbeans</filter-name>
-      <servlet-name>FacesServlet</servlet-name>
-      <dispatcher>REQUEST</dispatcher>
-      <dispatcher>ERROR</dispatcher>
-  </filter-mapping>
-
-  <listener>
-    <listener-class>org.apache.webbeans.servlet.WebBeansConfigurationHttpSessionListener</listener-class>
-  </listener>
--->
+  -->
 
   <filter>
     <filter-name>LoggingMdcFilter</filter-name>
@@ -131,7 +112,8 @@
     <servlet-name>FacesServlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
     <load-on-startup>3</load-on-startup>
-    <!-- This is needed, for file upload e.g. <tc:file> with JSF 2.0 or 2.1, JSF 2.2 doesn't need it. -->
+    <!-- This is needed, for file upload e.g. <tc:file> with JSF 2.0 or 2.1.
+     Version JSF 2.2 or higher doesn't need it! -->
     <multipart-config>
       <max-file-size>1000000</max-file-size>
       <max-request-size>20000000</max-request-size>

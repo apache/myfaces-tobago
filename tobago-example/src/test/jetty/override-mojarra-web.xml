@@ -32,4 +32,8 @@
     <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
   </listener>
 
+  <listener>
+    <listener-class>org.apache.webbeans.servlet.WebBeansConfigurationListener</listener-class>
+  </listener>
+
 </web-app>
