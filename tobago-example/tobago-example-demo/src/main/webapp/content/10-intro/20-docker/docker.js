@@ -15,7 +15,9 @@
  * limitations under the License.
  */
 
-document.addEventListener("DOMContentLoaded", function () {
+Tobago.Docker = {};
+
+Tobago.Docker.init = function () {
 
   /* Copy the command lines to the clipboard.
    */
@@ -38,4 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error('Copying text not possible');
     }
   });
-});
+};
+
+Tobago.registerListener(Tobago.Docker.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.Docker.init, Tobago.Phase.AFTER_UPDATE);
