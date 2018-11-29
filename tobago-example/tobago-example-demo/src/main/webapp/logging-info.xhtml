@@ -24,7 +24,7 @@
                 xmlns="http://www.w3.org/1999/xhtml">
   <ui:param name="title" value="Logging Info"/>
 
-  <tc:gridLayout rows="auto auto auto 1fr" rendered="#{info.enabled}">
+  <tc:gridLayout rows="auto auto auto 1fr" rendered="#{serverInfo.enabled}">
 
     <tc:in label="Test Category" value="#{universalLoggingInfo.testCategory}"/>
     <tc:button label="Update" action="#{universalLoggingInfo.update}"/>

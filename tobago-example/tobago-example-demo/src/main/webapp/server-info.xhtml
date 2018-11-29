@@ -23,27 +23,31 @@
 
   <ui:param name="title" value="Server Info"/>
 
-  <tc:panel rendered="#{info.enabled}">
+  <tc:panel rendered="#{serverInfo.enabled}">
 
     <tc:section label="Main Properties">
 
-      <tc:in value="#{info.version}" readonly="true" label="Tobago Version"/>
+      <tc:in value="#{serverInfo.version}" readonly="true" label="Tobago Version"/>
 
       <tc:in value="#{manifestReader.buildTime}" readonly="true" label="Tobago Build Time">
         <f:convertDateTime type="both"/>
       </tc:in>
 
-      <tc:in value="#{info.jsfTitle}" readonly="true" label="JSF Implementation"/>
+      <tc:in value="#{serverInfo.jsfTitle}" readonly="true" label="JSF Implementation"/>
 
-      <tc:in value="#{info.jsfVersion}" readonly="true" label="JSF Version"/>
+      <tc:in value="#{serverInfo.jsfVersion}" readonly="true" label="JSF Version"/>
 
-      <tc:in value="#{info.serverInfo}" readonly="true" label="Server Info"/>
+      <tc:in value="#{serverInfo.cdiTitle}" readonly="true" label="CDI Implementation"/>
 
-      <tc:in value="#{info.systemProperties['java.runtime.version']} - #{info.systemProperties['java.vm.vendor']}"
+      <tc:in value="#{serverInfo.cdiVersion}" readonly="true" label="CDI Version"/>
+
+      <tc:in value="#{serverInfo.serverInfo}" readonly="true" label="Server Info"/>
+
+      <tc:in value="#{serverInfo.systemProperties['java.runtime.version']} - #{serverInfo.systemProperties['java.vm.vendor']}"
              readonly="true" label="Java"/>
 
       <tc:in
-          value="#{info.systemProperties['os.name']} - #{info.systemProperties['os.version']} - #{info.systemProperties['os.arch']}"
+          value="#{serverInfo.systemProperties['os.name']} - #{serverInfo.systemProperties['os.version']} - #{serverInfo.systemProperties['os.arch']}"
           readonly="true" label="Operating System"/>
 
       <tc:segmentLayout medium="6seg 6seg" large="4seg 4seg 4seg" extraLarge="3seg 3seg 3seg">
@@ -59,6 +63,12 @@
       </tc:segmentLayout>
 
       <tc:segmentLayout medium="6seg 6seg" large="4seg 4seg 4seg" extraLarge="3seg 3seg 3seg">
+        <tc:selectBooleanCheckbox value="#{version.cdiVersion10}" readonly="true" label="CDI 1.0"/>
+        <tc:selectBooleanCheckbox value="#{version.cdiVersion1112}" readonly="true" label="CDI 1.1 or 1.2"/>
+        <tc:selectBooleanCheckbox value="#{version.cdiVersion20}" readonly="true" label="CDI 2.0"/>
+      </tc:segmentLayout>
+
+      <tc:segmentLayout medium="6seg 6seg" large="4seg 4seg 4seg" extraLarge="3seg 3seg 3seg">
         <tc:selectBooleanCheckbox value="#{facesContext.isProjectStage('Production')}" readonly="true" label="Production"/>
         <tc:selectBooleanCheckbox value="#{facesContext.isProjectStage('Development')}" readonly="true" label="Development"/>
         <tc:selectBooleanCheckbox value="#{facesContext.isProjectStage('SystemTest')}" readonly="true" label="SystemTest"/>
@@ -68,7 +78,7 @@
     </tc:section>
 
     <tc:section label="System Properties">
-      <tc:sheet var="entry" value="#{info.systemPropertiesAsList}" rows="1000">
+      <tc:sheet var="entry" value="#{serverInfo.systemPropertiesAsList}" rows="1000">
         <tc:column label="Key">
           <tc:out value="#{entry.key}" labelLayout="skip"/>
         </tc:column>

@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.NormalScope;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
@@ -41,7 +42,7 @@ import java.util.Properties;
  * The file name can be changed with a system property with name <code>{@value #CONFIG_FILE}</code>.
  */
 @ApplicationScoped
-@Named("info")
+@Named
 public class ServerInfo {
 
   private static final Logger LOG = LoggerFactory.getLogger(ServerInfo.class);
@@ -101,6 +102,14 @@ public class ServerInfo {
 
   public String getJsfVersion() {
     return enabled ? FacesContext.class.getPackage().getImplementationVersion() : null;
+  }
+
+  public String getCdiTitle() {
+    return enabled ? NormalScope.class.getPackage().getImplementationTitle() : null;
+  }
+
+  public String getCdiVersion() {
+    return enabled ? NormalScope.class.getPackage().getImplementationVersion() : null;
   }
 
   public boolean isEnabled() {

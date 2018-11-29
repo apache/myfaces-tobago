@@ -28,6 +28,19 @@ import javax.inject.Named;
 @ApplicationScoped
 public class Version {
 
+  private static final boolean cdi10 = hasClass("javax.enterprise.context.Conversation");
+  private static final boolean cdi1112 = hasClass("javax.enterprise.context.Destroyed");
+  private static final boolean cdi20 = hasClass("javax.enterprise.context.BeforeDestroyed");
+
+  private static boolean hasClass(String clazz) {
+    try {
+      Class.forName(clazz);
+      return true;
+    } catch (ClassNotFoundException e) {
+      return false;
+    }
+  }
+
   public boolean isVersion20() {
     return FacesVersion.supports20() && !FacesVersion.supports21();
   }
@@ -50,5 +63,17 @@ public class Version {
 
   public boolean isMyfaces() {
     return FacesVersion.isMyfaces();
+  }
+
+  public boolean isCdiVersion10() {
+    return cdi10 && !cdi1112;
+  }
+
+  public boolean isCdiVersion1112() {
+    return cdi1112 && !cdi20;
+  }
+
+  public boolean isCdiVersion20() {
+    return cdi20;
   }
 }
