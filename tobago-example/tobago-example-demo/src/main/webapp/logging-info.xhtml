@@ -20,53 +20,54 @@
 <ui:composition template="/main.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:demo="http://myfaces.apache.org/tobago/example/demo"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns="http://www.w3.org/1999/xhtml">
   <ui:param name="title" value="Logging Info"/>
 
   <tc:gridLayout rows="auto auto auto 1fr" rendered="#{serverInfo.enabled}">
 
-    <tc:in label="Test Category" value="#{universalLoggingInfo.testCategory}"/>
-    <tc:button label="Update" action="#{universalLoggingInfo.update}"/>
+    <tc:in label="Test Category" value="#{loggingController.testCategory}"/>
+    <tc:button label="Update" action="#{loggingController.update}"/>
 
     <tc:separator/>
 
     <tc:gridLayout columns="auto 120px auto 1fr">
 
       <tc:label value="JUL" tip="Java Util Logging"/>
-      <tc:selectBooleanCheckbox value="#{universalLoggingInfo.jul.available}" readonly="true"
+      <tc:selectBooleanCheckbox value="#{loggingController.jul.available}" readonly="true"
                                 label="available" labelLayout="skip"/>
-      <tc:button label="Log" tip="Log some stuff in every level" action="#{universalLoggingInfo.jul.logDemo}"
-                 disabled="#{not universalLoggingInfo.jul.available}"/>
-      <tc:out value="#{universalLoggingInfo.jul.activeLevels}"/>
+      <tc:button label="Log" tip="Log some stuff in every level" action="#{loggingController.jul.logDemo}"
+                 disabled="#{not loggingController.jul.available}"/>
+      <tc:out value="#{loggingController.jul.activeLevels}"/>
 
       <tc:label value="SLF4J" tip="Simple Logging Facade"/>
-      <tc:selectBooleanCheckbox value="#{universalLoggingInfo.slf4j.available}" readonly="true"
+      <tc:selectBooleanCheckbox value="#{loggingController.slf4j.available}" readonly="true"
                                 label="available" labelLayout="skip"/>
-      <tc:button label="Log" tip="Log some stuff in every level" action="#{universalLoggingInfo.slf4j.logDemo}"
-                 disabled="#{not universalLoggingInfo.slf4j.available}"/>
-      <tc:out value="#{universalLoggingInfo.slf4j.activeLevels}"/>
+      <tc:button label="Log" tip="Log some stuff in every level" action="#{loggingController.slf4j.logDemo}"
+                 disabled="#{not loggingController.slf4j.available}"/>
+      <tc:out value="#{loggingController.slf4j.activeLevels}"/>
 
       <tc:label value="LOG4J"/>
-      <tc:selectBooleanCheckbox value="#{universalLoggingInfo.log4j.available}" readonly="true"
+      <tc:selectBooleanCheckbox value="#{loggingController.log4j.available}" readonly="true"
                                 label="available" labelLayout="skip"/>
-      <tc:button label="Log" tip="Log some stuff in every level" action="#{universalLoggingInfo.log4j.logDemo}"
-                 disabled="#{not universalLoggingInfo.log4j.available}"/>
-      <tc:out value="#{universalLoggingInfo.log4j.activeLevels}"/>
+      <tc:button label="Log" tip="Log some stuff in every level" action="#{loggingController.log4j.logDemo}"
+                 disabled="#{not loggingController.log4j.available}"/>
+      <tc:out value="#{loggingController.log4j.activeLevels}"/>
 
       <tc:label value="LOG4J2"/>
-      <tc:selectBooleanCheckbox value="#{universalLoggingInfo.log4j2.available}" readonly="true"
+      <tc:selectBooleanCheckbox value="#{loggingController.log4j2.available}" readonly="true"
                                 label="available" labelLayout="skip"/>
-      <tc:button label="Log" tip="Log some stuff in every level" action="#{universalLoggingInfo.log4j2.logDemo}"
-                 disabled="#{not universalLoggingInfo.log4j2.available}"/>
-      <tc:out value="#{universalLoggingInfo.log4j2.activeLevels}"/>
+      <tc:button label="Log" tip="Log some stuff in every level" action="#{loggingController.log4j2.logDemo}"
+                 disabled="#{not loggingController.log4j2.available}"/>
+      <tc:out value="#{loggingController.log4j2.activeLevels}"/>
 
       <tc:label value="JCL" tip="Commons Logging"/>
-      <tc:selectBooleanCheckbox value="#{universalLoggingInfo.commonsLogging.available}" readonly="true"
+      <tc:selectBooleanCheckbox value="#{loggingController.commonsLogging.available}" readonly="true"
                                 label="available" labelLayout="skip"/>
-      <tc:button label="Log" tip="Log some stuff in every level" action="#{universalLoggingInfo.commonsLogging.logDemo}"
-                 disabled="#{not universalLoggingInfo.commonsLogging.available}"/>
-      <tc:out value="#{universalLoggingInfo.commonsLogging.activeLevels}"/>
+      <tc:button label="Log" tip="Log some stuff in every level" action="#{loggingController.commonsLogging.logDemo}"
+                 disabled="#{not loggingController.commonsLogging.available}"/>
+      <tc:out value="#{loggingController.commonsLogging.activeLevels}"/>
     </tc:gridLayout>
 
     <tc:flowLayout>
@@ -81,4 +82,24 @@
 
     </tc:flowLayout>
   </tc:gridLayout>
+
+  <tc:section label="Logback Status Messages">
+    <tc:sheet value="#{loggingController.statusList}" var="status" markup="small">
+      <tc:column label="Date">
+        <tc:out value="#{demo:logbackDate(status.date)}" labelLayout="skip">
+          <f:convertDateTime type="both"/>
+        </tc:out>
+      </tc:column>
+      <tc:column label="Level">
+        <tc:out value="#{demo:logbackLevel(status.level)}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="Origin">
+        <tc:out value="#{status.origin.getClass().simpleName}" tip="#{status.origin.getClass().name}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="Message">
+        <tc:out value="#{status.message}" labelLayout="skip"/>
+      </tc:column>
+    </tc:sheet>
+  </tc:section>
+
 </ui:composition>

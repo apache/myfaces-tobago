@@ -19,18 +19,24 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.core.status.Status;
+import org.slf4j.LoggerFactory;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Provides the possibility to get information about various logging APIs available in the current setup.
  */
 @Named
 @ApplicationScoped
-public class UniversalLoggingInfo {
+public class LoggingController {
 
   private static final PrintStream LOG = System.err;
 
@@ -56,9 +62,17 @@ public class UniversalLoggingInfo {
 
   private LoggingInfo commonsLogging;
 
-  private String testCategory = UniversalLoggingInfo.class.getName();
+  private String testCategory = LoggingController.class.getName();
 
-  public UniversalLoggingInfo() {
+  public LoggingController() {
+
+/*
+    LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
+    JoranConfigurator configurator = new JoranConfigurator();
+    configurator.setContext(context);
+    XXX ... to be continued ...
+*/
+
     jul = new LoggingInfo(JUL, "java.util.logging.Logger", "getLogger", testCategory, true,
         "finest",
         "finer",
@@ -136,6 +150,27 @@ public class UniversalLoggingInfo {
     } else {
       this.testCategory = "";
     }
+  }
+
+  public List<Status> getStatusList() {
+    return ((LoggerContext) LoggerFactory.getILoggerFactory()).getStatusManager().getCopyOfStatusList();
+  }
+
+  public static String logbackLevel(final Integer level) {
+    switch (level) {
+      case 0:
+        return "info";
+      case 1:
+        return "warn";
+      case 2:
+        return "error";
+      default:
+        return "unknown";
+    }
+  }
+
+  public static Date logbackDate(final Long millis) {
+    return new Date(millis);
   }
 
   public static class LoggingInfo {

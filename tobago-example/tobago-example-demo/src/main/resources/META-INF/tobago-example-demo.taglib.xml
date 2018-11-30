@@ -31,4 +31,16 @@
     <function-signature>java.lang.String valueOf(java.lang.String)</function-signature>
   </function>
 
+  <function>
+    <function-name>logbackLevel</function-name>
+    <function-class>org.apache.myfaces.tobago.example.demo.LoggingController</function-class>
+    <function-signature>java.lang.String logbackLevel(java.lang.Integer)</function-signature>
+  </function>
+
+  <function>
+    <function-name>logbackDate</function-name>
+    <function-class>org.apache.myfaces.tobago.example.demo.LoggingController</function-class>
+    <function-signature>java.util.Date logbackDate(java.lang.Long)</function-signature>
+  </function>
+
 </facelet-taglib>
