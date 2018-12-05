@@ -58,4 +58,6 @@ public abstract class AbstractUIFile extends UIInput implements LayoutComponent,
   public abstract boolean isMultiple();
 
   public abstract Integer getTabIndex();
+
+  public abstract String getPlaceholder();
 }
