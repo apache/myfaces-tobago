@@ -111,10 +111,8 @@ public class InRenderer extends InputRendererBase {
     }
     final Style style = new Style(facesContext, input);
     writer.writeStyleAttribute(style);
-
-    final String placeholder = input.getPlaceholder();
-    if (!disabled && !readonly && StringUtils.isNotBlank(placeholder)) {
-      writer.writeAttribute(HtmlAttributes.PLACEHOLDER, placeholder, true);
+    if (!disabled && !readonly) {
+      writer.writeAttribute(HtmlAttributes.PLACEHOLDER, input.getPlaceholder(), true);
     }
 
     if (input instanceof AbstractUIIn && ((AbstractUIIn) input).getSuggest() != null) {

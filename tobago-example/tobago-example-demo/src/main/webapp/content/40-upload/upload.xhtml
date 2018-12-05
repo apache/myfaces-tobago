@@ -33,7 +33,7 @@
         <tc:gridLayout columns="*;auto"/>
       </f:facet>
 
-      <tx:file label="Upload file:" value="#{upload.file1}" tip="without extra validation"/>
+      <tx:file placeholder="please select a file" label="Upload file:" value="#{upload.file1}" tip="without extra validation"/>
       <tc:button label="Submit" defaultCommand="true" action="#{upload.upload}"/>
 
       <tx:file label="Upload image:" value="#{upload.file2}"

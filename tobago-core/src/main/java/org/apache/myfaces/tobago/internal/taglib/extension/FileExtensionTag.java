@@ -62,6 +62,7 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
   private MethodExpression validator;
   private ValueExpression disabled;
   private ValueExpression rendered;
+  private ValueExpression placeholder;
   private ValueExpression multiple;
   private ValueExpression tip;
   private ValueExpression onchange;
@@ -130,6 +131,9 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
     if (label != null) {
       fileTag.setLabel(label);
     }
+    if (placeholder != null) {
+      fileTag.setPlaceholder(placeholder);
+    }
     if (onchange != null) {
       fileTag.setOnchange(onchange);
     }
@@ -176,6 +180,7 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
     accessKey = null;
     labelWidth = null;
     tip = null;
+    placeholder = null;
     onchange = null;
     value = null;
     rendered = null;
@@ -305,6 +310,16 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
   public void setTip(final ValueExpression tip) {
     this.tip = tip;
   }
+
+  /**
+   * Text value to display as placeholder.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setPlaceholder(final ValueExpression placeholder) {
+    this.placeholder = placeholder;
+  }
+
    /**
    * The width for the label component. Default: 'auto'.
    * This value is used in the gridLayouts columns attribute.

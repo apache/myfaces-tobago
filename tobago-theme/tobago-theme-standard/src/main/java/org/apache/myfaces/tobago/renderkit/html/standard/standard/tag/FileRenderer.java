@@ -170,6 +170,9 @@ public class FileRenderer extends InputRendererBase {
     writer.writeClassAttribute(getCssClasses(file, "pretty"));
     writer.writeStyleAttribute(inputStyle);
     writer.writeAttribute(HtmlAttributes.DISABLED, true);
+    if (!file.isDisabled() && !file.isReadonly()) {
+      writer.writeAttribute(HtmlAttributes.PLACEHOLDER, file.getPlaceholder(), true);
+    }
     // TODO Focus
     //HtmlRendererUtils.renderFocus(clientId, file.isFocus(), ComponentUtils.isError(file), facesContext, writer);
     writer.endElement(HtmlElements.INPUT);

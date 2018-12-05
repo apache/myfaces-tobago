@@ -67,4 +67,9 @@ public abstract class AbstractUIFileDrop extends AbstractUIFile implements Suppo
     return (ActionListener[]) ((ActionListener[]) this.getFacesListeners(ActionListener.class));
   }
 
+  // not a file drop attribute
+  @Override
+  public String getPlaceholder() {
+    return null;
+  }
 }
