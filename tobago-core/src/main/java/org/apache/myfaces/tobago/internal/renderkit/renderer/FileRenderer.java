@@ -121,6 +121,8 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     final String fieldId = file.getFieldId(facesContext);
     final String accept = createAcceptFromValidators(file);
     final boolean multiple = file.isMultiple() && !file.isRequired();
+    final boolean disabled = file.isDisabled();
+    final boolean readonly = file.isReadonly();
     if (file.isMultiple() && file.isRequired()) {
       LOG.warn("Required multiple file upload is not supported."); //TODO TOBAGO-1930
     }
@@ -145,8 +147,12 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
     writer.writeAttribute(HtmlAttributes.ACCEPT, accept, true);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
-    writer.writeAttribute(HtmlAttributes.DISABLED, file.isDisabled() || file.isReadonly());
-    writer.writeAttribute(HtmlAttributes.READONLY, file.isReadonly());
+    writer.writeAttribute(HtmlAttributes.DISABLED, disabled || readonly);
+    writer.writeAttribute(HtmlAttributes.READONLY, readonly);
+    if (!disabled && !readonly) {
+      writer.writeAttribute(HtmlAttributes.PLACEHOLDER, file.getPlaceholder(), true);
+    }
+
     writer.writeClassAttribute(
         TobagoClass.FILE__PRETTY,
         BootstrapClass.FORM_CONTROL,
@@ -167,8 +173,8 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     final String multiFormat = TobagoResourceBundle.getString(facesContext, "tobago.file.multiFormat");
     writer.writeAttribute(DataAttributes.dynamic("tobago-file-multi-format"), multiFormat, true);
     // readonly seems not making sense in browsers.
-    writer.writeAttribute(HtmlAttributes.DISABLED, file.isDisabled() || file.isReadonly());
-    writer.writeAttribute(HtmlAttributes.READONLY, file.isReadonly());
+    writer.writeAttribute(HtmlAttributes.DISABLED, disabled || readonly);
+    writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.REQUIRED, file.isRequired());
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, file);
     if (title != null) {
@@ -185,7 +191,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     writer.writeAttribute(HtmlAttributes.TABINDEX, file.getTabIndex());
     writer.writeClassAttribute(BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-    writer.writeAttribute(HtmlAttributes.DISABLED, file.isDisabled() || file.isReadonly());
+    writer.writeAttribute(HtmlAttributes.DISABLED, disabled || readonly);
     writer.startElement(HtmlElements.I);
     writer.writeClassAttribute(Icons.FA, Icons.FOLDER_OPEN);
     writer.endElement(HtmlElements.I);
