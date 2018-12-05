@@ -42,7 +42,7 @@
 
   <tc:section id="s1" label="Basics">
     <pre><code class="language-markup">&lt;tc:file label="Upload" value="\#{uploadController.file1}"/></code></pre>
-    <tc:file label="Upload" value="#{uploadController.fileBasic}"/>
+    <tc:file placeholder="select a file" label="Upload" value="#{uploadController.fileBasic}"/>
     <tc:file label="Read Only" readonly="true" value="#{uploadController.fileBasic}"/>
     <tc:file label="Disabled" disabled="true" value="#{uploadController.fileBasic}"/>
     <tc:button label="Submit" action="#{uploadController.uploadBasic}"/>
