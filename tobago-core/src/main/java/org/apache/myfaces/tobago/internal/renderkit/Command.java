@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.renderkit;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer;
@@ -30,7 +29,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 
 /**
@@ -81,7 +79,7 @@ public class Command {
         null,
         null,
         null,
-        getConfirmation(command),
+        ComponentUtils.getConfirmation(command),
         null,
         TobagoClientBehaviorRenderer.createCollapsible(facesContext, command),
         command.isOmit());
@@ -116,21 +114,6 @@ public class Command {
     if (ComponentUtils.getBooleanAttribute(component, Attributes.omit)) {
       this.omit = Boolean.TRUE;
     }
-  }
-
-  private static String getConfirmation(final AbstractUICommand command) {
-    final String confirmation = command.getConfirmation();
-    if (confirmation != null) {
-      return confirmation;
-    }
-    final UIComponent facet = ComponentUtils.getFacet(command, Facets.confirmation);
-    if (facet instanceof ValueHolder) {
-      final ValueHolder valueHolder = (ValueHolder) facet;
-      return "" + valueHolder.getValue();
-    } else if (facet != null) {
-      LOG.warn("The content of a confirmation facet must be a ValueHolder. Use e. g. <tc:out>.");
-    }
-    return null;
   }
 
   public String getAction() {

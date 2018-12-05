@@ -899,4 +899,23 @@ public final class ComponentUtils {
       addLayoutChildren(child, result);
     }
   }
+
+  /**
+   * returns the "confirmation" attribute or the value of the "confirmation" facet of a component.
+   * @since Tobago 4.3.3
+   */
+  public static String getConfirmation(final UIComponent component) {
+    final String confirmation = getStringAttribute(component, Attributes.confirmation,null);
+    if (confirmation != null) {
+      return confirmation;
+    }
+    final UIComponent facet = ComponentUtils.getFacet(component, Facets.confirmation);
+    if (facet instanceof ValueHolder) {
+      final ValueHolder valueHolder = (ValueHolder) facet;
+      return "" + valueHolder.getValue();
+    } else if (facet != null) {
+      LOG.warn("The content of a confirmation facet must be a ValueHolder. Use e. g. <tc:out>.");
+    }
+    return null;
+  }
 }

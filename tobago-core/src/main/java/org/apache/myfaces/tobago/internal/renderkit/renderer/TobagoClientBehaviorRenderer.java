@@ -72,6 +72,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
     String target = null;
     String actionId = null;
     boolean omit = false;
+    final String confirmation = ComponentUtils.getConfirmation(uiComponent);
     if (behavior instanceof AjaxBehavior) {
       final AjaxBehavior ajaxBehavior = (AjaxBehavior) behavior;
       if (ajaxBehavior.isDisabled()) {
@@ -123,7 +124,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
         executeIds,
         renderIds,
         null,
-        null, // getConfirmation(command), // todo
+        confirmation,
         null,
         collapse,
         omit);
