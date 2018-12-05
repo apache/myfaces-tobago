@@ -28,9 +28,9 @@ import javax.inject.Named;
 @ApplicationScoped
 public class Version {
 
-  private static final boolean cdi10 = hasClass("javax.enterprise.context.Conversation");
-  private static final boolean cdi1112 = hasClass("javax.enterprise.context.Destroyed");
-  private static final boolean cdi20 = hasClass("javax.enterprise.context.BeforeDestroyed");
+  private static final boolean CDI10 = hasClass("javax.enterprise.context.Conversation");
+  private static final boolean CDI1112 = hasClass("javax.enterprise.context.Destroyed");
+  private static final boolean CDI20 = hasClass("javax.enterprise.context.BeforeDestroyed");
 
   private static boolean hasClass(String clazz) {
     try {
@@ -66,14 +66,14 @@ public class Version {
   }
 
   public boolean isCdiVersion10() {
-    return cdi10 && !cdi1112;
+    return CDI10 && !CDI1112;
   }
 
   public boolean isCdiVersion1112() {
-    return cdi1112 && !cdi20;
+    return CDI1112 && !CDI20;
   }
 
   public boolean isCdiVersion20() {
-    return cdi20;
+    return CDI20;
   }
 }
