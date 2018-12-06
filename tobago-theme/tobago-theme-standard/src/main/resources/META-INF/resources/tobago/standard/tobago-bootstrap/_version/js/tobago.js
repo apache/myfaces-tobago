@@ -146,7 +146,7 @@ var Tobago = {
     this.initMarker = true;
 
     console.time("[tobago] init"); // @DEV_ONLY
-    this.addBindEventListener(Tobago.findForm().get(0), 'submit', this, 'onSubmit');
+    this.addBindEventListener(Tobago.findForm().get(0), 'submit', this, Tobago.onSubmit);
 
     this.addBindEventListener(window, 'unload', this, 'onUnload');
 
@@ -168,12 +168,12 @@ var Tobago = {
       var list = Tobago.listeners.beforeSubmit[order];
       for (var i = 0; i < list.length; i++) {
         result = list[i](listenerOptions);
-        if (result == false) {
+        if (result === false) {
           break;
         }
       }
     }
-    if (result == false) {
+    if (result === false) {
       this.isSubmit = false;
       return false;
     }
@@ -358,7 +358,7 @@ var Tobago = {
     if (stateContainer) {
       for (var i = 0; i < stateContainer.childNodes.length; i++) {
         var child = stateContainer.childNodes[i];
-        if (child.tagName == 'INPUT') {
+        if (child.tagName === 'INPUT') {
           if (jsfState.length > 0) {
             jsfState += '&';
           }
@@ -384,113 +384,6 @@ var Tobago = {
     Tobago.reloadTimer[id] = setTimeout(func, time);
   },
 
-  initCommand: function(element) {
-    // command is jQuery object
-    // setupInputFacetCommand
-    var commands = element.data("tobago-commands");
-
-    var normalEvents = []; // todo: find a better way to do that in JS
-    if (commands.click) {
-      normalEvents.push({event: "click", command: commands.click});
-    }
-    if (commands.dblclick) {
-      normalEvents.push({event: "dblclick", command: commands.dblclick});
-    }
-    if (commands.focus) {
-      normalEvents.push({event: "focus", command: commands.focus});
-    }
-    if (commands.blur) {
-      normalEvents.push({event: "blur", command: commands.blur});
-    }
-
-    for (var i in normalEvents) {
-
-      element.on(normalEvents[i].event, {command: normalEvents[i].command}, function (event) {
-        var command = event.data.command;
-        var confirmation = command.confirmation;
-        if (confirmation != null) {
-          if (!confirm(confirmation)) {
-            event.preventDefault();
-            return;
-          }
-        }
-        var collapse = command.collapse;
-        if (collapse) {
-          Tobago.Collapse.execute(collapse);
-        }
-
-        if (command.omit != true) {
-          var popup = command.popup;
-          if (popup && popup.command == "close" && popup.immediate) {
-            Tobago.Popup.close(this);
-          } else {
-            var action = command.action ? command.action : jQuery(this).attr("id");
-            if (command.execute || command.render) {
-              Tobago.preparePartialOverlay(command);
-              jsf.ajax.request(
-                  action,
-                  event,
-                  {
-                    "javax.faces.behavior.event": event.type,
-                    execute: command.execute,
-                    render: command.render
-                  });
-            } else {
-              Tobago.submitAction(this, action, command);
-            }
-            if (popup && popup.command == "close") {
-              Tobago.Popup.close(this);
-            }
-          }
-        }
-      });
-    }
-    if (commands.change) {
-      element.change(function(event) {
-        if (commands.change.execute || commands.change.render) {
-          jsf.ajax.request(
-              jQuery(this).attr("name"),
-              event,
-              {
-                "javax.faces.behavior.event": "change",
-                execute: commands.change.execute,
-                render: commands.change.render
-              });
-        } else {
-          Tobago.submitAction(this, commands.change.action, commands.change);
-        }
-      });
-    }
-    if (commands.complete) {
-      if (element.val() >= parseFloat(element.attr("max"))) {
-        if (commands.complete.execute || commands.complete.render) {
-          jsf.ajax.request(
-              jQuery(this).attr("id"),
-              null,
-              {
-                "javax.faces.behavior.event": "complete",
-                execute: commands.complete.execute,
-                render: commands.complete.render
-              });
-        } else {
-          Tobago.submitAction(this, commands.complete.action, commands.complete);
-        }
-      }
-    }
-    if (commands.load) {
-      setTimeout(function() {
-            Tobago.submitAction(this, commands.load.action, commands.load);
-          },
-          commands.load.delay || 100);
-    }
-    if (commands.resize) {
-      jQuery(window).resize(function() {
-        console.debug("window resize event: " + commands.resize); // @DEV_ONLY
-        Tobago.submitAction(this, commands.resize.action, commands.resize);
-      });
-    }
-  },
-
   initDom: function(elements) {
 
     // focus
@@ -498,7 +391,7 @@ var Tobago = {
 
     // commands
     Tobago.Utils.selectWithJQuery(elements, '[data-tobago-commands]')
-        .each(function () {Tobago.initCommand(jQuery(this));});
+        .each(function () {Tobago.Command.init(jQuery(this));});
 
     Tobago.initScrollPosition(elements ? elements : jQuery(".tobago-page"));
   },
@@ -521,7 +414,7 @@ var Tobago = {
       var panel = jQuery(this);
       var hidden = panel.children("[data-tobago-scroll-position]");
       var sep = hidden.val().indexOf(";");
-      if (sep != -1) {
+      if (sep !== -1) {
         var scrollLeft = hidden.val().substr(0, sep);
         var scrollTop = hidden.val().substr(sep + 1);
         panel.prop("scrollLeft", scrollLeft);
@@ -764,7 +657,6 @@ var Tobago = {
     this.addEventListener(element, event, this.bindAsEventListener(object, func));
   },
 
-
   /**
    * Stop event bubbling
    */
@@ -826,7 +718,7 @@ var Tobago = {
     for (var property in element) {
       if (property && element[property]) {
         var value = '' + element[property];
-        if (value != '') {
+        if (value !== '') {
           result += '\r\n' + property + '=' + value;
         }
       }
@@ -930,7 +822,7 @@ Tobago.Config = {
   getFallbackName: function(name){
     if (this.fallbackNames[name]) {
       return this.fallbackNames[name];
-    } else if (name == "Tobago") {
+    } else if (name === "Tobago") {
       return undefined;
     } else {
       return "Tobago";
@@ -943,50 +835,6 @@ Tobago.Config = {
 // e. g. selectOne in a toolBar).
 Tobago.registerListener(Tobago.initDom, Tobago.Phase.DOCUMENT_READY, Tobago.Phase.Order.LATER);
 Tobago.registerListener(Tobago.initDom, Tobago.Phase.AFTER_UPDATE, Tobago.Phase.Order.LATER);
-
-// XXX: 2nd parameter enableAjax is deprecated
-Tobago.Panel = function(panelId, enableAjax, autoReload) {
-  this.id = panelId;
-  this.autoReload = autoReload;
-  this.options = {
-  };
-
-  this.setup();
-};
-
-Tobago.Panel.init = function(elements) {
-  var reloads = Tobago.Utils.selectWithJQuery(elements, ".tobago-panel[data-tobago-reload]");
-  reloads.each(function(){
-    var id = jQuery(this).attr("id");
-    var period = jQuery(this).data("tobago-reload");
-    new Tobago.Panel(id, true, period);
-  });
-};
-
-Tobago.Panel.prototype.setup = function() {
-  this.initReload();
-};
-
-
-Tobago.Panel.prototype.initReload = function() {
-  if (typeof this.autoReload == 'number' && this.autoReload > 0) {
-    Tobago.addReloadTimeout(this.id, Tobago.bind2(this, 'reloadWithAction', null, this.id), this.autoReload);
-  }
-};
-
-Tobago.Panel.prototype.reloadWithAction = function(source, action) {
-  jsf.ajax.request(
-      action,
-      null,
-      {
-        "javax.faces.behavior.event": "reload",
-        execute: this.id,
-        render: this.id
-      });
-};
-
-Tobago.registerListener(Tobago.Panel.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.Panel.init, Tobago.Phase.AFTER_UPDATE);
 
 Tobago.EventListener = function(element, event, func) {
   this.element = element;
@@ -1011,7 +859,7 @@ Tobago.Transport = {
       //console.debug('index = ' + index)
     } else if (!this.pageSubmitted) { // AJAX case
       console.debug('Current ActionId = ' + this.currentActionId + ' action= ' + actionId); // @DEV_ONLY
-      if (actionId && this.currentActionId == actionId) {
+      if (actionId && this.currentActionId === actionId) {
         console.info('Ignoring request'); // @DEV_ONLY
         // If actionId equals currentActionId assume double request: do nothing
         return false;
@@ -1024,7 +872,7 @@ Tobago.Transport = {
       return false;
     }
     console.debug('index = ' + index);  // @DEV_ONLY
-    if (index == 1) {
+    if (index === 1) {
       console.info('Execute request!'); // @DEV_ONLY
       this.startTime = new Date().getTime();
       this.requests[0]();
@@ -1048,360 +896,3 @@ Tobago.Transport = {
     }
   }
 };
-
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Commands
-
-Tobago.Command = {};
-
-Tobago.Command.initEnter = function(elements) {
-  var page = Tobago.Utils.selectWithJQuery(elements, ".tobago-page");
-  page.keypress(function (event) {
-    var code = event.which;
-    if (code == 0) {
-      code = event.keyCode;
-    }
-    if (code == 13) {
-      var target = event.target;
-      if (target.tagName == "A" || target.tagName == "BUTTON") {
-        return;
-      }
-      if (target.tagName == "TEXTAREA") {
-        if (!event.metaKey && !event.ctrlKey) {
-          return;
-        }
-      }
-      var id = target.name ? target.name : target.id;
-      while (id != null) {
-        var command = jQuery("[data-tobago-default='" + id + "']");
-        if (command.length > 0) {
-          command.click();
-          break;
-        }
-        id = Tobago.Utils.getNamingContainerId(id);
-      }
-      return false;
-    }
-  })};
-
-Tobago.registerListener(Tobago.Command.initEnter, Tobago.Phase.DOCUMENT_READY);
-
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-Tobago.SelectManyShuttle = {};
-
-Tobago.SelectManyShuttle.init = function(elements) {
-
-  var shuttles = Tobago.Utils.selectWithJQuery(elements, ".tobago-selectManyShuttle:not(.tobago-selectManyShuttle-disabled)");
-
-  shuttles.find(".tobago-selectManyShuttle-unselected").dblclick(function() {
-    Tobago.SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), true, false);
-  });
-
-  shuttles.find(".tobago-selectManyShuttle-selected").dblclick(function() {
-    Tobago.SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), false, false);
-  });
-
-  shuttles.find(".tobago-selectManyShuttle-addAll").click(function() {
-    Tobago.SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), true, true);
-  });
-
-  shuttles.find(".tobago-selectManyShuttle-add").click(function() {
-    Tobago.SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), true, false);
-  });
-
-  shuttles.find(".tobago-selectManyShuttle-removeAll").click(function() {
-    Tobago.SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), false, true);
-  });
-
-  shuttles.find(".tobago-selectManyShuttle-remove").click(function() {
-    Tobago.SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), false, false);
-  });
-};
-
-Tobago.SelectManyShuttle.moveSelectedItems = function($shuttle, direction, all) {
-  var $unselected = $shuttle.find(".tobago-selectManyShuttle-unselected");
-  var $selected = $shuttle.find(".tobago-selectManyShuttle-selected");
-  var count = $selected.children().length;
-  var $source = direction ? $unselected : $selected;
-  var $target = direction ? $selected : $unselected;
-  var $shifted = $source.find(all ? "option:not(:disabled)" : "option:selected").remove().appendTo($target);
-
-  // synchronize the hidden select
-  var $hidden = $shuttle.find(".tobago-selectManyShuttle-hidden");
-  var $hiddenOptions = $hidden.find("option");
-  // todo: may be optimized: put values in a hash map?
-  $shifted.each(function() {
-    var $option = jQuery(this);
-    $hiddenOptions.filter("[value='" + $option.val() + "']").prop("selected", direction);
-  });
-
-  if (count !== $selected.children().length) {
-    var e = jQuery.Event("change");
-    // trigger an change event for command facets
-    $hidden.trigger( e );
-  }
-};
-
-Tobago.registerListener(Tobago.SelectManyShuttle.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.SelectManyShuttle.init, Tobago.Phase.AFTER_UPDATE);
-
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-Tobago.SelectOneRadio = {};
-
-Tobago.SelectOneRadio.init = function(elements) {
-  var selectOneRadios = Tobago.Utils.selectWithJQuery(elements, ".tobago-selectOneRadio");
-  selectOneRadios.each(function() {
-    var ul = jQuery(this);
-    var id = ul.closest("[id]").attr("id");
-    var radios = jQuery('input[name="' + id.replace(/([:\.])/g, '\\$1') + '"]');
-    radios.each(function () {
-      var selectOneRadio = jQuery(this);
-      selectOneRadio.data("tobago-old-value", selectOneRadio.prop("checked"));
-    });
-    radios.click(function() {
-      var selectOneRadio = jQuery(this);
-      var readonly = selectOneRadio.prop("readonly");
-      var required = selectOneRadio.prop("required");
-      if (!required && !readonly) {
-        if (selectOneRadio.data("tobago-old-value") == selectOneRadio.prop("checked")) {
-          selectOneRadio.prop("checked", false);
-        }
-        selectOneRadio.data("tobago-old-value", selectOneRadio.prop("checked"));
-      }
-      if (readonly) {
-        radios.each(function () {
-          var radio = jQuery(this);
-          radio.prop("checked", radio.data("tobago-old-value"));
-        });
-      } else {
-        radios.each(function () {
-          if (this.id != selectOneRadio.get(0).id) {
-            var radio = jQuery(this);
-            radio.prop("checked", false);
-            radio.data("tobago-old-value", radio.prop("checked"));
-          }
-        });
-      }
-    });
-  });
-};
-
-Tobago.registerListener(Tobago.SelectOneRadio.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.SelectOneRadio.init, Tobago.Phase.AFTER_UPDATE);
-
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-Tobago.SelectOneListbox = {};
-
-Tobago.SelectOneListbox.init = function (elements) {
-  var selects = Tobago.Utils.selectWithJQuery(elements, ".tobago-selectOneListbox");
-  var notRequired = selects.not(".tobago-selectOneListbox-markup-required");
-  notRequired
-      .change(function () {
-        var element = jQuery(this);
-        if (element.data("tobago-old-value") == undefined) {
-          element.data("tobago-old-value", -1);
-        }
-      }).click(function () {
-        var element = jQuery(this);
-        if (element.data("tobago-old-value") == undefined
-            || element.data("tobago-old-value") == element.prop("selectedIndex")) {
-          element.prop("selectedIndex", -1);
-        }
-        element.data("tobago-old-value", element.prop("selectedIndex"));
-      });
-};
-
-Tobago.registerListener(Tobago.SelectOneListbox.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.SelectOneListbox.init, Tobago.Phase.AFTER_UPDATE);
-
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-Tobago.SelectBooleanCheckbox = {};
-
-Tobago.SelectBooleanCheckbox.init = function(elements) {
-  var checkboxes = Tobago.Utils.selectWithJQuery(elements, ".tobago-selectBooleanCheckbox input[readonly]");
-  checkboxes.each(function() {
-    // Save the initial state to restore it, when the user tries to manipulate it.
-    var initial = jQuery(this).is(":checked");
-    jQuery(this).click(function() {
-      jQuery(this).prop("checked", initial);
-    });
-  });
-};
-
-Tobago.registerListener(Tobago.SelectBooleanCheckbox.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.SelectBooleanCheckbox.init, Tobago.Phase.AFTER_UPDATE);
-
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-Tobago.SelectBooleanToggle = {};
-
-Tobago.SelectBooleanToggle.init = function(elements) {
-  var toggles = Tobago.Utils.selectWithJQuery(elements, ".tobago-selectBooleanToggle input[readonly]");
-  toggles.each(function() {
-    // Save the initial state to restore it, when the user tries to manipulate it.
-    var initial = jQuery(this).is(":checked");
-    jQuery(this).click(function() {
-      jQuery(this).prop("checked", initial);
-    });
-  });
-};
-
-Tobago.registerListener(Tobago.SelectBooleanToggle.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.SelectBooleanToggle.init, Tobago.Phase.AFTER_UPDATE);
-
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-Tobago.SelectManyCheckbox = {};
-
-Tobago.SelectManyCheckbox.init = function(elements) {
-  var checkboxes = Tobago.Utils.selectWithJQuery(elements, ".tobago-selectManyCheckbox input[readonly]");
-  checkboxes.each(function() {
-    // Save the initial state to restore it, when the user tries to manipulate it.
-    var initial = jQuery(this).is(":checked");
-    jQuery(this).click(function() {
-      jQuery(this).prop("checked", initial);
-    });
-  });
-};
-
-Tobago.registerListener(Tobago.SelectManyCheckbox.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.SelectManyCheckbox.init, Tobago.Phase.AFTER_UPDATE);
-
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-Tobago.File = {};
-
-Tobago.File.init = function(elements) {
-  var files = Tobago.Utils.selectWithJQuery(elements, ".tobago-file-real");
-  files.change(function () {
-    var file = jQuery(this);
-    var pretty = file.parent().find(".tobago-file-pretty");
-    var text;
-    if (file.prop("multiple")) {
-      var format = file.data("tobago-file-multi-format");
-      text = format.replace("{}", file.prop("files").length);
-    } else {
-      text = file.val();
-      // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\facepath\".
-      var pos = Math.max(text.lastIndexOf('/'), text.lastIndexOf('\\'));
-      if (pos >= 0) {
-        text = text.substr(pos + 1);
-      }
-    }
-    pretty.val(text);
-  });
-  // click on the button (when using focus with keyboard)
-  files.each(function() {
-    var real = jQuery(this);
-    real.parent().find("button").click(function() {
-      real.click();
-    });
-  });
-  if (files.length > 0) {
-    Tobago.findForm().attr('enctype', 'multipart/form-data');
-  }
-};
-
-Tobago.registerListener(Tobago.File.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.File.init, Tobago.Phase.AFTER_UPDATE);
-
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-Tobago.MessagePopover = {};
-
-Tobago.MessagePopover.init = function(elements) {
-  jQuery('[data-toggle="popover"]').popover({
-    constraints: [
-      {
-        to: 'window',
-        attachment: 'together',
-        pin: true
-      }
-    ],
-    trigger: 'focus'
-  });
-};
-
-Tobago.registerListener(Tobago.MessagePopover.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.MessagePopover.init, Tobago.Phase.AFTER_UPDATE);
-
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-Tobago.Jsf = {
-  VIEW_STATE: "javax.faces.ViewState",
-  CLIENT_WINDOW: "javax.faces.ClientWindow",
-  VIEW_ROOT: "javax.faces.ViewRoot",
-  VIEW_HEAD: "javax.faces.ViewHead",
-  VIEW_BODY: "javax.faces.ViewBody",
-  isId: function (id) {
-    switch (id) {
-      case Tobago.Jsf.VIEW_STATE:
-      case Tobago.Jsf.CLIENT_WINDOW:
-      case Tobago.Jsf.VIEW_ROOT:
-      case Tobago.Jsf.VIEW_HEAD:
-      case Tobago.Jsf.VIEW_BODY:
-        return false;
-      default:
-        return true;
-    }
-  },
-  isBody: function (id) {
-    switch (id) {
-      case Tobago.Jsf.VIEW_ROOT:
-      case Tobago.Jsf.VIEW_BODY:
-        return true;
-      default:
-        return false;
-    }
-  }
-};
-
-Tobago.Jsf.init = function() {
-  jsf.ajax.addOnEvent(function (event) {
-    console.timeEnd("x"); // @DEV_ONLY
-    console.time("x"); // @DEV_ONLY
-    console.log(event); // @DEV_ONLY
-    if (event.status === "success") {
-      console.log("success");// @DEV_ONLY
-
-      jQuery(event.responseXML).find("update").each(function () {
-        var id = jQuery(this).attr("id");
-        console.info("Update after jsf.ajax success: id='" + id + "'"); // @DEV_ONLY
-        var newElement;
-        if (Tobago.Jsf.isId(id)) {
-          console.log("updating id: " + id);// @DEV_ONLY
-          newElement = jQuery(Tobago.Utils.escapeClientId(id));
-        } else if (Tobago.Jsf.isBody(id)) {
-          console.log("updating body");// @DEV_ONLY
-          newElement = jQuery(".tobago-page");
-        }
-        if (newElement) {
-          for (var order = 0; order < Tobago.listeners.afterUpdate.length; order++) {
-            var list = Tobago.listeners.afterUpdate[order];
-            for (var i = 0; i < list.length; i++) {
-              list[i](newElement);
-            }
-          }
-        }
-      });
-    } else if (event.status === "complete") {
-      console.log("complete");// @DEV_ONLY
-      jQuery(event.responseXML).find("update").each(function () {
-        var updateId = jQuery(this).attr("id");
-        if ("javax.faces.ViewState" !== updateId) {
-          var oldElement = jQuery(Tobago.Utils.escapeClientId(updateId));
-          console.info("Update after jsf.ajax complete: id='" + oldElement.attr("id") + "'"); // @DEV_ONLY
-          if (oldElement.data("tobago-partial-overlay-set")) {
-            oldElement.overlay("destroy")
-          }
-        }
-      });
-    }
-  });
-};
-
-Tobago.registerListener(Tobago.Jsf.init, Tobago.Phase.DOCUMENT_READY);
