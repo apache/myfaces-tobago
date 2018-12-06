@@ -1,0 +1,10 @@
+{
+    "rules": {
+        "semicolon": [true, "always"],
+        "member-ordering": [
+            true,
+            "static-before-instance",
+            "variables-before-functions"
+        ]
+    }
+}

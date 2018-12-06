@@ -14,41 +14,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var Demo;
-(function (Demo) {
-    var ToClipboardButton;
-    (function (ToClipboardButton_1) {
-        var ToClipboardButton = /** @class */ (function () {
-            function ToClipboardButton(element) {
-                /* Copy the command lines to the clipboard.
-                 */
-                element.addEventListener("click", function (event) {
-                    var from = element.getAttribute("data-copy-clipboard-from");
-                    var commandLine = document.getElementById(from);
+
+module Demo.ToClipboardButton {
+
+    class ToClipboardButton {
+
+        constructor(element: HTMLElement) {
+
+            /* Copy the command lines to the clipboard.
+             */
+            element.addEventListener(
+                "click",
+                (event: MouseEvent) => {
+                    const from = element.getAttribute("data-copy-clipboard-from");
+                    const commandLine = document.getElementById(from);
+
                     if (window.getSelection) {
-                        var selection = window.getSelection();
-                        var range = document.createRange();
+                        const selection = window.getSelection();
+                        const range = document.createRange();
                         range.selectNodeContents(commandLine);
                         selection.removeAllRanges();
                         selection.addRange(range);
-                    }
-                    else {
+                    } else {
                         console.warn("Text select not possible: Unsupported browser.");
                     }
                     try {
-                        var result = document.execCommand("copy");
+                        const result = document.execCommand("copy");
                         alert("result: " + result);
-                    }
-                    catch (error) {
+                    } catch (error) {
                         console.error("Copying text not possible");
                     }
                 });
-            }
-            return ToClipboardButton;
-        }());
-        var init = function () { return new ToClipboardButton(document.querySelector("[data-copy-clipboard-from]")); };
-        Tobago.registerListener(init, Tobago.Phase.DOCUMENT_READY);
-        Tobago.registerListener(init, Tobago.Phase.AFTER_UPDATE);
-    })(ToClipboardButton = Demo.ToClipboardButton || (Demo.ToClipboardButton = {}));
-})(Demo || (Demo = {}));
-//# sourceMappingURL=docker.js.map
+        }
+    }
+
+    const init = () => new ToClipboardButton(
+        document.querySelector("[data-copy-clipboard-from]")
+    );
+
+    Tobago.registerListener(init, Tobago.Phase.DOCUMENT_READY, Tobago.Phase.Order.LATER);
+    Tobago.registerListener(init, Tobago.Phase.AFTER_UPDATE);
+}
