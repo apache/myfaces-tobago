@@ -1331,54 +1331,6 @@ Tobago.registerListener(Tobago.MessagePopover.init, Tobago.Phase.AFTER_UPDATE);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Tobago.Codi = {};
-
-/**
- * If the window has no name set we set the name and request a new view with unset windowId, so that the
- * server will generate a new one for us.
- */
-Tobago.Codi.init = function() {
-
-  var form = Tobago.findForm();
-  var action = form.attr("action");
-  var windowIdEnabled = Tobago.Codi.hasUrlWindowId(action);
-  if (windowIdEnabled && window.name == "") {
-    form.attr("action", Tobago.Codi.urlWithoutWindowId(action));
-    window.name = "window";
-    Tobago.submitAction();
-  }
-};
-
-Tobago.Codi.hasUrlWindowId = function(base) {
-  return base.indexOf("?windowId=") > -1 || base.indexOf("&windowId=") > -1;
-};
-
-/**
- * taken from myfaces-extcdi (Codi)
- */
-Tobago.Codi.urlWithoutWindowId = function(query) {
-    var vars = query.split(/&|\?/g);
-    var newQuery = "";
-    var iParam = 0;
-    for (var i=0; vars !== null && i < vars.length; i++) {
-        var pair = vars[i].split("=");
-        if (pair.length === 1) {
-            newQuery = pair[0];
-        }
-        else {
-            if (pair[0] !== "windowId") {
-                var amp = iParam++ > 0 ? "&" : "?";
-                newQuery =  newQuery + amp + pair[0] + "=" + pair[1];
-            }
-        }
-    }
-    return newQuery;
-};
-
-Tobago.registerListener(Tobago.Codi.init, Tobago.Phase.DOCUMENT_READY);
-
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 Tobago.Jsf = {
   VIEW_STATE: "javax.faces.ViewState",
   CLIENT_WINDOW: "javax.faces.ClientWindow",
