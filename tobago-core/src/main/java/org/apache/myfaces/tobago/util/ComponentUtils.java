@@ -905,7 +905,7 @@ public final class ComponentUtils {
    * @since Tobago 4.3.3
    */
   public static String getConfirmation(final UIComponent component) {
-    final String confirmation = getStringAttribute(component, Attributes.confirmation,null);
+    final String confirmation = getStringAttribute(component, Attributes.confirmation, null);
     if (confirmation != null) {
       return confirmation;
     }
