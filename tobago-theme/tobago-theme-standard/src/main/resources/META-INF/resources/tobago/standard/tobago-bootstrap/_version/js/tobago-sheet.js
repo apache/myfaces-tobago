@@ -161,6 +161,8 @@ Tobago.Sheet.setup2 = function (sheets) {
               } else if (tokens[i].measure.lastIndexOf("%") > 0) {
                 widthRelative -= parseInt($bodyTable.width() / 100 * intValue);
               }
+            } else {
+              console.debug("auto? = " + tokens[i]); // @DEV_ONLY
             }
           }
         }
@@ -181,9 +183,13 @@ Tobago.Sheet.setup2 = function (sheets) {
               } else if (tokens[i].measure.lastIndexOf("%") > 0) {
                 colWidth = parseInt($bodyTable.width() / 100 * intValue);
               }
+            } else {
+              console.debug("auto? = " + tokens[i]); // @DEV_ONLY
             }
-            $headerCol.eq(headerBodyColCount).attr("width", colWidth);
-            $bodyCol.eq(headerBodyColCount).attr("width", colWidth);
+            if (colWidth > 0) { // because tokens[i] == "auto"
+              $headerCol.eq(headerBodyColCount).attr("width", colWidth);
+              $bodyCol.eq(headerBodyColCount).attr("width", colWidth);
+            }
             headerBodyColCount++;
           }
         }
