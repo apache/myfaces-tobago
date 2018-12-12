@@ -53,8 +53,6 @@ var Tobago = {
 
   jsObjects: [],
 
-  eventListeners: [],
-
   /**
     * Check browser types and versions.
     * Please try to use jQuery.support instead of this object!
@@ -146,9 +144,10 @@ var Tobago = {
     this.initMarker = true;
 
     console.time("[tobago] init"); // @DEV_ONLY
-    this.addBindEventListener(Tobago.findForm().get(0), 'submit', this, Tobago.onSubmit);
 
-    this.addBindEventListener(window, 'unload', this, 'onUnload');
+    document.querySelector("form").addEventListener('submit', Tobago.onSubmit);
+
+    window.addEventListener('unload', Tobago.onUnload);
 
     for (var order = 0; order < Tobago.listeners.documentReady.length; order++) {
       var list = Tobago.listeners.documentReady[order];
@@ -212,6 +211,8 @@ var Tobago = {
    */
   onUnload: function() {
 
+    console.info('on onload'); // @DEV_ONLY
+
     var phase = this.isSubmit ? Tobago.listeners.beforeUnload : Tobago.listeners.beforeExit;
 
     for (var order = 0; order < phase.length; order++) {
@@ -229,8 +230,6 @@ var Tobago = {
   },
 
   destroyObjects: function() {
-    this.removeEventListeners();
-
     for (var i = 0; i < this.jsObjects.length; i++) {
       try {
         this.destroyObject(this.jsObjects[i]);
@@ -240,21 +239,6 @@ var Tobago = {
     }
     this.jsObjects.length = 0;
     delete this.jsObjects;
-  },
-
-  removeEventListeners: function() {
-    var count = 0;
-    for (var i = 0; i < this.eventListeners.length; i++) {
-      var el = this.eventListeners[i];
-      this.removeEventListener(el);
-      delete el.element;
-      delete el.event;
-      delete el.func;
-      this.eventListeners[i] = undefined;
-      count++;
-    }
-    delete this.eventListeners;
-//    alert(count + " EverntListener geloescht");
   },
 
   destroyObject: function(obj) {
@@ -403,7 +387,7 @@ var Tobago = {
     } else {
       scrollPanels = elements.find("[data-tobago-scroll-panel]");
     }
-    scrollPanels.bind("scroll", function () {
+    scrollPanels.on("scroll", function () {
       var panel = jQuery(this);
       var scrollLeft = panel.prop("scrollLeft");
       var scrollTop = panel.prop("scrollTop");
@@ -421,46 +405,6 @@ var Tobago = {
         panel.prop("scrollTop", scrollTop);
       }
     });
-  },
-
-  /* supports only two background images in the moment */
-  fixMultiBackgroundIE8: function (element) {
-    var style = element.data("tobago-style");
-    var index;
-    var backgroundImage = style.backgroundImage;
-    var backgroundImage2;
-    if (backgroundImage) {
-      index = backgroundImage.indexOf(",");
-      if (index > -1) {
-        style.backgroundImage = backgroundImage.substring(0, index);
-        backgroundImage2 = backgroundImage.substring(index + 1);
-      }
-    }
-    var backgroundPosition = style.backgroundPosition;
-    var backgroundPosition2;
-    if (backgroundPosition) {
-      index = backgroundPosition.indexOf(",");
-      if (index > -1) {
-        style.backgroundPosition = backgroundPosition.substring(0, index);
-        backgroundPosition2 = backgroundPosition.substring(index + 1);
-      }
-    }
-    if (backgroundImage2) {
-      var extra = jQuery("<span>").appendTo(element);
-      extra.css({
-        backgroundImage: backgroundImage2,
-        backgroundPosition: backgroundPosition2,
-        backgroundRepeat: "no-repeat",
-        position: "absolute",
-        left: "0",
-        right: "0",
-        top: "0",
-        bottom: "0"
-      });
-      element.css({
-        position: "relative"
-      });
-    }
   },
 
 // -------- Util functions ----------------------------------------------------
@@ -563,38 +507,6 @@ var Tobago = {
   },
 
   /**
-   * Add an event listener to an HTML element
-   */
-  addEventListener: function(element, event, myFunction) {
-    var el = new Tobago.EventListener(element, event, myFunction);
-    if (el.element.addEventListener) { // this is DOM2
-      el.element.addEventListener(el.event, el.func, false);
-    } else { // IE
-      el.element.attachEvent('on' + el.event, el.func);
-    }
-  },
-
-  /**
-   * Remove an event listener from an HTML element
-   */
-  removeEventListener: function(element, event, myFunction) {
-    if (!event && !myFunction && element.element && element.event && element.func) {
-      myFunction = element.func;
-      event = element.event;
-      element = element.element;
-    }
-    if (element.removeEventListener) { // this is DOM2
-      element.removeEventListener(event, myFunction, true);
-    }
-    else if (element.detachEvent) {  // IE
-      element.detachEvent('on' + event, myFunction);
-    } else {
-      console.debug('Unknown Element: ' + typeof element); // @DEV_ONLY
-    }
-
-  },
-
-  /**
    * Returns a function which binds the named function 'func' of the object 'object'.
    * additional arguments to bind function are added to the arguments at
    * function call.
@@ -609,20 +521,7 @@ var Tobago = {
    * will bind Tobago.setElementWidth(id, width) to f(id)
    *
    */
-  bind: function(object, func) {
-    var rest = [];
-    for (var i = 2; i < arguments.length; i++) {
-      rest.push(arguments[i]);
-    }
-    return function() {
-      var args = [];
-      for (var i = 0; i < arguments.length; i++) {
-        args.push(arguments[i]);
-      }
-      object[func].apply(object, args.concat(rest));
-    };
-  },
-
+  /* XXX please remove */
   bind2: function(object, func) {
     var rest = [];
     for (var i = 2; i < arguments.length; i++) {
@@ -637,33 +536,9 @@ var Tobago = {
   },
 
   /**
-   * Returns a function which binds the named function 'func' of the object 'object'
-   * as eventListener.
-   * E.g.:
-   * var f = Tobago.bindAsEventListener(Tobago, "doSomthing");
-   * will bind Tobago.doSomthing(event) to f(event)
-   */
-  bindAsEventListener: function(object, func) {
-    return function(event) {
-      object[func].call(object, event || window.event);
-    };
-  },
-
-  /**
-   * Adds a function which binds the named function 'func' of the object 'object'
-   * as eventListener to an element.
-   */
-  addBindEventListener: function(element, event, object, func) {
-    this.addEventListener(element, event, this.bindAsEventListener(object, func));
-  },
-
-  /**
    * Stop event bubbling
    */
   stopEventPropagation: function(event) {
-    if (! event) {
-      event = window.event;
-    }
     event.cancelBubble = true;  // this is IE, no matter if not supported by actual browser
     if (event.stopPropagation) {
       event.stopPropagation(); // this is DOM2
@@ -835,13 +710,6 @@ Tobago.Config = {
 // e. g. selectOne in a toolBar).
 Tobago.registerListener(Tobago.initDom, Tobago.Phase.DOCUMENT_READY, Tobago.Phase.Order.LATER);
 Tobago.registerListener(Tobago.initDom, Tobago.Phase.AFTER_UPDATE, Tobago.Phase.Order.LATER);
-
-Tobago.EventListener = function(element, event, func) {
-  this.element = element;
-  this.event = event;
-  this.func = func;
-  Tobago.eventListeners[Tobago.eventListeners.length] = this;
-};
 
 Tobago.Transport = {
   requests: [],

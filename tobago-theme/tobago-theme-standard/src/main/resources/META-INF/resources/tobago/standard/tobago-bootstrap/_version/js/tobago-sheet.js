@@ -92,7 +92,7 @@ Tobago.Sheet.prototype.reloadWithAction = function(source, action) {
   var renderIds = this.id;
   if (this.behaviorCommands && this.behaviorCommands.reload) {
     if (this.behaviorCommands.reload.execute) {
-      executeIds +=  " " + behaviorCommands.reload.execute;
+      executeIds +=  " " + this.behaviorCommands.reload.execute;
     }
     if (this.behaviorCommands.reload.render) {
       renderIds +=  " " + this.behaviorCommands.reload.render;
@@ -300,7 +300,7 @@ Tobago.Sheet.setup2 = function (sheets) {
   });
 
   // scrolling
-  jQuery(sheets).find(".tobago-sheet-body").bind("scroll", function () {
+  jQuery(sheets).find(".tobago-sheet-body").on("scroll", function () {
     var sheetBody = jQuery(this);
     var scrollLeft = sheetBody.prop("scrollLeft");
     var scrollTop = sheetBody.prop("scrollTop");
@@ -334,12 +334,12 @@ Tobago.Sheet.setup2 = function (sheets) {
     var selectionMode = sheet.data("tobago-selection-mode");
     if (selectionMode === "single" || selectionMode === "singleOrNone" || selectionMode === "multi") {
       Tobago.Sheet.getRows(sheet).each(function () {
-        var row = jQuery(this);
-        row.bind("mousedown", function (event) {
+        var $row = jQuery(this);
+        $row.on("mousedown", function (event) {
           sheet.data("tobago-mouse-down-x", event.clientX);
           sheet.data("tobago-mouse-down-y", event.clientY);
         });
-        row.click(function (event) {
+        $row.click(function (event) {
           var $target = jQuery(event.target);
           var $row = jQuery(this);
           if ($target.hasClass("tobago-sheet-columnSelector") || !Tobago.Sheet.isInputElement($target)) {
@@ -410,7 +410,7 @@ Tobago.Sheet.setup2 = function (sheets) {
         });
         // todo:
         if (Tobago.Sheets.get(sheet.attr("id")).dblClickActionId) {
-          row.bind("dblclick", function (event) {
+          $row.on("dblclick", function (event) {
             // todo: re-implement
             Tobago.Sheets.get(sheet.attr("id")).doDblClick(event);
           });
@@ -501,29 +501,17 @@ Tobago.Sheet.prototype.setup = function() {
 };
 
 Tobago.Sheet.prototype.initReload = function() {
-  var sheet = jQuery(Tobago.Utils.escapeClientId(this.id));
-  var reload = sheet.data("tobago-reload");
+  var $sheet = jQuery(Tobago.Utils.escapeClientId(this.id));
+  var reload = $sheet.data("tobago-reload");
   if (typeof reload === "number") {
     Tobago.addReloadTimeout(this.id, Tobago.bind2(this, "reloadWithAction", null, this.id), reload);
   }
 };
 
 Tobago.Sheet.prototype.doDblClick = function(event) {
-    if (! event) {
-      event = window.event;
-    }
-
-    var srcElement;
-    if (event.target) {
-      // W3C DOM level 2
-      srcElement = event.target;
-    } else {
-      // IE
-      srcElement = event.srcElement;
-    }
-
-    if (!Tobago.Sheet.isInputElement(jQuery(srcElement))) {
-      var row = jQuery(srcElement).closest("tr");
+    var target = event.target;
+    if (!Tobago.Sheet.isInputElement(jQuery(target))) {
+      var row = jQuery(target).closest("tr");
       var sheet = row.closest(".tobago-sheet");
       var rowIndex = row.index() + sheet.data("tobago-first");
       if (this.dblClickActionId) {
@@ -535,7 +523,6 @@ Tobago.Sheet.prototype.doDblClick = function(event) {
           action = this.id + ":" + rowIndex + ":" + this.dblClickActionId;
         }
         if (this.dblClickReloadComponentId && this.dblClickReloadComponentId.length > 0) {
-          //Tobago.reloadComponent(srcElement, this.dblClickReloadComponentId, action);
           jsf.ajax.request(
               action,
               event,
@@ -545,7 +532,7 @@ Tobago.Sheet.prototype.doDblClick = function(event) {
                 render: this.dblClickReloadComponentId
               });
         } else {
-          Tobago.submitAction(srcElement, action);
+          Tobago.submitAction(target, action);
         }
       }
     }
