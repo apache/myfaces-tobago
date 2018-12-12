@@ -17,41 +17,43 @@
 
 module Demo.ToClipboardButton {
 
-    class ToClipboardButton {
+  class ToClipboardButton {
 
-        constructor(element: HTMLElement) {
+    constructor(element: HTMLElement) {
 
-            /* Copy the command lines to the clipboard.
-             */
-            element.addEventListener(
-                "click",
-                (event: MouseEvent) => {
-                    const from = element.getAttribute("data-copy-clipboard-from");
-                    const commandLine = document.getElementById(from);
+      /* Copy the command lines to the clipboard.
+       */
+      element.addEventListener(
+          "click",
+          (event: MouseEvent) => {
+            const from = element.getAttribute("data-copy-clipboard-from");
+            const commandLine = document.getElementById(from);
 
-                    if (window.getSelection) {
-                        const selection = window.getSelection();
-                        const range = document.createRange();
-                        range.selectNodeContents(commandLine);
-                        selection.removeAllRanges();
-                        selection.addRange(range);
-                    } else {
-                        console.warn("Text select not possible: Unsupported browser.");
-                    }
-                    try {
-                        const result = document.execCommand("copy");
-                        alert("result: " + result);
-                    } catch (error) {
-                        console.error("Copying text not possible");
-                    }
-                });
-        }
+            if (window.getSelection) {
+              const selection = window.getSelection();
+              const range = document.createRange();
+              range.selectNodeContents(commandLine);
+              selection.removeAllRanges();
+              selection.addRange(range);
+            } else {
+              console.warn("Text select not possible: Unsupported browser.");
+            }
+            try {
+              const result = document.execCommand("copy");
+              console.debug("result: " + result);
+            } catch (error) {
+              console.error("Copying text not possible");
+            }
+          });
     }
+  }
 
-    const init = () => new ToClipboardButton(
-        document.querySelector("[data-copy-clipboard-from]")
-    );
+  const init = function () {
+    document.querySelectorAll<HTMLElement>("[data-copy-clipboard-from]").forEach(
+        (value) => new ToClipboardButton(value)
+    )
+  };
 
-    Tobago.registerListener(init, Tobago.Phase.DOCUMENT_READY, Tobago.Phase.Order.LATER);
-    Tobago.registerListener(init, Tobago.Phase.AFTER_UPDATE);
+  Tobago.registerListener(init, Tobago.Phase.DOCUMENT_READY);
+  Tobago.registerListener(init, Tobago.Phase.AFTER_UPDATE);
 }

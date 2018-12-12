@@ -37,7 +37,7 @@ var Demo;
                     }
                     try {
                         var result = document.execCommand("copy");
-                        alert("result: " + result);
+                        console.debug("result: " + result);
                     }
                     catch (error) {
                         console.error("Copying text not possible");
@@ -46,7 +46,9 @@ var Demo;
             }
             return ToClipboardButton;
         }());
-        var init = function () { return new ToClipboardButton(document.querySelector("[data-copy-clipboard-from]")); };
+        var init = function () {
+            document.querySelectorAll("[data-copy-clipboard-from]").forEach(function (value) { return new ToClipboardButton(value); });
+        };
         Tobago.registerListener(init, Tobago.Phase.DOCUMENT_READY);
         Tobago.registerListener(init, Tobago.Phase.AFTER_UPDATE);
     })(ToClipboardButton = Demo.ToClipboardButton || (Demo.ToClipboardButton = {}));
