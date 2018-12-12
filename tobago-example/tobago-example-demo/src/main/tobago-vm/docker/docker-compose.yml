@@ -98,7 +98,7 @@ services:
   demo-4-snapshot:
     build: tomcat
     environment:
-      - TOBAGO_VERSION=4.3.3-SNAPSHOT
+      - TOBAGO_VERSION=4.4.0-SNAPSHOT
       - CONTEXT_PATH=demo-4-snapshot
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts

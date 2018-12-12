@@ -902,7 +902,7 @@ public final class ComponentUtils {
 
   /**
    * returns the "confirmation" attribute or the value of the "confirmation" facet of a component.
-   * @since Tobago 4.3.3
+   * @since Tobago 4.4.0
    */
   public static String getConfirmation(final UIComponent component) {
     final String confirmation = getStringAttribute(component, Attributes.confirmation, null);
