@@ -365,7 +365,7 @@ var Tobago = {
 
   addReloadTimeout: function(id, func, time) {
     Tobago.clearReloadTimer(id);
-    Tobago.reloadTimer[id] = setTimeout(func, time);
+    Tobago.reloadTimer[id] = setTimeout(function() {func(id)}, time);
   },
 
   initDom: function(elements) {
@@ -475,23 +475,6 @@ var Tobago = {
   },
 
   /**
-   * Create a HTML input element with given type, name and value.
-   */
-  createInput: function(type, name, value) {
-    var input = document.createElement('INPUT');
-    if (type) {
-      input.type = type;
-    }
-    if (name) {
-      input.name = name;
-    }
-    if (value) {
-      input.value = value;
-    }
-    return input;
-  },
-
-  /**
    * Clear the selection.
    */
   clearSelection: function() {
@@ -504,68 +487,6 @@ var Tobago = {
     } else if (window.getSelection) {  // GECKO
       window.getSelection().removeAllRanges();
     }
-  },
-
-  /**
-   * Returns a function which binds the named function 'func' of the object 'object'.
-   * additional arguments to bind function are added to the arguments at
-   * function call.
-   * E.g.:
-   * var f = Tobago.bind(Tobago, "setElementWidth");
-   * will bind Tobago.setElementWidth(...) to f(...)
-   * and
-   * var f = Tobago.bind(Tobago, "setElementWidth", id, width);
-   * will bind Tobago.setElementWidth(id, widt) to f()
-   * and
-   * var f = Tobago.bind(Tobago, "setElementWidth", width);
-   * will bind Tobago.setElementWidth(id, width) to f(id)
-   *
-   */
-  /* XXX please remove */
-  bind2: function(object, func) {
-    var rest = [];
-    for (var i = 2; i < arguments.length; i++) {
-      rest.push(arguments[i]);
-    }
-    return function() {
-      for (var i = 0; i < arguments.length; i++) {
-        rest.push(arguments[i]);
-      }
-      object[func].apply(object, rest);
-    };
-  },
-
-  /**
-   * Stop event bubbling
-   */
-  stopEventPropagation: function(event) {
-    event.cancelBubble = true;  // this is IE, no matter if not supported by actual browser
-    if (event.stopPropagation) {
-      event.stopPropagation(); // this is DOM2
-    }
-    if (event.preventDefault) {
-      event.preventDefault();
-    } else {
-      event.returnValue = false;
-    }
-  },
-
-  /**
-   * Returns the absolute top value, related to the body element, for an HTML element.
-   */
-  getAbsoluteTop: function(element) {
-    var top = 0;
-    var parent = false;
-    while (element && element.offsetParent) {
-      top += element.offsetTop;
-      top -= element.scrollTop;
-      if (parent && element.currentStyle) { // IE only
-        top += element.currentStyle.borderTopWidth.replace(/\D/g, '') - 0;
-      }
-      element = element.offsetParent;
-      parent = true;
-    }
-    return Math.max(top, 0);
   },
 
   extend: function(target, source) {

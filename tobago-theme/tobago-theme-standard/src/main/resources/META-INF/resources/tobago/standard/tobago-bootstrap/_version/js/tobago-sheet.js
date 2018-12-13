@@ -86,20 +86,21 @@ Tobago.Sheet.init = function(elements) {
 Tobago.registerListener(Tobago.Sheet.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.Sheet.init, Tobago.Phase.AFTER_UPDATE);
 
-Tobago.Sheet.prototype.reloadWithAction = function(source, action) {
-    console.debug("reload sheet with action '" + action + "'"); // @DEV_ONLY
-  var executeIds = this.id;
-  var renderIds = this.id;
+Tobago.Sheet.reloadWithAction = function(elementId) {
+    console.debug("reload sheet with action '" + elementId + "'"); // @DEV_ONLY
+  var executeIds = elementId;
+  var renderIds = elementId;
+  // XXX FIXME: behaviorCommands will probably be empty and not working!
   if (this.behaviorCommands && this.behaviorCommands.reload) {
     if (this.behaviorCommands.reload.execute) {
-      executeIds +=  " " + this.behaviorCommands.reload.execute;
+      executeIds += " " + this.behaviorCommands.reload.execute;
     }
     if (this.behaviorCommands.reload.render) {
-      renderIds +=  " " + this.behaviorCommands.reload.render;
+      renderIds += " " + this.behaviorCommands.reload.render;
     }
   }
   jsf.ajax.request(
-      action,
+      elementId,
       null,
       {
         "javax.faces.behavior.event": "reload",
@@ -459,7 +460,7 @@ Tobago.Sheet.hideInputOrSubmit = function(input) {
   var sheetId = input.parents(".tobago-sheet:first").attr("id");
   output.html(input.val());
   if (changed) {
-    Tobago.Sheets.get(sheetId).reloadWithAction(input.get(0), input.attr("id"));
+    Tobago.Sheets.get(sheetId).reloadWithAction(input.attr("id"));
   } else {
     console.info("no update needed"); // @DEV_ONLY
     input.hide();
@@ -510,7 +511,7 @@ Tobago.Sheet.prototype.initReload = function() {
   var $sheet = jQuery(Tobago.Utils.escapeClientId(this.id));
   var reload = $sheet.data("tobago-reload");
   if (typeof reload === "number") {
-    Tobago.addReloadTimeout(this.id, Tobago.bind2(this, "reloadWithAction", null, this.id), reload);
+    Tobago.addReloadTimeout(this.id, Tobago.Sheet.reloadWithAction, reload);
   }
 };
 

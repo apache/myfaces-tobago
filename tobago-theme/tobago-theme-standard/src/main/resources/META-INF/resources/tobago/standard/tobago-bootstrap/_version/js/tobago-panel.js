@@ -40,18 +40,18 @@ Tobago.Panel.prototype.setup = function() {
 
 Tobago.Panel.prototype.initReload = function() {
   if (typeof this.autoReload == 'number' && this.autoReload > 0) {
-    Tobago.addReloadTimeout(this.id, Tobago.bind2(this, 'reloadWithAction', null, this.id), this.autoReload);
+    Tobago.addReloadTimeout(this.id, Tobago.Panel.reloadWithAction, this.autoReload);
   }
 };
 
-Tobago.Panel.prototype.reloadWithAction = function(source, action) {
+Tobago.Panel.reloadWithAction = function(elementId) {
   jsf.ajax.request(
-      action,
+      elementId,
       null,
       {
         "javax.faces.behavior.event": "reload",
-        execute: this.id,
-        render: this.id
+        execute: elementId,
+        render: elementId
       });
 };
 
