@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.servlet.http.Part;
 import java.io.IOException;
@@ -33,16 +33,16 @@ public class PartUtilsUnitTest {
   public void testGetSubmittedFileName() throws Exception {
 
     final String dc0 = "form-data; name=\"page:file\"; filename=\"foo.jpg\"";
-    Assert.assertEquals("foo.jpg", PartUtils.getSubmittedFileName(new PartMock(dc0)));
+    Assertions.assertEquals("foo.jpg", PartUtils.getSubmittedFileName(new PartMock(dc0)));
 
     final String dc1 = "form-data; name=\"page:file\"; filename=\"foo;bar=\\\"boo\\\"-bar.jpg\"";
-    Assert.assertEquals("foo;bar=\"boo\"-bar.jpg", PartUtils.getSubmittedFileName(new PartMock(dc1)));
+    Assertions.assertEquals("foo;bar=\"boo\"-bar.jpg", PartUtils.getSubmittedFileName(new PartMock(dc1)));
 
 /* XXX will fail, because a / will be encoded as a :
     final String dc2
         = "form-data; name=\"page:file1\"; filename=\"semicolon;doublequote\\\"backslash\\"
         + "slash:doublebackslash\\\\quote'umlautsäöüumlautsäöüeuro€tilde~muµspace hiraganaぁ.jpg\"";
-    Assert.assertEquals(
+    Assertions.assertEquals(
         "semicolon;doublequote\"backslash\\slash/doublebackslash\\\\quote'umlautsäöüumlautsäöüeuro€tilde~muµspace "
             + "hiraganaぁ.jpg", PartUtils.getSubmittedFileName(new PartMock(dc2)));
 */

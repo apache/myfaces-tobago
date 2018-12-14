@@ -21,8 +21,8 @@ package org.apache.myfaces.tobago.util;
 
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.apache.myfaces.tobago.validator.FileItemValidator;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.faces.application.FacesMessage;
 import java.util.Locale;
@@ -35,8 +35,8 @@ public class MessageUtilsUnitTest extends AbstractTobagoTestBase {
         facesContext,
         FacesMessage.SEVERITY_INFO,
         "dummy");
-    Assert.assertEquals("dummy", dummy.getSummary());
-    Assert.assertEquals("dummy", dummy.getDetail());
+    Assertions.assertEquals("dummy", dummy.getSummary());
+    Assertions.assertEquals("dummy", dummy.getDetail());
   }
 
   @Test
@@ -45,8 +45,8 @@ public class MessageUtilsUnitTest extends AbstractTobagoTestBase {
         facesContext,
         FacesMessage.SEVERITY_INFO,
         FileItemValidator.CONTENT_TYPE_MESSAGE_ID, "application/pdf");
-    Assert.assertEquals("Content type error", locale.getSummary());
-    Assert.assertEquals("The given file is not content type of 'application/pdf'.", locale.getDetail());
+    Assertions.assertEquals("Content type error", locale.getSummary());
+    Assertions.assertEquals("The given file is not content type of 'application/pdf'.", locale.getDetail());
   }
 
   @Test
@@ -57,8 +57,8 @@ public class MessageUtilsUnitTest extends AbstractTobagoTestBase {
         facesContext,
         FacesMessage.SEVERITY_INFO,
         FileItemValidator.CONTENT_TYPE_MESSAGE_ID, "application/pdf");
-    Assert.assertEquals("Dateityp Fehler", locale.getSummary());
-    Assert.assertEquals("Die hochgeladene Datei ist nicht vom Typ 'application/pdf'.", locale.getDetail());
+    Assertions.assertEquals("Dateityp Fehler", locale.getSummary());
+    Assertions.assertEquals("Die hochgeladene Datei ist nicht vom Typ 'application/pdf'.", locale.getDetail());
   }
 
   @Test
@@ -69,8 +69,8 @@ public class MessageUtilsUnitTest extends AbstractTobagoTestBase {
         facesContext,
         FacesMessage.SEVERITY_INFO,
         FileItemValidator.CONTENT_TYPE_MESSAGE_ID, "application/pdf");
-    Assert.assertEquals("Error de tipo de contenido", locale.getSummary());
-    Assert.assertEquals("El archivo no es del tipo de contenido 'application/pdf'.", locale.getDetail());
+    Assertions.assertEquals("Error de tipo de contenido", locale.getSummary());
+    Assertions.assertEquals("El archivo no es del tipo de contenido 'application/pdf'.", locale.getDetail());
   }
 
   @Test
@@ -81,7 +81,7 @@ public class MessageUtilsUnitTest extends AbstractTobagoTestBase {
         facesContext,
         FacesMessage.SEVERITY_INFO,
         FileItemValidator.CONTENT_TYPE_MESSAGE_ID, "application/pdf");
-    Assert.assertEquals("Content type error", locale.getSummary());
-    Assert.assertEquals("The given file is not content type of 'application/pdf'.", locale.getDetail());
+    Assertions.assertEquals("Content type error", locale.getSummary());
+    Assertions.assertEquals("The given file is not content type of 'application/pdf'.", locale.getDetail());
   }
 }

@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -34,8 +34,8 @@ public class HtmlElementsUnitTest {
 
       final HtmlElements element = (HtmlElements) field.get(null);
       final String value = element.getValue();
-      Assert.assertEquals("Check to lower: '" + element + "'", value, element.name().toLowerCase());
-      Assert.assertEquals("Check to upper: '" + element + "'", value.toUpperCase(), element.name());
+      Assertions.assertEquals("Check to lower: '" + element + "'", value, element.name().toLowerCase());
+      Assertions.assertEquals("Check to upper: '" + element + "'", value.toUpperCase(), element.name());
     }
   }
 
@@ -51,7 +51,7 @@ public class HtmlElementsUnitTest {
     for (final Field field : HtmlElements.class.getFields()) {
       final HtmlElements element = (HtmlElements) field.get(null);
 
-      Assert.assertEquals("Check void: '" + element + "'", voids.contains(element.getValue()),  element.isVoid());
+      Assertions.assertEquals(voids.contains(element.getValue()), element.isVoid(), "Check void: '" + element + "'");
     }
 
   }

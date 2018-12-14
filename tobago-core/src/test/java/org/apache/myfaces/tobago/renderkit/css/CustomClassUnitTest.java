@@ -19,23 +19,23 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class CustomClassUnitTest {
 
   @Test
   public void test() {
-    Assert.assertEquals("simple", "test", new CustomClass("test").getName());
-    Assert.assertEquals("number", "test2", new CustomClass("test2").getName());
-    Assert.assertEquals("list", "test3 and test4", new CustomClass("test3 and test4").getName());
-    Assert.assertEquals("space", "test5 test6", new CustomClass("     test5     test6       ").getName());
-    Assert.assertEquals("-", "test-8", new CustomClass("test-8").getName());
-    Assert.assertEquals("_", "__t_e_s_t-9 _d", new CustomClass("__t_e_s_t-9 _d").getName());
+    Assertions.assertEquals("simple", "test", new CustomClass("test").getName());
+    Assertions.assertEquals("number", "test2", new CustomClass("test2").getName());
+    Assertions.assertEquals("list", "test3 and test4", new CustomClass("test3 and test4").getName());
+    Assertions.assertEquals("space", "test5 test6", new CustomClass("     test5     test6       ").getName());
+    Assertions.assertEquals("-", "test-8", new CustomClass("test-8").getName());
+    Assertions.assertEquals("_", "__t_e_s_t-9 _d", new CustomClass("__t_e_s_t-9 _d").getName());
 
-    Assert.assertEquals(".", "", new CustomClass("test.10").getName());
-    Assert.assertEquals("tab", "", new CustomClass("test\t11").getName());
-    Assert.assertEquals(":", "", new CustomClass("test:12").getName());
+    Assertions.assertEquals(".", "", new CustomClass("test.10").getName());
+    Assertions.assertEquals("tab", "", new CustomClass("test\t11").getName());
+    Assertions.assertEquals(":", "", new CustomClass("test:12").getName());
   }
 
 }

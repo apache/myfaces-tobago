@@ -19,49 +19,49 @@
 
 package org.apache.myfaces.tobago.layout;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class MeasureUnitTest {
 
   @Test
   public void testDecimal() {
-    Assert.assertEquals("13.3px", "" + Measure.valueOf("13.3px"));
-    Assert.assertEquals("13.7px", "" + Measure.valueOf("13.7px"));
-    Assert.assertEquals("13.3px", "" + Measure.valueOf("13.3"));
-    Assert.assertEquals("13.7px", "" + Measure.valueOf("13.7"));
-    Assert.assertEquals("0.7px", "" + Measure.valueOf(".7"));
-    Assert.assertEquals("0px", "" + Measure.valueOf("0"));
-    Assert.assertEquals(null, Measure.valueOf(""));
+    Assertions.assertEquals("13.3px", "" + Measure.valueOf("13.3px"));
+    Assertions.assertEquals("13.7px", "" + Measure.valueOf("13.7px"));
+    Assertions.assertEquals("13.3px", "" + Measure.valueOf("13.3"));
+    Assertions.assertEquals("13.7px", "" + Measure.valueOf("13.7"));
+    Assertions.assertEquals("0.7px", "" + Measure.valueOf(".7"));
+    Assertions.assertEquals("0px", "" + Measure.valueOf("0"));
+    Assertions.assertEquals(null, Measure.valueOf(""));
   }
 
   @Test
   public void testOther() {
-    Assert.assertEquals("13.3cm", "" + Measure.valueOf("13.3cm"));
-    Assert.assertEquals("13.7mm", "" + Measure.valueOf("13.7mm"));
-    Assert.assertEquals("13.7ex", "" + Measure.valueOf("13.7ex"));
-    Assert.assertEquals("13.7em", "" + Measure.valueOf("13.7em"));
-    Assert.assertEquals("13.7in", "" + Measure.valueOf("13.7in"));
-    Assert.assertEquals("13.7ch", "" + Measure.valueOf("13.7ch"));
-    Assert.assertEquals("13.7rem", "" + Measure.valueOf("13.7rem"));
-    Assert.assertEquals("13.7vw", "" + Measure.valueOf("13.7vw"));
-    Assert.assertEquals("13.7vh", "" + Measure.valueOf("13.7vh"));
-    Assert.assertEquals("13.7vmin", "" + Measure.valueOf("13.7vmin"));
-    Assert.assertEquals("13.7vmax", "" + Measure.valueOf("13.7vmax"));
-    Assert.assertEquals("13.7%", "" + Measure.valueOf("13.7%"));
-    Assert.assertEquals("13fr", "" + Measure.valueOf("13*"));
-    Assert.assertEquals("13fr", "" + Measure.valueOf("13fr"));
-    Assert.assertEquals("auto", "" + Measure.valueOf("auto"));
-    Assert.assertEquals("13fr", "" + Measure.valueOf("13*"));
-    Assert.assertEquals("1fr", "" + Measure.valueOf("*"));
-    Assert.assertEquals("1seg", "" + Measure.valueOf("1seg"));
+    Assertions.assertEquals("13.3cm", "" + Measure.valueOf("13.3cm"));
+    Assertions.assertEquals("13.7mm", "" + Measure.valueOf("13.7mm"));
+    Assertions.assertEquals("13.7ex", "" + Measure.valueOf("13.7ex"));
+    Assertions.assertEquals("13.7em", "" + Measure.valueOf("13.7em"));
+    Assertions.assertEquals("13.7in", "" + Measure.valueOf("13.7in"));
+    Assertions.assertEquals("13.7ch", "" + Measure.valueOf("13.7ch"));
+    Assertions.assertEquals("13.7rem", "" + Measure.valueOf("13.7rem"));
+    Assertions.assertEquals("13.7vw", "" + Measure.valueOf("13.7vw"));
+    Assertions.assertEquals("13.7vh", "" + Measure.valueOf("13.7vh"));
+    Assertions.assertEquals("13.7vmin", "" + Measure.valueOf("13.7vmin"));
+    Assertions.assertEquals("13.7vmax", "" + Measure.valueOf("13.7vmax"));
+    Assertions.assertEquals("13.7%", "" + Measure.valueOf("13.7%"));
+    Assertions.assertEquals("13fr", "" + Measure.valueOf("13*"));
+    Assertions.assertEquals("13fr", "" + Measure.valueOf("13fr"));
+    Assertions.assertEquals("auto", "" + Measure.valueOf("auto"));
+    Assertions.assertEquals("13fr", "" + Measure.valueOf("13*"));
+    Assertions.assertEquals("1fr", "" + Measure.valueOf("*"));
+    Assertions.assertEquals("1seg", "" + Measure.valueOf("1seg"));
   }
 
   @Test
   public void testWrong() {
-    Assert.assertNull("Not parsable, so get null", Measure.valueOf("13.3xx"));
-    Assert.assertNull("Not parsable, so get null", Measure.valueOf("13.3x"));
-    Assert.assertNull("Not parsable, so get null", Measure.valueOf("13.3mmm"));
+    Assertions.assertNull(Measure.valueOf("13.3xx"), "Not parsable, so get null");
+    Assertions.assertNull(Measure.valueOf("13.3x"), "Not parsable, so get null");
+    Assertions.assertNull(Measure.valueOf("13.3mmm"), "Not parsable, so get null");
   }
 
 }

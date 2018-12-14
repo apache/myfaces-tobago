@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.internal.config;
 
 import org.apache.myfaces.tobago.context.ThemeImpl;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -55,45 +55,45 @@ public class TobagoConfigParserUnitTest {
 
     final TobagoConfigFragment fragment = parser.parse(url);
 
-    Assert.assertEquals("my-name", fragment.getName());
+    Assertions.assertEquals("my-name", fragment.getName());
 
-    Assert.assertEquals(1, fragment.getAfter().size());
-    Assert.assertEquals("my-after", fragment.getAfter().get(0));
+    Assertions.assertEquals(1, fragment.getAfter().size());
+    Assertions.assertEquals("my-after", fragment.getAfter().get(0));
 
-    Assert.assertEquals(2, fragment.getBefore().size());
-    Assert.assertEquals("my-before-1", fragment.getBefore().get(0));
-    Assert.assertEquals("my-before-2", fragment.getBefore().get(1));
+    Assertions.assertEquals(2, fragment.getBefore().size());
+    Assertions.assertEquals("my-before-1", fragment.getBefore().get(0));
+    Assertions.assertEquals("my-before-2", fragment.getBefore().get(1));
 
-    Assert.assertFalse(fragment.getCreateSessionSecret());
-    Assert.assertFalse(fragment.getCheckSessionSecret());
-    Assert.assertFalse(fragment.getPreventFrameAttacks());
+    Assertions.assertFalse(fragment.getCreateSessionSecret());
+    Assertions.assertFalse(fragment.getCheckSessionSecret());
+    Assertions.assertFalse(fragment.getPreventFrameAttacks());
 
     final Map<String, String> directiveMap = fragment.getContentSecurityPolicy().getDirectiveMap();
     final Set<Map.Entry<String, String>> entries = directiveMap.entrySet();
-    Assert.assertEquals(2, entries.size());
-    Assert.assertEquals("'self'", directiveMap.get("default-src"));
-    Assert.assertEquals("http://apache.org", directiveMap.get("child-src"));
+    Assertions.assertEquals(2, entries.size());
+    Assertions.assertEquals("'self'", directiveMap.get("default-src"));
+    Assertions.assertEquals("http://apache.org", directiveMap.get("child-src"));
 
-    Assert.assertEquals(2, fragment.getThemeDefinitions().size());
+    Assertions.assertEquals(2, fragment.getThemeDefinitions().size());
     final ThemeImpl theme1 = fragment.getThemeDefinitions().get(0);
-    Assert.assertEquals("my-theme-1", theme1.getName());
-    Assert.assertEquals("My Theme 1", theme1.getDisplayName());
-    Assert.assertTrue(theme1.isVersioned());
-    Assert.assertTrue(theme1.getProductionResources().isProduction());
-    Assert.assertEquals("script.js", theme1.getProductionResources().getScriptList().get(0).getName());
-    Assert.assertEquals("style.css", theme1.getProductionResources().getStyleList().get(0).getName());
+    Assertions.assertEquals("my-theme-1", theme1.getName());
+    Assertions.assertEquals("My Theme 1", theme1.getDisplayName());
+    Assertions.assertTrue(theme1.isVersioned());
+    Assertions.assertTrue(theme1.getProductionResources().isProduction());
+    Assertions.assertEquals("script.js", theme1.getProductionResources().getScriptList().get(0).getName());
+    Assertions.assertEquals("style.css", theme1.getProductionResources().getStyleList().get(0).getName());
 
     final ThemeImpl theme2 = fragment.getThemeDefinitions().get(1);
-    Assert.assertEquals("my-theme-2", theme2.getName());
-    Assert.assertEquals("my-theme-1", theme2.getFallbackName());
-    Assert.assertFalse(theme2.isVersioned());
-    Assert.assertFalse(theme2.getResources().isProduction());
-    Assert.assertEquals(0, theme2.getResources().getScriptList().size());
-    Assert.assertEquals(0, theme2.getResources().getStyleList().size());
-    Assert.assertEquals(0, theme2.getProductionResources().getScriptList().size());
-    Assert.assertEquals(0, theme2.getProductionResources().getStyleList().size());
+    Assertions.assertEquals("my-theme-2", theme2.getName());
+    Assertions.assertEquals("my-theme-1", theme2.getFallbackName());
+    Assertions.assertFalse(theme2.isVersioned());
+    Assertions.assertFalse(theme2.getResources().isProduction());
+    Assertions.assertEquals(0, theme2.getResources().getScriptList().size());
+    Assertions.assertEquals(0, theme2.getResources().getStyleList().size());
+    Assertions.assertEquals(0, theme2.getProductionResources().getScriptList().size());
+    Assertions.assertEquals(0, theme2.getProductionResources().getStyleList().size());
 
-    Assert.assertFalse("set-nosniff-header", fragment.getSetNosniffHeader());
+    Assertions.assertFalse(fragment.getSetNosniffHeader(), "set-nosniff-header");
   }
 
   @Test
@@ -101,7 +101,7 @@ public class TobagoConfigParserUnitTest {
     final URL url = getClass().getClassLoader().getResource("tobago-config-1.0.30.xml");
     final TobagoConfigParser parser = new TobagoConfigParser();
     final TobagoConfigFragment fragment = parser.parse(url);
-    Assert.assertEquals("speyside", fragment.getDefaultThemeName());
+    Assertions.assertEquals("speyside", fragment.getDefaultThemeName());
   }
 
   @Test
@@ -110,7 +110,7 @@ public class TobagoConfigParserUnitTest {
     final TobagoConfigParser parser = new TobagoConfigParser();
     try {
       parser.parse(url);
-      Assert.fail("No SAXParseException thrown!");
+      Assertions.fail("No SAXParseException thrown!");
     } catch (final SAXException e) {
       // okay
     }
@@ -121,7 +121,7 @@ public class TobagoConfigParserUnitTest {
     final URL url = getClass().getClassLoader().getResource("tobago-config-1.5.xml");
     final TobagoConfigParser parser = new TobagoConfigParser();
     final TobagoConfigFragment fragment = parser.parse(url);
-    Assert.assertEquals("speyside", fragment.getDefaultThemeName());
+    Assertions.assertEquals("speyside", fragment.getDefaultThemeName());
   }
 
   @Test
@@ -130,7 +130,7 @@ public class TobagoConfigParserUnitTest {
     final TobagoConfigParser parser = new TobagoConfigParser();
     try {
       parser.parse(url);
-      Assert.fail("No SAXParseException thrown!");
+      Assertions.fail("No SAXParseException thrown!");
     } catch (final SAXException e) {
       // okay
     }
@@ -142,7 +142,7 @@ public class TobagoConfigParserUnitTest {
     final TobagoConfigParser parser = new TobagoConfigParser();
     try {
       parser.parse(url);
-      Assert.fail("No SAXParseException thrown!");
+      Assertions.fail("No SAXParseException thrown!");
     } catch (final SAXException e) {
       // okay
     }
@@ -154,7 +154,7 @@ public class TobagoConfigParserUnitTest {
     final TobagoConfigParser parser = new TobagoConfigParser();
     try {
       parser.parse(url);
-      Assert.fail("No SAXParseException thrown!");
+      Assertions.fail("No SAXParseException thrown!");
     } catch (final SAXException e) {
       // okay
     }
@@ -175,13 +175,13 @@ public class TobagoConfigParserUnitTest {
     for (final Field field : fields) {
       hashCodes.add(field.getInt(dummy));
     }
-    Assert.assertEquals("All used hash codes must be unique", fields.size(), hashCodes.size());
+    Assertions.assertEquals(fields.size(), hashCodes.size(), "All used hash codes must be unique");
 
     // check hash code values
     for (final Field field : fields) {
       final int hash = field.getInt(dummy);
       final String name = field.getName().toLowerCase().replace('_', '-');
-      Assert.assertEquals("Are the constants correct?", name.hashCode(), hash);
+      Assertions.assertEquals(name.hashCode(), hash, "Are the constants correct?");
     }
   }
 

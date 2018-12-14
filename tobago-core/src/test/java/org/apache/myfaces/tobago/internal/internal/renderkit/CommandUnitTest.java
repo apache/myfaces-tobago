@@ -23,8 +23,8 @@ import org.apache.myfaces.tobago.internal.renderkit.Collapse;
 import org.apache.myfaces.tobago.internal.renderkit.Command;
 import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class CommandUnitTest {
 
@@ -45,7 +45,7 @@ public class CommandUnitTest {
 
     a.merge(b);
 
-    Assert.assertEquals(
+    Assertions.assertEquals(
         ("{'click':"
             + "{'action':'a action',"
             + "'execute':'a execute b execute'"
@@ -58,7 +58,7 @@ public class CommandUnitTest {
 
     c.merge(b);
 
-    Assert.assertEquals(
+    Assertions.assertEquals(
         ("{'click':"
             + "{'action':'b action',"
             + "'execute':'b execute',"

@@ -19,7 +19,8 @@
 
 package org.apache.myfaces.tobago.example.demo.qunit;
 
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -69,11 +70,11 @@ class AccessAllPagesTest extends SeleniumBase {
       boolean testException = false;
       for (final WebElement result : results) {
         if ("has no exception".equals(result.findElement(By.className("test-name")).getText())) {
-          Assert.assertEquals(result.getAttribute("class"), "fail");
+          Assertions.assertEquals(result.getAttribute("class"), "fail");
           testException = true;
         }
       }
-      Assert.assertTrue("Could not verify 'has no exception' test.", testException);
+      Assertions.assertTrue(testException, "Could not verify 'has no exception' test.");
     }
   }
 
@@ -99,11 +100,11 @@ class AccessAllPagesTest extends SeleniumBase {
       boolean test404 = false;
       for (final WebElement result : results) {
         if ("has no 404".equals(result.findElement(By.className("test-name")).getText())) {
-          Assert.assertEquals(result.getAttribute("class"), "fail");
+          Assertions.assertEquals(result.getAttribute("class"), "fail");
           test404 = true;
         }
       }
-      Assert.assertTrue("Could not verify 'has no 404' test.", test404);
+      Assertions.assertTrue(test404, "Could not verify 'has no 404' test.");
     }
   }
 

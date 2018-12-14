@@ -19,9 +19,10 @@
 
 package org.apache.myfaces.tobago.model;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.Arrays;
@@ -56,7 +57,7 @@ public class TreePathUnitTest {
   private static final DefaultMutableTreeNode B2 = new DefaultMutableTreeNode("b2");
   private static final DefaultMutableTreeNode B3 = new DefaultMutableTreeNode("b3");
 
-  @BeforeClass
+  @BeforeAll
   public static void setup() {
     ROOT.add(A);
     ROOT.add(B);
@@ -79,32 +80,32 @@ public class TreePathUnitTest {
     final TreePath b2 = new TreePath(B2);
     final TreePath b3 = new TreePath(B3);
 
-    Assert.assertEquals(0, root.getPath().length);
-    Assert.assertEquals(1, a.getPath().length);
-    Assert.assertEquals(0, a.getPath()[0]);
-    Assert.assertEquals(1, b.getPath().length);
-    Assert.assertEquals(1, b.getPath()[0]);
-    Assert.assertEquals(2, a1.getPath().length);
-    Assert.assertEquals(0, a1.getPath()[0]);
-    Assert.assertEquals(0, a1.getPath()[1]);
-    Assert.assertEquals(2, a2.getPath().length);
-    Assert.assertEquals(0, a2.getPath()[0]);
-    Assert.assertEquals(1, a2.getPath()[1]);
-    Assert.assertEquals(2, b1.getPath().length);
-    Assert.assertEquals(1, b1.getPath()[0]);
-    Assert.assertEquals(0, b1.getPath()[1]);
-    Assert.assertEquals(2, b2.getPath().length);
-    Assert.assertEquals(1, b2.getPath()[0]);
-    Assert.assertEquals(1, b2.getPath()[1]);
-    Assert.assertEquals(2, b3.getPath().length);
-    Assert.assertEquals(1, b3.getPath()[0]);
-    Assert.assertEquals(2, b3.getPath()[1]);
+    Assertions.assertEquals(0, root.getPath().length);
+    Assertions.assertEquals(1, a.getPath().length);
+    Assertions.assertEquals(0, a.getPath()[0]);
+    Assertions.assertEquals(1, b.getPath().length);
+    Assertions.assertEquals(1, b.getPath()[0]);
+    Assertions.assertEquals(2, a1.getPath().length);
+    Assertions.assertEquals(0, a1.getPath()[0]);
+    Assertions.assertEquals(0, a1.getPath()[1]);
+    Assertions.assertEquals(2, a2.getPath().length);
+    Assertions.assertEquals(0, a2.getPath()[0]);
+    Assertions.assertEquals(1, a2.getPath()[1]);
+    Assertions.assertEquals(2, b1.getPath().length);
+    Assertions.assertEquals(1, b1.getPath()[0]);
+    Assertions.assertEquals(0, b1.getPath()[1]);
+    Assertions.assertEquals(2, b2.getPath().length);
+    Assertions.assertEquals(1, b2.getPath()[0]);
+    Assertions.assertEquals(1, b2.getPath()[1]);
+    Assertions.assertEquals(2, b3.getPath().length);
+    Assertions.assertEquals(1, b3.getPath()[0]);
+    Assertions.assertEquals(2, b3.getPath()[1]);
   }
 
   @Test
   public void testGetPath() {
     final TreePath treePath = new TreePath(0, 1, 2);
-    Assert.assertTrue(Arrays.equals(new int[]{0, 1, 2}, treePath.getPath()));
+    Assertions.assertTrue(Arrays.equals(new int[]{0, 1, 2}, treePath.getPath()));
   }
 
 }

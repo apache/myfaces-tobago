@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.component;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.faces.component.UIComponent;
 import java.lang.reflect.Method;
@@ -52,7 +52,7 @@ public class AttributesOfGeneratedUIComponentsUnitTest extends AbstractGenerated
         try {
           attribute = Attributes.valueOf(property);
         } catch (final IllegalArgumentException e) {
-          Assert.fail(e.getMessage());
+          Assertions.fail(e.getMessage());
         }
 
       }

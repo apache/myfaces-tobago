@@ -24,8 +24,8 @@ import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -35,11 +35,11 @@ public class ComponentUtilsUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void testSplitList() {
-    Assert.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtils.splitList("ab cd"));
-    Assert.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtils.splitList("ab  cd"));
-    Assert.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtils.splitList("ab,  cd"));
-    Assert.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtils.splitList("ab , cd"));
-    Assert.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtils.splitList("ab,,cd"));
+    Assertions.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtils.splitList("ab cd"));
+    Assertions.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtils.splitList("ab  cd"));
+    Assertions.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtils.splitList("ab,  cd"));
+    Assertions.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtils.splitList("ab , cd"));
+    Assertions.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtils.splitList("ab,,cd"));
   }
 
   @Test
@@ -52,7 +52,7 @@ public class ComponentUtilsUnitTest extends AbstractTobagoTestBase {
     p.getChildren().add(i);
 
     final UIIn in = ComponentUtils.findDescendant(p, UIIn.class);
-    Assert.assertEquals(i, in);
+    Assertions.assertEquals(i, in);
   }
 
   @Test
@@ -64,33 +64,33 @@ public class ComponentUtilsUnitTest extends AbstractTobagoTestBase {
     input.setId(inputId);
 
     input.setValid(true);
-    Assert.assertEquals(null, ComponentUtils.getMaximumSeverity(input));
+    Assertions.assertEquals(null, ComponentUtils.getMaximumSeverity(input));
     input.setValid(false);
-    Assert.assertEquals(FacesMessage.SEVERITY_ERROR, ComponentUtils.getMaximumSeverity(input));
+    Assertions.assertEquals(FacesMessage.SEVERITY_ERROR, ComponentUtils.getMaximumSeverity(input));
 
     facesContext.addMessage(inputId, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info Message", null));
     input.setValid(true);
-    Assert.assertEquals(FacesMessage.SEVERITY_INFO, ComponentUtils.getMaximumSeverity(input));
+    Assertions.assertEquals(FacesMessage.SEVERITY_INFO, ComponentUtils.getMaximumSeverity(input));
     input.setValid(false);
-    Assert.assertEquals(FacesMessage.SEVERITY_ERROR, ComponentUtils.getMaximumSeverity(input));
+    Assertions.assertEquals(FacesMessage.SEVERITY_ERROR, ComponentUtils.getMaximumSeverity(input));
 
     facesContext.addMessage(inputId, new FacesMessage(FacesMessage.SEVERITY_FATAL, "FATAL", null));
     input.setValid(true);
-    Assert.assertEquals(FacesMessage.SEVERITY_FATAL, ComponentUtils.getMaximumSeverity(input));
+    Assertions.assertEquals(FacesMessage.SEVERITY_FATAL, ComponentUtils.getMaximumSeverity(input));
     input.setValid(false);
-    Assert.assertEquals(FacesMessage.SEVERITY_FATAL, ComponentUtils.getMaximumSeverity(input));
+    Assertions.assertEquals(FacesMessage.SEVERITY_FATAL, ComponentUtils.getMaximumSeverity(input));
 
 
     final UIOut output = new UIOut();
     final String outputId = "OutputID";
     output.setId(outputId);
 
-    Assert.assertEquals(null, ComponentUtils.getMaximumSeverity(output));
+    Assertions.assertEquals(null, ComponentUtils.getMaximumSeverity(output));
 
     facesContext.addMessage(outputId, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info Message", null));
-    Assert.assertEquals(FacesMessage.SEVERITY_INFO, ComponentUtils.getMaximumSeverity(output));
+    Assertions.assertEquals(FacesMessage.SEVERITY_INFO, ComponentUtils.getMaximumSeverity(output));
 
     facesContext.addMessage(outputId, new FacesMessage(FacesMessage.SEVERITY_FATAL, "FATAL", null));
-    Assert.assertEquals(FacesMessage.SEVERITY_FATAL, ComponentUtils.getMaximumSeverity(output));
+    Assertions.assertEquals(FacesMessage.SEVERITY_FATAL, ComponentUtils.getMaximumSeverity(output));
   }
 }

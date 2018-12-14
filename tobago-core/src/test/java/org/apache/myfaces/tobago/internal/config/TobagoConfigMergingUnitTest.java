@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -41,7 +41,7 @@ public class TobagoConfigMergingUnitTest {
         "tobago-config-merge-0.xml",
         "tobago-config-merge-1.xml");
 
-    Assert.assertFalse(config.isPreventFrameAttacks());
+    Assertions.assertFalse(config.isPreventFrameAttacks());
   }
 
   @Test
@@ -50,7 +50,7 @@ public class TobagoConfigMergingUnitTest {
 
     final TobagoConfigImpl config = loadAndMerge("tobago-config-merge-0.xml");
 
-    Assert.assertFalse(config.isPreventFrameAttacks());
+    Assertions.assertFalse(config.isPreventFrameAttacks());
   }
 
   @Test
@@ -59,7 +59,7 @@ public class TobagoConfigMergingUnitTest {
 
     final TobagoConfigImpl config = loadAndMerge("tobago-config-merge-1.xml");
 
-    Assert.assertTrue(config.isPreventFrameAttacks());
+    Assertions.assertTrue(config.isPreventFrameAttacks());
   }
 
   @Test
@@ -69,10 +69,10 @@ public class TobagoConfigMergingUnitTest {
     final TobagoConfigImpl config = loadAndMerge(
         "tobago-config-merge-0.xml");
 
-    Assert.assertTrue(config.getContentSecurityPolicy().getMode() == ContentSecurityPolicy.Mode.ON);
+    Assertions.assertTrue(config.getContentSecurityPolicy().getMode() == ContentSecurityPolicy.Mode.ON);
     final Map<String, String> directiveMap = config.getContentSecurityPolicy().getDirectiveMap();
-    Assert.assertEquals(1, directiveMap.size());
-    Assert.assertEquals("'self'", directiveMap.get("default-src"));
+    Assertions.assertEquals(1, directiveMap.size());
+    Assertions.assertEquals("'self'", directiveMap.get("default-src"));
   }
 
   @Test
@@ -83,11 +83,11 @@ public class TobagoConfigMergingUnitTest {
         "tobago-config-merge-0.xml",
         "tobago-config-merge-1.xml");
 
-    Assert.assertTrue(config.getContentSecurityPolicy().getMode() == ContentSecurityPolicy.Mode.REPORT_ONLY);
+    Assertions.assertTrue(config.getContentSecurityPolicy().getMode() == ContentSecurityPolicy.Mode.REPORT_ONLY);
     final Map<String, String> directiveMap = config.getContentSecurityPolicy().getDirectiveMap();
-    Assert.assertEquals(2, directiveMap.size());
-    Assert.assertEquals("'self'", directiveMap.get("default-src"));
-    Assert.assertEquals("http://apache.org", directiveMap.get("image-src"));
+    Assertions.assertEquals(2, directiveMap.size());
+    Assertions.assertEquals("'self'", directiveMap.get("default-src"));
+    Assertions.assertEquals("http://apache.org", directiveMap.get("image-src"));
   }
 
   @Test
@@ -99,8 +99,8 @@ public class TobagoConfigMergingUnitTest {
         "tobago-config-merge-1.xml",
         "tobago-config-merge-2.xml");
 
-    Assert.assertTrue(config.getContentSecurityPolicy().getMode() == ContentSecurityPolicy.Mode.OFF);
-    Assert.assertEquals(2, config.getContentSecurityPolicy().getDirectiveMap().size());
+    Assertions.assertTrue(config.getContentSecurityPolicy().getMode() == ContentSecurityPolicy.Mode.OFF);
+    Assertions.assertEquals(2, config.getContentSecurityPolicy().getDirectiveMap().size());
   }
 
   @Test
@@ -111,10 +111,10 @@ public class TobagoConfigMergingUnitTest {
         "tobago-config-merge-0.xml",
         "tobago-config-merge-3.xml");
 
-    Assert.assertTrue(config.getContentSecurityPolicy().getMode() == ContentSecurityPolicy.Mode.ON);
+    Assertions.assertTrue(config.getContentSecurityPolicy().getMode() == ContentSecurityPolicy.Mode.ON);
     final Map<String, String> directiveMap = config.getContentSecurityPolicy().getDirectiveMap();
-    Assert.assertEquals(1, directiveMap.size());
-    Assert.assertEquals("'self' https:", directiveMap.get("default-src"));
+    Assertions.assertEquals(1, directiveMap.size());
+    Assertions.assertEquals("'self' https:", directiveMap.get("default-src"));
   }
 
   @Test
@@ -127,10 +127,10 @@ public class TobagoConfigMergingUnitTest {
         "tobago-config-merge-2.xml");
 
     final Map<String, String> mimeTypes = config.getMimeTypes();
-    Assert.assertTrue(mimeTypes.size() == 3);
-    Assert.assertEquals("test/one", mimeTypes.get("test-1"));
-    Assert.assertEquals("test/zwei", mimeTypes.get("test-2"));
-    Assert.assertEquals("test/three", mimeTypes.get("test-3"));
+    Assertions.assertTrue(mimeTypes.size() == 3);
+    Assertions.assertEquals("test/one", mimeTypes.get("test-1"));
+    Assertions.assertEquals("test/zwei", mimeTypes.get("test-2"));
+    Assertions.assertEquals("test/three", mimeTypes.get("test-3"));
   }
 
   @Test
@@ -140,7 +140,7 @@ public class TobagoConfigMergingUnitTest {
     final TobagoConfigImpl config = loadAndMerge(
         "tobago-config-5.0.xml", "tobago-config-5.0-replace.xml");
 
-    final String[] expected = new String[] {
+    final String[] expected = new String[]{
         "script-1.js",
         "script-2.js",
         "script-3-replacement.js",
@@ -156,7 +156,7 @@ public class TobagoConfigMergingUnitTest {
     config.resolveThemes();
     final String[] scripts = config.getDefaultTheme().getScriptResources(true);
 
-    Assert.assertArrayEquals(expected, scripts);
+    Assertions.assertArrayEquals(expected, scripts);
   }
 
   public static TobagoConfigImpl loadAndMerge(final String... names)

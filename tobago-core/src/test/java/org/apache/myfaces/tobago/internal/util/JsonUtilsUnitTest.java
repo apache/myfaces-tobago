@@ -31,8 +31,8 @@ import org.apache.myfaces.tobago.internal.renderkit.Collapse;
 import org.apache.myfaces.tobago.internal.renderkit.Command;
 import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -44,7 +44,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
   @Test
   public void empty() {
     final CommandMap map = new CommandMap();
-    Assert.assertEquals("{}", JsonUtils.encode(map));
+    Assertions.assertEquals("{}", JsonUtils.encode(map));
   }
 
   @Test
@@ -52,7 +52,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
     final CommandMap map = new CommandMap();
     map.setClick(new Command(null, null, null, "", null, null, null, null, null, null));
     final String expected = "{'click':{}}".replaceAll("'", "\"");
-    Assert.assertEquals(expected, JsonUtils.encode(map));
+    Assertions.assertEquals(expected, JsonUtils.encode(map));
   }
 
   @Test
@@ -60,7 +60,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
     final CommandMap map = new CommandMap();
     map.addCommand(ClientBehaviors.change, new Command(null, null, null, null, null, null, null, null, null, null));
     final String expected = "{'change':{}}".replaceAll("'", "\"");
-    Assert.assertEquals(expected, JsonUtils.encode(map));
+    Assertions.assertEquals(expected, JsonUtils.encode(map));
   }
 
   @Test
@@ -69,7 +69,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
     map.addCommand(ClientBehaviors.click, new Command(null, null, "target", null, null, null, null, null, null, null));
     map.addCommand(ClientBehaviors.change, new Command(null, null, null, null, null, null, null, null, null, null));
     final String expected = "{'click':{'target':'target'},'change':{}}".replaceAll("'", "\"");
-    Assert.assertEquals(expected, JsonUtils.encode(map));
+    Assertions.assertEquals(expected, JsonUtils.encode(map));
   }
 
   @Test
@@ -77,7 +77,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
     final CommandMap commandMap = new CommandMap();
     commandMap.setClick(new Command(null, false, null, null, null, null, null, null, null, null));
     final String expected = "{'click':{'transition':false}}".replaceAll("'", "\"");
-    Assert.assertEquals(expected, JsonUtils.encode(commandMap));
+    Assertions.assertEquals(expected, JsonUtils.encode(commandMap));
   }
 
   @Test
@@ -113,7 +113,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
             + "'omit':true"
             + "}"
             + "}").replaceAll("'", "\"");
-    Assert.assertEquals(expected, JsonUtils.encode(map));
+    Assertions.assertEquals(expected, JsonUtils.encode(map));
   }
 
   @Test
@@ -133,33 +133,33 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
         + dayNamesMin[3] + "','" + dayNamesMin[4] + "','" + dayNamesMin[5] + "','" + dayNamesMin[6] + "'],"
         + "'firstDay':1}").replaceAll("'", "\"");
 
-    Assert.assertEquals(expected, JsonUtils.encode(dateTimeI18n));
+    Assertions.assertEquals(expected, JsonUtils.encode(dateTimeI18n));
   }
 
   @Test
   public void decodeIntegerArray() {
 
-    Assert.assertEquals(Arrays.asList(1, 2, 3, 4), JsonUtils.decodeIntegerArray("[1,2,3,4]"));
+    Assertions.assertEquals(Arrays.asList(1, 2, 3, 4), JsonUtils.decodeIntegerArray("[1,2,3,4]"));
 
-    Assert.assertEquals(Arrays.asList(1, 2, 3, 4), JsonUtils.decodeIntegerArray(" [ 1 , 2 , 3 , 4 ] "));
+    Assertions.assertEquals(Arrays.asList(1, 2, 3, 4), JsonUtils.decodeIntegerArray(" [ 1 , 2 , 3 , 4 ] "));
 
-    Assert.assertEquals(Arrays.asList(1), JsonUtils.decodeIntegerArray("[1]"));
+    Assertions.assertEquals(Arrays.asList(1), JsonUtils.decodeIntegerArray("[1]"));
 
-    Assert.assertEquals(Arrays.asList(), JsonUtils.decodeIntegerArray("[]"));
+    Assertions.assertEquals(Arrays.asList(), JsonUtils.decodeIntegerArray("[]"));
 
-    Assert.assertEquals(Arrays.asList(1000000000, 2, 3, 4), JsonUtils.decodeIntegerArray("[1000000000,2,3,4]"));
+    Assertions.assertEquals(Arrays.asList(1000000000, 2, 3, 4), JsonUtils.decodeIntegerArray("[1000000000,2,3,4]"));
 
-    Assert.assertEquals(Arrays.asList(2, 3, 4), JsonUtils.decodeIntegerArray("[null,2,3,4]"));
+    Assertions.assertEquals(Arrays.asList(2, 3, 4), JsonUtils.decodeIntegerArray("[null,2,3,4]"));
 
-    Assert.assertEquals(Arrays.asList(), JsonUtils.decodeIntegerArray("1,2,3,4"));
+    Assertions.assertEquals(Arrays.asList(), JsonUtils.decodeIntegerArray("1,2,3,4"));
   }
 
   @Test
   public void encodeStringArray() {
-    Assert.assertEquals("[\"A-rập Xê-út (Tiếng A-rập)\"]",
+    Assertions.assertEquals("[\"A-rập Xê-út (Tiếng A-rập)\"]",
         JsonUtils.encode(new String[]{"A-rập Xê-út (Tiếng A-rập)"}, false));
-    Assert.assertEquals("[\"foo\"bar\"]", JsonUtils.encode(new String[]{"foo\"bar"}, false));
-    Assert.assertEquals("[\"foo\\\"bar\"]", JsonUtils.encode(new String[]{"foo\"bar"}, true));
+    Assertions.assertEquals("[\"foo\"bar\"]", JsonUtils.encode(new String[]{"foo\"bar"}, false));
+    Assertions.assertEquals("[\"foo\\\"bar\"]", JsonUtils.encode(new String[]{"foo\"bar"}, true));
   }
 
   @Test
@@ -170,10 +170,10 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
     final String expectedA = "['a']".replaceAll("'", "\"");
     final String expectedAb = "['a','b']".replaceAll("'", "\"");
 
-    Assert.assertEquals(expectedA, JsonUtils.encode(a));
-    Assert.assertEquals(expectedAb, JsonUtils.encode(ab));
-    Assert.assertNull(JsonUtils.encode(Markup.NULL));
-    Assert.assertNull(JsonUtils.encode((Markup) null));
+    Assertions.assertEquals(expectedA, JsonUtils.encode(a));
+    Assertions.assertEquals(expectedAb, JsonUtils.encode(ab));
+    Assertions.assertNull(JsonUtils.encode(Markup.NULL));
+    Assertions.assertNull(JsonUtils.encode((Markup) null));
 
   }
 
@@ -197,7 +197,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
         + "'focus':'focus',"
         + "'confirmation':'Do \\'you\\' want?',"
         + "'delay':100}}").replaceAll("'", "\"");
-    Assert.assertEquals("command map", expected, JsonUtils.encode(map));
+    Assertions.assertEquals("command map", expected, JsonUtils.encode(map));
   }
 
 }

@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.servlet.ServletContext;
 import java.util.ArrayList;
@@ -51,18 +51,18 @@ public class NavigationUnitTest extends AbstractTobagoTestBase {
     };
     navigation.postConstruct();
     final NavigationNode root = navigation.getTree();
-    Assert.assertEquals(2, root.getChildCount());
+    Assertions.assertEquals(2, root.getChildCount());
     final NavigationNode n00 = (NavigationNode) root.getChildAt(0);
-    Assert.assertEquals("/content/00", n00.getBranch());
-    Assert.assertEquals("test-1", n00.getName());
+    Assertions.assertEquals("/content/00", n00.getBranch());
+    Assertions.assertEquals("test-1", n00.getName());
     final NavigationNode n01 = (NavigationNode) root.getChildAt(1);
-    Assert.assertEquals("/content/01", n01.getBranch());
-    Assert.assertEquals("test", n01.getName());
+    Assertions.assertEquals("/content/01", n01.getBranch());
+    Assertions.assertEquals("test", n01.getName());
     final NavigationNode n0000 = (NavigationNode) n00.getChildAt(0);
-    Assert.assertEquals("/content/00/00", n0000.getBranch());
-    Assert.assertEquals("test-4", n0000.getName());
+    Assertions.assertEquals("/content/00/00", n0000.getBranch());
+    Assertions.assertEquals("test-4", n0000.getName());
     final NavigationNode n0007 = (NavigationNode) n00.getChildAt(1);
-    Assert.assertEquals("/content/00/07", n0007.getBranch());
-    Assert.assertEquals("test-2", n0007.getName());
+    Assertions.assertEquals("/content/00/07", n0007.getBranch());
+    Assertions.assertEquals("test-2", n0007.getName());
   }
 }

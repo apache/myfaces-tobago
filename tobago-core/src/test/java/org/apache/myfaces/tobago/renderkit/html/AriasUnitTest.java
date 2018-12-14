@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 
@@ -32,11 +32,11 @@ public class AriasUnitTest {
 
       final Arias aria = (Arias) field.get(null);
       final String value = aria.getValue();
-      Assert.assertTrue("Regexp check: value='" + aria + "'", value.matches("aria-[a-z0-9]+"));
+      Assertions.assertTrue(value.matches("aria-[a-z0-9]+"), "Regexp check: value='" + aria + "'");
 
       final String extension = value.substring("aria-".length());
       final String name = field.getName();
-      Assert.assertEquals(name, extension.toUpperCase());
+      Assertions.assertEquals(name, extension.toUpperCase());
     }
   }
 

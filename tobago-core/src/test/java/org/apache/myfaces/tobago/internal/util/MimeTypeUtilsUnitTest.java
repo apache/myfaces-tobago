@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.internal.util;
 
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class MimeTypeUtilsUnitTest extends AbstractTobagoTestBase {
 
@@ -51,37 +51,37 @@ public class MimeTypeUtilsUnitTest extends AbstractTobagoTestBase {
   @Test
   public void testMimeTypes() {
 
-    Assert.assertEquals("image/gif", MimeTypeUtils.getMimeTypeForFile(GIF));
-    Assert.assertEquals("image/png", MimeTypeUtils.getMimeTypeForFile(PNG));
-    Assert.assertEquals("image/jpeg", MimeTypeUtils.getMimeTypeForFile(JPG));
-    Assert.assertEquals("text/javascript", MimeTypeUtils.getMimeTypeForFile(JS));
-    Assert.assertEquals("text/css", MimeTypeUtils.getMimeTypeForFile(CSS));
-    Assert.assertEquals("image/vnd.microsoft.icon", MimeTypeUtils.getMimeTypeForFile(ICO));
-    Assert.assertEquals("text/html", MimeTypeUtils.getMimeTypeForFile(HTML));
-    Assert.assertEquals("text/html", MimeTypeUtils.getMimeTypeForFile(HTM));
-    Assert.assertEquals("application/json", MimeTypeUtils.getMimeTypeForFile(MAP));
-    Assert.assertEquals("application/font-woff", MimeTypeUtils.getMimeTypeForFile(WOFF));
-    Assert.assertEquals("application/font-woff2", MimeTypeUtils.getMimeTypeForFile(WOFF2));
-    Assert.assertEquals("application/x-font-ttf", MimeTypeUtils.getMimeTypeForFile(TTF));
-    Assert.assertEquals("application/vnd.ms-fontobject", MimeTypeUtils.getMimeTypeForFile(EOT));
-    Assert.assertEquals("image/svg+xml", MimeTypeUtils.getMimeTypeForFile(SVG));
+    Assertions.assertEquals("image/gif", MimeTypeUtils.getMimeTypeForFile(GIF));
+    Assertions.assertEquals("image/png", MimeTypeUtils.getMimeTypeForFile(PNG));
+    Assertions.assertEquals("image/jpeg", MimeTypeUtils.getMimeTypeForFile(JPG));
+    Assertions.assertEquals("text/javascript", MimeTypeUtils.getMimeTypeForFile(JS));
+    Assertions.assertEquals("text/css", MimeTypeUtils.getMimeTypeForFile(CSS));
+    Assertions.assertEquals("image/vnd.microsoft.icon", MimeTypeUtils.getMimeTypeForFile(ICO));
+    Assertions.assertEquals("text/html", MimeTypeUtils.getMimeTypeForFile(HTML));
+    Assertions.assertEquals("text/html", MimeTypeUtils.getMimeTypeForFile(HTM));
+    Assertions.assertEquals("application/json", MimeTypeUtils.getMimeTypeForFile(MAP));
+    Assertions.assertEquals("application/font-woff", MimeTypeUtils.getMimeTypeForFile(WOFF));
+    Assertions.assertEquals("application/font-woff2", MimeTypeUtils.getMimeTypeForFile(WOFF2));
+    Assertions.assertEquals("application/x-font-ttf", MimeTypeUtils.getMimeTypeForFile(TTF));
+    Assertions.assertEquals("application/vnd.ms-fontobject", MimeTypeUtils.getMimeTypeForFile(EOT));
+    Assertions.assertEquals("image/svg+xml", MimeTypeUtils.getMimeTypeForFile(SVG));
   }
 
   @Test
   public void testMimeTypesUnknown() {
 
-    Assert.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN0));
-    Assert.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN1));
-    Assert.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN2));
-    Assert.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN3));
-    Assert.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN4));
-    Assert.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN5));
+    Assertions.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN0));
+    Assertions.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN1));
+    Assertions.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN2));
+    Assertions.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN3));
+    Assertions.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN4));
+    Assertions.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN5));
   }
 
   @Test
   public void testMimeTypesConfigured() {
     // comes from tobago-config-for-unit-tests.xml
-    Assert.assertEquals("application/vnd.oasis.opendocument.text", MimeTypeUtils.getMimeTypeForFile(ODT));
+    Assertions.assertEquals("application/vnd.oasis.opendocument.text", MimeTypeUtils.getMimeTypeForFile(ODT));
   }
 
 }

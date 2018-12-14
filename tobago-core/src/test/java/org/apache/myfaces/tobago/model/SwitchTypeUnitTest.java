@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.model;
 
 import org.apache.myfaces.tobago.util.EnumUnitTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SwitchTypeUnitTest extends EnumUnitTest {
 

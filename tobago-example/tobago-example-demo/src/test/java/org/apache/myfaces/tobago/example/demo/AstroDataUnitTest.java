@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.model.SelectItem;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
@@ -34,15 +34,15 @@ public class AstroDataUnitTest {
   @Test
   public void testTerrestrialPlanets() {
     final List<SelectItem> terrestrialPlanets = astroData.getTerrestrialPlanets();
-    Assert.assertEquals(4, terrestrialPlanets.size());
-    Assert.assertEquals("Mercury", terrestrialPlanets.get(0).getValue().toString());
+    Assertions.assertEquals(4, terrestrialPlanets.size());
+    Assertions.assertEquals("Mercury", terrestrialPlanets.get(0).getValue().toString());
   }
 
   @Test
   public void testGiantPlanets() {
     final List<SelectItem> giantPlanets = astroData.getGiantPlanets();
-    Assert.assertEquals(4, giantPlanets.size());
-    Assert.assertEquals("Jupiter", giantPlanets.get(0).getValue().toString());
+    Assertions.assertEquals(4, giantPlanets.size());
+    Assertions.assertEquals("Jupiter", giantPlanets.get(0).getValue().toString());
   }
 
   @Test
@@ -51,7 +51,7 @@ public class AstroDataUnitTest {
     for (SolarObject solarObject : all.values()) {
       // every orbit must be inside the list
       final String orbit = solarObject.getOrbit();
-      Assert.assertTrue(orbit.equals("-") || all.containsKey(orbit));
+      Assertions.assertTrue(orbit.equals("-") || all.containsKey(orbit));
     }
   }
 }

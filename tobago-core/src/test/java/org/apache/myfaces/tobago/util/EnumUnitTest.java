@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.util;
 
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 import java.lang.reflect.Field;
 
@@ -40,7 +40,7 @@ public abstract class EnumUnitTest {
     final Field[] fields = enumType.getFields();
     final E[] values = enumType.getEnumConstants();
 
-    Assert.assertEquals("Is for every enum a string constant defined?", fields.length, 2 * values.length);
+    Assertions.assertEquals(fields.length, 2 * values.length, "Is for every enum a string constant defined?");
 
     for (final Field field : fields) {
       final Object object = field.get(null);
@@ -49,13 +49,13 @@ public abstract class EnumUnitTest {
         // case String constant
         final String value = (String) object;
         final String expected = constantCaseToEnum(fieldName);
-        Assert.assertEquals(expected, value);
-        Assert.assertNotNull("exists", enumType.getField(value));
+        Assertions.assertEquals(expected, value);
+        Assertions.assertNotNull(enumType.getField(value), "exists");
       } else if (object.getClass().isAssignableFrom(enumType)) {
         // case enum
-        Assert.assertTrue("value='" + fieldName + "'", fieldName.matches(getEnumRegexp()));
+        Assertions.assertTrue(fieldName.matches(getEnumRegexp()), "value='" + fieldName + "'");
       } else {
-        Assert.fail();
+        Assertions.fail();
       }
     }
   }

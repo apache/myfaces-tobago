@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.apt.processor;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
@@ -32,22 +32,23 @@ public class CheckstyleConfigGeneratorUnitTest {
     String regexp = CheckstyleConfigGenerator.getRegExpForUndefinedAttributes(
         "tc", "textarea", Arrays.asList("attr1", "attr2"));
 
-    Assert.assertEquals(
+    Assertions.assertEquals(
         "<tc:textarea(\\s+(attr1|attr2|xmlns:\\w*)=\\\"([^\"=<>]*)\\\")*\\s+(?!(attr1|attr2|xmlns:\\w*|\\W))", regexp);
 
     regexp = ".*" + regexp + ".*";
 
-    Assert.assertFalse("<tc:textarea attr1=\"bla bla\"/>".matches(regexp));
-    Assert.assertFalse("<tc:textarea attr2=\"bla bla\"/>".matches(regexp));
-    Assert.assertFalse("<tc:textarea attr2=\"bla bla\" attr1=\".....\"/>".matches(regexp));
-    Assert.assertTrue("<tc:textarea hallo=\"bla bla\"/>".matches(regexp));
+    Assertions.assertFalse("<tc:textarea attr1=\"bla bla\"/>".matches(regexp));
+    Assertions.assertFalse("<tc:textarea attr2=\"bla bla\"/>".matches(regexp));
+    Assertions.assertFalse("<tc:textarea attr2=\"bla bla\" attr1=\".....\"/>".matches(regexp));
+    Assertions.assertTrue("<tc:textarea hallo=\"bla bla\"/>".matches(regexp));
 
-    Assert.assertFalse("<tc:textarea xmlns:f=\"http://java.sun.com/jsf/core\" attr1=\"bla bla\"/>".matches(regexp));
-    Assert.assertTrue("<tc:textarea xmlns:f=\"http://java.sun.com/jsf/core\" hallo=\"bla bla\"/>".matches(regexp));
+    Assertions.assertFalse("<tc:textarea xmlns:f=\"http://java.sun.com/jsf/core\" attr1=\"bla bla\"/>".matches(regexp));
+    Assertions.assertTrue("<tc:textarea xmlns:f=\"http://java.sun.com/jsf/core\" hallo=\"bla bla\"/>".matches(regexp));
 
-    Assert.assertFalse("<any> <tc:textarea      attr1=\"bla bla\"     /> <any>".matches(regexp));
-    Assert.assertFalse("<any> <tc:textarea         attr2=\"bla bla\"  /><any>".matches(regexp));
-    Assert.assertFalse("<any> <tc:textarea            attr2=\"bla bla\"    attr1=\".....\"/><any> ".matches(regexp));
-    Assert.assertTrue("<any> <tc:textarea        hallo=\"bla bla\"         /> <any> ".matches(regexp));
+    Assertions.assertFalse("<any> <tc:textarea      attr1=\"bla bla\"     /> <any>".matches(regexp));
+    Assertions.assertFalse("<any> <tc:textarea         attr2=\"bla bla\"  /><any>".matches(regexp));
+    Assertions.assertFalse(
+        "<any> <tc:textarea            attr2=\"bla bla\"    attr1=\".....\"/><any> ".matches(regexp));
+    Assertions.assertTrue("<any> <tc:textarea        hallo=\"bla bla\"         /> <any> ".matches(regexp));
   }
 }

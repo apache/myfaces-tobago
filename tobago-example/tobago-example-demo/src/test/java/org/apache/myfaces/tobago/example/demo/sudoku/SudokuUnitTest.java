@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.example.demo.sudoku;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class SudokuUnitTest {
 
@@ -54,20 +54,20 @@ public class SudokuUnitTest {
 
   @Test
   public void testCheckRowRules() {
-    Assert.assertTrue(TRIVIAL.checkRowRules());
-    Assert.assertFalse(WRONG.checkRowRules());
+    Assertions.assertTrue(TRIVIAL.checkRowRules());
+    Assertions.assertFalse(WRONG.checkRowRules());
   }
 
   @Test
   public void testCheckColumnRules() {
-    Assert.assertTrue(TRIVIAL.checkColumnRules());
-    Assert.assertFalse(WRONG.checkColumnRules());
+    Assertions.assertTrue(TRIVIAL.checkColumnRules());
+    Assertions.assertFalse(WRONG.checkColumnRules());
   }
 
   @Test
   public void testCheckSquareRules() {
-    Assert.assertTrue(TRIVIAL.checkSquareRules());
-    Assert.assertFalse(WRONG.checkSquareRules());
+    Assertions.assertTrue(TRIVIAL.checkSquareRules());
+    Assertions.assertFalse(WRONG.checkSquareRules());
   }
 
 }

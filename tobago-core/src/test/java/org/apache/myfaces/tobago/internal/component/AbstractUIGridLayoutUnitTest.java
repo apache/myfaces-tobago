@@ -25,8 +25,8 @@ import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.faces.component.UIComponent;
 import java.util.Arrays;
@@ -51,7 +51,7 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
 
     final UIComponent[][] cells = grid.layout(2, 3, Arrays.asList(a, b, c, d, e));
 
-    Assert.assertEquals("┏━┳━┓\n"
+    Assertions.assertEquals("┏━┳━┓\n"
         + "┃a┃b┃\n"
         + "┣━╋━┫\n"
         + "┃c┃█┃\n"
@@ -59,12 +59,12 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
         + "┃e┃d┃\n"
         + "┗━┻━┛\n", toString(cells));
 
-    Assert.assertEquals(a, cells[0][0]);
-    Assert.assertEquals(b, cells[0][1]);
-    Assert.assertEquals(c, cells[1][0]);
-    Assert.assertEquals(X, cells[1][1]);
-    Assert.assertEquals(e, cells[2][0]);
-    Assert.assertEquals(d, cells[2][1]);
+    Assertions.assertEquals(a, cells[0][0]);
+    Assertions.assertEquals(b, cells[0][1]);
+    Assertions.assertEquals(c, cells[1][0]);
+    Assertions.assertEquals(X, cells[1][1]);
+    Assertions.assertEquals(e, cells[2][0]);
+    Assertions.assertEquals(d, cells[2][1]);
 
   }
 
@@ -83,7 +83,7 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
 
     final UIComponent[][] cells = grid.layout(2, 3, Arrays.asList(a, b, c, d, e));
 
-    Assert.assertEquals("┏━┳━┓\n"
+    Assertions.assertEquals("┏━┳━┓\n"
         + "┃e┃a┃\n"
         + "┣━╋━┫\n"
         + "┃b┃c┃\n"
@@ -91,12 +91,12 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
         + "┃d┃█┃\n"
         + "┗━┻━┛\n", toString(cells));
 
-    Assert.assertEquals(e, cells[0][0]);
-    Assert.assertEquals(a, cells[0][1]);
-    Assert.assertEquals(b, cells[1][0]);
-    Assert.assertEquals(c, cells[1][1]);
-    Assert.assertEquals(d, cells[2][0]);
-    Assert.assertEquals(X, cells[2][1]);
+    Assertions.assertEquals(e, cells[0][0]);
+    Assertions.assertEquals(a, cells[0][1]);
+    Assertions.assertEquals(b, cells[1][0]);
+    Assertions.assertEquals(c, cells[1][1]);
+    Assertions.assertEquals(d, cells[2][0]);
+    Assertions.assertEquals(X, cells[2][1]);
   }
 
   @Test
@@ -112,7 +112,7 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
 
     final UIComponent[][] cells = grid.layout(2, 3, Arrays.asList(a, b, c, d, e));
 
-    Assert.assertEquals("┏━┳━┓\n"
+    Assertions.assertEquals("┏━┳━┓\n"
         + "┃a┃b┃\n"
         + "┣━╋━┫\n"
         + "┃█┃c┃\n"
@@ -130,22 +130,22 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
         + "┃◌┃◌┃\n"
         + "┗━┻━┛\n", toString(cells));
 
-    Assert.assertEquals(a, cells[0][0]);
-    Assert.assertEquals(b, cells[0][1]);
-    Assert.assertEquals(X, cells[1][0]);
-    Assert.assertEquals(c, cells[1][1]);
-    Assert.assertEquals(X, cells[2][0]);
-    Assert.assertEquals(d, cells[2][1]);
-    Assert.assertEquals(X, cells[3][0]);
-    Assert.assertEquals(e, cells[3][1]);
-    Assert.assertEquals(X, cells[4][0]);
-    Assert.assertEquals(N, cells[4][1]);
-    Assert.assertEquals(X, cells[5][0]);
-    Assert.assertEquals(N, cells[5][1]);
-    Assert.assertEquals(X, cells[6][0]);
-    Assert.assertEquals(N, cells[6][1]);
-    Assert.assertEquals(N, cells[7][0]);
-    Assert.assertEquals(N, cells[7][1]);
+    Assertions.assertEquals(a, cells[0][0]);
+    Assertions.assertEquals(b, cells[0][1]);
+    Assertions.assertEquals(X, cells[1][0]);
+    Assertions.assertEquals(c, cells[1][1]);
+    Assertions.assertEquals(X, cells[2][0]);
+    Assertions.assertEquals(d, cells[2][1]);
+    Assertions.assertEquals(X, cells[3][0]);
+    Assertions.assertEquals(e, cells[3][1]);
+    Assertions.assertEquals(X, cells[4][0]);
+    Assertions.assertEquals(N, cells[4][1]);
+    Assertions.assertEquals(X, cells[5][0]);
+    Assertions.assertEquals(N, cells[5][1]);
+    Assertions.assertEquals(X, cells[6][0]);
+    Assertions.assertEquals(N, cells[6][1]);
+    Assertions.assertEquals(N, cells[7][0]);
+    Assertions.assertEquals(N, cells[7][1]);
   }
 
   @Test
@@ -158,12 +158,12 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
 
     final UIComponent[][] cells = grid.layout(2, 1, Arrays.asList(a, b));
 
-    Assert.assertEquals("┏━┳━┓\n"
+    Assertions.assertEquals("┏━┳━┓\n"
         + "┃a┃b┃\n"
         + "┗━┻━┛\n", toString(cells));
 
-    Assert.assertEquals(a, cells[0][0]);
-    Assert.assertEquals(b, cells[0][1]);
+    Assertions.assertEquals(a, cells[0][0]);
+    Assertions.assertEquals(b, cells[0][1]);
 
     // remark: columnSpan = 2 not valid, but should only log a warning.
   }
@@ -192,7 +192,7 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
 
     final UIComponent[][] cells = grid.layout(2, 5, Arrays.asList(a, b, c, d, e, f, g, h, i, j));
 
-    Assert.assertEquals("┏━┳━┓\n"
+    Assertions.assertEquals("┏━┳━┓\n"
         + "┃a┃b┃\n"
         + "┣━╋━┫\n"
         + "┃c┃d┃\n"
@@ -226,20 +226,20 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
     array[0][0] = a;
     array[2][4] = b;
 
-    Assert.assertEquals(a, array[0][0]);
-    Assert.assertEquals(b, array[2][4]);
-    Assert.assertEquals(3, array.length);
-    Assert.assertEquals(5, array[0].length);
+    Assertions.assertEquals(a, array[0][0]);
+    Assertions.assertEquals(b, array[2][4]);
+    Assertions.assertEquals(3, array.length);
+    Assertions.assertEquals(5, array[0].length);
 
     final UIComponent[][] expand = grid.expand(array, 7);
 
-    Assert.assertEquals(array[0][0], expand[0][0]);
-    Assert.assertEquals(array[2][4], expand[2][4]);
-    Assert.assertEquals(7, expand.length);
-    Assert.assertEquals(5, expand[0].length);
+    Assertions.assertEquals(array[0][0], expand[0][0]);
+    Assertions.assertEquals(array[2][4], expand[2][4]);
+    Assertions.assertEquals(7, expand.length);
+    Assertions.assertEquals(5, expand[0].length);
 
-    Assert.assertEquals(null, expand[1][1]);
-    Assert.assertEquals(null, expand[6][1]);
+    Assertions.assertEquals(null, expand[1][1]);
+    Assertions.assertEquals(null, expand[6][1]);
   }
 
   private UIComponent createComponent(final String id) {

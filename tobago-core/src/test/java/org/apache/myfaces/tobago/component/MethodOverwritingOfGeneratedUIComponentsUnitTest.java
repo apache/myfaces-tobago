@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.component;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.faces.component.UIComponent;
 import java.lang.reflect.Method;
@@ -76,7 +76,7 @@ public class MethodOverwritingOfGeneratedUIComponentsUnitTest extends AbstractGe
           }
 
           if (!Modifier.isAbstract(superMethod.getModifiers())) {
-            Assert.fail(method.getName() + " of " + uiComponent.getName()
+            Assertions.fail(method.getName() + " of " + uiComponent.getName()
                 + " hides a concrete super method (but is not in the ignore list).");
             break;
           }

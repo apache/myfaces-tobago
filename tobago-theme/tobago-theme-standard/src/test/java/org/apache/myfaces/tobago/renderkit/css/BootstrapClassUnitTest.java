@@ -21,8 +21,8 @@ package org.apache.myfaces.tobago.renderkit.css;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,8 +46,9 @@ public class BootstrapClassUnitTest {
         final String field = value.toString();
         final String name = value.getName();
 
-        Assert.assertTrue("testing: '" + field + "' matches regexp for consts like FOO_BAR", field.matches(fieldRegex));
-        Assert.assertTrue("testing: '" + name + "' matches regexp for CSS like foo-bar", name.matches(nameRegex));
+        Assertions.assertTrue(field.matches(fieldRegex),
+            "testing: '" + field + "' matches regexp for consts like FOO_BAR");
+        Assertions.assertTrue(name.matches(nameRegex), "testing: '" + name + "' matches regexp for CSS like foo-bar");
 
         final StringBuilder calculatedName = new StringBuilder();
         for (int i = 0; i < field.length(); i++) {
@@ -59,7 +60,7 @@ public class BootstrapClassUnitTest {
           }
         }
 
-        Assert.assertEquals(field, calculatedName.toString(), name);
+        Assertions.assertEquals(field, calculatedName.toString(), name);
       }
     }
   }
@@ -83,22 +84,22 @@ public class BootstrapClassUnitTest {
         "target/npm/css/tobago.css",
         toCheck.toArray(new BootstrapClass[0]));
 
-    Assert.assertTrue("These classes are missing in tobago.css: " + missing, missing.isEmpty());
+    Assertions.assertTrue(missing.isEmpty(), "These classes are missing in tobago.css: " + missing);
   }
 
   @Test
   public void testValueOfMeasureAttributes() {
-    Assert.assertEquals(BootstrapClass.COL_1,
+    Assertions.assertEquals(BootstrapClass.COL_1,
         BootstrapClass.valueOf(new Measure("1", Measure.Unit.SEG), Attributes.extraSmall));
-    Assert.assertEquals(BootstrapClass.COL_12,
+    Assertions.assertEquals(BootstrapClass.COL_12,
         BootstrapClass.valueOf(new Measure("12", Measure.Unit.SEG), Attributes.extraSmall));
-    Assert.assertEquals(null,
+    Assertions.assertEquals(null,
         BootstrapClass.valueOf((Measure) null, Attributes.extraSmall));
-    Assert.assertEquals(BootstrapClass.COL_MD_5,
+    Assertions.assertEquals(BootstrapClass.COL_MD_5,
         BootstrapClass.valueOf(new Measure("5", Measure.Unit.SEG), Attributes.medium));
-    Assert.assertEquals(BootstrapClass.COL_LG,
+    Assertions.assertEquals(BootstrapClass.COL_LG,
         BootstrapClass.valueOf(Measure.valueOf("*"), Attributes.large));
-    Assert.assertEquals(BootstrapClass.COL_XL_AUTO,
+    Assertions.assertEquals(BootstrapClass.COL_XL_AUTO,
         BootstrapClass.valueOf(Measure.valueOf("auto"), Attributes.extraLarge));
   }
 }

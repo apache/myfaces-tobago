@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class DataAttributesUnitTest {
 
@@ -33,14 +33,15 @@ public class DataAttributesUnitTest {
 //        continue;
 //      }
       final String value = d.getValue();
-      Assert.assertTrue("Regexp check: value='" + value + "'", value.matches("data(-tobago)?(-[a-z0-9]+)*-[a-z0-9]+"));
+      Assertions.assertTrue(value.matches("data(-tobago)?(-[a-z0-9]+)*-[a-z0-9]+"),
+          "Regexp check: value='" + value + "'");
 
       final String extension
           = value.startsWith("data-tobago-")
           ? value.substring("data-tobago-".length())
           : value.substring("data-".length());
       final String name = d.name();
-      Assert.assertEquals(name, extension.toUpperCase().replaceAll("-", "_"));
+      Assertions.assertEquals(name, extension.toUpperCase().replaceAll("-", "_"));
     }
   }
 }

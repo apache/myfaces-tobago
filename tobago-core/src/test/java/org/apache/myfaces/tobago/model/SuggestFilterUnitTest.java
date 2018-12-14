@@ -19,15 +19,15 @@
 
 package org.apache.myfaces.tobago.model;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class SuggestFilterUnitTest {
 
   @Test
   public void testConstants() {
-    Assert.assertEquals(SuggestFilter.ALL.getValue(), SuggestFilter.STRING_ALL);
-    Assert.assertEquals(SuggestFilter.PREFIX.getValue(), SuggestFilter.STRING_PREFIX);
-    Assert.assertEquals(SuggestFilter.CONTAINS.getValue(), SuggestFilter.STRING_CONTAINS);
+    Assertions.assertEquals(SuggestFilter.ALL.getValue(), SuggestFilter.STRING_ALL);
+    Assertions.assertEquals(SuggestFilter.PREFIX.getValue(), SuggestFilter.STRING_PREFIX);
+    Assertions.assertEquals(SuggestFilter.CONTAINS.getValue(), SuggestFilter.STRING_CONTAINS);
   }
 }

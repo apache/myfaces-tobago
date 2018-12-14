@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.util;
 
 import org.apache.myfaces.tobago.internal.util.HtmlWriterHelper;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.CharArrayWriter;
 import java.io.IOException;
@@ -101,7 +101,7 @@ public class HtmlWriterHelperUnitTest {
       writer.reset();
       writerUtil.writeText(text);
       final String result = String.valueOf(writer.toCharArray());
-      Assert.assertEquals(escaped, result);
+      Assertions.assertEquals(escaped, result);
 
     } catch (final IOException e) {
       // could not occur with CharArrayWriter
@@ -114,7 +114,7 @@ public class HtmlWriterHelperUnitTest {
       writer.reset();
       writerUtil.writeAttributeValue(text);
       final String result = String.valueOf(writer.toCharArray());
-      Assert.assertEquals(escaped, result);
+      Assertions.assertEquals(escaped, result);
 
     } catch (final IOException e) {
       // could not occur with CharArrayWriter

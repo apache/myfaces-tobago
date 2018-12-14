@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.util;
 
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
 
@@ -29,24 +29,24 @@ public class ResourcesUtilsUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void testDefault() {
-    Assert.assertEquals("First Page", ResourceUtils.getString("sheet.first"));
+    Assertions.assertEquals("First Page", ResourceUtils.getString("sheet.first"));
   }
 
   @Test
   public void testGermany() {
     facesContext.getViewRoot().setLocale(Locale.GERMANY);
-    Assert.assertEquals("erste Seite", ResourceUtils.getString("sheet.first"));
+    Assertions.assertEquals("erste Seite", ResourceUtils.getString("sheet.first"));
   }
 
   @Test
   public void testSpanish() {
     facesContext.getViewRoot().setLocale(Locale.forLanguageTag("es"));
-    Assert.assertEquals("Primera Página", ResourceUtils.getString("sheet.first"));
- }
+    Assertions.assertEquals("Primera Página", ResourceUtils.getString("sheet.first"));
+  }
 
   @Test
   public void testFallback() {
     facesContext.getViewRoot().setLocale(Locale.forLanguageTag("ja"));
-    Assert.assertEquals("First Page", ResourceUtils.getString("sheet.first"));
+    Assertions.assertEquals("First Page", ResourceUtils.getString("sheet.first"));
   }
 }

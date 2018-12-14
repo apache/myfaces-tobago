@@ -21,8 +21,8 @@ package org.apache.myfaces.tobago.internal.util;
 
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.faces.context.FacesContext;
 import java.io.IOException;
@@ -31,15 +31,15 @@ public class StyleRenderUtilsUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void testEncodeIdSelector() {
-    Assert.assertEquals("#", StyleRenderUtils.encodeIdSelector(""));
+    Assertions.assertEquals("#", StyleRenderUtils.encodeIdSelector(""));
 
-    Assert.assertEquals("#tag", StyleRenderUtils.encodeIdSelector("tag"));
+    Assertions.assertEquals("#tag", StyleRenderUtils.encodeIdSelector("tag"));
 
-    Assert.assertEquals("#id\\:sub", StyleRenderUtils.encodeIdSelector("id:sub"));
+    Assertions.assertEquals("#id\\:sub", StyleRenderUtils.encodeIdSelector("id:sub"));
 
-    Assert.assertEquals("#id\\:sub\\:sub2", StyleRenderUtils.encodeIdSelector("id:sub:sub2"));
+    Assertions.assertEquals("#id\\:sub\\:sub2", StyleRenderUtils.encodeIdSelector("id:sub:sub2"));
 
-    Assert.assertEquals("#id\\:sub\\:sub2\\:sub3", StyleRenderUtils.encodeIdSelector("id:sub:sub2:sub3"));
+    Assertions.assertEquals("#id\\:sub\\:sub2\\:sub3", StyleRenderUtils.encodeIdSelector("id:sub:sub2:sub3"));
   }
 
   @Test
@@ -49,19 +49,19 @@ public class StyleRenderUtilsUnitTest extends AbstractTobagoTestBase {
     final TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     StyleRenderUtils.writeIdSelector(writer, "id");
-    Assert.assertEquals("#id", getLastWritten());
+    Assertions.assertEquals("#id", getLastWritten());
 
     StyleRenderUtils.writeIdSelector(writer, "id:sub");
-    Assert.assertEquals("#id\\:sub", getLastWritten());
+    Assertions.assertEquals("#id\\:sub", getLastWritten());
 
     StyleRenderUtils.writeIdSelector(writer, "id:sub:sub2");
-    Assert.assertEquals("#id\\:sub\\:sub2", getLastWritten());
+    Assertions.assertEquals("#id\\:sub\\:sub2", getLastWritten());
 
     StyleRenderUtils.writeIdSelector(writer, "id:sub:sub2:sub3");
-    Assert.assertEquals("#id\\:sub\\:sub2\\:sub3", getLastWritten());
+    Assertions.assertEquals("#id\\:sub\\:sub2\\:sub3", getLastWritten());
 
     StyleRenderUtils.writeIdSelector(writer, "id::sub");
-    Assert.assertEquals("#id\\:\\:sub", getLastWritten());
+    Assertions.assertEquals("#id\\:\\:sub", getLastWritten());
   }
 
   @Test
@@ -71,15 +71,15 @@ public class StyleRenderUtilsUnitTest extends AbstractTobagoTestBase {
     final TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     StyleRenderUtils.writeSelector(writer, "parent>child");
-    Assert.assertEquals("parent>child", getLastWritten());
+    Assertions.assertEquals("parent>child", getLastWritten());
 
     StyleRenderUtils.writeSelector(writer, "parent<child");
-    Assert.assertEquals("parent&lt;child", getLastWritten());
+    Assertions.assertEquals("parent&lt;child", getLastWritten());
 
     StyleRenderUtils.writeSelector(writer, "#id");
-    Assert.assertEquals("#id", getLastWritten());
+    Assertions.assertEquals("#id", getLastWritten());
 
     StyleRenderUtils.writeSelector(writer, "#id\\:sub");
-    Assert.assertEquals("#id\\:sub", getLastWritten());
+    Assertions.assertEquals("#id\\:sub", getLastWritten());
   }
 }

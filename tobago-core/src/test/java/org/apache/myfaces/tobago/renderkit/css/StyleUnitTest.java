@@ -25,16 +25,16 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Overflow;
 import org.apache.myfaces.tobago.layout.Position;
 import org.apache.myfaces.tobago.layout.TextAlign;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class StyleUnitTest extends AbstractJsfTestCase {
 
   @Test
   public void testEncodedEmpty() {
     final Style style = new Style();
-    Assert.assertEquals("Check encoder", "", style.encode());
-    Assert.assertEquals("Check encoder JSON", "{}", style.encodeJson());
+    Assertions.assertEquals("Check encoder", "", style.encode());
+    Assertions.assertEquals("Check encoder JSON", "{}", style.encodeJson());
   }
 
   @Test
@@ -95,6 +95,6 @@ public class StyleUnitTest extends AbstractJsfTestCase {
         + "\"}")
         .replaceAll(",\"\"}", "}");
 
-    Assert.assertEquals("Check different encoders", manually, json);
+    Assertions.assertEquals("Check different encoders", manually, json);
   }
 }

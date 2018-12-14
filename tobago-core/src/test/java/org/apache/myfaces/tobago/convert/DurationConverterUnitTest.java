@@ -21,9 +21,9 @@ package org.apache.myfaces.tobago.convert;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIIn;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.faces.convert.Converter;
 
@@ -31,7 +31,7 @@ public class DurationConverterUnitTest {
 
   private Converter converter;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     converter = new DurationConverter();
   }
@@ -69,7 +69,7 @@ public class DurationConverterUnitTest {
       input.getAttributes().put(Attributes.unit.getName(), unit);
     }
     result = converter.getAsString(null, input, aLong);
-    Assert.assertEquals(info, string, result);
+    Assertions.assertEquals(info, string, result);
   }
 
   private void parse(final String unit, final Long aLong, final String string) {
@@ -82,7 +82,7 @@ public class DurationConverterUnitTest {
       input.getAttributes().put(Attributes.unit.getName(), unit);
     }
     result = (Long) converter.getAsObject(null, input, string);
-    Assert.assertEquals(info, aLong, result);
+    Assertions.assertEquals(aLong, result, info);
   }
 
 }

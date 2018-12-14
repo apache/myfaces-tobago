@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,11 +97,11 @@ public class TobagoConfigSorterUnitTest {
     final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
     sorter.createRelevantPairs();
 
-    Assert.assertEquals(9, sorter.getPairs().size()); // all but these with "z" and "y"
+    Assertions.assertEquals(9, sorter.getPairs().size()); // all but these with "z" and "y"
 
     sorter.makeTransitive();
 
-    Assert.assertEquals(28, sorter.getPairs().size());
+    Assertions.assertEquals(28, sorter.getPairs().size());
 
     sorter.ensureIrreflexive();
 
@@ -109,17 +109,17 @@ public class TobagoConfigSorterUnitTest {
 
     sorter.sort0();
 
-    Assert.assertEquals(a, list.get(0));
-    Assert.assertEquals(b, list.get(1));
-    Assert.assertEquals(c, list.get(2));
-    Assert.assertEquals(u1, list.get(3));
-    Assert.assertEquals(u2, list.get(4));
-    Assert.assertEquals(d, list.get(5));
-    Assert.assertEquals(e, list.get(6));
-    Assert.assertEquals(f, list.get(7));
-    Assert.assertEquals(u3, list.get(8));
-    Assert.assertEquals(m, list.get(9));
-    Assert.assertEquals(n, list.get(10));
+    Assertions.assertEquals(a, list.get(0));
+    Assertions.assertEquals(b, list.get(1));
+    Assertions.assertEquals(c, list.get(2));
+    Assertions.assertEquals(u1, list.get(3));
+    Assertions.assertEquals(u2, list.get(4));
+    Assertions.assertEquals(d, list.get(5));
+    Assertions.assertEquals(e, list.get(6));
+    Assertions.assertEquals(f, list.get(7));
+    Assertions.assertEquals(u3, list.get(8));
+    Assertions.assertEquals(m, list.get(9));
+    Assertions.assertEquals(n, list.get(10));
   }
 
   @Test
@@ -144,7 +144,7 @@ public class TobagoConfigSorterUnitTest {
     final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
     sorter.createRelevantPairs();
 
-    Assert.assertEquals(2, sorter.getPairs().size()); // all but these with "z" and "y"
+    Assertions.assertEquals(2, sorter.getPairs().size()); // all but these with "z" and "y"
 
     sorter.makeTransitive();
 
@@ -152,7 +152,7 @@ public class TobagoConfigSorterUnitTest {
       sorter.ensureIrreflexive();
       sorter.ensureAntiSymmetric();
 
-      Assert.fail("Cycle was not found");
+      Assertions.fail("Cycle was not found");
     } catch (final RuntimeException e) {
       // must find the cycle
     }
@@ -181,7 +181,7 @@ public class TobagoConfigSorterUnitTest {
     final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
     sorter.createRelevantPairs();
 
-    Assert.assertEquals(2, sorter.getPairs().size()); // all but these with "z" and "y"
+    Assertions.assertEquals(2, sorter.getPairs().size()); // all but these with "z" and "y"
 
     sorter.makeTransitive();
 
@@ -189,7 +189,7 @@ public class TobagoConfigSorterUnitTest {
       sorter.ensureIrreflexive();
       sorter.ensureAntiSymmetric();
 
-      Assert.fail("Cycle was not found");
+      Assertions.fail("Cycle was not found");
     } catch (final RuntimeException e) {
       // must find the cycle
     }

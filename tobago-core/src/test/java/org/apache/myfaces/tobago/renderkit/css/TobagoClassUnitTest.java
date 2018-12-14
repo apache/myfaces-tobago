@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,8 +40,8 @@ public class TobagoClassUnitTest {
         final String field = value.toString();
         final String name = value.getName();
 
-        Assert.assertTrue(field.matches(fieldRegex));
-        Assert.assertTrue(name.matches(nameRegex));
+        Assertions.assertTrue(field.matches(fieldRegex));
+        Assertions.assertTrue(name.matches(nameRegex));
 
         final StringBuilder calculatedName = new StringBuilder();
         calculatedName.append("tobago-");
@@ -60,7 +60,7 @@ public class TobagoClassUnitTest {
           }
         }
 
-        Assert.assertEquals(field, calculatedName.toString(), name);
+        Assertions.assertEquals(field, calculatedName.toString(), name);
       }
     }
   }
@@ -82,9 +82,9 @@ public class TobagoClassUnitTest {
 
     final List<CssItem> missing =
         CssClassUtils.compareCss("src/main/resources/scss/_tobago.scss",
-        toCheck.toArray(new CssItem[0]));
+            toCheck.toArray(new CssItem[0]));
 
-    Assert.assertTrue("These classes are missing in _tobago.scss: " + missing, missing.isEmpty());
+    Assertions.assertTrue(missing.isEmpty(), "These classes are missing in _tobago.scss: " + missing);
   }
 
 }

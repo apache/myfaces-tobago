@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.internal.layout;
 
 import org.apache.myfaces.tobago.layout.MeasureList;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class GridUnitTest {
 
@@ -29,25 +29,25 @@ public class GridUnitTest {
   public void test1x1() {
 
     final Grid grid = new Grid(MeasureList.parse("*"), MeasureList.parse("*"));
-    Assert.assertEquals(1, grid.getColumns().getSize());
-    Assert.assertEquals(1, grid.getRows().getSize());
-    Assert.assertEquals(""
+    Assertions.assertEquals(1, grid.getColumns().getSize());
+    Assertions.assertEquals(1, grid.getRows().getSize());
+    Assertions.assertEquals(""
         + "┌─┐\n"
         + "│◌│\n"
         + "└─┘\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 1);
-    Assert.assertEquals(1, grid.getColumns().getSize());
-    Assert.assertEquals(1, grid.getRows().getSize());
-    Assert.assertEquals(""
+    Assertions.assertEquals(1, grid.getColumns().getSize());
+    Assertions.assertEquals(1, grid.getRows().getSize());
+    Assertions.assertEquals(""
         + "┏━┓\n"
         + "┃█┃\n"
         + "┗━┛\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 1);
-    Assert.assertEquals(1, grid.getColumns().getSize());
-    Assert.assertEquals(2, grid.getRows().getSize());
-    Assert.assertEquals(""
+    Assertions.assertEquals(1, grid.getColumns().getSize());
+    Assertions.assertEquals(2, grid.getRows().getSize());
+    Assertions.assertEquals(""
         + "┏━┓\n"
         + "┃█┃\n"
         + "┣━┫\n"
@@ -55,9 +55,9 @@ public class GridUnitTest {
         + "┗━┛\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 2);
-    Assert.assertEquals(1, grid.getColumns().getSize());
-    Assert.assertEquals(4, grid.getRows().getSize());
-    Assert.assertEquals(""
+    Assertions.assertEquals(1, grid.getColumns().getSize());
+    Assertions.assertEquals(4, grid.getRows().getSize());
+    Assertions.assertEquals(""
         + "┏━┓\n"
         + "┃█┃\n"
         + "┣━┫\n"
@@ -70,9 +70,9 @@ public class GridUnitTest {
 
     // with warning
     grid.add(new OriginCell(null), 2, 1);
-    Assert.assertEquals(1, grid.getColumns().getSize());
-    Assert.assertEquals(5, grid.getRows().getSize());
-    Assert.assertEquals(""
+    Assertions.assertEquals(1, grid.getColumns().getSize());
+    Assertions.assertEquals(5, grid.getRows().getSize());
+    Assertions.assertEquals(""
         + "┏━┓\n"
         + "┃█┃\n"
         + "┣━┫\n"
@@ -90,33 +90,33 @@ public class GridUnitTest {
   public void test2x1() {
 
     final Grid grid = new Grid(MeasureList.parse("*;*"), MeasureList.parse("*"));
-    Assert.assertEquals(2, grid.getColumns().getSize());
-    Assert.assertEquals(1, grid.getRows().getSize());
-    Assert.assertEquals(""
+    Assertions.assertEquals(2, grid.getColumns().getSize());
+    Assertions.assertEquals(1, grid.getRows().getSize());
+    Assertions.assertEquals(""
         + "┌─┬─┐\n"
         + "│◌│◌│\n"
         + "└─┴─┘\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 1);
-    Assert.assertEquals(2, grid.getColumns().getSize());
-    Assert.assertEquals(1, grid.getRows().getSize());
-    Assert.assertEquals(""
+    Assertions.assertEquals(2, grid.getColumns().getSize());
+    Assertions.assertEquals(1, grid.getRows().getSize());
+    Assertions.assertEquals(""
         + "┏━┱─┐\n"
         + "┃█┃◌│\n"
         + "┗━┹─┘\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 1);
-    Assert.assertEquals(2, grid.getColumns().getSize());
-    Assert.assertEquals(1, grid.getRows().getSize());
-    Assert.assertEquals(""
+    Assertions.assertEquals(2, grid.getColumns().getSize());
+    Assertions.assertEquals(1, grid.getRows().getSize());
+    Assertions.assertEquals(""
         + "┏━┳━┓\n"
         + "┃█┃█┃\n"
         + "┗━┻━┛\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 2, 2);
-    Assert.assertEquals(2, grid.getColumns().getSize());
-    Assert.assertEquals(3, grid.getRows().getSize());
-    Assert.assertEquals(""
+    Assertions.assertEquals(2, grid.getColumns().getSize());
+    Assertions.assertEquals(3, grid.getRows().getSize());
+    Assertions.assertEquals(""
         + "┏━┳━┓\n"
         + "┃█┃█┃\n"
         + "┣━╇━┫\n"
@@ -126,9 +126,9 @@ public class GridUnitTest {
         + "┗━┷━┛\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 2);
-    Assert.assertEquals(2, grid.getColumns().getSize());
-    Assert.assertEquals(5, grid.getRows().getSize());
-    Assert.assertEquals(""
+    Assertions.assertEquals(2, grid.getColumns().getSize());
+    Assertions.assertEquals(5, grid.getRows().getSize());
+    Assertions.assertEquals(""
         + "┏━┳━┓\n"
         + "┃█┃█┃\n"
         + "┣━╇━┫\n"
@@ -142,9 +142,9 @@ public class GridUnitTest {
         + "┗━┹─┘\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 1);
-    Assert.assertEquals(2, grid.getColumns().getSize());
-    Assert.assertEquals(5, grid.getRows().getSize());
-    Assert.assertEquals(""
+    Assertions.assertEquals(2, grid.getColumns().getSize());
+    Assertions.assertEquals(5, grid.getRows().getSize());
+    Assertions.assertEquals(""
         + "┏━┳━┓\n"
         + "┃█┃█┃\n"
         + "┣━╇━┫\n"
@@ -158,9 +158,9 @@ public class GridUnitTest {
         + "┗━┹─┘\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 2);
-    Assert.assertEquals(2, grid.getColumns().getSize());
-    Assert.assertEquals(6, grid.getRows().getSize());
-    Assert.assertEquals(""
+    Assertions.assertEquals(2, grid.getColumns().getSize());
+    Assertions.assertEquals(6, grid.getRows().getSize());
+    Assertions.assertEquals(""
         + "┏━┳━┓\n"
         + "┃█┃█┃\n"
         + "┣━╇━┫\n"
@@ -177,17 +177,17 @@ public class GridUnitTest {
 
     grid.add(new OriginCell(null), 2, 1);
     // fehler
-    Assert.assertEquals(2, grid.getColumns().getSize());
-    Assert.assertEquals(6, grid.getRows().getSize());
+    Assertions.assertEquals(2, grid.getColumns().getSize());
+    Assertions.assertEquals(6, grid.getRows().getSize());
   }
 
   @Test
   public void test5x5() {
 
     final Grid grid = new Grid(MeasureList.parse("*;*;*;*;*"), MeasureList.parse("*;*;*;*;*"));
-    Assert.assertEquals(5, grid.getColumns().getSize());
-    Assert.assertEquals(5, grid.getRows().getSize());
-    Assert.assertEquals(""
+    Assertions.assertEquals(5, grid.getColumns().getSize());
+    Assertions.assertEquals(5, grid.getRows().getSize());
+    Assertions.assertEquals(""
         + "┌─┬─┬─┬─┬─┐\n"
         + "│◌│◌│◌│◌│◌│\n"
         + "├─┼─┼─┼─┼─┤\n"
@@ -213,9 +213,9 @@ public class GridUnitTest {
     grid.add(new OriginCell(null), 1, 2);
     grid.add(new OriginCell(null), 2, 1);
     grid.add(new OriginCell(null), 1, 1);
-    Assert.assertEquals(5, grid.getColumns().getSize());
-    Assert.assertEquals(5, grid.getRows().getSize());
-    Assert.assertEquals(""
+    Assertions.assertEquals(5, grid.getColumns().getSize());
+    Assertions.assertEquals(5, grid.getRows().getSize());
+    Assertions.assertEquals(""
         + "┏━┳━┳━┳━┯━┓\n"
         + "┃█┃█┃█┃█│➞┃\n"
         + "┠─╂─╊━╇━┿━┫\n"

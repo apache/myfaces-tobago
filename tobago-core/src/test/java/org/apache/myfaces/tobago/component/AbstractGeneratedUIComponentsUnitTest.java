@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 import javax.faces.component.UIComponent;
 import java.io.File;
@@ -38,7 +38,7 @@ public class AbstractGeneratedUIComponentsUnitTest {
     return uiComponents;
   }
 
-  @Before
+  @BeforeEach
   public void setup() throws IOException, ClassNotFoundException {
     uiComponents = findUIComponents();
   }

@@ -21,9 +21,9 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.apache.myfaces.tobago.layout.OrderBy;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -32,7 +32,7 @@ import java.util.List;
 public class UIMessagesUnitTest extends AbstractTobagoTestBase {
 
   @Override
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     super.setUp();
     final FacesContext facesContext = getFacesContext();
@@ -49,7 +49,7 @@ public class UIMessagesUnitTest extends AbstractTobagoTestBase {
     final UIMessages component = new UIMessages();
     final List<UIMessages.Item> messages = component.createMessageList(getFacesContext());
 
-    Assert.assertEquals(5, messages.size());
+    Assertions.assertEquals(5, messages.size());
   }
 
   @Test
@@ -59,7 +59,7 @@ public class UIMessagesUnitTest extends AbstractTobagoTestBase {
     component.setGlobalOnly(true);
     final List<UIMessages.Item> messages = component.createMessageList(getFacesContext());
 
-    Assert.assertEquals(1, messages.size());
+    Assertions.assertEquals(1, messages.size());
   }
 
   @Test
@@ -69,7 +69,7 @@ public class UIMessagesUnitTest extends AbstractTobagoTestBase {
     component.setFor("id0");
     final List<UIMessages.Item> messages = component.createMessageList(getFacesContext());
 
-    Assert.assertEquals(2, messages.size());
+    Assertions.assertEquals(2, messages.size());
   }
 
   @Test
@@ -79,7 +79,7 @@ public class UIMessagesUnitTest extends AbstractTobagoTestBase {
     component.setMaxSeverity(FacesMessage.SEVERITY_WARN);
     final List<UIMessages.Item> messages = component.createMessageList(getFacesContext());
 
-    Assert.assertEquals(2, messages.size());
+    Assertions.assertEquals(2, messages.size());
   }
 
   @Test
@@ -90,7 +90,7 @@ public class UIMessagesUnitTest extends AbstractTobagoTestBase {
     component.setMaxSeverity(FacesMessage.SEVERITY_ERROR);
     final List<UIMessages.Item> messages = component.createMessageList(getFacesContext());
 
-    Assert.assertEquals(2, messages.size());
+    Assertions.assertEquals(2, messages.size());
   }
 
   @Test
@@ -100,7 +100,7 @@ public class UIMessagesUnitTest extends AbstractTobagoTestBase {
     component.setMinSeverity(FacesMessage.SEVERITY_ERROR);
     final List<UIMessages.Item> messages = component.createMessageList(getFacesContext());
 
-    Assert.assertEquals(3, messages.size());
+    Assertions.assertEquals(3, messages.size());
   }
 
   @Test
@@ -110,11 +110,11 @@ public class UIMessagesUnitTest extends AbstractTobagoTestBase {
 
     component.setMaxNumber(3);
     List<UIMessages.Item> messages = component.createMessageList(getFacesContext());
-    Assert.assertEquals(3, messages.size());
+    Assertions.assertEquals(3, messages.size());
 
     component.setMaxNumber(30000);
     messages = component.createMessageList(getFacesContext());
-    Assert.assertEquals(5, messages.size());
+    Assertions.assertEquals(5, messages.size());
   }
 
   @Test
@@ -127,7 +127,7 @@ public class UIMessagesUnitTest extends AbstractTobagoTestBase {
     int mustShrink = FacesMessage.SEVERITY_FATAL.getOrdinal();
     for (final UIMessages.Item message : messages) {
       final int newValue = message.getFacesMessage().getSeverity().getOrdinal();
-      Assert.assertTrue(mustShrink >= newValue);
+      Assertions.assertTrue(mustShrink >= newValue);
       mustShrink = newValue;
     }
   }

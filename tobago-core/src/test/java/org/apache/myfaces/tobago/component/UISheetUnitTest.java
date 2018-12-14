@@ -20,9 +20,9 @@
 package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.faces.model.ListDataModel;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
   private UISheet unknown;
 
   @Override
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     super.setUp();
     nineRows = new ArrayList<>();
@@ -56,14 +56,14 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
     // having rowCount 9 and 5 rows to display it looks like this (rotated, X X X X X means one page with 5 rows):
     // X X X X X
     // X X X X
-    Assert.assertEquals("number of pages", 2, data.getPages());
+    Assertions.assertEquals(2, data.getPages(), "number of pages");
   }
 
   @Test
   public void test9RowsPerPage() {
     data.setRows(9);
     // X X X X X X X X X
-    Assert.assertEquals("number of pages", 1, data.getPages());
+    Assertions.assertEquals(1, data.getPages(), "number of pages");
   }
 
   @Test
@@ -74,7 +74,7 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
     // X X
     // X X
     // X
-    Assert.assertEquals("number of pages", 5, data.getPages());
+    Assertions.assertEquals(5, data.getPages(), "number of pages");
   }
 
   @Test
@@ -83,7 +83,7 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
     // X X X
     // X X X
     // X X X
-    Assert.assertEquals("number of pages", 3, data.getPages());
+    Assertions.assertEquals(3, data.getPages(), "number of pages");
   }
 
   @Test
@@ -98,14 +98,14 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
     // X
     // X
     // X
-    Assert.assertEquals("number of pages", 9, data.getPages());
+    Assertions.assertEquals(9, data.getPages(), "number of pages");
   }
 
   @Test
   public void testAllRowsPerPage() {
     data.setRows(0); // zero means all
     // X X X X X X X X X
-    Assert.assertEquals("number of pages", 1, data.getPages());
+    Assertions.assertEquals(1, data.getPages(), "number of pages");
   }
 
   @Test
@@ -114,32 +114,32 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
     // initially first = 0
     // * X X X X
     // X X X X
-    Assert.assertEquals("current page", 0, data.getCurrentPage());
-    Assert.assertEquals("is at beginning", true, data.isAtBeginning());
+    Assertions.assertEquals(0, data.getCurrentPage(), "current page");
+    Assertions.assertEquals(true, data.isAtBeginning(), "is at beginning");
 
     data.setFirst(5);
     // now we set the first (show as an F)
     // X X X X X
     // * X X X
-    Assert.assertEquals("current page", 1, data.getCurrentPage());
-    Assert.assertEquals("is at beginning", false, data.isAtBeginning());
+    Assertions.assertEquals(1, data.getCurrentPage(), "current page");
+    Assertions.assertEquals(false, data.isAtBeginning(), "is at beginning");
 
     data.setFirst(0);
     // * X X X X
     // X X X X
-    Assert.assertEquals("current page", 0, data.getCurrentPage());
-    Assert.assertEquals("is at beginning", true, data.isAtBeginning());
+    Assertions.assertEquals(0, data.getCurrentPage(), "current page");
+    Assertions.assertEquals(true, data.isAtBeginning(), "is at beginning");
 
     data.setFirst(4);
     // X X X X *
     // X X X X
-    Assert.assertEquals("current page", 0, data.getCurrentPage());
-    Assert.assertEquals("is at beginning", false, data.isAtBeginning());
+    Assertions.assertEquals(0, data.getCurrentPage(), "current page");
+    Assertions.assertEquals(false, data.isAtBeginning(), "is at beginning");
 
     data.setFirst(100);
     // out of rage
-    Assert.assertEquals("current page", 1, data.getCurrentPage());
-    Assert.assertEquals("is at beginning", false, data.isAtBeginning());
+    Assertions.assertEquals(1, data.getCurrentPage(), "current page");
+    Assertions.assertEquals(false, data.isAtBeginning(), "is at beginning");
   }
 
   @Test
@@ -147,36 +147,36 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
     data.setRows(20); // more rows than data entries
     // initially first = 0
     // * X X X X X X X X
-    Assert.assertEquals("current page", 0, data.getCurrentPage());
-    Assert.assertEquals("is at beginning", true, data.isAtBeginning());
+    Assertions.assertEquals(0, data.getCurrentPage(), "current page");
+    Assertions.assertEquals(true, data.isAtBeginning(), "is at beginning");
 
     data.setFirst(8);
     // now we set the first (show as an F)
     // X X X X X X X X *
-    Assert.assertEquals("current page", 0, data.getCurrentPage());
-    Assert.assertEquals("is at beginning", false, data.isAtBeginning());
+    Assertions.assertEquals(0, data.getCurrentPage(), "current page");
+    Assertions.assertEquals(false, data.isAtBeginning(), "is at beginning");
 
     data.setFirst(0);
     // * X X X X X X X X
-    Assert.assertEquals("current page", 0, data.getCurrentPage());
-    Assert.assertEquals("is at beginning", true, data.isAtBeginning());
+    Assertions.assertEquals(0, data.getCurrentPage(), "current page");
+    Assertions.assertEquals(true, data.isAtBeginning(), "is at beginning");
 
     data.setFirst(100);
     // out of range
-    Assert.assertEquals("current page", 0, data.getCurrentPage());
-    Assert.assertEquals("is at beginning", false, data.isAtBeginning());
+    Assertions.assertEquals(0, data.getCurrentPage(), "current page");
+    Assertions.assertEquals(false, data.isAtBeginning(), "is at beginning");
   }
 
   @Test
   public void testRowData() {
     data.setRowIndex(0);
-    Assert.assertEquals("one", data.getRowData());
+    Assertions.assertEquals("one", data.getRowData());
     data.setRowIndex(8);
-    Assert.assertEquals("nine", data.getRowData());
+    Assertions.assertEquals("nine", data.getRowData());
     data.setRowIndex(9);
     try {
       data.getRowData();
-      Assert.fail();
+      Assertions.fail();
     } catch (final IllegalArgumentException e) {
       // okay: row is unavailable
     }
@@ -184,8 +184,8 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void testHasRowCount() {
-    Assert.assertEquals("has row count", true, data.hasRowCount());
-    Assert.assertEquals("has row count", false, unknown.hasRowCount());
+    Assertions.assertEquals(true, data.hasRowCount(), "has row count");
+    Assertions.assertEquals(false, unknown.hasRowCount(), "has row count");
   }
 
   @Test
@@ -193,14 +193,14 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
     data.setRows(5);
     unknown.setRows(5);
 
-    Assert.assertEquals("unlimited rows", false, data.isRowsUnlimited());
-    Assert.assertEquals("unlimited rows", false, unknown.isRowsUnlimited());
+    Assertions.assertEquals(false, data.isRowsUnlimited(), "unlimited rows");
+    Assertions.assertEquals(false, unknown.isRowsUnlimited(), "unlimited rows");
 
     data.setRows(0);
     unknown.setRows(0);
 
-    Assert.assertEquals("unlimited rows", true, data.isRowsUnlimited());
-    Assert.assertEquals("unlimited rows", true, unknown.isRowsUnlimited());
+    Assertions.assertEquals(true, data.isRowsUnlimited(), "unlimited rows");
+    Assertions.assertEquals(true, unknown.isRowsUnlimited(), "unlimited rows");
   }
 
   @Test
@@ -210,31 +210,31 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
 
     data.setRows(0);
     // * X X X X X X X X
-    Assert.assertEquals("need more than one page", false, data.needMoreThanOnePage());
+    Assertions.assertEquals(false, data.needMoreThanOnePage(), "need more than one page");
 
     data.setRows(5);
     // * X X X X
     // X X X X
-    Assert.assertEquals("need more than one page", true, data.needMoreThanOnePage());
+    Assertions.assertEquals(true, data.needMoreThanOnePage(), "need more than one page");
 
     data.setRows(20);
     // * X X X X X X X X
-    Assert.assertEquals("need more than one page", false, data.needMoreThanOnePage());
+    Assertions.assertEquals(false, data.needMoreThanOnePage(), "need more than one page");
 
     // unknown length:
 
     unknown.setRows(0);
     // * X X X X X X X X
-    Assert.assertEquals("need more than one page", false, unknown.needMoreThanOnePage());
+    Assertions.assertEquals(false, unknown.needMoreThanOnePage(), "need more than one page");
 
     unknown.setRows(5);
     // * X X X X
     // X X X X
-    Assert.assertEquals("need more than one page", true, unknown.needMoreThanOnePage());
+    Assertions.assertEquals(true, unknown.needMoreThanOnePage(), "need more than one page");
 
     unknown.setRows(20);
     // * X X X X X X X X
-    Assert.assertEquals("need more than one page", true, unknown.needMoreThanOnePage());
+    Assertions.assertEquals(true, unknown.needMoreThanOnePage(), "need more than one page");
   }
 
   @Test
@@ -244,29 +244,29 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
 
     data.setRows(0);
     // * X X X X X X X X
-    Assert.assertEquals("first row index of last page", 0, data.getFirstRowIndexOfLastPage());
+    Assertions.assertEquals(0, data.getFirstRowIndexOfLastPage(), "first row index of last page");
 
     data.setRows(5);
     // * X X X X
     // X X X X
-    Assert.assertEquals("first row index of last page", 5, data.getFirstRowIndexOfLastPage());
+    Assertions.assertEquals(5, data.getFirstRowIndexOfLastPage(), "first row index of last page");
 
     data.setRows(20);
     // * X X X X X X X X
-    Assert.assertEquals("first row index of last page", 0, data.getFirstRowIndexOfLastPage());
+    Assertions.assertEquals(0, data.getFirstRowIndexOfLastPage(), "first row index of last page");
 
     // unknown length:
 
     unknown.setRows(0);
     // * X X X X X X X X
-    Assert.assertEquals("first row index of last page", 0, unknown.getFirstRowIndexOfLastPage());
+    Assertions.assertEquals(0, unknown.getFirstRowIndexOfLastPage(), "first row index of last page");
 
     unknown.setRows(5);
     // * X X X X
     // X X X X
     try {
       unknown.getFirstRowIndexOfLastPage();
-      Assert.fail("first row index of last page");
+      Assertions.fail("first row index of last page");
     } catch (final IllegalArgumentException e) {
       // okay: last page can't determined
     }
@@ -275,7 +275,7 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
     // * X X X X X X X X
     try {
       unknown.getFirstRowIndexOfLastPage();
-      Assert.fail("first row index of last page");
+      Assertions.fail("first row index of last page");
     } catch (final IllegalArgumentException e) {
       // okay: last page can't determined
     }
@@ -288,16 +288,16 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
 
     data.setRows(0);
     // * X X X X X X X X
-    Assert.assertEquals("last row index of current page", 9, data.getLastRowIndexOfCurrentPage());
+    Assertions.assertEquals(9, data.getLastRowIndexOfCurrentPage(), "last row index of current page");
 
     data.setRows(5);
     // * X X X X
     // X X X X
-    Assert.assertEquals("last row index of current page", 5, data.getLastRowIndexOfCurrentPage());
+    Assertions.assertEquals(5, data.getLastRowIndexOfCurrentPage(), "last row index of current page");
 
     data.setRows(20);
     // * X X X X X X X X
-    Assert.assertEquals("last row index of current page", 9, data.getLastRowIndexOfCurrentPage());
+    Assertions.assertEquals(9, data.getLastRowIndexOfCurrentPage(), "last row index of current page");
 
     // unknown length:
 
@@ -305,7 +305,7 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
     // * X X X X X X X X
     try {
       unknown.getLastRowIndexOfCurrentPage();
-      Assert.fail("last row index of current page");
+      Assertions.fail("last row index of current page");
     } catch (final IllegalArgumentException e) {
       // okay: last row index of current page can't determined
     }
@@ -315,7 +315,7 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
     // X X X X
     try {
       unknown.getLastRowIndexOfCurrentPage();
-      Assert.fail("last row index of current page");
+      Assertions.fail("last row index of current page");
     } catch (final IllegalArgumentException e) {
       // okay: last row index of current page can't determined
     }
@@ -324,7 +324,7 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
     // * X X X X X X X X
     try {
       unknown.getLastRowIndexOfCurrentPage();
-      Assert.fail("last row index of current page");
+      Assertions.fail("last row index of current page");
     } catch (final IllegalArgumentException e) {
       // okay: last row index of current page can't determined
     }
@@ -337,17 +337,17 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
 
     unknown.setRows(0);
     // * X X X X X X X X
-    Assert.assertEquals("current page", 0, unknown.getCurrentPage());
+    Assertions.assertEquals(0, unknown.getCurrentPage(), "current page");
 
     unknown.setRows(5);
     // * X X X X
     // X X X X
-    Assert.assertEquals("current page", 0, unknown.getCurrentPage());
+    Assertions.assertEquals(0, unknown.getCurrentPage(), "current page");
 
     unknown.setFirst(5);
     // X X X X X
     // * X X X
-    Assert.assertEquals("current page", 1, unknown.getCurrentPage());
+    Assertions.assertEquals(1, unknown.getCurrentPage(), "current page");
   }
 
   @Test
@@ -357,14 +357,14 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
 
     unknown.setRows(0);
     // * X X X X X X X X
-    Assert.assertEquals("pages", 1, unknown.getPages());
+    Assertions.assertEquals(1, unknown.getPages(), "pages");
 
     unknown.setRows(5);
     // * X X X X
     // X X X X
     try {
       unknown.getPages();
-      Assert.fail("pages");
+      Assertions.fail("pages");
     } catch (final IllegalArgumentException e) {
       // okay: pages can't determined
     }
@@ -376,17 +376,17 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
     nineRows.remove(0);
     nineRows.remove(0);
     data.setRows(5);
-    Assert.assertEquals(2, data.getPages());
+    Assertions.assertEquals(2, data.getPages());
     nineRows.remove(0);
     nineRows.remove(0);
     nineRows.remove(0);
-    Assert.assertEquals(1, data.getPages());
+    Assertions.assertEquals(1, data.getPages());
   }
 
   @Test
   public void testStripRowIndex() {
-    Assert.assertEquals("comp1:comp2", new UISheet().stripRowIndex("123:comp1:comp2"));
-    Assert.assertEquals("comp1:comp2", new UISheet().stripRowIndex("comp1:comp2"));
+    Assertions.assertEquals("comp1:comp2", new UISheet().stripRowIndex("123:comp1:comp2"));
+    Assertions.assertEquals("comp1:comp2", new UISheet().stripRowIndex("comp1:comp2"));
   }
 
   private static class DataModelWithUnknownRows extends ListDataModel {

@@ -21,8 +21,8 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class LabelWithAccessKeyUnitTest extends AbstractTobagoTestBase {
 
@@ -31,9 +31,9 @@ public class LabelWithAccessKeyUnitTest extends AbstractTobagoTestBase {
     final UILabel component = new UILabel();
     component.setValue("Save");
     final LabelWithAccessKey label = new LabelWithAccessKey(component);
-    Assert.assertEquals("Save", label.getLabel());
-    Assert.assertEquals(-1, label.getPos());
-    Assert.assertEquals(null, label.getAccessKey());
+    Assertions.assertEquals("Save", label.getLabel());
+    Assertions.assertEquals(-1, label.getPos());
+    Assertions.assertEquals(null, label.getAccessKey());
   }
 
   @Test
@@ -42,9 +42,9 @@ public class LabelWithAccessKeyUnitTest extends AbstractTobagoTestBase {
     final UILabel component = new UILabel();
     component.setValue("Löschen");
     final LabelWithAccessKey label = new LabelWithAccessKey(component);
-    Assert.assertEquals("Löschen", label.getLabel());
-    Assert.assertEquals(-1, label.getPos());
-    Assert.assertEquals(null, label.getAccessKey());
+    Assertions.assertEquals("Löschen", label.getLabel());
+    Assertions.assertEquals(-1, label.getPos());
+    Assertions.assertEquals(null, label.getAccessKey());
   }
 
   @Test
@@ -53,9 +53,9 @@ public class LabelWithAccessKeyUnitTest extends AbstractTobagoTestBase {
     component.setValue("Save");
     component.setAccessKey('a');
     final LabelWithAccessKey label = new LabelWithAccessKey(component);
-    Assert.assertEquals("Save", label.getLabel());
-    Assert.assertEquals(1, label.getPos());
-    Assert.assertEquals((Character) 'a', label.getAccessKey());
+    Assertions.assertEquals("Save", label.getLabel());
+    Assertions.assertEquals(1, label.getPos());
+    Assertions.assertEquals((Character) 'a', label.getAccessKey());
   }
 
   @Test
@@ -64,9 +64,9 @@ public class LabelWithAccessKeyUnitTest extends AbstractTobagoTestBase {
     component.setValue("Save");
     component.setAccessKey('A');
     final LabelWithAccessKey label = new LabelWithAccessKey(component);
-    Assert.assertEquals("Save", label.getLabel());
-    Assert.assertEquals(1, label.getPos());
-    Assert.assertEquals((Character) 'a', label.getAccessKey());
+    Assertions.assertEquals("Save", label.getLabel());
+    Assertions.assertEquals(1, label.getPos());
+    Assertions.assertEquals((Character) 'a', label.getAccessKey());
   }
 
   @Test
@@ -75,9 +75,9 @@ public class LabelWithAccessKeyUnitTest extends AbstractTobagoTestBase {
     component.setValue("Save");
     component.setAccessKey('5');
     final LabelWithAccessKey label = new LabelWithAccessKey(component);
-    Assert.assertEquals("Save", label.getLabel());
-    Assert.assertEquals(-1, label.getPos());
-    Assert.assertEquals((Character) '5', label.getAccessKey());
+    Assertions.assertEquals("Save", label.getLabel());
+    Assertions.assertEquals(-1, label.getPos());
+    Assertions.assertEquals((Character) '5', label.getAccessKey());
   }
 
   @Test
@@ -86,9 +86,9 @@ public class LabelWithAccessKeyUnitTest extends AbstractTobagoTestBase {
     component.setValue("Save");
     component.setAccessKey('#');
     final LabelWithAccessKey label = new LabelWithAccessKey(component);
-    Assert.assertEquals("Save", label.getLabel());
-    Assert.assertEquals(-1, label.getPos());
-    Assert.assertEquals(null, label.getAccessKey());
+    Assertions.assertEquals("Save", label.getLabel());
+    Assertions.assertEquals(-1, label.getPos());
+    Assertions.assertEquals(null, label.getAccessKey());
   }
 
   @Test
@@ -97,9 +97,9 @@ public class LabelWithAccessKeyUnitTest extends AbstractTobagoTestBase {
     component.setValue("Save");
     component.setAccessKey('á');
     final LabelWithAccessKey label = new LabelWithAccessKey(component);
-    Assert.assertEquals("Save", label.getLabel());
-    Assert.assertEquals(-1, label.getPos());
-    Assert.assertEquals(null, label.getAccessKey());
+    Assertions.assertEquals("Save", label.getLabel());
+    Assertions.assertEquals(-1, label.getPos());
+    Assertions.assertEquals(null, label.getAccessKey());
   }
 
   @Test
@@ -108,17 +108,17 @@ public class LabelWithAccessKeyUnitTest extends AbstractTobagoTestBase {
     component.setValue("Save");
     component.setAccessKey('ä');
     final LabelWithAccessKey label = new LabelWithAccessKey(component);
-    Assert.assertEquals("Save", label.getLabel());
-    Assert.assertEquals(-1, label.getPos());
-    Assert.assertEquals(null, label.getAccessKey());
+    Assertions.assertEquals("Save", label.getLabel());
+    Assertions.assertEquals(-1, label.getPos());
+    Assertions.assertEquals(null, label.getAccessKey());
   }
 
   @Test
   public void testNull() {
     final UILabel component = new UILabel();
     final LabelWithAccessKey label = new LabelWithAccessKey(component);
-    Assert.assertEquals(null, label.getLabel());
-    Assert.assertEquals(-1, label.getPos());
-    Assert.assertEquals(null, label.getAccessKey());
+    Assertions.assertEquals(null, label.getLabel());
+    Assertions.assertEquals(-1, label.getPos());
+    Assertions.assertEquals(null, label.getAccessKey());
   }
 }
