@@ -37,9 +37,10 @@
   <entry key="menu_accessAllPages">Access all pages</entry>
 
   <!-- navigate -->
-  <entry key="intro">Intro</entry>
+  <entry key="intro">Introduction</entry>
   <entry key="getting_started">Getting started</entry>
   <entry key="whats_new">What's new?</entry>
+  <entry key="new_in_4_4">Tobago 4.4</entry>
   <entry key="new_in_4_3">Tobago 4.3</entry>
   <entry key="new_in_4_2">Tobago 4.2</entry>
   <entry key="new_in_4_1">Tobago 4.1</entry>
