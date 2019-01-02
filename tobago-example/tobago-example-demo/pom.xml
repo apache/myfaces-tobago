@@ -769,6 +769,28 @@
     </profile>
 
     <profile>
+      <id>docker-tomcat</id>
+      <build>
+        <finalName>${finalName}</finalName>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <configuration>
+              <webXml>src/main/docker-tests/tomcat/override-web.xml</webXml>
+              <webResources>
+                <resource>
+                  <targetPath>src</targetPath>
+                  <directory>${basedir}/src/main/java</directory>
+                </resource>
+              </webResources>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
       <id>docker-qunit-tests</id>
       <build>
         <plugins>
@@ -778,7 +800,7 @@
             <version>${exec.version}</version>
             <executions>
               <execution>
-                <phase>generate-sources</phase>
+                <phase>package</phase>
                 <goals>
                   <goal>exec</goal>
                 </goals>
@@ -787,6 +809,7 @@
                   <arguments>
                     <argument>clean</argument>
                     <argument>package</argument>
+                    <argument>-Pdocker-tomcat</argument>
                   </arguments>
                 </configuration>
               </execution>
@@ -824,6 +847,7 @@
                         <executable>mvn</executable>
                         <arguments>
                           <argument>package</argument>
+                          <argument>-Pdocker-tomcat</argument>
                           <argument>-Djsf=@item@</argument>
                           <argument>-DfinalName=tobago-example-demo-@item@</argument>
                         </arguments>
