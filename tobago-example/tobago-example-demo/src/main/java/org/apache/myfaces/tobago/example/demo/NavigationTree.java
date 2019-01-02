@@ -34,6 +34,7 @@ import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,7 +48,7 @@ import java.util.Set;
 @Named
 public class NavigationTree implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(NavigationTree.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private NavigationNode root;
 

@@ -37,6 +37,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.invoke.MethodHandles;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
@@ -58,7 +59,7 @@ import java.util.stream.Stream;
 
 abstract class SeleniumBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SeleniumBase.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static WebDriver chromeDriver;
   private static List<String> serverUrls = new ArrayList<>();

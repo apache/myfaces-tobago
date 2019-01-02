@@ -19,9 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -29,8 +26,6 @@ import java.io.Serializable;
 @SessionScoped
 @Named
 public class FormController implements Serializable {
-
-  private static final Logger LOG = LoggerFactory.getLogger(FormController.class);
 
   private String value1;
   private String value2;

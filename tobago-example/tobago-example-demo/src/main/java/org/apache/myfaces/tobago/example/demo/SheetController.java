@@ -37,6 +37,7 @@ import javax.faces.event.FacesEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,7 +49,7 @@ import java.util.stream.Collectors;
 @Named
 public class SheetController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SheetController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final SelectItem[] SHEET_SELECTABLE;
 

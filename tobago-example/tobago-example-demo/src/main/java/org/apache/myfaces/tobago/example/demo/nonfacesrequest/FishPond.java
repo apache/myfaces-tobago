@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -33,7 +34,7 @@ import java.util.Random;
 @Named
 public class FishPond implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(FishPond.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private Map<Integer, String> fishes;
 

@@ -45,10 +45,11 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 
 public class TreeRenderer extends RendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TreeRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   protected static final String SCROLL_POSITION = ComponentUtils.SUB_SEPARATOR + "scrollPosition";
 

@@ -30,6 +30,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -38,7 +39,7 @@ import java.util.List;
 @Named
 public class SheetSortingController extends SheetController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SheetSortingController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public void sheetSorter(final ActionEvent event) {
     if (event instanceof SortActionEvent) {

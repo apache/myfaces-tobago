@@ -24,10 +24,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 
 public class ScrollPosition implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ScrollPosition.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private Integer left;
   private Integer top;

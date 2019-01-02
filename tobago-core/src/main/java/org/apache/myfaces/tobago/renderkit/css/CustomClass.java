@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import javax.el.ELContext;
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
+import java.lang.invoke.MethodHandles;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,7 +35,7 @@ import java.util.regex.Pattern;
  */
 public class CustomClass implements CssItem {
 
-  private static final Logger LOG = LoggerFactory.getLogger(CustomClass.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final Pattern CSS_CLASS_PATTERN = Pattern.compile("[\\w-]+");
 

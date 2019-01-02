@@ -24,12 +24,13 @@ import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import java.lang.invoke.MethodHandles;
 
 @RequestScoped
 @Named
 public class TransitionController {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TransitionController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public String sleep5sAndRedirect() throws InterruptedException {
     final int sleep = 5000;

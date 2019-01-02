@@ -19,14 +19,9 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.Serializable;
 
 public class UploadItem implements Serializable {
-
-  private static final Logger LOG = LoggerFactory.getLogger(UploadItem.class);
 
   private String name;
   private long size;

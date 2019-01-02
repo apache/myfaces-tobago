@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.EnumMap;
 import java.util.regex.Pattern;
 
@@ -34,7 +35,7 @@ import java.util.regex.Pattern;
 @Deprecated
 public class FontAwesomeIconEncoder implements IconEncoder {
 
-  private static final Logger LOG = LoggerFactory.getLogger(FontAwesomeIconEncoder.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   /**
    * @deprecated 4.0.0. User {@link Icons#FA }

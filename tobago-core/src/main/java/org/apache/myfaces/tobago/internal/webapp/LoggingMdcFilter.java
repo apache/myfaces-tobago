@@ -32,9 +32,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 
 public class LoggingMdcFilter implements Filter {
-  private static final Logger LOG = LoggerFactory.getLogger(LoggingMdcFilter.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public void init(final FilterConfig filterConfig) throws ServletException {

@@ -50,10 +50,11 @@ import javax.faces.view.facelets.TagException;
 import javax.faces.view.facelets.TagHandler;
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
+import java.lang.invoke.MethodHandles;
 
 public final class AttributeHandler extends TagHandler {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AttributeHandler.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private final TagAttribute name;
 

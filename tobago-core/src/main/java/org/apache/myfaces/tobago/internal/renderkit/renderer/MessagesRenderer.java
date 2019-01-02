@@ -42,11 +42,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 public class MessagesRenderer extends RendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(MessagesRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {

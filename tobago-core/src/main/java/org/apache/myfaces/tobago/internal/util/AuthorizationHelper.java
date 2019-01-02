@@ -31,6 +31,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import java.lang.annotation.Annotation;
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ import java.util.regex.Pattern;
 @javax.faces.bean.ApplicationScoped
 public class AuthorizationHelper {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AuthorizationHelper.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public static final String AUTHORIZATION_HELPER = "authorizationHelper";
 

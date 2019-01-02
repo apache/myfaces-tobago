@@ -26,11 +26,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
+import java.lang.invoke.MethodHandles;
 import java.util.Locale;
 
 public final class LabelWithAccessKey {
 
-  private static final Logger LOG = LoggerFactory.getLogger(LabelWithAccessKey.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private final String label;
   private final Character accessKey;

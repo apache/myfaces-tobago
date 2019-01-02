@@ -51,6 +51,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.ClientBehaviorRenderer;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.invoke.MethodHandles;
 import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.List;
@@ -59,7 +60,7 @@ import java.util.Objects;
 
 public final class RenderUtils {
 
-  private static final Logger LOG = LoggerFactory.getLogger(RenderUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private RenderUtils() {
     // to prevent instantiation

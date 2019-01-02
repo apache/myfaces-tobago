@@ -29,13 +29,15 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RequestScoped
 @Named
 public class ExceptionHandlerController {
-  private static final Logger LOG = LoggerFactory.getLogger(ExceptionHandlerController.class);
+
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private String value;
   private List<SolarObject> solarList;

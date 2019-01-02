@@ -27,12 +27,13 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 
 @SessionScoped
 @Named
 public class BehaviorController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(BehaviorController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private String ajax;
   private String event;

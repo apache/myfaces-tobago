@@ -34,16 +34,12 @@ import org.apache.myfaces.tobago.renderkit.css.Styles;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class StyleRenderer extends RendererBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(StyleRenderer.class);
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {

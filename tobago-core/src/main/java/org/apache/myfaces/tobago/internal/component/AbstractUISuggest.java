@@ -28,6 +28,7 @@ import javax.el.ValueExpression;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
+import java.lang.invoke.MethodHandles;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SuggestTagDeclaration}
@@ -35,7 +36,7 @@ import javax.faces.context.FacesContext;
 public abstract class AbstractUISuggest
     extends UIComponentBase implements InputSuggest, ClientBehaviorHolder {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUISuggest.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Suggest";
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.Suggest";

@@ -39,6 +39,7 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PreRenderComponentEvent;
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.Map;
 
@@ -54,7 +55,7 @@ import java.util.Map;
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implements ComponentSystemEventListener {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUIGridLayout.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.GridLayout";
 

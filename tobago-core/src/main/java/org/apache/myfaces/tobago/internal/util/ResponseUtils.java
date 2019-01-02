@@ -30,11 +30,12 @@ import org.slf4j.LoggerFactory;
 import javax.faces.context.FacesContext;
 import javax.portlet.MimeResponse;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.invoke.MethodHandles;
 import java.util.Map;
 
 public final class ResponseUtils {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ResponseUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private ResponseUtils() {
     // utils class

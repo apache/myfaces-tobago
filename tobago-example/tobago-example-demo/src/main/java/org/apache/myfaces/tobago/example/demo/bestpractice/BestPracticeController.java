@@ -30,12 +30,13 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.invoke.MethodHandles;
 
 @RequestScoped
 @Named
 public class BestPracticeController {
 
-  private static final Logger LOG = LoggerFactory.getLogger(BestPracticeController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private String status;
 

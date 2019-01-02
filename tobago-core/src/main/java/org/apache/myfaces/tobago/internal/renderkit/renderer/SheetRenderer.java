@@ -85,6 +85,7 @@ import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -94,7 +95,7 @@ import java.util.Map;
 
 public class SheetRenderer extends RendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SheetRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final String SUFFIX_WIDTHS = ComponentUtils.SUB_SEPARATOR + "widths";
   private static final String SUFFIX_COLUMN_RENDERED = ComponentUtils.SUB_SEPARATOR + "rendered";

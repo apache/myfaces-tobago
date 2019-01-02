@@ -23,11 +23,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.inject.Model;
+import java.lang.invoke.MethodHandles;
 
 @Model
 public class ResizeController {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ResizeController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public String resize() {
     LOG.info("Method resize() was called!");

@@ -35,12 +35,13 @@ import javax.faces.view.facelets.ConverterHandler;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.TagAttribute;
 import javax.faces.view.facelets.TagException;
+import java.lang.invoke.MethodHandles;
 import java.util.Locale;
 import java.util.TimeZone;
 
 public class ConvertDateTimeHandler extends ConverterHandler {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ConvertDateTimeHandler.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private final TagAttribute binding;
   private final TagAttribute locale;

@@ -29,10 +29,11 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.lang.invoke.MethodHandles;
 
 public class TobagoServletContextListener implements ServletContextListener {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TobagoServletContextListener.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public void contextInitialized(final ServletContextEvent event) {

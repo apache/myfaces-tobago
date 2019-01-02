@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -494,7 +495,7 @@ public enum BootstrapClass implements CssItem {
   TABLE_SM("table-sm"),
   TABLE_STRIPED("table-striped");
 
-  private static final Logger LOG = LoggerFactory.getLogger(BootstrapClass.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final int SEVERITY_ERROR = FacesMessage.SEVERITY_ERROR.getOrdinal();
   private static final int SEVERITY_WARN = FacesMessage.SEVERITY_WARN.getOrdinal();

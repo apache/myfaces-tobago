@@ -22,6 +22,8 @@ package org.apache.myfaces.tobago.component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.invoke.MethodHandles;
+
 /**
  * Name constants of the attributes of the Tobago components.
  */
@@ -418,7 +420,7 @@ public enum Attributes {
   /** This constants are needed for annotations, because they can't use the enums. */
   public static final String EXECUTE = "execute";
 
-  private static final Logger LOG = LoggerFactory.getLogger(Attributes.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private final String explicit;
 

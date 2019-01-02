@@ -24,12 +24,13 @@ import org.slf4j.LoggerFactory;
 
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
+import java.lang.invoke.MethodHandles;
 import java.util.Comparator;
 import java.util.Map;
 
 public class ValueExpressionComparator extends ComparatorBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ValueExpressionComparator.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private FacesContext facesContext;
 

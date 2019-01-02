@@ -20,8 +20,6 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
 import java.io.IOException;
@@ -30,8 +28,6 @@ import java.io.IOException;
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SectionTagDeclaration}
  */
 public abstract class AbstractUISection extends AbstractUICollapsiblePanel {
-
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUISection.class);
 
   public abstract String getLabel();
 

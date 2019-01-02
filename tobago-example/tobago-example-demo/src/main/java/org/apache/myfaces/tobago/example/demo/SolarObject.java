@@ -24,13 +24,14 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.event.AjaxBehaviorEvent;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class SolarObject implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SolarObject.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private String name;
 

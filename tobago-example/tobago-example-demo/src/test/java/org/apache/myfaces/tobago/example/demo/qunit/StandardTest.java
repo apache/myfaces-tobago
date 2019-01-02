@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.invoke.MethodHandles;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 import java.time.LocalTime;
@@ -36,7 +37,7 @@ import java.util.stream.Stream;
 
 class StandardTest extends SeleniumBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(StandardTest.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   /**
    * To test only a singe page, just change browser setup, 'portContextPath' and/or 'path'.

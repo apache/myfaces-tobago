@@ -29,6 +29,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ import java.util.List;
 
 public class TobagoConfigBuilder {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TobagoConfigBuilder.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final String WEB_INF_TOBAGO_CONFIG_XML = "WEB-INF/tobago-config.xml";
   private static final String META_INF_TOBAGO_CONFIG_XML = "META-INF/tobago-config.xml";

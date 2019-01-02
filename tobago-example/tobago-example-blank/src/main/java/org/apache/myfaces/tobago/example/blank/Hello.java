@@ -24,12 +24,13 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import java.lang.invoke.MethodHandles;
 
 @ManagedBean
 @RequestScoped
 public class Hello {
 
-  private static final Logger LOG = LoggerFactory.getLogger(Hello.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private String name;
 

@@ -26,10 +26,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
+import java.lang.invoke.MethodHandles;
 
 public class OnOffConverter implements Converter {
 
-  private static final Logger LOG = LoggerFactory.getLogger(OnOffConverter.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public Object getAsObject(final FacesContext context, final UIComponent component, final String value)

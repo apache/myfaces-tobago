@@ -31,10 +31,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import java.lang.invoke.MethodHandles;
 
 public class ValueExpressionResetInputActionListener extends AbstractResetInputActionListener implements StateHolder {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ValueExpressionResetInputActionListener.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private ValueExpression clientIdsExpression;
 

@@ -55,6 +55,7 @@ import javax.faces.event.ListenerFor;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PreRenderComponentEvent;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -67,7 +68,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     implements SheetStateChangeSource, SortActionSource, ClientBehaviorHolder, Visual,
     ComponentSystemEventListener {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUISheet.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Data";
 

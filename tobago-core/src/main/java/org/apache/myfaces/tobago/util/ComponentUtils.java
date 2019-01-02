@@ -57,6 +57,7 @@ import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import javax.faces.render.Renderer;
 import javax.faces.view.facelets.FaceletContext;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -66,7 +67,7 @@ import java.util.Map;
 
 public final class ComponentUtils {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ComponentUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public static final String SUB_SEPARATOR = "::";
 

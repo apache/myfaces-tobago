@@ -24,13 +24,14 @@ import org.slf4j.LoggerFactory;
 
 import java.beans.PropertyDescriptor;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.Comparator;
 
 public class BeanComparator extends ComparatorBase implements Serializable {
 
   private static final long serialVersionUID = -7450094725566090886L;
 
-  private static final Logger LOG = LoggerFactory.getLogger(BeanComparator.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private String property;
 

@@ -29,6 +29,7 @@ import javax.inject.Named;
 import javax.servlet.ServletContext;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +46,7 @@ import java.util.Properties;
 @Named
 public class ServerInfo {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ServerInfo.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final String CONFIG_FILE = "org.apache.myfaces.tobago.example.demo.config.file";
   private static final String CONFIG_FILE_DEFAULT = "/etc/tobago-example-demo.properties";

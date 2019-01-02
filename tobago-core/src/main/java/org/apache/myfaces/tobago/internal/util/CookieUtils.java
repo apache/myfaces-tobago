@@ -25,10 +25,11 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.invoke.MethodHandles;
 
 public class CookieUtils {
 
-  private static final Logger LOG = LoggerFactory.getLogger(CookieUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final String THEME_PARAMETER = "tobago.theme";
 

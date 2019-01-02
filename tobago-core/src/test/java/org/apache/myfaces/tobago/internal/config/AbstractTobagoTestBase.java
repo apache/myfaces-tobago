@@ -38,8 +38,6 @@ import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
 import org.junit.After;
 import org.junit.Before;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -60,8 +58,6 @@ import static org.apache.myfaces.tobago.util.ResourceUtils.TOBAGO_RESOURCE_BUNDL
  */
 
 public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractTobagoTestBase.class);
 
   private StringWriter stringWriter;
   private int last = 0;

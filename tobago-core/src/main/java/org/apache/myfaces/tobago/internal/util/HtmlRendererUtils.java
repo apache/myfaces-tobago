@@ -46,13 +46,14 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
 
 public final class HtmlRendererUtils {
 
-  private static final Logger LOG = LoggerFactory.getLogger(HtmlRendererUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final String FOCUS_KEY = HtmlRendererUtils.class.getName() + ".FocusId";
 

@@ -20,8 +20,6 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Visual;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIOutput;
 import javax.faces.component.behavior.ClientBehaviorHolder;
@@ -38,8 +36,6 @@ import javax.swing.BoundedRangeModel;
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class AbstractUIProgress extends UIOutput
     implements Visual, ComponentSystemEventListener, ClientBehaviorHolder {
-
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUIProgress.class);
 
   private double rangeValue;
   private double rangeMax;

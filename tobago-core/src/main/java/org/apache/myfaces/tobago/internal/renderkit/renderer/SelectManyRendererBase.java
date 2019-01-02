@@ -39,6 +39,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ import java.util.TreeSet;
 
 public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SelectManyRendererBase.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {

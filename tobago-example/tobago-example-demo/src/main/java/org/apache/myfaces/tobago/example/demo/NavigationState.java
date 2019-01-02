@@ -33,12 +33,13 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 
 @WindowScoped
 @Named
 public class NavigationState implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(NavigationState.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Inject
   private NavigationTree tree;

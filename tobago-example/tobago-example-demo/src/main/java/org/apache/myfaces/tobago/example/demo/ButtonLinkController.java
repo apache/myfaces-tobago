@@ -24,11 +24,12 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Named;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 
 @Named
 public class ButtonLinkController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ButtonLinkController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public Outcome linkToComponentsRoot() {
     LOG.info("link to components root");

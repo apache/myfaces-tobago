@@ -25,12 +25,13 @@ import org.slf4j.LoggerFactory;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
+import java.lang.invoke.MethodHandles;
 
 @RequestScoped
 @Named
 public class InController {
 
-  private static final Logger LOG = LoggerFactory.getLogger(InController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private String changeValue;
 

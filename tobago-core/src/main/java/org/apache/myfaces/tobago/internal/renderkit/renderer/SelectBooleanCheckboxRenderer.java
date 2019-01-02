@@ -42,10 +42,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 
 public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SelectBooleanCheckboxRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {

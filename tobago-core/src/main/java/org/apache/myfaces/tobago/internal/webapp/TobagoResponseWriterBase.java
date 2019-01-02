@@ -29,13 +29,14 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIComponent;
 import java.io.IOException;
 import java.io.Writer;
+import java.lang.invoke.MethodHandles;
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TobagoResponseWriterBase.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   protected static final String XML_VERSION_1_0_ENCODING_UTF_8 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 

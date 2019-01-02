@@ -20,8 +20,6 @@
 package org.apache.myfaces.tobago.internal.config;
 
 import org.apache.myfaces.tobago.context.ThemeImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -31,8 +29,6 @@ import java.util.Map;
 import java.util.Properties;
 
 public class TobagoConfigFragment {
-
-  private static final Logger LOG = LoggerFactory.getLogger(TobagoConfigFragment.class);
 
   private String name;
   private List<String> before;

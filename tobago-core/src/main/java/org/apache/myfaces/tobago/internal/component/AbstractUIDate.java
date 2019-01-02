@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
+import java.lang.invoke.MethodHandles;
 import java.util.Date;
 
 /**
@@ -34,7 +35,7 @@ import java.util.Date;
  */
 public abstract class AbstractUIDate extends AbstractUIInput {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUIDate.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public String getPattern() {
     final FacesContext facesContext = getFacesContext();

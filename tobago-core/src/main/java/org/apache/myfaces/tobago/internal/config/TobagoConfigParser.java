@@ -40,6 +40,7 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.invoke.MethodHandles;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Properties;
@@ -47,7 +48,7 @@ import java.util.Stack;
 
 public class TobagoConfigParser extends TobagoConfigEntityResolver {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TobagoConfigParser.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final int TOBAGO_CONFIG = -1498874611;
   private static final int NAME = 3373707;

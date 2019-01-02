@@ -24,10 +24,11 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.event.ActionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.lang.invoke.MethodHandles;
 
 public class NamedNode extends DefaultMutableTreeNode {
 
-  private static final Logger LOG = LoggerFactory.getLogger(NamedNode.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private String name;
   private String action;

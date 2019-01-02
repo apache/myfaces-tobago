@@ -38,6 +38,7 @@ import javax.faces.render.Renderer;
 import javax.faces.render.ResponseStateManager;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.lang.invoke.MethodHandles;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -45,7 +46,8 @@ import java.util.Map;
 
 public class TobagoRenderKit extends RenderKit {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TobagoRenderKit.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
   private static final String CONTENT_TYPE_TEXT_HTML = "text/html";
   private static final String CONTENT_TYPE_TEXT_XML = "text/xml";
 

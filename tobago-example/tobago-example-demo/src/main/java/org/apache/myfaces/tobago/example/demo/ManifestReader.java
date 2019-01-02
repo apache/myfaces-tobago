@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -41,7 +42,7 @@ import java.util.jar.Manifest;
 @Named
 public class ManifestReader {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ManifestReader.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private final ManifestEntry manifestTree;
 

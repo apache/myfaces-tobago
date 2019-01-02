@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 
 /**
  * In PDLs the class {@link org.apache.myfaces.tobago.layout.MeasureEditor} will convert the string literals.
@@ -32,7 +33,7 @@ public final class Measure implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  private static final Logger LOG = LoggerFactory.getLogger(Measure.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public static final Measure ZERO = valueOf(0);
   public static final Measure AUTO = valueOf("auto");

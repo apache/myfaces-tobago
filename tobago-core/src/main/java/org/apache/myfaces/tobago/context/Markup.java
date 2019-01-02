@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -56,7 +57,7 @@ import java.util.List;
  */
 public final class Markup implements Serializable, Iterable<String> {
 
-  private static final Logger LOG = LoggerFactory.getLogger(Markup.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public static final Markup NULL = new Markup((String) null);
 

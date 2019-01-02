@@ -30,13 +30,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.lang.invoke.MethodHandles;
 import java.util.Date;
 
 @RequestScoped
 @Named
 public class PartialReloadController {
 
-  private static final Logger LOG = LoggerFactory.getLogger(PartialReloadController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private String navigateActionValue;
 

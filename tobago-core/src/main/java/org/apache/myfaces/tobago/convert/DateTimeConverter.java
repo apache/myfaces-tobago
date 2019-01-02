@@ -27,6 +27,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
+import java.lang.invoke.MethodHandles;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -46,7 +47,7 @@ import static org.apache.myfaces.tobago.convert.DateTimeConverter.CONVERTER_ID;
 @org.apache.myfaces.tobago.apt.annotation.Converter(id = CONVERTER_ID)
 public class DateTimeConverter extends javax.faces.convert.DateTimeConverter {
 
-  private static final Logger LOG = LoggerFactory.getLogger(DateTimeConverter.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public static final String CONVERTER_ID = "org.apache.myfaces.tobago.DateTime";
 

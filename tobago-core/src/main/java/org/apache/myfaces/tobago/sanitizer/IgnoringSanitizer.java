@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.sanitizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.invoke.MethodHandles;
 import java.util.Properties;
 
 /**
@@ -29,7 +30,7 @@ import java.util.Properties;
  */
 public class IgnoringSanitizer implements Sanitizer {
 
-  private static final Logger LOG = LoggerFactory.getLogger(IgnoringSanitizer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public String sanitize(final String html) {

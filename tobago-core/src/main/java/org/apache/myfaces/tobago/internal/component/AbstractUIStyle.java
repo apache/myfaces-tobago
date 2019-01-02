@@ -42,6 +42,7 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PreRenderViewEvent;
+import java.lang.invoke.MethodHandles;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.StyleTagDeclaration}
@@ -51,7 +52,7 @@ import javax.faces.event.PreRenderViewEvent;
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractUIStyle extends UIComponentBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUIStyle.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public void processEvent(final ComponentSystemEvent event) {

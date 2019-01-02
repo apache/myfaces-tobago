@@ -69,6 +69,7 @@ import javax.portlet.ResourceURL;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -79,7 +80,7 @@ import java.util.Map;
 //@ResourceDependency(name="jsf.js", library="javax.faces", target="head")
 public class PageRenderer extends RendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(PageRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final String LAST_FOCUS_ID = "lastFocusId";
   private static final String HEAD_TARGET = "head";

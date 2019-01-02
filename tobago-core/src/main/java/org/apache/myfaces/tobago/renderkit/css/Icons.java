@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.renderkit.css;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.invoke.MethodHandles;
 import java.util.regex.Pattern;
 
 /**
@@ -49,7 +50,7 @@ public enum Icons implements CssItem {
   STEP_BACKWARD,
   STEP_FORWARD;
 
-  private static final Logger LOG = LoggerFactory.getLogger(Icons.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public static final CssItem FA = new CssItem() {
     @Override

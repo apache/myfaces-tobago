@@ -35,6 +35,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ import java.util.Locale;
 @SessionScoped
 public class LocaleController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(LocaleController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private Locale locale;
 

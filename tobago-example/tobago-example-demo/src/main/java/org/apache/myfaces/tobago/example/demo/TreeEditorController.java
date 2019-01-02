@@ -28,13 +28,14 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.Enumeration;
 
 @SessionScoped
 @Named
 public class TreeEditorController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TreeEditorController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private DefaultMutableTreeNode categoryTree;
   private String name;

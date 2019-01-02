@@ -30,6 +30,7 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
 import javax.servlet.http.Part;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ import java.util.List;
 @Named
 public class UploadController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(UploadController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private Part fileBasic;
   private Part fileContentType;

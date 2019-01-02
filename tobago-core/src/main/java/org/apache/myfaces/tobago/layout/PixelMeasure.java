@@ -19,16 +19,11 @@
 
 package org.apache.myfaces.tobago.layout;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * @deprecated since 4.1.0, please use {@link Measure}
  */
 @Deprecated
 public final class PixelMeasure /*extends Measure*/ {
-
-  private static final Logger LOG = LoggerFactory.getLogger(PixelMeasure.class);
 
   static final PixelMeasure[] PIXEL_CACHE;
   static final int PIXEL_CACHE_MAX = 4000;

@@ -27,11 +27,12 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.invoke.MethodHandles;
 import java.nio.charset.StandardCharsets;
 
 public abstract class SourceFileReader {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SourceFileReader.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public String getSource(final String filename) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();

@@ -24,10 +24,11 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
+import java.lang.invoke.MethodHandles;
 
 public class DebugNavigationHandler extends NavigationHandler {
 
-  private static final Logger LOG = LoggerFactory.getLogger(DebugNavigationHandler.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private NavigationHandler navigationHandler;
 

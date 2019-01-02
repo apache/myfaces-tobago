@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.layout.MeasureList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,7 @@ import java.util.StringTokenizer;
 
 public class JsonUtils {
 
-  private static final Logger LOG = LoggerFactory.getLogger(JsonUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private JsonUtils() {
   }

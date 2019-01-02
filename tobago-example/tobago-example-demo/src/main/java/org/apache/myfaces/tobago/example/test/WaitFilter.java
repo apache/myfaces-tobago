@@ -29,13 +29,14 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 
 /**
  * This filter waits for 10 seconds to emulate network or application problems.
  */
 public class WaitFilter implements Filter {
 
-  private static final Logger LOG = LoggerFactory.getLogger(WaitFilter.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public void init(final FilterConfig filterConfig) throws ServletException {

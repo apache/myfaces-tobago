@@ -29,6 +29,7 @@ import javax.inject.Named;
 import java.io.File;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.lang.invoke.MethodHandles;
 import java.net.MalformedURLException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -39,7 +40,7 @@ import java.util.List;
 @Named
 public class TestController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TestController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public boolean hasTest() {
     final ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();

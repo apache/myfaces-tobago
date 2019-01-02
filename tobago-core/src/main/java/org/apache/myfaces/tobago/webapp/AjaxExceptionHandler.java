@@ -37,11 +37,12 @@ import javax.faces.view.ViewDeclarationLanguage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.Iterator;
 
 public class AjaxExceptionHandler extends ExceptionHandlerWrapper {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AjaxExceptionHandler.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private ExceptionHandler wrapped;
 

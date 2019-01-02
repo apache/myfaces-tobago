@@ -28,6 +28,7 @@ import javax.servlet.ServletContext;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.invoke.MethodHandles;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -38,7 +39,7 @@ import java.net.URLStreamHandler;
  */
 public final class Resource {
 
-  private static final Logger LOG = LoggerFactory.getLogger(Resource.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private Resource() {
   }

@@ -24,8 +24,6 @@ import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIInput;
 import javax.faces.component.behavior.ClientBehaviorHolder;
@@ -39,8 +37,6 @@ import javax.swing.BoundedRangeModel;
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class AbstractUIStars extends UIInput
     implements SupportFieldId, SupportsLabelLayout, Visual, ClientBehaviorHolder {
-
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUIStars.class);
 
   private int rangeValue;
   private int rangeMax;

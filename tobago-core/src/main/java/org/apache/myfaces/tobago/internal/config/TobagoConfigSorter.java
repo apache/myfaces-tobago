@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -35,7 +36,7 @@ import java.util.Properties;
 
 public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TobagoConfigSorter.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private List<TobagoConfigFragment> list;
   private List<Pair> pairs;

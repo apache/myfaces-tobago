@@ -39,12 +39,13 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateRenderer extends InRenderer {
 
-  private static final Logger LOG = LoggerFactory.getLogger(DateRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   protected void writeAdditionalAttributes(

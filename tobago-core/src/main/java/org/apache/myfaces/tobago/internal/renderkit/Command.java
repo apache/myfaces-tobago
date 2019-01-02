@@ -30,13 +30,14 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import java.lang.invoke.MethodHandles;
 
 /**
  * @since 2.0.0
  */
 public class Command {
 
-  private static final Logger LOG = LoggerFactory.getLogger(Command.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   /**
    * The action is only needed if the action is not the HTML element itself.

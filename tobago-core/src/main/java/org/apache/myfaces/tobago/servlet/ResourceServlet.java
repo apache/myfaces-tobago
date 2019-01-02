@@ -34,6 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.invoke.MethodHandles;
 
 /**
  * <pre>
@@ -67,7 +68,7 @@ public class ResourceServlet extends HttpServlet {
 
   private static final long serialVersionUID = -4491419290205206466L;
 
-  private static final Logger LOG = LoggerFactory.getLogger(ResourceServlet.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private Long expires;
   private int bufferSize;

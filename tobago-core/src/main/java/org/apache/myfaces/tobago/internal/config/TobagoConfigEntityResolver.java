@@ -27,6 +27,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.invoke.MethodHandles;
 
 public class TobagoConfigEntityResolver extends DefaultHandler {
 
@@ -46,7 +47,7 @@ public class TobagoConfigEntityResolver extends DefaultHandler {
   protected static final String TOBAGO_CONFIG_XSD_4_0 = "/org/apache/myfaces/tobago/config/tobago-config-4.0.xsd";
   protected static final String TOBAGO_CONFIG_XSD_5_0 = "/org/apache/myfaces/tobago/config/tobago-config-5.0.xsd";
 
-  private static final Logger LOG = LoggerFactory.getLogger(TobagoConfigEntityResolver.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public InputSource resolveEntity(final String publicId, final String systemId) throws IOException, SAXException {

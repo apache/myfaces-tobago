@@ -29,11 +29,12 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 import javax.faces.event.PhaseId;
+import java.lang.invoke.MethodHandles;
 import java.util.StringTokenizer;
 
 public class ClearValidatorsActionListener implements ActionListener {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ClearValidatorsActionListener.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public PhaseId getPhaseId() {
     return PhaseId.APPLY_REQUEST_VALUES;

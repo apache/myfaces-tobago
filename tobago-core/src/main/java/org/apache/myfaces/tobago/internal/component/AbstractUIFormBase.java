@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
+import java.lang.invoke.MethodHandles;
 import java.util.Iterator;
 
 /**
@@ -35,7 +36,7 @@ import java.util.Iterator;
  */
 public abstract class AbstractUIFormBase extends UIForm implements Visual {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUIFormBase.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public void processDecodes(final FacesContext facesContext) {

@@ -51,13 +51,14 @@ import javax.faces.validator.Validator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public class FileRenderer extends MessageLayoutRendererBase implements ComponentSystemEventListener {
 
-  private static final Logger LOG = LoggerFactory.getLogger(FileRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public void processEvent(final ComponentSystemEvent event) {

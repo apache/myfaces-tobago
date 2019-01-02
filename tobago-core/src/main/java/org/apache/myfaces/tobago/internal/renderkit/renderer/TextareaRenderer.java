@@ -46,10 +46,11 @@ import javax.faces.validator.LengthValidator;
 import javax.faces.validator.RegexValidator;
 import javax.faces.validator.Validator;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 
 public class TextareaRenderer extends MessageLayoutRendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TextareaRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   protected void setSubmittedValue(

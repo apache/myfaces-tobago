@@ -28,6 +28,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
+import java.lang.invoke.MethodHandles;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ import java.util.StringTokenizer;
 @org.apache.myfaces.tobago.apt.annotation.Converter(id = DurationConverter.CONVERTER_ID)
 public class DurationConverter implements Converter {
 
-  private static final Logger LOG = LoggerFactory.getLogger(DurationConverter.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public static final String CONVERTER_ID = "org.apache.myfaces.tobago.Duration";
 

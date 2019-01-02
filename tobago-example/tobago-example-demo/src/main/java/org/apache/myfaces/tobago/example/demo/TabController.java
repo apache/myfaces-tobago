@@ -27,12 +27,13 @@ import org.slf4j.LoggerFactory;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 
 @SessionScoped
 @Named
 public class TabController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TabController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private String open = "/image/feather-open.png";
   private String close = "/image/feather-closed.png";

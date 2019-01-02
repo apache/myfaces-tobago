@@ -26,12 +26,13 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 
 @SessionScoped
 @Named
 public class CollapsibleController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(CollapsibleController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private boolean collapsed = true;
 

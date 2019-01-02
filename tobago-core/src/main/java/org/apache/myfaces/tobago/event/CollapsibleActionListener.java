@@ -31,10 +31,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
+import java.lang.invoke.MethodHandles;
 
 public class CollapsibleActionListener implements ActionListener, StateHolder {
 
-  private static final Logger LOG = LoggerFactory.getLogger(CollapsibleActionListener.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private String forId;
 

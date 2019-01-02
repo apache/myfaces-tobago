@@ -30,12 +30,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 
 @Named
 @RequestScoped
 public class LoginController {
 
-  private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private String username;
   private String password;

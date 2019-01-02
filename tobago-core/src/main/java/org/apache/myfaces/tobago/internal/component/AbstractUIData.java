@@ -38,6 +38,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.swing.tree.TreeNode;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 /**
@@ -45,7 +46,7 @@ import java.util.List;
  */
 public abstract class AbstractUIData extends javax.faces.component.UIData implements Visual {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUIData.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   /**
    * @deprecated since 2.0.0. The marked concept has been replaced by "selected".

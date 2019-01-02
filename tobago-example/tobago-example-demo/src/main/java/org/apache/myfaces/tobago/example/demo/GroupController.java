@@ -27,13 +27,14 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.Currency;
 
 @SessionScoped
 @Named
 public class GroupController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(GroupController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private String chatlog;
   private String newMessage;

@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.Part;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Locale;
@@ -37,7 +38,7 @@ import java.util.Map;
  */
 public final class PartUtils {
 
-  private static final Logger LOG = LoggerFactory.getLogger(PartUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final Method SUBMITTED_FILE_NAME_METHOD = findSubmittedFileNameMethod();
 

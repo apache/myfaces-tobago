@@ -28,6 +28,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
+import java.lang.invoke.MethodHandles;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
@@ -37,7 +38,7 @@ import java.util.Iterator;
  */
 public abstract class AbstractUIPage extends AbstractUIFormBase implements ClientBehaviorHolder {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUIPage.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Page";
 

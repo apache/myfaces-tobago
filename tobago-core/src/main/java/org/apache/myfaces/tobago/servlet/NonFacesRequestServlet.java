@@ -35,6 +35,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 
 /**
  * @deprecated since Tobago 2.0.8 - Please use &lt;f:initParam&gt; instead - see also TOBAGO-1456
@@ -44,7 +45,7 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
 
   private static final long serialVersionUID = -7448621953821447997L;
 
-  private static final Logger LOG = LoggerFactory.getLogger(NonFacesRequestServlet.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   protected void service(final HttpServletRequest request, final HttpServletResponse response)

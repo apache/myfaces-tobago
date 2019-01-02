@@ -28,10 +28,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
+import java.lang.invoke.MethodHandles;
 
 public class SecretPhaseListener implements PhaseListener {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SecretPhaseListener.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public void afterPhase(final PhaseEvent event) {

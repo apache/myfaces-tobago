@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,10 +28,11 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import java.lang.invoke.MethodHandles;
 
 public abstract class DecodingCommandRendererBase extends RendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(DecodingCommandRendererBase.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {

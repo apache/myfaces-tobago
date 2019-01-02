@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 import javax.faces.application.Application;
 import javax.faces.application.ProjectStage;
 import javax.faces.context.FacesContext;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -48,7 +49,7 @@ import java.util.Set;
  */
 public class TobagoConfigImpl extends TobagoConfig {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TobagoConfigImpl.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private List<Theme> supportedThemes;
   private List<String> supportedThemeNames;

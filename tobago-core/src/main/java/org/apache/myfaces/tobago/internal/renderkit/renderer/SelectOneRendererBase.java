@@ -27,10 +27,11 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
+import java.lang.invoke.MethodHandles;
 
 public abstract class SelectOneRendererBase extends MessageLayoutRendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SelectOneRendererBase.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {

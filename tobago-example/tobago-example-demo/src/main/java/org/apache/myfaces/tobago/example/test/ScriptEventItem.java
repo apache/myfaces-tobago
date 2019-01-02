@@ -22,11 +22,12 @@ package org.apache.myfaces.tobago.example.test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.invoke.MethodHandles;
 import java.util.Date;
 
 public class ScriptEventItem {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ScriptEventItem.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private String name;
   private Date time;

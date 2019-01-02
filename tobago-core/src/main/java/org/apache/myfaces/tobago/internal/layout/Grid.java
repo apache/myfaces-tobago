@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.layout.MeasureList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ import java.util.List;
 @Deprecated
 public class Grid {
 
-  private static final Logger LOG = LoggerFactory.getLogger(Grid.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   // TODO: check if it is faster with arrays.
   /**

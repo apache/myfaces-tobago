@@ -26,10 +26,11 @@ import javax.el.ValueExpression;
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
+import java.lang.invoke.MethodHandles;
 
 public class ValueExpressionTabChangeListener implements TabChangeListener, StateHolder {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ValueExpressionTabChangeListener.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private String type;
   private ValueExpression valueExpression;

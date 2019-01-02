@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.invoke.MethodHandles;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -30,7 +31,7 @@ import java.util.Map;
 
 public class DateTimeI18n {
 
-  private static final Logger LOG = LoggerFactory.getLogger(DateTimeI18n.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final Map<Locale, DateTimeI18n> CACHE = new HashMap<>();
 

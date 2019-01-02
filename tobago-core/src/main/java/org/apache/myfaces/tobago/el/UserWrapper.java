@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
+import java.lang.invoke.MethodHandles;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.Map;
@@ -30,7 +31,7 @@ import java.util.Set;
 
 public class UserWrapper {
 
-  private static final Logger LOG = LoggerFactory.getLogger(UserWrapper.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private Map roles;
 

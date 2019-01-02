@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,7 +34,7 @@ import java.util.stream.Collectors;
 @SessionScoped
 @Named
 public class SuggestQuotMarkController implements Serializable {
-  private static final Logger LOG = LoggerFactory.getLogger(SuggestController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private List<String> suggestions = new ArrayList<>(8);
   private String query;
 

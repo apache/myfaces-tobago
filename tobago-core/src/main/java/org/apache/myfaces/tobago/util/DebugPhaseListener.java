@@ -31,13 +31,14 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.invoke.MethodHandles;
 import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.Map;
 
 public class DebugPhaseListener implements PhaseListener {
 
-  private static final Logger LOG = LoggerFactory.getLogger(DebugPhaseListener.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final String KEY = DebugPhaseListener.class.getName() + "_ID_";
 

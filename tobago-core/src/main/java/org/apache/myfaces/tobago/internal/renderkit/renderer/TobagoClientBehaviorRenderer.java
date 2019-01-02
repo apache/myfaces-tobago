@@ -42,13 +42,14 @@ import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.PhaseId;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehaviorRenderer {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TobagoClientBehaviorRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   /**
    * In standard JSF this method returns a JavaScript string. Because of CSP, Tobago doesn't render JavaScript

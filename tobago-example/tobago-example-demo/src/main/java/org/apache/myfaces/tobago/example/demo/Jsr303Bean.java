@@ -27,12 +27,13 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.lang.invoke.MethodHandles;
 
 @RequestScoped
 @Named(value = "jsr303")
 public class Jsr303Bean {
 
-  private static final Logger LOG = LoggerFactory.getLogger(Jsr303Bean.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @NotNull
   private String required;

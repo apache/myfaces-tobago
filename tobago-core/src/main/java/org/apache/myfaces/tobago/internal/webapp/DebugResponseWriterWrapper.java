@@ -31,6 +31,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.lang.invoke.MethodHandles;
 import java.util.EmptyStackException;
 import java.util.HashSet;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
   private Stack<Object> stack = new Stack<>();
   private Set<MarkupLanguageAttributes> usedAttributes = new HashSet<>();
 
-  private static final Logger LOG = LoggerFactory.getLogger(DebugResponseWriterWrapper.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private final TobagoResponseWriter responseWriter;
 

@@ -25,6 +25,7 @@ import org.jsoup.safety.Whitelist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.invoke.MethodHandles;
 import java.util.Properties;
 
 /**
@@ -32,7 +33,7 @@ import java.util.Properties;
  */
 public class JsoupSanitizer implements Sanitizer {
 
-  private static final Logger LOG = LoggerFactory.getLogger(JsoupSanitizer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private Whitelist whitelist;
   private String whitelistName;

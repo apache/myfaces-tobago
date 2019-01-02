@@ -30,12 +30,13 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.nio.charset.StandardCharsets;
 
 @WebFilter(urlPatterns = "/*")
 public class FixCharacterEncodingFilter implements Filter {
 
-  private static final Logger LOG = LoggerFactory.getLogger(FixCharacterEncodingFilter.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public void init(final FilterConfig filterConfig) throws ServletException {

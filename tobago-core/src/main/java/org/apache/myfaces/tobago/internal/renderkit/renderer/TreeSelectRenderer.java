@@ -45,10 +45,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 
 public class TreeSelectRenderer extends RendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TreeSelectRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {

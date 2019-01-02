@@ -21,16 +21,12 @@ package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.model.TreePath;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class NavigationNode extends DefaultMutableTreeNode implements Comparable {
-
-  private static final Logger LOG = LoggerFactory.getLogger(NavigationNode.class);
 
   private final String name;
   private final String label;

@@ -31,6 +31,7 @@ import javax.faces.component.UIInput;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ import java.util.List;
 @Named
 public class InputSuggestController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(InputSuggestController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private String simpleValue;
   private String zipValue;

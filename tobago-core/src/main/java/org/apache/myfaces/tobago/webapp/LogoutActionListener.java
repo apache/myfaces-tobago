@@ -32,10 +32,11 @@ import javax.faces.event.ActionListener;
 import javax.portlet.PortletSession;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 
 public class LogoutActionListener implements ActionListener {
 
-  private static final Logger LOG = LoggerFactory.getLogger(LogoutActionListener.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public void processAction(final ActionEvent event) throws AbortProcessingException {

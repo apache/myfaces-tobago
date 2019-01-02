@@ -28,10 +28,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 
 public class OldLinksServlet extends HttpServlet {
 
-    private static final Logger LOG = LoggerFactory.getLogger(OldLinksServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @Override
     protected void doPost(final HttpServletRequest request,

@@ -38,11 +38,12 @@ import javax.faces.event.PreRenderViewEvent;
 import javax.faces.view.ViewDeclarationLanguage;
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
+import java.lang.invoke.MethodHandles;
 import java.util.Iterator;
 
 public class TobagoExceptionHandler extends ExceptionHandlerWrapper {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TobagoExceptionHandler.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private ExceptionHandler wrapped;
 

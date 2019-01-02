@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -36,7 +37,7 @@ import java.util.Stack;
  */
 public class TreeNodeDataModel extends TreeDataModel {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TreeNodeDataModel.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private TreeNode data;
   private int rowIndex = -1;

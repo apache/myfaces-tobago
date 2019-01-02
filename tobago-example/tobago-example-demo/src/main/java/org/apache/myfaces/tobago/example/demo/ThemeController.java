@@ -32,6 +32,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,7 @@ import java.util.List;
 @Named
 public class ThemeController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ThemeController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private Theme theme;
   private SelectItem[] themeItems;

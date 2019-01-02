@@ -26,6 +26,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +35,7 @@ import java.util.List;
 @Named
 public class ApiController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ApiController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private List<Release> releases;
   private boolean onlyCurrent = true;

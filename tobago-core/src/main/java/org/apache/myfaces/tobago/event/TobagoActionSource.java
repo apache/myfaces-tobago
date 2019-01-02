@@ -24,10 +24,11 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.component.ActionSource2;
 import javax.faces.el.MethodBinding;
+import java.lang.invoke.MethodHandles;
 
 public interface TobagoActionSource extends ActionSource2 {
 
-  Logger LOG = LoggerFactory.getLogger(TobagoActionSource.class);
+  Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   /**
    * @deprecated Replaced by ActionSource2.getActionExpression

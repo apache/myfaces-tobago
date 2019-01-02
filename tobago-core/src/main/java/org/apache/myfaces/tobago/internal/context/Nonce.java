@@ -26,10 +26,11 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 
 public class Nonce implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(Nonce.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final String KEY = Nonce.class.getName();
 

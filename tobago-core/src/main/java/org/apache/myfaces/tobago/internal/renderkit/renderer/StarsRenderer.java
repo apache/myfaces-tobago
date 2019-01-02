@@ -30,15 +30,12 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class StarsRenderer extends MessageLayoutRendererBase {
-  private static final Logger LOG = LoggerFactory.getLogger(StarsRenderer.class);
 
   @Override
   protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {

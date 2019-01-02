@@ -29,6 +29,7 @@ import javax.faces.component.UIInput;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +38,7 @@ import java.util.stream.Collectors;
 @Named
 public class SuggestController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SuggestController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private List<String> solarObjects;
   private String query;
   private String selection1;

@@ -34,6 +34,7 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -44,7 +45,7 @@ import java.util.stream.Collectors;
 @Named
 public class  SheetFilterController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SheetFilterController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Inject
   private AstroData astroData;

@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 
 /**
  * PRELIMINARY: MAY BE INTEGRATED IN THE {@link TobagoResponseWriter}
@@ -31,7 +32,7 @@ import java.io.IOException;
  */
 public class StyleRenderUtils {
 
-  private static final Logger LOG = LoggerFactory.getLogger(StyleRenderUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private StyleRenderUtils() {
     // to prevent instantiation

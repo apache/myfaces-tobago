@@ -32,6 +32,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -41,7 +42,7 @@ public class TobagoContext implements Serializable {
 
   public static final String BEAN_NAME = "tobagoContext";
 
-  private static final Logger LOG = LoggerFactory.getLogger(TobagoContext.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private Theme theme;
   private UserAgent userAgent;

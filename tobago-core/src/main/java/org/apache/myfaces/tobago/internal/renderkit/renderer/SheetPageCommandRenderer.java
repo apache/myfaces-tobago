@@ -19,11 +19,5 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class SheetPageCommandRenderer extends LinkRenderer {
-
-  private static final Logger LOG = LoggerFactory.getLogger(SheetPageCommandRenderer.class);
-
 }

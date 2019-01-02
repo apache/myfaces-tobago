@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @ApplicationScoped
 public class ActivityList implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ActivityList.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   // XXX using the session id as key is not good for applications with login, because the container should change
   // XXX the session id while the login process.

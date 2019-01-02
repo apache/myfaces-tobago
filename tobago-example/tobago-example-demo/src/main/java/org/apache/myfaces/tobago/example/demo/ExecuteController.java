@@ -25,12 +25,13 @@ import org.slf4j.LoggerFactory;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 
 @Named
 @SessionScoped
 public class ExecuteController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ExecuteController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private String value1;
   private String value2;

@@ -40,6 +40,7 @@ import javax.faces.event.ActionListener;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +50,7 @@ import java.util.List;
 public abstract class AbstractUITabGroup extends AbstractUIPanelBase
     implements TabChangeSource, TobagoActionSource, ClientBehaviorHolder {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUITabGroup.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public void encodeChildren(final FacesContext facesContext) throws IOException {

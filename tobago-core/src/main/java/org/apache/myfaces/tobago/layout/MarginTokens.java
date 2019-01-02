@@ -22,13 +22,14 @@ package org.apache.myfaces.tobago.layout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
 public class MarginTokens {
 
-  private static final Logger LOG = LoggerFactory.getLogger(MarginTokens.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private List<Margin> margins = new ArrayList<>();
 

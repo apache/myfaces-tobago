@@ -30,9 +30,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 
 public class DebugContentTypeFilter implements Filter {
-  private static final Logger LOG = LoggerFactory.getLogger(DebugContentTypeFilter.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public void init(final FilterConfig filterConfig) throws ServletException {

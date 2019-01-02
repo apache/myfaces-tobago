@@ -19,9 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.FacesEvent;
 import javax.inject.Named;
@@ -33,8 +30,6 @@ import java.util.Date;
 @SessionScoped
 @Named
 public class ProgressController implements Serializable {
-
-  private static final Logger LOG = LoggerFactory.getLogger(ProgressController.class);
 
   private DefaultBoundedRangeModel progress = new DefaultBoundedRangeModel(3, 0, 0, 5);
 

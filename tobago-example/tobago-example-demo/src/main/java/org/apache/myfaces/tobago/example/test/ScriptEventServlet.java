@@ -28,10 +28,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 
 public class ScriptEventServlet extends HttpServlet {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ScriptEventServlet.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   protected void doGet(final HttpServletRequest request, final HttpServletResponse response)

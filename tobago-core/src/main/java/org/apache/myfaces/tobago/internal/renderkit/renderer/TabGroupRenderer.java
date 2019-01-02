@@ -61,6 +61,7 @@ import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -68,7 +69,7 @@ import java.util.Map;
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public class TabGroupRenderer extends RendererBase implements ComponentSystemEventListener {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TabGroupRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final String ACTIVE_INDEX_POSTFIX = ComponentUtils.SUB_SEPARATOR + "activeIndex";
 

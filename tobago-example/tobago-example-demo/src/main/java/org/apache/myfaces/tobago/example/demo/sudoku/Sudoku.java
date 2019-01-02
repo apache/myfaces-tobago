@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.example.demo.sudoku;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
@@ -35,7 +36,7 @@ import java.util.Stack;
  */
 public class Sudoku {
 
-  private static final Logger LOG = LoggerFactory.getLogger(Sudoku.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final Random RANDOM = new Random(System.currentTimeMillis());
 

@@ -27,13 +27,14 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectMany;
 import javax.faces.context.FacesContext;
+import java.lang.invoke.MethodHandles;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectItemTagDeclaration}
  */
 public abstract class AbstractUISelectItem extends UISelectItem implements Visual {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUISelectItem.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private boolean itemValueLiteral;
 

@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Named;
+import java.lang.invoke.MethodHandles;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,7 +34,7 @@ import java.util.GregorianCalendar;
 @Named
 public class CurrentValueController {
 
-  private static final Logger LOG = LoggerFactory.getLogger(CurrentValueController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private String string;
   private Date date;

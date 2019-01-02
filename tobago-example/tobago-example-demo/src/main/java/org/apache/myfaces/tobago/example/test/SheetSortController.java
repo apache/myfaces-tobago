@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ import java.util.TimeZone;
 @Named
 public class SheetSortController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SheetSortController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private List<Entry> list;
 

@@ -32,6 +32,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Date;
@@ -40,7 +41,7 @@ import java.util.Date;
 @Named(value = "demoController")
 public class DemoController implements Serializable {
 
-  private static final Logger LOG = LoggerFactory.getLogger(DemoController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final Selectable[] TREE_SELECT_MODE_KEYS = {
       Selectable.none,
