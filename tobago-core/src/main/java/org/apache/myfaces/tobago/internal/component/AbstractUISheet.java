@@ -162,15 +162,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   /**
-   * @deprecated since 1.5.5, the name of this method is ambiguous. You may use {@link #getLastRowIndexOfCurrentPage()}.
-   */
-  @Deprecated
-  public int getLast() {
-    final int last = getFirst() + getRows();
-    return last < getRowCount() ? last : getRowCount();
-  }
-
-  /**
    * The rowIndex of the last row on the current page plus one (because of zero based iterating).
    *
    * @throws IllegalArgumentException If the number of rows in the model returned
@@ -203,15 +194,6 @@ public abstract class AbstractUISheet extends AbstractUIData
     } else {
       return first / rows;
     }
-  }
-
-  /**
-   * @return returns the current page (based by 1).
-   * @deprecated since 1.5.5, please use {@link #getCurrentPage()} which returns the value zero-based.
-   */
-  @Deprecated
-  public int getPage() {
-    return getCurrentPage() + 1;
   }
 
   /**

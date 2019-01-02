@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.internal.config.ContentSecurityPolicy;
 import org.apache.myfaces.tobago.internal.config.SecurityAnnotation;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 
-import javax.faces.application.ProjectStage;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import java.util.List;
@@ -47,8 +46,6 @@ public abstract class TobagoConfig {
   public abstract List<Theme> getSupportedThemes();
 
   public abstract Theme getDefaultTheme();
-
-  public abstract ProjectStage getProjectStage();
 
   public abstract boolean isCreateSessionSecret();
 

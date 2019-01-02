@@ -28,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.application.Application;
-import javax.faces.application.ProjectStage;
 import javax.faces.context.FacesContext;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
@@ -206,16 +205,6 @@ public class TobagoConfigImpl extends TobagoConfig {
 
   public Map<String, ThemeImpl> getAvailableThemes() {
     return availableThemes;
-  }
-
-  /**
-   * @deprecated since 4.0.0, use FacesContext.isProjectStage
-   * @return the ProjectStage
-   */
-  @Override
-  @Deprecated
-  public ProjectStage getProjectStage() {
-    return FacesContext.getCurrentInstance().getApplication().getProjectStage();
   }
 
   protected synchronized void initDefaultValidatorInfo() {
