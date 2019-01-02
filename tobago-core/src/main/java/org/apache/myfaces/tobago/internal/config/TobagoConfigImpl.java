@@ -208,7 +208,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   }
 
   /**
-   * @deprecated since 4.0.0, use FacesContext.isProjectStage
+   * @deprecated since 4.0.0, use {@link Application#getProjectStage}
    * @return the ProjectStage
    */
   @Override
