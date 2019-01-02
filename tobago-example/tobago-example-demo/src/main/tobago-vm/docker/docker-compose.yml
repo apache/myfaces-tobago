@@ -28,8 +28,6 @@ services:
       - demo-4-staging
       - demo-4-snapshot
       - demo-3-release
-      - demo-3-staging
-      - demo-3-snapshot
       - demo-2-release
       - demo-2-staging
       - demo-2-snapshot
@@ -47,8 +45,6 @@ services:
       - demo-4-staging
       - demo-4-snapshot
       - demo-3-release
-      - demo-3-staging
-      - demo-3-snapshot
       - demo-2-release
       - demo-2-staging
       - demo-2-snapshot
