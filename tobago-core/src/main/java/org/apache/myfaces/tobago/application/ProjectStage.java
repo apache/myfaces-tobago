@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.application;
 
 /**
- * @deprecated use javax.faces.application.ProjectStage
+ * @deprecated since 4.0.0, use {@link javax.faces.application.ProjectStage}
  */
 @Deprecated
 public enum ProjectStage {
