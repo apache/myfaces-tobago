@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasHelp;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
@@ -87,7 +88,7 @@ import javax.faces.component.UISelectOne;
 public interface SelectOneListboxTagDeclaration
     extends HasValidator, HasValue, HasValueChangeListener, HasTabIndex, IsFocus, IsVisual,
     HasValidatorMessage, HasConverterMessage, HasRequiredMessage, HasId, IsDisabled, IsReadonly, HasLabel, IsRendered,
-    HasBinding, HasTip, HasConverter, HasLabelLayout, HasSize {
+    HasBinding, HasTip, HasHelp, HasConverter, HasLabelLayout, HasSize {
 
   /**
    * Flag indicating that selecting an Item representing a Value is Required.

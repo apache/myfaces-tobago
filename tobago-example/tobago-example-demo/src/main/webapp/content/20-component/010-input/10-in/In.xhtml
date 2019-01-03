@@ -50,6 +50,12 @@
     <tc:button label="Submit"/>
   </tc:section>
 
+  <tc:section label="Help">
+    <p>A help text can be added with the <code>help</code> attribute.</p>
+    <pre><code class="language-markup">&lt;tc:in help="\#{inController.helpText}"/></code></pre>
+    <tc:in help="#{inController.helpText}"/>
+  </tc:section>
+
   <tc:section label="Password">
     <p>To create an inputfield for passwords, set the
       <code>password</code> attribute to 'true'. It will hide the text as shown in the following example.</p>

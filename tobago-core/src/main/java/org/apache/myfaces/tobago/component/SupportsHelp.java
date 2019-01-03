@@ -17,29 +17,9 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.component;
 
-import org.apache.myfaces.tobago.component.SupportsHelp;
-import org.apache.myfaces.tobago.component.SupportsLabelLayout;
-import org.apache.myfaces.tobago.component.Visual;
+public interface SupportsHelp {
 
-import javax.faces.component.UISelectMany;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import java.util.Collection;
-
-/**
- * Base class for multi select.
- */
-public abstract class AbstractUISelectManyBase extends UISelectMany
-    implements Visual, SupportsLabelLayout, ClientBehaviorHolder, SupportsHelp {
-
-  @Override
-  public Object[] getSelectedValues() {
-    final Object value = getValue();
-    if (value instanceof Collection) {
-      return ((Collection) value).toArray();
-    } else {
-      return (Object[]) value;
-    }
-  }
+  String getHelp();
 }

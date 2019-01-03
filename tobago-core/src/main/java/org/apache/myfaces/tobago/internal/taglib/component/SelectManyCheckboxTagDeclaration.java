@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasHelp;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
@@ -78,7 +79,7 @@ import javax.faces.component.UISelectMany;
             name = ClientBehaviors.BLUR)
     })
 public interface SelectManyCheckboxTagDeclaration extends
-    IsDisabled, HasId, HasTip, IsInline, HasRenderRange, IsRendered, IsRequiredForSelect,
+    IsDisabled, HasId, HasTip, HasHelp, IsInline, HasRenderRange, IsRendered, IsRequiredForSelect,
     HasBinding, IsReadonly, HasConverter, HasLabelLayout,
     HasLabel, HasValidator, HasValueChangeListener,
     HasValidatorMessage, HasConverterMessage, HasRequiredMessageForSelect, HasTabIndex, IsFocus, IsVisual {

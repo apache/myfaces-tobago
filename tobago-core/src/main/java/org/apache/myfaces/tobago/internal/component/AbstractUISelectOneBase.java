@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.SupportsHelp;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.MessageUtils;
@@ -31,7 +32,7 @@ import javax.faces.context.FacesContext;
  * Base class for select one.
  */
 public abstract class AbstractUISelectOneBase extends javax.faces.component.UISelectOne
-    implements Visual, SupportsLabelLayout, ClientBehaviorHolder {
+    implements Visual, SupportsLabelLayout, ClientBehaviorHolder, SupportsHelp {
 
   public static final String MESSAGE_VALUE_REQUIRED = "org.apache.myfaces.tobago.UISelectOne.REQUIRED";
 

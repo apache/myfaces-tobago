@@ -17,29 +17,17 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.internal.taglib.declaration;
 
-import org.apache.myfaces.tobago.component.SupportsHelp;
-import org.apache.myfaces.tobago.component.SupportsLabelLayout;
-import org.apache.myfaces.tobago.component.Visual;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-import javax.faces.component.UISelectMany;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import java.util.Collection;
+public interface HasHelp {
 
-/**
- * Base class for multi select.
- */
-public abstract class AbstractUISelectManyBase extends UISelectMany
-    implements Visual, SupportsLabelLayout, ClientBehaviorHolder, SupportsHelp {
-
-  @Override
-  public Object[] getSelectedValues() {
-    final Object value = getValue();
-    if (value instanceof Collection) {
-      return ((Collection) value).toArray();
-    } else {
-      return (Object[]) value;
-    }
-  }
+  /**
+   * Text value to display as a help.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute
+  void setHelp(String help);
 }
