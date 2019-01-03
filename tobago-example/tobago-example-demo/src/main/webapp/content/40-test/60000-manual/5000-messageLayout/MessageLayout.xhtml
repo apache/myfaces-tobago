@@ -27,10 +27,10 @@
 
   <tc:section label="Severity">
     <tc:in label="Vergleich"/>
-    <tc:in label="Fatal" validator="#{severityController.addFatal}"/>
-    <tc:in label="Error" validator="#{severityController.addError}"/>
-    <tc:in label="Warn" validator="#{severityController.addWarn}"/>
-    <tc:in label="Info" validator="#{severityController.addInfo}"/>
+    <tc:in label="Fatal" value="fatal" validator="#{severityController.addFatal}"/>
+    <tc:in label="Error" value="error" validator="#{severityController.addError}"/>
+    <tc:in label="Warn" value="warn" validator="#{severityController.addWarn}"/>
+    <tc:in label="Info" value="info" validator="#{severityController.addInfo}"/>
   </tc:section>
   <tc:section label="Multiple messages">
     <tc:in label="Two Errors" value="1">
