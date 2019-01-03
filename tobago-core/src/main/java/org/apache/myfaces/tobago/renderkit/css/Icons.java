@@ -45,6 +45,7 @@ public enum Icons implements CssItem {
   FORWARD,
   MINUS_SQUARE_O,
   PLUS_SQUARE_O,
+  QUESTION,
   SQUARE_O,
   STEP_BACKWARD,
   STEP_FORWARD;

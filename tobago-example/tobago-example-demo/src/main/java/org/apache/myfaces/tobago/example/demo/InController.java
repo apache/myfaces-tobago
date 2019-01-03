@@ -55,4 +55,8 @@ public class InController {
   public void setRequiredValue(String requiredValue) {
     this.requiredValue = requiredValue;
   }
+
+  public String getHelpText() {
+    return "Help text with a new\nline character.";
+  }
 }

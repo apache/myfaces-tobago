@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasHelp;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
@@ -77,7 +78,7 @@ import javax.faces.component.UIInput;
 public interface DateTagDeclaration
     extends HasAccessKey, HasValidator, HasValue, HasValueChangeListener, HasTabIndex, IsFocus, IsVisual,
     HasValidatorMessage, HasConverterMessage, HasRequiredMessage, HasIdBindingAndRendered, IsReadonly,
-    IsDisabled, HasConverter, HasLabel, HasLabelLayout,
+    IsDisabled, HasConverter, HasLabel, HasHelp, HasLabelLayout,
     HasTip, IsRequired, HasPlaceholder {
 
 }

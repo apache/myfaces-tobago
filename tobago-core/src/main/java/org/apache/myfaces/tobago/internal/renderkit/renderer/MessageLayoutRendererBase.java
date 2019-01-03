@@ -20,7 +20,10 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.LabelLayout;
+import org.apache.myfaces.tobago.component.SupportsHelp;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
+import org.apache.myfaces.tobago.context.TobagoResourceBundle;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -50,7 +53,7 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
       return; // skip, because this component is the label
     }
 
-    encodeBeginSurroundingMessage(facesContext, component);
+    encodeBeginMessagesContainer(facesContext, component);
     encodeBeginField(facesContext, component);
   }
 
@@ -66,29 +69,42 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
     }
 
     encodeEndField(facesContext, component);
-    encodeEndSurroundingMessage(facesContext, component);
+    encodeEndMessagesContainer(facesContext, component);
   }
 
-  protected void encodeBeginSurroundingMessage(final FacesContext facesContext, final UIComponent component)
+  private void encodeBeginMessagesContainer(final FacesContext facesContext, final UIComponent component)
       throws IOException {
-    final String clientId = component.getClientId();
-    final List<FacesMessage> messages = facesContext.getMessageList(clientId);
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    if (!messages.isEmpty()) {
+    final String clientId = component.getClientId();
+    final List<FacesMessage> messages = facesContext.getMessageList(clientId);
+    final String help = component instanceof SupportsHelp ? ((SupportsHelp) component).getHelp() : null;
+    final boolean hasMessage = !messages.isEmpty();
+    final boolean hasHelp = !StringUtils.isEmpty(help);
+
+    if (hasMessage || hasHelp) {
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(TobagoClass.MESSAGES__CONTAINER, TobagoClass.FLEX_LAYOUT, BootstrapClass.D_FLEX);
     }
   }
 
-  protected void encodeEndSurroundingMessage(final FacesContext facesContext, final UIComponent component)
+  private void encodeEndMessagesContainer(final FacesContext facesContext, final UIComponent component)
       throws IOException {
-    final String clientId = component.getClientId();
-    final List<FacesMessage> messages = facesContext.getMessageList(clientId);
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    if (!messages.isEmpty()) {
-      encodeMessages(writer, messages);
+    final String clientId = component.getClientId();
+    final List<FacesMessage> messages = facesContext.getMessageList(clientId);
+    final String help = component instanceof SupportsHelp ? ((SupportsHelp) component).getHelp() : null;
+    final boolean hasMessage = !messages.isEmpty();
+    final boolean hasHelp = !StringUtils.isEmpty(help);
+
+    if (hasMessage || hasHelp) {
+      if (hasMessage) {
+        encodeFacesMessagesButton(writer, messages);
+      }
+      if (hasHelp) {
+        encodeHelpButton(facesContext, writer, help);
+      }
       writer.endElement(HtmlElements.DIV);
     }
   }
@@ -97,7 +113,7 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
 
   protected abstract void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException;
 
-  private void encodeMessages(
+  private void encodeFacesMessagesButton(
       final TobagoResponseWriter writer, final List<FacesMessage> messages) throws IOException {
     writer.startElement(HtmlElements.A);
     writer.writeAttribute(HtmlAttributes.TABINDEX, "0", false);
@@ -189,10 +205,34 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
 
   private String getMessage(final List<FacesMessage> messages) {
     final StringBuilder stringBuilder = new StringBuilder();
+    boolean firstMessage = true;
     for (final FacesMessage message : messages) {
+      if (firstMessage) {
+        firstMessage = false;
+      } else {
+        stringBuilder.append("\n\n");
+      }
       stringBuilder.append(message.getDetail());
-      stringBuilder.append("\n\n");
     }
     return stringBuilder.toString();
+  }
+
+  private void encodeHelpButton(final FacesContext facesContext, final TobagoResponseWriter writer, final String help)
+      throws IOException {
+    writer.startElement(HtmlElements.A);
+    writer.writeAttribute(HtmlAttributes.TABINDEX, "0", false);
+    writer.writeAttribute(HtmlAttributes.ROLE, HtmlButtonTypes.BUTTON);
+    writer.writeClassAttribute(
+        TobagoClass.HELP__BUTTON,
+        BootstrapClass.BTN,
+        BootstrapClass.BTN_OUTLINE_INFO);
+    writer.writeAttribute(DataAttributes.TOGGLE, "popover", false);
+    writer.writeAttribute(HtmlAttributes.TITLE,
+        TobagoResourceBundle.getString(facesContext, "helpTitle"), true);
+    writer.writeAttribute(DataAttributes.CONTENT, help, true);
+    writer.startElement(HtmlElements.I);
+    writer.writeClassAttribute(Icons.FA, Icons.QUESTION);
+    writer.endElement(HtmlElements.I);
+    writer.endElement(HtmlElements.A);
   }
 }

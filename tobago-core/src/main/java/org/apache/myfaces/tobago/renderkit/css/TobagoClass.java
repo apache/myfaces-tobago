@@ -131,6 +131,7 @@ public enum TobagoClass implements CssItem {
   FORM("tobago-form"),
   GRID_LAYOUT("tobago-gridLayout"),
   HEADER("tobago-header"),
+  HELP__BUTTON("tobago-help-button"),
   IMAGE("tobago-image"),
   IN("tobago-in"),
   INPUT__GROUP__OUTER("tobago-input-group-outer"),

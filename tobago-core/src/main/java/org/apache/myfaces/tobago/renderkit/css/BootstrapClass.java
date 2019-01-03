@@ -88,6 +88,7 @@ public enum BootstrapClass implements CssItem {
   BTN_LIGHT("btn-light"),
   BTN_LINK("btn-link"),
   BTN_PRIMARY("btn-primary"),
+  BTN_OUTLINE_INFO("btn-outline-info"),
   BTN_SECONDARY("btn-secondary"),
   BTN_SUCCESS("btn-success"),
   BTN_TOOLBAR("btn-toolbar"),

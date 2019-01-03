@@ -86,4 +86,6 @@
   <entry key="browser.noframe.message.prefix">Your user agent does not support frames or is currently configured not to display frames. However, you may visit the related document manually: </entry>
   <entry key="browser.noframe.message.postfix"></entry>
 
+  <!-- context help -->
+  <entry key="helpTitle">Help</entry>
 </properties>
