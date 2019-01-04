@@ -66,8 +66,8 @@
         <tc:dataAttribute name="copy-clipboard-from" value="commandLine"/>
       </tc:button>
 
-      <tc:button label="HTTP" link="#{dockerController.url}"/>
-      <tc:button label="HTTPS" link="#{dockerController.sslUrl}" disabled="#{not dockerController.server.ssl}"/>
+      <tc:button label="Browse via HTTP" link="#{dockerController.url}"/>
+      <tc:button label="Browse via HTTPS" link="#{dockerController.sslUrl}" disabled="#{not dockerController.server.ssl}"/>
     </tc:box>
 
   </tc:section>

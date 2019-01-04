@@ -81,7 +81,10 @@ public class DockerController implements Serializable {
 
   public String getCommandLine() {
     final StringBuilder builder = new StringBuilder();
-    builder.append("mvn clean install -Djsf=provided\ndocker run -it --rm");
+    builder.append("mvn clean install");
+    builder.append(" -Pdev");
+    builder.append(server.getMavenOptions());
+    builder.append("\ndocker run -it --rm");
     builder.append(" -p ");
     builder.append(port);
     builder.append(":");

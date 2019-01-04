@@ -32,7 +32,6 @@
   -->
 
   <properties>
-    <openwebbeans.version>2.0.8</openwebbeans.version>
     <deltaspike.version>1.9.0</deltaspike.version>
     <selenium.version>3.12.0</selenium.version>
     <tomee.version>7.0.5</tomee.version>
@@ -327,6 +326,11 @@
           <artifactId>openwebbeans-resource</artifactId>
           <version>${openwebbeans.version}</version>
         </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-config-owb</artifactId>
+          <version>${project.version}</version>
+        </dependency>
 
       </dependencies>
     </profile>
@@ -379,6 +383,11 @@
           <artifactId>openwebbeans-resource</artifactId>
           <version>${openwebbeans.version}</version>
         </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-config-owb</artifactId>
+          <version>${project.version}</version>
+        </dependency>
 
       </dependencies>
     </profile>
@@ -430,6 +439,11 @@
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-resource</artifactId>
           <version>${openwebbeans.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-config-owb</artifactId>
+          <version>${project.version}</version>
         </dependency>
 
       </dependencies>
@@ -487,6 +501,11 @@
           <artifactId>openwebbeans-resource</artifactId>
           <version>${openwebbeans.version}</version>
         </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-config-owb</artifactId>
+          <version>${project.version}</version>
+        </dependency>
 
       </dependencies>
     </profile>
@@ -538,6 +557,11 @@
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-resource</artifactId>
           <version>${openwebbeans.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-config-owb</artifactId>
+          <version>${project.version}</version>
         </dependency>
 
       </dependencies>
@@ -591,6 +615,11 @@
           <artifactId>openwebbeans-resource</artifactId>
           <version>${openwebbeans.version}</version>
         </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-config-owb</artifactId>
+          <version>${project.version}</version>
+        </dependency>
 
       </dependencies>
     </profile>
@@ -643,6 +672,11 @@
           <artifactId>openwebbeans-resource</artifactId>
           <version>${openwebbeans.version}</version>
         </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-config-owb</artifactId>
+          <version>${project.version}</version>
+        </dependency>
 
       </dependencies>
     </profile>
@@ -694,6 +728,11 @@
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-resource</artifactId>
           <version>${openwebbeans.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-config-owb</artifactId>
+          <version>${project.version}</version>
         </dependency>
 
       </dependencies>
@@ -1133,6 +1172,11 @@
           <groupId>org.apache.tomcat</groupId>
           <artifactId>tomcat-jasper-el</artifactId>
           <version>${tomcat.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-config-myfaces</artifactId>
+          <version>${project.version}</version>
         </dependency>
       </dependencies>
 

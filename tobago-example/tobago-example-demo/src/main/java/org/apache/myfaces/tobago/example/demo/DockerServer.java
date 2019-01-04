@@ -23,6 +23,21 @@ import java.io.Serializable;
 
 public enum DockerServer implements Serializable {
 
+  tomcat(
+      "Tomcat",
+      "/usr/local/tomcat/webapps/demo.war",
+      8080,
+      0,
+      "tomcat",
+      new String[]{
+          "7-jre8",
+          "8-jre8",
+          "8-jre11",
+          "9-jre8",
+          "9-jre11"},
+      false,
+//    XXX JSTL is only needed, if jsf=mojarra... and Server = Tomcat
+      ""),
   tomee(
       "TomEE",
       "/usr/local/tomee/webapps/demo.war",
@@ -34,7 +49,8 @@ public enum DockerServer implements Serializable {
           "8-jre-7.0.5-plus",
           "8-jre-7.1.0-plus",
           "8-jre-8.0.0-M1-plus"},
-      false),
+      false,
+      " -Djsf=provided"),
   liberty(
       "Liberty",
       "/config/dropins/demo.war",
@@ -44,7 +60,8 @@ public enum DockerServer implements Serializable {
       new String[]{
           "webProfile7",
           "webProfile8"},
-      true),
+      true,
+      " -Djsf=provided"),
   wildfly(
       "Wildfly",
       "/opt/jboss/wildfly/standalone/deployments/demo.war",
@@ -60,7 +77,8 @@ public enum DockerServer implements Serializable {
           "13.0.0.Final",
           "14.0.1.Final"
       },
-      true);
+      true,
+      " -Djsf=provided");
 
   private String displayName;
   private String volume;
@@ -69,10 +87,11 @@ public enum DockerServer implements Serializable {
   private String image;
   private String[] tags;
   private boolean ssl;
+  private String mavenOptions;
 
   DockerServer(
       final String displayName, final String volume, final int port, final int sslPort,
-      final String image, final String[] tags, final boolean ssl) {
+      final String image, final String[] tags, final boolean ssl, final String mavenOptions) {
     this.displayName = displayName;
     this.volume = volume;
     this.port = port;
@@ -80,6 +99,7 @@ public enum DockerServer implements Serializable {
     this.image = image;
     this.tags = tags;
     this.ssl = ssl;
+    this.mavenOptions = mavenOptions;
   }
 
   public String getDisplayName() {
@@ -108,5 +128,9 @@ public enum DockerServer implements Serializable {
 
   public boolean isSsl() {
     return ssl;
+  }
+
+  public String getMavenOptions() {
+    return mavenOptions;
   }
 }

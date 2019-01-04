@@ -39,8 +39,9 @@
     <myfaces-test.version>1.0.8</myfaces-test.version>
     <mojarra20.version>2.0.11-04</mojarra20.version>
     <mojarra21.version>2.1.29-08</mojarra21.version>
-    <mojarra22.version>2.2.16</mojarra22.version>
+    <mojarra22.version>2.2.18</mojarra22.version>
     <mojarra23.version>2.3.3</mojarra23.version>
+    <openwebbeans.version>2.0.9</openwebbeans.version>
     <slf4j.version>1.7.25</slf4j.version>
     <logback.version>1.2.3</logback.version>
     <maven.compile.source>1.8</maven.compile.source>

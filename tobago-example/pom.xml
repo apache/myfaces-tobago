@@ -84,12 +84,9 @@
         <plugin>
           <groupId>org.eclipse.jetty</groupId>
           <artifactId>jetty-maven-plugin</artifactId>
-          <version>9.4.7.v20170914</version>
+          <version>9.4.14.v20181114</version>
           <configuration>
             <scanIntervalSeconds>5</scanIntervalSeconds>
-            <webAppConfig>
-              <overrideDescriptor>${override-web-xml}</overrideDescriptor>
-            </webAppConfig>
 <!--
             <systemProperties>
               <systemProperty>
@@ -166,17 +163,30 @@
     </dependency>
   </dependencies>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>jstl</artifactId>
-        <version>1.2</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <profiles>
+
+    <profile>
+      <id>dev</id>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-config-dev</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <!-- XXX JSTL is only needed, if jsf=mojarra... and Server = Tomcat-->
+    <profile>
+      <id>jstl</id>
+      <dependencies>
+        <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jstl</artifactId>
+          <version>1.2</version>
+        </dependency>
+      </dependencies>
+    </profile>
 
     <profile>
       <id>jsf-provided</id>
@@ -209,9 +219,6 @@
           <name>!jsf</name>
         </property>
       </activation>
-      <properties>
-        <override-web-xml>../src/test/jetty/override-myfaces-web.xml</override-web-xml>
-      </properties>
       <dependencies>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
@@ -224,6 +231,11 @@
           <artifactId>myfaces-impl</artifactId>
           <version>${myfaces20.version}</version>
           <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-config-myfaces</artifactId>
+          <version>${project.version}</version>
         </dependency>
       </dependencies>
     </profile>
@@ -236,9 +248,6 @@
           <value>myfaces-2.1</value>
         </property>
       </activation>
-      <properties>
-        <override-web-xml>../src/test/jetty/override-myfaces-web.xml</override-web-xml>
-      </properties>
       <dependencies>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
@@ -251,6 +260,11 @@
           <artifactId>myfaces-impl</artifactId>
           <version>${myfaces21.version}</version>
           <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-config-myfaces</artifactId>
+          <version>${project.version}</version>
         </dependency>
       </dependencies>
     </profile>
@@ -263,9 +277,6 @@
           <value>myfaces-2.2</value>
         </property>
       </activation>
-      <properties>
-        <override-web-xml>../src/test/jetty/override-myfaces-web.xml</override-web-xml>
-      </properties>
       <dependencies>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
@@ -278,6 +289,11 @@
           <artifactId>myfaces-impl</artifactId>
           <version>${myfaces22.version}</version>
           <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-config-myfaces</artifactId>
+          <version>${project.version}</version>
         </dependency>
       </dependencies>
     </profile>
@@ -290,9 +306,6 @@
           <value>myfaces-2.3</value>
         </property>
       </activation>
-      <properties>
-        <override-web-xml>../src/test/jetty/override-myfaces-web.xml</override-web-xml>
-      </properties>
       <dependencies>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
@@ -306,6 +319,11 @@
           <version>${myfaces23.version}</version>
           <scope>runtime</scope>
         </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-config-myfaces</artifactId>
+          <version>${project.version}</version>
+        </dependency>
       </dependencies>
     </profile>
 
@@ -317,9 +335,6 @@
           <value>mojarra-2.0</value>
         </property>
       </activation>
-      <properties>
-        <override-web-xml>../src/test/jetty/override-mojarra-web.xml</override-web-xml>
-      </properties>
       <dependencies>
         <dependency>
           <groupId>com.sun.faces</groupId>
@@ -334,8 +349,9 @@
           <scope>runtime</scope>
         </dependency>
         <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-config-mojarra</artifactId>
+          <version>${project.version}</version>
         </dependency>
       </dependencies>
     </profile>
@@ -348,9 +364,6 @@
           <value>mojarra-2.1</value>
         </property>
       </activation>
-      <properties>
-        <override-web-xml>../src/test/jetty/override-mojarra-web.xml</override-web-xml>
-      </properties>
       <dependencies>
         <dependency>
           <groupId>com.sun.faces</groupId>
@@ -365,8 +378,9 @@
           <scope>runtime</scope>
         </dependency>
         <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-config-mojarra</artifactId>
+          <version>${project.version}</version>
         </dependency>
       </dependencies>
     </profile>
@@ -379,9 +393,6 @@
           <value>mojarra-2.2</value>
         </property>
       </activation>
-      <properties>
-        <override-web-xml>../src/test/jetty/override-mojarra-web.xml</override-web-xml>
-      </properties>
       <dependencies>
         <dependency>
           <groupId>com.sun.faces</groupId>
@@ -396,8 +407,9 @@
           <scope>runtime</scope>
         </dependency>
         <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-config-mojarra</artifactId>
+          <version>${project.version}</version>
         </dependency>
       </dependencies>
     </profile>
@@ -410,15 +422,17 @@
           <value>mojarra-2.3</value>
         </property>
       </activation>
-      <properties>
-        <override-web-xml>../src/test/jetty/override-mojarra-web.xml</override-web-xml>
-      </properties>
       <dependencies>
         <dependency>
           <groupId>org.glassfish</groupId>
           <artifactId>javax.faces</artifactId>
           <version>${mojarra23.version}</version>
           <optional>true</optional>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-config-mojarra</artifactId>
+          <version>${project.version}</version>
         </dependency>
       </dependencies>
     </profile>
