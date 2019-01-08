@@ -135,10 +135,12 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
     }
 
     if (getFirst() >= getRowCount()) {
-      LOG.warn("Illegal paging state detected, first='{}' >= rowCount='{}'. Setting first to 0. "
-          + "This might happen because the data model has changed. "
-          + "You may want to manipulate the sheet state in your application after manipulating the model "
-          + "(e. g. filtering) to avoid this warning.", getFirst(), getRowCount());
+      if (getRowCount() > 0) {
+        LOG.warn("Illegal paging state detected, first='{}' >= rowCount='{}'. Setting first to 0. "
+            + "This might happen because the data model has changed. "
+            + "You may want to manipulate the sheet state in your application after manipulating the model "
+            + "(e. g. filtering) to avoid this warning.", getFirst(), getRowCount());
+      }
       setFirst(0);
     }
 
