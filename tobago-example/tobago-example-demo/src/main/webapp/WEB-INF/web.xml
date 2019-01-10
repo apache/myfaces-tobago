@@ -25,12 +25,8 @@
 
   <display-name>Tobago Demo Application</display-name>
 
-  <!-- for local development you can set a Maven profile with -Pdev to set the stage to Development -->
-  <context-param>
-    <param-name>javax.faces.PROJECT_STAGE</param-name>
-    <!--<param-value>Development</param-value>-->
-    <param-value>Production</param-value>
-  </context-param>
+  <!-- for local development you can set a Maven profile with -Pdev to set the
+  javax.faces.PROJECT_STAGE to Development -->
 
   <context-param>
     <param-name>com.sun.faces.validateXml</param-name>

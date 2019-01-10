@@ -86,35 +86,12 @@
           <artifactId>jetty-maven-plugin</artifactId>
           <version>9.4.14.v20181114</version>
           <configuration>
+            <!--
+            to run the webapp in jetty in development mode use
+            mvn clean jetty:run -Pdev
+             -->
             <scanIntervalSeconds>5</scanIntervalSeconds>
-<!--
-            <systemProperties>
-              <systemProperty>
-                <name>logback.configurationFile</name>
-                <value>/Users/lofwyr/t/logback.xml</value>
-              </systemProperty>
-              <systemProperty>
-                <name>java.util.logging.config.file</name>
-                <value>logging.properties</value>
-              </systemProperty>
-            </systemProperties>
--->
           </configuration>
-<!--
-          <dependencies>
-            <dependency>
-              <groupId>org.slf4j</groupId>
-              <artifactId>jul-to-slf4j</artifactId>
-              <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>ch.qos.logback</groupId>
-              <artifactId>logback-classic</artifactId>
-              <version>${logback.version}</version>
-              <scope>runtime</scope>
-            </dependency>
-          </dependencies>
--->
         </plugin>
       </plugins>
     </pluginManagement>
