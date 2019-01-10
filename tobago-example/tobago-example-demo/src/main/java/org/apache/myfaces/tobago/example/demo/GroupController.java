@@ -58,6 +58,7 @@ public class GroupController implements Serializable {
     sendTo = "";
     value = 1000.0;
     currency = Currency.getInstance("EUR");
+    compute();
   }
 
   public String getChatlog() {
