@@ -35,32 +35,6 @@ public class BeanComparator extends ComparatorBase implements Serializable {
 
   private String property;
 
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  public BeanComparator(final String property) {
-    this.property = property;
-  }
-
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  public BeanComparator(final String property, final boolean reverse) {
-    super(reverse);
-    this.property = property;
-  }
-
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  public BeanComparator(final String property, final Comparator comparator) {
-    super(comparator);
-    this.property = property;
-  }
-
   public BeanComparator(final String property, final Comparator comparator, final boolean reverse) {
     super(reverse, comparator);
     this.property = property;
