@@ -102,16 +102,21 @@ public class GroupController implements Serializable {
   }
 
   private void compute() {
-    if (currency.getCurrencyCode().equals("JPY")) {
-      valueInEuro = value * 0.00884806667;
-    } else if (currency.getCurrencyCode().equals("TTD")) {
-      valueInEuro = value * 0.133748824;
-    } else if (currency.getCurrencyCode().equals("USD")) {
-      valueInEuro = value * 0.896097495;
-    } else if (currency.getCurrencyCode().equals("EUR")) {
-      valueInEuro = value;
-    } else {
-      valueInEuro = 0;
+    switch (currency.getCurrencyCode()) {
+      case "JPY":
+        valueInEuro = value * 0.00884806667;
+        break;
+      case "TTD":
+        valueInEuro = value * 0.133748824;
+        break;
+      case "USD":
+        valueInEuro = value * 0.896097495;
+        break;
+      case "EUR":
+        valueInEuro = value;
+        break;
+      default:
+        throw new RuntimeException("Unsupported Currency: '" + currency.getCurrencyCode() + "'");
     }
     LOG.info("euro value: '{}', value: '{}', currency: '{}'", valueInEuro, value, currency.getCurrencyCode());
   }
