@@ -52,7 +52,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final String clientId = select.getClientId(facesContext);
-    final String fieldId = select.getFieldId(facesContext);
+    final String fieldId = getFieldId(facesContext, select);
     final Iterable<SelectItem> items = SelectItemUtils.getItemIterator(facesContext, select);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || select.isReadonly();

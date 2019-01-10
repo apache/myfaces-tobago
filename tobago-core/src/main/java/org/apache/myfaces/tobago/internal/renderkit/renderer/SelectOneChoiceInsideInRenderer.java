@@ -43,4 +43,9 @@ public class SelectOneChoiceInsideInRenderer extends SelectOneChoiceRenderer {
   protected CssItem[] getCssItems(final FacesContext facesContext, final UISelectOneChoice select) {
     return new CssItem[]{BootstrapClass.CUSTOM_SELECT};
   }
+
+  @Override
+  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
+    return component.getClientId(facesContext);
+  }
 }
