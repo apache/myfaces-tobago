@@ -21,8 +21,6 @@ package org.apache.myfaces.tobago.model;
 
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,8 +30,10 @@ public class SheetState implements Serializable, ScrollPositionState {
 
   private static final long serialVersionUID = 2L;
 
-  private static final Logger LOG = LoggerFactory.getLogger(SheetState.class);
-
+  /**
+   * @deprecated since 4.4.0
+   */
+  @Deprecated
   public static final String SEPARATOR = ",";
 
   private int first;
