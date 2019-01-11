@@ -21,21 +21,14 @@ package org.apache.myfaces.tobago.model;
 
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
-import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SheetState implements Serializable, ScrollPositionState {
 
   private static final long serialVersionUID = 2L;
-
-  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
-  public static final String SEPARATOR = ",";
 
   private int first;
   private String sortedColumnId;
