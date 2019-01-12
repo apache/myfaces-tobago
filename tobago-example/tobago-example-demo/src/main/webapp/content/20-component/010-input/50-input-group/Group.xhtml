@@ -66,7 +66,7 @@
     <tc:in id="inewmessage" value="#{groupController.newMessage}">
       <f:facet name="before">User Two</f:facet>
       <f:facet name="after">
-        <tc:button label="Send" action="#{groupController.sendChat}">
+        <tc:button id="sendButton" label="Send" action="#{groupController.sendChat}">
           <f:ajax execute="inewmessage" render="tachatlog inewmessage"/>
         </tc:button>
       </f:facet>
@@ -97,13 +97,13 @@
       <tc:in id="isendtoc" placeholder="type a message">
         <f:facet name="before">
           <tc:button id="lsendtoc" label="#{groupController.sendTo}" omit="true">
-            <tc:link label="SendTo: Peter">
+            <tc:link id="sendToPeter" label="SendTo: Peter">
               <f:ajax render="isendtoc" execute="isendtoc" listener="#{groupController.sendToListener}"/>
             </tc:link>
-            <tc:link label="SendTo: Bob">
+            <tc:link id="sendToBob" label="SendTo: Bob">
               <f:ajax render="isendtoc" execute="isendtoc" listener="#{groupController.sendToListener}"/>
             </tc:link>
-            <tc:link label="SendTo: All">
+            <tc:link id="sendToAll" label="SendTo: All">
               <f:ajax render="isendtoc" execute="isendtoc" listener="#{groupController.sendToListener}"/>
             </tc:link>
           </tc:button>
@@ -142,7 +142,7 @@
       <tc:in id="value" placeholder="type an amount" value="#{groupController.value}">
         <f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
         <f:facet name="after">
-          <tc:selectOneChoice value="#{groupController.currency}">
+          <tc:selectOneChoice id="currency" value="#{groupController.currency}">
             <tc:selectItems value="#{groupController.currencies}" var="currency"
                             itemValue="#{currency}" itemLabel="#{currency.displayName}"/>
             <f:ajax listener="#{groupController.compute}" render="valueInEuro" execute="value"/>

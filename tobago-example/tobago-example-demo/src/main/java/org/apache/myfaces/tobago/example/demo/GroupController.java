@@ -74,8 +74,19 @@ public class GroupController implements Serializable {
   }
 
   public void sendChat() {
-    chatlog += "\nUser Two: " + newMessage;
-    newMessage = "";
+    if (newMessage.equals("delete chat")) {
+      deleteChat();
+    } else {
+      if (!chatlog.isEmpty()) {
+        chatlog += "\n";
+      }
+      chatlog += "User Two: " + newMessage;
+      newMessage = "";
+    }
+  }
+
+  public void deleteChat() {
+    chatlog = "";
   }
 
   public String getSendTo() {
