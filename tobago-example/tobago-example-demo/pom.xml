@@ -39,6 +39,7 @@
     <tomcat.version>9.0.5</tomcat.version>
     <exec.version>1.6.0</exec.version>
     <finalName>tobago-example-demo</finalName>
+    <hibernate-validator.version>4.3.2.Final</hibernate-validator.version>
   </properties>
 
   <build>
@@ -208,14 +209,6 @@
       <!-- compile or provided depends on the used server -->
       <scope>provided</scope>
     </dependency>
-
-<!--
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-validator</artifactId>
-      <version>4.3.2.Final</version>
-    </dependency>
--->
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpcore</artifactId>
@@ -255,25 +248,21 @@
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-          <version>1.0.1</version>
           <scope>provided</scope>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-validation_1.1_spec</artifactId>
-          <version>1.0</version>
           <scope>provided</scope>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-atinject_1.0_spec</artifactId>
-          <version>1.0</version>
           <scope>provided</scope>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-interceptor_1.2_spec</artifactId>
-          <version>1.0</version>
           <scope>provided</scope>
         </dependency>
       </dependencies>
@@ -292,22 +281,18 @@
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-validation_1.1_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-atinject_1.0_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-interceptor_1.2_spec</artifactId>
-          <version>1.0</version>
         </dependency>
 
         <!-- OWB -->
@@ -330,6 +315,13 @@
           <groupId>org.apache.myfaces.tobago</groupId>
           <artifactId>tobago-config-owb</artifactId>
           <version>${project.version}</version>
+        </dependency>
+
+        <!-- JSR 303 -->
+        <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-validator</artifactId>
+          <version>${hibernate-validator.version}</version>
         </dependency>
 
       </dependencies>
@@ -349,22 +341,18 @@
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-validation_1.1_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-atinject_1.0_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-interceptor_1.2_spec</artifactId>
-          <version>1.0</version>
         </dependency>
 
         <!-- OWB -->
@@ -389,6 +377,12 @@
           <version>${project.version}</version>
         </dependency>
 
+        <!-- JSR 303 -->
+        <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-validator</artifactId>
+          <version>${hibernate-validator.version}</version>
+        </dependency>
       </dependencies>
     </profile>
 
@@ -406,22 +400,18 @@
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-validation_1.1_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-atinject_1.0_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-interceptor_1.2_spec</artifactId>
-          <version>1.0</version>
         </dependency>
 
         <!-- OWB -->
@@ -446,6 +436,12 @@
           <version>${project.version}</version>
         </dependency>
 
+        <!-- JSR 303 -->
+        <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-validator</artifactId>
+          <version>${hibernate-validator.version}</version>
+        </dependency>
       </dependencies>
     </profile>
 
@@ -467,22 +463,18 @@
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-validation_1.1_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-atinject_1.0_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-interceptor_1.2_spec</artifactId>
-          <version>1.0</version>
         </dependency>
 
         <!-- OWB -->
@@ -507,6 +499,12 @@
           <version>${project.version}</version>
         </dependency>
 
+        <!-- JSR 303 -->
+        <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-validator</artifactId>
+          <version>${hibernate-validator.version}</version>
+        </dependency>
       </dependencies>
     </profile>
 
@@ -524,22 +522,18 @@
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-validation_1.1_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-atinject_1.0_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-interceptor_1.2_spec</artifactId>
-          <version>1.0</version>
         </dependency>
 
         <!-- OWB -->
@@ -564,6 +558,12 @@
           <version>${project.version}</version>
         </dependency>
 
+        <!-- JSR 303 -->
+        <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-validator</artifactId>
+          <version>${hibernate-validator.version}</version>
+        </dependency>
       </dependencies>
     </profile>
 
@@ -581,22 +581,18 @@
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-validation_1.1_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-atinject_1.0_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-interceptor_1.2_spec</artifactId>
-          <version>1.0</version>
         </dependency>
 
         <!-- OWB -->
@@ -621,6 +617,12 @@
           <version>${project.version}</version>
         </dependency>
 
+        <!-- JSR 303 -->
+        <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-validator</artifactId>
+          <version>${hibernate-validator.version}</version>
+        </dependency>
       </dependencies>
     </profile>
 
@@ -638,22 +640,18 @@
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-validation_1.1_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-atinject_1.0_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-interceptor_1.2_spec</artifactId>
-          <version>1.0</version>
         </dependency>
 
         <!-- OWB -->
@@ -678,6 +676,12 @@
           <version>${project.version}</version>
         </dependency>
 
+        <!-- JSR 303 -->
+        <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-validator</artifactId>
+          <version>${hibernate-validator.version}</version>
+        </dependency>
       </dependencies>
     </profile>
 
@@ -695,22 +699,18 @@
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-validation_1.1_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-atinject_1.0_spec</artifactId>
-          <version>1.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-interceptor_1.2_spec</artifactId>
-          <version>1.0</version>
         </dependency>
 
         <!-- OWB -->
@@ -735,6 +735,12 @@
           <version>${project.version}</version>
         </dependency>
 
+        <!-- JSR 303 -->
+        <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-validator</artifactId>
+          <version>${hibernate-validator.version}</version>
+        </dependency>
       </dependencies>
     </profile>
 

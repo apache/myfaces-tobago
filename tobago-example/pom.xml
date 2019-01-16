@@ -481,27 +481,6 @@
       </build>
     </profile>
 
-<!-- TBD: be needed for which cases?
-    <profile>
-      <id>303off</id>
-      <dependencies>
-        <dependency>
-          <groupId>javax.validation</groupId>
-          <artifactId>validation-api</artifactId>
-          <version>1.0.0.GA</version>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-validator</artifactId>
-          <version>4.2.0.Final</version>
-          <scope>provided</scope>
-        </dependency>
-      </dependencies>
-    </profile>
--->
-
   </profiles>
-  
 
 </project>
