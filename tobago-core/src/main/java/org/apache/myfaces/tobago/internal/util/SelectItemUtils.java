@@ -23,6 +23,8 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
@@ -30,6 +32,7 @@ import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectItems;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -43,6 +46,8 @@ import java.util.NoSuchElementException;
  * Based on code from MyFaces core.
  */
 public class SelectItemUtils {
+
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   /**
    * Creates a list of SelectItems to use for rendering.
@@ -232,17 +237,21 @@ public class SelectItemUtils {
 
           // Spec: When iterating over the select items, toString()
           // must be called on the string rendered attribute values
-          Object itemLabel = ComponentUtils.getAttribute(currentUISelectItems, Attributes.itemLabel);
-          if (itemLabel == null) {
+          final Object itemLabelObject = ComponentUtils.getAttribute(currentUISelectItems, Attributes.itemLabel);
+          final String itemLabel;
+          if (itemLabelObject != null) {
+            itemLabel = itemLabelObject.toString();
+          } else if (itemValue != null) {
             itemLabel = itemValue.toString();
           } else {
-            itemLabel = itemLabel.toString();
+            LOG.warn("Label string can't be created!");
+            itemLabel = "???";
           }
           Object itemDescription = ComponentUtils.getAttribute(currentUISelectItems, Attributes.itemDescription);
           if (itemDescription != null) {
             itemDescription = itemDescription.toString();
           }
-          final Boolean itemDisabled
+          final boolean itemDisabled
               = ComponentUtils.getBooleanAttribute(currentUISelectItems, Attributes.itemDisabled, false);
           final String itemImage = ComponentUtils.getStringAttribute(currentUISelectItems, Attributes.itemImage);
           final Markup markup;
@@ -256,7 +265,7 @@ public class SelectItemUtils {
 // TBD ?
 //        Object noSelectionValue = attributeMap.get(NO_SELECTION_VALUE_PROP);
           item = new org.apache.myfaces.tobago.model.SelectItem(
-              itemValue, (String) itemLabel, (String) itemDescription, itemDisabled, itemImage, markup);
+              itemValue, itemLabel, (String) itemDescription, itemDisabled, itemImage, markup);
 
           // remove the value with the key from var from the request map, if previously written
           if (wroteRequestMapVarValue) {

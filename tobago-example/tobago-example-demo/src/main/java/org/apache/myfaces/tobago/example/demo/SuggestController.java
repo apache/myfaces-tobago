@@ -62,11 +62,14 @@ public class SuggestController implements Serializable {
 
   public List<String> getSolarObjects() {
     final String substring = query != null ? query : "";
-    LOG.info("Creating items for substring: '" + substring + "'");
-    return solarObjects.stream().filter(s -> StringUtils.containsIgnoreCase(s, substring)).collect(Collectors.toList());
+    final List<String> filtered =
+        solarObjects.stream().filter(s -> StringUtils.containsIgnoreCase(s, substring)).collect(Collectors.toList());
+    LOG.info("Found {} items for substring: '{}'", filtered.size(), substring);
+    return filtered;
   }
 
   public List<String> getAllSolarObjects() {
+    LOG.info("Found all {} items", solarObjects.size());
     return solarObjects;
   }
 
