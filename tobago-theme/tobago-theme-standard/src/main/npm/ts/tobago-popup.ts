@@ -15,17 +15,17 @@
  * limitations under the License.
  */
 
-Tobago.Popup = {};
+Tobago4.Popup = {};
 
 /**
  * Init popup for bootstrap
  */
-Tobago.Popup.init = function (elements) {
-
-  var popups = Tobago.Utils.selectWithJQuery(elements, ".modal");
+Tobago4.Popup.init = function (elements) {
+  elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
+  var popups = Tobago4.Utils.selectWithJQuery(elements, ".modal");
   popups.each(function () {
     var $popup = jQuery(this);
-    var $hidden = Tobago.Collapse.findHidden($popup);
+    var $hidden = Tobago4.Collapse.findHidden($popup);
     if ($hidden.val() == "false") {
       // XXX hack: this is needed for popups open by AJAX.
       // XXX currently the DOM replacement done by Tobago doesn't remove the modal-backdrop
@@ -38,24 +38,24 @@ Tobago.Popup.init = function (elements) {
   });
 };
 
-Tobago.Popup.close = function (button) {
+Tobago4.Popup.close = function (button) {
   jQuery(button).parents('.modal:first').modal("hide");
 
 };
 
-Tobago.registerListener(Tobago.Popup.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.Popup.init, Tobago.Phase.AFTER_UPDATE);
+Tobago.Listener.register(Tobago4.Popup.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.Listener.register(Tobago4.Popup.init, Tobago.Phase.AFTER_UPDATE);
 
-Tobago.Collapse = {};
+Tobago4.Collapse = {};
 
-Tobago.Collapse.findHidden = function ($element) {
-  return jQuery(Tobago.Utils.escapeClientId($element.attr("id") + "::collapse"));
+Tobago4.Collapse.findHidden = function ($element) {
+  return jQuery(Tobago4.Utils.escapeClientId($element.attr("id") + "::collapse"));
 };
 
-Tobago.Collapse.execute = function (collapse) {
+Tobago4.Collapse.execute = function (collapse) {
   var transition = collapse.transition;
-  var $for = jQuery(Tobago.Utils.escapeClientId(collapse.forId));
-  var $hidden = Tobago.Collapse.findHidden($for);
+  var $for = jQuery(Tobago4.Utils.escapeClientId(collapse.forId));
+  var $hidden = Tobago4.Collapse.findHidden($for);
   var isPopup = $for.hasClass("tobago-popup");
   var newCollapsed;
   switch (transition) {

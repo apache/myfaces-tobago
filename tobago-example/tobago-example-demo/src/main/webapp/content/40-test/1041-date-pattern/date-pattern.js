@@ -35,7 +35,7 @@ TestDateTime.init = function () {
     var pattern = javaFormatted.data("tobago-pattern");
     javaPattern.val(pattern);
 
-    var analyzed = Tobago.DateTime.analyzePattern(pattern);
+    var analyzed = Tobago4.DateTime.analyzePattern(pattern);
 
     jQueryUIDatePattern.val(analyzed.dateFormat);
     jQueryUITimePattern.val(analyzed.timeFormat);
@@ -110,4 +110,4 @@ TestDateTime.init = function () {
   }
 };
 
-Tobago.registerListener(TestDateTime.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.Listener.register(TestDateTime.init, Tobago.Phase.DOCUMENT_READY);

@@ -64,6 +64,6 @@
 
 }(jQuery));
 
-Tobago.registerListener(function() {
+Tobago.Listener.register(function() {
     jQuery("[data-color]").colored({resetColor: "#f8f8f8"});
 }, Tobago.Phase.DOCUMENT_READY);

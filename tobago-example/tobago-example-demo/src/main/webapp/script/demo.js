@@ -34,15 +34,21 @@ var initAlert = function () {
   jQuery("[data-alert-text]").alert();
 };
 
+// old
 Tobago.registerListener(initAlert, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(initAlert, Tobago.Phase.AFTER_UPDATE);
+
+// new
+// Tobago.Listener.register(initAlert, Tobago.Phase.DOCUMENT_READY);
+// Tobago.Listener.register(initAlert, Tobago.Phase.AFTER_UPDATE);
 
 var initInspect = function (elements) {
 
   jQuery("code").find("br").replaceWith("\n");
 
   // var tobagoElements = Tobago.Utils.selectWithJQuery(elements, ".tobago-in,.tobago-out,.tobago-date");
-  var tobagoElements = Tobago.Utils.selectWithJQuery(elements, ".tobago-flexLayout");
+  elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
+  var tobagoElements = Tobago4.Utils.selectWithJQuery(elements, ".tobago-flexLayout");
 
   // do highlighting with hovering only in the content-area
   tobagoElements = tobagoElements.filter(function () {
@@ -70,15 +76,15 @@ var initInspect = function (elements) {
   });
 };
 
-Tobago.registerListener(initInspect, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(initInspect, Tobago.Phase.AFTER_UPDATE);
+Tobago.Listener.register(initInspect, Tobago.Phase.DOCUMENT_READY);
+Tobago.Listener.register(initInspect, Tobago.Phase.AFTER_UPDATE);
 
 Demo.prismHighlight = function (elements) {
   // call highlighting again. (is called for all, not only for the elements, because it's easier to implement.)
   Prism.highlightAll();
 };
 
-Tobago.registerListener(Demo.prismHighlight, Tobago.Phase.AFTER_UPDATE);
+Tobago.Listener.register(Demo.prismHighlight, Tobago.Phase.AFTER_UPDATE);
 
 var initTestLinks = function () {
   var $runLink = jQuery("#page\\:header\\:runtest");
@@ -92,15 +98,15 @@ var initTestLinks = function () {
   }
 };
 
-Tobago.registerListener(initTestLinks, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(initTestLinks, Tobago.Phase.AFTER_UPDATE);
+Tobago.Listener.register(initTestLinks, Tobago.Phase.DOCUMENT_READY);
+Tobago.Listener.register(initTestLinks, Tobago.Phase.AFTER_UPDATE);
 
 var initTestframe = function () {
   jQuery("#page\\:testframe").attr("onload", "this.height = this.contentWindow.jQuery('body').prop('scrollHeight');");
 };
 
-Tobago.registerListener(initTestframe, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(initTestframe, Tobago.Phase.AFTER_UPDATE);
+Tobago.Listener.register(initTestframe, Tobago.Phase.DOCUMENT_READY);
+Tobago.Listener.register(initTestframe, Tobago.Phase.AFTER_UPDATE);
 
 Demo.initGoogleSearch = function () {
   var $input = jQuery("#page\\:search\\:searchField");
@@ -118,8 +124,8 @@ Demo.initGoogleSearch = function () {
   });
 };
 
-Tobago.registerListener(Demo.initGoogleSearch, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Demo.initGoogleSearch, Tobago.Phase.AFTER_UPDATE);
+Tobago.Listener.register(Demo.initGoogleSearch, Tobago.Phase.DOCUMENT_READY);
+Tobago.Listener.register(Demo.initGoogleSearch, Tobago.Phase.AFTER_UPDATE);
 
 Demo.initMailTo = function () {
   var $command = jQuery("[href^=mailto]");
@@ -130,5 +136,5 @@ Demo.initMailTo = function () {
   });
 };
 
-Tobago.registerListener(Demo.initMailTo, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Demo.initMailTo, Tobago.Phase.AFTER_UPDATE);
+Tobago.Listener.register(Demo.initMailTo, Tobago.Phase.DOCUMENT_READY);
+Tobago.Listener.register(Demo.initMailTo, Tobago.Phase.AFTER_UPDATE);

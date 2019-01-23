@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-Tobago.Jsf = {
+Tobago4.Jsf = {
   VIEW_STATE: "javax.faces.ViewState",
   CLIENT_WINDOW: "javax.faces.ClientWindow",
   VIEW_ROOT: "javax.faces.ViewRoot",
@@ -23,11 +23,11 @@ Tobago.Jsf = {
   VIEW_BODY: "javax.faces.ViewBody",
   isId: function (id) {
     switch (id) {
-      case Tobago.Jsf.VIEW_STATE:
-      case Tobago.Jsf.CLIENT_WINDOW:
-      case Tobago.Jsf.VIEW_ROOT:
-      case Tobago.Jsf.VIEW_HEAD:
-      case Tobago.Jsf.VIEW_BODY:
+      case Tobago4.Jsf.VIEW_STATE:
+      case Tobago4.Jsf.CLIENT_WINDOW:
+      case Tobago4.Jsf.VIEW_ROOT:
+      case Tobago4.Jsf.VIEW_HEAD:
+      case Tobago4.Jsf.VIEW_BODY:
         return false;
       default:
         return true;
@@ -35,8 +35,8 @@ Tobago.Jsf = {
   },
   isBody: function (id) {
     switch (id) {
-      case Tobago.Jsf.VIEW_ROOT:
-      case Tobago.Jsf.VIEW_BODY:
+      case Tobago4.Jsf.VIEW_ROOT:
+      case Tobago4.Jsf.VIEW_BODY:
         return true;
       default:
         return false;
@@ -44,7 +44,7 @@ Tobago.Jsf = {
   }
 };
 
-Tobago.Jsf.init = function() {
+Tobago4.Jsf.init = function() {
   jsf.ajax.addOnEvent(function (event) {
     console.timeEnd("x"); // @DEV_ONLY
     console.time("x"); // @DEV_ONLY
@@ -55,21 +55,21 @@ Tobago.Jsf.init = function() {
       jQuery(event.responseXML).find("update").each(function () {
         var id = jQuery(this).attr("id");
         console.info("Update after jsf.ajax success: id='" + id + "'"); // @DEV_ONLY
-        var newElement;
-        if (Tobago.Jsf.isId(id)) {
-          console.log("updating id: " + id);// @DEV_ONLY
-          newElement = jQuery(Tobago.Utils.escapeClientId(id));
-        } else if (Tobago.Jsf.isBody(id)) {
-          console.log("updating body");// @DEV_ONLY
-          newElement = jQuery(".tobago-page");
-        }
-        if (newElement) {
+        if (Tobago4.Jsf.isId(id)) {
+          console.debug("updating id: " + id);// @DEV_ONLY
+          Tobago.Listener.executeAfterUpdate(document.getElementById(id));
+        } else if (Tobago4.Jsf.isBody(id)) {
+          console.debug("updating body");// @DEV_ONLY
+          // there should be only one element with this class
+          Tobago.Listener.executeAfterUpdate(document.querySelector<HTMLElement>(".tobago-page"));
+/*
           for (var order = 0; order < Tobago.listeners.afterUpdate.length; order++) {
             var list = Tobago.listeners.afterUpdate[order];
             for (var i = 0; i < list.length; i++) {
               list[i](newElement);
             }
           }
+*/
         }
       });
     } else if (event.status === "complete") {
@@ -77,10 +77,10 @@ Tobago.Jsf.init = function() {
       jQuery(event.responseXML).find("update").each(function () {
         var updateId = jQuery(this).attr("id");
         if ("javax.faces.ViewState" !== updateId) {
-          var oldElement = jQuery(Tobago.Utils.escapeClientId(updateId));
+          var oldElement = jQuery(Tobago4.Utils.escapeClientId(updateId));
           console.info("Update after jsf.ajax complete: id='" + oldElement.attr("id") + "'"); // @DEV_ONLY
           if (oldElement.data("tobago-partial-overlay-set")) {
-            oldElement.overlay("destroy")
+            oldElement.overlay("destroy");
           }
         }
       });
@@ -88,4 +88,4 @@ Tobago.Jsf.init = function() {
   });
 };
 
-Tobago.registerListener(Tobago.Jsf.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.Listener.register(Tobago4.Jsf.init, Tobago.Phase.DOCUMENT_READY);

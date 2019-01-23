@@ -54,6 +54,6 @@ module Demo.ToClipboardButton {
     )
   };
 
-  Tobago.registerListener(init, Tobago.Phase.DOCUMENT_READY);
-  Tobago.registerListener(init, Tobago.Phase.AFTER_UPDATE);
+  Tobago.Listener.register(init, Tobago.Phase.DOCUMENT_READY);
+  Tobago.Listener.register(init, Tobago.Phase.AFTER_UPDATE);
 }

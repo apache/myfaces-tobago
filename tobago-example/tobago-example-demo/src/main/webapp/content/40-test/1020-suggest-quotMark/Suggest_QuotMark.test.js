@@ -62,6 +62,6 @@ function testMarsBasics(assert, inputString, expectedLength) {
 }
 
 function getSuggestions(id) {
-  return jQueryFrameFn(Tobago.Utils.escapeClientId(
+  return jQueryFrameFn(Tobago4.Utils.escapeClientId(
       jQueryFrame(id + " .tobago-suggest").attr("id") + "::popup") + " .tt-suggestion");
 }

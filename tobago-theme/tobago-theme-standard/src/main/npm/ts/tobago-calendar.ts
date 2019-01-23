@@ -15,17 +15,17 @@
  * limitations under the License.
  */
 
-Tobago.DateTime = {};
+Tobago4.DateTime = {};
 
-Tobago.DateTime.init = function (elements) {
-
-  Tobago.Utils.selectWithJQuery(elements, ".tobago-date")
+Tobago4.DateTime.init = function (elements) {
+  elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
+  Tobago4.Utils.selectWithJQuery(elements, ".tobago-date")
       .not("[disabled]")
       .not("[readonly]")
       .each(function () {
         var $date = jQuery(this);
 
-        var analyzed = Tobago.DateTime.analyzePattern($date.data("tobago-pattern"));
+        var analyzed = Tobago4.DateTime.analyzePattern($date.data("tobago-pattern"));
         var options = {
           format: analyzed,
           icons: {
@@ -97,7 +97,7 @@ Tobago.DateTime.init = function (elements) {
                     render: commands.change.render
                   });
             } else if (commands.change.action) {
-              Tobago.submitAction(this.firstElementChild, commands.change.action, commands.change);
+              Tobago4.submitAction(this.firstElementChild, commands.change.action, commands.change);
             }
           }
         });
@@ -125,12 +125,12 @@ Tobago.DateTime.init = function (elements) {
               'left': left + 'px'
             });
           }
-          Tobago.DateTime.addPastClass($date);
+          Tobago4.DateTime.addPastClass($date);
         });
 
         // set css class in update - like changing the month
         $date.parent().on('dp.update', function () {
-          Tobago.DateTime.addPastClass($date);
+          Tobago4.DateTime.addPastClass($date);
         });
 
         // fix for bootstrap-datetimepicker v4.17.45
@@ -146,7 +146,7 @@ Tobago.DateTime.init = function (elements) {
       });
 };
 
-Tobago.DateTime.addPastClass = function ($date) {
+Tobago4.DateTime.addPastClass = function ($date) {
   var today = $date.data("tobago-today");
   if (today.length === 10) {
     var todayArray = today.split("-");
@@ -172,7 +172,7 @@ Tobago.DateTime.addPastClass = function ($date) {
  and convert it to 'moment.js'.
  Attention: Not every pattern char is supported.
  */
-Tobago.DateTime.analyzePattern = function (pattern) {
+Tobago4.DateTime.analyzePattern = function (pattern) {
 
   if (!pattern || pattern.length > 100) {
     console.warn("Pattern not supported: " + pattern);  // @DEV_ONLY
@@ -182,11 +182,11 @@ Tobago.DateTime.analyzePattern = function (pattern) {
   var analyzedPattern = "";
   var nextSegment = "";
   var escMode = false;
-  for (i = 0; i < pattern.length; i++) {
+  for (var i = 0; i < pattern.length; i++) {
     var currentChar = pattern.charAt(i);
     if (currentChar == "'" && escMode == false) {
       escMode = true;
-      analyzedPattern += Tobago.DateTime.analyzePatternPart(nextSegment);
+      analyzedPattern += Tobago4.DateTime.analyzePatternPart(nextSegment);
       nextSegment = "";
     } else if (currentChar == "'" && pattern.charAt(i + 1) == "'") {
       if (escMode) {
@@ -209,14 +209,14 @@ Tobago.DateTime.analyzePattern = function (pattern) {
     if (escMode) {
       analyzedPattern += nextSegment;
     } else {
-      analyzedPattern += Tobago.DateTime.analyzePatternPart(nextSegment);
+      analyzedPattern += Tobago4.DateTime.analyzePatternPart(nextSegment);
     }
   }
 
   return analyzedPattern;
 };
 
-Tobago.DateTime.analyzePatternPart = function (pattern) {
+Tobago4.DateTime.analyzePatternPart = function (pattern) {
 
   if (pattern.search("G") > -1 || pattern.search("W") > -1 || pattern.search("F") > -1
       || pattern.search("K") > -1 || pattern.search("z") > -1 || pattern.search("X") > -1) {
@@ -289,5 +289,5 @@ Tobago.DateTime.analyzePatternPart = function (pattern) {
   return pattern;
 };
 
-Tobago.registerListener(Tobago.DateTime.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.DateTime.init, Tobago.Phase.AFTER_UPDATE);
+Tobago.Listener.register(Tobago4.DateTime.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.Listener.register(Tobago4.DateTime.init, Tobago.Phase.AFTER_UPDATE);

@@ -15,10 +15,11 @@
  * limitations under the License.
  */
 
-Tobago.Stars = {};
+Tobago4.Stars = {};
 
-Tobago.Stars.init = function (elements) {
-  var starComponents = Tobago.Utils.selectWithJQuery(elements, ".tobago-stars");
+Tobago4.Stars.init = function (elements) {
+  elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
+  var starComponents = Tobago4.Utils.selectWithJQuery(elements, ".tobago-stars");
   starComponents.each(function () {
     var $starComponent = jQuery(this);
 
@@ -43,7 +44,7 @@ Tobago.Stars.init = function (elements) {
     }
 
     if ($hiddenInput.val() > 0) {
-      var percentValue = 100 * $hiddenInput.val() / max;
+      var percentValue = 100 * ($hiddenInput.val() as number) / max;
       $selected.css("width", percentValue + "%");
       $unselected.css("left", percentValue + "%");
       $unselected.css("width", 100 - percentValue + "%");
@@ -85,6 +86,7 @@ Tobago.Stars.init = function (elements) {
       $slider.on('touchstart touchmove', function (event) {
         /* Workaround for Safari browser on iPhone */
         var sliderValue = (event.target.max / event.target.offsetWidth)
+            // @ts-ignore
             * (event.originalEvent.touches[0].pageX - $slider.offset().left);
         if (sliderValue > event.target.max) {
           $slider.val(event.target.max);
@@ -103,10 +105,10 @@ Tobago.Stars.init = function (elements) {
 
       if ($slider.val() > 0) {
         $tooltip.removeClass("trash");
-        $tooltip.text(Number((5 * $slider.val() / max).toFixed(2)));
+        $tooltip.text(Number((5 * ($slider.val() as number) / max).toFixed(2)));
 
         $preselected.addClass("show");
-        $preselected.css("width", (100 * $slider.val() / max) + "%");
+        $preselected.css("width", (100 * ($slider.val() as number) / max) + "%");
       } else {
         $tooltip.text("");
         $tooltip.addClass("trash");
@@ -127,7 +129,7 @@ Tobago.Stars.init = function (elements) {
       if ($slider.val() > 0) {
         $selected.removeClass("tobago-placeholder");
 
-        var percentValue = 100 * $slider.val() / max;
+        var percentValue = 100 * ($slider.val() as number) / max;
         $selected.css("width", percentValue + "%");
         $unselected.css("left", percentValue + "%");
         $unselected.css("width", 100 - percentValue + "%");
@@ -154,5 +156,5 @@ Tobago.Stars.init = function (elements) {
   });
 };
 
-Tobago.registerListener(Tobago.Stars.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.Stars.init, Tobago.Phase.AFTER_UPDATE);
+Tobago.Listener.register(Tobago4.Stars.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.Listener.register(Tobago4.Stars.init, Tobago.Phase.AFTER_UPDATE);

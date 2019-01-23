@@ -32,6 +32,7 @@
     <frontend.skip>false</frontend.skip>
   </properties>
 
+<!--
   <build>
     <plugins>
       <plugin>
@@ -46,7 +47,7 @@
             <configuration>
               <target>
                 <concat destfile="${project.build.directory}/javascript-min/tobago.min.js" force="no">
-                  <filelist dir="${basedir}/src/main/resources/META-INF/resources/tobago/${theme.name}/tobago-bootstrap/_version/js"
+                  <filelist dir="${basedir}/target/npm/js"
                             files="tobago-myfaces.js,tobago-deltaspike.js,tobago.js,tobago-dropdown.js,tobago-calendar.js,tobago-command.js,tobago-file.js,tobago-in.js,tobago-jsf.js,tobago-layout.js,tobago-overlay.js,tobago-panel.js,tobago-popover.js,tobago-popup.js,tobago-select.js,tobago-sheet.js,tobago-stars.js,tobago-suggest.js,tobago-tab.js,tobago-tree.js,tobago-utils.js" />
                 </concat>
                 <replaceregexp match="^.*//.*@DEV_ONLY.*$" replace="" byline="true">
@@ -82,9 +83,9 @@
               <arguments>
                 <argument>-jar</argument>
                 <argument>lib/compiler-20120430.jar</argument>
-                <argument>--js</argument>
+                <argument>&#45;&#45;js</argument>
                 <argument>${project.build.directory}/javascript-min/tobago.min.js</argument>
-                <argument>--js_output_file</argument>
+                <argument>&#45;&#45;js_output_file</argument>
                 <argument>target/classes/META-INF/resources/tobago/${theme.name}/tobago-bootstrap/${project.version}/js/tobago.min.js</argument>
               </arguments>
             </configuration>
@@ -93,6 +94,7 @@
       </plugin>
     </plugins>
   </build>
+-->
 
   <dependencies>
     <dependency>

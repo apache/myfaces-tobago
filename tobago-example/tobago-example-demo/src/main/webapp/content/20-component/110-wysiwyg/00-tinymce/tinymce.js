@@ -26,9 +26,9 @@
         return;
       }
       tinymce.init({
-        selector: Tobago.Utils.escapeClientId(this.element.attr("id")),
+        selector: Tobago4.Utils.escapeClientId(this.element.attr("id")),
         init_instance_callback: function (editor) {
-          var textarea = jQuery(Tobago.Utils.escapeClientId(editor.id));
+          var textarea = jQuery(Tobago4.Utils.escapeClientId(editor.id));
           var editorContainer = jQuery(editor.editorContainer);
 
           editorContainer.css("height", textarea.css("height"));
@@ -70,6 +70,6 @@
 
 }(jQuery));
 
-Tobago.registerListener(function () {
+Tobago.Listener.register(function () {
   jQuery("[data-html-editor]").htmlEditor();
 }, Tobago.Phase.DOCUMENT_READY);

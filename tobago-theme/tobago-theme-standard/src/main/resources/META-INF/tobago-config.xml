@@ -64,11 +64,11 @@
           <script name="/webjars/Eonasdan-bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-myfaces.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-deltaspike.js"/>
+          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-listener.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-dropdown.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-calendar.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-command.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-console.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-file.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-in.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-jsf.js"/>

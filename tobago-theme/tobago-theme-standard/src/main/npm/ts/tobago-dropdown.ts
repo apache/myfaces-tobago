@@ -15,9 +15,10 @@
  * limitations under the License.
  */
 
-Tobago.Dropdown = {};
+Tobago4.Dropdown = {};
 
-Tobago.Dropdown.init = function (elements) {
+Tobago4.Dropdown.init = function (elements) {
+  elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
   var $dropdownMenus = jQuery(":not(.tobago-page-menuStore) > .dropdown-menu");
   var $tobagoPageMenuStore = jQuery(".tobago-page-menuStore");
 
@@ -25,7 +26,8 @@ Tobago.Dropdown.init = function (elements) {
     var $dropdownMenu = jQuery(this);
     var $parent = $dropdownMenu.parent();
 
-    if (!$parent.hasClass('tobago-dropdown-submenu') && !$parent.closest('.navbar').length > 0) {
+    if (!$parent.hasClass('tobago-dropdown-submenu')
+        && $parent.closest('.navbar').length === 0) {
 
       // remove duplicated dropdown menus from menu store
       // this could happen if the dropdown component is updated by ajax
@@ -63,5 +65,5 @@ function getIds($dropdownMenu) {
   });
 }
 
-Tobago.registerListener(Tobago.Dropdown.init, Tobago.Phase.DOCUMENT_READY, Tobago.Phase.Order.NORMAL);
-Tobago.registerListener(Tobago.Dropdown.init, Tobago.Phase.AFTER_UPDATE, Tobago.Phase.Order.NORMAL);
+Tobago.Listener.register(Tobago4.Dropdown.init, Tobago.Phase.DOCUMENT_READY, Tobago.Order.NORMAL);
+Tobago.Listener.register(Tobago4.Dropdown.init, Tobago.Phase.AFTER_UPDATE, Tobago.Order.NORMAL);

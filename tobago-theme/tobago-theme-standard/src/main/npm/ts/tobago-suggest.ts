@@ -15,15 +15,15 @@
  * limitations under the License.
  */
 
-Tobago.Suggest = {};
+Tobago4.Suggest = {};
 
-Tobago.Suggest.loadFromServer = function (input) {
+Tobago4.Suggest.loadFromServer = function (input) {
 
   var timeout;
 
   return function findMatches(query, syncResults, asyncResults) {
 
-    var suggest = jQuery(Tobago.Utils.escapeClientId(input.data("tobago-suggest-for")));
+    var suggest = jQuery(Tobago4.Utils.escapeClientId(input.data("tobago-suggest-for")));
 
     if (suggest.val() !== query) {
 
@@ -31,13 +31,13 @@ Tobago.Suggest.loadFromServer = function (input) {
         clearTimeout(timeout);
       }
 
-      var delay = suggest.data("tobago-suggest-delay");
+      const delay = suggest.data("tobago-suggest-delay");
 
       timeout = setTimeout(function () {
         suggest.val(query);
         suggest.data("tobago-suggest-callback", asyncResults);
         suggest.removeData("tobago-suggest-data"); // clear jQuery-data-cache
-        var id = suggest.attr("id");
+        const id = suggest.attr("id");
         console.info("query: '" + query + "'"); // @DEV_ONLY
 
         jsf.ajax.request(
@@ -54,10 +54,10 @@ Tobago.Suggest.loadFromServer = function (input) {
   };
 };
 
-Tobago.Suggest.fromClient = function (data) {
+Tobago4.Suggest.fromClient = function (data) {
   return function findMatches(query, syncResults) {
     var result = [];
-    for (i = 0; i < data.length; i++) {
+    for (var i = 0; i < data.length; i++) {
       if (data[i].indexOf(query) >= 0) {
         result.push(data[i]);
       }
@@ -66,13 +66,11 @@ Tobago.Suggest.fromClient = function (data) {
   };
 };
 
-Tobago.Suggest.init = function (elements) {
+Tobago4.Suggest.init = function (element: HTMLElement | HTMLDocument) {
 
-  var suggests = Tobago.Utils.selectWithJQuery(elements, ".tobago-suggest");
-
-  suggests.each(function () {
+  Tobago4.Utils.selectWithJQuery($(element), ".tobago-suggest").each(function () {
     var $suggest = jQuery(this);
-    var $input = jQuery(Tobago.Utils.escapeClientId($suggest.data("tobago-suggest-for")));
+    var $input = jQuery(Tobago4.Utils.escapeClientId($suggest.data("tobago-suggest-for")));
 
     var minChars = $suggest.data("tobago-suggest-min-chars");
     var maxItems = $suggest.data("tobago-suggest-max-items");
@@ -81,9 +79,9 @@ Tobago.Suggest.init = function (elements) {
     var totalCount = $suggest.data("tobago-suggest-total-count"); // todo
 
     var localMenu = false;
-    var dataTobagoMarkup = jQuery(Tobago.Utils.escapeClientId($input.attr("name"))).attr("data-tobago-markup");
+    var dataTobagoMarkup = jQuery(Tobago4.Utils.escapeClientId($input.attr("name"))).attr("data-tobago-markup");
     if (dataTobagoMarkup !== undefined) {
-      var markups = jQuery.parseJSON(jQuery(Tobago.Utils.escapeClientId($input.attr("name"))).attr("data-tobago-markup"));
+      var markups = jQuery.parseJSON(jQuery(Tobago4.Utils.escapeClientId($input.attr("name"))).attr("data-tobago-markup"));
       markups.forEach(function (markup) {
         if (markup === "localMenu") {
           localMenu = true;
@@ -103,14 +101,10 @@ Tobago.Suggest.init = function (elements) {
 
       var source;
       if (update) {
-        source = Tobago.Suggest.loadFromServer($input);
+        source = Tobago4.Suggest.loadFromServer($input);
       } else {
         var data2 = $suggest.data("tobago-suggest-data");
-        source = Tobago.Suggest.fromClient(data2);
-      }
-
-      function getSuggestPopup(suggest) {
-        return jQuery(Tobago.Utils.escapeClientId(suggest.attr('id') + "::popup"));
+        source = Tobago4.Suggest.fromClient(data2);
       }
 
       var $suggestPopup = getSuggestPopup($suggest);
@@ -141,16 +135,20 @@ Tobago.Suggest.init = function (elements) {
         if ($suggest.length === 0) {
           $suggest = $input.parent().parent().parent().siblings(".tobago-suggest");
         }
-        var $suggestPopup = jQuery(Tobago.Utils.escapeClientId($suggest.attr('id') + "::popup"));
+        var $suggestPopup = jQuery(Tobago4.Utils.escapeClientId($suggest.attr('id') + "::popup"));
         $suggestPopup.css("top", $input.offset().top + $input.outerHeight() + "px");
         $suggestPopup.css("left", $input.offset().left + "px");
         $suggestPopup.css("min-width", $input.outerWidth() + "px");
       });
     }
   });
+
+  function getSuggestPopup(suggest) {
+    return jQuery(Tobago4.Utils.escapeClientId(suggest.attr('id') + "::popup"));
+  }
 };
 
 // using "EARLY", because it must be called before Tobago.Layout.init
 // this is because the suggest puts a span around the input field and doesn't copy the style.
-Tobago.registerListener(Tobago.Suggest.init, Tobago.Phase.DOCUMENT_READY, Tobago.Phase.Order.EARLY);
-Tobago.registerListener(Tobago.Suggest.init, Tobago.Phase.AFTER_UPDATE, Tobago.Phase.Order.EARLY);
+Tobago.Listener.register(Tobago4.Suggest.init, Tobago.Phase.DOCUMENT_READY, Tobago.Order.EARLY);
+Tobago.Listener.register(Tobago4.Suggest.init, Tobago.Phase.AFTER_UPDATE, Tobago.Order.EARLY);

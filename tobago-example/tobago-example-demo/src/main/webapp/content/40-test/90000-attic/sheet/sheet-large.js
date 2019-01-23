@@ -31,4 +31,4 @@ TestSheet.init = function() {
   });
 };
 
-Tobago.registerListener(TestSheet.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.Listener.register(TestSheet.init, Tobago.Phase.DOCUMENT_READY);

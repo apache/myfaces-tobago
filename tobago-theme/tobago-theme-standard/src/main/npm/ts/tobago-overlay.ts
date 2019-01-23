@@ -19,8 +19,8 @@
  * Create a overlay barrier and animate it.
  */
 
-Tobago.Config.set("Tobago", "waitOverlayDelay", 1000);
-Tobago.Config.set("Ajax", "waitOverlayDelay", 1000);
+Tobago4.Config.set("Tobago", "waitOverlayDelay", 1000);
+Tobago4.Config.set("Ajax", "waitOverlayDelay", 1000);
 
 (function ($) {
 
@@ -88,9 +88,9 @@ Tobago.Config.set("Ajax", "waitOverlayDelay", 1000);
 
       var waitOverlayDelay = this.options.waitOverlayDelay
           ? this.options.waitOverlayDelay
-          : Tobago.Config.get(this.options.ajax ? "Ajax" : "Tobago", "waitOverlayDelay");
+          : Tobago4.Config.get(this.options.ajax ? "Ajax" : "Tobago", "waitOverlayDelay");
 
-      if (Tobago.browser.isMsie678) {
+      if (Tobago4.browser.isMsie678) {
         this.overlay.css({filter: 'alpha(opacity=80)'});
       }
 

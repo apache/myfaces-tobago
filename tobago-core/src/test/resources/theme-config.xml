@@ -33,8 +33,6 @@
       </resources>
       <resources production="false">
         <script name="script/tobago.js"/>
-        <!-- console is moved to production -->
-        <!--<script name="script/tobago-console.js"/>-->
         <style name="tobago.css"/>
       </resources>
     </theme-definition>

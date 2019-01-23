@@ -83,7 +83,13 @@
                 <resource>
                   <directory>src/main/npm</directory>
                   <includes>
-                    <include>**/*</include>
+                    <include>js/*.js</include>
+                    <include>ts/*.ts</include>
+                    <include>package.json</include>
+                    <include>package-lock.json</include>
+                    <include>postcss.config.js</include>
+                    <include>tsconfig.json</include>
+                    <include>tslint.json</include>
                   </includes>
                 </resource>
                 <resource>
@@ -135,6 +141,12 @@
                     <include>css/tobago.min.css</include>
                     <include>css/tobago.css.map</include>
                     <include>css/tobago.min.css.map</include>
+                    <include>js/test.js</include>
+                    <include>js/test.js.map</include>
+                    <include>js/tobago*.js</include>
+                    <include>js/tobago*.js.map</include>
+                    <include>ts/test.ts</include>
+                    <include>ts/tobago*.ts</include>
                   </includes>
                 </resource>
               </resources>
@@ -227,6 +239,17 @@
             <phase>generate-resources</phase>
             <configuration>
               <arguments>run css</arguments>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>step #5b: ts-compile</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <arguments>run ts-compile</arguments>
             </configuration>
           </execution>
         </executions>

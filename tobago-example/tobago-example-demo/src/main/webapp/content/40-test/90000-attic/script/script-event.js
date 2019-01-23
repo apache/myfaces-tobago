@@ -30,7 +30,7 @@ ScriptEvent.onexit = function() {
 };
 
 function showTime() {
-  jQuery(Tobago.Utils.escapeClientId("page:list")).find(".tobago-box-header").html(formatDate(new Date(), "hh:mm:ss"));
+  jQuery(Tobago4.Utils.escapeClientId("page:list")).find(".tobago-box-header").html(formatDate(new Date(), "hh:mm:ss"));
   setTimeout(showTime, 500);
 }
 

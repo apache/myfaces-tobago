@@ -15,9 +15,10 @@
  * limitations under the License.
  */
 
-Tobago.MessagePopover = {};
+Tobago4.MessagePopover = {};
 
-Tobago.MessagePopover.init = function(elements) {
+Tobago4.MessagePopover.init = function(elements) {
+  elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
   jQuery('[data-toggle="popover"]').popover({
     constraints: [
       {
@@ -30,5 +31,5 @@ Tobago.MessagePopover.init = function(elements) {
   });
 };
 
-Tobago.registerListener(Tobago.MessagePopover.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.MessagePopover.init, Tobago.Phase.AFTER_UPDATE);
+Tobago.Listener.register(Tobago4.MessagePopover.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.Listener.register(Tobago4.MessagePopover.init, Tobago.Phase.AFTER_UPDATE);

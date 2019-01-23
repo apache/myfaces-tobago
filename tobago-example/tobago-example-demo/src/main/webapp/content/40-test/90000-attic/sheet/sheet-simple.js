@@ -23,5 +23,5 @@ function test_colorize() {
   jQuery("th:even").css("background-color", "#99dd99");
 }
 
-Tobago.registerListener(test_colorize, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(test_colorize, Tobago.Phase.AFTER_UPDATE);
+Tobago.Listener.register(test_colorize, Tobago.Phase.DOCUMENT_READY);
+Tobago.Listener.register(test_colorize, Tobago.Phase.AFTER_UPDATE);

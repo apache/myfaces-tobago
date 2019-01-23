@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "module": "umd",
+    "target": "es5",
+    "noImplicitAny": false,
+    "rootDir": "ts",
+    "outDir": "js",
+    "sourceMap": true,
+    "removeComments": false,
+    "noEmitOnError": true
+  },
+  "include": [
+    "ts/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

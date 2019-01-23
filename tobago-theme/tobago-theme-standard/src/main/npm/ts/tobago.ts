@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-var Tobago = {
+Tobago4 = {
 
   // -------- Constants -------------------------------------------------------
 
@@ -54,9 +54,9 @@ var Tobago = {
   jsObjects: [],
 
   /**
-    * Check browser types and versions.
-    * Please try to use jQuery.support instead of this object!
-    */
+   * Check browser types and versions.
+   * Please try to use jQuery.support instead of this object!
+   */
   browser: {
     isMsie: false,
     isMsie6: false,
@@ -72,56 +72,10 @@ var Tobago = {
 
   initMarker: false,
 
-  listeners: {
-    documentReady: [[], [], [], []],
-    windowLoad: [[], [], [], []],
-    beforeSubmit: [[], [], [], []],
-    afterUpdate: [[], [], [], []],
-    beforeUnload: [[], [], [], []],
-    beforeExit: [[], [], [], []]
-  },
-
   // -------- Functions -------------------------------------------------------
-
-  /**
-   * Register a function to be executed on certain events.
-   * @param listener Function to be executed.
-   * @param phase The phase when code should be executed (e. g. Tobago.Phase.DOCUMENT_READY).
-   * @param order An optional order to sort function they depend on others (default: Tobago.Phase.Order.NORMAL).
-   */
-  registerListener: function(listener, phase, order) {
-
-    if (order === undefined) {
-      order = Tobago.Phase.Order.NORMAL;
-    }
-
-    var phaseMap;
-    if (Tobago.Phase.DOCUMENT_READY === phase) {
-      phaseMap = Tobago.listeners.documentReady;
-    } else if (Tobago.Phase.WINDOW_LOAD === phase) {
-      phaseMap = Tobago.listeners.windowLoad;
-    } else if (Tobago.Phase.BEFORE_SUBMIT === phase) {
-      phaseMap = Tobago.listeners.beforeSubmit;
-    } else if (Tobago.Phase.AFTER_UPDATE === phase) {
-      phaseMap = Tobago.listeners.afterUpdate;
-    } else if (Tobago.Phase.BEFORE_UNLOAD === phase) {
-      phaseMap = Tobago.listeners.beforeUnload;
-    } else if (Tobago.Phase.BEFORE_EXIT === phase) {
-      phaseMap = Tobago.listeners.beforeExit;
-    } else {
-      console.error("Unknown phase: " + phase); // @DEV_ONLY
-      return;
-    }
-
-    phaseMap[order].push(listener);
-  },
 
   findPage: function() {
     return jQuery(".tobago-page");
-  },
-
-  findForm: function() {
-    return Tobago.findSubElementOfPage("form");
   },
 
   /**
@@ -129,7 +83,7 @@ var Tobago = {
    * @param suffix
    */
   findSubElementOfPage: function(suffix) {
-    return jQuery(Tobago.Utils.escapeClientId(Tobago.findPage().attr("id") + Tobago.SUB_COMPONENT_SEP + suffix));
+    return jQuery(Tobago4.Utils.escapeClientId(Tobago4.findPage().attr("id") + Tobago4.SUB_COMPONENT_SEP + suffix));
   },
 
   /**
@@ -145,50 +99,59 @@ var Tobago = {
 
     console.time("[tobago] init"); // @DEV_ONLY
 
-    document.querySelector("form").addEventListener('submit', Tobago.onSubmit);
+    document.querySelector("form").addEventListener('submit', Tobago4.onSubmit);
 
-    window.addEventListener('unload', Tobago.onUnload);
+    window.addEventListener('unload', Tobago4.onUnload);
 
-    for (var order = 0; order < Tobago.listeners.documentReady.length; order++) {
-      var list = Tobago.listeners.documentReady[order];
-      for (var i = 0; i < list.length; i++) {
-        console.time("[tobago] init " + order + " " + i); // @DEV_ONLY
-        list[i]();
-        console.timeEnd("[tobago] init " + order + " " + i); // @DEV_ONLY
-      }
-    }
+    Tobago.Listener.executeDocumentReady(document);
+    /*
+        for (var order = 0; order < Tobago.listeners.documentReady.length; order++) {
+          var list = Tobago.listeners.documentReady[order];
+          for (var i = 0; i < list.length; i++) {
+            console.time("[tobago] init " + order + " " + i); // @DEV_ONLY
+            list[i]();
+            console.timeEnd("[tobago] init " + order + " " + i); // @DEV_ONLY
+          }
+        }
+    */
 
     console.timeEnd("[tobago] init"); // @DEV_ONLY
   },
 
   onSubmit: function(listenerOptions) {
-    var result = true; // Do not continue if any function returns false
-    for (var order = 0; order < Tobago.listeners.beforeSubmit.length; order++) {
-      var list = Tobago.listeners.beforeSubmit[order];
-      for (var i = 0; i < list.length; i++) {
-        result = list[i](listenerOptions);
-        if (result === false) {
-          break;
-        }
-      }
-    }
-    if (result === false) {
-      this.isSubmit = false;
-      return false;
-    }
+    Tobago.Listener.executeBeforeSubmit();
+    /*
+    XXX check if we need the return false case
+    XXX maybe we cancel the submit, but we continue the rest?
+    XXX should the other phases also have this feature?
 
+        var result = true; // Do not continue if any function returns false
+        for (var order = 0; order < Tobago.listeners.beforeSubmit.length; order++) {
+          var list = Tobago.listeners.beforeSubmit[order];
+          for (var i = 0; i < list.length; i++) {
+            result = list[i](listenerOptions);
+            if (result === false) {
+              break;
+            }
+          }
+        }
+        if (result === false) {
+          this.isSubmit = false;
+          return false;
+        }
+    */
     this.isSubmit = true;
 
-    Tobago.onBeforeUnload();
+    Tobago4.onBeforeUnload();
 
     return true;
   },
 
   onBeforeUnload: function() {
-    if (Tobago.transition) {
+    if (this.transition) {
       jQuery("body").overlay();
     }
-    Tobago.transition = Tobago.oldTransition;
+    this.transition = this.oldTransition;
   },
 
   preparePartialOverlay: function(options) {
@@ -198,7 +161,7 @@ var Tobago = {
         var partialIds = options.render.split(" ");
         for (var i = 0; i < partialIds.length; i++) {
           console.info("partialId: " + partialIds[i]); // @DEV_ONLY
-          var element = jQuery(Tobago.Utils.escapeClientId(partialIds[i]));
+          var element = jQuery(Tobago4.Utils.escapeClientId(partialIds[i]));
           element.data("tobago-partial-overlay-set", true);
           element.overlay({ajax: true});
         }
@@ -213,59 +176,21 @@ var Tobago = {
 
     console.info('on onload'); // @DEV_ONLY
 
-    var phase = this.isSubmit ? Tobago.listeners.beforeUnload : Tobago.listeners.beforeExit;
-
-    for (var order = 0; order < phase.length; order++) {
-      var list = phase[order];
-      for (var i = 0; i < list.length; i++) {
-        list[i]();
-      }
-    }
-
-    this.destroyObjects();
-  },
-
-  addJsObject: function(obj) {
-    this.jsObjects[this.jsObjects.length] = obj;
-  },
-
-  destroyObjects: function() {
-    for (var i = 0; i < this.jsObjects.length; i++) {
-      try {
-        this.destroyObject(this.jsObjects[i]);
-      } catch (ex) {
-        // ignore
-      }
-    }
-    this.jsObjects.length = 0;
-    delete this.jsObjects;
-  },
-
-  destroyObject: function(obj) {
-    if (obj.htmlElement) {
-      // test
-      delete obj.htmlElement.jsObjects;
-      delete obj.htmlElement;
+    if (this.isSubmit) {
+      Tobago.Listener.executeBeforeUnload();
     } else {
-      // Unknown Object --> delete all properties
-      if (typeof obj == 'Object') {
-        this.destroyJsObject(obj);
-      } else if (typeof obj == 'Array') {
-        obj.length = 0;
-        delete obj;
-      }
+      Tobago.Listener.executeBeforeExit();
     }
-  },
+    /*
+        var phase = this.isSubmit ? Tobago.listeners.beforeUnload : Tobago.listeners.beforeExit;
 
-  destroyJsObject: function(obj) {
-    try {
-      for (var item in obj) {
-        delete obj[item];
-      }
-      delete obj;
-    } catch (ex) {
-      // ignore
-    }
+        for (var order = 0; order < phase.length; order++) {
+          var list = phase[order];
+          for (var i = 0; i < list.length; i++) {
+            list[i]();
+          }
+        }
+        */
   },
 
   /**
@@ -278,106 +203,88 @@ var Tobago = {
 
     var transition = options.transition === undefined || options.transition == null || options.transition;
 
-    Tobago.Transport.request(function() {
+    Tobago4.Transport.request(function() {
       if (!this.isSubmit) {
         this.isSubmit = true;
-        var form = Tobago.findForm();
-        var oldTarget = form.attr("target");
-        var $sourceHidden = jQuery(Tobago.Utils.escapeClientId("javax.faces.source"));
+        const form = <HTMLFormElement>document.getElementsByTagName("form")[0];
+        var oldTarget = form.getAttribute("target");
+        var $sourceHidden = jQuery(Tobago4.Utils.escapeClientId("javax.faces.source"));
         $sourceHidden.prop("disabled", false);
         $sourceHidden.val(actionId);
         if (options.target) {
-          form.attr("target", options.target);
+          form.setAttribute("target", options.target);
         }
-        Tobago.oldTransition = Tobago.transition;
-        Tobago.transition = transition && !options.target;
+        this.oldTransition = this.transition;
+        this.transition = transition && !options.target;
 
         var listenerOptions = {
           source: source,
           actionId: actionId,
           options: options
         };
-        var onSubmitResult = Tobago.onSubmit(listenerOptions);
+        var onSubmitResult = Tobago4.onSubmit(listenerOptions);
         if (onSubmitResult) {
           try {
-            // console.debug("submit form with action: " + Tobago.action.value);
-            form.get(0).submit();
+            form.submit();
             // reset the source field after submit, to be prepared for possible next AJAX with transition=false
             $sourceHidden.prop("disabled", true);
             $sourceHidden.val();
-            if (Tobago.browser.isMsie) {
+            if (Tobago4.browser.isMsie) {
               // without this "redundant" code the animation will not be animated in IE (tested with 6,7,8,9,10,11)
               var image = jQuery(".tobago-page-overlayCenter img");
               image.appendTo(image.parent());
             }
           } catch (e) {
-            Tobago.findPage().overlay("destroy");
-            Tobago.isSubmit = false;
+            Tobago4.findPage().overlay("destroy");
+            Tobago4.isSubmit = false;
             alert('Submit failed: ' + e); // XXX localization, better error handling
           }
         }
         if (options.target) {
           if (oldTarget) {
-            form.attr("target", oldTarget);
+            form.setAttribute("target", oldTarget);
           } else {
-            form.removeAttr("target");
+            form.removeAttribute("target");
           }
         }
         if (options.target || !transition || !onSubmitResult) {
           this.isSubmit = false;
-          Tobago.Transport.pageSubmitted = false;
+          Tobago4.Transport.pageSubmitted = false;
         }
       }
       if (!this.isSubmit) {
-        Tobago.Transport.requestComplete(); // remove this from queue
+        Tobago4.Transport.requestComplete(); // remove this from queue
       }
 
 
     }, true);
   },
 
-  getJsfState: function() {
-    var stateContainer = Tobago.findSubElementOfPage("jsf-state-container").get(0);
-    var jsfState = "";
-    if (stateContainer) {
-      for (var i = 0; i < stateContainer.childNodes.length; i++) {
-        var child = stateContainer.childNodes[i];
-        if (child.tagName === 'INPUT') {
-          if (jsfState.length > 0) {
-            jsfState += '&';
-          }
-          jsfState += encodeURIComponent(child.name);
-          jsfState += '=';
-          jsfState += encodeURIComponent(child.value);
-        }
-      }
-    }
-//    console.debug("jsfState = " + jsfState);
-    return jsfState;
-  },
-
   clearReloadTimer: function(id) {
-    var timer = Tobago.reloadTimer[id];
+    var timer = Tobago4.reloadTimer[id];
     if (timer) {
       clearTimeout(timer);
     }
   },
 
   addReloadTimeout: function(id, func, time) {
-    Tobago.clearReloadTimer(id);
-    Tobago.reloadTimer[id] = setTimeout(function() {func(id)}, time);
+    Tobago4.clearReloadTimer(id);
+    Tobago4.reloadTimer[id] = setTimeout(function () {
+      func(id);
+    }, time);
   },
 
   initDom: function(elements) {
+    elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
 
     // focus
-    Tobago.initFocus(elements);
+    Tobago4.initFocus(elements);
 
     // commands
-    Tobago.Utils.selectWithJQuery(elements, '[data-tobago-commands]')
-        .each(function () {Tobago.Command.init(jQuery(this));});
+    Tobago4.Utils.selectWithJQuery(elements, '[data-tobago-commands]')
+        .each(function () {Tobago4.Command.init(jQuery(this));});
 
-    Tobago.initScrollPosition(elements ? elements : jQuery(".tobago-page"));
+    Tobago4.initScrollPosition(elements ? elements : jQuery(".tobago-page"));
   },
 
   initScrollPosition: function(elements) {
@@ -396,11 +303,11 @@ var Tobago = {
     });
     scrollPanels.each(function () {
       var panel = jQuery(this);
-      var hidden = panel.children("[data-tobago-scroll-position]");
-      var sep = hidden.val().indexOf(";");
+      const position : string = panel.children("[data-tobago-scroll-position]").val() as string;
+      var sep = position.indexOf(";");
       if (sep !== -1) {
-        var scrollLeft = hidden.val().substr(0, sep);
-        var scrollTop = hidden.val().substr(sep + 1);
+        var scrollLeft = position.substr(0, sep);
+        var scrollTop = position.substr(sep + 1);
         panel.prop("scrollLeft", scrollLeft);
         panel.prop("scrollTop", scrollTop);
       }
@@ -424,24 +331,24 @@ var Tobago = {
     var $focusable = jQuery(":input:enabled:visible:not(button):not([tabindex='-1'])");
     $focusable.focus(function () {
       // remember the last focused element, for later
-      Tobago.findSubElementOfPage("lastFocusId").val(jQuery(this).attr("id"));
+      Tobago4.findSubElementOfPage("lastFocusId").val(jQuery(this).attr("id"));
     });
 
-    var $hasDanger = Tobago.Utils.selectWithJQuery(elements, '.has-danger');
+    var $hasDanger = Tobago4.Utils.selectWithJQuery(elements, '.has-danger');
     var $dangerInput = $hasDanger.find("*").filter(":input:enabled:visible:first");
     if ($dangerInput.length > 0) {
-      Tobago.setFocus($dangerInput);
+      Tobago4.setFocus($dangerInput);
       return;
     }
 
-    var $autoFocus = Tobago.Utils.selectWithJQuery(elements, '[autofocus]');
+    var $autoFocus = Tobago4.Utils.selectWithJQuery(elements, '[autofocus]');
     var hasAutoFocus = $autoFocus.length > 0;
     if (hasAutoFocus) {
       // nothing to do, because the browser make the work.
 
       // autofocus in popups doesn't work automatically... so we fix that here
       jQuery('.modal').on('shown.bs.modal', function() {
-        Tobago.setFocus(jQuery(this).find('[autofocus]'));
+        Tobago4.setFocus(jQuery(this).find('[autofocus]'));
       });
 
       return;
@@ -452,15 +359,15 @@ var Tobago = {
       return;
     }
 
-    var lastFocusId = Tobago.findSubElementOfPage("lastFocusId").val();
+    var lastFocusId = Tobago4.findSubElementOfPage("lastFocusId").val();
     if (lastFocusId) {
-      Tobago.setFocus(jQuery(Tobago.Utils.escapeClientId(lastFocusId)));
+      Tobago4.setFocus(jQuery(Tobago4.Utils.escapeClientId(lastFocusId)));
       return;
     }
 
     var $firstInput = jQuery(":input:enabled:visible:not(button):not([tabindex='-1']):first");
     if ($firstInput.length > 0) {
-      Tobago.setFocus($firstInput);
+      Tobago4.setFocus($firstInput);
       return;
     }
   },
@@ -474,39 +381,11 @@ var Tobago = {
     }
   },
 
-  /**
-   * Clear the selection.
-   */
-  clearSelection: function() {
-    if (document.selection) {  // IE
-      try {
-        document.selection.empty();
-      } catch (error) {
-        // Ignore error: seems to be a browser bug (TOBAGO-1201)
-      }
-    } else if (window.getSelection) {  // GECKO
-      window.getSelection().removeAllRanges();
-    }
-  },
-
   extend: function(target, source) {
     for (var property in source) {
       target[property] = source[property];
     }
     return target;
-  },
-
-  raiseEvent: function(eventType, element) {
-    var event;
-    if (document.createEvent) {
-      event = document.createEvent('Events');
-      event.initEvent(eventType, true, true);
-      element.dispatchEvent(event);
-    }
-    else if (document.createEventObject) {
-      event = document.createEventObject();
-      element.fireEvent('on' + eventType, event);
-    }
   },
 
   toString: function(element) {
@@ -525,74 +404,56 @@ var Tobago = {
   initBrowser: function() {
     var ua = navigator.userAgent;
     if (ua.indexOf("MSIE") > -1 || ua.indexOf("Trident") > -1) {
-      Tobago.browser.isMsie = true;
+      Tobago4.browser.isMsie = true;
       if (ua.indexOf("MSIE 6") > -1) {
-        Tobago.browser.isMsie6 = true;
-        Tobago.browser.isMsie67 = true;
-        Tobago.browser.isMsie678 = true;
-        Tobago.browser.isMsie6789 = true;
-        Tobago.browser.isMsie678910 = true;
+        Tobago4.browser.isMsie6 = true;
+        Tobago4.browser.isMsie67 = true;
+        Tobago4.browser.isMsie678 = true;
+        Tobago4.browser.isMsie6789 = true;
+        Tobago4.browser.isMsie678910 = true;
       } else if (ua.indexOf("MSIE 7") > -1) {
-        Tobago.browser.isMsie67 = true;
-        Tobago.browser.isMsie678 = true;
-        Tobago.browser.isMsie6789 = true;
-        Tobago.browser.isMsie678910 = true;
+        Tobago4.browser.isMsie67 = true;
+        Tobago4.browser.isMsie678 = true;
+        Tobago4.browser.isMsie6789 = true;
+        Tobago4.browser.isMsie678910 = true;
       } else if (ua.indexOf("MSIE 8") > -1) {
-        Tobago.browser.isMsie678 = true;
-        Tobago.browser.isMsie6789 = true;
-        Tobago.browser.isMsie678910 = true;
+        Tobago4.browser.isMsie678 = true;
+        Tobago4.browser.isMsie6789 = true;
+        Tobago4.browser.isMsie678910 = true;
       } else if (ua.indexOf("MSIE 9") > -1) {
-        Tobago.browser.isMsie6789 = true;
-        Tobago.browser.isMsie678910 = true;
+        Tobago4.browser.isMsie6789 = true;
+        Tobago4.browser.isMsie678910 = true;
       } else if (ua.indexOf("MSIE 10") > -1) {
-        Tobago.browser.isMsie678910 = true;
+        Tobago4.browser.isMsie678910 = true;
       }
     } else if (ua.indexOf("AppleWebKit") > -1) {
-      Tobago.browser.isWebkit = true;
+      Tobago4.browser.isWebkit = true;
     } else if (ua.indexOf("Gecko") > -1) {
-      Tobago.browser.isGecko = true;
+      Tobago4.browser.isGecko = true;
     }
-  }
+  },
+
 };
 
-Tobago.initBrowser();
+Tobago4.initBrowser();
 
 jQuery(document).ready(function() {
-  Tobago.init();
+  Tobago4.init();
 });
 
 jQuery(window).on("load", function() {
-  for (var order = 0; order < Tobago.listeners.windowLoad.length; order++) {
-    var list = Tobago.listeners.windowLoad[order];
-    for (var i = 0; i < list.length; i++) {
-      list[i]();
+  Tobago.Listener.executeWindowLoad();
+  /*
+    for (var order = 0; order < Tobago.listeners.windowLoad.length; order++) {
+      var list = Tobago.listeners.windowLoad[order];
+      for (var i = 0; i < list.length; i++) {
+        list[i]();
+      }
     }
-  }
+  */
 });
 
-Tobago.Phase = {
-  /** after the DOM was build */
-  DOCUMENT_READY:{},
-  /** after all images and CSS was loaded */
-  WINDOW_LOAD:{},
-  /** before sending a normal submit action */
-  BEFORE_SUBMIT:{},
-  /** after an AJAX call */
-  AFTER_UPDATE:{},
-  /** before ending a page */
-  BEFORE_UNLOAD:{},
-  /** before closing a window or tab */
-  BEFORE_EXIT:{},
-
-  Order:{
-    EARLY:0,
-    NORMAL:1,
-    LATE:2,
-    LATER:3
-  }
-};
-
-Tobago.Config = {
+Tobago4.Config = {
   set: function(name, key, value) {
     if (!this[name]) {
       this[name] = {};
@@ -626,13 +487,13 @@ Tobago.Config = {
   }
 };
 
-// using Tobago.Phase.Order.LATE, because the command event generated by data-tobago-commands
+// using Tobago.Order.LATE, because the command event generated by data-tobago-commands
 // may produce a submit, but we need to do something before the submit (and also on click,
 // e. g. selectOne in a toolBar).
-Tobago.registerListener(Tobago.initDom, Tobago.Phase.DOCUMENT_READY, Tobago.Phase.Order.LATER);
-Tobago.registerListener(Tobago.initDom, Tobago.Phase.AFTER_UPDATE, Tobago.Phase.Order.LATER);
+Tobago.Listener.register(Tobago4.initDom, Tobago.Phase.DOCUMENT_READY, Tobago.Order.LATER);
+Tobago.Listener.register(Tobago4.initDom, Tobago.Phase.AFTER_UPDATE, Tobago.Order.LATER);
 
-Tobago.Transport = {
+Tobago4.Transport = {
   requests: [],
   currentActionId: null,
   pageSubmitted: false,
@@ -673,7 +534,7 @@ Tobago.Transport = {
 
 
 // TBD XXX REMOVE is this called in non AJAX case?
-  
+
   requestComplete: function() {
     this.requests.shift();
     this.currentActionId = null;

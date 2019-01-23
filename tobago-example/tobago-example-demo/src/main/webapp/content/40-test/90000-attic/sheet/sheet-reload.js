@@ -35,4 +35,4 @@ TestSheetReload.init = function() {
 
 };
 
-Tobago.registerListener(TestSheetReload.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.Listener.register(TestSheetReload.init, Tobago.Phase.DOCUMENT_READY);

@@ -16,7 +16,7 @@
  */
 
 // XXX: 2nd parameter enableAjax is deprecated
-Tobago.Panel = function(panelId, enableAjax, autoReload) {
+Tobago4.Panel = function(panelId, enableAjax, autoReload) {
   this.id = panelId;
   this.autoReload = autoReload;
   this.options = {
@@ -25,26 +25,27 @@ Tobago.Panel = function(panelId, enableAjax, autoReload) {
   this.setup();
 };
 
-Tobago.Panel.init = function(elements) {
-  var reloads = Tobago.Utils.selectWithJQuery(elements, ".tobago-panel[data-tobago-reload]");
+Tobago4.Panel.init = function(elements) {
+  elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
+  var reloads = Tobago4.Utils.selectWithJQuery(elements, ".tobago-panel[data-tobago-reload]");
   reloads.each(function(){
     var id = jQuery(this).attr("id");
     var period = jQuery(this).data("tobago-reload");
-    new Tobago.Panel(id, true, period);
+    new Tobago4.Panel(id, true, period);
   });
 };
 
-Tobago.Panel.prototype.setup = function() {
+Tobago4.Panel.prototype.setup = function() {
   this.initReload();
 };
 
-Tobago.Panel.prototype.initReload = function() {
+Tobago4.Panel.prototype.initReload = function() {
   if (typeof this.autoReload == 'number' && this.autoReload > 0) {
-    Tobago.addReloadTimeout(this.id, Tobago.Panel.reloadWithAction, this.autoReload);
+    Tobago4.addReloadTimeout(this.id, Tobago4.Panel.reloadWithAction, this.autoReload);
   }
 };
 
-Tobago.Panel.reloadWithAction = function(elementId) {
+Tobago4.Panel.reloadWithAction = function(elementId) {
   jsf.ajax.request(
       elementId,
       null,
@@ -55,5 +56,5 @@ Tobago.Panel.reloadWithAction = function(elementId) {
       });
 };
 
-Tobago.registerListener(Tobago.Panel.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.Panel.init, Tobago.Phase.AFTER_UPDATE);
+Tobago.Listener.register(Tobago4.Panel.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.Listener.register(Tobago4.Panel.init, Tobago.Phase.AFTER_UPDATE);

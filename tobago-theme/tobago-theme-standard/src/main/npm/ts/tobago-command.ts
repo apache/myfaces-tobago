@@ -15,10 +15,11 @@
  * limitations under the License.
  */
 
-Tobago.Command = {};
+Tobago4.Command = {};
 
-Tobago.Command.initEnter = function(elements) {
-  var page = Tobago.Utils.selectWithJQuery(elements, ".tobago-page");
+Tobago4.Command.initEnter = function(elements) {
+  elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
+  var page = Tobago4.Utils.selectWithJQuery(elements, ".tobago-page");
   page.keypress(function (event) {
     var code = event.which;
     if (code === 0) {
@@ -41,23 +42,24 @@ Tobago.Command.initEnter = function(elements) {
           command.click();
           break;
         }
-        id = Tobago.Utils.getNamingContainerId(id);
+        id = Tobago4.Utils.getNamingContainerId(id);
       }
       return false;
     }
-  })};
-
-Tobago.registerListener(Tobago.Command.initEnter, Tobago.Phase.DOCUMENT_READY);
-
-/** @deprecated since 5.0.0 */
-Tobago.initCommand = function(element) {
-  Tobago.Command.init(element);
+  });
 };
 
-Tobago.Command.init = function(element) {
+Tobago.Listener.register(Tobago4.Command.initEnter, Tobago.Phase.DOCUMENT_READY);
+
+/** @deprecated since 5.0.0 */
+Tobago4.initCommand = function(element) {
+  Tobago4.Command.init(element);
+};
+
+Tobago4.Command.init = function(element) {
   // command is jQuery object
   // setupInputFacetCommand
-  var commands = element.data("tobago-commands");
+  const commands = element.data("tobago-commands");
 
   var normalEvents = []; // todo: find a better way to do that in JS
   if (commands.click) {
@@ -86,17 +88,17 @@ Tobago.Command.init = function(element) {
       }
       var collapse = command.collapse;
       if (collapse) {
-        Tobago.Collapse.execute(collapse);
+        Tobago4.Collapse.execute(collapse);
       }
 
       if (command.omit !== true) {
         var popup = command.popup;
         if (popup && popup.command === "close" && popup.immediate) {
-          Tobago.Popup.close(this);
+          Tobago4.Popup.close(this);
         } else {
           var action = command.action ? command.action : jQuery(this).attr("id");
           if (command.execute || command.render) {
-            Tobago.preparePartialOverlay(command);
+            Tobago4.preparePartialOverlay(command);
             jsf.ajax.request(
                 action,
                 event,
@@ -106,10 +108,10 @@ Tobago.Command.init = function(element) {
                   render: command.render
                 });
           } else {
-            Tobago.submitAction(this, action, command);
+            Tobago4.submitAction(this, action, command);
           }
           if (popup && popup.command === "close") {
-            Tobago.Popup.close(this);
+            Tobago4.Popup.close(this);
           }
         }
       }
@@ -127,7 +129,7 @@ Tobago.Command.init = function(element) {
               render: commands.change.render
             });
       } else {
-        Tobago.submitAction(this, commands.change.action, commands.change);
+        Tobago4.submitAction(this, commands.change.action, commands.change);
       }
     });
   }
@@ -143,20 +145,20 @@ Tobago.Command.init = function(element) {
               render: commands.complete.render
             });
       } else {
-        Tobago.submitAction(this, commands.complete.action, commands.complete);
+        Tobago4.submitAction(this, commands.complete.action, commands.complete);
       }
     }
   }
   if (commands.load) {
     setTimeout(function() {
-          Tobago.submitAction(this, commands.load.action, commands.load);
+          Tobago4.submitAction(this, commands.load.action, commands.load);
         },
         commands.load.delay || 100);
   }
   if (commands.resize) {
     jQuery(window).resize(function() {
       console.debug("window resize event: " + commands.resize); // @DEV_ONLY
-      Tobago.submitAction(this, commands.resize.action, commands.resize);
+      Tobago4.submitAction(this, commands.resize.action, commands.resize);
     });
   }
 };

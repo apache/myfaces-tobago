@@ -49,8 +49,8 @@ var Demo;
         var init = function () {
             document.querySelectorAll("[data-copy-clipboard-from]").forEach(function (value) { return new ToClipboardButton(value); });
         };
-        Tobago.registerListener(init, Tobago.Phase.DOCUMENT_READY);
-        Tobago.registerListener(init, Tobago.Phase.AFTER_UPDATE);
+        Tobago.Listener.register(init, Tobago.Phase.DOCUMENT_READY);
+        Tobago.Listener.register(init, Tobago.Phase.AFTER_UPDATE);
     })(ToClipboardButton = Demo.ToClipboardButton || (Demo.ToClipboardButton = {}));
 })(Demo || (Demo = {}));
 //# sourceMappingURL=docker.js.map
