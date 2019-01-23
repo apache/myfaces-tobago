@@ -45,13 +45,13 @@ public class ExecuteController implements Serializable {
     value3=null;
     value4=null;
     log();
-    return "/content/40-test/50000-java/20-ajax-execute/ajax-execute.xhtml?faces-redirect=true";
+    return "/content/40-test/50000-java/20-ajax-execute/Ajax_Execute.xhtml?faces-redirect=true";
   }
 
   public String reload() {
     LOG.info("reload");
     log();
-    return "/content/40-test/50000-java/20-ajax-execute/ajax-execute.xhtml?faces-redirect=true";
+    return "/content/40-test/50000-java/20-ajax-execute/Ajax_Execute.xhtml?faces-redirect=true";
   }
 
   public String action() {
