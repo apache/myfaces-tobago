@@ -18,18 +18,18 @@
 namespace Tobago {
 
   const init = function (element: HTMLElement) {
-    var files = jQuery(element.querySelectorAll(".tobago-file-real"));
-    files.change(function () {
-      var file = jQuery(this);
-      var pretty = file.parent().find(".tobago-file-pretty");
-      var text;
+    const files: JQuery<NodeListOf<Element>> = jQuery(element.querySelectorAll(".tobago-file-real"));
+    files.on("change", function () {
+      const file: JQuery<NodeListOf<Element>> = jQuery(this);
+      const pretty: JQuery<NodeListOf<Element>> = file.parent().find(".tobago-file-pretty");
+      let text: string;
       if (file.prop("multiple")) {
-        var format = file.data("tobago-file-multi-format");
+        const format: string = file.data("tobago-file-multi-format");
         text = format.replace("{}", file.prop("files").length);
       } else {
-        text = file.val();
-        // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\facepath\".
-        var pos = Math.max(text.lastIndexOf('/'), text.lastIndexOf('\\'));
+        text = <string>file.val();
+        // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\path\".
+        const pos: number = Math.max(text.lastIndexOf('/'), text.lastIndexOf('\\'));
         if (pos >= 0) {
           text = text.substr(pos + 1);
         }
@@ -38,9 +38,9 @@ namespace Tobago {
     });
     // click on the button (when using focus with keyboard)
     files.each(function () {
-      var real = jQuery(this);
-      real.parent().find("button").click(function () {
-        real.click();
+      const real = jQuery(this);
+      real.parent().find("button").on("click", function () {
+        real.trigger("click");
       });
     });
     if (files.length > 0) {

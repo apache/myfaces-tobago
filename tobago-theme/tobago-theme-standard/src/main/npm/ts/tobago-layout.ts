@@ -15,129 +15,138 @@
  * limitations under the License.
  */
 
-Tobago4.Layout = {};
+namespace Tobago {
 
-Tobago4.Layout.init = function (elements) {
+  const init = function (elements: HTMLElement | HTMLDocument): void {
 
-  elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-  Tobago4.Layout.initSplitLayout(elements);
+    const $elements: any = jQuery(elements);
+    initSplitLayout(<JQuery<NodeListOf<Element>>>$elements); // XXX cast and any is ugly.
 
-  // fixing fixed header/footer: content should not scroll behind the footer
+    // fixing fixed header/footer: content should not scroll behind the footer
 
-  var body = Tobago4.Utils.selectWithJQuery(elements, "body");
-  var headers = Tobago4.Utils.selectWithJQuery(elements, ".fixed-top");
-  var footers = Tobago4.Utils.selectWithJQuery(elements, ".fixed-bottom");
+    const body: JQuery<NodeListOf<Element>> = Tobago4.Utils.selectWithJQuery(elements, "body");
+    const headers: JQuery<NodeListOf<Element>> = Tobago4.Utils.selectWithJQuery(elements, ".fixed-top");
+    const footers: JQuery<NodeListOf<Element>> = Tobago4.Utils.selectWithJQuery(elements, ".fixed-bottom");
 
-  setMargins(body, headers, footers);
+    setMargins(body, headers, footers);
 
-  var lastMaxHeaderHeight = 0;
-  var lastMaxFooterHeight = 0;
-  jQuery(window).resize(function () {
-    var maxHeaderHeight = getMaxHeaderHeight(headers);
-    var maxFooterHeight = getMaxFooterHeight(footers);
+    let lastMaxHeaderHeight = 0;
+    let lastMaxFooterHeight = 0;
+    jQuery(window).on("resize", function (): void {
+      const maxHeaderHeight: number = getMaxHeaderHeight(headers);
+      const maxFooterHeight: number = getMaxFooterHeight(footers);
 
-    if (maxHeaderHeight !== lastMaxHeaderHeight
-        || maxFooterHeight !== lastMaxFooterHeight) {
-      setMargins(body, headers, footers);
+      if (maxHeaderHeight !== lastMaxHeaderHeight
+          || maxFooterHeight !== lastMaxFooterHeight) {
+        setMargins(body, headers, footers);
 
-      lastMaxHeaderHeight = maxHeaderHeight;
-      lastMaxFooterHeight = maxFooterHeight;
-    }
-  });
-
-
-  function setMargins(body, headers, footers) {
-    var maxHeaderHeight = getMaxHeaderHeight(headers);
-    var maxFooterHeight = getMaxFooterHeight(footers);
-
-    if (maxHeaderHeight > 0) {
-      body.css("margin-top", maxHeaderHeight + "px");
-    }
-    if (maxFooterHeight > 0) {
-      body.css("margin-bottom", maxFooterHeight + "px");
-    }
-  }
-};
-
-var getMaxHeaderHeight = function (headers) {
-  var maxHeaderHeight = 0;
-  headers.each(function () {
-    var height = jQuery(this).outerHeight(true);
-    if (height > maxHeaderHeight) {
-      maxHeaderHeight = height;
-    }
-  });
-  return maxHeaderHeight;
-};
-
-var getMaxFooterHeight = function (footers) {
-  var maxFooterHeight = 0;
-  footers.each(function () {
-    var height = jQuery(this).outerHeight(true);
-    if (height > maxFooterHeight) {
-      maxFooterHeight = height;
-    }
-  });
-  return maxFooterHeight;
-};
-
-Tobago4.Layout.initSplitLayout = function (elements) {
-  var splitter;
-  splitter = Tobago4.Utils.selectWithJQuery(elements, ".tobago-splitLayout-horizontal");
-  splitter.each(function () {
-    var splitter = jQuery(this);
-    splitter.on("mousedown", {splitter: splitter}, function (event) {
-      var prev = splitter.prevAll(":not(style):last");
-      var width = prev.outerWidth();
-      console.info("initial width = " + width);
-      prev.css("width", width + "px");
-      prev.css({"flex-grow": "inherit", "flex-basis": "auto"});
-      jQuery(document).on(
-          "mousemove",
-          {offset: event.pageX - width, splitter: splitter},
-          Tobago4.Layout.moveHorizontally);
-      jQuery(document).on(
-          "mouseup",
-          Tobago4.Layout.stop);
+        lastMaxHeaderHeight = maxHeaderHeight;
+        lastMaxFooterHeight = maxFooterHeight;
+      }
     });
-  });
-  splitter = Tobago4.Utils.selectWithJQuery(elements, ".tobago-splitLayout-vertical");
-  splitter.each(function () {
-    var splitter = jQuery(this);
-    splitter.on("mousedown", {splitter: splitter}, function (event) {
-      var prev = splitter.prevAll(":not(style):last");
-      var height = prev.outerHeight();
-      console.info("initial height = " + height);
-      prev.css("height", height + "px");
-      prev.css({"flex-grow": "inherit", "flex-basis": "auto"});
-      jQuery(document).on(
-          "mousemove",
-          {offset: event.pageY - height, splitter: splitter},
-          Tobago4.Layout.moveVertically);
-      jQuery(document).on(
-          "mouseup",
-          Tobago4.Layout.stop);
+
+    function setMargins(
+        body: JQuery<NodeListOf<Element>>,
+        headers: JQuery<NodeListOf<Element>>,
+        footers: JQuery<NodeListOf<Element>>): void {
+      const maxHeaderHeight: number = getMaxHeaderHeight(headers);
+      const maxFooterHeight: number = getMaxFooterHeight(footers);
+
+      if (maxHeaderHeight > 0) {
+        body.css("margin-top", maxHeaderHeight + "px");
+      }
+      if (maxFooterHeight > 0) {
+        body.css("margin-bottom", maxFooterHeight + "px");
+      }
+    }
+  };
+
+  const getMaxHeaderHeight = function (headers: JQuery<NodeListOf<Element>>): number {
+    let maxHeaderHeight: number = 0;
+    headers.each(function (): void {
+      const height: number = jQuery(this).outerHeight(true);
+      if (height > maxHeaderHeight) {
+        maxHeaderHeight = height;
+      }
     });
-  });
-};
+    return maxHeaderHeight;
+  };
 
-Tobago4.Layout.moveHorizontally = function (event) {
-  console.info("" + event.pageX + " " + event.data.offset);
-  var prev = event.data.splitter.prev();
-  prev.width(event.pageX - event.data.offset + "px");
-};
+  const getMaxFooterHeight = function (footers: JQuery<NodeListOf<Element>>): number {
+    let maxFooterHeight: number = 0;
+    footers.each(function (): void {
+      const height: number = jQuery(this).outerHeight(true);
+      if (height > maxFooterHeight) {
+        maxFooterHeight = height;
+      }
+    });
+    return maxFooterHeight;
+  };
 
-Tobago4.Layout.moveVertically = function (event) {
-  console.info("" + event.pageY + " " + event.data.offset);
-  var prev = event.data.splitter.prev();
-  prev.height(event.pageY - event.data.offset + "px");
-};
+  const initSplitLayout = function (elements: JQuery<NodeListOf<Element>>): void {
+    const hSplitter: JQuery<NodeListOf<Element>> = Tobago4.Utils.selectWithJQuery(elements, ".tobago-splitLayout-horizontal");
+    hSplitter.each(function (): void {
+      const splitter: JQuery<NodeListOf<Element>> = jQuery(this);
+      splitter.on("mousedown", {splitter: splitter}, function (event) {
+        const prev: JQuery<NodeListOf<Element>> = splitter.prevAll(":not(style):last");
+        const width: number = prev.outerWidth();
+        console.info("initial width = " + width);
+        prev.css("width", width + "px");
+        prev.css({
+              "flex-grow": "inherit",
+              "flex-basis": "auto"
+            }
+        );
+        jQuery(document).on(
+            "mousemove",
+            {
+              offset: event.pageX - width,
+              splitter: splitter
+            },
+            moveHorizontally);
+        jQuery(document).on("mouseup", stop);
+      });
+    });
+    const vSplitter: JQuery<NodeListOf<Element>>
+        = Tobago4.Utils.selectWithJQuery(elements, ".tobago-splitLayout-vertical");
+    vSplitter.each(function (): void {
+      const splitter = jQuery(this);
+      splitter.on("mousedown", {splitter: splitter}, function (event) {
+        const prev: JQuery<NodeListOf<Element>> = splitter.prevAll(":not(style):last");
+        const height: number = prev.outerHeight();
+        console.info("initial height = " + height);
+        prev.css("height", height + "px");
+        prev.css({"flex-grow": "inherit", "flex-basis": "auto"});
+        jQuery(document).on(
+            "mousemove",
+            {
+              offset: event.pageY - height,
+              splitter: splitter
+            },
+            moveVertically);
+        jQuery(document).on("mouseup", stop);
+      });
+    });
+  };
 
-Tobago4.Layout.stop = function (event) {
-  jQuery(document).off("mousemove", Tobago4.Layout.moveHorizontally);
-  jQuery(document).off("mousemove", Tobago4.Layout.moveVertically);
-  jQuery(document).off("mouseup", Tobago4.Layout.stop);
-};
+  const moveHorizontally = function (event): void {
+    console.info("" + event.pageX + " " + event.data.offset);
+    const prev: JQuery<NodeListOf<Element>> = event.data.splitter.prev();
+    prev.width(event.pageX - event.data.offset + "px");
+  };
 
-Tobago.Listener.register(Tobago4.Layout.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.Listener.register(Tobago4.Layout.init, Tobago.Phase.AFTER_UPDATE);
+  const moveVertically = function (event): void {
+    console.info("" + event.pageY + " " + event.data.offset);
+    const prev: JQuery<NodeListOf<Element>> = event.data.splitter.prev();
+    prev.height(event.pageY - event.data.offset + "px");
+  };
+
+  const stop = function (event): void {
+    jQuery(document).off("mousemove", moveHorizontally);
+    jQuery(document).off("mousemove", moveVertically);
+    jQuery(document).off("mouseup", stop);
+  };
+
+  Listener.register(init, Phase.DOCUMENT_READY);
+  Listener.register(init, Phase.AFTER_UPDATE);
+}
