@@ -103,7 +103,7 @@ Tobago4 = {
 
     window.addEventListener('unload', Tobago4.onUnload);
 
-    Tobago.Listener.executeDocumentReady(document);
+    Tobago.Listener.executeDocumentReady(document.documentElement);
     /*
         for (var order = 0; order < Tobago.listeners.documentReady.length; order++) {
           var list = Tobago.listeners.documentReady[order];

@@ -15,6 +15,32 @@
  * limitations under the License.
  */
 
+namespace Tobago {
+
+  export function querySelectorAllOrSelfByClass(
+      element: HTMLElement, classNameSelector: string): Array<HTMLElement> {
+
+    const result: Array<HTMLElement> = new Array<HTMLElement>();
+    if (element.classList.contains(classNameSelector)) {
+      result.push(element);
+    }
+    // XXX <any> can be remove with target=ES6 (now we have ES5)
+    for (const found of <any>element.getElementsByClassName(classNameSelector)) {
+      result.push(<HTMLElement>found);
+    }
+    return result;
+  }
+
+  /**
+   * @deprecated not implemented
+   * @param element
+   * @param selectors
+   */
+  export function is(element: HTMLElement, selectors: string) {
+    console.error("todo");
+  }
+}
+
 Tobago4.Utils = {};
 
 /**

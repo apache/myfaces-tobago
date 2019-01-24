@@ -157,7 +157,7 @@ namespace Tobago {
       }
     }
 
-    static executeDocumentReady(element: HTMLDocument) {
+    static executeDocumentReady(element: HTMLElement) {
       console.time("[tobago] execute documentReady"); // @DEV_ONLY
       Listener.documentReady.execute(element);
       console.timeEnd("[tobago] execute documentReady"); // @DEV_ONLY
