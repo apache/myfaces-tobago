@@ -33,6 +33,7 @@ Tobago4.Utils.escapeClientId = function (id) {
  * @param selector a jQuery selector.
  */
 Tobago4.Utils.selectWithJQuery = function (elements, selector) {
+  elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
   return elements == null
       ? jQuery(selector)
       : elements.find(selector).add(elements.filter(selector));
