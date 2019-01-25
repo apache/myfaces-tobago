@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.example.addressbook.web;
 
-import org.apache.commons.fileupload.FileItem;
 import org.apache.deltaspike.core.api.scope.WindowScoped;
 import org.apache.myfaces.tobago.component.UIColumn;
 import org.apache.myfaces.tobago.component.UISheet;
@@ -45,6 +44,7 @@ import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -93,7 +93,7 @@ public class Controller implements Serializable {
   @Inject
   private AddressDao addressDao;
 
-  private FileItem uploadedFile;
+  private Part uploadedFile;
   private boolean renderFileUploadPopup;
 
   static {
@@ -282,9 +282,9 @@ public class Controller implements Serializable {
     return OUTCOME_LIST;
   }
 
-  public String okFileUpload() {
+  public String okFileUpload() throws IOException {
     setRenderFileUploadPopup(false);
-    final Picture picture = new Picture(uploadedFile.getContentType(), uploadedFile.get());
+    final Picture picture = new Picture(uploadedFile.getContentType(), uploadedFile.getInputStream());
     currentAddress.setPicture(picture);
     return null;
   }
@@ -380,11 +380,11 @@ public class Controller implements Serializable {
     this.renderDayOfBirth = renderDayOfBirth;
   }
 
-  public FileItem getUploadedFile() {
+  public Part getUploadedFile() {
     return uploadedFile;
   }
 
-  public void setUploadedFile(final FileItem uploadedFile) {
+  public void setUploadedFile(final Part uploadedFile) {
     this.uploadedFile = uploadedFile;
   }
 

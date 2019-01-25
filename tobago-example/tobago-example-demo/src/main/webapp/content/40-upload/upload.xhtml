@@ -25,8 +25,29 @@
   <ui:param name="title" value="File Upload"/>
   <tc:panel id="uploadPanel">
     <f:facet name="layout">
-      <tc:gridLayout rows="auto;*"/>
+      <tc:gridLayout rows="200px;auto;*"/>
     </f:facet>
+
+    <tc:panel>
+      <p>
+        To load up files to the server for JSF 2.0 and 2.1 you will need to
+        add an multipart-config entry to the FacesServlet in the <code>web.xml</code> file.
+        Since JSF 2.2 this is not required.
+      </p>
+
+      <p>
+        Here you can configure some more general information.
+      </p>
+
+      <pre><code class="language-markup">
+      &lt;multipart-config>
+        &lt;location>/tmp&lt;/location>
+        &lt;max-file-size>20848820&lt;/max-file-size>
+        &lt;max-request-size>418018841&lt;/max-request-size>
+        &lt;file-size-threshold>1048576&lt;/file-size-threshold>
+      &lt;/multipart-config>
+    </code></pre>
+    </tc:panel>
 
     <tc:panel>
       <f:facet name="layout">

@@ -24,20 +24,6 @@
 
   <display-name>Blank Tobago Application</display-name>
 
-  <filter>
-    <filter-name>multipartFormdataFilter</filter-name>
-    <filter-class>org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>multipartFormdataFilter</filter-name>
-    <url-pattern>/faces/*</url-pattern>
-  </filter-mapping>
-
-<!--  workaround (e.g. for Oracle AS 10.1.2.0.0)-->
-  <listener>
-    <listener-class>org.apache.myfaces.tobago.webapp.TobagoServletContextListener</listener-class>
-  </listener>
-
   <!-- servlet -->
   <servlet>
     <servlet-name>FacesServlet</servlet-name>

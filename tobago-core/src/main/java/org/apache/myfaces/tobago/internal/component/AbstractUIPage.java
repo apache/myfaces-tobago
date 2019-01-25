@@ -31,7 +31,6 @@ import org.apache.myfaces.tobago.internal.ajax.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
-import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
 import org.apache.myfaces.tobago.layout.Box;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
@@ -52,13 +51,10 @@ import org.slf4j.LoggerFactory;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;
-import javax.faces.application.FacesMessage;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
@@ -124,8 +120,6 @@ public abstract class AbstractUIPage extends AbstractUIForm
   }
 
   private void processDecodes0(final FacesContext facesContext) {
-
-    checkTobagoRequest(facesContext);
 
     decode(facesContext);
 
@@ -280,30 +274,6 @@ public abstract class AbstractUIPage extends AbstractUIForm
         LOG.debug("Illegal actionId! Render response...");
       }
       facesContext.renderResponse();
-    }
-  }
-
-  private void checkTobagoRequest(final FacesContext facesContext) {
-    // multipart/form-data must use TobagoMultipartFormdataRequest
-    final String contentType = facesContext.getExternalContext().getRequestHeaderMap().get("content-type");
-    if (contentType != null && contentType.startsWith("multipart/form-data")) {
-      final Object request = facesContext.getExternalContext().getRequest();
-      boolean okay = false;
-      if (request instanceof TobagoMultipartFormdataRequest) {
-        okay = true;
-      } else if (request instanceof HttpServletRequestWrapper) {
-        final ServletRequest wrappedRequest = ((HttpServletRequestWrapper) request).getRequest();
-        if (wrappedRequest instanceof TobagoMultipartFormdataRequest) {
-          okay = true;
-        }
-      }
-      // TODO PortletRequest ??
-      if (!okay) {
-        LOG.error("Can't process multipart/form-data without TobagoRequest. "
-            + "Please check the web.xml and define a TobagoMultipartFormdataFilter. "
-            + "See documentation for <tc:file>");
-        facesContext.addMessage(null, new FacesMessage("An error has occurred!"));
-      }
     }
   }
 

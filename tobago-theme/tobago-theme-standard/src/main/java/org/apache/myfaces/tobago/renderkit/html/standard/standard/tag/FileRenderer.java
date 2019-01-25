@@ -19,12 +19,11 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.commons.fileupload.FileItem;
-
+import org.apache.myfaces.tobago.internal.util.HttpPartWrapper;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
-import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
+import org.apache.myfaces.tobago.internal.util.PartUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -34,15 +33,19 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.validator.FileItemValidator;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
+import javax.faces.validator.Validator;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileRenderer extends InputRendererBase {
 
@@ -62,46 +65,39 @@ public class FileRenderer extends InputRendererBase {
       return;
     }
 
-    final AbstractUIFile input = (AbstractUIFile) component;
-
-    TobagoMultipartFormdataRequest request = null;
-    final Object requestObject = facesContext.getExternalContext().getRequest();
-    if (requestObject instanceof TobagoMultipartFormdataRequest) {
-      request = (TobagoMultipartFormdataRequest) requestObject;
-    } else if (requestObject instanceof HttpServletRequestWrapper) {
-      final ServletRequest wrappedRequest
-          = ((HttpServletRequestWrapper) requestObject).getRequest();
-      if (wrappedRequest instanceof TobagoMultipartFormdataRequest) {
-        request = (TobagoMultipartFormdataRequest) wrappedRequest;
-      }
-    }
-    // TODO PortletRequest ??
-    if (request == null) {
-      // should not be possible, because of the check in UIPage
-      LOG.error("Can't process multipart/form-data without TobagoRequest. "
-          + "Please check the web.xml and define a TobagoMultipartFormdataFilter. "
-          + "See documentation for <tc:file>");
-    } else {
-
-      if (input.isMultiple()) {
-        final FileItem[] items = request.getFileItems(input.getClientId(facesContext));
-        if (LOG.isDebugEnabled()) {
-          for (FileItem item : items) {
-            LOG.debug("Uploaded file name : \"" + item.getName()
-                + "\"  size = " + item.getSize());
+    final AbstractUIFile file = (AbstractUIFile) component;
+    final boolean multiple = file.isMultiple() && !file.isRequired();
+    final Object request = facesContext.getExternalContext().getRequest();
+    if (request instanceof HttpServletRequest) {
+      try {
+        final HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        if (multiple) {
+          final List<Part> parts = new ArrayList<Part>();
+          for (final Part part : httpServletRequest.getParts()) {
+            if (file.getClientId(facesContext).equals(part.getName())) {
+              LOG.debug("Uploaded file '{}', size={}, type='{}'",
+                  PartUtils.getSubmittedFileName(part), part.getSize(), part.getContentType());
+              parts.add(new HttpPartWrapper(part));
+            }
+            file.setSubmittedValue(parts.toArray(new Part[0]));
+          }
+        } else {
+          final Part part = httpServletRequest.getPart(file.getClientId(facesContext));
+          final String submittedFileName = PartUtils.getSubmittedFileName(part);
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Uploaded file '{}', size={}, type='{}'",
+                submittedFileName, part.getSize(), part.getContentType());
+          }
+          if (submittedFileName.length() > 0) {
+            file.setSubmittedValue(new HttpPartWrapper(part));
           }
         }
-        input.setSubmittedValue(items);
-      } else {
-        final FileItem item = request.getFileItem(input.getClientId(facesContext));
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Uploaded file name : \"" + item.getName()
-              + "\"  size = " + item.getSize());
-        }
-        input.setSubmittedValue(item);
+      } catch (final Exception e) {
+        LOG.error("", e);
+        file.setValid(false);
       }
-      //TODO remove this
-      input.setValid(true);
+    } else { // todo: PortletRequest
+      LOG.warn("Unsupported request type: " + request.getClass().getName());
     }
   }
 
@@ -110,6 +106,7 @@ public class FileRenderer extends InputRendererBase {
     final AbstractUIFile file = (AbstractUIFile) component;
     final String clientId = file.getClientId(facesContext);
     final Style style = new Style(facesContext, file);
+    final String accept = createAcceptFromValidators(file);
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
@@ -127,6 +124,7 @@ public class FileRenderer extends InputRendererBase {
     writer.writeAttribute(HtmlAttributes.MULTIPLE, file.isMultiple());
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "real");
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.FILE, false);
+    writer.writeAttribute(HtmlAttributes.ACCEPT, accept, true);
     writer.writeClassAttribute(getCssClasses(file, "real"));
     writer.writeNameAttribute(clientId);
     String multiFormat = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "tobago.file.multiFormat");
@@ -148,6 +146,24 @@ public class FileRenderer extends InputRendererBase {
     writer.endElement(HtmlElements.INPUT);
 
     writer.endElement(HtmlElements.DIV);
+  }
+
+  private String createAcceptFromValidators(final AbstractUIFile file) {
+    final StringBuilder builder = new StringBuilder();
+    for (Validator validator : file.getValidators()) {
+      if (validator instanceof FileItemValidator) {
+        final FileItemValidator fileItemValidator = (FileItemValidator) validator;
+        for (final String contentType : fileItemValidator.getContentType()) {
+          builder.append(",");
+          builder.append(contentType);
+        }
+      }
+    }
+    if (builder.length() > 0) {
+      return builder.substring(1);
+    } else {
+      return null;
+    }
   }
 
   protected Classes getCssClasses(UIComponent component, String sub) {

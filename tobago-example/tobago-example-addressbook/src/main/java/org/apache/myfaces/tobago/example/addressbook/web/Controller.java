@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.example.addressbook.web;
 
-import org.apache.commons.fileupload.FileItem;
 import org.apache.myfaces.tobago.component.UIColumn;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.config.TobagoConfig;
@@ -45,6 +44,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -91,7 +91,7 @@ public class Controller {
   @Resource(name = "addressDao")
   private AddressDao addressDao;
 
-  private FileItem uploadedFile;
+  private Part uploadedFile;
   private boolean renderFileUploadPopup;
 
   static {
@@ -280,9 +280,9 @@ public class Controller {
     return OUTCOME_LIST;
   }
 
-  public String okFileUpload() {
+  public String okFileUpload() throws IOException {
     setRenderFileUploadPopup(false);
-    final Picture picture = new Picture(uploadedFile.getContentType(), uploadedFile.get());
+    final Picture picture = new Picture(uploadedFile.getContentType(), uploadedFile.getInputStream());
     currentAddress.setPicture(picture);
     return null;
   }
@@ -383,11 +383,11 @@ public class Controller {
     this.renderDayOfBirth = renderDayOfBirth;
   }
 
-  public FileItem getUploadedFile() {
+  public Part getUploadedFile() {
     return uploadedFile;
   }
 
-  public void setUploadedFile(final FileItem uploadedFile) {
+  public void setUploadedFile(final Part uploadedFile) {
     this.uploadedFile = uploadedFile;
   }
 
