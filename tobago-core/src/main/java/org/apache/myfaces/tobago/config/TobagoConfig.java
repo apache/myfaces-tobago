@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.internal.config.ContentSecurityPolicy;
 import org.apache.myfaces.tobago.internal.config.SecurityAnnotation;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 
-import javax.faces.application.Application;
 import javax.faces.application.ProjectStage;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
@@ -50,7 +49,7 @@ public abstract class TobagoConfig {
   public abstract Theme getDefaultTheme();
 
   /**
-   * @deprecated since 4.0.0, use {@link Application#getProjectStage}
+   * @deprecated since 4.0.0, use {@link javax.faces.application.Application#getProjectStage}
    */
   @Deprecated
   public abstract ProjectStage getProjectStage();
