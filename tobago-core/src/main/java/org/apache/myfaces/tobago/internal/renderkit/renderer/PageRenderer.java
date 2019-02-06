@@ -213,6 +213,7 @@ public class PageRenderer extends RendererBase {
 
     final String icon = page.getApplicationIcon();
     if (icon != null) {
+      // XXX refactor this: TOBAGO-1979
       writer.startElement(HtmlElements.LINK);
       if (icon.endsWith(".ico")) {
         writer.writeAttribute(HtmlAttributes.REL, "shortcut icon", false);
