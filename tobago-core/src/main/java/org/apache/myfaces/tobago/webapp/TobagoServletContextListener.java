@@ -49,11 +49,12 @@ public class TobagoServletContextListener implements ServletContextListener {
     }
 
     TobagoConfigBuilder.init(servletContext);
+
+    MimeTypeUtils.init(servletContext);
+
     if (LOG.isInfoEnabled()) {
       final TobagoConfig tobagoConfig = TobagoConfig.getInstance(servletContext);
       LOG.info("TobagoConfig: " + tobagoConfig);
-
-      MimeTypeUtils.init(servletContext);
 
       final ContentSecurityPolicy.Mode mode = tobagoConfig.getContentSecurityPolicy().getMode();
       final StringBuilder builder = new StringBuilder();
