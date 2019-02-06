@@ -24,6 +24,10 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import javax.servlet.ServletContext;
 import java.util.Map;
 
+/**
+ * @deprecated Since Tobago 4.4.0.
+ */
+@Deprecated
 public final class MimeTypeUtils {
 
   private static Map<String, String> additionalMimeTypes = null;
