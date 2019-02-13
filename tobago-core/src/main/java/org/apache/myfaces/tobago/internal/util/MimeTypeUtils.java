@@ -20,6 +20,8 @@
 package org.apache.myfaces.tobago.internal.util;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContext;
 import java.util.Map;
@@ -29,6 +31,8 @@ import java.util.Map;
  */
 @Deprecated
 public final class MimeTypeUtils {
+
+  private static final Logger LOG = LoggerFactory.getLogger(MimeTypeUtils.class);
 
   private static Map<String, String> additionalMimeTypes = null;
 
@@ -107,7 +111,7 @@ public final class MimeTypeUtils {
       final TobagoConfig tobagoConfig = TobagoConfig.getInstance(servletContext);
       additionalMimeTypes = tobagoConfig.getMimeTypes();
     } else {
-      throw new IllegalStateException(MimeTypeUtils.class.getSimpleName() + " is already initialized!");
+      LOG.error(MimeTypeUtils.class.getSimpleName() + " is already initialized!");
     }
   }
 }
