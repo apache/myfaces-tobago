@@ -9195,7 +9195,7 @@ span.dropdown {
   width: 100%;
 }
 
-/* messages ----------------------------------------------------------- */
+/* messages / help text ----------------------------------------------- */
 .tobago-messages-container {
   -ms-flex-align: start;
   align-items: flex-start;
@@ -9207,7 +9207,7 @@ span.dropdown {
   margin-bottom: 5px;
 }
 
-a.tobago-messages-button {
+a.tobago-messages-button, a.tobago-help-button {
   padding-left: 0.4em;
   padding-right: 0.4em;
 }
@@ -9249,6 +9249,10 @@ a.tobago-messages-button {
 
 .tobago-messages .alert.alert-dismissible.alert-info:before {
   content: "";
+}
+
+.popover .popover-body {
+  white-space: pre-line;
 }
 
 /* nav ----------------------------------------------------------- */
