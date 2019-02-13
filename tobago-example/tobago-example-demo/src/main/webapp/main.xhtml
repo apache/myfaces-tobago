@@ -24,8 +24,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns="http://www.w3.org/1999/xhtml">
   <f:view locale="#{localeController.locale}">
-    <tc:page applicationIcon="#{request.contextPath}/icon/favicon.ico" label="#{demoBundle.pageTitle} - #{title}"
-             id="page">
+    <tc:page label="#{demoBundle.pageTitle} - #{title}" id="page">
 
       <!--
             <tc:dataAttribute name="tobago-log-level" value="DEBUG"/>
@@ -38,6 +37,8 @@
 
       <tc:meta name="keywords" content="jsf, tobago, demo"/>
       <tc:meta name="robots" content="noindex" rendered="#{metaController.renderNoindex}"/>
+      <tc:metaLink href="#{request.contextPath}/image/feather.ico" rel="shortcut icon"/>
+      <tc:metaLink href="#{request.contextPath}/image/feather.png" rel="apple-touch-icon"/>
 
       <ui:include src="/menu.xhtml"/>
 
@@ -82,7 +83,7 @@
 
       <tc:footer fixed="true">
         © 2005-2018 Apache Software Foundation, Licensed under the <a
-              href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
+          href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
       </tc:footer>
 
     </tc:page>

@@ -57,6 +57,7 @@ public enum RendererTypes {
   Label,
   Messages,
   Meta,
+  MetaLink,
   Object,
   Operation,
   Out,
@@ -147,6 +148,7 @@ public enum RendererTypes {
   public static final String LABEL = "Label";
   public static final String MESSAGES = "Messages";
   public static final String META = "Meta";
+  public static final String META_LINK = "MetaLink";
   public static final String OBJECT = "Object";
   public static final String OPERATION = "Operation";
   public static final String OUT = "Out";

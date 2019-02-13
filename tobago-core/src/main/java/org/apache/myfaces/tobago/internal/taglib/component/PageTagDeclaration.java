@@ -91,7 +91,10 @@ public interface PageTagDeclaration
   /**
    * Absolute URL to an image or image name to lookup in tobago resource path
    * representing the application. In HTML it is used as a favicon.
+   *
+   * @deprecated Since 4.4.0. Please use &lt;tc:metaLink&gt; instead.
    */
+  @Deprecated
   @TagAttribute
   @UIComponentTagAttribute()
   void setApplicationIcon(String icon);
