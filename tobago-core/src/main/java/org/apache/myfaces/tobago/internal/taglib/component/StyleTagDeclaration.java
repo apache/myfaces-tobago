@@ -65,7 +65,6 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.renderkit.css.CustomClass")
   void setCustomClass(String customClass);
 
-
   /**
    * @param selector A selector to define the element for this style rules. Defaults to the ID of the parent component.
    * @since 4.0.0
@@ -348,4 +347,9 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.GridSpan")
   void setGridRow(String gridRow);
 
+  /**
+   * Note: The rendered attribute has no effect to the use of the customClass attribute.
+   */
+  @Override
+  void setRendered(String rendered);
 }
