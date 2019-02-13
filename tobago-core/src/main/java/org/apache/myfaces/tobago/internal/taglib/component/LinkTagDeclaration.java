@@ -49,7 +49,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import javax.faces.component.UICommand;
 
 /**
- * Renders a link element.
+ * Renders a link element, i. e. an anchor &lt;a&gt; tag.
+ * For a &lt;link&gt; tag, please use &lt;tc:metaLink&gt; tag.
  */
 @Tag(name = "link")
 @BodyContentDescription(anyTagOf = "facestag")

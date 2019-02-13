@@ -24,9 +24,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns="http://www.w3.org/1999/xhtml">
   <f:view locale="#{localeController.locale}">
-    <tc:page applicationIcon="#{request.contextPath}/icon/favicon.ico"
-             label="Tobago Demo - #{navigationState.currentNode.label}"
-             id="page">
+    <tc:page label="Tobago Demo - #{navigationState.currentNode.label}" id="page">
       <tc:attribute name="label" value="#{title}" mode="valueIfSet"/>
 
       <!--
@@ -40,6 +38,8 @@
 
       <tc:meta name="keywords" content="jsf, tobago, demo"/>
       <tc:meta name="robots" content="noindex" rendered="#{metaController.renderNoindex}"/>
+      <tc:metaLink href="#{request.contextPath}/image/feather.ico" rel="shortcut icon"/>
+      <tc:metaLink href="#{request.contextPath}/image/feather.png" rel="apple-touch-icon" sizes="256x256"/>
 
       <ui:include src="/menu.xhtml"/>
 

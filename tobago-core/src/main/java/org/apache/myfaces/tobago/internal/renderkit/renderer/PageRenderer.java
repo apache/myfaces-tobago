@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMeta;
+import org.apache.myfaces.tobago.internal.component.AbstractUIMetaLink;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.component.AbstractUIScript;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
@@ -400,7 +401,7 @@ public class PageRenderer extends RendererBase {
     HeadResources(
         final FacesContext facesContext, final Collection<? extends UIComponent> collection, final String charset) {
       for (final UIComponent uiComponent : collection) {
-        if (uiComponent instanceof AbstractUIMeta) {
+        if (uiComponent instanceof AbstractUIMeta || uiComponent instanceof AbstractUIMetaLink) {
           metas.add(uiComponent);
         } else if (uiComponent instanceof AbstractUIStyle) {
           styles.add(uiComponent);
