@@ -20,14 +20,12 @@
 package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
-import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
@@ -54,9 +52,6 @@ import javax.faces.component.UIForm;
     uiComponentFacesClass = "javax.faces.component.UIForm",
     componentFamily = UIForm.COMPONENT_FAMILY,
     rendererType = RendererTypes.PAGE,
-    facets = {
-        @Facet(name = Facets.LAYOUT, description = "Deprecated! Contains an layout manager. "
-            + "The layout manager tag should surround the content instead.")},
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CLICK,

@@ -60,11 +60,6 @@ public enum Facets {
   @Deprecated
   public static final String CONTEXT_MENU = "contextMenu";
   public static final String LABEL = "label";
-  /**
-   * @deprecated since 3.0.0. The layout manager tag should surround the content instead.
-   */
-  @Deprecated
-  public static final String LAYOUT = "layout";
   public static final String PAGER_PAGE = "pagerPage";
   public static final String PAGER_PAGE_DIRECT = "pagerPageDirect";
   public static final String PAGER_ROW = "pagerRow";

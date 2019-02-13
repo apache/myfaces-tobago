@@ -52,9 +52,7 @@ import javax.faces.component.UIPanel;
         @Facet(name = Facets.BAR,
             description = "Contains some code to be placed in the header at the bar position."),
         @Facet(name = Facets.LABEL,
-            description = "Contains some code to be placed in the header at the label position."),
-        @Facet(name=Facets.LAYOUT, description = "Deprecated! Contains an layout manager. "
-            + "The layout manager tag should surround the content instead.")},
+            description = "Contains some code to be placed in the header at the label position.")},
     markups = {
         @Markup(
             name = org.apache.myfaces.tobago.context.Markup.STRING_SPREAD,

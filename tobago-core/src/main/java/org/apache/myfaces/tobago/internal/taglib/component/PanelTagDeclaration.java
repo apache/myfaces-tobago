@@ -48,9 +48,7 @@ import javax.faces.component.UIPanel;
     rendererType = RendererTypes.PANEL,
     facets = {
         @Facet(name = Facets.RELOAD, description = "Contains an instance of UIReload",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Reload"),
-        @Facet(name = Facets.LAYOUT, description = "Deprecated. Contains an layout manager. "
-            + "The layout manager tag should surround the content instead.")},
+            allowedChildComponenents = "org.apache.myfaces.tobago.Reload")},
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CLICK,
