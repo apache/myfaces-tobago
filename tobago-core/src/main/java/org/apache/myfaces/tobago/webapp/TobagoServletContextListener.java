@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.webapp;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.config.ContentSecurityPolicy;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigBuilder;
-import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,8 +52,6 @@ public class TobagoServletContextListener implements ServletContextListener {
     if (LOG.isInfoEnabled()) {
       final TobagoConfig tobagoConfig = TobagoConfig.getInstance(servletContext);
       LOG.info("TobagoConfig: " + tobagoConfig);
-
-      MimeTypeUtils.init(servletContext);
 
       final ContentSecurityPolicy.Mode mode = tobagoConfig.getContentSecurityPolicy().getMode();
       final StringBuilder builder = new StringBuilder();

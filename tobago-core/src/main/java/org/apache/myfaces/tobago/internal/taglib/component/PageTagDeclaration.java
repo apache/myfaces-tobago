@@ -87,15 +87,4 @@ public interface PageTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute()
   void setFocusId(String focusId);
-
-  /**
-   * Absolute URL to an image or image name to lookup in tobago resource path
-   * representing the application. In HTML it is used as a favicon.
-   *
-   * @deprecated with Tobago 5 (See TOBAGO-1979)
-   */
-  @Deprecated
-  @TagAttribute
-  @UIComponentTagAttribute()
-  void setApplicationIcon(String icon);
 }

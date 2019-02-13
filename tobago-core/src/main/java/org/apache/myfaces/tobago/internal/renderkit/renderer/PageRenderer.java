@@ -38,7 +38,6 @@ import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.CookieUtils;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -210,22 +209,6 @@ public class PageRenderer extends RendererBase {
     // style files individual files
     for (final UIComponent styles : headResources.getStyles()) {
       styles.encodeAll(facesContext);
-    }
-
-    final String icon = page.getApplicationIcon();
-    if (icon != null) {
-      // XXX refactor this: TOBAGO-1979
-      writer.startElement(HtmlElements.LINK);
-      if (icon.endsWith(".ico")) {
-        writer.writeAttribute(HtmlAttributes.REL, "shortcut icon", false);
-        writer.writeAttribute(HtmlAttributes.HREF, icon, true);
-      } else {
-        // XXX IE only supports ICO files for favicons
-        writer.writeAttribute(HtmlAttributes.REL, "icon", false);
-        writer.writeAttribute(HtmlAttributes.TYPE, MimeTypeUtils.getMimeTypeForFile(icon), true);
-        writer.writeAttribute(HtmlAttributes.HREF, icon, true);
-      }
-      writer.endElement(HtmlElements.LINK);
     }
 
     // script files from theme

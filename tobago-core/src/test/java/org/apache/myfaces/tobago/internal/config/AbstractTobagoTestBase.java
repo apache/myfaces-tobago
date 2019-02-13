@@ -34,7 +34,6 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.mock.faces.MockTheme;
-import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -84,11 +83,6 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     tobagoConfig.resolveThemes();
     tobagoConfig.initDefaultValidatorInfo();
     servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
-    try {
-      MimeTypeUtils.init(servletContext);
-    } catch (final IllegalStateException e) {
-      // ignoring double call
-    }
 
     final TobagoContext tobagoContext = new TobagoContext();
     tobagoContext.setTheme(one);

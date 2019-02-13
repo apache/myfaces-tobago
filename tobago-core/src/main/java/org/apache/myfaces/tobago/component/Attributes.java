@@ -37,7 +37,6 @@ public enum Attributes {
   align,
   alignItems,
   alt,
-  applicationIcon,
   autocomplete,
   autoReload,
   backgroundImage,
