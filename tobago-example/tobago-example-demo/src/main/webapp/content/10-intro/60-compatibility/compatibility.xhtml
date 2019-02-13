@@ -34,11 +34,12 @@
       <th>1.0.x<tc:badge value="archived"/></th>
       <th>1.5.x<tc:badge value="archived"/></th>
       <th>2.x</th>
-      <th>3.x</th>
+      <th>3.x<tc:badge value="archived"/></th>
       <th>4.x</th>
+      <th>5.x<tc:badge value="in development"/></th>
     </tr>
     <tr>
-      <th colspan="6">Specifications</th>
+      <th colspan="7">Specifications</th>
     </tr>
     <tr>
       <td>Java</td>
@@ -46,6 +47,7 @@
       <td>1.5, 1.6, 1.7, 1.8</td>
       <td> 1.5, 1.6, 1.7, 1.8, 9</td>
       <td>1.8, 9, 10</td>
+      <td>1.8, 9, 10, ...</td>
       <td>1.8, 9, 10, ...</td>
     </tr>
     <tr>
@@ -55,6 +57,7 @@
       <td>2.0, 2.1, 2.2</td>
       <td>2.0, 2.1, 2.2</td>
       <td>2.0, 2.1, 2.2, 2.3</td>
+      <td>2.0, 2.1, 2.2, 2.3</td>
     </tr>
     <tr>
       <td>Facelets</td>
@@ -63,14 +66,17 @@
       <td><tc:badge value="int"/></td>
       <td><tc:badge value="int"/></td>
       <td><tc:badge value="int"/></td>
+      <td><tc:badge value="int"/></td>
     </tr>
     <tr>
       <td>Servlet</td>
       <td> 2.3, <b>2.4</b>, 2.5</td>
       <td>2.4<tc:badge value="facelets only"/>, <b>2.5</b>, 3.0</td>
-      <td>2.4<tc:badge value="facelets only"/>, <b>2.5</b>, <b>3.0</b>, <b>3.1</b></td>
+      <td>2.4<tc:badge value="facelets only"/>, <b>2.5</b>, <b>3.0</b>, <b>3.1</b>
+      (since Tobago 2.4 version 3.0 is required)</td>
       <td>3.0, 3.1</td>
-      <td>?</td>
+      <td>3.0, 3.1, 4.0</td>
+      <td>3.0, 3.1, 4.0</td>
     </tr>
     <tr>
       <td>JSP</td>
@@ -79,12 +85,14 @@
       <td>2.1, 2.2</td>
       <td>-</td>
       <td>-</td>
+      <td>-</td>
     </tr>
     <tr>
-      <th colspan="6">Implementations</th>
+      <th colspan="7">Implementations</th>
     </tr>
     <tr>
       <td>MyFaces</td>
+      <td>yes</td>
       <td>yes</td>
       <td>yes</td>
       <td>yes</td>
@@ -96,11 +104,12 @@
       <td>yes</td>
       <td>yes</td>
       <td>yes</td>
-      <td>yes</td>
-      <td>yes</td>
+      <td>2.1 and higher</td>
+      <td>2.1 and higher</td>
+      <td>2.1 and higher</td>
     </tr>
     <tr>
-      <th colspan="6">Servers</th>
+      <th colspan="7">Servers</th>
     </tr>
     <tr>
       <td>Tomcat</td>
@@ -108,13 +117,15 @@
       <td> 5.5<tc:badge value="facelets only"/>, 6, 7</td>
       <td>5.5<tc:badge value="facelets only"/>, 6, 7</td>
       <td>7, 8</td>
-      <td>7, 8</td>
+      <td>7, 8, 9</td>
+      <td>7, 8, 9</td>
     </tr>
     <tr>
       <td>Jetty</td>
       <td> 6, 7</td>
       <td>6, 7, 8</td>
       <td> 6, 7, 8</td>
+      <td> 8, 9</td>
       <td> 8, 9</td>
       <td> 8, 9</td>
     </tr>
@@ -125,6 +136,7 @@
       <td>9.2<tc:badge value="facelets only"/>, 10, 11g, 12c</td>
       <td>12c</td>
       <td>12c</td>
+      <td>12c</td>
     </tr>
     <tr>
       <td>WebSphere</td>
@@ -133,9 +145,11 @@
       <td>6.1<tc:badge value="facelets only"/>, 7, 8, 8.5</td>
       <td>8, 8.5, 9</td>
       <td>8, 8.5, 9</td>
+      <td>8, 8.5, 9</td>
     </tr>
     <tr>
       <td>Other</td>
+      <td><tc:badge value="other servers"/></td>
       <td><tc:badge value="other servers"/></td>
       <td><tc:badge value="other servers"/></td>
       <td><tc:badge value="other servers"/></td>
@@ -152,12 +166,14 @@
       <td>6<tc:badge value="lim"/>, 7<tc:badge value="lim"/>, 8<tc:badge value="lim"/>, 9, 10, 11, ...</td>
       <td>10<tc:badge value="lim"/>, 11, ...</td>
       <td>10<tc:badge value="lim"/>, 11, ...</td>
+      <td>11, ...</td>
     </tr>
     <tr>
       <td>Firefox</td>
       <td>2, 3, 4, ...</td>
       <td>2, 3, 4, ...</td>
       <td>2<tc:badge value="lim"/>, 3, 4, ...</td>
+      <td><tc:badge value="latest"/></td>
       <td><tc:badge value="latest"/></td>
       <td><tc:badge value="latest"/></td>
     </tr>
@@ -168,12 +184,14 @@
       <td>4, 5, 6, ...</td>
       <td><tc:badge value="latest"/></td>
       <td><tc:badge value="latest"/></td>
+      <td><tc:badge value="latest"/></td>
     </tr>
     <tr>
       <td>Chrome</td>
       <td>-</td>
       <td>5, ...</td>
       <td>5, ...</td>
+      <td><tc:badge value="latest"/></td>
       <td><tc:badge value="latest"/></td>
       <td><tc:badge value="latest"/></td>
     </tr>
@@ -184,8 +202,10 @@
       <td>10, 11, ...</td>
       <td><tc:badge value="latest"/></td>
       <td><tc:badge value="latest"/></td>
+      <td><tc:badge value="latest"/></td>
     </tr>
     <tr>
+      <td><tc:badge value="other browsers"/></td>
       <td><tc:badge value="other browsers"/></td>
       <td><tc:badge value="other browsers"/></td>
       <td><tc:badge value="other browsers"/></td>
@@ -203,10 +223,12 @@
       <td>yes</td>
       <td>yes</td>
       <td>yes</td>
+      <td>yes</td>
     </tr>
     <tr>
       <td>Codi</td>
       <td></td>
+      <td>yes</td>
       <td>yes</td>
       <td>yes</td>
       <td>yes</td>
@@ -219,10 +241,12 @@
       <td>yes</td>
       <td>yes</td>
       <td>yes</td>
+      <td>yes</td>
     </tr>
     <tr>
       <td>JSR-303 / BV</td>
       <td></td>
+      <td>yes</td>
       <td>yes</td>
       <td>yes</td>
       <td>yes</td>
