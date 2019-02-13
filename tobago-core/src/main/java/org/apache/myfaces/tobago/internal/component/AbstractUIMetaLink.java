@@ -69,7 +69,7 @@ public abstract class AbstractUIMetaLink extends UIComponentBase {
 
   public abstract String getRel();
 
-  public abstract String getMedia ();
+  public abstract String getMedia();
 
-  public abstract String getType ();
+  public abstract String getType();
 }
