@@ -126,6 +126,7 @@ public enum Attributes {
   hidden,
   hover,
   href,
+  hreflang,
   httpEquiv,
   i18n,
   iconSize,
@@ -199,6 +200,7 @@ public enum Attributes {
   maximumWidth,
   maxHeight,
   maxWidth,
+  media,
   method,
   min,
   minHeight,
@@ -336,6 +338,7 @@ public enum Attributes {
   renderRangeExtern,
   required,
   resizable,
+  rev,
   right,
   /**
    * @deprecated since 4.0.0
