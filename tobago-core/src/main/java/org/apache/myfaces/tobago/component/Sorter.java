@@ -22,9 +22,7 @@ package org.apache.myfaces.tobago.component;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
-import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.model.SheetState;
-import org.apache.myfaces.tobago.util.BeanComparator;
 import org.apache.myfaces.tobago.util.MessageUtils;
 import org.apache.myfaces.tobago.util.ValueExpressionComparator;
 import org.slf4j.Logger;
@@ -102,46 +100,24 @@ public class Sorter {
     final Comparator actualComparator;
 
     if (data instanceof List || data instanceof Object[]) {
-      final String sortProperty;
-
       try {
         final UIComponent child = getFirstSortableChild(column.getChildren());
         if (child != null) {
-
-          final Attributes attribute = child instanceof AbstractUICommand ? Attributes.label : Attributes.value;
-          if (child.getValueExpression(attribute.getName()) != null) {
+          final boolean descending = !sheetState.isAscending();
+          final String attribute = (child instanceof AbstractUICommand ? Attributes.label : Attributes.value).getName();
+          final ValueExpression expression = child.getValueExpression(attribute);
+          if (expression != null) {
             final String var = sheet.getVar();
             if (var == null) {
                 LOG.error("No sorting performed. Property var of sheet is not set!");
                 addNotSortableMessage(facesContext, column);
                 return false;
             }
-            String expressionString = child.getValueExpression(attribute.getName()).getExpressionString();
-            if (isSimpleProperty(expressionString)) {
-              if (expressionString.startsWith("#{")
-                  && expressionString.endsWith("}")) {
-                expressionString =
-                    expressionString.substring(2,
-                        expressionString.length() - 1);
-              }
-              sortProperty = expressionString.substring(var.length() + 1);
-
-              actualComparator = new BeanComparator(
-                  sortProperty, comparator, !sheetState.isAscending());
-
-              if (LOG.isDebugEnabled()) {
-                LOG.debug("Sort property is {}", sortProperty);
-              }
-            } else {
-
-              final boolean descending = !sheetState.isAscending();
-              final ValueExpression expression = child.getValueExpression("value");
-              actualComparator = new ValueExpressionComparator(facesContext, var, expression, descending, comparator);
-            }
+            actualComparator = new ValueExpressionComparator(facesContext, var, expression, descending, comparator);
           } else {
             LOG.error("No sorting performed, because no expression found for "
                     + "attribute '{}' in component '{}' with id='{}'! You may check the type of the component!",
-                attribute.getName(), child.getClass().getName(), child.getClientId());
+                attribute, child.getClass().getName(), child.getClientId());
             addNotSortableMessage(facesContext, column);
             return false;
           }
@@ -155,11 +131,6 @@ public class Sorter {
         addNotSortableMessage(facesContext, column);
         return false;
       }
-
-      // TODO: locale / comparator parameter?
-      // don't compare numbers with Collator.getInstance() comparator
-//        Comparator comparator = Collator.getInstance();
-//          comparator = new RowComparator(ascending, method);
 
       // memorize selected rows
       List<Object> selectedDataRows = null;
@@ -208,26 +179,11 @@ public class Sorter {
       }
 
     } else {  // DataModel?, ResultSet, Result or Object
-      LOG.warn("Sorting not supported for type "
-          + (data != null ? data.getClass().toString() : "null"));
+      LOG.warn("Sorting not supported for type '{}'.", (data != null ? data.getClass().toString() : "null"));
+      addNotSortableMessage(facesContext, column);
+      return false;
     }
     return true;
-  }
-
-  // XXX needs to be tested
-  // XXX was based on ^#\{(\w+(\.\w)*)\}$ which is wrong, because there is a + missing after the last \w
-  boolean isSimpleProperty(final String expressionString) {
-    if (expressionString.startsWith("#{") && expressionString.endsWith("}")) {
-      final String inner = expressionString.substring(2, expressionString.length() - 1);
-      final String[] parts = StringUtils.split(inner, '.');
-      for (final String part : parts) {
-        if (!StringUtils.isAlpha(part)) {
-          return false;
-        }
-      }
-      return true;
-    }
-    return false;
   }
 
   private void addNotSortableMessage(final FacesContext facesContext, final UIColumn column) {
