@@ -48,41 +48,36 @@ public abstract class ComparatorBase implements Comparator {
 
   protected int internalCompare(final Object obj1, final Object obj2) {
 
+    final int result;
     if (obj1 == null || obj2 == null) {
       if (obj1 == null && obj2 == null) {
-        return 0;
-      }
-      if (obj1 == null) {
-        return reverse ? 1 : -1;
+        result = 0;
       } else {
-        return reverse ? -1 : 1;
+        if (obj1 == null) {
+          result = 1;
+        } else {
+          result = -1;
+        }
       }
-    }
-
-    if (!obj1.getClass().isInstance(obj2)) {
-      throw new ClassCastException(obj1.getClass().getName() + " != "
-          + obj2.getClass().getName());
-    }
-
-    final int result;
-
-
-    if (comparator instanceof Collator) {
-      final CollationKey collationKey1
-          = ((Collator) comparator).getCollationKey(obj1.toString());
-      final CollationKey collationKey2
-          = ((Collator) comparator).getCollationKey(obj2.toString());
-      result = collationKey1.compareTo(collationKey2);
-
-    } else if (comparator != null) {
-      result = comparator.compare(obj1, obj2);
+    } else if (!obj1.getClass().isInstance(obj2)) {
+      throw new ClassCastException(obj1.getClass().getName() + " != " + obj2.getClass().getName());
     } else {
-      if (obj1 instanceof String) {
-        result = ((String) obj1).compareToIgnoreCase((String) obj2);
-      } else if (obj1 instanceof Comparable) {
-        result = ((Comparable) obj1).compareTo(obj2);
+      if (comparator instanceof Collator) {
+        final CollationKey collationKey1
+            = ((Collator) comparator).getCollationKey(obj1.toString());
+        final CollationKey collationKey2
+            = ((Collator) comparator).getCollationKey(obj2.toString());
+        result = collationKey1.compareTo(collationKey2);
+      } else if (comparator != null) {
+        result = comparator.compare(obj1, obj2);
       } else {
-        result = obj1.toString().compareTo(obj2.toString());
+        if (obj1 instanceof String) {
+          result = ((String) obj1).compareToIgnoreCase((String) obj2);
+        } else if (obj1 instanceof Comparable) {
+          result = ((Comparable) obj1).compareTo(obj2);
+        } else {
+          result = obj1.toString().compareTo(obj2.toString());
+        }
       }
     }
     return reverse ? -result : result;

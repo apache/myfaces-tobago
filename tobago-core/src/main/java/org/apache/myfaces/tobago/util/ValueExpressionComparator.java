@@ -119,8 +119,6 @@ public class ValueExpressionComparator extends ComparatorBase {
     return result;
   }
 
-  // implementation of java.util.Comparator interface
-
   @Override
   public int compare(final Object param1, final Object param2) {
     final Object obj1;
@@ -131,7 +129,7 @@ public class ValueExpressionComparator extends ComparatorBase {
       obj1 = valueExpression.getValue(facesContext.getELContext());
       requestMap.put(var, param2);
       obj2 = valueExpression.getValue(facesContext.getELContext());
-
+      requestMap.remove(var);
     } catch (final Exception e) {
       LOG.error(e.getMessage(), e);
       return 0;

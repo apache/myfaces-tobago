@@ -25,6 +25,10 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @deprecated since 4.4.0
+ */
+@Deprecated
 public class BeanComparatorUnitTest {
 
   @Test

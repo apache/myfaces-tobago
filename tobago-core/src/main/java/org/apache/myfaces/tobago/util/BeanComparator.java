@@ -27,6 +27,10 @@ import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.Comparator;
 
+/**
+ * @deprecated since 4.4.0. Please use {@link ValueExpressionComparator}.
+ */
+@Deprecated
 public class BeanComparator extends ComparatorBase implements Serializable {
 
   private static final long serialVersionUID = -7450094725566090886L;
