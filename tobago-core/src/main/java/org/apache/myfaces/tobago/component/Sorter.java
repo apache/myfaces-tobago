@@ -179,7 +179,7 @@ public class Sorter {
       }
 
     } else {  // DataModel?, ResultSet, Result or Object
-      LOG.warn("Sorting not supported for type '{}'.", (data != null ? data.getClass().toString() : "null"));
+      LOG.warn("Sorting not supported for type '{}'.", data != null ? data.getClass().toString() : "null");
       addNotSortableMessage(facesContext, column);
       return false;
     }
