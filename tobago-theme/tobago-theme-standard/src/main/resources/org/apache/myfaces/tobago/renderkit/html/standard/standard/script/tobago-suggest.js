@@ -107,7 +107,7 @@ Tobago.registerListener({
       this.input = jQuery(Tobago.Utils.escapeClientId(this.element.data("tobago-for")));
 
       if (this.input.data("tobago-suggest") == null) {
-        this.input.on(compatibleKeyEvent(), function (event) {
+        this.input.on('keydown', function (event) {
 
           var handled = false;
 

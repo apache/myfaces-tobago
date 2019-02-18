@@ -243,13 +243,6 @@ Tobago.Menu.closeAll = function() {
   return false;
 };
 
-/**
-* returns the browser specific event which should be used.
-*/
-function compatibleKeyEvent() {
-  return Tobago.browser.isMsie || Tobago.browser.isWebkit ? 'keydown' : 'keypress';
-}
-
 Tobago.Menu.mouseOver = function(event) {
   var a = jQuery(this).children('a'); // needed for "suggest"
   if (! a.data("tobago-ignore-focus")) { // can be removed, after refactoring to a jQuery widget variable
@@ -264,7 +257,7 @@ Tobago.Menu.switchOn = function(menuBar, menu) {
       .bind('mouseover', Tobago.Menu.mouseOver)
       .children('a')
       .on('focus', Tobago.Menu.open)
-      .bind(compatibleKeyEvent(), Tobago.Menu.handelKey);
+      .bind('keydown', Tobago.Menu.handelKey);
   var a = menu.children('a');
   if (! a.data("tobago-ignore-focus")) { // can be removed, after refactoring to a jQuery widget variable
     if (menu.parents(".tobago-toolBar").length === 0
@@ -290,7 +283,7 @@ Tobago.Menu.switchOff = function(menuBar) {
       .unbind('mouseover', Tobago.Menu.mouseOver)
       .children('a')
       .off('focus', Tobago.Menu.open)
-      .unbind(compatibleKeyEvent(), Tobago.Menu.handelKey);
+      .unbind('keydown', Tobago.Menu.handelKey);
   jQuery("body").unbind('click', Tobago.Menu.closeAll);
   menuBar.find('.tobago-menu-markup-selected').removeClass("tobago-menu-markup-selected");
   menuBar.data('menu-active', false);        // write state back
