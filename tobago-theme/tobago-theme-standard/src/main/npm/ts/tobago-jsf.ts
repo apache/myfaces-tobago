@@ -21,6 +21,8 @@ Tobago4.Jsf = {
   VIEW_ROOT: "javax.faces.ViewRoot",
   VIEW_HEAD: "javax.faces.ViewHead",
   VIEW_BODY: "javax.faces.ViewBody",
+  RESOURCE: "javax.faces.Resource",
+
   isId: function (id) {
     switch (id) {
       case Tobago4.Jsf.VIEW_STATE:
@@ -28,11 +30,13 @@ Tobago4.Jsf = {
       case Tobago4.Jsf.VIEW_ROOT:
       case Tobago4.Jsf.VIEW_HEAD:
       case Tobago4.Jsf.VIEW_BODY:
+      case Tobago4.Jsf.RESOURCE:
         return false;
       default:
         return true;
     }
   },
+
   isBody: function (id) {
     switch (id) {
       case Tobago4.Jsf.VIEW_ROOT:
