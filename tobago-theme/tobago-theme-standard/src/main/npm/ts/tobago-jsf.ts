@@ -50,20 +50,20 @@ Tobago4.Jsf = {
 
 Tobago4.Jsf.init = function() {
   jsf.ajax.addOnEvent(function (event) {
-    console.timeEnd("x"); // @DEV_ONLY
-    console.time("x"); // @DEV_ONLY
-    console.log(event); // @DEV_ONLY
+    console.timeEnd("x");
+    console.time("x");
+    console.log(event);
     if (event.status === "success") {
-      console.log("success");// @DEV_ONLY
+      console.log("success");
 
       jQuery(event.responseXML).find("update").each(function () {
         var id = jQuery(this).attr("id");
-        console.info("Update after jsf.ajax success: id='" + id + "'"); // @DEV_ONLY
+        console.info("Update after jsf.ajax success: id='" + id + "'");
         if (Tobago4.Jsf.isId(id)) {
-          console.debug("updating id: " + id);// @DEV_ONLY
+          console.debug("updating id: " + id);
           Tobago.Listener.executeAfterUpdate(document.getElementById(id));
         } else if (Tobago4.Jsf.isBody(id)) {
-          console.debug("updating body");// @DEV_ONLY
+          console.debug("updating body");
           // there should be only one element with this class
           Tobago.Listener.executeAfterUpdate(document.querySelector<HTMLElement>(".tobago-page"));
 /*
@@ -77,12 +77,12 @@ Tobago4.Jsf.init = function() {
         }
       });
     } else if (event.status === "complete") {
-      console.log("complete");// @DEV_ONLY
+      console.log("complete");
       jQuery(event.responseXML).find("update").each(function () {
         var updateId = jQuery(this).attr("id");
         if ("javax.faces.ViewState" !== updateId) {
           var oldElement = jQuery(Tobago4.Utils.escapeClientId(updateId));
-          console.info("Update after jsf.ajax complete: id='" + oldElement.attr("id") + "'"); // @DEV_ONLY
+          console.info("Update after jsf.ajax complete: id='" + oldElement.attr("id") + "'");
           if (oldElement.data("tobago-partial-overlay-set")) {
             oldElement.overlay("destroy");
           }

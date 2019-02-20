@@ -252,6 +252,17 @@
               <arguments>run ts-compile</arguments>
             </configuration>
           </execution>
+
+          <execution>
+            <id>step #5c: minify</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <arguments>run js-minify</arguments>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
 

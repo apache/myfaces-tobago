@@ -45,7 +45,7 @@ Tobago4 = {
 
   createHtmlId: function() {
     var id = '__tbg_id_' + this.htmlIdIndex++;
-    console.debug('created id = ' + id); // @DEV_ONLY
+    console.debug('created id = ' + id);
     return id;
   },
 
@@ -97,7 +97,7 @@ Tobago4 = {
     }
     this.initMarker = true;
 
-    console.time("[tobago] init"); // @DEV_ONLY
+    console.time("[tobago] init");
 
     document.querySelector("form").addEventListener('submit', Tobago4.onSubmit);
 
@@ -108,14 +108,14 @@ Tobago4 = {
         for (var order = 0; order < Tobago.listeners.documentReady.length; order++) {
           var list = Tobago.listeners.documentReady[order];
           for (var i = 0; i < list.length; i++) {
-            console.time("[tobago] init " + order + " " + i); // @DEV_ONLY
+            console.time("[tobago] init " + order + " " + i);
             list[i]();
-            console.timeEnd("[tobago] init " + order + " " + i); // @DEV_ONLY
+            console.timeEnd("[tobago] init " + order + " " + i);
           }
         }
     */
 
-    console.timeEnd("[tobago] init"); // @DEV_ONLY
+    console.timeEnd("[tobago] init");
   },
 
   onSubmit: function(listenerOptions) {
@@ -156,11 +156,11 @@ Tobago4 = {
 
   preparePartialOverlay: function(options) {
     if (options.transition === undefined || options.transition == null || options.transition) {
-      console.info("options.render: " + options.render); // @DEV_ONLY
+      console.info("options.render: " + options.render);
       if (options.render) {
         var partialIds = options.render.split(" ");
         for (var i = 0; i < partialIds.length; i++) {
-          console.info("partialId: " + partialIds[i]); // @DEV_ONLY
+          console.info("partialId: " + partialIds[i]);
           var element = jQuery(Tobago4.Utils.escapeClientId(partialIds[i]));
           element.data("tobago-partial-overlay-set", true);
           element.overlay({ajax: true});
@@ -174,7 +174,7 @@ Tobago4 = {
    */
   onUnload: function() {
 
-    console.info('on onload'); // @DEV_ONLY
+    console.info('on onload');
 
     if (this.isSubmit) {
       Tobago.Listener.executeBeforeUnload();
@@ -377,7 +377,7 @@ Tobago4 = {
       // focus() on not visible elements breaks some IE
       $element.focus();
     } catch (e) {
-      console.error("element-id=" + $element.attr("id") + " exception=" + e); // @DEV_ONLY
+      console.error("element-id=" + $element.attr("id") + " exception=" + e);
     }
   },
 
@@ -469,7 +469,7 @@ Tobago4.Config = {
     if (name) {
       return this[name][key];
     } else {
-      console.warn("Tobago.Config.get(" + name + ", " + key + ") = undefined"); // @DEV_ONLY
+      console.warn("Tobago.Config.get(" + name + ", " + key + ") = undefined");
       return 0;
     }
   },
@@ -508,9 +508,9 @@ Tobago4.Transport = {
       index = this.requests.push(req);
       //console.debug('index = ' + index)
     } else if (!this.pageSubmitted) { // AJAX case
-      console.debug('Current ActionId = ' + this.currentActionId + ' action= ' + actionId); // @DEV_ONLY
+      console.debug('Current ActionId = ' + this.currentActionId + ' action= ' + actionId);
       if (actionId && this.currentActionId === actionId) {
-        console.info('Ignoring request'); // @DEV_ONLY
+        console.info('Ignoring request');
         // If actionId equals currentActionId assume double request: do nothing
         return false;
       }
@@ -518,16 +518,16 @@ Tobago4.Transport = {
       //console.debug('index = ' + index)
       this.currentActionId = actionId;
     } else {
-      console.debug("else case"); // @DEV_ONLY
+      console.debug("else case");
       return false;
     }
-    console.debug('index = ' + index);  // @DEV_ONLY
+    console.debug('index = ' + index);
     if (index === 1) {
-      console.info('Execute request!'); // @DEV_ONLY
+      console.info('Execute request!');
       this.startTime = new Date().getTime();
       this.requests[0]();
     } else {
-      console.info('Request queued!'); // @DEV_ONLY
+      console.info('Request queued!');
     }
     return true;
   },
@@ -538,9 +538,9 @@ Tobago4.Transport = {
   requestComplete: function() {
     this.requests.shift();
     this.currentActionId = null;
-    console.debug('Request complete! Duration: ' + (new Date().getTime() - this.startTime) + 'ms; Queue size : ' + this.requests.length); // @DEV_ONLY
+    console.debug('Request complete! Duration: ' + (new Date().getTime() - this.startTime) + 'ms; Queue size : ' + this.requests.length);
     if (this.requests.length > 0) {
-      console.debug('Execute request!'); // @DEV_ONLY
+      console.debug('Execute request!');
       this.startTime = new Date().getTime();
       this.requests[0]();
     }

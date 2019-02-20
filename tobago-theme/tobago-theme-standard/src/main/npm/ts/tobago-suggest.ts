@@ -38,7 +38,7 @@ Tobago4.Suggest.loadFromServer = function (input) {
         suggest.data("tobago-suggest-callback", asyncResults);
         suggest.removeData("tobago-suggest-data"); // clear jQuery-data-cache
         const id = suggest.attr("id");
-        console.info("query: '" + query + "'"); // @DEV_ONLY
+        console.info("query: '" + query + "'");
 
         jsf.ajax.request(
             id,

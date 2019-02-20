@@ -175,7 +175,7 @@ Tobago4.DateTime.addPastClass = function ($date) {
 Tobago4.DateTime.analyzePattern = function (pattern) {
 
   if (!pattern || pattern.length > 100) {
-    console.warn("Pattern not supported: " + pattern);  // @DEV_ONLY
+    console.warn("Pattern not supported: " + pattern);
     pattern = "";
   }
 
@@ -220,7 +220,7 @@ Tobago4.DateTime.analyzePatternPart = function (pattern) {
 
   if (pattern.search("G") > -1 || pattern.search("W") > -1 || pattern.search("F") > -1
       || pattern.search("K") > -1 || pattern.search("z") > -1 || pattern.search("X") > -1) {
-    console.warn("Pattern chars 'G', 'W', 'F', 'K', 'z' and 'X' are not supported: " + pattern); // @DEV_ONLY
+    console.warn("Pattern chars 'G', 'W', 'F', 'K', 'z' and 'X' are not supported: " + pattern);
     pattern = "";
   }
 

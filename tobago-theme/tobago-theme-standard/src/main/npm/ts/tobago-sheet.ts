@@ -30,8 +30,8 @@ Tobago4.Sheets = {
 Tobago4.Sheet = function(
     sheetId, unused1, unused2, unused3, unused4,
     clickActionId, clickReloadComponentId, dblClickActionId, dblClickReloadComponentId, behaviorCommands) {
-  console.debug("New Sheet with id " + sheetId); // @DEV_ONLY
-  console.time("[tobago-sheet] constructor"); // @DEV_ONLY
+  console.debug("New Sheet with id " + sheetId);
+  console.time("[tobago-sheet] constructor");
   this.id = sheetId;
   Tobago4.Sheets.put(this);
   this.clickActionId = clickActionId;
@@ -42,11 +42,11 @@ Tobago4.Sheet = function(
 
   this.setup();
 
-  console.timeEnd("[tobago-sheet] constructor"); // @DEV_ONLY
+  console.timeEnd("[tobago-sheet] constructor");
 };
 
 Tobago4.Sheet.init = function(element:HTMLElement | HTMLDocument) {
-  console.time("[tobago-sheet] init"); // @DEV_ONLY
+  console.time("[tobago-sheet] init");
   const sheets = element.querySelectorAll( ".tobago-sheet");
   sheets.forEach(function (element) {
     var $sheet = jQuery(element);
@@ -82,14 +82,14 @@ Tobago4.Sheet.init = function(element:HTMLElement | HTMLDocument) {
     });
   });
 
-  console.timeEnd("[tobago-sheet] init"); // @DEV_ONLY
+  console.timeEnd("[tobago-sheet] init");
 };
 
 Tobago.Listener.register(Tobago4.Sheet.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.Listener.register(Tobago4.Sheet.init, Tobago.Phase.AFTER_UPDATE);
 
 Tobago4.Sheet.reloadWithAction = function(elementId) {
-    console.debug("reload sheet with action '" + elementId + "'"); // @DEV_ONLY
+    console.debug("reload sheet with action '" + elementId + "'");
   var executeIds = elementId;
   var renderIds = elementId;
   // XXX FIXME: behaviorCommands will probably be empty and not working!
@@ -133,7 +133,7 @@ Tobago4.Sheet.setup2 = function (sheets) {
     if (hidden.length > 0 && hidden.val()) {
       // if the hidden has a value, than also the colgroup/col are set correctly
       var columnWidths = jQuery.parseJSON(hidden.val());
-      console.info("columnWidths: " + columnWidths); // @DEV_ONLY
+      console.info("columnWidths: " + columnWidths);
     }
     if (columnWidths !== undefined && columnWidths.length === 0) {
       // otherwise use the layout definition
@@ -147,7 +147,7 @@ Tobago4.Sheet.setup2 = function (sheets) {
         var $bodyTable = $sheet.children("div").children("table");
         var $bodyCol = $bodyTable.children("colgroup").children("col");
 
-        console.assert($headerCol.length - 1 === $bodyCol.length, "header and body column number doesn't match");  // @DEV_ONLY
+        console.assert($headerCol.length - 1 === $bodyCol.length, "header and body column number doesn't match");
 
         var i;
         var intValue;
@@ -165,7 +165,7 @@ Tobago4.Sheet.setup2 = function (sheets) {
                 widthRelative -= $bodyTable.width() / 100 * intValue;
               }
             } else {
-              console.debug("auto? = " + tokens[i]); // @DEV_ONLY
+              console.debug("auto? = " + tokens[i]);
             }
           }
         }
@@ -187,7 +187,7 @@ Tobago4.Sheet.setup2 = function (sheets) {
                 colWidth = $bodyTable.width() / 100 * intValue;
               }
             } else {
-              console.debug("auto? = " + tokens[i]); // @DEV_ONLY
+              console.debug("auto? = " + tokens[i]);
             }
             if (colWidth > 0) { // because tokens[i] == "auto"
               $headerCol.eq(headerBodyColCount).attr("width", colWidth);
@@ -208,7 +208,7 @@ Tobago4.Sheet.setup2 = function (sheets) {
     });
     jQuery(this).mousedown(function (event) {
       // begin resizing
-      console.info("down"); // @DEV_ONLY
+      console.info("down");
       var columnIndex = jQuery(this).data("tobago-column-index");
       var body = jQuery("body");
       var sheet = jQuery(this).closest(".tobago-sheet");
@@ -229,7 +229,7 @@ Tobago4.Sheet.setup2 = function (sheets) {
       bodyTable.css("width", bodyTable.outerWidth());
 
       body.on("mousemove", data, function(event) {
-        console.info("move"); // @DEV_ONLY
+        console.info("move");
         var delta = event.clientX - event.data.originalClientX;
         delta = -Math.min(-delta, event.data.originalHeaderColumnWidth - 10);
         var columnWidth = event.data.originalHeaderColumnWidth + delta;
@@ -243,7 +243,7 @@ Tobago4.Sheet.setup2 = function (sheets) {
       body.one("mouseup", function(event) {
         // switch off the mouse move listener
         jQuery("body").off("mousemove");
-        console.info("up"); // @DEV_ONLY
+        console.info("up");
         // copy the width values from the header to the body, (and build a list of it)
         var tokens = sheet.data("tobago-layout").columns;
         var rendered = jQuery.parseJSON(Tobago4.Sheet.findHiddenRendered(sheet).val());
@@ -471,7 +471,7 @@ Tobago4.Sheet.hideInputOrSubmit = function(input) {
   if (changed) {
     Tobago4.Sheets.get(sheetId).reloadWithAction(input.attr("id"));
   } else {
-    console.info("no update needed"); // @DEV_ONLY
+    console.info("no update needed");
     input.hide();
     output.show();
   }
@@ -511,9 +511,9 @@ Tobago4.Sheet.getScrollBarSize = function() {
 };
 
 Tobago4.Sheet.prototype.setup = function() {
-  console.time("[tobago-sheet] setup"); // @DEV_ONLY
+  console.time("[tobago-sheet] setup");
   this.initReload();
-  console.timeEnd("[tobago-sheet] setup"); // @DEV_ONLY
+  console.timeEnd("[tobago-sheet] setup");
 };
 
 Tobago4.Sheet.prototype.initReload = function() {

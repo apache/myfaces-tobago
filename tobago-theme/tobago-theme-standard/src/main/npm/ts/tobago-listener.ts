@@ -75,37 +75,37 @@ namespace Tobago {
     execute(element?: HTMLElement | HTMLDocument) {
       this.earlier.forEach(
           (value, index) => {
-            console.time("[tobago] execute earlier " + index); // @DEV_ONLY
+            console.time("[tobago] execute earlier " + index);
             value(element);
-            console.timeEnd("[tobago] execute earlier " + index); // @DEV_ONLY
+            console.timeEnd("[tobago] execute earlier " + index);
           }
       );
       this.early.forEach(
           (value, index) => {
-            console.time("[tobago] execute early " + index); // @DEV_ONLY
+            console.time("[tobago] execute early " + index);
             value(element);
-            console.timeEnd("[tobago] execute early " + index); // @DEV_ONLY
+            console.timeEnd("[tobago] execute early " + index);
           }
       );
       this.normal.forEach(
           (value, index) => {
-            console.time("[tobago] execute normal " + index); // @DEV_ONLY
+            console.time("[tobago] execute normal " + index);
             value(element);
-            console.timeEnd("[tobago] execute normal " + index); // @DEV_ONLY
+            console.timeEnd("[tobago] execute normal " + index);
           }
       );
       this.late.forEach(
           (value, index) => {
-            console.time("[tobago] execute late " + index); // @DEV_ONLY
+            console.time("[tobago] execute late " + index);
             value(element);
-            console.timeEnd("[tobago] execute late " + index); // @DEV_ONLY
+            console.timeEnd("[tobago] execute late " + index);
           }
       );
       this.later.forEach(
           (value, index) => {
-            console.time("[tobago] execute later " + index); // @DEV_ONLY
+            console.time("[tobago] execute later " + index);
             value(element);
-            console.timeEnd("[tobago] execute later " + index); // @DEV_ONLY
+            console.timeEnd("[tobago] execute later " + index);
           }
       );
     }
@@ -153,44 +153,44 @@ namespace Tobago {
           Listener.beforeExit.add(listener, order);
           break;
         default:
-          console.error("Unknown phase: '" + phase + "'"); // @DEV_ONLY
+          console.error("Unknown phase: '" + phase + "'");
       }
     }
 
     static executeDocumentReady(element: HTMLElement) {
-      console.time("[tobago] execute documentReady"); // @DEV_ONLY
+      console.time("[tobago] execute documentReady");
       Listener.documentReady.execute(element);
-      console.timeEnd("[tobago] execute documentReady"); // @DEV_ONLY
+      console.timeEnd("[tobago] execute documentReady");
     }
 
     static executeWindowLoad() {
-      console.time("[tobago] execute windowLoad"); // @DEV_ONLY
+      console.time("[tobago] execute windowLoad");
       Listener.windowLoad.execute();
-      console.timeEnd("[tobago] execute windowLoad"); // @DEV_ONLY
+      console.timeEnd("[tobago] execute windowLoad");
     }
 
     static executeBeforeSubmit() {
-      console.time("[tobago] execute beforeSubmit"); // @DEV_ONLY
+      console.time("[tobago] execute beforeSubmit");
       Listener.beforeSubmit.execute();
-      console.timeEnd("[tobago] execute beforeSubmit"); // @DEV_ONLY
+      console.timeEnd("[tobago] execute beforeSubmit");
     }
 
     static executeAfterUpdate(element: HTMLElement) {
-      console.time("[tobago] execute afterUpdate"); // @DEV_ONLY
+      console.time("[tobago] execute afterUpdate");
       Listener.afterUpdate.execute(element);
-      console.timeEnd("[tobago] execute afterUpdate"); // @DEV_ONLY
+      console.timeEnd("[tobago] execute afterUpdate");
     }
 
     static executeBeforeUnload() {
-      console.time("[tobago] execute beforeUnload"); // @DEV_ONLY
+      console.time("[tobago] execute beforeUnload");
       Listener.beforeUnload.execute();
-      console.timeEnd("[tobago] execute beforeUnload"); // @DEV_ONLY
+      console.timeEnd("[tobago] execute beforeUnload");
     }
 
     static executeBeforeExit() {
-      console.time("[tobago] execute beforeExit"); // @DEV_ONLY
+      console.time("[tobago] execute beforeExit");
       Listener.beforeExit.execute();
-      console.timeEnd("[tobago] execute beforeExit"); // @DEV_ONLY
+      console.timeEnd("[tobago] execute beforeExit");
     }
   }
 

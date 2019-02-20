@@ -43,6 +43,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @ViewAccessScoped
@@ -83,11 +84,14 @@ public class SheetController implements Serializable {
   private void init() {
     solarList = astroData.findAll().collect(Collectors.toList());
 
+    Random random = new Random();
+
     hugeSolarList = new ArrayList<>();
-    for (int i = 1; i <= 12; i++) {
+    for (int i = 1; i <= 12000; i++) {
       for (final SolarObject solarObject : solarList) {
         final SolarObject solarObjectClone = new SolarObject(solarObject);
-        solarObjectClone.setName(solarObject.getName() + " (" + i + ". entry)");
+        solarObjectClone.setName(random.nextInt(1000) + solarObject.getName() + " (" + i + ". entry)");
+        solarObjectClone.setDiscoverer(random.nextInt(1000) + solarObject.getDiscoverer() + " (" + i + ". entry)");
         hugeSolarList.add(solarObjectClone);
       }
     }

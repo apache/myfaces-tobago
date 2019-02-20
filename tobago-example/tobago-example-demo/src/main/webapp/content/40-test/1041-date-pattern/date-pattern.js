@@ -80,7 +80,7 @@ TestDateTime.init = function () {
           jQueryValue = jQuery.datepicker.formatTime(analyzed.timeFormat, time, i18n);
           break;
         default:
-          console.error("invalid: not date-pattern nor time-pattern");  // @DEV_ONLY
+          console.error("invalid: not date-pattern nor time-pattern");
           jQueryValue = "no type";
       }
       jQueryUIFormatted.val(jQueryValue);

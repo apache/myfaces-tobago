@@ -157,7 +157,7 @@ Tobago4.Command.init = function(element) {
   }
   if (commands.resize) {
     jQuery(window).resize(function() {
-      console.debug("window resize event: " + commands.resize); // @DEV_ONLY
+      console.debug("window resize event: " + commands.resize);
       Tobago4.submitAction(this, commands.resize.action, commands.resize);
     });
   }
