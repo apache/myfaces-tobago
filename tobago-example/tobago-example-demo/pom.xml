@@ -79,7 +79,7 @@
                 <include>**/*.xhtml</include>
               </includes>
               <excludes>
-                  <exclude>**/x-error-in-syntax.xhtml</exclude>
+                <exclude>**/x-error-in-syntax.xhtml</exclude>
               </excludes>
             </validationSet>
           </validationSets>
@@ -126,11 +126,11 @@
               <value>target/derby.log</value>
             </systemProperty>
           </systemProperties>
-<!--
-          <webApp>
-            <contextPath>/example</contextPath>
-          </webApp>
--->
+          <!--
+            <webApp>
+              <contextPath>/example</contextPath>
+            </webApp>
+          -->
         </configuration>
         <dependencies>
         </dependencies>
