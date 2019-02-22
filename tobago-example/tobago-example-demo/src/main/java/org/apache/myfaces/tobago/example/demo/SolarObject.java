@@ -90,40 +90,6 @@ public class SolarObject implements Serializable {
     return name;
   }
 
-  public int getNameLength() {
-    return name.length();
-  }
-
-  public Wurst getFor() {
-    return new Wurst(name, distance);
-  }
-
-  public static class Wurst {
-    private String name;
-    private Integer distance;
-
-    public Wurst(String name, Integer distance) {
-      this.name = name;
-      this.distance = distance;
-    }
-
-    public String getName() {
-      return name;
-    }
-
-    public void setName(String name) {
-      this.name = name;
-    }
-
-    public Integer getDistance() {
-      return distance;
-    }
-
-    public void setDistance(Integer distance) {
-      this.distance = distance;
-    }
-  }
-
   public void update(final AjaxBehaviorEvent event) {
     LOG.info("AjaxBehaviorEvent called. New value: '{}' event: {}", name, event);
   }

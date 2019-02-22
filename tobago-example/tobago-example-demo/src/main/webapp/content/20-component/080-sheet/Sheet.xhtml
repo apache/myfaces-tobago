@@ -22,19 +22,64 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
-  <tc:out value="#{sheetController.hugeSolarList[0].name}" />
+  The sheet control is a simple solution for displaying table based
+  information. The essential features are:
+  <ul>
+    <li>Sorting</li>
+    <li>Paging</li>
+    <li>Tree table</li>
+    <li>Inline editing</li>
+    <li>Column resizing</li>
+    <li>Inline-Editing</li>
+    <li>Styling</li>
+    <li>Header customization</li>
+  </ul>
+  This example shows an application specific sorter, which sorts the sun to the top every time.
 
-    <tc:sheet id="s1" value="#{sheetController.hugeSolarList}" var="row8" rows="4">
+  <p>A <code class="language-markup">&lt;tc:sheet/></code> tag can contain any number of
+    <code class="language-markup">&lt;tc:column/></code> tags.
+    The <code class="language-markup">&lt;tc:column/></code> tag is a container, which may contain
+    outputfields, labels, progress bars or even tab groups.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:sheet/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/sheet.html"/>
+    |
+    <tc:link label="&lt;tc:column/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/column.html"/></p>
+
+  <tc:section label="Basics">
+    <p>Two attributes should be recognized in a sheet.
+      The data of the sheet is set in the <code>value</code> attribute.
+      The variablename of a single entry is set by the <code>var</code> attribute, which can be used in the
+      <code class="language-markup">&lt;tc:column/></code> tags.
+      In this example, also the <code>rows</code> attribute is set. So only four rows are shown at a time.</p>
+    <p>In most cases, you should set <code class="language-markup">labelLayout="skip"</code> for
+      components which have usually a label.
+      Otherwise those components have a negative affect on the proportion of the sheet.<br/>
+      For components with a label the attribute <code class="language-css">margin-bottom</code> is set.
+      The margin is add to the height of a row.</p>
+    <pre><code class="language-markup">&lt;tc:sheet value="\#{sheetController.solarList}"
+    var="solarobject" rows="4">
+  &lt;tc:column label="Name">
+    &lt;tc:out value="\#{solarobject.name}" labelLayout="skip"/>
+      ...</code></pre>
+    <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" rows="4">
       <tc:style maxHeight="500px"/>
-      <!--<tc:column label="Name" sortable="true">-->
-        <!--<tc:link label="#{row.distance}" labelLayout="skip"/>-->
-        <!--<tc:out value="#{row.getDistance()}" rendered="false"/>-->
-      <!--</tc:column>-->
-      <tc:column label="Name" sortable="true">
-        <tc:out value="#{row8.name}" labelLayout="skip"/>
+      <tc:column label="Name">
+        <tc:out value="#{object.name}" labelLayout="skip"/>
       </tc:column>
-      <tc:column label="Disc" sortable="true">
-        <tc:out value="#{row8.distance}" labelLayout="skip"/>
+      <tc:column label="Orbit">
+        <tc:out value="#{object.orbit}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="Period (Days)">
+        <tc:out value="#{object.period}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="Discoverer">
+        <tc:out value="#{object.discoverer}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="Year">
+        <tc:out value="#{object.discoverYear}" labelLayout="skip"/>
       </tc:column>
     </tc:sheet>
+  </tc:section>
 </ui:composition>
