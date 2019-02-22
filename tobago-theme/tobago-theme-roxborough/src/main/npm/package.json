@@ -19,13 +19,13 @@
   "homepage": "https://myfaces.apache.org/tobago/",
   "scripts": {
     "css": "npm-run-all --parallel css-compile --sequential css-prefix css-minify",
-    "xxx_todo_css-lint": "",
+    "css-lint": "echo 'Not implemented yet!'",
     "css-compile": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/tobago-theme.scss css/tobago.css",
     "css-prefix": "postcss --config postcss.config.js --replace \"css/*.css\" \"!css/*.min.css\"",
     "css-minify": "cleancss --level 1 --source-map --source-map-inline-sources --output css/tobago.min.css css/tobago.css",
-    "ts-compile": "echo 'skipping'",
-    "js-transpile": "echo 'skipping'",
-    "js-minify": "echo 'skipping'",
+    "ts-compile": "echo 'Skipping'",
+    "js-transpile": "echo 'Skipping'",
+    "js-minify": "echo 'Skipping'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
