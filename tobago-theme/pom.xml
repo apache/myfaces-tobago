@@ -193,7 +193,8 @@
 
         <!-- optional -->
         <configuration>
-          <nodeVersion>v8.11.4</nodeVersion> <!-- contains npm 5.6.0 -->
+          <nodeVersion>v10.15.1</nodeVersion> <!-- contains npm 6.4.1 -->
+          <!--<nodeVersion>v8.11.4</nodeVersion> &lt;!&ndash; contains npm 5.6.0 &ndash;&gt;-->
 
           <!-- optional: Where to download Node.js binary from. Defaults to http://nodejs.org/dist/ -->
           <!--<nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>-->
