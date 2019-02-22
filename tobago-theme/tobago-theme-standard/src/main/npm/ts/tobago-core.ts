@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-Tobago4 = {
+var Tobago4:any = {
 
   // -------- Constants -------------------------------------------------------
 

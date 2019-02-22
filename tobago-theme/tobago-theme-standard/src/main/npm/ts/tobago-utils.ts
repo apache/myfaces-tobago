@@ -24,8 +24,7 @@ namespace Tobago {
     if (element.classList.contains(classNameSelector)) {
       result.push(element);
     }
-    // XXX <any> can be remove with target=ES6 (now we have ES5)
-    for (const found of <any>element.getElementsByClassName(classNameSelector)) {
+    for (const found of element.getElementsByClassName(classNameSelector)) {
       result.push(<HTMLElement>found);
     }
     return result;

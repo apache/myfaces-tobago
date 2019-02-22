@@ -24,10 +24,16 @@
     "css-prefix": "postcss --config postcss.config.js --replace \"css/*.css\" \"!css/*.min.css\"",
     "css-minify": "cleancss --level 1 --source-map --source-map-inline-sources --output css/tobago.min.css css/tobago.css",
     "ts-compile": "tsc",
-    "js-minify": "uglifyjs --compress typeofs=false,drop_console=true --mangle --source-map includeSources --output js/tobago.min.js js/tobago-myfaces.js js/tobago-deltaspike.js js/tobago-listener.js js/tobago-core.js js/tobago-dropdown.js js/tobago-calendar.js js/tobago-command.js js/tobago-file.js js/tobago-header-footer.js js/tobago-in.js js/tobago-jsf.js js/tobago-overlay.js js/tobago-panel.js js/tobago-popover.js js/tobago-popup.js js/tobago-select.js js/tobago-sheet.js js/tobago-split-layout.js js/tobago-stars.js js/tobago-suggest.js js/tobago-tab.js js/tobago-tree.js js/tobago-utils.js",
+    "js-transpile": "npx babel -d js es6/*.js",
+    "help": "npx babel --help",
+    "js-minify": "uglifyjs --compress typeofs=false,drop_console=true --mangle --source-map includeSources --output js/tobago.min.js js/tobago-myfaces.js js/tobago-deltaspike.js js/tobago-polyfill.js js/tobago-listener.js js/tobago-core.js js/tobago-dropdown.js js/tobago-calendar.js js/tobago-command.js js/tobago-file.js js/tobago-header-footer.js js/tobago-in.js js/tobago-jsf.js js/tobago-overlay.js js/tobago-panel.js js/tobago-popover.js js/tobago-popup.js js/tobago-select.js js/tobago-sheet.js js/tobago-split-layout.js js/tobago-stars.js js/tobago-suggest.js js/tobago-tab.js js/tobago-tree.js js/tobago-utils.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.3",
+    "@babel/register": "^7.0.0",
+    "@babel/preset-env": "^7.3.1",
     "@types/jquery": "^3.3.25",
     "@types/jqueryui": "^1.12.6",
     "ajv": "^6.5.3",
@@ -47,5 +53,7 @@
     "typescript": "^3.2.4",
     "uglify-js": "^3.4.9"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@babel/polyfill": "^7.2.5"
+  }
 }

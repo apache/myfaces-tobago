@@ -42,72 +42,29 @@ namespace Tobago {
 
   class ListenerList {
 
-    // XXX might be replaced with "Map" when ES6 is available
-
-    earlier: Array<(HTMLElement) => void> = [];
-    early: Array<(HTMLElement) => void> = [];
-    normal: Array<(HTMLElement) => void> = [];
-    late: Array<(HTMLElement) => void> = [];
-    later: Array<(HTMLElement) => void> = [];
+    map: Map<Order, Array<(HTMLElement) => void>> = new Map([
+      [Order.EARLIER, []],
+      [Order.EARLY, []],
+      [Order.NORMAL, []],
+      [Order.LATE, []],
+      [Order.LATER, []]
+    ]);
 
     add(listener: (HTMLElement) => void, order: Order) {
-      switch (order) {
-        case Order.EARLIER:
-          this.earlier.push(listener);
-          break;
-        case Order.EARLY:
-          this.early.push(listener);
-          break;
-        case Order.NORMAL:
-          this.normal.push(listener);
-          break;
-        case Order.LATE:
-          this.late.push(listener);
-          break;
-        case Order.LATER:
-          this.later.push(listener);
-          break;
-        default:
-          console.error("Unknown order: '" + order + "'");
-      }
+      this.map.get(order).push(listener);
     }
 
     execute(element?: HTMLElement | HTMLDocument) {
-      this.earlier.forEach(
-          (value, index) => {
-            console.time("[tobago] execute earlier " + index);
-            value(element);
-            console.timeEnd("[tobago] execute earlier " + index);
-          }
-      );
-      this.early.forEach(
-          (value, index) => {
-            console.time("[tobago] execute early " + index);
-            value(element);
-            console.timeEnd("[tobago] execute early " + index);
-          }
-      );
-      this.normal.forEach(
-          (value, index) => {
-            console.time("[tobago] execute normal " + index);
-            value(element);
-            console.timeEnd("[tobago] execute normal " + index);
-          }
-      );
-      this.late.forEach(
-          (value, index) => {
-            console.time("[tobago] execute late " + index);
-            value(element);
-            console.timeEnd("[tobago] execute late " + index);
-          }
-      );
-      this.later.forEach(
-          (value, index) => {
-            console.time("[tobago] execute later " + index);
-            value(element);
-            console.timeEnd("[tobago] execute later " + index);
-          }
-      );
+
+      this.map.forEach((listeners: Array<(HTMLElement) => void>, order: Order) => {
+        listeners.forEach(
+            (listener, index) => {
+              console.time("[tobago] execute " + order + " " + index);
+              listener(element);
+              console.timeEnd("[tobago] execute " + order + " " + index);
+            }
+        );
+      });
     }
   }
 

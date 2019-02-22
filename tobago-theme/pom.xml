@@ -90,6 +90,8 @@
                     <include>postcss.config.js</include>
                     <include>tsconfig.json</include>
                     <include>tslint.json</include>
+                    <include>.babelrc</include>
+                    <include>.browserslistrc</include>
                   </includes>
                 </resource>
                 <resource>
@@ -147,6 +149,8 @@
                     <include>js/tobago*.js.map</include>
                     <include>ts/test.ts</include>
                     <include>ts/tobago*.ts</include>
+                    <!-- todo: check a better way for polyfill -->
+                    <include>node_modules/@babel/polyfill/dist/polyfill.js</include>
                   </includes>
                 </resource>
               </resources>
@@ -254,7 +258,18 @@
           </execution>
 
           <execution>
-            <id>step #5c: minify</id>
+            <id>step #5c: es6 to es5</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <arguments>run js-transpile</arguments>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>step #5d: minify</id>
             <goals>
               <goal>npm</goal>
             </goals>
