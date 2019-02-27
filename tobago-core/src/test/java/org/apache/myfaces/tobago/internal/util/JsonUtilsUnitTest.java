@@ -197,7 +197,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
         + "'focus':'focus',"
         + "'confirmation':'Do \\'you\\' want?',"
         + "'delay':100}}").replaceAll("'", "\"");
-    Assertions.assertEquals("command map", expected, JsonUtils.encode(map));
+    Assertions.assertEquals(expected, JsonUtils.encode(map), "command map");
   }
 
 }
