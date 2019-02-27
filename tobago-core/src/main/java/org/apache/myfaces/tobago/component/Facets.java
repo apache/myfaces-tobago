@@ -34,12 +34,6 @@ public enum Facets {
   @Deprecated
   contextMenu,
   label,
-  /**
-   * @deprecated since 3.0.0. The layout manager tag should surround the content instead.
-   * Is only for &lt;tc:gridLayout&gt; needed.
-   */
-  @Deprecated
-  layout,
   pagerPage,
   pagerPageDirect,
   pagerRow,
