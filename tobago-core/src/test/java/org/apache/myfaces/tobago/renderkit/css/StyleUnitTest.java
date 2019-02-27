@@ -33,8 +33,8 @@ public class StyleUnitTest extends AbstractJsfTestCase {
   @Test
   public void testEncodedEmpty() {
     final Style style = new Style();
-    Assertions.assertEquals("Check encoder", "", style.encode());
-    Assertions.assertEquals("Check encoder JSON", "{}", style.encodeJson());
+    Assertions.assertEquals("", style.encode(), "Check encoder");
+    Assertions.assertEquals("{}", style.encodeJson(), "Check encoder JSON");
   }
 
   @Test
@@ -95,6 +95,6 @@ public class StyleUnitTest extends AbstractJsfTestCase {
         + "\"}")
         .replaceAll(",\"\"}", "}");
 
-    Assertions.assertEquals("Check different encoders", manually, json);
+    Assertions.assertEquals(manually, json, "Check different encoders");
   }
 }

@@ -26,16 +26,16 @@ public class CustomClassUnitTest {
 
   @Test
   public void test() {
-    Assertions.assertEquals("simple", "test", new CustomClass("test").getName());
-    Assertions.assertEquals("number", "test2", new CustomClass("test2").getName());
-    Assertions.assertEquals("list", "test3 and test4", new CustomClass("test3 and test4").getName());
-    Assertions.assertEquals("space", "test5 test6", new CustomClass("     test5     test6       ").getName());
-    Assertions.assertEquals("-", "test-8", new CustomClass("test-8").getName());
-    Assertions.assertEquals("_", "__t_e_s_t-9 _d", new CustomClass("__t_e_s_t-9 _d").getName());
+    Assertions.assertEquals("test", new CustomClass("test").getName(), "simple");
+    Assertions.assertEquals("test2", new CustomClass("test2").getName(), "number");
+    Assertions.assertEquals("test3 and test4", new CustomClass("test3 and test4").getName(), "list");
+    Assertions.assertEquals("test5 test6", new CustomClass("     test5     test6       ").getName(), "space");
+    Assertions.assertEquals("test-8", new CustomClass("test-8").getName(), "-");
+    Assertions.assertEquals("__t_e_s_t-9 _d", new CustomClass("__t_e_s_t-9 _d").getName(), "_");
 
-    Assertions.assertEquals(".", "", new CustomClass("test.10").getName());
-    Assertions.assertEquals("tab", "", new CustomClass("test\t11").getName());
-    Assertions.assertEquals(":", "", new CustomClass("test:12").getName());
+    Assertions.assertEquals("", new CustomClass("test.10").getName(), ".");
+    Assertions.assertEquals("", new CustomClass("test\t11").getName(), "tab");
+    Assertions.assertEquals("", new CustomClass("test:12").getName(), ":");
   }
 
 }

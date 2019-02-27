@@ -49,21 +49,21 @@ public class TobagoResponseWriterUnitTest extends AbstractJsfTestCase {
   public void testDocument() throws IOException {
     writer.startDocument();
     writer.endDocument();
-    Assertions.assertEquals("content expected", "<!DOCTYPE html>\n", stringWriter.toString());
+    Assertions.assertEquals("<!DOCTYPE html>\n", stringWriter.toString(), "content expected");
   }
 
   @Test
   public void testEmptyTag() throws IOException {
     writer.startElement(HtmlElements.INPUT);
     writer.endElement(HtmlElements.INPUT);
-    Assertions.assertEquals("empty tag", "\n<input>", stringWriter.toString());
+    Assertions.assertEquals("\n<input>", stringWriter.toString(), "empty tag");
   }
 
   @Test
   public void testNormalTag() throws IOException {
     writer.startElement(HtmlElements.SELECT);
     writer.endElement(HtmlElements.SELECT);
-    Assertions.assertEquals("normal tag", "\n<select></select>", stringWriter.toString());
+    Assertions.assertEquals("\n<select></select>", stringWriter.toString(), "normal tag");
   }
 
   @Test
@@ -71,7 +71,7 @@ public class TobagoResponseWriterUnitTest extends AbstractJsfTestCase {
     writer.startElement(HtmlElements.SELECT);
     writer.writeAttribute(HtmlAttributes.VALUE, 0);
     writer.endElement(HtmlElements.SELECT);
-    Assertions.assertEquals("attr tag", "\n<select value='0'></select>", stringWriter.toString());
+    Assertions.assertEquals("\n<select value='0'></select>", stringWriter.toString(), "attr tag");
   }
 
   @Test
@@ -80,9 +80,9 @@ public class TobagoResponseWriterUnitTest extends AbstractJsfTestCase {
     writer.writeURIAttribute(HtmlAttributes.HREF, "http://example.org/web?text=äöüß");
     writer.endElement(HtmlElements.A);
     Assertions.assertEquals(
-        "uri attr tag",
         "\n<a href='http://example.org/web?text=%C3%A4%C3%B6%C3%BC%C3%9F'></a>",
-        stringWriter.toString());
+        stringWriter.toString(),
+        "uri attr tag");
   }
 
   @Test
@@ -90,7 +90,7 @@ public class TobagoResponseWriterUnitTest extends AbstractJsfTestCase {
     writer.startElement(HtmlElements.SELECT);
     writer.writeAttribute(HtmlAttributes.VALUE, "-<->-ü-€-", true);
     writer.endElement(HtmlElements.SELECT);
-    Assertions.assertEquals("attr tag", "\n<select value='-&lt;-&gt;-ü-€-'></select>", stringWriter.toString());
+    Assertions.assertEquals("\n<select value='-&lt;-&gt;-ü-€-'></select>", stringWriter.toString(), "attr tag");
   }
 
   @Test
@@ -98,7 +98,7 @@ public class TobagoResponseWriterUnitTest extends AbstractJsfTestCase {
     writer.startElement(HtmlElements.TEXTAREA);
     writer.writeText("-<->-ü-€-");
     writer.endElement(HtmlElements.TEXTAREA);
-    Assertions.assertEquals("attr tag", "\n<textarea>-&lt;-&gt;-ü-€-</textarea>", stringWriter.toString());
+    Assertions.assertEquals("\n<textarea>-&lt;-&gt;-ü-€-</textarea>", stringWriter.toString(), "attr tag");
   }
 
   @Test
@@ -128,8 +128,8 @@ public class TobagoResponseWriterUnitTest extends AbstractJsfTestCase {
 //    result = result.replace("/", "&#x2F;");
     result = result.replace("<", "&lt;");
     result = result.replace(">", "&gt;");
-    Assertions.assertEquals("all chars", "\n<select value='" + result + "'>" + result + "</select>",
-        stringWriter.toString());
+    Assertions.assertEquals(
+        "\n<select value='" + result + "'>" + result + "</select>", stringWriter.toString(), "all chars");
   }
 
   @Test

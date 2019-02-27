@@ -34,8 +34,8 @@ public class HtmlElementsUnitTest {
 
       final HtmlElements element = (HtmlElements) field.get(null);
       final String value = element.getValue();
-      Assertions.assertEquals("Check to lower: '" + element + "'", value, element.name().toLowerCase());
-      Assertions.assertEquals("Check to upper: '" + element + "'", value.toUpperCase(), element.name());
+      Assertions.assertEquals(value, element.name().toLowerCase(), "Check to lower: '" + element + "'");
+      Assertions.assertEquals(value.toUpperCase(), element.name(), "Check to upper: '" + element + "'");
     }
   }
 
