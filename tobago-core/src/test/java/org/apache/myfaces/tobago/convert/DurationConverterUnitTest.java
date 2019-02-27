@@ -69,7 +69,7 @@ public class DurationConverterUnitTest {
       input.getAttributes().put(Attributes.unit.getName(), unit);
     }
     result = converter.getAsString(null, input, aLong);
-    Assertions.assertEquals(info, string, result);
+    Assertions.assertEquals(string, result, info);
   }
 
   private void parse(final String unit, final Long aLong, final String string) {
