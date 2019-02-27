@@ -60,7 +60,7 @@ public class BootstrapClassUnitTest {
           }
         }
 
-        Assertions.assertEquals(field, calculatedName.toString(), name);
+        Assertions.assertEquals(calculatedName.toString(), name, field);
       }
     }
   }
