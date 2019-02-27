@@ -38,43 +38,6 @@ public class ValueExpressionComparator extends ComparatorBase {
 
   private ValueExpression valueExpression;
 
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  public ValueExpressionComparator(
-      final FacesContext facesContext, final String var, final ValueExpression valueExpression) {
-    this.facesContext = facesContext;
-    this.var = var;
-    this.valueExpression = valueExpression;
-  }
-
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  public ValueExpressionComparator(
-      final FacesContext facesContext, final String var, final ValueExpression valueExpression,
-      final boolean reverse) {
-    super(reverse);
-    this.facesContext = facesContext;
-    this.var = var;
-    this.valueExpression = valueExpression;
-  }
-
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  public ValueExpressionComparator(
-      final FacesContext facesContext, final String var,
-      final ValueExpression valueExpression, final Comparator comparator) {
-    super(comparator);
-    this.facesContext = facesContext;
-    this.var = var;
-    this.valueExpression = valueExpression;
-  }
-
   public ValueExpressionComparator(
       final FacesContext facesContext, final String var,
       final ValueExpression valueExpression, final boolean reverse, final Comparator comparator) {

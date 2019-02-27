@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.util;
 
+import org.apache.myfaces.test.el.MockValueExpression;
+import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.apache.myfaces.tobago.internal.util.Fruit;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -26,17 +28,15 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @deprecated since 4.4.0
- */
-@Deprecated
-public class BeanComparatorUnitTest {
+public class ValueExpressionComparatorUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void testComparingInstancesOfDifferentClasses() {
+
     final List<Fruit> original = Fruit.getFreshFruits();
 
-    final BeanComparator ascendingComparator = new BeanComparator("name", null, false);
+    final ValueExpressionComparator ascendingComparator = new ValueExpressionComparator(
+        facesContext, "var", new MockValueExpression("#{var.name}", String.class), false, null);
     final List<Fruit> ascending = new ArrayList<>(original);
     ascending.sort(ascendingComparator);
 
@@ -45,7 +45,9 @@ public class BeanComparatorUnitTest {
     Assertions.assertEquals(original.get(1), ascending.get(2), "#2");
     Assertions.assertEquals(original.get(2), ascending.get(3), "#3");
 
-    final BeanComparator descendingComparator = new BeanComparator("name", null, true);
+    final ValueExpressionComparator descendingComparator = new ValueExpressionComparator(
+        facesContext, "var", new MockValueExpression("#{var.name}", String.class), true, null);
+
     final List<Fruit> descending = new ArrayList<>(original);
     descending.sort(descendingComparator);
 
