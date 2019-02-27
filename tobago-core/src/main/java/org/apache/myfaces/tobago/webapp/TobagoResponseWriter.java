@@ -19,12 +19,10 @@
 
 package org.apache.myfaces.tobago.webapp;
 
-import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
 import org.apache.myfaces.tobago.renderkit.css.IconEncoder;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -228,16 +226,6 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
       }
     }
     return render;
-  }
-
-  /**
-   * Write the style attribute. The value may be escaped (depending of the content).
-   *
-   * @deprecated since 4.0.0. UIStyle now renders itself.
-   */
-  @Deprecated
-  public void writeStyleAttribute(final Style style) throws IOException {
-    Deprecation.LOG.warn("ignoring style: {}", style);
   }
 
   /**
