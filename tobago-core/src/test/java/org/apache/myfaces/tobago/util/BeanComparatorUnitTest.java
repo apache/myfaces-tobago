@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.util;
 
+import org.apache.myfaces.tobago.internal.util.Fruit;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -33,11 +34,7 @@ public class BeanComparatorUnitTest {
 
   @Test
   public void testComparingInstancesOfDifferentClasses() {
-    final List<Fruit> original = new ArrayList<>();
-    original.add(new Apple("Golden Delicious"));
-    original.add(new Apple("Schöner aus Boskoop"));
-    original.add(new Pear("Williams Christ"));
-    original.add(new Pear("Köstliche aus Charneux"));
+    final List<Fruit> original = Fruit.getFreshFruits();
 
     final BeanComparator ascendingComparator = new BeanComparator("name", null, false);
     final List<Fruit> ascending = new ArrayList<>(original);
@@ -56,58 +53,5 @@ public class BeanComparatorUnitTest {
     Assert.assertEquals("#1", original.get(1), descending.get(1));
     Assert.assertEquals("#2", original.get(3), descending.get(2));
     Assert.assertEquals("#3", original.get(0), descending.get(3));
-  }
-
-  public interface Fruit {
-
-    String getName();
-
-    void setName(String name);
-  }
-
-  public static class Apple implements Fruit {
-
-    private String name;
-
-    public Apple(String name) {
-      this.name = name;
-    }
-
-    @Override
-    public String getName() {
-      return name;
-    }
-
-    public void setName(String name) {
-      this.name = name;
-    }
-
-    @Override
-    public String toString() {
-      return getName();
-    }
-  }
-
-  public static class Pear implements Fruit {
-
-    private String name;
-
-    public Pear(String name) {
-      this.name = name;
-    }
-
-    @Override
-    public String getName() {
-      return name;
-    }
-
-    public void setName(String name) {
-      this.name = name;
-    }
-
-    @Override
-    public String toString() {
-      return getName();
-    }
   }
 }
