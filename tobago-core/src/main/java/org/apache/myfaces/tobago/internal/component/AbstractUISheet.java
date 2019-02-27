@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Sorter;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
@@ -30,6 +29,7 @@ import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.internal.layout.OriginCell;
+import org.apache.myfaces.tobago.internal.util.SortingUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.MeasureList;
 import org.apache.myfaces.tobago.model.ExpandedState;
@@ -427,7 +427,7 @@ public abstract class AbstractUISheet extends AbstractUIData
           LOG.warn("Sorting not possible!", e);
         }
       } else {
-        new Sorter().perform(this);
+        SortingUtils.sort(this, null);
       }
       sheetState.setToBeSorted(false);
     }

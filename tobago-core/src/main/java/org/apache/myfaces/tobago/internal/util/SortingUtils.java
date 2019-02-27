@@ -17,9 +17,10 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.component;
+package org.apache.myfaces.tobago.internal.util;
 
-import org.apache.myfaces.tobago.event.SortActionEvent;
+import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
 import org.apache.myfaces.tobago.model.SheetState;
@@ -40,29 +41,20 @@ import javax.faces.component.UISelectMany;
 import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
-import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class Sorter {
+public class SortingUtils {
 
-  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+  private static final Logger LOG = LoggerFactory.getLogger(SortingUtils.class);
 
-  private Comparator comparator;
-
-  /**
-   * @deprecated since 2.0.7, please use {@link #perform(org.apache.myfaces.tobago.internal.component.AbstractUISheet)}
-   */
-  @Deprecated
-  public void perform(final SortActionEvent sortEvent) {
-    final AbstractUISheet data = (AbstractUISheet) sortEvent.getComponent();
-    perform(data);
+  private SortingUtils() {
   }
 
-  public void perform(final AbstractUISheet sheet) {
+  public static void sort(final AbstractUISheet sheet, final Comparator comparator) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     Object data = sheet.getValue();
     if (data instanceof DataModel) {
@@ -71,22 +63,19 @@ public class Sorter {
     final SheetState sheetState = sheet.getSheetState(facesContext);
 
     final String sortedColumnId = sheetState.getSortedColumnId();
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("sorterId = '{}'", sortedColumnId);
-    }
+    LOG.debug("sorterId = '{}'", sortedColumnId);
 
     boolean success = false;
     if (sortedColumnId != null) {
       final UIColumn column = (UIColumn) sheet.findComponent(sortedColumnId);
       if (column != null) {
-        success = perform(facesContext, sheet, data, column, sheetState);
+        success = sort(facesContext, sheet, data, column, sheetState, comparator);
       } else {
         LOG.error("No column to sort found, sorterId = '{}'!", sortedColumnId);
         addNotSortableMessage(facesContext, null);
       }
     } else {
-      LOG.error("No sorterId!");
-      addNotSortableMessage(facesContext, null);
+      LOG.debug("No sorterId!");
     }
 
     if (!success) {
@@ -94,9 +83,9 @@ public class Sorter {
     }
   }
 
-  private boolean perform(
+  private static boolean sort(
       final FacesContext facesContext, final AbstractUISheet sheet, final Object data, final UIColumn column,
-      final SheetState sheetState) {
+      final SheetState sheetState, Comparator comparator) {
 
     final Comparator actualComparator;
 
@@ -187,7 +176,7 @@ public class Sorter {
     return true;
   }
 
-  private void addNotSortableMessage(final FacesContext facesContext, final UIColumn column) {
+  private static void addNotSortableMessage(final FacesContext facesContext, final UIColumn column) {
     if (column != null) {
       final String label = MessageUtils.getLabel(facesContext, column);
       facesContext.addMessage(column.getClientId(facesContext),
@@ -200,7 +189,7 @@ public class Sorter {
     }
   }
 
-  private UIComponent getFirstSortableChild(final List<UIComponent> children) {
+  private static UIComponent getFirstSortableChild(final List<UIComponent> children) {
     UIComponent result = null;
 
     for (UIComponent child : children) {
@@ -226,13 +215,4 @@ public class Sorter {
     }
     return result;
   }
-
-  public Comparator getComparator() {
-    return comparator;
-  }
-
-  public void setComparator(final Comparator comparator) {
-    this.comparator = comparator;
-  }
 }
-

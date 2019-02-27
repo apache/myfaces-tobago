@@ -19,8 +19,9 @@
 
 package org.apache.myfaces.tobago.util;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.apache.myfaces.tobago.internal.util.Fruit;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,81 +34,24 @@ public class BeanComparatorUnitTest {
 
   @Test
   public void testComparingInstancesOfDifferentClasses() {
-    final List<Fruit> original = new ArrayList<>();
-    original.add(new Apple("Golden Delicious"));
-    original.add(new Apple("Schöner aus Boskoop"));
-    original.add(new Pear("Williams Christ"));
-    original.add(new Pear("Köstliche aus Charneux"));
+    final List<Fruit> original = Fruit.getFreshFruits();
 
     final BeanComparator ascendingComparator = new BeanComparator("name", null, false);
     final List<Fruit> ascending = new ArrayList<>(original);
     ascending.sort(ascendingComparator);
 
-    Assert.assertEquals("#0", original.get(0), ascending.get(0));
-    Assert.assertEquals("#1", original.get(3), ascending.get(1));
-    Assert.assertEquals("#2", original.get(1), ascending.get(2));
-    Assert.assertEquals("#3", original.get(2), ascending.get(3));
+    Assertions.assertEquals(original.get(0), ascending.get(0), "#0");
+    Assertions.assertEquals(original.get(3), ascending.get(1), "#1");
+    Assertions.assertEquals(original.get(1), ascending.get(2), "#2");
+    Assertions.assertEquals(original.get(2), ascending.get(3), "#3");
 
     final BeanComparator descendingComparator = new BeanComparator("name", null, true);
     final List<Fruit> descending = new ArrayList<>(original);
     descending.sort(descendingComparator);
 
-    Assert.assertEquals("#0", original.get(2), descending.get(0));
-    Assert.assertEquals("#1", original.get(1), descending.get(1));
-    Assert.assertEquals("#2", original.get(3), descending.get(2));
-    Assert.assertEquals("#3", original.get(0), descending.get(3));
-  }
-
-  public interface Fruit {
-
-    String getName();
-
-    void setName(String name);
-  }
-
-  public static class Apple implements Fruit {
-
-    private String name;
-
-    public Apple(String name) {
-      this.name = name;
-    }
-
-    @Override
-    public String getName() {
-      return name;
-    }
-
-    public void setName(String name) {
-      this.name = name;
-    }
-
-    @Override
-    public String toString() {
-      return getName();
-    }
-  }
-
-  public static class Pear implements Fruit {
-
-    private String name;
-
-    public Pear(String name) {
-      this.name = name;
-    }
-
-    @Override
-    public String getName() {
-      return name;
-    }
-
-    public void setName(String name) {
-      this.name = name;
-    }
-
-    @Override
-    public String toString() {
-      return getName();
-    }
+    Assertions.assertEquals(original.get(2), descending.get(0), "#0");
+    Assertions.assertEquals(original.get(1), descending.get(1), "#1");
+    Assertions.assertEquals(original.get(3), descending.get(2), "#2");
+    Assertions.assertEquals(original.get(0), descending.get(3), "#3");
   }
 }
