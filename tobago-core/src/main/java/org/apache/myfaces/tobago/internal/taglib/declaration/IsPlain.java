@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface IsPlain {
 
   /**
-   * <p><b></b>Use with caution: Only for special cases!</b></p>
+   * <p><b>Use with caution: Only for special cases!</b></p>
    *
    * <p>This attribute is useful for tc:out if labelLayout=skip is set.
    * Use true, if you want to only render the text (no surrounding tag).
