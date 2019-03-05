@@ -59,6 +59,7 @@ public class DateRenderer extends InRenderer {
     writer.writeAttribute(DataAttributes.TODAY, sdf.format(new Date()), true);
     final DateTimeI18n dateTimeI18n = DateTimeI18n.valueOf(facesContext.getViewRoot().getLocale());
     writer.writeAttribute(DataAttributes.DATE_TIME_I18N, JsonUtils.encode(dateTimeI18n), true);
+    writer.writeAttribute(DataAttributes.TODAY_BUTTON, date.isTodayButton());
   }
 
   @Override

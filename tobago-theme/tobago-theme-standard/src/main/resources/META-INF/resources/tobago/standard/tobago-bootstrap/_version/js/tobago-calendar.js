@@ -28,6 +28,7 @@ Tobago.DateTime.init = function (elements) {
         var analyzed = Tobago.DateTime.analyzePattern($date.data("tobago-pattern"));
         var options = {
           format: analyzed,
+          showTodayButton: $date.data("tobago-today-button") === "data-tobago-today-button",
           icons: {
             time: 'fa fa-clock-o',
             date: 'fa fa-calendar',
