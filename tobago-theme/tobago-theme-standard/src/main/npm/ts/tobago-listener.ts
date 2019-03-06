@@ -54,7 +54,7 @@ namespace Tobago {
       this.map.get(order).push(listener);
     }
 
-    execute(element?: HTMLElement | HTMLDocument) {
+    execute(element?: HTMLElement) {
 
       this.map.forEach((listeners: Array<(HTMLElement) => void>, order: Order) => {
         listeners.forEach(

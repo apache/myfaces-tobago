@@ -66,7 +66,7 @@ Tobago4.Suggest.fromClient = function (data) {
   };
 };
 
-Tobago4.Suggest.init = function (element: HTMLElement | HTMLDocument) {
+Tobago4.Suggest.init = function (element: HTMLElement) {
 
   Tobago4.Utils.selectWithJQuery($(element), ".tobago-suggest").each(function () {
     var $suggest = jQuery(this);

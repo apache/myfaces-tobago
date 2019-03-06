@@ -45,7 +45,7 @@ Tobago4.Sheet = function(
   console.timeEnd("[tobago-sheet] constructor");
 };
 
-Tobago4.Sheet.init = function(element:HTMLElement | HTMLDocument) {
+Tobago4.Sheet.init = function(element:HTMLElement) {
   console.time("[tobago-sheet] init");
   const sheets = element.querySelectorAll( ".tobago-sheet");
   sheets.forEach(function (element) {
