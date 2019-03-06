@@ -45,15 +45,20 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class CommandRendererBase extends DecodingCommandRendererBase {
+
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
@@ -124,7 +129,11 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     final boolean defaultCommand = ComponentUtils.getBooleanAttribute(command, Attributes.defaultCommand);
     if (defaultCommand) {
       final AbstractUIFormBase form = ComponentUtils.findAncestor(command, AbstractUIFormBase.class);
-      writer.writeAttribute(DataAttributes.DEFAULT, form.getClientId(facesContext), false);
+      if (form != null) {
+        writer.writeAttribute(DataAttributes.DEFAULT, form.getClientId(facesContext), false);
+      } else {
+        LOG.warn("No from found for {}", clientId);
+      }
     }
 
     final String image = ComponentUtils.getStringAttribute(command, Attributes.image);
