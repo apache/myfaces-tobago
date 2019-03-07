@@ -1220,14 +1220,14 @@ var Tobago = {
    * Clear the selection.
    */
   clearSelection: function() {
-    if (document.selection) {  // IE
-      try {
+    try {
+      if (document.selection) {  // IE
         document.selection.empty();
-      } catch (error) {
-        // Ignore error: seems to be a browser bug (TOBAGO-1201)
+      } else if (window.getSelection) {  // GECKO
+        window.getSelection().removeAllRanges();
       }
-    } else if (window.getSelection) {  // GECKO
-      window.getSelection().removeAllRanges();
+    } catch (error) {
+      // Ignore error: seems to be a browser bug (TOBAGO-1201), see also (TOBAGO-1986)
     }
   },
 
