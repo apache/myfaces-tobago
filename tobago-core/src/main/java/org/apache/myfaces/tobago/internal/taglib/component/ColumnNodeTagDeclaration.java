@@ -42,7 +42,6 @@ import javax.faces.component.UIColumn;
 @BodyContentDescription(anyTagOf = "<tc:treeIndent>|<tc:treeIcon>|<tc:treeSelect>|<tc:treeLabel>|<tc:treeCommand>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIColumnNode",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIColumnNode",
     uiComponentFacesClass = "javax.faces.component.UIColumn",
     componentFamily = UIColumn.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_NODE,

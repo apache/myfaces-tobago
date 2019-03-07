@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UISelectOneChoice;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneChoice;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 
@@ -40,7 +40,7 @@ public class SelectOneChoiceInsideInRenderer extends SelectOneChoiceRenderer {
   }
 
   @Override
-  protected CssItem[] getCssItems(final FacesContext facesContext, final UISelectOneChoice select) {
+  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectOneChoice select) {
     return new CssItem[]{BootstrapClass.CUSTOM_SELECT};
   }
 

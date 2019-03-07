@@ -34,7 +34,6 @@ import javax.faces.component.UIOutput;
 @Tag(name = "metaLink")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMetaLink",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIMetaLink",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.META_LINK,
     allowedChildComponenents = "NONE")

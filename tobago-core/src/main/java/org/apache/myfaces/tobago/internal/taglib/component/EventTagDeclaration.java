@@ -48,7 +48,6 @@ import javax.faces.component.UICommand;
  */
 @Tag(name = "event")
 @UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UIEvent",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIEvent",
     uiComponentFacesClass = "javax.faces.component.UICommand",
     componentFamily = UICommand.COMPONENT_FAMILY,
     rendererType = RendererTypes.EVENT,

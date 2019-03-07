@@ -44,7 +44,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 @Tag(name = "splitLayout")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISplitLayout",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISplitLayout",
     componentFamily = AbstractUIGridLayout.COMPONENT_FAMILY,
     rendererType = "SplitLayout",
     allowedChildComponenents = "NONE",

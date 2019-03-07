@@ -35,7 +35,6 @@ import javax.faces.component.UIPanel;
 @Tag(name = "links")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UILinks",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUILinks",
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     interfaces = {

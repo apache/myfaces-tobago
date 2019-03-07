@@ -38,4 +38,6 @@ public abstract class AbstractUISelectOneListbox extends AbstractUISelectOneBase
       return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
     }
   }
+
+  public abstract Integer getSize();
 }

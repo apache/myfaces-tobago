@@ -40,7 +40,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 @Tag(name = "section")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISection",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISection",
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = "org.apache.myfaces.tobago.Section",
     rendererType = RendererTypes.SECTION,

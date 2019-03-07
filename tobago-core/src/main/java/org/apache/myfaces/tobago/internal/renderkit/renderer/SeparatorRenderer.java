@@ -20,9 +20,9 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.UILabel;
-import org.apache.myfaces.tobago.component.UISeparator;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUILabel;
+import org.apache.myfaces.tobago.internal.component.AbstractUISeparator;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -40,7 +40,7 @@ public class SeparatorRenderer extends RendererBase {
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final UISeparator separator = (UISeparator) component;
+    final AbstractUISeparator separator = (AbstractUISeparator) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final String clientId = separator.getClientId(facesContext);
     final String label = getLabel(separator);
@@ -68,11 +68,11 @@ public class SeparatorRenderer extends RendererBase {
     }
   }
 
-  private String getLabel(final UISeparator separator) {
+  private String getLabel(final AbstractUISeparator separator) {
     String label = separator.getLabel();
     final UIComponent facet = ComponentUtils.getFacet(separator, Facets.label);
     if (label == null && facet != null) {
-      label = String.valueOf(((UILabel) facet).getValue());
+      label = String.valueOf(((AbstractUILabel) facet).getValue());
     }
     return label;
   }

@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UIMessages;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUIMessages;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -52,7 +52,7 @@ public class MessagesRenderer extends RendererBase {
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final UIMessages messages = (UIMessages) component;
+    final AbstractUIMessages messages = (AbstractUIMessages) component;
 
     if (messages.isConfirmation()) {
       LOG.warn("'confirmation' is currently not supported for tc:messages!");
@@ -63,7 +63,7 @@ public class MessagesRenderer extends RendererBase {
     if (LOG.isDebugEnabled()) {
       LOG.debug("facesContext is " + facesContext.getClass().getName());
     }
-    final List<UIMessages.Item> messageList = messages.createMessageList(facesContext);
+    final List<AbstractUIMessages.Item> messageList = messages.createMessageList(facesContext);
 
     // with id
       /*String focusId = null;
@@ -88,7 +88,7 @@ public class MessagesRenderer extends RendererBase {
     FacesMessage.Severity lastSeverity = null;
     boolean first = true;
 
-    for (final UIMessages.Item item : messageList) {
+    for (final AbstractUIMessages.Item item : messageList) {
       final FacesMessage message = item.getFacesMessage();
       final FacesMessage.Severity severity = message.getSeverity();
 
@@ -149,7 +149,7 @@ public class MessagesRenderer extends RendererBase {
   }
 
   private void encodeMessage(
-      final TobagoResponseWriter writer, final UIMessages messages, final FacesMessage message, final String clientId)
+      final TobagoResponseWriter writer, final AbstractUIMessages messages, final FacesMessage message, final String clientId)
       throws IOException {
 
     final String summary = message.getSummary();

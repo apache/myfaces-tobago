@@ -37,7 +37,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 @Tag(name = "selectItems")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectItems",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectItems",
     uiComponentFacesClass = "javax.faces.component.UISelectItems",
     isComponentAlreadyDefined = false,
     allowedChildComponenents = "NONE")

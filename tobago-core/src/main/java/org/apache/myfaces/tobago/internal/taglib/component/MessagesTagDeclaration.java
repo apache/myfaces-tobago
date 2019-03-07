@@ -37,7 +37,6 @@ import javax.faces.component.UIMessages;
 @Tag(name = "messages")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMessages",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIMessages",
     uiComponentFacesClass = "javax.faces.component.UIMessages",
     componentFamily = UIMessages.COMPONENT_FAMILY,
     rendererType = RendererTypes.MESSAGES,

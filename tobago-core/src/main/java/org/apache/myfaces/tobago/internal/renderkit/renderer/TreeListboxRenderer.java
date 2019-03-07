@@ -19,13 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UITreeLabel;
-import org.apache.myfaces.tobago.component.UITreeListbox;
-import org.apache.myfaces.tobago.component.UITreeNode;
-import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeLabel;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeSelect;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -54,7 +53,7 @@ public class TreeListboxRenderer extends RendererBase {
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final UITreeListbox tree = (UITreeListbox) component;
+    final AbstractUITreeListbox tree = (AbstractUITreeListbox) component;
     final String clientId = tree.getClientId(facesContext);
     final Markup markup = tree.getMarkup();
     //    final Style scrollDivStyle = new Style();
@@ -152,7 +151,7 @@ public class TreeListboxRenderer extends RendererBase {
 
     tree.setRowIndex(parentRowIndex);
 
-    final UITreeNode node = ComponentUtils.findDescendant(tree, UITreeNode.class);
+    final AbstractUITreeNode node = ComponentUtils.findDescendant(tree, AbstractUITreeNode.class);
     final String parentId = node.getClientId(facesContext);
 
     writer.startElement(HtmlElements.SELECT);
@@ -164,12 +163,12 @@ public class TreeListboxRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.SIZE, size);
 //    writer.writeAttribute(HtmlAttributes.MULTIPLE, siblingMode);
 
-    final UITreeSelect select = ComponentUtils.findDescendant(tree, UITreeSelect.class);
+    final AbstractUITreeSelect select = ComponentUtils.findDescendant(tree, AbstractUITreeSelect.class);
     final String labelValue;
     if (select != null) {
       labelValue = select.getLabel();
     } else {
-      final UITreeLabel label = ComponentUtils.findDescendant(tree, UITreeLabel.class);
+      final AbstractUITreeLabel label = ComponentUtils.findDescendant(tree, AbstractUITreeLabel.class);
       if (label != null) {
         labelValue = label.getLabel();
       } else {

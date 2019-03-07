@@ -46,4 +46,8 @@ public abstract class AbstractUITreeSelect extends UISelectBoolean implements Vi
     final ValueExpression valueExpression = getValueExpression(Attributes.value.getName());
     return valueExpression == null;
   }
+
+  public abstract String getLabel();
+
+  public abstract boolean isShowCheckbox();
 }

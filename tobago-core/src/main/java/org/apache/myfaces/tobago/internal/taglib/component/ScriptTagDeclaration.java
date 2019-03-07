@@ -34,7 +34,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 @Tag(name = "script")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIScript",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIScript",
     componentFamily = "org.apache.myfaces.tobago.Script",
     rendererType = RendererTypes.SCRIPT,
     allowedChildComponenents = "NONE")

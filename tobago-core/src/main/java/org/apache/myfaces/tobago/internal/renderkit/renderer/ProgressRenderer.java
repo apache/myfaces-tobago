@@ -20,9 +20,10 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UIStyle;
+import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIProgress;
+import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
@@ -73,8 +74,8 @@ public class ProgressRenderer extends RendererBase {
     writer.writeAttribute(Arias.VALUEMAX, 100);
     writer.writeAttribute(Arias.VALUENOW, String.valueOf((int) percent * 100), false);
 
-    final UIStyle style = (UIStyle) facesContext.getApplication()
-        .createComponent(facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style.name());
+    final AbstractUIStyle style = (AbstractUIStyle) facesContext.getApplication()
+        .createComponent(facesContext, Tags.style.componentType(), RendererTypes.Style.name());
     style.setTransient(true);
     style.setSelector(StyleRenderUtils.encodeIdSelector(clientId) + ">." + BootstrapClass.PROGRESS_BAR.getName());
     style.setWidth(new Measure(percent * 100, Measure.Unit.PERCENT));

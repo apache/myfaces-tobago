@@ -60,7 +60,6 @@ import javax.faces.component.UIInput;
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIIn",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIIn",
     uiComponentFacesClass = "javax.faces.component.UIInput",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.IN,

@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UISelectManyShuttle;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyShuttle;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
@@ -47,7 +47,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
   public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final UISelectManyShuttle select = (UISelectManyShuttle) component;
+    final AbstractUISelectManyShuttle select = (AbstractUISelectManyShuttle) component;
     final String clientId = select.getClientId(facesContext);
     final Markup markup = select.getMarkup();
 

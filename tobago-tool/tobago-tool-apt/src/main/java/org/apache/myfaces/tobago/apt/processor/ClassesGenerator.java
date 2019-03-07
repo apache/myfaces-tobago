@@ -24,6 +24,7 @@ import org.antlr.stringtemplate.StringTemplateGroup;
 import org.apache.commons.io.IOUtils;
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
@@ -105,9 +106,24 @@ public class ClassesGenerator extends AbstractGenerator {
     addProperties(declaration, properties);
 
     if (componentTag.generate()) {
+      final Tag tag = declaration.getAnnotation(Tag.class);
+      final String generic = "org.apache.myfaces.tobago.internal.component.AbstractUI"
+          +  tag.name().substring(0,1).toUpperCase() + tag.name().substring(1);
       final StringTemplate componentStringTemplate = componentStringTemplateGroup.getInstanceOf("component");
       final ComponentInfo componentInfo = new ComponentInfo(declaration, componentTag);
-      componentInfo.setSuperClass(componentTag.uiComponentBaseClass());
+      String componentBaseClass = componentTag.uiComponentBaseClass();
+      if ("".equals(componentBaseClass)) {
+        componentBaseClass = generic;
+      }
+      componentInfo.setSuperClass(componentBaseClass);
+
+      // check
+      if (! componentBaseClass.equals(generic)) {
+        warn("**********************************************************************************");
+        warn("generic name is unequal to the defined name: " + componentBaseClass + " != " + generic);
+        warn("**********************************************************************************");
+      }
+
       componentInfo.setDescription(getDescription(declaration));
       componentInfo.setDeprecated(declaration.getAnnotation(Deprecated.class) != null);
       for (final String interfaces : componentTag.interfaces()) {

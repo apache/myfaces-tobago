@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UIObject;
+import org.apache.myfaces.tobago.internal.component.AbstractUIObject;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
@@ -38,7 +38,7 @@ import java.io.IOException;
 public class ObjectRenderer extends RendererBase {
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final UIObject object = (UIObject) component;
+    final AbstractUIObject object = (AbstractUIObject) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final Markup markup = object.getMarkup();
 

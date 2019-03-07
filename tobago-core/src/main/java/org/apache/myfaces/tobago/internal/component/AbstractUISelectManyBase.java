@@ -42,4 +42,12 @@ public abstract class AbstractUISelectManyBase extends UISelectMany
       return (Object[]) value;
     }
   }
+
+  public abstract Integer getTabIndex();
+
+  public abstract boolean isDisabled();
+
+  public abstract boolean isReadonly();
+
+  public abstract boolean isFocus();
 }

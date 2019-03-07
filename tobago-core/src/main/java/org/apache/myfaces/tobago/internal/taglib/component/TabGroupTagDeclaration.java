@@ -46,7 +46,6 @@ import javax.faces.component.UIPanel;
 @BodyContentDescription(anyTagOf = "(<tc:tab>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITabGroup",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITabGroup",
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.TAB_GROUP,

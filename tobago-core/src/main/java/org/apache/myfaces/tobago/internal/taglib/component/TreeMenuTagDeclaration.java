@@ -45,7 +45,6 @@ import javax.faces.component.UIData;
 @BodyContentDescription(anyTagOf = "<tc:treeNode>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeMenu",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeMenu",
     uiComponentFacesClass = "javax.faces.component.UIData",
     componentFamily = UIData.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_MENU,

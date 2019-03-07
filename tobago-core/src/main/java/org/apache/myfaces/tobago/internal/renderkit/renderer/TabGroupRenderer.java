@@ -23,13 +23,14 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UIEvent;
-import org.apache.myfaces.tobago.component.UITab;
-import org.apache.myfaces.tobago.component.UITabGroup;
+import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
+import org.apache.myfaces.tobago.internal.component.AbstractUIEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanelBase;
+import org.apache.myfaces.tobago.internal.component.AbstractUITab;
+import org.apache.myfaces.tobago.internal.component.AbstractUITabGroup;
 import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
@@ -76,11 +77,11 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
   @Override
   public void processEvent(final ComponentSystemEvent event) {
 
-    final UITabGroup tabGroup = (UITabGroup) event.getComponent();
+    final AbstractUITabGroup tabGroup = (AbstractUITabGroup) event.getComponent();
 
     for (final UIComponent child : tabGroup.getChildren()) {
-      if (child instanceof UITab) {
-        final UITab tab = (UITab) child;
+      if (child instanceof AbstractUITab) {
+        final AbstractUITab tab = (AbstractUITab) child;
         final FacesContext facesContext = FacesContext.getCurrentInstance();
         final ClientBehaviors click = ClientBehaviors.click;
         switch (tabGroup.getSwitchType()) {
@@ -98,8 +99,8 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
             tab.addClientBehavior(click.name(), ajaxBehavior);
             break;
           case reloadPage:
-            final UIEvent component = (UIEvent) ComponentUtils.createComponent(
-                facesContext, UIEvent.COMPONENT_TYPE, RendererTypes.Event, "_click");
+            final AbstractUIEvent component = (AbstractUIEvent) ComponentUtils.createComponent(
+                facesContext, Tags.event.componentType(), RendererTypes.Event, "_click");
             component.setEvent(click);
             tab.getChildren().add(component);
             final EventBehavior eventBehavior = new EventBehavior();
@@ -119,7 +120,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
       return;
     }
 
-    final int oldIndex = ((UITabGroup) component).getRenderedIndex();
+    final int oldIndex = ((AbstractUITabGroup) component).getRenderedIndex();
 
     final String clientId = component.getClientId(facesContext);
     final Map parameters = facesContext.getExternalContext().getRequestParameterMap();
@@ -138,7 +139,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent uiComponent) throws IOException {
 
-    final UITabGroup tabGroup = (UITabGroup) uiComponent;
+    final AbstractUITabGroup tabGroup = (AbstractUITabGroup) uiComponent;
 
     final int activeIndex = ensureRenderedActiveIndex(facesContext, tabGroup);
 
@@ -176,7 +177,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
     writer.endElement(HtmlElements.DIV);
   }
 
-  private int ensureRenderedActiveIndex(final FacesContext context, final UITabGroup tabGroup) {
+  private int ensureRenderedActiveIndex(final FacesContext context, final AbstractUITabGroup tabGroup) {
     final int activeIndex = tabGroup.getSelectedIndex();
     // ensure to select a rendered tab
     int index = -1;
@@ -213,7 +214,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
   }
 
   private void encodeHeader(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final UITabGroup tabGroup,
+      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITabGroup tabGroup,
       final int activeIndex, final SwitchType switchType)
       throws IOException {
 
@@ -230,8 +231,8 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
 
     int index = 0;
     for (final UIComponent child : tabGroup.getChildren()) {
-      if (child instanceof UITab) {
-        final UITab tab = (UITab) child;
+      if (child instanceof AbstractUITab) {
+        final AbstractUITab tab = (AbstractUITab) child;
         if (tab.isRendered()) {
           final LabelWithAccessKey label = new LabelWithAccessKey(tab);
           final UIComponent labelFacet = ComponentUtils.getFacet(tab, Facets.label);
@@ -333,14 +334,14 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
   }
 
   protected void encodeContent(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final UITabGroup tabGroup,
+      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITabGroup tabGroup,
       final int activeIndex, final SwitchType switchType) throws IOException {
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.CARD_BODY, BootstrapClass.TAB_CONTENT);
     int index = 0;
     for (final UIComponent child : tabGroup.getChildren()) {
-      if (child instanceof UITab) {
-        final UITab tab = (UITab) child;
+      if (child instanceof AbstractUITab) {
+        final AbstractUITab tab = (AbstractUITab) child;
         if (tab.isRendered() && (switchType == SwitchType.client || index == activeIndex) && !tab.isDisabled()) {
           final Markup markup = tab.getMarkup();
 
@@ -365,7 +366,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
     writer.endElement(HtmlElements.DIV);
   }
 
-  private String getTabPanelId(final FacesContext facesContext, final UITab tab) {
+  private String getTabPanelId(final FacesContext facesContext, final AbstractUITab tab) {
     return tab.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "content";
   }
 }

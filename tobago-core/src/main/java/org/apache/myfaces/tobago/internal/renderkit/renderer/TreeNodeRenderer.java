@@ -19,14 +19,14 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UITreeNode;
-import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeMenu;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeSelect;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.model.Selectable;
@@ -55,7 +55,7 @@ public class TreeNodeRenderer extends RendererBase {
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
 
-    final UITreeNode node = (UITreeNode) component;
+    final AbstractUITreeNode node = (AbstractUITreeNode) component;
 
     super.decode(facesContext, node);
 
@@ -85,7 +85,7 @@ public class TreeNodeRenderer extends RendererBase {
       if (data.getSelectable() != Selectable.none) { // selection
         final String selected = requestParameterMap.get(clientId + AbstractUITree.SELECT_STATE);
         final String searchString = ";" + node.getClientId(facesContext) + ";";
-        final UITreeSelect treeSelect = ComponentUtils.findDescendant(node, UITreeSelect.class);
+        final AbstractUITreeSelect treeSelect = ComponentUtils.findDescendant(node, AbstractUITreeSelect.class);
         if (treeSelect != null) {
           treeSelect.setSubmittedValue(selected.contains(searchString));
         }

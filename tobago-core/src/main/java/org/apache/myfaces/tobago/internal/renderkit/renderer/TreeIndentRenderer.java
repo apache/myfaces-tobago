@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UITreeIndent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeIndent;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
@@ -42,7 +42,7 @@ public class TreeIndentRenderer extends RendererBase {
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final UITreeIndent treeIndent = (UITreeIndent) component;
+    final AbstractUITreeIndent treeIndent = (AbstractUITreeIndent) component;
     final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(treeIndent, AbstractUITreeNodeBase.class);
     final AbstractUIData data = ComponentUtils.findAncestor(treeIndent, AbstractUIData.class);
 

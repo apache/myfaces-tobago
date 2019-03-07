@@ -36,7 +36,6 @@ import javax.faces.component.UIGraphic;
 @Tag(name = "treeIndent")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeIndent",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeIndent",
     uiComponentFacesClass = "javax.faces.component.UIGraphic",
     componentFamily = UIGraphic.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_INDENT,

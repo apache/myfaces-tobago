@@ -39,7 +39,6 @@ import org.apache.myfaces.tobago.layout.TextAlign;
 @Tag(name = "style")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIStyle",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIStyle",
     componentFamily = "org.apache.myfaces.tobago.Style",
     rendererType = RendererTypes.STYLE,
     allowedChildComponenents = "NONE")

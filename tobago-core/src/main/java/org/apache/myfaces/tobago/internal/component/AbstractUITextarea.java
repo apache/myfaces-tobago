@@ -27,4 +27,6 @@ import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 public abstract class AbstractUITextarea extends AbstractUIInput {
 
   public abstract SanitizeMode getSanitize();
+
+  public abstract Integer getRows();
 }

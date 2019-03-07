@@ -19,10 +19,14 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.layout.TextAlign;
+
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.FlowLayoutTagDeclaration}
  */
 public abstract class AbstractUIFlowLayout extends AbstractUILayoutBase {
 
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.FlowLayout";
+
+  public abstract TextAlign getTextAlign();
 }

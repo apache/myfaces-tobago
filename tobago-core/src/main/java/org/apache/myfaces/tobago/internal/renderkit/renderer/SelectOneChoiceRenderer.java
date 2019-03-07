@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UISelectOneChoice;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneChoice;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
@@ -48,7 +48,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
 
   @Override
   protected void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final UISelectOneChoice select = (UISelectOneChoice) component;
+    final AbstractUISelectOneChoice select = (AbstractUISelectOneChoice) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final String clientId = select.getClientId(facesContext);
@@ -90,11 +90,11 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
 
   @Override
   protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
-    final UISelectOneChoice select = (UISelectOneChoice) component;
+    final AbstractUISelectOneChoice select = (AbstractUISelectOneChoice) component;
     return select.getFieldId(facesContext);
   }
 
-  protected CssItem[] getCssItems(final FacesContext facesContext, final UISelectOneChoice select) {
+  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectOneChoice select) {
     return new CssItem[]{BootstrapClass.FORM_CONTROL};
   }
 }

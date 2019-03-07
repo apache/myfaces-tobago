@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.facelets;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
-import org.apache.myfaces.tobago.component.UIEvent;
 import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 import org.apache.myfaces.tobago.internal.component.AbstractUIEvent;
 
@@ -170,7 +169,7 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
       final FaceletContext faceletContext, final UIComponent component, final UIComponent parent) {
     super.onComponentCreated(faceletContext, component, parent);
 
-    final UIEvent uiEvent = (UIEvent) component;
+    final AbstractUIEvent uiEvent = (AbstractUIEvent) component;
     if (uiEvent.getEvent() == null) {
       final ClientBehaviorHolder holder = (ClientBehaviorHolder) parent;
       uiEvent.setEvent(ClientBehaviors.valueOf(holder.getDefaultEventName()));

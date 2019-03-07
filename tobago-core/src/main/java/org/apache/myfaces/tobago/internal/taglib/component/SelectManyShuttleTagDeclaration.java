@@ -55,7 +55,6 @@ import javax.faces.component.UISelectMany;
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectManyShuttle",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectManyShuttle",
     uiComponentFacesClass = "javax.faces.component.UISelectMany",
     componentFamily = UISelectMany.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_MANY_SHUTTLE,

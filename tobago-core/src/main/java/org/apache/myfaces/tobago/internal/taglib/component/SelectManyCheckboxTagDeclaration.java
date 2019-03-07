@@ -58,7 +58,6 @@ import javax.faces.component.UISelectMany;
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectManyCheckbox",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectManyCheckbox",
     uiComponentFacesClass = "javax.faces.component.UISelectMany",
     componentFamily = UISelectMany.COMPONENT_FAMILY,
     rendererType = {RendererTypes.SELECT_MANY_CHECKBOX, RendererTypes.SELECT_MANY_CHECKBOX_INSIDE_COMMAND},

@@ -47,7 +47,6 @@ import javax.faces.component.UISelectBoolean;
 @Tag(name = "treeSelect")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeSelect",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeSelect",
     uiComponentFacesClass = "javax.faces.component.UISelectBoolean",
     componentFamily = UISelectBoolean.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_SELECT,

@@ -36,7 +36,6 @@ import javax.faces.component.UIPanel;
 @Tag(name = "footer")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIFooter",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIFooter",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.FOOTER,
     interfaces = {

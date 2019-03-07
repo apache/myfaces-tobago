@@ -44,7 +44,6 @@ import javax.faces.component.UIOutput;
 @BodyContentDescription(anyTagOf = "f:converter|f:convertNumber|f:convertDateTime|...")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIOut",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIOut",
     uiComponentFacesClass = "javax.faces.component.UIOutput",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = {RendererTypes.OUT, RendererTypes.OUT_INSIDE_BOX_LABEL, RendererTypes.OUT_INSIDE_IN,

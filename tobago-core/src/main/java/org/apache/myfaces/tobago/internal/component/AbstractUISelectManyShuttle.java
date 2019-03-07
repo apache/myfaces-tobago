@@ -37,4 +37,6 @@ public abstract class AbstractUISelectManyShuttle extends AbstractUISelectManyBa
   public boolean isLabelLayoutSkip() {
     return getLabelLayout() == LabelLayout.skip;
   }
+
+  public abstract Integer getSize();
 }

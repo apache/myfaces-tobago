@@ -23,8 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UIPanel;
-import org.apache.myfaces.tobago.component.UIStyle;
+import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.internal.util.StyleRenderUtils;
 import org.apache.myfaces.tobago.layout.GridSpan;
 import org.apache.myfaces.tobago.layout.MeasureList;
@@ -33,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
@@ -174,10 +174,10 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
 
       // field style
 
-      UIStyle fieldStyle = ComponentUtils.findChild(component, UIStyle.class);
+      AbstractUIStyle fieldStyle = ComponentUtils.findChild(component, AbstractUIStyle.class);
       if (fieldStyle == null) {
-        fieldStyle = (UIStyle) ComponentUtils.createComponent(
-            facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style, null);
+        fieldStyle = (AbstractUIStyle) ComponentUtils.createComponent(
+            facesContext, Tags.style.componentType(), RendererTypes.Style, null);
         component.getChildren().add(fieldStyle);
       }
       // Style must be transient to avoid creating a new instance of GridSpan while restore state
@@ -192,8 +192,8 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
       // label style
 
       if (labeled) {
-        final UIStyle labelStyle = (UIStyle) ComponentUtils.createComponent(
-            facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style, null);
+        final AbstractUIStyle labelStyle = (AbstractUIStyle) ComponentUtils.createComponent(
+            facesContext, Tags.style.componentType(), RendererTypes.Style, null);
         component.getChildren().add(labelStyle);
         labelStyle.setTransient(true);
         labelStyle.setSelector(StyleRenderUtils.encodeIdSelector(

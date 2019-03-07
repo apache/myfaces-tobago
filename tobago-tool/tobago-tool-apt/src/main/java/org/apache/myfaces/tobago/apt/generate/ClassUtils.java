@@ -57,6 +57,15 @@ public class ClassUtils {
     return null;
   }
 
+  public static String getSmallSimpleName(final String qualifiedName) {
+    final String simpleName = getSimpleName(qualifiedName);
+    if (simpleName != null && simpleName.length() > 2) {
+      return simpleName.substring(2, 3).toLowerCase() + simpleName.substring(3);
+    } else {
+      return simpleName;
+    }
+  }
+
   public static boolean isSystemClass(final String qualifiedClassName) {
     return qualifiedClassName.startsWith("java.lang.");
   }

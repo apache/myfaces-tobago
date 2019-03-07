@@ -23,7 +23,9 @@ import org.apache.myfaces.test.base.junit4.AbstractJsfTestCase;
 import org.apache.myfaces.test.config.ResourceBundleVarNames;
 import org.apache.myfaces.test.mock.MockFacesContext;
 import org.apache.myfaces.test.mock.MockHttpServletRequest;
+import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIButton;
+import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UIOut;
@@ -90,15 +92,14 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     request.setAttribute(TobagoContext.BEAN_NAME, tobagoContext);
 
     // XXX is there a better way? Get it from Tobagos generated faces-config.xml?
-    application.addComponent(UIIn.COMPONENT_TYPE, UIIn.class.getName());
-    application.addComponent(UIOut.COMPONENT_TYPE, UIOut.class.getName());
-    application.addComponent(UIPanel.COMPONENT_TYPE, UIPanel.class.getName());
-    application.addComponent(
-        javax.faces.component.UICommand.COMPONENT_TYPE, javax.faces.component.UICommand.class.getName());
-    application.addComponent(UILink.COMPONENT_TYPE, UILink.class.getName());
-    application.addComponent(UIButton.COMPONENT_TYPE, UIButton.class.getName());
-    application.addComponent(UIPopup.COMPONENT_TYPE, UIPopup.class.getName());
-    application.addComponent(UIStyle.COMPONENT_TYPE, UIStyle.class.getName());
+    application.addComponent(Tags.in.componentType(), UIIn.class.getName());
+    application.addComponent(Tags.out.componentType(), UIOut.class.getName());
+    application.addComponent(Tags.panel.componentType(), UIPanel.class.getName());
+    application.addComponent(Tags.link.componentType(), UILink.class.getName());
+    application.addComponent(Tags.button.componentType(), UIButton.class.getName());
+    application.addComponent(Tags.popup.componentType(), UIPopup.class.getName());
+    application.addComponent(Tags.style.componentType(), UIStyle.class.getName());
+    application.addComponent(Tags.gridLayout.componentType(), UIGridLayout.class.getName());
 
     application.setMessageBundle("org.apache.myfaces.tobago.context.TobagoMessageBundle");
 

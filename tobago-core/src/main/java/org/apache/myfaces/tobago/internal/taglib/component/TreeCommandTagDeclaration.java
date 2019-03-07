@@ -57,7 +57,6 @@ import javax.faces.component.UICommand;
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeCommand",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeCommand",
     uiComponentFacesClass = "javax.faces.component.UICommand",
     interfaces = {
         "org.apache.myfaces.tobago.component.SupportsAccessKey"

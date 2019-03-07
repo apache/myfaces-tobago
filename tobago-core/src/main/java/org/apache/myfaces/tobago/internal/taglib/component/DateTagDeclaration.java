@@ -57,7 +57,6 @@ import javax.faces.component.UIInput;
 @Tag(name = "date")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIDate",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIDate",
     uiComponentFacesClass = "javax.faces.component.UIInput",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.DATE,

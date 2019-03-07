@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.internal.util;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UIButton;
+import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
@@ -84,7 +84,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
   public void more() {
     final CommandMap map = new CommandMap();
     final AbstractUICommand command = (AbstractUICommand)
-        ComponentUtils.createComponent(facesContext, UIButton.COMPONENT_TYPE, RendererTypes.Button, "command");
+        ComponentUtils.createComponent(facesContext, Tags.button.componentType(), RendererTypes.Button, "command");
     ComponentUtils.setAttribute(command, Attributes.popupClose, "immediate");
 
     map.setClick(new Command(

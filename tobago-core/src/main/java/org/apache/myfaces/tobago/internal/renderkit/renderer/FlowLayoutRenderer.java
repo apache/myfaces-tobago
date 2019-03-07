@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UIFlowLayout;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUIFlowLayout;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -40,7 +40,7 @@ public class FlowLayoutRenderer extends RendererBase {
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final UIFlowLayout flowLayout = (UIFlowLayout) component;
+    final AbstractUIFlowLayout flowLayout = (AbstractUIFlowLayout) component;
     final Markup markup = flowLayout.getMarkup();
 
     writer.startElement(HtmlElements.DIV);

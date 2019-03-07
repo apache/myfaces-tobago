@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
-import org.apache.myfaces.tobago.component.UISegmentLayout;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
@@ -71,7 +70,7 @@ public class SegmentLayoutRenderer extends RendererBase {
   @Override
   public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final UISegmentLayout segmentLayout = (UISegmentLayout) component;
+    final AbstractUISegmentLayout segmentLayout = (AbstractUISegmentLayout) component;
 
     if (!segmentLayout.isRendered()) {
       return;

@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUITextarea;
@@ -75,12 +74,12 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
 
   @Override
   public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
-    if (!(component instanceof UITextarea)) {
-      LOG.error("Wrong type: Need " + UITextarea.class.getName() + ", but was " + component.getClass().getName());
+    if (!(component instanceof AbstractUITextarea)) {
+      LOG.error("Wrong type: Need " + AbstractUITextarea.class.getName() + ", but was " + component.getClass().getName());
       return;
     }
 
-    final UITextarea input = (UITextarea) component;
+    final AbstractUITextarea input = (AbstractUITextarea) component;
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     final String clientId = input.getClientId(facesContext);
     final String fieldId = input.getFieldId(facesContext);
@@ -171,7 +170,7 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
 
   @Override
   protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
-    final UITextarea input = (UITextarea) component;
+    final AbstractUITextarea input = (AbstractUITextarea) component;
     return input.getFieldId(facesContext);
   }
 }

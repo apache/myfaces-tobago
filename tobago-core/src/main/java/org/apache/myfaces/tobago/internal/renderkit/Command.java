@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.internal.renderkit;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
+import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -88,7 +88,7 @@ public class Command {
 
   public Command(final FacesContext facesContext, final UIComponent facetComponent, final String focusId) {
     final UIComponent component;
-    if (facetComponent instanceof UIForm && facetComponent.getChildCount() == 1) {
+    if (facetComponent instanceof AbstractUIForm && facetComponent.getChildCount() == 1) {
       LOG.warn("Please don't use a form, but a command with immediate=true instead.");
       component = facetComponent.getChildren().get(0);
     } else {

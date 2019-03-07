@@ -103,6 +103,7 @@ public abstract class AbstractUIStyle extends UIComponentBase {
   }
 
   public abstract String getSelector();
+  public abstract void setSelector(String selector);
 
   public abstract Measure getPaddingRight();
 
@@ -111,6 +112,7 @@ public abstract class AbstractUIStyle extends UIComponentBase {
   public abstract Measure getMarginRight();
 
   public abstract String getFile();
+  public abstract void setFile(String file);
 
   public abstract Measure getPaddingBottom();
 
@@ -157,6 +159,7 @@ public abstract class AbstractUIStyle extends UIComponentBase {
   public abstract Measure getMarginTop();
 
   public abstract String getBackgroundImage();
+  public abstract void setBackgroundImage(String backgroundImage);
 
   public abstract Number getFlexGrow();
   public abstract void setFlexGrow(Number flexGrow);
@@ -168,11 +171,15 @@ public abstract class AbstractUIStyle extends UIComponentBase {
   public abstract void setFlexBasis(Measure flexBasis);
 
   public abstract String getGridTemplateColumns();
+  public abstract void setGridTemplateColumns(String gridTemplateColumns);
 
   public abstract String getGridTemplateRows();
+  public abstract void setGridTemplateRows(String gridTemplateRows);
 
   public abstract GridSpan getGridColumn();
+  public abstract void setGridColumn(GridSpan gridColumn);
 
   public abstract GridSpan getGridRow();
+  public abstract void setGridRow(GridSpan gridRow);
 
 }

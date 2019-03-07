@@ -28,4 +28,6 @@ public abstract class AbstractUITreeListbox extends AbstractUITree {
   public boolean isShowRoot() {
     return false;
   }
+
+  public abstract Integer getSize();
 }

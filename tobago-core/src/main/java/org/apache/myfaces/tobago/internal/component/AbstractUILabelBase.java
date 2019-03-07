@@ -21,12 +21,25 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Visual;
 
-import javax.faces.component.UIGraphic;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 
 /**
- * {@link org.apache.myfaces.tobago.internal.taglib.component.TreeIndentTagDeclaration}
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.LabelTagDeclaration}
  */
-public abstract class AbstractUITreeIndent extends UIGraphic implements Visual {
+public abstract class AbstractUILabelBase
+    extends javax.faces.component.UIOutput implements Visual {
 
-  public abstract boolean isShowJunctions();
+  public String getLabel() {
+    final Converter converter = getConverter();
+    final Object value = getValue();
+    if (converter != null) {
+      return converter.getAsString(FacesContext.getCurrentInstance(), this, value);
+    } else if (value != null) {
+      return String.valueOf(value);
+    } else {
+      return null;
+    }
+  }
+
 }

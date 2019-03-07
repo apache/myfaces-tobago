@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UITreeLabel;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeLabel;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -43,7 +43,7 @@ public class TreeLabelRenderer extends RendererBase {
     final AbstractUIData data = ComponentUtils.findAncestor(component, AbstractUIData.class);
     final boolean listbox = data instanceof AbstractUITreeListbox;
 
-    final UITreeLabel label = (UITreeLabel) component;
+    final AbstractUITreeLabel label = (AbstractUITreeLabel) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final String text = StringUtils.defaultString((String) label.getValue());
 

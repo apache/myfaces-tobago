@@ -23,12 +23,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UIColumnSelector;
-import org.apache.myfaces.tobago.component.UILink;
-import org.apache.myfaces.tobago.component.UIOut;
-import org.apache.myfaces.tobago.component.UIPanel;
-import org.apache.myfaces.tobago.component.UIReload;
-import org.apache.myfaces.tobago.component.UISheet;
+import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.SheetAction;
@@ -37,7 +32,9 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIColumn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnSelector;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.component.AbstractUILink;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
+import org.apache.myfaces.tobago.internal.component.AbstractUIReload;
 import org.apache.myfaces.tobago.internal.component.AbstractUIRow;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
@@ -106,7 +103,7 @@ public class SheetRenderer extends RendererBase {
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
 
-    final UISheet sheet = (UISheet) component;
+    final AbstractUISheet sheet = (AbstractUISheet) component;
     final List<AbstractUIColumnBase> columns = sheet.getAllColumns();
     final String clientId = sheet.getClientId(facesContext);
 
@@ -157,7 +154,7 @@ public class SheetRenderer extends RendererBase {
       if (sortable) {
         final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
         final String columnId = column.getClientId(facesContext);
-        final String sorterId = columnId + "_" + UISheet.SORTER_ID;
+        final String sorterId = columnId + "_" + AbstractUISheet.SORTER_ID;
 
         if (sorterId.equals(sourceId)) {
           final UIData data = (UIData) column.getParent();
@@ -168,7 +165,7 @@ public class SheetRenderer extends RendererBase {
   }
 
 
-  private void decodeSheetAction(final FacesContext facesContext, final UISheet component) {
+  private void decodeSheetAction(final FacesContext facesContext, final AbstractUISheet component) {
     final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
 
     final String clientId = component.getClientId(facesContext);
@@ -226,21 +223,21 @@ public class SheetRenderer extends RendererBase {
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final UISheet sheet = (UISheet) component;
+    final AbstractUISheet sheet = (AbstractUISheet) component;
     final String sheetId = sheet.getClientId(facesContext);
     final Markup markup = sheet.getMarkup();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     UIComponent header = sheet.getHeader();
     if (header == null) {
-      header = ComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, null, "_header");
+      header = ComponentUtils.createComponent(facesContext, Tags.panel.componentType(), null, "_header");
       header.setTransient(true);
       final List<AbstractUIColumnBase> columns = sheet.getAllColumns();
       int i = 0;
       for (final AbstractUIColumnBase column : columns) {
         if (!(column instanceof AbstractUIRow)) {
           final AbstractUIOut out = (AbstractUIOut) ComponentUtils.createComponent(
-              facesContext, UIOut.COMPONENT_TYPE, RendererTypes.Out, "_col" + i);
+              facesContext, Tags.out.componentType(), RendererTypes.Out, "_col" + i);
 //        out.setValue(column.getLabel());
           out.setTransient(true);
           ValueExpression valueExpression = column.getValueExpression(Attributes.label.getName());
@@ -275,8 +272,8 @@ public class SheetRenderer extends RendererBase {
         sheet.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     final UIComponent facetReload = ComponentUtils.getFacet(sheet, Facets.reload);
-    if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
-      final UIReload update = (UIReload) facetReload;
+    if (facetReload != null && facetReload instanceof AbstractUIReload && facetReload.isRendered()) {
+      final AbstractUIReload update = (AbstractUIReload) facetReload;
       writer.writeAttribute(DataAttributes.RELOAD, update.getFrequency());
     }
 // todo    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, sheet)));
@@ -297,7 +294,7 @@ public class SheetRenderer extends RendererBase {
 
   @Override
   public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final UISheet sheet = (UISheet) component;
+    final AbstractUISheet sheet = (AbstractUISheet) component;
     for (final UIComponent child : sheet.getChildren()) {
       if (child instanceof AbstractUIStyle) {
         child.encodeAll(facesContext);
@@ -308,7 +305,7 @@ public class SheetRenderer extends RendererBase {
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent uiComponent) throws IOException {
 
-    final UISheet sheet = (UISheet) uiComponent;
+    final AbstractUISheet sheet = (AbstractUISheet) uiComponent;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final String sheetId = sheet.getClientId(facesContext);
@@ -365,7 +362,7 @@ public class SheetRenderer extends RendererBase {
       // show row range
       final Markup showRowRange = markupForLeftCenterRight(sheet.getShowRowRange());
       if (showRowRange != Markup.NULL) {
-        final UILink command
+        final AbstractUILink command
             = ensurePagingCommand(facesContext, sheet, Facets.pagerRow.name(), SheetAction.toRow.name(), false);
         final String pagerCommandId = command.getClientId(facesContext);
 
@@ -447,7 +444,7 @@ public class SheetRenderer extends RendererBase {
       // show page range
       final Markup showPageRange = markupForLeftCenterRight(sheet.getShowPageRange());
       if (showPageRange != Markup.NULL) {
-        final UILink command
+        final AbstractUILink command
             = ensurePagingCommand(facesContext, sheet, Facets.pagerPage.name(), SheetAction.toPage.name(), false);
         final String pagerCommandId = command.getClientId(facesContext);
 
@@ -536,7 +533,7 @@ public class SheetRenderer extends RendererBase {
   }
 
   private void encodeTableBody(
-      final FacesContext facesContext, final UISheet sheet, final TobagoResponseWriter writer, final String sheetId,
+      final FacesContext facesContext, final AbstractUISheet sheet, final TobagoResponseWriter writer, final String sheetId,
       final Selectable selectable, final List<Integer> columnWidths, final List<Integer> selectedRows,
       final List<AbstractUIColumnBase> columns, final boolean autoLayout, final StringBuilder expandedValue)
       throws IOException {
@@ -848,7 +845,7 @@ public class SheetRenderer extends RendererBase {
   }
 
   private void encodeHeaderRows(
-      final FacesContext facesContext, final UISheet sheet, final TobagoResponseWriter writer,
+      final FacesContext facesContext, final AbstractUISheet sheet, final TobagoResponseWriter writer,
       final List<AbstractUIColumnBase> columns)
       throws IOException {
 
@@ -910,16 +907,16 @@ public class SheetRenderer extends RendererBase {
             Markup markup = Markup.NULL;
             String tip = ComponentUtils.getStringAttribute(column, Attributes.tip);
             // sorter icons should only displayed when there is only 1 column and not input
-            if (cell.getColumnSpan() == 1 && cellComponent instanceof UIOut) {
+            if (cell.getColumnSpan() == 1 && cellComponent instanceof AbstractUIOut) {
               final boolean sortable = ComponentUtils.getBooleanAttribute(column, Attributes.sortable);
               if (sortable) {
-                UILink sortCommand = (UILink) ComponentUtils.getFacet(column, Facets.sorter);
+                AbstractUILink sortCommand = (AbstractUILink) ComponentUtils.getFacet(column, Facets.sorter);
                 if (sortCommand == null) {
                   // assign id to column
                   column.getClientId(facesContext);
-                  final String sorterId = column.getId() + "_" + UISheet.SORTER_ID;
-                  sortCommand = (UILink) ComponentUtils.createComponent(
-                          facesContext, UILink.COMPONENT_TYPE, RendererTypes.Link, sorterId);
+                  final String sorterId = column.getId() + "_" + AbstractUISheet.SORTER_ID;
+                  sortCommand = (AbstractUILink) ComponentUtils.createComponent(
+                          facesContext, Tags.link.componentType(), RendererTypes.Link, sorterId);
                   sortCommand.setTransient(true);
                   final AjaxBehavior reloadBehavior = createReloadBehavior(sheet);
                   sortCommand.addClientBehavior("click", reloadBehavior);
@@ -958,7 +955,7 @@ public class SheetRenderer extends RendererBase {
             writer.writeClassAttribute(TobagoClass.SHEET__HEADER, TobagoClass.SHEET__HEADER.createMarkup(markup));
             writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
 
-            if (column instanceof UIColumnSelector && selectable.isMulti()) {
+            if (column instanceof AbstractUIColumnSelector && selectable.isMulti()) {
               writer.startElement(HtmlElements.INPUT);
               writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
 
@@ -993,7 +990,7 @@ public class SheetRenderer extends RendererBase {
     }
   }
 
-  private void encodeHeaderFiller(final TobagoResponseWriter writer, final UISheet sheet) throws IOException {
+  private void encodeHeaderFiller(final TobagoResponseWriter writer, final AbstractUISheet sheet) throws IOException {
     writer.startElement(HtmlElements.TH);
     writer.writeClassAttribute(
         TobagoClass.SHEET__HEADER_CELL,
@@ -1051,7 +1048,7 @@ public class SheetRenderer extends RendererBase {
     return true;
   }
 
-  private List<Integer> getSelectedRows(final UISheet data, final SheetState state) {
+  private List<Integer> getSelectedRows(final AbstractUISheet data, final SheetState state) {
     List<Integer> selected = (List<Integer>) ComponentUtils.getAttribute(data, Attributes.selectedListString);
     if (selected == null && state != null) {
       selected = state.getSelectedRows();
@@ -1063,14 +1060,14 @@ public class SheetRenderer extends RendererBase {
   }
 
   private void encodeLink(
-      final FacesContext facesContext, final UISheet data, final Application application,
+      final FacesContext facesContext, final AbstractUISheet data, final Application application,
       final boolean disabled, final SheetAction action, final Integer target, final Icons icon, final CssItem liClass)
       throws IOException {
 
     final String facet = action == SheetAction.toPage || action == SheetAction.toRow
         ? action.name() + "-" + target
         : action.name();
-    final UILink command = ensurePagingCommand(facesContext, data, facet, facet, disabled);
+    final AbstractUILink command = ensurePagingCommand(facesContext, data, facet, facet, disabled);
     if (target != null) {
       ComponentUtils.setAttribute(command, Attributes.pagingTarget, target);
     }
@@ -1117,7 +1114,7 @@ public class SheetRenderer extends RendererBase {
   }
 
   private void encodeDirectPagingLinks(
-      final FacesContext facesContext, final Application application, final UISheet sheet)
+      final FacesContext facesContext, final Application application, final AbstractUISheet sheet)
       throws IOException {
 
     int linkCount = ComponentUtils.getIntAttribute(sheet, Attributes.directLinkCount);
@@ -1189,15 +1186,14 @@ public class SheetRenderer extends RendererBase {
     }
   }
 
-  private UILink ensurePagingCommand(
-      final FacesContext facesContext, final UISheet sheet, final String facet, final String id,
+  private AbstractUILink ensurePagingCommand(
+      final FacesContext facesContext, final AbstractUISheet sheet, final String facet, final String id,
       final boolean disabled) {
 
     final Map<String, UIComponent> facets = sheet.getFacets();
-    UILink command = (UILink) facets.get(facet);
+    AbstractUILink command = (AbstractUILink) facets.get(facet);
     if (command == null) {
-      command =
-              (UILink) ComponentUtils.createComponent(facesContext, UILink.COMPONENT_TYPE,
+      command = (AbstractUILink) ComponentUtils.createComponent(facesContext, Tags.link.componentType(),
                       RendererTypes.Link, SUFFIX_PAGE_ACTION + id);
       command.setRendered(true);
       command.setDisabled(disabled);
@@ -1211,7 +1207,7 @@ public class SheetRenderer extends RendererBase {
     return command;
   }
 
-  private AjaxBehavior createReloadBehavior(final UISheet sheet) {
+  private AjaxBehavior createReloadBehavior(final AbstractUISheet sheet) {
     final AjaxBehavior reloadBehavior = findReloadBehavior(sheet);
     final ArrayList<String> renderIds = new ArrayList<>();
     if (!renderIds.contains(sheet.getId())) {

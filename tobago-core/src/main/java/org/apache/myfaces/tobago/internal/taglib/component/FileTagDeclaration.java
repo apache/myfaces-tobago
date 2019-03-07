@@ -60,7 +60,6 @@ import javax.faces.component.UIInput;
 @Tag(name = "file")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIFile",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIFile",
     uiComponentFacesClass = "javax.faces.component.UIInput",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.FILE,
