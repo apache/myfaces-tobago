@@ -41,6 +41,7 @@ import javax.faces.component.UISelectMany;
 import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -49,7 +50,7 @@ import java.util.List;
 
 public class SortingUtils {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SortingUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private SortingUtils() {
   }

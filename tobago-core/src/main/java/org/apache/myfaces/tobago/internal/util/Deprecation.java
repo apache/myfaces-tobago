@@ -22,6 +22,8 @@ package org.apache.myfaces.tobago.internal.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.invoke.MethodHandles;
+
 
 public final class Deprecation {
 
@@ -46,6 +48,6 @@ public final class Deprecation {
    * This Logger category can be switched off, in production environment without
    * affecting the normal logging category.
    */
-  public static final Logger LOG = LoggerFactory.getLogger(Deprecation.class);
+  public static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 }
