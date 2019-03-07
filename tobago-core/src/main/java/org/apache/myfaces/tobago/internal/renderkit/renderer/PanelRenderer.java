@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanel;
 import org.apache.myfaces.tobago.internal.component.AbstractUIReload;
@@ -48,6 +47,7 @@ public class PanelRenderer extends PanelRendererBase {
     final String clientId = panel.getClientId(facesContext);
     final boolean collapsed = panel.isCollapsed();
     final Markup markup = panel.getMarkup();
+    final AbstractUIReload reload = ComponentUtils.getReloadFacet(panel);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
@@ -66,10 +66,8 @@ public class PanelRenderer extends PanelRendererBase {
       writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     }
 
-    final UIComponent reloadFacet = ComponentUtils.getFacet(panel, Facets.reload);
-    if (reloadFacet instanceof AbstractUIReload && reloadFacet.isRendered()) {
-      final AbstractUIReload update = (AbstractUIReload) reloadFacet;
-      writer.writeAttribute(DataAttributes.RELOAD, Integer.toString(update.getFrequency()), false);
+    if (reload != null && reload.isRendered()) {
+      writer.writeAttribute(DataAttributes.RELOAD, reload.getFrequency());
     }
 
     writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, panel)));

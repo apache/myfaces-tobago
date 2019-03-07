@@ -1417,21 +1417,30 @@ Tobago.Jsf.init = function() {
       console.log("success");// @DEV_ONLY
 
       jQuery(event.responseXML).find("update").each(function () {
+
+        var regExp = /<!\[CDATA\[([\D\d]*)]]>/; // [\D\d] means any char + \n, quite the same like . but with \n
+        var result = regExp.exec(this.innerHTML);
         var id = jQuery(this).attr("id");
-        console.info("Update after jsf.ajax success: id='" + id + "'"); // @DEV_ONLY
-        var newElement;
-        if (Tobago.Jsf.isId(id)) {
-          console.log("updating id: " + id);// @DEV_ONLY
-          newElement = jQuery(Tobago.Utils.escapeClientId(id));
-        } else if (Tobago.Jsf.isBody(id)) {
-          console.log("updating body");// @DEV_ONLY
-          newElement = jQuery(".tobago-page");
-        }
-        if (newElement) {
-          for (var order = 0; order < Tobago.listeners.afterUpdate.length; order++) {
-            var list = Tobago.listeners.afterUpdate[order];
-            for (var i = 0; i < list.length; i++) {
-              list[i](newElement);
+        if (result !== null && result.length === 2 && result[1].indexOf("{\"reload\"") === 0) {
+          // not modified on server, needs be reloaded after some time
+          console.debug("Found reload-JSON in response!"); // @DEV_ONLY
+          Tobago.Reload.init(id, JSON.parse(result[1]).reload);
+        } else {
+          console.info("Update after jsf.ajax success: id='" + id + "'"); // @DEV_ONLY
+          var newElement;
+          if (Tobago.Jsf.isId(id)) {
+            console.log("updating id: " + id);// @DEV_ONLY
+            newElement = jQuery(Tobago.Utils.escapeClientId(id));
+          } else if (Tobago.Jsf.isBody(id)) {
+            console.log("updating body");// @DEV_ONLY
+            newElement = jQuery(".tobago-page");
+          }
+          if (newElement) {
+            for (var order = 0; order < Tobago.listeners.afterUpdate.length; order++) {
+              var list = Tobago.listeners.afterUpdate[order];
+              for (var i = 0; i < list.length; i++) {
+                list[i](newElement);
+              }
             }
           }
         }

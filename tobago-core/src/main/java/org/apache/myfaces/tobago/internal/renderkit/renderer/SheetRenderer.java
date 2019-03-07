@@ -226,6 +226,7 @@ public class SheetRenderer extends RendererBase {
     final String sheetId = sheet.getClientId(facesContext);
     final Markup markup = sheet.getMarkup();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final AbstractUIReload reload = ComponentUtils.getReloadFacet(sheet);
 
     UIComponent header = sheet.getHeader();
     if (header == null) {
@@ -270,10 +271,8 @@ public class SheetRenderer extends RendererBase {
         TobagoClass.SHEET.createMarkup(markup),
         sheet.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
-    final UIComponent facetReload = ComponentUtils.getFacet(sheet, Facets.reload);
-    if (facetReload != null && facetReload instanceof AbstractUIReload && facetReload.isRendered()) {
-      final AbstractUIReload update = (AbstractUIReload) facetReload;
-      writer.writeAttribute(DataAttributes.RELOAD, update.getFrequency());
+    if (reload != null && reload.isRendered()) {
+      writer.writeAttribute(DataAttributes.RELOAD, reload.getFrequency());
     }
 // todo    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, sheet)));
     final CommandMap commands = RenderUtils.getBehaviorCommands(facesContext, sheet);

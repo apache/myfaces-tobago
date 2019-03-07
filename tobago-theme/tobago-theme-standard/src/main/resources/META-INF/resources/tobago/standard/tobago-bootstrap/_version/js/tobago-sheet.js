@@ -90,14 +90,14 @@ Tobago.Sheet.prototype.reloadWithAction = function(source, action) {
     console.debug("reload sheet with action '" + action + "'"); // @DEV_ONLY
   var executeIds = this.id;
   var renderIds = this.id;
-  if (this.behaviorCommands && this.behaviorCommands.reload) {
-    if (this.behaviorCommands.reload.execute) {
-      executeIds +=  " " + behaviorCommands.reload.execute;
-    }
-    if (this.behaviorCommands.reload.render) {
-      renderIds +=  " " + this.behaviorCommands.reload.render;
-    }
-  }
+//  if (this.behaviorCommands && this.behaviorCommands.reload) {
+//    if (this.behaviorCommands.reload.execute) {
+//      executeIds +=  " " + behaviorCommands.reload.execute;
+//    }
+//    if (this.behaviorCommands.reload.render) {
+//      renderIds +=  " " + this.behaviorCommands.reload.render;
+//    }
+//  }
   jsf.ajax.request(
       action,
       null,

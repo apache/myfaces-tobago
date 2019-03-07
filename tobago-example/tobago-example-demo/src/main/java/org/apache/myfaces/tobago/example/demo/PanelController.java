@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.example.demo;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @RequestScoped
@@ -32,6 +33,11 @@ public class PanelController implements Serializable {
 
   public Date getCurrentDate() {
     return new Date();
+  }
+
+  public boolean isOddDecaSecond() {
+    String second = new SimpleDateFormat("ss").format(getCurrentDate());
+    return second.startsWith("1") || second.startsWith("3") || second.startsWith("5");
   }
 
   public String getText() {

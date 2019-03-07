@@ -36,6 +36,8 @@ import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.SheetState;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.util.AjaxUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +57,7 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PreRenderComponentEvent;
+import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -84,6 +87,24 @@ public abstract class AbstractUISheet extends AbstractUIData
   private transient boolean autoLayout;
 
   private transient Grid headerGrid;
+
+  @Override
+  public void encodeAll(FacesContext facesContext) throws IOException {
+
+    final AbstractUIReload reload = ComponentUtils.getReloadFacet(this);
+
+    if (reload != null && AjaxUtils.isAjaxRequest(facesContext) && reload.isRendered() && !reload.isUpdate()) {
+      // do not render content
+      final Renderer renderer = getRenderer(facesContext);
+      if (renderer instanceof RendererBase) {
+        ((RendererBase)renderer).encodeReload(facesContext, reload);
+      } else {
+        LOG.warn("Found reload facet but no renderer support for it id='{}'!", getClientId(facesContext));
+      }
+    } else {
+      super.encodeAll(facesContext);
+    }
+  }
 
   @Override
   public void encodeBegin(final FacesContext facesContext) throws IOException {

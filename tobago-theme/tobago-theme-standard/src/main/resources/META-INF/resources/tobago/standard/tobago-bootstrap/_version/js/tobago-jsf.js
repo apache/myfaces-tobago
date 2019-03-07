@@ -7728,6 +7728,11 @@ _MF_SINGLTN(_PFX_XHR + "_AjaxResponse", _MF_OBJECT, /** @lends myfaces._impl.xhr
                 resultNode = null,
                 pushOpRes = this._Lang.hitch(this, this._pushOperationResult);
 
+// begin TOBAGO-JSF-JS
+            if (cDataBlock.indexOf("{\"reload\"") === 0) {
+                console.debug("Found reload-JSON in response!");
+            } else {
+// end TOBAGO-JSF-JS
             switch (node.getAttribute('id')) {
                 case this.P_VIEWROOT:
 
@@ -7777,6 +7782,9 @@ _MF_SINGLTN(_PFX_XHR + "_AjaxResponse", _MF_OBJECT, /** @lends myfaces._impl.xhr
                     }
                     break;
             }
+// begin TOBAGO-JSF-JS
+            }
+// end TOBAGO-JSF-JS
         }
 
         return true;

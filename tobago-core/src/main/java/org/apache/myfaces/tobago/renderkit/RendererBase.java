@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
+import org.apache.myfaces.tobago.internal.component.AbstractUIReload;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -31,6 +32,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.render.Renderer;
+import java.io.IOException;
 
 public class RendererBase extends Renderer {
 
@@ -81,5 +83,13 @@ public class RendererBase extends Renderer {
     } else {
       return new TobagoResponseWriterWrapper(writer);
     }
+  }
+
+  /**
+   * Special implementation for the reload facet (e.g. for tc:panel and tc:sheet.
+   */
+  public void encodeReload(FacesContext facesContext, AbstractUIReload reload) throws IOException {
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    writer.write("{\"reload\":{\"frequency\":" + reload.getFrequency() + "}}");
   }
 }
