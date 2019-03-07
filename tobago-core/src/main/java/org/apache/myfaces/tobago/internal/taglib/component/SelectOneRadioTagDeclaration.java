@@ -58,7 +58,6 @@ import javax.faces.component.UISelectOne;
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOneRadio",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectOneRadio",
     uiComponentFacesClass = "javax.faces.component.UISelectOne",
     componentFamily = UISelectOne.COMPONENT_FAMILY,
     rendererType = {RendererTypes.SELECT_ONE_RADIO, RendererTypes.SELECT_ONE_RADIO_INSIDE_COMMAND},

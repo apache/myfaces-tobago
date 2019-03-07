@@ -42,7 +42,6 @@ import javax.faces.component.UIPanel;
 @Tag(name = "panel")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPanel",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIPanel",
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.PANEL,

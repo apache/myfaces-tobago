@@ -40,7 +40,6 @@ import javax.faces.component.UIPanel;
 @Tag(name = "box")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIBox",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIBox",
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.BOX,

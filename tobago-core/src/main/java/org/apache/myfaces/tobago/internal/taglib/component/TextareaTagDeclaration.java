@@ -57,7 +57,6 @@ import javax.faces.component.UIInput;
 @Tag(name = "textarea")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITextarea",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITextarea",
     uiComponentFacesClass = "javax.faces.component.UIInput",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.TEXTAREA,

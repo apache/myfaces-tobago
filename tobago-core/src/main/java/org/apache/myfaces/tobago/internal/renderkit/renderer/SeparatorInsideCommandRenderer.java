@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UISeparator;
+import org.apache.myfaces.tobago.internal.component.AbstractUISeparator;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -35,7 +35,7 @@ public class SeparatorInsideCommandRenderer extends SeparatorRenderer {
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final UISeparator separator = (UISeparator) component;
+    final AbstractUISeparator separator = (AbstractUISeparator) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final String clientId = separator.getClientId(facesContext);
 

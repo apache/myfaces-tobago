@@ -38,7 +38,6 @@ import javax.faces.component.UIGraphic;
 @Tag(name = "image")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIImage",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIImage",
     uiComponentFacesClass = "javax.faces.component.UIGraphic",
     componentFamily = UIGraphic.COMPONENT_FAMILY,
     rendererType = RendererTypes.IMAGE,

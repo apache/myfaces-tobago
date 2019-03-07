@@ -50,7 +50,6 @@ import javax.faces.component.UIForm;
 @Tag(name = "page")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPage",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIPage",
     uiComponentFacesClass = "javax.faces.component.UIForm",
     componentFamily = UIForm.COMPONENT_FAMILY,
     rendererType = RendererTypes.PAGE,

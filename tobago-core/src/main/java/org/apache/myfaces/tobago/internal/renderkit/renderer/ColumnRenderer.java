@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UIColumn;
-import org.apache.myfaces.tobago.component.UILink;
-import org.apache.myfaces.tobago.component.UIOut;
+import org.apache.myfaces.tobago.internal.component.AbstractUIColumn;
+import org.apache.myfaces.tobago.internal.component.AbstractUILink;
+import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
@@ -36,9 +36,9 @@ public class ColumnRenderer extends RendererBase {
    * Pure is needed for &lt;tc:panel>,  &lt;tc:in>, etc.<br/>
    * Pure is not needed for  &lt;tc:out> and &lt;tc:link>
    */
-  private boolean isPure(final UIColumn column) {
+  private boolean isPure(final AbstractUIColumn column) {
     for (final UIComponent child : column.getChildren()) {
-      if (!(child instanceof UIOut) && !(child instanceof UILink)) {
+      if (!(child instanceof AbstractUIOut) && !(child instanceof AbstractUILink)) {
         return true;
       }
     }

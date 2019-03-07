@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.internal.layout.OriginCell;
 import org.apache.myfaces.tobago.internal.util.SortingUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.MeasureList;
+import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.SheetState;
@@ -69,6 +70,10 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISheet.class);
 
+  /**
+   * @deprecated since 4.4.0.
+   */
+  @Deprecated
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Data";
 
   public static final String SORTER_ID = "sorter";
@@ -573,4 +578,14 @@ public abstract class AbstractUISheet extends AbstractUIData
   public void setHeaderGrid(final Grid headerGrid) {
     this.headerGrid = headerGrid;
   }
+
+  public abstract boolean isShowDirectLinksArrows();
+
+  public abstract boolean isShowPageRangeArrows();
+
+  public abstract ShowPosition getShowRowRange();
+
+  public abstract ShowPosition getShowPageRange();
+
+  public abstract ShowPosition getShowDirectLinks();
 }

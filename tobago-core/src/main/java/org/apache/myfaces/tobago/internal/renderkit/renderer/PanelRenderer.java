@@ -20,9 +20,9 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.UIPanel;
-import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPanel;
+import org.apache.myfaces.tobago.internal.component.AbstractUIReload;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
@@ -43,7 +43,7 @@ public class PanelRenderer extends PanelRendererBase {
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final UIPanel panel = (UIPanel) component;
+    final AbstractUIPanel panel = (AbstractUIPanel) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final String clientId = panel.getClientId(facesContext);
     final boolean collapsed = panel.isCollapsed();
@@ -67,8 +67,8 @@ public class PanelRenderer extends PanelRendererBase {
     }
 
     final UIComponent reloadFacet = ComponentUtils.getFacet(panel, Facets.reload);
-    if (reloadFacet instanceof UIReload && reloadFacet.isRendered()) {
-      final UIReload update = (UIReload) reloadFacet;
+    if (reloadFacet instanceof AbstractUIReload && reloadFacet.isRendered()) {
+      final AbstractUIReload update = (AbstractUIReload) reloadFacet;
       writer.writeAttribute(DataAttributes.RELOAD, Integer.toString(update.getFrequency()), false);
     }
 

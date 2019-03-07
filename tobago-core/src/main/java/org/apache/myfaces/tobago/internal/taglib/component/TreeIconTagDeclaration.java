@@ -38,7 +38,6 @@ import javax.faces.component.UIGraphic;
 @Tag(name = "treeIcon")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeIcon",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIImage",
     uiComponentFacesClass = "javax.faces.component.UIGraphic",
     componentFamily = UIGraphic.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_ICON,

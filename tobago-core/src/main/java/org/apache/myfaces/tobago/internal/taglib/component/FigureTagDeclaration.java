@@ -37,7 +37,6 @@ import javax.faces.component.UIPanel;
 @Tag(name = "figure")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIFigure",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIFigure",
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.FIGURE,

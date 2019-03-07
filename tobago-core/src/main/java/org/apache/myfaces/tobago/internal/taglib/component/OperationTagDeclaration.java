@@ -38,7 +38,6 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 @Tag(name = "operation")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIOperation",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIOperation",
     componentFamily = "org.apache.myfaces.tobago.Operation",
     rendererType = RendererTypes.OPERATION,
     allowedChildComponenents = "NONE")

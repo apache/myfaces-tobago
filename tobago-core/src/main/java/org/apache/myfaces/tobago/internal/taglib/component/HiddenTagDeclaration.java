@@ -39,7 +39,6 @@ import javax.faces.component.UIInput;
 @Tag(name = "hidden")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIHidden",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIHidden",
     uiComponentFacesClass = "javax.faces.component.UIInput",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.HIDDEN,

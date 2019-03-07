@@ -36,7 +36,6 @@ import javax.faces.component.UIOutput;
 @Tag(name = "treeLabel")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeLabel",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUILabel",
     uiComponentFacesClass = "javax.faces.component.UIOutput",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_LABEL,

@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
-import org.apache.myfaces.tobago.component.UIStyle;
+import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Overflow;
@@ -115,7 +115,7 @@ public class Style implements Serializable {
    * @deprecated since 4.0.0
    */
   @Deprecated
-  public Style(final UIStyle style) {
+  public Style(final AbstractUIStyle style) {
 
     width = style.getWidth();
     height = style.getHeight();

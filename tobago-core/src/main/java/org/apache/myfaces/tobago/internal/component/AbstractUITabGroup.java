@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource;
@@ -111,8 +110,8 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
       }
       int index = 0;
       for (final UIComponent child : getChildren()) {
-        if (child instanceof UITab) {
-          final UITab tab = (UITab) child;
+        if (child instanceof AbstractUITab) {
+          final AbstractUITab tab = (AbstractUITab) child;
           if (tab.isRendered()) {
             if (getRenderedIndex() == index) {
               tab.processDecodes(context);
@@ -229,6 +228,8 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   public abstract Integer getRenderedIndex();
 
   public abstract void setRenderedIndex(Integer index);
+
+  public abstract boolean isShowNavigationBar();
 
   public abstract Integer getSelectedIndex();
 

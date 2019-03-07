@@ -20,9 +20,9 @@
 package org.apache.myfaces.tobago.util;
 
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.component.UIOut;
-import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.junit.Assert;
 import org.junit.Test;
@@ -46,9 +46,9 @@ public class ComponentUtilsUnitTest extends AbstractTobagoTestBase {
   public void testFindDescendant() {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final UIComponent p = ComponentUtils.createComponent(
-        facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.Panel, "p");
+        facesContext, Tags.panel.componentType(), RendererTypes.Panel, "p");
     final UIComponent i = ComponentUtils.createComponent(
-        facesContext, UIIn.COMPONENT_TYPE, RendererTypes.In, "i");
+        facesContext, Tags.in.componentType(), RendererTypes.In, "i");
     p.getChildren().add(i);
 
     final UIIn in = ComponentUtils.findDescendant(p, UIIn.class);

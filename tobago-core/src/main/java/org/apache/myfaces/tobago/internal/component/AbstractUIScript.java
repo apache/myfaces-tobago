@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.util.FacesVersion;
+
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -26,8 +28,6 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PreRenderViewEvent;
-
-import org.apache.myfaces.tobago.util.FacesVersion;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.ScriptTagDeclaration}
@@ -65,4 +65,6 @@ public abstract class AbstractUIScript extends UIComponentBase {
   }
 
   public abstract String getFile();
+  public abstract void setFile(String file);
+
 }

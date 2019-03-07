@@ -29,13 +29,7 @@ public abstract class AbstractUISelectOneRadio extends AbstractUISelectOneBase i
 
   private transient AbstractUISelectReference renderRangeReference;
 
-  public abstract boolean isDisabled();
-
-  public abstract boolean isFocus();
-
   public abstract boolean isInline();
-
-  public abstract Integer getTabIndex();
 
   public abstract String getRenderRange();
 

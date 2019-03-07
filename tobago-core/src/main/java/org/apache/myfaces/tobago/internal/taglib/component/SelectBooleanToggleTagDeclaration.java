@@ -55,7 +55,6 @@ import javax.faces.component.UISelectBoolean;
 @BodyContentDescription(anyTagOf = "<f:facet>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanToggle",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanToggle",
     uiComponentFacesClass = "javax.faces.component.UISelectBoolean",
     componentFamily = UISelectBoolean.COMPONENT_FAMILY,
     rendererType = {RendererTypes.SELECT_BOOLEAN_TOGGLE},

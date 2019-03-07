@@ -19,14 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.Visual;
-
-import javax.faces.component.UIGraphic;
-
 /**
- * {@link org.apache.myfaces.tobago.internal.taglib.component.TreeIndentTagDeclaration}
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.TreeIconTagDeclaration}
  */
-public abstract class AbstractUITreeIndent extends UIGraphic implements Visual {
+public abstract class AbstractUITreeIcon extends AbstractUIImage {
 
-  public abstract boolean isShowJunctions();
+ public abstract String getOpen();
+
+ public abstract String getClosed();
 }

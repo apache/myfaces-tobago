@@ -65,4 +65,14 @@ public abstract class AbstractUISegmentLayout extends AbstractUILayoutBase {
   public abstract MeasureList getLarge();
 
   public abstract MeasureList getExtraLarge();
+
+  public abstract String getMarginExtraSmall();
+
+  public abstract String getMarginSmall();
+
+  public abstract String getMarginMedium();
+
+  public abstract String getMarginLarge();
+
+  public abstract String getMarginExtraLarge();
 }

@@ -56,7 +56,6 @@ import javax.faces.component.UISelectOne;
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOneChoice",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectOneChoice",
     uiComponentFacesClass = "javax.faces.component.UISelectOne",
     componentFamily = UISelectOne.COMPONENT_FAMILY,
     rendererType = {RendererTypes.SELECT_ONE_CHOICE, RendererTypes.SELECT_ONE_CHOICE_INSIDE_IN},

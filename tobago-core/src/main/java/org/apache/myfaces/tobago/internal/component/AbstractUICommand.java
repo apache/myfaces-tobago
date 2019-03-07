@@ -21,11 +21,8 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
-import org.apache.myfaces.tobago.component.UIEvent;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -39,8 +36,6 @@ import javax.faces.context.FacesContext;
 public abstract class AbstractUICommand extends AbstractUICommandBase
     implements SupportsAccessKey, Visual, ClientBehaviorHolder, SupportFieldId {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUICommand.class);
-
   enum PropertyKeys {
     disabled,
   }
@@ -53,7 +48,7 @@ public abstract class AbstractUICommand extends AbstractUICommandBase
       parentOfCommands = false;
       for (final UIComponent child : getChildren()) {
         if (child.isRendered()
-            && !(child instanceof UIEvent)
+            && !(child instanceof AbstractUIEvent)
             && (child instanceof UICommand || child instanceof UIInput)) {
           parentOfCommands = true;
           break;

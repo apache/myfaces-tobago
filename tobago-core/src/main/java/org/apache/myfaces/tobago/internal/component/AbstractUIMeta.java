@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.util.FacesVersion;
+
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -26,8 +28,6 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PreRenderViewEvent;
-
-import org.apache.myfaces.tobago.util.FacesVersion;
 
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractUIMeta extends UIComponentBase {
@@ -61,11 +61,17 @@ public abstract class AbstractUIMeta extends UIComponentBase {
 
   public abstract String getCharset();
 
+  public abstract void setCharset(String charset);
+
   public abstract String getHttpEquiv();
 
   public abstract String getName();
 
+  public abstract void setName(String name);
+
   public abstract String getLang();
 
   public abstract String getContent();
+
+  public abstract void setContent(String content);
 }

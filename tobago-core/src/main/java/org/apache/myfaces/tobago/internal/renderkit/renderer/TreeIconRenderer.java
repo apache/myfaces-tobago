@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UITreeIcon;
-import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeIcon;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -59,9 +59,9 @@ public class TreeIconRenderer extends RendererBase {
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final UITreeIcon treeIcon = (UITreeIcon) component;
+    final AbstractUITreeIcon treeIcon = (AbstractUITreeIcon) component;
     final AbstractUIData data = ComponentUtils.findAncestor(treeIcon, AbstractUIData.class);
-    final UITreeNode node = ComponentUtils.findAncestor(treeIcon, UITreeNode.class);
+    final AbstractUITreeNode node = ComponentUtils.findAncestor(treeIcon, AbstractUITreeNode.class);
     final boolean folder = node.isFolder();
     final boolean expanded = folder && data.getExpandedState().isExpanded(node.getPath());
 

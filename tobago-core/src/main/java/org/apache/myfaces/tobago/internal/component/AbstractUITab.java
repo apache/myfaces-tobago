@@ -19,13 +19,20 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.SupportsAccessKey;
+
+import javax.faces.component.NamingContainer;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.TabTagDeclaration}
  */
-public abstract class AbstractUITab extends AbstractUIPanelBase implements ClientBehaviorHolder {
+public abstract class AbstractUITab
+    extends AbstractUIPanelBase implements ClientBehaviorHolder, SupportsAccessKey, NamingContainer {
 
   public abstract String getLabel();
 
+  public abstract String getImage();
+
+  public abstract boolean isDisabled();
 }

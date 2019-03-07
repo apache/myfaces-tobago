@@ -24,6 +24,10 @@ package org.apache.myfaces.tobago.internal.component;
  */
 public abstract class AbstractUIForm extends AbstractUIFormBase {
 
+  /**
+   * @deprecated since 4.4.0.
+   */
+  @Deprecated
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Form";
 
   /**

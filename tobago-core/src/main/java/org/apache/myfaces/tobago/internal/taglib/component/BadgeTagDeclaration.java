@@ -36,7 +36,6 @@ import javax.faces.component.UIOutput;
 @Tag(name = "badge")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIBadge",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIBadge",
     uiComponentFacesClass = "javax.faces.component.UIOutput",
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.

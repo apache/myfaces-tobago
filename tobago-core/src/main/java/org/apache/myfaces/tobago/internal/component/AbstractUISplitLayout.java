@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
+import org.apache.myfaces.tobago.layout.AlignItems;
 
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
@@ -39,4 +40,9 @@ public abstract class AbstractUISplitLayout extends AbstractUIFlexLayout {
 
   // TODO
   private String submittedLayout;
+
+  public AlignItems getAlignItems() {
+    return null; // TBD
+  };
+
 }

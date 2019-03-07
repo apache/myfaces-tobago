@@ -20,4 +20,6 @@
 package org.apache.myfaces.tobago.internal.component;
 
 public abstract class AbstractUIFooter extends AbstractUIPanelBase {
+
+  public abstract boolean isFixed();
 }

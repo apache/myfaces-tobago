@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UIHeader;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUIHeader;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -40,7 +40,7 @@ public class HeaderRenderer extends RendererBase {
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final UIHeader header = (UIHeader) component;
+    final AbstractUIHeader header = (AbstractUIHeader) component;
     final Markup markup = header.getMarkup();
     writer.startElement(HtmlElements.HEADER);
     writer.writeIdAttribute(component.getClientId(facesContext));

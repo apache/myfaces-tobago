@@ -39,7 +39,6 @@ import org.apache.myfaces.tobago.layout.JustifyContent;
 @Tag(name = "flexLayout")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIFlexLayout",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIFlexLayout",
     componentFamily = AbstractUIFlexLayout.COMPONENT_FAMILY,
     rendererType = RendererTypes.FLEX_LAYOUT,
     interfaces = {

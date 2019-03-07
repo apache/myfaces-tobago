@@ -43,6 +43,7 @@ package <componentInfo.packageName>;
 import org.apache.myfaces.tobago.internal.util.ArrayUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
+import org.apache.myfaces.tobago.component.Tags;
 import javax.annotation.Generated;
 import javax.el.ELException;
 import javax.faces.FacesException;
@@ -72,7 +73,7 @@ public class <componentInfo.className>
     extends <componentInfo.superClassName> <first(componentInfo.interfaces):{ n | implements <n>}><rest(componentInfo.interfaces):{ n |, <n>}> {
 
   <if(componentInfo.componentType)>
-  public static final String COMPONENT_TYPE = "<componentInfo.componentType>";
+  public static final String COMPONENT_TYPE = Tags.<componentInfo.tagName>.componentType();
 
   <endif>
   <if(componentInfo.componentFamily)>

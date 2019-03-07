@@ -21,8 +21,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UIGridLayout;
-import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.Assert;
@@ -38,7 +37,8 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void test1() {
-    final UIGridLayout grid = new UIGridLayout();
+    final AbstractUIGridLayout grid = (AbstractUIGridLayout) ComponentUtils.createComponent(
+        facesContext, Tags.gridLayout.componentType(), RendererTypes.GridLayout, null);
 
     final UIComponent a = createComponent("a");
     final UIComponent b = createComponent("b");
@@ -65,12 +65,13 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
     Assert.assertEquals(X, cells[1][1]);
     Assert.assertEquals(e, cells[2][0]);
     Assert.assertEquals(d, cells[2][1]);
-
   }
+
 
   @Test
   public void test2() {
-    final UIGridLayout grid = new UIGridLayout();
+    final AbstractUIGridLayout grid = (AbstractUIGridLayout) ComponentUtils.createComponent(
+        facesContext, Tags.gridLayout.componentType(), RendererTypes.GridLayout, null);
 
     final UIComponent a = createComponent("a");
     final UIComponent b = createComponent("b");
@@ -101,7 +102,8 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void test3() {
-    final UIGridLayout grid = new UIGridLayout();
+    final AbstractUIGridLayout grid = (AbstractUIGridLayout) ComponentUtils.createComponent(
+        facesContext, Tags.gridLayout.componentType(), RendererTypes.GridLayout, null);
 
     final UIComponent a = createComponent("a");
     a.getAttributes().put(Attributes.rowSpan.getName(), 7);
@@ -150,7 +152,8 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void test4() {
-    final UIGridLayout grid = new UIGridLayout();
+    final AbstractUIGridLayout grid = (AbstractUIGridLayout) ComponentUtils.createComponent(
+        facesContext, Tags.gridLayout.componentType(), RendererTypes.GridLayout, null);
 
     final UIComponent a = createComponent("a");
     final UIComponent b = createComponent("b");
@@ -170,7 +173,8 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void test5() {
-    final UIGridLayout grid = new UIGridLayout();
+    final AbstractUIGridLayout grid = (AbstractUIGridLayout) ComponentUtils.createComponent(
+        facesContext, Tags.gridLayout.componentType(), RendererTypes.GridLayout, null);
 
     final UIComponent a = createComponent("a");
     final UIComponent b = createComponent("b");
@@ -217,7 +221,8 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void testExpand() {
-    final UIGridLayout grid = new UIGridLayout();
+    final AbstractUIGridLayout grid = (AbstractUIGridLayout) ComponentUtils.createComponent(
+        facesContext, Tags.gridLayout.componentType(), RendererTypes.GridLayout, null);
 
     final UIComponent a = createComponent("a");
     final UIComponent b = createComponent("b");
@@ -238,12 +243,12 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
     Assert.assertEquals(7, expand.length);
     Assert.assertEquals(5, expand[0].length);
 
-    Assert.assertEquals(null, expand[1][1]);
-    Assert.assertEquals(null, expand[6][1]);
+    Assert.assertNull(expand[1][1]);
+    Assert.assertNull(expand[6][1]);
   }
 
   private UIComponent createComponent(final String id) {
-    return ComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.Panel, id);
+    return ComponentUtils.createComponent(facesContext, Tags.panel.componentType(), RendererTypes.Panel, id);
   }
 
   private static String toString(final UIComponent[][] cells) {

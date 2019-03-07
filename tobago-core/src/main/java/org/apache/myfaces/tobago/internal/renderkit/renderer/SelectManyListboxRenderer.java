@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UISelectManyListbox;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyListbox;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
@@ -47,7 +47,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
   @Override
   public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final UISelectManyListbox select = (UISelectManyListbox) component;
+    final AbstractUISelectManyListbox select = (AbstractUISelectManyListbox) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final String clientId = select.getClientId(facesContext);
@@ -96,7 +96,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
   @Override
   protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
-    final UISelectManyListbox select = (UISelectManyListbox) component;
+    final AbstractUISelectManyListbox select = (AbstractUISelectManyListbox) component;
     return select.getFieldId(facesContext);
   }
 }

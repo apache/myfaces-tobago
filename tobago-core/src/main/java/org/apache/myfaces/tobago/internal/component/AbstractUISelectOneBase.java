@@ -57,4 +57,10 @@ public abstract class AbstractUISelectOneBase extends javax.faces.component.UISe
   }
 
   public abstract boolean isReadonly();
+
+  public abstract boolean isDisabled();
+
+  public abstract boolean isFocus();
+
+  public abstract Integer getTabIndex();
 }

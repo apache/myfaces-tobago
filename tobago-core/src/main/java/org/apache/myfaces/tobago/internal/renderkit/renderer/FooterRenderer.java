@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UIFooter;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUIFooter;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -40,7 +40,7 @@ public class FooterRenderer extends RendererBase {
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final UIFooter footer = (UIFooter) component;
+    final AbstractUIFooter footer = (AbstractUIFooter) component;
     final Markup markup = footer.getMarkup();
     writer.startElement(HtmlElements.FOOTER);
     writer.writeIdAttribute(component.getClientId(facesContext));

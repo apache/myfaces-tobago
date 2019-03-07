@@ -20,8 +20,9 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UIStyle;
+import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.Visual;
+import org.apache.myfaces.tobago.layout.AlignItems;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.MeasureList;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -70,7 +71,7 @@ public abstract class AbstractUIFlexLayout extends AbstractUILayoutBase {
               AbstractUIStyle style = ComponentUtils.findChild(child, AbstractUIStyle.class);
               if (style == null) {
                 style = (AbstractUIStyle) facesContext.getApplication().createComponent(
-                    facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style.name());
+                    facesContext, Tags.style.componentType(), RendererTypes.Style.name());
                 style.setTransient(true);
                 child.getChildren().add(style);
               }
@@ -97,6 +98,8 @@ public abstract class AbstractUIFlexLayout extends AbstractUILayoutBase {
   public abstract MeasureList getColumns();
 
   public abstract MeasureList getRows();
+
+  public abstract AlignItems getAlignItems();
 
   public boolean isHorizontal() {
     return getRows() == null;

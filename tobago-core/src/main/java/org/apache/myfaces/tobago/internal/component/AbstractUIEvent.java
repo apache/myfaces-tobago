@@ -29,5 +29,5 @@ import javax.faces.component.behavior.ClientBehaviorHolder;
 public abstract class AbstractUIEvent extends AbstractUICommandBase implements ClientBehaviorHolder {
 
   public abstract ClientBehaviors getEvent();
-
+  public abstract void setEvent(ClientBehaviors event);
 }

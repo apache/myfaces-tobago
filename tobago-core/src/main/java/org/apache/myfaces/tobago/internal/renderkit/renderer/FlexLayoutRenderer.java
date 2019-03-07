@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UIFlexLayout;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUIFlexLayout;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -37,7 +37,7 @@ public class FlexLayoutRenderer extends RendererBase {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final UIFlexLayout flexLayout = (UIFlexLayout) component;
+    final AbstractUIFlexLayout flexLayout = (AbstractUIFlexLayout) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final Markup markup = flexLayout.getMarkup();
 

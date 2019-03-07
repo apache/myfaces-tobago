@@ -39,7 +39,6 @@ import javax.faces.component.UIColumn;
 @Tag(name = "column")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIColumn",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIColumn",
     uiComponentFacesClass = "javax.faces.component.UIColumn",
     componentFamily = UIColumn.COMPONENT_FAMILY,
     rendererType = RendererTypes.COLUMN,

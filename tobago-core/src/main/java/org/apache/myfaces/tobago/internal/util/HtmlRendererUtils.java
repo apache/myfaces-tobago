@@ -21,10 +21,11 @@ package org.apache.myfaces.tobago.internal.util;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UIStyle;
+import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.TobagoContext;
+import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
@@ -256,8 +257,8 @@ public final class HtmlRendererUtils {
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
           final String image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
           if (image != null) {
-            final UIStyle style = (UIStyle) facesContext.getApplication()
-                .createComponent(facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style.name());
+            final AbstractUIStyle style = (AbstractUIStyle) facesContext.getApplication()
+                .createComponent(facesContext, Tags.style.componentType(), RendererTypes.Style.name());
             style.setTransient(true);
             style.setBackgroundImage(image);
             style.setSelector(

@@ -53,7 +53,6 @@ import javax.faces.component.UIInput;
 @Tag(name = "stars")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIStars",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIStars",
     uiComponentFacesClass = "javax.faces.component.UIInput",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.STARS,

@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.SupportFieldId;
-import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUILabel;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
@@ -55,7 +55,7 @@ public class LabelRenderer extends RendererBase implements ComponentSystemEventL
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final UILabel label = (UILabel) component;
+    final AbstractUILabel label = (AbstractUILabel) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final UIComponent corresponding = ComponentUtils.findFor(label);
     final String forId;
@@ -101,7 +101,7 @@ public class LabelRenderer extends RendererBase implements ComponentSystemEventL
    * Can be overwritten in other themes.
    */
   protected void encodeTextContent(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final UILabel component)
+      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUILabel component)
       throws IOException {
 
     final LabelWithAccessKey label = new LabelWithAccessKey(component);

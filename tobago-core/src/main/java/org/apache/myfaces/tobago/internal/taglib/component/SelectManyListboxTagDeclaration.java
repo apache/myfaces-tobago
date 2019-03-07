@@ -56,7 +56,6 @@ import javax.faces.component.UISelectMany;
 @Tag(name = "selectManyListbox")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectManyListbox",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectManyListbox",
     uiComponentFacesClass = "javax.faces.component.UISelectMany",
     componentFamily = UISelectMany.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_MANY_LISTBOX,

@@ -19,13 +19,13 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneBase;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 
 public abstract class SelectOneRendererBase extends MessageLayoutRendererBase {
@@ -38,7 +38,7 @@ public abstract class SelectOneRendererBase extends MessageLayoutRendererBase {
       return;
     }
 
-    final UISelectOne select = (UISelectOne) component;
+    final AbstractUISelectOneBase select = (AbstractUISelectOneBase) component;
 
     final String clientId = select.getClientId(facesContext);
     final Object newValue =

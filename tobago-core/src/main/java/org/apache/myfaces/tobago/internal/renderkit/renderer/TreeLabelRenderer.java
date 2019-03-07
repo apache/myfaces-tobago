@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UITreeLabel;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeLabel;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -30,8 +30,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -39,15 +37,13 @@ import java.io.IOException;
 
 public class TreeLabelRenderer extends RendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TreeLabelRenderer.class);
-
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUIData data = ComponentUtils.findAncestor(component, AbstractUIData.class);
     final boolean listbox = data instanceof AbstractUITreeListbox;
 
-    final UITreeLabel label = (UITreeLabel) component;
+    final AbstractUITreeLabel label = (AbstractUITreeLabel) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final String text = StringUtils.defaultString((String) label.getValue());
 

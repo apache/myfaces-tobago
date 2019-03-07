@@ -17,16 +17,27 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.component;
 
-import org.apache.myfaces.tobago.component.Visual;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.apache.myfaces.tobago.util.EnumUnitTest;
+import org.junit.Test;
 
-import javax.faces.component.UIGraphic;
+public class TagsUnitTest extends EnumUnitTest {
 
-/**
- * {@link org.apache.myfaces.tobago.internal.taglib.component.TreeIndentTagDeclaration}
- */
-public abstract class AbstractUITreeIndent extends UIGraphic implements Visual {
+  @Test
+  public void testNames() throws IllegalAccessException, NoSuchFieldException {
 
-  public abstract boolean isShowJunctions();
+    testNames(Tags.class);
+  }
+
+  @Override
+  protected String getEnumRegexp() {
+    return "[a-z][a-zA-Z]*";
+  }
+
+  @Override
+  protected String constantCaseToEnum(final String constant) {
+    return StringUtils.constantToLowerCamelCase(constant);
+  }
 }

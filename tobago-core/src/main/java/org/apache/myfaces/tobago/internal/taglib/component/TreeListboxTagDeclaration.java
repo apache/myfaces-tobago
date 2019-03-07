@@ -43,7 +43,6 @@ import javax.faces.component.UIData;
 @BodyContentDescription(anyTagOf = "<tc:treeNode>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeListbox",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox",
     uiComponentFacesClass = "javax.faces.component.UIData",
     componentFamily = UIData.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_LISTBOX,

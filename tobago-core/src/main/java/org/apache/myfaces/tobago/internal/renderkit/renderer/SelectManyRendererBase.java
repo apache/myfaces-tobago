@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyBase;
 import org.apache.myfaces.tobago.internal.util.ArrayUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -64,7 +65,7 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
       return;
     }
 
-    final UISelectMany select = (UISelectMany) component;
+    final AbstractUISelectManyBase select = (AbstractUISelectManyBase) component;
 
     String[] newValues =
         facesContext.getExternalContext().getRequestParameterValuesMap().get(select.getClientId(facesContext));

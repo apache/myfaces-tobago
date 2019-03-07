@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UISelectOneListbox;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneListbox;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
@@ -47,7 +47,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
 
   @Override
   public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final UISelectOneListbox select = (UISelectOneListbox) component;
+    final AbstractUISelectOneListbox select = (AbstractUISelectOneListbox) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final String clientId = select.getClientId(facesContext);
@@ -92,7 +92,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
 
   @Override
   protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
-    final UISelectOneListbox select = (UISelectOneListbox) component;
+    final AbstractUISelectOneListbox select = (AbstractUISelectOneListbox) component;
     return select.getFieldId(facesContext);
   }
 }

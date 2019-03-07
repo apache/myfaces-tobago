@@ -26,15 +26,25 @@ import java.util.List;
 public class TagInfo extends RendererInfo {
   private List<PropertyInfo> properties = new ArrayList<>();
   private String componentClassName;
+  /**
+   * @deprecated since 4.4.0
+   */
+  @Deprecated
   private String componentType;
+  private String tagName;
   private String componentFamily;
   private PropertyInfo bodyContent;
   private boolean checkBodyContent;
 
   public TagInfo(final String sourceClass, final String qualifiedName, final String[] rendererType) {
     super(sourceClass, qualifiedName, rendererType);
+    tagName = ClassUtils.getSmallSimpleName(qualifiedName);
   }
 
+  /**
+   * @deprecated since 4.4.0
+   */
+  @Deprecated
   public TagInfo(final String sourceClass, final String qualifiedName) {
     super(sourceClass, qualifiedName);
   }
@@ -91,5 +101,9 @@ public class TagInfo extends RendererInfo {
 
   public void setComponentFamily(final String componentFamily) {
     this.componentFamily = componentFamily;
+  }
+
+  public String getTagName() {
+    return tagName;
   }
 }

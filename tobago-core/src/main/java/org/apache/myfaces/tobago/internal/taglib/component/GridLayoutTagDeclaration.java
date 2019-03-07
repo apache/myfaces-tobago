@@ -97,7 +97,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 @Tag(name = "gridLayout")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIGridLayout",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout",
     componentFamily = AbstractUIGridLayout.COMPONENT_FAMILY,
     rendererType = RendererTypes.GRID_LAYOUT,
     interfaces = {

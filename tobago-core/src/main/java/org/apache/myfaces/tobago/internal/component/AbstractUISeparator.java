@@ -27,4 +27,6 @@ import javax.faces.component.UIComponentBase;
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SeparatorTagDeclaration}
  */
 public abstract class AbstractUISeparator extends UIComponentBase implements Visual {
+
+  public abstract String getLabel();
 }

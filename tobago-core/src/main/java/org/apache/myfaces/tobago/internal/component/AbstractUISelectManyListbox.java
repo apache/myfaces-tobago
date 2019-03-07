@@ -38,4 +38,6 @@ public abstract class AbstractUISelectManyListbox extends AbstractUISelectManyBa
       return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
     }
   }
+
+  public abstract Integer getSize();
 }

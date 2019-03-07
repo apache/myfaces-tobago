@@ -38,7 +38,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 @Tag(name = "selectItem")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectItem",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectItem",
     uiComponentFacesClass = "javax.faces.component.UISelectItem",
     allowedChildComponenents = "NONE")
 public interface SelectItemTagDeclaration extends HasBinding, HasId, IsVisual, HasItemLabel, HasTip {

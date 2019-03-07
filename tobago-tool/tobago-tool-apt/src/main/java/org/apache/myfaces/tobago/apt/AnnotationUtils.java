@@ -28,6 +28,10 @@ public final class AnnotationUtils {
   private AnnotationUtils() {
   }
 
+  /**
+   * @deprecated since 4.4.0. Will set automatically.
+   */
+  @Deprecated
   public static String componentType(final UIComponentTag componentTag) {
     final String s = componentTag.componentType();
     if (s != null && s.length() > 0) {

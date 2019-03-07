@@ -37,7 +37,6 @@ import org.apache.myfaces.tobago.model.CollapseMode;
 @Tag(name = "popup")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPopup",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIPopup",
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = AbstractUIPopup.COMPONENT_FAMILY,
     interfaces = {

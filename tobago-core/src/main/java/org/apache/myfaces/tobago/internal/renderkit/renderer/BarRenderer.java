@@ -21,8 +21,8 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UIBar;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUIBar;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUILinks;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
@@ -48,7 +48,7 @@ public class BarRenderer extends RendererBase {
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final UIBar bar = (UIBar) component;
+    final AbstractUIBar bar = (AbstractUIBar) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final String clientId = bar.getClientId(facesContext);
@@ -131,7 +131,7 @@ public class BarRenderer extends RendererBase {
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final UIBar bar = (UIBar) component;
+    final AbstractUIBar bar = (AbstractUIBar) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final UIComponent after = ComponentUtils.getFacet(bar, Facets.after);
 
@@ -149,7 +149,7 @@ public class BarRenderer extends RendererBase {
   }
 
   private void encodeOpener(
-      final FacesContext facesContext, final UIBar bar, final TobagoResponseWriter writer, final String navbarId)
+      final FacesContext facesContext, final AbstractUIBar bar, final TobagoResponseWriter writer, final String navbarId)
       throws IOException {
     final boolean togglerLeft = bar.getMarkup() != null && bar.getMarkup().contains(Markup.TOGGLER_LEFT);
     final UIComponent brand = ComponentUtils.getFacet(bar, Facets.brand);

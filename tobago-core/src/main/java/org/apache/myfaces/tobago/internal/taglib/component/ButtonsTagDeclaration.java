@@ -34,7 +34,6 @@ import javax.faces.component.UIPanel;
 @Tag(name = "buttons")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIButtons",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIButtons",
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.BUTTONS,

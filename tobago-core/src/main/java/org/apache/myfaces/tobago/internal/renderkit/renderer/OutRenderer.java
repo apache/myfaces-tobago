@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
@@ -107,7 +106,7 @@ public class OutRenderer extends MessageLayoutRendererBase {
   @Override
   public void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final UIOut out = (UIOut) component;
+    final AbstractUIOut out = (AbstractUIOut) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final boolean plain = out.isPlain() || out.isCompact() || !out.isCreateSpan();
 

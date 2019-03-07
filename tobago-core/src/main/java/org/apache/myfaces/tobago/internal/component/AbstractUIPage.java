@@ -39,6 +39,10 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Clien
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIPage.class);
 
+  /**
+   * @deprecated since 4.4.0.
+   */
+  @Deprecated
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Page";
 
   public static final Charset FORM_ACCEPT_CHARSET = StandardCharsets.UTF_8;
@@ -128,4 +132,10 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Clien
       facesContext.renderResponse();
     }
   }
+
+  public abstract String getApplicationIcon();
+
+  public abstract String getLabel();
+
+  public abstract String getFocusId();
 }

@@ -19,11 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
@@ -85,7 +85,7 @@ public class TreeRenderer extends RendererBase {
     final AbstractUITree tree = (AbstractUITree) component;
     final String clientId = tree.getClientId(facesContext);
     final Markup markup = tree.getMarkup();
-    final UIComponent root = ComponentUtils.findDescendant(tree, UITreeNode.class);
+    final UIComponent root = ComponentUtils.findDescendant(tree, AbstractUITreeNode.class);
     if (root == null) {
       LOG.error("Can't find the tree root. This may occur while updating a tree from Tobago 1.0 to 1.5. "
           + "Please refer the documentation to see how to use tree tags.");

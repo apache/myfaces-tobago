@@ -21,10 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UIMeta;
-import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.component.UIScript;
-import org.apache.myfaces.tobago.component.UIStyle;
+import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.Theme;
@@ -104,7 +101,7 @@ public class PageRenderer extends RendererBase {
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final UIPage page = (UIPage) component;
+    final AbstractUIPage page = (AbstractUIPage) component;
     final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
     final TobagoContext tobagoContext = TobagoContext.getInstance(facesContext);
 
@@ -195,11 +192,11 @@ public class PageRenderer extends RendererBase {
     writer.endElement(HtmlElements.TITLE);
 
     // style files from theme
-    UIStyle style = null;
+    AbstractUIStyle style = null;
     for (final String styleFile : theme.getStyleResources(productionMode)) {
       if (style == null) {
-        style = (UIStyle) facesContext.getApplication()
-           .createComponent(facesContext, UIStyle.COMPONENT_TYPE, RendererTypes.Style.name());
+        style = (AbstractUIStyle) facesContext.getApplication()
+           .createComponent(facesContext, Tags.style.componentType(), RendererTypes.Style.name());
         style.setTransient(true);
       }
       style.setFile(contextPath + styleFile);
@@ -227,11 +224,11 @@ public class PageRenderer extends RendererBase {
     }
 
     // script files from theme
-    UIScript script = null;
+    AbstractUIScript script = null;
     for (final String scriptFile : theme.getScriptResources(productionMode)) {
       if (script == null) {
-        script = (UIScript) facesContext.getApplication()
-            .createComponent(facesContext, UIScript.COMPONENT_TYPE, RendererTypes.Script.name());
+        script = (AbstractUIScript) facesContext.getApplication()
+            .createComponent(facesContext, Tags.script.componentType(), RendererTypes.Script.name());
         script.setTransient(true);
       }
       script.setFile(contextPath + scriptFile);
@@ -331,7 +328,7 @@ public class PageRenderer extends RendererBase {
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final UIPage page = (UIPage) component;
+    final AbstractUIPage page = (AbstractUIPage) component;
     final UIViewRoot viewRoot = facesContext.getViewRoot();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final String clientId = page.getClientId(facesContext);
@@ -377,7 +374,7 @@ public class PageRenderer extends RendererBase {
     AccessKeyLogger.logStatus(facesContext);
   }
 
-  private String getMethod(final UIPage page) {
+  private String getMethod(final AbstractUIPage page) {
     return ComponentUtils.getStringAttribute(page, Attributes.method, "post");
   }
 
@@ -423,8 +420,8 @@ public class PageRenderer extends RendererBase {
       }
 
       if (!containsNameViewport(metas)) {
-        final UIMeta viewportMeta = (UIMeta) facesContext.getApplication()
-            .createComponent(facesContext, UIMeta.COMPONENT_TYPE, RendererTypes.Meta.name());
+        final AbstractUIMeta viewportMeta = (AbstractUIMeta) facesContext.getApplication()
+            .createComponent(facesContext, Tags.meta.componentType(), RendererTypes.Meta.name());
         viewportMeta.setName("viewport");
         viewportMeta.setContent("width=device-width, initial-scale=1.0");
         viewportMeta.setTransient(true);
@@ -432,8 +429,8 @@ public class PageRenderer extends RendererBase {
       }
 
       if (!containsCharset(metas)) {
-        final UIMeta charsetMeta = (UIMeta) facesContext.getApplication()
-            .createComponent(facesContext, UIMeta.COMPONENT_TYPE, RendererTypes.Meta.name());
+        final AbstractUIMeta charsetMeta = (AbstractUIMeta) facesContext.getApplication()
+            .createComponent(facesContext, Tags.meta.componentType(), RendererTypes.Meta.name());
         charsetMeta.setCharset(charset);
         charsetMeta.setTransient(true);
         metas.add(0, charsetMeta);

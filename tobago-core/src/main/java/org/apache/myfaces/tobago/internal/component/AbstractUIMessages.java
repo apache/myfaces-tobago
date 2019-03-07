@@ -113,6 +113,8 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
 
   public abstract OrderBy getOrderBy();
 
+  public abstract boolean isConfirmation();
+
 /* TBD: if we support JSF 1.2 whe have to do something here.
   public abstract String getFor();
 */

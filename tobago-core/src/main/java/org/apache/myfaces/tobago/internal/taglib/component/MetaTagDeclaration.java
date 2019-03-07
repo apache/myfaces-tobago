@@ -42,7 +42,6 @@ import javax.faces.component.UIOutput;
 @Tag(name = "meta")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMeta",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIMeta",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.META,
     allowedChildComponenents = "NONE")
