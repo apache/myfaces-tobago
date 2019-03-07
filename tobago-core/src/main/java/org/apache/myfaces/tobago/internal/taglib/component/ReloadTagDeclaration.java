@@ -38,6 +38,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 @Tag(name = "reload")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIReload",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIReload",
     componentFamily = "org.apache.myfaces.tobago.Reload",
     allowedChildComponenents = "NONE")
 public interface ReloadTagDeclaration extends HasIdBindingAndRendered {
