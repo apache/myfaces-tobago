@@ -57,23 +57,23 @@ Tobago4.Jsf.init = function() {
       console.log("success");
 
       jQuery(event.responseXML).find("update").each(function () {
+
+        let result: string[] = /<!\[CDATA\[(.*)]]>/s.exec(this.innerHTML);
         var id = jQuery(this).attr("id");
-        console.info("Update after jsf.ajax success: id='" + id + "'");
-        if (Tobago4.Jsf.isId(id)) {
-          console.debug("updating id: " + id);
-          Tobago.Listener.executeAfterUpdate(document.getElementById(id));
-        } else if (Tobago4.Jsf.isBody(id)) {
-          console.debug("updating body");
-          // there should be only one element with this class
-          Tobago.Listener.executeAfterUpdate(document.querySelector<HTMLElement>(".tobago-page"));
-/*
-          for (var order = 0; order < Tobago.listeners.afterUpdate.length; order++) {
-            var list = Tobago.listeners.afterUpdate[order];
-            for (var i = 0; i < list.length; i++) {
-              list[i](newElement);
-            }
+        if (result.length === 2 && result[1].startsWith("{\"reload\"")) {
+          // not modified on server, needs be reloaded after some time
+          console.debug("Found reload-JSON in response!");
+          Tobago4.Reload.init(id, JSON.parse(result[1]).reload);
+        } else {
+          console.info("Update after jsf.ajax success: id='" + id + "'");
+          if (Tobago4.Jsf.isId(id)) {
+            console.debug("updating id: " + id);
+            Tobago.Listener.executeAfterUpdate(document.getElementById(id));
+          } else if (Tobago4.Jsf.isBody(id)) {
+            console.debug("updating body");
+            // there should be only one element with this class
+            Tobago.Listener.executeAfterUpdate(document.querySelector<HTMLElement>(".tobago-page"));
           }
-*/
         }
       });
     } else if (event.status === "complete") {

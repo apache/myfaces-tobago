@@ -93,14 +93,14 @@ Tobago4.Sheet.reloadWithAction = function(elementId) {
   var executeIds = elementId;
   var renderIds = elementId;
   // XXX FIXME: behaviorCommands will probably be empty and not working!
-  if (this.behaviorCommands && this.behaviorCommands.reload) {
-    if (this.behaviorCommands.reload.execute) {
-      executeIds += " " + this.behaviorCommands.reload.execute;
-    }
-    if (this.behaviorCommands.reload.render) {
-      renderIds += " " + this.behaviorCommands.reload.render;
-    }
-  }
+  // if (this.behaviorCommands && this.behaviorCommands.reload) {
+  //   if (this.behaviorCommands.reload.execute) {
+  //     executeIds += " " + this.behaviorCommands.reload.execute;
+  //   }
+  //   if (this.behaviorCommands.reload.render) {
+  //     renderIds += " " + this.behaviorCommands.reload.render;
+  //   }
+  // }
   jsf.ajax.request(
       elementId,
       null,

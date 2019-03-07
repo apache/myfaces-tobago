@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIFormBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
+import org.apache.myfaces.tobago.internal.component.AbstractUIReload;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -533,6 +534,19 @@ public final class ComponentUtils {
 
   public static void removeFacet(final UIComponent component, final Facets facet) {
     component.getFacets().remove(facet.name());
+  }
+
+  public static AbstractUIReload getReloadFacet(final UIComponent component) {
+    final UIComponent facet = getFacet(component, Facets.reload);
+    if (facet == null) {
+      return null;
+    } else if (facet instanceof AbstractUIReload) {
+      return (AbstractUIReload) facet;
+    } else {
+      LOG.warn("Content of a reload facet must be {} but found {} in component with id '{}'",
+          AbstractUIReload.class.getName(), facet.getClass().getName(), component.getClientId());
+      return null;
+    }
   }
 
   public static boolean isFacetOf(final UIComponent component, final UIComponent parent) {

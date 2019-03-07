@@ -80,6 +80,7 @@
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-panel.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-popover.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-popup.js"/>
+          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-reload.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-select.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-sheet.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-split-layout.js"/>
