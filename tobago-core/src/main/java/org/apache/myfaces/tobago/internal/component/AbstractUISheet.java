@@ -99,7 +99,7 @@ public abstract class AbstractUISheet extends AbstractUIData
       // do not render content
       final Renderer renderer = getRenderer(facesContext);
       if (renderer instanceof RendererBase) {
-        ((RendererBase)renderer).encodeReload(facesContext, reload);
+        ((RendererBase) renderer).encodeReload(facesContext, reload);
       } else {
         LOG.warn("Found reload facet but no renderer support for it id='{}'!", getClientId(facesContext));
       }
@@ -190,8 +190,8 @@ public abstract class AbstractUISheet extends AbstractUIData
   /**
    * The rowIndex of the last row on the current page plus one (because of zero based iterating).
    *
-   * @throws IllegalArgumentException If the number of rows in the model returned
-   *                                  by {@link #getRowCount()} is -1 (undefined).
+   * @throws IllegalArgumentException If the number of rows in the model returned by {@link #getRowCount()} is -1
+   * (undefined).
    */
   public int getLastRowIndexOfCurrentPage() {
     if (!hasRowCount()) {
@@ -225,8 +225,8 @@ public abstract class AbstractUISheet extends AbstractUIData
   /**
    * The number of pages to render.
    *
-   * @throws IllegalArgumentException If the number of rows in the model returned
-   *                                  by {@link #getRowCount()} is -1 (undefined).
+   * @throws IllegalArgumentException If the number of rows in the model returned by {@link #getRowCount()} is -1
+   * (undefined).
    */
   public int getPages() {
     if (isRowsUnlimited()) {
@@ -264,8 +264,8 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   /**
-   * @return Should the paging controls be rendered? Either because of the need of paging or because
-   * the show is enforced by {@link #isShowPagingAlways()}
+   * @return Should the paging controls be rendered? Either because of the need of paging or because the show is
+   * enforced by {@link #isShowPagingAlways()}
    */
   public boolean isPagingVisible() {
     return isShowPagingAlways() || needMoreThanOnePage();
@@ -299,12 +299,12 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   /**
-   * Determines the beginning of the last page in the model.
-   * If the number of rows to display on one page is unlimited, the value is 0 (there is only one page).
+   * Determines the beginning of the last page in the model. If the number of rows to display on one page is unlimited,
+   * the value is 0 (there is only one page).
    *
    * @return The index of the first row of the last paging page.
-   * @throws IllegalArgumentException If the number of rows in the model returned
-   *                                  by {@link #getRowCount()} is -1 (undefined).
+   * @throws IllegalArgumentException If the number of rows in the model returned by {@link #getRowCount()} is -1
+   * (undefined).
    */
   public int getFirstRowIndexOfLastPage() {
     if (isRowsUnlimited()) {

@@ -532,7 +532,8 @@ public class SheetRenderer extends RendererBase {
   }
 
   private void encodeTableBody(
-      final FacesContext facesContext, final AbstractUISheet sheet, final TobagoResponseWriter writer, final String sheetId,
+      final FacesContext facesContext, final AbstractUISheet sheet, final TobagoResponseWriter writer,
+      final String sheetId,
       final Selectable selectable, final List<Integer> columnWidths, final List<Integer> selectedRows,
       final List<AbstractUIColumnBase> columns, final boolean autoLayout, final StringBuilder expandedValue)
       throws IOException {
@@ -915,7 +916,7 @@ public class SheetRenderer extends RendererBase {
                   column.getClientId(facesContext);
                   final String sorterId = column.getId() + "_" + AbstractUISheet.SORTER_ID;
                   sortCommand = (AbstractUILink) ComponentUtils.createComponent(
-                          facesContext, Tags.link.componentType(), RendererTypes.Link, sorterId);
+                      facesContext, Tags.link.componentType(), RendererTypes.Link, sorterId);
                   sortCommand.setTransient(true);
                   final AjaxBehavior reloadBehavior = createReloadBehavior(sheet);
                   sortCommand.addClientBehavior("click", reloadBehavior);
@@ -1193,7 +1194,7 @@ public class SheetRenderer extends RendererBase {
     AbstractUILink command = (AbstractUILink) facets.get(facet);
     if (command == null) {
       command = (AbstractUILink) ComponentUtils.createComponent(facesContext, Tags.link.componentType(),
-                      RendererTypes.Link, SUFFIX_PAGE_ACTION + id);
+          RendererTypes.Link, SUFFIX_PAGE_ACTION + id);
       command.setRendered(true);
       command.setDisabled(disabled);
       command.setTransient(true);

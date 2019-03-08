@@ -75,7 +75,8 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
   @Override
   public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
     if (!(component instanceof AbstractUITextarea)) {
-      LOG.error("Wrong type: Need " + AbstractUITextarea.class.getName() + ", but was " + component.getClass().getName());
+      LOG.error(
+          "Wrong type: Need " + AbstractUITextarea.class.getName() + ", but was " + component.getClass().getName());
       return;
     }
 
