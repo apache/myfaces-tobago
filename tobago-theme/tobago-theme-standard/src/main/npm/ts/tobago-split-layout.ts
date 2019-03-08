@@ -22,11 +22,11 @@ namespace Tobago {
     static init = function (element: HTMLElement): void {
 
       const hSplitter: Array<Element> = querySelectorAllOrSelfByClass(element, "tobago-splitLayout-horizontal");
-      hSplitter.forEach(function (value): void {
+      hSplitter.forEach(function (element): void {
         // const hSplitter: JQuery<NodeListOf<Element>>
         //     = Tobago4.Utils.selectWithJQuery(jQuery(element), ".tobago-splitLayout-horizontal");
         // hSplitter.each(function (): void {
-        const splitter: JQuery<Element> = jQuery(value);
+        const splitter: JQuery<Element> = jQuery(element);
         splitter.on("mousedown", {splitter: splitter}, function (event) {
           const prev: JQuery<Element> = splitter.prevAll(":not(style):last");
           const width: number = prev.outerWidth();
