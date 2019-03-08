@@ -92,7 +92,7 @@ public class ClassesGenerator extends AbstractGenerator {
       if (element.getAnnotation(UIComponentTag.class) != null) {
         try {
           createTagOrComponent(element);
-        } catch (final IOException|ClassNotFoundException|RuntimeException e) {
+        } catch (final IOException | ClassNotFoundException | RuntimeException e) {
           throw new TobagoGeneratorException(
               "Error during processing of " + element.getAnnotation(UIComponentTag.class).uiComponent(), e);
         }
@@ -108,7 +108,7 @@ public class ClassesGenerator extends AbstractGenerator {
     if (componentTag.generate()) {
       final Tag tag = declaration.getAnnotation(Tag.class);
       final String generic = "org.apache.myfaces.tobago.internal.component.AbstractUI"
-          +  tag.name().substring(0,1).toUpperCase() + tag.name().substring(1);
+          + tag.name().substring(0, 1).toUpperCase() + tag.name().substring(1);
       final StringTemplate componentStringTemplate = componentStringTemplateGroup.getInstanceOf("component");
       final ComponentInfo componentInfo = new ComponentInfo(declaration, componentTag);
       String componentBaseClass = componentTag.uiComponentBaseClass();
@@ -118,7 +118,7 @@ public class ClassesGenerator extends AbstractGenerator {
       componentInfo.setSuperClass(componentBaseClass);
 
       // check
-      if (! componentBaseClass.equals(generic)) {
+      if (!componentBaseClass.equals(generic)) {
         warn("**********************************************************************************");
         warn("generic name is unequal to the defined name: " + componentBaseClass + " != " + generic);
         warn("**********************************************************************************");
