@@ -206,6 +206,8 @@ public enum DataAttributes implements MarkupLanguageAttributes {
 
   TODAY("data-tobago-today"),
 
+  TODAY_BUTTON("data-tobago-today-button"),
+
   TOGGLE("data-toggle"),
 
   TRANSITION("data-tobago-transition"),

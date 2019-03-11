@@ -150,6 +150,12 @@
         <f:convertDateTime pattern="dd.MM. - HH:mm" type="both"/>
       </tc:date>
     </tc:section>
+    <tc:section label="Today Button">
+      <p>Display a today button on the datepicker with the attribute <code>todayButton=true</code>.</p>
+      <tc:date id="dateTodayButton" label="Today Button" value="#{dateController.now}" todayButton="true">
+        <f:convertDateTime pattern="dd.MM.yyyy"/>
+      </tc:date>
+    </tc:section>
   </tc:section>
   <tc:section label="Styles">
     <p>Styles can be set with the attributes <code>dateStyle</code> and <code>timeStyle</code>.

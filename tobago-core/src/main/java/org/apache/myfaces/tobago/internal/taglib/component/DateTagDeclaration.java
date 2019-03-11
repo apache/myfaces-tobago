@@ -21,7 +21,9 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
@@ -80,4 +82,10 @@ public interface DateTagDeclaration
     IsDisabled, HasConverter, HasLabel, HasHelp, HasLabelLayout,
     HasTip, IsRequired, HasPlaceholder {
 
+  /**
+   * If true, a today button is displayed on the datetimepicker.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  void setTodayButton(String required);
 }

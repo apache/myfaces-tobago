@@ -50,4 +50,6 @@ public abstract class AbstractUIDate extends AbstractUIInput {
     }
     return DateFormatUtils.findPattern((DateTimeConverter) converter);
   }
+
+  public abstract boolean isTodayButton();
 }

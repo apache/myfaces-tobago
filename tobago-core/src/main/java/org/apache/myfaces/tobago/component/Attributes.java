@@ -405,6 +405,7 @@ public enum Attributes {
   timezone,
   title,
   tip,
+  todayButton,
   top,
   totalCount,
   transition,
