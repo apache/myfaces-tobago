@@ -553,9 +553,10 @@ public class SheetRenderer extends RendererBase {
   }
 
   private void encodeTableBody(
-      final FacesContext facesContext, final AbstractUISheet sheet, final TobagoResponseWriter writer, final String sheetId,
-      final Selectable selectable, final List<Integer> columnWidths, final List<Integer> selectedRows,
-      final List<AbstractUIColumnBase> columns, final boolean autoLayout, final StringBuilder expandedValue)
+      final FacesContext facesContext, final AbstractUISheet sheet, final TobagoResponseWriter writer,
+      final String sheetId, final Selectable selectable, final List<Integer> columnWidths,
+      final List<Integer> selectedRows, final List<AbstractUIColumnBase> columns, final boolean autoLayout,
+      final StringBuilder expandedValue)
       throws IOException {
 
     final boolean showHeader = sheet.isShowHeader();

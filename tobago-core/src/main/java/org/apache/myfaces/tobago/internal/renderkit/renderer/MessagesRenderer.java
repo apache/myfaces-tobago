@@ -148,7 +148,8 @@ public class MessagesRenderer extends RendererBase {
   }
 
   private void encodeMessage(
-      final TobagoResponseWriter writer, final AbstractUIMessages messages, final FacesMessage message, final String clientId)
+      final TobagoResponseWriter writer, final AbstractUIMessages messages, final FacesMessage message,
+      final String clientId)
       throws IOException {
 
     final String summary = message.getSummary();

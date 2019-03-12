@@ -47,7 +47,7 @@ public abstract class AbstractUIPanel extends AbstractUICollapsiblePanel impleme
       // do not render content
       final Renderer renderer = getRenderer(facesContext);
       if (renderer instanceof RendererBase) {
-        ((RendererBase)renderer).encodeReload(facesContext, reload);
+        ((RendererBase) renderer).encodeReload(facesContext, reload);
       } else {
         LOG.warn("Found reload facet but no renderer support for it id='{}'!", getClientId(facesContext));
       }
