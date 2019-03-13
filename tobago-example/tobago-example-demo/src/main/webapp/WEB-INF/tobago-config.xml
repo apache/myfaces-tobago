@@ -45,7 +45,7 @@
 -->
 
   <content-security-policy mode="report-only">
-    <directive>frame-src https://maps.google.com</directive>
+    <directive>frame-src https://maps.google.com https://www.google.com</directive>
   </content-security-policy>
 
 <!-- this is the default...
