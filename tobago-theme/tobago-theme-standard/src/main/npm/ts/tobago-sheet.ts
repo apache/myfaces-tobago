@@ -47,7 +47,7 @@ Tobago4.Sheet = function(
 
 Tobago4.Sheet.init = function(element:HTMLElement) {
   console.time("[tobago-sheet] init");
-  const sheets: Array<HTMLElement> = element.getSelfOrElementsByClassName("tobago-sheet");
+  const sheets: Array<HTMLElement> = element.tobagoSelfOrElementsByClassName("tobago-sheet");
   sheets.forEach(function (element):void {
     var $sheet = jQuery(element);
     var id = $sheet.attr("id");

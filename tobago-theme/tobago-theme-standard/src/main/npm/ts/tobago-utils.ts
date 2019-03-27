@@ -16,11 +16,11 @@
  */
 
 interface HTMLElement {
-  getSelfOrElementsByClassName(className: string): Array<HTMLElement>;
+  tobagoSelfOrElementsByClassName(className: string): Array<HTMLElement>;
 
-  getPreviousElementSibling(): HTMLElement;
+  tobagoPreviousElementSibling(): HTMLElement;
 
-  getNextElementSibling(): HTMLElement;
+  tobagoNextElementSibling(): HTMLElement;
 }
 
 interface Document {
@@ -31,7 +31,7 @@ interface Document {
  * Find all elements (and also self) which have the class "className".
  * @param className Class of elements to find.
  */
-HTMLElement.prototype.getSelfOrElementsByClassName = function (className: string): Array<HTMLElement> {
+HTMLElement.prototype.tobagoSelfOrElementsByClassName = function (className: string): Array<HTMLElement> {
   const result: Array<HTMLElement> = new Array<HTMLElement>();
   if (this.classList.contains(className)) {
     result.push(this);
@@ -45,7 +45,7 @@ HTMLElement.prototype.getSelfOrElementsByClassName = function (className: string
 /**
  * Get the previous sibling element (without <style> elements).
  */
-HTMLElement.prototype.getPreviousElementSibling = function (): HTMLElement {
+HTMLElement.prototype.tobagoPreviousElementSibling = function (): HTMLElement {
   let sibling: HTMLElement = this.previousElementSibling;
   while (sibling != null) {
     if (sibling.tagName !== "STYLE") {
@@ -59,7 +59,7 @@ HTMLElement.prototype.getPreviousElementSibling = function (): HTMLElement {
 /**
  * Get the next sibling element (without <style> elements).
  */
-HTMLElement.prototype.getNextElementSibling = function (): HTMLElement {
+HTMLElement.prototype.tobagoNextElementSibling = function (): HTMLElement {
   let sibling: HTMLElement = this.nextElementSibling;
   while (sibling !== null) {
     if (sibling.tagName !== "STYLE") {

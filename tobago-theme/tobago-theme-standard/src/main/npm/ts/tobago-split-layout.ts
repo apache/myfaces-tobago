@@ -21,77 +21,111 @@ namespace Tobago {
 
     static init = function (element: HTMLElement): void {
 
-      const splitLayouts: Array<HTMLElement> = element.getSelfOrElementsByClassName("tobago-splitLayout");
+      const splitLayouts: Array<HTMLElement> = element.tobagoSelfOrElementsByClassName("tobago-splitLayout");
       splitLayouts.forEach(function (splitLayout: HTMLElement): void {
 
         Array.from(splitLayout.getElementsByClassName("tobago-splitLayout-horizontal"))
             .forEach(function (splitter): void {
-              splitter.addEventListener("mousedown", function (event: MouseEvent) {
-                event.preventDefault();
-                const splitter = <HTMLElement>event.target;
-                const prev: HTMLElement = splitter.getPreviousElementSibling();
-                const width: number = prev.offsetWidth;
-                console.info("initial width = " + width);
-                prev.style.width = width + "px";
-                prev.style.flexGrow = "inherit";
-                prev.style.flexBasis = "auto";
-                // tbd: DOMStringMap, IE11?
-
-                // new SplitLayoutMouseMoveData()
-
-                document.tobagoPage().dataset["splitLayout.offset"] = String(event.pageX - width);
-                document.tobagoPage().dataset["splitLayout.active"] = splitLayout.id;
-                document.addEventListener("mousemove", SplitLayout.moveHorizontally);
-                document.addEventListener("mouseup", SplitLayout.stop);
-              });
+              splitter.addEventListener("mousedown", SplitLayout.start);
             });
 
         Array.from(splitLayout.getElementsByClassName("tobago-splitLayout-vertical"))
             .forEach(function (splitter): void {
-              splitter.addEventListener("mousedown", function (event: MouseEvent) {
-                event.preventDefault();
-                const splitter = <HTMLElement>event.target;
-                const prev: HTMLElement = splitter.getPreviousElementSibling();
-                const height: number = prev.offsetHeight;
-                console.info("initial height = " + height);
-                prev.style.height = height + "px";
-                prev.style.flexGrow = "inherit";
-                prev.style.flexBasis = "auto";
-                // tbd: DOMStringMap, IE11?
-                document.tobagoPage().dataset["splitLayout.offset"] = String(event.pageY - height);
-                document.tobagoPage().dataset["splitLayout.active"] = splitLayout.id;
-                document.addEventListener("mousemove", SplitLayout.moveVertically);
-                document.addEventListener("mouseup", SplitLayout.stop);
-              });
+              splitter.addEventListener("mousedown", SplitLayout.start);
             });
       });
     };
 
-    static moveHorizontally = function (event: MouseEvent): void {
+    static start = function (event: MouseEvent) {
       event.preventDefault();
-      const offset: number = Number(document.tobagoPage().dataset["splitLayout.offset"]);
-      const splitLayout: HTMLElement = document.getElementById(document.tobagoPage().dataset["splitLayout.active"]);
-      console.info("" + event.pageX + " " + offset);
-      const splitter: HTMLElement = <HTMLElement>splitLayout.getElementsByClassName("tobago-splitLayout-horizontal").item(0);
-      const prev: HTMLElement = splitter.getPreviousElementSibling();
-      prev.style.width = String(event.pageX - offset) + "px";
+      const mousedown = SplitLayoutMousedown.save(event, <HTMLElement>event.target);
+      document.addEventListener("mousemove", SplitLayout.move);
+      document.addEventListener("mouseup", SplitLayout.stop);
+      const previousArea = mousedown.previous;
+      if (mousedown.horizontal) {
+        previousArea.style.width = String(previousArea.offsetWidth + "px");
+      } else {
+        previousArea.style.height = String(previousArea.offsetHeight + "px");
+      }
+      previousArea.style.flexGrow = "inherit";
+      previousArea.style.flexBasis = "auto";
+      console.info("initial = " + (mousedown.horizontal ? previousArea.style.width : previousArea.style.height));
     };
 
-    static moveVertically = function (event: MouseEvent): void {
+    static move = function (event: MouseEvent): void {
       event.preventDefault();
-      const offset: number = Number(document.tobagoPage().dataset["splitLayout.offset"]);
-      const splitLayout: HTMLElement = document.getElementById(document.tobagoPage().dataset["splitLayout.active"]);
-      console.info("" + event.pageY + " " + offset);
-      const splitter: HTMLElement = <HTMLElement>splitLayout.getElementsByClassName("tobago-splitLayout-vertical").item(0);
-      const prev: HTMLElement = splitter.getPreviousElementSibling();
-      prev.style.height = String(event.pageY - offset) + "px";
+      const data = SplitLayoutMousedown.load();
+      const offset: number = data.offset;
+      const previousArea: HTMLElement = data.previous;
+      if (data.horizontal) {
+        previousArea.style.width = String(event.pageX - offset) + "px";
+      } else {
+        previousArea.style.height = String(event.pageY - offset) + "px";
+      }
     };
 
-    static stop = function (event): void {
-      document.removeEventListener("mousemove", SplitLayout.moveHorizontally);
-      document.removeEventListener("mousemove", SplitLayout.moveVertically);
+    static stop = function (event: MouseEvent): void {
+      document.removeEventListener("mousemove", SplitLayout.move);
       document.removeEventListener("mouseup", SplitLayout.stop);
+      SplitLayoutMousedown.remove();
     };
+  }
+
+  /**
+   * Data class to store "offset" and "splitter"-element of the mouse down event in the tobago-page.
+   */
+  interface SplitLayoutMousedownData {
+    readonly offset: number;
+    readonly splitLayoutId: string;
+    readonly horizontal: boolean;
+  }
+
+  class SplitLayoutMousedown {
+
+    private data: SplitLayoutMousedownData;
+
+    private constructor(data: SplitLayoutMousedownData | string) {
+      this.data = typeof data === "string" ? JSON.parse(data) : data;
+    }
+
+    get offset(): number {
+      return this.data.offset;
+    }
+
+    get splitter(): HTMLElement {
+      return document.getElementById(this.data.splitLayoutId).getElementsByClassName(
+          this.data.horizontal ? "tobago-splitLayout-horizontal" : "tobago-splitLayout-vertical")
+          .item(0) as HTMLElement;
+    }
+
+    get previous(): HTMLElement {
+      return this.splitter.tobagoPreviousElementSibling();
+    }
+
+    get horizontal(): boolean {
+      return this.data.horizontal;
+    }
+
+    static save(event: MouseEvent, splitter: HTMLElement): SplitLayoutMousedown {
+      const horizontal = splitter.classList.contains("tobago-splitLayout-horizontal");
+      const previous = splitter.tobagoPreviousElementSibling();
+      const data: SplitLayoutMousedownData = {
+        splitLayoutId: splitter.parentElement.id,
+        horizontal: horizontal,
+        offset: horizontal ? event.pageX - previous.offsetWidth : event.pageY - previous.offsetHeight
+      };
+      document.tobagoPage().dataset["SplitLayoutMousedownData"] = JSON.stringify(data);
+      return new SplitLayoutMousedown(data);
+    }
+
+    static load() {
+      return new SplitLayoutMousedown(document.tobagoPage().dataset["SplitLayoutMousedownData"]);
+    }
+
+    static remove() {
+      return document.tobagoPage().dataset["SplitLayoutMousedownData"] = null;
+    }
+
   }
 
   Listener.register(SplitLayout.init, Phase.DOCUMENT_READY);
