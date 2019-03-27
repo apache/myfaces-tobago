@@ -56,7 +56,7 @@ namespace Tobago {
       event.preventDefault();
       const data = SplitLayoutMousedown.load();
       const offset: number = data.offset;
-      const previousArea: HTMLElement = data.previous;
+      const previousArea = data.previous;
       if (data.horizontal) {
         previousArea.style.width = String(event.pageX - offset) + "px";
       } else {
@@ -77,6 +77,7 @@ namespace Tobago {
   interface SplitLayoutMousedownData {
     readonly offset: number;
     readonly splitLayoutId: string;
+    readonly splitterIndex: number;
     readonly horizontal: boolean;
   }
 
@@ -95,7 +96,7 @@ namespace Tobago {
     get splitter(): HTMLElement {
       return document.getElementById(this.data.splitLayoutId).getElementsByClassName(
           this.data.horizontal ? "tobago-splitLayout-horizontal" : "tobago-splitLayout-vertical")
-          .item(0) as HTMLElement;
+          .item(this.data.splitterIndex) as HTMLElement;
     }
 
     get previous(): HTMLElement {
@@ -112,6 +113,7 @@ namespace Tobago {
       const data: SplitLayoutMousedownData = {
         splitLayoutId: splitter.parentElement.id,
         horizontal: horizontal,
+        splitterIndex: this.indexOfSplitter(splitter, horizontal),
         offset: horizontal ? event.pageX - previous.offsetWidth : event.pageY - previous.offsetHeight
       };
       document.tobagoPage().dataset["SplitLayoutMousedownData"] = JSON.stringify(data);
@@ -124,6 +126,17 @@ namespace Tobago {
 
     static remove() {
       return document.tobagoPage().dataset["SplitLayoutMousedownData"] = null;
+    }
+
+    private static indexOfSplitter(splitter: HTMLElement, horizontal: boolean): number {
+      const list = splitter.parentElement.getElementsByClassName(
+          horizontal ? "tobago-splitLayout-horizontal" : "tobago-splitLayout-vertical");
+      for (let k = 0; k < list.length; k++) {
+        if (list.item(k) === splitter) {
+          return k;
+        }
+      }
+      return -1;
     }
 
   }

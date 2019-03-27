@@ -27,7 +27,9 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -49,14 +51,16 @@ public class SplitLayoutRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+  private static final String SUFFIX_SIZES = ComponentUtils.SUB_SEPARATOR + "sizes";
+
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
     final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
-    final String clientId = component.getClientId();
+    final String clientId = component.getClientId() + SUFFIX_SIZES;
     if (clientId.equals(sourceId)) {
       // only decode and update layout at resize request
 //      final Map<String, String> parameterMap = facesContext.getExternalContext().getRequestParameterMap();
-//      final String position = parameterMap.get(clientId + POSITION_ID_POSTFIX);
+//      final String position = parameterMap.get(clientId + SUFFIX_SIZES);
       LOG.warn("todo update layout");
       //      ((AbstractUISplitLayout) component).updateLayout(Integer.parseInt(position));
     }
@@ -95,38 +99,28 @@ public class SplitLayoutRenderer extends RendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final AbstractUISplitLayout splitLayout = (AbstractUISplitLayout) component;
     final List<UIComponent> components = ComponentUtils.findLayoutChildren(splitLayout);
-    if (components.size() != 2) {
-      LOG.warn("Illegal component count in splitLayout: {}", components.size());
+
+    boolean somethingWasRendered = false;
+    for (final UIComponent current : components) {
+      if (current.isRendered()) {
+        if (somethingWasRendered) {
+          // render splitter
+          writer.startElement(HtmlElements.DIV);
+          writer.writeClassAttribute(
+              splitLayout.isHorizontal() ? TobagoClass.SPLIT_LAYOUT__HORIZONTAL : TobagoClass.SPLIT_LAYOUT__VERTICAL);
+          writer.endElement(HtmlElements.DIV);
+        }
+        // render component
+        current.encodeAll(facesContext);
+
+        somethingWasRendered = true;
+      }
     }
 
-    components.get(0).encodeAll(facesContext);
-
-    writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(
-        splitLayout.isHorizontal() ? TobagoClass.SPLIT_LAYOUT__HORIZONTAL : TobagoClass.SPLIT_LAYOUT__VERTICAL);
-    writer.endElement(HtmlElements.DIV);
-
-    components.get(1).encodeAll(facesContext);
-
-    if (components.get(0).isRendered() && components.get(1).isRendered()) {
-      // only when both components are rendered
-      encodeHandle(facesContext, splitLayout);
-    }
-  }
-
-  private void encodeHandle(final FacesContext facesContext, final AbstractUISplitLayout layout) throws IOException {
-
-    final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.startElement(HtmlElements.SPAN);
-/*
     writer.startElement(HtmlElements.INPUT);
-    final String id = layout.getClientId(facesContext);
-    writer.writeIdAttribute(id + POSITION_ID_POSTFIX);
-    writer.writeNameAttribute(id + POSITION_ID_POSTFIX);
+    writer.writeNameAttribute(splitLayout.getClientId(facesContext) + SUFFIX_SIZES);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-//    writer.writeAttribute(HtmlAttributes.value, Integer.toString(position), false);
+//    writer.writeAttribute(HtmlAttributes.VALUE, sizes);
     writer.endElement(HtmlElements.INPUT);
-*/
-    writer.endElement(HtmlElements.SPAN);
   }
 }
