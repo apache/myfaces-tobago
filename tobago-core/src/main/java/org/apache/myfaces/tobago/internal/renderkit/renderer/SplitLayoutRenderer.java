@@ -73,7 +73,8 @@ public class SplitLayoutRenderer extends RendererBase {
     writer.writeIdAttribute(splitLayout.getClientId(facesContext));
     writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(splitLayout.getMarkup()), false);
     writer.writeClassAttribute(
-        BootstrapClass.D_FLEX, // tbd: SPLIT_LAYOUT
+        TobagoClass.SPLIT_LAYOUT,
+        BootstrapClass.D_FLEX,
         splitLayout.isHorizontal() ? BootstrapClass.FLEX_ROW : BootstrapClass.FLEX_COLUMN,
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
   }

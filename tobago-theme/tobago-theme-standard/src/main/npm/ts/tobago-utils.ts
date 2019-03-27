@@ -15,6 +15,72 @@
  * limitations under the License.
  */
 
+interface HTMLElement {
+  getSelfOrElementsByClassName(className: string): Array<HTMLElement>;
+
+  getPreviousElementSibling(): HTMLElement;
+
+  getNextElementSibling(): HTMLElement;
+}
+
+interface Document {
+  tobagoPage(): HTMLElement;
+}
+
+/**
+ * Find all elements (and also self) which have the class "className".
+ * @param className Class of elements to find.
+ */
+HTMLElement.prototype.getSelfOrElementsByClassName = function (className: string): Array<HTMLElement> {
+  const result: Array<HTMLElement> = new Array<HTMLElement>();
+  if (this.classList.contains(className)) {
+    result.push(this);
+  }
+  for (const found of this.getElementsByClassName(className)) {
+    result.push(found);
+  }
+  return result;
+};
+
+/**
+ * Get the previous sibling element (without <style> elements).
+ */
+HTMLElement.prototype.getPreviousElementSibling = function (): HTMLElement {
+  let sibling: HTMLElement = this.previousElementSibling;
+  while (sibling != null) {
+    if (sibling.tagName !== "STYLE") {
+      return sibling;
+    }
+    sibling = <HTMLElement>sibling.previousElementSibling;
+  }
+  return null;
+};
+
+/**
+ * Get the next sibling element (without <style> elements).
+ */
+HTMLElement.prototype.getNextElementSibling = function (): HTMLElement {
+  let sibling: HTMLElement = this.nextElementSibling;
+  while (sibling !== null) {
+    if (sibling.tagName !== "STYLE") {
+      return sibling;
+    }
+    sibling = <HTMLElement>this.nextElementSibling;
+  }
+  return null;
+};
+
+Document.prototype.tobagoPage = function (): HTMLElement {
+  const pages = this.getElementsByClassName("tobago-page");
+  if (pages.length > 0) {
+    if (pages.length >= 2) {
+      console.warn("Found more than one tobago page!");
+    }
+    return pages.item(0);
+  }
+  return null;
+};
+
 namespace Tobago {
 
   export function querySelectorAllOrSelfByClass(
