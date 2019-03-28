@@ -19,24 +19,27 @@ namespace Tobago {
 
   class SplitLayout {
 
+    private readonly element: HTMLDivElement;
+
+    constructor(element: HTMLDivElement) {
+      this.element = element;
+
+      for (const splitter of this.element.getElementsByClassName("tobago-splitLayout-horizontal")) {
+        splitter.addEventListener("mousedown", SplitLayout.start);
+      }
+
+      for (const splitter of this.element.getElementsByClassName("tobago-splitLayout-vertical")) {
+        splitter.addEventListener("mousedown", SplitLayout.start);
+      }
+    }
+
     static init = function (element: HTMLElement): void {
-
-      const splitLayouts: Array<HTMLElement> = element.tobagoSelfOrElementsByClassName("tobago-splitLayout");
-      splitLayouts.forEach(function (splitLayout: HTMLElement): void {
-
-        Array.from(splitLayout.getElementsByClassName("tobago-splitLayout-horizontal"))
-            .forEach(function (splitter): void {
-              splitter.addEventListener("mousedown", SplitLayout.start);
-            });
-
-        Array.from(splitLayout.getElementsByClassName("tobago-splitLayout-vertical"))
-            .forEach(function (splitter): void {
-              splitter.addEventListener("mousedown", SplitLayout.start);
-            });
-      });
+      for (const splitLayout of element.tobagoSelfOrElementsByClassName("tobago-splitLayout")) {
+        new SplitLayout(<HTMLDivElement>splitLayout);
+      }
     };
 
-    static start = function (event: MouseEvent) {
+    static start(event: MouseEvent) {
       event.preventDefault();
       const mousedown = SplitLayoutMousedown.save(event, <HTMLElement>event.target);
       document.addEventListener("mousemove", SplitLayout.move);
