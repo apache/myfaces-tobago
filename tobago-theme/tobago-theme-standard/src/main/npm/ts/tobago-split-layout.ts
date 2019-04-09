@@ -25,11 +25,11 @@ namespace Tobago {
       this.element = element;
 
       for (const splitter of this.element.getElementsByClassName("tobago-splitLayout-horizontal")) {
-        splitter.addEventListener("mousedown", SplitLayout.start);
+        splitter.addEventListener("mousedown", this.start.bind(this));
       }
 
       for (const splitter of this.element.getElementsByClassName("tobago-splitLayout-vertical")) {
-        splitter.addEventListener("mousedown", SplitLayout.start);
+        splitter.addEventListener("mousedown", this.start.bind(this));
       }
     }
 
@@ -39,11 +39,11 @@ namespace Tobago {
       }
     };
 
-    static start(event: MouseEvent) {
+    start(event: MouseEvent) {
       event.preventDefault();
       const mousedown = SplitLayoutMousedown.save(event, <HTMLElement>event.target);
-      document.addEventListener("mousemove", SplitLayout.move);
-      document.addEventListener("mouseup", SplitLayout.stop);
+      document.addEventListener("mousemove", this.move.bind(this));
+      document.addEventListener("mouseup", this.stop.bind(this));
       const previousArea = mousedown.previous;
       if (mousedown.horizontal) {
         previousArea.style.width = String(previousArea.offsetWidth + "px");
@@ -55,7 +55,7 @@ namespace Tobago {
       console.info("initial = " + (mousedown.horizontal ? previousArea.style.width : previousArea.style.height));
     };
 
-    static move = function (event: MouseEvent): void {
+    move(event: MouseEvent): void {
       event.preventDefault();
       const data = SplitLayoutMousedown.load();
       const offset: number = data.offset;
@@ -67,9 +67,9 @@ namespace Tobago {
       }
     };
 
-    static stop = function (event: MouseEvent): void {
-      document.removeEventListener("mousemove", SplitLayout.move);
-      document.removeEventListener("mouseup", SplitLayout.stop);
+    stop(event: MouseEvent): void {
+      document.removeEventListener("mousemove", this.move.bind(this));
+      document.removeEventListener("mouseup", this.stop.bind(this));
       SplitLayoutMousedown.remove();
     };
   }
