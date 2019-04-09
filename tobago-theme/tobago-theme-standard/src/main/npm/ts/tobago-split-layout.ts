@@ -20,18 +20,8 @@ namespace Tobago {
   class SplitLayout {
 
     private readonly element: HTMLDivElement;
-
-    constructor(element: HTMLDivElement) {
-      this.element = element;
-
-      for (const splitter of this.element.getElementsByClassName("tobago-splitLayout-horizontal")) {
-        splitter.addEventListener("mousedown", this.start.bind(this));
-      }
-
-      for (const splitter of this.element.getElementsByClassName("tobago-splitLayout-vertical")) {
-        splitter.addEventListener("mousedown", this.start.bind(this));
-      }
-    }
+    private readonly horizontal: boolean;
+    private offset: number;
 
     static init = function (element: HTMLElement): void {
       for (const splitLayout of element.tobagoSelfOrElementsByClassName("tobago-splitLayout")) {
@@ -39,31 +29,47 @@ namespace Tobago {
       }
     };
 
+    constructor(element: HTMLDivElement) {
+      this.element = element;
+
+      for (const splitter of this.element.getElementsByClassName("tobago-splitLayout-horizontal")) {
+        splitter.addEventListener("mousedown", this.start.bind(this));
+        this.horizontal = true;
+      }
+
+      for (const splitter of this.element.getElementsByClassName("tobago-splitLayout-vertical")) {
+        splitter.addEventListener("mousedown", this.start.bind(this));
+        this.horizontal = false;
+      }
+    }
+
     start(event: MouseEvent) {
       event.preventDefault();
-      const mousedown = SplitLayoutMousedown.save(event, <HTMLElement>event.target);
+      const splitter = <HTMLElement>event.target;
+      const previous = splitter.tobagoPreviousElementSibling();
+      this.offset = this.horizontal ? event.pageX - previous.offsetWidth : event.pageY - previous.offsetHeight;
+      const mousedown = SplitLayoutMousedown.save(event, splitter);
       document.addEventListener("mousemove", this.move.bind(this));
       document.addEventListener("mouseup", this.stop.bind(this));
       const previousArea = mousedown.previous;
-      if (mousedown.horizontal) {
+      if (this.horizontal) {
         previousArea.style.width = String(previousArea.offsetWidth + "px");
       } else {
         previousArea.style.height = String(previousArea.offsetHeight + "px");
       }
       previousArea.style.flexGrow = "inherit";
       previousArea.style.flexBasis = "auto";
-      console.info("initial = " + (mousedown.horizontal ? previousArea.style.width : previousArea.style.height));
+      console.info("initial = " + (this.horizontal ? previousArea.style.width : previousArea.style.height));
     };
 
     move(event: MouseEvent): void {
       event.preventDefault();
       const data = SplitLayoutMousedown.load();
-      const offset: number = data.offset;
       const previousArea = data.previous;
-      if (data.horizontal) {
-        previousArea.style.width = String(event.pageX - offset) + "px";
+      if (this.horizontal) {
+        previousArea.style.width = String(event.pageX - this.offset) + "px";
       } else {
-        previousArea.style.height = String(event.pageY - offset) + "px";
+        previousArea.style.height = String(event.pageY - this.offset) + "px";
       }
     };
 
@@ -78,7 +84,6 @@ namespace Tobago {
    * Data class to store "offset" and "splitter"-element of the mouse down event in the tobago-page.
    */
   interface SplitLayoutMousedownData {
-    readonly offset: number;
     readonly splitLayoutId: string;
     readonly splitterIndex: number;
     readonly horizontal: boolean;
@@ -92,10 +97,6 @@ namespace Tobago {
       this.data = typeof data === "string" ? JSON.parse(data) : data;
     }
 
-    get offset(): number {
-      return this.data.offset;
-    }
-
     get splitter(): HTMLElement {
       return document.getElementById(this.data.splitLayoutId).getElementsByClassName(
           this.data.horizontal ? "tobago-splitLayout-horizontal" : "tobago-splitLayout-vertical")
@@ -106,18 +107,13 @@ namespace Tobago {
       return this.splitter.tobagoPreviousElementSibling();
     }
 
-    get horizontal(): boolean {
-      return this.data.horizontal;
-    }
-
     static save(event: MouseEvent, splitter: HTMLElement): SplitLayoutMousedown {
       const horizontal = splitter.classList.contains("tobago-splitLayout-horizontal");
       const previous = splitter.tobagoPreviousElementSibling();
       const data: SplitLayoutMousedownData = {
         splitLayoutId: splitter.parentElement.id,
         horizontal: horizontal,
-        splitterIndex: this.indexOfSplitter(splitter, horizontal),
-        offset: horizontal ? event.pageX - previous.offsetWidth : event.pageY - previous.offsetHeight
+        splitterIndex: this.indexOfSplitter(splitter, horizontal)
       };
       document.tobagoPage().dataset["SplitLayoutMousedownData"] = JSON.stringify(data);
       return new SplitLayoutMousedown(data);
