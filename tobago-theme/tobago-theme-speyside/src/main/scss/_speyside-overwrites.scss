@@ -322,9 +322,6 @@ header.fixed-top {
     color: $darkgreen !important;
     cursor: default;
   }
-  .navbar-toggleable-xs > ul > li > span > ul > li > span {
-    cursor: default;
-  }
   html.opendd {
     overflow: hidden;
   }
@@ -747,30 +744,6 @@ li:last-child {
 
 .input-group-addon {
   line-height: 1.3em;
-}
-
-// Nav-Stacks
-.nav-stacked {
-  text-align: center;
-  font-size: 0.9em;
-  margin-right: 1em;
-  margin-top: 1em;
-  margin-left: -1.5em;
-
-  .active .fa {
-    color: white;
-  }
-
-  .fa {
-    font-size: 2em;
-    color: #788C94;
-    display: block;
-    padding-bottom: 0.2em;
-  }
-
-  .nav-item {
-    padding: 0.3em 0;
-  }
 }
 
 .bootstrap-datetimepicker-widget .datepicker-days {
