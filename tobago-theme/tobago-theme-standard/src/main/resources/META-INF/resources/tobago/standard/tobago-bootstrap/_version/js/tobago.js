@@ -1342,7 +1342,7 @@ Tobago.Codi.init = function() {
   var form = Tobago.findForm();
   var action = form.attr("action");
   var windowIdEnabled = Tobago.Codi.hasUrlWindowId(action);
-  if (windowIdEnabled && window.name == "") {
+  if (windowIdEnabled && window.name === "") {
     form.attr("action", Tobago.Codi.urlWithoutWindowId(action));
     window.name = "window";
     Tobago.submitAction();
@@ -1410,11 +1410,10 @@ Tobago.Jsf = {
 
 Tobago.Jsf.init = function() {
   jsf.ajax.addOnEvent(function (event) {
-    console.timeEnd("x"); // @DEV_ONLY
-    console.time("x"); // @DEV_ONLY
-    console.log(event); // @DEV_ONLY
+    console.timeEnd("[tobago] jsf-ajax"); // @DEV_ONLY
+    console.time("[tobago] jsf-ajax"); // @DEV_ONLY
+    console.log("JSF event status: " + event.status); // @DEV_ONLY
     if (event.status === "success") {
-      console.log("success");// @DEV_ONLY
 
       jQuery(event.responseXML).find("update").each(function () {
 
@@ -1446,7 +1445,7 @@ Tobago.Jsf.init = function() {
         }
       });
     } else if (event.status === "complete") {
-      console.log("complete");// @DEV_ONLY
+
       jQuery(event.responseXML).find("update").each(function () {
         var updateId = jQuery(this).attr("id");
         if ("javax.faces.ViewState" !== updateId) {
