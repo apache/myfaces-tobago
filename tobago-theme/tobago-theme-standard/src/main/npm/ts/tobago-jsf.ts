@@ -50,16 +50,15 @@ Tobago4.Jsf = {
 
 Tobago4.Jsf.init = function() {
   jsf.ajax.addOnEvent(function (event) {
-    console.timeEnd("x");
-    console.time("x");
-    console.log(event);
+    console.timeEnd("[tobago] jsf-ajax");
+    console.time("[tobago] jsf-ajax");
+    console.log("JSF event status: " + event.status);
     if (event.status === "success") {
-      console.log("success");
 
       jQuery(event.responseXML).find("update").each(function () {
 
-        let result: string[] = /<!\[CDATA\[(.*)]]>/s.exec(this.innerHTML);
-        var id = jQuery(this).attr("id");
+        const result: string[] = /<!\[CDATA\[(.*)]]>/s.exec(this.innerHTML);
+        const id = this.id;
         if (result.length === 2 && result[1].startsWith("{\"reload\"")) {
           // not modified on server, needs be reloaded after some time
           console.debug("Found reload-JSON in response!");
@@ -77,11 +76,10 @@ Tobago4.Jsf.init = function() {
         }
       });
     } else if (event.status === "complete") {
-      console.log("complete");
       jQuery(event.responseXML).find("update").each(function () {
-        var updateId = jQuery(this).attr("id");
-        if ("javax.faces.ViewState" !== updateId) {
-          var oldElement = jQuery(Tobago4.Utils.escapeClientId(updateId));
+        const id = this.id;
+        if ("javax.faces.ViewState" !== id) {
+          const oldElement = jQuery(Tobago4.Utils.escapeClientId(id));
           console.info("Update after jsf.ajax complete: id='" + oldElement.attr("id") + "'");
           if (oldElement.data("tobago-partial-overlay-set")) {
             oldElement.overlay("destroy");
