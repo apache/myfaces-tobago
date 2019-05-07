@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.event.SheetAction;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnBase;
+import org.apache.myfaces.tobago.internal.component.AbstractUIColumnNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnSelector;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUILink;
@@ -703,7 +704,8 @@ public class SheetRenderer extends RendererBase {
 
       for (final AbstractUIColumnBase column : columns) {
         if (column.isRendered()) {
-          if (column instanceof AbstractUIColumn || column instanceof AbstractUIColumnSelector) {
+          if (column instanceof AbstractUIColumn || column instanceof AbstractUIColumnSelector
+              || column instanceof AbstractUIColumnNode) {
             writer.startElement(HtmlElements.TD);
             Markup markup = column.getMarkup();
             if (markup == null) {
