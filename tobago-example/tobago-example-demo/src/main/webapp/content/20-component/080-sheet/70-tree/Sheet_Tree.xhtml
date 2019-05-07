@@ -44,25 +44,25 @@
     &lt;tc:treeIndent/>
     &lt;tc:out value="\#{solarObject.userObject.name}"/>
     ...</code></pre>
-    <tc:sheet value="#{sheetTreeController.solarTree}" var="solarObject" showRoot="true" showRootJunction="true">
-      <tc:columnNode label="Name">
+    <tc:sheet id="sheet" value="#{sheetTreeController.solarTree}" var="solarObject" showRoot="true" showRootJunction="true">
+      <tc:columnNode id="nameCol" label="Name">
         <tc:treeIndent/>
-        <tc:out value="#{solarObject.userObject.name}"/>
+        <tc:out id="nameOut" value="#{solarObject.userObject.name}" labelLayout="skip"/>
       </tc:columnNode>
       <tc:column label="Central Body">
-        <tc:out value="#{solarObject.userObject.orbit}"/>
+        <tc:out id="centralBodyOut" value="#{solarObject.userObject.orbit}" labelLayout="skip"/>
       </tc:column>
       <tc:column label="Distance" sortable="true">
-        <tc:out value="#{solarObject.userObject.distance}"/>
+        <tc:out id="distanceOut" value="#{solarObject.userObject.distance}" labelLayout="skip"/>
       </tc:column>
       <tc:column label="Period" sortable="true">
-        <tc:out value="#{solarObject.userObject.period}"/>
+        <tc:out id="periodOut" value="#{solarObject.userObject.period}" labelLayout="skip"/>
       </tc:column>
       <tc:column label="Discoverer">
-        <tc:out value="#{solarObject.userObject.discoverer}"/>
+        <tc:out id="discovererOut" value="#{solarObject.userObject.discoverer}" labelLayout="skip"/>
       </tc:column>
       <tc:column label="Year" sortable="true">
-        <tc:out value="#{solarObject.userObject.discoverYear}"/>
+        <tc:out id="yearOut" value="#{solarObject.userObject.discoverYear}" labelLayout="skip"/>
       </tc:column>
     </tc:sheet>
   </tc:section>
