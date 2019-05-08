@@ -18,10 +18,19 @@
 -->
 
 <ui:composition template="/main.xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tc="http://myfaces.apache.org/tobago/component">
 
-  <ui:param name="title" value="TODO"/>
+  <ui:param name="title" value="Test"/>
 
-TODO
+  <p>
+    This is a collection of manual and automated tests.
+  </p>
+
+  <p>
+    To run the tests automatically, see in
+    <tc:link label="FAQ" outcome="/content/10-intro/70-faq/FAQ.xhtml"
+             fragment="page:mainForm:integrationTest"/>.
+  </p>
 
 </ui:composition>
