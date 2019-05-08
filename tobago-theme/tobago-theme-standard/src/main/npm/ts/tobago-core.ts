@@ -49,8 +49,6 @@ var Tobago4:any = {
     return id;
   },
 
-  reloadTimer: {},
-
   jsObjects: [],
 
   /**
@@ -258,20 +256,6 @@ var Tobago4:any = {
 
 
     }, true);
-  },
-
-  clearReloadTimer: function(id) {
-    var timer = Tobago4.reloadTimer[id];
-    if (timer) {
-      clearTimeout(timer);
-    }
-  },
-
-  addReloadTimeout: function(id, func, time) {
-    Tobago4.clearReloadTimer(id);
-    Tobago4.reloadTimer[id] = setTimeout(function () {
-      func(id);
-    }, time);
   },
 
   initDom: function(elements) {

@@ -39,9 +39,6 @@ Tobago4.Sheet = function(
   this.dblClickActionId = dblClickActionId;
   this.dblClickReloadComponentId = dblClickReloadComponentId;
   this.behaviorCommands = behaviorCommands;
-
-  this.setup();
-
   console.timeEnd("[tobago-sheet] constructor");
 };
 
@@ -87,29 +84,6 @@ Tobago4.Sheet.init = function(element:HTMLElement) {
 
 Tobago.Listener.register(Tobago4.Sheet.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.Listener.register(Tobago4.Sheet.init, Tobago.Phase.AFTER_UPDATE);
-
-Tobago4.Sheet.reloadWithAction = function(elementId) {
-    console.debug("reload sheet with action '" + elementId + "'");
-  var executeIds = elementId;
-  var renderIds = elementId;
-  // XXX FIXME: behaviorCommands will probably be empty and not working!
-  // if (this.behaviorCommands && this.behaviorCommands.reload) {
-  //   if (this.behaviorCommands.reload.execute) {
-  //     executeIds += " " + this.behaviorCommands.reload.execute;
-  //   }
-  //   if (this.behaviorCommands.reload.render) {
-  //     renderIds += " " + this.behaviorCommands.reload.render;
-  //   }
-  // }
-  jsf.ajax.request(
-      elementId,
-      null,
-      {
-        "javax.faces.behavior.event": "reload",
-        execute: executeIds,
-        render: renderIds
-      });
-};
 
 Tobago4.Sheet.setup2 = function (sheets) {
 
@@ -441,15 +415,6 @@ Tobago4.Sheet.setup2 = function (sheets) {
         });
   });
 
-    // init reload
-  sheets.forEach(function (element): void {
-    var $sheet = jQuery(element);
-    $sheet.filter("[data-tobago-reload]").each(function () {
-      var $sheet = jQuery(this);
-      Tobago4.Sheets.get($sheet.attr("id")).initReload();
-    });
-  });
-
   // init paging by pages
   sheets.forEach(function (element): void {
     var $sheet = jQuery(element);
@@ -480,7 +445,7 @@ Tobago4.Sheet.hideInputOrSubmit = function($input) {
   var sheetId = $input.parents(".tobago-sheet:first").attr("id");
   $output.html($input.val());
   if (changed) {
-    Tobago4.Sheets.get(sheetId).reloadWithAction($input.attr("id"));
+    Tobago4.Reload.reloadWithAction($input.attr("id"), sheetId);
   } else {
     console.info("no update needed");
     $input.hide();
@@ -519,20 +484,6 @@ Tobago4.Sheet.getScrollBarSize = function() {
       widthWithScroll = $('<div>').css({width: '100%'}).appendTo($outer).outerWidth();
   $outer.remove();
   return 100 - widthWithScroll;
-};
-
-Tobago4.Sheet.prototype.setup = function() {
-  console.time("[tobago-sheet] setup");
-  this.initReload();
-  console.timeEnd("[tobago-sheet] setup");
-};
-
-Tobago4.Sheet.prototype.initReload = function() {
-  var $sheet = jQuery(Tobago4.Utils.escapeClientId(this.id));
-  var reload = $sheet.data("tobago-reload");
-  if (typeof reload === "number") {
-    Tobago4.addReloadTimeout(this.id, Tobago4.Sheet.reloadWithAction, reload);
-  }
 };
 
 Tobago4.Sheet.prototype.doDblClick = function(event) {

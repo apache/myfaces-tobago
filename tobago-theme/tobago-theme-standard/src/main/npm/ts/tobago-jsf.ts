@@ -57,12 +57,13 @@ Tobago4.Jsf.init = function() {
 
       jQuery(event.responseXML).find("update").each(function () {
 
-        const result: string[] = /<!\[CDATA\[(.*)]]>/s.exec(this.innerHTML);
-        const id = this.id;
+        const update = this;
+        const result: string[] = /<!\[CDATA\[(.*)]]>/s.exec(update.innerHTML);
+        const id = update.id;
         if (result.length === 2 && result[1].startsWith("{\"reload\"")) {
           // not modified on server, needs be reloaded after some time
           console.debug("Found reload-JSON in response!");
-          Tobago4.Reload.init(id, JSON.parse(result[1]).reload);
+          Tobago4.Reload.reschedule(id, JSON.parse(result[1]).reload.frequency);
         } else {
           console.info("Update after jsf.ajax success: id='" + id + "'");
           if (Tobago4.Jsf.isId(id)) {
@@ -77,7 +78,8 @@ Tobago4.Jsf.init = function() {
       });
     } else if (event.status === "complete") {
       jQuery(event.responseXML).find("update").each(function () {
-        const id = this.id;
+        const update = this;
+        const id = update.id;
         if ("javax.faces.ViewState" !== id) {
           const oldElement = jQuery(Tobago4.Utils.escapeClientId(id));
           console.info("Update after jsf.ajax complete: id='" + oldElement.attr("id") + "'");

@@ -15,16 +15,66 @@
  * limitations under the License.
  */
 
-Tobago4.Reload = {};
+// todo: make a reload object
 
-Tobago4.Reload.init = function (id: string, reload: any) { // todo: make a reload object
-  const element = jQuery(document.getElementById(id));
-  element.data("tobago-reload", reload.frequency);
-  if (element.hasClass("tobago-panel")) {
-    Tobago4.Panel.init(element);
-  } else if (element.hasClass("tobago-sheet")) {
-    Tobago4.Sheets.get(id).initReload();
-  } else {
-    console.warn("reload not implemented for this element: " + id);
+Tobago4.Reload = {
+  timeoutMap: new Map<string, number>()
+};
+
+Tobago4.Reload.init = function (elements) {
+  elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
+  const reloads = Tobago4.Utils.selectWithJQuery(elements, "[data-tobago-reload]");
+  reloads.each(function () {
+    const reload = Number(this.dataset["tobagoReload"]);
+    if (reload > 0) {
+      Tobago4.Reload.addReloadTimeout(this.id, Tobago4.Reload.reloadWithAction, reload);
+    }
+  });
+};
+
+Tobago4.Reload.reschedule = function (id: string, reloadMillis: number) {
+  if (reloadMillis > 0) {
+    Tobago4.Reload.addReloadTimeout(id, Tobago4.Reload.reloadWithAction, reloadMillis);
   }
 };
+
+Tobago4.Reload.addReloadTimeout = function (id, func, time) {
+  let oldTimeout = Tobago4.Reload.timeoutMap.get(id);
+  if (oldTimeout) {
+    console.debug("clearReloadTimer timeout='" + oldTimeout + "' id='" + id + "'");
+    clearTimeout(oldTimeout);
+    Tobago4.Reload.timeoutMap.delete(id);
+  }
+  let timeout = setTimeout(function () {
+    func(id);
+  }, time);
+  console.debug("addReloadTimer timeout='" + timeout + "' id='" + id + "'");
+  Tobago4.Reload.timeoutMap.set(id, timeout);
+};
+
+Tobago4.Reload.reloadWithAction = function (
+    elementId: string,
+    executeIds: string = elementId,
+    renderIds: string = executeIds) {
+  console.debug("reloadWithAction '" + elementId + "' '" + executeIds + "' '" + renderIds + "");
+  // XXX FIXME: behaviorCommands will probably be empty and not working!
+  // if (this.behaviorCommands && this.behaviorCommands.reload) {
+  //   if (this.behaviorCommands.reload.execute) {
+  //     executeIds += " " + this.behaviorCommands.reload.execute;
+  //   }
+  //   if (this.behaviorCommands.reload.render) {
+  //     renderIds += " " + this.behaviorCommands.reload.render;
+  //   }
+  // }
+  jsf.ajax.request(
+      elementId,
+      null,
+      {
+        "javax.faces.behavior.event": "reload",
+        execute: executeIds,
+        render: renderIds
+      });
+};
+
+Tobago.Listener.register(Tobago4.Reload.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.Listener.register(Tobago4.Reload.init, Tobago.Phase.AFTER_UPDATE);
