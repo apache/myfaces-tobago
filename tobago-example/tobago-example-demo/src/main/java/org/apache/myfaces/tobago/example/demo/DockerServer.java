@@ -23,7 +23,7 @@ import java.io.Serializable;
 
 public enum DockerServer implements Serializable {
 
-/*
+/* currently not working (CDI setup)
   tomcat(
       "Tomcat",
       "/usr/local/tomcat/webapps/demo.war",
