@@ -10777,6 +10777,17 @@ p.tobago-separator:after {
 }
 
 /* sheet -------------------------------------------------------------- */
+.tobago-sheet .tobago-sheet-cell > .tobago-treeNode {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.tobago-sheet .tobago-sheet-cell > .tobago-treeNode .tobago-treeNode-toggle {
+  padding-right: 5px;
+}
+
 th.tobago-sheet-headerCell {
   font-weight: normal;
 }
