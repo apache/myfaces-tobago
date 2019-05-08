@@ -1941,6 +1941,7 @@ Tobago.Transport.JqueryTransport = {
         var fileData = form.data("tobago-file-drag-and-drop-files");
         if (fileData && fileData.files.length > 0) {
           var clientName = fileData.name;
+          formData.delete(clientName);
           for (var i = 0; i < fileData.files.length; i++) {
             var file = fileData.files[i];
             console.info("adding " + clientName + " file " + file.name); // @DEV_ONLY
