@@ -23,15 +23,16 @@ namespace Tobago {
 
       // fixing fixed header/footer: content should not scroll behind the footer
 
-      const body: JQuery<NodeListOf<Element>> = Tobago4.Utils.selectWithJQuery(jQuery(element), "body");
-      const headers: JQuery<NodeListOf<Element>> = Tobago4.Utils.selectWithJQuery(jQuery(element), ".fixed-top");
-      const footers: JQuery<NodeListOf<Element>> = Tobago4.Utils.selectWithJQuery(jQuery(element), ".fixed-bottom");
+      const body = element.tobagoSelfOrQuerySelectorAll("body")[0];
+      const headers = element.tobagoSelfOrQuerySelectorAll(".fixed-top");
+      const footers = element.tobagoSelfOrQuerySelectorAll(".fixed-bottom");
 
       setMargins(body, headers, footers);
 
       let lastMaxHeaderHeight = 0;
       let lastMaxFooterHeight = 0;
-      jQuery(window).on("resize", function (): void {
+
+      window.addEventListener("resize", function (): void {
         const maxHeaderHeight: number = HeaderFooter.getMaxHeaderHeight(headers);
         const maxFooterHeight: number = HeaderFooter.getMaxFooterHeight(footers);
 
@@ -44,26 +45,23 @@ namespace Tobago {
         }
       });
 
-      function setMargins(
-          body: JQuery<NodeListOf<Element>>,
-          headers: JQuery<NodeListOf<Element>>,
-          footers: JQuery<NodeListOf<Element>>): void {
-        const maxHeaderHeight: number = HeaderFooter.getMaxHeaderHeight(headers);
-        const maxFooterHeight: number = HeaderFooter.getMaxFooterHeight(footers);
+      function setMargins(body: HTMLElement, headers: HTMLElement[], footers: HTMLElement[]): void {
+        const maxHeaderHeight = HeaderFooter.getMaxHeaderHeight(headers);
+        const maxFooterHeight = HeaderFooter.getMaxFooterHeight(footers);
 
         if (maxHeaderHeight > 0) {
-          body.css("margin-top", maxHeaderHeight + "px");
+          body.style.marginTop = maxHeaderHeight + "px";
         }
         if (maxFooterHeight > 0) {
-          body.css("margin-bottom", maxFooterHeight + "px");
+          body.style.marginBottom = maxFooterHeight + "px";
         }
       }
     };
 
-    static getMaxHeaderHeight = function (headers: JQuery<NodeListOf<Element>>): number {
-      let maxHeaderHeight: number = 0;
-      headers.each(function (): void {
-        const height: number = jQuery(this).outerHeight(true);
+    static getMaxHeaderHeight = function (headers: HTMLElement[]): number {
+      let maxHeaderHeight = 0;
+      headers.forEach(function (element: HTMLElement): void {
+        const height = element.outerHeightWithMargin();
         if (height > maxHeaderHeight) {
           maxHeaderHeight = height;
         }
@@ -71,10 +69,10 @@ namespace Tobago {
       return maxHeaderHeight;
     };
 
-    static getMaxFooterHeight = function (footers: JQuery<NodeListOf<Element>>): number {
-      let maxFooterHeight: number = 0;
-      footers.each(function (): void {
-        const height: number = jQuery(this).outerHeight(true);
+    static getMaxFooterHeight = function (footers: HTMLElement[]): number {
+      let maxFooterHeight = 0;
+      footers.forEach(function (element: HTMLElement): void {
+        const height = element.outerHeightWithMargin();
         if (height > maxFooterHeight) {
           maxFooterHeight = height;
         }

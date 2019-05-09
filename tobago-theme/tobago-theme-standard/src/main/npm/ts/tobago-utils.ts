@@ -23,6 +23,10 @@ interface HTMLElement {
   tobagoPreviousElementSibling(): HTMLElement;
 
   tobagoNextElementSibling(): HTMLElement;
+
+  outerWidthWithMargin(): number;
+  outerHeightWithMargin(): number;
+
 }
 
 interface Document {
@@ -86,6 +90,16 @@ HTMLElement.prototype.tobagoNextElementSibling = function (): HTMLElement {
     sibling = <HTMLElement>this.nextElementSibling;
   }
   return null;
+};
+
+HTMLElement.prototype.outerWidthWithMargin = function () {
+  const style = window.getComputedStyle(this);
+  return this.offsetWidth + parseInt(style.marginLeft) + parseInt(style.marginRight);
+};
+
+HTMLElement.prototype.outerHeightWithMargin = function () {
+  const style = window.getComputedStyle(this);
+  return this.offsetHeight + parseInt(style.marginTop) + parseInt(style.marginBottom);
 };
 
 Document.prototype.tobagoPage = function (): HTMLElement {
