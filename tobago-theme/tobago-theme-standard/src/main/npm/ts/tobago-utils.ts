@@ -18,6 +18,8 @@
 interface HTMLElement {
   tobagoSelfOrElementsByClassName(className: string): Array<HTMLElement>;
 
+  tobagoSelfOrQuerySelectorAll(selectors: string): Array<HTMLElement>;
+
   tobagoPreviousElementSibling(): HTMLElement;
 
   tobagoNextElementSibling(): HTMLElement;
@@ -37,6 +39,22 @@ HTMLElement.prototype.tobagoSelfOrElementsByClassName = function (className: str
     result.push(this);
   }
   for (const found of this.getElementsByClassName(className)) {
+    result.push(found);
+  }
+  return result;
+};
+
+/**
+ * Find all elements (and also self) which have the attribute "attributeName".
+ * @param selectors Name of the attribute of the elements to find.
+ */
+// todo: may return NodeListOf<HTMLElementTagNameMap[K]> or something like that.
+HTMLElement.prototype.tobagoSelfOrQuerySelectorAll = function (selectors: string): Array<HTMLElement> {
+  const result: Array<HTMLElement> = new Array<HTMLElement>();
+  if (this.matches(selectors)) {
+    result.push(this);
+  }
+  for (const found of this.querySelectorAll(selectors)) {
     result.push(found);
   }
   return result;

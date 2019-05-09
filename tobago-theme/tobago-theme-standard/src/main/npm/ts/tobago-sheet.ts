@@ -439,13 +439,21 @@ Tobago4.Sheet.setup2 = function (sheets) {
   });
 };
 
-Tobago4.Sheet.hideInputOrSubmit = function($input) {
-  var $output = $input.siblings(".tobago-sheet-pagingOutput");
-  var changed = $output.html() !== $input.val();
-  var sheetId = $input.parents(".tobago-sheet:first").attr("id");
+Tobago4.Sheet.hideInputOrSubmit = function ($input) {
+  let $output = $input.siblings(".tobago-sheet-pagingOutput");
+  let changed = $output.html() !== $input.val();
+  let sheetId = $input.parents(".tobago-sheet:first").attr("id");
   $output.html($input.val());
   if (changed) {
-    Tobago4.Reload.reloadWithAction($input.attr("id"), sheetId);
+    console.debug("reloading sheet '" + $input.attr("id") + "' '" + sheetId + "'");
+    jsf.ajax.request(
+        $input.attr("id"),
+        null,
+        {
+          "javax.faces.behavior.event": "reload",
+          execute: sheetId,
+          render: sheetId
+        });
   } else {
     console.info("no update needed");
     $input.hide();

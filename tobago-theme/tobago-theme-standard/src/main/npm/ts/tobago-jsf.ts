@@ -63,7 +63,7 @@ Tobago4.Jsf.init = function() {
         if (result.length === 2 && result[1].startsWith("{\"reload\"")) {
           // not modified on server, needs be reloaded after some time
           console.debug("Found reload-JSON in response!");
-          Tobago4.Reload.reschedule(id, JSON.parse(result[1]).reload.frequency);
+          Tobago.ReloadManager.instance.schedule(id, JSON.parse(result[1]).reload.frequency);
         } else {
           console.info("Update after jsf.ajax success: id='" + id + "'");
           if (Tobago4.Jsf.isId(id)) {

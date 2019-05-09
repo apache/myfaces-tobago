@@ -15,66 +15,58 @@
  * limitations under the License.
  */
 
-// todo: make a reload object
+namespace Tobago {
 
-Tobago4.Reload = {
-  timeoutMap: new Map<string, number>()
-};
+  // todo: remove "export" when everything is in namespace Tobago
+  export class ReloadManager {
 
-Tobago4.Reload.init = function (elements) {
-  elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-  const reloads = Tobago4.Utils.selectWithJQuery(elements, "[data-tobago-reload]");
-  reloads.each(function () {
-    const reload = Number(this.dataset["tobagoReload"]);
-    if (reload > 0) {
-      Tobago4.Reload.addReloadTimeout(this.id, Tobago4.Reload.reloadWithAction, reload);
+    static instance: ReloadManager = new ReloadManager();
+
+    /**
+     * Map to store the scheduled timeouts by id, to prevent duplicate scheduling of the same elements.
+     */
+    private timeouts: Map<string, number>;
+
+    private constructor() {
+      this.timeouts = new Map<string, number>();
     }
-  });
-};
 
-Tobago4.Reload.reschedule = function (id: string, reloadMillis: number) {
-  if (reloadMillis > 0) {
-    Tobago4.Reload.addReloadTimeout(id, Tobago4.Reload.reloadWithAction, reloadMillis);
+    static init = function (element: HTMLElement): void {
+      for (const reload of element.tobagoSelfOrQuerySelectorAll("[data-tobago-reload]")) {
+        ReloadManager.instance.schedule(reload.id, Number(reload.dataset["tobagoReload"]));
+      }
+    };
+
+    public schedule = function (id: string, reloadMillis: number) {
+      if (reloadMillis > 0) {
+
+        // may remove old schedule
+        let oldTimeout = this.timeouts.get(id);
+        if (oldTimeout) {
+          console.debug("clear reload timeout '" + oldTimeout + "' for #'" + id + "'");
+          window.clearTimeout(oldTimeout);
+          this.timeouts.delete(id);
+        }
+
+        // add new schedule
+        let timeout = window.setTimeout(function () {
+          console.debug("reloading #'" + id + "'");
+          jsf.ajax.request(
+              id,
+              null,
+              {
+                "javax.faces.behavior.event": "reload",
+                execute: id,
+                render: id
+              });
+        }, reloadMillis);
+        console.debug("adding reload timeout '" + timeout + "' for #'" + id + "'");
+        this.timeouts.set(id, timeout);
+      }
+    };
+
   }
-};
 
-Tobago4.Reload.addReloadTimeout = function (id, func, time) {
-  let oldTimeout = Tobago4.Reload.timeoutMap.get(id);
-  if (oldTimeout) {
-    console.debug("clearReloadTimer timeout='" + oldTimeout + "' id='" + id + "'");
-    clearTimeout(oldTimeout);
-    Tobago4.Reload.timeoutMap.delete(id);
-  }
-  let timeout = setTimeout(function () {
-    func(id);
-  }, time);
-  console.debug("addReloadTimer timeout='" + timeout + "' id='" + id + "'");
-  Tobago4.Reload.timeoutMap.set(id, timeout);
-};
-
-Tobago4.Reload.reloadWithAction = function (
-    elementId: string,
-    executeIds: string = elementId,
-    renderIds: string = executeIds) {
-  console.debug("reloadWithAction '" + elementId + "' '" + executeIds + "' '" + renderIds + "");
-  // XXX FIXME: behaviorCommands will probably be empty and not working!
-  // if (this.behaviorCommands && this.behaviorCommands.reload) {
-  //   if (this.behaviorCommands.reload.execute) {
-  //     executeIds += " " + this.behaviorCommands.reload.execute;
-  //   }
-  //   if (this.behaviorCommands.reload.render) {
-  //     renderIds += " " + this.behaviorCommands.reload.render;
-  //   }
-  // }
-  jsf.ajax.request(
-      elementId,
-      null,
-      {
-        "javax.faces.behavior.event": "reload",
-        execute: executeIds,
-        render: renderIds
-      });
-};
-
-Tobago.Listener.register(Tobago4.Reload.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.Listener.register(Tobago4.Reload.init, Tobago.Phase.AFTER_UPDATE);
+  Listener.register(ReloadManager.init, Phase.DOCUMENT_READY);
+  Listener.register(ReloadManager.init, Phase.AFTER_UPDATE);
+}
