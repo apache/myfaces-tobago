@@ -15,3 +15,46 @@
  * limitations under the License.
  */
 
+// XXX remove me
+function es6test() {
+  [1, 2, 3, 4].map((n) => n + 1);
+}
+
+// XXX regexp example only - blueprint
+namespace Tobago {
+
+  class RegExpTest {
+
+    private readonly element: HTMLInputElement;
+    private readonly regexp: RegExp;
+
+    constructor(element: HTMLInputElement) {
+
+      this.element = element;
+      this.regexp = new RegExp(this.element.dataset["regexp"]);
+
+      console.info("constructor: " + element.id);
+
+      this.element.addEventListener("change", this.checkValue.bind(this));
+    };
+
+    checkValue(event: TextEvent) {
+      console.info("changed: check if " + this.regexp + " is okay!");
+      if (!this.regexp.test(this.element.value)) {
+        this.element.classList.add("border-danger");
+      } else {
+        this.element.classList.remove("border-danger");
+      }
+    };
+
+    static init = function (element: HTMLElement): void {
+      for (const input of element.tobagoSelfOrElementsByClassName("tobago-in")) { // todo only for data-regexp
+        new RegExpTest(<HTMLInputElement>input);
+      }
+    };
+  }
+
+  Listener.register(RegExpTest.init, Phase.DOCUMENT_READY);
+  Listener.register(RegExpTest.init, Phase.AFTER_UPDATE);
+
+}
