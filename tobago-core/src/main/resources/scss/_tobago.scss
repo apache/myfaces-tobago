@@ -1482,21 +1482,22 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 }
 
 /* tree ---------------------------------------------------------------------- */
-
 .tobago-tree-expanded,
 .tobago-tree-selected,
 .tobago-treeLabel,
 .tobago-treeListbox,
 .tobago-treeListbox-level,
 .tobago-treeListbox-select,
-.tobago-treeNode,
-.tobago-treeNode-toggle,
 .tobago-treeSelect,
 .tobago-treeSelect-label {
 }
 
 .tobago-tree {
-  @include tobagoTreeNodeToggle();
+  .tobago-treeNode {
+    cursor: default;
+
+    @include tobagoTreeNodeToggle();
+  }
 }
 
 .tobago-treeSelect .form-check-inline {
