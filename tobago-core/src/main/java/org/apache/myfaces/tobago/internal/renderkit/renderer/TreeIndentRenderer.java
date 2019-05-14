@@ -68,6 +68,7 @@ public class TreeIndentRenderer extends RendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, treeIndent);
     writer.writeClassAttribute(
         TobagoClass.TREE_NODE__TOGGLE,
+        !folder ? BootstrapClass.INVISIBLE : null,
         treeIndent.getCustomClass());
 
     // encode tree junction
