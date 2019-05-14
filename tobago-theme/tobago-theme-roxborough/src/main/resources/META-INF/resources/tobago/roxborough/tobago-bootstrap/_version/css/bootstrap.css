@@ -11419,7 +11419,11 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 }
 
 /* tree ---------------------------------------------------------------------- */
-.tobago-tree .tobago-treeNode-toggle:not(.invisible) {
+.tobago-tree .tobago-treeNode {
+  cursor: default;
+}
+
+.tobago-tree .tobago-treeNode .tobago-treeNode-toggle:not(.invisible) {
   cursor: pointer;
 }
 
