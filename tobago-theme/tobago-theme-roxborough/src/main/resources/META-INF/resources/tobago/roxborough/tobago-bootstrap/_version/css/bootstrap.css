@@ -11067,6 +11067,10 @@ p.tobago-separator:after {
   align-items: center;
 }
 
+.tobago-sheet .tobago-sheet-cell > .tobago-treeNode .tobago-treeNode-toggle:not(.invisible) {
+  cursor: pointer;
+}
+
 .tobago-sheet .tobago-sheet-cell > .tobago-treeNode .tobago-treeNode-toggle {
   padding-right: 5px;
 }
@@ -11415,6 +11419,10 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 }
 
 /* tree ---------------------------------------------------------------------- */
+.tobago-tree .tobago-treeNode-toggle:not(.invisible) {
+  cursor: pointer;
+}
+
 .tobago-treeSelect .form-check-inline {
   margin-left: 0.375rem;
   margin-right: 0.375rem;
