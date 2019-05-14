@@ -89,6 +89,12 @@ $fa-toggle-on: "\f205";
 /* non-bootstrap variabled --------------------------------------- */
 $form-disabled-alpha: 0.5;
 
+@mixin tobagoTreeNodeToggle() {
+  .tobago-treeNode-toggle:not(.invisible) {
+    cursor: pointer;
+  }
+}
+
 /* badge -------------------------------------------------------------- */
 .tobago-badge {
 }
@@ -1126,6 +1132,8 @@ p.tobago-separator {
       display: flex;
       align-items: center;
 
+      @include tobagoTreeNodeToggle();
+
       .tobago-treeNode-toggle {
         padding-right: 5px;
       }
@@ -1475,7 +1483,6 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 
 /* tree ---------------------------------------------------------------------- */
 
-.tobago-tree,
 .tobago-tree-expanded,
 .tobago-tree-selected,
 .tobago-treeLabel,
@@ -1486,6 +1493,10 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 .tobago-treeNode-toggle,
 .tobago-treeSelect,
 .tobago-treeSelect-label {
+}
+
+.tobago-tree {
+  @include tobagoTreeNodeToggle();
 }
 
 .tobago-treeSelect .form-check-inline {
