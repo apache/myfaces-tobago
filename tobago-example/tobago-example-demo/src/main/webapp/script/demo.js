@@ -17,21 +17,13 @@
 
 Demo = {};
 
-(function ($) {
-  $.widget("demo.alert", {
-    _create: function () {
-      this._on({
-        click: function (event) {
-          var text = this.element.data("alert-text");
-          alert(text);
-        }
-      });
-    }
-  });
-}(jQuery));
-
 var initAlert = function () {
-  jQuery("[data-alert-text]").alert();
+  document.querySelectorAll("[data-alert-text]").forEach(function (element) {
+    element.addEventListener("click", function(event) {
+      var text = event.currentTarget.dataset["alertText"];
+      alert(text);
+    });
+  });
 };
 
 // old

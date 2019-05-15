@@ -915,9 +915,6 @@
               <!-- This file is created during a release and needs no licensing text -->
               <exclude>DEPENDENCIES</exclude>
 
-              <!-- jQuery UI -->
-              <exclude>**/jquery-ui.*</exclude>
-
               <!-- typeahead -->
               <exclude>**/typeahead.*</exclude>
 

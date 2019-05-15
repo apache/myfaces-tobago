@@ -39,7 +39,6 @@
       <resources production="true">
         <includes>
           <script name="/webjars/jquery/3.3.1-1/jquery.min.js"/>
-          <script name="/tobago/pack/jquery-ui/1.12.1.custom/jquery-ui.min.js"/>
           <script name="/webjars/tether/1.4.0/js/tether.min.js"/>
           <script name="/webjars/popper.js/1.14.3/umd/popper.min.js"/>
           <script name="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"/>
@@ -57,7 +56,6 @@
       <resources production="false">
         <includes>
           <script name="/webjars/jquery/3.3.1-1/jquery.js"/>
-          <script name="/tobago/pack/jquery-ui/1.12.1.custom/jquery-ui.js"/>
           <script name="/webjars/tether/1.4.0/js/tether.js"/>
           <script name="/webjars/popper.js/1.14.3/umd/popper.js"/>
           <script name="/webjars/bootstrap/4.1.3/js/bootstrap.js"/>

@@ -86,11 +86,6 @@
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
-        <artifactId>tobago-pack-jquery-ui</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
         <artifactId>tobago-pack-typeahead</artifactId>
       <version>${project.version}</version>
     </dependency>

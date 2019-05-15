@@ -9,7 +9,3 @@ interface JQuery {
   modal(data?: any, options?: any): JQuery;
   typeahead(data?: any, options?: any): JQuery;
 }
-
-/*
-todos: remove jqueryui (also from package.json)
-*/

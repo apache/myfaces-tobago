@@ -34,7 +34,6 @@
     "@babel/register": "^7.0.0",
     "@babel/preset-env": "^7.3.1",
     "@types/jquery": "^3.3.25",
-    "@types/jqueryui": "^1.12.6",
     "ajv": "^6.5.3",
     "ajv-keywords": "^3.2.0",
     "autoprefixer": "^8.6.5",
