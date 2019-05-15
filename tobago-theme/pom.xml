@@ -256,6 +256,7 @@
             </configuration>
           </execution>
 
+<!-- XXX remove it
           <execution>
             <id>step #5c: es6 to es5</id>
             <goals>
@@ -266,7 +267,9 @@
               <arguments>run js-transpile</arguments>
             </configuration>
           </execution>
+-->
 
+<!--
           <execution>
             <id>step #5d: minify</id>
             <goals>
@@ -277,6 +280,7 @@
               <arguments>run js-minify</arguments>
             </configuration>
           </execution>
+-->
         </executions>
       </plugin>
 

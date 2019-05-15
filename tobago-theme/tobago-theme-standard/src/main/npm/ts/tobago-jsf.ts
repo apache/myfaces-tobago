@@ -57,9 +57,9 @@ namespace Tobago {
         console.log("[tobago-jsf] JSF event status: " + event.status);
         if (event.status === "success") {
           event.responseXML.querySelectorAll("update").forEach(function (update: Element) {
-            const result: string[] = /<!\[CDATA\[(.*)]]>/s.exec(update.innerHTML);
+            const result = /<!\[CDATA\[(.*)]]>/gm.exec(update.innerHTML);
             const id = update.id;
-            if (result.length === 2 && result[1].startsWith("{\"reload\"")) {
+            if (result !== null && result.length === 2 && result[1].startsWith("{\"reload\"")) {
               // not modified on server, needs be reloaded after some time
               console.debug("[tobago-jsf] Found reload-JSON in response!");
               ReloadManager.instance.schedule(id, JSON.parse(result[1]).reload.frequency);
