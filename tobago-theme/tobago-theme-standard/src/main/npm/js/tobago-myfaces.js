@@ -15,7 +15,7 @@
  */
 
 /*
- * XXX This is a modified copy of MyFaces 2.3.3-SNAPSHOT (2018-11-12) jsf-uncompressed-full.js
+ * XXX This is a modified copy of MyFaces 2.3.3 jsf-uncompressed-full.js
  * XXX Modifications are marked with TOBAGO-JSF-JS
  */
 
