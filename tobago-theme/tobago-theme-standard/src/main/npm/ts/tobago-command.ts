@@ -98,7 +98,7 @@ Tobago4.Command.init = function(element) {
         } else {
           var action = command.action ? command.action : jQuery(this).attr("id");
           if (command.execute || command.render) {
-            Tobago4.preparePartialOverlay(command);
+            Tobago4.Command.preparePartialOverlay(command);
             jsf.ajax.request(
                 action,
                 event,
@@ -160,5 +160,17 @@ Tobago4.Command.init = function(element) {
       console.debug("window resize event: " + commands.resize);
       Tobago4.submitAction(this, commands.resize.action, commands.resize);
     });
+  }
+};
+
+Tobago4.Command.preparePartialOverlay = function (command) {
+  if (command.transition === undefined || command.transition == null || command.transition) {
+    console.debug("[tobago-command] render: '" + command.render + "'");
+    if (command.render) {
+      let partialIds = command.render.split(" ");
+      for (let i = 0; i < partialIds.length; i++) {
+        new Tobago.Overlay(document.getElementById(partialIds[i]), true);
+      }
+    }
   }
 };

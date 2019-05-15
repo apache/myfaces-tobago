@@ -147,24 +147,9 @@ var Tobago4:any = {
 
   onBeforeUnload: function() {
     if (this.transition) {
-      jQuery("body").overlay();
+      new Tobago.Overlay(document.tobagoPage());
     }
     this.transition = this.oldTransition;
-  },
-
-  preparePartialOverlay: function(options) {
-    if (options.transition === undefined || options.transition == null || options.transition) {
-      console.info("options.render: " + options.render);
-      if (options.render) {
-        var partialIds = options.render.split(" ");
-        for (var i = 0; i < partialIds.length; i++) {
-          console.info("partialId: " + partialIds[i]);
-          var element = jQuery(Tobago4.Utils.escapeClientId(partialIds[i]));
-          element.data("tobago-partial-overlay-set", true);
-          element.overlay({ajax: true});
-        }
-      }
-    }
   },
 
   /**
@@ -227,13 +212,8 @@ var Tobago4:any = {
             // reset the source field after submit, to be prepared for possible next AJAX with transition=false
             $sourceHidden.prop("disabled", true);
             $sourceHidden.val();
-            if (Tobago4.browser.isMsie) {
-              // without this "redundant" code the animation will not be animated in IE (tested with 6,7,8,9,10,11)
-              var image = jQuery(".tobago-page-overlayCenter img");
-              image.appendTo(image.parent());
-            }
           } catch (e) {
-            Tobago4.findPage().overlay("destroy");
+            Tobago.Overlay.destroy(document.tobagoPage().id);
             Tobago4.isSubmit = false;
             alert('Submit failed: ' + e); // XXX localization, better error handling
           }

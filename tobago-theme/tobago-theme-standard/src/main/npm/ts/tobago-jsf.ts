@@ -17,23 +17,25 @@
 
 namespace Tobago {
 
-  class Jsf {
+  export enum JsfParameter {
+    VIEW_STATE = "javax.faces.ViewState",
+    CLIENT_WINDOW = "javax.faces.ClientWindow",
+    VIEW_ROOT = "javax.faces.ViewRoot",
+    VIEW_HEAD = "javax.faces.ViewHead",
+    VIEW_BODY = "javax.faces.ViewBody",
+    RESOURCE = "javax.faces.Resource"
+  }
 
-    static readonly VIEW_STATE: "javax.faces.ViewState";
-    static readonly CLIENT_WINDOW: "javax.faces.ClientWindow";
-    static readonly VIEW_ROOT: "javax.faces.ViewRoot";
-    static readonly VIEW_HEAD: "javax.faces.ViewHead";
-    static readonly VIEW_BODY: "javax.faces.ViewBody";
-    static readonly RESOURCE: "javax.faces.Resource";
+  class Jsf {
 
     private static isId = function (id: string) {
       switch (id) {
-        case Jsf.VIEW_STATE:
-        case Jsf.CLIENT_WINDOW:
-        case Jsf.VIEW_ROOT:
-        case Jsf.VIEW_HEAD:
-        case Jsf.VIEW_BODY:
-        case Jsf.RESOURCE:
+        case JsfParameter.VIEW_STATE:
+        case JsfParameter.CLIENT_WINDOW:
+        case JsfParameter.VIEW_ROOT:
+        case JsfParameter.VIEW_HEAD:
+        case JsfParameter.VIEW_BODY:
+        case JsfParameter.RESOURCE:
           return false;
         default:
           return true;
@@ -42,8 +44,8 @@ namespace Tobago {
 
     private static isBody = function (id) {
       switch (id) {
-        case Jsf.VIEW_ROOT:
-        case Jsf.VIEW_BODY:
+        case JsfParameter.VIEW_ROOT:
+        case JsfParameter.VIEW_BODY:
           return true;
         default:
           return false;
@@ -79,12 +81,8 @@ namespace Tobago {
           event.responseXML.querySelectorAll("update").forEach(function (update: Element) {
             const id = update.id;
             if (Jsf.isId(id)) {
-              console.info("[tobago-jsf] Update after jsf.ajax complete: #" + id);
-              // XXX todo: re-implement overlay without jQuery!
-              const $oldElement = jQuery(document.getElementById(id));
-              if ($oldElement.data("tobago-partial-overlay-set")) {
-                 jQuery($oldElement).overlay("destroy");
-              }
+              console.debug("[tobago-jsf] Update after jsf.ajax complete: #" + id);
+              Tobago.Overlay.destroy(id);
             }
           });
         }

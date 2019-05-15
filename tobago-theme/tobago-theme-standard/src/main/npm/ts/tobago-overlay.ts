@@ -19,116 +19,103 @@
  * Create a overlay barrier and animate it.
  */
 
-Tobago4.Config.set("Tobago", "waitOverlayDelay", 1000);
-Tobago4.Config.set("Ajax", "waitOverlayDelay", 1000);
+// XXX issue: if a ajax call is scheduled on the same element, the animation arrow will stacking and not desapearing.
+// XXX issue: "error" is not implemented correctly
+// see http://localhost:8080/demo-5-snapshot/content/30-concept/50-partial/Partial_Ajax.xhtml to use this feature
+// XXX todo: check full page transitions
 
-(function ($) {
+namespace Tobago {
 
-  $.widget("tobago.overlay", {
+  export class Overlay {
 
-    options: {
-      /**
-       * This boolean indicates, if the overlay is "error" or "wait".
-       */
-      error: false,
-      /**
-       * Is this overlay for an AJAX request, or an normal submit?
-       * We need this information, because AJAX need to clone the animated image, but for a normal submit
-       * we must not clone it, because the animation stops in some browsers.
-       */
-      ajax: false,
-      /**
-       * The delay for the wait overlay. If not set the default delay is read from Tobago.Config.
-       */
-      waitOverlayDelay: undefined
-    },
+    private static readonly overlayMap: Map<string, Overlay> = new Map<string, Overlay>();
 
-    overlay: null,
+    /**
+     * Is this overlay for an AJAX request, or an normal submit?
+     * We need this information, because AJAX need to clone the animated image, but for a normal submit
+     * we must not clone it, because the animation stops in some browsers.
+     */
+    ajax: boolean = true;
 
-    _create: function () {
+    /**
+     * This boolean indicates, if the overlay is "error" or "wait".
+     */
+    error: boolean = false;
+
+    /**
+     * The delay for the wait overlay. If not set the default delay is read from Tobago.Config.
+     */
+    waitOverlayDelay: number = 0;
+
+    element: HTMLElement;
+
+    overlay: HTMLDivElement;
+
+    constructor(element: HTMLElement, ajax = false, error = false, waitOverlayDelay?) {
+
+      this.element = element;
+      this.ajax = ajax;
+      this.error = error;
+      this.waitOverlayDelay = waitOverlayDelay
+          ? waitOverlayDelay
+          : Tobago4.Config.get(this.ajax ? "Ajax" : "Tobago", "waitOverlayDelay");
 
       // create the overlay
 
-      this.overlay = jQuery("<div>").addClass("tobago-page-overlay");
-      if (this.options.error) {
-        this.overlay.addClass("tobago-page-overlay-markup-error");
+      this.overlay = document.createElement('div');
+      this.overlay.classList.add("tobago-page-overlay");
+      this.overlay.classList.add(
+          this.error ? "tobago-page-overlay-markup-error" : "tobago-page-overlay-markup-wait");
+
+      let left = "0";
+      let top = "0";
+      if (this.element.matches("body")) {
+        this.overlay.style.position = "fixed";
+        this.overlay.style.zIndex = "1500"; // greater than the bootstrap navbar
       } else {
-        this.overlay.addClass("tobago-page-overlay-markup-wait");
+        const rect = this.element.getBoundingClientRect();
+        left = (rect.left + document.body.scrollLeft) + "px";
+        top = (rect.top + document.body.scrollTop) + "px";
+        this.overlay.style.width = this.element.offsetWidth + "px";
+        this.overlay.style.height = this.element.offsetHeight + "px";
+// tbd: is this still needed?       this.overlay.style.position= "absolute" // XXX is set via class, but seams to be overridden in IE11?
       }
 
-      var overlayOffset = {};
-      if (this.element.is("body")) {
-        this.overlay.css({
-          position: "fixed",
-          zIndex: 1500 // greater than the bootstrap navbar
-        });
-      } else {
-        overlayOffset = this.element.offset();
-        this.overlay.outerWidth(this.element.outerWidth());
-        this.overlay.outerHeight(this.element.outerHeight());
-        this.overlay.css({
-          position: "absolute" // XXX is set via class, but seams to be overridden in IE11?
-        });
-      }
+      document.getElementsByTagName("body")[0].append(this.overlay);
 
-      jQuery("body").append(this.overlay);
-
-      var wait = jQuery("<div>").addClass("tobago-page-overlayCenter");
+      let wait = document.createElement("div");
+      wait.classList.add("tobago-page-overlayCenter");
       this.overlay.append(wait);
 
-      var image = jQuery("<i>");
-      if (this.options.error) {
-        image.addClass("fa fa-flash fa-3x");
-        wait.addClass("alert-danger");
+      let image = document.createElement("i");
+      if (this.error) {
+        image.classList.add("fa", "fa-flash", "fa-3x");
+        wait.classList.add("alert-danger");
       } else {
-        image.addClass("fa fa-refresh fa-3x fa-spin").css({opacity: 0.4});
+        image.classList.add("fa", "fa-refresh", "fa-3x", "fa-spin");
+        image.style.opacity = "0.4";
       }
       wait.append(image);
-      wait.show();
+      wait.style.display = ""; //XXX ?
 
-      var waitOverlayDelay = this.options.waitOverlayDelay
-          ? this.options.waitOverlayDelay
-          : Tobago4.Config.get(this.options.ajax ? "Ajax" : "Tobago", "waitOverlayDelay");
+      this.overlay.style.backgroundColor = document.tobagoPage().style.backgroundColor;
+      this.overlay.style.left = left;
+      this.overlay.style.top = top;
+      setTimeout(() => { // to play the CSS transition
+        this.overlay.classList.add("tobago-page-overlay-timeout");
+      }, this.waitOverlayDelay);
 
-      if (Tobago4.browser.isMsie678) {
-        this.overlay.css({filter: 'alpha(opacity=80)'});
-      }
-
-      this.overlay.css({
-        backgroundColor: jQuery('.tobago-page').css("background-color"),
-        opacity: 0})
-          .show()
-          .offset(overlayOffset)
-          .delay(this.options.error ? 0 : waitOverlayDelay)
-          .animate({opacity: '0.8'}, this.options.error ? 0 : 250, "linear");
-    },
-
-    _setOption: function (key, value) {
-
-      switch (key) {
-        case "error":
-          // If the error property has been changed, recreate the overlay.
-          var changed = key == 'error' && value != this.options.error;
-          if (changed) {
-            this.options.error = value;
-            this._destroy();
-            this._create();
-          }
-          break;
-        case "ajax":
-          // Changing of the ajax property seems not to make sense and is not supported.
-          break;
-      }
-
-      this._super("_setOption", key, value);
-
-    },
-
-    _destroy: function () {
-      this.overlay.remove();
-      this.overlay = null;
+      Overlay.overlayMap.set(element.id, this);
     }
 
-  });
+    static destroy(id: string) {
+      const overlay = Overlay.overlayMap.get(id);
+      overlay.overlay.remove();
 
-}(jQuery));
+      Overlay.overlayMap.delete(id);
+    }
+  }
+}
+
+Tobago4.Config.set("Tobago", "waitOverlayDelay", 1000);
+Tobago4.Config.set("Ajax", "waitOverlayDelay", 1000);

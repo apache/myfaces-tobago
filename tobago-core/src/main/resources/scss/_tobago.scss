@@ -679,6 +679,14 @@ span.tobago-out:empty:before {
   height: 100%;
   /* TODO: better z-index strategy */
   z-index: 500; /* less than the bootstrap navbar */
+  transition-delay: 1s;
+  transition-duration: 250ms;
+  transition-property: opacity;
+  opacity: 0;
+}
+
+.tobago-page-overlay-timeout {
+  opacity: 0.8;
 }
 
 .tobago-page-overlay-markup-wait {
