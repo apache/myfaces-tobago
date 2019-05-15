@@ -17,37 +17,36 @@
 
 namespace Tobago {
 
-  const init = function (element: HTMLElement) {
-    const files: JQuery<NodeListOf<Element>> = jQuery(element.querySelectorAll(".tobago-file-real"));
-    files.on("change", function () {
-      const file: JQuery<NodeListOf<Element>> = jQuery(this);
-      const pretty: JQuery<NodeListOf<Element>> = file.parent().find(".tobago-file-pretty");
-      let text: string;
-      if (file.prop("multiple")) {
-        const format: string = file.data("tobago-file-multi-format");
-        text = format.replace("{}", file.prop("files").length);
-      } else {
-        text = <string>file.val();
-        // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\path\".
-        const pos: number = Math.max(text.lastIndexOf('/'), text.lastIndexOf('\\'));
-        if (pos >= 0) {
-          text = text.substr(pos + 1);
-        }
-      }
-      pretty.val(text);
-    });
-    // click on the button (when using focus with keyboard)
-    files.each(function () {
-      const real = jQuery(this);
-      real.parent().find("button").on("click", function () {
-        real.trigger("click");
-      });
-    });
-    if (files.length > 0) {
-      document.getElementsByTagName("form")[0].setAttribute('enctype', 'multipart/form-data');
-    }
-  };
+  class File {
 
-  Listener.register(init, Phase.DOCUMENT_READY);
-  Listener.register(init, Phase.AFTER_UPDATE);
+    static init(element: HTMLElement) {
+      for (const e of element.tobagoSelfOrQuerySelectorAll(".tobago-file-real")) {
+        const real = <HTMLInputElement>e;
+        real.addEventListener("change", function () {
+          const pretty = <HTMLInputElement>real.parentElement.querySelector(".tobago-file-pretty");
+          let text: string;
+          if (real.multiple) {
+            const format: string = real.dataset["tobagoFileMultiFormat"];
+            text = format.replace("{}", real.files.length.toString());
+          } else {
+            text = <string>real.value;
+            // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\path\".
+            const pos: number = Math.max(text.lastIndexOf('/'), text.lastIndexOf('\\'));
+            if (pos >= 0) {
+              text = text.substr(pos + 1);
+            }
+          }
+          pretty.value = text;
+        });
+        // click on the button (when using focus with keyboard)
+        real.parentElement.querySelector("button").addEventListener("click", function () {
+          real.click();
+        });
+        real.form.enctype = "multipart/form-data";
+      }
+    };
+  }
+
+  Listener.register(File.init, Phase.DOCUMENT_READY);
+  Listener.register(File.init, Phase.AFTER_UPDATE);
 }
