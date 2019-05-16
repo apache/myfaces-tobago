@@ -66,6 +66,10 @@ Tobago.Suggest.fromClient = function (data) {
   };
 };
 
+Tobago.Suggest.getSuggestPopup = function (suggest) {
+  return jQuery(Tobago.Utils.escapeClientId(suggest.attr('id') + "::popup"));
+};
+
 Tobago.Suggest.init = function (elements) {
 
   var suggests = Tobago.Utils.selectWithJQuery(elements, ".tobago-suggest");
@@ -109,18 +113,14 @@ Tobago.Suggest.init = function (elements) {
         source = Tobago.Suggest.fromClient(data2);
       }
 
-      function getSuggestPopup(suggest) {
-        return jQuery(Tobago.Utils.escapeClientId(suggest.attr('id') + "::popup"));
-      }
-
-      var $suggestPopup = getSuggestPopup(suggest);
+      var $suggestPopup = Tobago.Suggest.getSuggestPopup(suggest);
       if ($suggestPopup.length > 0) {
         $suggestPopup.remove();
       }
 
       jQuery(".tobago-page-menuStore")
           .append("<div id='" + suggest.attr('id') + "::popup" + "' class='tt-menu tt-empty'/>");
-      $suggestPopup = getSuggestPopup(suggest);
+      $suggestPopup = Tobago.Suggest.getSuggestPopup(suggest);
 
       input.typeahead({
         menu: localMenu ? null : $suggestPopup,

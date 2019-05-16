@@ -44,14 +44,38 @@
             <phase>compile</phase>
             <configuration>
               <target>
-                <concat destfile="${project.build.directory}/javascript-min/tobago.min.js" force="no">
-                  <filelist dir="${basedir}/src/main/resources/META-INF/resources/tobago/${theme.name}/tobago-bootstrap/_version/js" files="tobago-jsf.js,tobago-deltaspike.js,tobago.js,tobago-dropdown.js,tobago-calendar.js,tobago-in.js,tobago-layout.js,tobago-overlay.js,tobago-popup.js,tobago-sheet.js,tobago-stars.js,tobago-suggest.js,tobago-tab.js,tobago-tree.js,tobago-utils.js" />
-                </concat>
+                <copy todir="${project.build.directory}/javascript-min">
+                  <fileset file="${basedir}/src/main/resources/META-INF/resources/tobago/${theme.name}/tobago-bootstrap/_version/js/tobago*.js"/>
+                </copy>
                 <replaceregexp match="^.*//.*@DEV_ONLY.*$" replace="" byline="true">
                   <fileset dir="${project.build.directory}/javascript-min">
-                    <include name="**/tobago.min.js" />
+                    <include name="**/tobago*.js" />
                   </fileset>
                 </replaceregexp>
+              </target>
+            </configuration>
+          </execution>
+          <execution>
+            <id>remove-local-part-from-map</id>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <phase>prepare-package</phase>
+            <configuration>
+              <target>
+                <replaceregexp match="${project.build.outputDirectory}/META-INF/resources/tobago/standard/tobago-bootstrap/${project.version}/js/" replace="" flags="g">
+                  <fileset dir="${project.build.outputDirectory}/META-INF/resources/tobago/${theme.name}/tobago-bootstrap/${project.version}/js/">
+                    <include name="*.map" />
+                  </fileset>
+                </replaceregexp>
+                <replaceregexp match="${project.build.directory}/javascript-min/" replace="" flags="g">
+                  <fileset dir="${project.build.outputDirectory}/META-INF/resources/tobago/${theme.name}/tobago-bootstrap/${project.version}/js/">
+                    <include name="*.map" />
+                  </fileset>
+                </replaceregexp>
+                <echo file="${project.build.outputDirectory}/META-INF/resources/tobago/${theme.name}/tobago-bootstrap/${project.version}/js/tobago.min.js" append="yes">
+                  //# sourceMappingURL=tobago.min.js.map
+                </echo>
               </target>
             </configuration>
           </execution>
@@ -63,6 +87,10 @@
             <version>1.6.5</version>
           </dependency>
         </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -79,11 +107,31 @@
               <executable>java</executable>
               <arguments>
                 <argument>-jar</argument>
-                <argument>lib/compiler-20120430.jar</argument>
+                <argument>${project.build.directory}/javascript-min/closure-compiler.jar</argument>
                 <argument>--js</argument>
-                <argument>${project.build.directory}/javascript-min/tobago.min.js</argument>
+                <argument>${project.build.directory}/javascript-min/tobago-jsf.js</argument>
+                <argument>${project.build.directory}/javascript-min/tobago-deltaspike.js</argument>
+                <argument>${project.build.directory}/javascript-min/tobago.js</argument>
+                <argument>${project.build.directory}/javascript-min/tobago-deltaspike.js</argument>
+                <argument>${project.build.directory}/javascript-min/tobago.js</argument>
+                <argument>${project.build.directory}/javascript-min/tobago-dropdown.js</argument>
+                <argument>${project.build.directory}/javascript-min/tobago-calendar.js</argument>
+                <argument>${project.build.directory}/javascript-min/tobago-in.js</argument>
+                <argument>${project.build.directory}/javascript-min/tobago-layout.js</argument>
+                <argument>${project.build.directory}/javascript-min/tobago-overlay.js</argument>
+                <argument>${project.build.directory}/javascript-min/tobago-popup.js</argument>
+                <argument>${project.build.directory}/javascript-min/tobago-sheet.js</argument>
+                <argument>${project.build.directory}/javascript-min/tobago-stars.js</argument>
+                <argument>${project.build.directory}/javascript-min/tobago-suggest.js</argument>
+                <argument>${project.build.directory}/javascript-min/tobago-tab.js</argument>
+                <argument>${project.build.directory}/javascript-min/tobago-tree.js</argument>
+                <argument>${project.build.directory}/javascript-min/tobago-utils.js</argument>
+                <argument>--warning_level</argument>
+                <argument>QUIET</argument>
                 <argument>--js_output_file</argument>
-                <argument>target/classes/META-INF/resources/tobago/${theme.name}/tobago-bootstrap/${project.version}/js/tobago.min.js</argument>
+                <argument>${project.build.outputDirectory}/META-INF/resources/tobago/${theme.name}/tobago-bootstrap/${project.version}/js/tobago.min.js</argument>
+                <argument>--create_source_map</argument>
+                <argument>%outname%.map</argument>
               </arguments>
             </configuration>
           </execution>

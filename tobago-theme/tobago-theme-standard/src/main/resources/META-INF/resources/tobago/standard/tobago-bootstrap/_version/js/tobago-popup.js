@@ -66,7 +66,7 @@ Tobago.Collapse.execute = function (collapse) {
       newCollapsed = false;
       break;
     default:
-      console.error("unknown transition: '" + transition + "'");
+      console.error("unknown transition: '" + transition + "'"); // @DEV_ONLY
   }
   if (newCollapsed) {
     if (isPopup) {

@@ -87,7 +87,7 @@ Tobago.Layout.initSplitLayout = function (elements) {
     splitter.on("mousedown", {splitter: splitter}, function (event) {
       var prev = splitter.prevAll(":not(style):last");
       var width = prev.outerWidth();
-      console.info("initial width = " + width);
+      console.info("initial width = " + width); // @DEV_ONLY
       prev.css("width", width + "px");
       prev.css({"flex-grow": "inherit", "flex-basis": "auto"});
       jQuery(document).on(
@@ -105,7 +105,7 @@ Tobago.Layout.initSplitLayout = function (elements) {
     splitter.on("mousedown", {splitter: splitter}, function (event) {
       var prev = splitter.prevAll(":not(style):last");
       var height = prev.outerHeight();
-      console.info("initial height = " + height);
+      console.info("initial height = " + height); // @DEV_ONLY
       prev.css("height", height + "px");
       prev.css({"flex-grow": "inherit", "flex-basis": "auto"});
       jQuery(document).on(
@@ -120,13 +120,13 @@ Tobago.Layout.initSplitLayout = function (elements) {
 };
 
 Tobago.Layout.moveHorizontally = function (event) {
-  console.info("" + event.pageX + " " + event.data.offset);
+  console.info("" + event.pageX + " " + event.data.offset); // @DEV_ONLY
   var prev = event.data.splitter.prev();
   prev.width(event.pageX - event.data.offset + "px");
 };
 
 Tobago.Layout.moveVertically = function (event) {
-  console.info("" + event.pageY + " " + event.data.offset);
+  console.info("" + event.pageY + " " + event.data.offset); // @DEV_ONLY
   var prev = event.data.splitter.prev();
   prev.height(event.pageY - event.data.offset + "px");
 };

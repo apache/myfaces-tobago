@@ -3850,6 +3850,8 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
         }
     },
 
+// begin TOBAGO-JSF-JS
+    /*
     isFunctionNative: function(func) {
         return /^\s*function[^{]+{\s*\[native code\]\s*}\s*$/.test(String(func));
     },
@@ -3878,6 +3880,8 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
             }
         }
     },
+    */
+// end TOBAGO-JSF-JS
 
     /**
      * copy all attributes from one element to another - except id
@@ -7730,7 +7734,7 @@ _MF_SINGLTN(_PFX_XHR + "_AjaxResponse", _MF_OBJECT, /** @lends myfaces._impl.xhr
 
 // begin TOBAGO-JSF-JS
             if (cDataBlock.indexOf("{\"reload\"") === 0) {
-                console.debug("Found reload-JSON in response!");
+               // Found reload-JSON in response!
             } else {
 // end TOBAGO-JSF-JS
             switch (node.getAttribute('id')) {

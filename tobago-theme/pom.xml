@@ -62,8 +62,34 @@
         <targetPath>META-INF/resources/tobago/${theme.name}/tobago-bootstrap/${project.version}</targetPath>
       </resource>
     </resources>
-    <plugins>
-    </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <executions>
+            <execution>
+              <phase>validate</phase>
+              <goals>
+                <goal>copy</goal>
+              </goals>
+              <configuration>
+                <artifactItems>
+                  <artifactItem>
+                    <groupId>com.google.javascript</groupId>
+                    <artifactId>closure-compiler</artifactId>
+                    <version>v20190415</version>
+                    <overWrite>true</overWrite>
+                    <outputDirectory>${project.build.directory}/javascript-min</outputDirectory>
+                    <destFileName>closure-compiler.jar</destFileName>
+                  </artifactItem>
+                </artifactItems>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
   </build>
 
   <profiles>
