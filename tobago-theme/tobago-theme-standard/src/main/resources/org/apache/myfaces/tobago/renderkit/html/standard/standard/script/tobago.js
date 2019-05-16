@@ -351,6 +351,7 @@ var Tobago = {
     for (var i = 0; i < this.jsObjects.length; i++) {
       try {
         this.destroyObject(this.jsObjects[i]);
+        delete this.jsObjects[i];
       } catch (ex) {
         // ignore
       }
@@ -393,7 +394,6 @@ var Tobago = {
         this.destroyJsObject(obj);
       } else if (typeof obj == 'Array') {
         obj.length = 0;
-        delete obj;
       }
     }
   },
@@ -403,7 +403,6 @@ var Tobago = {
       for (var item in obj) {
         delete obj[item];
       }
-      delete obj;
     } catch (ex) {
       // ignore
     }
@@ -1971,21 +1970,15 @@ function tobago_showHidden() {
   }
 }
 
-/** @nosideeffects */
 var LOG = {
-  /** @nosideeffects */
   debug: function(text) {
   },
-  /** @nosideeffects */
   info: function(text) {
   },
-  /** @nosideeffects */
   warn: function(text) {
   },
-  /** @nosideeffects */
   error: function(text) {
   },
-  /** @nosideeffects */
   show: function() {
   }
 };
