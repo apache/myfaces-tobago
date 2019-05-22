@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
-    <version>4.4.1-SNAPSHOT</version>
+    <version>4.4.1</version>
   </parent>
   <artifactId>tobago-theme-standard</artifactId>
   <packaging>jar</packaging>
@@ -45,7 +45,7 @@
             <configuration>
               <target>
                 <copy todir="${project.build.directory}/javascript-min">
-                  <fileset file="${basedir}/src/main/resources/META-INF/resources/tobago/${theme.name}/tobago-bootstrap/_version/js/tobago*.js"/>
+                  <fileset file="${basedir}/src/main/resources/META-INF/resources/tobago/${theme.name}/tobago-bootstrap/_version/js/tobago*.js" />
                 </copy>
                 <replaceregexp match="^.*//.*@DEV_ONLY.*$" replace="" byline="true">
                   <fileset dir="${project.build.directory}/javascript-min">
