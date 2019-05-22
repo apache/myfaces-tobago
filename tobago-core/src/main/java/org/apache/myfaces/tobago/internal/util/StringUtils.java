@@ -31,7 +31,7 @@ public final class StringUtils {
   }
 
   public static List<Integer> parseIntegerList(final String integerList) throws NumberFormatException {
-    return parseIntegerList(integerList, ", ");
+    return parseIntegerList(integerList, ", ;");
   }
 
   public static List<Integer> parseIntegerList(final String integerList, final String delimiters)

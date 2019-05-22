@@ -17,7 +17,7 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/main.xhtml"
+<ui:composition template="/plain.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
@@ -28,12 +28,16 @@
            link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/treeListbox.html"/>
 
   <tc:section label="Example">
-    <pre><code class="language-markup">&lt;tc:treeListbox value="\#{treeController.sample}" ...></code></pre>
-    <tc:treeListbox value="#{treeController.sample}" var="node">
-      <tc:treeNode>
-        <tc:treeIndent/>
-        <tc:treeLabel value="#{node.userObject.name}"/>
+    <pre><code class="language-markup">&lt;tc:treeListbox value="\#{treeListboxController.sample}" ...></code></pre>
+    <tc:treeListbox id="listbox" value="#{treeListboxController.sample}" var="node" state="#{treeListboxController.state}">
+      <tc:treeNode id="node">
+        <tc:treeLabel id="label" value="#{node.userObject.name}"/>
       </tc:treeNode>
     </tc:treeListbox>
+
+    <tc:button label="Submit" action="#{treeListboxController.submit}"/>
+
+    <tc:in readonly="true" label="Selection" tip="as set of tree pathes" value="#{treeListboxController.state.selectedState}"/>
+<!--    <tc:in readonly="true" label="Selection" value="#{treeListboxController.selectedNodes}"/>-->
   </tc:section>
 </ui:composition>

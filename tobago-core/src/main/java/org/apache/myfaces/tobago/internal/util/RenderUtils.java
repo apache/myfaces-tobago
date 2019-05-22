@@ -226,7 +226,11 @@ public final class RenderUtils {
     try {
       string = facesContext.getExternalContext().getRequestParameterMap().get(key);
       if (string != null) {
-        return StringUtils.parseIntegerList(string);
+        if (string.startsWith("[")) {
+          return JsonUtils.decodeIntegerArray(string);
+        } else {
+          return StringUtils.parseIntegerList(string); // todo remove this case after migrating all to JSON
+        }
       }
     } catch (final Exception e) {
       // should not happen

@@ -16,74 +16,88 @@
  */
 
 import {Listener, Phase} from "./tobago-listener";
-import {Tobago4Utils} from "./tobago-utils";
+import {DomUtils} from "./tobago-utils";
 
 class TreeListbox {
-  static init = function (elements) {
-    elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-    var treeListbox = Tobago4Utils.selectWithJQuery(elements, ".tobago-treeListbox");
-    // hide select tags for level > root
-    treeListbox.children().find("select:not(:first)").hide();
 
-    var listboxSelects = treeListbox.find("select");
+  id: string;
 
-    listboxSelects.children("option").each(TreeListbox.initNextLevel);
-    listboxSelects.each(TreeListbox.initListeners);
-  };
-
-// find all option tags and add the dedicated select tag in its data section.
-  static initNextLevel = function () {
-    var option = jQuery(this);
-    var select = option.closest(".tobago-treeListbox-level").next()
-        .find("[data-tobago-tree-parent='" + option.attr("id") + "']");
-    if (select.length == 1) {
-      option.data("tobago-select", select);
-    } else {
-      var empty = option.closest(".tobago-treeListbox-level").next().children(":first");
-      option.data("tobago-select", empty);
+  static init = function (element) {
+    for (const treeListbox of DomUtils.selfOrElementsByClassName(element, "tobago-treeListbox")) {
+      new TreeListbox(treeListbox);
     }
   };
 
-// add on change on all select tag, all options that are not selected hide there dedicated
-// select tag, and the selected option show its dedicated select tag.
-  static initListeners = function () {
+  constructor(element: HTMLElement) {
 
-    jQuery(this).change(TreeListbox.onChange);
+    this.id = element.id;
 
-    jQuery(this).focus(function () {
-      jQuery(this).change();
-    });
-  };
+    const selects = element.getElementsByTagName("select");
+    for (let i = 0; i < selects.length; i++) {
+      const listbox = <HTMLSelectElement>selects.item(i);
+      // hide select tags for level > root
+      if (listbox.previousElementSibling) {
+        listbox.classList.add("d-none");
+      }
 
-  static onChange = function () {
-    var listbox = jQuery(this);
-    listbox.children("option:not(:selected)").each(function () {
-      jQuery(this).data("tobago-select").hide();
-    });
-    listbox.children("option:selected").each(function () {
-      jQuery(this).data("tobago-select").show();
-    });
-    TreeListbox.setSelected(listbox);
+      // add on change on all select tag, all options that are not selected hide there dedicated
+      // select tag, and the selected option show its dedicated select tag.
+      if (!listbox.disabled) {
+        listbox.addEventListener("change", this.onChange.bind(this));
+      }
+    }
+  }
+
+  onChange(event: TextEvent) {
+    let listbox = <HTMLSelectElement>event.currentTarget;
+    for (const child of listbox.children) {
+      const option = <HTMLOptionElement>child;
+      if (option.tagName === "OPTION") {
+        if (option.selected) {
+          this.setSelected(option);
+          let select = <HTMLSelectElement>document.getElementById(option.id + DomUtils.SUB_COMPONENT_SEP + "parent");
+          if (!select) {
+            select = <HTMLSelectElement>listbox.parentElement.nextElementSibling.children[0]; // dummy
+          }
+          select.classList.remove("d-none");
+          for (const sibling of listbox.parentElement.nextElementSibling.children) {
+            if (sibling === select) {
+              (<HTMLElement>sibling).classList.remove("d-none");
+            } else {
+              (<HTMLElement>sibling).classList.add("d-none");
+            }
+          }
+        }
+      }
+    }
 
     // Deeper level (2nd and later) should only show the empty select tag.
     // The first child is the empty selection.
-    listbox.parent().nextAll(":not(:first)").each(function () {
-      jQuery(this).children(":not(:first)").hide();
-      jQuery(this).children(":first").show();
-    });
 
-  };
-
-  static setSelected = function (listbox) {
-    var hidden = listbox.closest(".tobago-treeListbox").children("[data-tobago-selection-mode]");
-    if (hidden.length == 1) {
-      var selectedValue = ";";
-      listbox.children("option:selected").each(function () {
-        selectedValue += jQuery(this).attr("id") + ";";
-      });
-      hidden.val(selectedValue);
+    let next = listbox.parentElement.nextElementSibling;
+    if (next) {
+      for (next = next.nextElementSibling; next; next = next.nextElementSibling) {
+        for (const child of next.children) {
+          const select = <HTMLSelectElement>child;
+          if (select.previousElementSibling) { // is not the first
+            select.classList.add("d-none");
+          } else { // is the first
+            select.classList.remove("d-none");
+          }
+        }
+      }
     }
-  };
+  }
+
+  setSelected(option: HTMLOptionElement) {
+    const hidden = <HTMLInputElement>document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "selected");
+    if (hidden) {
+      let value = <number[]>JSON.parse(hidden.value);
+      value = []; // todo: multi-select
+      value.push(parseInt(option.dataset["tobagoRowIndex"]));
+      hidden.value = JSON.stringify(value);
+    }
+  }
 }
 
 Listener.register(TreeListbox.init, Phase.DOCUMENT_READY);

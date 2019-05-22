@@ -32,10 +32,27 @@ public class SelectedState implements Serializable {
   private Set<TreePath> selectedPaths = new HashSet<>();
 
   /**
-   * Checks if the given is selected.
+   * Checks if the given path is selected.
    */
   public boolean isSelected(final TreePath path) {
     return selectedPaths.contains(path);
+  }
+
+  /**
+   * Checks if the given path is an ancestor of a selected node.
+   */
+  public boolean isAncestorOfSelected(final TreePath ancestorPath) {
+    if (ancestorPath.isRoot()) {
+      return !selectedPaths.isEmpty();
+    }
+    for (TreePath selectedPath : selectedPaths) {
+      for (TreePath p = selectedPath; !p.isRoot(); p = p.getParent()) {
+        if (p.equals(ancestorPath)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   /**
@@ -53,8 +70,7 @@ public class SelectedState implements Serializable {
   }
 
   /**
-   * Set the selected path and remove all prior selections.
-   * This is useful for "single selection" mode.
+   * Set the selected path and remove all prior selections. This is useful for "single selection" mode.
    */
   public void clearAndSelect(final TreePath path) {
     clear();
@@ -77,5 +93,10 @@ public class SelectedState implements Serializable {
     } else {
       unselect(path);
     }
+  }
+
+  @Override
+  public String toString() {
+    return selectedPaths.toString();
   }
 }

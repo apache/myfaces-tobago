@@ -34,14 +34,14 @@ class Sheet {
   mousemoveData: any;
   mousedownOnRowData: any;
 
-  static init = function (element: HTMLElement) {
+  static init(element: HTMLElement) {
     console.time("[tobago-sheet] init");
     for (const sheetElement of DomUtils.selfOrElementsByClassName(element, "tobago-sheet")) {
       const sheet = new Sheet(sheetElement);
       Sheet.SHEETS.set(sheet.id, sheet);
     }
     console.timeEnd("[tobago-sheet] init");
-  };
+  }
 
   private static getScrollBarSize() {
     const body = document.getElementsByTagName("body").item(0);

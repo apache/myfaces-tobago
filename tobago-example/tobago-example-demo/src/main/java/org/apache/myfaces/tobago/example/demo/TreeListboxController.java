@@ -19,51 +19,53 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.model.Selectable;
+import org.apache.myfaces.tobago.model.TreePath;
+import org.apache.myfaces.tobago.model.TreeState;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 
 @SessionScoped
 @Named
-public class TreeSelectController implements Serializable {
+public class TreeListboxController implements Serializable {
 
-  private static final Selectable[] TREE_SELECT_MODE_KEYS = {
-    Selectable.none,
-    Selectable.single,
-    Selectable.singleLeafOnly,
-    Selectable.multi,
-    Selectable.multiLeafOnly,
-    Selectable.multiCascade
-  };
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private DefaultMutableTreeNode sample;
-  private String selectable = "multi";
 
-  public TreeSelectController() {
+  private TreeState state;
+
+  public TreeListboxController() {
     sample = CategoryTree.createSample();
+    state = new TreeState();
+    state.getSelectedState().select(new TreePath(2, 2)); // world music
   }
 
-  public Selectable[] getSelectModes() {
-    return TREE_SELECT_MODE_KEYS;
+  public String submit() {
+    LOG.info("Selected: {}", state.getSelectedState());
+    return FacesContext.getCurrentInstance().getViewRoot().getViewId();
   }
 
   public DefaultMutableTreeNode getSample() {
     return sample;
   }
 
-  public String getSelectable() {
-    return selectable;
+  public TreeState getState() {
+    return state;
   }
 
-  public void setSelectable(final String selectable) {
-    this.selectable = selectable;
-    TreeUtils.resetSelection(sample);
+  public void setState(TreeState state) {
+    this.state = state;
   }
 
-  public String getSelectedNodes() {
-    return TreeUtils.getSelectedNodes(sample);
-  }
+//  public String getSelectedNodes() {
+//    return TreeUtils.getSelectedNodes(sample);
+//  }
+
 }

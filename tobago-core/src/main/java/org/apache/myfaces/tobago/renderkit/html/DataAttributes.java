@@ -147,7 +147,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   ROW_ACTION("data-tobago-row-action"),
 
   /*
-   * Holds the index of the row in a sheet, if the sheed has a rowRendered attribute.
+   * Holds the index of the row in a sheet, if the sheet has a rowRendered attribute.
    */
   ROW_INDEX("data-tobago-row-index"),
 

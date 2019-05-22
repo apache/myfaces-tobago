@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeLabel;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
@@ -27,6 +28,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeSelect;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -42,7 +44,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.apache.myfaces.tobago.util.ComponentUtils.SUB_SEPARATOR;
+
 public class TreeListboxRenderer extends RendererBase {
+
+  @Override
+  public void decode(final FacesContext facesContext, final UIComponent component) {
+    final AbstractUITree tree = (AbstractUITree) component;
+    RenderUtils.decodedStateOfTreeData(facesContext, tree);
+  }
 
   @Override
   public void encodeChildren(final FacesContext context, final UIComponent component) throws IOException {
@@ -56,46 +66,22 @@ public class TreeListboxRenderer extends RendererBase {
     final AbstractUITreeListbox tree = (AbstractUITreeListbox) component;
     final String clientId = tree.getClientId(facesContext);
     final Markup markup = tree.getMarkup();
-    //    final Style scrollDivStyle = new Style();
 
     writer.startElement(HtmlElements.DIV);
-//    scrollDivStyle.setWidth(Measure.valueOf(6 * 160)); // todo: depth * width of a select
-//    scrollDivStyle.setHeight(style.getHeight() // todo: what, when there is no scrollbar?
-//        .subtract(15)); // todo: scrollbar height
-//    scrollDivStyle.setPosition(Position.ABSOLUTE);
-//    writer.writeStyleAttribute(scrollDivStyle);
-
-    writer.startElement(HtmlElements.DIV);
-    // todo: the id must be in this DIV
+    writer.writeIdAttribute(clientId);
     writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     writer.writeClassAttribute(
         TobagoClass.TREE_LISTBOX,
         TobagoClass.TREE_LISTBOX.createMarkup(markup));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);
+    writer.writeAttribute(DataAttributes.SELECTION_MODE, tree.getSelectable().name(), false);
 
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-    writer.writeNameAttribute(clientId);
-    writer.writeIdAttribute(clientId);
-    writer.writeAttribute(HtmlAttributes.VALUE, ";", false);
+    writer.writeNameAttribute(clientId + SUB_SEPARATOR + AbstractUIData.SUFFIX_SELECTED);
+    writer.writeIdAttribute(clientId + SUB_SEPARATOR + AbstractUIData.SUFFIX_SELECTED);
+    writer.writeAttribute(HtmlAttributes.VALUE, JsonUtils.encodeEmptyArray(), false);
     writer.endElement(HtmlElements.INPUT);
-
-    writer.startElement(HtmlElements.INPUT);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED);
-    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED);
-    writer.writeAttribute(HtmlAttributes.VALUE, "", false);
-    writer.endElement(HtmlElements.INPUT);
-
-    if (tree.getSelectable().isSupportedByTreeListbox()) {
-      writer.startElement(HtmlElements.INPUT);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-      writer.writeNameAttribute(clientId + AbstractUITree.SELECT_STATE);
-      writer.writeIdAttribute(clientId + AbstractUITree.SELECT_STATE);
-      writer.writeAttribute(HtmlAttributes.VALUE, ";", false);
-      writer.writeAttribute(DataAttributes.SELECTION_MODE, tree.getSelectable().name(), false);
-      writer.endElement(HtmlElements.INPUT);
-    }
 
     List<Integer> thisLevel = new ArrayList<>();
     thisLevel.add(0);
@@ -126,7 +112,7 @@ public class TreeListboxRenderer extends RendererBase {
         writer.endElement(HtmlElements.SELECT);
       }
 
-      for(final Integer rowIndex : thisLevel) {
+      for (final Integer rowIndex : thisLevel) {
         encodeSelectBox(facesContext, tree, writer, rowIndex, nextLevel, size);
       }
 
@@ -138,7 +124,6 @@ public class TreeListboxRenderer extends RendererBase {
       writer.endElement(HtmlElements.DIV);
     }
 
-    writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
 
     tree.setRowIndex(-1);
@@ -156,9 +141,7 @@ public class TreeListboxRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.SELECT);
     writer.writeClassAttribute(TobagoClass.TREE_LISTBOX__SELECT);
-    if (parentId != null) {
-      writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
-    }
+    writer.writeIdAttribute(parentId + SUB_SEPARATOR + AbstractUITree.SUFFIX_PARENT);
 
     writer.writeAttribute(HtmlAttributes.SIZE, size);
 //    writer.writeAttribute(HtmlAttributes.MULTIPLE, siblingMode);

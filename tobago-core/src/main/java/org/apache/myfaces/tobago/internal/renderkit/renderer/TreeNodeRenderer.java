@@ -30,6 +30,8 @@ import org.apache.myfaces.tobago.internal.component.AbstractUITreeSelect;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.model.Selectable;
+import org.apache.myfaces.tobago.model.SelectedState;
+import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -68,12 +70,13 @@ public class TreeNodeRenderer extends RendererBase {
       final String clientId = data.getClientId(facesContext);
       final String nodeStateId = node.nodeStateId(facesContext);
       final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
-      final String id = node.getClientId(facesContext);
+      final String nodeId = node.getClientId(facesContext);
       final boolean folder = node.isFolder();
 
       // expand state
       if (folder) {
-        final boolean expanded = Boolean.parseBoolean(requestParameterMap.get(id + "-expanded"));
+        final boolean expanded = Boolean.parseBoolean(requestParameterMap.get(
+            nodeId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_EXPANDED));
 /* XXX check
       if (node.isExpanded() != expanded) {
         new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
@@ -83,7 +86,12 @@ public class TreeNodeRenderer extends RendererBase {
 
       // select
       if (data.getSelectable() != Selectable.none) { // selection
-        final String selected = requestParameterMap.get(clientId + AbstractUITree.SELECT_STATE);
+         String selected = requestParameterMap.get(
+            clientId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_SELECTED);
+// todo        JsonUtils.decodeIntegerArray()StringArray()
+        selected = selected.replaceAll("\\[", ";");
+        selected = selected.replaceAll("]", ";");
+        selected = selected.replaceAll(",", ";");
         final String searchString = ";" + node.getClientId(facesContext) + ";";
         final AbstractUITreeSelect treeSelect = ComponentUtils.findDescendant(node, AbstractUITreeSelect.class);
         if (treeSelect != null) {
@@ -120,12 +128,14 @@ public class TreeNodeRenderer extends RendererBase {
     final boolean visible = data.isRowVisible();
     final boolean folder = node.isFolder();
     Markup markup = Markup.NULL;
-    if (data instanceof AbstractUITree && data.getSelectedState().isSelected(node.getPath())) {
+    final TreePath path = node.getPath();
+    final SelectedState selectedState = data.getSelectedState();
+    if (data instanceof AbstractUITree && selectedState.isSelected(path)) {
       markup = markup.add(Markup.SELECTED);
     }
     if (folder) {
       markup = markup.add(Markup.FOLDER);
-      if (data.getExpandedState().isExpanded(node.getPath())) {
+      if (data.getExpandedState().isExpanded(path)) {
         markup = markup.add(Markup.EXPANDED);
       }
     }
@@ -139,7 +149,8 @@ public class TreeNodeRenderer extends RendererBase {
       writer.writeAttribute(HtmlAttributes.VALUE, clientId, true);
       writer.writeIdAttribute(clientId);
       writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
-      writer.writeAttribute(HtmlAttributes.SELECTED, folder);
+      writer.writeAttribute(HtmlAttributes.SELECTED, selectedState.isAncestorOfSelected(path));
+      writer.writeAttribute(DataAttributes.ROW_INDEX, data.getRowIndex());
     } else {
       writer.startElement(HtmlElements.DIV);
 
@@ -157,6 +168,9 @@ public class TreeNodeRenderer extends RendererBase {
           node.getCustomClass());
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, node);
       if (parentId != null) {
+        // TODO: replace with
+        // todo writer.writeIdAttribute(parentId + SUB_SEPARATOR + AbstractUITree.SUFFIX_PARENT);
+        // todo like in TreeListboxRenderer
         writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
       }
       writer.writeAttribute(DataAttributes.LEVEL, data.isShowRoot() ? node.getLevel() : node.getLevel() - 1);

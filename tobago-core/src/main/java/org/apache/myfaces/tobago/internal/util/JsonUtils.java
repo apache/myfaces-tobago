@@ -362,4 +362,8 @@ public class JsonUtils {
     builder.append(']');
     return builder.toString();
   }
+
+  public static String encodeEmptyArray() {
+    return "[]";
+  }
 }

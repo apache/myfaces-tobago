@@ -37,23 +37,7 @@ import javax.faces.context.FacesContext;
  */
 public abstract class AbstractUITree extends AbstractUIData implements NamingContainer, Visual {
 
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public static final String SEP = "-";
-
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public static final String SELECT_STATE = SEP + "selectState";
-
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public static final String MARKED = "marked";
+  public static final String SUFFIX_PARENT = "parent";
 
   private TreeState state;
 
@@ -85,20 +69,6 @@ public abstract class AbstractUITree extends AbstractUIData implements NamingCon
       }
     }
     setRowIndex(-1);
-  }
-
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
-  public UIComponent getRoot() {
-    // find the UITreeNode in the children.
-    for (final UIComponent child : getChildren()) {
-      if (child instanceof AbstractUITreeNodeBase) {
-        return child;
-      }
-    }
-    return null;
   }
 
   @Override
