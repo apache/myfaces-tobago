@@ -22,6 +22,9 @@ QUnit.test("On click with ajax", function (assert) {
   var saturnFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:6\\:sample0");
   var namefieldFn = jQueryFrameFn("#page\\:mainForm\\:name\\:\\:field");
 
+  // ensure: the radio button is not checked
+  oneClickAjaxFn().prop("checked", false);
+
   var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     oneClickAjaxFn().click();
