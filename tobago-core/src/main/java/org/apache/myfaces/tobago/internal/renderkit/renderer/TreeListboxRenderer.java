@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeLabel;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
@@ -27,6 +28,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeSelect;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -43,6 +45,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TreeListboxRenderer extends RendererBase {
+
+  @Override
+  public void decode(final FacesContext facesContext, final UIComponent component) {
+    final AbstractUITree tree = (AbstractUITree) component;
+    RenderUtils.decodedStateOfTreeData(facesContext, tree);
+  }
 
   @Override
   public void encodeChildren(final FacesContext context, final UIComponent component) throws IOException {
@@ -90,8 +98,8 @@ public class TreeListboxRenderer extends RendererBase {
     if (tree.getSelectable().isSupportedByTreeListbox()) {
       writer.startElement(HtmlElements.INPUT);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-      writer.writeNameAttribute(clientId + AbstractUITree.SELECT_STATE);
-      writer.writeIdAttribute(clientId + AbstractUITree.SELECT_STATE);
+      writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_SELECTED);
+      writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_SELECTED);
       writer.writeAttribute(HtmlAttributes.VALUE, ";", false);
       writer.writeAttribute(DataAttributes.SELECTION_MODE, tree.getSelectable().name(), false);
       writer.endElement(HtmlElements.INPUT);

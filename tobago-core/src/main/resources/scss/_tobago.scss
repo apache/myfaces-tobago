@@ -1485,9 +1485,6 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 .tobago-tree-expanded,
 .tobago-tree-selected,
 .tobago-treeLabel,
-.tobago-treeListbox,
-.tobago-treeListbox-level,
-.tobago-treeListbox-select,
 .tobago-treeSelect,
 .tobago-treeSelect-label {
 }
@@ -1517,6 +1514,19 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   .tobago-treeNode[data-tobago-level='#{$i}'] {
     margin-left: #{$i}rem;
   }
+}
+
+/* treeListbox ---------------------------------------------------------------------- */
+.tobago-treeListbox {
+}
+
+.tobago-treeListbox-level {
+  display: inline-block;
+  min-width: 10rem;
+}
+
+.tobago-treeListbox-select {
+  width: 100%;
 }
 
 /* textarea --------------------------------------------------------- */
