@@ -84,6 +84,7 @@
                   <includes>
                     <include>js/*.js</include>
                     <include>ts/*.ts</include>
+                    <include>jest.config.js</include>
                     <include>package.json</include>
                     <include>package-lock.json</include>
                     <include>postcss.config.js</include>
@@ -244,7 +245,16 @@
               <arguments>run css</arguments>
             </configuration>
           </execution>
-
+          <execution>
+            <id>step #5a: test</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <arguments>run test</arguments>
+            </configuration>
+          </execution>
           <execution>
             <id>step #5b: ts-compile</id>
             <goals>

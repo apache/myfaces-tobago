@@ -15,11 +15,6 @@
  * limitations under the License.
  */
 
-// XXX remove me
-function es6test() {
-  [1, 2, 3, 4].map((n) => n + 1);
-}
-
 // XXX regexp example only - blueprint
 namespace Tobago {
 
@@ -56,5 +51,4 @@ namespace Tobago {
 
   Listener.register(RegExpTest.init, Phase.DOCUMENT_READY);
   Listener.register(RegExpTest.init, Phase.AFTER_UPDATE);
-
 }
