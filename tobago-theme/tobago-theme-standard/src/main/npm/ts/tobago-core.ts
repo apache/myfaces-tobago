@@ -352,8 +352,6 @@ var Tobago4:any = {
 
 };
 
-Tobago4.initBrowser();
-
 jQuery(document).ready(function() {
   Tobago4.init();
 });
