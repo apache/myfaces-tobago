@@ -57,13 +57,6 @@ Tobago4.Sheet.init = function(element:HTMLElement) {
         dblclick !== undefined ? dblclick.action : undefined,
         dblclick !== undefined ? dblclick.partially: undefined, // fixme: partially no longer used
         $sheet.data("tobago-behavior-commands")); // type array
-
-    //////////////////////////////////////////////
-    // XXX bugfix for IE11 (lower than IE11 isn't supported for that feature)
-    // if a max-height is set on the sheet,
-    if (Tobago4.browser.isMsie && $sheet.css("max-height") !== "none") {
-      $sheet.css("height", $sheet.css("height")); // reset the height to the same value
-    }
   });
 
   Tobago4.Sheet.setup2(sheets);

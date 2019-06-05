@@ -51,21 +51,6 @@ var Tobago4:any = {
 
   jsObjects: [],
 
-  /**
-   * Check browser types and versions.
-   * Please try to use jQuery.support instead of this object!
-   */
-  browser: {
-    isMsie: false,
-    isMsie6: false,
-    isMsie67: false,
-    isMsie678: false,
-    isMsie6789: false,
-    isMsie678910: false,
-    isGecko: false,
-    isWebkit: false
-  },
-
   isSubmit: false,
 
   initMarker: false,
@@ -363,38 +348,6 @@ var Tobago4:any = {
       }
     }
     return result;
-  },
-
-  initBrowser: function() {
-    var ua = navigator.userAgent;
-    if (ua.indexOf("MSIE") > -1 || ua.indexOf("Trident") > -1) {
-      Tobago4.browser.isMsie = true;
-      if (ua.indexOf("MSIE 6") > -1) {
-        Tobago4.browser.isMsie6 = true;
-        Tobago4.browser.isMsie67 = true;
-        Tobago4.browser.isMsie678 = true;
-        Tobago4.browser.isMsie6789 = true;
-        Tobago4.browser.isMsie678910 = true;
-      } else if (ua.indexOf("MSIE 7") > -1) {
-        Tobago4.browser.isMsie67 = true;
-        Tobago4.browser.isMsie678 = true;
-        Tobago4.browser.isMsie6789 = true;
-        Tobago4.browser.isMsie678910 = true;
-      } else if (ua.indexOf("MSIE 8") > -1) {
-        Tobago4.browser.isMsie678 = true;
-        Tobago4.browser.isMsie6789 = true;
-        Tobago4.browser.isMsie678910 = true;
-      } else if (ua.indexOf("MSIE 9") > -1) {
-        Tobago4.browser.isMsie6789 = true;
-        Tobago4.browser.isMsie678910 = true;
-      } else if (ua.indexOf("MSIE 10") > -1) {
-        Tobago4.browser.isMsie678910 = true;
-      }
-    } else if (ua.indexOf("AppleWebKit") > -1) {
-      Tobago4.browser.isWebkit = true;
-    } else if (ua.indexOf("Gecko") > -1) {
-      Tobago4.browser.isGecko = true;
-    }
   },
 
 };
