@@ -15,16 +15,17 @@
  * limitations under the License.
  */
 
-namespace Tobago {
+import {Listener, Phase} from "./tobago-listener";
+import {DomUtils} from "./tobago-utils";
 
-  class SplitLayout {
+class SplitLayout {
 
     private readonly element: HTMLDivElement;
     private readonly horizontal: boolean;
     private offset: number;
 
     static init = function (element: HTMLElement): void {
-      for (const splitLayout of element.tobagoSelfOrElementsByClassName("tobago-splitLayout")) {
+      for (const splitLayout of DomUtils.selfOrElementsByClassName(element, "tobago-splitLayout")) {
         new SplitLayout(<HTMLDivElement>splitLayout);
       }
     };
@@ -46,7 +47,7 @@ namespace Tobago {
     start(event: MouseEvent) {
       event.preventDefault();
       const splitter = <HTMLElement>event.target;
-      const previous = splitter.tobagoPreviousElementSibling();
+      const previous = DomUtils.previousElementSibling(splitter);
       this.offset = this.horizontal ? event.pageX - previous.offsetWidth : event.pageY - previous.offsetHeight;
       const mousedown = SplitLayoutMousedown.save(event, splitter);
       document.addEventListener("mousemove", this.move.bind(this));
@@ -104,27 +105,27 @@ namespace Tobago {
     }
 
     get previous(): HTMLElement {
-      return this.splitter.tobagoPreviousElementSibling();
+      return DomUtils.previousElementSibling(this.splitter);
     }
 
     static save(event: MouseEvent, splitter: HTMLElement): SplitLayoutMousedown {
       const horizontal = splitter.classList.contains("tobago-splitLayout-horizontal");
-      const previous = splitter.tobagoPreviousElementSibling();
+      const previous = DomUtils.previousElementSibling(splitter);
       const data: SplitLayoutMousedownData = {
         splitLayoutId: splitter.parentElement.id,
         horizontal: horizontal,
         splitterIndex: this.indexOfSplitter(splitter, horizontal)
       };
-      document.tobagoPage().dataset["SplitLayoutMousedownData"] = JSON.stringify(data);
+      DomUtils.page().dataset["SplitLayoutMousedownData"] = JSON.stringify(data);
       return new SplitLayoutMousedown(data);
     }
 
     static load() {
-      return new SplitLayoutMousedown(document.tobagoPage().dataset["SplitLayoutMousedownData"]);
+      return new SplitLayoutMousedown(DomUtils.page().dataset["SplitLayoutMousedownData"]);
     }
 
     static remove() {
-      return document.tobagoPage().dataset["SplitLayoutMousedownData"] = null;
+      return DomUtils.page().dataset["SplitLayoutMousedownData"] = null;
     }
 
     private static indexOfSplitter(splitter: HTMLElement, horizontal: boolean): number {
@@ -142,4 +143,3 @@ namespace Tobago {
 
   Listener.register(SplitLayout.init, Phase.DOCUMENT_READY);
   Listener.register(SplitLayout.init, Phase.AFTER_UPDATE);
-}

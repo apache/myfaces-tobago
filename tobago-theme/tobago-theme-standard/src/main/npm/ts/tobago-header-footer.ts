@@ -15,73 +15,73 @@
  * limitations under the License.
  */
 
-namespace Tobago {
+import {Listener, Phase} from "./tobago-listener";
+import {DomUtils} from "./tobago-utils";
 
-  class HeaderFooter {
+class HeaderFooter {
 
-    static init = function (element: HTMLElement): void {
+  static init = function (element: HTMLElement): void {
 
-      // fixing fixed header/footer: content should not scroll behind the footer
+    // fixing fixed header/footer: content should not scroll behind the footer
 
-      const body = element.tobagoSelfOrQuerySelectorAll("body")[0];
-      const headers = element.tobagoSelfOrQuerySelectorAll(".fixed-top");
-      const footers = element.tobagoSelfOrQuerySelectorAll(".fixed-bottom");
+    const body = DomUtils.selfOrQuerySelectorAll(element, "body")[0];
+    const headers = DomUtils.selfOrQuerySelectorAll(element, ".fixed-top");
+    const footers = DomUtils.selfOrQuerySelectorAll(element, ".fixed-bottom");
 
-      setMargins(body, headers, footers);
+    setMargins(body, headers, footers);
 
-      let lastMaxHeaderHeight = 0;
-      let lastMaxFooterHeight = 0;
+    let lastMaxHeaderHeight = 0;
+    let lastMaxFooterHeight = 0;
 
-      window.addEventListener("resize", function (): void {
-        const maxHeaderHeight: number = HeaderFooter.getMaxHeaderHeight(headers);
-        const maxFooterHeight: number = HeaderFooter.getMaxFooterHeight(footers);
+    window.addEventListener("resize", function (): void {
+      const maxHeaderHeight: number = HeaderFooter.getMaxHeaderHeight(headers);
+      const maxFooterHeight: number = HeaderFooter.getMaxFooterHeight(footers);
 
-        if (maxHeaderHeight !== lastMaxHeaderHeight
-            || maxFooterHeight !== lastMaxFooterHeight) {
-          setMargins(body, headers, footers);
+      if (maxHeaderHeight !== lastMaxHeaderHeight
+          || maxFooterHeight !== lastMaxFooterHeight) {
+        setMargins(body, headers, footers);
 
-          lastMaxHeaderHeight = maxHeaderHeight;
-          lastMaxFooterHeight = maxFooterHeight;
-        }
-      });
-
-      function setMargins(body: HTMLElement, headers: HTMLElement[], footers: HTMLElement[]): void {
-        const maxHeaderHeight = HeaderFooter.getMaxHeaderHeight(headers);
-        const maxFooterHeight = HeaderFooter.getMaxFooterHeight(footers);
-
-        if (maxHeaderHeight > 0) {
-          body.style.marginTop = maxHeaderHeight + "px";
-        }
-        if (maxFooterHeight > 0) {
-          body.style.marginBottom = maxFooterHeight + "px";
-        }
+        lastMaxHeaderHeight = maxHeaderHeight;
+        lastMaxFooterHeight = maxFooterHeight;
       }
-    };
+    });
 
-    static getMaxHeaderHeight = function (headers: HTMLElement[]): number {
-      let maxHeaderHeight = 0;
-      headers.forEach(function (element: HTMLElement): void {
-        const height = element.outerHeightWithMargin();
-        if (height > maxHeaderHeight) {
-          maxHeaderHeight = height;
-        }
-      });
-      return maxHeaderHeight;
-    };
+    function setMargins(body: HTMLElement, headers: HTMLElement[], footers: HTMLElement[]): void {
+      const maxHeaderHeight = HeaderFooter.getMaxHeaderHeight(headers);
+      const maxFooterHeight = HeaderFooter.getMaxFooterHeight(footers);
 
-    static getMaxFooterHeight = function (footers: HTMLElement[]): number {
-      let maxFooterHeight = 0;
-      footers.forEach(function (element: HTMLElement): void {
-        const height = element.outerHeightWithMargin();
-        if (height > maxFooterHeight) {
-          maxFooterHeight = height;
-        }
-      });
-      return maxFooterHeight;
-    };
+      if (maxHeaderHeight > 0) {
+        body.style.marginTop = maxHeaderHeight + "px";
+      }
+      if (maxFooterHeight > 0) {
+        body.style.marginBottom = maxFooterHeight + "px";
+      }
+    }
+  };
 
-  }
+  static getMaxHeaderHeight = function (headers: HTMLElement[]): number {
+    let maxHeaderHeight = 0;
+    headers.forEach(function (element: HTMLElement): void {
+      const height = DomUtils.outerHeightWithMargin(element);
+      if (height > maxHeaderHeight) {
+        maxHeaderHeight = height;
+      }
+    });
+    return maxHeaderHeight;
+  };
 
-  Listener.register(HeaderFooter.init, Phase.DOCUMENT_READY);
-  Listener.register(HeaderFooter.init, Phase.AFTER_UPDATE);
+  static getMaxFooterHeight = function (footers: HTMLElement[]): number {
+    let maxFooterHeight = 0;
+    footers.forEach(function (element: HTMLElement): void {
+      const height = DomUtils.outerHeightWithMargin(element);
+      if (height > maxFooterHeight) {
+        maxFooterHeight = height;
+      }
+    });
+    return maxFooterHeight;
+  };
+
 }
+
+Listener.register(HeaderFooter.init, Phase.DOCUMENT_READY);
+Listener.register(HeaderFooter.init, Phase.AFTER_UPDATE);

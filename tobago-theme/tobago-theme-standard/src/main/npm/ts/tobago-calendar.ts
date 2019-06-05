@@ -15,165 +15,167 @@
  * limitations under the License.
  */
 
-Tobago4.DateTime = {};
+import {Listener, Phase} from "./tobago-listener";
+import {Tobago4Utils} from "./tobago-utils";
 
-Tobago4.DateTime.init = function (elements) {
-  elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-  Tobago4.Utils.selectWithJQuery(elements, ".tobago-date")
-      .not("[disabled]")
-      .not("[readonly]")
-      .each(function () {
-        var $date = jQuery(this);
+class DateTime {
 
-        var analyzed = Tobago4.DateTime.analyzePattern($date.data("tobago-pattern"));
-        var options = {
-          format: analyzed,
-          showTodayButton: $date.data("tobago-today-button") === "data-tobago-today-button",
-          icons: {
-            time: 'fa fa-clock-o',
-            date: 'fa fa-calendar',
-            up: 'fa fa-chevron-up',
-            down: 'fa fa-chevron-down',
-            previous: 'fa fa-chevron-left',
-            next: 'fa fa-chevron-right',
-            today: 'fa fa-calendar-check-o',
-            clear: 'fa fa-trash',
-            close: 'fa fa-times'
-          },
-          keyBinds: {
-            enter: function () {
-              $date.trigger(jQuery.Event("keypress", {
-                which: 13,
-                target: $date[0]
-              }));
+  static init(elements) {
+    elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
+    Tobago4Utils.selectWithJQuery(elements, ".tobago-date")
+        .not("[disabled]")
+        .not("[readonly]")
+        .each(function () {
+          var $date = jQuery(this);
+
+          var analyzed = DateTime.analyzePattern($date.data("tobago-pattern"));
+          var options = {
+            format: analyzed,
+            showTodayButton: $date.data("tobago-today-button") === "data-tobago-today-button",
+            icons: {
+              time: 'fa fa-clock-o',
+              date: 'fa fa-calendar',
+              up: 'fa fa-chevron-up',
+              down: 'fa fa-chevron-down',
+              previous: 'fa fa-chevron-left',
+              next: 'fa fa-chevron-right',
+              today: 'fa fa-calendar-check-o',
+              clear: 'fa fa-trash',
+              close: 'fa fa-times'
+            },
+            keyBinds: {
+              enter: function () {
+                $date.trigger(jQuery.Event("keypress", {
+                  which: 13,
+                  target: $date[0]
+                }));
+              }
+            },
+            widgetParent: '.tobago-page-menuStore'
+          };
+
+          var i18n = $date.data("tobago-date-time-i18n");
+          if (i18n) {
+            var monthNames = i18n.monthNames;
+            if (monthNames) {
+              moment.localeData()._months = monthNames;
             }
-          },
-          widgetParent: '.tobago-page-menuStore'
-        };
-
-        var i18n = $date.data("tobago-date-time-i18n");
-        if (i18n) {
-          var monthNames = i18n.monthNames;
-          if (monthNames) {
-            moment.localeData()._months = monthNames;
-          }
-          var monthNamesShort = i18n.monthNamesShort;
-          if (monthNamesShort) {
-            moment.localeData()._monthsShort = monthNamesShort;
-          }
-          var dayNames = i18n.dayNames;
-          if (dayNames) {
-            moment.localeData()._weekdays = dayNames;
-          }
-          var dayNamesShort = i18n.dayNamesShort;
-          if (dayNamesShort) {
-            moment.localeData()._weekdaysShort = dayNamesShort;
-          }
-          var dayNamesMin = i18n.dayNamesMin;
-          if (dayNamesMin) {
-            moment.localeData()._weekdaysMin = dayNamesMin;
-          }
-          var firstDay = i18n.firstDay;
-          if (firstDay) {
-            moment.localeData()._week.dow = firstDay;
-          }
-        }
-
-        $date.parent().datetimepicker(options);
-
-        // we need to add the change listener here, because
-        // in line 1307 of bootstrap-datetimepicker.js
-        // the 'stopImmediatePropagation()' stops the change-event
-        // execution of line 686 in tobago.js
-        $date.parent().on('dp.change', function (event) {
-          var commands = jQuery(this).find("input").data("tobago-commands");
-          if (commands && commands.change) {
-            if (commands.change.execute || commands.change.render) {
-              jsf.ajax.request(
-                  jQuery(this).find("input").attr("name"),
-                  event,
-                  {
-                    "javax.faces.behavior.event": "change",
-                    execute: commands.change.execute,
-                    render: commands.change.render
-                  });
-            } else if (commands.change.action) {
-              Tobago4.submitAction(this.firstElementChild, commands.change.action, commands.change);
+            var monthNamesShort = i18n.monthNamesShort;
+            if (monthNamesShort) {
+              moment.localeData()._monthsShort = monthNamesShort;
+            }
+            var dayNames = i18n.dayNames;
+            if (dayNames) {
+              moment.localeData()._weekdays = dayNames;
+            }
+            var dayNamesShort = i18n.dayNamesShort;
+            if (dayNamesShort) {
+              moment.localeData()._weekdaysShort = dayNamesShort;
+            }
+            var dayNamesMin = i18n.dayNamesMin;
+            if (dayNamesMin) {
+              moment.localeData()._weekdaysMin = dayNamesMin;
+            }
+            var firstDay = i18n.firstDay;
+            if (firstDay) {
+              moment.localeData()._week.dow = firstDay;
             }
           }
-        });
 
-        // set position
-        $date.parent().on('dp.show', function () {
-          var datepicker = jQuery('.bootstrap-datetimepicker-widget');
-          var $div = jQuery(this);
-          var top, left;
-          if (datepicker.hasClass('bottom')) {
-            top = $div.offset().top + $div.outerHeight();
-            left = $div.offset().left;
-            datepicker.css({
-              'top': top + 'px',
-              'bottom': 'auto',
-              'left': left + 'px'
+          $date.parent().datetimepicker(options);
+
+          // we need to add the change listener here, because
+          // in line 1307 of bootstrap-datetimepicker.js
+          // the 'stopImmediatePropagation()' stops the change-event
+          // execution of line 686 in tobago.js
+          $date.parent().on('dp.change', function (event) {
+            var commands = jQuery(this).find("input").data("tobago-commands");
+            if (commands && commands.change) {
+              if (commands.change.execute || commands.change.render) {
+                jsf.ajax.request(
+                    jQuery(this).find("input").attr("name"),
+                    event,
+                    {
+                      "javax.faces.behavior.event": "change",
+                      execute: commands.change.execute,
+                      render: commands.change.render
+                    });
+              } else if (commands.change.action) {
+                Tobago4.submitAction(this.firstElementChild, commands.change.action, commands.change);
+              }
+            }
+          });
+
+          // set position
+          $date.parent().on('dp.show', function () {
+            var datepicker = jQuery('.bootstrap-datetimepicker-widget');
+            var $div = jQuery(this);
+            var top, left;
+            if (datepicker.hasClass('bottom')) {
+              top = $div.offset().top + $div.outerHeight();
+              left = $div.offset().left;
+              datepicker.css({
+                'top': top + 'px',
+                'bottom': 'auto',
+                'left': left + 'px'
+              });
+            } else if (datepicker.hasClass('top')) {
+              top = $div.offset().top - datepicker.outerHeight();
+              left = $div.offset().left;
+              datepicker.css({
+                'top': top + 'px',
+                'bottom': 'auto',
+                'left': left + 'px'
+              });
+            }
+            DateTime.addPastClass($date);
+          });
+
+          // set css class in update - like changing the month
+          $date.parent().on('dp.update', function () {
+            DateTime.addPastClass($date);
+          });
+
+          // fix for bootstrap-datetimepicker v4.17.45
+          $date.parent().on('dp.show', function () {
+            jQuery(".bootstrap-datetimepicker-widget .collapse.in").addClass("show");
+            jQuery(".bootstrap-datetimepicker-widget .picker-switch a").click(function () {
+              // the click is executed before togglePicker() function
+              var $datetimepicker = jQuery(".bootstrap-datetimepicker-widget");
+              $datetimepicker.find(".collapse.in").removeClass("in");
+              $datetimepicker.find(".collapse.show").addClass("in");
             });
-          }
-          else if (datepicker.hasClass('top')) {
-            top = $div.offset().top - datepicker.outerHeight();
-            left = $div.offset().left;
-            datepicker.css({
-              'top': top + 'px',
-              'bottom': 'auto',
-              'left': left + 'px'
-            });
-          }
-          Tobago4.DateTime.addPastClass($date);
-        });
-
-        // set css class in update - like changing the month
-        $date.parent().on('dp.update', function () {
-          Tobago4.DateTime.addPastClass($date);
-        });
-
-        // fix for bootstrap-datetimepicker v4.17.45
-        $date.parent().on('dp.show', function () {
-          jQuery(".bootstrap-datetimepicker-widget .collapse.in").addClass("show");
-          jQuery(".bootstrap-datetimepicker-widget .picker-switch a").click(function () {
-            // the click is executed before togglePicker() function
-            var $datetimepicker = jQuery(".bootstrap-datetimepicker-widget");
-            $datetimepicker.find(".collapse.in").removeClass("in");
-            $datetimepicker.find(".collapse.show").addClass("in");
           });
         });
-      });
-};
+  }
 
-Tobago4.DateTime.addPastClass = function ($date) {
-  var today = $date.data("tobago-today");
-  if (today.length === 10) {
-    var todayArray = today.split("-");
-    if (todayArray.length === 3) {
-      var year = todayArray[0];
-      var month = todayArray[1];
-      var day = todayArray[2];
-      var todayTimestamp = new Date(month + "/" + day + "/" + year).getTime();
+  static addPastClass($date) {
+    var today = $date.data("tobago-today");
+    if (today.length === 10) {
+      var todayArray = today.split("-");
+      if (todayArray.length === 3) {
+        var year = todayArray[0];
+        var month = todayArray[1];
+        var day = todayArray[2];
+        var todayTimestamp = new Date(month + "/" + day + "/" + year).getTime();
 
-      jQuery(".bootstrap-datetimepicker-widget .datepicker-days td.day[data-day]").each(function () {
-        var day = jQuery(this);
-        var currentTimestamp = new Date(day.attr('data-day')).getTime();
-        if (currentTimestamp < todayTimestamp) {
-          day.addClass('past');
-        }
-      });
+        jQuery(".bootstrap-datetimepicker-widget .datepicker-days td.day[data-day]").each(function () {
+          var day = jQuery(this);
+          var currentTimestamp = new Date(day.attr('data-day')).getTime();
+          if (currentTimestamp < todayTimestamp) {
+            day.addClass('past');
+          }
+        });
+      }
     }
   }
-};
 
 /*
  Get the pattern from the "Java world" (http://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html)
  and convert it to 'moment.js'.
  Attention: Not every pattern char is supported.
  */
-Tobago4.DateTime.analyzePattern = function (pattern) {
+static analyzePattern = function (pattern) {
 
   if (!pattern || pattern.length > 100) {
     console.warn("Pattern not supported: " + pattern);
@@ -187,7 +189,7 @@ Tobago4.DateTime.analyzePattern = function (pattern) {
     var currentChar = pattern.charAt(i);
     if (currentChar == "'" && escMode == false) {
       escMode = true;
-      analyzedPattern += Tobago4.DateTime.analyzePatternPart(nextSegment);
+      analyzedPattern += DateTime.analyzePatternPart(nextSegment);
       nextSegment = "";
     } else if (currentChar == "'" && pattern.charAt(i + 1) == "'") {
       if (escMode) {
@@ -210,14 +212,14 @@ Tobago4.DateTime.analyzePattern = function (pattern) {
     if (escMode) {
       analyzedPattern += nextSegment;
     } else {
-      analyzedPattern += Tobago4.DateTime.analyzePatternPart(nextSegment);
+      analyzedPattern += DateTime.analyzePatternPart(nextSegment);
     }
   }
 
   return analyzedPattern;
 };
 
-Tobago4.DateTime.analyzePatternPart = function (pattern) {
+static analyzePatternPart = function (pattern) {
 
   if (pattern.search("G") > -1 || pattern.search("W") > -1 || pattern.search("F") > -1
       || pattern.search("K") > -1 || pattern.search("z") > -1 || pattern.search("X") > -1) {
@@ -289,6 +291,7 @@ Tobago4.DateTime.analyzePatternPart = function (pattern) {
 
   return pattern;
 };
+}
 
-Tobago.Listener.register(Tobago4.DateTime.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.Listener.register(Tobago4.DateTime.init, Tobago.Phase.AFTER_UPDATE);
+Listener.register(DateTime.init, Phase.DOCUMENT_READY);
+Listener.register(DateTime.init, Phase.AFTER_UPDATE);

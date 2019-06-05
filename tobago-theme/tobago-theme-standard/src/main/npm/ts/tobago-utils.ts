@@ -15,139 +15,102 @@
  * limitations under the License.
  */
 
-interface HTMLElement {
-  tobagoSelfOrElementsByClassName(className: string): Array<HTMLElement>;
+export class DomUtils {
 
-  tobagoSelfOrQuerySelectorAll(selectors: string): Array<HTMLElement>;
-
-  tobagoPreviousElementSibling(): HTMLElement;
-
-  tobagoNextElementSibling(): HTMLElement;
-
-  outerWidthWithMargin(): number;
-  outerHeightWithMargin(): number;
-
-}
-
-interface Document {
-  tobagoPage(): HTMLElement;
-}
-
-/**
- * Find all elements (and also self) which have the class "className".
- * @param className Class of elements to find.
- */
-HTMLElement.prototype.tobagoSelfOrElementsByClassName = function (className: string): Array<HTMLElement> {
-  const result: Array<HTMLElement> = new Array<HTMLElement>();
-  if (this.classList.contains(className)) {
-    result.push(this);
-  }
-  for (const found of this.getElementsByClassName(className)) {
-    result.push(found);
-  }
-  return result;
-};
-
-/**
- * Find all elements (and also self) which have the attribute "attributeName".
- * @param selectors Name of the attribute of the elements to find.
- */
-// todo: may return NodeListOf<HTMLElementTagNameMap[K]> or something like that.
-HTMLElement.prototype.tobagoSelfOrQuerySelectorAll = function (selectors: string): Array<HTMLElement> {
-  const result: Array<HTMLElement> = new Array<HTMLElement>();
-  if (this.matches(selectors)) {
-    result.push(this);
-  }
-  for (const found of this.querySelectorAll(selectors)) {
-    result.push(found);
-  }
-  return result;
-};
-
-/**
- * Get the previous sibling element (without <style> elements).
- */
-HTMLElement.prototype.tobagoPreviousElementSibling = function (): HTMLElement {
-  let sibling: HTMLElement = this.previousElementSibling;
-  while (sibling != null) {
-    if (sibling.tagName !== "STYLE") {
-      return sibling;
+  static page():HTMLElement {
+    const pages = document.getElementsByClassName("tobago-page");
+    if (pages.length > 0) {
+      if (pages.length >= 2) {
+        console.warn("Found more than one tobago page!");
+      }
+      return <HTMLElement>pages.item(0);
     }
-    sibling = <HTMLElement>sibling.previousElementSibling;
-  }
-  return null;
-};
-
-/**
- * Get the next sibling element (without <style> elements).
- */
-HTMLElement.prototype.tobagoNextElementSibling = function (): HTMLElement {
-  let sibling: HTMLElement = this.nextElementSibling;
-  while (sibling !== null) {
-    if (sibling.tagName !== "STYLE") {
-      return sibling;
-    }
-    sibling = <HTMLElement>this.nextElementSibling;
-  }
-  return null;
-};
-
-HTMLElement.prototype.outerWidthWithMargin = function () {
-  const style = window.getComputedStyle(this);
-  return this.offsetWidth + parseInt(style.marginLeft) + parseInt(style.marginRight);
-};
-
-HTMLElement.prototype.outerHeightWithMargin = function () {
-  const style = window.getComputedStyle(this);
-  return this.offsetHeight + parseInt(style.marginTop) + parseInt(style.marginBottom);
-};
-
-Document.prototype.tobagoPage = function (): HTMLElement {
-  const pages = this.getElementsByClassName("tobago-page");
-  if (pages.length > 0) {
-    if (pages.length >= 2) {
-      console.warn("Found more than one tobago page!");
-    }
-    return pages.item(0);
-  }
-  return null;
-};
-
-namespace Tobago {
-
-  export function querySelectorAllOrSelfByClass(
-      element: HTMLElement, classNameSelector: string): Array<HTMLElement> {
-
-    const result: Array<HTMLElement> = new Array<HTMLElement>();
-    if (element.classList.contains(classNameSelector)) {
-      result.push(element);
-    }
-    for (const found of element.getElementsByClassName(classNameSelector)) {
-      result.push(<HTMLElement>found);
-    }
-    return result;
+    return null;
   }
 
   /**
-   * @deprecated not implemented
-   * @param element
-   * @param selectors
+   * Find all elements (and also self) which have the class "className".
+   * @param element Starting element in DOM to collect.
+   * @param className Class of elements to find.
    */
-  export function is(element: HTMLElement, selectors: string) {
-    console.error("todo");
-  }
+  static selfOrElementsByClassName(element: HTMLElement, className: string): Array<HTMLElement> {
+    const result: Array<HTMLElement> = new Array<HTMLElement>();
+    if (element.classList.contains(className)) {
+      result.push(element);
+    }
+    for (const found of element.getElementsByClassName(className)) {
+      result.push(<HTMLElement>found);
+    }
+    return result;
+  };
+
+  /**
+   * Find all elements (and also self) which have the attribute "attributeName".
+   * @param element Starting element in DOM to collect.
+   * @param selectors Name of the attribute of the elements to find.
+   */
+// todo: may return NodeListOf<HTMLElementTagNameMap[K]> or something like that.
+  static selfOrQuerySelectorAll(element: HTMLElement, selectors: string): Array<HTMLElement> {
+    const result: Array<HTMLElement> = new Array<HTMLElement>();
+    if (element.matches(selectors)) {
+      result.push(element);
+    }
+    for (const found of element.querySelectorAll(selectors)) {
+      result.push(<HTMLElement>found);
+    }
+    return result;
+  };
+
+  /**
+   * Get the previous sibling element (without <style> elements).
+   */
+  static previousElementSibling(element: HTMLElement): HTMLElement {
+    let sibling = <HTMLElement>element.previousElementSibling;
+    while (sibling != null) {
+      if (sibling.tagName !== "STYLE") {
+        return sibling;
+      }
+      sibling = <HTMLElement>sibling.previousElementSibling;
+    }
+    return null;
+  };
+
+  /**
+   * Get the next sibling element (without <style> elements).
+   */
+  static nextElementSibling(element: HTMLElement): HTMLElement {
+    let sibling = <HTMLElement>element.nextElementSibling;
+    while (sibling !== null) {
+      if (sibling.tagName !== "STYLE") {
+        return sibling;
+      }
+      sibling = <HTMLElement>sibling.nextElementSibling;
+    }
+    return null;
+  };
+
+  static outerWidthWithMargin(element: HTMLElement) {
+    const style = window.getComputedStyle(element);
+    return element.offsetWidth + parseInt(style.marginLeft) + parseInt(style.marginRight);
+  };
+
+  static outerHeightWithMargin(element: HTMLElement) {
+    const style = window.getComputedStyle(element);
+    return element.offsetHeight + parseInt(style.marginTop) + parseInt(style.marginBottom);
+  };
+
+  /**
+   *
+   * @param id A JSF client id, type=string. Example: escapeClientId("page:input") -> "#page\\:input"
+   * @return A string which can be used as a jQuery selector.
+   */
+  static escapeClientId(id: string): string {
+    return '#' + id.replace(/([:\.])/g, '\\$1');
+  };
+
 }
 
-Tobago4.Utils = {};
-
-/**
- *
- * @param id A JSF client id, type=string. Example: escapeClientId("page:input") -> "#page\\:input"
- * @return A string which can be used as a jQuery selector.
- */
-Tobago4.Utils.escapeClientId = function (id) {
-  return '#' + id.replace(/([:\.])/g, '\\$1');
-};
+export class Tobago4Utils {
 
 /**
  * Helps to select either elements from the whole DOM or only find in sub trees
@@ -155,18 +118,18 @@ Tobago4.Utils.escapeClientId = function (id) {
  * @param elements a jQuery object to initialize (ajax) or null for initializing the whole document (full load).
  * @param selector a jQuery selector.
  */
-Tobago4.Utils.selectWithJQuery = function (elements, selector) {
+static selectWithJQuery(elements, selector) {
   elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
   return elements == null
       ? jQuery(selector)
       : elements.find(selector).add(elements.filter(selector));
 };
 
-Tobago4.Utils.findSubComponent = function (element, subId) {
-  return jQuery(Tobago4.Utils.getSubComponentId(element.attr('id'), subId));
+static findSubComponent(element, subId) {
+  return jQuery(Tobago4Utils.getSubComponentId(element.attr('id'), subId));
 };
 
-Tobago4.Utils.getSubComponentId = function (id, subId) {
+static getSubComponentId(id, subId) {
   if (id != null) {
     return "#" + id.replace(/:/g, "\\:") + "\\:\\:" + subId;
   } else {
@@ -175,11 +138,11 @@ Tobago4.Utils.getSubComponentId = function (id, subId) {
 };
 
 /** @deprecated */
-Tobago4.Utils.findSuperComponent = function (element) {
-  return jQuery(Tobago4.Utils.getSuperComponentId(element.attr('id')));
+static findSuperComponent(element) {
+  return jQuery(Tobago4Utils.getSuperComponentId(element.attr('id')));
 };
 
-Tobago4.Utils.getSuperComponentId = function (id) {
+static getSuperComponentId(id) {
   return "#" + id.substring(0, id.lastIndexOf("::")).replace(/:/g, "\\:");
 };
 
@@ -194,7 +157,7 @@ Tobago4.Utils.getSuperComponentId = function (id) {
  * @param id The clientId of a component.
  * @return The clientId of the naming container.
  */
-Tobago4.Utils.getNamingContainerId = function (id) {
+static getNamingContainerId(id) {
   if (id == null) {
     return null;
   }
@@ -219,7 +182,7 @@ Tobago4.Utils.getNamingContainerId = function (id) {
  * fix position, when the element it is outside of the current page
  * @param elements is an jQuery Array of elements to be fixed.
  */
-Tobago4.Utils.keepElementInVisibleArea = function (elements) {
+static keepElementInVisibleArea(elements) {
   elements.each(function () {
     var element = jQuery(this);
     var page = jQuery(".tobago-page-content:first");
@@ -233,7 +196,7 @@ Tobago4.Utils.keepElementInVisibleArea = function (elements) {
   });
 };
 
-Tobago4.Utils.addDataMarkup = function (element, markupString) {
+static addDataMarkup(element, markupString) {
   var dataTobagoMarkup = element.attr("data-tobago-markup");
   if (dataTobagoMarkup !== undefined) {
     var markups = jQuery.parseJSON(dataTobagoMarkup);
@@ -244,7 +207,7 @@ Tobago4.Utils.addDataMarkup = function (element, markupString) {
   }
 };
 
-Tobago4.Utils.removeDataMarkup = function (element, markupString) {
+static removeDataMarkup(element, markupString) {
   var dataTobagoMarkup = element.attr("data-tobago-markup");
   if (dataTobagoMarkup !== undefined) {
     var markups = jQuery.parseJSON(dataTobagoMarkup);
@@ -262,3 +225,4 @@ Tobago4.Utils.removeDataMarkup = function (element, markupString) {
     }
   }
 };
+}

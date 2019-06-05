@@ -15,59 +15,49 @@
  * limitations under the License.
  */
 
-Tobago4.Sheets = {
-  sheets: {},
+import {Listener, Phase} from "./tobago-listener";
+import {DomUtils} from "./tobago-utils";
+import {Tobago4} from "./tobago-core";
 
-  get: function(id) {
-    return this.sheets[id];
-  },
+class Sheet {
 
-  put: function(sheet) {
-    this.sheets[sheet.id] = sheet;
+  static readonly SHEETS: Map<string, Sheet> = new Map<string, Sheet>();
+
+  id: string;
+  clickActionId: string;
+  clickReloadComponentId: string;
+  dblClickActionId: string;
+  dblClickReloadComponentId: string;
+
+  constructor(id: string, commands: string, behaviour: string) {
+    this.id = id;
+    this.clickActionId = null;//todo commands.click.action;
+    this.clickReloadComponentId = null;//todo commands.click.partially; // fixme: partially no longer used?
+    this.dblClickActionId = null;//todo commands.dblclick.action;
+    this.dblClickReloadComponentId = null;//todo commands.dblclick.partially;// fixme: partially no longer used?
   }
-};
 
-Tobago4.Sheet = function(
-    sheetId, unused1, unused2, unused3, unused4,
-    clickActionId, clickReloadComponentId, dblClickActionId, dblClickReloadComponentId, behaviorCommands) {
-  console.debug("New Sheet with id " + sheetId);
-  console.time("[tobago-sheet] constructor");
-  this.id = sheetId;
-  Tobago4.Sheets.put(this);
-  this.clickActionId = clickActionId;
-  this.clickReloadComponentId = clickReloadComponentId;
-  this.dblClickActionId = dblClickActionId;
-  this.dblClickReloadComponentId = dblClickReloadComponentId;
-  this.behaviorCommands = behaviorCommands;
-  console.timeEnd("[tobago-sheet] constructor");
-};
-
-Tobago4.Sheet.init = function(element:HTMLElement) {
+static init = function(element:HTMLElement) {
   console.time("[tobago-sheet] init");
-  const sheets: Array<HTMLElement> = element.tobagoSelfOrElementsByClassName("tobago-sheet");
+  const sheets: Array<HTMLElement> = DomUtils.selfOrElementsByClassName(element, "tobago-sheet");
   sheets.forEach(function (element):void {
     var $sheet = jQuery(element);
     var id = $sheet.attr("id");
-    var commands = $sheet.data("tobago-row-action");
-    var click = commands ? commands.click : undefined;
-    var dblclick = commands ? commands.dblclick : undefined;
-    new Tobago4.Sheet(id, undefined, undefined, undefined, undefined,
-        click !== undefined ? click.action  : undefined,
-        click !== undefined ? click.partially : undefined, // fixme: partially no longer used
-        dblclick !== undefined ? dblclick.action : undefined,
-        dblclick !== undefined ? dblclick.partially: undefined, // fixme: partially no longer used
-        $sheet.data("tobago-behavior-commands")); // type array
+    const commands = $sheet.data("tobago-row-action");
+    const behavior = $sheet.data("tobago-behavior-commands");
+    const sheet = new Sheet(id, commands, behavior);
+    Sheet.SHEETS.set(id, sheet);
   });
 
-  Tobago4.Sheet.setup2(sheets);
+  Sheet.setup(sheets);
 
   element.querySelectorAll( ".tobago-sheet-header .tobago-sheet-columnSelector").forEach(function (element) {
     element.addEventListener("click", function(event: MouseEvent) {
       var $checkbox = jQuery(event.target);
       if ($checkbox.is(':checked')) {
-        Tobago4.Sheet.selectAll($checkbox.closest(".tobago-sheet"));
+        Sheet.selectAll($checkbox.closest(".tobago-sheet"));
       } else {
-        Tobago4.Sheet.deselectAll($checkbox.closest(".tobago-sheet"));
+        Sheet.deselectAll($checkbox.closest(".tobago-sheet"));
       }
     });
   });
@@ -75,10 +65,7 @@ Tobago4.Sheet.init = function(element:HTMLElement) {
   console.timeEnd("[tobago-sheet] init");
 };
 
-Tobago.Listener.register(Tobago4.Sheet.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.Listener.register(Tobago4.Sheet.init, Tobago.Phase.AFTER_UPDATE);
-
-Tobago4.Sheet.setup2 = function (sheets) {
+static setup = function (sheets) {
 
   // synchronize column widths
   sheets.forEach(function (element):void {
@@ -94,11 +81,11 @@ Tobago4.Sheet.setup2 = function (sheets) {
     // So, if the 2nd is set, we use it, if not set, we use the 1st source.
     //
 
-    var hidden = Tobago4.Sheet.findHiddenWidths($sheet);
+    var hidden = Sheet.findHiddenWidths($sheet);
 
     if (hidden.length > 0 && hidden.val()) {
       // if the hidden has a value, than also the colgroup/col are set correctly
-      var columnWidths = jQuery.parseJSON(hidden.val());
+      var columnWidths = JSON.parse(hidden.get(0).getAttribute("value"));
       console.info("columnWidths: " + columnWidths);
     }
     if (columnWidths !== undefined && columnWidths.length === 0) {
@@ -106,7 +93,7 @@ Tobago4.Sheet.setup2 = function (sheets) {
       var layout = $sheet.data("tobago-layout");
       if (layout && layout.columns && layout.columns.length > 0) {
         var tokens = layout.columns;
-        var rendered = jQuery.parseJSON(Tobago4.Sheet.findHiddenRendered($sheet).val());
+        var rendered = JSON.parse(Sheet.findHiddenRendered($sheet).get(0).getAttribute("value"));
 
         var $headerTable = $sheet.children("header").children("table");
         var $headerCol = $headerTable.children("colgroup").children("col");
@@ -164,7 +151,7 @@ Tobago4.Sheet.setup2 = function (sheets) {
         }
       }
     }
-    Tobago4.Sheet.addHeaderFillerWidth($sheet);
+    Sheet.addHeaderFillerWidth($sheet);
   });
 
   // resize: mouse events
@@ -214,11 +201,11 @@ Tobago4.Sheet.setup2 = function (sheets) {
           console.info("up");
           // copy the width values from the header to the body, (and build a list of it)
           var tokens = $sheet.data("tobago-layout").columns;
-          var rendered = jQuery.parseJSON(Tobago4.Sheet.findHiddenRendered($sheet).val());
-          var hidden = Tobago4.Sheet.findHiddenWidths($sheet);
+          var rendered = JSON.parse(Sheet.findHiddenRendered($sheet).get(0).getAttribute("value"));
+          var hidden = Sheet.findHiddenWidths($sheet);
           var hiddenWidths;
           if (hidden.length > 0 && hidden.val()) {
-            hiddenWidths = jQuery.parseJSON(hidden.val());
+            hiddenWidths = JSON.parse(hidden.get(0).getAttribute("value"));
           }
           var headerCols = $headerTable.find("col");
           var bodyCols = $bodyTable.find("col");
@@ -272,7 +259,7 @@ Tobago4.Sheet.setup2 = function (sheets) {
           $bodyTable.css("width", "");
 
           // store the width values in a hidden field
-          Tobago4.Sheet.findHiddenWidths($sheet).val(JSON.stringify(widths));
+          Sheet.findHiddenWidths($sheet).val(JSON.stringify(widths));
           return false;
         });
       });
@@ -291,7 +278,7 @@ Tobago4.Sheet.setup2 = function (sheets) {
       sheetBody.siblings(".tobago-sheet-header").prop("scrollLeft", scrollLeft);
 
       // store the position in a hidden field
-      var hidden = Tobago4.Sheet.findHiddenScrollPosition(sheetBody.parent());
+      var hidden = Sheet.findHiddenScrollPosition(sheetBody.parent());
       hidden.val(Math.round(scrollLeft) + ";" + Math.round(scrollTop));
     });
   });
@@ -299,11 +286,12 @@ Tobago4.Sheet.setup2 = function (sheets) {
   // restore scroll position
   sheets.forEach(function (element):void {
     var $sheet = jQuery(element);
-    var $hidden = Tobago4.Sheet.findHiddenScrollPosition($sheet);
-    var sep = $hidden.val().indexOf(";");
+    var $hidden = Sheet.findHiddenScrollPosition($sheet);
+    const value = $hidden.get(0).getAttribute("value");
+    var sep = value.indexOf(";");
     if (sep !== -1) {
-      var scrollLeft = $hidden.val().substr(0, sep);
-      var scrollTop = $hidden.val().substr(sep + 1);
+      var scrollLeft = value.substr(0, sep);
+      var scrollTop = value.substr(sep + 1);
       var $body = $sheet.children(".tobago-sheet-body");
       $body.prop("scrollLeft", scrollLeft);
       $body.prop("scrollTop", scrollTop);
@@ -316,7 +304,7 @@ Tobago4.Sheet.setup2 = function (sheets) {
     var $sheet = jQuery(element);
     var selectionMode = $sheet.data("tobago-selection-mode");
     if (selectionMode === "single" || selectionMode === "singleOrNone" || selectionMode === "multi") {
-      Tobago4.Sheet.getRows($sheet).each(function () {
+      Sheet.getRows($sheet).each(function () {
         var $row = jQuery(this);
         $row.on("mousedown", function (event) {
           $sheet.data("tobago-mouse-down-x", event.clientX);
@@ -325,7 +313,7 @@ Tobago4.Sheet.setup2 = function (sheets) {
         $row.click(function (event) {
           var $target = jQuery(event.target);
           var $row = jQuery(this);
-          if ($target.hasClass("tobago-sheet-columnSelector") || !Tobago4.Sheet.isInputElement($target)) {
+          if ($target.hasClass("tobago-sheet-columnSelector") || !Sheet.isInputElement($target)) {
             var $sheet = $row.closest(".tobago-sheet");
 
             if (Math.abs($sheet.data("tobago-mouse-down-x") - event.clientX)
@@ -339,26 +327,26 @@ Tobago4.Sheet.setup2 = function (sheets) {
               window.getSelection().removeAllRanges();
             }
 
-            var $rows = Tobago4.Sheet.getRows($sheet);
-            var $selector = Tobago4.Sheet.getSelectorCheckbox($row);
+            var $rows = Sheet.getRows($sheet);
+            var $selector = Sheet.getSelectorCheckbox($row);
 
             var selectionMode = $sheet.data("tobago-selection-mode");
 
             if ((!event.ctrlKey && !event.metaKey && $selector.length === 0)
                 || selectionMode === "single" || selectionMode === "singleOrNone") {
-              Tobago4.Sheet.deselectAll($sheet);
-              Tobago4.Sheet.resetSelected($sheet);
+              Sheet.deselectAll($sheet);
+              Sheet.resetSelected($sheet);
             }
 
             var lastClickedRowIndex = $sheet.data("tobago-last-clicked-row-index");
             if (event.shiftKey && selectionMode === "multi" && lastClickedRowIndex > -1) {
               if (lastClickedRowIndex <= $row.index()) {
-                Tobago4.Sheet.selectRange($sheet, $rows, lastClickedRowIndex, $row.index(), true, false);
+                Sheet.selectRange($sheet, $rows, lastClickedRowIndex, $row.index(), true, false);
               } else {
-                Tobago4.Sheet.selectRange($sheet, $rows, $row.index(), lastClickedRowIndex, true, false);
+                Sheet.selectRange($sheet, $rows, $row.index(), lastClickedRowIndex, true, false);
               }
-            } else if (selectionMode !== "singleOrNone" || !Tobago4.Sheet.isRowSelected($sheet, $row)) {
-              Tobago4.Sheet.toggleSelection($sheet, $row, $selector);
+            } else if (selectionMode !== "singleOrNone" || !Sheet.isRowSelected($sheet, $row)) {
+              Sheet.toggleSelection($sheet, $row, $selector);
             }
             var commands = $sheet.data("tobago-row-action");
             var click = commands ? commands.click : undefined;
@@ -371,7 +359,7 @@ Tobago4.Sheet.setup2 = function (sheets) {
             if (clickActionId) {
               var action;
               var index = clickActionId.indexOf(id);
-              var rowIndex = Tobago4.Sheet.getDataIndex($sheet, $row);
+              var rowIndex = Sheet.getDataIndex($sheet, $row);
               if (index >= 0) {
                 action = id + ":" + rowIndex + ":" + clickActionId.substring(index + id.length + 1);
               } else {
@@ -393,11 +381,12 @@ Tobago4.Sheet.setup2 = function (sheets) {
             }
           }
         });
-        // todo:
-        if (Tobago4.Sheets.get($sheet.attr("id")).dblClickActionId) {
+        // todo: check if this works correctly
+        const sheet = Sheet.SHEETS.get($sheet.attr("id"));
+        if (sheet && sheet.dblClickActionId) {
           $row.on("dblclick", function (event) {
             // todo: re-implement
-            Tobago4.Sheets.get($sheet.attr("id")).doDblClick(event);
+           sheet.doDblClick(event);
           });
         }
       });
@@ -420,7 +409,7 @@ Tobago4.Sheet.setup2 = function (sheets) {
       });
       pagingText.children(".tobago-sheet-pagingInput")
           .blur(function () {
-            Tobago4.Sheet.hideInputOrSubmit(jQuery(this));
+            Sheet.hideInputOrSubmit(jQuery(this));
           }).keydown(function (event) {
         if (event.keyCode === 13) {
           event.stopPropagation();
@@ -432,7 +421,7 @@ Tobago4.Sheet.setup2 = function (sheets) {
   });
 };
 
-Tobago4.Sheet.hideInputOrSubmit = function ($input) {
+static hideInputOrSubmit = function ($input) {
   let $output = $input.siblings(".tobago-sheet-pagingOutput");
   let changed = $output.html() !== $input.val();
   let sheetId = $input.parents(".tobago-sheet:first").attr("id");
@@ -454,45 +443,45 @@ Tobago4.Sheet.hideInputOrSubmit = function ($input) {
   }
 };
 
-Tobago4.Sheet.findHiddenSelected = function($sheet){
+static findHiddenSelected = function($sheet){
   var id = $sheet.attr("id") + Tobago4.SUB_COMPONENT_SEP + "selected";
-  return jQuery(Tobago4.Utils.escapeClientId(id));
+  return jQuery(DomUtils.escapeClientId(id));
 };
 
-Tobago4.Sheet.findHiddenScrollPosition = function($sheet){
+static findHiddenScrollPosition = function($sheet){
   var id = $sheet.attr("id") + Tobago4.SUB_COMPONENT_SEP + "scrollPosition";
-  return jQuery(Tobago4.Utils.escapeClientId(id));
+  return jQuery(DomUtils.escapeClientId(id));
 };
 
-Tobago4.Sheet.findHiddenWidths = function($sheet){
+static findHiddenWidths = function($sheet){
   var id = $sheet.attr("id") + Tobago4.SUB_COMPONENT_SEP + "widths";
-  return jQuery(Tobago4.Utils.escapeClientId(id));
+  return jQuery(DomUtils.escapeClientId(id));
 };
 
-Tobago4.Sheet.findHiddenRendered = function($sheet){
+static findHiddenRendered = function($sheet){
   var id = $sheet.attr("id") + Tobago4.SUB_COMPONENT_SEP + "rendered";
-  return jQuery(Tobago4.Utils.escapeClientId(id));
+  return jQuery(DomUtils.escapeClientId(id));
 };
 
-Tobago4.Sheet.addHeaderFillerWidth = function($sheet) {
+static addHeaderFillerWidth = function($sheet) {
   var $headerTable = $sheet.find(".tobago-sheet-headerTable");
   var $headerCols = $headerTable.find("col");
-  $headerCols.last().attr("width", Tobago4.Sheet.getScrollBarSize());
+  $headerCols.last().attr("width", Sheet.getScrollBarSize());
 };
 
-Tobago4.Sheet.getScrollBarSize = function() {
+static getScrollBarSize = function() {
   var $outer = $('<div>').css({visibility: 'hidden', width: 100, overflow: 'scroll'}).appendTo('body'),
       widthWithScroll = $('<div>').css({width: '100%'}).appendTo($outer).outerWidth();
   $outer.remove();
   return 100 - widthWithScroll;
 };
 
-Tobago4.Sheet.prototype.doDblClick = function(event) {
+doDblClick(event) {
     var target = event.target;
-    if (!Tobago4.Sheet.isInputElement(jQuery(target))) {
+    if (!Sheet.isInputElement(jQuery(target))) {
       var row = jQuery(target).closest("tr");
-      var sheet = row.closest(".tobago-sheet");
-      var rowIndex = row.index() + sheet.data("tobago-first");
+      var $sheet = row.closest(".tobago-sheet");
+      var rowIndex = row.index() + $sheet.data("tobago-first");
       if (this.dblClickActionId) {
         var action;
         var index = this.dblClickActionId.indexOf(this.id);
@@ -521,83 +510,83 @@ Tobago4.Sheet.prototype.doDblClick = function(event) {
  * Get the element, which indicates the selection
  * @param row as a jQuery object
  */
-Tobago4.Sheet.getSelectorCheckbox = function(row) {
+static getSelectorCheckbox = function(row) {
   return row.find(">td>input.tobago-sheet-columnSelector");
 };
 
-Tobago4.Sheet.prototype.getSiblingRow = function(row, i) {
+static getSiblingRow = function(row, i) {
   return row.parentNode.childNodes[i];
 };
 
-Tobago4.Sheet.getRows = function($sheet) {
+static getRows = function($sheet) {
   return $sheet.find(">div>table>tbody>tr");
 };
 
-Tobago4.Sheet.isRowSelected = function($sheet, row) {
+static isRowSelected = function($sheet, row) {
   var rowIndex = +row.data("tobago-row-index");
   if (!rowIndex) {
     rowIndex = row.index() + $sheet.data("tobago-first");
   }
-  return Tobago4.Sheet.isSelected($sheet, rowIndex);
+  return Sheet.isSelected($sheet, rowIndex);
 };
 
-Tobago4.Sheet.isSelected = function($sheet, rowIndex) {
-  return Tobago4.Sheet.findHiddenSelected($sheet).val().indexOf("," + rowIndex + ",") >= 0;
+static isSelected = function($sheet, rowIndex) {
+  return Sheet.findHiddenSelected($sheet).get(0).getAttribute("value").indexOf("," + rowIndex + ",") >= 0;
 };
 
-Tobago4.Sheet.resetSelected = function($sheet) {
-  Tobago4.Sheet.findHiddenSelected($sheet).val(",");
+static resetSelected = function($sheet) {
+  Sheet.findHiddenSelected($sheet).val(",");
 };
 
-Tobago4.Sheet.toggleSelection = function($sheet, $row, $checkbox) {
+static toggleSelection = function($sheet, $row, $checkbox) {
   $sheet.data("tobago-last-clicked-row-index", $row.index());
   if (!$checkbox.is(":disabled")) {
-    var $selected = Tobago4.Sheet.findHiddenSelected($sheet);
-    var rowIndex = Tobago4.Sheet.getDataIndex($sheet, $row);
-    if (Tobago4.Sheet.isSelected($sheet, rowIndex)) {
-      Tobago4.Sheet.deselectRow($selected, rowIndex, $row, $checkbox);
+    var $selected = Sheet.findHiddenSelected($sheet);
+    var rowIndex = Sheet.getDataIndex($sheet, $row);
+    if (Sheet.isSelected($sheet, rowIndex)) {
+      Sheet.deselectRow($selected, rowIndex, $row, $checkbox);
     } else {
-      Tobago4.Sheet.selectRow($selected, rowIndex, $row, $checkbox);
+      Sheet.selectRow($selected, rowIndex, $row, $checkbox);
     }
   }
 };
 
-Tobago4.Sheet.selectAll = function($sheet) {
-  var $rows = Tobago4.Sheet.getRows($sheet);
-  Tobago4.Sheet.selectRange($sheet, $rows, 0, $rows.length - 1, true, false);
+static selectAll = function($sheet) {
+  var $rows = Sheet.getRows($sheet);
+  Sheet.selectRange($sheet, $rows, 0, $rows.length - 1, true, false);
 };
 
-Tobago4.Sheet.deselectAll = function($sheet) {
-  var $rows = Tobago4.Sheet.getRows($sheet);
-  Tobago4.Sheet.selectRange($sheet, $rows, 0, $rows.length - 1, false, true);
+static deselectAll = function($sheet) {
+  var $rows = Sheet.getRows($sheet);
+  Sheet.selectRange($sheet, $rows, 0, $rows.length - 1, false, true);
 };
 
-Tobago4.Sheet.toggleAll = function(sheet) {
-  var rows = Tobago4.Sheet.getRows(sheet);
-  Tobago4.Sheet.selectRange(sheet, rows, 0, rows.length - 1, true, true);
+static toggleAll = function(sheet) {
+  var rows = Sheet.getRows(sheet);
+  Sheet.selectRange(sheet, rows, 0, rows.length - 1, true, true);
 };
 
-Tobago4.Sheet.selectRange = function($sheet, $rows, first, last, selectDeselected, deselectSelected) {
+static selectRange = function($sheet, $rows, first, last, selectDeselected, deselectSelected) {
   if ($rows.length === 0) {
     return;
   }
-  var selected = Tobago4.Sheet.findHiddenSelected($sheet);
+  var selected = Sheet.findHiddenSelected($sheet);
   for (var i = first; i <= last; i++) {
     var $row = $rows.eq(i);
-    var checkbox = Tobago4.Sheet.getSelectorCheckbox($row);
+    var checkbox = Sheet.getSelectorCheckbox($row);
     if (!checkbox.is(":disabled")) {
-      var rowIndex = Tobago4.Sheet.getDataIndex($sheet, $row);
-      var on = selected.val().indexOf("," + rowIndex + ",") >= 0;
+      var rowIndex = Sheet.getDataIndex($sheet, $row);
+      var on = selected.get(0).getAttribute("value").indexOf("," + rowIndex + ",") >= 0;
       if (selectDeselected && !on) {
-        Tobago4.Sheet.selectRow(selected, rowIndex, $row, checkbox);
+        Sheet.selectRow(selected, rowIndex, $row, checkbox);
       } else if (deselectSelected && on) {
-        Tobago4.Sheet.deselectRow(selected, rowIndex, $row, checkbox);
+        Sheet.deselectRow(selected, rowIndex, $row, checkbox);
       }
     }
   }
 };
 
-Tobago4.Sheet.getDataIndex = function($sheet, $row) {
+static getDataIndex = function($sheet, $row) {
   var rowIndex = $row.data("tobago-row-index");
   if (rowIndex) {
     return +rowIndex;
@@ -612,7 +601,7 @@ Tobago4.Sheet.getDataIndex = function($sheet, $row) {
  * @param $row tr-element: the row.
  * @param $checkbox input-element: selector in the row.
  */
-Tobago4.Sheet.selectRow = function($selected, rowIndex, $row, $checkbox) {
+static selectRow = function($selected, rowIndex, $row, $checkbox) {
   $selected.val($selected.val() + rowIndex + ",");
   $row.addClass("tobago-sheet-row-markup-selected table-info");
 //  checkbox.prop("checked", true);
@@ -625,13 +614,18 @@ Tobago4.Sheet.selectRow = function($selected, rowIndex, $row, $checkbox) {
  * @param $row tr-element: the row.
  * @param $checkbox input-element: selector in the row.
  */
-Tobago4.Sheet.deselectRow = function($selected, rowIndex, $row, $checkbox) {
+static deselectRow = function($selected, rowIndex, $row, $checkbox) {
   $selected.val($selected.val().replace(new RegExp("," + rowIndex + ","), ","));
   $row.removeClass("tobago-sheet-row-markup-selected table-info");
 //  checkbox.prop("checked", false); Async because of TOBAGO-1312
   setTimeout(function() {$checkbox.prop("checked", false);}, 0);
 };
 
-Tobago4.Sheet.isInputElement = function($element) {
+static isInputElement = function($element) {
   return ["INPUT", "TEXTAREA", "SELECT", "A", "BUTTON"].indexOf($element.prop("tagName")) > -1;
 };
+
+}
+
+Listener.register(Sheet.init, Phase.DOCUMENT_READY);
+Listener.register(Sheet.init, Phase.AFTER_UPDATE);

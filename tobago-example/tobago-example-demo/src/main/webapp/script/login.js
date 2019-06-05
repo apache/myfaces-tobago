@@ -22,23 +22,23 @@ Demo.prepareQuickLinks = function () {
   jQuery("button[data-login]").click(function () {
     var link = jQuery(this);
     var login = link.data("login");
-    jQuery(Tobago4.Utils.escapeClientId("page:mainForm:username::field")).val(login.username);
-    jQuery(Tobago4.Utils.escapeClientId("page:mainForm:password::field")).val(login.password);
+    jQuery(DomUtils.escapeClientId("page:mainForm:username::field")).val(login.username);
+    jQuery(DomUtils.escapeClientId("page:mainForm:password::field")).val(login.password);
     return false;
   });
 };
 
-Tobago.Listener.register(Demo.prepareQuickLinks, Tobago.Phase.DOCUMENT_READY);
+Listener.register(Demo.prepareQuickLinks, Phase.DOCUMENT_READY);
 
 /**
  * This code is needed to "repair" the submit parameter names and url to use
  * the names that a required for servlet authentication.
  */
 Demo.prepareLoginForm = function() {
-  jQuery(Tobago4.Utils.escapeClientId("page:mainForm:username::field")).attr("name", "j_username");
-  jQuery(Tobago4.Utils.escapeClientId("page:mainForm:password::field")).attr("name", "j_password");
-  var contextPath = jQuery(Tobago4.Utils.escapeClientId("page:mainForm:login")).data("context-path");
-  jQuery(Tobago4.Utils.escapeClientId("page::form")).attr("action", contextPath + "/j_security_check");
+  jQuery(DomUtils.escapeClientId("page:mainForm:username::field")).attr("name", "j_username");
+  jQuery(DomUtils.escapeClientId("page:mainForm:password::field")).attr("name", "j_password");
+  var contextPath = jQuery(DomUtils.escapeClientId("page:mainForm:login")).data("context-path");
+  jQuery(DomUtils.escapeClientId("page::form")).attr("action", contextPath + "/j_security_check");
 };
 
 // XXX turned off in the moment Tobago5.Listener.register(Demo.prepareLoginForm, Tobago5.Phase.DOCUMENT_READY);

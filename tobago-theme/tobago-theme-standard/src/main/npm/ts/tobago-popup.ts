@@ -15,17 +15,20 @@
  * limitations under the License.
  */
 
-Tobago4.Popup = {};
+import {Listener, Phase} from "./tobago-listener";
+import {DomUtils, Tobago4Utils} from "./tobago-utils";
+
+export class Popup {
 
 /**
  * Init popup for bootstrap
  */
-Tobago4.Popup.init = function (elements) {
+static init = function (elements) {
   elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-  var popups = Tobago4.Utils.selectWithJQuery(elements, ".modal");
+  var popups = Tobago4Utils.selectWithJQuery(elements, ".modal");
   popups.each(function () {
     var $popup = jQuery(this);
-    var $hidden = Tobago4.Collapse.findHidden($popup);
+    var $hidden = Collapse.findHidden($popup);
     if ($hidden.val() == "false") {
       // XXX hack: this is needed for popups open by AJAX.
       // XXX currently the DOM replacement done by Tobago doesn't remove the modal-backdrop
@@ -38,24 +41,25 @@ Tobago4.Popup.init = function (elements) {
   });
 };
 
-Tobago4.Popup.close = function (button) {
+static close = function (button) {
   jQuery(button).parents('.modal:first').modal("hide");
 
 };
+}
 
-Tobago.Listener.register(Tobago4.Popup.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.Listener.register(Tobago4.Popup.init, Tobago.Phase.AFTER_UPDATE);
+Listener.register(Popup.init, Phase.DOCUMENT_READY);
+Listener.register(Popup.init, Phase.AFTER_UPDATE);
 
-Tobago4.Collapse = {};
+export class Collapse {
 
-Tobago4.Collapse.findHidden = function ($element) {
-  return jQuery(Tobago4.Utils.escapeClientId($element.attr("id") + "::collapse"));
+static findHidden = function ($element) {
+  return jQuery(DomUtils.escapeClientId($element.attr("id") + "::collapse"));
 };
 
-Tobago4.Collapse.execute = function (collapse) {
+static execute = function (collapse) {
   var transition = collapse.transition;
-  var $for = jQuery(Tobago4.Utils.escapeClientId(collapse.forId));
-  var $hidden = Tobago4.Collapse.findHidden($for);
+  var $for = jQuery(DomUtils.escapeClientId(collapse.forId));
+  var $hidden = Collapse.findHidden($for);
   var isPopup = $for.hasClass("tobago-popup");
   var newCollapsed;
   switch (transition) {
@@ -83,3 +87,4 @@ Tobago4.Collapse.execute = function (collapse) {
   }
   $hidden.val(newCollapsed);
 };
+}

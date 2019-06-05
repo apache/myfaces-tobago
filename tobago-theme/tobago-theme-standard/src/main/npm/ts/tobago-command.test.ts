@@ -15,24 +15,14 @@
  * limitations under the License.
  */
 
-TestSheetReload = {};
+import {CommandMap} from "./tobago-command";
 
-TestSheetReload.init = function() {
+test('class CommandMap: click', () => {
+  let command = CommandMap.parse('{"click":{"omit":false}}');
+  expect(command.stringify()).toBe('{"commands":{"click":{"omit":false}}}');
+});
 
-  setTimeout(function() {
-    var value = jQuery(".tobago-sheet-body td").eq(1).find("span").html();
-    if (value !== "0") {
-      console.error("expect '0' not '" + value + "'");
-    }
-  }, 3000);
-
-  setTimeout(function() {
-    var value = jQuery(".tobago-sheet-body td").eq(1).find("span").html();
-    if (value !== "2") {
-      console.error("expect '2' not '" + value + "'");
-    }
-  }, 5000);
-
-};
-
-Listener.register(TestSheetReload.init, Phase.DOCUMENT_READY);
+test('class CommandMap: change', () => {
+  let command = CommandMap.parse('{"change":{"action":"page:header:j_id_k"}}');
+  expect(command.stringify()).toBe('{"commands":{"change":{"action":"page:header:j_id_k"}}}');
+});

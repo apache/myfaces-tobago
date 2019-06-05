@@ -14,6 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import {Listener, Phase} from "../tobago/standard/tobago-bootstrap/5.0.0-SNAPSHOT/js/tobago-listener.js";
+
 var Demo;
 (function (Demo) {
     var ToClipboardButton;
@@ -49,8 +52,8 @@ var Demo;
         var init = function () {
             document.querySelectorAll("[data-copy-clipboard-from]").forEach(function (value) { return new ToClipboardButton(value); });
         };
-        Tobago.Listener.register(init, Tobago.Phase.DOCUMENT_READY);
-        Tobago.Listener.register(init, Tobago.Phase.AFTER_UPDATE);
+        Listener.register(init, Phase.DOCUMENT_READY);
+        Listener.register(init, Phase.AFTER_UPDATE);
     })(ToClipboardButton = Demo.ToClipboardButton || (Demo.ToClipboardButton = {}));
 })(Demo || (Demo = {}));
 //# sourceMappingURL=docker.js.map

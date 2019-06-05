@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-Tobago.Listener.register(function () {
+Listener.register(function () {
 
   var prefix = "page:tp";
 
@@ -25,20 +25,20 @@ Tobago.Listener.register(function () {
       var counter = Number(jQuery(this).attr("id").substring(prefix.length));
 
       waitForTest(function () {
-        var $thisFrame = jQuery(Tobago4.Utils.escapeClientId(prefix + counter));
+        var $thisFrame = jQuery(DomUtils.escapeClientId(prefix + counter));
         var $banner = $thisFrame.contents().find("#qunit-banner");
         return $banner.length > 0
             && $banner.attr("class") !== "";
       }, function () {
-        var $nextFrame = jQuery(Tobago4.Utils.escapeClientId(prefix + (counter + 1)));
+        var $nextFrame = jQuery(DomUtils.escapeClientId(prefix + (counter + 1)));
         runNextFrame($nextFrame);
       });
     });
   });
 
-  var $firstFrame = jQuery(Tobago4.Utils.escapeClientId(prefix + 1));
+  var $firstFrame = jQuery(DomUtils.escapeClientId(prefix + 1));
   runNextFrame($firstFrame);
-}, Tobago.Phase.DOCUMENT_READY);
+}, Phase.DOCUMENT_READY);
 
 function waitForTest(waitingDone, executeWhenDone) {
   var stillWaiting = true;

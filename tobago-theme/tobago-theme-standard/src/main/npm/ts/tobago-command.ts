@@ -15,11 +15,45 @@
  * limitations under the License.
  */
 
-Tobago4.Command = {};
+import {Listener, Phase} from "./tobago-listener";
+import {Overlay} from "./tobago-overlay";
+import {DomUtils, Tobago4Utils} from "./tobago-utils";
+import {Collapse, Popup} from "./tobago-popup";
+import {Tobago4} from "./tobago-core";
 
-Tobago4.Command.initEnter = function(elements) {
+export class CommandMap {
+
+  commands: Map<string, Command5> = new Map<string, Command5>();
+
+  constructor(data: any) {
+    this.commands = typeof data === "string" ? JSON.parse(data) : data;
+  }
+
+  public static parse(value: string): CommandMap {
+    return new CommandMap(value);
+  }
+
+  public stringify(): string {
+    return JSON.stringify(this);
+  }
+}
+
+class Command5 {
+  confirmation: boolean;
+  collapse: boolean;
+  omit: boolean;
+  popup;
+  action;
+  execute: string;
+  render: string;
+  transition: boolean;
+}
+
+class Command {
+
+static initEnter(elements) {
   elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-  var page = Tobago4.Utils.selectWithJQuery(elements, ".tobago-page");
+  var page = Tobago4Utils.selectWithJQuery(elements, ".tobago-page");
   page.keypress(function (event) {
     var code = event.which;
     if (code === 0) {
@@ -42,24 +76,20 @@ Tobago4.Command.initEnter = function(elements) {
           command.click();
           break;
         }
-        id = Tobago4.Utils.getNamingContainerId(id);
+        id = Tobago4Utils.getNamingContainerId(id);
       }
       return false;
     }
   });
-};
+}
 
-Tobago.Listener.register(Tobago4.Command.initEnter, Tobago.Phase.DOCUMENT_READY);
+static init = function(element: HTMLElement) {
 
-/** @deprecated since 5.0.0 */
-Tobago4.initCommand = function(element) {
-  Tobago4.Command.init(element);
-};
+  for (const commandElement of DomUtils.selfOrQuerySelectorAll(element, "[data-tobago-commands]")) {
 
-Tobago4.Command.init = function(element) {
-  // command is jQuery object
-  // setupInputFacetCommand
-  const commands = element.data("tobago-commands");
+    const $element = jQuery(commandElement);
+
+  const commands = $element.data("tobago-commands");
 
   var normalEvents = []; // todo: find a better way to do that in JS
   if (commands.click) {
@@ -77,7 +107,7 @@ Tobago4.Command.init = function(element) {
 
   for (var i in normalEvents) {
 
-    element.on(normalEvents[i].event, {command: normalEvents[i].command}, function (event) {
+    $element.on(normalEvents[i].event, {command: normalEvents[i].command}, function (event) {
       var command = event.data.command;
       var confirmation = command.confirmation;
       if (confirmation != null) {
@@ -88,17 +118,17 @@ Tobago4.Command.init = function(element) {
       }
       var collapse = command.collapse;
       if (collapse) {
-        Tobago4.Collapse.execute(collapse);
+        Collapse.execute(collapse);
       }
 
       if (command.omit !== true) {
         var popup = command.popup;
         if (popup && popup.command === "close" && popup.immediate) {
-          Tobago4.Popup.close(this);
+          Popup.close(this);
         } else {
           var action = command.action ? command.action : jQuery(this).attr("id");
           if (command.execute || command.render) {
-            Tobago4.Command.preparePartialOverlay(command);
+            Command.preparePartialOverlay(command);
             jsf.ajax.request(
                 action,
                 event,
@@ -111,14 +141,14 @@ Tobago4.Command.init = function(element) {
             Tobago4.submitAction(this, action, command);
           }
           if (popup && popup.command === "close") {
-            Tobago4.Popup.close(this);
+            Popup.close(this);
           }
         }
       }
     });
   }
   if (commands.change) {
-    element.change(function(event) {
+    $element.change(function (event) {
       if (commands.change.execute || commands.change.render) {
         jsf.ajax.request(
             jQuery(this).attr("name"),
@@ -134,7 +164,7 @@ Tobago4.Command.init = function(element) {
     });
   }
   if (commands.complete) {
-    if (element.val() >= parseFloat(element.attr("max"))) {
+    if ($element.val() >= parseFloat($element.attr("max"))) {
       if (commands.complete.execute || commands.complete.render) {
         jsf.ajax.request(
             jQuery(this).attr("id"),
@@ -150,27 +180,34 @@ Tobago4.Command.init = function(element) {
     }
   }
   if (commands.load) {
-    setTimeout(function() {
+    setTimeout(function () {
           Tobago4.submitAction(this, commands.load.action, commands.load);
         },
         commands.load.delay || 100);
   }
   if (commands.resize) {
-    jQuery(window).resize(function() {
+    jQuery(window).resize(function () {
       console.debug("window resize event: " + commands.resize);
       Tobago4.submitAction(this, commands.resize.action, commands.resize);
     });
   }
+}
 };
 
-Tobago4.Command.preparePartialOverlay = function (command) {
+static preparePartialOverlay = function (command) {
   if (command.transition === undefined || command.transition == null || command.transition) {
     console.debug("[tobago-command] render: '" + command.render + "'");
     if (command.render) {
       let partialIds = command.render.split(" ");
       for (let i = 0; i < partialIds.length; i++) {
-        new Tobago.Overlay(document.getElementById(partialIds[i]), true);
+        new Overlay(document.getElementById(partialIds[i]), true);
       }
     }
   }
 };
+}
+
+Listener.register(Command.initEnter, Phase.DOCUMENT_READY);
+
+Listener.register(Command.init, Phase.DOCUMENT_READY);
+Listener.register(Command.init, Phase.AFTER_UPDATE);

@@ -17,38 +17,41 @@
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Tobago4.SelectManyShuttle = {};
+import {Listener, Phase} from "./tobago-listener";
+import {Tobago4Utils} from "./tobago-utils";
 
-Tobago4.SelectManyShuttle.init = function(elements) {
+class SelectManyShuttle {
+
+static init = function(elements) {
   elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-  var shuttles = Tobago4.Utils.selectWithJQuery(elements, ".tobago-selectManyShuttle:not(.tobago-selectManyShuttle-disabled)");
+  var shuttles = Tobago4Utils.selectWithJQuery(elements, ".tobago-selectManyShuttle:not(.tobago-selectManyShuttle-disabled)");
 
   shuttles.find(".tobago-selectManyShuttle-unselected").dblclick(function() {
-    Tobago4.SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), true, false);
+    SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), true, false);
   });
 
   shuttles.find(".tobago-selectManyShuttle-selected").dblclick(function() {
-    Tobago4.SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), false, false);
+    SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), false, false);
   });
 
   shuttles.find(".tobago-selectManyShuttle-addAll").click(function() {
-    Tobago4.SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), true, true);
+    SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), true, true);
   });
 
   shuttles.find(".tobago-selectManyShuttle-add").click(function() {
-    Tobago4.SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), true, false);
+    SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), true, false);
   });
 
   shuttles.find(".tobago-selectManyShuttle-removeAll").click(function() {
-    Tobago4.SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), false, true);
+    SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), false, true);
   });
 
   shuttles.find(".tobago-selectManyShuttle-remove").click(function() {
-    Tobago4.SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), false, false);
+    SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), false, false);
   });
 };
 
-Tobago4.SelectManyShuttle.moveSelectedItems = function($shuttle, direction, all) {
+static moveSelectedItems = function($shuttle, direction, all) {
   var $unselected = $shuttle.find(".tobago-selectManyShuttle-unselected");
   var $selected = $shuttle.find(".tobago-selectManyShuttle-selected");
   var count = $selected.children().length;
@@ -71,17 +74,18 @@ Tobago4.SelectManyShuttle.moveSelectedItems = function($shuttle, direction, all)
     $hidden.trigger( e );
   }
 };
+}
 
-Tobago.Listener.register(Tobago4.SelectManyShuttle.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.Listener.register(Tobago4.SelectManyShuttle.init, Tobago.Phase.AFTER_UPDATE);
+Listener.register(SelectManyShuttle.init, Phase.DOCUMENT_READY);
+Listener.register(SelectManyShuttle.init, Phase.AFTER_UPDATE);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Tobago4.SelectOneRadio = {};
+class SelectOneRadio {
 
-Tobago4.SelectOneRadio.init = function(elements) {
+static init = function(elements) {
   elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-  var selectOneRadios = Tobago4.Utils.selectWithJQuery(elements, ".tobago-selectOneRadio");
+  var selectOneRadios = Tobago4Utils.selectWithJQuery(elements, ".tobago-selectOneRadio");
   selectOneRadios.each(function() {
     var ul = jQuery(this);
     var id = ul.closest("[id]").attr("id");
@@ -117,17 +121,18 @@ Tobago4.SelectOneRadio.init = function(elements) {
     });
   });
 };
+}
 
-Tobago.Listener.register(Tobago4.SelectOneRadio.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.Listener.register(Tobago4.SelectOneRadio.init, Tobago.Phase.AFTER_UPDATE);
+Listener.register(SelectOneRadio.init, Phase.DOCUMENT_READY);
+Listener.register(SelectOneRadio.init, Phase.AFTER_UPDATE);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Tobago4.SelectOneListbox = {};
+class SelectOneListbox {
 
-Tobago4.SelectOneListbox.init = function (elements) {
+static init = function (elements) {
   elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-  var selects = Tobago4.Utils.selectWithJQuery(elements, ".tobago-selectOneListbox");
+  var selects = Tobago4Utils.selectWithJQuery(elements, ".tobago-selectOneListbox");
   var notRequired = selects.not(".tobago-selectOneListbox-markup-required");
   notRequired
       .change(function () {
@@ -144,17 +149,18 @@ Tobago4.SelectOneListbox.init = function (elements) {
         element.data("tobago-old-value", element.prop("selectedIndex"));
       });
 };
+}
 
-Tobago.Listener.register(Tobago4.SelectOneListbox.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.Listener.register(Tobago4.SelectOneListbox.init, Tobago.Phase.AFTER_UPDATE);
+Listener.register(SelectOneListbox.init, Phase.DOCUMENT_READY);
+Listener.register(SelectOneListbox.init, Phase.AFTER_UPDATE);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Tobago4.SelectBooleanCheckbox = {};
+class SelectBooleanCheckbox {
 
-Tobago4.SelectBooleanCheckbox.init = function(elements) {
+static init = function(elements) {
   elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-  var checkboxes = Tobago4.Utils.selectWithJQuery(elements, ".tobago-selectBooleanCheckbox input[readonly]");
+  var checkboxes = Tobago4Utils.selectWithJQuery(elements, ".tobago-selectBooleanCheckbox input[readonly]");
   checkboxes.each(function() {
     // Save the initial state to restore it, when the user tries to manipulate it.
     var initial = jQuery(this).is(":checked");
@@ -163,17 +169,18 @@ Tobago4.SelectBooleanCheckbox.init = function(elements) {
     });
   });
 };
+}
 
-Tobago.Listener.register(Tobago4.SelectBooleanCheckbox.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.Listener.register(Tobago4.SelectBooleanCheckbox.init, Tobago.Phase.AFTER_UPDATE);
+Listener.register(SelectBooleanCheckbox.init, Phase.DOCUMENT_READY);
+Listener.register(SelectBooleanCheckbox.init, Phase.AFTER_UPDATE);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Tobago4.SelectBooleanToggle = {};
+class SelectBooleanToggle {
 
-Tobago4.SelectBooleanToggle.init = function(elements) {
+static init = function(elements) {
   elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-  var toggles = Tobago4.Utils.selectWithJQuery(elements, ".tobago-selectBooleanToggle input[readonly]");
+  var toggles = Tobago4Utils.selectWithJQuery(elements, ".tobago-selectBooleanToggle input[readonly]");
   toggles.each(function() {
     // Save the initial state to restore it, when the user tries to manipulate it.
     var initial = jQuery(this).is(":checked");
@@ -182,17 +189,18 @@ Tobago4.SelectBooleanToggle.init = function(elements) {
     });
   });
 };
+}
 
-Tobago.Listener.register(Tobago4.SelectBooleanToggle.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.Listener.register(Tobago4.SelectBooleanToggle.init, Tobago.Phase.AFTER_UPDATE);
+Listener.register(SelectBooleanToggle.init, Phase.DOCUMENT_READY);
+Listener.register(SelectBooleanToggle.init, Phase.AFTER_UPDATE);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Tobago4.SelectManyCheckbox = {};
+class SelectManyCheckbox {
 
-Tobago4.SelectManyCheckbox.init = function(elements) {
+static init = function(elements) {
   elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-  var checkboxes = Tobago4.Utils.selectWithJQuery(elements, ".tobago-selectManyCheckbox input[readonly]");
+  var checkboxes = Tobago4Utils.selectWithJQuery(elements, ".tobago-selectManyCheckbox input[readonly]");
   checkboxes.each(function() {
     // Save the initial state to restore it, when the user tries to manipulate it.
     var initial = jQuery(this).is(":checked");
@@ -201,8 +209,9 @@ Tobago4.SelectManyCheckbox.init = function(elements) {
     });
   });
 };
+}
 
-Tobago.Listener.register(Tobago4.SelectManyCheckbox.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.Listener.register(Tobago4.SelectManyCheckbox.init, Tobago.Phase.AFTER_UPDATE);
+Listener.register(SelectManyCheckbox.init, Phase.DOCUMENT_READY);
+Listener.register(SelectManyCheckbox.init, Phase.AFTER_UPDATE);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -42,7 +42,19 @@ public class ScriptRenderer extends RendererBase {
 //  TODO: new attribute DEFER
 // XXX with defer activated, pages are not shown reliable
 //        writer.writeAttribute(HtmlAttributes.DEFER, true);
-    writer.writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
+    if (script.getFile().contains("myfaces")
+        || script.getFile().contains("deltaspike")
+        || script.getFile().contains("jquery")
+        || script.getFile().contains("datetimepicker")
+        || script.getFile().contains("bootstrap.js")
+        || script.getFile().contains("moment")
+        || script.getFile().contains("popper")
+        || script.getFile().contains("typeahead")
+        || script.getFile().contains("tether")) {
+      writer.writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
+    } else {
+      writer.writeAttribute(HtmlAttributes.TYPE, "module", false);
+    }
     writer.endElement(HtmlElements.SCRIPT);
   }
 

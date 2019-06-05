@@ -17,7 +17,7 @@
 
 /* global initialzing script for CSS */
 CKEDITOR.on("instanceLoaded", function(event) {
-  var textarea = jQuery(Tobago4.Utils.escapeClientId(event.editor.name));
+  var textarea = jQuery(DomUtils.escapeClientId(event.editor.name));
   var editor = textarea.next();
   editor.css("height", textarea.css("height"));
   editor.css("width", textarea.css("width"));
@@ -50,6 +50,6 @@ CKEDITOR.on("instanceLoaded", function(event) {
 
 }(jQuery));
 
-Tobago.Listener.register(function() {
+Listener.register(function() {
   jQuery("[data-html-editor]").htmlEditor();
-}, Tobago.Phase.DOCUMENT_READY);
+}, Phase.DOCUMENT_READY);

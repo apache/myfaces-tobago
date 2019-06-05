@@ -110,4 +110,4 @@ TestDateTime.init = function () {
   }
 };
 
-Tobago.Listener.register(TestDateTime.init, Tobago.Phase.DOCUMENT_READY);
+Listener.register(TestDateTime.init, Phase.DOCUMENT_READY);

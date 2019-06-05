@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import {Listener, Phase} from "../tobago/standard/tobago-bootstrap/5.0.0-SNAPSHOT/js/tobago-listener.js";
+
 module Demo.ToClipboardButton {
 
   class ToClipboardButton {
@@ -54,6 +56,6 @@ module Demo.ToClipboardButton {
     )
   };
 
-  Tobago.Listener.register(init, Tobago.Phase.DOCUMENT_READY);
-  Tobago.Listener.register(init, Tobago.Phase.AFTER_UPDATE);
+  Listener.register(init, Phase.DOCUMENT_READY);
+  Listener.register(init, Phase.AFTER_UPDATE);
 }

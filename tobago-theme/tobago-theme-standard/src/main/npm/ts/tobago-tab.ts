@@ -15,53 +15,59 @@
  * limitations under the License.
  */
 
-Tobago4.TabGroup = {};
+import {Listener, Phase} from "./tobago-listener";
+import {Tobago4Utils} from "./tobago-utils";
+
+// XXX bug: currently the tab switch is not stored before the submit (AJAX and full reload). So the
+// XXX tab switch will not be submitted and is lost, after the response!
 
 /**
  * Initializes the tab-groups.
  * @param elements  a jQuery object to initialize (ajax) or null for initializing the whole document (full load).
  */
-Tobago4.TabGroup.init = function (elements) {
-  elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-  var $tabGroups = Tobago4.Utils.selectWithJQuery(elements, ".tobago-tabGroup");
-  var markupString = "selected";
-  var markupCssClass = "tobago-tab-markup-selected";
+class TabGroup {
+  static init = function (elements) {
+    elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
+    var $tabGroups = Tobago4Utils.selectWithJQuery(elements, ".tobago-tabGroup");
+    var markupString = "selected";
+    var markupCssClass = "tobago-tab-markup-selected";
 
-  $tabGroups.each(function () {
-    var $tabGroup = jQuery(this);
-    var $hiddenInput = $tabGroup.find("> input[type=hidden]");
-    var $tabContent = $tabGroup.find("> .tab-content");
+    $tabGroups.each(function () {
+      var $tabGroup = jQuery(this);
+      var $hiddenInput = $tabGroup.find("> input[type=hidden]");
+      var $tabContent = $tabGroup.find("> .tab-content");
 
-    $tabGroup.find(".tobago-tabGroup-header:first .tobago-tab .nav-link:not(.disabled)").click(function () {
-      var $navLink = jQuery(this);
-      var $tab = $navLink.parent(".tobago-tab");
-      var tabGroupIndex = $tab.data("tobago-tab-group-index");
+      $tabGroup.find(".tobago-tabGroup-header:first .tobago-tab .nav-link:not(.disabled)").click(function () {
+        var $navLink = jQuery(this);
+        var $tab = $navLink.parent(".tobago-tab");
+        var tabGroupIndex = $tab.data("tobago-tab-group-index");
 
-      $hiddenInput.val(tabGroupIndex);
+        $hiddenInput.val(tabGroupIndex);
 
-      if ($tabGroup.data("tobago-switch-type") === "client") {
+        if ($tabGroup.data("tobago-switch-type") === "client") {
 
-        //remove data-markup, markup-css-class and .active from tabs/tab-content
-        $tabGroup.find(".tobago-tab .nav-link.active").each(function () {
-          var $navLink = jQuery(this);
-          var $tab = $navLink.parent(".tobago-tab");
-          var $activeTabContent = $tabContent.find(".tobago-tab-content.tab-pane.active");
+          //remove data-markup, markup-css-class and .active from tabs/tab-content
+          $tabGroup.find(".tobago-tab .nav-link.active").each(function () {
+            var $navLink = jQuery(this);
+            var $tab = $navLink.parent(".tobago-tab");
+            var $activeTabContent = $tabContent.find(".tobago-tab-content.tab-pane.active");
 
-          Tobago4.Utils.removeDataMarkup($tab, markupString);
-          $tab.removeClass(markupCssClass);
-          $navLink.removeClass("active");
-          $activeTabContent.removeClass("active");
-        });
+            Tobago4Utils.removeDataMarkup($tab, markupString);
+            $tab.removeClass(markupCssClass);
+            $navLink.removeClass("active");
+            $activeTabContent.removeClass("active");
+          });
 
-        //add data-markup, markup-css-class and .active from tabs/tab-content
-        Tobago4.Utils.addDataMarkup($tab, markupString);
-        $tab.addClass(markupCssClass);
-        $navLink.addClass("active");
-        $tabContent.find(".tobago-tab-content.tab-pane[data-tobago-tab-group-index=" + tabGroupIndex + "]").addClass("active");
-      }
+          //add data-markup, markup-css-class and .active from tabs/tab-content
+          Tobago4Utils.addDataMarkup($tab, markupString);
+          $tab.addClass(markupCssClass);
+          $navLink.addClass("active");
+          $tabContent.find(".tobago-tab-content.tab-pane[data-tobago-tab-group-index=" + tabGroupIndex + "]").addClass("active");
+        }
+      });
     });
-  });
-};
+  };
+}
 
-Tobago.Listener.register(Tobago4.TabGroup.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.Listener.register(Tobago4.TabGroup.init, Tobago.Phase.AFTER_UPDATE);
+Listener.register(TabGroup.init, Phase.DOCUMENT_READY);
+Listener.register(TabGroup.init, Phase.AFTER_UPDATE);

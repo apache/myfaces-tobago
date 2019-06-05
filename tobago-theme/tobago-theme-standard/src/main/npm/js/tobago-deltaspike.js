@@ -17,7 +17,7 @@
  * under the License.
  */
 
-jQuery(document).ready(function() {
+document.addEventListener('DOMContentLoaded', function() {
   var dswid = location.search.replace(/.*dswid=(\-?[0-9]+).*/, "$1");
   if (dswid) {
     dswh.init(dswid, 'LAZY', 10, {

@@ -15,11 +15,14 @@
  * limitations under the License.
  */
 
-Tobago4.Stars = {};
+import {Listener, Phase} from "./tobago-listener";
+import {Tobago4Utils} from "./tobago-utils";
 
-Tobago4.Stars.init = function (elements) {
+class Stars {
+
+static init(elements) {
   elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-  var starComponents = Tobago4.Utils.selectWithJQuery(elements, ".tobago-stars");
+  var starComponents = Tobago4Utils.selectWithJQuery(elements, ".tobago-stars");
   starComponents.each(function () {
     var $starComponent = jQuery(this);
 
@@ -155,6 +158,7 @@ Tobago4.Stars.init = function (elements) {
     }
   });
 };
+}
 
-Tobago.Listener.register(Tobago4.Stars.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.Listener.register(Tobago4.Stars.init, Tobago.Phase.AFTER_UPDATE);
+Listener.register(Stars.init, Phase.DOCUMENT_READY);
+Listener.register(Stars.init, Phase.AFTER_UPDATE);

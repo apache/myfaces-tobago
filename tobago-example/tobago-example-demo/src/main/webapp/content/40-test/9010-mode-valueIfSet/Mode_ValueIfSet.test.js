@@ -21,7 +21,7 @@ QUnit.test("inputfield with label", function (assert) {
 
   function testValueEquals(id) {
 
-    var $field = jQueryFrame(Tobago4.Utils.escapeClientId(id));
+    var $field = jQueryFrame(DomUtils.escapeClientId(id));
     var $label = jQueryFrame("[for='"+id+"']");
     assert.equal($field.val(), $label.text());
   }
@@ -40,7 +40,7 @@ QUnit.test("inputfield with label", function (assert) {
 
   function testValueEquals(id) {
 
-    var $field = jQueryFrame(Tobago4.Utils.escapeClientId(id));
+    var $field = jQueryFrame(DomUtils.escapeClientId(id));
     var $label = jQueryFrame("[for='"+id+"']");
     assert.equal($field.attr("id"), $label.text());
   }

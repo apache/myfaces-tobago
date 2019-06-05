@@ -45,7 +45,7 @@
               + (position.y - zoom) + ','
               + (position.x + zoom) + ','
               + (position.y + zoom);
-          jQuery(Tobago4.Utils.escapeClientId(target)).attr('src', url);
+          jQuery(DomUtils.escapeClientId(target)).attr('src', url);
         }
       });
     },
@@ -67,4 +67,4 @@ var initMaps = function () {
       .click();
 };
 
-Tobago.Listener.register(initMaps, Tobago.Phase.DOCUMENT_READY);
+Listener.register(initMaps, Phase.DOCUMENT_READY);

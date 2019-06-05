@@ -15,24 +15,21 @@
  * limitations under the License.
  */
 
-TestSheetReload = {};
+export class Config {
 
-TestSheetReload.init = function() {
+  private static map: Map<string, any> = new Map<string, any>();
 
-  setTimeout(function() {
-    var value = jQuery(".tobago-sheet-body td").eq(1).find("span").html();
-    if (value !== "0") {
-      console.error("expect '0' not '" + value + "'");
+static set(key: string, value: any) {
+    this.map.set(key, value);
+  }
+
+ static get(key: string): any {
+    const value = this.map.get(key);
+    if (value) {
+      return value;
+    } else {
+      console.warn("Config.get(" + key + ") = undefined");
+      return 0;
     }
-  }, 3000);
-
-  setTimeout(function() {
-    var value = jQuery(".tobago-sheet-body td").eq(1).find("span").html();
-    if (value !== "2") {
-      console.error("expect '2' not '" + value + "'");
-    }
-  }, 5000);
-
-};
-
-Listener.register(TestSheetReload.init, Phase.DOCUMENT_READY);
+  }
+}

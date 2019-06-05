@@ -15,21 +15,24 @@
  * limitations under the License.
  */
 
-Tobago4.MessagePopover = {};
+import {Listener, Phase} from "./tobago-listener";
 
-Tobago4.MessagePopover.init = function(elements) {
-  elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-  jQuery('[data-toggle="popover"]').popover({
-    constraints: [
-      {
-        to: 'window',
-        attachment: 'together',
-        pin: true
-      }
-    ],
-    trigger: 'focus'
-  });
-};
+class MessagePopover {
 
-Tobago.Listener.register(Tobago4.MessagePopover.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.Listener.register(Tobago4.MessagePopover.init, Tobago.Phase.AFTER_UPDATE);
+  static init = function (elements) {
+    elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
+    jQuery('[data-toggle="popover"]').popover({
+      constraints: [
+        {
+          to: 'window',
+          attachment: 'together',
+          pin: true
+        }
+      ],
+      trigger: 'focus'
+    });
+  }
+}
+
+Listener.register(MessagePopover.init, Phase.DOCUMENT_READY);
+Listener.register(MessagePopover.init, Phase.AFTER_UPDATE);

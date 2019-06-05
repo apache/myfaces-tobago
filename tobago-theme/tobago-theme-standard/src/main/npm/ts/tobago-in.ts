@@ -16,39 +16,40 @@
  */
 
 // XXX regexp example only - blueprint
-namespace Tobago {
 
-  class RegExpTest {
+import {Listener, Phase} from "./tobago-listener";
+import {DomUtils} from "./tobago-utils";
 
-    private readonly element: HTMLInputElement;
-    private readonly regexp: RegExp;
+class RegExpTest {
 
-    constructor(element: HTMLInputElement) {
+  private readonly element: HTMLInputElement;
+  private readonly regexp: RegExp;
 
-      this.element = element;
-      this.regexp = new RegExp(this.element.dataset["regexp"]);
+  constructor(element: HTMLInputElement) {
 
-      console.info("constructor: " + element.id);
+    this.element = element;
+    this.regexp = new RegExp(this.element.dataset["regexp"]);
 
-      this.element.addEventListener("change", this.checkValue.bind(this));
-    };
+    console.info("constructor: " + element.id);
 
-    checkValue(event: TextEvent) {
-      console.info("changed: check if " + this.regexp + " is okay!");
-      if (!this.regexp.test(this.element.value)) {
-        this.element.classList.add("border-danger");
-      } else {
-        this.element.classList.remove("border-danger");
-      }
-    };
+    this.element.addEventListener("change", this.checkValue.bind(this));
+  };
 
-    static init = function (element: HTMLElement): void {
-      for (const input of element.tobagoSelfOrElementsByClassName("tobago-in")) { // todo only for data-regexp
-        new RegExpTest(<HTMLInputElement>input);
-      }
-    };
-  }
+  checkValue(event: TextEvent) {
+    console.info("changed: check if " + this.regexp + " is okay!");
+    if (!this.regexp.test(this.element.value)) {
+      this.element.classList.add("border-danger");
+    } else {
+      this.element.classList.remove("border-danger");
+    }
+  };
 
-  Listener.register(RegExpTest.init, Phase.DOCUMENT_READY);
-  Listener.register(RegExpTest.init, Phase.AFTER_UPDATE);
+  static init = function (element: HTMLElement): void {
+    for (const input of DomUtils.selfOrElementsByClassName(element, "tobago-in")) { // todo only for data-regexp
+      new RegExpTest(<HTMLInputElement>input);
+    }
+  };
 }
+
+Listener.register(RegExpTest.init, Phase.DOCUMENT_READY);
+Listener.register(RegExpTest.init, Phase.AFTER_UPDATE);

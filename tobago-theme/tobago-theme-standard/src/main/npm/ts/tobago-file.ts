@@ -15,38 +15,38 @@
  * limitations under the License.
  */
 
-namespace Tobago {
+import {Listener, Phase} from "./tobago-listener";
+import {DomUtils} from "./tobago-utils";
 
-  class File {
+class File {
 
-    static init(element: HTMLElement) {
-      for (const e of element.tobagoSelfOrQuerySelectorAll(".tobago-file-real")) {
-        const real = <HTMLInputElement>e;
-        real.addEventListener("change", function () {
-          const pretty = <HTMLInputElement>real.parentElement.querySelector(".tobago-file-pretty");
-          let text: string;
-          if (real.multiple) {
-            const format: string = real.dataset["tobagoFileMultiFormat"];
-            text = format.replace("{}", real.files.length.toString());
-          } else {
-            text = <string>real.value;
-            // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\path\".
-            const pos: number = Math.max(text.lastIndexOf('/'), text.lastIndexOf('\\'));
-            if (pos >= 0) {
-              text = text.substr(pos + 1);
-            }
+  static init(element: HTMLElement) {
+    for (const e of DomUtils.selfOrQuerySelectorAll(element, ".tobago-file-real")) {
+      const real = <HTMLInputElement>e;
+      real.addEventListener("change", function () {
+        const pretty = <HTMLInputElement>real.parentElement.querySelector(".tobago-file-pretty");
+        let text: string;
+        if (real.multiple) {
+          const format: string = real.dataset["tobagoFileMultiFormat"];
+          text = format.replace("{}", real.files.length.toString());
+        } else {
+          text = <string>real.value;
+          // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\path\".
+          const pos: number = Math.max(text.lastIndexOf('/'), text.lastIndexOf('\\'));
+          if (pos >= 0) {
+            text = text.substr(pos + 1);
           }
-          pretty.value = text;
-        });
-        // click on the button (when using focus with keyboard)
-        real.parentElement.querySelector("button").addEventListener("click", function () {
-          real.click();
-        });
-        real.form.enctype = "multipart/form-data";
-      }
-    };
-  }
-
-  Listener.register(File.init, Phase.DOCUMENT_READY);
-  Listener.register(File.init, Phase.AFTER_UPDATE);
+        }
+        pretty.value = text;
+      });
+      // click on the button (when using focus with keyboard)
+      real.parentElement.querySelector("button").addEventListener("click", function () {
+        real.click();
+      });
+      real.form.enctype = "multipart/form-data";
+    }
+  };
 }
+
+Listener.register(File.init, Phase.DOCUMENT_READY);
+Listener.register(File.init, Phase.AFTER_UPDATE);

@@ -15,7 +15,11 @@
  * limitations under the License.
  */
 
-Demo = {};
+import {Tobago} from "../tobago/standard/tobago-bootstrap/5.0.0-SNAPSHOT/js/tobago-core.js";
+import {Listener, Phase} from "../tobago/standard/tobago-bootstrap/5.0.0-SNAPSHOT/js/tobago-listener.js";
+import {Tobago4Utils} from "../tobago/standard/tobago-bootstrap/5.0.0-SNAPSHOT/js/tobago-utils.js";
+
+const Demo = {};
 
 var initAlert = function () {
   document.querySelectorAll("[data-alert-text]").forEach(function (element) {
@@ -27,12 +31,12 @@ var initAlert = function () {
 };
 
 // old
-Tobago.registerListener(initAlert, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(initAlert, Tobago.Phase.AFTER_UPDATE);
+Tobago.registerListener(initAlert, Phase.DOCUMENT_READY);
+Tobago.registerListener(initAlert, Phase.AFTER_UPDATE);
 
 // new
-// Tobago.Listener.register(initAlert, Tobago.Phase.DOCUMENT_READY);
-// Tobago.Listener.register(initAlert, Tobago.Phase.AFTER_UPDATE);
+// Listener.register(initAlert, Phase.DOCUMENT_READY);
+// Listener.register(initAlert, Phase.AFTER_UPDATE);
 
 var initInspect = function (elements) {
 
@@ -40,7 +44,7 @@ var initInspect = function (elements) {
 
   // var tobagoElements = Tobago.Utils.selectWithJQuery(elements, ".tobago-in,.tobago-out,.tobago-date");
   elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-  var tobagoElements = Tobago4.Utils.selectWithJQuery(elements, ".tobago-flexLayout");
+  var tobagoElements = Tobago4Utils.selectWithJQuery(elements, ".tobago-flexLayout");
 
   // do highlighting with hovering only in the content-area
   tobagoElements = tobagoElements.filter(function () {
@@ -68,15 +72,15 @@ var initInspect = function (elements) {
   });
 };
 
-Tobago.Listener.register(initInspect, Tobago.Phase.DOCUMENT_READY);
-Tobago.Listener.register(initInspect, Tobago.Phase.AFTER_UPDATE);
+Listener.register(initInspect, Phase.DOCUMENT_READY);
+Listener.register(initInspect, Phase.AFTER_UPDATE);
 
 Demo.prismHighlight = function (elements) {
   // call highlighting again. (is called for all, not only for the elements, because it's easier to implement.)
   Prism.highlightAll();
 };
 
-Tobago.Listener.register(Demo.prismHighlight, Tobago.Phase.AFTER_UPDATE);
+Listener.register(Demo.prismHighlight, Phase.AFTER_UPDATE);
 
 var initTestLinks = function () {
   var $runLink = jQuery("#page\\:header\\:runtest");
@@ -90,15 +94,15 @@ var initTestLinks = function () {
   }
 };
 
-Tobago.Listener.register(initTestLinks, Tobago.Phase.DOCUMENT_READY);
-Tobago.Listener.register(initTestLinks, Tobago.Phase.AFTER_UPDATE);
+Listener.register(initTestLinks, Phase.DOCUMENT_READY);
+Listener.register(initTestLinks, Phase.AFTER_UPDATE);
 
 var initTestframe = function () {
   jQuery("#page\\:testframe").attr("onload", "this.height = this.contentWindow.jQuery('body').prop('scrollHeight');");
 };
 
-Tobago.Listener.register(initTestframe, Tobago.Phase.DOCUMENT_READY);
-Tobago.Listener.register(initTestframe, Tobago.Phase.AFTER_UPDATE);
+Listener.register(initTestframe, Phase.DOCUMENT_READY);
+Listener.register(initTestframe, Phase.AFTER_UPDATE);
 
 Demo.initGoogleSearch = function () {
   var $input = jQuery("#page\\:search\\:searchField");
@@ -116,8 +120,8 @@ Demo.initGoogleSearch = function () {
   });
 };
 
-Tobago.Listener.register(Demo.initGoogleSearch, Tobago.Phase.DOCUMENT_READY);
-Tobago.Listener.register(Demo.initGoogleSearch, Tobago.Phase.AFTER_UPDATE);
+Listener.register(Demo.initGoogleSearch, Phase.DOCUMENT_READY);
+Listener.register(Demo.initGoogleSearch, Phase.AFTER_UPDATE);
 
 Demo.initMailTo = function () {
   var $command = jQuery("[href^=mailto]");
@@ -128,5 +132,5 @@ Demo.initMailTo = function () {
   });
 };
 
-Tobago.Listener.register(Demo.initMailTo, Tobago.Phase.DOCUMENT_READY);
-Tobago.Listener.register(Demo.initMailTo, Tobago.Phase.AFTER_UPDATE);
+Listener.register(Demo.initMailTo, Phase.DOCUMENT_READY);
+Listener.register(Demo.initMailTo, Phase.AFTER_UPDATE);

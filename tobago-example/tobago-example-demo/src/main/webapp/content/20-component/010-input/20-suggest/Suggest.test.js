@@ -146,6 +146,6 @@ QUnit.test("Client side: 'Ju'", function (assert) {
 });
 
 function getSuggestions(id) {
-  return jQueryFrameFn(Tobago4.Utils.escapeClientId(
+  return jQueryFrameFn(DomUtils.escapeClientId(
       jQueryFrame(id + " .tobago-suggest").attr("id") + "::popup") + " .tt-suggestion");
 }

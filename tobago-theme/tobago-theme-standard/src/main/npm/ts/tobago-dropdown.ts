@@ -15,32 +15,35 @@
  * limitations under the License.
  */
 
-Tobago4.Dropdown = {};
+import {Listener, Order, Phase} from "./tobago-listener";
 
-Tobago4.Dropdown.init = function (elements) {
-  elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-  var $dropdownMenus = jQuery(":not(.tobago-page-menuStore) > .dropdown-menu");
-  var $tobagoPageMenuStore = jQuery(".tobago-page-menuStore");
+class Dropdown {
 
-  $dropdownMenus.each(function () {
-    var $dropdownMenu = jQuery(this);
-    var $parent = $dropdownMenu.parent();
+  static init(elements) {
+    elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
+    var $dropdownMenus = jQuery(":not(.tobago-page-menuStore) > .dropdown-menu");
+    var $tobagoPageMenuStore = jQuery(".tobago-page-menuStore");
 
-    if (!$parent.hasClass('tobago-dropdown-submenu')
-        && $parent.closest('.navbar').length === 0) {
+    $dropdownMenus.each(function () {
+      var $dropdownMenu = jQuery(this);
+      var $parent = $dropdownMenu.parent();
 
-      // remove duplicated dropdown menus from menu store
-      // this could happen if the dropdown component is updated by ajax
-      removeDuplicates($dropdownMenu);
+      if (!$parent.hasClass('tobago-dropdown-submenu')
+          && $parent.closest('.navbar').length === 0) {
 
-      $parent.on('shown.bs.dropdown', function (event) {
-        $tobagoPageMenuStore.append($dropdownMenu.detach());
-      }).on('hidden.bs.dropdown', function (event) {
-        $parent.append($dropdownMenu.detach());
-      });
-    }
-  });
-};
+        // remove duplicated dropdown menus from menu store
+        // this could happen if the dropdown component is updated by ajax
+        removeDuplicates($dropdownMenu);
+
+        $parent.on('shown.bs.dropdown', function (event) {
+          $tobagoPageMenuStore.append($dropdownMenu.detach());
+        }).on('hidden.bs.dropdown', function (event) {
+          $parent.append($dropdownMenu.detach());
+        });
+      }
+    });
+  };
+}
 
 function removeDuplicates($dropdownMenu) {
   var $menuStoreDropdowns = jQuery(".tobago-page-menuStore .dropdown-menu");
@@ -65,5 +68,5 @@ function getIds($dropdownMenu) {
   });
 }
 
-Tobago.Listener.register(Tobago4.Dropdown.init, Tobago.Phase.DOCUMENT_READY, Tobago.Order.NORMAL);
-Tobago.Listener.register(Tobago4.Dropdown.init, Tobago.Phase.AFTER_UPDATE, Tobago.Order.NORMAL);
+Listener.register(Dropdown.init, Phase.DOCUMENT_READY, Order.NORMAL);
+Listener.register(Dropdown.init, Phase.AFTER_UPDATE, Order.NORMAL);

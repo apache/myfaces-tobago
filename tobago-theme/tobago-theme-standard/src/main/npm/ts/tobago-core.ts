@@ -15,7 +15,25 @@
  * limitations under the License.
  */
 
-var Tobago4:any = {
+import {Listener, Phase, Order} from "./tobago-listener";
+import {Overlay} from "./tobago-overlay";
+import {DomUtils, Tobago4Utils} from "./tobago-utils";
+
+export class Tobago {
+  /**
+   * Backward compatible listener registration. In the case of an AJAX call (phase = Phase.AFTER_UPDATE)
+   * this listener will be called with a jQuery-object, the new one will get an HTMLElement.
+   * @deprecated since 5.0.0
+   */
+  static registerListener(listener, phase, order) {
+
+    Listener.register(function (element: HTMLElement) {
+      listener(jQuery(element));
+    }, phase, order);
+  }
+}
+
+export class Tobago4 {
 
   // -------- Constants -------------------------------------------------------
 
@@ -24,14 +42,14 @@ var Tobago4:any = {
    * @const
    * @type {string}
    */
-  COMPONENT_SEP: ':',
+ static readonly COMPONENT_SEP= ':';
 
   /**
    * Tobago's subComponent separator constant
    * @const
    * @type {string}
    */
-  SUB_COMPONENT_SEP: '::',
+static readonly SUB_COMPONENT_SEP= '::';
 
   // -------- Variables -------------------------------------------------------
 
@@ -39,46 +57,46 @@ var Tobago4:any = {
    * The html form object of current page.
    * set via init function
    */
-  form: null,
+static  form= null;
 
-  htmlIdIndex: 0,
+static  htmlIdIndex= 0;
 
-  createHtmlId: function() {
-    var id = '__tbg_id_' + this.htmlIdIndex++;
+static  createHtmlId= function() {
+    var id = '__tbg_id_' + Tobago4.htmlIdIndex++;
     console.debug('created id = ' + id);
     return id;
-  },
+  };
 
-  jsObjects: [],
+static  jsObjects= [];
 
-  isSubmit: false,
+static  isSubmit= false;
 
-  initMarker: false,
+static  initMarker= false;
 
   // -------- Functions -------------------------------------------------------
 
-  findPage: function() {
+  static  findPage= function() {
     return jQuery(".tobago-page");
-  },
+  };
 
   /**
    * Find a sub-element of the page. Like the form with id e.g. page::form
    * @param suffix
    */
-  findSubElementOfPage: function(suffix) {
-    return jQuery(Tobago4.Utils.escapeClientId(Tobago4.findPage().attr("id") + Tobago4.SUB_COMPONENT_SEP + suffix));
-  },
+  static  findSubElementOfPage= function(suffix) {
+    return jQuery(DomUtils.escapeClientId(Tobago4.findPage().attr("id") + Tobago4.SUB_COMPONENT_SEP + suffix));
+  };
 
   /**
    * Tobago's central init function.
    * Called when the document (DOM) is ready
    */
-  init: function() {
+  static  init= function() {
 
-    if (this.initMarker) {
+    if (Tobago4.initMarker) {
       return;
     }
-    this.initMarker = true;
+    Tobago4.initMarker = true;
 
     console.time("[tobago] init");
 
@@ -86,10 +104,10 @@ var Tobago4:any = {
 
     window.addEventListener('unload', Tobago4.onUnload);
 
-    Tobago.Listener.executeDocumentReady(document.documentElement);
+    Listener.executeDocumentReady(document.documentElement);
     /*
-        for (var order = 0; order < Tobago.listeners.documentReady.length; order++) {
-          var list = Tobago.listeners.documentReady[order];
+        for (var order = 0; order < Listeners.documentReady.length; order++) {
+          var list = Listeners.documentReady[order];
           for (var i = 0; i < list.length; i++) {
             console.time("[tobago] init " + order + " " + i);
             list[i]();
@@ -99,18 +117,18 @@ var Tobago4:any = {
     */
 
     console.timeEnd("[tobago] init");
-  },
+  };
 
-  onSubmit: function(listenerOptions) {
-    Tobago.Listener.executeBeforeSubmit();
+  static  onSubmit= function(listenerOptions) {
+    Listener.executeBeforeSubmit();
     /*
     XXX check if we need the return false case
     XXX maybe we cancel the submit, but we continue the rest?
     XXX should the other phases also have this feature?
 
         var result = true; // Do not continue if any function returns false
-        for (var order = 0; order < Tobago.listeners.beforeSubmit.length; order++) {
-          var list = Tobago.listeners.beforeSubmit[order];
+        for (var order = 0; order < Listeners.beforeSubmit.length; order++) {
+          var list = Listeners.beforeSubmit[order];
           for (var i = 0; i < list.length; i++) {
             result = list[i](listenerOptions);
             if (result === false) {
@@ -123,34 +141,34 @@ var Tobago4:any = {
           return false;
         }
     */
-    this.isSubmit = true;
+    Tobago4.isSubmit = true;
 
     Tobago4.onBeforeUnload();
 
     return true;
-  },
+  };
 
-  onBeforeUnload: function() {
+  static  onBeforeUnload= function() {
     if (this.transition) {
-      new Tobago.Overlay(document.tobagoPage());
+      new Overlay(DomUtils.page());
     }
     this.transition = this.oldTransition;
-  },
+  };
 
   /**
    * Wrapper function to call application generated onunload function
    */
-  onUnload: function() {
+  static  onUnload= function() {
 
     console.info('on onload');
 
-    if (this.isSubmit) {
-      Tobago.Listener.executeBeforeUnload();
+    if (Tobago4.isSubmit) {
+      Listener.executeBeforeUnload();
     } else {
-      Tobago.Listener.executeBeforeExit();
+      Listener.executeBeforeExit();
     }
     /*
-        var phase = this.isSubmit ? Tobago.listeners.beforeUnload : Tobago.listeners.beforeExit;
+        var phase = this.isSubmit ? Listeners.beforeUnload : Listeners.beforeExit;
 
         for (var order = 0; order < phase.length; order++) {
           var list = phase[order];
@@ -159,24 +177,24 @@ var Tobago4:any = {
           }
         }
         */
-  },
+  };
 
   /**
    * Submitting the page with specified actionId.
    * options.transition
    * options.target
    */
-  submitAction: function(source, actionId, options) {
+  static  submitAction= function(source, actionId, options?) {
     options = options || {};
 
     var transition = options.transition === undefined || options.transition == null || options.transition;
 
-    Tobago4.Transport.request(function() {
-      if (!this.isSubmit) {
-        this.isSubmit = true;
+    Transport.request(function() {
+      if (!Tobago4.isSubmit) {
+        Tobago4.isSubmit = true;
         const form = <HTMLFormElement>document.getElementsByTagName("form")[0];
         var oldTarget = form.getAttribute("target");
-        var $sourceHidden = jQuery(Tobago4.Utils.escapeClientId("javax.faces.source"));
+        var $sourceHidden = jQuery(DomUtils.escapeClientId("javax.faces.source"));
         $sourceHidden.prop("disabled", false);
         $sourceHidden.val(actionId);
         if (options.target) {
@@ -198,7 +216,7 @@ var Tobago4:any = {
             $sourceHidden.prop("disabled", true);
             $sourceHidden.val();
           } catch (e) {
-            Tobago.Overlay.destroy(document.tobagoPage().id);
+            Overlay.destroy(DomUtils.page().id);
             Tobago4.isSubmit = false;
             alert('Submit failed: ' + e); // XXX localization, better error handling
           }
@@ -211,32 +229,28 @@ var Tobago4:any = {
           }
         }
         if (options.target || !transition || !onSubmitResult) {
-          this.isSubmit = false;
-          Tobago4.Transport.pageSubmitted = false;
+          Tobago4.isSubmit = false;
+          Transport.pageSubmitted = false;
         }
       }
-      if (!this.isSubmit) {
-        Tobago4.Transport.requestComplete(); // remove this from queue
+      if (!Tobago4.isSubmit) {
+        Transport.requestComplete(); // remove this from queue
       }
 
 
     }, true);
-  },
+  };
 
-  initDom: function(elements) {
+  static  initDom= function(elements) {
     elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
 
     // focus
     Tobago4.initFocus(elements);
 
-    // commands
-    Tobago4.Utils.selectWithJQuery(elements, '[data-tobago-commands]')
-        .each(function () {Tobago4.Command.init(jQuery(this));});
-
     Tobago4.initScrollPosition(elements ? elements : jQuery(".tobago-page"));
-  },
+  };
 
-  initScrollPosition: function(elements) {
+  static  initScrollPosition= function(elements) {
     var scrollPanels;
     if (elements.data("tobago-scroll-panel")) {
       scrollPanels = elements;
@@ -261,7 +275,7 @@ var Tobago4:any = {
         panel.prop("scrollTop", scrollTop);
       }
     });
-  },
+  };
 
 // -------- Util functions ----------------------------------------------------
 
@@ -275,7 +289,7 @@ var Tobago4:any = {
    * - last (the element from the last request with same id gets the focus, not AJAX)
    * - first (the first input element (without tabindex=-1) gets the focus, not AJAX)
    */
-  initFocus: function(elements) {
+  static  initFocus= function(elements) {
 
     var $focusable = jQuery(":input:enabled:visible:not(button):not([tabindex='-1'])");
     $focusable.focus(function () {
@@ -283,14 +297,14 @@ var Tobago4:any = {
       Tobago4.findSubElementOfPage("lastFocusId").val(jQuery(this).attr("id"));
     });
 
-    var $hasDanger = Tobago4.Utils.selectWithJQuery(elements, '.has-danger');
+    var $hasDanger = Tobago4Utils.selectWithJQuery(elements, '.has-danger');
     var $dangerInput = $hasDanger.find("*").filter(":input:enabled:visible:first");
     if ($dangerInput.length > 0) {
       Tobago4.setFocus($dangerInput);
       return;
     }
 
-    var $autoFocus = Tobago4.Utils.selectWithJQuery(elements, '[autofocus]');
+    var $autoFocus = Tobago4Utils.selectWithJQuery(elements, '[autofocus]');
     var hasAutoFocus = $autoFocus.length > 0;
     if (hasAutoFocus) {
       // nothing to do, because the browser make the work.
@@ -308,9 +322,9 @@ var Tobago4:any = {
       return;
     }
 
-    var lastFocusId = Tobago4.findSubElementOfPage("lastFocusId").val();
+    var lastFocusId = Tobago4.findSubElementOfPage("lastFocusId").get(0).getAttribute("value");
     if (lastFocusId) {
-      Tobago4.setFocus(jQuery(Tobago4.Utils.escapeClientId(lastFocusId)));
+      Tobago4.setFocus(jQuery(DomUtils.escapeClientId(lastFocusId)));
       return;
     }
 
@@ -319,25 +333,18 @@ var Tobago4:any = {
       Tobago4.setFocus($firstInput);
       return;
     }
-  },
+  };
 
-  setFocus: function($element) {
+  static  setFocus= function($element) {
     try {
       // focus() on not visible elements breaks some IE
       $element.focus();
     } catch (e) {
       console.error("element-id=" + $element.attr("id") + " exception=" + e);
     }
-  },
+  };
 
-  extend: function(target, source) {
-    for (var property in source) {
-      target[property] = source[property];
-    }
-    return target;
-  },
-
-  toString: function(element) {
+  static  toString= function(element) {
     var result = '';
     for (var property in element) {
       if (property && element[property]) {
@@ -348,90 +355,49 @@ var Tobago4:any = {
       }
     }
     return result;
-  },
+  };
 
-};
+}
 
-jQuery(document).ready(function() {
+document.addEventListener('DOMContentLoaded',function() {
   Tobago4.init();
 });
 
-jQuery(window).on("load", function() {
-  Tobago.Listener.executeWindowLoad();
-  /*
-    for (var order = 0; order < Tobago.listeners.windowLoad.length; order++) {
-      var list = Tobago.listeners.windowLoad[order];
-      for (var i = 0; i < list.length; i++) {
-        list[i]();
-      }
-    }
-  */
+window.addEventListener("load", function() {
+  Listener.executeWindowLoad();
 });
-
-Tobago4.Config = {
-  set: function(name, key, value) {
-    if (!this[name]) {
-      this[name] = {};
-    }
-    this[name][key] = value;
-  },
-
-  get: function(name, key) {
-    while (name && !(this[name] && this[name][key])) {
-      name = this.getFallbackName(name);
-    }
-
-    if (name) {
-      return this[name][key];
-    } else {
-      console.warn("Tobago.Config.get(" + name + ", " + key + ") = undefined");
-      return 0;
-    }
-  },
-
-  fallbackNames: {},
-
-  getFallbackName: function(name){
-    if (this.fallbackNames[name]) {
-      return this.fallbackNames[name];
-    } else if (name === "Tobago") {
-      return undefined;
-    } else {
-      return "Tobago";
-    }
-  }
-};
 
 // using Tobago.Order.LATE, because the command event generated by data-tobago-commands
 // may produce a submit, but we need to do something before the submit (and also on click,
 // e. g. selectOne in a toolBar).
-Tobago.Listener.register(Tobago4.initDom, Tobago.Phase.DOCUMENT_READY, Tobago.Order.LATER);
-Tobago.Listener.register(Tobago4.initDom, Tobago.Phase.AFTER_UPDATE, Tobago.Order.LATER);
+Listener.register(Tobago4.initDom, Phase.DOCUMENT_READY, Order.LATER);
+Listener.register(Tobago4.initDom, Phase.AFTER_UPDATE, Order.LATER);
 
-Tobago4.Transport = {
-  requests: [],
-  currentActionId: null,
-  pageSubmitted: false,
+class Transport {
+  static  requests= [];
+  static  currentActionId= null;
+  static  pageSubmitted= false;
+  static startTime:Date;
 
   /**
    * @return true if the request is queued.
    */
-  request: function(req, submitPage, actionId) {
+  static  request= function(req, submitPage, actionId?) {
     var index = 0;
     if (submitPage) {
-      this.pageSubmitted = true;
-      index = this.requests.push(req);
+      Transport.pageSubmitted = true;
+      index = Transport.requests.push(req);
       //console.debug('index = ' + index)
-    } else if (!this.pageSubmitted) { // AJAX case
-      console.debug('Current ActionId = ' + this.currentActionId + ' action= ' + actionId);
-      if (actionId && this.currentActionId === actionId) {
+    } else if (!Transport.pageSubmitted) { // AJAX case
+      console.debug('Current ActionId = ' + Transport.currentActionId + ' action= ' + actionId);
+      if (actionId && Transport.currentActionId === actionId) {
         console.info('Ignoring request');
         // If actionId equals currentActionId assume double request: do nothing
         return false;
       }
-      index = this.requests.push(req);
+      index = Transport.requests.push(req);
       //console.debug('index = ' + index)
-      this.currentActionId = actionId;
+      Transport.currentActionId = actionId;
     } else {
       console.debug("else case");
       return false;
@@ -439,25 +405,26 @@ Tobago4.Transport = {
     console.debug('index = ' + index);
     if (index === 1) {
       console.info('Execute request!');
-      this.startTime = new Date().getTime();
-      this.requests[0]();
+      Transport.startTime = new Date();
+      Transport.requests[0]();
     } else {
       console.info('Request queued!');
     }
     return true;
-  },
+  };
 
 
 // TBD XXX REMOVE is this called in non AJAX case?
 
-  requestComplete: function() {
-    this.requests.shift();
-    this.currentActionId = null;
-    console.debug('Request complete! Duration: ' + (new Date().getTime() - this.startTime) + 'ms; Queue size : ' + this.requests.length);
-    if (this.requests.length > 0) {
+  static requestComplete= function() {
+    Transport.requests.shift();
+    Transport.currentActionId = null;
+    console.debug('Request complete! Duration: ' + (new Date().getTime() - Transport.startTime.getTime()) + 'ms; '
+       + 'Queue size : ' + Transport.requests.length);
+    if (Transport.requests.length > 0) {
       console.debug('Execute request!');
-      this.startTime = new Date().getTime();
-      this.requests[0]();
+      Transport.startTime = new Date();
+      Transport.requests[0]();
     }
-  }
-};
+  };
+}
