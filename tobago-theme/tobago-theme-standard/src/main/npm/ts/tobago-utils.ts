@@ -17,7 +17,7 @@
 
 export class DomUtils {
 
-  static page():HTMLElement {
+  static page(): HTMLElement {
     const pages = document.getElementsByClassName("tobago-page");
     if (pages.length > 0) {
       if (pages.length >= 2) {
@@ -112,117 +112,117 @@ export class DomUtils {
 
 export class Tobago4Utils {
 
-/**
- * Helps to select either elements from the whole DOM or only find in sub trees
- * (in the case of AJAX partial rendering)
- * @param elements a jQuery object to initialize (ajax) or null for initializing the whole document (full load).
- * @param selector a jQuery selector.
- */
-static selectWithJQuery(elements, selector) {
-  elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-  return elements == null
-      ? jQuery(selector)
-      : elements.find(selector).add(elements.filter(selector));
-};
+  /**
+   * Helps to select either elements from the whole DOM or only find in sub trees
+   * (in the case of AJAX partial rendering)
+   * @param elements a jQuery object to initialize (ajax) or null for initializing the whole document (full load).
+   * @param selector a jQuery selector.
+   */
+  static selectWithJQuery(elements, selector) {
+    elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
+    return elements == null
+        ? jQuery(selector)
+        : elements.find(selector).add(elements.filter(selector));
+  };
 
-static findSubComponent(element, subId) {
-  return jQuery(Tobago4Utils.getSubComponentId(element.attr('id'), subId));
-};
+  static findSubComponent(element, subId) {
+    return jQuery(Tobago4Utils.getSubComponentId(element.attr('id'), subId));
+  };
 
-static getSubComponentId(id, subId) {
-  if (id != null) {
-    return "#" + id.replace(/:/g, "\\:") + "\\:\\:" + subId;
-  } else {
-    return null;
-  }
-};
-
-/** @deprecated */
-static findSuperComponent(element) {
-  return jQuery(Tobago4Utils.getSuperComponentId(element.attr('id')));
-};
-
-static getSuperComponentId(id) {
-  return "#" + id.substring(0, id.lastIndexOf("::")).replace(/:/g, "\\:");
-};
-
-/**
- * "a:b" -> "a"
- * "a:b:c" -> "a:b"
- * "a" -> null
- * null -> null
- * "a:b::sub-component" -> "a"
- * "a::sub-component:b" -> "a::sub-component" // should currently not happen in Tobago
- *
- * @param id The clientId of a component.
- * @return The clientId of the naming container.
- */
-static getNamingContainerId(id) {
-  if (id == null) {
-    return null;
-  }
-  if (id.lastIndexOf(":") == -1) {
-    return null;
-  }
-  while (true) {
-    var sub = id.lastIndexOf("::");
-    if (sub == -1) {
-      break;
-    }
-    if (sub + 1 == id.lastIndexOf(":")) {
-      id = id.substring(0, sub);
+  static getSubComponentId(id, subId) {
+    if (id != null) {
+      return "#" + id.replace(/:/g, "\\:") + "\\:\\:" + subId;
     } else {
-      break;
+      return null;
     }
-  }
-  return id.substring(0, id.lastIndexOf(":"));
-};
+  };
 
-/**
- * fix position, when the element it is outside of the current page
- * @param elements is an jQuery Array of elements to be fixed.
- */
-static keepElementInVisibleArea(elements) {
-  elements.each(function () {
-    var element = jQuery(this);
-    var page = jQuery(".tobago-page-content:first");
-    var left = element.offset().left;
-    var top = element.offset().top;
-    // fix menu position, when it is outside of the current page
-    left = Math.max(0, Math.min(left, page.outerWidth() - element.outerWidth()));
-    top = Math.max(0, Math.min(top, page.outerHeight() - element.outerHeight()));
-    element.css('left', left);
-    element.css('top', top);
-  });
-};
+  /** @deprecated */
+  static findSuperComponent(element) {
+    return jQuery(Tobago4Utils.getSuperComponentId(element.attr('id')));
+  };
 
-static addDataMarkup(element, markupString) {
-  var dataTobagoMarkup = element.attr("data-tobago-markup");
-  if (dataTobagoMarkup !== undefined) {
-    var markups = jQuery.parseJSON(dataTobagoMarkup);
-    markups.push(markupString);
-    element.attr("data-tobago-markup", JSON.stringify(markups));
-  } else {
-    element.attr("data-tobago-markup", JSON.stringify(markupString));
-  }
-};
+  static getSuperComponentId(id) {
+    return "#" + id.substring(0, id.lastIndexOf("::")).replace(/:/g, "\\:");
+  };
 
-static removeDataMarkup(element, markupString) {
-  var dataTobagoMarkup = element.attr("data-tobago-markup");
-  if (dataTobagoMarkup !== undefined) {
-    var markups = jQuery.parseJSON(dataTobagoMarkup);
-    var index = jQuery.inArray(markupString, markups);
-    if (index >= 0) {
-      markups.splice(index, 1);
-    } else if (markups === markupString) {
-      markups = [];
+  /**
+   * "a:b" -> "a"
+   * "a:b:c" -> "a:b"
+   * "a" -> null
+   * null -> null
+   * "a:b::sub-component" -> "a"
+   * "a::sub-component:b" -> "a::sub-component" // should currently not happen in Tobago
+   *
+   * @param id The clientId of a component.
+   * @return The clientId of the naming container.
+   */
+  static getNamingContainerId(id) {
+    if (id == null) {
+      return null;
     }
+    if (id.lastIndexOf(":") == -1) {
+      return null;
+    }
+    while (true) {
+      var sub = id.lastIndexOf("::");
+      if (sub == -1) {
+        break;
+      }
+      if (sub + 1 == id.lastIndexOf(":")) {
+        id = id.substring(0, sub);
+      } else {
+        break;
+      }
+    }
+    return id.substring(0, id.lastIndexOf(":"));
+  };
 
-    if (markups.length > 0) {
+  /**
+   * fix position, when the element it is outside of the current page
+   * @param elements is an jQuery Array of elements to be fixed.
+   */
+  static keepElementInVisibleArea(elements) {
+    elements.each(function () {
+      var element = jQuery(this);
+      var page = jQuery(".tobago-page-content:first");
+      var left = element.offset().left;
+      var top = element.offset().top;
+      // fix menu position, when it is outside of the current page
+      left = Math.max(0, Math.min(left, page.outerWidth() - element.outerWidth()));
+      top = Math.max(0, Math.min(top, page.outerHeight() - element.outerHeight()));
+      element.css('left', left);
+      element.css('top', top);
+    });
+  };
+
+  static addDataMarkup(element, markupString) {
+    var dataTobagoMarkup = element.attr("data-tobago-markup");
+    if (dataTobagoMarkup !== undefined) {
+      var markups = jQuery.parseJSON(dataTobagoMarkup);
+      markups.push(markupString);
       element.attr("data-tobago-markup", JSON.stringify(markups));
     } else {
-      element.removeAttr("data-tobago-markup");
+      element.attr("data-tobago-markup", JSON.stringify(markupString));
     }
-  }
-};
+  };
+
+  static removeDataMarkup(element, markupString) {
+    var dataTobagoMarkup = element.attr("data-tobago-markup");
+    if (dataTobagoMarkup !== undefined) {
+      var markups = jQuery.parseJSON(dataTobagoMarkup);
+      var index = jQuery.inArray(markupString, markups);
+      if (index >= 0) {
+        markups.splice(index, 1);
+      } else if (markups === markupString) {
+        markups = [];
+      }
+
+      if (markups.length > 0) {
+        element.attr("data-tobago-markup", JSON.stringify(markups));
+      } else {
+        element.removeAttr("data-tobago-markup");
+      }
+    }
+  };
 }

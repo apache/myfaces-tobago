@@ -42,14 +42,14 @@ export class Tobago4 {
    * @const
    * @type {string}
    */
- static readonly COMPONENT_SEP= ':';
+  static readonly COMPONENT_SEP = ':';
 
   /**
    * Tobago's subComponent separator constant
    * @const
    * @type {string}
    */
-static readonly SUB_COMPONENT_SEP= '::';
+  static readonly SUB_COMPONENT_SEP = '::';
 
   // -------- Variables -------------------------------------------------------
 
@@ -57,25 +57,25 @@ static readonly SUB_COMPONENT_SEP= '::';
    * The html form object of current page.
    * set via init function
    */
-static  form= null;
+  static form = null;
 
-static  htmlIdIndex= 0;
+  static htmlIdIndex = 0;
 
-static  createHtmlId= function() {
+  static createHtmlId = function () {
     var id = '__tbg_id_' + Tobago4.htmlIdIndex++;
     console.debug('created id = ' + id);
     return id;
   };
 
-static  jsObjects= [];
+  static jsObjects = [];
 
-static  isSubmit= false;
+  static isSubmit = false;
 
-static  initMarker= false;
+  static initMarker = false;
 
   // -------- Functions -------------------------------------------------------
 
-  static  findPage= function() {
+  static findPage = function () {
     return jQuery(".tobago-page");
   };
 
@@ -83,7 +83,7 @@ static  initMarker= false;
    * Find a sub-element of the page. Like the form with id e.g. page::form
    * @param suffix
    */
-  static  findSubElementOfPage= function(suffix) {
+  static findSubElementOfPage = function (suffix) {
     return jQuery(DomUtils.escapeClientId(Tobago4.findPage().attr("id") + Tobago4.SUB_COMPONENT_SEP + suffix));
   };
 
@@ -91,7 +91,7 @@ static  initMarker= false;
    * Tobago's central init function.
    * Called when the document (DOM) is ready
    */
-  static  init= function() {
+  static init = function () {
 
     if (Tobago4.initMarker) {
       return;
@@ -119,7 +119,7 @@ static  initMarker= false;
     console.timeEnd("[tobago] init");
   };
 
-  static  onSubmit= function(listenerOptions) {
+  static onSubmit = function (listenerOptions) {
     Listener.executeBeforeSubmit();
     /*
     XXX check if we need the return false case
@@ -148,7 +148,7 @@ static  initMarker= false;
     return true;
   };
 
-  static  onBeforeUnload= function() {
+  static onBeforeUnload = function () {
     if (this.transition) {
       new Overlay(DomUtils.page());
     }
@@ -158,7 +158,7 @@ static  initMarker= false;
   /**
    * Wrapper function to call application generated onunload function
    */
-  static  onUnload= function() {
+  static onUnload = function () {
 
     console.info('on onload');
 
@@ -184,12 +184,12 @@ static  initMarker= false;
    * options.transition
    * options.target
    */
-  static  submitAction= function(source, actionId, options?) {
+  static submitAction = function (source, actionId, options?) {
     options = options || {};
 
     var transition = options.transition === undefined || options.transition == null || options.transition;
 
-    Transport.request(function() {
+    Transport.request(function () {
       if (!Tobago4.isSubmit) {
         Tobago4.isSubmit = true;
         const form = <HTMLFormElement>document.getElementsByTagName("form")[0];
@@ -241,7 +241,7 @@ static  initMarker= false;
     }, true);
   };
 
-  static  initDom= function(elements) {
+  static initDom = function (elements) {
     elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
 
     // focus
@@ -250,7 +250,7 @@ static  initMarker= false;
     Tobago4.initScrollPosition(elements ? elements : jQuery(".tobago-page"));
   };
 
-  static  initScrollPosition= function(elements) {
+  static initScrollPosition = function (elements) {
     var scrollPanels;
     if (elements.data("tobago-scroll-panel")) {
       scrollPanels = elements;
@@ -266,7 +266,7 @@ static  initMarker= false;
     });
     scrollPanels.each(function () {
       var panel = jQuery(this);
-      const position : string = panel.children("[data-tobago-scroll-position]").val() as string;
+      const position: string = panel.children("[data-tobago-scroll-position]").val() as string;
       var sep = position.indexOf(";");
       if (sep !== -1) {
         var scrollLeft = position.substr(0, sep);
@@ -289,7 +289,7 @@ static  initMarker= false;
    * - last (the element from the last request with same id gets the focus, not AJAX)
    * - first (the first input element (without tabindex=-1) gets the focus, not AJAX)
    */
-  static  initFocus= function(elements) {
+  static initFocus = function (elements) {
 
     var $focusable = jQuery(":input:enabled:visible:not(button):not([tabindex='-1'])");
     $focusable.focus(function () {
@@ -310,7 +310,7 @@ static  initMarker= false;
       // nothing to do, because the browser make the work.
 
       // autofocus in popups doesn't work automatically... so we fix that here
-      jQuery('.modal').on('shown.bs.modal', function() {
+      jQuery('.modal').on('shown.bs.modal', function () {
         Tobago4.setFocus(jQuery(this).find('[autofocus]'));
       });
 
@@ -335,7 +335,7 @@ static  initMarker= false;
     }
   };
 
-  static  setFocus= function($element) {
+  static setFocus = function ($element) {
     try {
       // focus() on not visible elements breaks some IE
       $element.focus();
@@ -344,7 +344,7 @@ static  initMarker= false;
     }
   };
 
-  static  toString= function(element) {
+  static toString = function (element) {
     var result = '';
     for (var property in element) {
       if (property && element[property]) {
@@ -359,11 +359,11 @@ static  initMarker= false;
 
 }
 
-document.addEventListener('DOMContentLoaded',function() {
+document.addEventListener('DOMContentLoaded', function () {
   Tobago4.init();
 });
 
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
   Listener.executeWindowLoad();
 });
 
@@ -374,15 +374,15 @@ Listener.register(Tobago4.initDom, Phase.DOCUMENT_READY, Order.LATER);
 Listener.register(Tobago4.initDom, Phase.AFTER_UPDATE, Order.LATER);
 
 class Transport {
-  static  requests= [];
-  static  currentActionId= null;
-  static  pageSubmitted= false;
-  static startTime:Date;
+  static requests = [];
+  static currentActionId = null;
+  static pageSubmitted = false;
+  static startTime: Date;
 
   /**
    * @return true if the request is queued.
    */
-  static  request= function(req, submitPage, actionId?) {
+  static request = function (req, submitPage, actionId?) {
     var index = 0;
     if (submitPage) {
       Transport.pageSubmitted = true;
@@ -416,11 +416,11 @@ class Transport {
 
 // TBD XXX REMOVE is this called in non AJAX case?
 
-  static requestComplete= function() {
+  static requestComplete = function () {
     Transport.requests.shift();
     Transport.currentActionId = null;
     console.debug('Request complete! Duration: ' + (new Date().getTime() - Transport.startTime.getTime()) + 'ms; '
-       + 'Queue size : ' + Transport.requests.length);
+        + 'Queue size : ' + Transport.requests.length);
     if (Transport.requests.length > 0) {
       console.debug('Execute request!');
       Transport.startTime = new Date();

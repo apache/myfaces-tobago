@@ -59,7 +59,7 @@ export class Overlay {
     this.error = error;
     this.waitOverlayDelay = waitOverlayDelay
         ? waitOverlayDelay
-        : Config.get(this.ajax ? "Ajax.waitOverlayDelay": "Tobago.waitOverlayDelay");
+        : Config.get(this.ajax ? "Ajax.waitOverlayDelay" : "Tobago.waitOverlayDelay");
 
     // create the overlay
 

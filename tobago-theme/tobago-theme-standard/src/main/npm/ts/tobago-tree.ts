@@ -295,7 +295,7 @@ class TreeListbox {
     listbox.children("option:selected").each(function () {
       jQuery(this).data("tobago-select").show();
     });
-  TreeListbox.setSelected(listbox);
+    TreeListbox.setSelected(listbox);
 
     // Deeper level (2nd and later) should only show the empty select tag.
     // The first child is the empty selection.

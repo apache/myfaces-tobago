@@ -31,7 +31,7 @@ class MessagePopover {
       ],
       trigger: 'focus'
     });
-  }
+  };
 }
 
 Listener.register(MessagePopover.init, Phase.DOCUMENT_READY);

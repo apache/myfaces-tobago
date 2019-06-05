@@ -19,11 +19,11 @@ export class Config {
 
   private static map: Map<string, any> = new Map<string, any>();
 
-static set(key: string, value: any) {
+  static set(key: string, value: any) {
     this.map.set(key, value);
   }
 
- static get(key: string): any {
+  static get(key: string): any {
     const value = this.map.get(key);
     if (value) {
       return value;

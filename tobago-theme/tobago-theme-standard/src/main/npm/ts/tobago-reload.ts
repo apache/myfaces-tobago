@@ -37,7 +37,7 @@ export class ReloadManager {
     }
   };
 
-  public schedule (id: string, reloadMillis: number) {
+  public schedule(id: string, reloadMillis: number) {
     if (reloadMillis > 0) {
 
       // may remove old schedule

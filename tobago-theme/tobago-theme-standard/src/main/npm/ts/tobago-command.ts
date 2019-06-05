@@ -51,160 +51,160 @@ class Command5 {
 
 class Command {
 
-static initEnter(elements) {
-  elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-  var page = Tobago4Utils.selectWithJQuery(elements, ".tobago-page");
-  page.keypress(function (event) {
-    var code = event.which;
-    if (code === 0) {
-      code = event.keyCode;
-    }
-    if (code === 13) {
-      var target = event.target;
-      if (target.tagName === "A" || target.tagName === "BUTTON") {
-        return;
+  static initEnter(elements) {
+    elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
+    var page = Tobago4Utils.selectWithJQuery(elements, ".tobago-page");
+    page.keypress(function (event) {
+      var code = event.which;
+      if (code === 0) {
+        code = event.keyCode;
       }
-      if (target.tagName === "TEXTAREA") {
-        if (!event.metaKey && !event.ctrlKey) {
+      if (code === 13) {
+        var target = event.target;
+        if (target.tagName === "A" || target.tagName === "BUTTON") {
           return;
         }
-      }
-      var id = target.name ? target.name : target.id;
-      while (id != null) {
-        var command = jQuery("[data-tobago-default='" + id + "']");
-        if (command.length > 0) {
-          command.click();
-          break;
+        if (target.tagName === "TEXTAREA") {
+          if (!event.metaKey && !event.ctrlKey) {
+            return;
+          }
         }
-        id = Tobago4Utils.getNamingContainerId(id);
-      }
-      return false;
-    }
-  });
-}
-
-static init = function(element: HTMLElement) {
-
-  for (const commandElement of DomUtils.selfOrQuerySelectorAll(element, "[data-tobago-commands]")) {
-
-    const $element = jQuery(commandElement);
-
-  const commands = $element.data("tobago-commands");
-
-  var normalEvents = []; // todo: find a better way to do that in JS
-  if (commands.click) {
-    normalEvents.push({event: "click", command: commands.click});
-  }
-  if (commands.dblclick) {
-    normalEvents.push({event: "dblclick", command: commands.dblclick});
-  }
-  if (commands.focus) {
-    normalEvents.push({event: "focus", command: commands.focus});
-  }
-  if (commands.blur) {
-    normalEvents.push({event: "blur", command: commands.blur});
-  }
-
-  for (var i in normalEvents) {
-
-    $element.on(normalEvents[i].event, {command: normalEvents[i].command}, function (event) {
-      var command = event.data.command;
-      var confirmation = command.confirmation;
-      if (confirmation != null) {
-        if (!confirm(confirmation)) {
-          event.preventDefault();
-          return;
+        var id = target.name ? target.name : target.id;
+        while (id != null) {
+          var command = jQuery("[data-tobago-default='" + id + "']");
+          if (command.length > 0) {
+            command.click();
+            break;
+          }
+          id = Tobago4Utils.getNamingContainerId(id);
         }
+        return false;
       }
-      var collapse = command.collapse;
-      if (collapse) {
-        Collapse.execute(collapse);
+    });
+  }
+
+  static init = function (element: HTMLElement) {
+
+    for (const commandElement of DomUtils.selfOrQuerySelectorAll(element, "[data-tobago-commands]")) {
+
+      const $element = jQuery(commandElement);
+
+      const commands = $element.data("tobago-commands");
+
+      var normalEvents = []; // todo: find a better way to do that in JS
+      if (commands.click) {
+        normalEvents.push({event: "click", command: commands.click});
+      }
+      if (commands.dblclick) {
+        normalEvents.push({event: "dblclick", command: commands.dblclick});
+      }
+      if (commands.focus) {
+        normalEvents.push({event: "focus", command: commands.focus});
+      }
+      if (commands.blur) {
+        normalEvents.push({event: "blur", command: commands.blur});
       }
 
-      if (command.omit !== true) {
-        var popup = command.popup;
-        if (popup && popup.command === "close" && popup.immediate) {
-          Popup.close(this);
-        } else {
-          var action = command.action ? command.action : jQuery(this).attr("id");
-          if (command.execute || command.render) {
-            Command.preparePartialOverlay(command);
+      for (var i in normalEvents) {
+
+        $element.on(normalEvents[i].event, {command: normalEvents[i].command}, function (event) {
+          var command = event.data.command;
+          var confirmation = command.confirmation;
+          if (confirmation != null) {
+            if (!confirm(confirmation)) {
+              event.preventDefault();
+              return;
+            }
+          }
+          var collapse = command.collapse;
+          if (collapse) {
+            Collapse.execute(collapse);
+          }
+
+          if (command.omit !== true) {
+            var popup = command.popup;
+            if (popup && popup.command === "close" && popup.immediate) {
+              Popup.close(this);
+            } else {
+              var action = command.action ? command.action : jQuery(this).attr("id");
+              if (command.execute || command.render) {
+                Command.preparePartialOverlay(command);
+                jsf.ajax.request(
+                    action,
+                    event,
+                    {
+                      "javax.faces.behavior.event": event.type,
+                      execute: command.execute,
+                      render: command.render
+                    });
+              } else {
+                Tobago4.submitAction(this, action, command);
+              }
+              if (popup && popup.command === "close") {
+                Popup.close(this);
+              }
+            }
+          }
+        });
+      }
+      if (commands.change) {
+        $element.change(function (event) {
+          if (commands.change.execute || commands.change.render) {
             jsf.ajax.request(
-                action,
+                jQuery(this).attr("name"),
                 event,
                 {
-                  "javax.faces.behavior.event": event.type,
-                  execute: command.execute,
-                  render: command.render
+                  "javax.faces.behavior.event": "change",
+                  execute: commands.change.execute,
+                  render: commands.change.render
                 });
           } else {
-            Tobago4.submitAction(this, action, command);
+            Tobago4.submitAction(this, commands.change.action, commands.change);
           }
-          if (popup && popup.command === "close") {
-            Popup.close(this);
+        });
+      }
+      if (commands.complete) {
+        if ($element.val() >= parseFloat($element.attr("max"))) {
+          if (commands.complete.execute || commands.complete.render) {
+            jsf.ajax.request(
+                jQuery(this).attr("id"),
+                null,
+                {
+                  "javax.faces.behavior.event": "complete",
+                  execute: commands.complete.execute,
+                  render: commands.complete.render
+                });
+          } else {
+            Tobago4.submitAction(this, commands.complete.action, commands.complete);
           }
         }
       }
-    });
-  }
-  if (commands.change) {
-    $element.change(function (event) {
-      if (commands.change.execute || commands.change.render) {
-        jsf.ajax.request(
-            jQuery(this).attr("name"),
-            event,
-            {
-              "javax.faces.behavior.event": "change",
-              execute: commands.change.execute,
-              render: commands.change.render
-            });
-      } else {
-        Tobago4.submitAction(this, commands.change.action, commands.change);
+      if (commands.load) {
+        setTimeout(function () {
+              Tobago4.submitAction(this, commands.load.action, commands.load);
+            },
+            commands.load.delay || 100);
       }
-    });
-  }
-  if (commands.complete) {
-    if ($element.val() >= parseFloat($element.attr("max"))) {
-      if (commands.complete.execute || commands.complete.render) {
-        jsf.ajax.request(
-            jQuery(this).attr("id"),
-            null,
-            {
-              "javax.faces.behavior.event": "complete",
-              execute: commands.complete.execute,
-              render: commands.complete.render
-            });
-      } else {
-        Tobago4.submitAction(this, commands.complete.action, commands.complete);
+      if (commands.resize) {
+        jQuery(window).resize(function () {
+          console.debug("window resize event: " + commands.resize);
+          Tobago4.submitAction(this, commands.resize.action, commands.resize);
+        });
       }
     }
-  }
-  if (commands.load) {
-    setTimeout(function () {
-          Tobago4.submitAction(this, commands.load.action, commands.load);
-        },
-        commands.load.delay || 100);
-  }
-  if (commands.resize) {
-    jQuery(window).resize(function () {
-      console.debug("window resize event: " + commands.resize);
-      Tobago4.submitAction(this, commands.resize.action, commands.resize);
-    });
-  }
-}
-};
+  };
 
-static preparePartialOverlay = function (command) {
-  if (command.transition === undefined || command.transition == null || command.transition) {
-    console.debug("[tobago-command] render: '" + command.render + "'");
-    if (command.render) {
-      let partialIds = command.render.split(" ");
-      for (let i = 0; i < partialIds.length; i++) {
-        new Overlay(document.getElementById(partialIds[i]), true);
+  static preparePartialOverlay = function (command) {
+    if (command.transition === undefined || command.transition == null || command.transition) {
+      console.debug("[tobago-command] render: '" + command.render + "'");
+      if (command.render) {
+        let partialIds = command.render.split(" ");
+        for (let i = 0; i < partialIds.length; i++) {
+          new Overlay(document.getElementById(partialIds[i]), true);
+        }
       }
     }
-  }
-};
+  };
 }
 
 Listener.register(Command.initEnter, Phase.DOCUMENT_READY);
