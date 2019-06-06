@@ -78,6 +78,19 @@ public class JsonUtils {
     builder.append("]");
   }
 
+  public static void encode(final StringBuilder builder, final Boolean[] value) {
+    builder.append("[");
+    boolean colon = false;
+    for (final boolean item : value) {
+      if (colon) {
+        builder.append(",");
+      }
+      builder.append(item);
+      colon = true;
+    }
+    builder.append("]");
+  }
+
   public static void encode(final StringBuilder builder, final List<Integer> value) {
     builder.append("[");
     boolean colon = false;
@@ -257,6 +270,15 @@ public class JsonUtils {
     }
     final StringBuilder builder = new StringBuilder();
     encode(builder, strings, escape);
+    return builder.toString();
+  }
+
+  public static String encode(final Boolean[] booleans) {
+    if (booleans == null) {
+      return null;
+    }
+    final StringBuilder builder = new StringBuilder();
+    encode(builder, booleans);
     return builder.toString();
   }
 

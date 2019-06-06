@@ -24,31 +24,245 @@ class Sheet {
   static readonly SHEETS: Map<string, Sheet> = new Map<string, Sheet>();
 
   id: string;
+
   clickActionId: string;
   clickReloadComponentId: string;
   dblClickActionId: string;
   dblClickReloadComponentId: string;
 
-  constructor(id: string, commands: string, behaviour: string) {
-    this.id = id;
+  loadColumnWidths(): number[] {
+    const hidden = document.getElementById(this.id + Tobago4.SUB_COMPONENT_SEP + "widths");
+    if (hidden) {
+      return JSON.parse(hidden.getAttribute("value"));
+    } else {
+      return undefined;
+    }
+  }
+
+  saveColumnWidths(widths: number[]) {
+    const hidden = document.getElementById(this.id + Tobago4.SUB_COMPONENT_SEP + "widths");
+    if (hidden) {
+      hidden.setAttribute("value", JSON.stringify(widths));
+    } else {
+      console.warn("ignored, should not be called, id='" + this.id + "'");
+    }
+  }
+
+  getElement(): HTMLElement {
+    return document.getElementById(this.id);
+  }
+
+  isColumnRendered():boolean[] {
+    const hidden = document.getElementById(this.id + Tobago4.SUB_COMPONENT_SEP + "rendered");
+    return JSON.parse(hidden.getAttribute("value"));
+  };
+
+  addHeaderFillerWidth() {
+    document.getElementById(this.id).querySelector(".tobago-sheet-headerTable col:last-child")
+        .setAttribute("width", String(Sheet.getScrollBarSize()));
+  };
+
+  constructor(element: HTMLElement) {
+    this.id = element.id;
+    const commands = element.dataset["tobagoRowAction"];
+    const behavior = element.dataset["tobagoBehaviorCommands"];
     this.clickActionId = null;//todo commands.click.action;
     this.clickReloadComponentId = null;//todo commands.click.partially; // fixme: partially no longer used?
     this.dblClickActionId = null;//todo commands.dblclick.action;
     this.dblClickReloadComponentId = null;//todo commands.dblclick.partially;// fixme: partially no longer used?
+
+    // synchronize column widths ----------------------------------------------------------------------------------- //
+
+    // basic idea: there are two possible sources for the sizes:
+    // 1. the columns attribute of <tc:sheet> like {"columns":[1.0,1.0,1.0]}, held by data attribute "tobago-layout"
+    // 2. the hidden field which may contain a value like ",300,200,100,"
+    //
+    // The 1st source usually is the default set by the developer.
+    // The 2nd source usually is the value set by the user manipulating the column widths.
+    //
+    // So, if the 2nd is set, we use it, if not set, we use the 1st source.
+
+    let columnWidths = this.loadColumnWidths();
+    console.info("columnWidths: " + columnWidths);
+    if (columnWidths && columnWidths.length === 0) { // active, but empty
+      // otherwise use the layout definition
+      const tokens = JSON.parse(element.dataset["tobagoLayout"]).columns;
+      const columnRendered = this.isColumnRendered();
+
+      const headerCols = element.querySelectorAll(".tobago-sheet>header>table>colgroup>col");
+      const bodyTable = <HTMLElement>element.querySelector(".tobago-sheet>div>table");
+      const bodyCols = element.querySelectorAll(".tobago-sheet>div>table>colgroup>col");
+
+      console.assert(headerCols.length - 1 === bodyCols.length, "header and body column number doesn't match");
+
+      let sumRelative = 0; // tbd: is this needed?
+      let widthRelative = bodyTable.offsetWidth;
+      for (let i = 0; i < tokens.length; i++) {
+        if (columnRendered[i]) {
+          if (typeof tokens[i] === "number") {
+            sumRelative += tokens[i];
+          } else if (typeof tokens[i] === "object" && tokens[i].measure !== undefined) {
+            const intValue = parseInt(tokens[i].measure);
+            if (tokens[i].measure.lastIndexOf("px") > 0) {
+              widthRelative -= intValue;
+            } else if (tokens[i].measure.lastIndexOf("%") > 0) {
+              widthRelative -= bodyTable.offsetWidth * intValue / 100;
+            }
+          } else {
+            console.debug("auto? = " + tokens[i]);
+          }
+        }
+      }
+      if (widthRelative < 0) {
+        widthRelative = 0;
+      }
+
+      let headerBodyColCount = 0;
+      for (let i = 0; i < tokens.length; i++) {
+        let colWidth = 0;
+        if (columnRendered[i]) {
+          if (typeof tokens[i] === "number") {
+            colWidth = tokens[i] * widthRelative / sumRelative;
+          } else if (typeof tokens[i] === "object" && tokens[i].measure !== undefined) {
+            const intValue = parseInt(tokens[i].measure);
+            if (tokens[i].measure.lastIndexOf("px") > 0) {
+              colWidth = intValue;
+            } else if (tokens[i].measure.lastIndexOf("%") > 0) {
+              colWidth = bodyTable.offsetWidth * intValue / 100;
+            }
+          } else {
+            console.debug("auto? = " + tokens[i]);
+          }
+          if (colWidth > 0) { // because tokens[i] == "auto"
+            headerCols.item(headerBodyColCount).setAttribute("width", String(colWidth));
+            bodyCols.item(headerBodyColCount).setAttribute("width", String(colWidth));
+          }
+          headerBodyColCount++;
+        }
+      }
+    }
+    this.addHeaderFillerWidth();
+
+    // resize column: mouse events -------------------------------------------------------------------------------- //
+
+    element.querySelectorAll(".tobago-sheet-headerResize").forEach(function (resizeElement): void {
+      const $resizeElement = jQuery(resizeElement);
+      $resizeElement.on("click", function () {
+        return false;
+      });
+      $resizeElement.on("mousedown", function (event) {
+
+        DomUtils.page().dataset["SheetMousedownData"] = element.id;
+
+        // begin resizing
+        console.info("down");
+        var columnIndex = $resizeElement.data("tobago-column-index");
+        var $sheet = $resizeElement.closest(".tobago-sheet");
+        var $headerTable = $sheet.find(".tobago-sheet-headerTable");
+        var $bodyTable = $sheet.find(".tobago-sheet-bodyTable");
+        var headerColumn = $headerTable.children("colgroup").children("col").eq(columnIndex);
+        var bodyColumn = $bodyTable.children("colgroup").children("col").eq(columnIndex);
+        var data = {
+          columnIndex: columnIndex,
+          originalClientX: event.clientX,
+          headerColumn: headerColumn,
+          bodyColumn: bodyColumn,
+          originalHeaderColumnWidth: parseInt(headerColumn.attr("width"))
+        };
+
+        // Set width attribute: Avoid scrollBar position flip to 0.
+        $headerTable.css("width", $headerTable.outerWidth());
+        $bodyTable.css("width", $bodyTable.outerWidth());
+
+        jQuery(document).on("mousemove", data, function (event) {
+          console.info("move");
+          var delta = event.clientX - event.data.originalClientX;
+          delta = -Math.min(-delta, event.data.originalHeaderColumnWidth - 10);
+          var columnWidth = event.data.originalHeaderColumnWidth + delta;
+          event.data.headerColumn.attr("width", columnWidth);
+          event.data.bodyColumn.attr("width", columnWidth);
+          if (window.getSelection) {
+            window.getSelection().removeAllRanges();
+          }
+          return false;
+        });
+        jQuery(document).on("mouseup", function (event) {
+          // switch off the mouse move listener
+          jQuery(document).off("mousemove");
+          console.info("up");
+          const sheet = Sheet.SHEETS.get(DomUtils.page().dataset["SheetMousedownData"]);
+          // copy the width values from the header to the body, (and build a list of it)
+          var tokens = $sheet.data("tobago-layout").columns;
+          const columnRendered = sheet.isColumnRendered();
+          var columnWidths = sheet.loadColumnWidths();
+
+          var headerCols = $headerTable.find("col");
+          var bodyCols = $bodyTable.find("col");
+          var widths = [];
+          var oldWidthList = [];
+          var i;
+          for (i = 0; i < bodyCols.length; i++) {
+            oldWidthList[i] = bodyCols.eq(i).width();
+          }
+          var usedWidth = 0;
+          var headerBodyColCount = 0;
+          for (i = 0; i < columnRendered.length; i++) {
+            if (columnRendered[i]) {
+              // last column is the filler column
+              var newWidth = headerCols.eq(headerBodyColCount).width();
+              // for the hidden field
+              widths[i] = newWidth;
+              usedWidth += newWidth;
+
+              var oldWidth = bodyCols.eq(headerBodyColCount).width();
+              if (oldWidth !== newWidth) {
+                // set to the body
+                bodyCols.eq(headerBodyColCount).attr("width", newWidth);
+                // reset the width inside of the cells (TD) if the value was changed.
+                var $tds = jQuery("td:nth-child(" + (headerBodyColCount + 1) + ")", $bodyTable);
+                if ($tds.length > 0) {
+                  var innerWidth = $tds.children().eq(0).width() - oldWidthList[headerBodyColCount] + newWidth;
+                  // setting all sizes of the inner cells to the same value
+                  $tds.children().width(innerWidth);
+                  // XXX later, if we have box-sizing: border-box we can set the width to 100%
+                }
+              }
+              headerBodyColCount++;
+            } else if (columnWidths !== undefined && columnWidths.length >= i) {
+              widths[i] = columnWidths[i];
+            } else {
+              if (typeof tokens[i] === "number") {
+                widths[i] = 100;
+              } else if (typeof tokens[i] === "object" && tokens[i].measure !== undefined) {
+                var intValue = parseInt(tokens[i].measure);
+                if (tokens[i].measure.lastIndexOf("px") > 0) {
+                  widths[i] = intValue;
+                } else if (tokens[i].measure.lastIndexOf("%") > 0) {
+                  widths[i] = $bodyTable.width() / 100 * intValue;
+                }
+              }
+            }
+          }
+          // Remove width attribute: Avoid scrollBar position flip to 0.
+          $headerTable.css("width", "");
+          $bodyTable.css("width", "");
+
+          // store the width values in a hidden field
+          sheet.saveColumnWidths(widths);
+          return false;
+        });
+      });
+    });
   }
 
   static init = function (element: HTMLElement) {
     console.time("[tobago-sheet] init");
-    const sheets: Array<HTMLElement> = DomUtils.selfOrElementsByClassName(element, "tobago-sheet");
-    sheets.forEach(function (element): void {
-      var $sheet = jQuery(element);
-      var id = $sheet.attr("id");
-      const commands = $sheet.data("tobago-row-action");
-      const behavior = $sheet.data("tobago-behavior-commands");
-      const sheet = new Sheet(id, commands, behavior);
-      Sheet.SHEETS.set(id, sheet);
-    });
+    for (const sheetElement of DomUtils.selfOrElementsByClassName(element, "tobago-sheet")) {
+      const sheet = new Sheet(sheetElement);
+      Sheet.SHEETS.set(sheet.id, sheet);
+    }
 
+    const sheets: Array<HTMLElement> = DomUtils.selfOrElementsByClassName(element, "tobago-sheet");
     Sheet.setup(sheets);
 
     element.querySelectorAll(".tobago-sheet-header .tobago-sheet-columnSelector").forEach(function (element) {
@@ -66,205 +280,6 @@ class Sheet {
   };
 
   static setup = function (sheets) {
-
-    // synchronize column widths
-    sheets.forEach(function (element): void {
-      var $sheet = jQuery(element);
-
-      // basic idea: there are two possible sources for the sizes:
-      // 1. the columns attribute of <tc:sheet> like {"columns":[1.0,1.0,1.0]}, held by data attribute "tobago-layout"
-      // 2. the hidden field which may contain a value like ",300,200,100,"
-      //
-      // The 1st source usually is the default set by the developer.
-      // The 2nd source usually is the value set by the user manipulating the column widths.
-      //
-      // So, if the 2nd is set, we use it, if not set, we use the 1st source.
-      //
-
-      var hidden = Sheet.findHiddenWidths($sheet);
-
-      if (hidden.length > 0 && hidden.val()) {
-        // if the hidden has a value, than also the colgroup/col are set correctly
-        var columnWidths = JSON.parse(hidden.get(0).getAttribute("value"));
-        console.info("columnWidths: " + columnWidths);
-      }
-      if (columnWidths !== undefined && columnWidths.length === 0) {
-        // otherwise use the layout definition
-        var layout = $sheet.data("tobago-layout");
-        if (layout && layout.columns && layout.columns.length > 0) {
-          var tokens = layout.columns;
-          var rendered = JSON.parse(Sheet.findHiddenRendered($sheet).get(0).getAttribute("value"));
-
-          var $headerTable = $sheet.children("header").children("table");
-          var $headerCol = $headerTable.children("colgroup").children("col");
-          var $bodyTable = $sheet.children("div").children("table");
-          var $bodyCol = $bodyTable.children("colgroup").children("col");
-
-          console.assert($headerCol.length - 1 === $bodyCol.length, "header and body column number doesn't match");
-
-          var i;
-          var intValue;
-          var sumRelative = 0;
-          var widthRelative = $bodyTable.width();
-          for (i = 0; i < tokens.length; i++) {
-            if (rendered[i] === "true") {
-              if (typeof tokens[i] === "number") {
-                sumRelative += tokens[i];
-              } else if (typeof tokens[i] === "object" && tokens[i].measure !== undefined) {
-                intValue = parseInt(tokens[i].measure);
-                if (tokens[i].measure.lastIndexOf("px") > 0) {
-                  widthRelative -= intValue;
-                } else if (tokens[i].measure.lastIndexOf("%") > 0) {
-                  widthRelative -= $bodyTable.width() / 100 * intValue;
-                }
-              } else {
-                console.debug("auto? = " + tokens[i]);
-              }
-            }
-          }
-          if (widthRelative < 0) {
-            widthRelative = 0;
-          }
-
-          var headerBodyColCount = 0;
-          for (i = 0; i < tokens.length; i++) {
-            var colWidth = 0;
-            if (rendered[i] === "true") {
-              if (typeof tokens[i] === "number") {
-                colWidth = tokens[i] * widthRelative / sumRelative;
-              } else if (typeof tokens[i] === "object" && tokens[i].measure !== undefined) {
-                intValue = parseInt(tokens[i].measure);
-                if (tokens[i].measure.lastIndexOf("px") > 0) {
-                  colWidth = intValue;
-                } else if (tokens[i].measure.lastIndexOf("%") > 0) {
-                  colWidth = $bodyTable.width() / 100 * intValue;
-                }
-              } else {
-                console.debug("auto? = " + tokens[i]);
-              }
-              if (colWidth > 0) { // because tokens[i] == "auto"
-                $headerCol.eq(headerBodyColCount).attr("width", colWidth);
-                $bodyCol.eq(headerBodyColCount).attr("width", colWidth);
-              }
-              headerBodyColCount++;
-            }
-          }
-        }
-      }
-      Sheet.addHeaderFillerWidth($sheet);
-    });
-
-    // resize: mouse events
-    sheets.forEach(function (element): void {
-      element.querySelectorAll(".tobago-sheet-headerResize").forEach(function (resizeElement): void {
-        const $resizeElement = jQuery(resizeElement);
-        $resizeElement.click(function () {
-          return false;
-        });
-        $resizeElement.mousedown(function (event) {
-          // begin resizing
-          console.info("down");
-          var columnIndex = $resizeElement.data("tobago-column-index");
-          var $body = jQuery("body");
-          var $sheet = $resizeElement.closest(".tobago-sheet");
-          var $headerTable = $sheet.find(".tobago-sheet-headerTable");
-          var $bodyTable = $sheet.find(".tobago-sheet-bodyTable");
-          var headerColumn = $headerTable.children("colgroup").children("col").eq(columnIndex);
-          var bodyColumn = $bodyTable.children("colgroup").children("col").eq(columnIndex);
-          var data = {
-            columnIndex: columnIndex,
-            originalClientX: event.clientX,
-            headerColumn: headerColumn,
-            bodyColumn: bodyColumn,
-            originalHeaderColumnWidth: parseInt(headerColumn.attr("width"))
-          };
-
-          // Set width attribute: Avoid scrollBar position flip to 0.
-          $headerTable.css("width", $headerTable.outerWidth());
-          $bodyTable.css("width", $bodyTable.outerWidth());
-
-          $body.on("mousemove", data, function (event) {
-            console.info("move");
-            var delta = event.clientX - event.data.originalClientX;
-            delta = -Math.min(-delta, event.data.originalHeaderColumnWidth - 10);
-            var columnWidth = event.data.originalHeaderColumnWidth + delta;
-            event.data.headerColumn.attr("width", columnWidth);
-            event.data.bodyColumn.attr("width", columnWidth);
-            if (window.getSelection) {
-              window.getSelection().removeAllRanges();
-            }
-            return false;
-          });
-          $body.one("mouseup", function (event) {
-            // switch off the mouse move listener
-            jQuery("body").off("mousemove");
-            console.info("up");
-            // copy the width values from the header to the body, (and build a list of it)
-            var tokens = $sheet.data("tobago-layout").columns;
-            var rendered = JSON.parse(Sheet.findHiddenRendered($sheet).get(0).getAttribute("value"));
-            var hidden = Sheet.findHiddenWidths($sheet);
-            var hiddenWidths;
-            if (hidden.length > 0 && hidden.val()) {
-              hiddenWidths = JSON.parse(hidden.get(0).getAttribute("value"));
-            }
-            var headerCols = $headerTable.find("col");
-            var bodyCols = $bodyTable.find("col");
-            var widths = [];
-            var oldWidthList = [];
-            var i;
-            for (i = 0; i < bodyCols.length; i++) {
-              oldWidthList[i] = bodyCols.eq(i).width();
-            }
-            var usedWidth = 0;
-            var headerBodyColCount = 0;
-            for (i = 0; i < rendered.length; i++) {
-              if (rendered[i] === "true") {
-                // last column is the filler column
-                var newWidth = headerCols.eq(headerBodyColCount).width();
-                // for the hidden field
-                widths[i] = newWidth;
-                usedWidth += newWidth;
-
-                var oldWidth = bodyCols.eq(headerBodyColCount).width();
-                if (oldWidth !== newWidth) {
-                  // set to the body
-                  bodyCols.eq(headerBodyColCount).attr("width", newWidth);
-                  // reset the width inside of the cells (TD) if the value was changed.
-                  var $tds = jQuery("td:nth-child(" + (headerBodyColCount + 1) + ")", $bodyTable);
-                  if ($tds.length > 0) {
-                    var innerWidth = $tds.children().eq(0).width() - oldWidthList[headerBodyColCount] + newWidth;
-                    // setting all sizes of the inner cells to the same value
-                    $tds.children().width(innerWidth);
-                    // XXX later, if we have box-sizing: border-box we can set the width to 100%
-                  }
-                }
-                headerBodyColCount++;
-              } else if (hiddenWidths !== undefined && hiddenWidths.length >= i) {
-                widths[i] = hiddenWidths[i];
-              } else {
-                if (typeof tokens[i] === "number") {
-                  widths[i] = 100;
-                } else if (typeof tokens[i] === "object" && tokens[i].measure !== undefined) {
-                  var intValue = parseInt(tokens[i].measure);
-                  if (tokens[i].measure.lastIndexOf("px") > 0) {
-                    widths[i] = intValue;
-                  } else if (tokens[i].measure.lastIndexOf("%") > 0) {
-                    widths[i] = $bodyTable.width() / 100 * intValue;
-                  }
-                }
-              }
-            }
-            // Remove width attribute: Avoid scrollBar position flip to 0.
-            $headerTable.css("width", "");
-            $bodyTable.css("width", "");
-
-            // store the width values in a hidden field
-            Sheet.findHiddenWidths($sheet).val(JSON.stringify(widths));
-            return false;
-          });
-        });
-      });
-    });
 
     // scrolling
     sheets.forEach(function (element): void {
@@ -453,23 +468,7 @@ class Sheet {
     return jQuery(DomUtils.escapeClientId(id));
   };
 
-  static findHiddenWidths = function ($sheet) {
-    var id = $sheet.attr("id") + Tobago4.SUB_COMPONENT_SEP + "widths";
-    return jQuery(DomUtils.escapeClientId(id));
-  };
-
-  static findHiddenRendered = function ($sheet) {
-    var id = $sheet.attr("id") + Tobago4.SUB_COMPONENT_SEP + "rendered";
-    return jQuery(DomUtils.escapeClientId(id));
-  };
-
-  static addHeaderFillerWidth = function ($sheet) {
-    var $headerTable = $sheet.find(".tobago-sheet-headerTable");
-    var $headerCols = $headerTable.find("col");
-    $headerCols.last().attr("width", Sheet.getScrollBarSize());
-  };
-
-  static getScrollBarSize = function () {
+  static getScrollBarSize = function ():number {
     var $outer = $('<div>').css({visibility: 'hidden', width: 100, overflow: 'scroll'}).appendTo('body'),
         widthWithScroll = $('<div>').css({width: '100%'}).appendTo($outer).outerWidth();
     $outer.remove();

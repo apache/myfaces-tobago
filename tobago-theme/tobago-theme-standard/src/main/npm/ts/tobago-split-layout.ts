@@ -125,7 +125,7 @@ class SplitLayoutMousedown {
   }
 
   static remove() {
-    return DomUtils.page().dataset["SplitLayoutMousedownData"] = null;
+    DomUtils.page().dataset["SplitLayoutMousedownData"] = null;
   }
 
   private static indexOfSplitter(splitter: HTMLElement, horizontal: boolean): number {

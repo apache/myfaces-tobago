@@ -325,15 +325,15 @@ public class SheetRenderer extends RendererBase {
           JsonUtils.encode(definedColumnWidths ? columnWidths : Collections.emptyList()),
           sheetId + SUFFIX_WIDTHS);
 
-      final ArrayList<String> encodedRendered = new ArrayList<>();
+      final ArrayList<Boolean> encodedRendered = new ArrayList<>();
       for (final AbstractUIColumnBase column : columns) {
         if (!(column instanceof AbstractUIRow)) {
-          encodedRendered.add(Boolean.toString(column.isRendered()));
+          encodedRendered.add(column.isRendered());
         }
       }
 
       encodeHiddenInput(writer,
-          JsonUtils.encode(encodedRendered.toArray(new String[0]), false),
+          JsonUtils.encode(encodedRendered.toArray(new Boolean[0])),
           sheetId + SUFFIX_COLUMN_RENDERED);
     }
 
