@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-import {Tobago} from "../tobago/standard/tobago-bootstrap/5.0.0-SNAPSHOT/js/tobago-core.js";
-import {Listener, Phase} from "../tobago/standard/tobago-bootstrap/5.0.0-SNAPSHOT/js/tobago-listener.js";
-import {Tobago4Utils} from "../tobago/standard/tobago-bootstrap/5.0.0-SNAPSHOT/js/tobago-utils.js";
+import {Tobago} from "../tobago/standard/tobago-bootstrap/5.0.0-SNAPSHOT/js/tobago-core";
+import {Listener, Phase} from "../tobago/standard/tobago-bootstrap/5.0.0-SNAPSHOT/js/tobago-listener";
+import {Tobago4Utils} from "../tobago/standard/tobago-bootstrap/5.0.0-SNAPSHOT/js/tobago-utils";
 
 const Demo = {};
 

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {Listener, Phase} from "../tobago/standard/tobago-bootstrap/5.0.0-SNAPSHOT/js/tobago-listener.js";
+import {Listener, Phase} from "../tobago/standard/tobago-bootstrap/5.0.0-SNAPSHOT/js/tobago-listener";
 
 module Demo.ToClipboardButton {
 

@@ -30,6 +30,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
@@ -48,7 +49,7 @@ public class HackResourceExtentionFilter implements Filter {
     if (LOG.isInfoEnabled()) {
       LOG.info("Filter initialized.");
     }
-    String version = Package.getPackage("org.apache.myfaces.tobago.component").getImplementationVersion();
+    final String version = Package.getPackage("org.apache.myfaces.tobago.component").getImplementationVersion();
     prefix = "/tobago/standard/tobago-bootstrap/" + version + "/js/tobago-";
   }
 
@@ -57,10 +58,27 @@ public class HackResourceExtentionFilter implements Filter {
       final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain filterChain)
       throws IOException, ServletException {
     if (servletRequest instanceof HttpServletRequest && servletResponse instanceof HttpServletResponse) {
-      final HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-      final String requestUri = ((HttpServletRequest) servletRequest).getRequestURI();
-      if (requestUri.startsWith(prefix) && !requestUri.endsWith(".js")) {
-        ((HttpServletResponse) servletResponse).sendRedirect(requestUri + ".js");
+      final HttpServletRequest request = (HttpServletRequest) servletRequest;
+      final String requestUri = request.getRequestURI();
+      if (requestUri.startsWith(prefix) && !requestUri.endsWith(".js") && !requestUri.endsWith(".map")) {
+        HttpServletRequestWrapper wrapper = new HttpServletRequestWrapper(request) {
+          @Override
+          public String getRequestURI() {
+            return super.getRequestURI() + ".js";
+          }
+          @Override
+          public String getServletPath() {
+            return super.getServletPath() + ".js";
+          }
+
+          @Override
+          public StringBuffer getRequestURL() {
+            final StringBuffer buffer = super.getRequestURL();
+            buffer.append(".js");
+            return buffer;
+          }
+        };
+        filterChain.doFilter(wrapper, servletResponse);
       } else {
         filterChain.doFilter(servletRequest, servletResponse);
       }
