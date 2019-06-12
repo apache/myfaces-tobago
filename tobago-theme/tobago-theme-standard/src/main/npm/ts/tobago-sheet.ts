@@ -23,6 +23,7 @@ import ClickEvent = JQuery.ClickEvent;
 class Sheet {
 
   static readonly SHEETS: Map<string, Sheet> = new Map<string, Sheet>();
+  static readonly SCROLL_BAR_SIZE: number = Sheet.getScrollBarSize();
 
   id: string;
 
@@ -64,7 +65,7 @@ class Sheet {
   addHeaderFillerWidth() {
     const last = document.getElementById(this.id).querySelector(".tobago-sheet-headerTable col:last-child");
     if (last) {
-      last.setAttribute("width", String(Sheet.getScrollBarSize()));
+      last.setAttribute("width", String(Sheet.SCROLL_BAR_SIZE));
     }
   };
 
@@ -406,7 +407,6 @@ class Sheet {
           action = sheet.id + ":" + rowIndex + ":" + clickActionId;
         }
         if (clickExecuteIds && clickExecuteIds.length > 0) {
-          //Tobago.reloadComponent($target.get(0), clickReloadComponentId, action)
           jsf.ajax.request(
               action,
               event,
@@ -416,7 +416,7 @@ class Sheet {
                 render: clickRenderIds
               });
         } else {
-          Tobago4.submitAction($(row), action);
+          Tobago4.submitAction(row, action);
         }
       }
     }
@@ -496,10 +496,22 @@ class Sheet {
     return document.getElementById(this.id + Tobago4.SUB_COMPONENT_SEP + "scrollPosition");
   };
 
-  static getScrollBarSize = function (): number {
-    const $outer = $('<div>').css({visibility: 'hidden', width: 100, overflow: 'scroll'}).appendTo('body'),
-        widthWithScroll = $('<div>').css({width: '100%'}).appendTo($outer).outerWidth();
-    $outer.remove();
+  static getScrollBarSize() {
+    const body = document.getElementsByTagName("body").item(0);
+
+    const outer = document.createElement("div");
+    outer.style.visibility = "hidden";
+    outer.style.width = "100px";
+    outer.style.overflow = "scroll";
+    body.append(outer);
+
+    const inner = document.createElement("div");
+    inner.style.width = "100%";
+    outer.append(inner);
+    const widthWithScroll = inner.offsetWidth;
+
+    body.removeChild(outer);
+
     return 100 - widthWithScroll;
   };
 
