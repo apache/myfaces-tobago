@@ -191,12 +191,17 @@ class Sheet {
       }
     }
 
-    // fixme: refactor this!
-    $(Sheet.SHEETS.get(this.id)).find(".tobago-sheet-cell > input.tobago-sheet-columnSelector").click(
-        function (event) {
-          event.preventDefault();
-        });
+    for (const checkbox of <NodeListOf<HTMLInputElement>>element.querySelectorAll(".tobago-sheet-cell > input.tobago-sheet-columnSelector")) {
+      checkbox.addEventListener("click", (event) => {
+        event.preventDefault();
+      });
+    }
 
+    // ---------------------------------------------------------------------------------------- //
+
+    for (const checkbox of <NodeListOf<HTMLInputElement>>element.querySelectorAll(".tobago-sheet-header .tobago-sheet-columnSelector")) {
+      checkbox.addEventListener("click", this.clickOnCheckbox.bind(this));
+    }
   }
 
   static init = function (element: HTMLElement) {
@@ -208,17 +213,6 @@ class Sheet {
 
     const sheets: Array<HTMLElement> = DomUtils.selfOrElementsByClassName(element, "tobago-sheet");
     Sheet.setup(sheets);
-
-    element.querySelectorAll(".tobago-sheet-header .tobago-sheet-columnSelector").forEach(function (element) {
-      element.addEventListener("click", function (event: MouseEvent) {
-        var $checkbox = jQuery(event.target);
-        if ($checkbox.is(':checked')) {
-          Sheet.selectAll($checkbox.closest(".tobago-sheet"));
-        } else {
-          Sheet.deselectAll($checkbox.closest(".tobago-sheet"));
-        }
-      });
-    });
 
     console.timeEnd("[tobago-sheet] init");
   };
@@ -332,9 +326,18 @@ class Sheet {
     };
   }
 
-  clickOnRow (event:ClickEvent) {
+  clickOnCheckbox(event: ClickEvent) {
+    var checkbox: HTMLInputElement = event.currentTarget;
+    if (checkbox.checked) {
+      this.selectAll();
+    } else {
+      this.deselectAll();
+    }
+  }
 
-    const row:HTMLTableRowElement = event.currentTarget;
+  clickOnRow(event: ClickEvent) {
+
+    const row: HTMLTableRowElement = event.currentTarget;
     if (row.classList.contains("tobago-sheet-columnSelector") || !Sheet.isInputElement(row)) {
       const sheet = this.getElement();
 
@@ -350,24 +353,24 @@ class Sheet {
       }
 
       const rows = this.getRows();
-      const selector = Sheet.getSelectorCheckbox(row);
+      const selector = this.getSelectorCheckbox(row);
       const selectionMode = this.getElement().dataset["tobagoSelectionMode"];
 
       if ((!event.ctrlKey && !event.metaKey && !selector)
           || selectionMode === "single" || selectionMode === "singleOrNone") {
-        Sheet.deselectAll($(sheet));
-        Sheet.resetSelected($(sheet));
+        this.deselectAll();
+        this.resetSelected();
       }
 
       const lastClickedRowIndex = parseInt(sheet.dataset["tobagoLastClickedRowIndex"]);
       if (event.shiftKey && selectionMode === "multi" && lastClickedRowIndex > -1) {
         if (lastClickedRowIndex <= row.rowIndex) {
-          Sheet.selectRange($(sheet), $(rows), lastClickedRowIndex, row.rowIndex, true, false);
+          this.selectRange(rows, lastClickedRowIndex, row.rowIndex, true, false);
         } else {
-          Sheet.selectRange($(sheet), $(rows), row.rowIndex, lastClickedRowIndex, true, false);
+          this.selectRange(rows, row.rowIndex, lastClickedRowIndex, true, false);
         }
-      } else if (selectionMode !== "singleOrNone" || !Sheet.isRowSelected($(sheet), $(row))) {
-        Sheet.toggleSelection($(sheet), $(row), $(selector));
+      } else if (selectionMode !== "singleOrNone" || !this.isRowSelected(row)) {
+        this.toggleSelection(row, selector);
       }
       const rowAction = sheet.dataset["tobagoRowAction"];
       var commands = rowAction ? JSON.parse(rowAction) : undefined;
@@ -379,9 +382,9 @@ class Sheet {
       var id = sheet.id;
 
       if (clickActionId) {
-        var action;
-        var index = clickActionId.indexOf(id);
-        var rowIndex = Sheet.getDataIndex($(sheet), $(row));
+        let action: string;
+        const index = clickActionId.indexOf(id);
+        const rowIndex = this.getDataIndex(row);
         if (index >= 0) {
           action = id + ":" + rowIndex + ":" + clickActionId.substring(index + id.length + 1);
         } else {
@@ -484,9 +487,8 @@ class Sheet {
     }
   };
 
-  static findHiddenSelected = function ($sheet) {
-    var id = $sheet.attr("id") + Tobago4.SUB_COMPONENT_SEP + "selected";
-    return jQuery(DomUtils.escapeClientId(id));
+  getHiddenSelected(): HTMLInputElement {
+    return <HTMLInputElement>document.getElementById(this.id + Tobago4.SUB_COMPONENT_SEP + "selected");
   };
 
   getHiddenScrollPosition() {
@@ -533,126 +535,124 @@ class Sheet {
   /**
    * Get the element, which indicates the selection
    */
-  static getSelectorCheckbox = function (row) {
+  getSelectorCheckbox(row): HTMLInputElement {
     return row.querySelector("tr>td>input.tobago-sheet-columnSelector");
   };
 
-  static getSiblingRow = function (row, i) {
-    return row.parentNode.childNodes[i];
+  getRows(): NodeListOf<HTMLTableRowElement> {
+    return this.getBodyTable().querySelectorAll("tbody>tr");
   };
 
-  getRows() {
-    return this.getBodyTable().querySelectorAll("tr");
-  };
+  getFirst(): number {
+    return parseInt(this.getElement().dataset["tobagoFirst"]);
+  }
 
-  static getRows = function ($sheet) {
-    return $sheet.find(">div>table>tbody>tr");
-  };
-
-  static isRowSelected = function ($sheet, row) {
-    var rowIndex = +row.data("tobago-row-index");
+  isRowSelected(row: HTMLTableRowElement) {
+    let rowIndex = +row.dataset["tobagoRowIndex"];
     if (!rowIndex) {
-      rowIndex = row.index() + $sheet.data("tobago-first");
+      rowIndex = row.rowIndex + this.getFirst();
     }
-    return Sheet.isSelected($sheet, rowIndex);
+    return this.isSelected(rowIndex);
   };
 
-  static isSelected = function ($sheet, rowIndex) {
-    return Sheet.findHiddenSelected($sheet).get(0).getAttribute("value").indexOf("," + rowIndex + ",") >= 0;
+  isSelected(rowIndex) {
+    return this.getHiddenSelected().getAttribute("value").indexOf("," + rowIndex + ",") >= 0;
   };
 
-  static resetSelected = function ($sheet) {
-    Sheet.findHiddenSelected($sheet).val(",");
+  resetSelected() {
+    this.getHiddenSelected().setAttribute("value", ",");
   };
 
-  static toggleSelection = function ($sheet, $row, $checkbox) {
-    $sheet.data("tobago-last-clicked-row-index", $row.index());
-    if (!$checkbox.is(":disabled")) {
-      var $selected = Sheet.findHiddenSelected($sheet);
-      var rowIndex = Sheet.getDataIndex($sheet, $row);
-      if (Sheet.isSelected($sheet, rowIndex)) {
-        Sheet.deselectRow($selected, rowIndex, $row, $checkbox);
+  toggleSelection(row: HTMLTableRowElement, checkbox: HTMLInputElement) {
+    this.getElement().dataset["tobagoLastClickedRowIndex"] = String(row.rowIndex);
+    if (checkbox && !checkbox.disabled) {
+      var selected = this.getHiddenSelected();
+      var rowIndex = this.getDataIndex(row);
+      if (this.isSelected(rowIndex)) {
+        this.deselectRow(selected, rowIndex, row, checkbox);
       } else {
-        Sheet.selectRow($selected, rowIndex, $row, $checkbox);
+        this.selectRow(selected, rowIndex, row, checkbox);
       }
     }
   };
 
-  static selectAll = function ($sheet) {
-    var $rows = Sheet.getRows($sheet);
-    Sheet.selectRange($sheet, $rows, 0, $rows.length - 1, true, false);
+  selectAll() {
+    const rows = this.getRows();
+    this.selectRange(rows, 0, rows.length - 1, true, false);
   };
 
-  static deselectAll = function ($sheet) {
-    var $rows = Sheet.getRows($sheet);
-    Sheet.selectRange($sheet, $rows, 0, $rows.length - 1, false, true);
+  deselectAll() {
+    const rows = this.getRows();
+    this.selectRange(rows, 0, rows.length - 1, false, true);
   };
 
-  static toggleAll = function (sheet) {
-    var rows = Sheet.getRows(sheet);
-    Sheet.selectRange(sheet, rows, 0, rows.length - 1, true, true);
+  toggleAll() {
+    const rows = this.getRows();
+    this.selectRange(rows, 0, rows.length - 1, true, true);
   };
 
-  static selectRange = function ($sheet, $rows, first, last, selectDeselected, deselectSelected) {
-    if ($rows.length === 0) {
-      return;
-    }
-    var selected = Sheet.findHiddenSelected($sheet);
+  selectRange(
+      rows: NodeListOf<HTMLTableRowElement>, first: number, last: number, selectDeselected: boolean, deselectSelected: boolean) {
+    const selected = this.getHiddenSelected();
+    const value = selected.value;
     for (var i = first; i <= last; i++) {
-      var $row = $rows.eq(i);
-      var checkbox = jQuery(Sheet.getSelectorCheckbox($row.get(0)));
-      if (!checkbox.is(":disabled")) {
-        var rowIndex = Sheet.getDataIndex($sheet, $row);
-        var on = selected.get(0).getAttribute("value").indexOf("," + rowIndex + ",") >= 0;
+      const row = rows.item(i);
+      var checkbox = this.getSelectorCheckbox(row);
+      if (checkbox && !checkbox.disabled) {
+        const rowIndex = this.getDataIndex(row);
+        const on = value.indexOf("," + rowIndex + ",") >= 0;
         if (selectDeselected && !on) {
-          Sheet.selectRow(selected, rowIndex, $row, checkbox);
+          this.selectRow(selected, rowIndex, row, checkbox);
         } else if (deselectSelected && on) {
-          Sheet.deselectRow(selected, rowIndex, $row, checkbox);
+          this.deselectRow(selected, rowIndex, row, checkbox);
         }
       }
     }
   };
 
-  static getDataIndex = function ($sheet, $row) {
-    var rowIndex = $row.data("tobago-row-index");
+  getDataIndex(row: HTMLTableRowElement): number {
+    const rowIndex = parseInt(row.dataset["tobagoRowIndex"]);
     if (rowIndex) {
-      return +rowIndex;
+      return rowIndex;
     } else {
-      return $row.index() + $sheet.data("tobago-first");
+      return row.rowIndex + this.getFirst();
     }
   };
 
   /**
-   * @param $selected input-element type=hidden: Hidden field with the selection state information
+   * @param selected input-element type=hidden: Hidden field with the selection state information
    * @param rowIndex int: zero based index of the row.
-   * @param $row tr-element: the row.
-   * @param $checkbox input-element: selector in the row.
+   * @param row tr-element: the row.
+   * @param checkbox input-element: selector in the row.
    */
-  static selectRow = function ($selected, rowIndex, $row, $checkbox) {
-    $selected.val($selected.val() + rowIndex + ",");
-    $row.addClass("tobago-sheet-row-markup-selected table-info");
-//  checkbox.prop("checked", true);
+  selectRow(selected: HTMLInputElement, rowIndex: number, row: HTMLTableRowElement, checkbox: HTMLInputElement) {
+    selected.value = selected.value + rowIndex + ",";
+    row.classList.add("tobago-sheet-row-markup-selected");
+    row.classList.add("table-info");
+    checkbox.checked = true;
     setTimeout(function () {
-      $checkbox.prop("checked", true);
+      checkbox.checked = true;
     }, 0);
   };
 
   /**
-   * @param $selected input-element type=hidden: Hidden field with the selection state information
+   * @param selected input-element type=hidden: Hidden field with the selection state information
    * @param rowIndex int: zero based index of the row.
-   * @param $row tr-element: the row.
-   * @param $checkbox input-element: selector in the row.
+   * @param row tr-element: the row.
+   * @param checkbox input-element: selector in the row.
    */
-  static deselectRow = function ($selected, rowIndex, $row, $checkbox) {
-    $selected.val($selected.val().replace(new RegExp("," + rowIndex + ","), ","));
-    $row.removeClass("tobago-sheet-row-markup-selected table-info");
-//  checkbox.prop("checked", false); Async because of TOBAGO-1312
+  deselectRow(selected: HTMLInputElement, rowIndex: number, row: HTMLTableRowElement, checkbox: HTMLInputElement) {
+    selected.value = selected.value.replace(new RegExp("," + rowIndex + ","), ",");
+    row.classList.remove("tobago-sheet-row-markup-selected");
+    row.classList.remove("table-info");
+    checkbox.checked = false;
+    // XXX check if this is still needed... Async because of TOBAGO-1312
     setTimeout(function () {
-      $checkbox.prop("checked", false);
+      checkbox.checked = false;
     }, 0);
   };
 
-  static isInputElement = function (element:HTMLElement) {
+  static isInputElement = function (element: HTMLElement) {
     return ["INPUT", "TEXTAREA", "SELECT", "A", "BUTTON"].indexOf(element.tagName) > -1;
   };
 
