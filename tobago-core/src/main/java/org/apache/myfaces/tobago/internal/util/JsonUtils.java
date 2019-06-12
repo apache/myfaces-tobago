@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -270,6 +271,15 @@ public class JsonUtils {
     }
     final StringBuilder builder = new StringBuilder();
     encode(builder, strings, escape);
+    return builder.toString();
+  }
+
+  public static String encode(final Integer[] integers) {
+    if (integers == null) {
+      return null;
+    }
+    final StringBuilder builder = new StringBuilder();
+    encode(builder, Arrays.asList(integers));
     return builder.toString();
   }
 

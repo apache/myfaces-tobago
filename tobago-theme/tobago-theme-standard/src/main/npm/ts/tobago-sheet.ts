@@ -153,6 +153,20 @@ class Sheet {
       });
       resizeElement.addEventListener("mousedown", this.mousedown.bind(this));
     }
+
+    // scrolling
+    const sheetBody = this.getBody();
+
+    // restore scroll position
+    const value: number[] = JSON.parse(this.getHiddenScrollPosition().getAttribute("value"));
+    sheetBody.scrollLeft = value[0];
+    sheetBody.scrollTop = value[1];
+
+    // sync scrolling of body table to header table
+    this.getHeader().scrollLeft = sheetBody.scrollLeft; //
+
+    // scroll events
+    sheetBody.addEventListener("scroll", this.scroll.bind(this));
   }
 
   static init = function (element: HTMLElement) {
@@ -267,40 +281,21 @@ class Sheet {
     return false;
   }
 
+  scroll(event) {
+    console.debug("scroll");
+
+    const sheetBody: HTMLElement = event.currentTarget;
+
+    // sync scrolling of body table to header table
+    this.getHeader().scrollLeft = sheetBody.scrollLeft;
+
+    // store the position in a hidden field
+    const hidden = this.getHiddenScrollPosition();
+    hidden.setAttribute("value",
+        JSON.stringify([Math.round(sheetBody.scrollLeft), Math.round(sheetBody.scrollTop)]));
+  }
+
   static setup = function (sheets) {
-
-    // scrolling
-    sheets.forEach(function (element): void {
-      var $sheet = jQuery(element);
-      $sheet.find(".tobago-sheet-body").on("scroll", function () {
-        var sheetBody = jQuery(this);
-        var scrollLeft = sheetBody.prop("scrollLeft");
-        var scrollTop = sheetBody.prop("scrollTop");
-
-        // scrolling the table should move the header
-        sheetBody.siblings(".tobago-sheet-header").prop("scrollLeft", scrollLeft);
-
-        // store the position in a hidden field
-        var hidden = Sheet.findHiddenScrollPosition(sheetBody.parent());
-        hidden.val(Math.round(scrollLeft) + ";" + Math.round(scrollTop));
-      });
-    });
-
-    // restore scroll position
-    sheets.forEach(function (element): void {
-      var $sheet = jQuery(element);
-      var $hidden = Sheet.findHiddenScrollPosition($sheet);
-      const value = $hidden.get(0).getAttribute("value");
-      var sep = value.indexOf(";");
-      if (sep !== -1) {
-        var scrollLeft = value.substr(0, sep);
-        var scrollTop = value.substr(sep + 1);
-        var $body = $sheet.children(".tobago-sheet-body");
-        $body.prop("scrollLeft", scrollLeft);
-        $body.prop("scrollTop", scrollTop);
-        $sheet.children(".tobago-sheet-header").prop("scrollLeft", scrollLeft);
-      }
-    });
 
     // add selection listeners
     sheets.forEach(function (element): void {
@@ -424,6 +419,10 @@ class Sheet {
     });
   };
 
+  getHeader(): HTMLElement {
+    return this.getElement().querySelector(".tobago-sheet>header");
+  };
+
   getHeaderTable(): HTMLElement {
     return this.getElement().querySelector(".tobago-sheet>header>table");
   };
@@ -432,12 +431,16 @@ class Sheet {
     return this.getElement().querySelectorAll(".tobago-sheet>header>table>colgroup>col");
   };
 
+  getBody(): HTMLElement {
+    return this.getElement().querySelector(".tobago-sheet>.tobago-sheet-body");
+  };
+
   getBodyTable(): HTMLElement {
-    return this.getElement().querySelector(".tobago-sheet>div>table");
+    return this.getElement().querySelector(".tobago-sheet>.tobago-sheet-body>.tobago-sheet-bodyTable");
   };
 
   getBodyCols(): NodeListOf<HTMLElement> {
-    return this.getElement().querySelectorAll(".tobago-sheet>div>table>colgroup>col");
+    return this.getElement().querySelectorAll(".tobago-sheet>.tobago-sheet-body>.tobago-sheet-bodyTable>colgroup>col");
   };
 
   static hideInputOrSubmit = function ($input) {
@@ -467,9 +470,8 @@ class Sheet {
     return jQuery(DomUtils.escapeClientId(id));
   };
 
-  static findHiddenScrollPosition = function ($sheet) {
-    var id = $sheet.attr("id") + Tobago4.SUB_COMPONENT_SEP + "scrollPosition";
-    return jQuery(DomUtils.escapeClientId(id));
+  getHiddenScrollPosition() {
+    return document.getElementById(this.id + Tobago4.SUB_COMPONENT_SEP + "scrollPosition");
   };
 
   static getScrollBarSize = function (): number {

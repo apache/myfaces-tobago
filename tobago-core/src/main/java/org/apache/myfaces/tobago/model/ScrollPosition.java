@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.model;
 
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,46 +31,37 @@ public class ScrollPosition implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  private Integer left;
-  private Integer top;
+  private Integer[] data = new Integer[] {0,0};
 
   public String encode() {
-    return (left != null ? left : "0") + ";" + (top != null ? top : "0");
+    return JsonUtils.encode(data);
   }
 
   public void clear() {
-    top = null;
-    left = null;
+    data[0] = data[1] = 0;
   }
 
   public void update(final String value) {
     if (StringUtils.isBlank(value)) {
-      top = null;
-      left = null;
+      clear();
     } else {
-      final int sep = value.indexOf(";");
-      if (sep == -1) {
-        LOG.warn("Can't parse: '{}'", value);
-        return;
-      }
-      left = Integer.parseInt(value.substring(0, sep));
-      top = Integer.parseInt(value.substring(sep + 1));
+      data = JsonUtils.decodeIntegerArray(value).toArray(data);
     }
   }
 
   public Integer getLeft() {
-    return left;
+    return data[0];
   }
 
   public void setLeft(final Integer left) {
-    this.left = left;
+    this.data[0] = left;
   }
 
   public Integer getTop() {
-    return top;
+    return data[1];
   }
 
   public void setTop(final Integer top) {
-    this.top = top;
+    this.data[1] = top;
   }
 }
