@@ -1290,6 +1290,10 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   cursor: col-resize;
 }
 
+.tobago-sheet-header:hover .tobago-sheet-headerResize {
+  background-color: $gray-200;
+}
+
 .tobago-sheet-headerCell {
   overflow: hidden;
 }
