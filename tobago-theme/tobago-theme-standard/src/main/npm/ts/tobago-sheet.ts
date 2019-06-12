@@ -18,6 +18,7 @@
 import {Listener, Phase} from "./tobago-listener";
 import {DomUtils} from "./tobago-utils";
 import {Tobago4} from "./tobago-core";
+import ClickEvent = JQuery.ClickEvent;
 
 class Sheet {
 
@@ -31,6 +32,7 @@ class Sheet {
   dblClickReloadComponentId: string;
 
   mousemoveData: any;
+  mousedownOnRowData: any;
 
   loadColumnWidths(): number[] {
     const hidden = document.getElementById(this.id + Tobago4.SUB_COMPONENT_SEP + "widths");
@@ -60,8 +62,10 @@ class Sheet {
   };
 
   addHeaderFillerWidth() {
-    document.getElementById(this.id).querySelector(".tobago-sheet-headerTable col:last-child")
-        .setAttribute("width", String(Sheet.getScrollBarSize()));
+    const last = document.getElementById(this.id).querySelector(".tobago-sheet-headerTable col:last-child");
+    if (last) {
+      last.setAttribute("width", String(Sheet.getScrollBarSize()));
+    }
   };
 
   constructor(element: HTMLElement) {
@@ -154,7 +158,7 @@ class Sheet {
       resizeElement.addEventListener("mousedown", this.mousedown.bind(this));
     }
 
-    // scrolling
+    // scrolling -------------------------------------------------------------------------------------------------- //
     const sheetBody = this.getBody();
 
     // restore scroll position
@@ -162,11 +166,37 @@ class Sheet {
     sheetBody.scrollLeft = value[0];
     sheetBody.scrollTop = value[1];
 
-    // sync scrolling of body table to header table
-    this.getHeader().scrollLeft = sheetBody.scrollLeft; //
+    this.syncScrolling();
 
     // scroll events
     sheetBody.addEventListener("scroll", this.scroll.bind(this));
+
+    // add selection listeners ------------------------------------------------------------------------------------ //
+    const selectionMode = element.dataset["tobagoSelectionMode"];
+    if (selectionMode === "single" || selectionMode === "singleOrNone" || selectionMode === "multi") {
+
+      for (const row of this.getRows()) {
+        row.addEventListener("mousedown", this.mousedownOnRow.bind(this));
+
+        row.addEventListener("click", this.clickOnRow.bind(this));
+
+        // todo: check if this works correctly
+        const sheet = Sheet.SHEETS.get(this.id);
+        if (sheet && sheet.dblClickActionId) {
+          row.addEventListener("dblclick", function (event) {
+            // todo: re-implement
+            sheet.doDblClick(event);
+          });
+        }
+      }
+    }
+
+    // fixme: refactor this!
+    $(Sheet.SHEETS.get(this.id)).find(".tobago-sheet-cell > input.tobago-sheet-columnSelector").click(
+        function (event) {
+          event.preventDefault();
+        });
+
   }
 
   static init = function (element: HTMLElement) {
@@ -286,8 +316,7 @@ class Sheet {
 
     const sheetBody: HTMLElement = event.currentTarget;
 
-    // sync scrolling of body table to header table
-    this.getHeader().scrollLeft = sheetBody.scrollLeft;
+    this.syncScrolling();
 
     // store the position in a hidden field
     const hidden = this.getHiddenScrollPosition();
@@ -295,105 +324,87 @@ class Sheet {
         JSON.stringify([Math.round(sheetBody.scrollLeft), Math.round(sheetBody.scrollTop)]));
   }
 
-  static setup = function (sheets) {
+  mousedownOnRow(event: MouseEvent) {
+    console.debug("mousedownOnRow");
+    this.mousedownOnRowData = {
+      x: event.clientX,
+      y: event.clientY
+    };
+  }
 
-    // add selection listeners
-    sheets.forEach(function (element): void {
-      var $sheet = jQuery(element);
-      var selectionMode = $sheet.data("tobago-selection-mode");
-      if (selectionMode === "single" || selectionMode === "singleOrNone" || selectionMode === "multi") {
-        Sheet.getRows($sheet).each(function () {
-          var $row = jQuery(this);
-          $row.on("mousedown", function (event) {
-            $sheet.data("tobago-mouse-down-x", event.clientX);
-            $sheet.data("tobago-mouse-down-y", event.clientY);
-          });
-          $row.click(function (event) {
-            var $target = jQuery(event.target);
-            var $row = jQuery(this);
-            if ($target.hasClass("tobago-sheet-columnSelector") || !Sheet.isInputElement($target)) {
-              var $sheet = $row.closest(".tobago-sheet");
+  clickOnRow (event:ClickEvent) {
 
-              if (Math.abs($sheet.data("tobago-mouse-down-x") - event.clientX)
-                  + Math.abs($sheet.data("tobago-mouse-down-y") - event.clientY) > 5) {
-                // The user has moved the mouse. We assume, the user want to select some text inside the sheet,
-                // so we doesn't select the row.
-                return;
-              }
+    const row:HTMLTableRowElement = event.currentTarget;
+    if (row.classList.contains("tobago-sheet-columnSelector") || !Sheet.isInputElement(row)) {
+      const sheet = this.getElement();
 
-              if (window.getSelection) {
-                window.getSelection().removeAllRanges();
-              }
-
-              var $rows = Sheet.getRows($sheet);
-              var $selector = Sheet.getSelectorCheckbox($row);
-
-              var selectionMode = $sheet.data("tobago-selection-mode");
-
-              if ((!event.ctrlKey && !event.metaKey && $selector.length === 0)
-                  || selectionMode === "single" || selectionMode === "singleOrNone") {
-                Sheet.deselectAll($sheet);
-                Sheet.resetSelected($sheet);
-              }
-
-              var lastClickedRowIndex = $sheet.data("tobago-last-clicked-row-index");
-              if (event.shiftKey && selectionMode === "multi" && lastClickedRowIndex > -1) {
-                if (lastClickedRowIndex <= $row.index()) {
-                  Sheet.selectRange($sheet, $rows, lastClickedRowIndex, $row.index(), true, false);
-                } else {
-                  Sheet.selectRange($sheet, $rows, $row.index(), lastClickedRowIndex, true, false);
-                }
-              } else if (selectionMode !== "singleOrNone" || !Sheet.isRowSelected($sheet, $row)) {
-                Sheet.toggleSelection($sheet, $row, $selector);
-              }
-              var commands = $sheet.data("tobago-row-action");
-              var click = commands ? commands.click : undefined;
-              var clickActionId = click ? click.action : undefined;
-              var clickExecuteIds = click ? click.execute : undefined;
-              var clickRenderIds = click ? click.render : undefined;
-
-              var id = $sheet.attr("id");
-
-              if (clickActionId) {
-                var action;
-                var index = clickActionId.indexOf(id);
-                var rowIndex = Sheet.getDataIndex($sheet, $row);
-                if (index >= 0) {
-                  action = id + ":" + rowIndex + ":" + clickActionId.substring(index + id.length + 1);
-                } else {
-                  action = id + ":" + rowIndex + ":" + clickActionId;
-                }
-                if (clickExecuteIds && clickExecuteIds.length > 0) {
-                  //Tobago.reloadComponent($target.get(0), clickReloadComponentId, action)
-                  jsf.ajax.request(
-                      action,
-                      event,
-                      {
-                        //"javax.faces.behavior.event": "click",
-                        execute: clickExecuteIds,
-                        render: clickRenderIds
-                      });
-                } else {
-                  Tobago4.submitAction($target.get(0), action);
-                }
-              }
-            }
-          });
-          // todo: check if this works correctly
-          const sheet = Sheet.SHEETS.get($sheet.attr("id"));
-          if (sheet && sheet.dblClickActionId) {
-            $row.on("dblclick", function (event) {
-              // todo: re-implement
-              sheet.doDblClick(event);
-            });
-          }
-        });
+      if (Math.abs(this.mousedownOnRowData.x - event.clientX)
+          + Math.abs(this.mousedownOnRowData.y - event.clientY) > 5) {
+        // The user has moved the mouse. We assume, the user want to select some text inside the sheet,
+        // so we doesn't select the row.
+        return;
       }
-      $sheet.find(".tobago-sheet-cell > input.tobago-sheet-columnSelector").click(
-          function (event) {
-            event.preventDefault();
-          });
-    });
+
+      if (window.getSelection) {
+        window.getSelection().removeAllRanges();
+      }
+
+      const rows = this.getRows();
+      const selector = Sheet.getSelectorCheckbox(row);
+      const selectionMode = this.getElement().dataset["tobagoSelectionMode"];
+
+      if ((!event.ctrlKey && !event.metaKey && !selector)
+          || selectionMode === "single" || selectionMode === "singleOrNone") {
+        Sheet.deselectAll($(sheet));
+        Sheet.resetSelected($(sheet));
+      }
+
+      const lastClickedRowIndex = parseInt(sheet.dataset["tobagoLastClickedRowIndex"]);
+      if (event.shiftKey && selectionMode === "multi" && lastClickedRowIndex > -1) {
+        if (lastClickedRowIndex <= row.rowIndex) {
+          Sheet.selectRange($(sheet), $(rows), lastClickedRowIndex, row.rowIndex, true, false);
+        } else {
+          Sheet.selectRange($(sheet), $(rows), row.rowIndex, lastClickedRowIndex, true, false);
+        }
+      } else if (selectionMode !== "singleOrNone" || !Sheet.isRowSelected($(sheet), $(row))) {
+        Sheet.toggleSelection($(sheet), $(row), $(selector));
+      }
+      const rowAction = sheet.dataset["tobagoRowAction"];
+      var commands = rowAction ? JSON.parse(rowAction) : undefined;
+      var click = commands ? commands.click : undefined;
+      var clickActionId = click ? click.action : undefined;
+      var clickExecuteIds = click ? click.execute : undefined;
+      var clickRenderIds = click ? click.render : undefined;
+
+      var id = sheet.id;
+
+      if (clickActionId) {
+        var action;
+        var index = clickActionId.indexOf(id);
+        var rowIndex = Sheet.getDataIndex($(sheet), $(row));
+        if (index >= 0) {
+          action = id + ":" + rowIndex + ":" + clickActionId.substring(index + id.length + 1);
+        } else {
+          action = id + ":" + rowIndex + ":" + clickActionId;
+        }
+        if (clickExecuteIds && clickExecuteIds.length > 0) {
+          //Tobago.reloadComponent($target.get(0), clickReloadComponentId, action)
+          jsf.ajax.request(
+              action,
+              event,
+              {
+                //"javax.faces.behavior.event": "click",
+                execute: clickExecuteIds,
+                render: clickRenderIds
+              });
+        } else {
+          Tobago4.submitAction($(row), action);
+        }
+      }
+    }
+  }
+
+  static setup = function (sheets) {
 
     // init paging by pages
     sheets.forEach(function (element): void {
@@ -418,6 +429,14 @@ class Sheet {
       });
     });
   };
+
+  syncScrolling() {
+    // sync scrolling of body to header
+    const header = this.getHeader();
+    if (header) {
+      header.scrollLeft = this.getBody().scrollLeft;
+    }
+  }
 
   getHeader(): HTMLElement {
     return this.getElement().querySelector(".tobago-sheet>header");
@@ -483,7 +502,7 @@ class Sheet {
 
   doDblClick(event) {
     var target = event.target;
-    if (!Sheet.isInputElement(jQuery(target))) {
+    if (!Sheet.isInputElement(target)) {
       var row = jQuery(target).closest("tr");
       var $sheet = row.closest(".tobago-sheet");
       var rowIndex = row.index() + $sheet.data("tobago-first");
@@ -513,14 +532,17 @@ class Sheet {
 
   /**
    * Get the element, which indicates the selection
-   * @param row as a jQuery object
    */
   static getSelectorCheckbox = function (row) {
-    return row.find(">td>input.tobago-sheet-columnSelector");
+    return row.querySelector("tr>td>input.tobago-sheet-columnSelector");
   };
 
   static getSiblingRow = function (row, i) {
     return row.parentNode.childNodes[i];
+  };
+
+  getRows() {
+    return this.getBodyTable().querySelectorAll("tr");
   };
 
   static getRows = function ($sheet) {
@@ -578,7 +600,7 @@ class Sheet {
     var selected = Sheet.findHiddenSelected($sheet);
     for (var i = first; i <= last; i++) {
       var $row = $rows.eq(i);
-      var checkbox = Sheet.getSelectorCheckbox($row);
+      var checkbox = jQuery(Sheet.getSelectorCheckbox($row.get(0)));
       if (!checkbox.is(":disabled")) {
         var rowIndex = Sheet.getDataIndex($sheet, $row);
         var on = selected.get(0).getAttribute("value").indexOf("," + rowIndex + ",") >= 0;
@@ -630,8 +652,8 @@ class Sheet {
     }, 0);
   };
 
-  static isInputElement = function ($element) {
-    return ["INPUT", "TEXTAREA", "SELECT", "A", "BUTTON"].indexOf($element.prop("tagName")) > -1;
+  static isInputElement = function (element:HTMLElement) {
+    return ["INPUT", "TEXTAREA", "SELECT", "A", "BUTTON"].indexOf(element.tagName) > -1;
   };
 
 }
