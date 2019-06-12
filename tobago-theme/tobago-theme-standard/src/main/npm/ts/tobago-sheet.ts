@@ -89,9 +89,9 @@ class Sheet {
       const tokens = JSON.parse(element.dataset["tobagoLayout"]).columns;
       const columnRendered = this.isColumnRendered();
 
-      const headerCols = element.querySelectorAll(".tobago-sheet>header>table>colgroup>col");
-      const bodyTable = <HTMLElement>element.querySelector(".tobago-sheet>div>table");
-      const bodyCols = element.querySelectorAll(".tobago-sheet>div>table>colgroup>col");
+      const headerCols = this.getHeaderCols();
+      const bodyTable = this.getBodyTable();
+      const bodyCols = this.getBodyCols();
 
       console.assert(headerCols.length - 1 === bodyCols.length, "header and body column number doesn't match");
 
@@ -434,6 +434,22 @@ class Sheet {
         });
       });
     });
+  };
+
+  getHeaderTable():HTMLElement {
+    return this.getElement().querySelector(".tobago-sheet>header>table");
+  };
+
+  getHeaderCols():NodeListOf<HTMLElement> {
+    return this.getElement().querySelectorAll(".tobago-sheet>header>table>colgroup>col");
+  };
+
+  getBodyTable():HTMLElement {
+    return this.getElement().querySelector(".tobago-sheet>div>table");
+  };
+
+  getBodyCols():NodeListOf<HTMLElement> {
+    return this.getElement().querySelectorAll(".tobago-sheet>div>table>colgroup>col");
   };
 
   static hideInputOrSubmit = function ($input) {
