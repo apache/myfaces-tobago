@@ -202,6 +202,27 @@ class Sheet {
     for (const checkbox of <NodeListOf<HTMLInputElement>>element.querySelectorAll(".tobago-sheet-header .tobago-sheet-columnSelector")) {
       checkbox.addEventListener("click", this.clickOnCheckbox.bind(this));
     }
+
+    // init paging by pages ---------------------------------------------------------------------------------------- //
+
+    for (const pagingText of <NodeListOf<HTMLElement>>element.querySelectorAll(".tobago-sheet-pagingText")) {
+
+      pagingText.addEventListener("click", this.clickOnPaging.bind(this));
+
+      const pagingInput = pagingText.querySelector("input.tobago-sheet-pagingInput");
+      pagingInput.addEventListener("blur", function () {
+        Sheet.hideInputOrSubmit(jQuery(this));
+      });
+
+      pagingInput.addEventListener("keydown", function (event: KeyboardEvent) {
+        if (event.keyCode === 13) {
+          event.stopPropagation();
+          event.preventDefault();
+          event.currentTarget.dispatchEvent(new Event("blur"));
+        }
+      });
+    }
+
   }
 
   static init = function (element: HTMLElement) {
@@ -210,10 +231,6 @@ class Sheet {
       const sheet = new Sheet(sheetElement);
       Sheet.SHEETS.set(sheet.id, sheet);
     }
-
-    const sheets: Array<HTMLElement> = DomUtils.selfOrElementsByClassName(element, "tobago-sheet");
-    Sheet.setup(sheets);
-
     console.timeEnd("[tobago-sheet] init");
   };
 
@@ -290,7 +307,7 @@ class Sheet {
         if (typeof tokens[i] === "number") {
           widths[i] = 100;
         } else if (typeof tokens[i] === "object" && tokens[i].measure !== undefined) {
-          var intValue = parseInt(tokens[i].measure);
+          const intValue = parseInt(tokens[i].measure);
           if (tokens[i].measure.lastIndexOf("px") > 0) {
             widths[i] = intValue;
           } else if (tokens[i].measure.lastIndexOf("%") > 0) {
@@ -327,7 +344,7 @@ class Sheet {
   }
 
   clickOnCheckbox(event: ClickEvent) {
-    var checkbox: HTMLInputElement = event.currentTarget;
+    const checkbox: HTMLInputElement = event.currentTarget;
     if (checkbox.checked) {
       this.selectAll();
     } else {
@@ -373,22 +390,20 @@ class Sheet {
         this.toggleSelection(row, selector);
       }
       const rowAction = sheet.dataset["tobagoRowAction"];
-      var commands = rowAction ? JSON.parse(rowAction) : undefined;
-      var click = commands ? commands.click : undefined;
-      var clickActionId = click ? click.action : undefined;
-      var clickExecuteIds = click ? click.execute : undefined;
-      var clickRenderIds = click ? click.render : undefined;
-
-      var id = sheet.id;
+      const commands = rowAction ? JSON.parse(rowAction) : undefined;
+      const click = commands ? commands.click : undefined;
+      const clickActionId = click ? click.action : undefined;
+      const clickExecuteIds = click ? click.execute : undefined;
+      const clickRenderIds = click ? click.render : undefined;
 
       if (clickActionId) {
         let action: string;
-        const index = clickActionId.indexOf(id);
+        const index = clickActionId.indexOf(sheet.id);
         const rowIndex = this.getDataIndex(row);
         if (index >= 0) {
-          action = id + ":" + rowIndex + ":" + clickActionId.substring(index + id.length + 1);
+          action = sheet.id + ":" + rowIndex + ":" + clickActionId.substring(index + sheet.id.length + 1);
         } else {
-          action = id + ":" + rowIndex + ":" + clickActionId;
+          action = sheet.id + ":" + rowIndex + ":" + clickActionId;
         }
         if (clickExecuteIds && clickExecuteIds.length > 0) {
           //Tobago.reloadComponent($target.get(0), clickReloadComponentId, action)
@@ -407,31 +422,17 @@ class Sheet {
     }
   }
 
-  static setup = function (sheets) {
+  clickOnPaging(event: ClickEvent) {
+    const element = event.currentTarget;
 
-    // init paging by pages
-    sheets.forEach(function (element): void {
-      var $sheet = jQuery(element);
-      $sheet.find(".tobago-sheet-pagingText").each(function () {
-        var pagingText = jQuery(this);
-        pagingText.click(function () {
-          var text = jQuery(this);
-          text.children(".tobago-sheet-pagingOutput").hide();
-          text.children(".tobago-sheet-pagingInput").show().focus().select();
-        });
-        pagingText.children(".tobago-sheet-pagingInput")
-            .blur(function () {
-              Sheet.hideInputOrSubmit(jQuery(this));
-            }).keydown(function (event) {
-          if (event.keyCode === 13) {
-            event.stopPropagation();
-            event.preventDefault();
-            jQuery(this).blur();
-          }
-        });
-      });
-    });
-  };
+    const output = <HTMLElement>element.querySelector(".tobago-sheet-pagingOutput");
+    output.style.display = "none";
+
+    const input = <HTMLElement>element.querySelector(".tobago-sheet-pagingInput");
+    input.style.display = "initial";
+    input.focus();
+    input.dispatchEvent(new Event("select"));
+  }
 
   syncScrolling() {
     // sync scrolling of body to header
@@ -496,21 +497,21 @@ class Sheet {
   };
 
   static getScrollBarSize = function (): number {
-    var $outer = $('<div>').css({visibility: 'hidden', width: 100, overflow: 'scroll'}).appendTo('body'),
+    const $outer = $('<div>').css({visibility: 'hidden', width: 100, overflow: 'scroll'}).appendTo('body'),
         widthWithScroll = $('<div>').css({width: '100%'}).appendTo($outer).outerWidth();
     $outer.remove();
     return 100 - widthWithScroll;
   };
 
   doDblClick(event) {
-    var target = event.target;
+    const target = event.target;
     if (!Sheet.isInputElement(target)) {
-      var row = jQuery(target).closest("tr");
-      var $sheet = row.closest(".tobago-sheet");
-      var rowIndex = row.index() + $sheet.data("tobago-first");
+      const row = jQuery(target).closest("tr");
+      const $sheet = row.closest(".tobago-sheet");
+      const rowIndex = row.index() + $sheet.data("tobago-first");
       if (this.dblClickActionId) {
-        var action;
-        var index = this.dblClickActionId.indexOf(this.id);
+        let action;
+        const index = this.dblClickActionId.indexOf(this.id);
         if (index >= 0) {
           action = this.id + ":" + rowIndex + ":" + this.dblClickActionId.substring(index + this.id.length + 1);
         } else {
@@ -566,8 +567,8 @@ class Sheet {
   toggleSelection(row: HTMLTableRowElement, checkbox: HTMLInputElement) {
     this.getElement().dataset["tobagoLastClickedRowIndex"] = String(row.rowIndex);
     if (checkbox && !checkbox.disabled) {
-      var selected = this.getHiddenSelected();
-      var rowIndex = this.getDataIndex(row);
+      const selected = this.getHiddenSelected();
+      const rowIndex = this.getDataIndex(row);
       if (this.isSelected(rowIndex)) {
         this.deselectRow(selected, rowIndex, row, checkbox);
       } else {
@@ -595,9 +596,9 @@ class Sheet {
       rows: NodeListOf<HTMLTableRowElement>, first: number, last: number, selectDeselected: boolean, deselectSelected: boolean) {
     const selected = this.getHiddenSelected();
     const value = selected.value;
-    for (var i = first; i <= last; i++) {
+    for (let i = first; i <= last; i++) {
       const row = rows.item(i);
-      var checkbox = this.getSelectorCheckbox(row);
+      const checkbox = this.getSelectorCheckbox(row);
       if (checkbox && !checkbox.disabled) {
         const rowIndex = this.getDataIndex(row);
         const on = value.indexOf("," + rowIndex + ",") >= 0;
