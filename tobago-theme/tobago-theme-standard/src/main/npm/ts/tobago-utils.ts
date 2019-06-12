@@ -125,27 +125,6 @@ export class Tobago4Utils {
         : elements.find(selector).add(elements.filter(selector));
   };
 
-  static findSubComponent(element, subId) {
-    return jQuery(Tobago4Utils.getSubComponentId(element.attr('id'), subId));
-  };
-
-  static getSubComponentId(id, subId) {
-    if (id != null) {
-      return "#" + id.replace(/:/g, "\\:") + "\\:\\:" + subId;
-    } else {
-      return null;
-    }
-  };
-
-  /** @deprecated */
-  static findSuperComponent(element) {
-    return jQuery(Tobago4Utils.getSuperComponentId(element.attr('id')));
-  };
-
-  static getSuperComponentId(id) {
-    return "#" + id.substring(0, id.lastIndexOf("::")).replace(/:/g, "\\:");
-  };
-
   /**
    * "a:b" -> "a"
    * "a:b:c" -> "a:b"
