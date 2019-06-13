@@ -33,13 +33,15 @@ class SplitLayout {
   constructor(element: HTMLDivElement) {
     this.element = element;
 
-    for (const splitter of this.element.getElementsByClassName("tobago-splitLayout-horizontal")) {
-      splitter.addEventListener("mousedown", this.start.bind(this));
+    let splitters = this.element.getElementsByClassName("tobago-splitLayout-horizontal");
+    for (let i = 0; i < splitters.length; i++) {
+      splitters.item(i).addEventListener("mousedown", this.start.bind(this));
       this.horizontal = true;
     }
 
-    for (const splitter of this.element.getElementsByClassName("tobago-splitLayout-vertical")) {
-      splitter.addEventListener("mousedown", this.start.bind(this));
+    splitters = this.element.getElementsByClassName("tobago-splitLayout-vertical");
+    for (let i = 0; i < splitters.length; i++) {
+      splitters.item(i).addEventListener("mousedown", this.start.bind(this));
       this.horizontal = false;
     }
   }
@@ -75,8 +77,8 @@ class SplitLayout {
   };
 
   stop(event: MouseEvent): void {
-    document.removeEventListener("mousemove", this.move.bind(this));
-    document.removeEventListener("mouseup", this.stop.bind(this));
+    document.removeEventListener("mousemove", this.move.bind(this)); // fixme remove the real added
+    document.removeEventListener("mouseup", this.stop.bind(this)); // fixme remove the real added
     SplitLayoutMousedown.remove();
   };
 }
@@ -131,9 +133,9 @@ class SplitLayoutMousedown {
   private static indexOfSplitter(splitter: HTMLElement, horizontal: boolean): number {
     const list = splitter.parentElement.getElementsByClassName(
         horizontal ? "tobago-splitLayout-horizontal" : "tobago-splitLayout-vertical");
-    for (let k = 0; k < list.length; k++) {
-      if (list.item(k) === splitter) {
-        return k;
+    for (let i = 0; i < list.length; i++) {
+      if (list.item(i) === splitter) {
+        return i;
       }
     }
     return -1;

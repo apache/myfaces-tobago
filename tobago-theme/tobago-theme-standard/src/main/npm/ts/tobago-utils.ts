@@ -39,8 +39,9 @@ export class DomUtils {
     if (element.classList.contains(className)) {
       result.push(element);
     }
-    for (const found of element.getElementsByClassName(className)) {
-      result.push(<HTMLElement>found);
+    const list = element.getElementsByClassName(className);
+    for (let i = 0; i < list.length; i++) {
+      result.push(<HTMLElement>list.item(i));
     }
     return result;
   };
