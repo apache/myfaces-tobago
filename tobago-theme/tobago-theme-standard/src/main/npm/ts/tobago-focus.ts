@@ -57,6 +57,12 @@ export class Focus {
       });
     }
 
+    // autofocus in popups doesn't work automatically... so we fix that here
+    const modals = document.getElementsByClassName("modal");
+    for (let i = 0; i < modals.length; i++) {
+      modals.item(i).addEventListener('shown.bs.modal', Focus.initAutoFocus);
+    }
+
     for (const hasDanger of DomUtils.selfOrElementsByClassName(element, ".has-danger")) {
       const activeInputsInsideDanger = Focus.activeInputs(hasDanger);
       if (activeInputsInsideDanger.length > 0) {
@@ -68,12 +74,6 @@ export class Focus {
     const autoFocus = element.querySelector("[autofocus]");
     if (autoFocus) {
       // nothing to do, because the browser make the work.
-
-      // autofocus in popups doesn't work automatically... so we fix that here
-      jQuery('.modal').on('shown.bs.modal', function () {
-        jQuery(this).find('[autofocus]').get(0).focus();
-      });
-
       return;
     }
 
@@ -102,6 +102,11 @@ export class Focus {
         .filter((element) =>
             element.style.visibility !== "hidden"
             && element.style.display != "none");
+  }
+
+  private static initAutoFocus(event) {
+    const modal = <HTMLElement>event.currentTarget;
+    (<HTMLElement>modal.querySelector("[autofocus]")).focus();
   }
 }
 
