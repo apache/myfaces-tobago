@@ -428,7 +428,7 @@ class Sheet {
     const input = <HTMLInputElement>element.querySelector(".tobago-sheet-pagingInput");
     input.style.display = "initial";
     input.focus();
-    input.dispatchEvent(new Event("select"));
+    input.select();
   }
 
   blurPaging(event: FocusEvent) {
