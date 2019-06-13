@@ -89,6 +89,7 @@
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-suggest.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-tab.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-tree.js"/>
+          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-tree-listbox.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-utils.js"/>
 -->
           <script name="/tobago/pack/typeahead/0.11.1-patched-with-1212/typeahead.js"/>
