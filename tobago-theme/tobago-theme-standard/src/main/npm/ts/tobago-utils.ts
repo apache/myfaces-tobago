@@ -57,7 +57,7 @@ export class DomUtils {
       result.push(<HTMLElement>list.item(i));
     }
     return result;
-  };
+  }
 
   /**
    * Find all elements (and also self) which have the attribute "attributeName".
@@ -74,7 +74,7 @@ export class DomUtils {
       result.push(<HTMLElement>found);
     }
     return result;
-  };
+  }
 
   /**
    * Get the previous sibling element (without <style> elements).
@@ -88,7 +88,7 @@ export class DomUtils {
       sibling = <HTMLElement>sibling.previousElementSibling;
     }
     return null;
-  };
+  }
 
   /**
    * Get the next sibling element (without <style> elements).
@@ -102,17 +102,17 @@ export class DomUtils {
       sibling = <HTMLElement>sibling.nextElementSibling;
     }
     return null;
-  };
+  }
 
   static outerWidthWithMargin(element: HTMLElement) {
     const style = window.getComputedStyle(element);
     return element.offsetWidth + parseInt(style.marginLeft) + parseInt(style.marginRight);
-  };
+  }
 
   static outerHeightWithMargin(element: HTMLElement) {
     const style = window.getComputedStyle(element);
     return element.offsetHeight + parseInt(style.marginTop) + parseInt(style.marginBottom);
-  };
+  }
 
   /**
    *
@@ -121,7 +121,7 @@ export class DomUtils {
    */
   static escapeClientId(id: string): string {
     return '#' + id.replace(/([:\.])/g, '\\$1');
-  };
+  }
 
 }
 
@@ -138,7 +138,7 @@ export class Tobago4Utils {
     return elements == null
         ? jQuery(selector)
         : elements.find(selector).add(elements.filter(selector));
-  };
+  }
 
   /**
    * "a:b" -> "a"
@@ -170,7 +170,7 @@ export class Tobago4Utils {
       }
     }
     return id.substring(0, id.lastIndexOf(":"));
-  };
+  }
 
   /**
    * fix position, when the element it is outside of the current page
@@ -188,7 +188,7 @@ export class Tobago4Utils {
       element.css('left', left);
       element.css('top', top);
     });
-  };
+  }
 
   static addDataMarkup(element, markupString) {
     var dataTobagoMarkup = element.attr("data-tobago-markup");
@@ -199,7 +199,7 @@ export class Tobago4Utils {
     } else {
       element.attr("data-tobago-markup", JSON.stringify(markupString));
     }
-  };
+  }
 
   static removeDataMarkup(element, markupString) {
     var dataTobagoMarkup = element.attr("data-tobago-markup");
@@ -218,5 +218,5 @@ export class Tobago4Utils {
         element.removeAttr("data-tobago-markup");
       }
     }
-  };
+  }
 }
