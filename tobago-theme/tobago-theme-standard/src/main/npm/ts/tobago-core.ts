@@ -35,18 +35,6 @@ export class Tobago {
 
 export class Tobago4 {
 
-  // -------- Constants -------------------------------------------------------
-
-  /**
-   * JSF's component separator constant
-   */
-  static readonly COMPONENT_SEP = ':';
-
-  /**
-   * Tobago's sub-coponent separator constant
-   */
-  static readonly SUB_COMPONENT_SEP = '::';
-
   // -------- Variables -------------------------------------------------------
 
   /**
@@ -62,20 +50,13 @@ export class Tobago4 {
   // -------- Functions -------------------------------------------------------
 
   /**
-   * Find a sub-element of the page. Like the form with id e.g. page::form
-   * @param suffix
-   */
-  static findSubElementOfPage = function (suffix) {
-    return jQuery(DomUtils.escapeClientId(DomUtils.page().id + Tobago4.SUB_COMPONENT_SEP + suffix));
-  };
-
-  /**
    * Tobago's central init function.
    * Called when the document (DOM) is ready
    */
   static init = function () {
 
     if (Tobago4.initMarker) {
+      console.warn("Tobago is already initialized!");
       return;
     }
     Tobago4.initMarker = true;

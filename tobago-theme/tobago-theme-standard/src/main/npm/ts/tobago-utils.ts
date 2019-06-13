@@ -17,6 +17,19 @@
 
 export class DomUtils {
 
+  /**
+   * JSF's component separator constant
+   */
+  static readonly COMPONENT_SEP = ':';
+
+  /**
+   * Tobago's sub-coponent separator constant
+   */
+  static readonly SUB_COMPONENT_SEP = '::';
+
+  /**
+   * The Tobago root element
+   */
   static page(): HTMLElement {
     const pages = document.getElementsByClassName("tobago-page");
     if (pages.length > 0) {

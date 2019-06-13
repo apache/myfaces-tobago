@@ -22,7 +22,7 @@ import {Listener, Phase} from "./tobago-listener";
 export class Focus {
 
   private static getHidden(): HTMLInputElement {
-    return <HTMLInputElement>document.getElementById(DomUtils.page().id + Tobago4.SUB_COMPONENT_SEP + "lastFocusId");
+    return <HTMLInputElement>document.getElementById(DomUtils.page().id + DomUtils.SUB_COMPONENT_SEP + "lastFocusId");
   }
 
   static setLastFocusId(id: string): void {

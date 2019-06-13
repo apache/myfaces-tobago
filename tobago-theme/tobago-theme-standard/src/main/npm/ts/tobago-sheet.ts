@@ -35,7 +35,7 @@ class Sheet {
   mousedownOnRowData: any;
 
   loadColumnWidths(): number[] {
-    const hidden = document.getElementById(this.id + Tobago4.SUB_COMPONENT_SEP + "widths");
+    const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "widths");
     if (hidden) {
       return JSON.parse(hidden.getAttribute("value"));
     } else {
@@ -44,7 +44,7 @@ class Sheet {
   }
 
   saveColumnWidths(widths: number[]) {
-    const hidden = document.getElementById(this.id + Tobago4.SUB_COMPONENT_SEP + "widths");
+    const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "widths");
     if (hidden) {
       hidden.setAttribute("value", JSON.stringify(widths));
     } else {
@@ -57,7 +57,7 @@ class Sheet {
   }
 
   isColumnRendered(): boolean[] {
-    const hidden = document.getElementById(this.id + Tobago4.SUB_COMPONENT_SEP + "rendered");
+    const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "rendered");
     return JSON.parse(hidden.getAttribute("value"));
   };
 
@@ -485,11 +485,11 @@ class Sheet {
   };
 
   getHiddenSelected(): HTMLInputElement {
-    return <HTMLInputElement>document.getElementById(this.id + Tobago4.SUB_COMPONENT_SEP + "selected");
+    return <HTMLInputElement>document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "selected");
   };
 
   getHiddenScrollPosition() {
-    return document.getElementById(this.id + Tobago4.SUB_COMPONENT_SEP + "scrollPosition");
+    return document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "scrollPosition");
   };
 
   static getScrollBarSize() {
