@@ -18,7 +18,6 @@
 import {Listener, Phase} from "./tobago-listener";
 import {DomUtils} from "./tobago-utils";
 import {Tobago4} from "./tobago-core";
-import ClickEvent = JQuery.ClickEvent;
 
 class Sheet {
 
@@ -211,9 +210,7 @@ class Sheet {
       pagingText.addEventListener("click", this.clickOnPaging.bind(this));
 
       const pagingInput = pagingText.querySelector("input.tobago-sheet-pagingInput");
-      pagingInput.addEventListener("blur", function () {
-        Sheet.hideInputOrSubmit(jQuery(this));
-      });
+      pagingInput.addEventListener("blur", this.blurPaging.bind(this));
 
       pagingInput.addEventListener("keydown", function (event: KeyboardEvent) {
         if (event.keyCode === 13) {
@@ -344,8 +341,8 @@ class Sheet {
     };
   }
 
-  clickOnCheckbox(event: ClickEvent) {
-    const checkbox: HTMLInputElement = event.currentTarget;
+  clickOnCheckbox(event: MouseEvent) {
+    const checkbox = <HTMLInputElement>event.currentTarget;
     if (checkbox.checked) {
       this.selectAll();
     } else {
@@ -353,9 +350,9 @@ class Sheet {
     }
   }
 
-  clickOnRow(event: ClickEvent) {
+  clickOnRow(event: MouseEvent) {
 
-    const row: HTMLTableRowElement = event.currentTarget;
+    const row = <HTMLTableRowElement>event.currentTarget;
     if (row.classList.contains("tobago-sheet-columnSelector") || !Sheet.isInputElement(row)) {
       const sheet = this.getElement();
 
@@ -422,16 +419,37 @@ class Sheet {
     }
   }
 
-  clickOnPaging(event: ClickEvent) {
-    const element = event.currentTarget;
+  clickOnPaging(event: MouseEvent) {
+    const element = <HTMLElement>event.currentTarget;
 
     const output = <HTMLElement>element.querySelector(".tobago-sheet-pagingOutput");
     output.style.display = "none";
 
-    const input = <HTMLElement>element.querySelector(".tobago-sheet-pagingInput");
+    const input = <HTMLInputElement>element.querySelector(".tobago-sheet-pagingInput");
     input.style.display = "initial";
     input.focus();
     input.dispatchEvent(new Event("select"));
+  }
+
+  blurPaging(event: FocusEvent) {
+    const input = <HTMLInputElement>event.currentTarget;
+    const output = <HTMLElement>input.parentElement.querySelector(".tobago-sheet-pagingOutput");
+    if (output.innerHTML !== input.value) {
+      console.debug("Reloading sheet '" + this.id + "' old value='" + output.innerHTML + "' new value='" + input.value + "'");
+      output.innerHTML = input.value;
+      jsf.ajax.request(
+          input.id,
+          null,
+          {
+            "javax.faces.behavior.event": "reload",
+            execute: this.id,
+            render: this.id
+          });
+    } else {
+      console.info("no update needed");
+      input.style.display = "none";
+      output.style.display = "initial";
+    }
   }
 
   syncScrolling() {
@@ -466,28 +484,6 @@ class Sheet {
     return this.getElement().querySelectorAll(".tobago-sheet>.tobago-sheet-body>.tobago-sheet-bodyTable>colgroup>col");
   };
 
-  static hideInputOrSubmit = function ($input) {
-    let $output = $input.siblings(".tobago-sheet-pagingOutput");
-    let changed = $output.html() !== $input.val();
-    let sheetId = $input.parents(".tobago-sheet:first").attr("id");
-    $output.html($input.val());
-    if (changed) {
-      console.debug("reloading sheet '" + $input.attr("id") + "' '" + sheetId + "'");
-      jsf.ajax.request(
-          $input.attr("id"),
-          null,
-          {
-            "javax.faces.behavior.event": "reload",
-            execute: sheetId,
-            render: sheetId
-          });
-    } else {
-      console.info("no update needed");
-      $input.hide();
-      $output.show();
-    }
-  };
-
   getHiddenSelected(): HTMLInputElement {
     return <HTMLInputElement>document.getElementById(this.id + Tobago4.SUB_COMPONENT_SEP + "selected");
   };
@@ -516,31 +512,27 @@ class Sheet {
   };
 
   doDblClick(event) {
-    const target = event.target;
-    if (!Sheet.isInputElement(target)) {
-      const row = jQuery(target).closest("tr");
-      const $sheet = row.closest(".tobago-sheet");
-      const rowIndex = row.index() + $sheet.data("tobago-first");
-      if (this.dblClickActionId) {
-        let action;
-        const index = this.dblClickActionId.indexOf(this.id);
-        if (index >= 0) {
-          action = this.id + ":" + rowIndex + ":" + this.dblClickActionId.substring(index + this.id.length + 1);
-        } else {
-          action = this.id + ":" + rowIndex + ":" + this.dblClickActionId;
-        }
-        if (this.dblClickReloadComponentId && this.dblClickReloadComponentId.length > 0) {
-          jsf.ajax.request(
-              action,
-              event,
-              {
-                //"javax.faces.behavior.event": "dblclick",
-                execute: this.dblClickReloadComponentId,
-                render: this.dblClickReloadComponentId
-              });
-        } else {
-          Tobago4.submitAction(target, action);
-        }
+    const row = <HTMLTableRowElement>event.currentTarget;
+    const rowIndex = row.rowIndex + this.getFirst();
+    if (this.dblClickActionId) {
+      let action;
+      const index = this.dblClickActionId.indexOf(this.id);
+      if (index >= 0) {
+        action = this.id + ":" + rowIndex + ":" + this.dblClickActionId.substring(index + this.id.length + 1);
+      } else {
+        action = this.id + ":" + rowIndex + ":" + this.dblClickActionId;
+      }
+      if (this.dblClickReloadComponentId && this.dblClickReloadComponentId.length > 0) {
+        jsf.ajax.request(
+            action,
+            event,
+            {
+              //"javax.faces.behavior.event": "dblclick",
+              execute: this.dblClickReloadComponentId,
+              render: this.dblClickReloadComponentId
+            });
+      } else {
+        Tobago4.submitAction(row, action);
       }
     }
   };
