@@ -24,6 +24,12 @@ class RegExpTest {
   private readonly element: HTMLInputElement;
   private readonly regexp: RegExp;
 
+  static init(element: HTMLElement): void {
+    for (const input of DomUtils.selfOrElementsByClassName(element, "tobago-in")) { // todo only for data-regexp
+      new RegExpTest(<HTMLInputElement>input);
+    }
+  }
+
   constructor(element: HTMLInputElement) {
 
     this.element = element;
@@ -32,7 +38,7 @@ class RegExpTest {
     console.debug("constructor: '%s'", element.id);
 
     this.element.addEventListener("change", this.checkValue.bind(this));
-  };
+  }
 
   checkValue(event: TextEvent) {
     console.debug("changed: check if '%s' is okay!", this.regexp.toString());
@@ -41,13 +47,7 @@ class RegExpTest {
     } else {
       this.element.classList.remove("border-danger");
     }
-  };
-
-  static init = function (element: HTMLElement): void {
-    for (const input of DomUtils.selfOrElementsByClassName(element, "tobago-in")) { // todo only for data-regexp
-      new RegExpTest(<HTMLInputElement>input);
-    }
-  };
+  }
 }
 
 Listener.register(RegExpTest.init, Phase.DOCUMENT_READY);
