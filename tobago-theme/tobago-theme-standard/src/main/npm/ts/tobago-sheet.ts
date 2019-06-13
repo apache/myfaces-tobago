@@ -34,39 +34,37 @@ class Sheet {
   mousemoveData: any;
   mousedownOnRowData: any;
 
-  loadColumnWidths(): number[] {
-    const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "widths");
-    if (hidden) {
-      return JSON.parse(hidden.getAttribute("value"));
-    } else {
-      return undefined;
+  static init = function (element: HTMLElement) {
+    console.time("[tobago-sheet] init");
+    for (const sheetElement of DomUtils.selfOrElementsByClassName(element, "tobago-sheet")) {
+      const sheet = new Sheet(sheetElement);
+      Sheet.SHEETS.set(sheet.id, sheet);
     }
-  }
-
-  saveColumnWidths(widths: number[]) {
-    const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "widths");
-    if (hidden) {
-      hidden.setAttribute("value", JSON.stringify(widths));
-    } else {
-      console.warn("ignored, should not be called, id='" + this.id + "'");
-    }
-  }
-
-  getElement(): HTMLElement {
-    return document.getElementById(this.id);
-  }
-
-  isColumnRendered(): boolean[] {
-    const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "rendered");
-    return JSON.parse(hidden.getAttribute("value"));
+    console.timeEnd("[tobago-sheet] init");
   };
 
-  addHeaderFillerWidth() {
-    const last = document.getElementById(this.id).querySelector(".tobago-sheet-headerTable col:last-child");
-    if (last) {
-      last.setAttribute("width", String(Sheet.SCROLL_BAR_SIZE));
-    }
-  };
+  private static getScrollBarSize() {
+    const body = document.getElementsByTagName("body").item(0);
+
+    const outer = document.createElement("div");
+    outer.style.visibility = "hidden";
+    outer.style.width = "100px";
+    outer.style.overflow = "scroll";
+    body.append(outer);
+
+    const inner = document.createElement("div");
+    inner.style.width = "100%";
+    outer.append(inner);
+    const widthWithScroll = inner.offsetWidth;
+
+    body.removeChild(outer);
+
+    return 100 - widthWithScroll;
+  }
+
+  private static isInputElement(element: HTMLElement) {
+    return ["INPUT", "TEXTAREA", "SELECT", "A", "BUTTON"].indexOf(element.tagName) > -1;
+  }
 
   constructor(element: HTMLElement) {
     this.id = element.id;
@@ -223,14 +221,39 @@ class Sheet {
 
   }
 
-  static init = function (element: HTMLElement) {
-    console.time("[tobago-sheet] init");
-    for (const sheetElement of DomUtils.selfOrElementsByClassName(element, "tobago-sheet")) {
-      const sheet = new Sheet(sheetElement);
-      Sheet.SHEETS.set(sheet.id, sheet);
+  loadColumnWidths(): number[] {
+    const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "widths");
+    if (hidden) {
+      return JSON.parse(hidden.getAttribute("value"));
+    } else {
+      return undefined;
     }
-    console.timeEnd("[tobago-sheet] init");
-  };
+  }
+
+  saveColumnWidths(widths: number[]) {
+    const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "widths");
+    if (hidden) {
+      hidden.setAttribute("value", JSON.stringify(widths));
+    } else {
+      console.warn("ignored, should not be called, id='" + this.id + "'");
+    }
+  }
+
+  getElement(): HTMLElement {
+    return document.getElementById(this.id);
+  }
+
+  isColumnRendered(): boolean[] {
+    const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "rendered");
+    return JSON.parse(hidden.getAttribute("value"));
+  }
+
+  addHeaderFillerWidth() {
+    const last = document.getElementById(this.id).querySelector(".tobago-sheet-headerTable col:last-child");
+    if (last) {
+      last.setAttribute("width", String(Sheet.SCROLL_BAR_SIZE));
+    }
+  }
 
   mousedown(event: MouseEvent) {
 
@@ -462,54 +485,35 @@ class Sheet {
 
   getHeader(): HTMLElement {
     return this.getElement().querySelector(".tobago-sheet>header");
-  };
+  }
 
   getHeaderTable(): HTMLElement {
     return this.getElement().querySelector(".tobago-sheet>header>table");
-  };
+  }
 
   getHeaderCols(): NodeListOf<HTMLElement> {
     return this.getElement().querySelectorAll(".tobago-sheet>header>table>colgroup>col");
-  };
+  }
 
   getBody(): HTMLElement {
     return this.getElement().querySelector(".tobago-sheet>.tobago-sheet-body");
-  };
+  }
 
   getBodyTable(): HTMLElement {
     return this.getElement().querySelector(".tobago-sheet>.tobago-sheet-body>.tobago-sheet-bodyTable");
-  };
+  }
 
   getBodyCols(): NodeListOf<HTMLElement> {
     return this.getElement().querySelectorAll(".tobago-sheet>.tobago-sheet-body>.tobago-sheet-bodyTable>colgroup>col");
-  };
+  }
 
   getHiddenSelected(): HTMLInputElement {
     return <HTMLInputElement>document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "selected");
-  };
+  }
 
   getHiddenScrollPosition() {
     return document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "scrollPosition");
-  };
-
-  static getScrollBarSize() {
-    const body = document.getElementsByTagName("body").item(0);
-
-    const outer = document.createElement("div");
-    outer.style.visibility = "hidden";
-    outer.style.width = "100px";
-    outer.style.overflow = "scroll";
-    body.append(outer);
-
-    const inner = document.createElement("div");
-    inner.style.width = "100%";
-    outer.append(inner);
-    const widthWithScroll = inner.offsetWidth;
-
-    body.removeChild(outer);
-
-    return 100 - widthWithScroll;
-  };
+  }
 
   doDblClick(event) {
     const row = <HTMLTableRowElement>event.currentTarget;
@@ -535,18 +539,18 @@ class Sheet {
         Tobago4.submitAction(row, action);
       }
     }
-  };
+  }
 
   /**
    * Get the element, which indicates the selection
    */
   getSelectorCheckbox(row): HTMLInputElement {
     return row.querySelector("tr>td>input.tobago-sheet-columnSelector");
-  };
+  }
 
   getRows(): NodeListOf<HTMLTableRowElement> {
     return this.getBodyTable().querySelectorAll("tbody>tr");
-  };
+  }
 
   getFirst(): number {
     return parseInt(this.getElement().dataset["tobagoFirst"]);
@@ -558,15 +562,15 @@ class Sheet {
       rowIndex = row.rowIndex + this.getFirst();
     }
     return this.isSelected(rowIndex);
-  };
+  }
 
   isSelected(rowIndex) {
     return this.getHiddenSelected().getAttribute("value").indexOf("," + rowIndex + ",") >= 0;
-  };
+  }
 
   resetSelected() {
     this.getHiddenSelected().setAttribute("value", ",");
-  };
+  }
 
   toggleSelection(row: HTMLTableRowElement, checkbox: HTMLInputElement) {
     this.getElement().dataset["tobagoLastClickedRowIndex"] = String(row.rowIndex);
@@ -579,22 +583,22 @@ class Sheet {
         this.selectRow(selected, rowIndex, row, checkbox);
       }
     }
-  };
+  }
 
   selectAll() {
     const rows = this.getRows();
     this.selectRange(rows, 0, rows.length - 1, true, false);
-  };
+  }
 
   deselectAll() {
     const rows = this.getRows();
     this.selectRange(rows, 0, rows.length - 1, false, true);
-  };
+  }
 
   toggleAll() {
     const rows = this.getRows();
     this.selectRange(rows, 0, rows.length - 1, true, true);
-  };
+  }
 
   selectRange(
       rows: NodeListOf<HTMLTableRowElement>, first: number, last: number, selectDeselected: boolean, deselectSelected: boolean) {
@@ -613,7 +617,7 @@ class Sheet {
         }
       }
     }
-  };
+  }
 
   getDataIndex(row: HTMLTableRowElement): number {
     const rowIndex = parseInt(row.dataset["tobagoRowIndex"]);
@@ -622,7 +626,7 @@ class Sheet {
     } else {
       return row.rowIndex + this.getFirst();
     }
-  };
+  }
 
   /**
    * @param selected input-element type=hidden: Hidden field with the selection state information
@@ -638,7 +642,7 @@ class Sheet {
     setTimeout(function () {
       checkbox.checked = true;
     }, 0);
-  };
+  }
 
   /**
    * @param selected input-element type=hidden: Hidden field with the selection state information
@@ -655,11 +659,7 @@ class Sheet {
     setTimeout(function () {
       checkbox.checked = false;
     }, 0);
-  };
-
-  static isInputElement = function (element: HTMLElement) {
-    return ["INPUT", "TEXTAREA", "SELECT", "A", "BUTTON"].indexOf(element.tagName) > -1;
-  };
+  }
 
 }
 
