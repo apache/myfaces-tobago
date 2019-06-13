@@ -60,7 +60,7 @@ class SplitLayout {
     }
     previousArea.style.flexGrow = "inherit";
     previousArea.style.flexBasis = "auto";
-    console.info("initial = " + (this.horizontal ? previousArea.style.width : previousArea.style.height));
+    console.debug("initial width/height = '%s'", (this.horizontal ? previousArea.style.width : previousArea.style.height));
   };
 
   move(event: MouseEvent): void {

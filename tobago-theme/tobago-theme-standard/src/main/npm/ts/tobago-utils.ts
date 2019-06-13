@@ -25,6 +25,7 @@ export class DomUtils {
       }
       return <HTMLElement>pages.item(0);
     }
+    console.warn("Found no tobago page!");
     return null;
   }
 

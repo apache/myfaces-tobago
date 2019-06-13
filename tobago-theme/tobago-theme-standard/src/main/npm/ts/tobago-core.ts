@@ -38,16 +38,12 @@ export class Tobago4 {
   // -------- Constants -------------------------------------------------------
 
   /**
-   * Component separator constant
-   * @const
-   * @type {string}
+   * JSF's component separator constant
    */
   static readonly COMPONENT_SEP = ':';
 
   /**
-   * Tobago's subComponent separator constant
-   * @const
-   * @type {string}
+   * Tobago's sub-coponent separator constant
    */
   static readonly SUB_COMPONENT_SEP = '::';
 
@@ -59,32 +55,18 @@ export class Tobago4 {
    */
   static form = null;
 
-  static htmlIdIndex = 0;
-
-  static createHtmlId = function () {
-    var id = '__tbg_id_' + Tobago4.htmlIdIndex++;
-    console.debug('created id = ' + id);
-    return id;
-  };
-
-  static jsObjects = [];
-
   static isSubmit = false;
 
   static initMarker = false;
 
   // -------- Functions -------------------------------------------------------
 
-  static findPage = function () {
-    return jQuery(".tobago-page");
-  };
-
   /**
    * Find a sub-element of the page. Like the form with id e.g. page::form
    * @param suffix
    */
   static findSubElementOfPage = function (suffix) {
-    return jQuery(DomUtils.escapeClientId(Tobago4.findPage().attr("id") + Tobago4.SUB_COMPONENT_SEP + suffix));
+    return jQuery(DomUtils.escapeClientId(DomUtils.page().id + Tobago4.SUB_COMPONENT_SEP + suffix));
   };
 
   /**

@@ -58,7 +58,7 @@ class Jsf {
     jsf.ajax.addOnEvent(function (event) {
       console.timeEnd("[tobago-jsf] jsf-ajax");
       console.time("[tobago-jsf] jsf-ajax");
-      console.log("[tobago-jsf] JSF event status: " + event.status);
+      console.debug("[tobago-jsf] JSF event status: '%s'", event.status);
       if (event.status === "success") {
         event.responseXML.querySelectorAll("update").forEach(function (update: Element) {
           const result = /<!\[CDATA\[(.*)]]>/gm.exec(update.innerHTML);

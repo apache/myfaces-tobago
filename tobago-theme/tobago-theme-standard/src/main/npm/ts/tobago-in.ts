@@ -30,13 +30,13 @@ class RegExpTest {
     this.element = element;
     this.regexp = new RegExp(this.element.dataset["regexp"]);
 
-    console.info("constructor: " + element.id);
+    console.debug("constructor: '%s'", element.id);
 
     this.element.addEventListener("change", this.checkValue.bind(this));
   };
 
   checkValue(event: TextEvent) {
-    console.info("changed: check if " + this.regexp + " is okay!");
+    console.debug("changed: check if '%s' is okay!", this.regexp.toString());
     if (!this.regexp.test(this.element.value)) {
       this.element.classList.add("border-danger");
     } else {
