@@ -226,9 +226,6 @@ export class Tobago4 {
   static initDom = function (elements) {
     elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
 
-    // focus
-    Tobago4.initFocus(elements);
-
     Tobago4.initScrollPosition(elements ? elements : jQuery(".tobago-page"));
   };
 
@@ -257,73 +254,6 @@ export class Tobago4 {
         panel.prop("scrollTop", scrollTop);
       }
     });
-  };
-
-// -------- Util functions ----------------------------------------------------
-
-  /**
-   * Sets the focus to the requested element or to the first possible if
-   * no element is explicitly requested.
-   *
-   * The priority order is:
-   * - error (the first error element gets the focus)
-   * - auto (the element with the tobago tag attribute focus="true" gets the focus)
-   * - last (the element from the last request with same id gets the focus, not AJAX)
-   * - first (the first input element (without tabindex=-1) gets the focus, not AJAX)
-   */
-  static initFocus = function (elements) {
-
-    var $focusable = jQuery(":input:enabled:visible:not(button):not([tabindex='-1'])");
-    $focusable.focus(function () {
-      // remember the last focused element, for later
-      Tobago4.findSubElementOfPage("lastFocusId").val(jQuery(this).attr("id"));
-    });
-
-    var $hasDanger = Tobago4Utils.selectWithJQuery(elements, '.has-danger');
-    var $dangerInput = $hasDanger.find("*").filter(":input:enabled:visible:first");
-    if ($dangerInput.length > 0) {
-      Tobago4.setFocus($dangerInput);
-      return;
-    }
-
-    var $autoFocus = Tobago4Utils.selectWithJQuery(elements, '[autofocus]');
-    var hasAutoFocus = $autoFocus.length > 0;
-    if (hasAutoFocus) {
-      // nothing to do, because the browser make the work.
-
-      // autofocus in popups doesn't work automatically... so we fix that here
-      jQuery('.modal').on('shown.bs.modal', function () {
-        Tobago4.setFocus(jQuery(this).find('[autofocus]'));
-      });
-
-      return;
-    }
-
-    if (elements) {
-      // seems to be AJAX, so end here
-      return;
-    }
-
-    var lastFocusId = Tobago4.findSubElementOfPage("lastFocusId").get(0).getAttribute("value");
-    if (lastFocusId) {
-      Tobago4.setFocus(jQuery(DomUtils.escapeClientId(lastFocusId)));
-      return;
-    }
-
-    var $firstInput = jQuery(":input:enabled:visible:not(button):not([tabindex='-1']):first");
-    if ($firstInput.length > 0) {
-      Tobago4.setFocus($firstInput);
-      return;
-    }
-  };
-
-  static setFocus = function ($element) {
-    try {
-      // focus() on not visible elements breaks some IE
-      $element.focus();
-    } catch (e) {
-      console.error("element-id=" + $element.attr("id") + " exception=" + e);
-    }
   };
 
   static toString = function (element) {

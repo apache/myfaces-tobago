@@ -15,11 +15,10 @@
  * limitations under the License.
  */
 
-// XXX regexp example only - blueprint
-
 import {Listener, Phase} from "./tobago-listener";
 import {DomUtils} from "./tobago-utils";
 
+// XXX regexp example only - blueprint
 class RegExpTest {
 
   private readonly element: HTMLInputElement;

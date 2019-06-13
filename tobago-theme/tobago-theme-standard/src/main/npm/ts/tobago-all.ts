@@ -21,6 +21,7 @@ import "./tobago-dropdown";
 import "./tobago-calendar";
 import "./tobago-command";
 import "./tobago-file";
+import "./tobago-focus";
 import "./tobago-header-footer";
 import "./tobago-in";
 import "./tobago-jsf";
