@@ -307,10 +307,10 @@ Tobago.TreeListbox.onChange = function() {
 
 Tobago.TreeListbox.setSelected = function(listbox) {
   var hidden = listbox.closest(".tobago-treeListbox").children("[data-tobago-selection-mode]");
-  if (hidden.length == 1){
+  if (hidden.length === 1){
     var selectedValue = ";";
     listbox.children("option:selected").each(function() {
-      selectedValue += jQuery(this).attr("id") + ";";
+      selectedValue += jQuery(this).data("tobago-row-index") + ";";
     });
     hidden.val(selectedValue);
   }

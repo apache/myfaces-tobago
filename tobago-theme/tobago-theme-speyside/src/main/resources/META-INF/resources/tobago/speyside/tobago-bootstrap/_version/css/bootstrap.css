@@ -11241,6 +11241,16 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   margin-left: 20rem;
 }
 
+/* treeListbox ---------------------------------------------------------------------- */
+.tobago-treeListbox-level {
+  display: inline-block;
+  min-width: 10rem;
+}
+
+.tobago-treeListbox-select {
+  width: 100%;
+}
+
 /* textarea --------------------------------------------------------- */
 .tobago-textarea:disabled {
   color: rgba(73, 80, 87, 0.5);
