@@ -103,6 +103,10 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
 
     writer.startElement(HtmlElements.OPTION, null);
     writer.writeAttribute(HtmlAttributes.VALUE, id, true);
+    String title = node.getTip();
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    }
     writer.writeIdAttribute(id);
     writer.writeAttribute(HtmlAttributes.SELECTED, selected);
   }
