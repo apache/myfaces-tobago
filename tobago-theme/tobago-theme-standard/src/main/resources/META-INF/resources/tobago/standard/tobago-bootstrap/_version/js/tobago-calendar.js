@@ -41,15 +41,82 @@ Tobago.DateTime.init = function (elements) {
             close: 'fa fa-times'
           },
           keyBinds: {
-            enter: function () {
-              $date.trigger(jQuery.Event("keypress", {
-                which: 13,
-                target: $date[0]
-              }));
+            left: function (widget) {
+              if (!widget) {
+                var $input = $date[0];
+                if ($input.selectionStart === $input.selectionEnd) {
+                  if ($input.selectionStart > 0 || $input.selectionStart > 0) {
+                    $input.selectionStart--;
+                    $input.selectionEnd--;
+                  }
+                } else {
+                  $input.selectionEnd = $input.selectionStart;
+                }
+              } else if (widget.find('.datepicker').is(':visible')) {
+                this.date(this.date().clone().subtract(1, 'd'));
+              }
+            },
+            right: function (widget) {
+              if (!widget) {
+                var $input = $date[0];
+                if ($input.selectionStart === $input.selectionEnd) {
+                  if ($input.selectionStart > 0 || $input.selectionStart < $input.value.length) {
+                    $input.selectionEnd++;
+                    $input.selectionStart++;
+                  }
+                } else {
+                  $input.selectionStart = $input.selectionEnd;
+                }
+              } else if (widget.find('.datepicker').is(':visible')) {
+                this.date(this.date().clone().add(1, 'd'));
+              }
+            },
+            enter: function (widget) {
+              if (widget && widget.find('.datepicker').is(':visible')) {
+                this.hide();
+                fixKey(13);
+              } else {
+                $date.trigger(jQuery.Event("keypress", {
+                  which: 13,
+                  target: $date[0]
+                }));
+              }
+            },
+            escape: function (widget) {
+              if (widget && widget.find('.datepicker').is(':visible')) {
+                this.hide();
+                fixKey(27);
+              }
+            },
+            'delete': function () {
+              var $input = $date[0];
+              if ($input.selectionStart < $input.value.length) {
+                var selectionStart = $input.selectionStart;
+                var selectionEnd = $input.selectionEnd;
+
+                if (selectionStart === selectionEnd && selectionStart < $input.value.length) {
+                  selectionEnd++;
+                }
+                $input.value = $input.value.substr(0, selectionStart)
+                    + $input.value.substr(selectionEnd, $input.value.length);
+
+                $input.selectionEnd = selectionStart;
+                $input.selectionStart = selectionStart;
+              }
             }
           },
           widgetParent: '.tobago-page-menuStore'
         };
+
+        /**
+         * After ESC or ENTER is pressed we need to fire the keyup event manually.
+         * see: https://github.com/tempusdominus/bootstrap-4/issues/159
+         */
+        function fixKey(keyCode) {
+          var keyupEvent = jQuery.Event("keyup");
+          keyupEvent.which = keyCode;
+          $date.trigger(keyupEvent);
+        }
 
         var i18n = $date.data("tobago-date-time-i18n");
         if (i18n) {
@@ -116,8 +183,7 @@ Tobago.DateTime.init = function (elements) {
               'bottom': 'auto',
               'left': left + 'px'
             });
-          }
-          else if (datepicker.hasClass('top')) {
+          } else if (datepicker.hasClass('top')) {
             top = $div.offset().top - datepicker.outerHeight();
             left = $div.offset().left;
             datepicker.css({
