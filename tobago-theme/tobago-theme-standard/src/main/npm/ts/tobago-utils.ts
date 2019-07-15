@@ -128,6 +128,10 @@ export class DomUtils {
     return {top: top, left: left};
   }
 
+  static isVisible(element: HTMLElement) {
+    return element.offsetWidth > 0 || element.offsetHeight > 0 || element.getClientRects().length > 0;
+  }
+
   /**
    *
    * @param id A JSF client id, type=string. Example: escapeClientId("page:input") -> "#page\\:input"

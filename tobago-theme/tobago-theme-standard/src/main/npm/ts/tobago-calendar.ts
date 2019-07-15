@@ -40,16 +40,84 @@ class DateTime {
           close: 'fa fa-times'
         },
         keyBinds: {
-          enter: function () {
-            //jQuery because used by datetimepicker
-            jQuery(date).trigger(jQuery.Event("keypress", {
-              which: 13,
-              target: date
-            }));
+          left: function ($widget) {
+            const widget: HTMLDivElement = <HTMLDivElement>$widget[0];
+            if (widget === undefined) {
+              if (date.selectionStart === date.selectionEnd) {
+                if (date.selectionStart > 0 || date.selectionStart > 0) {
+                  date.selectionStart--;
+                  date.selectionEnd--;
+                }
+              } else {
+                date.selectionEnd = date.selectionStart;
+              }
+            } else if (DomUtils.isVisible(widget.querySelector(".datepicker"))) {
+              this.date(this.date().clone().subtract(1, 'd'));
+            }
+          },
+          right: function ($widget) {
+            const widget: HTMLDivElement = <HTMLDivElement>$widget[0];
+            if (widget === undefined) {
+              if (date.selectionStart === date.selectionEnd) {
+                if (date.selectionStart > 0 || date.selectionStart < date.value.length) {
+                  date.selectionEnd++;
+                  date.selectionStart++;
+                }
+              } else {
+                date.selectionStart = date.selectionEnd;
+              }
+            } else if (DomUtils.isVisible(widget.querySelector(".datepicker"))) {
+              this.date(this.date().clone().add(1, 'd'));
+            }
+          },
+          enter: function ($widget) {
+            const widget: HTMLDivElement = <HTMLDivElement>$widget[0];
+            if (widget !== undefined && DomUtils.isVisible(widget.querySelector(".datepicker"))) {
+              this.hide();
+              fixKey(13);
+            } else {
+              //jQuery because used by datetimepicker
+              jQuery(date).trigger(jQuery.Event("keypress", {
+                which: 13,
+                target: date
+              }));
+            }
+          },
+          escape: function ($widget) {
+            const widget: HTMLDivElement = <HTMLDivElement>$widget[0];
+            if (widget !== undefined && DomUtils.isVisible(widget.querySelector(".datepicker"))) {
+              this.hide();
+              fixKey(27);
+            }
+          },
+          'delete': function () {
+            if (date.selectionStart < date.value.length) {
+              const selectionStart = date.selectionStart;
+              let selectionEnd = date.selectionEnd;
+
+              if (selectionStart === selectionEnd && selectionStart < date.value.length) {
+                selectionEnd++;
+              }
+              date.value = date.value.substr(0, selectionStart)
+                  + date.value.substr(selectionEnd, date.value.length);
+
+              date.selectionEnd = selectionStart;
+              date.selectionStart = selectionStart;
+            }
           }
         },
         widgetParent: '.tobago-page-menuStore'
       };
+
+      /**
+       * After ESC or ENTER is pressed we need to fire the keyup event manually.
+       * see: https://github.com/tempusdominus/bootstrap-4/issues/159
+       */
+      function fixKey(keyCode) {
+        let keyupEvent = jQuery.Event("keyup");
+        keyupEvent.which = keyCode;
+        jQuery(date).trigger(keyupEvent);
+      }
 
       const i18n = date.dataset.tobagoDateTimeI18n ? JSON.parse(date.dataset.tobagoDateTimeI18n) : undefined;
       if (i18n) {
