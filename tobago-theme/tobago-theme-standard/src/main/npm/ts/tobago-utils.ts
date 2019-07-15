@@ -114,6 +114,20 @@ export class DomUtils {
     return element.offsetHeight + parseInt(style.marginTop) + parseInt(style.marginBottom);
   }
 
+  static offset(element: HTMLElement) {
+    let top = 0;
+    let left = 0;
+
+    let currentElement = element;
+    while (currentElement) {
+      top += (currentElement.offsetTop - currentElement.scrollTop + currentElement.clientTop);
+      left += (currentElement.offsetLeft - currentElement.scrollLeft + currentElement.clientLeft);
+      currentElement = currentElement.offsetParent as HTMLElement;
+    }
+
+    return {top: top, left: left};
+  }
+
   /**
    *
    * @param id A JSF client id, type=string. Example: escapeClientId("page:input") -> "#page\\:input"
