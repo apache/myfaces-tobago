@@ -41,10 +41,10 @@ public class CategoryTree {
     final DefaultMutableTreeNode science = createNode("Science", "science");
     science.insert(createNode("Geography", "geography"), 0);
     science.insert(createNode("Mathematics", "math"), 0);
-    final DefaultMutableTreeNode astro = createNode("Astronomy", "astro");
-    astro.insert(createNode("Education", "edu"), 0);
-    astro.insert(createNode("Pictures", "pic"), 0);
-    science.insert(astro, 2);
+    final DefaultMutableTreeNode astronomy = createNode("Astronomy", "astronomy");
+    astronomy.insert(createNode("Education", "edu"), 0);
+    astronomy.insert(createNode("Pictures", "pic"), 0);
+    science.insert(astronomy, 2);
     tree.insert(science, 4);
     return tree;
   }

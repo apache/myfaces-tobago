@@ -44,7 +44,7 @@
       &lt;tc:out value="\#{solarobject.name}"/>
     &lt;/tc:column>
     ...</code></pre>
-    <tc:sheet id="s4" value="#{sheetController.solarList}" var="object" rows="2"
+    <tc:sheet id="s4" value="#{sheetController.solarList}" var="object" rows="5"
               selectable="#{sheetController.selectable}" state="#{sheetController.sheetState}">
       <tc:columnSelector/>
       <tc:column label="Name">
@@ -70,6 +70,7 @@
     </tc:selectOneRadio>
 
     <tc:button id="b1" label="Submit"/>
-    <tc:out id="o1" label="Row Number" value="#{sheetController.sheetState.selectedRows}"/>
+    <tc:out id="o1" label="Row Number" value="#{sheetController.sheetState.selectedRows}"
+            tip="updated after submit"/>
   </tc:section>
 </ui:composition>
