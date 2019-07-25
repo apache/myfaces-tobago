@@ -119,8 +119,8 @@ TobagoTestTool.prototype = {
     const done = this.assert.async(getAssertAsync());
     const assert = this.assert;
 
-    function resetTestStepTimeout(ms) {
-      const timeout = ms ? ms : 20000;
+    function resetTestStepTimeout(additionalMs) {
+      const timeout = additionalMs ? 20000 + additionalMs : 20000;
       testStepTimeout = Date.now() + timeout;
     }
 
