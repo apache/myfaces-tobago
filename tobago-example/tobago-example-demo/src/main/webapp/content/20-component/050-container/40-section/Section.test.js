@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import {jQueryFrame} from "/script/tobago-test.js";
+
 QUnit.test("Attribute 'level'", function (assert) {
   assert.expect(1);
 

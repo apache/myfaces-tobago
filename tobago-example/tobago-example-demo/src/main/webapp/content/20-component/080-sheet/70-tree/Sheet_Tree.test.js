@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("Collapse tree", function (assert) {
   var row0nameFn = jQueryFrameFn("#page\\:mainForm\\:sheet\\:0\\:nameOut");
   var row0centralBodyFn = jQueryFrameFn("#page\\:mainForm\\:sheet\\:0\\:centralBodyOut");

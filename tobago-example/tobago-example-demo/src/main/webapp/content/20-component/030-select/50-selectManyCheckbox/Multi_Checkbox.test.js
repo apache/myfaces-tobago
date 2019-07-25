@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("submit: select cat", function (assert) {
   var animalsFn = jQueryFrameFn("#page\\:mainForm\\:animals input");
   var submitFn = jQueryFrameFn("#page\\:mainForm\\:submit");

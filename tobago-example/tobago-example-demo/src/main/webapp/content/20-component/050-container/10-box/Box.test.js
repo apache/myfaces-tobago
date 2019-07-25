@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("Accordion: Box 1: 'hide' to 'show' to 'hide'", function (assert) {
   var boxFn = jQueryFrameFn("#page\\:mainForm\\:accordionBox1");
   var showBoxFn = jQueryFrameFn("#page\\:mainForm\\:showBox1");

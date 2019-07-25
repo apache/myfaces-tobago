@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import {jQueryFrame} from "/script/tobago-test.js";
+
 QUnit.test("Check width for tc:date", function (assert) {
   assert.expect(2);
   testWidth(assert, "date");

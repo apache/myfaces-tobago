@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import {jQueryFrame} from "/script/tobago-test.js";
+
 QUnit.test("has no exception", function (assert) {
   var $error = jQueryFrame("#page\\:mainForm\\:errorSection .tobago-section-header span");
   assert.notEqual($error.text(), "An error has occurred!");

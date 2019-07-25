@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrame} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("test CSS of the fields and labels of 'first1'", function (assert) {
 
   assert.expect(8);

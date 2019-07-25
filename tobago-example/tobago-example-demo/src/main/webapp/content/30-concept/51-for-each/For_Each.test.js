@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("Add a river and reset.", function (assert) {
   var nameFn = jQueryFrameFn("#page\\:mainForm\\:add\\:inName\\:\\:field");
   var lengthFn = jQueryFrameFn("#page\\:mainForm\\:add\\:inLength\\:\\:field");

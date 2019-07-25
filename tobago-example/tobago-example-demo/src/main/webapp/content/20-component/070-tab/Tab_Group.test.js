@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("Client: Select Tab 3", function (assert) {
   var hiddenInputFn = jQueryFrameFn("#page\\:mainForm\\:tabGroupClient\\:\\:activeIndex");
   var tab1Fn = jQueryFrameFn("#page\\:mainForm\\:tab1Client");

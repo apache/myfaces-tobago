@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import {jQueryFrame} from "/script/tobago-test.js";
+
 QUnit.test("test numbers of tab-group-index", function (assert) {
   var $tabOne = jQueryFrame("#page\\:mainForm\\:tabOne");
   var $tabTwo = jQueryFrame("#page\\:mainForm\\:tabTwo");

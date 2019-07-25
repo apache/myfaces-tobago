@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("Simple Panel", function (assert) {
   var messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
   var submitFn = jQueryFrameFn("#\\page\\:mainForm\\:simple\\:submitSimple");

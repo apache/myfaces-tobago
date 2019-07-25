@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("Date - f:convertDateTime", function (assert) {
   var inputFn = jQueryFrameFn("#page\\:mainForm\\:myfacesDateInput\\:\\:field");
   var datepickerButtonFn = jQueryFrameFn("#page\\:mainForm\\:myfacesDateInput .datepickerbutton");

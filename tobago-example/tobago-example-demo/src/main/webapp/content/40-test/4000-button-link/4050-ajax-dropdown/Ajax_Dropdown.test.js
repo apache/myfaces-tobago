@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("Execute 'AJAX' entry in dropdown menu", function (assert) {
   var dropdownMenuButtonFn = jQueryFrameFn("#page\\:mainForm\\:dropdownMenuButton\\:\\:command");
   var ajaxEntryFn = jQueryFrameFn("#page\\:mainForm\\:ajaxEntry");

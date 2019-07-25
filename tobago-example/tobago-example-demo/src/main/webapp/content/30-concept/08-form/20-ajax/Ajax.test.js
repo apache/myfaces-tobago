@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("submit inner form 1 without violations", function (assert) {
   var form1InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
   var form1OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
@@ -34,7 +37,6 @@ QUnit.test("submit inner form 1 without violations", function (assert) {
   });
   TTT.startTest();
 });
-
 
 QUnit.test("submit inner form 2, violate required field", function (assert) {
   var form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");

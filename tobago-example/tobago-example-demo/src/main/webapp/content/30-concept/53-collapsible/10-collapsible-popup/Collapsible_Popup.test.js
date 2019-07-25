@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("Simple Popup", function (assert) {
   var messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
   var openFn = jQueryFrameFn("#page\\:mainForm\\:simple\\:open1");

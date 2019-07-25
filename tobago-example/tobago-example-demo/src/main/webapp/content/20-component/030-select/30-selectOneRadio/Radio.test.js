@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("submit: Addition (2 + 4)", function (assert) {
   var number1Fn = jQueryFrameFn("#page\\:mainForm\\:selectNum1 input");
   var number2Fn = jQueryFrameFn("#page\\:mainForm\\:selectNum2 input");

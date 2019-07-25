@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("ajax excecute", function (assert) {
   var timestampFn = jQueryFrameFn("#page\\:mainForm\\:timestamp span");
   var textFn = jQueryFrameFn("#page\\:mainForm\\:outText span");

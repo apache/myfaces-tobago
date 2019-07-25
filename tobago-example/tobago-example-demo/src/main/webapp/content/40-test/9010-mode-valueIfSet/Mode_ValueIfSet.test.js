@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import {jQueryFrame} from "/script/tobago-test.js";
+
 QUnit.test("inputfield with label", function (assert) {
 
   assert.expect(6);
@@ -22,7 +24,7 @@ QUnit.test("inputfield with label", function (assert) {
   function testValueEquals(id) {
 
     var $field = jQueryFrame(DomUtils.escapeClientId(id));
-    var $label = jQueryFrame("[for='"+id+"']");
+    var $label = jQueryFrame("[for='" + id + "']");
     assert.equal($field.val(), $label.text());
   }
 
@@ -41,7 +43,7 @@ QUnit.test("inputfield with label", function (assert) {
   function testValueEquals(id) {
 
     var $field = jQueryFrame(DomUtils.escapeClientId(id));
-    var $label = jQueryFrame("[for='"+id+"']");
+    var $label = jQueryFrame("[for='" + id + "']");
     assert.equal($field.attr("id"), $label.text());
   }
 

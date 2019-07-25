@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import {jQueryFrame} from "/script/tobago-test.js";
+
 QUnit.test("First section title is 'Intro'", function (assert) {
   assert.expect(1);
 

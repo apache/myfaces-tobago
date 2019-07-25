@@ -15,13 +15,15 @@
  * limitations under the License.
  */
 
+import {jQueryFrame} from "/script/tobago-test.js";
+
 QUnit.test("inputfield with label", function (assert) {
   var $dateField = jQueryFrame("#page\\:mainForm\\:dateNoPattern\\:\\:field");
   var $dateButton = jQueryFrame("#page\\:mainForm\\:dateNoPattern button");
 
   assert.equal($dateField.val(), "");
 
-  $datepicker = jQueryFrame(".bootstrap-datetimepicker-widget");
+  var $datepicker = jQueryFrame(".bootstrap-datetimepicker-widget");
   assert.notOk($datepicker.get(0));
 
   $dateButton.click();

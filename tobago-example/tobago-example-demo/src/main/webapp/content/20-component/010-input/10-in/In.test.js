@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("inputfield with label", function (assert) {
   var labelFn = jQueryFrameFn("#page\\:mainForm\\:iNormal > label");
   var inputFieldFn = jQueryFrameFn("#page\\:mainForm\\:iNormal\\:\\:field");

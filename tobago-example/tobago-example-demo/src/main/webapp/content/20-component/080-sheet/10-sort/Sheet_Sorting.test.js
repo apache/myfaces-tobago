@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("Basics: Name", function (assert) {
   var colNameFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
   var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");

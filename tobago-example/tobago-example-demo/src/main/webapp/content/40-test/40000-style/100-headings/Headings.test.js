@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("Test h1", function (assert) {
   var alinkFn = jQueryFrameFn("#page\\:mainForm\\:link1");
   var buttonlinkFn = jQueryFrameFn("#page\\:mainForm\\:actionLink1");

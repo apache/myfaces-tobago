@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("submit: Alice", function (assert) {
   var aliceFn = jQueryFrameFn("#page\\:mainForm\\:selectPerson\\:\\:field option:contains('Alice')");
   var bobFn = jQueryFrameFn("#page\\:mainForm\\:selectPerson\\:\\:field option:contains('Bob')");

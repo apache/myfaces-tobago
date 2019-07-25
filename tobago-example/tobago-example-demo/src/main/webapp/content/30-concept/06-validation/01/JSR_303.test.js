@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("Required: Submit without content.", function (assert) {
   var messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
   var inFn = jQueryFrameFn("#page\\:mainForm\\:required\\:in1\\:\\:field");

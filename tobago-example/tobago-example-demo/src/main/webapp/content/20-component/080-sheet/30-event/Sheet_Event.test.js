@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("On click with ajax", function (assert) {
   var oneClickAjaxFn = jQueryFrameFn("#page\\:mainForm\\:changeExample\\:\\:0");
   var venusFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:2\\:sample0");

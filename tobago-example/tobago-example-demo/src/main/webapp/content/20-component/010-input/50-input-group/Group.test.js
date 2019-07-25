@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("ajax: chat send button", function (assert) {
   var chatlogFn = jQueryFrameFn("#page\\:mainForm\\:tachatlog\\:\\:field");
   var inputFn = jQueryFrameFn("#page\\:mainForm\\:inewmessage\\:\\:field");

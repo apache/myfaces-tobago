@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("single: select Music, select Mathematics", function (assert) {
   var musicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:3\\:select");
   var mathematicsFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
