@@ -84,7 +84,10 @@ export class Focus {
 
     const lastFocusId = Focus.getLastFocusId();
     if (lastFocusId) {
-      document.getElementById(lastFocusId).focus();
+      const element = document.getElementById(lastFocusId);
+      if (element) {
+        element.focus();
+      }
       return;
     }
 
