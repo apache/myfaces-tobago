@@ -46,6 +46,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TreeRenderer extends RendererBase {
 
@@ -109,10 +111,10 @@ public class TreeRenderer extends RendererBase {
     }
 
     final SelectedState selectedState = tree.getSelectedState();
-    final StringBuilder selectedValue = new StringBuilder(",");
+    final List<Integer> selectedValue = new ArrayList<>();
 
     final ExpandedState expandedState = tree.getExpandedState();
-    final StringBuilder expandedValue = new StringBuilder(",");
+    final List<Integer> expandedValue = new ArrayList<>();
 
     final int last = tree.isRowsUnlimited() ? Integer.MAX_VALUE : tree.getFirst() + tree.getRows();
     for (int rowIndex = tree.getFirst(); rowIndex < last; rowIndex++) {
@@ -124,13 +126,11 @@ public class TreeRenderer extends RendererBase {
       final TreePath path = tree.getPath();
 
       if (selectedState.isSelected(path)) {
-        selectedValue.append(rowIndex);
-        selectedValue.append(",");
+        selectedValue.add(rowIndex);
       }
 
       if (tree.isFolder() && expandedState.isExpanded(path)) {
-        expandedValue.append(rowIndex);
-        expandedValue.append(",");
+        expandedValue.add(rowIndex);
       }
 
       for (final UIComponent child : tree.getChildren()) {
@@ -149,7 +149,7 @@ public class TreeRenderer extends RendererBase {
     writer.writeNameAttribute(selectedId);
     writer.writeIdAttribute(selectedId);
     writer.writeClassAttribute(TobagoClass.TREE__SELECTED);
-    writer.writeAttribute(HtmlAttributes.VALUE, selectedValue.toString(), false);
+    writer.writeAttribute(HtmlAttributes.VALUE, JsonUtils.encode(selectedValue), false);
     writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.INPUT);
@@ -158,7 +158,7 @@ public class TreeRenderer extends RendererBase {
     writer.writeNameAttribute(expandedId);
     writer.writeIdAttribute(expandedId);
     writer.writeClassAttribute(TobagoClass.TREE__EXPANDED);
-    writer.writeAttribute(HtmlAttributes.VALUE, expandedValue.toString(), false);
+    writer.writeAttribute(HtmlAttributes.VALUE, JsonUtils.encode(expandedValue), false);
     writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.INPUT);

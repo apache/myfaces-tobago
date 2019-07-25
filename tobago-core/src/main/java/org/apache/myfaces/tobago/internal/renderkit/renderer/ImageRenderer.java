@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIImage;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
@@ -47,7 +46,7 @@ public class ImageRenderer extends RendererBase {
 
     final AbstractUIImage image = (AbstractUIImage) component;
     final String value = image.getUrl();
-    final boolean fontAwesome = StringUtils.startsWith(value, "fa-");
+    final boolean fontAwesome = value != null && value.startsWith("fa-");
     final boolean disabled = image.isDisabled()
         || (image.getParent() instanceof AbstractUICommandBase
         && ((AbstractUICommandBase) image.getParent()).isDisabled());

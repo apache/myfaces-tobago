@@ -225,13 +225,7 @@ public final class RenderUtils {
     final String key = data.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + suffix;
     try {
       string = facesContext.getExternalContext().getRequestParameterMap().get(key);
-      if (string != null) {
-        if (string.startsWith("[")) {
-          return JsonUtils.decodeIntegerArray(string);
-        } else {
-          return StringUtils.parseIntegerList(string); // todo remove this case after migrating all to JSON
-        }
-      }
+      return JsonUtils.decodeIntegerArray(string);
     } catch (final Exception e) {
       // should not happen
       LOG.warn("Can't parse " + suffix + ": '" + string + "' from parameter '" + key + "'", e);

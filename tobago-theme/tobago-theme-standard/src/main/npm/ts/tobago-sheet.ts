@@ -402,10 +402,10 @@ class Sheet {
 
       const lastClickedRowIndex = parseInt(sheet.dataset["tobagoLastClickedRowIndex"]);
       if (event.shiftKey && selectionMode === "multi" && lastClickedRowIndex > -1) {
-        if (lastClickedRowIndex <= row.rowIndex) {
-          this.selectRange(rows, lastClickedRowIndex, row.rowIndex, true, false);
+        if (lastClickedRowIndex <= row.sectionRowIndex) {
+          this.selectRange(rows, lastClickedRowIndex, row.sectionRowIndex, true, false);
         } else {
-          this.selectRange(rows, row.rowIndex, lastClickedRowIndex, true, false);
+          this.selectRange(rows, row.sectionRowIndex, lastClickedRowIndex, true, false);
         }
       } else if (selectionMode !== "singleOrNone" || !this.isRowSelected(row)) {
         this.toggleSelection(row, selector);
@@ -517,7 +517,7 @@ class Sheet {
 
   doDblClick(event) {
     const row = <HTMLTableRowElement>event.currentTarget;
-    const rowIndex = row.rowIndex + this.getFirst();
+    const rowIndex = row.sectionRowIndex + this.getFirst();
     if (this.dblClickActionId) {
       let action;
       const index = this.dblClickActionId.indexOf(this.id);
@@ -559,21 +559,22 @@ class Sheet {
   isRowSelected(row: HTMLTableRowElement) {
     let rowIndex = +row.dataset["tobagoRowIndex"];
     if (!rowIndex) {
-      rowIndex = row.rowIndex + this.getFirst();
+      rowIndex = row.sectionRowIndex + this.getFirst();
     }
     return this.isSelected(rowIndex);
   }
 
-  isSelected(rowIndex) {
-    return this.getHiddenSelected().getAttribute("value").indexOf("," + rowIndex + ",") >= 0;
+  isSelected(rowIndex: number) {
+    const value = <number[]>JSON.parse(this.getHiddenSelected().value);
+    return value.indexOf(rowIndex) > -1;
   }
 
   resetSelected() {
-    this.getHiddenSelected().setAttribute("value", ",");
+    this.getHiddenSelected().value = JSON.stringify([]);
   }
 
   toggleSelection(row: HTMLTableRowElement, checkbox: HTMLInputElement) {
-    this.getElement().dataset["tobagoLastClickedRowIndex"] = String(row.rowIndex);
+    this.getElement().dataset["tobagoLastClickedRowIndex"] = String(row.sectionRowIndex);
     if (checkbox && !checkbox.disabled) {
       const selected = this.getHiddenSelected();
       const rowIndex = this.getDataIndex(row);
@@ -603,13 +604,13 @@ class Sheet {
   selectRange(
       rows: NodeListOf<HTMLTableRowElement>, first: number, last: number, selectDeselected: boolean, deselectSelected: boolean) {
     const selected = this.getHiddenSelected();
-    const value = selected.value;
+    const value = new Set<number>(JSON.parse(selected.value));
     for (let i = first; i <= last; i++) {
       const row = rows.item(i);
       const checkbox = this.getSelectorCheckbox(row);
       if (checkbox && !checkbox.disabled) {
         const rowIndex = this.getDataIndex(row);
-        const on = value.indexOf("," + rowIndex + ",") >= 0;
+        const on = value.has(rowIndex);
         if (selectDeselected && !on) {
           this.selectRow(selected, rowIndex, row, checkbox);
         } else if (deselectSelected && on) {
@@ -624,7 +625,7 @@ class Sheet {
     if (rowIndex) {
       return rowIndex;
     } else {
-      return row.rowIndex + this.getFirst();
+      return row.sectionRowIndex + this.getFirst();
     }
   }
 
@@ -635,7 +636,8 @@ class Sheet {
    * @param checkbox input-element: selector in the row.
    */
   selectRow(selected: HTMLInputElement, rowIndex: number, row: HTMLTableRowElement, checkbox: HTMLInputElement) {
-    selected.value = selected.value + rowIndex + ",";
+    const selectedSet = new Set<number>(JSON.parse(selected.value));
+    selected.value = JSON.stringify(Array.from(selectedSet.add(rowIndex)));
     row.classList.add("tobago-sheet-row-markup-selected");
     row.classList.add("table-info");
     checkbox.checked = true;
@@ -651,7 +653,9 @@ class Sheet {
    * @param checkbox input-element: selector in the row.
    */
   deselectRow(selected: HTMLInputElement, rowIndex: number, row: HTMLTableRowElement, checkbox: HTMLInputElement) {
-    selected.value = selected.value.replace(new RegExp("," + rowIndex + ","), ",");
+    const selectedSet = new Set<number>(JSON.parse(selected.value));
+    selectedSet.delete(rowIndex);
+    selected.value = JSON.stringify(Array.from(selectedSet));
     row.classList.remove("tobago-sheet-row-markup-selected");
     row.classList.remove("table-info");
     checkbox.checked = false;

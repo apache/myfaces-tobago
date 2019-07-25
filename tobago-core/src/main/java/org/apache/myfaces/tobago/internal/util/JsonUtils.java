@@ -324,6 +324,9 @@ public class JsonUtils {
   }
 
   public static List<Integer> decodeIntegerArray(final String json) {
+    if (json == null) {
+      return null;
+    }
     String string = json.trim();
     final List<Integer> result = new ArrayList<>();
     if (string.length() < 2 || string.charAt(0) != '[' || string.charAt(string.length() - 1) != ']') {

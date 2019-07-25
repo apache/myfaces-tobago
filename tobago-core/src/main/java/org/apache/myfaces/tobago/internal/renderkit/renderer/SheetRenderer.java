@@ -46,7 +46,6 @@ import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
-import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.layout.VerticalAlign;
@@ -124,7 +123,7 @@ public class SheetRenderer extends RendererBase {
       }
       List<Integer> selectedRows;
       try {
-        selectedRows = StringUtils.parseIntegerList(selected);
+        selectedRows = JsonUtils.decodeIntegerArray(selected);
       } catch (final NumberFormatException e) {
         LOG.warn(selected, e);
         selectedRows = Collections.emptyList();
@@ -343,7 +342,7 @@ public class SheetRenderer extends RendererBase {
 
     if (selectable != Selectable.none) {
       encodeHiddenInput(writer,
-          StringUtils.joinWithSurroundingSeparator(selectedRows),
+          JsonUtils.encode(selectedRows),
           sheetId + SUFFIX_SELECTED);
     }
 

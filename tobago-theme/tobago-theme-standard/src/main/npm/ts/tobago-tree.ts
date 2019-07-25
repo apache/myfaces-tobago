@@ -23,11 +23,12 @@ class Tree {
     var src;
     var $node = $element.closest(".tobago-treeNode, .tobago-treeMenuNode");
     var $data = $node.closest(".tobago-treeMenu, .tobago-tree, .tobago-sheet");
-    var $expanded = $data.children(".tobago-treeMenu-expanded, .tobago-tree-expanded, .tobago-sheet-expanded");
+    const expanded: HTMLInputElement
+        = $data.children(".tobago-treeMenu-expanded, .tobago-tree-expanded, .tobago-sheet-expanded").get(0);
     var $toggles = $node.find(".tobago-treeMenuNode-toggle, .tobago-treeNode-toggle");
-    var rowIndex = Tree.rowIndex($node);
-    if (Tree.isExpanded($node, $expanded)) {
-      Tree.hideChildren($node);
+    var rowIndex = Tree.rowIndex($node.get(0));
+    if (Tree.isExpanded($node.get(0), expanded)) {
+      Tree.hideChildren($node.get(0));
       $toggles.find("i").each(function () {
         var $toggle = jQuery(this);
         $toggle.removeClass($toggle.data("tobago-open")).addClass($toggle.data("tobago-closed"));
@@ -40,12 +41,14 @@ class Tree {
         }
         $toggle.attr("src", src);
       });
-      $expanded.val($expanded.val().replace(new RegExp("," + rowIndex + ","), ","));
+      const set = Tree.getSet(expanded);
+      set.delete(rowIndex);
+      Tree.setSet(expanded, set);
       $node.filter(".tobago-treeNode").removeClass("tobago-treeNode-markup-expanded");
       $node.filter(".tobago-treeMenuNode").removeClass("tobago-treeMenuNode-markup-expanded");
     } else {
-      var reload = Tree.showChildren($node, $expanded);
-      $expanded.val($expanded.val() + rowIndex + ",");
+      const reload = Tree.showChildren($node.get(0), expanded);
+      Tree.setSet(expanded, Tree.getSet(expanded).add(rowIndex));
       if (reload) {
         jsf.ajax.request(
             $toggles.parent().attr("id"),
@@ -78,7 +81,7 @@ class Tree {
    * Hide all children of the node recursively.
    * @param node A jQuery-Object as a node of the tree.
    */
-  static hideChildren = function (node) {
+  static hideChildren = function (node: HTMLElement) {
     var inSheet = Tree.isInSheet(node);
     var children = Tree.findChildren(node);
     children.each(function () {
@@ -87,16 +90,17 @@ class Tree {
       } else {
         jQuery(this).hide();
       }
-      Tree.hideChildren(jQuery(this));
+      Tree.hideChildren(this);
     });
   };
 
   /**
    * Show the children of the node recursively, there parents are expanded.
    * @param node A jQuery-Object as a node of the tree.
+   * @param expanded The hidden field which contains the expanded state.
    * @return is reload needed (to get all nodes from the server)
    */
-  static showChildren = function (node, expanded) {
+  static showChildren = function (node: HTMLElement, expanded: HTMLInputElement) {
     var inSheet = Tree.isInSheet(node);
     var children = Tree.findChildren(node);
     if (children.length == 0) {
@@ -104,14 +108,14 @@ class Tree {
       return true;
     }
     children.each(function () {
-      var child = jQuery(this);
+      var $child = jQuery(this);
       if (inSheet) {
-        child.parent().parent().show();
+        $child.parent().parent().show();
       } else {
-        child.show();
+        $child.show();
       }
-      if (Tree.isExpanded(child, expanded)) {
-        var reload = Tree.showChildren(child, expanded);
+      if (Tree.isExpanded($child.get(0), expanded)) {
+        var reload = Tree.showChildren($child.get(0), expanded);
         if (reload) {
           return true;
         }
@@ -146,12 +150,12 @@ class Tree {
     // selected for treeNode
     Tobago4Utils.selectWithJQuery(elements, ".tobago-treeCommand").focus(function () {
       var command = jQuery(this);
-      var node = command.parent(".tobago-treeNode");
-      var tree = node.closest(".tobago-tree");
+      var $node = command.parent(".tobago-treeNode");
+      var tree = $node.closest(".tobago-tree");
       var selected = tree.children(".tobago-tree-selected");
-      selected.val(Tree.rowIndex(node));
+      selected.val(Tree.rowIndex($node.get(0)));
       tree.find(".tobago-treeNode").removeClass("tobago-treeNode-markup-selected");
-      node.addClass("tobago-treeNode-markup-selected");
+      $node.addClass("tobago-treeNode-markup-selected");
     });
 
     // selected for treeSelect
@@ -159,48 +163,58 @@ class Tree {
       var select = jQuery(this);
       var selected = select.prop("checked");
       var data = select.closest(".tobago-treeMenu, .tobago-tree, .tobago-sheet");
-      var hidden = data.children(".tobago-treeMenu-selected, .tobago-tree-selected, .tobago-sheet-selected");
-      var newValue;
+      const hidden: HTMLInputElement
+          = data.children(".tobago-treeMenu-selected, .tobago-tree-selected, .tobago-sheet-selected").get(0);
+      let value: Set<number>;
+      // todo may use an class attribute for this value
       if (select.attr("type") === "radio") {
-        newValue = "," + Tree.rowIndex(select) + ",";
+        value = new Set();
+        value.add(Tree.rowIndex(select.get(0)));
       } else if (selected) {
-        newValue = hidden.val() + Tree.rowIndex(select) + ",";
+        value = Tree.getSet(hidden);
+        value.add(Tree.rowIndex(select.get(0)));
       } else {
-        newValue = (hidden.val() as string).replace(new RegExp("," + Tree.rowIndex(select) + ","), ",");
+        value = Tree.getSet(hidden);
+        value.delete(Tree.rowIndex(select.get(0)));
       }
-      // XXX optimize: regexp and Tobago.Tree.rowIndex
-      hidden.val(newValue);
+      Tree.setSet(hidden, value);
     });
 
     // selected for treeMenuNode
     Tobago4Utils.selectWithJQuery(elements, ".tobago-treeMenuCommand").focus(function () {
       var command = jQuery(this);
-      var node = command.parent(".tobago-treeMenuNode");
-      var tree = node.closest(".tobago-treeMenu");
-      var selected = tree.children(".tobago-treeMenu-selected");
-      selected.val(Tree.rowIndex(node));
+      var $node = command.parent(".tobago-treeMenuNode");
+      var tree = $node.closest(".tobago-treeMenu");
+      const selected: HTMLInputElement = tree.children(".tobago-treeMenu-selected").get(0);
+      const set = new Set<number>();
+      set.add(Tree.rowIndex($node.get(0)));
+      Tree.setSet(selected, set);
       tree.find(".tobago-treeMenuNode").removeClass("tobago-treeMenuNode-markup-selected");
-      node.addClass("tobago-treeMenuNode-markup-selected");
+      $node.addClass("tobago-treeMenuNode-markup-selected");
     });
 
     // init selected field
     Tobago4Utils.selectWithJQuery(elements, ".tobago-treeMenu, .tobago-tree, .tobago-sheet").each(function () {
-      var hidden = jQuery(this).children(".tobago-treeMenu-selected, .tobago-tree-selected, .tobago-sheet-selected");
-      var string = ",";
-      jQuery(this).find(".tobago-treeMenuNode-markup-selected, .tobago-treeNode-markup-selected").each(function () {
-        string += Tree.rowIndex(jQuery(this)) + ",";
-      });
-      hidden.val(string);
+      const hidden: HTMLInputElement = jQuery(this).children(".tobago-treeMenu-selected, .tobago-tree-selected, .tobago-sheet-selected").get(0);
+      if (hidden) {
+        const value = new Set<number>();
+        jQuery(this).find(".tobago-treeMenuNode-markup-selected, .tobago-treeNode-markup-selected").each(function () {
+          value.add(Tree.rowIndex(this));
+        });
+        Tree.setSet(hidden, value);
+      }
     });
 
     // init expanded field
     Tobago4Utils.selectWithJQuery(elements, ".tobago-treeMenu, .tobago-tree, .tobago-sheet").each(function () {
-      var hidden = jQuery(this).children(".tobago-treeMenu-expanded, .tobago-tree-expanded, .tobago-sheet-expanded");
-      var string = ",";
-      jQuery(this).find(".tobago-treeMenuNode-markup-expanded, .tobago-treeNode-markup-expanded").each(function () {
-        string += Tree.rowIndex(jQuery(this)) + ",";
-      });
-      hidden.val(string);
+      const hidden: HTMLInputElement = jQuery(this).children(".tobago-treeMenu-expanded, .tobago-tree-expanded, .tobago-sheet-expanded").get(0);
+      if (hidden) {
+        const value = new Set<number>();
+        jQuery(this).find(".tobago-treeMenuNode-markup-expanded, .tobago-treeNode-markup-expanded").each(function () {
+          value.add(Tree.rowIndex(this));
+        });
+        Tree.setSet(hidden, value);
+      }
     });
 
     // init tree selection for multiCascade
@@ -210,7 +224,7 @@ class Tree {
         jQuery(this).change(function (event) {
           var node = jQuery(event.target).parents(".tobago-treeNode");
           var checked = node.find("input[type=checkbox]").prop("checked");
-          var children = Tree.findChildren(node);
+          var children = Tree.findChildren(node.get(0));
           children.each(function () {
             var childsCheckbox = jQuery(this).find("input[type=checkbox]");
             childsCheckbox.prop("checked", checked);
@@ -222,28 +236,36 @@ class Tree {
 
   };
 
-  static isExpanded = function (node, expanded) {
-    var rowIndex = Tree.rowIndex(node);
-    return expanded.val().indexOf("," + rowIndex + ",") > -1;
+  static getSet(element: HTMLInputElement): Set<number> {
+    return new Set(JSON.parse(element.value));
+  }
+
+  static setSet(element, set: Set<number>) {
+    return element.value = JSON.stringify(Array.from(set));
+  }
+
+  static isExpanded = function (node: HTMLElement, expanded: HTMLInputElement) {
+    const rowIndex = Tree.rowIndex(node);
+    return Tree.getSet(expanded).has(rowIndex);
   };
 
-  static rowIndex = function (node) {
-    return node.attr("id").replace(/.+\:(\d+)(\:\w+)+/, '$1');
+  static rowIndex = function (node: HTMLElement): number { // todo: use attribute data-tobago-row-index
+    return parseInt(node.id.replace(/.+\:(\d+)(\:\w+)+/, '$1'));
   };
 
-  static findChildren = function (node) {
-    var treeParentSelector = "[data-tobago-tree-parent='" + node.attr("id") + "']";
+  static findChildren = function (node: HTMLElement) {
+    var treeParentSelector = "[data-tobago-tree-parent='" + node.id + "']";
     var children;
     if (Tree.isInSheet(node)) {
-      children = node.parent("td").parent("tr").nextAll().children().children(treeParentSelector);
+      children = jQuery(node).parent("td").parent("tr").nextAll().children().children(treeParentSelector);
     } else { // normal tree
-      children = node.nextAll(treeParentSelector);
+      children = jQuery(node).nextAll(treeParentSelector);
     }
     return children;
   };
 
-  static isInSheet = function (node) {
-    return node.parent("td").length === 1;
+  static isInSheet = function (node: HTMLElement) {
+    return jQuery(node).parent("td").length === 1;
   };
 }
 

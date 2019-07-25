@@ -30,36 +30,6 @@ public final class StringUtils {
     // to prevent instantiation
   }
 
-  public static List<Integer> parseIntegerList(final String integerList) throws NumberFormatException {
-    return parseIntegerList(integerList, ", ;");
-  }
-
-  public static List<Integer> parseIntegerList(final String integerList, final String delimiters)
-      throws NumberFormatException {
-    final List<Integer> list = new ArrayList<>();
-
-    final StringTokenizer tokenizer = new StringTokenizer(integerList, delimiters);
-    while (tokenizer.hasMoreElements()) {
-      final String token = tokenizer.nextToken().trim();
-      if (token.length() > 0) {
-        list.add(new Integer(token));
-      }
-    }
-
-    return list;
-  }
-
-  public static <T> String joinWithSurroundingSeparator(final List<T> list) {
-    final StringBuilder buffer = new StringBuilder(",");
-    if (list != null) {
-      for (final T t : list) {
-        buffer.append(t);
-        buffer.append(",");
-      }
-    }
-    return buffer.toString();
-  }
-
   public static int[] getIndices(final String list) {
     if (list == null) {
       return new int[0];
@@ -313,22 +283,6 @@ public final class StringUtils {
   /**
    * Basically taken from commons-lang
    */
-  public static boolean isAlpha(final String string) {
-    if (string == null) {
-      return false;
-    }
-    final int sz = string.length();
-    for (int i = 0; i < sz; i++) {
-      if (!Character.isLetter(string.charAt(i))) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  /**
-   * Basically taken from commons-lang
-   */
   public static boolean isEmpty(final String value) {
     return value == null || value.length() == 0;
   }
@@ -367,73 +321,22 @@ public final class StringUtils {
   }
 
   /**
-   * Basically taken from commons-lang
-   */
-  public static String replace(final String text, final String searchString, final String replacement) {
-    if (isEmpty(text) || isEmpty(searchString) || replacement == null) {
-      return text;
-    }
-    int start = 0;
-    int end = text.indexOf(searchString, start);
-    if (end == -1) {
-      return text;
-    }
-    final int replLength = searchString.length();
-    int increase = replacement.length() - replLength;
-    increase = increase < 0 ? 0 : increase * 16;
-    final StringBuilder buf = new StringBuilder(text.length() + increase);
-    while (end != -1) {
-      buf.append(text.substring(start, end)).append(replacement);
-      start = end + replLength;
-      end = text.indexOf(searchString, start);
-    }
-    buf.append(text.substring(start));
-    return buf.toString();
-  }
-
-  /**
-   * Basically taken from commons-lang
-   */
-  public static String repeat(final String str, final int repeat) {
-    final int outputLength = str.length() * repeat;
-    final StringBuilder buf = new StringBuilder(outputLength);
-    for (int i = 0; i < repeat; i++) {
-      buf.append(str);
-    }
-    return buf.toString();
-  }
-
-  /**
-   * Returns a string of the same length to hide confidential passwords from log files etc.
+   * Returns a string with asterisks of the same length to hide confidential passwords from log files etc.
    */
   public static String toConfidentialString(final String string, final boolean confidential) {
     if (string == null) {
       return "<null>";
     } else if (confidential) {
-      return repeat("*", string.length()) + " (confidential)";
+      final int repeat = string.length();
+      final StringBuilder builder = new StringBuilder(repeat + 15);
+      for (int i = 0; i < repeat; i++) {
+        builder.append('*');
+      }
+      builder.append(" (confidential)");
+      return builder.toString();
     } else {
       return string;
     }
-  }
-
-  /**
-   * Basically taken from commons-lang
-   */
-  public static String uncapitalize(final String str) {
-    return String.valueOf(Character.toLowerCase(str.charAt(0))) + str.substring(1);
-  }
-
-  /**
-   * Basically taken from commons-lang
-   */
-  public static boolean isAlphanumeric(final String str) {
-    final int sz = str.length();
-    for (int i = 0; i < sz; i++) {
-      if (!Character.isLetterOrDigit(str.charAt(i))) {
-        return false;
-      }
-    }
-    return true;
   }
 
   /**
@@ -491,13 +394,6 @@ public final class StringUtils {
       }
     }
     return true;
-  }
-
-  public static boolean startsWith(final String string, final String prefix) {
-    if (string == null || prefix == null) {
-      return string == null && prefix == null;
-    }
-    return prefix.length() <= string.length() && string.regionMatches(0, prefix, 0, prefix.length());
   }
 
   /**

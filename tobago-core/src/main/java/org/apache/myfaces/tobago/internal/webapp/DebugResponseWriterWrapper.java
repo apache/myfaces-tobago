@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.webapp;
 
-import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlTypes;
 import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
@@ -62,7 +61,7 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
       LOG.error("Comment must not contain the sequence '--', comment = '" + comment + "'.",
           new IllegalArgumentException());
 
-      commentStr = StringUtils.replace(commentStr, "--", "++");
+      commentStr = commentStr.replaceAll("--", "++");
     }
     responseWriter.writeComment(commentStr);
   }
