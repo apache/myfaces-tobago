@@ -44,16 +44,15 @@ public class JsonUtils {
   private JsonUtils() {
   }
 
-  private static void encode(final StringBuilder builder, final String name, final String[] value,
-      final boolean escape) {
+  private static void encode(final StringBuilder builder, final String name, final String[] value) {
     builder.append("\"");
     builder.append(name);
     builder.append("\":");
-    encode(builder, value, escape);
+    encode(builder, value);
     builder.append(",");
   }
 
-  public static void encode(final StringBuilder builder, final String[] value, final boolean escape) {
+  private static void encode(final StringBuilder builder, final String[] value) {
     builder.append("[");
     boolean colon = false;
     for (final String item : value) {
@@ -61,17 +60,13 @@ public class JsonUtils {
         builder.append(",");
       }
       builder.append("\"");
-      if (escape) {
-        for (int i = 0; i < item.length(); i++) {
-          final char c = item.charAt(i);
-          if (c == '\"') {
-            builder.append("\\\"");
-          } else {
-            builder.append(c);
-          }
+      for (int i = 0; i < item.length(); i++) {
+        final char c = item.charAt(i);
+        if (c == '\"') {
+          builder.append("\\\"");
+        } else {
+          builder.append(c);
         }
-      } else {
-        builder.append(item);
       }
       builder.append("\"");
       colon = true;
@@ -79,7 +74,7 @@ public class JsonUtils {
     builder.append("]");
   }
 
-  public static void encode(final StringBuilder builder, final Boolean[] value) {
+  private static void encode(final StringBuilder builder, final Boolean[] value) {
     builder.append("[");
     boolean colon = false;
     for (final boolean item : value) {
@@ -92,7 +87,7 @@ public class JsonUtils {
     builder.append("]");
   }
 
-  public static void encode(final StringBuilder builder, final List<Integer> value) {
+  private static void encode(final StringBuilder builder, final List<Integer> value) {
     builder.append("[");
     boolean colon = false;
     for (final Integer item : value) {
@@ -109,7 +104,7 @@ public class JsonUtils {
     builder.append("\"");
     builder.append(name);
     builder.append("\":");
-    builder.append(Boolean.toString(value));
+    builder.append(value);
     builder.append(",");
   }
 
@@ -117,7 +112,7 @@ public class JsonUtils {
     builder.append("\"");
     builder.append(name);
     builder.append("\":");
-    builder.append(Integer.toString(value));
+    builder.append(value);
     builder.append(",");
   }
 
@@ -250,11 +245,11 @@ public class JsonUtils {
     builder.append("{");
     final int initialLength = builder.length();
 
-    encode(builder, "monthNames", dateTimeI18n.getMonthNames(), false);
-    encode(builder, "monthNamesShort", dateTimeI18n.getMonthNamesShort(), false);
-    encode(builder, "dayNames", dateTimeI18n.getDayNames(), false);
-    encode(builder, "dayNamesShort", dateTimeI18n.getDayNamesShort(), false);
-    encode(builder, "dayNamesMin", dateTimeI18n.getDayNamesMin(), false);
+    encode(builder, "monthNames", dateTimeI18n.getMonthNames());
+    encode(builder, "monthNamesShort", dateTimeI18n.getMonthNamesShort());
+    encode(builder, "dayNames", dateTimeI18n.getDayNames());
+    encode(builder, "dayNamesShort", dateTimeI18n.getDayNamesShort());
+    encode(builder, "dayNamesMin", dateTimeI18n.getDayNamesMin());
     encode(builder, "firstDay", dateTimeI18n.getFirstDay());
 
     if (builder.length() - initialLength > 0) {
@@ -265,12 +260,12 @@ public class JsonUtils {
     return builder.toString();
   }
 
-  public static String encode(final String[] strings, final boolean escape) {
+  public static String encode(final String[] strings) {
     if (strings == null) {
       return null;
     }
     final StringBuilder builder = new StringBuilder();
-    encode(builder, strings, escape);
+    encode(builder, strings);
     return builder.toString();
   }
 
@@ -301,7 +296,7 @@ public class JsonUtils {
     return builder.toString();
   }
 
-  public static void encode(final MeasureList layout, final StringBuilder builder) {
+  private static void encode(final MeasureList layout, final StringBuilder builder) {
     builder.append("[");
     for (final Measure measure : layout) {
       final Measure.Unit unit = measure.getUnit();
@@ -363,6 +358,16 @@ public class JsonUtils {
       builder.deleteCharAt(builder.length() - 1);
     }
     builder.append(']');
+    return builder.toString();
+  }
+
+  public static String encode(final MeasureList measures, final String name) {
+    final StringBuilder builder = new StringBuilder();
+    builder.append("{\"");
+    builder.append(name);
+    builder.append("\":");
+    JsonUtils.encode(measures, builder);
+    builder.append("}");
     return builder.toString();
   }
 

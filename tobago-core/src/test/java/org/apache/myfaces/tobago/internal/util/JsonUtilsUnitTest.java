@@ -30,11 +30,15 @@ import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
 import org.apache.myfaces.tobago.internal.renderkit.Collapse;
 import org.apache.myfaces.tobago.internal.renderkit.Command;
 import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.MeasureList;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 // using ' instead of " to make it better readable.
@@ -45,6 +49,8 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
   public void empty() {
     final CommandMap map = new CommandMap();
     Assertions.assertEquals("{}", JsonUtils.encode(map));
+
+    Assertions.assertEquals(null, JsonUtils.encode((CommandMap)null));
   }
 
   @Test
@@ -152,14 +158,18 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
     Assertions.assertEquals(Arrays.asList(2, 3, 4), JsonUtils.decodeIntegerArray("[null,2,3,4]"));
 
     Assertions.assertEquals(Arrays.asList(), JsonUtils.decodeIntegerArray("1,2,3,4"));
+
+    Assertions.assertEquals(null, JsonUtils.decodeIntegerArray(null));
   }
 
   @Test
   public void encodeStringArray() {
     Assertions.assertEquals("[\"A-rập Xê-út (Tiếng A-rập)\"]",
-        JsonUtils.encode(new String[]{"A-rập Xê-út (Tiếng A-rập)"}, false));
-    Assertions.assertEquals("[\"foo\"bar\"]", JsonUtils.encode(new String[]{"foo\"bar"}, false));
-    Assertions.assertEquals("[\"foo\\\"bar\"]", JsonUtils.encode(new String[]{"foo\"bar"}, true));
+        JsonUtils.encode(new String[]{"A-rập Xê-út (Tiếng A-rập)"}));
+
+    Assertions.assertEquals("[\"foo\\\"bar\"]", JsonUtils.encode(new String[]{"foo\"bar"}));
+
+    Assertions.assertEquals(null, JsonUtils.encode((String[])null));
   }
 
   @Test
@@ -198,6 +208,53 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
         + "'confirmation':'Do \\'you\\' want?',"
         + "'delay':100}}").replaceAll("'", "\"");
     Assertions.assertEquals(expected, JsonUtils.encode(map), "command map");
+  }
+
+  @Test
+  public void encodeMeasureList() {
+    final MeasureList measureList = new MeasureList();
+    measureList.add(Measure.AUTO);
+    measureList.add(Measure.FRACTION1);
+    measureList.add(Measure.valueOf(100));
+
+    Assertions.assertEquals(
+        "{\"name\":[\"auto\",1.0,{\"measure\":\"100px\"}]}",
+        JsonUtils.encode(measureList, "name"));
+  }
+
+  @Test
+  public void encodeBooleanArray() {
+    final Boolean[] array = new Boolean[]{true, false, true};
+    Assertions.assertEquals("[true,false,true]", JsonUtils.encode(array));
+
+    Assertions.assertEquals(null, JsonUtils.encode((Boolean[])null));
+
+    Assertions.assertEquals("[]", JsonUtils.encode(new Boolean[0]));
+  }
+
+  @Test
+  public void encodeIntegerArray() {
+    final Integer[] array = new Integer[]{-1_000_000_000, 0, 42};
+    Assertions.assertEquals("[-1000000000,0,42]", JsonUtils.encode(array));
+
+    Assertions.assertEquals(null, JsonUtils.encode((Integer[])null));
+
+    Assertions.assertEquals("[]", JsonUtils.encode(new Integer[0]));
+  }
+
+  @Test
+  public void encodeIntegerList() {
+    final List<Integer> list = Arrays.asList(-1_000_000_000, 0, 42);
+    Assertions.assertEquals("[-1000000000,0,42]", JsonUtils.encode(list));
+
+    Assertions.assertEquals(null, JsonUtils.encode((List<Integer>)null));
+
+    Assertions.assertEquals("[]", JsonUtils.encode(new ArrayList<Integer>()));
+  }
+
+  @Test
+  public void encodeEmptyArray() {
+    Assertions.assertEquals("[]", JsonUtils.encodeEmptyArray());
   }
 
 }

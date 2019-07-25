@@ -280,14 +280,10 @@ public class SheetRenderer extends RendererBase {
     writer.writeAttribute(DataAttributes.BEHAVIOR_COMMANDS, JsonUtils.encode(commands), false);
     writer.writeAttribute(DataAttributes.SELECTION_MODE, sheet.getSelectable().name(), false);
     writer.writeAttribute(DataAttributes.FIRST, Integer.toString(sheet.getFirst()), false);
-    final StringBuilder builder = new StringBuilder();
 
     final boolean autoLayout = sheet.isAutoLayout();
     if (!autoLayout) {
-      builder.append("{\"columns\":");
-      JsonUtils.encode(sheet.getColumnLayout(), builder);
-      builder.append("}");
-      writer.writeAttribute(DataAttributes.LAYOUT, builder.toString(), true);
+      writer.writeAttribute(DataAttributes.LAYOUT, JsonUtils.encode(sheet.getColumnLayout(), "columns"), true);
     }
   }
 
