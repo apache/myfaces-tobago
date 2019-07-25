@@ -25,37 +25,41 @@ class HeaderFooter {
     // fixing fixed header/footer: content should not scroll behind the footer
 
     const body = DomUtils.selfOrQuerySelectorAll(element, "body")[0];
-    const headers = DomUtils.selfOrQuerySelectorAll(element, ".fixed-top");
-    const footers = DomUtils.selfOrQuerySelectorAll(element, ".fixed-bottom");
 
-    setMargins(body, headers, footers);
+    if (body) {
+      const headers = DomUtils.selfOrQuerySelectorAll(element, ".fixed-top");
+      const footers = DomUtils.selfOrQuerySelectorAll(element, ".fixed-bottom");
 
-    let lastMaxHeaderHeight = 0;
-    let lastMaxFooterHeight = 0;
+      HeaderFooter.setMargins(body, headers, footers);
 
-    window.addEventListener("resize", function (): void {
-      const maxHeaderHeight: number = HeaderFooter.getMaxHeaderHeight(headers);
-      const maxFooterHeight: number = HeaderFooter.getMaxFooterHeight(footers);
+      let lastMaxHeaderHeight = 0;
+      let lastMaxFooterHeight = 0;
 
-      if (maxHeaderHeight !== lastMaxHeaderHeight
-          || maxFooterHeight !== lastMaxFooterHeight) {
-        setMargins(body, headers, footers);
+      // todo: check possible memory leak: use of DOM elements in event listener!
+      window.addEventListener("resize", function (): void {
+        const maxHeaderHeight: number = HeaderFooter.getMaxHeaderHeight(headers);
+        const maxFooterHeight: number = HeaderFooter.getMaxFooterHeight(footers);
 
-        lastMaxHeaderHeight = maxHeaderHeight;
-        lastMaxFooterHeight = maxFooterHeight;
-      }
-    });
+        if (maxHeaderHeight !== lastMaxHeaderHeight
+            || maxFooterHeight !== lastMaxFooterHeight) {
+          HeaderFooter.setMargins(body, headers, footers);
 
-    function setMargins(body: HTMLElement, headers: HTMLElement[], footers: HTMLElement[]): void {
-      const maxHeaderHeight = HeaderFooter.getMaxHeaderHeight(headers);
-      const maxFooterHeight = HeaderFooter.getMaxFooterHeight(footers);
+          lastMaxHeaderHeight = maxHeaderHeight;
+          lastMaxFooterHeight = maxFooterHeight;
+        }
+      });
+    }
+  };
 
-      if (maxHeaderHeight > 0) {
-        body.style.marginTop = maxHeaderHeight + "px";
-      }
-      if (maxFooterHeight > 0) {
-        body.style.marginBottom = maxFooterHeight + "px";
-      }
+  static setMargins =  function (body: HTMLElement, headers: HTMLElement[], footers: HTMLElement[]): void {
+    const maxHeaderHeight = HeaderFooter.getMaxHeaderHeight(headers);
+    const maxFooterHeight = HeaderFooter.getMaxFooterHeight(footers);
+
+    if (maxHeaderHeight > 0) {
+      body.style.marginTop = maxHeaderHeight + "px";
+    }
+    if (maxFooterHeight > 0) {
+      body.style.marginBottom = maxFooterHeight + "px";
     }
   };
 
