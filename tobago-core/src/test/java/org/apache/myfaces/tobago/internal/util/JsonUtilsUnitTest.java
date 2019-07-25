@@ -50,7 +50,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
     final CommandMap map = new CommandMap();
     Assertions.assertEquals("{}", JsonUtils.encode(map));
 
-    Assertions.assertEquals(null, JsonUtils.encode((CommandMap)null));
+    Assertions.assertEquals(null, JsonUtils.encode((CommandMap) null));
   }
 
   @Test
@@ -169,7 +169,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
 
     Assertions.assertEquals("[\"foo\\\"bar\"]", JsonUtils.encode(new String[]{"foo\"bar"}));
 
-    Assertions.assertEquals(null, JsonUtils.encode((String[])null));
+    Assertions.assertEquals(null, JsonUtils.encode((String[]) null));
   }
 
   @Test
@@ -227,7 +227,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
     final Boolean[] array = new Boolean[]{true, false, true};
     Assertions.assertEquals("[true,false,true]", JsonUtils.encode(array));
 
-    Assertions.assertEquals(null, JsonUtils.encode((Boolean[])null));
+    Assertions.assertEquals(null, JsonUtils.encode((Boolean[]) null));
 
     Assertions.assertEquals("[]", JsonUtils.encode(new Boolean[0]));
   }
@@ -237,7 +237,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
     final Integer[] array = new Integer[]{-1_000_000_000, 0, 42};
     Assertions.assertEquals("[-1000000000,0,42]", JsonUtils.encode(array));
 
-    Assertions.assertEquals(null, JsonUtils.encode((Integer[])null));
+    Assertions.assertEquals(null, JsonUtils.encode((Integer[]) null));
 
     Assertions.assertEquals("[]", JsonUtils.encode(new Integer[0]));
   }
@@ -247,7 +247,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
     final List<Integer> list = Arrays.asList(-1_000_000_000, 0, 42);
     Assertions.assertEquals("[-1000000000,0,42]", JsonUtils.encode(list));
 
-    Assertions.assertEquals(null, JsonUtils.encode((List<Integer>)null));
+    Assertions.assertEquals(null, JsonUtils.encode((List<Integer>) null));
 
     Assertions.assertEquals("[]", JsonUtils.encode(new ArrayList<Integer>()));
   }

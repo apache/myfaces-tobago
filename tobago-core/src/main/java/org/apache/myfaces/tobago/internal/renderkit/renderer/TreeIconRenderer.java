@@ -96,7 +96,7 @@ public class TreeIconRenderer extends RendererBase {
         TobagoClass.TREE_NODE__TOGGLE,
         treeIcon.getCustomClass());
 
-    if (source != null && source.startsWith( "fa-")) {
+    if (source != null && source.startsWith("fa-")) {
       writer.startElement(HtmlElements.I);
       writer.writeClassAttribute(Icons.FA, Icons.custom(source));
       if (folder) {
