@@ -90,11 +90,10 @@ TobagoTestTool.prototype = {
     });
   },
   startTest: function () {
-    var steps = this.steps.slice(0);
-    var stepStarted = 0;
-    var stepFinished = 0;
-    var responses = 0;
-    var timeoutTimestamp = Date.now();
+    const steps = this.steps.slice(0);
+    const cycleTiming = 50;
+    let currentStep = 0;
+    let testStepTimeout;
 
     function getAssertExpect() {
       var expect = 0;
@@ -117,117 +116,124 @@ TobagoTestTool.prototype = {
     }
 
     this.assert.expect(getAssertExpect());
-    var done = this.assert.async(getAssertAsync());
-    var assert = this.assert;
+    const done = this.assert.async(getAssertAsync());
+    const assert = this.assert;
 
-    function isFinished() {
-      return stepStarted >= steps.length && stepFinished >= steps.length;
+    function resetTestStepTimeout(ms) {
+      const timeout = ms ? ms : 20000;
+      testStepTimeout = Date.now() + timeout;
     }
 
-    function isTimeout() {
-      return Date.now() > timeoutTimestamp + 20000;
+    let waitForResponse = false;
+    let ajaxRequestDetected = false;
+    let ajaxRequestDone = false;
+    let fullPageReloadDetected = false;
+    let fullPageReloadDone = false;
+
+    function registerAjaxReadyStateListener() {
+      let oldXHR = document.getElementById("page:testframe").contentWindow.XMLHttpRequest;
+
+      function newXHR() {
+        let realXHR = new oldXHR();
+        realXHR.addEventListener("readystatechange", function () {
+          console.log("### ajax readyState: " + realXHR.readyState);
+
+          if (realXHR.readyState !== XMLHttpRequest.UNSENT && realXHR.readyState !== XMLHttpRequest.DONE) {
+            ajaxRequestDetected = true;
+          } else if (ajaxRequestDetected && realXHR.readyState === XMLHttpRequest.DONE) {
+            ajaxRequestDone = true;
+            waitForResponse = false;
+          }
+
+        }, false);
+        return realXHR;
+      }
+
+      document.getElementById("page:testframe").contentWindow.XMLHttpRequest = newXHR;
     }
 
-    function startNextPhase() {
-      return stepStarted === stepFinished;
-    }
+    function fullPageReloadPolling() {
+      const testframe = document.getElementById("page:testframe");
+      if (testframe === null
+          || testframe.contentWindow.document.readyState !== "complete"
+          || testframe.contentWindow.document.querySelector("html") === null) {
+        fullPageReloadDetected = true;
+      } else if (fullPageReloadDetected) {
+        fullPageReloadDone = true;
+        waitForResponse = false;
+      }
 
-    function resetTimeout() {
-      timeoutTimestamp = Date.now();
-    }
-
-    function increaseStepFinished() {
-      stepFinished++;
-      resetTimeout();
-    }
-
-    function detectAjaxResponse() {
-      if (!isFinished() && !isTimeout()) {
-        responses++;
+      if (!fullPageReloadDone && !ajaxRequestDone) {
+        setTimeout(fullPageReloadPolling, cycleTiming);
       }
     }
-
-    function TobagoFrame() {
-      return document.getElementById("page:testframe").contentWindow.Tobago;
-    }
-
-    TobagoFrame().registerListener(detectAjaxResponse, TobagoFrame().Phase.AFTER_UPDATE);
-
-    jQuery("#page\\:testframe").on("load", function () {
-      if (!isFinished() && !isTimeout()) {
-
-        /**
-         * we need to wait for the fully loaded DOM, otherwise an action function may executed to early and some events
-         * like 'componentFn().click()' cannot triggered correctly.
-         */
-        jQuery("#page\\:testframe").ready(function () {
-          responses++;
-        });
-
-        // we need to re-initiate the ajax listener
-        TobagoFrame().registerListener(detectAjaxResponse, TobagoFrame().Phase.AFTER_UPDATE);
-      }
-    });
 
     function cycle() {
-      if (!isFinished() && !isTimeout()) {
-        if (steps[stepFinished].type === TobagoTestTool.stepType.ACTION) {
-          if (startNextPhase()) {
-            stepStarted++;
-            responses = 0; // maybe next step is 'wait for response'
-            steps[stepFinished].func();
-            increaseStepFinished();
-          }
-
-          if (startNextPhase()) {
-            cycle();
-          } else {
-            setTimeout(cycle, 50);
-          }
-        } else if (steps[stepFinished].type === TobagoTestTool.stepType.WAIT_RESPONSE) {
-          if (startNextPhase()) {
-            stepStarted++;
-          }
-
-          if (responses > 0) {
-            responses = 0;
-            increaseStepFinished();
-          }
-
-          if (startNextPhase()) {
-            cycle();
-          } else {
-            setTimeout(cycle, 50);
-          }
-        } else if (steps[stepFinished].type === TobagoTestTool.stepType.WAIT_MS) {
-          if (startNextPhase()) {
-            stepStarted++;
-            setTimeout(function () {
-              increaseStepFinished();
-              cycle();
-            }, steps[stepFinished].ms);
-          } else {
-            setTimeout(cycle, 50);
-          }
-        } else if (steps[stepFinished].type === TobagoTestTool.stepType.ASSERTS) {
-          if (startNextPhase()) {
-            stepStarted++;
-            steps[stepFinished].func();
-            increaseStepFinished();
-            done();
-          }
-
-          if (startNextPhase()) {
-            cycle();
-          } else {
-            setTimeout(cycle, 50);
-          }
-        }
-      } else if (isTimeout()) {
+      if (currentStep >= steps.length) {
+        // we are done here
+        console.log("### done");
+      } else if (Date.now() >= testStepTimeout) {
+        // timeout for this teststep: go to next step; if current step is an assert call done()
+        console.log("### timeout");
         assert.ok(false, "Timeout!");
+        if (steps[currentStep].stepType === TobagoTestTool.stepType.ASSERTS) {
+          done();
+        }
+        currentStep++;
+        cycle();
+      } else if (waitForResponse) {
+        // we need to wait more
+        console.log("### waitForResponse=false");
+        setTimeout(cycle, cycleTiming);
+      } else if (steps[currentStep].type === TobagoTestTool.stepType.ACTION) {
+        console.log("### ACTION - step: " + currentStep);
+        if (currentStep + 1 < steps.length && steps[currentStep + 1].type === TobagoTestTool.stepType.WAIT_RESPONSE) {
+          // register listener for ajax before action is executed, otherwise the ajax listener is registered too late
+          registerAjaxReadyStateListener();
+          steps[currentStep].func();
+          currentStep++;
+          cycle();
+        } else {
+          steps[currentStep].func();
+          currentStep++;
+          resetTestStepTimeout();
+          setTimeout(cycle, cycleTiming);
+        }
+      } else if (steps[currentStep].type === TobagoTestTool.stepType.WAIT_RESPONSE) {
+        console.log("### WAIT_RESPONSE - step: " + currentStep);
+        waitForResponse = true;
+        ajaxRequestDetected = false;
+        ajaxRequestDone = false;
+        fullPageReloadDetected = false;
+        fullPageReloadDone = false;
+        registerAjaxReadyStateListener();
+        fullPageReloadPolling();
+
+        currentStep++;
+        resetTestStepTimeout();
+        setTimeout(cycle, cycleTiming);
+      } else if (steps[currentStep].type === TobagoTestTool.stepType.WAIT_MS) {
+        console.log("### WAIT_MS - step: " + currentStep);
+        const ms = steps[currentStep].ms;
+
+        currentStep++;
+        resetTestStepTimeout(ms);
+        setTimeout(cycle, ms);
+      } else if (steps[currentStep].type === TobagoTestTool.stepType.ASSERTS) {
+        console.log("### ASSERTS - step: " + currentStep);
+        steps[currentStep].func();
+        currentStep++;
+        done();
+        resetTestStepTimeout();
+        setTimeout(cycle, cycleTiming);
+      } else {
+        console.log("### this should not happen");
       }
     }
 
+    resetTestStepTimeout();
     cycle();
   }
 };
+
+export {TobagoTestTool};

@@ -25,6 +25,14 @@ function jQueryFrameFn(expression) {
   }
 }
 
+function testFrameQuerySelectorFn(expression) {
+  return function () {
+    return document.getElementById("page:testframe").contentWindow.document.querySelector(expression);
+  }
+}
+
+export {jQueryFrame, jQueryFrameFn, testFrameQuerySelectorFn};
+
 QUnit.test("wait for test", function (assert) {
   var done = assert.async();
 

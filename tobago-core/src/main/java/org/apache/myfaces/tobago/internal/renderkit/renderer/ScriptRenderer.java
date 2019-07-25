@@ -45,6 +45,7 @@ public class ScriptRenderer extends RendererBase {
     if (script.getFile().contains("myfaces")
         || script.getFile().contains("deltaspike")
         || script.getFile().contains("jquery")
+        || script.getFile().contains("qunit")
         || script.getFile().contains("datetimepicker")
         || script.getFile().contains("bootstrap.js")
         || script.getFile().contains("moment")

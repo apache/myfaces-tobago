@@ -15,47 +15,44 @@
  * limitations under the License.
  */
 
-Listener.register(function () {
+function testAll() {
+  let count = 1;
+  const maxCount = document.querySelectorAll(".testframe-wrapper").length;
 
-  var prefix = "page:tp";
-
-  jQuery("iframe").each(function () {
-    jQuery(this).on("load", function () {
-
-      var counter = Number(jQuery(this).attr("id").substring(prefix.length));
-
-      waitForTest(function () {
-        var $thisFrame = jQuery(DomUtils.escapeClientId(prefix + counter));
-        var $banner = $thisFrame.contents().find("#qunit-banner");
-        return $banner.length > 0
-            && $banner.attr("class") !== "";
-      }, function () {
-        var $nextFrame = jQuery(DomUtils.escapeClientId(prefix + (counter + 1)));
-        runNextFrame($nextFrame);
-      });
-    });
-  });
-
-  var $firstFrame = jQuery(DomUtils.escapeClientId(prefix + 1));
-  runNextFrame($firstFrame);
-}, Phase.DOCUMENT_READY);
-
-function waitForTest(waitingDone, executeWhenDone) {
-  var stillWaiting = true;
-  var interval = setInterval(function () {
-    if (stillWaiting) {
-      stillWaiting = !waitingDone();
-    } else {
-      executeWhenDone();
-      clearInterval(interval);
-    }
-  }, 500);
-}
-
-function runNextFrame($nextFrame) {
-  var url = $nextFrame.attr("name");
-  if (url) {
-    $nextFrame.removeAttr("name");
-    $nextFrame.attr("src", url);
+  function waitForTest(waitingDone, executeWhenDone) {
+    var stillWaiting = true;
+    var interval = setInterval(function () {
+      if (stillWaiting) {
+        stillWaiting = !waitingDone();
+      } else {
+        executeWhenDone();
+        clearInterval(interval);
+      }
+    }, 500);
   }
+
+  function cycle() {
+    const iframe = document.getElementById("page:tp" + count);
+    const url = iframe.getAttribute("name");
+    iframe.setAttribute("src", url);
+
+    const timeout = Date.now() + 30000;
+
+    waitForTest(function () {
+      const banner = document.getElementById("page:tp" + count).contentWindow
+          .document.getElementById("qunit-banner");
+      return banner !== null
+          && (banner.classList.contains("qunit-pass") || banner.classList.contains("qunit-fail"))
+          || Date.now() > timeout;
+    }, function () {
+      if (count < maxCount) {
+        count++;
+        cycle();
+      }
+    });
+  }
+
+  cycle();
 }
+
+testAll();

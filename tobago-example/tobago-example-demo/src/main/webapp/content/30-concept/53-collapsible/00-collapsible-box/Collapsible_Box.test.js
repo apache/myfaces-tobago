@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 QUnit.test("Simple Collapsible Box: show -> hide transition", function (assert) {
   var showFn = jQueryFrameFn("#page\\:mainForm\\:controller\\:show");
   var hideFn = jQueryFrameFn("#page\\:mainForm\\:controller\\:hide");
