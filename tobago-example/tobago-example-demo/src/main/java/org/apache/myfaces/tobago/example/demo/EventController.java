@@ -71,7 +71,6 @@ import org.apache.myfaces.tobago.component.UITreeIcon;
 import org.apache.myfaces.tobago.component.UITreeIndent;
 import org.apache.myfaces.tobago.component.UITreeLabel;
 import org.apache.myfaces.tobago.component.UITreeListbox;
-import org.apache.myfaces.tobago.component.UITreeMenu;
 import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -156,7 +155,6 @@ public class EventController implements Serializable {
     eventsOnComponents.add(new EventsOnComponent(new UITreeIndent()));
     eventsOnComponents.add(new EventsOnComponent(new UITreeLabel()));
     eventsOnComponents.add(new EventsOnComponent(new UITreeListbox()));
-    eventsOnComponents.add(new EventsOnComponent(new UITreeMenu()));
     eventsOnComponents.add(new EventsOnComponent(new UITreeSelect()));
 
 

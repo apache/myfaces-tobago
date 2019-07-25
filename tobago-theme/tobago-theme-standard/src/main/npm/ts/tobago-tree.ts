@@ -16,63 +16,61 @@
  */
 
 import {Listener, Phase} from "./tobago-listener";
-import {Tobago4Utils} from "./tobago-utils";
+import {DomUtils, Tobago4Utils} from "./tobago-utils";
 
 class Tree {
-  static toggleNode = function ($element, event) {
-    var src;
-    var $node = $element.closest(".tobago-treeNode, .tobago-treeMenuNode");
-    var $data = $node.closest(".tobago-treeMenu, .tobago-tree, .tobago-sheet");
-    const expanded: HTMLInputElement
-        = $data.children(".tobago-treeMenu-expanded, .tobago-tree-expanded, .tobago-sheet-expanded").get(0);
-    var $toggles = $node.find(".tobago-treeMenuNode-toggle, .tobago-treeNode-toggle");
-    var rowIndex = Tree.rowIndex($node.get(0));
-    if (Tree.isExpanded($node.get(0), expanded)) {
-      Tree.hideChildren($node.get(0));
-      $toggles.find("i").each(function () {
-        var $toggle = jQuery(this);
-        $toggle.removeClass($toggle.data("tobago-open")).addClass($toggle.data("tobago-closed"));
-      });
-      $toggles.find("img").each(function () {
-        var $toggle = jQuery(this);
-        src = $toggle.data("tobago-closed");
-        if (src === undefined) { // use the open icon if there is no close icon
-          src = $toggle.data("tobago-open");
+
+  static toggleNode = function (event: MouseEvent) {
+    const element = event.currentTarget as HTMLElement;
+    const node = element.closest(".tobago-treeNode");
+    const data = node.closest(".tobago-tree, .tobago-sheet") as HTMLElement;
+    const expanded = DomUtils.childrenQuerySelector(data,
+        ".tobago-tree-expanded, .tobago-sheet-expanded") as HTMLInputElement;
+    const togglesIcon = node.querySelectorAll(".tobago-treeNode-toggle i") as NodeListOf<HTMLElement>;
+    const togglesImage = node.querySelectorAll(".tobago-treeNode-toggle img") as NodeListOf<HTMLImageElement>;
+    const rowIndex = Tree.rowIndex(node);
+    if (Tree.isExpanded(node, expanded)) {
+      Tree.hideChildren(node);
+      for (const icon of togglesIcon) {
+        icon.classList.remove(icon.dataset["tobagoOpen"]);
+        icon.classList.add(icon.dataset["tobagoClosed"]);
+      }
+      for (const image of togglesImage) {
+        let src = image.dataset["tobagoClosed"];
+        if (!src) { // use the open icon if there is no closed icon
+          src = image.dataset["tobagoOpen"];
         }
-        $toggle.attr("src", src);
-      });
+        image.setAttribute("src", src);
+      }
       const set = Tree.getSet(expanded);
       set.delete(rowIndex);
       Tree.setSet(expanded, set);
-      $node.filter(".tobago-treeNode").removeClass("tobago-treeNode-markup-expanded");
-      $node.filter(".tobago-treeMenuNode").removeClass("tobago-treeMenuNode-markup-expanded");
+      node.classList.remove("tobago-treeNode-markup-expanded");
     } else {
-      const reload = Tree.showChildren($node.get(0), expanded);
+      const reload = Tree.showChildren(node, expanded);
       Tree.setSet(expanded, Tree.getSet(expanded).add(rowIndex));
       if (reload) {
         jsf.ajax.request(
-            $toggles.parent().attr("id"),
+            node.id,
             event,
             {
               //"javax.faces.behavior.event": "click",
-              execute: $data.attr("id"),
-              render: $data.attr("id")
+              execute: data.id,
+              render: data.id
             });
       } else {
-        $toggles.find("i").each(function () {
-          var $toggle = jQuery(this);
-          $toggle.removeClass($toggle.data("tobago-closed")).addClass($toggle.data("tobago-open"));
-        });
-        $toggles.find("img").each(function () {
-          var $toggle = jQuery(this);
-          src = $toggle.data("tobago-open");
-          if (src === undefined) { // use the close icon if there is no open icon
-            src = $toggle.data("tobago-closed");
+        for (const icon of togglesIcon) {
+          icon.classList.remove(icon.dataset["tobagoClosed"]);
+          icon.classList.add(icon.dataset["tobagoOpen"]);
+        }
+        for (const image of togglesImage) {
+          let src = image.dataset["tobagoOpen"];
+          if (!src) { // use the open icon if there is no closed icon
+            src = image.dataset["tobagoClosed"];
           }
-          $toggle.attr("src", src);
-        });
-        $node.filter(".tobago-treeNode").addClass("tobago-treeNode-markup-expanded");
-        $node.filter(".tobago-treeMenuNode").addClass("tobago-treeMenuNode-markup-expanded");
+          image.setAttribute("src", src);
+        }
+        node.classList.add("tobago-treeNode-markup-expanded");
       }
     }
   };
@@ -81,16 +79,16 @@ class Tree {
    * Hide all children of the node recursively.
    * @param node A jQuery-Object as a node of the tree.
    */
-  static hideChildren = function (node: HTMLElement) {
-    var inSheet = Tree.isInSheet(node);
-    var children = Tree.findChildren(node);
+  static hideChildren = function (node: Element) {
+    const children = Tree.findChildren(node);
     children.each(function () {
-      if (inSheet) {
-        jQuery(this).parent().parent().hide();
+      const child = this;
+      if (Tree.isInSheet(node)) {
+        child.parentNode.parentNode.classList.add("d-none");
       } else {
-        jQuery(this).hide();
+        child.classList.add("d-none");
       }
-      Tree.hideChildren(this);
+      Tree.hideChildren(child);
     });
   };
 
@@ -100,22 +98,21 @@ class Tree {
    * @param expanded The hidden field which contains the expanded state.
    * @return is reload needed (to get all nodes from the server)
    */
-  static showChildren = function (node: HTMLElement, expanded: HTMLInputElement) {
-    var inSheet = Tree.isInSheet(node);
-    var children = Tree.findChildren(node);
+  static showChildren = function (node: Element, expanded: HTMLInputElement) {
+    const children = Tree.findChildren(node);
     if (children.length == 0) {
       // no children in DOM, reload it from the server
       return true;
     }
     children.each(function () {
-      var $child = jQuery(this);
-      if (inSheet) {
-        $child.parent().parent().show();
+      const child = this;
+      if (Tree.isInSheet(node)) {
+        this.parentNode.parentNode.classList.remove("d-none");
       } else {
-        $child.show();
+        this.classList.remove("d-none");
       }
-      if (Tree.isExpanded($child.get(0), expanded)) {
-        var reload = Tree.showChildren($child.get(0), expanded);
+      if (Tree.isExpanded(child, expanded)) {
+        const reload = Tree.showChildren(child, expanded);
         if (reload) {
           return true;
         }
@@ -124,47 +121,41 @@ class Tree {
     return false;
   };
 
-  static init = function (elements) {
-    elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-    Tobago4Utils.selectWithJQuery(elements, ".tobago-treeNode-markup-folder .tobago-treeNode-toggle").click(function (event) {
-      Tree.toggleNode(jQuery(this), event);
-      return false;
-    });
+  static commandFocus = function (event: FocusEvent) {
+    const command = event.currentTarget as HTMLElement;
+    const node = command.parentElement;
+    const tree = node.closest(".tobago-tree");
+    const selected = DomUtils.childrenQuerySelector(tree, ".tobago-tree-selected") as HTMLInputElement;
+    selected.value = String(Tree.rowIndex(node));
+    for (const otherNode of tree.querySelectorAll(".tobago-treeNode-markup-selected")) {
+      if (otherNode !== node) {
+        otherNode.classList.remove("tobago-treeNode-markup-selected");
+      }
+    }
+    node.classList.add("tobago-treeNode-markup-selected");
+    console.info("-----------------> focus ---> " + node.id); // remove
+  };
 
-    Tobago4Utils.selectWithJQuery(elements, ".tobago-treeMenuNode-markup-folder .tobago-treeMenuNode-toggle")
-        .parent().each(function () {
-      // if there is no command, than the whole node element should be the toggle
-      var toggle = jQuery(this).children(".tobago-treeMenuCommand").length === 0
-          ? jQuery(this)
-          : jQuery(this).find(".tobago-treeMenuNode-toggle");
-      toggle.click(function (event) {
-        Tree.toggleNode(jQuery(this), event);
-      });
-    });
+  static init = function (element: HTMLElement) {
 
-    // normal hover effect (not possible with CSS in IE 6)
-    Tobago4Utils.selectWithJQuery(elements, ".tobago-treeMenuNode").hover(function () {
-      jQuery(this).toggleClass("tobago-treeMenuNode-markup-hover");
-    });
+    for (const toggle of DomUtils.selfOrQuerySelectorAll(element, ".tobago-treeNode-markup-folder .tobago-treeNode-toggle")) {
+      toggle.addEventListener("click", Tree.toggleNode);
+    }
 
     // selected for treeNode
-    Tobago4Utils.selectWithJQuery(elements, ".tobago-treeCommand").focus(function () {
-      var command = jQuery(this);
-      var $node = command.parent(".tobago-treeNode");
-      var tree = $node.closest(".tobago-tree");
-      var selected = tree.children(".tobago-tree-selected");
-      selected.val(Tree.rowIndex($node.get(0)));
-      tree.find(".tobago-treeNode").removeClass("tobago-treeNode-markup-selected");
-      $node.addClass("tobago-treeNode-markup-selected");
-    });
+    for (const command of DomUtils.selfOrQuerySelectorAll(element, ".tobago-treeCommand")) {
+      command.addEventListener("focus", Tree.commandFocus);
+    }
+
+    var elements = jQuery(elements); // fixme remove!
 
     // selected for treeSelect
     Tobago4Utils.selectWithJQuery(elements, ".tobago-treeSelect > input").change(function () {
       var select = jQuery(this);
       var selected = select.prop("checked");
-      var data = select.closest(".tobago-treeMenu, .tobago-tree, .tobago-sheet");
+      var data = select.closest(".tobago-tree, .tobago-sheet");
       const hidden: HTMLInputElement
-          = data.children(".tobago-treeMenu-selected, .tobago-tree-selected, .tobago-sheet-selected").get(0);
+          = data.children(".tobago-tree-selected, .tobago-sheet-selected").get(0);
       let value: Set<number>;
       // todo may use an class attribute for this value
       if (select.attr("type") === "radio") {
@@ -180,37 +171,25 @@ class Tree {
       Tree.setSet(hidden, value);
     });
 
-    // selected for treeMenuNode
-    Tobago4Utils.selectWithJQuery(elements, ".tobago-treeMenuCommand").focus(function () {
-      var command = jQuery(this);
-      var $node = command.parent(".tobago-treeMenuNode");
-      var tree = $node.closest(".tobago-treeMenu");
-      const selected: HTMLInputElement = tree.children(".tobago-treeMenu-selected").get(0);
-      const set = new Set<number>();
-      set.add(Tree.rowIndex($node.get(0)));
-      Tree.setSet(selected, set);
-      tree.find(".tobago-treeMenuNode").removeClass("tobago-treeMenuNode-markup-selected");
-      $node.addClass("tobago-treeMenuNode-markup-selected");
-    });
-
     // init selected field
-    Tobago4Utils.selectWithJQuery(elements, ".tobago-treeMenu, .tobago-tree, .tobago-sheet").each(function () {
-      const hidden: HTMLInputElement = jQuery(this).children(".tobago-treeMenu-selected, .tobago-tree-selected, .tobago-sheet-selected").get(0);
+    Tobago4Utils.selectWithJQuery(elements, ".tobago-tree, .tobago-sheet").each(function () {
+      const data: HTMLElement = this;
+      const hidden = DomUtils.childrenQuerySelector(data, ".tobago-tree-selected, .tobago-sheet-selected");
       if (hidden) {
         const value = new Set<number>();
-        jQuery(this).find(".tobago-treeMenuNode-markup-selected, .tobago-treeNode-markup-selected").each(function () {
-          value.add(Tree.rowIndex(this));
-        });
+        for (const selected of data.querySelectorAll(".tobago-treeNode-markup-selected")) {
+          value.add(Tree.rowIndex(selected));
+        }
         Tree.setSet(hidden, value);
       }
     });
 
     // init expanded field
-    Tobago4Utils.selectWithJQuery(elements, ".tobago-treeMenu, .tobago-tree, .tobago-sheet").each(function () {
-      const hidden: HTMLInputElement = jQuery(this).children(".tobago-treeMenu-expanded, .tobago-tree-expanded, .tobago-sheet-expanded").get(0);
+    Tobago4Utils.selectWithJQuery(elements, ".tobago-tree, .tobago-sheet").each(function () {
+      const hidden: HTMLInputElement = jQuery(this).children(".tobago-tree-expanded, .tobago-sheet-expanded").get(0);
       if (hidden) {
         const value = new Set<number>();
-        jQuery(this).find(".tobago-treeMenuNode-markup-expanded, .tobago-treeNode-markup-expanded").each(function () {
+        jQuery(this).find(".tobago-treeNode-markup-expanded").each(function () {
           value.add(Tree.rowIndex(this));
         });
         Tree.setSet(hidden, value);
@@ -244,18 +223,18 @@ class Tree {
     return element.value = JSON.stringify(Array.from(set));
   }
 
-  static isExpanded = function (node: HTMLElement, expanded: HTMLInputElement) {
+  static isExpanded = function (node: Element, expanded: HTMLInputElement) {
     const rowIndex = Tree.rowIndex(node);
     return Tree.getSet(expanded).has(rowIndex);
   };
 
-  static rowIndex = function (node: HTMLElement): number { // todo: use attribute data-tobago-row-index
+  static rowIndex = function (node: Element): number { // todo: use attribute data-tobago-row-index
     return parseInt(node.id.replace(/.+\:(\d+)(\:\w+)+/, '$1'));
   };
 
-  static findChildren = function (node: HTMLElement) {
-    var treeParentSelector = "[data-tobago-tree-parent='" + node.id + "']";
-    var children;
+  static findChildren = function (node: Element) {
+    const treeParentSelector = "[data-tobago-tree-parent='" + node.id + "']";
+    let children;
     if (Tree.isInSheet(node)) {
       children = jQuery(node).parent("td").parent("tr").nextAll().children().children(treeParentSelector);
     } else { // normal tree
@@ -264,8 +243,8 @@ class Tree {
     return children;
   };
 
-  static isInSheet = function (node: HTMLElement) {
-    return jQuery(node).parent("td").length === 1;
+  static isInSheet = function (node: Element) {
+    return node.parentElement.tagName === "TD";
   };
 }
 

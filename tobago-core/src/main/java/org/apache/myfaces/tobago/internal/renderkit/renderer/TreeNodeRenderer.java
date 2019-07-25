@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
-import org.apache.myfaces.tobago.internal.component.AbstractUITreeMenu;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeSelect;
@@ -184,7 +183,6 @@ public class TreeNodeRenderer extends RendererBase {
     final int level = node.getLevel();
     final boolean folder = node.isFolder();
     final boolean expanded = folder && data.getExpandedState().isExpanded(node.getPath()) || level == 0;
-    final boolean isMenu = data instanceof AbstractUITreeMenu;
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -194,29 +192,7 @@ public class TreeNodeRenderer extends RendererBase {
       }
       writer.endElement(HtmlElements.OPTION);
     } else {
-      if (isMenu && folder) {
-        encodeIcon(facesContext, writer, expanded, node);
-      }
       writer.endElement(HtmlElements.DIV);
     }
-  }
-
-  private void encodeIcon(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final boolean expanded,
-      final AbstractUITreeNodeBase node)
-      throws IOException {
-//    LOG.warn("todo: font-awesome icons");
-/* XXX
-    final String srcOpen = ResourceManagerUtils.getImage(facesContext, "image/treeMenuOpen");
-    final String srcClose = ResourceManagerUtils.getImage(facesContext, "image/treeMenuClose");
-    final String src = expanded ? srcOpen : srcClose;
-    writer.startElement(HtmlElements.IMG);
-    writer.writeClassAttribute(Classes.create(node, "toggle"));
-    writer.writeAttribute(HtmlAttributes.SRC, src, false);
-    writer.writeAttribute(DataAttributes.OPEN, srcOpen, false);
-    writer.writeAttribute(DataAttributes.SRC_CLOSED, srcClose, false);
-    writer.writeAttribute(HtmlAttributes.ALT, "", false);
-    writer.endElement(HtmlElements.IMG);
-*/
   }
 }

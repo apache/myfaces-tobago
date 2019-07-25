@@ -77,6 +77,37 @@ export class DomUtils {
   }
 
   /**
+   * Find all children which matches the selector.
+   * @param element Parent element in DOM to collect.
+   * @param selectors Name of the matcher of the elements to find.
+   */
+// todo: may return NodeListOf<HTMLElementTagNameMap[K]> or something like that.
+  static childrenQuerySelectorAll(element: HTMLElement, selectors: string): Array<HTMLElement> {
+    const result: Array<HTMLElement> = new Array<HTMLElement>();
+    for (const child of element.children) {
+      if (child.matches(selectors)) {
+        result.push(<HTMLElement>child);
+      }
+    }
+    return result;
+  }
+
+  /**
+   * Find one children which matches the selector.
+   * @param element Parent element in DOM to collect.
+   * @param selectors Name of the matcher of the elements to find.
+   */
+// todo: may return NodeListOf<HTMLElementTagNameMap[K]> or something like that.
+  static childrenQuerySelector(element: Element, selectors: string): HTMLElement {
+    for (const child of element.children) {
+      if (child.matches(selectors)) {
+        return child as HTMLElement;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Get the previous sibling element (without <style> elements).
    */
   static previousElementSibling(element: HTMLElement): HTMLElement {

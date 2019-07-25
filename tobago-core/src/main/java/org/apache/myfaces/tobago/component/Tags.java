@@ -95,11 +95,6 @@ public enum Tags {
   treeIndent,
   treeLabel,
   treeListbox,
-  /**
-   * @deprecated since 4.4.0
-   */
-  @Deprecated
-  treeMenu,
   treeNode,
   treeSelect;
 
@@ -171,7 +166,6 @@ public enum Tags {
   public static final String TREE_INDENT = "treeIndent";
   public static final String TREE_LABEL = "treeLabel";
   public static final String TREE_LISTBOX = "treeListbox";
-  public static final String TREE_MENU = "treeMenu";
   public static final String TREE_NODE = "treeNode";
   public static final String TREE_SELECT = "treeSelect";
 
