@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import {jQueryFrame} from "/script/tobago-test.js";
+
 function test(assert, idSuffix, expectedText) {
   var $out = jQueryFrame("#page\\:mainForm\\:" + idSuffix);
   assert.equal($out.text().trim(), expectedText);

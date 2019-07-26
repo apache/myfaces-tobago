@@ -29,7 +29,7 @@ QUnit.test("test patterns", function (assert) {
   */
 });
 
-TestDateTime = {};
+/*TestDateTime = {};
 
 TestDateTime.testDate = function () {
 
@@ -92,4 +92,4 @@ TestDateTime.testBoth = function () {
     console.info("Okay!");
   }
 
-};
+};*/

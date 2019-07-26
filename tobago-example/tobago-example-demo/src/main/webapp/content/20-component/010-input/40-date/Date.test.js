@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {jQueryFrameFn} from "/script/tobago-test.js";
+import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+
 function getToday(dateFieldFn) {
   var tobagoToday = dateFieldFn().data("tobago-today");
   var todayArray = tobagoToday.split("-");

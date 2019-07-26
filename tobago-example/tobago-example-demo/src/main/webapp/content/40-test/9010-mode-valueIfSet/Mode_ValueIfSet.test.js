@@ -17,13 +17,17 @@
 
 import {jQueryFrame} from "/script/tobago-test.js";
 
+function escapeClientId(clientId) {
+  return '#' + clientId.replace(/([:\.])/g, '\\$1');
+}
+
 QUnit.test("inputfield with label", function (assert) {
 
   assert.expect(6);
 
   function testValueEquals(id) {
 
-    var $field = jQueryFrame(DomUtils.escapeClientId(id));
+    var $field = jQueryFrame(escapeClientId(id));
     var $label = jQueryFrame("[for='" + id + "']");
     assert.equal($field.val(), $label.text());
   }
@@ -42,7 +46,7 @@ QUnit.test("inputfield with label", function (assert) {
 
   function testValueEquals(id) {
 
-    var $field = jQueryFrame(DomUtils.escapeClientId(id));
+    var $field = jQueryFrame(escapeClientId(id));
     var $label = jQueryFrame("[for='" + id + "']");
     assert.equal($field.attr("id"), $label.text());
   }

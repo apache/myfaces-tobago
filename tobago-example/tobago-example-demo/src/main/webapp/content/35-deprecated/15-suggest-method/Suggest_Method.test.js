@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn} from "/script/tobago-test.js";
+import {jQueryFrame, jQueryFrameFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Deprecated: 'Ma'", function (assert) {
@@ -32,7 +32,7 @@ QUnit.test("Deprecated: 'Ma'", function (assert) {
   TTT.waitForResponse();
   TTT.asserts(expectedLength + 1, function () {
     assert.equal(suggestionsFn().length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
+    for (let i = 0; i < expectedLength; i++) {
       assert.ok(suggestionsFn().eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
   });
@@ -53,14 +53,18 @@ QUnit.test("Replacement: 'Ma'", function (assert) {
   TTT.waitForResponse();
   TTT.asserts(expectedLength + 1, function () {
     assert.equal(suggestionsFn().length, expectedLength);
-    for (i = 0; i < expectedLength; i++) {
+    for (let i = 0; i < expectedLength; i++) {
       assert.ok(suggestionsFn().eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
   });
   TTT.startTest();
 });
 
+function escapeClientId(clientId) {
+  return '#' + clientId.replace(/([:\.])/g, '\\$1');
+}
+
 function getSuggestions(id) {
-  return jQueryFrameFn(DomUtils.escapeClientId(
+  return jQueryFrameFn(escapeClientId(
       jQueryFrame(id + " .tobago-suggest").attr("id") + "::popup") + " .tt-suggestion");
 }
