@@ -36,7 +36,7 @@ export class DomUtils {
       if (pages.length >= 2) {
         console.warn("Found more than one tobago page!");
       }
-      return <HTMLElement>pages.item(0);
+      return pages.item(0) as HTMLElement;
     }
     console.warn("Found no tobago page!");
     return null;
@@ -54,7 +54,7 @@ export class DomUtils {
     }
     const list = element.getElementsByClassName(className);
     for (let i = 0; i < list.length; i++) {
-      result.push(<HTMLElement>list.item(i));
+      result.push(list.item(i) as HTMLElement);
     }
     return result;
   }
@@ -71,7 +71,7 @@ export class DomUtils {
       result.push(element);
     }
     for (const found of element.querySelectorAll(selectors)) {
-      result.push(<HTMLElement>found);
+      result.push(found as HTMLElement);
     }
     return result;
   }
@@ -86,7 +86,7 @@ export class DomUtils {
     const result: Array<HTMLElement> = new Array<HTMLElement>();
     for (const child of element.children) {
       if (child.matches(selectors)) {
-        result.push(<HTMLElement>child);
+        result.push(child as HTMLElement);
       }
     }
     return result;
@@ -111,12 +111,12 @@ export class DomUtils {
    * Get the previous sibling element (without <style> elements).
    */
   static previousElementSibling(element: HTMLElement): HTMLElement {
-    let sibling = <HTMLElement>element.previousElementSibling;
+    let sibling = element.previousElementSibling as HTMLElement;
     while (sibling != null) {
       if (sibling.tagName !== "STYLE") {
         return sibling;
       }
-      sibling = <HTMLElement>sibling.previousElementSibling;
+      sibling = sibling.previousElementSibling as HTMLElement;
     }
     return null;
   }
@@ -125,12 +125,12 @@ export class DomUtils {
    * Get the next sibling element (without <style> elements).
    */
   static nextElementSibling(element: HTMLElement): HTMLElement {
-    let sibling = <HTMLElement>element.nextElementSibling;
+    let sibling = element.nextElementSibling as HTMLElement;
     while (sibling !== null) {
       if (sibling.tagName !== "STYLE") {
         return sibling;
       }
-      sibling = <HTMLElement>sibling.nextElementSibling;
+      sibling = sibling.nextElementSibling as HTMLElement;
     }
     return null;
   }

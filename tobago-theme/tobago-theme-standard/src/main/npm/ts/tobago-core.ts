@@ -155,7 +155,7 @@ export class Tobago4 {
     Transport.request(function () {
       if (!Tobago4.isSubmit) {
         Tobago4.isSubmit = true;
-        const form = <HTMLFormElement>document.getElementsByTagName("form")[0];
+        const form = document.getElementsByTagName("form")[0] as HTMLFormElement;
         var oldTarget = form.getAttribute("target");
         var $sourceHidden = jQuery(DomUtils.escapeClientId("javax.faces.source"));
         $sourceHidden.prop("disabled", false);

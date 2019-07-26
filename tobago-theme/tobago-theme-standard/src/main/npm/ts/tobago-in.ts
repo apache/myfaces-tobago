@@ -26,7 +26,7 @@ class RegExpTest {
 
   static init(element: HTMLElement): void {
     for (const input of DomUtils.selfOrElementsByClassName(element, "tobago-in")) { // todo only for data-regexp
-      new RegExpTest(<HTMLInputElement>input);
+      new RegExpTest(input as HTMLInputElement);
     }
   }
 

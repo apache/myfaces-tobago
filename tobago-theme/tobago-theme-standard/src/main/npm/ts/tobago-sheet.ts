@@ -262,7 +262,7 @@ class Sheet {
     // begin resizing
     console.debug("down");
 
-    const resizeElement = <HTMLElement>event.currentTarget;
+    const resizeElement = event.currentTarget as HTMLElement;
     const columnIndex = parseInt(resizeElement.dataset["tobagoColumnIndex"]);
     const headerColumn = this.getHeaderCols().item(columnIndex);
     const mousemoveListener = this.mousemove.bind(this);
@@ -365,7 +365,7 @@ class Sheet {
   }
 
   clickOnCheckbox(event: MouseEvent) {
-    const checkbox = <HTMLInputElement>event.currentTarget;
+    const checkbox = event.currentTarget as HTMLInputElement;
     if (checkbox.checked) {
       this.selectAll();
     } else {
@@ -375,7 +375,7 @@ class Sheet {
 
   clickOnRow(event: MouseEvent) {
 
-    const row = <HTMLTableRowElement>event.currentTarget;
+    const row = event.currentTarget as HTMLTableRowElement;
     if (row.classList.contains("tobago-sheet-columnSelector") || !Sheet.isInputElement(row)) {
       const sheet = this.getElement();
 
@@ -443,20 +443,20 @@ class Sheet {
   }
 
   clickOnPaging(event: MouseEvent) {
-    const element = <HTMLElement>event.currentTarget;
+    const element = event.currentTarget as HTMLElement;
 
-    const output = <HTMLElement>element.querySelector(".tobago-sheet-pagingOutput");
+    const output = element.querySelector(".tobago-sheet-pagingOutput") as HTMLElement;
     output.style.display = "none";
 
-    const input = <HTMLInputElement>element.querySelector(".tobago-sheet-pagingInput");
+    const input = element.querySelector(".tobago-sheet-pagingInput") as HTMLInputElement;
     input.style.display = "initial";
     input.focus();
     input.select();
   }
 
   blurPaging(event: FocusEvent) {
-    const input = <HTMLInputElement>event.currentTarget;
-    const output = <HTMLElement>input.parentElement.querySelector(".tobago-sheet-pagingOutput");
+    const input = event.currentTarget as HTMLInputElement;
+    const output = input.parentElement.querySelector(".tobago-sheet-pagingOutput") as HTMLElement;
     if (output.innerHTML !== input.value) {
       console.debug("Reloading sheet '" + this.id + "' old value='" + output.innerHTML + "' new value='" + input.value + "'");
       output.innerHTML = input.value;
@@ -508,7 +508,7 @@ class Sheet {
   }
 
   getHiddenSelected(): HTMLInputElement {
-    return <HTMLInputElement>document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "selected");
+    return document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "selected") as HTMLInputElement;
   }
 
   getHiddenScrollPosition() {
@@ -516,7 +516,7 @@ class Sheet {
   }
 
   doDblClick(event) {
-    const row = <HTMLTableRowElement>event.currentTarget;
+    const row = event.currentTarget as HTMLTableRowElement;
     const rowIndex = row.sectionRowIndex + this.getFirst();
     if (this.dblClickActionId) {
       let action;

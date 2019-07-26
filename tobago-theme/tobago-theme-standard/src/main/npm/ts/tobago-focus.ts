@@ -22,7 +22,7 @@ import {Listener, Phase} from "./tobago-listener";
 export class Focus {
 
   private static getHidden(): HTMLInputElement {
-    return <HTMLInputElement>document.getElementById(DomUtils.page().id + DomUtils.SUB_COMPONENT_SEP + "lastFocusId");
+    return document.getElementById(DomUtils.page().id + DomUtils.SUB_COMPONENT_SEP + "lastFocusId") as HTMLInputElement;
   }
 
   static setLastFocusId(id: string): void {
@@ -49,7 +49,7 @@ export class Focus {
 
     for (const focusable of activeInputs) {
       focusable.addEventListener("focus", function (event: FocusEvent) {
-        const target = <HTMLElement>event.target;
+        const target = event.target as HTMLElement;
         if (target.style.visibility !== "hidden" && target.style.display != "none") {
           // remember the last focused element, for later
           Focus.setLastFocusId(target.id);
@@ -108,8 +108,8 @@ export class Focus {
   }
 
   private static initAutoFocus(event) {
-    const modal = <HTMLElement>event.currentTarget;
-    (<HTMLElement>modal.querySelector("[autofocus]")).focus();
+    const modal = event.currentTarget as HTMLElement;
+    (modal.querySelector("[autofocus]") as HTMLElement).focus();
   }
 }
 

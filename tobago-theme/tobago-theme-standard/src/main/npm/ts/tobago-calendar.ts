@@ -22,7 +22,7 @@ class DateTime {
 
   static init(element: HTMLElement) {
     for (const e of DomUtils.selfOrQuerySelectorAll(element, ".tobago-date:not([readonly]):not([disabled])")) {
-      const date: HTMLInputElement = <HTMLInputElement>e;
+      const date: HTMLInputElement = e as HTMLInputElement;
 
       const analyzed = DateTime.analyzePattern(date.dataset.tobagoPattern);
       const options = {
@@ -41,7 +41,7 @@ class DateTime {
         },
         keyBinds: {
           left: function ($widget) {
-            const widget: HTMLDivElement = <HTMLDivElement>$widget[0];
+            const widget: HTMLDivElement = $widget[0] as HTMLDivElement;
             if (widget === undefined) {
               if (date.selectionStart === date.selectionEnd) {
                 if (date.selectionStart > 0 || date.selectionStart > 0) {
@@ -56,7 +56,7 @@ class DateTime {
             }
           },
           right: function ($widget) {
-            const widget: HTMLDivElement = <HTMLDivElement>$widget[0];
+            const widget: HTMLDivElement = $widget[0] as HTMLDivElement;
             if (widget === undefined) {
               if (date.selectionStart === date.selectionEnd) {
                 if (date.selectionStart > 0 || date.selectionStart < date.value.length) {
@@ -71,7 +71,7 @@ class DateTime {
             }
           },
           enter: function ($widget) {
-            const widget: HTMLDivElement = <HTMLDivElement>$widget[0];
+            const widget: HTMLDivElement = $widget[0] as HTMLDivElement;
             if (widget !== undefined && DomUtils.isVisible(widget.querySelector(".datepicker"))) {
               this.hide();
               fixKey(13);
@@ -84,7 +84,7 @@ class DateTime {
             }
           },
           escape: function ($widget) {
-            const widget: HTMLDivElement = <HTMLDivElement>$widget[0];
+            const widget: HTMLDivElement = $widget[0] as HTMLDivElement;
             if (widget !== undefined && DomUtils.isVisible(widget.querySelector(".datepicker"))) {
               this.hide();
               fixKey(27);

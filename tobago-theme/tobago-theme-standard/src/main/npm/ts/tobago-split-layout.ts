@@ -26,7 +26,7 @@ class SplitLayout {
 
   static init = function (element: HTMLElement): void {
     for (const splitLayout of DomUtils.selfOrElementsByClassName(element, "tobago-splitLayout")) {
-      new SplitLayout(<HTMLDivElement>splitLayout);
+      new SplitLayout(splitLayout as HTMLDivElement);
     }
   };
 
@@ -48,7 +48,7 @@ class SplitLayout {
 
   start(event: MouseEvent) {
     event.preventDefault();
-    const splitter = <HTMLElement>event.target;
+    const splitter = event.target as HTMLElement;
     const previous = DomUtils.previousElementSibling(splitter);
     this.offset = this.horizontal ? event.pageX - previous.offsetWidth : event.pageY - previous.offsetHeight;
     const mousedown = SplitLayoutMousedown.save(event, splitter);

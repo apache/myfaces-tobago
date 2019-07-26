@@ -34,7 +34,7 @@ class TreeListbox {
 
     const selects = element.getElementsByTagName("select");
     for (let i = 0; i < selects.length; i++) {
-      const listbox = <HTMLSelectElement>selects.item(i);
+      const listbox = selects.item(i) as HTMLSelectElement;
       // hide select tags for level > root
       if (listbox.previousElementSibling) {
         listbox.classList.add("d-none");
@@ -49,22 +49,22 @@ class TreeListbox {
   }
 
   onChange(event: TextEvent) {
-    let listbox = <HTMLSelectElement>event.currentTarget;
+    let listbox = event.currentTarget as HTMLSelectElement;
     for (const child of listbox.children) {
-      const option = <HTMLOptionElement>child;
+      const option = child as HTMLOptionElement;
       if (option.tagName === "OPTION") {
         if (option.selected) {
           this.setSelected(option);
-          let select = <HTMLSelectElement>document.getElementById(option.id + DomUtils.SUB_COMPONENT_SEP + "parent");
+          let select = document.getElementById(option.id + DomUtils.SUB_COMPONENT_SEP + "parent") as HTMLSelectElement;
           if (!select) {
-            select = <HTMLSelectElement>listbox.parentElement.nextElementSibling.children[0]; // dummy
+            select = listbox.parentElement.nextElementSibling.children[0] as HTMLSelectElement; // dummy
           }
           select.classList.remove("d-none");
           for (const sibling of listbox.parentElement.nextElementSibling.children) {
             if (sibling === select) {
-              (<HTMLElement>sibling).classList.remove("d-none");
+              (sibling as HTMLElement).classList.remove("d-none");
             } else {
-              (<HTMLElement>sibling).classList.add("d-none");
+              (sibling as HTMLElement).classList.add("d-none");
             }
           }
         }
@@ -78,7 +78,7 @@ class TreeListbox {
     if (next) {
       for (next = next.nextElementSibling; next; next = next.nextElementSibling) {
         for (const child of next.children) {
-          const select = <HTMLSelectElement>child;
+          const select = child as HTMLSelectElement;
           if (select.previousElementSibling) { // is not the first
             select.classList.add("d-none");
           } else { // is the first
@@ -90,7 +90,7 @@ class TreeListbox {
   }
 
   setSelected(option: HTMLOptionElement) {
-    const hidden = <HTMLInputElement>document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "selected");
+    const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "selected") as HTMLInputElement;
     if (hidden) {
       let value = <number[]>JSON.parse(hidden.value);
       value = []; // todo: multi-select

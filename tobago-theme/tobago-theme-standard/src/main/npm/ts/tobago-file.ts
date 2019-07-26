@@ -22,9 +22,9 @@ class File {
 
   static init(element: HTMLElement) {
     for (const e of DomUtils.selfOrQuerySelectorAll(element, ".tobago-file-real")) {
-      const real = <HTMLInputElement>e;
+      const real = e as HTMLInputElement;
       real.addEventListener("change", function () {
-        const pretty = <HTMLInputElement>real.parentElement.querySelector(".tobago-file-pretty");
+        const pretty = real.parentElement.querySelector(".tobago-file-pretty") as HTMLInputElement;
         let text: string;
         if (real.multiple) {
           const format: string = real.dataset["tobagoFileMultiFormat"];

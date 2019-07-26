@@ -75,7 +75,7 @@ class Jsf {
             } else if (Jsf.isBody(id)) {
               console.debug("[tobago-jsf] updating body");
               // there should be only one element with this class
-              Listener.executeAfterUpdate(document.querySelector<HTMLElement>(".tobago-page"));
+              Listener.executeAfterUpdate(document.querySelector(".tobago-page") as HTMLElement);
             }
           }
         });
