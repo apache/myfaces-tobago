@@ -136,15 +136,12 @@ TobagoTestTool.prototype = {
       function newXHR() {
         let realXHR = new oldXHR();
         realXHR.addEventListener("readystatechange", function () {
-          console.log("### ajax readyState: " + realXHR.readyState);
-
           if (realXHR.readyState !== XMLHttpRequest.UNSENT && realXHR.readyState !== XMLHttpRequest.DONE) {
             ajaxRequestDetected = true;
           } else if (ajaxRequestDetected && realXHR.readyState === XMLHttpRequest.DONE) {
             ajaxRequestDone = true;
             waitForResponse = false;
           }
-
         }, false);
         return realXHR;
       }
@@ -171,10 +168,7 @@ TobagoTestTool.prototype = {
     function cycle() {
       if (currentStep >= steps.length) {
         // we are done here
-        console.log("### done");
       } else if (Date.now() >= testStepTimeout) {
-        // timeout for this teststep: go to next step; if current step is an assert call done()
-        console.log("### timeout");
         assert.ok(false, "Timeout!");
         if (steps[currentStep].stepType === TobagoTestTool.stepType.ASSERTS) {
           done();
@@ -183,10 +177,8 @@ TobagoTestTool.prototype = {
         cycle();
       } else if (waitForResponse) {
         // we need to wait more
-        console.log("### waitForResponse=false");
         setTimeout(cycle, cycleTiming);
       } else if (steps[currentStep].type === TobagoTestTool.stepType.ACTION) {
-        console.log("### ACTION - step: " + currentStep);
         if (currentStep + 1 < steps.length && steps[currentStep + 1].type === TobagoTestTool.stepType.WAIT_RESPONSE) {
           // register listener for ajax before action is executed, otherwise the ajax listener is registered too late
           registerAjaxReadyStateListener();
@@ -200,7 +192,6 @@ TobagoTestTool.prototype = {
           setTimeout(cycle, cycleTiming);
         }
       } else if (steps[currentStep].type === TobagoTestTool.stepType.WAIT_RESPONSE) {
-        console.log("### WAIT_RESPONSE - step: " + currentStep);
         waitForResponse = true;
         ajaxRequestDetected = false;
         ajaxRequestDone = false;
@@ -213,21 +204,17 @@ TobagoTestTool.prototype = {
         resetTestStepTimeout();
         setTimeout(cycle, cycleTiming);
       } else if (steps[currentStep].type === TobagoTestTool.stepType.WAIT_MS) {
-        console.log("### WAIT_MS - step: " + currentStep);
         const ms = steps[currentStep].ms;
 
         currentStep++;
         resetTestStepTimeout(ms);
         setTimeout(cycle, ms);
       } else if (steps[currentStep].type === TobagoTestTool.stepType.ASSERTS) {
-        console.log("### ASSERTS - step: " + currentStep);
         steps[currentStep].func();
         currentStep++;
         done();
         resetTestStepTimeout();
         setTimeout(cycle, cycleTiming);
-      } else {
-        console.log("### this should not happen");
       }
     }
 
