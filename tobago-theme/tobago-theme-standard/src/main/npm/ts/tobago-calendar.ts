@@ -201,14 +201,21 @@ class DateTime {
 
       // fix for bootstrap-datetimepicker v4.17.45
       $dateParent.on('dp.show', function () {
-        document.querySelector(".bootstrap-datetimepicker-widget .collapse.in").classList.add("show");
-        document.querySelector(".bootstrap-datetimepicker-widget .picker-switch a").addEventListener(
-            "click", function () {
-              // the click is executed before togglePicker() function
-              let datetimepicker: HTMLDivElement = document.querySelector(".bootstrap-datetimepicker-widget");
-              datetimepicker.querySelector(".collapse.in").classList.remove("in");
-              datetimepicker.querySelector(".collapse.show").classList.add("in");
-            });
+        const collapseIn = document.querySelector(".bootstrap-datetimepicker-widget .collapse.in");
+        const pickerSwitch = document.querySelector(".bootstrap-datetimepicker-widget .picker-switch a");
+
+        if (collapseIn !== null) {
+          collapseIn.classList.add("show");
+        }
+        if (pickerSwitch !== null) {
+          pickerSwitch.addEventListener(
+              "click", function () {
+                // the click is executed before togglePicker() function
+                let datetimepicker: HTMLDivElement = document.querySelector(".bootstrap-datetimepicker-widget");
+                datetimepicker.querySelector(".collapse.in").classList.remove("in");
+                datetimepicker.querySelector(".collapse.show").classList.add("in");
+              });
+        }
       });
     }
   }
