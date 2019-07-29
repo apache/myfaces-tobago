@@ -15,88 +15,88 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Client: Select Tab 3", function (assert) {
-  var hiddenInputFn = jQueryFrameFn("#page\\:mainForm\\:tabGroupClient\\:\\:activeIndex");
-  var tab1Fn = jQueryFrameFn("#page\\:mainForm\\:tab1Client");
-  var tab3Fn = jQueryFrameFn("#page\\:mainForm\\:tab3Client");
-  var tab3linkFn = jQueryFrameFn("#page\\:mainForm\\:tab3Client .nav-link");
+  var hiddenInputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabGroupClient\\:\\:activeIndex");
+  var tab1Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab1Client");
+  var tab3Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab3Client");
+  var tab3linkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab3Client .nav-link");
 
   var TTT = new TobagoTestTool(assert);
   TTT.asserts(5, function () {
-    assert.equal(hiddenInputFn().val(), 0);
-    assert.ok(tab1Fn().hasClass("tobago-tab-markup-selected"));
-    assert.notOk(tab3Fn().hasClass("tobago-tab-markup-selected"));
-    assert.ok(tab1Fn().hasClass("tobago-tab-markup-one"));
-    assert.ok(tab3Fn().hasClass("tobago-tab-markup-three"));
+    assert.equal(hiddenInputFn().value, 0);
+    assert.ok(tab1Fn().classList.contains("tobago-tab-markup-selected"));
+    assert.notOk(tab3Fn().classList.contains("tobago-tab-markup-selected"));
+    assert.ok(tab1Fn().classList.contains("tobago-tab-markup-one"));
+    assert.ok(tab3Fn().classList.contains("tobago-tab-markup-three"));
   });
   TTT.action(function () {
     tab3linkFn().click();
   });
   TTT.asserts(5, function () {
-    assert.equal(hiddenInputFn().val(), 3);
-    assert.notOk(tab1Fn().hasClass("tobago-tab-markup-selected"));
-    assert.ok(tab3Fn().hasClass("tobago-tab-markup-selected"));
-    assert.ok(tab1Fn().hasClass("tobago-tab-markup-one"));
-    assert.ok(tab3Fn().hasClass("tobago-tab-markup-three"));
+    assert.equal(hiddenInputFn().value, 3);
+    assert.notOk(tab1Fn().classList.contains("tobago-tab-markup-selected"));
+    assert.ok(tab3Fn().classList.contains("tobago-tab-markup-selected"));
+    assert.ok(tab1Fn().classList.contains("tobago-tab-markup-one"));
+    assert.ok(tab3Fn().classList.contains("tobago-tab-markup-three"));
   });
   TTT.startTest();
 });
 
 QUnit.test("Ajax: Select Tab 3", function (assert) {
-  var hiddenInputFn = jQueryFrameFn("#page\\:mainForm\\:tabGroupAjax\\:\\:activeIndex");
-  var tab1Fn = jQueryFrameFn("#page\\:mainForm\\:tab1Ajax");
-  var tab3Fn = jQueryFrameFn("#page\\:mainForm\\:tab3Ajax");
-  var tab3linkFn = jQueryFrameFn("#page\\:mainForm\\:tab3Ajax .nav-link");
+  var hiddenInputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabGroupAjax\\:\\:activeIndex");
+  var tab1Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab1Ajax");
+  var tab3Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab3Ajax");
+  var tab3linkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab3Ajax .nav-link");
 
   var TTT = new TobagoTestTool(assert);
   TTT.asserts(5, function () {
-    assert.equal(hiddenInputFn().val(), 0);
-    assert.ok(tab1Fn().hasClass("tobago-tab-markup-selected"));
-    assert.notOk(tab3Fn().hasClass("tobago-tab-markup-selected"));
-    assert.ok(tab1Fn().hasClass("tobago-tab-markup-one"));
-    assert.ok(tab3Fn().hasClass("tobago-tab-markup-three"));
+    assert.equal(hiddenInputFn().value, 0);
+    assert.ok(tab1Fn().classList.contains("tobago-tab-markup-selected"));
+    assert.notOk(tab3Fn().classList.contains("tobago-tab-markup-selected"));
+    assert.ok(tab1Fn().classList.contains("tobago-tab-markup-one"));
+    assert.ok(tab3Fn().classList.contains("tobago-tab-markup-three"));
   });
   TTT.action(function () {
     tab3linkFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(5, function () {
-    assert.equal(hiddenInputFn().val(), 3);
-    assert.notOk(tab1Fn().hasClass("tobago-tab-markup-selected"));
-    assert.ok(tab3Fn().hasClass("tobago-tab-markup-selected"));
-    assert.ok(tab1Fn().hasClass("tobago-tab-markup-one"));
-    assert.ok(tab3Fn().hasClass("tobago-tab-markup-three"));
+    assert.equal(hiddenInputFn().value, 3);
+    assert.notOk(tab1Fn().classList.contains("tobago-tab-markup-selected"));
+    assert.ok(tab3Fn().classList.contains("tobago-tab-markup-selected"));
+    assert.ok(tab1Fn().classList.contains("tobago-tab-markup-one"));
+    assert.ok(tab3Fn().classList.contains("tobago-tab-markup-three"));
   });
   TTT.startTest();
 });
 
 QUnit.test("FullReload: Select Tab 3", function (assert) {
-  var hiddenInputFn = jQueryFrameFn("#page\\:mainForm\\:tabGroupFullReload\\:\\:activeIndex");
-  var tab1Fn = jQueryFrameFn("#page\\:mainForm\\:tab1FullReload");
-  var tab3Fn = jQueryFrameFn("#page\\:mainForm\\:tab3FullReload");
-  var tab3linkFn = jQueryFrameFn("#page\\:mainForm\\:tab3FullReload .nav-link");
+  var hiddenInputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabGroupFullReload\\:\\:activeIndex");
+  var tab1Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab1FullReload");
+  var tab3Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab3FullReload");
+  var tab3linkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab3FullReload .nav-link");
 
   var TTT = new TobagoTestTool(assert);
   TTT.asserts(5, function () {
-    assert.equal(hiddenInputFn().val(), 0);
-    assert.ok(tab1Fn().hasClass("tobago-tab-markup-selected"));
-    assert.notOk(tab3Fn().hasClass("tobago-tab-markup-selected"));
-    assert.ok(tab1Fn().hasClass("tobago-tab-markup-one"));
-    assert.ok(tab3Fn().hasClass("tobago-tab-markup-three"));
+    assert.equal(hiddenInputFn().value, 0);
+    assert.ok(tab1Fn().classList.contains("tobago-tab-markup-selected"));
+    assert.notOk(tab3Fn().classList.contains("tobago-tab-markup-selected"));
+    assert.ok(tab1Fn().classList.contains("tobago-tab-markup-one"));
+    assert.ok(tab3Fn().classList.contains("tobago-tab-markup-three"));
   });
   TTT.action(function () {
     tab3linkFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(5, function () {
-    assert.equal(hiddenInputFn().val(), 3);
-    assert.notOk(tab1Fn().hasClass("tobago-tab-markup-selected"));
-    assert.ok(tab3Fn().hasClass("tobago-tab-markup-selected"));
-    assert.ok(tab1Fn().hasClass("tobago-tab-markup-one"));
-    assert.ok(tab3Fn().hasClass("tobago-tab-markup-three"));
+    assert.equal(hiddenInputFn().value, 3);
+    assert.notOk(tab1Fn().classList.contains("tobago-tab-markup-selected"));
+    assert.ok(tab3Fn().classList.contains("tobago-tab-markup-selected"));
+    assert.ok(tab1Fn().classList.contains("tobago-tab-markup-one"));
+    assert.ok(tab3Fn().classList.contains("tobago-tab-markup-three"));
   });
   TTT.startTest();
 });

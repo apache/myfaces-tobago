@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {Listener, Phase} from "./tobago-listener";
+import {Listener, Order, Phase} from "./tobago-listener";
 import {Overlay} from "./tobago-overlay";
 import {DomUtils, Tobago4Utils} from "./tobago-utils";
 import {Collapse, Popup} from "./tobago-popup";
@@ -209,5 +209,5 @@ class Command {
 
 Listener.register(Command.initEnter, Phase.DOCUMENT_READY);
 
-Listener.register(Command.init, Phase.DOCUMENT_READY);
-Listener.register(Command.init, Phase.AFTER_UPDATE);
+Listener.register(Command.init, Phase.DOCUMENT_READY, Order.LATER);
+Listener.register(Command.init, Phase.AFTER_UPDATE, Order.LATER);

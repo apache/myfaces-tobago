@@ -16,57 +16,82 @@
  */
 
 import {Listener, Phase} from "./tobago-listener";
-import {Tobago4Utils} from "./tobago-utils";
-
-// XXX bug: currently the tab switch is not stored before the submit (AJAX and full reload). So the
-// XXX tab switch will not be submitted and is lost, after the response!
+import {DomUtils} from "./tobago-utils";
 
 /**
  * Initializes the tab-groups.
  * @param elements  a jQuery object to initialize (ajax) or null for initializing the whole document (full load).
  */
 class TabGroup {
-  static init = function (elements) {
-    elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-    var $tabGroups = Tobago4Utils.selectWithJQuery(elements, ".tobago-tabGroup");
-    var markupString = "selected";
-    var markupCssClass = "tobago-tab-markup-selected";
+  static init = function (element: HTMLElement) {
 
-    $tabGroups.each(function () {
-      var $tabGroup = jQuery(this);
-      var $hiddenInput = $tabGroup.find("> input[type=hidden]");
-      var $tabContent = $tabGroup.find("> .tab-content");
+    const markupString = "selected";
+    const markupCssClass = "tobago-tab-markup-selected";
 
-      $tabGroup.find(".tobago-tabGroup-header:first .tobago-tab .nav-link:not(.disabled)").click(function () {
-        var $navLink = jQuery(this);
-        var $tab = $navLink.parent(".tobago-tab");
-        var tabGroupIndex = $tab.data("tobago-tab-group-index");
+    for (const e of DomUtils.selfOrQuerySelectorAll(element, ".tobago-tabGroup")) {
+      const tabGroup: HTMLDivElement = e as HTMLDivElement;
+      const hiddenInput: HTMLInputElement = TabGroup.getHiddenInput(tabGroup);
+      const tabs: NodeListOf<HTMLLIElement> = TabGroup.getTabs(tabGroup);
 
-        $hiddenInput.val(tabGroupIndex);
+      for (const tab of tabs) {
+        const navLink: HTMLLinkElement = tab.querySelector(":scope > .nav-link");
+        if (!navLink.classList.contains("disabled")) {
+          navLink.addEventListener('click', function () {
+            const tabGroupIndex: string = tab.dataset.tobagoTabGroupIndex;
+            hiddenInput.value = tabGroupIndex;
 
-        if ($tabGroup.data("tobago-switch-type") === "client") {
+            if (tabGroup.dataset.tobagoSwitchType === "client") {
+              const activeTab: HTMLLIElement = TabGroup.getActiveTab(tabGroup);
+              const activeNavLink: HTMLLinkElement = TabGroup.getActiveNavLink(tabGroup);
+              const activeTabContent: HTMLDivElement = TabGroup.getActiveTabContent(tabGroup);
 
-          //remove data-markup, markup-css-class and .active from tabs/tab-content
-          $tabGroup.find(".tobago-tab .nav-link.active").each(function () {
-            var $navLink = jQuery(this);
-            var $tab = $navLink.parent(".tobago-tab");
-            var $activeTabContent = $tabContent.find(".tobago-tab-content.tab-pane.active");
+              if (activeTab.dataset.tobagoMarkup !== undefined) {
+                const markups: Set<string> = new Set(JSON.parse(activeTab.dataset.tobagoMarkup));
+                markups.delete(markupString);
+                activeTab.dataset.tobagoMarkup = JSON.stringify(Array.from(markups));
+              }
+              activeTab.classList.remove(markupCssClass);
+              activeNavLink.classList.remove("active");
+              activeTabContent.classList.remove("active");
 
-            Tobago4Utils.removeDataMarkup($tab, markupString);
-            $tab.removeClass(markupCssClass);
-            $navLink.removeClass("active");
-            $activeTabContent.removeClass("active");
+              const markup: string = tab.dataset.tobagoMarkup;
+              const markups: Set<string> = markup ? new Set(JSON.parse(markup)) : new Set();
+              markups.add(markupString);
+              tab.dataset.tobagoMarkup = JSON.stringify(Array.from(markups));
+              tab.classList.add(markupCssClass);
+              navLink.classList.add("active");
+              TabGroup.getTabContent(tabGroup, tabGroupIndex).classList.add("active");
+            }
           });
-
-          //add data-markup, markup-css-class and .active from tabs/tab-content
-          Tobago4Utils.addDataMarkup($tab, markupString);
-          $tab.addClass(markupCssClass);
-          $navLink.addClass("active");
-          $tabContent.find(".tobago-tab-content.tab-pane[data-tobago-tab-group-index=" + tabGroupIndex + "]").addClass("active");
         }
-      });
-    });
+      }
+    }
   };
+
+  static getHiddenInput(tabGroup: HTMLDivElement): HTMLInputElement {
+    return tabGroup.querySelector(":scope > input[type=hidden]");
+  }
+
+  static getTabs(tabGroup: HTMLDivElement): NodeListOf<HTMLLIElement> {
+    return tabGroup.querySelectorAll(":scope > .card-header > .tobago-tabGroup-header > .tobago-tab");
+  }
+
+  static getActiveTab(tabGroup: HTMLDivElement): HTMLLIElement {
+    return this.getActiveNavLink(tabGroup).parentElement as HTMLLIElement;
+  }
+
+  static getActiveNavLink(tabGroup: HTMLDivElement): HTMLLinkElement {
+    return tabGroup.querySelector(":scope > .card-header > .tobago-tabGroup-header > .tobago-tab > .nav-link.active");
+  }
+
+  static getActiveTabContent(tabGroup: HTMLDivElement): HTMLDivElement {
+    return tabGroup.querySelector(":scope > .card-body.tab-content > .tobago-tab-content.active");
+  }
+
+  static getTabContent(tabGroup: HTMLDivElement, tabGroupIndex: string): HTMLDivElement {
+    return tabGroup.querySelector(":scope > .card-body > .tobago-tab-content[data-tobago-tab-group-index='"
+        + tabGroupIndex + "']");
+  }
 }
 
 Listener.register(TabGroup.init, Phase.DOCUMENT_READY);
