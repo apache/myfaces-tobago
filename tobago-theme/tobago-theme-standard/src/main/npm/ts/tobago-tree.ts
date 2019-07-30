@@ -231,7 +231,12 @@ class Tree {
   };
 
   static findTreeChildren = function (treeNode: HTMLElement): NodeListOf<HTMLDivElement> {
-    return treeNode.parentElement.querySelectorAll(".tobago-treeNode[data-tobago-tree-parent='" + treeNode.id + "']");
+    if (Tree.isInSheet(treeNode)) {
+      return treeNode.closest("tbody")
+          .querySelectorAll(".tobago-sheet-row[data-tobago-tree-parent='" + treeNode.id + "'] .tobago-treeNode");
+    } else {
+      return treeNode.parentElement.querySelectorAll(".tobago-treeNode[data-tobago-tree-parent='" + treeNode.id + "']");
+    }
   };
 
   static isInSheet = function (node: Element) {
