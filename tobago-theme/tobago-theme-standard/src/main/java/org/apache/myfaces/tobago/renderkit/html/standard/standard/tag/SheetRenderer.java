@@ -815,7 +815,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           writer.writeClassAttribute(Classes.create(sheet, "headerCell"));
           writer.startElement(HtmlElements.SPAN, null);
           final Style headerStyle = new Style();
-          Measure headerHeight = Measure.valueOf(20).multiply(cell.getRowSpan());
+          Measure headerHeight = getHeaderHeight(facesContext, sheet).multiply(cell.getRowSpan());
           if (!pure) {
             headerHeight = headerHeight.subtract(6); // XXX todo
           }
