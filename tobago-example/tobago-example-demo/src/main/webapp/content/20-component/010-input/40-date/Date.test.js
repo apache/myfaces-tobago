@@ -96,7 +96,7 @@ QUnit.test("submit", function (assert) {
   TTT.asserts(2, function () {
     assert.ok(widgetFn().get(0), ".bootstrap-datetimepicker-widget should be available");
 
-    for (i = 0; i < daysFn().length; i++) {
+    for (let i = 0; i < daysFn().length; i++) {
       if (daysFn().eq(i).text() === "22") {
         day22 = i;
         break;
