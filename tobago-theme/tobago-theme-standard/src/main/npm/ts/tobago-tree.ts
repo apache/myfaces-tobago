@@ -219,17 +219,6 @@ class Tree {
     return parseInt(node.id.replace(/.+\:(\d+)(\:\w+)+/, '$1'));
   };
 
-  static findChildren = function (node: Element) {
-    const treeParentSelector = "[data-tobago-tree-parent='" + node.id + "']";
-    let children;
-    if (Tree.isInSheet(node)) {
-      children = jQuery(node).parent("td").parent("tr").nextAll().children().children(treeParentSelector);
-    } else { // normal tree
-      children = jQuery(node).nextAll(treeParentSelector);
-    }
-    return children;
-  };
-
   static findTreeChildren = function (treeNode: HTMLElement): NodeListOf<HTMLDivElement> {
     if (Tree.isInSheet(treeNode)) {
       return treeNode.closest("tbody")
