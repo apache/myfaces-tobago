@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn} from "/script/tobago-test.js";
+import {jQueryFrameFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Basics: Name", function (assert) {
   var colNameFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
   var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
 
   var TTT = new TobagoTestTool(assert);
   if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
@@ -36,7 +36,11 @@ QUnit.test("Basics: Name", function (assert) {
     assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    leftPagingFn().val("22").trigger("blur");
+    leftPagingFn().value = "22";
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('blur', true, false);
+    leftPagingFn().dispatchEvent(event);
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -74,7 +78,7 @@ QUnit.test("Basics: Name", function (assert) {
 QUnit.test("Basics: Period", function (assert) {
   var colPeriodFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnPeriod_sorter");
   var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
 
   var TTT = new TobagoTestTool(assert);
   if (!colPeriodFn().hasClass("tobago-sheet-header-markup-ascending")) {
@@ -89,7 +93,11 @@ QUnit.test("Basics: Period", function (assert) {
     assert.notOk(colPeriodFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    leftPagingFn().val("29").trigger("blur");
+    leftPagingFn().value = "29";
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('blur', true, false);
+    leftPagingFn().dispatchEvent(event);
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -127,7 +135,7 @@ QUnit.test("Basics: Period", function (assert) {
 QUnit.test("Basics: Year", function (assert) {
   var colYearFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnDiscoverYear_sorter");
   var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
 
   var TTT = new TobagoTestTool(assert);
   if (!colYearFn().hasClass("tobago-sheet-header-markup-ascending")) {
@@ -142,34 +150,38 @@ QUnit.test("Basics: Year", function (assert) {
     assert.notOk(colYearFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    leftPagingFn().val("22").trigger("blur");
+    leftPagingFn().value = "22";
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('blur', true, false);
+    leftPagingFn().dispatchEvent(event);
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal(rowsFn().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1789", "row0col2");
-    assert.equal(rowsFn().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row1col2");
-    assert.equal(rowsFn().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row2col2");
-    assert.equal(rowsFn().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1848", "row3col2");
+    assert.equal(rowsFn().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1892", "row0col2");
+    assert.equal(rowsFn().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1898", "row1col2");
+    assert.equal(rowsFn().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1904", "row2col2");
+    assert.equal(rowsFn().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1905", "row3col2");
   });
   TTT.action(function () {
     colYearFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal(rowsFn().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row0col2");
-    assert.equal(rowsFn().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row1col2");
-    assert.equal(rowsFn().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row2col2");
-    assert.equal(rowsFn().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1986", "row3col2");
+    assert.equal(rowsFn().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1999", "row0col2");
+    assert.equal(rowsFn().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1999", "row1col2");
+    assert.equal(rowsFn().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1997", "row2col2");
+    assert.equal(rowsFn().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1997", "row3col2");
   });
   TTT.action(function () {
     colYearFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal(rowsFn().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1789", "row0col2");
-    assert.equal(rowsFn().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row1col2");
-    assert.equal(rowsFn().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row2col2");
-    assert.equal(rowsFn().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1848", "row3col2");
+    assert.equal(rowsFn().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1892", "row0col2");
+    assert.equal(rowsFn().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1898", "row1col2");
+    assert.equal(rowsFn().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1904", "row2col2");
+    assert.equal(rowsFn().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1905", "row3col2");
   });
   TTT.startTest();
 });
@@ -181,7 +193,7 @@ QUnit.test("Basics: Year", function (assert) {
 QUnit.test("Basics: left paging", function (assert) {
   var colNameFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
   var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
 
   var TTT = new TobagoTestTool(assert);
   if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
@@ -196,7 +208,11 @@ QUnit.test("Basics: left paging", function (assert) {
     assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    leftPagingFn().val("8").trigger("blur");
+    leftPagingFn().value = "8";
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('blur', true, false);
+    leftPagingFn().dispatchEvent(event);
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -207,7 +223,11 @@ QUnit.test("Basics: left paging", function (assert) {
         "Callisto", "16.69", "1610");
   });
   TTT.action(function () {
-    leftPagingFn().val("9").trigger("blur");
+    leftPagingFn().value = "9";
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('blur', true, false);
+    leftPagingFn().dispatchEvent(event);
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -228,7 +248,7 @@ QUnit.test("Basics: left paging", function (assert) {
 QUnit.test("Basics: center paging", function (assert) {
   var colNameFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
   var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
   var centerPagingFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-center li .page-link");
 
   var TTT = new TobagoTestTool(assert);
@@ -244,7 +264,11 @@ QUnit.test("Basics: center paging", function (assert) {
     assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    leftPagingFn().val("1").trigger("blur");
+    leftPagingFn().value = "1";
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('blur', true, false);
+    leftPagingFn().dispatchEvent(event);
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -300,9 +324,9 @@ QUnit.test("Basics: center paging", function (assert) {
 QUnit.test("Basics: right paging", function (assert) {
   var colNameFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
   var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
   var rightPagingFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-right .page-link");
-  var jumpToPageFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-right .page-link input");
+  var jumpToPageFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-right .page-link input");
 
   var TTT = new TobagoTestTool(assert);
   if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
@@ -317,7 +341,11 @@ QUnit.test("Basics: right paging", function (assert) {
     assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    leftPagingFn().val("22").trigger("blur");
+    leftPagingFn().value = "22";
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('blur', true, false);
+    leftPagingFn().dispatchEvent(event);
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -372,7 +400,11 @@ QUnit.test("Basics: right paging", function (assert) {
         "Titania", "8.71", "1787");
   });
   TTT.action(function () {
-    jumpToPageFn().val("14").trigger("blur");
+    jumpToPageFn().value = "14";
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('blur', true, false);
+    jumpToPageFn().dispatchEvent(event);
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -388,7 +420,7 @@ QUnit.test("Basics: right paging", function (assert) {
 QUnit.test("Custom Sorting: Name", function (assert) {
   var colNameFn = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
   var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
 
   var TTT = new TobagoTestTool(assert);
   if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
@@ -403,7 +435,11 @@ QUnit.test("Custom Sorting: Name", function (assert) {
     assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    leftPagingFn().val("22").trigger("blur");
+    leftPagingFn().value = "22";
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('blur', true, false);
+    leftPagingFn().dispatchEvent(event);
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -441,7 +477,7 @@ QUnit.test("Custom Sorting: Name", function (assert) {
 QUnit.test("Custom Sorting: Period", function (assert) {
   var colPeriodFn = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnPeriod_sorter");
   var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
 
   var TTT = new TobagoTestTool(assert);
   if (!colPeriodFn().hasClass("tobago-sheet-header-markup-ascending")) {
@@ -456,7 +492,11 @@ QUnit.test("Custom Sorting: Period", function (assert) {
     assert.notOk(colPeriodFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    leftPagingFn().val("29").trigger("blur");
+    leftPagingFn().value = "29";
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('blur', true, false);
+    leftPagingFn().dispatchEvent(event);
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -494,7 +534,7 @@ QUnit.test("Custom Sorting: Period", function (assert) {
 QUnit.test("Custom Sorting: Year", function (assert) {
   var colYearFn = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnYear_sorter");
   var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
 
   var TTT = new TobagoTestTool(assert);
   if (!colYearFn().hasClass("tobago-sheet-header-markup-ascending")) {
@@ -509,7 +549,11 @@ QUnit.test("Custom Sorting: Year", function (assert) {
     assert.notOk(colYearFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    leftPagingFn().val("22").trigger("blur");
+    leftPagingFn().value = "22";
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('blur', true, false);
+    leftPagingFn().dispatchEvent(event);
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
@@ -548,7 +592,7 @@ QUnit.test("Custom Sorting: Year", function (assert) {
 QUnit.test("Custom Sorting: left paging", function (assert) {
   var colNameFn = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
   var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
 
   var TTT = new TobagoTestTool(assert);
   if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
@@ -563,7 +607,11 @@ QUnit.test("Custom Sorting: left paging", function (assert) {
     assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    leftPagingFn().val("8").trigger("blur");
+    leftPagingFn().value = "8";
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('blur', true, false);
+    leftPagingFn().dispatchEvent(event);
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -574,7 +622,11 @@ QUnit.test("Custom Sorting: left paging", function (assert) {
         "Callisto", "16.69", "1610");
   });
   TTT.action(function () {
-    leftPagingFn().val("9").trigger("blur");
+    leftPagingFn().value = "9";
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('blur', true, false);
+    leftPagingFn().dispatchEvent(event);
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -595,7 +647,7 @@ QUnit.test("Custom Sorting: left paging", function (assert) {
 QUnit.test("Custom Sorting: center paging", function (assert) {
   var colNameFn = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
   var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
   var centerPagingFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-center li .page-link");
 
   var TTT = new TobagoTestTool(assert);
@@ -611,7 +663,11 @@ QUnit.test("Custom Sorting: center paging", function (assert) {
     assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    leftPagingFn().val("1").trigger("blur");
+    leftPagingFn().value = "1";
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('blur', true, false);
+    leftPagingFn().dispatchEvent(event);
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -667,8 +723,9 @@ QUnit.test("Custom Sorting: center paging", function (assert) {
 QUnit.test("Custom Sorting: right paging", function (assert) {
   var colNameFn = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
   var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
   var rightPagingFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-right .page-link");
+  var rightPagingInputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-right .page-link input");
 
   var TTT = new TobagoTestTool(assert);
   if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
@@ -683,7 +740,11 @@ QUnit.test("Custom Sorting: right paging", function (assert) {
     assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
-    leftPagingFn().val("22").trigger("blur");
+    leftPagingFn().value = "22";
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('blur', true, false);
+    leftPagingFn().dispatchEvent(event);
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -738,7 +799,11 @@ QUnit.test("Custom Sorting: right paging", function (assert) {
         "Titania", "8.71", "1787");
   });
   TTT.action(function () {
-    rightPagingFn().find("input").val("14").trigger("blur");
+    rightPagingInputFn().value = "14";
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('blur', true, false);
+    rightPagingInputFn().dispatchEvent(event);
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
