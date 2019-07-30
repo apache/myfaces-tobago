@@ -815,7 +815,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           writer.writeClassAttribute(Classes.create(sheet, "headerCell"));
           writer.startElement(HtmlElements.SPAN, null);
           final Style headerStyle = new Style();
-          Measure headerHeight = getHeaderHeight(facesContext, sheet).multiply(cell.getRowSpan());
+          Measure headerHeight = getHeaderCellHeight(facesContext, sheet, cell);
           if (!pure) {
             headerHeight = headerHeight.subtract(6); // XXX todo
           }
@@ -944,6 +944,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.TBODY);
     writer.endElement(HtmlElements.TABLE);
     writer.endElement(HtmlElements.DIV);
+  }
+
+  protected Measure getHeaderCellHeight(FacesContext facesContext, UISheet sheet, Cell cell) {
+    return getResourceManager().getThemeMeasure(facesContext, sheet, "headerCellHeight")
+        .multiply(cell.getRowSpan());
   }
 
   private boolean needVerticalScrollbar(final FacesContext facesContext, final UISheet sheet) {
