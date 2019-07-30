@@ -87,7 +87,7 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
     writer.writeIdAttribute(id);
     writer.writeAttribute("data-tobago-split-layout", layout.getOrientation().toLowerCase(), true);
     writer.writeAttribute("data-tobago-split-layout-containment", createDraggableContainment(layout), true);
-    final Style style = calculateHandleStyle(layout);
+    final Style style = calculateHandleStyle(facesContext, layout);
     writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(layout, layout.getOrientation().toLowerCase()));
 
@@ -134,20 +134,22 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
     }
   }
 
-  private Style calculateHandleStyle(final AbstractUISplitLayout layout) {
+  private Style calculateHandleStyle(FacesContext facesContext, final AbstractUISplitLayout layout) {
     final LayoutContainer container = (LayoutContainer) ((AbstractUISplitLayout) layout).getParent();
     final LayoutComponent secondComponent = container.getComponents().get(1);
     final Style style = new Style();
     if (AbstractUISplitLayout.HORIZONTAL.equals(layout.getOrientation())) {
-      style.setWidth(Measure.valueOf(5));
+      Measure columnSpacing = getResourceManager().getThemeMeasure(facesContext, layout, "columnSpacing");
+      style.setWidth(columnSpacing);
       style.setHeight(container.getCurrentHeight());
-      style.setLeft(Measure.valueOf(secondComponent.getLeft().subtract(5)));
+      style.setLeft(Measure.valueOf(secondComponent.getLeft().subtract(columnSpacing)));
       style.setTop(Measure.valueOf(0));
     } else {
       style.setWidth(container.getCurrentWidth());
-      style.setHeight(Measure.valueOf(5));
+      Measure rowSpacing = getResourceManager().getThemeMeasure(facesContext, layout, "rowSpacing");
+      style.setHeight(rowSpacing);
       style.setLeft(Measure.valueOf(0));
-      style.setTop(Measure.valueOf(Measure.valueOf(secondComponent.getTop().subtract(5))));
+      style.setTop(Measure.valueOf(Measure.valueOf(secondComponent.getTop().subtract(rowSpacing))));
     }
     style.setDisplay(Display.BLOCK);
     style.setPosition(Position.ABSOLUTE);
