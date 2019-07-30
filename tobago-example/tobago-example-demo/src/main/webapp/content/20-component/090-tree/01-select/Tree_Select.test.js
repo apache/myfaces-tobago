@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn} from "/script/tobago-test.js";
+import {jQueryFrameFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("single: select Music, select Mathematics", function (assert) {
@@ -193,31 +193,43 @@ QUnit.test("multiLeafOnly: select Classic, select Mathematics, deselect Classic"
 });
 
 QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", function (assert) {
-  var musicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:3\\:select");
-  var classicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:4\\:select");
-  var mathematicsFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
+  var musicFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:3\\:select");
+  var classicFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:4\\:select");
+  var mathematicsFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
   var outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedNodesOutput span");
-  var selectableNoneFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:0");
-  var selectableMultiCascadeFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:5");
+  var selectableNoneFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:0");
+  var selectableMultiCascadeFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:5");
   var inputFn = jQueryFrameFn(".tobago-treeSelect input");
 
   var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    selectableNoneFn().prop("checked", true).trigger("change");
+    selectableNoneFn().checked = true;
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('change', true, false);
+    selectableNoneFn().dispatchEvent(event);
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal(inputFn().length, 0);
   });
   TTT.action(function () {
-    selectableMultiCascadeFn().prop("checked", true).trigger("change");
+    selectableMultiCascadeFn().checked = true;
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('change', true, false);
+    selectableMultiCascadeFn().dispatchEvent(event);
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.notEqual(inputFn().length, 0);
   });
   TTT.action(function () {
-    musicFn().prop("checked", true).trigger("change");
+    musicFn().checked = true;
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('change', true, false);
+    musicFn().dispatchEvent(event);
   });
   TTT.waitForResponse(); // an ajax request is send for every leaf (Music, Classic, Pop, World)
   TTT.waitMs(2000); // wait for the last ajax
@@ -225,14 +237,22 @@ QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", f
     assert.equal(outputFn().text(), "Music, Classic, Pop, World");
   });
   TTT.action(function () {
-    mathematicsFn().prop("checked", true).trigger("change");
+    mathematicsFn().checked = true;
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('change', true, false);
+    mathematicsFn().dispatchEvent(event);
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal(outputFn().text(), "Music, Classic, Pop, World, Mathematics");
   });
   TTT.action(function () {
-    classicFn().prop("checked", false).trigger("change");
+    classicFn().checked = false;
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('change', true, false);
+    classicFn().dispatchEvent(event);
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {

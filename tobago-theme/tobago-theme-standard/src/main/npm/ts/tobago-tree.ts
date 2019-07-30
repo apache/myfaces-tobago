@@ -16,13 +16,13 @@
  */
 
 import {Listener, Phase} from "./tobago-listener";
-import {DomUtils, Tobago4Utils} from "./tobago-utils";
+import {DomUtils} from "./tobago-utils";
 
 class Tree {
 
   static toggleNode = function (event: MouseEvent) {
     const element = event.currentTarget as HTMLElement;
-    const node = element.closest(".tobago-treeNode");
+    const node: HTMLDivElement = element.closest(".tobago-treeNode") as HTMLDivElement;
     const data = node.closest(".tobago-tree, .tobago-sheet") as HTMLElement;
     const expanded = DomUtils.childrenQuerySelector(data,
         ".tobago-tree-expanded, .tobago-sheet-expanded") as HTMLInputElement;
@@ -77,39 +77,35 @@ class Tree {
 
   /**
    * Hide all children of the node recursively.
-   * @param node A jQuery-Object as a node of the tree.
+   * @param node A HTMLElement as a node of the tree.
    */
-  static hideChildren = function (node: Element) {
-    const children = Tree.findChildren(node);
-    children.each(function () {
-      const child = this;
+  static hideChildren = function (node: HTMLElement): void {
+    for (const child of Tree.findTreeChildren(node)) {
       if (Tree.isInSheet(node)) {
-        child.parentNode.parentNode.classList.add("d-none");
+        child.parentElement.parentElement.classList.add("d-none");
       } else {
         child.classList.add("d-none");
       }
       Tree.hideChildren(child);
-    });
+    }
   };
 
   /**
    * Show the children of the node recursively, there parents are expanded.
-   * @param node A jQuery-Object as a node of the tree.
+   * @param node A HTMLElement as a node of the tree.
    * @param expanded The hidden field which contains the expanded state.
    * @return is reload needed (to get all nodes from the server)
    */
-  static showChildren = function (node: Element, expanded: HTMLInputElement) {
-    const children = Tree.findChildren(node);
-    if (children.length == 0) {
-      // no children in DOM, reload it from the server
+  static showChildren = function (node: HTMLElement, expanded: HTMLInputElement): boolean {
+    const children = Tree.findTreeChildren(node);
+    if (children.length === 0) {
       return true;
     }
-    children.each(function () {
-      const child = this;
+    for (const child of children) {
       if (Tree.isInSheet(node)) {
-        this.parentNode.parentNode.classList.remove("d-none");
+        child.parentElement.parentElement.classList.remove("d-none");
       } else {
-        this.classList.remove("d-none");
+        child.classList.remove("d-none");
       }
       if (Tree.isExpanded(child, expanded)) {
         const reload = Tree.showChildren(child, expanded);
@@ -117,7 +113,7 @@ class Tree {
           return true;
         }
       }
-    });
+    }
     return false;
   };
 
@@ -133,7 +129,6 @@ class Tree {
       }
     }
     node.classList.add("tobago-treeNode-markup-selected");
-    console.info("-----------------> focus ---> " + node.id); // remove
   };
 
   static init = function (element: HTMLElement) {
@@ -147,72 +142,64 @@ class Tree {
       command.addEventListener("focus", Tree.commandFocus);
     }
 
-    var elements = jQuery(elements); // fixme remove!
+    for (const e of DomUtils.selfOrQuerySelectorAll(element, ".tobago-sheet, .tobago-tree")) {
+      const sheetOrTree: HTMLDivElement = e as HTMLDivElement;
 
-    // selected for treeSelect
-    Tobago4Utils.selectWithJQuery(elements, ".tobago-treeSelect > input").change(function () {
-      var select = jQuery(this);
-      var selected = select.prop("checked");
-      var data = select.closest(".tobago-tree, .tobago-sheet");
-      const hidden: HTMLInputElement
-          = data.children(".tobago-tree-selected, .tobago-sheet-selected").get(0);
-      let value: Set<number>;
-      // todo may use an class attribute for this value
-      if (select.attr("type") === "radio") {
-        value = new Set();
-        value.add(Tree.rowIndex(select.get(0)));
-      } else if (selected) {
-        value = Tree.getSet(hidden);
-        value.add(Tree.rowIndex(select.get(0)));
-      } else {
-        value = Tree.getSet(hidden);
-        value.delete(Tree.rowIndex(select.get(0)));
-      }
-      Tree.setSet(hidden, value);
-    });
-
-    // init selected field
-    Tobago4Utils.selectWithJQuery(elements, ".tobago-tree, .tobago-sheet").each(function () {
-      const data: HTMLElement = this;
-      const hidden = DomUtils.childrenQuerySelector(data, ".tobago-tree-selected, .tobago-sheet-selected");
-      if (hidden) {
+      // init selected field
+      const hiddenInputSelected: HTMLInputElement = sheetOrTree.querySelector(":scope > .tobago-sheet-selected, :scope > .tobago-tree-selected");
+      if (hiddenInputSelected) {
         const value = new Set<number>();
-        for (const selected of data.querySelectorAll(".tobago-treeNode-markup-selected")) {
+        for (const selected of sheetOrTree.querySelectorAll(".tobago-treeNode-markup-selected")) {
           value.add(Tree.rowIndex(selected));
         }
-        Tree.setSet(hidden, value);
+        Tree.setSet(hiddenInputSelected, value);
       }
-    });
 
-    // init expanded field
-    Tobago4Utils.selectWithJQuery(elements, ".tobago-tree, .tobago-sheet").each(function () {
-      const hidden: HTMLInputElement = jQuery(this).children(".tobago-tree-expanded, .tobago-sheet-expanded").get(0);
-      if (hidden) {
+      // selected for treeSelect
+      for (const select of sheetOrTree.querySelectorAll(".tobago-treeSelect > input") as NodeListOf<HTMLInputElement>) {
+        let value: Set<number>;
+        // todo may use an class attribute for this value
+        if (select.type === "radio") {
+          value = new Set();
+          value.add(Tree.rowIndex(select));
+        } else if (select.checked) {
+          value = Tree.getSet(hiddenInputSelected);
+          value.add(Tree.rowIndex(select));
+        } else {
+          value = Tree.getSet(hiddenInputSelected);
+          value.delete(Tree.rowIndex(select));
+        }
+        Tree.setSet(hiddenInputSelected, value);
+      }
+
+      // init expanded field
+      const hiddenInputExpanded: HTMLInputElement = sheetOrTree.querySelector(":scope > .tobago-sheet-expanded, :scope > .tobago-tree-expanded");
+      if (hiddenInputExpanded) {
         const value = new Set<number>();
-        jQuery(this).find(".tobago-treeNode-markup-expanded").each(function () {
-          value.add(Tree.rowIndex(this));
-        });
-        Tree.setSet(hidden, value);
+        for (const expanded of sheetOrTree.querySelectorAll(".tobago-treeNode-markup-expanded")) {
+          value.add(Tree.rowIndex(expanded));
+        }
+        Tree.setSet(hiddenInputExpanded, value);
       }
-    });
 
-    // init tree selection for multiCascade
-    Tobago4Utils.selectWithJQuery(elements, ".tobago-tree[data-tobago-selectable=multiCascade]").each(function () {
-      var tree = jQuery(this);
-      tree.find("input[type=checkbox]").each(function () {
-        jQuery(this).change(function (event) {
-          var node = jQuery(event.target).parents(".tobago-treeNode");
-          var checked = node.find("input[type=checkbox]").prop("checked");
-          var children = Tree.findChildren(node.get(0));
-          children.each(function () {
-            var childsCheckbox = jQuery(this).find("input[type=checkbox]");
-            childsCheckbox.prop("checked", checked);
-            childsCheckbox.change();
+      // init tree selection for multiCascade
+      if (sheetOrTree.dataset.tobagoSelectable === "multiCascade") {
+        for (const treeNode of sheetOrTree.querySelectorAll(".tobago-treeNode") as NodeListOf<HTMLDivElement>) {
+
+          const checkbox: HTMLInputElement = treeNode.querySelector(".tobago-treeSelect input[type=checkbox]");
+          checkbox.addEventListener("change", function (event: Event) {
+            for (const childTreeNode of Tree.findTreeChildren(treeNode)) {
+              const childCheckbox: HTMLInputElement = childTreeNode.querySelector(".tobago-treeSelect input[type=checkbox]");
+              childCheckbox.checked = checkbox.checked;
+
+              const event = document.createEvent('HTMLEvents');
+              event.initEvent('change', true, false);
+              childCheckbox.dispatchEvent(event);
+            }
           });
-        });
-      });
-    });
-
+        }
+      }
+    }
   };
 
   static getSet(element: HTMLInputElement): Set<number> {
@@ -241,6 +228,10 @@ class Tree {
       children = jQuery(node).nextAll(treeParentSelector);
     }
     return children;
+  };
+
+  static findTreeChildren = function (treeNode: HTMLElement): NodeListOf<HTMLDivElement> {
+    return treeNode.parentElement.querySelectorAll(".tobago-treeNode[data-tobago-tree-parent='" + treeNode.id + "']");
   };
 
   static isInSheet = function (node: Element) {
