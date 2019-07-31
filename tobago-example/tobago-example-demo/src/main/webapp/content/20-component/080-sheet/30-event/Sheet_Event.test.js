@@ -15,22 +15,20 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn} from "/script/tobago-test.js";
+import {jQueryFrameFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("On click with ajax", function (assert) {
-  var oneClickAjaxFn = jQueryFrameFn("#page\\:mainForm\\:changeExample\\:\\:0");
+  var oneClickAjaxFn = testFrameQuerySelectorFn("#page\\:mainForm\\:changeExample\\:\\:0");
   var venusFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:2\\:sample0");
   var jupiterFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:5\\:sample0");
   var saturnFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:6\\:sample0");
   var namefieldFn = jQueryFrameFn("#page\\:mainForm\\:name\\:\\:field");
 
-  // ensure: the radio button is not checked
-  oneClickAjaxFn().prop("checked", false);
-
   var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    oneClickAjaxFn().click();
+    oneClickAjaxFn().checked = true;
+    oneClickAjaxFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -63,7 +61,7 @@ QUnit.test("On click with ajax", function (assert) {
 });
 
 QUnit.test("On click with full request", function (assert) {
-  var oneClickFullRequestFn = jQueryFrameFn("#page\\:mainForm\\:changeExample\\:\\:1");
+  var oneClickFullRequestFn = testFrameQuerySelectorFn("#page\\:mainForm\\:changeExample\\:\\:1");
   var venusFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:2\\:sample1");
   var jupiterFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:5\\:sample1");
   var saturnFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:6\\:sample1");
@@ -71,7 +69,8 @@ QUnit.test("On click with full request", function (assert) {
 
   var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    oneClickFullRequestFn().click();
+    oneClickFullRequestFn().checked = true;
+    oneClickFullRequestFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -104,7 +103,7 @@ QUnit.test("On click with full request", function (assert) {
 });
 
 QUnit.test("On double click with full request", function (assert) {
-  var doubleClickFullRequestFn = jQueryFrameFn("#page\\:mainForm\\:changeExample\\:\\:2");
+  var doubleClickFullRequestFn = testFrameQuerySelectorFn("#page\\:mainForm\\:changeExample\\:\\:2");
   var venusFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:2\\:sample2");
   var jupiterFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:5\\:sample2");
   var saturnFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:6\\:sample2");
@@ -112,7 +111,8 @@ QUnit.test("On double click with full request", function (assert) {
 
   var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    doubleClickFullRequestFn().click();
+    doubleClickFullRequestFn().checked = true;
+    doubleClickFullRequestFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -145,7 +145,7 @@ QUnit.test("On double click with full request", function (assert) {
 });
 
 QUnit.test("Open popup on click with ajax", function (assert) {
-  var radioButtonFn = jQueryFrameFn("#page\\:mainForm\\:changeExample\\:\\:3");
+  var radioButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:changeExample\\:\\:3");
   var venusFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:2\\:sample3");
   var jupiterFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:5\\:sample3");
   var saturnFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:6\\:sample3");
@@ -155,7 +155,8 @@ QUnit.test("Open popup on click with ajax", function (assert) {
 
   var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    radioButtonFn().click();
+    radioButtonFn().checked = true;
+    radioButtonFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
