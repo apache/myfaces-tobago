@@ -37,10 +37,7 @@ QUnit.test("Basics: Name", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "22";
-
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('blur', true, false);
-    leftPagingFn().dispatchEvent(event);
+    leftPagingFn().dispatchEvent(new Event('blur'));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -94,10 +91,7 @@ QUnit.test("Basics: Period", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "29";
-
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('blur', true, false);
-    leftPagingFn().dispatchEvent(event);
+    leftPagingFn().dispatchEvent(new Event('blur'));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -151,10 +145,7 @@ QUnit.test("Basics: Year", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "22";
-
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('blur', true, false);
-    leftPagingFn().dispatchEvent(event);
+    leftPagingFn().dispatchEvent(new Event('blur'));
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
@@ -209,10 +200,7 @@ QUnit.test("Basics: left paging", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "8";
-
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('blur', true, false);
-    leftPagingFn().dispatchEvent(event);
+    leftPagingFn().dispatchEvent(new Event('blur'));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -224,10 +212,7 @@ QUnit.test("Basics: left paging", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "9";
-
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('blur', true, false);
-    leftPagingFn().dispatchEvent(event);
+    leftPagingFn().dispatchEvent(new Event('blur'));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -265,10 +250,7 @@ QUnit.test("Basics: center paging", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "1";
-
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('blur', true, false);
-    leftPagingFn().dispatchEvent(event);
+    leftPagingFn().dispatchEvent(new Event('blur'));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -342,10 +324,7 @@ QUnit.test("Basics: right paging", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "22";
-
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('blur', true, false);
-    leftPagingFn().dispatchEvent(event);
+    leftPagingFn().dispatchEvent(new Event('blur'));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -401,10 +380,7 @@ QUnit.test("Basics: right paging", function (assert) {
   });
   TTT.action(function () {
     jumpToPageFn().value = "14";
-
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('blur', true, false);
-    jumpToPageFn().dispatchEvent(event);
+    jumpToPageFn().dispatchEvent(new Event('blur'));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -436,10 +412,7 @@ QUnit.test("Custom Sorting: Name", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "22";
-
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('blur', true, false);
-    leftPagingFn().dispatchEvent(event);
+    leftPagingFn().dispatchEvent(new Event('blur'));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -493,10 +466,7 @@ QUnit.test("Custom Sorting: Period", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "29";
-
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('blur', true, false);
-    leftPagingFn().dispatchEvent(event);
+    leftPagingFn().dispatchEvent(new Event('blur'));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -550,10 +520,7 @@ QUnit.test("Custom Sorting: Year", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "22";
-
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('blur', true, false);
-    leftPagingFn().dispatchEvent(event);
+    leftPagingFn().dispatchEvent(new Event('blur'));
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
@@ -608,10 +575,7 @@ QUnit.test("Custom Sorting: left paging", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "8";
-
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('blur', true, false);
-    leftPagingFn().dispatchEvent(event);
+    leftPagingFn().dispatchEvent(new Event('blur'));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -623,10 +587,7 @@ QUnit.test("Custom Sorting: left paging", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "9";
-
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('blur', true, false);
-    leftPagingFn().dispatchEvent(event);
+    leftPagingFn().dispatchEvent(new Event('blur'));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -664,10 +625,7 @@ QUnit.test("Custom Sorting: center paging", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "1";
-
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('blur', true, false);
-    leftPagingFn().dispatchEvent(event);
+    leftPagingFn().dispatchEvent(new Event('blur'));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -741,10 +699,7 @@ QUnit.test("Custom Sorting: right paging", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "22";
-
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('blur', true, false);
-    leftPagingFn().dispatchEvent(event);
+    leftPagingFn().dispatchEvent(new Event('blur'));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -800,10 +755,7 @@ QUnit.test("Custom Sorting: right paging", function (assert) {
   });
   TTT.action(function () {
     rightPagingInputFn().value = "14";
-
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('blur', true, false);
-    rightPagingInputFn().dispatchEvent(event);
+    rightPagingInputFn().dispatchEvent(new Event('blur'));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {

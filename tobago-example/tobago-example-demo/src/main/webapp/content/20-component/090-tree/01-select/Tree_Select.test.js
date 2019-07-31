@@ -205,9 +205,7 @@ QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", f
   TTT.action(function () {
     selectableNoneFn().checked = true;
 
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('change', true, false);
-    selectableNoneFn().dispatchEvent(event);
+    selectableNoneFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -216,9 +214,7 @@ QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", f
   TTT.action(function () {
     selectableMultiCascadeFn().checked = true;
 
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('change', true, false);
-    selectableMultiCascadeFn().dispatchEvent(event);
+    selectableMultiCascadeFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -227,9 +223,7 @@ QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", f
   TTT.action(function () {
     musicFn().checked = true;
 
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('change', true, false);
-    musicFn().dispatchEvent(event);
+    musicFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse(); // an ajax request is send for every leaf (Music, Classic, Pop, World)
   TTT.waitMs(2000); // wait for the last ajax
@@ -239,9 +233,7 @@ QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", f
   TTT.action(function () {
     mathematicsFn().checked = true;
 
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('change', true, false);
-    mathematicsFn().dispatchEvent(event);
+    mathematicsFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -250,9 +242,7 @@ QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", f
   TTT.action(function () {
     classicFn().checked = false;
 
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('change', true, false);
-    classicFn().dispatchEvent(event);
+    classicFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
