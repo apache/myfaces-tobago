@@ -815,7 +815,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           writer.writeClassAttribute(Classes.create(sheet, "headerCell"));
           writer.startElement(HtmlElements.SPAN, null);
           final Style headerStyle = new Style();
-          Measure headerHeight = getHeaderCellHeight(facesContext, sheet, cell);
+          Measure headerHeight = getHeaderCellHeight(facesContext, sheet, cell.getRowSpan());
           if (!pure) {
             headerHeight = headerHeight.subtract(6); // XXX todo
           }
@@ -933,7 +933,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writer.startElement(HtmlElements.SPAN, null);
       writer.writeClassAttribute(Classes.create(sheet, "header"));
       final Style headerStyle = new Style();
-      headerStyle.setHeight(Measure.valueOf(14)); // XXX todo
+      headerStyle.setHeight(getHeaderCellHeight(facesContext, sheet, 1).subtract(6)); // XXX todo if (pure)
       writer.writeStyleAttribute(headerStyle);
       writer.endElement(HtmlElements.SPAN);
       writer.endElement(HtmlElements.DIV);
@@ -946,9 +946,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.DIV);
   }
 
-  protected Measure getHeaderCellHeight(FacesContext facesContext, UISheet sheet, Cell cell) {
+  protected Measure getHeaderCellHeight(FacesContext facesContext, UISheet sheet, int rowSpan) {
     return getResourceManager().getThemeMeasure(facesContext, sheet, "headerCellHeight")
-        .multiply(cell.getRowSpan());
+        .multiply(rowSpan);
   }
 
   private boolean needVerticalScrollbar(final FacesContext facesContext, final UISheet sheet) {
