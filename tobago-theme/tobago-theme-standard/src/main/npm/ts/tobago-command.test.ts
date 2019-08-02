@@ -15,14 +15,26 @@
  * limitations under the License.
  */
 
-import {CommandMap} from "./tobago-command";
+import {Command, CommandMap} from "./tobago-command";
+
+test('class Command: string', () => {
+  let command = new Command('{"omit":false,"execute":"execute-id"}');
+  expect(command.omit).toBe(false);
+  expect(command.stringify()).toBe('{"omit":false,"execute":"execute-id"}');
+});
+
+test('class Command: object', () => {
+  let command = new Command({"omit": false, "execute": "execute-id"});
+  expect(command.omit).toBe(false);
+  expect(command.stringify()).toBe('{"omit":false,"execute":"execute-id"}');
+});
 
 test('class CommandMap: click', () => {
-  let command = CommandMap.parse('{"click":{"omit":false}}');
-  expect(command.stringify()).toBe('{"commands":{"click":{"omit":false}}}');
+  let commands = new CommandMap('{"click":{"omit":false}}');
+  expect(commands.stringify()).toBe('{"commands":{"click":{"omit":false}}}');
 });
 
 test('class CommandMap: change', () => {
-  let command = CommandMap.parse('{"change":{"action":"page:header:j_id_k"}}');
-  expect(command.stringify()).toBe('{"commands":{"change":{"action":"page:header:j_id_k"}}}');
+  let commands = new CommandMap('{"change":{"action":"page:header:j_id_k"}}');
+  expect(commands.stringify()).toBe('{"commands":{"change":{"action":"page:header:j_id_k"}}}');
 });

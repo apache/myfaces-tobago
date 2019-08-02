@@ -18,6 +18,7 @@
 import {Listener, Phase} from "./tobago-listener";
 import {DomUtils} from "./tobago-utils";
 import {Tobago4} from "./tobago-core";
+import {Command} from "./tobago-command";
 
 class Sheet {
 
@@ -436,7 +437,7 @@ class Sheet {
                 render: clickRenderIds
               });
         } else {
-          Tobago4.submitAction(row, action);
+          Command.submitAction(row, action);
         }
       }
     }
@@ -536,7 +537,7 @@ class Sheet {
               render: this.dblClickReloadComponentId
             });
       } else {
-        Tobago4.submitAction(row, action);
+        Command.submitAction(row, action);
       }
     }
   }

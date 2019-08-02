@@ -18,6 +18,7 @@
 import {Listener, Phase, Order} from "./tobago-listener";
 import {Overlay} from "./tobago-overlay";
 import {DomUtils, Tobago4Utils} from "./tobago-utils";
+import {Command} from "./tobago-command";
 
 export class Tobago {
   /**
@@ -37,14 +38,6 @@ export class Tobago4 {
 
   // -------- Variables -------------------------------------------------------
 
-  /**
-   * The html form object of current page.
-   * set via init function
-   */
-  static form = null;
-
-  static isSubmit = false;
-
   static initMarker = false;
 
   // -------- Functions -------------------------------------------------------
@@ -63,7 +56,7 @@ export class Tobago4 {
 
     console.time("[tobago] init");
 
-    document.querySelector("form").addEventListener('submit', Tobago4.onSubmit);
+    document.querySelector("form").addEventListener('submit', Command.onSubmit);
 
     window.addEventListener('unload', Tobago4.onUnload);
 
@@ -82,35 +75,6 @@ export class Tobago4 {
     console.timeEnd("[tobago] init");
   };
 
-  static onSubmit = function (listenerOptions) {
-    Listener.executeBeforeSubmit();
-    /*
-    XXX check if we need the return false case
-    XXX maybe we cancel the submit, but we continue the rest?
-    XXX should the other phases also have this feature?
-
-        var result = true; // Do not continue if any function returns false
-        for (var order = 0; order < Listeners.beforeSubmit.length; order++) {
-          var list = Listeners.beforeSubmit[order];
-          for (var i = 0; i < list.length; i++) {
-            result = list[i](listenerOptions);
-            if (result === false) {
-              break;
-            }
-          }
-        }
-        if (result === false) {
-          this.isSubmit = false;
-          return false;
-        }
-    */
-    Tobago4.isSubmit = true;
-
-    Tobago4.onBeforeUnload();
-
-    return true;
-  };
-
   static onBeforeUnload = function () {
     if (this.transition) {
       new Overlay(DomUtils.page());
@@ -125,83 +89,11 @@ export class Tobago4 {
 
     console.info('on onload');
 
-    if (Tobago4.isSubmit) {
+    if (Command.isSubmit) {
       Listener.executeBeforeUnload();
     } else {
       Listener.executeBeforeExit();
     }
-    /*
-        var phase = this.isSubmit ? Listeners.beforeUnload : Listeners.beforeExit;
-
-        for (var order = 0; order < phase.length; order++) {
-          var list = phase[order];
-          for (var i = 0; i < list.length; i++) {
-            list[i]();
-          }
-        }
-        */
-  };
-
-  /**
-   * Submitting the page with specified actionId.
-   * options.transition
-   * options.target
-   */
-  static submitAction = function (source, actionId, options?) {
-    options = options || {};
-
-    var transition = options.transition === undefined || options.transition == null || options.transition;
-
-    Transport.request(function () {
-      if (!Tobago4.isSubmit) {
-        Tobago4.isSubmit = true;
-        const form = document.getElementsByTagName("form")[0] as HTMLFormElement;
-        var oldTarget = form.getAttribute("target");
-        var $sourceHidden = jQuery(DomUtils.escapeClientId("javax.faces.source"));
-        $sourceHidden.prop("disabled", false);
-        $sourceHidden.val(actionId);
-        if (options.target) {
-          form.setAttribute("target", options.target);
-        }
-        this.oldTransition = this.transition;
-        this.transition = transition && !options.target;
-
-        var listenerOptions = {
-          source: source,
-          actionId: actionId,
-          options: options
-        };
-        var onSubmitResult = Tobago4.onSubmit(listenerOptions);
-        if (onSubmitResult) {
-          try {
-            form.submit();
-            // reset the source field after submit, to be prepared for possible next AJAX with transition=false
-            $sourceHidden.prop("disabled", true);
-            $sourceHidden.val();
-          } catch (e) {
-            Overlay.destroy(DomUtils.page().id);
-            Tobago4.isSubmit = false;
-            alert('Submit failed: ' + e); // XXX localization, better error handling
-          }
-        }
-        if (options.target) {
-          if (oldTarget) {
-            form.setAttribute("target", oldTarget);
-          } else {
-            form.removeAttribute("target");
-          }
-        }
-        if (options.target || !transition || !onSubmitResult) {
-          Tobago4.isSubmit = false;
-          Transport.pageSubmitted = false;
-        }
-      }
-      if (!Tobago4.isSubmit) {
-        Transport.requestComplete(); // remove this from queue
-      }
-
-
-    }, true);
   };
 
   static initDom = function (elements) {
@@ -265,59 +157,3 @@ window.addEventListener("load", function () {
 // e. g. selectOne in a toolBar).
 Listener.register(Tobago4.initDom, Phase.DOCUMENT_READY, Order.LATER);
 Listener.register(Tobago4.initDom, Phase.AFTER_UPDATE, Order.LATER);
-
-class Transport {
-  static requests = [];
-  static currentActionId = null;
-  static pageSubmitted = false;
-  static startTime: Date;
-
-  /**
-   * @return true if the request is queued.
-   */
-  static request = function (req, submitPage, actionId?) {
-    var index = 0;
-    if (submitPage) {
-      Transport.pageSubmitted = true;
-      index = Transport.requests.push(req);
-      //console.debug('index = ' + index)
-    } else if (!Transport.pageSubmitted) { // AJAX case
-      console.debug('Current ActionId = ' + Transport.currentActionId + ' action= ' + actionId);
-      if (actionId && Transport.currentActionId === actionId) {
-        console.info('Ignoring request');
-        // If actionId equals currentActionId assume double request: do nothing
-        return false;
-      }
-      index = Transport.requests.push(req);
-      //console.debug('index = ' + index)
-      Transport.currentActionId = actionId;
-    } else {
-      console.debug("else case");
-      return false;
-    }
-    console.debug('index = ' + index);
-    if (index === 1) {
-      console.info('Execute request!');
-      Transport.startTime = new Date();
-      Transport.requests[0]();
-    } else {
-      console.info('Request queued!');
-    }
-    return true;
-  };
-
-
-// TBD XXX REMOVE is this called in non AJAX case?
-
-  static requestComplete = function () {
-    Transport.requests.shift();
-    Transport.currentActionId = null;
-    console.debug('Request complete! Duration: ' + (new Date().getTime() - Transport.startTime.getTime()) + 'ms; '
-        + 'Queue size : ' + Transport.requests.length);
-    if (Transport.requests.length > 0) {
-      console.debug('Execute request!');
-      Transport.startTime = new Date();
-      Transport.requests[0]();
-    }
-  };
-}

@@ -20,7 +20,7 @@ import {DomUtils} from "./tobago-utils";
 
 /**
  * Initializes the tab-groups.
- * @param elements  a jQuery object to initialize (ajax) or null for initializing the whole document (full load).
+ * @param element
  */
 class TabGroup {
   static init = function (element: HTMLElement) {
