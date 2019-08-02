@@ -253,7 +253,6 @@ export class Command {
         const key: string = entry[0];
         const value: Command = entry[1];
 
-        console.info("[command] key='" + key + "' value='" + JSON.stringify(value) + "'");
         switch(key) {
           case "change":
             commandElement.addEventListener("change", CommandMap.change);
