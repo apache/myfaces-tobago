@@ -45,3 +45,51 @@ if (!Element.prototype.closest) {
 }
 
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// for edge/ie
+try {
+  document.querySelector(":scope");
+} catch (exception) {
+  var querySelectorWithScope = polyfill(Element.prototype.querySelector);
+  Element.prototype.querySelector = function querySelector(selectors) {
+    return querySelectorWithScope.apply(this, arguments);
+  };
+
+  var querySelectorAllWithScope = polyfill(Element.prototype.querySelectorAll);
+  Element.prototype.querySelectorAll = function querySelectorAll(selectors) {
+    return querySelectorAllWithScope.apply(this, arguments);
+  };
+
+  if (Element.prototype.matches) {
+    var matchesWithScope = polyfill(Element.prototype.matches);
+    Element.prototype.matches = function matches(selectors) {
+      return matchesWithScope.apply(this, arguments);
+    };
+  }
+
+  if (Element.prototype.closest) {
+    var closestWithScope = polyfill(Element.prototype.closest);
+    Element.prototype.closest = function closest(selectors) {
+      return closestWithScope.apply(this, arguments);
+    };
+  }
+
+  function polyfill(prototypeFunc) {
+    var scope = /:scope(?![\w-])/gi;
+
+    return function (selector) {
+      if (selector.toLowerCase().indexOf(":scope") >= 0) {
+        var attr = 'tobagoScopeAttribute';
+        arguments[0] = selector.replace(scope, '[' + attr + ']');
+        this.setAttribute(attr, '');
+        var element = prototypeFunc.apply(this, arguments);
+        this.removeAttribute(attr);
+        return element;
+      } else {
+        return prototypeFunc.apply(this, arguments);
+      }
+    };
+  }
+}
+
+// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////

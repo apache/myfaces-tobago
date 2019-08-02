@@ -24,8 +24,8 @@ class Tree {
     const element = event.currentTarget as HTMLElement;
     const node: HTMLDivElement = element.closest(".tobago-treeNode") as HTMLDivElement;
     const data = node.closest(".tobago-tree, .tobago-sheet") as HTMLElement;
-    const expanded = DomUtils.childrenQuerySelector(data,
-        ".tobago-tree-expanded, .tobago-sheet-expanded") as HTMLInputElement;
+    const expanded = data.querySelector(
+        ":scope > .tobago-tree-expanded, :scope > .tobago-sheet-expanded") as HTMLInputElement;
     const togglesIcon = node.querySelectorAll(".tobago-treeNode-toggle i") as NodeListOf<HTMLElement>;
     const togglesImage = node.querySelectorAll(".tobago-treeNode-toggle img") as NodeListOf<HTMLImageElement>;
     const rowIndex = Tree.rowIndex(node);
@@ -121,7 +121,7 @@ class Tree {
     const command = event.currentTarget as HTMLElement;
     const node = command.parentElement;
     const tree = node.closest(".tobago-tree");
-    const selected = DomUtils.childrenQuerySelector(tree, ".tobago-tree-selected") as HTMLInputElement;
+    const selected = tree.querySelector(".tobago-tree-selected") as HTMLInputElement;
     selected.value = String(Tree.rowIndex(node));
     for (const otherNode of tree.querySelectorAll(".tobago-treeNode-markup-selected")) {
       if (otherNode !== node) {

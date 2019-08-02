@@ -64,7 +64,7 @@
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-myfaces.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-deltaspike.js"/>
 <!--          <script name="/tobago/standard/tobago-bootstrap/${project.version}/node_modules/@babel/polyfill/dist/polyfill.js"/>-->
-<!--          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-polyfill.js"/>-->
+          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-polyfill.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-all.js"/>
 <!--
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-listener.js"/>
