@@ -16,69 +16,66 @@
  */
 
 import {Listener, Phase} from "./tobago-listener";
-import {Tobago4Utils} from "./tobago-utils";
+import {DomUtils, Tobago4Utils} from "./tobago-utils";
 
 class Stars {
 
-  static init(elements) {
-    elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-    var starComponents = Tobago4Utils.selectWithJQuery(elements, ".tobago-stars");
-    starComponents.each(function () {
-      var $starComponent = jQuery(this);
+  static init(element: HTMLElement) {
+    for (const star of DomUtils.selfOrQuerySelectorAll(element, ".tobago-stars")) {
+      const hiddenInput = star.querySelector("input[type=hidden]") as HTMLInputElement;
+      const container = star.querySelector(".tobago-stars-container") as HTMLElement;
+      const tooltip = container.querySelector(".tobago-stars-tooltip") as HTMLElement;
+      const selected = container.querySelector(".tobago-stars-selected") as HTMLElement;
+      const unselected = container.querySelector(".tobago-stars-unselected") as HTMLElement;
+      const preselected = container.querySelector(".tobago-stars-preselected") as HTMLElement;
+      const slider = container.querySelector(".tobago-stars-slider") as HTMLInputElement;
 
-      var $hiddenInput = $starComponent.find("input[type=hidden]");
-      var $container = $starComponent.find(".tobago-stars-container");
-      var $tooltip = $container.find(".tobago-stars-tooltip");
-      var $selected = $container.find(".tobago-stars-selected");
-      var $unselected = $container.find(".tobago-stars-unselected");
-      var $preselected = $container.find(".tobago-stars-preselected");
-      var $slider = $container.find(".tobago-stars-slider");
+      const readonly = slider.readOnly;
+      const disabled = slider.disabled;
+      const required = slider.required;
 
-      var readonly = $slider.prop("readonly");
-      var disabled = $slider.prop("disabled");
-      var required = $slider.prop("required");
+      const max = parseInt(slider.max);
+      const placeholder = parseInt(slider.placeholder);
 
-      var max = $slider.prop("max");
-      var placeholder = $slider.prop("placeholder");
-
-      if ($slider.prop("min") === "0") {
-        $slider.css("left", "-" + (100 / max) + "%");
-        $slider.css("width", 100 + (100 / max) + "%");
+      if (parseInt(slider.min) === 0) {
+        slider.style["left"] = "-" + (100 / max) + "%";
+        slider.style["width"] = 100 + (100 / max) + "%";
       }
 
-      if ($hiddenInput.val() > 0) {
-        var percentValue = 100 * ($hiddenInput.val() as number) / max;
-        $selected.css("width", percentValue + "%");
-        $unselected.css("left", percentValue + "%");
-        $unselected.css("width", 100 - percentValue + "%");
+      const currentValue = parseInt(hiddenInput.value);
+      if (currentValue > 0) {
+        const percentValue = 100 * currentValue / max;
+        selected.style["width"] = percentValue + "%";
+        unselected.style["left"] = percentValue + "%";
+        unselected.style["width"] = 100 - percentValue + "%";
       } else if (placeholder) {
-        $selected.addClass("tobago-placeholder");
-
-        var placeholderValue = 100 * placeholder / max;
-        $selected.css("width", placeholderValue + "%");
-        $unselected.css("left", placeholderValue + "%");
-        $unselected.css("width", 100 - placeholderValue + "%");
+        selected.classList.add("tobago-placeholder");
+        const placeholderValue = 100 * placeholder / max;
+        selected.style["width"] = placeholderValue + "%";
+        unselected.style["left"] = placeholderValue + "%";
+        unselected.style["width"] = 100 - placeholderValue + "%";
       }
 
       if (!readonly && !disabled) {
         /* preselectMode is a Workaround for IE11: fires change event instead of input event */
-        var preselectMode = false;
-        $slider.on('mousedown', function (event) {
+        let preselectMode = false;
+        slider.addEventListener('mousedown', function (event) {
           preselectMode = true;
         });
-        $slider.on('mouseup', function (event) {
+        slider.addEventListener('mouseup', function (event) {
           preselectMode = false;
           selectStars();
         });
 
-        $slider.on('input', function (event) {
+        slider.addEventListener('input', function (event) {
           preselectStars();
         });
-        $slider.on('touchend', function (event) {
+        slider.addEventListener('touchend', function (event) {
           /* Workaround for mobile devices. TODO: fire AJAX request for 'touchend' */
-          $slider.trigger("change");
+          // slider.trigger("change");
+          slider.dispatchEvent(new Event("change"));
         });
-        $slider.on('change', function (event) {
+        slider.addEventListener('change', function (event) {
           if (preselectMode) {
             preselectStars();
           } else {
@@ -86,78 +83,79 @@ class Stars {
           }
         });
 
-        $slider.on('touchstart touchmove', function (event) {
-          /* Workaround for Safari browser on iPhone */
-          var sliderValue = (event.target.max / event.target.offsetWidth)
-              // @ts-ignore
-              * (event.originalEvent.touches[0].pageX - $slider.offset().left);
-          if (sliderValue > event.target.max) {
-            $slider.val(event.target.max);
-          } else if (sliderValue < event.target.min) {
-            $slider.val(event.target.min);
-          } else {
-            $slider.val(sliderValue);
-          }
+        slider.addEventListener('touchstart', touchstart);
+        slider.addEventListener('touchmove', touchstart);
+      }
 
-          preselectStars();
-        });
+      // XXX current issue: on ios-Safari select 5 stars and than click on 1 star doesn't work on labeled component.
+      function touchstart(event: TouchEvent) {
+        /* Workaround for Safari browser on iPhone */
+        const target = event.currentTarget as HTMLInputElement;
+        const sliderValue = (parseInt(target.max) / target.offsetWidth) * (event.touches[0].pageX - slider.offsetLeft);
+        if (sliderValue > parseInt(target.max)) {
+          slider.value = target.max;
+        } else if (sliderValue < parseInt(target.min)) {
+          slider.value = target.min;
+        } else {
+          slider.value = String(sliderValue);
+        }
+        preselectStars();
       }
 
       function preselectStars() {
-        $tooltip.addClass("show");
+        tooltip.classList.add("show");
 
-        if ($slider.val() > 0) {
-          $tooltip.removeClass("trash");
-          $tooltip.text(Number((5 * ($slider.val() as number) / max).toFixed(2)));
+        if (parseInt(slider.value) > 0) {
+          tooltip.classList.remove("trash");
+          tooltip.textContent = (5 * (parseInt(slider.value)) / max).toFixed(2);
 
-          $preselected.addClass("show");
-          $preselected.css("width", (100 * ($slider.val() as number) / max) + "%");
+          preselected.classList.add("show");
+          preselected.style["width"] = (100 * parseInt(slider.value) / max) + "%";
         } else {
-          $tooltip.text("");
-          $tooltip.addClass("trash");
+          tooltip.textContent = "";
+          tooltip.classList.add("trash");
 
           if (placeholder) {
-            $preselected.addClass("show");
-            $preselected.css("width", (100 * placeholder / max) + "%");
+            preselected.classList.add("show");
+            preselected.style["width"] = (100 * placeholder / max) + "%";
           } else {
-            $preselected.removeClass("show");
+            preselected.classList.remove("show");
           }
         }
       }
 
       function selectStars() {
-        $tooltip.removeClass("show");
-        $preselected.removeClass("show");
+        tooltip.classList.remove("show");
+        preselected.classList.remove("show");
 
-        if ($slider.val() > 0) {
-          $selected.removeClass("tobago-placeholder");
+        if (parseInt(slider.value) > 0) {
+          selected.classList.remove("tobago-placeholder");
 
-          var percentValue = 100 * ($slider.val() as number) / max;
-          $selected.css("width", percentValue + "%");
-          $unselected.css("left", percentValue + "%");
-          $unselected.css("width", 100 - percentValue + "%");
+          const percentValue = 100 * parseInt(slider.value) / max;
+          selected.style["width"] = percentValue + "%";
+          unselected.style["left"] = percentValue + "%";
+          unselected.style["width"] = 100 - percentValue + "%";
 
-          $hiddenInput.val($slider.val());
+          hiddenInput.value = slider.value;
         } else {
           if (placeholder) {
-            $selected.addClass("tobago-placeholder");
-
-            var placeholderValue = 100 * placeholder / max;
-            $selected.css("width", placeholderValue + "%");
-            $unselected.css("left", placeholderValue + "%");
-            $unselected.css("width", 100 - placeholderValue + "%");
+            selected.classList.add("tobago-placeholder");
+            const placeholderValue = 100 * placeholder / max;
+            selected.style["width"] = placeholderValue + "%";
+            unselected.style["left"] = placeholderValue + "%";
+            unselected.style["width"] = 100 - placeholderValue + "%";
           } else {
-            $selected.removeClass("tobago-placeholder");
-            $selected.css("width", "");
-            $unselected.css("left", "");
-            $unselected.css("width", "");
+            selected.classList.remove("tobago-placeholder");
+            selected.style["width"] = "";
+            unselected.style["left"] = "";
+            unselected.style["width"] = "";
           }
 
-          $hiddenInput.val(required ? "" : $slider.val());
+          hiddenInput.value = required ? "" : slider.value;
         }
       }
-    });
-  };
+    }
+  }
 }
 
 Listener.register(Stars.init, Phase.DOCUMENT_READY);
