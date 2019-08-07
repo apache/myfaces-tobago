@@ -16,60 +16,68 @@
  */
 
 import {Listener, Phase} from "./tobago-listener";
-import {Tobago4Utils} from "./tobago-utils";
+import {DomUtils} from "./tobago-utils";
 
 class SelectManyShuttle {
 
-  static init = function (elements) {
-    elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-    var shuttles = Tobago4Utils.selectWithJQuery(elements, ".tobago-selectManyShuttle:not(.tobago-selectManyShuttle-disabled)");
+  static init = function (element: HTMLElement) {
+    for (const shuttle of DomUtils.selfOrQuerySelectorAll(element, ".tobago-selectManyShuttle:not(.tobago-selectManyShuttle-disabled)")) {
 
-    shuttles.find(".tobago-selectManyShuttle-unselected").dblclick(function () {
-      SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), true, false);
-    });
+      shuttle.querySelector(".tobago-selectManyShuttle-unselected").addEventListener(
+          "dblclick", (event: Event) => {
+            SelectManyShuttle.moveSelectedItems(event, true, false);
+          });
 
-    shuttles.find(".tobago-selectManyShuttle-selected").dblclick(function () {
-      SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), false, false);
-    });
+      shuttle.querySelector(".tobago-selectManyShuttle-selected").addEventListener(
+          "dblclick", (event: Event) => {
+            SelectManyShuttle.moveSelectedItems(event, false, false);
+          });
 
-    shuttles.find(".tobago-selectManyShuttle-addAll").click(function () {
-      SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), true, true);
-    });
+      shuttle.querySelector(".tobago-selectManyShuttle-addAll").addEventListener(
+          "click", (event: Event) => {
+            SelectManyShuttle.moveSelectedItems(event, true, true);
+          });
 
-    shuttles.find(".tobago-selectManyShuttle-add").click(function () {
-      SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), true, false);
-    });
+      shuttle.querySelector(".tobago-selectManyShuttle-add").addEventListener(
+          "click", (event: Event) => {
+            SelectManyShuttle.moveSelectedItems(event, true, false);
+          });
 
-    shuttles.find(".tobago-selectManyShuttle-removeAll").click(function () {
-      SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), false, true);
-    });
+      shuttle.querySelector(".tobago-selectManyShuttle-removeAll").addEventListener(
+          "click", (event: Event) => {
+            SelectManyShuttle.moveSelectedItems(event, false, true);
+          });
 
-    shuttles.find(".tobago-selectManyShuttle-remove").click(function () {
-      SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), false, false);
-    });
+      shuttle.querySelector(".tobago-selectManyShuttle-remove").addEventListener(
+          "click", (event: Event) => {
+            SelectManyShuttle.moveSelectedItems(event, false, false);
+          });
+    }
   };
 
-  static moveSelectedItems = function ($shuttle, direction, all) {
-    var $unselected = $shuttle.find(".tobago-selectManyShuttle-unselected");
-    var $selected = $shuttle.find(".tobago-selectManyShuttle-selected");
-    var count = $selected.children().length;
-    var $source = direction ? $unselected : $selected;
-    var $target = direction ? $selected : $unselected;
-    var $shifted = $source.find(all ? "option:not(:disabled)" : "option:selected").remove().appendTo($target);
+  static moveSelectedItems = function (event: Event, direction: boolean, all: boolean) {
+    const currentTarget = event.currentTarget as HTMLElement;
+    const shuttle = currentTarget.closest(".tobago-selectManyShuttle");
+    const unselected = shuttle.querySelector(".tobago-selectManyShuttle-unselected");
+    const selected = shuttle.querySelector(".tobago-selectManyShuttle-selected");
+    var oldCount = selected.childElementCount;
+    const source = direction ? unselected : selected;
+    const target = direction ? selected : unselected;
+    const options = source.querySelectorAll(all ? "option:not(:disabled)" : "option:checked");
+    var hidden = shuttle.querySelector(".tobago-selectManyShuttle-hidden");
+    var hiddenOptions = hidden.querySelectorAll("option");
+    for (const option of options as NodeListOf<HTMLOptionElement>) {
+      source.removeChild(option);
+      target.appendChild(option);
+      for (const hiddenOption of hiddenOptions) {
+        if (hiddenOption.value === option.value) {
+          hiddenOption.selected = direction;
+        }
+      }
+    }
 
-    // synchronize the hidden select
-    var $hidden = $shuttle.find(".tobago-selectManyShuttle-hidden");
-    var $hiddenOptions = $hidden.find("option");
-    // todo: may be optimized: put values in a hash map?
-    $shifted.each(function () {
-      var $option = jQuery(this);
-      $hiddenOptions.filter("[value='" + $option.val() + "']").prop("selected", direction);
-    });
-
-    if (count !== $selected.children().length) {
-      var e = jQuery.Event("change");
-      // trigger an change event for command facets
-      $hidden.trigger(e);
+    if (oldCount !== selected.childElementCount) {
+      hidden.dispatchEvent(new Event("change"));
     }
   };
 }

@@ -16,47 +16,42 @@
  */
 
 import {Listener, Phase} from "./tobago-listener";
-import {Tobago4Utils} from "./tobago-utils";
+import {DomUtils, Tobago4Utils} from "./tobago-utils";
 
 class SelectOneRadio {
 
-  static init = function (elements) {
-    elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-    var selectOneRadios = Tobago4Utils.selectWithJQuery(elements, ".tobago-selectOneRadio");
-    selectOneRadios.each(function () {
-      var ul = jQuery(this);
-      var id = ul.closest("[id]").attr("id");
-      var radios = jQuery('input[name="' + id.replace(/([:\.])/g, '\\$1') + '"]');
-      radios.each(function () {
-        var selectOneRadio = jQuery(this);
-        selectOneRadio.data("tobago-old-value", selectOneRadio.prop("checked"));
-      });
-      radios.click(function () {
-        var selectOneRadio = jQuery(this);
-        var readonly = selectOneRadio.prop("readonly");
-        var required = selectOneRadio.prop("required");
-        if (!required && !readonly) {
-          if (selectOneRadio.data("tobago-old-value") == selectOneRadio.prop("checked")) {
-            selectOneRadio.prop("checked", false);
-          }
-          selectOneRadio.data("tobago-old-value", selectOneRadio.prop("checked"));
-        }
-        if (readonly) {
-          radios.each(function () {
-            var radio = jQuery(this);
-            radio.prop("checked", radio.data("tobago-old-value"));
-          });
-        } else {
-          radios.each(function () {
-            if (this.id != selectOneRadio.get(0).id) {
-              var radio = jQuery(this);
-              radio.prop("checked", false);
-              radio.data("tobago-old-value", radio.prop("checked"));
+  static init = function (element: HTMLElement) {
+    for (const radio of DomUtils.selfOrQuerySelectorAll(element, ".tobago-selectOneRadio")) {
+      const id = radio.closest("[id]").id;
+      const quotedId = id.replace(/([:.])/g, '\\$1');
+      const allConnected = document.querySelectorAll("input[name=" + quotedId + "]") as NodeListOf<HTMLInputElement>;
+      for (const connectedRadio of allConnected) {
+        connectedRadio.dataset["tobagoOldValue"] = String(connectedRadio.checked);
+        connectedRadio.addEventListener("click", (event: Event) => {
+          const target = event.currentTarget as HTMLInputElement;
+          const readOnly = target.readOnly;
+          const required = target.required;
+          if (!required && !readOnly) {
+            if (target.dataset["tobagoOldValue"] === String(target.checked)) {
+              target.checked = false;
             }
-          });
-        }
-      });
-    });
+            target.dataset["tobagoOldValue"] = String(target.checked);
+          }
+          if (readOnly) {
+            for (const connectedRadio of allConnected) {
+              connectedRadio.checked = connectedRadio.dataset["tobagoOldValue"] === "true";
+            }
+          } else {
+            for (const connectedRadio of allConnected) {
+              if (target.id != connectedRadio.id) {
+                connectedRadio.checked = false;
+                connectedRadio.dataset["tobagoOldValue"] = String(connectedRadio.checked);
+              }
+            }
+          }
+        });
+      }
+    }
   };
 }
 

@@ -16,20 +16,17 @@
  */
 
 import {Listener, Phase} from "./tobago-listener";
-import {Tobago4Utils} from "./tobago-utils";
+import {DomUtils, Tobago4Utils} from "./tobago-utils";
 
 class SelectManyCheckbox {
 
-  static init = function (elements) {
-    elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-    var checkboxes = Tobago4Utils.selectWithJQuery(elements, ".tobago-selectManyCheckbox input[readonly]");
-    checkboxes.each(function () {
-      // Save the initial state to restore it, when the user tries to manipulate it.
-      var initial = jQuery(this).is(":checked");
-      jQuery(this).click(function () {
-        jQuery(this).prop("checked", initial);
+  static init = function (element: HTMLElement) {
+    for (const checkbox of DomUtils.selfOrQuerySelectorAll(element, ".tobago-selectManyCheckbox input[readonly]")) {
+      checkbox.addEventListener("click", (event: Event) => {
+        // in the "readonly" case, prevent the default, which is changing the "checked" state
+        event.preventDefault();
       });
-    });
+    }
   };
 }
 

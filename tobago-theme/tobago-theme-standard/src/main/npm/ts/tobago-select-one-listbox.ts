@@ -16,28 +16,26 @@
  */
 
 import {Listener, Phase} from "./tobago-listener";
-import {Tobago4Utils} from "./tobago-utils";
+import {DomUtils, Tobago4Utils} from "./tobago-utils";
 
 class SelectOneListbox {
 
-  static init = function (elements) {
-    elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-    var selects = Tobago4Utils.selectWithJQuery(elements, ".tobago-selectOneListbox");
-    var notRequired = selects.not(".tobago-selectOneListbox-markup-required");
-    notRequired
-        .change(function () {
-          var element = jQuery(this);
-          if (element.data("tobago-old-value") == undefined) {
-            element.data("tobago-old-value", -1);
-          }
-        }).click(function () {
-      var element = jQuery(this);
-      if (element.data("tobago-old-value") == undefined
-          || element.data("tobago-old-value") == element.prop("selectedIndex")) {
-        element.prop("selectedIndex", -1);
-      }
-      element.data("tobago-old-value", element.prop("selectedIndex"));
-    });
+  static init = function (element: HTMLElement) {
+    for (const listbox of DomUtils.selfOrQuerySelectorAll(element, ".tobago-selectOneListbox:not(:required)")) {
+      listbox.addEventListener("change", (event: Event) => {
+        const target = event.currentTarget as HTMLSelectElement;
+        if (!target.dataset["tobagoOldValue"]) {
+          target.dataset["tobagoOldValue"] = "-1";
+        }
+      });
+      listbox.addEventListener("click", (event: Event) => {
+        const target = event.currentTarget as HTMLSelectElement;
+        if (!target.dataset["tobagoOldValue"] || parseInt(target.dataset["tobagoOldValue"]) === target.selectedIndex) {
+          target.selectedIndex = -1;
+        }
+        target.dataset["tobagoOldValue"] = String(target.selectedIndex);
+      });
+    }
   };
 }
 
