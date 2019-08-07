@@ -28,7 +28,7 @@ class File {
         let text: string;
         if (real.multiple) {
           const format: string = real.dataset["tobagoFileMultiFormat"];
-          text = format.replace("{}", real.files.length.toString());
+          text = format.replace("{}", String(real.files.length));
         } else {
           text = <string>real.value;
           // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\path\".

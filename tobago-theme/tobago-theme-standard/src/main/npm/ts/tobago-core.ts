@@ -128,20 +128,6 @@ export class Tobago4 {
       }
     });
   };
-
-  static toString = function (element) {
-    var result = '';
-    for (var property in element) {
-      if (property && element[property]) {
-        var value = '' + element[property];
-        if (value !== '') {
-          result += '\r\n' + property + '=' + value;
-        }
-      }
-    }
-    return result;
-  };
-
 }
 
 document.addEventListener('DOMContentLoaded', function () {
