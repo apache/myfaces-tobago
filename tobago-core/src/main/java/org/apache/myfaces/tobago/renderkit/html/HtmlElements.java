@@ -131,7 +131,9 @@ public enum HtmlElements {
   UL("ul"),
   VAR("var"),
   VIDEO("video"),
-  WBR("wbr", Qualifier.VOID);
+  WBR("wbr", Qualifier.VOID),
+
+  TOBAGO_STARS("tobago-stars");
 
   private final String value;
   private final boolean voidElement;
