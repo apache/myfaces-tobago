@@ -19,7 +19,7 @@ import {Listener, Order, Phase} from "./tobago-listener";
 import {Overlay} from "./tobago-overlay";
 import {DomUtils, Tobago4Utils} from "./tobago-utils";
 import {Collapse, Popup} from "./tobago-popup";
-import {Tobago4} from "./tobago-core";
+import {Setup} from "./tobago-core";
 
 export class CommandMap {
 
@@ -313,7 +313,7 @@ export class Command {
     */
     Command.isSubmit = true;
 
-    Tobago4.onBeforeUnload();
+    Setup.onBeforeUnload();
 
     return true;
   };

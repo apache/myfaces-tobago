@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
-import {Tobago4} from "./tobago-core";
 import {DomUtils} from "./tobago-utils";
 import {Listener, Phase} from "./tobago-listener";
 

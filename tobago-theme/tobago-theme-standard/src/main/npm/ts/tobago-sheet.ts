@@ -17,7 +17,6 @@
 
 import {Listener, Phase} from "./tobago-listener";
 import {DomUtils} from "./tobago-utils";
-import {Tobago4} from "./tobago-core";
 import {Command} from "./tobago-command";
 
 class Sheet {

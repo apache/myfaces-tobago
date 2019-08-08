@@ -148,4 +148,3 @@ export class Listener {
     console.timeEnd("[tobago] execute beforeExit");
   }
 }
-

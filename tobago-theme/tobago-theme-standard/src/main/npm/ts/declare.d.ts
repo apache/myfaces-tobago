@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
-declare var Tobago4;
 declare var moment;
 declare var jsf;
 

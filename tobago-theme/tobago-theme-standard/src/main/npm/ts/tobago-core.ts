@@ -15,11 +15,14 @@
  * limitations under the License.
  */
 
-import {Listener, Phase, Order} from "./tobago-listener";
+import {Listener} from "./tobago-listener";
 import {Overlay} from "./tobago-overlay";
-import {DomUtils, Tobago4Utils} from "./tobago-utils";
+import {DomUtils} from "./tobago-utils";
 import {Command} from "./tobago-command";
 
+/**
+ * @deprecated since 5.0.0
+ */
 export class Tobago {
   /**
    * Backward compatible listener registration. In the case of an AJAX call (phase = Phase.AFTER_UPDATE)
@@ -34,73 +37,42 @@ export class Tobago {
   }
 }
 
-export class Tobago4 {
+export class Setup {
 
-  // -------- Variables -------------------------------------------------------
+  static transition: boolean;
+  static oldTransition: boolean;
 
-  static initMarker = false;
-
-  // -------- Functions -------------------------------------------------------
-
-  /**
-   * Tobago's central init function.
-   * Called when the document (DOM) is ready
-   */
-  static init = function () {
-
-    if (Tobago4.initMarker) {
-      console.warn("Tobago is already initialized!");
-      return;
-    }
-    Tobago4.initMarker = true;
-
+  static init = function() {
     console.time("[tobago] init");
-
     document.querySelector("form").addEventListener('submit', Command.onSubmit);
-
-    window.addEventListener('unload', Tobago4.onUnload);
-
+    window.addEventListener('unload', Setup.onUnload);
     Listener.executeDocumentReady(document.documentElement);
-    /*
-        for (var order = 0; order < Listeners.documentReady.length; order++) {
-          var list = Listeners.documentReady[order];
-          for (var i = 0; i < list.length; i++) {
-            console.time("[tobago] init " + order + " " + i);
-            list[i]();
-            console.timeEnd("[tobago] init " + order + " " + i);
-          }
-        }
-    */
-
     console.timeEnd("[tobago] init");
   };
 
   static onBeforeUnload = function () {
-    if (this.transition) {
+    if (Setup.transition) {
       new Overlay(DomUtils.page());
     }
-    this.transition = this.oldTransition;
+    Setup.transition = Setup.oldTransition;
   };
 
   /**
    * Wrapper function to call application generated onunload function
    */
   static onUnload = function () {
-
     console.info('on onload');
-
     if (Command.isSubmit) {
-      Listener.executeBeforeUnload();
+      if (Setup.transition) {
+        new Overlay(DomUtils.page());
+      }
+      Setup.transition = Setup.oldTransition;
     } else {
       Listener.executeBeforeExit();
     }
   };
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  Tobago4.init();
-});
+document.addEventListener('DOMContentLoaded', Setup.init);
 
-window.addEventListener("load", function () {
-  Listener.executeWindowLoad();
-});
+window.addEventListener("load", Listener.executeWindowLoad);
