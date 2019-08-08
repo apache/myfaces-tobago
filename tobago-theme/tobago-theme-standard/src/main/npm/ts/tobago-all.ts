@@ -30,6 +30,7 @@ import "./tobago-panel";
 import "./tobago-popover";
 import "./tobago-popup";
 import "./tobago-reload";
+import "./tobago-scroll";
 import "./tobago-select-boolean-checkbox";
 import "./tobago-select-boolean-toggle";
 import "./tobago-select-many-checkbox";
