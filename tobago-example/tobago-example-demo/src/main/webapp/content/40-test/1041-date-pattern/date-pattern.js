@@ -35,7 +35,7 @@ TestDateTime.init = function () {
     var pattern = javaFormatted.data("tobago-pattern");
     javaPattern.val(pattern);
 
-    var analyzed = Tobago4.DateTime.analyzePattern(pattern);
+    var analyzed = DateTime.analyzePattern(pattern);
 
     jQueryUIDatePattern.val(analyzed.dateFormat);
     jQueryUITimePattern.val(analyzed.timeFormat);
