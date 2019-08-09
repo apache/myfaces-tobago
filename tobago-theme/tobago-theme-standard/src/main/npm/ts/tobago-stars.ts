@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import {DomUtils} from "./tobago-utils";
+
 class Stars extends HTMLElement {
 
   constructor() {
@@ -91,7 +93,8 @@ class Stars extends HTMLElement {
     function touchstart(event: TouchEvent) {
       /* Workaround for Safari browser on iPhone */
       const target = event.currentTarget as HTMLInputElement;
-      const sliderValue = (parseInt(target.max) / target.offsetWidth) * (event.touches[0].pageX - slider.offsetLeft);
+      const sliderValue = (parseInt(target.max) / target.offsetWidth)
+          * (event.touches[0].pageX - DomUtils.offset(slider).left);
       if (sliderValue > parseInt(target.max)) {
         slider.value = target.max;
       } else if (sliderValue < parseInt(target.min)) {
