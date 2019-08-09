@@ -1335,7 +1335,7 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 
 /* suggest ---------------------------------------------------------------------- */
 
-.tobago-suggest {
+tobago-suggest {
   display: none;
 }
 
@@ -1372,7 +1372,7 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 }
 
 .twitter-typeahead .tt-open {
-  /* for markup 'localMenu' - if suggest menu rendered directly on component - not in .tobago-page-menuStore */
+  /* for 'localMenu' - if suggest menu rendered directly on component - not in .tobago-page-menuStore */
   min-width: 100%;
 }
 

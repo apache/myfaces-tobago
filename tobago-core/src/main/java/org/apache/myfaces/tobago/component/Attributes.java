@@ -150,6 +150,7 @@ public enum Attributes {
   level,
   lang,
   link,
+  localMenu,
   /** @deprecated since 2.0.0 */
   @Deprecated
   margin,

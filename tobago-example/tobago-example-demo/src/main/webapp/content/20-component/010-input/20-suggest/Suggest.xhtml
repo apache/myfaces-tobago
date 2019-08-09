@@ -90,9 +90,9 @@
       and positioned relative to the page. The suggest menu will be scrolled with the page.</p>
     <p>Sometimes this behavior causes problems. For example if tc:suggest is used in a fixed header.
       In this case the suggest menu must not scroll with the page. Instead it should stick on the input component.</p>
-    <p>To render a suggest menu local on the component, markup <code>localMenu</code> can be used.</p>
-    <tc:in id="inLocalMenu" markup="localMenu">
-      <tc:suggest totalCount="10" query="#{suggestController.query}">
+    <p>To render a suggest menu local on the component, the attribute <code>localMenu</code> can be used.</p>
+    <tc:in id="inLocalMenu">
+      <tc:suggest totalCount="10" query="#{suggestController.query}" localMenu="true">
         <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
       </tc:suggest>
     </tc:in>

@@ -100,7 +100,6 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup LARGE = valueOf("large");
   public static final Markup LEFT = valueOf("left");
   public static final Markup LIGHT = valueOf("light");
-  public static final Markup LOCAL_MENU = valueOf("localMenu");
   public static final Markup MARKED = valueOf("marked");
   public static final Markup MEDIUM = valueOf("medium");
   public static final Markup MIDDLE = valueOf("middle");
@@ -185,7 +184,6 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final String STRING_LARGE = "large";
   public static final String STRING_LEFT = "left";
   public static final String STRING_LIGHT = "light";
-  public static final String STRING_LOCAL_MENU = "localMenu";
   public static final String STRING_MARKED = "marked";
   public static final String STRING_MEDIUM = "medium";
   public static final String STRING_MIDDLE = "middle";

@@ -211,7 +211,6 @@ public enum TobagoClass implements CssItem {
   STARS__SLIDER("tobago-stars-slider"),
   STARS__TOOLTIP("tobago-stars-tooltip"),
   STARS__UNSELECTED("tobago-stars-unselected"),
-  SUGGEST("tobago-suggest"),
   TAB("tobago-tab"),
   TAB__BAR_FACET("tobago-tab-barFacet"),
   TAB__CONTENT("tobago-tab-content"),

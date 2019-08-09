@@ -94,4 +94,6 @@ public abstract class AbstractUISuggest
   public abstract Integer getTotalCount();
 
   public abstract Integer getMaximumItems();
+
+  public abstract boolean isLocalMenu();
 }

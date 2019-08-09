@@ -174,20 +174,6 @@ public enum DataAttributes implements MarkupLanguageAttributes {
 
   SCROLL_POSITION("data-tobago-scroll-position"),
 
-  SUGGEST_DATA("data-tobago-suggest-data"),
-
-  SUGGEST_DELAY("data-tobago-suggest-delay"),
-
-  SUGGEST_FOR("data-tobago-suggest-for"),
-
-  SUGGEST_MAX_ITEMS("data-tobago-suggest-max-items"),
-
-  SUGGEST_MIN_CHARS("data-tobago-suggest-min-chars"),
-
-  SUGGEST_TOTAL_COUNT("data-tobago-suggest-total-count"),
-
-  SUGGEST_UPDATE("data-tobago-suggest-update"),
-
   /**
    * The mode of the tab switch: client, reloadTab, reloadPage.
    */

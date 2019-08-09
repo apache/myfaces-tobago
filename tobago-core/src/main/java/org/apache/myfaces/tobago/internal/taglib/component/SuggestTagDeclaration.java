@@ -156,6 +156,15 @@ public interface SuggestTagDeclaration extends HasIdBindingAndRendered {
   void setUpdate(String update);
 
   /**
+   * <p>
+   * If a suggest menu is available, it will be rendered on the component, not in the '.tobago-page-menuStore'.
+   * </p>
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  void setLocalMenu(String localMenu);
+
+  /**
    * The query is the string typed by the user.
    */
   @TagAttribute

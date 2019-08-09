@@ -154,5 +154,5 @@ function escapeClientId(clientId) {
 
 function getSuggestions(id) {
   return jQueryFrameFn(escapeClientId(
-      jQueryFrame(id + " .tobago-suggest").attr("id") + "::popup") + " .tt-suggestion");
+      jQueryFrame(id + " tobago-suggest").attr("id") + "::popup") + " .tt-suggestion");
 }

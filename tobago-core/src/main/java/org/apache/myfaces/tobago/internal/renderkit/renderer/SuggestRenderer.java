@@ -26,11 +26,9 @@ import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.model.AutoSuggestItem;
 import org.apache.myfaces.tobago.model.AutoSuggestItems;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
+import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -108,29 +106,28 @@ public class SuggestRenderer extends RendererBase {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.INPUT);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-    writer.writeClassAttribute(TobagoClass.SUGGEST);
+    writer.startElement(HtmlElements.TOBAGO_SUGGEST);
     final String clientId = suggest.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
-    writer.writeNameAttribute(clientId);
     if (input != null) {
-      writer.writeAttribute(DataAttributes.SUGGEST_FOR, input.getFieldId(facesContext), false);
+      writer.writeAttribute(HtmlAttributes.FOR, input.getFieldId(facesContext), false);
     } else {
       LOG.error("No ancestor with type AbstractUIInput found for suggest id={}", clientId);
     }
-    writer.writeAttribute(DataAttributes.SUGGEST_MIN_CHARS, suggest.getMinimumCharacters());
-    writer.writeAttribute(DataAttributes.SUGGEST_DELAY, suggest.getDelay());
-    writer.writeAttribute(DataAttributes.SUGGEST_MAX_ITEMS, suggest.getMaximumItems());
-    writer.writeAttribute(DataAttributes.SUGGEST_UPDATE, suggest.isUpdate());
-    writer.writeAttribute(DataAttributes.SUGGEST_TOTAL_COUNT, totalCount);
-    writer.writeAttribute(DataAttributes.SUGGEST_DATA, JsonUtils.encode(array), true);
+
+    writer.writeAttribute(CustomAttributes.MIN_CHARS, suggest.getMinimumCharacters());
+    writer.writeAttribute(CustomAttributes.DELAY, suggest.getDelay());
+    writer.writeAttribute(CustomAttributes.MAX_ITEMS, suggest.getMaximumItems());
+    writer.writeAttribute(CustomAttributes.UPDATE, suggest.isUpdate());
+    writer.writeAttribute(CustomAttributes.TOTAL_COUNT, totalCount);
+    writer.writeAttribute(CustomAttributes.LOCAL_MENU, suggest.isLocalMenu());
+    writer.writeAttribute(CustomAttributes.DATA, JsonUtils.encode(array), true);
 
     if (LOG.isDebugEnabled()) {
-      LOG.debug("suggest list: " + JsonUtils.encode(array));
+      LOG.debug("suggest list: {}", JsonUtils.encode(array));
     }
 
-    writer.endElement(HtmlElements.INPUT);
+    writer.endElement(HtmlElements.TOBAGO_SUGGEST);
   }
 
   private AutoSuggestItems createAutoSuggestItems(final Object object) {

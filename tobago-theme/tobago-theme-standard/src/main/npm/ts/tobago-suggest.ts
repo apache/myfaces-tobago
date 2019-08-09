@@ -15,32 +15,34 @@
  * limitations under the License.
  */
 
-import {Listener, Order, Phase} from "./tobago-listener";
 import {DomUtils} from "./tobago-utils";
-import {Tobago4Utils} from "./tobago-utils";
 
-class Suggest {
+class Suggest extends HTMLElement {
+
+  static asyncResults: (data: string[]) => void;
+
+  hiddenInput: HTMLInputElement;
 
   static loadFromServer = function (input: HTMLInputElement) {
 
-    var timeout;
+    let timeout;
 
     return function findMatches(query, syncResults, asyncResults) {
 
-      var suggest = document.getElementById(input.dataset["tobagoSuggestFor"]) as HTMLInputElement;
+      let suggest = document.getElementById(input.dataset["tobagoSuggestFor"]) as Suggest;
 
-      if (suggest.value !== query) {
+      // todo: suggest.hiddenInput.value should contain the last query value
+      if (suggest.hiddenInput.value !== query) {
 
         if (timeout) {
           clearTimeout(timeout);
         }
 
-        const delay = parseInt(suggest.dataset["tobagoSuggestDelay"]);
+        const delay = suggest.delay;
 
         timeout = setTimeout(function () {
-          suggest.value = query;
-          // suggest.dataset["tobagoSuggestCallback"] = asyncResults;
-          jQuery(suggest).data("tobago-suggest-callback", asyncResults); // tbd: evtl. to fix!!!
+          suggest.hiddenInput.value = query;
+          Suggest.asyncResults = asyncResults;
           delete suggest.dataset["tobagoSuggestData"];
           console.info("query: '" + query + "'");
 
@@ -70,103 +72,161 @@ class Suggest {
     };
   };
 
-  static init = function (element: HTMLElement) {
+  constructor() {
+    super();
+    this.hiddenInput = document.createElement("input");
+    this.hiddenInput.setAttribute("type", "hidden");
+    this.hiddenInput.setAttribute("name", this.id);
+    this.appendChild(this.hiddenInput);
+  }
 
-    for (const suggest of DomUtils.selfOrQuerySelectorAll(element, ".tobago-suggest")) {
-      var $suggest = jQuery(suggest);
-      var input = document.getElementById(suggest.dataset["tobagoSuggestFor"]) as HTMLInputElement;
-      var $input = jQuery(input);
+  get for(): string {
+    return this.getAttribute("for");
+  }
 
-      var minChars = parseInt(suggest.dataset["tobagoSuggestMinChars"]);
-      var maxItems = parseInt(suggest.dataset["tobagoSuggestMaxItems"]);
+  set for(forValue: string) {
+    this.setAttribute("for", forValue);
+  }
 
-      var update = suggest.dataset["tobagoSuggestUpdate"] !== null;
-      var totalCount = parseInt(suggest.dataset["tobagoSuggestTotalCount"]); // todo
+  get minChars(): number {
+    return parseInt(this.getAttribute("min-chars"));
+  }
 
-      // todo!
-      // var localMenu = false;
-      // var dataTobagoMarkup = jQuery(DomUtils.escapeClientId($input.attr("name"))).attr("data-tobago-markup");
-      // if (dataTobagoMarkup !== undefined) {
-      //   var markups = jQuery.parseJSON(jQuery(DomUtils.escapeClientId($input.attr("name"))).attr("data-tobago-markup"));
-      //   markups.forEach(function (markup) {
-      //     if (markup === "localMenu") {
-      //       localMenu = true;
-      //     }
-      //   });
-      // }
+  set minChars(minChars: number) {
+    this.setAttribute("min-chars", String(minChars));
+  }
 
-      if (update && input.classList.contains("tt-input")) { // already initialized: so only update data
-        var asyncResults = $suggest.data("tobago-suggest-callback"); // comes from "findMatches()"
-        if (asyncResults) {
-          const data1 = JSON.parse(suggest.dataset["tobagoSuggestData"]);
-          asyncResults(data1);
-        }
-      } else { // new
-        input.dataset["tobagoSuggestFor"] = suggest.id;
-        $input.attr("autocomplete", "off");
+  get delay(): number {
+    return parseInt(this.getAttribute("delay"));
+  }
 
-        var source;
-        if (update) {
-          source = Suggest.loadFromServer(input);
-        } else {
-          var data2 = JSON.parse(suggest.dataset["tobagoSuggestData"]);
-          source = Suggest.fromClient(data2);
-        }
+  set delay(delay: number) {
+    this.setAttribute("delay", String(delay));
+  }
 
-        let $suggestPopup = jQuery(document.getElementById(suggest.id + "::popup"));
-        if ($suggestPopup.length > 0) {
-          $suggestPopup.remove();
-        }
+  get maxItems(): number {
+    return parseInt(this.getAttribute("max-items"));
+  }
 
-        jQuery(".tobago-page-menuStore")
-            .append("<div id='" + suggest.id + "::popup" + "' class='tt-menu tt-empty'/>");
-        $suggestPopup = jQuery(document.getElementById(suggest.id + "::popup"));
+  set maxItems(maxItems: number) {
+    this.setAttribute("max-items", String(maxItems));
+  }
 
-        $input.typeahead({
-          menu: /* todo localMenu ? null :*/ $suggestPopup,
-          minLength: minChars,
-          hint: true,// todo
-          highlight: true // todo
-        }, {
-          //name: 'test',// todo
-          limit: maxItems,
-          source: source
-        });
-        // old with jQuery:
-        $input.on('typeahead:change', function (event: JQuery.Event) {
-            const input = this;
-            input.dispatchEvent(new Event("change"));
-        });
-        // new without jQuery:
-        // input.addEventListener("typeahead:change", (event: Event) => {
-        //   const input = event.currentTarget as HTMLInputElement;
-        //   input.dispatchEvent(new Event("change"));
-        // });
+  get update(): boolean {
+    return this.hasAttribute("update");
+  }
 
-        // old with jQuery:
-        $input.on('typeahead:open', function (event: Event) {
-          const input = this;
-          const suggestPopup = document.getElementById(input.dataset["tobagoSuggestFor"] + "::popup");
-          suggestPopup.style.top = DomUtils.offset(input).top + input.offsetHeight + "px";
-          suggestPopup.style.left = DomUtils.offset(input).left + "px";
-          suggestPopup.style.minWidth = input.offsetWidth + "px";
-        });
-
-        // new without jQuery:
-        // input.addEventListener("typeahead:open", (event: Event) => {
-        //   const input = event.currentTarget as HTMLInputElement;
-        //   const suggestPopup = document.getElementById(input.dataset["tobagoSuggestFor"] + "::popup");
-        //   suggestPopup.style.top = DomUtils.offset(input).top + input.offsetHeight + "px";
-        //   suggestPopup.style.left = DomUtils.offset(input).left + "px";
-        //   suggestPopup.style.minWidth = input.offsetWidth + "px";
-        // });
-
-      }
+  set update(update: boolean) {
+    if (update) {
+      this.setAttribute("update", "");
+    } else {
+      this.removeAttribute("update");
     }
-  };
+  }
+
+  get totalCount(): number {
+    return parseInt(this.getAttribute("total-count"));
+  }
+
+  set totalCount(totalCount: number) {
+    this.setAttribute("total-count", String(totalCount));
+  }
+
+  get data(): string[] {
+    return JSON.parse(this.getAttribute("data"));
+  }
+
+  set data(data: string[]) {
+    this.setAttribute("data", JSON.stringify(data));
+  }
+
+  get localMenu(): boolean {
+    return this.hasAttribute("local-menu");
+  }
+
+  set localMenu(update: boolean) {
+    if (update) {
+      this.setAttribute("local-menu", "");
+    } else {
+      this.removeAttribute("local-menu");
+    }
+  }
+
+  connectedCallback() {
+    const input = document.getElementById(this.for) as HTMLInputElement;
+    const $input = jQuery(input);
+
+    if (this.update && input.classList.contains("tt-input")) { // already initialized: so only update data
+      if (Suggest.asyncResults) {
+        Suggest.asyncResults(this.data);
+        Suggest.asyncResults = null;
+      }
+    } else { // new
+      input.dataset["tobagoSuggestFor"] = this.id;
+      input.autocomplete = "off";
+
+      var source;
+      if (this.update) {
+        source = Suggest.loadFromServer(input);
+      } else {
+        var data2 = this.data;
+        source = Suggest.fromClient(data2);
+      }
+
+      let suggestPopup = document.getElementById(this.id + "::popup");
+      if (suggestPopup) {
+        suggestPopup.parentElement.removeChild(suggestPopup);
+      }
+      suggestPopup = document.createElement("div");
+      suggestPopup.id = this.id + "::popup";
+      suggestPopup.classList.add("tt-menu", "tt-empty");
+      document.querySelector(".tobago-page-menuStore").appendChild(suggestPopup);
+
+      const menu = this.localMenu ? null : suggestPopup;
+
+      $input.typeahead({
+        menu: menu,
+        minLength: this.minChars,
+        hint: true,// todo
+        highlight: true // todo
+      }, {
+        //name: 'test',// todo
+        limit: this.maxItems,
+        source: source
+      });
+      // old with jQuery:
+      $input.on('typeahead:change', function (event: JQuery.Event) {
+        const input = this;
+        input.dispatchEvent(new Event("change"));
+      });
+      // new without jQuery:
+      // input.addEventListener("typeahead:change", (event: Event) => {
+      //   const input = event.currentTarget as HTMLInputElement;
+      //   input.dispatchEvent(new Event("change"));
+      // });
+
+      // old with jQuery:
+      $input.on('typeahead:open', function (event: JQuery.Event) {
+        const input = this;
+        const suggestPopup = document.getElementById(input.dataset["tobagoSuggestFor"] + "::popup");
+        suggestPopup.style.top = DomUtils.offset(input).top + input.offsetHeight + "px";
+        suggestPopup.style.left = DomUtils.offset(input).left + "px";
+        suggestPopup.style.minWidth = input.offsetWidth + "px";
+      });
+
+      // new without jQuery:
+      // input.addEventListener("typeahead:open", (event: Event) => {
+      //   const input = event.currentTarget as HTMLInputElement;
+      //   const suggestPopup = document.getElementById(input.dataset["tobagoSuggestFor"] + "::popup");
+      //   suggestPopup.style.top = DomUtils.offset(input).top + input.offsetHeight + "px";
+      //   suggestPopup.style.left = DomUtils.offset(input).left + "px";
+      //   suggestPopup.style.minWidth = input.offsetWidth + "px";
+      // });
+
+    }
+  }
 }
 
-// using "EARLY", because it must be called before Tobago.Layout.init
-// this is because the suggest puts a span around the input field and doesn't copy the style.
-Listener.register(Suggest.init, Phase.DOCUMENT_READY, Order.EARLY);
-Listener.register(Suggest.init, Phase.AFTER_UPDATE, Order.EARLY);
+document.addEventListener("DOMContentLoaded", function (event) {
+  window.customElements.define("tobago-suggest", Suggest);
+});

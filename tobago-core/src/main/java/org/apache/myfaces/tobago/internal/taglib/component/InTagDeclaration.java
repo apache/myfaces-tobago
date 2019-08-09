@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
-import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
@@ -86,12 +85,6 @@ import javax.faces.component.UIInput;
             name = ClientBehaviors.FOCUS),
         @Behavior(
             name = ClientBehaviors.BLUR)
-    },
-    markups = {
-        @Markup(name = org.apache.myfaces.tobago.context.Markup.STRING_LOCAL_MENU,
-            description = "If a suggest menu is available, it will be rendered on the component, "
-                + "not in the '.tobago-page-menuStore'."
-        )
     })
 public interface InTagDeclaration
     extends HasIdBindingAndRendered, HasConverter, IsReadonly, IsDisabled, IsRequired, HasHelp, HasTip, IsPassword,
