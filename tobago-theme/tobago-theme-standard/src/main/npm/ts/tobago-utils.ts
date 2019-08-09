@@ -114,7 +114,7 @@ export class DomUtils {
     return element.offsetHeight + parseInt(style.marginTop) + parseInt(style.marginBottom);
   }
 
-  static offset(element: HTMLElement) {
+  static offset(element: HTMLElement): { top, left } {
     let top = 0;
     let left = 0;
 

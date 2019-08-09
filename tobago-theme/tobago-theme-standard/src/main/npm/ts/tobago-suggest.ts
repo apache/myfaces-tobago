@@ -21,36 +21,36 @@ import {Tobago4Utils} from "./tobago-utils";
 
 class Suggest {
 
-  static loadFromServer = function (input) {
+  static loadFromServer = function (input: HTMLInputElement) {
 
     var timeout;
 
     return function findMatches(query, syncResults, asyncResults) {
 
-      var suggest = jQuery(DomUtils.escapeClientId(input.data("tobago-suggest-for")));
+      var suggest = document.getElementById(input.dataset["tobagoSuggestFor"]) as HTMLInputElement;
 
-      if (suggest.val() !== query) {
+      if (suggest.value !== query) {
 
         if (timeout) {
           clearTimeout(timeout);
         }
 
-        const delay = suggest.data("tobago-suggest-delay");
+        const delay = parseInt(suggest.dataset["tobagoSuggestDelay"]);
 
         timeout = setTimeout(function () {
-          suggest.val(query);
-          suggest.data("tobago-suggest-callback", asyncResults);
-          suggest.removeData("tobago-suggest-data"); // clear jQuery-data-cache
-          const id = suggest.attr("id");
+          suggest.value = query;
+          // suggest.dataset["tobagoSuggestCallback"] = asyncResults;
+          jQuery(suggest).data("tobago-suggest-callback", asyncResults); // tbd: evtl. to fix!!!
+          delete suggest.dataset["tobagoSuggestData"];
           console.info("query: '" + query + "'");
 
           jsf.ajax.request(
-              id,
+              suggest.id,
               null, // todo: event?
               {
                 "javax.faces.behavior.event": "suggest",
-                execute: id,
-                render: id
+                execute: suggest.id,
+                render: suggest.id
               });
         }, delay);
 
@@ -72,56 +72,58 @@ class Suggest {
 
   static init = function (element: HTMLElement) {
 
-    Tobago4Utils.selectWithJQuery($(element), ".tobago-suggest").each(function () {
-      var $suggest = jQuery(this);
-      var $input = jQuery(DomUtils.escapeClientId($suggest.data("tobago-suggest-for")));
+    for (const suggest of DomUtils.selfOrQuerySelectorAll(element, ".tobago-suggest")) {
+      var $suggest = jQuery(suggest);
+      var input = document.getElementById(suggest.dataset["tobagoSuggestFor"]) as HTMLInputElement;
+      var $input = jQuery(input);
 
-      var minChars = $suggest.data("tobago-suggest-min-chars");
-      var maxItems = $suggest.data("tobago-suggest-max-items");
+      var minChars = parseInt(suggest.dataset["tobagoSuggestMinChars"]);
+      var maxItems = parseInt(suggest.dataset["tobagoSuggestMaxItems"]);
 
-      var update = typeof $suggest.data("tobago-suggest-update") != "undefined";
-      var totalCount = $suggest.data("tobago-suggest-total-count"); // todo
+      var update = suggest.dataset["tobagoSuggestUpdate"] !== null;
+      var totalCount = parseInt(suggest.dataset["tobagoSuggestTotalCount"]); // todo
 
-      var localMenu = false;
-      var dataTobagoMarkup = jQuery(DomUtils.escapeClientId($input.attr("name"))).attr("data-tobago-markup");
-      if (dataTobagoMarkup !== undefined) {
-        var markups = jQuery.parseJSON(jQuery(DomUtils.escapeClientId($input.attr("name"))).attr("data-tobago-markup"));
-        markups.forEach(function (markup) {
-          if (markup === "localMenu") {
-            localMenu = true;
-          }
-        });
-      }
+      // todo!
+      // var localMenu = false;
+      // var dataTobagoMarkup = jQuery(DomUtils.escapeClientId($input.attr("name"))).attr("data-tobago-markup");
+      // if (dataTobagoMarkup !== undefined) {
+      //   var markups = jQuery.parseJSON(jQuery(DomUtils.escapeClientId($input.attr("name"))).attr("data-tobago-markup"));
+      //   markups.forEach(function (markup) {
+      //     if (markup === "localMenu") {
+      //       localMenu = true;
+      //     }
+      //   });
+      // }
 
-      if (update && $input.hasClass("tt-input")) { // already initialized: so only update data
+      if (update && input.classList.contains("tt-input")) { // already initialized: so only update data
         var asyncResults = $suggest.data("tobago-suggest-callback"); // comes from "findMatches()"
         if (asyncResults) {
-          var data1 = $suggest.data("tobago-suggest-data");
+          const data1 = JSON.parse(suggest.dataset["tobagoSuggestData"]);
           asyncResults(data1);
         }
       } else { // new
-        $input.data("tobago-suggest-for", $suggest.attr("id"));
+        input.dataset["tobagoSuggestFor"] = suggest.id;
         $input.attr("autocomplete", "off");
 
         var source;
         if (update) {
-          source = Suggest.loadFromServer($input);
+          source = Suggest.loadFromServer(input);
         } else {
-          var data2 = $suggest.data("tobago-suggest-data");
+          var data2 = JSON.parse(suggest.dataset["tobagoSuggestData"]);
           source = Suggest.fromClient(data2);
         }
 
-        var $suggestPopup = getSuggestPopup($suggest);
+        let $suggestPopup = jQuery(document.getElementById(suggest.id + "::popup"));
         if ($suggestPopup.length > 0) {
           $suggestPopup.remove();
         }
 
         jQuery(".tobago-page-menuStore")
-            .append("<div id='" + $suggest.attr('id') + "::popup" + "' class='tt-menu tt-empty'/>");
-        $suggestPopup = getSuggestPopup($suggest);
+            .append("<div id='" + suggest.id + "::popup" + "' class='tt-menu tt-empty'/>");
+        $suggestPopup = jQuery(document.getElementById(suggest.id + "::popup"));
 
         $input.typeahead({
-          menu: localMenu ? null : $suggestPopup,
+          menu: /* todo localMenu ? null :*/ $suggestPopup,
           minLength: minChars,
           hint: true,// todo
           highlight: true // todo
@@ -129,26 +131,37 @@ class Suggest {
           //name: 'test',// todo
           limit: maxItems,
           source: source
-        }).on('typeahead:change', function (event) {
-          $input.trigger('change');
+        });
+        // old with jQuery:
+        $input.on('typeahead:change', function (event: JQuery.Event) {
+            const input = this;
+            input.dispatchEvent(new Event("change"));
+        });
+        // new without jQuery:
+        // input.addEventListener("typeahead:change", (event: Event) => {
+        //   const input = event.currentTarget as HTMLInputElement;
+        //   input.dispatchEvent(new Event("change"));
+        // });
+
+        // old with jQuery:
+        $input.on('typeahead:open', function (event: Event) {
+          const input = this;
+          const suggestPopup = document.getElementById(input.dataset["tobagoSuggestFor"] + "::popup");
+          suggestPopup.style.top = DomUtils.offset(input).top + input.offsetHeight + "px";
+          suggestPopup.style.left = DomUtils.offset(input).left + "px";
+          suggestPopup.style.minWidth = input.offsetWidth + "px";
         });
 
-        $input.on('typeahead:open', function () {
-          var $input = jQuery(this);
-          var $suggest = $input.parent().siblings(".tobago-suggest");
-          if ($suggest.length === 0) {
-            $suggest = $input.parent().parent().parent().siblings(".tobago-suggest");
-          }
-          var $suggestPopup = jQuery(DomUtils.escapeClientId($suggest.attr('id') + "::popup"));
-          $suggestPopup.css("top", $input.offset().top + $input.outerHeight() + "px");
-          $suggestPopup.css("left", $input.offset().left + "px");
-          $suggestPopup.css("min-width", $input.outerWidth() + "px");
-        });
+        // new without jQuery:
+        // input.addEventListener("typeahead:open", (event: Event) => {
+        //   const input = event.currentTarget as HTMLInputElement;
+        //   const suggestPopup = document.getElementById(input.dataset["tobagoSuggestFor"] + "::popup");
+        //   suggestPopup.style.top = DomUtils.offset(input).top + input.offsetHeight + "px";
+        //   suggestPopup.style.left = DomUtils.offset(input).left + "px";
+        //   suggestPopup.style.minWidth = input.offsetWidth + "px";
+        // });
+
       }
-    });
-
-    function getSuggestPopup(suggest) {
-      return jQuery(DomUtils.escapeClientId(suggest.attr('id') + "::popup"));
     }
   };
 }
