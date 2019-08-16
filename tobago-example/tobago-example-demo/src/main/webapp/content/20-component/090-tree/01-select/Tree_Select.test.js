@@ -15,238 +15,251 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("single: select Music, select Mathematics", function (assert) {
-  var musicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:3\\:select");
-  var mathematicsFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
-  var outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedNodesOutput span");
-  var selectableNoneFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:0");
-  var selectableSingleFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:1");
-  var inputFn = jQueryFrameFn(".tobago-treeSelect input");
+  let musicFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:3\\:select");
+  let mathematicsFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
+  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectedNodesOutput span");
+  let selectableNoneFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:0");
+  let selectableSingleFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:1");
+  let inputFn = testFrameQuerySelectorFn(".tobago-treeSelect input");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    selectableNoneFn().prop("checked", true).trigger("change");
+    selectableNoneFn().checked = true;
+    selectableNoneFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(inputFn().length, 0);
+    assert.equal(inputFn(), undefined);
   });
   TTT.action(function () {
-    selectableSingleFn().prop("checked", true).trigger("change");
+    selectableSingleFn().checked = true;
+    selectableSingleFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.notEqual(inputFn().length, 0);
+    assert.notEqual(inputFn(), undefined);
   });
   TTT.action(function () {
-    musicFn().prop("checked", true).trigger("change");
+    musicFn().checked = true;
+    musicFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Music");
+    assert.equal(outputFn().textContent, "Music");
   });
   TTT.action(function () {
-    mathematicsFn().prop("checked", true).trigger("change");
+    mathematicsFn().checked = true;
+    mathematicsFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Mathematics");
+    assert.equal(outputFn().textContent, "Mathematics");
   });
   TTT.startTest();
 });
 
 QUnit.test("singleLeafOnly: select Classic, select Mathematics", function (assert) {
-  var classicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:4\\:select");
-  var mathematicsFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
-  var outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedNodesOutput span");
-  var selectableNoneFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:0");
-  var selectableSingleLeafOnlyFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:2");
-  var inputFn = jQueryFrameFn(".tobago-treeSelect input");
+  let classicFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:4\\:select");
+  let mathematicsFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
+  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectedNodesOutput span");
+  let selectableNoneFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:0");
+  let selectableSingleLeafOnlyFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:2");
+  let inputFn = testFrameQuerySelectorFn(".tobago-treeSelect input");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    selectableNoneFn().prop("checked", true).trigger("change");
+    selectableNoneFn().checked = true;
+    selectableNoneFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(inputFn().length, 0);
+    assert.equal(inputFn(), undefined);
   });
   TTT.action(function () {
-    selectableSingleLeafOnlyFn().prop("checked", true).trigger("change");
+    selectableSingleLeafOnlyFn().checked = true;
+    selectableSingleLeafOnlyFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.notEqual(inputFn().length, 0);
+    assert.notEqual(inputFn(), undefined);
   });
   TTT.action(function () {
-    classicFn().prop("checked", true).trigger("change");
+    classicFn().checked = true;
+    classicFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Classic");
+    assert.equal(outputFn().textContent, "Classic");
   });
   TTT.action(function () {
-    mathematicsFn().prop("checked", true).trigger("change");
+    mathematicsFn().checked = true;
+    mathematicsFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Mathematics");
+    assert.equal(outputFn().textContent, "Mathematics");
   });
   TTT.startTest();
 });
 
 QUnit.test("multi: select Music, select Mathematics, deselect Music", function (assert) {
-  var musicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:3\\:select");
-  var mathematicsFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
-  var outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedNodesOutput span");
-  var selectableNoneFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:0");
-  var selectableMultiFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:3");
-  var inputFn = jQueryFrameFn(".tobago-treeSelect input");
+  let musicFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:3\\:select");
+  let mathematicsFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
+  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectedNodesOutput span");
+  let selectableNoneFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:0");
+  let selectableMultiFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:3");
+  let inputFn = testFrameQuerySelectorFn(".tobago-treeSelect input");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    selectableNoneFn().prop("checked", true).trigger("change");
+    selectableNoneFn().checked = true;
+    selectableNoneFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(inputFn().length, 0);
+    assert.equal(inputFn(), undefined);
   });
   TTT.action(function () {
-    selectableMultiFn().prop("checked", true).trigger("change");
+    selectableMultiFn().checked = true;
+    selectableMultiFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.notEqual(inputFn().length, 0);
+    assert.notEqual(inputFn(), undefined);
   });
   TTT.action(function () {
-    musicFn().prop("checked", true).trigger("change");
+    musicFn().checked = true;
+    musicFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Music");
+    assert.equal(outputFn().textContent, "Music");
   });
   TTT.action(function () {
-    mathematicsFn().prop("checked", true).trigger("change");
+    mathematicsFn().checked = true;
+    mathematicsFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Music, Mathematics");
+    assert.equal(outputFn().textContent, "Music, Mathematics");
   });
   TTT.action(function () {
-    musicFn().prop("checked", false).trigger("change");
+    musicFn().checked = false;
+    musicFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Mathematics");
+    assert.equal(outputFn().textContent, "Mathematics");
   });
   TTT.startTest();
 });
 
 QUnit.test("multiLeafOnly: select Classic, select Mathematics, deselect Classic", function (assert) {
-  var classicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:4\\:select");
-  var mathematicsFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
-  var outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedNodesOutput span");
-  var selectableNoneFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:0");
-  var selectableMultiLeafOnlyFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:4");
-  var inputFn = jQueryFrameFn(".tobago-treeSelect input");
+  let classicFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:4\\:select");
+  let mathematicsFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
+  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectedNodesOutput span");
+  let selectableNoneFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:0");
+  let selectableMultiLeafOnlyFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:4");
+  let inputFn = testFrameQuerySelectorFn(".tobago-treeSelect input");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    selectableNoneFn().prop("checked", true).trigger("change");
+    selectableNoneFn().checked = true;
+    selectableNoneFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(inputFn().length, 0);
+    assert.equal(inputFn(), undefined);
   });
   TTT.action(function () {
-    selectableMultiLeafOnlyFn().prop("checked", true).trigger("change");
+    selectableMultiLeafOnlyFn().checked = true;
+    selectableMultiLeafOnlyFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.notEqual(inputFn().length, 0);
+    assert.notEqual(inputFn(), undefined);
   });
   TTT.action(function () {
-    classicFn().prop("checked", true).trigger("change");
+    classicFn().checked = true;
+    classicFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Classic");
+    assert.equal(outputFn().textContent, "Classic");
   });
   TTT.action(function () {
-    mathematicsFn().prop("checked", true).trigger("change");
+    mathematicsFn().checked = true;
+    mathematicsFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Classic, Mathematics");
+    assert.equal(outputFn().textContent, "Classic, Mathematics");
   });
   TTT.action(function () {
-    classicFn().prop("checked", false).trigger("change");
+    classicFn().checked = false;
+    classicFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Mathematics");
+    assert.equal(outputFn().textContent, "Mathematics");
   });
   TTT.startTest();
 });
 
 QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", function (assert) {
-  var musicFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:3\\:select");
-  var classicFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:4\\:select");
-  var mathematicsFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
-  var outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedNodesOutput span");
-  var selectableNoneFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:0");
-  var selectableMultiCascadeFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:5");
-  var inputFn = jQueryFrameFn(".tobago-treeSelect input");
+  let musicFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:3\\:select");
+  let classicFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:4\\:select");
+  let mathematicsFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
+  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectedNodesOutput span");
+  let selectableNoneFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:0");
+  let selectableMultiCascadeFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:5");
+  let inputFn = testFrameQuerySelectorFn(".tobago-treeSelect input");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectableNoneFn().checked = true;
-
     selectableNoneFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(inputFn().length, 0);
+    assert.equal(inputFn(), undefined);
   });
   TTT.action(function () {
     selectableMultiCascadeFn().checked = true;
-
     selectableMultiCascadeFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.notEqual(inputFn().length, 0);
+    assert.notEqual(inputFn(), undefined);
   });
   TTT.action(function () {
     musicFn().checked = true;
-
     musicFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse(); // an ajax request is send for every leaf (Music, Classic, Pop, World)
   TTT.waitMs(2000); // wait for the last ajax
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Music, Classic, Pop, World");
+    assert.equal(outputFn().textContent, "Music, Classic, Pop, World");
   });
   TTT.action(function () {
     mathematicsFn().checked = true;
-
     mathematicsFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Music, Classic, Pop, World, Mathematics");
+    assert.equal(outputFn().textContent, "Music, Classic, Pop, World, Mathematics");
   });
   TTT.action(function () {
     classicFn().checked = false;
-
     classicFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Music, Pop, World, Mathematics");
+    assert.equal(outputFn().textContent, "Music, Pop, World, Mathematics");
   });
   TTT.startTest();
 });

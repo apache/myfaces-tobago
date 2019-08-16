@@ -15,45 +15,46 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("inputfield with label", function (assert) {
-  var labelFn = jQueryFrameFn("#page\\:mainForm\\:iNormal > label");
-  var inputFieldFn = jQueryFrameFn("#page\\:mainForm\\:iNormal\\:\\:field");
+  let labelFn = testFrameQuerySelectorFn("#page\\:mainForm\\:iNormal > label");
+  let inputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:iNormal\\:\\:field");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.asserts(2, function () {
-    assert.equal(labelFn().text(), "Input");
-    assert.equal(inputFieldFn().val(), "Some Text");
+    assert.equal(labelFn().textContent, "Input");
+    assert.equal(inputFieldFn().value, "Some Text");
   });
   TTT.action(function () {
-    inputFieldFn().val("abc");
+    inputFieldFn().value = "abc";
   });
   TTT.asserts(1, function () {
-    assert.equal(inputFieldFn().val(), "abc");
+    assert.equal(inputFieldFn().value, "abc");
   });
   TTT.startTest();
 });
 
 QUnit.test("ajax change event", function (assert) {
-  var inputFieldFn = jQueryFrameFn("#page\\:mainForm\\:inputAjax\\:\\:field");
-  var outputFieldFn = jQueryFrameFn("#page\\:mainForm\\:outputAjax span:first");
+  let inputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:inputAjax\\:\\:field");
+  let outputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:outputAjax span");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.asserts(2, function () {
-    assert.equal(inputFieldFn().val(), "");
-    assert.equal(outputFieldFn().text(), "");
+    assert.equal(inputFieldFn().value, "");
+    assert.equal(outputFieldFn().textContent, "");
   });
   TTT.action(function () {
-    inputFieldFn().val("qwe").trigger("change");
+    inputFieldFn().value = "qwe";
+    inputFieldFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(inputFieldFn().val(), "qwe");
+    assert.equal(inputFieldFn().value, "qwe");
   });
   TTT.asserts(1, function () {
-    assert.equal(outputFieldFn().text(), "qwe");
+    assert.equal(outputFieldFn().textContent, "qwe");
   });
   TTT.startTest();
 });

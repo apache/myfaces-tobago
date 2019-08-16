@@ -15,154 +15,154 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("On click with ajax", function (assert) {
-  var oneClickAjaxFn = testFrameQuerySelectorFn("#page\\:mainForm\\:changeExample\\:\\:0");
-  var venusFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:2\\:sample0");
-  var jupiterFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:5\\:sample0");
-  var saturnFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:6\\:sample0");
-  var namefieldFn = jQueryFrameFn("#page\\:mainForm\\:name\\:\\:field");
+  let oneClickAjaxFn = testFrameQuerySelectorFn("#page\\:mainForm\\:changeExample\\:\\:0");
+  let venusFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1\\:2\\:sample0");
+  let jupiterFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1\\:5\\:sample0");
+  let saturnFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1\\:6\\:sample0");
+  let namefieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:name\\:\\:field");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     oneClickAjaxFn().checked = true;
     oneClickAjaxFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal(venusFn().length, 1);
-    assert.equal(jupiterFn().length, 1);
-    assert.equal(saturnFn().length, 1);
+    assert.ok(venusFn());
+    assert.ok(jupiterFn());
+    assert.ok(saturnFn());
   });
   TTT.action(function () {
     venusFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(namefieldFn().val(), "Venus");
+    assert.equal(namefieldFn().value, "Venus");
   });
   TTT.action(function () {
     jupiterFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(namefieldFn().val(), "Jupiter");
+    assert.equal(namefieldFn().value, "Jupiter");
   });
   TTT.action(function () {
     saturnFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(namefieldFn().val(), "Saturn");
+    assert.equal(namefieldFn().value, "Saturn");
   });
   TTT.startTest();
 });
 
 QUnit.test("On click with full request", function (assert) {
-  var oneClickFullRequestFn = testFrameQuerySelectorFn("#page\\:mainForm\\:changeExample\\:\\:1");
-  var venusFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:2\\:sample1");
-  var jupiterFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:5\\:sample1");
-  var saturnFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:6\\:sample1");
-  var namefieldFn = jQueryFrameFn("#page\\:mainForm\\:name\\:\\:field");
+  let oneClickFullRequestFn = testFrameQuerySelectorFn("#page\\:mainForm\\:changeExample\\:\\:1");
+  let venusFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1\\:2\\:sample1");
+  let jupiterFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1\\:5\\:sample1");
+  let saturnFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1\\:6\\:sample1");
+  let namefieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:name\\:\\:field");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     oneClickFullRequestFn().checked = true;
     oneClickFullRequestFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal(venusFn().length, 1);
-    assert.equal(jupiterFn().length, 1);
-    assert.equal(saturnFn().length, 1);
+    assert.ok(venusFn());
+    assert.ok(jupiterFn());
+    assert.ok(saturnFn());
   });
   TTT.action(function () {
     venusFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(namefieldFn().val(), "Venus");
+    assert.equal(namefieldFn().value, "Venus");
   });
   TTT.action(function () {
     jupiterFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(namefieldFn().val(), "Jupiter");
+    assert.equal(namefieldFn().value, "Jupiter");
   });
   TTT.action(function () {
     saturnFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(namefieldFn().val(), "Saturn");
+    assert.equal(namefieldFn().value, "Saturn");
   });
   TTT.startTest();
 });
 
 QUnit.test("On double click with full request", function (assert) {
-  var doubleClickFullRequestFn = testFrameQuerySelectorFn("#page\\:mainForm\\:changeExample\\:\\:2");
-  var venusFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:2\\:sample2");
-  var jupiterFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:5\\:sample2");
-  var saturnFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:6\\:sample2");
-  var namefieldFn = jQueryFrameFn("#page\\:mainForm\\:name\\:\\:field");
+  let doubleClickFullRequestFn = testFrameQuerySelectorFn("#page\\:mainForm\\:changeExample\\:\\:2");
+  let venusFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1\\:2\\:sample2");
+  let jupiterFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1\\:5\\:sample2");
+  let saturnFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1\\:6\\:sample2");
+  let namefieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:name\\:\\:field");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     doubleClickFullRequestFn().checked = true;
     doubleClickFullRequestFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal(venusFn().length, 1);
-    assert.equal(jupiterFn().length, 1);
-    assert.equal(saturnFn().length, 1);
+    assert.ok(venusFn());
+    assert.ok(jupiterFn());
+    assert.ok(saturnFn());
   });
   TTT.action(function () {
-    venusFn().dblclick();
+    venusFn().dispatchEvent(new Event('dblclick'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(namefieldFn().val(), "Venus");
+    assert.equal(namefieldFn().value, "Venus");
   });
   TTT.action(function () {
-    jupiterFn().dblclick();
+    jupiterFn().dispatchEvent(new Event('dblclick'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(namefieldFn().val(), "Jupiter");
+    assert.equal(namefieldFn().value, "Jupiter");
   });
   TTT.action(function () {
-    saturnFn().dblclick();
+    saturnFn().dispatchEvent(new Event('dblclick'));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(namefieldFn().val(), "Saturn");
+    assert.equal(namefieldFn().value, "Saturn");
   });
   TTT.startTest();
 });
 
 QUnit.test("Open popup on click with ajax", function (assert) {
-  var radioButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:changeExample\\:\\:3");
-  var venusFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:2\\:sample3");
-  var jupiterFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:5\\:sample3");
-  var saturnFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:6\\:sample3");
-  var popupFn = jQueryFrameFn("#page\\:mainForm\\:popup");
-  var nameFn = jQueryFrameFn("#page\\:mainForm\\:popup\\:popupName\\:\\:field");
-  var cancelFn = jQueryFrameFn("#page\\:mainForm\\:popup\\:cancel");
+  let radioButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:changeExample\\:\\:3");
+  let venusFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1\\:2\\:sample3");
+  let jupiterFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1\\:5\\:sample3");
+  let saturnFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1\\:6\\:sample3");
+  let popupFn = testFrameQuerySelectorFn("#page\\:mainForm\\:popup");
+  let nameFn = testFrameQuerySelectorFn("#page\\:mainForm\\:popup\\:popupName\\:\\:field");
+  let cancelFn = testFrameQuerySelectorFn("#page\\:mainForm\\:popup\\:cancel");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     radioButtonFn().checked = true;
     radioButtonFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal(venusFn().length, 1);
-    assert.equal(jupiterFn().length, 1);
-    assert.equal(saturnFn().length, 1);
+    assert.ok(venusFn());
+    assert.ok(jupiterFn());
+    assert.ok(saturnFn());
   });
   TTT.action(function () {
     venusFn().click();
@@ -170,15 +170,15 @@ QUnit.test("Open popup on click with ajax", function (assert) {
   TTT.waitForResponse();
   TTT.waitMs(1000); // wait for animation
   TTT.asserts(2, function () {
-    assert.ok(popupFn().hasClass("show"));
-    assert.equal(nameFn().val(), "Venus");
+    assert.ok(popupFn().classList.contains("show"));
+    assert.equal(nameFn().value, "Venus");
   });
   TTT.action(function () {
     cancelFn().click();
   });
   TTT.waitMs(1000); // wait for animation
   TTT.asserts(1, function () {
-    assert.notOk(popupFn().hasClass("show"));
+    assert.notOk(popupFn().classList.contains("show"));
   });
   TTT.action(function () {
     jupiterFn().click();
@@ -186,15 +186,15 @@ QUnit.test("Open popup on click with ajax", function (assert) {
   TTT.waitForResponse();
   TTT.waitMs(1000); // wait for animation
   TTT.asserts(2, function () {
-    assert.ok(popupFn().hasClass("show"));
-    assert.equal(nameFn().val(), "Jupiter");
+    assert.ok(popupFn().classList.contains("show"));
+    assert.equal(nameFn().value, "Jupiter");
   });
   TTT.action(function () {
     cancelFn().click();
   });
   TTT.waitMs(1000); // wait for animation
   TTT.asserts(1, function () {
-    assert.notOk(popupFn().hasClass("show"));
+    assert.notOk(popupFn().classList.contains("show"));
   });
   TTT.action(function () {
     saturnFn().click();
@@ -202,15 +202,15 @@ QUnit.test("Open popup on click with ajax", function (assert) {
   TTT.waitForResponse();
   TTT.waitMs(1000); // wait for animation
   TTT.asserts(2, function () {
-    assert.ok(popupFn().hasClass("show"));
-    assert.equal(nameFn().val(), "Saturn");
+    assert.ok(popupFn().classList.contains("show"));
+    assert.equal(nameFn().value, "Saturn");
   });
   TTT.action(function () {
     cancelFn().click();
   });
   TTT.waitMs(1000); // wait for animation
   TTT.asserts(1, function () {
-    assert.notOk(popupFn().hasClass("show"));
+    assert.notOk(popupFn().classList.contains("show"));
   });
   TTT.startTest();
 });
