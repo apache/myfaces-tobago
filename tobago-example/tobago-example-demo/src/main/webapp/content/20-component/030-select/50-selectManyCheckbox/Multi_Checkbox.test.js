@@ -15,111 +15,117 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("submit: select cat", function (assert) {
-  var animalsFn = jQueryFrameFn("#page\\:mainForm\\:animals input");
-  var submitFn = jQueryFrameFn("#page\\:mainForm\\:submit");
-  var outputFn = jQueryFrameFn("#page\\:mainForm\\:animalsOutput span");
+  let animalsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:animals input");
+  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:submit");
+  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:animalsOutput span");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    animalsFn().eq(0).prop("checked", true);
-    animalsFn().eq(1).prop("checked", false);
-    animalsFn().eq(2).prop("checked", false);
-    animalsFn().eq(3).prop("checked", false);
+    animalsFn().item(0).checked = true;
+    animalsFn().item(1).checked = false;
+    animalsFn().item(2).checked = false;
+    animalsFn().item(3).checked = false;
     submitFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Cat ");
+    assert.equal(outputFn().textContent, "Cat ");
   });
   TTT.startTest();
 });
 
 QUnit.test("submit: select fox and rabbit", function (assert) {
-  var animalsFn = jQueryFrameFn("#page\\:mainForm\\:animals input");
-  var submitFn = jQueryFrameFn("#page\\:mainForm\\:submit");
-  var outputFn = jQueryFrameFn("#page\\:mainForm\\:animalsOutput span");
+  let animalsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:animals input");
+  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:submit");
+  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:animalsOutput span");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    animalsFn().eq(0).prop("checked", false);
-    animalsFn().eq(1).prop("checked", false);
-    animalsFn().eq(2).prop("checked", true);
-    animalsFn().eq(3).prop("checked", true);
+    animalsFn().item(0).checked = false;
+    animalsFn().item(1).checked = false;
+    animalsFn().item(2).checked = true;
+    animalsFn().item(3).checked = true;
     submitFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Fox Rabbit ");
+    assert.equal(outputFn().textContent, "Fox Rabbit ");
   });
   TTT.startTest();
 });
 
 QUnit.test("ajax: click 'Two'", function (assert) {
-  var number2Fn = jQueryFrameFn("#page\\:mainForm\\:numbers\\:\\:1");
-  var outputFn = jQueryFrameFn("#page\\:mainForm\\:resultOutput span");
-  var newOutputValue;
+  let number2Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:numbers\\:\\:1");
+  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:resultOutput span");
+  let newOutputValue;
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    if (number2Fn().prop("checked")) {
-      newOutputValue = parseInt(outputFn().text()) - 2;
-      number2Fn().prop("checked", false).trigger("change");
+    if (number2Fn().checked) {
+      newOutputValue = parseInt(outputFn().textContent) - 2;
+      number2Fn().checked = false;
+      number2Fn().dispatchEvent(new Event('change'));
     } else {
-      newOutputValue = parseInt(outputFn().text()) + 2;
-      number2Fn().prop("checked", true).trigger("change");
+      newOutputValue = parseInt(outputFn().textContent) + 2;
+      number2Fn().checked = true;
+      number2Fn().dispatchEvent(new Event('change'));
     }
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), newOutputValue);
+    assert.equal(outputFn().textContent, newOutputValue);
   });
   TTT.startTest();
 });
 
 QUnit.test("ajax: click 'Three'", function (assert) {
-  var number3Fn = jQueryFrameFn("#page\\:mainForm\\:numbers\\:\\:2");
-  var outputFn = jQueryFrameFn("#page\\:mainForm\\:resultOutput span");
-  var newOutputValue;
+  let number3Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:numbers\\:\\:2");
+  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:resultOutput span");
+  let newOutputValue;
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    if (number3Fn().prop("checked")) {
-      newOutputValue = parseInt(outputFn().text()) - 3;
-      number3Fn().prop("checked", false).trigger("change");
+    if (number3Fn().checked) {
+      newOutputValue = parseInt(outputFn().textContent) - 3;
+      number3Fn().checked = false;
+      number3Fn().dispatchEvent(new Event('change'));
     } else {
-      newOutputValue = parseInt(outputFn().text()) + 3;
-      number3Fn().prop("checked", true).trigger("change");
+      newOutputValue = parseInt(outputFn().textContent) + 3;
+      number3Fn().checked = true;
+      number3Fn().dispatchEvent(new Event('change'));
     }
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), newOutputValue);
+    assert.equal(outputFn().textContent, newOutputValue);
   });
   TTT.startTest();
 });
 
 QUnit.test("ajax: click 'Two'", function (assert) {
-  var number2Fn = jQueryFrameFn("#page\\:mainForm\\:numbers\\:\\:1");
-  var outputFn = jQueryFrameFn("#page\\:mainForm\\:resultOutput span");
-  var newOutputValue;
+  let number2Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:numbers\\:\\:1");
+  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:resultOutput span");
+  let newOutputValue;
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    if (number2Fn().prop("checked")) {
-      newOutputValue = parseInt(outputFn().text()) - 2;
-      number2Fn().prop("checked", false).trigger("change");
+    if (number2Fn().checked) {
+      newOutputValue = parseInt(outputFn().textContent) - 2;
+      number2Fn().checked = false;
+      number2Fn().dispatchEvent(new Event('change'));
     } else {
-      newOutputValue = parseInt(outputFn().text()) + 2;
-      number2Fn().prop("checked", true).trigger("change");
+      newOutputValue = parseInt(outputFn().textContent) + 2;
+      number2Fn().checked = true;
+      number2Fn().dispatchEvent(new Event('change'));
     }
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), newOutputValue);
+    assert.equal(outputFn().textContent, newOutputValue);
   });
   TTT.startTest();
 });

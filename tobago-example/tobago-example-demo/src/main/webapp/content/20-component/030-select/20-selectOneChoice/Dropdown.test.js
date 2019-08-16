@@ -15,16 +15,16 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn} from "/script/tobago-test.js";
+import {jQueryFrameFn, testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("submit: Alice", function (assert) {
-  var aliceFn = jQueryFrameFn("#page\\:mainForm\\:selectPerson\\:\\:field option:contains('Alice')");
-  var bobFn = jQueryFrameFn("#page\\:mainForm\\:selectPerson\\:\\:field option:contains('Bob')");
-  var submitFn = jQueryFrameFn("#page\\:mainForm\\:submit");
-  var outputFn = jQueryFrameFn("#page\\:mainForm\\:outputPerson span");
+  let aliceFn = jQueryFrameFn("#page\\:mainForm\\:selectPerson\\:\\:field option:contains('Alice')");
+  let bobFn = jQueryFrameFn("#page\\:mainForm\\:selectPerson\\:\\:field option:contains('Bob')");
+  let submitFn = jQueryFrameFn("#page\\:mainForm\\:submit");
+  let outputFn = jQueryFrameFn("#page\\:mainForm\\:outputPerson span");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     aliceFn().prop("selected", true);
     bobFn().prop("selected", false);
@@ -39,12 +39,12 @@ QUnit.test("submit: Alice", function (assert) {
 });
 
 QUnit.test("submit: Bob", function (assert) {
-  var aliceFn = jQueryFrameFn("#page\\:mainForm\\:selectPerson\\:\\:field option:contains('Alice')");
-  var bobFn = jQueryFrameFn("#page\\:mainForm\\:selectPerson\\:\\:field option:contains('Bob')");
-  var submitFn = jQueryFrameFn("#page\\:mainForm\\:submit");
-  var outputFn = jQueryFrameFn("#page\\:mainForm\\:outputPerson span");
+  let aliceFn = jQueryFrameFn("#page\\:mainForm\\:selectPerson\\:\\:field option:contains('Alice')");
+  let bobFn = jQueryFrameFn("#page\\:mainForm\\:selectPerson\\:\\:field option:contains('Bob')");
+  let submitFn = jQueryFrameFn("#page\\:mainForm\\:submit");
+  let outputFn = jQueryFrameFn("#page\\:mainForm\\:outputPerson span");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     aliceFn().prop("selected", false);
     bobFn().prop("selected", true);
@@ -58,39 +58,43 @@ QUnit.test("submit: Bob", function (assert) {
 });
 
 QUnit.test("ajax: select Mars", function (assert) {
-  var marsFn = jQueryFrameFn("#page\\:mainForm\\:selectPlanet\\:\\:field option:contains('Mars')");
-  var jupiterFn = jQueryFrameFn("#page\\:mainForm\\:selectPlanet\\:\\:field option:contains('Jupiter')");
-  var moonsFn = jQueryFrameFn("#page\\:mainForm\\:moonbox\\:\\:field option");
+  let planetFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field");
+  let marsOptionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field option[value='1']");
+  let jupiterOptionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field option[value='2']");
+  let moonsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:moonbox\\:\\:field option");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    jupiterFn().prop("selected", false);
-    marsFn().prop("selected", true).trigger("change");
+    jupiterOptionFn().selected = false;
+    marsOptionFn().selected = true;
+    planetFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
-    assert.equal(moonsFn().eq(0).text().trim(), "Phobos");
-    assert.equal(moonsFn().eq(1).text().trim(), "Deimos");
+    assert.equal(moonsFn().item(0).text, "Phobos");
+    assert.equal(moonsFn().item(1).text, "Deimos");
   });
   TTT.startTest();
 });
 
 QUnit.test("ajax: select Jupiter", function (assert) {
-  var marsFn = jQueryFrameFn("#page\\:mainForm\\:selectPlanet\\:\\:field option:contains('Mars')");
-  var jupiterFn = jQueryFrameFn("#page\\:mainForm\\:selectPlanet\\:\\:field option:contains('Jupiter')");
-  var moonsFn = jQueryFrameFn("#page\\:mainForm\\:moonbox\\:\\:field option");
+  let planetFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field");
+  let marsOptionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field option[value='1']");
+  let jupiterOptionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field option[value='2']");
+  let moonsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:moonbox\\:\\:field option");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    marsFn().prop("selected", false);
-    jupiterFn().prop("selected", true).trigger("change");
+    marsOptionFn().selected = false;
+    jupiterOptionFn().selected = true;
+    planetFn().dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal(moonsFn().eq(0).text().trim(), "Europa");
-    assert.equal(moonsFn().eq(1).text().trim(), "Ganymed");
-    assert.equal(moonsFn().eq(2).text().trim(), "Io");
-    assert.equal(moonsFn().eq(3).text().trim(), "Kallisto");
+    assert.equal(moonsFn().item(0).text, "Europa");
+    assert.equal(moonsFn().item(1).text, "Ganymed");
+    assert.equal(moonsFn().item(2).text, "Io");
+    assert.equal(moonsFn().item(3).text, "Kallisto");
   });
   TTT.startTest();
 });

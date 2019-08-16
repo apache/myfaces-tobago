@@ -15,86 +15,90 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("submit: select 'Nile'", function (assert) {
-  var riversFn = jQueryFrameFn("#page\\:mainForm\\:riverList option");
-  var submitFn = jQueryFrameFn("#page\\:mainForm\\:riverSubmit");
-  var outputFn = jQueryFrameFn("#page\\:mainForm\\:riverOutput span");
+  let riversFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:riverList option");
+  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:riverSubmit");
+  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:riverOutput span");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    riversFn().eq(0).prop("selected", true); // Nile
-    riversFn().eq(1).prop("selected", false); // Amazon
-    riversFn().eq(2).prop("selected", false); // Yangtze
-    riversFn().eq(3).prop("selected", false); // Yellow River
-    riversFn().eq(4).prop("selected", false); // Paraná River
+    riversFn().item(0).selected = true; // Nile
+    riversFn().item(1).selected = false; // Amazon
+    riversFn().item(2).selected = false; // Yangtze
+    riversFn().item(3).selected = false; // Yellow River
+    riversFn().item(4).selected = false; // Paraná River
     submitFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "6853 km");
+    assert.equal(outputFn().textContent, "6853 km");
   });
   TTT.startTest();
 });
 
 QUnit.test("submit: select 'Yangtze'", function (assert) {
-  var riversFn = jQueryFrameFn("#page\\:mainForm\\:riverList option");
-  var submitFn = jQueryFrameFn("#page\\:mainForm\\:riverSubmit");
-  var outputFn = jQueryFrameFn("#page\\:mainForm\\:riverOutput span");
+  let riversFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:riverList option");
+  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:riverSubmit");
+  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:riverOutput span");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    riversFn().eq(0).prop("selected", false); // Nile
-    riversFn().eq(1).prop("selected", false); // Amazon
-    riversFn().eq(2).prop("selected", true); // Yangtze
-    riversFn().eq(3).prop("selected", false); // Yellow River
-    riversFn().eq(4).prop("selected", false); // Paraná River
+    riversFn().item(0).selected = false; // Nile
+    riversFn().item(1).selected = false; // Amazon
+    riversFn().item(2).selected = true; // Yangtze
+    riversFn().item(3).selected = false; // Yellow River
+    riversFn().item(4).selected = false; // Paraná River
     submitFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "6300 km");
+    assert.equal(outputFn().textContent, "6300 km");
 
   });
   TTT.startTest();
 });
 
 QUnit.test("ajax: select Everest", function (assert) {
-  var mountainsFn = jQueryFrameFn("#page\\:mainForm\\:mountainList option");
-  var outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedMountain span");
+  let mountainListFn = testFrameQuerySelectorFn("#page\\:mainForm\\:mountainList\\:\\:field");
+  let mountainsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:mountainList option");
+  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectedMountain span");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    mountainsFn().eq(1).prop("selected", false);
-    mountainsFn().eq(2).prop("selected", false);
-    mountainsFn().eq(3).prop("selected", false);
-    mountainsFn().eq(4).prop("selected", false);
-    mountainsFn().eq(0).prop("selected", true).trigger("change"); // Everest
+    mountainsFn().item(1).selected = false;
+    mountainsFn().item(2).selected = false;
+    mountainsFn().item(3).selected = false;
+    mountainsFn().item(4).selected = false;
+    mountainsFn().item(0).selected = true; // Everest
+    mountainListFn().dispatchEvent(new Event('change')); // Everest
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "8848 m");
+    assert.equal(outputFn().textContent, "8848 m");
   });
   TTT.startTest();
 });
 
 QUnit.test("ajax: select Makalu", function (assert) {
-  var mountainsFn = jQueryFrameFn("#page\\:mainForm\\:mountainList option");
-  var outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedMountain span");
+  let mountainListFn = testFrameQuerySelectorFn("#page\\:mainForm\\:mountainList\\:\\:field");
+  let mountainsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:mountainList option");
+  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectedMountain span");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    mountainsFn().eq(0).prop("selected", false);
-    mountainsFn().eq(1).prop("selected", false);
-    mountainsFn().eq(2).prop("selected", false);
-    mountainsFn().eq(3).prop("selected", false);
-    mountainsFn().eq(4).prop("selected", true).trigger("change"); // Everest
+    mountainsFn().item(0).selected = false;
+    mountainsFn().item(1).selected = false;
+    mountainsFn().item(2).selected = false;
+    mountainsFn().item(3).selected = false;
+    mountainsFn().item(4).selected = true; // Everest
+    mountainListFn().dispatchEvent(new Event('change')); // Everest
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "8481 m");
+    assert.equal(outputFn().textContent, "8481 m");
   });
   TTT.startTest();
 });
