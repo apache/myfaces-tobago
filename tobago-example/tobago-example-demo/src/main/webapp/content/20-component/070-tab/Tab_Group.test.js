@@ -19,12 +19,12 @@ import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Client: Select Tab 3", function (assert) {
-  var hiddenInputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabGroupClient\\:\\:activeIndex");
-  var tab1Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab1Client");
-  var tab3Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab3Client");
-  var tab3linkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab3Client .nav-link");
+  let hiddenInputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabGroupClient\\:\\:activeIndex");
+  let tab1Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab1Client");
+  let tab3Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab3Client");
+  let tab3linkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab3Client .nav-link");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.asserts(5, function () {
     assert.equal(hiddenInputFn().value, 0);
     assert.ok(tab1Fn().classList.contains("tobago-tab-markup-selected"));
@@ -46,12 +46,12 @@ QUnit.test("Client: Select Tab 3", function (assert) {
 });
 
 QUnit.test("Ajax: Select Tab 3", function (assert) {
-  var hiddenInputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabGroupAjax\\:\\:activeIndex");
-  var tab1Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab1Ajax");
-  var tab3Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab3Ajax");
-  var tab3linkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab3Ajax .nav-link");
+  let hiddenInputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabGroupAjax\\:\\:activeIndex");
+  let tab1Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab1Ajax");
+  let tab3Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab3Ajax");
+  let tab3linkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab3Ajax .nav-link");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.asserts(5, function () {
     assert.equal(hiddenInputFn().value, 0);
     assert.ok(tab1Fn().classList.contains("tobago-tab-markup-selected"));
@@ -74,12 +74,12 @@ QUnit.test("Ajax: Select Tab 3", function (assert) {
 });
 
 QUnit.test("FullReload: Select Tab 3", function (assert) {
-  var hiddenInputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabGroupFullReload\\:\\:activeIndex");
-  var tab1Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab1FullReload");
-  var tab3Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab3FullReload");
-  var tab3linkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab3FullReload .nav-link");
+  let hiddenInputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabGroupFullReload\\:\\:activeIndex");
+  let tab1Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab1FullReload");
+  let tab3Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab3FullReload");
+  let tab3linkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab3FullReload .nav-link");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.asserts(5, function () {
     assert.equal(hiddenInputFn().value, 0);
     assert.ok(tab1Fn().classList.contains("tobago-tab-markup-selected"));

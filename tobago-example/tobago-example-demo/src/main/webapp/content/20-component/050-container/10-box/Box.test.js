@@ -15,103 +15,103 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Accordion: Box 1: 'hide' to 'show' to 'hide'", function (assert) {
-  var boxFn = jQueryFrameFn("#page\\:mainForm\\:accordionBox1");
-  var showBoxFn = jQueryFrameFn("#page\\:mainForm\\:showBox1");
-  var hideBoxFn = jQueryFrameFn("#page\\:mainForm\\:hideBox1");
-  var boxBodyFn = jQueryFrameFn("#page\\:mainForm\\:accordionBox1 .card-body");
+  let boxFn = testFrameQuerySelectorFn("#page\\:mainForm\\:accordionBox1");
+  let showBoxFn = testFrameQuerySelectorFn("#page\\:mainForm\\:showBox1");
+  let hideBoxFn = testFrameQuerySelectorFn("#page\\:mainForm\\:hideBox1");
+  let boxBodyFn = testFrameQuerySelectorFn("#page\\:mainForm\\:accordionBox1 .card-body");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.asserts(3, function () {
-    assert.equal(showBoxFn().length, 1);
-    assert.equal(hideBoxFn().length, 0);
-    assert.equal(boxBodyFn().text().trim().length, 0);
+    assert.ok(showBoxFn() !== null);
+    assert.ok(hideBoxFn() === null);
+    assert.equal(boxBodyFn().textContent.trim(), "");
   });
   TTT.action(function () {
     showBoxFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal(showBoxFn().length, 0);
-    assert.equal(hideBoxFn().length, 1);
-    assert.notEqual(boxBodyFn().text().trim().length, 0);
+    assert.ok(showBoxFn() === null);
+    assert.ok(hideBoxFn() !== null);
+    assert.notEqual(boxBodyFn().textContent.trim(), null);
   });
   TTT.action(function () {
     hideBoxFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal(showBoxFn().length, 1);
-    assert.equal(hideBoxFn().length, 0);
-    assert.equal(boxBodyFn().text().trim().length, 0);
+    assert.ok(showBoxFn() !== null);
+    assert.ok(hideBoxFn() === null);
+    assert.equal(boxBodyFn().textContent.trim(), "");
   });
   TTT.startTest();
 });
 
 QUnit.test("Accordion: Box 2: 'hide' to 'show' to 'hide'", function (assert) {
-  var boxFn = jQueryFrameFn("#page\\:mainForm\\:accordionBox2");
-  var showBoxFn = jQueryFrameFn("#page\\:mainForm\\:showBox2");
-  var hideBoxFn = jQueryFrameFn("#page\\:mainForm\\:hideBox2");
-  var boxBodyFn = jQueryFrameFn("#page\\:mainForm\\:accordionBox2 .card-body");
+  let boxFn = testFrameQuerySelectorFn("#page\\:mainForm\\:accordionBox2");
+  let showBoxFn = testFrameQuerySelectorFn("#page\\:mainForm\\:showBox2");
+  let hideBoxFn = testFrameQuerySelectorFn("#page\\:mainForm\\:hideBox2");
+  let boxBodyFn = testFrameQuerySelectorFn("#page\\:mainForm\\:accordionBox2 .card-body");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.asserts(3, function () {
-    assert.equal(showBoxFn().length, 1);
-    assert.equal(hideBoxFn().length, 0);
-    assert.equal(boxBodyFn().text().trim().length, 0);
+    assert.ok(showBoxFn() !== null);
+    assert.ok(hideBoxFn() === null);
+    assert.equal(boxBodyFn().textContent.trim(), "");
   });
   TTT.action(function () {
     showBoxFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal(showBoxFn().length, 0);
-    assert.equal(hideBoxFn().length, 1);
-    assert.notEqual(boxBodyFn().text().trim().length, 0);
+    assert.ok(showBoxFn() === null);
+    assert.ok(hideBoxFn() !== null);
+    assert.notEqual(boxBodyFn().textContent.trim(), null);
   });
   TTT.action(function () {
     hideBoxFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.equal(showBoxFn().length, 1);
-    assert.equal(hideBoxFn().length, 0);
-    assert.equal(boxBodyFn().text().trim().length, 0);
+    assert.ok(showBoxFn() !== null);
+    assert.ok(hideBoxFn() === null);
+    assert.equal(boxBodyFn().textContent.trim(), "");
   });
   TTT.startTest();
 });
 
 QUnit.test("Accordion: Box 3: 'hide' to 'show' to 'hide'", function (assert) {
-  var boxFn = jQueryFrameFn("#page\\:mainForm\\:accordionBox3");
-  var showBoxFn = jQueryFrameFn("#page\\:mainForm\\:showBox3");
-  var hideBoxFn = jQueryFrameFn("#page\\:mainForm\\:hideBox3");
+  let boxFn = testFrameQuerySelectorFn("#page\\:mainForm\\:accordionBox3");
+  let showBoxFn = testFrameQuerySelectorFn("#page\\:mainForm\\:showBox3");
+  let hideBoxFn = testFrameQuerySelectorFn("#page\\:mainForm\\:hideBox3");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.asserts(3, function () {
-    assert.ok(boxFn().hasClass("tobago-collapsed"));
-    assert.equal(showBoxFn().length, 1);
-    assert.equal(hideBoxFn().length, 0);
+    assert.ok(boxFn().classList.contains("tobago-collapsed"));
+    assert.ok(showBoxFn() !== null);
+    assert.ok(hideBoxFn() === null);
   });
   TTT.action(function () {
     showBoxFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.notOk(boxFn().hasClass("tobago-collapsed"));
-    assert.equal(showBoxFn().length, 0);
-    assert.equal(hideBoxFn().length, 1);
+    assert.notOk(boxFn().classList.contains("tobago-collapsed"));
+    assert.ok(showBoxFn() === null);
+    assert.ok(hideBoxFn() !== null);
   });
   TTT.action(function () {
     hideBoxFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.ok(boxFn().hasClass("tobago-collapsed"));
-    assert.equal(showBoxFn().length, 1);
-    assert.equal(hideBoxFn().length, 0);
+    assert.ok(boxFn().classList.contains("tobago-collapsed"));
+    assert.ok(showBoxFn() !== null);
+    assert.ok(hideBoxFn() === null);
   });
   TTT.startTest();
 });

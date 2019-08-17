@@ -15,45 +15,45 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Open 'Client Popup' and press 'Cancel'.", function (assert) {
   assert.expect(3);
 
-  var popupFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup input");
-  var openButtonFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:open");
-  var cancelButtonFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
+  let popupFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup input");
+  let openButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:open");
+  let cancelButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
 
-  assert.equal(popupFn().attr("value"), "true");
+  assert.equal(popupFn().getAttribute("value"), "true");
   openButtonFn().click();
-  assert.equal(popupFn().attr("value"), "false");
+  assert.equal(popupFn().getAttribute("value"), "false");
   cancelButtonFn().click();
-  assert.equal(popupFn().attr("value"), "true");
+  assert.equal(popupFn().getAttribute("value"), "true");
 });
 
 QUnit.test("Open 'Client Popup', press 'Submit' while field is empty. Press 'Cancel'.", function (assert) {
-  var popupFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup input");
-  var openButtonFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:open");
-  var outputFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:output span");
-  var messagesFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
-  var inputFieldFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
-  var submitButtonFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:submit2");
-  var cancelButtonFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
-  var outputValue = outputFn().text();
+  let popupFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup input");
+  let openButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:open");
+  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:out span");
+  let messagesFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
+  let inputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
+  let submitButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:submit2");
+  let cancelButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
+  let outputValue = outputFn().textContent;
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.asserts(1, function () {
-    assert.equal(popupFn().attr("value"), "true");
+    assert.equal(popupFn().getAttribute("value"), "true");
   });
   TTT.action(function () {
     openButtonFn().click();
   });
   TTT.asserts(1, function () {
-    assert.equal(popupFn().attr("value"), "false");
+    assert.equal(popupFn().getAttribute("value"), "false");
   });
   TTT.action(function () {
-    inputFieldFn().val("");
+    inputFieldFn().value = "";
     submitButtonFn().click();
   });
   TTT.waitForResponse();
@@ -64,33 +64,33 @@ QUnit.test("Open 'Client Popup', press 'Submit' while field is empty. Press 'Can
     cancelButtonFn().click();
   });
   TTT.asserts(2, function () {
-    assert.equal(popupFn().attr("value"), "true");
-    assert.equal(outputFn().text(), outputValue);
+    assert.equal(popupFn().getAttribute("value"), "true");
+    assert.equal(outputFn().textContent, outputValue);
   });
   TTT.startTest();
 });
 
 QUnit.test("Open 'Client Popup', press 'Submit' while field has content. Press 'Cancel'.", function (assert) {
-  var popupFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup input");
-  var openButtonFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:open");
-  var outputFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:out span");
-  var messagesFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
-  var inputFieldFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
-  var submitButtonFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:submit2");
-  var cancelButtonFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
+  let popupFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup input");
+  let openButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:open");
+  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:out span");
+  let messagesFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
+  let inputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
+  let submitButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:submit2");
+  let cancelButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.asserts(1, function () {
-    assert.equal(popupFn().attr("value"), "true");
+    assert.equal(popupFn().getAttribute("value"), "true");
   });
   TTT.action(function () {
     openButtonFn().click();
   });
   TTT.asserts(1, function () {
-    assert.equal(popupFn().attr("value"), "false");
+    assert.equal(popupFn().getAttribute("value"), "false");
   });
   TTT.action(function () {
-    inputFieldFn().val("test client popup - submit button");
+    inputFieldFn().value = "test client popup - submit button";
     submitButtonFn().click();
   });
   TTT.waitForResponse();
@@ -101,159 +101,159 @@ QUnit.test("Open 'Client Popup', press 'Submit' while field has content. Press '
     cancelButtonFn().click();
   });
   TTT.asserts(2, function () {
-    assert.equal(popupFn().attr("value"), "true");
-    assert.equal(outputFn().text(), "test client popup - submit button");
+    assert.equal(popupFn().getAttribute("value"), "true");
+    assert.equal(outputFn().textContent, "test client popup - submit button");
   });
   TTT.startTest();
 });
 
 QUnit.test("Open 'Client Popup', press 'Submit & Close' while field is empty.", function (assert) {
-  var popupFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup input");
-  var openButtonFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:open");
-  var outputFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:output span");
-  var inputFieldFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
-  var submitCloseButtonFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:submitClose2");
-  var outputValue = outputFn().text();
+  let popupFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup input");
+  let openButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:open");
+  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:out span");
+  let inputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
+  let submitCloseButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:submitClose2");
+  let outputValue = outputFn().textContent;
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.asserts(1, function () {
-    assert.equal(popupFn().attr("value"), "true");
+    assert.equal(popupFn().getAttribute("value"), "true");
   });
   TTT.action(function () {
     openButtonFn().click();
   });
   TTT.asserts(1, function () {
-    assert.equal(popupFn().attr("value"), "false");
+    assert.equal(popupFn().getAttribute("value"), "false");
   });
   TTT.action(function () {
-    inputFieldFn().val("");
+    inputFieldFn().value = "";
     submitCloseButtonFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
-    assert.equal(popupFn().attr("value"), "true");
-    assert.equal(outputFn().text(), outputValue);
+    assert.equal(popupFn().getAttribute("value"), "true");
+    assert.equal(outputFn().textContent, outputValue);
   });
   TTT.startTest();
 });
 
 QUnit.test("Open 'Client Popup', press 'Submit & Close' while field has content.", function (assert) {
-  var popupFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup input");
-  var openButtonFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:open");
-  var outputFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:out span");
-  var inputFieldFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
-  var submitCloseButtonFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:clientPopup\\:submitClose2");
+  let popupFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup input");
+  let openButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:open");
+  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:out span");
+  let inputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
+  let submitCloseButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:submitClose2");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.asserts(1, function () {
-    assert.equal(popupFn().attr("value"), "true");
+    assert.equal(popupFn().getAttribute("value"), "true");
   });
   TTT.action(function () {
     openButtonFn().click();
   });
   TTT.asserts(1, function () {
-    assert.equal(popupFn().attr("value"), "false");
+    assert.equal(popupFn().getAttribute("value"), "false");
   });
   TTT.action(function () {
-    inputFieldFn().val("test client popup - submit and close button");
+    inputFieldFn().value = "test client popup - submit and close button";
     submitCloseButtonFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
-    assert.equal(popupFn().attr("value"), "true");
-    assert.equal(outputFn().text(), "test client popup - submit and close button");
+    assert.equal(popupFn().getAttribute("value"), "true");
+    assert.equal(outputFn().textContent, "test client popup - submit and close button");
   });
   TTT.startTest();
 });
 
 QUnit.test("Open 'Large Popup'.", function (assert) {
-  var dropdownContainerFn = jQueryFrameFn("#page\\:mainForm\\:dropdownButton");
-  var dropdownButtonFn = jQueryFrameFn("#page\\:mainForm\\:dropdownButton\\:\\:command");
-  var openButtonFn = jQueryFrameFn("#page\\:mainForm\\:largePopupLink");
-  var popupFn = jQueryFrameFn("#page\\:mainForm\\:largePopup");
-  var closeButtonFn = jQueryFrameFn("#page\\:mainForm\\:largePopup\\:closeLargePopup");
+  let dropdownContainerFn = testFrameQuerySelectorFn("#page\\:mainForm\\:dropdownButton");
+  let dropdownButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:dropdownButton\\:\\:command");
+  let openButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:largePopupLink");
+  let popupFn = testFrameQuerySelectorFn("#page\\:mainForm\\:largePopup");
+  let closeButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:largePopup\\:closeLargePopup");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    if (popupFn().hasClass("show")) {
+    if (popupFn().classList.contains("show")) {
       closeButtonFn().click();
     }
-    if (dropdownContainerFn().hasClass("show")) {
+    if (dropdownContainerFn().classList.contains("show")) {
       dropdownButtonFn().click();
     }
   });
   TTT.asserts(2, function () {
-    assert.equal(dropdownContainerFn().hasClass("show"), false);
-    assert.equal(popupFn().hasClass("show"), false);
+    assert.equal(dropdownContainerFn().classList.contains("show"), false);
+    assert.equal(popupFn().classList.contains("show"), false);
   });
   TTT.action(function () {
     dropdownButtonFn().click();
   });
   TTT.asserts(2, function () {
-    assert.equal(dropdownContainerFn().hasClass("show"), true);
-    assert.equal(popupFn().hasClass("show"), false);
+    assert.equal(dropdownContainerFn().classList.contains("show"), true);
+    assert.equal(popupFn().classList.contains("show"), false);
   });
   TTT.action(function () {
     openButtonFn().click();
   });
   TTT.waitMs(1000); // wait for animation
   TTT.asserts(2, function () {
-    assert.equal(dropdownContainerFn().hasClass("show"), false);
-    assert.equal(popupFn().hasClass("show"), true);
+    assert.equal(dropdownContainerFn().classList.contains("show"), false);
+    assert.equal(popupFn().classList.contains("show"), true);
   });
   TTT.action(function () {
     closeButtonFn().click();
   });
   TTT.waitMs(1000); // wait for animation
   TTT.asserts(2, function () {
-    assert.equal(dropdownContainerFn().hasClass("show"), false);
-    assert.equal(popupFn().hasClass("show"), false);
+    assert.equal(dropdownContainerFn().classList.contains("show"), false);
+    assert.equal(popupFn().classList.contains("show"), false);
   });
   TTT.startTest();
 });
 
 QUnit.test("Open 'Small Popup'.", function (assert) {
-  var dropdownContainerFn = jQueryFrameFn("#page\\:mainForm\\:dropdownButton");
-  var dropdownButtonFn = jQueryFrameFn("#page\\:mainForm\\:dropdownButton\\:\\:command");
-  var openButtonFn = jQueryFrameFn("#page\\:mainForm\\:smallPopupLink");
-  var popupFn = jQueryFrameFn("#page\\:mainForm\\:smallPopup");
-  var closeButtonFn = jQueryFrameFn("#page\\:mainForm\\:smallPopup\\:closeSmallPopup");
+  let dropdownContainerFn = testFrameQuerySelectorFn("#page\\:mainForm\\:dropdownButton");
+  let dropdownButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:dropdownButton\\:\\:command");
+  let openButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:smallPopupLink");
+  let popupFn = testFrameQuerySelectorFn("#page\\:mainForm\\:smallPopup");
+  let closeButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:smallPopup\\:closeSmallPopup");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    if (popupFn().hasClass("show")) {
+    if (popupFn().classList.contains("show")) {
       closeButtonFn().click();
     }
-    if (dropdownContainerFn().hasClass("show")) {
+    if (dropdownContainerFn().classList.contains("show")) {
       dropdownButtonFn().click();
     }
   });
   TTT.asserts(2, function () {
-    assert.equal(dropdownContainerFn().hasClass("show"), false);
-    assert.equal(popupFn().hasClass("show"), false);
+    assert.equal(dropdownContainerFn().classList.contains("show"), false);
+    assert.equal(popupFn().classList.contains("show"), false);
   });
   TTT.action(function () {
     dropdownButtonFn().click();
   });
   TTT.asserts(2, function () {
-    assert.equal(dropdownContainerFn().hasClass("show"), true);
-    assert.equal(popupFn().hasClass("show"), false);
+    assert.equal(dropdownContainerFn().classList.contains("show"), true);
+    assert.equal(popupFn().classList.contains("show"), false);
   });
   TTT.action(function () {
     openButtonFn().click();
   });
   TTT.waitMs(1000); // wait for animation
   TTT.asserts(2, function () {
-    assert.equal(dropdownContainerFn().hasClass("show"), false);
-    assert.equal(popupFn().hasClass("show"), true);
+    assert.equal(dropdownContainerFn().classList.contains("show"), false);
+    assert.equal(popupFn().classList.contains("show"), true);
   });
   TTT.action(function () {
     closeButtonFn().click();
   });
   TTT.waitMs(1000); // wait for animation
   TTT.asserts(2, function () {
-    assert.equal(dropdownContainerFn().hasClass("show"), false);
-    assert.equal(popupFn().hasClass("show"), false);
+    assert.equal(dropdownContainerFn().classList.contains("show"), false);
+    assert.equal(popupFn().classList.contains("show"), false);
   });
   TTT.startTest();
 });

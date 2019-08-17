@@ -15,16 +15,6 @@
  * limitations under the License.
  */
 
-function jQueryFrame(expression) {
-  return document.getElementById("page:testframe").contentWindow.jQuery(expression);
-}
-
-function jQueryFrameFn(expression) {
-  return function () {
-    return jQueryFrame(expression);
-  }
-}
-
 function testFrameQuerySelectorFn(expression) {
   return function () {
     return document.getElementById("page:testframe").contentWindow.document.querySelector(expression);
@@ -37,15 +27,15 @@ function testFrameQuerySelectorAllFn(expression) {
   }
 }
 
-export {jQueryFrame, jQueryFrameFn, testFrameQuerySelectorFn, testFrameQuerySelectorAllFn};
+export {testFrameQuerySelectorFn, testFrameQuerySelectorAllFn};
 
 QUnit.test("wait for test", function (assert) {
-  var done = assert.async();
+  let done = assert.async();
 
-  var startTime = new Date().getTime();
-  var contentWindowName = "";
-  var waitingDone = false;
-  var interval = setInterval(function () {
+  let startTime = new Date().getTime();
+  let contentWindowName = "";
+  let waitingDone = false;
+  let interval = setInterval(function () {
     contentWindowName = document.getElementById("page:testframe").contentWindow.name;
     waitingDone = (contentWindowName !== "page:testframe" && contentWindowName !== "ds-tempWindowId")
         || new RegExp('[\?&]base=([^&#]*)').exec(window.location.href)[1].indexOf("error%2F") === 0;
@@ -59,19 +49,22 @@ QUnit.test("wait for test", function (assert) {
 
 QUnit.test("duplicated IDs", function (assert) {
   function getDuplicatedIDs() {
-    var duplicatedIDs = [];
-    jQueryFrame('[id]').each(function () {
-      var ids = jQueryFrame('[id="' + this.id + '"]');
-      if (ids.length > 1 && ids[0] === this)
-        duplicatedIDs.push(this.id);
+    let duplicatedIDs = [];
+    const elementsWithId = document.querySelectorAll("[id]");
+    Array.prototype.forEach.call(elementsWithId, function (element, i) {
+      let sameIdElements = document.querySelectorAll("[id='" + element.id + "']");
+      if (sameIdElements.length > 1) {
+        duplicatedIDs.push(element.id);
+      }
     });
     return duplicatedIDs;
   }
 
-  var duplicatedIDs = getDuplicatedIDs();
+  let duplicatedIDs = getDuplicatedIDs();
   assert.equal(duplicatedIDs.length, 0, "duplicated IDs are: " + duplicatedIDs);
 });
 
 QUnit.test("test '???'", function (assert) {
-  assert.equal(jQueryFrame("*:contains('???')").length, 0, "There must no '???' on the site.");
+  assert.ok(testFrameQuerySelectorFn("html")().textContent.indexOf("???") <= -1,
+      "There must no '???' on the site.");
 });
