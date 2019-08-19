@@ -1,0 +1,7 @@
+/* select2 */
+
+.tobago-select2-hide-dropdown .select2-search,
+.tobago-select2-hide-dropdown .select2-results,
+.tobago-select2-hide-dropdown .select2-dropdown {
+  display: none;
+}

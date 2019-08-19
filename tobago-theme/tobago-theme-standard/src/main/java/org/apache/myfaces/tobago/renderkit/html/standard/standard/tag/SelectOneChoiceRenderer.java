@@ -20,12 +20,16 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UISelectOneChoice;
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.renderkit.html.Select2Options;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.SelectItemUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -46,6 +50,15 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     return true;
   }
 
+  @Override
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+
+    if (Select2Options.of((UISelectOneChoice) component).hasAnyOption()) {
+      SelectManyBoxRenderer.addSelect2LanguageJs(facesContext);
+    }
+  }
+
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     if (!(component instanceof UISelectOneChoice)) {
       LOG.error("Wrong type: Need " + UISelectOneChoice.class.getName()
@@ -60,6 +73,21 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     final Iterable<SelectItem> items = SelectItemUtils.getItemIterator(facesContext, select);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || select.isReadonly();
+    final Style style = new Style(facesContext, select);
+    final Select2Options select2Options = Select2Options.of(select);
+    final boolean renderAsSelect2 = select2Options.hasAnyOption();
+
+    if (renderAsSelect2) {
+      String json = select2Options.toJson();
+      LOG.trace("Select2 json = \"{}\"", json);
+      ComponentUtils.putDataAttribute(select, "tobago-select2", json);
+
+      writer.startElement(HtmlElements.DIV, select);
+      writer.writeStyleAttribute(style);
+      style.setTop(Measure.ZERO);
+      style.setLeft(Measure.ZERO);
+    }
+
 
     writer.startElement(HtmlElements.SELECT, select);
     writer.writeNameAttribute(id);
@@ -70,7 +98,6 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    final Style style = new Style(facesContext, select);
     writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(select));
     if (title != null) {
@@ -82,11 +109,19 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     }
     HtmlRendererUtils.renderCommandFacet(select, facesContext , writer);
     HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
-    
+    if (renderAsSelect2 && select.getPlaceholder() != null && select.getPlaceholder().length() > 0) {
+     writer.startElement(HtmlElements.OPTION, null);
+     writer.endElement(HtmlElements.OPTION);
+    }
+
     HtmlRendererUtils.renderSelectItems(select, items, select.getValue(), (String) select.getSubmittedValue(), writer,
         facesContext);
 
     writer.endElement(HtmlElements.SELECT);
+    if (renderAsSelect2) {
+      writer.endElement(HtmlElements.DIV);
+    }
+
     super.encodeEnd(facesContext, select);
   }
 }

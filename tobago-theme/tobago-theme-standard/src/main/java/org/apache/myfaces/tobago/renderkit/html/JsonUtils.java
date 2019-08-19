@@ -28,7 +28,7 @@ public class JsonUtils {
   private JsonUtils() {
   }
 
-  private static void encode(final StringBuilder builder, final String name, final String[] value) {
+  public static void encode(final StringBuilder builder, final String name, final String[] value) {
     builder.append("\"");
     builder.append(name);
     builder.append("\":");
