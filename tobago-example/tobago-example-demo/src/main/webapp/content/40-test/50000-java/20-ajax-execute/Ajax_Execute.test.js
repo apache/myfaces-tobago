@@ -15,56 +15,56 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("ajax excecute", function (assert) {
-  var in1Fn = jQueryFrameFn("#page\\:mainForm\\:in1\\:\\:field");
-  var in2Fn = jQueryFrameFn("#page\\:mainForm\\:in2\\:\\:field");
-  var in3Fn = jQueryFrameFn("#page\\:mainForm\\:in3\\:\\:field");
-  var in4Fn = jQueryFrameFn("#page\\:mainForm\\:in4\\:\\:field");
-  var clearButtonFn = jQueryFrameFn("#page\\:mainForm\\:clear");
-  var submitButtonFn = jQueryFrameFn("#page\\:mainForm\\:submit");
-  var reloadButtonFn = jQueryFrameFn("#page\\:mainForm\\:reload");
+  let in1Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:in1\\:\\:field");
+  let in2Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:in2\\:\\:field");
+  let in3Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:in3\\:\\:field");
+  let in4Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:in4\\:\\:field");
+  let clearButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:clear");
+  let submitButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:submit");
+  let reloadButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:reload");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    in1Fn().val("a");
-    in2Fn().val("b");
-    in3Fn().val("c");
-    in4Fn().val("d");
+    in1Fn().value = "a";
+    in2Fn().value = "b";
+    in3Fn().value = "c";
+    in4Fn().value = "d";
     clearButtonFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal(in1Fn().val(), "");
-    assert.equal(in2Fn().val(), "");
-    assert.equal(in3Fn().val(), "");
-    assert.equal(in4Fn().val(), "");
+    assert.equal(in1Fn().value, "");
+    assert.equal(in2Fn().value, "");
+    assert.equal(in3Fn().value, "");
+    assert.equal(in4Fn().value, "");
   });
   TTT.action(function () {
-    in1Fn().val("a");
-    in2Fn().val("b");
-    in3Fn().val("c");
-    in4Fn().val("d");
+    in1Fn().value = "a";
+    in2Fn().value = "b";
+    in3Fn().value = "c";
+    in4Fn().value = "d";
     submitButtonFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal(in1Fn().val(), "a");
-    assert.equal(in2Fn().val(), "b");
-    assert.equal(in3Fn().val(), "c");
-    assert.equal(in4Fn().val(), "");
+    assert.equal(in1Fn().value, "a");
+    assert.equal(in2Fn().value, "b");
+    assert.equal(in3Fn().value, "c");
+    assert.equal(in4Fn().value, "");
   });
   TTT.action(function () {
     reloadButtonFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal(in1Fn().val(), "a");
-    assert.equal(in2Fn().val(), "");
-    assert.equal(in3Fn().val(), "c");
-    assert.equal(in4Fn().val(), "");
+    assert.equal(in1Fn().value, "a");
+    assert.equal(in2Fn().value, "");
+    assert.equal(in3Fn().value, "c");
+    assert.equal(in4Fn().value, "");
   });
   TTT.startTest();
 });

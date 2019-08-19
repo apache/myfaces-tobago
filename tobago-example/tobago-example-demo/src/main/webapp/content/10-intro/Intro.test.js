@@ -15,12 +15,10 @@
  * limitations under the License.
  */
 
-import {jQueryFrame} from "/script/tobago-test.js";
+import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
 
 QUnit.test("First section title is 'Intro'", function (assert) {
   assert.expect(1);
-
-  var titleOfFirstSectionHeader = jQueryFrame(".tobago-section-header:first span").text();
-
-  assert.equal(titleOfFirstSectionHeader, "Intro");
+  let titleOfFirstSectionHeader = testFrameQuerySelectorFn(".tobago-section-header > h1 > span");
+  assert.equal(titleOfFirstSectionHeader().textContent, "Intro");
 });

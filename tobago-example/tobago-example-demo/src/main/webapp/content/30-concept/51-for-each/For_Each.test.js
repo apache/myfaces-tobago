@@ -15,19 +15,19 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Add a river and reset.", function (assert) {
-  var nameFn = jQueryFrameFn("#page\\:mainForm\\:add\\:inName\\:\\:field");
-  var lengthFn = jQueryFrameFn("#page\\:mainForm\\:add\\:inLength\\:\\:field");
-  var dischargeFn = jQueryFrameFn("#page\\:mainForm\\:add\\:inDischarge\\:\\:field");
-  var addFn = jQueryFrameFn("#page\\:mainForm\\:add\\:buttonAdd");
-  var resetFn = jQueryFrameFn("#page\\:mainForm\\:reset\\:buttonReset");
-  var forEachBoxesFn = jQueryFrameFn("#page\\:mainForm\\:forEach .tobago-box");
-  var uiRepeatSectionsFn = jQueryFrameFn("#page\\:mainForm\\:uiRepeat .tobago-section");
+  let nameFn = testFrameQuerySelectorFn("#page\\:mainForm\\:add\\:inName\\:\\:field");
+  let lengthFn = testFrameQuerySelectorFn("#page\\:mainForm\\:add\\:inLength\\:\\:field");
+  let dischargeFn = testFrameQuerySelectorFn("#page\\:mainForm\\:add\\:inDischarge\\:\\:field");
+  let addFn = testFrameQuerySelectorFn("#page\\:mainForm\\:add\\:buttonAdd");
+  let resetFn = testFrameQuerySelectorFn("#page\\:mainForm\\:reset\\:buttonReset");
+  let forEachBoxesFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:forEach .tobago-box");
+  let uiRepeatSectionsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:uiRepeat .tobago-section");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     resetFn().click();
   });
@@ -37,9 +37,9 @@ QUnit.test("Add a river and reset.", function (assert) {
     assert.equal(uiRepeatSectionsFn().length, 3);
   });
   TTT.action(function () {
-    nameFn().val("Mississippi");
-    lengthFn().val("6275");
-    dischargeFn().val("16200");
+    nameFn().value = "Mississippi";
+    lengthFn().value = "6275";
+    dischargeFn().value = "16200";
     addFn().click();
   });
   TTT.waitForResponse();

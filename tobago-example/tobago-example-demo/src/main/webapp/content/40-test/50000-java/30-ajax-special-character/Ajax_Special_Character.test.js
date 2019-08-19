@@ -15,28 +15,28 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("ajax excecute", function (assert) {
-  var timestampFn = jQueryFrameFn("#page\\:mainForm\\:timestamp span");
-  var textFn = jQueryFrameFn("#page\\:mainForm\\:outText span");
-  var tipFn = jQueryFrameFn("#page\\:mainForm\\:outTip span");
-  var buttonFn = jQueryFrameFn("#page\\:mainForm\\:ajaxButton");
+  let timestampFn = testFrameQuerySelectorFn("#page\\:mainForm\\:timestamp span");
+  let textFn = testFrameQuerySelectorFn("#page\\:mainForm\\:outText span");
+  let tipFn = testFrameQuerySelectorFn("#page\\:mainForm\\:outTip span");
+  let buttonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:ajaxButton");
 
-  var timestampValue = timestampFn().text();
-  var textValue = textFn().text();
-  var tipValue = tipFn().attr('title');
+  let timestampValue = timestampFn().textContent;
+  let textValue = textFn().textContent;
+  let tipValue = tipFn().getAttribute('title');
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     buttonFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.notEqual(timestampFn().text(), timestampValue);
-    assert.equal(textFn().text(), textValue);
-    assert.equal(tipFn().attr('title'), tipValue);
+    assert.notEqual(timestampFn().textContent, timestampValue);
+    assert.equal(textFn().textContent, textValue);
+    assert.equal(tipFn().getAttribute('title'), tipValue);
   });
   TTT.startTest();
 });

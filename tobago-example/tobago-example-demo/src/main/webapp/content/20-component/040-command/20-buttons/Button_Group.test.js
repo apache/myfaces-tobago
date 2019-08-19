@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-import {jQueryFrame} from "/script/tobago-test.js";
+import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
 
 QUnit.test("Dropdown button has 'btn-group'", function (assert) {
-  var $button = jQueryFrame("#page\\:mainForm\\:buttonWithLinks");
-  assert.ok($button.hasClass("btn-group"), "id=buttonWithLinks must have 'btn-group'");
+  let buttonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:buttonWithLinks");
+  assert.ok(buttonFn().classList.contains("btn-group"), "id=buttonWithLinks must have 'btn-group'");
 });

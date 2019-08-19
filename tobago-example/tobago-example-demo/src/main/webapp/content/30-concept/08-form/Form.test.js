@@ -15,53 +15,53 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("submit form 1", function (assert) {
-  var form1InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:form1\\:in1\\:\\:field");
-  var form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:in2\\:\\:field");
-  var form1OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:form1\\:out1 span");
-  var form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:out2 span");
-  var form1SubmitButtonFn = jQueryFrameFn("#page\\:mainForm\\:form1\\:submit1");
-  var $form2OutputFieldValue = form2OutputFieldFn().text();
+  let form1InputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form1\\:in1\\:\\:field");
+  let form2InputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:in2\\:\\:field");
+  let form1OutputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form1\\:out1 span");
+  let form2OutputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:out2 span");
+  let form1SubmitButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form1\\:submit1");
+  let $form2OutputFieldValue = form2OutputFieldFn().textContent;
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    form1InputFieldFn().val("Oliver");
-    form2InputFieldFn().val("Peter");
+    form1InputFieldFn().value = "Oliver";
+    form2InputFieldFn().value = "Peter";
     form1SubmitButtonFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal(form1InputFieldFn().val(), "Oliver");
-    assert.equal(form1OutputFieldFn().text(), "Oliver");
-    assert.equal(form2InputFieldFn().val(), "Peter");
-    assert.equal(form2OutputFieldFn().text(), $form2OutputFieldValue);
+    assert.equal(form1InputFieldFn().value, "Oliver");
+    assert.equal(form1OutputFieldFn().textContent, "Oliver");
+    assert.equal(form2InputFieldFn().value, "Peter");
+    assert.equal(form2OutputFieldFn().textContent, $form2OutputFieldValue);
   });
   TTT.startTest();
 });
 
 QUnit.test("submit form 2", function (assert) {
-  var form1InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:form1\\:in1\\:\\:field");
-  var form2InputFieldFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:in2\\:\\:field");
-  var form1OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:form1\\:out1 span");
-  var form2OutputFieldFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:out2 span");
-  var form2SubmitButtonFn = jQueryFrameFn("#page\\:mainForm\\:form2\\:submit2");
-  var $form1OutputFieldValue = form1OutputFieldFn().text();
+  let form1InputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form1\\:in1\\:\\:field");
+  let form2InputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:in2\\:\\:field");
+  let form1OutputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form1\\:out1 span");
+  let form2OutputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:out2 span");
+  let form2SubmitButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:submit2");
+  let $form1OutputFieldValue = form1OutputFieldFn().textContent;
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    form1InputFieldFn().val("Oliver");
-    form2InputFieldFn().val("Peter");
+    form1InputFieldFn().value = "Oliver";
+    form2InputFieldFn().value = "Peter";
     form2SubmitButtonFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal(form1InputFieldFn().val(), "Oliver");
-    assert.equal(form1OutputFieldFn().text(), $form1OutputFieldValue);
-    assert.equal(form2InputFieldFn().val(), "Peter");
-    assert.equal(form2OutputFieldFn().text(), "Peter");
+    assert.equal(form1InputFieldFn().value, "Oliver");
+    assert.equal(form1OutputFieldFn().textContent, $form1OutputFieldValue);
+    assert.equal(form2InputFieldFn().value, "Peter");
+    assert.equal(form2OutputFieldFn().textContent, "Peter");
   });
   TTT.startTest();
 });

@@ -15,60 +15,64 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 function getToday(dateFieldFn) {
-  var tobagoToday = dateFieldFn().data("tobago-today");
-  var todayArray = tobagoToday.split("-");
+  let tobagoToday = dateFieldFn().dataset.tobagoToday;
+  let todayArray = tobagoToday.split("-");
   return todayArray[2] + "." + todayArray[1] + "." + todayArray[0];
 }
 
 QUnit.test("date with label", function (assert) {
   assert.expect(5);
 
-  var labelFn = jQueryFrameFn("#page\\:mainForm\\:dNormal > label");
-  var dateFieldFn = jQueryFrameFn("#page\\:mainForm\\:dNormal\\:\\:field");
-  var dateButtonFn = jQueryFrameFn("#page\\:mainForm\\:dNormal button");
-  var dayTodayFn = jQueryFrameFn(".day.today");
-  var today = getToday(dateFieldFn);
+  let labelFn = testFrameQuerySelectorFn("#page\\:mainForm\\:dNormal > label");
+  let dateFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:dNormal\\:\\:field");
+  let dateButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:dNormal button");
+  let dayTodayFn = testFrameQuerySelectorFn(".day.today");
+  let today = getToday(dateFieldFn);
 
-  assert.equal(labelFn().text(), "Date");
-  assert.equal(dateFieldFn().val(), today);
+  assert.equal(labelFn().textContent, "Date");
+  assert.equal(dateFieldFn().value, today);
 
-  dateFieldFn().val("32.05.2016");
+  dateFieldFn().value = "32.05.2016";
   dateButtonFn().click();
 
-  assert.equal(dateFieldFn().val(), today);
-  assert.equal(dayTodayFn().hasClass("past"), false);
-  assert.equal(dayTodayFn().prevAll(".past").length, dayTodayFn().prevAll().length);
+  assert.equal(dateFieldFn().value, today);
+  assert.notOk(dayTodayFn().classList.contains("past"));
+  if (dayTodayFn().previousElementSibling !== null) {
+    assert.ok(dayTodayFn().previousElementSibling.classList.contains("past"));
+  } else {
+    assert.notOk(dayTodayFn().nextElementSibling.classList.contains("past"));
+  }
 
   dateButtonFn().click(); // IE11: close datetimepicker for next test
 });
 
 QUnit.test("date+time pattern", function (assert) {
-  var dateButtonFn = jQueryFrameFn("#page\\:mainForm\\:dateTimePattern .datepickerbutton");
-  var datepickerFn = jQueryFrameFn(".bootstrap-datetimepicker-widget");
-  var firstLiFn = jQueryFrameFn(".bootstrap-datetimepicker-widget .list-unstyled li:first-child");
-  var lastLiFn = jQueryFrameFn(".bootstrap-datetimepicker-widget .list-unstyled li:last-child");
-  var togglePickerButtonFn = jQueryFrameFn(".bootstrap-datetimepicker-widget .picker-switch a");
+  let dateButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:dateTimePattern .datepickerbutton");
+  let datepickerFn = testFrameQuerySelectorFn(".bootstrap-datetimepicker-widget");
+  let firstLiFn = testFrameQuerySelectorFn(".bootstrap-datetimepicker-widget .list-unstyled li:first-child");
+  let lastLiFn = testFrameQuerySelectorFn(".bootstrap-datetimepicker-widget .list-unstyled li:last-child");
+  let togglePickerButtonFn = testFrameQuerySelectorFn(".bootstrap-datetimepicker-widget .picker-switch a");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     dateButtonFn().click();
   });
   TTT.asserts(3, function () {
-    assert.equal(datepickerFn().length, 1);
-    assert.notEqual(firstLiFn().css("display"), "none"); //block
-    assert.equal(lastLiFn().css("display"), "none");
+    assert.ok(datepickerFn() !== null);
+    assert.notEqual(getComputedStyle(firstLiFn()).display, "none"); //block
+    assert.equal(getComputedStyle(lastLiFn()).display, "none");
   });
   TTT.action(function () {
     togglePickerButtonFn().click();
   });
   TTT.waitMs(1000); // wait for animation
   TTT.asserts(2, function () {
-    assert.equal(firstLiFn().css("display"), "none");
-    assert.notEqual(lastLiFn().css("display"), "none"); //block
+    assert.equal(getComputedStyle(firstLiFn()).display, "none");
+    assert.notEqual(getComputedStyle(lastLiFn()).display, "none"); //block
   });
   TTT.action(function () {
     dateButtonFn().click(); // IE11: close datetimepicker for next test
@@ -77,69 +81,69 @@ QUnit.test("date+time pattern", function (assert) {
 });
 
 QUnit.test("submit", function (assert) {
-  var dateFieldFn = jQueryFrameFn("#page\\:mainForm\\:formSubmit\\:input\\:\\:field");
-  var dateButtonFn = jQueryFrameFn("#page\\:mainForm\\:formSubmit\\:input button");
-  var outFieldFn = jQueryFrameFn("#page\\:mainForm\\:formSubmit\\:output span");
-  var submitButtonFn = jQueryFrameFn("#page\\:mainForm\\:formSubmit\\:button");
-  var widgetFn = jQueryFrameFn(".bootstrap-datetimepicker-widget");
-  var daysFn = jQueryFrameFn(".bootstrap-datetimepicker-widget .day");
-  var day22 = 0;
+  let dateFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:formSubmit\\:input\\:\\:field");
+  let dateButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:formSubmit\\:input button");
+  let outFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:formSubmit\\:output span");
+  let submitButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:formSubmit\\:button");
+  let widgetFn = testFrameQuerySelectorAllFn(".bootstrap-datetimepicker-widget");
+  let daysFn = testFrameQuerySelectorAllFn(".bootstrap-datetimepicker-widget .day");
+  let day22 = 0;
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.asserts(2, function () {
-    assert.equal(dateFieldFn().val(), "22.05.2016");
-    assert.equal(outFieldFn().text(), "22.05.2016");
+    assert.equal(dateFieldFn().value, "22.05.2016");
+    assert.equal(outFieldFn().textContent, "22.05.2016");
   });
   TTT.action(function () {
     dateButtonFn().click();
   });
   TTT.asserts(2, function () {
-    assert.ok(widgetFn().get(0), ".bootstrap-datetimepicker-widget should be available");
+    assert.ok(widgetFn().item(0), ".bootstrap-datetimepicker-widget should be available");
 
     for (let i = 0; i < daysFn().length; i++) {
-      if (daysFn().eq(i).text() === "22") {
+      if (daysFn().item(i).textContent === "22") {
         day22 = i;
         break;
       }
     }
-    assert.ok(daysFn().get(day22 + 10));
+    assert.ok(daysFn().item(day22 + 10));
   });
   TTT.action(function () {
-    daysFn().get(day22 + 10).click(); // Choose '01.06.2016'.
+    daysFn().item(day22 + 10).click(); // Choose '01.06.2016'.
   });
   TTT.asserts(1, function () {
-    assert.equal(dateFieldFn().val(), "01.06.2016");
+    assert.equal(dateFieldFn().value, "01.06.2016");
   });
   TTT.action(function () {
     submitButtonFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outFieldFn().text(), "01.06.2016");
+    assert.equal(outFieldFn().textContent, "01.06.2016");
   });
   TTT.startTest();
 });
 
 QUnit.test("ajax", function (assert) {
-  var dateFieldFn = jQueryFrameFn("#page\\:mainForm\\:ajaxinput\\:\\:field");
-  var dateButtonFn = jQueryFrameFn("#page\\:mainForm\\:ajaxinput button");
-  var outFieldFn = jQueryFrameFn("#page\\:mainForm\\:outputfield span");
-  var widgetFn = jQueryFrameFn(".bootstrap-datetimepicker-widget");
-  var today = getToday(dateFieldFn);
+  let dateFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:ajaxinput\\:\\:field");
+  let dateButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:ajaxinput button");
+  let outFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:outputfield span");
+  let widgetFn = testFrameQuerySelectorAllFn(".bootstrap-datetimepicker-widget");
+  let today = getToday(dateFieldFn);
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.asserts(2, function () {
-    assert.equal(dateFieldFn().val(), "");
-    assert.equal(outFieldFn().text(), "");
+    assert.equal(dateFieldFn().value, "");
+    assert.equal(outFieldFn().textContent, "");
   });
   TTT.action(function () {
     dateButtonFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
-    assert.ok(widgetFn().get(0));
-    assert.equal(dateFieldFn().val(), today);
-    assert.equal(outFieldFn().text(), today);
+    assert.ok(widgetFn().item(0));
+    assert.equal(dateFieldFn().value, today);
+    assert.equal(outFieldFn().textContent, today);
   });
   TTT.startTest();
 });

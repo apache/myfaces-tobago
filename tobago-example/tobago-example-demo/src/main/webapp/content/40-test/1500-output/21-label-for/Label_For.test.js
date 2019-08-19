@@ -15,36 +15,36 @@
  * limitations under the License.
  */
 
-import {jQueryFrame} from "/script/tobago-test.js";
+import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
 
 QUnit.test("Test for required CSS class", function (assert) {
   assert.expect(13);
 
-  var $inLabel = jQueryFrame("#page\\:mainForm\\:inLabel");
-  var $dateLabel = jQueryFrame("#page\\:mainForm\\:dateLabel");
-  var $fileLabel = jQueryFrame("#page\\:mainForm\\:fileLabel");
-  var $textareaLabel = jQueryFrame("#page\\:mainForm\\:textareaLabel");
-  var $selectBooleanCheckboxLabel = jQueryFrame("#page\\:mainForm\\:selectBooleanCheckboxLabel");
-  var $selectBooleanToggleLabel = jQueryFrame("#page\\:mainForm\\:selectBooleanToggleLabel");
-  var $selectOneRadioLabel = jQueryFrame("#page\\:mainForm\\:selectOneRadioLabel");
-  var $selectManyCheckboxLabel = jQueryFrame("#page\\:mainForm\\:selectManyCheckboxLabel");
-  var $selectOneChoiceLabel = jQueryFrame("#page\\:mainForm\\:selectOneChoiceLabel");
-  var $selectOneListboxLabel = jQueryFrame("#page\\:mainForm\\:selectOneListboxLabel");
-  var $selectManyListboxLabel = jQueryFrame("#page\\:mainForm\\:selectManyListboxLabel");
-  var $selectManyShuttleLabel = jQueryFrame("#page\\:mainForm\\:selectManyShuttleLabel");
-  var $starsLabel = jQueryFrame("#page\\:mainForm\\:starsLabel");
+  let inLabel = testFrameQuerySelectorFn("#page\\:mainForm\\:inLabel");
+  let dateLabel = testFrameQuerySelectorFn("#page\\:mainForm\\:dateLabel");
+  let fileLabel = testFrameQuerySelectorFn("#page\\:mainForm\\:fileLabel");
+  let textareaLabel = testFrameQuerySelectorFn("#page\\:mainForm\\:textareaLabel");
+  let selectBooleanCheckboxLabel = testFrameQuerySelectorFn("#page\\:mainForm\\:selectBooleanCheckboxLabel");
+  let selectBooleanToggleLabel = testFrameQuerySelectorFn("#page\\:mainForm\\:selectBooleanToggleLabel");
+  let selectOneRadioLabel = testFrameQuerySelectorFn("#page\\:mainForm\\:selectOneRadioLabel");
+  let selectManyCheckboxLabel = testFrameQuerySelectorFn("#page\\:mainForm\\:selectManyCheckboxLabel");
+  let selectOneChoiceLabel = testFrameQuerySelectorFn("#page\\:mainForm\\:selectOneChoiceLabel");
+  let selectOneListboxLabel = testFrameQuerySelectorFn("#page\\:mainForm\\:selectOneListboxLabel");
+  let selectManyListboxLabel = testFrameQuerySelectorFn("#page\\:mainForm\\:selectManyListboxLabel");
+  let selectManyShuttleLabel = testFrameQuerySelectorFn("#page\\:mainForm\\:selectManyShuttleLabel");
+  let starsLabel = testFrameQuerySelectorFn("#page\\:mainForm\\:starsLabel");
 
-  assert.ok($inLabel.hasClass("tobago-required"));
-  assert.ok($dateLabel.hasClass("tobago-required"));
-  assert.ok($fileLabel.hasClass("tobago-required"));
-  assert.ok($textareaLabel.hasClass("tobago-required"));
-  assert.ok($selectBooleanCheckboxLabel.hasClass("tobago-required"));
-  assert.ok($selectBooleanToggleLabel.hasClass("tobago-required"));
-  assert.ok($selectOneRadioLabel.hasClass("tobago-required"));
-  assert.ok($selectManyCheckboxLabel.hasClass("tobago-required"));
-  assert.ok($selectOneChoiceLabel.hasClass("tobago-required"));
-  assert.ok($selectOneListboxLabel.hasClass("tobago-required"));
-  assert.ok($selectManyListboxLabel.hasClass("tobago-required"));
-  assert.ok($selectManyShuttleLabel.hasClass("tobago-required"));
-  assert.ok($starsLabel.hasClass("tobago-required"));
+  assert.ok(inLabel().classList.contains("tobago-required"));
+  assert.ok(dateLabel().classList.contains("tobago-required"));
+  assert.ok(fileLabel().classList.contains("tobago-required"));
+  assert.ok(textareaLabel().classList.contains("tobago-required"));
+  assert.ok(selectBooleanCheckboxLabel().classList.contains("tobago-required"));
+  assert.ok(selectBooleanToggleLabel().classList.contains("tobago-required"));
+  assert.ok(selectOneRadioLabel().classList.contains("tobago-required"));
+  assert.ok(selectManyCheckboxLabel().classList.contains("tobago-required"));
+  assert.ok(selectOneChoiceLabel().classList.contains("tobago-required"));
+  assert.ok(selectOneListboxLabel().classList.contains("tobago-required"));
+  assert.ok(selectManyListboxLabel().classList.contains("tobago-required"));
+  assert.ok(selectManyShuttleLabel().classList.contains("tobago-required"));
+  assert.ok(starsLabel().classList.contains("tobago-required"));
 });

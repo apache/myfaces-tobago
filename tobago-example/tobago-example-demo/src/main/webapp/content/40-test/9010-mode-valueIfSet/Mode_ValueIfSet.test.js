@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {jQueryFrame} from "/script/tobago-test.js";
+import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
 
 function escapeClientId(clientId) {
   return '#' + clientId.replace(/([:\.])/g, '\\$1');
@@ -26,10 +26,9 @@ QUnit.test("inputfield with label", function (assert) {
   assert.expect(6);
 
   function testValueEquals(id) {
-
-    var $field = jQueryFrame(escapeClientId(id));
-    var $label = jQueryFrame("[for='" + id + "']");
-    assert.equal($field.val(), $label.text());
+    let fieldFn = testFrameQuerySelectorFn(escapeClientId(id));
+    let labelFn = testFrameQuerySelectorFn("[for='" + id + "']");
+    assert.equal(fieldFn().value, labelFn().textContent);
   }
 
   testValueEquals("page:mainForm:direct::field");
@@ -37,7 +36,10 @@ QUnit.test("inputfield with label", function (assert) {
   testValueEquals("page:mainForm:v2::field");
   testValueEquals("page:mainForm:v3::field");
   testValueEquals("page:mainForm:v4::field");
-  testValueEquals("page:mainForm:vu::field");
+
+  const testVuId = "page:mainForm:vu::field";
+  let fieldVuFn = testFrameQuerySelectorFn(escapeClientId(testVuId));
+  assert.equal(fieldVuFn().value, "");
 });
 
 QUnit.test("inputfield with label", function (assert) {
@@ -45,10 +47,9 @@ QUnit.test("inputfield with label", function (assert) {
   assert.expect(2);
 
   function testValueEquals(id) {
-
-    var $field = jQueryFrame(escapeClientId(id));
-    var $label = jQueryFrame("[for='" + id + "']");
-    assert.equal($field.attr("id"), $label.text());
+    let fieldFn = testFrameQuerySelectorFn(escapeClientId(id));
+    let labelFn = testFrameQuerySelectorFn("[for='" + id + "']");
+    assert.equal(fieldFn().id, labelFn().textContent);
   }
 
   testValueEquals("page:mainForm:my_number_1::field");

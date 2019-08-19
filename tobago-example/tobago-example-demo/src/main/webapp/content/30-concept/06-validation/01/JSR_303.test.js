@@ -15,17 +15,17 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Required: Submit without content.", function (assert) {
-  var messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var inFn = jQueryFrameFn("#page\\:mainForm\\:required\\:in1\\:\\:field");
-  var submitFn = jQueryFrameFn("#page\\:mainForm\\:required\\:submit1");
+  let messagesFn = testFrameQuerySelectorAllFn("#page\\:messages.tobago-messages div");
+  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:required\\:in1\\:\\:field");
+  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:required\\:submit1");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    inFn().val("");
+    inFn().value = "";
     submitFn().click();
   });
   TTT.waitForResponse();
@@ -36,13 +36,13 @@ QUnit.test("Required: Submit without content.", function (assert) {
 });
 
 QUnit.test("Required: Submit with content.", function (assert) {
-  var messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var inFn = jQueryFrameFn("#page\\:mainForm\\:required\\:in1\\:\\:field");
-  var submitFn = jQueryFrameFn("#page\\:mainForm\\:required\\:submit1");
+  let messagesFn = testFrameQuerySelectorAllFn("#page\\:messages.tobago-messages div");
+  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:required\\:in1\\:\\:field");
+  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:required\\:submit1");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    inFn().val("some content");
+    inFn().value = "some content";
     submitFn().click();
   });
   TTT.waitForResponse();
@@ -53,13 +53,13 @@ QUnit.test("Required: Submit with content.", function (assert) {
 });
 
 QUnit.test("Length: Submit single character.", function (assert) {
-  var messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var inFn = jQueryFrameFn("#page\\:mainForm\\:length\\:in2\\:\\:field");
-  var submitFn = jQueryFrameFn("#page\\:mainForm\\:length\\:submit2");
+  let messagesFn = testFrameQuerySelectorAllFn("#page\\:messages.tobago-messages div");
+  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:length\\:in2\\:\\:field");
+  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:length\\:submit2");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    inFn().val("a");
+    inFn().value = "a";
     submitFn().click();
   });
   TTT.waitForResponse();
@@ -70,13 +70,13 @@ QUnit.test("Length: Submit single character.", function (assert) {
 });
 
 QUnit.test("Length: Submit three characters.", function (assert) {
-  var messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var inFn = jQueryFrameFn("#page\\:mainForm\\:length\\:in2\\:\\:field");
-  var submitFn = jQueryFrameFn("#page\\:mainForm\\:length\\:submit2");
+  let messagesFn = testFrameQuerySelectorAllFn("#page\\:messages.tobago-messages div");
+  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:length\\:in2\\:\\:field");
+  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:length\\:submit2");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    inFn().val("abc");
+    inFn().value = "abc";
     submitFn().click();
   });
   TTT.waitForResponse();
@@ -87,13 +87,13 @@ QUnit.test("Length: Submit three characters.", function (assert) {
 });
 
 QUnit.test("Length: Submit five characters.", function (assert) {
-  var messagesFn = jQueryFrameFn("#page\\:messages.tobago-messages div");
-  var inFn = jQueryFrameFn("#page\\:mainForm\\:length\\:in2\\:\\:field");
-  var submitFn = jQueryFrameFn("#page\\:mainForm\\:length\\:submit2");
+  let messagesFn = testFrameQuerySelectorAllFn("#page\\:messages.tobago-messages div");
+  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:length\\:in2\\:\\:field");
+  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:length\\:submit2");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    inFn().val("abcde");
+    inFn().value = "abcde";
     submitFn().click();
   });
   TTT.waitForResponse();

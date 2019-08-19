@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 
-import {jQueryFrame, jQueryFrameFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Simple Event", function (assert) {
-  var buttonFn = jQueryFrameFn("#page\\:mainForm\\:simpleEvent");
-  var oldCounterValues = getCounterValues();
+  let buttonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:simpleEvent");
+  let oldCounterValues = getCounterValues();
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     buttonFn().click();
   });
@@ -34,10 +34,10 @@ QUnit.test("Simple Event", function (assert) {
 });
 
 QUnit.test("Simple Ajax", function (assert) {
-  var buttonFn = jQueryFrameFn("#page\\:mainForm\\:simpleAjax");
-  var oldCounterValues = getCounterValues();
+  let buttonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:simpleAjax");
+  let oldCounterValues = getCounterValues();
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     buttonFn().click();
   });
@@ -49,10 +49,10 @@ QUnit.test("Simple Ajax", function (assert) {
 });
 
 QUnit.test("Simple EventAjax", function (assert) {
-  var buttonFn = jQueryFrameFn("#page\\:mainForm\\:simpleEventAjax");
-  var oldCounterValues = getCounterValues();
+  let buttonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:simpleEventAjax");
+  let oldCounterValues = getCounterValues();
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     buttonFn().click();
   });
@@ -64,74 +64,78 @@ QUnit.test("Simple EventAjax", function (assert) {
 });
 
 QUnit.test("Advanced Button: Option 1", function (assert) {
-  var optionFn = jQueryFrameFn("#page\\:mainForm\\:advancedSelector\\:\\:0");
-  var buttonFn = jQueryFrameFn("#page\\:mainForm\\:advancedButton");
-  testEventOption(assert, optionFn, buttonFn, "dblclick", 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
+  const optionId = 0; //Event 1 + no Ajax enabled
+  let buttonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:advancedButton");
+  testEventOption(assert, optionId, buttonFn, "dblclick", 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
 });
 
 QUnit.test("Advanced Button: Option 2", function (assert) {
-  var optionFn = jQueryFrameFn("#page\\:mainForm\\:advancedSelector\\:\\:1");
-  var buttonFn = jQueryFrameFn("#page\\:mainForm\\:advancedButton");
-
-  testAjaxOption(assert, optionFn, buttonFn, "dblclick", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+  const optionId = 1; //Event 2 + Ajax 3 enabled
+  let buttonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:advancedButton");
+  testAjaxOption(assert, optionId, buttonFn, "dblclick", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1);
 });
 
 QUnit.test("Advanced Button: Option 3", function (assert) {
-  var optionFn = jQueryFrameFn("#page\\:mainForm\\:advancedSelector\\:\\:2");
-  var buttonFn = jQueryFrameFn("#page\\:mainForm\\:advancedButton");
-  testAjaxOption(assert, optionFn, buttonFn, "click", 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1);
+  const optionId = 2; //Event 3 + all Ajax enabled
+  let buttonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:advancedButton");
+  testAjaxOption(assert, optionId, buttonFn, "click", 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1);
 });
 
 QUnit.test("Row: Option 1", function (assert) {
-  var optionFn = jQueryFrameFn("#page\\:mainForm\\:advancedSelector\\:\\:0");
-  var rowFn = jQueryFrameFn("#page\\:mainForm\\:sheet\\:0\\:row");
-  testEventOption(assert, optionFn, rowFn, "dblclick", 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
+  const optionId = 0; //Event 1 + no Ajax enabled
+  let rowFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:row");
+  testEventOption(assert, optionId, rowFn, "dblclick", 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
 });
 
 QUnit.test("Row: Option 2", function (assert) {
-  var optionFn = jQueryFrameFn("#page\\:mainForm\\:advancedSelector\\:\\:1");
-  var rowFn = jQueryFrameFn("#page\\:mainForm\\:sheet\\:0\\:row");
-  testAjaxOption(assert, optionFn, rowFn, "dblclick", 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1);
+  const optionId = 1; //Event 2 + Ajax 3 enabled
+  let rowFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:row");
+  testAjaxOption(assert, optionId, rowFn, "dblclick", 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1);
 });
 
 QUnit.test("Row: Option 3", function (assert) {
-  var optionFn = jQueryFrameFn("#page\\:mainForm\\:advancedSelector\\:\\:2");
-  var rowFn = jQueryFrameFn("#page\\:mainForm\\:sheet\\:0\\:row");
-  testAjaxOption(assert, optionFn, rowFn, "click", 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1);
+  const optionId = 2; //Event 3 + all Ajax enabled
+  let rowFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:row");
+  testAjaxOption(assert, optionId, rowFn, "click", 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1);
 });
 
 QUnit.test("Input: Click Event", function (assert) {
-  var inputFn = jQueryFrameFn("#page\\:mainForm\\:inputClick\\:\\:field");
+  let inputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:inputClick\\:\\:field");
   testInputSection(assert, inputFn, "click");
 });
 
-function testEventOption(assert, optionFn, componentFn, event,
+function testEventOption(assert, optionId, componentFn, eventName,
                          buttonActionPlus, buttonActionListenerPlus,
                          action1Plus, actionListener1Plus, ajaxListener1Plus,
                          action2Plus, actionListener2Plus, ajaxListener2Plus,
                          action3Plus, actionListener3Plus, ajaxListener3Plus) {
-  var hideFn = jQueryFrameFn("#page\\:mainForm\\:hideOperationTextBox");
-  var operationOutFn = jQueryFrameFn("#page\\:mainForm\\:operationOut");
-  var oldCounterValues = getCounterValues();
+  let hideFn = testFrameQuerySelectorFn("#page\\:mainForm\\:hideOperationTextBox");
+  let operationOutFn = testFrameQuerySelectorFn("#page\\:mainForm\\:operationOut");
+  let oldCounterValues = getCounterValues();
+  let optionsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:advancedSelector input[type='radio']");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     hideFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(operationOutFn().length, 0, "Content of operation test box must be hidden.");
+    assert.equal(operationOutFn(), null, "Content of operation test box must be hidden.");
   });
   TTT.action(function () {
-    optionFn().click();
+    optionsFn().item(0).checked = false;
+    optionsFn().item(1).checked = false;
+    optionsFn().item(2).checked = false;
+    optionsFn().item(optionId).checked = true;
+    optionsFn().item(optionId).dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.action(function () {
-    componentFn().trigger(event);
+    componentFn().dispatchEvent(new Event(eventName));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    assert.equal(operationOutFn().length, 1, "Content of operation test box must be shown.");
+    assert.notEqual(operationOutFn(), null, "Content of operation test box must be shown.");
 
     compareCounterValues(assert, oldCounterValues,
         buttonActionPlus, buttonActionListenerPlus,
@@ -142,33 +146,38 @@ function testEventOption(assert, optionFn, componentFn, event,
   TTT.startTest();
 }
 
-function testAjaxOption(assert, optionFn, componentFn, event,
+function testAjaxOption(assert, optionId, componentFn, eventName,
                         buttonActionPlus, buttonActionListenerPlus,
                         action1Plus, actionListener1Plus, ajaxListener1Plus,
                         action2Plus, actionListener2Plus, ajaxListener2Plus,
                         action3Plus, actionListener3Plus, ajaxListener3Plus) {
-  var hideFn = jQueryFrameFn("#page\\:mainForm\\:hideOperationTextBox");
-  var operationOutFn = jQueryFrameFn("#page\\:mainForm\\:operationOut");
-  var oldCounterValues = getCounterValues();
+  let hideFn = testFrameQuerySelectorFn("#page\\:mainForm\\:hideOperationTextBox");
+  let operationOutFn = testFrameQuerySelectorFn("#page\\:mainForm\\:operationOut");
+  let oldCounterValues = getCounterValues();
+  let optionsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:advancedSelector input[type='radio']");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     hideFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(operationOutFn().length, 0, "Content of operation test box must be hidden.");
+    assert.equal(operationOutFn(), null, "Content of operation test box must be hidden.");
   });
   TTT.action(function () {
-    optionFn().click();
+    optionsFn().item(0).checked = false;
+    optionsFn().item(1).checked = false;
+    optionsFn().item(2).checked = false;
+    optionsFn().item(optionId).checked = true;
+    optionsFn().item(optionId).dispatchEvent(new Event('change'));
   });
   TTT.waitForResponse();
   TTT.action(function () {
-    componentFn().trigger(event);
+    componentFn().dispatchEvent(new Event(eventName));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
-    assert.equal(operationOutFn().length, 1, "Content of operation test box must be shown.");
+    assert.notEqual(operationOutFn(), null, "Content of operation test box must be shown.");
 
     compareCounterValues(assert, oldCounterValues,
         buttonActionPlus, buttonActionListenerPlus,
@@ -180,41 +189,42 @@ function testAjaxOption(assert, optionFn, componentFn, event,
 }
 
 function testInputSection(assert, inputFn, eventName) {
-  var hideFn = jQueryFrameFn("#page\\:mainForm\\:hideOperationTextBox");
+  let hideFn = testFrameQuerySelectorFn("#page\\:mainForm\\:hideOperationTextBox");
+  let operationOutFn = testFrameQuerySelectorFn("#page\\:mainForm\\:operationOut");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     hideFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.ok(isOperationTestBoxCollapsed(), "Content of operation test box must be hidden.");
+    assert.ok(operationOutFn() === null, "Content of operation test box must be hidden.");
   });
   TTT.action(function () {
-    inputFn().trigger(eventName);
+    inputFn().dispatchEvent(new Event(eventName));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.notOk(isOperationTestBoxCollapsed(), "Content of operation test box must be shown.");
+    assert.notOk(operationOutFn() === null, "Content of operation test box must be shown.");
   });
   TTT.startTest();
 }
 
 function getCounterValues() {
-  var buttonActionCounter = jQueryFrame("#page\\:mainForm\\:buttonActionCounter.tobago-out").text();
-  var buttonActionListenerCounter = jQueryFrame("#page\\:mainForm\\:buttonActionListenerCounter.tobago-out").text();
+  let buttonActionCounter = testFrameQuerySelectorFn("#page\\:mainForm\\:buttonActionCounter.tobago-out")().textContent;
+  let buttonActionListenerCounter = testFrameQuerySelectorFn("#page\\:mainForm\\:buttonActionListenerCounter.tobago-out")().textContent;
 
-  var actionCount1 = jQueryFrame("#page\\:mainForm\\:actionCounter1.tobago-out").text();
-  var actionListenerCount1 = jQueryFrame("#page\\:mainForm\\:actionListenerCounter1.tobago-out").text();
-  var ajaxListenerCount1 = jQueryFrame("#page\\:mainForm\\:ajaxListenerCounter1.tobago-out").text();
+  let actionCount1 = testFrameQuerySelectorFn("#page\\:mainForm\\:actionCounter1.tobago-out")().textContent;
+  let actionListenerCount1 = testFrameQuerySelectorFn("#page\\:mainForm\\:actionListenerCounter1.tobago-out")().textContent;
+  let ajaxListenerCount1 = testFrameQuerySelectorFn("#page\\:mainForm\\:ajaxListenerCounter1.tobago-out")().textContent;
 
-  var actionCount2 = jQueryFrame("#page\\:mainForm\\:actionCounter2.tobago-out").text();
-  var actionListenerCount2 = jQueryFrame("#page\\:mainForm\\:actionListenerCounter2.tobago-out").text();
-  var ajaxListenerCount2 = jQueryFrame("#page\\:mainForm\\:ajaxListenerCounter2.tobago-out").text();
+  let actionCount2 = testFrameQuerySelectorFn("#page\\:mainForm\\:actionCounter2.tobago-out")().textContent;
+  let actionListenerCount2 = testFrameQuerySelectorFn("#page\\:mainForm\\:actionListenerCounter2.tobago-out")().textContent;
+  let ajaxListenerCount2 = testFrameQuerySelectorFn("#page\\:mainForm\\:ajaxListenerCounter2.tobago-out")().textContent;
 
-  var actionCount3 = jQueryFrame("#page\\:mainForm\\:actionCounter3.tobago-out").text();
-  var actionListenerCount3 = jQueryFrame("#page\\:mainForm\\:actionListenerCounter3.tobago-out").text();
-  var ajaxListenerCount3 = jQueryFrame("#page\\:mainForm\\:ajaxListenerCounter3.tobago-out").text();
+  let actionCount3 = testFrameQuerySelectorFn("#page\\:mainForm\\:actionCounter3.tobago-out")().textContent;
+  let actionListenerCount3 = testFrameQuerySelectorFn("#page\\:mainForm\\:actionListenerCounter3.tobago-out")().textContent;
+  let ajaxListenerCount3 = testFrameQuerySelectorFn("#page\\:mainForm\\:ajaxListenerCounter3.tobago-out")().textContent;
 
   return [buttonActionCounter, buttonActionListenerCounter,
     actionCount1, actionListenerCount1, ajaxListenerCount1,
@@ -227,7 +237,7 @@ function compareCounterValues(assert, oldCounterValues,
                               action1Plus, actionListener1Plus, ajaxListener1Plus,
                               action2Plus, actionListener2Plus, ajaxListener2Plus,
                               action3Plus, actionListener3Plus, ajaxListener3Plus) {
-  var newCounterValues = getCounterValues();
+  let newCounterValues = getCounterValues();
 
   assert.equal(parseInt(newCounterValues[0]), parseInt(oldCounterValues[0]) + buttonActionPlus);
   assert.equal(parseInt(newCounterValues[1]), parseInt(oldCounterValues[1]) + buttonActionListenerPlus);
@@ -240,9 +250,4 @@ function compareCounterValues(assert, oldCounterValues,
   assert.equal(parseInt(newCounterValues[8]), parseInt(oldCounterValues[8]) + action3Plus);
   assert.equal(parseInt(newCounterValues[9]), parseInt(oldCounterValues[9]) + actionListener3Plus);
   assert.equal(parseInt(newCounterValues[10]), parseInt(oldCounterValues[10]) + ajaxListener3Plus);
-}
-
-function isOperationTestBoxCollapsed() {
-  var $operationOut = jQueryFrame("#page\\:mainForm\\:operationOut");
-  return $operationOut.length === 0;
 }

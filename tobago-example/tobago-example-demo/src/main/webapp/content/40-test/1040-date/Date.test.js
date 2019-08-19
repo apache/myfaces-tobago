@@ -15,21 +15,21 @@
  * limitations under the License.
  */
 
-import {jQueryFrame} from "/script/tobago-test.js";
+import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
 
 QUnit.test("inputfield with label", function (assert) {
-  var $dateField = jQueryFrame("#page\\:mainForm\\:dateNoPattern\\:\\:field");
-  var $dateButton = jQueryFrame("#page\\:mainForm\\:dateNoPattern button");
+  let dateFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:dateNoPattern\\:\\:field");
+  let dateButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:dateNoPattern button");
 
-  assert.equal($dateField.val(), "");
+  assert.equal(dateFieldFn().value, "");
 
-  var $datepicker = jQueryFrame(".bootstrap-datetimepicker-widget");
-  assert.notOk($datepicker.get(0));
+  let datepickerFn = testFrameQuerySelectorAllFn(".bootstrap-datetimepicker-widget");
+  assert.notOk(datepickerFn().item(0));
 
-  $dateButton.click();
+  dateButtonFn().click();
 
-  $datepicker = jQueryFrame(".bootstrap-datetimepicker-widget");
-  assert.ok($datepicker.get(0));
+  datepickerFn = testFrameQuerySelectorAllFn(".bootstrap-datetimepicker-widget");
+  assert.ok(datepickerFn().item(0));
 
-  assert.notEqual($dateField.val(), "");
+  assert.notEqual(dateFieldFn().value, "");
 });

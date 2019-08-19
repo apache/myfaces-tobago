@@ -15,44 +15,43 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn, testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("submit: Alice", function (assert) {
-  let aliceFn = jQueryFrameFn("#page\\:mainForm\\:selectPerson\\:\\:field option:contains('Alice')");
-  let bobFn = jQueryFrameFn("#page\\:mainForm\\:selectPerson\\:\\:field option:contains('Bob')");
-  let submitFn = jQueryFrameFn("#page\\:mainForm\\:submit");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:outputPerson span");
+  let aliceFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Alice']");
+  let bobFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Bob']");
+  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:submit");
+  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:outputPerson span");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    aliceFn().prop("selected", true);
-    bobFn().prop("selected", false);
+    aliceFn().selected = true;
+    bobFn().selected = false;
     submitFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Alice Anderson");
-
+    assert.equal(outputFn().textContent, "Alice Anderson");
   });
   TTT.startTest();
 });
 
 QUnit.test("submit: Bob", function (assert) {
-  let aliceFn = jQueryFrameFn("#page\\:mainForm\\:selectPerson\\:\\:field option:contains('Alice')");
-  let bobFn = jQueryFrameFn("#page\\:mainForm\\:selectPerson\\:\\:field option:contains('Bob')");
-  let submitFn = jQueryFrameFn("#page\\:mainForm\\:submit");
-  let outputFn = jQueryFrameFn("#page\\:mainForm\\:outputPerson span");
+  let aliceFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Alice']");
+  let bobFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Bob']");
+  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:submit");
+  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:outputPerson span");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    aliceFn().prop("selected", false);
-    bobFn().prop("selected", true);
+    aliceFn().selected = false;
+    bobFn().selected = true;
     submitFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Bob Brunch");
+    assert.equal(outputFn().textContent, "Bob Brunch");
   });
   TTT.startTest();
 });

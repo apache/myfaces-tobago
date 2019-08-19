@@ -15,176 +15,169 @@
  * limitations under the License.
  */
 
-import {jQueryFrame} from "/script/tobago-test.js";
+import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
 
 QUnit.test("No label set", function (assert) {
   assert.expect(5);
 
-  var $section = jQueryFrame("#page\\:mainForm\\:sectionNoLabel");
-  var $rootDiv = $section.find(".tobago-section-content > div");
-  var $label = $rootDiv.find("label");
-  var $input = $rootDiv.find("input");
+  let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionNoLabel");
+  let rootDiv = sectionFn().querySelector(".tobago-section-content > div");
+  let label = rootDiv.querySelector("label");
+  let input = rootDiv.querySelector("input");
 
-  assert.equal($rootDiv.attr('id'), "page:mainForm:inNoLabel");
-  assert.equal($label.length, 0);
-  assert.equal($input.attr('id'), "page:mainForm:inNoLabel::field");
-  assert.equal($input.attr('name'), "page:mainForm:inNoLabel");
+  assert.equal(rootDiv.id, "page:mainForm:inNoLabel");
+  assert.equal(label, null);
+  assert.equal(input.id, "page:mainForm:inNoLabel::field");
+  assert.equal(input.name, "page:mainForm:inNoLabel");
 
-  assert.equal(JSON.parse($rootDiv.attr('data-tobago-markup'))[0], "testmarkup");
+  assert.equal(JSON.parse(rootDiv.dataset.tobagoMarkup)[0], "testmarkup");
 });
 
 QUnit.test("labelLayout=none", function (assert) {
   assert.expect(5);
 
-  var $section = jQueryFrame("#page\\:mainForm\\:sectionNone");
-  var $rootDiv = $section.find(".tobago-section-content > div");
-  var $label = $rootDiv.find("label");
-  var $input = $rootDiv.find("input");
+  let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionNone");
+  let rootDiv = sectionFn().querySelector(".tobago-section-content > div");
+  let label = rootDiv.querySelector("label");
+  let input = rootDiv.querySelector("input");
 
-  assert.equal($rootDiv.attr('id'), "page:mainForm:inNone");
-  assert.equal($label.length, 0);
-  assert.equal($input.attr('id'), "page:mainForm:inNone::field");
-  assert.equal($input.attr('name'), "page:mainForm:inNone");
+  assert.equal(rootDiv.id, "page:mainForm:inNone");
+  assert.equal(label, null);
+  assert.equal(input.id, "page:mainForm:inNone::field");
+  assert.equal(input.name, "page:mainForm:inNone");
 
-  assert.equal(JSON.parse($rootDiv.attr('data-tobago-markup'))[0], "testmarkup");
+  assert.equal(JSON.parse(rootDiv.dataset.tobagoMarkup)[0], "testmarkup");
 });
 
 QUnit.test("labelLayout=skip", function (assert) {
   assert.expect(3);
 
-  var $section = jQueryFrame("#page\\:mainForm\\:sectionSkip");
-  var $rootInput = $section.find(".tobago-section-content > input");
-  var $label = $section.find("label");
+  let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionSkip");
+  let rootInput = sectionFn().querySelector(".tobago-section-content > input");
+  let label = sectionFn().querySelector("label");
 
-  assert.equal($label.length, 0);
-  assert.equal($rootInput.attr('id'), "page:mainForm:inSkip");
+  assert.equal(label, null);
+  assert.equal(rootInput.id, "page:mainForm:inSkip");
 
-  assert.equal(JSON.parse($rootInput.attr('data-tobago-markup'))[0], "testmarkup");
+  assert.equal(JSON.parse(rootInput.dataset.tobagoMarkup)[0], "testmarkup");
 });
 
 QUnit.test("labelLayout=top", function (assert) {
   assert.expect(5);
 
-  var $section = jQueryFrame("#page\\:mainForm\\:sectionTop");
-  var $rootDiv = $section.find(".tobago-section-content > div");
-  var $label = $rootDiv.find("label");
-  var $input = $rootDiv.find("input");
+  let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionTop");
+  let rootDiv = sectionFn().querySelector(".tobago-section-content > div");
+  let label = rootDiv.querySelector("label");
+  let input = rootDiv.querySelector("input");
 
-  assert.equal($rootDiv.attr('id'), "page:mainForm:inTop");
-  assert.equal($label.attr('for'), "page:mainForm:inTop::field");
-  assert.equal($input.attr('id'), "page:mainForm:inTop::field");
-  assert.equal($input.attr('name'), "page:mainForm:inTop");
+  assert.equal(rootDiv.id, "page:mainForm:inTop");
+  assert.equal(label.getAttribute('for'), "page:mainForm:inTop::field");
+  assert.equal(input.id, "page:mainForm:inTop::field");
+  assert.equal(input.name, "page:mainForm:inTop");
 
-  assert.equal(JSON.parse($rootDiv.attr('data-tobago-markup'))[0], "testmarkup");
+  assert.equal(JSON.parse(rootDiv.dataset.tobagoMarkup)[0], "testmarkup");
 });
 
 QUnit.test("labelLayout=flowLeft", function (assert) {
   assert.expect(5);
 
-  var $section = jQueryFrame("#page\\:mainForm\\:sectionFlowLeft");
-  var $rootDiv = $section.find(".tobago-section-content > div");
-  var $label = $rootDiv.find("label");
-  var $input = $rootDiv.find("input");
+  let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionFlowLeft");
+  let rootDiv = sectionFn().querySelector(".tobago-section-content > div");
+  let label = rootDiv.querySelector("label");
+  let input = rootDiv.querySelector("input");
 
-  assert.equal($rootDiv.attr('id'), "page:mainForm:inFlowLeft");
-  assert.equal($label.attr('for'), "page:mainForm:inFlowLeft::field");
-  assert.equal($input.attr('id'), "page:mainForm:inFlowLeft::field");
-  assert.equal($input.attr('name'), "page:mainForm:inFlowLeft");
+  assert.equal(rootDiv.id, "page:mainForm:inFlowLeft");
+  assert.equal(label.getAttribute('for'), "page:mainForm:inFlowLeft::field");
+  assert.equal(input.id, "page:mainForm:inFlowLeft::field");
+  assert.equal(input.name, "page:mainForm:inFlowLeft");
 
-  assert.equal(JSON.parse($rootDiv.attr('data-tobago-markup'))[0], "testmarkup");
+  assert.equal(JSON.parse(rootDiv.dataset.tobagoMarkup)[0], "testmarkup");
 });
 
 QUnit.test("labelLayout=flowRight", function (assert) {
   assert.expect(5);
 
-  var $section = jQueryFrame("#page\\:mainForm\\:sectionFlowRight");
-  var $rootDiv = $section.find(".tobago-section-content > div");
-  var $label = $rootDiv.find("label");
-  var $input = $rootDiv.find("input");
+  let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionFlowRight");
+  let rootDiv = sectionFn().querySelector(".tobago-section-content > div");
+  let label = rootDiv.querySelector("label");
+  let input = rootDiv.querySelector("input");
 
-  assert.equal($rootDiv.attr('id'), "page:mainForm:inFlowRight");
-  assert.equal($label.attr('for'), "page:mainForm:inFlowRight::field");
-  assert.equal($input.attr('id'), "page:mainForm:inFlowRight::field");
-  assert.equal($input.attr('name'), "page:mainForm:inFlowRight");
+  assert.equal(rootDiv.id, "page:mainForm:inFlowRight");
+  assert.equal(label.getAttribute('for'), "page:mainForm:inFlowRight::field");
+  assert.equal(input.id, "page:mainForm:inFlowRight::field");
+  assert.equal(input.name, "page:mainForm:inFlowRight");
 
-  assert.equal(JSON.parse($rootDiv.attr('data-tobago-markup'))[0], "testmarkup");
+  assert.equal(JSON.parse(rootDiv.dataset.tobagoMarkup)[0], "testmarkup");
 });
 
 QUnit.test("labelLayout=flexLeft", function (assert) {
   assert.expect(5);
 
-  var $section = jQueryFrame("#page\\:mainForm\\:sectionFlexLeft");
-  var $rootDiv = $section.find(".tobago-section-content > div");
-  var $label = $rootDiv.find("label");
-  var $input = $rootDiv.find("input");
+  let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionFlexLeft");
+  let rootDiv = sectionFn().querySelector(".tobago-section-content > div");
+  let label = rootDiv.querySelector("label");
+  let input = rootDiv.querySelector("input");
 
-  assert.equal($rootDiv.attr('id'), "page:mainForm:inFlexLeft");
-  assert.equal($label.attr('for'), "page:mainForm:inFlexLeft::field");
-  assert.equal($input.attr('id'), "page:mainForm:inFlexLeft::field");
-  assert.equal($input.attr('name'), "page:mainForm:inFlexLeft");
+  assert.equal(rootDiv.id, "page:mainForm:inFlexLeft");
+  assert.equal(label.getAttribute('for'), "page:mainForm:inFlexLeft::field");
+  assert.equal(input.id, "page:mainForm:inFlexLeft::field");
+  assert.equal(input.name, "page:mainForm:inFlexLeft");
 
-  assert.equal(JSON.parse($rootDiv.attr('data-tobago-markup'))[0], "testmarkup");
+  assert.equal(JSON.parse(rootDiv.dataset.tobagoMarkup)[0], "testmarkup");
 });
 
 QUnit.test("labelLayout=flexRight", function (assert) {
   assert.expect(5);
 
-  var $section = jQueryFrame("#page\\:mainForm\\:sectionFlexRight");
-  var $rootDiv = $section.find(".tobago-section-content > div");
-  var $label = $rootDiv.find("label");
-  var $input = $rootDiv.find("input");
+  let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionFlexRight");
+  let rootDiv = sectionFn().querySelector(".tobago-section-content > div");
+  let label = rootDiv.querySelector("label");
+  let input = rootDiv.querySelector("input");
 
-  assert.equal($rootDiv.attr('id'), "page:mainForm:inFlexRight");
-  assert.equal($label.attr('for'), "page:mainForm:inFlexRight::field");
-  assert.equal($input.attr('id'), "page:mainForm:inFlexRight::field");
-  assert.equal($input.attr('name'), "page:mainForm:inFlexRight");
+  assert.equal(rootDiv.id, "page:mainForm:inFlexRight");
+  assert.equal(label.getAttribute('for'), "page:mainForm:inFlexRight::field");
+  assert.equal(input.id, "page:mainForm:inFlexRight::field");
+  assert.equal(input.name, "page:mainForm:inFlexRight");
 
-  assert.equal(JSON.parse($rootDiv.attr('data-tobago-markup'))[0], "testmarkup");
+  assert.equal(JSON.parse(rootDiv.dataset.tobagoMarkup)[0], "testmarkup");
 });
 
 QUnit.test("labelLayout=segmentLeft", function (assert) {
   assert.expect(7);
 
-  var $section = jQueryFrame("#page\\:mainForm\\:sectionSegmentLeft");
-  var $segmentLayout = $section.find(".tobago-section-content > div");
-  var $labelSegment = $segmentLayout.find(".col-3 > div");
-  var $inputSegment = $segmentLayout.find(".col-9 > div");
-  var $label = $labelSegment.find("label");
-  var $input = $inputSegment.find("input");
+  let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionSegmentLeft");
+  let segmentLayout = sectionFn().querySelector(".tobago-section-content > div");
+  let labelSegment = segmentLayout.querySelector(".col-3 > div");
+  let inputSegment = segmentLayout.querySelector(".col-9 > div");
+  let label = labelSegment.querySelector("label");
+  let input = inputSegment.querySelector("input");
 
-  assert.equal($labelSegment.attr('id'), "page:mainForm:inSegmentLeft::label");
-  assert.equal($label.attr('for'), "page:mainForm:inSegmentLeft::field");
-  assert.equal($inputSegment.attr('id'), "page:mainForm:inSegmentLeft");
-  assert.equal($input.attr('id'), "page:mainForm:inSegmentLeft::field");
-  assert.equal($input.attr('name'), "page:mainForm:inSegmentLeft");
+  assert.equal(labelSegment.id, "page:mainForm:inSegmentLeft::label");
+  assert.equal(label.getAttribute('for'), "page:mainForm:inSegmentLeft::field");
+  assert.equal(inputSegment.id, "page:mainForm:inSegmentLeft");
+  assert.equal(input.id, "page:mainForm:inSegmentLeft::field");
+  assert.equal(input.name, "page:mainForm:inSegmentLeft");
 
-  assert.equal(JSON.parse($labelSegment.attr('data-tobago-markup'))[0], "testmarkup");
-  assert.equal(JSON.parse($inputSegment.attr('data-tobago-markup'))[0], "testmarkup");
+  assert.equal(JSON.parse(labelSegment.dataset.tobagoMarkup)[0], "testmarkup");
+  assert.equal(JSON.parse(inputSegment.dataset.tobagoMarkup)[0], "testmarkup");
 });
 
 QUnit.test("labelLayout=segmentRight", function (assert) {
   assert.expect(7);
 
-  var $section = jQueryFrame("#page\\:mainForm\\:sectionSegmentRight");
-  var $segmentLayout = $section.find(".tobago-section-content > div");
-  var $labelSegment = $segmentLayout.find(".col-3 > div");
-  var $inputSegment = $segmentLayout.find(".col-9 > div");
-  var $label = $labelSegment.find("label");
-  var $input = $inputSegment.find("input");
+  let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionSegmentRight");
+  let segmentLayout = sectionFn().querySelector(".tobago-section-content > div");
+  let labelSegment = segmentLayout.querySelector(".col-3 > div");
+  let inputSegment = segmentLayout.querySelector(".col-9 > div");
+  let label = labelSegment.querySelector("label");
+  let input = inputSegment.querySelector("input");
 
-  assert.equal($labelSegment.attr('id'), "page:mainForm:inSegmentRight::label");
-  assert.equal($label.attr('for'), "page:mainForm:inSegmentRight::field");
-  assert.equal($inputSegment.attr('id'), "page:mainForm:inSegmentRight");
-  assert.equal($input.attr('id'), "page:mainForm:inSegmentRight::field");
-  assert.equal($input.attr('name'), "page:mainForm:inSegmentRight");
+  assert.equal(labelSegment.id, "page:mainForm:inSegmentRight::label");
+  assert.equal(label.getAttribute('for'), "page:mainForm:inSegmentRight::field");
+  assert.equal(inputSegment.id, "page:mainForm:inSegmentRight");
+  assert.equal(input.id, "page:mainForm:inSegmentRight::field");
+  assert.equal(input.name, "page:mainForm:inSegmentRight");
 
-  assert.equal(JSON.parse($labelSegment.attr('data-tobago-markup'))[0], "testmarkup");
-  assert.equal(JSON.parse($inputSegment.attr('data-tobago-markup'))[0], "testmarkup");
-});
-
-QUnit.test("Number of data-tobago-markup attributes", function (assert) {
-  assert.expect(1);
-
-  var $dataTobagoMarkups = jQueryFrame("#page\\:content .tobago-section-content [data-tobago-markup]");
-  assert.equal($dataTobagoMarkups.length, 12, "Two for segment layout components, one for all other components");
+  assert.equal(JSON.parse(labelSegment.dataset.tobagoMarkup)[0], "testmarkup");
+  assert.equal(JSON.parse(inputSegment.dataset.tobagoMarkup)[0], "testmarkup");
 });
