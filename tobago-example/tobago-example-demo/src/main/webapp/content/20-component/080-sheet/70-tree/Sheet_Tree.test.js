@@ -15,54 +15,58 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Collapse tree", function (assert) {
-  var row0nameFn = jQueryFrameFn("#page\\:mainForm\\:sheet\\:0\\:nameOut");
-  var row0centralBodyFn = jQueryFrameFn("#page\\:mainForm\\:sheet\\:0\\:centralBodyOut");
-  var row0distanceFn = jQueryFrameFn("#page\\:mainForm\\:sheet\\:0\\:distanceOut");
-  var row0periodFn = jQueryFrameFn("#page\\:mainForm\\:sheet\\:0\\:periodOut");
-  var row0discovererFn = jQueryFrameFn("#page\\:mainForm\\:sheet\\:0\\:discovererOut");
-  var row0yearFn = jQueryFrameFn("#page\\:mainForm\\:sheet\\:0\\:yearOut");
-  var row1nameFn = jQueryFrameFn("#page\\:mainForm\\:sheet\\:1\\:nameOut");
-  var row1centralBodyFn = jQueryFrameFn("#page\\:mainForm\\:sheet\\:1\\:centralBodyOut");
-  var row1distanceFn = jQueryFrameFn("#page\\:mainForm\\:sheet\\:1\\:distanceOut");
-  var row1periodFn = jQueryFrameFn("#page\\:mainForm\\:sheet\\:1\\:periodOut");
-  var row1discovererFn = jQueryFrameFn("#page\\:mainForm\\:sheet\\:1\\:discovererOut");
-  var row1yearFn = jQueryFrameFn("#page\\:mainForm\\:sheet\\:1\\:yearOut");
-  var rootTreeButtonFn = jQueryFrameFn("#page\\:mainForm\\:sheet\\:0\\:nameCol .tobago-treeNode-toggle");
+  let row0nameFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:nameOut");
+  let row0centralBodyFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:centralBodyOut");
+  let row0distanceFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:distanceOut");
+  let row0periodFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:periodOut");
+  let row0discovererFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:discovererOut");
+  let row0yearFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:yearOut");
+  let row1nameFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:1\\:nameOut");
+  let row1centralBodyFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:1\\:centralBodyOut");
+  let row1distanceFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:1\\:distanceOut");
+  let row1periodFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:1\\:periodOut");
+  let row1discovererFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:1\\:discovererOut");
+  let row1yearFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:1\\:yearOut");
+  let rootTreeButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:nameCol .tobago-treeNode-toggle");
 
-  var TTT = new TobagoTestTool(assert);
-  TTT.asserts(13, function () {
-    assert.equal(row0nameFn().text(), "Sun");
-    assert.equal(row0centralBodyFn().text(), "-");
-    assert.equal(row0distanceFn().text(), "0");
-    assert.equal(row0periodFn().text(), "0.0");
-    assert.equal(row0discovererFn().text(), "-");
-    assert.equal(row0yearFn().text(), "");
-    assert.equal(row1nameFn().text(), "Mercury");
-    assert.equal(row1centralBodyFn().text(), "Sun");
-    assert.equal(row1distanceFn().text(), "57910");
-    assert.equal(row1periodFn().text(), "87.97");
-    assert.equal(row1discovererFn().text(), "-");
-    assert.equal(row1yearFn().text(), "");
+  let TTT = new TobagoTestTool(assert);
+  TTT.asserts(14, function () {
+    assert.equal(row0nameFn().textContent, "Sun");
+    assert.equal(row0centralBodyFn().textContent, "-");
+    assert.equal(row0distanceFn().textContent, "0");
+    assert.equal(row0periodFn().textContent, "0.0");
+    assert.equal(row0discovererFn().textContent, "-");
+    assert.equal(row0yearFn().textContent, "");
+    assert.equal(row1nameFn().textContent, "Mercury");
+    assert.equal(row1centralBodyFn().textContent, "Sun");
+    assert.equal(row1distanceFn().textContent, "57910");
+    assert.equal(row1periodFn().textContent, "87.97");
+    assert.equal(row1discovererFn().textContent, "-");
+    assert.equal(row1yearFn().textContent, "");
 
-    assert.notEqual(row1yearFn().parents(".tobago-sheet-row").css("display"), "none");
+    let sheetRow = row1yearFn().parentElement.parentElement;
+    assert.ok(sheetRow.classList.contains("tobago-sheet-row"));
+    assert.notEqual(getComputedStyle(sheetRow).display, "none");
   });
   TTT.action(function () {
     rootTreeButtonFn().click();
   });
   TTT.waitMs(1000);
-  TTT.asserts(7, function () {
-    assert.equal(row0nameFn().text(), "Sun");
-    assert.equal(row0centralBodyFn().text(), "-");
-    assert.equal(row0distanceFn().text(), "0");
-    assert.equal(row0periodFn().text(), "0.0");
-    assert.equal(row0discovererFn().text(), "-");
-    assert.equal(row0yearFn().text(), "");
+  TTT.asserts(8, function () {
+    assert.equal(row0nameFn().textContent, "Sun");
+    assert.equal(row0centralBodyFn().textContent, "-");
+    assert.equal(row0distanceFn().textContent, "0");
+    assert.equal(row0periodFn().textContent, "0.0");
+    assert.equal(row0discovererFn().textContent, "-");
+    assert.equal(row0yearFn().textContent, "");
 
-    assert.equal(row1yearFn().parents(".tobago-sheet-row").css("display"), "none");
+    let sheetRow = row1yearFn().parentElement.parentElement;
+    assert.ok(sheetRow.classList.contains("tobago-sheet-row"));
+    assert.equal(getComputedStyle(sheetRow).display, "none");
   });
   TTT.startTest();
 });

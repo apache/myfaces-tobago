@@ -15,50 +15,51 @@
  * limitations under the License.
  */
 
-import {jQueryFrame, jQueryFrameFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Basics: 'M'", function (assert) {
-  var inputString = "M";
-  var expectedLength = 3;
+  let inputString = "M";
+  let expectedLength = 3;
 
   testMarsBasics(assert, inputString, expectedLength);
 });
 
 QUnit.test("Basics: 'Ma'", function (assert) {
-  var inputString = "Ma";
-  var expectedLength = 2;
+  let inputString = "Ma";
+  let expectedLength = 2;
 
   testMarsBasics(assert, inputString, expectedLength);
 });
 
 QUnit.test("Basics: 'Mar'", function (assert) {
-  var inputString = "Mar";
-  var expectedLength = 2;
+  let inputString = "Mar";
+  let expectedLength = 2;
 
   testMarsBasics(assert, inputString, expectedLength);
 });
 
 QUnit.test("Basics: 'Mars'", function (assert) {
-  var inputString = "Mars";
-  var expectedLength = 1;
+  let inputString = "Mars";
+  let expectedLength = 1;
 
   testMarsBasics(assert, inputString, expectedLength);
 });
 
 function testMarsBasics(assert, inputString, expectedLength) {
-  var inFn = jQueryFrameFn("#page\\:mainForm\\:input\\:\\:field");
-  var suggestionsFn = getSuggestions("#page\\:mainForm\\:input");
+  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:input\\:\\:field");
+  let suggestionsFn = getSuggestions("#page\\:mainForm\\:input");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    inFn().val(inputString).trigger('input');
+    inFn().value = inputString;
+    inFn().dispatchEvent(new Event('input'));
   });
   TTT.waitForResponse();
   TTT.asserts(expectedLength + 1, function () {
     assert.equal(suggestionsFn().length, expectedLength);
     for (let i = 0; i < expectedLength; i++) {
-      assert.ok(suggestionsFn().eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
+      assert.ok(suggestionsFn().item(i).querySelector("strong").textContent.toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
   });
   TTT.startTest();
@@ -69,6 +70,6 @@ function escapeClientId(clientId) {
 }
 
 function getSuggestions(id) {
-  return jQueryFrameFn(escapeClientId(
-      jQueryFrame(id + " tobago-suggest").attr("id") + "::popup") + " .tt-suggestion");
+  return testFrameQuerySelectorAllFn(escapeClientId(
+      testFrameQuerySelectorFn(id + " tobago-suggest")().id + "::popup") + " .tt-suggestion");
 }

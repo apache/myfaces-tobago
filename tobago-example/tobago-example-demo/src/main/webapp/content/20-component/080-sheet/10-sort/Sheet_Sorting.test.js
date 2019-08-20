@@ -15,25 +15,25 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Basics: Name", function (assert) {
-  var colNameFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
-  var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  let colNameFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1\\:columnName_sorter");
+  let rowsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
 
-  var TTT = new TobagoTestTool(assert);
-  if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
+  let TTT = new TobagoTestTool(assert);
+  if (!colNameFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       colNameFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colNameFn().classList.contains("tobago-sheet-header-markup-sortable"));
+    assert.ok(colNameFn().classList.contains("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colNameFn().classList.contains("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
     leftPagingFn().value = "22";
@@ -73,21 +73,21 @@ QUnit.test("Basics: Name", function (assert) {
 });
 
 QUnit.test("Basics: Period", function (assert) {
-  var colPeriodFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnPeriod_sorter");
-  var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  let colPeriodFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1\\:columnPeriod_sorter");
+  let rowsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
 
-  var TTT = new TobagoTestTool(assert);
-  if (!colPeriodFn().hasClass("tobago-sheet-header-markup-ascending")) {
+  let TTT = new TobagoTestTool(assert);
+  if (!colPeriodFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       colPeriodFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok(colPeriodFn().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok(colPeriodFn().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk(colPeriodFn().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colPeriodFn().classList.contains("tobago-sheet-header-markup-sortable"));
+    assert.ok(colPeriodFn().classList.contains("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colPeriodFn().classList.contains("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
     leftPagingFn().value = "29";
@@ -127,21 +127,21 @@ QUnit.test("Basics: Period", function (assert) {
 });
 
 QUnit.test("Basics: Year", function (assert) {
-  var colYearFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnDiscoverYear_sorter");
-  var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  let colYearFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1\\:columnDiscoverYear_sorter");
+  let rowsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
 
-  var TTT = new TobagoTestTool(assert);
-  if (!colYearFn().hasClass("tobago-sheet-header-markup-ascending")) {
+  let TTT = new TobagoTestTool(assert);
+  if (!colYearFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       colYearFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok(colYearFn().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok(colYearFn().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk(colYearFn().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colYearFn().classList.contains("tobago-sheet-header-markup-sortable"));
+    assert.ok(colYearFn().classList.contains("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colYearFn().classList.contains("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
     leftPagingFn().value = "22";
@@ -149,30 +149,30 @@ QUnit.test("Basics: Year", function (assert) {
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal(rowsFn().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1892", "row0col2");
-    assert.equal(rowsFn().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1898", "row1col2");
-    assert.equal(rowsFn().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1904", "row2col2");
-    assert.equal(rowsFn().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1905", "row3col2");
+    assert.equal(rowsFn().item(0).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1892", "row0col2");
+    assert.equal(rowsFn().item(1).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1898", "row1col2");
+    assert.equal(rowsFn().item(2).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1904", "row2col2");
+    assert.equal(rowsFn().item(3).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1905", "row3col2");
   });
   TTT.action(function () {
     colYearFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal(rowsFn().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1999", "row0col2");
-    assert.equal(rowsFn().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1999", "row1col2");
-    assert.equal(rowsFn().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1997", "row2col2");
-    assert.equal(rowsFn().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1997", "row3col2");
+    assert.equal(rowsFn().item(0).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1999", "row0col2");
+    assert.equal(rowsFn().item(1).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1999", "row1col2");
+    assert.equal(rowsFn().item(2).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1997", "row2col2");
+    assert.equal(rowsFn().item(3).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1997", "row3col2");
   });
   TTT.action(function () {
     colYearFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal(rowsFn().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1892", "row0col2");
-    assert.equal(rowsFn().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1898", "row1col2");
-    assert.equal(rowsFn().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1904", "row2col2");
-    assert.equal(rowsFn().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1905", "row3col2");
+    assert.equal(rowsFn().item(0).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1892", "row0col2");
+    assert.equal(rowsFn().item(1).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1898", "row1col2");
+    assert.equal(rowsFn().item(2).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1904", "row2col2");
+    assert.equal(rowsFn().item(3).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1905", "row3col2");
   });
   TTT.startTest();
 });
@@ -182,21 +182,21 @@ QUnit.test("Basics: Year", function (assert) {
  * 2. goto line 9
  */
 QUnit.test("Basics: left paging", function (assert) {
-  var colNameFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
-  var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  let colNameFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1\\:columnName_sorter");
+  let rowsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
 
-  var TTT = new TobagoTestTool(assert);
-  if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
+  let TTT = new TobagoTestTool(assert);
+  if (!colNameFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       colNameFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colNameFn().classList.contains("tobago-sheet-header-markup-sortable"));
+    assert.ok(colNameFn().classList.contains("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colNameFn().classList.contains("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
     leftPagingFn().value = "8";
@@ -231,22 +231,22 @@ QUnit.test("Basics: left paging", function (assert) {
  * 3. goto page 13
  */
 QUnit.test("Basics: center paging", function (assert) {
-  var colNameFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
-  var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
-  var centerPagingFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-center li .page-link");
+  let colNameFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1\\:columnName_sorter");
+  let rowsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  let centerPagingFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-center li .page-link");
 
-  var TTT = new TobagoTestTool(assert);
-  if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
+  let TTT = new TobagoTestTool(assert);
+  if (!colNameFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       colNameFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colNameFn().classList.contains("tobago-sheet-header-markup-sortable"));
+    assert.ok(colNameFn().classList.contains("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colNameFn().classList.contains("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
     leftPagingFn().value = "1";
@@ -261,7 +261,7 @@ QUnit.test("Basics: center paging", function (assert) {
         "Ananke", "-629.77", "1951");
   });
   TTT.action(function () {
-    centerPagingFn().eq(6).click();
+    centerPagingFn().item(6).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -272,7 +272,7 @@ QUnit.test("Basics: center paging", function (assert) {
         "Galatea", "0.43", "1989");
   });
   TTT.action(function () {
-    centerPagingFn().eq(10).click();
+    centerPagingFn().item(10).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -283,7 +283,7 @@ QUnit.test("Basics: center paging", function (assert) {
         "Praxidike", "625.3", "2000");
   });
   TTT.action(function () {
-    centerPagingFn().eq(3).click();
+    centerPagingFn().item(3).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -304,23 +304,23 @@ QUnit.test("Basics: center paging", function (assert) {
  * 5. goto page 14
  */
 QUnit.test("Basics: right paging", function (assert) {
-  var colNameFn = jQueryFrameFn("#page\\:mainForm\\:s1\\:columnName_sorter");
-  var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
-  var rightPagingFn = jQueryFrameFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-right .page-link");
-  var jumpToPageFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-right .page-link input");
+  let colNameFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1\\:columnName_sorter");
+  let rowsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-left input");
+  let rightPagingFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-right .page-link");
+  let jumpToPageFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s1 .tobago-sheet-paging-markup-right .page-link input");
 
-  var TTT = new TobagoTestTool(assert);
-  if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
+  let TTT = new TobagoTestTool(assert);
+  if (!colNameFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       colNameFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colNameFn().classList.contains("tobago-sheet-header-markup-sortable"));
+    assert.ok(colNameFn().classList.contains("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colNameFn().classList.contains("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
     leftPagingFn().value = "22";
@@ -335,7 +335,7 @@ QUnit.test("Basics: right paging", function (assert) {
         "Epimetheus", "0.69", "1980");
   });
   TTT.action(function () {
-    rightPagingFn().eq(0).click();
+    rightPagingFn().item(0).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -346,7 +346,7 @@ QUnit.test("Basics: right paging", function (assert) {
         "Ananke", "-629.77", "1951");
   });
   TTT.action(function () {
-    rightPagingFn().eq(3).click();
+    rightPagingFn().item(3).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -357,7 +357,7 @@ QUnit.test("Basics: right paging", function (assert) {
         "Bianca", "0.43", "1986");
   });
   TTT.action(function () {
-    rightPagingFn().eq(4).click();
+    rightPagingFn().item(4).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -368,7 +368,7 @@ QUnit.test("Basics: right paging", function (assert) {
         "Venus", "224.7", "");
   });
   TTT.action(function () {
-    rightPagingFn().eq(1).click();
+    rightPagingFn().item(1).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -394,21 +394,21 @@ QUnit.test("Basics: right paging", function (assert) {
 });
 
 QUnit.test("Custom Sorting: Name", function (assert) {
-  var colNameFn = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
-  var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  let colNameFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
+  let rowsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
 
-  var TTT = new TobagoTestTool(assert);
-  if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
+  let TTT = new TobagoTestTool(assert);
+  if (!colNameFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       colNameFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colNameFn().classList.contains("tobago-sheet-header-markup-sortable"));
+    assert.ok(colNameFn().classList.contains("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colNameFn().classList.contains("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
     leftPagingFn().value = "22";
@@ -448,21 +448,21 @@ QUnit.test("Custom Sorting: Name", function (assert) {
 });
 
 QUnit.test("Custom Sorting: Period", function (assert) {
-  var colPeriodFn = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnPeriod_sorter");
-  var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  let colPeriodFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2\\:customColumnPeriod_sorter");
+  let rowsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
 
-  var TTT = new TobagoTestTool(assert);
-  if (!colPeriodFn().hasClass("tobago-sheet-header-markup-ascending")) {
+  let TTT = new TobagoTestTool(assert);
+  if (!colPeriodFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       colPeriodFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok(colPeriodFn().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok(colPeriodFn().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk(colPeriodFn().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colPeriodFn().classList.contains("tobago-sheet-header-markup-sortable"));
+    assert.ok(colPeriodFn().classList.contains("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colPeriodFn().classList.contains("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
     leftPagingFn().value = "29";
@@ -502,21 +502,21 @@ QUnit.test("Custom Sorting: Period", function (assert) {
 });
 
 QUnit.test("Custom Sorting: Year", function (assert) {
-  var colYearFn = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnYear_sorter");
-  var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  let colYearFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2\\:customColumnYear_sorter");
+  let rowsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
 
-  var TTT = new TobagoTestTool(assert);
-  if (!colYearFn().hasClass("tobago-sheet-header-markup-ascending")) {
+  let TTT = new TobagoTestTool(assert);
+  if (!colYearFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       colYearFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok(colYearFn().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok(colYearFn().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk(colYearFn().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colYearFn().classList.contains("tobago-sheet-header-markup-sortable"));
+    assert.ok(colYearFn().classList.contains("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colYearFn().classList.contains("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
     leftPagingFn().value = "22";
@@ -524,30 +524,30 @@ QUnit.test("Custom Sorting: Year", function (assert) {
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal(rowsFn().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1789", "row0col2");
-    assert.equal(rowsFn().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row1col2");
-    assert.equal(rowsFn().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row2col2");
-    assert.equal(rowsFn().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1848", "row3col2");
+    assert.equal(rowsFn().item(0).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1789", "row0col2");
+    assert.equal(rowsFn().item(1).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1846", "row1col2");
+    assert.equal(rowsFn().item(2).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1846", "row2col2");
+    assert.equal(rowsFn().item(3).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1848", "row3col2");
   });
   TTT.action(function () {
     colYearFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal(rowsFn().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row0col2");
-    assert.equal(rowsFn().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row1col2");
-    assert.equal(rowsFn().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1989", "row2col2");
-    assert.equal(rowsFn().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1986", "row3col2");
+    assert.equal(rowsFn().item(0).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1989", "row0col2");
+    assert.equal(rowsFn().item(1).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1989", "row1col2");
+    assert.equal(rowsFn().item(2).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1989", "row2col2");
+    assert.equal(rowsFn().item(3).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1986", "row3col2");
   });
   TTT.action(function () {
     colYearFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
-    assert.equal(rowsFn().eq(0).find(".tobago-sheet-cell").eq(2).text().trim(), "1789", "row0col2");
-    assert.equal(rowsFn().eq(1).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row1col2");
-    assert.equal(rowsFn().eq(2).find(".tobago-sheet-cell").eq(2).text().trim(), "1846", "row2col2");
-    assert.equal(rowsFn().eq(3).find(".tobago-sheet-cell").eq(2).text().trim(), "1848", "row3col2");
+    assert.equal(rowsFn().item(0).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1789", "row0col2");
+    assert.equal(rowsFn().item(1).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1846", "row1col2");
+    assert.equal(rowsFn().item(2).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1846", "row2col2");
+    assert.equal(rowsFn().item(3).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1848", "row3col2");
   });
   TTT.startTest();
 });
@@ -557,21 +557,21 @@ QUnit.test("Custom Sorting: Year", function (assert) {
  * 2. goto line 9
  */
 QUnit.test("Custom Sorting: left paging", function (assert) {
-  var colNameFn = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
-  var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  let colNameFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
+  let rowsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
 
-  var TTT = new TobagoTestTool(assert);
-  if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
+  let TTT = new TobagoTestTool(assert);
+  if (!colNameFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       colNameFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colNameFn().classList.contains("tobago-sheet-header-markup-sortable"));
+    assert.ok(colNameFn().classList.contains("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colNameFn().classList.contains("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
     leftPagingFn().value = "8";
@@ -606,22 +606,22 @@ QUnit.test("Custom Sorting: left paging", function (assert) {
  * 3. goto page 13
  */
 QUnit.test("Custom Sorting: center paging", function (assert) {
-  var colNameFn = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
-  var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
-  var centerPagingFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-center li .page-link");
+  let colNameFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
+  let rowsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  let centerPagingFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-center li .page-link");
 
-  var TTT = new TobagoTestTool(assert);
-  if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
+  let TTT = new TobagoTestTool(assert);
+  if (!colNameFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       colNameFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colNameFn().classList.contains("tobago-sheet-header-markup-sortable"));
+    assert.ok(colNameFn().classList.contains("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colNameFn().classList.contains("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
     leftPagingFn().value = "1";
@@ -636,7 +636,7 @@ QUnit.test("Custom Sorting: center paging", function (assert) {
         "Ananke", "-629.77", "1951");
   });
   TTT.action(function () {
-    centerPagingFn().eq(6).click();
+    centerPagingFn().item(6).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -647,7 +647,7 @@ QUnit.test("Custom Sorting: center paging", function (assert) {
         "Galatea", "0.43", "1989");
   });
   TTT.action(function () {
-    centerPagingFn().eq(10).click();
+    centerPagingFn().item(10).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -658,7 +658,7 @@ QUnit.test("Custom Sorting: center paging", function (assert) {
         "Praxidike", "625.3", "2000");
   });
   TTT.action(function () {
-    centerPagingFn().eq(3).click();
+    centerPagingFn().item(3).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -679,23 +679,23 @@ QUnit.test("Custom Sorting: center paging", function (assert) {
  * 5. goto page 14
  */
 QUnit.test("Custom Sorting: right paging", function (assert) {
-  var colNameFn = jQueryFrameFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
-  var rowsFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
-  var leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
-  var rightPagingFn = jQueryFrameFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-right .page-link");
-  var rightPagingInputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-right .page-link input");
+  let colNameFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2\\:customColumnName_sorter");
+  let rowsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let leftPagingFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-left input");
+  let rightPagingFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-right .page-link");
+  let rightPagingInputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:s2 .tobago-sheet-paging-markup-right .page-link input");
 
-  var TTT = new TobagoTestTool(assert);
-  if (!colNameFn().hasClass("tobago-sheet-header-markup-ascending")) {
+  let TTT = new TobagoTestTool(assert);
+  if (!colNameFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
       colNameFn().click();
     });
     TTT.waitForResponse();
   }
   TTT.asserts(3, function () {
-    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-sortable"));
-    assert.ok(colNameFn().hasClass("tobago-sheet-header-markup-ascending"));
-    assert.notOk(colNameFn().hasClass("tobago-sheet-header-markup-descending"));
+    assert.ok(colNameFn().classList.contains("tobago-sheet-header-markup-sortable"));
+    assert.ok(colNameFn().classList.contains("tobago-sheet-header-markup-ascending"));
+    assert.notOk(colNameFn().classList.contains("tobago-sheet-header-markup-descending"));
   });
   TTT.action(function () {
     leftPagingFn().value = "22";
@@ -710,7 +710,7 @@ QUnit.test("Custom Sorting: right paging", function (assert) {
         "Epimetheus", "0.69", "1980");
   });
   TTT.action(function () {
-    rightPagingFn().eq(0).click();
+    rightPagingFn().item(0).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -721,7 +721,7 @@ QUnit.test("Custom Sorting: right paging", function (assert) {
         "Ananke", "-629.77", "1951");
   });
   TTT.action(function () {
-    rightPagingFn().eq(3).click();
+    rightPagingFn().item(3).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -732,7 +732,7 @@ QUnit.test("Custom Sorting: right paging", function (assert) {
         "Bianca", "0.43", "1986");
   });
   TTT.action(function () {
-    rightPagingFn().eq(4).click();
+    rightPagingFn().item(4).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -743,7 +743,7 @@ QUnit.test("Custom Sorting: right paging", function (assert) {
         "Venus", "224.7", "");
   });
   TTT.action(function () {
-    rightPagingFn().eq(1).click();
+    rightPagingFn().item(1).click();
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -770,18 +770,18 @@ QUnit.test("Custom Sorting: right paging", function (assert) {
 
 function ajaxExecuteBodyTableCheck(assert, rowsFn, row0col0, row0col1, row0col2, row1col0, row1col1, row1col2,
                                    row2col0, row2col1, row2col2, row3col0, row3col1, row3col2) {
-  var $row0Col0 = rowsFn().eq(0).find(".tobago-sheet-cell").eq(0).text().trim();
-  var $row0Col1 = rowsFn().eq(0).find(".tobago-sheet-cell").eq(1).text().trim();
-  var $row0Col2 = rowsFn().eq(0).find(".tobago-sheet-cell").eq(2).text().trim();
-  var $row1Col0 = rowsFn().eq(1).find(".tobago-sheet-cell").eq(0).text().trim();
-  var $row1Col1 = rowsFn().eq(1).find(".tobago-sheet-cell").eq(1).text().trim();
-  var $row1Col2 = rowsFn().eq(1).find(".tobago-sheet-cell").eq(2).text().trim();
-  var $row2Col0 = rowsFn().eq(2).find(".tobago-sheet-cell").eq(0).text().trim();
-  var $row2Col1 = rowsFn().eq(2).find(".tobago-sheet-cell").eq(1).text().trim();
-  var $row2Col2 = rowsFn().eq(2).find(".tobago-sheet-cell").eq(2).text().trim();
-  var $row3Col0 = rowsFn().eq(3).find(".tobago-sheet-cell").eq(0).text().trim();
-  var $row3Col1 = rowsFn().eq(3).find(".tobago-sheet-cell").eq(1).text().trim();
-  var $row3Col2 = rowsFn().eq(3).find(".tobago-sheet-cell").eq(2).text().trim();
+  let $row0Col0 = rowsFn().item(0).querySelectorAll(".tobago-sheet-cell").item(0).textContent.trim();
+  let $row0Col1 = rowsFn().item(0).querySelectorAll(".tobago-sheet-cell").item(1).textContent.trim();
+  let $row0Col2 = rowsFn().item(0).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim();
+  let $row1Col0 = rowsFn().item(1).querySelectorAll(".tobago-sheet-cell").item(0).textContent.trim();
+  let $row1Col1 = rowsFn().item(1).querySelectorAll(".tobago-sheet-cell").item(1).textContent.trim();
+  let $row1Col2 = rowsFn().item(1).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim();
+  let $row2Col0 = rowsFn().item(2).querySelectorAll(".tobago-sheet-cell").item(0).textContent.trim();
+  let $row2Col1 = rowsFn().item(2).querySelectorAll(".tobago-sheet-cell").item(1).textContent.trim();
+  let $row2Col2 = rowsFn().item(2).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim();
+  let $row3Col0 = rowsFn().item(3).querySelectorAll(".tobago-sheet-cell").item(0).textContent.trim();
+  let $row3Col1 = rowsFn().item(3).querySelectorAll(".tobago-sheet-cell").item(1).textContent.trim();
+  let $row3Col2 = rowsFn().item(3).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim();
 
   assert.equal($row0Col0, row0col0, "row0col0");
   assert.equal($row0Col1, row0col1, "row0col1");

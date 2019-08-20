@@ -15,89 +15,92 @@
  * limitations under the License.
  */
 
-import {jQueryFrame, jQueryFrameFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Basics: 'M'", function (assert) {
-  var inputString = "M";
-  var expectedLength = 10;
+  let inputString = "M";
+  let expectedLength = 10;
 
   testMarsBasics(assert, inputString, expectedLength);
 });
 
 QUnit.test("Basics: 'Ma'", function (assert) {
-  var inputString = "Ma";
-  var expectedLength = 4;
+  let inputString = "Ma";
+  let expectedLength = 4;
 
   testMarsBasics(assert, inputString, expectedLength);
 });
 
 QUnit.test("Basics: 'Mar'", function (assert) {
-  var inputString = "Mar";
-  var expectedLength = 1;
+  let inputString = "Mar";
+  let expectedLength = 1;
 
   testMarsBasics(assert, inputString, expectedLength);
 });
 
 QUnit.test("Basics: 'Mars'", function (assert) {
-  var inputString = "Mars";
-  var expectedLength = 1;
+  let inputString = "Mars";
+  let expectedLength = 1;
 
   testMarsBasics(assert, inputString, expectedLength);
 });
 
 function testMarsBasics(assert, inputString, expectedLength) {
-  var inFn = jQueryFrameFn("#page\\:mainForm\\:inBasic\\:\\:field");
-  var suggestionsFn = getSuggestions("#page\\:mainForm\\:inBasic");
+  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:inBasic\\:\\:field");
+  let suggestionsFn = getSuggestions("#page\\:mainForm\\:inBasic");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    inFn().val(inputString).trigger('input');
+    inFn().value = inputString;
+    inFn().dispatchEvent(new Event('input'));
   });
   TTT.waitForResponse();
   TTT.asserts(expectedLength + 1, function () {
     assert.equal(suggestionsFn().length, expectedLength);
     for (let i = 0; i < expectedLength; i++) {
-      assert.ok(suggestionsFn().eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
+      assert.ok(suggestionsFn().item(i).querySelector("strong").textContent.toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
   });
   TTT.startTest();
 }
 
 QUnit.test("Basics: Add 'eus' and click first entry.", function (assert) {
-  var inFn = jQueryFrameFn("#page\\:mainForm\\:inBasic\\:\\:field");
-  var suggestionsFn = getSuggestions("#page\\:mainForm\\:inBasic");
+  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:inBasic\\:\\:field");
+  let suggestionsFn = getSuggestions("#page\\:mainForm\\:inBasic");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    inFn().val("eus").trigger('input');
+    inFn().value = "eus";
+    inFn().dispatchEvent(new Event('input'));
   });
   TTT.waitForResponse();
   TTT.asserts(5, function () {
-    assert.equal(inFn().val(), "eus");
+    assert.equal(inFn().value, "eus");
     assert.equal(suggestionsFn().length, 3);
-    assert.equal(suggestionsFn().eq(0).find("strong").text(), "eus");
-    assert.equal(suggestionsFn().eq(1).find("strong").text(), "eus");
-    assert.equal(suggestionsFn().eq(2).find("strong").text(), "eus");
+    assert.equal(suggestionsFn().item(0).querySelector("strong").textContent, "eus");
+    assert.equal(suggestionsFn().item(1).querySelector("strong").textContent, "eus");
+    assert.equal(suggestionsFn().item(2).querySelector("strong").textContent, "eus");
   });
   TTT.action(function () {
-    suggestionsFn().eq(0).click();
+    suggestionsFn().item(0).click();
   });
   TTT.asserts(1, function () {
-    assert.equal(inFn().val(), "Prometheus");
+    assert.equal(inFn().value, "Prometheus");
 
   });
   TTT.startTest();
 });
 
 QUnit.test("Advanced: 'C'", function (assert) {
-  var inFn = jQueryFrameFn("#page\\:mainForm\\:inAdvanced\\:\\:field");
-  var suggestionsFn = getSuggestions("#page\\:mainForm\\:inAdvanced");
-  var suggestionDelay = 2000;
+  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:inAdvanced\\:\\:field");
+  let suggestionsFn = getSuggestions("#page\\:mainForm\\:inAdvanced");
+  let suggestionDelay = 2000;
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    inFn().val("C").trigger('input');
+    inFn().value = "C";
+    inFn().dispatchEvent(new Event('input'));
   });
   TTT.waitMs(suggestionDelay);
   TTT.asserts(1, function () {
@@ -107,14 +110,15 @@ QUnit.test("Advanced: 'C'", function (assert) {
 });
 
 QUnit.test("Advanced: 'Ca'", function (assert) {
-  var inFn = jQueryFrameFn("#page\\:mainForm\\:inAdvanced\\:\\:field");
-  var suggestionsFn = getSuggestions("#page\\:mainForm\\:inAdvanced");
-  var suggestionDelay = 2000;
-  var startTime = Date.now();
+  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:inAdvanced\\:\\:field");
+  let suggestionsFn = getSuggestions("#page\\:mainForm\\:inAdvanced");
+  let suggestionDelay = 2000;
+  let startTime = Date.now();
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    inFn().val("Ca").trigger('input');
+    inFn().value = "Ca";
+    inFn().dispatchEvent(new Event('input'));
   });
   TTT.waitMs(200); // default suggestion delay
   TTT.asserts(1, function () {
@@ -124,8 +128,8 @@ QUnit.test("Advanced: 'Ca'", function (assert) {
   TTT.waitForResponse();
   TTT.asserts(4, function () {
     assert.equal(suggestionsFn().length, 2);
-    assert.equal(suggestionsFn().eq(0).find("strong").text(), "Ca");
-    assert.equal(suggestionsFn().eq(1).find("strong").text(), "Ca");
+    assert.equal(suggestionsFn().item(0).querySelector("strong").textContent, "Ca");
+    assert.equal(suggestionsFn().item(1).querySelector("strong").textContent, "Ca");
     assert.ok(Date.now() - startTime >= suggestionDelay, "Delay for suggest popup must be greater/equal "
         + suggestionDelay);
   });
@@ -133,17 +137,18 @@ QUnit.test("Advanced: 'Ca'", function (assert) {
 });
 
 QUnit.test("Client side: 'Ju'", function (assert) {
-  var inFn = jQueryFrameFn("#page\\:mainForm\\:inClient\\:\\:field");
-  var suggestionsFn = getSuggestions("#page\\:mainForm\\:inClient");
+  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:inClient\\:\\:field");
+  let suggestionsFn = getSuggestions("#page\\:mainForm\\:inClient");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    inFn().val("Ju").trigger('input');
+    inFn().value = "Ju";
+    inFn().dispatchEvent(new Event('input'));
   });
   TTT.asserts(3, function () {
     assert.equal(suggestionsFn().length, 2);
-    assert.equal(suggestionsFn().eq(0).find("strong").text(), "Ju");
-    assert.equal(suggestionsFn().eq(1).find("strong").text(), "Ju");
+    assert.equal(suggestionsFn().item(0).querySelector("strong").textContent, "Ju");
+    assert.equal(suggestionsFn().item(1).querySelector("strong").textContent, "Ju");
   });
   TTT.startTest();
 });
@@ -153,6 +158,6 @@ function escapeClientId(clientId) {
 }
 
 function getSuggestions(id) {
-  return jQueryFrameFn(escapeClientId(
-      jQueryFrame(id + " tobago-suggest").attr("id") + "::popup") + " .tt-suggestion");
+  return testFrameQuerySelectorAllFn(escapeClientId(
+      testFrameQuerySelectorFn(id + " tobago-suggest")().id + "::popup") + " .tt-suggestion");
 }

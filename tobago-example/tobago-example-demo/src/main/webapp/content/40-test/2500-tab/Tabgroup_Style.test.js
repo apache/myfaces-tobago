@@ -15,38 +15,38 @@
  * limitations under the License.
  */
 
-import {jQueryFrame} from "/script/tobago-test.js";
+import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
 
 QUnit.test("test numbers of tab-group-index", function (assert) {
-  var $tabOne = jQueryFrame("#page\\:mainForm\\:tabOne");
-  var $tabTwo = jQueryFrame("#page\\:mainForm\\:tabTwo");
-  var $tabThree = jQueryFrame("#page\\:mainForm\\:tabThree");
-  var $tabFour = jQueryFrame("#page\\:mainForm\\:tabFour");
-  var $tabFive = jQueryFrame("#page\\:mainForm\\:tabFive");
-  var $tabOneContent = jQueryFrame("#page\\:mainForm\\:tabOne\\:\\:content");
-  var $tabTwoContent = jQueryFrame("#page\\:mainForm\\:tabTwo\\:\\:content");
-  var $tabThreeContent = jQueryFrame("#page\\:mainForm\\:tabThree\\:\\:content");
-  var $tabFourContent = jQueryFrame("#page\\:mainForm\\:tabFour\\:\\:content");
-  var $tabFiveContent = jQueryFrame("#page\\:mainForm\\:tabFive\\:\\:content");
+  let tabOneFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabOne");
+  let tabTwoFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabTwo");
+  let tabThreeFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabThree");
+  let tabFourFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabFour");
+  let tabFiveFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabFive");
+  let tabOneContentFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabOne\\:\\:content");
+  let tabTwoContentFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabTwo\\:\\:content");
+  let tabThreeContentFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabThree\\:\\:content");
+  let tabFourContentFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabFour\\:\\:content");
+  let tabFiveContentFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabFive\\:\\:content");
 
-  assert.equal($tabOne.data("tobago-tab-group-index"), "0");
-  assert.equal($tabTwo.data("tobago-tab-group-index"), "1");
-  assert.equal($tabThree.length, 0, "Tab three is not rendered");
-  assert.equal($tabFour.data("tobago-tab-group-index"), "3");
-  assert.equal($tabFive.data("tobago-tab-group-index"), "4");
+  assert.equal(tabOneFn().dataset.tobagoTabGroupIndex, "0");
+  assert.equal(tabTwoFn().dataset.tobagoTabGroupIndex, "1");
+  assert.equal(tabThreeFn(), null, "Tab three is not rendered");
+  assert.equal(tabFourFn().dataset.tobagoTabGroupIndex, "3");
+  assert.equal(tabFiveFn().dataset.tobagoTabGroupIndex, "4");
 
-  assert.equal($tabOneContent.data("tobago-tab-group-index"), "0");
-  assert.equal($tabTwoContent.data("tobago-tab-group-index"), "1");
-  assert.equal($tabThreeContent.length, 0, "Tab three content is not rendered");
-  assert.equal($tabFiveContent.data("tobago-tab-group-index"), "4");
+  assert.equal(tabOneContentFn().dataset.tobagoTabGroupIndex, "0");
+  assert.equal(tabTwoContentFn().dataset.tobagoTabGroupIndex, "1");
+  assert.equal(tabThreeContentFn(), null, "Tab three content is not rendered");
+  assert.equal(tabFiveContentFn().dataset.tobagoTabGroupIndex, "4");
 
-  assert.ok($tabOne.hasClass("tobago-tab-markup-selected"));
-  assert.notOk($tabTwo.hasClass("tobago-tab-markup-selected"));
-  assert.notOk($tabFour.hasClass("tobago-tab-markup-selected"));
-  assert.notOk($tabFive.hasClass("tobago-tab-markup-selected"));
+  assert.ok(tabOneFn().classList.contains("tobago-tab-markup-selected"));
+  assert.notOk(tabTwoFn().classList.contains("tobago-tab-markup-selected"));
+  assert.notOk(tabFourFn().classList.contains("tobago-tab-markup-selected"));
+  assert.notOk(tabFiveFn().classList.contains("tobago-tab-markup-selected"));
 
-  assert.ok($tabOneContent.hasClass("active"));
-  assert.notOk($tabTwoContent.hasClass("active"));
-  assert.notOk($tabFourContent.hasClass("active"));
-  assert.notOk($tabFiveContent.hasClass("active"));
+  assert.ok(tabOneContentFn().classList.contains("active"));
+  assert.notOk(tabTwoContentFn().classList.contains("active"));
+  assert.equal(tabFourContentFn(), null);
+  assert.notOk(tabFiveContentFn().classList.contains("active"));
 });

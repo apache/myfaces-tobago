@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-import {jQueryFrame} from "/script/tobago-test.js";
+import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
 
 QUnit.test("Attribute 'level'", function (assert) {
   assert.expect(1);
 
-  var $sectionLevel5 = jQueryFrame("#page\\:mainForm\\:sectionLevel5");
-  var $header5 = $sectionLevel5.find("h5");
+  let sectionLevel5Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionLevel5");
+  let header5 = sectionLevel5Fn().querySelector("h5");
 
-  assert.equal($header5.length, 1);
+  assert.ok(header5 !== null);
 });
