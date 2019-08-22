@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.stream.Stream;
 
 public class MeasureList implements Iterable<Measure>, Serializable {
 
@@ -35,6 +36,10 @@ public class MeasureList implements Iterable<Measure>, Serializable {
   @Override
   public Iterator<Measure> iterator() {
     return list.iterator();
+  }
+
+  public Stream<Measure> stream() {
+    return list.stream();
   }
 
   public static MeasureList parse(final String string) {
