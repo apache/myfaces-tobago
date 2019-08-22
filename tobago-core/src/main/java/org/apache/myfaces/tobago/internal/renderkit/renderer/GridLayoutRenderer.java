@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.MeasureList;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -61,6 +62,17 @@ public class GridLayoutRenderer extends RendererBase {
     final AbstractUIStyle style = (AbstractUIStyle) facesContext.getApplication().createComponent(
         facesContext, Tags.style.componentType(), RendererTypes.Style.name());
     style.setTransient(true);
+
+    /*
+     * If the column attribute contains and 'auto' value but not an 'fr' value,
+     * the behavior of the 'auto' value is the same as a 'fr' value.
+     * So if there is only an 'auto' value we add a hidden 'fr' value.
+     * https://issues.apache.org/jira/browse/TOBAGO-2002
+     */
+    if (columns.stream().anyMatch(measure -> Measure.Unit.AUTO.equals(measure.getUnit()))
+        && columns.stream().noneMatch(measure -> Measure.Unit.FR.equals(measure.getUnit()))) {
+      columns.add(new Measure(1, Measure.Unit.FR));
+    }
 
     style.setGridTemplateColumns(columns.serialize());
     style.setGridTemplateRows(rows.serialize());
