@@ -15,35 +15,35 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Check severity CSS classes", function (assert) {
-  var submitButtonFn = jQueryFrameFn("#page\\:mainForm\\:submit");
-  var fatalInputFieldFn = jQueryFrameFn("#page\\:mainForm\\:fatal\\:\\:field");
-  var errorInputFieldFn = jQueryFrameFn("#page\\:mainForm\\:error\\:\\:field");
-  var warnInputFieldFn = jQueryFrameFn("#page\\:mainForm\\:warn\\:\\:field");
-  var infoInputFieldFn = jQueryFrameFn("#page\\:mainForm\\:info\\:\\:field");
-  var fatalButtonFn = jQueryFrameFn("#page\\:mainForm\\:fatal .tobago-messages-button");
-  var errorButtonFn = jQueryFrameFn("#page\\:mainForm\\:error .tobago-messages-button");
-  var warnButtonFn = jQueryFrameFn("#page\\:mainForm\\:warn .tobago-messages-button");
-  var infoButtonFn = jQueryFrameFn("#page\\:mainForm\\:info .tobago-messages-button");
+  let submitButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:submit");
+  let fatalInputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:fatal\\:\\:field");
+  let errorInputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:error\\:\\:field");
+  let warnInputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:warn\\:\\:field");
+  let infoInputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:info\\:\\:field");
+  let fatalButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:fatal .tobago-messages-button");
+  let errorButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:error .tobago-messages-button");
+  let warnButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:warn .tobago-messages-button");
+  let infoButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:info .tobago-messages-button");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     submitButtonFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(8, function () {
-    assert.ok(fatalInputFieldFn().hasClass("border-danger"));
-    assert.ok(errorInputFieldFn().hasClass("border-danger"));
-    assert.ok(warnInputFieldFn().hasClass("border-warning"));
-    assert.ok(infoInputFieldFn().hasClass("border-info"));
+    assert.ok(fatalInputFieldFn().classList.contains("border-danger"));
+    assert.ok(errorInputFieldFn().classList.contains("border-danger"));
+    assert.ok(warnInputFieldFn().classList.contains("border-warning"));
+    assert.ok(infoInputFieldFn().classList.contains("border-info"));
 
-    assert.ok(fatalButtonFn().hasClass("btn-danger"));
-    assert.ok(errorButtonFn().hasClass("btn-danger"));
-    assert.ok(warnButtonFn().hasClass("btn-warning"));
-    assert.ok(infoButtonFn().hasClass("btn-info"));
+    assert.ok(fatalButtonFn().classList.contains("btn-danger"));
+    assert.ok(errorButtonFn().classList.contains("btn-danger"));
+    assert.ok(warnButtonFn().classList.contains("btn-warning"));
+    assert.ok(infoButtonFn().classList.contains("btn-info"));
   });
   TTT.startTest();
 });

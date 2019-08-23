@@ -15,46 +15,48 @@
  * limitations under the License.
  */
 
-import {jQueryFrame, jQueryFrameFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Deprecated: 'Ma'", function (assert) {
-  var inputString = "Ma";
-  var expectedLength = 4;
+  let inputString = "Ma";
+  let expectedLength = 4;
 
-  var inFn = jQueryFrameFn("#page\\:mainForm\\:deprecated\\:\\:field");
-  var suggestionsFn = getSuggestions("#page\\:mainForm\\:deprecated");
+  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:deprecated\\:\\:field");
+  let suggestionsFn = getSuggestions("#page\\:mainForm\\:deprecated");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    inFn().val(inputString).trigger('input');
+    inFn().value = inputString;
+    inFn().dispatchEvent(new Event('input'));
   });
   TTT.waitForResponse();
   TTT.asserts(expectedLength + 1, function () {
     assert.equal(suggestionsFn().length, expectedLength);
     for (let i = 0; i < expectedLength; i++) {
-      assert.ok(suggestionsFn().eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
+      assert.ok(suggestionsFn().item(i).querySelector("strong").textContent.toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
   });
   TTT.startTest();
 });
 
 QUnit.test("Replacement: 'Ma'", function (assert) {
-  var inputString = "Ma";
-  var expectedLength = 4;
+  let inputString = "Ma";
+  let expectedLength = 4;
 
-  var inFn = jQueryFrameFn("#page\\:mainForm\\:replacement\\:\\:field");
-  var suggestionsFn = getSuggestions("#page\\:mainForm\\:replacement");
+  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:replacement\\:\\:field");
+  let suggestionsFn = getSuggestions("#page\\:mainForm\\:replacement");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    inFn().val(inputString).trigger('input');
+    inFn().value = inputString;
+    inFn().dispatchEvent(new Event('input'));
   });
   TTT.waitForResponse();
   TTT.asserts(expectedLength + 1, function () {
     assert.equal(suggestionsFn().length, expectedLength);
     for (let i = 0; i < expectedLength; i++) {
-      assert.ok(suggestionsFn().eq(i).find("strong").text().toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
+      assert.ok(suggestionsFn().item(i).querySelector("strong").textContent.toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
     }
   });
   TTT.startTest();
@@ -65,6 +67,6 @@ function escapeClientId(clientId) {
 }
 
 function getSuggestions(id) {
-  return jQueryFrameFn(escapeClientId(
-      jQueryFrame(id + " tobago-suggest").attr("id") + "::popup") + " .tt-suggestion");
+  return testFrameQuerySelectorAllFn(escapeClientId(
+      testFrameQuerySelectorFn(id + " tobago-suggest")().id + "::popup") + " .tt-suggestion");
 }

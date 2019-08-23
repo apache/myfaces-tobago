@@ -15,77 +15,72 @@
  * limitations under the License.
  */
 
-import {jQueryFrame, jQueryFrameFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("tc:button", function (assert) {
-  var eventNames = ["click", "dblclick", "focus", "blur"];
-  var eventComponentFn = jQueryFrameFn("#page\\:mainForm\\:buttonevent");
-  var ajaxComponentFn = jQueryFrameFn("#page\\:mainForm\\:buttonajax");
+  let eventNames = ["click", "dblclick", "focus", "blur"];
+  let eventComponentFn = testFrameQuerySelectorFn("#page\\:mainForm\\:buttonevent");
+  let ajaxComponentFn = testFrameQuerySelectorFn("#page\\:mainForm\\:buttonajax");
   testEvent(assert, "button", eventNames, eventComponentFn, ajaxComponentFn, null);
 });
 
 QUnit.test("tc:in", function (assert) {
-  var eventNames = ["change", "click", "dblclick", "focus", "blur"];
-  var eventComponentFn = jQueryFrameFn("#page\\:mainForm\\:inevent\\:\\:field");
-  var ajaxComponentFn = jQueryFrameFn("#page\\:mainForm\\:inajax\\:\\:field");
-  var changeValue = function (componentFn) {
-    var oldValue = componentFn().val();
-    var newValue = "hello";
+  let eventNames = ["change", "click", "dblclick", "focus", "blur"];
+  let eventComponentFn = testFrameQuerySelectorFn("#page\\:mainForm\\:inevent\\:\\:field");
+  let ajaxComponentFn = testFrameQuerySelectorFn("#page\\:mainForm\\:inajax\\:\\:field");
+  let changeValue = function (componentFn) {
+    let oldValue = componentFn().value;
+    let newValue = "hello";
     if (oldValue === "hello") {
       newValue = "hello there!"
     }
-    componentFn().val(newValue);
+    componentFn().value = newValue;
   };
   testEvent(assert, "in", eventNames, eventComponentFn, ajaxComponentFn, changeValue);
 });
 
 QUnit.test("tc:row", function (assert) {
-  var eventNames = ["click", "dblclick"];
-  var eventComponentFn = jQueryFrameFn("#page\\:mainForm\\:sheetevent\\:0\\:selectPlanet");
-  var ajaxComponentFn = jQueryFrameFn("#page\\:mainForm\\:sheetajax\\:0\\:selectPlanet");
+  let eventNames = ["click", "dblclick"];
+  let eventComponentFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheetevent\\:0\\:selectPlanet");
+  let ajaxComponentFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheetajax\\:0\\:selectPlanet");
   testEvent(assert, "row", eventNames, eventComponentFn, ajaxComponentFn, null);
 });
 
 QUnit.test("tc:selectBooleanCheckbox", function (assert) {
-  var eventNames = ["change", "click", "dblclick", "focus", "blur"];
-  var eventComponentFn = jQueryFrameFn("#page\\:mainForm\\:selectBooleanCheckboxevent\\:\\:field");
-  var ajaxComponentFn = jQueryFrameFn("#page\\:mainForm\\:selectBooleanCheckboxajax\\:\\:field");
-  var changeValue = function (componentFn) {
-    var currentEvent = jQueryFrame("#page\\:mainForm\\:outEventName span").text();
-    if (currentEvent !== "click") {
-      componentFn().prop("checked", !componentFn().prop("checked"));
-    }
+  let eventNames = ["change", "click", "dblclick", "focus", "blur"];
+  let eventComponentFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectBooleanCheckboxevent\\:\\:field");
+  let ajaxComponentFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectBooleanCheckboxajax\\:\\:field");
+  let changeValue = function (componentFn) {
+    componentFn().checked = !componentFn().checked;
   };
   testEvent(assert, "selectBooleanCheckbox", eventNames, eventComponentFn, ajaxComponentFn, changeValue);
 });
 
 QUnit.test("tc:textarea", function (assert) {
-  var eventNames = ["change", "click", "dblclick", "focus", "blur"];
-  var eventComponentFn = jQueryFrameFn("#page\\:mainForm\\:textareaevent\\:\\:field");
-  var ajaxComponentFn = jQueryFrameFn("#page\\:mainForm\\:textareaajax\\:\\:field");
-  var changeValue = function (componentFn) {
-    var oldValue = componentFn().val();
-    var newValue = "hello";
+  let eventNames = ["change", "click", "dblclick", "focus", "blur"];
+  let eventComponentFn = testFrameQuerySelectorFn("#page\\:mainForm\\:textareaevent\\:\\:field");
+  let ajaxComponentFn = testFrameQuerySelectorFn("#page\\:mainForm\\:textareaajax\\:\\:field");
+  let changeValue = function (componentFn) {
+    let oldValue = componentFn().value;
+    let newValue = "hello";
     if (oldValue === "hello") {
       newValue = "hello there!"
     }
-    componentFn().val(newValue);
+    componentFn().value = newValue;
   };
   testEvent(assert, "textarea", eventNames, eventComponentFn, ajaxComponentFn, changeValue);
 });
 
 function testEvent(assert, componentName, eventNames, eventComponentFn, ajaxComponentFn, changeValueFunc) {
-  var oldActionCount;
-  var oldActionListenerCount;
-  var oldAjaxListenerCount;
-  var oldValueChangeListenerCount;
-  var oldTimestamp;
+  let oldActionCount;
+  let oldActionListenerCount;
+  let oldAjaxListenerCount;
+  let oldValueChangeListenerCount;
+  let oldTimestamp;
 
-  var TTT = new TobagoTestTool(assert);
-  for (var i = 0; i < eventNames.length; i++) {
-    // need 'let' here, otherwise all tests are executed with last eventName in array
-    // also work in IE11
+  let TTT = new TobagoTestTool(assert);
+  for (let i = 0; i < eventNames.length; i++) {
     let eventName = eventNames[i];
 
     TTT.action(function () {
@@ -102,7 +97,7 @@ function testEvent(assert, componentName, eventNames, eventComponentFn, ajaxComp
       if (changeValueFunc !== null) {
         changeValueFunc(eventComponentFn);
       }
-      eventComponentFn().trigger(eventName);
+      eventComponentFn().dispatchEvent(new Event(eventName));
     });
     TTT.waitForResponse();
     TTT.asserts(5, function () {
@@ -128,7 +123,7 @@ function testEvent(assert, componentName, eventNames, eventComponentFn, ajaxComp
       if (changeValueFunc !== null) {
         changeValueFunc(ajaxComponentFn);
       }
-      ajaxComponentFn().trigger(eventName);
+      ajaxComponentFn().dispatchEvent(new Event(eventName));
     });
     TTT.waitForResponse();
     TTT.asserts(5, function () {
@@ -149,12 +144,14 @@ function testEvent(assert, componentName, eventNames, eventComponentFn, ajaxComp
 }
 
 function activateComponent(componentName, eventName) {
-  jQueryFrame("#page\\:mainForm\\:componentTable .tobago-sheet-row").each(function () {
-    if (jQuery(this).find("td").eq(0).find(".tobago-out").text() === componentName) {
-      jQuery(this).find("button").each(function () {
-        var id = jQuery(this).attr("id");
+  const rows = testFrameQuerySelectorAllFn("#page\\:mainForm\\:componentTable .tobago-sheet-row")();
+  Array.prototype.forEach.call(rows, function (element, i) {
+    if (element.querySelectorAll("td").item(0).querySelector(".tobago-out").textContent === componentName) {
+      const buttons = element.querySelectorAll("button");
+      Array.prototype.forEach.call(buttons, function (element, i) {
+        let id = element.getAttribute("id");
         if (id !== undefined && id.indexOf(eventName + "Behavior") >= 0) {
-          this.click();
+          element.click();
         }
       });
     }
@@ -162,21 +159,21 @@ function activateComponent(componentName, eventName) {
 }
 
 function getActionCount() {
-  return parseInt(jQueryFrame("#page\\:mainForm\\:inAction\\:\\:field").val());
+  return parseInt(testFrameQuerySelectorFn("#page\\:mainForm\\:inAction\\:\\:field")().value);
 }
 
 function getActionListenerCount() {
-  return parseInt(jQueryFrame("#page\\:mainForm\\:inActionListener\\:\\:field").val());
+  return parseInt(testFrameQuerySelectorFn("#page\\:mainForm\\:inActionListener\\:\\:field")().value);
 }
 
 function getAjaxListenerCount() {
-  return parseInt(jQueryFrame("#page\\:mainForm\\:inAjaxListener\\:\\:field").val());
+  return parseInt(testFrameQuerySelectorFn("#page\\:mainForm\\:inAjaxListener\\:\\:field")().value);
 }
 
 function getValueChangeListenerCount() {
-  return parseInt(jQueryFrame("#page\\:mainForm\\:inValueChangeListener\\:\\:field").val());
+  return parseInt(testFrameQuerySelectorFn("#page\\:mainForm\\:inValueChangeListener\\:\\:field")().value);
 }
 
 function getTimestamp() {
-  return parseInt(jQueryFrame("#page\\:mainForm\\:inTimestamp\\:\\:field").val());
+  return parseInt(testFrameQuerySelectorFn("#page\\:mainForm\\:inTimestamp\\:\\:field")().value);
 }

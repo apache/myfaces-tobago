@@ -33,7 +33,7 @@ QUnit.test("single: select Music, select Mathematics", function (assert) {
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(inputFn(), undefined);
+    assert.equal(inputFn(), null);
   });
   TTT.action(function () {
     selectableSingleFn().checked = true;
@@ -41,7 +41,7 @@ QUnit.test("single: select Music, select Mathematics", function (assert) {
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.notEqual(inputFn(), undefined);
+    assert.notEqual(inputFn(), null);
   });
   TTT.action(function () {
     musicFn().checked = true;
@@ -77,7 +77,7 @@ QUnit.test("singleLeafOnly: select Classic, select Mathematics", function (asser
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(inputFn(), undefined);
+    assert.equal(inputFn(), null);
   });
   TTT.action(function () {
     selectableSingleLeafOnlyFn().checked = true;
@@ -85,7 +85,7 @@ QUnit.test("singleLeafOnly: select Classic, select Mathematics", function (asser
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.notEqual(inputFn(), undefined);
+    assert.notEqual(inputFn(), null);
   });
   TTT.action(function () {
     classicFn().checked = true;
@@ -121,7 +121,7 @@ QUnit.test("multi: select Music, select Mathematics, deselect Music", function (
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(inputFn(), undefined);
+    assert.equal(inputFn(), null);
   });
   TTT.action(function () {
     selectableMultiFn().checked = true;
@@ -129,7 +129,7 @@ QUnit.test("multi: select Music, select Mathematics, deselect Music", function (
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.notEqual(inputFn(), undefined);
+    assert.notEqual(inputFn(), null);
   });
   TTT.action(function () {
     musicFn().checked = true;
@@ -173,7 +173,7 @@ QUnit.test("multiLeafOnly: select Classic, select Mathematics, deselect Classic"
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(inputFn(), undefined);
+    assert.equal(inputFn(), null);
   });
   TTT.action(function () {
     selectableMultiLeafOnlyFn().checked = true;
@@ -181,7 +181,7 @@ QUnit.test("multiLeafOnly: select Classic, select Mathematics, deselect Classic"
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.notEqual(inputFn(), undefined);
+    assert.notEqual(inputFn(), null);
   });
   TTT.action(function () {
     classicFn().checked = true;
@@ -226,7 +226,7 @@ QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", f
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(inputFn(), undefined);
+    assert.equal(inputFn(), null);
   });
   TTT.action(function () {
     selectableMultiCascadeFn().checked = true;
@@ -234,7 +234,7 @@ QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", f
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.notEqual(inputFn(), undefined);
+    assert.notEqual(inputFn(), null);
   });
   TTT.action(function () {
     musicFn().checked = true;

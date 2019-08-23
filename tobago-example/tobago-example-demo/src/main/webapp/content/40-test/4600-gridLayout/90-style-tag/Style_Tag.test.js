@@ -15,23 +15,23 @@
  * limitations under the License.
  */
 
-import {jQueryFrameFn} from "/script/tobago-test.js";
+import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Style tag inside grid layout", function (assert) {
-  var outputFn = jQueryFrameFn("#page\\:mainForm\\:output .tobago-out");
-  var buttonFn = jQueryFrameFn("#page\\:mainForm\\:submitButton");
+  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:output .tobago-out");
+  let buttonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:submitButton");
 
-  var TTT = new TobagoTestTool(assert);
+  let TTT = new TobagoTestTool(assert);
   TTT.asserts(1, function () {
-    assert.ok(outputFn().hasClass("text-warning"));
+    assert.ok(outputFn().classList.contains("text-warning"));
   });
   TTT.action(function () {
     buttonFn().click();
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.ok(outputFn().hasClass("text-warning"));
+    assert.ok(outputFn().classList.contains("text-warning"));
   });
   TTT.startTest();
 });

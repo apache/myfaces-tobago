@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-import {jQueryFrame} from "/script/tobago-test.js";
+import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
 
 function test(assert, idSuffix, expectedText) {
-  var $out = jQueryFrame("#page\\:mainForm\\:" + idSuffix);
-  assert.equal($out.text().trim(), expectedText);
+  let outFn = testFrameQuerySelectorFn("#page\\:mainForm\\:" + idSuffix);
+  assert.equal(outFn().textContent.trim(), expectedText);
 }
 
 QUnit.test("formatted values: out string", function (assert) {
