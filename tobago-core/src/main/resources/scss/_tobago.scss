@@ -200,7 +200,7 @@ button.tobago-button {
 
 .tobago-collapsed.tobago-box .card-body,
 .tobago-collapsed.tobago-section .tobago-section-content,
-.tobago-collapsed.tobago-panel {
+tobago-panel.tobago-collapsed {
   display: none;
 }
 
@@ -725,13 +725,21 @@ span.tobago-out:empty:before {
 .tobago-spread {
   height: 100%;
 
-  &.tobago-panel {
+  &tobago-panel {
     overflow-x: hidden;
     overflow-y: auto;
   }
 }
 
 /* panel ------------------------------------------------------------- */
+
+// todo: remove
+.tobago-panel {
+}
+
+tobago-panel {
+  display: block;
+}
 
 /* popup ------------------------------------------------------------- */
 

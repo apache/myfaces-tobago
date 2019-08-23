@@ -49,14 +49,13 @@ public class PanelRenderer extends PanelRendererBase {
     final Markup markup = panel.getMarkup();
     final AbstractUIReload reload = ComponentUtils.getReloadFacet(panel);
 
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.TOBAGO_PANEL);
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
 
     writer.writeClassAttribute(
-        TobagoClass.PANEL,
-        TobagoClass.PANEL.createMarkup(markup),
         collapsed ? TobagoClass.COLLAPSED : null,
+        TobagoClass.PANEL.createMarkup(markup),
         panel.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
 
@@ -80,6 +79,6 @@ public class PanelRenderer extends PanelRendererBase {
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.TOBAGO_PANEL);
   }
 }

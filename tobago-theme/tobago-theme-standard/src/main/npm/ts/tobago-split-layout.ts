@@ -15,61 +15,71 @@
  * limitations under the License.
  */
 
-import {Listener, Phase} from "./tobago-listener";
 import {DomUtils} from "./tobago-utils";
 
-class SplitLayout {
+class SplitLayout extends HTMLElement {
 
-  private readonly element: HTMLDivElement;
-  private readonly horizontal: boolean;
   private offset: number;
 
-  static init = function (element: HTMLElement): void {
-    for (const splitLayout of DomUtils.selfOrElementsByClassName(element, "tobago-splitLayout")) {
-      new SplitLayout(splitLayout as HTMLDivElement);
-    }
-  };
+  constructor() {
+    super();
 
-  constructor(element: HTMLDivElement) {
-    this.element = element;
-
-    let splitters = this.element.getElementsByClassName("tobago-splitLayout-horizontal");
-    for (let i = 0; i < splitters.length; i++) {
-      splitters.item(i).addEventListener("mousedown", this.start.bind(this));
-      this.horizontal = true;
+    let first = true;
+    let justAdded = false;
+    for (let child of this.children) {
+      if (justAdded) { // skip, because the just added had enlarges the list of children
+        justAdded = false;
+        continue;
+      }
+      if (child.matches("input[type=hidden]")) {
+        continue;
+      }
+      if (first) { // the first needs no splitter handle
+        first = false;
+        continue;
+      }
+      const splitter = document.createElement("div");
+      splitter.classList.add(
+          this.orientation === "horizontal" ? "tobago-splitLayout-horizontal" : "tobago-splitLayout-vertical"
+      );
+      justAdded = true;
+      splitter.addEventListener("mousedown", this.start.bind(this));
+      child.parentElement.insertBefore(splitter, child);
     }
+  }
 
-    splitters = this.element.getElementsByClassName("tobago-splitLayout-vertical");
-    for (let i = 0; i < splitters.length; i++) {
-      splitters.item(i).addEventListener("mousedown", this.start.bind(this));
-      this.horizontal = false;
-    }
+  get orientation(): string {
+    return this.getAttribute("orientation");
+  }
+
+  set orientation(orientation: string) {
+    this.setAttribute("orientation", orientation);
   }
 
   start(event: MouseEvent) {
     event.preventDefault();
     const splitter = event.target as HTMLElement;
     const previous = DomUtils.previousElementSibling(splitter);
-    this.offset = this.horizontal ? event.pageX - previous.offsetWidth : event.pageY - previous.offsetHeight;
+    this.offset = this.orientation === "horizontal" ? event.pageX - previous.offsetWidth : event.pageY - previous.offsetHeight;
     const mousedown = SplitLayoutMousedown.save(event, splitter);
     document.addEventListener("mousemove", this.move.bind(this));
     document.addEventListener("mouseup", this.stop.bind(this));
     const previousArea = mousedown.previous;
-    if (this.horizontal) {
+    if (this.orientation === "horizontal") {
       previousArea.style.width = String(previousArea.offsetWidth + "px");
     } else {
       previousArea.style.height = String(previousArea.offsetHeight + "px");
     }
     previousArea.style.flexGrow = "inherit";
     previousArea.style.flexBasis = "auto";
-    console.debug("initial width/height = '%s'", (this.horizontal ? previousArea.style.width : previousArea.style.height));
-  };
+    console.debug("initial width/height = '%s'", (this.orientation === "horizontal" ? previousArea.style.width : previousArea.style.height));
+  }
 
   move(event: MouseEvent): void {
     event.preventDefault();
     const data = SplitLayoutMousedown.load();
     const previousArea = data.previous;
-    if (this.horizontal) {
+    if (this.orientation === "horizontal") {
       previousArea.style.width = String(event.pageX - this.offset) + "px";
     } else {
       previousArea.style.height = String(event.pageY - this.offset) + "px";
@@ -143,5 +153,6 @@ class SplitLayoutMousedown {
 
 }
 
-Listener.register(SplitLayout.init, Phase.DOCUMENT_READY);
-Listener.register(SplitLayout.init, Phase.AFTER_UPDATE);
+document.addEventListener("DOMContentLoaded", function (event) {
+  window.customElements.define('tobago-split-layout', SplitLayout);
+});

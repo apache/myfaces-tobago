@@ -27,7 +27,8 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
   UPDATE("update"),
   TOTAL_COUNT("total-count"),
   LOCAL_MENU("local-menu"),
-  DATA("data");
+  DATA("data"),
+  ORIENTATION("orientation");
 
   private final String value;
 
