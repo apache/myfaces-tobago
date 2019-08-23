@@ -55,6 +55,10 @@ public class InRenderer extends MessageLayoutRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+  public HtmlElements getComponentTag() {
+    return HtmlElements.TOBAGO_IN;
+  }
+
   @Override
   protected void encodeBeginField(final FacesContext facesContext, final UIComponent component)
       throws IOException {

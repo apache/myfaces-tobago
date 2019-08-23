@@ -48,6 +48,10 @@ import java.util.List;
  */
 public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase {
 
+  public HtmlElements getComponentTag() {
+    return HtmlElements.DIV;
+  }
+
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
@@ -125,7 +129,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
         flex = false;
     }
 
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(getComponentTag());
     if (labelLayout == LabelLayout.gridLeft || labelLayout == LabelLayout.gridRight
         || labelLayout == LabelLayout.gridTop || labelLayout == LabelLayout.gridBottom) {
       writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "label");
@@ -196,7 +200,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
         // nothing to do
     }
 
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(getComponentTag());
   }
 
   protected void encodeLabel(final FacesContext facesContext, final UIComponent component,
