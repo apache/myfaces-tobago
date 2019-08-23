@@ -29,7 +29,8 @@ class Suggest extends HTMLElement {
 
     return function findMatches(query, syncResults, asyncResults) {
 
-      let suggest = document.getElementById(input.dataset["tobagoSuggestFor"]) as Suggest;
+      const root = input.getRootNode() as ShadowRoot|Document;
+      let suggest = root.getElementById(input.dataset["tobagoSuggestFor"]) as Suggest;
 
       // todo: suggest.hiddenInput.value should contain the last query value
       if (suggest.hiddenInput.value !== query) {
@@ -153,7 +154,8 @@ class Suggest extends HTMLElement {
   }
 
   connectedCallback() {
-    const input = document.getElementById(this.for) as HTMLInputElement;
+    const root = this.getRootNode() as ShadowRoot|Document;
+    const input = root.getElementById(this.for) as HTMLInputElement;
     const $input = jQuery(input);
 
     if (this.update && input.classList.contains("tt-input")) { // already initialized: so only update data
@@ -173,14 +175,14 @@ class Suggest extends HTMLElement {
         source = Suggest.fromClient(data2);
       }
 
-      let suggestPopup = document.getElementById(this.id + "::popup");
+      let suggestPopup = root.getElementById(this.id + "::popup");
       if (suggestPopup) {
         suggestPopup.parentElement.removeChild(suggestPopup);
       }
       suggestPopup = document.createElement("div");
       suggestPopup.id = this.id + "::popup";
       suggestPopup.classList.add("tt-menu", "tt-empty");
-      document.querySelector(".tobago-page-menuStore").appendChild(suggestPopup);
+      root.querySelector(".tobago-page-menuStore").appendChild(suggestPopup);
 
       const menu = this.localMenu ? null : suggestPopup;
 
@@ -208,7 +210,7 @@ class Suggest extends HTMLElement {
       // old with jQuery:
       $input.on('typeahead:open', function (event: JQuery.Event) {
         const input = this;
-        const suggestPopup = document.getElementById(input.dataset["tobagoSuggestFor"] + "::popup");
+        const suggestPopup = root.getElementById(input.dataset["tobagoSuggestFor"] + "::popup");
         suggestPopup.style.top = DomUtils.offset(input).top + input.offsetHeight + "px";
         suggestPopup.style.left = DomUtils.offset(input).left + "px";
         suggestPopup.style.minWidth = input.offsetWidth + "px";
