@@ -29,7 +29,6 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.MeasureList;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
@@ -50,7 +49,6 @@ public class GridLayoutRenderer extends RendererBase {
     writer.startElement(HtmlElements.DIV);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
     writer.writeIdAttribute(gridLayout.getClientId(facesContext));
-    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(gridLayout.getMarkup()), false);
     writer.writeClassAttribute(
         TobagoClass.GRID_LAYOUT,
         TobagoClass.GRID_LAYOUT.createMarkup(markup),

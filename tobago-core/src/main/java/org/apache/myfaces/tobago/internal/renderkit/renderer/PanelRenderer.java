@@ -51,7 +51,6 @@ public class PanelRenderer extends PanelRendererBase {
 
     writer.startElement(HtmlElements.TOBAGO_PANEL);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
 
     writer.writeClassAttribute(
         collapsed ? TobagoClass.COLLAPSED : null,

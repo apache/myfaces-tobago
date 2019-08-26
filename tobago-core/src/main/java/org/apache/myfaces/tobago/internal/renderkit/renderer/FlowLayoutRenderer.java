@@ -45,7 +45,6 @@ public class FlowLayoutRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(flowLayout.getClientId());
-    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     final TextAlign textAlign = flowLayout.getTextAlign();
     writer.writeClassAttribute(
         TobagoClass.FLOW_LAYOUT,

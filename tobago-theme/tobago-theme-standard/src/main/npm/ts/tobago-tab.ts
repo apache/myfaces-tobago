@@ -45,19 +45,10 @@ class TabGroup {
               const activeNavLink: HTMLLinkElement = TabGroup.getActiveNavLink(tabGroup);
               const activeTabContent: HTMLDivElement = TabGroup.getActiveTabContent(tabGroup);
 
-              if (activeTab.dataset.tobagoMarkup !== undefined) {
-                const markups: Set<string> = new Set(JSON.parse(activeTab.dataset.tobagoMarkup));
-                markups.delete(markupString);
-                activeTab.dataset.tobagoMarkup = JSON.stringify(Array.from(markups));
-              }
               activeTab.classList.remove(markupCssClass);
               activeNavLink.classList.remove("active");
               activeTabContent.classList.remove("active");
 
-              const markup: string = tab.dataset.tobagoMarkup;
-              const markups: Set<string> = markup ? new Set(JSON.parse(markup)) : new Set();
-              markups.add(markupString);
-              tab.dataset.tobagoMarkup = JSON.stringify(Array.from(markups));
               tab.classList.add(markupCssClass);
               navLink.classList.add("active");
               TabGroup.getTabContent(tabGroup, tabGroupIndex).classList.add("active");

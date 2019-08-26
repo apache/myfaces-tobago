@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIBar;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUILinks;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -57,7 +56,6 @@ public class BarRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.NAV);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     writer.writeClassAttribute(
         TobagoClass.BAR,
         TobagoClass.BAR.createMarkup(bar.getMarkup()),

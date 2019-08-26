@@ -22,13 +22,11 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISplitLayout;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.layout.Orientation;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -76,7 +74,6 @@ public class SplitLayoutRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.TOBAGO_SPLIT_LAYOUT);
     writer.writeIdAttribute(splitLayout.getClientId(facesContext));
-    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(splitLayout.getMarkup()), false);
     writer.writeClassAttribute(
         BootstrapClass.D_FLEX,
         splitLayout.isHorizontal() ? BootstrapClass.FLEX_ROW : BootstrapClass.FLEX_COLUMN,

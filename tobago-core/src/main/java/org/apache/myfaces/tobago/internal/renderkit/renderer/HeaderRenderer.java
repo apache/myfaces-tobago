@@ -44,7 +44,6 @@ public class HeaderRenderer extends RendererBase {
     final Markup markup = header.getMarkup();
     writer.startElement(HtmlElements.HEADER);
     writer.writeIdAttribute(component.getClientId(facesContext));
-    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     // TBD: NAVBAR_DARK and BG_INVERSE should not be the default
     // TBD: how to configure it when it is needed, with customClass, or with markup?
 

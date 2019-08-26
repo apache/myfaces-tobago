@@ -63,7 +63,6 @@ public class OutRenderer extends MessageLayoutRendererBase {
       writer.startElement(HtmlElements.SPAN);
       if (out.isLabelLayoutSkip()) {
         writer.writeIdAttribute(out.getClientId());
-        writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
       }
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, out);
 

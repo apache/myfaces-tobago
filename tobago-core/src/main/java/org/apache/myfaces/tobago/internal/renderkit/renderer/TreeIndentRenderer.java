@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeIndent;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
@@ -64,7 +63,6 @@ public class TreeIndentRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(treeIndent.getClientId(facesContext));
-    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(treeIndent.getMarkup()), false);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, treeIndent);
     writer.writeClassAttribute(
         TobagoClass.TREE_NODE__TOGGLE,

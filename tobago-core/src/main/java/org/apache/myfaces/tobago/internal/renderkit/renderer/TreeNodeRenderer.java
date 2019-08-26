@@ -147,7 +147,6 @@ public class TreeNodeRenderer extends RendererBase {
       //        writer.writeAttribute(HtmlAttributes.value, node.getValue().toString(), true); // XXX converter?
       writer.writeAttribute(HtmlAttributes.VALUE, clientId, true);
       writer.writeIdAttribute(clientId);
-      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
       writer.writeAttribute(HtmlAttributes.SELECTED, selectedState.isAncestorOfSelected(path));
       writer.writeAttribute(DataAttributes.ROW_INDEX, data.getRowIndex());
     } else {
@@ -155,7 +154,6 @@ public class TreeNodeRenderer extends RendererBase {
 
       // div id
       writer.writeIdAttribute(clientId);
-      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
 
       // In the case of a sheet, we need not hiding the node, because the whole TR will be hidden.
       final boolean hidden = !dataRendersRowContainer && !visible;

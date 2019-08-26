@@ -32,7 +32,6 @@ import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -65,7 +64,6 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     writer.startElement(HtmlElements.DIV);
     if (select.isLabelLayoutSkip()) {
       writer.writeIdAttribute(referenceId);
-      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     }
 
     writer.writeClassAttribute(

@@ -63,7 +63,6 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     writer.startElement(HtmlElements.DIV);
     if (select.isLabelLayoutSkip()) {
       writer.writeIdAttribute(referenceId);
-      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     }
 
     writer.writeClassAttribute(

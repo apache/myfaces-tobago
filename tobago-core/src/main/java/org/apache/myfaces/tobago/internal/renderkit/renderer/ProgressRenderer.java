@@ -59,7 +59,6 @@ public class ProgressRenderer extends RendererBase {
     writer.startElement(HtmlElements.DIV);
     final String clientId = progress.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     writer.writeClassAttribute(
         TobagoClass.PROGRESS,
         TobagoClass.PROGRESS.createMarkup(markup),

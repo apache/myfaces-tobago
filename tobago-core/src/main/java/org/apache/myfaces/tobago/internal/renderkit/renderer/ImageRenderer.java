@@ -55,7 +55,6 @@ public class ImageRenderer extends RendererBase {
     if (fontAwesome) {
       writer.startElement(HtmlElements.I);
       writer.writeIdAttribute(image.getClientId(facesContext));
-      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
       writer.writeClassAttribute(
           Icons.FA,
           Icons.custom(value),
@@ -67,7 +66,6 @@ public class ImageRenderer extends RendererBase {
       final String alt = image.getAlt();
       writer.startElement(HtmlElements.IMG);
       writer.writeIdAttribute(image.getClientId(facesContext));
-      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
       writer.writeAttribute(HtmlAttributes.SRC, value, true);
       writer.writeAttribute(HtmlAttributes.ALT, alt != null ? alt : "", true);

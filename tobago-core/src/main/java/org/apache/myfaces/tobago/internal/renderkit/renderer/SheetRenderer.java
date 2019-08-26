@@ -265,7 +265,6 @@ public class SheetRenderer extends RendererBase {
     // Outer sheet div
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(sheetId);
-    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, sheet);
     writer.writeClassAttribute(
         TobagoClass.SHEET,

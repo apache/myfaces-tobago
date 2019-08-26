@@ -245,7 +245,6 @@ public class PageRenderer extends RendererBase {
         spread,
         page.getCustomClass());
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, page);
 
     writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, page)));

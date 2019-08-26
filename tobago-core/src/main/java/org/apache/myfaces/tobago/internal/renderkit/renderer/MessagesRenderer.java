@@ -79,7 +79,6 @@ public class MessagesRenderer extends RendererBase {
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(messages.getClientId(facesContext));
     final Markup markup = messages.getMarkup();
-    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     writer.writeClassAttribute(
         TobagoClass.MESSAGES,
         TobagoClass.MESSAGES.createMarkup(markup),

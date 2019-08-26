@@ -71,7 +71,6 @@ public class DateRenderer extends InRenderer {
     writer.startElement(HtmlElements.DIV);
     if (date.isLabelLayoutSkip()) {
       writer.writeIdAttribute(date.getClientId());
-      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(date.getMarkup()), false);
     }
     writer.writeClassAttribute(TobagoClass.INPUT__GROUP__OUTER);
 

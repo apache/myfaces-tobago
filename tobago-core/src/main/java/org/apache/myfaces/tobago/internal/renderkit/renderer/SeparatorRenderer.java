@@ -49,7 +49,6 @@ public class SeparatorRenderer extends RendererBase {
     if (label != null) {
       writer.startElement(HtmlElements.P);
       writer.writeIdAttribute(clientId);
-      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
       writer.writeClassAttribute(
           TobagoClass.SEPARATOR,
           TobagoClass.SEPARATOR.createMarkup(separator.getMarkup()),
@@ -59,7 +58,6 @@ public class SeparatorRenderer extends RendererBase {
     } else {
       writer.startElement(HtmlElements.HR);
       writer.writeIdAttribute(clientId);
-      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
       writer.writeClassAttribute(
           TobagoClass.SEPARATOR,
           TobagoClass.SEPARATOR.createMarkup(separator.getMarkup()),

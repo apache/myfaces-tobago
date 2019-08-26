@@ -46,7 +46,6 @@ public class ObjectRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);
     final String clientId = object.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     String name = object.getName();
     if (name == null) {
       name = clientId;

@@ -44,7 +44,6 @@ public class FooterRenderer extends RendererBase {
     final Markup markup = footer.getMarkup();
     writer.startElement(HtmlElements.FOOTER);
     writer.writeIdAttribute(component.getClientId(facesContext));
-    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
 
     writer.writeClassAttribute(
         TobagoClass.FOOTER,

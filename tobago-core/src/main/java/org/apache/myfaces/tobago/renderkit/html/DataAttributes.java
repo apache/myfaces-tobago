@@ -106,11 +106,6 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   LEVEL("data-tobago-level"),
 
   /**
-   * Defines the markup of the component.
-   */
-  MARKUP("data-tobago-markup"),
-
-  /**
    * Defines a maximum value.
    */
   MAX("data-tobago-max"),

@@ -43,7 +43,6 @@ public class FlexLayoutRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(flexLayout.getClientId());
-    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     writer.writeClassAttribute(
         TobagoClass.FLEX_LAYOUT,
         TobagoClass.FLEX_LAYOUT.createMarkup(markup),

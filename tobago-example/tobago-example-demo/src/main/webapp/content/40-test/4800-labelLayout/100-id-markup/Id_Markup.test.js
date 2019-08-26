@@ -29,8 +29,7 @@ QUnit.test("No label set", function (assert) {
   assert.equal(label, null);
   assert.equal(input.id, "page:mainForm:inNoLabel::field");
   assert.equal(input.name, "page:mainForm:inNoLabel");
-
-  assert.equal(JSON.parse(rootDiv.dataset.tobagoMarkup)[0], "testmarkup");
+  assert.ok(input.classList.contains("tobago-in-markup-testmarkup"));
 });
 
 QUnit.test("labelLayout=none", function (assert) {
@@ -45,8 +44,7 @@ QUnit.test("labelLayout=none", function (assert) {
   assert.equal(label, null);
   assert.equal(input.id, "page:mainForm:inNone::field");
   assert.equal(input.name, "page:mainForm:inNone");
-
-  assert.equal(JSON.parse(rootDiv.dataset.tobagoMarkup)[0], "testmarkup");
+  assert.ok(input.classList.contains("tobago-in-markup-testmarkup"));
 });
 
 QUnit.test("labelLayout=skip", function (assert) {
@@ -58,8 +56,7 @@ QUnit.test("labelLayout=skip", function (assert) {
 
   assert.equal(label, null);
   assert.equal(rootInput.id, "page:mainForm:inSkip");
-
-  assert.equal(JSON.parse(rootInput.dataset.tobagoMarkup)[0], "testmarkup");
+  assert.ok(rootInput.classList.contains("tobago-in-markup-testmarkup"));
 });
 
 QUnit.test("labelLayout=top", function (assert) {
@@ -74,8 +71,7 @@ QUnit.test("labelLayout=top", function (assert) {
   assert.equal(label.getAttribute('for'), "page:mainForm:inTop::field");
   assert.equal(input.id, "page:mainForm:inTop::field");
   assert.equal(input.name, "page:mainForm:inTop");
-
-  assert.equal(JSON.parse(rootDiv.dataset.tobagoMarkup)[0], "testmarkup");
+  assert.ok(input.classList.contains("tobago-in-markup-testmarkup"));
 });
 
 QUnit.test("labelLayout=flowLeft", function (assert) {
@@ -90,8 +86,7 @@ QUnit.test("labelLayout=flowLeft", function (assert) {
   assert.equal(label.getAttribute('for'), "page:mainForm:inFlowLeft::field");
   assert.equal(input.id, "page:mainForm:inFlowLeft::field");
   assert.equal(input.name, "page:mainForm:inFlowLeft");
-
-  assert.equal(JSON.parse(rootDiv.dataset.tobagoMarkup)[0], "testmarkup");
+  assert.ok(input.classList.contains("tobago-in-markup-testmarkup"));
 });
 
 QUnit.test("labelLayout=flowRight", function (assert) {
@@ -106,8 +101,7 @@ QUnit.test("labelLayout=flowRight", function (assert) {
   assert.equal(label.getAttribute('for'), "page:mainForm:inFlowRight::field");
   assert.equal(input.id, "page:mainForm:inFlowRight::field");
   assert.equal(input.name, "page:mainForm:inFlowRight");
-
-  assert.equal(JSON.parse(rootDiv.dataset.tobagoMarkup)[0], "testmarkup");
+  assert.ok(input.classList.contains("tobago-in-markup-testmarkup"));
 });
 
 QUnit.test("labelLayout=flexLeft", function (assert) {
@@ -122,8 +116,7 @@ QUnit.test("labelLayout=flexLeft", function (assert) {
   assert.equal(label.getAttribute('for'), "page:mainForm:inFlexLeft::field");
   assert.equal(input.id, "page:mainForm:inFlexLeft::field");
   assert.equal(input.name, "page:mainForm:inFlexLeft");
-
-  assert.equal(JSON.parse(rootDiv.dataset.tobagoMarkup)[0], "testmarkup");
+  assert.ok(input.classList.contains("tobago-in-markup-testmarkup"));
 });
 
 QUnit.test("labelLayout=flexRight", function (assert) {
@@ -138,12 +131,11 @@ QUnit.test("labelLayout=flexRight", function (assert) {
   assert.equal(label.getAttribute('for'), "page:mainForm:inFlexRight::field");
   assert.equal(input.id, "page:mainForm:inFlexRight::field");
   assert.equal(input.name, "page:mainForm:inFlexRight");
-
-  assert.equal(JSON.parse(rootDiv.dataset.tobagoMarkup)[0], "testmarkup");
+  assert.ok(input.classList.contains("tobago-in-markup-testmarkup"));
 });
 
 QUnit.test("labelLayout=segmentLeft", function (assert) {
-  assert.expect(7);
+  assert.expect(6);
 
   let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionSegmentLeft");
   let segmentLayout = sectionFn().querySelector(".tobago-section-content > div");
@@ -157,13 +149,11 @@ QUnit.test("labelLayout=segmentLeft", function (assert) {
   assert.equal(inputSegment.id, "page:mainForm:inSegmentLeft");
   assert.equal(input.id, "page:mainForm:inSegmentLeft::field");
   assert.equal(input.name, "page:mainForm:inSegmentLeft");
-
-  assert.equal(JSON.parse(labelSegment.dataset.tobagoMarkup)[0], "testmarkup");
-  assert.equal(JSON.parse(inputSegment.dataset.tobagoMarkup)[0], "testmarkup");
+  assert.ok(input.classList.contains("tobago-in-markup-testmarkup"));
 });
 
 QUnit.test("labelLayout=segmentRight", function (assert) {
-  assert.expect(7);
+  assert.expect(6);
 
   let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionSegmentRight");
   let segmentLayout = sectionFn().querySelector(".tobago-section-content > div");
@@ -177,7 +167,5 @@ QUnit.test("labelLayout=segmentRight", function (assert) {
   assert.equal(inputSegment.id, "page:mainForm:inSegmentRight");
   assert.equal(input.id, "page:mainForm:inSegmentRight::field");
   assert.equal(input.name, "page:mainForm:inSegmentRight");
-
-  assert.equal(JSON.parse(labelSegment.dataset.tobagoMarkup)[0], "testmarkup");
-  assert.equal(JSON.parse(inputSegment.dataset.tobagoMarkup)[0], "testmarkup");
+  assert.ok(input.classList.contains("tobago-in-markup-testmarkup"));
 });

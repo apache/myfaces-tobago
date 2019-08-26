@@ -54,7 +54,6 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.startElement(HtmlElements.DIV);
     if (select.isLabelLayoutSkip()) {
       writer.writeIdAttribute(clientId);
-      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     }
     writer.writeClassAttribute(
         TobagoClass.SELECT_MANY_SHUTTLE,

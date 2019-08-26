@@ -60,7 +60,6 @@ public class BoxRenderer extends PanelRendererBase {
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     final String clientId = box.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, box);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);

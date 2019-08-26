@@ -26,12 +26,10 @@ import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -136,7 +134,6 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     } else {
       writer.writeIdAttribute(clientId);
     }
-    writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
     writer.writeClassAttribute(
         flex ? TobagoClass.FLEX_LAYOUT : null,
         flex ? BootstrapClass.D_FLEX : null,
@@ -170,7 +167,6 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
 
         writer.startElement(HtmlElements.DIV);
         writer.writeIdAttribute(clientId);
-        writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(markup), false);
         writer.writeClassAttribute(
             TobagoClass.LABEL__CONTAINER,
             BootstrapClass.FORM_GROUP,

@@ -20,10 +20,8 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -42,7 +40,6 @@ public class LinkInsideLinksRenderer extends LinkRenderer {
     writer.startElement(HtmlElements.LI);
     if (parentOfCommands) {
       writer.writeIdAttribute(clientId);
-      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(command.getMarkup()), false);
     }
 
     writer.writeClassAttribute(

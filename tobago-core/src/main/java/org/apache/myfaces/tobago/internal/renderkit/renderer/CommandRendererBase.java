@@ -239,7 +239,6 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     if (parentOfCommands) {
       writer.startElement(HtmlElements.SPAN);
       writer.writeIdAttribute(clientId);
-      writer.writeAttribute(DataAttributes.MARKUP, JsonUtils.encode(command.getMarkup()), false);
 
       writer.writeClassAttribute(
           childOfButtonGroup ? null : dropdownSubmenu ? TobagoClass.DROPDOWN__SUBMENU : BootstrapClass.DROPDOWN,
