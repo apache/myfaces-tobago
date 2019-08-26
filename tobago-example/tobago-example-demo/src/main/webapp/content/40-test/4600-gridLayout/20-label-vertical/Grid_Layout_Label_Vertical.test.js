@@ -15,27 +15,25 @@
  * limitations under the License.
  */
 
-import {jQueryFrame} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
 
 QUnit.test("test CSS of the fields and labels of 'first1'", function (assert) {
-
   assert.expect(8);
 
-  var $field = jQueryFrame("#page\\:mainForm\\:first1");
-  var $label = jQueryFrame("#page\\:mainForm\\:first1\\:\\:label");
+  let fieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:first1");
+  let labelFn = testFrameQuerySelectorFn("#page\\:mainForm\\:first1\\:\\:label");
 
-  TobagoTestTool.checkGridCss(assert, $field, "1", "auto", "2", "auto");
-  TobagoTestTool.checkGridCss(assert, $label, "1", "auto", "1", "auto");
+  TobagoTestTool.checkGridCss(assert, fieldFn(), "1", "auto", "2", "auto");
+  TobagoTestTool.checkGridCss(assert, labelFn(), "1", "auto", "1", "auto");
 });
 
 QUnit.test("test CSS of the fields and labels of 'last1'", function (assert) {
-
   assert.expect(8);
 
-  var $field = jQueryFrame("#page\\:mainForm\\:last1");
-  var $label = jQueryFrame("#page\\:mainForm\\:last1\\:\\:label");
+  let fieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:last1");
+  let labelFn = testFrameQuerySelectorFn("#page\\:mainForm\\:last1\\:\\:label");
 
-  TobagoTestTool.checkGridCss(assert, $field, "2", "auto", "1", "auto");
-  TobagoTestTool.checkGridCss(assert, $label, "2", "auto", "2", "auto");
+  TobagoTestTool.checkGridCss(assert, fieldFn(), "2", "auto", "1", "auto");
+  TobagoTestTool.checkGridCss(assert, labelFn(), "2", "auto", "2", "auto");
 });

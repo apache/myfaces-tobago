@@ -29,20 +29,21 @@ TobagoTestTool.stepType = {
 
 TobagoTestTool.msie = navigator.userAgent.indexOf("MSIE") > -1 || navigator.userAgent.indexOf("Trident") > -1;
 
-TobagoTestTool.COLUMN_START = TobagoTestTool.msie ? "-ms-grid-column" : "grid-column-start";
-TobagoTestTool.COLUMN_END = TobagoTestTool.msie ? "-ms-grid-column-span" : "grid-column-end";
-TobagoTestTool.ROW_START = TobagoTestTool.msie ? "-ms-grid-row" : "grid-row-start";
-TobagoTestTool.ROW_END = TobagoTestTool.msie ? "-ms-grid-row-span" : "grid-row-end";
-
-TobagoTestTool.checkGridCss = function (assert, $element, columnStart, columnEnd, rowStart, rowEnd) {
-
+TobagoTestTool.checkGridCss = function (assert, element, columnStart, columnEnd, rowStart, rowEnd) {
   columnEnd = TobagoTestTool.convertGridCss(columnEnd);
   rowEnd = TobagoTestTool.convertGridCss(rowEnd);
 
-  assert.equal($element.css(TobagoTestTool.COLUMN_START), columnStart);
-  assert.equal($element.css(TobagoTestTool.COLUMN_END), columnEnd);
-  assert.equal($element.css(TobagoTestTool.ROW_START), rowStart);
-  assert.equal($element.css(TobagoTestTool.ROW_END), rowEnd);
+  if (TobagoTestTool.msie) {
+    assert.equal(getComputedStyle(element).msGridColumn, columnStart);
+    assert.equal(getComputedStyle(element).msGridColumnSpan, columnEnd);
+    assert.equal(getComputedStyle(element).msGridRow, rowStart);
+    assert.equal(getComputedStyle(element).msGridRowSpan, rowEnd);
+  } else {
+    assert.equal(getComputedStyle(element).gridColumnStart, columnStart);
+    assert.equal(getComputedStyle(element).gridColumnEnd, columnEnd);
+    assert.equal(getComputedStyle(element).gridRowStart, rowStart);
+    assert.equal(getComputedStyle(element).gridRowEnd, rowEnd);
+  }
 };
 
 TobagoTestTool.convertGridCss = function (end) {
