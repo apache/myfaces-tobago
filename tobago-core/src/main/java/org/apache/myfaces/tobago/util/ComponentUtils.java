@@ -924,7 +924,7 @@ public final class ComponentUtils {
       return confirmation;
     }
     final UIComponent facet = ComponentUtils.getFacet(component, Facets.confirmation);
-    if (facet instanceof ValueHolder) {
+    if (facet instanceof ValueHolder && ((UIComponent) facet).isRendered()) {
       final ValueHolder valueHolder = (ValueHolder) facet;
       return "" + valueHolder.getValue();
     } else if (facet != null) {
