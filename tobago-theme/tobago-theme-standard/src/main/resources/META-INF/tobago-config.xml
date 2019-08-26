@@ -46,6 +46,7 @@
           <script name="/webjars/momentjs/2.22.2/min/moment-with-locales.min.js"/>
           <script name="/webjars/Eonasdan-bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"/>
 <!--          <script name="/tobago/standard/tobago-bootstrap/${project.version}/node_modules/@babel/polyfill/dist/polyfill.js"/>-->
+          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-polyfill.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago.min.js"/>
           <script name="/tobago/pack/typeahead/0.11.1-patched-with-1212/typeahead.min.js"/>
           <style name="/webjars/tether/1.4.0/css/tether.min.css"/>
