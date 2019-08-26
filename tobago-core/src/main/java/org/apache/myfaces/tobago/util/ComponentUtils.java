@@ -927,7 +927,7 @@ public final class ComponentUtils {
     if (facet instanceof ValueHolder && ((UIComponent) facet).isRendered()) {
       final ValueHolder valueHolder = (ValueHolder) facet;
       return "" + valueHolder.getValue();
-    } else if (facet != null) {
+    } else if (facet != null && !(facet instanceof ValueHolder)) {
       LOG.warn("The content of a confirmation facet must be a ValueHolder. Use e. g. <tc:out>.");
     }
     return null;
