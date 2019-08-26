@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeSelect;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;

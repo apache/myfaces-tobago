@@ -28,7 +28,6 @@ import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;

@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMessages;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;

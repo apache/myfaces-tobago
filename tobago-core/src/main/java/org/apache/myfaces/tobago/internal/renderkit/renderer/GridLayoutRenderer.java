@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.MeasureList;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
