@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
+import org.apache.myfaces.tobago.context.ThemeScript;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
@@ -152,11 +153,17 @@ public class TobagoConfigMergingUnitTest {
         "script-undefined-d.js",
         "script-undefined-e.js"
     };
+    final ThemeScript[] ex = new ThemeScript[expected.length];
+    int i = 0;
+    for (String script : expected) {
+      ex[i] = new ThemeScript();
+      ex[i++].setName(script);
+    }
 
     config.resolveThemes();
-    final String[] scripts = config.getDefaultTheme().getScriptResources(true);
+    final ThemeScript[] scripts = config.getDefaultTheme().getScriptResources(true);
 
-    Assertions.assertArrayEquals(expected, scripts);
+    Assertions.assertArrayEquals(ex, scripts);
   }
 
   public static TobagoConfigImpl loadAndMerge(final String... names)

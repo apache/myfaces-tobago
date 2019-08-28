@@ -43,10 +43,16 @@ public interface ScriptTagDeclaration extends HasIdBindingAndRendered {
    * File name to include into the rendered page. The name must be full qualified, or relative.
    * If using a complete path from root, you'll need to add the contextPath from the web application.
    * This can be done with the EL #{request.contextPath}.
-   * @param file A JavaScript file.
+   * @param file A Script file.
    */
   @TagAttribute()
   @UIComponentTagAttribute()
   void setFile(String file);
 
+  /**
+   * Type of the script.
+   */
+  @TagAttribute()
+  @UIComponentTagAttribute(defaultValue = "text/javascript")
+  void setType(String type);
 }

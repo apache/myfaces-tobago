@@ -110,6 +110,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final String ATTR_NAME = "name";
   private static final String ATTR_KEY = "key";
   private static final String ATTR_PRIORITY = "priority";
+  private static final String ATTR_TYPE = "type";
 
   private static final int MAX_PRIORITY = 65536;
 
@@ -210,6 +211,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case SCRIPT:
         final ThemeScript script = new ThemeScript();
         script.setName(attributes.getValue(ATTR_NAME));
+        script.setType(attributes.getValue(ATTR_TYPE));
         final String scriptPriority = attributes.getValue(ATTR_PRIORITY);
         script.setPriority(scriptPriority != null ? Integer.parseUnsignedInt(scriptPriority) : MAX_PRIORITY);
         if (production) {

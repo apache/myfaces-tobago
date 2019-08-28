@@ -28,9 +28,9 @@ public interface Theme {
 
   String getDisplayName();
 
-  String[] getScriptResources(boolean production);
+  ThemeScript[] getScriptResources(boolean production);
 
-  String[] getStyleResources(boolean production);
+  ThemeStyle[] getStyleResources(boolean production);
 
   String getVersion();
 

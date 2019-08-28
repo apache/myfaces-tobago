@@ -25,6 +25,8 @@ import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.context.ThemeScript;
+import org.apache.myfaces.tobago.context.ThemeStyle;
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMeta;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMetaLink;
@@ -193,13 +195,13 @@ public class PageRenderer extends RendererBase {
 
     // style files from theme
     AbstractUIStyle style = null;
-    for (final String styleFile : theme.getStyleResources(productionMode)) {
+    for (final ThemeStyle themeStyle : theme.getStyleResources(productionMode)) {
       if (style == null) {
         style = (AbstractUIStyle) facesContext.getApplication()
            .createComponent(facesContext, Tags.style.componentType(), RendererTypes.Style.name());
         style.setTransient(true);
       }
-      style.setFile(contextPath + styleFile);
+      style.setFile(contextPath + themeStyle.getName());
       style.encodeAll(facesContext);
     }
 
@@ -209,14 +211,12 @@ public class PageRenderer extends RendererBase {
     }
 
     // script files from theme
-    AbstractUIScript script = null;
-    for (final String scriptFile : theme.getScriptResources(productionMode)) {
-      if (script == null) {
-        script = (AbstractUIScript) facesContext.getApplication()
-            .createComponent(facesContext, Tags.script.componentType(), RendererTypes.Script.name());
-        script.setTransient(true);
-      }
-      script.setFile(contextPath + scriptFile);
+    for (final ThemeScript themeScript : theme.getScriptResources(productionMode)) {
+      final AbstractUIScript script = (AbstractUIScript) facesContext.getApplication()
+          .createComponent(facesContext, Tags.script.componentType(), RendererTypes.Script.name());
+      script.setTransient(true);
+      script.setFile(contextPath + themeScript.getName());
+      script.setType(themeScript.getType());
       script.encodeAll(facesContext);
     }
 

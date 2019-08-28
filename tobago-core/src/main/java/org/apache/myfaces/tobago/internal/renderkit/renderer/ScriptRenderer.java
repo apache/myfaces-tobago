@@ -39,23 +39,7 @@ public class ScriptRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.SCRIPT);
     writer.writeAttribute(HtmlAttributes.SRC, script.getFile(), true);
-//  TODO: new attribute DEFER
-// XXX with defer activated, pages are not shown reliable
-//        writer.writeAttribute(HtmlAttributes.DEFER, true);
-    if (script.getFile().contains("myfaces")
-        || script.getFile().contains("deltaspike")
-        || script.getFile().contains("jquery")
-        || script.getFile().contains("qunit")
-        || script.getFile().contains("datetimepicker")
-        || script.getFile().contains("bootstrap.js")
-        || script.getFile().contains("moment")
-        || script.getFile().contains("popper")
-        || script.getFile().contains("typeahead")
-        || script.getFile().contains("tether")) {
-      writer.writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
-    } else {
-      writer.writeAttribute(HtmlAttributes.TYPE, "module", false);
-    }
+    writer.writeAttribute(HtmlAttributes.TYPE, script.getType(), true);
     writer.endElement(HtmlElements.SCRIPT);
   }
 

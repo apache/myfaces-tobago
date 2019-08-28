@@ -21,6 +21,8 @@ package org.apache.myfaces.tobago.internal.mock.faces;
 
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.ThemeImpl;
+import org.apache.myfaces.tobago.context.ThemeScript;
+import org.apache.myfaces.tobago.context.ThemeStyle;
 
 import java.util.List;
 
@@ -58,13 +60,13 @@ public class MockTheme extends ThemeImpl {
   }
 
   @Override
-  public String[] getScriptResources(final boolean production) {
-    return new String[0];
+  public ThemeScript[] getScriptResources(final boolean production) {
+    return new ThemeScript[0];
   }
 
   @Override
-  public String[] getStyleResources(final boolean production) {
-    return new String[0];
+  public ThemeStyle[] getStyleResources(final boolean production) {
+    return new ThemeStyle[0];
   }
 
   @Override

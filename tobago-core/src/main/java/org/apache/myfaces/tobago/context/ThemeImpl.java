@@ -42,10 +42,10 @@ public class ThemeImpl implements Theme, Serializable {
   private List<Theme> fallbackList;
   private ThemeResources productionResources;
   private ThemeResources resources;
-  private String[] productionScripts;
-  private String[] productionStyles;
-  private String[] scripts;
-  private String[] styles;
+  private ThemeScript[] productionScripts;
+  private ThemeStyle[] productionStyles;
+  private ThemeScript[] scripts;
+  private ThemeStyle[] styles;
   private boolean versioned;
   private String version;
 
@@ -160,20 +160,26 @@ public class ThemeImpl implements Theme, Serializable {
 
   public void init() {
     checkLocked();
-    productionScripts = sort(productionResources.getScriptList());
-    productionStyles = sort(productionResources.getStyleList());
-    scripts = sort(resources.getScriptList());
-    styles = sort(resources.getStyleList());
+    productionScripts = sortScripts(productionResources.getScriptList());
+    productionStyles = sortStyles(productionResources.getStyleList());
+    scripts = sortScripts(resources.getScriptList());
+    styles = sortStyles(resources.getStyleList());
   }
 
-  private String[] sort(List<? extends ThemeResource> list) {
-    final List<ThemeResource> copy = new ArrayList<>(list);
+  private ThemeScript[] sortScripts(List<ThemeScript> list) {
+    final List<ThemeScript> copy = new ArrayList<>(list);
     copy.sort(Comparator.comparingInt(ThemeResource::getPriority));
-    return copy.stream().map(ThemeResource::getName).toArray(String[]::new);
+    return copy.toArray(new ThemeScript[0]);
+  }
+
+  private ThemeStyle[] sortStyles(List<ThemeStyle> list) {
+    final List<ThemeStyle> copy = new ArrayList<>(list);
+    copy.sort(Comparator.comparingInt(ThemeResource::getPriority));
+    return copy.toArray(new ThemeStyle[0]);
   }
 
   @Override
-  public String[] getScriptResources(final boolean production) {
+  public ThemeScript[] getScriptResources(final boolean production) {
     if (production) {
       return productionScripts;
     } else {
@@ -182,7 +188,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   @Override
-  public String[] getStyleResources(final boolean production) {
+  public ThemeStyle[] getStyleResources(final boolean production) {
     if (production) {
       return productionStyles;
     } else {
@@ -223,22 +229,22 @@ public class ThemeImpl implements Theme, Serializable {
       builder.append("null");
     }
     builder.append(", \nproductionScripts=[");
-    for (final String s : productionScripts != null ? productionScripts : new String[0]) {
+    for (final ThemeScript s : productionScripts) {
       builder.append("\n");
       builder.append(s);
     }
     builder.append("], \nscripts=[");
-    for (final String s : scripts != null ? scripts : new String[0]) {
+    for (final ThemeScript s : scripts) {
       builder.append("\n");
       builder.append(s);
     }
     builder.append("], \nproductionStyles=[");
-    for (final String s : productionStyles != null ? productionStyles : new String[0]) {
+    for (final ThemeStyle s : productionStyles) {
       builder.append("\n");
       builder.append(s);
     }
     builder.append("], \nstyles=[");
-    for (final String s : styles != null ? styles : new String[0]) {
+    for (final ThemeStyle s : styles) {
       builder.append("\n");
       builder.append(s);
     }
