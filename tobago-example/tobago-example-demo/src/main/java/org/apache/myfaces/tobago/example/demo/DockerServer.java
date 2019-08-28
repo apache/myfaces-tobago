@@ -48,7 +48,7 @@ public enum DockerServer implements Serializable {
           "8-jre-1.7.5-plus",
           "8-jre-7.0.5-plus",
           "8-jre-7.1.0-plus",
-          "8-jre-8.0.0-M1-plus"},
+          "11-jre-8.0.0-M3-plus"},
       false,
       " -Djsf=provided"),
   liberty(
