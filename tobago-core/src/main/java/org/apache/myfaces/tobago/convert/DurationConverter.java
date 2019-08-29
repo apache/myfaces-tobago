@@ -44,8 +44,9 @@ import java.util.StringTokenizer;
  * <li>ss</li>
  * </ul>
  * There may be an optional attribute "unit" in the component, which allows to set the unit of the model.
- * The default unit is "millis". Examples:
+ * The default unit is "millis".
  * <table>
+ *   <caption>Examples</caption>
  *   <tr><th>input string</th><th>unit</th><th>resulting long in model</th><th>Remark</th></tr>
  *   <tr><td>1:15</td><td>milli</td><td>75000</td><td></td></tr>
  *   <tr><td>1:15:00</td><td>hour</td><td>1</td><td>Loosing 15 Minutes!</td></tr>
