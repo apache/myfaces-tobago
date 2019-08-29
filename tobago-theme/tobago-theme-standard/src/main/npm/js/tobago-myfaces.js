@@ -15,7 +15,7 @@
  */
 
 /*
- * XXX This is a modified copy of MyFaces 2.3.3 jsf-uncompressed-full.js
+ * XXX This is a modified copy of MyFaces 3.0.0-SNAPSHOT (git 05d7a3c3 of 2019-08-28) jsf-uncompressed-full.js
  * XXX Modifications are marked with TOBAGO-JSF-JS
  */
 
@@ -75,114 +75,72 @@ if (!myfaces._impl.core._EvalHandlers) {
          */
         var _T = this;
 
-        /*cascaded eval methods depending upon the browser*/
 
         /**
-         * @function
+         * an implementation of eval which drops legacy support
+         * and allows nonce
          * @param code
-
-         *
-         * evals a script globally using exec script (ie6 fallback)
-         * @param {String} code the code which has to be evaluated
-         * @borrows myfaces._impl.core._Runtime as _T
-         *
-         * TODO eval if we cannot replace this method with the head appendix
-         * method which is faster for ie this also would reduce our code
-         * by a few bytes
+         * @param cspMeta optional csp metadata, only allowed key atm nonce
          */
-        _T._evalExecScript = function(code) {
-            //execScript definitely only for IE otherwise we might have a custom
-            //window extension with undefined behavior on our necks
-            //window.execScript does not return anything
-            //on htmlunit it return "null object"
-            //_r == ret
-            var _r = window.execScript(code);
-            if ('undefined' != typeof _r && _r == "null" /*htmlunit bug*/) {
-                return null;
+        _T.globalEval = function(code, cspMeta) {
+            //check for jsf nonce
+            var nonce = cspMeta ? cspMeta.nonce : this._currentScriptNonce();
+
+            var element = document.createElement("script");
+            element.setAttribute("type", "text/javascript");
+            element.innerHTML = code;
+            if(nonce) {
+                element.setAttribute("nonce", nonce);
             }
-            return _r;
+            //head appendix method, modern browsers use this method savely to eval scripts
+            //we did not use it up until now because there were really old legacy browsers where
+            //it did not work
+            var htmlScriptElement = document.head.appendChild(element);
+            document.head.removeChild(htmlScriptElement);
         };
 
-        /**
-         * flakey head appendix method which does not work in the correct
-         * order or at all for all modern browsers
-         * but seems to be the only method which works on blackberry correctly
-         * hence we are going to use it as fallback
-         *
-         * @param {String} code the code part to be evaled
-         * @borrows myfaces._impl.core._Runtime as _T
-         */
-        _T._evalHeadAppendix = function(code) {
-            //_l == location
-            var _l = document.getElementsByTagName("head")[0] || document.documentElement;
-            //_p == placeHolder
-            var _p = document.createElement("script");
-            _p.type = "text/javascript";
-            _p.text = code;
-            _l.insertBefore(_p, _l.firstChild);
-            _l.removeChild(_p);
-            return null;
-        };
+        /*
+        * determines the jsfjs nonce and adds them to the namespace
+        * this is done once and only lazily
+        */
+        _T._currentScriptNonce = function() {
+            //already processed
+            if(myfaces.config && myfaces.config.cspMeta) {
+                return myfaces.config.cspMeta.nonce;
+            }
 
-        /**
-         * @name myfaces._impl.core._Runtime._standardGlobalEval
-         * @private
-         * @param {String} code
-         */
-        _T._standardGlobalEval = function(code) {
-            //fix which works in a cross browser way
-            //we used to scope an anonymous function
-            //but I think this is better
-            //the reason is some Firefox versions
-            // apply a wrong scope
-            //if we call eval by not scoping
-            //_U == "undefined"
-            var _U = "undefined";
-            var gEval = function () {
-                //_r == retVal;
-                var _r = window.eval.call(window, code);
-                if (_U == typeof _r) return null;
-                return _r;
+            //since our baseline atm is ie11 we cannot use document.currentScript globally
+            if(document.currentScript && document.currentScript.getAttribute("nonce")) {
+                //fastpath for modern browsers
+                return document.currentScript.getAttribute("nonce") || null;
+            }
+
+            var scripts = document.querySelectorAll("script[src], link[src]");
+            var jsf_js = null;
+
+            //we search all scripts
+            for(var cnt = 0; scripts && cnt < scripts.length; cnt++) {
+                var scriptNode = scripts[cnt];
+                if(!scriptNode.getAttribute("nonce")) {
+                    continue;
+                }
+                var src = scriptNode.getAttribute("src") || "";
+                if(src && !src.match(/jsf\.js\?ln\=javax\.faces/gi)) {
+                    jsf_js = scriptNode;
+                    //the first one is the one we have our code in
+                    //subsequent ones do not overwrite our code
+                    break;
+                }
+            }
+            //found
+            myfaces.config = myfaces.config || {};
+            myfaces.config.cspMeta = myfaces.config.cspMeta || {
+                nonce: null
             };
-            var _r = gEval();
-            if (_U == typeof _r) return null;
-            return _r;
-        };
-
-        /**
-         * global eval on scripts
-         * @param {String} c (code abbreviated since the compression does not work here)
-         * @name myfaces._impl.core._Runtime.globalEval
-         * @function
-         */
-        _T.globalEval = function(c) {
-            //TODO add a config param which allows to evaluate global scripts even if the call
-            //is embedded in an iframe
-            //We lazy init the eval type upon the browsers
-            //capabilities
-            var _e = "_evalType";
-            var _w = window;
-            var _b = myfaces._impl.core._Runtime.browser;
-            //central routine to determine the eval method
-            if (!_T[_e]) {
-                //execScript supported
-                _T[_e] = _w.execScript ? "_evalExecScript" : null;
-
-                //in case of no support we go to the standard global eval  window.eval.call(window,
-                // with Firefox fixes for scoping
-                _T[_e] = _T[_e] ||(( _w.eval && (!_b.isBlackBerry ||_b.isBlackBerry >= 6)) ? "_standardGlobalEval" : null);
-
-                //this one routes into the hed appendix method
-                _T[_e] = _T[_e] ||((_w.eval ) ? "_evalHeadAppendix" : null);
+            if(jsf_js) {
+                myfaces.config.cspMeta.nonce = jsf_js.getAttribute("nonce") || null;
             }
-            if (_T[_e]) {
-                //we now execute the eval method
-                return _T[_T[_e]](c);
-            }
-            //we probably have covered all browsers, but this is a safety net which might be triggered
-            //by some foreign browser which is not covered by the above cases
-            eval.call(window, c);
-            return null;
+            return myfaces.config.cspMeta.nonce;
         };
 
     };
@@ -262,8 +220,8 @@ if (!myfaces._impl.core._Runtime) {
          * @name myfaces._impl.core._Runtime.globalEval
          * @function
          */
-        _T.globalEval = function(code) {
-            return myfaces._impl.core._EvalHandlers.globalEval(code);
+        _T.globalEval = function(code, cspMeta) {
+            return myfaces._impl.core._EvalHandlers.globalEval(code, cspMeta);
         };
 
         /**
@@ -323,7 +281,7 @@ if (!myfaces._impl.core._Runtime) {
         };
 
         _T._manuallyResolveNMS = function(nms) {
-             //ie fallback for some ie versions path because it cannot eval namespaces
+            //ie fallback for some ie versions path because it cannot eval namespaces
             //ie in any version does not like that particularily
             //we do it the hard way now
 
@@ -504,9 +462,9 @@ if (!myfaces._impl.core._Runtime) {
              * is a single entry without . in between we can do the lighter shortcut
              */
             return (myfaces["config"] && 'undefined' != typeof myfaces.config[configName] ) ?
-                    myfaces.config[configName]
-                    :
-                    defaultValue;
+                myfaces.config[configName]
+                :
+                defaultValue;
         };
 
         /**
@@ -580,9 +538,10 @@ if (!myfaces._impl.core._Runtime) {
          * @param {Boolean} defer  defer true or false, same as the javascript tag defer param
          * @param {String} charSet the charset under which the script has to be loaded
          * @param {Boolean} async tells whether the script can be asynchronously loaded or not, currently
+         * @param cspMetas csp meta data to be processed by globalEval
          * not used
          */
-        this.loadScriptEval = function(src, type, defer, charSet, async) {
+        this.loadScriptEval = function(src, type, defer, charSet, async, cspMeta) {
             var xhr = _T.getXHRObject();
             xhr.open("GET", src, false);
 
@@ -604,12 +563,12 @@ if (!myfaces._impl.core._Runtime) {
                         //we moved the sourceurl notation to # instead of @ because ie does not cover it correctly
                         //newer browsers understand # including ie since windows 8.1
                         //see http://updates.html5rocks.com/2013/06/sourceMappingURL-and-sourceURL-syntax-changed
-                        _T.globalEval(xhr.responseText.replace("\n", "\r\n") + "\r\n//# sourceURL=" + src);
+                        _T.globalEval(xhr.responseText.replace("\n", "\r\n") + "\r\n//# sourceURL=" + src, cspMeta);
                     } else {
                         //TODO not ideal we maybe ought to move to something else here
                         //but since it is not in use yet, it is ok
                         setTimeout(function() {
-                            _T.globalEval(xhr.responseText.replace("\n", "\r\n") + "\r\n//# sourceURL=" + src);
+                            _T.globalEval(xhr.responseText.replace("\n", "\r\n") + "\r\n//# sourceURL=" + src, cspMeta);
                         }, 1);
                     }
                 } else {
@@ -630,7 +589,7 @@ if (!myfaces._impl.core._Runtime) {
          * @param {Boolean} defer  defer true or false, same as the javascript tag defer param
          * @param {String} charSet the charset under which the script has to be loaded
          */
-        this.loadScriptByBrowser = function(src, type, defer, charSet, async) {
+        this.loadScriptByBrowser = function(src, type, defer, charSet, async, cspMeta) {
             //if a head is already present then it is safer to simply
             //use the body, some browsers prevent head alterations
             //after the first initial rendering
@@ -650,6 +609,9 @@ if (!myfaces._impl.core._Runtime) {
 
                 script.type = type || "text/javascript";
                 script.src = src;
+                if(cspMeta && cspMeta.nonce) {
+                    script.setAttribute("nonce", cspMeta.nonce);
+                }
                 if (charSet) {
                     script.charset = charSet;
                 }
@@ -741,9 +703,9 @@ if (!myfaces._impl.core._Runtime) {
             var constr = "constructor_";
             var parClassRef = "_mfClazz";
             if(!protoFuncs[constr]) {
-              protoFuncs[constr] =  (extendCls[parClassRef]  || (extendCls.prototype && extendCls.prototype[parClassRef])) ?
-                      function() {this._callSuper("constructor_");}: function() {};
-              var assigned = true;
+                protoFuncs[constr] =  (extendCls[parClassRef]  || (extendCls.prototype && extendCls.prototype[parClassRef])) ?
+                    function() {this._callSuper("constructor_");}: function() {};
+                var assigned = true;
             }
 
             if ('function' != typeof newCls) {
@@ -951,131 +913,83 @@ if (!myfaces._impl.core._Runtime) {
         this.singletonDelegateObj = function()  {};
 
         /**
-        * browser detection code
-        * cross ported from dojo 1.2
-        *
-        * dojos browser detection code is very sophisticated
-        * hence we port it over it allows a very fine grained detection of
-        * browsers including the version number
-        * this however only can work out if the user
-        * does not alter the user agent, which they normally dont!
-        *
-        * the exception is the ie detection which relies on specific quirks in ie
-        */
-       var n = navigator;
-       var dua = n.userAgent,
-               dav = n.appVersion,
-               tv = parseFloat(dav);
-       var _T = this;
-       _T.browser = {};
-       myfaces._impl.core._EvalHandlers.browser = _T.browser;
-       var d = _T.browser;
+         * browser detection code
+         * cross ported from dojo 1.2
+         *
+         * dojos browser detection code is very sophisticated
+         * hence we port it over it allows a very fine grained detection of
+         * browsers including the version number
+         * this however only can work out if the user
+         * does not alter the user agent, which they normally dont!
+         *
+         * the exception is the ie detection which relies on specific quirks in ie
+         *
+         * TODO check if the browser detection still is needed
+         * for 2.3 since our baseline will be IE11 most likely not
+         */
+        var n = navigator;
+        var dua = n.userAgent,
+            dav = n.appVersion,
+            tv = parseFloat(dav);
+        var _T = this;
+        _T.browser = {};
+        myfaces._impl.core._EvalHandlers.browser = _T.browser;
+        var d = _T.browser;
 
-       if (dua.indexOf("Opera") >= 0) {
-           _T.isOpera = tv;
-       }
-       if (dua.indexOf("AdobeAIR") >= 0) {
-           d.isAIR = 1;
-       }
-       if (dua.indexOf("BlackBerry") >= 0) {
-           d.isBlackBerry = tv;
-       }
-       d.isKhtml = (dav.indexOf("Konqueror") >= 0) ? tv : 0;
-       d.isWebKit = parseFloat(dua.split("WebKit/")[1]) || undefined;
-       d.isChrome = parseFloat(dua.split("Chrome/")[1]) || undefined;
+        if (dua.indexOf("Opera") >= 0) {
+            _T.isOpera = tv;
+        }
+        if (dua.indexOf("AdobeAIR") >= 0) {
+            d.isAIR = 1;
+        }
+        if (dua.indexOf("BlackBerry") >= 0) {
+            d.isBlackBerry = tv;
+        }
+        d.isKhtml = (dav.indexOf("Konqueror") >= 0) ? tv : 0;
+        d.isWebKit = parseFloat(dua.split("WebKit/")[1]) || undefined;
+        d.isChrome = parseFloat(dua.split("Chrome/")[1]) || undefined;
 
-       // safari detection derived from:
-       //		http://developer.apple.com/internet/safari/faq.html#anchor2
-       //		http://developer.apple.com/internet/safari/uamatrix.html
-       var index = Math.max(dav.indexOf("WebKit"), dav.indexOf("Safari"), 0);
-       if (index && !d.isChrome) {
-           // try to grab the explicit Safari version first. If we don't get
-           // one, look for less than 419.3 as the indication that we're on something
-           // "Safari 2-ish".
-           d.isSafari = parseFloat(dav.split("Version/")[1]);
-           if (!d.isSafari || parseFloat(dav.substr(index + 7)) <= 419.3) {
-               d.isSafari = 2;
-           }
-       }
+        // safari detection derived from:
+        //		http://developer.apple.com/internet/safari/faq.html#anchor2
+        //		http://developer.apple.com/internet/safari/uamatrix.html
+        var index = Math.max(dav.indexOf("WebKit"), dav.indexOf("Safari"), 0);
+        if (index && !d.isChrome) {
+            // try to grab the explicit Safari version first. If we don't get
+            // one, look for less than 419.3 as the indication that we're on something
+            // "Safari 2-ish".
+            d.isSafari = parseFloat(dav.split("Version/")[1]);
+            if (!d.isSafari || parseFloat(dav.substr(index + 7)) <= 419.3) {
+                d.isSafari = 2;
+            }
+        }
 
-       //>>excludeStart("webkitMobile", kwArgs.webkitMobile);
+        //>>excludeStart("webkitMobile", kwArgs.webkitMobile);
 
-       if (dua.indexOf("Gecko") >= 0 && !d.isKhtml && !d.isWebKit) {
-           d.isMozilla = d.isMoz = tv;
-       }
-       if (d.isMoz) {
-           //We really need to get away from _T. Consider a sane isGecko approach for the future.
-           d.isFF = parseFloat(dua.split("Firefox/")[1] || dua.split("Minefield/")[1] || dua.split("Shiretoko/")[1]) || undefined;
-       }
+        if (dua.indexOf("Gecko") >= 0 && !d.isKhtml && !d.isWebKit) {
+            d.isMozilla = d.isMoz = tv;
+        }
+        if (d.isMoz) {
+            //We really need to get away from _T. Consider a sane isGecko approach for the future.
+            d.isFF = parseFloat(dua.split("Firefox/")[1] || dua.split("Minefield/")[1] || dua.split("Shiretoko/")[1]) || undefined;
+        }
 
-       if (document.all && !d.isOpera && !d.isBlackBerry) {
-           d.isIE = parseFloat(dav.split("MSIE ")[1]) || undefined;
-           d.isIEMobile = parseFloat(dua.split("IEMobile")[1]);
-           //In cases where the page has an HTTP header or META tag with
-           //X-UA-Compatible, then it is in emulation mode, for a previous
-           //version. Make sure isIE reflects the desired version.
-           //document.documentMode of 5 means quirks mode.
+        if (document.all && !d.isOpera && !d.isBlackBerry) {
+            d.isIE = parseFloat(dav.split("MSIE ")[1]) || undefined;
+            d.isIEMobile = parseFloat(dua.split("IEMobile")[1]);
+            //In cases where the page has an HTTP header or META tag with
+            //X-UA-Compatible, then it is in emulation mode, for a previous
+            //version. Make sure isIE reflects the desired version.
+            //document.documentMode of 5 means quirks mode.
 
-           /** @namespace document.documentMode */
-           if (d.isIE >= 8 && document.documentMode != 5) {
-               d.isIE = document.documentMode;
-           }
-       }
+            /** @namespace document.documentMode */
+            if (d.isIE >= 8 && document.documentMode != 5) {
+                d.isIE = document.documentMode;
+            }
+        }
     };
 }
 
 
-/* Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to you under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-if (!document.querySelectorAll || !window.XMLHttpRequest) {
-
-    //initial browser detection, we encapsule it in a closure
-    //to drop all temporary variables from ram as soon as possible
-    //we run into the quirks fallback if XMLHttpRequest is not enabled
-    (function() {
-        var _T  = myfaces._impl.core._Runtime;
-
-        _T.getXHRObject = function() {
-            //since this is a global object ie hates it if we do not check for undefined
-            if (window.XMLHttpRequest) {
-                var _ret = new XMLHttpRequest();
-                //we now check the xhr level
-                //sendAsBinary = 1.5 which means mozilla only
-                //upload attribute present == level2
-
-                if (!_T.XHR_LEVEL) {
-                    var _e = _T.exists;
-                    _T.XHR_LEVEL = (_e(_ret, "sendAsBinary")) ? 1.5 : 1;
-                    _T.XHR_LEVEL = (_e(_ret, "upload") && 'undefined' != typeof FormData) ? 2 : _T.XHR_LEVEL;
-                }
-                return _ret;
-            }
-            //IE
-            try {
-                _T.XHR_LEVEL = 1;
-                return new ActiveXObject("Msxml2.XMLHTTP");
-            } catch (e) {
-
-            }
-            return new ActiveXObject('Microsoft.XMLHTTP');
-        };
-
-
-    })();
-}
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -1096,9 +1010,9 @@ if (!document.querySelectorAll || !window.XMLHttpRequest) {
     var target = window || document.body;
     var impl = "myfaces._impl.";
     var params = {_PFX_UTIL: impl + "_util.",
-            _PFX_CORE:impl + "core.",
-            _PFX_XHR: impl + "xhrCore.",
-            _PFX_I18N: impl + "i18n."};
+        _PFX_CORE:impl + "core.",
+        _PFX_XHR: impl + "xhrCore.",
+        _PFX_I18N: impl + "i18n."};
     if ('undefined' != typeof target.myfaces) {
         //some mobile browsers do not have a window object
         var _RT = myfaces._impl.core._Runtime;
@@ -1111,8 +1025,8 @@ if (!document.querySelectorAll || !window.XMLHttpRequest) {
     }
     target.myfaces._implTemp = {};
     for (var key in params) {
-            target.myfaces._implTemp[key] = target[key];
-            target[key] = params[key];
+        target.myfaces._implTemp[key] = target[key];
+        target[key] = params[key];
     }
 })();
 
@@ -1148,114 +1062,114 @@ if (!document.querySelectorAll || !window.XMLHttpRequest) {
  * @memberOf myfaces._impl.i18n
  */
 _MF_CLS && _MF_CLS(_PFX_I18N+"Messages", Object,
-/**
- * @lends myfaces._impl.i18n.Messages.prototype
- */
-{
+    /**
+     * @lends myfaces._impl.i18n.Messages.prototype
+     */
+    {
 
-    MSG_TEST:               "Testmessage",
+        MSG_TEST:               "Testmessage",
 
-    /*Messages*/
-    /** @constant */
-    MSG_DEV_MODE:           "Note, this message is only sent, because project stage is development and no " +
-                            "other error listeners are registered.",
-    /** @constant */
-    MSG_AFFECTED_CLASS:     "Affected Class:",
-    /** @constant */
-    MSG_AFFECTED_METHOD:    "Affected Method:",
-    /** @constant */
-    MSG_ERROR_NAME:         "Error Name:",
-    /** @constant */
-    MSG_ERROR_MESSAGE:      "Error Message:",
-    /** @constant */
-    MSG_SERVER_ERROR_NAME:  "Server Error Name:",
+        /*Messages*/
+        /** @constant */
+        MSG_DEV_MODE:           "Note, this message is only sent, because project stage is development and no " +
+            "other error listeners are registered.",
+        /** @constant */
+        MSG_AFFECTED_CLASS:     "Affected Class:",
+        /** @constant */
+        MSG_AFFECTED_METHOD:    "Affected Method:",
+        /** @constant */
+        MSG_ERROR_NAME:         "Error Name:",
+        /** @constant */
+        MSG_ERROR_MESSAGE:      "Error Message:",
+        /** @constant */
+        MSG_SERVER_ERROR_NAME:  "Server Error Name:",
 
-    /** @constant */
-    MSG_ERROR_DESC:         "Error Description:",
-    /** @constant */
-    MSG_ERROR_NO:           "Error Number:",
-    /** @constant */
-    MSG_ERROR_LINENO:       "Error Line Number:",
+        /** @constant */
+        MSG_ERROR_DESC:         "Error Description:",
+        /** @constant */
+        MSG_ERROR_NO:           "Error Number:",
+        /** @constant */
+        MSG_ERROR_LINENO:       "Error Line Number:",
 
-    /*Errors and messages*/
-    /** @constant */
-    ERR_FORM:               "Sourceform could not be determined, either because element is not attached to a form or we have multiple forms with named elements of the same identifier or name, stopping the ajax processing",
-    /** @constant */
-    ERR_VIEWSTATE:          "jsf.viewState: param value not of type form!",
-    /** @constant */
-    ERR_TRANSPORT:          "Transport type {0} does not exist",
-    /** @constant */
-    ERR_EVT_PASS:           "an event must be passed down (either a an event object null or undefined) ",
-    /** @constant */
-    ERR_CONSTRUCT:          "Parts of the response couldn't be retrieved when constructing the event data: {0} ",
-    /** @constant */
-    ERR_MALFORMEDXML:       "The server response could not be parsed, the server has returned with a response which is not xml !",
-    /** @constant */
-    ERR_SOURCE_FUNC:        "source cannot be a function (probably source and event were not defined or set to null",
-    /** @constant */
-    ERR_EV_OR_UNKNOWN:      "An event object or unknown must be passed as second parameter",
-    /** @constant */
-    ERR_SOURCE_NOSTR:       "source cannot be a string",
-    /** @constant */
-    ERR_SOURCE_DEF_NULL:    "source must be defined or null",
+        /*Errors and messages*/
+        /** @constant */
+        ERR_FORM:               "Sourceform could not be determined, either because element is not attached to a form or we have multiple forms with named elements of the same identifier or name, stopping the ajax processing",
+        /** @constant */
+        ERR_VIEWSTATE:          "jsf.viewState: param value not of type form!",
+        /** @constant */
+        ERR_TRANSPORT:          "Transport type {0} does not exist",
+        /** @constant */
+        ERR_EVT_PASS:           "an event must be passed down (either a an event object null or undefined) ",
+        /** @constant */
+        ERR_CONSTRUCT:          "Parts of the response couldn't be retrieved when constructing the event data: {0} ",
+        /** @constant */
+        ERR_MALFORMEDXML:       "The server response could not be parsed, the server has returned with a response which is not xml !",
+        /** @constant */
+        ERR_SOURCE_FUNC:        "source cannot be a function (probably source and event were not defined or set to null",
+        /** @constant */
+        ERR_EV_OR_UNKNOWN:      "An event object or unknown must be passed as second parameter",
+        /** @constant */
+        ERR_SOURCE_NOSTR:       "source cannot be a string",
+        /** @constant */
+        ERR_SOURCE_DEF_NULL:    "source must be defined or null",
 
-    //_Lang.js
-    /** @constant */
-    ERR_MUST_STRING:        "{0}: {1} namespace must be of type String",
-    /** @constant */
-    ERR_REF_OR_ID:          "{0}: {1} a reference node or identifier must be provided",
-    /** @constant */
-    ERR_PARAM_GENERIC:      "{0}: parameter {1} must be of type {2}",
-    /** @constant */
-    ERR_PARAM_STR:          "{0}: {1} param must be of type string",
-    /** @constant */
-    ERR_PARAM_STR_RE:       "{0}: {1} param must be of type string or a regular expression",
-    /** @constant */
-    ERR_PARAM_MIXMAPS:      "{0}: both a source as well as a destination map must be provided",
-    /** @constant */
-    ERR_MUST_BE_PROVIDED:   "{0}: an {1} and a {2} must be provided",
-    /** @constant */
-    ERR_MUST_BE_PROVIDED1:  "{0}: {1} must be set",
+        //_Lang.js
+        /** @constant */
+        ERR_MUST_STRING:        "{0}: {1} namespace must be of type String",
+        /** @constant */
+        ERR_REF_OR_ID:          "{0}: {1} a reference node or identifier must be provided",
+        /** @constant */
+        ERR_PARAM_GENERIC:      "{0}: parameter {1} must be of type {2}",
+        /** @constant */
+        ERR_PARAM_STR:          "{0}: {1} param must be of type string",
+        /** @constant */
+        ERR_PARAM_STR_RE:       "{0}: {1} param must be of type string or a regular expression",
+        /** @constant */
+        ERR_PARAM_MIXMAPS:      "{0}: both a source as well as a destination map must be provided",
+        /** @constant */
+        ERR_MUST_BE_PROVIDED:   "{0}: an {1} and a {2} must be provided",
+        /** @constant */
+        ERR_MUST_BE_PROVIDED1:  "{0}: {1} must be set",
 
-    /** @constant */
-    ERR_REPLACE_EL:         "replaceElements called while evalNodes is not an array",
+        /** @constant */
+        ERR_REPLACE_EL:         "replaceElements called while evalNodes is not an array",
 
-    /** @constant */
-    ERR_EMPTY_RESPONSE:     "{0}: The response cannot be null or empty!",
-    /** @constant */
-    ERR_ITEM_ID_NOTFOUND:   "{0}: item with identifier {1} could not be found",
-    /** @constant */
-    ERR_PPR_IDREQ:          "{0}: Error in PPR Insert, id must be present",
-    /** @constant */
-    ERR_PPR_INSERTBEFID:    "{0}: Error in PPR Insert, before id or after id must be present",
-    /** @constant */
-    ERR_PPR_INSERTBEFID_1:  "{0}: Error in PPR Insert, before  node of id {1} does not exist in document",
-    /** @constant */
-    ERR_PPR_INSERTBEFID_2:  "{0}: Error in PPR Insert, after  node of id {1} does not exist in document",
+        /** @constant */
+        ERR_EMPTY_RESPONSE:     "{0}: The response cannot be null or empty!",
+        /** @constant */
+        ERR_ITEM_ID_NOTFOUND:   "{0}: item with identifier {1} could not be found",
+        /** @constant */
+        ERR_PPR_IDREQ:          "{0}: Error in PPR Insert, id must be present",
+        /** @constant */
+        ERR_PPR_INSERTBEFID:    "{0}: Error in PPR Insert, before id or after id must be present",
+        /** @constant */
+        ERR_PPR_INSERTBEFID_1:  "{0}: Error in PPR Insert, before  node of id {1} does not exist in document",
+        /** @constant */
+        ERR_PPR_INSERTBEFID_2:  "{0}: Error in PPR Insert, after  node of id {1} does not exist in document",
 
-    /** @constant */
-    ERR_PPR_DELID:          "{0}: Error in delete, id not in xml markup",
-    /** @constant */
-    ERR_PPR_UNKNOWNCID:     "{0}:  Unknown Html-Component-ID: {1}",
+        /** @constant */
+        ERR_PPR_DELID:          "{0}: Error in delete, id not in xml markup",
+        /** @constant */
+        ERR_PPR_UNKNOWNCID:     "{0}:  Unknown Html-Component-ID: {1}",
 
-    /** @constant */
-    ERR_NO_VIEWROOTATTR:    "{0}: Changing of ViewRoot attributes is not supported",
-    /** @constant */
-    ERR_NO_HEADATTR:        "{0}: Changing of Head attributes is not supported",
-    /** @constant */
-    ERR_RED_URL:            "{0}: Redirect without url",
+        /** @constant */
+        ERR_NO_VIEWROOTATTR:    "{0}: Changing of ViewRoot attributes is not supported",
+        /** @constant */
+        ERR_NO_HEADATTR:        "{0}: Changing of Head attributes is not supported",
+        /** @constant */
+        ERR_RED_URL:            "{0}: Redirect without url",
 
-    /** @constant */
-    ERR_REQ_FAILED_UNKNOWN: "Request failed with unknown status",
+        /** @constant */
+        ERR_REQ_FAILED_UNKNOWN: "Request failed with unknown status",
 
-    /** @constant */
-    ERR_REQU_FAILED: "Request failed with status {0} and reason {1}",
+        /** @constant */
+        ERR_REQU_FAILED: "Request failed with status {0} and reason {1}",
 
-    /** @constant */
-    UNKNOWN: "UNKNOWN",
+        /** @constant */
+        UNKNOWN: "UNKNOWN",
 
-    ERR_NO_MULTIPART_FORM: "The form with the id {0} has an input file element, but is not a multipart form"
-});
+        ERR_NO_MULTIPART_FORM: "The form with the id {0} has an input file element, but is not a multipart form"
+    });
 
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
@@ -1295,73 +1209,73 @@ _MF_CLS && _MF_CLS(_PFX_I18N+"Messages", Object,
  */
 
 _MF_CLS && _MF_CLS(_PFX_I18N + "Messages_de", myfaces._impl.i18n.Messages,
-        /** @lends myfaces._impl.i18n.Messages_de.prototype */
-        {
+    /** @lends myfaces._impl.i18n.Messages_de.prototype */
+    {
 
-            MSG_TEST:               "Testnachricht",
+        MSG_TEST:               "Testnachricht",
 
-            /*Messages*/
-            MSG_DEV_MODE:           "Sie sehen diese Nachricht, da sie sich gerade im Entwicklungsmodus befinden " +
-                    "und sie keine Fehlerbehandlungsfunktionen registriert haben.",
+        /*Messages*/
+        MSG_DEV_MODE:           "Sie sehen diese Nachricht, da sie sich gerade im Entwicklungsmodus befinden " +
+            "und sie keine Fehlerbehandlungsfunktionen registriert haben.",
 
-            MSG_AFFECTED_CLASS:     "Klasse:",
-            MSG_AFFECTED_METHOD:    "Methode:",
+        MSG_AFFECTED_CLASS:     "Klasse:",
+        MSG_AFFECTED_METHOD:    "Methode:",
 
-            MSG_ERROR_NAME:         "Fehler Name:",
-            MSG_ERROR_MESSAGE:      "Nachricht:",
-            MSG_SERVER_ERROR_NAME:  "Server Fehler Name:",
+        MSG_ERROR_NAME:         "Fehler Name:",
+        MSG_ERROR_MESSAGE:      "Nachricht:",
+        MSG_SERVER_ERROR_NAME:  "Server Fehler Name:",
 
-            MSG_ERROR_DESC:         "Fehlerbeschreibung:",
-            MSG_ERROR_NO:           "Fehlernummer:",
-            MSG_ERROR_LINENO:       "Zeilennummer:",
+        MSG_ERROR_DESC:         "Fehlerbeschreibung:",
+        MSG_ERROR_NO:           "Fehlernummer:",
+        MSG_ERROR_LINENO:       "Zeilennummer:",
 
-            /*Errors and messages*/
-            ERR_FORM:                "Das Quellformular konnte nicht gefunden werden. " +
-                    "Mögliche Gründe: Sie haben entweder kein formular definiert, oder es kommen mehrere Formulare vor, " +
-                    "die alle das auslösende Element mit demselben Namen besitzen. " +
-                    "Die Weitere Ajax Ausführung wird gestoppt.",
+        /*Errors and messages*/
+        ERR_FORM:                "Das Quellformular konnte nicht gefunden werden. " +
+            "Mögliche Gründe: Sie haben entweder kein formular definiert, oder es kommen mehrere Formulare vor, " +
+            "die alle das auslösende Element mit demselben Namen besitzen. " +
+            "Die Weitere Ajax Ausführung wird gestoppt.",
 
-            ERR_VIEWSTATE:          "jsf.viewState: der Parameter ist not vom Typ form!",
+        ERR_VIEWSTATE:          "jsf.viewState: der Parameter ist not vom Typ form!",
 
-            ERR_TRANSPORT:          "Transport typ {0} existiert nicht",
-            ERR_EVT_PASS:           "Ein Event Objekt muss übergeben werden (entweder ein event Objekt oder null oder undefined)",
-            ERR_CONSTRUCT:          "Teile des response konnten nicht ermittelt werden während die Event Daten bearbeitet wurden: {0} ",
-            ERR_MALFORMEDXML:       "Es gab zwar eine Antwort des Servers, jedoch war diese nicht im erwarteten XML Format. Der Server hat kein valides XML gesendet! Bearbeitung abgebrochen.",
-            ERR_SOURCE_FUNC:        "source darf keine Funktion sein",
-            ERR_EV_OR_UNKNOWN:      "Ein Ereignis Objekt oder UNKNOWN muss als 2. Parameter übergeben werden",
-            ERR_SOURCE_NOSTR:       "source darf kein String sein",
-            ERR_SOURCE_DEF_NULL:    "source muss entweder definiert oder null sein",
+        ERR_TRANSPORT:          "Transport typ {0} existiert nicht",
+        ERR_EVT_PASS:           "Ein Event Objekt muss übergeben werden (entweder ein event Objekt oder null oder undefined)",
+        ERR_CONSTRUCT:          "Teile des response konnten nicht ermittelt werden während die Event Daten bearbeitet wurden: {0} ",
+        ERR_MALFORMEDXML:       "Es gab zwar eine Antwort des Servers, jedoch war diese nicht im erwarteten XML Format. Der Server hat kein valides XML gesendet! Bearbeitung abgebrochen.",
+        ERR_SOURCE_FUNC:        "source darf keine Funktion sein",
+        ERR_EV_OR_UNKNOWN:      "Ein Ereignis Objekt oder UNKNOWN muss als 2. Parameter übergeben werden",
+        ERR_SOURCE_NOSTR:       "source darf kein String sein",
+        ERR_SOURCE_DEF_NULL:    "source muss entweder definiert oder null sein",
 
-            //_Lang.js
-            ERR_MUST_STRING:        "{0}: {1} namespace muss vom Typ String sein",
-            ERR_REF_OR_ID:          "{0}: {1} Ein Referenzknoten oder id muss übergeben werden",
-            ERR_PARAM_GENERIC:      "{0}: Paramter {1} muss vom Typ {2} sein",
-            ERR_PARAM_STR:          "{0}: Parameter {1} muss vom Typ String sein",
-            ERR_PARAM_STR_RE:       "{0}: Parameter {1} muss entweder ein String oder ein Regulärer Ausdruck sein",
-            ERR_PARAM_MIXMAPS:      "{0}: both a source as well as a destination map must be provided",
-            ERR_MUST_BE_PROVIDED:   "{0}: ein {1} und ein {2} müssen übergeben werden",
-            ERR_MUST_BE_PROVIDED1:  "{0}: {1} muss gesetzt sein",
+        //_Lang.js
+        ERR_MUST_STRING:        "{0}: {1} namespace muss vom Typ String sein",
+        ERR_REF_OR_ID:          "{0}: {1} Ein Referenzknoten oder id muss übergeben werden",
+        ERR_PARAM_GENERIC:      "{0}: Paramter {1} muss vom Typ {2} sein",
+        ERR_PARAM_STR:          "{0}: Parameter {1} muss vom Typ String sein",
+        ERR_PARAM_STR_RE:       "{0}: Parameter {1} muss entweder ein String oder ein Regulärer Ausdruck sein",
+        ERR_PARAM_MIXMAPS:      "{0}: both a source as well as a destination map must be provided",
+        ERR_MUST_BE_PROVIDED:   "{0}: ein {1} und ein {2} müssen übergeben werden",
+        ERR_MUST_BE_PROVIDED1:  "{0}: {1} muss gesetzt sein",
 
-            ERR_REPLACE_EL:         "replaceElements aufgerufen während evalNodes nicht ein Array ist",
-            ERR_EMPTY_RESPONSE:     "{0}: Die Antwort darf nicht null oder leer sein!",
-            ERR_ITEM_ID_NOTFOUND:   "{0}: Element mit ID {1} konnte nicht gefunden werden",
-            ERR_PPR_IDREQ:          "{0}: Fehler im PPR Insert, ID muss gesetzt sein",
-            ERR_PPR_INSERTBEFID:    "{0}: Fehler im PPR Insert, before ID oder after ID muss gesetzt sein",
-            ERR_PPR_INSERTBEFID_1:  "{0}: Fehler im PPR Insert, before  Knoten mit ID {1} Existiert nicht",
-            ERR_PPR_INSERTBEFID_2:  "{0}: Fehler im PPR Insert, after  Knoten mit ID {1} Existiert nicht",
+        ERR_REPLACE_EL:         "replaceElements aufgerufen während evalNodes nicht ein Array ist",
+        ERR_EMPTY_RESPONSE:     "{0}: Die Antwort darf nicht null oder leer sein!",
+        ERR_ITEM_ID_NOTFOUND:   "{0}: Element mit ID {1} konnte nicht gefunden werden",
+        ERR_PPR_IDREQ:          "{0}: Fehler im PPR Insert, ID muss gesetzt sein",
+        ERR_PPR_INSERTBEFID:    "{0}: Fehler im PPR Insert, before ID oder after ID muss gesetzt sein",
+        ERR_PPR_INSERTBEFID_1:  "{0}: Fehler im PPR Insert, before  Knoten mit ID {1} Existiert nicht",
+        ERR_PPR_INSERTBEFID_2:  "{0}: Fehler im PPR Insert, after  Knoten mit ID {1} Existiert nicht",
 
-            ERR_PPR_DELID:          "{0}: Fehler im PPR delete, id ist nicht im xml Markup vorhanden",
-            ERR_PPR_UNKNOWNCID:     "{0}: Unbekannte Html-Komponenten-ID: {1}",
-            ERR_NO_VIEWROOTATTR:    "{0}: Änderung von ViewRoot Attributen ist nicht erlaubt",
-            ERR_NO_HEADATTR:        "{0}: Änderung von Head Attributen ist nicht erlaubt",
-            ERR_RED_URL:            "{0}: Redirect ohne URL",
+        ERR_PPR_DELID:          "{0}: Fehler im PPR delete, id ist nicht im xml Markup vorhanden",
+        ERR_PPR_UNKNOWNCID:     "{0}: Unbekannte Html-Komponenten-ID: {1}",
+        ERR_NO_VIEWROOTATTR:    "{0}: Änderung von ViewRoot Attributen ist nicht erlaubt",
+        ERR_NO_HEADATTR:        "{0}: Änderung von Head Attributen ist nicht erlaubt",
+        ERR_RED_URL:            "{0}: Redirect ohne URL",
 
-            ERR_REQ_FAILED_UNKNOWN: "Anfrage mit unbekanntem Status fehlgeschlagen",
-            ERR_REQU_FAILED: "Anfrage mit Status {0} and Ursache {1} fehlgeschlagen",
-            UNKNOWN: "Unbekannt",
-            ERR_NO_MULTIPART_FORM: "Das Form Element mit der ID {0} hat ein Fileupload Feld aber ist kein Multipart Form"
+        ERR_REQ_FAILED_UNKNOWN: "Anfrage mit unbekanntem Status fehlgeschlagen",
+        ERR_REQU_FAILED: "Anfrage mit Status {0} and Ursache {1} fehlgeschlagen",
+        UNKNOWN: "Unbekannt",
+        ERR_NO_MULTIPART_FORM: "Das Form Element mit der ID {0} hat ein Fileupload Feld aber ist kein Multipart Form"
 
-        });
+    });
 
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
@@ -1389,65 +1303,226 @@ _MF_CLS && _MF_CLS(_PFX_I18N + "Messages_de", myfaces._impl.i18n.Messages,
  * @memberOf myfaces._impl.i18n
  */
 _MF_CLS && _MF_CLS(_PFX_I18N + "Messages_nl", myfaces._impl.i18n.Messages,
-        /** @lends myfaces._impl.i18n.Messages_nl.prototype */
-        {
+    /** @lends myfaces._impl.i18n.Messages_nl.prototype */
+    {
 
-            MSG_TEST:               "Testbericht",
+        MSG_TEST:               "Testbericht",
 
-            /*Messages*/
-            MSG_DEV_MODE:           "Opmerking, dit bericht is enkel gestuurd omdat het project stadium develoment is en er geen " +
-                    "andere listeners zijn geconfigureerd.",
-            MSG_AFFECTED_CLASS:     "Betrokken Klasse:",
-            MSG_AFFECTED_METHOD:    "Betrokken Methode:",
+        /*Messages*/
+        MSG_DEV_MODE:           "Opmerking, dit bericht is enkel gestuurd omdat het project stadium develoment is en er geen " +
+            "andere listeners zijn geconfigureerd.",
+        MSG_AFFECTED_CLASS:     "Betrokken Klasse:",
+        MSG_AFFECTED_METHOD:    "Betrokken Methode:",
 
-            MSG_ERROR_NAME:         "Naam foutbericht:",
-            MSG_ERROR_MESSAGE:      "Naam foutbericht:",
+        MSG_ERROR_NAME:         "Naam foutbericht:",
+        MSG_ERROR_MESSAGE:      "Naam foutbericht:",
 
-            MSG_ERROR_DESC:         "Omschrijving fout:",
-            MSG_ERROR_NO:           "Fout nummer:",
-            MSG_ERROR_LINENO:       "Fout lijn nummer:",
+        MSG_ERROR_DESC:         "Omschrijving fout:",
+        MSG_ERROR_NO:           "Fout nummer:",
+        MSG_ERROR_LINENO:       "Fout lijn nummer:",
 
-            /*Errors and messages*/
-            ERR_FORM:               "De doel form kon niet bepaald worden, ofwel omdat het element niet tot een form behoort, ofwel omdat er verschillende forms zijn met 'named element' met dezelfde identifier of naam, ajax verwerking is gestopt.",
-            ERR_VIEWSTATE:          "jsf.viewState: param waarde is niet van het type form!",
-            ERR_TRANSPORT:          "Transport type {0} bestaat niet",
-            ERR_EVT_PASS:           "een event moet opgegegevn worden (ofwel een event object null of undefined) ",
-            ERR_CONSTRUCT:          "Delen van het antwoord konden niet opgehaald worden bij het aanmaken van de event data: {0} ",
-            ERR_MALFORMEDXML:       "Het antwoordt van de server kon niet ontleed worden, de server heeft een antwoord gegeven welke geen xml bevat!",
-            ERR_SOURCE_FUNC:        "source kan geen functie zijn (waarschijnlijk zijn source en event niet gedefinieerd of kregen de waarde null)",
-            ERR_EV_OR_UNKNOWN:      "Een event object of 'unknown' moet gespecifieerd worden als tweede parameter",
-            ERR_SOURCE_NOSTR:       "source kan geen string zijn",
-            ERR_SOURCE_DEF_NULL:    "source moet gedefinieerd zijn of null bevatten",
+        /*Errors and messages*/
+        ERR_FORM:               "De doel form kon niet bepaald worden, ofwel omdat het element niet tot een form behoort, ofwel omdat er verschillende forms zijn met 'named element' met dezelfde identifier of naam, ajax verwerking is gestopt.",
+        ERR_VIEWSTATE:          "jsf.viewState: param waarde is niet van het type form!",
+        ERR_TRANSPORT:          "Transport type {0} bestaat niet",
+        ERR_EVT_PASS:           "een event moet opgegegevn worden (ofwel een event object null of undefined) ",
+        ERR_CONSTRUCT:          "Delen van het antwoord konden niet opgehaald worden bij het aanmaken van de event data: {0} ",
+        ERR_MALFORMEDXML:       "Het antwoordt van de server kon niet ontleed worden, de server heeft een antwoord gegeven welke geen xml bevat!",
+        ERR_SOURCE_FUNC:        "source kan geen functie zijn (waarschijnlijk zijn source en event niet gedefinieerd of kregen de waarde null)",
+        ERR_EV_OR_UNKNOWN:      "Een event object of 'unknown' moet gespecifieerd worden als tweede parameter",
+        ERR_SOURCE_NOSTR:       "source kan geen string zijn",
+        ERR_SOURCE_DEF_NULL:    "source moet gedefinieerd zijn of null bevatten",
 
-            //_Lang.js
-            ERR_MUST_STRING:        "{0}: {1} namespace moet van het type String zijn",
-            ERR_REF_OR_ID:          "{0}: {1} een referentie node of identifier moet opgegeven worden",
-            ERR_PARAM_GENERIC:      "{0}: parameter {1} moet van het type {2} zijn",
-            ERR_PARAM_STR:          "{0}: {1} parameter moet van het type string zijn",
-            ERR_PARAM_STR_RE:       "{0}: {1} parameter moet van het type string zijn of een reguliere expressie",
-            ERR_PARAM_MIXMAPS:      "{0}: zowel source als destination map moeten opgegeven zijn",
-            ERR_MUST_BE_PROVIDED:   "{0}: een {1} en een {2} moeten opgegeven worden",
-            ERR_MUST_BE_PROVIDED1:  "{0}: {1} moet gezet zijn",
+        //_Lang.js
+        ERR_MUST_STRING:        "{0}: {1} namespace moet van het type String zijn",
+        ERR_REF_OR_ID:          "{0}: {1} een referentie node of identifier moet opgegeven worden",
+        ERR_PARAM_GENERIC:      "{0}: parameter {1} moet van het type {2} zijn",
+        ERR_PARAM_STR:          "{0}: {1} parameter moet van het type string zijn",
+        ERR_PARAM_STR_RE:       "{0}: {1} parameter moet van het type string zijn of een reguliere expressie",
+        ERR_PARAM_MIXMAPS:      "{0}: zowel source als destination map moeten opgegeven zijn",
+        ERR_MUST_BE_PROVIDED:   "{0}: een {1} en een {2} moeten opgegeven worden",
+        ERR_MUST_BE_PROVIDED1:  "{0}: {1} moet gezet zijn",
 
-            ERR_REPLACE_EL:         "replaceElements opgeroepen maar evalNodes is geen array",
-            ERR_EMPTY_RESPONSE:     "{0}: Het antwoord kan geen null of leeg zijn!",
-            ERR_ITEM_ID_NOTFOUND:   "{0}: item met identifier {1} kan niet gevonden worden",
-            ERR_PPR_IDREQ:          "{0}: Fout in PPR Insert, id moet bestaan",
-            ERR_PPR_INSERTBEFID:    "{0}: Fout in PPR Insert, before id of after id moet bestaan",
-            ERR_PPR_INSERTBEFID_1:  "{0}: Fout in PPR Insert, before node van id {1} bestaat niet in het document",
-            ERR_PPR_INSERTBEFID_2:  "{0}: Fout in PPR Insert, after node van id {1} bestaat niet in het document",
+        ERR_REPLACE_EL:         "replaceElements opgeroepen maar evalNodes is geen array",
+        ERR_EMPTY_RESPONSE:     "{0}: Het antwoord kan geen null of leeg zijn!",
+        ERR_ITEM_ID_NOTFOUND:   "{0}: item met identifier {1} kan niet gevonden worden",
+        ERR_PPR_IDREQ:          "{0}: Fout in PPR Insert, id moet bestaan",
+        ERR_PPR_INSERTBEFID:    "{0}: Fout in PPR Insert, before id of after id moet bestaan",
+        ERR_PPR_INSERTBEFID_1:  "{0}: Fout in PPR Insert, before node van id {1} bestaat niet in het document",
+        ERR_PPR_INSERTBEFID_2:  "{0}: Fout in PPR Insert, after node van id {1} bestaat niet in het document",
 
-            ERR_PPR_DELID:          "{0}: Fout in delete, id is niet in de xml markup",
-            ERR_PPR_UNKNOWNCID:     "{0}: Onbekende Html-Component-ID: {1}",
-            ERR_NO_VIEWROOTATTR:    "{0}: Wijzigen van ViewRoot attributen is niet ondersteund",
-            ERR_NO_HEADATTR:        "{0}: Wijzigen van Head attributen is niet ondersteund",
-            ERR_RED_URL:            "{0}: Redirect zonder url",
+        ERR_PPR_DELID:          "{0}: Fout in delete, id is niet in de xml markup",
+        ERR_PPR_UNKNOWNCID:     "{0}: Onbekende Html-Component-ID: {1}",
+        ERR_NO_VIEWROOTATTR:    "{0}: Wijzigen van ViewRoot attributen is niet ondersteund",
+        ERR_NO_HEADATTR:        "{0}: Wijzigen van Head attributen is niet ondersteund",
+        ERR_RED_URL:            "{0}: Redirect zonder url",
 
-            ERR_REQ_FAILED_UNKNOWN: "Request mislukt met onbekende status",
-            ERR_REQU_FAILED:        "Request mislukt met status {0} en reden {1}",
-            UNKNOWN:                "ONBEKEND"
+        ERR_REQ_FAILED_UNKNOWN: "Request mislukt met onbekende status",
+        ERR_REQU_FAILED:        "Request mislukt met status {0} en reden {1}",
+        UNKNOWN:                "ONBEKEND"
 
-        });
+    });
+
+/* Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to you under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+/**
+ * System messages french version version
+ * (note the base version is basically the en) version
+ * of all messages
+ *
+ * @class
+ * @name Messages_fr
+ * @extends myfaces._impl.i18n.Messages
+ * @memberOf myfaces._impl.i18n
+ */
+_MF_CLS && _MF_CLS(_PFX_I18N + "Messages_fr", myfaces._impl.i18n.Messages,
+    /** @lends myfaces._impl.i18n.Messages_fr.prototype */
+    {
+        MSG_TEST:               "MessageTest FR",
+
+        /*Messages*/
+        MSG_DEV_MODE:           "Note : ce message n'est envoyé que parce que le projet est au stade de développement et " +
+            "qu'aucun autre listener d'erreurs n'est enregistré.",
+        MSG_AFFECTED_CLASS:     "Classe affectée : ",
+        MSG_AFFECTED_METHOD:    "Méthode affectée : ",
+
+        MSG_ERROR_NAME:         "Nom de l'erreur : ",
+        MSG_ERROR_MESSAGE:      "Nom de l'erreur : ",
+
+        MSG_ERROR_DESC:         "Description de l'erreur : ",
+        MSG_ERROR_NO:           "Numéro de l'erreur : ",
+        MSG_ERROR_LINENO:       "Erreur à la ligne : ",
+
+        /*Errors and messages*/
+        ERR_FORM:               "Le formulaire source n'a pas pu être déterminé, soit parce que l'élément n'est rattaché à aucun formulaire, soit parce qu'ils y a plusieurs formulaires contenant des éléments avec le même nom ou identifiant. Arrêt du traitement AJAX",
+        ERR_VIEWSTATE:          "jsf.viewState: La valeur de 'param' n'est pas de type 'form' !",
+        ERR_TRANSPORT:          "Le type de tansport {0} n'existe pas",
+        ERR_EVT_PASS:           "Un évènement doit être transmis (soit un objet évènement, soit null ou undefined) ",
+        ERR_CONSTRUCT:          "Des éléments de la réponse n'ont pu être récupérés lors de la construction des données de l'évènement : {0} ",
+        ERR_MALFORMEDXML:       "La réponse du serveur n'a pas pu être analysée : le serveur n'a pas renvoyé une réponse en xml !",
+        ERR_SOURCE_FUNC:        "La source ne peut pas être une fonction (Il est probable que 'source' et 'event' n'ont pas été définis ou mis à null",
+        ERR_EV_OR_UNKNOWN:      "Le second paramètre doit être un objet évènement ou 'unknown' ",
+        ERR_SOURCE_NOSTR:       "La source ne peut pas être de type String",
+        ERR_SOURCE_DEF_NULL:    "La source doit être définie ou égale à null",
+
+        //_Lang.js
+        ERR_MUST_STRING:        "{0}: Le namespace {1} doit être de type String",
+        ERR_REF_OR_ID:          "{0}: {1} un noeud de référence ou un identifiant doit être passé",
+        ERR_PARAM_GENERIC:      "{0}: Le paramètre {1} doit être de type {2}",
+        ERR_PARAM_STR:          "{0}: Le paramètre {1} doit être de type String",
+        ERR_PARAM_STR_RE:       "{0}: Le paramètre {1} doit être de type String ou être une expression régulière",
+        ERR_PARAM_MIXMAPS:      "{0}: Un Map de source et un Map de destination doivent être passés",
+        ERR_MUST_BE_PROVIDED:   "{0}: un(e) {1} et un(e) {2} doivent être passés",
+        ERR_MUST_BE_PROVIDED1:  "{0}: {1} doit être défini",
+
+        ERR_REPLACE_EL:         "replaceElements a été appelé alors que evalNodes n'est pas un tableau",
+        ERR_EMPTY_RESPONSE:     "{0}: La réponse ne peut pas être nulle ou vide !",
+        ERR_ITEM_ID_NOTFOUND:   "{0}: l'élément portant l'identifiant {1} n'a pas pu être trouvé",
+        ERR_PPR_IDREQ:          "{0}: Erreur lors de l'insertion PPR, l'id doit être présent",
+        ERR_PPR_INSERTBEFID:    "{0}: Erreur lors de l'insertion PPR, 'before id' ou 'after id' doivent être présents",
+        ERR_PPR_INSERTBEFID_1:  "{0}: Erreur lors de l'insertion PPR, le noeud before de l'id {1} n'existe pas dans le document",
+        ERR_PPR_INSERTBEFID_2:  "{0}: Erreur lors de l'insertion PPR, le noeud after  de l'id {1} n'existe pas dans le document",
+
+        ERR_PPR_DELID:          "{0}: Erreur lors de la suppression, l'id n'est pas présent dans le xml",
+        ERR_PPR_UNKNOWNCID:     "{0}:  Html-Component-ID inconnu : {1}",
+        ERR_NO_VIEWROOTATTR:    "{0}: Le changement d'attributs dans ViewRoot n'est pas supporté",
+        ERR_NO_HEADATTR:        "{0}: Le changement d'attributs dans Head n'est pas supporté",
+        ERR_RED_URL:            "{0}: Redirection sans url"
+    });
+
+/* Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to you under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * System messages italian version version
+ * (note the base version is basically the en_US) version
+ * of all messages
+ *
+ * @class
+ * @name Messages_it
+ * @extends myfaces._impl.i18n.Messages
+ * @memberOf myfaces._impl.i18n
+ */
+_MF_CLS && _MF_CLS(_PFX_I18N + "Messages_it", myfaces._impl.i18n.Messages,
+    /** @lends myfaces._impl.i18n.Messages_it.prototype */
+    {
+        /*Messages*/
+        MSG_DEV_MODE:           "Questo messaggio � stato inviato esclusivamente perch� il progetto � in development stage e nessun altro listener � stato registrato.",
+        MSG_AFFECTED_CLASS:     "Classi coinvolte:",
+        MSG_AFFECTED_METHOD:    "Metodi coinvolti:",
+
+        MSG_ERROR_NAME:         "Nome dell'errore:",
+        MSG_ERROR_MESSAGE:      "Nome dell'errore:",
+
+        MSG_ERROR_DESC:         "Descrizione dell'errore:",
+        MSG_ERROR_NO:           "Numero errore:",
+        MSG_ERROR_LINENO:       "Numero di riga dell'errore:",
+
+        /*Errors and messages*/
+        ERR_FORM:               "Il Sourceform non puo' essere determinato a causa di una delle seguenti ragioni: l'elemento non e' agganciato ad un form oppure sono presenti pi� form con elementi con lo stesso nome, il che blocca l'elaborazione ajax",
+        ERR_VIEWSTATE:          "jsf.viewState: il valore del parametro non � di tipo form!",
+        ERR_TRANSPORT:          "Il transport type {0} non esiste",
+        ERR_EVT_PASS:           "� necessario passare un evento (sono accettati anche gli event object null oppure undefined) ",
+        ERR_CONSTRUCT:          "Durante la costruzione dell' event data: {0} non � stato possibile acquisire alcune parti della response ",
+        ERR_MALFORMEDXML:       "Il formato della risposta del server non era xml, non � stato quindi possibile effettuarne il parsing!",
+        ERR_SOURCE_FUNC:        "source non puo' essere una funzione (probabilmente source and event non erano stati definiti o sono null",
+        ERR_EV_OR_UNKNOWN:      "Come secondo parametro bisogna passare un event object oppure unknown",
+        ERR_SOURCE_NOSTR:       "source non pu� essere una stringa di testo",
+        ERR_SOURCE_DEF_NULL:    "source deve essere definito oppure  null",
+
+        //_Lang.js
+        ERR_MUST_STRING:        "{0}: {1} namespace deve essere di tipo String",
+        ERR_REF_OR_ID:          "{0}: {1} un reference node oppure un identificatore deve essere fornito",
+        ERR_PARAM_GENERIC:      "{0}: il parametro {1} deve essere di tipo {2}",
+        ERR_PARAM_STR:          "{0}: {1} parametro deve essere di tipo String",
+        ERR_PARAM_STR_RE:       "{0}: {1} parametro deve essere di tipo String oppure una regular expression",
+        ERR_PARAM_MIXMAPS:      "{0}: � necessario specificare sia  source che destination map",
+        ERR_MUST_BE_PROVIDED:   "{0}: � necessario specificare sia {1} che {2} ",
+        ERR_MUST_BE_PROVIDED1:  "{0}: {1} deve essere settato",
+
+        ERR_REPLACE_EL:         "replaceElements chiamato metre evalNodes non � un array",
+        ERR_EMPTY_RESPONSE:     "{0}: La response non puo' essere nulla o vuota!",
+        ERR_ITEM_ID_NOTFOUND:   "{0}: non � stato trovato alcun item con identificativo {1}",
+        ERR_PPR_IDREQ:          "{0}: Errore durante la PPR Insert, l' id deve essere specificato",
+        ERR_PPR_INSERTBEFID:    "{0}: Errore durante la PPR Insert, before id o after id deve essere specificato",
+        ERR_PPR_INSERTBEFID_1:  "{0}: Errore durante la PPR Insert, before node of id {1} non esiste nel document",
+        ERR_PPR_INSERTBEFID_2:  "{0}: Errore durante la PPR Insert, after  node of id {1} non esiste nel in document",
+
+        ERR_PPR_DELID:          "{0}: Errore durante la delete, l'id non e' nella forma di un markup xml",
+        ERR_PPR_UNKNOWNCID:     "{0}:   Html-Component-ID: {1} sconosciuto",
+        ERR_NO_VIEWROOTATTR:    "{0}: La modifica degli attributi del ViewRoot non � supportata",
+        ERR_NO_HEADATTR:        "{0}: La modifica degli attributi di Head non � supportata",
+        ERR_RED_URL:            "{0}: Redirect senza url"
+    });
+
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -1478,228 +1553,67 @@ _MF_CLS && _MF_CLS(_PFX_I18N + "Messages_nl", myfaces._impl.i18n.Messages,
  */
 
 _MF_CLS && _MF_CLS(_PFX_I18N + "Messages_es", myfaces._impl.i18n.Messages,
-        /** @lends myfaces._impl.i18n.Messages_es.prototype */
-        {
+    /** @lends myfaces._impl.i18n.Messages_es.prototype */
+    {
 
 
-            MSG_TEST:               "Mensajeprueba",
+        MSG_TEST:               "Mensajeprueba",
 
-            /*Messages*/
-            MSG_DEV_MODE:           "Aviso. Este mensaje solo se envia porque el 'Project Stage' es 'Development' y no hay otros 'listeners' de errores registrados.",
-            MSG_AFFECTED_CLASS:     "Clase Afectada:",
-            MSG_AFFECTED_METHOD:    "M�todo Afectado:",
+        /*Messages*/
+        MSG_DEV_MODE:           "Aviso. Este mensaje solo se envia porque el 'Project Stage' es 'Development' y no hay otros 'listeners' de errores registrados.",
+        MSG_AFFECTED_CLASS:     "Clase Afectada:",
+        MSG_AFFECTED_METHOD:    "M�todo Afectado:",
 
-            MSG_ERROR_NAME:         "Nombre del Error:",
-            MSG_ERROR_MESSAGE:      "Mensaje del Error:",
-            MSG_SERVER_ERROR_NAME:  "Mensaje de error de servidor:",
+        MSG_ERROR_NAME:         "Nombre del Error:",
+        MSG_ERROR_MESSAGE:      "Mensaje del Error:",
+        MSG_SERVER_ERROR_NAME:  "Mensaje de error de servidor:",
 
-            MSG_ERROR_DESC:         "Descripci�n del Error:",
-            MSG_ERROR_NO:           "N�mero de Error:",
-            MSG_ERROR_LINENO:       "N�mero de L�nea del Error:",
+        MSG_ERROR_DESC:         "Descripci�n del Error:",
+        MSG_ERROR_NO:           "N�mero de Error:",
+        MSG_ERROR_LINENO:       "N�mero de L�nea del Error:",
 
-            /*Errors and messages*/
-            ERR_FORM:               "El formulario de origen no ha podido ser determinado, debido a que el elemento no forma parte de un formulario o hay diversos formularios con elementos usando el mismo nombre o identificador. Parando el procesamiento de Ajax.",
-            ERR_VIEWSTATE:          "jsf.viewState: el valor del par�metro no es de tipo 'form'!",
-            ERR_TRANSPORT:          "El tipo de transporte {0} no existe",
-            ERR_EVT_PASS:           "un evento debe ser transmitido (sea null o no definido)",
-            ERR_CONSTRUCT:          "Partes de la respuesta no pudieron ser recuperadas cuando construyendo los datos del evento: {0} ",
-            ERR_MALFORMEDXML:       "La respuesta del servidor no ha podido ser interpretada. El servidor ha devuelto una respuesta que no es xml !",
-            ERR_SOURCE_FUNC:        "el origen no puede ser una funci�n (probablemente 'source' y evento no han sido definidos o son 'null'",
-            ERR_EV_OR_UNKNOWN:      "Un objeto de tipo evento o desconocido debe ser pasado como segundo par�metro",
-            ERR_SOURCE_NOSTR:       "el origen no puede ser 'string'",
-            ERR_SOURCE_DEF_NULL:    "el origen debe haber sido definido o ser 'null'",
+        /*Errors and messages*/
+        ERR_FORM:               "El formulario de origen no ha podido ser determinado, debido a que el elemento no forma parte de un formulario o hay diversos formularios con elementos usando el mismo nombre o identificador. Parando el procesamiento de Ajax.",
+        ERR_VIEWSTATE:          "jsf.viewState: el valor del par�metro no es de tipo 'form'!",
+        ERR_TRANSPORT:          "El tipo de transporte {0} no existe",
+        ERR_EVT_PASS:           "un evento debe ser transmitido (sea null o no definido)",
+        ERR_CONSTRUCT:          "Partes de la respuesta no pudieron ser recuperadas cuando construyendo los datos del evento: {0} ",
+        ERR_MALFORMEDXML:       "La respuesta del servidor no ha podido ser interpretada. El servidor ha devuelto una respuesta que no es xml !",
+        ERR_SOURCE_FUNC:        "el origen no puede ser una funci�n (probablemente 'source' y evento no han sido definidos o son 'null'",
+        ERR_EV_OR_UNKNOWN:      "Un objeto de tipo evento o desconocido debe ser pasado como segundo par�metro",
+        ERR_SOURCE_NOSTR:       "el origen no puede ser 'string'",
+        ERR_SOURCE_DEF_NULL:    "el origen debe haber sido definido o ser 'null'",
 
-            //_Lang.js
-            ERR_MUST_STRING:        "{0}: {1} namespace debe ser de tipo String",
-            ERR_REF_OR_ID:          "{0}: {1} una referencia a un nodo o identificador tiene que ser pasada",
-            ERR_PARAM_GENERIC:      "{0}: el par�metro {1} tiene que ser de tipo {2}",
-            ERR_PARAM_STR:          "{0}: el par�metro {1} tiene que ser de tipo string",
-            ERR_PARAM_STR_RE:       "{0}: el par�metro {1} tiene que ser de tipo string o una expresi�n regular",
-            ERR_PARAM_MIXMAPS:      "{0}: han de ser pasados tanto un origen como un destino",
-            ERR_MUST_BE_PROVIDED:   "{0}: {1} y {2} deben ser pasados",
-            ERR_MUST_BE_PROVIDED1:  "{0}: {1} debe estar definido",
+        //_Lang.js
+        ERR_MUST_STRING:        "{0}: {1} namespace debe ser de tipo String",
+        ERR_REF_OR_ID:          "{0}: {1} una referencia a un nodo o identificador tiene que ser pasada",
+        ERR_PARAM_GENERIC:      "{0}: el par�metro {1} tiene que ser de tipo {2}",
+        ERR_PARAM_STR:          "{0}: el par�metro {1} tiene que ser de tipo string",
+        ERR_PARAM_STR_RE:       "{0}: el par�metro {1} tiene que ser de tipo string o una expresi�n regular",
+        ERR_PARAM_MIXMAPS:      "{0}: han de ser pasados tanto un origen como un destino",
+        ERR_MUST_BE_PROVIDED:   "{0}: {1} y {2} deben ser pasados",
+        ERR_MUST_BE_PROVIDED1:  "{0}: {1} debe estar definido",
 
-            ERR_REPLACE_EL:         "replaceElements invocado mientras que evalNodes no es un an array",
-            ERR_EMPTY_RESPONSE:     "{0}: �La respuesta no puede ser de tipo 'null' o vac�a!",
-            ERR_ITEM_ID_NOTFOUND:   "{0}: el elemento con identificador {1} no ha sido encontrado",
-            ERR_PPR_IDREQ:          "{0}: Error en PPR Insert, 'id' debe estar presente",
-            ERR_PPR_INSERTBEFID:    "{0}: Error in PPR Insert, antes de 'id' o despu�s de 'id' deben estar presentes",
-            ERR_PPR_INSERTBEFID_1:  "{0}: Error in PPR Insert, antes de nodo con id {1} no existe en el documento",
-            ERR_PPR_INSERTBEFID_2:  "{0}: Error in PPR Insert, despu�s de nodo con id {1} no existe en el documento",
+        ERR_REPLACE_EL:         "replaceElements invocado mientras que evalNodes no es un an array",
+        ERR_EMPTY_RESPONSE:     "{0}: �La respuesta no puede ser de tipo 'null' o vac�a!",
+        ERR_ITEM_ID_NOTFOUND:   "{0}: el elemento con identificador {1} no ha sido encontrado",
+        ERR_PPR_IDREQ:          "{0}: Error en PPR Insert, 'id' debe estar presente",
+        ERR_PPR_INSERTBEFID:    "{0}: Error in PPR Insert, antes de 'id' o despu�s de 'id' deben estar presentes",
+        ERR_PPR_INSERTBEFID_1:  "{0}: Error in PPR Insert, antes de nodo con id {1} no existe en el documento",
+        ERR_PPR_INSERTBEFID_2:  "{0}: Error in PPR Insert, despu�s de nodo con id {1} no existe en el documento",
 
-            ERR_PPR_DELID:          "{0}: Error durante borrado, id no presente en xml",
-            ERR_PPR_UNKNOWNCID:     "{0}:  Desconocido Html-Component-ID: {1}",
-            ERR_NO_VIEWROOTATTR:    "{0}: El cambio de atributos de ViewRoot attributes no es posible",
-            ERR_NO_HEADATTR:        "{0}: El cambio de los atributos de Head attributes no es posible",
-            ERR_RED_URL:            "{0}: Redirecci�n sin url",
+        ERR_PPR_DELID:          "{0}: Error durante borrado, id no presente en xml",
+        ERR_PPR_UNKNOWNCID:     "{0}:  Desconocido Html-Component-ID: {1}",
+        ERR_NO_VIEWROOTATTR:    "{0}: El cambio de atributos de ViewRoot attributes no es posible",
+        ERR_NO_HEADATTR:        "{0}: El cambio de los atributos de Head attributes no es posible",
+        ERR_RED_URL:            "{0}: Redirecci�n sin url",
 
-            ERR_REQ_FAILED_UNKNOWN: "La petici�n ha fallado con estado desconocido",
-            ERR_REQU_FAILED:        "La petici�n ha fallado con estado {0} y raz�n {1}",
-            UNKNOWN:                "DESCONOCIDO"
+        ERR_REQ_FAILED_UNKNOWN: "La petici�n ha fallado con estado desconocido",
+        ERR_REQU_FAILED:        "La petici�n ha fallado con estado {0} y raz�n {1}",
+        UNKNOWN:                "DESCONOCIDO"
 
-        });
+    });
 
-
-
-/* Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to you under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-
-    /**
-     * System messages french version version
-     * (note the base version is basically the en) version
-     * of all messages
-     *
-     * @class
-     * @name Messages_fr
-     * @extends myfaces._impl.i18n.Messages
-     * @memberOf myfaces._impl.i18n
-     */
-_MF_CLS && _MF_CLS(_PFX_I18N + "Messages_fr", myfaces._impl.i18n.Messages,
-            /** @lends myfaces._impl.i18n.Messages_fr.prototype */
-            {
-                MSG_TEST:               "MessageTest FR",
-
-                /*Messages*/
-                MSG_DEV_MODE:           "Note : ce message n'est envoyé que parce que le projet est au stade de développement et " +
-                        "qu'aucun autre listener d'erreurs n'est enregistré.",
-                MSG_AFFECTED_CLASS:     "Classe affectée : ",
-                MSG_AFFECTED_METHOD:    "Méthode affectée : ",
-
-                MSG_ERROR_NAME:         "Nom de l'erreur : ",
-                MSG_ERROR_MESSAGE:      "Nom de l'erreur : ",
-
-                MSG_ERROR_DESC:         "Description de l'erreur : ",
-                MSG_ERROR_NO:           "Numéro de l'erreur : ",
-                MSG_ERROR_LINENO:       "Erreur à la ligne : ",
-
-                /*Errors and messages*/
-                ERR_FORM:               "Le formulaire source n'a pas pu être déterminé, soit parce que l'élément n'est rattaché à aucun formulaire, soit parce qu'ils y a plusieurs formulaires contenant des éléments avec le même nom ou identifiant. Arrêt du traitement AJAX",
-                ERR_VIEWSTATE:          "jsf.viewState: La valeur de 'param' n'est pas de type 'form' !",
-                ERR_TRANSPORT:          "Le type de tansport {0} n'existe pas",
-                ERR_EVT_PASS:           "Un évènement doit être transmis (soit un objet évènement, soit null ou undefined) ",
-                ERR_CONSTRUCT:          "Des éléments de la réponse n'ont pu être récupérés lors de la construction des données de l'évènement : {0} ",
-                ERR_MALFORMEDXML:       "La réponse du serveur n'a pas pu être analysée : le serveur n'a pas renvoyé une réponse en xml !",
-                ERR_SOURCE_FUNC:        "La source ne peut pas être une fonction (Il est probable que 'source' et 'event' n'ont pas été définis ou mis à null",
-                ERR_EV_OR_UNKNOWN:      "Le second paramètre doit être un objet évènement ou 'unknown' ",
-                ERR_SOURCE_NOSTR:       "La source ne peut pas être de type String",
-                ERR_SOURCE_DEF_NULL:    "La source doit être définie ou égale à null",
-
-                //_Lang.js
-                ERR_MUST_STRING:        "{0}: Le namespace {1} doit être de type String",
-                ERR_REF_OR_ID:          "{0}: {1} un noeud de référence ou un identifiant doit être passé",
-                ERR_PARAM_GENERIC:      "{0}: Le paramètre {1} doit être de type {2}",
-                ERR_PARAM_STR:          "{0}: Le paramètre {1} doit être de type String",
-                ERR_PARAM_STR_RE:       "{0}: Le paramètre {1} doit être de type String ou être une expression régulière",
-                ERR_PARAM_MIXMAPS:      "{0}: Un Map de source et un Map de destination doivent être passés",
-                ERR_MUST_BE_PROVIDED:   "{0}: un(e) {1} et un(e) {2} doivent être passés",
-                ERR_MUST_BE_PROVIDED1:  "{0}: {1} doit être défini",
-
-                ERR_REPLACE_EL:         "replaceElements a été appelé alors que evalNodes n'est pas un tableau",
-                ERR_EMPTY_RESPONSE:     "{0}: La réponse ne peut pas être nulle ou vide !",
-                ERR_ITEM_ID_NOTFOUND:   "{0}: l'élément portant l'identifiant {1} n'a pas pu être trouvé",
-                ERR_PPR_IDREQ:          "{0}: Erreur lors de l'insertion PPR, l'id doit être présent",
-                ERR_PPR_INSERTBEFID:    "{0}: Erreur lors de l'insertion PPR, 'before id' ou 'after id' doivent être présents",
-                ERR_PPR_INSERTBEFID_1:  "{0}: Erreur lors de l'insertion PPR, le noeud before de l'id {1} n'existe pas dans le document",
-                ERR_PPR_INSERTBEFID_2:  "{0}: Erreur lors de l'insertion PPR, le noeud after  de l'id {1} n'existe pas dans le document",
-
-                ERR_PPR_DELID:          "{0}: Erreur lors de la suppression, l'id n'est pas présent dans le xml",
-                ERR_PPR_UNKNOWNCID:     "{0}:  Html-Component-ID inconnu : {1}",
-                ERR_NO_VIEWROOTATTR:    "{0}: Le changement d'attributs dans ViewRoot n'est pas supporté",
-                ERR_NO_HEADATTR:        "{0}: Le changement d'attributs dans Head n'est pas supporté",
-                ERR_RED_URL:            "{0}: Redirection sans url"
-            });
-
-/* Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to you under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/**
- * System messages italian version version
- * (note the base version is basically the en_US) version
- * of all messages
- *
- * @class
- * @name Messages_it
- * @extends myfaces._impl.i18n.Messages
- * @memberOf myfaces._impl.i18n
- */
-_MF_CLS && _MF_CLS(_PFX_I18N + "Messages_it", myfaces._impl.i18n.Messages,
-        /** @lends myfaces._impl.i18n.Messages_it.prototype */
-        {
-            /*Messages*/
-            MSG_DEV_MODE:           "Questo messaggio � stato inviato esclusivamente perch� il progetto � in development stage e nessun altro listener � stato registrato.",
-            MSG_AFFECTED_CLASS:     "Classi coinvolte:",
-            MSG_AFFECTED_METHOD:    "Metodi coinvolti:",
-
-            MSG_ERROR_NAME:         "Nome dell'errore:",
-            MSG_ERROR_MESSAGE:      "Nome dell'errore:",
-
-            MSG_ERROR_DESC:         "Descrizione dell'errore:",
-            MSG_ERROR_NO:           "Numero errore:",
-            MSG_ERROR_LINENO:       "Numero di riga dell'errore:",
-
-            /*Errors and messages*/
-            ERR_FORM:               "Il Sourceform non puo' essere determinato a causa di una delle seguenti ragioni: l'elemento non e' agganciato ad un form oppure sono presenti pi� form con elementi con lo stesso nome, il che blocca l'elaborazione ajax",
-            ERR_VIEWSTATE:          "jsf.viewState: il valore del parametro non � di tipo form!",
-            ERR_TRANSPORT:          "Il transport type {0} non esiste",
-            ERR_EVT_PASS:           "� necessario passare un evento (sono accettati anche gli event object null oppure undefined) ",
-            ERR_CONSTRUCT:          "Durante la costruzione dell' event data: {0} non � stato possibile acquisire alcune parti della response ",
-            ERR_MALFORMEDXML:       "Il formato della risposta del server non era xml, non � stato quindi possibile effettuarne il parsing!",
-            ERR_SOURCE_FUNC:        "source non puo' essere una funzione (probabilmente source and event non erano stati definiti o sono null",
-            ERR_EV_OR_UNKNOWN:      "Come secondo parametro bisogna passare un event object oppure unknown",
-            ERR_SOURCE_NOSTR:       "source non pu� essere una stringa di testo",
-            ERR_SOURCE_DEF_NULL:    "source deve essere definito oppure  null",
-
-            //_Lang.js
-            ERR_MUST_STRING:        "{0}: {1} namespace deve essere di tipo String",
-            ERR_REF_OR_ID:          "{0}: {1} un reference node oppure un identificatore deve essere fornito",
-            ERR_PARAM_GENERIC:      "{0}: il parametro {1} deve essere di tipo {2}",
-            ERR_PARAM_STR:          "{0}: {1} parametro deve essere di tipo String",
-            ERR_PARAM_STR_RE:       "{0}: {1} parametro deve essere di tipo String oppure una regular expression",
-            ERR_PARAM_MIXMAPS:      "{0}: � necessario specificare sia  source che destination map",
-            ERR_MUST_BE_PROVIDED:   "{0}: � necessario specificare sia {1} che {2} ",
-            ERR_MUST_BE_PROVIDED1:  "{0}: {1} deve essere settato",
-
-            ERR_REPLACE_EL:         "replaceElements chiamato metre evalNodes non � un array",
-            ERR_EMPTY_RESPONSE:     "{0}: La response non puo' essere nulla o vuota!",
-            ERR_ITEM_ID_NOTFOUND:   "{0}: non � stato trovato alcun item con identificativo {1}",
-            ERR_PPR_IDREQ:          "{0}: Errore durante la PPR Insert, l' id deve essere specificato",
-            ERR_PPR_INSERTBEFID:    "{0}: Errore durante la PPR Insert, before id o after id deve essere specificato",
-            ERR_PPR_INSERTBEFID_1:  "{0}: Errore durante la PPR Insert, before node of id {1} non esiste nel document",
-            ERR_PPR_INSERTBEFID_2:  "{0}: Errore durante la PPR Insert, after  node of id {1} non esiste nel in document",
-
-            ERR_PPR_DELID:          "{0}: Errore durante la delete, l'id non e' nella forma di un markup xml",
-            ERR_PPR_UNKNOWNCID:     "{0}:   Html-Component-ID: {1} sconosciuto",
-            ERR_NO_VIEWROOTATTR:    "{0}: La modifica degli attributi del ViewRoot non � supportata",
-            ERR_NO_HEADATTR:        "{0}: La modifica degli attributi di Head non � supportata",
-            ERR_RED_URL:            "{0}: Redirect senza url"
-        });
 
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
@@ -1718,15 +1632,15 @@ _MF_CLS && _MF_CLS(_PFX_I18N + "Messages_it", myfaces._impl.i18n.Messages,
  * limitations under the License.
  */
 if (_MF_CLS) {
-/**
- * System messages kyrillic/russian version
- *
- * @class
- * @name Messages_nl
- * @extends myfaces._impl.i18n.Messages
- * @memberOf myfaces._impl.i18n
- */
-_MF_CLS && _MF_CLS(_PFX_I18N + "Messages_ru", myfaces._impl.i18n.Messages,
+    /**
+     * System messages kyrillic/russian version
+     *
+     * @class
+     * @name Messages_nl
+     * @extends myfaces._impl.i18n.Messages
+     * @memberOf myfaces._impl.i18n
+     */
+    _MF_CLS && _MF_CLS(_PFX_I18N + "Messages_ru", myfaces._impl.i18n.Messages,
         /** myfaces._impl.i18n.Messages_ru.prototype */
         {
 
@@ -1734,7 +1648,7 @@ _MF_CLS && _MF_CLS(_PFX_I18N + "Messages_ru", myfaces._impl.i18n.Messages,
 
             /*Messages*/
             MSG_DEV_MODE:           "Это сообщение выдано, потому что 'project stage' было присоено значение 'development', и никаких" +
-                    "других error listeners зарегистрировано не было.",
+                "других error listeners зарегистрировано не было.",
             MSG_AFFECTED_CLASS:     "Задействованный класс:",
             MSG_AFFECTED_METHOD:    "Задействованный метод:",
 
@@ -1807,109 +1721,109 @@ if (_MF_CLS) {
      * @extends myfaces._impl.i18n.Messages
      * @memberOf myfaces._impl.i18n
      */
-_MF_CLS && _MF_CLS(_PFX_I18N+"Messages_zh_CN", myfaces._impl.i18n.Messages,
-    /** @lends myfaces._impl.i18n.Messages_zh_CN.prototype */
-    {
+    _MF_CLS && _MF_CLS(_PFX_I18N+"Messages_zh_CN", myfaces._impl.i18n.Messages,
+        /** @lends myfaces._impl.i18n.Messages_zh_CN.prototype */
+        {
 
-        MSG_TEST:               "测试信息",
+            MSG_TEST:               "测试信息",
 
-        /*Messages*/
-        /** @constant */
-        MSG_DEV_MODE:           "请注意，此信息只在项目发展阶段，及没有注册错误监听器而发放。",
-        /** @constant */
-        MSG_AFFECTED_CLASS:     "受影响类别：",
-        /** @constant */
-        MSG_AFFECTED_METHOD:    "受影响方法：",
-        /** @constant */
-        MSG_ERROR_NAME:         "错误名称：",
-        /** @constant */
-        MSG_ERROR_MESSAGE:      "错误信息：",
-        /** @constant */
-        MSG_SERVER_ERROR_NAME:  "伺服器错误名称：",
-        /** @constant */
-        MSG_ERROR_DESC:         "错误说明：",
-        /** @constant */
-        MSG_ERROR_NO:           "错误号码：",
-        /** @constant */
-        MSG_ERROR_LINENO:       "错误行号：",
+            /*Messages*/
+            /** @constant */
+            MSG_DEV_MODE:           "请注意，此信息只在项目发展阶段，及没有注册错误监听器而发放。",
+            /** @constant */
+            MSG_AFFECTED_CLASS:     "受影响类别：",
+            /** @constant */
+            MSG_AFFECTED_METHOD:    "受影响方法：",
+            /** @constant */
+            MSG_ERROR_NAME:         "错误名称：",
+            /** @constant */
+            MSG_ERROR_MESSAGE:      "错误信息：",
+            /** @constant */
+            MSG_SERVER_ERROR_NAME:  "伺服器错误名称：",
+            /** @constant */
+            MSG_ERROR_DESC:         "错误说明：",
+            /** @constant */
+            MSG_ERROR_NO:           "错误号码：",
+            /** @constant */
+            MSG_ERROR_LINENO:       "错误行号：",
 
-        /*Errors and messages*/
-        /** @constant */
-        ERR_FORM:               "不能判定源表单，要么没有连接元件到表单，要么有多个相同标识符或名称的表单，AJAX处理停止运作",
-        /** @constant */
-        ERR_VIEWSTATE:          "jsf.viewState：参数值不是表单类型！",
-        /** @constant */
-        ERR_TRANSPORT:          "不存在{0}传输类型",
-        /** @constant */
-        ERR_EVT_PASS:           "必须放弃事件（可能事件物件为空或未定义）",
-        /** @constant */
-        ERR_CONSTRUCT:          "构建事件数据时部分回应不能取得，原因是：{0}",
-        /** @constant */
-        ERR_MALFORMEDXML:       "无法解析伺服器的回应，伺服器返回的回应不是XML！",
-        /** @constant */
-        ERR_SOURCE_FUNC:        "来源不能是一个函数（可能来源和事件没有定义或设定为空）",
-        /** @constant */
-        ERR_EV_OR_UNKNOWN:      "事件物件或不明必须作为第二个参数传递",
-        /** @constant */
-        ERR_SOURCE_NOSTR:       "来源不能是字串",
-        /** @constant */
-        ERR_SOURCE_DEF_NULL:    "来源必须定义或为空",
+            /*Errors and messages*/
+            /** @constant */
+            ERR_FORM:               "不能判定源表单，要么没有连接元件到表单，要么有多个相同标识符或名称的表单，AJAX处理停止运作",
+            /** @constant */
+            ERR_VIEWSTATE:          "jsf.viewState：参数值不是表单类型！",
+            /** @constant */
+            ERR_TRANSPORT:          "不存在{0}传输类型",
+            /** @constant */
+            ERR_EVT_PASS:           "必须放弃事件（可能事件物件为空或未定义）",
+            /** @constant */
+            ERR_CONSTRUCT:          "构建事件数据时部分回应不能取得，原因是：{0}",
+            /** @constant */
+            ERR_MALFORMEDXML:       "无法解析伺服器的回应，伺服器返回的回应不是XML！",
+            /** @constant */
+            ERR_SOURCE_FUNC:        "来源不能是一个函数（可能来源和事件没有定义或设定为空）",
+            /** @constant */
+            ERR_EV_OR_UNKNOWN:      "事件物件或不明必须作为第二个参数传递",
+            /** @constant */
+            ERR_SOURCE_NOSTR:       "来源不能是字串",
+            /** @constant */
+            ERR_SOURCE_DEF_NULL:    "来源必须定义或为空",
 
-        //_Lang.js
-        /** @constant */
-        ERR_MUST_STRING:        "{0}：{1} 名称空间必须是字串类型",
-        /** @constant */
-        ERR_REF_OR_ID:          "{0}：{1} 必须提供参考节点或标识符",
-        /** @constant */
-        ERR_PARAM_GENERIC:      "{0}：{1} 参数必须是 {2} 类型",
-        /** @constant */
-        ERR_PARAM_STR:          "{0}：{1} 参数必须是字串类型",
-        /** @constant */
-        ERR_PARAM_STR_RE:       "{0}：{1} 参数必须是字串类型或正规表达式",
-        /** @constant */
-        ERR_PARAM_MIXMAPS:      "{0}：必须提供来源及目标映射",
-        /** @constant */
-        ERR_MUST_BE_PROVIDED:   "{0}：必须提供 {1} 及 {2}",
-        /** @constant */
-        ERR_MUST_BE_PROVIDED1:  "{0}：必须设定 {1}",
+            //_Lang.js
+            /** @constant */
+            ERR_MUST_STRING:        "{0}：{1} 名称空间必须是字串类型",
+            /** @constant */
+            ERR_REF_OR_ID:          "{0}：{1} 必须提供参考节点或标识符",
+            /** @constant */
+            ERR_PARAM_GENERIC:      "{0}：{1} 参数必须是 {2} 类型",
+            /** @constant */
+            ERR_PARAM_STR:          "{0}：{1} 参数必须是字串类型",
+            /** @constant */
+            ERR_PARAM_STR_RE:       "{0}：{1} 参数必须是字串类型或正规表达式",
+            /** @constant */
+            ERR_PARAM_MIXMAPS:      "{0}：必须提供来源及目标映射",
+            /** @constant */
+            ERR_MUST_BE_PROVIDED:   "{0}：必须提供 {1} 及 {2}",
+            /** @constant */
+            ERR_MUST_BE_PROVIDED1:  "{0}：必须设定 {1}",
 
-        /** @constant */
-        ERR_REPLACE_EL:         "调用replaceElements函数时evalNodes变量不是阵列类型",
+            /** @constant */
+            ERR_REPLACE_EL:         "调用replaceElements函数时evalNodes变量不是阵列类型",
 
-        /** @constant */
-        ERR_EMPTY_RESPONSE:     "{0}：回应不能为空的！",
-        /** @constant */
-        ERR_ITEM_ID_NOTFOUND:   "{0}：找不到有 {1} 标识符的项目",
-        /** @constant */
-        ERR_PPR_IDREQ:          "{0}：局部页面渲染嵌入错误，标识符必须存在",
-        /** @constant */
-        ERR_PPR_INSERTBEFID:    "{0}：局部页面渲染嵌入错误，前或后标识符必须存在",
-        /** @constant */
-        ERR_PPR_INSERTBEFID_1:  "{0}：局部页面渲染嵌入错误，前节点的标识符 {1} 不在文件内",
-        /** @constant */
-        ERR_PPR_INSERTBEFID_2:  "{0}：局部页面渲染嵌入错误，后节点的标识符 {1} 不在文件内",
+            /** @constant */
+            ERR_EMPTY_RESPONSE:     "{0}：回应不能为空的！",
+            /** @constant */
+            ERR_ITEM_ID_NOTFOUND:   "{0}：找不到有 {1} 标识符的项目",
+            /** @constant */
+            ERR_PPR_IDREQ:          "{0}：局部页面渲染嵌入错误，标识符必须存在",
+            /** @constant */
+            ERR_PPR_INSERTBEFID:    "{0}：局部页面渲染嵌入错误，前或后标识符必须存在",
+            /** @constant */
+            ERR_PPR_INSERTBEFID_1:  "{0}：局部页面渲染嵌入错误，前节点的标识符 {1} 不在文件内",
+            /** @constant */
+            ERR_PPR_INSERTBEFID_2:  "{0}：局部页面渲染嵌入错误，后节点的标识符 {1} 不在文件内",
 
-        /** @constant */
-        ERR_PPR_DELID:          "{0}：删除错误，标识符不在XML标记中",
-        /** @constant */
-        ERR_PPR_UNKNOWNCID:     "{0}：不明的HTML组件标识符：{1}",
+            /** @constant */
+            ERR_PPR_DELID:          "{0}：删除错误，标识符不在XML标记中",
+            /** @constant */
+            ERR_PPR_UNKNOWNCID:     "{0}：不明的HTML组件标识符：{1}",
 
-        /** @constant */
-        ERR_NO_VIEWROOTATTR:    "{0}：不支援改变ViewRoot属性",
-        /** @constant */
-        ERR_NO_HEADATTR:        "{0}：不支援改变Head的属性",
-        /** @constant */
-        ERR_RED_URL:            "{0}：没有重导向网址",
+            /** @constant */
+            ERR_NO_VIEWROOTATTR:    "{0}：不支援改变ViewRoot属性",
+            /** @constant */
+            ERR_NO_HEADATTR:        "{0}：不支援改变Head的属性",
+            /** @constant */
+            ERR_RED_URL:            "{0}：没有重导向网址",
 
-        /** @constant */
-        ERR_REQ_FAILED_UNKNOWN: "请求失败，状态不明",
+            /** @constant */
+            ERR_REQ_FAILED_UNKNOWN: "请求失败，状态不明",
 
-        /** @constant */
-        ERR_REQU_FAILED: "请求失败，状态是 {0} 和原因是 {1}",
+            /** @constant */
+            ERR_REQU_FAILED: "请求失败，状态是 {0} 和原因是 {1}",
 
-        /** @constant */
-        UNKNOWN: "不明"
-    });
+            /** @constant */
+            UNKNOWN: "不明"
+        });
 }
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
@@ -1937,7 +1851,136 @@ _MF_CLS && _MF_CLS(_PFX_I18N+"Messages_zh_CN", myfaces._impl.i18n.Messages,
  * @memberOf myfaces._impl.i18n
  */
 _MF_CLS && _MF_CLS(_PFX_I18N + "Messages_zh_HK", myfaces._impl.i18n.Messages,
-        /** @lends myfaces._impl.i18n.Messages_zh_HK.prototype */
+    /** @lends myfaces._impl.i18n.Messages_zh_HK.prototype */
+    {
+
+        MSG_TEST:               "測試信息",
+
+        /*Messages*/
+        /** @constant */
+        MSG_DEV_MODE:           "請注意，此信息只在項目發展階段，及沒有註冊錯誤監聽器而發放。",
+        /** @constant */
+        MSG_AFFECTED_CLASS:     "受影響類別：",
+        /** @constant */
+        MSG_AFFECTED_METHOD:    "受影響方法：",
+        /** @constant */
+        MSG_ERROR_NAME:         "錯誤名稱：",
+        /** @constant */
+        MSG_ERROR_MESSAGE:      "錯誤信息：",
+        /** @constant */
+        MSG_SERVER_ERROR_NAME:  "伺服器錯誤名稱：",
+        /** @constant */
+        MSG_ERROR_DESC:         "錯誤說明：",
+        /** @constant */
+        MSG_ERROR_NO:           "錯誤號碼：",
+        /** @constant */
+        MSG_ERROR_LINENO:       "錯誤行號：",
+
+        /*Errors and messages*/
+        /** @constant */
+        ERR_FORM:               "不能判定源表單，要麼沒有連接元件到表單，要麼有多個相同標識符或名稱的表單，AJAX處理停止運作",
+        /** @constant */
+        ERR_VIEWSTATE:          "jsf.viewState：參數值不是表單類型！",
+        /** @constant */
+        ERR_TRANSPORT:          "不存在{0}傳輸類型",
+        /** @constant */
+        ERR_EVT_PASS:           "必須放棄事件（可能事件物件為空或未定義）",
+        /** @constant */
+        ERR_CONSTRUCT:          "構建事件數據時部分回應不能取得，原因是：{0}",
+        /** @constant */
+        ERR_MALFORMEDXML:       "無法解析伺服器的回應，伺服器返回的回應不是XML！",
+        /** @constant */
+        ERR_SOURCE_FUNC:        "來源不能是一個函數（可能來源和事件沒有定義或設定為空）",
+        /** @constant */
+        ERR_EV_OR_UNKNOWN:      "事件物件或不明必須作為第二個參數傳遞",
+        /** @constant */
+        ERR_SOURCE_NOSTR:       "來源不能是字串",
+        /** @constant */
+        ERR_SOURCE_DEF_NULL:    "來源必須定義或為空",
+
+        //_Lang.js
+        /** @constant */
+        ERR_MUST_STRING:        "{0}：{1} 名稱空間必須是字串類型",
+        /** @constant */
+        ERR_REF_OR_ID:          "{0}：{1} 必須提供參考節點或標識符",
+        /** @constant */
+        ERR_PARAM_GENERIC:      "{0}：{1} 參數必須是 {2} 類型",
+        /** @constant */
+        ERR_PARAM_STR:          "{0}：{1} 參數必須是字串類型",
+        /** @constant */
+        ERR_PARAM_STR_RE:       "{0}：{1} 參數必須是字串類型或正規表達式",
+        /** @constant */
+        ERR_PARAM_MIXMAPS:      "{0}：必須提供來源及目標映射",
+        /** @constant */
+        ERR_MUST_BE_PROVIDED:   "{0}：必須提供 {1} 及 {2}",
+        /** @constant */
+        ERR_MUST_BE_PROVIDED1:  "{0}：必須設定 {1}",
+
+        /** @constant */
+        ERR_REPLACE_EL:         "調用replaceElements函數時evalNodes變量不是陣列類型",
+
+        /** @constant */
+        ERR_EMPTY_RESPONSE:     "{0}：回應不能為空的！",
+        /** @constant */
+        ERR_ITEM_ID_NOTFOUND:   "{0}：找不到有 {1} 標識符的項目",
+        /** @constant */
+        ERR_PPR_IDREQ:          "{0}：局部頁面渲染嵌入錯誤，標識符必須存在",
+        /** @constant */
+        ERR_PPR_INSERTBEFID:    "{0}：局部頁面渲染嵌入錯誤，前或後標識符必須存在",
+        /** @constant */
+        ERR_PPR_INSERTBEFID_1:  "{0}：局部頁面渲染嵌入錯誤，前節點的標識符 {1} 不在文件內",
+        /** @constant */
+        ERR_PPR_INSERTBEFID_2:  "{0}：局部頁面渲染嵌入錯誤，後節點的標識符 {1} 不在文件內",
+
+        /** @constant */
+        ERR_PPR_DELID:          "{0}：刪除錯誤，標識符不在XML標記中",
+        /** @constant */
+        ERR_PPR_UNKNOWNCID:     "{0}：不明的HTML組件標識符：{1}",
+
+        /** @constant */
+        ERR_NO_VIEWROOTATTR:    "{0}：不支援改變ViewRoot屬性",
+        /** @constant */
+        ERR_NO_HEADATTR:        "{0}：不支援改變Head的屬性",
+        /** @constant */
+        ERR_RED_URL:            "{0}：沒有重導向網址",
+
+        /** @constant */
+        ERR_REQ_FAILED_UNKNOWN: "請求失敗，狀態不明",
+
+        /** @constant */
+        ERR_REQU_FAILED: "請求失敗，狀態是 {0} 和原因是 {1}",
+
+        /** @constant */
+        UNKNOWN: "不明"
+    });
+
+
+/* Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to you under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+if (_MF_CLS) {
+    /**
+     * System messages Traditional Chinese (Taiwan) version
+     *
+     * @class
+     * @name Messages_zh_TW
+     * @extends myfaces._impl.i18n.Messages
+     * @memberOf myfaces._impl.i18n
+     */
+    _MF_CLS &&  _MF_CLS(_PFX_I18N + "Messages_zh_TW", myfaces._impl.i18n.Messages,
+        /** @lends myfaces._impl.i18n.Messages_zh_TW.prototype */
         {
 
             MSG_TEST:               "測試信息",
@@ -2039,135 +2082,6 @@ _MF_CLS && _MF_CLS(_PFX_I18N + "Messages_zh_HK", myfaces._impl.i18n.Messages,
             /** @constant */
             UNKNOWN: "不明"
         });
-
-
-/* Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to you under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-if (_MF_CLS) {
-    /**
-     * System messages Traditional Chinese (Taiwan) version
-     *
-     * @class
-     * @name Messages_zh_TW
-     * @extends myfaces._impl.i18n.Messages
-     * @memberOf myfaces._impl.i18n
-     */
-_MF_CLS &&  _MF_CLS(_PFX_I18N + "Messages_zh_TW", myfaces._impl.i18n.Messages,
-            /** @lends myfaces._impl.i18n.Messages_zh_TW.prototype */
-            {
-
-                MSG_TEST:               "測試信息",
-
-                /*Messages*/
-                /** @constant */
-                MSG_DEV_MODE:           "請注意，此信息只在項目發展階段，及沒有註冊錯誤監聽器而發放。",
-                /** @constant */
-                MSG_AFFECTED_CLASS:     "受影響類別：",
-                /** @constant */
-                MSG_AFFECTED_METHOD:    "受影響方法：",
-                /** @constant */
-                MSG_ERROR_NAME:         "錯誤名稱：",
-                /** @constant */
-                MSG_ERROR_MESSAGE:      "錯誤信息：",
-                /** @constant */
-                MSG_SERVER_ERROR_NAME:  "伺服器錯誤名稱：",
-                /** @constant */
-                MSG_ERROR_DESC:         "錯誤說明：",
-                /** @constant */
-                MSG_ERROR_NO:           "錯誤號碼：",
-                /** @constant */
-                MSG_ERROR_LINENO:       "錯誤行號：",
-
-                /*Errors and messages*/
-                /** @constant */
-                ERR_FORM:               "不能判定源表單，要麼沒有連接元件到表單，要麼有多個相同標識符或名稱的表單，AJAX處理停止運作",
-                /** @constant */
-                ERR_VIEWSTATE:          "jsf.viewState：參數值不是表單類型！",
-                /** @constant */
-                ERR_TRANSPORT:          "不存在{0}傳輸類型",
-                /** @constant */
-                ERR_EVT_PASS:           "必須放棄事件（可能事件物件為空或未定義）",
-                /** @constant */
-                ERR_CONSTRUCT:          "構建事件數據時部分回應不能取得，原因是：{0}",
-                /** @constant */
-                ERR_MALFORMEDXML:       "無法解析伺服器的回應，伺服器返回的回應不是XML！",
-                /** @constant */
-                ERR_SOURCE_FUNC:        "來源不能是一個函數（可能來源和事件沒有定義或設定為空）",
-                /** @constant */
-                ERR_EV_OR_UNKNOWN:      "事件物件或不明必須作為第二個參數傳遞",
-                /** @constant */
-                ERR_SOURCE_NOSTR:       "來源不能是字串",
-                /** @constant */
-                ERR_SOURCE_DEF_NULL:    "來源必須定義或為空",
-
-                //_Lang.js
-                /** @constant */
-                ERR_MUST_STRING:        "{0}：{1} 名稱空間必須是字串類型",
-                /** @constant */
-                ERR_REF_OR_ID:          "{0}：{1} 必須提供參考節點或標識符",
-                /** @constant */
-                ERR_PARAM_GENERIC:      "{0}：{1} 參數必須是 {2} 類型",
-                /** @constant */
-                ERR_PARAM_STR:          "{0}：{1} 參數必須是字串類型",
-                /** @constant */
-                ERR_PARAM_STR_RE:       "{0}：{1} 參數必須是字串類型或正規表達式",
-                /** @constant */
-                ERR_PARAM_MIXMAPS:      "{0}：必須提供來源及目標映射",
-                /** @constant */
-                ERR_MUST_BE_PROVIDED:   "{0}：必須提供 {1} 及 {2}",
-                /** @constant */
-                ERR_MUST_BE_PROVIDED1:  "{0}：必須設定 {1}",
-
-                /** @constant */
-                ERR_REPLACE_EL:         "調用replaceElements函數時evalNodes變量不是陣列類型",
-
-                /** @constant */
-                ERR_EMPTY_RESPONSE:     "{0}：回應不能為空的！",
-                /** @constant */
-                ERR_ITEM_ID_NOTFOUND:   "{0}：找不到有 {1} 標識符的項目",
-                /** @constant */
-                ERR_PPR_IDREQ:          "{0}：局部頁面渲染嵌入錯誤，標識符必須存在",
-                /** @constant */
-                ERR_PPR_INSERTBEFID:    "{0}：局部頁面渲染嵌入錯誤，前或後標識符必須存在",
-                /** @constant */
-                ERR_PPR_INSERTBEFID_1:  "{0}：局部頁面渲染嵌入錯誤，前節點的標識符 {1} 不在文件內",
-                /** @constant */
-                ERR_PPR_INSERTBEFID_2:  "{0}：局部頁面渲染嵌入錯誤，後節點的標識符 {1} 不在文件內",
-
-                /** @constant */
-                ERR_PPR_DELID:          "{0}：刪除錯誤，標識符不在XML標記中",
-                /** @constant */
-                ERR_PPR_UNKNOWNCID:     "{0}：不明的HTML組件標識符：{1}",
-
-                /** @constant */
-                ERR_NO_VIEWROOTATTR:    "{0}：不支援改變ViewRoot屬性",
-                /** @constant */
-                ERR_NO_HEADATTR:        "{0}：不支援改變Head的屬性",
-                /** @constant */
-                ERR_RED_URL:            "{0}：沒有重導向網址",
-
-                /** @constant */
-                ERR_REQ_FAILED_UNKNOWN: "請求失敗，狀態不明",
-
-                /** @constant */
-                ERR_REQU_FAILED: "請求失敗，狀態是 {0} 和原因是 {1}",
-
-                /** @constant */
-                UNKNOWN: "不明"
-            });
 }
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2256,9 +2170,9 @@ _MF_SINGLTN(_PFX_UTIL + "_Lang", Object, /** @lends myfaces._impl._util._Lang.pr
             return;
         }
         var language_Variant = this._RT.getLanguage(this._RT.getGlobalConfig("locale")),
-                langStr = language_Variant ? language_Variant.language : "",
-                variantStr = language_Variant ? [language_Variant.language, "_", language_Variant.variant || ""].join("") : "",
-                i18nRoot = myfaces._impl.i18n, i18nHolder = i18nRoot["Messages_" + variantStr] || i18nRoot["Messages_" + langStr] || i18nRoot["Messages"];
+            langStr = language_Variant ? language_Variant.language : "",
+            variantStr = language_Variant ? [language_Variant.language, "_", language_Variant.variant || ""].join("") : "",
+            i18nRoot = myfaces._impl.i18n, i18nHolder = i18nRoot["Messages_" + variantStr] || i18nRoot["Messages_" + langStr] || i18nRoot["Messages"];
         this._installedLocale = new i18nHolder();
     },
     assertType:function (probe, theType) {
@@ -2635,8 +2549,8 @@ _MF_SINGLTN(_PFX_UTIL + "_Lang", Object, /** @lends myfaces._impl._util._Lang.pr
             return false;
         };
         return !xmlContent ||
-                (this.exists(xmlContent, "parseError.errorCode") && xmlContent.parseError.errorCode != 0) ||
-                findParseError(xmlContent);
+            (this.exists(xmlContent, "parseError.errorCode") && xmlContent.parseError.errorCode != 0) ||
+            findParseError(xmlContent);
     },
     /**
      * fetches the error message from the xml content
@@ -2868,241 +2782,6 @@ _MF_SINGLTN(_PFX_UTIL + "_Lang", Object, /** @lends myfaces._impl._util._Lang.pr
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
-/*
- theoretically we could save some code
- by
- defining the parent object as
- var parent = new Object();
- parent.prototype = new myfaces._impl.core._Runtime();
- extendClass(function () {
- }, parent , {
- But for now we are not doing it the little bit of saved
- space is not worth the loss of readability
- */
-
-//html5 ecmascript 3 compliant browser, no quirks mode needed
-if(!Array.prototype.forEach  && _MF_SINGLTN) {
-/**
- * @memberOf myfaces._impl
- * @namespace
- * @name _util
- */
-
-/**
- * @class
- * @name _Lang
- * @memberOf myfaces._impl._util
- * @extends myfaces._impl.core._Runtime
- * @namespace
- * @description Object singleton for Language related methods, this object singleton
- * decorates the namespace myfaces._impl.core._Runtime and adds a bunch of new methods to
- * what _Runtime provided
- * <p>This class provides the proper fallbacks for ie8- and Firefox 3.6-</p>
- * */
-_MF_SINGLTN(_PFX_UTIL+"_LangQuirks", myfaces._impl._util._Lang, {
-
-    constructor_: function() {
-        this._callSuper("constructor_");
-        var _RT = this._RT;
-        var _T = this;
-        //we only apply lazy if the jsf part is loaded already
-        //otherwise we are at the correct position
-        if(myfaces._impl.core.Impl) {
-            _RT.iterateClasses(function(proto) {
-                if(proto._Lang) proto._Lang = _T;
-            });
-        }
-
-        myfaces._impl._util._Lang = _T;
-    },
-
-    /**
-     * foreach implementation utilizing the
-     * ECMAScript wherever possible
-     * with added functionality
-     *
-     * @param arr the array to filter
-     * @param func the closure to apply the function to, with the syntax defined by the ecmascript functionality
-     * function (element<,key, array>)
-     * <p />
-     * optional params
-     * <p />
-     * <ul>
-     *      <li>param startPos (optional) the starting position </li>
-     *      <li>param scope (optional) the scope to apply the closure to  </li>
-     * </ul>
-     */
-    arrForEach: function(arr, func /*startPos, scope*/) {
-        if (!arr || !arr.length) return;
-        try {
-            var startPos = Number(arguments[2]) || 0;
-            var thisObj = arguments[3];
-
-            //check for an existing foreach mapping on array prototypes
-            //IE9 still does not pass array objects as result for dom ops
-            if (Array.prototype.forEach && arr.forEach) {
-                (startPos) ? arr.slice(startPos).forEach(func, thisObj) : arr.forEach(func, thisObj);
-            } else {
-                startPos = (startPos < 0) ? Math.ceil(startPos) : Math.floor(startPos);
-                if (typeof func != "function") {
-                    throw new TypeError();
-                }
-                for (var cnt = 0; cnt < arr.length; cnt++) {
-                    if (thisObj) {
-                        func.call(thisObj, arr[cnt], cnt, arr);
-                    } else {
-                        func(arr[cnt], cnt, arr);
-                    }
-                }
-            }
-        } finally {
-            func = null;
-        }
-    },
-
-    /**
-     * foreach implementation utilizing the
-     * ECMAScript wherever possible
-     * with added functionality
-     *
-     * @param arr the array to filter
-     * @param func the closure to apply the function to, with the syntax defined by the ecmascript functionality
-     * function (element<,key, array>)
-     * <p />
-     * additional params
-     * <ul>
-     *  <li> startPos (optional) the starting position</li>
-     *  <li> scope (optional) the scope to apply the closure to</li>
-     * </ul>
-     */
-    arrFilter: function(arr, func /*startPos, scope*/) {
-        if (!arr || !arr.length) return [];
-        try {
-            var startPos = Number(arguments[2]) || 0;
-            var thisObj = arguments[3];
-
-            //check for an existing foreach mapping on array prototypes
-            if (Array.prototype.filter) {
-                return ((startPos) ? arr.slice(startPos).filter(func, thisObj) : arr.filter(func, thisObj));
-            } else {
-                if (typeof func != "function") {
-                    throw new TypeError();
-                }
-                var ret = [];
-                startPos = (startPos < 0) ? Math.ceil(startPos) : Math.floor(startPos);
-
-                for (var cnt = startPos; cnt < arr.length; cnt++) {
-                    var elem = null;
-                    if (thisObj) {
-                        elem = arr[cnt];
-                        if (func.call(thisObj, elem, cnt, arr)) ret.push(elem);
-                    } else {
-                        elem = arr[cnt];
-                        if (func(arr[cnt], cnt, arr)) ret.push(elem);
-                    }
-                }
-            }
-        } finally {
-            func = null;
-        }
-    },
-
-    /**
-     * adds a EcmaScript optimized indexOf to our mix,
-     * checks for the presence of an indexOf functionality
-     * and applies it, otherwise uses a fallback to the hold
-     * loop method to determine the index
-     *
-     * @param arr the array
-     * @param element the index to search for
-     */
-    arrIndexOf: function(arr, element /*fromIndex*/) {
-        if (!arr || !arr.length) return -1;
-        var pos = Number(arguments[2]) || 0;
-
-        if (Array.prototype.indexOf) {
-            return arr.indexOf(element, pos);
-        }
-        //var cnt = this._space;
-        var len = arr.length;
-        pos = (pos < 0) ? Math.ceil(pos) : Math.floor(pos);
-
-        //if negative then it is taken from as offset from the length of the array
-        if (pos < 0) {
-            pos += len;
-        }
-        while (pos < len && arr[pos] !== element) {
-            pos++;
-        }
-        return (pos < len) ? pos : -1;
-    },
-
-    parseXML: function(txt) {
-        try {
-            var xmlDoc = null;
-            if (window.DOMParser) {
-                xmlDoc = this._callSuper("parseXML", txt);
-            }
-            else // Internet Explorer
-            {
-                xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
-                xmlDoc.async = "false";
-                xmlDoc.loadXML(txt);
-            }
-            return xmlDoc;
-        } catch (e) {
-            //undefined internal parser error
-            return null;
-        }
-    },
-
-    serializeXML: function(xmlNode, escape) {
-        if (xmlNode.xml) return xmlNode.xml; //IE
-        return this._callSuper("serializeXML", xmlNode, escape);
-    },
-
-     /**
-     * Concatenates an array to a string
-     * @param {Array} arr the array to be concatenated
-     * @param {String} delimiter the concatenation delimiter if none is set \n is used
-     *
-     * @return the concatenated array, one special behavior to enable j4fry compatibility has been added
-     * if no delimiter is used the [entryNumber]+entry is generated for a single entry
-     * TODO check if this is still needed it is somewhat outside of the scope of the function
-     * and functionality wise dirty
-     */
-    arrToString : function(/*String or array*/ arr, /*string*/ delimiter) {
-        if (!arr) {
-            throw this._Lang.makeException(new Error(), null, null, this._nameSpace,"arrToString",  this.getMessage("ERR_MUST_BE_PROVIDED1",null, "arr {array}"));
-        }
-        if (this.isString(arr)) {
-            return arr;
-        }
-
-        delimiter = delimiter || "\n";
-        return arr.join(delimiter);
-    }
-});
-
-}
-
-/* Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to you under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 /**
  Base class which provides several helper functions over all objects
  */
@@ -3138,32 +2817,10 @@ _MF_CLS(_PFX_CORE+"Object", Object, {
         }
     },
 
-    /**
-     * ie6 cleanup
-     * This method disposes all properties manually in case of ie6
-     * hence reduces the chance of running into a gc problem tremendously
-     * on other browsers this method does nothing
-     */
-    _finalize: function() {
-        try {
-            if (this._isGCed || !this._RT.browser.isIE || !this._resettableContent) {
-                //no ie, no broken garbage collector
-                return;
-            }
 
-            for (var key in this._resettableContent) {
-                if (this._RT.exists(this[key], "_finalize")) {
-                    this[key]._finalize();
-                }
-                delete this[key];
-            }
-        } finally {
-            this._isGCed = true;
-        }
-    },
 
     attr: function(name, value) {
-       return this._Lang.attr(this, name, value);
+        return this._Lang.attr(this, name, value);
     },
 
     getImpl: function() {
@@ -3190,7 +2847,7 @@ _MF_CLS(_PFX_CORE+"Object", Object, {
     var _RT = myfaces._impl.core._Runtime;
     _RT._MF_OBJECT = target._MF_OBJECT;
 
-     target._MF_OBJECT = myfaces._impl.core.Object;
+    target._MF_OBJECT = myfaces._impl.core.Object;
 })();
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
@@ -3218,166 +2875,166 @@ _MF_CLS(_PFX_CORE+"Object", Object, {
  * @see <a href="http://safalra.com/web-design/javascript/queues/Queue.js">http://safalra.com/web-design/javascript/queues/Queue.js</a>
  */
 _MF_CLS(_PFX_UTIL+"_Queue", _MF_OBJECT,
-  /**
-   * @lends myfaces._impl._util._Queue.prototype
-   */
-{
-    //faster queue by http://safalra.com/web-design/javascript/queues/Queue.js
-    //license public domain
-    //The trick is to simply reduce the number of slice and slice ops to a bare minimum.
-
-    _q : null,
-    _space : 0,
-    _size: -1,
-
     /**
-     * Standard constructor
+     * @lends myfaces._impl._util._Queue.prototype
      */
-    constructor_: function() {
-        this._callSuper("constructor_");
-        this._q = [];
-    },
+    {
+        //faster queue by http://safalra.com/web-design/javascript/queues/Queue.js
+        //license public domain
+        //The trick is to simply reduce the number of slice and slice ops to a bare minimum.
 
-    /**
-     * @return the length of the queue as integer
-     */
-    length: function() {
-        // return the number of elements in the queue
-        return this._q.length - this._space;
+        _q : null,
+        _space : 0,
+        _size: -1,
 
-    },
+        /**
+         * Standard constructor
+         */
+        constructor_: function() {
+            this._callSuper("constructor_");
+            this._q = [];
+        },
 
-    /**
-     * @return true if the current queue is empty false otherwise
-     */
-    isEmpty: function() {
-        // return true if the queue is empty, and false otherwise
-        return (this._q.length == 0);
-    },
+        /**
+         * @return the length of the queue as integer
+         */
+        length: function() {
+            // return the number of elements in the queue
+            return this._q.length - this._space;
 
-    /**
-     * Sets the current queue to a new size, all overflow elements at the end are stripped
-     * automatically
-     *
-     * @param {int} newSize as numeric value
-     */
-    setQueueSize: function(newSize) {
-        this._size = newSize;
-        this._readjust();
-    },
+        },
 
-    /**
-     * adds a listener to the queue
-     *
-     * @param element the listener to be added
-     */
-    enqueue : function(/*function*/element) {
-        this._q.push(element);
-        //qeuesize is bigger than the limit we drop one element so that we are
-        //back in line
+        /**
+         * @return true if the current queue is empty false otherwise
+         */
+        isEmpty: function() {
+            // return true if the queue is empty, and false otherwise
+            return (this._q.length == 0);
+        },
 
-        this._readjust();
-    },
+        /**
+         * Sets the current queue to a new size, all overflow elements at the end are stripped
+         * automatically
+         *
+         * @param {int} newSize as numeric value
+         */
+        setQueueSize: function(newSize) {
+            this._size = newSize;
+            this._readjust();
+        },
 
-    _readjust: function() {
-        var size = this._size;
-        while (size && size > -1 && this.length() > size) {
-            this.dequeue();
-        }
-    },
+        /**
+         * adds a listener to the queue
+         *
+         * @param element the listener to be added
+         */
+        enqueue : function(/*function*/element) {
+            this._q.push(element);
+            //qeuesize is bigger than the limit we drop one element so that we are
+            //back in line
 
-    /**
-     * removes a listener form the queue
-     *
-     * @param element the listener to be removed
-     */
-    remove : function(/*function*/element) {
-        /*find element in queue*/
-        var index = this.indexOf(element);
-        /*found*/
-        if (index != -1) {
-            this._q.splice(index, 1);
-        }
-    },
+            this._readjust();
+        },
 
-    /**
-     * dequeues the last element in the queue
-     * @return {Object} element which is dequeued
-     */
-    dequeue: function() {
-        // initialise the element to return to be undefined
-        var element = null;
+        _readjust: function() {
+            var size = this._size;
+            while (size && size > -1 && this.length() > size) {
+                this.dequeue();
+            }
+        },
 
-        // check whether the queue is empty
-        var qLen = this._q.length;
-        var queue = this._q;
+        /**
+         * removes a listener form the queue
+         *
+         * @param element the listener to be removed
+         */
+        remove : function(/*function*/element) {
+            /*find element in queue*/
+            var index = this.indexOf(element);
+            /*found*/
+            if (index != -1) {
+                this._q.splice(index, 1);
+            }
+        },
 
-        if (qLen) {
+        /**
+         * dequeues the last element in the queue
+         * @return {Object} element which is dequeued
+         */
+        dequeue: function() {
+            // initialise the element to return to be undefined
+            var element = null;
 
-            // fetch the oldest element in the queue
-            element = queue[this._space];
+            // check whether the queue is empty
+            var qLen = this._q.length;
+            var queue = this._q;
 
-            // update the amount of space and check whether a shift should occur
-            //added here a max limit of 30
-            //now bit shift left is a tad faster than multiplication on most vms and does the same
-            //unless we run into a bit skipping which is impossible in our usecases here
-            if ((++this._space) << 1 >= qLen) {
+            if (qLen) {
 
-                // set the queue equal to the non-empty portion of the queue
-                this._q = queue.slice(this._space);
+                // fetch the oldest element in the queue
+                element = queue[this._space];
 
-                // reset the amount of space at the front of the queue
-                this._space = 0;
+                // update the amount of space and check whether a shift should occur
+                //added here a max limit of 30
+                //now bit shift left is a tad faster than multiplication on most vms and does the same
+                //unless we run into a bit skipping which is impossible in our usecases here
+                if ((++this._space) << 1 >= qLen) {
+
+                    // set the queue equal to the non-empty portion of the queue
+                    this._q = queue.slice(this._space);
+
+                    // reset the amount of space at the front of the queue
+                    this._space = 0;
+
+                }
 
             }
 
+            // return the removed element
+            return element;
+        },
+
+        /**
+         * simple foreach
+         *
+         * @param closure a closure which processes the element
+         * @code
+         *   queue.each(function(element) {
+         *      //do something with the element
+         *   });
+         */
+        each: function(closure) {
+            this._Lang.arrForEach(this._q, closure, this._space);
+        },
+
+        /**
+         * Simple filter
+         *
+         * @param closure a closure which returns true or false depending
+         * whether the filter has triggered
+         *
+         * @return an array of filtered queue entries
+         */
+        arrFilter: function(closure) {
+            return this._Lang.arrFilter(this._q, closure, this._space);
+        },
+
+        /**
+         * @param element
+         * @return the current index of the element in the queue or -1 if it is not found
+         */
+        indexOf: function(element) {
+            return this._Lang.arrIndexOf(this._q, element);
+        },
+
+        /**
+         * resets the queue to initial empty state
+         */
+        cleanup: function() {
+            this._q = [];
+            this._space = 0;
         }
-
-        // return the removed element
-        return element;
-    },
-
-    /**
-     * simple foreach
-     *
-     * @param closure a closure which processes the element
-     * @code
-     *   queue.each(function(element) {
-     *      //do something with the element
-     *   });
-     */
-    each: function(closure) {
-        this._Lang.arrForEach(this._q, closure, this._space);
-    },
-
-    /**
-     * Simple filter
-     *
-     * @param closure a closure which returns true or false depending
-     * whether the filter has triggered
-     *
-     * @return an array of filtered queue entries
-     */
-    arrFilter: function(closure) {
-        return this._Lang.arrFilter(this._q, closure, this._space);
-    },
-
-    /**
-     * @param element
-     * @return the current index of the element in the queue or -1 if it is not found
-     */
-    indexOf: function(element) {
-        return this._Lang.arrIndexOf(this._q, element);
-    },
-
-    /**
-     * resets the queue to initial empty state
-     */
-    cleanup: function() {
-        this._q = [];
-        this._space = 0;
-    }
-});
+    });
 
 
 /*
@@ -3412,59 +3069,59 @@ _MF_CLS(_PFX_UTIL+"_Queue", _MF_OBJECT,
  * methods for listener based closures to the mix </p>
  * */
 _MF_CLS(_PFX_UTIL+"_ListenerQueue", myfaces._impl._util._Queue,
-/**
- * @lends myfaces._impl._util._ListenerQueue.prototype
- */
-{
     /**
-     * listener type safety assertion function
-     *
-     * @param {function} listener must be of type function otherwise an error is raised
+     * @lends myfaces._impl._util._ListenerQueue.prototype
      */
-    _assertListener : function( listener) {
-        if ("function" != typeof (listener)) {
-            var msg = myfaces._impl._util._Lang.getMessage("ERR_PARAM_GENERIC",null,"_ListenerQueue", arguments.caller.toString(),"function" );
-            throw this._Lang.makeException(new Error(), null, null, this._nameSpace,arguments.caller.toString(),  msg);
+    {
+        /**
+         * listener type safety assertion function
+         *
+         * @param {function} listener must be of type function otherwise an error is raised
+         */
+        _assertListener : function( listener) {
+            if ("function" != typeof (listener)) {
+                var msg = myfaces._impl._util._Lang.getMessage("ERR_PARAM_GENERIC",null,"_ListenerQueue", arguments.caller.toString(),"function" );
+                throw this._Lang.makeException(new Error(), null, null, this._nameSpace,arguments.caller.toString(),  msg);
+            }
+        },
+
+        /**
+         * adds a listener to the queue
+         *
+         * @param {function} listener the listener to be added
+         */
+        enqueue : function(listener) {
+            this._assertListener(listener);
+            this._callSuper("enqueue", listener);
+        },
+
+        /**
+         * removes a listener form the queue
+         *
+         * @param {function} listener the listener to be removed
+         */
+        remove : function(listener) {
+            this._assertListener(listener);
+            this._callSuper("remove", listener);
+        },
+
+        /**
+         * generic broadcast with a number of arguments being passed down
+         * @param {Object} args the arguments passed down which are broadcast
+         */
+        broadcastEvent : function(args) {
+            var _args = myfaces._impl._util._Lang.objToArray(arguments); // XXX arguments vs. args?
+
+            var broadCastFunc = function(element) {
+                element.apply(null, _args);
+            };
+            try {
+                this.each(broadCastFunc);
+            } finally {
+                broadCastFunc = null;
+            }
         }
-    },
-
-    /**
-     * adds a listener to the queue
-     *
-     * @param {function} listener the listener to be added
-     */
-    enqueue : function(listener) {
-        this._assertListener(listener);
-        this._callSuper("enqueue", listener);
-    },
-
-    /**
-     * removes a listener form the queue
-     *
-     * @param {function} listener the listener to be removed
-     */
-    remove : function(listener) {
-        this._assertListener(listener);
-        this._callSuper("remove", listener);
-    },
-
-    /**
-     * generic broadcast with a number of arguments being passed down
-     * @param {Object} args the arguments passed down which are broadcast
-     */
-    broadcastEvent : function(args) {
-        var _args = myfaces._impl._util._Lang.objToArray(arguments); // XXX arguments vs. args?
-
-        var broadCastFunc = function(element) {
-            element.apply(null, _args);
-        };
-        try {
-            this.each(broadCastFunc);
-        } finally {
-            broadCastFunc = null;
-        }
-    }
-});
+    });
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -3523,41 +3180,45 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
     runCss: function(item/*, xmlData*/) {
 
         var  UDEF = "undefined",
-                _RT = this._RT,
-                _Lang = this._Lang,
-                applyStyle = function(item, style) {
-                    var newSS = document.createElement("style");
+            _RT = this._RT,
+            _Lang = this._Lang,
+            applyStyle = function(item, style) {
+                var newSS = document.createElement("style");
 
-                    newSS.setAttribute("rel", item.getAttribute("rel") || "stylesheet");
-                    newSS.setAttribute("type", item.getAttribute("type") || "text/css");
-                    document.getElementsByTagName("head")[0].appendChild(newSS);
-                    //ie merrily again goes its own way
-                    if (window.attachEvent && !_RT.isOpera && UDEF != typeof newSS.styleSheet && UDEF != newSS.styleSheet.cssText) newSS.styleSheet.cssText = style;
-                    else newSS.appendChild(document.createTextNode(style));
-                },
+                newSS.setAttribute("rel", item.getAttribute("rel") || "stylesheet");
+                newSS.setAttribute("type", item.getAttribute("type") || "text/css");
+                if(item.getAttribute("nonce")) {
+                    newSS.setAttribute("nonce", item.getAttribute("nonce"));
+                }
 
-                execCss = function(item) {
-                    var equalsIgnoreCase = _Lang.equalsIgnoreCase;
-                    var tagName = item.tagName;
-                    if (tagName && equalsIgnoreCase(tagName, "link") && equalsIgnoreCase(item.getAttribute("type"), "text/css")) {
-                        applyStyle(item, "@import url('" + item.getAttribute("href") + "');");
-                    } else if (tagName && equalsIgnoreCase(tagName, "style") && equalsIgnoreCase(item.getAttribute("type"), "text/css")) {
-                        var innerText = [];
-                        //compliant browsers know child nodes
-                        var childNodes = item.childNodes;
-                        if (childNodes) {
-                            var len = childNodes.length;
-                            for (var cnt = 0; cnt < len; cnt++) {
-                                innerText.push(childNodes[cnt].innerHTML || childNodes[cnt].data);
-                            }
-                            //non compliant ones innerHTML
-                        } else if (item.innerHTML) {
-                            innerText.push(item.innerHTML);
+                document.getElementsByTagName("head")[0].appendChild(newSS);
+                //ie merrily again goes its own way
+                if (window.attachEvent && !_RT.isOpera && UDEF != typeof newSS.styleSheet && UDEF != newSS.styleSheet.cssText) newSS.styleSheet.cssText = style;
+                else newSS.appendChild(document.createTextNode(style));
+            },
+
+            execCss = function(item) {
+                var equalsIgnoreCase = _Lang.equalsIgnoreCase;
+                var tagName = item.tagName;
+                if (tagName && equalsIgnoreCase(tagName, "link") && equalsIgnoreCase(item.getAttribute("type"), "text/css")) {
+                    applyStyle(item, "@import url('" + item.getAttribute("href") + "');");
+                } else if (tagName && equalsIgnoreCase(tagName, "style") && equalsIgnoreCase(item.getAttribute("type"), "text/css")) {
+                    var innerText = [];
+                    //compliant browsers know child nodes
+                    var childNodes = item.childNodes;
+                    if (childNodes) {
+                        var len = childNodes.length;
+                        for (var cnt = 0; cnt < len; cnt++) {
+                            innerText.push(childNodes[cnt].innerHTML || childNodes[cnt].data);
                         }
-
-                        applyStyle(item, innerText.join(""));
+                        //non compliant ones innerHTML
+                    } else if (item.innerHTML) {
+                        innerText.push(item.innerHTML);
                     }
-                };
+
+                    applyStyle(item, innerText.join(""));
+                }
+            };
 
         try {
             var scriptElements = this.findByTagNames(item, {"link":1,"style":1}, true);
@@ -3593,30 +3254,35 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
                 //script type javascript has to be handled by eval, other types
                 //must be handled by the browser
                 if (tagName && _Lang.equalsIgnoreCase(tagName, "script") &&
-                        (type === "" ||
+                    (type === "" ||
                         _Lang.equalsIgnoreCase(type,"text/javascript") ||
                         _Lang.equalsIgnoreCase(type,"javascript") ||
                         _Lang.equalsIgnoreCase(type,"text/ecmascript") ||
                         _Lang.equalsIgnoreCase(type,"ecmascript"))) {
 
+                    var nonce = item.getAttribute("nonce") || null;
+
                     var src = item.getAttribute('src');
                     if ('undefined' != typeof src
-                            && null != src
-                            && src.length > 0
-                            ) {
+                        && null != src
+                        && src.length > 0
+                    ) {
                         //we have to move this into an inner if because chrome otherwise chokes
                         //due to changing the and order instead of relying on left to right
                         //if jsf.js is already registered we do not replace it anymore
                         if ((src.indexOf("ln=scripts") == -1 && src.indexOf("ln=javax.faces") == -1) || (src.indexOf("/jsf.js") == -1
-                                && src.indexOf("/jsf-uncompressed.js") == -1)) {
+                            && src.indexOf("/jsf-uncompressed.js") == -1)) {
+
                             if (finalScripts.length) {
                                 //script source means we have to eval the existing
                                 //scripts before running the include
-                                _RT.globalEval(finalScripts.join("\n"));
+                                for(var cnt = 0; cnt < finalScripts.length; cnt++) {
+                                    _RT.globalEval(finalScripts[cnt].text, finalScripts[cnt]["cspMeta"] || null);
+                                }
 
                                 finalScripts = [];
                             }
-                            _RT.loadScriptEval(src, item.getAttribute('type'), false, "UTF-8", false);
+                            _RT.loadScriptEval(src, item.getAttribute('type'), false, "UTF-8", false, nonce ? {nonce: nonce} : null );
                         }
 
                     } else {
@@ -3640,7 +3306,12 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
                         }
                         // we have to run the script under a global context
                         //we store the script for less calls to eval
-                        finalScripts.push(test);
+                        finalScripts.push(nonce ? {
+                            cspMeta: {nonce: nonce},
+                            text: test
+                        }: {
+                            text: test
+                        });
 
                     }
                 }
@@ -3652,7 +3323,9 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
                 execScrpt(scriptElements[cnt]);
             }
             if (finalScripts.length) {
-                _RT.globalEval(finalScripts.join("\n"));
+                for(var cnt = 0; cnt < finalScripts.length; cnt++) {
+                    _RT.globalEval(finalScripts[cnt].text, finalScripts[cnt]["cspMeta"] || null);
+                }
             }
         } catch (e) {
             //we are now in accordance with the rest of the system of showing errors only in development mode
@@ -3799,9 +3472,9 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
         if (markup === "") return null;
 
         var evalNodes = this._buildEvalNodes(item, markup),
-                currentRef = item,
-                parentNode = item.parentNode,
-                ret = [];
+            currentRef = item,
+            parentNode = item.parentNode,
+            ret = [];
         for (var cnt = evalNodes.length - 1; cnt >= 0; cnt--) {
             currentRef = parentNode.insertBefore(evalNodes[cnt], currentRef);
             ret.push(currentRef);
@@ -3823,9 +3496,9 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
         if (markup === "") return null;
 
         var evalNodes = this._buildEvalNodes(item, markup),
-                currentRef = item,
-                parentNode = item.parentNode,
-                ret = [];
+            currentRef = item,
+            parentNode = item.parentNode,
+            ret = [];
 
         for (var cnt = 0; cnt < evalNodes.length; cnt++) {
             if (currentRef.nextSibling) {
@@ -3857,24 +3530,15 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
     detectAttributes: function(element) {
         //test if 'hasAttribute' method is present and its native code is intact
         //for example, Prototype can add its own implementation if missing
+        //JSF 2.4 we now can reduce the complexity here, one of the functions now
+        //is definitely implemented
         if (element.hasAttribute && this.isFunctionNative(element.hasAttribute)) {
             return function(name) {
                 return element.hasAttribute(name);
             }
         } else {
-            try {
-                //when accessing .getAttribute method without arguments does not throw an error then the method is not available
-                element.getAttribute;
-
-                var html = element.outerHTML;
-                var startTag = html.match(/^<[^>]*>/)[0];
-                return function(name) {
-                    return startTag.indexOf(name + '=') > -1;
-                }
-            } catch (ex) {
-                return function(name) {
-                    return element.getAttribute(name);
-                }
+            return function (name) {
+                return !!element.getAttribute(name);
             }
         }
     },
@@ -4068,7 +3732,6 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
      */
     outerHTML : function(item, markup, preserveFocus) {
         this._assertStdParams(item, markup, "outerHTML");
-        markup = this._Lang.trim(markup);
         // we can work on a single element in a cross browser fashion
         // regarding the focus thanks to the
         // icefaces team for providing the code
@@ -4077,6 +3740,7 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
             this.cloneAttributes(item, replacingInput);
             return item;
         } else {
+            markup = this._Lang.trim(markup);
             if (markup !== "") {
                 var ret = null;
 
@@ -4116,35 +3780,6 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
             // and remove the old item, in case of an empty newtag and do nothing else
             this._removeNode(item, false);
             return null;
-        }
-    },
-
-    isFunctionNative: function(func) {
-        return /^\s*function[^{]+{\s*\[native code\]\s*}\s*$/.test(String(func));
-    },
-
-    detectAttributes: function(element) {
-        //test if 'hasAttribute' method is present and its native code is intact
-        //for example, Prototype can add its own implementation if missing
-        if (element.hasAttribute && this.isFunctionNative(element.hasAttribute)) {
-            return function(name) {
-                return element.hasAttribute(name);
-            }
-        } else {
-            try {
-                //when accessing .getAttribute method without arguments does not throw an error then the method is not available
-                element.getAttribute;
-
-                var html = element.outerHTML;
-                var startTag = html.match(/^<[^>]*>/)[0];
-                return function(name) {
-                    return startTag.indexOf(name + '=') > -1;
-                }
-            } catch (ex) {
-                return function(name) {
-                    return element.getAttribute(name);
-                }
-            }
         }
     },
 
@@ -4275,9 +3910,9 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
             //elements bug, but it is mostly dom compliant so we have to give it a special
             //treatment, IE9 finally fixes that issue finally after 10 years
             evalNodes = (this.isDomCompliant() &&  nonIEQuirks) ?
-                    this._buildNodesCompliant(markup) :
-                    //ie8 or quirks mode browsers
-                    this._buildNodesNonCompliant(markup);
+                this._buildNodesCompliant(markup) :
+                //ie8 or quirks mode browsers
+                this._buildNodesNonCompliant(markup);
         }
         return evalNodes;
     },
@@ -4297,9 +3932,9 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
             throw this._Lang.makeException(new Error(), null, null, this._nameSpace, "_assertStdParams",  "Caller must be set for assertion");
         }
         var _Lang = this._Lang,
-                ERR_PROV = "ERR_MUST_BE_PROVIDED1",
-                DOM = "myfaces._impl._util._Dom.",
-                finalParams = params || ["item", "markup"];
+            ERR_PROV = "ERR_MUST_BE_PROVIDED1",
+            DOM = "myfaces._impl._util._Dom.",
+            finalParams = params || ["item", "markup"];
 
         if (!item || !markup) {
             _Lang.makeException(new Error(), null, null,DOM, ""+caller,  _Lang.getMessage(ERR_PROV, null, DOM +"."+ caller, (!item) ? finalParams[0] : finalParams[1]));
@@ -4355,8 +3990,8 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
 
         var parentNode = item.parentNode,
 
-                sibling = item.nextSibling,
-                resultArr = this._Lang.objToArray(evalNodes);
+            sibling = item.nextSibling,
+            resultArr = this._Lang.objToArray(evalNodes);
 
         for (var cnt = 0; cnt < resultArr.length; cnt++) {
             if (cnt == 0) {
@@ -4429,7 +4064,7 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
     findByTagName : function(fragment, tagName) {
         this._assertStdParams(fragment, tagName, "findByTagName", ["fragment", "tagName"]);
         var _Lang = this._Lang,
-                nodeType = fragment.nodeType;
+            nodeType = fragment.nodeType;
         if (nodeType != 1 && nodeType != 9 && nodeType != 11) return null;
 
         //remapping to save a few bytes
@@ -4496,8 +4131,8 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
         //we use the reject mechanism to prevent a deep scan reject means any
         //child elements will be omitted from the scan
         var FILTER_ACCEPT = NodeFilter.FILTER_ACCEPT,
-                FILTER_SKIP = NodeFilter.FILTER_SKIP,
-                FILTER_REJECT = NodeFilter.FILTER_REJECT;
+            FILTER_SKIP = NodeFilter.FILTER_SKIP,
+            FILTER_REJECT = NodeFilter.FILTER_REJECT;
 
         var walkerFilter = function (node) {
             var retCode = (filter(node)) ? FILTER_ACCEPT : FILTER_SKIP;
@@ -4594,7 +4229,7 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
             //https://issues.apache.org/jira/browse/MYFACES-2793
 
             return (_Lang.equalsIgnoreCase(elem.tagName, "form")) ? elem :
-                    ( this.html5FormDetection(elem) || this.getParent(elem, "form"));
+                ( this.html5FormDetection(elem) || this.getParent(elem, "form"));
         });
 
         if (finalElem) {
@@ -4627,8 +4262,9 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
         return (1 == foundElements.length ) ? foundElements[0] : null;
     },
 
-    html5FormDetection: function(/*item*/) {
-        return null;
+    html5FormDetection:function (item) {
+        var elemForm = this.getAttribute(item, "form");
+        return (elemForm) ? this.byId(elemForm) : null;
     },
 
 
@@ -4641,13 +4277,13 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
 
         if (!item) {
             throw this._Lang.makeException(new Error(), null, null, this._nameSpace, "getParent",
-                    this._Lang.getMessage("ERR_MUST_BE_PROVIDED1", null, "_Dom.getParent", "item {DomNode}"));
+                this._Lang.getMessage("ERR_MUST_BE_PROVIDED1", null, "_Dom.getParent", "item {DomNode}"));
         }
 
         var _Lang = this._Lang;
         var searchClosure = function(parentItem) {
             return parentItem && parentItem.tagName
-                    && _Lang.equalsIgnoreCase(parentItem.tagName, tagName);
+                && _Lang.equalsIgnoreCase(parentItem.tagName, tagName);
         };
         try {
             return this.getFilteredParent(item, searchClosure);
@@ -4784,644 +4420,6 @@ _MF_SINGLTN(_PFX_UTIL + "_Dom", Object, /** @lends myfaces._impl._util._Dom.prot
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-if (_MF_SINGLTN) {
-    _MF_SINGLTN(_PFX_UTIL + "_DomExperimental", myfaces._impl._util._Dom, /** @lends myfaces._impl._util._Dom.prototype */ {
-        constructor_:function () {
-            this._callSuper("constructor_");
-            myfaces._impl._util._Dom = this;
-        },
-
-       html5FormDetection:function (item) {
-            var browser = this._RT.browser;
-            //ie shortcut, not really needed but speeds things up
-            if (browser.isIEMobile && browser.isIEMobile <= 8) {
-                return null;
-            }
-            var elemForm = this.getAttribute(item, "form");
-            return (elemForm) ? this.byId(elemForm) : null;
-        },
-
-        getNamedElementFromForm: function(form, elementId) {
-            return form[elementId];
-        }
-    });
-}
-
-/* Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to you under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-if (_MF_SINGLTN) {
-    /***
-     Dom.js version for non html5 browsers
-     */
-    _MF_SINGLTN(_PFX_UTIL + "DomQuirks", myfaces._impl._util._Dom, /** @lends myfaces._impl._util._DomQuirks.prototype */ {
-
-        IE_QUIRKS_EVENTS:{
-            "onabort":true,
-            "onload":true,
-            "onunload":true,
-            "onchange":true,
-            "onsubmit":true,
-            "onreset":true,
-            "onselect":true,
-            "onblur":true,
-            "onfocus":true,
-            "onkeydown":true,
-            "onkeypress":true,
-            "onkeyup":true,
-            "onclick":true,
-            "ondblclick":true,
-            "onmousedown":true,
-            "onmousemove":true,
-            "onmouseout":true,
-            "onmouseover":true,
-            "onmouseup":true
-        },
-
-        constructor_:function () {
-
-            var b = myfaces._impl.core._Runtime.browser;
-
-            if (b.isIEMobile && b.isIE <= 6) {
-                //winmobile hates add onLoad, and checks on the construct
-                //it does not eval scripts anyway
-                myfaces.config = myfaces.config || {};
-                myfaces.config._autoeval = false;
-                return;
-            } else {
-                //for whatever reason autoeval is set here on Firefox 3.5 only
-                // could be a firebug problem, by setting setters
-                //and getters no assignment was revealed.
-                if ('undefined' != typeof myfaces.config && 'undefined' != typeof myfaces.config._autoeval) {
-                    delete myfaces.config._autoeval;
-                }
-            }
-            this._callSuper("constructor_");
-            myfaces._impl._util._Dom = this;
-
-            var _Lang = this._Lang;
-            //by w3c spec the script eval is turned off it is only
-            //on on legacy browsers
-            var scriptEval = _Lang.hitch(this, this.isManualScriptEval);
-
-            if (window) {
-                this._RT.addOnLoad(window, scriptEval);
-            }
-            //safety fallback if the window onload handler is overwritten and not chained
-            if (document.body) {
-                this._RT.addOnLoad(document.body, scriptEval);
-            }
-
-            //we register ourselves into the existing classes lazily
-            var _T = this;
-            if (myfaces._impl.core.Impl) {
-                this._RT.iterateClasses(function (proto) {
-                    if (proto._Dom) proto._Dom = _T;
-                });
-            }
-        },
-
-        /**
-         * Checks whether the browser is dom compliant.
-         * Dom compliant means that it performs the basic dom operations safely
-         * without leaking and also is able to perform a native setAttribute
-         * operation without freaking out
-         *
-         *
-         * Not dom compliant browsers are all microsoft browsers in quirks mode
-         * and ie6 and ie7 to some degree in standards mode
-         * and pretty much every browser who cannot create ranges
-         * (older mobile browsers etc...)
-         *
-         * We dont do a full browser detection here because it probably is safer
-         * to test for existing features to make an assumption about the
-         * browsers capabilities
-         */
-        isDomCompliant:function () {
-            if ('undefined' == typeof this._isCompliantBrowser) {
-                this._isCompliantBrowser = !!((window.Range
-                        && typeof Range.prototype.createContextualFragment == 'function')
-                                                            //createContextualFragment hints to a no quirks browser but we need more fallbacks
-                        || document.querySelectoryAll       //query selector all hints to html5 capabilities
-                        || document.createTreeWalker);      //treewalker is either firefox 3.5+ or ie9 standards mode
-            }
-            return this._isCompliantBrowser;
-        },
-
-        /**
-         * now to the evil browsers
-         * of what we are dealing with is various bugs
-         * first a simple replaceElement leaks memory
-         * secondly embedded scripts can be swallowed upon
-         * innerHTML, we probably could also use direct outerHTML
-         * but then we would run into the script swallow bug
-         *
-         * the entire mess is called IE6 and IE7
-         *
-         * @param item
-         * @param markup
-         */
-        _outerHTMLNonCompliant:function (item, markup) {
-
-            var b = this._RT.browser;
-
-            try {
-                //check for a subtable rendering case
-
-                var evalNodes = this._buildEvalNodes(item, markup);
-
-                if (evalNodes.length == 1) {
-                    var ret = evalNodes[0];
-                    this.replaceElement(item, evalNodes[0]);
-                    return ret;
-                } else {
-                    return this.replaceElements(item, evalNodes);
-                }
-
-            } finally {
-
-                var dummyPlaceHolder = this.getDummyPlaceHolder();
-                //now that Microsoft has finally given
-                //ie a working gc in 8 we can skip the costly operation
-                if (b.isIE && b.isIE < 8) {
-                    this._removeChildNodes(dummyPlaceHolder, false);
-                }
-                dummyPlaceHolder.innerHTML = "";
-            }
-
-        },
-
-        replaceElement:function (item, evalNode) {
-
-            var _Browser = this._RT.browser;
-            if (!_Browser.isIE || _Browser.isIE >= 8) {
-                //standards conform no leaking browser
-                item.parentNode.replaceChild(evalNode, item);
-            } else {
-                this._callSuper("replaceElement", item, evalNode);
-            }
-        },
-
-        /**
-         * builds the ie nodes properly in a placeholder
-         * and bypasses a non script insert bug that way
-         * @param markup the marku code
-         */
-        _buildNodesNonCompliant:function (markup) {
-
-            //now to the non w3c compliant browsers
-            //http://blogs.perl.org/users/clinton_gormley/2010/02/forcing-ie-to-accept-script-tags-in-innerhtml.html
-            //we have to cope with deficiencies between ie and its simulations in this case
-            var probe = this.getDummyPlaceHolder();//document.createElement("div");
-
-            probe.innerHTML = "<table><tbody><tr><td><div></div></td></tr></tbody></table>";
-
-            //we have customers using html unit, this has a bug in the table resolution
-            //hence we determine the depth dynamically
-            var depth = this._determineDepth(probe);
-
-            this._removeChildNodes(probe, false);
-            probe.innerHTML = "";
-
-            var dummyPlaceHolder = this.getDummyPlaceHolder();//document.createElement("div");
-
-            //fortunately a table element also works which is less critical than form elements regarding
-            //the inner content
-            dummyPlaceHolder.innerHTML = "<table><tbody><tr><td>" + markup + "</td></tr></tbody></table>";
-            var evalNodes = dummyPlaceHolder;
-
-            for (var cnt = 0; cnt < depth; cnt++) {
-                evalNodes = evalNodes.childNodes[0];
-            }
-            var ret = (evalNodes.parentNode) ? this.detach(evalNodes.parentNode.childNodes) : null;
-
-            if ('undefined' == typeof evalNodes || null == evalNodes) {
-                //fallback for htmlunit which should be good enough
-                //to run the tests, maybe we have to wrap it as well
-                dummyPlaceHolder.innerHTML = "<div>" + markup + "</div>";
-                //note this is triggered only in htmlunit no other browser
-                //so we are save here
-                //TODO Fix this (probaby ret is needed here, check the history)
-                evalNodes = this.detach(dummyPlaceHolder.childNodes[0].childNodes);
-            }
-
-            this._removeChildNodes(dummyPlaceHolder, false);
-            //ie fix any version, ie does not return true javascript arrays so we have to perform
-            //a cross conversion
-            return ret;
-
-        },
-
-        _determineDepth:function (probe) {
-            var depth = 0;
-            var newProbe = probe;
-            for (; newProbe &&
-                           newProbe.childNodes &&
-                           newProbe.childNodes.length &&
-                           newProbe.nodeType == 1; depth++) {
-                newProbe = newProbe.childNodes[0];
-            }
-            return depth;
-        },
-
-        //now to another nasty issue:
-        //for ie we have to walk recursively over all nodes:
-        //http://msdn.microsoft.com/en-us/library/bb250448%28VS.85%29.aspx
-        //http://weblogs.java.net/blog/driscoll/archive/2009/11/13/ie-memory-management-and-you
-        //http://home.orange.nl/jsrosman/
-        //http://www.quirksmode.org/blog/archives/2005/10/memory_leaks_li.html
-        //http://www.josh-davis.org/node/7
-        _removeNode:function (node, breakEventsOpen) {
-            if (!node) return;
-            var b = this._RT.browser;
-            if (this.isDomCompliant()) {
-                //recursive descension only needed for old ie versions
-                //all newer browsers cleanup the garbage just fine without it
-                //thank you
-                if ('undefined' != typeof node.parentNode && null != node.parentNode) //if the node has a parent
-                    node.parentNode.removeChild(node);
-                return;
-            }
-
-            //now to the browsers with non working garbage collection
-            this._removeChildNodes(node, breakEventsOpen);
-
-            try {
-                //outer HTML setting is only possible in earlier IE versions all modern browsers throw an exception here
-                //again to speed things up we precheck first
-                if (!this._isTableElement(node)) {
-                    //we do not do a table structure innnerhtml on table elements except td
-                    //htmlunit rightfully complains that we should not do it
-                    node.innerHTML = "";
-                }
-                if (b.isIE && 'undefined' != typeof node.outerHTML) {//ie8+ check done earlier we skip it here
-                    node.outerHTML = '';
-                } else {
-                    node = this.detach(node)[0];
-                }
-                if (!b.isIEMobile) {
-                    delete node;
-                }
-            } catch (e) {
-                //on some elements we might not have covered by our table check on the outerHTML
-                // can fail we skip those in favor of stability
-                try {
-                    // both innerHTML and outerHTML fails when <tr> is the node, but in that case
-                    // we need to force node removal, otherwise it will be on the tree (IE 7 IE 6)
-                    this.detach(node);
-                    if (!b.isIEMobile) {
-                        delete node;
-                    }
-                } catch (e1) {
-                }
-            }
-        },
-
-        /**
-         * recursive delete child nodes
-         * node, this method only makes sense in the context of IE6 + 7 hence
-         * it is not exposed to the public API, modern browsers
-         * can garbage collect the nodes just fine by doing the standard removeNode method
-         * from the dom API!
-         *
-         * @param node  the node from which the childnodes have to be deletd
-         * @param breakEventsOpen if set to true a standard events breaking is performed
-         */
-        _removeChildNodes:function (node, breakEventsOpen) {
-            if (!node) return;
-
-            //node types which cannot be cleared up by normal means
-            var disallowedNodes = this.TABLE_ELEMS;
-
-            //for now we do not enable it due to speed reasons
-            //normally the framework has to do some event detection
-            //which we cannot do yet, I will dig for options
-            //to enable it in a speedly manner
-            //ie7 fixes this area anyway
-            //this.breakEvents(node);
-
-            var b = this._RT.browser;
-            if (breakEventsOpen) {
-                this.breakEvents(node);
-            }
-
-            for (var cnt = node.childNodes.length - 1; cnt >= 0; cnt -= 1) {
-                var childNode = node.childNodes[cnt];
-                //we cannot use our generic recursive tree walking due to the needed head recursion
-                //to clean it up bottom up, the tail recursion we were using in the search either would use more time
-                //because we had to walk and then clean bottom up, so we are going for a direct head recusion here
-                if ('undefined' != typeof childNode.childNodes && node.childNodes.length)
-                    this._removeChildNodes(childNode);
-                try {
-                    var nodeName = (childNode.nodeName || childNode.tagName) ? (childNode.nodeName || childNode.tagName).toLowerCase() : null;
-                    //ie chokes on clearing out table inner elements, this is also covered by our empty
-                    //catch block, but to speed things up it makes more sense to precheck that
-                    if (!disallowedNodes[nodeName]) {
-                        //outer HTML setting is only possible in earlier IE versions all modern browsers throw an exception here
-                        //again to speed things up we precheck first
-                        if (!this._isTableElement(childNode)) {    //table elements cannot be deleted
-                            childNode.innerHTML = "";
-                        }
-                        if (b.isIE && b.isIE < 8 && 'undefined' != typeof childNode.outerHTML) {
-                            childNode.outerHTML = '';
-                        } else {
-                            node.removeChild(childNode);
-                        }
-                        if (!b.isIEMobile) {
-                            delete childNode;
-                        }
-                    }
-                } catch (e) {
-                    //on some elements the outerHTML can fail we skip those in favor
-                    //of stability
-
-                }
-            }
-        },
-        /**
-         * cross ported from dojo
-         * fetches an attribute from a node
-         *
-         * @param {String} node the node
-         * @param {String} attr the attribute
-         * @return the attributes value or null
-         */
-        getAttribute:function (/* HTMLElement */node, /* string */attr) {
-            //	summary
-            //	Returns the value of attribute attr from node.
-            node = this.byId(node);
-            // FIXME: need to add support for attr-specific accessors
-            if ((!node) || (!node.getAttribute)) {
-                // if(attr !== 'nwType'){
-                //	alert("getAttr of '" + attr + "' with bad node");
-                // }
-                return null;
-            }
-            var ta = typeof attr == 'string' ? attr : new String(attr);
-
-            // first try the approach most likely to succeed
-            var v = node.getAttribute(ta.toUpperCase());
-            if ((v) && (typeof v == 'string') && (v != "")) {
-                return v;	//	string
-            }
-
-            // try returning the attributes value, if we couldn't get it as a string
-            if (v && v.value) {
-                return v.value;	//	string
-            }
-
-
-
-            if (node.getAttribute(ta)) {
-                return node.getAttribute(ta);	//	string
-            } else if (node.getAttribute(ta.toLowerCase())) {
-                return node.getAttribute(ta.toLowerCase());	//	string
-
-            }
-            //there used to be a getAttributeNode check here for really old
-            //browsers, I had to remove it because of a firefox warning
-            //which uses a regexp scan for this method to be deprecated
-
-            return null;	//	string
-        },
-
-        /**
-         * bugfixing for ie6 which does not cope properly with setAttribute
-         */
-        setAttribute:function (node, attr, val) {
-
-            this._assertStdParams(node, attr, "setAttribute");
-
-            //quirks mode and ie7 mode has the attributes problems ie8 standards mode behaves like
-            //a good citizen
-            var _Browser = this._RT.browser;
-            //in case of ie > ie7 we have to check for a quirks mode setting
-            if (!_Browser.isIE || _Browser.isIE > 7 && this.isDomCompliant()) {
-                this._callSuper("setAttribute", node, attr, val);
-                return;
-            }
-
-            /*
-             Now to the broken browsers IE6+.... ie7 and ie8 quirks mode
-
-             we deal mainly with three problems here
-             class and for are not handled correctly
-             styles are arrays and cannot be set directly
-             and javascript events cannot be set via setAttribute as well!
-
-             or in original words of quirksmode.org ... this is a mess!
-
-             Btw. thank you Microsoft for providing all necessary tools for free
-             for being able to debug this entire mess in the ie rendering engine out
-             (which is the Microsoft ie vms, developers toolbar, Visual Web Developer 2008 express
-             and the ie8 8 developers toolset!)
-
-             also thank you http://www.quirksmode.org/
-             dojotoolkit.org and   //http://delete.me.uk/2004/09/ieproto.html
-             for additional information on this mess!
-
-             The lowest common denominator tested within this code
-             is IE6, older browsers for now are legacy!
-             */
-            attr = attr.toLowerCase();
-
-            if (attr === "class") {
-                //setAttribute does not work for winmobile browsers
-                //firect calls work
-                node.className = val;
-            } else if (attr === "name") {
-                //the ie debugger fails to assign the name via setAttr
-                //in quirks mode
-                node[attr] = val;
-            } else if (attr === "for") {
-                if (!_Browser.isIEMobile || _Browser.isIEMobile >= 7) {
-                    node.setAttribute("htmlFor", val);
-                } else {
-                    node.htmlFor = val;
-                }
-            } else if (attr === "style") {
-                node.style.cssText = val;
-            } else {
-                //check if the attribute is an event, since this applies only
-                //to quirks mode of ie anyway we can live with the standard html4/xhtml
-                //ie supported events
-                if (this.IE_QUIRKS_EVENTS[attr]) {
-                    if (this._Lang.isString(attr)) {
-                        var c = document.body.appendChild(document.createElement('span'));
-                        try {
-                            c.innerHTML = '<span ' + attr + '="' + val + '"/>';
-                            node[attr] = c.firstChild[attr];
-                        } finally {
-                            document.body.removeChild(c);
-                        }
-                    }
-                } else {
-                    //unknown cases we try to catch them via standard setAttributes
-                    if (!_Browser.isIEMobile || _Browser.isIEMobile >= 7) {
-                        node.setAttribute(attr, val);
-                    } else {
-                        node[attr] = val;
-                    }
-                }
-            }
-        },
-
-        getDummyPlaceHolder:function () {
-            this._callSuper("getDummyPlaceHolder");
-
-            //ieMobile in its 6.1-- incarnation cannot handle innerHTML detached objects so we have
-            //to attach the dummy placeholder, we try to avoid it for
-            //better browsers so that we do not have unecessary dom operations
-            if (this._RT.browser.isIEMobile && created) {
-                this.insertFirst(this._dummyPlaceHolder);
-
-                this.setAttribute(this._dummyPlaceHolder, "style", "display: none");
-
-            }
-
-            return this._dummyPlaceHolder;
-        },
-
-        /**
-         * classical recursive way which definitely will work on all browsers
-         * including the IE6
-         *
-         * @param rootNode the root node
-         * @param filter the filter to be applied to
-         * @param deepScan if set to true a deep scan is performed
-         */
-        _recursionSearchAll:function (rootNode, filter, deepScan) {
-            var ret = [];
-            //fix the value to prevent undefined errors
-
-            if (filter(rootNode)) {
-                ret.push(rootNode);
-                if (!deepScan) return ret;
-            }
-
-            //
-            if (!rootNode.childNodes) {
-                return ret;
-            }
-
-            //subfragment usecases
-
-            var retLen = ret.length;
-            var childLen = rootNode.childNodes.length;
-            for (var cnt = 0; (deepScan || retLen == 0) && cnt < childLen; cnt++) {
-                ret = ret.concat(this._recursionSearchAll(rootNode.childNodes[cnt], filter, deepScan));
-            }
-            return ret;
-        },
-
-        /**
-         * break the standard events from an existing dom node
-         * (note this method is not yet used, but can be used
-         * by framework authors to get rid of ie circular event references)
-         *
-         * another way probably would be to check all attributes of a node
-         * for a function and if one is present break it by nulling it
-         * I have to do some further investigation on this.
-         *
-         * The final fix is to move away from ie6 at all which is the root cause of
-         * this.
-         *
-         * @param node the node which has to be broken off its events
-         */
-        breakEvents:function (node) {
-            if (!node) return;
-            var evtArr = this.IE_QUIRKS_EVENTS;
-            for (var key in evtArr) {
-                if (!evtArr.hasOwnProperty(key)) continue;
-                if (key != "onunload" && node[key]) {
-                    node[key] = null;
-                }
-            }
-        },
-
-        isManualScriptEval:function () {
-
-            if (!this._Lang.exists(myfaces, "config._autoeval")) {
-
-                //now we rely on the document being processed if called for the first time
-                var evalDiv = document.createElement("div");
-                this._Lang.reserveNamespace("myfaces.config._autoeval");
-                //null not swallowed
-                myfaces.config._autoeval = false;
-
-                var markup = "<script type='text/javascript'> myfaces.config._autoeval = true; </script>";
-                //now we rely on the same replacement mechanisms as outerhtml because
-                //some browsers have different behavior of embedded scripts in the contextualfragment
-                //or innerhtml case (opera for instance), this way we make sure the
-                //eval detection is covered correctly
-                this.setAttribute(evalDiv, "style", "display:none");
-
-                //it is less critical in some browsers (old ie versions)
-                //to append as first element than as last
-                //it should not make any difference layoutwise since we are on display none anyway.
-                this.insertFirst(evalDiv);
-
-                //we remap it into a real boolean value
-                if (this.isDomCompliant()) {
-                    this._outerHTMLCompliant(evalDiv, markup);
-                } else {
-                    //will not be called placeholder for quirks class
-                    this._outerHTMLNonCompliant(evalDiv, markup);
-                }
-
-
-            }
-
-            return  !myfaces.config._autoeval;
-        },
-
-        getNamedElementFromForm:function (form, elementName) {
-			var browser = this._RT.browser;
-            if(browser.isIE && browser.isIE < 8) {
-                if(!form.elements) return null;
-                for(var cnt = 0, l = form.elements.length; cnt < l; cnt ++) {
-                    var element = form.elements[cnt];
-                    if(element.name == elementName) {
-                        return element;
-                    }
-                }
-                return null;
-            } else {
-                return form[elementName];
-            }
-        }
-
-    });
-
-}
-
-/* Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to you under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 /**
  * @class
@@ -5446,13 +4444,13 @@ _MF_CLS(_PFX_UTIL + "_HtmlStripper", _MF_OBJECT, /** @lends myfaces._impl._util.
     parse : function(theString, tagNameStart) {
 
         var BEGIN_TAG = "html",
-                _tagStart = -1,
-                _tagEnd = -1,
-                _contentStart = -1,
-                _contentEnd = -1,
-                _tokenPos = 0,
-                _tokenForward = 1,
-                tagNameStart = (!tagNameStart) ? BEGIN_TAG : tagNameStart;
+            _tagStart = -1,
+            _tagEnd = -1,
+            _contentStart = -1,
+            _contentEnd = -1,
+            _tokenPos = 0,
+            _tokenForward = 1,
+            tagNameStart = (!tagNameStart) ? BEGIN_TAG : tagNameStart;
 
         var proposedTagStartPos = theString.indexOf("<" + tagNameStart);
         var _T = this;
@@ -5472,12 +4470,12 @@ _MF_CLS(_PFX_UTIL + "_HtmlStripper", _MF_OBJECT, /** @lends myfaces._impl._util.
          */
         var checkForwardForComment = function(theStr, tagPos) {
             var toCheck = theStr.substring(tagPos),
-                    indexOf = _T._Lang.hitch(toCheck, toCheck.indexOf),
-                    firstBeginComment = indexOf("<!--"),
-                    firstEndComment = indexOf("-->"),
+                indexOf = _T._Lang.hitch(toCheck, toCheck.indexOf),
+                firstBeginComment = indexOf("<!--"),
+                firstEndComment = indexOf("-->"),
 
-                    firstBeginCDATA = indexOf("<[CDATA["),
-                    firstEndCDATA = indexOf("]]>");
+                firstBeginCDATA = indexOf("<[CDATA["),
+                firstEndCDATA = indexOf("]]>");
 
             if (isValidPositionCombination(firstBeginComment, firstEndComment, firstBeginCDATA, firstEndCDATA)) {
                 return true;
@@ -5495,11 +4493,11 @@ _MF_CLS(_PFX_UTIL + "_HtmlStripper", _MF_OBJECT, /** @lends myfaces._impl._util.
          */
         var checkBackForComment = function(theStr, tagPos) {
             var toCheck = theStr.substring(tagPos),
-                    indexOf = _T._Lang.hitch(toCheck, toCheck.indexOf),
-                    lastBeginComment = indexOf("<!--"),
-                    lastEndComment = indexOf("-->"),
-                    lastBeginCDATA = indexOf("<[CDATA["),
-                    lastEndCDATA = indexOf("]]>");
+                indexOf = _T._Lang.hitch(toCheck, toCheck.indexOf),
+                lastBeginComment = indexOf("<!--"),
+                lastEndComment = indexOf("-->"),
+                lastBeginCDATA = indexOf("<[CDATA["),
+                lastEndCDATA = indexOf("]]>");
 
             if (isValidPositionCombination(lastBeginComment, lastEndComment, lastBeginCDATA, lastEndCDATA)) {
                 //TODO we have to handle the embedded cases, for now we leave them out
@@ -5634,16 +4632,6 @@ if (!myfaces.oam) {
                 myfaces.oam.setHiddenInput(formName, 'autoScroll', getScrolling());
             }
 
-            if (myfaces.core.config.ieAutoSave) {
-                var agentString = navigator.userAgent.toLowerCase();
-                var version = navigator.appVersion;
-                if (agentString.indexOf('msie') != -1) {
-                    if (!(agentString.indexOf('ppc') != -1 && agentString.indexOf('windows ce') != -1 && version >= 4.0)) {
-                        window.external.AutoCompleteSaveForm(form);
-                    }
-                }
-            }
-
             var oldTarget = form.target;
             if (target != null) {
                 form.target = target;
@@ -5718,205 +4706,6 @@ if (!myfaces.oam) {
  * limitations under the License.
  */
 /**
- * @class
- * @name _AjaxUtils
- * @memberOf myfaces._impl.xhrCore
- * @description
- *
- * A set of helper routines which are utilized within our Ajax subsystem and nowhere else
- *
- * TODO move this into a singleton, the current structure is
- * still a j4fry legacy we need to get rid of it in the long run
- */
-_MF_SINGLTN(_PFX_XHR+"_AjaxUtils", _MF_OBJECT,
-/** @lends myfaces._impl.xhrCore._AjaxUtils.prototype */
-{
-
-
-    /**
-     * determines fields to submit
-     * @param {Object} targetBuf - the target form buffer receiving the data
-     * @param {Node} parentItem - form element item is nested in
-     * @param {Array} partialIds - ids fo PPS
-     */
-    encodeSubmittableFields : function(targetBuf,
-                                       parentItem, partialIds) {
-            if (!parentItem) throw "NO_PARITEM";
-            if (partialIds ) {
-                this.encodePartialSubmit(parentItem, false, partialIds, targetBuf);
-            } else {
-                // add all nodes
-                var eLen = parentItem.elements.length;
-                for (var e = 0; e < eLen; e++) {
-                    this.encodeElement(parentItem.elements[e], targetBuf);
-                } // end of for (formElements)
-            }
-
-    },
-
-     /**
-     * appends the issuing item if not given already
-     * @param item
-     * @param targetBuf
-     */
-    appendIssuingItem: function (item, targetBuf) {
-        // if triggered by a Button send it along
-        if (item && item.type && item.type.toLowerCase() == "submit") {
-            targetBuf.append(item.name, item.value);
-        }
-    },
-
-
-    /**
-     * encodes a single input element for submission
-     *
-     * @param {Node} element - to be encoded
-     * @param {} targetBuf - a target array buffer receiving the encoded strings
-     */
-    encodeElement : function(element, targetBuf) {
-
-        //browser behavior no element name no encoding (normal submit fails in that case)
-        //https://issues.apache.org/jira/browse/MYFACES-2847
-        if (!element.name) {
-            return;
-        }
-
-        var _RT = this._RT;
-        var name = element.name;
-        var tagName = element.tagName.toLowerCase();
-        var elemType = element.type;
-        if (elemType != null) {
-            elemType = elemType.toLowerCase();
-        }
-
-        // routine for all elements
-        // rules:
-        // - process only inputs, textareas and selects
-        // - elements muest have attribute "name"
-        // - elements must not be disabled
-        if (((tagName == "input" || tagName == "textarea" || tagName == "select") &&
-                (name != null && name != "")) && !element.disabled) {
-
-            // routine for select elements
-            // rules:
-            // - if select-one and value-Attribute exist => "name=value"
-            // (also if value empty => "name=")
-            // - if select-one and value-Attribute don't exist =>
-            // "name=DisplayValue"
-            // - if select multi and multple selected => "name=value1&name=value2"
-            // - if select and selectedIndex=-1 don't submit
-            if (tagName == "select") {
-                // selectedIndex must be >= 0 sein to be submittet
-                if (element.selectedIndex >= 0) {
-                    var uLen = element.options.length;
-                    for (var u = 0; u < uLen; u++) {
-                        // find all selected options
-                        //var subBuf = [];
-                        if (element.options[u].selected) {
-                            var elementOption = element.options[u];
-                            targetBuf.append(name, (elementOption.getAttribute("value") != null) ?
-                                    elementOption.value : elementOption.text);
-                        }
-                    }
-                }
-            }
-
-            // routine for remaining elements
-            // rules:
-            // - don't submit no selects (processed above), buttons, reset buttons, submit buttons,
-            // - submit checkboxes and radio inputs only if checked
-            if ((tagName != "select" && elemType != "button"
-                    && elemType != "reset" && elemType != "submit" && elemType != "image")
-                    && ((elemType != "checkbox" && elemType != "radio") || element.checked)) {
-                if ('undefined' != typeof element.files && element.files != null && _RT.getXHRLvl() >= 2 && element.files.length) {
-                    //xhr level2
-                    targetBuf.append(name, element.files[0]);
-                } else {
-                    targetBuf.append(name, element.value);
-                }
-            }
-
-        }
-    }
-});
-/* Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to you under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/** @namespace myfaces._impl.xhrCore._AjaxRequestQueue */
-_MF_CLS(_PFX_XHR + "_AjaxRequestQueue", myfaces._impl._util._Queue, /** @lends  myfaces._impl.xhrCore._AjaxRequestQueue.prototype */ {
-
-    /**
-     * a pointer towards the currently processed
-     * request in our queue
-     */
-    _curReq : null,
-
-    /**
-     * delay request, then call enqueue
-     * @param {Object} request (myfaces._impl.xhrCore._AjaxRequest) request to send
-     */
-    enqueue : function(request) {
-
-        if (this._curReq == null) {
-            this._curReq = request;
-            this._curReq.send();
-        } else {
-            this._callSuper("enqueue", request);
-            if (request._queueSize != this._size) {
-                this.setQueueSize(request._queueSize);
-            }
-        }
-
-    },
-
-    /**
-     * process queue, send request, if exists
-     */
-    processQueue: function() {
-        this._curReq = this.dequeue();
-        if (this._curReq) {
-            this._curReq.send();
-        }
-    },
-
-    /**
-     * cleanup queue
-     */
-    cleanup: function() {
-        this._curReq = null;
-        this._callSuper("cleanup");
-    }
-});
-
-
-/* Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to you under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
  * @memberOf myfaces._impl.xhrCore
  * @namespace
  * @name engine
@@ -5928,91 +4717,20 @@ _MF_CLS(_PFX_XHR + "_AjaxRequestQueue", myfaces._impl._util._Queue, /** @lends  
  * @memberOf myfaces._impl.xhrCore.engine
  */
 _MF_SINGLTN(_PFX_XHR+"engine.XhrConst", Object,
-        /** @lends myfaces._impl.xhrCore.engine.XhrConst.prototype */
-        {
-            READY_STATE_UNSENT:     0,
-            READY_STATE_OPENED:     1,
-            READY_STATE_HEADERS_RECEIVED: 2,
-            READY_STATE_LOADING:    3,
-            READY_STATE_DONE:       4,
+    /** @lends myfaces._impl.xhrCore.engine.XhrConst.prototype */
+    {
+        READY_STATE_UNSENT:     0,
+        READY_STATE_OPENED:     1,
+        READY_STATE_HEADERS_RECEIVED: 2,
+        READY_STATE_LOADING:    3,
+        READY_STATE_DONE:       4,
 
-            STATUS_OK_MINOR:        200,
-            STATUS_OK_MAJOR:        300,
+        STATUS_OK_MINOR:        200,
+        STATUS_OK_MAJOR:        300,
 
-            constructor_: function() {
-            }
-        });
-/* Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to you under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/**
- * @class
- * @name FormData
- * @memberOf myfaces._impl.xhrCore.engine
- * @description
- *
- * html5 formdata object emulation for the iframe
- */
-_MF_CLS(_PFX_XHR+"engine.FormData", Object,
-        /** @lends myfaces._impl.xhrCore.engine.FormData.prototype */
-        {
-            form: null,
-            viewstate: null,
-            _appendedParams: {},
-
-            constructor_: function(form) {
-                this.form = form;
-            },
-
-            append: function(key, value) {
-                this._appendedParams[key] = true;
-                if (this.form) {
-                    this._appendHiddenValue(key, value);
-                }
-            },
-
-            _finalize: function() {
-                this._removeAppendedParams();
-            },
-
-            _appendHiddenValue: function(key, value) {
-                if ('undefined' == typeof value) {
-                    return;
-                }
-                var _Dom = myfaces._impl._util._Dom;
-                var input = _Dom.createElement("input", {
-                    "type": "hidden", "name": key, "style": "display:none", "value": value
-                });
-
-                this.form.appendChild(input);
-            },
-
-            _removeAppendedParams: function() {
-                if (!this.form) return;
-                for (var cnt = this.form.elements.length - 1; cnt >= 0; cnt--) {
-                    var elem = this.form.elements[cnt];
-                    if (this._appendedParams[elem.name] && elem.type == "hidden") {
-                        elem.parentNode.removeChild(elem);
-                        delete elem;
-                    }
-                }
-                this._appendedParams = {};
-            }
-
-        });
+        constructor_: function() {
+        }
+    });
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -6193,182 +4911,128 @@ _MF_CLS(_PFX_XHR + "engine.BaseRequest", _MF_OBJECT, /** @lends myfaces._impl.xh
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 /**
  * @class
- * @name Xhr1
- * @memberOf myfaces._impl.xhrCore.engine
- * @extends myfaces._impl.xhrCore.engine.BaseRequest
+ * @name _AjaxUtils
+ * @memberOf myfaces._impl.xhrCore
  * @description
  *
- * wrapper for an xhr level1 object with all its differences
- * it emulates the xhr level2 api which is way simpler than the level1 api
+ * A set of helper routines which are utilized within our Ajax subsystem and nowhere else
+ *
+ * TODO move this into a singleton, the current structure is
+ * still a j4fry legacy we need to get rid of it in the long run
  */
+_MF_SINGLTN(_PFX_XHR+"_AjaxUtils", _MF_OBJECT,
+    /** @lends myfaces._impl.xhrCore._AjaxUtils.prototype */
+    {
 
-_MF_CLS(_PFX_XHR + "engine.Xhr1", myfaces._impl.xhrCore.engine.BaseRequest, /** @lends myfaces._impl.xhrCore.engine.Xhr1.prototype */ {
 
-    _xhrObject: null,
-    _timeoutTimer: null,
+        /**
+         * determines fields to submit
+         * @param {Object} targetBuf - the target form buffer receiving the data
+         * @param {Node} parentItem - form element item is nested in
+         * @param {Array} partialIds - ids fo PPS
+         */
+        encodeSubmittableFields : function(targetBuf,
+                                           parentItem, partialIds) {
+            if (!parentItem) throw "NO_PARITEM";
+            if (partialIds ) {
+                this.encodePartialSubmit(parentItem, false, partialIds, targetBuf);
+            } else {
+                // add all nodes
+                var eLen = parentItem.elements.length;
+                for (var e = 0; e < eLen; e++) {
+                    this.encodeElement(parentItem.elements[e], targetBuf);
+                } // end of for (formElements)
+            }
 
-    constructor_: function(params) {
-        //the constructor is empty due to the original xhr object not having anything
+        },
 
-        this._callSuper("constructor_", params);
-        this._initDefaultFinalizableFields();
+        /**
+         * appends the issuing item if not given already
+         * @param item
+         * @param targetBuf
+         */
+        appendIssuingItem: function (item, targetBuf) {
+            // if triggered by a Button send it along
+            if (item && item.type && item.type.toLowerCase() == "submit") {
+                targetBuf.append(item.name, item.value);
+            }
+        },
 
-        this._XHRConst = myfaces._impl.xhrCore.engine.XhrConst;
-        this._Lang.applyArgs(this, params);
-    },
 
-    // void open(DOMString method, DOMString url, boolean async);
-    open: function(method, url, async) {
+        /**
+         * encodes a single input element for submission
+         *
+         * @param {Node} element - to be encoded
+         * @param {} targetBuf - a target array buffer receiving the encoded strings
+         */
+        encodeElement : function(element, targetBuf) {
 
-        var xhr = this._xhrObject;
-        xhr.onreadystatechange = this._Lang.hitch(this, this.onreadystatechange);
-        this.method = method || this.method;
-        this.url = url || this.url;
-        this.async = ('undefined' != typeof async) ? async : this.async;
-        xhr.open(this.method, this.url, this.async);
-    },
-
-    send: function(formData) {
-
-        var myevt = {};
-
-        this._addProgressAttributes(myevt, 20, 100);
-        this.onloadstart(myevt);
-        this.onprogress(myevt);
-        this._startTimeout();
-        this._xhrObject.send(formData);
-    },
-
-    setRequestHeader: function(key, value) {
-        this._xhrObject.setRequestHeader(key, value);
-    },
-
-    abort: function() {
-
-        this._xhrObject.abort();
-        this.onabort({});
-    },
-
-    _addProgressAttributes: function(evt, percent, total) {
-        //http://www.w3.org/TR/progress-events/#progressevent
-        evt.lengthComputable = true;
-        evt.loaded = percent;
-        evt.total = total;
-
-    },
-
-    onreadystatechange: function(evt) {
-        var myevt = evt || {};
-        //we have to simulate the attributes as well
-        var xhr = this._xhrObject;
-        var XHRConst = this._XHRConst;
-        try {
-        this.readyState = xhr.readyState;
-        this.status = ""+xhr.status;
-        } catch(e) {
-            //IE 6 has an internal error
-        }
-
-        switch (this.readyState) {
-
-            case  XHRConst.READY_STATE_OPENED:
-                this._addProgressAttributes(myevt, 10, 100);
-
-                this.onprogress(myevt);
-                break;
-
-            case XHRConst.READY_STATE_HEADERS_RECEIVED:
-                this._addProgressAttributes(myevt, 25, 100);
-
-                this.onprogress(myevt);
-                break;
-
-            case XHRConst.READY_STATE_LOADING:
-                if (this._loadingCalled) break;
-                this._loadingCalled = true;
-                this._addProgressAttributes(myevt, 50, 100);
-
-                this.onprogress(myevt);
-                break;
-
-            case XHRConst.READY_STATE_DONE:
-                this._addProgressAttributes(myevt, 100, 100);
-                //xhr level1 does not have timeout handler
-                if (this._timeoutTimer) {
-                    //normally the timeout should not cause anything anymore
-                    //but just to make sure
-                    window.clearTimeout(this._timeoutTimer);
-                    this._timeoutTimer = null;
-                }
-                this._transferRequestValues();
-                this.onprogress(myevt);
-                try {
-                    var status = xhr.status;
-                    if (status >= XHRConst.STATUS_OK_MINOR && status < XHRConst.STATUS_OK_MAJOR) {
-                        this.onload(myevt);
-                    } else {
-                        myevt.type = "error";
-                        this.onerror(myevt);
-                    }
-                } finally {
-					//remove for xhr level2 support
-                    this.onloadend(myevt);
-                }
-        }
-    },
-
-    _transferRequestValues: function() {
-        //this._Lang.mixMaps(this, this._xhrObject, true, null,
-        //        {responseText:1,responseXML:1,status:1,statusText:1,response:1});
-        var UDEF = "undefined";
-        var xhr = this._xhrObject;
-
-        this.responseText = (UDEF != typeof xhr.responseText)?xhr.responseText: null;
-        this.responseXML = (UDEF != typeof xhr.responseXML)?xhr.responseXML: null;
-        this.status = (UDEF != typeof xhr.status)?xhr.status: null;
-        this.statusText = (UDEF != typeof xhr.statusText)?xhr.statusText: null;
-        this.response = (UDEF != typeof xhr.response)?xhr.response: null;
-    },
-
-    _startTimeout: function() {
-        if (this.timeout == 0) return;
-
-        var xhr = this._xhrObject;
-        //some browsers have timeouts in their xhr level 1.x objects implemented
-        //we leverage them whenever they exist
-        try {
-            if ('undefined' != typeof xhr.timeout) {
-                xhr.timeout = this.timeout;
-                xhr.ontimeout = this.ontimeout;
+            //browser behavior no element name no encoding (normal submit fails in that case)
+            //https://issues.apache.org/jira/browse/MYFACES-2847
+            if (!element.name) {
                 return;
             }
-        } catch (e) {
-            //firefox 12 has a bug here
-        }
 
-
-        this._timeoutTimer = setTimeout(this._Lang.hitch(this, function() {
-            if (xhr.readyState != this._XHRConst.READY_STATE_DONE) {
-
-                xhr.onreadystatechange = function() {
-                };
-                clearTimeout(this._timeoutTimer);
-                xhr.abort();
-                this.ontimeout({});
+            var _RT = this._RT;
+            var name = element.name;
+            var tagName = element.tagName.toLowerCase();
+            var elemType = element.type;
+            if (elemType != null) {
+                elemType = elemType.toLowerCase();
             }
-        }), this.timeout);
-    },
 
-    getXHRObject: function() {
-        return this._xhrObject;
-    }
+            // routine for all elements
+            // rules:
+            // - process only inputs, textareas and selects
+            // - elements muest have attribute "name"
+            // - elements must not be disabled
+            if (((tagName == "input" || tagName == "textarea" || tagName == "select") &&
+                (name != null && name != "")) && !element.disabled) {
 
+                // routine for select elements
+                // rules:
+                // - if select-one and value-Attribute exist => "name=value"
+                // (also if value empty => "name=")
+                // - if select-one and value-Attribute don't exist =>
+                // "name=DisplayValue"
+                // - if select multi and multple selected => "name=value1&name=value2"
+                // - if select and selectedIndex=-1 don't submit
+                if (tagName == "select") {
+                    // selectedIndex must be >= 0 sein to be submittet
+                    if (element.selectedIndex >= 0) {
+                        var uLen = element.options.length;
+                        for (var u = 0; u < uLen; u++) {
+                            // find all selected options
+                            //var subBuf = [];
+                            if (element.options[u].selected) {
+                                var elementOption = element.options[u];
+                                targetBuf.append(name, (elementOption.getAttribute("value") != null) ?
+                                    elementOption.value : elementOption.text);
+                            }
+                        }
+                    }
+                }
 
-});
+                // routine for remaining elements
+                // rules:
+                // - don't submit no selects (processed above), buttons, reset buttons, submit buttons,
+                // - submit checkboxes and radio inputs only if checked
+                if ((tagName != "select" && elemType != "button"
+                    && elemType != "reset" && elemType != "submit" && elemType != "image")
+                    && ((elemType != "checkbox" && elemType != "radio") || element.checked)) {
+                    if ('undefined' != typeof element.files && element.files != null && _RT.getXHRLvl() >= 2 && element.files.length) {
+                        //xhr level2
+                        targetBuf.append(name, element.files[0]);
+                    } else {
+                        targetBuf.append(name, element.value);
+                    }
+                }
+
+            }
+        }
+    });
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -6384,289 +5048,52 @@ _MF_CLS(_PFX_XHR + "engine.Xhr1", myfaces._impl.xhrCore.engine.BaseRequest, /** 
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/** @namespace myfaces._impl.xhrCore._AjaxRequestQueue */
+_MF_CLS(_PFX_XHR + "_AjaxRequestQueue", myfaces._impl._util._Queue, /** @lends  myfaces._impl.xhrCore._AjaxRequestQueue.prototype */ {
 
-/**
- * @class
- * @name IFrame
- * @memberOf myfaces._impl.xhrCore.engine
- * @extends myfaces._impl.xhrCore.engine.BaseRequest
- * @description
- *
- * wrapper for an iframe transport object with all its differences
- * it emulates the xhr level2 api
- */
-_MF_CLS(_PFX_XHR + "engine.IFrame", myfaces._impl.xhrCore.engine.BaseRequest,
-        /** @lends myfaces._impl.xhrCore.engine.IFrame.prototype */
-        {
+    /**
+     * a pointer towards the currently processed
+     * request in our queue
+     */
+    _curReq : null,
 
-            _finalized: false,
+    /**
+     * delay request, then call enqueue
+     * @param {Object} request (myfaces._impl.xhrCore._AjaxRequest) request to send
+     */
+    enqueue : function(request) {
 
-            /*the target frame responsible for the communication*/
-            _frame: null,
-            //_requestHeader: null,
-            _aborted: false,
-
-            CLS_NAME: "myfaces._impl.xhrCore._IFrameRequest",
-            _FRAME_ID: "_mf_comm_frm",
-
-            /**
-             * constructor which shifts the arguments
-             * to the protected properties of this clas
-             *
-             * @param args
-             */
-            constructor_: function (args) {
-                //we fetch in the standard arguments
-
-                this._callSuper("constructor", args);
-
-                this._initDefaultFinalizableFields();
-                //this._requestHeader = {};
-
-                this._XHRConst = myfaces._impl.xhrCore.engine.XhrConst;
-
-                this._Lang.applyArgs(this, args);
-                this.readyState = this._XHRConst.READY_STATE_UNSENT;
-                this._startTimeout();
-            },
-
-            setRequestHeader: function (key, value) {
-                //this._requestHeader[key] = value;
-            },
-
-            open: function (method, url, async) {
-
-                this.readyState = this._XHRConst.READY_STATE_OPENED;
-
-                var _RT = myfaces._impl.core._Runtime;
-                var _Lang = this._Lang;
-
-                this._frame = this._createTransportFrame();
-
-                //we append an onload handler to the frame
-                //to cover the starting and loading events,
-                //timeouts cannot be covered in a cross browser way
-
-                //we point our onload handler to the frame, we do not use addOnLoad
-                //because the frame should not have other onload handlers in place
-                if (!_RT.browser.isIE || this._Dom.isDomCompliant()) {
-                    this._frame.onload = _Lang.hitch(this, this._callback);
-                } else {
-                    //ie has a bug, onload is not settable outside of innerHTML on iframes
-                    this._frame.onload_IE = _Lang.hitch(this, this._callback);
-                }
-
-                this.method = method || this.method;
-                this.url = url || this.url;
-                this.async = ('undefined' != typeof async) ? async : this.async;
-
-                var myevt = {};
-                this._addProgressAttributes(myevt, 10, 100);
-                this.onprogress(myevt);
-            },
-
-            send: function (formData) {
-
-                var myevt = {};
-                this._addProgressAttributes(myevt, 20, 100);
-                this.onloadstart(myevt);
-                this.onprogress(myevt);
-
-                var formDataForm = formData.form,
-                        oldTarget = formDataForm.target,
-                        oldMethod = formDataForm.method,
-                        oldAction = formDataForm.action;
-
-                try {
-                    //_t._initAjaxParams();
-                    //for (var key in this._requestHeader) {
-                    //    formData.append(key, this._requestHeader[key]);
-                    //}
-
-                    formDataForm.target = this._frame.name;
-                    formDataForm.method = this.method;
-                    if (this.url) {
-                        formDataForm.action = this.url;
-                    }
-                    this.readyState = this._XHRConst.READY_STATE_LOADING;
-                    this.onreadystatechange(myevt);
-                    formDataForm.submit();
-                } finally {
-                    formDataForm.action = oldAction;
-                    formDataForm.target = oldTarget;
-                    formDataForm.method = oldMethod;
-
-                    formData._finalize();
-                    //alert("finalizing");
-                    this._finalized = true;
-                }
-            },
-
-            /*we can implement it, but it will work only on browsers
-             * which have asynchronous iframe loading*/
-            abort: function () {
-                this._aborted = true;
-                this.onabort({});
-            },
-
-            _addProgressAttributes: function (evt, percent, total) {
-                //http://www.w3.org/TR/progress-events/#progressevent
-                evt.lengthComputable = true;
-                evt.loaded = percent;
-                evt.total = total;
-
-            },
-
-            _callback: function () {
-                //------------------------------------
-                // we are asynchronous which means we
-                // have to check wether our code
-                // is finalized or not
-                //------------------------------------
-                if (this._aborted) return;
-                if (this._timeoutTimer) {
-                    clearTimeout(this._timeoutTimer);
-                }
-                if (!this._finalized) {
-                    setTimeout(this._Lang.hitch(this, this._callback), 10);
-                    return;
-                }
-                //aborted no further processing
-
-                try {
-                    var myevt = {};
-
-                    this._addProgressAttributes(myevt, 100, 100);
-                    //this.readyState = this._XHRConst.READY_STATE_DONE;
-                    //this.onreadystatechange(myevt);
-
-                    this.responseText = this._getFrameText();
-                    this.responseXML = this._getFrameXml();
-                    this.readyState = this._XHRConst.READY_STATE_DONE;
-
-                    //TODO status and statusText
-
-                    this.onreadystatechange(myevt);
-                    this.onloadend();
-
-                    if (!this._Lang.isXMLParseError(this.responseXML)) {
-                        this.status = 201;
-                        this.onload();
-                    } else {
-                        this.status = 0;
-                        //we simulate the request for our xhr call
-                        this.onerror();
-                    }
-
-                } finally {
-                    this._frame = null;
-                }
-            },
-
-            /**
-             * returns the frame text in a browser independend manner
-             */
-            _getFrameDocument: function () {
-
-                //we cover various browsers here, because almost all browsers keep the document in a different
-                //position
-                return this._frame.contentWindow.document || this._frame.contentDocument || this._frame.document;
-            },
-
-            _getFrameText: function () {
-                var framedoc = this._getFrameDocument();
-                //also ie keeps the body in framedoc.body the rest in documentElement
-                var body = framedoc.body || framedoc.documentElement;
-                return  body.innerHTML;
-            },
-
-            _clearFrame: function () {
-
-                var framedoc = this._getFrameDocument();
-                var body = framedoc.documentElement || framedoc.body;
-                //ie8 in 7 mode chokes on the innerHTML method
-                //direct dom removal is less flakey and works
-                //over all browsers, but is slower
-                if (myfaces._impl.core._Runtime.browser.isIE) {
-                    this._Dom._removeChildNodes(body, false);
-                } else {
-                    body.innerHTML = "";
-                }
-            },
-
-            /**
-             * returns the processed xml from the frame
-             */
-            _getFrameXml: function () {
-                var framedoc = this._getFrameDocument();
-                //same situation here, the xml is hosted either in xmlDocument or
-                //is located directly under the frame document
-                return  framedoc.XMLDocument || framedoc;
-            },
-
-            _createTransportFrame: function () {
-
-                var _FRM_ID = this._FRAME_ID;
-                var frame = document.getElementById(_FRM_ID);
-                if (frame) return frame;
-                //normally this code should not be called
-                //but just to be sure
-
-                if (this._Dom.isDomCompliant()) {
-                    frame = this._Dom.createElement('iframe', {
-                        "src": "about:blank",
-                        "id": _FRM_ID,
-                        "name": _FRM_ID,
-                        "type": "content",
-                        "collapsed": "true",
-                        "style": "display:none"
-                    });
-
-                    //probably the ie method would work on all browsers
-                    //but this code is the safe bet it works on all standards
-                    //compliant browsers in a clean manner
-
-                    document.body.appendChild(frame);
-                } else { //Now to the non compliant browsers
-                    var node = this._Dom.createElement("div", {
-                        "style": "display:none"
-                    });
-
-                    //we are dealing with two well known iframe ie bugs here
-                    //first the iframe has to be set via innerHTML to be present
-                    //secondly the onload handler is immutable on ie, we have to
-                    //use a dummy onload handler in this case and call this one
-                    //from the onload handler
-                    node.innerHTML = "<iframe id='" + _FRM_ID + "' name='" + _FRM_ID + "' style='display:none;' src='about:blank' type='content' onload='this.onload_IE();'  ></iframe>";
-
-                    //avoid the ie open tag problem
-                    var body = document.body;
-                    if (body.firstChild) {
-                        body.insertBefore(node, document.body.firstChild);
-                    } else {
-                        body.appendChild(node);
-                    }
-                }
-
-                //helps to for the onload handlers and innerhtml to be in sync again
-                return document.getElementById(_FRM_ID);
-            },
-
-            _startTimeout: function () {
-
-                if (this.timeout == 0) return;
-                this._timeoutTimer = setTimeout(this._Lang.hitch(this, function () {
-                    if (this._xhrObject.readyState != this._XHRConst.READY_STATE_DONE) {
-
-                        this._aborted = true;
-                        clearTimeout(this._timeoutTimer);
-                        //we cannot abort an iframe request
-                        this.ontimeout({});
-                        this._timeoutTimer = null;
-                    }
-                }), this.timeout);
+        if (this._curReq == null) {
+            this._curReq = request;
+            this._curReq.send();
+        } else {
+            this._callSuper("enqueue", request);
+            if (request._queueSize != this._size) {
+                this.setQueueSize(request._queueSize);
             }
-        });
+        }
+
+    },
+
+    /**
+     * process queue, send request, if exists
+     */
+    processQueue: function() {
+        this._curReq = this.dequeue();
+        if (this._curReq) {
+            this._curReq.send();
+        }
+    },
+
+    /**
+     * cleanup queue
+     */
+    cleanup: function() {
+        this._curReq = null;
+        this._callSuper("cleanup");
+    }
+});
+
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -6701,18 +5128,18 @@ _MF_CLS(_PFX_XHR + "engine.IFrame", myfaces._impl.xhrCore.engine.BaseRequest,
  */
 _MF_CLS(_PFX_XHR + "_AjaxRequest", _MF_OBJECT, /** @lends myfaces._impl.xhrCore._AjaxRequest.prototype */ {
 
-    _contentType:"application/x-www-form-urlencoded",
+    _contentType: "application/x-www-form-urlencoded",
     /** source element issuing the request */
-    _source:null,
+    _source: null,
     /** context passed down from the caller */
     _context:null,
     /** source form issuing the request */
-    _sourceForm:null,
+    _sourceForm: null,
     /** passthrough parameters */
-    _passThrough:null,
+    _passThrough: null,
 
     /** queue control */
-    _timeout:null,
+    _timeout: null,
     /** enqueuing delay */
     //_delay:null,
     /** queue size */
@@ -6722,13 +5149,13 @@ _MF_CLS(_PFX_XHR + "_AjaxRequest", _MF_OBJECT, /** @lends myfaces._impl.xhrCore.
      back reference to the xhr queue,
      only set if the object really is queued
      */
-    _xhrQueue:null,
+    _xhrQueue: null,
 
     /** pps an array of identifiers which should be part of the submit, the form is ignored */
-    _partialIdsArray:null,
+    _partialIdsArray : null,
 
     /** xhr object, internal param */
-    _xhr:null,
+    _xhr: null,
 
     /** predefined method */
     _ajaxType:"POST",
@@ -6740,8 +5167,8 @@ _MF_CLS(_PFX_XHR + "_AjaxRequest", _MF_OBJECT, /** @lends myfaces._impl.xhrCore.
      */
     _CONTENT_TYPE:"Content-Type",
     _HEAD_FACES_REQ:"Faces-Request",
-    _VAL_AJAX:"partial/ajax",
-    _XHR_CONST:myfaces._impl.xhrCore.engine.XhrConst,
+    _VAL_AJAX: "partial/ajax",
+    _XHR_CONST: myfaces._impl.xhrCore.engine.XhrConst,
 
     // _exception: null,
     // _requestParameters: null,
@@ -6755,7 +5182,7 @@ _MF_CLS(_PFX_XHR + "_AjaxRequest", _MF_OBJECT, /** @lends myfaces._impl.xhrCore.
      * @param {Object} args an arguments map which an override any of the given protected
      * instance variables, by a simple name value pair combination
      */
-    constructor_:function (args) {
+    constructor_: function(args) {
 
         try {
             this._callSuper("constructor_", args);
@@ -6781,44 +5208,40 @@ _MF_CLS(_PFX_XHR + "_AjaxRequest", _MF_OBJECT, /** @lends myfaces._impl.xhrCore.
     /**
      * Sends an Ajax request
      */
-    send:function () {
+    send : function() {
 
         var _Lang = this._Lang;
         var _RT = this._RT;
-        var _Dom = this._Dom;
+
         try {
 
-            var scopeThis = _Lang.hitch(this, function (functionName) {
+            var scopeThis = _Lang.hitch(this, function(functionName) {
                 return _Lang.hitch(this, this[functionName]);
             });
             this._xhr = _Lang.mixMaps(this._getTransport(), {
-                onprogress:scopeThis("onprogress"),
-                ontimeout:scopeThis("ontimeout"),
+                onprogress: scopeThis("onprogress"),
+                ontimeout:  scopeThis("ontimeout"),
                 //remove for xhr level2 support (chrome has problems with it)
-                //for chrome we have to emulate the onloadend by calling it explicitely
-                //and leave the onload out
-                //onloadend:  scopeThis("ondone"),
-                onload:scopeThis("onsuccess"),
-                onerror:scopeThis("onerror")
+                onloadend:  scopeThis("ondone"),
+                onload:     scopeThis("onsuccess"),
+                onerror:    scopeThis("onerror")
 
             }, true);
-
-            this._applyClientWindowId();
             var xhr = this._xhr,
-                    sourceForm = this._sourceForm,
-                    targetURL = (typeof sourceForm.elements[this.ENCODED_URL] == 'undefined') ?
-                            sourceForm.action :
-                            sourceForm.elements[this.ENCODED_URL].value,
-                    formData = this.getFormData();
+                sourceForm = this._sourceForm,
+                targetURL = (typeof sourceForm.elements[this.ENCODED_URL] == 'undefined') ?
+                    sourceForm.action :
+                    sourceForm.elements[this.ENCODED_URL].value,
+                formData = this.getFormData();
 
             for (var key in this._passThrough) {
-                if (!this._passThrough.hasOwnProperty(key)) continue;
+                if(!this._passThrough.hasOwnProperty(key)) continue;
                 formData.append(key, this._passThrough[key]);
             }
 
             xhr.open(this._ajaxType, targetURL +
-                    ((this._ajaxType == "GET") ? "?" + this._formDataToURI(formData) : "")
-                    , true);
+                ((this._ajaxType == "GET") ? "?" + this._formDataToURI(formData) : "")
+                , true);
 
             xhr.timeout = this._timeout || 0;
 
@@ -6827,8 +5250,8 @@ _MF_CLS(_PFX_XHR + "_AjaxRequest", _MF_OBJECT, /** @lends myfaces._impl.xhrCore.
 
             //some webkit based mobile browsers do not follow the w3c spec of
             // setting the accept headers automatically
-            if (this._RT.browser.isWebKit) {
-                xhr.setRequestHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+            if(this._RT.browser.isWebKit) {
+                xhr.setRequestHeader("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
             }
             this._sendEvent("BEGIN");
             //Check if it is a custom form data object
@@ -6840,60 +5263,28 @@ _MF_CLS(_PFX_XHR + "_AjaxRequest", _MF_OBJECT, /** @lends myfaces._impl.xhrCore.
 
         } catch (e) {
             //_onError//_onError
-            e = (e._mfInternal) ? e : this._Lang.makeException(new Error(), "sendError", "sendError", this._nameSpace, "send", e.message);
+            e = (e._mfInternal)? e: this._Lang.makeException(new Error(), "sendError","sendError", this._nameSpace, "send", e.message);
             this._stdErrorHandler(this._xhr, this._context, e);
-        } finally {
-            //no finally possible since the iframe uses real asynchronousity
-        }
-    },
-
-    _applyClientWindowId:function () {
-        var clientWindow = this._Dom.getNamedElementFromForm(this._sourceForm, "javax.faces.ClientWindow");
-        //pass through if exists already set by _Impl
-        if ('undefined' != typeof this._context._mfInternal._clientWindow) {
-            this._context._mfInternal._clientWindowOld = clientWindow.value;
-            clientWindow.value = this._context._mfInternal._clientWindow;
-        } else {
-            if(clientWindow) {
-                this._context._mfInternal._clientWindowDisabled = !! clientWindow.disabled;
-                clientWindow.disabled = true;
-            }
-        }
-    },
-
-    _restoreClientWindowId:function () {
-        //we have to reset the client window back to its original state
-
-        var clientWindow = this._Dom.getNamedElementFromForm(this._sourceForm, "javax.faces.ClientWindow");
-        if(!clientWindow) {
-            return;
-        }
-        if ('undefined' != typeof this._context._mfInternal._clientWindowOld) {
-            clientWindow.value =  this._context._mfInternal._clientWindow;
-        }
-        if('undefined' != typeof this._context._mfInternal._clientWindowDisabled) {
-            //we reset it to the old value
-            clientWindow.disabled = this._context._mfInternal._clientWindowDisabled;
         }
     },
 
     /**
-     * applies the content type, this needs to be done only for xhr
-     * level1
-     * @param xhr
-     * @private
+     * helper, in multipart situations we might alter the content type
+     * from the urlencoded one
      */
-    _applyContentType:function (xhr) {
-        var contentType = this._contentType + "; charset=utf-8";
+    _applyContentType: function(xhr) {
+        var contentType = this._contentType+"; charset=utf-8";
+
         xhr.setRequestHeader(this._CONTENT_TYPE, contentType);
     },
 
-    ondone:function () {
+    ondone: function() {
         this._requestDone();
     },
 
-    onsuccess:function (/*evt*/) {
-        this._restoreClientWindowId();
+
+    onsuccess: function(/*evt*/) {
+
         var context = this._context;
         var xhr = this._xhr;
         try {
@@ -6904,18 +5295,19 @@ _MF_CLS(_PFX_XHR + "_AjaxRequest", _MF_OBJECT, /** @lends myfaces._impl.xhrCore.
             context._mfInternal = context._mfInternal || {};
             jsf.ajax.response((xhr.getXHRObject) ? xhr.getXHRObject() : xhr, context);
 
+
+
         } catch (e) {
             this._stdErrorHandler(this._xhr, this._context, e);
-
-            //add for xhr level2 support
-        } finally {
-            //W3C spec onloadend must be called no matter if success or not
-            this.ondone();
         }
+        //add for xhr level2 support
+        //}  finally {
+        //W3C spec onloadend must be called no matter if success or not
+        //    this.ondone();
+        //}
     },
 
-    onerror:function (/*evt*/) {
-        this._restoreClientWindowId();
+    onerror: function(/*evt*/) {
         //TODO improve the error code detection here regarding server errors etc...
         //and push it into our general error handling subframework
         var context = this._context;
@@ -6927,35 +5319,31 @@ _MF_CLS(_PFX_XHR + "_AjaxRequest", _MF_OBJECT, /** @lends myfaces._impl.xhrCore.
         try {
             var UNKNOWN = _Lang.getMessage("UNKNOWN");
             //status can be 0 and statusText can be ""
-            var status = ('undefined' != xhr.status && null != xhr.status) ? xhr.status : UNKNOWN;
-            var statusText = ('undefined' != xhr.statusText && null != xhr.statusText) ? xhr.statusText : UNKNOWN;
-            errorText = _Lang.getMessage("ERR_REQU_FAILED", null, status, statusText);
+            var status = ('undefined' != xhr.status  && null != xhr.status)? xhr.status : UNKNOWN;
+            var statusText = ('undefined' != xhr.statusText  && null != xhr.statusText)? xhr.statusText : UNKNOWN;
+            errorText = _Lang.getMessage("ERR_REQU_FAILED", null,status,statusText);
 
         } catch (e) {
             errorText = _Lang.getMessage("ERR_REQ_FAILED_UNKNOWN", null);
         } finally {
-            try {
-                var _Impl = this.attr("impl");
-                _Impl.sendError(xhr, context, _Impl.HTTPERROR,
-                        _Impl.HTTPERROR, errorText, "", "myfaces._impl.xhrCore._AjaxRequest", "onerror");
-            } finally {
-                //add for xhr level2 support
-                //since chrome does not call properly the onloadend we have to do it manually
-                //to eliminate xhr level1 for the compile profile modern
-                //W3C spec onloadend must be called no matter if success or not
-                this.ondone();
-            }
+            var _Impl = this.attr("impl");
+            _Impl.sendError(xhr, context, _Impl.HTTPERROR,
+                _Impl.HTTPERROR, errorText,"","myfaces._impl.xhrCore._AjaxRequest","onerror");
+            //add for xhr level2 support
+            //since chrome does not call properly the onloadend we have to do it manually
+            //to eliminate xhr level1 for the compile profile modern
+            //W3C spec onloadend must be called no matter if success or not
+            //this.ondone();
         }
         //_onError
     },
 
-    onprogress:function (/*evt*/) {
+    onprogress: function(/*evt*/) {
         //do nothing for now
     },
 
-    ontimeout:function (/*evt*/) {
+    ontimeout: function(/*evt*/) {
         try {
-            this._restoreClientWindowId();
             //we issue an event not an error here before killing the xhr process
             this._sendEvent("TIMEOUT_EVENT");
             //timeout done we process the next in the queue
@@ -6964,44 +5352,58 @@ _MF_CLS(_PFX_XHR + "_AjaxRequest", _MF_OBJECT, /** @lends myfaces._impl.xhrCore.
         }
     },
 
-    _formDataToURI:function (formData) {
+    _formDataToURI: function(formData) {
         if (formData && formData.makeFinal) {
             formData = formData.makeFinal()
         }
         return formData;
     },
 
-    _getTransport:function () {
-
-        var xhr = this._RT.getXHRObject();
-        //the current xhr level2 timeout w3c spec is not implemented by the browsers yet
-        //we have to do a fallback to our custom routines
-
-        //add for xhr level2 support
-        //Chrome fails in the current builds, on our loadend, we disable the xhr
-        //level2 optimisations for now
-        if (/*('undefined' == typeof this._timeout || null == this._timeout) &&*/ this._RT.getXHRLvl() >= 2) {
-            //no timeout we can skip the emulation layer
-            return xhr;
-        }
-        return new myfaces._impl.xhrCore.engine.Xhr1({xhrObject:xhr});
+    /**
+     * change for jsf 2.3 since we drop legacy browser support
+     * there is no need anymore to support xhr level 1.
+     * @returns {XMLHttpRequest} the transport object
+     * @private
+     */
+    _getTransport: function() {
+        return new XMLHttpRequest();
     },
+
 
     //----------------- backported from the base request --------------------------------
     //non abstract ones
+
+
     /**
      * Spec. 13.3.1
      * Collect and encode input elements.
      * Additionally the hidden element javax.faces.ViewState
-     *
+     * Enhancement partial page submit
      *
      * @return  an element of formDataWrapper
      * which keeps the final Send Representation of the
      */
-    getFormData:function () {
-        var _AJAXUTIL = this._AJAXUTIL, myfacesOptions = this._context.myfaces;
-        return this._Lang.createFormDataDecorator(jsf.getViewState(this._sourceForm));
+    getFormData : function() {
+        var _AJAXUTIL = this._AJAXUTIL, myfacesOptions = this._context.myfaces, ret = null;
+
+
+
+        if (!this._partialIdsArray || !this._partialIdsArray.length) {
+            var _AJAXUTIL = this._AJAXUTIL, myfacesOptions = this._context.myfaces;
+            return this._Lang.createFormDataDecorator(jsf.getViewState(this._sourceForm));
+        } else {
+            //now this is less performant but we have to call it to allow viewstate decoration
+            ret = this._Lang.createFormDataDecorator(new Array());
+            _AJAXUTIL.encodeSubmittableFields(ret, this._sourceForm, this._partialIdsArray);
+            if (this._source && myfacesOptions && myfacesOptions.form)
+                _AJAXUTIL.appendIssuingItem(this._source, ret);
+
+        }
+        return ret;
+
     },
+
+
 
     /**
      * Client error handlers which also in the long run route into our error queue
@@ -7013,7 +5415,7 @@ _MF_CLS(_PFX_XHR + "_AjaxRequest", _MF_OBJECT, /** @lends myfaces._impl.xhrCore.
      * @param context the context holding all values for further processing
      * @param exception the embedded exception
      */
-    _stdErrorHandler:function (request, context, exception) {
+    _stdErrorHandler: function(request, context, exception) {
         var xhrQueue = this._xhrQueue;
         try {
             this.attr("impl").stdErrorHandler(request, context, exception);
@@ -7024,200 +5426,23 @@ _MF_CLS(_PFX_XHR + "_AjaxRequest", _MF_OBJECT, /** @lends myfaces._impl.xhrCore.
         }
     },
 
-    _sendEvent:function (evtType) {
+    _sendEvent: function(evtType) {
         var _Impl = this.attr("impl");
         _Impl.sendEvent(this._xhr, this._context, _Impl[evtType]);
     },
 
-    _requestDone:function () {
+    _requestDone: function() {
         var queue = this._xhrQueue;
         if (queue) {
             queue.processQueue();
         }
         //ie6 helper cleanup
         delete this._context.source;
-        this._finalize();
-    },
 
-    //cleanup
-    _finalize:function () {
-        if (this._xhr.readyState == this._XHR_CONST.READY_STATE_DONE) {
-            this._callSuper("_finalize");
-        }
     }
 });
 
 
-/* Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to you under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * this method is used only for pure multipart form parts
- * otherwise the normal method is used
- * IT is a specialized request which uses the form data
- * element for the handling of forms
- */
-_MF_CLS(_PFX_XHR + "_MultipartAjaxRequestLevel2", myfaces._impl.xhrCore._AjaxRequest, {
-
-    _sourceForm:null,
-
-    constructor_:function (args) {
-        this._callSuper("constructor_", args);
-        //TODO xhr level2 can deal with real props
-
-    },
-
-    getFormData:function () {
-        var ret;
-        //in case of a multipart form post we savely can use the FormData object
-        if (this._context._mfInternal.xhrOp === "multipartQueuedPost") {
-            ret = new FormData(this._sourceForm);
-            this._AJAXUTIL.appendIssuingItem(this._source, ret);
-        } else {
-            //we switch back to the encode submittable fields system
-            this._AJAXUTIL.encodeSubmittableFields(ret, this._sourceForm, null);
-            this._AJAXUTIL.appendIssuingItem(this._source, ret);
-        }
-        return ret;
-    },
-
-    /**
-     * applies the content type, this needs to be done only for xhr
-     * level1
-     * @param xhr
-     * @private
-     */
-    _applyContentType:function (xhr) {
-        //content type is not set in case of xhr level2 because
-        //the form data object does it itself
-    },
-
-    _formDataToURI:function (formData) {
-        //in xhr level2 form data takes care of the http get parametrisation
-        return "";
-    },
-
-    _getTransport:function () {
-        return new XMLHttpRequest();
-    }
-});
-
-/**
- * for normal requests we basically use
- * only the xhr level2 object but
- */
-_MF_CLS(_PFX_XHR + "_AjaxRequestLevel2", myfaces._impl.xhrCore._AjaxRequest, {
-
-    _sourceForm:null,
-
-    constructor_:function (args) {
-        this._callSuper("constructor_", args);
-        //TODO xhr level2 can deal with real props
-
-    },
-
-    _getTransport:function () {
-        return new XMLHttpRequest();
-    }
-});
-
-
-
-
-
-/* Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to you under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-
-/**
- * @class
- * @name _IFrameRequest
- * @memberOf myfaces._impl.xhrCore
- * @extends myfaces._impl.xhrCore._AjaxRequest
- * @description specialized implementation of the jsf js ajax request class
- * which utilizes an iframe transport for communications to the server
- */
-_MF_CLS(_PFX_XHR+"_IFrameRequest", myfaces._impl.xhrCore._AjaxRequest,
-        /** @lends myfaces._impl.xhrCore._IFrameRequest.prototype */
-        {
-
-    /**
-     * @constant
-     * @description request marker that the request is an iframe based request
-     */
-    //JX_PART_IFRAME: "javax.faces.partial.iframe",
-    /**
-     * @constant
-     * @description request marker that the request is an apache myfaces iframe request based request
-     */
-    MF_PART_IFRAME: "javax.faces.transport.iframe",
-
-    MF_PART_FACES_REQUEST: "javax.faces.request",
-
-
-    constructor_: function(args) {
-        this._callSuper("constructor_", args);
-    },
-
-    getFormData: function() {
-        var ret = new myfaces._impl.xhrCore.engine.FormData(this._sourceForm);
-        //marker that this is an ajax iframe request
-        //ret.append(this.JX_PART_IFRAME, "true");
-        ret.append(this.MF_PART_IFRAME, "true");
-        ret.append(this.MF_PART_FACES_REQUEST, "partial/ajax");
-
-        var viewState = decodeURIComponent(jsf.getViewState(this._sourceForm));
-        viewState = viewState.split("&");
-
-        //we append all viewstate values which are not part of the original form
-        //just in case getViewState is decorated
-        for(var cnt = 0, len = viewState.length; cnt < len; cnt++) {
-            var currViewState = viewState[cnt];
-            var keyVal = currViewState.split("=");
-            var name = keyVal[0];
-            if(!this._Dom.getNamedElementFromForm(this._sourceForm, name)) {
-                ret.append(name, keyVal[1]);
-            }
-        }
-
-        return ret;
-    },
-
-    _formDataToURI: function(/*formData*/) {
-        //http get alwyays sends the form data
-        return "";
-    },
-
-    _getTransport: function() {
-        return new myfaces._impl.xhrCore.engine.IFrame();
-    }
-
-});
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -7676,6 +5901,8 @@ _MF_SINGLTN(_PFX_XHR + "_AjaxResponse", _MF_OBJECT, /** @lends myfaces._impl.xhr
                 case this.CMD_UPDATE:
                     this.processUpdate(request, context, changes[i]);
                     break;
+                //this one needs a csp spec extension for the global eval
+                //for now we recycle the csp for this case from the jsf.js file
                 case this.CMD_EVAL:
                     _Lang.globalEval(changes[i].firstChild.data);
                     break;
@@ -7718,137 +5945,140 @@ _MF_SINGLTN(_PFX_XHR + "_AjaxResponse", _MF_OBJECT, /** @lends myfaces._impl.xhr
                 mfInternal.appliedViewState = this._Dom.concatCDATABlocks(node);//node.firstChild.nodeValue;
 */
 // end TOBAGO-JSF-JS
-            } else if (node.getAttribute('id').indexOf(this.P_CLIENTWINDOW) != -1) {
-                mfInternal.appliedClientWindow = node.firstChild.nodeValue;
-            }
-        }
-        else {
-            // response may contain several blocks
-            var cDataBlock = this._Dom.concatCDATABlocks(node),
-                resultNode = null,
-                pushOpRes = this._Lang.hitch(this, this._pushOperationResult);
+                            } else if (node.getAttribute('id').indexOf(this.P_CLIENTWINDOW) != -1) {
+                                mfInternal.appliedClientWindow = node.firstChild.nodeValue;
+                            }
+                        }
+                        else {
+                            // response may contain several blocks
+                            var cDataBlock = this._Dom.concatCDATABlocks(node),
+                                resultNode = null,
+                                pushOpRes = this._Lang.hitch(this, this._pushOperationResult);
 
 // begin TOBAGO-JSF-JS
-            if (cDataBlock.startsWith("{\"reload\"")) {
-                console.debug("Found reload-JSON in response!");
-            } else {
+                          if (cDataBlock.startsWith("{\"reload\"")) {
+                            console.debug("Found reload-JSON in response!");
+                          } else {
 // end TOBAGO-JSF-JS
-            switch (node.getAttribute('id')) {
-                case this.P_VIEWROOT:
+                            switch (node.getAttribute('id')) {
+                                case this.P_VIEWROOT:
 
-                    cDataBlock = cDataBlock.substring(cDataBlock.indexOf("<html"));
+                                    cDataBlock = cDataBlock.substring(cDataBlock.indexOf("<html"));
 
-                    var parsedData = this._replaceHead(request, context, cDataBlock);
+                                    var parsedData = this._replaceHead(request, context, cDataBlock);
 
-                    ('undefined' != typeof parsedData && null != parsedData) ? this._replaceBody(request, context, cDataBlock, parsedData) : this._replaceBody(request, context, cDataBlock);
+                                    ('undefined' != typeof parsedData && null != parsedData) ? this._replaceBody(request, context, cDataBlock, parsedData) : this._replaceBody(request, context, cDataBlock);
 
-                    break;
-                case this.P_VIEWHEAD:
-                    //we cannot replace the head, almost no browser allows this, some of them throw errors
-                    //others simply ignore it or replace it and destroy the dom that way!
-                    this._replaceHead(request, context, cDataBlock);
+                                    break;
+                                case this.P_VIEWHEAD:
+                                    //we cannot replace the head, almost no browser allows this, some of them throw errors
+                                    //others simply ignore it or replace it and destroy the dom that way!
+                                    this._replaceHead(request, context, cDataBlock);
 
-                    break;
-                case this.P_VIEWBODY:
-                    //we assume the cdata block is our body including the tag
-                    resultNode = this._replaceBody(request, context, cDataBlock);
-                    if (resultNode) {
-                        pushOpRes(context, resultNode);
-                    }
-                    break;
-                case this.P_RESOURCE:
+                                    break;
+                                case this.P_VIEWBODY:
+                                    //we assume the cdata block is our body including the tag
+                                    resultNode = this._replaceBody(request, context, cDataBlock);
+                                    if (resultNode) {
+                                        pushOpRes(context, resultNode);
+                                    }
+                                    break;
+                                case this.P_RESOURCE:
 
-                    this._addResourceToHead(request, context, cDataBlock);
-                    break;
-                default:
+                                    this._addResourceToHead(request, context, cDataBlock);
+                                    break;
+                                default:
 
 // begin TOBAGO-JSF-JS
 // XXX hack
-                if (node.getAttribute('id') === document.getElementsByClassName("tobago-page")[0].getAttribute('id')) {
-                    // newDoc = document.open("text/html", "replace");
-                    // newDoc.write(cDataBlock);
-                    // newDoc.close();
-                  //change only the body, because change the head doesn't work with CSP
-                    newPage = jQuery(cDataBlock).filter(".tobago-page");
-                    jQuery(".tobago-page").replaceWith(newPage);
-                    resultNode = document.documentElement;
-                } else {
-                    resultNode = this.replaceHtmlItem(request, context, node.getAttribute('id'), cDataBlock);
-                }
-
+                                    if (node.id === document.getElementsByClassName("tobago-page")[0].id) {
+                                        // newDoc = document.open("text/html", "replace");
+                                        // newDoc.write(cDataBlock);
+                                        // newDoc.close();
+                                        //change only the body, because change the head doesn't work with CSP
+                                        var newPage = jQuery(cDataBlock).filter(".tobago-page");
+                                        jQuery(".tobago-page").replaceWith(newPage);
+                                        // XXX remove jQuery
+                                        resultNode = document.documentElement;
+                                    } else {
+                                        resultNode = this.replaceHtmlItem(request, context, node.getAttribute('id'), cDataBlock);
+                                    }
+/* original
+                                    resultNode = this.replaceHtmlItem(request, context, node.getAttribute('id'), cDataBlock);
+*/
 // end TOBAGO-JSF-JS
-                    if (resultNode) {
-                        pushOpRes(context, resultNode);
-                    }
-                    break;
-            }
+                                    if (resultNode) {
+                                        pushOpRes(context, resultNode);
+                                    }
+                                    break;
+                            }
 // begin TOBAGO-JSF-JS
-            }
+                          }
 // end TOBAGO-JSF-JS
-        }
-
-        return true;
-    },
-
-    _pushOperationResult: function(context, resultNode) {
-        var mfInternal = context._mfInternal;
-        var pushSubnode = this._Lang.hitch(this, function(currNode) {
-            var parentForm = this._Dom.getParent(currNode, "form");
-            //if possible we work over the ids
-            //so that elements later replaced are referenced
-            //at the latest possibility
-            if (null != parentForm) {
-                mfInternal._updateForms.push(parentForm.id || parentForm);
-            }
-            else {
-                mfInternal._updateElems.push(currNode.id || currNode);
-            }
-        });
-
-        var pushEmbedded = this._Lang.hitch(this, function(currNode) {
-            if(currNode.tagName && this._Lang.equalsIgnoreCase(currNode.tagName, "form")) {
-                if(currNode.id)  { //should not happen but just in case someone manipulates the html
-                    mfInternal._updateForms.push(currNode.id);
-                }
-            } else {
-                var childForms = this._Dom.findByTagName(currNode, "form");
-                if(childForms && childForms.length) {
-                    for(var cnt = 0; cnt < childForms.length; cnt++) {
-                        if(childForms[cnt].id) {
-                            mfInternal._updateForms.push(childForms[cnt].id);
                         }
-                    }
-                }
-            }
 
-        });
+                        return true;
+                    },
+
+                    _pushOperationResult: function(context, resultNode) {
+                        var mfInternal = context._mfInternal;
+                        var pushSubnode = this._Lang.hitch(this, function(currNode) {
+                            var parentForm = this._Dom.getParent(currNode, "form");
+                            //if possible we work over the ids
+                            //so that elements later replaced are referenced
+                            //at the latest possibility
+                            if (null != parentForm) {
+                                mfInternal._updateForms.push(parentForm.id || parentForm);
+                            }
+                            else {
+                                mfInternal._updateElems.push(currNode.id || currNode);
+                            }
+                        });
+
+                        var pushEmbedded = this._Lang.hitch(this, function(currNode) {
+                            if(currNode.tagName && this._Lang.equalsIgnoreCase(currNode.tagName, "form")) {
+                                if(currNode.id)  { //should not happen but just in case someone manipulates the html
+                                    mfInternal._updateForms.push(currNode.id);
+                                }
+                            } else {
+                                var childForms = this._Dom.findByTagName(currNode, "form");
+                                if(childForms && childForms.length) {
+                                    for(var cnt = 0; cnt < childForms.length; cnt++) {
+                                        if(childForms[cnt].id) {
+                                            mfInternal._updateForms.push(childForms[cnt].id);
+                                        }
+                                    }
+                                }
+                            }
+
+                        });
 
 
-        var isArr = 'undefined' != typeof resultNode.length && 'undefined' == typeof resultNode.nodeType;
-        if (isArr && resultNode.length) {
-            for (var cnt = 0; cnt < resultNode.length; cnt++) {
-                pushSubnode(resultNode[cnt]);
-                pushEmbedded(resultNode[cnt]);
-            }
-        } else if (!isArr) {
-            pushSubnode(resultNode);
-            pushEmbedded(resultNode);
-        }
+                        var isArr = 'undefined' != typeof resultNode.length && 'undefined' == typeof resultNode.nodeType;
+                        if (isArr && resultNode.length) {
+                            for (var cnt = 0; cnt < resultNode.length; cnt++) {
+                                pushSubnode(resultNode[cnt]);
+                                pushEmbedded(resultNode[cnt]);
+                            }
+                        } else if (!isArr) {
+                            pushSubnode(resultNode);
+                            pushEmbedded(resultNode);
+                        }
 
-    },
+                    },
 
 
-    /**
-     * replaces a current head theoretically,
-     * pratically only the scripts are evaled anew since nothing else
-     * can be changed.
-     *
-     * @param request the current request
-     * @param context the ajax context
-     * @param newData the data to be processed
-     *
-     * @return an xml representation of the page for further processing if possible
-     */
+                    /**
+                     * replaces a current head theoretically,
+                     * pratically only the scripts are evaled anew since nothing else
+                     * can be changed.
+                     *
+                     * @param request the current request
+                     * @param context the ajax context
+                     * @param newData the data to be processed
+                     *
+                     * @return an xml representation of the page for further processing if possible
+                     */
     _replaceHead: function (request, context, newData) {
 
         var _Lang = this._Lang,
@@ -8238,330 +6468,260 @@ _MF_SINGLTN(_PFX_XHR + "_AjaxResponse", _MF_OBJECT, /** @lends myfaces._impl.xhr
  * corresponding protected attributes on class level in the transports themselves)
  */
 _MF_SINGLTN(_PFX_XHR + "_Transports", _MF_OBJECT,
-        /** @lends myfaces._impl.xhrCore._Transports.prototype */ {
+    /** @lends myfaces._impl.xhrCore._Transports.prototype */ {
 
-    _PAR_ERRORLEVEL:"errorlevel",
-    _PAR_QUEUESIZE:"queuesize",
-    _PAR_PPS:"pps",
-    _PAR_TIMEOUT:"timeout",
-    _PAR_DELAY:"delay",
+        _PAR_ERRORLEVEL: "errorlevel",
+        _PAR_QUEUESIZE: "queuesize",
+        _PAR_PPS: "pps",
+        _PAR_TIMEOUT: "timeout",
+        _PAR_DELAY: "delay",
 
 
-    /**
-     * a singleton queue
-     * note the structure of our inheritance
-     * is that that _queue is attached to prototype
-     * and hence the pointer to the request qeue
-     * is shared over all instances
-     *
-     * if you need to have it per instance for complex objects
-     * you have to initialize in the constructor
-     *
-     * (This is the same limitation dojo class inheritance
-     * where our inheritance pattern is derived from has)
-     */
-    _q: new myfaces._impl.xhrCore._AjaxRequestQueue(),
+        /**
+         * a singleton queue
+         * note the structure of our inheritance
+         * is that that _queue is attached to prototype
+         * and hence the pointer to the request qeue
+         * is shared over all instances
+         *
+         * if you need to have it per instance for complex objects
+         * you have to initialize in the constructor
+         *
+         * (This is the same limitation dojo class inheritance
+         * where our inheritance pattern is derived from has)
+         */
+        _q: new myfaces._impl.xhrCore._AjaxRequestQueue(),
 
-    /**
-     * xhr post with enqueuing as defined by the jsf 2.0 specification
-     *
-     * mapped options already have the exec and view properly in place
-     * myfaces specifics can be found under mappedOptions.myFaces
-     * @param {Node} source the source of this call
-     * @param {Node} sourceForm the html form which is the source of this call
-     * @param {Object} context (Map) the internal pass through context
-     * @param {Object} passThrgh (Map) values to be passed through
-     **/
-    xhrQueuedPost : function(source, sourceForm, context, passThrgh) {
-        context._mfInternal.xhrOp = "xhrQueuedPost";
-        this._q.enqueue(
+        /**
+         * xhr post with enqueuing as defined by the jsf 2.0 specification
+         *
+         * mapped options already have the exec and view properly in place
+         * myfaces specifics can be found under mappedOptions.myFaces
+         * @param {Node} source the source of this call
+         * @param {Node} sourceForm the html form which is the source of this call
+         * @param {Object} context (Map) the internal pass through context
+         * @param {Object} passThrgh (Map) values to be passed through
+         **/
+        xhrQueuedPost: function (source, sourceForm, context, passThrgh) {
+            this._q.enqueue(
                 new (this._getAjaxReqClass(context))(this._getArguments(source, sourceForm, context, passThrgh)));
-    },
-
-    /**
-      * iframe queued post
-      *
-      * mapped options already have the exec and view properly in place
-      * myfaces specifics can be found under mappedOptions.myFaces
-      * @param {Node} source the source of this call
-      * @param {Node} sourceForm the html form which is the source of this call
-      * @param {Object} context (Map) the internal pass through context
-      * @param {Object} passThrgh (Map) values to be passed through
-      **/
-     multipartQueuedPost : function(source, sourceForm, context, passThrgh) {
-         context._mfInternal.xhrOp = "multipartQueuedPost";
-         var args = this._getArguments(source, sourceForm, context, passThrgh);
-         // note in get the timeout is not working delay however is and queue size as well
-         // since there are no cross browser ways to resolve a timeout on xhr level
-         this._q.enqueue(
-                 new (this._getMultipartReqClass(context))(args));
-     },
+        },
 
 
-    /**
-     * creates the arguments map and
-     * fetches the config params in a proper way in to
-     * deal with them in a flat way (from the nested context way)
-     *
-     * @param source the source of the request
-     * @param sourceForm the sourceform
-     * @param context   the context holding all values
-     * @param passThrgh the passThrough values to be blended into the response
-     */
-    _getArguments: function(source, sourceForm, context, passThrgh) {
-        var _RT = myfaces._impl.core._Runtime,
-        /** @ignore */
-             _Lang = myfaces._impl._util._Lang,
-             applyCfg = _Lang.hitch(this, this._applyConfig),
-            //RT does not have this references, hence no hitch needed
-             getCfg = _RT.getLocalOrGlobalConfig,
+        /**
+         * a simple not enqueued xhr post
+         *
+         * mapped options already have the exec and view properly in place
+         * myfaces specifics can be found under mappedOptions.myFaces
+         * @param {Node} source the source of this call
+         * @param {Node} sourceForm the html form which is the source of this call
+         * @param {Object} context (Map) the internal pass through context
+         * @param {Object} passThrgh (Map) values to be passed through
+         **/
+        xhrPost: function (source, sourceForm, context, passThrgh) {
+            var args = this._getArguments(source, sourceForm, context, passThrgh);
+            delete args.xhrQueue;
+            (new (this._getAjaxReqClass(context))(args)).send();
+        },
 
 
-            ret = {
-                "source": source,
-                "sourceForm": sourceForm,
-                "context": context,
-                "passThrough": passThrgh,
-                "xhrQueue": this._q
-            };
+        /**
+         * xhr get without enqueuing
+         *
+         * mapped options already have the exec and view properly in place
+         * myfaces specifics can be found under mappedOptions.myFaces
+         * @param {Node} source the source of this call
+         * @param {Node} sourceForm the html form which is the source of this call
+         * @param {Object} context (Map) the internal pass through context
+         * @param {Object} passThrgh (Map) values to be passed through
+         **/
+        xhrGet: function (source, sourceForm, context, passThrgh) {
+            var args = this._getArguments(source, sourceForm, context, passThrgh);
+            // note in get the timeout is not working delay however is and queue size as well
+            // since there are no cross browser ways to resolve a timeout on xhr level
+            // we have to live with it
+            args.ajaxType = "GET";
+            delete args.xhrQueue;
+            (new (this._getAjaxReqClass(context))(args)).send();
+        },
 
-        //we now mix in the config settings which might either be set globally
-        //or pushed in under the context myfaces.<contextValue> into the current request
-        applyCfg(ret, context, "alarmThreshold", this._PAR_ERRORLEVEL);
-        applyCfg(ret, context, "queueSize", this._PAR_QUEUESIZE);
-        //TODO timeout probably not needed anymore
-        applyCfg(ret, context, "timeout", this._PAR_TIMEOUT);
-        //applyCfg(ret, context, "delay", this._PAR_DELAY);
+        /**
+         * xhr get which takes the existing queue into consideration to by synchronized
+         * to previous queued post requests
+         *
+         * mapped options already have the exec and view properly in place
+         * myfaces specifics can be found under mappedOptions.myFaces
+         * @param {Node} source the source of this call
+         * @param {Node} sourceForm the html form which is the source of this call
+         * @param {Object} context (Map) the internal pass through context
+         * @param {Object} passThrgh (Map) values to be passed through
+         **/
+        xhrQueuedGet: function (source, sourceForm, context, passThrgh) {
+            var args = this._getArguments(source, sourceForm, context, passThrgh);
+            // note in get the timeout is not working delay however is and queue size as well
+            // since there are no cross browser ways to resolve a timeout on xhr level
+            // we have to live with it
+            args.ajaxType = "GET";
+            this._q.enqueue(
+                new (this._getAjaxReqClass(context))(args));
+        },
 
-        //now partial page submit needs a different treatment
-        //since pps == execute strings
-        if (getCfg(context, this._PAR_PPS, false)
+
+        /**
+         * multipart post without queueing
+         *
+         * mapped options already have the exec and view properly in place
+         * myfaces specifics can be found under mappedOptions.myFaces
+         * @param {Node} source the source of this call
+         * @param {Node} sourceForm the html form which is the source of this call
+         * @param {Object} context (Map) the internal pass through context
+         * @param {Object} passThrgh (Map) values to be passed through
+         **/
+        multipartPost: function (source, sourceForm, context, passThrgh) {
+            var args = this._getArguments(source, sourceForm, context, passThrgh);
+            // note in get the timeout is not working delay however is and queue size as well
+            // since there are no cross browser ways to resolve a timeout on xhr level
+            // we have to live with it
+            delete args.xhrQueue;
+            (new (this._getMultipartReqClass(context))(args)).send();
+        },
+
+        /**
+         * multipart queued post
+         *
+         * mapped options already have the exec and view properly in place
+         * myfaces specifics can be found under mappedOptions.myFaces
+         * @param {Node} source the source of this call
+         * @param {Node} sourceForm the html form which is the source of this call
+         * @param {Object} context (Map) the internal pass through context
+         * @param {Object} passThrgh (Map) values to be passed through
+         **/
+        multipartQueuedPost: function (source, sourceForm, context, passThrgh) {
+            var args = this._getArguments(source, sourceForm, context, passThrgh);
+            // note in get the timeout is not working delay however is and queue size as well
+            // since there are no cross browser ways to resolve a timeout on xhr level
+            this._q.enqueue(
+                new (this._getMultipartReqClass(context))(args));
+        },
+
+        /**
+         * iframe get without queueing
+         *
+         * mapped options already have the exec and view properly in place
+         * myfaces specifics can be found under mappedOptions.myFaces
+         * @param {Node} source the source of this call
+         * @param {Node} sourceForm the html form which is the source of this call
+         * @param {Object} context (Map) the internal pass through context
+         * @param {Object} passThrgh (Map) values to be passed through
+         **/
+        multipartGet: function (source, sourceForm, context, passThrgh) {
+            var args = this._getArguments(source, sourceForm, context, passThrgh);
+            // note in get the timeout is not working delay however is and queue size as well
+            // since there are no cross browser ways to resolve a timeout on xhr level
+            // we have to live with it
+            args.ajaxType = "GET";
+            delete args.xhrQueue;
+            (new (this._getMultipartReqClass(context))(args)).send();
+        },
+
+        /**
+         * multipart queued http get
+         *
+         * mapped options already have the exec and view properly in place
+         * myfaces specifics can be found under mappedOptions.myFaces
+         * @param {Node} source the source of this call
+         * @param {Node} sourceForm the html form which is the source of this call
+         * @param {Object} context (Map) the internal pass through context
+         * @param {Object} passThrgh (Map) values to be passed through
+         **/
+        multipartQueuedGet: function (source, sourceForm, context, passThrgh) {
+            var args = this._getArguments(source, sourceForm, context, passThrgh);
+            // note in get the timeout is not working delay however is and queue size as well
+            // since there are no cross browser ways to resolve a timeout on xhr level
+            args.ajaxType = "GET";
+            this._q.enqueue(
+                new (this._getMultipartReqClass(context))(args));
+        },
+
+
+        /**
+         * creates the arguments map and
+         * fetches the config params in a proper way in to
+         * deal with them in a flat way (from the nested context way)
+         *
+         * @param source the source of the request
+         * @param sourceForm the sourceform
+         * @param context   the context holding all values
+         * @param passThrgh the passThrough values to be blended into the response
+         */
+        _getArguments: function (source, sourceForm, context, passThrgh) {
+            var _RT = myfaces._impl.core._Runtime,
+                /** @ignore */
+                _Lang = myfaces._impl._util._Lang,
+                applyCfg = _Lang.hitch(this, this._applyConfig),
+                //RT does not have this references, hence no hitch needed
+                getCfg = _RT.getLocalOrGlobalConfig,
+
+
+                ret = {
+                    "source": source,
+                    "sourceForm": sourceForm,
+                    "context": context,
+                    "passThrough": passThrgh,
+                    "xhrQueue": this._q
+                };
+
+            //we now mix in the config settings which might either be set globally
+            //or pushed in under the context myfaces.<contextValue> into the current request
+            applyCfg(ret, context, "alarmThreshold", this._PAR_ERRORLEVEL);
+            applyCfg(ret, context, "queueSize", this._PAR_QUEUESIZE);
+            //TODO timeout probably not needed anymore
+            applyCfg(ret, context, "timeout", this._PAR_TIMEOUT);
+            //applyCfg(ret, context, "delay", this._PAR_DELAY);
+
+            //now partial page submit needs a different treatment
+            //since pps == execute strings
+            if (getCfg(context, this._PAR_PPS, false)
                 && _Lang.exists(passThrgh, myfaces._impl.core.Impl.P_EXECUTE)
                 && passThrgh[myfaces._impl.core.Impl.P_EXECUTE].length > 0) {
-            ret['partialIdsArray'] = passThrgh[myfaces._impl.core.Impl.P_EXECUTE].split(" ");
+                ret['partialIdsArray'] = passThrgh[myfaces._impl.core.Impl.P_EXECUTE].split(" ");
+            }
+            return ret;
+        },
+
+        /**
+         * helper method to apply a config setting to our varargs param list
+         *
+         * @param destination the destination map to receive the setting
+         * @param context the current context
+         * @param destParm the destination param of the destination map
+         * @param srcParm the source param which is the key to our config setting
+         */
+        _applyConfig: function (destination, context, destParm, srcParm) {
+            var _RT = myfaces._impl.core._Runtime;
+            /** @ignore */
+            var _getConfig = _RT.getLocalOrGlobalConfig;
+            if (_getConfig(context, srcParm, null) != null) {
+                destination[destParm] = _getConfig(context, srcParm, null);
+            }
+        },
+
+        /**
+         * centralized transport switching helper
+         * for the multipart submit case
+         *
+         * @param context the context which is passed down
+         */
+        _getMultipartReqClass: function (context) {
+            return myfaces._impl.xhrCore._FormDataRequest;
+        },
+
+
+        _getAjaxReqClass: function (context) {
+            return myfaces._impl.xhrCore._AjaxRequest;
         }
-        return ret;
-    },
 
-    /**
-     * helper method to apply a config setting to our varargs param list
-     *
-     * @param destination the destination map to receive the setting
-     * @param context the current context
-     * @param destParm the destination param of the destination map
-     * @param srcParm the source param which is the key to our config setting
-     */
-    _applyConfig: function(destination, context, destParm, srcParm) {
-        var _RT = myfaces._impl.core._Runtime;
-        /** @ignore */
-        var _getConfig = _RT.getLocalOrGlobalConfig;
-        if (_getConfig(context, srcParm, null) != null) {
-            destination[destParm] = _getConfig(context, srcParm, null);
-        }
-    },
-
-    /**
-     * centralized transport switching helper
-     * for the multipart submit case
-     *
-     * @param context the context which is passed down
-     */
-    _getMultipartReqClass: function(context) {
-       if (this._RT.getXHRLvl() >= 2) {
-            return myfaces._impl.xhrCore._MultipartAjaxRequestLevel2;
-       } else {
-            return myfaces._impl.xhrCore._IFrameRequest;
-       }
-    },
-
-
-    _getAjaxReqClass: function(context) {
-        // var _RT = myfaces._impl.core._Runtime;
-        if(this._RT.getXHRLvl() < 2) {
-           return myfaces._impl.xhrCore._AjaxRequest;
-        } else {
-           return myfaces._impl.xhrCore._AjaxRequestLevel2;
-        }
-    }
-
-});
-
-/* Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to you under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/**
- * @class
- * @name _Transports
- * @memberOf myfaces._impl.xhrCore
- * @description
- *
- * The xhr core adapter
- * which provides the transport mechanisms to the calling
- * objects, and controls the queue behavior, the error handling
- * and partial page submit functionality among other things
- * <p />
- * The idea behind this is to make the ajax request object as barebones
- * as possible and shift the extra functionality like queuing
- * parameter handling etc... to this class so that our transports become more easily
- * pluggable. This should keep the path open to iframe submits and other transport layers
- * <p />
- * the call to the corresponding transport just should be a
- * transport.xhrQueuedPost <br />
- * or transport.xhrPost,transport.xhrGet  etc... in the future
- * <p />
- * Note we have taken a pattern lesson or two from the dojo toolkit and its excellent handling
- * of transports by our patterns here (which is mainly a centralized transport singleton which routes
- * to different transport implementations and the auto passing of parameters into their
- * corresponding protected attributes on class level in the transports themselves)
- */
-_MF_SINGLTN(_PFX_XHR+"_ExtTransports" , myfaces._impl.xhrCore._Transports,
-     /** @lends myfaces._impl.xhrCore._Transports.prototype */ {
-
-
-    constructor_: function() {
-        this._callSuper("constructor_");
-        myfaces._impl.xhrCore._Transports = this;
-        //we change the transport to our new implementation
-        this.updateSingletons("transport", this);
-    },
-
-    /**
-     * a simple not enqueued xhr post
-     *
-     * mapped options already have the exec and view properly in place
-     * myfaces specifics can be found under mappedOptions.myFaces
-     * @param {Node} source the source of this call
-     * @param {Node} sourceForm the html form which is the source of this call
-     * @param {Object} context (Map) the internal pass through context
-     * @param {Object} passThrgh (Map) values to be passed through
-     **/
-    xhrPost : function(source, sourceForm, context, passThrgh) {
-        context._mfInternal.xhrOp = "xhrPost";
-        var args = this._getArguments(source, sourceForm, context, passThrgh);
-         delete args.xhrQueue;
-        (new (this._getAjaxReqClass(context))(args)).send();
-    },
-
-
-    /**
-     * xhr get without enqueuing
-     *
-     * mapped options already have the exec and view properly in place
-     * myfaces specifics can be found under mappedOptions.myFaces
-     * @param {Node} source the source of this call
-     * @param {Node} sourceForm the html form which is the source of this call
-     * @param {Object} context (Map) the internal pass through context
-     * @param {Object} passThrgh (Map) values to be passed through
-     **/
-    xhrGet : function(source, sourceForm, context, passThrgh) {
-        context._mfInternal.xhrOp = "xhrGet";
-        var args = this._getArguments(source, sourceForm, context, passThrgh);
-        // note in get the timeout is not working delay however is and queue size as well
-        // since there are no cross browser ways to resolve a timeout on xhr level
-        // we have to live with it
-        args.ajaxType = "GET";
-        delete args.xhrQueue;
-        (new (this._getAjaxReqClass(context))(args)).send();
-    },
-
-    /**
-     * xhr get which takes the existing queue into consideration to by synchronized
-     * to previous queued post requests
-     *
-     * mapped options already have the exec and view properly in place
-     * myfaces specifics can be found under mappedOptions.myFaces
-     * @param {Node} source the source of this call
-     * @param {Node} sourceForm the html form which is the source of this call
-     * @param {Object} context (Map) the internal pass through context
-     * @param {Object} passThrgh (Map) values to be passed through
-     **/
-    xhrQueuedGet : function(source, sourceForm, context, passThrgh) {
-        context._mfInternal.xhrOp = "xhrQueuedGet";
-        var args = this._getArguments(source, sourceForm, context, passThrgh);
-        // note in get the timeout is not working delay however is and queue size as well
-        // since there are no cross browser ways to resolve a timeout on xhr level
-        // we have to live with it
-        args.ajaxType = "GET";
-        this._q.enqueue(
-                new (this._getAjaxReqClass(context))(args));
-    },
-
-
-    /**
-     * iframe post without queueing
-     *
-     * mapped options already have the exec and view properly in place
-     * myfaces specifics can be found under mappedOptions.myFaces
-     * @param {Node} source the source of this call
-     * @param {Node} sourceForm the html form which is the source of this call
-     * @param {Object} context (Map) the internal pass through context
-     * @param {Object} passThrgh (Map) values to be passed through
-     **/
-    multipartPost : function(source, sourceForm, context, passThrgh) {
-        context._mfInternal.xhrOp = "multipartPost";
-        var args = this._getArguments(source, sourceForm, context, passThrgh);
-        // note in get the timeout is not working delay however is and queue size as well
-        // since there are no cross browser ways to resolve a timeout on xhr level
-        // we have to live with it
-        delete args.xhrQueue;
-        (new (this._getMultipartReqClass(context))(args)).send();
-    },
-
-
-    /**
-     * iframe get without queueing
-     *
-     * mapped options already have the exec and view properly in place
-     * myfaces specifics can be found under mappedOptions.myFaces
-     * @param {Node} source the source of this call
-     * @param {Node} sourceForm the html form which is the source of this call
-     * @param {Object} context (Map) the internal pass through context
-     * @param {Object} passThrgh (Map) values to be passed through
-     **/
-    multipartGet : function(source, sourceForm, context, passThrgh) {
-        context._mfInternal.xhrOp = "multiPartGet";
-        var args = this._getArguments(source, sourceForm, context, passThrgh);
-        // note in get the timeout is not working delay however is and queue size as well
-        // since there are no cross browser ways to resolve a timeout on xhr level
-        // we have to live with it
-        args.ajaxType = "GET";
-        delete args.xhrQueue;
-        (new (this._getMultipartReqClass(context))(args)).send();
-    },
-
-    /**
-     * iframe queued http get
-     *
-     * mapped options already have the exec and view properly in place
-     * myfaces specifics can be found under mappedOptions.myFaces
-     * @param {Node} source the source of this call
-     * @param {Node} sourceForm the html form which is the source of this call
-     * @param {Object} context (Map) the internal pass through context
-     * @param {Object} passThrgh (Map) values to be passed through
-     **/
-    multipartQueuedGet : function(source, sourceForm, context, passThrgh) {
-        context._mfInternal.xhrOp = "multipartQueuedGet";
-        var args = this._getArguments(source, sourceForm, context, passThrgh);
-        // note in get the timeout is not working delay however is and queue size as well
-        // since there are no cross browser ways to resolve a timeout on xhr level
-        args.ajaxType = "GET";
-        this._q.enqueue(
-                new (this._getMultipartReqClass(context))(args));
-    }
-});
+    });
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -8665,8 +6825,8 @@ _MF_SINGLTN(_PFX_CORE + "Impl", _MF_OBJECT, /**  @lends myfaces._impl.core.Impl.
         }
 
         if (!form
-                || !form.nodeName
-                || form.nodeName.toLowerCase() != "form") {
+            || !form.nodeName
+            || form.nodeName.toLowerCase() != "form") {
             throw new Error(this._Lang.getMessage("ERR_VIEWSTATE"));
         }
 
@@ -8707,7 +6867,7 @@ _MF_SINGLTN(_PFX_CORE + "Impl", _MF_OBJECT, /**  @lends myfaces._impl.core.Impl.
          *all the time
          **/
         var _Lang = this._Lang,
-                _Dom = this._Dom;
+            _Dom = this._Dom;
         /*assert if the onerror is set and once if it is set it must be of type function*/
         _Lang.assertType(options.onerror, "function");
         /*assert if the onevent is set and once if it is set it must be of type function*/
@@ -8774,14 +6934,14 @@ _MF_SINGLTN(_PFX_CORE + "Impl", _MF_OBJECT, /**  @lends myfaces._impl.core.Impl.
          * with detached objects
          */
         var form = (options.myfaces && options.myfaces.form) ?
-                _Lang.byId(options.myfaces.form) :
-                this._getForm(elem, event);
+            _Lang.byId(options.myfaces.form) :
+            this._getForm(elem, event);
 
         /**
          * JSF2.2 client window must be part of the issuing form so it is encoded
          * automatically in the request
          */
-        //we set the client window before encoding by a call to jsf.getClientWindow
+            //we set the client window before encoding by a call to jsf.getClientWindow
         var clientWindow = jsf.getClientWindow(form);
         //in case someone decorates the getClientWindow we reset the value from
         //what we are getting
@@ -8921,11 +7081,11 @@ _MF_SINGLTN(_PFX_CORE + "Impl", _MF_OBJECT, /**  @lends myfaces._impl.core.Impl.
          * we have to pass them down as a blank delimited string representation
          * of an array of ids!
          */
-        //for now we turn off the transport auto selection, to enable 2.0 backwards compatibility
-        //on protocol level, the file upload only can be turned on if the auto selection is set to true
+            //for now we turn off the transport auto selection, to enable 2.0 backwards compatibility
+            //on protocol level, the file upload only can be turned on if the auto selection is set to true
         var getConfig = this._RT.getLocalOrGlobalConfig,
-                _Lang = this._Lang,
-                _Dom = this._Dom;
+            _Lang = this._Lang,
+            _Dom = this._Dom;
 
         var transportAutoSelection = getConfig(context, "transportAutoSelection", true);
         /*var isMultipart = (transportAutoSelection && _Dom.getAttribute(form, "enctype") == "multipart/form-data") ?
@@ -8936,7 +7096,7 @@ _MF_SINGLTN(_PFX_CORE + "Impl", _MF_OBJECT, /**  @lends myfaces._impl.core.Impl.
             return getConfig(context, "transportType", "xhrQueuedPost");
         }
         var multiPartCandidate = _Dom.isMultipartCandidate((!getConfig(context, "pps", false)) ?
-                form : passThrgh[this.P_EXECUTE]);
+            form : passThrgh[this.P_EXECUTE]);
         var multipartForm = (_Dom.getAttribute(form, "enctype") || "").toLowerCase() == "multipart/form-data";
         //spec section jsdoc, if we have a multipart candidate in our execute (aka fileupload)
         //and the form is not multipart then we have to raise an error
@@ -8957,8 +7117,8 @@ _MF_SINGLTN(_PFX_CORE + "Impl", _MF_OBJECT, /**  @lends myfaces._impl.core.Impl.
          *
          */
         var transportType = (!isMultipart) ?
-                getConfig(context, "transportType", "xhrQueuedPost") :
-                getConfig(context, "transportType", "multipartQueuedPost");
+            getConfig(context, "transportType", "xhrQueuedPost") :
+            getConfig(context, "transportType", "multipartQueuedPost");
         if (!this._transport[transportType]) {
             //throw new Error("Transport type " + transportType + " does not exist");
             throw new Error(_Lang.getMessage("ERR_TRANSPORT", null, transportType));
@@ -8987,14 +7147,14 @@ _MF_SINGLTN(_PFX_CORE + "Impl", _MF_OBJECT, /**  @lends myfaces._impl.core.Impl.
         //false
         srcStr = this._Lang.trim(srcStr);
         var offset = 1,
-                vals = (srcStr) ? srcStr.split(/\s+/) : [],
-                idIdx = (vals.length) ? _Lang.arrToMap(vals, offset) : {},
+            vals = (srcStr) ? srcStr.split(/\s+/) : [],
+            idIdx = (vals.length) ? _Lang.arrToMap(vals, offset) : {},
 
-        //helpers to improve speed and compression
-                none = idIdx[this.IDENT_NONE],
-                all = idIdx[this.IDENT_ALL],
-                theThis = idIdx[this.IDENT_THIS],
-                theForm = idIdx[this.IDENT_FORM];
+            //helpers to improve speed and compression
+            none = idIdx[this.IDENT_NONE],
+            all = idIdx[this.IDENT_ALL],
+            theThis = idIdx[this.IDENT_THIS],
+            theForm = idIdx[this.IDENT_FORM];
 
         if (none) {
             //in case of none nothing is returned
@@ -9097,10 +7257,10 @@ _MF_SINGLTN(_PFX_CORE + "Impl", _MF_OBJECT, /**  @lends myfaces._impl.core.Impl.
 
         if (jsf.getProjectStage() === "Development" && this._errListeners.length() == 0 && !context["onerror"]) {
             var DIVIDER = "--------------------------------------------------------",
-                    defaultErrorOutput = myfaces._impl.core._Runtime.getGlobalConfig("defaultErrorOutput", alert),
-                    finalMessage = [],
-            //we remap the function to achieve a better compressability
-                    pushMsg = _Lang.hitch(finalMessage, finalMessage.push);
+                defaultErrorOutput = myfaces._impl.core._Runtime.getGlobalConfig("defaultErrorOutput", alert),
+                finalMessage = [],
+                //we remap the function to achieve a better compressability
+                pushMsg = _Lang.hitch(finalMessage, finalMessage.push);
 
             (errorMessage) ? pushMsg(_Lang.getMessage("MSG_ERROR_MESSAGE") + " " + errorMessage + "\n") : null;
 
@@ -9150,7 +7310,7 @@ _MF_SINGLTN(_PFX_CORE + "Impl", _MF_OBJECT, /**  @lends myfaces._impl.core.Impl.
             } catch (e) {
                 var impl = myfaces._impl.core._Runtime.getGlobalConfig("jsfAjaxImpl", myfaces._impl.core.Impl);
                 impl.sendError(request, context, this.CLIENT_ERROR, "ErrorRetrievingResponse",
-                        _Lang.getMessage("ERR_CONSTRUCT", e.toString()));
+                    _Lang.getMessage("ERR_CONSTRUCT", e.toString()));
 
                 //client errors are not swallowed
                 throw e;
@@ -9188,9 +7348,9 @@ _MF_SINGLTN(_PFX_CORE + "Impl", _MF_OBJECT, /**  @lends myfaces._impl.core.Impl.
             return this.separatorchar;
         }
         var SEPARATOR_CHAR = "separatorchar",
-                found = false,
-                getConfig = myfaces._impl.core._Runtime.getGlobalConfig,
-                scriptTags = document.getElementsByTagName("script");
+            found = false,
+            getConfig = myfaces._impl.core._Runtime.getGlobalConfig,
+            scriptTags = document.getElementsByTagName("script");
         for (var i = 0; i < scriptTags.length && !found; i++) {
             if (scriptTags[i].src.search(/\/javax\.faces\.resource.*\/jsf\.js.*separator/) != -1) {
                 found = true;
@@ -9212,13 +7372,13 @@ _MF_SINGLTN(_PFX_CORE + "Impl", _MF_OBJECT, /**  @lends myfaces._impl.core.Impl.
 
         if (!this._projectStage) {
             var PRJ_STAGE = "projectStage",
-                    STG_PROD = "Production",
+                STG_PROD = "Production",
 
-                    scriptTags = document.getElementsByTagName("script"),
-                    getConfig = myfaces._impl.core._Runtime.getGlobalConfig,
-                    projectStage = null,
-                    found = false,
-                    allowedProjectStages = {STG_PROD:1, "Development":1, "SystemTest":1, "UnitTest":1};
+                scriptTags = document.getElementsByTagName("script"),
+                getConfig = myfaces._impl.core._Runtime.getGlobalConfig,
+                projectStage = null,
+                found = false,
+                allowedProjectStages = {STG_PROD:1, "Development":1, "SystemTest":1, "UnitTest":1};
 
             /* run through all script tags and try to find the one that includes jsf.js */
             for (var i = 0; i < scriptTags.length && !found; i++) {
@@ -9347,7 +7507,7 @@ _MF_SINGLTN(_PFX_CORE + "Impl", _MF_OBJECT, /**  @lends myfaces._impl.core.Impl.
             var finalMsg = [];
             finalMsg.push(exception.message);
             this.sendError(request, context,
-                    mfInternal.title || this.CLIENT_ERROR, mfInternal.name || exception.name, finalMsg.join("\n"), mfInternal.caller, mfInternal.callFunc);
+                mfInternal.title || this.CLIENT_ERROR, mfInternal.name || exception.name, finalMsg.join("\n"), mfInternal.caller, mfInternal.callFunc);
         }
     },
 
@@ -9416,17 +7576,17 @@ _MF_SINGLTN(_PFX_CORE + "Impl", _MF_OBJECT, /**  @lends myfaces._impl.core.Impl.
     var target = window || document;
 
     var resetAbbreviation = function (name) {
-        var _temp = target.myfaces._implTemp;
-        (!!_temp[name]) ?
+            var _temp = target.myfaces._implTemp;
+            (!!_temp[name]) ?
                 target[name] = _temp[name] : null;
-    },
-            resetArr = ["_MF_CLS",
-                        "_MF_SINGLTN",
-                        "_MF_OBJECT",
-                        "_PFX_UTIL",
-                        "_PFX_XHR",
-                        "_PFX_CORE",
-                        "_PFX_I18N"];
+        },
+        resetArr = ["_MF_CLS",
+            "_MF_SINGLTN",
+            "_MF_OBJECT",
+            "_PFX_UTIL",
+            "_PFX_XHR",
+            "_PFX_CORE",
+            "_PFX_I18N"];
     for (var cnt = resetArr.length - 1; cnt >= 0; cnt--) {
         resetAbbreviation(resetArr[cnt]);
     }
@@ -9467,12 +7627,12 @@ if ('undefined' != typeof OpenAjax && ('undefined' == typeof jsf || null == type
 }
 //just in case openajax has failed (testing environment)
 /**
-* @ignore
-*/
+ * @ignore
+ */
 if (!window.jsf) {
-	/**
-	* @namespace jsf
-	*/
+    /**
+     * @namespace jsf
+     */
     var jsf = new function() {
         /*
          * Version of the implementation for the jsf.js.
@@ -9492,7 +7652,7 @@ if (!window.jsf) {
          * A number increased with every implementation version
          * and reset by moving to a new spec release number
          *
-		 * @constant
+         * @constant
          */
         this.implversion = 0;
 
@@ -9554,8 +7714,8 @@ if (!window.jsf) {
         }
 
     };
-	//jsdoc helper to avoid warnings, we map later
-	window.jsf = jsf;
+    //jsdoc helper to avoid warnings, we map later
+    window.jsf = jsf;
 }
 
 /**
@@ -9565,9 +7725,9 @@ if (!window.jsf) {
  * it is safer in this case than the standard way of doing a strong comparison
  **/
 if (!jsf.ajax) {
-	/**
-	* @namespace jsf.ajax
-	*/
+    /**
+     * @namespace jsf.ajax
+     */
     jsf.ajax = new function() {
 
 
@@ -9595,11 +7755,11 @@ if (!jsf.ajax) {
             return impl.request(element, event, options);
         };
 
-		/**
-		* Adds an error handler to our global error queue.
-		* the error handler must be of the format <i>function errorListener(&lt;errorData&gt;)</i>
-		* with errorData being of following format:
-		* <ul>
+        /**
+         * Adds an error handler to our global error queue.
+         * the error handler must be of the format <i>function errorListener(&lt;errorData&gt;)</i>
+         * with errorData being of following format:
+         * <ul>
          *     <li> errorData.type : &quot;error&quot;</li>
          *     <li> errorData.status : the error status message</li>
          *     <li> errorData.errorName : the server error name in case of a server error</li>
@@ -9608,10 +7768,10 @@ if (!jsf.ajax) {
          *     <li> eventData.responseCode: the response code (aka http request response code, 401 etc...) </li>
          *     <li> eventData.responseText: the request response text </li>
          *     <li> eventData.responseXML: the request response xml </li>
-        * </ul>
+         * </ul>
          *
          * @param {function} errorListener error handler must be of the format <i>function errorListener(&lt;errorData&gt;)</i>
-		*/
+         */
         this.addOnError = function(/*function*/errorListener) {
             var impl = myfaces._impl.core._Runtime.getGlobalConfig("jsfAjaxImpl", myfaces._impl.core.Impl);
             return impl.addOnError(errorListener);
@@ -9641,9 +7801,9 @@ if (!jsf.ajax) {
 }
 
 if (!jsf.util) {
-	/**
-	* @namespace jsf.util
-	*/
+    /**
+     * @namespace jsf.util
+     */
     jsf.util = new function() {
 
         /**
@@ -9665,231 +7825,231 @@ if (!jsf.util) {
 
 if (!jsf.push) {
 
-  /**
-  * @namespace jsf.push
-  */
-  jsf.push = new function() {
-
-    // "Constant" fields ----------------------------------------------------------------------------------------------
-    var URL_PROTOCOL = window.location.protocol.replace("http", "ws") + "//";
-    var RECONNECT_INTERVAL = 500;
-    var MAX_RECONNECT_ATTEMPTS = 25;
-    var REASON_EXPIRED = "Expired";
-
-    // Private static fields ------------------------------------------------------------------------------------------
-
-    /* socket map by token */
-    var sockets = {};
-    /* component attributes by clientId */
-    var components = {};
-    /* client ids by token (share websocket connection) */
-    var clientIdsByTokens = {};
-    var self = {};
-
-    // Private constructor functions ----------------------------------------------------------------------------------
     /**
-     * Creates a reconnecting web socket. When the web socket successfully connects on first attempt, then it will
-     * automatically reconnect on timeout with cumulative intervals of 500ms with a maximum of 25 attempts (~3 minutes).
-     * The <code>onclose</code> function will be called with the error code of the last attempt.
-     * @constructor
-     * @param {string} channelToken the channel token associated with this websocket connection
-     * @param {string} url The URL of the web socket
-     * @param {string} channel The name of the web socket channel.
+     * @namespace jsf.push
      */
-    function Socket(channelToken, url, channel) {
+    jsf.push = new function() {
 
-        // Private fields -----------------------------------------------------------------------------------------
+        // "Constant" fields ----------------------------------------------------------------------------------------------
+        var URL_PROTOCOL = window.location.protocol.replace("http", "ws") + "//";
+        var RECONNECT_INTERVAL = 500;
+        var MAX_RECONNECT_ATTEMPTS = 25;
+        var REASON_EXPIRED = "Expired";
 
-        var socket;
-        var reconnectAttempts = 0;
-        var self = this;
+        // Private static fields ------------------------------------------------------------------------------------------
 
-        // Public functions ---------------------------------------------------------------------------------------
+        /* socket map by token */
+        var sockets = {};
+        /* component attributes by clientId */
+        var components = {};
+        /* client ids by token (share websocket connection) */
+        var clientIdsByTokens = {};
+        var self = {};
+
+        // Private constructor functions ----------------------------------------------------------------------------------
+        /**
+         * Creates a reconnecting web socket. When the web socket successfully connects on first attempt, then it will
+         * automatically reconnect on timeout with cumulative intervals of 500ms with a maximum of 25 attempts (~3 minutes).
+         * The <code>onclose</code> function will be called with the error code of the last attempt.
+         * @constructor
+         * @param {string} channelToken the channel token associated with this websocket connection
+         * @param {string} url The URL of the web socket
+         * @param {string} channel The name of the web socket channel.
+         */
+        function Socket(channelToken, url, channel) {
+
+            // Private fields -----------------------------------------------------------------------------------------
+
+            var socket;
+            var reconnectAttempts = 0;
+            var self = this;
+
+            // Public functions ---------------------------------------------------------------------------------------
+
+            /**
+             * Opens the reconnecting web socket.
+             */
+            self.open = function() {
+                if (socket && socket.readyState == 1) {
+                    return;
+                }
+
+                socket = new WebSocket(url);
+
+                socket.onopen = function(event) {
+                    if (!reconnectAttempts) {
+                        var clientIds = clientIdsByTokens[channelToken];
+                        for (var i = clientIds.length - 1; i >= 0; i--){
+                            var socketClientId = clientIds[i];
+                            components[socketClientId]['onopen'](channel);
+                        }
+                    }
+                    reconnectAttempts = 0;
+                };
+
+                socket.onmessage = function(event) {
+                    var message = JSON.parse(event.data);
+                    for (var i = clientIdsByTokens[channelToken].length - 1; i >= 0; i--){
+                        var socketClientId = clientIdsByTokens[channelToken][i];
+                        if(document.getElementById(socketClientId)) {
+                            try{
+                                components[socketClientId]['onmessage'](message, channel, event);
+                            }catch(e){
+                                //Ignore
+                            }
+                            var behaviors = components[socketClientId]['behaviors'];
+                            var functions = behaviors[message];
+                            if (functions && functions.length) {
+                                for (var j = 0; j < functions.length; j++) {
+                                    try{
+                                        functions[j](null);
+                                    }catch(e){
+                                        //Ignore
+                                    }
+                                }
+                            }
+                        } else {
+                            clientIdsByTokens[channelToken].splice(i,1);
+                        }
+                    }
+                    if (clientIdsByTokens[channelToken].length == 0){
+                        //tag dissapeared
+                        self.close();
+                    }
+
+                };
+
+                socket.onclose = function(event) {
+                    if (!socket
+                        || (event.code == 1000 && event.reason == REASON_EXPIRED)
+                        || (event.code == 1008)
+                        || (!reconnectAttempts)
+                        || (reconnectAttempts >= MAX_RECONNECT_ATTEMPTS))
+                    {
+                        var clientIds = clientIdsByTokens[channelToken];
+                        for (var i = clientIds.length - 1; i >= 0; i--){
+                            var socketClientId = clientIds[i];
+                            components[socketClientId]['onclose'](event.code, channel, event);
+                        }
+                    }
+                    else {
+                        setTimeout(self.open, RECONNECT_INTERVAL * reconnectAttempts++);
+                    }
+                };
+            };
+
+            /**
+             * Closes the reconnecting web socket.
+             */
+            self.close = function() {
+                if (socket) {
+                    var s = socket;
+                    socket = null;
+                    s.close();
+                }
+            }
+
+        }
+
+        // Public static functions ----------------------------------------------------------------------------------------
 
         /**
-         * Opens the reconnecting web socket.
+         *
+         * @param {function} onopen The function to be invoked when the web socket is opened.
+         * @param {function} onmessage The function to be invoked when a message is received.
+         * @param {function} onclose The function to be invoked when the web socket is closed.
+         * @param {boolean} autoconnect Whether or not to immediately open the socket. Defaults to <code>false</code>.
          */
-        self.open = function() {
-            if (socket && socket.readyState == 1) {
+        this.init = function(socketClientId, uri, channel, onopen, onmessage, onclose, behaviorScripts, autoconnect) {
+
+            onclose = resolveFunction(onclose);
+
+            if (!window.WebSocket) { // IE6-9.
+                onclose(-1, channel);
                 return;
             }
 
-            socket = new WebSocket(url);
+            var channelToken = uri.substr(uri.indexOf('?')+1);
 
-            socket.onopen = function(event) {
-                if (!reconnectAttempts) {
-                    var clientIds = clientIdsByTokens[channelToken];
-                    for (var i = clientIds.length - 1; i >= 0; i--){
-                        var socketClientId = clientIds[i];
-                        components[socketClientId]['onopen'](channel);
-                    }
+            if (!components[socketClientId]) {
+                components[socketClientId] = {
+                    'channelToken': channelToken,
+                    'onopen': resolveFunction(onopen),
+                    'onmessage' : resolveFunction(onmessage),
+                    'onclose': onclose,
+                    'behaviors': behaviorScripts,
+                    'autoconnect': autoconnect};
+                if (!clientIdsByTokens[channelToken]) {
+                    clientIdsByTokens[channelToken] = [];
                 }
-                reconnectAttempts = 0;
-            };
+                clientIdsByTokens[channelToken].push(socketClientId);
+                if (!sockets[channelToken]){
+                    sockets[channelToken] = new Socket(channelToken,
+                        getBaseURL(uri), channel);
+                }
+            }
 
-            socket.onmessage = function(event) {
-                var message = JSON.parse(event.data);
-                for (var i = clientIdsByTokens[channelToken].length - 1; i >= 0; i--){
-                    var socketClientId = clientIdsByTokens[channelToken][i];
-                    if(document.getElementById(socketClientId)) {
-                        try{
-                            components[socketClientId]['onmessage'](message, channel, event);
-                        }catch(e){
-                            //Ignore
-                        }
-                        var behaviors = components[socketClientId]['behaviors'];
-                        var functions = behaviors[message];
-                        if (functions && functions.length) {
-                            for (var j = 0; j < functions.length; j++) {
-                                try{
-                                    functions[j](null);
-                                }catch(e){
-                                    //Ignore
-                                }
-                            }
-                        }
-                    } else {
-                        clientIdsByTokens[channelToken].splice(i,1);
-                    }
-                }
-                if (clientIdsByTokens[channelToken].length == 0){
-                    //tag dissapeared
-                    self.close();
-                }
-
-            };
-
-            socket.onclose = function(event) {
-                if (!socket
-                    || (event.code == 1000 && event.reason == REASON_EXPIRED)
-                    || (event.code == 1008)
-                    || (!reconnectAttempts)
-                    || (reconnectAttempts >= MAX_RECONNECT_ATTEMPTS))
-                {
-                    var clientIds = clientIdsByTokens[channelToken];
-                    for (var i = clientIds.length - 1; i >= 0; i--){
-                        var socketClientId = clientIds[i];
-                        components[socketClientId]['onclose'](event.code, channel, event);
-                    }
-                }
-                else {
-                    setTimeout(self.open, RECONNECT_INTERVAL * reconnectAttempts++);
-                }
-            };
-        };
+            if (autoconnect) {
+                this.open(socketClientId);
+            }
+        }
 
         /**
-         * Closes the reconnecting web socket.
+         * Open the web socket on the given channel.
+         * @param {string} channel The name of the web socket channel.
+         * @throws {Error} When channel is unknown.
          */
-        self.close = function() {
+        this.open = function(socketClientId) {
+            getSocket(components[socketClientId]['channelToken']).open();
+        }
+
+        /**
+         * Close the web socket on the given channel.
+         * @param {string} channel The name of the web socket channel.
+         * @throws {Error} When channel is unknown.
+         */
+        this.close = function(socketClientId) {
+            getSocket(components[socketClientId]['channelToken']).close();
+        }
+
+        // Private static functions ---------------------------------------------------------------------------------------
+
+        /**
+         *
+         */
+        function getBaseURL(url) {
+            if (url.indexOf("://") < 0)
+            {
+                var base = window.location.hostname+":"+window.location.port
+                return URL_PROTOCOL + base + url;
+            }else
+            {
+                return url;
+            }
+        }
+
+        /**
+         * Get socket associated with given channelToken.
+         * @param {string} channelToken The name of the web socket channelToken.
+         * @return {Socket} Socket associated with given channelToken.
+         * @throws {Error} When channelToken is unknown, you may need to initialize
+         *                 it first via <code>init()</code> function.
+         */
+        function getSocket(channelToken) {
+            var socket = sockets[channelToken];
             if (socket) {
-                var s = socket;
-                socket = null;
-                s.close();
+                return socket;
+            } else {
+                throw new Error("Unknown channelToken: " + channelToken);
             }
         }
 
-    }
-
-    // Public static functions ----------------------------------------------------------------------------------------
-
-    /**
-     *
-     * @param {function} onopen The function to be invoked when the web socket is opened.
-     * @param {function} onmessage The function to be invoked when a message is received.
-     * @param {function} onclose The function to be invoked when the web socket is closed.
-     * @param {boolean} autoconnect Whether or not to immediately open the socket. Defaults to <code>false</code>.
-     */
-    this.init = function(socketClientId, uri, channel, onopen, onmessage, onclose, behaviorScripts, autoconnect) {
-
-        onclose = resolveFunction(onclose);
-
-        if (!window.WebSocket) { // IE6-9.
-            onclose(-1, channel);
-            return;
+        function resolveFunction(fn) {
+            return (typeof fn !== "function") && (fn = window[fn] || function(){}), fn;
         }
+        // Expose self to public ------------------------------------------------------------------------------------------
 
-        var channelToken = uri.substr(uri.indexOf('?')+1);
-
-        if (!components[socketClientId]) {
-            components[socketClientId] = {
-                'channelToken': channelToken,
-                'onopen': resolveFunction(onopen),
-                'onmessage' : resolveFunction(onmessage),
-                'onclose': onclose,
-                'behaviors': behaviorScripts,
-                'autoconnect': autoconnect};
-            if (!clientIdsByTokens[channelToken]) {
-                clientIdsByTokens[channelToken] = [];
-            }
-            clientIdsByTokens[channelToken].push(socketClientId);
-            if (!sockets[channelToken]){
-                sockets[channelToken] = new Socket(channelToken,
-                                    getBaseURL(uri), channel);
-            }
-        }
-
-        if (autoconnect) {
-            this.open(socketClientId);
-        }
+        //return self;
     }
-
-    /**
-     * Open the web socket on the given channel.
-     * @param {string} channel The name of the web socket channel.
-     * @throws {Error} When channel is unknown.
-     */
-    this.open = function(socketClientId) {
-        getSocket(components[socketClientId]['channelToken']).open();
-    }
-
-    /**
-     * Close the web socket on the given channel.
-     * @param {string} channel The name of the web socket channel.
-     * @throws {Error} When channel is unknown.
-     */
-    this.close = function(socketClientId) {
-        getSocket(components[socketClientId]['channelToken']).close();
-    }
-
-    // Private static functions ---------------------------------------------------------------------------------------
-
-    /**
-     *
-     */
-    function getBaseURL(url) {
-        if (url.indexOf("://") < 0)
-        {
-            var base = window.location.hostname+":"+window.location.port
-            return URL_PROTOCOL + base + url;
-        }else
-        {
-            return url;
-        }
-    }
-
-    /**
-     * Get socket associated with given channelToken.
-     * @param {string} channelToken The name of the web socket channelToken.
-     * @return {Socket} Socket associated with given channelToken.
-     * @throws {Error} When channelToken is unknown, you may need to initialize
-     *                 it first via <code>init()</code> function.
-     */
-    function getSocket(channelToken) {
-        var socket = sockets[channelToken];
-        if (socket) {
-            return socket;
-        } else {
-            throw new Error("Unknown channelToken: " + channelToken);
-        }
-    }
-
-    function resolveFunction(fn) {
-        return (typeof fn !== "function") && (fn = window[fn] || function(){}), fn;
-    }
-    // Expose self to public ------------------------------------------------------------------------------------------
-
-    //return self;
-  }
 }
 
