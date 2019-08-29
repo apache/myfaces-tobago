@@ -35,6 +35,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+/**
+ * Converts durations. The duration value in the model is of type long.
+ * The string format must have one of this patterns:
+ * <ul>
+ * <li>hh:MM:ss</li>
+ * <li>MM:ss</li>
+ * <li>ss</li>
+ * </ul>
+ * There may be an optional attribute "unit" in the component, which allows to set the unit of the model.
+ * The default unit is "millis". Examples:
+ * <table>
+ *   <tr><th>input string</th><th>unit</th><th>resulting long in model</th><th>Remark</th></tr>
+ *   <tr><td>1:15</td><td>milli</td><td>75000</td><td></td></tr>
+ *   <tr><td>1:15:00</td><td>hour</td><td>1</td><td>Loosing 15 Minutes!</td></tr>
+ *   <tr><td>1:15:00</td><td>null</td><td>4500000</td><td></td></tr>
+ * </table>
+ */
 @org.apache.myfaces.tobago.apt.annotation.Converter(id = DurationConverter.CONVERTER_ID)
 public class DurationConverter implements Converter {
 
@@ -77,9 +94,7 @@ public class DurationConverter implements Converter {
       string = (negative ? "-" : "") + minutes + ":"
           + format.format(seconds);
     }
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("string = '{}'", string);
-    }
+    LOG.debug("string = '{}'", string);
     return string;
   }
 
@@ -93,7 +108,7 @@ public class DurationConverter implements Converter {
     while (tokenizer.hasMoreTokens()) {
       elements.add(tokenizer.nextToken());
     }
-    int hours = 0;
+    final int hours;
     final int minutes;
     final int seconds;
     switch (elements.size()) {
@@ -103,8 +118,14 @@ public class DurationConverter implements Converter {
         seconds = Integer.parseInt(elements.get(2));
         break;
       case 2:
+        hours = 0;
         minutes = Integer.parseInt(elements.get(0));
         seconds = Integer.parseInt(elements.get(1));
+        break;
+      case 1:
+        hours = 0;
+        minutes = 0;
+        seconds = Integer.parseInt(elements.get(0));
         break;
       default:
         throw new ConverterException("Cannot parse string='" + string + "'");
@@ -121,15 +142,19 @@ public class DurationConverter implements Converter {
   private static double getUnitFactor(final UIComponent component) {
     final String unitString = ComponentUtils.getStringAttribute(component, Attributes.unit);
     Unit unit;
-    try {
-      unit = Unit.valueOf(unitString);
-    } catch (final Exception e) {
-      LOG.warn("Unsupported unit: '{}'", unitString);
+    if (unitString != null) {
+      try {
+        unit = Unit.valueOf(unitString);
+      } catch (final Exception e) {
+        LOG.warn("Unsupported unit: '{}'", unitString);
+        unit = Unit.milli;
+      }
+    } else {
       unit = Unit.milli;
     }
     switch (unit) {
       case nano:
-        return 0.000000001;
+        return 0.000_000_001;
       default:
       case milli:
         return 0.001;
@@ -138,11 +163,11 @@ public class DurationConverter implements Converter {
       case minute:
         return 60.0;
       case hour:
-        return 3600.0;
+        return 3_600.0;
       case day:
-        return 86400.0;
+        return 86_400.0;
       case year:
-        return 31556736.0;
+        return 31_556_736.0;
     }
   }
 
