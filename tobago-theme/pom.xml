@@ -145,10 +145,13 @@
                     <include>css/tobago.min.css.map</include>
                     <include>js/test.js</include>
                     <include>js/test.js.map</include>
+                    <include>js/ext*.js</include>
+                    <include>js/ext*.js.map</include>
+                    <include>ts/ext*.ts</include>
                     <include>js/tobago*.js</include>
                     <include>js/tobago*.js.map</include>
-                    <include>ts/test.ts</include>
                     <include>ts/tobago*.ts</include>
+                    <include>ts/test.ts</include>
                     <!-- todo: check a better way for polyfill -->
                     <include>node_modules/@babel/polyfill/dist/polyfill.js</include>
                   </includes>

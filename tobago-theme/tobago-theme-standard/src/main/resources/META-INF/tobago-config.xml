@@ -70,6 +70,7 @@
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-polyfill.js"/>
           <script type="module" name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-all.js"/>
 <!--
+          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/ext-bootstrap.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-listener.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-core.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-dropdown.js"/>

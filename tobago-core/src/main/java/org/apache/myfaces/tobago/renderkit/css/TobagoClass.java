@@ -153,7 +153,6 @@ public enum TobagoClass implements CssItem {
   PAGE__MENU_STORE("tobago-page-menuStore"),
   PAGE__NOSCRIPT("tobago-page-noscript"),
   PANEL("tobago-panel"),
-  POPUP("tobago-popup"),
   PROGRESS("tobago-progress"),
   SECTION("tobago-section"),
   SECTION__HEADER("tobago-section-header"),

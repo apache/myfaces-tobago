@@ -51,7 +51,7 @@ public class HackResourceExtentionFilter implements Filter {
     }
     final String version = Package.getPackage("org.apache.myfaces.tobago.component").getImplementationVersion();
     final String contextPath = filterConfig.getServletContext().getContextPath();
-    prefix = contextPath + "/tobago/standard/tobago-bootstrap/" + version + "/js/tobago-";
+    prefix = contextPath + "/tobago/standard/tobago-bootstrap/" + version + "/js/";
   }
 
   @Override

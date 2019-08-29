@@ -15,53 +15,50 @@
  * limitations under the License.
  */
 
-import {Listener, Phase} from "./tobago-listener";
-import {DomUtils, Tobago4Utils} from "./tobago-utils";
+import {BootstrapUtils} from "./ext-bootstrap";
 
-export class Popup {
+export class Popup extends HTMLElement {
 
-  /**
-   * Init popup for bootstrap
-   */
-  static init = function (elements) {
-    elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-    var popups = Tobago4Utils.selectWithJQuery(elements, ".modal");
-    popups.each(function () {
-      var $popup = jQuery(this);
-      var $hidden = Collapse.findHidden($popup);
-      if ($hidden.val() == "false") {
-        // XXX hack: this is needed for popups open by AJAX.
-        // XXX currently the DOM replacement done by Tobago doesn't remove the modal-backdrop
-        jQuery(".modal-backdrop").remove();
+  static close(button: HTMLElement) {
+    BootstrapUtils.modal(button.closest(".modal"), "hide");
+  }
 
-        jQuery(this).modal("show"); // inits and opens the popup
-      } else {
-        jQuery(this).modal("hide"); // inits and hides the popup
+  constructor() {
+    super();
+  }
+
+  connectedCallback() {
+    const hidden = Collapse.findHidden(this);
+    if (hidden.value === "false") {
+      // XXX hack: this is needed for popups open by AJAX.
+      // XXX currently the DOM replacement done by Tobago doesn't remove the modal-backdrop
+      for (const backdrop of document.querySelectorAll(".modal-backdrop")) {
+        backdrop.parentNode.removeChild(backdrop);
       }
-    });
-  };
 
-  static close = function (button) {
-    jQuery(button).parents('.modal:first').modal("hide");
-
-  };
+      BootstrapUtils.modal(this, "show"); // inits and opens the popup
+    } else {
+      BootstrapUtils.modal(this, "hide"); // inits and hides the popup
+    }
+  }
 }
 
-Listener.register(Popup.init, Phase.DOCUMENT_READY);
-Listener.register(Popup.init, Phase.AFTER_UPDATE);
+document.addEventListener("DOMContentLoaded", function (event: Event) {
+  window.customElements.define("tobago-popup", Popup);
+});
 
 export class Collapse {
 
-  static findHidden = function ($element) {
-    return jQuery(DomUtils.escapeClientId($element.attr("id") + "::collapse"));
-  };
+  static findHidden(element: HTMLElement): HTMLInputElement {
+    return document.getElementById(element.id + "::collapse") as HTMLInputElement;
+  }
 
   static execute = function (collapse) {
-    var transition = collapse.transition;
-    var $for = jQuery(DomUtils.escapeClientId(collapse.forId));
-    var $hidden = Collapse.findHidden($for);
-    var isPopup = $for.hasClass("tobago-popup");
-    var newCollapsed;
+    const transition = collapse.transition;
+    const forElement = document.getElementById(collapse.forId);
+    const hidden = Collapse.findHidden(forElement);
+    const isPopup = forElement.tagName === "TOBAGO-POPUP";
+    let newCollapsed;
     switch (transition) {
       case "hide":
         newCollapsed = true;
@@ -74,17 +71,17 @@ export class Collapse {
     }
     if (newCollapsed) {
       if (isPopup) {
-        $for.modal("hide");
+        BootstrapUtils.modal(forElement, "hide");
       } else {
-        $for.addClass("tobago-collapsed");
+        forElement.classList.add("tobago-collapsed");
       }
     } else {
       if (isPopup) {
-        $for.modal("show");
+        BootstrapUtils.modal(forElement, "show");
       } else {
-        $for.removeClass("tobago-collapsed");
+        forElement.classList.remove("tobago-collapsed");
       }
     }
-    $hidden.val(newCollapsed);
+    hidden.value = newCollapsed;
   };
 }

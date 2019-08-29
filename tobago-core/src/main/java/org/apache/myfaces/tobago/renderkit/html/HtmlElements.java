@@ -135,6 +135,7 @@ public enum HtmlElements {
 
   TOBAGO_IN("tobago-in"),
   TOBAGO_PANEL("tobago-panel"),
+  TOBAGO_POPUP("tobago-popup"),
   TOBAGO_SPLIT_LAYOUT("tobago-split-layout"),
   TOBAGO_STARS("tobago-stars"),
   TOBAGO_SUGGEST("tobago-suggest");

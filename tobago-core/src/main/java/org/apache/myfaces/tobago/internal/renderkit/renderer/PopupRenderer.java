@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.model.CollapseMode;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
@@ -49,11 +48,9 @@ public class PopupRenderer extends PanelRendererBase {
     // this makes the popup NOT closable with a click to the background
     ComponentUtils.putDataAttribute(popup, "backdrop", "static");
 
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.TOBAGO_POPUP);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
-        TobagoClass.POPUP,
-        TobagoClass.POPUP.createMarkup(markup),
         BootstrapClass.MODAL,
         BootstrapClass.FADE,
         popup.getCustomClass());
@@ -81,7 +78,7 @@ public class PopupRenderer extends PanelRendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.TOBAGO_POPUP);
 
   }
 }
