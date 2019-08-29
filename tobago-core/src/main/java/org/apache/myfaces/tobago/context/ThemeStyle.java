@@ -26,10 +26,10 @@ public final class ThemeStyle extends ThemeResource {
 
   @Override
   public String toString() {
-    return "ThemeStyle{" +
-        "name='" + getName() + '\'' +
-        ", priority=" + getPriority() +
-        '}';
+    return "ThemeStyle{"
+        + "name='" + getName() + '\''
+        + ", priority=" + getPriority()
+        + '}';
   }
 
 }

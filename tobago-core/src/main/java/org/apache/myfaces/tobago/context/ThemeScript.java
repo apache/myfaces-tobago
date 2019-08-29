@@ -58,11 +58,11 @@ public final class ThemeScript extends ThemeResource {
 
   @Override
   public String toString() {
-    return "ThemeScript{" +
-        "type='" + type + '\'' +
-        ", name='" + getName() + '\'' +
-        ", priority=" + getPriority() +
-        '}';
+    return "ThemeScript{"
+        + "type='" + type + '\''
+        + ", name='" + getName() + '\''
+        + ", priority=" + getPriority()
+        + '}';
   }
 
 }

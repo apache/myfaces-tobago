@@ -45,9 +45,9 @@ public class DurationConverterUnitTest {
     format("hour", 1L, "1:00:00");
     format("day", 1L, "24:00:00");
     format("year", 1L, "8765:45:36");
-    format("milli",75_000L,"1:15");
-    format("hour",1L,"1:00:00");
-    format(null,4_500_000L,"1:15:00");
+    format("milli", 75_000L, "1:15");
+    format("hour", 1L, "1:00:00");
+    format(null, 4_500_000L, "1:15:00");
   }
 
   @Test
@@ -60,9 +60,9 @@ public class DurationConverterUnitTest {
     parse("hour", 1L, "1:00:00");
     parse("day", 1L, "24:00:00");
     parse("year", 1L, "8765:45:36");
-    parse("milli",75_000L,"1:15");
-    parse("hour",1L,"1:15:00");
-    parse(null,4_500_000L,"1:15:00");
+    parse("milli", 75_000L, "1:15");
+    parse("hour", 1L, "1:15:00");
+    parse(null, 4_500_000L, "1:15:00");
   }
 
   private void format(final String unit, final Long aLong, final String string) {
