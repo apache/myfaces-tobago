@@ -23,4 +23,13 @@ package org.apache.myfaces.tobago.context;
  * @since 1.5.0
  */
 public final class ThemeStyle extends ThemeResource {
+
+  @Override
+  public String toString() {
+    return "ThemeStyle{" +
+        "name='" + getName() + '\'' +
+        ", priority=" + getPriority() +
+        '}';
+  }
+
 }

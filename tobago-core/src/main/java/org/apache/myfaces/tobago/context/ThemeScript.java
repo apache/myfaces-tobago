@@ -55,4 +55,14 @@ public final class ThemeScript extends ThemeResource {
   public int hashCode() {
     return Objects.hash(super.hashCode(), type);
   }
+
+  @Override
+  public String toString() {
+    return "ThemeScript{" +
+        "type='" + type + '\'' +
+        ", name='" + getName() + '\'' +
+        ", priority=" + getPriority() +
+        '}';
+  }
+
 }

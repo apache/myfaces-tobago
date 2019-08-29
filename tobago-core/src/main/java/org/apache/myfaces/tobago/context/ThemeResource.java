@@ -24,7 +24,7 @@ import java.io.Serializable;
 /**
  * @since 1.5.0
  */
-public class ThemeResource implements Serializable {
+public abstract class ThemeResource implements Serializable {
 
   private String name;
   private int priority;
