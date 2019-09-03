@@ -149,12 +149,11 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
     final Markup markup = tabGroup.getMarkup();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.TOBAGO_TAB_GROUP);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
-        TobagoClass.TAB_GROUP,
-        TobagoClass.TAB_GROUP.createMarkup(markup),
         BootstrapClass.CARD,
+        TobagoClass.TAB_GROUP.createMarkup(markup),
         tabGroup.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
@@ -173,7 +172,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
 
     encodeContent(facesContext, writer, tabGroup, activeIndex, switchType);
 
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.TOBAGO_TAB_GROUP);
   }
 
   private int ensureRenderedActiveIndex(final FacesContext context, final AbstractUITabGroup tabGroup) {
@@ -217,6 +216,8 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
       final int activeIndex, final SwitchType switchType)
       throws IOException {
 
+    final String tabGroupClientId = tabGroup.getClientId(facesContext);
+
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.CARD_HEADER);
     writer.startElement(HtmlElements.UL);
@@ -249,7 +250,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
             markup = markup.add(ComponentUtils.markupOfSeverity(maxSeverity));
           }
 
-          writer.startElement(HtmlElements.LI);
+          writer.startElement(HtmlElements.TOBAGO_TAB);
           writer.writeIdAttribute(tabId);
           writer.writeClassAttribute(
               TobagoClass.TAB,
@@ -257,6 +258,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
               BootstrapClass.NAV_ITEM,
               barFacet != null ? TobagoClass.TAB__BAR_FACET : null,
               tab.getCustomClass());
+          writer.writeAttribute(HtmlAttributes.FOR, tabGroupClientId, true);
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
           writer.writeAttribute(DataAttributes.TAB_GROUP_INDEX, index);
           final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, tab);
@@ -322,7 +324,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
             writer.endElement(HtmlElements.DIV);
           }
 
-          writer.endElement(HtmlElements.LI);
+          writer.endElement(HtmlElements.TOBAGO_TAB);
         }
         index++;
       }
