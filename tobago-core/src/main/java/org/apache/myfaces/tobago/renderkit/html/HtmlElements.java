@@ -138,7 +138,9 @@ public enum HtmlElements {
   TOBAGO_POPUP("tobago-popup"),
   TOBAGO_SPLIT_LAYOUT("tobago-split-layout"),
   TOBAGO_STARS("tobago-stars"),
-  TOBAGO_SUGGEST("tobago-suggest");
+  TOBAGO_SUGGEST("tobago-suggest"),
+  TOBAGO_TAB("tobago-tab"),
+  TOBAGO_TAB_GROUP("tobago-tab-group");
 
   private final String value;
   private final boolean voidElement;
