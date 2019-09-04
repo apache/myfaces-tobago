@@ -15,122 +15,109 @@
  * limitations under the License.
  */
 
-import {Tobago} from "../tobago/standard/tobago-bootstrap/5.0.0-SNAPSHOT/js/tobago-core";
 import {Listener, Phase} from "../tobago/standard/tobago-bootstrap/5.0.0-SNAPSHOT/js/tobago-listener";
-import {Tobago4Utils} from "../tobago/standard/tobago-bootstrap/5.0.0-SNAPSHOT/js/tobago-utils";
 
-const Demo = {};
+class Demo {
 
-var initAlert = function () {
-  document.querySelectorAll("[data-alert-text]").forEach(function (element) {
-    element.addEventListener("click", function(event) {
-      var text = event.currentTarget.dataset["alertText"];
-      alert(text);
-    });
-  });
-};
-
-// old
-Tobago.registerListener(initAlert, Phase.DOCUMENT_READY);
-Tobago.registerListener(initAlert, Phase.AFTER_UPDATE);
-
-// new
-// Listener.register(initAlert, Phase.DOCUMENT_READY);
-// Listener.register(initAlert, Phase.AFTER_UPDATE);
-
-var initInspect = function (elements) {
-
-  jQuery("code").find("br").replaceWith("\n");
-
-  // var tobagoElements = Tobago.Utils.selectWithJQuery(elements, ".tobago-in,.tobago-out,.tobago-date");
-  elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-  var tobagoElements = Tobago4Utils.selectWithJQuery(elements, ".tobago-flexLayout");
-
-  // do highlighting with hovering only in the content-area
-  tobagoElements = tobagoElements.filter(function () {
-    return jQuery(this).parents("#page\\:content").length === 1;
-  });
-
-  tobagoElements.hover(function () {
-
-    // clear old selections:
-    jQuery(".demo-selected").removeClass("demo-selected");
-
-    var element = jQuery(this);
-    element.addClass("demo-selected");
-
-    var clientId = element.closest("[id]").attr("id");
-    var id = clientId.substr(clientId.lastIndexOf(":") + 1);
-
-    var source = jQuery("#demo-view-source");
-
-    var span = source.find("span.token.attr-value").filter(function () {
-      return jQuery(this).prev().text() + jQuery(this).text() === 'id=' + '"' + id + '"';
-    });
-    var tag = span.parent();
-    tag.addClass("demo-selected");
-  });
-};
-
-Listener.register(initInspect, Phase.DOCUMENT_READY);
-Listener.register(initInspect, Phase.AFTER_UPDATE);
-
-Demo.prismHighlight = function (elements) {
-  // call highlighting again. (is called for all, not only for the elements, because it's easier to implement.)
-  Prism.highlightAll();
-};
-
-Listener.register(Demo.prismHighlight, Phase.AFTER_UPDATE);
-
-var initTestLinks = function () {
-  var $runLink = jQuery("#page\\:header\\:runtest");
-  var $closeLink = jQuery("#page\\:header\\:closetest");
-
-  if (jQuery(parent.document.getElementById("qunit")).length) {
-    $runLink.hide();
-    $closeLink.attr("onclick", "window.top.location.href = location.href");
-  } else {
-    $closeLink.hide();
+  static init(element) {
+    Demo.initAlert(element);
+    Demo.initInspect(element);
+    Demo.initTestLinks(element);
+    Demo.initTestFrame(element);
+    Demo.initGoogleSearch(element);
+    Demo.initMailTo(element);
   }
-};
 
-Listener.register(initTestLinks, Phase.DOCUMENT_READY);
-Listener.register(initTestLinks, Phase.AFTER_UPDATE);
-
-var initTestframe = function () {
-  jQuery("#page\\:testframe").attr("onload", "this.height = this.contentWindow.jQuery('body').prop('scrollHeight');");
-};
-
-Listener.register(initTestframe, Phase.DOCUMENT_READY);
-Listener.register(initTestframe, Phase.AFTER_UPDATE);
-
-Demo.initGoogleSearch = function () {
-  var $input = jQuery("#page\\:search\\:searchField");
-  var $button = jQuery("#page\\:search\\:searchCommand");
-
-  var search = "+site%3Atobago-vm.apache.org+demo-4";
-  $input.change(function () {
-    $button.attr("href", "https://www.google.com/search?q=" + encodeURI($input.val()) + search);
-  });
-  $input.keypress(function (e) {
-    if (e.which === 13) {
-      console.log("ENTER");
-      window.location.href = "https://www.google.com/search?q=" + encodeURI($input.val()) + search;
+  static initAlert(element) {
+    for (const e of element.querySelectorAll("[data-alert-text]")) {
+      e.addEventListener("click", function (event) {
+        alert(event.currentTarget.dataset["alertText"]);
+      });
     }
-  });
-};
+  }
 
-Listener.register(Demo.initGoogleSearch, Phase.DOCUMENT_READY);
-Listener.register(Demo.initGoogleSearch, Phase.AFTER_UPDATE);
+  static initInspect(element) {
 
-Demo.initMailTo = function () {
-  var $command = jQuery("[href^=mailto]");
-  $command.each(function() {
-    var $this = jQuery(this);
-    // this is, to fix URL encoded spaces
-    $this.attr("href", $this.attr("href").replace(/\+/g, "%20"));
-  });
-};
+    for (const code of element.querySelectorAll("code")) {
+      for (const br of code.querySelectorAll("br")) {
+        br.parentNode.insertBefore("\n", br);
+        br.parentNode.removeChild(br);
+      }
+    }
 
-Listener.register(Demo.initMailTo, Phase.DOCUMENT_READY);
-Listener.register(Demo.initMailTo, Phase.AFTER_UPDATE);
+    for (const e of element.querySelectorAll(".tobago-flexLayout")) {
+
+      // do highlighting with hovering only in the content-area
+      if (e.closest("#page\\:content")) {
+        e.addEventListener("hover", function (event) {
+
+          // clear old selections:
+          for (const selected of document.querySelectorAll(".demo-selected")) {
+            selected.classList.remove("demo-selected");
+          }
+
+          const element = event.currentTarget;
+          element.classList.add("demo-selected");
+          const clientId = element.closest("[id]").id;
+          const id = clientId.substr(clientId.lastIndexOf(":") + 1);
+          const source = document.getElementById("demo-view-source");
+
+          for (const span of source.querySelectorAll("span.token.attr-value")) {
+            if (span.textContent === 'id=' + '"' + id + '"') {
+              span.parentElement.classList.add("demo-selected");
+            }
+          }
+        });
+      }
+    }
+  }
+
+  static initTestLinks(element) {
+    const runLink = document.getElementById("page:header:runtest");
+    if (runLink && parent.document.getElementById("qunit")) {
+      runLink.classList.add("d-none");
+    }
+  }
+
+  static initTestFrame(element) {
+    const testFrame = document.getElementById("page:testframe");
+    if (testFrame) {
+      testFrame.addEventListener("onload", function () {
+        element.height = element.contentWindow.body.scrollHeight;
+      });
+    }
+  }
+
+  static initGoogleSearch(element) {
+    const input = document.getElementById("page:search:searchField");
+    const search = "+site%3Atobago-vm.apache.org+demo-4";
+    input.addEventListener("change", function (event) {
+      const input = event.currentTarget;
+      const button = document.getElementById("page:search:searchCommand");
+      button.setAttribute("href", "https://www.google.com/search?q=" + encodeURI(input.value) + search);
+    });
+    input.addEventListener("keypress", function (event) {
+      if (event.which === 13) {
+        console.log("ENTER");
+        window.location.href = "https://www.google.com/search?q=" + encodeURI(input.value()) + search;
+      }
+    });
+  };
+
+  static initMailTo(element) {
+    for (let link of document.querySelectorAll("[href^=mailto]")) {
+      // this is, to fix URL encoded spaces
+      const string = link.getAttribute("href");
+      const begin = string.indexOf("subject=");
+      const href = string.substring(0, begin) + string.substring(begin).replace(/\+/g, "%20");
+      link.setAttribute("href", href);
+    }
+  };
+
+}
+
+Listener.register(Demo.init, Phase.DOCUMENT_READY);
+Listener.register(Demo.init, Phase.AFTER_UPDATE);
+
+// call highlighting again. (is called for all, not only for the elements, because it's easier to implement.)
+Listener.register(Prism.highlightAll, Phase.AFTER_UPDATE);
