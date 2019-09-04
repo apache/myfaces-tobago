@@ -38,7 +38,8 @@ export class CommandMap {
 
     if (change.execute || change.render) {
       jsf.ajax.request(
-          element.getAttribute("name"),
+          element,
+          // element.getAttribute("name"),
           event,
           {
             "javax.faces.behavior.event": "change",
@@ -76,7 +77,7 @@ export class CommandMap {
     if (!command.omit) {
       const popup = command.popup;
       if (popup && popup.command === "close" && popup.immediate) {
-        Popup.close(this);
+        Popup.close(element);
       } else {
         const action = command.action ? command.action : element.id;
         if (command.execute || command.render) {
@@ -93,7 +94,7 @@ export class CommandMap {
           Command.submitAction(this, action, command);
         }
         if (popup && popup.command === "close") {
-          Popup.close(this);
+          Popup.close(element);
         }
       }
     }
@@ -141,7 +142,7 @@ export class Command {
   static isSubmit: boolean = false;
 
   confirmation: string;
-  collapse: boolean;
+  collapse: boolean; // XXX is boolean okay??? Should this be not an element or a structure?
   omit: boolean;
   popup; // todo: type
   action: string;
@@ -243,11 +244,7 @@ export class Command {
     }
   }
 
-  static init = function (element: HTMLElement) {
-    Command.initialize(element, false);
-  };
-
-  static initialize = function (element: HTMLElement, force: boolean) {
+  static init = function (element: HTMLElement, force: boolean = false) {
 
     for (const commandElement of DomUtils.selfOrQuerySelectorAll(element, "[data-tobago-commands]")) {
 

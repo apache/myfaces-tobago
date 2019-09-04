@@ -47,7 +47,7 @@ class TabGroup extends HTMLElement {
       }
     }
 
-    Command.initialize(tabGroup, true);
+    Command.init(tabGroup, true);
   }
 
   get tabs(): NodeListOf<Tab> {
