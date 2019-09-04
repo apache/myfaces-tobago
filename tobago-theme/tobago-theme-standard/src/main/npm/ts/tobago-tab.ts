@@ -87,5 +87,5 @@ class Tab extends HTMLElement {
 
 document.addEventListener("DOMContentLoaded", function (event) {
   window.customElements.define('tobago-tab-group', TabGroup);
-  // window.customElements.define('tobago-tab', Tab);
+  window.customElements.define('tobago-tab', Tab);
 });
