@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
-import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -43,7 +42,6 @@ import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 import java.io.IOException;
@@ -95,22 +93,6 @@ public final class HtmlRendererUtils {
     }
   }
 
-  /**
-   * @deprecated 4.0.0.
-   */
-  @Deprecated
-  public static void encodeIconWithLabel(
-      final TobagoResponseWriter writer, final String image, final String label) throws IOException {
-    if (image != null && image.startsWith("fa-")) { // XXX hack: should be integrated in the resource manager
-      writer.writeIcon(null, Icons.custom(image)); // todo: should not be static
-    }
-    if (label != null) {
-      writer.startElement(HtmlElements.SPAN);
-      writer.writeText(label);
-      writer.endElement(HtmlElements.SPAN);
-    }
-  }
-
   public static void encodeIconOrImage(final TobagoResponseWriter writer, final String image) throws IOException {
     if (image != null) {
       if (image.startsWith("fa-")) {
@@ -123,46 +105,6 @@ public final class HtmlRendererUtils {
         writer.writeAttribute(HtmlAttributes.ALT, "", false);
         writer.endElement(HtmlElements.IMG);
       }
-    }
-  }
-
-  /**
-   * @deprecated 4.0.0.
-   */
-  @Deprecated
-  public static void encodeIconWithLabel(
-      final TobagoResponseWriter writer, final FacesContext facesContext, final String image,
-      final LabelWithAccessKey label, final boolean disabled)
-      throws IOException {
-    if (image != null) {
-      if (image.startsWith("fa-")) {
-        writer.writeIcon(null, Icons.custom(image)); // todo: should not be static
-      } else {
-        writer.startElement(HtmlElements.IMG);
-        writer.writeAttribute(HtmlAttributes.SRC, image, true);
-        writer.writeAttribute(HtmlAttributes.ALT, "", false);
-        writer.endElement(HtmlElements.IMG);
-      }
-    }
-
-    if (label.getLabel() != null) {
-      writer.startElement(HtmlElements.SPAN);
-      HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
-      writer.endElement(HtmlElements.SPAN);
-    }
-  }
-
-  /**
-   * @deprecated since 3.0.0, use {@link org.apache.myfaces.tobago.renderkit.RendererBase#getResponseWriter}
-   */
-  @Deprecated
-  public static TobagoResponseWriter getTobagoResponseWriter(final FacesContext facesContext) {
-
-    final ResponseWriter writer = facesContext.getResponseWriter();
-    if (writer instanceof TobagoResponseWriter) {
-      return (TobagoResponseWriter) writer;
-    } else {
-      return new TobagoResponseWriterWrapper(writer);
     }
   }
 
@@ -182,16 +124,6 @@ public final class HtmlRendererUtils {
       result += tip;
     }
     return result;
-  }
-
-  /**
-   * @deprecated Since Tobago 2.0.7
-   */
-  @Deprecated
-  public static void renderSelectItems(final UIInput component, final TobagoClass optionClass,
-      final Iterable<SelectItem> items, final Object[] values, final TobagoResponseWriter writer,
-      final FacesContext facesContext) throws IOException {
-    renderSelectItems(component, optionClass, items, values, null, null, writer, facesContext);
   }
 
   public static void renderSelectItems(final UIInput component, final TobagoClass optionClass,
