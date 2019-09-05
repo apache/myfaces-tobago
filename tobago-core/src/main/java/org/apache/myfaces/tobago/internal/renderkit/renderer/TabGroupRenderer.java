@@ -41,6 +41,7 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -72,7 +73,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  private static final String ACTIVE_INDEX_POSTFIX = ComponentUtils.SUB_SEPARATOR + "activeIndex";
+  private static final String INDEX_POSTFIX = ComponentUtils.SUB_SEPARATOR + "index";
 
   @Override
   public void processEvent(final ComponentSystemEvent event) {
@@ -124,15 +125,15 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
 
     final String clientId = component.getClientId(facesContext);
     final Map parameters = facesContext.getExternalContext().getRequestParameterMap();
-    final String newValue = (String) parameters.get(clientId + ACTIVE_INDEX_POSTFIX);
+    final String newValue = (String) parameters.get(clientId + INDEX_POSTFIX);
     try {
-      final int activeIndex = Integer.parseInt(newValue);
-      if (activeIndex != oldIndex) {
-        final TabChangeEvent event = new TabChangeEvent(component, oldIndex, activeIndex);
+      final int newIndex = Integer.parseInt(newValue);
+      if (newIndex != oldIndex) {
+        final TabChangeEvent event = new TabChangeEvent(component, oldIndex, newIndex);
         component.queueEvent(event);
       }
     } catch (final NumberFormatException e) {
-      LOG.error("Can't parse activeIndex: '" + newValue + "'");
+      LOG.error("Can't parse newIndex: '" + newValue + "'");
     }
   }
 
@@ -141,10 +142,10 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
 
     final AbstractUITabGroup tabGroup = (AbstractUITabGroup) uiComponent;
 
-    final int activeIndex = ensureRenderedActiveIndex(facesContext, tabGroup);
+    final int selectedIndex = ensureRenderedSelectedIndex(facesContext, tabGroup);
 
     final String clientId = tabGroup.getClientId(facesContext);
-    final String hiddenId = clientId + TabGroupRenderer.ACTIVE_INDEX_POSTFIX;
+    final String hiddenId = clientId + TabGroupRenderer.INDEX_POSTFIX;
     final SwitchType switchType = tabGroup.getSwitchType();
     final Markup markup = tabGroup.getMarkup();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
@@ -157,33 +158,33 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
         tabGroup.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
-    writer.writeAttribute(DataAttributes.SWITCH_TYPE, switchType.name(), false);
+    writer.writeAttribute(CustomAttributes.SWITCH_TYPE, switchType.name(), false);
 
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-    writer.writeAttribute(HtmlAttributes.VALUE, activeIndex);
+    writer.writeAttribute(HtmlAttributes.VALUE, selectedIndex);
     writer.writeNameAttribute(hiddenId);
     writer.writeIdAttribute(hiddenId);
     writer.endElement(HtmlElements.INPUT);
 
     if (tabGroup.isShowNavigationBar()) {
-      encodeHeader(facesContext, writer, tabGroup, activeIndex, switchType);
+      encodeHeader(facesContext, writer, tabGroup, selectedIndex, switchType);
     }
 
-    encodeContent(facesContext, writer, tabGroup, activeIndex, switchType);
+    encodeContent(facesContext, writer, tabGroup, selectedIndex, switchType);
 
     writer.endElement(HtmlElements.TOBAGO_TAB_GROUP);
   }
 
-  private int ensureRenderedActiveIndex(final FacesContext context, final AbstractUITabGroup tabGroup) {
-    final int activeIndex = tabGroup.getSelectedIndex();
+  private int ensureRenderedSelectedIndex(final FacesContext context, final AbstractUITabGroup tabGroup) {
+    final int selectedIndex = tabGroup.getSelectedIndex();
     // ensure to select a rendered tab
     int index = -1;
     int closestRenderedTabIndex = -1;
     for (final UIComponent tab : tabGroup.getChildren()) {
       if (tab instanceof AbstractUIPanelBase) {
         index++;
-        if (index == activeIndex) {
+        if (index == selectedIndex) {
           if (tab.isRendered()) {
             return index;
           } else if (closestRenderedTabIndex > -1) {
@@ -192,7 +193,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
         }
         if (tab.isRendered()) {
           closestRenderedTabIndex = index;
-          if (index > activeIndex) {
+          if (index > selectedIndex) {
             break;
           }
         }
@@ -213,7 +214,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
 
   private void encodeHeader(
       final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITabGroup tabGroup,
-      final int activeIndex, final SwitchType switchType)
+      final int selectedIndex, final SwitchType switchType)
       throws IOException {
 
     final String tabGroupClientId = tabGroup.getClientId(facesContext);
@@ -241,7 +242,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
           final String tabId = tab.getClientId(facesContext);
           Markup markup = tab.getMarkup() != null ? tab.getMarkup() : Markup.NULL;
 
-          if (activeIndex == index) {
+          if (selectedIndex == index) {
             markup = markup.add(Markup.SELECTED);
           }
           final FacesMessage.Severity maxSeverity
@@ -260,7 +261,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
               tab.getCustomClass());
           writer.writeAttribute(HtmlAttributes.FOR, tabGroupClientId, true);
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
-          writer.writeAttribute(DataAttributes.TAB_GROUP_INDEX, index);
+          writer.writeAttribute(CustomAttributes.INDEX, index);
           final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, tab);
           if (title != null) {
             writer.writeAttribute(HtmlAttributes.TITLE, title, true);
@@ -272,7 +273,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
           }
           if (tab.isDisabled()) {
             writer.writeClassAttribute(BootstrapClass.NAV_LINK, BootstrapClass.DISABLED);
-          } else if (activeIndex == index) {
+          } else if (selectedIndex == index) {
             writer.writeClassAttribute(BootstrapClass.NAV_LINK, BootstrapClass.ACTIVE);
           } else {
             writer.writeClassAttribute(BootstrapClass.NAV_LINK);
@@ -286,7 +287,9 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
           if (!disabled) {
             final CommandMap map = RenderUtils.getBehaviorCommands(facesContext, tab);
             CommandMap.merge(map, tabGroupMap);
-            writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), false);
+            if (false) { // TBD
+              writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), false);
+            }
           }
 
           if (!disabled && label.getAccessKey() != null) {
@@ -335,14 +338,14 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
 
   protected void encodeContent(
       final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITabGroup tabGroup,
-      final int activeIndex, final SwitchType switchType) throws IOException {
+      final int selectedIndex, final SwitchType switchType) throws IOException {
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.CARD_BODY, BootstrapClass.TAB_CONTENT);
     int index = 0;
     for (final UIComponent child : tabGroup.getChildren()) {
       if (child instanceof AbstractUITab) {
         final AbstractUITab tab = (AbstractUITab) child;
-        if (tab.isRendered() && (switchType == SwitchType.client || index == activeIndex) && !tab.isDisabled()) {
+        if (tab.isRendered() && (switchType == SwitchType.client || index == selectedIndex) && !tab.isDisabled()) {
           final Markup markup = tab.getMarkup();
 
           writer.startElement(HtmlElements.DIV);
@@ -350,11 +353,11 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
               TobagoClass.TAB__CONTENT,
               TobagoClass.TAB__CONTENT.createMarkup(markup),
               BootstrapClass.TAB_PANE,
-              index == activeIndex ? BootstrapClass.ACTIVE : null);
+              index == selectedIndex ? BootstrapClass.ACTIVE : null);
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TABPANEL.toString(), false);
           writer.writeIdAttribute(getTabPanelId(facesContext, tab));
 
-          writer.writeAttribute(DataAttributes.TAB_GROUP_INDEX, index);
+          writer.writeAttribute(CustomAttributes.INDEX, index);
 
           tab.encodeAll(facesContext);
 

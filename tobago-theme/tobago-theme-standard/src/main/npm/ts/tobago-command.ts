@@ -244,51 +244,47 @@ export class Command {
     }
   }
 
-  static init = function (element: HTMLElement, force: boolean = false) {
+  static init = function (element: HTMLElement) {
 
     for (const commandElement of DomUtils.selfOrQuerySelectorAll(element, "[data-tobago-commands]")) {
 
-      // TODO hack to set command eventListeners after tobago-tab EventListeners
-      if (force || commandElement.parentElement.tagName !== "TOBAGO-TAB") {
+      const commandMap = new CommandMap(commandElement.dataset["tobagoCommands"]);
 
-        const commandMap = new CommandMap(commandElement.dataset["tobagoCommands"]);
+      for (const entry of commandMap.commands.entries()) {
+        const key: string = entry[0];
+        const value: Command = entry[1];
 
-        for (const entry of commandMap.commands.entries()) {
-          const key: string = entry[0];
-          const value: Command = entry[1];
-
-          switch (key) {
-            case "change":
-              commandElement.addEventListener("change", CommandMap.change);
-              break;
-            case "complete":
-              if (parseFloat(commandElement.getAttribute("value")) >= parseFloat(commandElement.getAttribute("max"))) {
-                if (commandMap.complete.execute || commandMap.complete.render) {
-                  jsf.ajax.request(
-                      this.id,
-                      null,
-                      {
-                        "javax.faces.behavior.event": "complete",
-                        execute: commandMap.complete.execute,
-                        render: commandMap.complete.render
-                      });
-                } else {
-                  Command.submitAction(this, commandMap.complete.action, commandMap.complete);
-                }
+        switch (key) {
+          case "change":
+            commandElement.addEventListener("change", CommandMap.change);
+            break;
+          case "complete":
+            if (parseFloat(commandElement.getAttribute("value")) >= parseFloat(commandElement.getAttribute("max"))) {
+              if (commandMap.complete.execute || commandMap.complete.render) {
+                jsf.ajax.request(
+                    this.id,
+                    null,
+                    {
+                      "javax.faces.behavior.event": "complete",
+                      execute: commandMap.complete.execute,
+                      render: commandMap.complete.render
+                    });
+              } else {
+                Command.submitAction(this, commandMap.complete.action, commandMap.complete);
               }
-              break;
-            case "load":
-              setTimeout(function () {
-                    Command.submitAction(this, commandMap.load.action, commandMap.load);
-                  },
-                  commandMap.load.delay || 100);
-              break;
-            case "resize":
-              window.addEventListener("resize", CommandMap.resize);
-              break;
-            default:
-              commandElement.addEventListener(key, CommandMap.otherEvent);
-          }
+            }
+            break;
+          case "load":
+            setTimeout(function () {
+                  Command.submitAction(this, commandMap.load.action, commandMap.load);
+                },
+                commandMap.load.delay || 100);
+            break;
+          case "resize":
+            window.addEventListener("resize", CommandMap.resize);
+            break;
+          default:
+            commandElement.addEventListener(key, CommandMap.otherEvent);
         }
       }
     }

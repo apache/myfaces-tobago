@@ -21,14 +21,23 @@ package org.apache.myfaces.tobago.renderkit.html;
 
 public enum CustomAttributes implements MarkupLanguageAttributes {
 
-  MIN_CHARS("min-chars"),
-  DELAY("delay"),
-  MAX_ITEMS("max-items"),
-  UPDATE("update"),
-  TOTAL_COUNT("total-count"),
-  LOCAL_MENU("local-menu"),
   DATA("data"),
-  ORIENTATION("orientation");
+  DELAY("delay"),
+  /**
+   * The index of the tab inside the tab group.
+   */
+  INDEX("index"),
+  LOCAL_MENU("local-menu"),
+  MAX_ITEMS("max-items"),
+  MIN_CHARS("min-chars"),
+  ORIENTATION("orientation"),
+  /**
+   * The mode of the tab switch: client, reloadTab, reloadPage.
+   */
+  SWITCH_TYPE("switch-type"),
+  TOTAL_COUNT("total-count"),
+  UPDATE("update");
+
 
   private final String value;
 

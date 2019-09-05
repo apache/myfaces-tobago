@@ -169,16 +169,6 @@ public enum DataAttributes implements MarkupLanguageAttributes {
 
   SCROLL_POSITION("data-tobago-scroll-position"),
 
-  /**
-   * The mode of the tab switch: client, reloadTab, reloadPage.
-   */
-  SWITCH_TYPE("data-tobago-switch-type"),
-
-  /**
-   * The index of the tab inside the tab group.
-   */
-  TAB_GROUP_INDEX("data-tobago-tab-group-index"),
-
   TARGET("data-target"),
 
   TITLE("data-title"),

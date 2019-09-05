@@ -19,6 +19,9 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
+/**
+ * HTML standard attributes. For non-standard attributes {@link CustomAttributes}
+ */
 public enum HtmlAttributes implements MarkupLanguageAttributes {
 
   ACCEPT_CHARSET("accept-charset"),
@@ -119,25 +122,7 @@ public enum HtmlAttributes implements MarkupLanguageAttributes {
   VALIGN("valign"),
   VALUE("value"),
   WIDTH("width"),
-  XMLNS("xmlns"),
-
-  // Non standard attributes ///////////////////////////////////////////////////////////
-
-  /**
-   * The index of the tab inside the tab group.
-   *
-   * @deprecated since 4.3.0, please use {@link DataAttributes#TAB_GROUP_INDEX}
-   */
-  @Deprecated
-  TABGROUPINDEX("tabgroupindex"),
-  /**
-   * The mode of the tab switch: client, reloadTab, reloadPage.
-   *
-   * @deprecated since 4.3.0, please use {@link DataAttributes#SWITCH_TYPE}
-   */
-  @Deprecated
-  SWITCHTYPE("switchtype");
-
+  XMLNS("xmlns");
 
   private final String value;
 

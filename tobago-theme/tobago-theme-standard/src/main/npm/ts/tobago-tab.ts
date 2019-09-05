@@ -18,74 +18,103 @@
 import {Command} from "./tobago-command";
 
 class TabGroup extends HTMLElement {
-  private markupCssClass: string = "tobago-tab-markup-selected";
+
+  private hiddenInput: HTMLInputElement;
 
   constructor() {
     super();
+    this.hiddenInput = this.querySelector(":scope > input[type=hidden]");
   }
 
   connectedCallback() {
-    const tabGroup: TabGroup = this;
-    const hiddenInput: HTMLInputElement = this.querySelector(":scope > input[type=hidden]");
+  }
 
-    for (const tab of tabGroup.tabs) {
-      const navLink: HTMLLinkElement = tab.querySelector(":scope > .nav-link");
-      if (!navLink.classList.contains("disabled")) {
-        navLink.addEventListener('click', function () {
-          hiddenInput.value = tab.groupIndex;
-
-          if (tabGroup.dataset.tobagoSwitchType === "client") {
-            tabGroup.activeTab.classList.remove(tabGroup.markupCssClass);
-            tabGroup.activeNavLink.classList.remove("active");
-            tabGroup.activeTabContent.classList.remove("active");
-
-            tab.classList.add(tabGroup.markupCssClass);
-            navLink.classList.add("active");
-            tabGroup.getTabContent(tab.groupIndex).classList.add("active");
-          }
-        });
-      }
-    }
-
-    Command.init(tabGroup, true);
+  get switchType(): string {
+    return this.getAttribute("switch-type");
   }
 
   get tabs(): NodeListOf<Tab> {
-    return this.querySelectorAll("tobago-tab[for='" + this.id + "']");
+    return this.querySelectorAll(":scope > .card-header > .card-header-tabs > tobago-tab") as NodeListOf<Tab>;
   }
 
-  get activeTab(): Tab {
-    return this.querySelector("tobago-tab[for='" + this.id + "']." + this.markupCssClass);
+  getSelectedTab(): Tab {
+    return this.querySelector(":scope > .card-header > .card-header-tabs > tobago-tab[index='" + this.selected + "']") as Tab;
   }
 
-  get activeNavLink(): HTMLLinkElement {
-    return this.querySelector("tobago-tab[for='" + this.id + "'] > .nav-link.active");
+  get selected(): number {
+    return parseInt(this.hiddenInput.value);
   }
 
-  get activeTabContent(): HTMLDivElement {
-    return this.querySelector(":scope > .card-body.tab-content > .tobago-tab-content.active");
-  }
-
-  getTabContent(tabGroupIndex: string): HTMLDivElement {
-    return this.querySelector(":scope > .card-body > .tobago-tab-content[data-tobago-tab-group-index='"
-        + tabGroupIndex + "']");
+  set selected(index: number) {
+    this.hiddenInput.value = String(index);
   }
 }
 
-class Tab extends HTMLElement {
+export class Tab extends HTMLElement {
+
   constructor() {
     super();
   }
 
   connectedCallback() {
+    let navLink = this.navLink;
+    if (!navLink.classList.contains("disabled")) {
+      navLink.addEventListener("click", this.select.bind(this));
+    }
   }
 
-  get groupIndex(): string {
-    return this.dataset.tobagoTabGroupIndex;
+  get index(): number {
+    return parseInt(this.getAttribute("index"));
+  }
+
+  get navLink(): HTMLLinkElement {
+    return this.querySelector(".nav-link");
+  }
+
+  get tabGroup(): TabGroup {
+    return this.closest("tobago-tab-group") as TabGroup;
+  }
+
+  select(event: MouseEvent) {
+    const tabGroup = this.tabGroup;
+    const old = tabGroup.getSelectedTab();
+    tabGroup.selected = this.index;
+
+    switch (tabGroup.switchType) {
+      case "client":
+        old.navLink.classList.remove("active");
+        this.navLink.classList.add("active");
+        old.content.classList.remove("active");
+        this.content.classList.add("active");
+        break;
+      case "reloadTab":
+        jsf.ajax.request(
+            this.navLink,
+            event, {
+              //"javax.faces.behavior.event": "click",
+              execute: tabGroup.id,
+              render: tabGroup.id
+            });
+        break;
+      case "reloadPage":
+        Command.submitAction(this.navLink, this.id);
+        break;
+      case "none": // todo
+        console.error("Not implemented yet: %s", tabGroup.switchType);
+        break;
+      default:
+        console.error("Unknown switchType='%s'", tabGroup.switchType);
+        break;
+    }
+  }
+
+  get content(): HTMLElement {
+    return this.closest("tobago-tab-group")
+        .querySelector(":scope > .card-body.tab-content > .tab-pane[index='" + this.index + "']");
   }
 }
 
 document.addEventListener("DOMContentLoaded", function (event) {
-  window.customElements.define('tobago-tab-group', TabGroup);
   window.customElements.define('tobago-tab', Tab);
+  window.customElements.define('tobago-tab-group', TabGroup);
 });
