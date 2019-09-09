@@ -72,6 +72,7 @@ $input-btn-focus-color: rgba(theme-color("primary"), .25) !default;
 $input-btn-focus-box-shadow: 0 0 0 $input-btn-focus-width $input-btn-focus-color !default;
 $input-focus-box-shadow: $input-btn-focus-box-shadow !default;
 $form-check-inline-input-margin-x: 0.75rem;
+$input-placeholder-color: $gray-600 !default;
 
 /* used icons ---------------------------------------------------- */
 
@@ -236,23 +237,18 @@ XXX workaround for Bootstrap with datetimepicker needed for popups
 }
 
 /* file -------------------------------------------------------------- */
+.tobago-file {} //TODO remove
+tobago-file {
+  .custom-file-label {
+    &:after {
+      font-family: FontAwesome;
+      content: "\f07c";
+    }
 
-.tobago-file {
-  position: relative;
-}
-
-.tobago-file-pretty {
-  text-overflow: ellipsis;
-}
-
-.tobago-file-real {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  opacity: 0;
-  width: 100%;
-  z-index: 2;
+    &.tobago-file-placeholder {
+      color: $input-placeholder-color;
+    }
+  }
 }
 
 /* flexLayout -------------------------------------------------------------- */
@@ -281,7 +277,7 @@ XXX workaround for Bootstrap with datetimepicker needed for popups
 .tobago-flexLayout.tobago-label-container > {
   .form-control, .form-control-plaintext, .twitter-typeahead,
   .tobago-input-group-outer, .tobago-messages-container,
-  .tobago-file, .tobago-selectManyShuttle {
+  .tobago-selectManyShuttle {
     flex: 1 0 0px;
   }
 }
@@ -502,7 +498,7 @@ a.tobago-messages-button, a.tobago-help-button {
 }
 
 .tobago-flexLayout.tobago-messages-container > {
-  .twitter-typeahead, .tobago-input-group-outer, .tobago-selectManyShuttle, .tobago-file {
+  .twitter-typeahead, .tobago-input-group-outer, .tobago-selectManyShuttle {
     flex: 1 0 0px;
   }
 }

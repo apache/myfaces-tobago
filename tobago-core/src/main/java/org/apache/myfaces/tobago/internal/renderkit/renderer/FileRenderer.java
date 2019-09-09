@@ -27,11 +27,9 @@ import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.PartUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -121,6 +119,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     final String clientId = file.getClientId(facesContext);
     final String fieldId = file.getFieldId(facesContext);
     final String accept = createAcceptFromValidators(file);
+    final String placeholder = file.getPlaceholder();
     final boolean multiple = file.isMultiple() && !file.isRequired();
     final boolean disabled = file.isDisabled();
     final boolean readonly = file.isReadonly();
@@ -130,74 +129,54 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.TOBAGO_FILE);
     if (file.isLabelLayoutSkip()) {
       writer.writeIdAttribute(clientId);
     }
     writer.writeClassAttribute(
-        TobagoClass.FILE,
+        BootstrapClass.CUSTOM_FILE,
         TobagoClass.FILE.createMarkup(file.getMarkup()),
         file.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, file);
 
-    // visible fake input for a pretty look
-    writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
-    writer.startElement(HtmlElements.INPUT);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
-    writer.writeAttribute(HtmlAttributes.ACCEPT, accept, true);
-    writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
-    writer.writeAttribute(HtmlAttributes.DISABLED, disabled || readonly);
-    writer.writeAttribute(HtmlAttributes.READONLY, readonly);
-    if (!disabled && !readonly) {
-      writer.writeAttribute(HtmlAttributes.PLACEHOLDER, file.getPlaceholder(), true);
-    }
-
-    writer.writeClassAttribute(
-        TobagoClass.FILE__PRETTY,
-        BootstrapClass.FORM_CONTROL,
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(file)));
-    // TODO Focus
-    //HtmlRendererUtils.renderFocus(clientId, file.isFocus(), ComponentUtils.isError(file), facesContext, writer);
-    writer.endElement(HtmlElements.INPUT);
-
-    // invisible file input
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, multiple);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.FILE);
     writer.writeAttribute(HtmlAttributes.ACCEPT, accept, true);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
     writer.writeIdAttribute(fieldId);
-    writer.writeClassAttribute(TobagoClass.FILE__REAL);
+    writer.writeClassAttribute(
+        BootstrapClass.CUSTOM_FILE_INPUT,
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(file)));
     writer.writeNameAttribute(clientId);
     final String multiFormat = ResourceUtils.getString(facesContext, "file.selected");
     writer.writeAttribute(DataAttributes.dynamic("tobago-file-multi-format"), multiFormat, true);
     // readonly seems not making sense in browsers.
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled || readonly);
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
+    if (!disabled && !readonly) {
+      writer.writeAttribute(HtmlAttributes.PLACEHOLDER, placeholder, true);
+    }
     writer.writeAttribute(HtmlAttributes.REQUIRED, file.isRequired());
+    // TODO Focus
+    //HtmlRendererUtils.renderFocus(clientId, file.isFocus(), ComponentUtils.isError(file), facesContext, writer);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, file);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
-
     writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, file)));
-
     writer.endElement(HtmlElements.INPUT);
 
-    writer.startElement(HtmlElements.SPAN);
-    writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_APPEND);
-    writer.startElement(HtmlElements.BUTTON);
-    writer.writeAttribute(HtmlAttributes.TABINDEX, file.getTabIndex());
-    writer.writeClassAttribute(BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-    writer.writeAttribute(HtmlAttributes.DISABLED, disabled || readonly);
-    writer.startElement(HtmlElements.I);
-    writer.writeClassAttribute(Icons.FA, Icons.FOLDER_OPEN);
-    writer.endElement(HtmlElements.I);
-    writer.endElement(HtmlElements.BUTTON);
-    writer.endElement(HtmlElements.SPAN);
-    writer.endElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.LABEL);
+    writer.writeClassAttribute(
+        BootstrapClass.CUSTOM_FILE_LABEL,
+        placeholder != null ? TobagoClass.FILE__PLACEHOLDER : null
+    );
+    writer.writeAttribute(HtmlAttributes.FOR, fieldId, false);
+    if (placeholder != null && !disabled && !readonly) {
+      writer.writeText(placeholder);
+    }
+    writer.endElement(HtmlElements.LABEL);
   }
 
   private String createAcceptFromValidators(final AbstractUIFile file) {
@@ -221,7 +200,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
   @Override
   protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.TOBAGO_FILE);
   }
 
   @Override

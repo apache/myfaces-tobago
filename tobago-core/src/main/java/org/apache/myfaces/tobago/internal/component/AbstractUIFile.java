@@ -73,7 +73,7 @@ public abstract class AbstractUIFile extends UIInput implements SupportsLabelLay
 
   @Override
   public String getFieldId(final FacesContext facesContext) {
-    return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "real";
+    return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
   }
 
   public boolean isLabelLayoutSkip() {

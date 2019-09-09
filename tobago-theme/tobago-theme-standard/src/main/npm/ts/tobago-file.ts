@@ -15,38 +15,50 @@
  * limitations under the License.
  */
 
-import {Listener, Phase} from "./tobago-listener";
-import {DomUtils} from "./tobago-utils";
+export class File extends HTMLElement {
 
-class File {
+  constructor() {
+    super();
+  }
 
-  static init(element: HTMLElement) {
-    for (const e of DomUtils.selfOrQuerySelectorAll(element, ".tobago-file-real")) {
-      const real = e as HTMLInputElement;
-      real.addEventListener("change", function () {
-        const pretty = real.parentElement.querySelector(".tobago-file-pretty") as HTMLInputElement;
-        let text: string;
-        if (real.multiple) {
-          const format: string = real.dataset["tobagoFileMultiFormat"];
-          text = format.replace("{}", String(real.files.length));
-        } else {
-          text = <string>real.value;
-          // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\path\".
-          const pos: number = Math.max(text.lastIndexOf('/'), text.lastIndexOf('\\'));
-          if (pos >= 0) {
-            text = text.substr(pos + 1);
-          }
+  connectedCallback() {
+    this.input.form.enctype = "multipart/form-data";
+
+    this.input.addEventListener("change", this.select.bind(this));
+  }
+
+  get input(): HTMLInputElement {
+    return this.querySelector(".custom-file-input");
+  }
+
+  get label(): HTMLInputElement {
+    return this.querySelector(".custom-file-label");
+  }
+
+  select(event: MouseEvent) {
+    if (this.input.value === "") {
+      this.label.classList.add("tobago-file-placeholder");
+      this.label.textContent = this.input.placeholder;
+    } else {
+      this.label.classList.remove("tobago-file-placeholder");
+
+      let text: string;
+      if (this.input.multiple) {
+        const format: string = this.input.dataset["tobagoFileMultiFormat"];
+        text = format.replace("{}", String(this.input.files.length));
+      } else {
+        text = this.input.value;
+        // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\path\".
+        const pos: number = Math.max(text.lastIndexOf('/'), text.lastIndexOf('\\'));
+        if (pos >= 0) {
+          text = text.substr(pos + 1);
         }
-        pretty.value = text;
-      });
-      // click on the button (when using focus with keyboard)
-      real.parentElement.querySelector("button").addEventListener("click", function () {
-        real.click();
-      });
-      real.form.enctype = "multipart/form-data";
+      }
+      this.label.textContent = text;
     }
-  };
+  }
 }
 
-Listener.register(File.init, Phase.DOCUMENT_READY);
-Listener.register(File.init, Phase.AFTER_UPDATE);
+document.addEventListener("DOMContentLoaded", function (event) {
+  window.customElements.define('tobago-file', File);
+});
