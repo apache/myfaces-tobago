@@ -55,4 +55,6 @@ function testAll() {
   cycle();
 }
 
-testAll();
+document.addEventListener("DOMContentLoaded", function (event) {
+  testAll();
+});

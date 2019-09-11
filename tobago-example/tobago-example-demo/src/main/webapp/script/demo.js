@@ -21,7 +21,7 @@ class Demo {
 
   static init(element) {
     Demo.initAlert(element);
-    Demo.initInspect(element);
+    // Demo.initInspect(element); //TODO fix inspection
     Demo.initTestLinks(element);
     Demo.initTestFrame(element);
     Demo.initGoogleSearch(element);
