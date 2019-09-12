@@ -114,7 +114,22 @@ export class Tab extends HTMLElement {
   }
 }
 
+export class TabContent extends HTMLElement {
+
+  constructor() {
+    super();
+  }
+
+  connectedCallback() {
+  }
+
+  get index(): number {
+    return parseInt(this.getAttribute("index"));
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function (event) {
   window.customElements.define('tobago-tab', Tab);
+  window.customElements.define('tobago-tab-content', TabContent);
   window.customElements.define('tobago-tab-group', TabGroup);
 });

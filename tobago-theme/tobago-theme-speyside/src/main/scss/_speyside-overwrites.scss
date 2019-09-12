@@ -522,7 +522,7 @@ p, .control-label {
   }
 }
 
-.tobago-tabGroup.card {
+tobago-tab-group.card {
   border: 0;
 
   > .card-header {
@@ -533,11 +533,11 @@ p, .control-label {
   }
 }
 
-.tobago-tab {
+tobago-tab {
   margin-left: 0.2rem;
 }
 
-.tobago-tabGroup .nav-tabs .nav-item {
+tobago-tab-group .nav-tabs .nav-item {
   .nav-link {
     color: $darkgreen;
 
@@ -556,7 +556,7 @@ p, .control-label {
   }
 }
 
-.tobago-tab .nav-link:not([href]):not([tabindex]):not(.active):not(.disabled) {
+tobago-tab .nav-link:not([href]):not([tabindex]):not(.active):not(.disabled) {
   /* fix style form standard theme */
   color: $darkgreen;
 
@@ -565,7 +565,7 @@ p, .control-label {
   }
 }
 
-.tobago-tab.tobago-tab-barFacet {
+tobago-tab.tobago-tab-barFacet {
   .nav-link.disabled + div {
     background-color: $gray-100;
   }
@@ -617,7 +617,7 @@ p, .control-label {
   }
 }
 
-.tobago-box, .tobago-tabGroup {
+.tobago-box, tobago-tab-group {
   .tobago-box {
     .tobago-box-header {
       // second level boxes

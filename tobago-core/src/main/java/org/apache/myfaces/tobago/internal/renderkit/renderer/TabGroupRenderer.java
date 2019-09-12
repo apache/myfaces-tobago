@@ -223,7 +223,6 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
     writer.writeClassAttribute(BootstrapClass.CARD_HEADER);
     writer.startElement(HtmlElements.UL);
     writer.writeClassAttribute(
-        TobagoClass.TAB_GROUP__HEADER,
         BootstrapClass.NAV,
         BootstrapClass.NAV_TABS,
         BootstrapClass.CARD_HEADER_TABS);
@@ -242,9 +241,6 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
           final String tabId = tab.getClientId(facesContext);
           Markup markup = tab.getMarkup() != null ? tab.getMarkup() : Markup.NULL;
 
-          if (selectedIndex == index) {
-            markup = markup.add(Markup.SELECTED);
-          }
           final FacesMessage.Severity maxSeverity
               = ComponentUtils.getMaximumSeverityOfChildrenMessages(facesContext, tab);
           if (maxSeverity != null) {
@@ -254,9 +250,8 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
           writer.startElement(HtmlElements.TOBAGO_TAB);
           writer.writeIdAttribute(tabId);
           writer.writeClassAttribute(
-              TobagoClass.TAB,
-              TobagoClass.TAB.createMarkup(markup),
               BootstrapClass.NAV_ITEM,
+              TobagoClass.TAB.createMarkup(markup),
               barFacet != null ? TobagoClass.TAB__BAR_FACET : null,
               tab.getCustomClass());
           writer.writeAttribute(HtmlAttributes.FOR, tabGroupClientId, true);
@@ -348,11 +343,10 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
         if (tab.isRendered() && (switchType == SwitchType.client || index == selectedIndex) && !tab.isDisabled()) {
           final Markup markup = tab.getMarkup();
 
-          writer.startElement(HtmlElements.DIV);
+          writer.startElement(HtmlElements.TOBAGO_TAB_CONTENT);
           writer.writeClassAttribute(
-              TobagoClass.TAB__CONTENT,
-              TobagoClass.TAB__CONTENT.createMarkup(markup),
               BootstrapClass.TAB_PANE,
+              TobagoClass.TAB__CONTENT.createMarkup(markup),
               index == selectedIndex ? BootstrapClass.ACTIVE : null);
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TABPANEL.toString(), false);
           writer.writeIdAttribute(getTabPanelId(facesContext, tab));
@@ -361,7 +355,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
 
           tab.encodeAll(facesContext);
 
-          writer.endElement(HtmlElements.DIV);
+          writer.endElement(HtmlElements.TOBAGO_TAB_CONTENT);
         }
         index++;
       }

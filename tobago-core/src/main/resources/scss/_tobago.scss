@@ -1429,10 +1429,10 @@ tobago-suggest {
 }
 
 /* tab / tab-group ----------------------------------------------------------------- */
-.tobago-tabGroup-header, .tobago-tab-content {
+.tobago-tabGroup, .tobago-tab, .tobago-tab-content {
 }
 
-.tobago-tab {
+tobago-tab {
 
   .nav-link:not([href]):not([tabindex]) {
     /* fix .nav-links without 'href'; bootstrap tab only works if 'href' is set */
@@ -1459,7 +1459,7 @@ tobago-suggest {
   }
 }
 
-.tobago-tab.tobago-tab-barFacet {
+tobago-tab.tobago-tab-barFacet {
   display: flex;
 
   > .nav-link {
@@ -1493,7 +1493,7 @@ tobago-suggest {
   }
 }
 
-.tobago-tabGroup {
+tobago-tab-group {
   margin-bottom: $form-group-margin-bottom;
 }
 
