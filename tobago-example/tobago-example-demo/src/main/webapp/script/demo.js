@@ -90,18 +90,20 @@ class Demo {
 
   static initGoogleSearch(element) {
     const input = document.getElementById("page:search:searchField");
-    const search = "+site%3Atobago-vm.apache.org+demo-4";
-    input.addEventListener("change", function (event) {
-      const input = event.currentTarget;
-      const button = document.getElementById("page:search:searchCommand");
-      button.setAttribute("href", "https://www.google.com/search?q=" + encodeURI(input.value) + search);
-    });
-    input.addEventListener("keypress", function (event) {
-      if (event.which === 13) {
-        console.log("ENTER");
-        window.location.href = "https://www.google.com/search?q=" + encodeURI(input.value()) + search;
-      }
-    });
+    if (input) {
+      const search = "+site%3Atobago-vm.apache.org+demo-4";
+      input.addEventListener("change", function (event) {
+        const input = event.currentTarget;
+        const button = document.getElementById("page:search:searchCommand");
+        button.setAttribute("href", "https://www.google.com/search?q=" + encodeURI(input.value) + search);
+      });
+      input.addEventListener("keypress", function (event) {
+        if (event.which === 13) {
+          console.log("ENTER");
+          window.location.href = "https://www.google.com/search?q=" + encodeURI(input.value()) + search;
+        }
+      });
+    }
   };
 
   static initMailTo(element) {
@@ -120,4 +122,6 @@ Listener.register(Demo.init, Phase.DOCUMENT_READY);
 Listener.register(Demo.init, Phase.AFTER_UPDATE);
 
 // call highlighting again. (is called for all, not only for the elements, because it's easier to implement.)
-Listener.register(Prism.highlightAll, Phase.AFTER_UPDATE);
+if (window.location.pathname !== "/test.xhtml") { // not in the test framework
+  Listener.register(Prism.highlightAll, Phase.AFTER_UPDATE);
+}
