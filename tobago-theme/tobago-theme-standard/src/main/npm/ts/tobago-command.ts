@@ -38,8 +38,7 @@ export class CommandMap {
 
     if (change.execute || change.render) {
       jsf.ajax.request(
-          element,
-          // element.getAttribute("name"),
+          element.getAttribute("name"),
           event,
           {
             "javax.faces.behavior.event": "change",
