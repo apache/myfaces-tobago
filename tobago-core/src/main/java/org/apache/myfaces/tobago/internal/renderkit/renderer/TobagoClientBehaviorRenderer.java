@@ -64,7 +64,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
     final UIComponent uiComponent = behaviorContext.getComponent();
     final ClientBehaviors eventName = ClientBehaviors.valueOf(behaviorContext.getEventName());
 
-    //// TBD: is this nice? May be implemented with a JSF behaviour?
+    //// TBD: is this nice? May be implemented with a JSF behavior?
     Collapse collapse = createCollapsible(facesContext, uiComponent);
 
     String executeIds = null;
@@ -199,7 +199,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
    */
   @Deprecated
   public static Collapse createCollapsible(final FacesContext facesContext, final UIComponent component) {
-    //// TBD: is this nice? May be implemented with a JSF behaviour?
+    //// TBD: is this nice? May be implemented with a JSF behavior?
     //// BEGIN
 
     // XXX too complicated

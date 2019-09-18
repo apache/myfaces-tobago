@@ -147,7 +147,7 @@ public interface SuggestTagDeclaration extends HasIdBindingAndRendered {
   /**
    * TODO: not implemented yet
    * <p>
-   * Should the list be updated while typing (via AJAX). This is the default behaviour.
+   * Should the list be updated while typing (via AJAX). This is the default behavior.
    * If you set this value to <code>false</code>, please set the <code>minimumCharacters="0"</code>.
    * </p>
    */
