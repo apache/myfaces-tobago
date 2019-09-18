@@ -35,13 +35,14 @@
     <myfaces20.version>2.0.24</myfaces20.version>
     <myfaces21.version>2.1.18</myfaces21.version>
     <myfaces22.version>2.2.12</myfaces22.version>
-    <myfaces23.version>2.3.3</myfaces23.version>
+    <myfaces23.version>2.3.4</myfaces23.version>
     <myfaces-test.version>1.0.8</myfaces-test.version>
     <mojarra20.version>2.0.11-04</mojarra20.version>
-    <mojarra21.version>2.1.29-08</mojarra21.version>
-    <mojarra22.version>2.2.16</mojarra22.version>
-    <mojarra23.version>2.3.3</mojarra23.version>
-    <slf4j.version>1.7.25</slf4j.version>
+    <mojarra21.version>2.1.29-11</mojarra21.version>
+    <mojarra22.version>2.2.20</mojarra22.version>
+    <mojarra23.version>2.3.9</mojarra23.version>
+    <openwebbeans.version>2.0.11</openwebbeans.version>
+    <slf4j.version>1.7.28</slf4j.version>
     <logback.version>1.2.3</logback.version>
     <maven.compile.source>1.8</maven.compile.source>
     <maven.compile.target>1.8</maven.compile.target>
@@ -396,7 +397,7 @@
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-el_2.2_spec</artifactId>
-        <version>1.0.4</version>
+        <version>1.1</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
@@ -429,7 +430,7 @@
       <dependency>
         <groupId>commons-beanutils</groupId>
         <artifactId>commons-beanutils</artifactId>
-        <version>1.9.3</version>
+        <version>1.9.4</version>
       </dependency>
       <dependency>
         <groupId>junit</groupId>
@@ -440,13 +441,13 @@
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
-        <version>5.2.0</version>
+        <version>5.5.2</version>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-params</artifactId>
-        <version>5.2.0</version>
+        <version>5.5.2</version>
         <scope>test</scope>
       </dependency>
       <dependency>
@@ -470,14 +471,14 @@
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-atinject_1.0_spec</artifactId>
-        <version>1.0</version>
+        <version>1.1</version>
         <optional>true</optional>
       </dependency>
       <dependency>
         <!-- jsoup HTML parser library -->
         <groupId>org.jsoup</groupId>
         <artifactId>jsoup</artifactId>
-        <version>1.11.2</version>
+        <version>1.12.1</version>
       </dependency>
       <dependency>
         <groupId>org.apache.myfaces.test</groupId>
@@ -814,7 +815,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.19.1</version>
+          <version>2.22.1</version>
           <configuration>
             <argLine>-Duser.language=en -Duser.region=US</argLine>
             <!--
@@ -830,7 +831,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-failsafe-plugin</artifactId>
-          <version>2.21.0</version>
+          <version>2.22.1</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
