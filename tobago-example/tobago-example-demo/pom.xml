@@ -26,10 +26,8 @@
   <packaging>war</packaging>
   <name>Tobago Example Demo</name>
   <description>Demonstration and documentation application.</description>
-  <!-- how to run tests
-  http://myfaces.apache.org/tobago/faq.html#integrationTestTobago3
-  http://myfaces.apache.org/tobago/faq.html#testInBrowser
-  -->
+
+  <!-- how to run tests: http://tobago-vm.apache.org/faq.html  -->
 
   <properties>
     <deltaspike.version>1.9.1</deltaspike.version>
@@ -1202,6 +1200,9 @@
             <groupId>org.apache.meecrowave</groupId>
             <artifactId>meecrowave-maven-plugin</artifactId>
             <version>${meecrowave.version}</version>
+
+            <!-- run with ???: mvn clean install -P meecrowave meecrowave:run -->
+
             <configuration>
               <scanningPackageIncludes>
                 org.apache.myfaces.tobago.example
