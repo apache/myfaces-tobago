@@ -32,12 +32,10 @@
   -->
 
   <properties>
-    <openwebbeans.version>2.0.4</openwebbeans.version>
-    <deltaspike.version>1.8.1</deltaspike.version>
-    <selenium.version>3.12.0</selenium.version>
-    <tomee.version>7.0.4</tomee.version>
-    <meecrowave.version>1.2.1</meecrowave.version>
-    <tomcat.version>9.0.5</tomcat.version>
+    <deltaspike.version>1.9.1</deltaspike.version>
+    <selenium.version>3.141.59</selenium.version>
+    <meecrowave.version>1.2.8</meecrowave.version>
+    <tomcat.version>9.0.24</tomcat.version>
     <exec.version>1.6.0</exec.version>
     <finalName>tobago-example-demo</finalName>
   </properties>
@@ -63,7 +61,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>xml-maven-plugin</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
         <executions>
           <execution>
             <goals>
@@ -99,9 +97,9 @@
       </plugin>
       <plugin>
         <!-- TODO test glassfish -->
-        <groupId>org.glassfish</groupId>
+        <groupId>org.glassfish.embedded</groupId>
         <artifactId>maven-embedded-glassfish-plugin</artifactId>
-        <version>3.1.1</version>
+        <version>5.1</version>
         <configuration>
           <port>8080</port>
           <contextRoot>/</contextRoot>
@@ -156,7 +154,7 @@
       <dependency>
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
-        <version>25.1-jre</version>
+        <version>28.1-jre</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -199,7 +197,7 @@
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
-      <version>2.8.4</version>
+      <version>2.8.5</version>
       <scope>compile</scope>
     </dependency>
 
@@ -218,7 +216,7 @@
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpcore</artifactId>
-      <version>4.4.8</version>
+      <version>4.4.12</version>
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
@@ -697,7 +695,7 @@
           <plugin>
             <groupId>org.codehaus.cargo</groupId>
             <artifactId>cargo-maven2-plugin</artifactId>
-            <version>1.4.6</version>
+            <version>1.7.7</version>
             <configuration>
               <container>
                 <containerId>tomcat7x</containerId>
@@ -727,7 +725,7 @@
           <plugin>
             <groupId>org.codehaus.cargo</groupId>
             <artifactId>cargo-maven2-plugin</artifactId>
-            <version>1.4.6</version>
+            <version>1.7.7</version>
             <configuration>
               <container>
                 <containerId>tomcat8x</containerId>
