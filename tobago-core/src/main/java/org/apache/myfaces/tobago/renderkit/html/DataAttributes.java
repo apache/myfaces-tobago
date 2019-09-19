@@ -178,6 +178,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
    * Id of the parent node in a tree node.
    * @deprecated since 5.0.0, please use {@link CustomAttributes#PARENT}
    */
+  @Deprecated
   TREE_PARENT("data-tobago-tree-parent"),
 
   /**

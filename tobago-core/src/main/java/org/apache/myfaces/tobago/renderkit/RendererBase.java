@@ -163,7 +163,8 @@ public class RendererBase extends Renderer {
     writer.writeAttribute(CustomAttributes.RENDER, command.getRender(), false);
     writer.writeAttribute(CustomAttributes.OMIT, command.getOmit());
     writer.writeAttribute(CustomAttributes.CONFIRMATION, command.getConfirmation(), true);
-    writer.writeAttribute(CustomAttributes.DECOUPLED, command.getTransition() != null ? command.getTransition() : false);
+    writer.writeAttribute(CustomAttributes.DECOUPLED,
+        command.getTransition() != null ? command.getTransition() : false);
     final Collapse collapse = command.getCollapse();
     if (collapse != null) {
       writer.writeAttribute(CustomAttributes.COLLAPSE_ACTION, collapse.getAction().name(), false);
@@ -219,14 +220,14 @@ public class RendererBase extends Renderer {
   }
 
   private static ClientBehaviorContext getClientBehaviorContext(final FacesContext facesContext,
-                                                                final ClientBehaviorHolder clientBehaviorHolder, final String eventName) {
+      final ClientBehaviorHolder clientBehaviorHolder, final String eventName) {
     UIComponent component = (UIComponent) clientBehaviorHolder;
     return ClientBehaviorContext.createClientBehaviorContext(facesContext, component, eventName,
         component.getClientId(facesContext), null);
   }
 
   private static CommandMap getCommandMap(final FacesContext facesContext,
-                                          final ClientBehaviorContext clientBehaviorContext, final ClientBehavior clientBehavior) {
+      final ClientBehaviorContext clientBehaviorContext, final ClientBehavior clientBehavior) {
     if (clientBehavior instanceof ClientBehaviorBase) {
       String type = ((ClientBehaviorBase) clientBehavior).getRendererType();
 
