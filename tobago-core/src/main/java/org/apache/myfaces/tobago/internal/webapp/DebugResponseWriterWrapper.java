@@ -27,7 +27,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.Writer;
 import java.lang.invoke.MethodHandles;
@@ -223,8 +225,15 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
     }
 
     if (!top.equals(name)) {
-      LOG.error("Element end with name='" + name + "' doesn't match with top element on the stack='" + top + "'.",
-          new IllegalArgumentException());
+      String uri;
+      try {
+        uri =
+            ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI();
+      } catch (Exception e) {
+        uri = null;
+      }
+      LOG.error("Element end with name='" + name + "' doesn't match with top element on the stack='" + top + "'. "
+          + " Stack='" + stack + "' URI='" + uri + "'", new IllegalArgumentException());
     }
     responseWriter.endElement(name);
   }
