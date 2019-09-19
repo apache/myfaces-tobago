@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -95,18 +96,18 @@ public class TreeRenderer extends RendererBase {
       return;
     }
 
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.TOBAGO_TREE);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
-        TobagoClass.TREE,
-        TobagoClass.TREE.createMarkup(markup),
-        tree.getCustomClass());
+        tree.getCustomClass(),
+        TobagoClass.TREE.createMarkup(markup));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);
     writer.writeAttribute(DataAttributes.SCROLL_PANEL, Boolean.TRUE.toString(), false);
 
     final Selectable selectable = tree.getSelectable();
     if (selectable.isSupportedByTree()) {
       writer.writeAttribute(DataAttributes.SELECTABLE, selectable.name(), false);
+      writer.writeAttribute(CustomAttributes.SELECTABLE, selectable.name(), false);
     }
 
     final SelectedState selectedState = tree.getSelectedState();
@@ -168,6 +169,6 @@ public class TreeRenderer extends RendererBase {
     writer.writeAttribute(DataAttributes.SCROLL_POSITION, Boolean.TRUE.toString(), false);
     writer.endElement(HtmlElements.INPUT);
 
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.TOBAGO_TREE);
   }
 }

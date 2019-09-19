@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -84,7 +85,7 @@ public class TreeNodeRenderer extends RendererBase {
 
       // select
       if (data.getSelectable() != Selectable.none) { // selection
-         String selected = requestParameterMap.get(
+        String selected = requestParameterMap.get(
             clientId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_SELECTED);
 // todo        JsonUtils.decodeIntegerArray()StringArray()
         selected = selected.replaceAll("\\[", ";");
@@ -128,7 +129,9 @@ public class TreeNodeRenderer extends RendererBase {
     Markup markup = Markup.NULL;
     final TreePath path = node.getPath();
     final SelectedState selectedState = data.getSelectedState();
-    if (data instanceof AbstractUITree && selectedState.isSelected(path)) {
+    final boolean selected = data instanceof AbstractUITree && selectedState.isSelected(path);
+
+    if (selected) {
       markup = markup.add(Markup.SELECTED);
     }
     if (folder) {
@@ -149,7 +152,7 @@ public class TreeNodeRenderer extends RendererBase {
       writer.writeAttribute(HtmlAttributes.SELECTED, selectedState.isAncestorOfSelected(path));
       writer.writeAttribute(DataAttributes.ROW_INDEX, data.getRowIndex());
     } else {
-      writer.startElement(HtmlElements.DIV);
+      writer.startElement(HtmlElements.TOBAGO_TREE_NODE);
 
       // div id
       writer.writeIdAttribute(clientId);
@@ -158,16 +161,20 @@ public class TreeNodeRenderer extends RendererBase {
       final boolean hidden = !dataRendersRowContainer && !visible;
 
       writer.writeClassAttribute(
-          TobagoClass.TREE_NODE,
+          null,
           TobagoClass.TREE_NODE.createMarkup(markup),
           hidden ? BootstrapClass.D_NONE : null,
           node.getCustomClass());
+      writer.writeAttribute(CustomAttributes.SELECTED, selected);
+      writer.writeAttribute(CustomAttributes.EXPANDABLE, folder);
+      writer.writeAttribute(CustomAttributes.INDEX, data.getRowIndex());
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, node);
       if (parentId != null) {
         // TODO: replace with
         // todo writer.writeIdAttribute(parentId + SUB_SEPARATOR + AbstractUITree.SUFFIX_PARENT);
         // todo like in TreeListboxRenderer
         writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
+        writer.writeAttribute(CustomAttributes.PARENT, parentId, false);
       }
       writer.writeAttribute(DataAttributes.LEVEL, data.isShowRoot() ? node.getLevel() : node.getLevel() - 1);
     }
@@ -189,7 +196,7 @@ public class TreeNodeRenderer extends RendererBase {
       }
       writer.endElement(HtmlElements.OPTION);
     } else {
-      writer.endElement(HtmlElements.DIV);
+      writer.endElement(HtmlElements.TOBAGO_TREE_NODE);
     }
   }
 }

@@ -143,7 +143,10 @@ public enum HtmlElements {
   TOBAGO_SUGGEST("tobago-suggest"),
   TOBAGO_TAB("tobago-tab"),
   TOBAGO_TAB_CONTENT("tobago-tab-content"),
-  TOBAGO_TAB_GROUP("tobago-tab-group");
+  TOBAGO_TAB_GROUP("tobago-tab-group"),
+  TOBAGO_TREE("tobago-tree"),
+  TOBAGO_TREE_NODE("tobago-tree-node"),
+  TOBAGO_TREE_SELECT("tobago-tree-select");
 
   private final String value;
   private final boolean voidElement;

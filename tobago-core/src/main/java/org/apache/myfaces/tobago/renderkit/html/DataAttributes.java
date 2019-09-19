@@ -139,7 +139,9 @@ public enum DataAttributes implements MarkupLanguageAttributes {
 
   /**
    * The selectable attribute e. g. for trees.
+   * @deprecated since 5.0.0, please use {@link CustomAttributes#SELECTABLE}
    */
+  @Deprecated
   SELECTABLE("data-tobago-selectable"),
 
   /**
@@ -174,6 +176,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
 
   /**
    * Id of the parent node in a tree node.
+   * @deprecated since 5.0.0, please use {@link CustomAttributes#PARENT}
    */
   TREE_PARENT("data-tobago-tree-parent"),
 
