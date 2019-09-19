@@ -15,8 +15,6 @@
  * limitations under the License.
  */
 
-import {Command} from "./tobago-command";
-
 class TabGroup extends HTMLElement {
 
   private hiddenInput: HTMLInputElement;
@@ -88,16 +86,10 @@ export class Tab extends HTMLElement {
         this.content.classList.add("active");
         break;
       case "reloadTab":
-        jsf.ajax.request(
-            this.navLink,
-            event, {
-              //"javax.faces.behavior.event": "click",
-              execute: tabGroup.id,
-              render: tabGroup.id
-            });
+        // will be done by <tobago-behavior>
         break;
       case "reloadPage":
-        Command.submitAction(this.navLink, this.id);
+        // will be done by <tobago-behavior>
         break;
       case "none": // todo
         console.error("Not implemented yet: %s", tabGroup.switchType);

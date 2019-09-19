@@ -25,8 +25,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeSelect;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -132,9 +130,9 @@ public class TreeSelectRenderer extends RendererBase {
       writer.writeIdAttribute(id);
       writer.writeAttribute(HtmlAttributes.CHECKED, checked);
 
-      writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, treeSelect)));
-
       writer.endElement(HtmlElements.INPUT);
+
+      encodeBehavior(writer, facesContext, treeSelect);
     }
 
     // label

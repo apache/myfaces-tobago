@@ -32,7 +32,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUISeparator;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -95,8 +94,6 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
         command.setOmit(true);
       }
 
-      writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, command)));
-
       if (label.getAccessKey() != null) {
         writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
         AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
@@ -134,6 +131,10 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
       } else {
         LOG.warn("No from found for {}", clientId);
       }
+    }
+
+    if (!disabled) {
+      encodeBehavior(writer, facesContext, command);
     }
 
     final String image = ComponentUtils.getStringAttribute(command, Attributes.image);

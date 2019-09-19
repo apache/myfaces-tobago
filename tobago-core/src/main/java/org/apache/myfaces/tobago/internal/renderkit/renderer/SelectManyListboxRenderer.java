@@ -22,8 +22,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyListbox;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -80,7 +78,6 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, select)));
     final Object[] values = select.getSelectedValues();
     final String[] submittedValues = getSubmittedValues(select);
 
@@ -91,7 +88,11 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
   @Override
   public void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final AbstractUISelectManyListbox select = (AbstractUISelectManyListbox) component;
+
     writer.endElement(HtmlElements.SELECT);
+
+    encodeBehavior(writer, facesContext, select);
   }
 
   @Override

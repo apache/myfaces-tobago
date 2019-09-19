@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyBase;
 import org.apache.myfaces.tobago.internal.util.ArrayUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,7 +85,7 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
     }
     select.setSubmittedValue(newValues);
 
-    RenderUtils.decodeClientBehaviors(facesContext, select);
+    decodeClientBehaviors(facesContext, select);
   }
 
   public String[] getSubmittedValues(final UIInput input) {

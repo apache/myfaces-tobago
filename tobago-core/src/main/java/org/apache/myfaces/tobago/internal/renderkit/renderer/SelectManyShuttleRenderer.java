@@ -22,8 +22,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyShuttle;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
@@ -142,7 +140,6 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
-    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, select)));
     HtmlRendererUtils.renderSelectItems(select, TobagoClass.SELECT_MANY_SHUTTLE__OPTION, items, values, submittedValues,
         writer, facesContext);
     writer.endElement(HtmlElements.SELECT);
@@ -151,7 +148,10 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
   @Override
   public void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final AbstractUISelectManyShuttle select = (AbstractUISelectManyShuttle) component;
     writer.endElement(HtmlElements.DIV);
+
+    encodeBehavior(writer, facesContext, select);
   }
 
   private void createButton(

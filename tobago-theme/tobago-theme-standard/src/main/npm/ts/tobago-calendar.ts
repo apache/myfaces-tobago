@@ -17,7 +17,7 @@
 
 import {Listener, Phase} from "./tobago-listener";
 import {DomUtils} from "./tobago-utils";
-import {Command} from "./tobago-command";
+import {CommandHelper} from "./tobago-command";
 
 class DateTime {
 
@@ -169,7 +169,9 @@ class DateTime {
                   render: commands.change.render
                 });
           } else if (commands.change.action) {
-            Command.submitAction(this.firstElementChild, commands.change.action, commands.change);
+            CommandHelper.submitAction(
+                this.firstElementChild as HTMLElement,
+                commands.change.action, commands.change.transition, commands.change.target);
           }
         }
       });

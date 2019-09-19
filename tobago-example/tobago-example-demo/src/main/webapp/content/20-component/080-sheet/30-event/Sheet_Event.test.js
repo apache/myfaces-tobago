@@ -28,7 +28,7 @@ QUnit.test("On click with ajax", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     oneClickAjaxFn().checked = true;
-    oneClickAjaxFn().dispatchEvent(new Event('change'));
+    oneClickAjaxFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -37,21 +37,21 @@ QUnit.test("On click with ajax", function (assert) {
     assert.ok(saturnFn());
   });
   TTT.action(function () {
-    venusFn().click();
+    venusFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal(namefieldFn().value, "Venus");
   });
   TTT.action(function () {
-    jupiterFn().click();
+    jupiterFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal(namefieldFn().value, "Jupiter");
   });
   TTT.action(function () {
-    saturnFn().click();
+    saturnFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -70,7 +70,7 @@ QUnit.test("On click with full request", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     oneClickFullRequestFn().checked = true;
-    oneClickFullRequestFn().dispatchEvent(new Event('change'));
+    oneClickFullRequestFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -79,21 +79,21 @@ QUnit.test("On click with full request", function (assert) {
     assert.ok(saturnFn());
   });
   TTT.action(function () {
-    venusFn().click();
+    venusFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal(namefieldFn().value, "Venus");
   });
   TTT.action(function () {
-    jupiterFn().click();
+    jupiterFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal(namefieldFn().value, "Jupiter");
   });
   TTT.action(function () {
-    saturnFn().click();
+    saturnFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -112,7 +112,7 @@ QUnit.test("On double click with full request", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     doubleClickFullRequestFn().checked = true;
-    doubleClickFullRequestFn().dispatchEvent(new Event('change'));
+    doubleClickFullRequestFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -121,21 +121,21 @@ QUnit.test("On double click with full request", function (assert) {
     assert.ok(saturnFn());
   });
   TTT.action(function () {
-    venusFn().dispatchEvent(new Event('dblclick'));
+    venusFn().dispatchEvent(new Event("dblclick", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal(namefieldFn().value, "Venus");
   });
   TTT.action(function () {
-    jupiterFn().dispatchEvent(new Event('dblclick'));
+    jupiterFn().dispatchEvent(new Event("dblclick", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal(namefieldFn().value, "Jupiter");
   });
   TTT.action(function () {
-    saturnFn().dispatchEvent(new Event('dblclick'));
+    saturnFn().dispatchEvent(new Event("dblclick", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -156,7 +156,7 @@ QUnit.test("Open popup on click with ajax", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     radioButtonFn().checked = true;
-    radioButtonFn().dispatchEvent(new Event('change'));
+    radioButtonFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -165,7 +165,7 @@ QUnit.test("Open popup on click with ajax", function (assert) {
     assert.ok(saturnFn());
   });
   TTT.action(function () {
-    venusFn().click();
+    venusFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.waitMs(1000); // wait for animation
@@ -174,14 +174,14 @@ QUnit.test("Open popup on click with ajax", function (assert) {
     assert.equal(nameFn().value, "Venus");
   });
   TTT.action(function () {
-    cancelFn().click();
+    cancelFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitMs(1000); // wait for animation
   TTT.asserts(1, function () {
     assert.notOk(popupFn().classList.contains("show"));
   });
   TTT.action(function () {
-    jupiterFn().click();
+    jupiterFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.waitMs(1000); // wait for animation
@@ -190,14 +190,14 @@ QUnit.test("Open popup on click with ajax", function (assert) {
     assert.equal(nameFn().value, "Jupiter");
   });
   TTT.action(function () {
-    cancelFn().click();
+    cancelFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitMs(1000); // wait for animation
   TTT.asserts(1, function () {
     assert.notOk(popupFn().classList.contains("show"));
   });
   TTT.action(function () {
-    saturnFn().click();
+    saturnFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.waitMs(1000); // wait for animation
@@ -206,7 +206,7 @@ QUnit.test("Open popup on click with ajax", function (assert) {
     assert.equal(nameFn().value, "Saturn");
   });
   TTT.action(function () {
-    cancelFn().click();
+    cancelFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitMs(1000); // wait for animation
   TTT.asserts(1, function () {

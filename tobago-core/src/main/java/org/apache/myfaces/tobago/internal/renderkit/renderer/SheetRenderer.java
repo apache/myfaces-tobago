@@ -56,7 +56,6 @@ import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
-import org.apache.myfaces.tobago.renderkit.css.CustomClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -274,9 +273,6 @@ public class SheetRenderer extends RendererBase {
     if (reload != null && reload.isRendered()) {
       writer.writeAttribute(DataAttributes.RELOAD, reload.getFrequency());
     }
-// todo    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, sheet)));
-    final CommandMap commands = RenderUtils.getBehaviorCommands(facesContext, sheet);
-    writer.writeAttribute(DataAttributes.BEHAVIOR_COMMANDS, JsonUtils.encode(commands), false);
     writer.writeAttribute(DataAttributes.SELECTION_MODE, sheet.getSelectable().name(), false);
     writer.writeAttribute(DataAttributes.FIRST, Integer.toString(sheet.getFirst()), false);
 
@@ -284,6 +280,8 @@ public class SheetRenderer extends RendererBase {
     if (!autoLayout) {
       writer.writeAttribute(DataAttributes.LAYOUT, JsonUtils.encode(sheet.getColumnLayout(), "columns"), true);
     }
+
+    encodeBehavior(writer, facesContext, sheet);
   }
 
   @Override
@@ -656,27 +654,25 @@ public class SheetRenderer extends RendererBase {
         writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
       }
 
-      // the row client id depends from the existence of an UIRow component! TBD: is this good?
-      String rowClientId = sheet.getRowClientId();
-      CustomClass rowClass = null;
+      AbstractUIRow row = null;
       for (final UIColumn column : columns) {
         if (column.isRendered()) {
           if (column instanceof AbstractUIRow) {
-            final AbstractUIRow row = (AbstractUIRow) column;
-            writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, row)));
-            rowClientId = row.getClientId(facesContext);
-            rowClass = row.getCustomClass();
+            row = (AbstractUIRow) column;
             // todo: Markup.CLICKABLE ???
           }
         }
       }
-      writer.writeIdAttribute(rowClientId);
+      // the row client id depends from the existence of an UIRow component! TBD: is this good?
+      writer.writeIdAttribute(row != null ? row.getClientId(facesContext): sheet.getRowClientId());
       writer.writeClassAttribute(
           TobagoClass.SHEET__ROW,
           TobagoClass.SHEET__ROW.createMarkup(rowMarkup),
           selected ? BootstrapClass.TABLE_INFO : null,
-          rowClass,
+          row != null ? row.getCustomClass() : null,
           sheet.isRowVisible() ? null : BootstrapClass.D_NONE);
+
+      encodeBehavior(writer, facesContext, row);
 
       for (final AbstractUIColumnBase column : columns) {
         if (column.isRendered()) {
@@ -906,6 +902,7 @@ public class SheetRenderer extends RendererBase {
             Markup markup = Markup.NULL;
             String tip = ComponentUtils.getStringAttribute(column, Attributes.tip);
             // sorter icons should only displayed when there is only 1 column and not input
+            CommandMap behaviorCommands = null;
             if (cell.getColumnSpan() == 1 && cellComponent instanceof AbstractUIOut) {
               final boolean sortable = ComponentUtils.getBooleanAttribute(column, Attributes.sortable);
               if (sortable) {
@@ -922,8 +919,7 @@ public class SheetRenderer extends RendererBase {
                   ComponentUtils.setFacet(column, Facets.sorter, sortCommand);
                 }
                 writer.writeIdAttribute(sortCommand.getClientId(facesContext));
-                writer.writeCommandMapAttribute(
-                    JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, sortCommand)));
+                behaviorCommands = getBehaviorCommands(facesContext, sortCommand);
                 ComponentUtils.removeFacet(column, Facets.sorter);
                 if (tip == null) {
                   tip = "";
@@ -944,15 +940,15 @@ public class SheetRenderer extends RendererBase {
                     sortTitle = ResourceUtils.getString(facesContext, "sheet.descending");
                     markup = markup.add(Markup.DESCENDING);
                   }
-                  if (sortTitle != null) {
-                    tip += " - " + sortTitle;
-                  }
+                  tip += " - " + sortTitle;
                 }
               }
             }
 
             writer.writeClassAttribute(TobagoClass.SHEET__HEADER, TobagoClass.SHEET__HEADER.createMarkup(markup));
             writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
+
+            encodeBehavior(writer, behaviorCommands);
 
             if (column instanceof AbstractUIColumnSelector && selectable.isMulti()) {
               writer.startElement(HtmlElements.INPUT);
@@ -1083,9 +1079,6 @@ public class SheetRenderer extends RendererBase {
     writer.writeClassAttribute(BootstrapClass.PAGE_LINK);
     writer.writeIdAttribute(command.getClientId(facesContext));
     writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
-    if (!disabled) {
-      writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, command)));
-    }
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     if (icon != null) {
       writer.startElement(HtmlElements.I);
@@ -1093,6 +1086,9 @@ public class SheetRenderer extends RendererBase {
       writer.endElement(HtmlElements.I);
     } else {
       writer.writeText(String.valueOf(target));
+    }
+    if (!disabled) {
+      encodeBehavior(writer, facesContext, command);
     }
     data.getFacets().remove(facet);
     writer.endElement(HtmlElements.BUTTON);

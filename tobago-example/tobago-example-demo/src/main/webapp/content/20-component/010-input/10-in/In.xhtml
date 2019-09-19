@@ -81,6 +81,8 @@
       Additional, the <code>listener</code> attribute is set. The given method is called after the inputfield
       loose focus.</p>
     <tc:in id="inputAjax" label="On Change" value="#{inController.changeValue}">
+      <f:facet name="before">AJAX</f:facet>
+      <f:facet name="after">on change</f:facet>
       <f:ajax render="outputAjax" listener="#{inController.update}"/>
     </tc:in>
     <tc:out id="outputAjax" label="On Server" value="#{inController.changeValue}"/>

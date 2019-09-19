@@ -30,7 +30,7 @@ QUnit.test("submit form 1", function (assert) {
   TTT.action(function () {
     form1InputFieldFn().value = "Oliver";
     form2InputFieldFn().value = "Peter";
-    form1SubmitButtonFn().click();
+    form1SubmitButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
@@ -54,7 +54,7 @@ QUnit.test("submit form 2", function (assert) {
   TTT.action(function () {
     form1InputFieldFn().value = "Oliver";
     form2InputFieldFn().value = "Peter";
-    form2SubmitButtonFn().click();
+    form2SubmitButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {

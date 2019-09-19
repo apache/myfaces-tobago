@@ -18,7 +18,7 @@
 import {Listener} from "./tobago-listener";
 import {Overlay} from "./tobago-overlay";
 import {DomUtils} from "./tobago-utils";
-import {Command} from "./tobago-command";
+import {CommandHelper} from "./tobago-command";
 
 /**
  * @deprecated since 5.0.0
@@ -44,7 +44,7 @@ export class Setup {
 
   static init = function() {
     console.time("[tobago] init");
-    document.querySelector("form").addEventListener('submit', Command.onSubmit);
+    document.querySelector("form").addEventListener('submit', CommandHelper.onSubmit);
     window.addEventListener('unload', Setup.onUnload);
     Listener.executeDocumentReady(document.documentElement);
     console.timeEnd("[tobago] init");
@@ -62,7 +62,7 @@ export class Setup {
    */
   static onUnload = function () {
     console.info('on onload');
-    if (Command.isSubmit) {
+    if (CommandHelper.isSubmit) {
       if (Setup.transition) {
         new Overlay(DomUtils.page());
       }

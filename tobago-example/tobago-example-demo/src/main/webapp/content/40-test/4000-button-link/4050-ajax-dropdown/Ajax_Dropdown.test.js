@@ -31,7 +31,7 @@ QUnit.test("Execute 'AJAX' entry in dropdown menu", function (assert) {
     assert.ok(tobagoPageMenuStoreFn().querySelector(ajaxEntryId) === null, "Dropdown menu should be closed.");
   });
   TTT.action(function () {
-    dropdownMenuButtonFn().click();
+    dropdownMenuButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.asserts(1, function () {
     assert.ok(tobagoPageMenuStoreFn().querySelector(ajaxEntryId) !== null, "Dropdown menu should be opened.");
@@ -43,7 +43,7 @@ QUnit.test("Execute 'AJAX' entry in dropdown menu", function (assert) {
     assert.equal(outputFn().textContent, "", "Output should be empty.");
   });
   TTT.action(function () {
-    ajaxEntryFn().click();
+    ajaxEntryFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {

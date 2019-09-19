@@ -19,15 +19,22 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 
 @RequestScoped
 @Named
 public class TextareaController implements Serializable {
 
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
   private String longText;
+  private String ajaxValue;
 
   public TextareaController() {
     longText = "The goal of Apache Tobago™ is to provide the community with a well designed set of user interface "
@@ -47,11 +54,24 @@ public class TextareaController implements Serializable {
         + "The development of Tobago started in 2002.";
   }
 
+  public String submit() {
+    LOG.info("Submit Textarea");
+    return null;
+  }
+
   public String getLongText() {
     return longText;
   }
 
   public void setLongText(final String longText) {
     this.longText = longText;
+  }
+
+  public String getAjaxValue() {
+    return ajaxValue;
+  }
+
+  public void setAjaxValue(String ajaxValue) {
+    this.ajaxValue = ajaxValue;
   }
 }

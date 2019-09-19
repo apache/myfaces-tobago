@@ -27,10 +27,19 @@
     <tc:link id="resize" action="#{resizeController.resize}"/>
   </f:facet>
 
-  <!--todo-->
-  Todo: make nicer example
-  <br/>
+  <tc:panel>
+    <tc:event event="click" action="#{resizeController.resize}">
+      <f:ajax/>
+    </tc:event>
 
-  Resizing demo. Resizing the window will call a command (from the resize facet).
+    Please to a resize of the browser window and look in the server logs to check the resize actions...
+    <br/>
+
+    <!--todo-->
+    Todo: make nicer example
+    <br/>
+
+    Resizing demo. Resizing the window will call a command (from the resize facet).
+  </tc:panel>
 
 </ui:composition>

@@ -53,7 +53,7 @@ QUnit.test("Collapse tree", function (assert) {
     assert.notEqual(getComputedStyle(sheetRow).display, "none");
   });
   TTT.action(function () {
-    rootTreeButtonFn().click();
+    rootTreeButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitMs(1000);
   TTT.asserts(8, function () {

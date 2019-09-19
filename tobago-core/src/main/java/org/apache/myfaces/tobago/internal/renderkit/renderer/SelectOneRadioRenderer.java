@@ -24,9 +24,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneRadio;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectReference;
 import org.apache.myfaces.tobago.internal.util.ArrayUtils;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.ObjectUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -117,7 +115,6 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
           first = false;
         }
         writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
-        writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, select)));
         writer.endElement(HtmlElements.INPUT);
 
         writer.startElement(HtmlElements.I);
@@ -159,7 +156,11 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
   @Override
   protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final AbstractUISelectOneRadio select = (AbstractUISelectOneRadio) component;
+
     writer.endElement(HtmlElements.DIV);
+
+    encodeBehavior(writer, facesContext, select);
   }
 
   protected boolean renderOuterItem() {

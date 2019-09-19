@@ -28,7 +28,7 @@ QUnit.test("Deprecated: 'Ma'", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = inputString;
-    inFn().dispatchEvent(new Event('input'));
+    inFn().dispatchEvent(new Event("input", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(expectedLength + 1, function () {
@@ -50,7 +50,7 @@ QUnit.test("Replacement: 'Ma'", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = inputString;
-    inFn().dispatchEvent(new Event('input'));
+    inFn().dispatchEvent(new Event("input", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(expectedLength + 1, function () {

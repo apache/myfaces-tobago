@@ -47,7 +47,7 @@ QUnit.test("ajax change event", function (assert) {
   });
   TTT.action(function () {
     inputFieldFn().value = "qwe";
-    inputFieldFn().dispatchEvent(new Event('change'));
+    inputFieldFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {

@@ -83,7 +83,7 @@ QUnit.test("Ajax reload for section 2", function (assert) {
     assert.ok(section2HeaderFn() !== null);
   });
   TTT.action(function () {
-    reloadButtonFn().click();
+    reloadButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {

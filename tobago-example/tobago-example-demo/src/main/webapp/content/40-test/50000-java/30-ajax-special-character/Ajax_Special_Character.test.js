@@ -30,7 +30,7 @@ QUnit.test("ajax excecute", function (assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    buttonFn().click();
+    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {

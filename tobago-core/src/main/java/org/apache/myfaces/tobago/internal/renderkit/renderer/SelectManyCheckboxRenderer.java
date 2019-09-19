@@ -24,8 +24,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyCheckbox
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectReference;
 import org.apache.myfaces.tobago.internal.util.ArrayUtils;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -115,8 +113,9 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
           first = false;
         }
         writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
-        writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, select)));
         writer.endElement(HtmlElements.INPUT);
+
+        encodeBehavior(writer, facesContext, select);
 
         writer.startElement(HtmlElements.I);
         writer.writeClassAttribute(TobagoClass.INPUT_PSEUDO);

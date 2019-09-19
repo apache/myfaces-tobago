@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUITextarea;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -136,8 +135,6 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
       writer.writeAttribute(HtmlAttributes.PATTERN, pattern, true);
     }
 
-    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, input)));
-
     HtmlRendererUtils.renderFocus(clientId, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
 
     final String placeholder = input.getPlaceholder();
@@ -163,6 +160,7 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
     }
 
     writer.endElement(HtmlElements.TEXTAREA);
+    encodeBehavior(writer, facesContext, input);
   }
 
   @Override

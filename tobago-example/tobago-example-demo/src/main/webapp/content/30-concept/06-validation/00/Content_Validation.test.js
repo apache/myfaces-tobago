@@ -27,7 +27,7 @@ QUnit.test("Required: Submit without content.", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     textareaFn().value = "";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
@@ -45,7 +45,7 @@ QUnit.test("Required: Submit with content.", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     textareaFn().value = "some content";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
@@ -63,7 +63,7 @@ QUnit.test("Validate Length: Submit single character.", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = "a";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -80,7 +80,7 @@ QUnit.test("Validate Length: Submit two character.", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = "ab";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -97,7 +97,7 @@ QUnit.test("Validate Range: Submit no number.", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = "no number";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -114,7 +114,7 @@ QUnit.test("Validate Range: Submit number '2' which is out of range.", function 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = "2";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -131,7 +131,7 @@ QUnit.test("Validate Range: Submit number '78' which is out of range.", function
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = "78";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -148,7 +148,7 @@ QUnit.test("Validate Range: Submit number '64' which is within the range.", func
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = "64";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -165,7 +165,7 @@ QUnit.test("Regex Validation: Submit 'T' which violates the pattern.", function 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = "T";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -182,7 +182,7 @@ QUnit.test("Regex Validation: Submit '3' which violates the pattern.", function 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = "3";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -199,7 +199,7 @@ QUnit.test("Regex Validation: Submit 'T3' which is accepted.", function (assert)
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = "T3";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -216,7 +216,7 @@ QUnit.test("Custom Validator: Submit rejected string.", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = "java";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -233,7 +233,7 @@ QUnit.test("Custom Validator: Submit accepted string.", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = "tobago";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {

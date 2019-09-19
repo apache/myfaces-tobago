@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -61,7 +60,7 @@ public abstract class DecodingInputRendererBase extends RendererBase {
       setSubmittedValue(facesContext, (EditableValueHolder) component, newValue);
     }
 
-    RenderUtils.decodeClientBehaviors(facesContext, component);
+    decodeClientBehaviors(facesContext, component);
   }
 
   protected void setSubmittedValue(

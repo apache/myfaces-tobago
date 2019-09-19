@@ -24,7 +24,7 @@ QUnit.test("Simple Event", function (assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    buttonFn().click();
+    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(11, function () {
@@ -39,7 +39,7 @@ QUnit.test("Simple Ajax", function (assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    buttonFn().click();
+    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(11, function () {
@@ -54,7 +54,7 @@ QUnit.test("Simple EventAjax", function (assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    buttonFn().click();
+    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(11, function () {
@@ -116,7 +116,7 @@ function testEventOption(assert, optionId, componentFn, eventName,
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    hideFn().click();
+    hideFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -127,7 +127,7 @@ function testEventOption(assert, optionId, componentFn, eventName,
     optionsFn().item(1).checked = false;
     optionsFn().item(2).checked = false;
     optionsFn().item(optionId).checked = true;
-    optionsFn().item(optionId).dispatchEvent(new Event('change'));
+    optionsFn().item(optionId).dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.action(function () {
@@ -158,7 +158,7 @@ function testAjaxOption(assert, optionId, componentFn, eventName,
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    hideFn().click();
+    hideFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -169,7 +169,7 @@ function testAjaxOption(assert, optionId, componentFn, eventName,
     optionsFn().item(1).checked = false;
     optionsFn().item(2).checked = false;
     optionsFn().item(optionId).checked = true;
-    optionsFn().item(optionId).dispatchEvent(new Event('change'));
+    optionsFn().item(optionId).dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.action(function () {
@@ -194,7 +194,7 @@ function testInputSection(assert, inputFn, eventName) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    hideFn().click();
+    hideFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {

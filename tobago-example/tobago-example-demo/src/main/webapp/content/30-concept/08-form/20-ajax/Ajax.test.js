@@ -27,7 +27,7 @@ QUnit.test("submit inner form 1 without violations", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     form1InputFieldFn().value = "Alice";
-    buttonFn().click();
+    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -49,7 +49,7 @@ QUnit.test("submit inner form 2, violate required field", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     form2InputFieldFn().value = "";
-    buttonFn().click();
+    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -69,7 +69,7 @@ QUnit.test("submit inner form 2 without violations", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     form2InputFieldFn().value = "Bob";
-    buttonFn().click();
+    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -99,7 +99,7 @@ QUnit.test("submit outer form, violate both required fields", function (assert) 
     form1InputFieldFn().value = "Charlie";
     form2InputFieldFn().value = "";
     outerFormInputFieldFn().value = "";
-    buttonFn().click();
+    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(7, function () {
@@ -133,7 +133,7 @@ QUnit.test("submit outer form, violate required field in form 2", function (asse
     form1InputFieldFn().value = "Dave";
     form2InputFieldFn().value = "";
     outerFormInputFieldFn().value = "Eve";
-    buttonFn().click();
+    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(7, function () {
@@ -167,7 +167,7 @@ QUnit.test("submit outer form, violate required field in outer form", function (
     form1InputFieldFn().value = "Frank";
     form2InputFieldFn().value = "Grace";
     outerFormInputFieldFn().value = "";
-    buttonFn().click();
+    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(7, function () {
@@ -197,7 +197,7 @@ QUnit.test("submit outer form without violations", function (assert) {
     form1InputFieldFn().value = "Hank";
     form2InputFieldFn().value = "Irene";
     outerFormInputFieldFn().value = "John";
-    buttonFn().click();
+    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(7, function () {
@@ -231,7 +231,7 @@ QUnit.test("submit inner forms, violate required field in form 2", function (ass
     form1InputFieldFn().value = "Kate";
     form2InputFieldFn().value = "";
     outerFormInputFieldFn().value = "Leonard";
-    buttonFn().click();
+    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(7, function () {
@@ -263,7 +263,7 @@ QUnit.test("submit inner forms without violations", function (assert) {
     form1InputFieldFn().value = "Mike";
     form2InputFieldFn().value = "Neil";
     outerFormInputFieldFn().value = "";
-    buttonFn().click();
+    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(7, function () {
@@ -297,7 +297,7 @@ QUnit.test("submit outer value, violate required field", function (assert) {
     form1InputFieldFn().value = "Oscar";
     form2InputFieldFn().value = "Penny";
     outerFormInputFieldFn().value = "";
-    buttonFn().click();
+    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(7, function () {
@@ -330,7 +330,7 @@ QUnit.test("submit outer value without violations", function (assert) {
     form1InputFieldFn().value = "Quin";
     form2InputFieldFn().value = "Sue";
     outerFormInputFieldFn().value = "Ted";
-    buttonFn().click();
+    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(7, function () {

@@ -29,7 +29,7 @@ QUnit.test("Add a river and reset.", function (assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    resetFn().click();
+    resetFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
@@ -40,7 +40,7 @@ QUnit.test("Add a river and reset.", function (assert) {
     nameFn().value = "Mississippi";
     lengthFn().value = "6275";
     dischargeFn().value = "16200";
-    addFn().click();
+    addFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
@@ -48,7 +48,7 @@ QUnit.test("Add a river and reset.", function (assert) {
     assert.equal(uiRepeatSectionsFn().length, 4);
   });
   TTT.action(function () {
-    resetFn().click();
+    resetFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {

@@ -23,8 +23,6 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectBoolean;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
@@ -65,7 +63,7 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
 
     input.setSubmittedValue("true".equals(newValue) ? "true" : "false");
 
-    RenderUtils.decodeClientBehaviors(facesContext, input);
+    decodeClientBehaviors(facesContext, input);
   }
 
   @Override
@@ -120,7 +118,6 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
     HtmlRendererUtils.renderFocus(clientId, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
     writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
-    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, select)));
     writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.I);
@@ -139,8 +136,12 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
   @Override
   protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final AbstractUISelectBoolean select = (AbstractUISelectBoolean) component;
+
     writer.endElement(HtmlElements.LABEL);
     writer.endElement(HtmlElements.DIV);
+
+    encodeBehavior(writer, facesContext, select);
   }
 
   protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {

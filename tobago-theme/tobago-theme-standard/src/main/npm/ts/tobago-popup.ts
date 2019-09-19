@@ -53,13 +53,11 @@ export class Collapse {
     return document.getElementById(element.id + "::collapse") as HTMLInputElement;
   }
 
-  static execute = function (collapse) {
-    const transition = collapse.transition;
-    const forElement = document.getElementById(collapse.forId);
-    const hidden = Collapse.findHidden(forElement);
-    const isPopup = forElement.tagName === "TOBAGO-POPUP";
+  static execute = function (action: string, target: HTMLElement) {
+    const hidden = Collapse.findHidden(target);
+    const isPopup = target.tagName === "TOBAGO-POPUP";
     let newCollapsed;
-    switch (transition) {
+    switch (action) {
       case "hide":
         newCollapsed = true;
         break;
@@ -67,19 +65,19 @@ export class Collapse {
         newCollapsed = false;
         break;
       default:
-        console.error("unknown transition: '" + transition + "'");
+        console.error("unknown action: '" + action + "'");
     }
     if (newCollapsed) {
       if (isPopup) {
-        BootstrapUtils.modal(forElement, "hide");
+        BootstrapUtils.modal(target, "hide");
       } else {
-        forElement.classList.add("tobago-collapsed");
+        target.classList.add("tobago-collapsed");
       }
     } else {
       if (isPopup) {
-        BootstrapUtils.modal(forElement, "show");
+        BootstrapUtils.modal(target, "show");
       } else {
-        forElement.classList.remove("tobago-collapsed");
+        target.classList.remove("tobago-collapsed");
       }
     }
     hidden.value = newCollapsed;

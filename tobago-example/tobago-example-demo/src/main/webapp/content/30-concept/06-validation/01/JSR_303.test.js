@@ -26,7 +26,7 @@ QUnit.test("Required: Submit without content.", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = "";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -43,7 +43,7 @@ QUnit.test("Required: Submit with content.", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = "some content";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -60,7 +60,7 @@ QUnit.test("Length: Submit single character.", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = "a";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -77,7 +77,7 @@ QUnit.test("Length: Submit three characters.", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = "abc";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -94,7 +94,7 @@ QUnit.test("Length: Submit five characters.", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = "abcde";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {

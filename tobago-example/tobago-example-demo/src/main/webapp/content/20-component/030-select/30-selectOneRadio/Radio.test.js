@@ -32,7 +32,7 @@ QUnit.test("submit: Addition (2 + 4)", function (assert) {
     number2Fn().item(0).checked = false;
     number2Fn().item(1).checked = false;
     number2Fn().item(2).checked = true; // Select 4
-    submitAddFn().click();
+    submitAddFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -55,7 +55,7 @@ QUnit.test("submit: Subtraction (4 - 1)", function (assert) {
     number2Fn().item(0).checked = true; // Select 1
     number2Fn().item(1).checked = false;
     number2Fn().item(2).checked = false;
-    submitSubFn().click();
+    submitSubFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -73,7 +73,7 @@ QUnit.test("ajax: select Mars", function (assert) {
     planetFn().item(0).checked = false;
     planetFn().item(2).checked = false;
     planetFn().item(1).checked = true; // Mars.
-    planetFn().item(1).dispatchEvent(new Event('change'));
+    planetFn().item(1).dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
@@ -92,7 +92,7 @@ QUnit.test("ajax: select Jupiter", function (assert) {
     planetFn().item(0).checked = false;
     planetFn().item(1).checked = false;
     planetFn().item(2).checked = true; // Jupiter.
-    planetFn().item(2).dispatchEvent(new Event('change'));
+    planetFn().item(2).dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {

@@ -27,7 +27,7 @@ QUnit.test("submit inner form 1 without violations", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     form1InputFieldFn().value = "Alice";
-    form1SubmitButtonFn().click();
+    form1SubmitButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -53,7 +53,7 @@ QUnit.test("submit inner form 2, violate required field", function (assert) {
     assert.equal(form2InputFieldFn().value, "");
   });
   TTT.action(function () {
-    form2SubmitButtonFn().click();
+    form2SubmitButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -78,7 +78,7 @@ QUnit.test("submit inner form 2 without violations", function (assert) {
     assert.equal(form2InputFieldFn().value, "Bob");
   });
   TTT.action(function () {
-    form2SubmitButtonFn().click();
+    form2SubmitButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -104,7 +104,7 @@ QUnit.test("submit outer form, violate both required fields", function (assert) 
   TTT.action(function () {
     form2InputFieldFn().value = "";
     outerFormInputFieldFn().value = "";
-    outerFormSubmitButtonFn().click();
+    outerFormSubmitButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(5, function () {
@@ -132,7 +132,7 @@ QUnit.test("submit outer form, violate required field in form 2", function (asse
   TTT.action(function () {
     form2InputFieldFn().value = "";
     outerFormInputFieldFn().value = "Charlie";
-    outerFormSubmitButtonFn().click();
+    outerFormSubmitButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(5, function () {
@@ -160,7 +160,7 @@ QUnit.test("submit outer form, violate required field in outer form", function (
   TTT.action(function () {
     form2InputFieldFn().value = "Dave";
     outerFormInputFieldFn().value = "";
-    outerFormSubmitButtonFn().click();
+    outerFormSubmitButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(5, function () {
@@ -188,7 +188,7 @@ QUnit.test("submit outer form without violations", function (assert) {
     form1InputFieldFn().value = "Eve";
     form2InputFieldFn().value = "Frank";
     outerFormInputFieldFn().value = "Grace";
-    outerFormSubmitButtonFn().click();
+    outerFormSubmitButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(7, function () {

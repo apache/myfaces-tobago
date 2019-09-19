@@ -22,8 +22,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneListbox;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -79,7 +77,6 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
-    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, select)));
     HtmlRendererUtils.renderSelectItems(select, TobagoClass.SELECT_ONE_LISTBOX__OPTION, items, select.getValue(),
         (String) select.getSubmittedValue(), writer, facesContext);
   }
@@ -87,7 +84,11 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
   @Override
   protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final AbstractUISelectOneListbox select = (AbstractUISelectOneListbox) component;
+
     writer.endElement(HtmlElements.SELECT);
+
+    encodeBehavior(writer, facesContext, select);
   }
 
   @Override

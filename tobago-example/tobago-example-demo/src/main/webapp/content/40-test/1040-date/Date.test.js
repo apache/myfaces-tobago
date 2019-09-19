@@ -26,7 +26,7 @@ QUnit.test("inputfield with label", function (assert) {
   let datepickerFn = testFrameQuerySelectorAllFn(".bootstrap-datetimepicker-widget");
   assert.notOk(datepickerFn().item(0));
 
-  dateButtonFn().click();
+  dateButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
 
   datepickerFn = testFrameQuerySelectorAllFn(".bootstrap-datetimepicker-widget");
   assert.ok(datepickerFn().item(0));

@@ -27,7 +27,7 @@ QUnit.test("Style tag inside grid layout", function (assert) {
     assert.ok(outputFn().classList.contains("text-warning"));
   });
   TTT.action(function () {
-    buttonFn().click();
+    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {

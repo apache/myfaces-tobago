@@ -26,7 +26,7 @@ QUnit.test("Basics: Name", function (assert) {
   let TTT = new TobagoTestTool(assert);
   if (!colNameFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      colNameFn().click();
+      colNameFn().dispatchEvent(new Event("click", {bubbles: true}));
     });
     TTT.waitForResponse();
   }
@@ -37,7 +37,7 @@ QUnit.test("Basics: Name", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "22";
-    leftPagingFn().dispatchEvent(new Event('blur'));
+    leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -48,7 +48,7 @@ QUnit.test("Basics: Name", function (assert) {
         "Epimetheus", "0.69", "1980");
   });
   TTT.action(function () {
-    colNameFn().click();
+    colNameFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -59,7 +59,7 @@ QUnit.test("Basics: Name", function (assert) {
         "Praxidike", "625.3", "2000");
   });
   TTT.action(function () {
-    colNameFn().click();
+    colNameFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -80,7 +80,7 @@ QUnit.test("Basics: Period", function (assert) {
   let TTT = new TobagoTestTool(assert);
   if (!colPeriodFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      colPeriodFn().click();
+      colPeriodFn().dispatchEvent(new Event("click", {bubbles: true}));
     });
     TTT.waitForResponse();
   }
@@ -91,7 +91,7 @@ QUnit.test("Basics: Period", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "29";
-    leftPagingFn().dispatchEvent(new Event('blur'));
+    leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -102,7 +102,7 @@ QUnit.test("Basics: Period", function (assert) {
         "Prometheus", "0.61", "1980");
   });
   TTT.action(function () {
-    colPeriodFn().click();
+    colPeriodFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -113,7 +113,7 @@ QUnit.test("Basics: Period", function (assert) {
         "Titania", "8.71", "1787");
   });
   TTT.action(function () {
-    colPeriodFn().click();
+    colPeriodFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -134,7 +134,7 @@ QUnit.test("Basics: Year", function (assert) {
   let TTT = new TobagoTestTool(assert);
   if (!colYearFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      colYearFn().click();
+      colYearFn().dispatchEvent(new Event("click", {bubbles: true}));
     });
     TTT.waitForResponse();
   }
@@ -145,7 +145,7 @@ QUnit.test("Basics: Year", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "22";
-    leftPagingFn().dispatchEvent(new Event('blur'));
+    leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
@@ -155,7 +155,7 @@ QUnit.test("Basics: Year", function (assert) {
     assert.equal(rowsFn().item(3).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1905", "row3col2");
   });
   TTT.action(function () {
-    colYearFn().click();
+    colYearFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
@@ -165,7 +165,7 @@ QUnit.test("Basics: Year", function (assert) {
     assert.equal(rowsFn().item(3).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1997", "row3col2");
   });
   TTT.action(function () {
-    colYearFn().click();
+    colYearFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
@@ -189,7 +189,7 @@ QUnit.test("Basics: left paging", function (assert) {
   let TTT = new TobagoTestTool(assert);
   if (!colNameFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      colNameFn().click();
+      colNameFn().dispatchEvent(new Event("click", {bubbles: true}));
     });
     TTT.waitForResponse();
   }
@@ -200,7 +200,7 @@ QUnit.test("Basics: left paging", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "8";
-    leftPagingFn().dispatchEvent(new Event('blur'));
+    leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -212,7 +212,7 @@ QUnit.test("Basics: left paging", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "9";
-    leftPagingFn().dispatchEvent(new Event('blur'));
+    leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -239,7 +239,7 @@ QUnit.test("Basics: center paging", function (assert) {
   let TTT = new TobagoTestTool(assert);
   if (!colNameFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      colNameFn().click();
+      colNameFn().dispatchEvent(new Event("click", {bubbles: true}));
     });
     TTT.waitForResponse();
   }
@@ -250,7 +250,7 @@ QUnit.test("Basics: center paging", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "1";
-    leftPagingFn().dispatchEvent(new Event('blur'));
+    leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -261,7 +261,7 @@ QUnit.test("Basics: center paging", function (assert) {
         "Ananke", "-629.77", "1951");
   });
   TTT.action(function () {
-    centerPagingFn().item(6).click();
+    centerPagingFn().item(6).dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -272,7 +272,7 @@ QUnit.test("Basics: center paging", function (assert) {
         "Galatea", "0.43", "1989");
   });
   TTT.action(function () {
-    centerPagingFn().item(10).click();
+    centerPagingFn().item(10).dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -283,7 +283,7 @@ QUnit.test("Basics: center paging", function (assert) {
         "Praxidike", "625.3", "2000");
   });
   TTT.action(function () {
-    centerPagingFn().item(3).click();
+    centerPagingFn().item(3).dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -313,7 +313,7 @@ QUnit.test("Basics: right paging", function (assert) {
   let TTT = new TobagoTestTool(assert);
   if (!colNameFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      colNameFn().click();
+      colNameFn().dispatchEvent(new Event("click", {bubbles: true}));
     });
     TTT.waitForResponse();
   }
@@ -324,7 +324,7 @@ QUnit.test("Basics: right paging", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "22";
-    leftPagingFn().dispatchEvent(new Event('blur'));
+    leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -335,7 +335,7 @@ QUnit.test("Basics: right paging", function (assert) {
         "Epimetheus", "0.69", "1980");
   });
   TTT.action(function () {
-    rightPagingFn().item(0).click();
+    rightPagingFn().item(0).dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -346,7 +346,7 @@ QUnit.test("Basics: right paging", function (assert) {
         "Ananke", "-629.77", "1951");
   });
   TTT.action(function () {
-    rightPagingFn().item(3).click();
+    rightPagingFn().item(3).dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -357,7 +357,7 @@ QUnit.test("Basics: right paging", function (assert) {
         "Bianca", "0.43", "1986");
   });
   TTT.action(function () {
-    rightPagingFn().item(4).click();
+    rightPagingFn().item(4).dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -368,7 +368,7 @@ QUnit.test("Basics: right paging", function (assert) {
         "Venus", "224.7", "");
   });
   TTT.action(function () {
-    rightPagingFn().item(1).click();
+    rightPagingFn().item(1).dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -380,7 +380,7 @@ QUnit.test("Basics: right paging", function (assert) {
   });
   TTT.action(function () {
     jumpToPageFn().value = "14";
-    jumpToPageFn().dispatchEvent(new Event('blur'));
+    jumpToPageFn().dispatchEvent(new Event("blur", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -401,7 +401,7 @@ QUnit.test("Custom Sorting: Name", function (assert) {
   let TTT = new TobagoTestTool(assert);
   if (!colNameFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      colNameFn().click();
+      colNameFn().dispatchEvent(new Event("click", {bubbles: true}));
     });
     TTT.waitForResponse();
   }
@@ -412,7 +412,7 @@ QUnit.test("Custom Sorting: Name", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "22";
-    leftPagingFn().dispatchEvent(new Event('blur'));
+    leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -423,7 +423,7 @@ QUnit.test("Custom Sorting: Name", function (assert) {
         "Epimetheus", "0.69", "1980");
   });
   TTT.action(function () {
-    colNameFn().click();
+    colNameFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -434,7 +434,7 @@ QUnit.test("Custom Sorting: Name", function (assert) {
         "Praxidike", "625.3", "2000");
   });
   TTT.action(function () {
-    colNameFn().click();
+    colNameFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -455,7 +455,7 @@ QUnit.test("Custom Sorting: Period", function (assert) {
   let TTT = new TobagoTestTool(assert);
   if (!colPeriodFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      colPeriodFn().click();
+      colPeriodFn().dispatchEvent(new Event("click", {bubbles: true}));
     });
     TTT.waitForResponse();
   }
@@ -466,7 +466,7 @@ QUnit.test("Custom Sorting: Period", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "29";
-    leftPagingFn().dispatchEvent(new Event('blur'));
+    leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -477,7 +477,7 @@ QUnit.test("Custom Sorting: Period", function (assert) {
         "Enceladus", "1.37", "1789");
   });
   TTT.action(function () {
-    colPeriodFn().click();
+    colPeriodFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -488,7 +488,7 @@ QUnit.test("Custom Sorting: Period", function (assert) {
         "Leda", "238.72", "1974");
   });
   TTT.action(function () {
-    colPeriodFn().click();
+    colPeriodFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -509,7 +509,7 @@ QUnit.test("Custom Sorting: Year", function (assert) {
   let TTT = new TobagoTestTool(assert);
   if (!colYearFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      colYearFn().click();
+      colYearFn().dispatchEvent(new Event("click", {bubbles: true}));
     });
     TTT.waitForResponse();
   }
@@ -520,7 +520,7 @@ QUnit.test("Custom Sorting: Year", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "22";
-    leftPagingFn().dispatchEvent(new Event('blur'));
+    leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
@@ -530,7 +530,7 @@ QUnit.test("Custom Sorting: Year", function (assert) {
     assert.equal(rowsFn().item(3).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1848", "row3col2");
   });
   TTT.action(function () {
-    colYearFn().click();
+    colYearFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
@@ -540,7 +540,7 @@ QUnit.test("Custom Sorting: Year", function (assert) {
     assert.equal(rowsFn().item(3).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim(), "1986", "row3col2");
   });
   TTT.action(function () {
-    colYearFn().click();
+    colYearFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
@@ -564,7 +564,7 @@ QUnit.test("Custom Sorting: left paging", function (assert) {
   let TTT = new TobagoTestTool(assert);
   if (!colNameFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      colNameFn().click();
+      colNameFn().dispatchEvent(new Event("click", {bubbles: true}));
     });
     TTT.waitForResponse();
   }
@@ -575,7 +575,7 @@ QUnit.test("Custom Sorting: left paging", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "8";
-    leftPagingFn().dispatchEvent(new Event('blur'));
+    leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -587,7 +587,7 @@ QUnit.test("Custom Sorting: left paging", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "9";
-    leftPagingFn().dispatchEvent(new Event('blur'));
+    leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -614,7 +614,7 @@ QUnit.test("Custom Sorting: center paging", function (assert) {
   let TTT = new TobagoTestTool(assert);
   if (!colNameFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      colNameFn().click();
+      colNameFn().dispatchEvent(new Event("click", {bubbles: true}));
     });
     TTT.waitForResponse();
   }
@@ -625,7 +625,7 @@ QUnit.test("Custom Sorting: center paging", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "1";
-    leftPagingFn().dispatchEvent(new Event('blur'));
+    leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -636,7 +636,7 @@ QUnit.test("Custom Sorting: center paging", function (assert) {
         "Ananke", "-629.77", "1951");
   });
   TTT.action(function () {
-    centerPagingFn().item(6).click();
+    centerPagingFn().item(6).dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -647,7 +647,7 @@ QUnit.test("Custom Sorting: center paging", function (assert) {
         "Galatea", "0.43", "1989");
   });
   TTT.action(function () {
-    centerPagingFn().item(10).click();
+    centerPagingFn().item(10).dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -658,7 +658,7 @@ QUnit.test("Custom Sorting: center paging", function (assert) {
         "Praxidike", "625.3", "2000");
   });
   TTT.action(function () {
-    centerPagingFn().item(3).click();
+    centerPagingFn().item(3).dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -688,7 +688,7 @@ QUnit.test("Custom Sorting: right paging", function (assert) {
   let TTT = new TobagoTestTool(assert);
   if (!colNameFn().classList.contains("tobago-sheet-header-markup-ascending")) {
     TTT.action(function () {
-      colNameFn().click();
+      colNameFn().dispatchEvent(new Event("click", {bubbles: true}));
     });
     TTT.waitForResponse();
   }
@@ -699,7 +699,7 @@ QUnit.test("Custom Sorting: right paging", function (assert) {
   });
   TTT.action(function () {
     leftPagingFn().value = "22";
-    leftPagingFn().dispatchEvent(new Event('blur'));
+    leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -710,7 +710,7 @@ QUnit.test("Custom Sorting: right paging", function (assert) {
         "Epimetheus", "0.69", "1980");
   });
   TTT.action(function () {
-    rightPagingFn().item(0).click();
+    rightPagingFn().item(0).dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -721,7 +721,7 @@ QUnit.test("Custom Sorting: right paging", function (assert) {
         "Ananke", "-629.77", "1951");
   });
   TTT.action(function () {
-    rightPagingFn().item(3).click();
+    rightPagingFn().item(3).dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -732,7 +732,7 @@ QUnit.test("Custom Sorting: right paging", function (assert) {
         "Bianca", "0.43", "1986");
   });
   TTT.action(function () {
-    rightPagingFn().item(4).click();
+    rightPagingFn().item(4).dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -743,7 +743,7 @@ QUnit.test("Custom Sorting: right paging", function (assert) {
         "Venus", "224.7", "");
   });
   TTT.action(function () {
-    rightPagingFn().item(1).click();
+    rightPagingFn().item(1).dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {
@@ -755,7 +755,7 @@ QUnit.test("Custom Sorting: right paging", function (assert) {
   });
   TTT.action(function () {
     rightPagingInputFn().value = "14";
-    rightPagingInputFn().dispatchEvent(new Event('blur'));
+    rightPagingInputFn().dispatchEvent(new Event("blur", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(12, function () {

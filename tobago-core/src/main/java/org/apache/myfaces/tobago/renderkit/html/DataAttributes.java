@@ -44,17 +44,6 @@ public enum DataAttributes implements MarkupLanguageAttributes {
    */
   COLUMN_INDEX("data-tobago-column-index"),
 
-  /**
-   * Custom command attribute. Is used to mark different client side JavaScript buttons.
-   * Should only contain the command name as a keyword, for security reasons.
-   */
-  COMMAND("data-tobago-command"),
-
-  /**
-   * The list of commands attached to an element.
-   */
-  COMMANDS("data-tobago-commands"),
-
   CONTENT("data-content"),
 
   /**

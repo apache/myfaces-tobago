@@ -31,11 +31,8 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanelBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUITab;
 import org.apache.myfaces.tobago.internal.component.AbstractUITabGroup;
-import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.model.SwitchType;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -141,9 +138,7 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
   public void encodeEnd(final FacesContext facesContext, final UIComponent uiComponent) throws IOException {
 
     final AbstractUITabGroup tabGroup = (AbstractUITabGroup) uiComponent;
-
     final int selectedIndex = ensureRenderedSelectedIndex(facesContext, tabGroup);
-
     final String clientId = tabGroup.getClientId(facesContext);
     final String hiddenId = clientId + TabGroupRenderer.INDEX_POSTFIX;
     final SwitchType switchType = tabGroup.getSwitchType();
@@ -159,6 +154,8 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
     writer.writeAttribute(CustomAttributes.SWITCH_TYPE, switchType.name(), false);
+
+    encodeBehavior(writer, facesContext, tabGroup);
 
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
@@ -227,7 +224,6 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
         BootstrapClass.NAV_TABS,
         BootstrapClass.CARD_HEADER_TABS);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TABLIST.toString(), false);
-    final CommandMap tabGroupMap = RenderUtils.getBehaviorCommands(facesContext, tabGroup);
 
     int index = 0;
     for (final UIComponent child : tabGroup.getChildren()) {
@@ -279,19 +275,15 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
                 DataAttributes.TARGET, '#' + getTabPanelId(facesContext, tab).replaceAll(":", "\\\\:"), false);
           }
 
-          if (!disabled) {
-            final CommandMap map = RenderUtils.getBehaviorCommands(facesContext, tab);
-            CommandMap.merge(map, tabGroupMap);
-            if (false) { // TBD
-              writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), false);
-            }
-          }
-
           if (!disabled && label.getAccessKey() != null) {
             writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
             AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), tabId);
           }
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TAB.toString(), false);
+
+          if (!disabled) {
+            encodeBehavior(writer, facesContext, tab);
+          }
 
           boolean labelEmpty = true;
           final String image = tab.getImage();

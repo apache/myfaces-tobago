@@ -23,9 +23,7 @@ import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.HttpPartWrapper;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.PartUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -109,7 +107,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
       LOG.warn("Unsupported request type: " + request.getClass().getName());
     }
 
-    RenderUtils.decodeClientBehaviors(facesContext, component);
+    decodeClientBehaviors(facesContext, component);
   }
 
   @Override
@@ -164,8 +162,9 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
-    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, file)));
     writer.endElement(HtmlElements.INPUT);
+
+    encodeBehavior(writer, facesContext, file);
 
     writer.startElement(HtmlElements.LABEL);
     writer.writeClassAttribute(

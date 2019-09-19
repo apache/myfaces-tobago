@@ -28,7 +28,7 @@ QUnit.test("submit: Alice", function (assert) {
   TTT.action(function () {
     aliceFn().selected = true;
     bobFn().selected = false;
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -47,7 +47,7 @@ QUnit.test("submit: Bob", function (assert) {
   TTT.action(function () {
     aliceFn().selected = false;
     bobFn().selected = true;
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -66,7 +66,7 @@ QUnit.test("ajax: select Mars", function (assert) {
   TTT.action(function () {
     jupiterOptionFn().selected = false;
     marsOptionFn().selected = true;
-    planetFn().dispatchEvent(new Event('change'));
+    planetFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
@@ -86,7 +86,7 @@ QUnit.test("ajax: select Jupiter", function (assert) {
   TTT.action(function () {
     marsOptionFn().selected = false;
     jupiterOptionFn().selected = true;
-    planetFn().dispatchEvent(new Event('change'));
+    planetFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {

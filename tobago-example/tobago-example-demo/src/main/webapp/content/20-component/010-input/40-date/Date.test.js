@@ -37,7 +37,7 @@ QUnit.test("date with label", function (assert) {
   assert.equal(dateFieldFn().value, today);
 
   dateFieldFn().value = "32.05.2016";
-  dateButtonFn().click();
+  dateButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
 
   assert.equal(dateFieldFn().value, today);
   assert.notOk(dayTodayFn().classList.contains("past"));
@@ -47,7 +47,7 @@ QUnit.test("date with label", function (assert) {
     assert.notOk(dayTodayFn().nextElementSibling.classList.contains("past"));
   }
 
-  dateButtonFn().click(); // IE11: close datetimepicker for next test
+  dateButtonFn().dispatchEvent(new Event("click", {bubbles: true})); // IE11: close datetimepicker for next test
 });
 
 QUnit.test("date+time pattern", function (assert) {
@@ -59,7 +59,7 @@ QUnit.test("date+time pattern", function (assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    dateButtonFn().click();
+    dateButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.asserts(3, function () {
     assert.ok(datepickerFn() !== null);
@@ -67,7 +67,7 @@ QUnit.test("date+time pattern", function (assert) {
     assert.equal(getComputedStyle(lastLiFn()).display, "none");
   });
   TTT.action(function () {
-    togglePickerButtonFn().click();
+    togglePickerButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitMs(1000); // wait for animation
   TTT.asserts(2, function () {
@@ -75,7 +75,7 @@ QUnit.test("date+time pattern", function (assert) {
     assert.notEqual(getComputedStyle(lastLiFn()).display, "none"); //block
   });
   TTT.action(function () {
-    dateButtonFn().click(); // IE11: close datetimepicker for next test
+    dateButtonFn().dispatchEvent(new Event("click", {bubbles: true})); // IE11: close datetimepicker for next test
   });
   TTT.startTest();
 });
@@ -95,7 +95,7 @@ QUnit.test("submit", function (assert) {
     assert.equal(outFieldFn().textContent, "22.05.2016");
   });
   TTT.action(function () {
-    dateButtonFn().click();
+    dateButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.asserts(2, function () {
     assert.ok(widgetFn().item(0), ".bootstrap-datetimepicker-widget should be available");
@@ -109,13 +109,13 @@ QUnit.test("submit", function (assert) {
     assert.ok(daysFn().item(day22 + 10));
   });
   TTT.action(function () {
-    daysFn().item(day22 + 10).click(); // Choose '01.06.2016'.
+    daysFn().item(day22 + 10).dispatchEvent(new Event("click", {bubbles: true})); // Choose '01.06.2016'.
   });
   TTT.asserts(1, function () {
     assert.equal(dateFieldFn().value, "01.06.2016");
   });
   TTT.action(function () {
-    submitButtonFn().click();
+    submitButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -137,7 +137,7 @@ QUnit.test("ajax", function (assert) {
     assert.equal(outFieldFn().textContent, "");
   });
   TTT.action(function () {
-    dateButtonFn().click();
+    dateButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {

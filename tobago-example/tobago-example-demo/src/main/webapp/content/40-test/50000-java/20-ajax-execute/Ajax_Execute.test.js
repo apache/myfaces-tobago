@@ -33,7 +33,7 @@ QUnit.test("ajax excecute", function (assert) {
     in2Fn().value = "b";
     in3Fn().value = "c";
     in4Fn().value = "d";
-    clearButtonFn().click();
+    clearButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
@@ -47,7 +47,7 @@ QUnit.test("ajax excecute", function (assert) {
     in2Fn().value = "b";
     in3Fn().value = "c";
     in4Fn().value = "d";
-    submitButtonFn().click();
+    submitButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {
@@ -57,7 +57,7 @@ QUnit.test("ajax excecute", function (assert) {
     assert.equal(in4Fn().value, "");
   });
   TTT.action(function () {
-    reloadButtonFn().click();
+    reloadButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(4, function () {

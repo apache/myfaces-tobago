@@ -22,8 +22,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneChoice;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
@@ -73,7 +71,6 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
-    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, select)));
     HtmlRendererUtils.renderFocus(clientId, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
 
     HtmlRendererUtils.renderSelectItems(select, TobagoClass.SELECT_ONE_CHOICE__OPTION, items, select.getValue(),
@@ -83,7 +80,11 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
   @Override
   protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final AbstractUISelectOneChoice select = (AbstractUISelectOneChoice) component;
+
     writer.endElement(HtmlElements.SELECT);
+
+    encodeBehavior(writer, facesContext, select);
   }
 
   @Override

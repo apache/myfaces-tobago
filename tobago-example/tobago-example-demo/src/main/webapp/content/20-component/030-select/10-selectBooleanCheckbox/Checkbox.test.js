@@ -67,7 +67,7 @@ QUnit.test("ajax: select D", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectDFn().checked = true;
-    selectDFn().dispatchEvent(new Event('change'));
+    selectDFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -83,7 +83,7 @@ QUnit.test("ajax: deselect D", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectDFn().checked = false;
-    selectDFn().dispatchEvent(new Event('change'));
+    selectDFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -99,7 +99,7 @@ QUnit.test("ajax: select E", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectEFn().checked = true;
-    selectEFn().dispatchEvent(new Event('change'));
+    selectEFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -115,7 +115,7 @@ QUnit.test("ajax: deselect E", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectEFn().checked = false;
-    selectEFn().dispatchEvent(new Event('change'));
+    selectEFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -131,7 +131,7 @@ QUnit.test("ajax: select F", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectFFn().checked = true;
-    selectFFn().dispatchEvent(new Event('change'));
+    selectFFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -147,7 +147,7 @@ QUnit.test("ajax: deselect F", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectFFn().checked = false;
-    selectFFn().dispatchEvent(new Event('change'));
+    selectFFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {

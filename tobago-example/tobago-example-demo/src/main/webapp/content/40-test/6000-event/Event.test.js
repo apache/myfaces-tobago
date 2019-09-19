@@ -151,7 +151,7 @@ function activateComponent(componentName, eventName) {
       Array.prototype.forEach.call(buttons, function (element, i) {
         let id = element.getAttribute("id");
         if (id !== undefined && id.indexOf(eventName + "Behavior") >= 0) {
-          element.click();
+          element.dispatchEvent(new Event("click", {bubbles: true}));
         }
       });
     }

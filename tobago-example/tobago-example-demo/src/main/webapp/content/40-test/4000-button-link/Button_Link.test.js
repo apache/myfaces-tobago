@@ -47,14 +47,14 @@ function testStandardCommands(commandFn, destinationSectionFn, assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    commandFn().click();
+    commandFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.ok(destinationSectionFn() !== null);
   });
   TTT.action(function () {
-    backFn().click();
+    backFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -98,7 +98,7 @@ QUnit.test("Style must not be a dropdown item", function (assert) {
 function testTargetCommands(commandFn, expectedText, assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    commandFn().click();
+    commandFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitMs(2000); //TobagoTestTools.waitForResponse() didn't recognize responses on a target frame, so we just wait
   TTT.asserts(1, function () {

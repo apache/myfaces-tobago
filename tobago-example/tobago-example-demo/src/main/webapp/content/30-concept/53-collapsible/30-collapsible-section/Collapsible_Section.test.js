@@ -28,7 +28,7 @@ QUnit.test("Simple Panel", function (assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    showFn().click();
+    showFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
@@ -37,7 +37,7 @@ QUnit.test("Simple Panel", function (assert) {
   });
   TTT.action(function () {
     inFn().value = "some text";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -47,7 +47,7 @@ QUnit.test("Simple Panel", function (assert) {
   });
   TTT.action(function () {
     inFn().value = "";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -56,7 +56,7 @@ QUnit.test("Simple Panel", function (assert) {
     assert.ok(inFn() !== null);
   });
   TTT.action(function () {
-    hideFn().click();
+    hideFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -65,7 +65,7 @@ QUnit.test("Simple Panel", function (assert) {
     assert.equal(inFn(), null);
   });
   TTT.action(function () {
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -86,7 +86,7 @@ QUnit.test("Full Server Request", function (assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    showFn().click();
+    showFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
@@ -95,7 +95,7 @@ QUnit.test("Full Server Request", function (assert) {
   });
   TTT.action(function () {
     inFn().value = "some text";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -105,7 +105,7 @@ QUnit.test("Full Server Request", function (assert) {
   });
   TTT.action(function () {
     inFn().value = "";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -114,7 +114,7 @@ QUnit.test("Full Server Request", function (assert) {
     assert.ok(inFn() !== null);
   });
   TTT.action(function () {
-    hideFn().click();
+    hideFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -123,7 +123,7 @@ QUnit.test("Full Server Request", function (assert) {
     assert.equal(inFn(), null);
   });
   TTT.action(function () {
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -144,7 +144,7 @@ QUnit.test("Client Side", function (assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    showFn().click();
+    showFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.asserts(2, function () {
     assert.equal(sectionCollapsedFn().value, "false");
@@ -152,7 +152,7 @@ QUnit.test("Client Side", function (assert) {
   });
   TTT.action(function () {
     inFn().value = "some text";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -162,7 +162,7 @@ QUnit.test("Client Side", function (assert) {
   });
   TTT.action(function () {
     inFn().value = "";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -171,7 +171,7 @@ QUnit.test("Client Side", function (assert) {
     assert.ok(inFn() !== null);
   });
   TTT.action(function () {
-    hideFn().click();
+    hideFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.asserts(3, function () {
     assert.equal(messagesFn().length, 1);
@@ -179,7 +179,7 @@ QUnit.test("Client Side", function (assert) {
     assert.ok(inFn() !== null);
   });
   TTT.action(function () {
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -200,7 +200,7 @@ QUnit.test("Ajax", function (assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    showFn().click();
+    showFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
@@ -209,7 +209,7 @@ QUnit.test("Ajax", function (assert) {
   });
   TTT.action(function () {
     inFn().value = "some text";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -219,7 +219,7 @@ QUnit.test("Ajax", function (assert) {
   });
   TTT.action(function () {
     inFn().value = "";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {
@@ -228,7 +228,7 @@ QUnit.test("Ajax", function (assert) {
     assert.ok(inFn() !== null);
   });
   TTT.action(function () {
-    hideFn().click();
+    hideFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
@@ -236,7 +236,7 @@ QUnit.test("Ajax", function (assert) {
     assert.equal(inFn(), null);
   });
   TTT.action(function () {
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(3, function () {

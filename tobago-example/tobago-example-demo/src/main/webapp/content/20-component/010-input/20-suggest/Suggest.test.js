@@ -53,7 +53,7 @@ function testMarsBasics(assert, inputString, expectedLength) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = inputString;
-    inFn().dispatchEvent(new Event('input'));
+    inFn().dispatchEvent(new Event("input", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(expectedLength + 1, function () {
@@ -72,7 +72,7 @@ QUnit.test("Basics: Add 'eus' and click first entry.", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = "eus";
-    inFn().dispatchEvent(new Event('input'));
+    inFn().dispatchEvent(new Event("input", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(5, function () {
@@ -83,7 +83,7 @@ QUnit.test("Basics: Add 'eus' and click first entry.", function (assert) {
     assert.equal(suggestionsFn().item(2).querySelector("strong").textContent, "eus");
   });
   TTT.action(function () {
-    suggestionsFn().item(0).click();
+    suggestionsFn().item(0).dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.asserts(1, function () {
     assert.equal(inFn().value, "Prometheus");
@@ -100,7 +100,7 @@ QUnit.test("Advanced: 'C'", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = "C";
-    inFn().dispatchEvent(new Event('input'));
+    inFn().dispatchEvent(new Event("input", {bubbles: true}));
   });
   TTT.waitMs(suggestionDelay);
   TTT.asserts(1, function () {
@@ -118,7 +118,7 @@ QUnit.test("Advanced: 'Ca'", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = "Ca";
-    inFn().dispatchEvent(new Event('input'));
+    inFn().dispatchEvent(new Event("input", {bubbles: true}));
   });
   TTT.waitMs(200); // default suggestion delay
   TTT.asserts(1, function () {
@@ -143,7 +143,7 @@ QUnit.test("Client side: 'Ju'", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inFn().value = "Ju";
-    inFn().dispatchEvent(new Event('input'));
+    inFn().dispatchEvent(new Event("input", {bubbles: true}));
   });
   TTT.asserts(3, function () {
     assert.equal(suggestionsFn().length, 2);

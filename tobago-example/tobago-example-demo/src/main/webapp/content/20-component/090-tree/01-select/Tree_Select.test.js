@@ -29,7 +29,7 @@ QUnit.test("single: select Music, select Mathematics", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectableNoneFn().checked = true;
-    selectableNoneFn().dispatchEvent(new Event('change'));
+    selectableNoneFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -37,7 +37,7 @@ QUnit.test("single: select Music, select Mathematics", function (assert) {
   });
   TTT.action(function () {
     selectableSingleFn().checked = true;
-    selectableSingleFn().dispatchEvent(new Event('change'));
+    selectableSingleFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -45,7 +45,7 @@ QUnit.test("single: select Music, select Mathematics", function (assert) {
   });
   TTT.action(function () {
     musicFn().checked = true;
-    musicFn().dispatchEvent(new Event('change'));
+    musicFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -53,7 +53,7 @@ QUnit.test("single: select Music, select Mathematics", function (assert) {
   });
   TTT.action(function () {
     mathematicsFn().checked = true;
-    mathematicsFn().dispatchEvent(new Event('change'));
+    mathematicsFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -73,7 +73,7 @@ QUnit.test("singleLeafOnly: select Classic, select Mathematics", function (asser
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectableNoneFn().checked = true;
-    selectableNoneFn().dispatchEvent(new Event('change'));
+    selectableNoneFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -81,7 +81,7 @@ QUnit.test("singleLeafOnly: select Classic, select Mathematics", function (asser
   });
   TTT.action(function () {
     selectableSingleLeafOnlyFn().checked = true;
-    selectableSingleLeafOnlyFn().dispatchEvent(new Event('change'));
+    selectableSingleLeafOnlyFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -89,7 +89,7 @@ QUnit.test("singleLeafOnly: select Classic, select Mathematics", function (asser
   });
   TTT.action(function () {
     classicFn().checked = true;
-    classicFn().dispatchEvent(new Event('change'));
+    classicFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -97,7 +97,7 @@ QUnit.test("singleLeafOnly: select Classic, select Mathematics", function (asser
   });
   TTT.action(function () {
     mathematicsFn().checked = true;
-    mathematicsFn().dispatchEvent(new Event('change'));
+    mathematicsFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -117,7 +117,7 @@ QUnit.test("multi: select Music, select Mathematics, deselect Music", function (
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectableNoneFn().checked = true;
-    selectableNoneFn().dispatchEvent(new Event('change'));
+    selectableNoneFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -125,7 +125,7 @@ QUnit.test("multi: select Music, select Mathematics, deselect Music", function (
   });
   TTT.action(function () {
     selectableMultiFn().checked = true;
-    selectableMultiFn().dispatchEvent(new Event('change'));
+    selectableMultiFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -133,7 +133,7 @@ QUnit.test("multi: select Music, select Mathematics, deselect Music", function (
   });
   TTT.action(function () {
     musicFn().checked = true;
-    musicFn().dispatchEvent(new Event('change'));
+    musicFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -141,7 +141,7 @@ QUnit.test("multi: select Music, select Mathematics, deselect Music", function (
   });
   TTT.action(function () {
     mathematicsFn().checked = true;
-    mathematicsFn().dispatchEvent(new Event('change'));
+    mathematicsFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -149,7 +149,7 @@ QUnit.test("multi: select Music, select Mathematics, deselect Music", function (
   });
   TTT.action(function () {
     musicFn().checked = false;
-    musicFn().dispatchEvent(new Event('change'));
+    musicFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -169,7 +169,7 @@ QUnit.test("multiLeafOnly: select Classic, select Mathematics, deselect Classic"
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectableNoneFn().checked = true;
-    selectableNoneFn().dispatchEvent(new Event('change'));
+    selectableNoneFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -177,7 +177,7 @@ QUnit.test("multiLeafOnly: select Classic, select Mathematics, deselect Classic"
   });
   TTT.action(function () {
     selectableMultiLeafOnlyFn().checked = true;
-    selectableMultiLeafOnlyFn().dispatchEvent(new Event('change'));
+    selectableMultiLeafOnlyFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -185,7 +185,7 @@ QUnit.test("multiLeafOnly: select Classic, select Mathematics, deselect Classic"
   });
   TTT.action(function () {
     classicFn().checked = true;
-    classicFn().dispatchEvent(new Event('change'));
+    classicFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -193,7 +193,7 @@ QUnit.test("multiLeafOnly: select Classic, select Mathematics, deselect Classic"
   });
   TTT.action(function () {
     mathematicsFn().checked = true;
-    mathematicsFn().dispatchEvent(new Event('change'));
+    mathematicsFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -201,7 +201,7 @@ QUnit.test("multiLeafOnly: select Classic, select Mathematics, deselect Classic"
   });
   TTT.action(function () {
     classicFn().checked = false;
-    classicFn().dispatchEvent(new Event('change'));
+    classicFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -222,7 +222,7 @@ QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", f
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     selectableNoneFn().checked = true;
-    selectableNoneFn().dispatchEvent(new Event('change'));
+    selectableNoneFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -230,7 +230,7 @@ QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", f
   });
   TTT.action(function () {
     selectableMultiCascadeFn().checked = true;
-    selectableMultiCascadeFn().dispatchEvent(new Event('change'));
+    selectableMultiCascadeFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -238,7 +238,7 @@ QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", f
   });
   TTT.action(function () {
     musicFn().checked = true;
-    musicFn().dispatchEvent(new Event('change'));
+    musicFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse(); // an ajax request is send for every leaf (Music, Classic, Pop, World)
   TTT.waitMs(2000); // wait for the last ajax
@@ -247,7 +247,7 @@ QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", f
   });
   TTT.action(function () {
     mathematicsFn().checked = true;
-    mathematicsFn().dispatchEvent(new Event('change'));
+    mathematicsFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -255,7 +255,7 @@ QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", f
   });
   TTT.action(function () {
     classicFn().checked = false;
-    classicFn().dispatchEvent(new Event('change'));
+    classicFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {

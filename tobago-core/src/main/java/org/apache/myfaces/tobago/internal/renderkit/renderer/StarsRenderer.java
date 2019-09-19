@@ -21,8 +21,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUIStars;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -87,7 +85,6 @@ public class StarsRenderer extends MessageLayoutRendererBase {
     writer.writeAttribute(HtmlAttributes.MIN, required ? 1 : 0);
     writer.writeAttribute(HtmlAttributes.MAX, max);
     writer.writeAttribute(HtmlAttributes.VALUE, sliderValue, true);
-    writer.writeCommandMapAttribute(JsonUtils.encode(RenderUtils.getBehaviorCommands(facesContext, stars)));
     if (placeholder != null) {
       writer.writeAttribute(HtmlAttributes.PLACEHOLDER, placeholder.toString(), true);
     }
@@ -98,6 +95,8 @@ public class StarsRenderer extends MessageLayoutRendererBase {
     writer.writeAttribute(HtmlAttributes.TABINDEX, stars.getTabIndex());
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     writer.endElement(HtmlElements.INPUT);
+
+    encodeBehavior(writer, facesContext, stars);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(TobagoClass.STARS__FOCUS_BOX);

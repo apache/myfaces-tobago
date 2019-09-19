@@ -25,14 +25,14 @@ QUnit.test("Simple Collapsible Box: show -> hide transition", function (assert) 
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    showFn().click();
+    showFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.ok(contentFn() !== null);
   });
   TTT.action(function () {
-    hideFn().click();
+    hideFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -48,14 +48,14 @@ QUnit.test("Simple Collapsible Box: hide -> show transition", function (assert) 
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    hideFn().click();
+    hideFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal(contentFn(), null);
   });
   TTT.action(function () {
-    showFn().click();
+    showFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -73,7 +73,7 @@ QUnit.test("Full Server Request: open both boxes", function (assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    show1Fn().click();
+    show1Fn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
@@ -81,7 +81,7 @@ QUnit.test("Full Server Request: open both boxes", function (assert) {
     assert.equal(content2Fn().length, content2Length);
   });
   TTT.action(function () {
-    show2Fn().click();
+    show2Fn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
@@ -100,7 +100,7 @@ QUnit.test("Full Server Request: open box 1, close box 2", function (assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    show1Fn().click();
+    show1Fn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
@@ -108,7 +108,7 @@ QUnit.test("Full Server Request: open box 1, close box 2", function (assert) {
     assert.equal(content2Fn().length, content2Length);
   });
   TTT.action(function () {
-    hide2Fn().click();
+    hide2Fn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
@@ -127,7 +127,7 @@ QUnit.test("Full Server Request: close box 1, open box 2", function (assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    hide1Fn().click();
+    hide1Fn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
@@ -135,7 +135,7 @@ QUnit.test("Full Server Request: close box 1, open box 2", function (assert) {
     assert.equal(content2Fn() !== null, existContent2);
   });
   TTT.action(function () {
-    show2Fn().click();
+    show2Fn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
@@ -154,7 +154,7 @@ QUnit.test("Full Server Request: close both boxes", function (assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    hide1Fn().click();
+    hide1Fn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
@@ -162,7 +162,7 @@ QUnit.test("Full Server Request: close both boxes", function (assert) {
     assert.equal(content2Fn() !== null, existContent2);
   });
   TTT.action(function () {
-    hide2Fn().click();
+    hide2Fn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(2, function () {
@@ -179,13 +179,13 @@ QUnit.test("Client Side: show -> hide transition", function (assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    showFn().click();
+    showFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.asserts(1, function () {
     assert.equal(boxFn().classList.contains("tobago-collapsed"), false);
   });
   TTT.action(function () {
-    hideFn().click();
+    hideFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.asserts(1, function () {
     assert.equal(boxFn().classList.contains("tobago-collapsed"), true);
@@ -200,13 +200,13 @@ QUnit.test("Client Side: hide -> show transition", function (assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    hideFn().click();
+    hideFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.asserts(1, function () {
     assert.equal(boxFn().classList.contains("tobago-collapsed"), true);
   });
   TTT.action(function () {
-    showFn().click();
+    showFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.asserts(1, function () {
     assert.equal(boxFn().classList.contains("tobago-collapsed"), false);
@@ -224,14 +224,14 @@ QUnit.test("Client Side: hide content and submit empty string", function (assert
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    hideFn().click();
+    hideFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.asserts(1, function () {
     assert.equal(boxFn().classList.contains("tobago-collapsed"), true);
   });
   TTT.action(function () {
     inFn().value = "";
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -247,14 +247,14 @@ QUnit.test("Ajax: show -> hide transition", function (assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    showFn().click();
+    showFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.ok(inFn() !== null);
   });
   TTT.action(function () {
-    hideFn().click();
+    hideFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -270,14 +270,14 @@ QUnit.test("Ajax: hide -> show transition", function (assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    hideFn().click();
+    hideFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal(inFn(), null);
   });
   TTT.action(function () {
-    showFn().click();
+    showFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -295,7 +295,7 @@ QUnit.test("Ajax: hide content and submit empty string", function (assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    showFn().click();
+    showFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -303,14 +303,14 @@ QUnit.test("Ajax: hide content and submit empty string", function (assert) {
   });
   TTT.action(function () {
     inFn().value = "";
-    hideFn().click();
+    hideFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal(inFn(), null);
   });
   TTT.action(function () {
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {

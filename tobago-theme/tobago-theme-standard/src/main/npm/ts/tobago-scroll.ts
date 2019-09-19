@@ -15,10 +15,8 @@
  * limitations under the License.
  */
 
-import {Listener, Phase, Order} from "./tobago-listener";
-import {Overlay} from "./tobago-overlay";
-import {DomUtils, Tobago4Utils} from "./tobago-utils";
-import {Command} from "./tobago-command";
+import {Listener, Order, Phase} from "./tobago-listener";
+import {DomUtils} from "./tobago-utils";
 
 class Scroll {
 

@@ -26,7 +26,7 @@ QUnit.test("ajax: chat send button", function (assert) {
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
     inputFn().value = "delete chat";
-    sendButtonFn().click();
+    sendButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -34,7 +34,7 @@ QUnit.test("ajax: chat send button", function (assert) {
   });
   TTT.action(function () {
     inputFn().value = "Hi Peter, how are you?";
-    sendButtonFn().click();
+    sendButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -52,24 +52,24 @@ QUnit.test("ajax: dropdown button", function (assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    buttonFn().click();
-    sendToPeterFn().click();
+    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
+    sendToPeterFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal(buttonLabelFn().textContent, "SendTo: Peter");
   });
   TTT.action(function () {
-    buttonFn().click();
-    sendToBobFn().click();
+    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
+    sendToBobFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
     assert.equal(buttonLabelFn().textContent, "SendTo: Bob");
   });
   TTT.action(function () {
-    buttonFn().click();
-    sendToAllFn().click();
+    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
+    sendToAllFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -91,7 +91,7 @@ QUnit.test("ajax: currency change event", function (assert) {
     currencyOptionFn().item(2).selected = false;
     currencyOptionFn().item(3).selected = false;
     currencyOptionFn().item(0).selected = true; // Yen
-    currencyFn().dispatchEvent(new Event('change'));
+    currencyFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -103,7 +103,7 @@ QUnit.test("ajax: currency change event", function (assert) {
     currencyOptionFn().item(2).selected = false;
     currencyOptionFn().item(3).selected = false;
     currencyOptionFn().item(1).selected = true; // Trinidad-Tobago Dollar
-    currencyFn().dispatchEvent(new Event('change'));
+    currencyFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -115,7 +115,7 @@ QUnit.test("ajax: currency change event", function (assert) {
     currencyOptionFn().item(1).selected = false;
     currencyOptionFn().item(3).selected = false;
     currencyOptionFn().item(2).selected = true; // US Dollar
-    currencyFn().dispatchEvent(new Event('change'));
+    currencyFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {

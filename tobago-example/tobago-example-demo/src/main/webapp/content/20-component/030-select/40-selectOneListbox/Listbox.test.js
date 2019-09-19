@@ -30,7 +30,7 @@ QUnit.test("submit: select 'Nile'", function (assert) {
     riversFn().item(2).selected = false; // Yangtze
     riversFn().item(3).selected = false; // Yellow River
     riversFn().item(4).selected = false; // Paraná River
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -51,7 +51,7 @@ QUnit.test("submit: select 'Yangtze'", function (assert) {
     riversFn().item(2).selected = true; // Yangtze
     riversFn().item(3).selected = false; // Yellow River
     riversFn().item(4).selected = false; // Paraná River
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -73,7 +73,7 @@ QUnit.test("ajax: select Everest", function (assert) {
     mountainsFn().item(3).selected = false;
     mountainsFn().item(4).selected = false;
     mountainsFn().item(0).selected = true; // Everest
-    mountainListFn().dispatchEvent(new Event('change')); // Everest
+    mountainListFn().dispatchEvent(new Event("change", {bubbles: true})); // Everest
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -94,7 +94,7 @@ QUnit.test("ajax: select Makalu", function (assert) {
     mountainsFn().item(2).selected = false;
     mountainsFn().item(3).selected = false;
     mountainsFn().item(4).selected = true; // Everest
-    mountainListFn().dispatchEvent(new Event('change')); // Everest
+    mountainListFn().dispatchEvent(new Event("change", {bubbles: true})); // Everest
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {

@@ -293,6 +293,10 @@ public final class RenderUtils {
     return url;
   }
 
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   public static CommandMap getBehaviorCommands(final FacesContext facesContext,
       final ClientBehaviorHolder clientBehaviorHolder) {
     CommandMap commandMap = null;
@@ -333,6 +337,10 @@ public final class RenderUtils {
     return commandMap;
   }
 
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   private static ClientBehaviorContext getClientBehaviorContext(final FacesContext facesContext,
       final ClientBehaviorHolder clientBehaviorHolder, final String eventName) {
     UIComponent component = (UIComponent) clientBehaviorHolder;
@@ -348,6 +356,10 @@ public final class RenderUtils {
         .findFirst().orElse(null);
   }
 
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   private static CommandMap getCommandMap(final FacesContext facesContext,
       final ClientBehaviorContext clientBehaviorContext, final ClientBehavior clientBehavior) {
     if (clientBehavior instanceof ClientBehaviorBase) {

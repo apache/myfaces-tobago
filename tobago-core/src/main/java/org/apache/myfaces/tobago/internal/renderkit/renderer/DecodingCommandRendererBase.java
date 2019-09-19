@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
@@ -53,7 +52,7 @@ public abstract class DecodingCommandRendererBase extends RendererBase {
       commandActivated(component);
     }
 
-    RenderUtils.decodeClientBehaviors(facesContext, component);
+    decodeClientBehaviors(facesContext, component);
 
   }
 

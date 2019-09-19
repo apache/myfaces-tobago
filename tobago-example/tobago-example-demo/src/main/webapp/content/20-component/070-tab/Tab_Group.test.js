@@ -32,7 +32,7 @@ QUnit.test("Client: Select Tab 3", function (assert) {
     assert.ok(tab3Fn().classList.contains("tobago-tab-markup-three"));
   });
   TTT.action(function () {
-    tab3Fn().querySelector(".nav-link").click();
+    tab3Fn().querySelector(".nav-link").dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.asserts(5, function () {
     assert.equal(tabGroupFn().hiddenInput.value, 3);
@@ -58,7 +58,7 @@ QUnit.test("Ajax: Select Tab 3", function (assert) {
     assert.ok(tab3Fn().classList.contains("tobago-tab-markup-three"));
   });
   TTT.action(function () {
-    tab3Fn().querySelector(".nav-link").click();
+    tab3Fn().querySelector(".nav-link").dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(5, function () {
@@ -85,7 +85,7 @@ QUnit.test("FullReload: Select Tab 3", function (assert) {
     assert.ok(tab3Fn().classList.contains("tobago-tab-markup-three"));
   });
   TTT.action(function () {
-    tab3Fn().querySelector(".nav-link").click();
+    tab3Fn().querySelector(".nav-link").dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(5, function () {

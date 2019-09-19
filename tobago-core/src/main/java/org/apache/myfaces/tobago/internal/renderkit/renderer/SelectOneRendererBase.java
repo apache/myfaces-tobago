@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneBase;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +48,6 @@ public abstract class SelectOneRendererBase extends MessageLayoutRendererBase {
     }
     select.setSubmittedValue(newValue);
 
-    RenderUtils.decodeClientBehaviors(facesContext, select);
+    decodeClientBehaviors(facesContext, select);
   }
 }

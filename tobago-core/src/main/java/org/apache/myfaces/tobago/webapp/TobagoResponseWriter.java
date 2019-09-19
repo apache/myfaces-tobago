@@ -19,11 +19,11 @@
 
 package org.apache.myfaces.tobago.webapp;
 
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
 import org.apache.myfaces.tobago.renderkit.css.IconEncoder;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlTypes;
@@ -147,12 +147,13 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   /**
    * Write the command map data attribute.
+   *
+   * @deprecated since 5.0, use {@link
+   * org.apache.myfaces.tobago.renderkit.RendererBase#encodeBehavior} instead.
    */
-  public void writeCommandMapAttribute(final String map) throws IOException { // XXX use CommandMap instead of String
-    if (map != null) {
-      // XXX
-      writeAttribute(DataAttributes.COMMANDS, map, true);
-    }
+  @Deprecated
+  public void writeCommandMapAttribute(final String map) throws IOException {
+    Deprecation.LOG.error("No longer supported. Data: {}", map);
   }
 
   /**

@@ -29,7 +29,7 @@ QUnit.test("submit: select cat", function (assert) {
     animalsFn().item(1).checked = false;
     animalsFn().item(2).checked = false;
     animalsFn().item(3).checked = false;
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -49,7 +49,7 @@ QUnit.test("submit: select fox and rabbit", function (assert) {
     animalsFn().item(1).checked = false;
     animalsFn().item(2).checked = true;
     animalsFn().item(3).checked = true;
-    submitFn().click();
+    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
@@ -68,11 +68,11 @@ QUnit.test("ajax: click 'Two'", function (assert) {
     if (number2Fn().checked) {
       newOutputValue = parseInt(outputFn().textContent) - 2;
       number2Fn().checked = false;
-      number2Fn().dispatchEvent(new Event('change'));
+      number2Fn().dispatchEvent(new Event("change", {bubbles: true}));
     } else {
       newOutputValue = parseInt(outputFn().textContent) + 2;
       number2Fn().checked = true;
-      number2Fn().dispatchEvent(new Event('change'));
+      number2Fn().dispatchEvent(new Event("change", {bubbles: true}));
     }
   });
   TTT.waitForResponse();
@@ -92,11 +92,11 @@ QUnit.test("ajax: click 'Three'", function (assert) {
     if (number3Fn().checked) {
       newOutputValue = parseInt(outputFn().textContent) - 3;
       number3Fn().checked = false;
-      number3Fn().dispatchEvent(new Event('change'));
+      number3Fn().dispatchEvent(new Event("change", {bubbles: true}));
     } else {
       newOutputValue = parseInt(outputFn().textContent) + 3;
       number3Fn().checked = true;
-      number3Fn().dispatchEvent(new Event('change'));
+      number3Fn().dispatchEvent(new Event("change", {bubbles: true}));
     }
   });
   TTT.waitForResponse();
@@ -116,11 +116,11 @@ QUnit.test("ajax: click 'Two'", function (assert) {
     if (number2Fn().checked) {
       newOutputValue = parseInt(outputFn().textContent) - 2;
       number2Fn().checked = false;
-      number2Fn().dispatchEvent(new Event('change'));
+      number2Fn().dispatchEvent(new Event("change", {bubbles: true}));
     } else {
       newOutputValue = parseInt(outputFn().textContent) + 2;
       number2Fn().checked = true;
-      number2Fn().dispatchEvent(new Event('change'));
+      number2Fn().dispatchEvent(new Event("change", {bubbles: true}));
     }
   });
   TTT.waitForResponse();

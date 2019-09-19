@@ -31,7 +31,7 @@ QUnit.test("Check severity CSS classes", function (assert) {
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
-    submitButtonFn().click();
+    submitButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(8, function () {

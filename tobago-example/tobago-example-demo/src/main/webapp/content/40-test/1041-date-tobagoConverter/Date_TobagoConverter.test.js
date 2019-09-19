@@ -220,7 +220,7 @@ function testConvertDateTime(assert, inputFn, datepickerButtonFn, outputFn,
   });
   TTT.action(function () {
         inputFn().value = inputValue;
-        submitButtonFn().click();
+        submitButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
       }
   );
   TTT.waitForResponse();
