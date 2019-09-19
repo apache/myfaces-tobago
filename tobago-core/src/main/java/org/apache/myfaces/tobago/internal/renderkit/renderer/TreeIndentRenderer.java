@@ -54,9 +54,7 @@ public class TreeIndentRenderer extends RendererBase {
     }
 
     final boolean folder = node.isFolder();
-    final int level = node.getLevel();
     final boolean showJunctions = treeIndent.isShowJunctions();
-    final boolean showRootJunction = data.isShowRootJunction();
     final boolean expanded = folder && data.getExpandedState().isExpanded(node.getPath());
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
@@ -70,7 +68,7 @@ public class TreeIndentRenderer extends RendererBase {
         treeIndent.getCustomClass());
 
     // encode tree junction
-    if (!showJunctions || !showRootJunction && level == 0) {
+    if (!showJunctions) {
       return;
     }
     writer.startElement(HtmlElements.I);

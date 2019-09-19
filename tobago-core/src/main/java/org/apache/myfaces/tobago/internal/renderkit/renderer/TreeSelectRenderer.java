@@ -51,6 +51,8 @@ public class TreeSelectRenderer extends RendererBase {
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
 
+    // TODO do we need this?
+
     final AbstractUITreeSelect select = (AbstractUITreeSelect) component;
     final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(select, AbstractUITreeNodeBase.class);
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
@@ -105,12 +107,11 @@ public class TreeSelectRenderer extends RendererBase {
     final boolean folder = data.isFolder();
     final Selectable selectable = data.getSelectable();
 
-    writer.startElement(HtmlElements.SPAN);
+    writer.startElement(HtmlElements.TOBAGO_TREE_SELECT);
     final Markup markup = treeSelect.getMarkup();
     writer.writeClassAttribute(
-        TobagoClass.TREE_SELECT,
-        TobagoClass.TREE_SELECT.createMarkup(markup),
-        treeSelect.getCustomClass());
+        treeSelect.getCustomClass(),
+        TobagoClass.TREE_SELECT.createMarkup(markup));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, treeSelect);
 
     if (treeSelect.isShowCheckbox()
@@ -149,7 +150,7 @@ public class TreeSelectRenderer extends RendererBase {
       writer.endElement(HtmlElements.LABEL);
     }
 
-    writer.endElement(HtmlElements.SPAN);
+    writer.endElement(HtmlElements.TOBAGO_TREE_SELECT);
   }
 
   private String getClientIdWithoutRowIndex(final AbstractUIData data, final String id) {

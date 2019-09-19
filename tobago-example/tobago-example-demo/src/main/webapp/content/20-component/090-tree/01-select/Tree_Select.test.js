@@ -24,7 +24,7 @@ QUnit.test("single: select Music, select Mathematics", function (assert) {
   let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectedNodesOutput span");
   let selectableNoneFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:0");
   let selectableSingleFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:1");
-  let inputFn = testFrameQuerySelectorFn(".tobago-treeSelect input");
+  let inputFn = testFrameQuerySelectorFn("tobago-tree-select input");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -68,7 +68,7 @@ QUnit.test("singleLeafOnly: select Classic, select Mathematics", function (asser
   let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectedNodesOutput span");
   let selectableNoneFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:0");
   let selectableSingleLeafOnlyFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:2");
-  let inputFn = testFrameQuerySelectorFn(".tobago-treeSelect input");
+  let inputFn = testFrameQuerySelectorFn("tobago-tree-select input");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -112,7 +112,7 @@ QUnit.test("multi: select Music, select Mathematics, deselect Music", function (
   let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectedNodesOutput span");
   let selectableNoneFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:0");
   let selectableMultiFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:3");
-  let inputFn = testFrameQuerySelectorFn(".tobago-treeSelect input");
+  let inputFn = testFrameQuerySelectorFn("tobago-tree-select input");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -164,7 +164,7 @@ QUnit.test("multiLeafOnly: select Classic, select Mathematics, deselect Classic"
   let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectedNodesOutput span");
   let selectableNoneFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:0");
   let selectableMultiLeafOnlyFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:4");
-  let inputFn = testFrameQuerySelectorFn(".tobago-treeSelect input");
+  let inputFn = testFrameQuerySelectorFn("tobago-tree-select input");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -217,7 +217,7 @@ QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", f
   let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectedNodesOutput span");
   let selectableNoneFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:0");
   let selectableMultiCascadeFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:5");
-  let inputFn = testFrameQuerySelectorFn(".tobago-treeSelect input");
+  let inputFn = testFrameQuerySelectorFn("tobago-tree-select input");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {

@@ -35,16 +35,18 @@
       Like the parent nodes suggest,
       the entries in 'Actions' run an action with the <code>action</code> attribute.
       And the entries in 'Links' are links to an external website using the <code>link</code> attribute.</p>
-    <tc:tree value="#{treeCommandTypesController.sample}" var="node">
-      <tc:treeNode>
+    <tc:tree id="tree" value="#{treeCommandTypesController.sample}" var="node">
+      <tc:treeNode id="treeNode">
         <tc:treeIndent showJunctions="false"/>
         <tc:treeLabel value="#{node.name}" rendered="#{node.childCount > 0}"/>
-        <tc:treeCommand label="#{node.name}" rendered="#{node.childCount == 0}"
-                        action="#{treeCommandTypesController.increaseActionCount(node.action)}" link="#{node.url}"/>
+        <tc:treeCommand id="actionCommand" label="#{node.name}" rendered="#{node.childCount == 0 and empty node.url}"
+                        action="#{treeCommandTypesController.increaseActionCount(node.action)}"/>
+        <tc:treeCommand label="#{node.name}" rendered="#{node.childCount == 0 and not empty node.url}"
+                        link="#{node.url}"/>
       </tc:treeNode>
     </tc:tree>
 
-    <tc:out label="Action 1 Count" value="#{treeCommandTypesController.actionOneCount}"/>
-    <tc:out label="Action 2 Count" value="#{treeCommandTypesController.actionTwoCount}"/>
+    <tc:out id="actionCount1" label="Action 1 Count" value="#{treeCommandTypesController.actionOneCount}"/>
+    <tc:out id="actionCount2" label="Action 2 Count" value="#{treeCommandTypesController.actionTwoCount}"/>
   </tc:section>
 </ui:composition>

@@ -31,6 +31,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
    * &lt;f:ajax&gt; attribute
    */
   EXECUTE("execute"),
+  EXPANDABLE("expandable"),
   FOCUS_ID("focus-id"),
   /**
    * The index of the tab inside the tab group.
@@ -41,6 +42,9 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
   MIN_CHARS("min-chars"),
   OMIT("omit"),
   ORIENTATION("orientation"),
+  PARENT("parent"),
+  SELECTABLE("selectable"),
+  SELECTED("selected"),
   /**
    * &lt;f:ajax&gt; attribute
    */

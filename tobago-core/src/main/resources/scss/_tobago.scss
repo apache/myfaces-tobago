@@ -1526,9 +1526,19 @@ tobago-tab-group {
   margin-left: 7rem;
 }
 
-@for $i from 0 through 20 {
-  .tobago-treeNode[data-tobago-level='#{$i}'] {
-    margin-left: #{$i}rem;
+tobago-tree {
+  tobago-tree-node {
+    display: block;
+
+    @for $i from 0 through 20 {
+      &[data-tobago-level='#{$i}'] {
+        margin-left: #{$i}rem;
+      }
+    }
+
+    tobago-tree-select {
+      display: inline;
+    }
   }
 }
 
