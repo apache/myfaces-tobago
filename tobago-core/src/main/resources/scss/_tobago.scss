@@ -274,7 +274,7 @@ tobago-file {
 }
 
 /* the non-label-element inside of a label-layout with flex box */
-.tobago-flexLayout.tobago-label-container > {
+tobago-label.tobago-flexLayout > {
   .form-control, .form-control-plaintext, .twitter-typeahead,
   .tobago-input-group-outer, .tobago-messages-container,
   .tobago-selectManyShuttle {
@@ -313,7 +313,7 @@ tobago-file {
   grid-column-gap: $spacer-x; // old
   column-gap: $spacer-x;
 
-  .tobago-label-container > {
+  tobago-label > {
     .tobago-textarea, .tobago-selectManyListbox, .tobago-selectManyShuttle {
       height: 100%;
     }
@@ -360,11 +360,11 @@ tobago-file {
 }
 
 /* label ----------------------------------------------------------- */
-.tobago-label {
+tobago-label {
   width: 100%;
 }
 
-.tobago-flexLayout > .tobago-label {
+.tobago-flexLayout > tobago-label {
   width: 155px;
 }
 
@@ -1624,7 +1624,7 @@ fixme: there is a problem with the selectManyShuttle with this style.
 }
 
 .tobago-required .tobago-label:after,
-.tobago-required.tobago-label:after {
+tobago-label.tobago-required:after {
   content: "*";
   color: theme-color("danger");
 }

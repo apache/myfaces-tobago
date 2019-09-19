@@ -127,17 +127,17 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
         flex = false;
     }
 
-    writer.startElement(getComponentTag());
     if (labelLayout == LabelLayout.gridLeft || labelLayout == LabelLayout.gridRight
         || labelLayout == LabelLayout.gridTop || labelLayout == LabelLayout.gridBottom) {
+      writer.startElement(HtmlElements.TOBAGO_LABEL);
       writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "label");
     } else {
+      writer.startElement(getComponentTag());
       writer.writeIdAttribute(clientId);
     }
     writer.writeClassAttribute(
         flex ? TobagoClass.FLEX_LAYOUT : null,
         flex ? BootstrapClass.D_FLEX : null,
-        TobagoClass.LABEL__CONTAINER,
         BootstrapClass.FORM_GROUP,
         ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
@@ -163,12 +163,11 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
       case gridRight:
       case gridTop:
       case gridBottom:
-        writer.endElement(HtmlElements.DIV);
+        writer.endElement(HtmlElements.TOBAGO_LABEL);
 
-        writer.startElement(HtmlElements.DIV);
+        writer.startElement(getComponentTag());
         writer.writeIdAttribute(clientId);
         writer.writeClassAttribute(
-            TobagoClass.LABEL__CONTAINER,
             BootstrapClass.FORM_GROUP,
             ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,
             markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
@@ -207,7 +206,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     if (StringUtils.isNotBlank(label)) {
       writer.startElement(HtmlElements.LABEL);
       writer.writeAttribute(HtmlAttributes.FOR, getFieldId(facesContext, component), false);
-      writer.writeClassAttribute(TobagoClass.LABEL, BootstrapClass.COL_FORM_LABEL);
+      writer.writeClassAttribute(BootstrapClass.COL_FORM_LABEL);
       if (component instanceof SupportsAccessKey) {
         final LabelWithAccessKey labelWithAccessKey = new LabelWithAccessKey((SupportsAccessKey) component);
         HtmlRendererUtils.writeLabelWithAccessKey(writer, labelWithAccessKey);

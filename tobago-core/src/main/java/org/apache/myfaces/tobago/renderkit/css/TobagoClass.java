@@ -140,7 +140,6 @@ public enum TobagoClass implements CssItem {
   @Deprecated
   INPUT_GROUP_OUTER(INPUT__GROUP__OUTER.getName()),
   LABEL("tobago-label"),
-  LABEL__CONTAINER("tobago-label-container"),
   LINK("tobago-link"),
   LINKS("tobago-links"),
   MESSAGES("tobago-messages"),
