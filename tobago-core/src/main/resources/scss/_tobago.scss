@@ -73,6 +73,9 @@ $input-btn-focus-box-shadow: 0 0 0 $input-btn-focus-width $input-btn-focus-color
 $input-focus-box-shadow: $input-btn-focus-box-shadow !default;
 $form-check-inline-input-margin-x: 0.75rem;
 $input-placeholder-color: $gray-600 !default;
+$grid-gutter-width: 30px !default;
+
+$page-padding-top: 1rem;
 
 /* used icons ---------------------------------------------------- */
 
@@ -326,7 +329,10 @@ tobago-label.tobago-flexLayout > {
   margin-bottom: 1rem;
 
   &.fixed-top {
-    margin-bottom: 0;
+    position: sticky;
+    margin-top: -$page-padding-top;
+    margin-left: -($grid-gutter-width / 2);
+    margin-right: -($grid-gutter-width / 2);
   }
 }
 
@@ -662,7 +668,7 @@ span.tobago-out:empty:before {
 /* page ----------------------------------------------------------- */
 
 .tobago-page {
-  padding-top: 1rem;
+  padding-top: $page-padding-top;
   padding-bottom: 1rem;
 }
 
