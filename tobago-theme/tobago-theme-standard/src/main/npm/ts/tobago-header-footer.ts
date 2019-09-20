@@ -27,51 +27,30 @@ class HeaderFooter {
     const body = DomUtils.selfOrQuerySelectorAll(element, "body")[0];
 
     if (body) {
-      const headers = DomUtils.selfOrQuerySelectorAll(element, ".fixed-top");
       const footers = DomUtils.selfOrQuerySelectorAll(element, ".fixed-bottom");
 
-      HeaderFooter.setMargins(body, headers, footers);
+      HeaderFooter.setMargins(body, footers);
 
-      let lastMaxHeaderHeight = 0;
       let lastMaxFooterHeight = 0;
 
       // todo: check possible memory leak: use of DOM elements in event listener!
       window.addEventListener("resize", function (): void {
-        const maxHeaderHeight: number = HeaderFooter.getMaxHeaderHeight(headers);
         const maxFooterHeight: number = HeaderFooter.getMaxFooterHeight(footers);
 
-        if (maxHeaderHeight !== lastMaxHeaderHeight
-            || maxFooterHeight !== lastMaxFooterHeight) {
-          HeaderFooter.setMargins(body, headers, footers);
-
-          lastMaxHeaderHeight = maxHeaderHeight;
+        if (maxFooterHeight !== lastMaxFooterHeight) {
+          HeaderFooter.setMargins(body, footers);
           lastMaxFooterHeight = maxFooterHeight;
         }
       });
     }
   };
 
-  static setMargins =  function (body: HTMLElement, headers: HTMLElement[], footers: HTMLElement[]): void {
-    const maxHeaderHeight = HeaderFooter.getMaxHeaderHeight(headers);
+  static setMargins =  function (body: HTMLElement, footers: HTMLElement[]): void {
     const maxFooterHeight = HeaderFooter.getMaxFooterHeight(footers);
 
-    if (maxHeaderHeight > 0) {
-      body.style.marginTop = maxHeaderHeight + "px";
-    }
     if (maxFooterHeight > 0) {
       body.style.marginBottom = maxFooterHeight + "px";
     }
-  };
-
-  static getMaxHeaderHeight = function (headers: HTMLElement[]): number {
-    let maxHeaderHeight = 0;
-    headers.forEach(function (element: HTMLElement): void {
-      const height = DomUtils.outerHeightWithMargin(element);
-      if (height > maxHeaderHeight) {
-        maxHeaderHeight = height;
-      }
-    });
-    return maxHeaderHeight;
   };
 
   static getMaxFooterHeight = function (footers: HTMLElement[]): number {
