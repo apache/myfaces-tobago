@@ -35,7 +35,7 @@ class Sheet {
   mousemoveData: any;
   mousedownOnRowData: any;
 
-  static init(element: HTMLElement) {
+  static init(element: HTMLElement): void {
     console.time("[tobago-sheet] init");
     for (const sheetElement of DomUtils.selfOrElementsByClassName(element, "tobago-sheet")) {
       const sheet = new Sheet(sheetElement);
@@ -44,7 +44,7 @@ class Sheet {
     console.timeEnd("[tobago-sheet] init");
   }
 
-  private static getScrollBarSize() {
+  private static getScrollBarSize(): number {
     const body = document.getElementsByTagName("body").item(0);
 
     const outer = document.createElement("div");
@@ -63,7 +63,7 @@ class Sheet {
     return 100 - widthWithScroll;
   }
 
-  private static isInputElement(element: HTMLElement) {
+  private static isInputElement(element: HTMLElement): boolean {
     return ["INPUT", "TEXTAREA", "SELECT", "A", "BUTTON"].indexOf(element.tagName) > -1;
   }
 
@@ -151,7 +151,7 @@ class Sheet {
     // resize column: mouse events -------------------------------------------------------------------------------- //
 
     for (const resizeElement of <NodeListOf<HTMLElement>>element.querySelectorAll(".tobago-sheet-headerResize")) {
-      resizeElement.addEventListener("click", function () {
+      resizeElement.addEventListener("click", function (): boolean {
         return false;
       });
       resizeElement.addEventListener("mousedown", this.mousedown.bind(this));
@@ -182,7 +182,7 @@ class Sheet {
         // todo: check if this works correctly
         const sheet = Sheet.SHEETS.get(this.id);
         if (sheet && sheet.dblClickActionId) {
-          row.addEventListener("dblclick", function (event) {
+          row.addEventListener("dblclick", function (event: Event): void {
             // todo: re-implement
             sheet.doDblClick(event);
           });
@@ -213,7 +213,7 @@ class Sheet {
       const pagingInput = pagingText.querySelector("input.tobago-sheet-pagingInput");
       pagingInput.addEventListener("blur", this.blurPaging.bind(this));
 
-      pagingInput.addEventListener("keydown", function (event: KeyboardEvent) {
+      pagingInput.addEventListener("keydown", function (event: KeyboardEvent): void {
         if (event.keyCode === 13) {
           event.stopPropagation();
           event.preventDefault();
@@ -233,7 +233,7 @@ class Sheet {
     }
   }
 
-  saveColumnWidths(widths: number[]) {
+  saveColumnWidths(widths: number[]): void {
     const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "widths");
     if (hidden) {
       hidden.setAttribute("value", JSON.stringify(widths));
@@ -251,14 +251,14 @@ class Sheet {
     return JSON.parse(hidden.getAttribute("value"));
   }
 
-  addHeaderFillerWidth() {
+  addHeaderFillerWidth(): void {
     const last = document.getElementById(this.id).querySelector(".tobago-sheet-headerTable col:last-child");
     if (last) {
       last.setAttribute("width", String(Sheet.SCROLL_BAR_SIZE));
     }
   }
 
-  mousedown(event: MouseEvent) {
+  mousedown(event: MouseEvent): void {
 
     Page.page().dataset["SheetMousedownData"] = this.id;
 
@@ -282,7 +282,7 @@ class Sheet {
     document.addEventListener("mouseup", mouseupListener);
   }
 
-  mousemove(event: MouseEvent) {
+  mousemove(event: MouseEvent): boolean {
     console.debug("move");
     let delta = event.clientX - this.mousemoveData.originalClientX;
     delta = -Math.min(-delta, this.mousemoveData.originalHeaderColumnWidth - 10);
@@ -295,7 +295,7 @@ class Sheet {
     return false;
   }
 
-  mouseup(event: MouseEvent) {
+  mouseup(event: MouseEvent): boolean {
     console.debug("up");
 
     // switch off the mouse move listener
@@ -346,7 +346,7 @@ class Sheet {
     return false;
   }
 
-  scroll(event) {
+  scroll(event): void {
     console.debug("scroll");
 
     const sheetBody: HTMLElement = event.currentTarget;
@@ -359,7 +359,7 @@ class Sheet {
         JSON.stringify([Math.round(sheetBody.scrollLeft), Math.round(sheetBody.scrollTop)]));
   }
 
-  mousedownOnRow(event: MouseEvent) {
+  mousedownOnRow(event: MouseEvent): void {
     console.debug("mousedownOnRow");
     this.mousedownOnRowData = {
       x: event.clientX,
@@ -367,7 +367,7 @@ class Sheet {
     };
   }
 
-  clickOnCheckbox(event: MouseEvent) {
+  clickOnCheckbox(event: MouseEvent): void {
     const checkbox = event.currentTarget as HTMLInputElement;
     if (checkbox.checked) {
       this.selectAll();
@@ -376,7 +376,7 @@ class Sheet {
     }
   }
 
-  clickOnRow(event: MouseEvent) {
+  clickOnRow(event: MouseEvent): void {
 
     const row = event.currentTarget as HTMLTableRowElement;
     if (row.classList.contains("tobago-sheet-columnSelector") || !Sheet.isInputElement(row)) {
@@ -445,7 +445,7 @@ class Sheet {
     }
   }
 
-  clickOnPaging(event: MouseEvent) {
+  clickOnPaging(event: MouseEvent): void {
     const element = event.currentTarget as HTMLElement;
 
     const output = element.querySelector(".tobago-sheet-pagingOutput") as HTMLElement;
@@ -457,7 +457,7 @@ class Sheet {
     input.select();
   }
 
-  blurPaging(event: FocusEvent) {
+  blurPaging(event: FocusEvent): void {
     const input = event.currentTarget as HTMLInputElement;
     const output = input.parentElement.querySelector(".tobago-sheet-pagingOutput") as HTMLElement;
     if (output.innerHTML !== input.value) {
@@ -479,7 +479,7 @@ class Sheet {
     }
   }
 
-  syncScrolling() {
+  syncScrolling(): void {
     // sync scrolling of body to header
     const header = this.getHeader();
     if (header) {
@@ -515,11 +515,11 @@ class Sheet {
     return document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "selected") as HTMLInputElement;
   }
 
-  getHiddenScrollPosition() {
-    return document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "scrollPosition");
+  getHiddenScrollPosition(): HTMLInputElement {
+    return document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "scrollPosition") as HTMLInputElement;
   }
 
-  doDblClick(event) {
+  doDblClick(event): void {
     const row = event.currentTarget as HTMLTableRowElement;
     const rowIndex = row.sectionRowIndex + this.getFirst();
     if (this.dblClickActionId) {
@@ -560,7 +560,7 @@ class Sheet {
     return parseInt(this.getElement().dataset["tobagoFirst"]);
   }
 
-  isRowSelected(row: HTMLTableRowElement) {
+  isRowSelected(row: HTMLTableRowElement): boolean {
     let rowIndex = +row.dataset["tobagoRowIndex"];
     if (!rowIndex) {
       rowIndex = row.sectionRowIndex + this.getFirst();
@@ -568,16 +568,16 @@ class Sheet {
     return this.isSelected(rowIndex);
   }
 
-  isSelected(rowIndex: number) {
+  isSelected(rowIndex: number): boolean {
     const value = <number[]>JSON.parse(this.getHiddenSelected().value);
     return value.indexOf(rowIndex) > -1;
   }
 
-  resetSelected() {
+  resetSelected():void {
     this.getHiddenSelected().value = JSON.stringify([]);
   }
 
-  toggleSelection(row: HTMLTableRowElement, checkbox: HTMLInputElement) {
+  toggleSelection(row: HTMLTableRowElement, checkbox: HTMLInputElement): void {
     this.getElement().dataset["tobagoLastClickedRowIndex"] = String(row.sectionRowIndex);
     if (checkbox && !checkbox.disabled) {
       const selected = this.getHiddenSelected();
@@ -590,24 +590,24 @@ class Sheet {
     }
   }
 
-  selectAll() {
+  selectAll(): void {
     const rows = this.getRows();
     this.selectRange(rows, 0, rows.length - 1, true, false);
   }
 
-  deselectAll() {
+  deselectAll(): void {
     const rows = this.getRows();
     this.selectRange(rows, 0, rows.length - 1, false, true);
   }
 
-  toggleAll() {
+  toggleAll(): void {
     const rows = this.getRows();
     this.selectRange(rows, 0, rows.length - 1, true, true);
   }
 
   selectRange(
       rows: NodeListOf<HTMLTableRowElement>, first: number, last: number, selectDeselected: boolean,
-      deselectSelected: boolean) {
+      deselectSelected: boolean): void {
     const selected = this.getHiddenSelected();
     const value = new Set<number>(JSON.parse(selected.value));
     for (let i = first; i <= last; i++) {
@@ -640,13 +640,13 @@ class Sheet {
    * @param row tr-element: the row.
    * @param checkbox input-element: selector in the row.
    */
-  selectRow(selected: HTMLInputElement, rowIndex: number, row: HTMLTableRowElement, checkbox: HTMLInputElement) {
+  selectRow(selected: HTMLInputElement, rowIndex: number, row: HTMLTableRowElement, checkbox: HTMLInputElement): void {
     const selectedSet = new Set<number>(JSON.parse(selected.value));
     selected.value = JSON.stringify(Array.from(selectedSet.add(rowIndex)));
     row.classList.add("tobago-sheet-row-markup-selected");
     row.classList.add("table-info");
     checkbox.checked = true;
-    setTimeout(function () {
+    setTimeout(function ():void {
       checkbox.checked = true;
     }, 0);
   }
@@ -657,7 +657,8 @@ class Sheet {
    * @param row tr-element: the row.
    * @param checkbox input-element: selector in the row.
    */
-  deselectRow(selected: HTMLInputElement, rowIndex: number, row: HTMLTableRowElement, checkbox: HTMLInputElement) {
+  deselectRow(
+      selected: HTMLInputElement, rowIndex: number, row: HTMLTableRowElement, checkbox: HTMLInputElement): void {
     const selectedSet = new Set<number>(JSON.parse(selected.value));
     selectedSet.delete(rowIndex);
     selected.value = JSON.stringify(Array.from(selectedSet));
@@ -665,7 +666,7 @@ class Sheet {
     row.classList.remove("table-info");
     checkbox.checked = false;
     // XXX check if this is still needed... Async because of TOBAGO-1312
-    setTimeout(function () {
+    setTimeout(function (): void {
       checkbox.checked = false;
     }, 0);
   }

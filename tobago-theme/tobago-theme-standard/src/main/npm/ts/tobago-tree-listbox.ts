@@ -22,7 +22,7 @@ class TreeListbox {
 
   id: string;
 
-  static init = function (element) {
+  static init = function (element: HTMLElement): void {
     for (const treeListbox of DomUtils.selfOrElementsByClassName(element, "tobago-treeListbox")) {
       new TreeListbox(treeListbox);
     }
@@ -48,7 +48,7 @@ class TreeListbox {
     }
   }
 
-  onChange(event: TextEvent) {
+  onChange(event: TextEvent): void {
     let listbox = event.currentTarget as HTMLSelectElement;
     for (const child of listbox.children) {
       const option = child as HTMLOptionElement;
@@ -89,7 +89,7 @@ class TreeListbox {
     }
   }
 
-  setSelected(option: HTMLOptionElement) {
+  setSelected(option: HTMLOptionElement): void {
     const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "selected") as HTMLInputElement;
     if (hidden) {
       let value = <number[]>JSON.parse(hidden.value);

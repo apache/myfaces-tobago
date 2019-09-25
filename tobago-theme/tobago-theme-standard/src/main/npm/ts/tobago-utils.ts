@@ -20,12 +20,12 @@ export class DomUtils {
   /**
    * JSF's component separator constant
    */
-  static readonly COMPONENT_SEP = ':';
+  static readonly COMPONENT_SEP = ":";
 
   /**
-   * Tobago's sub-coponent separator constant
+   * Tobago's sub-component separator constant
    */
-  static readonly SUB_COMPONENT_SEP = '::';
+  static readonly SUB_COMPONENT_SEP = "::";
 
   /**
    * Find all elements (and also self) which have the class "className".
@@ -89,12 +89,12 @@ export class DomUtils {
     return null;
   }
 
-  static outerWidthWithMargin(element: HTMLElement) {
+  static outerWidthWithMargin(element: HTMLElement): number {
     const style = window.getComputedStyle(element);
     return element.offsetWidth + parseInt(style.marginLeft) + parseInt(style.marginRight);
   }
 
-  static outerHeightWithMargin(element: HTMLElement) {
+  static outerHeightWithMargin(element: HTMLElement): number {
     const style = window.getComputedStyle(element);
     return element.offsetHeight + parseInt(style.marginTop) + parseInt(style.marginBottom);
   }
@@ -113,7 +113,7 @@ export class DomUtils {
     return {top: top, left: left};
   }
 
-  static isVisible(element: HTMLElement) {
+  static isVisible(element: HTMLElement): boolean {
     return element.offsetWidth > 0 || element.offsetHeight > 0 || element.getClientRects().length > 0;
   }
 
@@ -123,24 +123,7 @@ export class DomUtils {
    * @return A string which can be used as a jQuery selector.
    */
   static escapeClientId(id: string): string {
-    return '#' + id.replace(/([:\.])/g, '\\$1');
-  }
-
-}
-
-export class Tobago4Utils {
-
-  /**
-   * Helps to select either elements from the whole DOM or only find in sub trees
-   * (in the case of AJAX partial rendering)
-   * @param elements a jQuery object to initialize (ajax) or null for initializing the whole document (full load).
-   * @param selector a jQuery selector.
-   */
-  static selectWithJQuery(elements, selector) {
-    elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-    return elements == null
-        ? jQuery(selector)
-        : elements.find(selector).add(elements.filter(selector));
+    return "#" + id.replace(/([:\.])/g, "\\$1");
   }
 
   /**
@@ -151,27 +134,26 @@ export class Tobago4Utils {
    * "a:b::sub-component" -> "a"
    * "a::sub-component:b" -> "a::sub-component" // should currently not happen in Tobago
    *
-   * @param id The clientId of a component.
+   * @param clientId The clientId of a component.
    * @return The clientId of the naming container.
    */
-  static getNamingContainerId(id) {
-    if (id == null) {
+  static getNamingContainerId(clientId: string): string {
+    if (clientId == null || clientId.lastIndexOf(DomUtils.COMPONENT_SEP) === -1) {
       return null;
     }
-    if (id.lastIndexOf(":") == -1) {
-      return null;
-    }
+
+    let id = clientId;
     while (true) {
-      var sub = id.lastIndexOf("::");
+      const sub = id.lastIndexOf(DomUtils.SUB_COMPONENT_SEP);
       if (sub == -1) {
         break;
       }
-      if (sub + 1 == id.lastIndexOf(":")) {
+      if (sub + 1 == id.lastIndexOf(DomUtils.COMPONENT_SEP)) {
         id = id.substring(0, sub);
       } else {
         break;
       }
     }
-    return id.substring(0, id.lastIndexOf(":"));
+    return id.substring(0, id.lastIndexOf(DomUtils.COMPONENT_SEP));
   }
 }

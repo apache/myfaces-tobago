@@ -16,14 +16,14 @@
  */
 
 import {Listener, Phase} from "./tobago-listener";
-import {DomUtils, Tobago4Utils} from "./tobago-utils";
+import {DomUtils} from "./tobago-utils";
 
 class SelectOneRadio {
 
-  static init = function (element: HTMLElement) {
+  static init = function (element: HTMLElement): void {
     for (const radio of DomUtils.selfOrQuerySelectorAll(element, ".tobago-selectOneRadio")) {
       const id = radio.closest("[id]").id;
-      const quotedId = id.replace(/([:.])/g, '\\$1');
+      const quotedId = id.replace(/([:.])/g, "\\$1");
       const allConnected = document.querySelectorAll("input[name=" + quotedId + "]") as NodeListOf<HTMLInputElement>;
       for (const connectedRadio of allConnected) {
         connectedRadio.dataset["tobagoOldValue"] = String(connectedRadio.checked);

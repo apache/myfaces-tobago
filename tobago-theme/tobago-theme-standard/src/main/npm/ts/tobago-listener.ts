@@ -48,11 +48,11 @@ class ListenerList {
     [Order.LATER, []]
   ]);
 
-  add(listener: (HTMLElement) => void, order: Order) {
+  add(listener: (HTMLElement) => void, order: Order): void {
     this.map.get(order).push(listener);
   }
 
-  execute(element?: HTMLElement) {
+  execute(element?: HTMLElement): void {
 
     this.map.forEach((listeners: Array<(HTMLElement) => void>, order: Order) => {
       listeners.forEach(
@@ -86,7 +86,7 @@ export class Listener {
   static register(
       listener: (HTMLElement) => void,
       phase: Phase,
-      order: Order = Order.NORMAL) {
+      order: Order = Order.NORMAL): void {
 
     switch (phase) {
       case Phase.DOCUMENT_READY:
@@ -112,37 +112,37 @@ export class Listener {
     }
   }
 
-  static executeDocumentReady(element: HTMLElement) {
+  static executeDocumentReady(element: HTMLElement): void {
     console.time("[tobago] execute documentReady");
     Listener.documentReady.execute(element);
     console.timeEnd("[tobago] execute documentReady");
   }
 
-  static executeWindowLoad() {
+  static executeWindowLoad(): void {
     console.time("[tobago] execute windowLoad");
     Listener.windowLoad.execute();
     console.timeEnd("[tobago] execute windowLoad");
   }
 
-  static executeBeforeSubmit() {
+  static executeBeforeSubmit(): void {
     console.time("[tobago] execute beforeSubmit");
     Listener.beforeSubmit.execute();
     console.timeEnd("[tobago] execute beforeSubmit");
   }
 
-  static executeAfterUpdate(element: HTMLElement) {
+  static executeAfterUpdate(element: HTMLElement): void {
     console.time("[tobago] execute afterUpdate");
     Listener.afterUpdate.execute(element);
     console.timeEnd("[tobago] execute afterUpdate");
   }
 
-  static executeBeforeUnload() {
+  static executeBeforeUnload(): void {
     console.time("[tobago] execute beforeUnload");
     Listener.beforeUnload.execute();
     console.timeEnd("[tobago] execute beforeUnload");
   }
 
-  static executeBeforeExit() {
+  static executeBeforeExit(): void {
     console.time("[tobago] execute beforeExit");
     Listener.beforeExit.execute();
     console.timeEnd("[tobago] execute beforeExit");

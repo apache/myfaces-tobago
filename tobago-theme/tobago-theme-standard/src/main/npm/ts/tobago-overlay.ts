@@ -53,7 +53,7 @@ export class Overlay {
 
   overlay: HTMLDivElement;
 
-  static destroy(id: string) {
+  static destroy(id: string): void {
     console.debug("----> get overlay " + id);
     const overlay = Overlay.overlayMap.get(id);
     if (overlay) {
@@ -75,7 +75,7 @@ export class Overlay {
 
     // create the overlay
 
-    this.overlay = document.createElement('div');
+    this.overlay = document.createElement("div");
     this.overlay.classList.add("tobago-page-overlay");
     this.overlay.classList.add(
         this.error ? "tobago-page-overlay-markup-error" : "tobago-page-overlay-markup-wait");

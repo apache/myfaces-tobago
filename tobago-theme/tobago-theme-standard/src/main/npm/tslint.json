@@ -8,6 +8,12 @@
     ],
     "max-line-length": {
       "options": [120]
-    }
+    },
+    "no-consecutive-blank-lines": true,
+    "no-var-keyword": true,
+    "no-parameter-reassignment": true,
+    "quotemark": [true, "double"],
+    "typedef": [true, "call-signature"],
+    "indent": [true, "spaces", 2]
   }
 }

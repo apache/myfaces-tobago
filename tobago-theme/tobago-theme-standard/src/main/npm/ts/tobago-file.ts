@@ -21,7 +21,7 @@ export class File extends HTMLElement {
     super();
   }
 
-  connectedCallback() {
+  connectedCallback(): void {
     this.input.form.enctype = "multipart/form-data";
 
     this.input.addEventListener("change", this.select.bind(this));
@@ -35,7 +35,7 @@ export class File extends HTMLElement {
     return this.querySelector(".custom-file-label");
   }
 
-  select(event: MouseEvent) {
+  select(event: MouseEvent): void {
     if (this.input.value === "") {
       this.label.classList.add("tobago-file-placeholder");
       this.label.textContent = this.input.placeholder;
@@ -49,7 +49,7 @@ export class File extends HTMLElement {
       } else {
         text = this.input.value;
         // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\path\".
-        const pos: number = Math.max(text.lastIndexOf('/'), text.lastIndexOf('\\'));
+        const pos: number = Math.max(text.lastIndexOf("/"), text.lastIndexOf("\\"));
         if (pos >= 0) {
           text = text.substr(pos + 1);
         }
@@ -59,6 +59,6 @@ export class File extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event) {
-  window.customElements.define('tobago-file', File);
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
+  window.customElements.define("tobago-file", File);
 });

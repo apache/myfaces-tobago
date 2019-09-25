@@ -57,7 +57,7 @@ class SplitLayout extends HTMLElement {
     this.setAttribute("orientation", orientation);
   }
 
-  start(event: MouseEvent) {
+  start(event: MouseEvent): void {
     event.preventDefault();
     const splitter = event.target as HTMLElement;
     const previous = DomUtils.previousElementSibling(splitter);
@@ -121,11 +121,11 @@ class SplitLayoutMousedown {
     return new SplitLayoutMousedown(data);
   }
 
-  static load() {
+  static load(): SplitLayoutMousedown {
     return new SplitLayoutMousedown(Page.page().dataset["SplitLayoutMousedownData"]);
   }
 
-  static remove() {
+  static remove(): void {
     Page.page().dataset["SplitLayoutMousedownData"] = null;
   }
 
@@ -155,6 +155,6 @@ class SplitLayoutMousedown {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event) {
-  window.customElements.define('tobago-split-layout', SplitLayout);
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
+  window.customElements.define("tobago-split-layout", SplitLayout);
 });

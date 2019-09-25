@@ -21,37 +21,20 @@ import {DomUtils} from "./tobago-utils";
 import {CommandHelper} from "./tobago-command";
 import {Page} from "./tobago-page";
 
-/**
- * @deprecated since 5.0.0
- */
-export class Tobago {
-  /**
-   * Backward compatible listener registration. In the case of an AJAX call (phase = Phase.AFTER_UPDATE)
-   * this listener will be called with a jQuery-object, the new one will get an HTMLElement.
-   * @deprecated since 5.0.0
-   */
-  static registerListener(listener, phase, order) {
-
-    Listener.register(function (element: HTMLElement) {
-      listener(jQuery(element));
-    }, phase, order);
-  }
-}
-
 export class Setup {
 
   static transition: boolean;
   static oldTransition: boolean;
 
-  static init = function() {
+  static init = function (): void {
     console.time("[tobago] init");
-    document.querySelector("form").addEventListener('submit', CommandHelper.onSubmit);
-    window.addEventListener('unload', Setup.onUnload);
+    document.querySelector("form").addEventListener("submit", CommandHelper.onSubmit);
+    window.addEventListener("unload", Setup.onUnload);
     Listener.executeDocumentReady(document.documentElement);
     console.timeEnd("[tobago] init");
   };
 
-  static onBeforeUnload = function () {
+  static onBeforeUnload = function (): void {
     if (Setup.transition) {
       new Overlay(Page.page());
     }
@@ -61,8 +44,8 @@ export class Setup {
   /**
    * Wrapper function to call application generated onunload function
    */
-  static onUnload = function () {
-    console.info('on onload');
+  static onUnload = function (): void {
+    console.info("on onload");
     if (CommandHelper.isSubmit) {
       if (Setup.transition) {
         new Overlay(Page.page());
@@ -74,6 +57,6 @@ export class Setup {
   };
 }
 
-document.addEventListener('DOMContentLoaded', Setup.init);
+document.addEventListener("DOMContentLoaded", Setup.init);
 
 window.addEventListener("load", Listener.executeWindowLoad);

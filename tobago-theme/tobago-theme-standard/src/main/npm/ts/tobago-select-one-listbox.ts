@@ -16,11 +16,11 @@
  */
 
 import {Listener, Phase} from "./tobago-listener";
-import {DomUtils, Tobago4Utils} from "./tobago-utils";
+import {DomUtils} from "./tobago-utils";
 
 class SelectOneListbox {
 
-  static init = function (element: HTMLElement) {
+  static init = function (element: HTMLElement): void {
     for (const listbox of DomUtils.selfOrQuerySelectorAll(element, ".tobago-selectOneListbox:not(:required)")) {
       listbox.addEventListener("change", (event: Event) => {
         const target = event.currentTarget as HTMLSelectElement;

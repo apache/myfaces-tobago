@@ -40,7 +40,7 @@ class RegExpTest {
     this.element.addEventListener("change", this.checkValue.bind(this));
   }
 
-  checkValue(event: TextEvent) {
+  checkValue(event: TextEvent): void {
     console.debug("changed: check if '%s' is okay!", this.regexp.toString());
     if (!this.regexp.test(this.element.value)) {
       this.element.classList.add("border-danger");

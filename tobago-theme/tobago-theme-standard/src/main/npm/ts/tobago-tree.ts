@@ -23,7 +23,7 @@ export class Tree extends HTMLElement {
     super();
   }
 
-  connectedCallback() {
+  connectedCallback(): void {
   }
 
   get isSheet(): boolean {
@@ -95,7 +95,7 @@ export class TreeNode extends HTMLElement {
     super();
   }
 
-  connectedCallback() {
+  connectedCallback(): void {
     if (this.isExpandable() && this.toggles !== null) {
       this.toggles.forEach(element => element.addEventListener("click", this.toggleNode.bind(this)));
     }
@@ -204,7 +204,7 @@ export class TreeNode extends HTMLElement {
     }
   }
 
-  showNodes(treeChildNodes: NodeListOf<TreeNode>) {
+  showNodes(treeChildNodes: NodeListOf<TreeNode>): void {
     for (const treeChildNode of treeChildNodes) {
 
       if (treeChildNode.tree.isSheet) {
@@ -224,7 +224,7 @@ export class TreeSelect extends HTMLElement {
     super();
   }
 
-  connectedCallback() {
+  connectedCallback(): void {
     this.input.addEventListener("change", this.select.bind(this));
 
     if (this.tree.selectable === Selectable.multiCascade) {
@@ -276,7 +276,7 @@ export class TreeSelect extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event) {
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
   window.customElements.define("tobago-tree-select", TreeSelect);
   window.customElements.define("tobago-tree-node", TreeNode);
   window.customElements.define("tobago-tree", Tree);

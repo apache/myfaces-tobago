@@ -19,7 +19,7 @@
 
 export class BootstrapUtils {
 
-  static modal(element: Element, data?: any, options?: any) {
+  static modal(element: Element, data?: any, options?: any): void {
     jQuery(element).modal(data, options);
   }
 

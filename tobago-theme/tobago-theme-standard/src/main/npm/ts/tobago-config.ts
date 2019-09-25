@@ -19,7 +19,7 @@ export class Config {
 
   private static map: Map<string, any> = new Map<string, any>();
 
-  static set(key: string, value: any) {
+  static set(key: string, value: any): void {
     this.map.set(key, value);
   }
 

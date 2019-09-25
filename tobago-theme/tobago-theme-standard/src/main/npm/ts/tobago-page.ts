@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {Tobago4Utils} from "./tobago-utils";
+import {DomUtils} from "./tobago-utils";
 
 export class Page extends HTMLElement {
 
@@ -38,8 +38,8 @@ export class Page extends HTMLElement {
     super();
   }
 
-  connectedCallback() {
-    this.addEventListener("keypress", function (event: KeyboardEvent) {
+  connectedCallback(): void {
+    this.addEventListener("keypress", function (event: KeyboardEvent): boolean {
       let code = event.which; // XXX deprecated
       if (code === 0) {
         code = event.keyCode;
@@ -62,7 +62,7 @@ export class Page extends HTMLElement {
             command.dispatchEvent(new MouseEvent("click"));
             break;
           }
-          id = Tobago4Utils.getNamingContainerId(id);
+          id = DomUtils.getNamingContainerId(id);
         }
         return false;
       }
@@ -70,6 +70,6 @@ export class Page extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event) {
-  window.customElements.define('tobago-page', Page);
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
+  window.customElements.define("tobago-page", Page);
 });

@@ -19,17 +19,16 @@ import {Listener, Phase} from "./tobago-listener";
 
 class MessagePopover {
 
-  static init = function (elements) {
-    elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-    jQuery('[data-toggle="popover"]').popover({
+  static init = function (element: HTMLElement): void {
+    jQuery("[data-toggle=\"popover\"]").popover({
       constraints: [
         {
-          to: 'window',
-          attachment: 'together',
+          to: "window",
+          attachment: "together",
           pin: true
         }
       ],
-      trigger: 'focus'
+      trigger: "focus"
     });
   };
 }

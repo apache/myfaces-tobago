@@ -23,7 +23,7 @@ class Stars extends HTMLElement {
     super();
   }
 
-  connectedCallback() {
+  connectedCallback(): void {
     const hiddenInput = this.querySelector("input[type=hidden]") as HTMLInputElement;
     const container = this.querySelector(".tobago-stars-container") as HTMLElement;
     const tooltip = container.querySelector(".tobago-stars-tooltip") as HTMLElement;
@@ -61,23 +61,23 @@ class Stars extends HTMLElement {
     if (!readonly && !disabled) {
       /* preselectMode is a Workaround for IE11: fires change event instead of input event */
       let preselectMode = false;
-      slider.addEventListener('mousedown', function (event) {
+      slider.addEventListener("mousedown", function (event: Event): void {
         preselectMode = true;
       });
-      slider.addEventListener('mouseup', function (event) {
+      slider.addEventListener("mouseup", function (event: Event): void {
         preselectMode = false;
         selectStars();
       });
 
-      slider.addEventListener('input', function (event) {
+      slider.addEventListener("input", function (event: Event): void {
         preselectStars();
       });
-      slider.addEventListener('touchend', function (event) {
+      slider.addEventListener("touchend", function (event: Event): void {
         /* Workaround for mobile devices. TODO: fire AJAX request for 'touchend' */
         // slider.trigger("change");
         slider.dispatchEvent(new Event("change"));
       });
-      slider.addEventListener('change', function (event) {
+      slider.addEventListener("change", function (event: Event): void {
         if (preselectMode) {
           preselectStars();
         } else {
@@ -85,12 +85,12 @@ class Stars extends HTMLElement {
         }
       });
 
-      slider.addEventListener('touchstart', touchstart);
-      slider.addEventListener('touchmove', touchstart);
+      slider.addEventListener("touchstart", touchstart);
+      slider.addEventListener("touchmove", touchstart);
     }
 
     // XXX current issue: on ios-Safari select 5 stars and than click on 1 star doesn't work on labeled component.
-    function touchstart(event: TouchEvent) {
+    function touchstart(event: TouchEvent): void {
       /* Workaround for Safari browser on iPhone */
       const target = event.currentTarget as HTMLInputElement;
       const sliderValue = (parseInt(target.max) / target.offsetWidth)
@@ -105,7 +105,7 @@ class Stars extends HTMLElement {
       preselectStars();
     }
 
-    function preselectStars() {
+    function preselectStars(): void {
       tooltip.classList.add("show");
 
       if (parseInt(slider.value) > 0) {
@@ -127,7 +127,7 @@ class Stars extends HTMLElement {
       }
     }
 
-    function selectStars() {
+    function selectStars(): void {
       tooltip.classList.remove("show");
       preselected.classList.remove("show");
 
@@ -160,6 +160,6 @@ class Stars extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event) {
-  window.customElements.define('tobago-stars', Stars);
+document.addEventListener("DOMContentLoaded", function (event:Event): void {
+  window.customElements.define("tobago-stars", Stars);
 });

@@ -18,6 +18,6 @@
 class Panel extends HTMLElement {
 }
 
-document.addEventListener("DOMContentLoaded", function (event) {
-  window.customElements.define('tobago-panel', Panel);
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
+  window.customElements.define("tobago-panel", Panel);
 });

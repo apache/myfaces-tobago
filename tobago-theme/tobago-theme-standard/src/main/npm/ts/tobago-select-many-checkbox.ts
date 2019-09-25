@@ -16,11 +16,11 @@
  */
 
 import {Listener, Phase} from "./tobago-listener";
-import {DomUtils, Tobago4Utils} from "./tobago-utils";
+import {DomUtils} from "./tobago-utils";
 
 class SelectManyCheckbox {
 
-  static init = function (element: HTMLElement) {
+  static init = function (element: HTMLElement): void {
     for (const checkbox of DomUtils.selfOrQuerySelectorAll(element, ".tobago-selectManyCheckbox input[readonly]")) {
       checkbox.addEventListener("click", (event: Event) => {
         // in the "readonly" case, prevent the default, which is changing the "checked" state

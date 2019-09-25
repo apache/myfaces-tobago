@@ -20,7 +20,7 @@ import {DomUtils} from "./tobago-utils";
 
 class SelectManyShuttle {
 
-  static init = function (element: HTMLElement) {
+  static init = function (element: HTMLElement): void {
     for (const shuttle of DomUtils.selfOrQuerySelectorAll(
         element, ".tobago-selectManyShuttle:not(.tobago-selectManyShuttle-disabled)")) {
 
@@ -56,17 +56,17 @@ class SelectManyShuttle {
     }
   };
 
-  static moveSelectedItems = function (event: Event, direction: boolean, all: boolean) {
+  static moveSelectedItems = function (event: Event, direction: boolean, all: boolean): void {
     const currentTarget = event.currentTarget as HTMLElement;
     const shuttle = currentTarget.closest(".tobago-selectManyShuttle");
     const unselected = shuttle.querySelector(".tobago-selectManyShuttle-unselected");
     const selected = shuttle.querySelector(".tobago-selectManyShuttle-selected");
-    var oldCount = selected.childElementCount;
+    const oldCount = selected.childElementCount;
     const source = direction ? unselected : selected;
     const target = direction ? selected : unselected;
     const options = source.querySelectorAll(all ? "option:not(:disabled)" : "option:checked");
-    var hidden = shuttle.querySelector(".tobago-selectManyShuttle-hidden");
-    var hiddenOptions = hidden.querySelectorAll("option");
+    const hidden = shuttle.querySelector(".tobago-selectManyShuttle-hidden");
+    const hiddenOptions = hidden.querySelectorAll("option");
     for (const option of options as NodeListOf<HTMLOptionElement>) {
       source.removeChild(option);
       target.appendChild(option);

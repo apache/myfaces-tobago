@@ -19,25 +19,24 @@ import {Listener, Order, Phase} from "./tobago-listener";
 
 class Dropdown {
 
-  static init(elements) {
-    elements = elements.jQuery ? elements : jQuery(elements); // fixme jQuery -> ES5
-    var $dropdownMenus = jQuery(":not(.tobago-page-menuStore) > .dropdown-menu");
-    var $tobagoPageMenuStore = jQuery(".tobago-page-menuStore");
+  static init(element: HTMLElement): void {
+    const $dropdownMenus = jQuery(":not(.tobago-page-menuStore) > .dropdown-menu");
+    const $tobagoPageMenuStore = jQuery(".tobago-page-menuStore");
 
-    $dropdownMenus.each(function () {
-      var $dropdownMenu = jQuery(this);
-      var $parent = $dropdownMenu.parent();
+    $dropdownMenus.each(function (): void {
+      const $dropdownMenu = jQuery(this);
+      const $parent = $dropdownMenu.parent();
 
-      if (!$parent.hasClass('tobago-dropdown-submenu')
-          && $parent.closest('.navbar').length === 0) {
+      if (!$parent.hasClass("tobago-dropdown-submenu")
+          && $parent.closest(".navbar").length === 0) {
 
         // remove duplicated dropdown menus from menu store
         // this could happen if the dropdown component is updated by ajax
         removeDuplicates($dropdownMenu);
 
-        $parent.on('shown.bs.dropdown', function (event) {
+        $parent.on("shown.bs.dropdown", function (event: Event): void {
           $tobagoPageMenuStore.append($dropdownMenu.detach());
-        }).on('hidden.bs.dropdown', function (event) {
+        }).on("hidden.bs.dropdown", function (event: Event): void {
           $parent.append($dropdownMenu.detach());
         });
       }
@@ -45,15 +44,17 @@ class Dropdown {
   }
 }
 
-function removeDuplicates($dropdownMenu) {
-  var $menuStoreDropdowns = jQuery(".tobago-page-menuStore .dropdown-menu");
-  $menuStoreDropdowns.each(function () {
-    var $menuStoreDropdown = jQuery(this);
+function removeDuplicates($dropdownMenu): void {
+  const $menuStoreDropdowns = jQuery(".tobago-page-menuStore .dropdown-menu");
+  // XXX todo: remove ts-ignore
+  // @ts-ignore
+  $menuStoreDropdowns.each(function (): boolean {
+    const $menuStoreDropdown = jQuery(this);
 
-    var dropdownIds = getIds($dropdownMenu);
-    var menuStoreIds = getIds($menuStoreDropdown);
+    const dropdownIds = getIds($dropdownMenu);
+    const menuStoreIds = getIds($menuStoreDropdown);
 
-    for (var i = 0; i < dropdownIds.length; i++) {
+    for (let i = 0; i < dropdownIds.length; i++) {
       if (jQuery.inArray(dropdownIds[i], menuStoreIds) >= 0) {
         $menuStoreDropdown.remove();
         return false;
@@ -62,8 +63,10 @@ function removeDuplicates($dropdownMenu) {
   });
 }
 
+// XXX todo: remove tslint
+// tslint:disable-next-line:typedef
 function getIds($dropdownMenu) {
-  return $dropdownMenu.find("[id]").map(function () {
+  return $dropdownMenu.find("[id]").map(function (): string {
     return this.id;
   });
 }

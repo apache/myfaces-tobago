@@ -20,7 +20,7 @@ import {DomUtils} from "./tobago-utils";
 
 class SelectBooleanCheckbox {
 
-  static init = function (element: HTMLElement) {
+  static init = function (element: HTMLElement): void {
     for (const checkbox of DomUtils.selfOrQuerySelectorAll(element, ".tobago-selectBooleanCheckbox input[readonly]")) {
       checkbox.addEventListener("click", (event: Event) => {
         // in the "readonly" case, prevent the default, which is changing the "checked" state

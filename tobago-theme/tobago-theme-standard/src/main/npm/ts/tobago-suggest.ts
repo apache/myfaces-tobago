@@ -23,13 +23,13 @@ class Suggest extends HTMLElement {
 
   hiddenInput: HTMLInputElement;
 
-  static loadFromServer = function (input: HTMLInputElement) {
+  static loadFromServer = function (input: HTMLInputElement): (query, syncResults, asyncResults) => void {
 
     let timeout;
 
-    return function findMatches(query, syncResults, asyncResults) {
+    return function findMatches(query, syncResults, asyncResults): void {
 
-      const root = input.getRootNode() as ShadowRoot|Document;
+      const root = input.getRootNode() as ShadowRoot | Document;
       let suggest = root.getElementById(input.dataset["tobagoSuggestFor"]) as Suggest;
 
       // todo: suggest.hiddenInput.value should contain the last query value
@@ -41,7 +41,7 @@ class Suggest extends HTMLElement {
 
         const delay = suggest.delay;
 
-        timeout = setTimeout(function () {
+        timeout = setTimeout(function (): void {
           suggest.hiddenInput.value = query;
           Suggest.asyncResults = asyncResults;
           delete suggest.dataset["tobagoSuggestData"];
@@ -61,10 +61,10 @@ class Suggest extends HTMLElement {
     };
   };
 
-  static fromClient = function (data) {
-    return function findMatches(query, syncResults) {
-      var result = [];
-      for (var i = 0; i < data.length; i++) {
+  static fromClient = function (data): (query, syncResults) => void {
+    return (query, syncResults): void => {
+      const result = [];
+      for (let i = 0; i < data.length; i++) {
         if (data[i].indexOf(query) >= 0) {
           result.push(data[i]);
         }
@@ -153,8 +153,8 @@ class Suggest extends HTMLElement {
     }
   }
 
-  connectedCallback() {
-    const root = this.getRootNode() as ShadowRoot|Document;
+  connectedCallback(): void {
+    const root = this.getRootNode() as ShadowRoot | Document;
     const input = root.getElementById(this.for) as HTMLInputElement;
     const $input = jQuery(input);
 
@@ -167,12 +167,11 @@ class Suggest extends HTMLElement {
       input.dataset["tobagoSuggestFor"] = this.id;
       input.autocomplete = "off";
 
-      var source;
+      let source;
       if (this.update) {
         source = Suggest.loadFromServer(input);
       } else {
-        var data2 = this.data;
-        source = Suggest.fromClient(data2);
+        source = Suggest.fromClient(this.data);
       }
 
       let suggestPopup = root.getElementById(this.id + "::popup");
@@ -197,7 +196,7 @@ class Suggest extends HTMLElement {
         source: source
       });
       // old with jQuery:
-      $input.on('typeahead:change', function (event: JQuery.Event) {
+      $input.on("typeahead:change", function (event: JQuery.Event): void {
         const input = this;
         input.dispatchEvent(new Event("change"));
       });
@@ -208,7 +207,7 @@ class Suggest extends HTMLElement {
       // });
 
       // old with jQuery:
-      $input.on('typeahead:open', function (event: JQuery.Event) {
+      $input.on("typeahead:open", function (event: JQuery.Event): void {
         const input = this;
         const suggestPopup = root.getElementById(input.dataset["tobagoSuggestFor"] + "::popup");
         suggestPopup.style.top = DomUtils.offset(input).top + input.offsetHeight + "px";
@@ -229,6 +228,6 @@ class Suggest extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event) {
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
   window.customElements.define("tobago-suggest", Suggest);
 });

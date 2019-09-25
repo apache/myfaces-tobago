@@ -30,7 +30,7 @@ export enum JsfParameter {
 
 class Jsf {
 
-  private static isId = function (id: string) {
+  private static isId = function (id: string): boolean {
     switch (id) {
       case JsfParameter.VIEW_STATE:
       case JsfParameter.CLIENT_WINDOW:
@@ -44,7 +44,7 @@ class Jsf {
     }
   };
 
-  private static isBody = function (id) {
+  private static isBody = function (id): boolean {
     switch (id) {
       case JsfParameter.VIEW_ROOT:
       case JsfParameter.VIEW_BODY:
@@ -54,13 +54,13 @@ class Jsf {
     }
   };
 
-  static init = function () {
-    jsf.ajax.addOnEvent(function (event) {
+  static init = function (): void {
+    jsf.ajax.addOnEvent(function (event): void {
       console.timeEnd("[tobago-jsf] jsf-ajax");
       console.time("[tobago-jsf] jsf-ajax");
       console.debug("[tobago-jsf] JSF event status: '%s'", event.status);
       if (event.status === "success") {
-        event.responseXML.querySelectorAll("update").forEach(function (update: Element) {
+        event.responseXML.querySelectorAll("update").forEach(function (update: Element): void {
           const result = /<!\[CDATA\[(.*)]]>/gm.exec(update.innerHTML);
           const id = update.id;
           if (result !== null && result.length === 2 && result[1].startsWith("{\"reload\"")) {
@@ -80,7 +80,7 @@ class Jsf {
           }
         });
       } else if (event.status === "complete") {
-        event.responseXML.querySelectorAll("update").forEach(function (update: Element) {
+        event.responseXML.querySelectorAll("update").forEach(function (update: Element): void {
           const id = update.id;
           if (Jsf.isId(id)) {
             console.debug("[tobago-jsf] Update after jsf.ajax complete: #" + id);

@@ -43,12 +43,12 @@ export class Focus {
    * - last (the element from the last request with same id gets the focus, not AJAX)
    * - first (the first input element (without tabindex=-1) gets the focus, not AJAX)
    */
-  static init = function (element: HTMLElement) {
+  static init = function (element: HTMLElement): void {
 
     const activeInputs = Focus.activeInputs(element);
 
     for (const focusable of activeInputs) {
-      focusable.addEventListener("focus", function (event: FocusEvent) {
+      focusable.addEventListener("focus", function (event: FocusEvent): void {
         const target = event.target as HTMLElement;
         if (target.style.visibility !== "hidden" && target.style.display != "none") {
           // remember the last focused element, for later
@@ -60,7 +60,7 @@ export class Focus {
     // autofocus in popups doesn't work automatically... so we fix that here
     const modals = document.getElementsByClassName("modal");
     for (let i = 0; i < modals.length; i++) {
-      modals.item(i).addEventListener('shown.bs.modal', Focus.initAutoFocus);
+      modals.item(i).addEventListener("shown.bs.modal", Focus.initAutoFocus);
     }
 
     for (const hasDanger of DomUtils.selfOrElementsByClassName(element, ".has-danger")) {
@@ -97,7 +97,7 @@ export class Focus {
     }
   };
 
-  private static activeInputs(element: HTMLElement) {
+  private static activeInputs(element: HTMLElement): Array<HTMLElement> {
     return DomUtils.selfOrQuerySelectorAll(element,
         "input:not([type='hidden']):not([disabled]):not([tabindex='-1'])," +
         "select:not([disabled]):not([tabindex='-1'])," +
@@ -107,7 +107,7 @@ export class Focus {
             && element.style.display != "none");
   }
 
-  private static initAutoFocus(event) {
+  private static initAutoFocus(event): void {
     const modal = event.currentTarget as HTMLElement;
     (modal.querySelector("[autofocus]") as HTMLElement).focus();
   }

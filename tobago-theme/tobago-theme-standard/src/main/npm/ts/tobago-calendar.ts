@@ -21,7 +21,7 @@ import {CommandHelper} from "./tobago-command";
 
 class DateTime {
 
-  static init(element: HTMLElement) {
+  static init(element: HTMLElement): void {
     for (const e of DomUtils.selfOrQuerySelectorAll(element, ".tobago-date:not([readonly]):not([disabled])")) {
       const date: HTMLInputElement = e as HTMLInputElement;
 
@@ -30,18 +30,18 @@ class DateTime {
         format: analyzed,
         showTodayButton: date.dataset.tobagoTodayButton === "data-tobago-today-button",
         icons: {
-          time: 'fa fa-clock-o',
-          date: 'fa fa-calendar',
-          up: 'fa fa-chevron-up',
-          down: 'fa fa-chevron-down',
-          previous: 'fa fa-chevron-left',
-          next: 'fa fa-chevron-right',
-          today: 'fa fa-calendar-check-o',
-          clear: 'fa fa-trash',
-          close: 'fa fa-times'
+          time: "fa fa-clock-o",
+          date: "fa fa-calendar",
+          up: "fa fa-chevron-up",
+          down: "fa fa-chevron-down",
+          previous: "fa fa-chevron-left",
+          next: "fa fa-chevron-right",
+          today: "fa fa-calendar-check-o",
+          clear: "fa fa-trash",
+          close: "fa fa-times"
         },
         keyBinds: {
-          left: function ($widget) {
+          left: function ($widget): void {
             const widget: HTMLDivElement = $widget[0] as HTMLDivElement;
             if (widget === undefined) {
               if (date.selectionStart === date.selectionEnd) {
@@ -53,10 +53,10 @@ class DateTime {
                 date.selectionEnd = date.selectionStart;
               }
             } else if (DomUtils.isVisible(widget.querySelector(".datepicker"))) {
-              this.date(this.date().clone().subtract(1, 'd'));
+              this.date(this.date().clone().subtract(1, "d"));
             }
           },
-          right: function ($widget) {
+          right: function ($widget): void {
             const widget: HTMLDivElement = $widget[0] as HTMLDivElement;
             if (widget === undefined) {
               if (date.selectionStart === date.selectionEnd) {
@@ -68,10 +68,10 @@ class DateTime {
                 date.selectionStart = date.selectionEnd;
               }
             } else if (DomUtils.isVisible(widget.querySelector(".datepicker"))) {
-              this.date(this.date().clone().add(1, 'd'));
+              this.date(this.date().clone().add(1, "d"));
             }
           },
-          enter: function ($widget) {
+          enter: function ($widget): void {
             const widget: HTMLDivElement = $widget[0] as HTMLDivElement;
             if (widget !== undefined && DomUtils.isVisible(widget.querySelector(".datepicker"))) {
               this.hide();
@@ -84,14 +84,14 @@ class DateTime {
               }));
             }
           },
-          escape: function ($widget) {
+          escape: function ($widget): void {
             const widget: HTMLDivElement = $widget[0] as HTMLDivElement;
             if (widget !== undefined && DomUtils.isVisible(widget.querySelector(".datepicker"))) {
               this.hide();
               fixKey(27);
             }
           },
-          'delete': function () {
+          "delete": function (): void {
             if (date.selectionStart < date.value.length) {
               const selectionStart = date.selectionStart;
               let selectionEnd = date.selectionEnd;
@@ -107,14 +107,14 @@ class DateTime {
             }
           }
         },
-        widgetParent: '.tobago-page-menuStore'
+        widgetParent: ".tobago-page-menuStore"
       };
 
       /**
        * After ESC or ENTER is pressed we need to fire the keyup event manually.
        * see: https://github.com/tempusdominus/bootstrap-4/issues/159
        */
-      function fixKey(keyCode) {
+      function fixKey(keyCode): void {
         let keyupEvent = jQuery.Event("keyup");
         keyupEvent.which = keyCode;
         jQuery(date).trigger(keyupEvent);
@@ -155,7 +155,7 @@ class DateTime {
       // in line 1307 of bootstrap-datetimepicker.js
       // the 'stopImmediatePropagation()' stops the change-event
       // execution of line 686 in tobago.js
-      $dateParent.on('dp.change', function (event) {
+      $dateParent.on("dp.change", function (event: Event): void {
         let input: HTMLInputElement = this.querySelector("input");
         let commands = input.dataset.tobagoCommands ? JSON.parse(input.dataset.tobagoCommands) : undefined;
         if (commands && commands.change) {
@@ -177,7 +177,7 @@ class DateTime {
       });
 
       // set position
-      $dateParent.on('dp.show', function () {
+      $dateParent.on("dp.show", function (): void {
         let datepicker: HTMLDivElement = document.querySelector(".bootstrap-datetimepicker-widget");
         let div: HTMLDivElement = this;
         let top, left;
@@ -198,12 +198,12 @@ class DateTime {
       });
 
       // set css class in update - like changing the month
-      $dateParent.on('dp.update', function () {
+      $dateParent.on("dp.update", function (): void {
         DateTime.addPastClass(date);
       });
 
       // fix for bootstrap-datetimepicker v4.17.45
-      $dateParent.on('dp.show', function () {
+      $dateParent.on("dp.show", function (): void {
         const collapseIn = document.querySelector(".bootstrap-datetimepicker-widget .collapse.in");
         const pickerSwitch = document.querySelector(".bootstrap-datetimepicker-widget .picker-switch a");
 
@@ -212,7 +212,7 @@ class DateTime {
         }
         if (pickerSwitch !== null) {
           pickerSwitch.addEventListener(
-              "click", function () {
+              "click", function (): void {
                 // the click is executed before togglePicker() function
                 let datetimepicker: HTMLDivElement = document.querySelector(".bootstrap-datetimepicker-widget");
                 datetimepicker.querySelector(".collapse.in").classList.remove("in");
@@ -223,7 +223,7 @@ class DateTime {
     }
   }
 
-  static addPastClass(date: HTMLInputElement) {
+  static addPastClass(date: HTMLInputElement): void {
     let today = date.dataset.tobagoToday;
     if (today.length === 10) {
       const todayArray = today.split("-");
@@ -249,11 +249,14 @@ class DateTime {
    and convert it to 'moment.js'.
    Attention: Not every pattern char is supported.
    */
-  static analyzePattern = function (pattern) {
+  static analyzePattern = function (originalPattern: string): string {
 
-    if (!pattern || pattern.length > 100) {
-      console.warn("Pattern not supported: " + pattern);
+    let pattern;
+    if (!originalPattern || originalPattern.length > 100) {
+      console.warn("Pattern not supported: " + originalPattern);
       pattern = "";
+    } else {
+      pattern = originalPattern;
     }
 
     let analyzedPattern = "";
@@ -293,7 +296,9 @@ class DateTime {
     return analyzedPattern;
   };
 
-  static analyzePatternPart = function (pattern) {
+  static analyzePatternPart = function (originalPattern: string): string {
+
+    let pattern = originalPattern;
 
     if (pattern.search("G") > -1 || pattern.search("W") > -1 || pattern.search("F") > -1
         || pattern.search("K") > -1 || pattern.search("z") > -1 || pattern.search("X") > -1) {

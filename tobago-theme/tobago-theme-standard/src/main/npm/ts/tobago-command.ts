@@ -27,7 +27,7 @@ class Behavior extends HTMLElement {
     super();
   }
 
-  connectedCallback() {
+  connectedCallback(): void {
     switch (this.event) {
       case "load": // this is a special case, because the "load" is too late now.
         this.callback();
@@ -40,7 +40,7 @@ class Behavior extends HTMLElement {
     }
   }
 
-  callback(event?: Event) {
+  callback(event?: Event): void {
 
     if (this.collapseAction && this.collapseTarget) {
       const target = this.getRootNode() as ShadowRoot | Document;
@@ -69,7 +69,7 @@ class Behavior extends HTMLElement {
     }
   }
 
-  submit() {
+  submit(): void {
     const actionId = this.action != null ? this.action : this.element.id;
     CommandHelper.submitAction(this, actionId, !this.decoupled, this.target);
   }
@@ -183,8 +183,8 @@ class Behavior extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event) {
-  window.customElements.define('tobago-behavior', Behavior);
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
+  window.customElements.define("tobago-behavior", Behavior);
 });
 
 export class CommandHelper {
@@ -198,9 +198,9 @@ export class CommandHelper {
    * @param target
    */
   public static submitAction = function (
-      source: HTMLElement, actionId: string, decoupled: boolean = true, target?: string) {
+      source: HTMLElement, actionId: string, decoupled: boolean = true, target?: string): void {
 
-    Transport.request(function () {
+    Transport.request(function (): void {
       if (!CommandHelper.isSubmit) {
         CommandHelper.isSubmit = true;
         const form = document.getElementsByTagName("form")[0] as HTMLFormElement;
@@ -211,12 +211,12 @@ export class CommandHelper {
         if (target) {
           form.setAttribute("target", target);
         }
-        var listenerOptions = {
+        const listenerOptions = {
           source: source,
           actionId: actionId/*,
           options: commandHelper*/
         };
-        var onSubmitResult = CommandHelper.onSubmit(listenerOptions);
+        const onSubmitResult = CommandHelper.onSubmit(listenerOptions);
         if (onSubmitResult) {
           try {
             form.submit();
@@ -226,7 +226,7 @@ export class CommandHelper {
           } catch (e) {
             Overlay.destroy(Page.page().id);
             CommandHelper.isSubmit = false;
-            alert('Submit failed: ' + e); // XXX localization, better error handling
+            alert("Submit failed: " + e); // XXX localization, better error handling
           }
         }
         if (target) {
@@ -247,7 +247,7 @@ export class CommandHelper {
     }, true);
   };
 
-  static onSubmit = function (listenerOptions) {
+  static onSubmit = function (listenerOptions: any): boolean {
     Listener.executeBeforeSubmit();
     /*
     XXX check if we need the return false case
@@ -287,16 +287,16 @@ class Transport {
   /**
    * @return true if the request is queued.
    */
-  static request = function (req, submitPage, actionId?) {
-    var index = 0;
+  static request = function (req: () => void, submitPage: boolean, actionId?: string): boolean {
+    let index = 0;
     if (submitPage) {
       Transport.pageSubmitted = true;
       index = Transport.requests.push(req);
       //console.debug('index = ' + index)
     } else if (!Transport.pageSubmitted) { // AJAX case
-      console.debug('Current ActionId = ' + Transport.currentActionId + ' action= ' + actionId);
+      console.debug("Current ActionId = " + Transport.currentActionId + " action= " + actionId);
       if (actionId && Transport.currentActionId === actionId) {
-        console.info('Ignoring request');
+        console.info("Ignoring request");
         // If actionId equals currentActionId assume double request: do nothing
         return false;
       }
@@ -307,27 +307,26 @@ class Transport {
       console.debug("else case");
       return false;
     }
-    console.debug('index = ' + index);
+    console.debug("index = " + index);
     if (index === 1) {
-      console.info('Execute request!');
+      console.info("Execute request!");
       Transport.startTime = new Date();
       Transport.requests[0]();
     } else {
-      console.info('Request queued!');
+      console.info("Request queued!");
     }
     return true;
   };
 
-
 // TBD XXX REMOVE is this called in non AJAX case?
 
-  static requestComplete = function () {
+  static requestComplete = function ():void {
     Transport.requests.shift();
     Transport.currentActionId = null;
-    console.debug('Request complete! Duration: ' + (new Date().getTime() - Transport.startTime.getTime()) + 'ms; '
-        + 'Queue size : ' + Transport.requests.length);
+    console.debug("Request complete! Duration: " + (new Date().getTime() - Transport.startTime.getTime()) + "ms; "
+        + "Queue size : " + Transport.requests.length);
     if (Transport.requests.length > 0) {
-      console.debug('Execute request!');
+      console.debug("Execute request!");
       Transport.startTime = new Date();
       Transport.requests[0]();
     }

@@ -24,7 +24,7 @@ class TabGroup extends HTMLElement {
     this.hiddenInput = this.querySelector(":scope > input[type=hidden]");
   }
 
-  connectedCallback() {
+  connectedCallback(): void {
   }
 
   get switchType(): string {
@@ -55,7 +55,7 @@ export class Tab extends HTMLElement {
     super();
   }
 
-  connectedCallback() {
+  connectedCallback(): void {
     let navLink = this.navLink;
     if (!navLink.classList.contains("disabled")) {
       navLink.addEventListener("click", this.select.bind(this));
@@ -74,7 +74,7 @@ export class Tab extends HTMLElement {
     return this.closest("tobago-tab-group") as TabGroup;
   }
 
-  select(event: MouseEvent) {
+  select(event: MouseEvent): void {
     const tabGroup = this.tabGroup;
     const old = tabGroup.getSelectedTab();
     tabGroup.selected = this.index;
@@ -113,7 +113,7 @@ export class TabContent extends HTMLElement {
     super();
   }
 
-  connectedCallback() {
+  connectedCallback(): void {
   }
 
   get index(): number {
@@ -121,8 +121,8 @@ export class TabContent extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event) {
-  window.customElements.define('tobago-tab', Tab);
-  window.customElements.define('tobago-tab-content', TabContent);
-  window.customElements.define('tobago-tab-group', TabGroup);
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
+  window.customElements.define("tobago-tab", Tab);
+  window.customElements.define("tobago-tab-content", TabContent);
+  window.customElements.define("tobago-tab-group", TabGroup);
 });

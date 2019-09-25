@@ -20,7 +20,7 @@ import {DomUtils} from "./tobago-utils";
 
 class Scroll {
 
-  static initScrollPosition = function (element: HTMLElement) {
+  static initScrollPosition = function (element: HTMLElement): void {
     for (const panel of DomUtils.selfOrQuerySelectorAll(element, "[data-tobago-scroll-panel]")) {
 
       const hidden = panel.querySelector(":scope > [data-tobago-scroll-position]") as HTMLInputElement;
@@ -36,7 +36,7 @@ class Scroll {
     }
   };
 
-  static scroll = function (event: Event) {
+  static scroll = function (event: Event): void {
     const panel = event.currentTarget as HTMLDivElement;
     const scrollLeft = panel.scrollLeft;
     const scrollTop = panel.scrollTop;

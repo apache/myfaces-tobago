@@ -37,7 +37,7 @@ export class ReloadManager {
     this.timeouts = new Map<string, number>();
   }
 
-  public schedule(id: string, reloadMillis: number) {
+  public schedule(id: string, reloadMillis: number): void {
     if (reloadMillis > 0) {
 
       // may remove old schedule
@@ -49,7 +49,7 @@ export class ReloadManager {
       }
 
       // add new schedule
-      let timeout = window.setTimeout(function () {
+      let timeout = window.setTimeout(function (): void {
         console.debug("reloading #'" + id + "'");
         jsf.ajax.request(
             id,

@@ -19,7 +19,7 @@ import {BootstrapUtils} from "./ext-bootstrap";
 
 export class Popup extends HTMLElement {
 
-  static close(button: HTMLElement) {
+  static close(button: HTMLElement): void {
     BootstrapUtils.modal(button.closest(".modal"), "hide");
   }
 
@@ -27,7 +27,7 @@ export class Popup extends HTMLElement {
     super();
   }
 
-  connectedCallback() {
+  connectedCallback(): void {
     const hidden = Collapse.findHidden(this);
     if (hidden.value === "false") {
       // XXX hack: this is needed for popups open by AJAX.
@@ -43,7 +43,7 @@ export class Popup extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event: Event) {
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
   window.customElements.define("tobago-popup", Popup);
 });
 
@@ -53,7 +53,7 @@ export class Collapse {
     return document.getElementById(element.id + "::collapse") as HTMLInputElement;
   }
 
-  static execute = function (action: string, target: HTMLElement) {
+  static execute = function (action: string, target: HTMLElement): void {
     const hidden = Collapse.findHidden(target);
     const isPopup = target.tagName === "TOBAGO-POPUP";
     let newCollapsed;
