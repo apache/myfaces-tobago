@@ -36,7 +36,8 @@ class TabGroup extends HTMLElement {
   }
 
   getSelectedTab(): Tab {
-    return this.querySelector(":scope > .card-header > .card-header-tabs > tobago-tab[index='" + this.selected + "']") as Tab;
+    return this.querySelector(
+        ":scope > .card-header > .card-header-tabs > tobago-tab[index='" + this.selected + "']") as Tab;
   }
 
   get selected(): number {

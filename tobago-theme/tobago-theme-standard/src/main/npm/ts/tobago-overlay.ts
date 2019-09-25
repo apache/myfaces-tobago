@@ -91,7 +91,8 @@ export class Overlay {
       top = (rect.top + document.body.scrollTop) + "px";
       this.overlay.style.width = this.element.offsetWidth + "px";
       this.overlay.style.height = this.element.offsetHeight + "px";
-// tbd: is this still needed?       this.overlay.style.position= "absolute" // XXX is set via class, but seams to be overridden in IE11?
+// tbd: is this still needed?       this.overlay.style.position= "absolute"
+// XXX is set via class, but seams to be overridden in IE11?
     }
 
     document.getElementsByTagName("body")[0].append(this.overlay);

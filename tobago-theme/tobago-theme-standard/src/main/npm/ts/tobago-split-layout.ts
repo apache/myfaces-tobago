@@ -61,7 +61,8 @@ class SplitLayout extends HTMLElement {
     event.preventDefault();
     const splitter = event.target as HTMLElement;
     const previous = DomUtils.previousElementSibling(splitter);
-    this.offset = this.orientation === "horizontal" ? event.pageX - previous.offsetWidth : event.pageY - previous.offsetHeight;
+    this.offset = this.orientation === "horizontal"
+        ? event.pageX - previous.offsetWidth : event.pageY - previous.offsetHeight;
     const mousedown = SplitLayoutMousedown.save(event, splitter);
     document.addEventListener("mousemove", this.move.bind(this));
     document.addEventListener("mouseup", this.stop.bind(this));
@@ -73,7 +74,8 @@ class SplitLayout extends HTMLElement {
     }
     previousArea.style.flexGrow = "inherit";
     previousArea.style.flexBasis = "auto";
-    console.debug("initial width/height = '%s'", (this.orientation === "horizontal" ? previousArea.style.width : previousArea.style.height));
+    console.debug("initial width/height = '%s'",
+        (this.orientation === "horizontal" ? previousArea.style.width : previousArea.style.height));
   }
 
   move(event: MouseEvent): void {

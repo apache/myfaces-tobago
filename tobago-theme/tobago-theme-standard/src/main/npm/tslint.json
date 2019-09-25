@@ -5,6 +5,9 @@
       true,
       "static-before-instance",
       "variables-before-functions"
-    ]
+    ],
+    "max-line-length": {
+      "options": [120]
+    }
   }
 }

@@ -190,7 +190,8 @@ class Sheet {
       }
     }
 
-    for (const checkbox of <NodeListOf<HTMLInputElement>>element.querySelectorAll(".tobago-sheet-cell > input.tobago-sheet-columnSelector")) {
+    for (const checkbox of <NodeListOf<HTMLInputElement>>element.querySelectorAll(
+        ".tobago-sheet-cell > input.tobago-sheet-columnSelector")) {
       checkbox.addEventListener("click", (event) => {
         event.preventDefault();
       });
@@ -198,7 +199,8 @@ class Sheet {
 
     // ---------------------------------------------------------------------------------------- //
 
-    for (const checkbox of <NodeListOf<HTMLInputElement>>element.querySelectorAll(".tobago-sheet-header .tobago-sheet-columnSelector")) {
+    for (const checkbox of <NodeListOf<HTMLInputElement>>element.querySelectorAll(
+        ".tobago-sheet-header .tobago-sheet-columnSelector")) {
       checkbox.addEventListener("click", this.clickOnCheckbox.bind(this));
     }
 
@@ -459,7 +461,8 @@ class Sheet {
     const input = event.currentTarget as HTMLInputElement;
     const output = input.parentElement.querySelector(".tobago-sheet-pagingOutput") as HTMLElement;
     if (output.innerHTML !== input.value) {
-      console.debug("Reloading sheet '" + this.id + "' old value='" + output.innerHTML + "' new value='" + input.value + "'");
+      console.debug(
+          "Reloading sheet '" + this.id + "' old value='" + output.innerHTML + "' new value='" + input.value + "'");
       output.innerHTML = input.value;
       jsf.ajax.request(
           input.id,
@@ -603,7 +606,8 @@ class Sheet {
   }
 
   selectRange(
-      rows: NodeListOf<HTMLTableRowElement>, first: number, last: number, selectDeselected: boolean, deselectSelected: boolean) {
+      rows: NodeListOf<HTMLTableRowElement>, first: number, last: number, selectDeselected: boolean,
+      deselectSelected: boolean) {
     const selected = this.getHiddenSelected();
     const value = new Set<number>(JSON.parse(selected.value));
     for (let i = first; i <= last; i++) {

@@ -197,7 +197,8 @@ export class CommandHelper {
    * @param decoupled
    * @param target
    */
-  public static submitAction = function (source: HTMLElement, actionId: string, decoupled: boolean = true, target?: string) {
+  public static submitAction = function (
+      source: HTMLElement, actionId: string, decoupled: boolean = true, target?: string) {
 
     Transport.request(function () {
       if (!CommandHelper.isSubmit) {

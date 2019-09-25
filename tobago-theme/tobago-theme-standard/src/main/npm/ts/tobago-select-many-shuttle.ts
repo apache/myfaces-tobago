@@ -21,7 +21,8 @@ import {DomUtils} from "./tobago-utils";
 class SelectManyShuttle {
 
   static init = function (element: HTMLElement) {
-    for (const shuttle of DomUtils.selfOrQuerySelectorAll(element, ".tobago-selectManyShuttle:not(.tobago-selectManyShuttle-disabled)")) {
+    for (const shuttle of DomUtils.selfOrQuerySelectorAll(
+        element, ".tobago-selectManyShuttle:not(.tobago-selectManyShuttle-disabled)")) {
 
       shuttle.querySelector(".tobago-selectManyShuttle-unselected").addEventListener(
           "dblclick", (event: Event) => {
