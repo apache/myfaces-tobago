@@ -23,6 +23,8 @@
     "css-compile": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/tobago-theme.scss css/tobago.css",
     "css-prefix": "postcss --config postcss.config.js --replace \"css/*.css\" \"!css/*.min.css\"",
     "css-minify": "cleancss --level 1 --source-map --source-map-inline-sources --output css/tobago.min.css css/tobago.css",
+    "ts": "npm-run-all --parallel ts-lint ts-compile",
+    "ts-lint": "echo 'Skipping'",
     "ts-compile": "echo 'Skipping'",
     "js-transpile": "echo 'Skipping'",
     "js-minify": "echo 'Skipping'",
