@@ -16,6 +16,7 @@
  */
 
 import {DomUtils} from "./tobago-utils";
+import {Page} from "./tobago-page";
 
 class SplitLayout extends HTMLElement {
 
@@ -128,16 +129,16 @@ class SplitLayoutMousedown {
       horizontal: horizontal,
       splitterIndex: this.indexOfSplitter(splitter, horizontal)
     };
-    DomUtils.page().dataset["SplitLayoutMousedownData"] = JSON.stringify(data);
+    Page.page().dataset["SplitLayoutMousedownData"] = JSON.stringify(data);
     return new SplitLayoutMousedown(data);
   }
 
   static load() {
-    return new SplitLayoutMousedown(DomUtils.page().dataset["SplitLayoutMousedownData"]);
+    return new SplitLayoutMousedown(Page.page().dataset["SplitLayoutMousedownData"]);
   }
 
   static remove() {
-    DomUtils.page().dataset["SplitLayoutMousedownData"] = null;
+    Page.page().dataset["SplitLayoutMousedownData"] = null;
   }
 
   private static indexOfSplitter(splitter: HTMLElement, horizontal: boolean): number {

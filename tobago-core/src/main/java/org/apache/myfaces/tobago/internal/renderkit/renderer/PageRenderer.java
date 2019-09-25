@@ -234,12 +234,11 @@ public class PageRenderer extends RendererBase {
       writer.writeClassAttribute(spread);
     }
 
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.TOBAGO_PAGE);
 
     writer.writeClassAttribute(
-        TobagoClass.PAGE,
-        TobagoClass.PAGE.createMarkup(portlet ? Markup.PORTLET.add(page.getMarkup()) : page.getMarkup()),
         BootstrapClass.CONTAINER_FLUID,
+        TobagoClass.PAGE.createMarkup(portlet ? Markup.PORTLET.add(page.getMarkup()) : page.getMarkup()),
         spread,
         page.getCustomClass());
     writer.writeIdAttribute(clientId);
@@ -341,7 +340,7 @@ public class PageRenderer extends RendererBase {
     writer.writeText(ResourceUtils.getString(facesContext, "page.noscript"));
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.NOSCRIPT);
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.TOBAGO_PAGE);
 
     final List<UIComponent> bodyResources = viewRoot.getComponentResources(facesContext, BODY_TARGET);
     for (final UIComponent bodyResource : bodyResources) {

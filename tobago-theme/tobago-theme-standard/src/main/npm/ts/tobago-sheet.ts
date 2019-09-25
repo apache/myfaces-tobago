@@ -18,6 +18,7 @@
 import {Listener, Phase} from "./tobago-listener";
 import {DomUtils} from "./tobago-utils";
 import {CommandHelper} from "./tobago-command";
+import {Page} from "./tobago-page";
 
 class Sheet {
 
@@ -257,7 +258,7 @@ class Sheet {
 
   mousedown(event: MouseEvent) {
 
-    DomUtils.page().dataset["SheetMousedownData"] = this.id;
+    Page.page().dataset["SheetMousedownData"] = this.id;
 
     // begin resizing
     console.debug("down");

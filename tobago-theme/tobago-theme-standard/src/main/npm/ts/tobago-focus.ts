@@ -17,11 +17,12 @@
 
 import {DomUtils} from "./tobago-utils";
 import {Listener, Phase} from "./tobago-listener";
+import {Page} from "./tobago-page";
 
 export class Focus {
 
   private static getHidden(): HTMLInputElement {
-    return document.getElementById(DomUtils.page().id + DomUtils.SUB_COMPONENT_SEP + "lastFocusId") as HTMLInputElement;
+    return document.getElementById(Page.page().id + DomUtils.SUB_COMPONENT_SEP + "lastFocusId") as HTMLInputElement;
   }
 
   static setLastFocusId(id: string): void {

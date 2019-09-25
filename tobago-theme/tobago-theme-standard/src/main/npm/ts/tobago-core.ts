@@ -19,6 +19,7 @@ import {Listener} from "./tobago-listener";
 import {Overlay} from "./tobago-overlay";
 import {DomUtils} from "./tobago-utils";
 import {CommandHelper} from "./tobago-command";
+import {Page} from "./tobago-page";
 
 /**
  * @deprecated since 5.0.0
@@ -52,7 +53,7 @@ export class Setup {
 
   static onBeforeUnload = function () {
     if (Setup.transition) {
-      new Overlay(DomUtils.page());
+      new Overlay(Page.page());
     }
     Setup.transition = Setup.oldTransition;
   };
@@ -64,7 +65,7 @@ export class Setup {
     console.info('on onload');
     if (CommandHelper.isSubmit) {
       if (Setup.transition) {
-        new Overlay(DomUtils.page());
+        new Overlay(Page.page());
       }
       Setup.transition = Setup.oldTransition;
     } else {

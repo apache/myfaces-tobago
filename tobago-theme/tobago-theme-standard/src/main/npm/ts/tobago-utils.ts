@@ -28,21 +28,6 @@ export class DomUtils {
   static readonly SUB_COMPONENT_SEP = '::';
 
   /**
-   * The Tobago root element
-   */
-  static page(): HTMLElement {
-    const pages = document.getElementsByClassName("tobago-page");
-    if (pages.length > 0) {
-      if (pages.length >= 2) {
-        console.warn("Found more than one tobago page!");
-      }
-      return pages.item(0) as HTMLElement;
-    }
-    console.warn("Found no tobago page!");
-    return null;
-  }
-
-  /**
    * Find all elements (and also self) which have the class "className".
    * @param element Starting element in DOM to collect.
    * @param className Class of elements to find.

@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-import {Listener, Phase} from "./tobago-listener";
+import {Listener} from "./tobago-listener";
 import {Overlay} from "./tobago-overlay";
-import {DomUtils, Tobago4Utils} from "./tobago-utils";
 import {Collapse} from "./tobago-popup";
 import {Setup} from "./tobago-core";
+import {Page} from "./tobago-page";
 
 class Behavior extends HTMLElement {
 
@@ -223,7 +223,7 @@ export class CommandHelper {
             sourceHidden.disabled = true;
             sourceHidden.value = "";
           } catch (e) {
-            Overlay.destroy(DomUtils.page().id);
+            Overlay.destroy(Page.page().id);
             CommandHelper.isSubmit = false;
             alert('Submit failed: ' + e); // XXX localization, better error handling
           }
@@ -245,39 +245,6 @@ export class CommandHelper {
       }
     }, true);
   };
-
-  static initEnter(element: HTMLElement) {
-    for (const page of DomUtils.selfOrQuerySelectorAll(element, ".tobago-page")) {
-      page.addEventListener("keypress", function (event: KeyboardEvent) {
-        let code = event.which; // XXX deprecated
-        if (code === 0) {
-          code = event.keyCode;
-        }
-        if (code === 13) {
-          let target = event.target as HTMLElement;
-          if (target.tagName === "A" || target.tagName === "BUTTON") {
-            return;
-          }
-          if (target.tagName === "TEXTAREA") {
-            if (!event.metaKey && !event.ctrlKey) {
-              return;
-            }
-          }
-          const name = target.getAttribute("name");
-          let id = name ? name : target.id;
-          while (id != null) {
-            const command = document.querySelector("[data-tobago-default='" + id + "']");
-            if (command) {
-              command.dispatchEvent(new MouseEvent("click"));
-              break;
-            }
-            id = Tobago4Utils.getNamingContainerId(id);
-          }
-          return false;
-        }
-      });
-    }
-  }
 
   static onSubmit = function (listenerOptions) {
     Listener.executeBeforeSubmit();
@@ -309,8 +276,6 @@ export class CommandHelper {
   };
 
 }
-
-Listener.register(CommandHelper.initEnter, Phase.DOCUMENT_READY);
 
 class Transport {
   static requests = [];

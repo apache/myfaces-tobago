@@ -21,6 +21,7 @@
 
 import {DomUtils} from "./tobago-utils";
 import {Config} from "./tobago-config";
+import {Page} from "./tobago-page";
 
 // XXX issue: if a ajax call is scheduled on the same element, the animation arrow will stacking and not desapearing.
 // XXX issue: "error" is not implemented correctly
@@ -99,7 +100,7 @@ export class Overlay {
     wait.append(image);
     wait.style.display = ""; //XXX ?
 
-    this.overlay.style.backgroundColor = DomUtils.page().style.backgroundColor;
+    this.overlay.style.backgroundColor = Page.page().style.backgroundColor;
     this.overlay.style.left = left;
     this.overlay.style.top = top;
     setTimeout(() => { // to play the CSS transition

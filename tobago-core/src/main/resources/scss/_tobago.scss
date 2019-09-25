@@ -667,7 +667,12 @@ span.tobago-out:empty:before {
 
 /* page ----------------------------------------------------------- */
 
+// todo: remove
 .tobago-page {
+}
+
+tobago-page {
+  display: block;
   padding-top: $page-padding-top;
   padding-bottom: 1rem;
 }
