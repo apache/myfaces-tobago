@@ -15,5 +15,6 @@
     "quotemark": [true, "double"],
     "typedef": [true, "call-signature"],
     "indent": [true, "spaces", 2]
-  }
+  },
+  "_comment": "Docs: https://palantir.github.io/tslint/rules/"
 }
