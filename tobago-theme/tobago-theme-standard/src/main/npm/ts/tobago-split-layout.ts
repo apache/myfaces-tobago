@@ -85,13 +85,13 @@ class SplitLayout extends HTMLElement {
     } else {
       previousArea.style.height = String(event.pageY - this.offset) + "px";
     }
-  };
+  }
 
   stop(event: MouseEvent): void {
     document.removeEventListener("mousemove", this.move.bind(this)); // fixme remove the real added
     document.removeEventListener("mouseup", this.stop.bind(this)); // fixme remove the real added
     SplitLayoutMousedown.remove();
-  };
+  }
 }
 
 /**
@@ -106,20 +106,6 @@ interface SplitLayoutMousedownData {
 class SplitLayoutMousedown {
 
   private data: SplitLayoutMousedownData;
-
-  private constructor(data: SplitLayoutMousedownData | string) {
-    this.data = typeof data === "string" ? JSON.parse(data) : data;
-  }
-
-  get splitter(): HTMLElement {
-    return document.getElementById(this.data.splitLayoutId).getElementsByClassName(
-        this.data.horizontal ? "tobago-splitLayout-horizontal" : "tobago-splitLayout-vertical")
-        .item(this.data.splitterIndex) as HTMLElement;
-  }
-
-  get previous(): HTMLElement {
-    return DomUtils.previousElementSibling(this.splitter);
-  }
 
   static save(event: MouseEvent, splitter: HTMLElement): SplitLayoutMousedown {
     const horizontal = splitter.classList.contains("tobago-splitLayout-horizontal");
@@ -152,6 +138,19 @@ class SplitLayoutMousedown {
     return -1;
   }
 
+  private constructor(data: SplitLayoutMousedownData | string) {
+    this.data = typeof data === "string" ? JSON.parse(data) : data;
+  }
+
+  get splitter(): HTMLElement {
+    return document.getElementById(this.data.splitLayoutId).getElementsByClassName(
+        this.data.horizontal ? "tobago-splitLayout-horizontal" : "tobago-splitLayout-vertical")
+        .item(this.data.splitterIndex) as HTMLElement;
+  }
+
+  get previous(): HTMLElement {
+    return DomUtils.previousElementSibling(this.splitter);
+  }
 }
 
 document.addEventListener("DOMContentLoaded", function (event) {

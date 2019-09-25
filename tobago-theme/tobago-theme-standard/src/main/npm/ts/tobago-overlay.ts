@@ -53,6 +53,17 @@ export class Overlay {
 
   overlay: HTMLDivElement;
 
+  static destroy(id: string) {
+    console.debug("----> get overlay " + id);
+    const overlay = Overlay.overlayMap.get(id);
+    if (overlay) {
+      overlay.overlay.remove();
+      Overlay.overlayMap.delete(id);
+    } else {
+      console.warn("Overlay not found for id='" + id + "'");
+    }
+  }
+
   constructor(element: HTMLElement, ajax = false, error = false, waitOverlayDelay?) {
 
     this.element = element;
@@ -109,17 +120,6 @@ export class Overlay {
 
     Overlay.overlayMap.set(element.id, this);
     console.debug("----> set overlay " + element.id);
-  }
-
-  static destroy(id: string) {
-    console.debug("----> get overlay " + id);
-    const overlay = Overlay.overlayMap.get(id);
-    if (overlay) {
-      overlay.overlay.remove();
-      Overlay.overlayMap.delete(id);
-    } else {
-      console.warn("Overlay not found for id='" + id + "'");
-    }
   }
 }
 

@@ -27,15 +27,15 @@ export class ReloadManager {
    */
   private timeouts: Map<string, number>;
 
-  private constructor() {
-    this.timeouts = new Map<string, number>();
-  }
-
   static init = function (element: HTMLElement): void {
     for (const reload of DomUtils.selfOrQuerySelectorAll(element, "[data-tobago-reload]")) {
       ReloadManager.instance.schedule(reload.id, Number(reload.dataset["tobagoReload"]));
     }
   };
+
+  private constructor() {
+    this.timeouts = new Map<string, number>();
+  }
 
   public schedule(id: string, reloadMillis: number) {
     if (reloadMillis > 0) {
@@ -63,7 +63,7 @@ export class ReloadManager {
       console.debug("adding reload timeout '" + timeout + "' for #'" + id + "'");
       this.timeouts.set(id, timeout);
     }
-  };
+  }
 
 }
 

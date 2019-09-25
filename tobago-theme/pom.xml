@@ -259,13 +259,13 @@
             </configuration>
           </execution>
           <execution>
-            <id>step #5b: ts-compile</id>
+            <id>step #5b: ts-lint + ts-compile</id>
             <goals>
               <goal>npm</goal>
             </goals>
             <phase>generate-resources</phase>
             <configuration>
-              <arguments>run ts-compile</arguments>
+              <arguments>run ts</arguments>
             </configuration>
           </execution>
 

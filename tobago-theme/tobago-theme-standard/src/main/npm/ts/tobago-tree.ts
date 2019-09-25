@@ -24,7 +24,7 @@ export class Tree extends HTMLElement {
   }
 
   connectedCallback() {
-  };
+  }
 
   get isSheet(): boolean {
     // TODO if sheet is implemented as custom element use:
