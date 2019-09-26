@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import {Listener, Phase} from "./tobago-listener";
+import {Listener} from "./tobago-listener";
 import {ReloadManager} from "./tobago-reload";
 import {Overlay} from "./tobago-overlay";
 

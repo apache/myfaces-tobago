@@ -17,7 +17,6 @@
 
 import {Listener} from "./tobago-listener";
 import {Overlay} from "./tobago-overlay";
-import {DomUtils} from "./tobago-utils";
 import {CommandHelper} from "./tobago-command";
 import {Page} from "./tobago-page";
 

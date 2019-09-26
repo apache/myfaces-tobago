@@ -19,7 +19,6 @@
  * Create a overlay barrier and animate it.
  */
 
-import {DomUtils} from "./tobago-utils";
 import {Config} from "./tobago-config";
 import {Page} from "./tobago-page";
 
