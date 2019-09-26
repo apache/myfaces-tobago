@@ -19,7 +19,7 @@ import {Listener, Phase} from "./tobago-listener";
 import {ReloadManager} from "./tobago-reload";
 import {Overlay} from "./tobago-overlay";
 
-export enum JsfParameter {
+enum JsfParameter {
   VIEW_STATE = "javax.faces.ViewState",
   CLIENT_WINDOW = "javax.faces.ClientWindow",
   VIEW_ROOT = "javax.faces.ViewRoot",
@@ -28,7 +28,7 @@ export enum JsfParameter {
   RESOURCE = "javax.faces.Resource"
 }
 
-class Jsf {
+export class Jsf {
 
   private static isId = function (id: string): boolean {
     switch (id) {
@@ -54,7 +54,7 @@ class Jsf {
     }
   };
 
-  static init = function (): void {
+  static registerAjaxListener = function (): void {
     jsf.ajax.addOnEvent(function (event): void {
       console.timeEnd("[tobago-jsf] jsf-ajax");
       console.time("[tobago-jsf] jsf-ajax");
@@ -91,5 +91,3 @@ class Jsf {
     });
   };
 }
-
-Listener.register(Jsf.init, Phase.DOCUMENT_READY);

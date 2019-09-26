@@ -16,6 +16,7 @@
  */
 
 import {DomUtils} from "./tobago-utils";
+import {Jsf} from "./tobago-jsf";
 
 export class Page extends HTMLElement {
 
@@ -39,6 +40,9 @@ export class Page extends HTMLElement {
   }
 
   connectedCallback(): void {
+
+    Jsf.registerAjaxListener();
+
     this.addEventListener("keypress", function (event: KeyboardEvent): boolean {
       let code = event.which; // XXX deprecated
       if (code === 0) {
