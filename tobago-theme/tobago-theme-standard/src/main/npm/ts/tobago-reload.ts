@@ -29,7 +29,7 @@ export class ReloadManager {
 
   static init = function (element: HTMLElement): void {
     for (const reload of DomUtils.selfOrQuerySelectorAll(element, "[data-tobago-reload]")) {
-      ReloadManager.instance.schedule(reload.id, Number(reload.dataset["tobagoReload"]));
+      ReloadManager.instance.schedule(reload.id, Number(reload.dataset.tobagoReload));
     }
   };
 

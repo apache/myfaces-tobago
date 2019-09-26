@@ -31,7 +31,7 @@ class Demo {
   static initAlert(element) {
     for (const e of element.querySelectorAll("[data-alert-text]")) {
       e.addEventListener("click", function (event) {
-        alert(event.currentTarget.dataset["alertText"]);
+        alert(event.currentTarget.dataset.alertText);
       });
     }
   }

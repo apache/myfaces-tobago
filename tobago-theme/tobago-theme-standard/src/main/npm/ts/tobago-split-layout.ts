@@ -117,16 +117,16 @@ class SplitLayoutMousedown {
       horizontal: horizontal,
       splitterIndex: this.indexOfSplitter(splitter, horizontal)
     };
-    Page.page().dataset["SplitLayoutMousedownData"] = JSON.stringify(data);
+    Page.page().dataset.SplitLayoutMousedownData = JSON.stringify(data);
     return new SplitLayoutMousedown(data);
   }
 
   static load(): SplitLayoutMousedown {
-    return new SplitLayoutMousedown(Page.page().dataset["SplitLayoutMousedownData"]);
+    return new SplitLayoutMousedown(Page.page().dataset.SplitLayoutMousedownData);
   }
 
   static remove(): void {
-    Page.page().dataset["SplitLayoutMousedownData"] = null;
+    Page.page().dataset.SplitLayoutMousedownData = null;
   }
 
   private static indexOfSplitter(splitter: HTMLElement, horizontal: boolean): number {

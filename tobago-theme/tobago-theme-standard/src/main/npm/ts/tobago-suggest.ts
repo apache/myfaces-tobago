@@ -30,7 +30,7 @@ class Suggest extends HTMLElement {
     return function findMatches(query, syncResults, asyncResults): void {
 
       const root = input.getRootNode() as ShadowRoot | Document;
-      let suggest = root.getElementById(input.dataset["tobagoSuggestFor"]) as Suggest;
+      let suggest = root.getElementById(input.dataset.tobagoSuggestFor) as Suggest;
 
       // todo: suggest.hiddenInput.value should contain the last query value
       if (suggest.hiddenInput.value !== query) {
@@ -44,7 +44,7 @@ class Suggest extends HTMLElement {
         timeout = setTimeout(function (): void {
           suggest.hiddenInput.value = query;
           Suggest.asyncResults = asyncResults;
-          delete suggest.dataset["tobagoSuggestData"];
+          delete suggest.dataset.tobagoSuggestData;
           console.info("query: '" + query + "'");
 
           jsf.ajax.request(
@@ -164,7 +164,7 @@ class Suggest extends HTMLElement {
         Suggest.asyncResults = null;
       }
     } else { // new
-      input.dataset["tobagoSuggestFor"] = this.id;
+      input.dataset.tobagoSuggestFor = this.id;
       input.autocomplete = "off";
 
       let source;
@@ -209,7 +209,7 @@ class Suggest extends HTMLElement {
       // old with jQuery:
       $input.on("typeahead:open", function (event: JQuery.Event): void {
         const input = this;
-        const suggestPopup = root.getElementById(input.dataset["tobagoSuggestFor"] + "::popup");
+        const suggestPopup = root.getElementById(input.dataset.tobagoSuggestFor + "::popup");
         suggestPopup.style.top = DomUtils.offset(input).top + input.offsetHeight + "px";
         suggestPopup.style.left = DomUtils.offset(input).left + "px";
         suggestPopup.style.minWidth = input.offsetWidth + "px";
@@ -218,7 +218,7 @@ class Suggest extends HTMLElement {
       // new without jQuery:
       // input.addEventListener("typeahead:open", (event: Event) => {
       //   const input = event.currentTarget as HTMLInputElement;
-      //   const suggestPopup = document.getElementById(input.dataset["tobagoSuggestFor"] + "::popup");
+      //   const suggestPopup = document.getElementById(input.dataset.tobagoSuggestFor + "::popup");
       //   suggestPopup.style.top = DomUtils.offset(input).top + input.offsetHeight + "px";
       //   suggestPopup.style.left = DomUtils.offset(input).left + "px";
       //   suggestPopup.style.minWidth = input.offsetWidth + "px";

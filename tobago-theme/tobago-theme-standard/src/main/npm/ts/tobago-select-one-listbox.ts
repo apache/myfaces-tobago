@@ -24,16 +24,16 @@ class SelectOneListbox {
     for (const listbox of DomUtils.selfOrQuerySelectorAll(element, ".tobago-selectOneListbox:not(:required)")) {
       listbox.addEventListener("change", (event: Event) => {
         const target = event.currentTarget as HTMLSelectElement;
-        if (!target.dataset["tobagoOldValue"]) {
-          target.dataset["tobagoOldValue"] = "-1";
+        if (!target.dataset.tobagoOldValue) {
+          target.dataset.tobagoOldValue = "-1";
         }
       });
       listbox.addEventListener("click", (event: Event) => {
         const target = event.currentTarget as HTMLSelectElement;
-        if (!target.dataset["tobagoOldValue"] || parseInt(target.dataset["tobagoOldValue"]) === target.selectedIndex) {
+        if (!target.dataset.tobagoOldValue || parseInt(target.dataset.tobagoOldValue) === target.selectedIndex) {
           target.selectedIndex = -1;
         }
-        target.dataset["tobagoOldValue"] = String(target.selectedIndex);
+        target.dataset.tobagoOldValue = String(target.selectedIndex);
       });
     }
   };

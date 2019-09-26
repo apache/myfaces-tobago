@@ -26,26 +26,26 @@ class SelectOneRadio {
       const quotedId = id.replace(/([:.])/g, "\\$1");
       const allConnected = document.querySelectorAll("input[name=" + quotedId + "]") as NodeListOf<HTMLInputElement>;
       for (const connectedRadio of allConnected) {
-        connectedRadio.dataset["tobagoOldValue"] = String(connectedRadio.checked);
+        connectedRadio.dataset.tobagoOldValue = String(connectedRadio.checked);
         connectedRadio.addEventListener("click", (event: Event) => {
           const target = event.currentTarget as HTMLInputElement;
           const readOnly = target.readOnly;
           const required = target.required;
           if (!required && !readOnly) {
-            if (target.dataset["tobagoOldValue"] === String(target.checked)) {
+            if (target.dataset.tobagoOldValue === String(target.checked)) {
               target.checked = false;
             }
-            target.dataset["tobagoOldValue"] = String(target.checked);
+            target.dataset.tobagoOldValue = String(target.checked);
           }
           if (readOnly) {
             for (const connectedRadio of allConnected) {
-              connectedRadio.checked = connectedRadio.dataset["tobagoOldValue"] === "true";
+              connectedRadio.checked = connectedRadio.dataset.tobagoOldValue === "true";
             }
           } else {
             for (const connectedRadio of allConnected) {
               if (target.id != connectedRadio.id) {
                 connectedRadio.checked = false;
-                connectedRadio.dataset["tobagoOldValue"] = String(connectedRadio.checked);
+                connectedRadio.dataset.tobagoOldValue = String(connectedRadio.checked);
               }
             }
           }

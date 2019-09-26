@@ -69,8 +69,8 @@ class Sheet {
 
   constructor(element: HTMLElement) {
     this.id = element.id;
-    const commands = element.dataset["tobagoRowAction"];
-    const behavior = element.dataset["tobagoBehaviorCommands"];
+    const commands = element.dataset.tobagoRowAction;
+    const behavior = element.dataset.tobagoBehaviorCommands;
     this.clickActionId = null;//todo commands.click.action;
     this.clickReloadComponentId = null;//todo commands.click.partially; // fixme: partially no longer used?
     this.dblClickActionId = null;//todo commands.dblclick.action;
@@ -91,7 +91,7 @@ class Sheet {
     console.info("columnWidths: " + columnWidths);
     if (columnWidths && columnWidths.length === 0) { // active, but empty
       // otherwise use the layout definition
-      const tokens = JSON.parse(element.dataset["tobagoLayout"]).columns;
+      const tokens = JSON.parse(element.dataset.tobagoLayout).columns;
       const columnRendered = this.isColumnRendered();
 
       const headerCols = this.getHeaderCols();
@@ -171,7 +171,7 @@ class Sheet {
     sheetBody.addEventListener("scroll", this.scroll.bind(this));
 
     // add selection listeners ------------------------------------------------------------------------------------ //
-    const selectionMode = element.dataset["tobagoSelectionMode"];
+    const selectionMode = element.dataset.tobagoSelectionMode;
     if (selectionMode === "single" || selectionMode === "singleOrNone" || selectionMode === "multi") {
 
       for (const row of this.getRows()) {
@@ -260,13 +260,13 @@ class Sheet {
 
   mousedown(event: MouseEvent): void {
 
-    Page.page().dataset["SheetMousedownData"] = this.id;
+    Page.page().dataset.SheetMousedownData = this.id;
 
     // begin resizing
     console.debug("down");
 
     const resizeElement = event.currentTarget as HTMLElement;
-    const columnIndex = parseInt(resizeElement.dataset["tobagoColumnIndex"]);
+    const columnIndex = parseInt(resizeElement.dataset.tobagoColumnIndex);
     const headerColumn = this.getHeaderCols().item(columnIndex);
     const mousemoveListener = this.mousemove.bind(this);
     const mouseupListener = this.mouseup.bind(this);
@@ -302,7 +302,7 @@ class Sheet {
     document.removeEventListener("mousemove", this.mousemoveData.mousemoveListener);
     document.removeEventListener("mouseup", this.mousemoveData.mouseupListener);
     // copy the width values from the header to the body, (and build a list of it)
-    const tokens = JSON.parse(this.getElement().dataset["tobagoLayout"]).columns;
+    const tokens = JSON.parse(this.getElement().dataset.tobagoLayout).columns;
     const columnRendered = this.isColumnRendered();
     const columnWidths = this.loadColumnWidths();
 
@@ -395,7 +395,7 @@ class Sheet {
 
       const rows = this.getRows();
       const selector = this.getSelectorCheckbox(row);
-      const selectionMode = this.getElement().dataset["tobagoSelectionMode"];
+      const selectionMode = this.getElement().dataset.tobagoSelectionMode;
 
       if ((!event.ctrlKey && !event.metaKey && !selector)
           || selectionMode === "single" || selectionMode === "singleOrNone") {
@@ -403,7 +403,7 @@ class Sheet {
         this.resetSelected();
       }
 
-      const lastClickedRowIndex = parseInt(sheet.dataset["tobagoLastClickedRowIndex"]);
+      const lastClickedRowIndex = parseInt(sheet.dataset.tobagoLastClickedRowIndex);
       if (event.shiftKey && selectionMode === "multi" && lastClickedRowIndex > -1) {
         if (lastClickedRowIndex <= row.sectionRowIndex) {
           this.selectRange(rows, lastClickedRowIndex, row.sectionRowIndex, true, false);
@@ -413,7 +413,7 @@ class Sheet {
       } else if (selectionMode !== "singleOrNone" || !this.isRowSelected(row)) {
         this.toggleSelection(row, selector);
       }
-      const rowAction = sheet.dataset["tobagoRowAction"];
+      const rowAction = sheet.dataset.tobagoRowAction;
       const commands = rowAction ? JSON.parse(rowAction) : undefined;
       const click = commands ? commands.click : undefined;
       const clickActionId = click ? click.action : undefined;
@@ -557,11 +557,11 @@ class Sheet {
   }
 
   getFirst(): number {
-    return parseInt(this.getElement().dataset["tobagoFirst"]);
+    return parseInt(this.getElement().dataset.tobagoFirst);
   }
 
   isRowSelected(row: HTMLTableRowElement): boolean {
-    let rowIndex = +row.dataset["tobagoRowIndex"];
+    let rowIndex = +row.dataset.tobagoRowIndex;
     if (!rowIndex) {
       rowIndex = row.sectionRowIndex + this.getFirst();
     }
@@ -578,7 +578,7 @@ class Sheet {
   }
 
   toggleSelection(row: HTMLTableRowElement, checkbox: HTMLInputElement): void {
-    this.getElement().dataset["tobagoLastClickedRowIndex"] = String(row.sectionRowIndex);
+    this.getElement().dataset.tobagoLastClickedRowIndex = String(row.sectionRowIndex);
     if (checkbox && !checkbox.disabled) {
       const selected = this.getHiddenSelected();
       const rowIndex = this.getDataIndex(row);
@@ -626,7 +626,7 @@ class Sheet {
   }
 
   getDataIndex(row: HTMLTableRowElement): number {
-    const rowIndex = parseInt(row.dataset["tobagoRowIndex"]);
+    const rowIndex = parseInt(row.dataset.tobagoRowIndex);
     if (rowIndex) {
       return rowIndex;
     } else {

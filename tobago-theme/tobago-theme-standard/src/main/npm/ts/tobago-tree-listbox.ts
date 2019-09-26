@@ -94,7 +94,7 @@ class TreeListbox {
     if (hidden) {
       let value = <number[]>JSON.parse(hidden.value);
       value = []; // todo: multi-select
-      value.push(parseInt(option.dataset["tobagoRowIndex"]));
+      value.push(parseInt(option.dataset.tobagoRowIndex));
       hidden.value = JSON.stringify(value);
     }
   }

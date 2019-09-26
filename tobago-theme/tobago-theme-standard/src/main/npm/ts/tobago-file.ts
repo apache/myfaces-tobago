@@ -44,7 +44,7 @@ export class File extends HTMLElement {
 
       let text: string;
       if (this.input.multiple) {
-        const format: string = this.input.dataset["tobagoFileMultiFormat"];
+        const format: string = this.input.dataset.tobagoFileMultiFormat;
         text = format.replace("{}", String(this.input.files.length));
       } else {
         text = this.input.value;

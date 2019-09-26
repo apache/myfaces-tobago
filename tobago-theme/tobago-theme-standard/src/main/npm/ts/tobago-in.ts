@@ -33,7 +33,7 @@ class RegExpTest {
   constructor(element: HTMLInputElement) {
 
     this.element = element;
-    this.regexp = new RegExp(this.element.dataset["regexp"]);
+    this.regexp = new RegExp(this.element.dataset.regexp);
 
     console.debug("constructor: '%s'", element.id);
 
