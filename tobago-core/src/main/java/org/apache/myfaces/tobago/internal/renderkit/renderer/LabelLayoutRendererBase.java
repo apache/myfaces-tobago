@@ -129,7 +129,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
 
     if (labelLayout == LabelLayout.gridLeft || labelLayout == LabelLayout.gridRight
         || labelLayout == LabelLayout.gridTop || labelLayout == LabelLayout.gridBottom) {
-      writer.startElement(HtmlElements.TOBAGO_LABEL);
+      writer.startElement(HtmlElements.LABEL);
       writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "label");
     } else {
       writer.startElement(getComponentTag());
@@ -139,6 +139,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
         flex ? TobagoClass.FLEX_LAYOUT : null,
         flex ? BootstrapClass.D_FLEX : null,
         BootstrapClass.FORM_GROUP,
+        TobagoClass.LABEL__CONTAINER,
         ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
 
@@ -163,7 +164,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
       case gridRight:
       case gridTop:
       case gridBottom:
-        writer.endElement(HtmlElements.TOBAGO_LABEL);
+        writer.endElement(HtmlElements.LABEL);
 
         writer.startElement(getComponentTag());
         writer.writeIdAttribute(clientId);
