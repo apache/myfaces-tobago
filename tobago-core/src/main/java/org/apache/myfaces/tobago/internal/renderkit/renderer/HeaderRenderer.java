@@ -48,7 +48,7 @@ public class HeaderRenderer extends RendererBase {
     writer.writeClassAttribute(
         TobagoClass.HEADER,
         TobagoClass.HEADER.createMarkup(markup),
-        header.isFixed() ? BootstrapClass.FIXED_TOP : null,
+        header.isFixed() ? BootstrapClass.STICKY_TOP : null,
         header.getCustomClass());
 // TBD: should NAVBAR class be in the LinksRenderer?
     writer.writeAttribute(HtmlAttributes.TITLE, header.getTip(), true);

@@ -328,8 +328,7 @@ tobago-file {
 .tobago-header {
   margin-bottom: 1rem;
 
-  &.fixed-top {
-    position: sticky;
+  &.sticky-top {
     margin-top: -$page-padding-top;
     margin-left: -($grid-gutter-width / 2);
     margin-right: -($grid-gutter-width / 2);

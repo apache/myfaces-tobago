@@ -260,6 +260,10 @@ public enum BootstrapClass implements CssItem {
   FIGURE_CAPTION("figure-caption"),
   FIGURE_IMG("figure-img"),
   FIXED_BOTTOM("fixed-bottom"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #STICKY_TOP}
+   */
+  @Deprecated
   FIXED_TOP("fixed-top"),
   FLEX_COLUMN("flex-column"),
   FLEX_COLUMN_REVERSE("flex-column-reverse"),
@@ -367,7 +371,7 @@ public enum BootstrapClass implements CssItem {
   @Deprecated
   NAVBAR_FIXED_BOTTOM("fixed-bottom"),
   /**
-   * @deprecated since 4.0.0, please use {@link #FIXED_TOP}
+   * @deprecated since 4.0.0, please use {@link #STICKY_TOP}
    */
   @Deprecated
   NAVBAR_FIXED_TOP("fixed-top"),
@@ -472,6 +476,7 @@ public enum BootstrapClass implements CssItem {
   ROW("row"),
   SHOW("show"),
   SR_ONLY("sr-only"),
+  STICKY_TOP("sticky-top"),
   TEXT_DANGER("text-danger"),
   TEXT_DARK("text-dark"),
   TEXT_INFO("text-info"),
