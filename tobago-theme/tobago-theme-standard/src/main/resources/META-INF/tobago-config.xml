@@ -74,7 +74,7 @@
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-listener.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-core.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-dropdown.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-calendar.js"/>
+          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-date.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-command.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-file.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-focus.js"/>

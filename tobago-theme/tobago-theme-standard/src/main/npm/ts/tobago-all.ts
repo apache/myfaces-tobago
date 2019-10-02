@@ -19,7 +19,7 @@ import "./ext-bootstrap";
 import "./tobago-listener";
 import "./tobago-core";
 import "./tobago-dropdown";
-import "./tobago-calendar";
+import "./tobago-date";
 import "./tobago-command";
 import "./tobago-file";
 import "./tobago-focus";

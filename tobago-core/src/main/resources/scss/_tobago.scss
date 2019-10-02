@@ -210,7 +210,11 @@ tobago-panel.tobago-collapsed {
 
 /* date -------------------------------------------------------------- */
 
+// XXX remove me
 .tobago-date {
+}
+
+tobago-date input {
   min-width: 7em;
 
   &::-ms-clear {
@@ -1580,6 +1584,9 @@ tobago-tree {
 }
 
 /* facesMessages messageLayout focus shadows ------------------------ */
+
+// todo: check class vs. custom element
+
 .tobago-date,
 .tobago-in,
 .tobago-selectManyListbox,

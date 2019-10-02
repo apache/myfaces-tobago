@@ -47,6 +47,10 @@ public class DateRenderer extends InRenderer {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+  public HtmlElements getComponentTag() {
+    return HtmlElements.TOBAGO_DATE;
+  }
+
   @Override
   protected void writeAdditionalAttributes(
       final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUIInput input)
@@ -128,6 +132,6 @@ public class DateRenderer extends InRenderer {
 
   @Override
   protected TobagoClass getRendererCssClass() {
-    return TobagoClass.DATE;
+    return null;
   }
 }

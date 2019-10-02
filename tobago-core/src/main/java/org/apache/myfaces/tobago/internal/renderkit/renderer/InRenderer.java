@@ -137,9 +137,10 @@ public class InRenderer extends MessageLayoutRendererBase {
       writer.writeAttribute(HtmlAttributes.PLACEHOLDER, input.getPlaceholder(), true);
     }
 
+    final TobagoClass rendererCssClass = getRendererCssClass();
     writer.writeClassAttribute(
-        getRendererCssClass(),
-        getRendererCssClass().createMarkup(markup),
+        rendererCssClass,
+        rendererCssClass != null ? rendererCssClass.createMarkup(markup) : null,
         BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(input)),
         BootstrapClass.FORM_CONTROL,
         input.getCustomClass());

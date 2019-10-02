@@ -134,6 +134,7 @@ public enum HtmlElements {
   WBR("wbr", Qualifier.VOID),
 
   TOBAGO_BEHAVIOR("tobago-behavior"),
+  TOBAGO_DATE("tobago-date"),
   TOBAGO_FILE("tobago-file"),
   TOBAGO_LABEL("tobago-label"),
   TOBAGO_IN("tobago-in"),
