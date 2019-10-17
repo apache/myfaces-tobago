@@ -19,11 +19,15 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeSelect;
+import org.apache.myfaces.tobago.internal.renderkit.Command;
+import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.model.Selectable;
@@ -50,9 +54,6 @@ public class TreeSelectRenderer extends RendererBase {
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
-
-    // TODO do we need this?
-
     final AbstractUITreeSelect select = (AbstractUITreeSelect) component;
     final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(select, AbstractUITreeNodeBase.class);
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
@@ -85,6 +86,7 @@ public class TreeSelectRenderer extends RendererBase {
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUITreeSelect treeSelect = (AbstractUITreeSelect) component;
+    final AbstractUITree tree = ComponentUtils.findAncestor(treeSelect, AbstractUITree.class);
     final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(treeSelect, AbstractUITreeNodeBase.class);
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
 
@@ -133,7 +135,10 @@ public class TreeSelectRenderer extends RendererBase {
 
       writer.endElement(HtmlElements.INPUT);
 
-      encodeBehavior(writer, facesContext, treeSelect);
+      final CommandMap behaviorCommands = getBehaviorCommands(facesContext, treeSelect);
+      Command change = behaviorCommands.getOther().get(ClientBehaviors.change);
+      change.setExecute(change.getExecute() + " " + tree.getClientId(facesContext));
+      encodeBehavior(writer, behaviorCommands);
     }
 
     // label
