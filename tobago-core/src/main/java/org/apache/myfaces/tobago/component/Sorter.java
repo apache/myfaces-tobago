@@ -150,7 +150,7 @@ public class Sorter {
 
       // memorize selected rows
       List<Object> selectedDataRows = null;
-      if (sheetState.getSelectedRows().size() > 0) {
+      if (sheetState.getSelectedRows() != null && sheetState.getSelectedRows().size() > 0) {
         selectedDataRows = new ArrayList<Object>(sheetState.getSelectedRows().size());
         Object dataRow;
         for (final Integer index : sheetState.getSelectedRows()) {
