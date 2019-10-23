@@ -921,6 +921,9 @@
               <!-- typeahead -->
               <exclude>**/typeahead.*</exclude>
 
+              <!-- js-min-map -->
+              <exclude>**/*.map</exclude>
+
               <!-- prism (tobago-example-demo) -->
               <exclude>**/src/main/webapp/script/prism*.*</exclude>
               <exclude>**/src/main/webapp/style/prism*.*</exclude>
