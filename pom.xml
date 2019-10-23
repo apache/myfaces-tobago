@@ -924,6 +924,9 @@
               <!-- js-min-map -->
               <exclude>**/*.map</exclude>
 
+              <!-- jettykeystore -->
+              <exclude>**/jettykeystore</exclude>
+
               <!-- prism (tobago-example-demo) -->
               <exclude>**/src/main/webapp/script/prism*.*</exclude>
               <exclude>**/src/main/webapp/style/prism*.*</exclude>
