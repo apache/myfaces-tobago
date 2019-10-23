@@ -596,6 +596,9 @@
           <xrefLocation>xref</xrefLocation>
           <indentSize>2</indentSize>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          <sourceDirectories>
+            <sourceDirectory>src/main/java</sourceDirectory>
+          </sourceDirectories>
         </configuration>
         <dependencies>
           <dependency>
@@ -964,7 +967,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-assembly-plugin</artifactId>
-          <version>3.1.0</version>
+          <version>3.1.1</version>
         </plugin>
 
         <plugin>
@@ -1215,7 +1218,7 @@
               <dependency>
                 <groupId>org.apache.apache.resources</groupId>
                 <artifactId>apache-source-release-assembly-descriptor</artifactId>
-                <version>1.0.2</version>
+                <version>1.0.6</version>
               </dependency>
             </dependencies>
             <executions>
