@@ -28,7 +28,7 @@ jQuery(document).ready(function() {
   }
 });
 
-// taken from deltaspike 1.8.1
+// taken from deltaspike 1.9.1
 
 window.dswh = window.dswh || {
 
@@ -44,9 +44,11 @@ window.dswh = window.dswh || {
 
       init : function(windowId, clientWindowRenderMode, maxWindowIdLength, cfg) {
 
-        if (dswh.initialized === true) {
+        if (dswh.initialized === true)
+        {
             return;
         }
+
         dswh.initialized = true;
 
         dswh.utils.log('------- DeltaSpike windowhandler.js -------');
@@ -463,7 +465,7 @@ window.dswh = window.dswh || {
           window.location = dswh.utils.setUrlParam(window.location.href, 'dswid', null);
 
           // set temp window name to remember the current state (again - sometimes required for IE!?)
-          setTimeout("dswh.utils.setWindowIdAsWindowName(dswh.TEMP_WINDOW_NAME);", 1);
+            dswh.utils.setWindowIdAsWindowName(dswh.TEMP_WINDOW_NAME);
         },
 
         isHtml5 : function() {
