@@ -941,6 +941,8 @@
 
               <!-- json -->
               <exclude>**/*.json</exclude>
+              <exclude>**/.babelrc</exclude>
+              <exclude>**/.browserslistrc</exclude>
 
               <!-- photo shop -->
               <exclude>**/*.psd</exclude>
@@ -950,6 +952,7 @@
 
               <!-- readme -->
               <exclude>**/readme.*</exclude>
+              <exclude>**/*.md</exclude>
 
               <!-- tobago-vm index page -->
               <exclude>**/tobago-vm/docker/apache-proxy/jquery-*.js</exclude>
