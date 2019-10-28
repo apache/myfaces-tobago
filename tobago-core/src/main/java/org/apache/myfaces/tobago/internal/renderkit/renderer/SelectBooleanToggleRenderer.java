@@ -20,10 +20,15 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 
 public class SelectBooleanToggleRenderer extends SelectBooleanCheckboxRenderer {
 
   protected TobagoClass getTobagoClass() {
     return TobagoClass.SELECT_BOOLEAN_TOGGLE;
+  }
+
+  public HtmlElements getComponentTag() {
+    return HtmlElements.TOBAGO_SELECT_BOOLEAN_TOGGLE;
   }
 }

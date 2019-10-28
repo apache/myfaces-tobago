@@ -15,20 +15,31 @@
  * limitations under the License.
  */
 
-import {Listener, Phase} from "./tobago-listener";
 import {DomUtils} from "./tobago-utils";
 
-class SelectBooleanCheckbox {
+export class SelectBooleanCheckbox extends HTMLElement {
 
-  static init = function (element: HTMLElement): void {
-    for (const checkbox of DomUtils.selfOrQuerySelectorAll(element, ".tobago-selectBooleanCheckbox input[readonly]")) {
-      checkbox.addEventListener("click", (event: Event) => {
-        // in the "readonly" case, prevent the default, which is changing the "checked" state
-        event.preventDefault();
-      });
+  constructor() {
+    super();
+  }
+
+  connectedCallback(): void {
+    if (this.input.readOnly) {
+      this.input.addEventListener("click", preventClick);
     }
-  };
+
+    function preventClick(event: MouseEvent): void {
+      // in the "readonly" case, prevent the default, which is changing the "checked" state
+      event.preventDefault();
+    }
+  }
+
+  get input(): HTMLInputElement {
+    const rootNode = this.getRootNode() as ShadowRoot | Document;
+    return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "field") as HTMLInputElement;
+  }
 }
 
-Listener.register(SelectBooleanCheckbox.init, Phase.DOCUMENT_READY);
-Listener.register(SelectBooleanCheckbox.init, Phase.AFTER_UPDATE);
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
+  window.customElements.define("tobago-select-boolean-checkbox", SelectBooleanCheckbox);
+});

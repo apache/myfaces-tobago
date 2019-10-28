@@ -66,6 +66,10 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     decodeClientBehaviors(facesContext, input);
   }
 
+  public HtmlElements getComponentTag() {
+    return HtmlElements.TOBAGO_SELECT_BOOLEAN_CHECKBOX;
+  }
+
   @Override
   protected void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final AbstractUISelectBoolean select = (AbstractUISelectBoolean) component;
