@@ -15,20 +15,32 @@
  * limitations under the License.
  */
 
-import {Listener, Phase} from "./tobago-listener";
-import {DomUtils} from "./tobago-utils";
+class SelectManyCheckbox extends HTMLElement {
 
-class SelectManyCheckbox {
+  constructor() {
+    super();
+  }
 
-  static init = function (element: HTMLElement): void {
-    for (const checkbox of DomUtils.selfOrQuerySelectorAll(element, ".tobago-selectManyCheckbox input[readonly]")) {
-      checkbox.addEventListener("click", (event: Event) => {
+  connectedCallback(): void {
+    for (const input of this.inputs) {
+      if (input.readOnly) {
+        input.addEventListener("click", preventClick);
+      }
+
+      function preventClick(event: MouseEvent): void {
         // in the "readonly" case, prevent the default, which is changing the "checked" state
         event.preventDefault();
-      });
+        console.log("slectmanycheckbox bubb.");
+      }
     }
-  };
+  }
+
+  get inputs(): NodeListOf<HTMLInputElement> {
+    const rootNode = this.getRootNode() as ShadowRoot | Document;
+    return rootNode.querySelectorAll("input[name='" + this.id + "']");
+  }
 }
 
-Listener.register(SelectManyCheckbox.init, Phase.DOCUMENT_READY);
-Listener.register(SelectManyCheckbox.init, Phase.AFTER_UPDATE);
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
+  window.customElements.define("tobago-select-many-checkbox", SelectManyCheckbox);
+});

@@ -42,6 +42,10 @@ import java.io.IOException;
 
 public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
+  public HtmlElements getComponentTag() {
+    return HtmlElements.TOBAGO_SELECT_MANY_CHECKBOX;
+  }
+
   @Override
   public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final AbstractUISelectManyCheckbox select = (AbstractUISelectManyCheckbox) component;
