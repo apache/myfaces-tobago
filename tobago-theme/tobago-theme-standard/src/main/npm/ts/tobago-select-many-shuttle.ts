@@ -15,73 +15,103 @@
  * limitations under the License.
  */
 
-import {Listener, Phase} from "./tobago-listener";
-import {DomUtils} from "./tobago-utils";
+class SelectManyShuttle extends HTMLElement {
 
-class SelectManyShuttle {
+  constructor() {
+    super();
+  }
 
-  static init = function (element: HTMLElement): void {
-    for (const shuttle of DomUtils.selfOrQuerySelectorAll(
-        element, ".tobago-selectManyShuttle:not(.tobago-selectManyShuttle-disabled)")) {
-
-      shuttle.querySelector(".tobago-selectManyShuttle-unselected").addEventListener(
-          "dblclick", (event: Event) => {
-            SelectManyShuttle.moveSelectedItems(event, true, false);
-          });
-
-      shuttle.querySelector(".tobago-selectManyShuttle-selected").addEventListener(
-          "dblclick", (event: Event) => {
-            SelectManyShuttle.moveSelectedItems(event, false, false);
-          });
-
-      shuttle.querySelector(".tobago-selectManyShuttle-addAll").addEventListener(
-          "click", (event: Event) => {
-            SelectManyShuttle.moveSelectedItems(event, true, true);
-          });
-
-      shuttle.querySelector(".tobago-selectManyShuttle-add").addEventListener(
-          "click", (event: Event) => {
-            SelectManyShuttle.moveSelectedItems(event, true, false);
-          });
-
-      shuttle.querySelector(".tobago-selectManyShuttle-removeAll").addEventListener(
-          "click", (event: Event) => {
-            SelectManyShuttle.moveSelectedItems(event, false, true);
-          });
-
-      shuttle.querySelector(".tobago-selectManyShuttle-remove").addEventListener(
-          "click", (event: Event) => {
-            SelectManyShuttle.moveSelectedItems(event, false, false);
-          });
-    }
-  };
-
-  static moveSelectedItems = function (event: Event, direction: boolean, all: boolean): void {
-    const currentTarget = event.currentTarget as HTMLElement;
-    const shuttle = currentTarget.closest(".tobago-selectManyShuttle");
-    const unselected = shuttle.querySelector(".tobago-selectManyShuttle-unselected");
-    const selected = shuttle.querySelector(".tobago-selectManyShuttle-selected");
-    const oldCount = selected.childElementCount;
-    const source = direction ? unselected : selected;
-    const target = direction ? selected : unselected;
-    const options = source.querySelectorAll(all ? "option:not(:disabled)" : "option:checked");
-    const hidden = shuttle.querySelector(".tobago-selectManyShuttle-hidden");
-    const hiddenOptions = hidden.querySelectorAll("option");
-    for (const option of options as NodeListOf<HTMLOptionElement>) {
-      source.removeChild(option);
-      target.appendChild(option);
-      for (const hiddenOption of hiddenOptions) {
-        if (hiddenOption.value === option.value) {
-          hiddenOption.selected = direction;
-        }
-      }
+  connectedCallback(): void {
+    if (this.unselectedSelect.getAttribute("readonly") !== "readonly" && !this.unselectedSelect.disabled) {
+      this.unselectedSelect.addEventListener("dblclick", this.addSelectedItems.bind(this));
     }
 
-    if (oldCount !== selected.childElementCount) {
-      hidden.dispatchEvent(new Event("change"));
+    if (this.selectedSelect.getAttribute("readonly") !== "readonly" && !this.selectedSelect.disabled) {
+      this.selectedSelect.addEventListener("dblclick", this.removeSelectedItems.bind(this));
     }
-  };
+
+    if (!this.addAllButton.disabled) {
+      this.addAllButton.addEventListener("click", this.addAllItems.bind(this));
+    }
+
+    if (!this.addButton.disabled) {
+      this.addButton.addEventListener("click", this.addSelectedItems.bind(this));
+    }
+
+    if (!this.removeButton.disabled) {
+      this.removeButton.addEventListener("click", this.removeSelectedItems.bind(this));
+    }
+
+    if (!this.removeAllButton.disabled) {
+      this.removeAllButton.addEventListener("click", this.removeAllItems.bind(this));
+    }
+  }
+
+  private addAllItems(event: MouseEvent): void {
+    this.addItems(this.unselectedSelect.querySelectorAll("option:not(:disabled)"));
+  }
+
+  private addSelectedItems(event: MouseEvent): void {
+    this.addItems(this.unselectedSelect.querySelectorAll("option:checked"));
+  }
+
+  private removeSelectedItems(event: MouseEvent): void {
+    this.removeItems(this.selectedSelect.querySelectorAll("option:checked"));
+  }
+
+  private removeAllItems(event: MouseEvent): void {
+    this.removeItems(this.selectedSelect.querySelectorAll("option:not(:disabled)"));
+  }
+
+  private addItems(options: NodeListOf<HTMLOptionElement>): void {
+    for (const option of options) {
+      this.selectedSelect.add(option);
+      this.changeHiddenOption(option, true);
+    }
+  }
+
+  private removeItems(options: NodeListOf<HTMLOptionElement>): void {
+    for (const option of options) {
+      this.unselectedSelect.add(option);
+      this.changeHiddenOption(option, false);
+    }
+  }
+
+  private changeHiddenOption(option: HTMLOptionElement, select: boolean): void {
+    const hiddenOption: HTMLOptionElement = this.hiddenSelect.querySelector("option[value='" + option.value + "']");
+    hiddenOption.selected = select;
+    this.dispatchEvent(new Event("change"));
+  }
+
+  get unselectedSelect(): HTMLSelectElement {
+    return this.querySelector(".tobago-selectManyShuttle-unselected");
+  }
+
+  get selectedSelect(): HTMLSelectElement {
+    return this.querySelector(".tobago-selectManyShuttle-selected");
+  }
+
+  get hiddenSelect(): HTMLSelectElement {
+    return this.querySelector(".tobago-selectManyShuttle-hidden");
+  }
+
+  get addAllButton(): HTMLButtonElement {
+    return this.querySelector(".tobago-selectManyShuttle-addAll");
+  }
+
+  get addButton(): HTMLButtonElement {
+    return this.querySelector(".tobago-selectManyShuttle-add");
+  }
+
+  get removeButton(): HTMLButtonElement {
+    return this.querySelector(".tobago-selectManyShuttle-remove");
+  }
+
+  get removeAllButton(): HTMLButtonElement {
+    return this.querySelector(".tobago-selectManyShuttle-removeAll");
+  }
 }
 
-Listener.register(SelectManyShuttle.init, Phase.DOCUMENT_READY);
-Listener.register(SelectManyShuttle.init, Phase.AFTER_UPDATE);
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
+  window.customElements.define("tobago-select-many-shuttle", SelectManyShuttle);
+});

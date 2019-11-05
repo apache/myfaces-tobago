@@ -40,6 +40,10 @@ import java.util.List;
 
 public class SelectManyShuttleRenderer extends SelectManyRendererBase {
 
+  public HtmlElements getComponentTag() {
+    return HtmlElements.TOBAGO_SELECT_MANY_SHUTTLE;
+  }
+
   @Override
   public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
 

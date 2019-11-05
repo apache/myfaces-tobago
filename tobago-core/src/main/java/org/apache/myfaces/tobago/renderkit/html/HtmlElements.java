@@ -145,6 +145,7 @@ public enum HtmlElements {
   TOBAGO_SELECT_BOOLEAN_CHECKBOX("tobago-select-boolean-checkbox"),
   TOBAGO_SELECT_BOOLEAN_TOGGLE("tobago-select-boolean-toggle"),
   TOBAGO_SELECT_MANY_CHECKBOX("tobago-select-many-checkbox"),
+  TOBAGO_SELECT_MANY_SHUTTLE("tobago-select-many-shuttle"),
   TOBAGO_STARS("tobago-stars"),
   TOBAGO_SUGGEST("tobago-suggest"),
   TOBAGO_TAB("tobago-tab"),

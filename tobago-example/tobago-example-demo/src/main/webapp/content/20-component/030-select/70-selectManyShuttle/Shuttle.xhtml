@@ -98,14 +98,14 @@
     <pre><code class="language-markup">&lt;tc:selectManyShuttle label="Planets" ...>
   &lt;tc:selectItems value="\#{selectManyShuttleController.planets}" .../>
 &lt;/tc:selectManyShuttle></code></pre>
-    <tc:selectManyShuttle id="s4" label="Planets" labelLayout="top"
+    <tc:selectManyShuttle id="submitExample" label="Planets" labelLayout="top"
                           unselectedLabel="Left List" selectedLabel="Right List"
                           value="#{selectManyShuttleController.selectedPlanets}">
       <tc:selectItems value="#{selectManyShuttleController.planets}"
                       var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
     </tc:selectManyShuttle>
-    <tc:out id="o1" label="Selected Planets" value="#{selectManyShuttleController.selectedPlanetsAsString}"/>
-    <tc:button label="Submit"/>
+    <tc:out id="submitExampleOutput" label="Selected Planets" value="#{selectManyShuttleController.selectedPlanetsAsString}"/>
+    <tc:button id="submitButton" label="Submit"/>
   </tc:section>
 
   <tc:section label="Ajax">
@@ -114,7 +114,7 @@
       <code class="language-markup">&lt;tc:selectManyShuttle .../></code> contain
       <code class="language-markup">&lt;f:ajax render="outputStars"/></code>. Every time, the value in the shuttle list
       change, the outputfield is rerendered.</p>
-    <tc:selectManyShuttle id="s5" label="Stars" labelLayout="top" value="#{selectManyShuttleController.selectedStars}">
+    <tc:selectManyShuttle id="ajaxExample" label="Stars" labelLayout="top" value="#{selectManyShuttleController.selectedStars}">
       <tc:selectItems value="#{selectManyShuttleController.stars}"/>
       <f:ajax render="outputStars"/>
     </tc:selectManyShuttle>
