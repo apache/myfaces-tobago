@@ -38,6 +38,10 @@ import java.util.List;
 
 public class SelectOneListboxRenderer extends SelectOneRendererBase {
 
+  public HtmlElements getComponentTag() {
+    return HtmlElements.TOBAGO_SELECT_ONE_LISTBOX;
+  }
+
   @Override
   public boolean getRendersChildren() {
     return true;

@@ -15,29 +15,66 @@
  * limitations under the License.
  */
 
-import {Listener, Phase} from "./tobago-listener";
 import {DomUtils} from "./tobago-utils";
 
-class SelectOneListbox {
+class SelectOneListbox extends HTMLElement {
 
-  static init = function (element: HTMLElement): void {
-    for (const listbox of DomUtils.selfOrQuerySelectorAll(element, ".tobago-selectOneListbox:not(:required)")) {
-      listbox.addEventListener("change", (event: Event) => {
-        const target = event.currentTarget as HTMLSelectElement;
-        if (!target.dataset.tobagoOldValue) {
-          target.dataset.tobagoOldValue = "-1";
-        }
-      });
-      listbox.addEventListener("click", (event: Event) => {
-        const target = event.currentTarget as HTMLSelectElement;
-        if (!target.dataset.tobagoOldValue || parseInt(target.dataset.tobagoOldValue) === target.selectedIndex) {
-          target.selectedIndex = -1;
-        }
-        target.dataset.tobagoOldValue = String(target.selectedIndex);
-      });
+  private oldSelectedIndex: number = -1;
+
+  constructor() {
+    super();
+  }
+
+  connectedCallback(): void {
+    if (!this.select.required) {
+      this.select.addEventListener("click", this.clickSelection.bind(this));
+      this.select.addEventListener("keyup", this.keySelection.bind(this));
     }
-  };
+  }
+
+  private clickSelection(event: MouseEvent): void {
+    const select = event.currentTarget as HTMLSelectElement;
+    if (select.selectedIndex >= 0 && select.selectedIndex === this.oldSelectedIndex) {
+      this.revertSelection(select);
+    } else {
+      this.saveSelection(select);
+    }
+  }
+
+  private keySelection(event: KeyboardEvent): void {
+    const select = event.currentTarget as HTMLSelectElement;
+    if (event.code === "Space") {
+      if (select.selectedIndex >= 0) {
+        this.oldSelectedIndex = select.selectedIndex;
+        select.selectedIndex = -1;
+      } else {
+        select.selectedIndex = this.oldSelectedIndex;
+      }
+    } else {
+      this.saveSelection(select);
+    }
+  }
+
+  private revertSelection(select: HTMLSelectElement): void {
+    if (select.selectedIndex > -1) {
+      this.oldSelectedIndex = select.selectedIndex;
+      select.selectedIndex = -1;
+    } else {
+      select.selectedIndex = this.oldSelectedIndex;
+      this.oldSelectedIndex = -1;
+    }
+  }
+
+  private saveSelection(select: HTMLSelectElement): void {
+    this.oldSelectedIndex = select.selectedIndex;
+  }
+
+  get select(): HTMLSelectElement {
+    const rootNode = this.getRootNode() as ShadowRoot | Document;
+    return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "field") as HTMLSelectElement;
+  }
 }
 
-Listener.register(SelectOneListbox.init, Phase.DOCUMENT_READY);
-Listener.register(SelectOneListbox.init, Phase.AFTER_UPDATE);
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
+  window.customElements.define("tobago-select-one-listbox", SelectOneListbox);
+});
