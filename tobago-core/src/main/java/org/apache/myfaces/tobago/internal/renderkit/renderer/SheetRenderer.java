@@ -262,13 +262,12 @@ public class SheetRenderer extends RendererBase {
     sheet.init(facesContext);
 
     // Outer sheet div
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.TOBAGO_SHEET);
     writer.writeIdAttribute(sheetId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, sheet);
     writer.writeClassAttribute(
-        TobagoClass.SHEET,
-        TobagoClass.SHEET.createMarkup(markup),
         sheet.getCustomClass(),
+        TobagoClass.SHEET.createMarkup(markup),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     if (reload != null && reload.isRendered()) {
       writer.writeAttribute(DataAttributes.RELOAD, reload.getFrequency());
@@ -517,7 +516,7 @@ public class SheetRenderer extends RendererBase {
       writer.endElement(HtmlElements.INPUT);
     }
 
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.TOBAGO_SHEET);
     UIComponent header = sheet.getHeader();
     if (header.isTransient()) {
       sheet.getFacets().remove("header");
@@ -672,8 +671,6 @@ public class SheetRenderer extends RendererBase {
           row != null ? row.getCustomClass() : null,
           sheet.isRowVisible() ? null : BootstrapClass.D_NONE);
 
-      encodeBehavior(writer, facesContext, row);
-
       for (final AbstractUIColumnBase column : columns) {
         if (column.isRendered()) {
           if (column instanceof AbstractUIColumn || column instanceof AbstractUIColumnSelector
@@ -722,14 +719,12 @@ public class SheetRenderer extends RendererBase {
         }
       }
 
-      if (!autoLayout) {
-        writer.startElement(HtmlElements.TD);
-        writer.writeClassAttribute(TobagoClass.SHEET__CELL, TobagoClass.SHEET__CELL.createMarkup(Markup.FILLER));
-//      writer.write("&nbsp;");
-        writer.startElement(HtmlElements.DIV);
-        writer.endElement(HtmlElements.DIV);
-        writer.endElement(HtmlElements.TD);
-      }
+      writer.startElement(HtmlElements.TD);
+      writer.writeClassAttribute(TobagoClass.SHEET__CELL, TobagoClass.SHEET__CELL.createMarkup(Markup.FILLER));
+      writer.startElement(HtmlElements.DIV);
+      writer.endElement(HtmlElements.DIV);
+      encodeBehavior(writer, facesContext, row);
+      writer.endElement(HtmlElements.TD);
 
       writer.endElement(HtmlElements.TR);
     }

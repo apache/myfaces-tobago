@@ -27,13 +27,6 @@ package org.apache.myfaces.tobago.renderkit.html;
 public enum DataAttributes implements MarkupLanguageAttributes {
 
   /**
-   * Ajax behaviors execute and render attributes for TabGroup and Sheet reload
-   * @deprecated since 3.0.0, please use COMMANDS
-   */
-  @Deprecated
-  BEHAVIOR_COMMANDS("data-tobago-behavior-commands"),
-
-  /**
    * Contains the closed tree icon or style.
    */
   CLOSED("data-tobago-closed"),
@@ -127,8 +120,6 @@ public enum DataAttributes implements MarkupLanguageAttributes {
    * Custom reload attribute. Used to reload a panel.
    */
   RELOAD("data-tobago-reload"),
-
-  ROW_ACTION("data-tobago-row-action"),
 
   /*
    * Holds the index of the row in a sheet, if the sheet has a rowRendered attribute.

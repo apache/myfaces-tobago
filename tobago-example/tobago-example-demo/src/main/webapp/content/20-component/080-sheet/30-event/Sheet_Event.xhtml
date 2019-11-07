@@ -36,6 +36,7 @@
       <tc:selectItem itemValue="1" itemLabel="on click with full request"/>
       <tc:selectItem itemValue="2" itemLabel="on double click with full request"/>
       <tc:selectItem itemValue="3" itemLabel="open popup on click with AJAX"/>
+      <tc:selectItem itemValue="4" itemLabel="on dblclick with AJAX"/>
       <f:ajax render="example"/>
     </tc:selectOneRadio>
     <p>Select an object from the SolarObjects list.</p>
@@ -61,7 +62,6 @@
               <tc:resetInputActionListener/>
             </tc:event>
           </tc:row>
-
           <tc:row id="sample3" rendered="#{sheetController.columnEventSample == 3}">
             <tc:event>
               <f:ajax id="columnEventPopup" execute=":::popup" render=":::popup"
@@ -69,11 +69,15 @@
               <tc:operation name="show" for=":::popup"/>
             </tc:event>
           </tc:row>
+          <tc:row id="sample4" rendered="#{sheetController.columnEventSample == 4}">
+            <f:ajax render=":::detail" listener="#{sheetController.selectSolarObject}" id="columnEventAjax"
+                    event="dblclick"/>
+          </tc:row>
 
         </tc:sheet>
       </tc:box>
 
-      <tc:box id="detail" label="Details" rendered="#{sheetController.columnEventSample le 2}">
+      <tc:box id="detail" label="Details" rendered="#{sheetController.columnEventSample ne 3}">
         <tc:panel rendered="#{sheetController.selectedSolarObject != null}">
           <tc:in id="name" label="Name" value="#{sheetController.selectedSolarObject.name}" required="true"/>
           <tc:in label="Number" value="#{sheetController.selectedSolarObject.number}"/>

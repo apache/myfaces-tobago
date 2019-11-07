@@ -15,34 +15,15 @@
  * limitations under the License.
  */
 
-import {Listener, Phase} from "./tobago-listener";
 import {DomUtils} from "./tobago-utils";
-import {CommandHelper} from "./tobago-command";
 import {Page} from "./tobago-page";
 
-class Sheet {
+class Sheet extends HTMLElement {
 
-  static readonly SHEETS: Map<string, Sheet> = new Map<string, Sheet>();
   static readonly SCROLL_BAR_SIZE: number = Sheet.getScrollBarSize();
-
-  id: string;
-
-  clickActionId: string;
-  clickReloadComponentId: string;
-  dblClickActionId: string;
-  dblClickReloadComponentId: string;
 
   mousemoveData: any;
   mousedownOnRowData: any;
-
-  static init(element: HTMLElement): void {
-    console.time("[tobago-sheet] init");
-    for (const sheetElement of DomUtils.selfOrElementsByClassName(element, "tobago-sheet")) {
-      const sheet = new Sheet(sheetElement);
-      Sheet.SHEETS.set(sheet.id, sheet);
-    }
-    console.timeEnd("[tobago-sheet] init");
-  }
 
   private static getScrollBarSize(): number {
     const body = document.getElementsByTagName("body").item(0);
@@ -67,14 +48,11 @@ class Sheet {
     return ["INPUT", "TEXTAREA", "SELECT", "A", "BUTTON"].indexOf(element.tagName) > -1;
   }
 
-  constructor(element: HTMLElement) {
-    this.id = element.id;
-    const commands = element.dataset.tobagoRowAction;
-    const behavior = element.dataset.tobagoBehaviorCommands;
-    this.clickActionId = null;//todo commands.click.action;
-    this.clickReloadComponentId = null;//todo commands.click.partially; // fixme: partially no longer used?
-    this.dblClickActionId = null;//todo commands.dblclick.action;
-    this.dblClickReloadComponentId = null;//todo commands.dblclick.partially;// fixme: partially no longer used?
+  constructor() {
+    super();
+  }
+
+  connectedCallback(): void {
 
     // synchronize column widths ----------------------------------------------------------------------------------- //
 
@@ -88,17 +66,18 @@ class Sheet {
     // So, if the 2nd is set, we use it, if not set, we use the 1st source.
 
     let columnWidths = this.loadColumnWidths();
-    console.info("columnWidths: " + columnWidths);
+    console.info("columnWidths: %s", JSON.stringify(columnWidths));
     if (columnWidths && columnWidths.length === 0) { // active, but empty
       // otherwise use the layout definition
-      const tokens = JSON.parse(element.dataset.tobagoLayout).columns;
+      const tokens = JSON.parse(this.dataset.tobagoLayout).columns;
       const columnRendered = this.isColumnRendered();
 
       const headerCols = this.getHeaderCols();
       const bodyTable = this.getBodyTable();
       const bodyCols = this.getBodyCols();
 
-      console.assert(headerCols.length - 1 === bodyCols.length, "header and body column number doesn't match");
+      console.assert(headerCols.length - 1 === bodyCols.length,
+          "header and body column number doesn't match: %d != %d ", headerCols.length - 1, bodyCols.length);
 
       let sumRelative = 0; // tbd: is this needed?
       let widthRelative = bodyTable.offsetWidth;
@@ -150,7 +129,7 @@ class Sheet {
 
     // resize column: mouse events -------------------------------------------------------------------------------- //
 
-    for (const resizeElement of <NodeListOf<HTMLElement>>element.querySelectorAll(".tobago-sheet-headerResize")) {
+    for (const resizeElement of <NodeListOf<HTMLElement>>this.querySelectorAll(".tobago-sheet-headerResize")) {
       resizeElement.addEventListener("click", function (): boolean {
         return false;
       });
@@ -171,26 +150,17 @@ class Sheet {
     sheetBody.addEventListener("scroll", this.scroll.bind(this));
 
     // add selection listeners ------------------------------------------------------------------------------------ //
-    const selectionMode = element.dataset.tobagoSelectionMode;
+    const selectionMode = this.dataset.tobagoSelectionMode;
     if (selectionMode === "single" || selectionMode === "singleOrNone" || selectionMode === "multi") {
 
       for (const row of this.getRows()) {
         row.addEventListener("mousedown", this.mousedownOnRow.bind(this));
 
         row.addEventListener("click", this.clickOnRow.bind(this));
-
-        // todo: check if this works correctly
-        const sheet = Sheet.SHEETS.get(this.id);
-        if (sheet && sheet.dblClickActionId) {
-          row.addEventListener("dblclick", function (event: Event): void {
-            // todo: re-implement
-            sheet.doDblClick(event);
-          });
-        }
       }
     }
 
-    for (const checkbox of <NodeListOf<HTMLInputElement>>element.querySelectorAll(
+    for (const checkbox of <NodeListOf<HTMLInputElement>>this.querySelectorAll(
         ".tobago-sheet-cell > input.tobago-sheet-columnSelector")) {
       checkbox.addEventListener("click", (event) => {
         event.preventDefault();
@@ -199,14 +169,14 @@ class Sheet {
 
     // ---------------------------------------------------------------------------------------- //
 
-    for (const checkbox of <NodeListOf<HTMLInputElement>>element.querySelectorAll(
+    for (const checkbox of <NodeListOf<HTMLInputElement>>this.querySelectorAll(
         ".tobago-sheet-header .tobago-sheet-columnSelector")) {
       checkbox.addEventListener("click", this.clickOnCheckbox.bind(this));
     }
 
     // init paging by pages ---------------------------------------------------------------------------------------- //
 
-    for (const pagingText of <NodeListOf<HTMLElement>>element.querySelectorAll(".tobago-sheet-pagingText")) {
+    for (const pagingText of <NodeListOf<HTMLElement>>this.querySelectorAll(".tobago-sheet-pagingText")) {
 
       pagingText.addEventListener("click", this.clickOnPaging.bind(this));
 
@@ -240,10 +210,6 @@ class Sheet {
     } else {
       console.warn("ignored, should not be called, id='" + this.id + "'");
     }
-  }
-
-  getElement(): HTMLElement {
-    return document.getElementById(this.id);
   }
 
   isColumnRendered(): boolean[] {
@@ -302,7 +268,7 @@ class Sheet {
     document.removeEventListener("mousemove", this.mousemoveData.mousemoveListener);
     document.removeEventListener("mouseup", this.mousemoveData.mouseupListener);
     // copy the width values from the header to the body, (and build a list of it)
-    const tokens = JSON.parse(this.getElement().dataset.tobagoLayout).columns;
+    const tokens = JSON.parse(this.dataset.tobagoLayout).columns;
     const columnRendered = this.isColumnRendered();
     const columnWidths = this.loadColumnWidths();
 
@@ -380,7 +346,6 @@ class Sheet {
 
     const row = event.currentTarget as HTMLTableRowElement;
     if (row.classList.contains("tobago-sheet-columnSelector") || !Sheet.isInputElement(row)) {
-      const sheet = this.getElement();
 
       if (Math.abs(this.mousedownOnRowData.x - event.clientX)
           + Math.abs(this.mousedownOnRowData.y - event.clientY) > 5) {
@@ -395,7 +360,7 @@ class Sheet {
 
       const rows = this.getRows();
       const selector = this.getSelectorCheckbox(row);
-      const selectionMode = this.getElement().dataset.tobagoSelectionMode;
+      const selectionMode = this.dataset.tobagoSelectionMode;
 
       if ((!event.ctrlKey && !event.metaKey && !selector)
           || selectionMode === "single" || selectionMode === "singleOrNone") {
@@ -403,7 +368,7 @@ class Sheet {
         this.resetSelected();
       }
 
-      const lastClickedRowIndex = parseInt(sheet.dataset.tobagoLastClickedRowIndex);
+      const lastClickedRowIndex = parseInt(this.dataset.tobagoLastClickedRowIndex);
       if (event.shiftKey && selectionMode === "multi" && lastClickedRowIndex > -1) {
         if (lastClickedRowIndex <= row.sectionRowIndex) {
           this.selectRange(rows, lastClickedRowIndex, row.sectionRowIndex, true, false);
@@ -412,35 +377,6 @@ class Sheet {
         }
       } else if (selectionMode !== "singleOrNone" || !this.isRowSelected(row)) {
         this.toggleSelection(row, selector);
-      }
-      const rowAction = sheet.dataset.tobagoRowAction;
-      const commands = rowAction ? JSON.parse(rowAction) : undefined;
-      const click = commands ? commands.click : undefined;
-      const clickActionId = click ? click.action : undefined;
-      const clickExecuteIds = click ? click.execute : undefined;
-      const clickRenderIds = click ? click.render : undefined;
-
-      if (clickActionId) {
-        let action: string;
-        const index = clickActionId.indexOf(sheet.id);
-        const rowIndex = this.getDataIndex(row);
-        if (index >= 0) {
-          action = sheet.id + ":" + rowIndex + ":" + clickActionId.substring(index + sheet.id.length + 1);
-        } else {
-          action = sheet.id + ":" + rowIndex + ":" + clickActionId;
-        }
-        if (clickExecuteIds && clickExecuteIds.length > 0) {
-          jsf.ajax.request(
-              action,
-              event,
-              {
-                //"javax.faces.behavior.event": "click",
-                execute: clickExecuteIds,
-                render: clickRenderIds
-              });
-        } else {
-          CommandHelper.submitAction(row, action);
-        }
       }
     }
   }
@@ -488,67 +424,43 @@ class Sheet {
   }
 
   getHeader(): HTMLElement {
-    return this.getElement().querySelector(".tobago-sheet>header");
+    return this.querySelector("tobago-sheet>header");
   }
 
   getHeaderTable(): HTMLElement {
-    return this.getElement().querySelector(".tobago-sheet>header>table");
+    return this.querySelector("tobago-sheet>header>table");
   }
 
   getHeaderCols(): NodeListOf<HTMLElement> {
-    return this.getElement().querySelectorAll(".tobago-sheet>header>table>colgroup>col");
+    return this.querySelectorAll("tobago-sheet>header>table>colgroup>col");
   }
 
   getBody(): HTMLElement {
-    return this.getElement().querySelector(".tobago-sheet>.tobago-sheet-body");
+    return this.querySelector("tobago-sheet>.tobago-sheet-body");
   }
 
   getBodyTable(): HTMLElement {
-    return this.getElement().querySelector(".tobago-sheet>.tobago-sheet-body>.tobago-sheet-bodyTable");
+    return this.querySelector("tobago-sheet>.tobago-sheet-body>.tobago-sheet-bodyTable");
   }
 
   getBodyCols(): NodeListOf<HTMLElement> {
-    return this.getElement().querySelectorAll(".tobago-sheet>.tobago-sheet-body>.tobago-sheet-bodyTable>colgroup>col");
+    return this.querySelectorAll("tobago-sheet>.tobago-sheet-body>.tobago-sheet-bodyTable>colgroup>col");
   }
 
   getHiddenSelected(): HTMLInputElement {
-    return document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "selected") as HTMLInputElement;
+    const rootNode = this.getRootNode() as ShadowRoot | Document;
+    return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "selected")  as HTMLInputElement;
   }
 
   getHiddenScrollPosition(): HTMLInputElement {
-    return document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "scrollPosition") as HTMLInputElement;
-  }
-
-  doDblClick(event): void {
-    const row = event.currentTarget as HTMLTableRowElement;
-    const rowIndex = row.sectionRowIndex + this.getFirst();
-    if (this.dblClickActionId) {
-      let action;
-      const index = this.dblClickActionId.indexOf(this.id);
-      if (index >= 0) {
-        action = this.id + ":" + rowIndex + ":" + this.dblClickActionId.substring(index + this.id.length + 1);
-      } else {
-        action = this.id + ":" + rowIndex + ":" + this.dblClickActionId;
-      }
-      if (this.dblClickReloadComponentId && this.dblClickReloadComponentId.length > 0) {
-        jsf.ajax.request(
-            action,
-            event,
-            {
-              //"javax.faces.behavior.event": "dblclick",
-              execute: this.dblClickReloadComponentId,
-              render: this.dblClickReloadComponentId
-            });
-      } else {
-        CommandHelper.submitAction(row, action);
-      }
-    }
+    const rootNode = this.getRootNode() as ShadowRoot | Document;
+    return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "scrollPosition")  as HTMLInputElement;
   }
 
   /**
    * Get the element, which indicates the selection
    */
-  getSelectorCheckbox(row): HTMLInputElement {
+  getSelectorCheckbox(row: HTMLTableRowElement): HTMLInputElement {
     return row.querySelector("tr>td>input.tobago-sheet-columnSelector");
   }
 
@@ -557,7 +469,7 @@ class Sheet {
   }
 
   getFirst(): number {
-    return parseInt(this.getElement().dataset.tobagoFirst);
+    return parseInt(this.dataset.tobagoFirst);
   }
 
   isRowSelected(row: HTMLTableRowElement): boolean {
@@ -578,7 +490,7 @@ class Sheet {
   }
 
   toggleSelection(row: HTMLTableRowElement, checkbox: HTMLInputElement): void {
-    this.getElement().dataset.tobagoLastClickedRowIndex = String(row.sectionRowIndex);
+    this.dataset.tobagoLastClickedRowIndex = String(row.sectionRowIndex);
     if (checkbox && !checkbox.disabled) {
       const selected = this.getHiddenSelected();
       const rowIndex = this.getDataIndex(row);
@@ -673,5 +585,6 @@ class Sheet {
 
 }
 
-Listener.register(Sheet.init, Phase.DOCUMENT_READY);
-Listener.register(Sheet.init, Phase.AFTER_UPDATE);
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
+  window.customElements.define("tobago-sheet", Sheet);
+});

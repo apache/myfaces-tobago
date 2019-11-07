@@ -36,15 +36,15 @@ class Behavior extends HTMLElement {
         document.body.addEventListener(this.event, this.callback.bind(this));
         break;
       default:
-        this.parentElement.addEventListener(this.event, this.callback.bind(this));
+        this.element.addEventListener(this.event, this.callback.bind(this));
     }
   }
 
   callback(event?: Event): void {
 
     if (this.collapseAction && this.collapseTarget) {
-      const target = this.getRootNode() as ShadowRoot | Document;
-      Collapse.execute(this.collapseAction, target.getElementById(this.collapseTarget));
+      const rootNode = this.getRootNode() as ShadowRoot | Document;
+      Collapse.execute(this.collapseAction, rootNode.getElementById(this.collapseTarget));
     }
 
     if (this.execute || this.render) { // this means: AJAX case?
@@ -56,9 +56,10 @@ class Behavior extends HTMLElement {
         }
       }
       jsf.ajax.request(
-          this.parentElement,
-          event, {
-            //"javax.faces.behavior.event": this.event,
+          this.element,
+          event,
+          {
+            "javax.faces.behavior.event": this.event,
             execute: this.execute,
             render: this.render
           });
@@ -179,7 +180,12 @@ class Behavior extends HTMLElement {
   }
 
   get element(): HTMLElement {
-    return this.parentElement;
+    if (this.parentElement.matches("td.tobago-sheet-cell-markup-filler")) {
+      // XXX special case, using the row, but <tobago-behavior> can't be a child of <tr>
+      return this.parentElement.parentElement;
+    } else {
+      return this.parentElement;
+    }
   }
 }
 

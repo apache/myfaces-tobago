@@ -1152,11 +1152,12 @@ p.tobago-separator {
 }
 
 /* sheet -------------------------------------------------------------- */
+.tobago-sheet,
 .tobago-sheet-expanded,
 .tobago-sheet-row {
 }
 
-.tobago-sheet {
+tobago-sheet {
   .tobago-sheet-cell {
     > .tobago-treeNode {
       display: flex;
@@ -1215,7 +1216,7 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   margin-bottom: ($spacer-y * 0.75);
 }
 
-.tobago-sheet {
+tobago-sheet {
   display: flex;
   flex-direction: column;
   margin-bottom: $spacer;
