@@ -3,7 +3,7 @@
   "version": "5.0.0-SNAPSHOT",
   "xxx_version": "${project.version}",
   "description": "The 'standard' theme of the Tobago framework",
-  "main": "index.js",
+  "main": "tobago-bundle.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/apache/myfaces-tobago.git"
@@ -23,11 +23,15 @@
     "css-compile": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/tobago-theme.scss css/tobago.css",
     "css-prefix": "postcss --config postcss.config.js --replace \"css/*.css\" \"!css/*.min.css\"",
     "css-minify": "cleancss --level 1 --source-map --source-map-inline-sources --output css/tobago.min.css css/tobago.css",
-    "ts": "npm-run-all --parallel ts-lint ts-compile",
+    "ts": "npm-run-all --parallel ts-lint ts-compile --sequential rollup",
     "ts-lint": "tslint --project tsconfig.json --config tslint.json",
     "ts-compile": "tsc",
     "js-minify": "uglifyjs --compress typeofs=false,drop_console=true --mangle --source-map includeSources --output js/tobago.min.js js/tobago-myfaces.js js/tobago-deltaspike.js js/tobago-polyfill.js js/ext-bootstrap.js js/tobago-listener.js js/tobago-core.js js/tobago-dropdown.js js/tobago-date.js js/tobago-command.js js/tobago-file.js js/tobago-focus.js js/tobago-header-footer.js js/tobago-in.js js/tobago-jsf.js js/tobago-overlay.js js/tobago-panel.js js/tobago-popover.js js/tobago-popup.js js/tobago-reload.js js/tobago-scroll.js js/tobago-select-boolean-checkbox.js js/tobago-select-boolean-toggle.js js/tobago-select-many-checkbox.js js/tobago-select-many-shuttle.js js/tobago-select-one-listbox.js js/tobago-select-one-radio.js js/tobago-sheet.js js/tobago-split-layout.js js/tobago-stars.js js/tobago-suggest.js js/tobago-tab.js js/tobago-tree.js js/tobago-tree-listbox.js js/tobago-utils.js",
+    "rollup": "rollup --config",
     "test": "jest"
+  },
+  "dependencies": {
+    "@vaadin/vaadin-date-picker": "^4.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -49,7 +53,8 @@
     "npm-run-all": "^4.1.5",
     "popper.js": "^1.15.0",
     "postcss-cli": "^6.1.2",
-    "rollup": "^1.12.1",
+    "rollup": "^1.21.4",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "ts-jest": "^24.0.2",
     "tslint": "^5.16.0",
     "typescript": "^3.4.5",

@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+import {DatePickerLightElement} from "@vaadin/vaadin-date-picker";
 import {DomUtils} from "./tobago-utils";
 
 class DateTime extends HTMLElement {
@@ -367,6 +368,31 @@ class DateTime extends HTMLElement {
 
 }
 
+// XXX switched off
 document.addEventListener("DOMContentLoaded", function (event: Event): void {
   window.customElements.define("tobago-date", DateTime);
 });
+
+class VaadinDatePicker extends HTMLElement {
+
+  constructor() {
+    super();
+  }
+
+  connectedCallback(): void {
+    let outer = this.querySelector(".tobago-input-group-outer");
+    let vaadinDatePicker = document.createElement("vaadin-date-picker-light") as HTMLElement;
+    vaadinDatePicker.setAttribute("attr-for-value", "value");
+    // vaadinDatePicker.addEventListener("change", (event) => {
+    //   input.value = vaadinDatePicker.value;
+    // });
+    this.appendChild(vaadinDatePicker);
+    vaadinDatePicker.appendChild(outer);
+    // input.classList.add("d-none");
+  }
+}
+
+// XXX switched on
+// document.addEventListener("DOMContentLoaded", function (event: Event): void {
+//   window.customElements.define("tobago-date", VaadinDatePicker);
+// });

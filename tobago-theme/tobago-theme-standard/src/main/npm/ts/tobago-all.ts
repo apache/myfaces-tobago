@@ -19,6 +19,7 @@ import "./ext-bootstrap";
 import "./tobago-listener";
 import "./tobago-core";
 import "./tobago-dropdown";
+import "@vaadin/vaadin-date-picker";
 import "./tobago-date";
 import "./tobago-command";
 import "./tobago-file";

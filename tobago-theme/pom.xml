@@ -88,6 +88,7 @@
                     <include>package.json</include>
                     <include>package-lock.json</include>
                     <include>postcss.config.js</include>
+                    <include>rollup.config.js</include>
                     <include>tsconfig.json</include>
                     <include>tslint.json</include>
                     <include>.babelrc</include>
