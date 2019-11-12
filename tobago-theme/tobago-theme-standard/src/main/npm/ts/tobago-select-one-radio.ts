@@ -15,45 +15,53 @@
  * limitations under the License.
  */
 
-import {Listener, Phase} from "./tobago-listener";
-import {DomUtils} from "./tobago-utils";
+class SelectOneRadio extends HTMLElement {
 
-class SelectOneRadio {
+  private oldCheckedId: string = "";
 
-  static init = function (element: HTMLElement): void {
-    for (const radio of DomUtils.selfOrQuerySelectorAll(element, ".tobago-selectOneRadio")) {
-      const id = radio.closest("[id]").id;
-      const quotedId = id.replace(/([:.])/g, "\\$1");
-      const allConnected = document.querySelectorAll("input[name=" + quotedId + "]") as NodeListOf<HTMLInputElement>;
-      for (const connectedRadio of allConnected) {
-        connectedRadio.dataset.tobagoOldValue = String(connectedRadio.checked);
-        connectedRadio.addEventListener("click", (event: Event) => {
-          const target = event.currentTarget as HTMLInputElement;
-          const readOnly = target.readOnly;
-          const required = target.required;
-          if (!required && !readOnly) {
-            if (target.dataset.tobagoOldValue === String(target.checked)) {
-              target.checked = false;
-            }
-            target.dataset.tobagoOldValue = String(target.checked);
-          }
-          if (readOnly) {
-            for (const connectedRadio of allConnected) {
-              connectedRadio.checked = connectedRadio.dataset.tobagoOldValue === "true";
-            }
-          } else {
-            for (const connectedRadio of allConnected) {
-              if (target.id != connectedRadio.id) {
-                connectedRadio.checked = false;
-                connectedRadio.dataset.tobagoOldValue = String(connectedRadio.checked);
-              }
-            }
-          }
-        });
+  constructor() {
+    super();
+  }
+
+  connectedCallback(): void {
+    this.saveSelection();
+    for (const radio of this.radioGroup) {
+      radio.addEventListener("click", this.clickSelection.bind(this));
+    }
+  }
+
+  private clickSelection(event: MouseEvent): void {
+    const radio = event.currentTarget as HTMLInputElement;
+
+    if (radio.readOnly) {
+      this.revertSelection();
+    } else if (!radio.disabled && !radio.required && radio.id === this.oldCheckedId) {
+      radio.checked = false;
+      this.oldCheckedId = "";
+    }
+
+    this.saveSelection();
+  }
+
+  private revertSelection(): void {
+    for (const radio of this.radioGroup) {
+      radio.checked = radio.id === this.oldCheckedId;
+    }
+  }
+
+  private saveSelection(): void {
+    for (const radio of this.radioGroup) {
+      if (radio.checked) {
+        this.oldCheckedId = radio.id;
       }
     }
-  };
+  }
+
+  get radioGroup(): NodeListOf<HTMLInputElement> {
+    return this.querySelectorAll<HTMLInputElement>("input[type='radio'][name='" + this.id + "']");
+  }
 }
 
-Listener.register(SelectOneRadio.init, Phase.DOCUMENT_READY);
-Listener.register(SelectOneRadio.init, Phase.AFTER_UPDATE);
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
+  window.customElements.define("tobago-select-one-radio", SelectOneRadio);
+});

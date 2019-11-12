@@ -147,6 +147,7 @@ public enum HtmlElements {
   TOBAGO_SELECT_MANY_CHECKBOX("tobago-select-many-checkbox"),
   TOBAGO_SELECT_MANY_SHUTTLE("tobago-select-many-shuttle"),
   TOBAGO_SELECT_ONE_LISTBOX("tobago-select-one-listbox"),
+  TOBAGO_SELECT_ONE_RADIO("tobago-select-one-radio"),
   TOBAGO_SHEET("tobago-sheet"),
   TOBAGO_STARS("tobago-stars"),
   TOBAGO_SUGGEST("tobago-suggest"),

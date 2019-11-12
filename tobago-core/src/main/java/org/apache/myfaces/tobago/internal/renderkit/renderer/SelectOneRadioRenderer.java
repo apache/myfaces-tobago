@@ -43,6 +43,10 @@ import java.io.IOException;
 
 public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
+  public HtmlElements getComponentTag() {
+    return HtmlElements.TOBAGO_SELECT_ONE_RADIO;
+  }
+
   @Override
   protected void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final AbstractUISelectOneRadio select = (AbstractUISelectOneRadio) component;
