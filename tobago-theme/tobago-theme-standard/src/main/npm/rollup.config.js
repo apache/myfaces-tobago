@@ -22,6 +22,7 @@ export default {
   output: {
     file: 'js/tobago-bundle.js',
     format: 'iife',
+    sourcemap: true,
     name: 'tobago'
   },
   plugins: [
