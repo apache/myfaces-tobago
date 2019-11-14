@@ -135,6 +135,7 @@ public enum HtmlElements {
 
   TOBAGO_BEHAVIOR("tobago-behavior"),
   TOBAGO_DATE("tobago-date"),
+  TOBAGO_DROPDOWN("tobago-dropdown"),
   TOBAGO_FILE("tobago-file"),
   TOBAGO_LABEL("tobago-label"),
   TOBAGO_IN("tobago-in"),

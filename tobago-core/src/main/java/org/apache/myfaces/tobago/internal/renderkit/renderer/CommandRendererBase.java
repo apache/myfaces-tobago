@@ -174,6 +174,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
           BootstrapClass.DROPDOWN_MENU,
           getDropdownCssItems(facesContext, command));
       writer.writeAttribute(Arias.LABELLEDBY, "dropdownMenuButton", false);
+      writer.writeAttribute(HtmlAttributes.NAME, command.getClientId(facesContext), false);
 
       for (final UIComponent child : component.getChildren()) {
         if (child.isRendered()
@@ -238,7 +239,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     if (parentOfCommands) {
-      writer.startElement(HtmlElements.SPAN);
+      writer.startElement(HtmlElements.TOBAGO_DROPDOWN);
       writer.writeIdAttribute(clientId);
 
       writer.writeClassAttribute(
@@ -250,7 +251,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
   protected void encodeEndOuter(final FacesContext facesContext, final AbstractUICommand command) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     if (command.isParentOfCommands()) {
-      writer.endElement(HtmlElements.SPAN);
+      writer.endElement(HtmlElements.TOBAGO_DROPDOWN);
     }
   }
 

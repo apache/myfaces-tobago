@@ -581,6 +581,15 @@ a.tobago-messages-button, a.tobago-help-button {
   display: block;
 }
 
+/* dropdown ------------------------------------------------------- */
+tobago-dropdown {
+  display: inline-block;
+}
+
+ul > tobago-dropdown {
+  display: list-item;
+}
+
 /* dropdown-submenu ------------------------------------------------------- */
 .tobago-dropdown-submenu {
   cursor: pointer;

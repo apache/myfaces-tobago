@@ -15,61 +15,80 @@
  * limitations under the License.
  */
 
-import {Listener, Order, Phase} from "./tobago-listener";
+import "/webjars/popper.js/1.14.3/umd/popper.js";
+import Popper from "popper.js";
 
-class Dropdown {
+class Dropdown extends HTMLElement {
 
-  static init(element: HTMLElement): void {
-    const $dropdownMenus = jQuery(":not(.tobago-page-menuStore) > .dropdown-menu");
-    const $tobagoPageMenuStore = jQuery(".tobago-page-menuStore");
+  private blurFlag: boolean = false;
 
-    $dropdownMenus.each(function (): void {
-      const $dropdownMenu = jQuery(this);
-      const $parent = $dropdownMenu.parent();
+  constructor() {
+    super();
+  }
 
-      if (!$parent.hasClass("tobago-dropdown-submenu")
-          && $parent.closest(".navbar").length === 0) {
+  connectedCallback(): void {
+    this.toggle.addEventListener("click", this.toggleDropdown.bind(this));
+    this.toggle.addEventListener("blur", this.deselectComponent.bind(this));
+    window.addEventListener("mouseup", this.deselectComponent.bind(this));
+  }
 
-        // remove duplicated dropdown menus from menu store
-        // this could happen if the dropdown component is updated by ajax
-        removeDuplicates($dropdownMenu);
+  toggleDropdown(event: Event): void {
+    const visible: boolean = this.dropdownMenu.classList.contains("show");
+    if (visible) {
+      this.closeDropdown();
+    } else {
+      this.openDropdown();
+    }
+  }
 
-        $parent.on("shown.bs.dropdown", function (event: Event): void {
-          $tobagoPageMenuStore.append($dropdownMenu.detach());
-        }).on("hidden.bs.dropdown", function (event: Event): void {
-          $parent.append($dropdownMenu.detach());
-        });
-      }
-    });
+  deselectComponent(event: Event): void {
+    if (event.type === "blur") {
+      this.blurFlag = true;
+    } else if (this.blurFlag) {
+      this.blurFlag = false;
+
+      const target: HTMLElement = event.target as HTMLElement;
+      this.closeDropdown();
+      target.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+    }
+  }
+
+  openDropdown(): void {
+    if (!this.inStickyHeader()) {
+      this.menuStore.appendChild(this.dropdownMenu);
+      new Popper(this.toggle, this.dropdownMenu, {
+        placement: "bottom-start"
+      });
+    }
+
+    this.dropdownMenu.classList.add("show");
+  }
+
+  closeDropdown(): void {
+    this.dropdownMenu.classList.remove("show");
+    this.appendChild(this.dropdownMenu);
+  }
+
+  private get toggle(): HTMLElement {
+    return this.querySelector(":scope > [data-toggle='dropdown']");
+  }
+
+  private inStickyHeader(): boolean {
+    const root = this.getRootNode() as ShadowRoot | Document;
+    return root.querySelector("header.tobago-header.sticky-top tobago-dropdown[id='" + this.id + "']") !== null;
+  }
+
+  private get dropdownMenu(): HTMLDivElement {
+    const root = this.getRootNode() as ShadowRoot | Document;
+    return root.querySelector(".dropdown-menu[name='" + this.id + "']");
+  }
+
+  private get menuStore(): HTMLDivElement {
+    const root = this.getRootNode() as ShadowRoot | Document;
+    return root.querySelector(".tobago-page-menuStore");
   }
 }
 
-function removeDuplicates($dropdownMenu): void {
-  const $menuStoreDropdowns = jQuery(".tobago-page-menuStore .dropdown-menu");
-  // XXX todo: remove ts-ignore
-  // @ts-ignore
-  $menuStoreDropdowns.each(function (): boolean {
-    const $menuStoreDropdown = jQuery(this);
-
-    const dropdownIds = getIds($dropdownMenu);
-    const menuStoreIds = getIds($menuStoreDropdown);
-
-    for (let i = 0; i < dropdownIds.length; i++) {
-      if (jQuery.inArray(dropdownIds[i], menuStoreIds) >= 0) {
-        $menuStoreDropdown.remove();
-        return false;
-      }
-    }
-  });
-}
-
-// XXX todo: remove tslint
-// tslint:disable-next-line:typedef
-function getIds($dropdownMenu) {
-  return $dropdownMenu.find("[id]").map(function (): string {
-    return this.id;
-  });
-}
-
-Listener.register(Dropdown.init, Phase.DOCUMENT_READY, Order.NORMAL);
-Listener.register(Dropdown.init, Phase.AFTER_UPDATE, Order.NORMAL);
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
+  window.customElements.define("tobago-dropdown", Dropdown);
+});
