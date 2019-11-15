@@ -500,7 +500,16 @@ span.dropdown {
   }
 }
 
-a.tobago-messages-button, a.tobago-help-button {
+.tobago-popover-box {
+  display: none;
+  width: max-content;
+
+  &.show {
+    display: block;
+  }
+}
+
+a.tobago-messages-button, a.tobago-help-button, a.tobago-popover-button {
   padding-left: 0.4em;
   padding-right: 0.4em;
 }

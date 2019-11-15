@@ -15,23 +15,80 @@
  * limitations under the License.
  */
 
-import {Listener, Phase} from "./tobago-listener";
+import Popper from "popper.js";
 
-class MessagePopover {
+class Popover extends HTMLElement {
 
-  static init = function (element: HTMLElement): void {
-    jQuery("[data-toggle=\"popover\"]").popover({
-      constraints: [
-        {
-          to: "window",
-          attachment: "together",
-          pin: true
+  private popper;
+
+  constructor() {
+    super();
+  }
+
+  connectedCallback(): void {
+    this.button.addEventListener("click", this.showPopover.bind(this));
+    this.button.addEventListener("blur", this.hidePopover.bind(this));
+  }
+
+  showPopover(): void {
+    this.menuStore.appendChild(this.popover);
+    this.popper = new Popper(this.button, this.popover, {
+      placement: "right",
+      modifiers: {
+        arrow: {
+          element: ".arrow"
         }
-      ],
-      trigger: "focus"
+      },
+      onCreate: this.updateBootstrapPopoverCss.bind(this),
+      onUpdate: this.updateBootstrapPopoverCss.bind(this)
     });
-  };
+    this.popover.classList.add("show");
+  }
+
+  hidePopover(): void {
+    this.popover.classList.remove("show");
+    this.appendChild(this.popover);
+
+    if (this.popper !== undefined && this.popper !== null) {
+      this.popper.destroy();
+      this.popper = null;
+    }
+  }
+
+  private updateBootstrapPopoverCss(): void {
+    const placement = this.popover.getAttribute("x-placement");
+    if (placement === "right" && !this.popover.classList.contains("bs-popover-right")) {
+      this.popover.classList.add("bs-popover-right");
+      this.popover.classList.remove("bs-popover-left");
+      this.updateAfterCssClassChange();
+    } else if (placement === "left" && !this.popover.classList.contains("bs-popover-left")) {
+      this.popover.classList.add("bs-popover-left");
+      this.popover.classList.remove("bs-popover-right");
+      this.updateAfterCssClassChange();
+    }
+  }
+
+  private updateAfterCssClassChange(): void {
+    if (this.popper !== undefined && this.popper !== null) {
+      this.popper.scheduleUpdate();
+    }
+  }
+
+  get button(): HTMLLinkElement {
+    return this.querySelector(":scope > .tobago-popover-button");
+  }
+
+  get popover(): HTMLDivElement {
+    const root = this.getRootNode() as ShadowRoot | Document;
+    return root.querySelector(".tobago-popover-box[name='" + this.id + "']");
+  }
+
+  private get menuStore(): HTMLDivElement {
+    const root = this.getRootNode() as ShadowRoot | Document;
+    return root.querySelector(".tobago-page-menuStore");
+  }
 }
 
-Listener.register(MessagePopover.init, Phase.DOCUMENT_READY);
-Listener.register(MessagePopover.init, Phase.AFTER_UPDATE);
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
+  window.customElements.define("tobago-popover", Popover);
+});

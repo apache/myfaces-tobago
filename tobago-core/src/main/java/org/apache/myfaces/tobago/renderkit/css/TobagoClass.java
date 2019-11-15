@@ -130,6 +130,10 @@ public enum TobagoClass implements CssItem {
   FORM("tobago-form"),
   GRID_LAYOUT("tobago-gridLayout"),
   HEADER("tobago-header"),
+  /**
+   * @deprecated Since 5.0.0. Please use {@link TobagoClass#POPOVER__BUTTON}
+   */
+  @Deprecated
   HELP__BUTTON("tobago-help-button"),
   IMAGE("tobago-image"),
   IN("tobago-in"),
@@ -144,6 +148,10 @@ public enum TobagoClass implements CssItem {
   LINK("tobago-link"),
   LINKS("tobago-links"),
   MESSAGES("tobago-messages"),
+  /**
+   * @deprecated Since 5.0.0. Please use {@link TobagoClass#POPOVER__BUTTON}
+   */
+  @Deprecated
   MESSAGES__BUTTON("tobago-messages-button"),
   MESSAGES__CONTAINER("tobago-messages-container"),
   OBJECT("tobago-object"),
@@ -152,6 +160,8 @@ public enum TobagoClass implements CssItem {
   PAGE__MENU_STORE("tobago-page-menuStore"),
   PAGE__NOSCRIPT("tobago-page-noscript"),
   PANEL("tobago-panel"),
+  POPOVER__BOX("tobago-popover-box"),
+  POPOVER__BUTTON("tobago-popover-button"),
   PROGRESS("tobago-progress"),
   SECTION("tobago-section"),
   SECTION__HEADER("tobago-section-header"),

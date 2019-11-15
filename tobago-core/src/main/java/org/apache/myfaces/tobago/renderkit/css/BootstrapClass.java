@@ -57,6 +57,7 @@ public enum BootstrapClass implements CssItem {
   ALIGN_ITEMS_END("align-items-end"),
   ALIGN_ITEMS_START("align-items-start"),
   ALIGN_ITEMS_STRETCH("align-items-stretch"),
+  ARROW("arrow"),
   BG_DARK("bg-dark"),
   /**
    * @deprecated since 4.0.0, please use {@link #BG_DARK}
@@ -471,6 +472,9 @@ public enum BootstrapClass implements CssItem {
   PAGE_ITEM("page-item"),
   PAGE_LINK("page-link"),
   PAGINATION("pagination"),
+  POPOVER("popover"),
+  POPOVER_BODY("popover-body"),
+  POPOVER_HEADER("popover-header"),
   PROGRESS("progress"),
   PROGRESS_BAR("progress-bar"),
   ROW("row"),
