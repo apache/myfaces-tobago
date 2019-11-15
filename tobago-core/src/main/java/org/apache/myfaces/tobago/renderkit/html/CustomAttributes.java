@@ -37,6 +37,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
    * The index of the tab inside the tab group.
    */
   INDEX("index"),
+  LOCALE("locale"),
   LOCAL_MENU("local-menu"),
   MAX_ITEMS("max-items"),
   MIN_CHARS("min-chars"),

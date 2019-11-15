@@ -19,9 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.context;
 
+import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.context.FacesContext;
 import java.lang.invoke.MethodHandles;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -41,6 +43,11 @@ public class DateTimeI18n {
   private final String[] dayNamesShort = new String[7];
   private final String[] dayNamesMin = new String[7];
   private final int firstDay;
+  private final int minDays;
+  private final String today;
+  private final String cancel;
+  private final String clear;
+  private final String week;
 
   private DateTimeI18n(final Locale locale) {
 
@@ -68,7 +75,14 @@ public class DateTimeI18n {
       calendar.add(Calendar.DAY_OF_YEAR, 1);
     }
 
-    firstDay = calendar.getFirstDayOfWeek() - 1; // because Java: 1 = Sunday and jQuery UI DatePicker: 0 = Sunday
+    firstDay = calendar.getFirstDayOfWeek() - 1; // because Java: 1 = Sunday and JavaScript: 0 = Sunday
+    minDays = calendar.getMinimalDaysInFirstWeek();
+
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    today = ResourceUtils.getString(facesContext, "date.today");
+    cancel = ResourceUtils.getString(facesContext, "date.cancel");
+    clear = ResourceUtils.getString(facesContext, "date.clear");
+    week = ResourceUtils.getString(facesContext, "date.week");
   }
 
   public static synchronized DateTimeI18n valueOf(final Locale locale) {
@@ -103,5 +117,25 @@ public class DateTimeI18n {
 
   public int getFirstDay() {
     return firstDay;
+  }
+
+  public int getMinDays() {
+    return minDays;
+  }
+
+  public String getToday() {
+    return today;
+  }
+
+  public String getCancel() {
+    return cancel;
+  }
+
+  public String getClear() {
+    return clear;
+  }
+
+  public String getWeek() {
+    return week;
   }
 }

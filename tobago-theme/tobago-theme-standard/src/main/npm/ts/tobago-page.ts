@@ -23,13 +23,13 @@ export class Page extends HTMLElement {
   /**
    * The Tobago root element
    */
-  static page(): HTMLElement {
+  static page(): Page {
     const pages = document.getElementsByTagName("tobago-page");
     if (pages.length > 0) {
       if (pages.length >= 2) {
         console.warn("Found more than one tobago page!");
       }
-      return pages.item(0) as HTMLElement;
+      return pages.item(0) as Page;
     }
     console.warn("Found no tobago page!");
     return null;
@@ -71,6 +71,14 @@ export class Page extends HTMLElement {
         return false;
       }
     });
+  }
+
+  get locale(): string {
+    let locale = this.getAttribute("locale");
+    if (!locale) {
+        locale = document.documentElement.lang;
+    }
+    return locale;
   }
 }
 

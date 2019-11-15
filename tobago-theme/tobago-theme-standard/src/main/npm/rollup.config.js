@@ -21,7 +21,7 @@ export default {
   input: 'js/tobago-all.js',
   output: {
     file: 'js/tobago-bundle.js',
-    format: 'iife',
+    format: 'umd', /* tbd: check if "iife" is better? */
     sourcemap: true,
     name: 'tobago'
   },

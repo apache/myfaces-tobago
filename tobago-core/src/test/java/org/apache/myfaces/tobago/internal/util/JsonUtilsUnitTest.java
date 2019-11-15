@@ -50,7 +50,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
     final CommandMap map = new CommandMap();
     Assertions.assertEquals("{}", JsonUtils.encode(map));
 
-    Assertions.assertEquals(null, JsonUtils.encode((CommandMap) null));
+    Assertions.assertNull(JsonUtils.encode((CommandMap) null));
   }
 
   @Test
@@ -137,7 +137,8 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
         + dayNamesShort[3] + "','" + dayNamesShort[4] + "','" + dayNamesShort[5] + "','" + dayNamesShort[6] + "'],"
         + "'dayNamesMin':['" + dayNamesMin[0] + "','" + dayNamesMin[1] + "','" + dayNamesMin[2] + "','"
         + dayNamesMin[3] + "','" + dayNamesMin[4] + "','" + dayNamesMin[5] + "','" + dayNamesMin[6] + "'],"
-        + "'firstDay':1}").replaceAll("'", "\"");
+        + "'firstDay':1,'minDays':4,'today':'Today','cancel':'Cancel','clear':'Clear','week':'Week'}")
+        .replaceAll("'", "\"");
 
     Assertions.assertEquals(expected, JsonUtils.encode(dateTimeI18n));
   }

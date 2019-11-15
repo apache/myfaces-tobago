@@ -15,234 +15,58 @@
  * limitations under the License.
  */
 
-import {DatePickerLightElement} from "@vaadin/vaadin-date-picker";
-import {DomUtils} from "./tobago-utils";
+import {DatePickerLightElement} from "@vaadin/vaadin-date-picker/vaadin-date-picker-light";
+// @ts-ignore
+import moment = require("moment");
+import {Page} from "./tobago-page";
 
-class DateTime extends HTMLElement {
+interface VaadinDate {
+  day: number;
+  month: number;
+  year: number;
+}
 
-  static addPastClass(date: HTMLInputElement): void {
-    let today = date.dataset.tobagoToday;
-    if (today.length === 10) {
-      const todayArray = today.split("-");
-      if (todayArray.length === 3) {
-        const year = todayArray[0];
-        const month = todayArray[1];
-        const day = todayArray[2];
-        const todayTimestamp = new Date(month + "/" + day + "/" + year).getTime();
+interface VaadinDatePickerI18n {
+  week: string;
+  calendar?: string;
+  clear: string;
+  today: string;
+  cancel: string;
+  firstDayOfWeek: number;
+  monthNames: string[];
+  weekdays: string[];
+  weekdaysShort: string[];
+  formatDate: (date: VaadinDate) => string;
+  formatTitle: (monthName: string, fullYear: string) => string;
+  parseDate: (dateString: string) => VaadinDate;
+}
 
-        const days = document.querySelectorAll(".bootstrap-datetimepicker-widget .datepicker-days td.day[data-day]");
-        for (const day of days) {
-          const currentTimestamp = new Date(day.getAttribute("data-day")).getTime();
-          if (currentTimestamp < todayTimestamp) {
-            day.classList.add("past");
-          }
-        }
-      }
-    }
-  }
+class DatePicker extends HTMLElement {
 
   constructor() {
     super();
   }
 
   connectedCallback(): void {
+    let vaadinDatePicker = document.createElement("vaadin-date-picker-light") as DatePickerLightElement;
+    vaadinDatePicker.setAttribute("attr-for-value", "value");
+    let input = this.inputElement;
+    const i18n = input.dataset.tobagoDateTimeI18n ? JSON.parse(input.dataset.tobagoDateTimeI18n) : undefined;
+    vaadinDatePicker.i18n = this.createVaadinI18n(i18n);
+    vaadinDatePicker.readonly = input.hasAttribute("readonly"); // todo make attribute
+    vaadinDatePicker.showWeekNumbers = true; // tbd
 
-    const date = this.inputElement;
-
-    if (date.readOnly || date.disabled) {
-      return;
+    while (this.childNodes.length) {
+      vaadinDatePicker.appendChild(this.firstChild);
     }
-
-    const analyzed = this.analyzePattern();
-    const options = {
-      format: analyzed,
-      showTodayButton: date.dataset.tobagoTodayButton === "data-tobago-today-button",
-      icons: {
-        time: "fa fa-clock-o",
-        date: "fa fa-calendar",
-        up: "fa fa-chevron-up",
-        down: "fa fa-chevron-down",
-        previous: "fa fa-chevron-left",
-        next: "fa fa-chevron-right",
-        today: "fa fa-calendar-check-o",
-        clear: "fa fa-trash",
-        close: "fa fa-times"
-      },
-      keyBinds: {
-        left: function ($widget): void {
-          const widget: HTMLDivElement = $widget[0] as HTMLDivElement;
-          if (widget === undefined) {
-            if (date.selectionStart === date.selectionEnd) {
-              if (date.selectionStart > 0 || date.selectionStart > 0) {
-                date.selectionStart--;
-                date.selectionEnd--;
-              }
-            } else {
-              date.selectionEnd = date.selectionStart;
-            }
-          } else if (DomUtils.isVisible(widget.querySelector(".datepicker"))) {
-            this.date(this.date().clone().subtract(1, "d"));
-          }
-        },
-        right: function ($widget): void {
-          const widget: HTMLDivElement = $widget[0] as HTMLDivElement;
-          if (widget === undefined) {
-            if (date.selectionStart === date.selectionEnd) {
-              if (date.selectionStart > 0 || date.selectionStart < date.value.length) {
-                date.selectionEnd++;
-                date.selectionStart++;
-              }
-            } else {
-              date.selectionStart = date.selectionEnd;
-            }
-          } else if (DomUtils.isVisible(widget.querySelector(".datepicker"))) {
-            this.date(this.date().clone().add(1, "d"));
-          }
-        },
-        enter: function ($widget): void {
-          const widget: HTMLDivElement = $widget[0] as HTMLDivElement;
-          if (widget !== undefined && DomUtils.isVisible(widget.querySelector(".datepicker"))) {
-            this.hide();
-            fixKey(13);
-          } else {
-            //jQuery because used by datetimepicker
-            jQuery(date).trigger(jQuery.Event("keypress", {
-              which: 13,
-              target: date
-            }));
-          }
-        },
-        escape: function ($widget): void {
-          const widget: HTMLDivElement = $widget[0] as HTMLDivElement;
-          if (widget !== undefined && DomUtils.isVisible(widget.querySelector(".datepicker"))) {
-            this.hide();
-            fixKey(27);
-          }
-        },
-        "delete": function (): void {
-          if (date.selectionStart < date.value.length) {
-            const selectionStart = date.selectionStart;
-            let selectionEnd = date.selectionEnd;
-
-            if (selectionStart === selectionEnd && selectionStart < date.value.length) {
-              selectionEnd++;
-            }
-            date.value = date.value.substr(0, selectionStart)
-                + date.value.substr(selectionEnd, date.value.length);
-
-            date.selectionEnd = selectionStart;
-            date.selectionStart = selectionStart;
-          }
-        }
-      },
-      widgetParent: ".tobago-page-menuStore"
-    };
-
-    /**
-     * After ESC or ENTER is pressed we need to fire the keyup event manually.
-     * see: https://github.com/tempusdominus/bootstrap-4/issues/159
-     */
-    function fixKey(keyCode): void {
-      let keyupEvent = jQuery.Event("keyup");
-      keyupEvent.which = keyCode;
-      jQuery(date).trigger(keyupEvent);
-    }
-
-    const i18n = date.dataset.tobagoDateTimeI18n ? JSON.parse(date.dataset.tobagoDateTimeI18n) : undefined;
-    if (i18n) {
-      const monthNames = i18n.monthNames;
-      if (monthNames) {
-        moment.localeData()._months = monthNames;
-      }
-      const monthNamesShort = i18n.monthNamesShort;
-      if (monthNamesShort) {
-        moment.localeData()._monthsShort = monthNamesShort;
-      }
-      const dayNames = i18n.dayNames;
-      if (dayNames) {
-        moment.localeData()._weekdays = dayNames;
-      }
-      const dayNamesShort = i18n.dayNamesShort;
-      if (dayNamesShort) {
-        moment.localeData()._weekdaysShort = dayNamesShort;
-      }
-      const dayNamesMin = i18n.dayNamesMin;
-      if (dayNamesMin) {
-        moment.localeData()._weekdaysMin = dayNamesMin;
-      }
-      const firstDay = i18n.firstDay;
-      if (firstDay) {
-        moment.localeData()._week.dow = firstDay;
-      }
-    }
-
-    let $dateParent = jQuery(date).parent(); //use jQuery because required for datetimepicker
-    $dateParent.datetimepicker(options);
-
-    // we need to add the change listener here, because
-    // in line 1307 of bootstrap-datetimepicker.js
-    // the 'stopImmediatePropagation()' stops the change-event
-    // execution of line 686 in tobago.js
-
-    $dateParent.on("dp.change", function (event: Event): void {
-      event.target.dispatchEvent(new Event("change", {bubbles: true}));
-    });
-
-    // set position
-    $dateParent.on("dp.show", function (): void {
-      let datepicker: HTMLDivElement = document.querySelector(".bootstrap-datetimepicker-widget");
-      let div: HTMLDivElement = this;
-      let top, left;
-      if (datepicker.classList.contains("bottom")) {
-        top = DomUtils.offset(div).top + div.offsetHeight;
-        left = DomUtils.offset(div).left;
-        datepicker.style.top = top + "px";
-        datepicker.style.bottom = "auto";
-        datepicker.style.left = left + "px";
-      } else if (datepicker.classList.contains("top")) {
-        top = DomUtils.offset(div).top - datepicker.offsetHeight;
-        left = DomUtils.offset(div).left;
-        datepicker.style.top = top + "px";
-        datepicker.style.bottom = "auto";
-        datepicker.style.left = left + "px";
-      }
-      DateTime.addPastClass(date);
-    });
-
-    // set css class in update - like changing the month
-    $dateParent.on("dp.update", function (): void {
-      DateTime.addPastClass(date);
-    });
-
-    // fix for bootstrap-datetimepicker v4.17.45
-    $dateParent.on("dp.show", function (): void {
-      const collapseIn = document.querySelector(".bootstrap-datetimepicker-widget .collapse.in");
-      const pickerSwitch = document.querySelector(".bootstrap-datetimepicker-widget .picker-switch a");
-
-      if (collapseIn !== null) {
-        collapseIn.classList.add("show");
-      }
-      if (pickerSwitch !== null) {
-        pickerSwitch.addEventListener(
-            "click", function (): void {
-              // the click is executed before togglePicker() function
-              let datetimepicker: HTMLDivElement = document.querySelector(".bootstrap-datetimepicker-widget");
-              datetimepicker.querySelector(".collapse.in").classList.remove("in");
-              datetimepicker.querySelector(".collapse.show").classList.add("in");
-            });
-      }
-    });
-  }
-
-  get inputElement(): HTMLInputElement {
-    return this.querySelector("input") as HTMLInputElement;
+    this.appendChild(vaadinDatePicker);
   }
 
   /*
- Get the pattern from the "Java world" (http://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html)
- and convert it to 'moment.js'.
- Attention: Not every pattern char is supported.
- */
+Get the pattern from the "Java world" (http://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html)
+and convert it to 'moment.js'.
+Attention: Not every pattern char is supported.
+*/
   analyzePattern(): string {
     const originalPattern = this.inputElement.dataset.tobagoPattern;
 
@@ -366,33 +190,61 @@ class DateTime extends HTMLElement {
     return pattern;
   }
 
-}
+  createVaadinI18n(i18n: any): VaadinDatePickerI18n {
 
-// XXX switched off
-document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-date", DateTime);
-});
+    const pattern = this.analyzePattern();
+    const locale = Page.page().locale;
 
-class VaadinDatePicker extends HTMLElement {
+    moment.updateLocale(locale, {
+      months: i18n.monthNames,
+      monthsShort: i18n.monthNamesShort,
+      weekdays: i18n.dayNames,
+      weekdaysShort: i18n.dayNamesShort,
+      weekdaysMin: i18n.dayNamesMin,
+      week: {
+        dow: i18n.firstDay,
+        doy: 7 + i18n.firstDay - i18n.minDays // XXX seems not to be supported by VaadinDatePicker: may file an issue!
+      }
+    });
 
-  constructor() {
-    super();
+    const localeData = moment.localeData(locale);
+    return {
+
+      cancel: i18n.cancel,
+      clear: i18n.clear,
+      firstDayOfWeek: localeData.firstDayOfWeek(),
+      monthNames: localeData.months(),
+      today: i18n.today,
+      week: i18n.week,
+      weekdays: localeData.weekdays(),
+      weekdaysShort: localeData.weekdaysShort(),
+      formatDate: (date: VaadinDate) => {
+        return moment({
+          date: date.day,
+          month: date.month,
+          year: date.year,
+        })
+            .locale(locale!)
+            .format(pattern);
+      },
+      formatTitle: (monthName: string, fullYear: string) => `${monthName} ${fullYear}`,
+      parseDate: (dateString: string) => {
+        const date = moment(dateString, pattern, locale);
+        return {
+          day: date.date(),
+          month: date.month(),
+          year: date.year(),
+        };
+      },
+    };
   }
 
-  connectedCallback(): void {
-    let outer = this.querySelector(".tobago-input-group-outer");
-    let vaadinDatePicker = document.createElement("vaadin-date-picker-light") as HTMLElement;
-    vaadinDatePicker.setAttribute("attr-for-value", "value");
-    // vaadinDatePicker.addEventListener("change", (event) => {
-    //   input.value = vaadinDatePicker.value;
-    // });
-    this.appendChild(vaadinDatePicker);
-    vaadinDatePicker.appendChild(outer);
-    // input.classList.add("d-none");
+  get inputElement(): HTMLInputElement {
+    return this.querySelector(".input") as HTMLInputElement;
   }
 }
 
 // XXX switched on
-// document.addEventListener("DOMContentLoaded", function (event: Event): void {
-//   window.customElements.define("tobago-date", VaadinDatePicker);
-// });
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
+  window.customElements.define("tobago-date", DatePicker);
+});

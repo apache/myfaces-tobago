@@ -43,8 +43,7 @@
           <script name="/webjars/tether/1.4.0/js/tether.min.js"/>
           <script name="/webjars/popper.js/1.14.3/umd/popper.min.js"/>
           <script name="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"/>
-          <script name="/webjars/momentjs/2.22.2/min/moment-with-locales.min.js"/>
-          <script name="/webjars/Eonasdan-bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"/>
+          <script name="/webjars/momentjs/2.24.0/min/moment-with-locales.min.js"/>
 <!--          <script name="/tobago/standard/tobago-bootstrap/${project.version}/node_modules/@babel/polyfill/dist/polyfill.js"/>-->
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-polyfill.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago.min.js"/>
@@ -52,7 +51,6 @@
           <style name="/webjars/tether/1.4.0/css/tether.min.css"/>
           <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/tobago.min.css"/>
           <style name="/webjars/font-awesome/4.7.0/css/font-awesome.min.css"/>
-          <style name="/webjars/Eonasdan-bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"/>
         </includes>
       </resources>
       <resources production="false">
@@ -62,8 +60,7 @@
           <script name="/webjars/tether/1.4.0/js/tether.js"/>
           <script name="/webjars/popper.js/1.14.3/umd/popper.js"/>
           <script name="/webjars/bootstrap/4.3.1/js/bootstrap.js"/>
-          <script name="/webjars/momentjs/2.22.2/min/moment-with-locales.js"/>
-          <script name="/webjars/Eonasdan-bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.js"/>
+          <script name="/webjars/momentjs/2.24.0/min/moment-with-locales.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-myfaces.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-deltaspike.js"/>
 <!--          <script name="/tobago/standard/tobago-bootstrap/${project.version}/node_modules/@babel/polyfill/dist/polyfill.js"/>-->
@@ -101,7 +98,6 @@
           <style name="/webjars/tether/1.4.0/css/tether.css"/>
           <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/tobago.css"/>
           <style name="/webjars/font-awesome/4.7.0/css/font-awesome.css"/>
-          <style name="/webjars/Eonasdan-bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"/>
         </includes>
       </resources>
     </theme-definition>

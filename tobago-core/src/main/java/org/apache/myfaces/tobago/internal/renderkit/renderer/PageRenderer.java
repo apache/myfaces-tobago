@@ -42,6 +42,7 @@ import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -164,9 +165,9 @@ public class PageRenderer extends RendererBase {
     final TobagoClass spread = markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null;
     final String title = page.getLabel();
 
+    final Locale locale = viewRoot.getLocale();
     if (!portlet) {
       writer.startElement(HtmlElements.HTML);
-      final Locale locale = viewRoot.getLocale();
       if (locale != null) {
         final String language = locale.getLanguage();
         if (language != null) {
@@ -236,6 +237,7 @@ public class PageRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.TOBAGO_PAGE);
 
+    writer.writeAttribute(CustomAttributes.LOCALE, locale.toString(), false);
     writer.writeClassAttribute(
         BootstrapClass.CONTAINER_FLUID,
         TobagoClass.PAGE.createMarkup(portlet ? Markup.PORTLET.add(page.getMarkup()) : page.getMarkup()),

@@ -251,6 +251,11 @@ public class JsonUtils {
     encode(builder, "dayNamesShort", dateTimeI18n.getDayNamesShort());
     encode(builder, "dayNamesMin", dateTimeI18n.getDayNamesMin());
     encode(builder, "firstDay", dateTimeI18n.getFirstDay());
+    encode(builder, "minDays", dateTimeI18n.getMinDays());
+    encode(builder, "today", dateTimeI18n.getToday());
+    encode(builder, "cancel", dateTimeI18n.getCancel());
+    encode(builder, "clear", dateTimeI18n.getClear());
+    encode(builder, "week", dateTimeI18n.getWeek());
 
     if (builder.length() - initialLength > 0) {
       assert builder.charAt(builder.length() - 1) == ',';

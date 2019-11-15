@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -137,10 +138,10 @@ public class InRenderer extends MessageLayoutRendererBase {
       writer.writeAttribute(HtmlAttributes.PLACEHOLDER, input.getPlaceholder(), true);
     }
 
-    final TobagoClass rendererCssClass = getRendererCssClass();
+    final CssItem rendererCssClass = getRendererCssClass();
     writer.writeClassAttribute(
         rendererCssClass,
-        rendererCssClass != null ? rendererCssClass.createMarkup(markup) : null,
+//        rendererCssClass != null ? rendererCssClass.createMarkup(markup) : null,
         BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(input)),
         BootstrapClass.FORM_CONTROL,
         input.getCustomClass());
@@ -203,7 +204,7 @@ public class InRenderer extends MessageLayoutRendererBase {
   protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
   }
 
-  protected TobagoClass getRendererCssClass() {
+  protected CssItem getRendererCssClass() {
     return TobagoClass.IN;
   }
 

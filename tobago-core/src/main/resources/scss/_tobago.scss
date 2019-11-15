@@ -231,6 +231,10 @@ tobago-date input {
   margin-left: .3em;
 }
 
+vaadin-date-picker-light {
+  display: block;
+}
+
 /*
 XXX workaround for Bootstrap with datetimepicker needed for popups
 */

@@ -29,8 +29,8 @@
   <hr/>
   Plain light:
 
-  <vaadin-date-picker-light value="" attr-for-value="value" id="v1">
-    <input value="2019-11-11" type="text" id="v2"/>
+  <vaadin-date-picker-light attr-for-value="value" id="v1">
+    <input value="2019-11-11" id="v2" class="input"/>
   </vaadin-date-picker-light>
 
   <hr/>
@@ -39,14 +39,6 @@
   <tc:date value="#{dateController.submitDate}" id="vaadin">
     <f:convertDateTime pattern="yyyy-MM-dd"/>
   </tc:date>
-
-  <hr/>
-  Tobago:
-  <vaadin-date-picker-light>
-    <tc:date value="#{dateController.submitDate}" id="vaadin-light">
-      <f:convertDateTime pattern="yyyy-MM-dd"/>
-    </tc:date>
-  </vaadin-date-picker-light>
 
   <hr/>
 
