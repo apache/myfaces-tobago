@@ -31,7 +31,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "@vaadin/vaadin-date-picker": "^4.0.5"
+    "@vaadin/vaadin-date-picker": "^4.0.5",
+    "@vaadin/vaadin-combo-box": "^5.0.9"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

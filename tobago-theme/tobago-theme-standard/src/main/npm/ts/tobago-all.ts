@@ -23,7 +23,7 @@ import "./tobago-dropdown";
 import "@vaadin/vaadin-date-picker/vaadin-date-picker-light.js";
 // import "@vaadin/vaadin-date-time-picker";
 // import "@vaadin/vaadin-time-picker";
-// import "@vaadin/vaadin-combo-box";
+import "@vaadin/vaadin-combo-box/vaadin-combo-box-light";
 // import "moment"; //XXX moment seems not to work with rollup.js, need to re-check
 import "./tobago-date";
 import "./tobago-command";

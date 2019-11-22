@@ -24,6 +24,4 @@ interface JQuery {
   popover(data?: any, options?: any): JQuery;
 
   modal(data?: any, options?: any): JQuery;
-
-  typeahead(data?: any, options?: any): JQuery;
 }

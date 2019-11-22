@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -121,11 +122,16 @@ public class SuggestRenderer extends RendererBase {
     writer.writeAttribute(CustomAttributes.UPDATE, suggest.isUpdate());
     writer.writeAttribute(CustomAttributes.TOTAL_COUNT, totalCount);
     writer.writeAttribute(CustomAttributes.LOCAL_MENU, suggest.isLocalMenu());
-    writer.writeAttribute(CustomAttributes.DATA, JsonUtils.encode(array), true);
+    writer.writeAttribute(CustomAttributes.ITEMS, JsonUtils.encode(array), true);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("suggest list: {}", JsonUtils.encode(array));
     }
+
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
+    writer.writeAttribute(HtmlAttributes.NAME, clientId, false);
+    writer.endElement(HtmlElements.INPUT);
 
     writer.endElement(HtmlElements.TOBAGO_SUGGEST);
   }
