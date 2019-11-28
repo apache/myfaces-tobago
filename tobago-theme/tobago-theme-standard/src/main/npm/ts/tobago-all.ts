@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
-import "./ext-bootstrap";
 import "./tobago-listener";
 import "./tobago-core";
 import "./tobago-dropdown";
