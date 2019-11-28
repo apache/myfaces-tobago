@@ -527,7 +527,8 @@ a.tobago-messages-button, a.tobago-help-button, a.tobago-popover-button {
 }
 
 .tobago-flexLayout.tobago-messages-container > {
-  .twitter-typeahead, .tobago-input-group-outer, .tobago-selectManyShuttle {
+  /* TODO: maybe add here some stuff for vaadin-combo-box-light for tc:tobago-suggest */
+  .tobago-input-group-outer, .tobago-selectManyShuttle {
     flex: 1 0 0px;
   }
 }

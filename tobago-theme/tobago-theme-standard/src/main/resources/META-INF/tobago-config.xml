@@ -46,7 +46,6 @@
 <!--          <script name="/tobago/standard/tobago-bootstrap/${project.version}/node_modules/@babel/polyfill/dist/polyfill.js"/>-->
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-polyfill.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago.min.js"/>
-          <script name="/tobago/pack/typeahead/0.11.1-patched-with-1212/typeahead.min.js"/>
           <style name="/webjars/tether/1.4.0/css/tether.min.css"/>
           <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/tobago.min.css"/>
           <style name="/webjars/font-awesome/4.7.0/css/font-awesome.min.css"/>
@@ -92,7 +91,6 @@
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-tree-listbox.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-utils.js"/>
 -->
-          <script name="/tobago/pack/typeahead/0.11.1-patched-with-1212/typeahead.js"/>
           <style name="/webjars/tether/1.4.0/css/tether.css"/>
           <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/tobago.css"/>
           <style name="/webjars/font-awesome/4.7.0/css/font-awesome.css"/>
