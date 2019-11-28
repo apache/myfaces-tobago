@@ -918,9 +918,6 @@
               <!-- This file is created during a release and needs no licensing text -->
               <exclude>DEPENDENCIES</exclude>
 
-              <!-- typeahead -->
-              <exclude>**/typeahead.*</exclude>
-
               <!-- js-min-map -->
               <exclude>**/*.map</exclude>
 

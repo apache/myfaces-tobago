@@ -31,7 +31,6 @@
     <module>tobago-config-mojarra</module>
     <module>tobago-config-myfaces</module>
     <module>tobago-config-owb</module>
-    <module>tobago-pack-typeahead</module>
     <module>tobago-tool-apt</module>
     <module>tobago-tool-annotation</module>
     <module>tobago-tool-test</module>

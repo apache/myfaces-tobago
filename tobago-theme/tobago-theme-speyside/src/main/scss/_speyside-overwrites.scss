@@ -872,16 +872,6 @@ li:last-child {
   min-height: 26px;
 }
 
-// fix tobago-suggest
-.twitter-typeahead {
-  width: 100%;
-  display: inherit !important;
-}
-
-.tobago-sheet-cell > .twitter-typeahead {
-  display: block !important;
-}
-
 .tobago-section-header {
   border-bottom: 1px solid rgba(1, 1, 1, 0.05);
   margin-bottom: .5rem;
