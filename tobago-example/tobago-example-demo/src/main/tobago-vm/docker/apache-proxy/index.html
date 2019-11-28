@@ -4,8 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Tobago Demo</title>
-  <link href="bootstrap-4.3.1.min.css" rel="stylesheet">
-  <script src="jquery-1.11.3.js"></script>
+  <link href="bootstrap-4.4.0.min.css" rel="stylesheet">
   <style>
     div.disabled {
       opacity: 0.3;
@@ -18,7 +17,7 @@
   </style>
   <script>
 
-    jQuery(document).ready(function () {
+    document.addEventListener("DOMContentLoaded", function (event) {
 
       //
       // EDIT HERE (START)
@@ -80,50 +79,50 @@
       // EDIT HERE (END)
       //
 
-      var template = jQuery("#template");
+      var template = document.getElementById("template");
 
-      for (var v = versions.length - 1; v >= 0; v--) {
+      for (var v = 0; v < versions.length; v++) {
         var version = versions[v];
-        var clone = template.clone();
+        var clone = template.cloneNode(true);
 
-        clone.removeClass("d-none");
+        clone.classList.remove("d-none");
+        template.parentNode.insertBefore(clone, template);
 
-        clone.find(".x-title").append(version.major);
-        clone.find(".x-release-version").append(version.release);
-        clone.find(".x-staging-version").prepend(version.staging + " ");
-        clone.find(".x-snapshot-version").append(version.snapshot);
+        clone.querySelector(".x-title").append(version.major);
+        clone.querySelector(".x-release-version").append(version.release);
+        clone.querySelector(".x-staging-version").prepend(version.staging + " ");
+        clone.querySelector(".x-snapshot-version").append(version.snapshot);
 
         if (version.release) {
-          clone.find(".x-release-off").get(0).setAttribute("style", "display:none !important");
+          clone.querySelector(".x-release-off").classList.remove("d-md-flex");
         } else {
-          clone.find(".x-release-on").get(0).setAttribute("style", "display:none !important");
+          clone.querySelector(".x-release-on").classList.add("d-none");
         }
 
         if (version.staging) {
-          clone.find(".x-staging-off").get(0).setAttribute("style", "display:none !important");
+          clone.querySelector(".x-staging-off").classList.remove("d-md-flex");
         } else {
-          clone.find(".x-staging-on").get(0).setAttribute("style", "display:none !important");
+          clone.querySelector(".x-staging-on").classList.add("d-none");
         }
 
         if (version.snapshot) {
-          clone.find(".x-snapshot-off").get(0).setAttribute("style", "display:none !important");
+          clone.querySelector(".x-snapshot-off").classList.remove("d-md-flex");
         } else {
-          clone.find(".x-snapshot-on").get(0).setAttribute("style", "display:none !important");
+          clone.querySelector(".x-snapshot-on").classList.add("d-none");
         }
 
-        clone.find(".x-release-link").attr("href", "/demo-" + version.link + "-release/");
-        clone.find(".x-staging-link").attr("href", "/demo-" + version.link + "-staging/");
-        clone.find(".x-snapshot-link").attr("href", "/demo-" + version.link + "-snapshot/");
+        clone.querySelector(".x-release-link").setAttribute("href", "/demo-" + version.link + "-release/");
+        clone.querySelector(".x-staging-link").setAttribute("href", "/demo-" + version.link + "-staging/");
+        clone.querySelector(".x-snapshot-link").setAttribute("href", "/demo-" + version.link + "-snapshot/");
 
         if (version.archived) {
-          clone.find(".btn-success").removeClass("btn-success").addClass("btn-secondary");
-          clone.find(".x-release-version").append(" (archived)");
+          const buttonClassList = clone.querySelector(".btn-success").classList;
+          buttonClassList.remove("btn-success");
+          buttonClassList.add("btn-secondary");
+          clone.querySelector(".x-release-version").append(" (archived)");
         }
 
-        clone.insertAfter(template);
       }
-
-      template.hide();
 
     });
   </script>
@@ -205,7 +204,7 @@
 
 <footer class="bd-footer text-muted">
   <div class="container-fluid p-3 p-md-5">
-    <p>© 2005-2018 Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">
+    <p>© 2005-2019 Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">
       Apache License, Version 2.0</a>.</p>
   </div>
 </footer>
