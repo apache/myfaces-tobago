@@ -60,6 +60,7 @@ public class ResourceManagerImpl implements ResourceManager {
   public static final String[] EXT_JSP= new String[]{".jsp"};
   public static final String[] EXT_JSPX= new String[]{".jspx"};
   public static final String[] EXT_XHTML= new String[]{".xhtml"};
+  public static final String[] EXT_SVG= new String[]{".svg"};
 
   private boolean production;
 
@@ -97,6 +98,7 @@ public class ResourceManagerImpl implements ResourceManager {
     extensionCache.put(".jsp", EXT_JSP);
     extensionCache.put(".jspx", EXT_JSPX);
     extensionCache.put(".xhtml", EXT_XHTML);
+    extensionCache.put(".svg", EXT_SVG);
   }
 
   public void add(final String resourceKey) {
