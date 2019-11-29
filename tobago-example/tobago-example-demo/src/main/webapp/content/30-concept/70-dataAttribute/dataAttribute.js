@@ -15,55 +15,25 @@
  * limitations under the License.
  */
 
-/*
- jQuery(function () {
- jQuery("[data-colored]")
- .css("background-color", "#aaaaaa")
- .click(function () {
- jQuery(this).css("background-color", jQuery(this).data("colored"));
- })
- .dblclick(function () {
- jQuery(this).css("background-color", "#aaaaaa");
- });
- });
- */
+class ColoredDemo {
 
-(function ($) {
-
-    $.widget("demo.colored", {
-
-        options: {
-            resetColor: "#aaaaaa"
-        },
-
-        _create: function () {
-            this.element.css("background-color", this.options.resetColor);
-            this._on({
-                click: function (event) {
-                    this.element.css("background-color", this.element.data("color"));
-                },
-                dblclick: function (event) {
-                    this.element.css("background-color", this.options.resetColor);
-                }
-            });
-        },
-
-        _setOption: function (key, value) {
-            switch (key) {
-                case "resetColor":
-                    this.options.resetColor = value;
-                    break;
-            }
-            this._super("_setOption", key, value);
-        },
-
-        _destroy: function () {
-        }
-
+  static init() {
+    document.querySelectorAll("[data-color]").forEach((element) => {
+      element.addEventListener("click",
+          function (event) {
+            const area = event.currentTarget;
+            area.style.backgroundColor = area.dataset.color;
+          });
+      element.addEventListener("dblclick",
+          function (event) {
+            const area = event.currentTarget;
+            area.style.backgroundColor = "#aaaaaa";
+          });
     });
+  }
+}
 
-}(jQuery));
-
-Listener.register(function() {
-    jQuery("[data-color]").colored({resetColor: "#f8f8f8"});
-}, Phase.DOCUMENT_READY);
+document.addEventListener("DOMContentLoaded", ColoredDemo.init);
+// todo: ajax
+// Listener.register(ColoredDemo.init, Phase.DOCUMENT_READY);
+// Listener.register(ColoredDemo.init, Phase.AFTER_UPDATE);

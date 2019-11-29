@@ -15,56 +15,26 @@
  * limitations under the License.
  */
 
-(function ($) {
-
-
-  $.widget("demo.maps", {
-
-    options: {
-      position: { // tobago
-        x: -60.687103,
-        y: 11.249123
-      },
-      zoom: 0.2
-    },
-
-    _create: function () {
-      this._on({
-        click: function (event) {
-          var position = this.element.data("maps-position");
-          if (position === null) {
-            position = this.options.position;
-          }
-          var zoom = this.element.data("maps-zoom");
-          if (zoom === null) {
-            zoom = this.options.zoom;
-          }
-          var target = this.element.data("maps-target");
-          var url = 'https://www.openstreetmap.org/export/embed.html?bbox='
+class MapDemo {
+  static init() {
+    document.querySelectorAll("[data-maps-target]").forEach((element) => element.addEventListener("click",
+        function (event) {
+          const button = event.currentTarget;
+          const targetId = button.dataset.mapsTarget;
+          const position = JSON.parse(button.dataset.mapsPosition);
+          const zoom = JSON.parse(button.dataset.mapsZoom);
+          const url = 'https://www.openstreetmap.org/export/embed.html?bbox='
               + (position.x - zoom) + ','
               + (position.y - zoom) + ','
               + (position.x + zoom) + ','
               + (position.y + zoom);
-          jQuery(DomUtils.escapeClientId(target)).attr('src', url);
-        }
-      });
-    },
+          document.getElementById(targetId).setAttribute("src", url);
+          event.preventDefault();
+        }));
+  }
+}
 
-    _setOption: function (key, value) {
-    },
-
-    _destroy: function () {
-    }
-
-  });
-
-}(jQuery));
-
-var initMaps = function () {
-  jQuery("[data-maps-target]")
-      .maps()
-      .first()
-      .click();
-};
-
-Listener.register(initMaps, Phase.DOCUMENT_READY);
+document.addEventListener("DOMContentLoaded", MapDemo.init);
+// todo: ajax
+Listener.register(MapDemo.init, Phase.DOCUMENT_READY);
+Listener.register(MapDemo.init, Phase.AFTER_UPDATE);

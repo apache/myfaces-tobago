@@ -15,30 +15,24 @@
  * limitations under the License.
  */
 
-/**
- * Copies the values from the data-login attribute to the username/password fields.
- */
-Demo.prepareQuickLinks = function () {
-  jQuery("button[data-login]").click(function () {
-    var link = jQuery(this);
-    var login = link.data("login");
-    jQuery(DomUtils.escapeClientId("page:mainForm:username::field")).val(login.username);
-    jQuery(DomUtils.escapeClientId("page:mainForm:password::field")).val(login.password);
-    return false;
-  });
-};
+class LoginDemo {
 
-Listener.register(Demo.prepareQuickLinks, Phase.DOCUMENT_READY);
+  /**
+   * Copies the values from the data-login attribute to the username/password fields.
+   */
+  static initQuickLinks() {
+    document.querySelectorAll("button[data-login]").forEach((element) => element.addEventListener("click",
+        function (event) {
+          const link = event.currentTarget;
+          const login = JSON.parse(link.dataset.login);
+          document.getElementById("page:mainForm:username::field").value = login.username;
+          document.getElementById("page:mainForm:password::field").value = login.password;
+          event.preventDefault();
+        }));
+  };
+}
 
-/**
- * This code is needed to "repair" the submit parameter names and url to use
- * the names that a required for servlet authentication.
- */
-Demo.prepareLoginForm = function() {
-  jQuery(DomUtils.escapeClientId("page:mainForm:username::field")).attr("name", "j_username");
-  jQuery(DomUtils.escapeClientId("page:mainForm:password::field")).attr("name", "j_password");
-  var contextPath = jQuery(DomUtils.escapeClientId("page:mainForm:login")).data("context-path");
-  jQuery(DomUtils.escapeClientId("page::form")).attr("action", contextPath + "/j_security_check");
-};
-
-// XXX turned off in the moment Tobago5.Listener.register(Demo.prepareLoginForm, Tobago5.Phase.DOCUMENT_READY);
+document.addEventListener("DOMContentLoaded", LoginDemo.initQuickLinks);
+// todo: ajax
+// Listener.register(LoginDemo.initQuickLinks, Phase.DOCUMENT_READY);
+// Listener.register(LoginDemo.initQuickLinks, Phase.AFTER_UPDATE);
