@@ -43,7 +43,7 @@
     "ajv-keywords": "^3.4.0",
     "autoprefixer": "^9.5.1",
     "babel-jest": "^24.8.0",
-    "bootstrap": "4.4.0",
+    "bootstrap": "4.4.1",
     "core-js": "3.1.2",
     "clean-css-cli": "^4.3.0",
     "eslint": "^5.16.0",
