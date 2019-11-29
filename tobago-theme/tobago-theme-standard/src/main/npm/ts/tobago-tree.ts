@@ -42,6 +42,22 @@ export class Tree extends HTMLElement {
     this.hiddenInputSelected.value = JSON.stringify(Array.from(selectedNodes));
   }
 
+  getSelectedNodes(): NodeListOf<TreeNode> {
+    let queryString: string = "";
+    for (const selectedNodeIndex of JSON.parse(this.hiddenInputSelected.value)) {
+      if (queryString.length > 0) {
+        queryString += ", ";
+      }
+      queryString += "tobago-tree-node[index='" + selectedNodeIndex + "']";
+    }
+
+    if(queryString.length > 0) {
+      return this.querySelectorAll(queryString) as NodeListOf<TreeNode>;
+    } else {
+      return null;
+    }
+  }
+
   deleteSelectedNode(selectedNode: number): void {
     const selectedNodes = new Set(JSON.parse(this.hiddenInputSelected.value));
     selectedNodes.delete(selectedNode);
@@ -181,7 +197,6 @@ export class TreeNode extends HTMLElement {
             this.id,
             event,
             {
-              //"javax.faces.behavior.event": "click",
               execute: this.tree.id,
               render: this.tree.id
             });
@@ -226,10 +241,6 @@ export class TreeSelect extends HTMLElement {
 
   connectedCallback(): void {
     this.input.addEventListener("change", this.select.bind(this));
-
-    if (this.tree.selectable === Selectable.multiCascade) {
-      this.input.addEventListener("change", this.selectChildren.bind(this));
-    }
   }
 
   get tree(): Tree {
@@ -238,6 +249,18 @@ export class TreeSelect extends HTMLElement {
 
   get treeNode(): TreeNode {
     return this.closest("tobago-tree-node") as TreeNode;
+  }
+
+  get treeSelectChildren(): NodeListOf<TreeSelect> {
+    let treeNodeId: string = this.treeNode.id;
+    if (this.tree.isSheet) {
+      return this.closest("tbody")
+          .querySelectorAll("tobago-tree-node[parent='" + treeNodeId + "'] tobago-tree-select");
+    } else {
+      let treeNode = this.closest("tobago-tree-node");
+      return treeNode.parentElement
+          .querySelectorAll("tobago-tree-node[parent='" + treeNode.id + "'] tobago-tree-select");
+    }
   }
 
   get input(): HTMLInputElement {
@@ -256,22 +279,35 @@ export class TreeSelect extends HTMLElement {
         } else {
           this.tree.deleteSelectedNode(this.treeNode.index);
         }
+
+        if (this.tree.selectable === Selectable.multiCascade) {
+          let treeNodeIds = [];
+          this.selectChildren(this.treeSelectChildren, this.input.checked, treeNodeIds);
+
+          /*if (treeNodeIds.length > 0) {
+            for (const id of treeNodeIds) {
+              let ts: TreeSelect = document.getElementById(id).querySelector("tobago-tree-select") as TreeSelect;
+              ts.input.dispatchEvent(new Event("change", {bubbles: false}));
+            }
+          }*/
+        }
         break;
     }
   }
 
-  selectChildren(event: Event): void {
-    for (const treeChildNode of this.treeNode.treeChildNodes) {
-      const child: TreeSelect = treeChildNode.querySelector(":scope > tobago-tree-select");
-      child.input.checked = this.input.checked;
-
-      if (this.input.checked) {
-        this.tree.addSelectedNode(child.treeNode.index);
+  selectChildren(treeSelectChildren: NodeListOf<TreeSelect>, checked: boolean, treeNodeIds: Array<string>): void {
+    for (const treeSelect of treeSelectChildren) {
+      if (treeSelect.input.checked !== checked) {
+        treeSelect.input.checked = checked;
+        treeNodeIds.push(treeSelect.treeNode.id);
+      }
+      if (checked) {
+        this.tree.addSelectedNode(treeSelect.treeNode.index);
       } else {
-        this.tree.deleteSelectedNode(child.treeNode.index);
+        this.tree.deleteSelectedNode(treeSelect.treeNode.index);
       }
 
-      child.input.dispatchEvent(new Event("change", {bubbles: true}));
+      this.selectChildren(treeSelect.treeSelectChildren, checked, treeNodeIds);
     }
   }
 }

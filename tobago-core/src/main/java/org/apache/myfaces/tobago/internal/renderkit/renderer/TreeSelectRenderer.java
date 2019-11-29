@@ -138,6 +138,7 @@ public class TreeSelectRenderer extends RendererBase {
       final CommandMap behaviorCommands = getBehaviorCommands(facesContext, treeSelect);
       Command change = behaviorCommands.getOther().get(ClientBehaviors.change);
       change.setExecute(change.getExecute() + " " + tree.getClientId(facesContext));
+      change.setRender(change.getRender() + " " + tree.getClientId(facesContext));
       encodeBehavior(writer, behaviorCommands);
     }
 
