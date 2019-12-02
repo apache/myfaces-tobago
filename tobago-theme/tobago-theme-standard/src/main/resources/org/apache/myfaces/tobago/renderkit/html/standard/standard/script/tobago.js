@@ -2080,7 +2080,7 @@ Tobago.Updater = {
       if (!Tobago.Transport.ajaxTransport.request(requestOptions)) {
         console.error('Page was already submitted, request not queued!'); // @DEV_ONLY
       } else {
-        if (requestOptions.createOverlay) {
+        if (requestOptions.createOverlay && (options.transition === undefined || options.transition === true)) {
           var ids = Tobago.parsePartialIds(ajaxComponentIds);
           for (i = 0; i < ids.length; i++) {
             var id = ids[i];
