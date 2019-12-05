@@ -185,12 +185,12 @@ export class Popup extends HTMLElement {
     // this._setEscapeEvent();
     // this._setResizeEvent();
 
-    $(document).off(Event.FOCUSIN);
+    // $(document).off(Event.FOCUSIN);
 
     this.classList.remove(ClassName.SHOW);
 
     this.removeEventListener(Event.CLICK_DISMISS, this._clickDismiss);
-    $(this._dialog).off(Event.MOUSEDOWN_DISMISS);
+    // $(this._dialog).off(Event.MOUSEDOWN_DISMISS);
 
     // if (transition) {
     //   const transitionDuration = this.getTransitionDuration();
@@ -267,7 +267,7 @@ export class Popup extends HTMLElement {
     this.removeAttribute("aria-hidden");
     this.setAttribute("aria-modal", "true");
 
-    if ($(this._dialog).hasClass(ClassName.SCROLLABLE) && modalBody) {
+    if (this._dialog.classList.contains(ClassName.SCROLLABLE) && modalBody) {
       modalBody.scrollTop = 0;
     } else {
       this.scrollTop = 0;
