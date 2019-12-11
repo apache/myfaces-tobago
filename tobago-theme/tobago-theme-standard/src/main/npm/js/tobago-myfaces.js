@@ -5991,14 +5991,9 @@ _MF_SINGLTN(_PFX_XHR + "_AjaxResponse", _MF_OBJECT, /** @lends myfaces._impl.xhr
 
 // begin TOBAGO-JSF-JS
 // XXX hack
-                                    if (node.id === document.getElementsByTagName("tobago-page")[0].id) {
-                                        // newDoc = document.open("text/html", "replace");
-                                        // newDoc.write(cDataBlock);
-                                        // newDoc.close();
-                                        //change only the body, because change the head doesn't work with CSP
-                                        var newPage = jQuery(cDataBlock).filter("tobago-page");
-                                        jQuery("tobago-page").replaceWith(newPage);
-                                        // XXX remove jQuery
+                                    const oldPage = document.querySelector("tobago-page");
+                                    if (node.id === oldPage.id) {
+                                        oldPage.parentNode.innerHTML = cDataBlock;
                                         resultNode = document.documentElement;
                                     } else {
                                         resultNode = this.replaceHtmlItem(request, context, node.getAttribute('id'), cDataBlock);
