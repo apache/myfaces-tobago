@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM debian:stable-slim
+FROM debian:buster-slim
 
 RUN apt-get update \
  && apt-get upgrade -y \

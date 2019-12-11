@@ -76,6 +76,8 @@ services:
       - CONTEXT_PATH=demo-5-snapshot
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
+    ports:
+      - "8502:8080"
   demo-4-release:
     build: tomcat
     environment:
@@ -83,6 +85,8 @@ services:
       - CONTEXT_PATH=demo-4-release
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
+    ports:
+      - "8400:8080"
   demo-4-staging:
     build: tomcat
     environment:
@@ -91,6 +95,8 @@ services:
       - CONTEXT_PATH=demo-4-staging
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
+    ports:
+      - "8401:8080"
   demo-4-snapshot:
     build: tomcat
     environment:
@@ -98,6 +104,8 @@ services:
       - CONTEXT_PATH=demo-4-snapshot
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
+    ports:
+      - "8402:8080"
   demo-3-release:
     build: tomcat
     environment:
@@ -105,6 +113,8 @@ services:
       - CONTEXT_PATH=demo-3-release
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
+    ports:
+      - "8300:8080"
   demo-2-release:
     build: tomcat
     environment:
@@ -112,6 +122,8 @@ services:
       - CONTEXT_PATH=demo-2-release
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
+    ports:
+      - "8200:8080"
   demo-2-staging:
     build: tomcat
     environment:
@@ -120,6 +132,8 @@ services:
       - CONTEXT_PATH=demo-2-staging
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
+    ports:
+      - "8201:8080"
   demo-2-snapshot:
     build: tomcat
     environment:
@@ -127,6 +141,8 @@ services:
       - CONTEXT_PATH=demo-2-snapshot
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
+    ports:
+      - "8202:8080"
   demo-1-5-release:
     build: tomcat
     environment:
@@ -134,6 +150,8 @@ services:
       - CONTEXT_PATH=demo-1-5-release
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
+    ports:
+      - "8150:8080"
   demo-1-0-release:
     build: tomcat
     environment:
@@ -141,3 +159,5 @@ services:
       - CONTEXT_PATH=demo-1-0-release
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
+    ports:
+      - "8100:8080"
