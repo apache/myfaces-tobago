@@ -83,6 +83,7 @@
                   <directory>src/main/npm</directory>
                   <includes>
                     <include>js/*.js</include>
+                    <include>js/*.js.map</include>
                     <include>ts/*.ts</include>
                     <include>jest.config.js</include>
                     <include>package.json</include>
