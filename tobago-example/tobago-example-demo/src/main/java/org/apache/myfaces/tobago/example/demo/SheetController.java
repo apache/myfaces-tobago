@@ -84,7 +84,7 @@ public class SheetController implements Serializable {
     solarList = astroData.findAll().collect(Collectors.toList());
 
     hugeSolarList = new ArrayList<>();
-    for (int i = 1; i <= 12; i++) {
+    for (int i = 1; i <= 1000; i++) {
       for (final SolarObject solarObject : solarList) {
         final SolarObject solarObjectClone = new SolarObject(solarObject);
         solarObjectClone.setName(solarObject.getName() + " (" + i + ". entry)");

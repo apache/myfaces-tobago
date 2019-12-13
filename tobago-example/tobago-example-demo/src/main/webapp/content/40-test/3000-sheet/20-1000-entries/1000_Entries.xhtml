@@ -17,13 +17,14 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/main.xhtml"
+<ui:composition template="/plain.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
   <tc:sheet value="#{sheetController.hugeSolarList}" id="sheet" var="luminary"
-            rows="10" markup="small" >
+            rows="1000" markup="small" >
+    <tc:style maxHeight="600px"/>
     <tc:column label="Name">
       <tc:out value="#{luminary.name}" labelLayout="skip"/>
     </tc:column>
