@@ -68,9 +68,9 @@ export class Jsf {
             console.debug("[tobago-jsf] Found reload-JSON in response!");
             ReloadManager.instance.schedule(id, JSON.parse(result[1]).reload.frequency);
           } else {
-            console.info("[tobago-jsf] Update after jsf.ajax success: #" + id);
+            console.info("[tobago-jsf] Update after jsf.ajax success: %s", id);
             if (Jsf.isId(id)) {
-              console.debug("[tobago-jsf] updating id: " + id);
+              console.debug("[tobago-jsf] updating #" + id);
               Listener.executeAfterUpdate(document.getElementById(id));
             } else if (Jsf.isBody(id)) {
               console.debug("[tobago-jsf] updating body");
