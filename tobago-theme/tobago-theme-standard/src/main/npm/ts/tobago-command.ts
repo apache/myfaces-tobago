@@ -187,6 +187,21 @@ class Behavior extends HTMLElement {
       return this.parentElement;
     }
   }
+
+  /* XXX todo:
+    get element(): HTMLElement {
+      let e = this.parentElement;
+      // XXX special case, using the row, but <tobago-behavior> can't be a child of <tr>
+      while (e.matches("td.tobago-sheet-cell-markup-filler")
+      // XXX fix position of <tobago-behavior> inside of input-group
+      || e.matches(".input-group")
+      || e.matches(".tobago-input-group-outer")) {
+        e = e.parentElement;
+      }
+      return e;
+    }
+  */
+
 }
 
 document.addEventListener("DOMContentLoaded", function (event: Event): void {
