@@ -34,6 +34,12 @@
 
   <logger name="org.apache.myfaces.tobago.example.demo" level="debug"/>
 
+  <!-- Note: The DebugPhaseListener is not activated by default. -->
+  <logger name="org.apache.myfaces.tobago.util.DebugPhaseListener" level="trace"/>
+
+  <!-- Note: Enabled for showing session secret fails, might be useful to find nasty things. -->
+  <logger name="org.apache.myfaces.tobago.lifecycle.SecretPhaseListener" level="debug"/>
+
   <root level="info">
     <appender-ref ref="console" />
   </root>
