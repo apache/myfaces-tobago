@@ -74,7 +74,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-// currently using tobago-myfaces.js instead
+// using jsf.js from a specific MyFaces version instead, to avoid old bugs
 //@ResourceDependency(name="jsf.js", library="javax.faces", target="head")
 public class PageRenderer extends RendererBase {
 
@@ -391,7 +391,7 @@ public class PageRenderer extends RendererBase {
             if ("javax.faces".equals(attributes.get("library"))
                 && "jsf.js".equals(attributes.get("name"))) {
               // workaround for WebSphere
-              // We don't need jsf.js from the JSF impl, because Tobago comes with its own tobago-myfaces.js
+              // We don't need jsf.js from the JSF impl, because Tobago comes with its own jsf.js
               if (LOG.isDebugEnabled()) {
                 LOG.debug("Skip rendering resource jsf.js");
               }

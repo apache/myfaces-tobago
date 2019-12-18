@@ -152,6 +152,8 @@
                     <include>ts/ext*.ts</include>
                     <include>js/tobago*.js</include>
                     <include>js/tobago*.js.map</include>
+                    <include>js/jsf*.js</include>
+                    <include>js/jsf*.js.map</include>
                     <include>ts/tobago*.ts</include>
                     <include>ts/test.ts</include>
                     <!-- todo: check a better way for polyfill -->

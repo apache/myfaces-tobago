@@ -43,6 +43,7 @@
           <script name="/webjars/tether/1.4.0/js/tether.min.js"/>
           <script name="/webjars/popper.js/1.14.3/umd/popper.min.js"/>
           <script name="/webjars/momentjs/2.24.0/min/moment-with-locales.min.js"/>
+          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/jsf.js"/>
 <!--          <script name="/tobago/standard/tobago-bootstrap/${project.version}/node_modules/@babel/polyfill/dist/polyfill.js"/>-->
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-polyfill.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago.min.js"/>
@@ -58,7 +59,7 @@
           <script name="/webjars/tether/1.4.0/js/tether.js"/>
           <script name="/webjars/popper.js/1.14.3/umd/popper.js"/>
           <script name="/webjars/momentjs/2.24.0/min/moment-with-locales.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-myfaces.js"/>
+          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/jsf-development.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-deltaspike.js"/>
 <!--          <script name="/tobago/standard/tobago-bootstrap/${project.version}/node_modules/@babel/polyfill/dist/polyfill.js"/>-->
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-polyfill.js"/>
