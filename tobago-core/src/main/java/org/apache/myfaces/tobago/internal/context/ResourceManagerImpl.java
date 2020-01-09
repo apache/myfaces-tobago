@@ -56,7 +56,7 @@ public class ResourceManagerImpl implements ResourceManager {
   public static final String[] EXT_PNG = new String[]{".png"};
   public static final String[] EXT_JPG = new String[]{".jpg"};
   public static final String[] EXT_ICO = new String[]{".ico"};
-  public static final String[] EXT_IMAGES = new String[]{".png", ".gif", ".jpg"};
+  public static final String[] EXT_IMAGES = new String[]{".svg", ".png", ".gif", ".jpg"};
   public static final String[] EXT_JSP= new String[]{".jsp"};
   public static final String[] EXT_JSPX= new String[]{".jspx"};
   public static final String[] EXT_XHTML= new String[]{".xhtml"};
