@@ -20,7 +20,9 @@
 package org.apache.myfaces.tobago.model;
 
 
-public class AutoSuggestExtensionItem {
+import java.io.Serializable;
+
+public class AutoSuggestExtensionItem implements Serializable {
   private String id;
   private String value;
 

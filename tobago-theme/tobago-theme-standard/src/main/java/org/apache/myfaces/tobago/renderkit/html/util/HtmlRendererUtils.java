@@ -949,11 +949,15 @@ public final class HtmlRendererUtils {
     for (final Map.Entry<Object, Object> entry : dataAttributes.entrySet()) {
       final Object mapKey = entry.getKey();
       final String name = mapKey instanceof ValueExpression
-          ? ((ValueExpression) mapKey).getValue(elContext).toString() : mapKey.toString();
-      final Object mapValue = entry.getValue();
-      final String value = mapValue instanceof ValueExpression
-          ? ((ValueExpression) mapValue).getValue(elContext).toString() : mapValue.toString();
-      writer.writeAttribute("data-" + name, value, true);
+          ? ((ValueExpression) mapKey).getValue(elContext).toString()
+          : mapKey.toString();
+      Object mapValue = entry.getValue();
+      mapValue = mapValue instanceof ValueExpression ? ((ValueExpression) mapValue).getValue(elContext) : mapValue;
+      if (mapValue == null) {
+        throw new NullPointerException("Data attribute value of " + name + " is null on component "
+            + component.getClass().getName() + " [" + component.getClientId(context) + "]");
+      }
+      writer.writeAttribute("data-" + name, mapValue.toString(), true);
     }
   }
 }

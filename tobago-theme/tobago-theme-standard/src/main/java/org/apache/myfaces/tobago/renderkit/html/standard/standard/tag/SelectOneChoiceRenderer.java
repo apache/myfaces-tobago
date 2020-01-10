@@ -19,23 +19,24 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.apache.myfaces.tobago.component.UISelectOneChoice;
-import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUISuggest;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.html.Select2Options;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
+import org.apache.myfaces.tobago.renderkit.html.Select2Options;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.SelectItemUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -68,14 +69,20 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
 
     final UISelectOneChoice select = (UISelectOneChoice) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    AbstractUISuggest suggest = (AbstractUISuggest) select.getSuggest();
 
     final String id = select.getClientId(facesContext);
     final Iterable<SelectItem> items = SelectItemUtils.getItemIterator(facesContext, select);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
-    final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || select.isReadonly();
+    final boolean disabled = !(suggest != null || select.isAllowCustom() || items.iterator().hasNext())
+        || select.isDisabled()
+        || select.isReadonly();
     final Style style = new Style(facesContext, select);
     final Select2Options select2Options = Select2Options.of(select);
     final boolean renderAsSelect2 = select2Options.hasAnyOption();
+    if (suggest != null) {
+      select2Options.setMinimumInputLength(suggest.getMinimumCharacters());
+    }
 
     if (renderAsSelect2) {
       String json = select2Options.toJson();
@@ -107,6 +114,10 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     if (onchange != null) {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, true);
     }
+    if (suggest != null) {
+      writer.writeAttribute(DataAttributes.SUGGEST_ID, suggest.getClientId(facesContext), false);
+    }
+
     HtmlRendererUtils.renderCommandFacet(select, facesContext , writer);
     HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
     if (renderAsSelect2 && select.getPlaceholder() != null && select.getPlaceholder().length() > 0) {

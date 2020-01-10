@@ -2,6 +2,7 @@ package org.apache.myfaces.tobago.internal.taglib.declaration;
 
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.internal.component.AbstractUISuggest;
 
 public interface Select2 {
 

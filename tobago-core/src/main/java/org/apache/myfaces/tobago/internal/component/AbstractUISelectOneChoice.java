@@ -19,7 +19,19 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-public abstract class AbstractUISelectOneChoice extends AbstractUISelectOneBase {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.apache.myfaces.tobago.internal.util.UISelect2ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
+
+import javax.faces.component.StateHelper;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
+
+public abstract class AbstractUISelectOneChoice extends AbstractUISelectOneBase implements UISelect2Component {
+
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractUISelectOneChoice.class);
 
   enum Select2Keys {
     allowClear,
@@ -36,9 +48,30 @@ public abstract class AbstractUISelectOneChoice extends AbstractUISelectOneBase 
     tokenSeparators
   }
 
+  public AbstractUISuggest getSuggest() {
+    return ComponentUtils.findDescendant(this, AbstractUISuggest.class);
+  }
 
+  @Override
+  protected void validateValue(FacesContext facesContext, Object value) {
+    UISelect2ComponentUtil.ensureCustomItemsContainer(facesContext, this);
+    super.validateValue(facesContext, UISelect2ComponentUtil.ensureCustomValue(facesContext, this, value));
+  }
 
+  @Override
+  public Object getValue() {
+    return UISelect2ComponentUtil.ensureCustomValue(FacesContext.getCurrentInstance(), this, super.getValue());
+  }
 
+  @Override
+  public void encodeChildren(FacesContext facesContext) throws IOException {
+    UISelect2ComponentUtil.ensureCustomItemsContainer(facesContext, this);
+    super.encodeChildren(facesContext);
+  }
+
+  public StateHelper getComponentStateHelper() {
+    return getStateHelper();
+  }
 
   public boolean isAllowClear() {
     Boolean allowClear = (Boolean) getStateHelper().eval(Select2Keys.allowClear);

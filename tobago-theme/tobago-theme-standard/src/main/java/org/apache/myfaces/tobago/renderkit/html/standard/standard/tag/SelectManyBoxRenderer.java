@@ -19,13 +19,17 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.apache.myfaces.tobago.component.UISelectManyBox;
-import org.apache.myfaces.tobago.component.UISelectManyListbox;
+import org.apache.myfaces.tobago.internal.component.AbstractUISuggest;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.Select2Options;
@@ -38,9 +42,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class SelectManyBoxRenderer extends SelectManyRendererBase {
 
@@ -70,15 +71,21 @@ public class SelectManyBoxRenderer extends SelectManyRendererBase {
 
     final UISelectManyBox select = (UISelectManyBox) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    AbstractUISuggest suggest = (AbstractUISuggest) select.getSuggest();
 
     final String id = select.getClientId(facesContext);
     final Iterable<SelectItem> items = SelectItemUtils.getItemIterator(facesContext, select);
     final boolean readonly = select.isReadonly();
-    final boolean disabled = (!items.iterator().hasNext() && !select.isAllowCustom())
-        || select.isDisabled() || readonly;
+    final boolean disabled = !(suggest != null || select.isAllowCustom() || items.iterator().hasNext())
+        || select.isDisabled()
+        || select.isReadonly();
     final Style style = new Style(facesContext, select);
 
-    ComponentUtils.putDataAttribute(select, "tobago-select2", Select2Options.of(select).toJson());
+    Select2Options select2Options = Select2Options.of(select);
+    if (suggest != null) {
+      select2Options.setMinimumInputLength(suggest.getMinimumCharacters());
+    }
+    ComponentUtils.putDataAttribute(select, "tobago-select2", select2Options.toJson());
 
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     writer.startElement(HtmlElements.DIV, select);
@@ -93,6 +100,9 @@ public class SelectManyBoxRenderer extends SelectManyRendererBase {
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
+    if (suggest != null) {
+      writer.writeAttribute(DataAttributes.SUGGEST_ID, suggest.getClientId(facesContext), false);
+    }
     HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
     final Integer tabIndex = select.getTabIndex();
     if (tabIndex != null) {

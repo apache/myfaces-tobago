@@ -6,19 +6,42 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneChoice.Select2Keys;
+import org.apache.myfaces.tobago.internal.util.UISelect2ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
+import javax.faces.component.StateHelper;
 import javax.faces.context.FacesContext;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class AbstractUISelectManyBox extends AbstractUISelectMany {
+public abstract class AbstractUISelectManyBox extends AbstractUISelectMany implements UISelect2Component {
+
+
+
+  public AbstractUISuggest getSuggest() {
+    return ComponentUtils.findDescendant(this, AbstractUISuggest.class);
+  }
 
   @Override
-  protected void validateValue(FacesContext context, Object convertedValue) {
-    if (!isAllowCustom()) {
-      super.validateValue(context, convertedValue);
-    }
+  protected void validateValue(FacesContext facesContext, Object convertedValue) {
+  UISelect2ComponentUtil.ensureCustomItemsContainer(facesContext, this);
+    super.validateValue(facesContext, UISelect2ComponentUtil.ensureCustomValues(facesContext, this, convertedValue));
+  }
+
+  @Override
+  public Object getValue() {
+    return UISelect2ComponentUtil.ensureCustomValues(FacesContext.getCurrentInstance(), this, super.getValue());
+  }
+
+  @Override
+  public void encodeChildren(FacesContext facesContext) throws IOException {
+    UISelect2ComponentUtil.ensureCustomItemsContainer(facesContext, this);
+    super.encodeChildren(facesContext);
+  }
+
+  public StateHelper getComponentStateHelper() {
+    return getStateHelper();
   }
 
   public boolean isAllowClear() {

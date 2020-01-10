@@ -67,7 +67,7 @@
         <tc:selectOneChoice id="one_2"
                             minimumResultsForSearch="10"
                             placeholder="Please select message type"
-                            value="#{select2Controller.one2}">
+                            value="#{select2Controller.one2Value}">
 
           <tc:selectItem itemLabel="Letter" itemValue="letter"/>
           <tc:selectItem itemLabel="Phone" itemValue="phone"/>
@@ -80,12 +80,18 @@
                             allowCustom="true"
                             placeholder="Custom input allowed"
                             allowClear="true"
-                            value="">
+                            value="#{select2Controller.one3Value}">
 
-          <tc:selectItem itemLabel="Letter" itemValue="letter"/>
-          <tc:selectItem itemLabel="Phone" itemValue="phone"/>
-          <tc:selectItem itemLabel="eMail" itemValue="eMail"/>
-          <tc:selectItem itemLabel="Fax" itemValue="fax"/>
+          <tc:selectItems value="#{select2Controller.items}"/>
+        </tc:selectOneChoice>
+
+        <tc:label value="Suggest locale" for="one_4"/>
+        <tc:selectOneChoice id="one_4"
+                            placeholder="Please select a locale"
+                            converter="#{select2Controller.localeConverter}"
+                            value="#{select2Controller.one4Locale}">
+          <tc:selectItems value="#{select2Controller.one4LocaleItem}"/>
+          <tc:suggest suggestMethod="#{select2Controller.suggestLocale}" minimumCharacters="2" />
         </tc:selectOneChoice>
 
       </tc:panel>
@@ -186,6 +192,42 @@
           <f:facet name="select2:select">
             <tc:command onclick="TBG_DEMO.Select2.doOnSelect;"/>
           </f:facet>
+        </tc:selectManyBox>
+
+      </tc:panel>
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout columns="400px;1*" rows="45px"/>
+        </f:facet>
+
+        <tc:label value="Suggest countries" for="many_7"/>
+        <tc:selectManyBox id="many_7"
+                          placeholder="Select countries"
+                          allowCustom="true"
+                          tokenSeparators=","
+                          value="#{select2Controller.many7Countries}">
+
+          <tc:selectItems value="#{select2Controller.many7CountryItems}"/>
+          <tc:suggest suggestMethod="#{countries.prefixed}" minimumCharacters="2" />
+          <tc:dataAttribute name="tobago-select2-extend" value='{"resultsAdapter": "suppressMessages"}'/>
+
+
+        </tc:selectManyBox>
+
+      </tc:panel>
+
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout columns="400px;1*" rows="45px"/>
+        </f:facet>
+
+        <tc:label value="Suggest locales" for="many_8"/>
+        <tc:selectManyBox id="many_8"
+                          placeholder="Select locales"
+                          converter="#{select2Controller.localeConverter}"
+                          value="#{select2Controller.many8Locales}">
+          <tc:selectItems value="#{select2Controller.many8LocaleItems}"/>
+          <tc:suggest suggestMethod="#{select2Controller.suggestLocale}" minimumCharacters="2" />
         </tc:selectManyBox>
 
       </tc:panel>
