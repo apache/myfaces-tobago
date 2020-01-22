@@ -117,13 +117,10 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
-var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", { value: true });
-///<reference path='./ApiInterfaces.ts'/>
 ///<reference types='../../types/typedefs'/>
 var AjaxImpl_1 = __webpack_require__(/*! ../impl/AjaxImpl */ "./src/main/typescript/impl/AjaxImpl.ts");
 var PushImpl_1 = __webpack_require__(/*! ../impl/PushImpl */ "./src/main/typescript/impl/PushImpl.ts");
-var mf_impl = (_c = (_b = (_a = window) === null || _a === void 0 ? void 0 : _a.myfaces) === null || _b === void 0 ? void 0 : _b._impl, (_c !== null && _c !== void 0 ? _c : {}));
 var jsf;
 (function (jsf) {
     "use strict";
@@ -186,8 +183,8 @@ var jsf;
     jsf.getViewState = getViewState;
     /**
      * returns the window identifier for the given node / window
-     * @param {optional String | DomNode}  the node for which the client identifier has to be determined
      * @return the window identifier or null if none is found
+     * @param rootNode
      */
     function getClientWindow(rootNode) {
         return AjaxImpl_1.Implementation.getClientWindow(rootNode);
@@ -324,9 +321,6 @@ var jsf;
 //fullfill the window contract
 var myfaces;
 (function (myfaces) {
-    var _a, _b, _c;
-    //legacy compatibility
-    myfaces._impl = mf_impl;
     /**
      * AB function similar to mojarra and Primefaces
      * not part of the spec but a convenience accessor method
@@ -353,55 +347,6 @@ var myfaces;
         jsf.ajax.request(source, event, options);
     }
     myfaces.ab = ab;
-    //We hook the old namespace system into our npm system
-    if ("undefined" == ((_b = (_a = window) === null || _a === void 0 ? void 0 : _a.myfaces) === null || _b === void 0 ? void 0 : _b.ab)) {
-        window["myfaces"] = (_c = window.myfaces, (_c !== null && _c !== void 0 ? _c : {}));
-        window.myfaces["ab"] = ab;
-    }
-})(myfaces = exports.myfaces || (exports.myfaces = {}));
-
-
-/***/ }),
-
-/***/ "./src/main/typescript/api/Myfaces.ts":
-/*!********************************************!*\
-  !*** ./src/main/typescript/api/Myfaces.ts ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/* Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to you under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-var myfaces;
-(function (myfaces) {
-    var ConfigHolder = /** @class */ (function () {
-        function ConfigHolder() {
-            this.projectStage = null;
-            this.separator = null;
-        }
-        return ConfigHolder;
-    }());
-    myfaces.ConfigHolder = ConfigHolder;
-    myfaces.config = new ConfigHolder();
-    //if (window && "undefined" == typeof window.myfaces) {
-    //    window.myfaces = myfaces;
-    //}
 })(myfaces = exports.myfaces || (exports.myfaces = {}));
 
 
@@ -459,6 +404,23 @@ var trim = Lang_1.Lang.trim;
 var objToArray = Lang_1.Lang.objToArray;
 var isString = Lang_1.Lang.isString;
 var equalsIgnoreCase = Lang_1.Lang.equalsIgnoreCase;
+/**
+ *
+ *        // - submit checkboxes and radio inputs only if checked
+ if ((tagName != "select" && elemType != "button"
+ && elemType != "reset" && elemType != "submit" && elemType != "image")
+ && ((elemType != "checkbox" && elemType != "radio"
+ */
+var Submittables;
+(function (Submittables) {
+    Submittables["SELECT"] = "select";
+    Submittables["BUTTON"] = "button";
+    Submittables["SUBMIT"] = "submit";
+    Submittables["RESET"] = "reset";
+    Submittables["IMAGE"] = "image";
+    Submittables["RADIO"] = "radio";
+    Submittables["CHECKBOX"] = "checkbox";
+})(Submittables || (Submittables = {}));
 // @ts-ignore supression needed here due to fromnullable
 var ElementAttribute = /** @class */ (function (_super) {
     __extends(ElementAttribute, _super);
@@ -961,12 +923,12 @@ var DomQuery = /** @class */ (function () {
      * @param includeRoot
      */
     DomQuery.prototype.byTagName = function (tagName, includeRoot) {
-        var _a;
+        var _a, _b;
         var res = [];
-        for (var cnt = 0; includeRoot && cnt < this.rootNode.length; cnt++) {
-            if (((_a = this.rootNode[cnt]) === null || _a === void 0 ? void 0 : _a.tagName) == tagName) {
-                res.push(new DomQuery(this.rootNode[cnt]));
-            }
+        if (includeRoot) {
+            res = Stream_1.Stream.of.apply(Stream_1.Stream, (_b = (_a = this) === null || _a === void 0 ? void 0 : _a.rootNode, (_b !== null && _b !== void 0 ? _b : []))).filter(function (element) { var _a; return ((_a = element) === null || _a === void 0 ? void 0 : _a.tagName) == tagName; })
+                .reduce(function (reduction, item) { return reduction.concat([item]); }, res)
+                .value;
         }
         res = res.concat(this.querySelectorAll(tagName));
         return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], res)))();
@@ -1712,6 +1674,7 @@ var DomQuery = /** @class */ (function () {
         //lets keep it sideffects free
         var target = toMerge.shallowCopy;
         this.each(function (element) {
+            var _a;
             if (element.name.isAbsent()) { //no name, no encoding
                 return;
             }
@@ -1754,11 +1717,14 @@ var DomQuery = /** @class */ (function () {
                 // rules:
                 // - don't submit no selects (processed above), buttons, reset buttons, submit buttons,
                 // - submit checkboxes and radio inputs only if checked
-                if ((tagName != "select" && elemType != "button"
-                    && elemType != "reset" && elemType != "submit" && elemType != "image")
-                    && ((elemType != "checkbox" && elemType != "radio") || element.checked)) {
+                if ((tagName != Submittables.SELECT &&
+                    elemType != Submittables.BUTTON &&
+                    elemType != Submittables.RESET &&
+                    elemType != Submittables.SUBMIT &&
+                    elemType != Submittables.IMAGE) && ((elemType != Submittables.CHECKBOX && elemType != Submittables.RADIO) ||
+                    element.checked)) {
                     var files = element.value.files;
-                    if (files && files.length) {
+                    if ((_a = files) === null || _a === void 0 ? void 0 : _a.length) {
                         //xhr level2
                         target.assign(name).value = files[0];
                     }
@@ -1775,12 +1741,12 @@ var DomQuery = /** @class */ (function () {
             var cDataBlock = [];
             var TYPE_CDATA_BLOCK = 4;
             // response may contain several blocks
-            return this.stream
-                .flatMap(function (item) { return item.childNodes.stream; }).reduce(function (reduced, item) {
-                var _a, _b, _c, _d, _e, _f, _g;
-                if (((_c = (_b = (_a = item) === null || _a === void 0 ? void 0 : _a.value) === null || _b === void 0 ? void 0 : _b.value) === null || _c === void 0 ? void 0 : _c.nodeType) == TYPE_CDATA_BLOCK) {
-                    reduced.push((_g = (_f = (_e = (_d = item) === null || _d === void 0 ? void 0 : _d.value) === null || _e === void 0 ? void 0 : _e.value) === null || _f === void 0 ? void 0 : _f.data, (_g !== null && _g !== void 0 ? _g : "")));
-                }
+            return this.lazyStream
+                .flatMap(function (item) { return item.childNodes.stream; })
+                .filter(function (item) { var _a, _b, _c; return ((_c = (_b = (_a = item) === null || _a === void 0 ? void 0 : _a.value) === null || _b === void 0 ? void 0 : _b.value) === null || _c === void 0 ? void 0 : _c.nodeType) == TYPE_CDATA_BLOCK; })
+                .reduce(function (reduced, item) {
+                var _a, _b, _c, _d;
+                reduced.push((_d = (_c = (_b = (_a = item) === null || _a === void 0 ? void 0 : _a.value) === null || _b === void 0 ? void 0 : _b.value) === null || _c === void 0 ? void 0 : _c.data, (_d !== null && _d !== void 0 ? _d : "")));
                 return reduced;
             }, []).value.join("");
         },
@@ -1814,6 +1780,34 @@ var DomQuery = /** @class */ (function () {
     DomQuery.prototype.reset = function () {
         this.pos = -1;
     };
+    DomQuery.prototype.createShadowRoot = function () {
+        var shadowRoots = [];
+        this.eachElem(function (item) {
+            var _a;
+            var shadowElement;
+            if ((_a = item) === null || _a === void 0 ? void 0 : _a.createShadowRoot) {
+                shadowElement = DomQuery.byId(item.createShadowRoot());
+            }
+            else {
+                throw Error("Shadow dom creation not supported by the browser, please use a shim, to gain this functionality");
+            }
+        });
+        return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], shadowRoots)))();
+    };
+    DomQuery.prototype.attachShadow = function (params) {
+        var shadowRoots = [];
+        this.eachElem(function (item) {
+            var _a;
+            var shadowElement;
+            if ((_a = item) === null || _a === void 0 ? void 0 : _a.attachShadow) {
+                shadowElement = DomQuery.byId(item.attachShadow(params));
+            }
+            else {
+                //throw error (Shadow dom creation not supported by the browser, please use a shim, to gain this functionality)
+            }
+        });
+        return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], shadowRoots)))();
+    };
     //from
     // http://blog.vishalon.net/index.php/javascript-getting-and-setting-caret-position-in-textarea/
     DomQuery.getCaretPosition = function (ctrl) {
@@ -1835,10 +1829,21 @@ var DomQuery = /** @class */ (function () {
         }
         return caretPos;
     };
+    /**
+     * sets the caret position
+     *
+     * @param ctrl the control to set the caret position to
+     * @param pos the position to set
+     *
+     * note if the control does not have any selectable and focusable behavior
+     * calling this method does nothing (silent fail)
+     *
+     */
     DomQuery.setCaretPosition = function (ctrl, pos) {
-        ctrl.focus();
+        var _a, _b, _c, _d;
+        ((_a = ctrl) === null || _a === void 0 ? void 0 : _a.focus) ? (_b = ctrl) === null || _b === void 0 ? void 0 : _b.focus() : null;
         //the selection range is our caret position
-        ctrl.setSelectionRange(pos, pos);
+        ((_c = ctrl) === null || _c === void 0 ? void 0 : _c.setSelectiongRange) ? (_d = ctrl) === null || _d === void 0 ? void 0 : _d.setSelectiongRange(pos, pos) : null;
     };
     DomQuery.absent = new DomQuery();
     return DomQuery;
@@ -3455,7 +3460,6 @@ exports.QueryFormDataCollector = SourcesCollectors_1.QueryFormDataCollector;
  * limitations under the License.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-var myfacesConfig = __webpack_require__(/*! ../api/Myfaces */ "./src/main/typescript/api/Myfaces.ts");
 var Response_1 = __webpack_require__(/*! ./xhrCore/Response */ "./src/main/typescript/impl/xhrCore/Response.ts");
 var XhrRequest_1 = __webpack_require__(/*! ./xhrCore/XhrRequest */ "./src/main/typescript/impl/xhrCore/XhrRequest.ts");
 var AsyncQueue_1 = __webpack_require__(/*! ./util/AsyncQueue */ "./src/main/typescript/impl/util/AsyncQueue.ts");
@@ -3506,7 +3510,6 @@ var Implementation;
     var getMessage = Lang_1.ExtLang.getMessage;
     var getGlobalConfig = Lang_1.ExtLang.getGlobalConfig;
     var assert = Assertions_1.Assertions.assert;
-    var globalConfig = myfacesConfig.myfaces.config;
     var projectStage = null;
     var separator = null;
     var eventQueue = [];
@@ -3520,8 +3523,8 @@ var Implementation;
      * @return {char} the separator char for the given script tags
      */
     function getSeparatorChar() {
-        var _a, _b, _c, _d, _e;
-        return _e = (_c = (_b = (_a = this) === null || _a === void 0 ? void 0 : _a.globalConfig) === null || _b === void 0 ? void 0 : _b.separator, (_c !== null && _c !== void 0 ? _c : (_d = this) === null || _d === void 0 ? void 0 : _d.separator)), (_e !== null && _e !== void 0 ? _e : (separator = ExtDomQuery_1.ExtDomquery.searchJsfJsFor(/separator=([^&;]*)/).orElse(":").value));
+        var _a, _b, _c, _d;
+        return _d = (_b = (_a = resolveGlobalConfig()) === null || _a === void 0 ? void 0 : _a.separator, (_b !== null && _b !== void 0 ? _b : (_c = this) === null || _c === void 0 ? void 0 : _c.separator)), (_d !== null && _d !== void 0 ? _d : (separator = ExtDomQuery_1.ExtDomquery.searchJsfJsFor(/separator=([^&;]*)/).orElse(":").value));
     }
     Implementation.getSeparatorChar = getSeparatorChar;
     /**
@@ -3529,7 +3532,6 @@ var Implementation;
      * we need to reset for every unit test its internal states
      */
     function reset() {
-        globalConfig = myfacesConfig.myfaces.config;
         projectStage = null;
         separator = null;
         eventQueue = [];
@@ -3543,8 +3545,8 @@ var Implementation;
      * The value for it comes from the requestInternal parameter of the jsf.js script called "stage".
      */
     function getProjectStage() {
-        var _a, _b, _c, _d, _e;
-        return _e = (_c = (_b = (_a = this) === null || _a === void 0 ? void 0 : _a.globalConfig) === null || _b === void 0 ? void 0 : _b.projectStage, (_c !== null && _c !== void 0 ? _c : (_d = this) === null || _d === void 0 ? void 0 : _d.projectStage)), (_e !== null && _e !== void 0 ? _e : (projectStage = resolveProjectStateFromURL()));
+        var _a, _b, _c, _d;
+        return _d = (_b = (_a = resolveGlobalConfig()) === null || _a === void 0 ? void 0 : _a.projectStage, (_b !== null && _b !== void 0 ? _b : (_c = this) === null || _c === void 0 ? void 0 : _c.projectStage)), (_d !== null && _d !== void 0 ? _d : (projectStage = resolveProjectStateFromURL()));
     }
     Implementation.getProjectStage = getProjectStage;
     /**
@@ -3995,7 +3997,7 @@ var Implementation;
         return targetConfig;
     }
     /**
-     * filter the options tiven with a blacklist so that only
+     * filter the options given with a blacklist so that only
      * the values required for passthough land in the ajax request
      *
      * @param mappedOpts the options to be filtered
@@ -4006,6 +4008,10 @@ var Implementation;
         return monadish_1.Stream.ofAssoc(mappedOpts)
             .filter(function (item) { return !(item[0] in BlockFilter); })
             .collect(new monadish_1.AssocArrayCollector());
+    }
+    function resolveGlobalConfig() {
+        var _a, _b, _c;
+        return _c = (_b = (_a = window) === null || _a === void 0 ? void 0 : _a[Const_1.MYFACES]) === null || _b === void 0 ? void 0 : _b.config, (_c !== null && _c !== void 0 ? _c : {});
     }
 })(Implementation = exports.Implementation || (exports.Implementation = {}));
 
@@ -4375,6 +4381,7 @@ exports.REASON_EXPIRED = "Expired";
 exports.APPLIED_VST = "appliedViewState";
 exports.RECONNECT_INTERVAL = 500;
 exports.MAX_RECONNECT_ATTEMPTS = 25;
+exports.UNKNOWN = "UNKNOWN";
 
 
 /***/ }),
@@ -4388,6 +4395,7 @@ exports.MAX_RECONNECT_ATTEMPTS = 25;
 
 "use strict";
 
+Object.defineProperty(exports, "__esModule", { value: true });
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -4403,7 +4411,6 @@ exports.MAX_RECONNECT_ATTEMPTS = 25;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
 var Const_1 = __webpack_require__(/*! ./Const */ "./src/main/typescript/impl/core/Const.ts");
 /**
  * a helper class to isolate the
@@ -4607,7 +4614,9 @@ var Assertions;
      * internal helper which raises an error in the
      * format we need for further processing
      *
+     * @param error
      * @param message the message
+     * @param caller
      * @param title the title of the error (optional)
      * @param name the name of the error (optional)
      */
@@ -4760,13 +4769,6 @@ var AsynchronouseQueue = /** @class */ (function () {
     AsynchronouseQueue.prototype.callForNextElementToProcess = function () {
         this.runEntry();
     };
-    AsynchronouseQueue.prototype.processNextElement = function () {
-        this.currentlyRunning = null;
-        if (!this.isEmpty) {
-            this.runEntry();
-        }
-    };
-    AsynchronouseQueue.EVT_NEXT = "__mf_queue_next__";
     return AsynchronouseQueue;
 }());
 exports.AsynchronouseQueue = AsynchronouseQueue;
@@ -4873,9 +4875,11 @@ var ExtDomquery = /** @class */ (function (_super) {
                 //fastpath for modern browsers
                 return curScript.attr("nonce").value;
             }
-            var nonceScript = DomQuery_1.DQ.querySelectorAll("script[src], link[src]").lazyStream
+            var nonceScript = DomQuery_1.DQ
+                .querySelectorAll("script[src], link[src]")
+                .lazyStream
                 .filter(function (item) { return item.attr("nonce").value != null && item.attr("src") != null; })
-                .map((function (item) { return !item.attr("src").value.match(/jsf\.js\?ln\=javax\.faces/gi); }))
+                .map((function (item) { return !item.attr("src").value.match(/jsf\.js\?ln=javax\.faces/gi); }))
                 .first();
             if (nonceScript.isPresent()) {
                 nonce.value = DomQuery_1.DomQuery.byId(nonceScript.value).attr("nonce").value;
@@ -4940,6 +4944,7 @@ exports.ExtDQ = DomQuery_1.DQ;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Lang_1 = __webpack_require__(/*! ../../ext/monadish/Lang */ "./src/main/typescript/ext/monadish/Lang.ts");
 var Messages_1 = __webpack_require__(/*! ../i18n/Messages */ "./src/main/typescript/impl/i18n/Messages.ts");
+// noinspection TypeScriptPreferShortImport
 var DomQuery_1 = __webpack_require__(/*! ../../ext/monadish/DomQuery */ "./src/main/typescript/ext/monadish/DomQuery.ts");
 var monadish_1 = __webpack_require__(/*! ../../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
 var Const_1 = __webpack_require__(/*! ../core/Const */ "./src/main/typescript/impl/core/Const.ts");
@@ -5034,6 +5039,7 @@ var ExtLang;
      * creates an exeption with additional internal parameters
      * for extra information
      *
+     * @param error
      * @param {String} title the exception title
      * @param {String} name  the exception name
      * @param {String} callerCls the caller class
@@ -5063,7 +5069,7 @@ var ExtLang;
     }
     ExtLang.getGlobalConfig = getGlobalConfig;
     /**
-     * fetches the form in an unprecise manner depending
+     * fetches the form in an fuzzy manner depending
      * on an element or event target.
      *
      * The idea is that according to the jsf spec
@@ -5082,24 +5088,23 @@ var ExtLang;
      * @param event
      */
     function getForm(elem, event) {
-        var FORM = "form";
         var queryElem = new DomQuery_1.DQ(elem);
         var eventTarget = new DomQuery_1.DQ(RequestDataResolver_1.getEventTarget(event));
-        if (queryElem.isTag(FORM)) {
+        if (queryElem.isTag(Const_1.TAG_FORM)) {
             return queryElem;
         }
         //html 5 for handling
-        if (queryElem.attr(FORM).isPresent()) {
-            var formId = queryElem.attr(FORM).value;
+        if (queryElem.attr(Const_1.TAG_FORM).isPresent()) {
+            var formId = queryElem.attr(Const_1.TAG_FORM).value;
             var foundForm = DomQuery_1.DQ.byId(formId);
             if (foundForm.isPresent()) {
                 return foundForm;
             }
         }
-        var form = queryElem.parents(FORM)
-            .orElseLazy(function () { return queryElem.byTagName(FORM, true); })
-            .orElseLazy(function () { return eventTarget.parents(FORM); })
-            .orElseLazy(function () { return eventTarget.byTagName(FORM); })
+        var form = queryElem.parents(Const_1.TAG_FORM)
+            .orElseLazy(function () { return queryElem.byTagName(Const_1.TAG_FORM, true); })
+            .orElseLazy(function () { return eventTarget.parents(Const_1.TAG_FORM); })
+            .orElseLazy(function () { return eventTarget.byTagName(Const_1.TAG_FORM); })
             .first();
         assertFormExists(form);
         return form;
@@ -5212,7 +5217,6 @@ var ErrorData = /** @class */ (function (_super) {
     };
     ErrorData.fromGeneric = function (context, errorCode, errorType) {
         if (errorType === void 0) { errorType = ErrorType.SERVER_ERROR; }
-        var UNKNOWN = "UNKNOWN";
         var getMsg = this.getMsg;
         var source = getMsg(context, Const_1.SOURCE);
         var errorName = getMsg(context, Const_1.ERROR_NAME);
@@ -5223,8 +5227,7 @@ var ErrorData = /** @class */ (function (_super) {
         return new ErrorData(source, name, errorMessage, responseText, responseXML, errorCode + Const_1.EMPTY_STR, status, errorType);
     };
     ErrorData.getMsg = function (context, param) {
-        var UNKNOWN = "UNKNOWN";
-        return getMessage(context.getIf(param).orElse(UNKNOWN).value);
+        return getMessage(context.getIf(param).orElse(Const_1.UNKNOWN).value);
     };
     ErrorData.fromServerError = function (context) {
         return this.fromGeneric(context, -1);
@@ -5315,6 +5318,8 @@ var ExtDomQuery_1 = __webpack_require__(/*! ../util/ExtDomQuery */ "./src/main/t
  * resolves the event handlers lazly
  * so that if some decoration happens in between we can deal with it
  *
+ * @param requestContext
+ * @param responseContext
  * @param funcName
  */
 function resolveHandlerFunc(requestContext, responseContext, funcName) {
@@ -5380,20 +5385,6 @@ function resolveWindowId(options) {
 }
 exports.resolveWindowId = resolveWindowId;
 /**
- * determines the correct event depending
- * on the browsers state
- *
- * @param evt incoming event object (note not all browsers
- * have this)
- *
- * @return an event object no matter what is incoming
- */
-function resolveEvent(evt) {
-    var _a, _b;
-    return _b = (evt !== null && evt !== void 0 ? evt : (_a = window) === null || _a === void 0 ? void 0 : _a.event), (_b !== null && _b !== void 0 ? _b : {});
-}
-exports.resolveEvent = resolveEvent;
-/**
  * cross port from the dojo lib
  * browser save event resolution
  * @param evt the event object
@@ -5402,7 +5393,7 @@ exports.resolveEvent = resolveEvent;
 function getEventTarget(evt) {
     var _a, _b, _c, _d, _e;
     //ie6 and 7 fallback
-    var finalEvent = this.resolveEvent(evt);
+    var finalEvent = evt;
     /**
      * evt source is defined in the jsf events
      * seems like some component authors use our code
@@ -5432,19 +5423,11 @@ function resolveDefaults(event, opts, el) {
     if (opts === void 0) { opts = {}; }
     if (el === void 0) { el = null; }
     var _a;
-    var resolvedEvent = resolveEvent(event);
     //deep copy the options, so that further transformations to not backfire into the callers
-    var options = new monadish_1.Config(opts).deepCopy;
-    var elem = monadish_1.DQ.byId(el || resolvedEvent.target);
-    var elementId = elem.id;
-    var requestCtx = new monadish_1.Config({});
-    var internalCtx = new monadish_1.Config({});
-    var windowId = resolveWindowId(options);
-    var isResetValues = true === ((_a = options.value) === null || _a === void 0 ? void 0 : _a.resetValues);
+    var resolvedEvent = event, options = new monadish_1.Config(opts).deepCopy, elem = monadish_1.DQ.byId(el || resolvedEvent.target), elementId = elem.id, requestCtx = new monadish_1.Config({}), internalCtx = new monadish_1.Config({}), windowId = resolveWindowId(options), isResetValues = true === ((_a = options.value) === null || _a === void 0 ? void 0 : _a.resetValues);
     return { resolvedEvent: resolvedEvent, options: options, elem: elem, elementId: elementId, requestCtx: requestCtx, internalCtx: internalCtx, windowId: windowId, isResetValues: isResetValues };
 }
 exports.resolveDefaults = resolveDefaults;
-;
 
 
 /***/ }),
@@ -6319,7 +6302,11 @@ var XhrRequest = /** @class */ (function () {
         * we omit promises here
         * some browsers do not support it and we do not need shim code
         */
-        this.registerXhrCallbacks(function (data) { _this.resolve(data); }, function (data) { _this.reject(data); });
+        this.registerXhrCallbacks(function (data) {
+            _this.resolve(data);
+        }, function (data) {
+            _this.reject(data);
+        });
     }
     XhrRequest.prototype.start = function () {
         var _this = this;
@@ -6487,7 +6474,6 @@ var XhrRequest = /** @class */ (function () {
             //we need to resolve the local handlers lazyly,
             //because some frameworks might decorate them over the context in the response
             var eventHandler = RequestDataResolver_1.resolveHandlerFunc(this.requestContext, this.responseContext, Const_1.ON_EVENT);
-            ;
             AjaxImpl_1.Implementation.sendEvent(eventData, eventHandler);
         }
         catch (e) {
