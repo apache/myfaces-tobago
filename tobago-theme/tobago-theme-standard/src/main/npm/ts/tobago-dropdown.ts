@@ -15,24 +15,35 @@
  * limitations under the License.
  */
 
-import "/webjars/popper.js/1.14.3/umd/popper.js";
 import Popper from "popper.js";
 
 class Dropdown extends HTMLElement {
 
-  private blurFlag: boolean = false;
+  private _deselectComponent = this.deselectComponent.bind(this);
+  private _toggleDropdown = this.toggleDropdown.bind(this);
+  private _setCloseFlag = this.setCloseFlag.bind(this);
+  private closeFlag: boolean = false;
 
   constructor() {
     super();
   }
 
   connectedCallback(): void {
-    this.toggle.addEventListener("click", this.toggleDropdown.bind(this));
-    this.toggle.addEventListener("blur", this.deselectComponent.bind(this));
-    window.addEventListener("mouseup", this.deselectComponent.bind(this));
+    this.toggleButton.addEventListener("mouseup", this._toggleDropdown);
+    this.toggleButton.addEventListener("blur", this._setCloseFlag);
+    window.addEventListener("mouseup", this._deselectComponent);
+    //TODO add keyboard support
+  }
+
+  disconnectedCallback(): void {
+    this.toggleButton.removeEventListener("mouseup", this._toggleDropdown);
+    this.toggleButton.removeEventListener("blur", this._setCloseFlag);
+    window.removeEventListener("mouseup", this._deselectComponent);
   }
 
   toggleDropdown(event: Event): void {
+    this.resetCloseFlag();
+
     const visible: boolean = this.dropdownMenu.classList.contains("show");
     if (visible) {
       this.closeDropdown();
@@ -42,10 +53,9 @@ class Dropdown extends HTMLElement {
   }
 
   deselectComponent(event: Event): void {
-    if (event.type === "blur") {
-      this.blurFlag = true;
-    } else if (this.blurFlag) {
-      this.blurFlag = false;
+    const visible: boolean = this.dropdownMenu.classList.contains("show");
+    if (this.closeFlag && visible) {
+      this.resetCloseFlag();
 
       const target: HTMLElement = event.target as HTMLElement;
       this.closeDropdown();
@@ -56,7 +66,7 @@ class Dropdown extends HTMLElement {
   openDropdown(): void {
     if (!this.inStickyHeader()) {
       this.menuStore.appendChild(this.dropdownMenu);
-      new Popper(this.toggle, this.dropdownMenu, {
+      new Popper(this.toggleButton, this.dropdownMenu, {
         placement: "bottom-start"
       });
     }
@@ -69,8 +79,8 @@ class Dropdown extends HTMLElement {
     this.appendChild(this.dropdownMenu);
   }
 
-  private get toggle(): HTMLElement {
-    return this.querySelector(":scope > [data-toggle='dropdown']");
+  private get toggleButton(): HTMLElement {
+    return this.querySelector(":scope > button[data-toggle='dropdown']");
   }
 
   private inStickyHeader(): boolean {
@@ -86,6 +96,14 @@ class Dropdown extends HTMLElement {
   private get menuStore(): HTMLDivElement {
     const root = this.getRootNode() as ShadowRoot | Document;
     return root.querySelector(".tobago-page-menuStore");
+  }
+
+  setCloseFlag(event: Event): void {
+    this.closeFlag = true;
+  }
+
+  resetCloseFlag(): void {
+    this.closeFlag = false;
   }
 }
 
