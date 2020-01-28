@@ -921,6 +921,9 @@
               <!-- js-min-map -->
               <exclude>**/*.map</exclude>
 
+              <!-- jsf.js XXX check for official release -->
+              <exclude>**/jsf.js</exclude>
+
               <!-- jettykeystore -->
               <exclude>**/jettykeystore</exclude>
 
@@ -962,6 +965,10 @@
 
               <!-- tobago-vm index page -->
               <exclude>**/tobago-vm/docker/apache-proxy/bootstrap-*.css</exclude>
+
+              <!-- local npm for IDE -->
+              <exclude>src/main/npm/node_modules/**</exclude>
+
             </excludes>
           </configuration>
         </plugin>
