@@ -16,8 +16,11 @@ put all necessary artifacts into your local repository.
 
 ## Demo
 
-In the directory `tobago-example/tobago-example-demo` call:
+Switch to sub-directory and call Maven to run the demo:
 
 ```
+cd tobago-example/tobago-example-demo
 mvn jetty:run
 ```
+
+Browse to the local URL http://localhost:8080/tobago-example-demo/
