@@ -19,26 +19,18 @@ import Popper from "popper.js";
 
 class Dropdown extends HTMLElement {
 
-  private _deselectComponent = this.deselectComponent.bind(this);
-  private _toggleDropdown = this.toggleDropdown.bind(this);
-  private _setCloseFlag = this.setCloseFlag.bind(this);
   private closeFlag: boolean = false;
 
   constructor() {
     super();
+
+    this.toggleButton.addEventListener("mouseup", this.toggleDropdown.bind(this));
+    this.toggleButton.addEventListener("blur", this.setCloseFlag.bind(this));
+    window.addEventListener("mouseup", this.deselectComponent.bind(this));
   }
 
   connectedCallback(): void {
-    this.toggleButton.addEventListener("mouseup", this._toggleDropdown);
-    this.toggleButton.addEventListener("blur", this._setCloseFlag);
-    window.addEventListener("mouseup", this._deselectComponent);
     //TODO add keyboard support
-  }
-
-  disconnectedCallback(): void {
-    this.toggleButton.removeEventListener("mouseup", this._toggleDropdown);
-    this.toggleButton.removeEventListener("blur", this._setCloseFlag);
-    window.removeEventListener("mouseup", this._deselectComponent);
   }
 
   toggleDropdown(event: Event): void {
