@@ -37,8 +37,9 @@ public class LinkInsideLinksRenderer extends LinkRenderer {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.TOBAGO_DROPDOWN);
+    writer.startElement(HtmlElements.LI);
     if (parentOfCommands) {
+      writer.startElement(HtmlElements.TOBAGO_DROPDOWN);
       writer.writeIdAttribute(clientId);
     }
 
@@ -49,8 +50,14 @@ public class LinkInsideLinksRenderer extends LinkRenderer {
 
   @Override
   protected void encodeEndOuter(final FacesContext facesContext, final AbstractUICommand command) throws IOException {
+    final boolean parentOfCommands = command.isParentOfCommands();
+
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.endElement(HtmlElements.TOBAGO_DROPDOWN);
+
+    if (parentOfCommands) {
+      writer.endElement(HtmlElements.TOBAGO_DROPDOWN);
+    }
+    writer.endElement(HtmlElements.LI);
   }
 
   @Override
