@@ -52,7 +52,12 @@ class Behavior extends HTMLElement {
         // prepare overlay for all by AJAX reloaded elements
         let partialIds = this.render.split(" ");
         for (let i = 0; i < partialIds.length; i++) {
-          new Overlay(document.getElementById(partialIds[i]), true);
+          const partialElement = document.getElementById(partialIds[i]);
+          if (partialElement) {
+            new Overlay(partialElement, true);
+          } else {
+            console.warn("No element found by id='%s' for overlay!", partialIds[i]);
+          }
         }
       }
       jsf.ajax.request(
