@@ -79,7 +79,6 @@ import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.text.MessageFormat;
@@ -107,16 +106,16 @@ public class SheetRenderer extends RendererBase {
     final String clientId = sheet.getClientId(facesContext);
 
     String key = clientId + SUFFIX_WIDTHS;
-    final Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     final SheetState state = sheet.getState();
     if (requestParameterMap.containsKey(key)) {
-      final String widths = (String) requestParameterMap.get(key);
+      final String widths = requestParameterMap.get(key);
       ensureColumnWidthsSize(state.getColumnWidths(), columns, JsonUtils.decodeIntegerArray(widths));
     }
 
     key = clientId + SUFFIX_SELECTED;
     if (requestParameterMap.containsKey(key)) {
-      final String selected = (String) requestParameterMap.get(key);
+      final String selected = requestParameterMap.get(key);
       if (LOG.isDebugEnabled()) {
         LOG.debug("selected = " + selected);
       }
@@ -184,7 +183,7 @@ public class SheetRenderer extends RendererBase {
       } else {
         action = SheetAction.valueOf(actionString);
       }
-      ActionEvent event = null;
+      PageActionEvent event = null;
       switch (action) {
         case first:
         case prev:
@@ -195,21 +194,21 @@ public class SheetRenderer extends RendererBase {
         case toPage:
         case toRow:
           event = new PageActionEvent(component, action);
-          final Integer target;
-          final Object value;
+          final int target;
+          final String value;
           if (index == -1) {
-            final Map map = facesContext.getExternalContext().getRequestParameterMap();
+            final Map<String, String> map = facesContext.getExternalContext().getRequestParameterMap();
             value = map.get(sourceId);
           } else {
             value = actionString.substring(index + 1);
           }
           try {
-            target = Integer.parseInt((String) value);
+            target = Integer.parseInt(value);
           } catch (final NumberFormatException e) {
             LOG.error("Can't parse integer value for action " + action.name() + ": " + value);
             break;
           }
-          ((PageActionEvent) event).setValue(target);
+          event.setValue(target);
           break;
         default:
       }
@@ -550,7 +549,7 @@ public class SheetRenderer extends RendererBase {
           sheetMarkup.contains(Markup.DARK) ? BootstrapClass.TABLE_DARK : null,
           sheetMarkup.contains(Markup.BORDERED) ? BootstrapClass.TABLE_BORDERED : null,
           sheetMarkup.contains(Markup.SMALL) ? BootstrapClass.TABLE_SM : null,
-          !autoLayout ? TobagoClass.TABLE_LAYOUT__FIXED : null);
+          TobagoClass.TABLE_LAYOUT__FIXED);
 
       writeColgroup(writer, columnWidths, columns, true);
 
@@ -1200,16 +1199,12 @@ public class SheetRenderer extends RendererBase {
   private AjaxBehavior createReloadBehavior(final AbstractUISheet sheet) {
     final AjaxBehavior reloadBehavior = findReloadBehavior(sheet);
     final ArrayList<String> renderIds = new ArrayList<>();
-    if (!renderIds.contains(sheet.getId())) {
-      renderIds.add(sheet.getId());
-    }
+    renderIds.add(sheet.getId());
     if (reloadBehavior != null) {
       renderIds.addAll(reloadBehavior.getRender());
     }
     final ArrayList<String> executeIds = new ArrayList<>();
-    if (!executeIds.contains(sheet.getId())) {
-      executeIds.add(sheet.getId());
-    }
+    executeIds.add(sheet.getId());
     if (reloadBehavior != null) {
       executeIds.addAll(reloadBehavior.getExecute());
     }
