@@ -16,6 +16,7 @@
  */
 
 const ESCAPE_KEYCODE = 27; // KeyboardEvent.which value for Escape (Esc) key
+const MILLISECONDS_MULTIPLIER = 1000;
 
 const Default = {
   backdrop: true,
@@ -43,7 +44,8 @@ const Event = {
   KEYDOWN_DISMISS: "keydown.dismiss.bs.modal",
   MOUSEUP_DISMISS: "mouseup.dismiss.bs.modal",
   MOUSEDOWN_DISMISS: "mousedown.dismiss.bs.modal",
-  CLICK_DATA_API: "click.bs.modal.data-api"
+  CLICK_DATA_API: "click.bs.modal.data-api",
+  TRANSITION_END: "bsTransitionEnd"
 };
 
 const ClassName = {
@@ -67,13 +69,12 @@ const Selector = {
 
 export class Popup extends HTMLElement {
 
-  TRANSITION_END: string = "bsTransitionEnd";
-
+  private emulateTransitionEndCalled: boolean = false;
   _dialog: HTMLElement;
-  _backdrop;
-  _isShown;
-  _isBodyOverflowing;
-  _ignoreBackdropClick;
+  _backdrop: HTMLDivElement;
+  _isShown: boolean;
+  _isBodyOverflowing: boolean;
+  _ignoreBackdropClick: boolean;
   // _isTransitioning;
   _scrollbarWidth;
   _clickDismiss: (event: Event) => void;
@@ -140,8 +141,7 @@ export class Popup extends HTMLElement {
     // this._setEscapeEvent();
     // this._setResizeEvent();
 
-    this._clickDismiss = (event: Event) => {this.hide();};
-    // this._clickDismiss = (event: Event) => {this.hide(event)};
+    this._clickDismiss = (event: Event) => {this.hide(/*event*/);};
     if (this.classList.contains(Selector.DATA_DISMISS)) {
       this.addEventListener(Event.CLICK_DISMISS, this._clickDismiss);
     }
@@ -155,7 +155,7 @@ export class Popup extends HTMLElement {
     });
 
     // this._showBackdrop(() => this._showElement(relatedTarget))
-    this._showElement();
+    this._showBackdrop(() => this._showElement());
   }
 
   hide(/*event*/):void {
@@ -215,6 +215,8 @@ export class Popup extends HTMLElement {
     //
     // $.removeData(this._element, 'bs.modal');
     //
+    // this._config = null;
+    // this._element = null;
     // this._dialog = null;
     // this._backdrop = null;
     // this._isShown = null;
@@ -229,6 +231,15 @@ export class Popup extends HTMLElement {
   // }
 
   // Private
+
+  /*_getConfig(config) {
+    config = {
+      ...Default,
+      ...config
+    }
+    Util.typeCheckConfig(NAME, config, DefaultType)
+    return config
+  }*/
 /*
   _triggerBackdropTransition() {
     if (this._config.backdrop === 'static') {
@@ -279,13 +290,9 @@ export class Popup extends HTMLElement {
 
     this.classList.add(ClassName.SHOW);
 
-    // if (this._config.focus) {
-    //   this._enforceFocus()
-    // }
-
     // const shownEvent = $.Event(Event.SHOWN, {
     //   relatedTarget
-    // });
+    // })
 
     // const transitionComplete = () => {
       // if (this._config.focus) {
@@ -343,38 +350,35 @@ export class Popup extends HTMLElement {
     this.setAttribute("aria-hidden", "true");
     this.removeAttribute("aria-modal");
     // this._isTransitioning = false;
-/*
     this._showBackdrop(() => {
-      $(document.body).removeClass(ClassName.OPEN);
-      this._resetAdjustments();
-      this._resetScrollbar();
-      $(this._element).trigger(Event.HIDDEN)
-    })
-*/
+      document.body.classList.remove(ClassName.OPEN);
+      // this._resetAdjustments();
+      // this._resetScrollbar();
+      // $(this._element).trigger(Event.HIDDEN)
+    });
   }
-/*
-  _removeBackdrop() {
+
+  _removeBackdrop() : void {
     if (this._backdrop) {
-      $(this._backdrop).remove();
+      this._backdrop.remove();
       this._backdrop = null;
     }
   }
 
-  _showBackdrop(callback) {
-    const animate = $(this._element).hasClass(ClassName.FADE)
-        ? ClassName.FADE : ''
+  _showBackdrop(callback) : void {
+    const animate = this.classList.contains(ClassName.FADE) ? ClassName.FADE : "";
 
-    if (this._isShown && this._config.backdrop) {
-      this._backdrop = document.createElement('div')
-      this._backdrop.className = ClassName.BACKDROP
+    if (this._isShown /*&& this._config.backdrop*/) {
+      this._backdrop = document.createElement("div");
+      this._backdrop.classList.add(ClassName.BACKDROP);
 
       if (animate) {
-        this._backdrop.classList.add(animate)
+        this._backdrop.classList.add(animate);
       }
 
-      $(this._backdrop).appendTo(document.body)
+      document.body.append(this._backdrop);
 
-      $(this._element).on(Event.CLICK_DISMISS, (event) => {
+      /*$(this._element).on(Event.CLICK_DISMISS, (event) => {
         if (this._ignoreBackdropClick) {
           this._ignoreBackdropClick = false
           return
@@ -384,49 +388,47 @@ export class Popup extends HTMLElement {
         }
 
         this._triggerBackdropTransition()
-      })
+      })*/
 
-      if (animate) {
+      /*if (animate) {
         Util.reflow(this._backdrop)
-      }
+      }*/
 
-      $(this._backdrop).addClass(ClassName.SHOW)
+      this._backdrop.classList.add(ClassName.SHOW);
 
       if (!callback) {
-        return
+        return;
       }
 
       if (!animate) {
-        callback()
-        return
+        callback();
+        return;
       }
 
-      const backdropTransitionDuration = Util.getTransitionDurationFromElement(this._backdrop)
+      const backdropTransitionDuration: number = this.getTransitionDurationFromElement(this._backdrop);
 
-      $(this._backdrop)
-          .one(Util.TRANSITION_END, callback)
-          .emulateTransitionEnd(backdropTransitionDuration)
+      this.addOnetimeEventListener(this._backdrop, Event.TRANSITION_END, callback);
+      this.emulateTransitionEnd(this._backdrop, backdropTransitionDuration);
     } else if (!this._isShown && this._backdrop) {
-      $(this._backdrop).removeClass(ClassName.SHOW)
+      this._backdrop.classList.remove(ClassName.SHOW);
 
       const callbackRemove = () => {
-        this._removeBackdrop()
+        this._removeBackdrop();
         if (callback) {
-          callback()
+          callback();
         }
-      }
+      };
 
-      if ($(this._element).hasClass(ClassName.FADE)) {
-        const backdropTransitionDuration = Util.getTransitionDurationFromElement(this._backdrop)
+      if (this.classList.contains(ClassName.FADE)) {
+        const backdropTransitionDuration = this.getTransitionDurationFromElement(this._backdrop);
 
-        $(this._backdrop)
-            .one(Util.TRANSITION_END, callbackRemove)
-            .emulateTransitionEnd(backdropTransitionDuration)
+        this.addOnetimeEventListener(this._backdrop, Event.TRANSITION_END, callbackRemove);
+        this.emulateTransitionEnd(this._backdrop, backdropTransitionDuration);
       } else {
-        callbackRemove()
+        callbackRemove();
       }
     } else if (callback) {
-      callback()
+      callback();
     }
   }
 
@@ -435,7 +437,7 @@ export class Popup extends HTMLElement {
   // todo (fat): these should probably be refactored out of modal.js
   // ----------------------------------------------------------------------
 
-  _adjustDialog() {
+  /*_adjustDialog() {
     const isModalOverflowing =
         this._element.scrollHeight > document.documentElement.clientHeight
 
@@ -446,20 +448,20 @@ export class Popup extends HTMLElement {
     if (this._isBodyOverflowing && !isModalOverflowing) {
       this._element.style.paddingRight = `${this._scrollbarWidth}px`
     }
-  }
+  }*/
 
-  _resetAdjustments() {
+  /*_resetAdjustments() {
     this._element.style.paddingLeft = ''
     this._element.style.paddingRight = ''
-  }
+  }*/
 
-  _checkScrollbar() {
+  /*_checkScrollbar() {
     const rect = document.body.getBoundingClientRect()
     this._isBodyOverflowing = rect.left + rect.right < window.innerWidth
     this._scrollbarWidth = this._getScrollbarWidth()
-  }
+  }*/
 
-  _setScrollbar() {
+  /*_setScrollbar() {
     if (this._isBodyOverflowing) {
       // Note: DOMNode.style.paddingRight returns the actual value or '' if not set
       //   while $(DOMNode).css('padding-right') returns the calculated value or 0 if not set
@@ -493,9 +495,9 @@ export class Popup extends HTMLElement {
     }
 
     $(document.body).addClass(ClassName.OPEN)
-  }
+  }*/
 
-  _resetScrollbar() {
+  /*_resetScrollbar() {
     // Restore fixed content padding
     const fixedContent = [].slice.call(document.querySelectorAll(Selector.FIXED_CONTENT))
     $(fixedContent).each((index, element) => {
@@ -517,22 +519,22 @@ export class Popup extends HTMLElement {
     const padding = $(document.body).data('padding-right')
     $(document.body).removeData('padding-right')
     document.body.style.paddingRight = padding ? padding : ''
-  }
+  }*/
 
-  _getScrollbarWidth() { // thx d.walsh
+  /*_getScrollbarWidth() { // thx d.walsh
     const scrollDiv = document.createElement('div')
     scrollDiv.className = ClassName.SCROLLBAR_MEASURER
     document.body.appendChild(scrollDiv)
     const scrollbarWidth = scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth
     document.body.removeChild(scrollDiv)
     return scrollbarWidth
-  }
+  }*/
 
   // Static
 
-  static _jQueryInterface(config, relatedTarget) {
+  /*static _jQueryInterface(config, relatedTarget) {
     return this.each(function () {
-      let data = $(this).data('bs.modal')
+      let data = $(this).data(DATA_KEY)
       const _config = {
         ...Default,
         ...$(this).data(),
@@ -541,7 +543,7 @@ export class Popup extends HTMLElement {
 
       if (!data) {
         data = new Modal(this, _config)
-        $(this).data('bs.modal', data)
+        $(this).data(DATA_KEY, data)
       }
 
       if (typeof config === 'string') {
@@ -553,29 +555,37 @@ export class Popup extends HTMLElement {
         data.show(relatedTarget)
       }
     })
+  }*/
+
+  private getTransitionDurationFromElement(element: HTMLDivElement): number {
+    const computedStyle = getComputedStyle(element);
+    let transitionDuration: number = parseFloat(computedStyle.transitionDuration);
+    let transitionDelay: number = parseFloat(computedStyle.transitionDelay);
+    return (transitionDuration + transitionDelay) * MILLISECONDS_MULTIPLIER;
   }
 
-  getTransitionDuration(): number {
-    // Get transition-duration of the element
-    let transitionDuration = this.style.transitionDuration;
-    let transitionDelay = this.style.transitionDelay;
+  private emulateTransitionEnd(element: HTMLElement, duration: number): void {
+    this.emulateTransitionEndCalled = false;
 
-    const floatTransitionDuration = parseFloat(transitionDuration);
-    const floatTransitionDelay = parseFloat(transitionDelay);
+    element.addEventListener(Event.TRANSITION_END, () => {
+      this.emulateTransitionEndCalled = true;
+    });
 
-    // Return 0 if element or transition duration is not found
-    if (!floatTransitionDuration && !floatTransitionDelay) {
-      return 0;
+    setTimeout(() => {
+      if (!this.emulateTransitionEndCalled) {
+        element.dispatchEvent(new CustomEvent(Event.TRANSITION_END));
+      }
+    }, duration);
+  }
+
+  private addOnetimeEventListener(element: HTMLElement, event: string, listener): void {
+    function listenerWrapper(): void {
+      listener();
+      element.removeEventListener(event, listenerWrapper);
     }
 
-    // If multiple durations are defined, take the first
-    transitionDuration = transitionDuration.split(',')[0];
-    transitionDelay = transitionDelay.split(',')[0];
-
-    return (parseFloat(transitionDuration) + parseFloat(transitionDelay)) * 1000;
+    element.addEventListener(event, listenerWrapper);
   }
-*/
-
 }
 
 document.addEventListener("DOMContentLoaded", function (event: Event): void {
