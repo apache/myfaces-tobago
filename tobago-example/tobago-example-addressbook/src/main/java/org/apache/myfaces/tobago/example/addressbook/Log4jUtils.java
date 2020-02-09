@@ -19,30 +19,35 @@
 
 package org.apache.myfaces.tobago.example.addressbook;
 
-import org.apache.log4j.Appender;
-import org.apache.log4j.FileAppender;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerRepository;
 
 import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.Appender;
+import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.core.config.Configuration;
 
 public class Log4jUtils {
 
   public static Set<Appender> getAllAppenders() {
-    return getAllAppenders(LogManager.getLoggerRepository());
+    return getAllAppenders(((LoggerContext) LogManager.getContext(false)).getConfiguration());
   }
 
   /**
    * @return all appenders currently in use
+   * @param configuration
    */
-  public static Set<Appender> getAllAppenders(final LoggerRepository repository) {
-      final Enumeration loggers = repository.getCurrentLoggers();
-      final Set<Appender> allAppenders = getAllAppenders(loggers);
-      addAppenders(repository.getRootLogger(), allAppenders);
-      return allAppenders;
+  public static Set<Appender> getAllAppenders(final Configuration configuration) {
+    Map<String, Appender> appenders = configuration.getAppenders();
+    return new HashSet<Appender>(appenders.values());
+//    final Enumeration loggers = configuration.getCurrentLoggers();
+//      final Set<Appender> allAppenders = getAllAppenders(loggers);
+//      addAppenders(configuration.getRootLogger(), allAppenders);
+//      return allAppenders;
   }
 
   public static Set<Appender> getAllAppenders(final Enumeration loggers) {
@@ -55,26 +60,26 @@ public class Log4jUtils {
   }
 
   private static void addAppenders(final Logger logger, final Set<Appender> allAppenders) {
-      final Enumeration appenders = logger.getAllAppenders();
-      while (appenders.hasMoreElements()) {
-          final Appender appender = (Appender) appenders.nextElement();
-          allAppenders.add(appender);
-      }
+//      final Enumeration appenders = logger.getAllAppenders();
+//      while (appenders.hasMoreElements()) {
+//          final Appender appender = (Appender) appenders.nextElement();
+//          allAppenders.add(appender);
+//      }
   }
 
-  public static FileAppender getFileAppender(final String name, final LoggerRepository repository) {
-      final Set allAppenders = getAllAppenders(repository);
-    for (final Object allAppender : allAppenders) {
-      final Appender appender = (Appender) allAppender;
-      if (appender instanceof FileAppender) {
-        final FileAppender fileAppender = (FileAppender) appender;
-        if (fileAppender.getName() != null
-            && fileAppender.getName().equals(name)) {
-          return fileAppender;
-        }
-      }
-    }
-    return null;
-  }
+//  public static FileAppender getFileAppender(final String name, final LoggerRepository repository) {
+//      final Set allAppenders = getAllAppenders(repository);
+//    for (final Object allAppender : allAppenders) {
+//      final Appender appender = (Appender) allAppender;
+//      if (appender instanceof FileAppender) {
+//        final FileAppender fileAppender = (FileAppender) appender;
+//        if (fileAppender.getName() != null
+//            && fileAppender.getName().equals(name)) {
+//          return fileAppender;
+//        }
+//      }
+//    }
+//    return null;
+//  }
 
 }

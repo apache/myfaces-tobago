@@ -19,18 +19,19 @@
 
 package org.apache.myfaces.tobago.example.addressbook.web;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.config.LoggerConfig;
 
 public class CategoryModel {
 
-  private Logger logger;
+  private LoggerConfig logger;
   private String level;
 
-  public CategoryModel(final Logger logger) {
+  public CategoryModel(final LoggerConfig logger) {
       this.logger = logger;
   }
 
-  public Logger getLogger() {
+  public LoggerConfig getLogger() {
       return logger;
   }
 
@@ -56,7 +57,7 @@ public class CategoryModel {
 
   private String getLevelFromLogger() {
       return isInherited()
-              ? logger.getEffectiveLevel().toString()
+              ? LogManager.getRootLogger().getLevel().toString()
               : logger.getLevel().toString();
   }
 

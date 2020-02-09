@@ -19,9 +19,10 @@
 
 package org.apache.myfaces.tobago.example.addressbook.web;
 
-import org.apache.log4j.Appender;
-import org.apache.log4j.FileAppender;
-import org.apache.log4j.PatternLayout;
+import org.apache.logging.log4j.core.Appender;
+import org.apache.logging.log4j.core.Layout;
+import org.apache.logging.log4j.core.appender.FileAppender;
+import org.apache.logging.log4j.core.layout.PatternLayout;
 
 public class AppenderModel {
 
@@ -41,11 +42,11 @@ public class AppenderModel {
 
   public String getFile() {
     return (appender instanceof FileAppender)
-        ? ((FileAppender) appender).getFile() : "";
+        ? ((FileAppender) appender).getFileName() : "";
   }
 
   public String getLayout() {
-    final org.apache.log4j.Layout layout = appender.getLayout();
+    final Layout layout = appender.getLayout();
     if (layout instanceof PatternLayout) {
       final PatternLayout patternLayout = (PatternLayout) layout;
       return patternLayout.getConversionPattern();

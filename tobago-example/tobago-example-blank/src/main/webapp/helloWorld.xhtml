@@ -17,30 +17,15 @@
  * limitations under the License.
 -->
 
-<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:tc="http://myfaces.apache.org/tobago/component"
+        xmlns:tx="http://myfaces.apache.org/tobago/extension"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<log4j:configuration>
-
-  <appender name="console" class="org.apache.log4j.ConsoleAppender">
-    <param name="Encoding" value="UTF-8" />
-    <layout class="org.apache.log4j.PatternLayout">
-      <param name="ConversionPattern"
-          value="%d{yyyy-MM-dd HH:mm:ss} %-5p - %c:%L - %m%n"/>
-      <!--
-        %d{...} date pattern
-        %p      priority
-        %m      log message
-        %n      newline
-        -5      fill with spaces (5)
-
-        For more options see class org.apache.log4j.PatternLayout.
-      -->
-    </layout>
-  </appender>
-
-  <root>
-    <priority value="info" />
-    <appender-ref ref="console" />
-  </root>
-
-</log4j:configuration>
+<tc:page>
+    <f:facet name="layout">
+      <tc:gridLayout/>
+    </f:facet>
+    <tc:out value="Hello World"/>
+  </tc:page>
+</f:view>

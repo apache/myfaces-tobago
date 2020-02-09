@@ -25,8 +25,6 @@ import org.codehaus.plexus.archiver.ArchiverException;
 import org.codehaus.plexus.archiver.UnArchiver;
 import org.codehaus.plexus.archiver.manager.ArchiverManager;
 import org.codehaus.plexus.archiver.manager.NoSuchArchiverException;
-import org.codehaus.plexus.archiver.zip.ZipEntry;
-import org.codehaus.plexus.archiver.zip.ZipFile;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.ReaderFactory;
@@ -44,6 +42,8 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 /**
  * @goal resources
@@ -87,7 +87,7 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
     ZipFile zip = null;
     try {
       zip = new ZipFile(jarFile);
-      final Enumeration files = zip.getEntries();
+      final Enumeration files = zip.entries();
       while (files.hasMoreElements()) {
         final ZipEntry nextEntry = (ZipEntry) files.nextElement();
         if (nextEntry == null || nextEntry.isDirectory()) {

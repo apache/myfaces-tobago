@@ -89,7 +89,7 @@
         <plugin>
           <groupId>org.eclipse.jetty</groupId>
           <artifactId>jetty-maven-plugin</artifactId>
-          <version>9.2.13.v20150730</version><!-- Jetty 9.3 requires Java 1.8 -->
+          <version>9.4.26.v20200117</version>
           <configuration>
             <scanIntervalSeconds>5</scanIntervalSeconds>
           </configuration>
@@ -187,8 +187,8 @@
           <scope>runtime</scope>
         </dependency>
         <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
+          <groupId>javax.servlet.jsp.jstl</groupId>
+          <artifactId>javax.servlet.jsp.jstl-api</artifactId>
           <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -221,8 +221,8 @@
           <scope>runtime</scope>
         </dependency>
         <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
+          <groupId>javax.servlet.jsp.jstl</groupId>
+          <artifactId>javax.servlet.jsp.jstl-api</artifactId>
           <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -255,8 +255,42 @@
           <scope>runtime</scope>
         </dependency>
         <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
+          <groupId>javax.servlet.jsp.jstl</groupId>
+          <artifactId>javax.servlet.jsp.jstl-api</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>myfaces-2.3</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>myfaces-2.3</value>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.myfaces.core</groupId>
+          <artifactId>myfaces-api</artifactId>
+          <version>${myfaces23.version}</version>
+          <scope>compile</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.core</groupId>
+          <artifactId>myfaces-impl</artifactId>
+          <version>${myfaces23.version}</version>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>javax.servlet.jsp.jstl</groupId>
+          <artifactId>javax.servlet.jsp.jstl-api</artifactId>
           <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -289,8 +323,8 @@
           <scope>runtime</scope>
         </dependency>
         <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
+          <groupId>javax.servlet.jsp.jstl</groupId>
+          <artifactId>javax.servlet.jsp.jstl-api</artifactId>
           <scope>runtime</scope>
         </dependency>
       </dependencies>
@@ -318,8 +352,8 @@
           <scope>runtime</scope>
         </dependency>
         <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
+          <groupId>javax.servlet.jsp.jstl</groupId>
+          <artifactId>javax.servlet.jsp.jstl-api</artifactId>
           <scope>runtime</scope>
         </dependency>
       </dependencies>
@@ -347,8 +381,8 @@
           <scope>runtime</scope>
         </dependency>
         <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
+          <groupId>javax.servlet.jsp.jstl</groupId>
+          <artifactId>javax.servlet.jsp.jstl-api</artifactId>
           <scope>runtime</scope>
         </dependency>
       </dependencies>
