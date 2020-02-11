@@ -443,7 +443,7 @@
           <!-- For IBM Websphere Liberty Profile (WLP) -->
           <id>Liberty</id>
           <name>Liberty Repository</name>
-          <url>http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/maven/repository/</url>
+          <url>https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/maven/repository/</url>
           <layout>default</layout>
           <snapshots>
             <enabled>false</enabled>
