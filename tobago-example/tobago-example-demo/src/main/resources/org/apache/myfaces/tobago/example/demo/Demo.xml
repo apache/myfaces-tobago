@@ -150,6 +150,7 @@
   <entry key="segment_layout">SegmentLayout</entry>
   <entry key="labeled_layout">LabeledLayout</entry>
   <entry key="grid_layout">GridLayout</entry>
+  <entry key="websocket">WebSocket</entry>
   <entry key="format">Formatting</entry>
   <entry key="exception_handler">Ajax Exception Handler</entry>
   <entry key="transition">Transition</entry>
