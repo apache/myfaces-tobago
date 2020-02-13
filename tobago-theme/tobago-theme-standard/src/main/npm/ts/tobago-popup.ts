@@ -70,14 +70,14 @@ const Selector = {
 export class Popup extends HTMLElement {
 
   private emulateTransitionEndCalled: boolean = false;
-  _dialog: HTMLElement;
-  _backdrop: HTMLDivElement;
-  _isShown: boolean;
-  _isBodyOverflowing: boolean;
-  _ignoreBackdropClick: boolean;
+  private _dialog: HTMLElement;
+  private _backdrop: HTMLDivElement;
+  private _isShown: boolean;
+  private _isBodyOverflowing: boolean;
+  private _ignoreBackdropClick: boolean;
   // _isTransitioning;
-  _scrollbarWidth;
-  _clickDismiss: (event: Event) => void;
+  private _scrollbarWidth : number;
+  private _clickDismiss: (event: Event) => void;
 
   constructor() {
     super();
@@ -133,9 +133,9 @@ export class Popup extends HTMLElement {
 
     this._isShown = true;
 
-    // this._checkScrollbar();
-    // this._setScrollbar();
-    //
+    this._checkScrollbar();
+    this._setScrollbar();
+
     // this._adjustDialog();
     //
     // this._setEscapeEvent();
@@ -345,7 +345,7 @@ export class Popup extends HTMLElement {
     }
   }
 */
-  _hideModal():void {
+  _hideModal(): void {
     this.style.display = "none";
     this.setAttribute("aria-hidden", "true");
     this.removeAttribute("aria-modal");
@@ -353,7 +353,7 @@ export class Popup extends HTMLElement {
     this._showBackdrop(() => {
       document.body.classList.remove(ClassName.OPEN);
       // this._resetAdjustments();
-      // this._resetScrollbar();
+      this._resetScrollbar();
       // $(this._element).trigger(Event.HIDDEN)
     });
   }
@@ -455,80 +455,80 @@ export class Popup extends HTMLElement {
     this._element.style.paddingRight = ''
   }*/
 
-  /*_checkScrollbar() {
-    const rect = document.body.getBoundingClientRect()
-    this._isBodyOverflowing = rect.left + rect.right < window.innerWidth
-    this._scrollbarWidth = this._getScrollbarWidth()
-  }*/
+  _checkScrollbar(): void {
+    const rect = document.body.getBoundingClientRect();
+    this._isBodyOverflowing = rect.left + rect.right < window.innerWidth;
+    this._scrollbarWidth = this._getScrollbarWidth();
+  }
 
-  /*_setScrollbar() {
+  _setScrollbar(): void {
     if (this._isBodyOverflowing) {
       // Note: DOMNode.style.paddingRight returns the actual value or '' if not set
       //   while $(DOMNode).css('padding-right') returns the calculated value or 0 if not set
-      const fixedContent = [].slice.call(document.querySelectorAll(Selector.FIXED_CONTENT))
-      const stickyContent = [].slice.call(document.querySelectorAll(Selector.STICKY_CONTENT))
+      const fixedContent = [].slice.call(document.querySelectorAll(Selector.FIXED_CONTENT));
+      const stickyContent = [].slice.call(document.querySelectorAll(Selector.STICKY_CONTENT));
 
       // Adjust fixed content padding
-      $(fixedContent).each((index, element) => {
+      /*$(fixedContent).each((index, element) => {
         const actualPadding = element.style.paddingRight
         const calculatedPadding = $(element).css('padding-right')
         $(element)
             .data('padding-right', actualPadding)
             .css('padding-right', `${parseFloat(calculatedPadding) + this._scrollbarWidth}px`)
-      })
+      })*/
 
       // Adjust sticky content margin
-      $(stickyContent).each((index, element) => {
+      /*$(stickyContent).each((index, element) => {
         const actualMargin = element.style.marginRight
         const calculatedMargin = $(element).css('margin-right')
         $(element)
             .data('margin-right', actualMargin)
             .css('margin-right', `${parseFloat(calculatedMargin) - this._scrollbarWidth}px`)
-      })
+      })*/
 
       // Adjust body padding
-      const actualPadding = document.body.style.paddingRight
-      const calculatedPadding = $(document.body).css('padding-right')
-      $(document.body)
+      const actualPadding = document.body.style.paddingRight;
+      // const calculatedPadding = $(document.body).css('padding-right');
+      /*$(document.body)
           .data('padding-right', actualPadding)
-          .css('padding-right', `${parseFloat(calculatedPadding) + this._scrollbarWidth}px`)
+          .css('padding-right', `${parseFloat(calculatedPadding) + this._scrollbarWidth}px`)*/
     }
 
-    $(document.body).addClass(ClassName.OPEN)
-  }*/
+    document.body.classList.add(ClassName.OPEN);
+  }
 
-  /*_resetScrollbar() {
+  _resetScrollbar(): void {
     // Restore fixed content padding
-    const fixedContent = [].slice.call(document.querySelectorAll(Selector.FIXED_CONTENT))
-    $(fixedContent).each((index, element) => {
+    const fixedContent = [].slice.call(document.querySelectorAll(Selector.FIXED_CONTENT));
+    /*$(fixedContent).each((index, element) => {
       const padding = $(element).data('padding-right')
       $(element).removeData('padding-right')
       element.style.paddingRight = padding ? padding : ''
-    })
+    })*/
 
     // Restore sticky content
-    const elements = [].slice.call(document.querySelectorAll(`${Selector.STICKY_CONTENT}`))
-    $(elements).each((index, element) => {
+    const elements = [].slice.call(document.querySelectorAll(`${Selector.STICKY_CONTENT}`));
+    /*$(elements).each((index, element) => {
       const margin = $(element).data('margin-right')
       if (typeof margin !== 'undefined') {
         $(element).css('margin-right', margin).removeData('margin-right')
       }
-    })
+    })*/
 
     // Restore body padding
-    const padding = $(document.body).data('padding-right')
+    /*const padding = $(document.body).data('padding-right')
     $(document.body).removeData('padding-right')
-    document.body.style.paddingRight = padding ? padding : ''
-  }*/
+    document.body.style.paddingRight = padding ? padding : '';*/
+  }
 
-  /*_getScrollbarWidth() { // thx d.walsh
-    const scrollDiv = document.createElement('div')
-    scrollDiv.className = ClassName.SCROLLBAR_MEASURER
-    document.body.appendChild(scrollDiv)
-    const scrollbarWidth = scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth
-    document.body.removeChild(scrollDiv)
-    return scrollbarWidth
-  }*/
+  _getScrollbarWidth(): number { // thx d.walsh
+    const scrollDiv = document.createElement("div");
+    scrollDiv.className = ClassName.SCROLLBAR_MEASURER;
+    document.body.appendChild(scrollDiv);
+    const scrollbarWidth = scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth;
+    document.body.removeChild(scrollDiv);
+    return scrollbarWidth;
+  }
 
   // Static
 
