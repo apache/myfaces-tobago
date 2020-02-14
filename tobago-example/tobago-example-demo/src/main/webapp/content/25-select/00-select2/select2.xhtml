@@ -243,6 +243,22 @@
         </tc:selectManyBox>
 
       </tc:panel>
+
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout columns="400px;1*" rows="45px"/>
+        </f:facet>
+
+        <tc:label value="Enter numbers" for="many_9"/>
+        <tc:selectManyBox id="many_9"
+                          placeholder="Enter numbers"
+                          allowCustom="true"
+                          converter="#{select2Controller.numberConverter}"
+                          value="#{select2Controller.many9Numbers}">
+          <tc:selectItems value="#{select2Controller.many9NumbersItems}"/>
+        </tc:selectManyBox>
+
+      </tc:panel>
     </tc:panel>
 
 

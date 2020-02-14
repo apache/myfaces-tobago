@@ -7,13 +7,20 @@ import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyBox;
 import org.apache.myfaces.tobago.internal.component.AbstractUISuggest;
 import org.apache.myfaces.tobago.internal.component.UISelect2Component;
 import org.apache.myfaces.tobago.model.SelectItem;
+import org.apache.myfaces.tobago.model.SubmittedItem;
 import org.apache.myfaces.tobago.model.UICustomItemContainer;
 import org.apache.myfaces.tobago.util.SelectItemUtils;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class UISelect2ComponentUtil {
@@ -57,7 +64,7 @@ public class UISelect2ComponentUtil {
   public static void ensureCustomValue(
       FacesContext facesContext, UISelect2Component component, Object value, AbstractUISuggest suggest) {
 
-    if (!isInItemlist(facesContext, component, value)) {
+    if (!isInItemList(facesContext, component, value)) {
       javax.faces.model.SelectItem item = null;
       if (suggest != null) {
         item = suggest.getSelectItem(facesContext, value, component.getConverter());
@@ -72,7 +79,7 @@ public class UISelect2ComponentUtil {
     }
   }
 
-  private static boolean isInItemlist(FacesContext facesContext, UISelect2Component component, Object value) {
+  private static boolean isInItemList(FacesContext facesContext, UISelect2Component component, Object value) {
     LOG.trace("check for value = \"{}\"", value);
     Iterable<javax.faces.model.SelectItem> items
         = SelectItemUtils.getItemIterator(facesContext, (UIComponent) component);
@@ -119,7 +126,7 @@ public class UISelect2ComponentUtil {
       validCustomItemMap.clear();
       for (javax.faces.model.SelectItem selectItem : set) {
         LOG.trace("cleanup check = \"{}\"", selectItem.getValue());
-        if (!isInItemlist(facesContext, component, selectItem.getValue())) {
+        if (!isInItemList(facesContext, component, selectItem.getValue())) {
           LOG.trace("cleanup readd = \"{}\"", selectItem.getValue());
           validCustomItemMap.add(selectItem);
         }
@@ -127,4 +134,39 @@ public class UISelect2ComponentUtil {
     }
   }
 
+  public static Iterable<javax.faces.model.SelectItem> ensureSubmittedValues(FacesContext facesContext,
+      UIInput component, Iterable<javax.faces.model.SelectItem> items, String[] submittedValues) {
+    if (submittedValues == null || !(component instanceof UISelect2Component)) {
+      return items;
+    }
+    Converter converter = component.getConverter();
+    Map<String, javax.faces.model.SelectItem> optionValues = new HashMap<String, javax.faces.model.SelectItem>();
+    for (javax.faces.model.SelectItem item : items) {
+      if (converter != null) {
+        optionValues.put(converter.getAsString(facesContext, component, item.getValue()), item);
+      } else {
+        optionValues.put(item.getValue().toString(), item);
+      }
+    }
+
+
+    List<javax.faces.model.SelectItem> itemsToRender = new ArrayList<javax.faces.model.SelectItem>();
+    for (String submittedValue : submittedValues) {
+      if (optionValues.keySet().contains(submittedValue)) {
+        optionValues.remove(submittedValue);
+      } else {
+        itemsToRender.add(new SubmittedItem(submittedValue));
+      }
+    }
+    if (itemsToRender.isEmpty()) {
+      return items;
+    } else {
+      for (javax.faces.model.SelectItem item : items) {
+        if (optionValues.values().contains(item)) {
+          itemsToRender.add(item);
+        }
+      }
+      return itemsToRender;
+    }
+  }
 }

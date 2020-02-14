@@ -30,10 +30,15 @@ import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectMany;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyBox;
+import org.apache.myfaces.tobago.internal.component.UISelect2Component;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.apache.myfaces.tobago.internal.util.UISelect2ComponentUtil;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
+import org.apache.myfaces.tobago.model.SubmittedItem;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -399,7 +404,7 @@ public final class HtmlRendererUtils {
       throws IOException {
     renderSelectItems(component, items, values, null, onlySelected, writer, facesContext);
   }
-  public static void renderSelectItems(final UIInput component, final Iterable<SelectItem> items, final Object[] values,
+  public static void renderSelectItems(final UIInput component, Iterable<SelectItem> items, final Object[] values,
       final String[] submittedValues, final Boolean onlySelected, final TobagoResponseWriter writer,
       final FacesContext facesContext) throws IOException {
 
@@ -408,6 +413,7 @@ public final class HtmlRendererUtils {
       LOG.debug("values = '{}'", Arrays.toString(values));
       LOG.debug("submittedValues = '{}'", Arrays.toString(submittedValues));
     }
+    items = UISelect2ComponentUtil.ensureSubmittedValues(facesContext, component, items, submittedValues);
     for (final SelectItem item : items) {
       if (item instanceof SelectItemGroup) {
         writer.startElement(HtmlElements.OPTGROUP, null);
@@ -426,7 +432,12 @@ public final class HtmlRendererUtils {
         if (itemValue instanceof String && values != null && values.length > 0 && !(values[0] instanceof String)) {
           itemValue = ComponentUtils.getConvertedValue(facesContext, component, (String) itemValue);
         }
-        final String formattedValue = RenderUtils.getFormattedValue(facesContext, component, itemValue);
+        final String formattedValue;
+        if (item instanceof SubmittedItem) {
+          formattedValue = item.getLabel();
+        } else {
+          formattedValue = RenderUtils.getFormattedValue(facesContext, component, itemValue);
+        }
         boolean contains;
         if (submittedValues == null) {
           contains = RenderUtils.contains(values, itemValue);

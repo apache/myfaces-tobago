@@ -30,6 +30,8 @@ public class Select2Controller implements Serializable {
 
   private LocaleConverter localeConverter = new LocaleConverter();
 
+  private NumberConverter numberConverter = new NumberConverter();
+
   private String one2Value;
 
   private String one3Value;
@@ -37,6 +39,8 @@ public class Select2Controller implements Serializable {
   private Locale one4Locale;
 
   private List<Locale> many8Locales;
+
+  private List<Integer> many9Numbers;
 
   private List<String> many7Countries;
 
@@ -142,6 +146,51 @@ public class Select2Controller implements Serializable {
       return items;
     } else {
       return Collections.emptyList();
+    }
+  }
+
+  public List<Integer> getMany9Numbers() {
+    LOG.warn("get many9Numbers = \"{}\"", many9Numbers);
+    return many9Numbers;
+  }
+
+  public void setMany9Numbers(List<Integer> many9Numbers) {
+    LOG.warn("set many9Numbers = \"{}\"", many9Numbers);
+    this.many9Numbers = many9Numbers;
+  }
+
+  public List<SelectItem> getMany9NumbersItems() {
+    if (many9Numbers != null && !many9Numbers.isEmpty()) {
+      List<SelectItem> items = new ArrayList<SelectItem>();
+      for (Integer number : many9Numbers) {
+        items.add(new SelectItem(number, Integer.toString(number)));
+      }
+      return items;
+    } else {
+      return Collections.emptyList();
+    }
+  }
+
+  public NumberConverter getNumberConverter() {
+    return numberConverter;
+  }
+
+  private class NumberConverter implements Converter {
+
+    public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {
+      try {
+        return Integer.parseInt(value);
+      } catch (NumberFormatException e) {
+        throw new ConverterException(e.getMessage(), e);
+      }
+    }
+
+    public String getAsString(FacesContext context, UIComponent component, Object value) throws ConverterException {
+      try {
+        return Integer.toString((Integer) value);
+      } catch (Exception e) {
+        throw new ConverterException(e.getMessage(), e);
+      }
     }
   }
 

@@ -90,6 +90,7 @@ public class SelectManyBoxRenderer extends SelectManyRendererBase {
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     writer.startElement(HtmlElements.DIV, select);
     writer.writeStyleAttribute(style);
+    writer.writeClassAttribute(Classes.create(select, "container"));
     style.setTop(Measure.ZERO);
     style.setLeft(Measure.ZERO);
 
