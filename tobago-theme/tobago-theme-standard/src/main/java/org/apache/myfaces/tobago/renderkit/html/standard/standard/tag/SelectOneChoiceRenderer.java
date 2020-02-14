@@ -89,7 +89,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
       LOG.trace("Select2 json = \"{}\"", json);
       ComponentUtils.putDataAttribute(select, "tobago-select2", json);
 
-      writer.startElement(HtmlElements.DIV, select);
+      writer.startElement(HtmlElements.SPAN, select);
       writer.writeStyleAttribute(style);
       style.setTop(Measure.ZERO);
       style.setLeft(Measure.ZERO);
@@ -130,7 +130,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
 
     writer.endElement(HtmlElements.SELECT);
     if (renderAsSelect2) {
-      writer.endElement(HtmlElements.DIV);
+      writer.endElement(HtmlElements.SPAN);
     }
 
     super.encodeEnd(facesContext, select);

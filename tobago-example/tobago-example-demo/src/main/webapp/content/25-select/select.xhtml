@@ -26,7 +26,7 @@
   <tc:panel>
     <f:facet name="layout">
       <tc:gridLayout
-          rows="auto;auto;auto;auto;auto;auto;45px;45px;auto;auto;auto;200px;200px;auto;auto;auto;auto;auto;*;auto"/>
+          rows="auto;auto;auto;auto;auto;auto;45px;45px;auto;auto;auto;25px;200px;200px;auto;auto;auto;auto;auto;*;auto"/>
     </f:facet>
 
     <!-- code-sniplet-start id="selectBooleanCheckbox" -->
@@ -90,6 +90,17 @@
                         label="Manufacturer: " valueChangeListener="#{reference.valueChanged}">
       <f:selectItems value="#{reference.manufacturerSelectItems}"/>
     </tx:selectOneChoice>
+
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:flowLayout/>
+      </f:facet>
+      <tc:out value="You can use a tc:selectOneChoice like this "/>
+      <tc:selectOneChoice value="#{reference.manufacturer}">
+        <f:selectItems value="#{reference.manufacturerSelectItems}"/>
+      </tc:selectOneChoice>
+      <tc:out value=" inside of a floating text."/>
+    </tc:panel>
 
     <!-- code-sniplet-start id="selectOneListbox" -->
     <tx:selectOneListbox label="Contact via: ">
