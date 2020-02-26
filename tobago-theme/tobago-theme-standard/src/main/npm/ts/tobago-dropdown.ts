@@ -17,6 +17,13 @@
 
 import Popper from "popper.js";
 
+const Event = {
+  HIDE: "tobago.dropdown.hide",
+  HIDDEN: "tobago.dropdown.hidden",
+  SHOW: "tobago.dropdown.show",
+  SHOWN: "tobago.dropdown.shown"
+};
+
 class Dropdown extends HTMLElement {
 
   private dropdownEntries: DropdownEntry[] = [];
@@ -107,6 +114,8 @@ class Dropdown extends HTMLElement {
   }
 
   openDropdown(): void {
+    this.dispatchEvent(new CustomEvent(Event.HIDE));
+
     if (!this.inStickyHeader()) {
       this.menuStore.appendChild(this.dropdownMenu);
       new Popper(this.toggleButton, this.dropdownMenu, {
@@ -119,11 +128,14 @@ class Dropdown extends HTMLElement {
     }
 
     this.dropdownMenu.classList.add("show");
+    this.dispatchEvent(new CustomEvent(Event.HIDDEN));
   }
 
   closeDropdown(): void {
+    this.dispatchEvent(new CustomEvent(Event.SHOW));
     this.dropdownMenu.classList.remove("show");
     this.appendChild(this.dropdownMenu);
+    this.dispatchEvent(new CustomEvent(Event.SHOWN));
   }
 
   private get toggleButton(): HTMLElement {
