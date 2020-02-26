@@ -19,39 +19,90 @@ import Popper from "popper.js";
 
 class Dropdown extends HTMLElement {
 
-  private closeFlag: boolean = false;
+  private dropdownEntries: DropdownEntry[] = [];
+  private activeDropdownEntry: DropdownEntry;
 
   constructor() {
     super();
+    if (!this.classList.contains("tobago-dropdown-submenu")) { // ignore submenus
+      const root = this.getRootNode() as ShadowRoot | Document;
 
-    this.toggleButton.addEventListener("mouseup", this.toggleDropdown.bind(this));
-    this.toggleButton.addEventListener("blur", this.setCloseFlag.bind(this));
-    window.addEventListener("mouseup", this.deselectComponent.bind(this));
+      this.createDropdownEntries(this.dropdownMenu, null);
+
+      this.toggleButton.addEventListener("click", this.toggleDropdown.bind(this));
+      root.addEventListener("mouseup", this.mouseupOnDocument.bind(this));
+      root.addEventListener("keydown", this.keydownOnDocument.bind(this));
+      root.addEventListener("keyup", this.keyupOnDocument.bind(this));
+    }
   }
 
   connectedCallback(): void {
-    //TODO add keyboard support
   }
 
   toggleDropdown(event: Event): void {
-    this.resetCloseFlag();
-
-    const visible: boolean = this.dropdownMenu.classList.contains("show");
-    if (visible) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (this.dropdownVisible()) {
       this.closeDropdown();
     } else {
       this.openDropdown();
     }
   }
 
-  deselectComponent(event: Event): void {
-    const visible: boolean = this.dropdownMenu.classList.contains("show");
-    if (this.closeFlag && visible) {
-      this.resetCloseFlag();
-
-      const target: HTMLElement = event.target as HTMLElement;
+  mouseupOnDocument(event: MouseEvent): void {
+    if (!this.toggleButtonSelected() && this.dropdownVisible()) {
       this.closeDropdown();
-      target.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+    }
+  }
+
+  keydownOnDocument(event: KeyboardEvent): void {
+    if (this.dropdownVisible() && event.code === "Escape") {
+      event.preventDefault();
+      event.stopPropagation();
+      this.closeDropdown();
+    } else if ((this.toggleButtonSelected() || this.dropdownVisible())
+        && (event.code === "ArrowUp" || event.code === "ArrowDown"
+            || event.code === "ArrowLeft" || event.code === "ArrowRight")) {
+      // prevent scrolling with arrow keys
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
+
+  keyupOnDocument(event: KeyboardEvent): void {
+    const root = this.getRootNode() as ShadowRoot | Document;
+
+    if (this.toggleButtonSelected() && !this.dropdownVisible()
+        && (event.code === "ArrowUp" || event.code === "ArrowDown")) {
+      event.preventDefault();
+      event.stopPropagation();
+      this.openDropdown();
+      this.activeDropdownEntry = this.dropdownEntries[0];
+
+      const interval = setInterval(() => {
+        if (this.dropdownVisible()) {
+          this.activeDropdownEntry.focus();
+          clearInterval(interval);
+        }
+      }, 0);
+    } else if (this.activeDropdownEntry && this.dropdownVisible()) {
+      if (event.code === "ArrowUp" && this.activeDropdownEntry.previous) {
+        this.activeDropdownEntry.clearCss();
+        this.activeDropdownEntry = this.activeDropdownEntry.previous;
+        this.activeDropdownEntry.focus();
+      } else if (event.code === "ArrowDown" && this.activeDropdownEntry.next) {
+        this.activeDropdownEntry.clearCss();
+        this.activeDropdownEntry = this.activeDropdownEntry.next;
+        this.activeDropdownEntry.focus();
+      } else if (event.code === "ArrowRight" && this.activeDropdownEntry.children.length > 0) {
+        this.activeDropdownEntry = this.activeDropdownEntry.children[0];
+        this.activeDropdownEntry.focus();
+      } else if (event.code === "ArrowLeft" && this.activeDropdownEntry.parent) {
+        this.activeDropdownEntry.clearCss();
+        this.activeDropdownEntry = this.activeDropdownEntry.parent;
+        this.activeDropdownEntry.clearCss();
+        this.activeDropdownEntry.focus();
+      }
     }
   }
 
@@ -61,6 +112,10 @@ class Dropdown extends HTMLElement {
       new Popper(this.toggleButton, this.dropdownMenu, {
         placement: "bottom-start"
       });
+    }
+
+    for (const dropdownEntry of this.dropdownEntries) {
+      dropdownEntry.clearCss();
     }
 
     this.dropdownMenu.classList.add("show");
@@ -75,9 +130,14 @@ class Dropdown extends HTMLElement {
     return this.querySelector(":scope > button[data-toggle='dropdown']");
   }
 
+  private toggleButtonSelected(): boolean {
+    const root = this.getRootNode() as ShadowRoot | Document;
+    return root.activeElement === this.toggleButton;
+  }
+
   private inStickyHeader(): boolean {
     const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector("header.tobago-header.sticky-top tobago-dropdown[id='" + this.id + "']") !== null;
+    return Boolean(root.querySelector("header.tobago-header.sticky-top tobago-dropdown[id='" + this.id + "']"));
   }
 
   private get dropdownMenu(): HTMLDivElement {
@@ -85,17 +145,122 @@ class Dropdown extends HTMLElement {
     return root.querySelector(".dropdown-menu[name='" + this.id + "']");
   }
 
+  private dropdownVisible(): boolean {
+    return this.dropdownMenu.classList.contains("show");
+  }
+
   private get menuStore(): HTMLDivElement {
     const root = this.getRootNode() as ShadowRoot | Document;
     return root.querySelector(".tobago-page-menuStore");
   }
 
-  setCloseFlag(event: Event): void {
-    this.closeFlag = true;
+  private createDropdownEntries(dropdownMenu: HTMLDivElement, parent: DropdownEntry): void {
+    let lastDropdownEntry: DropdownEntry = null;
+
+    for (const dropdownItem of dropdownMenu.children) {
+      if (dropdownItem.classList.contains("dropdown-item")) {
+        const entry = this.createDropdownEntry(dropdownItem as HTMLElement, parent, lastDropdownEntry);
+
+        lastDropdownEntry = entry;
+        this.dropdownEntries.push(entry);
+
+        if (dropdownItem.classList.contains("tobago-dropdown-submenu")) {
+          this.createDropdownEntries(dropdownItem.querySelector(".dropdown-menu"), entry);
+        }
+      } else {
+        const dropdownItems: NodeListOf<HTMLElement> = dropdownItem.querySelectorAll(".dropdown-item");
+        for (const dropdownItem of dropdownItems) {
+          const entry = this.createDropdownEntry(dropdownItem, parent, lastDropdownEntry);
+
+          lastDropdownEntry = entry;
+          this.dropdownEntries.push(entry);
+        }
+      }
+    }
   }
 
-  resetCloseFlag(): void {
-    this.closeFlag = false;
+  private createDropdownEntry(
+      dropdownItem: HTMLElement, parent: DropdownEntry, previous: DropdownEntry): DropdownEntry {
+
+    const entry = new DropdownEntry(dropdownItem);
+    if (parent) {
+      entry.parent = parent;
+      parent.children.push(entry);
+    }
+
+    if (previous) {
+      previous.next = entry;
+      entry.previous = previous;
+    }
+
+    return entry;
+  }
+}
+
+class DropdownEntry {
+
+  private _previous: DropdownEntry;
+  private _next: DropdownEntry;
+  private _parent: DropdownEntry;
+  private _children: DropdownEntry[] = [];
+  private readonly _baseElement: HTMLElement;
+  private readonly focusElement: HTMLElement;
+
+  constructor(dropdownItem: HTMLElement) {
+    this._baseElement = dropdownItem;
+    if (dropdownItem.classList.contains("tobago-dropdown-submenu")) {
+      this.focusElement = dropdownItem.querySelector(".tobago-link");
+    } else if (dropdownItem.tagName === "LABEL") {
+      this.focusElement = dropdownItem.querySelector("input");
+    } else {
+      this.focusElement = dropdownItem;
+    }
+  }
+
+  get previous(): DropdownEntry {
+    return this._previous;
+  }
+
+  set previous(value: DropdownEntry) {
+    this._previous = value;
+  }
+
+  get next(): DropdownEntry {
+    return this._next;
+  }
+
+  set next(value: DropdownEntry) {
+    this._next = value;
+  }
+
+  get parent(): DropdownEntry {
+    return this._parent;
+  }
+
+  set parent(value: DropdownEntry) {
+    this._parent = value;
+  }
+
+  get children(): DropdownEntry[] {
+    return this._children;
+  }
+
+  set children(value: DropdownEntry[]) {
+    this._children = value;
+  }
+
+  public focus(): void {
+    if (this.parent) {
+      this.parent._baseElement.classList.add("tobago-dropdown-open");
+    }
+
+    this._baseElement.classList.add("tobago-dropdown-selected");
+    this.focusElement.focus();
+  }
+
+  public clearCss(): void {
+    this._baseElement.classList.remove("tobago-dropdown-open");
+    this._baseElement.classList.remove("tobago-dropdown-selected");
   }
 }
 

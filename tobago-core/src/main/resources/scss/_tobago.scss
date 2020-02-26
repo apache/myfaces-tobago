@@ -74,6 +74,7 @@ $input-focus-box-shadow: $input-btn-focus-box-shadow !default;
 $form-check-inline-input-margin-x: 0.75rem;
 $input-placeholder-color: $gray-600 !default;
 $grid-gutter-width: 30px !default;
+$dropdown-link-hover-color: darken($gray-900, 5%) !default;
 
 $page-padding-top: 1rem;
 
@@ -600,6 +601,14 @@ tobago-dropdown {
   display: inline-block;
 }
 
+tobago-dropdown, .tobago-page-menuStore {
+  .tobago-dropdown-selected {
+    color: $dropdown-link-hover-color;
+    text-decoration: none;
+    @include gradient-bg($dropdown-link-hover-bg);
+  }
+}
+
 ul > tobago-dropdown {
   display: list-item;
 }
@@ -647,11 +656,13 @@ ul > tobago-dropdown {
     margin-right: -10px;
   }
 
-  &:hover > .dropdown-menu {
-    display: block;
+  &:hover, &.tobago-dropdown-open {
+    > .dropdown-menu {
+      display: block;
 
-    > a:after {
-      border-left-color: $dropdown-bg;
+      > a:after {
+        border-left-color: $dropdown-bg;
+      }
     }
   }
 
