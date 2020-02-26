@@ -57,7 +57,8 @@ class Dropdown extends HTMLElement {
   }
 
   mouseupOnDocument(event: MouseEvent): void {
-    if (!this.toggleButtonSelected() && this.dropdownVisible()) {
+    if (!this.toggleButtonSelected(event) && this.dropdownVisible()
+        && !this.dropdownMenu.contains(event.target as HTMLElement)) {
       this.closeDropdown();
     }
   }
@@ -67,7 +68,7 @@ class Dropdown extends HTMLElement {
       event.preventDefault();
       event.stopPropagation();
       this.closeDropdown();
-    } else if ((this.toggleButtonSelected() || this.dropdownVisible())
+    } else if ((this.toggleButtonSelected(event) || this.dropdownVisible())
         && (event.code === "ArrowUp" || event.code === "ArrowDown"
             || event.code === "ArrowLeft" || event.code === "ArrowRight")) {
       // prevent scrolling with arrow keys
@@ -77,9 +78,7 @@ class Dropdown extends HTMLElement {
   }
 
   keyupOnDocument(event: KeyboardEvent): void {
-    const root = this.getRootNode() as ShadowRoot | Document;
-
-    if (this.toggleButtonSelected() && !this.dropdownVisible()
+    if (this.toggleButtonSelected(event) && !this.dropdownVisible()
         && (event.code === "ArrowUp" || event.code === "ArrowDown")) {
       event.preventDefault();
       event.stopPropagation();
@@ -142,9 +141,8 @@ class Dropdown extends HTMLElement {
     return this.querySelector(":scope > button[data-toggle='dropdown']");
   }
 
-  private toggleButtonSelected(): boolean {
-    const root = this.getRootNode() as ShadowRoot | Document;
-    return root.activeElement === this.toggleButton;
+  private toggleButtonSelected(event: Event): boolean {
+    return this.toggleButton.contains(event.target as HTMLElement);
   }
 
   private inStickyHeader(): boolean {
