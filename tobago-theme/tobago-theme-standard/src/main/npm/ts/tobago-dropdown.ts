@@ -27,7 +27,6 @@ const Event = {
 class Dropdown extends HTMLElement {
 
   private dropdownEntries: DropdownEntry[] = [];
-  private activeDropdownEntry: DropdownEntry;
 
   constructor() {
     super();
@@ -83,7 +82,6 @@ class Dropdown extends HTMLElement {
       event.preventDefault();
       event.stopPropagation();
       this.openDropdown();
-      this.activeDropdownEntry = this.dropdownEntries[0];
 
       const interval = setInterval(() => {
         if (this.dropdownVisible()) {
@@ -93,21 +91,13 @@ class Dropdown extends HTMLElement {
       }, 0);
     } else if (this.activeDropdownEntry && this.dropdownVisible()) {
       if (event.code === "ArrowUp" && this.activeDropdownEntry.previous) {
-        this.activeDropdownEntry.clearCss();
-        this.activeDropdownEntry = this.activeDropdownEntry.previous;
-        this.activeDropdownEntry.focus();
+        this.activeDropdownEntry.previous.focus();
       } else if (event.code === "ArrowDown" && this.activeDropdownEntry.next) {
-        this.activeDropdownEntry.clearCss();
-        this.activeDropdownEntry = this.activeDropdownEntry.next;
-        this.activeDropdownEntry.focus();
+        this.activeDropdownEntry.next.focus();
       } else if (event.code === "ArrowRight" && this.activeDropdownEntry.children.length > 0) {
-        this.activeDropdownEntry = this.activeDropdownEntry.children[0];
-        this.activeDropdownEntry.focus();
+        this.activeDropdownEntry.children[0].focus();
       } else if (event.code === "ArrowLeft" && this.activeDropdownEntry.parent) {
-        this.activeDropdownEntry.clearCss();
-        this.activeDropdownEntry = this.activeDropdownEntry.parent;
-        this.activeDropdownEntry.clearCss();
-        this.activeDropdownEntry.focus();
+        this.activeDropdownEntry.parent.focus();
       }
     }
   }
@@ -123,7 +113,7 @@ class Dropdown extends HTMLElement {
     }
 
     for (const dropdownEntry of this.dropdownEntries) {
-      dropdownEntry.clearCss();
+      dropdownEntry.clear();
     }
 
     this.dropdownMenu.classList.add("show");
@@ -162,6 +152,15 @@ class Dropdown extends HTMLElement {
   private get menuStore(): HTMLDivElement {
     const root = this.getRootNode() as ShadowRoot | Document;
     return root.querySelector(".tobago-page-menuStore");
+  }
+
+  private get activeDropdownEntry(): DropdownEntry {
+    for (const dropdownEntry of this.dropdownEntries) {
+      if (dropdownEntry.active) {
+        return dropdownEntry;
+      }
+    }
+    return this.dropdownEntries[0];
   }
 
   private createDropdownEntries(dropdownMenu: HTMLDivElement, parent: DropdownEntry): void {
@@ -215,6 +214,7 @@ class DropdownEntry {
   private _children: DropdownEntry[] = [];
   private readonly _baseElement: HTMLElement;
   private readonly focusElement: HTMLElement;
+  private _active: boolean;
 
   constructor(dropdownItem: HTMLElement) {
     this._baseElement = dropdownItem;
@@ -225,6 +225,17 @@ class DropdownEntry {
     } else {
       this.focusElement = dropdownItem;
     }
+
+    this._baseElement.addEventListener("mouseenter", this.activate.bind(this));
+    this._baseElement.addEventListener("mouseleave", this.deactivate.bind(this));
+  }
+
+  activate(event: MouseEvent): void {
+    this.active = true;
+  }
+
+  deactivate(event: MouseEvent): void {
+    this.active = false;
   }
 
   get previous(): DropdownEntry {
@@ -259,18 +270,34 @@ class DropdownEntry {
     this._children = value;
   }
 
+  get active(): boolean {
+    return this._active;
+  }
+
+  set active(value: boolean) {
+    this._active = value;
+  }
+
   public focus(): void {
+    this.previous?.clear();
+    this.next?.clear();
     if (this.parent) {
+      this.parent.active = false;
       this.parent._baseElement.classList.add("tobago-dropdown-open");
     }
-
+    for (const child of this.children) {
+      child.clear();
+    }
+    this._baseElement.classList.remove("tobago-dropdown-open");
     this._baseElement.classList.add("tobago-dropdown-selected");
+    this.active = true;
     this.focusElement.focus();
   }
 
-  public clearCss(): void {
+  public clear(): void {
     this._baseElement.classList.remove("tobago-dropdown-open");
     this._baseElement.classList.remove("tobago-dropdown-selected");
+    this.active = false;
   }
 }
 
