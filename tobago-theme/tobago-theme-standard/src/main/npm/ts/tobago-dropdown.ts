@@ -81,7 +81,8 @@ class Dropdown extends HTMLElement {
       }, 0);
     } else if (this.dropdownVisible()
         && (event.code === "ArrowUp" || event.code === "ArrowDown"
-            || event.code === "ArrowLeft" || event.code === "ArrowRight")) {
+            || event.code === "ArrowLeft" || event.code === "ArrowRight"
+            || event.code === "Tab")) {
       event.preventDefault();
       event.stopPropagation();
 
@@ -95,6 +96,29 @@ class Dropdown extends HTMLElement {
         this.activeDropdownEntry.children[0].focus();
       } else if (event.code === "ArrowLeft" && this.activeDropdownEntry.parent) {
         this.activeDropdownEntry.parent.focus();
+      } else if (!event.shiftKey && event.code === "Tab") {
+        if (this.activeDropdownEntry.children.length > 0) {
+          this.activeDropdownEntry.children[0].focus();
+        } else if (this.activeDropdownEntry.next) {
+          this.activeDropdownEntry.next.focus();
+        } else {
+          let parent: DropdownEntry = this.activeDropdownEntry.parent;
+          while (parent) {
+            if (parent.next) {
+              this.activeDropdownEntry.clear();
+              parent.next.focus();
+              break;
+            } else {
+              parent = parent.parent;
+            }
+          }
+        }
+      } else if (event.shiftKey && event.code === "Tab") {
+        if (this.activeDropdownEntry.previous) {
+          this.activeDropdownEntry.previous.focus();
+        } else if (this.activeDropdownEntry.parent) {
+          this.activeDropdownEntry.parent.focus();
+        }
       }
     } else if (this.dropdownVisible() && event.code === "Escape") {
       event.preventDefault();
