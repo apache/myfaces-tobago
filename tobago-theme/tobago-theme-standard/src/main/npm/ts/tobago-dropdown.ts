@@ -38,7 +38,6 @@ class Dropdown extends HTMLElement {
       this.toggleButton.addEventListener("click", this.toggleDropdown.bind(this));
       root.addEventListener("mouseup", this.mouseupOnDocument.bind(this));
       root.addEventListener("keydown", this.keydownOnDocument.bind(this));
-      root.addEventListener("keyup", this.keyupOnDocument.bind(this));
     }
   }
 
@@ -63,20 +62,6 @@ class Dropdown extends HTMLElement {
   }
 
   keydownOnDocument(event: KeyboardEvent): void {
-    if (this.dropdownVisible() && event.code === "Escape") {
-      event.preventDefault();
-      event.stopPropagation();
-      this.closeDropdown();
-    } else if ((this.toggleButtonSelected(event) || this.dropdownVisible())
-        && (event.code === "ArrowUp" || event.code === "ArrowDown"
-            || event.code === "ArrowLeft" || event.code === "ArrowRight")) {
-      // prevent scrolling with arrow keys
-      event.preventDefault();
-      event.stopPropagation();
-    }
-  }
-
-  keyupOnDocument(event: KeyboardEvent): void {
     if (this.toggleButtonSelected(event) && !this.dropdownVisible()
         && (event.code === "ArrowUp" || event.code === "ArrowDown")) {
       event.preventDefault();
@@ -85,12 +70,24 @@ class Dropdown extends HTMLElement {
 
       const interval = setInterval(() => {
         if (this.dropdownVisible()) {
-          this.activeDropdownEntry.focus();
+
+          if (this.activeDropdownEntry) {
+            this.activeDropdownEntry.focus();
+          } else {
+            this.dropdownEntries[0].focus();
+          }
           clearInterval(interval);
         }
       }, 0);
-    } else if (this.activeDropdownEntry && this.dropdownVisible()) {
-      if (event.code === "ArrowUp" && this.activeDropdownEntry.previous) {
+    } else if (this.dropdownVisible()
+        && (event.code === "ArrowUp" || event.code === "ArrowDown"
+            || event.code === "ArrowLeft" || event.code === "ArrowRight")) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (!this.activeDropdownEntry) {
+        this.dropdownEntries[0].focus();
+      } else if (event.code === "ArrowUp" && this.activeDropdownEntry.previous) {
         this.activeDropdownEntry.previous.focus();
       } else if (event.code === "ArrowDown" && this.activeDropdownEntry.next) {
         this.activeDropdownEntry.next.focus();
@@ -99,6 +96,10 @@ class Dropdown extends HTMLElement {
       } else if (event.code === "ArrowLeft" && this.activeDropdownEntry.parent) {
         this.activeDropdownEntry.parent.focus();
       }
+    } else if (this.dropdownVisible() && event.code === "Escape") {
+      event.preventDefault();
+      event.stopPropagation();
+      this.closeDropdown();
     }
   }
 
@@ -160,7 +161,7 @@ class Dropdown extends HTMLElement {
         return dropdownEntry;
       }
     }
-    return this.dropdownEntries[0];
+    return null;
   }
 
   private createDropdownEntries(dropdownMenu: HTMLDivElement, parent: DropdownEntry): void {
