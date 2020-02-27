@@ -497,6 +497,36 @@ li.tobago-menu-markup-selected {
   color: @disabledTextColor;
 }
 
+/* selectManyBox ------------------------------------------------------- */
+
+.tobago-selectManyBox-container .select2-selection--multiple {
+  border: 1px solid darken(@borderColor, 10%) !important;
+  font: @font;
+  padding-top: -1px;
+  color: @textColor !important;
+  height: 21px;
+  .border-radius;
+  .transition
+  &:focus {
+    outline: none;
+    border-color: @focusColor !important;
+    .field-focus-shadow;
+  }
+}
+
+.tobago-selectManyBox-container-markup-disabled .select2-selection--multiple {
+  background-color: @disabledBackgroundColor !important;
+  color: @disabledTextColor;
+}
+
+.tobago-selectManyBox-container-markup-readonly .select2-selection--multiple {
+  background-color: @readonlyBackgroundColor !important;
+}
+
+.tobago-selectManyBox-container-markup-error .select2-selection--multiple {
+  border-color: @errorColor !important;
+}
+
 /* selectManyListbox ------------------------------------------------------- */
 
 .tobago-selectManyListbox {

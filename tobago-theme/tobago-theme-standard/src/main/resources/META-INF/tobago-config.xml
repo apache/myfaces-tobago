@@ -192,6 +192,21 @@
           </supported-markup>
         </renderer>
         <renderer>
+          <name>SelectManyBox</name>
+          <supported-markup>
+            <markup>container</markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+            <markup>selected</markup>
+            <markup>inline</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
           <name>SelectManyCheckbox</name>
           <supported-markup>
             <markup>disabled</markup>
