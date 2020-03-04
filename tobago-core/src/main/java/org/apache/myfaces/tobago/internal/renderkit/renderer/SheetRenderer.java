@@ -73,6 +73,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.el.ValueExpression;
 import javax.faces.application.Application;
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
@@ -98,6 +99,7 @@ public class SheetRenderer extends RendererBase {
   private static final String SUFFIX_COLUMN_RENDERED = ComponentUtils.SUB_SEPARATOR + "rendered";
   private static final String SUFFIX_SCROLL_POSITION = ComponentUtils.SUB_SEPARATOR + "scrollPosition";
   private static final String SUFFIX_SELECTED = ComponentUtils.SUB_SEPARATOR + "selected";
+  private static final String SUFFIX_LAZY = NamingContainer.SEPARATOR_CHAR + "pageActionlazy";
   private static final String SUFFIX_PAGE_ACTION = "pageAction";
 
   @Override
@@ -195,6 +197,7 @@ public class SheetRenderer extends RendererBase {
           break;
         case toPage:
         case toRow:
+        case lazy:
           event = new PageActionEvent(component, action);
           final Integer target;
           final Object value;
@@ -280,6 +283,9 @@ public class SheetRenderer extends RendererBase {
     writer.writeAttribute(DataAttributes.BEHAVIOR_COMMANDS, JsonUtils.encode(commands), false);
     writer.writeAttribute(DataAttributes.SELECTION_MODE, sheet.getSelectable().name(), false);
     writer.writeAttribute(DataAttributes.FIRST, Integer.toString(sheet.getFirst()), false);
+    writer.writeAttribute(DataAttributes.ROWS, Integer.toString(sheet.getRows()), false);
+    writer.writeAttribute(DataAttributes.ROW_COUNT, Integer.toString(sheet.getRowCount()), false);
+    writer.writeAttribute(DataAttributes.LAZY, sheet.isLazy());
     final StringBuilder builder = new StringBuilder();
 
     final boolean autoLayout = sheet.isAutoLayout();
@@ -344,6 +350,10 @@ public class SheetRenderer extends RendererBase {
       encodeHiddenInput(writer,
           StringUtils.joinWithSurroundingSeparator(selectedRows),
           sheetId + SUFFIX_SELECTED);
+    }
+
+    if (sheet.isLazy()) {
+      encodeHiddenInput(writer,null, sheetId + SUFFIX_LAZY);
     }
 
     StringBuilder expandedValue = null;
@@ -661,11 +671,7 @@ public class SheetRenderer extends RendererBase {
       }
 
       writer.startElement(HtmlElements.TR);
-      if (rowRendered instanceof Boolean) {
-        // if rowRendered attribute is set we need the rowIndex on the client
-        writer.writeAttribute(DataAttributes.ROW_INDEX, rowIndex);
-      }
-
+      writer.writeAttribute(DataAttributes.ROW_INDEX, rowIndex);
       final boolean selected = selectedRows.contains(rowIndex);
       final String[] rowMarkups = (String[]) sheet.getAttributes().get("rowMarkup");
       Markup rowMarkup = Markup.NULL;

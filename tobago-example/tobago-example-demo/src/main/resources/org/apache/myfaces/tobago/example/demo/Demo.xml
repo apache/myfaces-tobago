@@ -121,6 +121,7 @@
   <entry key="sheet_multi_header">Multi Header</entry>
   <entry key="sheet_tree">Column Tree</entry>
   <entry key="sheet_editable">Editable Sheet</entry>
+  <entry key="sheet_lazy">Lazy Loading</entry>
   <entry key="tree">Tree Control</entry>
   <entry key="tree_command_types">Command</entry>
   <entry key="tree_select">Select</entry>
