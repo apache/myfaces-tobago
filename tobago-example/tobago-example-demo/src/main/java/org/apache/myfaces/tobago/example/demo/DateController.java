@@ -69,6 +69,10 @@ public class DateController implements Serializable {
     return new Date();
   }
 
+  public long getTimestamp() {
+    return new Date().getTime();
+  }
+
   public Date getSubmitDate() {
     return submitDate;
   }
