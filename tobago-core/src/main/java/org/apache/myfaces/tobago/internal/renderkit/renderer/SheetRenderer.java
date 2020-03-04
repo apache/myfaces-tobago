@@ -353,7 +353,7 @@ public class SheetRenderer extends RendererBase {
     }
 
     if (sheet.isLazy()) {
-      encodeHiddenInput(writer,null, sheetId + SUFFIX_LAZY);
+      encodeHiddenInput(writer, null, sheetId + SUFFIX_LAZY);
     }
 
     StringBuilder expandedValue = null;
@@ -391,20 +391,9 @@ public class SheetRenderer extends RendererBase {
               ? sheet.getLastRowIndexOfCurrentPage()
               : -1;
           final boolean unknown = !sheet.hasRowCount();
-          final String key; // plural
-          if (unknown) {
-            if (first == last1) {
-              key = "sheetPagingInfoUndefinedSingleRow";
-            } else {
-              key = "sheetPagingInfoUndefinedRows";
-            }
-          } else {
-            if (first == last1) {
-              key = "sheetPagingInfoSingleRow";
-            } else {
-              key = "sheetPagingInfoRows";
-            }
-          }
+          final String key = unknown
+              ? first == last1 ? "sheetPagingInfoUndefinedSingleRow" : "sheetPagingInfoUndefinedRows"
+              : first == last1 ? "sheetPagingInfoSingleRow" : "sheetPagingInfoRows";
           final String inputMarker = "{#}";
           final Object[] args = {inputMarker, last1 == -1 ? "?" : last1, unknown ? "" : sheet.getRowCount()};
           final MessageFormat detail = new MessageFormat(
@@ -940,7 +929,7 @@ public class SheetRenderer extends RendererBase {
                   column.getClientId(facesContext);
                   final String sorterId = column.getId() + "_" + AbstractUISheet.SORTER_ID;
                   sortCommand = (AbstractUILink) ComponentUtils.createComponent(
-                          facesContext, Tags.link.componentType(), RendererTypes.Link, sorterId);
+                      facesContext, Tags.link.componentType(), RendererTypes.Link, sorterId);
                   sortCommand.setTransient(true);
                   final AjaxBehavior reloadBehavior = createReloadBehavior(sheet);
                   sortCommand.addClientBehavior("click", reloadBehavior);
@@ -1218,7 +1207,7 @@ public class SheetRenderer extends RendererBase {
     AbstractUILink command = (AbstractUILink) facets.get(facet);
     if (command == null) {
       command = (AbstractUILink) ComponentUtils.createComponent(facesContext, Tags.link.componentType(),
-                      RendererTypes.Link, SUFFIX_PAGE_ACTION + id);
+          RendererTypes.Link, SUFFIX_PAGE_ACTION + id);
       command.setRendered(true);
       command.setDisabled(disabled);
       command.setTransient(true);
