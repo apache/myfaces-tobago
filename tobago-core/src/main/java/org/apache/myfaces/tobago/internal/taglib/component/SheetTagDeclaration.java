@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Markup;
+import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -260,6 +261,13 @@ public interface SheetTagDeclaration
       methodSignature = "javax.faces.event.ActionEvent")
   void setSortActionListener(String sortActionListener);
 
+  /**
+   * Preliminary feature: lazy loading by scrolling.
+   */
+  @Preliminary
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  void setLazy(String lazy);
 
   /**
    * Flag indicating if paging arrows are shown near direct links

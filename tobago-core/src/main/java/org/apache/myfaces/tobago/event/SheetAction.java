@@ -56,7 +56,12 @@ public enum SheetAction {
   /**
    * Sorting
    */
-  sort;
+  sort,
+
+  /**
+   * A lazy load is requested
+   */
+  lazy;
 
   private String bundleKey;
 

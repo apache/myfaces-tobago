@@ -101,6 +101,12 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   LAYOUT("data-tobago-layout"),
 
   /**
+   * Lazy loading in sheet.
+   * (Preliminary)
+   */
+  LAZY("data-tobago-lazy"),
+
+  /**
    * Defines the depth level of a tree node.
    */
   LEVEL("data-tobago-level"),
@@ -147,9 +153,21 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   ROW_ACTION("data-tobago-row-action"),
 
   /*
-   * Holds the index of the row in a sheet, if the sheet has a rowRendered attribute.
+   * Holds the index of the row in a sheet.
    */
   ROW_INDEX("data-tobago-row-index"),
+
+  /**
+   * Number of rows to show/load for lazy loading in sheet.
+   * (Preliminary)
+   */
+  ROWS("data-tobago-rows"),
+
+  /**
+   * Number of all rows in sheet.
+   * (Preliminary)
+   */
+  ROW_COUNT("data-tobago-row-count"),
 
   SELECTION_MODE("data-tobago-selection-mode"),
 

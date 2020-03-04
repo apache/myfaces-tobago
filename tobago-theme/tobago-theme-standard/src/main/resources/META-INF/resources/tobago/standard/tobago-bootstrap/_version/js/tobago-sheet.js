@@ -51,6 +51,9 @@ Tobago.Sheet.init = function(elements) {
   sheets.each(function initSheets() {
     var sheet = jQuery(this);
     var id = sheet.attr("id");
+    if (sheet.data("tobago-lazy-initialized")) {
+      return;
+    }
     var commands = sheet.data("tobago-row-action");
     var click = commands ? commands.click : undefined;
     var dblclick = commands ? commands.dblclick : undefined;
@@ -90,22 +93,87 @@ Tobago.Sheet.prototype.reloadWithAction = function(source, action) {
     console.debug("reload sheet with action '" + action + "'"); // @DEV_ONLY
   var executeIds = this.id;
   var renderIds = this.id;
-//  if (this.behaviorCommands && this.behaviorCommands.reload) {
-//    if (this.behaviorCommands.reload.execute) {
-//      executeIds +=  " " + behaviorCommands.reload.execute;
-//    }
-//    if (this.behaviorCommands.reload.render) {
-//      renderIds +=  " " + this.behaviorCommands.reload.render;
-//    }
-//  }
+  var lazy = jQuery(Tobago.Utils.escapeClientId(this.id)).data("tobago-lazy");
+
   jsf.ajax.request(
       action,
       null,
       {
         "javax.faces.behavior.event": "reload",
         execute: executeIds,
-        render: renderIds
+        render: renderIds,
+        onevent: lazy ? Tobago.Sheet.lazyResponse : undefined,
+        onerror: lazy ? Tobago.Sheet.lazyError: undefined
       });
+};
+
+Tobago.Sheet.lazyResponse = function(event) {
+  if (event.status === "complete") {
+    var updates = event.responseXML.querySelectorAll("update");
+    for (var i = 0; i < updates.length; i++) {
+      var update = updates[i];
+      var id = update.getAttribute("id");
+      if (id.indexOf(":") > -1) { // is a JSF element id, but not a technical id from the framework
+        console.debug("[tobago-sheet][complete] Update after jsf.ajax complete: #" + id); // @DEV_ONLY
+
+        var sheet = document.getElementById(id);
+        sheet.id = id + "::lazy-temporary";
+
+        var page = Tobago.findPage();
+        page.get(0).insertAdjacentHTML("beforeend", "<div id='" + id + "'></div>");
+        var sheetLoader = document.getElementById(id);
+      }
+    }
+  } else if (event.status === "success") {
+    updates = event.responseXML.querySelectorAll("update");
+    for (i = 0; i < updates.length; i++) {
+      update = updates[i];
+      id = update.getAttribute("id");
+      if (id.indexOf(":") > -1) { // is a JSF element id, but not a technical id from the framework
+        console.debug("[tobago-sheet][success] Update after jsf.ajax complete: #" + id); // @DEV_ONLY
+
+        // sync the new rows into the sheet
+        sheetLoader = document.getElementById(id);
+        sheet = document.getElementById(id + "::lazy-temporary");
+        sheet.id = id;
+        var tbody = sheet.querySelector(".tobago-sheet-bodyTable > tbody");
+
+        var newRows = sheetLoader.querySelectorAll(".tobago-sheet-bodyTable > tbody > tr");
+        for (i = 0; i < newRows.length; i++) {
+          var newRow = newRows[i];
+          var rowIndex = Number(newRow.dataset.tobagoRowIndex);
+          var row = tbody.querySelector("tr[data-tobago-row-index='" + rowIndex + "']");
+          // replace the old row with the new row
+          row.insertAdjacentElement("afterend", newRow);
+          tbody.removeChild(row);
+        }
+
+        sheetLoader.parentElement.removeChild(sheetLoader);
+        jQuery(sheet).data("tobago-lazy-active", false);
+      }
+    }
+  }
+
+};
+
+Tobago.Sheet.lazyError = function(data) {
+  updates = event.responseXML.querySelectorAll("update");
+  for (i = 0; i < updates.length; i++) {
+    update = updates[i];
+    id = update.getAttribute("id");
+    if (id.indexOf(":") > -1) { // is a JSF element id, but not a technical id from the framework
+      var sheet = document.getElementById(id);
+      jQuery(sheet).data("tobago-lazy-active", false);
+      console.error("Sheet lazy loading error:"
+          + "\nError Description: " + data.description
+          + "\nError Name: " + data.errorName
+          + "\nError errorMessage: " + data.errorMessage
+          + "\nResponse Code: " + data.responseCode
+          + "\nResponse Text: " + data.responseText
+          + "\nStatus: " + data.status
+          + "\nType: " + data.type);
+    }
+  }
 };
 
 Tobago.Sheet.setup2 = function (sheets) {
@@ -426,7 +494,65 @@ Tobago.Sheet.setup2 = function (sheets) {
     sheet.find(".tobago-sheet-cell > input.tobago-sheet-columnSelector").click(function(event) {event.preventDefault()});
   });
 
-    // init reload
+  // lazy load by scrolling
+  jQuery(sheets).each(function () {
+    var $sheet = jQuery(this);
+    var lazy = $sheet.data("tobago-lazy");
+
+    function getTemplate(height, columns, rowIndex) {
+      var tr = document.createElement("tr");
+      tr.dataset.tobagoRowIndex = rowIndex;
+      tr.classList.add("tobago-sheet-row");
+      tr.setAttribute("dummy", "dummy");
+      tr.style.height = height + "px";
+      var td = document.createElement("td");
+      td.classList.add("tobago-sheet-cell");
+      td.colSpan = columns;
+      tr.appendChild(td);
+      return tr;
+    }
+
+    if (lazy) {
+      // prepare the sheet with some auto-created (empty) rows
+      var rows = $sheet.data("tobago-rows");
+      var rowCount = $sheet.data("tobago-row-count");
+      var $sheetBody = $sheet.find(".tobago-sheet-body");
+      var $tbody = $sheetBody.find("tbody");
+      var columns = $tbody.find("tr:first").find("td").length;
+      var height = $tbody.height() / rows;
+      var pointer = $tbody.get(0).rows[0]; // points current row
+      for (var i = 0; i < rowCount; i++) {
+        if (pointer) {
+          var rowIndex = Number(pointer.dataset.tobagoRowIndex);
+          if (i < rowIndex) {
+            var template = getTemplate(height, columns, i);
+            pointer.insertAdjacentElement("beforebegin", template);
+          } else if (i === rowIndex) {
+            pointer = pointer.nextElementSibling;
+          } else {
+            template = getTemplate(height, columns, i);
+            pointer.insertAdjacentElement("afterend", template);
+            pointer = template;
+          }
+        } else {
+          template = getTemplate(height, columns, i);
+          $tbody.get(0).insertAdjacentElement("beforeend", template);
+          pointer = template;
+        }
+      }
+
+      $sheetBody.bind("scroll", function () {
+        Tobago.Sheet.lazyCheck($sheet);
+      });
+
+      // initial
+      Tobago.Sheet.lazyCheck($sheet);
+
+      $sheet.data("tobago-lazy-initialized", true);
+    }
+  });
+
+  // init reload
   jQuery(sheets).filter("[data-tobago-reload]").each(function() {
     var sheet = jQuery(this);
     Tobago.Sheets.get(sheet.attr("id")).initReload();
@@ -451,6 +577,82 @@ Tobago.Sheet.setup2 = function (sheets) {
           }
         });
   });
+};
+
+/*
+  when an event occurs (initial load OR scroll event OR AJAX response)
+
+  then -> Tobago.Sheet.lazyCheck()
+          1. check, if the lazy reload is currently active
+             a) yes -> do nothing and exit
+             b) no  -> step 2.
+          2. check, if there are data need to load (depends on scroll position and already loaded data)
+             a) yes -> set lazy reload to active and make an AJAX request with Tobago.Sheet.reloadLazy()
+             b) no  -> do nothing and exit
+
+   AJAX response -> 1. update the rows in the sheet from the response
+                    2. go to the first part of this description
+*/
+
+Tobago.Sheet.lazyCheck = function($sheet) {
+  if ($sheet.data("tobago-lazy-active")) {
+    // nothing to do, because there is an active AJAX running
+    return;
+  }
+
+  var lastCheck = $sheet.data("tobago-lazy-last-check");
+  if (lastCheck && Date.now() - lastCheck < 100) {
+    // do nothing, because the last call was just a moment ago
+    return;
+  }
+
+  $sheet.data("tobago-lazy-last-check", Date.now());
+  var next = Tobago.Sheet.nextLazyLoad($sheet);
+  // console.info("next %o", next); // @DEV_ONLY
+  if (next) {
+    $sheet.data("tobago-lazy-active", true);
+    var id = $sheet.attr("id");
+    var input = document.getElementById(id + ":pageActionlazy");
+    input.value = next;
+    Tobago.Sheets.get(id).reloadWithAction(input, input.id);
+  }
+};
+
+Tobago.Sheet.nextLazyLoad = function($sheet) {
+  // find first tr in current visible area
+  var $sheetBody = $sheet.find(".tobago-sheet-body");
+  var rows = $sheet.data("tobago-rows");
+  var $tbody = $sheetBody.find("table tbody");
+  var min = 0;
+  var trElements = $tbody.prop("rows");
+  var max = trElements.length;
+  // binary search
+  while (min < max) {
+    var i = Math.floor((max - min) / 2) + min;
+    // console.log("min i max -> %d %d %d", min, i, max); // @DEV_ONLY
+    if (Tobago.Sheet.isRowAboveVisibleArea($sheetBody, trElements[i])) {
+      min = i + 1;
+    } else {
+      max = i;
+    }
+  }
+  for (i = min; i < min + rows && i < trElements.length; i++) {
+    if (Tobago.Sheet.isRowDummy($sheetBody, trElements[i])) {
+      return i + 1;
+    }
+  }
+
+  return null;
+};
+
+Tobago.Sheet.isRowAboveVisibleArea = function($sheetBody, tr) {
+  var viewStart = $sheetBody.prop("scrollTop");
+  var trEnd = tr.offsetTop + tr.clientHeight;
+  return trEnd < viewStart;
+};
+
+Tobago.Sheet.isRowDummy = function($sheetBody, tr) {
+  return tr.hasAttribute("dummy");
 };
 
 Tobago.Sheet.hideInputOrSubmit = function(input) {
@@ -574,11 +776,7 @@ Tobago.Sheet.getRows = function($sheet) {
 };
 
 Tobago.Sheet.isRowSelected = function(sheet, row) {
-  var rowIndex = +row.data("tobago-row-index");
-  if (!rowIndex) {
-    rowIndex = row.index() + sheet.data("tobago-first");
-  }
-  return Tobago.Sheet.isSelected(sheet, rowIndex);
+  return Tobago.Sheet.isSelected(sheet, row.data("tobago-row-index"));
 };
 
 Tobago.Sheet.isSelected = function(sheet, rowIndex) {
@@ -638,12 +836,7 @@ Tobago.Sheet.selectRange = function($sheet, $rows, first, last, selectDeselected
 };
 
 Tobago.Sheet.getDataIndex = function(sheet, row) {
-  var rowIndex = row.data("tobago-row-index");
-  if (rowIndex) {
-    return +rowIndex;
-  } else {
-    return row.index() + sheet.data("tobago-first");
-  }
+  return row.data("tobago-row-index");
 };
 
 /**
@@ -685,38 +878,3 @@ Tobago.Sheet.isInputElement = function($element) {
     });
  };
 })(jQuery);
-
-/*
- var header = $(".tobago-sheet-headerTable");
- var body = $(".tobago-sheet-bodyTable");
-
- header;
- body;
-
- header.find("col").each(function(){
-
- console.info($(this).attr("width"));
- $(this).attr("width", 100);
- ;
- })
-
- header.find("col").each(function(){
-
- console.info($(this).attr("width"));
- ;
- })
-
-
- body.find("col").each(function(){
-
- console.info($(this).attr("width"));
- $(this).attr("width", 100);
- ;
- })
-
- body.find("col").each(function(){
-
- console.info($(this).attr("width"));
- ;
- })
- */
