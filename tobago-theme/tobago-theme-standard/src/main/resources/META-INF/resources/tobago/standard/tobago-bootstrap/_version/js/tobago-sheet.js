@@ -124,7 +124,7 @@ Tobago.Sheet.lazyResponse = function(event) {
         var sheetLoader = document.getElementById(id);
       }
     }
-  } else   if (event.status === "success") {
+  } else if (event.status === "success") {
     updates = event.responseXML.querySelectorAll("update");
     for (i = 0; i < updates.length; i++) {
       update = updates[i];
@@ -512,7 +512,6 @@ Tobago.Sheet.setup2 = function (sheets) {
       return tr;
     }
 
-    console.time("lazy");
     if (lazy) {
       // prepare the sheet with some auto-created (empty) rows
       var rows = $sheet.data("tobago-rows");
@@ -522,7 +521,6 @@ Tobago.Sheet.setup2 = function (sheets) {
       var columns = $tbody.find("tr:first").find("td").length;
       var height = $tbody.height() / rows;
       var pointer = $tbody.get(0).rows[0]; // points current row
-      console.time("lazy2");
       for (var i = 0; i < rowCount; i++) {
         if (pointer) {
           var rowIndex = Number(pointer.dataset.tobagoRowIndex);
@@ -542,7 +540,6 @@ Tobago.Sheet.setup2 = function (sheets) {
           pointer = template;
         }
       }
-      console.timeEnd("lazy2");
 
       $sheetBody.bind("scroll", function () {
         Tobago.Sheet.lazyCheck($sheet);
@@ -553,7 +550,6 @@ Tobago.Sheet.setup2 = function (sheets) {
 
       $sheet.data("tobago-lazy-initialized", true);
     }
-    console.timeEnd("lazy");
   });
 
   // init reload
@@ -840,7 +836,7 @@ Tobago.Sheet.selectRange = function($sheet, $rows, first, last, selectDeselected
 };
 
 Tobago.Sheet.getDataIndex = function(sheet, row) {
-  return row.data("tobago-row-index")
+  return row.data("tobago-row-index");
 };
 
 /**
