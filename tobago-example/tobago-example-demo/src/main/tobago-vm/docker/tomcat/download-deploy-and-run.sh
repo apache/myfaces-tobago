@@ -28,6 +28,6 @@ ARTIFACT=/opt/docker/artifacts/tobago-example-demo-${TOBAGO_VERSION}.war
 
 ansible localhost -m maven_artifact -a "group_id=org.apache.myfaces.tobago artifact_id=tobago-example-demo version=${TOBAGO_VERSION} extension=war repository_url=${REPO} dest=${ARTIFACT}"
 mkdir ${TARGET}
-unzip -d ${TARGET} ${ARTIFACT}
+pushd ${TARGET} && jar xf ${ARTIFACT}
 
 catalina.sh run

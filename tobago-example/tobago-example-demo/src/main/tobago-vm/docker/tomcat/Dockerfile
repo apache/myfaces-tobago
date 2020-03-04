@@ -13,18 +13,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM tomcat:8.5-jre8
+FROM tomcat:8.5-jdk8-adoptopenjdk-hotspot
 MAINTAINER dev@myfaces.apache.org
 
+# ansible is needed for downloading from Nexus, todo: may be changed to mvn
 RUN apt-get update \
- && apt-get install -y less vim procps ansible python-lxml
+ && apt-get install -y less vim procps ansible python-lxml\
+ && apt-get clean
 
-RUN rm -r /usr/local/tomcat/webapps/*
+RUN rm -r /usr/local/tomcat/webapps.dist
 
-COPY deploy-and-run.sh /usr/local/tomcat/bin
-RUN chmod +x /usr/local/tomcat/bin/deploy-and-run.sh
+COPY server.xml /usr/local/tomcat/conf
+COPY download-deploy-and-run.sh /usr/local/tomcat/bin
+RUN chmod +x /usr/local/tomcat/bin/download-deploy-and-run.sh
 
 #ENV TOBAGO_VERSION undefined
 #ENV CONTEXT_PATH ROOT
 
-CMD ["deploy-and-run.sh"]
+CMD ["download-deploy-and-run.sh"]
