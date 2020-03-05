@@ -61,6 +61,22 @@
 
     </tc:section>
 
+    <tc:section id="javascript-api" label="JavaScript API">
+
+      <tc:section id="listener" label="Listener Registration (work in progress)">
+
+        <pre><code class="language-java">Tobago.registerListener(Demo.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Demo.init, Tobago.Phase.AFTER_UPDATE);
+</code></pre>
+
+        <pre><code class="language-java">Listener.register(Demo.init, Phase.DOCUMENT_READY);
+Listener.register(Demo.init, Phase.AFTER_UPDATE);
+</code></pre>
+
+      </tc:section>
+
+    </tc:section>
+
   </tc:section>
 
 </ui:composition>
