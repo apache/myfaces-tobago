@@ -128,7 +128,7 @@ class Dropdown extends HTMLElement {
   }
 
   openDropdown(): void {
-    this.dispatchEvent(new CustomEvent(Event.HIDE));
+    this.dispatchEvent(new CustomEvent(Event.SHOW));
 
     if (!this.inStickyHeader()) {
       this.menuStore.appendChild(this.dropdownMenu);
@@ -142,14 +142,14 @@ class Dropdown extends HTMLElement {
     }
 
     this.dropdownMenu.classList.add("show");
-    this.dispatchEvent(new CustomEvent(Event.HIDDEN));
+    this.dispatchEvent(new CustomEvent(Event.SHOWN));
   }
 
   closeDropdown(): void {
-    this.dispatchEvent(new CustomEvent(Event.SHOW));
+    this.dispatchEvent(new CustomEvent(Event.HIDE));
     this.dropdownMenu.classList.remove("show");
     this.appendChild(this.dropdownMenu);
-    this.dispatchEvent(new CustomEvent(Event.SHOWN));
+    this.dispatchEvent(new CustomEvent(Event.HIDDEN));
   }
 
   private get toggleButton(): HTMLElement {
