@@ -128,7 +128,11 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     writer.writeClassAttribute(TobagoClass.INPUT_PSEUDO);
     writer.endElement(HtmlElements.I);
 
-    if (itemLabel != null) {
+    if (itemLabel != null && select.getLabel() == null && select.getAccessKey() != null) {
+      if (itemLabel.contains(Character.toString(select.getAccessKey()))) {
+        HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
+      }
+    } else if (itemLabel != null) {
       writer.writeText(itemLabel);
     }
   }
