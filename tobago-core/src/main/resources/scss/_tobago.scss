@@ -171,7 +171,7 @@ $form-disabled-alpha: 0.5;
 
 /* button, link ------------------------------------------------------- */
 .tobago-button, .tobago-link {
-  > :nth-child(n+2) {
+  > img + span {
     margin-left: .4em;
   }
 }
