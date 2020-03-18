@@ -49,6 +49,21 @@
         <f:facet name="after">.00 €</f:facet>
       </tc:in>
     </tc:section>
+    <tc:section label="Output">
+      <p>The following example show, how to add twice tc:out on one side in an input group</p>
+      <pre><code class="language-markup"> &lt;tc:in id="values">
+  &lt;f:facet name="before">
+    &lt;tc:out id="firstName" value="#{groupController.firstName}"/>
+    &lt;tc:out id="lastName" value="#{groupController.lastName}"/>
+  &lt;/f:facet>
+&lt;/tc:in></code></pre>
+      <tc:in id="values">
+        <f:facet name="before">
+          <tc:out id="firstName" value="#{groupController.firstName}"/>
+          <tc:out id="lastName" value="#{groupController.lastName}"/>
+        </f:facet>
+      </tc:in>
+    </tc:section>
   </tc:section>
 
   <tc:section label="Commands">
