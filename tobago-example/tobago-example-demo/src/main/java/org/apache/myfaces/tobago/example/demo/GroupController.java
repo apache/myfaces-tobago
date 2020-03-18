@@ -43,6 +43,8 @@ public class GroupController implements Serializable {
   private double valueInEuro;
   private Currency currency;
   private static final Currency[] CURRENCIES;
+  private String firstName;
+  private String lastName;
 
   static {
     CURRENCIES = new Currency[]{
@@ -58,6 +60,8 @@ public class GroupController implements Serializable {
     sendTo = "";
     value = 1000.0;
     currency = Currency.getInstance("EUR");
+    firstName = "Bob";
+    lastName = "Marley";
     compute();
   }
 
@@ -156,4 +160,12 @@ public class GroupController implements Serializable {
   public Currency[] getCurrencies() {
     return CURRENCIES;
   }
+
+  public String getFirstName() { return firstName; }
+
+  public void setFirstName(String firstName) { this.firstName = firstName; }
+
+  public String getLastName() { return lastName; }
+
+  public void setLastName(String lastName) { this.lastName = lastName; }
 }
