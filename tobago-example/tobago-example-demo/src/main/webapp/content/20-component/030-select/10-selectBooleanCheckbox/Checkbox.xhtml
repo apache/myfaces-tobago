@@ -44,7 +44,7 @@
   </tc:section>
 
   <tc:section label="Simple Usage">
-    <p>In this example, the selected items are displayed in an outputfield after the submit-button is pressed.</p>
+    <p>In this example, the selected items are displayed in an output field after the submit-button is pressed.</p>
     <pre><code class="language-markup">&lt;tc:selectBooleanCheckbox label="A" value="\#{selectBooleanCheckboxController.a}"/>
 &lt;tc:out label="Selected items: " value="\#{selectBooleanCheckboxController.selectedItems}"/></code></pre>
     <tc:selectBooleanCheckbox id="selectA" label="A" value="#{selectBooleanCheckboxController.a}"/>
@@ -55,11 +55,11 @@
   </tc:section>
 
   <tc:section label="Ajax">
-    <p>The outputfields always shows the current value of the checkbox.
-      With <code class="language-markup">&lt;f:ajax render="output"/></code>, the outputfield will be rerendered,
+    <p>The output fields always shows the current value of the checkbox.
+      With <code class="language-markup">&lt;f:ajax render="output"/></code>, the output field will be rerendered,
       after the value changed in the
       <code class="language-markup">&lt;tc:selectBooleanCheckbox label="Character" value="#{selectBooleanCheckboxController.d}"/></code>.
-      The ID of the outputfield and the value in the <code>render</code> attribute of the ajax tag
+      The ID of the output field and the value in the <code>render</code> attribute of the ajax tag
       has to be the same.</p>
     <tc:selectBooleanCheckbox id="selectD" label="D" value="#{selectBooleanCheckboxController.d}">
       <f:ajax render="outputD"/>

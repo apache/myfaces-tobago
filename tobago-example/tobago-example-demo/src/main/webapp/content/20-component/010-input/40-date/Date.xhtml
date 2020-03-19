@@ -24,7 +24,7 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
   <p>The <code class="language-markup">&lt;tc:date/&gt;</code>
-    tag create an inputfield with a button to open a calendar to edit the date.
+    tag create an input field with a button to open a calendar to edit the date.
     The date can also be edited in the textfield.</p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:date/>" image="#{request.contextPath}/image/feather-leaf.png" link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/date.html"/>
@@ -69,7 +69,7 @@
   <tc:section label="Required">
     <p>A date can be set as required with the <code>required</code> attribute.
       Such a date must contain a value, otherwise a submit is not possible.
-      Leave the field blank and press 'submit' to see the errormessage.</p>
+      Leave the field blank and press 'submit' to see the error message.</p>
     <pre><code class="language-markup">&lt;tc:date label="Date (required)" required="true"
     value="\#{dateController.once}"></code></pre>
     <tc:form>
@@ -116,7 +116,8 @@
     </tc:section>
   </tc:section>
   <tc:section label="Pattern And Button">
-    <p>Here are some examples for different pattern. The format is used from java.text.SimpleDateFormat. TODO:setlink</p>
+    <p>Here are some examples for different pattern. The format is used from
+      <tc:link label="java.text.SimpleDateFormat" link="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/SimpleDateFormat.html"/>.</p>
     <p>Also the type of the button changed with the <code>type</code> attribute.</p>
     <tc:section label="Month">
             <pre><code class="language-markup">&lt;tc:date label="Month" value="\#{dateController.today}"&gt;
@@ -187,7 +188,7 @@
     </tc:form>
   </tc:section>
   <tc:section label="Ajax">
-    <p>The outputfield in this example, display the given date.
+    <p>The output field in this example, display the given date.
       With <code class="language-markup">&lt;f:ajax render="outputfield"/></code>,
       the <code class="language-markup">&lt;tc:out id="outputfield" .../></code> will be rerendered,
       after the date changed.

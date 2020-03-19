@@ -24,7 +24,7 @@
 
   <p>A normal button, created with <code class="language-markup">&lt;tc:button/></code>, must be actively pressed,
     to run the action. A default-button can be activated, even if not selected.
-    For example, the cursor is in an inputfield and the enter key is pressed.</p>
+    For example, the cursor is in an input field and the enter key is pressed.</p>
   <p>A button can be made to a default button with the <code>defaultCommand</code> attribute.
     The default button is highlighted by another color.</p>
   <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
@@ -32,7 +32,7 @@
 
   <tc:section label="Last Active Button ID">
     <p>To make the examples more clear, the ID of the last active button is displayed in the
-      following outputfield.</p>
+      following output field.</p>
     <tc:out id="o1" label="Id" value="#{defaultCommandController.lastActiveButtonId}"/>
   </tc:section>
 
@@ -50,7 +50,7 @@
     <p>The related default-button is searched in the current <code class="language-markup">&lt;tc:form/></code>.
       If there no default-button could found, the search is continued in the parent form and so on.
       If no default-button found on this way, the button is search outside of a form.</p>
-    <p>In this example, the 'Submit A'-button is in a form together with a intputfield and outputfield.
+    <p>In this example, the 'Submit A'-button is in a form together with a intputfield and output field.
       The 'Submit B'-button is outside a form.</p>
     <p>Now, if the cursor is in 'Textfield A' and the enter key is pressed, the 'Submit A'-button is activated.
       Therefor only the 'Textfield A'-value will be submitted.</p>

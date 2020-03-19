@@ -23,7 +23,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
 
-  <p>The tag <code class="language-markup">&lt;tc:selectOneChoice/&gt;</code> create a dropdownbox,
+  <p>The tag <code class="language-markup">&lt;tc:selectOneChoice/&gt;</code> create a dropdown box,
     which contain<br/>
     <code class="language-markup">&lt;tc:selectItem/></code> for static entries or<br/>
     <code class="language-markup">&lt;tc:selectItems value="\#{controller.list}"/></code> for entries from
@@ -39,7 +39,7 @@
              link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/selectItems.html"/></p>
 
   <tc:section label="Basics">
-    <p>Dropdown Box with hardcoded items. The second item is disabled.
+    <p>Dropdown box with hardcoded items. The second item is disabled.
       To disable an item, use the <code>itemDisable</code> attribute.</p>
     <pre><code class="language-markup">&lt;tc:selectOneChoice label="Dropdown Box"/></code></pre>
     <tc:selectOneChoice id="s1" label="Dropdown Box">
@@ -57,9 +57,9 @@
   </tc:section>
 
   <tc:section label="Simple Usage">
-    <p>Select a person. The label of the item is shown in the dropdownbox.
-      After submitting, the value of the item is shown in the outputfield.
-      So, if 'Alice' is selected, the text in the outputfield is 'Alice Anderson'.</p>
+    <p>Select a person. The label of the item is shown in the dropdown box.
+      After submitting, the value of the item is shown in the output field.
+      So, if 'Alice' is selected, the text in the output field is 'Alice Anderson'.</p>
     <pre><code class="language-markup">&lt;tc:selectItem itemLabel="Alice" itemValue="Alice Anderson"/></code></pre>
     <tc:selectOneChoice id="selectPerson" label="Person" value="#{selectOneChoiceController.person}">
       <tc:selectItem itemLabel="Alice" itemValue="Alice Anderson"/>
