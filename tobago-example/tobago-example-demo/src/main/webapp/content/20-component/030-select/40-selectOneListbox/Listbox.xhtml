@@ -67,7 +67,7 @@
 
   <tc:section label="Simple Usage">
     <p>Select a river in the list. After pressing the submit-button, the length of the river is shown in the
-      outputfield.</p>
+      output field.</p>
     <p>Items are added with
       <code class="language-markup">&lt;tc:selectItem itemLabel="Nile" itemValue="6853 km"/></code>.</p>
     <tc:selectOneListbox id="riverList" label="River" value="#{selectOneListboxController.river}">
@@ -85,7 +85,7 @@
     <p>Select a mountain in the list. The height will be displayed by
       <code class="language-markup">&lt;tc:out id="selectedMountain" .../></code>. The
       <code class="language-markup">&lt;tc:selectOneListbox/></code> contain a
-      <code class="language-markup">&lt;f:ajax render="selectedMountain"/></code>, which rerender the outputfield.</p>
+      <code class="language-markup">&lt;f:ajax render="selectedMountain"/></code>, which rerender the output field.</p>
     <tc:selectOneListbox id="mountainList" label="Mountains" value="#{selectOneListboxController.mountain}">
       <tc:selectItems value="#{selectOneListboxController.mountains}" var="mountain"
                       itemLabel="#{mountain.label}" itemValue="#{mountain.value}"/>

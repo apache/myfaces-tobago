@@ -58,7 +58,7 @@
   </tc:section>
 
   <tc:section label="Simple Usage">
-    <p>Select an entry and press the submit-button. The text in the outputfield depends on the selection.</p>
+    <p>Select an entry and press the submit-button. The text in the output field depends on the selection.</p>
     <pre><code class="language-markup">&lt;tc:selectManyListbox label="List" value="\#{selectManyListboxController.celestials}">
   &lt;tc:selectItem itemLabel="Sun" itemValue="The sun, "/>
   ...
@@ -76,7 +76,7 @@
   <tc:section label="Ajax" id="ajax">
     <p>The selected deserts from the list, are shown in the
       <code class="language-markup">&lt;tc:out id="desertOutput" .../></code>.
-      The value in the outputfield will be rerendered, after the selection in the list changed. For that,
+      The value in the output field will be rerendered, after the selection in the list changed. For that,
       <code class="language-markup">&lt;tc:selectManyListbox label="Deserts" size="4" ...></code> contain a
       <code class="language-markup">&lt;f:ajax render="desertOutput"/></code> tag.</p>
     <p>The number of rows is set to four by the <code>size</code> attribute. Is no size set, the height of the list

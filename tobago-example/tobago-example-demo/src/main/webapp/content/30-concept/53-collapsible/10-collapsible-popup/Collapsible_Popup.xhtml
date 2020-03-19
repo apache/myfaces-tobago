@@ -28,10 +28,10 @@
 
   <tc:section label="Simple Popup">
     <tc:form id="simple">
-      <p>A popup opened with the help of a controller. The popup contain a required inputfield.
+      <p>A popup opened with the help of a controller. The popup contain a required input field.
         The attribute <code>collapsedMode="absent"</code> is set,
         so the 'Submit'-button outside the popup could be executed while popup is hidden.
-        Even if the required inputfield is empty.</p>
+        Even if the required input field is empty.</p>
       <tc:button id="open1" label="Open" action="#{collapsiblePopupController.open}"/>
       <tc:button id="submitOnPage1" label="Submit"/>
       <tc:popup id="controllerPopup" collapsed="#{collapsiblePopupController.collapsed}">

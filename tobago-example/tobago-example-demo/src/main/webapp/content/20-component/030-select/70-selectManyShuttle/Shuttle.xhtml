@@ -86,7 +86,7 @@
   </tc:section>
 
   <tc:section label="Simple Usage">
-    <p>After a submit, the entries in the right list are shown in the outputfield with name and distance from the
+    <p>After a submit, the entries in the right list are shown in the output field with name and distance from the
       sun.</p>
     <p>A label is added to the left list via the <code>unselectedLabel</code> attribute and to the right list
       via <code>selectedLabel</code>. The label for the whole component is set on top by
@@ -113,7 +113,7 @@
       <code class="language-markup">&lt;tc:out id="outputStars" .../></code>.
       <code class="language-markup">&lt;tc:selectManyShuttle .../></code> contain
       <code class="language-markup">&lt;f:ajax render="outputStars"/></code>. Every time, the value in the shuttle list
-      change, the outputfield is rerendered.</p>
+      change, the output field is rerendered.</p>
     <tc:selectManyShuttle id="ajaxExample" label="Stars" labelLayout="top" value="#{selectManyShuttleController.selectedStars}">
       <tc:selectItems value="#{selectManyShuttleController.stars}"/>
       <f:ajax render="outputStars"/>
