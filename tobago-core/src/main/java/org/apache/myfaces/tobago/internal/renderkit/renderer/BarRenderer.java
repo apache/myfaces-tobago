@@ -54,12 +54,11 @@ public class BarRenderer extends RendererBase {
     final String navbarId = clientId + "::navbar";
     final Markup markup = bar.getMarkup();
 
-    writer.startElement(HtmlElements.NAV);
+    writer.startElement(HtmlElements.TOBAGO_BAR);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
-        TobagoClass.BAR,
-        TobagoClass.BAR.createMarkup(bar.getMarkup()),
         BootstrapClass.NAVBAR,
+        TobagoClass.BAR.createMarkup(bar.getMarkup()),
         getNavbarExpand(markup),
         getNavbarColorScheme(markup),
         bar.getCustomClass());
@@ -143,7 +142,7 @@ public class BarRenderer extends RendererBase {
       writer.endElement(HtmlElements.DIV);
     }
     writer.endElement(HtmlElements.DIV);
-    writer.endElement(HtmlElements.NAV);
+    writer.endElement(HtmlElements.TOBAGO_BAR);
   }
 
   private void encodeOpener(
