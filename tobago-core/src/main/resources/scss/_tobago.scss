@@ -114,7 +114,11 @@ $form-disabled-alpha: 0.5;
 }
 
 /* bar -------------------------------------------------------------- */
+// todo: remove CSS class
 .tobago-bar {
+}
+
+tobago-bar {
   &.navbar-light .navbar-brand > .tobago-link {
     color: $navbar-light-active-color;
 

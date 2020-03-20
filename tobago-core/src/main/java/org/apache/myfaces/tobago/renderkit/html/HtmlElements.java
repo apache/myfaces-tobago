@@ -133,6 +133,7 @@ public enum HtmlElements {
   VIDEO("video"),
   WBR("wbr", Qualifier.VOID),
 
+  TOBAGO_BAR("tobago-bar"),
   TOBAGO_BEHAVIOR("tobago-behavior"),
   TOBAGO_DATE("tobago-date"),
   TOBAGO_DROPDOWN("tobago-dropdown"),

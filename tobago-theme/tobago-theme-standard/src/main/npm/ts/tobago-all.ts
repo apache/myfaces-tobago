@@ -16,6 +16,7 @@
  */
 
 import "./tobago-listener";
+import "./tobago-bar";
 import "./tobago-core";
 import "./tobago-dropdown";
 // import "@vaadin/vaadin-date-picker";
