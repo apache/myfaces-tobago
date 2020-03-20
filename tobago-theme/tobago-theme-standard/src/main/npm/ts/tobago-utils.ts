@@ -156,4 +156,15 @@ export class DomUtils {
     }
     return id.substring(0, id.lastIndexOf(DomUtils.COMPONENT_SEP));
   }
+
+  /**
+   * @param element with transition
+   * @return transition time in milliseconds
+   */
+  static getTransitionTime(element: HTMLElement): number {
+    const style = getComputedStyle(element);
+    let delay: number = parseFloat(style.transitionDelay);
+    let duration: number = parseFloat(style.transitionDuration);
+    return (delay + duration) * 1000;
+  }
 }
