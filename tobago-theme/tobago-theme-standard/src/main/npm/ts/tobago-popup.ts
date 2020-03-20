@@ -15,8 +15,9 @@
  * limitations under the License.
  */
 
+import {DomUtils} from "./tobago-utils";
+
 const ESCAPE_KEYCODE = 27; // KeyboardEvent.which value for Escape (Esc) key
-const MILLISECONDS_MULTIPLIER = 1000;
 
 const Default = {
   backdrop: true,
@@ -252,7 +253,7 @@ export class Popup extends HTMLElement {
 
       this._element.classList.add(ClassName.STATIC);
 
-      const modalTransitionDuration = Util.getTransitionDurationFromElement(this._element)
+      const modalTransitionDuration = DomUtils.getTransitionTime(this._element)
 
       $(this._element).one(Util.TRANSITION_END, () => {
         this._element.classList.remove(ClassName.STATIC)
@@ -303,7 +304,7 @@ export class Popup extends HTMLElement {
     // };
 
     // if (transition) {
-    //   const transitionDuration = Util.getTransitionDurationFromElement(this._dialog)
+    //   const transitionDuration = DomUtils.getTransitionTime(this._dialog)
     //
     //   $(this._dialog)
     //       .one(Util.TRANSITION_END, transitionComplete)
@@ -405,7 +406,7 @@ export class Popup extends HTMLElement {
         return;
       }
 
-      const backdropTransitionDuration: number = this.getTransitionDurationFromElement(this._backdrop);
+      const backdropTransitionDuration: number = DomUtils.getTransitionTime(this._backdrop);
 
       this.addOnetimeEventListener(this._backdrop, Event.TRANSITION_END, callback);
       this.emulateTransitionEnd(this._backdrop, backdropTransitionDuration);
@@ -420,7 +421,7 @@ export class Popup extends HTMLElement {
       };
 
       if (this.classList.contains(ClassName.FADE)) {
-        const backdropTransitionDuration = this.getTransitionDurationFromElement(this._backdrop);
+        const backdropTransitionDuration = DomUtils.getTransitionTime(this._backdrop);
 
         this.addOnetimeEventListener(this._backdrop, Event.TRANSITION_END, callbackRemove);
         this.emulateTransitionEnd(this._backdrop, backdropTransitionDuration);
@@ -556,13 +557,6 @@ export class Popup extends HTMLElement {
       }
     })
   }*/
-
-  private getTransitionDurationFromElement(element: HTMLDivElement): number {
-    const computedStyle = getComputedStyle(element);
-    let transitionDuration: number = parseFloat(computedStyle.transitionDuration);
-    let transitionDelay: number = parseFloat(computedStyle.transitionDelay);
-    return (transitionDuration + transitionDelay) * MILLISECONDS_MULTIPLIER;
-  }
 
   private emulateTransitionEnd(element: HTMLElement, duration: number): void {
     this.emulateTransitionEndCalled = false;
