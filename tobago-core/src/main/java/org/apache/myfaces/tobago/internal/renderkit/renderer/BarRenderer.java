@@ -154,6 +154,7 @@ public class BarRenderer extends RendererBase {
       throws IOException {
     final boolean togglerLeft = bar.getMarkup() != null && bar.getMarkup().contains(Markup.TOGGLER_LEFT);
     final UIComponent brand = ComponentUtils.getFacet(bar, Facets.brand);
+    final String escapedNavbarId = navbarId.replace(":", "\\:"); // bootstrap cannot handle ':' character in ID
 
     if (brand != null && !togglerLeft) {
       writer.startElement(HtmlElements.SPAN);
@@ -166,7 +167,7 @@ public class BarRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     writer.writeClassAttribute(BootstrapClass.NAVBAR_TOGGLER);
     writer.writeAttribute(DataAttributes.TOGGLE, "collapse", false);
-    writer.writeAttribute(DataAttributes.TARGET, "#" + navbarId, true);
+    writer.writeAttribute(DataAttributes.TARGET, "#" + escapedNavbarId, true);
     writer.writeAttribute(Arias.EXPANDED, Boolean.FALSE.toString(), false);
     writer.writeAttribute(Arias.CONTROLS, navbarId, false);
     writer.writeAttribute(Arias.LABEL, "Toggle navigation", false);
