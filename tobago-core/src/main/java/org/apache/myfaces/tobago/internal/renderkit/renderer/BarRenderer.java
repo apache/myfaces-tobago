@@ -115,7 +115,7 @@ public class BarRenderer extends RendererBase {
     }
   }
 
-  private void setRenderTypes(final UIComponent component) throws IOException {
+  private void setRenderTypes(final UIComponent component) {
     for (final UIComponent child : component.getChildren()) {
       if (child.isRendered()) {
         if (child instanceof AbstractUIForm) {
