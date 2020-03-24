@@ -23,9 +23,13 @@
                 xmlns="http://www.w3.org/1999/xhtml">
   <tc:script file="#{request.contextPath}/script/demo.js" type="module"/>
   <tc:script file="#{request.contextPath}/script/qunit-2.9.2.js"/>
+  <tc:script file="#{request.contextPath}/script/jasmine-3.5.0/jasmine.js"/>
+  <tc:script file="#{request.contextPath}/script/jasmine-3.5.0/jasmine-html.js"/>
+  <tc:script file="#{request.contextPath}/script/jasmine-3.5.0/boot.js"/>
   <tc:script file="#{request.contextPath}/tobago/test/tobago-test-tool.js" type="module"/>
   <tc:script file="#{request.contextPath}/script/tobago-test.js" type="module"/>
   <tc:style file="#{request.contextPath}/style/qunit-2.9.2.css"/>
+  <tc:style file="#{request.contextPath}/style/jasmine-3.5.0.css"/>
   <tc:script file="#{request.contextPath}/#{param['accessTest'] ? 'error/error' : param['base']}.test.js"
              type="module"/>
 

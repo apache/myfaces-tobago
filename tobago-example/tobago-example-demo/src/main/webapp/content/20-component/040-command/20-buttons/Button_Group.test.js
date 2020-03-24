@@ -21,3 +21,11 @@ QUnit.test("Dropdown button has 'btn-group'", function (assert) {
   let buttonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:buttonWithLinks");
   assert.ok(buttonFn().classList.contains("btn-group"), "id=buttonWithLinks must have 'btn-group'");
 });
+
+describe("Button group", function () {
+  it("Dropdown button has 'btn-group'", function () {
+    let buttonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:buttonWithLinks");
+
+    expect(buttonFn().classList.contains("btn-group")).toBe(true, "id=buttonWithLinks must have 'btn-group'");
+  });
+});

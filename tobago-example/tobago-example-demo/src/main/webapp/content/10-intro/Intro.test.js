@@ -22,3 +22,11 @@ QUnit.test("First section title is 'Intro'", function (assert) {
   let titleOfFirstSectionHeader = testFrameQuerySelectorFn(".tobago-section-header > h1 > span");
   assert.equal(titleOfFirstSectionHeader().textContent, "Intro");
 });
+
+describe("Intro", function () {
+  it("First section title is 'Intro'", function () {
+    let titleOfFirstSectionHeader = testFrameQuerySelectorFn(".tobago-section-header > h1 > span");
+
+    expect(titleOfFirstSectionHeader().textContent).toEqual("Intro");
+  });
+});
