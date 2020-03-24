@@ -50,9 +50,10 @@ QUnit.test("wait for test", function (assert) {
 QUnit.test("duplicated IDs", function (assert) {
   function getDuplicatedIDs() {
     let duplicatedIDs = [];
-    const elementsWithId = document.querySelectorAll("[id]");
-    Array.prototype.forEach.call(elementsWithId, function (element, i) {
-      let sameIdElements = document.querySelectorAll("[id='" + element.id + "']");
+    let iFrame = document.getElementById("page:testframe").contentWindow.document.querySelectorAll("[id]");
+    iFrame.forEach(element => {
+      let sameIdElements = document.getElementById("page:testframe").contentWindow.document
+          .querySelectorAll("[id='" + element.id + "']");
       if (sameIdElements.length > 1) {
         duplicatedIDs.push(element.id);
       }
