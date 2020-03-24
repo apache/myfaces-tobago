@@ -69,3 +69,31 @@ QUnit.test("test '???'", function (assert) {
   assert.ok(testFrameQuerySelectorFn("html")().textContent.indexOf("???") <= -1,
       "There must no '???' on the site.");
 });
+
+
+describe("general", function () {
+  it("duplicated IDs", function () {
+    let duplicatedIDs = getDuplicatedIDs();
+
+    function getDuplicatedIDs() {
+      let duplicatedIDs = [];
+      let iFrame = document.getElementById("page:testframe").contentWindow.document.querySelectorAll("[id]");
+      iFrame.forEach(element => {
+        let sameIdElements = document.getElementById("page:testframe").contentWindow.document
+            .querySelectorAll("[id='" + element.id + "']");
+        if (sameIdElements.length > 1) {
+          duplicatedIDs.push(element.id);
+        }
+      });
+      return duplicatedIDs;
+    }
+
+    expect(duplicatedIDs.length).toBe(0, "duplicated IDs are: " + duplicatedIDs);
+  });
+
+  it("test '???", function () {
+    let result = testFrameQuerySelectorFn("html")().textContent;
+
+    expect(result.indexOf("???")).toBeLessThanOrEqual(-1, "There must no '???' on the site.");
+  });
+});

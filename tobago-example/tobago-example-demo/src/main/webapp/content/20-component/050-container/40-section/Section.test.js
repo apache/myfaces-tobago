@@ -25,3 +25,12 @@ QUnit.test("Attribute 'level'", function (assert) {
 
   assert.ok(header5 !== null);
 });
+
+describe("Section", function() {
+  it("Attribute 'level'", function() {
+    let sectionLevel5Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionLevel5");
+    let header5 = sectionLevel5Fn().querySelector("h5");
+
+    expect(header5).not.toBe(null);
+  });
+});

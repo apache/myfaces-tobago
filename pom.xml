@@ -935,6 +935,10 @@
               <exclude>**/src/main/webapp/script/qunit*.*</exclude>
               <exclude>**/src/main/webapp/style/qunit*.*</exclude>
 
+              <!-- jasmine (tobago-example-demo) -->
+              <exclude>**/src/main/webapp/script/jasmine-*/*.*</exclude>
+              <exclude>**/src/main/webapp/style/jasmine*.*</exclude>
+
               <!-- log files -->
               <exclude>**/*.log</exclude>
               <exclude>**/rebuild-theme.txt</exclude>

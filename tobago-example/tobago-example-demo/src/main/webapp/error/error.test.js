@@ -26,3 +26,17 @@ QUnit.test("has no 404", function (assert) {
   var $error404 = jQueryFrame("#page\\:mainForm\\:pageNotFoundMessage span");
   assert.notEqual($error404.text(), "The page was not found!");
 });
+
+describe("Error", function () {
+  it("has no exception", function () {
+    var $error = jQueryFrame("#page\\:mainForm\\:errorSection .tobago-section-header span");
+
+    expect($error.text()).not.toEqual("An error has occurred!");
+  });
+
+  it("has no 404", function () {
+    var $error404 = jQueryFrame("#page\\:mainForm\\:pageNotFoundMessage span");
+
+    expect($error404.text()).not.toEqual("The page was not found!");
+  });
+});
