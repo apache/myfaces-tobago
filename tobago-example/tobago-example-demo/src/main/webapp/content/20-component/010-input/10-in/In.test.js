@@ -15,46 +15,29 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+import {querySelectorFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-QUnit.test("inputfield with label", function (assert) {
+it("inputfield with label", function (done) {
   let labelFn = testFrameQuerySelectorFn("#page\\:mainForm\\:iNormal > label");
   let inputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:iNormal\\:\\:field");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.asserts(2, function () {
-    assert.equal(labelFn().textContent, "Input");
-    assert.equal(inputFieldFn().value, "Some Text");
-  });
-  TTT.action(function () {
-    inputFieldFn().value = "abc";
-  });
-  TTT.asserts(1, function () {
-    assert.equal(inputFieldFn().value, "abc");
-  });
-  TTT.startTest();
+  const test = new JasmineTestTool(done);
+  test.do(() => expect(labelFn().textContent).toBe("Input"));
+  test.do(() => expect(inputFieldFn().value).toBe("Some Text"));
+  test.do(() => inputFieldFn().value = "abc");
+  test.do(() => expect(inputFieldFn().value).toBe("abc"));
+  test.start();
 });
 
-QUnit.test("ajax change event", function (assert) {
-  let inputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:inputAjax\\:\\:field");
-  let outputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:outputAjax span");
+it("ajax change event", function (done) {
+  let inputFieldFn = querySelectorFn("#page\\:mainForm\\:inputAjax\\:\\:field");
+  let outputFieldFn = querySelectorFn("#page\\:mainForm\\:outputAjax span");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.asserts(2, function () {
-    assert.equal(inputFieldFn().value, "");
-    assert.equal(outputFieldFn().textContent, "");
-  });
-  TTT.action(function () {
-    inputFieldFn().value = "qwe";
-    inputFieldFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(inputFieldFn().value, "qwe");
-  });
-  TTT.asserts(1, function () {
-    assert.equal(outputFieldFn().textContent, "qwe");
-  });
-  TTT.startTest();
+  const test = new JasmineTestTool(done);
+  test.do(() => inputFieldFn().value = "some input text");
+  test.do(() => inputFieldFn().dispatchEvent(new Event("change", {bubbles: true})));
+  test.wait(() => outputFieldFn() && outputFieldFn().textContent === "some input text");
+  test.do(() => expect(outputFieldFn().textContent).toBe("some input text"));
+  test.start();
 });
