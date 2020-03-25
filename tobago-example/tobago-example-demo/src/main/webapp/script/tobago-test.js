@@ -15,6 +15,18 @@
  * limitations under the License.
  */
 
+function querySelectorFn(expression) {
+  return function () {
+    return document.getElementById("page:testframe").contentWindow.document.querySelector(expression);
+  }
+}
+
+function querySelectorAllFn(expression) {
+  return function () {
+    return document.getElementById("page:testframe").contentWindow.document.querySelectorAll(expression);
+  }
+}
+
 function testFrameQuerySelectorFn(expression) {
   return function () {
     return document.getElementById("page:testframe").contentWindow.document.querySelector(expression);
@@ -27,7 +39,7 @@ function testFrameQuerySelectorAllFn(expression) {
   }
 }
 
-export {testFrameQuerySelectorFn, testFrameQuerySelectorAllFn};
+export {querySelectorFn, querySelectorAllFn, testFrameQuerySelectorFn, testFrameQuerySelectorAllFn};
 
 QUnit.test("wait for test", function (assert) {
   let done = assert.async();

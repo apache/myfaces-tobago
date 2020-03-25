@@ -225,3 +225,97 @@ TobagoTestTool.prototype = {
 };
 
 export {TobagoTestTool};
+
+class JasmineTestTool {
+
+  steps = [];
+  cycleTiming = 50;
+  done;
+  timeout;
+  lastStepExecution;
+
+  constructor(done, timeout) {
+    this.done = done; //done function from Jasmine; must called if all Steps done or timeout
+    this.timeout = timeout ? timeout : 20000; //timeout for a single step
+  }
+
+  do(fn) {
+    this.steps.push({
+      type: "do",
+      func: fn,
+      done: false
+    });
+  }
+
+  wait(fn) {
+    this.steps.push({
+      type: "wait",
+      func: fn,
+      done: false
+    });
+  }
+
+  start() {
+    this.resetTimeout();
+    this.cycle();
+  }
+
+  cycle() {
+    let nextStep = this.getNextStep();
+
+    if (this.isFinished()) {
+      this.done();
+    } else if (this.isTimeout()) {
+      fail("Timeout!");
+      this.done();
+    } else if (this.isStepValid(nextStep)) {
+      if (nextStep.type === "do") {
+        nextStep.func();
+        nextStep.done = true;
+        this.resetTimeout();
+        window.setTimeout(this.cycle.bind(this), this.cycleTiming);
+      } else if (nextStep.type === "wait") {
+        if (nextStep.func()) {
+          nextStep.done = true;
+          this.resetTimeout();
+        }
+        window.setTimeout(this.cycle.bind(this), this.cycleTiming);
+      }
+    } else {
+      fail("an unexpected error has occurred!");
+      this.done();
+    }
+  }
+
+  isFinished() {
+    for (let step of this.steps) {
+      if (!step.done) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  getNextStep() {
+    for (let step of this.steps) {
+      if (!step.done) {
+        return step;
+      }
+    }
+    return null;
+  }
+
+  isStepValid(step) {
+    return step && (step.type === "do" || step.type === "wait");
+  }
+
+  isTimeout() {
+    return Date.now() > (this.lastStepExecution + this.timeout);
+  }
+
+  resetTimeout() {
+    this.lastStepExecution = Date.now();
+  }
+}
+
+export {JasmineTestTool};
