@@ -76,7 +76,7 @@
     env: env,
     navigateWithNewParam: function(key, value) { return queryString.navigateWithNewParam(key, value); },
     addToExistingQueryString: function(key, value) { return queryString.fullStringWithNewParam(key, value); },
-    getContainer: function() { return document.body; },
+    getContainer: function() { return document.getElementById("jasmine-container"); },
     createElement: function() { return document.createElement.apply(document, arguments); },
     createTextNode: function() { return document.createTextNode.apply(document, arguments); },
     timer: new jasmine.Timer(),
