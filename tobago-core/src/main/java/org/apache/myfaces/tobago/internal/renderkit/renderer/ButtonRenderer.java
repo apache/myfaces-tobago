@@ -73,6 +73,22 @@ public class ButtonRenderer extends CommandRendererBase {
         return BootstrapClass.BTN_LIGHT;
       } else if (markup.contains(Markup.DARK)) {
         return BootstrapClass.BTN_DARK;
+      } else if (markup.contains(Markup.OUTLINE_PRIMARY)) {
+        return BootstrapClass.BTN_OUTLINE_PRIMARY;
+      } else if (markup.contains(Markup.OUTLINE_SECONDARY)) {
+        return BootstrapClass.BTN_OUTLINE_SECONDARY;
+      } else if (markup.contains(Markup.OUTLINE_SUCCESS)) {
+        return BootstrapClass.BTN_OUTLINE_SUCCESS;
+      } else if (markup.contains(Markup.OUTLINE_DANGER)) {
+        return BootstrapClass.BTN_OUTLINE_DANGER;
+      } else if (markup.contains(Markup.OUTLINE_WARNING)) {
+        return BootstrapClass.BTN_OUTLINE_WARNING;
+      } else if (markup.contains(Markup.OUTLINE_INFO)) {
+        return BootstrapClass.BTN_OUTLINE_INFO;
+      } else if (markup.contains(Markup.OUTLINE_LIGHT)) {
+        return BootstrapClass.BTN_OUTLINE_LIGHT;
+      } else if (markup.contains(Markup.OUTLINE_DARK)) {
+        return BootstrapClass.BTN_OUTLINE_DARK;
       }
     }
     return defaultCommand ? BootstrapClass.BTN_PRIMARY : BootstrapClass.BTN_SECONDARY;

@@ -140,7 +140,7 @@
   </tc:section>
 
   <tc:section id="markup" label="Markups">
-    <tc:segmentLayout medium="6seg">
+    <tc:segmentLayout medium="7seg 5seg">
       <tc:box label="Buttons">
         <p>Colors can be set with markups. Markup <code>none</code> unset the color.</p>
         <pre><code class="language-markup">&lt;tc:button label="Primary" markup="primary"/>
@@ -161,6 +161,24 @@
         <tc:button label="Light" markup="light"/>
         <tc:button label="Dark" markup="dark"/>
         <tc:button label="None" markup="none"/>
+        <tc:separator/>
+        <p>Colors can also be set with an outline markup.</p>
+        <pre><code class="language-markup">&lt;tc:button label="Primary" markup="outlinePrimary"/>
+&lt;tc:button label="Secondary" markup="outlineSecondary"/>
+&lt;tc:button label="Success" markup="outlineSuccess"/>
+&lt;tc:button label="Danger" markup="outlineDanger"/>
+&lt;tc:button label="Warning" markup="outlineWarning"/>
+&lt;tc:button label="Info" markup="outlineInfo"/>
+&lt;tc:button label="Light" markup="outlineLight"/>
+&lt;tc:button label="Dark" markup="outlineDark"/></code></pre>
+        <tc:button label="Primary" markup="outlinePrimary"/>
+        <tc:button label="Secondary" markup="outlineSecondary"/>
+        <tc:button label="Success" markup="outlineSuccess"/>
+        <tc:button label="Danger" markup="outlineDanger"/>
+        <tc:button label="Warning" markup="outlineWarning"/>
+        <tc:button label="Info" markup="outlineInfo"/>
+        <tc:button label="Light" markup="outlineLight"/>
+        <tc:button label="Dark" markup="outlineDark"/>
       </tc:box>
       <tc:box label="Links">
         <tc:link label="thin" markup="thin"/>
