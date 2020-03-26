@@ -23,13 +23,14 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:param name="title" value="#{demoBundle.release_checklist}"/>
 
   <tc:section label="Release Checklist (Developer Info)">
 
     <tc:section label="Step by Step">
 
       Checklist of tasks to perform for each release. For general information about Apache releases you may also consult
-      <tc:link label="Publishing Maven Artifacts" link="http://www.apache.org/dev/publishing-maven-artifacts.html"
+      <tc:link label="Publishing Maven Releases" link="http://infra.apache.org/maven-releases.html"
                image="fa-external-link"/>.
 
       <tc:section label="Preparation">
@@ -44,8 +45,11 @@
 
           <li>Ensure that all open bugs and issues in
             <tc:link label="Jira"
-                     link="https://issues.apache.org/jira/issues/?jql=project%20%3D%20TOBAGO%20AND%20fixVersion%20%3D%20#{apiController.releases[0].version}"
-                     image="fa-external-link"/> have been either fixed
+                     link="https://issues.apache.org/jira/issues/"
+                     image="fa-external-link">
+              <f:param name="jql" value="project = TOBAGO AND fixVersion = #{apiController.releases[0].version}"/>
+            </tc:link>
+            have been either fixed
             or moved to an other release version.
           </li>
 
@@ -63,7 +67,7 @@
             <tc:popup markup="large" collapsedMode="hidden" id="preparation-email">
               <tc:box label="Preparation email">
                 <f:facet name="bar">
-                  <tc:button image="fa-close" omit="true">
+                  <tc:button image="fa-close" tip="Close" omit="true">
                     <tc:operation name="hide" for="preparation-email"/>
                   </tc:button>
                 </f:facet>
@@ -207,7 +211,7 @@ $ mvn release:perform
             <tc:popup markup="large" collapsedMode="hidden" id="vote-email">
               <tc:box label="Voting email">
                 <f:facet name="bar">
-                  <tc:button image="fa-close" omit="true">
+                  <tc:button image="fa-close" tip="Close" omit="true">
                     <tc:operation name="hide" for="vote-email"/>
                   </tc:button>
                 </f:facet>
@@ -349,7 +353,7 @@ $ mvn site:stage -DstagingDirectory=$TOBAGO_SITE/tobago-publish</code></pre>
             <tc:popup markup="large" collapsedMode="hidden" id="announcement-email">
               <tc:box label="Announcement email">
                 <f:facet name="bar">
-                  <tc:button image="fa-close" omit="true">
+                  <tc:button image="fa-close" tip="Close" omit="true">
                     <tc:operation name="hide" for="announcement-email"/>
                   </tc:button>
                 </f:facet>
