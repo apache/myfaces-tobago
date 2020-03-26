@@ -258,6 +258,7 @@ public final class RenderUtils {
     }
 
     if (link != null || outcome != null) {
+      final String characterEncoding = facesContext.getResponseWriter().getCharacterEncoding();
       final StringBuilder builder = new StringBuilder(url);
       boolean firstParameter = !url.contains("?");
       for (final UIComponent child : component.getChildren()) {
@@ -269,29 +270,36 @@ public final class RenderUtils {
           } else {
             builder.append("&");
           }
-          builder.append(parameter.getName());
+          appendUrlEncoded(builder, parameter.getName(), characterEncoding);
           builder.append("=");
-          final Object value = parameter.getValue();
-          if (value != null) {
-            final String characterEncoding = facesContext.getResponseWriter().getCharacterEncoding();
-            try {
-              builder.append(URLEncoder.encode(value.toString(), characterEncoding));
-            } catch (final UnsupportedEncodingException e) {
-              LOG.error("", e);
-            }
-          }
+          appendUrlEncoded(builder, parameter.getValue(), characterEncoding);
         }
       }
 
       final String fragment = component.getFragment();
       if (StringUtils.isNotBlank(fragment)) {
-        builder.append("#").append(fragment.trim());
+        builder.append("#");
+        appendUrlEncoded(builder, fragment.trim(), characterEncoding);
       }
 
       url = builder.toString();
     }
 
     return url;
+  }
+
+  private static void appendUrlEncoded(
+      final StringBuilder builder, final Object value, final String characterEncoding) {
+
+    if (value != null) {
+      try {
+        final String encode = URLEncoder.encode(value.toString(), characterEncoding);
+        // URLEncoder.encode may return + instead of %20 for a space, but this is not good in some cases, e.g. mailto:
+        builder.append(encode.replace("+", "%20"));
+      } catch (final UnsupportedEncodingException e) {
+        LOG.error("string='" + value + "'", e);
+      }
+    }
   }
 
   public static CommandMap getBehaviorCommands(final FacesContext facesContext,
