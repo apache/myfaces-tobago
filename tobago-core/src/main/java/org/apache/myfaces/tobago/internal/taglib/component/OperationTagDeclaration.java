@@ -46,14 +46,14 @@ public interface OperationTagDeclaration {
   /**
    * Name of the operation to be executed.
    */
-  @TagAttribute()
+  @TagAttribute(required = true)
   @UIComponentTagAttribute()
   void setName(String name);
 
   /**
    * The id of the component the operation is related to.
    */
-  @TagAttribute()
+  @TagAttribute(required = true)
   @UIComponentTagAttribute()
   void setFor(String forAttribute);
 
