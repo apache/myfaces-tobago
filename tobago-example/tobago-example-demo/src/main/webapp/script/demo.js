@@ -25,7 +25,6 @@ class Demo {
     Demo.initTestLinks(element);
     Demo.initTestFrame(element);
     Demo.initGoogleSearch(element);
-    Demo.initMailTo(element);
   }
 
   static initAlert(element) {
@@ -103,16 +102,6 @@ class Demo {
           window.location.href = "https://www.google.com/search?q=" + encodeURI(input.value()) + search;
         }
       });
-    }
-  };
-
-  static initMailTo(element) {
-    for (let link of document.querySelectorAll("[href^=mailto]")) {
-      // this is, to fix URL encoded spaces
-      const string = link.getAttribute("href");
-      const begin = string.indexOf("subject=");
-      const href = string.substring(0, begin) + string.substring(begin).replace(/\+/g, "%20");
-      link.setAttribute("href", href);
     }
   };
 
