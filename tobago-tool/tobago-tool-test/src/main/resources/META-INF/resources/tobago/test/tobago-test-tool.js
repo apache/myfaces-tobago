@@ -261,26 +261,26 @@ class JasmineTestTool {
   }
 
   cycle() {
-    let nextStep = this.getNextStep();
+    const nextStep = this.getNextStep();
 
     if (this.isFinished()) {
       this.done();
     } else if (this.isTimeout()) {
-      fail("Timeout!");
-      this.done();
-    } else if (this.isStepValid(nextStep)) {
-      if (nextStep.type === "do") {
-        nextStep.func();
+      fail("Timeout of '" + nextStep.type + "'-step: " + nextStep.func);
+      nextStep.done = true;
+      this.resetTimeout();
+      window.setTimeout(this.cycle.bind(this), this.cycleTiming);
+    } else if (nextStep.type === "do") {
+      nextStep.func();
+      nextStep.done = true;
+      this.resetTimeout();
+      window.setTimeout(this.cycle.bind(this), this.cycleTiming);
+    } else if (nextStep.type === "wait") {
+      if (nextStep.func()) {
         nextStep.done = true;
         this.resetTimeout();
-        window.setTimeout(this.cycle.bind(this), this.cycleTiming);
-      } else if (nextStep.type === "wait") {
-        if (nextStep.func()) {
-          nextStep.done = true;
-          this.resetTimeout();
-        }
-        window.setTimeout(this.cycle.bind(this), this.cycleTiming);
       }
+      window.setTimeout(this.cycle.bind(this), this.cycleTiming);
     } else {
       fail("an unexpected error has occurred!");
       this.done();
@@ -303,10 +303,6 @@ class JasmineTestTool {
       }
     }
     return null;
-  }
-
-  isStepValid(step) {
-    return step && (step.type === "do" || step.type === "wait");
   }
 
   isTimeout() {
