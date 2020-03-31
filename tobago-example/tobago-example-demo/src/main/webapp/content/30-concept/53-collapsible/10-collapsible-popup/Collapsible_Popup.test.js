@@ -15,16 +15,17 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Simple Popup", function (assert) {
-  let messagesFn = testFrameQuerySelectorAllFn("#page\\:messages.tobago-messages div");
-  let openFn = testFrameQuerySelectorFn("#page\\:mainForm\\:simple\\:open1");
-  let submitOnPageFn = testFrameQuerySelectorFn("#page\\:mainForm\\:simple\\:submitOnPage1");
-  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:simple\\:controllerPopup\\:in1\\:\\:field");
-  let submitOnPopupFn = testFrameQuerySelectorFn("#page\\:mainForm\\:simple\\:controllerPopup\\:submitOnPopup1");
-  let closeFn = testFrameQuerySelectorFn("#page\\:mainForm\\:simple\\:controllerPopup\\:close1");
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let openFn = querySelectorFn("#page\\:mainForm\\:simple\\:open1");
+  let submitOnPageFn = querySelectorFn("#page\\:mainForm\\:simple\\:submitOnPage1");
+  let inFn = querySelectorFn("#page\\:mainForm\\:simple\\:controllerPopup\\:in1\\:\\:field");
+  let submitOnPopupFn = querySelectorFn("#page\\:mainForm\\:simple\\:controllerPopup\\:submitOnPopup1");
+  let closeFn = querySelectorFn("#page\\:mainForm\\:simple\\:controllerPopup\\:close1");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -72,12 +73,12 @@ QUnit.test("Simple Popup", function (assert) {
 });
 
 QUnit.test("Full Server Request", function (assert) {
-  let messagesFn = testFrameQuerySelectorAllFn("#page\\:messages.tobago-messages div");
-  let openFn = testFrameQuerySelectorFn("#page\\:mainForm\\:server\\:open2");
-  let submitOnPageFn = testFrameQuerySelectorFn("#page\\:mainForm\\:server\\:submitOnPage2");
-  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:in2\\:\\:field");
-  let submitOnPopupFn = testFrameQuerySelectorFn("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:submitOnPopup2");
-  let closeFn = testFrameQuerySelectorFn("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:close2");
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let openFn = querySelectorFn("#page\\:mainForm\\:server\\:open2");
+  let submitOnPageFn = querySelectorFn("#page\\:mainForm\\:server\\:submitOnPage2");
+  let inFn = querySelectorFn("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:in2\\:\\:field");
+  let submitOnPopupFn = querySelectorFn("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:submitOnPopup2");
+  let closeFn = querySelectorFn("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:close2");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -125,13 +126,13 @@ QUnit.test("Full Server Request", function (assert) {
 });
 
 QUnit.test("Client Side", function (assert) {
-  let messagesFn = testFrameQuerySelectorAllFn("#page\\:messages.tobago-messages div");
-  let openFn = testFrameQuerySelectorFn("#page\\:mainForm\\:client\\:open3");
-  let submitOnPageFn = testFrameQuerySelectorFn("#page\\:mainForm\\:client\\:submitOnPage3");
-  let popupCollapsedFn = testFrameQuerySelectorFn("#page\\:mainForm\\:client\\:clientPopup\\:\\:collapse");
-  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:client\\:clientPopup\\:in3\\:\\:field");
-  let submitOnPopupFn = testFrameQuerySelectorFn("#page\\:mainForm\\:client\\:clientPopup\\:submitOnPopup3");
-  let closeFn = testFrameQuerySelectorFn("#page\\:mainForm\\:client\\:clientPopup\\:close3");
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let openFn = querySelectorFn("#page\\:mainForm\\:client\\:open3");
+  let submitOnPageFn = querySelectorFn("#page\\:mainForm\\:client\\:submitOnPage3");
+  let popupCollapsedFn = querySelectorFn("#page\\:mainForm\\:client\\:clientPopup\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:client\\:clientPopup\\:in3\\:\\:field");
+  let submitOnPopupFn = querySelectorFn("#page\\:mainForm\\:client\\:clientPopup\\:submitOnPopup3");
+  let closeFn = querySelectorFn("#page\\:mainForm\\:client\\:clientPopup\\:close3");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {

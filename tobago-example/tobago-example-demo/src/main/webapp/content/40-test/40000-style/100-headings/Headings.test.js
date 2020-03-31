@@ -15,80 +15,74 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+import {querySelectorFn} from "/script/tobago-test.js";
+import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-QUnit.test("Test h1", function (assert) {
-  let alinkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:link1");
-  let buttonlinkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:actionLink1");
-  testFont(assert, alinkFn, buttonlinkFn);
+it("Test h1", function (done) {
+  let alinkFn = querySelectorFn("#page\\:mainForm\\:link1");
+  let buttonlinkFn = querySelectorFn("#page\\:mainForm\\:actionLink1");
+  testFont(done, alinkFn, buttonlinkFn);
 });
 
-QUnit.test("Test h2", function (assert) {
-  let alinkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:link2");
-  let buttonlinkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:actionLink2");
-  testFont(assert, alinkFn, buttonlinkFn);
+it("Test h2", function (done) {
+  let alinkFn = querySelectorFn("#page\\:mainForm\\:link2");
+  let buttonlinkFn = querySelectorFn("#page\\:mainForm\\:actionLink2");
+  testFont(done, alinkFn, buttonlinkFn);
 });
 
-QUnit.test("Test h3", function (assert) {
-  let alinkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:link3");
-  let buttonlinkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:actionLink3");
-  testFont(assert, alinkFn, buttonlinkFn);
+it("Test h3", function (done) {
+  let alinkFn = querySelectorFn("#page\\:mainForm\\:link3");
+  let buttonlinkFn = querySelectorFn("#page\\:mainForm\\:actionLink3");
+  testFont(done, alinkFn, buttonlinkFn);
 });
 
-QUnit.test("Test h4", function (assert) {
-  let alinkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:link4");
-  let buttonlinkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:actionLink4");
-  testFont(assert, alinkFn, buttonlinkFn);
+it("Test h4", function (done) {
+  let alinkFn = querySelectorFn("#page\\:mainForm\\:link4");
+  let buttonlinkFn = querySelectorFn("#page\\:mainForm\\:actionLink4");
+  testFont(done, alinkFn, buttonlinkFn);
 });
 
-QUnit.test("Test h5", function (assert) {
-  let alinkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:link5");
-  let buttonlinkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:actionLink5");
-  testFont(assert, alinkFn, buttonlinkFn);
+it("Test h5", function (done) {
+  let alinkFn = querySelectorFn("#page\\:mainForm\\:link5");
+  let buttonlinkFn = querySelectorFn("#page\\:mainForm\\:actionLink5");
+  testFont(done, alinkFn, buttonlinkFn);
 });
 
-QUnit.test("Test h6", function (assert) {
-  let alinkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:link6");
-  let buttonlinkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:actionLink6");
-  testFont(assert, alinkFn, buttonlinkFn);
+it("Test h6", function (done) {
+  let alinkFn = querySelectorFn("#page\\:mainForm\\:link6");
+  let buttonlinkFn = querySelectorFn("#page\\:mainForm\\:actionLink6");
+  testFont(done, alinkFn, buttonlinkFn);
 });
 
-QUnit.test("Test no heading", function (assert) {
-  let alinkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:link0");
-  let buttonlinkFn = testFrameQuerySelectorFn("#page\\:mainForm\\:actionLink0");
-  testFont(assert, alinkFn, buttonlinkFn);
+it("Test no heading", function (done) {
+  let alinkFn = querySelectorFn("#page\\:mainForm\\:link0");
+  let buttonlinkFn = querySelectorFn("#page\\:mainForm\\:actionLink0");
+  testFont(done, alinkFn, buttonlinkFn);
 });
 
-function testFont(assert, alinkFn, buttonlinkFn) {
-  assert.expect(5);
-
+function testFont(done, alinkFn, buttonlinkFn) {
+  let test = new JasmineTestTool(done);
   const alinkComputedStyle = getComputedStyle(alinkFn());
   const buttonlinkFnComputedStyle = getComputedStyle(buttonlinkFn());
-  assert.equal(alinkComputedStyle.color, buttonlinkFnComputedStyle.color);
-  assert.equal(alinkComputedStyle.fontFamily, buttonlinkFnComputedStyle.fontFamily);
-  assert.equal(alinkComputedStyle.fontSize, buttonlinkFnComputedStyle.fontSize);
-  assert.equal(alinkComputedStyle.fontWeight, buttonlinkFnComputedStyle.fontWeight);
-  assert.equal(alinkComputedStyle.textDecoration, buttonlinkFnComputedStyle.textDecoration);
+  test.do(() => expect(alinkComputedStyle.color).toBe(buttonlinkFnComputedStyle.color));
+  test.do(() => expect(alinkComputedStyle.fontFamily).toBe(buttonlinkFnComputedStyle.fontFamily));
+  test.do(() => expect(alinkComputedStyle.fontSize).toBe(buttonlinkFnComputedStyle.fontSize));
+  test.do(() => expect(alinkComputedStyle.fontWeight).toBe(buttonlinkFnComputedStyle.fontWeight));
+  test.do(() => expect(alinkComputedStyle.textDecoration).toBe(buttonlinkFnComputedStyle.textDecoration));
+  test.start();
 }
 
-QUnit.test("Ajax reload for section 2", function (assert) {
-  let reloadButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:reloadSection2");
-  let section2HeaderFn = testFrameQuerySelectorFn("#page\\:mainForm\\:levelTwoSection h3");
-  let timestampFn = testFrameQuerySelectorFn("#page\\:mainForm\\:timestamp span");
+it("Ajax reload for section 2", function (done) {
+  let reloadButtonFn = querySelectorFn("#page\\:mainForm\\:reloadSection2");
+  let section2HeaderFn = querySelectorFn("#page\\:mainForm\\:levelTwoSection h3");
+  let timestampFn = querySelectorFn("#page\\:mainForm\\:timestamp span");
   let firstTimestamp = timestampFn().textContent;
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.asserts(1, function () {
-    assert.ok(section2HeaderFn() !== null);
-  });
-  TTT.action(function () {
-    reloadButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(2, function () {
-    assert.ok(section2HeaderFn() !== null);
-    assert.ok(firstTimestamp < timestampFn().textContent, "value of new timestamp must be higher");
-  });
-  TTT.startTest();
+  let test = new JasmineTestTool(done);
+  test.do(() => expect(section2HeaderFn() !== null).toBe(true));
+  test.do(() => reloadButtonFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => reloadButtonFn() && section2HeaderFn() !== null);
+  test.do(() => expect(section2HeaderFn() !== null).toBe(true));
+  test.do(() => expect(firstTimestamp < timestampFn().textContent).toBe(true, "value of new timestamp must be higher"));
+  test.start();
 });

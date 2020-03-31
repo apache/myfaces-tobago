@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+
 function querySelectorFn(expression) {
   return function () {
     return document.getElementById("page:testframe").contentWindow.document.querySelector(expression);
@@ -82,6 +84,16 @@ QUnit.test("test '???'", function (assert) {
       "There must no '???' on the site.");
 });
 
+beforeEach(function (done) {
+  const test = new JasmineTestTool(done);
+  test.wait(() => document.getElementById("page:testframe")
+      && document.getElementById("page:testframe").contentWindow
+      && document.getElementById("page:testframe").contentWindow.name
+      && document.getElementById("page:testframe").contentWindow.name !== "page:testframe"
+      && document.getElementById("page:testframe").contentWindow.name !== "ds-tempWindowId");
+  test.do(() => expect("waiting for testframe is done").toBe("waiting for testframe is done"));
+  test.start();
+});
 
 describe("general", function () {
   it("duplicated IDs", function () {

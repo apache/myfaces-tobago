@@ -15,39 +15,39 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorFn} from "/script/tobago-test.js";
+import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-QUnit.test("test numbers of tab-group-index", function (assert) {
-  let tab1Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabOne");
-  let tab2Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabTwo");
-  let tab3Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabThree");
-  let tab4Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabFour");
-  let tab5Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabFive");
-  let tabContent1Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabOne\\:\\:content");
-  let tabContent2Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabTwo\\:\\:content");
-  let tabContent3Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabThree\\:\\:content");
-  let tabContent4Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabFour\\:\\:content");
-  let tabContent5Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabFive\\:\\:content");
+it("test numbers of tab-group-index", function (done) {
+  let tab1Fn = querySelectorFn("#page\\:mainForm\\:tabOne");
+  let tab2Fn = querySelectorFn("#page\\:mainForm\\:tabTwo");
+  let tab3Fn = querySelectorFn("#page\\:mainForm\\:tabThree");
+  let tab4Fn = querySelectorFn("#page\\:mainForm\\:tabFour");
+  let tab5Fn = querySelectorFn("#page\\:mainForm\\:tabFive");
+  let tabContent1Fn = querySelectorFn("#page\\:mainForm\\:tabOne\\:\\:content");
+  let tabContent2Fn = querySelectorFn("#page\\:mainForm\\:tabTwo\\:\\:content");
+  let tabContent3Fn = querySelectorFn("#page\\:mainForm\\:tabThree\\:\\:content");
+  let tabContent4Fn = querySelectorFn("#page\\:mainForm\\:tabFour\\:\\:content");
+  let tabContent5Fn = querySelectorFn("#page\\:mainForm\\:tabFive\\:\\:content");
 
-  assert.equal(tab1Fn().index, 0);
-  assert.equal(tab2Fn().index, 1);
-  assert.equal(tab3Fn(), null, "Tab three is not rendered");
-  assert.equal(tab4Fn().index, 3);
-  assert.equal(tab5Fn().index, 4);
-
-  assert.equal(tabContent1Fn().index, 0);
-  assert.equal(tabContent2Fn().index, 1);
-  assert.equal(tabContent3Fn(), null, "Tab three content is not rendered");
-  assert.equal(tabContent4Fn(), null, "Tab four content is not rendered (disabled)");
-  assert.equal(tabContent5Fn().index, 4);
-
-  assert.ok(tab1Fn().querySelector(".nav-link").classList.contains("active"));
-  assert.notOk(tab2Fn().querySelector(".nav-link").classList.contains("active"));
-  assert.notOk(tab4Fn().querySelector(".nav-link").classList.contains("active"));
-  assert.notOk(tab5Fn().querySelector(".nav-link").classList.contains("active"));
-
-  assert.ok(tabContent1Fn().classList.contains("active"));
-  assert.notOk(tabContent2Fn().classList.contains("active"));
-  assert.equal(tabContent4Fn(), null);
-  assert.notOk(tabContent5Fn().classList.contains("active"));
+  let test = new JasmineTestTool(done);
+  test.do(() => expect(tab1Fn().index).toBe(0));
+  test.do(() => expect(tab2Fn().index).toBe(1));
+  test.do(() => expect(tab3Fn()).toBe(null, "Tab three is not rendered"));
+  test.do(() => expect(tab4Fn().index).toBe(3));
+  test.do(() => expect(tab5Fn().index).toBe(4));
+  test.do(() => expect(tabContent1Fn().index).toBe(0));
+  test.do(() => expect(tabContent2Fn().index).toBe(1));
+  test.do(() => expect(tabContent3Fn()).toBe(null, "Tab three content is not rendered"));
+  test.do(() => expect(tabContent4Fn()).toBe(null, "Tab four content is not rendered (disabled)"));
+  test.do(() => expect(tabContent5Fn().index).toBe(4));
+  test.do(() => expect(tab1Fn().querySelector(".nav-link").classList.contains("active")).toBe(true));
+  test.do(() => expect(tab2Fn().querySelector(".nav-link").classList.contains("active")).not.toBe(true));
+  test.do(() => expect(tab4Fn().querySelector(".nav-link").classList.contains("active")).not.toBe(true));
+  test.do(() => expect(tab5Fn().querySelector(".nav-link").classList.contains("active")).not.toBe(true));
+  test.do(() => expect(tabContent1Fn().classList.contains("active")).toBe(true));
+  test.do(() => expect(tabContent2Fn().classList.contains("active")).not.toBe(true));
+  test.do(() => expect(tabContent4Fn()).toBe(null));
+  test.do(() => expect(tabContent5Fn().classList.contains("active")).not.toBe("active"));
+  test.start();
 });

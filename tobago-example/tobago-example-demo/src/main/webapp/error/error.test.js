@@ -15,28 +15,21 @@
  * limitations under the License.
  */
 
-import {jQueryFrame} from "/script/tobago-test.js";
+import {querySelectorFn} from "/script/tobago-test.js";
+import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-QUnit.test("has no exception", function (assert) {
-  var $error = jQueryFrame("#page\\:mainForm\\:errorSection .tobago-section-header span");
-  assert.notEqual($error.text(), "An error has occurred!");
+it("has no exception", function (done) {
+  const error = querySelectorFn("#page\\:mainForm\\:errorSection .tobago-section-header span");
+
+  const test = new JasmineTestTool(done);
+  test.do(() => expect(error.textContent).not.toEqual("An error has occurred!"));
+  test.start();
 });
 
-QUnit.test("has no 404", function (assert) {
-  var $error404 = jQueryFrame("#page\\:mainForm\\:pageNotFoundMessage span");
-  assert.notEqual($error404.text(), "The page was not found!");
-});
+it("has no 404", function (done) {
+  const error404 = querySelectorFn("#page\\:mainForm\\:pageNotFoundMessage span");
 
-describe("Error", function () {
-  it("has no exception", function () {
-    var $error = jQueryFrame("#page\\:mainForm\\:errorSection .tobago-section-header span");
-
-    expect($error.text()).not.toEqual("An error has occurred!");
-  });
-
-  it("has no 404", function () {
-    var $error404 = jQueryFrame("#page\\:mainForm\\:pageNotFoundMessage span");
-
-    expect($error404.text()).not.toEqual("The page was not found!");
-  });
+  const test = new JasmineTestTool(done);
+  test.do(() => expect(error404.textContent).not.toEqual("The page was not found!"));
+  test.start();
 });

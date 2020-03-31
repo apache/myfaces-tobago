@@ -15,25 +15,21 @@
  * limitations under the License.
  */
 
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
-import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorFn} from "/script/tobago-test.js";
+import {JasmineUtils} from "/tobago/test/tobago-test-tool.js";
 
-QUnit.test("test CSS of the fields and labels of 'first1'", function (assert) {
-  assert.expect(8);
+it("test CSS of the fields and labels of 'first1'", function () {
+  let fieldFn = querySelectorFn("#page\\:mainForm\\:first1");
+  let labelFn = querySelectorFn("#page\\:mainForm\\:first1\\:\\:label");
 
-  let fieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:first1");
-  let labelFn = testFrameQuerySelectorFn("#page\\:mainForm\\:first1\\:\\:label");
-
-  TobagoTestTool.checkGridCss(assert, fieldFn(), "1", "auto", "2", "auto");
-  TobagoTestTool.checkGridCss(assert, labelFn(), "1", "auto", "1", "auto");
+  JasmineUtils.checkGridCss(fieldFn(), "1", "auto", "2", "auto");
+  JasmineUtils.checkGridCss(labelFn(), "1", "auto", "1", "auto");
 });
 
-QUnit.test("test CSS of the fields and labels of 'last1'", function (assert) {
-  assert.expect(8);
+it("test CSS of the fields and labels of 'last1'", function () {
+  let fieldFn = querySelectorFn("#page\\:mainForm\\:last1");
+  let labelFn = querySelectorFn("#page\\:mainForm\\:last1\\:\\:label");
 
-  let fieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:last1");
-  let labelFn = testFrameQuerySelectorFn("#page\\:mainForm\\:last1\\:\\:label");
-
-  TobagoTestTool.checkGridCss(assert, fieldFn(), "2", "auto", "1", "auto");
-  TobagoTestTool.checkGridCss(assert, labelFn(), "2", "auto", "2", "auto");
+  JasmineUtils.checkGridCss(fieldFn(), "2", "auto", "1", "auto");
+  JasmineUtils.checkGridCss(labelFn(), "2", "auto", "2", "auto");
 });

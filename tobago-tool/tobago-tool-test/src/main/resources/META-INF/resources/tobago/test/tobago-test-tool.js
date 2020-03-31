@@ -27,43 +27,47 @@ TobagoTestTool.stepType = {
   ASSERTS: 4
 };
 
-TobagoTestTool.msie = navigator.userAgent.indexOf("MSIE") > -1 || navigator.userAgent.indexOf("Trident") > -1;
+class JasmineUtils {
+  static isMsie() {
+    return navigator.userAgent.indexOf("MSIE") > -1 || navigator.userAgent.indexOf("Trident") > -1;
+  };
 
-TobagoTestTool.checkGridCss = function (assert, element, columnStart, columnEnd, rowStart, rowEnd) {
-  columnEnd = TobagoTestTool.convertGridCss(columnEnd);
-  rowEnd = TobagoTestTool.convertGridCss(rowEnd);
+  static checkGridCss(element, columnStart, columnEnd, rowStart, rowEnd) {
+    columnEnd = this.convertGridCss(columnEnd);
+    rowEnd = this.convertGridCss(rowEnd);
 
-  if (TobagoTestTool.msie) {
-    assert.equal(getComputedStyle(element).msGridColumn, columnStart);
-    assert.equal(getComputedStyle(element).msGridColumnSpan, columnEnd);
-    assert.equal(getComputedStyle(element).msGridRow, rowStart);
-    assert.equal(getComputedStyle(element).msGridRowSpan, rowEnd);
-  } else {
-    assert.equal(getComputedStyle(element).gridColumnStart, columnStart);
-    assert.equal(getComputedStyle(element).gridColumnEnd, columnEnd);
-    assert.equal(getComputedStyle(element).gridRowStart, rowStart);
-    assert.equal(getComputedStyle(element).gridRowEnd, rowEnd);
-  }
-};
-
-TobagoTestTool.convertGridCss = function (end) {
-  if (TobagoTestTool.msie) {
-    switch (end) {
-      case "auto":
-        return "1";
-      case "span 2":
-        return "2";
-      case "span 3":
-        return "3";
-      case "span 4":
-        return "4";
-      default:
-        return end;
+    if (this.isMsie()) {
+      expect(getComputedStyle(element).msGridColumn).toBe(columnStart);
+      expect(getComputedStyle(element).msGridColumnSpan).toBe(columnEnd);
+      expect(getComputedStyle(element).msGridRow).toBe(rowStart);
+      expect(getComputedStyle(element).msGridRowSpan).toBe(rowEnd);
+    } else {
+      expect(getComputedStyle(element).gridColumnStart).toBe(columnStart);
+      expect(getComputedStyle(element).gridColumnEnd).toBe(columnEnd);
+      expect(getComputedStyle(element).gridRowStart).toBe(rowStart);
+      expect(getComputedStyle(element).gridRowEnd).toBe(rowEnd);
     }
-  } else {
-    return end;
-  }
-};
+  };
+
+  static convertGridCss(end) {
+    if (JasmineTestTool.msie) {
+      switch (end) {
+        case "auto":
+          return "1";
+        case "span 2":
+          return "2";
+        case "span 3":
+          return "3";
+        case "span 4":
+          return "4";
+        default:
+          return end;
+      }
+    } else {
+      return end;
+    }
+  };
+}
 
 TobagoTestTool.prototype = {
   action: function (func) {
@@ -229,7 +233,6 @@ export {TobagoTestTool};
 class JasmineTestTool {
 
   steps = [];
-  cycleTiming = 50;
   done;
   timeout;
   lastStepExecution;
@@ -269,18 +272,20 @@ class JasmineTestTool {
       fail("Timeout of '" + nextStep.type + "'-step: " + nextStep.func);
       nextStep.done = true;
       this.resetTimeout();
-      window.setTimeout(this.cycle.bind(this), this.cycleTiming);
+      window.setTimeout(this.cycle.bind(this), 0);
+    } else if (!this.isDocumentReady()) {
+      window.setTimeout(this.cycle.bind(this), 50);
     } else if (nextStep.type === "do") {
       nextStep.func();
       nextStep.done = true;
       this.resetTimeout();
-      window.setTimeout(this.cycle.bind(this), this.cycleTiming);
+      window.setTimeout(this.cycle.bind(this), 0);
     } else if (nextStep.type === "wait") {
       if (nextStep.func()) {
         nextStep.done = true;
         this.resetTimeout();
       }
-      window.setTimeout(this.cycle.bind(this), this.cycleTiming);
+      window.setTimeout(this.cycle.bind(this), 50);
     } else {
       fail("an unexpected error has occurred!");
       this.done();
@@ -294,6 +299,10 @@ class JasmineTestTool {
       }
     }
     return true;
+  }
+
+  isDocumentReady() {
+    return document.getElementById("page:testframe").contentWindow.document.readyState === "complete";
   }
 
   getNextStep() {
@@ -314,4 +323,4 @@ class JasmineTestTool {
   }
 }
 
-export {JasmineTestTool};
+export {JasmineUtils, JasmineTestTool};

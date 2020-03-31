@@ -15,20 +15,20 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorFn} from "/script/tobago-test.js";
+import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 function escapeClientId(clientId) {
   return '#' + clientId.replace(/([:\.])/g, '\\$1');
 }
 
-QUnit.test("inputfield with label", function (assert) {
-
-  assert.expect(6);
+it("inputfield with label", function (done) {
+  let test = new JasmineTestTool(done);
 
   function testValueEquals(id) {
-    let fieldFn = testFrameQuerySelectorFn(escapeClientId(id));
-    let labelFn = testFrameQuerySelectorFn("[for='" + id + "']");
-    assert.equal(fieldFn().value, labelFn().textContent);
+    let fieldFn = querySelectorFn(escapeClientId(id));
+    let labelFn = querySelectorFn("[for='" + id + "']");
+    test.do(() => expect(fieldFn().value).toBe(labelFn().textContent));
   }
 
   testValueEquals("page:mainForm:direct::field");
@@ -38,20 +38,21 @@ QUnit.test("inputfield with label", function (assert) {
   testValueEquals("page:mainForm:v4::field");
 
   const testVuId = "page:mainForm:vu::field";
-  let fieldVuFn = testFrameQuerySelectorFn(escapeClientId(testVuId));
-  assert.equal(fieldVuFn().value, "");
+  let fieldVuFn = querySelectorFn(escapeClientId(testVuId));
+  test.do(() => expect(fieldVuFn().value).toBe(""));
+  test.start();
 });
 
-QUnit.test("inputfield with label", function (assert) {
-
-  assert.expect(2);
+it("inputfield with label", function (done) {
+  let test = new JasmineTestTool(done);
 
   function testValueEquals(id) {
-    let fieldFn = testFrameQuerySelectorFn(escapeClientId(id));
-    let labelFn = testFrameQuerySelectorFn("[for='" + id + "']");
-    assert.equal(fieldFn().id, labelFn().textContent);
+    let fieldFn = querySelectorFn(escapeClientId(id));
+    let labelFn = querySelectorFn("[for='" + id + "']");
+    test.do(() => expect(fieldFn().id).toBe(labelFn().textContent));
   }
 
   testValueEquals("page:mainForm:my_number_1::field");
   testValueEquals("page:mainForm:my_number_3::field");
+  test.start();
 });
