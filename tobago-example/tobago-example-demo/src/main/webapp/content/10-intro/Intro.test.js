@@ -15,18 +15,13 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorFn} from "/script/tobago-test.js";
+import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-QUnit.test("First section title is 'Intro'", function (assert) {
-  assert.expect(1);
-  let titleOfFirstSectionHeader = testFrameQuerySelectorFn(".tobago-section-header > h1 > span");
-  assert.equal(titleOfFirstSectionHeader().textContent, "Intro");
-});
+it("First section title is 'Intro'", function (done) {
+  let titleOfFirstSectionHeader = querySelectorFn(".tobago-section-header > h1 > span");
 
-describe("Intro", function () {
-  it("First section title is 'Intro'", function () {
-    let titleOfFirstSectionHeader = testFrameQuerySelectorFn(".tobago-section-header > h1 > span");
-
-    expect(titleOfFirstSectionHeader().textContent).toEqual("Intro");
-  });
+  let test = new JasmineTestTool(done);
+  test.do(() => expect(titleOfFirstSectionHeader().textContent).toEqual("Intro"));
+  test.start();
 });

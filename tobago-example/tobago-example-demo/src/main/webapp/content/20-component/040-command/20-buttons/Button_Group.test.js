@@ -15,17 +15,13 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorFn} from "/script/tobago-test.js";
+import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-QUnit.test("Dropdown button has 'btn-group'", function (assert) {
-  let buttonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:buttonWithLinks");
-  assert.ok(buttonFn().classList.contains("btn-group"), "id=buttonWithLinks must have 'btn-group'");
-});
+it("Dropdown button has 'btn-group'", function (done) {
+  let buttonFn = querySelectorFn("#page\\:mainForm\\:buttonWithLinks");
 
-describe("Button group", function () {
-  it("Dropdown button has 'btn-group'", function () {
-    let buttonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:buttonWithLinks");
-
-    expect(buttonFn().classList.contains("btn-group")).toBe(true, "id=buttonWithLinks must have 'btn-group'");
-  });
+  let test = new JasmineTestTool(done);
+  test.do(() => expect(buttonFn().classList.contains("btn-group")).toBe(true, "id=buttonWithLinks must have 'btn-group'"));
+  test.start();
 });

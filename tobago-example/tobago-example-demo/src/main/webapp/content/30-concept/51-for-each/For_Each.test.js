@@ -15,45 +15,34 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
+import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-QUnit.test("Add a river and reset.", function (assert) {
-  let nameFn = testFrameQuerySelectorFn("#page\\:mainForm\\:add\\:inName\\:\\:field");
-  let lengthFn = testFrameQuerySelectorFn("#page\\:mainForm\\:add\\:inLength\\:\\:field");
-  let dischargeFn = testFrameQuerySelectorFn("#page\\:mainForm\\:add\\:inDischarge\\:\\:field");
-  let addFn = testFrameQuerySelectorFn("#page\\:mainForm\\:add\\:buttonAdd");
-  let resetFn = testFrameQuerySelectorFn("#page\\:mainForm\\:reset\\:buttonReset");
-  let forEachBoxesFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:forEach .tobago-box");
-  let uiRepeatSectionsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:uiRepeat .tobago-section");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    resetFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(2, function () {
-    assert.equal(forEachBoxesFn().length, 3);
-    assert.equal(uiRepeatSectionsFn().length, 3);
-  });
-  TTT.action(function () {
-    nameFn().value = "Mississippi";
-    lengthFn().value = "6275";
-    dischargeFn().value = "16200";
-    addFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(2, function () {
-    assert.equal(forEachBoxesFn().length, 4);
-    assert.equal(uiRepeatSectionsFn().length, 4);
-  });
-  TTT.action(function () {
-    resetFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(2, function () {
-    assert.equal(forEachBoxesFn().length, 3);
-    assert.equal(uiRepeatSectionsFn().length, 3);
-  });
-  TTT.startTest();
+it("Add a river and reset.", function (done) {
+  let nameFn = querySelectorFn("#page\\:mainForm\\:add\\:inName\\:\\:field");
+  let lengthFn = querySelectorFn("#page\\:mainForm\\:add\\:inLength\\:\\:field");
+  let dischargeFn = querySelectorFn("#page\\:mainForm\\:add\\:inDischarge\\:\\:field");
+  let addFn = querySelectorFn("#page\\:mainForm\\:add\\:buttonAdd");
+  let resetFn = querySelectorFn("#page\\:mainForm\\:reset\\:buttonReset");
+  let forEachBoxesFn = querySelectorAllFn("#page\\:mainForm\\:forEach .tobago-box");
+  let uiRepeatSectionsFn = querySelectorAllFn("#page\\:mainForm\\:uiRepeat .tobago-section");
+
+  let test = new JasmineTestTool(done);
+  test.do(() => resetFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => forEachBoxesFn() && forEachBoxesFn().length !== 0);
+  test.do(() => expect(forEachBoxesFn().length).toBe(3));
+  test.do(() => expect(uiRepeatSectionsFn().length).toBe(3));
+  test.do(() => nameFn().value = "Mississippi");
+  test.do(() => lengthFn().value = "6275");
+  test.do(() => dischargeFn().value = "16200");
+  test.do(() => addFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => forEachBoxesFn() && forEachBoxesFn().length !== 0);
+  test.do(() => expect(forEachBoxesFn().length).toBe(4));
+  test.do(() => expect(uiRepeatSectionsFn().length).toBe(4));
+  test.do(() => resetFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => forEachBoxesFn() && forEachBoxesFn().length !== 0);
+  test.do(() => expect(forEachBoxesFn().length).toBe(3));
+  test.do(() => expect(uiRepeatSectionsFn().length).toBe(3));
+  test.start();
 });

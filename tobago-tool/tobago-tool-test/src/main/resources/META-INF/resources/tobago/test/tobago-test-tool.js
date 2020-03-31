@@ -27,27 +27,27 @@ TobagoTestTool.stepType = {
   ASSERTS: 4
 };
 
-TobagoTestTool.msie = navigator.userAgent.indexOf("MSIE") > -1 || navigator.userAgent.indexOf("Trident") > -1;
+JasmineTestTool.msie = navigator.userAgent.indexOf("MSIE") > -1 || navigator.userAgent.indexOf("Trident") > -1;
 
-TobagoTestTool.checkGridCss = function (assert, element, columnStart, columnEnd, rowStart, rowEnd) {
-  columnEnd = TobagoTestTool.convertGridCss(columnEnd);
-  rowEnd = TobagoTestTool.convertGridCss(rowEnd);
+JasmineTestTool.checkGridCss = function (done, element, columnStart, columnEnd, rowStart, rowEnd) {
+  columnEnd = JasmineTestTool.convertGridCss(columnEnd);
+  rowEnd = JasmineTestTool.convertGridCss(rowEnd);
 
-  if (TobagoTestTool.msie) {
-    assert.equal(getComputedStyle(element).msGridColumn, columnStart);
-    assert.equal(getComputedStyle(element).msGridColumnSpan, columnEnd);
-    assert.equal(getComputedStyle(element).msGridRow, rowStart);
-    assert.equal(getComputedStyle(element).msGridRowSpan, rowEnd);
+  if (JasmineTestTool.msie) {
+    expect(getComputedStyle(element).msGridColumn).toBe(columnStart);
+    expect(getComputedStyle(element).msGridColumnSpan).toBe(columnEnd);
+    expect(getComputedStyle(element).msGridRow).toBe(rowStart);
+    expect(getComputedStyle(element).msGridRowSpan).toBe(rowEnd);
   } else {
-    assert.equal(getComputedStyle(element).gridColumnStart, columnStart);
-    assert.equal(getComputedStyle(element).gridColumnEnd, columnEnd);
-    assert.equal(getComputedStyle(element).gridRowStart, rowStart);
-    assert.equal(getComputedStyle(element).gridRowEnd, rowEnd);
+    expect(getComputedStyle(element).gridColumnStart).toBe(columnStart);
+    expect(getComputedStyle(element).gridColumnEnd).toBe(columnEnd);
+    expect(getComputedStyle(element).gridRowStart).toBe(rowStart);
+    expect(getComputedStyle(element).gridRowEnd).toBe(rowEnd);
   }
 };
 
-TobagoTestTool.convertGridCss = function (end) {
-  if (TobagoTestTool.msie) {
+JasmineTestTool.convertGridCss = function (end) {
+  if (JasmineTestTool.msie) {
     switch (end) {
       case "auto":
         return "1";

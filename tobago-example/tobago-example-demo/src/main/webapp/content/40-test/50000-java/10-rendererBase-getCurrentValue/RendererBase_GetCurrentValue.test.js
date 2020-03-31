@@ -15,33 +15,36 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorFn} from "/script/tobago-test.js";
+import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-function test(assert, idSuffix, expectedText) {
-  let outFn = testFrameQuerySelectorFn("#page\\:mainForm\\:" + idSuffix);
-  assert.equal(outFn().textContent.trim(), expectedText);
+function test(done, idSuffix, expectedText) {
+  let test = new JasmineTestTool(done);
+  let outFn = querySelectorFn("#page\\:mainForm\\:" + idSuffix);
+  test.do(() => expect(outFn().textContent.trim()).toBe(expectedText));
+  test.start();
 }
 
-QUnit.test("formatted values: out string", function (assert) {
-  test(assert, "outString", "simple string");
+it("formatted values: out string", function (done) {
+  test(done, "outString", "simple string");
 });
 
-QUnit.test("formatted values: out string from method", function (assert) {
-  test(assert, "outStringFromMethod", "HELLO WORLD!");
+it("formatted values: out string from method", function (done) {
+  test(done, "outStringFromMethod", "HELLO WORLD!");
 });
 
-QUnit.test("formatted values: out date", function (assert) {
-  test(assert, "outDate", "24.07.1969");
+it("formatted values: out date", function (done) {
+  test(done, "outDate", "24.07.1969");
 });
 
-QUnit.test("formatted values: out date from method", function (assert) {
-  test(assert, "outDateFromMethod", "24.07.2019");
+it("formatted values: out date from method", function (done) {
+  test(done, "outDateFromMethod", "24.07.2019");
 });
 
-QUnit.test("formatted values: out currency", function (assert) {
-  test(assert, "outCurrency", "TTD");
+it("formatted values: out currency", function (done) {
+  test(done, "outCurrency", "TTD");
 });
 
-QUnit.test("formatted values: out currency from method", function (assert) {
-  test(assert, "outCurrencyFromMethod", "ISK");
+it("formatted values: out currency from method", function (done) {
+  test(done, "outCurrencyFromMethod", "ISK");
 });
