@@ -167,7 +167,7 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
       writer.writeClassAttribute(
           BootstrapClass.DROPDOWN_MENU,
           getDropdownCssItems(facesContext, command));
-      writer.writeAttribute(Arias.LABELLEDBY, "dropdownMenuButton", false);
+      writer.writeAttribute(Arias.LABELLEDBY, command.getFieldId(facesContext), false);
 
       for (final UIComponent child : component.getChildren()) {
         if (child.isRendered()
