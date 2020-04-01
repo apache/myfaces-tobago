@@ -51,7 +51,7 @@ export class Tree extends HTMLElement {
       queryString += "tobago-tree-node[index='" + selectedNodeIndex + "']";
     }
 
-    if(queryString.length > 0) {
+    if (queryString.length > 0) {
       return this.querySelectorAll(queryString) as NodeListOf<TreeNode>;
     } else {
       return null;
@@ -176,6 +176,7 @@ export class TreeNode extends HTMLElement {
       this.classList.remove("tobago-treeNode-markup-expanded");
 
       this.hideNodes(this.treeChildNodes);
+      this.ajax(event, false);
     } else {
       for (const icon of this.icons) {
         icon.classList.remove(icon.dataset.tobagoClosed);
@@ -192,18 +193,20 @@ export class TreeNode extends HTMLElement {
       this.tree.addExpandedNode(this.index);
       this.classList.add("tobago-treeNode-markup-expanded");
 
-      if (this.treeChildNodes.length === 0) {
-        jsf.ajax.request(
-            this.id,
-            event,
-            {
-              execute: this.tree.id,
-              render: this.tree.id
-            });
-      } else {
-        this.showNodes(this.treeChildNodes);
-      }
+      this.showNodes(this.treeChildNodes);
+      this.ajax(event, this.treeChildNodes.length === 0);
     }
+  }
+
+  private ajax(event: Event, renderTree: boolean): void {
+    jsf.ajax.request(
+        this.id,
+        event,
+        {
+          "javax.faces.behavior.event": "change",
+          execute: this.tree.id,
+          render: renderTree ? this.tree.id : null
+        });
   }
 
   hideNodes(treeChildNodes: NodeListOf<TreeNode>): void {
