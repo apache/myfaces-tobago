@@ -32,7 +32,7 @@
   -->
 
   <properties>
-    <deltaspike.version>1.9.1</deltaspike.version>
+    <deltaspike.version>1.9.3</deltaspike.version>
     <selenium.version>3.141.59</selenium.version>
     <meecrowave.version>1.2.8</meecrowave.version>
     <tomcat.version>9.0.24</tomcat.version>
