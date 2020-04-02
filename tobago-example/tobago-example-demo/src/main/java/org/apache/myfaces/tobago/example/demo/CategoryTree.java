@@ -19,9 +19,12 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.context.Markup;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.io.InputStreamReader;
 
 public class CategoryTree {
 
@@ -29,63 +32,31 @@ public class CategoryTree {
   }
 
   public static DefaultMutableTreeNode createSample() {
-    final DefaultMutableTreeNode tree = createNode("Root Node", "root");
-    tree.insert(createNode("Sports", "sports"), 0);
-    tree.insert(createNode("Movies", "movies"), 1);
-    final DefaultMutableTreeNode music = createNode("Music", "music");
-    tree.insert(music, 2);
-    music.insert(createNode("Classic", "classic"), 0);
-    music.insert(createNode("Pop", "pop"), 1);
-    music.insert(createNode("World", "world"), 2);
-    tree.insert(createNode("Games", "games"), 3);
-    final DefaultMutableTreeNode science = createNode("Science", "science");
-    science.insert(createNode("Geography", "geography"), 0);
-    science.insert(createNode("Mathematics", "math"), 0);
-    final DefaultMutableTreeNode astro = createNode("Astronomy", "astro");
-    astro.insert(createNode("Education", "edu"), 0);
-    astro.insert(createNode("Pictures", "pic"), 0);
-    science.insert(astro, 2);
-    tree.insert(science, 4);
+
+    final InputStreamReader reader
+        = new InputStreamReader(AstroData.class.getResourceAsStream("category-tree.json"));
+
+    final Gson gson = new GsonBuilder().create();
+    final CategoryNode node = gson.fromJson(reader, new TypeToken<CategoryNode>() {
+    }.getType());
+
+    return buildSubTree(node);
+  }
+
+  private static DefaultMutableTreeNode buildSubTree(CategoryNode node) {
+
+    DefaultMutableTreeNode tree = createNode(node.getName(), node.getId());
+
+    if (node.getChildren() != null) {
+      for (CategoryNode child : node.getChildren()) {
+        tree.add(buildSubTree(child));
+      }
+    }
+
     return tree;
   }
 
   public static DefaultMutableTreeNode createNode(final String name, final String id) {
     return new DefaultMutableTreeNode(new Node(name, id));
   }
-
-  public static DefaultMutableTreeNode createSample2() {
-    final DefaultMutableTreeNode tree = new DefaultMutableTreeNode(new Node("1 Category"));
-    tree.add(new DefaultMutableTreeNode(new Node("1.1 Sports")));
-    tree.add(new DefaultMutableTreeNode(new Node("1.2 Movies")));
-    final DefaultMutableTreeNode temp = new DefaultMutableTreeNode(new Node("1.3 Science"));
-    tree.add(temp);
-    final DefaultMutableTreeNode music = new DefaultMutableTreeNode(new Node("1.4 Music"));
-    tree.add(music);
-    tree.add(new DefaultMutableTreeNode(new Node("1.5 Games")));
-    temp.add(new DefaultMutableTreeNode(new Node("1.3.1 Geography (strong markup)", Markup.STRONG)));
-    temp.add(new DefaultMutableTreeNode(new Node("1.3.2 Mathematics (strong markup)", Markup.STRONG)));
-    final DefaultMutableTreeNode temp2 = new DefaultMutableTreeNode(new Node("1.3.3 Pictures"));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.1 Education")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.2 Family")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.3 Comercial")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.4 Summer (disabled)", true)));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.5 Winter (disabled)", true)));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.6 Red")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.7 Black")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.8 White")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.9 Good")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.10 Evil")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.11 Flower")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.12 Animal")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.13 Personal")));
-    temp.add(temp2);
-    final DefaultMutableTreeNode bulk = new DefaultMutableTreeNode(new Node("1.6 Bulk"));
-    for (int i = 0; i < 5; i++) {
-      bulk.add(new DefaultMutableTreeNode(new Node("1.6." + (i + 1) + " Some Node")));
-    }
-    tree.add(bulk);
-
-    return tree;
-  }
-
 }

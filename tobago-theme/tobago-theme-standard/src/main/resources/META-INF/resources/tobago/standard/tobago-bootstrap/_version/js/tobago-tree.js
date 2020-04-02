@@ -267,7 +267,7 @@ Tobago.TreeListbox.initNextLevel = function() {
   var option = jQuery(this);
   var select = option.closest(".tobago-treeListbox-level").next()
       .find("[data-tobago-tree-parent='" + option.attr("id") + "']");
-  if (select.length == 1) {
+  if (select.length === 1) {
     option.data("tobago-select", select);
   } else {
     var empty = option.closest(".tobago-treeListbox-level").next().children(":first");
