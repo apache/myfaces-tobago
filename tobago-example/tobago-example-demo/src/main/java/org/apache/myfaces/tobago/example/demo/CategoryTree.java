@@ -19,9 +19,13 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import org.apache.myfaces.tobago.context.Markup;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.io.InputStreamReader;
 
 public class CategoryTree {
 
@@ -29,23 +33,27 @@ public class CategoryTree {
   }
 
   public static DefaultMutableTreeNode createSample() {
-    final DefaultMutableTreeNode tree = createNode("Root Node", "root");
-    tree.insert(createNode("Sports", "sports"), 0);
-    tree.insert(createNode("Movies", "movies"), 1);
-    final DefaultMutableTreeNode music = createNode("Music", "music");
-    tree.insert(music, 2);
-    music.insert(createNode("Classic", "classic"), 0);
-    music.insert(createNode("Pop", "pop"), 1);
-    music.insert(createNode("World", "world"), 2);
-    tree.insert(createNode("Games", "games"), 3);
-    final DefaultMutableTreeNode science = createNode("Science", "science");
-    science.insert(createNode("Geography", "geography"), 0);
-    science.insert(createNode("Mathematics", "math"), 0);
-    final DefaultMutableTreeNode astronomy = createNode("Astronomy", "astronomy");
-    astronomy.insert(createNode("Education", "edu"), 0);
-    astronomy.insert(createNode("Pictures", "pic"), 0);
-    science.insert(astronomy, 2);
-    tree.insert(science, 4);
+
+    final InputStreamReader reader
+        = new InputStreamReader(AstroData.class.getResourceAsStream("category-tree.json"));
+
+    final Gson gson = new GsonBuilder().create();
+    final CategoryNode node = gson.fromJson(reader, new TypeToken<CategoryNode>() {
+    }.getType());
+
+    return buildSubTree(node);
+  }
+
+  private static DefaultMutableTreeNode buildSubTree(CategoryNode node) {
+
+    DefaultMutableTreeNode tree = createNode(node.getName(), node.getId());
+
+    if (node.getChildren() != null) {
+      for (CategoryNode child : node.getChildren()) {
+        tree.add(buildSubTree(child));
+      }
+    }
+
     return tree;
   }
 
