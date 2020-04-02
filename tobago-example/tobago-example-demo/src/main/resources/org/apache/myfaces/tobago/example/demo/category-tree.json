@@ -1,0 +1,94 @@
+{
+  "id": "root",
+  "name": "Category",
+  "children": [
+    {
+      "id": "sports",
+      "name": "Sports"
+    },
+    {
+      "id": "movies",
+      "name": "Movies"
+    },
+    {
+      "id": "music",
+      "name": "Music",
+      "children": [
+        {
+          "id": "classic",
+          "name": "Classic"
+        },
+        {
+          "id": "pop",
+          "name": "Pop"
+        },
+        {
+          "id": "world",
+          "name": "World",
+          "children": [
+            {
+              "id": "carib",
+              "name": "Carib"
+            },
+            {
+              "id": "africa",
+              "name": "Africa"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "games",
+      "name": "Games"
+    },
+    {
+      "id": "science",
+      "name": "Science",
+      "children": [
+        {
+          "id": "math",
+          "name": "Mathematics",
+          "children": [
+            {
+              "id": "analysis",
+              "name": "Analysis"
+            },
+            {
+              "id": "algebra",
+              "name": "Algebra"
+            }
+          ]
+        },
+        {
+          "id": "geography",
+          "name": "Geography"
+        },
+        {
+          "id": "astro",
+          "name": "Astronomy",
+          "children": [
+            {
+              "id": "edu",
+              "name": "Education"
+            },
+            {
+              "id": "pic",
+              "name": "Pictures",
+              "children": [
+                {
+                  "id": "ngc",
+                  "name": "NGC"
+                },
+                {
+                  "id": "messier",
+                  "name": "Messier"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
