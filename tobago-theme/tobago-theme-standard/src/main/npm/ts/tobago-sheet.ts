@@ -744,7 +744,7 @@ class Sheet extends HTMLElement {
     this.dataset.tobagoLastClickedRowIndex = String(row.sectionRowIndex);
     if (checkbox && !checkbox.disabled) {
       const selected = this.getHiddenSelected();
-      const rowIndex = this.getDataIndex(row);
+      const rowIndex = Number(row.getAttribute("row-index"));
       if (this.isSelected(rowIndex)) {
         this.deselectRow(selected, rowIndex, row, checkbox);
       } else {
@@ -777,7 +777,7 @@ class Sheet extends HTMLElement {
       const row = rows.item(i);
       const checkbox = this.getSelectorCheckbox(row);
       if (checkbox && !checkbox.disabled) {
-        const rowIndex = this.getDataIndex(row);
+        const rowIndex = Number(row.getAttribute("row-index"));
         const on = value.has(rowIndex);
         if (selectDeselected && !on) {
           this.selectRow(selected, rowIndex, row, checkbox);
@@ -786,10 +786,6 @@ class Sheet extends HTMLElement {
         }
       }
     }
-  }
-
-  getDataIndex(row: HTMLTableRowElement): number {
-    return parseInt(row.dataset.tobagoRowIndex);
   }
 
   /**
