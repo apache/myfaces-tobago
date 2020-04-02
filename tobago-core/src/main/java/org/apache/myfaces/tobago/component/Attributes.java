@@ -146,6 +146,7 @@ public enum Attributes {
   labelWidth,
   large,
   layoutOrder,
+  lazy,
   left,
   level,
   lang,

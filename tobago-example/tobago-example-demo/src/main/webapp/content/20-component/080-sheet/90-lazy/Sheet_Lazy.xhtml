@@ -21,10 +21,11 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-
+  <ui:param name="title" value="Lazy Loading Large Data"/>
   <tc:sheet value="#{sheetController.hugeSolarList}" id="sheet" var="luminary"
-            rows="1000" markup="small" >
-    <tc:style maxHeight="600px"/>
+            rows="20" markup="small" lazy="true"
+            showRowRange="none" showDirectLinks="none" showPageRange="none">
+    <tc:style maxHeight="500px"/>
     <tc:column label="Name">
       <tc:out value="#{luminary.name}" labelLayout="skip"/>
     </tc:column>

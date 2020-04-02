@@ -25,6 +25,8 @@ class Sheet extends HTMLElement {
   mousemoveData: any;
   mousedownOnRowData: any;
 
+  lastCheckMillis: number;
+
   private static getScrollBarSize(): number {
     const body = document.getElementsByTagName("body").item(0);
 
@@ -48,11 +50,22 @@ class Sheet extends HTMLElement {
     return ["INPUT", "TEXTAREA", "SELECT", "A", "BUTTON"].indexOf(element.tagName) > -1;
   }
 
+  private static getRowTemplate(columns: number, rowIndex: number) : string {
+    return `<tr row-index="${rowIndex}" class="tobago-sheet-row" dummy="dummy">
+<td class="tobago-sheet-cell" colspan="${columns}"> </td>
+</tr>`;
+  }
+
   constructor() {
     super();
   }
 
   connectedCallback(): void {
+
+    if (this.lazyUpdate) {
+      // nothing to do here, will be done in method lazyResponse()
+      return;
+    }
 
     // synchronize column widths ----------------------------------------------------------------------------------- //
 
@@ -153,7 +166,7 @@ class Sheet extends HTMLElement {
     const selectionMode = this.dataset.tobagoSelectionMode;
     if (selectionMode === "single" || selectionMode === "singleOrNone" || selectionMode === "multi") {
 
-      for (const row of this.getRows()) {
+      for (const row of this.getRowElements()) {
         row.addEventListener("mousedown", this.mousedownOnRow.bind(this));
 
         row.addEventListener("click", this.clickOnRow.bind(this));
@@ -166,6 +179,43 @@ class Sheet extends HTMLElement {
         event.preventDefault();
       });
     }
+
+    // lazy load by scrolling ----------------------------------------------------------------- //
+
+      const lazy = this.lazy;
+
+      if (lazy) {
+        // prepare the sheet with some auto-created (empty) rows
+        const rowCount = this.rowCount;
+        const sheetBody = this.tableBodyDiv;
+        const tableBody = this.tableBody;
+        const columns = tableBody.rows[0].cells.length;
+        let current: HTMLTableRowElement = tableBody.rows[0]; // current row in this algorithm, begin with first
+        // the algorithm goes straight through all rows, not selectors, because of performance
+        for (let i = 0; i < rowCount; i++) {
+          if (current) {
+            const rowIndex = Number(current.getAttribute("row-index"));
+            if (i < rowIndex) {
+              const template = Sheet.getRowTemplate(columns, i);
+              current.insertAdjacentHTML("beforebegin", template);
+            } else if (i === rowIndex) {
+              current = current.nextElementSibling as HTMLTableRowElement;
+            // } else { TBD: I think this is not possible
+            //   const template = Sheet.getRowTemplate(columns, i);
+            //   current.insertAdjacentHTML("afterend", template);
+            //   current = current.nextElementSibling as HTMLTableRowElement;
+            }
+          } else {
+            const template = Sheet.getRowTemplate(columns, i);
+            tableBody.insertAdjacentHTML("beforeend", template);
+          }
+        }
+
+        sheetBody.addEventListener("scroll", this.lazyCheck.bind(this));
+
+        // initial
+        this.lazyCheck();
+      }
 
     // ---------------------------------------------------------------------------------------- //
 
@@ -191,7 +241,212 @@ class Sheet extends HTMLElement {
         }
       });
     }
+  }
 
+  // attribute getter + setter ---------------------------------------------------------- //
+
+  get lazyActive():boolean {
+    return this.hasAttribute("lazy-active");
+  }
+
+  set lazyActive(update:boolean) {
+    if (update) {
+      this.setAttribute("lazy-active", "");
+    } else {
+      this.removeAttribute("lazy-active");
+    }
+  }
+
+  get lazy():boolean {
+    return this.hasAttribute("lazy");
+  }
+
+  set lazy(update:boolean) {
+    if (update) {
+      this.setAttribute("lazy", "");
+    } else {
+      this.removeAttribute("lazy");
+    }
+  }
+
+  get lazyUpdate():boolean {
+    return this.hasAttribute("lazy-update");
+  }
+
+  get rows():number {
+    return parseInt(this.getAttribute("rows"));
+  }
+
+  get rowCount():number {
+    return parseInt(this.getAttribute("row-count"));
+  }
+
+  get tableBodyDiv(): HTMLDivElement {
+    return this.querySelector(".tobago-sheet-body");
+  }
+
+  get tableBody(): HTMLTableSectionElement {
+    return this.querySelector(".tobago-sheet-bodyTable>tbody");
+  }
+
+  // -------------------------------------------------------------------------------------- //
+
+  /*
+    when an event occurs (initial load OR scroll event OR AJAX response)
+
+    then -> Tobago.Sheet.lazyCheck()
+            1. check, if the lazy reload is currently active
+               a) yes -> do nothing and exit
+               b) no  -> step 2.
+            2. check, if there are data need to load (depends on scroll position and already loaded data)
+               a) yes -> set lazy reload to active and make an AJAX request with Tobago.Sheet.reloadLazy()
+               b) no  -> do nothing and exit
+
+     AJAX response -> 1. update the rows in the sheet from the response
+                      2. go to the first part of this description
+  */
+
+  /**
+   * Checks if a lazy update is required, because there are unloaded rows in the visible area.
+   */
+  lazyCheck(event?): void {
+
+    if (this.lazyActive) {
+      // nothing to do, because there is an active AJAX running
+      return;
+    }
+
+    if (this.lastCheckMillis && Date.now() - this.lastCheckMillis < 100) {
+      // do nothing, because the last call was just a moment ago
+      return;
+    }
+
+    this.lastCheckMillis = Date.now();
+    const next = this.nextLazyLoad();
+    // console.info("next %o", next); // @DEV_ONLY
+    if (next) {
+      this.lazyActive = true;
+      const rootNode = this.getRootNode() as ShadowRoot | Document;
+      const input = rootNode.getElementById(this.id + ":pageActionlazy") as HTMLInputElement;
+      input.value = String(next);
+      this.reloadWithAction(input);
+    }
+  }
+
+  nextLazyLoad(): number {
+    // find first tr in current visible area
+    const rows = this.rows;
+    const rowElements = this.tableBody.rows;
+    let min = 0;
+    let max = rowElements.length;
+    // binary search
+    let i;
+    while (min < max) {
+      i = Math.floor((max - min) / 2) + min;
+      // console.log("min i max -> %d %d %d", min, i, max); // @DEV_ONLY
+      if (this.isRowAboveVisibleArea(rowElements[i])) {
+        min = i + 1;
+      } else {
+        max = i;
+      }
+    }
+    for (i = min; i < min + rows && i < rowElements.length; i++) {
+      if (this.isRowDummy(rowElements[i])) {
+        return i + 1;
+      }
+    }
+
+    return null;
+  }
+
+  isRowAboveVisibleArea(tr: HTMLTableRowElement): boolean {
+    const sheetBody = this.tableBodyDiv;
+    const viewStart = sheetBody.scrollTop;
+    const trEnd = tr.offsetTop + tr.clientHeight;
+    return trEnd < viewStart;
+  }
+
+  isRowDummy(tr): boolean {
+    return tr.hasAttribute("dummy");
+  }
+
+  lazyResponse(event): void {
+    let updates;
+    if (event.status === "complete") {
+      updates = event.responseXML.querySelectorAll("update");
+      for (let i = 0; i < updates.length; i++) {
+        const update = updates[i];
+        const id = update.getAttribute("id");
+        if (id.indexOf(":") > -1) { // is a JSF element id, but not a technical id from the framework
+          console.debug("[tobago-sheet][complete] Update after jsf.ajax complete: #" + id); // @DEV_ONLY
+
+          const sheet = document.getElementById(id);
+          sheet.id = id + "::lazy-temporary";
+
+          const page = Page.page();
+          page.insertAdjacentHTML("beforeend", `<div id="${id}"></div>`);
+          const sheetLoader = document.getElementById(id);
+        }
+      }
+    } else if (event.status === "success") {
+      updates = event.responseXML.querySelectorAll("update");
+      for (let i = 0; i < updates.length; i++) {
+        const update = updates[i];
+        const id = update.getAttribute("id");
+        if (id.indexOf(":") > -1) { // is a JSF element id, but not a technical id from the framework
+          console.debug("[tobago-sheet][success] Update after jsf.ajax complete: #" + id); // @DEV_ONLY
+
+          // sync the new rows into the sheet
+          const sheetLoader = document.getElementById(id);
+          const sheet = document.getElementById(id + "::lazy-temporary");
+          sheet.id = id;
+          const tbody = sheet.querySelector(".tobago-sheet-bodyTable>tbody");
+
+          const newRows = sheetLoader.querySelectorAll(".tobago-sheet-bodyTable>tbody>tr");
+          for (i = 0; i < newRows.length; i++) {
+            const newRow = newRows[i];
+            const rowIndex = Number(newRow.getAttribute("row-index"));
+            const row = tbody.querySelector("tr[row-index='" + rowIndex + "']");
+            // replace the old row with the new row
+            row.insertAdjacentElement("afterend", newRow);
+            tbody.removeChild(row);
+          }
+
+          sheetLoader.parentElement.removeChild(sheetLoader);
+          this.lazyActive = false;
+        }
+      }
+    }
+  }
+
+  lazyError(data): void {
+    console.error("Sheet lazy loading error:"
+        + "\nError Description: " + data.description
+        + "\nError Name: " + data.errorName
+        + "\nError errorMessage: " + data.errorMessage
+        + "\nResponse Code: " + data.responseCode
+        + "\nResponse Text: " + data.responseText
+        + "\nStatus: " + data.status
+        + "\nType: " + data.type);
+  }
+
+  // tbd: how to do this in Tobago 5?
+  reloadWithAction(source: HTMLElement): void {
+    console.debug("reload sheet with action '" + source.id + "'"); // @DEV_ONLY
+    const executeIds = this.id;
+    const renderIds = this.id;
+    const lazy = this.lazy;
+
+    jsf.ajax.request(
+        source.id,
+        null,
+        {
+          "javax.faces.behavior.event": "reload",
+          execute: executeIds,
+          render: renderIds,
+          onevent: lazy ? this.lazyResponse.bind(this) : undefined,
+          onerror: lazy ? this.lazyError.bind(this) : undefined
+        });
   }
 
   loadColumnWidths(): number[] {
@@ -358,7 +613,7 @@ class Sheet extends HTMLElement {
         window.getSelection().removeAllRanges();
       }
 
-      const rows = this.getRows();
+      const rows = this.getRowElements();
       const selector = this.getSelectorCheckbox(row);
       const selectionMode = this.dataset.tobagoSelectionMode;
 
@@ -464,7 +719,7 @@ class Sheet extends HTMLElement {
     return row.querySelector("tr>td>input.tobago-sheet-columnSelector");
   }
 
-  getRows(): NodeListOf<HTMLTableRowElement> {
+  getRowElements(): NodeListOf<HTMLTableRowElement> {
     return this.getBodyTable().querySelectorAll("tbody>tr");
   }
 
@@ -473,11 +728,7 @@ class Sheet extends HTMLElement {
   }
 
   isRowSelected(row: HTMLTableRowElement): boolean {
-    let rowIndex = +row.dataset.tobagoRowIndex;
-    if (!rowIndex) {
-      rowIndex = row.sectionRowIndex + this.getFirst();
-    }
-    return this.isSelected(rowIndex);
+    return this.isSelected(parseInt(row.dataset.tobagoRowIndex));
   }
 
   isSelected(rowIndex: number): boolean {
@@ -503,17 +754,17 @@ class Sheet extends HTMLElement {
   }
 
   selectAll(): void {
-    const rows = this.getRows();
+    const rows = this.getRowElements();
     this.selectRange(rows, 0, rows.length - 1, true, false);
   }
 
   deselectAll(): void {
-    const rows = this.getRows();
+    const rows = this.getRowElements();
     this.selectRange(rows, 0, rows.length - 1, false, true);
   }
 
   toggleAll(): void {
-    const rows = this.getRows();
+    const rows = this.getRowElements();
     this.selectRange(rows, 0, rows.length - 1, true, true);
   }
 
@@ -538,12 +789,7 @@ class Sheet extends HTMLElement {
   }
 
   getDataIndex(row: HTMLTableRowElement): number {
-    const rowIndex = parseInt(row.dataset.tobagoRowIndex);
-    if (rowIndex) {
-      return rowIndex;
-    } else {
-      return row.sectionRowIndex + this.getFirst();
-    }
+    return parseInt(row.dataset.tobagoRowIndex);
   }
 
   /**

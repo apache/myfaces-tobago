@@ -93,6 +93,21 @@ public abstract class AbstractUISheet extends AbstractUIData
   @Override
   public void encodeAll(FacesContext facesContext) throws IOException {
 
+    if (isLazy()) {
+      if (getRows() == 0) {
+        LOG.warn("Sheet id={} has lazy=true set, but not set the rows attribute!", getClientId(facesContext));
+      }
+      if (getShowRowRange() != ShowPosition.none) {
+        LOG.warn("Sheet id={} has lazy=true set, but also set showRowRange!=none!", getClientId(facesContext));
+      }
+      if (getShowPageRange() != ShowPosition.none) {
+        LOG.warn("Sheet id={} has lazy=true set, but also set showPageRange!=none!", getClientId(facesContext));
+      }
+      if (getShowDirectLinks() != ShowPosition.none) {
+        LOG.warn("Sheet id={} has lazy=true set, but also set showDirectLinks!=none!", getClientId(facesContext));
+      }
+    }
+
     final AbstractUIReload reload = ComponentUtils.getReloadFacet(this);
 
     if (reload != null && AjaxUtils.isAjaxRequest(facesContext) && reload.isRendered() && !reload.isUpdate()) {
@@ -202,7 +217,7 @@ public abstract class AbstractUISheet extends AbstractUIData
       return getRowCount();
     }
     final int last = getFirst() + getRows();
-    return last < getRowCount() ? last : getRowCount();
+    return Math.min(last, getRowCount());
   }
 
   /**
@@ -510,7 +525,7 @@ public abstract class AbstractUISheet extends AbstractUIData
         break;
       case prev:
         first = getFirst() - getRows();
-        first = first < 0 ? 0 : first;
+        first = Math.max(first, 0);
         break;
       case next:
         if (hasRowCount()) {
@@ -528,6 +543,7 @@ public abstract class AbstractUISheet extends AbstractUIData
         first = getFirstRowIndexOfLastPage();
         break;
       case toRow:
+      case lazy:
         first = pageEvent.getValue() - 1;
         if (hasRowCount() && first > getFirstRowIndexOfLastPage()) {
           first = getFirstRowIndexOfLastPage();
@@ -593,4 +609,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   public abstract ShowPosition getShowPageRange();
 
   public abstract ShowPosition getShowDirectLinks();
+
+  public abstract boolean isLazy();
 }

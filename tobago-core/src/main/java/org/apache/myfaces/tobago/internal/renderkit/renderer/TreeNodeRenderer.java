@@ -150,7 +150,7 @@ public class TreeNodeRenderer extends RendererBase {
       writer.writeAttribute(HtmlAttributes.VALUE, clientId, true);
       writer.writeIdAttribute(clientId);
       writer.writeAttribute(HtmlAttributes.SELECTED, selectedState.isAncestorOfSelected(path));
-      writer.writeAttribute(DataAttributes.ROW_INDEX, data.getRowIndex());
+      writer.writeAttribute(CustomAttributes.ROW_INDEX, data.getRowIndex());
     } else {
       writer.startElement(HtmlElements.TOBAGO_TREE_NODE);
 

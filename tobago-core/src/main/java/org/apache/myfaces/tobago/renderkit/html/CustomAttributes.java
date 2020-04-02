@@ -37,6 +37,14 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
    */
   INDEX("index"),
   ITEMS("items"),
+  /**
+   * Lazy loading in sheet.
+   */
+  LAZY("lazy"),
+  /**
+   * Is this request/response an update of lazy loaded data in sheet.
+   */
+  LAZY_UPDATE("lazy-update"),
   LOCALE("locale"),
   LOCAL_MENU("local-menu"),
   MAX_ITEMS("max-items"),
@@ -50,6 +58,18 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
    * &lt;f:ajax&gt; attribute
    */
   RENDER("render"),
+  /**
+   * Number of rows to show/load for lazy loading in sheet.
+   */
+  ROWS("rows"),
+  /**
+   * Number of all rows in sheet.
+   */
+  ROW_COUNT("row-count"),
+  /**
+   * Index of a specific row in the sheet.
+   */
+  ROW_INDEX("row-index"),
   /**
    * The mode of the tab switch: client, reloadTab, reloadPage.
    */
