@@ -121,11 +121,6 @@ public enum DataAttributes implements MarkupLanguageAttributes {
    */
   RELOAD("data-tobago-reload"),
 
-  /*
-   * Holds the index of the row in a sheet, if the sheet has a rowRendered attribute.
-   */
-  ROW_INDEX("data-tobago-row-index"),
-
   SELECTION_MODE("data-tobago-selection-mode"),
 
   /**

@@ -260,6 +260,12 @@ public interface SheetTagDeclaration
       methodSignature = "javax.faces.event.ActionEvent")
   void setSortActionListener(String sortActionListener);
 
+  /**
+   * Lazy loading by scroll event.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  void setLazy(String lazy);
 
   /**
    * Flag indicating if paging arrows are shown near direct links

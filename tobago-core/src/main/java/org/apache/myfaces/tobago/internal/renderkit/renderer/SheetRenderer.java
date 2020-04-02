@@ -58,11 +58,13 @@ import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
+import org.apache.myfaces.tobago.util.AjaxUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -71,6 +73,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.el.ValueExpression;
 import javax.faces.application.Application;
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
@@ -96,6 +99,7 @@ public class SheetRenderer extends RendererBase {
   private static final String SUFFIX_COLUMN_RENDERED = ComponentUtils.SUB_SEPARATOR + "rendered";
   private static final String SUFFIX_SCROLL_POSITION = ComponentUtils.SUB_SEPARATOR + "scrollPosition";
   private static final String SUFFIX_SELECTED = ComponentUtils.SUB_SEPARATOR + "selected";
+  private static final String SUFFIX_LAZY = NamingContainer.SEPARATOR_CHAR + "pageActionlazy";
   private static final String SUFFIX_PAGE_ACTION = "pageAction";
 
   @Override
@@ -193,6 +197,7 @@ public class SheetRenderer extends RendererBase {
           break;
         case toPage:
         case toRow:
+        case lazy:
           event = new PageActionEvent(component, action);
           final int target;
           final String value;
@@ -273,6 +278,10 @@ public class SheetRenderer extends RendererBase {
     }
     writer.writeAttribute(DataAttributes.SELECTION_MODE, sheet.getSelectable().name(), false);
     writer.writeAttribute(DataAttributes.FIRST, Integer.toString(sheet.getFirst()), false);
+    writer.writeAttribute(CustomAttributes.ROWS, sheet.getRows());
+    writer.writeAttribute(CustomAttributes.ROW_COUNT, Integer.toString(sheet.getRowCount()), false);
+    writer.writeAttribute(CustomAttributes.LAZY, sheet.isLazy());
+    writer.writeAttribute(CustomAttributes.LAZY_UPDATE, sheet.isLazy() && AjaxUtils.isAjaxRequest(facesContext));
 
     final boolean autoLayout = sheet.isAutoLayout();
     if (!autoLayout) {
@@ -335,6 +344,10 @@ public class SheetRenderer extends RendererBase {
       encodeHiddenInput(writer,
           JsonUtils.encode(selectedRows),
           sheetId + SUFFIX_SELECTED);
+    }
+
+    if (sheet.isLazy()) {
+      encodeHiddenInput(writer,null, sheetId + SUFFIX_LAZY);
     }
 
     StringBuilder expandedValue = null;
@@ -630,11 +643,7 @@ public class SheetRenderer extends RendererBase {
       }
 
       writer.startElement(HtmlElements.TR);
-      if (rowRendered instanceof Boolean) {
-        // if rowRendered attribute is set we need the rowIndex on the client
-        writer.writeAttribute(DataAttributes.ROW_INDEX, rowIndex);
-      }
-
+      writer.writeAttribute(CustomAttributes.ROW_INDEX, rowIndex);
       final boolean selected = selectedRows.contains(rowIndex);
       final String[] rowMarkups = (String[]) sheet.getAttributes().get("rowMarkup");
       Markup rowMarkup = Markup.NULL;
