@@ -37,6 +37,8 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -45,6 +47,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TreeListboxRenderer extends RendererBase {
+
+  private static final Logger LOG = LoggerFactory.getLogger(TreeListboxRenderer.class);
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
@@ -110,9 +114,11 @@ public class TreeListboxRenderer extends RendererBase {
     List<Integer> nextLevel = new ArrayList<>();
     Integer size = tree.getSize();
     size = Math.max(size != null ? size : 10, 2); // must be > 1, default is 10, if not set
-    final int depth = tree.getTreeDataModel().getDepth() != -1
-        ? tree.getTreeDataModel().getDepth()
-        : 7;  // XXX not a fix value!!!
+    int depth = tree.getTreeDataModel().getDepth();
+    if (depth < 0) {
+      depth = 7; // XXX
+      LOG.warn("No depth, set to {}!", depth);
+    }
     // todo: use (TreeListbox ?)Layout
 //    final Measure currentWidth = tree.getCurrentWidth();
 //    final Measure width = currentWidth.divide(depth);

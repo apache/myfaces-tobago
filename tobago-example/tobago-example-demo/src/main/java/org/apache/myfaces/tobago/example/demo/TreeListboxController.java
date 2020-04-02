@@ -42,6 +42,8 @@ public class TreeListboxController implements Serializable {
 
   public TreeListboxController() {
     sample = CategoryTree.createSample();
+    state = new TreeState();
+    state.getExpandedState().expandAll();
   }
 
   public String submit() {
@@ -60,9 +62,4 @@ public class TreeListboxController implements Serializable {
   public void setState(TreeState state) {
     this.state = state;
   }
-
-//  public String getSelectedNodes() {
-//    return TreeUtils.getSelectedNodes(sample);
-//  }
-
 }
