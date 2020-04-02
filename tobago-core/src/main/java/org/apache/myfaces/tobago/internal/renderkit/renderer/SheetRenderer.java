@@ -347,7 +347,7 @@ public class SheetRenderer extends RendererBase {
     }
 
     if (sheet.isLazy()) {
-      encodeHiddenInput(writer,null, sheetId + SUFFIX_LAZY);
+      encodeHiddenInput(writer, null, sheetId + SUFFIX_LAZY);
     }
 
     StringBuilder expandedValue = null;
