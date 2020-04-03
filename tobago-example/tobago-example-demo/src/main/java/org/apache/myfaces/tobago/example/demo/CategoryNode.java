@@ -37,10 +37,10 @@ public class CategoryNode {
 
   @Override
   public String toString() {
-    return "CategoryNode{" +
-        "id='" + id + '\'' +
-        ", name='" + name + '\'' +
-        ", children=" + children +
-        '}';
+    return "CategoryNode{"
+        + "id='" + id + '\''
+        + ", name='" + name + '\''
+        + ", children=" + children
+        + '}';
   }
 }
