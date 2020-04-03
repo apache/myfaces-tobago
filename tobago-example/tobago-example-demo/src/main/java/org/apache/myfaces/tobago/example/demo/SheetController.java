@@ -85,7 +85,7 @@ public class SheetController implements Serializable {
 
     int j = 1;
     hugeSolarList = new ArrayList<>();
-    for (; ; ) {
+    while (true) {
       for (final SolarObject solarObject : solarList) {
         final SolarObject solarObjectClone = new SolarObject(solarObject);
         hugeSolarList.add(solarObjectClone);
