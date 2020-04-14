@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.context.TobagoResourceBundle;
 import org.apache.myfaces.tobago.internal.component.AbstractUIDate;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
@@ -97,6 +98,8 @@ public class DateRenderer extends InRenderer {
         BootstrapClass.BTN_SECONDARY,
         BootstrapDateTimePickerClass.DATEPICKERBUTTON);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+    writer.writeAttribute(HtmlAttributes.TITLE,
+        TobagoResourceBundle.getString(facesContext, "datePickerTitle"), true);
     writer.writeAttribute(HtmlAttributes.DISABLED, date.isDisabled() || date.isReadonly());
     writer.writeAttribute(HtmlAttributes.TABINDEX, date.getTabIndex());
 
