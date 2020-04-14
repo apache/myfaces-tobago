@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -103,6 +104,8 @@ public class DateRenderer extends InRenderer {
         BootstrapClass.BTN_SECONDARY,
         BootstrapDateTimePickerClass.DATEPICKERBUTTON);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+    writer.writeAttribute(HtmlAttributes.TITLE,
+        ResourceUtils.getString(facesContext, "date.title"), true);
     writer.writeAttribute(HtmlAttributes.DISABLED, date.isDisabled() || date.isReadonly());
     writer.writeAttribute(HtmlAttributes.TABINDEX, date.getTabIndex());
 
