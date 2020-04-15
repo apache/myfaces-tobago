@@ -599,7 +599,7 @@
         ...
         &lt;tc:panel&gt;
           &lt;f:facet name="layout"&gt;
-            &lt;tc:gridLayout columns="*;fixed;fixed"/&gt;
+            &lt;tc:gridLayout columns="1fr;fixed;fixed"/&gt;
           &lt;/f:facet&gt;
           &lt;tc:panel/&gt;
           &lt;tc:button label="OK"&gt;
@@ -692,7 +692,7 @@
 
     <programlisting role="XML">&lt;tc:panel&gt;
   &lt;f:facet name="layout"&gt;
-    &lt;tc:gridLayout columns="*" rows="fixed;fixed;fixed;*"/&gt;
+    &lt;tc:gridLayout columns="1fr" rows="fixed;fixed;fixed;*"/&gt;
   &lt;/f:facet&gt;
   &lt;tf:in ... /&gt;
   &lt;tf:in ... /&gt;
@@ -744,8 +744,8 @@
 
     <informaltable frame="none" colsep="0" rowsep="0">
       <tgroup cols="2">
-        <colspec colname="c1" colwidth="1*"/>
-        <colspec colname="c2" colwidth="1*"/>        
+        <colspec colname="c1" colwidth="1fr"/>
+        <colspec colname="c2" colwidth="1fr"/>
         <tbody>
           <row>
             <entry><para><figure id="fig-theme-speyside">
