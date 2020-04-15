@@ -96,5 +96,23 @@
   &lt;/tc:event>
 &lt;/tc:row></code></pre>
     </tc:section>
+
+    <tc:section label="f:ajax and tc:event">
+      <p>This is an example to show how <code class="language-markup">&lt;f:ajax/></code> and <code
+              class="language-markup">&lt;tc:event/></code> can be used together.
+        The ajax event is called with a click and the event with a double click.</p>
+      <pre><code class="language-markup">&lt;tc:button id="btnAjaxEvent" label="Submit" type="submit">
+  &lt;f:ajax event="click" render="out" listener="\#{behaviorController.eventOutput}"/>
+  &lt;tc:event event="dblclick" actionListener="\#{behaviorController.eventOutput}"/>
+&lt;/tc:button>
+&lt;tc:out id="out" value="Output: \#{behaviorController.output}"/></code></pre>
+      <tc:segmentLayout large="6seg 6seg">
+        <tc:button id="btnAjaxEvent" label="Submit" type="submit">
+          <f:ajax event="click" render="out" listener="#{behaviorController.eventOutput}"/>
+          <tc:event event="dblclick" actionListener="#{behaviorController.eventOutput}"/>
+        </tc:button>
+        <tc:out id="out" value="Output: #{behaviorController.output}"/>
+      </tc:segmentLayout>
+    </tc:section>
   </tc:section>
 </ui:composition>
