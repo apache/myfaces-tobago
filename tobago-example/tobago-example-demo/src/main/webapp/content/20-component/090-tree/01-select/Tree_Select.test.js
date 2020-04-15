@@ -62,9 +62,9 @@ QUnit.test("single: select Music, select Mathematics", function (assert) {
   TTT.startTest();
 });
 
-QUnit.test("singleLeafOnly: select Classic, select Mathematics", function (assert) {
+QUnit.test("singleLeafOnly: select Classic, select Geography", function (assert) {
   let classicFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:4\\:select");
-  let mathematicsFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
+  let geographyFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:10\\:select");
   let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectedNodesOutput span");
   let selectableNoneFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:0");
   let selectableSingleLeafOnlyFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:2");
@@ -96,19 +96,19 @@ QUnit.test("singleLeafOnly: select Classic, select Mathematics", function (asser
     assert.equal(outputFn().textContent, "Classic");
   });
   TTT.action(function () {
-    mathematicsFn().checked = true;
-    mathematicsFn().dispatchEvent(new Event("change", {bubbles: true}));
+    geographyFn().checked = true;
+    geographyFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Mathematics");
+    assert.equal(outputFn().textContent, "Geography");
   });
   TTT.startTest();
 });
 
-QUnit.test("multi: select Music, select Mathematics, deselect Music", function (assert) {
+QUnit.test("multi: select Music, select Geography, deselect Music", function (assert) {
   let musicFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:3\\:select");
-  let mathematicsFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
+  let geographyFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:10\\:select");
   let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectedNodesOutput span");
   let selectableNoneFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:0");
   let selectableMultiFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:3");
@@ -140,12 +140,12 @@ QUnit.test("multi: select Music, select Mathematics, deselect Music", function (
     assert.equal(outputFn().textContent, "Music");
   });
   TTT.action(function () {
-    mathematicsFn().checked = true;
-    mathematicsFn().dispatchEvent(new Event("change", {bubbles: true}));
+    geographyFn().checked = true;
+    geographyFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Music, Mathematics");
+    assert.equal(outputFn().textContent, "Music, Geography");
   });
   TTT.action(function () {
     musicFn().checked = false;
@@ -153,14 +153,14 @@ QUnit.test("multi: select Music, select Mathematics, deselect Music", function (
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Mathematics");
+    assert.equal(outputFn().textContent, "Geography");
   });
   TTT.startTest();
 });
 
-QUnit.test("multiLeafOnly: select Classic, select Mathematics, deselect Classic", function (assert) {
+QUnit.test("multiLeafOnly: select Classic, select Geography, deselect Classic", function (assert) {
   let classicFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:4\\:select");
-  let mathematicsFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
+  let geographyFn = testFrameQuerySelectorFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
   let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectedNodesOutput span");
   let selectableNoneFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:0");
   let selectableMultiLeafOnlyFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectable\\:\\:4");
@@ -192,12 +192,12 @@ QUnit.test("multiLeafOnly: select Classic, select Mathematics, deselect Classic"
     assert.equal(outputFn().textContent, "Classic");
   });
   TTT.action(function () {
-    mathematicsFn().checked = true;
-    mathematicsFn().dispatchEvent(new Event("change", {bubbles: true}));
+    geographyFn().checked = true;
+    geographyFn().dispatchEvent(new Event("change", {bubbles: true}));
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Classic, Mathematics");
+    assert.equal(outputFn().textContent, "Classic, Geography");
   });
   TTT.action(function () {
     classicFn().checked = false;
@@ -205,7 +205,7 @@ QUnit.test("multiLeafOnly: select Classic, select Mathematics, deselect Classic"
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Mathematics");
+    assert.equal(outputFn().textContent, "Geography");
   });
   TTT.startTest();
 });
