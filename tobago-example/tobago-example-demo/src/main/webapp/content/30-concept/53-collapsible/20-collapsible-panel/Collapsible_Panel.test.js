@@ -15,234 +15,154 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
+import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-QUnit.test("Simple Panel", function (assert) {
-  let messagesFn = testFrameQuerySelectorAllFn("#page\\:messages.tobago-messages div");
-  let showFn = testFrameQuerySelectorFn("#page\\:mainForm\\:simple\\:showSimple");
-  let hideFn = testFrameQuerySelectorFn("#page\\:mainForm\\:simple\\:hideSimple");
-  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:simple\\:submitSimple");
-  let panelCollapsedFn = testFrameQuerySelectorFn("#page\\:mainForm\\:simple\\:simplePanel\\:\\:collapse");
-  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:simple\\:inSimple\\:\\:field");
+it("Simple Panel", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let showFn = querySelectorFn("#page\\:mainForm\\:simple\\:showSimple");
+  let hideFn = querySelectorFn("#page\\:mainForm\\:simple\\:hideSimple");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:simple\\:submitSimple");
+  let panelCollapsedFn = querySelectorFn("#page\\:mainForm\\:simple\\:simplePanel\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:simple\\:inSimple\\:\\:field");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    showFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(2, function () {
-    assert.equal(panelCollapsedFn().value, "false");
-    assert.ok(inFn() !== null);
-  });
-  TTT.action(function () {
-    inFn().value = "some text";
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(messagesFn().length, 0);
-    assert.equal(panelCollapsedFn().value, "false");
-    assert.ok(inFn() !== null);
-  });
-  TTT.action(function () {
-    inFn().value = "";
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(messagesFn().length, 1);
-    assert.equal(panelCollapsedFn().value, "false");
-    assert.ok(inFn() !== null);
-  });
-  TTT.action(function () {
-    hideFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(messagesFn().length, 0);
-    assert.equal(panelCollapsedFn().value, "true");
-    assert.equal(inFn(), null);
-  });
-  TTT.action(function () {
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(messagesFn().length, 0);
-    assert.equal(panelCollapsedFn().value, "true");
-    assert.equal(inFn(), null);
-  });
-  TTT.startTest();
+  let test = new JasmineTestTool(done);
+  test.do(() => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => panelCollapsedFn() && panelCollapsedFn().value === "false");
+  test.do(() => expect(panelCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn() !== null).toBe(true));
+  test.do(() => inFn().value = "some text");
+  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.do(() => expect(panelCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn() !== null).toBe(true));
+  test.do(() => inFn().value = "");
+  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => messagesFn() && messagesFn().length === 1);
+  test.do(() => expect(messagesFn().length).toBe(1));
+  test.do(() => expect(panelCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn() !== null).toBe(true));
+  test.do(() => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.do(() => expect(panelCollapsedFn().value).toBe("true"));
+  test.do(() => expect(inFn() !== null).toBe(false));
+  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.do(() => expect(panelCollapsedFn().value).toBe("true"));
+  test.do(() => expect(inFn() !== null).toBe(false));
+  test.start();
 });
 
-QUnit.test("Full Server Request", function (assert) {
-  let messagesFn = testFrameQuerySelectorAllFn("#page\\:messages.tobago-messages div");
-  let showFn = testFrameQuerySelectorFn("#page\\:mainForm\\:server\\:showServer");
-  let hideFn = testFrameQuerySelectorFn("#page\\:mainForm\\:server\\:hideServer");
-  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:server\\:submitServer");
-  let panelCollapsedFn = testFrameQuerySelectorFn("#page\\:mainForm\\:server\\:serverPanel\\:\\:collapse");
-  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:server\\:inServer\\:\\:field");
+it("Full Server Request", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let showFn = querySelectorFn("#page\\:mainForm\\:server\\:showServer");
+  let hideFn = querySelectorFn("#page\\:mainForm\\:server\\:hideServer");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:server\\:submitServer");
+  let panelCollapsedFn = querySelectorFn("#page\\:mainForm\\:server\\:serverPanel\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:server\\:inServer\\:\\:field");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    showFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(2, function () {
-    assert.equal(panelCollapsedFn().value, "false");
-    assert.ok(inFn() !== null);
-  });
-  TTT.action(function () {
-    inFn().value = "some text";
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(messagesFn().length, 0);
-    assert.equal(panelCollapsedFn().value, "false");
-    assert.ok(inFn() !== null);
-  });
-  TTT.action(function () {
-    inFn().value = "";
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(messagesFn().length, 1);
-    assert.equal(panelCollapsedFn().value, "false");
-    assert.ok(inFn() !== null);
-  });
-  TTT.action(function () {
-    hideFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(messagesFn().length, 0);
-    assert.equal(panelCollapsedFn().value, "true");
-    assert.equal(inFn(), null);
-  });
-  TTT.action(function () {
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(messagesFn().length, 0);
-    assert.equal(panelCollapsedFn().value, "true");
-    assert.equal(inFn(), null);
-  });
-  TTT.startTest();
+  let test = new JasmineTestTool(done);
+  test.do(() => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => panelCollapsedFn() && panelCollapsedFn().value === "false");
+  test.do(() => expect(panelCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn() !== null).toBe(true));
+  test.do(() => inFn().value = "some text");
+  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.do(() => expect(panelCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn() !== null).toBe(true));
+  test.do(() => inFn().value = "");
+  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => messagesFn() && messagesFn().length === 1);
+  test.do(() => expect(messagesFn().length).toBe(1));
+  test.do(() => expect(panelCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn() !== null).toBe(true));
+  test.do(() => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.do(() => expect(panelCollapsedFn().value).toBe("true"));
+  test.do(() => expect(inFn() !== null).toBe(false));
+  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.do(() => expect(panelCollapsedFn().value).toBe("true"));
+  test.do(() => expect(inFn() !== null).toBe(false));
+  test.start();
 });
 
-QUnit.test("Client Side", function (assert) {
-  let messagesFn = testFrameQuerySelectorAllFn("#page\\:messages.tobago-messages div");
-  let showFn = testFrameQuerySelectorFn("#page\\:mainForm\\:client\\:showClient");
-  let hideFn = testFrameQuerySelectorFn("#page\\:mainForm\\:client\\:hideClient");
-  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:client\\:submitClient");
-  let panelCollapsedFn = testFrameQuerySelectorFn("#page\\:mainForm\\:client\\:clientPanel\\:\\:collapse");
-  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
+it("Client Side", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let showFn = querySelectorFn("#page\\:mainForm\\:client\\:showClient");
+  let hideFn = querySelectorFn("#page\\:mainForm\\:client\\:hideClient");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
+  let panelCollapsedFn = querySelectorFn("#page\\:mainForm\\:client\\:clientPanel\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    showFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.asserts(2, function () {
-    assert.equal(panelCollapsedFn().value, "false");
-    assert.ok(inFn() !== null);
-  });
-  TTT.action(function () {
-    inFn().value = "some text";
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(messagesFn().length, 0);
-    assert.equal(panelCollapsedFn().value, "false");
-    assert.ok(inFn() !== null);
-  });
-  TTT.action(function () {
-    inFn().value = "";
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(messagesFn().length, 1);
-    assert.equal(panelCollapsedFn().value, "false");
-    assert.ok(inFn() !== null);
-  });
-  TTT.action(function () {
-    hideFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.asserts(3, function () {
-    assert.equal(messagesFn().length, 1);
-    assert.equal(panelCollapsedFn().value, "true");
-    assert.ok(inFn() !== null);
-  });
-  TTT.action(function () {
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(messagesFn().length, 1);
-    assert.equal(panelCollapsedFn().value, "false");
-    assert.ok(inFn() !== null);
-  });
-  TTT.startTest();
+  let test = new JasmineTestTool(done);
+  test.do(() => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.do(() => expect(panelCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn() !== null).toBe(true));
+  test.do(() => inFn().value = "some text");
+  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.do(() => expect(panelCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn() !== null).toBe(true));
+  test.do(() => inFn().value = "");
+  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => messagesFn() && messagesFn().length === 1);
+  test.do(() => expect(messagesFn().length).toBe(1));
+  test.do(() => expect(panelCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn() !== null).toBe(true));
+  test.do(() => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.do(() => expect(messagesFn().length).toBe(1));
+  test.do(() => expect(panelCollapsedFn().value).toBe("true"));
+  test.do(() => expect(inFn() !== null).toBe(true));
+  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => messagesFn() && messagesFn().length === 1);
+  test.do(() => expect(messagesFn().length).toBe(1));
+  test.do(() => expect(panelCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn() !== null).toBe(true));
+  test.start();
 });
 
-QUnit.test("Ajax", function (assert) {
-  let messagesFn = testFrameQuerySelectorAllFn("#page\\:messages.tobago-messages div");
-  let showFn = testFrameQuerySelectorFn("#page\\:mainForm\\:ajax\\:showAjax");
-  let hideFn = testFrameQuerySelectorFn("#page\\:mainForm\\:ajax\\:hideAjax");
-  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:ajax\\:submitAjax");
-  let panelCollapsedFn = testFrameQuerySelectorFn("#page\\:mainForm\\:ajax\\:ajaxPanel\\:\\:collapse");
-  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:ajax\\:inAjax\\:\\:field");
+it("Ajax", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let showFn = querySelectorFn("#page\\:mainForm\\:ajax\\:showAjax");
+  let hideFn = querySelectorFn("#page\\:mainForm\\:ajax\\:hideAjax");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:ajax\\:submitAjax");
+  let panelCollapsedFn = querySelectorFn("#page\\:mainForm\\:ajax\\:ajaxPanel\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:ajax\\:inAjax\\:\\:field");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    showFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(2, function () {
-    assert.equal(panelCollapsedFn().value, "false");
-    assert.ok(inFn() !== null);
-  });
-  TTT.action(function () {
-    inFn().value = "some text";
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(messagesFn().length, 0);
-    assert.equal(panelCollapsedFn().value, "false");
-    assert.ok(inFn() !== null);
-  });
-  TTT.action(function () {
-    inFn().value = "";
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(messagesFn().length, 1);
-    assert.equal(panelCollapsedFn().value, "false");
-    assert.ok(inFn() !== null);
-  });
-  TTT.action(function () {
-    hideFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(2, function () {
-    assert.equal(panelCollapsedFn().value, "true");
-    assert.equal(inFn(), null);
-  });
-  TTT.action(function () {
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(messagesFn().length, 0);
-    assert.equal(panelCollapsedFn().value, "true");
-    assert.equal(inFn(), null);
-  });
-  TTT.startTest();
+  let test = new JasmineTestTool(done);
+  test.do(() => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => panelCollapsedFn() && panelCollapsedFn().value === "false");
+  test.do(() => expect(panelCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn() !== null).toBe(true));
+  test.do(() => inFn().value = "some text");
+  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.do(() => expect(panelCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn() !== null).toBe(true));
+  test.do(() => inFn().value = "");
+  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => messagesFn() && messagesFn().length === 1);
+  test.do(() => expect(messagesFn().length).toBe(1));
+  test.do(() => expect(panelCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn() !== null).toBe(true));
+  test.do(() => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => panelCollapsedFn() && panelCollapsedFn().value === "true");
+  test.do(() => expect(panelCollapsedFn().value).toBe("true"));
+  test.do(() => expect(inFn() !== null).toBe(false));
+  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.do(() => expect(panelCollapsedFn().value).toBe("true"));
+  test.do(() => expect(inFn() !== null).toBe(false));
+  test.start();
 });

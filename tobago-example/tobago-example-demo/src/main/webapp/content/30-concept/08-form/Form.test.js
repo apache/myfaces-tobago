@@ -15,53 +15,45 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+import {querySelectorFn} from "/script/tobago-test.js";
+import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-QUnit.test("submit form 1", function (assert) {
-  let form1InputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form1\\:in1\\:\\:field");
-  let form2InputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:in2\\:\\:field");
-  let form1OutputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form1\\:out1 span");
-  let form2OutputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:out2 span");
-  let form1SubmitButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form1\\:submit1");
+it("submit form 1", function (done) {
+  let form1InputFieldFn = querySelectorFn("#page\\:mainForm\\:form1\\:in1\\:\\:field");
+  let form2InputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:in2\\:\\:field");
+  let form1OutputFieldFn = querySelectorFn("#page\\:mainForm\\:form1\\:out1 span");
+  let form2OutputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:out2 span");
+  let form1SubmitButtonFn = querySelectorFn("#page\\:mainForm\\:form1\\:submit1");
   let $form2OutputFieldValue = form2OutputFieldFn().textContent;
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    form1InputFieldFn().value = "Oliver";
-    form2InputFieldFn().value = "Peter";
-    form1SubmitButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(4, function () {
-    assert.equal(form1InputFieldFn().value, "Oliver");
-    assert.equal(form1OutputFieldFn().textContent, "Oliver");
-    assert.equal(form2InputFieldFn().value, "Peter");
-    assert.equal(form2OutputFieldFn().textContent, $form2OutputFieldValue);
-  });
-  TTT.startTest();
+  let test = new JasmineTestTool(done);
+  test.do(() => form1InputFieldFn().value = "Oliver");
+  test.do(() => form2InputFieldFn().value = "Peter");
+  test.do(() => form1SubmitButtonFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => form1InputFieldFn() && form1InputFieldFn().value === "Oliver");
+  test.do(() => expect(form1InputFieldFn().value).toBe("Oliver"));
+  test.do(() => expect(form1OutputFieldFn().textContent).toBe("Oliver"));
+  test.do(() => expect(form2InputFieldFn().value).toBe("Peter"));
+  test.do(() => expect(form2OutputFieldFn().textContent).toBe($form2OutputFieldValue));
+  test.start();
 });
 
-QUnit.test("submit form 2", function (assert) {
-  let form1InputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form1\\:in1\\:\\:field");
-  let form2InputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:in2\\:\\:field");
-  let form1OutputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form1\\:out1 span");
-  let form2OutputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:out2 span");
-  let form2SubmitButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:submit2");
+it("submit form 2", function (done) {
+  let form1InputFieldFn = querySelectorFn("#page\\:mainForm\\:form1\\:in1\\:\\:field");
+  let form2InputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:in2\\:\\:field");
+  let form1OutputFieldFn = querySelectorFn("#page\\:mainForm\\:form1\\:out1 span");
+  let form2OutputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:out2 span");
+  let form2SubmitButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:submit2");
   let $form1OutputFieldValue = form1OutputFieldFn().textContent;
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    form1InputFieldFn().value = "Oliver";
-    form2InputFieldFn().value = "Peter";
-    form2SubmitButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(4, function () {
-    assert.equal(form1InputFieldFn().value, "Oliver");
-    assert.equal(form1OutputFieldFn().textContent, $form1OutputFieldValue);
-    assert.equal(form2InputFieldFn().value, "Peter");
-    assert.equal(form2OutputFieldFn().textContent, "Peter");
-  });
-  TTT.startTest();
+  let test = new JasmineTestTool(done);
+  test.do(() => form1InputFieldFn().value = "Oliver");
+  test.do(() => form2InputFieldFn().value = "Peter");
+  test.do(() => form2SubmitButtonFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => form1InputFieldFn() && form1InputFieldFn().value === "Oliver");
+  test.do(() => expect(form1InputFieldFn().value).toBe("Oliver"));
+  test.do(() => expect(form1OutputFieldFn().textContent).toBe($form1OutputFieldValue));
+  test.do(() => expect(form2InputFieldFn().value).toBe("Peter"));
+  test.do(() => expect(form2OutputFieldFn().textContent).toBe("Peter"));
+  test.start();
 });
