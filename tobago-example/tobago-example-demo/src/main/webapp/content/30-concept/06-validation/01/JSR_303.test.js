@@ -15,90 +15,70 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
+import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-QUnit.test("Required: Submit without content.", function (assert) {
-  let messagesFn = testFrameQuerySelectorAllFn("#page\\:messages.tobago-messages div");
-  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:required\\:in1\\:\\:field");
-  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:required\\:submit1");
+it("Required: Submit without content.", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let inFn = querySelectorFn("#page\\:mainForm\\:required\\:in1\\:\\:field");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:required\\:submit1");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    inFn().value = "";
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(messagesFn().length, 1);
-  });
-  TTT.startTest();
+  let test = new JasmineTestTool(done);
+  test.do(() => inFn().value = "");
+  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => messagesFn() && messagesFn().length === 1);
+  test.do(() => expect(messagesFn().length).toBe(1));
+  test.start();
 });
 
-QUnit.test("Required: Submit with content.", function (assert) {
-  let messagesFn = testFrameQuerySelectorAllFn("#page\\:messages.tobago-messages div");
-  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:required\\:in1\\:\\:field");
-  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:required\\:submit1");
+it("Required: Submit with content.", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let inFn = querySelectorFn("#page\\:mainForm\\:required\\:in1\\:\\:field");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:required\\:submit1");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    inFn().value = "some content";
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(messagesFn().length, 0);
-  });
-  TTT.startTest();
+  let test = new JasmineTestTool(done);
+  test.do(() => inFn().value = "some content");
+  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.start();
 });
 
-QUnit.test("Length: Submit single character.", function (assert) {
-  let messagesFn = testFrameQuerySelectorAllFn("#page\\:messages.tobago-messages div");
-  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:length\\:in2\\:\\:field");
-  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:length\\:submit2");
+it("Length: Submit single character.", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let inFn = querySelectorFn("#page\\:mainForm\\:length\\:in2\\:\\:field");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:length\\:submit2");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    inFn().value = "a";
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(messagesFn().length, 1);
-  });
-  TTT.startTest();
+  let test = new JasmineTestTool(done);
+  test.do(() => inFn().value = "a");
+  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => messagesFn() && messagesFn().length === 1);
+  test.do(() => expect(messagesFn().length).toBe(1));
+  test.start();
 });
 
-QUnit.test("Length: Submit three characters.", function (assert) {
-  let messagesFn = testFrameQuerySelectorAllFn("#page\\:messages.tobago-messages div");
-  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:length\\:in2\\:\\:field");
-  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:length\\:submit2");
+it("Length: Submit three characters.", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let inFn = querySelectorFn("#page\\:mainForm\\:length\\:in2\\:\\:field");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:length\\:submit2");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    inFn().value = "abc";
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(messagesFn().length, 0);
-  });
-  TTT.startTest();
+  let test = new JasmineTestTool(done);
+  test.do(() => inFn().value = "abc");
+  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.start();
 });
 
-QUnit.test("Length: Submit five characters.", function (assert) {
-  let messagesFn = testFrameQuerySelectorAllFn("#page\\:messages.tobago-messages div");
-  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:length\\:in2\\:\\:field");
-  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:length\\:submit2");
+it("Length: Submit five characters.", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let inFn = querySelectorFn("#page\\:mainForm\\:length\\:in2\\:\\:field");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:length\\:submit2");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    inFn().value = "abcde";
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(messagesFn().length, 1);
-  });
-  TTT.startTest();
+  let test = new JasmineTestTool(done);
+  test.do(() => inFn().value = "abcde");
+  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => messagesFn() && messagesFn().length === 1);
+  test.do(() => expect(messagesFn().length).toBe(1));
+  test.start();
 });
