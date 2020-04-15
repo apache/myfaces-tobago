@@ -55,9 +55,9 @@ QUnit.test("single: select Music, select Mathematics", function (assert) {
   TTT.startTest();
 });
 
-QUnit.test("singleLeafOnly: select Classic, select Mathematics", function (assert) {
+QUnit.test("singleLeafOnly: select Classic, select Geography", function (assert) {
   var classicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:4\\:select");
-  var mathematicsFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
+  var geographyFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:10\\:select");
   var outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedNodesOutput span");
   var selectableNoneFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:0");
   var selectableSingleLeafOnlyFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:2");
@@ -86,18 +86,18 @@ QUnit.test("singleLeafOnly: select Classic, select Mathematics", function (asser
     assert.equal(outputFn().text(), "Classic");
   });
   TTT.action(function () {
-    mathematicsFn().prop("checked", true).trigger("change");
+    geographyFn().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Mathematics");
+    assert.equal(outputFn().text(), "Geography");
   });
   TTT.startTest();
 });
 
-QUnit.test("multi: select Music, select Mathematics, deselect Music", function (assert) {
+QUnit.test("multi: select Music, select Geography, deselect Music", function (assert) {
   var musicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:3\\:select");
-  var mathematicsFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
+  var geographyFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:10\\:select");
   var outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedNodesOutput span");
   var selectableNoneFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:0");
   var selectableMultiFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:3");
@@ -126,25 +126,25 @@ QUnit.test("multi: select Music, select Mathematics, deselect Music", function (
     assert.equal(outputFn().text(), "Music");
   });
   TTT.action(function () {
-    mathematicsFn().prop("checked", true).trigger("change");
+    geographyFn().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Music, Mathematics");
+    assert.equal(outputFn().text(), "Music, Geography");
   });
   TTT.action(function () {
     musicFn().prop("checked", false).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Mathematics");
+    assert.equal(outputFn().text(), "Geography");
   });
   TTT.startTest();
 });
 
-QUnit.test("multiLeafOnly: select Classic, select Mathematics, deselect Classic", function (assert) {
+QUnit.test("multiLeafOnly: select Classic, select Geography, deselect Classic", function (assert) {
   var classicFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:4\\:select");
-  var mathematicsFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
+  var geographyFn = jQueryFrameFn("#page\\:mainForm\\:categoriesTree\\:10\\:select");
   var outputFn = jQueryFrameFn("#page\\:mainForm\\:selectedNodesOutput span");
   var selectableNoneFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:0");
   var selectableMultiLeafOnlyFn = jQueryFrameFn("#page\\:mainForm\\:selectable\\:\\:4");
@@ -173,18 +173,18 @@ QUnit.test("multiLeafOnly: select Classic, select Mathematics, deselect Classic"
     assert.equal(outputFn().text(), "Classic");
   });
   TTT.action(function () {
-    mathematicsFn().prop("checked", true).trigger("change");
+    geographyFn().prop("checked", true).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Classic, Mathematics");
+    assert.equal(outputFn().text(), "Classic, Geography");
   });
   TTT.action(function () {
     classicFn().prop("checked", false).trigger("change");
   });
   TTT.waitForResponse();
   TTT.asserts(1, function () {
-    assert.equal(outputFn().text(), "Mathematics");
+    assert.equal(outputFn().text(), "Geography");
   });
   TTT.startTest();
 });
