@@ -37,6 +37,7 @@ public class BehaviorController implements Serializable {
 
   private String ajax;
   private String event;
+  private String output;
   private int counter;
 
   public String getAjax() {
@@ -59,6 +60,14 @@ public class BehaviorController implements Serializable {
     return counter;
   }
 
+  public String getOutput() {
+    return output;
+  }
+
+  public void setOutput(String output) {
+    this.output = output;
+  }
+
   public void countUp(final AjaxBehaviorEvent ajaxBehaviorEvent) {
     LOG.info("ajaxBehaviorEvent=" + ajaxBehaviorEvent);
     counter++;
@@ -67,5 +76,15 @@ public class BehaviorController implements Serializable {
   public void countUp(final ActionEvent actionEvent) {
     LOG.info("actionEvent=" + actionEvent);
     counter++;
+  }
+
+  public void eventOutput(final AjaxBehaviorEvent ajaxBehaviorEvent) {
+    LOG.info("ajaxBehaviorEvent=" + ajaxBehaviorEvent);
+    this.output = "Ajax";
+  }
+
+  public void eventOutput(final ActionEvent actionEvent) {
+    LOG.info("actionEvent=" + actionEvent);
+    this.output = "Event";
   }
 }
