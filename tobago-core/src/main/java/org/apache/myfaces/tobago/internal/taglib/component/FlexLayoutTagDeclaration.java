@@ -58,7 +58,7 @@ public interface FlexLayoutTagDeclaration extends HasIdBindingAndRendered, IsVis
    * This value defines the layout constraints for column layout.
    * It is a semicolon separated list of layout tokens '&lt;n&gt;*', '&lt;measure&gt;' or the keyword 'auto'.
    * Where &lt;n&gt; is a positive integer or empty and &lt;measure&gt; is a valid CSS length.
-   * Example: '2*;*;100px;3rem;auto'.
+   * Example: '2fr;1fr;100px;3rem;auto'.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.MeasureList")
@@ -68,7 +68,7 @@ public interface FlexLayoutTagDeclaration extends HasIdBindingAndRendered, IsVis
    * This value defines the layout constraints for row layout.
    * It is a semicolon separated list of layout tokens '&lt;n&gt;*', '&lt;measure&gt;' or the keyword 'auto'.
    * Where &lt;n&gt; is a positive integer or empty and &lt;measure&gt; is a valid CSS length.
-   * Example: '2*;*;100px;3rem;auto'.
+   * Example: '2fr;1fr;100px;3rem;auto'.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.MeasureList")
