@@ -89,16 +89,14 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         if (renderOuterItem()) {
           writer.startElement(HtmlElements.DIV);
           writer.writeClassAttribute(
-              BootstrapClass.FORM_CHECK,
-              inline ? BootstrapClass.FORM_CHECK_INLINE : null,
+              BootstrapClass.CUSTOM_CONTROL,
+              BootstrapClass.CUSTOM_RADIO,
+              inline ? BootstrapClass.CUSTOM_CONTROL_INLINE : null,
               itemDisabled ? BootstrapClass.DISABLED : null);
         }
-        writer.startElement(HtmlElements.LABEL);
-        writer.writeClassAttribute(
-            BootstrapClass.FORM_CHECK_LABEL,
-            getCssItems(facesContext, select));
+
         writer.startElement(HtmlElements.INPUT);
-        writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
+        writer.writeClassAttribute(BootstrapClass.CUSTOM_CONTROL_INPUT);
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
         final String formattedValue = ComponentUtils.getFormattedValue(facesContext, select, item.getValue());
         final boolean checked;
@@ -121,10 +119,11 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
         writer.endElement(HtmlElements.INPUT);
 
-        writer.startElement(HtmlElements.I);
-        writer.writeClassAttribute(TobagoClass.INPUT_PSEUDO);
-        writer.endElement(HtmlElements.I);
-
+        writer.startElement(HtmlElements.LABEL);
+        writer.writeClassAttribute(
+            BootstrapClass.CUSTOM_CONTROL_LABEL,
+            getCssItems(facesContext, select));
+        writer.writeAttribute(HtmlAttributes.FOR, itemId, false);
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
           final org.apache.myfaces.tobago.model.SelectItem tobagoItem =
               (org.apache.myfaces.tobago.model.SelectItem) item;

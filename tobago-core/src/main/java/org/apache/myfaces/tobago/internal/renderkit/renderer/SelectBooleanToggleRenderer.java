@@ -19,13 +19,22 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectBoolean;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+
+import javax.faces.context.FacesContext;
 
 public class SelectBooleanToggleRenderer extends SelectBooleanCheckboxRenderer {
 
   protected TobagoClass getTobagoClass() {
     return TobagoClass.SELECT_BOOLEAN_TOGGLE;
+  }
+
+  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {
+    return new CssItem[]{BootstrapClass.CUSTOM_CONTROL, BootstrapClass.CUSTOM_SWITCH};
   }
 
   public HtmlElements getComponentTag() {

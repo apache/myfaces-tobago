@@ -102,16 +102,10 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
 
-    writer.startElement(HtmlElements.LABEL);
-    writer.writeClassAttribute(
-        BootstrapClass.FORM_CHECK_LABEL,
-        getCssItems(facesContext, select));
-    if (!disabled && label.getAccessKey() != null) {
-      writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
-      AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
-    }
-
     writer.startElement(HtmlElements.INPUT);
+    writer.writeClassAttribute(
+        BootstrapClass.CUSTOM_CONTROL_INPUT,
+        getCssItems(facesContext, select));
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
     writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
     writer.writeNameAttribute(clientId);
@@ -124,10 +118,15 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
     writer.endElement(HtmlElements.INPUT);
 
-    writer.startElement(HtmlElements.I);
-    writer.writeClassAttribute(TobagoClass.INPUT_PSEUDO);
-    writer.endElement(HtmlElements.I);
-
+    writer.startElement(HtmlElements.LABEL);
+    writer.writeClassAttribute(
+        BootstrapClass.CUSTOM_CONTROL_LABEL,
+        getCssItems(facesContext, select));
+    if (!disabled && label.getAccessKey() != null) {
+      writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
+      AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
+    }
+    writer.writeAttribute(HtmlAttributes.FOR, fieldId, false);
     if (itemLabel != null && select.getLabel() == null && select.getAccessKey() != null) {
       if (itemLabel.contains(Character.toString(select.getAccessKey()))) {
         HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
@@ -135,6 +134,7 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     } else if (itemLabel != null) {
       writer.writeText(itemLabel);
     }
+    writer.endElement(HtmlElements.LABEL);
   }
 
   protected TobagoClass getTobagoClass() {
@@ -146,14 +146,13 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final AbstractUISelectBoolean select = (AbstractUISelectBoolean) component;
 
-    writer.endElement(HtmlElements.LABEL);
     writer.endElement(HtmlElements.DIV);
 
     encodeBehavior(writer, facesContext, select);
   }
 
   protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {
-    return new CssItem[]{BootstrapClass.FORM_CHECK};
+    return new CssItem[]{BootstrapClass.CUSTOM_CONTROL, BootstrapClass.CUSTOM_CHECKBOX};
   }
 
   protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {

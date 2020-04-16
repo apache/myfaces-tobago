@@ -87,16 +87,14 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
         if (renderOuterItem()) {
           writer.startElement(HtmlElements.DIV);
           writer.writeClassAttribute(
-              BootstrapClass.FORM_CHECK,
-              inline ? BootstrapClass.FORM_CHECK_INLINE : null,
+              BootstrapClass.CUSTOM_CONTROL,
+              BootstrapClass.CUSTOM_CHECKBOX,
+              inline ? BootstrapClass.CUSTOM_CONTROL_INLINE : null,
               itemDisabled ? BootstrapClass.DISABLED : null);
         }
-        writer.startElement(HtmlElements.LABEL);
-        writer.writeClassAttribute(
-            BootstrapClass.FORM_CHECK_LABEL,
-            getCssItems(facesContext, select));
+
         writer.startElement(HtmlElements.INPUT);
-        writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
+        writer.writeClassAttribute(BootstrapClass.CUSTOM_CONTROL_INPUT);
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
         final String formattedValue = ComponentUtils.getFormattedValue(facesContext, select, item.getValue());
         final boolean checked;
@@ -119,9 +117,11 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
         writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
         writer.endElement(HtmlElements.INPUT);
 
-        writer.startElement(HtmlElements.I);
-        writer.writeClassAttribute(TobagoClass.INPUT_PSEUDO);
-        writer.endElement(HtmlElements.I);
+        writer.startElement(HtmlElements.LABEL);
+        writer.writeClassAttribute(
+            BootstrapClass.CUSTOM_CONTROL_LABEL,
+            getCssItems(facesContext, select));
+        writer.writeAttribute(HtmlAttributes.FOR, itemId, false);
 
         encodeBehavior(writer, facesContext, select);
 
