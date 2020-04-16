@@ -16,9 +16,9 @@
  */
 
 import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-QUnit.test("Collapse tree", function (assert) {
+it("Collapse tree", function (done) {
   let row0nameFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:nameOut");
   let row0centralBodyFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:centralBodyOut");
   let row0distanceFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:distanceOut");
@@ -33,40 +33,32 @@ QUnit.test("Collapse tree", function (assert) {
   let row1yearFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:1\\:yearOut");
   let rootTreeButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:nameCol .tobago-treeNode-toggle");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.asserts(14, function () {
-    assert.equal(row0nameFn().textContent, "Sun");
-    assert.equal(row0centralBodyFn().textContent, "-");
-    assert.equal(row0distanceFn().textContent, "0");
-    assert.equal(row0periodFn().textContent, "0.0");
-    assert.equal(row0discovererFn().textContent, "-");
-    assert.equal(row0yearFn().textContent, "");
-    assert.equal(row1nameFn().textContent, "Mercury");
-    assert.equal(row1centralBodyFn().textContent, "Sun");
-    assert.equal(row1distanceFn().textContent, "57910");
-    assert.equal(row1periodFn().textContent, "87.97");
-    assert.equal(row1discovererFn().textContent, "-");
-    assert.equal(row1yearFn().textContent, "");
-
-    let sheetRow = row1yearFn().parentElement.parentElement;
-    assert.ok(sheetRow.classList.contains("tobago-sheet-row"));
-    assert.notEqual(getComputedStyle(sheetRow).display, "none");
-  });
-  TTT.action(function () {
-    rootTreeButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitMs(1000);
-  TTT.asserts(8, function () {
-    assert.equal(row0nameFn().textContent, "Sun");
-    assert.equal(row0centralBodyFn().textContent, "-");
-    assert.equal(row0distanceFn().textContent, "0");
-    assert.equal(row0periodFn().textContent, "0.0");
-    assert.equal(row0discovererFn().textContent, "-");
-    assert.equal(row0yearFn().textContent, "");
-
-    let sheetRow = row1yearFn().parentElement.parentElement;
-    assert.ok(sheetRow.classList.contains("tobago-sheet-row"));
-    assert.equal(getComputedStyle(sheetRow).display, "none");
-  });
-  TTT.startTest();
+  let test = new JasmineTestTool(done);
+  test.do(() => expect(row0nameFn().textContent).toBe("Sun"));
+  test.do(() => expect(row0centralBodyFn().textContent).toBe("-"));
+  test.do(() => expect(row0distanceFn().textContent).toBe("0"));
+  test.do(() => expect(row0periodFn().textContent).toBe("0.0"));
+  test.do(() => expect(row0discovererFn().textContent).toBe("-"));
+  test.do(() => expect(row0yearFn().textContent).toBe(""));
+  test.do(() => expect(row1nameFn().textContent).toBe("Mercury"));
+  test.do(() => expect(row1centralBodyFn().textContent).toBe("Sun"));
+  test.do(() => expect(row1distanceFn().textContent).toBe("57910"));
+  test.do(() => expect(row1periodFn().textContent).toBe("87.97"));
+  test.do(() => expect(row1discovererFn().textContent).toBe("-"));
+  test.do(() => expect(row1yearFn().textContent).toBe(""));
+  let sheetRow = row1yearFn().parentElement.parentElement;
+  test.do(() => expect(sheetRow.classList.contains("tobago-sheet-row")).toBe(true));
+  test.do(() => expect(getComputedStyle(sheetRow).display).not.toBe("none"));
+  test.do(() => rootTreeButtonFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.wait(() => row0nameFn() && row0nameFn().textContent === "Sun");
+  test.do(() => expect(row0nameFn().textContent).toBe("Sun"));
+  test.do(() => expect(row0centralBodyFn().textContent).toBe("-"));
+  test.do(() => expect(row0distanceFn().textContent).toBe("0"));
+  test.do(() => expect(row0periodFn().textContent).toBe("0.0"));
+  test.do(() => expect(row0discovererFn().textContent).toBe("-"));
+  test.do(() => expect(row0yearFn().textContent).toBe(""));
+  sheetRow = row1yearFn().parentElement.parentElement;
+  test.do(() => expect(sheetRow.classList.contains("tobago-sheet-row")).toBe(true));
+  test.do(() => expect(getComputedStyle(sheetRow).display).toBe("none"));
+  test.start();
 });
