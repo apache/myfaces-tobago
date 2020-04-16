@@ -21,6 +21,6 @@ QUnit.test("test width of grid layout and 'auto' button", function (assert) {
   var gridLayoutFn = jQueryFrameFn("#page\\:mainForm\\:grid");
   var buttonAutoFn = jQueryFrameFn("#page\\:mainForm\\:buttonAuto");
 
-  assert.equal(gridLayoutFn().width(), 358);
+  assert.equal(Math.round(gridLayoutFn().width()), 358);
   assert.ok(buttonAutoFn().width() < 33);
 });
