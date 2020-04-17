@@ -222,15 +222,20 @@ tobago-panel.tobago-collapsed {
 .tobago-date {
 }
 
-tobago-date input {
-  min-width: 7em;
+tobago-date {
+  display: block;
 
-  &::-ms-clear {
-    /* Remove IE10's "clear field" X button */
-    display: none;
-  }
-  &:disabled {
-    color: rgba($input-color, $form-disabled-alpha);
+  input {
+    min-width: 7em;
+
+    &::-ms-clear {
+      /* Remove IE10's "clear field" X button */
+      display: none;
+    }
+
+    &:disabled {
+      color: rgba($input-color, $form-disabled-alpha);
+    }
   }
 }
 
@@ -258,6 +263,8 @@ XXX workaround for Bootstrap with datetimepicker needed for popups
 /* file -------------------------------------------------------------- */
 .tobago-file {} //TODO remove
 tobago-file {
+  display: block;
+
   .custom-file-label {
     &:after {
       font-family: FontAwesome;
@@ -367,6 +374,9 @@ tobago-file {
 }
 
 /* in ----------------------------------------------------------- */
+tobago-in {
+  display: block;
+}
 .tobago-in {
   &:disabled {
     color: rgba($input-color, $form-disabled-alpha);
@@ -810,6 +820,10 @@ tobago-panel {
 }
 
 /* stars rating ------------------------------------------------------------ */
+tobago-stars {
+  display: block;
+}
+
 .tobago-stars {
   .tobago-stars-container {
     position: relative;
@@ -937,6 +951,32 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   justify-content: space-between;
   align-content: center;
+}
+
+/* select ----------------------------------------------------------- */
+
+tobago-select-boolean-checkbox {
+  display: block;
+}
+
+tobago-select-boolean-toggle {
+  display: block;
+}
+
+tobago-select-many-checkbox {
+  display: block;
+}
+
+tobago-select-many-shuttle {
+  display: block;
+}
+
+tobago-select-one-listbox {
+  display: block;
+}
+
+tobago-select-one-radio {
+  display: block;
 }
 
 /* selectBooleanCheckbox, selectManyCheckbox, selectOneRadio ------------------------------ */
