@@ -27,9 +27,9 @@ import java.io.Serializable;
 @Named
 public class SplitLayoutController implements Serializable {
 
-  private String horizontalLayout = "1*;1*";
+  private String horizontalLayout = "1fr 1fr";
 
-  private String verticalLayout = "1*;1*";
+  private String verticalLayout = "1fr 1fr";
 
   public String getHorizontalLayout() {
     return horizontalLayout;
@@ -48,18 +48,18 @@ public class SplitLayoutController implements Serializable {
   }
 
   public String getVerticalLayoutFirstToken() {
-    return verticalLayout.split(";")[0];
+    return verticalLayout.split(" ")[0];
   }
 
   public String getVerticalLayoutSecondToken() {
-    return verticalLayout.split(";")[1];
+    return verticalLayout.split(" ")[1];
   }
 
   public Object getHorizontalLayoutFirstToken() {
-    return horizontalLayout.split(";")[0];
+    return horizontalLayout.split(" ")[0];
   }
 
   public Object getHorizontalLayoutSecondToken() {
-    return horizontalLayout.split(";")[1];
+    return horizontalLayout.split(" ")[1];
   }
 }

@@ -40,11 +40,11 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
  * Renders a GridLayout.
  * <pre>
  * columns/rows ::= LAYOUT
- * LAYOUT       ::= TOKEN [";" TOKEN]+
+ * LAYOUT       ::= TOKEN [" " TOKEN]+
  * TOKEN        ::= AUTO | PIXEL | PROPORTIONAL
  * AUTO         ::= "auto" | "fixed"
  * PIXEL        ::= NUMBER "px"
- * PROPORTIONAL ::= [NUMBER] "*"
+ * PROPORTIONAL ::= NUMBER "fr"
  * </pre>
  * <table border="1">
  * <caption>GridLayout</caption>

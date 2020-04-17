@@ -599,7 +599,7 @@
         ...
         &lt;tc:panel&gt;
           &lt;f:facet name="layout"&gt;
-            &lt;tc:gridLayout columns="1fr;fixed;fixed"/&gt;
+            &lt;tc:gridLayout columns="1fr fixed fixed"/&gt;
           &lt;/f:facet&gt;
           &lt;tc:panel/&gt;
           &lt;tc:button label="OK"&gt;

@@ -56,52 +56,52 @@ import org.apache.myfaces.tobago.layout.SegmentJustify;
 public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, IsVisual {
 
   /**
-   * The space-separated definition of the columns for extra small devices.
-   * Possible values are: segment values between 1 and 12, 'auto' and '*'.
-   * Example: '1seg 5seg * auto'
+   * The space separated definition of the columns for extra small devices.
+   * Possible values are: [1-12]seg, 'auto' and &lt;n&gt;fr. Where &lt;n&gt; is a positive integer.
+   * Example: '1seg 5seg 1fr auto'
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
   void setExtraSmall(String extraSmall);
 
   /**
-   * The space-separated definition of the columns for small devices.
-   * Possible values are: segment values between 1 and 12, 'auto' and '*'.
-   * Example: '1seg 5seg * auto'
+   * The space separated definition of the columns for small devices.
+   * Possible values are: [1-12]seg, 'auto' and &lt;n&gt;fr. Where &lt;n&gt; is a positive integer.
+   * Example: '1seg 5seg 1fr auto'
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
   void setSmall(String small);
 
   /**
-   * The space-separated definition of the columns for medium devices.
-   * Possible values are: segment values between 1 and 12, 'auto' and '*'.
-   * Example: '1seg 5seg * auto'
+   * The space separated definition of the columns for medium devices.
+   * Possible values are: [1-12]seg, 'auto' and &lt;n&gt;fr. Where &lt;n&gt; is a positive integer.
+   * Example: '1seg 5seg fr auto'
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
   void setMedium(String medium);
 
   /**
-   * The space-separated definition of the columns for large devices.
-   * Possible values are: segment values between 1 and 12, 'auto' and '*'.
-   * Example: '1seg 5seg * auto'
+   * The space separated definition of the columns for large devices.
+   * Possible values are: [1-12]seg, 'auto' and &lt;n&gt;fr. Where &lt;n&gt; is a positive integer.
+   * Example: '1seg 5seg 1fr auto'
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
   void setLarge(String large);
 
   /**
-   * The space-separated definition of the columns for extra large devices.
-   * Possible values are: segment values between 1 and 12, 'auto' and '*'.
-   * Example: '1seg 5seg * auto'
+   * The space separated definition of the columns for extra large devices.
+   * Possible values are: [1-12]seg, 'auto' and &lt;n&gt;fr. Where &lt;n&gt; is a positive integer.
+   * Example: '1seg 5seg 1fr auto'
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
   void setExtraLarge(String extraLarge);
 
   /**
-   * The space-separated definition of the column margins for extra small devices.
+   * The space separated definition of the column margins for extra small devices.
    * Allowed values are: none, left, right, both
    * Example: 'left none both'
    */
@@ -110,7 +110,7 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
   void setMarginExtraSmall(String marginExtraSmall);
 
   /**
-   * The space-separated definition of the column margins for small devices.
+   * The space separated definition of the column margins for small devices.
    * Allowed values are: none, left, right, both
    * Example: 'left none both'
    */
@@ -119,7 +119,7 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
   void setMarginSmall(String marginSmall);
 
   /**
-   * The space-separated definition of the column margins for medium devices.
+   * The space separated definition of the column margins for medium devices.
    * Allowed values are: none, left, right, both
    * Example: 'left none both'
    */
@@ -128,7 +128,7 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
   void setMarginMedium(String marginMedium);
 
   /**
-   * The space-separated definition of the column margins for large devices.
+   * The space separated definition of the column margins for large devices.
    * Allowed values are: none, left, right, both
    * Example: 'left none both'
    */
@@ -137,7 +137,7 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
   void setMarginLarge(String marginLarge);
 
   /**
-   * The space-separated definition of the column margins for extra large devices.
+   * The space separated definition of the column margins for extra large devices.
    * Allowed values are: none, left, right, both
    * Example: 'left none both'
    */
