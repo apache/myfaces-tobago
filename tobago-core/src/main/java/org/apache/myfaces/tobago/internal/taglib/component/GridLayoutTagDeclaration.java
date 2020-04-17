@@ -44,7 +44,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
  * TOKEN        ::= AUTO | PIXEL | PROPORTIONAL
  * AUTO         ::= "auto" | "fixed"
  * PIXEL        ::= NUMBER "px"
- * PROPORTIONAL ::= [NUMBER] "*"
+ * PROPORTIONAL ::= [NUMBER] "fr"
  * </pre>
  * <table border="1">
  * <caption>GridLayout</caption>

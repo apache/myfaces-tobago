@@ -56,8 +56,8 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
 
   /**
    * The space-separated definition of the columns for extra small devices.
-   * Possible values are: segment values between 1 and 12, 'auto' and '*'.
-   * Example: '1seg 5seg * auto'
+   * Possible values are: [1-12]seg, 'auto' and &lt;n&gt;fr.
+   * Example: '1seg 5seg 1fr auto'
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
@@ -65,8 +65,8 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
 
   /**
    * The space-separated definition of the columns for small devices.
-   * Possible values are: segment values between 1 and 12, 'auto' and '*'.
-   * Example: '1seg 5seg * auto'
+   * Possible values are: [1-12]seg, 'auto' and &lt;n&gt;fr.
+   * Example: '1seg 5seg 1fr auto'
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
@@ -74,8 +74,8 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
 
   /**
    * The space-separated definition of the columns for medium devices.
-   * Possible values are: segment values between 1 and 12, 'auto' and '*'.
-   * Example: '1seg 5seg * auto'
+   * Possible values are: [1-12]seg, 'auto' and &lt;n&gt;fr.
+   * Example: '1seg 5seg fr auto'
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
@@ -83,8 +83,8 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
 
   /**
    * The space-separated definition of the columns for large devices.
-   * Possible values are: segment values between 1 and 12, 'auto' and '*'.
-   * Example: '1seg 5seg * auto'
+   * Possible values are: [1-12]seg, 'auto' and &lt;n&gt;fr.
+   * Example: '1seg 5seg 1fr auto'
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
@@ -92,8 +92,8 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
 
   /**
    * The space-separated definition of the columns for extra large devices.
-   * Possible values are: segment values between 1 and 12, 'auto' and '*'.
-   * Example: '1seg 5seg * auto'
+   * Possible values are: [1-12]seg, 'auto' and &lt;n&gt;fr.
+   * Example: '1seg 5seg 1fr auto'
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
