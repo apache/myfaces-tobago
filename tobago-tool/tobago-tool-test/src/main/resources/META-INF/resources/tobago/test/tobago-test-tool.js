@@ -232,6 +232,8 @@ export {TobagoTestTool};
 
 class JasmineTestTool {
 
+  static ajaxReadyStateChangeEvent = "tobago.jtt.ajax.readyStateChange";
+  static ajaxReadyState;
   steps = [];
   done;
   timeout;
@@ -240,6 +242,7 @@ class JasmineTestTool {
   constructor(done, timeout) {
     this.done = done; //done function from Jasmine; must called if all Steps done or timeout
     this.timeout = timeout ? timeout : 20000; //timeout for a single step
+    this.registerAjaxReadyStateListener();
   }
 
   do(fn) {
@@ -273,9 +276,10 @@ class JasmineTestTool {
       nextStep.done = true;
       this.resetTimeout();
       window.setTimeout(this.cycle.bind(this), 0);
-    } else if (!this.isDocumentReady()) {
+    } else if (!this.isDocumentReady() || !this.isAjaxReady()) {
       window.setTimeout(this.cycle.bind(this), 50);
     } else if (nextStep.type === "do") {
+      this.registerCustomXmlHttpRequest();
       nextStep.func();
       nextStep.done = true;
       this.resetTimeout();
@@ -303,6 +307,35 @@ class JasmineTestTool {
 
   isDocumentReady() {
     return document.getElementById("page:testframe").contentWindow.document.readyState === "complete";
+  }
+
+  registerAjaxReadyStateListener() {
+    JasmineTestTool.ajaxReadyState = XMLHttpRequest.UNSENT;
+    window.removeEventListener(JasmineTestTool.ajaxReadyStateChangeEvent, JasmineTestTool.changeAjaxReadyState);
+    window.addEventListener(JasmineTestTool.ajaxReadyStateChangeEvent, JasmineTestTool.changeAjaxReadyState);
+  }
+
+  static changeAjaxReadyState(event) {
+    JasmineTestTool.ajaxReadyState = event.detail.readyState;
+  }
+
+  registerCustomXmlHttpRequest() {
+    class JasmineXMLHttpRequest extends XMLHttpRequest {
+      constructor() {
+        super();
+        this.addEventListener("readystatechange", function () {
+          window.dispatchEvent(new CustomEvent(JasmineTestTool.ajaxReadyStateChangeEvent,
+              {detail: {readyState: this.readyState}}));
+        });
+      }
+    }
+
+    document.getElementById("page:testframe").contentWindow.XMLHttpRequest = JasmineXMLHttpRequest;
+  }
+
+  isAjaxReady() {
+    return JasmineTestTool.ajaxReadyState === XMLHttpRequest.UNSENT
+        || JasmineTestTool.ajaxReadyState === XMLHttpRequest.DONE;
   }
 
   getNextStep() {
