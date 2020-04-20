@@ -18,7 +18,6 @@
 -->
 
 <ui:composition template="/main.xhtml"
-                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:demo="http://myfaces.apache.org/tobago/example/demo">
@@ -26,67 +25,107 @@
   <ui:param name="title" value="SplitLayout Example"/>
 
   <p><span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_DANGER')}">Warning!</span>
-  Preliminary implementation, work in progress!</p>
+    Preliminary implementation, work in progress!</p>
 
-  <tc:splitLayout columns="2fr 1fr 1fr">
-    <tc:panel>
-      <tc:style minWidth="150px"/>
-      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-        et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-        Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-        consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-        sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-        takimata sanctus est Lorem ipsum dolor sit amet.</p>
-    </tc:panel>
-    <tc:textarea value="Text 1" labelLayout="none">
-      <tc:style minWidth="150px"/>
-    </tc:textarea>
-    <tc:textarea value="Text 2" labelLayout="none">
-      <tc:style minWidth="150px"/>
-    </tc:textarea>
-  </tc:splitLayout>
-
-  <tc:splitLayout columns="1fr 4fr 1fr">
-    <tc:button label="A"/>
-    <tc:button label="B"/>
-    <!--<tc:button label="C"/>-->
-  </tc:splitLayout>
-
-  <tc:flexLayout rows="auto 1fr">
-
-    <p>
+  <p>
     The SplitLayout implements a two component layout with a divider between
     the components to adjust the space between the components.
-    </p>
-    <p>
+  </p>
+  <p>
     Drag the divder between the boxes to see the effect</p>
 
-    <tc:splitLayout columns="#{splitLayoutController.verticalLayout}">
+  <tc:section>
+        <pre><code class="language-markup">&lt;tc:splitLayout columns="2fr 1fr 1fr">
+  &lt;tc:panel>
+    &lt;tc:style minWidth="150px"/>
+    &lt;p>...&lt;/p>
+  &lt;/tc:panel>
+  &lt;tc:textarea value="Text 1" labelLayout="none">
+    &lt;tc:style minWidth="150px"/>
+  &lt;/tc:textarea>
+  &lt;tc:textarea value="Text 2" labelLayout="none">
+    &lt;tc:style minWidth="150px"/>
+  &lt;/tc:textarea>
+&lt;/tc:splitLayout></code></pre>
+    <tc:splitLayout columns="2fr 1fr 1fr">
+      <tc:panel>
+        <tc:style minWidth="150px"/>
+        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
+          et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+          Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+          consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+          takimata sanctus est Lorem ipsum dolor sit amet.</p>
+      </tc:panel>
+      <tc:textarea value="Text 1" labelLayout="none">
+        <tc:style minWidth="150px"/>
+      </tc:textarea>
+      <tc:textarea value="Text 2" labelLayout="none">
+        <tc:style minWidth="150px"/>
+      </tc:textarea>
+    </tc:splitLayout>
+  </tc:section>
 
-      <tc:splitLayout rows="#{splitLayoutController.horizontalLayout}">
-        <tc:box label="Top left box">
+  <tc:section>
+    <pre><code class="language-markup">&lt;tc:splitLayout columns="1fr 4fr 1fr">
+  &lt;tc:button label="A"/>
+  &lt;tc:button label="B"/>
+&lt;/tc:splitLayout></code></pre>
+    <tc:splitLayout columns="1fr 4fr 1fr">
+      <tc:button label="A"/>
+      <tc:button label="B"/>
+      <!--<tc:button label="C"/>-->
+    </tc:splitLayout>
+  </tc:section>
+
+  <tc:section>
+    <pre><code class="language-markup">&lt;tc:splitLayout columns="\#{splitLayoutController.verticalLayout}">
+  &lt;tc:splitLayout rows="\#{splitLayoutController.horizontalLayout}">
+    &lt;tc:box label="Top left box">
+      &lt;tc:style minWidth="150px"/>
+      &lt;tc:out
+        value="Current vertical layout first value: \#{splitLayoutController.verticalLayoutFirstToken}"/>
+      &lt;tc:out
+        value="Current horizontal layout first value: \#{splitLayoutController.horizontalLayoutFirstToken}"/>
+    &lt;/tc:box>
+    &lt;tc:box label="Top right box">
+      &lt;tc:style minWidth="150px"/>
+      &lt;tc:out
+        value="Current vertical layout first value: \#{splitLayoutController.verticalLayoutFirstToken}"/>
+      &lt;tc:out
+        value="Current horizontal layout second value: \#{splitLayoutController.horizontalLayoutSecondToken}"/>
+    &lt;/tc:box>
+  &lt;/tc:splitLayout>
+  &lt;tc:box label="Bottom box">
+    &lt;tc:style minWidth="150px"/>
+    &lt;tc:out
+      value="Current vertical layout second value: \#{splitLayoutController.verticalLayoutSecondToken}"/>
+  &lt;/tc:box>
+&lt;/tc:splitLayout></code></pre>
+    <tc:flexLayout rows="auto 1fr">
+      <tc:splitLayout columns="#{splitLayoutController.verticalLayout}">
+        <tc:splitLayout rows="#{splitLayoutController.horizontalLayout}">
+          <tc:box label="Top left box">
+            <tc:style minWidth="150px"/>
+            <tc:out
+                    value="Current vertical layout first value: #{splitLayoutController.verticalLayoutFirstToken}"/>
+            <tc:out
+                    value="Current horizontal layout first value: #{splitLayoutController.horizontalLayoutFirstToken}"/>
+          </tc:box>
+          <tc:box label="Top right box">
+            <tc:style minWidth="150px"/>
+            <tc:out
+                    value="Current vertical layout first value: #{splitLayoutController.verticalLayoutFirstToken}"/>
+            <tc:out
+                    value="Current horizontal layout second value: #{splitLayoutController.horizontalLayoutSecondToken}"/>
+          </tc:box>
+        </tc:splitLayout>
+        <tc:box label="Bottom box">
           <tc:style minWidth="150px"/>
           <tc:out
-              value="Current vertical layout first value: #{splitLayoutController.verticalLayoutFirstToken}"/>
-          <tc:out
-              value="Current horizontal layout first value: #{splitLayoutController.horizontalLayoutFirstToken}"/>
-        </tc:box>
-        <tc:box label="Top right box">
-          <tc:style minWidth="150px"/>
-          <tc:out
-              value="Current vertical layout first value: #{splitLayoutController.verticalLayoutFirstToken}"/>
-          <tc:out
-              value="Current horizontal layout second value: #{splitLayoutController.horizontalLayoutSecondToken}"/>
+                  value="Current vertical layout second value: #{splitLayoutController.verticalLayoutSecondToken}"/>
         </tc:box>
       </tc:splitLayout>
-      <tc:box label="Bottom box">
-        <tc:style minWidth="150px"/>
-        <tc:out
-            value="Current vertical layout second value: #{splitLayoutController.verticalLayoutSecondToken}"/>
-      </tc:box>
-
-    </tc:splitLayout>
-
-  </tc:flexLayout>
-
+    </tc:flexLayout>
+  </tc:section>
 </ui:composition>

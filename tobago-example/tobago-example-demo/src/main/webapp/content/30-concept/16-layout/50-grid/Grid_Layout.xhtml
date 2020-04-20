@@ -39,92 +39,182 @@
     and usable with all modern browsers and the Internet Explorer 11.
   </p>
 
-  <tc:box label="Personal Information">
-    <tc:gridLayout columns="100px 1fr 100px 2fr" rows="auto auto auto auto auto 1fr">
-      <tc:style minHeight="600px"/>
+  <tc:section>
+    <pre><code class="language-markup">&lt;tc:box label="Personal Information">
+  &lt;tc:gridLayout columns="100px 1fr 100px 2fr" rows="auto auto auto auto auto 1fr">
+    &lt;tc:style minHeight="600px"/>
 
-      <tc:selectOneChoice label="Salutation" labelLayout="gridLeft">
-        <f:selectItem itemLabel="none"/>
-        <f:selectItem itemLabel="Mr."/>
-        <f:selectItem itemLabel="Mrs."/>
-      </tc:selectOneChoice>
-      <tc:panel>
-        <tc:gridLayoutConstraint columnSpan="2"/>
-      </tc:panel>
+    &lt;tc:selectOneChoice label="Salutation" labelLayout="gridLeft">
+      &lt;f:selectItem itemLabel="none"/>
+      &lt;f:selectItem itemLabel="Mr."/>
+      &lt;f:selectItem itemLabel="Mrs."/>
+    &lt;/tc:selectOneChoice>
+    &lt;tc:panel>
+      &lt;tc:gridLayoutConstraint columnSpan="2"/>
+    &lt;/tc:panel>
 
-      <tc:in label="First Name" labelLayout="gridLeft"/>
-      <tc:in label="Last Name" labelLayout="gridLeft"/>
+    &lt;tc:in label="First Name" labelLayout="gridLeft"/>
+    &lt;tc:in label="Last Name" labelLayout="gridLeft"/>
 
-      <tc:in label="c/o" labelLayout="gridLeft">
-        <tc:gridLayoutConstraint columnSpan="4"/>
-      </tc:in>
+    &lt;tc:in label="c/o" labelLayout="gridLeft">
+      &lt;tc:gridLayoutConstraint columnSpan="4"/>
+    &lt;/tc:in>
 
-      <tc:in label="Street" labelLayout="gridLeft"/>
-      <tc:in label="No" labelLayout="gridLeft"/>
+    &lt;tc:in label="Street" labelLayout="gridLeft"/>
+    &lt;tc:in label="No" labelLayout="gridLeft"/>
 
-      <tc:in label="ZIP" labelLayout="gridLeft"/>
-      <tc:in label="City" labelLayout="gridLeft"/>
+    &lt;tc:in label="ZIP" labelLayout="gridLeft"/>
+    &lt;tc:in label="City" labelLayout="gridLeft"/>
 
-      <tc:textarea label="Note" labelLayout="gridLeft">
-        <tc:gridLayoutConstraint columnSpan="4"/>
-      </tc:textarea>
-    </tc:gridLayout>
-  </tc:box>
+    &lt;tc:textarea label="Note" labelLayout="gridLeft">
+      &lt;tc:gridLayoutConstraint columnSpan="4"/>
+    &lt;/tc:textarea>
+  &lt;/tc:gridLayout>
+&lt;/tc:box></code></pre>
+    <tc:box label="Personal Information">
+      <tc:gridLayout columns="100px 1fr 100px 2fr" rows="auto auto auto auto auto 1fr">
+        <tc:style minHeight="600px"/>
 
-  <tc:box label="2-dimensional layout">
-    <tc:gridLayout columns="1fr 2fr 1fr" rows="1fr 2fr 1fr">
-      <tc:style minHeight="600px"/>
+        <tc:selectOneChoice label="Salutation" labelLayout="gridLeft">
+          <f:selectItem itemLabel="none"/>
+          <f:selectItem itemLabel="Mr."/>
+          <f:selectItem itemLabel="Mrs."/>
+        </tc:selectOneChoice>
+        <tc:panel>
+          <tc:gridLayoutConstraint columnSpan="2"/>
+        </tc:panel>
 
-      <tc:box label="#1">
-        columnSpan=2
-        <tc:gridLayoutConstraint columnSpan="2"/>
-      </tc:box>
+        <tc:in label="First Name" labelLayout="gridLeft"/>
+        <tc:in label="Last Name" labelLayout="gridLeft"/>
 
-      <tc:box label="#2">
-        rowSpan=2
-        <tc:gridLayoutConstraint rowSpan="2"/>
-      </tc:box>
+        <tc:in label="c/o" labelLayout="gridLeft">
+          <tc:gridLayoutConstraint columnSpan="4"/>
+        </tc:in>
 
-      <tc:box label="#3">
-        rowSpan=2
-        <tc:gridLayoutConstraint rowSpan="2"/>
-      </tc:box>
+        <tc:in label="Street" labelLayout="gridLeft"/>
+        <tc:in label="No" labelLayout="gridLeft"/>
 
-      <tc:box label="#4"/>
+        <tc:in label="ZIP" labelLayout="gridLeft"/>
+        <tc:in label="City" labelLayout="gridLeft"/>
 
-      <tc:box label="#5">
-        columnSpan=2
-        <tc:gridLayoutConstraint columnSpan="2"/>
-      </tc:box>
-    </tc:gridLayout>
-  </tc:box>
+        <tc:textarea label="Note" labelLayout="gridLeft">
+          <tc:gridLayoutConstraint columnSpan="4"/>
+        </tc:textarea>
+      </tc:gridLayout>
+    </tc:box>
+  </tc:section>
 
-  <tc:box label="ordering/positioning of the components">
-    <tc:gridLayout columns="1fr 2fr 1fr" rows="1fr 2fr 1fr">
-      <tc:style minHeight="600px"/>
+  <tc:section>
+    <pre><code class="language-markup">&lt;tc:box label="2-dimensional layout">
+&lt;tc:gridLayout columns="1fr 2fr 1fr" rows="1fr 2fr 1fr">
+  &lt;tc:style minHeight="600px"/>
 
-      <tc:box label="#1">
-        columnSpan=2 gridColumn=1 gridRow=3
-        <tc:gridLayoutConstraint columnSpan="2" gridColumn="1" gridRow="3"/>
-      </tc:box>
+  &lt;tc:box label="#1">
+    columnSpan=2
+    &lt;tc:gridLayoutConstraint columnSpan="2"/>
+  &lt;/tc:box>
 
-      <tc:box label="#2">
-        rowSpan=2 gridColumn=3 gridRow=2
-        <tc:gridLayoutConstraint rowSpan="2" gridColumn="3" gridRow="2"/>
-      </tc:box>
+  &lt;tc:box label="#2">
+    rowSpan=2
+    &lt;tc:gridLayoutConstraint rowSpan="2"/>
+  &lt;/tc:box>
 
-      <tc:box label="#3">
-        rowSpan=2 gridColumn=1 gridRow=1
-        <tc:gridLayoutConstraint rowSpan="2" gridColumn="1" gridRow="1"/>
-      </tc:box>
+  &lt;tc:box label="#3">
+    rowSpan=2
+    &lt;tc:gridLayoutConstraint rowSpan="2"/>
+  &lt;/tc:box>
 
-      <tc:box label="#4"/>
+  &lt;tc:box label="#4"/>
 
-      <tc:box label="#5">
-        columnSpan=2 gridColumn=2 gridRow=1
-        <tc:gridLayoutConstraint columnSpan="2" gridColumn="2" gridRow="1"/>
-      </tc:box>
-    </tc:gridLayout>
-  </tc:box>
+  &lt;tc:box label="#5">
+    columnSpan=2
+    &lt;tc:gridLayoutConstraint columnSpan="2"/>
+  &lt;/tc:box>
+  &lt;/tc:gridLayout>
+&lt;/tc:box></code></pre>
+    <tc:box label="2-dimensional layout">
+      <tc:gridLayout columns="1fr 2fr 1fr" rows="1fr 2fr 1fr">
+        <tc:style minHeight="600px"/>
 
+        <tc:box label="#1">
+          columnSpan=2
+          <tc:gridLayoutConstraint columnSpan="2"/>
+        </tc:box>
+
+        <tc:box label="#2">
+          rowSpan=2
+          <tc:gridLayoutConstraint rowSpan="2"/>
+        </tc:box>
+
+        <tc:box label="#3">
+          rowSpan=2
+          <tc:gridLayoutConstraint rowSpan="2"/>
+        </tc:box>
+
+        <tc:box label="#4"/>
+
+        <tc:box label="#5">
+          columnSpan=2
+          <tc:gridLayoutConstraint columnSpan="2"/>
+        </tc:box>
+      </tc:gridLayout>
+    </tc:box>
+  </tc:section>
+
+  <tc:section>
+    <pre><code class="language-markup">&lt;tc:box label="ordering/positioning of the components">
+&lt;tc:gridLayout columns="1fr 2fr 1fr" rows="1fr 2fr 1fr">
+  &lt;tc:style minHeight="600px"/>
+
+  &lt;tc:box label="#1">
+    columnSpan=2 gridColumn=1 gridRow=3
+    &lt;tc:gridLayoutConstraint columnSpan="2" gridColumn="1" gridRow="3"/>
+  &lt;/tc:box>
+
+  &lt;tc:box label="#2">
+    rowSpan=2 gridColumn=3 gridRow=2
+    &lt;tc:gridLayoutConstraint rowSpan="2" gridColumn="3" gridRow="2"/>
+  &lt;/tc:box>
+
+  &lt;tc:box label="#3">
+    rowSpan=2 gridColumn=1 gridRow=1
+    &lt;tc:gridLayoutConstraint rowSpan="2" gridColumn="1" gridRow="1"/>
+  &lt;/tc:box>
+
+  &lt;tc:box label="#4"/>
+
+  &lt;tc:box label="#5">
+      columnSpan=2 gridColumn=2 gridRow=1
+      &lt;tc:gridLayoutConstraint columnSpan="2" gridColumn="2" gridRow="1"/>
+  &lt;/tc:box>
+  &lt;/tc:gridLayout>
+&lt;/tc:box></code></pre>
+    <tc:box label="ordering/positioning of the components">
+      <tc:gridLayout columns="1fr 2fr 1fr" rows="1fr 2fr 1fr">
+        <tc:style minHeight="600px"/>
+
+        <tc:box label="#1">
+          columnSpan=2 gridColumn=1 gridRow=3
+          <tc:gridLayoutConstraint columnSpan="2" gridColumn="1" gridRow="3"/>
+        </tc:box>
+
+        <tc:box label="#2">
+          rowSpan=2 gridColumn=3 gridRow=2
+          <tc:gridLayoutConstraint rowSpan="2" gridColumn="3" gridRow="2"/>
+        </tc:box>
+
+        <tc:box label="#3">
+          rowSpan=2 gridColumn=1 gridRow=1
+          <tc:gridLayoutConstraint rowSpan="2" gridColumn="1" gridRow="1"/>
+        </tc:box>
+
+        <tc:box label="#4"/>
+
+        <tc:box label="#5">
+          columnSpan=2 gridColumn=2 gridRow=1
+          <tc:gridLayoutConstraint columnSpan="2" gridColumn="2" gridRow="1"/>
+        </tc:box>
+      </tc:gridLayout>
+    </tc:box>
+  </tc:section>
 </ui:composition>
