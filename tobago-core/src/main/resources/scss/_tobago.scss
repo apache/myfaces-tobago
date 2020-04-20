@@ -21,6 +21,15 @@ XXX code will be inserted after the _variables.scss
 */
 $alert-padding-x: 1.25rem !default;
 $border-radius: .25rem !default;
+$border-width: 1px !default;
+$font-size-base: 1rem !default;
+$line-height-base: 1.5 !default;
+$custom-control-gutter: .5rem !default;
+$custom-control-indicator-size: 1rem !default;
+$input-border-width: $input-btn-border-width !default;
+$input-btn-border-width: $border-width !default;
+$input-btn-padding-y: .375rem !default;
+$input-padding-y: $input-btn-padding-y !default;
 $zindex-dropdown: 1000 !default;
 $zindex-popover: 1060 !default;
 $spacer: 1rem !default;
@@ -630,6 +639,27 @@ ul > tobago-dropdown {
   display: list-item;
 }
 
+.dropdown-menu {
+  .custom-control {
+    padding-left: 0;
+
+    .custom-control-label.dropdown-item {
+      padding-left: ($custom-control-gutter + $custom-control-indicator-size) + $dropdown-item-padding-x;
+
+      &:before {
+        top: (($font-size-base * $line-height-base - $custom-control-indicator-size) / 2) + $dropdown-item-padding-y;
+        left: $dropdown-item-padding-x;
+      }
+
+      &:after {
+        top: (($font-size-base * $line-height-base - $custom-control-indicator-size) / 2) + $dropdown-item-padding-y;
+        left: $dropdown-item-padding-x;
+      }
+    }
+  }
+}
+
+
 /* dropdown-submenu ------------------------------------------------------- */
 .tobago-dropdown-submenu {
   cursor: pointer;
@@ -954,170 +984,79 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* select ----------------------------------------------------------- */
+.tobago-inputPseudo {
+  //deprecated should be removed
+}
 
+@mixin adjustCustomControlLabel() {
+  .custom-control-label {
+    &:after {
+      content: "";
+    }
+
+    img {
+      padding-right: 0.3em;
+    }
+  }
+}
+
+@mixin inlinePadding() {
+  padding-top: calc(#{$input-padding-y} + #{$input-border-width});
+  padding-bottom: calc(#{$input-padding-y} + #{$input-border-width});
+}
+
+/* selectBooleanCheckbox ---------------------------------------------------- */
 tobago-select-boolean-checkbox {
   display: block;
 }
 
+.tobago-selectBooleanCheckbox {
+  @include adjustCustomControlLabel();
+}
+
+/* selectBooleanToggle ---------------------------------------------------- */
 tobago-select-boolean-toggle {
   display: block;
 }
 
-tobago-select-many-checkbox {
-  display: block;
+.tobago-selectBooleanToggle {
+  @include adjustCustomControlLabel();
 }
 
-tobago-select-many-shuttle {
-  display: block;
-}
-
+/* selectOneListbox -------------------------------------------------------- */
 tobago-select-one-listbox {
   display: block;
 }
 
+.tobago-selectOneListbox,
+.tobago-selectOneListbox-option {
+}
+
+/* selectOneRadio ---------------------------------------------------------- */
 tobago-select-one-radio {
   display: block;
 }
 
-/* selectBooleanCheckbox, selectManyCheckbox, selectOneRadio ------------------------------ */
-
-.tobago-selectBooleanCheckbox, .tobago-selectBooleanToggle,
-.tobago-selectManyCheckbox, .tobago-selectManyToggle,
 .tobago-selectOneRadio {
-  .form-check-label {
-    input {
-      position: absolute;
-      opacity: 0;
-      z-index: -1;
-    }
-    .tobago-inputPseudo:before {
-      font-family: FontAwesome;
-      font-size: large;
-      font-style: normal;
-      display: inline-block;
-      transition: all 0.2s;
-      position: relative;
-      margin-left: -$form-check-input-gutter;
-    }
-    img {
-      margin-right: 0.3em;
-    }
-    &:after {
-      content: $zero-width-space;
-    }
-  }
+  @include adjustCustomControlLabel();
 
-  label.custom-control-label:after {
-    content: "";
+  &.tobago-selectOneRadio-inline {
+    @include inlinePadding();
   }
 }
 
-.tobago-selectBooleanToggle, .tobago-selectManyToggle {
-  .form-check-label {
-    .tobago-inputPseudo:before {
-      font-size: larger;
-    }
-  }
+/* selectManyCheckbox ----------------------------------------------------- */
+tobago-select-many-checkbox {
+  display: block;
 }
 
-.tobago-selectBooleanCheckbox, .tobago-selectManyCheckbox {
-  .form-check-label {
-    .tobago-inputPseudo:before {
-      content: $fa-square-o;
-      position: absolute;
-    }
-    input[type="checkbox"]:checked + .tobago-inputPseudo:before {
-      content: $fa-check-square-o;
-    }
-    input[type="checkbox"]:focus:not(:disabled) + .tobago-inputPseudo:before,
-    input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before {
-      text-shadow: 0 0 1px black;
-    }
-    input[type="checkbox"]:disabled + .tobago-inputPseudo:before {
-      opacity: 0.5;
-    }
+.tobago-selectManyCheckbox {
+  @include adjustCustomControlLabel();
+
+  &.tobago-selectManyCheckbox-inline {
+    @include inlinePadding();
   }
 }
-
-.tobago-selectBooleanToggle, .tobago-selectManyToggle {
-  .form-check-label {
-    .tobago-inputPseudo:before {
-      content: $fa-toggle-off;
-      position: relative;
-      margin-right: 0.5rem;
-    }
-    input[type="checkbox"]:checked + .tobago-inputPseudo:before {
-      content: $fa-toggle-on;
-    }
-    input[type="checkbox"]:focus:not(:disabled) + .tobago-inputPseudo:before,
-    input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before {
-      text-shadow: 0 0 1px black;
-    }
-    input[type="checkbox"]:disabled + .tobago-inputPseudo:before {
-      opacity: 0.5;
-    }
-  }
-}
-
-.tobago-selectOneRadio {
-  .form-check-label {
-    .tobago-inputPseudo:before {
-      content: $fa-circle-thin;
-      position: absolute;
-    }
-    input[type="radio"]:checked + .tobago-inputPseudo:before {
-      content: $fa-dot-circle-o;
-    }
-    input[type="radio"]:focus:not(:disabled) + .tobago-inputPseudo:before,
-    input[type="radio"]:active:not(:disabled) + .tobago-inputPseudo:before {
-      text-shadow: 0 0 1px black;
-    }
-    input[type="radio"]:disabled + .tobago-inputPseudo:before {
-      opacity: 0.5;
-    }
-  }
-}
-
-/* dropdown */
-.dropdown-menu {
-  .tobago-selectBooleanCheckbox, .tobago-selectManyCheckbox, .tobago-selectOneRadio {
-    .form-check-label {
-      padding-left: (2 * $form-check-input-gutter) + $dropdown-item-padding-y;
-    }
-  }
-}
-
-/* inline */
-.tobago-selectBooleanToggle.form-check,
-.tobago-selectBooleanCheckbox.form-check {
-  padding-top: calc(#{$input-btn-padding-y} - #{$input-btn-border-width} * 2);
-  padding-bottom: calc(#{$input-btn-padding-y} - #{$input-btn-border-width} * 2);
-  margin-bottom: 0;
-
-  .form-check-label {
-
-  }
-}
-
-.tobago-selectManyToggle-inline,
-.tobago-selectManyCheckbox-inline,
-.tobago-selectOneRadio-inline {
-  padding-top: calc(#{$input-btn-padding-y} - #{$input-btn-border-width} * 2);
-  padding-bottom: calc(#{$input-btn-padding-y} - #{$input-btn-border-width} * 2);
-
-  .form-check.form-check-inline {
-    margin-bottom: 0;
-    padding-left: 1rem;
-
-    .form-check-label {
-      vertical-align: baseline;
-    }
-  }
-}
-
-/* selectBooleanCheckbox ----------------------------------------------- */
-
-/* selectManyCheckbox ----------------------------------------------------------- */
 
 /* selectManyListbox ----------------------------------------------------------- */
 .tobago-selectManyListbox,
@@ -1125,6 +1064,9 @@ tobago-select-one-radio {
 }
 
 /* selectManyShuttle ----------------------------------------------------------- */
+tobago-select-many-shuttle {
+  display: block;
+}
 
 .tobago-selectManyShuttle-add,
 .tobago-selectManyShuttle-addAll,
@@ -1166,8 +1108,6 @@ tobago-select-one-radio {
   }
 }
 
-/* selectOneRadio ---------------------------------------------------------- */
-
 /* selectOneChoice ---------------------------------------------------------- */
 
 .tobago-selectOneChoice-option {
@@ -1181,11 +1121,6 @@ tobago-select-one-radio {
 .input-group-append > .tobago-selectOneChoice { /* after facet */
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-}
-
-/* selectOneListbox -------------------------------------------------------- */
-.tobago-selectOneListbox,
-.tobago-selectOneListbox-option {
 }
 
 /* segmentLayout ----------------------------------------------------------- */
