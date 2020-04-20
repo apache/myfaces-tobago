@@ -10434,6 +10434,24 @@ a.tobago-messages-button, a.tobago-help-button {
   display: block;
 }
 
+.dropdown-menu .custom-control {
+  padding-left: 0;
+}
+
+.dropdown-menu .custom-control .custom-control-label.dropdown-item {
+  padding-left: 3rem;
+}
+
+.dropdown-menu .custom-control .custom-control-label.dropdown-item:before {
+  top: 0.5rem;
+  left: 1.5rem;
+}
+
+.dropdown-menu .custom-control .custom-control-label.dropdown-item:after {
+  top: 0.5rem;
+  left: 1.5rem;
+}
+
 /* dropdown-submenu ------------------------------------------------------- */
 .tobago-dropdown-submenu {
   cursor: pointer;
@@ -10725,135 +10743,54 @@ h1 > .fa:first-child, h1 > img, h2 > .fa:first-child, h2 > img, h3 > .fa:first-c
   align-content: center;
 }
 
-/* selectBooleanCheckbox, selectManyCheckbox, selectOneRadio ------------------------------ */
-.tobago-selectBooleanCheckbox .form-check-label input, .tobago-selectBooleanToggle .form-check-label input,
-.tobago-selectManyCheckbox .form-check-label input, .tobago-selectManyToggle .form-check-label input,
-.tobago-selectOneRadio .form-check-label input {
-  position: absolute;
-  opacity: 0;
-  z-index: -1;
+/* select ----------------------------------------------------------- */
+/* selectBooleanCheckbox ---------------------------------------------------- */
+.tobago-selectBooleanCheckbox .custom-control-label:after {
+  content: "";
 }
 
-.tobago-selectBooleanCheckbox .form-check-label .tobago-inputPseudo:before, .tobago-selectBooleanToggle .form-check-label .tobago-inputPseudo:before,
-.tobago-selectManyCheckbox .form-check-label .tobago-inputPseudo:before, .tobago-selectManyToggle .form-check-label .tobago-inputPseudo:before,
-.tobago-selectOneRadio .form-check-label .tobago-inputPseudo:before {
-  font-family: FontAwesome;
-  font-size: large;
-  font-style: normal;
-  display: inline-block;
-  transition: all 0.2s;
-  position: relative;
-  margin-left: -1.25rem;
+.tobago-selectBooleanCheckbox .custom-control-label img {
+  padding-right: 0.3em;
 }
 
-.tobago-selectBooleanCheckbox .form-check-label img, .tobago-selectBooleanToggle .form-check-label img,
-.tobago-selectManyCheckbox .form-check-label img, .tobago-selectManyToggle .form-check-label img,
-.tobago-selectOneRadio .form-check-label img {
-  margin-right: 0.3em;
+/* selectBooleanToggle ---------------------------------------------------- */
+.tobago-selectBooleanToggle .custom-control-label:after {
+  content: "";
 }
 
-.tobago-selectBooleanCheckbox .form-check-label:after, .tobago-selectBooleanToggle .form-check-label:after,
-.tobago-selectManyCheckbox .form-check-label:after, .tobago-selectManyToggle .form-check-label:after,
-.tobago-selectOneRadio .form-check-label:after {
-  content: "​";
+.tobago-selectBooleanToggle .custom-control-label img {
+  padding-right: 0.3em;
 }
 
-.tobago-selectBooleanToggle .form-check-label .tobago-inputPseudo:before, .tobago-selectManyToggle .form-check-label .tobago-inputPseudo:before {
-  font-size: larger;
+/* selectOneListbox -------------------------------------------------------- */
+/* selectOneRadio ---------------------------------------------------------- */
+.tobago-selectOneRadio .custom-control-label:after {
+  content: "";
 }
 
-.tobago-selectBooleanCheckbox .form-check-label .tobago-inputPseudo:before, .tobago-selectManyCheckbox .form-check-label .tobago-inputPseudo:before {
-  content: "";
-  position: absolute;
+.tobago-selectOneRadio .custom-control-label img {
+  padding-right: 0.3em;
 }
 
-.tobago-selectBooleanCheckbox .form-check-label input[type="checkbox"]:checked + .tobago-inputPseudo:before, .tobago-selectManyCheckbox .form-check-label input[type="checkbox"]:checked + .tobago-inputPseudo:before {
-  content: "";
+.tobago-selectOneRadio.tobago-selectOneRadio-inline {
+  padding-top: calc(0.375rem + 1px);
+  padding-bottom: calc(0.375rem + 1px);
 }
 
-.tobago-selectBooleanCheckbox .form-check-label input[type="checkbox"]:focus:not(:disabled) + .tobago-inputPseudo:before,
-.tobago-selectBooleanCheckbox .form-check-label input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before, .tobago-selectManyCheckbox .form-check-label input[type="checkbox"]:focus:not(:disabled) + .tobago-inputPseudo:before,
-.tobago-selectManyCheckbox .form-check-label input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before {
-  text-shadow: 0 0 1px black;
+/* selectManyCheckbox ----------------------------------------------------- */
+.tobago-selectManyCheckbox .custom-control-label:after {
+  content: "";
 }
 
-.tobago-selectBooleanCheckbox .form-check-label input[type="checkbox"]:disabled + .tobago-inputPseudo:before, .tobago-selectManyCheckbox .form-check-label input[type="checkbox"]:disabled + .tobago-inputPseudo:before {
-  opacity: 0.5;
+.tobago-selectManyCheckbox .custom-control-label img {
+  padding-right: 0.3em;
 }
 
-.tobago-selectBooleanToggle .form-check-label .tobago-inputPseudo:before, .tobago-selectManyToggle .form-check-label .tobago-inputPseudo:before {
-  content: "";
-  position: relative;
-  margin-right: 0.5rem;
+.tobago-selectManyCheckbox.tobago-selectManyCheckbox-inline {
+  padding-top: calc(0.375rem + 1px);
+  padding-bottom: calc(0.375rem + 1px);
 }
 
-.tobago-selectBooleanToggle .form-check-label input[type="checkbox"]:checked + .tobago-inputPseudo:before, .tobago-selectManyToggle .form-check-label input[type="checkbox"]:checked + .tobago-inputPseudo:before {
-  content: "";
-}
-
-.tobago-selectBooleanToggle .form-check-label input[type="checkbox"]:focus:not(:disabled) + .tobago-inputPseudo:before,
-.tobago-selectBooleanToggle .form-check-label input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before, .tobago-selectManyToggle .form-check-label input[type="checkbox"]:focus:not(:disabled) + .tobago-inputPseudo:before,
-.tobago-selectManyToggle .form-check-label input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before {
-  text-shadow: 0 0 1px black;
-}
-
-.tobago-selectBooleanToggle .form-check-label input[type="checkbox"]:disabled + .tobago-inputPseudo:before, .tobago-selectManyToggle .form-check-label input[type="checkbox"]:disabled + .tobago-inputPseudo:before {
-  opacity: 0.5;
-}
-
-.tobago-selectOneRadio .form-check-label .tobago-inputPseudo:before {
-  content: "";
-  position: absolute;
-}
-
-.tobago-selectOneRadio .form-check-label input[type="radio"]:checked + .tobago-inputPseudo:before {
-  content: "";
-}
-
-.tobago-selectOneRadio .form-check-label input[type="radio"]:focus:not(:disabled) + .tobago-inputPseudo:before,
-.tobago-selectOneRadio .form-check-label input[type="radio"]:active:not(:disabled) + .tobago-inputPseudo:before {
-  text-shadow: 0 0 1px black;
-}
-
-.tobago-selectOneRadio .form-check-label input[type="radio"]:disabled + .tobago-inputPseudo:before {
-  opacity: 0.5;
-}
-
-/* dropdown */
-.dropdown-menu .tobago-selectBooleanCheckbox .form-check-label, .dropdown-menu .tobago-selectManyCheckbox .form-check-label, .dropdown-menu .tobago-selectOneRadio .form-check-label {
-  padding-left: 2.75rem;
-}
-
-/* inline */
-.tobago-selectBooleanToggle.form-check,
-.tobago-selectBooleanCheckbox.form-check {
-  padding-top: calc(0.375rem - 1px * 2);
-  padding-bottom: calc(0.375rem - 1px * 2);
-  margin-bottom: 0;
-}
-
-.tobago-selectManyToggle-inline,
-.tobago-selectManyCheckbox-inline,
-.tobago-selectOneRadio-inline {
-  padding-top: calc(0.375rem - 1px * 2);
-  padding-bottom: calc(0.375rem - 1px * 2);
-}
-
-.tobago-selectManyToggle-inline .form-check.form-check-inline,
-.tobago-selectManyCheckbox-inline .form-check.form-check-inline,
-.tobago-selectOneRadio-inline .form-check.form-check-inline {
-  margin-bottom: 0;
-  padding-left: 1rem;
-}
-
-.tobago-selectManyToggle-inline .form-check.form-check-inline .form-check-label,
-.tobago-selectManyCheckbox-inline .form-check.form-check-inline .form-check-label,
-.tobago-selectOneRadio-inline .form-check.form-check-inline .form-check-label {
-  vertical-align: baseline;
-}
-
-/* selectBooleanCheckbox ----------------------------------------------- */
-/* selectManyCheckbox ----------------------------------------------------------- */
 /* selectManyListbox ----------------------------------------------------------- */
 /* selectManyShuttle ----------------------------------------------------------- */
 .tobago-selectManyShuttle {
@@ -10893,7 +10830,6 @@ h1 > .fa:first-child, h1 > img, h2 > .fa:first-child, h2 > img, h3 > .fa:first-c
   margin-left: 0 !important;
 }
 
-/* selectOneRadio ---------------------------------------------------------- */
 /* selectOneChoice ---------------------------------------------------------- */
 .input-group-prepend > .tobago-selectOneChoice {
   /* before facet */
@@ -10907,7 +10843,6 @@ h1 > .fa:first-child, h1 > img, h2 > .fa:first-child, h2 > img, h3 > .fa:first-c
   border-bottom-left-radius: 0;
 }
 
-/* selectOneListbox -------------------------------------------------------- */
 /* segmentLayout ----------------------------------------------------------- */
 .tobago-segmentLayout {
   /*
