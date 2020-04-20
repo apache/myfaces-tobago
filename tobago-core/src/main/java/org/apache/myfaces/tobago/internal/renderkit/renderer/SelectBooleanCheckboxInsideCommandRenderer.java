@@ -40,12 +40,15 @@ public class SelectBooleanCheckboxInsideCommandRenderer extends SelectBooleanChe
   }
 
   @Override
-  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {
-    return new CssItem[]{BootstrapClass.DROPDOWN_ITEM};
+  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {
+    return new CssItem[]{
+        BootstrapClass.CUSTOM_CONTROL,
+        BootstrapClass.CUSTOM_CHECKBOX
+    };
   }
 
   @Override
-  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {
-    return new CssItem[]{};
+  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {
+    return new CssItem[]{BootstrapClass.DROPDOWN_ITEM};
   }
 }

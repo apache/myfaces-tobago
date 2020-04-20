@@ -40,11 +40,6 @@ public class SelectManyCheckboxInsideCommandRenderer extends SelectManyCheckboxR
   }
 
   @Override
-  protected boolean renderOuterItem() {
-    return false;
-  }
-
-  @Override
   protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectManyCheckbox select) {
     return new CssItem[]{BootstrapClass.DROPDOWN_ITEM};
   }

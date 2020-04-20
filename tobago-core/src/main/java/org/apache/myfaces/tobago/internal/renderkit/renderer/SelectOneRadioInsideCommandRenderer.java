@@ -40,11 +40,6 @@ public class SelectOneRadioInsideCommandRenderer extends SelectOneRadioRenderer 
   }
 
   @Override
-  protected boolean renderOuterItem() {
-    return false;
-  }
-
-  @Override
   protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectOneRadio select) {
     return new CssItem[]{BootstrapClass.DROPDOWN_ITEM};
   }

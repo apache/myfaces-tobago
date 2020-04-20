@@ -36,6 +36,10 @@ public enum TobagoClass implements CssItem {
 
   // general classes
 
+  /**
+   * @deprecated since 4.5.0
+   */
+  @Deprecated
   INPUT_PSEUDO("tobago-inputPseudo"),
 
   /**
