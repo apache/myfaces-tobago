@@ -93,7 +93,6 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
         getTobagoClass(),
         getTobagoClass().createMarkup(markup),
         getOuterCssItems(facesContext, select),
-        disabled ? BootstrapClass.DISABLED : null,
         select.getCustomClass());
 
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
@@ -102,9 +101,7 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     }
 
     writer.startElement(HtmlElements.INPUT);
-    writer.writeClassAttribute(
-        BootstrapClass.CUSTOM_CONTROL_INPUT,
-        getCssItems(facesContext, select));
+    writer.writeClassAttribute(BootstrapClass.CUSTOM_CONTROL_INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
     writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
     writer.writeNameAttribute(clientId);
@@ -150,7 +147,11 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
   }
 
   protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {
-    return new CssItem[]{BootstrapClass.CUSTOM_CONTROL, BootstrapClass.CUSTOM_CHECKBOX};
+    return new CssItem[]{
+        !select.isLabelLayoutSkip() ? BootstrapClass.COL_FORM_LABEL : null,
+        BootstrapClass.CUSTOM_CONTROL,
+        BootstrapClass.CUSTOM_CHECKBOX
+    };
   }
 
   protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {

@@ -86,14 +86,11 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       if (renderRange == null || ArrayUtils.contains(renderRange, i)) {
         final boolean itemDisabled = item.isDisabled() || disabled;
         final String itemId = id + ComponentUtils.SUB_SEPARATOR + i;
-        if (renderOuterItem()) {
-          writer.startElement(HtmlElements.DIV);
-          writer.writeClassAttribute(
-              BootstrapClass.CUSTOM_CONTROL,
-              BootstrapClass.CUSTOM_RADIO,
-              inline ? BootstrapClass.CUSTOM_CONTROL_INLINE : null,
-              itemDisabled ? BootstrapClass.DISABLED : null);
-        }
+        writer.startElement(HtmlElements.DIV);
+        writer.writeClassAttribute(
+            BootstrapClass.CUSTOM_CONTROL,
+            BootstrapClass.CUSTOM_RADIO,
+            inline ? BootstrapClass.CUSTOM_CONTROL_INLINE : null);
 
         writer.startElement(HtmlElements.INPUT);
         writer.writeClassAttribute(BootstrapClass.CUSTOM_CONTROL_INPUT);
@@ -143,9 +140,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         }
 
         writer.endElement(HtmlElements.LABEL);
-        if (renderOuterItem()) {
-          writer.endElement(HtmlElements.DIV);
-        }
+        writer.endElement(HtmlElements.DIV);
       }
       i++;
     }
@@ -161,10 +156,6 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
   protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
-  }
-
-  protected boolean renderOuterItem() {
-    return true;
   }
 
   protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectOneRadio select) {
