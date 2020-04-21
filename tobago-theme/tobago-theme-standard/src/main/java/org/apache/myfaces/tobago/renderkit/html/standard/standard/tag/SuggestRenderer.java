@@ -35,6 +35,7 @@ import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -154,8 +155,8 @@ public class SuggestRenderer extends InputRendererBase {
     for (final AutoSuggestItem item : items.getItems()) {
       builder.append("{");
 
-      builder.append("\"id\":\"").append(item.getValue()).append("\",");
-      builder.append("\"text\":\"").append(item.getLabel()).append("\"");
+      builder.append("\"id\":\"").append(encode(item.getValue())).append("\",");
+      builder.append("\"text\":\"").append(encode(item.getLabel())).append("\"");
 
       builder.append("},");
     }
@@ -166,6 +167,10 @@ public class SuggestRenderer extends InputRendererBase {
     writer.writeAttribute(DataAttributes.SUGGEST_RESPONSE_DATA, builder.toString(), true);
 
     writer.endElement(HtmlElements.INPUT);
+  }
+
+  private String encode(String value) {
+    return value.replace("\"", "\\\"").replace("\\", "\\\\");
   }
 
 }
