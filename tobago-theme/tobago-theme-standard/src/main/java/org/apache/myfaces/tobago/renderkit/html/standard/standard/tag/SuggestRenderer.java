@@ -170,7 +170,7 @@ public class SuggestRenderer extends InputRendererBase {
   }
 
   private String encode(String value) {
-    return value.replace("\"", "\\\"").replace("\\", "\\\\");
+    return value.replace("\\", "\\\\").replace("\"", "\\\"");
   }
 
 }
