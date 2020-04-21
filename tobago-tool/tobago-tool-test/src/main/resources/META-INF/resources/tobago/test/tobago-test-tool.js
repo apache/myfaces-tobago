@@ -239,10 +239,29 @@ class JasmineTestTool {
   timeout;
   lastStepExecution;
 
+  /**
+   * @param done function from Jasmine; must called if all Steps done or timeout
+   * @param timeout for a single step; default 20000ms
+   */
   constructor(done, timeout) {
-    this.done = done; //done function from Jasmine; must called if all Steps done or timeout
-    this.timeout = timeout ? timeout : 20000; //timeout for a single step
+    this.done = done;
+    this.timeout = timeout ? timeout : 20000;
     this.registerAjaxReadyStateListener();
+  }
+
+  /**
+   * The condition function (fn1) defines the desired state before the main test starts. The do function (fn2) will be
+   * executed if the condition function returns false.
+   * @param fn1 condition function
+   * @param fn2 do function
+   */
+  setup(fn1, fn2) {
+    this.do(() => {
+      if (!fn1()) {
+        fn2();
+      }
+    })
+    this.wait(fn1);
   }
 
   do(fn) {
