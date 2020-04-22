@@ -564,7 +564,7 @@ public final class ComponentUtils {
   }
 
   public static RendererBase getRenderer(final FacesContext facesContext, final String family,
-                                         final String rendererType) {
+      final String rendererType) {
     if (rendererType == null) {
       return null;
     }
@@ -896,7 +896,8 @@ public final class ComponentUtils {
 
   private static void addLayoutChildren(final UIComponent component, final List<UIComponent> result) {
     for (final UIComponent child : component.getChildren()) {
-      if (child instanceof Visual && !((Visual) child).isPlain()) {
+      if (child instanceof Visual && !((Visual) child).isPlain()
+          || (UIComponent.isCompositeComponent(child) && !child.isRendered())) {
         result.add(child);
       } else {
         // Child seems to be transparent for layout, like UIForm with "plain" set.
@@ -917,6 +918,7 @@ public final class ComponentUtils {
 
   /**
    * returns the "confirmation" attribute or the value of the "confirmation" facet of a component.
+   *
    * @since Tobago 4.4.0
    */
   public static String getConfirmation(final UIComponent component) {
