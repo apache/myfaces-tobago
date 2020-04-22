@@ -884,13 +884,13 @@ var DomQuery = /** @class */ (function () {
      * @return a DomQuery with the results
      */
     DomQuery.prototype.querySelectorAll = function (selector) {
-        var _a, _b, _c;
-        if (!((_b = (_a = this) === null || _a === void 0 ? void 0 : _a.rootNode) === null || _b === void 0 ? void 0 : _b.length)) {
+        var _a, _b;
+        if (!((_a = this === null || this === void 0 ? void 0 : this.rootNode) === null || _a === void 0 ? void 0 : _a.length)) {
             return this;
         }
         var nodes = [];
         for (var cnt = 0; cnt < this.rootNode.length; cnt++) {
-            if (!((_c = this.rootNode[cnt]) === null || _c === void 0 ? void 0 : _c.querySelectorAll)) {
+            if (!((_b = this.rootNode[cnt]) === null || _b === void 0 ? void 0 : _b.querySelectorAll)) {
                 continue;
             }
             var res = this.rootNode[cnt].querySelectorAll(selector);
@@ -923,10 +923,10 @@ var DomQuery = /** @class */ (function () {
      * @param includeRoot
      */
     DomQuery.prototype.byTagName = function (tagName, includeRoot) {
-        var _a, _b;
+        var _a;
         var res = [];
         if (includeRoot) {
-            res = Stream_1.Stream.of.apply(Stream_1.Stream, (_b = (_a = this) === null || _a === void 0 ? void 0 : _a.rootNode, (_b !== null && _b !== void 0 ? _b : []))).filter(function (element) { var _a; return ((_a = element) === null || _a === void 0 ? void 0 : _a.tagName) == tagName; })
+            res = Stream_1.Stream.of.apply(Stream_1.Stream, ((_a = this === null || this === void 0 ? void 0 : this.rootNode) !== null && _a !== void 0 ? _a : [])).filter(function (element) { return (element === null || element === void 0 ? void 0 : element.tagName) == tagName; })
                 .reduce(function (reduction, item) { return reduction.concat([item]); }, res)
                 .value;
         }
@@ -975,10 +975,9 @@ var DomQuery = /** @class */ (function () {
      * @param clazz the style class to append
      */
     DomQuery.prototype.addClass = function (clazz) {
-        var _this = this;
         this.each(function (item) {
             var oldClass = item.attr("class").value || "";
-            if (!_this.hasClass(clazz)) {
+            if (!item.hasClass(clazz)) {
                 item.attr("class").value = trim(oldClass + " " + clazz);
                 return;
             }
@@ -991,9 +990,8 @@ var DomQuery = /** @class */ (function () {
      * @param clazz
      */
     DomQuery.prototype.removeClass = function (clazz) {
-        var _this = this;
         this.each(function (item) {
-            if (_this.hasClass(clazz)) {
+            if (item.hasClass(clazz)) {
                 var oldClass = item.attr("class").value || "";
                 var newClasses = [];
                 var oldClasses = oldClass.split(/\s+/gi);
@@ -1379,11 +1377,11 @@ var DomQuery = /** @class */ (function () {
      * @param runEmbeddedCss
      */
     DomQuery.prototype.outerHTML = function (markup, runEmbeddedScripts, runEmbeddedCss) {
-        var _a, _b;
+        var _a;
         if (this.isAbsent()) {
             return;
         }
-        var focusElementId = (_b = (_a = document) === null || _a === void 0 ? void 0 : _a.activeElement) === null || _b === void 0 ? void 0 : _b.id;
+        var focusElementId = (_a = document === null || document === void 0 ? void 0 : document.activeElement) === null || _a === void 0 ? void 0 : _a.id;
         var caretPosition = (focusElementId) ? DomQuery.getCaretPosition(document.activeElement) : null;
         var nodes = DomQuery.fromMarkup(markup);
         var res = [];
@@ -1513,13 +1511,13 @@ var DomQuery = /** @class */ (function () {
     };
     DomQuery.prototype.runCss = function () {
         var applyStyle = function (item, style) {
-            var _a, _b, _c, _d, _e;
+            var _a, _b, _c, _d;
             var newSS = document.createElement("style");
             document.getElementsByTagName("head")[0].appendChild(newSS);
-            var styleSheet = (_a = newSS.sheet, (_a !== null && _a !== void 0 ? _a : newSS.styleSheet));
-            newSS.setAttribute("rel", (_b = item.getAttribute("rel"), (_b !== null && _b !== void 0 ? _b : "stylesheet")));
-            newSS.setAttribute("type", (_c = item.getAttribute("type"), (_c !== null && _c !== void 0 ? _c : "text/css")));
-            if (_e = (_d = styleSheet) === null || _d === void 0 ? void 0 : _d.cssText, (_e !== null && _e !== void 0 ? _e : false)) {
+            var styleSheet = (_a = newSS.sheet) !== null && _a !== void 0 ? _a : newSS.styleSheet;
+            newSS.setAttribute("rel", (_b = item.getAttribute("rel")) !== null && _b !== void 0 ? _b : "stylesheet");
+            newSS.setAttribute("type", (_c = item.getAttribute("type")) !== null && _c !== void 0 ? _c : "text/css");
+            if ((_d = styleSheet === null || styleSheet === void 0 ? void 0 : styleSheet.cssText) !== null && _d !== void 0 ? _d : false) {
                 styleSheet.cssText = style;
             }
             else {
@@ -1674,7 +1672,6 @@ var DomQuery = /** @class */ (function () {
         //lets keep it sideffects free
         var target = toMerge.shallowCopy;
         this.each(function (element) {
-            var _a;
             if (element.name.isAbsent()) { //no name, no encoding
                 return;
             }
@@ -1707,7 +1704,7 @@ var DomQuery = /** @class */ (function () {
                             //let subBuf = [];
                             if (selectElem.options[u].selected) {
                                 var elementOption = selectElem.options[u];
-                                target.assign(name).value = (elementOption.getAttribute("value") != null) ?
+                                target.append(name).value = (elementOption.getAttribute("value") != null) ?
                                     elementOption.value : elementOption.text;
                             }
                         }
@@ -1724,12 +1721,12 @@ var DomQuery = /** @class */ (function () {
                     elemType != Submittables.IMAGE) && ((elemType != Submittables.CHECKBOX && elemType != Submittables.RADIO) ||
                     element.checked)) {
                     var files = element.value.files;
-                    if ((_a = files) === null || _a === void 0 ? void 0 : _a.length) {
+                    if (files === null || files === void 0 ? void 0 : files.length) {
                         //xhr level2
-                        target.assign(name).value = files[0];
+                        target.append(name).value = files[0];
                     }
                     else {
-                        target.assign(name).value = element.inputValue.value;
+                        target.append(name).value = element.inputValue.value;
                     }
                 }
             }
@@ -1743,10 +1740,10 @@ var DomQuery = /** @class */ (function () {
             // response may contain several blocks
             return this.lazyStream
                 .flatMap(function (item) { return item.childNodes.stream; })
-                .filter(function (item) { var _a, _b, _c; return ((_c = (_b = (_a = item) === null || _a === void 0 ? void 0 : _a.value) === null || _b === void 0 ? void 0 : _b.value) === null || _c === void 0 ? void 0 : _c.nodeType) == TYPE_CDATA_BLOCK; })
+                .filter(function (item) { var _a, _b; return ((_b = (_a = item === null || item === void 0 ? void 0 : item.value) === null || _a === void 0 ? void 0 : _a.value) === null || _b === void 0 ? void 0 : _b.nodeType) == TYPE_CDATA_BLOCK; })
                 .reduce(function (reduced, item) {
-                var _a, _b, _c, _d;
-                reduced.push((_d = (_c = (_b = (_a = item) === null || _a === void 0 ? void 0 : _a.value) === null || _b === void 0 ? void 0 : _b.value) === null || _c === void 0 ? void 0 : _c.data, (_d !== null && _d !== void 0 ? _d : "")));
+                var _a, _b, _c;
+                reduced.push((_c = (_b = (_a = item === null || item === void 0 ? void 0 : item.value) === null || _a === void 0 ? void 0 : _a.value) === null || _b === void 0 ? void 0 : _b.data) !== null && _c !== void 0 ? _c : "");
                 return reduced;
             }, []).value.join("");
         },
@@ -1840,10 +1837,9 @@ var DomQuery = /** @class */ (function () {
      *
      */
     DomQuery.setCaretPosition = function (ctrl, pos) {
-        var _a, _b, _c, _d;
-        ((_a = ctrl) === null || _a === void 0 ? void 0 : _a.focus) ? (_b = ctrl) === null || _b === void 0 ? void 0 : _b.focus() : null;
+        (ctrl === null || ctrl === void 0 ? void 0 : ctrl.focus) ? ctrl === null || ctrl === void 0 ? void 0 : ctrl.focus() : null;
         //the selection range is our caret position
-        ((_c = ctrl) === null || _c === void 0 ? void 0 : _c.setSelectiongRange) ? (_d = ctrl) === null || _d === void 0 ? void 0 : _d.setSelectiongRange(pos, pos) : null;
+        (ctrl === null || ctrl === void 0 ? void 0 : ctrl.setSelectiongRange) ? ctrl === null || ctrl === void 0 ? void 0 : ctrl.setSelectiongRange(pos, pos) : null;
     };
     DomQuery.absent = new DomQuery();
     return DomQuery;
@@ -1936,7 +1932,7 @@ var Lang;
         if (defaultValue === void 0) { defaultValue = null; }
         try {
             var result = resolverProducer();
-            return Monad_1.Optional.fromNullable((result !== null && result !== void 0 ? result : defaultValue));
+            return Monad_1.Optional.fromNullable(result !== null && result !== void 0 ? result : defaultValue);
         }
         catch (e) {
             return Monad_1.Optional.absent;
@@ -1947,7 +1943,7 @@ var Lang;
         if (defaultValue === void 0) { defaultValue = null; }
         try {
             var result = resolverProducer();
-            return Monad_1.Optional.fromNullable((result !== null && result !== void 0 ? result : defaultValue()));
+            return Monad_1.Optional.fromNullable(result !== null && result !== void 0 ? result : defaultValue());
         }
         catch (e) {
             return Monad_1.Optional.absent;
@@ -1994,8 +1990,8 @@ var Lang;
     function objToArray(obj, offset, pack) {
         if (offset === void 0) { offset = 0; }
         if (pack === void 0) { pack = []; }
-        if (((obj !== null && obj !== void 0 ? obj : "__undefined__")) == "__undefined__") {
-            return (pack !== null && pack !== void 0 ? pack : null);
+        if ((obj !== null && obj !== void 0 ? obj : "__undefined__") == "__undefined__") {
+            return pack !== null && pack !== void 0 ? pack : null;
         }
         //since offset is numeric we cannot use the shortcut due to 0 being false
         //special condition array delivered no offset no pack
@@ -2011,8 +2007,8 @@ var Lang;
      * @param destination
      */
     function equalsIgnoreCase(source, destination) {
-        var finalSource = (source !== null && source !== void 0 ? source : "___no_value__");
-        var finalDest = (destination !== null && destination !== void 0 ? destination : "___no_value__");
+        var finalSource = source !== null && source !== void 0 ? source : "___no_value__";
+        var finalDest = destination !== null && destination !== void 0 ? destination : "___no_value__";
         //in any other case we do a strong string comparison
         return finalSource.toLowerCase() === finalDest.toLowerCase();
     }
@@ -2149,9 +2145,8 @@ var Monad = /** @class */ (function () {
         return new Monad(result);
     };
     Monad.prototype.flatMap = function (fn) {
-        var _a;
         var mapped = this.map(fn);
-        while (((_a = mapped) === null || _a === void 0 ? void 0 : _a.value) instanceof Monad) {
+        while ((mapped === null || mapped === void 0 ? void 0 : mapped.value) instanceof Monad) {
             mapped = mapped.value;
         }
         return mapped;
@@ -2453,7 +2448,7 @@ var ConfigEntry = /** @class */ (function (_super) {
     __extends(ConfigEntry, _super);
     function ConfigEntry(rootElem, key, arrPos) {
         var _this = _super.call(this, rootElem, key) || this;
-        _this.arrPos = (arrPos !== null && arrPos !== void 0 ? arrPos : -1);
+        _this.arrPos = arrPos !== null && arrPos !== void 0 ? arrPos : -1;
         return _this;
     }
     Object.defineProperty(ConfigEntry.prototype, "value", {
@@ -2515,13 +2510,79 @@ var Config = /** @class */ (function (_super) {
     /**
      * simple merge for the root configs
      */
-    Config.prototype.shallowMerge = function (other, overwrite) {
+    Config.prototype.shallowMerge = function (other, overwrite, withAppend) {
+        var _this = this;
         if (overwrite === void 0) { overwrite = true; }
-        for (var key in other.value) {
-            if (overwrite || !(key in this.value)) {
-                this.assign(key).value = other.getIf(key).value;
+        if (withAppend === void 0) { withAppend = false; }
+        var _loop_1 = function (key) {
+            if (overwrite || !(key in this_1.value)) {
+                if (!withAppend) {
+                    this_1.assign(key).value = other.getIf(key).value;
+                }
+                else {
+                    if (Array.isArray(other.getIf(key).value)) {
+                        Stream_1.Stream.of.apply(Stream_1.Stream, other.getIf(key).value).each(function (item) { return _this.append(key).value = item; });
+                    }
+                    else {
+                        this_1.append(key).value = other.getIf(key).value;
+                    }
+                }
             }
+        };
+        var this_1 = this;
+        for (var key in other.value) {
+            _loop_1(key);
         }
+    };
+    /**
+     * assigns a single value as array, or appends it
+     * to an existing value mapping a single value to array
+     *
+     *
+     * usage myConfig.append("foobaz").value = "newValue"
+     *       myConfig.append("foobaz").value = "newValue2"
+     *
+     * resulting in myConfig.foobaz == ["newValue, newValue2"]
+     *
+     * @param keys
+     */
+    Config.prototype.append = function () {
+        var keys = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            keys[_i] = arguments[_i];
+        }
+        var noKeys = keys.length < 1;
+        if (noKeys) {
+            return;
+        }
+        var lastKey = keys[keys.length - 1];
+        var currKey, finalKey = this.keyVal(lastKey);
+        var pathExists = this.getIf.apply(this, keys).isPresent();
+        this.buildPath(keys);
+        var finalKeyArrPos = this.arrayIndex(lastKey);
+        if (finalKeyArrPos > -1) {
+            throw Error("Append only possible on non array properties, use assign on indexed data");
+        }
+        var value = this.getIf.apply(this, keys).value;
+        if (!Array.isArray(value)) {
+            value = this.assign.apply(this, keys).value = [value];
+        }
+        if (pathExists) {
+            value.push({});
+        }
+        finalKeyArrPos = value.length - 1;
+        var retVal = new ConfigEntry(keys.length == 1 ? this.value : this.getIf.apply(this, keys.slice(0, keys.length - 1)).value, lastKey, finalKeyArrPos);
+        return retVal;
+    };
+    Config.prototype.appendIf = function (condition) {
+        var keys = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            keys[_i - 1] = arguments[_i];
+        }
+        if (!condition) {
+            return { value: null };
+        }
+        return this.append.apply(this, keys);
     };
     Config.prototype.assign = function () {
         var keys = [];
@@ -2570,6 +2631,11 @@ var Config = /** @class */ (function (_super) {
     Config.prototype.setVal = function (val) {
         this._value = val;
     };
+    /**
+     * builds the config path
+     *
+     * @param keys a sequential array of keys containing either a key name or an array reference name[<index>]
+     */
     Config.prototype.buildPath = function (keys) {
         var val = this;
         var parentVal = this.getClass().fromNullable(null);
@@ -2823,7 +2889,7 @@ var AssocArrayCollector = /** @class */ (function () {
     }
     AssocArrayCollector.prototype.collect = function (element) {
         var _a, _b;
-        this.finalValue[_a = element[0], (_a !== null && _a !== void 0 ? _a : element)] = (_b = element[1], (_b !== null && _b !== void 0 ? _b : true));
+        this.finalValue[(_a = element[0]) !== null && _a !== void 0 ? _a : element] = (_b = element[1]) !== null && _b !== void 0 ? _b : true;
     };
     return AssocArrayCollector;
 }());
@@ -2865,9 +2931,12 @@ var QueryFormStringCollector = /** @class */ (function () {
         this.formData = [];
     }
     QueryFormStringCollector.prototype.collect = function (element) {
+        var _this = this;
         var toMerge = element.encodeFormElement();
         if (toMerge.isPresent()) {
-            this.formData.push([element.name.value, toMerge.get(element.name).value]);
+            Stream_1.Stream.of.apply(Stream_1.Stream, toMerge.value).each(function (item) {
+                _this.formData.push([element.name.value, item]);
+            });
         }
     };
     Object.defineProperty(QueryFormStringCollector.prototype, "finalValue", {
@@ -3364,8 +3433,8 @@ var XMLQuery = /** @class */ (function (_super) {
     XMLQuery.prototype.toString = function () {
         var ret = [];
         this.eachElem(function (node) {
-            var _a, _b, _c, _d, _e;
-            var serialized = (_d = (_c = (_b = (_a = window) === null || _a === void 0 ? void 0 : _a.XMLSerializer) === null || _b === void 0 ? void 0 : _b.constructor()) === null || _c === void 0 ? void 0 : _c.serializeToString(node), (_d !== null && _d !== void 0 ? _d : (_e = node) === null || _e === void 0 ? void 0 : _e.xml));
+            var _a, _b, _c, _d;
+            var serialized = (_d = (_c = (_b = (_a = window) === null || _a === void 0 ? void 0 : _a.XMLSerializer) === null || _b === void 0 ? void 0 : _b.constructor()) === null || _c === void 0 ? void 0 : _c.serializeToString(node)) !== null && _d !== void 0 ? _d : node === null || node === void 0 ? void 0 : node.xml;
             if (!!serialized) {
                 ret.push(serialized);
             }
@@ -3523,8 +3592,8 @@ var Implementation;
      * @return {char} the separator char for the given script tags
      */
     function getSeparatorChar() {
-        var _a, _b, _c, _d;
-        return _d = (_b = (_a = resolveGlobalConfig()) === null || _a === void 0 ? void 0 : _a.separator, (_b !== null && _b !== void 0 ? _b : (_c = this) === null || _c === void 0 ? void 0 : _c.separator)), (_d !== null && _d !== void 0 ? _d : (separator = ExtDomQuery_1.ExtDomquery.searchJsfJsFor(/separator=([^&;]*)/).orElse(":").value));
+        var _a, _b, _c;
+        return (_c = (_b = (_a = resolveGlobalConfig()) === null || _a === void 0 ? void 0 : _a.separator) !== null && _b !== void 0 ? _b : this === null || this === void 0 ? void 0 : this.separator) !== null && _c !== void 0 ? _c : (separator = ExtDomQuery_1.ExtDomquery.searchJsfJsFor(/separator=([^&;]*)/).orElse(":").value);
     }
     Implementation.getSeparatorChar = getSeparatorChar;
     /**
@@ -3545,8 +3614,8 @@ var Implementation;
      * The value for it comes from the requestInternal parameter of the jsf.js script called "stage".
      */
     function getProjectStage() {
-        var _a, _b, _c, _d;
-        return _d = (_b = (_a = resolveGlobalConfig()) === null || _a === void 0 ? void 0 : _a.projectStage, (_b !== null && _b !== void 0 ? _b : (_c = this) === null || _c === void 0 ? void 0 : _c.projectStage)), (_d !== null && _d !== void 0 ? _d : (projectStage = resolveProjectStateFromURL()));
+        var _a, _b, _c;
+        return (_c = (_b = (_a = resolveGlobalConfig()) === null || _a === void 0 ? void 0 : _a.projectStage) !== null && _b !== void 0 ? _b : this === null || this === void 0 ? void 0 : this.projectStage) !== null && _c !== void 0 ? _c : (projectStage = resolveProjectStateFromURL());
     }
     Implementation.getProjectStage = getProjectStage;
     /**
@@ -3612,12 +3681,12 @@ var Implementation;
      * b) passThrough handling with a map copy with a filter map block map
      */
     function request(el, event, opts) {
-        var _a, _b, _c, _d;
-        var _e = RequestDataResolver_1.resolveDefaults(event, opts, el), resolvedEvent = _e.resolvedEvent, options = _e.options, elem = _e.elem, elementId = _e.elementId, requestCtx = _e.requestCtx, internalCtx = _e.internalCtx, windowId = _e.windowId, isResetValues = _e.isResetValues;
+        var _a, _b, _c;
+        var _d = RequestDataResolver_1.resolveDefaults(event, opts, el), resolvedEvent = _d.resolvedEvent, options = _d.options, elem = _d.elem, elementId = _d.elementId, requestCtx = _d.requestCtx, internalCtx = _d.internalCtx, windowId = _d.windowId, isResetValues = _d.isResetValues;
         Assertions_1.Assertions.assertRequestIntegrity(options, elem);
         requestCtx.assignIf(!!windowId, Const_1.P_WINDOW_ID).value = windowId;
         requestCtx.assign(Const_1.CTX_PARAM_PASS_THR).value = filterPassthroughValues(options.value);
-        requestCtx.assignIf(!!resolvedEvent, Const_1.CTX_PARAM_PASS_THR, Const_1.P_EVT).value = (_a = resolvedEvent) === null || _a === void 0 ? void 0 : _a.type;
+        requestCtx.assignIf(!!resolvedEvent, Const_1.CTX_PARAM_PASS_THR, Const_1.P_EVT).value = resolvedEvent === null || resolvedEvent === void 0 ? void 0 : resolvedEvent.type;
         /**
          * ajax pass through context with the source
          * onresolvedEvent and onerror
@@ -3628,12 +3697,12 @@ var Implementation;
          * those values will be traversed later on
          * also into the response context
          */
-        requestCtx.assign(Const_1.ON_EVENT).value = (_b = options.value) === null || _b === void 0 ? void 0 : _b.onevent;
-        requestCtx.assign(Const_1.ON_ERROR).value = (_c = options.value) === null || _c === void 0 ? void 0 : _c.onerror;
+        requestCtx.assign(Const_1.ON_EVENT).value = (_a = options.value) === null || _a === void 0 ? void 0 : _a.onevent;
+        requestCtx.assign(Const_1.ON_ERROR).value = (_b = options.value) === null || _b === void 0 ? void 0 : _b.onerror;
         /**
          * lets drag the myfaces config params also in
          */
-        requestCtx.assign(Const_1.MYFACES).value = (_d = options.value) === null || _d === void 0 ? void 0 : _d.myfaces;
+        requestCtx.assign(Const_1.MYFACES).value = (_c = options.value) === null || _c === void 0 ? void 0 : _c.myfaces;
         /**
          * fetch the parent form
          *
@@ -3840,7 +3909,7 @@ var Implementation;
          * return the window id or null
          * prio, forms under node/document and if not given then from the url
          */
-        return _a = formWindowId.value, (_a !== null && _a !== void 0 ? _a : fetchWindowIdFromUrl());
+        return (_a = formWindowId.value) !== null && _a !== void 0 ? _a : fetchWindowIdFromUrl();
     }
     Implementation.getClientWindow = getClientWindow;
     /**
@@ -3878,7 +3947,7 @@ var Implementation;
         addRequestToQueue: function (elem, form, reqCtx, respPassThr, delay, timeout) {
             if (delay === void 0) { delay = 0; }
             if (timeout === void 0) { timeout = 0; }
-            Implementation.requestQueue = (Implementation.requestQueue !== null && Implementation.requestQueue !== void 0 ? Implementation.requestQueue : new AsyncQueue_1.AsynchronouseQueue());
+            Implementation.requestQueue = Implementation.requestQueue !== null && Implementation.requestQueue !== void 0 ? Implementation.requestQueue : new AsyncQueue_1.AsynchronouseQueue();
             Implementation.requestQueue.enqueue(new XhrRequest_1.XhrRequest(elem, form, reqCtx, respPassThr, [], timeout), delay);
         }
     };
@@ -4010,8 +4079,8 @@ var Implementation;
             .collect(new monadish_1.AssocArrayCollector());
     }
     function resolveGlobalConfig() {
-        var _a, _b, _c;
-        return _c = (_b = (_a = window) === null || _a === void 0 ? void 0 : _a[Const_1.MYFACES]) === null || _b === void 0 ? void 0 : _b.config, (_c !== null && _c !== void 0 ? _c : {});
+        var _a, _b;
+        return (_b = (_a = window === null || window === void 0 ? void 0 : window[Const_1.MYFACES]) === null || _a === void 0 ? void 0 : _a.config) !== null && _b !== void 0 ? _b : {};
     }
 })(Implementation = exports.Implementation || (exports.Implementation = {}));
 
@@ -4096,13 +4165,12 @@ var PushImpl;
     }
     PushImpl.init = init;
     function open(socketClientId) {
-        var _a, _b;
-        getSocket((_b = (_a = PushImpl.components) === null || _a === void 0 ? void 0 : _a[socketClientId]) === null || _b === void 0 ? void 0 : _b.channelToken).open();
+        var _a;
+        getSocket((_a = PushImpl.components === null || PushImpl.components === void 0 ? void 0 : PushImpl.components[socketClientId]) === null || _a === void 0 ? void 0 : _a.channelToken).open();
     }
     PushImpl.open = open;
     function close(socketClientId) {
-        var _a;
-        getSocket((_a = PushImpl.components) === null || _a === void 0 ? void 0 : _a[socketClientId].channelToken).close();
+        getSocket(PushImpl.components === null || PushImpl.components === void 0 ? void 0 : PushImpl.components[socketClientId].channelToken).close();
     }
     PushImpl.close = close;
     // Private helper classes
@@ -4174,7 +4242,6 @@ var PushImpl;
             }
         };
         Socket.prototype.onclose = function (event) {
-            var _a, _b;
             if (!this.socket
                 || (event.code == 1000 && event.reason == Const_1.REASON_EXPIRED)
                 || (event.code == 1008)
@@ -4183,7 +4250,7 @@ var PushImpl;
                 var clientIds = PushImpl.clientIdsByTokens[this.channelToken];
                 for (var i = clientIds.length - 1; i >= 0; i--) {
                     var socketClientId = clientIds[i];
-                    PushImpl.components[socketClientId]['onclose']((_a = event) === null || _a === void 0 ? void 0 : _a.code, (_b = this) === null || _b === void 0 ? void 0 : _b.channel, event);
+                    PushImpl.components[socketClientId]['onclose'](event === null || event === void 0 ? void 0 : event.code, this === null || this === void 0 ? void 0 : this.channel, event);
                 }
             }
             else {
@@ -4425,8 +4492,8 @@ var ViewState = /** @class */ (function () {
     }
     Object.defineProperty(ViewState.prototype, "hasNameSpace", {
         get: function () {
-            var _a, _b;
-            return !!(_b = (_a = this) === null || _a === void 0 ? void 0 : _a.nameSpace, (_b !== null && _b !== void 0 ? _b : Const_1.EMPTY_STR)).length;
+            var _a;
+            return !!((_a = this === null || this === void 0 ? void 0 : this.nameSpace) !== null && _a !== void 0 ? _a : Const_1.EMPTY_STR).length;
         },
         enumerable: true,
         configurable: true
@@ -4621,9 +4688,9 @@ var Assertions;
      * @param name the name of the error (optional)
      */
     function raiseError(error, message, caller, title, name) {
-        var finalTitle = (title !== null && title !== void 0 ? title : Const_1.MALFORMEDXML);
-        var finalName = (name !== null && name !== void 0 ? name : Const_1.MALFORMEDXML);
-        var finalMessage = (message !== null && message !== void 0 ? message : Const_1.EMPTY_STR);
+        var finalTitle = title !== null && title !== void 0 ? title : Const_1.MALFORMEDXML;
+        var finalName = name !== null && name !== void 0 ? name : Const_1.MALFORMEDXML;
+        var finalMessage = message !== null && message !== void 0 ? message : Const_1.EMPTY_STR;
         //TODO clean up the messy makeException, this is a perfect case for encapsulation and sane defaults
         return makeException(error, finalTitle, finalName, "Response", caller || ((arguments.caller) ? arguments.caller.toString() : "_raiseError"), finalMessage);
     }
@@ -4897,14 +4964,14 @@ var ExtDomquery = /** @class */ (function (_super) {
         return DomQuery_1.DQ.querySelectorAll("script").lazyStream
             .filter(function (item) {
             var _a;
-            return (_a = item.attr("src").value, (_a !== null && _a !== void 0 ? _a : Const_1.EMPTY_STR)).search(/\/javax\.faces\.resource.*\/jsf\.js.*separator/) != -1;
+            return ((_a = item.attr("src").value) !== null && _a !== void 0 ? _a : Const_1.EMPTY_STR).search(/\/javax\.faces\.resource.*\/jsf\.js.*separator/) != -1;
         }).map(function (item) {
             var result = item.attr("src").value.match(rexp);
             return decodeURIComponent(result[1]);
         }).first();
     };
     ExtDomquery.prototype.globalEval = function (code, nonce) {
-        return _super.prototype.globalEval.call(this, code, (nonce !== null && nonce !== void 0 ? nonce : this.nonce));
+        return _super.prototype.globalEval.call(this, code, nonce !== null && nonce !== void 0 ? nonce : this.nonce);
     };
     return ExtDomquery;
 }(DomQuery_1.DQ));
@@ -4955,8 +5022,8 @@ var ExtLang;
     var nameSpace = "impl/util/Lang/";
     function getLanguage() {
         //TODO global config override
-        var _a, _b, _c;
-        var language = (_b = (_a = navigator.languages) === null || _a === void 0 ? void 0 : _a[0], (_b !== null && _b !== void 0 ? _b : (_c = navigator) === null || _c === void 0 ? void 0 : _c.language));
+        var _a, _b;
+        var language = (_b = (_a = navigator.languages) === null || _a === void 0 ? void 0 : _a[0]) !== null && _b !== void 0 ? _b : navigator === null || navigator === void 0 ? void 0 : navigator.language;
         language = language.split("-")[0];
         return language;
     }
@@ -5016,8 +5083,8 @@ var ExtLang;
             templateParams[_i - 2] = arguments[_i];
         }
         var _a, _b;
-        installedLocale = (installedLocale !== null && installedLocale !== void 0 ? installedLocale : new Messages_1.Messages());
-        var msg = (_b = (_a = installedLocale[key], (_a !== null && _a !== void 0 ? _a : defaultMessage)), (_b !== null && _b !== void 0 ? _b : key + " - undefined message"));
+        installedLocale = installedLocale !== null && installedLocale !== void 0 ? installedLocale : new Messages_1.Messages();
+        var msg = (_b = (_a = installedLocale[key]) !== null && _a !== void 0 ? _a : defaultMessage) !== null && _b !== void 0 ? _b : key + " - undefined message";
         monadish_1.Stream.of.apply(monadish_1.Stream, templateParams).each(function (param, cnt) {
             msg = msg.replace(new RegExp(["\\{", cnt, "\\}"].join(Const_1.EMPTY_STR), "g"), param);
         });
@@ -5048,7 +5115,7 @@ var ExtLang;
      */
     function makeException(error, title, name, callerCls, callFunc, message) {
         var _a;
-        return new Error((_a = message + ((callerCls !== null && callerCls !== void 0 ? callerCls : nameSpace)) + callFunc, (_a !== null && _a !== void 0 ? _a : (Const_1.EMPTY_STR + arguments.caller.toString()))));
+        return new Error((_a = message + (callerCls !== null && callerCls !== void 0 ? callerCls : nameSpace) + callFunc) !== null && _a !== void 0 ? _a : (Const_1.EMPTY_STR + arguments.caller.toString()));
     }
     ExtLang.makeException = makeException;
     /**
@@ -5065,7 +5132,7 @@ var ExtLang;
          * given this function here is called very often
          * is a single entry without . in between we can do the lighter shortcut
          */
-        return _d = (_c = (_b = (_a = window) === null || _a === void 0 ? void 0 : _a.myfaces) === null || _b === void 0 ? void 0 : _b.config) === null || _c === void 0 ? void 0 : _c[configName], (_d !== null && _d !== void 0 ? _d : defaultValue);
+        return (_d = (_c = (_b = (_a = window) === null || _a === void 0 ? void 0 : _a.myfaces) === null || _b === void 0 ? void 0 : _b.config) === null || _c === void 0 ? void 0 : _c[configName]) !== null && _d !== void 0 ? _d : defaultValue;
     }
     ExtLang.getGlobalConfig = getGlobalConfig;
     /**
@@ -5123,7 +5190,7 @@ var ExtLang;
      */
     function getLocalOrGlobalConfig(localOptions, configName, defaultValue) {
         var _a, _b, _c, _d, _e, _f, _g, _h;
-        return _h = (_d = (_c = (_b = (_a = localOptions.value) === null || _a === void 0 ? void 0 : _a.myfaces) === null || _b === void 0 ? void 0 : _b.config) === null || _c === void 0 ? void 0 : _c[configName], (_d !== null && _d !== void 0 ? _d : (_g = (_f = (_e = window) === null || _e === void 0 ? void 0 : _e.myfaces) === null || _f === void 0 ? void 0 : _f.config) === null || _g === void 0 ? void 0 : _g[configName])), (_h !== null && _h !== void 0 ? _h : defaultValue);
+        return (_h = (_d = (_c = (_b = (_a = localOptions.value) === null || _a === void 0 ? void 0 : _a.myfaces) === null || _b === void 0 ? void 0 : _b.config) === null || _c === void 0 ? void 0 : _c[configName]) !== null && _d !== void 0 ? _d : (_g = (_f = (_e = window) === null || _e === void 0 ? void 0 : _e.myfaces) === null || _f === void 0 ? void 0 : _f.config) === null || _g === void 0 ? void 0 : _g[configName]) !== null && _h !== void 0 ? _h : defaultValue;
     }
     ExtLang.getLocalOrGlobalConfig = getLocalOrGlobalConfig;
     /**
@@ -5255,7 +5322,7 @@ var EventData = /** @class */ (function () {
     function EventData() {
     }
     EventData.createFromRequest = function (request, context, /*event name*/ name) {
-        var _a, _b, _c, _d;
+        var _a;
         var eventData = new EventData();
         eventData.type = Const_1.EVENT;
         eventData.status = name;
@@ -5266,9 +5333,9 @@ var EventData = /** @class */ (function () {
             eventData.source = monadish_1.DQ.byId(sourceId).first().value.value;
         }
         if (name !== Const_1.BEGIN) {
-            eventData.responseCode = (_b = (_a = request) === null || _a === void 0 ? void 0 : _a.status) === null || _b === void 0 ? void 0 : _b.toString();
-            eventData.responseText = (_c = request) === null || _c === void 0 ? void 0 : _c.responseText;
-            eventData.responseXML = (_d = request) === null || _d === void 0 ? void 0 : _d.responseXML;
+            eventData.responseCode = (_a = request === null || request === void 0 ? void 0 : request.status) === null || _a === void 0 ? void 0 : _a.toString();
+            eventData.responseText = request === null || request === void 0 ? void 0 : request.responseText;
+            eventData.responseXML = request === null || request === void 0 ? void 0 : request.responseXML;
         }
         return eventData;
     };
@@ -5351,7 +5418,7 @@ exports.resolveFinalUrl = resolveFinalUrl;
  */
 function resolveForm(requestCtx, elem, event) {
     var _a, _b, _c;
-    var configId = (_c = (_b = (_a = requestCtx.value) === null || _a === void 0 ? void 0 : _a.myfaces) === null || _b === void 0 ? void 0 : _b.form, (_c !== null && _c !== void 0 ? _c : Const_1.MF_NONE)); //requestCtx.getIf(MYFACES, "form").orElse(MF_NONE).value;
+    var configId = (_c = (_b = (_a = requestCtx.value) === null || _a === void 0 ? void 0 : _a.myfaces) === null || _b === void 0 ? void 0 : _b.form) !== null && _c !== void 0 ? _c : Const_1.MF_NONE; //requestCtx.getIf(MYFACES, "form").orElse(MF_NONE).value;
     return monadish_1.DQ
         .byId(configId)
         .orElseLazy(function () { return Lang_1.ExtLang.getForm(elem.getAsElem(0).value, event); });
@@ -5360,7 +5427,7 @@ exports.resolveForm = resolveForm;
 function resolveTimeout(options) {
     var _a;
     var getCfg = Lang_1.ExtLang.getLocalOrGlobalConfig;
-    return _a = options.getIf(Const_1.CTX_PARAM_TIMEOUT).value, (_a !== null && _a !== void 0 ? _a : getCfg(options.value, Const_1.CTX_PARAM_TIMEOUT, 0));
+    return (_a = options.getIf(Const_1.CTX_PARAM_TIMEOUT).value) !== null && _a !== void 0 ? _a : getCfg(options.value, Const_1.CTX_PARAM_TIMEOUT, 0);
 }
 exports.resolveTimeout = resolveTimeout;
 /**
@@ -5371,7 +5438,7 @@ exports.resolveTimeout = resolveTimeout;
 function resolveDelay(options) {
     var _a;
     var getCfg = Lang_1.ExtLang.getLocalOrGlobalConfig;
-    return _a = options.getIf(Const_1.CTX_PARAM_DELAY).value, (_a !== null && _a !== void 0 ? _a : getCfg(options.value, Const_1.CTX_PARAM_DELAY, 0));
+    return (_a = options.getIf(Const_1.CTX_PARAM_DELAY).value) !== null && _a !== void 0 ? _a : getCfg(options.value, Const_1.CTX_PARAM_DELAY, 0);
 }
 exports.resolveDelay = resolveDelay;
 /**
@@ -5380,8 +5447,8 @@ exports.resolveDelay = resolveDelay;
  * @param options
  */
 function resolveWindowId(options) {
-    var _a, _b, _c;
-    return _c = (_b = (_a = options) === null || _a === void 0 ? void 0 : _a.value) === null || _b === void 0 ? void 0 : _b.windowId, (_c !== null && _c !== void 0 ? _c : ExtDomQuery_1.ExtDomquery.windowId);
+    var _a, _b;
+    return (_b = (_a = options === null || options === void 0 ? void 0 : options.value) === null || _a === void 0 ? void 0 : _a.windowId) !== null && _b !== void 0 ? _b : ExtDomQuery_1.ExtDomquery.windowId;
 }
 exports.resolveWindowId = resolveWindowId;
 /**
@@ -5391,7 +5458,7 @@ exports.resolveWindowId = resolveWindowId;
  * (with a fallback for ie events if none is present)
  */
 function getEventTarget(evt) {
-    var _a, _b, _c, _d, _e;
+    var _a, _b, _c;
     //ie6 and 7 fallback
     var finalEvent = evt;
     /**
@@ -5403,7 +5470,7 @@ function getEventTarget(evt) {
      * behavior. I dont use it that way but nevertheless it
      * does not break anything so why not
      * */
-    var t = (_d = (_b = (_a = finalEvent) === null || _a === void 0 ? void 0 : _a.srcElement, (_b !== null && _b !== void 0 ? _b : (_c = finalEvent) === null || _c === void 0 ? void 0 : _c.target)), (_d !== null && _d !== void 0 ? _d : (_e = finalEvent) === null || _e === void 0 ? void 0 : _e.source));
+    var t = (_b = (_a = finalEvent === null || finalEvent === void 0 ? void 0 : finalEvent.srcElement) !== null && _a !== void 0 ? _a : finalEvent === null || finalEvent === void 0 ? void 0 : finalEvent.target) !== null && _b !== void 0 ? _b : (_c = finalEvent) === null || _c === void 0 ? void 0 : _c.source;
     while ((t) && (t.nodeType != 1)) {
         t = t.parentNode;
     }
@@ -5844,9 +5911,8 @@ var ResponseProcessor = /** @class */ (function () {
      * @param cdataBlock the cdata block with the new html code
      */
     ResponseProcessor.prototype.update = function (node, cdataBlock) {
-        var _a;
         var result = monadish_1.DQ.byId(node.id.value).outerHTML(cdataBlock, false, false);
-        var sourceForm = (_a = result) === null || _a === void 0 ? void 0 : _a.parents(Const_1.TAG_FORM).orElse(result.byTagName(Const_1.TAG_FORM, true));
+        var sourceForm = result === null || result === void 0 ? void 0 : result.parents(Const_1.TAG_FORM).orElse(result.byTagName(Const_1.TAG_FORM, true));
         if (sourceForm) {
             this.storeForPostProcessing(sourceForm, result);
         }
@@ -6019,11 +6085,11 @@ var ResponseProcessor = /** @class */ (function () {
      * @returns true of it ii
      */
     ResponseProcessor.isViewStateNode = function (node) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+        var _a, _b, _c, _d, _e, _f;
         var separatorChar = window.jsf.separatorchar;
-        return "undefined" != typeof ((_b = (_a = node) === null || _a === void 0 ? void 0 : _a.id) === null || _b === void 0 ? void 0 : _b.value) && (((_d = (_c = node) === null || _c === void 0 ? void 0 : _c.id) === null || _d === void 0 ? void 0 : _d.value) == Const_1.P_VIEWSTATE ||
-            ((_g = (_f = (_e = node) === null || _e === void 0 ? void 0 : _e.id) === null || _f === void 0 ? void 0 : _f.value) === null || _g === void 0 ? void 0 : _g.indexOf([separatorChar, Const_1.P_VIEWSTATE].join(Const_1.EMPTY_STR))) != -1 ||
-            ((_k = (_j = (_h = node) === null || _h === void 0 ? void 0 : _h.id) === null || _j === void 0 ? void 0 : _j.value) === null || _k === void 0 ? void 0 : _k.indexOf([Const_1.P_VIEWSTATE, separatorChar].join(Const_1.EMPTY_STR))) != -1);
+        return "undefined" != typeof ((_a = node === null || node === void 0 ? void 0 : node.id) === null || _a === void 0 ? void 0 : _a.value) && (((_b = node === null || node === void 0 ? void 0 : node.id) === null || _b === void 0 ? void 0 : _b.value) == Const_1.P_VIEWSTATE ||
+            ((_d = (_c = node === null || node === void 0 ? void 0 : node.id) === null || _c === void 0 ? void 0 : _c.value) === null || _d === void 0 ? void 0 : _d.indexOf([separatorChar, Const_1.P_VIEWSTATE].join(Const_1.EMPTY_STR))) != -1 ||
+            ((_f = (_e = node === null || node === void 0 ? void 0 : node.id) === null || _e === void 0 ? void 0 : _e.value) === null || _f === void 0 ? void 0 : _f.indexOf([Const_1.P_VIEWSTATE, separatorChar].join(Const_1.EMPTY_STR))) != -1);
     };
     return ResponseProcessor;
 }());
@@ -6137,7 +6203,7 @@ var XhrFormData = /** @class */ (function (_super) {
      */
     XhrFormData.prototype.applyViewState = function (form) {
         var viewState = form.byId(Const_1.P_VIEWSTATE).inputValue;
-        this.assignIf(viewState.isPresent(), Const_1.P_VIEWSTATE).value = viewState.value;
+        this.appendIf(viewState.isPresent(), Const_1.P_VIEWSTATE).value = viewState.value;
     };
     /**
      * assignes a url encoded string to this xhrFormData object
@@ -6149,10 +6215,10 @@ var XhrFormData = /** @class */ (function (_super) {
         var keyValueEntries = encoded.split(/&/gi);
         monadish_2.Stream.of.apply(monadish_2.Stream, keyValueEntries).map(function (line) { return line.split(/=(.*)/gi); })
             //special case of having keys without values
-            .map(function (keyVal) { var _a, _b, _c, _d; return keyVal.length < 3 ? [(_b = (_a = keyVal) === null || _a === void 0 ? void 0 : _a[0], (_b !== null && _b !== void 0 ? _b : [])), (_d = (_c = keyVal) === null || _c === void 0 ? void 0 : _c[1], (_d !== null && _d !== void 0 ? _d : []))] : keyVal; })
+            .map(function (keyVal) { var _a, _b; return keyVal.length < 3 ? [(_a = keyVal === null || keyVal === void 0 ? void 0 : keyVal[0]) !== null && _a !== void 0 ? _a : [], (_b = keyVal === null || keyVal === void 0 ? void 0 : keyVal[1]) !== null && _b !== void 0 ? _b : []] : keyVal; })
             .each(function (keyVal) {
-            var _a, _b, _c;
-            _this.assign(keyVal[0]).value = (_c = (_b = (_a = keyVal) === null || _a === void 0 ? void 0 : _a.splice(1)) === null || _b === void 0 ? void 0 : _b.join(""), (_c !== null && _c !== void 0 ? _c : ""));
+            var _a, _b;
+            _this.append(keyVal[0]).value = (_b = (_a = keyVal === null || keyVal === void 0 ? void 0 : keyVal.splice(1)) === null || _a === void 0 ? void 0 : _a.join("")) !== null && _b !== void 0 ? _b : "";
         });
     };
     // noinspection JSUnusedGlobalSymbols
@@ -6161,10 +6227,14 @@ var XhrFormData = /** @class */ (function (_super) {
      */
     XhrFormData.prototype.toFormData = function () {
         var ret = new FormData();
-        for (var key in this.value) {
-            if (this.value.hasOwnProperty(key)) {
-                ret.append(key, this.value[key]);
+        var _loop_1 = function (key) {
+            if (this_1.value.hasOwnProperty(key)) {
+                monadish_2.Stream.of.apply(monadish_2.Stream, this_1.value[key]).each(function (item) { return ret.append(key, item); });
             }
+        };
+        var this_1 = this;
+        for (var key in this.value) {
+            _loop_1(key);
         }
         return ret;
     };
@@ -6174,17 +6244,25 @@ var XhrFormData = /** @class */ (function (_super) {
      * @param defaultStr optional default value if nothing is there to encode
      */
     XhrFormData.prototype.toString = function (defaultStr) {
+        var _this = this;
         if (defaultStr === void 0) { defaultStr = Const_1.EMPTY_STR; }
         if (this.isAbsent()) {
             return defaultStr;
         }
-        var entries = [];
-        for (var key in this.value) {
-            if (this.value.hasOwnProperty(key)) {
-                //key value already encoded so no need to reencode them again
-                entries.push(encodeURIComponent(key) + "=" + encodeURIComponent(this.value[key]));
-            }
-        }
+        var entries = monadish_2.Stream.of.apply(monadish_2.Stream, Object.keys(this.value)).filter(function (key) { return _this.value.hasOwnProperty(key); })
+            .flatMap(function (key) { return monadish_2.Stream.of.apply(monadish_2.Stream, _this.value[key]).map(function (val) { return [key, val]; }).collect(new monadish_1.ArrayCollector()); })
+            .map(function (keyVal) {
+            return encodeURIComponent(keyVal[0]) + "=" + encodeURIComponent(keyVal[1]);
+        })
+            .collect(new monadish_1.ArrayCollector());
+        /* for (let key in this.value) {
+             if (this.value.hasOwnProperty(key)) {
+                 //key value already encoded so no need to reencode them again
+                 Stream.of(...this.value[key]).each(item => {
+                     entries.push(`${encodeURIComponent(key)}=${encodeURIComponent(item)}`);
+                 });
+             }
+         }*/
         return entries.join("&");
     };
     /**
@@ -6320,7 +6398,7 @@ var XhrRequest = /** @class */ (function () {
             //next step the pass through parameters are merged in for post params
             var requestContext = this.requestContext;
             var passThroughParams = requestContext.getIf(Const_1.CTX_PARAM_PASS_THR);
-            formData.shallowMerge(passThroughParams);
+            formData.shallowMerge(passThroughParams, true, true);
             this.responseContext = passThroughParams.deepCopy;
             //we have to shift the internal passthroughs around to build up our response context
             var responseContext = this.responseContext;
@@ -6424,14 +6502,14 @@ var XhrRequest = /** @class */ (function () {
         reject();
     };
     XhrRequest.prototype.onSuccess = function (data, resolve, reject) {
-        var _a, _b, _c;
+        var _a, _b;
         this.sendEvent(Const_1.COMPLETE);
         //malforms always result in empty response xml
-        if (!((_b = (_a = this) === null || _a === void 0 ? void 0 : _a.xhrObject) === null || _b === void 0 ? void 0 : _b.responseXML)) {
+        if (!((_a = this === null || this === void 0 ? void 0 : this.xhrObject) === null || _a === void 0 ? void 0 : _a.responseXML)) {
             this.handleMalFormedXML(resolve);
             return;
         }
-        jsf.ajax.response(this.xhrObject, (_c = this.responseContext.value, (_c !== null && _c !== void 0 ? _c : {})));
+        jsf.ajax.response(this.xhrObject, (_b = this.responseContext.value) !== null && _b !== void 0 ? _b : {});
     };
     XhrRequest.prototype.handleMalFormedXML = function (resolve) {
         var _a;
