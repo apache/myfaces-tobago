@@ -949,7 +949,6 @@
 
               <!-- log files -->
               <exclude>**/*.log</exclude>
-              <exclude>**/rebuild-theme.txt</exclude>
 
               <!-- maven -->
               <exclude>**/target/**/*</exclude>
