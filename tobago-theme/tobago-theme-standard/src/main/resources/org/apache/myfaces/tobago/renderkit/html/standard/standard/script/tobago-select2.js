@@ -274,9 +274,77 @@ Tobago.Select2.register('suppressMessages', (function() {
 
   var Utils = jQuery.fn.select2.amd.require('select2/utils');
   var resultAdapter = jQuery.fn.select2.amd.require('select2/results');
-  return Utils.Decorate(resultAdapter, suppressMessages);
+  var selectOnClose = jQuery.fn.select2.amd.require('select2/dropdown/selectOnClose');
+  var adapter = Utils.Decorate(resultAdapter, selectOnClose);
+  return Utils.Decorate(adapter, suppressMessages);
 
 })());
+
+
+Tobago.Select2.register('testDataAdapter', (function() {
+
+  var testDataAdapter = (function () {
+
+    function TestDataAdapter (decorated, $element, options) {
+      decorated.call(this, $element, options);
+    }
+
+    TestDataAdapter.prototype.query = function(decorated, params, callback) {
+      var select2Instance = this;
+
+      if (!select2Instance.$element.data("tttxt")) {
+        select2Instance.container.on("open", function (params) {
+          console.warn("TestDataAdapter.container.open");
+          if (!select2Instance.$search.val()) {
+            select2Instance.container.$results.empty();
+          }
+        });
+        select2Instance.$element.data("tttxt", true);
+      }
+
+      console.warn("TestDataAdapter.prototype.query");
+      callback({results: []});
+      function clearDuplicatesCallback(results) {
+        callback(results);
+
+        var values = [];
+        select2Instance.$element.find("option[data-select2-tag='true']").each(function () {
+           var option  = jQuery(this);
+           if (values.includes(option.val())) {
+             option.detach();
+           } else {
+             values.push(option.val());
+           }
+        });
+      }
+      decorated.call(this, params, clearDuplicatesCallback);
+    };
+
+    return TestDataAdapter;
+  })();
+
+  var Utils = jQuery.fn.select2.amd.require('select2/utils');
+
+
+  var adapter = jQuery.fn.select2.amd.require('select2/data/ajax');
+
+
+  /*
+    {"tags":true,"tokenSeparators":[","],"language":"de","minimumInputLength":2,"placeholder":"Select countries"}'
+   */
+
+  adapter = Utils.Decorate(adapter, testDataAdapter);
+
+
+  adapter = Utils.Decorate(adapter, jQuery.fn.select2.amd.require('select2/data/minimumInputLength'));
+  adapter = Utils.Decorate(adapter, jQuery.fn.select2.amd.require('select2/data/tags'));
+  return Utils.Decorate(adapter, jQuery.fn.select2.amd.require('select2/data/tokenizer'));
+
+})());
+
+
+
+
 
 Tobago.registerListener(Tobago.Select2.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.Select2.init, Tobago.Phase.AFTER_UPDATE);
