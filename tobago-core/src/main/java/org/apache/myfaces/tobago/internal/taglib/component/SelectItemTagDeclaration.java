@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasItemImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasItemLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
@@ -40,7 +41,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
     uiComponent = "org.apache.myfaces.tobago.component.UISelectItem",
     uiComponentFacesClass = "javax.faces.component.UISelectItem",
     allowedChildComponenents = "NONE")
-public interface SelectItemTagDeclaration extends HasBinding, HasId, IsVisual, HasItemLabel, HasTip {
+public interface SelectItemTagDeclaration extends HasBinding, HasId, IsVisual, HasItemLabel, HasItemImage, HasTip {
 
   /**
    * Description of an item, might be rendered as a tool tip.
@@ -75,11 +76,4 @@ public interface SelectItemTagDeclaration extends HasBinding, HasId, IsVisual, H
       type = "javax.faces.model.SelectItem",
       expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
-
-  /**
-   * Image to be displayed to the user for this option.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute()
-  void setItemImage(String itemImage);
 }
