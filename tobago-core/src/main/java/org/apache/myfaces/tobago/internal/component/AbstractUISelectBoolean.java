@@ -76,6 +76,8 @@ public abstract class AbstractUISelectBoolean extends UISelectBoolean
 
   public abstract void setItemLabel(String itemLabel);
 
+  public abstract String getItemImage();
+
   @Override
   public abstract String getLabel();
 

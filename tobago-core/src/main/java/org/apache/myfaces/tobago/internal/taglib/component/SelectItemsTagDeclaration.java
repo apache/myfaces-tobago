@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasItemImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasItemLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 
@@ -40,7 +41,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
     uiComponentFacesClass = "javax.faces.component.UISelectItems",
     isComponentAlreadyDefined = false,
     allowedChildComponenents = "NONE")
-public interface SelectItemsTagDeclaration extends HasId, HasBinding, HasItemLabel, HasTip {
+public interface SelectItemsTagDeclaration extends HasId, HasBinding, HasItemLabel, HasItemImage, HasTip {
 
   /**
    * Value binding expression pointing at a List or array of SelectItem instances containing
@@ -74,11 +75,4 @@ public interface SelectItemsTagDeclaration extends HasId, HasBinding, HasItemLab
   @TagAttribute
   @UIComponentTagAttribute(type = {"java.lang.Object"})
   void setItemValue(String itemValue);
-
-  /**
-   * Image to be displayed to the user for this option.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute()
-  void setItemImage(String itemImage);
 }

@@ -83,6 +83,7 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     final boolean disabled = select.isDisabled();
     final LabelWithAccessKey label = new LabelWithAccessKey(select, true);
     final String itemLabel = select.getItemLabel();
+    final String itemImage = select.getItemImage();
     final Markup markup = select.getMarkup();
 
     writer.startElement(HtmlElements.DIV);
@@ -124,6 +125,12 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
       AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
     }
     writer.writeAttribute(HtmlAttributes.FOR, fieldId, false);
+    if(itemImage != null) {
+      writer.startElement(HtmlElements.IMG);
+      writer.writeAttribute(HtmlAttributes.SRC, itemImage, true);
+      writer.writeAttribute(HtmlAttributes.ALT, "", false);
+      writer.endElement(HtmlElements.IMG);
+    }
     if (itemLabel != null && select.getLabel() == null && select.getAccessKey() != null) {
       if (itemLabel.contains(Character.toString(select.getAccessKey()))) {
         HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
