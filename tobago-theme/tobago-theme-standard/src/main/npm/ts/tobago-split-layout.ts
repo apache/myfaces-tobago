@@ -32,7 +32,7 @@ class SplitLayout extends HTMLElement {
         justAdded = false;
         continue;
       }
-      if (child.matches("input[type=hidden]")) {
+      if (getComputedStyle(child).display === "none") {
         continue;
       }
       if (first) { // the first needs no splitter handle
