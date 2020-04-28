@@ -140,8 +140,10 @@ public class UISelect2ComponentUtil {
       return items;
     }
     Converter converter = component.getConverter();
+    List<javax.faces.model.SelectItem> itemsToRender = new ArrayList<javax.faces.model.SelectItem>();
     Map<String, javax.faces.model.SelectItem> optionValues = new HashMap<String, javax.faces.model.SelectItem>();
     for (javax.faces.model.SelectItem item : items) {
+      itemsToRender.add(item);
       if (converter != null) {
         optionValues.put(converter.getAsString(facesContext, component, item.getValue()), item);
       } else {
@@ -149,24 +151,12 @@ public class UISelect2ComponentUtil {
       }
     }
 
-
-    List<javax.faces.model.SelectItem> itemsToRender = new ArrayList<javax.faces.model.SelectItem>();
     for (String submittedValue : submittedValues) {
-      if (optionValues.keySet().contains(submittedValue)) {
-        optionValues.remove(submittedValue);
-      } else {
+      if (!optionValues.keySet().contains(submittedValue)) {
         itemsToRender.add(new SubmittedItem(submittedValue));
       }
     }
-    if (itemsToRender.isEmpty()) {
-      return items;
-    } else {
-      for (javax.faces.model.SelectItem item : items) {
-        if (optionValues.values().contains(item)) {
-          itemsToRender.add(item);
-        }
-      }
-      return itemsToRender;
-    }
+
+    return itemsToRender;
   }
 }
