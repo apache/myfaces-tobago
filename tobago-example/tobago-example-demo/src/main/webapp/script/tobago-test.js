@@ -17,6 +17,12 @@
 
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
+function elementByIdFn(expression) {
+  return function () {
+    return document.getElementById("page:testframe").contentWindow.document.getElementById(expression);
+  }
+}
+
 function querySelectorFn(expression) {
   return function () {
     return document.getElementById("page:testframe").contentWindow.document.querySelector(expression);
@@ -41,7 +47,7 @@ function testFrameQuerySelectorAllFn(expression) {
   }
 }
 
-export {querySelectorFn, querySelectorAllFn, testFrameQuerySelectorFn, testFrameQuerySelectorAllFn};
+export {elementByIdFn, querySelectorFn, querySelectorAllFn, testFrameQuerySelectorFn, testFrameQuerySelectorAllFn};
 
 QUnit.test("wait for test", function (assert) {
   let done = assert.async();

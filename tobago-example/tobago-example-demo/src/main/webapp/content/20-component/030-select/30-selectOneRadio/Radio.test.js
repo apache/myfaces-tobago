@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
+import {elementByIdFn, querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("submit: Addition (2 + 4)", function (done) {
@@ -31,8 +31,7 @@ it("submit: Addition (2 + 4)", function (done) {
   test.do(() => number2Fn().item(0).checked = false);
   test.do(() => number2Fn().item(1).checked = false);
   test.do(() => number2Fn().item(2).checked = true); // Select 4
-  test.do(() => submitAddFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => outputFn() && outputFn().textContent === "6");
+  test.event("click", submitAddFn, () => outputFn() && outputFn().textContent === "6");
   test.do(() => expect(outputFn().textContent).toBe("6"));
   test.start();
 });
@@ -50,46 +49,40 @@ it("submit: Subtraction (4 - 1)", function (done) {
   test.do(() => number2Fn().item(0).checked = true); // Select 1
   test.do(() => number2Fn().item(1).checked = false);
   test.do(() => number2Fn().item(2).checked = false);
-  test.do(() => submitSubFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => outputFn() && outputFn().textContent === "3");
+  test.event("click", submitSubFn, () => outputFn() && outputFn().textContent === "3");
   test.do(() => expect(outputFn().textContent).toBe("3"));
   test.start();
 });
-
 it("ajax: select Mars", function (done) {
-  let planetFn = querySelectorAllFn("#page\\:mainForm\\:selectPlanet input");
-  let moonsFn = querySelectorAllFn("#page\\:mainForm\\:moonradio label.form-check-label");
+  const earthFn = elementByIdFn("page:mainForm:selectPlanet::0");
+  const marsFn = elementByIdFn("page:mainForm:selectPlanet::1");
+  const jupiterFn = elementByIdFn("page:mainForm:selectPlanet::2");
+  const moonsFn = querySelectorAllFn("#page\\:mainForm\\:moonradio .custom-control-label");
 
   const test = new JasmineTestTool(done);
-  test.do(() => planetFn().item(0).checked = false);
-  test.do(() => planetFn().item(2).checked = false);
-  test.do(() => planetFn().item(1).checked = true); // Mars.
-  test.do(() => planetFn().item(1).dispatchEvent(new Event("change", {bubbles: true})));
-  test.wait(() => moonsFn()
-      && moonsFn().item(0).textContent === "Phobos" && moonsFn().item(1).textContent === "Deimos");
-  test.do(() => expect(moonsFn().item(0).textContent).toBe("Phobos"));
-  test.do(() => expect(moonsFn().item(1).textContent).toBe("Deimos"));
+  test.do(() => earthFn().checked = false);
+  test.do(() => marsFn().checked = true);
+  test.do(() => jupiterFn().checked = false);
+  test.event("change", marsFn, () => moonsFn() && moonsFn()[0].textContent === "Phobos");
+  test.do(() => expect(moonsFn()[0].textContent).toBe("Phobos"));
+  test.do(() => expect(moonsFn()[1].textContent).toBe("Deimos"));
   test.start();
 });
 
 it("ajax: select Jupiter", function (done) {
-  let planetFn = querySelectorAllFn("#page\\:mainForm\\:selectPlanet input");
-  let moonsFn = querySelectorAllFn("#page\\:mainForm\\:moonradio label.form-check-label");
+  const earthFn = elementByIdFn("page:mainForm:selectPlanet::0");
+  const marsFn = elementByIdFn("page:mainForm:selectPlanet::1");
+  const jupiterFn = elementByIdFn("page:mainForm:selectPlanet::2");
+  const moonsFn = querySelectorAllFn("#page\\:mainForm\\:moonradio .custom-control-label");
 
   const test = new JasmineTestTool(done);
-  test.do(() => planetFn().item(0).checked = false);
-  test.do(() => planetFn().item(1).checked = false);
-  test.do(() => planetFn().item(2).checked = true); // Jupiter.
-  test.do(() => planetFn().item(2).dispatchEvent(new Event("change", {bubbles: true})));
-  test.wait(() => moonsFn() &&
-      moonsFn().item(0).textContent === "Europa"
-      && moonsFn().item(1).textContent === "Ganymed"
-      && moonsFn().item(2).textContent === "Io"
-      && moonsFn().item(3).textContent === "Kallisto"
-  );
-  test.do(() => expect(moonsFn().item(0).textContent).toBe("Europa"));
-  test.do(() => expect(moonsFn().item(1).textContent).toBe("Ganymed"));
-  test.do(() => expect(moonsFn().item(2).textContent).toBe("Io"));
-  test.do(() => expect(moonsFn().item(3).textContent).toBe("Kallisto"));
+  test.do(() => earthFn().checked = false);
+  test.do(() => marsFn().checked = false);
+  test.do(() => jupiterFn().checked = true);
+  test.event("change", jupiterFn, () => moonsFn() && moonsFn()[0].textContent === "Europa");
+  test.do(() => expect(moonsFn()[0].textContent).toBe("Europa"));
+  test.do(() => expect(moonsFn()[1].textContent).toBe("Ganymed"));
+  test.do(() => expect(moonsFn()[2].textContent).toBe("Io"));
+  test.do(() => expect(moonsFn()[3].textContent).toBe("Kallisto"));
   test.start()
 });
