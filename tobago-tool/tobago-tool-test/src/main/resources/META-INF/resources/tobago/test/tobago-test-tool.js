@@ -258,10 +258,30 @@ class JasmineTestTool {
   setup(fn1, fn2) {
     this.do(() => {
       if (!fn1()) {
+        console.debug("[JasmineTestTool] fn1() returns false, execute fn2()");
         fn2();
       }
     })
     this.wait(fn1);
+  }
+
+  /**
+   * Execute dispatchEvent() on the given element. The result function must return false before dispatch.
+   * After the dispatch
+   * @param type of the event
+   * @param element function
+   * @param result function
+   */
+  event(type, element, result) {
+    this.do(() => {
+      if (result()) {
+        fail("The result function (" + result + ") returns true BEFORE the '" + type + "' event is dispatched."
+            + " Please define a result function that return false before dispatch event and return true after dispatch"
+            + " event.");
+      }
+    });
+    this.do(() => element().dispatchEvent(new Event(type, {bubbles: true})));
+    this.wait(result);
   }
 
   do(fn) {
@@ -281,6 +301,7 @@ class JasmineTestTool {
   }
 
   start() {
+    console.debug("[JasmineTestTool] start");
     this.resetTimeout();
     this.cycle();
   }
@@ -296,14 +317,18 @@ class JasmineTestTool {
       this.resetTimeout();
       window.setTimeout(this.cycle.bind(this), 0);
     } else if (!this.isDocumentReady() || !this.isAjaxReady()) {
+      console.debug("[JasmineTestTool] documentReady: " + this.isDocumentReady()
+          + " - ajaxReady: " + this.isAjaxReady());
       window.setTimeout(this.cycle.bind(this), 50);
     } else if (nextStep.type === "do") {
+      console.debug("[JasmineTestTool] do-step: " + nextStep.func);
       this.registerCustomXmlHttpRequest();
       nextStep.func();
       nextStep.done = true;
       this.resetTimeout();
       window.setTimeout(this.cycle.bind(this), 0);
     } else if (nextStep.type === "wait") {
+      console.debug("[JasmineTestTool] wait-step: " + nextStep.func);
       if (nextStep.func()) {
         nextStep.done = true;
         this.resetTimeout();
@@ -336,6 +361,7 @@ class JasmineTestTool {
 
   static changeAjaxReadyState(event) {
     JasmineTestTool.ajaxReadyState = event.detail.readyState;
+    console.debug("[JasmineTestTool] ajaxReadyState: " + JasmineTestTool.ajaxReadyState);
   }
 
   registerCustomXmlHttpRequest() {

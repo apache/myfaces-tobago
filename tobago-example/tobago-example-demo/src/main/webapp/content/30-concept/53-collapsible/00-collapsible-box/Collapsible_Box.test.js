@@ -28,8 +28,7 @@ it("Simple Collapsible Box: show -> hide transition", function (done) {
       () => contentFn(),
       () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.do(() => expect(contentFn() !== null).toBe(true));
-  test.do(() => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => !contentFn());
+  test.event("click", hideFn, () => !contentFn());
   test.do(() => expect(contentFn() !== null).toBe(false));
   test.start();
 });
@@ -44,8 +43,7 @@ it("Simple Collapsible Box: hide -> show transition", function (done) {
       () => !contentFn(),
       () => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.do(() => expect(contentFn() !== null).toBe(false));
-  test.do(() => showFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => contentFn());
+  test.event("click", showFn, () => contentFn());
   test.do(() => expect(contentFn() !== null).toBe(true));
   test.start();
 });
@@ -67,12 +65,10 @@ it("Full Server Request: open both boxes", function (done) {
       () => hide2Fn().dispatchEvent(new Event("click", {bubbles: true})));
   test.do(() => expect(content1Fn() !== null).toBe(false));
   test.do(() => expect(content2Fn() !== null).toBe(false));
-  test.do(() => show1Fn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => content1Fn());
+  test.event("click", show1Fn, () => content1Fn());
   test.do(() => expect(content1Fn() !== null).toBe(true));
   test.do(() => expect(content2Fn() !== null).toBe(false));
-  test.do(() => show2Fn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => content2Fn());
+  test.event("click", show2Fn, () => content2Fn());
   test.do(() => expect(content1Fn() !== null).toBe(true));
   test.do(() => expect(content2Fn() !== null).toBe(true));
   test.start();
@@ -95,12 +91,10 @@ it("Full Server Request: open box 1, close box 2", function (done) {
       () => show2Fn().dispatchEvent(new Event("click", {bubbles: true})));
   test.do(() => expect(content1Fn() !== null).toBe(false));
   test.do(() => expect(content2Fn() !== null).toBe(true));
-  test.do(() => show1Fn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => content1Fn());
+  test.event("click", show1Fn, () => content1Fn());
   test.do(() => expect(content1Fn() !== null).toBe(true));
   test.do(() => expect(content2Fn() !== null).toBe(true));
-  test.do(() => hide2Fn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => !content2Fn());
+  test.event("click", hide2Fn, () => !content2Fn());
   test.do(() => expect(content1Fn() !== null).toBe(true));
   test.do(() => expect(content2Fn() !== null).toBe(false));
   test.start();
@@ -123,12 +117,10 @@ it("Full Server Request: close box 1, open box 2", function (done) {
       () => hide2Fn().dispatchEvent(new Event("click", {bubbles: true})));
   test.do(() => expect(content1Fn() !== null).toBe(true));
   test.do(() => expect(content2Fn() !== null).toBe(false));
-  test.do(() => hide1Fn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => !content1Fn());
+  test.event("click", hide1Fn, () => !content1Fn());
   test.do(() => expect(content1Fn() !== null).toBe(false))
   test.do(() => expect(content2Fn() !== null).toBe(false));
-  test.do(() => show2Fn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => content2Fn());
+  test.event("click", show2Fn, () => content2Fn());
   test.do(() => expect(content1Fn() !== null).toBe(false));
   test.do(() => expect(content2Fn() !== null).toBe(true));
   test.start();
@@ -151,12 +143,10 @@ it("Full Server Request: close both boxes", function (done) {
       () => show2Fn().dispatchEvent(new Event("click", {bubbles: true})));
   test.do(() => expect(content1Fn() !== null).toBe(true));
   test.do(() => expect(content2Fn() !== null).toBe(true));
-  test.do(() => hide1Fn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => !content1Fn());
+  test.event("click", hide1Fn, () => !content1Fn());
   test.do(() => expect(content1Fn() !== null).toBe(false));
   test.do(() => expect(content2Fn() !== null).toBe(true));
-  test.do(() => hide2Fn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => !content2Fn());
+  test.event("click", hide2Fn, () => !content2Fn());
   test.do(() => expect(content1Fn() !== null).toBe(false));
   test.do(() => expect(content2Fn() !== null).toBe(false));
   test.start();
@@ -205,8 +195,7 @@ it("Client Side: hide content and submit empty string", function (done) {
   test.do(() => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.do(() => expect(boxFn().classList.contains("tobago-collapsed")).toBe(true));
   test.do(() => inFn().value = "");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 1);
+  test.event("click", submitFn, () => messagesFn() && messagesFn().length === 1);
   test.do(() => expect(messagesFn().length).toBe(1));
   test.start();
 });
@@ -221,8 +210,7 @@ it("Ajax: show -> hide transition", function (done) {
       () => inFn(),
       () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.do(() => expect(inFn() !== null).toBe(true));
-  test.do(() => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => !inFn());
+  test.event("click", hideFn, () => !inFn());
   test.do(() => expect(inFn() !== null).toBe(false));
   test.start();
 });
@@ -237,13 +225,13 @@ it("Ajax: hide -> show transition", function (done) {
       () => !inFn(),
       () => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.do(() => expect(inFn() !== null).toBe(false));
-  test.do(() => showFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => inFn());
+  test.event("click", showFn, () => inFn());
   test.do(() => expect(inFn() !== null).toBe(true));
   test.start();
 });
 
-it("Ajax: hide content and submit empty string", function (done) {
+it("Ajax: submit empty string with shown and hidden content", function (done) {
+  let hide1FullReqFn = querySelectorFn("#page\\:mainForm\\:server\\:hide1");
   let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:ajax\\:showAjaxBox");
   let hideFn = querySelectorFn("#page\\:mainForm\\:ajax\\:hideAjaxBox");
@@ -254,13 +242,16 @@ it("Ajax: hide content and submit empty string", function (done) {
   test.setup(
       () => inFn(),
       () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(
+      () => messagesFn() && messagesFn().length === 0,
+      () => hide1FullReqFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.do(() => expect(inFn() !== null).toBe(true));
   test.do(() => inFn().value = "");
-  test.do(() => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => !inFn());
+  test.event("click", submitFn, () => messagesFn() && messagesFn().length === 1);
+  test.do(() => expect(messagesFn().length).toBe(1));
+  test.event("click", hideFn, () => !inFn());
   test.do(() => expect(inFn() !== null).toBe(false));
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.event("click", submitFn, () => messagesFn() && messagesFn().length === 0);
   test.do(() => expect(messagesFn().length).toBe(0));
   test.start();
 });

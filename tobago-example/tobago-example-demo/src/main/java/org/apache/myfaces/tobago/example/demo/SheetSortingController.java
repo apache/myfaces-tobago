@@ -25,21 +25,36 @@ import org.apache.myfaces.tobago.model.SheetState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @SessionScoped
 @Named
-public class SheetSortingController extends SheetController implements Serializable {
+public class SheetSortingController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+  @Inject
+  private AstroData astroData;
+
+  private List<SolarObject> solarList1;
+  private List<SolarObject> solarList2;
+
+  @PostConstruct
+  private void init() {
+    solarList1 = astroData.findAll().collect(Collectors.toList());
+    solarList2 = astroData.findAll().collect(Collectors.toList());
+  }
 
   public void sheetSorter(final ActionEvent event) {
     if (event instanceof SortActionEvent) {
@@ -67,5 +82,21 @@ public class SheetSortingController extends SheetController implements Serializa
     if (!sheetState.isAscending()) {
       Collections.reverse(list);
     }
+  }
+
+  public List<SolarObject> getSolarList1() {
+    return solarList1;
+  }
+
+  public void setSolarList1(List<SolarObject> solarList1) {
+    this.solarList1 = solarList1;
+  }
+
+  public List<SolarObject> getSolarList2() {
+    return solarList2;
+  }
+
+  public void setSolarList2(List<SolarObject> solarList2) {
+    this.solarList2 = solarList2;
   }
 }

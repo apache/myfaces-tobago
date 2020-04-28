@@ -36,8 +36,8 @@ it("ajax change event", function (done) {
 
   const test = new JasmineTestTool(done);
   test.do(() => inputFieldFn().value = "some input text");
-  test.do(() => inputFieldFn().dispatchEvent(new Event("change", {bubbles: true})));
-  test.wait(() => outputFieldFn() && outputFieldFn().textContent === "some input text");
+  test.event("change", inputFieldFn,
+      () => outputFieldFn() && outputFieldFn().textContent === "some input text");
   test.do(() => expect(outputFieldFn().textContent).toBe("some input text"));
   test.start();
 });
