@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
+import org.apache.myfaces.tobago.layout.SegmentJustify;
 
 /**
  * Renders a layout using a 12 columns grid.
@@ -143,4 +144,22 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
   @TagAttribute
   @UIComponentTagAttribute
   void setMarginExtraLarge(String marginExtraLarge);
+
+  /**
+   * The horizontal alignment of the elements inside of the grid, possible values are:
+   * {@link SegmentJustify#NONE},
+   * {@link SegmentJustify#START},
+   * {@link SegmentJustify#CENTER},
+   * {@link SegmentJustify#END},
+   * {@link SegmentJustify#AROUND} and
+   * {@link SegmentJustify#BETWEEN}.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.SegmentJustify",
+      allowedValues = {
+          SegmentJustify.NONE, SegmentJustify.START, SegmentJustify.CENTER,
+          SegmentJustify.END, SegmentJustify.AROUND, SegmentJustify.BETWEEN
+      })
+  void setJustify(String justify);
 }

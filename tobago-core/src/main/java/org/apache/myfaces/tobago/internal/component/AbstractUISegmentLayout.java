@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.layout.MeasureList;
+import org.apache.myfaces.tobago.layout.SegmentJustify;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SegmentLayoutTagDeclaration}
@@ -75,4 +76,6 @@ public abstract class AbstractUISegmentLayout extends AbstractUILayoutBase {
   public abstract String getMarginLarge();
 
   public abstract String getMarginExtraLarge();
+
+  public abstract SegmentJustify getJustify();
 }
