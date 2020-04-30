@@ -138,6 +138,7 @@ public enum Attributes {
   itemLabel,
   itemImage,
   itemValue,
+  justify,
   justifyContent,
   keepLineBreaks,
   label,

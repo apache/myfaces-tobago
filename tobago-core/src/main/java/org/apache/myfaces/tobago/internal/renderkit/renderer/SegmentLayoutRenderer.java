@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
 import org.apache.myfaces.tobago.layout.MarginTokens;
+import org.apache.myfaces.tobago.layout.SegmentJustify;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -52,6 +53,7 @@ public class SegmentLayoutRenderer extends RendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final AbstractUISegmentLayout layout = (AbstractUISegmentLayout) component;
     final Markup markup = layout.getMarkup();
+    final SegmentJustify segmentJustify = layout.getJustify();
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(layout.getClientId(facesContext));
@@ -60,6 +62,7 @@ public class SegmentLayoutRenderer extends RendererBase {
         TobagoClass.SEGMENT_LAYOUT,
         TobagoClass.SEGMENT_LAYOUT.createMarkup(markup),
         BootstrapClass.ROW,
+        segmentJustify != null ? BootstrapClass.segmentJustify(segmentJustify) : null,
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
 //    writer.writeClassAttribute(Classes.create(layout), BootstrapClass.FORM_GROUP);
   }

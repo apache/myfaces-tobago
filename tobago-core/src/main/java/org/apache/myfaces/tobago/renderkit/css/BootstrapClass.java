@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.layout.Margin;
 import org.apache.myfaces.tobago.layout.MarginTokens;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.MeasureList;
+import org.apache.myfaces.tobago.layout.SegmentJustify;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
@@ -580,6 +581,26 @@ public enum BootstrapClass implements CssItem {
       return warning;
     } else {
       return error;
+    }
+  }
+
+  public static CssItem segmentJustify(final SegmentJustify segmentJustify) {
+    switch (segmentJustify) {
+      case none:
+        return null;
+      case start:
+        return BootstrapClass.JUSTIFY_CONTENT_START;
+      case center:
+        return BootstrapClass.JUSTIFY_CONTENT_CENTER;
+      case end:
+        return BootstrapClass.JUSTIFY_CONTENT_END;
+      case around:
+        return BootstrapClass.JUSTIFY_CONTENT_AROUND;
+      case between:
+        return BootstrapClass.JUSTIFY_CONTENT_BETWEEN;
+      default:
+        LOG.warn("Not a bootstrap class defined for {}", segmentJustify);
+        return null;
     }
   }
 

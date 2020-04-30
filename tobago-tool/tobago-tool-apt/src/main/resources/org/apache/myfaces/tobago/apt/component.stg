@@ -18,7 +18,7 @@ group components;
  */
 
 component(componentInfo) ::= <<
-// ---------- Attention: Generated code, please do not modify! -----------  
+// ---------- Attention: Generated code, please do not modify! -----------
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -54,7 +54,7 @@ import java.util.List;
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 
-/** 
+/**
  <if(componentInfo.description)>
  <componentInfo.description>
  <endif>
@@ -332,6 +332,10 @@ SeverityProperty(property) ::= <<
 >>
 
 TextAlignProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
+SegmentJustifyProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
