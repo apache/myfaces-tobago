@@ -15,31 +15,9 @@
  * limitations under the License.
  */
 
-import {DatePickerLightElement} from "@vaadin/vaadin-date-picker/vaadin-date-picker-light";
-// @ts-ignore
-import moment = require("moment");
+import Datepicker from "vanillajs-datepicker/js/Datepicker.js";
+import {DateUtils} from "./tobago-date-utils";
 import {Page} from "./tobago-page";
-
-interface VaadinDate {
-  day: number;
-  month: number;
-  year: number;
-}
-
-interface VaadinDatePickerI18n {
-  week: string;
-  calendar?: string;
-  clear: string;
-  today: string;
-  cancel: string;
-  firstDayOfWeek: number;
-  monthNames: string[];
-  weekdays: string[];
-  weekdaysShort: string[];
-  formatDate: (date: VaadinDate) => string;
-  formatTitle: (monthName: string, fullYear: string) => string;
-  parseDate: (dateString: string) => VaadinDate;
-}
 
 class DatePicker extends HTMLElement {
 
@@ -48,28 +26,55 @@ class DatePicker extends HTMLElement {
   }
 
   connectedCallback(): void {
-    let vaadinDatePicker = document.createElement("vaadin-date-picker-light") as DatePickerLightElement;
-    vaadinDatePicker.setAttribute("attr-for-value", "value");
-    let input = this.inputElement;
-    const i18n = input.dataset.tobagoDateTimeI18n ? JSON.parse(input.dataset.tobagoDateTimeI18n) : undefined;
-    vaadinDatePicker.i18n = this.createVaadinI18n(i18n);
-    vaadinDatePicker.readonly = input.hasAttribute("readonly"); // todo make attribute
-    vaadinDatePicker.showWeekNumbers = true; // tbd
+    const input = this.inputElement;
 
-    while (this.childNodes.length) {
-      vaadinDatePicker.appendChild(this.firstChild);
-    }
-    this.appendChild(vaadinDatePicker);
+    // todo: refactor "i18n" to "normal" attribute of tobago-date
+    // todo: refactor: Make a class or interface for i18n
+    const i18n = input.dataset.tobagoDateTimeI18n ? JSON.parse(input.dataset.tobagoDateTimeI18n) : undefined;
+    // todo: refactor "pattern" to "normal" attribute of tobago-date
+    const pattern = DateUtils.convertPattern(input.dataset.tobagoPattern);
+    const locale: string = Page.page().locale;
+    Datepicker.locales[locale] = {
+      days: i18n.dayNames,
+      daysShort: i18n.dayNamesShort,
+      daysMin: i18n.dayNamesMin,
+      months: i18n.monthNames,
+      monthsShort: i18n.monthNamesShort,
+      today: i18n.today,
+      clear: i18n.clear,
+      titleFormat: "MM y", // todo i18m
+      format: pattern,
+      weekstart: i18n.firstDay
+    };
+
+    new Datepicker(input, {
+      buttonClass: "btn",
+      orientation: "bottom top auto",
+      autohide: true,
+      language: locale
+      // todo readonly
+      // todo show week numbers
+    });
   }
 
-  /*
-Get the pattern from the "Java world" (http://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html)
-and convert it to 'moment.js'.
-Attention: Not every pattern char is supported.
-*/
-  analyzePattern(): string {
-    const originalPattern = this.inputElement.dataset.tobagoPattern;
+  get inputElement(): HTMLInputElement {
+    return this.querySelector(".input") as HTMLInputElement;
+  }
+}
 
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
+  window.customElements.define("tobago-date", DatePicker);
+});
+
+export class DatePickerUtils {
+
+  /*
+  Get the pattern from the "Java world",
+  see https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/SimpleDateFormat.html
+  and convert it to 'vanillajs-datepicker', see https://mymth.github.io/vanillajs-datepicker/#/date-string+format
+  Attention: Not every pattern char is supported.
+  */
+  public static convertPattern(originalPattern: string): string {
     let pattern;
     if (!originalPattern || originalPattern.length > 100) {
       console.warn("Pattern not supported: " + originalPattern);
@@ -85,7 +90,7 @@ Attention: Not every pattern char is supported.
       const currentChar = pattern.charAt(i);
       if (currentChar == "'" && escMode == false) {
         escMode = true;
-        analyzedPattern += this.analyzePatternPart(nextSegment);
+        analyzedPattern += DateUtils.convertPatternPart(nextSegment);
         nextSegment = "";
       } else if (currentChar == "'" && pattern.charAt(i + 1) == "'") {
         if (escMode) {
@@ -108,14 +113,14 @@ Attention: Not every pattern char is supported.
       if (escMode) {
         analyzedPattern += nextSegment;
       } else {
-        analyzedPattern += this.analyzePatternPart(nextSegment);
+        analyzedPattern += this.convertPatternPart(nextSegment);
       }
     }
 
     return analyzedPattern;
   }
 
-  analyzePatternPart(originalPattern: string): string {
+  static convertPatternPart(originalPattern: string): string {
 
     let pattern = originalPattern;
 
@@ -189,62 +194,4 @@ Attention: Not every pattern char is supported.
 
     return pattern;
   }
-
-  createVaadinI18n(i18n: any): VaadinDatePickerI18n {
-
-    const pattern = this.analyzePattern();
-    const locale = Page.page().locale;
-
-    moment.updateLocale(locale, {
-      months: i18n.monthNames,
-      monthsShort: i18n.monthNamesShort,
-      weekdays: i18n.dayNames,
-      weekdaysShort: i18n.dayNamesShort,
-      weekdaysMin: i18n.dayNamesMin,
-      week: {
-        dow: i18n.firstDay,
-        doy: 7 + i18n.firstDay - i18n.minDays // XXX seems not to be supported by VaadinDatePicker: may file an issue!
-      }
-    });
-
-    const localeData = moment.localeData(locale);
-    return {
-
-      cancel: i18n.cancel,
-      clear: i18n.clear,
-      firstDayOfWeek: localeData.firstDayOfWeek(),
-      monthNames: localeData.months(),
-      today: i18n.today,
-      week: i18n.week,
-      weekdays: localeData.weekdays(),
-      weekdaysShort: localeData.weekdaysShort(),
-      formatDate: (date: VaadinDate) => {
-        return moment({
-          date: date.day,
-          month: date.month,
-          year: date.year,
-        })
-            .locale(locale!)
-            .format(pattern);
-      },
-      formatTitle: (monthName: string, fullYear: string) => `${monthName} ${fullYear}`,
-      parseDate: (dateString: string) => {
-        const date = moment(dateString, pattern, locale);
-        return {
-          day: date.date(),
-          month: date.month(),
-          year: date.year(),
-        };
-      },
-    };
-  }
-
-  get inputElement(): HTMLInputElement {
-    return this.querySelector(".input") as HTMLInputElement;
-  }
 }
-
-// XXX switched on
-document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-date", DatePicker);
-});

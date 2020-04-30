@@ -20,7 +20,8 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
 
   <p>With input components, a text or a date can be entered.
     Input components should always use the <code>label</code> attribute.</p>
@@ -50,7 +51,9 @@
 
   <tc:section label="Date">
     <pre><code class="language-markup">&lt;tc:date label="Date" value="2015-12-21"/></code></pre>
-    <tc:date id="d1" label="Date" value="2015-12-21"/>
+    <tc:date id="d1" label="Date" value="21.12.2015">
+      <f:convertDateTime pattern="dd.MM.yyyy"/>
+    </tc:date>
   </tc:section>
 
   <tc:section label="Stars">
