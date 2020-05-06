@@ -317,16 +317,6 @@ public class TobagoConfigImpl extends TobagoConfig {
     return mimeTypes;
   }
 
-  /**
-   * {@inheritDoc}
-   * @deprecated since Tobago 3.0.0
-   */
-  @Override
-  @Deprecated
-  public boolean isClassicDateTimePicker() {
-    return false;
-  }
-
   @Override
   public String toString() {
     final StringBuilder builder = new StringBuilder();

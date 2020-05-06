@@ -68,11 +68,4 @@ public abstract class TobagoConfig {
   public abstract boolean isDecodeLineFeed();
 
   public abstract Map<String, String> getMimeTypes();
-
-  /**
-   * @return false
-   * @deprecated since Tobago 3.0.0
-   */
-  @Deprecated
-  public abstract boolean isClassicDateTimePicker();
 }
