@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+// XXX it might be nice, if this util was in tobago-date.ts, but in that case there are problems
+// XXX with Jest (UnitTesting)
+
 export class DateUtils {
 
   /*
