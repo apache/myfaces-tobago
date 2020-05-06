@@ -16,11 +16,3 @@
  */
 
 declare var jsf;
-
-interface JQuery {
-  overlay(data?: any, options?: any): JQuery; // XXX is "data" correct?
-
-  popover(data?: any, options?: any): JQuery;
-
-  modal(data?: any, options?: any): JQuery;
-}
