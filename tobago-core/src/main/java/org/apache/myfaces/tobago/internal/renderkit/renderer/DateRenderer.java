@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.BootstrapDateTimePickerClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -102,7 +101,7 @@ public class DateRenderer extends InRenderer {
     writer.writeClassAttribute(
         BootstrapClass.BTN,
         BootstrapClass.BTN_SECONDARY,
-        BootstrapDateTimePickerClass.DATEPICKERBUTTON);
+        TobagoClass.DATE__PICKER);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     writer.writeAttribute(HtmlAttributes.TITLE,
         ResourceUtils.getString(facesContext, "date.title"), true);

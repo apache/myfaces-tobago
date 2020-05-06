@@ -78,6 +78,13 @@ class DatePicker extends HTMLElement {
       }
       delete target._oldValue;
     });
+
+    // simple solution for the picker: currently only open, not close is implemented
+    this.querySelector(".tobago-date-picker")?.addEventListener("click",
+        (event: MouseEvent) => {
+          this.inputElement.focus();
+        }
+    );
   }
 
   get inputElement(): HTMLInputElement {
