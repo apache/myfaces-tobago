@@ -55,6 +55,29 @@ class DatePicker extends HTMLElement {
       // todo readonly
       // todo show week numbers
     });
+
+    // XXX these two listeners are needed befor we have a solution for:
+    // XXX https://github.com/mymth/vanillajs-datepicker/issues/13
+    input.addEventListener("keyup", (event) => {
+      if (event.ctrlKey || event.metaKey
+          || event.key.length > 1 && event.key !== "Backspace" && event.key !== "Delete") {
+        return;
+      }
+      // back up user's input when user types printable character or backspace/delete
+      const target = event.target as any;
+      target._oldValue = target.value;
+    });
+    input.addEventListener("blur", (event) => {
+      const target = event.target as any;
+      if (!document.hasFocus() || target._oldValue === undefined) {
+        // no-op when user goes to another window or the input field has no backed-up value
+        return;
+      }
+      if (target._oldValue !== target.value) {
+        target.datepicker.setDate(target._oldValue);
+      }
+      delete target._oldValue;
+    });
   }
 
   get inputElement(): HTMLInputElement {
