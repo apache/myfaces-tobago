@@ -42,7 +42,7 @@ class DatePicker extends HTMLElement {
       monthsShort: i18n.monthNamesShort,
       today: i18n.today,
       clear: i18n.clear,
-      titleFormat: "MM y", // todo i18m
+      titleFormat: "MM y", // todo i18n
       format: pattern,
       weekstart: i18n.firstDay
     };
