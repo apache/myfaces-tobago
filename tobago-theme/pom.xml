@@ -92,8 +92,6 @@
                     <include>rollup.config.js</include>
                     <include>tsconfig.json</include>
                     <include>tslint.json</include>
-                    <include>.babelrc</include>
-                    <include>.browserslistrc</include>
                   </includes>
                 </resource>
                 <resource>
@@ -156,8 +154,6 @@
                     <include>js/jsf*.js.map</include>
                     <include>ts/tobago*.ts</include>
                     <include>ts/test.ts</include>
-                    <!-- todo: check a better way for polyfill -->
-                    <include>node_modules/@babel/polyfill/dist/polyfill.js</include>
                   </includes>
                 </resource>
               </resources>

@@ -48,7 +48,6 @@ TestDateTime.init = function () {
       var i18n = javaFormatted.data("tobago-date-time-i18n");
       switch (analyzed.type) {
         case "datetime":
-          // todo: use moment.js
           date = jQuery.datepicker.parseDateTime(
               analyzed.dateFormat, analyzed.timeFormat, javaValue, i18n, {
                 separator: analyzed.separator,
@@ -63,19 +62,16 @@ TestDateTime.init = function () {
             millisec: date.getMilliseconds(),
             microsec: date.getMicroseconds()
           };
-          // todo: use moment.js
           jQueryValue
               = jQuery.datepicker.formatDate(analyzed.dateFormat, date, i18n)
               + analyzed.separator
               + jQuery.datepicker.formatTime(analyzed.timeFormat, time, i18n);
           break;
         case "date":
-          // todo: use moment.js
           date = jQuery.datepicker.parseDate(analyzed.dateFormat, javaValue, i18n);
           jQueryValue = jQuery.datepicker.formatDate(analyzed.dateFormat, date, i18n);
           break;
         case "time":
-          // todo: use moment.js
           time = jQuery.datepicker.parseTime(analyzed.timeFormat, javaValue, i18n);
           jQueryValue = jQuery.datepicker.formatTime(analyzed.timeFormat, time, i18n);
           break;

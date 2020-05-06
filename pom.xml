@@ -954,8 +954,6 @@
 
               <!-- json -->
               <exclude>**/*.json</exclude>
-              <exclude>**/.babelrc</exclude>
-              <exclude>**/.browserslistrc</exclude>
 
               <!-- photo shop -->
               <exclude>**/*.psd</exclude>
