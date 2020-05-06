@@ -258,9 +258,9 @@ tobago-date {
 }
 
 /*
-XXX workaround for Bootstrap with datetimepicker needed for popups
+workaround for Bootstrap Modal (Popup) with vanillajs-datepicker
 */
-.bootstrap-datetimepicker-widget {
+.datepicker-dropdown {
   z-index: 2000 !important;
 }
 
@@ -1594,16 +1594,4 @@ fixme: there is a problem with the selectManyShuttle with this style.
 label.tobago-required:after {
   content: "*";
   color: theme-color("danger");
-}
-
-/* Bootstrap datetimepicker workarounds ------------------------------------------------------------------ */
-
-/*
- * CSS extension for bootstrap3-datetimepicker to fit with bootstrap4.
- */
-
-.bootstrap-datetimepicker-widget {
-  th, td {
-    padding: 5px;
-  }
 }

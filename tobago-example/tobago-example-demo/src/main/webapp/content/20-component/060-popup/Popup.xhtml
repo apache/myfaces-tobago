@@ -91,6 +91,7 @@
             Also the attribute <code>omit="true"</code> is set to prevent submit.</p>
 
           <tc:in id="in2" label="Required Field" required="true" value="#{popupController.popup2Text}"/>
+          <tc:date id="d2" label="Date Field"/>
           <tc:buttons>
             <tc:button id="submit2" label="Submit">
               <f:ajax execute="in2" render="in2 :::out clientPopupMessages"/>

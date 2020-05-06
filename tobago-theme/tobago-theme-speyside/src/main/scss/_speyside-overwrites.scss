@@ -746,15 +746,6 @@ li:last-child {
   line-height: 1.3em;
 }
 
-.bootstrap-datetimepicker-widget .datepicker-days {
-  .past.day {
-    opacity: 0.7;
-  }
-  .old.day, .new.day {
-    opacity: 0.5;
-  }
-}
-
 // checkboxes and radio buttons
 .tobago-selectBooleanCheckbox, .tobago-selectManyCheckbox, .tobago-selectOneRadio {
   .form-check-label {
