@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.declaration;
 
-import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
@@ -27,7 +26,7 @@ public interface HasFor {
   /**
    * Id of the component, this is related to.
    */
-  @TagAttribute
-  @UIComponentTagAttribute(expression = DynamicExpression.PROHIBITED)
+  @TagAttribute(rtexprvalue = true)
+  @UIComponentTagAttribute(type = "java.lang.String")
   void setFor(String forComponent);
 }
