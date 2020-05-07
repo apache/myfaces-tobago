@@ -15,56 +15,57 @@
  * limitations under the License.
  */
 
-import {Listener, Phase} from "./tobago-listener";
 import {DomUtils} from "./tobago-utils";
 
-class HeaderFooter {
+class Footer extends HTMLElement {
 
-  static init = function (element: HTMLElement): void {
+  private lastMaxFooterHeight: number;
 
-    // fixing fixed header/footer: content should not scroll behind the footer
+  constructor() {
+    super();
+  }
 
-    const body = DomUtils.selfOrQuerySelectorAll(element, "body")[0];
+  connectedCallback(): void {
+    this.lastMaxFooterHeight = 0;
 
-    if (body) {
-      const footers = DomUtils.selfOrQuerySelectorAll(element, ".fixed-bottom");
+    if(this.isFixed) {
+      window.addEventListener("resize", this.resize.bind(this));
 
-      HeaderFooter.setMargins(body, footers);
-
-      let lastMaxFooterHeight = 0;
-
-      // todo: check possible memory leak: use of DOM elements in event listener!
-      window.addEventListener("resize", function (): void {
-        const maxFooterHeight: number = HeaderFooter.getMaxFooterHeight(footers);
-
-        if (maxFooterHeight !== lastMaxFooterHeight) {
-          HeaderFooter.setMargins(body, footers);
-          lastMaxFooterHeight = maxFooterHeight;
-        }
-      });
-    }
-  };
-
-  static setMargins =  function (body: HTMLElement, footers: HTMLElement[]): void {
-    const maxFooterHeight = HeaderFooter.getMaxFooterHeight(footers);
-
-    if (maxFooterHeight > 0) {
-      body.style.marginBottom = maxFooterHeight + "px";
-    }
-  };
-
-  static getMaxFooterHeight = function (footers: HTMLElement[]): number {
-    let maxFooterHeight = 0;
-    footers.forEach(function (element: HTMLElement): void {
-      const height = DomUtils.outerHeightWithMargin(element);
-      if (height > maxFooterHeight) {
-        maxFooterHeight = height;
+      if (this.body) {
+        this.setMargins();
       }
-    });
-    return maxFooterHeight;
-  };
+    }
+  }
 
+  private resize(event: MouseEvent): void {
+    const maxFooterHeight: number = DomUtils.outerHeightWithMargin(this);
+
+    if (maxFooterHeight !== this.lastMaxFooterHeight) {
+      this.setMargins();
+      this.lastMaxFooterHeight = maxFooterHeight;
+    }
+  }
+
+  private setMargins(): void {
+    if (this.isFixed) {
+      const maxFooterHeight = DomUtils.outerHeightWithMargin(this);
+
+      if (maxFooterHeight > 0) {
+        this.body.style.marginBottom = maxFooterHeight + "px";
+      }
+    }
+  }
+
+  private get body(): HTMLElement {
+    const root = this.getRootNode() as ShadowRoot | Document;
+    return root.querySelector("body");
+  }
+
+  private get isFixed(): boolean {
+    return this.classList.contains("fixed-bottom");
+  }
 }
 
-Listener.register(HeaderFooter.init, Phase.DOCUMENT_READY);
-Listener.register(HeaderFooter.init, Phase.AFTER_UPDATE);
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
+  window.customElements.define("tobago-footer", Footer);
+});
