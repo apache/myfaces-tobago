@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
@@ -74,7 +73,6 @@ public class InRenderer extends MessageLayoutRendererBase {
     final boolean readonly = input.isReadonly();
     final boolean disabled = input.isDisabled();
     final boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.required);
-    final Markup markup = input.getMarkup();
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
