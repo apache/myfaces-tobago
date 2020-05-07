@@ -25,7 +25,7 @@ import "./tobago-date-utils";
 import "./tobago-command";
 import "./tobago-file";
 import "./tobago-focus";
-import "./tobago-header-footer";
+import "./tobago-footer";
 import "./tobago-in";
 import "./tobago-jsf";
 import "./tobago-overlay";

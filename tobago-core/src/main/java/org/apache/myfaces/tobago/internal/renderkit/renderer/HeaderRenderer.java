@@ -40,7 +40,7 @@ public class HeaderRenderer extends RendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final AbstractUIHeader header = (AbstractUIHeader) component;
     final Markup markup = header.getMarkup();
-    writer.startElement(HtmlElements.HEADER);
+    writer.startElement(HtmlElements.TOBAGO_HEADER);
     writer.writeIdAttribute(component.getClientId(facesContext));
     // TBD: NAVBAR_DARK and BG_INVERSE should not be the default
     // TBD: how to configure it when it is needed, with customClass, or with markup?
@@ -58,6 +58,6 @@ public class HeaderRenderer extends RendererBase {
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.endElement(HtmlElements.HEADER);
+    writer.endElement(HtmlElements.TOBAGO_HEADER);
   }
 }
