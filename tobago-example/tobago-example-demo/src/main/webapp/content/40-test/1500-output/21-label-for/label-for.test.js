@@ -16,7 +16,7 @@
  */
 
 QUnit.test("Test for required CSS class", function (assert) {
-  assert.expect(13);
+  assert.expect(15);
 
   var $inLabel = jQueryFrame("#page\\:mainForm\\:inLabel");
   var $dateLabel = jQueryFrame("#page\\:mainForm\\:dateLabel");
@@ -31,6 +31,8 @@ QUnit.test("Test for required CSS class", function (assert) {
   var $selectManyListboxLabel = jQueryFrame("#page\\:mainForm\\:selectManyListboxLabel");
   var $selectManyShuttleLabel = jQueryFrame("#page\\:mainForm\\:selectManyShuttleLabel");
   var $starsLabel = jQueryFrame("#page\\:mainForm\\:starsLabel");
+  var $labelForIdOne = jQueryFrame("#page\\:mainForm\\:labelForIdOne");
+  var $labelForIdTwo = jQueryFrame("#page\\:mainForm\\:labelForIdTwo");
 
   assert.ok($inLabel.hasClass("tobago-required"));
   assert.ok($dateLabel.hasClass("tobago-required"));
@@ -45,4 +47,6 @@ QUnit.test("Test for required CSS class", function (assert) {
   assert.ok($selectManyListboxLabel.hasClass("tobago-required"));
   assert.ok($selectManyShuttleLabel.hasClass("tobago-required"));
   assert.ok($starsLabel.hasClass("tobago-required"));
+  assert.equal($labelForIdOne.attr("for"), "page:mainForm:id1::field");
+  assert.equal($labelForIdTwo.attr("for"), "page:mainForm:id2::field");
 });
