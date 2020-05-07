@@ -21,9 +21,25 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
 
+import javax.el.ValueExpression;
+
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.LabelTagDeclaration}
  */
 public abstract class AbstractUILabel
     extends AbstractUILabelBase implements SupportsAccessKey {
+
+  /*
+   * Need to set the name to 'forComponent' which comes from UILabel.PropertyKeys.forComponent.
+   * TODO a better way would be to improve the UILabel.PropertyKeys, so an exact string could be specified.
+   * As an example, look at: javax.faces.component.UIMessages
+   */
+  @Override
+  public void setValueExpression(String name, ValueExpression expression) {
+    if ("for".equals(name)) {
+      super.setValueExpression("forComponent", expression);
+    } else {
+      super.setValueExpression(name, expression);
+    }
+  }
 }

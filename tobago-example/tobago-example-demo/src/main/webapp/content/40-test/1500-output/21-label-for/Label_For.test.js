@@ -32,6 +32,8 @@ it("Test for required CSS class", function (done) {
   let selectManyListboxLabel = querySelectorFn("#page\\:mainForm\\:selectManyListboxLabel");
   let selectManyShuttleLabel = querySelectorFn("#page\\:mainForm\\:selectManyShuttleLabel");
   let starsLabel = querySelectorFn("#page\\:mainForm\\:starsLabel");
+  let labelForIdOne = querySelectorFn("#page\\:mainForm\\:labelForIdOne");
+  let labelForIdTwo = querySelectorFn("#page\\:mainForm\\:labelForIdTwo");
 
   let test = new JasmineTestTool(done);
   test.do(() => expect(inLabel().classList.contains("tobago-required")).toBe(true));
@@ -47,5 +49,7 @@ it("Test for required CSS class", function (done) {
   test.do(() => expect(selectManyListboxLabel().classList.contains("tobago-required")).toBe(true));
   test.do(() => expect(selectManyShuttleLabel().classList.contains("tobago-required")).toBe(true));
   test.do(() => expect(starsLabel().classList.contains("tobago-required")).toBe(true));
+  test.do(() => expect(labelForIdOne().getAttribute("for")).toEqual("page:mainForm:id1::field"));
+  test.do(() => expect(labelForIdTwo().getAttribute("for")).toEqual("page:mainForm:id2::field"));
   test.start();
 });
