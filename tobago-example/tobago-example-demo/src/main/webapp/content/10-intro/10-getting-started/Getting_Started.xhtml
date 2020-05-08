@@ -105,4 +105,11 @@ $ mvn jetty:run -Djsf=mojarra-2.3</code></pre>
 
   </tc:section>
 
+  <tc:section label="Development">
+    <p>For development the example-demo could be run with maven profile "dev".</p>
+    <pre><code class="language-bash">$ mvn -Pdev jetty:run</code></pre>
+    <p>In this case the npm scripts "dev-css" and "dev-ts" could be run to compile css and typescript classes.
+      These changes would be detected by jetty without restart.</p>
+  </tc:section>
+
 </ui:composition>

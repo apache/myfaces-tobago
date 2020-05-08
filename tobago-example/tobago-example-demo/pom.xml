@@ -37,6 +37,7 @@
     <exec.version>1.6.0</exec.version>
     <finalName>tobago-example-demo</finalName>
     <hibernate-validator.version>4.3.2.Final</hibernate-validator.version>
+    <tobago-theme-standard-dir>${basedir}/target/tobago-theme-standard</tobago-theme-standard-dir>
   </properties>
 
   <build>
@@ -106,6 +107,22 @@
         </configuration>
       </plugin>
       <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>initialize</phase>
+            <configuration>
+              <target>
+                <mkdir dir="${tobago-theme-standard-dir}/META-INF/resources"/>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
         <configuration>
@@ -128,6 +145,9 @@
               <contextPath>/example</contextPath>
             </webApp>
           -->
+          <webApp>
+            <resourceBases>${basedir}/src/main/webapp,${tobago-theme-standard-dir}/META-INF/resources</resourceBases>
+          </webApp>
         </configuration>
         <dependencies>
         </dependencies>
@@ -241,6 +261,36 @@
   </dependencies>
 
   <profiles>
+    <profile>
+      <id>dev</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>unpack-tobago-theme-standard</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>unpack</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${tobago-theme-standard-dir}</outputDirectory>
+                  <artifactItems>
+                    <artifactItem>
+                      <groupId>org.apache.myfaces.tobago</groupId>
+                      <artifactId>tobago-theme-standard</artifactId>
+                      <version>${project.version}</version>
+                    </artifactItem>
+                  </artifactItems>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
 
     <profile>
       <id>jsf-provided</id>
