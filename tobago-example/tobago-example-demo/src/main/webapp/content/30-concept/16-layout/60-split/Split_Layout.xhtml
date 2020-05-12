@@ -47,7 +47,7 @@
     &lt;tc:style minWidth="150px"/>
   &lt;/tc:textarea>
 &lt;/tc:splitLayout></code></pre>
-    <tc:splitLayout columns="2fr 1fr 1fr">
+    <tc:splitLayout id="example1" columns="2fr 1fr 1fr">
       <tc:panel>
         <tc:style minWidth="150px"/>
         <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
@@ -71,7 +71,7 @@
   &lt;tc:button label="A"/>
   &lt;tc:button label="B"/>
 &lt;/tc:splitLayout></code></pre>
-    <tc:splitLayout columns="1fr 4fr 1fr">
+    <tc:splitLayout id="example2" columns="1fr 4fr 1fr">
       <tc:button label="A"/>
       <tc:button label="B"/>
       <!--<tc:button label="C"/>-->
@@ -103,8 +103,8 @@
   &lt;/tc:box>
 &lt;/tc:splitLayout></code></pre>
     <tc:flexLayout rows="auto 1fr">
-      <tc:splitLayout columns="#{splitLayoutController.verticalLayout}">
-        <tc:splitLayout rows="#{splitLayoutController.horizontalLayout}">
+      <tc:splitLayout id="example3a" columns="#{splitLayoutController.verticalLayout}">
+        <tc:splitLayout id="example3b" rows="#{splitLayoutController.horizontalLayout}">
           <tc:box label="Top left box">
             <tc:style minWidth="150px"/>
             <tc:out
