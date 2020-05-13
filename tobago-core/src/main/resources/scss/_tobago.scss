@@ -181,11 +181,6 @@ $form-disabled-alpha: 0.5;
 }
 
 /* button -------------------------------------------------------------- */
-
-.tobago-button {
-  cursor: default;
-}
-
 a.tobago-button {
   &.btn-primary:focus {
     color: $btn-primary-color;
