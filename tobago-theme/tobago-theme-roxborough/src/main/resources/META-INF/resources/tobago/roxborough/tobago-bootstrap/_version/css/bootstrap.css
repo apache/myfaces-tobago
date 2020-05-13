@@ -10375,10 +10375,6 @@ XXX code will be inserted after the _variables.scss
 }
 
 /* button -------------------------------------------------------------- */
-.tobago-button {
-  cursor: default;
-}
-
 a.tobago-button.btn-primary:focus {
   color: #fff;
 }
