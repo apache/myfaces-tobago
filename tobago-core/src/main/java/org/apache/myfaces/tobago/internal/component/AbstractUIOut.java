@@ -48,8 +48,4 @@ public abstract class AbstractUIOut extends UIOutput implements SupportsLabelLay
   public abstract boolean isCompact();
 
   public abstract SanitizeMode getSanitize();
-
-  public boolean isLabelLayoutSkip() {
-    return getLabelLayout() == LabelLayout.skip;
-  }
 }

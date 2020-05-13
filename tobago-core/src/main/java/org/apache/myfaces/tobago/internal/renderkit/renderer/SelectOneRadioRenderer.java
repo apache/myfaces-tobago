@@ -43,6 +43,7 @@ import java.io.IOException;
 
 public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
+  @Override
   public HtmlElements getComponentTag() {
     return HtmlElements.TOBAGO_SELECT_ONE_RADIO;
   }
@@ -63,11 +64,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     final boolean inline = select.isInline();
     final Markup markup = select.getMarkup();
 
-    writer.startElement(HtmlElements.DIV);
-    if (select.isLabelLayoutSkip()) {
-      writer.writeIdAttribute(referenceId);
-    }
-
+    writer.startElement(getOuterHtmlTag());
     writer.writeClassAttribute(
         TobagoClass.SELECT_ONE_RADIO,
         TobagoClass.SELECT_ONE_RADIO.createMarkup(markup),
@@ -156,9 +153,13 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final AbstractUISelectOneRadio select = (AbstractUISelectOneRadio) component;
 
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(getOuterHtmlTag());
 
     encodeBehavior(writer, facesContext, select);
+  }
+
+  protected HtmlElements getOuterHtmlTag() {
+    return HtmlElements.DIV;
   }
 
   protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectOneRadio select) {

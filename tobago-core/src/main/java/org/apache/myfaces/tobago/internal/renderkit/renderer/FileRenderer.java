@@ -57,6 +57,11 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
+  public HtmlElements getComponentTag() {
+    return HtmlElements.TOBAGO_FILE;
+  }
+
+  @Override
   public void processEvent(final ComponentSystemEvent event) {
     TobagoContext.getInstance(FacesContext.getCurrentInstance()).setEnctype("multipart/form-data");
   }
@@ -127,10 +132,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.TOBAGO_FILE);
-    if (file.isLabelLayoutSkip()) {
-      writer.writeIdAttribute(clientId);
-    }
+    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(
         BootstrapClass.CUSTOM_FILE,
         TobagoClass.FILE.createMarkup(file.getMarkup()),
@@ -199,7 +201,7 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
   @Override
   protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.endElement(HtmlElements.TOBAGO_FILE);
+    writer.endElement(HtmlElements.DIV);
   }
 
   @Override

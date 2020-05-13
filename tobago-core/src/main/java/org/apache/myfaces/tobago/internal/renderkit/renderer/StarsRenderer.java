@@ -36,6 +36,11 @@ import java.io.IOException;
 public class StarsRenderer extends MessageLayoutRendererBase {
 
   @Override
+  public HtmlElements getComponentTag() {
+    return HtmlElements.TOBAGO_STARS;
+  }
+
+  @Override
   protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
@@ -56,7 +61,7 @@ public class StarsRenderer extends MessageLayoutRendererBase {
         ? (String) stars.getSubmittedValue() : String.valueOf(value);
     final String hiddenInputValue = required && "0".equals(sliderValue) ? null : sliderValue;
 
-    writer.startElement(HtmlElements.TOBAGO_STARS);
+    writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(fieldId);
     writer.writeClassAttribute(
         TobagoClass.STARS,
@@ -120,7 +125,7 @@ public class StarsRenderer extends MessageLayoutRendererBase {
   @Override
   protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.endElement(HtmlElements.TOBAGO_STARS);
+    writer.endElement(HtmlElements.DIV);
   }
 
   @Override

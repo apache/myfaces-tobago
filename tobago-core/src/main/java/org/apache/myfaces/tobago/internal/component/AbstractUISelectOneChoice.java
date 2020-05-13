@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -32,10 +31,6 @@ public abstract class AbstractUISelectOneChoice extends AbstractUISelectOneBase 
 
   @Override
   public String getFieldId(final FacesContext facesContext) {
-    if (getLabelLayout() == LabelLayout.skip) {
-      return getClientId(facesContext);
-    } else {
-      return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
-    }
+    return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
   }
 }

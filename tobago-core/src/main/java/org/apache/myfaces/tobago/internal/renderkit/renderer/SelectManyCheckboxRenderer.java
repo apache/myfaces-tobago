@@ -42,6 +42,7 @@ import java.io.IOException;
 
 public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
+  @Override
   public HtmlElements getComponentTag() {
     return HtmlElements.TOBAGO_SELECT_MANY_CHECKBOX;
   }
@@ -61,11 +62,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     final boolean inline = select.isInline();
     final Markup markup = select.getMarkup();
 
-    writer.startElement(HtmlElements.DIV);
-    if (select.isLabelLayoutSkip()) {
-      writer.writeIdAttribute(referenceId);
-    }
-
+    writer.startElement(getOuterHtmlTag());
     writer.writeClassAttribute(
         TobagoClass.SELECT_MANY_CHECKBOX,
         TobagoClass.SELECT_MANY_CHECKBOX.createMarkup(markup),
@@ -155,7 +152,11 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
   @Override
   protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(getOuterHtmlTag());
+  }
+
+  protected HtmlElements getOuterHtmlTag() {
+    return HtmlElements.DIV;
   }
 
   protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectManyCheckbox select) {

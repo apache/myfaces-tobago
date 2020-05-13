@@ -53,6 +53,7 @@ public class InRenderer extends MessageLayoutRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+  @Override
   public HtmlElements getComponentTag() {
     return HtmlElements.TOBAGO_IN;
   }
@@ -81,9 +82,6 @@ public class InRenderer extends MessageLayoutRendererBase {
 
     if (after != null || before != null) {
       writer.startElement(HtmlElements.DIV); // Wrapping the field to fix input groups with flexLeft/flexRight
-      if (input.isLabelLayoutSkip()) {
-        writer.writeIdAttribute(clientId);
-      }
       writer.writeClassAttribute(TobagoClass.INPUT__GROUP__OUTER);
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);

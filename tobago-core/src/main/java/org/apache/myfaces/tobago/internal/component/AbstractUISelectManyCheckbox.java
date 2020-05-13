@@ -50,8 +50,4 @@ public abstract class AbstractUISelectManyCheckbox extends AbstractUISelectManyB
   public AbstractUISelectReference getRenderRangeReference() {
     return renderRangeReference;
   }
-
-  public boolean isLabelLayoutSkip() {
-    return getLabelLayout() == LabelLayout.skip;
-  }
 }

@@ -39,6 +39,11 @@ import java.io.IOException;
 public class SelectOneChoiceRenderer extends SelectOneRendererBase {
 
   @Override
+  public HtmlElements getComponentTag() {
+    return HtmlElements.DIV;
+  }
+
+  @Override
   public boolean getRendersChildren() {
     return true;
   }

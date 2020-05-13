@@ -39,6 +39,11 @@ import java.util.List;
 public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
   @Override
+  public HtmlElements getComponentTag() {
+    return HtmlElements.DIV;
+  }
+
+  @Override
   public boolean getRendersChildren() {
     return true;
   }
