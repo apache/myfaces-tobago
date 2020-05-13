@@ -49,6 +49,7 @@ public class DateRenderer extends InRenderer {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+  @Override
   public HtmlElements getComponentTag() {
     return HtmlElements.TOBAGO_DATE;
   }
@@ -75,9 +76,6 @@ public class DateRenderer extends InRenderer {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
-    if (date.isLabelLayoutSkip()) {
-      writer.writeIdAttribute(date.getClientId());
-    }
     writer.writeClassAttribute(TobagoClass.INPUT__GROUP__OUTER);
 
     writer.startElement(HtmlElements.DIV);

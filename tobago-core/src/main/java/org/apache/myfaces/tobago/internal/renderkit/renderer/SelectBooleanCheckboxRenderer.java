@@ -66,6 +66,7 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     decodeClientBehaviors(facesContext, input);
   }
 
+  @Override
   public HtmlElements getComponentTag() {
     return HtmlElements.TOBAGO_SELECT_BOOLEAN_CHECKBOX;
   }
@@ -86,11 +87,7 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     final String itemImage = select.getItemImage();
     final Markup markup = select.getMarkup();
 
-    writer.startElement(HtmlElements.DIV);
-    if (select.isLabelLayoutSkip()) {
-      writer.writeIdAttribute(clientId);
-    }
-
+    writer.startElement(getOuterHtmlTag());
     writer.writeClassAttribute(
         getTobagoClass(),
         getTobagoClass().createMarkup(markup),
@@ -125,7 +122,7 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
       AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
     }
     writer.writeAttribute(HtmlAttributes.FOR, fieldId, false);
-    if(itemImage != null) {
+    if (itemImage != null) {
       writer.startElement(HtmlElements.IMG);
       writer.writeAttribute(HtmlAttributes.SRC, itemImage, true);
       writer.writeAttribute(HtmlAttributes.ALT, "", false);
@@ -150,9 +147,13 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final AbstractUISelectBoolean select = (AbstractUISelectBoolean) component;
 
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(getOuterHtmlTag());
 
     encodeBehavior(writer, facesContext, select);
+  }
+
+  protected HtmlElements getOuterHtmlTag() {
+    return HtmlElements.DIV;
   }
 
   protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {

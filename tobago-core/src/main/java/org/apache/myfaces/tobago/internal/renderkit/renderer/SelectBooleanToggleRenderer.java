@@ -41,6 +41,7 @@ public class SelectBooleanToggleRenderer extends SelectBooleanCheckboxRenderer {
     };
   }
 
+  @Override
   public HtmlElements getComponentTag() {
     return HtmlElements.TOBAGO_SELECT_BOOLEAN_TOGGLE;
   }

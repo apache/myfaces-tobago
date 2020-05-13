@@ -42,8 +42,4 @@ public abstract class AbstractUISelectOneRadio extends AbstractUISelectOneBase i
   public AbstractUISelectReference getRenderRangeReference() {
     return renderRangeReference;
   }
-
-  public boolean isLabelLayoutSkip() {
-    return getLabelLayout() == LabelLayout.skip;
-  }
 }

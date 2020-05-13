@@ -46,9 +46,7 @@ import java.util.List;
  */
 public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase {
 
-  public HtmlElements getComponentTag() {
-    return HtmlElements.DIV;
-  }
+  public abstract HtmlElements getComponentTag();
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
@@ -107,6 +105,8 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     final boolean flex;
     switch (labelLayout) {
       case skip:
+        writer.startElement(getComponentTag());
+        writer.writeIdAttribute(clientId);
         return;
       case flexLeft:
       case flexRight:
@@ -185,7 +185,6 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
 
     switch (labelLayout) {
       case skip:
-        return;
       case none:
         break;
       case flexRight:

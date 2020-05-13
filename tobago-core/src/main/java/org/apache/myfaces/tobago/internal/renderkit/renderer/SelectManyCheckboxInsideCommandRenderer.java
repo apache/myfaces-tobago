@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyCheckbox;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -37,6 +38,11 @@ public class SelectManyCheckboxInsideCommandRenderer extends SelectManyCheckboxR
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     encodeEndField(facesContext, component);
+  }
+
+  @Override
+  protected HtmlElements getOuterHtmlTag() {
+    return HtmlElements.TOBAGO_SELECT_MANY_CHECKBOX;
   }
 
   @Override

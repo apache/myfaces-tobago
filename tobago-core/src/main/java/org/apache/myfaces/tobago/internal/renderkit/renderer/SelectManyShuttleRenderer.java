@@ -40,6 +40,7 @@ import java.util.List;
 
 public class SelectManyShuttleRenderer extends SelectManyRendererBase {
 
+  @Override
   public HtmlElements getComponentTag() {
     return HtmlElements.TOBAGO_SELECT_MANY_SHUTTLE;
   }
@@ -53,9 +54,6 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     final Markup markup = select.getMarkup();
 
     writer.startElement(HtmlElements.DIV);
-    if (select.isLabelLayoutSkip()) {
-      writer.writeIdAttribute(clientId);
-    }
     writer.writeClassAttribute(
         TobagoClass.SELECT_MANY_SHUTTLE,
         TobagoClass.SELECT_MANY_SHUTTLE.createMarkup(markup),

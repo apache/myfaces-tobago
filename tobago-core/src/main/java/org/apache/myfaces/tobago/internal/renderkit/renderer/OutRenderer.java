@@ -41,41 +41,66 @@ import java.util.StringTokenizer;
 public class OutRenderer extends MessageLayoutRendererBase {
 
   @Override
-  public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public HtmlElements getComponentTag() {
+    return HtmlElements.DIV;
+  }
 
+  @Override
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
     final AbstractUIOut out = (AbstractUIOut) component;
+    final boolean plain = out.isPlain() || out.isCompact() || !out.isCreateSpan();
+
+    if (plain) {
+      encodeText(facesContext, out);
+    } else {
+      super.encodeBegin(facesContext, component);
+    }
+  }
+
+  @Override
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final AbstractUIOut out = (AbstractUIOut) component;
+    final boolean plain = out.isPlain() || out.isCompact() || !out.isCreateSpan();
+
+    if (!plain) {
+      super.encodeEnd(facesContext, component);
+    }
+  }
+
+  @Override
+  public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final AbstractUIOut out = (AbstractUIOut) component;
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final Markup markup = out.getMarkup();
+
+    writer.startElement(HtmlElements.SPAN);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, out);
+
+    writer.writeClassAttribute(
+        TobagoClass.OUT,
+        TobagoClass.OUT.createMarkup(markup),
+        getCssItems(facesContext, out),
+        BootstrapClass.textColor(markup),
+        BootstrapClass.fontStyle(markup),
+        out.getCustomClass());
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, out);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    }
+
+    encodeText(facesContext, out);
+  }
+
+  private void encodeText(final FacesContext facesContext, final AbstractUIOut out) throws IOException {
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final boolean escape = out.isEscape();
+    final boolean keepLineBreaks = out.isKeepLineBreaks();
 
     String text = RenderUtils.currentValue(out);
     if (text == null) {
       text = "";
     }
 
-    final TobagoResponseWriter writer = getResponseWriter(facesContext);
-
-    final boolean escape = out.isEscape();
-    final boolean keepLineBreaks = out.isKeepLineBreaks();
-    final boolean plain = out.isPlain() || out.isCompact() || !out.isCreateSpan();
-    final Markup markup = out.getMarkup();
-
-    if (!plain) {
-      writer.startElement(HtmlElements.SPAN);
-      if (out.isLabelLayoutSkip()) {
-        writer.writeIdAttribute(out.getClientId());
-      }
-      HtmlRendererUtils.writeDataAttributes(facesContext, writer, out);
-
-      writer.writeClassAttribute(
-          TobagoClass.OUT,
-          TobagoClass.OUT.createMarkup(markup),
-          getCssItems(facesContext, out),
-          BootstrapClass.textColor(markup),
-          BootstrapClass.fontStyle(markup),
-          out.getCustomClass());
-      final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, out);
-      if (title != null) {
-        writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-      }
-    }
     if (escape) {
       if (keepLineBreaks) {
         final StringTokenizer tokenizer = new StringTokenizer(text, "\r\n");
@@ -105,11 +130,8 @@ public class OutRenderer extends MessageLayoutRendererBase {
 
     final AbstractUIOut out = (AbstractUIOut) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final boolean plain = out.isPlain() || out.isCompact() || !out.isCreateSpan();
 
-    if (!plain) {
-      writer.endElement(HtmlElements.SPAN);
-    }
+    writer.endElement(HtmlElements.SPAN);
   }
 
   @Override

@@ -48,6 +48,11 @@ import java.lang.invoke.MethodHandles;
 
 public class TextareaRenderer extends MessageLayoutRendererBase {
 
+  @Override
+  public HtmlElements getComponentTag() {
+    return HtmlElements.DIV;
+  }
+
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override

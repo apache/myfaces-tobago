@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.Visual;
@@ -94,14 +93,6 @@ public abstract class AbstractUIStars extends UIInput
 
   @Override
   public String getFieldId(final FacesContext facesContext) {
-    if (getLabelLayout() == LabelLayout.skip) {
-      return getClientId(facesContext);
-    } else {
-      return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
-    }
-  }
-
-  public boolean isLabelLayoutSkip() {
-    return getLabelLayout() == LabelLayout.skip;
+    return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
   }
 }
