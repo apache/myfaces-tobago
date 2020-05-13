@@ -198,10 +198,6 @@ tobago-behavior {
 
 /* button -------------------------------------------------------------- */
 
-.tobago-button {
-  cursor: default;
-}
-
 a.tobago-button {
   &.btn-primary:focus {
     color: $btn-primary-color;
