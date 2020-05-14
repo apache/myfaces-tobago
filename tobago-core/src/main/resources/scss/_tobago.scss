@@ -1038,27 +1038,31 @@ tobago-select-one-listbox {
 /* selectOneRadio ---------------------------------------------------------- */
 tobago-select-one-radio {
   display: block;
+  @include adjustCustomControlLabel();
+
+  &.tobago-label-container {
+    .tobago-selectOneRadio-inline {
+      @include inlinePadding();
+    }
+  }
 }
 
 .tobago-selectOneRadio {
-  @include adjustCustomControlLabel();
-
-  &.tobago-selectOneRadio-inline {
-    @include inlinePadding();
-  }
 }
 
 /* selectManyCheckbox ----------------------------------------------------- */
 tobago-select-many-checkbox {
   display: block;
+  @include adjustCustomControlLabel();
+
+  &.tobago-label-container {
+    .tobago-selectManyCheckbox-inline {
+      @include inlinePadding();
+    }
+  }
 }
 
 .tobago-selectManyCheckbox {
-  @include adjustCustomControlLabel();
-
-  &.tobago-selectManyCheckbox-inline {
-    @include inlinePadding();
-  }
 }
 
 /* selectManyListbox ----------------------------------------------------------- */
