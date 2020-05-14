@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.RenderRange;
 
 /**
