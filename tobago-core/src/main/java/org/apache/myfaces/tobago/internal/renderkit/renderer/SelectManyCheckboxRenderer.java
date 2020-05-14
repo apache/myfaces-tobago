@@ -117,8 +117,6 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
             getCssItems(facesContext, select));
         writer.writeAttribute(HtmlAttributes.FOR, itemId, false);
 
-        encodeBehavior(writer, facesContext, select);
-
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
           final org.apache.myfaces.tobago.model.SelectItem tobagoItem =
               (org.apache.myfaces.tobago.model.SelectItem) item;
@@ -152,7 +150,11 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
   @Override
   protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final AbstractUISelectManyCheckbox select = (AbstractUISelectManyCheckbox) component;
+
     writer.endElement(getOuterHtmlTag());
+
+    encodeBehavior(writer, facesContext, select);
   }
 
   protected HtmlElements getOuterHtmlTag() {
