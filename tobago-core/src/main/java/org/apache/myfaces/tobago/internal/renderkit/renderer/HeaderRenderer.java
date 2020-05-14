@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -51,6 +52,7 @@ public class HeaderRenderer extends RendererBase {
         header.isFixed() ? BootstrapClass.STICKY_TOP : null,
         header.getCustomClass());
 // TBD: should NAVBAR class be in the LinksRenderer?
+    writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.BANNER.toString(), false);
     writer.writeAttribute(HtmlAttributes.TITLE, header.getTip(), true);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, header);
   }
