@@ -285,6 +285,7 @@ tobago-file {
 /* flexLayout -------------------------------------------------------------- */
 
 .tobago-flexLayout {
+  display: flex;
   min-width: 0;
   /* without this, Firefox/Webkit are different from IE:
      Set the minimal width to zero make flex-layout responsive for the width,
@@ -1366,6 +1367,7 @@ tobago-sheet {
 
 /* splitLayout ---------------------------------------------------------------------- */
 tobago-split-layout {
+  display: flex;
 }
 
 .tobago-splitLayout {
