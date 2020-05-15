@@ -22,7 +22,13 @@ package org.apache.myfaces.tobago.renderkit.html;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -60,5 +66,36 @@ public class HtmlElementsUnitTest {
       Assertions.assertEquals(voids.contains(element.getValue()), element.isVoid(), "Check void: '" + element + "'");
     }
 
+  }
+
+  /**
+   * This test checks whether every tobago custom element {@link HtmlElements} occurs in the _tobago.scss.
+   */
+  @Test
+  public void testCompareTobagoCustomElement() throws IOException, IllegalAccessException {
+
+    Path scssPath = Paths.get("src/main/resources/scss/_tobago.scss");
+    final String fileContent = new String(Files.readAllBytes(scssPath), StandardCharsets.UTF_8);
+
+    final List<HtmlElements> missing = new ArrayList<>();
+    for (final Field field : HtmlElements.class.getFields()) {
+      final HtmlElements element = (HtmlElements) field.get(null);
+      final String tagName = element.getValue();
+
+      if (tagName.startsWith("tobago-") && !containsTagName(fileContent, tagName)) {
+        missing.add(element);
+      }
+    }
+
+    Assertions.assertTrue(missing.isEmpty(), "These custom elements are missing in _tobago.scss: " + missing);
+  }
+
+  private boolean containsTagName(final String content, final String tagName) {
+    return content.contains(tagName + " ")
+        || content.contains(tagName + "{")
+        || content.contains(tagName + ",")
+        || content.contains(tagName + ":")
+        || content.contains(tagName + ".")
+        || content.contains(tagName + ">");
   }
 }
