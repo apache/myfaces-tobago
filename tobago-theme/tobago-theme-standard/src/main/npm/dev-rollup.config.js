@@ -26,6 +26,10 @@ export default {
     name: 'tobago'
   },
   plugins: [
-    resolve()
+    resolve({
+      customResolveOptions: {
+        moduleDirectory: 'src/main/npm/node_modules'
+      }
+    })
   ]
 };
