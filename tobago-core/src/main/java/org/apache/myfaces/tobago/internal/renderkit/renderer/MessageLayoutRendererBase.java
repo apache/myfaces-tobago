@@ -84,7 +84,7 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
 
     if (hasMessage || hasHelp) {
       writer.startElement(HtmlElements.DIV);
-      writer.writeClassAttribute(TobagoClass.MESSAGES__CONTAINER, TobagoClass.FLEX_LAYOUT, BootstrapClass.D_FLEX);
+      writer.writeClassAttribute(TobagoClass.MESSAGES__CONTAINER, TobagoClass.FLEX_LAYOUT);
     }
   }
 

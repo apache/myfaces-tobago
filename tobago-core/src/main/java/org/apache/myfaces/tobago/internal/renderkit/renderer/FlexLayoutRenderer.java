@@ -44,7 +44,6 @@ public class FlexLayoutRenderer extends RendererBase {
     writer.writeClassAttribute(
         TobagoClass.FLEX_LAYOUT,
         TobagoClass.FLEX_LAYOUT.createMarkup(markup),
-        BootstrapClass.D_FLEX,
         flexLayout.isHorizontal() ? BootstrapClass.FLEX_ROW : BootstrapClass.FLEX_COLUMN,
         BootstrapClass.valueOf(flexLayout.getAlignItems()),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);

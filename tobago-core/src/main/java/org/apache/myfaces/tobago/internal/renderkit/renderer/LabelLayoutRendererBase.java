@@ -137,7 +137,6 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     }
     writer.writeClassAttribute(
         flex ? TobagoClass.FLEX_LAYOUT : null,
-        flex ? BootstrapClass.D_FLEX : null,
         BootstrapClass.FORM_GROUP,
         TobagoClass.LABEL__CONTAINER,
         ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,

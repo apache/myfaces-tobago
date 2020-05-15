@@ -75,7 +75,6 @@ public class SplitLayoutRenderer extends RendererBase {
     writer.startElement(HtmlElements.TOBAGO_SPLIT_LAYOUT);
     writer.writeIdAttribute(splitLayout.getClientId(facesContext));
     writer.writeClassAttribute(
-        BootstrapClass.D_FLEX,
         splitLayout.isHorizontal() ? BootstrapClass.FLEX_ROW : BootstrapClass.FLEX_COLUMN,
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     writer.writeAttribute(CustomAttributes.ORIENTATION,
