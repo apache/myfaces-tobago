@@ -82,7 +82,7 @@ class Dropdown extends HTMLElement {
     } else if (this.dropdownVisible()
         && (event.code === "ArrowUp" || event.code === "ArrowDown"
             || event.code === "ArrowLeft" || event.code === "ArrowRight"
-            || event.code === "Tab")) {
+            || event.code === "Tab" || event.code === "Space")) {
       event.preventDefault();
       event.stopPropagation();
 
@@ -119,6 +119,8 @@ class Dropdown extends HTMLElement {
         } else if (this.activeDropdownEntry.parent) {
           this.activeDropdownEntry.parent.focus();
         }
+      } else if(event.code === "Space") {
+        this.activeDropdownEntry.addSpaceSelectedCssClass();
       }
     } else if (this.dropdownVisible() && event.code === "Escape") {
       event.preventDefault();
@@ -303,6 +305,11 @@ class DropdownEntry {
     this._active = value;
   }
 
+  public addSpaceSelectedCssClass(): void {
+    this._baseElement.classList.remove("tobago-dropdown-selected");
+    this._baseElement.classList.add("tobago-dropdown-space-selected");
+  }
+
   public focus(): void {
     this.previous?.clear();
     this.next?.clear();
@@ -322,6 +329,7 @@ class DropdownEntry {
   public clear(): void {
     this._baseElement.classList.remove("tobago-dropdown-open");
     this._baseElement.classList.remove("tobago-dropdown-selected");
+    this._baseElement.classList.remove("tobago-dropdown-space-selected");
     this.active = false;
   }
 }

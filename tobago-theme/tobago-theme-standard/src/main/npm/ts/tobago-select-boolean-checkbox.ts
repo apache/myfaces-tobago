@@ -26,11 +26,18 @@ export class SelectBooleanCheckbox extends HTMLElement {
   connectedCallback(): void {
     if (this.input.readOnly) {
       this.input.addEventListener("click", preventClick);
+      this.input.addEventListener("keydown", preventKeySelection);
     }
 
     function preventClick(event: MouseEvent): void {
       // in the "readonly" case, prevent the default, which is changing the "checked" state
       event.preventDefault();
+    }
+
+    function preventKeySelection(event: KeyboardEvent): void {
+      if(event.code === "Space") {
+        event.preventDefault();
+      }
     }
   }
 

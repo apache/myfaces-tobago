@@ -636,6 +636,9 @@ tobago-dropdown, .tobago-page-menuStore {
     text-decoration: none;
     @include gradient-bg($dropdown-link-hover-bg);
   }
+  .tobago-dropdown-space-selected {
+    background: $blue;
+  }
 }
 
 ul > tobago-dropdown {

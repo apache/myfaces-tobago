@@ -27,6 +27,7 @@ class SelectOneRadio extends HTMLElement {
     this.saveSelection();
     for (const radio of this.radioGroup) {
       radio.addEventListener("click", this.clickSelection.bind(this));
+      radio.addEventListener("keydown", this.keySelection.bind(this));
     }
   }
 
@@ -41,6 +42,19 @@ class SelectOneRadio extends HTMLElement {
     }
 
     this.saveSelection();
+  }
+
+  private keySelection(event: KeyboardEvent): void {
+    const radio = event.currentTarget as HTMLInputElement;
+    if (event.code === "Space") {
+      if (radio.readOnly) {
+        this.revertSelection();
+      } else if (!radio.disabled && !radio.required && radio.id === this.oldCheckedId) {
+        radio.checked = false;
+        this.oldCheckedId = "";
+      }
+      this.saveSelection();
+    }
   }
 
   private revertSelection(): void {

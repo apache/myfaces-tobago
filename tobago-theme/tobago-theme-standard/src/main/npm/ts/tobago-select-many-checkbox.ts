@@ -25,12 +25,18 @@ class SelectManyCheckbox extends HTMLElement {
     for (const input of this.inputs) {
       if (input.readOnly) {
         input.addEventListener("click", preventClick);
+        input.addEventListener("keydown", preventKeySelection);
       }
 
       function preventClick(event: MouseEvent): void {
         // in the "readonly" case, prevent the default, which is changing the "checked" state
         event.preventDefault();
         console.log("slectmanycheckbox bubb.");
+      }
+      function preventKeySelection(event: KeyboardEvent): void {
+        if(event.code === "Space") {
+          event.preventDefault();
+        }
       }
     }
   }
