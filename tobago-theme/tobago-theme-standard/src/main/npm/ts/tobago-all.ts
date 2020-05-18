@@ -28,6 +28,7 @@ import "./tobago-focus";
 import "./tobago-footer";
 import "./tobago-in";
 import "./tobago-jsf";
+import "./tobago-messages";
 import "./tobago-overlay";
 import "./tobago-panel";
 import "./tobago-popover";

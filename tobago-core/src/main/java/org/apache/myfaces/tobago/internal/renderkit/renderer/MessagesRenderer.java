@@ -75,7 +75,7 @@ public class MessagesRenderer extends RendererBase {
         clientIds = facesContext.getClientIdsWithMessages();
       }*/
 
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.TOBAGO_MESSAGES);
     writer.writeIdAttribute(messages.getClientId(facesContext));
     final Markup markup = messages.getMarkup();
     writer.writeClassAttribute(
@@ -130,7 +130,7 @@ public class MessagesRenderer extends RendererBase {
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
       writer.endElement(HtmlElements.INPUT);
     }
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.TOBAGO_MESSAGES);
 /*
       while(clientIds.hasNext()) {
         String clientId = (String) clientIds.next();
