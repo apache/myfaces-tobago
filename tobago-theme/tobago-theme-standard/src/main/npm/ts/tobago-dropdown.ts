@@ -161,8 +161,7 @@ class Dropdown extends HTMLElement {
   }
 
   private inStickyHeader(): boolean {
-    const root = this.getRootNode() as ShadowRoot | Document;
-    return Boolean(root.querySelector("header.tobago-header.sticky-top tobago-dropdown[id='" + this.id + "']"));
+    return Boolean(this.closest("tobago-header.sticky-top"));
   }
 
   private get dropdownMenu(): HTMLDivElement {
