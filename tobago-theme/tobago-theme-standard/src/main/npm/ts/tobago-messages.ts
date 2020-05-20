@@ -32,8 +32,7 @@ class Messages extends HTMLElement {
   }
 
   get closeButtons(): NodeListOf<HTMLButtonElement> {
-    const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelectorAll(".alert button.close");
+    return this.querySelectorAll(".alert button.close");
   }
 }
 

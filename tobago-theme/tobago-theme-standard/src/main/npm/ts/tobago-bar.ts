@@ -71,13 +71,11 @@ class Bar extends HTMLElement {
   }
 
   private get toggleButton(): HTMLButtonElement {
-    const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(".navbar-toggler");
+    return this.querySelector(".navbar-toggler");
   }
 
   private get navbarContent(): HTMLDivElement {
-    const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(".navbar-collapse");
+    return this.querySelector(".navbar-collapse");
   }
 }
 
