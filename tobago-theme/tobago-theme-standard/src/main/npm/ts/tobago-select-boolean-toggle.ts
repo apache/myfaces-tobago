@@ -15,29 +15,9 @@
  * limitations under the License.
  */
 
-import {DomUtils} from "./tobago-utils";
+import {SelectBooleanCheckbox} from "./tobago-select-boolean-checkbox";
 
-class SelectBooleanToggle extends HTMLElement {
-
-  constructor() {
-    super();
-  }
-
-  connectedCallback(): void {
-    if (this.input.readOnly) {
-      this.input.addEventListener("click", preventClick);
-    }
-
-    function preventClick(event: MouseEvent): void {
-      // in the "readonly" case, prevent the default, which is changing the "checked" state
-      event.preventDefault();
-    }
-  }
-
-  get input(): HTMLInputElement {
-    const rootNode = this.getRootNode() as ShadowRoot | Document;
-    return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "field") as HTMLInputElement;
-  }
+class SelectBooleanToggle extends SelectBooleanCheckbox {
 }
 
 document.addEventListener("DOMContentLoaded", function (event: Event): void {

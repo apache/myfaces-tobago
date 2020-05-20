@@ -30,14 +30,12 @@ class SelectManyCheckbox extends HTMLElement {
       function preventClick(event: MouseEvent): void {
         // in the "readonly" case, prevent the default, which is changing the "checked" state
         event.preventDefault();
-        console.log("slectmanycheckbox bubb.");
       }
     }
   }
 
   get inputs(): NodeListOf<HTMLInputElement> {
-    const rootNode = this.getRootNode() as ShadowRoot | Document;
-    return rootNode.querySelectorAll("input[name='" + this.id + "']");
+    return this.querySelectorAll("input[name='" + this.id + "']");
   }
 }
 
