@@ -246,7 +246,8 @@ class DropdownEntry {
     if (dropdownItem.classList.contains("tobago-dropdown-submenu")) {
       this.focusElement = dropdownItem.querySelector(".tobago-link");
     } else if (dropdownItem.tagName === "LABEL") {
-      this.focusElement = dropdownItem.querySelector("input");
+      const root = dropdownItem.getRootNode() as ShadowRoot | Document;
+      this.focusElement = root.getElementById(dropdownItem.getAttribute("for"));
     } else {
       this.focusElement = dropdownItem;
     }
