@@ -39,7 +39,6 @@ import "./tobago-select-boolean-checkbox";
 import "./tobago-select-boolean-toggle";
 import "./tobago-select-many-checkbox";
 import "./tobago-select-many-shuttle";
-import "./tobago-select-one-listbox";
 import "./tobago-select-one-radio";
 import "./tobago-sheet";
 import "./tobago-split-layout";
