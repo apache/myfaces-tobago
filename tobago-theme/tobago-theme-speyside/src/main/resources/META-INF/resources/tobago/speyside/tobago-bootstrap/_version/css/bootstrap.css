@@ -12033,6 +12033,17 @@ header.fixed-top a[disabled], header.fixed-top a[disabled]:hover, header.fixed-t
     position: relative;
     vertical-align: top;
   }
+  header.fixed-top .tobago-dropdown-submenu.dropdown-item > .dropdown-menu .custom-radio > .dropdown-item, header.fixed-top .tobago-dropdown-submenu.dropdown-item > .dropdown-menu .custom-checkbox > .dropdown-item {
+    padding-left: 1.5rem;
+  }
+  header.fixed-top .tobago-dropdown-submenu.dropdown-item > .dropdown-menu .custom-radio > .dropdown-item::before, header.fixed-top .tobago-dropdown-submenu.dropdown-item > .dropdown-menu .custom-checkbox > .dropdown-item::before {
+    content: "";
+    position: absolute;
+    margin-left: -1.5rem;
+  }
+  header.fixed-top .tobago-dropdown-submenu.dropdown-item > .dropdown-menu .custom-radio > .dropdown-item::after, header.fixed-top .tobago-dropdown-submenu.dropdown-item > .dropdown-menu .custom-checkbox > .dropdown-item::after {
+    left: 0;
+  }
   header.fixed-top .tobago-dropdown-submenu::after {
     content: none;
   }
