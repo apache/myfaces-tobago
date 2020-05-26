@@ -1193,7 +1193,7 @@ p.tobago-separator {
 
 tobago-sheet {
   .tobago-sheet-cell {
-    > .tobago-treeNode {
+    > tobago-tree-node {
       display: flex;
       align-items: center;
 
@@ -1495,6 +1495,10 @@ tobago-tab-group {
 
 .tobago-treeNode[data-tobago-level] {
   margin-left: 7rem;
+}
+
+@mixin treeNodeMarginLeftLevel() {
+
 }
 
 tobago-tree {

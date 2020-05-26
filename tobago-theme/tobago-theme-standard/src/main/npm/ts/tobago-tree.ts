@@ -16,6 +16,7 @@
  */
 
 import {Selectable} from "./tobago-selectable";
+import {TreeNode} from "./tobago-tree-node";
 
 export class Tree extends HTMLElement {
 
@@ -24,12 +25,6 @@ export class Tree extends HTMLElement {
   }
 
   connectedCallback(): void {
-  }
-
-  get isSheet(): boolean {
-    // TODO if sheet is implemented as custom element use:
-    // return this.tagName === "TOBAGO-SHEET";
-    return this.classList.contains("tobago-sheet");
   }
 
   clearSelectedNodes(): void {
@@ -42,7 +37,7 @@ export class Tree extends HTMLElement {
     this.hiddenInputSelected.value = JSON.stringify(Array.from(selectedNodes));
   }
 
-  getSelectedNodes(): NodeListOf<TreeNode> {
+  private getSelectedNodes(): NodeListOf<TreeNode> {
     let queryString: string = "";
     for (const selectedNodeIndex of JSON.parse(this.hiddenInputSelected.value)) {
       if (queryString.length > 0) {
@@ -65,39 +60,27 @@ export class Tree extends HTMLElement {
   }
 
   private get hiddenInputSelected(): HTMLInputElement {
-    if (this.isSheet) {
-      return this.querySelector(":scope > .tobago-sheet-selected");
-    } else {
-      return this.querySelector(":scope > .tobago-tree-selected");
-    }
+    return this.querySelector(":scope > .tobago-tree-selected");
   }
 
-  clearExpandedNodes(): void {
+  private clearExpandedNodes(): void {
     this.hiddenInputExpanded.value = "[]"; //empty set
   }
 
-  addExpandedNode(expandedNode: number): void {
+  private addExpandedNode(expandedNode: number): void {
     const expandedNodes = new Set(JSON.parse(this.hiddenInputExpanded.value));
     expandedNodes.add(expandedNode);
     this.hiddenInputExpanded.value = JSON.stringify(Array.from(expandedNodes));
   }
 
-  deleteExpandedNode(expandedNode: number): void {
+  private deleteExpandedNode(expandedNode: number): void {
     const expandedNodes = new Set(JSON.parse(this.hiddenInputExpanded.value));
     expandedNodes.delete(expandedNode);
     this.hiddenInputExpanded.value = JSON.stringify(Array.from(expandedNodes));
   }
 
-  get expandedNodes(): Set<number> {
-    return new Set(JSON.parse(this.hiddenInputExpanded.value));
-  }
-
-  private get hiddenInputExpanded(): HTMLInputElement {
-    if (this.isSheet) {
-      return this.querySelector(":scope > .tobago-sheet-expanded");
-    } else {
-      return this.querySelector(":scope > .tobago-tree-expanded");
-    }
+  get hiddenInputExpanded(): HTMLInputElement {
+    return this.querySelector(":scope > .tobago-tree-expanded");
   }
 
   get selectable(): Selectable {
@@ -105,218 +88,6 @@ export class Tree extends HTMLElement {
   }
 }
 
-export class TreeNode extends HTMLElement {
-
-  constructor() {
-    super();
-  }
-
-  connectedCallback(): void {
-    if (this.isExpandable() && this.toggles !== null) {
-      this.toggles.forEach(element => element.addEventListener("click", this.toggleNode.bind(this)));
-    }
-  }
-
-  get tree(): Tree {
-    return this.closest("tobago-tree") as Tree; //TODO how to detect tobago-sheet?
-  }
-
-  isExpandable(): boolean {
-    return this.getAttribute("expandable") === "expandable";
-  }
-
-  isExpanded(): boolean {
-    for (const expandedNodeIndex of this.tree.expandedNodes) {
-      if (expandedNodeIndex === this.index) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  get treeChildNodes(): NodeListOf<TreeNode> {
-    if (this.tree.isSheet) {
-      return this.closest("tbody").querySelectorAll("tobago-tree-node[parent='" + this.id + "']");
-    } else {
-      return this.parentElement.querySelectorAll("tobago-tree-node[parent='" + this.id + "']");
-    }
-  }
-
-  get toggles(): NodeListOf<HTMLSpanElement> {
-    return this.querySelectorAll(".tobago-treeNode-toggle");
-  }
-
-  get icons(): NodeListOf<HTMLElement> {
-    return this.querySelectorAll(".tobago-treeNode-toggle i");
-  }
-
-  get images(): NodeListOf<HTMLImageElement> {
-    return this.querySelectorAll(".tobago-treeNode-toggle img");
-  }
-
-  get index(): number {
-    return Number(this.getAttribute("index"));
-  }
-
-  toggleNode(event: MouseEvent): void {
-    if (this.isExpanded()) {
-      for (const icon of this.icons) {
-        icon.classList.remove(icon.dataset.tobagoOpen);
-        icon.classList.add(icon.dataset.tobagoClosed);
-      }
-      for (const image of this.images) {
-        if (image.dataset.tobagoClosed) {
-          image.src = image.dataset.tobagoClosed;
-        } else {
-          image.src = image.dataset.tobagoOpen;
-        }
-      }
-
-      this.tree.deleteExpandedNode(this.index);
-      this.classList.remove("tobago-treeNode-markup-expanded");
-
-      this.hideNodes(this.treeChildNodes);
-      this.ajax(event, false);
-    } else {
-      for (const icon of this.icons) {
-        icon.classList.remove(icon.dataset.tobagoClosed);
-        icon.classList.add(icon.dataset.tobagoOpen);
-      }
-      for (const image of this.images) {
-        if (image.dataset.tobagoOpen) {
-          image.src = image.dataset.tobagoOpen;
-        } else {
-          image.src = image.dataset.tobagoClosed;
-        }
-      }
-
-      this.tree.addExpandedNode(this.index);
-      this.classList.add("tobago-treeNode-markup-expanded");
-
-      this.showNodes(this.treeChildNodes);
-      this.ajax(event, this.treeChildNodes.length === 0);
-    }
-  }
-
-  private ajax(event: Event, renderTree: boolean): void {
-    jsf.ajax.request(
-        this.id,
-        event,
-        {
-          "javax.faces.behavior.event": "change",
-          execute: this.tree.id,
-          render: renderTree ? this.tree.id : null
-        });
-  }
-
-  hideNodes(treeChildNodes: NodeListOf<TreeNode>): void {
-    for (const treeChildNode of treeChildNodes) {
-
-      if (treeChildNode.tree.isSheet) {
-        treeChildNode.closest("tobago-sheet-row").classList.add("d-none");
-      } else {
-        treeChildNode.classList.add("d-none");
-      }
-
-      this.hideNodes(treeChildNode.treeChildNodes);
-    }
-  }
-
-  showNodes(treeChildNodes: NodeListOf<TreeNode>): void {
-    for (const treeChildNode of treeChildNodes) {
-
-      if (treeChildNode.tree.isSheet) {
-        treeChildNode.closest("tobago-sheet-row").classList.remove("d-none");
-      } else {
-        treeChildNode.classList.remove("d-none");
-      }
-
-      this.showNodes(treeChildNode.treeChildNodes);
-    }
-  }
-}
-
-export class TreeSelect extends HTMLElement {
-
-  constructor() {
-    super();
-  }
-
-  connectedCallback(): void {
-    this.input.addEventListener("change", this.select.bind(this));
-  }
-
-  get tree(): Tree {
-    return this.closest("tobago-tree") as Tree;
-  }
-
-  get treeNode(): TreeNode {
-    return this.closest("tobago-tree-node") as TreeNode;
-  }
-
-  get treeSelectChildren(): NodeListOf<TreeSelect> {
-    let treeNodeId: string = this.treeNode.id;
-    if (this.tree.isSheet) {
-      return this.closest("tbody")
-          .querySelectorAll("tobago-tree-node[parent='" + treeNodeId + "'] tobago-tree-select");
-    } else {
-      let treeNode = this.closest("tobago-tree-node");
-      return treeNode.parentElement
-          .querySelectorAll("tobago-tree-node[parent='" + treeNode.id + "'] tobago-tree-select");
-    }
-  }
-
-  get input(): HTMLInputElement {
-    return this.querySelector("input");
-  }
-
-  select(event: Event): void {
-    switch (this.input.type) {
-      case "radio":
-        this.tree.clearSelectedNodes();
-        this.tree.addSelectedNode(this.treeNode.index);
-        break;
-      case "checkbox":
-        if (this.input.checked) {
-          this.tree.addSelectedNode(this.treeNode.index);
-        } else {
-          this.tree.deleteSelectedNode(this.treeNode.index);
-        }
-
-        if (this.tree.selectable === Selectable.multiCascade) {
-          let treeNodeIds = [];
-          this.selectChildren(this.treeSelectChildren, this.input.checked, treeNodeIds);
-
-          /*if (treeNodeIds.length > 0) {
-            for (const id of treeNodeIds) {
-              let ts: TreeSelect = document.getElementById(id).querySelector("tobago-tree-select") as TreeSelect;
-              ts.input.dispatchEvent(new Event("change", {bubbles: false}));
-            }
-          }*/
-        }
-        break;
-    }
-  }
-
-  selectChildren(treeSelectChildren: NodeListOf<TreeSelect>, checked: boolean, treeNodeIds: Array<string>): void {
-    for (const treeSelect of treeSelectChildren) {
-      if (treeSelect.input.checked !== checked) {
-        treeSelect.input.checked = checked;
-        treeNodeIds.push(treeSelect.treeNode.id);
-      }
-      if (checked) {
-        this.tree.addSelectedNode(treeSelect.treeNode.index);
-      } else {
-        this.tree.deleteSelectedNode(treeSelect.treeNode.index);
-      }
-
-      this.selectChildren(treeSelect.treeSelectChildren, checked, treeNodeIds);
-    }
-  }
-}
-
 document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-tree-select", TreeSelect);
-  window.customElements.define("tobago-tree-node", TreeNode);
   window.customElements.define("tobago-tree", Tree);
 });

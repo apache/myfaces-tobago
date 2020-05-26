@@ -18,7 +18,7 @@
 import {DomUtils} from "./tobago-utils";
 import {Page} from "./tobago-page";
 
-class Sheet extends HTMLElement {
+export class Sheet extends HTMLElement {
 
   static readonly SCROLL_BAR_SIZE: number = Sheet.getScrollBarSize();
 
@@ -710,6 +710,10 @@ class Sheet extends HTMLElement {
   getHiddenScrollPosition(): HTMLInputElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
     return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "scrollPosition")  as HTMLInputElement;
+  }
+
+  getHiddenExpanded(): HTMLInputElement {
+    return this.querySelector(DomUtils.escapeClientId(this.id + DomUtils.SUB_COMPONENT_SEP + "expanded"));
   }
 
   /**

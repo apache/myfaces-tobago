@@ -48,4 +48,6 @@ import "./tobago-suggest";
 import "./tobago-tab";
 import "./tobago-tree";
 import "./tobago-tree-listbox";
+import "./tobago-tree-node";
+import "./tobago-tree-select";
 import "./tobago-utils";
