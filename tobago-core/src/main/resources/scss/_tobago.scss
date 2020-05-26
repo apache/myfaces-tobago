@@ -109,6 +109,14 @@ $form-disabled-alpha: 0.5;
   }
 }
 
+@mixin treeNodeMarginLeftLevel() {
+  @for $i from 0 through 20 {
+    tobago-tree-node[data-tobago-level='#{$i}'] {
+      margin-left: #{$i}rem;
+    }
+  }
+}
+
 /* badge -------------------------------------------------------------- */
 .tobago-badge {
 }
@@ -1193,6 +1201,8 @@ p.tobago-separator {
 
 tobago-sheet {
   .tobago-sheet-cell {
+    @include treeNodeMarginLeftLevel();
+
     > tobago-tree-node {
       display: flex;
       align-items: center;
@@ -1497,19 +1507,11 @@ tobago-tab-group {
   margin-left: 7rem;
 }
 
-@mixin treeNodeMarginLeftLevel() {
-
-}
-
 tobago-tree {
+  @include treeNodeMarginLeftLevel();
+
   tobago-tree-node {
     display: block;
-
-    @for $i from 0 through 20 {
-      &[data-tobago-level='#{$i}'] {
-        margin-left: #{$i}rem;
-      }
-    }
 
     tobago-tree-select {
       display: inline;
