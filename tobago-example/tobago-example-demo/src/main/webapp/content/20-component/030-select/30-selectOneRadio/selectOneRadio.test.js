@@ -63,7 +63,7 @@ QUnit.test("submit: Subtraction (4 - 1)", function (assert) {
 
 QUnit.test("ajax: select Mars", function (assert) {
   var planetFn = jQueryFrameFn("#page\\:mainForm\\:selectPlanet input");
-  var moonsFn = jQueryFrameFn("#page\\:mainForm\\:moonradio label.form-check-label");
+  var moonsFn = jQueryFrameFn("#page\\:mainForm\\:moonradio label.custom-control-label");
 
   var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -81,7 +81,7 @@ QUnit.test("ajax: select Mars", function (assert) {
 
 QUnit.test("ajax: select Jupiter", function (assert) {
   var planetFn = jQueryFrameFn("#page\\:mainForm\\:selectPlanet input");
-  var moonsFn = jQueryFrameFn("#page\\:mainForm\\:moonradio label.form-check-label");
+  var moonsFn = jQueryFrameFn("#page\\:mainForm\\:moonradio label.custom-control-label");
 
   var TTT = new TobagoTestTool(assert);
   TTT.action(function () {
