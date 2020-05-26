@@ -350,10 +350,7 @@ public class SheetRenderer extends RendererBase {
       encodeHiddenInput(writer, null, sheetId + SUFFIX_LAZY);
     }
 
-    StringBuilder expandedValue = null;
-    if (sheet.isTreeModel()) {
-      expandedValue = new StringBuilder(",");
-    }
+    final List<Integer> expandedValue = sheet.isTreeModel() ? new ArrayList<>() : null;
 
     encodeTableBody(facesContext, sheet, writer, sheetId, selectable, columnWidths, selectedRows, columns, autoLayout,
         expandedValue);
@@ -524,7 +521,7 @@ public class SheetRenderer extends RendererBase {
       writer.writeNameAttribute(expandedId);
       writer.writeIdAttribute(expandedId);
       writer.writeClassAttribute(TobagoClass.SHEET__EXPANDED);
-      writer.writeAttribute(HtmlAttributes.VALUE, expandedValue.toString(), false);
+      writer.writeAttribute(HtmlAttributes.VALUE, JsonUtils.encode(expandedValue), false);
       writer.endElement(HtmlElements.INPUT);
     }
 
@@ -539,7 +536,7 @@ public class SheetRenderer extends RendererBase {
       final FacesContext facesContext, final AbstractUISheet sheet, final TobagoResponseWriter writer,
       final String sheetId,
       final Selectable selectable, final List<Integer> columnWidths, final List<Integer> selectedRows,
-      final List<AbstractUIColumnBase> columns, final boolean autoLayout, final StringBuilder expandedValue)
+      final List<AbstractUIColumnBase> columns, final boolean autoLayout, final List<Integer> expandedValue)
       throws IOException {
 
     final boolean showHeader = sheet.isShowHeader();
@@ -637,8 +634,7 @@ public class SheetRenderer extends RendererBase {
       if (sheet.isTreeModel()) {
         final TreePath path = sheet.getPath();
         if (sheet.isFolder() && expandedState.isExpanded(path)) {
-          expandedValue.append(rowIndex);
-          expandedValue.append(",");
+          expandedValue.add(rowIndex);
         }
       }
 

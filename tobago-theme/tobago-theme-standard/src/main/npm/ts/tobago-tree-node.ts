@@ -48,7 +48,9 @@ export class TreeNode extends HTMLElement {
       this.classList.remove("tobago-treeNode-markup-expanded");
 
       this.hideNodes(this.treeChildNodes);
-      this.ajax(event, false);
+      if (this.tree) {
+        this.ajax(event, false);
+      }
     } else {
       for (const icon of this.icons) {
         icon.classList.remove(icon.dataset.tobagoClosed);
@@ -66,7 +68,9 @@ export class TreeNode extends HTMLElement {
       this.classList.add("tobago-treeNode-markup-expanded");
 
       this.showNodes(this.treeChildNodes);
-      this.ajax(event, this.treeChildNodes.length === 0);
+      if (this.tree) {
+        this.ajax(event, this.treeChildNodes.length === 0);
+      }
     }
   }
 
@@ -85,7 +89,7 @@ export class TreeNode extends HTMLElement {
     for (const treeChildNode of treeChildNodes) {
 
       if (treeChildNode.sheet) {
-        treeChildNode.closest("tobago-sheet-row").classList.add("d-none");
+        treeChildNode.closest(".tobago-sheet-row").classList.add("d-none");
       } else {
         treeChildNode.classList.add("d-none");
       }
@@ -98,7 +102,7 @@ export class TreeNode extends HTMLElement {
     for (const treeChildNode of treeChildNodes) {
 
       if (treeChildNode.sheet) {
-        treeChildNode.closest("tobago-sheet-row").classList.remove("d-none");
+        treeChildNode.closest(".tobago-sheet-row").classList.remove("d-none");
       } else {
         treeChildNode.classList.remove("d-none");
       }
