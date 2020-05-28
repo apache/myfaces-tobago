@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.deltaspike.core.api.scope.WindowScoped;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
@@ -28,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Observes;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -35,7 +35,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 
-@WindowScoped
+@SessionScoped
 @Named
 public class NavigationState implements Serializable {
 
@@ -48,7 +48,7 @@ public class NavigationState implements Serializable {
 
   private TreeState state = new TreeState(new ExpandedState(1), new SelectedState());
 
-  private boolean viewSource = true;
+  private boolean viewSource = false;
 
   @PostConstruct
   public void init() {
