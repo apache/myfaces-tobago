@@ -41,8 +41,8 @@
     <mojarra21.version>2.1.29-11</mojarra21.version>
     <mojarra22.version>2.2.20</mojarra22.version>
     <mojarra23.version>2.3.9</mojarra23.version>
-    <openwebbeans.version>2.0.11</openwebbeans.version>
-    <slf4j.version>1.7.28</slf4j.version>
+    <openwebbeans.version>2.0.16</openwebbeans.version>
+    <slf4j.version>1.7.30</slf4j.version>
     <logback.version>1.2.3</logback.version>
     <maven.compile.source>1.8</maven.compile.source>
     <maven.compile.target>1.8</maven.compile.target>
@@ -419,13 +419,13 @@
       <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
-        <version>2.6</version>
+        <version>2.7</version>
       </dependency>
       <!-- only needed to build Tobago and for some examples, but not for runtime -->
       <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-lang3</artifactId>
-        <version>3.9</version>
+        <version>3.10</version>
       </dependency>
       <dependency>
         <groupId>commons-beanutils</groupId>
@@ -441,13 +441,13 @@
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
-        <version>5.5.2</version>
+        <version>5.6.2</version>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-params</artifactId>
-        <version>5.5.2</version>
+        <version>5.6.2</version>
         <scope>test</scope>
       </dependency>
       <dependency>
@@ -471,14 +471,14 @@
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-atinject_1.0_spec</artifactId>
-        <version>1.1</version>
+        <version>1.2</version>
         <optional>true</optional>
       </dependency>
       <dependency>
         <!-- jsoup HTML parser library -->
         <groupId>org.jsoup</groupId>
         <artifactId>jsoup</artifactId>
-        <version>1.12.1</version>
+        <version>1.13.1</version>
       </dependency>
       <dependency>
         <groupId>org.apache.myfaces.test</groupId>
@@ -498,10 +498,17 @@
         <version>${myfaces-test.version}</version>
         <scope>test</scope>
       </dependency>
+      <!-- needed for myfaces 2.0 - 2.3 -->
       <dependency>
         <groupId>commons-collections</groupId>
         <artifactId>commons-collections</artifactId>
         <version>3.2.2</version>
+      </dependency>
+      <!-- needed for myfaces 2.0 - 2.3 -->
+      <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+        <version>1.2</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
