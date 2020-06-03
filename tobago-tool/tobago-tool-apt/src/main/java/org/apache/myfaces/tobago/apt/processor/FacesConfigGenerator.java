@@ -49,6 +49,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -151,7 +152,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
   @Override
   protected void generate() throws Exception {
     final Document document;
-    final String content = IOUtils.toString(new FileInputStream(sourceFacesConfigFile));
+    final String content = IOUtils.toString(new FileInputStream(sourceFacesConfigFile), StandardCharsets.UTF_8);
     final SAXBuilder builder = new SAXBuilder();
     document = builder.build(new StringReader(content));
 

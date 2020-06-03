@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.apt.processor;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.myfaces.tobago.apt.AnnotationUtils;
 import org.apache.myfaces.tobago.apt.annotation.ConverterTag;
@@ -150,22 +149,18 @@ public class TaglibGenerator extends AbstractGenerator {
 
     // writing the XML document
 
-    Writer writer = null;
-    try {
       String target = targetTaglib;
       target = StringUtils.isNotBlank(target) ? target + '/' : "";
       final String name = target + taglibAnnotation.name() + ".taglib.xml";
       final FileObject resource = processingEnv.getFiler().createResource(StandardLocation.SOURCE_OUTPUT, "", name);
       info("Writing to file: " + resource.toUri());
-      writer = resource.openWriter();
 
+    try (Writer writer = resource.openWriter()) {
       final TransformerFactory transFactory = TransformerFactory.newInstance();
       transFactory.setAttribute("indent-number", 2);
       final Transformer transformer = transFactory.newTransformer();
       transformer.setOutputProperty(OutputKeys.INDENT, "yes");
       transformer.transform(new DOMSource(document), new StreamResult(writer));
-    } finally {
-      IOUtils.closeQuietly(writer);
     }
   }
 
