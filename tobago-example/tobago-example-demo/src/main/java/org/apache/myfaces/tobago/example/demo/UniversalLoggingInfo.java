@@ -43,18 +43,18 @@ public class UniversalLoggingInfo {
   /**
    * should always be available, because it's part of Java since 1.4
    */
-  private LoggingInfo jul;
+  private final LoggingInfo jul;
 
   /**
    * should always be true, because it's used by Tobago
    */
-  private LoggingInfo slf4j;
+  private final LoggingInfo slf4j;
 
-  private LoggingInfo log4j;
+  private final LoggingInfo log4j;
 
-  private LoggingInfo log4j2;
+  private final LoggingInfo log4j2;
 
-  private LoggingInfo commonsLogging;
+  private final LoggingInfo commonsLogging;
 
   private String testCategory = UniversalLoggingInfo.class.getName();
 
