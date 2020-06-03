@@ -47,6 +47,7 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
+import java.util.Map;
 
 public class TreeSelectRenderer extends RendererBase {
 
@@ -136,9 +137,14 @@ public class TreeSelectRenderer extends RendererBase {
       writer.endElement(HtmlElements.INPUT);
 
       final CommandMap behaviorCommands = getBehaviorCommands(facesContext, treeSelect);
-      Command change = behaviorCommands.getOther().get(ClientBehaviors.change);
-      change.setExecute(change.getExecute() + " " + tree.getClientId(facesContext));
-      change.setRender(change.getRender() + " " + tree.getClientId(facesContext));
+      if (behaviorCommands != null) {
+        Map<ClientBehaviors, Command> other = behaviorCommands.getOther();
+        if (other != null) {
+          Command change = other.get(ClientBehaviors.change);
+          change.setExecute(change.getExecute() + " " + tree.getClientId(facesContext));
+          change.setRender(change.getRender() + " " + tree.getClientId(facesContext));
+        }
+      }
       encodeBehavior(writer, behaviorCommands);
     }
 
