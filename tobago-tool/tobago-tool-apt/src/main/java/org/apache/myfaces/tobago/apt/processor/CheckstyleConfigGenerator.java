@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.apt.processor;
 
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.myfaces.tobago.apt.AnnotationUtils;
 import org.apache.myfaces.tobago.apt.annotation.ConverterTag;
@@ -123,14 +122,13 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
   }
 
   protected void writeCheckstyleConfig(final Document document) throws IOException, TransformerException {
-    Writer writer = null;
-    try {
-      final String path = "checkstyle-tobago.xml";
-      final String name = (StringUtils.isNotBlank(targetCheckstyle) ? targetCheckstyle + '/' : "") + path;
-      final FileObject resource = processingEnv.getFiler().createResource(StandardLocation.SOURCE_OUTPUT, "", name);
-      info("Writing to file: " + resource.toUri());
-      writer = resource.openWriter();
 
+    final String path = "checkstyle-tobago.xml";
+    final String name = (StringUtils.isNotBlank(targetCheckstyle) ? targetCheckstyle + '/' : "") + path;
+    final FileObject resource = processingEnv.getFiler().createResource(StandardLocation.SOURCE_OUTPUT, "", name);
+    info("Writing to file: " + resource.toUri());
+
+    try (Writer writer = resource.openWriter()) {
       final TransformerFactory transFactory = TransformerFactory.newInstance();
       transFactory.setAttribute("indent-number", 2);
       final Transformer transformer = transFactory.newTransformer();
@@ -138,8 +136,6 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
       transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "http://www.puppycrawl.com/dtds/configuration_1_2.dtd");
       transformer.setOutputProperty(OutputKeys.INDENT, "yes");
       transformer.transform(new DOMSource(document), new StreamResult(writer));
-    } finally {
-      IOUtils.closeQuietly(writer);
     }
   }
 

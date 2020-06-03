@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.apt.processor;
 
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
-import org.apache.commons.io.IOUtils;
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
@@ -288,16 +287,11 @@ public class ClassesGenerator extends AbstractGenerator {
   }
 
   private void writeFile(final ClassInfo info, final StringTemplate stringTemplate) throws IOException {
-    Writer writer = null;
-    try {
-      final FileObject resource = processingEnv.getFiler().createSourceFile(
-          info.getPackageName() + '.' + info.getClassName());
-      info("Writing to file: " + resource.toUri());
-      writer = resource.openWriter();
-
+    final FileObject resource = processingEnv.getFiler().createSourceFile(
+        info.getPackageName() + '.' + info.getClassName());
+    info("Writing to file: " + resource.toUri());
+    try (Writer writer = resource.openWriter()) {
       writer.append(stringTemplate.toString());
-    } finally {
-      IOUtils.closeQuietly(writer);
     }
   }
 }
