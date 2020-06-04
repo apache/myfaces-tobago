@@ -23,7 +23,7 @@
     xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-5.0.xsd"
     version="5.0">
 
-  <name>tobago-config</name>
+  <name>tobago-core</name>
 
   <content-security-policy mode="on">
     <directive name="style-src">'unsafe-inline'</directive> <!-- is only active, when browser doesn't support nonce -->
