@@ -40,7 +40,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
   @Override
   public HtmlElements getComponentTag() {
-    return HtmlElements.DIV;
+    return HtmlElements.TOBAGO_SELECT_MANY_LISTBOX;
   }
 
   @Override

@@ -50,7 +50,7 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
 
   @Override
   public HtmlElements getComponentTag() {
-    return HtmlElements.DIV;
+    return HtmlElements.TOBAGO_TEXTAREA;
   }
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());

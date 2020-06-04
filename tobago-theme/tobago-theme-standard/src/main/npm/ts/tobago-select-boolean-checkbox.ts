@@ -16,6 +16,7 @@
  */
 
 import {DomUtils} from "./tobago-utils";
+import {Focus} from "./tobago-focus";
 
 export class SelectBooleanCheckbox extends HTMLElement {
 
@@ -24,6 +25,8 @@ export class SelectBooleanCheckbox extends HTMLElement {
   }
 
   connectedCallback(): void {
+    this.input.addEventListener("focus", Focus.setLastFocusId);
+
     if (this.input.readOnly) {
       this.input.addEventListener("click", preventClick);
     }
