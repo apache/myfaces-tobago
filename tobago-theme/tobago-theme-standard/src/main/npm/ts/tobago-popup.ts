@@ -312,6 +312,12 @@ export class Popup extends HTMLElement {
     // } else {
     //   transitionComplete()
     // }
+
+    this.dispatchEvent(new CustomEvent(Event.SHOWN));
+    const autofocusElement = this.querySelector("[autofocus]") as HTMLElement;
+    if (autofocusElement) {
+      autofocusElement.focus();
+    }
   }
 /*
   _enforceFocus() {

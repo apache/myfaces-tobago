@@ -40,7 +40,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
 
   @Override
   public HtmlElements getComponentTag() {
-    return HtmlElements.DIV;
+    return HtmlElements.TOBAGO_SELECT_ONE_CHOICE;
   }
 
   @Override

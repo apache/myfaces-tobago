@@ -15,22 +15,32 @@
  * limitations under the License.
  */
 
-import {DomUtils} from "./tobago-utils";
-import {Listener, Phase} from "./tobago-listener";
 import {Page} from "./tobago-page";
+import {DomUtils} from "./tobago-utils";
 
-export class Focus {
+export class Focus extends HTMLElement {
 
-  private static getHidden(): HTMLInputElement {
-    return document.getElementById(Page.page().id + DomUtils.SUB_COMPONENT_SEP + "lastFocusId") as HTMLInputElement;
+  /**
+   * The focusListener to set the lastFocusId must be implemented in the appropriate web elements.
+   * @param event
+   */
+  static setLastFocusId(event: FocusEvent): void {
+    const target = event.target as HTMLElement;
+    let computedStyle = getComputedStyle(target);
+
+    if (target.getAttribute("type") !== "hidden"
+        && target.getAttributeNames().indexOf("disabled") === -1
+        && target.getAttribute("tabindex") !== "-1"
+        && computedStyle.visibility !== "hidden"
+        && computedStyle.display !== "none") {
+      const root = target.getRootNode() as ShadowRoot | Document;
+      const tobagoFocus = root.getElementById(Page.page().id + DomUtils.SUB_COMPONENT_SEP + "lastFocusId");
+      tobagoFocus.querySelector("input").value = target.id;
+    }
   }
 
-  static setLastFocusId(id: string): void {
-    this.getHidden().value = id;
-  }
-
-  static getLastFocusId(): string {
-    return this.getHidden().value;
+  constructor() {
+    super();
   }
 
   /**
@@ -43,75 +53,85 @@ export class Focus {
    * - last (the element from the last request with same id gets the focus, not AJAX)
    * - first (the first input element (without tabindex=-1) gets the focus, not AJAX)
    */
-  static init = function (element: HTMLElement): void {
-
-    const activeInputs = Focus.activeInputs(element);
-
-    for (const focusable of activeInputs) {
-      focusable.addEventListener("focus", function (event: FocusEvent): void {
-        const target = event.target as HTMLElement;
-        if (target.style.visibility !== "hidden" && target.style.display != "none") {
-          // remember the last focused element, for later
-          Focus.setLastFocusId(target.id);
-        }
-      });
+  connectedCallback(): void {
+    const errorElement = this.errorElement;
+    if (errorElement) {
+      errorElement.focus();
+      return;
     }
 
-    // autofocus in popups doesn't work automatically... so we fix that here
-    const modals = document.getElementsByClassName("modal");
-    for (let i = 0; i < modals.length; i++) {
-      modals.item(i).addEventListener("shown.bs.modal", Focus.initAutoFocus);
-    }
-
-    for (const hasDanger of DomUtils.selfOrElementsByClassName(element, ".has-danger")) {
-      const activeInputsInsideDanger = Focus.activeInputs(hasDanger);
-      if (activeInputsInsideDanger.length > 0) {
-        activeInputsInsideDanger[0].focus();
-        return;
-      }
-    }
-
-    const autoFocus = element.querySelector("[autofocus]");
-    if (autoFocus) {
+    if (this.autofocusElements.length > 0) {
       // nothing to do, because the browser make the work.
       return;
     }
 
-    if (element.parentElement) {
-      // seems to be AJAX, so end here
+    const lastFocusedElement = this.lastFocusedElement;
+    if (lastFocusedElement) {
+      lastFocusedElement.focus();
       return;
     }
 
-    const lastFocusId = Focus.getLastFocusId();
-    if (lastFocusId) {
-      const element = document.getElementById(lastFocusId);
-      if (element) {
-        element.focus();
-      }
+    const focusableElement = this.focusableElement;
+    if (focusableElement) {
+      focusableElement.focus();
       return;
     }
-
-    if (activeInputs.length > 0) {
-      activeInputs[0].focus();
-      return;
-    }
-  };
-
-  private static activeInputs(element: HTMLElement): Array<HTMLElement> {
-    return DomUtils.selfOrQuerySelectorAll(element,
-        "input:not([type='hidden']):not([disabled]):not([tabindex='-1'])," +
-        "select:not([disabled]):not([tabindex='-1'])," +
-        "textarea:not([disabled]):not([tabindex='-1'])")
-        .filter((element) =>
-            element.style.visibility !== "hidden"
-            && element.style.display != "none");
   }
 
-  private static initAutoFocus(event): void {
-    const modal = event.currentTarget as HTMLElement;
-    (modal.querySelector("[autofocus]") as HTMLElement).focus();
+  private get errorElement(): HTMLElement {
+    const root = this.getRootNode() as ShadowRoot | Document;
+    const elements = root.querySelectorAll(
+        ".tobago-messages-container .border-danger:not([disabled]):not([tabindex='-1'])") as NodeListOf<HTMLElement>;
+
+    for (const element of elements) {
+      const computedStyle = getComputedStyle(element);
+      if (computedStyle.display !== "none" && computedStyle.visibility !== "hidden") {
+        return element;
+      }
+    }
+  }
+
+  private get autofocusElements(): NodeListOf<HTMLElement> {
+    const root = this.getRootNode() as ShadowRoot | Document;
+    return root.querySelectorAll("[autofocus]");
+  }
+
+  private get lastFocusedElement(): HTMLElement {
+    const lastFocusId: string = this.hiddenInput.value;
+    const root = this.getRootNode() as ShadowRoot | Document;
+    return root.getElementById(lastFocusId);
+  }
+
+  private get hiddenInput(): HTMLInputElement {
+    return this.querySelector("input");
+  }
+
+  private get focusableElement(): HTMLElement {
+    const root = this.getRootNode() as ShadowRoot | Document;
+    const elements = root.querySelectorAll(
+        "input:not([type='hidden']):not([disabled]):not([tabindex='-1'])," +
+        "select:not([disabled]):not([tabindex='-1'])," +
+        "textarea:not([disabled]):not([tabindex='-1'])") as NodeListOf<HTMLElement>;
+
+    for (const element of elements) {
+      if (this.isVisible(element)) {
+        return element;
+      }
+    }
+  }
+
+  private isVisible(element: HTMLElement): boolean {
+    const computedStyle = getComputedStyle(element);
+    if (computedStyle.display === "none" || computedStyle.visibility === "hidden") {
+      return false;
+    } else if (element.parentElement) {
+      return this.isVisible(element.parentElement);
+    } else {
+      return true;
+    }
   }
 }
 
-Listener.register(Focus.init, Phase.DOCUMENT_READY);
-Listener.register(Focus.init, Phase.AFTER_UPDATE);
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
+  window.customElements.define("tobago-focus", Focus);
+});

@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import {Focus} from "./tobago-focus";
+
 class SelectManyShuttle extends HTMLElement {
 
   constructor() {
@@ -22,6 +24,9 @@ class SelectManyShuttle extends HTMLElement {
   }
 
   connectedCallback(): void {
+    this.unselectedSelect.addEventListener("focus", Focus.setLastFocusId);
+    this.selectedSelect.addEventListener("focus", Focus.setLastFocusId);
+
     if (this.unselectedSelect.getAttribute("readonly") !== "readonly" && !this.unselectedSelect.disabled) {
       this.unselectedSelect.addEventListener("dblclick", this.addSelectedItems.bind(this));
     }

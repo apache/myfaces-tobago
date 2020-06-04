@@ -17,6 +17,25 @@
 
 import {Listener, Phase} from "./tobago-listener";
 import {DomUtils} from "./tobago-utils";
+import {Focus} from "./tobago-focus";
+
+export class In extends HTMLElement {
+  constructor() {
+    super();
+  }
+
+  connectedCallback(): void {
+    this.input.addEventListener("focus", Focus.setLastFocusId);
+  }
+
+  get input(): HTMLInputElement {
+    return this.querySelector(DomUtils.escapeClientId(this.id + DomUtils.SUB_COMPONENT_SEP + "field"));
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
+  window.customElements.define("tobago-in", In);
+});
 
 // XXX regexp example only - blueprint
 class RegExpTest {
