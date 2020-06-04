@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import {Focus} from "./tobago-focus";
+
 class SelectOneRadio extends HTMLElement {
 
   private oldCheckedId: string = "";
@@ -26,6 +28,7 @@ class SelectOneRadio extends HTMLElement {
   connectedCallback(): void {
     this.saveSelection();
     for (const radio of this.radioGroup) {
+      radio.addEventListener("focus", Focus.setLastFocusId);
       radio.addEventListener("click", this.clickSelection.bind(this));
     }
   }

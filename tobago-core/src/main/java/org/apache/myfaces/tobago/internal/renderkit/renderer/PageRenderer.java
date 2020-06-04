@@ -276,12 +276,16 @@ public class PageRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.DISABLED, true);
     writer.endElement(HtmlElements.INPUT);
 
+    final String lastFocusId = clientId + ComponentUtils.SUB_SEPARATOR + "lastFocusId";
+    writer.startElement(HtmlElements.TOBAGO_FOCUS);
+    writer.writeIdAttribute(lastFocusId);
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "lastFocusId");
-    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "lastFocusId");
+    writer.writeNameAttribute(lastFocusId);
+    writer.writeIdAttribute(lastFocusId + ComponentUtils.SUB_SEPARATOR + "field");
     writer.writeAttribute(HtmlAttributes.VALUE, tobagoContext.getFocusId(), true);
     writer.endElement(HtmlElements.INPUT);
+    writer.endElement(HtmlElements.TOBAGO_FOCUS);
 
     if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isCheckSessionSecret()) {
       Secret.encode(facesContext, writer);

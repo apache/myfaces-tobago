@@ -15,34 +15,11 @@
  * limitations under the License.
  */
 
-import {Focus} from "./tobago-focus";
+import {SelectOneListbox} from "./tobago-select-one-listbox";
 
-class SelectManyCheckbox extends HTMLElement {
-
-  constructor() {
-    super();
-  }
-
-  connectedCallback(): void {
-    for (const input of this.inputs) {
-      input.addEventListener("focus", Focus.setLastFocusId);
-
-      if (input.readOnly) {
-        input.addEventListener("click", preventClick);
-      }
-
-      function preventClick(event: MouseEvent): void {
-        // in the "readonly" case, prevent the default, which is changing the "checked" state
-        event.preventDefault();
-      }
-    }
-  }
-
-  get inputs(): NodeListOf<HTMLInputElement> {
-    return this.querySelectorAll("input[name='" + this.id + "']");
-  }
+class SelectManyListbox extends SelectOneListbox {
 }
 
 document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-select-many-checkbox", SelectManyCheckbox);
+  window.customElements.define("tobago-select-many-listbox", SelectManyListbox);
 });

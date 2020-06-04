@@ -326,6 +326,11 @@ tobago-file {
 .tobago-flowLayout {
 }
 
+/* focus --------------------------------------------------------------- */
+tobago-focus {
+  display: none;
+}
+
 /* footer -------------------------------------------------------------- */
 
 tobago-footer {
@@ -1041,6 +1046,11 @@ tobago-select-boolean-toggle {
   @include adjustCustomControlLabel();
 }
 
+/* selectOneChoice --------------------------------------------------------- */
+tobago-select-one-choice {
+
+}
+
 /* selectOneListbox -------------------------------------------------------- */
 tobago-select-one-listbox {
   display: block;
@@ -1081,6 +1091,9 @@ tobago-select-many-checkbox {
 }
 
 /* selectManyListbox ----------------------------------------------------------- */
+tobago-select-many-listbox {
+
+}
 .tobago-selectManyListbox,
 .tobago-selectManyListbox-option {
 }
