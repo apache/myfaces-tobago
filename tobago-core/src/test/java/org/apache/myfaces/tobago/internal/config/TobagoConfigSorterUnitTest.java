@@ -21,11 +21,15 @@ package org.apache.myfaces.tobago.internal.config;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TobagoConfigSorterUnitTest {
+
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoConfigSorterUnitTest.class);
 
   @Test
   public void testCompare() {
@@ -95,35 +99,85 @@ public class TobagoConfigSorterUnitTest {
     list.add(n);
 
     final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
-    sorter.createRelevantPairs();
+    final List<TobagoConfigFragment> result = sorter.topologicalSort();
 
-    Assert.assertEquals(9, sorter.getPairs().size()); // all but these with "z" and "y"
-
-    sorter.makeTransitive();
-
-    Assert.assertEquals(28, sorter.getPairs().size());
-
-    sorter.ensureIrreflexive();
-
-    sorter.ensureAntiSymmetric();
-
-    sorter.sort0();
-
-    Assert.assertEquals(a, list.get(0));
-    Assert.assertEquals(b, list.get(1));
-    Assert.assertEquals(c, list.get(2));
-    Assert.assertEquals(u1, list.get(3));
-    Assert.assertEquals(u2, list.get(4));
-    Assert.assertEquals(d, list.get(5));
-    Assert.assertEquals(e, list.get(6));
-    Assert.assertEquals(f, list.get(7));
-    Assert.assertEquals(u3, list.get(8));
-    Assert.assertEquals(m, list.get(9));
-    Assert.assertEquals(n, list.get(10));
+    Assert.assertEquals(a, result.get(0));
+    Assert.assertEquals(b, result.get(1));
+    Assert.assertEquals(c, result.get(2));
+    Assert.assertEquals(u1, result.get(3));
+    Assert.assertEquals(u2, result.get(4));
+    Assert.assertEquals(d, result.get(5));
+    Assert.assertEquals(e, result.get(6));
+    Assert.assertEquals(f, result.get(7));
+    Assert.assertEquals(u3, result.get(8));
+    Assert.assertEquals(m, result.get(9));
+    Assert.assertEquals(n, result.get(10));
   }
 
   @Test
-  public void testCycle() {
+  public void test0() {
+
+    // config + names
+
+    final List<TobagoConfigFragment> list = new ArrayList<TobagoConfigFragment>();
+
+    final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
+
+    final List<TobagoConfigFragment> result = sorter.topologicalSort();
+
+    Assert.assertTrue(result.isEmpty());
+  }
+
+  @Test
+  public void testCycle1Before() {
+
+    // config + names
+
+    final TobagoConfigFragment a = new TobagoConfigFragment();
+    a.setName("a");
+
+    a.getBefore().add("a");
+
+    final List<TobagoConfigFragment> list = new ArrayList<TobagoConfigFragment>();
+    list.add(a);
+
+    final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
+
+    try {
+      sorter.topologicalSort();
+
+      Assert.fail("Cycle was not detected!");
+    } catch (final RuntimeException e) {
+      LOG.info("Success: Cycle found: {}", e.getMessage());
+    }
+  }
+
+  @Test
+  public void testCycle1After() {
+
+    // config + names
+
+    final TobagoConfigFragment a = new TobagoConfigFragment();
+    a.setName("a");
+
+    a.getAfter().add("a");
+
+    final List<TobagoConfigFragment> list = new ArrayList<TobagoConfigFragment>();
+    list.add(a);
+
+    final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
+
+    try {
+      sorter.topologicalSort();
+
+      Assert.fail("Cycle was not detected!");
+    } catch (final RuntimeException e) {
+      LOG.info("Success: Cycle found: {}", e.getMessage());
+    }
+  }
+
+  @Test
+  public void testCycle2() {
 
     // config + names
 
@@ -142,24 +196,18 @@ public class TobagoConfigSorterUnitTest {
     list.add(b);
 
     final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
-    sorter.createRelevantPairs();
-
-    Assert.assertEquals(2, sorter.getPairs().size()); // all but these with "z" and "y"
-
-    sorter.makeTransitive();
 
     try {
-      sorter.ensureIrreflexive();
-      sorter.ensureAntiSymmetric();
+      sorter.topologicalSort();
 
-      Assert.fail("Cycle was not found");
+      Assert.fail("Cycle was not detected!");
     } catch (final RuntimeException e) {
-      // must find the cycle
+      LOG.info("Success: Cycle found: {}", e.getMessage());
     }
   }
 
   @Test
-  public void testCycle2() {
+  public void testCycle2BeforeAfter() {
 
     // config + names
 
@@ -179,19 +227,107 @@ public class TobagoConfigSorterUnitTest {
     list.add(b);
 
     final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
-    sorter.createRelevantPairs();
+    try {
+      sorter.topologicalSort();
 
-    Assert.assertEquals(2, sorter.getPairs().size()); // all but these with "z" and "y"
+      Assert.fail("Cycle was not detected!");
+    } catch (final RuntimeException e) {
+      LOG.info("Success: Cycle found: {}", e.getMessage());
+    }
+  }
 
-    sorter.makeTransitive();
+  @Test
+  public void testCycle3() {
+
+    // config + names
+
+    final TobagoConfigFragment a = new TobagoConfigFragment();
+    a.setName("a");
+
+    final TobagoConfigFragment b = new TobagoConfigFragment();
+    b.setName("b");
+
+    final TobagoConfigFragment c = new TobagoConfigFragment();
+    c.setName("c");
+
+    // before
+    a.getBefore().add("b");
+    b.getBefore().add("c");
+    a.getAfter().add("c");
+
+    final List<TobagoConfigFragment> list = new ArrayList<TobagoConfigFragment>();
+    list.add(a);
+    list.add(b);
+    list.add(c);
+
+    final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
 
     try {
-      sorter.ensureIrreflexive();
-      sorter.ensureAntiSymmetric();
+      sorter.topologicalSort();
 
-      Assert.fail("Cycle was not found");
+      Assert.fail("Cycle was not detected!");
     } catch (final RuntimeException e) {
-      // must find the cycle
+      LOG.info("Success: Cycle found: {}", e.getMessage());
     }
+  }
+
+  @Test
+  public void testReal() {
+
+    // config + names
+
+    final TobagoConfigFragment blank = new TobagoConfigFragment();
+    blank.setName("tobago-example-blank");
+
+    final TobagoConfigFragment charlotteville = new TobagoConfigFragment();
+    charlotteville.setName("tobago-theme-charlotteville");
+
+    final TobagoConfigFragment roxborough = new TobagoConfigFragment();
+    roxborough.setName("tobago-theme-roxborough");
+
+    final TobagoConfigFragment scarborough = new TobagoConfigFragment();
+    scarborough.setName("tobago-theme-scarborough");
+
+    final TobagoConfigFragment speyside = new TobagoConfigFragment();
+    speyside.setName("tobago-theme-speyside");
+
+    final TobagoConfigFragment standard = new TobagoConfigFragment();
+    standard.setName("tobago-theme-standard");
+
+    final TobagoConfigFragment core = new TobagoConfigFragment();
+    core.setName("tobago-core");
+
+    // after
+    blank.getAfter().add(speyside.getName());
+    blank.getAfter().add(scarborough.getName());
+    blank.getAfter().add(roxborough.getName());
+    blank.getAfter().add(standard.getName());
+    blank.getAfter().add(charlotteville.getName());
+    charlotteville.getAfter().add(standard.getName());
+    roxborough.getAfter().add(standard.getName());
+    scarborough.getAfter().add(standard.getName());
+    speyside.getAfter().add(standard.getName());
+    standard.getAfter().add(core.getName());
+
+
+    final List<TobagoConfigFragment> list = new ArrayList<TobagoConfigFragment>();
+    list.add(blank);
+    list.add(charlotteville);
+    list.add(roxborough);
+    list.add(scarborough);
+    list.add(speyside);
+    list.add(standard);
+    list.add(core);
+
+    final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
+
+    final List<TobagoConfigFragment> result = sorter.topologicalSort();
+
+    Assert.assertEquals(core, result.get(0));
+    Assert.assertEquals(standard, result.get(1));
+    Assert.assertEquals(blank, result.get(6));
+    final int blankPos = result.indexOf(blank);
+    final int speysidePos = result.indexOf(speyside);
+    Assert.assertTrue(blankPos > speysidePos);
   }
 }

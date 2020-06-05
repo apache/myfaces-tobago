@@ -42,7 +42,7 @@ public final class TobagoConfigBuilder {
   private static final String WEB_INF_TOBAGO_CONFIG_XML = "WEB-INF/tobago-config.xml";
   private static final String META_INF_TOBAGO_CONFIG_XML = "META-INF/tobago-config.xml";
 
-  private List<TobagoConfigFragment> list;
+  private final List<TobagoConfigFragment> list;
 
   private TobagoConfigBuilder(final ServletContext servletContext)
       throws ServletException, IOException, SAXException, ParserConfigurationException, URISyntaxException {
@@ -50,8 +50,8 @@ public final class TobagoConfigBuilder {
     configFromClasspath();
     configFromWebInf(servletContext);
     final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
-    sorter.sort();
-    final TobagoConfigImpl tobagoConfig = sorter.merge();
+    final List<TobagoConfigFragment> sorted = sorter.topologicalSort();
+    final TobagoConfigImpl tobagoConfig = new TobagoConfigMerger(sorted).merge();
 
     // todo: cleanup, use one central TobagoConfig, no singleton ResourceManager
     // resources

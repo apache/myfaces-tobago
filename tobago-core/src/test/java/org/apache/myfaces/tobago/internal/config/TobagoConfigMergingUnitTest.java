@@ -129,7 +129,7 @@ public class TobagoConfigMergingUnitTest {
     }
 
     final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
-    sorter.sort();
-    return sorter.merge();
+    final TobagoConfigMerger merger = new TobagoConfigMerger(sorter.topologicalSort());
+    return merger.merge();
   }
 }
