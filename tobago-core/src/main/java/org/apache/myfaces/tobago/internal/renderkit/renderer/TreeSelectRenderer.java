@@ -109,19 +109,22 @@ public class TreeSelectRenderer extends RendererBase {
 
     final boolean folder = data.isFolder();
     final Selectable selectable = data.getSelectable();
+    final boolean showCustomControl = treeSelect.isShowCheckbox()
+        && selectable != Selectable.none && (!selectable.isLeafOnly() || !folder);
 
     writer.startElement(HtmlElements.TOBAGO_TREE_SELECT);
     final Markup markup = treeSelect.getMarkup();
     writer.writeClassAttribute(
         treeSelect.getCustomClass(),
-        TobagoClass.TREE_SELECT.createMarkup(markup));
+        TobagoClass.TREE_SELECT.createMarkup(markup),
+        showCustomControl ? BootstrapClass.CUSTOM_CONTROL : null,
+        showCustomControl && selectable.isMulti() ? BootstrapClass.CUSTOM_CHECKBOX : null,
+        showCustomControl && selectable.isSingle() ? BootstrapClass.CUSTOM_RADIO : null);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, treeSelect);
 
-    if (treeSelect.isShowCheckbox()
-        && selectable != Selectable.none
-        && (!selectable.isLeafOnly() || !folder)) {
+    if (showCustomControl) {
       writer.startElement(HtmlElements.INPUT);
-      writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INLINE);
+      writer.writeClassAttribute(BootstrapClass.CUSTOM_CONTROL_INPUT);
       if (selectable.isSingle()) {
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
         writer.writeNameAttribute(getClientIdWithoutRowIndex(data, id));
@@ -135,7 +138,21 @@ public class TreeSelectRenderer extends RendererBase {
       writer.writeAttribute(HtmlAttributes.CHECKED, checked);
 
       writer.endElement(HtmlElements.INPUT);
+    }
 
+    final String label = treeSelect.getLabel();
+    writer.startElement(HtmlElements.LABEL);
+    writer.writeClassAttribute(TobagoClass.TREE_SELECT__LABEL,
+        showCustomControl ? BootstrapClass.CUSTOM_CONTROL_LABEL : null);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, treeSelect);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    }
+    writer.writeAttribute(HtmlAttributes.FOR, id, false);
+    writer.writeText(label);
+    writer.endElement(HtmlElements.LABEL);
+
+    if (showCustomControl) {
       final CommandMap behaviorCommands = getBehaviorCommands(facesContext, treeSelect);
       if (behaviorCommands != null) {
         Map<ClientBehaviors, Command> other = behaviorCommands.getOther();
@@ -146,20 +163,6 @@ public class TreeSelectRenderer extends RendererBase {
         }
       }
       encodeBehavior(writer, behaviorCommands);
-    }
-
-    // label
-    final String label = treeSelect.getLabel();
-    if (StringUtils.isNotEmpty(label)) {
-      writer.startElement(HtmlElements.LABEL);
-      writer.writeClassAttribute(TobagoClass.TREE_SELECT__LABEL);
-      final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, treeSelect);
-      if (title != null) {
-        writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-      }
-      writer.writeAttribute(HtmlAttributes.FOR, id, false);
-      writer.writeText(label);
-      writer.endElement(HtmlElements.LABEL);
     }
 
     writer.endElement(HtmlElements.TOBAGO_TREE_SELECT);
