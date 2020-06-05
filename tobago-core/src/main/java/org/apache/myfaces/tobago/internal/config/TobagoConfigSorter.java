@@ -19,310 +19,204 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
-import org.apache.myfaces.tobago.context.ThemeImpl;
-import org.apache.myfaces.tobago.exception.TobagoConfigurationException;
-import org.apache.myfaces.tobago.sanitizer.IgnoringSanitizer;
-import org.apache.myfaces.tobago.sanitizer.JsoupSanitizer;
-import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 
-public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
+public class TobagoConfigSorter {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  private List<TobagoConfigFragment> list;
-  private List<Pair> pairs;
+  private final List<Vertex> vertices = new ArrayList<>();
 
-  public TobagoConfigSorter(final List<TobagoConfigFragment> list) {
-    this.list = list;
-  }
-
-  public void sort() {
-
-    createRelevantPairs();
-
-    makeTransitive();
-
-    ensureIrreflexive();
-
-    ensureAntiSymmetric();
-
-    sort0();
-
-    if (LOG.isInfoEnabled()) {
-      LOG.info("Order of the Tobago config files:");
-      for (final TobagoConfigFragment fragment : list) {
-        String name = fragment.getName();
-        if (name == null) {
-          name = "<unnamed>";
-        } else {
-          name = "'" + name + "'";
-        }
-        LOG.info("name=" + name + " url='" + fragment.getUrl() + "'");
-      }
+  public TobagoConfigSorter(final List<TobagoConfigFragment> fragmentList) {
+    for (TobagoConfigFragment tobagoConfigFragment : fragmentList) {
+      vertices.add(new Vertex(tobagoConfigFragment));
     }
   }
 
-  public TobagoConfigImpl merge() {
+  /**
+   * Topological sorting with setup and cycle check.
+   *
+   * @throws IllegalStateException When detecting a cycle.
+   */
+  public List<TobagoConfigFragment> topologicalSort() {
 
-    final TobagoConfigImpl result = new TobagoConfigImpl();
+    createEdges();
+    checkCycles();
 
-    // default sanitizer
-    String sanitizerClass = JsoupSanitizer.class.getName();
-    Properties sanitizerProperties = new Properties();
-    sanitizerProperties.setProperty("whitelist", "relaxed");
+    List<TobagoConfigFragment> result = new ArrayList<>();
 
-    for (final TobagoConfigFragment fragment : list) {
-      // default theme
-      final String defaultTheme = fragment.getDefaultThemeName();
-      if (defaultTheme != null) {
-        result.setDefaultThemeName(defaultTheme);
-      }
-
-      // supported themes
-      for (final String supported : fragment.getSupportedThemeNames()) {
-        result.addSupportedThemeName(supported);
-      }
-
-      // session secret
-      if (fragment.getCreateSessionSecret() != null) {
-        result.setCreateSessionSecret(fragment.getCreateSessionSecret());
-      }
-      if (fragment.getCheckSessionSecret() != null) {
-        result.setCheckSessionSecret(fragment.getCheckSessionSecret());
-      }
-
-      if (fragment.getPreventFrameAttacks() != null) {
-        result.setPreventFrameAttacks(fragment.getPreventFrameAttacks());
-      }
-
-      if (fragment.getContentSecurityPolicy() != null) {
-        result.getContentSecurityPolicy().merge(fragment.getContentSecurityPolicy());
-      }
-
-      if (fragment.getSecurityAnnotation() != null) {
-        result.setSecurityAnnotation(fragment.getSecurityAnnotation());
-      }
-
-      if (fragment.getSetNosniffHeader() != null) {
-        result.setSetNosniffHeader(fragment.getSetNosniffHeader());
-      }
-
-      if (fragment.getSanitizerClass() != null) {
-        sanitizerClass = fragment.getSanitizerClass();
-        sanitizerProperties = fragment.getSanitizerProperties();
-      }
-
-      if (fragment.getDecodeLineFeed() != null) {
-        result.setDecodeLineFeed(fragment.getDecodeLineFeed());
-      }
-
-      // theme definition
-      for (final ThemeImpl theme : fragment.getThemeDefinitions()) {
-        result.addAvailableTheme(theme);
-      }
-
-      // url
-      // todo???
-
-      final Map<String, String> mimeTypes = result.getMimeTypes();
-      for (final Map.Entry<String, String> entry : fragment.getMimeTypes().entrySet()) {
-        mimeTypes.put(entry.getKey(), entry.getValue());
-      }
-
+    for (Vertex vertex : vertices) {
+      topologicalSort0(vertex, result);
     }
 
-    resolveThemes(result, result.getAvailableThemes());
-
-    if (sanitizerClass != null) {
-      try {
-        final Class<? extends Sanitizer> aClass = Class.forName(sanitizerClass).asSubclass(Sanitizer.class);
-        final Sanitizer sanitizer = aClass.newInstance();
-        sanitizer.setProperties(sanitizerProperties);
-        result.setSanitizer(sanitizer);
-      } catch (final Exception e) {
-        LOG.error("Can't create sanitizer: '" + sanitizerClass + "'", e);
-        result.setSanitizer(new IgnoringSanitizer());
-      }
-    }
+    logResult(result);
 
     return result;
   }
 
-  protected void makeTransitive() {
-    // make the half order transitive: a < b && b < c => a < c
-    boolean growing = true;
-    while (growing) {
-      growing = false;
-      for (int i = 0; i < pairs.size(); i++) {
-        for (int j = 0; j < pairs.size(); j++) {
-          if (pairs.get(i).getHigher() == pairs.get(j).getLower()
-              && !isInRelation(pairs.get(i).getLower(), pairs.get(j).getHigher())) {
-            pairs.add(new Pair(pairs.get(i).getLower(), pairs.get(j).getHigher()));
-            growing = true;
+  /**
+   * Internal recursive method for the topological sort.
+   */
+  private void topologicalSort0(Vertex vertex, List<TobagoConfigFragment> result) {
+    if (vertex.isVisited()) {
+      return;
+    }
+
+    vertex.setVisited(true);
+
+    // recursion for all vertices adjacent to this vertex
+    for (Vertex adjacent : vertex.getAdjacencyList()) {
+      topologicalSort0(adjacent, result);
+    }
+
+    result.add(vertex.getFragment());
+  }
+
+  private void logResult(List<TobagoConfigFragment> result) {
+    if (LOG.isInfoEnabled()) {
+      StringBuilder builder = new StringBuilder("Order of the Tobago config files: ");
+      for (TobagoConfigFragment fragment : result) {
+        final String name = fragment.getName();
+        if (LOG.isDebugEnabled()) {
+          builder.append("name=");
+          if (name == null) {
+            builder.append("<unnamed>");
+          } else {
+            builder.append("'");
+            builder.append(name);
+            builder.append("'");
           }
+          builder.append(" url='");
+          builder.append(fragment.getUrl());
+          builder.append("'");
+        } else {
+          builder.append(name);
+          builder.append(", ");
         }
       }
+      LOG.info(builder.toString());
     }
   }
 
-  protected void ensureIrreflexive() {
-    for (final Pair a : pairs) {
-        if (a.getLower() == a.getHigher()) {
-          final StringBuilder buffer = new StringBuilder();
-          buffer.append("Ordering problem. There are conflicting order rules. Not irreflexive. '");
-          buffer.append(a.getLower());
-          buffer.append("' < '");
-          buffer.append(a.getHigher());
-          buffer.append("'!\nThe reason may be a cycle.\n");
-          buffer.append("Complete list of rules: \n");
-          for (final Pair pair : pairs) {
-            buffer.append("'");
-            buffer.append(pair.getLower());
-            buffer.append("' < '");
-            buffer.append(pair.getHigher());
-            buffer.append("'\n");
 
-          }
-          throw new TobagoConfigurationException(buffer.toString());
-        }
-      }
-  }
-
-  protected void ensureAntiSymmetric() {
-    for (final Pair a : pairs) {
-      for (final Pair b : pairs) {
-        if (a.getLower() == b.getHigher() && a.getHigher() == b.getLower()) {
-          final StringBuilder buffer = new StringBuilder();
-          buffer.append("Ordering problem. There are conflicting order rules. Not antisymmetric. '");
-          buffer.append(a.getLower());
-          buffer.append("' < '");
-          buffer.append(a.getHigher());
-          buffer.append("'" + "'");
-          buffer.append(a.getLower());
-          buffer.append("' > '");
-          buffer.append(a.getHigher());
-          buffer.append("'!\nThe reason may be a cycle.\n");
-          buffer.append("Complete list of rules: \n");
-          for (final Pair pair : pairs) {
-            buffer.append("'");
-            buffer.append(pair.getLower());
-            buffer.append("' < '");
-            buffer.append(pair.getHigher());
-            buffer.append("'\n");
-
-          }
-          throw new TobagoConfigurationException(buffer.toString());
-        }
-      }
-    }
-  }
-
-  @Override
-  public int compare(final TobagoConfigFragment a, final TobagoConfigFragment b) {
-    if (isInRelation(a, b)) {
-      return -1;
-    }
-    if (isInRelation(b, a)) {
-      return 1;
-    }
-    return 0;
-  }
-
-  protected void createRelevantPairs() {
-
-    pairs = new ArrayList<>();
+  private void createEdges() {
 
     // collecting all relations, which are relevant for us. We don't need "before" and "after" of unknown names.
-    for (final TobagoConfigFragment tobagoConfig : list) {
-      for (final String befores : tobagoConfig.getBefore()) {
+    for (final Vertex vertex : vertices) {
+      final TobagoConfigFragment current = vertex.getFragment();
+
+      for (final String befores : current.getBefore()) {
         final TobagoConfigFragment before = findByName(befores);
         if (before != null) {
-          pairs.add(new Pair(tobagoConfig, before));
+          findVertex(before).addAdjacent(findVertex(current));
         }
       }
-      for (final String afters : tobagoConfig.getAfter()) {
+      for (final String afters : current.getAfter()) {
         final TobagoConfigFragment after = findByName(afters);
         if (after != null) {
-          pairs.add(new Pair(after, tobagoConfig));
+          findVertex(current).addAdjacent(findVertex(after));
         }
       }
     }
   }
 
-  protected void sort0() {
-    list.sort(this);
+  /**
+   * Cycle detection: if the base in reachable form its own, than there is a cycle.
+   *
+   * @throws IllegalStateException When detecting a cycle.
+   */
+  private void checkCycles() {
+    LOG.debug("Cycle detection:");
+    for (Vertex vertex : vertices) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Checking reachable vertices from base {}", vertex.getFragment());
+      }
+      checkCycles0(vertex, vertex);
+    }
   }
 
-  private boolean isInRelation(final TobagoConfigFragment lower, final TobagoConfigFragment higher) {
-    for (final Pair p : pairs) {
-      if (p.getLower() == lower && p.getHigher() == higher) {
-        return true;
+  private void checkCycles0(final Vertex vertex, final Vertex base) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("vertex: {}", vertex.toString());
+      LOG.debug("base:   {}", base.getFragment().toString());
+    }
+    for (Vertex adjacent : vertex.getAdjacencyList()) {
+      if (base == adjacent) {
+        throw new IllegalStateException("Cycle detected name='" + vertex + "' base=" + base + "! ");
+      }
+      checkCycles0(adjacent, base);
+    }
+  }
+
+  private Vertex findVertex(final TobagoConfigFragment fragment) {
+    for (Vertex vertex : vertices) {
+      if (vertex.getFragment() == fragment) {
+        return vertex;
       }
     }
-    return false;
+    throw new RuntimeException("Problem with sorting! This might be a bug.");
   }
 
   private TobagoConfigFragment findByName(final String name) {
-    for (final TobagoConfigFragment tobagoConfig : list) {
-      if (name.equals(tobagoConfig.getName())) {
-        return tobagoConfig;
+    for (final Vertex vertex : vertices) {
+      TobagoConfigFragment fragment = vertex.getFragment();
+      if (name.equals(fragment.getName())) {
+        return fragment;
       }
     }
     return null;
   }
 
-  private void resolveThemes(final TobagoConfigImpl tobagoConfig, final Map<String, ThemeImpl> map) {
-    for (final ThemeImpl theme : map.values()) {
-      final String fallbackName = theme.getFallbackName();
-      final ThemeImpl fallback = map.get(fallbackName);
-      theme.setFallback(fallback);
-    }
-    for (final ThemeImpl theme : map.values()) {
-      theme.resolveFallbacks();
-    }
-    for (final ThemeImpl theme : map.values()) {
-      theme.resolveResources();
-    }
-    for (final ThemeImpl theme : map.values()) {
-      theme.init();
-    }
-  }
+  private static class Vertex {
 
-  protected List<Pair> getPairs() {
-    return pairs;
-  }
+    private final TobagoConfigFragment fragment;
+    private final List<Vertex> adjacencyList;
+    private boolean visited;
 
-  private static class Pair {
-
-    private final TobagoConfigFragment lower;
-    private final TobagoConfigFragment higher;
-
-    private Pair(final TobagoConfigFragment lower, final TobagoConfigFragment higher) {
-      this.lower = lower;
-      this.higher = higher;
+    private Vertex(final TobagoConfigFragment fragment) {
+      this.fragment = fragment;
+      this.adjacencyList = new ArrayList<>();
     }
 
-    public TobagoConfigFragment getLower() {
-      return lower;
+    public boolean isVisited() {
+      return visited;
     }
 
-    public TobagoConfigFragment getHigher() {
-      return higher;
+    public void setVisited(boolean visited) {
+      this.visited = visited;
+    }
+
+    public TobagoConfigFragment getFragment() {
+      return fragment;
+    }
+
+    public void addAdjacent(Vertex higher) {
+      adjacencyList.add(higher);
+    }
+
+    public List<Vertex> getAdjacencyList() {
+      return adjacencyList;
     }
 
     @Override
     public String toString() {
-      return lower + "<" + higher;
+      StringBuilder builder = new StringBuilder();
+      builder.append(fragment);
+      builder.append(" -> [");
+      for (Vertex vertex : adjacencyList) {
+        builder.append(vertex.getFragment());
+        builder.append(", ");
+      }
+      if (builder.charAt(builder.length() - 1) == ' ') {
+        builder.delete(builder.length() - 2, builder.length());
+      }
+      builder.append("]");
+      return builder.toString();
     }
   }
-
 }

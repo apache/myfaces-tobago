@@ -84,8 +84,8 @@ public class TobagoConfigBuilder {
     configFromClasspath();
     configFromWebInf();
     final TobagoConfigSorter sorter = new TobagoConfigSorter(configFragmentList);
-    sorter.sort();
-    return sorter.merge();
+    final TobagoConfigMerger merger = new TobagoConfigMerger(sorter.topologicalSort());
+    return merger.merge();
   }
 
   private void configFromWebInf()
