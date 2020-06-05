@@ -1515,7 +1515,15 @@ tobago-tree {
 
     tobago-tree-select {
       display: inline;
+
+      &.custom-control {
+        display: inline;
+      }
     }
+  }
+
+  .tobago-treeLabel, .tobago-treeSelect-label {
+    margin-bottom: 0;
   }
 }
 
