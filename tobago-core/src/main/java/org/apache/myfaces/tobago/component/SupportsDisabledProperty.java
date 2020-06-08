@@ -17,30 +17,11 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.component;
 
-import org.apache.myfaces.tobago.component.SupportsDisabledProperty;
-import org.apache.myfaces.tobago.layout.Orientation;
+public interface SupportsDisabledProperty {
 
-/**
- * {@link org.apache.myfaces.tobago.internal.taglib.component.LinksTagDeclaration}
- */
-public abstract class AbstractUILinks extends AbstractUIPanelBase implements SupportsDisabledProperty {
+  boolean isDisabled();
 
-  enum PropertyKeys {
-    disabled,
-  }
-
-  public abstract Orientation getOrientation();
-
-  @Override
-  public boolean isDisabled() {
-    final Boolean disabled = (Boolean) getStateHelper().eval(PropertyKeys.disabled);
-    return disabled != null && disabled;
-  }
-
-  @Override
-  public void setDisabled(final boolean disabled) {
-    getStateHelper().put(PropertyKeys.disabled, disabled);
-  }
+  void setDisabled(final boolean disabled);
 }

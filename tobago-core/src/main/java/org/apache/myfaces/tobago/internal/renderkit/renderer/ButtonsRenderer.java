@@ -57,6 +57,9 @@ public class ButtonsRenderer extends RendererBase {
             ? BootstrapClass.BTN_GROUP_VERTICAL : BootstrapClass.BTN_GROUP,
         buttons.getCustomClass());
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.GROUP.toString(), false);
+    if (buttons.isDisabled()) {
+      writer.writeAttribute(HtmlAttributes.DISABLED, buttons.isDisabled());
+    }
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, buttons);
     final String tip = buttons.getTip();
     if (tip != null) {

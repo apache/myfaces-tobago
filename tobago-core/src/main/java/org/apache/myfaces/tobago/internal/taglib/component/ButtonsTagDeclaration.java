@@ -20,7 +20,9 @@
 package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasOrientation;
@@ -46,4 +48,10 @@ import javax.faces.component.UIPanel;
 public interface ButtonsTagDeclaration
     extends HasIdBindingAndRendered, IsVisual, HasTip, HasOrientation {
 
+  /**
+   * Flag indicating that this element and all children are disabled.
+   */
+  @TagAttribute()
+  @UIComponentTagAttribute(type = "boolean", generate = false)
+  void setDisabled(String disabled);
 }
