@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.SupportsDisabled;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.event.CollapsibleActionListener;
 import org.apache.myfaces.tobago.internal.config.SecurityAnnotation;
@@ -108,6 +109,13 @@ public abstract class AbstractUICommandBase extends UICommand
     final FacesContext facesContext = getFacesContext();
     final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
     final Boolean disabled = (Boolean) getStateHelper().eval(AbstractUICommand.PropertyKeys.disabled);
+    if (disabled == null) {
+      SupportsDisabled parent =
+          ComponentUtils.findAncestor(getCurrentComponent(facesContext), SupportsDisabled.class);
+      if (parent != null && parent.isDisabled()) {
+        return true;
+      }
+    }
     return disabled != null && disabled
         || (tobagoConfig.getSecurityAnnotation() == SecurityAnnotation.disable && !isAllowed());
   }

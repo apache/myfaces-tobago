@@ -17,20 +17,11 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.component;
 
-import org.apache.myfaces.tobago.component.SupportsDisabled;
-import org.apache.myfaces.tobago.layout.Orientation;
+public interface SupportsDisabled {
 
-/**
- * {@link org.apache.myfaces.tobago.internal.taglib.component.ButtonsTagDeclaration}
- */
-public abstract class AbstractUIButtons extends AbstractUIPanelBase implements SupportsDisabled {
+  boolean isDisabled();
 
-  enum PropertyKeys {
-    disabled,
-  }
-
-  public abstract Orientation getOrientation();
-
+  void setDisabled(final boolean disabled);
 }

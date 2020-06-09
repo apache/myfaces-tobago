@@ -19,12 +19,18 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.SupportsDisabled;
 import org.apache.myfaces.tobago.layout.Orientation;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.LinksTagDeclaration}
  */
-public abstract class AbstractUILinks extends AbstractUIPanelBase {
+public abstract class AbstractUILinks extends AbstractUIPanelBase implements SupportsDisabled {
+
+  enum PropertyKeys {
+    disabled,
+  }
 
   public abstract Orientation getOrientation();
+
 }
