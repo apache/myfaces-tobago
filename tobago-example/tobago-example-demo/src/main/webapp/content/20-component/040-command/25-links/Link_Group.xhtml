@@ -87,4 +87,19 @@
       <tc:link label="Right"/>
     </tc:links>
   </tc:section>
+
+  <tc:section label="Disable">
+    <p>This example shows how to disable all links in a link group.
+      It's also possible to set disable to false e.g. for one link.</p>
+    <pre><code class="language-markup">&lt;tc:links disabled="true">
+  &lt;c:link label="Left" disabled="false"/>
+  &lt;tc:link label="Center"/>
+  &lt;tc:link label="Right"/>
+&lt;/tc:links></code></pre>
+    <tc:links disabled="true">
+      <tc:link label="Left" disabled="false"/>
+      <tc:link label="Center"/>
+      <tc:link label="Right"/>
+    </tc:links>
+  </tc:section>
 </ui:composition>
