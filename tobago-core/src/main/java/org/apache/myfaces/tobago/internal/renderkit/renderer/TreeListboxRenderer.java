@@ -28,7 +28,8 @@ import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeSelect;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
+import org.apache.myfaces.tobago.model.SelectedState;
+import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -55,7 +56,7 @@ public class TreeListboxRenderer extends RendererBase {
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
     final AbstractUITree tree = (AbstractUITree) component;
-    RenderUtils.decodedStateOfTreeData(facesContext, tree);
+    decodeState(facesContext, tree);
   }
 
   @Override
@@ -71,7 +72,7 @@ public class TreeListboxRenderer extends RendererBase {
     final String clientId = tree.getClientId(facesContext);
     final Markup markup = tree.getMarkup();
 
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.TOBAGO_TREE_LISTBOX);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
         TobagoClass.TREE_LISTBOX,
@@ -83,7 +84,7 @@ public class TreeListboxRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     writer.writeNameAttribute(clientId + SUB_SEPARATOR + AbstractUIData.SUFFIX_SELECTED);
     writer.writeIdAttribute(clientId + SUB_SEPARATOR + AbstractUIData.SUFFIX_SELECTED);
-    writer.writeAttribute(HtmlAttributes.VALUE, JsonUtils.encodeEmptyArray(), false);
+    writer.writeAttribute(HtmlAttributes.VALUE, encodeState(tree), false);
     writer.endElement(HtmlElements.INPUT);
 
     List<Integer> thisLevel = new ArrayList<>();
@@ -129,7 +130,7 @@ public class TreeListboxRenderer extends RendererBase {
       writer.endElement(HtmlElements.DIV);
     }
 
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.TOBAGO_TREE_LISTBOX);
 
     tree.setRowIndex(-1);
   }
@@ -187,5 +188,50 @@ public class TreeListboxRenderer extends RendererBase {
     }
 
     writer.endElement(HtmlElements.SELECT);
+  }
+
+  private void decodeState(final FacesContext facesContext, final AbstractUITree tree) {
+    final String hiddenInputId = tree.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_SELECTED;
+    final String selectedIndicesString = facesContext.getExternalContext().getRequestParameterMap().get(hiddenInputId);
+    final List<Integer> selectedIndices = JsonUtils.decodeIntegerArray(selectedIndicesString);
+    final SelectedState selectedState = tree.getSelectedState();
+
+    final int last = tree.isRowsUnlimited() ? Integer.MAX_VALUE : tree.getFirst() + tree.getRows();
+    for (int rowIndex = tree.getFirst(); rowIndex < last; rowIndex++) {
+      tree.setRowIndex(rowIndex);
+      if (!tree.isRowAvailable()) {
+        break;
+      }
+
+      final TreePath path = tree.getPath();
+
+      if (selectedIndices != null && selectedIndices.equals(JsonUtils.decodeIntegerArray(path.toString()))) {
+        selectedState.select(path);
+      } else {
+        selectedState.unselect(path);
+      }
+    }
+    tree.setRowIndex(-1);
+  }
+
+  private String encodeState(final AbstractUITreeListbox tree) {
+    final SelectedState selectedState = tree.getSelectedState();
+
+    final int last = tree.isRowsUnlimited() ? Integer.MAX_VALUE : tree.getFirst() + tree.getRows();
+    for (int rowIndex = tree.getFirst(); rowIndex < last; rowIndex++) {
+      tree.setRowIndex(rowIndex);
+      if (!tree.isRowAvailable()) {
+        break;
+      }
+
+      final TreePath path = tree.getPath();
+
+      if (selectedState.isSelected(path)) {
+        return path.toString();
+      }
+    }
+    tree.setRowIndex(-1);
+
+    return JsonUtils.encodeEmptyArray();
   }
 }

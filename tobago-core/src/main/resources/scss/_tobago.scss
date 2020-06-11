@@ -1520,16 +1520,17 @@ tobago-tree {
 }
 
 /* treeListbox ---------------------------------------------------------------------- */
-.tobago-treeListbox {
-}
+tobago-tree-listbox, .tobago-treeListbox {
+  display: block;
 
-.tobago-treeListbox-level {
-  display: inline-block;
-  min-width: 10rem;
-}
+  .tobago-treeListbox-level {
+    display: inline-block;
+    min-width: 10rem;
+  }
 
-.tobago-treeListbox-select {
-  width: 100%;
+  .tobago-treeListbox-select {
+    width: 100%;
+  }
 }
 
 /* textarea --------------------------------------------------------- */
