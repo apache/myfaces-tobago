@@ -161,6 +161,7 @@ public enum HtmlElements {
   TOBAGO_TAB_CONTENT("tobago-tab-content"),
   TOBAGO_TAB_GROUP("tobago-tab-group"),
   TOBAGO_TREE("tobago-tree"),
+  TOBAGO_TREE_LISTBOX("tobago-tree-listbox"),
   TOBAGO_TREE_NODE("tobago-tree-node"),
   TOBAGO_TREE_SELECT("tobago-tree-select");
 

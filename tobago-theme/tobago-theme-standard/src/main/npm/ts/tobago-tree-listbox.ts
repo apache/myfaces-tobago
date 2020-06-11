@@ -15,90 +15,122 @@
  * limitations under the License.
  */
 
-import {Listener, Phase} from "./tobago-listener";
 import {DomUtils} from "./tobago-utils";
 
-class TreeListbox {
+class TreeListbox extends HTMLElement {
 
-  id: string;
+  constructor() {
+    super();
+  }
 
-  static init = function (element: HTMLElement): void {
-    for (const treeListbox of DomUtils.selfOrElementsByClassName(element, "tobago-treeListbox")) {
-      new TreeListbox(treeListbox);
-    }
-  };
+  connectedCallback(): void {
+    this.applySelected();
 
-  constructor(element: HTMLElement) {
-
-    this.id = element.id;
-
-    const selects = element.getElementsByTagName("select");
-    for (let i = 0; i < selects.length; i++) {
-      const listbox = selects.item(i) as HTMLSelectElement;
-      // hide select tags for level > root
-      if (listbox.previousElementSibling) {
-        listbox.classList.add("d-none");
-      }
-
-      // add on change on all select tag, all options that are not selected hide there dedicated
-      // select tag, and the selected option show its dedicated select tag.
+    for (const listbox of this.listboxes) {
       if (!listbox.disabled) {
-        listbox.addEventListener("change", this.onChange.bind(this));
+        listbox.addEventListener("change", this.select.bind(this));
       }
     }
   }
 
-  onChange(event: TextEvent): void {
-    let listbox = event.currentTarget as HTMLSelectElement;
-    for (const child of listbox.children) {
-      const option = child as HTMLOptionElement;
-      if (option.tagName === "OPTION") {
-        if (option.selected) {
-          this.setSelected(option);
-          let select = document.getElementById(option.id + DomUtils.SUB_COMPONENT_SEP + "parent") as HTMLSelectElement;
-          if (!select) {
-            select = listbox.parentElement.nextElementSibling.children[0] as HTMLSelectElement; // dummy
-          }
-          select.classList.remove("d-none");
-          for (const sibling of listbox.parentElement.nextElementSibling.children) {
-            if (sibling === select) {
-              (sibling as HTMLElement).classList.remove("d-none");
-            } else {
-              (sibling as HTMLElement).classList.add("d-none");
-            }
-          }
+  private select(event: Event): void {
+    const listbox = event.currentTarget as HTMLSelectElement;
+    this.unselectDescendants(listbox);
+    this.setSelected();
+    this.applySelected();
+  }
+
+  private unselectDescendants(select: HTMLSelectElement): void {
+    let unselect: boolean = false;
+    for (const listbox of this.listboxes) {
+      if (unselect) {
+        const checkedOption = listbox.querySelector<HTMLOptionElement>("option:checked");
+        if (checkedOption) {
+          checkedOption.selected = false;
         }
+      } else if (listbox.id === select.id) {
+        unselect = true;
       }
     }
+  }
 
-    // Deeper level (2nd and later) should only show the empty select tag.
-    // The first child is the empty selection.
+  private setSelected(): void {
+    const selected: number[] = [];
+    for (const level of this.levelElements) {
+      const checkedOption: HTMLOptionElement = level
+          .querySelector(".tobago-treeListbox-select:not(.d-none) option:checked");
+      if (checkedOption) {
+        selected.push(checkedOption.index);
+      }
+    }
+    this.hiddenInput.value = JSON.stringify(selected);
+  }
 
-    let next = listbox.parentElement.nextElementSibling;
-    if (next) {
-      for (next = next.nextElementSibling; next; next = next.nextElementSibling) {
-        for (const child of next.children) {
-          const select = child as HTMLSelectElement;
-          if (select.previousElementSibling) { // is not the first
-            select.classList.add("d-none");
-          } else { // is the first
-            select.classList.remove("d-none");
-          }
+  private applySelected(): void {
+    const selected: number[] = JSON.parse(this.hiddenInput.value);
+    let nextActiveSelectId: string = this.querySelector(".tobago-treeListbox-select").id;
+
+    const levelElements = this.levelElements;
+    for (let i = 0; i < levelElements.length; i++) {
+      const level = levelElements[i];
+
+      for (const select of this.getSelectElements(level)) {
+        if (select.id === nextActiveSelectId || (nextActiveSelectId === null && select.disabled)) {
+          const check: number = i < selected.length ? selected[i] : null;
+          this.show(select, check);
+          nextActiveSelectId = this.getNextActiveSelectId(select, check);
+        } else {
+          this.hide(select);
         }
       }
     }
   }
 
-  setSelected(option: HTMLOptionElement): void {
-    const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "selected") as HTMLInputElement;
-    if (hidden) {
-      let value = <number[]>JSON.parse(hidden.value);
-      value = []; // todo: multi-select
-      value.push(parseInt(option.dataset.tobagoRowIndex));
-      hidden.value = JSON.stringify(value);
+  private getSelectElements(level: HTMLDivElement): NodeListOf<HTMLSelectElement> {
+    return level.querySelectorAll<HTMLSelectElement>(".tobago-treeListbox-select");
+  }
+
+  private getNextActiveSelectId(select: HTMLSelectElement, check: number): string {
+    if (check !== null) {
+      const option = select.querySelectorAll("option")[check];
+      return option.id + DomUtils.SUB_COMPONENT_SEP + "parent";
+    } else {
+      return null;
     }
+  }
+
+  private show(select: HTMLSelectElement, check: number): void {
+    select.classList.remove("d-none");
+    const checkedOption = select.querySelector<HTMLOptionElement>("option:checked");
+    if (checkedOption && checkedOption.index !== check) {
+      checkedOption.selected = false;
+    }
+    if (check !== null && checkedOption.index !== check) {
+      select.querySelectorAll("option")[check].selected = true;
+    }
+  }
+
+  private hide(select: HTMLSelectElement): void {
+    select.classList.add("d-none");
+    const checkedOption = select.querySelector<HTMLOptionElement>("option:checked");
+    if (checkedOption) {
+      checkedOption.selected = false;
+    }
+  }
+
+  private get listboxes(): NodeListOf<HTMLSelectElement> {
+    return this.querySelectorAll(".tobago-treeListbox-select");
+  }
+
+  private get levelElements(): NodeListOf<HTMLDivElement> {
+    return this.querySelectorAll(".tobago-treeListbox-level");
+  }
+
+  private get hiddenInput(): HTMLInputElement {
+    return this.querySelector(DomUtils.escapeClientId(this.id + DomUtils.SUB_COMPONENT_SEP + "selected"));
   }
 }
 
-Listener.register(TreeListbox.init, Phase.DOCUMENT_READY);
-Listener.register(TreeListbox.init, Phase.AFTER_UPDATE);
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
+  window.customElements.define("tobago-tree-listbox", TreeListbox);
+});
