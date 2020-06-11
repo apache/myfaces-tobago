@@ -28,7 +28,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class NavigationNode extends DefaultMutableTreeNode implements Comparable {
+public class NavigationNode extends DefaultMutableTreeNode implements Comparable<NavigationNode> {
 
   private static final Logger LOG = LoggerFactory.getLogger(NavigationNode.class);
 
@@ -65,8 +65,7 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
   }
 
   @Override
-  public int compareTo(final Object o) {
-    final NavigationNode other = (NavigationNode) o;
+  public int compareTo(final NavigationNode other) {
     return branch.compareTo(other.getBranch());
   }
 
