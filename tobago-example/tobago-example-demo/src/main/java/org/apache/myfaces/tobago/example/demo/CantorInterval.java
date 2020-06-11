@@ -31,8 +31,8 @@ import java.util.Enumeration;
  */
 public class CantorInterval extends DefaultMutableTreeNode {
 
-  private Fraction begin;
-  private Fraction end;
+  private final Fraction begin;
+  private final Fraction end;
   private boolean initialized;
 
   public CantorInterval() {
@@ -72,7 +72,7 @@ public class CantorInterval extends DefaultMutableTreeNode {
   }
 
   @Override
-  public Enumeration children() {
+  public Enumeration<TreeNode> children() {
     init();
     return super.children();
   }
