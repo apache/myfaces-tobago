@@ -191,7 +191,8 @@ public class TreeListboxRenderer extends RendererBase {
   }
 
   private void decodeState(final FacesContext facesContext, final AbstractUITree tree) {
-    final String hiddenInputId = tree.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_SELECTED;
+    final String hiddenInputId = tree.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR
+        + AbstractUIData.SUFFIX_SELECTED;
     final String selectedIndicesString = facesContext.getExternalContext().getRequestParameterMap().get(hiddenInputId);
     final List<Integer> selectedIndices = JsonUtils.decodeIntegerArray(selectedIndicesString);
     final SelectedState selectedState = tree.getSelectedState();
