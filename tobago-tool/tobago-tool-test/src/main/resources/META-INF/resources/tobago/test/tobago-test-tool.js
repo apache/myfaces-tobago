@@ -250,19 +250,19 @@ class JasmineTestTool {
   }
 
   /**
-   * The condition function (fn1) defines the desired state before the main test starts. The do function (fn2) will be
-   * executed if the condition function returns false.
-   * @param fn1 condition function
-   * @param fn2 do function
+   * The require function (require) defines the desired state before the main test starts. The fix function (fix)
+   * will be executed if the require function returns false.
+   * @param require function
+   * @param fix function
    */
-  setup(fn1, fn2) {
+  setup(require, fix) {
     this.do(() => {
-      if (!fn1()) {
-        console.debug("[JasmineTestTool] fn1() returns false, execute fn2()");
-        fn2();
+      if (!require()) {
+        console.debug("[JasmineTestTool] require() returns false, execute fix()");
+        fix();
       }
     })
-    this.wait(fn1);
+    this.wait(require);
   }
 
   /**
