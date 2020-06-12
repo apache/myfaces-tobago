@@ -68,17 +68,18 @@ class TreeListbox extends HTMLElement {
 
   private applySelected(): void {
     const selected: number[] = JSON.parse(this.hiddenInput.value);
-    let nextActiveSelectId: string = this.querySelector(".tobago-treeListbox-select").id;
+    let nextActiveSelect: HTMLSelectElement = this.querySelector(".tobago-treeListbox-select");
 
     const levelElements = this.levelElements;
     for (let i = 0; i < levelElements.length; i++) {
       const level = levelElements[i];
 
       for (const select of this.getSelectElements(level)) {
-        if (select.id === nextActiveSelectId || (nextActiveSelectId === null && select.disabled)) {
+        if ((nextActiveSelect !== null && select.id === nextActiveSelect.id)
+            || (nextActiveSelect === null && select.disabled)) {
           const check: number = i < selected.length ? selected[i] : null;
           this.show(select, check);
-          nextActiveSelectId = this.getNextActiveSelectId(select, check);
+          nextActiveSelect = this.getNextActiveSelect(select, check);
         } else {
           this.hide(select);
         }
@@ -90,10 +91,10 @@ class TreeListbox extends HTMLElement {
     return level.querySelectorAll<HTMLSelectElement>(".tobago-treeListbox-select");
   }
 
-  private getNextActiveSelectId(select: HTMLSelectElement, check: number): string {
+  private getNextActiveSelect(select: HTMLSelectElement, check: number): HTMLSelectElement {
     if (check !== null) {
       const option = select.querySelectorAll("option")[check];
-      return option.id + DomUtils.SUB_COMPONENT_SEP + "parent";
+      return this.querySelector(DomUtils.escapeClientId(option.id + DomUtils.SUB_COMPONENT_SEP + "parent"));
     } else {
       return null;
     }
