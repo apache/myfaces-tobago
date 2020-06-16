@@ -310,6 +310,7 @@ Tobago.Menu.init = function(elements) {
     if (wasActive) {
       Tobago.Menu.switchOff(menuBar);
     } else {
+      Tobago.Menu.closeAll();
       Tobago.Menu.switchOn(menuBar, jQuery(this));
     }
 
