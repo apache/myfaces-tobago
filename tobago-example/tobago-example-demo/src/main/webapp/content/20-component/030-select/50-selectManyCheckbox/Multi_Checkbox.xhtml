@@ -67,7 +67,7 @@
 
   <tc:section label="Images">
     <tc:selectManyCheckbox>
-      <tc:selectItems value="#{demoController.currencyItems}"
+      <tc:selectItems value="#{currencyController.currencyItems}"
                       var="currency" itemValue="#{currency.currencyCode}" itemLabel="#{currency.displayName}"
                       itemImage="#{request.contextPath}/image/#{currency.currencyCode}-14.png"/>
     </tc:selectManyCheckbox>
