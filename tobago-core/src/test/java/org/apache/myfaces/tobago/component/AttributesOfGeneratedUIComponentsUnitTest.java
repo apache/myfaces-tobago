@@ -48,9 +48,8 @@ public class AttributesOfGeneratedUIComponentsUnitTest extends AbstractGenerated
         if (property.equals("for")) {
           property = "forValue";
         }
-        final Attributes attribute;
         try {
-          attribute = Attributes.valueOf(property);
+          Attributes.valueOf(property);
         } catch (final IllegalArgumentException e) {
           Assertions.fail(e.getMessage());
         }
