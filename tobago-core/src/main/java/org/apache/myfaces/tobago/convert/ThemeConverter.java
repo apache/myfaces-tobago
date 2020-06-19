@@ -31,7 +31,7 @@ import javax.faces.convert.ConverterException;
 import java.lang.invoke.MethodHandles;
 
 @org.apache.myfaces.tobago.apt.annotation.Converter(forClass = "org.apache.myfaces.tobago.context.Theme")
-public class ThemeConverter implements Converter {
+public class ThemeConverter implements Converter<Theme> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -39,17 +39,17 @@ public class ThemeConverter implements Converter {
 
   @Override
   public String getAsString(
-      final FacesContext facesContext, final UIComponent component, final Object object)
+      final FacesContext facesContext, final UIComponent component, final Theme theme)
       throws ConverterException {
     try {
-      return ((Theme) object).getName();
+      return theme.getName();
     } catch (final ClassCastException e) {
-      throw new ConverterException("object='" + object + "'", e);
+      throw new ConverterException("object='" + theme + "'", e);
     }
   }
 
   @Override
-  public Object getAsObject(
+  public Theme getAsObject(
       final FacesContext facesContext, final UIComponent component, final String string)
       throws ConverterException {
     try {

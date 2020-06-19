@@ -55,7 +55,6 @@
           <script name="/webjars/tether/1.4.0/js/tether.js"/>
           <script name="/webjars/popper.js/1.14.3/umd/popper.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/jsf-development.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-deltaspike.js"/>
           <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-polyfill.js"/>
           <script type="module" name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-bundle.js"/>
 <!--

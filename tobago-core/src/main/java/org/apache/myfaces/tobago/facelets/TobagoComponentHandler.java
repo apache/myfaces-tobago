@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.event.TabChangeSource;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
 
+import javax.enterprise.inject.spi.CDI;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -78,7 +79,7 @@ public class TobagoComponentHandler extends ComponentHandler {
   }
 
   private void addDefaultValidators(final FacesContext context, final EditableValueHolder component) {
-    final TobagoConfigImpl tobagoConfig = (TobagoConfigImpl) TobagoConfig.getInstance(context);
+    final TobagoConfigImpl tobagoConfig = (TobagoConfigImpl) CDI.current().select(TobagoConfig.class).get();
     final Map<String, String> validatorInfoMap = tobagoConfig.getDefaultValidatorInfo();
     if (validatorInfoMap.isEmpty()) {
       return;

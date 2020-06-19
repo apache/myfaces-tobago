@@ -20,16 +20,18 @@
 package org.apache.myfaces.tobago.example.demo;
 
 import javax.enterprise.context.Conversation;
-import javax.enterprise.context.ConversationScoped;
-import javax.inject.Inject;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 
-@ConversationScoped
+// XXX a solution might be putting this example to its own small JAR.
+
+//@ConversationScoped // XXX not supported by Quarkus https://quarkus.io/guides/cdi-reference
+@SessionScoped
 @Named
 public class ConversationController implements Serializable {
 
-  @Inject
+//  @Inject // XXX
   private Conversation conversation;
   private int count = 0;
 

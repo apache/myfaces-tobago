@@ -24,11 +24,13 @@ import org.apache.myfaces.tobago.webapp.Secret;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.inject.spi.CDI;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import java.lang.invoke.MethodHandles;
+import java.util.Map;
 
 public class SecretPhaseListener implements PhaseListener {
 
@@ -37,15 +39,28 @@ public class SecretPhaseListener implements PhaseListener {
   @Override
   public void afterPhase(final PhaseEvent event) {
     final FacesContext facesContext = event.getFacesContext();
+    final TobagoConfig tobagoConfig = CDI.current().select(TobagoConfig.class).get();
+
     if (!facesContext.getResponseComplete()
         && facesContext.isPostback()
-        && TobagoConfig.getInstance(facesContext).isCheckSessionSecret()
-        && !Secret.check(facesContext)) {
+        && tobagoConfig.isCheckSessionSecret()
+        && !check(facesContext)) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("Secret is invalid!");
       }
-      facesContext.renderResponse();
+      facesContext.renderResponse(); // this ends the normal lifecycle
     }
+  }
+
+  /**
+   * Checks that the request contains a parameter {@link org.apache.myfaces.tobago.webapp.Secret#KEY} which is equals to
+   * a secret value in the session.
+   */
+  private boolean check(final FacesContext facesContext) {
+    final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    final String fromRequest = requestParameterMap.get(Secret.KEY);
+    final Secret secret = CDI.current().select(Secret.class).get();
+    return secret.check(fromRequest);
   }
 
   @Override

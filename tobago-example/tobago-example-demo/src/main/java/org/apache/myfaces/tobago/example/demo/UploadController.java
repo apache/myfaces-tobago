@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.internal.util.PartUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,7 +74,7 @@ public class UploadController implements Serializable {
     LOG.info("type=" + part.getContentType());
     LOG.info("size=" + part.getSize());
     LOG.info("cd = " + part.getHeader("Content-Disposition"));
-    final String submittedFileName = PartUtils.getSubmittedFileName(part);
+    final String submittedFileName = part.getSubmittedFileName();
     LOG.info("name=" + submittedFileName);
     uploadItems.add(new UploadItem(submittedFileName, part.getSize(), part.getContentType()));
     FacesContext.getCurrentInstance().addMessage(

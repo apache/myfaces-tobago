@@ -25,23 +25,11 @@ public enum DynamicExpression {
   VALUE_EXPRESSION_REQUIRED(true, true, false),
   METHOD_EXPRESSION(false, false, true),
   METHOD_EXPRESSION_REQUIRED(true, false, true),
-  PROHIBITED(false, false, false),
-  /** @deprecated since 2.0.0 */
-  @Deprecated
-  VALUE_BINDING(false, true, false),
-  /** @deprecated since 2.0.0 */
-  @Deprecated
-  VALUE_BINDING_REQUIRED(true, true, false),
-  /** @deprecated since 2.0.0 */
-  @Deprecated
-  METHOD_BINDING(false, false, true),
-  /** @deprecated since 2.0.0 */
-  @Deprecated
-  METHOD_BINDING_REQUIRED(true, false, true);
+  PROHIBITED(false, false, false);
 
-  private boolean required;
-  private boolean valueExpression;
-  private boolean methodExpression;
+  private final boolean required;
+  private final boolean valueExpression;
+  private final boolean methodExpression;
 
   DynamicExpression(final boolean required, final boolean valueExpression, final boolean methodExpression) {
     this.required = required;
@@ -64,16 +52,12 @@ public enum DynamicExpression {
   public String toMetaDataString() {
     switch (this) {
       case VALUE_EXPRESSION:
-      case VALUE_BINDING:
         return "ALLOWED";
       case METHOD_EXPRESSION:
-      case METHOD_BINDING:
         return "ALLOWED";
       case VALUE_EXPRESSION_REQUIRED:
-      case VALUE_BINDING_REQUIRED:
         return "REQUIRED";
       case METHOD_EXPRESSION_REQUIRED:
-      case METHOD_BINDING_REQUIRED:
         return "REQUIRED";
       case PROHIBITED:
         return "PROHIBITED";
@@ -85,16 +69,12 @@ public enum DynamicExpression {
   public String toString() {
     switch (this) {
       case VALUE_EXPRESSION:
-      case VALUE_BINDING:
         return "VB";
       case VALUE_EXPRESSION_REQUIRED:
-      case VALUE_BINDING_REQUIRED:
         return "VB";
       case METHOD_EXPRESSION:
-      case METHOD_BINDING:
         return "MB";
       case METHOD_EXPRESSION_REQUIRED:
-      case METHOD_BINDING_REQUIRED:
         return "MB";
       case PROHIBITED:
         return "NONE";

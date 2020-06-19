@@ -26,11 +26,6 @@ public interface HasTarget {
   /**
    * Name of a frame where the resource retrieved via this hyperlink is to be
    * displayed.
-   *
-   * The target attribute is not reliable in combination with
-   * DeltaSpike and its @WindowScoped.
-   * This is because DeltaSpike renames the window.name, with the dswid, so the
-   * target can't be found, after the first call.
    */
   @TagAttribute
   @UIComponentTagAttribute()

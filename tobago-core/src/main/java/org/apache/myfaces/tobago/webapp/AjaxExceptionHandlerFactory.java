@@ -24,14 +24,12 @@ import javax.faces.context.ExceptionHandlerFactory;
 
 public class AjaxExceptionHandlerFactory extends ExceptionHandlerFactory {
 
-  private ExceptionHandlerFactory parent;
-
   public AjaxExceptionHandlerFactory(final ExceptionHandlerFactory parent) {
-    this.parent = parent;
+    super(parent);
   }
 
   @Override
   public ExceptionHandler getExceptionHandler() {
-    return new AjaxExceptionHandler(parent.getExceptionHandler());
+    return new AjaxExceptionHandler(getWrapped().getExceptionHandler());
   }
 }

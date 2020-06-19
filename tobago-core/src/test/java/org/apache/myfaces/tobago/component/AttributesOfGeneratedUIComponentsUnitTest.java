@@ -21,11 +21,16 @@ package org.apache.myfaces.tobago.component;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
 
 public class AttributesOfGeneratedUIComponentsUnitTest extends AbstractGeneratedUIComponentsUnitTest {
+
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Test
   public void test() {
@@ -48,6 +53,9 @@ public class AttributesOfGeneratedUIComponentsUnitTest extends AbstractGenerated
         if (property.equals("for")) {
           property = "forValue";
         }
+
+        LOG.debug("checking component {} for property {}", uiComponent, property);
+
         try {
           Attributes.valueOf(property);
         } catch (final IllegalArgumentException e) {

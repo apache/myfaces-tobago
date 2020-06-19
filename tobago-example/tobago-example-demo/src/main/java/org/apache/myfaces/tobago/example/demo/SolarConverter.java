@@ -19,28 +19,37 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
+import java.lang.invoke.MethodHandles;
 
-@FacesConverter(forClass = SolarObject.class)
-public class SolarConverter implements Converter {
+//@FacesConverter(forClass = SolarObject.class)// XXX fixme: is not running with Quarkus!
+public class SolarConverter implements Converter<SolarObject> {
+
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Inject
   private AstroData astroData;
 
   @Override
-  public Object getAsObject(final FacesContext context, final UIComponent component, final String value)
+  public SolarObject getAsObject(final FacesContext context, final UIComponent component, final String value)
       throws ConverterException {
-    return value != null ? astroData.find(value) : null;
+    final SolarObject solarObject = value != null ? astroData.find(value) : null;
+    LOG.info("{} -> {}", value, solarObject);
+    return solarObject;
   }
 
   @Override
-  public String getAsString(final FacesContext context, final UIComponent component, final Object value)
+  public String getAsString(final FacesContext context, final UIComponent component, final SolarObject value)
       throws ConverterException {
-    return ((SolarObject) value).getName();
+    final String result = value.getName();
+    LOG.info("{} -> {}", value, result);
+    return result;
   }
 }

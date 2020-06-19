@@ -25,6 +25,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.xml.parsers.ParserConfigurationException;
@@ -36,6 +40,8 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+@Named
+@ApplicationScoped
 public class TobagoConfigBuilder {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -43,40 +49,33 @@ public class TobagoConfigBuilder {
   private static final String WEB_INF_TOBAGO_CONFIG_XML = "WEB-INF/tobago-config.xml";
   private static final String META_INF_TOBAGO_CONFIG_XML = "META-INF/tobago-config.xml";
 
-  private List<TobagoConfigFragment> configFragmentList;
+  private final List<TobagoConfigFragment> configFragmentList = new ArrayList<>();
+
+  @Inject
   private ServletContext servletContext;
 
-  public TobagoConfigBuilder(final ServletContext servletContext) {
-    this.servletContext = servletContext;
-    this.configFragmentList = new ArrayList<>();
-  }
+  private TobagoConfigImpl tobagoConfig;
 
-  public TobagoConfigBuilder(final ServletContext servletContext, final List<TobagoConfigFragment> configFragmentList) {
-    this(servletContext);
-    this.configFragmentList.addAll(configFragmentList);
-  }
+  @Produces
+  public TobagoConfig buildTobagoConfig() {
+    if (tobagoConfig!= null) {
+      return tobagoConfig;
+    } else {
+      try {
+        tobagoConfig = initializeConfigFromFiles();
+        // prepare themes
+        tobagoConfig.resolveThemes();
+        tobagoConfig.initDefaultValidatorInfo();
+        tobagoConfig.lock();
 
-  public static void init(final ServletContext servletContext) {
-    try {
-      final TobagoConfigBuilder builder = new TobagoConfigBuilder(servletContext);
-      builder.build();
-    } catch (final Exception e) {
-      final String error = "Error while deployment. Tobago can't be initialized! Application will not run correctly!";
-      LOG.error(error, e);
-      throw new TobagoConfigurationException(error, e);
+        servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
+        return tobagoConfig;
+      } catch (final Exception e) {
+        final String error = "Tobago can't be initialized! Application will not run correctly!";
+        LOG.error(error, e);
+        throw new TobagoConfigurationException(error, e);
+      }
     }
-  }
-
-  public TobagoConfig build()
-      throws URISyntaxException, SAXException, ParserConfigurationException, ServletException, IOException {
-    final TobagoConfigImpl tobagoConfig = initializeConfigFromFiles();
-    // prepare themes
-    tobagoConfig.resolveThemes();
-    tobagoConfig.initDefaultValidatorInfo();
-    tobagoConfig.lock();
-
-    servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
-    return tobagoConfig;
   }
 
   protected TobagoConfigImpl initializeConfigFromFiles()
@@ -116,7 +115,7 @@ public class TobagoConfigBuilder {
           // weblogic uses zip
           // IBM WebSphere uses wsjar
           final String protocol = themeUrl.getProtocol();
-          if (!"jar".equals(protocol) && !"zip".equals(protocol) && !"wsjar".equals(protocol)) {
+          if (!"file".equals(protocol) && !"jar".equals(protocol) && !"zip".equals(protocol) && !"wsjar".equals(protocol)) {
             LOG.warn("Unknown protocol '" + themeUrl + "'");
           }
         } catch (final Exception e) {

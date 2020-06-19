@@ -123,12 +123,10 @@ public class TaglibGenerator extends AbstractGenerator {
     addComment("<description>" + description + "</description>", taglib, document);
     addComment("<display-name>" + taglibAnnotation.displayName() + "</display-name>", taglib, document);
 
-/* XXX disabled, because of the bug explained in the comment above.
     if (description != null) {
       addLeafCDATAElement(description, "description", taglib, document);
     }
     addLeafTextElement(taglibAnnotation.displayName(), "display-name", taglib, document);
-*/
 
     addLeafTextElement(taglibAnnotation.uri(), "namespace", taglib, document);
 

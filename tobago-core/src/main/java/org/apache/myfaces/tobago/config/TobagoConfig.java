@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.internal.config.ContentSecurityPolicy;
 import org.apache.myfaces.tobago.internal.config.SecurityAnnotation;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 
+import javax.enterprise.inject.spi.CDI;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import java.util.List;
@@ -31,14 +32,26 @@ import java.util.Map;
 
 public abstract class TobagoConfig {
 
+  /**
+   * @deprecated Since 5.0.0. Please use CDI.
+   */
+  @Deprecated
   public static final String TOBAGO_CONFIG = "org.apache.myfaces.tobago.config.TobagoConfig";
 
+  /**
+   * @deprecated Since 5.0.0. Please use CDI.
+   */
+  @Deprecated
   public static TobagoConfig getInstance(final FacesContext facesContext) {
-    return (TobagoConfig) facesContext.getExternalContext().getApplicationMap().get(TOBAGO_CONFIG);
+    return CDI.current().select(TobagoConfig.class).get();
   }
 
+  /**
+   * @deprecated Since 5.0.0. Please use CDI.
+   */
+  @Deprecated
   public static TobagoConfig getInstance(final ServletContext servletContext) {
-    return (TobagoConfig) servletContext.getAttribute(TOBAGO_CONFIG);
+    return CDI.current().select(TobagoConfig.class).get();
   }
 
   public abstract Theme getTheme(final String name);

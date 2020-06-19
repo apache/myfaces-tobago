@@ -25,18 +25,19 @@ import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class TobagoContext implements Serializable {
 
@@ -44,13 +45,15 @@ public class TobagoContext implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+  @Inject
+  private TobagoConfig tobagoConfig;
   private Theme theme;
   private UserAgent userAgent;
   private String focusId;
   private String enctype;
 
   /**
-   * @deprecated Please use {@link org.apache.myfaces.tobago.util.ResourceUtils#getString} in Java or
+   * @deprecated since 5.0.0. Please use {@link org.apache.myfaces.tobago.util.ResourceUtils#getString} in Java or
    * #{tobagoResourceBundle.key} in Facelets.
    */
   @Deprecated
@@ -62,7 +65,7 @@ public class TobagoContext implements Serializable {
   }
 
   /**
-   * @deprecated Please use {@link org.apache.myfaces.tobago.util.MessageUtils}.
+   * @deprecated since 5.0.0. Please use {@link org.apache.myfaces.tobago.util.MessageUtils}.
    */
   @Deprecated
   public ResourceBundle getMessageBundle() {
@@ -72,8 +75,12 @@ public class TobagoContext implements Serializable {
     return ResourceBundle.getBundle("org.apache.myfaces.tobago.context.TobagoMessage", locale);
   }
 
+  /**
+   * @deprecated since 5.0.0. Please get/inject {@link TobagoConfig} directly by CDI.
+   */
+  @Deprecated
   public TobagoConfig getTobagoConfig() {
-    return TobagoConfig.getInstance(FacesContext.getCurrentInstance());
+    return tobagoConfig;
   }
 
   public Theme getTheme() {
@@ -90,7 +97,7 @@ public class TobagoContext implements Serializable {
         themeName = null;
       }
 
-      theme = getTobagoConfig().getTheme(themeName);
+      theme = tobagoConfig.getTheme(themeName);
       if (LOG.isDebugEnabled()) {
         LOG.debug("theme='{}'", theme.getName());
       }

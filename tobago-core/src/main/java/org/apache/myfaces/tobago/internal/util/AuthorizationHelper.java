@@ -25,8 +25,12 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
-import javax.faces.bean.ManagedBean;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.enterprise.inject.spi.CDI;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import java.lang.annotation.Annotation;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.AnnotatedElement;
@@ -39,9 +43,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/* The JSF annotations are, because it has to be runnable without CDI */
-@ManagedBean
-@javax.faces.bean.ApplicationScoped
+@Named
+@ApplicationScoped
 public class AuthorizationHelper {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -64,19 +67,11 @@ public class AuthorizationHelper {
 
   private final Map<String, Object> cache = new ConcurrentHashMap<>();
 
-  private AuthorizationHelperCdi cdi;
+  private final BeanManager beanManager;
 
   public AuthorizationHelper() {
-
-    try {
-      Class.forName("javax.enterprise.inject.spi.BeanManager");
-      cdi = new AuthorizationHelperCdi();
-      if (!cdi.hasBeanManager()) {
-        cdi = null;
-      }
-    } catch (ClassNotFoundException e) {
-      // no cdi available
-    }
+    beanManager = CDI.current().getBeanManager();
+    LOG.info("Using bean manager: '{}'", beanManager);
   }
 
   public static AuthorizationHelper getInstance(final FacesContext facesContext) {
@@ -84,9 +79,21 @@ public class AuthorizationHelper {
         facesContext.getELContext().getELResolver().getValue(facesContext.getELContext(), null, AUTHORIZATION_HELPER);
   }
 
+  Object getObject(String beanString) {
+    Object bean = null;
+    for (final Bean<?> entry : beanManager.getBeans(beanString)) {
+      if (bean == null) {
+        bean = entry;
+      } else {
+        LOG.warn("Bean name ambiguous: '{}'", beanString);
+      }
+    }
+    return bean;
+  }
+
   public boolean isAuthorized(final FacesContext facesContext, final String expression) {
 
-    final Annotation securityAnnotation = getSecurityAnnotation(facesContext, expression);
+    final Annotation securityAnnotation = getSecurityAnnotation(expression);
     if (securityAnnotation == null) {
       return true;
     }
@@ -119,7 +126,7 @@ public class AuthorizationHelper {
     return true;
   }
 
-  private Annotation getSecurityAnnotation(final FacesContext facesContext, final String expression) {
+  private Annotation getSecurityAnnotation(final String expression) {
     if (cache.containsKey(expression)) {
       final Object obj = cache.get(expression);
       if (obj instanceof Annotation) {
@@ -133,13 +140,7 @@ public class AuthorizationHelper {
         final String beanString = matcher.group(1);
         final String methodString = matcher.group(2);
 
-        final Object bean;
-        if (cdi != null) { // CDI case
-          bean = cdi.getObject(beanString);
-        } else { // JSF case
-          bean = facesContext.getELContext().getELResolver().getValue(facesContext.getELContext(), null, beanString);
-        }
-
+        final Object bean = getObject(beanString);
         if (bean != null) {
           // try first from method
           final List<Method> methods = findMethods(bean, methodString);
@@ -187,13 +188,7 @@ public class AuthorizationHelper {
   }
 
   private List<Method> findMethods(final Object bean, final String name) {
-    final Class clazz;
-    if (cdi != null) {
-      clazz = cdi.getBeanClass(bean);
-    } else {
-      clazz = bean.getClass();
-    }
-
+    final Class clazz = ((Bean) bean).getBeanClass();
     final Method[] methods = clazz.getMethods();
     final List<Method> result = new ArrayList<>();
     for (final Method method : methods) {

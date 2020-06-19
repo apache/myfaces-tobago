@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Abstract class that represents the data model for a tree.
  */
-public abstract class TreeDataModel extends DataModel {
+public abstract class TreeDataModel<E> extends DataModel<E> {
 
   public abstract void reset();
 
@@ -46,7 +46,7 @@ public abstract class TreeDataModel extends DataModel {
   public abstract boolean isFolder();
 
   @Override
-  public abstract Object getWrappedData();
+  public abstract E getWrappedData();
 
   @Override
   public abstract boolean isRowAvailable();

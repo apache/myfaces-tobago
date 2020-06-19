@@ -218,11 +218,10 @@
 
   <tc:section label="Target">
     <p>
-      <span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_WARNING')}">Warning!</span>
-      The <code class="language-markup">target</code> attribute is not reliable in combination with
-      <tc:link link="https://deltaspike.apache.org/" label="DeltaSpike"/> and its @WindowScoped.
-      This is because DeltaSpike renames the <code>window.name</code>, with the <code>dswid</code>, so the
-      target can't be found, after the first call.
+
+      <span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_WARNING')}">Todo!</span>
+      The <code class="language-markup">target</code> attribute should be checked with
+      JSF 2.2 Client-Window-Handling.
     </p>
     <p>The destination of the link can be set with the <code>target</code> attribute.
       For example a new window/tab or a specific iframe (<code class="language-markup">&lt;tc:object/></code>).</p>

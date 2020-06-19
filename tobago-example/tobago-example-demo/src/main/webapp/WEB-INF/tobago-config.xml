@@ -27,14 +27,18 @@
 
   <ordering>
     <after>
+      <name>tobago-theme-standard</name>
       <name>tobago-theme-speyside</name>
+      <name>tobago-theme-charlotteville</name>
+      <name>tobago-theme-richmond</name>
+      <name>tobago-theme-scarborough</name>
     </after>
   </ordering>
 
 <!-- using all available themes, if this is not set XXX to be implemented TOBAGO-1664 -->
   <theme-config>
-    <default-theme>scarborough</default-theme>
-    <supported-theme>standard</supported-theme>
+    <default-theme>standard</default-theme>
+    <supported-theme>scarborough</supported-theme>
     <supported-theme>speyside</supported-theme>
     <supported-theme>roxborough</supported-theme>
     <supported-theme>charlotteville</supported-theme>

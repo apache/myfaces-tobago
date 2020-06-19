@@ -43,7 +43,7 @@ public class TobagoConfigMerger {
 
   public TobagoConfigImpl merge() {
 
-    final TobagoConfigImpl result = new TobagoConfigImpl();
+    final TobagoConfigImpl result = new TobagoConfigImpl("fixme"); // fixme workaround
 
     // default sanitizer
     String sanitizerClass = JsoupSanitizer.class.getName();

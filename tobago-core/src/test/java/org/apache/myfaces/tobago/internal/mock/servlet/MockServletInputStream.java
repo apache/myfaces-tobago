@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.mock.servlet;
 
+import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import java.io.IOException;
 
@@ -39,5 +40,20 @@ public class MockServletInputStream extends ServletInputStream {
     } else {
       return -1;
     }
+  }
+
+  @Override
+  public boolean isFinished() {
+    return false;
+  }
+
+  @Override
+  public boolean isReady() {
+    return false;
+  }
+
+  @Override
+  public void setReadListener(ReadListener readListener) {
+
   }
 }

@@ -21,18 +21,21 @@ package org.apache.myfaces.tobago.convert;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIIn;
+import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.faces.convert.Converter;
 
-public class DurationConverterUnitTest {
+public class DurationConverterUnitTest extends AbstractTobagoTestBase {
 
   private Converter converter;
 
+  @Override
   @BeforeEach
   public void setUp() throws Exception {
+    super.setUp();
     converter = new DurationConverter();
   }
 
