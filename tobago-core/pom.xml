@@ -186,19 +186,22 @@
       <artifactId>jsoup</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-annotation_1.0_spec</artifactId>
-      <optional>true</optional>
+      <groupId>jakarta.annotation</groupId>
+      <artifactId>jakarta.annotation-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-jcdi_1.0_spec</artifactId>
-      <optional>true</optional>
+      <groupId>jakarta.enterprise</groupId>
+      <artifactId>jakarta.enterprise.cdi-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-atinject_1.0_spec</artifactId>
-      <optional>true</optional>
+      <groupId>jakarta.inject</groupId>
+      <artifactId>jakarta.inject-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.el</artifactId>
+      <version>3.0.0</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -272,59 +275,10 @@
     </profile>
 
     <profile>
-      <id>jsf-2.0</id>
-      <activation>
-        <property>
-          <name>!jsf</name>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.myfaces.test</groupId>
-          <artifactId>myfaces-test20</artifactId>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>jsf-2.1</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>myfaces-2.1</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.myfaces.test</groupId>
-          <!-- there is no 2.1 version -->
-          <artifactId>myfaces-test20</artifactId>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>jsf-2.2</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>myfaces-2.2</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.myfaces.test</groupId>
-          <artifactId>myfaces-test22</artifactId>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
       <id>jsf-2.3</id>
       <activation>
         <property>
-          <name>jsf</name>
-          <value>myfaces-2.3</value>
+          <name>!jsf</name>
         </property>
       </activation>
       <dependencies>

@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.HttpPartWrapper;
-import org.apache.myfaces.tobago.internal.util.PartUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -88,14 +87,14 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
           for (final Part part : httpServletRequest.getParts()) {
             if (file.getClientId(facesContext).equals(part.getName())) {
               LOG.debug("Uploaded file '{}', size={}, type='{}'",
-                  PartUtils.getSubmittedFileName(part), part.getSize(), part.getContentType());
+                  part.getSubmittedFileName(), part.getSize(), part.getContentType());
               parts.add(new HttpPartWrapper(part));
             }
             file.setSubmittedValue(parts.toArray(new Part[0]));
           }
         } else {
           final Part part = httpServletRequest.getPart(file.getClientId(facesContext));
-          final String submittedFileName = PartUtils.getSubmittedFileName(part);
+          final String submittedFileName = part.getSubmittedFileName();
           if (LOG.isDebugEnabled()) {
             LOG.debug("Uploaded file '{}', size={}, type='{}'",
                 submittedFileName, part.getSize(), part.getContentType());

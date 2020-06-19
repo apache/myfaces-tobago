@@ -160,6 +160,7 @@ public class ClassesGenerator extends AbstractGenerator {
             + info.getUpperCamelCaseName();
 
         boolean generate = info.isGenerate();
+//        boolean ex = false;
         try {
           final Method method = facesClass.getMethod(methodName);
           if (!Modifier.isAbstract(method.getModifiers())) {
@@ -167,7 +168,9 @@ public class ClassesGenerator extends AbstractGenerator {
           }
         } catch (final NoSuchMethodException e) {
           // generate = true
+//          ex = true;
         }
+//        info("*** 5 " + infoType + "               " + methodName + "      generate=" + generate + "      info.generate=" + info.isGenerate() + " ex=" + (ex ? "NoSuchMethodException" : "" ) + "                  facesClass=" + facesClass.getName());
         if (generate) {
           addPropertyToComponent(componentInfo, info);
         }
@@ -195,6 +198,7 @@ public class ClassesGenerator extends AbstractGenerator {
   }
 
   protected void addProperties(final TypeElement type, final Map<String, PropertyInfo> properties) {
+//    info("*** 0 addProperties type       " + type);
     addProperties(type.getInterfaces(), properties);
     addProperties(type.getSuperclass(), properties);
 
@@ -209,12 +213,14 @@ public class ClassesGenerator extends AbstractGenerator {
 
   protected void addProperties(
       final List<? extends TypeMirror> interfaces, final Map<String, PropertyInfo> properties) {
+//    info("*** 1 addProperties interfaces " + interfaces);
     for (final TypeMirror typeMirror : interfaces) {
       addProperties(typeMirror, properties);
     }
   }
 
   protected void addProperties(final TypeMirror typeMirror, final Map<String, PropertyInfo> properties) {
+//    info("*** 2 addProperties typeMirror " + typeMirror);
     if (typeMirror.getKind() != TypeKind.NONE) {
       addProperties((TypeElement) (processingEnv.getTypeUtils().asElement(typeMirror)), properties);
     }
@@ -227,7 +233,9 @@ public class ClassesGenerator extends AbstractGenerator {
       final String simpleName = declaration.getSimpleName().toString();
       if (simpleName.startsWith("set") || simpleName.startsWith("get")) {
         final String name = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
+//        info("*** 3 " + name);
         if (ignoredProperties.contains(name)) {
+//          info("*** 4 " + name + " ignoring");
           return;
         }
         final PropertyInfo propertyInfo = new PropertyInfo(name);

@@ -35,7 +35,7 @@ import java.util.Stack;
 /**
  * Implementation for a {@link TreeNode} that represents the data model for a tree.
  */
-public class TreeNodeDataModel extends TreeDataModel {
+public class TreeNodeDataModel extends TreeDataModel<TreeNode> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -174,7 +174,7 @@ public class TreeNodeDataModel extends TreeDataModel {
   }
 
   @Override
-  public Object getWrappedData() {
+  public TreeNode getWrappedData() {
     return data;
   }
 
@@ -285,7 +285,7 @@ public class TreeNodeDataModel extends TreeDataModel {
    */
   private static class Data {
 
-    private TreeNode node;
+    private final TreeNode node;
     private String clientId;
 
     private Data(final TreeNode node) {

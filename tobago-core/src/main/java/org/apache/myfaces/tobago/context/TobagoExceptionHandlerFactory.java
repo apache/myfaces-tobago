@@ -35,17 +35,12 @@ import javax.faces.context.ExceptionHandlerFactory;
  */
 public class TobagoExceptionHandlerFactory extends ExceptionHandlerFactory {
 
-  private ExceptionHandlerFactory parent;
-
   public TobagoExceptionHandlerFactory(final ExceptionHandlerFactory parent) {
-    this.parent = parent;
+    super(parent);
   }
 
   @Override
   public ExceptionHandler getExceptionHandler() {
-    ExceptionHandler result = parent.getExceptionHandler();
-    result = new TobagoExceptionHandler(result);
-    return result;
+    return new TobagoExceptionHandler(getWrapped().getExceptionHandler());
   }
-
 }

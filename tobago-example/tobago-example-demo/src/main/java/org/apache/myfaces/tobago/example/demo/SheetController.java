@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.deltaspike.core.api.scope.ViewAccessScoped;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.model.SelectItem;
 import org.apache.myfaces.tobago.model.Selectable;
@@ -29,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
@@ -45,7 +45,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@ViewAccessScoped
+// XXX former @ViewAccessScoped
+@SessionScoped
 @Named
 public class SheetController implements Serializable {
 

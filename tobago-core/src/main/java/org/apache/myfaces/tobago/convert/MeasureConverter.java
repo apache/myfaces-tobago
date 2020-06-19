@@ -31,10 +31,10 @@ import javax.faces.convert.ConverterException;
  * JSF converter for the org.apache.myfaces.tobago.layout.Measure class.
  */
 @org.apache.myfaces.tobago.apt.annotation.Converter(forClass = "org.apache.myfaces.tobago.layout.Measure")
-public class MeasureConverter implements Converter {
+public class MeasureConverter implements Converter<Measure> {
 
   @Override
-  public Object getAsObject(final FacesContext facesContext, final UIComponent component, final String string)
+  public Measure getAsObject(final FacesContext facesContext, final UIComponent component, final String string)
       throws ConverterException {
     if (StringUtils.isBlank(string)) {
       return null;
@@ -44,15 +44,15 @@ public class MeasureConverter implements Converter {
   }
 
   @Override
-  public String getAsString(final FacesContext facesContext, final UIComponent component, final Object object)
+  public String getAsString(final FacesContext facesContext, final UIComponent component, final Measure measure)
       throws ConverterException {
-    if (object == null) {
+    if (measure == null) {
       return null;
     }
     try {
-      return ((Measure) object).serialize();
+      return measure.serialize();
     } catch (final ClassCastException e) {
-      throw new ConverterException("object='" + object + "'", e);
+      throw new ConverterException("object='" + measure + "'", e);
     }
   }
 }

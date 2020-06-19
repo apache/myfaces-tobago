@@ -19,8 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo.info;
 
-import org.apache.deltaspike.core.api.provider.BeanProvider;
-
+import javax.enterprise.inject.spi.CDI;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
@@ -30,7 +29,7 @@ public class ActivitySessionListener implements HttpSessionListener {
   @Override
   public void sessionCreated(final HttpSessionEvent event) {
     final HttpSession session = event.getSession();
-    final ActivityList activityList = BeanProvider.getContextualReference(ActivityList.class);
+    final ActivityList activityList = CDI.current().select(ActivityList.class).get();
 
     activityList.add(new Activity(session));
   }
@@ -38,7 +37,7 @@ public class ActivitySessionListener implements HttpSessionListener {
   @Override
   public void sessionDestroyed(final HttpSessionEvent event) {
     final HttpSession session = event.getSession();
-    final ActivityList activityList = BeanProvider.getContextualReference(ActivityList.class);
+    final ActivityList activityList = CDI.current().select(ActivityList.class).get();
 
     activityList.remove(session.getId());
   }

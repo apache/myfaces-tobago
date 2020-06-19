@@ -46,6 +46,8 @@ import java.util.Set;
  * All setters must are protected, so EL can't modify this config.
  * </p>
  */
+//@Named("tobagoConfig") // todo
+//@ApplicationScoped // todo
 public class TobagoConfigImpl extends TobagoConfig {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -68,7 +70,7 @@ public class TobagoConfigImpl extends TobagoConfig {
 
   private boolean unmodifiable = false;
 
-  protected TobagoConfigImpl() {
+  protected TobagoConfigImpl(String fixme) { // CDI workaround fixme
     supportedThemeNames = new ArrayList<>();
     supportedThemes = new ArrayList<>();
     availableThemes = new HashMap<>();

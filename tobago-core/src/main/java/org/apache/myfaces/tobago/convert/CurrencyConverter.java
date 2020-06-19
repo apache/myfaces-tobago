@@ -31,10 +31,10 @@ import java.util.Currency;
  * JSF converter for the {@link java.util.Currency} class.
  */
 @org.apache.myfaces.tobago.apt.annotation.Converter(forClass = "java.util.Currency")
-public class CurrencyConverter implements Converter {
+public class CurrencyConverter implements Converter<Currency> {
 
   @Override
-  public Object getAsObject(final FacesContext facesContext, final UIComponent component, final String string)
+  public Currency getAsObject(final FacesContext facesContext, final UIComponent component, final String string)
       throws ConverterException {
     if (StringUtils.isBlank(string)) {
       return null;
@@ -44,15 +44,15 @@ public class CurrencyConverter implements Converter {
   }
 
   @Override
-  public String getAsString(final FacesContext facesContext, final UIComponent component, final Object object)
+  public String getAsString(final FacesContext facesContext, final UIComponent component, final Currency currency)
       throws ConverterException {
-    if (object == null) {
+    if (currency == null) {
       return null;
     }
     try {
-      return ((Currency) object).getCurrencyCode();
+      return currency.getCurrencyCode();
     } catch (final ClassCastException e) {
-      throw new ConverterException("object='" + object + "'", e);
+      throw new ConverterException("object='" + currency + "'", e);
     }
   }
 }

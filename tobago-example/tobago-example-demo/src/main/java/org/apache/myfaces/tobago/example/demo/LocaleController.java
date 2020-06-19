@@ -117,12 +117,6 @@ public class LocaleController implements Serializable {
     }
   }
 
-  public static LocaleController getCurrentInstance(
-      final FacesContext facesContext, final String beanName) {
-    return (LocaleController) facesContext.getApplication()
-        .getVariableResolver().resolveVariable(facesContext, beanName);
-  }
-
   public Locale getLocale() {
     return locale;
   }

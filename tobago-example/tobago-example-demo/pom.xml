@@ -23,25 +23,23 @@
     <version>5.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-example-demo</artifactId>
-  <packaging>war</packaging>
+  <packaging>${app.packaging}</packaging>
+<!--  XXX Must use 'jar' for 'mvn quarkus:dev'. Can't be set via variable!-->
+<!--  <packaging>jar</packaging>-->
   <name>Tobago Example Demo</name>
   <description>Demonstration and documentation application.</description>
 
   <!-- how to run tests: http://tobago-vm.apache.org/faq.html  -->
 
   <properties>
-    <deltaspike.version>1.9.3</deltaspike.version>
     <selenium.version>3.141.59</selenium.version>
-    <meecrowave.version>1.2.8</meecrowave.version>
-    <tomcat.version>9.0.24</tomcat.version>
     <exec.version>1.6.0</exec.version>
-    <finalName>tobago-example-demo</finalName>
     <hibernate-validator.version>4.3.2.Final</hibernate-validator.version>
     <tobago-theme-standard-dir>${basedir}/target/tobago-theme-standard</tobago-theme-standard-dir>
   </properties>
 
   <build>
-    <finalName>${finalName}</finalName>
+    <finalName>tobago-example-demo</finalName>
     <testResources>
       <testResource>
         <directory>src/test/resources</directory>
@@ -93,17 +91,6 @@
               <directory>${basedir}/src/main/java</directory>
             </resource>
           </webResources>
-        </configuration>
-      </plugin>
-      <plugin>
-        <!-- TODO test glassfish -->
-        <groupId>org.glassfish.embedded</groupId>
-        <artifactId>maven-embedded-glassfish-plugin</artifactId>
-        <version>5.1</version>
-        <configuration>
-          <port>8080</port>
-          <contextRoot>/</contextRoot>
-          <autoDelete>true</autoDelete>
         </configuration>
       </plugin>
       <plugin>
@@ -193,7 +180,18 @@
     <!-- Tobago -->
     <dependency>
       <groupId>org.apache.myfaces.test</groupId>
-      <artifactId>myfaces-test20</artifactId>
+      <artifactId>myfaces-test23</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.persistence</groupId>
+      <artifactId>javax.persistence-api</artifactId>
+      <version>2.2</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
@@ -211,31 +209,19 @@
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
     </dependency>
-
-    <!-- DeltaSpike -->
-    <dependency>
-      <groupId>org.apache.deltaspike.modules</groupId>
-      <artifactId>deltaspike-jsf-module-impl</artifactId>
-      <version>${deltaspike.version}</version>
-    </dependency>
-
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
       <version>2.8.6</version>
       <scope>compile</scope>
     </dependency>
-
     <dependency>
-      <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-annotation_1.0_spec</artifactId>
-      <!-- compile or provided depends on the used server -->
-      <scope>provided</scope>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
@@ -246,17 +232,6 @@
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
       <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-core</artifactId>
-      <scope>compile</scope>
     </dependency>
   </dependencies>
 
@@ -287,607 +262,6 @@
                 </configuration>
               </execution>
             </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
-      <id>jsf-provided</id>
-      <!-- use this profile for containers that provide JSF and OWB e.g. WebSphere 8.5 -->
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>provided</value>
-        </property>
-      </activation>
-      <dependencies>
-        <!-- Specs -->
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-validation_1.1_spec</artifactId>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-atinject_1.0_spec</artifactId>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-interceptor_1.2_spec</artifactId>
-          <scope>provided</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>myfaces-2.0</id>
-      <activation>
-        <property>
-          <name>!jsf</name>
-        </property>
-      </activation>
-      <dependencies>
-
-        <!-- Specs -->
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-validation_1.1_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-atinject_1.0_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-interceptor_1.2_spec</artifactId>
-        </dependency>
-
-        <!-- OWB -->
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-jsf</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-web</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-resource</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>tobago-config-owb</artifactId>
-          <version>${project.version}</version>
-        </dependency>
-
-        <!-- JSR 303 -->
-        <dependency>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-validator</artifactId>
-          <version>${hibernate-validator.version}</version>
-        </dependency>
-
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>myfaces-2.1</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>myfaces-2.1</value>
-        </property>
-      </activation>
-      <dependencies>
-
-        <!-- Specs -->
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-validation_1.1_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-atinject_1.0_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-interceptor_1.2_spec</artifactId>
-        </dependency>
-
-        <!-- OWB -->
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-jsf</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-web</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-resource</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>tobago-config-owb</artifactId>
-          <version>${project.version}</version>
-        </dependency>
-
-        <!-- JSR 303 -->
-        <dependency>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-validator</artifactId>
-          <version>${hibernate-validator.version}</version>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>myfaces-2.2</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>myfaces-2.2</value>
-        </property>
-      </activation>
-      <dependencies>
-
-        <!-- Specs -->
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-validation_1.1_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-atinject_1.0_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-interceptor_1.2_spec</artifactId>
-        </dependency>
-
-        <!-- OWB -->
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-jsf</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-web</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-resource</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>tobago-config-owb</artifactId>
-          <version>${project.version}</version>
-        </dependency>
-
-        <!-- JSR 303 -->
-        <dependency>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-validator</artifactId>
-          <version>${hibernate-validator.version}</version>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>myfaces-2.3</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>myfaces-2.3</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.myfaces.test</groupId>
-          <artifactId>myfaces-test23</artifactId>
-        </dependency>
-
-        <!-- Specs -->
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-validation_1.1_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-atinject_1.0_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-interceptor_1.2_spec</artifactId>
-        </dependency>
-
-        <!-- OWB -->
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-jsf</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-web</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-resource</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>tobago-config-owb</artifactId>
-          <version>${project.version}</version>
-        </dependency>
-
-        <!-- JSR 303 -->
-        <dependency>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-validator</artifactId>
-          <version>${hibernate-validator.version}</version>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>mojarra-2.0</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>mojarra-2.0</value>
-        </property>
-      </activation>
-      <dependencies>
-
-        <!-- Specs -->
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-validation_1.1_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-atinject_1.0_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-interceptor_1.2_spec</artifactId>
-        </dependency>
-
-        <!-- OWB -->
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-jsf</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-web</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-resource</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>tobago-config-owb</artifactId>
-          <version>${project.version}</version>
-        </dependency>
-
-        <!-- JSR 303 -->
-        <dependency>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-validator</artifactId>
-          <version>${hibernate-validator.version}</version>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>mojarra-2.1</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>mojarra-2.1</value>
-        </property>
-      </activation>
-      <dependencies>
-
-        <!-- Specs -->
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-validation_1.1_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-atinject_1.0_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-interceptor_1.2_spec</artifactId>
-        </dependency>
-
-        <!-- OWB -->
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-jsf</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-web</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-resource</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>tobago-config-owb</artifactId>
-          <version>${project.version}</version>
-        </dependency>
-
-        <!-- JSR 303 -->
-        <dependency>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-validator</artifactId>
-          <version>${hibernate-validator.version}</version>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>mojarra-2.2</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>mojarra-2.2</value>
-        </property>
-      </activation>
-      <dependencies>
-
-        <!-- Specs -->
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-validation_1.1_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-atinject_1.0_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-interceptor_1.2_spec</artifactId>
-        </dependency>
-
-        <!-- OWB -->
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-jsf</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-web</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-resource</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>tobago-config-owb</artifactId>
-          <version>${project.version}</version>
-        </dependency>
-
-        <!-- JSR 303 -->
-        <dependency>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-validator</artifactId>
-          <version>${hibernate-validator.version}</version>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>mojarra-2.3</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>mojarra-2.3</value>
-        </property>
-      </activation>
-      <dependencies>
-
-        <!-- Specs -->
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-validation_1.1_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-atinject_1.0_spec</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.geronimo.specs</groupId>
-          <artifactId>geronimo-interceptor_1.2_spec</artifactId>
-        </dependency>
-
-        <!-- OWB -->
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-jsf</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-web</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-resource</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>tobago-config-owb</artifactId>
-          <version>${project.version}</version>
-        </dependency>
-
-        <!-- JSR 303 -->
-        <dependency>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-validator</artifactId>
-          <version>${hibernate-validator.version}</version>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <!--
-       mvn package cargo:start -Ptomcat7x
-       XXX not working yet
-      -->
-      <id>tomcat7x</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.cargo</groupId>
-            <artifactId>cargo-maven2-plugin</artifactId>
-            <version>1.7.7</version>
-            <configuration>
-              <container>
-                <containerId>tomcat7x</containerId>
-                <zipUrlInstaller>
-                  <url>http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.50/bin/apache-tomcat-7.0.50.zip</url>
-                </zipUrlInstaller>
-                <output>${project.build.directory}/tomcat7/container.log</output>
-                <append>false</append>
-                <log>${project.build.directory}/tomcat7/cargo.log</log>
-              </container>
-              <configuration>
-                <home>${project.build.directory}/tomcat7/container</home>
-              </configuration>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
-      <!--
-       mvn package cargo:start -Ptomcat8x
-       XXX not working yet
-      -->
-      <id>tomcat8x</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.cargo</groupId>
-            <artifactId>cargo-maven2-plugin</artifactId>
-            <version>1.7.7</version>
-            <configuration>
-              <container>
-                <containerId>tomcat8x</containerId>
-                <zipUrlInstaller>
-                  <url>http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.1/bin/apache-tomcat-8.0.1.zip</url>
-                </zipUrlInstaller>
-                <output>${project.build.directory}/tomcat8/container.log</output>
-                <append>false</append>
-                <log>${project.build.directory}/tomcat8/cargo.log</log>
-              </container>
-              <configuration>
-                <home>${project.build.directory}/tomcat8/container</home>
-              </configuration>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-      <dependencies>
-        <dependency>
-          <groupId>org.jboss.arquillian.container</groupId>
-          <artifactId>arquillian-tomcat-embedded-8</artifactId>
-          <version>1.0.0</version>
-          <scope>test</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>docker-tomcat</id>
-      <build>
-        <finalName>${finalName}</finalName>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-war-plugin</artifactId>
-            <configuration>
-              <webXml>src/main/docker-tests/tomcat/override-web.xml</webXml>
-              <webResources>
-                <resource>
-                  <targetPath>src</targetPath>
-                  <directory>${basedir}/src/main/java</directory>
-                </resource>
-              </webResources>
-            </configuration>
           </plugin>
         </plugins>
       </build>
@@ -1193,87 +567,5 @@
       </build>
     </profile>
 
-    <profile><!-- combine with jsf provided and remove OWB listener from web.xml -->
-      <id>wildfly</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.wildfly.swarm</groupId>
-            <artifactId>wildfly-swarm-plugin</artifactId>
-            <version>2017.8.1</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>package</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
-      <id>meecrowave</id>
-
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.meecrowave</groupId>
-          <artifactId>meecrowave-core</artifactId>
-          <version>${meecrowave.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-jsf</artifactId>
-          <version>${openwebbeans.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.tomcat</groupId>
-          <artifactId>tomcat-el-api</artifactId>
-          <version>${tomcat.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.tomcat</groupId>
-          <artifactId>tomcat-jasper-el</artifactId>
-          <version>${tomcat.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>tobago-config-myfaces</artifactId>
-          <version>${project.version}</version>
-        </dependency>
-      </dependencies>
-
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.meecrowave</groupId>
-            <artifactId>meecrowave-maven-plugin</artifactId>
-            <version>${meecrowave.version}</version>
-
-            <!-- run with ???: mvn clean install -P meecrowave meecrowave:run -->
-
-            <configuration>
-              <scanningPackageIncludes>
-                org.apache.myfaces.tobago.example
-              </scanningPackageIncludes>
-            </configuration>
-            <dependencies>
-              <dependency>
-                <groupId>org.apache.tomcat</groupId>
-                <artifactId>tomcat-el-api</artifactId>
-                <version>${tomcat.version}</version>
-              </dependency>
-              <dependency>
-                <groupId>org.apache.tomcat</groupId>
-                <artifactId>tomcat-jasper-el</artifactId>
-                <version>${tomcat.version}</version>
-              </dependency>
-            </dependencies>
-          </plugin>
-
-        </plugins>
-      </build>
-    </profile>
   </profiles>
 </project>

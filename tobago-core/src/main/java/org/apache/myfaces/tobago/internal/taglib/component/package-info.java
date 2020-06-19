@@ -24,9 +24,6 @@
 @org.apache.myfaces.tobago.apt.annotation.Taglib(
     shortName = "tc",
     uri = "http://myfaces.apache.org/tobago/component",
-    listener = {
-        "org.apache.myfaces.tobago.webapp.TobagoServletContextListener",
-        "org.apache.myfaces.tobago.webapp.SecretSessionListener"},
     name = "tobago",
     displayName = "Tobago Components 5.0.x")
 

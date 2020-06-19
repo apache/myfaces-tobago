@@ -28,11 +28,11 @@ import javax.faces.convert.ConverterException;
 import java.util.Locale;
 
 @org.apache.myfaces.tobago.apt.annotation.Converter(forClass = "java.util.Locale")
-public class LocaleConverter implements Converter {
+public class LocaleConverter implements Converter<Locale> {
 
 
   @Override
-  public Object getAsObject(
+  public Locale getAsObject(
       final FacesContext facesContext, final UIComponent component, final String value) {
     final Locale locale = LocaleUtils.createLocale(value);
     if (locale == null) {
@@ -43,8 +43,8 @@ public class LocaleConverter implements Converter {
 
   @Override
   public String getAsString(
-      final FacesContext facesContext, final UIComponent component, final Object value) {
-    return value.toString();
+      final FacesContext facesContext, final UIComponent component, final Locale locale) {
+    return locale.toString();
   }
 
 }

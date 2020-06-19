@@ -22,11 +22,11 @@ package org.apache.myfaces.tobago.example.blank;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import java.lang.invoke.MethodHandles;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class Hello {
 
@@ -35,17 +35,17 @@ public class Hello {
   private String name;
 
   public String sayHello() {
-    if (LOG.isInfoEnabled()) {
-      LOG.info("Action was called, name is '{}'", name);
-    }
+    LOG.info("Action was called, name is '{}'", name);
     return "/result.xhtml";
   }
 
   public String getName() {
+    LOG.info("Getter was called, name is '{}'", name);
     return name;
   }
 
   public void setName(final String name) {
+    LOG.info("Setter was called, name is '{}'", name);
     this.name = name;
   }
 }

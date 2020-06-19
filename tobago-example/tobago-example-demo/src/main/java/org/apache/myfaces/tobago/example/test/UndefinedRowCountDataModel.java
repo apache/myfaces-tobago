@@ -24,10 +24,10 @@ import org.apache.myfaces.tobago.example.demo.SolarObject;
 import javax.faces.model.ArrayDataModel;
 import java.util.List;
 
-public class UndefinedRowCountDataModel extends ArrayDataModel {
+public class UndefinedRowCountDataModel extends ArrayDataModel<SolarObject> {
 
   public UndefinedRowCountDataModel(final List<SolarObject> array) {
-    super(array.toArray());
+    super((SolarObject[]) array.toArray());
   }
 
   @Override

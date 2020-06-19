@@ -33,10 +33,10 @@ import javax.swing.DefaultBoundedRangeModel;
  * JSF converter for the {@link javax.swing.BoundedRangeModel} class.
  */
 @org.apache.myfaces.tobago.apt.annotation.Converter(forClass = "javax.swing.BoundedRangeModel")
-public class BoundedRangeModelConverter implements Converter {
+public class BoundedRangeModelConverter implements Converter<BoundedRangeModel> {
 
   @Override
-  public Object getAsObject(final FacesContext facesContext, final UIComponent component, final String string)
+  public BoundedRangeModel getAsObject(final FacesContext facesContext, final UIComponent component, final String string)
       throws ConverterException {
     if (StringUtils.isBlank(string)) {
       return null;
@@ -52,15 +52,15 @@ public class BoundedRangeModelConverter implements Converter {
   }
 
   @Override
-  public String getAsString(final FacesContext facesContext, final UIComponent component, final Object object)
+  public String getAsString(final FacesContext facesContext, final UIComponent component, final BoundedRangeModel boundedRangeModel)
       throws ConverterException {
-    if (object == null) {
+    if (boundedRangeModel == null) {
       return null;
     }
     try {
-      return Integer.toString(((BoundedRangeModel) object).getValue());
+      return Integer.toString(boundedRangeModel.getValue());
     } catch (final ClassCastException e) {
-      throw new ConverterException("object='" + object + "'", e);
+      throw new ConverterException("object='" + boundedRangeModel + "'", e);
     }
   }
 }
