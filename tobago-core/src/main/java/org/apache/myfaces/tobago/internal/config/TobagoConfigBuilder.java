@@ -115,7 +115,8 @@ public class TobagoConfigBuilder {
           // weblogic uses zip
           // IBM WebSphere uses wsjar
           final String protocol = themeUrl.getProtocol();
-          if (!"file".equals(protocol) && !"jar".equals(protocol) && !"zip".equals(protocol) && !"wsjar".equals(protocol)) {
+          if (!"file".equals(protocol) && !"jar".equals(protocol)
+              && !"zip".equals(protocol) && !"wsjar".equals(protocol)) {
             LOG.warn("Unknown protocol '" + themeUrl + "'");
           }
         } catch (final Exception e) {

@@ -170,7 +170,10 @@ public class ClassesGenerator extends AbstractGenerator {
           // generate = true
 //          ex = true;
         }
-//        info("*** 5 " + infoType + "               " + methodName + "      generate=" + generate + "      info.generate=" + info.isGenerate() + " ex=" + (ex ? "NoSuchMethodException" : "" ) + "                  facesClass=" + facesClass.getName());
+//        info("*** 5 " + infoType + "               " + methodName
+//        + "      generate=" + generate + "      info.generate="
+//        + info.isGenerate() + " ex=" + (ex ? "NoSuchMethodException" : "" )
+//        + "                  facesClass=" + facesClass.getName());
         if (generate) {
           addPropertyToComponent(componentInfo, info);
         }

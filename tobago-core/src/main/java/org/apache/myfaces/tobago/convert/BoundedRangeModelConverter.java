@@ -36,7 +36,8 @@ import javax.swing.DefaultBoundedRangeModel;
 public class BoundedRangeModelConverter implements Converter<BoundedRangeModel> {
 
   @Override
-  public BoundedRangeModel getAsObject(final FacesContext facesContext, final UIComponent component, final String string)
+  public BoundedRangeModel getAsObject(
+      final FacesContext facesContext, final UIComponent component, final String string)
       throws ConverterException {
     if (StringUtils.isBlank(string)) {
       return null;
@@ -52,7 +53,8 @@ public class BoundedRangeModelConverter implements Converter<BoundedRangeModel> 
   }
 
   @Override
-  public String getAsString(final FacesContext facesContext, final UIComponent component, final BoundedRangeModel boundedRangeModel)
+  public String getAsString(
+      final FacesContext facesContext, final UIComponent component, final BoundedRangeModel boundedRangeModel)
       throws ConverterException {
     if (boundedRangeModel == null) {
       return null;
