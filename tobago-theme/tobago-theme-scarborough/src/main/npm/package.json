@@ -31,23 +31,23 @@
     "test": "echo 'Skipping'"
   },
   "dependencies": {
-    "@vaadin/vaadin-combo-box": "^5.0.9",
-    "vanillajs-datepicker": "^1.0.2"
+    "@vaadin/vaadin-combo-box": "^5.2.0",
+    "vanillajs-datepicker": "^1.0.3"
   },
   "devDependencies": {
     "ajv": "^6.12.2",
-    "ajv-keywords": "^3.4.1",
-    "autoprefixer": "^9.7.6",
+    "ajv-keywords": "^3.5.0",
+    "autoprefixer": "^9.8.4",
     "bootstrap": "4.5.0",
     "clean-css-cli": "^4.3.0",
-    "eslint": "^6.8.0",
-    "eslint-plugin-compat": "^3.5.1",
+    "eslint": "^7.3.1",
+    "eslint-plugin-compat": "^3.8.0",
     "node-sass": "^4.14.1",
     "npm-run-all": "^4.1.5",
     "popper.js": "^1.16.1",
     "postcss-cli": "^7.1.1",
-    "rollup": "^2.8.0",
+    "rollup": "^2.18.1",
     "tslint": "^6.1.2",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.5"
   }
 }
