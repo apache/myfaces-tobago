@@ -33,7 +33,7 @@ public interface TobagoActionSource extends ActionSource2 {
   /**
    * @deprecated Replaced by ActionSource2.getActionExpression
    */
-  @Override
+//  @Override no longer overriding, because it was dropped in MyFaces 2.3-next
   @Deprecated
   default MethodBinding getAction() {
     LOG.debug("JSF 1.1 style is no longer supported!");
@@ -43,7 +43,7 @@ public interface TobagoActionSource extends ActionSource2 {
   /**
    * @deprecated Replaced by ActionSource2.setActionExpression
    */
-  @Override
+//  @Override no longer overriding, because it was dropped in MyFaces 2.3-next
   @Deprecated
   default void setAction(MethodBinding action) {
     LOG.debug("JSF 1.1 style is no longer supported!");
@@ -52,7 +52,7 @@ public interface TobagoActionSource extends ActionSource2 {
   /**
    * @deprecated Replaced by getActionListeners
    */
-  @Override
+//  @Override no longer overriding, because it was dropped in MyFaces 2.3-next
   @Deprecated
   default MethodBinding getActionListener() {
     LOG.debug("JSF 1.1 style is no longer supported!");
@@ -62,7 +62,7 @@ public interface TobagoActionSource extends ActionSource2 {
   /**
    * @deprecated Replaced by getActionListeners
    */
-  @Override
+//  @Override no longer overriding, because it was dropped in MyFaces 2.3-next
   @Deprecated
   default void setActionListener(MethodBinding actionListener) {
     LOG.debug("JSF 1.1 style is no longer supported!");
