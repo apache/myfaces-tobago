@@ -17,6 +17,8 @@
 
 @import "node_modules/bootstrap/scss/bootstrap";
 
+@import "node_modules/vanillajs-datepicker/sass/datepicker-bs4";
+
 .btn-secondary {
   @include button-variant($white, $gray-400);
 }

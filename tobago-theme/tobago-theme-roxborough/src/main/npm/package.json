@@ -30,23 +30,24 @@
     "js-minify": "echo 'Skipping'",
     "test": "echo 'Skipping'"
   },
-  "devDependencies": {
-    "ajv": "^6.5.3",
-    "ajv-keywords": "^3.2.0",
-    "autoprefixer": "^8.6.5",
-    "bootstrap": "4.3.1",
-    "clean-css-cli": "^4.1.11",
-    "eslint": "^5.5.0",
-    "eslint-plugin-compat": "^2.5.1",
-    "jquery": "^3.3.1",
-    "node-sass": "^4.9.1",
-    "npm-run-all": "^4.1.5",
-    "popper.js": "^1.14.3",
-    "postcss-cli": "^5.0.1",
-    "rollup": "^0.62.0",
-    "tslint": "^5.12.1",
-    "typescript": "^3.2.4"
-  },
   "dependencies": {
+    "@vaadin/vaadin-combo-box": "^5.0.9",
+    "vanillajs-datepicker": "^1.0.2"
+  },
+  "devDependencies": {
+    "ajv": "^6.12.2",
+    "ajv-keywords": "^3.4.1",
+    "autoprefixer": "^9.7.6",
+    "bootstrap": "4.5.0",
+    "clean-css-cli": "^4.3.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-compat": "^3.5.1",
+    "node-sass": "^4.14.1",
+    "npm-run-all": "^4.1.5",
+    "popper.js": "^1.16.1",
+    "postcss-cli": "^7.1.1",
+    "rollup": "^2.8.0",
+    "tslint": "^6.1.2",
+    "typescript": "^3.8.3"
   }
 }
