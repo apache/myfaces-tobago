@@ -98,8 +98,12 @@ export class Focus extends HTMLElement {
 
   private get lastFocusedElement(): HTMLElement {
     const lastFocusId: string = this.hiddenInput.value;
-    const root = this.getRootNode() as ShadowRoot | Document;
-    return root.getElementById(lastFocusId);
+    if (lastFocusId) {
+      const root = this.getRootNode() as ShadowRoot | Document;
+      return root.getElementById(lastFocusId);
+    } else {
+      return null;
+    }
   }
 
   private get hiddenInput(): HTMLInputElement {
