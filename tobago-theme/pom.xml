@@ -152,6 +152,8 @@
                     <include>js/tobago*.js.map</include>
                     <include>js/jsf*.js</include>
                     <include>js/jsf*.js.map</include>
+                    <include>js/bundle.js</include>
+                    <include>js/bundle.js.map</include>
                     <include>ts/tobago*.ts</include>
                     <include>ts/test.ts</include>
                   </includes>

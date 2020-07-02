@@ -56,7 +56,7 @@
           <script name="/webjars/popper.js/1.14.3/umd/popper.js"/>
           <script name="/tobago/standard/${project.version}/js/jsf-development.js"/>
           <script name="/tobago/standard/${project.version}/js/tobago-polyfill.js"/>
-          <script type="module" name="/tobago/standard/${project.version}/js/tobago-bundle.js"/>
+          <script type="module" name="/tobago/standard/${project.version}/js/bundle.js"/>
 <!--
           <script name="/tobago/standard/${project.version}/js/ext-bootstrap.js"/>
           <script name="/tobago/standard/${project.version}/js/tobago-listener.js"/>

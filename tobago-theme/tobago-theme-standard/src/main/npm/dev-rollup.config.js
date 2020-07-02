@@ -20,7 +20,7 @@ import resolve from "rollup-plugin-node-resolve"
 export default {
   input: '../../../target/dist/js/tobago-all.js',
   output: {
-    file: '../../../target/dist/js/tobago-bundle.js',
+    file: '../../../target/dist/js/bundle.js',
     format: 'umd', /* tbd: check if "iife" is better? */
     sourcemap: true,
     name: 'tobago'

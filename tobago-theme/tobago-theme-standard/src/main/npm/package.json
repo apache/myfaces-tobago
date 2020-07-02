@@ -3,7 +3,7 @@
   "version": "5.0.0-SNAPSHOT",
   "xxx_version": "${project.version}",
   "description": "The 'standard' theme of the Tobago framework",
-  "main": "tobago-bundle.js",
+  "main": "bundle.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/apache/myfaces-tobago.git"
