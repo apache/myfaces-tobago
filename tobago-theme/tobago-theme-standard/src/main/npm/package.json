@@ -31,12 +31,12 @@
     "test": "jest",
     "dev-css": "npm-run-all --sequential dev-css-compile dev-mkdir dev-css-cp",
     "dev-css-compile": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 --include-path ../../../../../tobago-core/src/main/resources ../scss/tobago-theme.scss ../../../target/dist/css/tobago.css",
-    "dev-css-cp": "cp -R ../../../target/dist/css ../../../../../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/tobago-bootstrap/$npm_package_version",
+    "dev-css-cp": "cp -R ../../../target/dist/css ../../../../../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/$npm_package_version",
     "dev-ts": "npm-run-all --sequential dev-ts-compile dev-ts-compile-bundle dev-mkdir dev-js-cp",
     "dev-ts-compile": "tsc --project dev-tsconfig.json",
     "dev-ts-compile-bundle": "rollup --config dev-rollup.config.js",
-    "dev-js-cp": "cp -R ../../../target/dist/js ../../../../../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/tobago-bootstrap/$npm_package_version",
-    "dev-mkdir": "mkdir -p ../../../../../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/tobago-bootstrap/$npm_package_version"
+    "dev-js-cp": "cp -R ../../../target/dist/js ../../../../../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/$npm_package_version",
+    "dev-mkdir": "mkdir -p ../../../../../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/$npm_package_version"
   },
   "dependencies": {
     "@vaadin/vaadin-combo-box": "^5.0.9",

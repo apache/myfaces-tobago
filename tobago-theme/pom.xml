@@ -52,15 +52,15 @@
       <resource>
         <directory>src/main/resources/META-INF/resources/tobago/${theme.name}</directory>
         <excludes>
-          <exclude>**/tobago-bootstrap/_version/**</exclude>
+          <exclude>**/_version/**</exclude>
         </excludes>
         <filtering>false</filtering>
         <targetPath>META-INF/resources/tobago/${theme.name}</targetPath>
       </resource>
       <resource>
-        <directory>src/main/resources/META-INF/resources/tobago/${theme.name}/tobago-bootstrap/_version</directory>
+        <directory>src/main/resources/META-INF/resources/tobago/${theme.name}/_version</directory>
         <filtering>false</filtering>
-        <targetPath>META-INF/resources/tobago/${theme.name}/tobago-bootstrap/${project.version}</targetPath>
+        <targetPath>META-INF/resources/tobago/${theme.name}/${project.version}</targetPath>
       </resource>
     </resources>
 
@@ -133,7 +133,7 @@
             </goals>
             <configuration>
               <outputDirectory>
-                ${project.build.outputDirectory}/META-INF/resources/tobago/${theme.name}/tobago-bootstrap/${project.version}
+                ${project.build.outputDirectory}/META-INF/resources/tobago/${theme.name}/${project.version}
               </outputDirectory>
               <resources>
                 <resource>

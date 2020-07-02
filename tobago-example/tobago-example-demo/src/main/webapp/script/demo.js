@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {Listener, Phase} from "../tobago/standard/tobago-bootstrap/5.0.0-SNAPSHOT/js/tobago-listener";
+import {Listener, Phase} from "../tobago/standard/5.0.0-SNAPSHOT/js/tobago-listener";
 
 class Demo {
 

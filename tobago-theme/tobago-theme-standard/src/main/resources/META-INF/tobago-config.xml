@@ -41,11 +41,11 @@
           <script name="/webjars/webcomponents__custom-elements/1.2.1/custom-elements.min.js"/>
           <script name="/webjars/tether/1.4.0/js/tether.min.js"/>
           <script name="/webjars/popper.js/1.14.3/umd/popper.min.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/jsf.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-polyfill.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago.min.js"/>
+          <script name="/tobago/standard/${project.version}/js/jsf.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-polyfill.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago.min.js"/>
           <style name="/webjars/tether/1.4.0/css/tether.min.css"/>
-          <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/tobago.min.css"/>
+          <style name="/tobago/standard/${project.version}/css/tobago.min.css"/>
           <style name="/webjars/font-awesome/4.7.0/css/font-awesome.min.css"/>
         </includes>
       </resources>
@@ -54,39 +54,39 @@
           <script name="/webjars/webcomponents__custom-elements/1.2.1/externs/custom-elements.js"/>
           <script name="/webjars/tether/1.4.0/js/tether.js"/>
           <script name="/webjars/popper.js/1.14.3/umd/popper.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/jsf-development.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-polyfill.js"/>
-          <script type="module" name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-bundle.js"/>
+          <script name="/tobago/standard/${project.version}/js/jsf-development.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-polyfill.js"/>
+          <script type="module" name="/tobago/standard/${project.version}/js/tobago-bundle.js"/>
 <!--
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/ext-bootstrap.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-listener.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-core.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-dropdown.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-date.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-command.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-file.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-focus.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-header-footer.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-in.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-jsf.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-overlay.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-panel.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-popover.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-popup.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-reload.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-scroll.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-select-....js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-sheet.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-split-layout.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-stars.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-suggest.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-tab.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-tree.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-tree-listbox.js"/>
-          <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/tobago-utils.js"/>
+          <script name="/tobago/standard/${project.version}/js/ext-bootstrap.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-listener.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-core.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-dropdown.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-date.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-command.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-file.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-focus.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-header-footer.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-in.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-jsf.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-overlay.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-panel.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-popover.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-popup.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-reload.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-scroll.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-select-....js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-sheet.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-split-layout.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-stars.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-suggest.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-tab.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-tree.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-tree-listbox.js"/>
+          <script name="/tobago/standard/${project.version}/js/tobago-utils.js"/>
 -->
           <style name="/webjars/tether/1.4.0/css/tether.css"/>
-          <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/tobago.css"/>
+          <style name="/tobago/standard/${project.version}/css/tobago.css"/>
           <style name="/webjars/font-awesome/4.7.0/css/font-awesome.css"/>
         </includes>
       </resources>

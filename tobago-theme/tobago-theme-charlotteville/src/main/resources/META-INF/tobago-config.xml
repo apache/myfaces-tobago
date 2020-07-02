@@ -36,18 +36,18 @@
       <versioned>true</versioned>
       <resources production="true">
         <includes>
-          <style name="/tobago/charlotteville/tobago-bootstrap/${project.version}/css/tobago.min.css"/>
+          <style name="/tobago/charlotteville/${project.version}/css/tobago.min.css"/>
         </includes>
         <excludes>
-          <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/tobago.min.css"/>
+          <style name="/tobago/standard/${project.version}/css/tobago.min.css"/>
         </excludes>
       </resources>
       <resources production="false">
         <includes>
-          <style name="/tobago/charlotteville/tobago-bootstrap/${project.version}/css/tobago.css"/>
+          <style name="/tobago/charlotteville/${project.version}/css/tobago.css"/>
         </includes>
         <excludes>
-          <style name="/tobago/standard/tobago-bootstrap/${project.version}/css/tobago.css"/>
+          <style name="/tobago/standard/${project.version}/css/tobago.css"/>
         </excludes>
       </resources>
     </theme-definition>
