@@ -88,6 +88,7 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     final Markup markup = select.getMarkup();
 
     writer.startElement(getOuterHtmlTag());
+    writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
         getTobagoClass(),
         getTobagoClass().createMarkup(markup),

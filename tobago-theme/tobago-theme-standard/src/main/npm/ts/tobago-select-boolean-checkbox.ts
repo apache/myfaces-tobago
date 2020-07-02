@@ -25,10 +25,10 @@ export class SelectBooleanCheckbox extends HTMLElement {
   }
 
   connectedCallback(): void {
-    this.input.addEventListener("focus", Focus.setLastFocusId);
+    this.field.addEventListener("focus", Focus.setLastFocusId);
 
-    if (this.input.readOnly) {
-      this.input.addEventListener("click", preventClick);
+    if (this.field.readOnly) {
+      this.field.addEventListener("click", preventClick);
     }
 
     function preventClick(event: MouseEvent): void {
@@ -37,8 +37,9 @@ export class SelectBooleanCheckbox extends HTMLElement {
     }
   }
 
-  get input(): HTMLInputElement {
-    return this.querySelector(DomUtils.escapeClientId(this.id + DomUtils.SUB_COMPONENT_SEP + "field"));
+  get field(): HTMLInputElement {
+    const rootNode = this.getRootNode() as ShadowRoot | Document;
+    return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "field") as HTMLInputElement;
   }
 }
 
