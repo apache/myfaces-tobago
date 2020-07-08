@@ -319,6 +319,15 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
+      <xs:element name="version" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The version of the theme. The version string will be encoded into the
+            resource path, to avoid caching problems. The version can be accessed by
+            #{tobagoContext.theme.version}.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="resources" type="tobago:resources-type" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
           <xs:documentation>

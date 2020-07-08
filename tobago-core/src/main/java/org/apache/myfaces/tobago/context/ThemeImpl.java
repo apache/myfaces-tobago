@@ -218,7 +218,9 @@ public class ThemeImpl implements Theme, Serializable {
     } else {
       builder.append("null");
     }
-    builder.append(", \nproductionScripts=[");
+    builder.append(" version='");
+    builder.append(version);
+    builder.append("', \nproductionScripts=[");
     for (final ThemeScript s : productionScripts) {
       builder.append("\n");
       builder.append(s);

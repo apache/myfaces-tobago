@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
+import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.ThemeScript;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -161,9 +162,12 @@ public class TobagoConfigMergingUnitTest {
     }
 
     config.resolveThemes();
-    final ThemeScript[] scripts = config.getDefaultTheme().getScriptResources(true);
+    final Theme defaultTheme = config.getDefaultTheme();
+    final ThemeScript[] scripts = defaultTheme.getScriptResources(true);
 
     Assertions.assertArrayEquals(ex, scripts);
+
+    Assertions.assertEquals("some-version-2", defaultTheme.getVersion());
   }
 
   public static TobagoConfigImpl loadAndMerge(final String... names)

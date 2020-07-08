@@ -94,6 +94,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
    */
   @Deprecated
   private static final int VERSIONED = -1407102089;
+  private static final int VERSION = 351608024;
   private static final int RESOURCES = -1983070683;
   private static final int INCLUDES = 90259659;
   private static final int EXCLUDES = 1994055129;
@@ -378,6 +379,10 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
 
       case THEME_DEFINITION:
         currentTheme = null;
+        break;
+
+      case VERSION:
+        currentTheme.setVersion(text);
         break;
 
       case RESOURCES:

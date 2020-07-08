@@ -39,6 +39,7 @@
     <theme-definition>
       <name>my-theme-3</name>
       <fallback>my-theme-1</fallback>
+      <version>some-version-2</version>
       <resources production="true">
         <includes>
           <script name="script-3-replacement.js" priority="3"/>

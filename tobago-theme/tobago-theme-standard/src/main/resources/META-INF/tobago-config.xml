@@ -35,6 +35,7 @@
     <theme-definition>
       <name>standard</name>
       <display-name>Standard Theme</display-name>
+      <version>${project.version}</version>
       <resources production="true">
         <includes>
           <script name="/webjars/webcomponents__custom-elements/1.2.1/custom-elements.min.js"/>

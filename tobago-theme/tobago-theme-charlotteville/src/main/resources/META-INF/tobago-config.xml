@@ -33,6 +33,7 @@
       <name>charlotteville</name>
       <display-name>Charlotteville</display-name>
       <fallback>standard</fallback>
+      <version>${project.version}</version>
       <resources production="true">
         <includes>
           <style name="/tobago/charlotteville/${project.version}/css/tobago.min.css"/>

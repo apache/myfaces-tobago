@@ -84,7 +84,7 @@
               <tc:operation name="hide" for="info"/>
             </tc:button>
           </f:facet>
-          <tc:out label="Theme:" value="#{themeController.localizedTheme}"/>
+          <tc:out label="Theme:" value="#{themeController.localizedTheme} (#{themeController.theme.version})"/>
           <tc:out label="Locale:" value="#{localeController.localizedLocale}"/>
           <tc:out label="Project Stage:" value="#{facesContext.application.projectStage}"/>
           <tc:out label="CSP mode:" value="#{tobagoConfig.contentSecurityPolicy.mode}"/>
