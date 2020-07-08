@@ -196,16 +196,6 @@ public class ThemeImpl implements Theme, Serializable {
     }
   }
 
-  public boolean isVersioned() {
-    checkLocked();
-    return versioned;
-  }
-
-  public void setVersioned(final boolean versioned) {
-    checkLocked();
-    this.versioned = versioned;
-  }
-
   @Override
   public String getVersion() {
     return version;

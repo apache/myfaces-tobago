@@ -34,8 +34,6 @@ public class MockTheme extends ThemeImpl {
 
   private List<Theme> fallbackThemeList;
 
-  private boolean versioned;
-
   private String version;
 
   public MockTheme(final String name, final String displayName, final List<Theme> fallbackThemeList) {
@@ -67,16 +65,6 @@ public class MockTheme extends ThemeImpl {
   @Override
   public ThemeStyle[] getStyleResources(final boolean production) {
     return new ThemeStyle[0];
-  }
-
-  @Override
-  public boolean isVersioned() {
-    return versioned;
-  }
-
-  @Override
-  public void setVersioned(final boolean versioned) {
-    this.versioned = versioned;
   }
 
   @Override

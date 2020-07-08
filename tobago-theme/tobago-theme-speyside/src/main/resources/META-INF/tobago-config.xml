@@ -33,7 +33,6 @@
       <name>speyside</name>
       <display-name>Speyside</display-name>
       <fallback>standard</fallback>
-      <versioned>true</versioned>
       <resources production="true">
         <includes>
           <style name="/tobago/speyside/${project.version}/css/tobago.min.css"/>

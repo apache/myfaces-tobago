@@ -56,7 +56,6 @@
     <theme-definition>
       <name>my-theme-1</name>
       <display-name>My Theme 1</display-name>
-      <versioned>true</versioned>
       <resources production="true">
         <includes>
           <script name="script-1.js" priority="1"/>

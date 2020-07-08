@@ -319,14 +319,6 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="versioned" type="xs:boolean" minOccurs="0" default="false">
-        <xs:annotation>
-          <xs:documentation>
-            The mode of the theme. If the theme is versioned, a version string will be encoded into the
-            resource path, to avoid caching problems.
-          </xs:documentation>
-        </xs:annotation>
-      </xs:element>
       <xs:element name="resources" type="tobago:resources-type" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
           <xs:documentation>

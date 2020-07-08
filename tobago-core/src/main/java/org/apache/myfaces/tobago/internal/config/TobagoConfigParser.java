@@ -89,6 +89,10 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int THEME_DEFINITION = 1515774935;
   private static final int DISPLAY_NAME = 1568910518;
   private static final int FALLBACK = 761243362;
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   private static final int VERSIONED = -1407102089;
   private static final int RESOURCES = -1983070683;
   private static final int INCLUDES = 90259659;
@@ -376,10 +380,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         currentTheme = null;
         break;
 
-      case VERSIONED:
-        currentTheme.setVersioned(Boolean.parseBoolean(text));
-        break;
-
       case RESOURCES:
         production = null;
         break;
@@ -436,6 +436,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case MIME_TYPES:
       case MARKUP:
       case INCLUDES:
+      case VERSIONED:
         // nothing to do
         break;
 
