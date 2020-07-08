@@ -133,7 +133,7 @@ class Suggest extends HTMLElement {
         if (suggest.update) {
           if (params.filter.length >= suggest.minChars) {
             if (Suggest.timeout) {
-              clearTimeout(Suggest.timeout);
+              window.clearTimeout(Suggest.timeout);
             }
             Suggest.timeout = window.setTimeout(function (): void {
               Suggest.callback = callback;
