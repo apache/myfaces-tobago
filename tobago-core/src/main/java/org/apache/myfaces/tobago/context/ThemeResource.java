@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.context;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @since 1.5.0
@@ -56,8 +57,7 @@ public abstract class ThemeResource implements Serializable {
 
     final ThemeResource that = (ThemeResource) o;
 
-    return !(name != null ? !name.equals(that.name) : that.name != null);
-
+    return Objects.equals(name, that.name);
   }
 
   @Override

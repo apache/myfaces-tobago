@@ -27,6 +27,7 @@ import javax.faces.context.FacesContext;
 import java.lang.invoke.MethodHandles;
 import java.util.Comparator;
 import java.util.Map;
+import java.util.Objects;
 
 public class ValueExpressionComparator extends ComparatorBase {
 
@@ -60,17 +61,13 @@ public class ValueExpressionComparator extends ComparatorBase {
     if (!super.equals(o)) {
       return false;
     }
-    if (facesContext != null ? !facesContext.equals(that.facesContext) : that.facesContext != null) {
+    if (!Objects.equals(facesContext, that.facesContext)) {
       return false;
     }
-    if (valueExpression != null ? !valueExpression.equals(that.valueExpression) : that.valueExpression != null) {
+    if (!Objects.equals(valueExpression, that.valueExpression)) {
       return false;
     }
-    if (var != null ? !var.equals(that.var) : that.var != null) {
-      return false;
-    }
-
-    return true;
+    return Objects.equals(var, that.var);
   }
 
   public int hashCode() {

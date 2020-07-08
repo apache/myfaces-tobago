@@ -28,6 +28,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.LengthValidator;
 import javax.faces.validator.ValidatorException;
+import java.util.Objects;
 
 /**
  * <p><strong>SubmittedLengthValidator</strong> is a {@link Validator} that checks
@@ -121,14 +122,10 @@ public class SubmittedValueLengthValidator extends LengthValidator {
 
     final SubmittedValueLengthValidator validator = (SubmittedValueLengthValidator) o;
 
-    if (maximum != null ? !maximum.equals(validator.maximum) : validator.maximum != null) {
+    if (!Objects.equals(maximum, validator.maximum)) {
       return false;
     }
-    if (minimum != null ? !minimum.equals(validator.minimum) : validator.minimum != null) {
-      return false;
-    }
-
-    return true;
+    return Objects.equals(minimum, validator.minimum);
   }
 
   public int hashCode() {

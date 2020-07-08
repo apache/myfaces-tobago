@@ -31,6 +31,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -348,14 +349,10 @@ public final class Markup implements Serializable, Iterable<String> {
 
     final Markup markup = (Markup) o;
 
-    if (value != null ? !value.equals(markup.value) : markup.value != null) {
+    if (!Objects.equals(value, markup.value)) {
       return false;
     }
-    if (!Arrays.equals(values, markup.values)) {
-      return false;
-    }
-
-    return true;
+    return Arrays.equals(values, markup.values);
   }
 
   @Override

@@ -25,6 +25,7 @@ import javax.el.MethodExpression;
 import javax.el.MethodInfo;
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
+import java.util.Objects;
 
 public class ConstantMethodExpression extends MethodExpression implements StateHolder {
 
@@ -62,8 +63,7 @@ public class ConstantMethodExpression extends MethodExpression implements StateH
 
     final ConstantMethodExpression that = (ConstantMethodExpression) o;
 
-    return !(outcome != null ? !outcome.equals(that.outcome) : that.outcome != null);
-
+    return Objects.equals(outcome, that.outcome);
   }
 
   @Override
