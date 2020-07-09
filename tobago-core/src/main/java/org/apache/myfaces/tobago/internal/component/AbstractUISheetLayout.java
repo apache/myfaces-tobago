@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.internal.layout.IntervalList;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
@@ -131,12 +132,19 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
         final List<Integer> widthList = sheet.getWidthList();
 
         int index = 0;
-        for (final LayoutComponent component : sheet.getComponents()) {
+        List<LayoutComponent> components = sheet.getComponents();
+        for (int i = 0; i < components.size(); i++) {
+          LayoutComponent component = components.get(i);
           if (component == null) {
             if (LOG.isDebugEnabled()) {
               LOG.debug("todo: UIColumnSelector must be a LayoutComponent!"); // fixme
             }
-            index++;
+            AbstractUIColumn column = sheet.getAllColumns().get(index);
+            if (column instanceof UIColumnSelector && column.isRendered()) {
+              // XXX here only index++ if columnSelector is rendered,
+              //    because the widthList has only the rendered=true, todo: change it.
+              index++;
+            }
             continue;
           }
           final UIColumn column = component instanceof AbstractUIColumnNode
