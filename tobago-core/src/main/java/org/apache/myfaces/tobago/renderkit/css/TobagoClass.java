@@ -133,10 +133,8 @@ public enum TobagoClass implements CssItem {
   FLEX_LAYOUT("tobago-flexLayout"),
   FLOW_LAYOUT("tobago-flowLayout"),
   FIGURE("tobago-figure"),
-  FOOTER("tobago-footer"),
   FORM("tobago-form"),
   GRID_LAYOUT("tobago-gridLayout"),
-  HEADER("tobago-header"),
   /**
    * @deprecated Since 5.0.0. Please use {@link TobagoClass#POPOVER__BUTTON}
    */

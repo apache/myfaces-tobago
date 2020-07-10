@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIHeader;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
@@ -47,8 +46,6 @@ public class HeaderRenderer extends RendererBase {
     // TBD: how to configure it when it is needed, with customClass, or with markup?
 
     writer.writeClassAttribute(
-        TobagoClass.HEADER,
-        TobagoClass.HEADER.createMarkup(markup),
         header.isFixed() ? BootstrapClass.STICKY_TOP : null,
         header.getCustomClass());
 // TBD: should NAVBAR class be in the LinksRenderer?

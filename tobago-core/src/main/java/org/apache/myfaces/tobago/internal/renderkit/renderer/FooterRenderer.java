@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIFooter;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
@@ -45,8 +44,6 @@ public class FooterRenderer extends RendererBase {
     writer.writeIdAttribute(component.getClientId(facesContext));
 
     writer.writeClassAttribute(
-        TobagoClass.FOOTER,
-        TobagoClass.FOOTER.createMarkup(markup),
         footer.isFixed() ? BootstrapClass.FIXED_BOTTOM : null,
         footer.getCustomClass());
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.CONTENTINFO.toString(), false);
