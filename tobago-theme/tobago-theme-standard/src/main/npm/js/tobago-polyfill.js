@@ -16,29 +16,7 @@
 
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// from https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
-// todo: check, if this is needed for Tobago 5
-// for ie
-if (!Element.prototype.matches) {
-  Element.prototype.matches
-      = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
-}
-
-// for ie
-if (!Element.prototype.closest) {
-  Element.prototype.closest = function (s) {
-    let el = this;
-    do {
-      if (el.matches(s)) return el;
-      el = el.parentElement || el.parentNode;
-    } while (el !== null && el.nodeType === 1);
-    return null;
-  };
-}
-
-// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// for edge/ie
+// for old Edge (before Chromium)
 try {
   document.querySelector(":scope");
 } catch (exception) {
