@@ -27,30 +27,34 @@
 
     <tc:section label="Main Properties">
 
-      <tc:in value="#{serverInfo.version}" readonly="true" label="Tobago Version"/>
+      <tc:out value="#{serverInfo.version}" label="Tobago Version:"/>
 
-      <tc:in value="#{manifestReader.buildTime}" readonly="true" label="Tobago Build Time">
+      <tc:out value="#{manifestReader.buildTime}" label="Tobago Build Time:">
         <f:convertDateTime type="both"/>
-      </tc:in>
+      </tc:out>
 
-      <tc:in value="#{serverInfo.jsfTitle}" readonly="true" label="JSF Implementation"/>
+      <tc:out value="#{serverInfo.jsfTitle}" label="JSF Implementation:"/>
 
-      <tc:in value="#{serverInfo.jsfVersion}" readonly="true" label="JSF Version"/>
+      <tc:out value="#{serverInfo.jsfVersion}" label="JSF Version:"/>
 
-      <tc:in value="#{serverInfo.cdiTitle}" readonly="true" label="CDI Implementation"/>
+      <tc:out value="#{serverInfo.cdiTitle}" label="CDI Implementation:"/>
 
-      <tc:in value="#{serverInfo.cdiVersion}" readonly="true" label="CDI Version"/>
+      <tc:out value="#{serverInfo.cdiVersion}" label="CDI Version:"/>
 
-      <tc:in value="#{serverInfo.serverInfo}" readonly="true" label="Server Info"/>
+      <tc:out value="#{serverInfo.serverInfo}" label="Server Info:"/>
 
-      <tc:in value="#{serverInfo.systemProperties['java.runtime.version']} - #{serverInfo.systemProperties['java.vm.vendor']}"
-             readonly="true" label="Java"/>
+      <tc:out value="#{serverInfo.systemProperties['java.runtime.version']} - #{serverInfo.systemProperties['java.vm.vendor']}"
+             label="Java:"/>
 
-      <tc:in
+      <tc:out
           value="#{serverInfo.systemProperties['os.name']} - #{serverInfo.systemProperties['os.version']} - #{serverInfo.systemProperties['os.arch']}"
-          readonly="true" label="Operating System"/>
+          label="Operating System:"/>
 
-      <tc:segmentLayout medium="6seg 6seg" large="4seg 4seg 4seg" extraLarge="3seg 3seg 3seg">
+      <tc:out label="Project Stage:" value="#{facesContext.application.projectStage}"/>
+      <tc:out label="CSP mode:" value="#{tobagoContext.tobagoConfig.contentSecurityPolicy.mode}"/>
+      <tc:out label="CSP detail:" value="#{tobagoContext.tobagoConfig.contentSecurityPolicy.directiveMap}"/>
+
+      <tc:segmentLayout medium="6seg 6seg" large="4seg 4seg 4seg" extraLarge="3 seg 3seg 3seg">
         <tc:selectBooleanCheckbox value="#{version.version20}" readonly="true" label="Version 2.0"/>
         <tc:selectBooleanCheckbox value="#{version.version21}" readonly="true" label="Version 2.1"/>
         <tc:selectBooleanCheckbox value="#{version.version22}" readonly="true" label="Version 2.2"/>

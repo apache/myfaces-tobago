@@ -25,11 +25,23 @@
   <ui:param name="title" value="Sanitizer"/>
 
   <ul>
-    <li>Filter all suspicious content from tc:textarea and tc:out with escape=false.</li>
+    <li>Filter all suspicious content from
+      <pre><code class="language-markup">&lt;tc:textarea></code></pre> and
+      <pre><code class="language-markup">&lt;tc:out escape="false"></code></pre>
+    </li>
     <li>See <tc:link label="OWASP Java HTML Sanitizer Project"
                      link="https://www.owasp.org/index.php/OWASP_Java_HTML_Sanitizer_Project"
                      image="fa-external-link" /></li>
-    <li>The filter can be configured the <code>tobago-config.xml</code> file.</li>
+    <li>The filter can be configured the <code>tobago-config.xml</code> file with
+      the <code class="language-markup">&lt;sanitizer></code> tag.</li>
   </ul>
+  Example for an configuration which is active by default:
+  <pre><code class="language-markup">&lt;sanitizer>
+  &lt;sanitizer-class>org.apache.myfaces.tobago.sanitizer.JsoupSanitizer&lt;/sanitizer-class>
+  &lt;properties>
+    &lt;!-- Use one of: basic, basicWithImages, relaxed, simpleText or none -->
+    &lt;entry key="whitelist">relaxed&lt;/entry>
+  &lt;/properties>
+&lt;/sanitizer></code></pre>
 
 </ui:composition>

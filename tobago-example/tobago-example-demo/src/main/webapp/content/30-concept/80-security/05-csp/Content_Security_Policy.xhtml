@@ -28,30 +28,22 @@
   <tc:link link="http://www.w3.org/TR/CSP/" label="Specification link" image="fa-external-link"/>.
   In short: The HTML page doesn't contain any JavaScript or CSS information.
   All allowed sources for JavaScript, CSS and other resources have to be declared in special header.
-  If you have own renderers or own JavaScript in your application, this code also needs to support SCP, to use this feature.
+  If you have own renderers or own JavaScript in your application, this code also needs to support CSP, to use this feature.
 
-  <tc:box label="This box may be manipulated by JavaScript">
-    <tc:style maxWidth="400px"/>
-    <tc:panel id="panel">
+  <tc:box label="The content of this box may be manipulated by JavaScript">
+    <tc:panel id="panel-good">
+      <tc:badge markup="info" value="Notice:"/><br/>
       <tc:out value="When you can read this text, it hasn't been manipulated by JavaScript.
         That means the CSP is working correctly."/>
+      <i class="fa fa-check fa-2x" onclick="alert('rav');"></i>
     </tc:panel>
-    <script>
-      <![CDATA[
-      function cspDemo() {
-        jQuery(DomUtils.escapeClientId("page:panel")).html(
-            "<span style='color: #ff0000; font-weight: bold;'>"
-            + "Attention: When you can read this text, the content was manipulated by JavaScript."
-            + " It seems, your browser doesn't support CSP!</span>");
-      }
-
-      cspDemo();
-      ]]>
-    </script>
+    <tc:panel id="panel-bad">
+      <tc:style customClass="d-none"/>
+      <tc:badge markup="warning" value="Attention!"/><br/>
+      <tc:out value="When you can read this text, the content was manipulated by JavaScript. It seems, your browser doesn't support CSP!"/>
+      <i class="fa fa-exclamation-triangle fa-2x text-danger"></i>
+    </tc:panel>
+    <script type="application/javascript">document.addEventListener("DOMContentLoaded", function (event) {document.getElementById("page:mainForm:panel-good").classList.add("d-none");document.getElementById("page:mainForm:panel-bad").classList.remove("d-none"); });</script>
   </tc:box>
-
-  <h5 class="alert alert-danger">This example is currently not working!</h5>
-
-
 
 </ui:composition>
