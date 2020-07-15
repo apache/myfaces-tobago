@@ -18,6 +18,7 @@
   },
   "homepage": "https://myfaces.apache.org/tobago/",
   "scripts": {
+    "build": "npm-run-all --parallel css test ts",
     "css": "npm-run-all --parallel css-compile --sequential css-prefix css-minify",
     "css-lint": "echo 'Not implemented yet!'",
     "css-compile": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/tobago-theme.scss css/tobago.css",

@@ -67,7 +67,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>2.7</version>
+        <version>3.1.0</version>
         <executions>
           <execution>
             <!-- copy customization to target/bootstrap -->
@@ -194,11 +194,11 @@
       <plugin>
         <groupId>com.github.eirslett</groupId>
         <artifactId>frontend-maven-plugin</artifactId>
-        <version>1.7.6</version>
+        <version>1.10.0</version>
 
         <!-- optional -->
         <configuration>
-          <nodeVersion>v12.16.3</nodeVersion> <!-- contains npm version 6.14.4 -->
+          <nodeVersion>v12.18.2</nodeVersion> <!-- contains npm version 6.14.5 -->
 
           <!-- optional: Where to download Node.js binary from. Defaults to http://nodejs.org/dist/ -->
           <!--<nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>-->
@@ -234,68 +234,21 @@
             </goals>
             <phase>generate-resources</phase>
             <configuration>
-              <!--<arguments>install jquery popper.js ajv-keywords eslint-plugin-compat ajv eslint</arguments>-->
               <arguments>install</arguments>
             </configuration>
           </execution>
 
           <execution>
             <!-- build "Tobago with Bootstrap" -->
-            <id>step #5: npm run css</id>
+            <id>step #5: npm run build</id>
             <goals>
               <goal>npm</goal>
             </goals>
             <phase>generate-resources</phase>
             <configuration>
-              <arguments>run css</arguments>
+              <arguments>run build</arguments>
             </configuration>
           </execution>
-          <execution>
-            <id>step #5a: test</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <phase>generate-resources</phase>
-            <configuration>
-              <arguments>run test</arguments>
-            </configuration>
-          </execution>
-          <execution>
-            <id>step #5b: ts-lint + ts-compile</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <phase>generate-resources</phase>
-            <configuration>
-              <arguments>run ts</arguments>
-            </configuration>
-          </execution>
-
-<!-- XXX remove it
-          <execution>
-            <id>step #5c: es6 to es5</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <phase>generate-resources</phase>
-            <configuration>
-              <arguments>run js-transpile</arguments>
-            </configuration>
-          </execution>
--->
-
-<!--
-          <execution>
-            <id>step #5d: minify</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <phase>generate-resources</phase>
-            <configuration>
-              <arguments>run js-minify</arguments>
-            </configuration>
-          </execution>
--->
         </executions>
       </plugin>
 
