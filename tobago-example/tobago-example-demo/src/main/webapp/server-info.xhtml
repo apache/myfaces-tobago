@@ -53,6 +53,7 @@
       <tc:out label="Project Stage:" value="#{facesContext.application.projectStage}"/>
       <tc:out label="CSP mode:" value="#{tobagoContext.tobagoConfig.contentSecurityPolicy.mode}"/>
       <tc:out label="CSP detail:" value="#{tobagoContext.tobagoConfig.contentSecurityPolicy.directiveMap}"/>
+      <tc:out label="Sanitizer:" value="#{tobagoContext.tobagoConfig.sanitizer}"/>
 
       <tc:segmentLayout medium="6seg 6seg" large="4seg 4seg 4seg" extraLarge="3 seg 3seg 3seg">
         <tc:selectBooleanCheckbox value="#{version.version20}" readonly="true" label="Version 2.0"/>

@@ -26,4 +26,8 @@ public interface Sanitizer {
   String sanitize(String html);
 
   void setProperties(Properties configuration);
+
+  default String getInfo() {
+    return toString();
+  };
 }
