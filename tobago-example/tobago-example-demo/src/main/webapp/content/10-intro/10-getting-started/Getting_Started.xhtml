@@ -66,7 +66,7 @@
 
     You can run the examples inside tobago-example with jetty
 
-    <pre><code class="language-bash">$ mvn jetty:run</code></pre>
+    <pre><code class="language-bash">$ mvn jetty:run -Pjetty</code></pre>
 
     or
 
@@ -76,42 +76,25 @@
 
     <tc:section label="Using different JSF implementations">
 
-      By default the example will be started with MyFaces 2.0
+      By default the example will be started with MyFaces 2.3
       You can run the examples with other version like you see here:
 
-      <pre><code class="language-bash">$ mvn jetty:run</code></pre>
+      <pre><code class="language-bash">$ mvn jetty:run -Pjetty</code></pre>
 
-      You can select a specific MyFaces version with the <i>jsf</i> variable.
+      You can select a specific JSF implementation with the <i>jsf</i> variable, like Mojarra.
 
-      <pre><code class="language-bash">$ mvn jetty:run -Djsf=myfaces-2.1
-$ mvn jetty:run -Djsf=myfaces-2.2
-$ mvn jetty:run -Djsf=myfaces-2.3</code></pre>
-
-      Or you can select Mojarra with a specific version.
-
-      <pre><code class="language-bash">$ mvn jetty:run -Djsf=mojarra-2.0
-$ mvn jetty:run -Djsf=mojarra-2.1
-$ mvn jetty:run -Djsf=mojarra-2.2
-$ mvn jetty:run -Djsf=mojarra-2.3</code></pre>
+      <pre><code class="language-bash">$ mvn jetty:run -Pjetty -Djsf=mojarra-2.3</code></pre>
     </tc:section>
-
-    <!-- XXX -->
-    <p>
-      <tc:badge markup="warning"
-                value="Warning: The example Jetty currently works not JSF 2.3 in combination with Java 9 or higher!"/><br/>
-      because of
-      <code>java.lang.ClassNotFoundException: javax.xml.bind.DatatypeConverter</code>, which is a problem with Jigsaw.
-    </p>
 
     It's also possible to run the demo in TomEE from Maven directly
 
-    <pre><code class="language-bash">$ mvn clean package tomee:run -Djsf=provided</code></pre>
+    <pre><code class="language-bash">$ mvn clean package tomee:run -Ptomee -Djsf=provided</code></pre>
 
   </tc:section>
 
   <tc:section label="Development">
     <p>For development the example-demo could be run with maven profile "dev".</p>
-    <pre><code class="language-bash">$ mvn -Pdev jetty:run</code></pre>
+    <pre><code class="language-bash">$ mvn -Pdev jetty:run -Pjetty</code></pre>
     <p>In this case the npm scripts "dev-css" and "dev-ts" could be run to compile css and typescript classes.
       These changes would be detected by jetty without restart.</p>
   </tc:section>
