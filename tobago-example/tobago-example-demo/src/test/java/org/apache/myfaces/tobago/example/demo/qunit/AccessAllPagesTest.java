@@ -146,7 +146,6 @@ class AccessAllPagesTest extends SeleniumBase {
         .filter(s -> s.endsWith(".xhtml"))
         .filter(s -> !s.contains("/x-"))
         .map(s -> s.substring("src/main/webapp/".length()))
-        .filter(s -> !s.startsWith("content/40-test/90000-attic")) // ignore 90000-attic
         .sorted()
         .collect(Collectors.toList());
 

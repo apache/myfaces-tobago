@@ -82,8 +82,7 @@ public class TestController implements Serializable {
     for (final File file : dir.listFiles()) {
       if (file.isDirectory()) {
         xhtmls.addAll(getXHTMLs(file));
-      } else if (!file.getName().startsWith("x-") && file.getName().endsWith(".xhtml")
-          && !file.getPath().contains("content/40-test/90000-attic/")) {
+      } else if (!file.getName().startsWith("x-") && file.getName().endsWith(".xhtml")) {
         xhtmls.add(file.getPath());
       }
     }
