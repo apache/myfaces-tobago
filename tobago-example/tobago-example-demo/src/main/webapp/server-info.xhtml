@@ -46,6 +46,8 @@
           value="#{info.systemProperties['os.name']} - #{info.systemProperties['os.version']} - #{info.systemProperties['os.arch']}"
           readonly="true" label="Operating System"/>
 
+      <tc:in readonly="true" label="Sanitizer:" value="#{tobagoContext.tobagoConfig.sanitizer}"/>
+
       <tc:segmentLayout medium="6seg 6seg" large="4seg 4seg 4seg" extraLarge="3seg 3seg 3seg">
         <tc:selectBooleanCheckbox value="#{version.version20}" readonly="true" label="Version 2.0"/>
         <tc:selectBooleanCheckbox value="#{version.version21}" readonly="true" label="Version 2.1"/>
