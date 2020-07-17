@@ -1,3 +1,4 @@
+"use strict";
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -14,9 +15,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import {Listener, Phase} from "../tobago/standard/tobago-bootstrap/5.0.0-SNAPSHOT/js/tobago-listener";
-
+exports.__esModule = true;
+// fixme: better don't use Listener and Phase?
+// import {Listener, Phase} from "../tobago/standard/5.0.0-SNAPSHOT/js/bundle";
+var tobago_listener_1 = require("../tobago/standard/5.0.0-SNAPSHOT/js/tobago-listener");
 var Demo;
 (function (Demo) {
     var ToClipboardButton;
@@ -52,8 +54,7 @@ var Demo;
         var init = function () {
             document.querySelectorAll("[data-copy-clipboard-from]").forEach(function (value) { return new ToClipboardButton(value); });
         };
-        Listener.register(init, Phase.DOCUMENT_READY);
-        Listener.register(init, Phase.AFTER_UPDATE);
+        tobago_listener_1.Listener.register(init, tobago_listener_1.Phase.DOCUMENT_READY);
+        tobago_listener_1.Listener.register(init, tobago_listener_1.Phase.AFTER_UPDATE);
     })(ToClipboardButton = Demo.ToClipboardButton || (Demo.ToClipboardButton = {}));
 })(Demo || (Demo = {}));
-//# sourceMappingURL=docker.js.map

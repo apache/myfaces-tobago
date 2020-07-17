@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+// fixme: better don't use Listener and Phase?
+// import {Listener, Phase} from "../tobago/standard/5.0.0-SNAPSHOT/js/bundle";
 import {Listener, Phase} from "../tobago/standard/5.0.0-SNAPSHOT/js/tobago-listener";
 
 module Demo.ToClipboardButton {
