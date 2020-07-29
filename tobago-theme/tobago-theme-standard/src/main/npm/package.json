@@ -39,7 +39,8 @@
     "dev-mkdir": "mkdir -p ../../../../../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/$npm_package_version"
   },
   "dependencies": {
-    "@vaadin/vaadin-combo-box": "^5.0.9",
+    "@trevoreyre/autocomplete": "^2.2.0",
+    "@trevoreyre/autocomplete-js": "^2.2.0",
     "vanillajs-datepicker": "^1.0.3"
   },
   "devDependencies": {

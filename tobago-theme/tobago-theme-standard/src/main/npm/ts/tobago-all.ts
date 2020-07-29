@@ -19,7 +19,6 @@ import "./tobago-listener";
 import "./tobago-bar";
 import "./tobago-core";
 import "./tobago-dropdown";
-import "@vaadin/vaadin-combo-box/vaadin-combo-box-light";
 import "./tobago-date";
 import "./tobago-date-utils";
 import "./tobago-command";

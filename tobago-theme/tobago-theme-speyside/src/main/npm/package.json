@@ -32,7 +32,8 @@
     "test": "echo 'Skipping'"
   },
   "dependencies": {
-    "@vaadin/vaadin-combo-box": "^5.2.0",
+    "@trevoreyre/autocomplete": "^2.2.0",
+    "@trevoreyre/autocomplete-js": "^2.2.0",
     "vanillajs-datepicker": "^1.0.3"
   },
   "devDependencies": {

@@ -15,17 +15,11 @@
  * limitations under the License.
  */
 
-import {ComboBoxLightElement} from "@vaadin/vaadin-combo-box/vaadin-combo-box-light";
+import Autocomplete from "@trevoreyre/autocomplete-js/Autocomplete.js";
 
-class Suggest extends HTMLElement {
+export class Suggest extends HTMLElement {
 
-  static callback: (items: String[], size: number) => {};// todo string vs String
-
-  static timeout: number;
-
-  constructor() {
-    super();
-  }
+  autocomplete: Autocomplete;
 
   get hiddenInput(): HTMLInputElement {
     return this.querySelector(":scope > input[type=hidden]");
@@ -36,6 +30,10 @@ class Suggest extends HTMLElement {
     return root.getElementById(this.for) as HTMLInputElement;
   }
 
+  get base(): HTMLElement {
+    return this.suggestInput.closest("tobago-in");
+  }
+
   get for(): string {
     return this.getAttribute("for");
   }
@@ -44,132 +42,41 @@ class Suggest extends HTMLElement {
     this.setAttribute("for", forValue);
   }
 
-  get minChars(): number {
-    return parseInt(this.getAttribute("min-chars"));
-  }
-
-  set minChars(minChars: number) {
-    this.setAttribute("min-chars", String(minChars));
-  }
-
-  get delay(): number {
-    return parseInt(this.getAttribute("delay"));
-  }
-
-  set delay(delay: number) {
-    this.setAttribute("delay", String(delay));
-  }
-
-  get maxItems(): number {
-    return parseInt(this.getAttribute("max-items"));
-  }
-
-  set maxItems(maxItems: number) {
-    this.setAttribute("max-items", String(maxItems));
-  }
-
-  get update(): boolean {
-    return this.hasAttribute("update");
-  }
-
-  set update(update: boolean) {
-    if (update) {
-      this.setAttribute("update", "");
-    } else {
-      this.removeAttribute("update");
-    }
-  }
-
-  get totalCount(): number {
-    return parseInt(this.getAttribute("total-count"));
-  }
-
-  set totalCount(totalCount: number) {
-    this.setAttribute("total-count", String(totalCount));
-  }
-
   get items(): string[] {
     return JSON.parse(this.getAttribute("items"));
   }
 
-  set items(items: string[]) {
-    this.setAttribute("items", JSON.stringify(items));
-  }
-
-  get localMenu(): boolean {
-    return this.hasAttribute("local-menu");
-  }
-
-  set localMenu(update: boolean) {
-    if (update) {
-      this.setAttribute("local-menu", "");
-    } else {
-      this.removeAttribute("local-menu");
-    }
+  constructor() {
+    super();
   }
 
   connectedCallback(): void {
+    console.log("* autocomplete init *********************************************************************");
 
-    let vaadinComboBox: ComboBoxLightElement = this.suggestInput.parentElement;
+    this.base.classList.add("autocomplete");
+    this.suggestInput.classList.add("autocomplete-input");
 
-    if (vaadinComboBox.tagName !== "VAADIN-COMBO-BOX-LIGHT") { // new
-      vaadinComboBox = document.createElement("vaadin-combo-box-light");
-      vaadinComboBox.attrForValue = "value";
-      vaadinComboBox.allowCustomValue = true;
-      vaadinComboBox.readOnly = this.suggestInput.readOnly;
-      vaadinComboBox.disabled = this.suggestInput.disabled;
-      this.suggestInput.classList.add("input"); // todo do this in SuggestRenderer?
-      const parent = this.suggestInput.parentElement;
-      vaadinComboBox.appendChild(this.suggestInput);
-      parent.appendChild(vaadinComboBox);
+    this.suggestInput.insertAdjacentHTML("afterend", `<ul class="autocomplete-result-list"></ul>`);
 
-      vaadinComboBox.dataProvider = function dataProvider(
-          params: { page: number, pageSize: number, filter: string },
-          callback: (items: String[], size: number) => {}): void {
-        console.info("call for data: %o", params);
-        console.info("vaadinComboBox id: %s", vaadinComboBox.id);
-        const suggest = vaadinComboBox.closest("tobago-in").querySelector("tobago-suggest") as Suggest;
-        suggest.hiddenInput.value = params.filter;
-        if (suggest.update) {
-          if (params.filter.length >= suggest.minChars) {
-            if (Suggest.timeout) {
-              window.clearTimeout(Suggest.timeout);
-            }
-            Suggest.timeout = window.setTimeout(function (): void {
-              Suggest.callback = callback;
-              jsf.ajax.request(
-                  suggest.id,
-                  null, // todo: event?
-                  {
-                    "javax.faces.behavior.event": "suggest",
-                    execute: suggest.id,
-                    render: suggest.id
-                  });
-            }, suggest.delay);
-          } else {
-            callback([], 0);
-          }
-        } else {
-          const items = suggest.items;
-          const filteredItems:string[] = [];
-          const lowerFilter = params.filter.toLocaleLowerCase();
-          for (const item of items) {
-            if (item.toLowerCase().indexOf(lowerFilter) > -1) {
-              filteredItems.push(item);
-            }
-          }
-          callback(filteredItems, filteredItems.length);
+    const options = {
+      search: input => {
+        console.debug("input = '" + input + "'");
+        if (input.length < 1) {
+          return [];
         }
-      };
-    } else { // already initialized: so update items (from AJAX) only
-      if (Suggest.callback) {
-        Suggest.callback(this.items, this.totalCount);
-        Suggest.callback = null;
-      } else {
-        console.warn("Missing Suggest.callback!");
+        const inputLower = input.toLowerCase();
+        let strings = this.items.filter(country => {
+          return country.toLowerCase().startsWith(inputLower);
+        });
+        console.debug("out   = '" + strings + "'");
+        return strings;
       }
-    }
+    };
+    this.autocomplete = new Autocomplete(this.base, options);
+
+    console.log(this.autocomplete);
   }
+
 }
 
 document.addEventListener("DOMContentLoaded", function (event: Event): void {

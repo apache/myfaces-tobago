@@ -47,7 +47,7 @@
   <!-- This is needed for the testing functionality of the demo, it works with iframes -->
   <prevent-frame-attacks>false</prevent-frame-attacks>
 
-  <content-security-policy mode="off">
+  <content-security-policy mode="on">
     <!-- script-src: 'unsafe-inline' is required for WebSockets -->
 <!--    <directive name="script-src">'unsafe-inline'</directive>-->
     <!-- needed for <tc:object>  -->
