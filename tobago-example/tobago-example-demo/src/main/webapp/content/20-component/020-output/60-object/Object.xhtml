@@ -25,9 +25,7 @@
 
   <tc:script file="#{request.contextPath}/content/20-component/020-output/60-object/object.js"/>
 
-  <p>The <code class="language-markup">&lt;tc:object/></code> tag create an iframe.
-    External objects can be included, when Content Security Policy is activated.
-    You may add a child-src policy to the 'tobago-config.xml'.</p>
+  <p>The <code class="language-markup">&lt;tc:object/></code> tag creates an <code class="language-markup">&lt;iframe></code>.</p>
   <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
            link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/object.html"/>
   <tc:section label="Basics">
@@ -35,9 +33,17 @@
     <tc:object id="o1"
                src="https://www.openstreetmap.org/export/embed.html?bbox=-60.75,11.15,-60.6,11.35"/>
   </tc:section>
+  <tc:section label="Content Security Policy (CSP)">
+    It's very usual to include content from external source.
+    When Content Security Policy is activated, you need to allow the external source explicitly, for
+    security reasons.
+    You need to add a child-src policy to the 'tobago-config.xml' like
+    <pre><code class="language-markup">&lt;directive name="child-src"&gt;https://www.openstreetmap.org&lt;/directive&gt;</code></pre>
+  </tc:section>
   <tc:section label="Style">
     <p>A <code class="language-markup">&lt;tc:object/></code> tag can contain a style tag.
-      In this case it's <code class="language-markup">&lt;tc:style width="100%"/></code>.</p>
+      In this case it's <code class="language-markup">&lt;tc:style width="100%"/></code> to
+      let grow the width to the full size of the container.</p>
     <tc:object id="o2"
                src="https://www.openstreetmap.org/export/embed.html?bbox=-60.75,11.15,-60.6,11.35">
       <tc:style width="100%"/>
