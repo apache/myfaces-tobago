@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.SelectBooleanCommand;
 import org.apache.myfaces.tobago.component.SelectOneCommand;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
+import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIMenuSelectOne;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.component.UIToolBarSeparator;
@@ -136,7 +137,9 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
     if (radio != null) {
       writer.startElement(HtmlElements.SPAN, radio);
-      writer.writeClassAttribute(Classes.createWorkaround("toolBar", "selectOne", null));
+      Markup itemMarkup
+          = radio instanceof SupportsMarkup ? ((SupportsMarkup) radio).getCurrentMarkup() : Markup.NULL;
+      writer.writeClassAttribute(Classes.createWorkaround("toolBar", "selectOne", itemMarkup));
       final Object value = radio.getValue();
 
       String currentValue = "";
@@ -204,7 +207,9 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     final String clientId = checkbox.getClientId(facesContext);
 
     writer.startElement(HtmlElements.SPAN, checkbox);
-    writer.writeClassAttribute(Classes.createWorkaround("toolBar", "selectBoolean", null));
+    Markup itemMarkup
+        = checkbox instanceof SupportsMarkup ? ((SupportsMarkup) checkbox).getCurrentMarkup() : Markup.NULL;
+    writer.writeClassAttribute(Classes.createWorkaround("toolBar", "selectBoolean", itemMarkup));
     final CommandMap map = new CommandMap(new Command());
     width = renderToolbarButton(facesContext, toolBar, command, writer, checked, width, map, null);
 
@@ -370,7 +375,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     
     // start rendering
     writer.startElement(HtmlElements.SPAN, command);
-    Markup itemMarkup = Markup.NULL;
+    Markup itemMarkup = command instanceof SupportsMarkup ? ((SupportsMarkup) command).getCurrentMarkup() : Markup.NULL;
     if (selected) {
       itemMarkup = itemMarkup.add(Markup.SELECTED);
     }
