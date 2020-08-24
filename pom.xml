@@ -965,7 +965,7 @@
               <exclude>**/*.md</exclude>
 
               <!-- tobago-vm index page -->
-              <exclude>**/tobago-vm/docker/apache-proxy/bootstrap-*.css</exclude>
+              <exclude>**/tobago-vm/docker/apache-proxy/bootstrap*.css</exclude>
 
               <!-- local npm for IDE -->
               <exclude>src/main/npm/node_modules/**</exclude>
