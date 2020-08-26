@@ -55,7 +55,8 @@ pipeline {
                 stages {
                     stage('BuildAndTest') {
                         steps {
-                            sh "mvn clean deploy checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check  -Pgenerate-assembly -Ptomcat"
+                            sh "mvn -version"
+                            sh "mvn clean deploy checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check -Pgenerate-assembly -Ptomcat"
                         }
                         post {
                             always {
