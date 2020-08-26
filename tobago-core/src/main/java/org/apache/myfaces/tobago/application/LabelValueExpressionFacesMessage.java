@@ -33,7 +33,7 @@ public class LabelValueExpressionFacesMessage extends FacesMessage {
     super(severity, summary, detail);
   }
 
-  public LabelValueExpressionFacesMessage(final String summary, final String detail) {
+  public                                             LabelValueExpressionFacesMessage(final String summary, final String detail) {
     super(summary, detail);
   }
 
