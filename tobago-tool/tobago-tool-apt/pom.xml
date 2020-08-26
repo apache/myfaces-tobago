@@ -59,6 +59,12 @@
       <artifactId>ant</artifactId>
       <version>1.10.8</version>
       <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>com.sun</groupId>
+          <artifactId>tools</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>
