@@ -55,8 +55,7 @@ pipeline {
                 stages {
                     stage('BuildAndTest') {
                         steps {
-                            sh "mvn -version"
-                            sh "mvn clean deploy checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check -Pgenerate-assembly -Ptomcat"
+                            sh "mvn clean package checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check -Pgenerate-assembly"
                         }
                         post {
                             always {
@@ -67,6 +66,15 @@ pipeline {
                         }
                     }
                 }
+            }
+        }
+        stage('Deploy') {
+            tools {
+                maven "Maven (latest)"
+                jdk "JDK 11 (latest)"
+            }
+            steps {
+                sh "mvn clean deploy -Pgenerate-assembly -Ptomcat"
             }
         }
     }
