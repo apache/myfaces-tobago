@@ -981,9 +981,12 @@
               <!-- readme -->
               <exclude>**/readme.*</exclude>
 
+              <!-- jetty key store for testing -->
+              <exclude>**/jettykeystore</exclude>
+
               <!-- tobago-vm index page -->
-              <exclude>**/tobago-vm/docker/apache-proxy/jquery-*.js</exclude>
-              <exclude>**/tobago-vm/docker/apache-proxy/bootstrap-*.css</exclude>
+              <exclude>**/tobago-vm/docker/apache-proxy/jquery*.js</exclude>
+              <exclude>**/tobago-vm/docker/apache-proxy/bootstrap*.css</exclude>
             </excludes>
           </configuration>
         </plugin>
