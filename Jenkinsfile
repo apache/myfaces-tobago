@@ -43,7 +43,7 @@ pipeline {
                 axes {
                     axis {
                         name 'JAVA_VERSION'
-                        values 'JDK 1.8 (latest)', 'JDK 11 (latest)'
+                        values 'JDK 1.8 (latest)'  /*, 'JDK 11 (latest)'  Tobago 2 officially supports Java 5, but Java 11 compiles no target for Java 5  */
                     }
                 }
 
