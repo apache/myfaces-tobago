@@ -32,12 +32,6 @@
       <artifactId>tobago-core</artifactId>
       <version>${project.version}</version>
       <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>sun.jdk</groupId>
-          <artifactId>tools</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
   </dependencies>
 
