@@ -55,7 +55,7 @@ pipeline {
                 stages {
                     stage('BuildAndTest') {
                         steps {
-                            sh "mvn clean deploy checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check -Pgenerate-assembly"
+                            sh "mvn clean package checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check -Pgenerate-assembly"
                         }
                         post {
                             always {
@@ -68,5 +68,84 @@ pipeline {
                 }
             }
         }
+        stage('Deploy') {
+            tools {
+                maven "Maven (latest)"
+                jdk "JDK 1.8 (latest)"
+            }
+            steps {
+                sh "mvn clean deploy -Pgenerate-assembly"
+            }
+        }
+    }
+  post {
+    // If this build failed, send an email to the list.
+    failure {
+      script {
+        emailext(
+            to: "notifications@myfaces.apache.org",
+            recipientProviders: [[$class: 'DevelopersRecipientProvider']],
+            from: "Mr. Jenkins <jenkins@builds.apache.org>",
+            subject: "Jenkins job ${env.JOB_NAME}#${env.BUILD_NUMBER} failed",
+            body: """
+There is a build failure in ${env.JOB_NAME}.
+
+Build: ${env.BUILD_URL}
+Logs: ${env.BUILD_URL}console
+Changes: ${env.BUILD_URL}changes
+
+--
+Mr. Jenkins
+Director of Continuous Integration
+"""
+        )
+      }
+    }
+
+    // If this build didn't fail, but there were failing tests, send an email to the list.
+    unstable {
+      script {
+        emailext(
+            to: "notifications@myfaces.apache.org",
+            recipientProviders: [[$class: 'DevelopersRecipientProvider']],
+            from: "Mr. Jenkins <jenkins@builds.apache.org>",
+            subject: "Jenkins job ${env.JOB_NAME}#${env.BUILD_NUMBER} unstable",
+            body: """
+Some tests have failed in ${env.JOB_NAME}.
+
+Build: ${env.BUILD_URL}
+Logs: ${env.BUILD_URL}console
+Changes: ${env.BUILD_URL}changes
+
+--
+Mr. Jenkins
+Director of Continuous Integration
+"""
+        )
+      }
+    }
+
+    // Send an email, if the last build was not successful and this one is.
+    fixed {
+      script {
+        emailext(
+            to: "notifications@myfaces.apache.org",
+            recipientProviders: [[$class: 'DevelopersRecipientProvider']],
+            from: 'Mr. Jenkins <jenkins@builds.apache.org>',
+            subject: "Jenkins job ${env.JOB_NAME}#${env.BUILD_NUMBER} back to normal",
+            body: """
+The build for ${env.JOB_NAME} completed successfully and is back to normal.
+
+Build: ${env.BUILD_URL}
+Logs: ${env.BUILD_URL}console
+Changes: ${env.BUILD_URL}changes
+
+--
+Mr. Jenkins
+Director of Continuous Integration
+"""
+        )
+      }
+    }
     }
 }
