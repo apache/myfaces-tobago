@@ -848,6 +848,7 @@
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>2.10.4</version>
           <configuration>
+            <source>${maven.compile.source}</source>
             <!-- switched off check in Java 8 -->
             <additionalparam>
                 -Xdoclint:accessibility
