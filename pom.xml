@@ -992,6 +992,9 @@
 
               <!-- photo shop -->
               <exclude>**/*.psd</exclude>
+
+              <!-- pixelmator -->
+              <exclude>**/*.pxm</exclude>
             </excludes>
           </configuration>
         </plugin>
