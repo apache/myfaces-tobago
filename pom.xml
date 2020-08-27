@@ -995,6 +995,9 @@
 
               <!-- pixelmator -->
               <exclude>**/*.pxm</exclude>
+
+              <!-- jetty key store for testing -->
+              <exclude>**/jettykeystore</exclude>
             </excludes>
           </configuration>
         </plugin>
