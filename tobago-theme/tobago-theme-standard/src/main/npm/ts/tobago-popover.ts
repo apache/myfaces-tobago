@@ -19,7 +19,7 @@ import Popper from "popper.js";
 
 class Popover extends HTMLElement {
 
-  private popper;
+  private popper: Popper;
 
   constructor() {
     super();
