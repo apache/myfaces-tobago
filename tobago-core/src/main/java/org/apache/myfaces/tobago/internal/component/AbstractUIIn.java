@@ -24,4 +24,6 @@ package org.apache.myfaces.tobago.internal.component;
  */
 public abstract class AbstractUIIn extends AbstractUIInput {
 
+  public abstract String getPlaceholder();
+
 }

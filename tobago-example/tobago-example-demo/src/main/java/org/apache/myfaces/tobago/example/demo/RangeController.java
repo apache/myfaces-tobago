@@ -17,18 +17,40 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 
-/**
- * {@link org.apache.myfaces.tobago.internal.taglib.component.TextareaTagDeclaration}
- */
-public abstract class AbstractUITextarea extends AbstractUIInput {
+@RequestScoped
+@Named
+public class RangeController {
 
-  public abstract SanitizeMode getSanitize();
+  private Integer one = 10;
+  private Double two = 20.0d;
+  private int three = 30;
 
-  public abstract Integer getRows();
+  public Integer getOne() {
+    return one;
+  }
 
-  public abstract String getPlaceholder();
+  public void setOne(Integer one) {
+    this.one = one;
+  }
+
+  public Double getTwo() {
+    return two;
+  }
+
+  public void setTwo(Double two) {
+    this.two = two;
+  }
+
+  public int getThree() {
+    return three;
+  }
+
+  public void setThree(int three) {
+    this.three = three;
+  }
 }

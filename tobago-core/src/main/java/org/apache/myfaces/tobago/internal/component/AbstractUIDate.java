@@ -37,6 +37,8 @@ public abstract class AbstractUIDate extends AbstractUIInput {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+  public abstract String getPlaceholder();
+
   public String getPattern() {
     final FacesContext facesContext = getFacesContext();
     Converter converter = ComponentUtils.getConverter(facesContext, this, getSubmittedValue());

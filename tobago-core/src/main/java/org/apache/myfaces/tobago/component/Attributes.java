@@ -395,6 +395,7 @@ public enum Attributes {
   stateChangeListener,
   stateChangeListenerExpression,
   statePreview,
+  step,
   style,
   suggestMethod,
   suggestMethodExpression,

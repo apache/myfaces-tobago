@@ -43,8 +43,6 @@ public abstract class AbstractUIInput extends javax.faces.component.UIInput
 
   public abstract boolean isReadonly();
 
-  public abstract String getPlaceholder();
-
   @Override
   public String getFieldId(final FacesContext facesContext) {
     return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";

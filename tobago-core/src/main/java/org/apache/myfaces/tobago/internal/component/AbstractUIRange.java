@@ -19,16 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
-
 /**
- * {@link org.apache.myfaces.tobago.internal.taglib.component.TextareaTagDeclaration}
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.RangeTagDeclaration}
  */
-public abstract class AbstractUITextarea extends AbstractUIInput {
+public abstract class AbstractUIRange extends AbstractUIInput {
 
-  public abstract SanitizeMode getSanitize();
-
-  public abstract Integer getRows();
-
-  public abstract String getPlaceholder();
+  public abstract Integer getMin();
+  public abstract Integer getMax();
+  public abstract Integer getStep();
 }

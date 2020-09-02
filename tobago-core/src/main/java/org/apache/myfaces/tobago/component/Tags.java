@@ -64,6 +64,7 @@ public enum Tags {
   progress,
   reload,
   row,
+  range,
   script,
   section,
   segmentLayout,
@@ -135,6 +136,7 @@ public enum Tags {
   public static final String PROGRESS = "progress";
   public static final String RELOAD = "reload";
   public static final String ROW = "row";
+  public static final String RANGE = "range";
   public static final String SCRIPT = "script";
   public static final String SECTION = "section";
   public static final String SEGMENT_LAYOUT = "segmentLayout";

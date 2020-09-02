@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
+import org.apache.myfaces.tobago.internal.component.AbstractUIIn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneChoice;
@@ -61,7 +62,7 @@ public class InRenderer extends MessageLayoutRendererBase {
   @Override
   protected void encodeBeginField(final FacesContext facesContext, final UIComponent component)
       throws IOException {
-    final AbstractUIInput input = (AbstractUIInput) component;
+    final AbstractUIIn input = (AbstractUIIn) component;
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, input);
     final String currentValue = getCurrentValue(facesContext, input);
     final boolean password = ComponentUtils.getBooleanAttribute(input, Attributes.password);

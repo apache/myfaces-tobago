@@ -148,6 +148,7 @@ public enum HtmlElements {
   TOBAGO_PANEL("tobago-panel"),
   TOBAGO_POPOVER("tobago-popover"),
   TOBAGO_POPUP("tobago-popup"),
+  TOBAGO_RANGE("tobago-range"),
   TOBAGO_SPLIT_LAYOUT("tobago-split-layout"),
   TOBAGO_SELECT_BOOLEAN_CHECKBOX("tobago-select-boolean-checkbox"),
   TOBAGO_SELECT_BOOLEAN_TOGGLE("tobago-select-boolean-toggle"),
