@@ -32,11 +32,12 @@
     <tc:label value="without label"/>
     <tc:range value="#{rangeController.three}" />
 
-    <tc:button label="Submit"/>
+    <tc:button label="Submit" defaultCommand="true"/>
 
+    <p>
     Values on server:
     "#{rangeController.one}" (Integer), "#{rangeController.two}" (Double), "#{rangeController.three}" (int)
-
+    </p>
   </tc:section>
 
   <tc:section>
