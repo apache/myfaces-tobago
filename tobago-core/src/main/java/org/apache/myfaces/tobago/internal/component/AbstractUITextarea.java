@@ -24,11 +24,9 @@ import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.TextareaTagDeclaration}
  */
-public abstract class AbstractUITextarea extends AbstractUIInput {
+public abstract class AbstractUITextarea extends AbstractUIIn {
 
   public abstract SanitizeMode getSanitize();
 
   public abstract Integer getRows();
-
-  public abstract String getPlaceholder();
 }
