@@ -48,7 +48,7 @@
     "ajv": "^6.12.3",
     "ajv-keywords": "^3.5.1",
     "autoprefixer": "^9.8.5",
-    "bootstrap": "4.5.0",
+    "bootstrap": "4.5.2",
     "clean-css-cli": "^4.3.0",
     "eslint": "^7.4.0",
     "eslint-plugin-compat": "^3.8.0",
