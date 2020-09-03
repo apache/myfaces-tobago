@@ -500,6 +500,32 @@
           <version>${project.version}</version>
         </dependency>
       </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <!-- usage: to build a war for separate deployment
+                 mvn clean package -Ptomee
+                 -->
+            <!-- usage: to run on localhost 8080, change port see below
+                 mvn clean package tomee:run -Ptomee
+                 -->
+            <!-- usage: to build an excutable jar
+                 mvn clean package tomee:exec -Ptomee
+                 -->
+            <groupId>org.apache.tomee.maven</groupId>
+            <artifactId>tomee-maven-plugin</artifactId>
+            <version>8.0.4</version>
+            <configuration>
+              <tomeeVersion>8.0.4</tomeeVersion>
+              <tomeeClassifier>plus</tomeeClassifier>
+              <!--<tomeeHttpPort>9090</tomeeHttpPort>-->
+              <context>ROOT</context>
+              <!--<context>/demo</context>-->
+              <config>${project.basedir}/src/test/tomee/conf</config>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
 
     <!--
