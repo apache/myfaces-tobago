@@ -40,24 +40,23 @@ public class ThemeImpl implements Theme, Serializable {
   private ThemeImpl fallback;
   private String fallbackName;
   private List<Theme> fallbackList;
-  private ThemeResources productionResources;
-  private ThemeResources resources;
+  private final ThemeResources productionResources;
+  private final ThemeResources resources;
   private ThemeScript[] productionScripts;
   private ThemeStyle[] productionStyles;
   private ThemeScript[] scripts;
   private ThemeStyle[] styles;
-  private boolean versioned;
   private String version;
 
-  private boolean unmodifiable = false;
+  private boolean locked = false;
 
   public ThemeImpl() {
     resources = new ThemeResources(false);
     productionResources = new ThemeResources(true);
   }
 
-  private void checkLocked() throws IllegalStateException {
-    if (unmodifiable) {
+  private void checkUnlocked() throws IllegalStateException {
+    if (locked) {
       throw new IllegalStateException("The configuration must not be changed after initialization!");
     }
   }
@@ -66,7 +65,7 @@ public class ThemeImpl implements Theme, Serializable {
    * Lock the configuration, so it cannot be modified any more.
    */
   public void lock() {
-    unmodifiable = true;
+    locked = true;
   }
 
   @Override
@@ -75,7 +74,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public void setName(final String name) {
-    checkLocked();
+    checkUnlocked();
     this.name = name;
   }
 
@@ -85,7 +84,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public void setDisplayName(final String displayName) {
-    checkLocked();
+    checkUnlocked();
     this.displayName = displayName;
   }
 
@@ -94,7 +93,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public void setFallback(final ThemeImpl fallback) {
-    checkLocked();
+    checkUnlocked();
     this.fallback = fallback;
   }
 
@@ -103,7 +102,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public void setFallbackName(final String fallbackName) {
-    checkLocked();
+    checkUnlocked();
     this.fallbackName = fallbackName;
   }
 
@@ -113,7 +112,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public void resolveFallbacks() {
-    checkLocked();
+    checkUnlocked();
     fallbackList = new ArrayList<>();
     ThemeImpl actual = this;
     while (actual != null) {
@@ -131,7 +130,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public void resolveResources() {
-    checkLocked();
+    checkUnlocked();
     final ThemeImpl fallbackTheme = getFallback();
     if (fallbackTheme != null) {
       fallbackTheme.resolveResources();
@@ -149,7 +148,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   private void addResources(final ThemeResources themeResources) {
-    checkLocked();
+    checkUnlocked();
 
     if (themeResources.isProduction()) {
       productionResources.merge(themeResources);
@@ -159,7 +158,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public void init() {
-    checkLocked();
+    checkUnlocked();
     productionScripts = sortScripts(productionResources.getScriptList());
     productionStyles = sortStyles(productionResources.getStyleList());
     scripts = sortScripts(resources.getScriptList());
@@ -202,7 +201,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public void setVersion(final String version) {
-    checkLocked();
+    checkUnlocked();
     this.version = version;
   }
 

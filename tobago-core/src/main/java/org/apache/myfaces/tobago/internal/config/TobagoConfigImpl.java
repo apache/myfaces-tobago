@@ -60,7 +60,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   private boolean createSessionSecret;
   private boolean checkSessionSecret;
   private boolean preventFrameAttacks;
-  private ContentSecurityPolicy contentSecurityPolicy;
+  private final ContentSecurityPolicy contentSecurityPolicy;
   private SecurityAnnotation securityAnnotation;
   private boolean setNosniffHeader;
   private Map<String, String> defaultValidatorInfo;
@@ -68,7 +68,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   private boolean decodeLineFeed;
   private Map<String, String> mimeTypes;
 
-  private boolean unmodifiable = false;
+  private boolean locked = false;
 
   protected TobagoConfigImpl(String fixme) { // CDI workaround fixme
     supportedThemeNames = new ArrayList<>();
@@ -88,7 +88,7 @@ public class TobagoConfigImpl extends TobagoConfig {
    * Lock the configuration, so it cannot be modified any more.
    */
   protected void lock() {
-    unmodifiable = true;
+    locked = true;
     supportedThemes = Collections.unmodifiableList(supportedThemes);
     for (final Theme theme : supportedThemes) {
       ((ThemeImpl) theme).lock();
@@ -101,20 +101,20 @@ public class TobagoConfigImpl extends TobagoConfig {
     mimeTypes = Collections.unmodifiableMap(mimeTypes);
   }
 
-  private void checkLocked() throws IllegalStateException {
-    if (unmodifiable) {
+  private void checkUnlocked() throws IllegalStateException {
+    if (locked) {
       throw new TobagoConfigurationException("The configuration must not be changed after initialization!");
     }
   }
 
   protected void addSupportedThemeName(final String name) {
-    checkLocked();
+    checkUnlocked();
     supportedThemeNames.add(name);
   }
 
   // TODO one init method
   protected void resolveThemes() {
-    checkLocked();
+    checkUnlocked();
 
     if (defaultThemeName != null) {
       defaultTheme = availableThemes.get(defaultThemeName);
@@ -186,7 +186,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   }
 
   protected void setDefaultThemeName(final String defaultThemeName) {
-    checkLocked();
+    checkUnlocked();
     this.defaultThemeName = defaultThemeName;
   }
 
@@ -201,7 +201,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   }
 
   protected void addAvailableTheme(final ThemeImpl availableTheme) {
-    checkLocked();
+    checkUnlocked();
     availableThemes.put(availableTheme.getName(), availableTheme);
   }
 
@@ -211,7 +211,7 @@ public class TobagoConfigImpl extends TobagoConfig {
 
   protected synchronized void initDefaultValidatorInfo() {
     if (defaultValidatorInfo != null) {
-      checkLocked();
+      checkUnlocked();
     }
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     if (facesContext != null) {
@@ -236,7 +236,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   }
 
   protected void setCreateSessionSecret(final boolean createSessionSecret) {
-    checkLocked();
+    checkUnlocked();
     this.createSessionSecret = createSessionSecret;
   }
 
@@ -246,7 +246,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   }
 
   protected void setCheckSessionSecret(final boolean checkSessionSecret) {
-    checkLocked();
+    checkUnlocked();
     this.checkSessionSecret = checkSessionSecret;
   }
 
@@ -257,7 +257,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   }
 
   protected void setPreventFrameAttacks(final boolean preventFrameAttacks) {
-    checkLocked();
+    checkUnlocked();
     this.preventFrameAttacks = preventFrameAttacks;
   }
 
@@ -272,7 +272,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   }
 
   protected void setSetNosniffHeader(final boolean setNosniffHeader) {
-    checkLocked();
+    checkUnlocked();
     this.setNosniffHeader = setNosniffHeader;
   }
 
@@ -282,7 +282,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   }
 
   public void setSecurityAnnotation(final SecurityAnnotation securityAnnotation) {
-    checkLocked();
+    checkUnlocked();
     this.securityAnnotation = securityAnnotation;
   }
 
@@ -300,7 +300,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   }
 
   protected void setSanitizer(final Sanitizer sanitizer) {
-    checkLocked();
+    checkUnlocked();
     this.sanitizer = sanitizer;
   }
 
@@ -310,7 +310,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   }
 
   public void setDecodeLineFeed(final boolean decodeLineFeed) {
-    checkLocked();
+    checkUnlocked();
     this.decodeLineFeed = decodeLineFeed;
   }
 
