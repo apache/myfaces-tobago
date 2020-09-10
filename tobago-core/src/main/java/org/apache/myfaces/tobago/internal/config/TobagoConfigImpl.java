@@ -135,7 +135,8 @@ public class TobagoConfigImpl extends TobagoConfig {
       if (defaultTheme == null) {
         final String error = "Did not found any theme! "
             + "Please ensure you have a tobago-config.xml with a theme-definition in your "
-            + "theme JAR. Please add a theme JAR to your WEB-INF/lib";
+            + "theme JAR. Please add a theme JAR to your classpath. Usually "
+            + "tobago-theme-standard.jar in WEB-INF/lib";
         LOG.error(error);
         throw new TobagoConfigurationException(error);
       } else {
@@ -202,7 +203,13 @@ public class TobagoConfigImpl extends TobagoConfig {
 
   protected void addAvailableTheme(final ThemeImpl availableTheme) {
     checkUnlocked();
-    availableThemes.put(availableTheme.getName(), availableTheme);
+    final String name = availableTheme.getName();
+    if (availableThemes.containsKey(name)) {
+      final ThemeImpl base = availableThemes.get(name);
+      availableThemes.put(name, ThemeImpl.merge(base, availableTheme));
+    } else {
+      availableThemes.put(name, availableTheme);
+    }
   }
 
   public Map<String, ThemeImpl> getAvailableThemes() {

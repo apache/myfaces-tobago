@@ -220,9 +220,17 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         final String scriptPriority = attributes.getValue(ATTR_PRIORITY);
         script.setPriority(scriptPriority != null ? Integer.parseUnsignedInt(scriptPriority) : MAX_PRIORITY);
         if (production) {
-          currentTheme.getProductionResources().addScript(script, exclude);
+          if (exclude) {
+            currentTheme.getProductionResources().addExcludeScript(script);
+          } else {
+            currentTheme.getProductionResources().addIncludeScript(script);
+          }
         } else {
-          currentTheme.getResources().addScript(script, exclude);
+          if (exclude) {
+            currentTheme.getDevelopmentResources().addExcludeScript(script);
+          } else {
+            currentTheme.getDevelopmentResources().addIncludeScript(script);
+          }
         }
         break;
 
@@ -232,9 +240,17 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         final String stylePriority = attributes.getValue(ATTR_PRIORITY);
         style.setPriority(stylePriority != null ? Integer.parseUnsignedInt(stylePriority) : MAX_PRIORITY);
         if (production) {
-          currentTheme.getProductionResources().addStyle(style, exclude);
+          if (exclude) {
+            currentTheme.getProductionResources().addExcludeStyle(style);
+          } else {
+            currentTheme.getProductionResources().addIncludeStyle(style);
+          }
         } else {
-          currentTheme.getResources().addStyle(style, exclude);
+          if (exclude) {
+            currentTheme.getDevelopmentResources().addExcludeStyle(style);
+          } else {
+            currentTheme.getDevelopmentResources().addIncludeStyle(style);
+          }
         }
         break;
 
@@ -266,6 +282,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case SET_NOSNIFF_HEADER:
       case THEME_DEFINITIONS:
       case DISPLAY_NAME:
+      case VERSION:
       case VERSIONED:
       case FALLBACK:
       case SANITIZER:

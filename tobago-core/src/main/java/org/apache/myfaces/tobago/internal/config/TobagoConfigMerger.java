@@ -111,7 +111,7 @@ public class TobagoConfigMerger {
 
     }
 
-    resolveThemes(result, result.getAvailableThemes());
+    resolveThemes(result.getAvailableThemes());
 
     if (sanitizerClass != null) {
       try {
@@ -128,7 +128,7 @@ public class TobagoConfigMerger {
     return result;
   }
 
-  private void resolveThemes(final TobagoConfigImpl tobagoConfig, final Map<String, ThemeImpl> map) {
+  private void resolveThemes(final Map<String, ThemeImpl> map) {
     for (final ThemeImpl theme : map.values()) {
       final String fallbackName = theme.getFallbackName();
       final ThemeImpl fallback = map.get(fallbackName);

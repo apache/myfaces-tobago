@@ -40,8 +40,8 @@ public class ThemeImpl implements Theme, Serializable {
   private ThemeImpl fallback;
   private String fallbackName;
   private List<Theme> fallbackList;
-  private final ThemeResources productionResources;
-  private final ThemeResources resources;
+  private ThemeResources productionResources;
+  private ThemeResources developmentResources;
   private ThemeScript[] productionScripts;
   private ThemeStyle[] productionStyles;
   private ThemeScript[] scripts;
@@ -51,8 +51,22 @@ public class ThemeImpl implements Theme, Serializable {
   private boolean locked = false;
 
   public ThemeImpl() {
-    resources = new ThemeResources(false);
-    productionResources = new ThemeResources(true);
+    developmentResources = new ThemeResources();
+    productionResources = new ThemeResources();
+  }
+
+  public static ThemeImpl merge(ThemeImpl base, ThemeImpl add) {
+    base.checkUnlocked();
+    add.checkUnlocked();
+    final ThemeImpl result = new ThemeImpl();
+    assert add.name.equals(base.name);
+    result.name = add.name;
+    result.displayName = add.displayName != null ? add.displayName : base.displayName;
+    result.fallbackName = add.fallbackName != null ? add.fallbackName : base.fallbackName;
+    result.version = add.version != null ? add.version : base.version;
+    result.productionResources = ThemeResources.merge(base.productionResources, add.productionResources);
+    result.developmentResources = ThemeResources.merge(base.developmentResources, add.developmentResources);
+    return result;
   }
 
   private void checkUnlocked() throws IllegalStateException {
@@ -134,35 +148,36 @@ public class ThemeImpl implements Theme, Serializable {
     final ThemeImpl fallbackTheme = getFallback();
     if (fallbackTheme != null) {
       fallbackTheme.resolveResources();
-      addResources(fallbackTheme.getProductionResources());
-      addResources(fallbackTheme.getResources());
+      productionResources = ThemeResources.merge(fallbackTheme.getProductionResources(), productionResources);
+      developmentResources = ThemeResources.merge(fallbackTheme.getDevelopmentResources(), developmentResources);
     }
   }
 
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   public ThemeResources getResources() {
-    return resources;
+    return developmentResources;
+  }
+
+  /**
+   * @since 5.0.0
+   */
+  public ThemeResources getDevelopmentResources() {
+    return developmentResources;
   }
 
   public ThemeResources getProductionResources() {
     return productionResources;
   }
 
-  private void addResources(final ThemeResources themeResources) {
-    checkUnlocked();
-
-    if (themeResources.isProduction()) {
-      productionResources.merge(themeResources);
-    } else {
-      resources.merge(themeResources);
-    }
-  }
-
   public void init() {
     checkUnlocked();
     productionScripts = sortScripts(productionResources.getScriptList());
     productionStyles = sortStyles(productionResources.getStyleList());
-    scripts = sortScripts(resources.getScriptList());
-    styles = sortStyles(resources.getStyleList());
+    scripts = sortScripts(developmentResources.getScriptList());
+    styles = sortStyles(developmentResources.getStyleList());
   }
 
   private ThemeScript[] sortScripts(List<ThemeScript> list) {

@@ -33,9 +33,7 @@ import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.context.TobagoContext;
-import org.apache.myfaces.tobago.internal.mock.faces.MockTheme;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -43,7 +41,6 @@ import org.junit.jupiter.api.BeforeEach;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
 import java.util.Locale;
 
 import static org.apache.myfaces.tobago.util.ResourceUtils.TOBAGO_RESOURCE_BUNDLE;
@@ -76,18 +73,12 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     getFacesContext().setResponseWriter(new HtmlResponseWriter(stringWriter, "", StandardCharsets.UTF_8));
 
     // Tobago specific extensions
-
-    final TobagoConfigImpl tobagoConfig = TobagoConfigMergingUnitTest.loadAndMerge("tobago-config-for-unit-tests.xml");
-    final ThemeImpl theme = new MockTheme("default", "Default Mock Theme", Collections.emptyList());
-    final ThemeImpl one = new MockTheme("one", "Mock Theme One", Collections.singletonList(theme));
-    tobagoConfig.addAvailableTheme(theme);
-    tobagoConfig.addAvailableTheme(one);
-    tobagoConfig.resolveThemes();
+    final TobagoConfigImpl tobagoConfig = TobagoConfigMergingUnitTest.load("tobago-config-for-unit-tests.xml");
     tobagoConfig.initDefaultValidatorInfo();
     servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
 
     final TobagoContext tobagoContext = new TobagoContext();
-    tobagoContext.setTheme(one);
+    tobagoContext.setTheme(tobagoConfig.getDefaultTheme());
     facesContext.getViewRoot().setLocale(Locale.ENGLISH);
     request.setAttribute(TobagoContext.BEAN_NAME, tobagoContext);
 

@@ -40,14 +40,13 @@ public class ThemeParserUnitTest {
     Enumeration<URL> urls = classLoader.getResources("theme-config.xml");
 
     final TobagoConfigParser parser = new TobagoConfigParser();
-    ThemeImpl theme = null;
     if (urls.hasMoreElements()) {
       final URL themeUrl = urls.nextElement();
-      theme = parser.parse(themeUrl).getThemeDefinitions().get(0);
+      final ThemeImpl theme = parser.parse(themeUrl).getThemeDefinitions().get(0);
       Assertions.assertEquals("test", theme.getName());
-      Assertions.assertNotNull(theme.getResources());
+      Assertions.assertNotNull(theme.getDevelopmentResources());
       Assertions.assertNotNull(theme.getProductionResources());
-      final ThemeResources resources = theme.getResources();
+      final ThemeResources resources = theme.getDevelopmentResources();
       final ThemeResources productionResources = theme.getProductionResources();
 
       Assertions.assertEquals(1, resources.getScriptList().size());
@@ -61,40 +60,37 @@ public class ThemeParserUnitTest {
 
     urls = classLoader.getResources("theme-config2.xml");
 
-    ThemeImpl theme2 = null;
     if (urls.hasMoreElements()) {
       final URL themeUrl = urls.nextElement();
-      theme2 = parser.parse(themeUrl).getThemeDefinitions().get(0);
+      final ThemeImpl theme2 = parser.parse(themeUrl).getThemeDefinitions().get(0);
       Assertions.assertEquals("test2", theme2.getName());
-      Assertions.assertNotNull(theme2.getResources());
-      Assertions.assertEquals(1, theme2.getResources().getScriptList().size());
-      Assertions.assertEquals(1, theme2.getResources().getStyleList().size());
+      Assertions.assertNotNull(theme2.getDevelopmentResources());
+      Assertions.assertEquals(1, theme2.getDevelopmentResources().getScriptList().size());
+      Assertions.assertEquals(1, theme2.getDevelopmentResources().getStyleList().size());
     } else {
       Assertions.fail();
     }
 
     urls = classLoader.getResources("theme-config3.xml");
 
-    ThemeImpl theme3 = null;
     if (urls.hasMoreElements()) {
       final URL themeUrl = urls.nextElement();
-      theme3 = parser.parse(themeUrl).getThemeDefinitions().get(0);
+      final ThemeImpl theme3 = parser.parse(themeUrl).getThemeDefinitions().get(0);
       Assertions.assertEquals("test3", theme3.getName());
-      Assertions.assertEquals(0, theme3.getResources().getScriptList().size());
-      Assertions.assertEquals(0, theme3.getResources().getStyleList().size());
+      Assertions.assertEquals(0, theme3.getDevelopmentResources().getScriptList().size());
+      Assertions.assertEquals(0, theme3.getDevelopmentResources().getStyleList().size());
     } else {
       Assertions.fail();
     }
 
     urls = classLoader.getResources("theme-config4.xml");
 
-    ThemeImpl theme4 = null;
     if (urls.hasMoreElements()) {
       final URL themeUrl = urls.nextElement();
-      theme4 = parser.parse(themeUrl).getThemeDefinitions().get(0);
+      final ThemeImpl theme4 = parser.parse(themeUrl).getThemeDefinitions().get(0);
       Assertions.assertEquals("test4", theme4.getName());
-      Assertions.assertEquals(0, theme4.getResources().getScriptList().size());
-      Assertions.assertEquals(0, theme4.getResources().getStyleList().size());
+      Assertions.assertEquals(0, theme4.getDevelopmentResources().getScriptList().size());
+      Assertions.assertEquals(0, theme4.getDevelopmentResources().getStyleList().size());
     } else {
       Assertions.fail();
     }

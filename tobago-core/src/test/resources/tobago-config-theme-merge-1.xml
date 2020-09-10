@@ -20,41 +20,27 @@
 <tobago-config
     xmlns="http://myfaces.apache.org/tobago/tobago-config"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-2.0.6.xsd"
-    version="2.0.6">
+    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-5.0.xsd"
+    version="5.0">
 
-  <name>name-1</name>
+  <name>
+    name-1
+  </name>
 
-  <ordering>
-    <after>
-      <name>name-0</name>
-    </after>
-  </ordering>
-
-  <content-security-policy mode="report-only">
-    <directive>image-src http://apache.org</directive>
-  </content-security-policy>
+  <theme-config>
+    <default-theme>same-theme</default-theme>
+  </theme-config>
 
   <theme-definitions>
     <theme-definition>
-      <name>t1</name>
-      <resource-path>foo-bar</resource-path>
+      <name>same-theme</name>
+      <version>1.0</version>
+      <resources production="false">
+        <includes>
+          <script name="script-1"/>
+        </includes>
+      </resources>
     </theme-definition>
   </theme-definitions>
-
-  <mime-types>
-    <mime-type>
-      <extension>test-1</extension>
-      <type>test/one</type>
-    </mime-type>
-    <mime-type>
-      <extension>test-2</extension>
-      <type>test/two</type>
-    </mime-type>
-    <mime-type>
-      <extension>test-3</extension>
-      <type>test/three</type>
-    </mime-type>
-  </mime-types>
 
 </tobago-config>

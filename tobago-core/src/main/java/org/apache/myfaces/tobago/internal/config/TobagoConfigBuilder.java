@@ -49,8 +49,6 @@ public class TobagoConfigBuilder {
   private static final String WEB_INF_TOBAGO_CONFIG_XML = "WEB-INF/tobago-config.xml";
   private static final String META_INF_TOBAGO_CONFIG_XML = "META-INF/tobago-config.xml";
 
-  private final List<TobagoConfigFragment> configFragmentList = new ArrayList<>();
-
   @Inject
   private ServletContext servletContext;
 
@@ -58,36 +56,33 @@ public class TobagoConfigBuilder {
 
   @Produces
   public TobagoConfig buildTobagoConfig() {
-    if (tobagoConfig!= null) {
-      return tobagoConfig;
-    } else {
-      try {
-        tobagoConfig = initializeConfigFromFiles();
-        // prepare themes
-        tobagoConfig.resolveThemes();
-        tobagoConfig.initDefaultValidatorInfo();
-        tobagoConfig.lock();
+    if (tobagoConfig == null) {
+      init();
+    }
+    return tobagoConfig;
+  }
 
-        servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
-        return tobagoConfig;
-      } catch (final Exception e) {
-        final String error = "Tobago can't be initialized! Application will not run correctly!";
-        LOG.error(error, e);
-        throw new TobagoConfigurationException(error, e);
-      }
+  private void init() {
+    final List<TobagoConfigFragment> configFragmentList = new ArrayList<>();
+    try {
+      configFromClasspath(configFragmentList);
+      configFromWebInf(configFragmentList);
+      final TobagoConfigSorter sorter = new TobagoConfigSorter(configFragmentList);
+      final TobagoConfigMerger merger = new TobagoConfigMerger(sorter.topologicalSort());
+      tobagoConfig = merger.merge();
+      // prepare themes
+      tobagoConfig.resolveThemes();
+      tobagoConfig.initDefaultValidatorInfo();
+      tobagoConfig.lock();
+      servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
+    } catch (final Exception e) {
+      final String error = "Tobago can't be initialized! Application will not run correctly!";
+      LOG.error(error, e);
+      throw new TobagoConfigurationException(error, e);
     }
   }
 
-  protected TobagoConfigImpl initializeConfigFromFiles()
-      throws ServletException, IOException, SAXException, ParserConfigurationException, URISyntaxException {
-    configFromClasspath();
-    configFromWebInf();
-    final TobagoConfigSorter sorter = new TobagoConfigSorter(configFragmentList);
-    final TobagoConfigMerger merger = new TobagoConfigMerger(sorter.topologicalSort());
-    return merger.merge();
-  }
-
-  private void configFromWebInf()
+  private void configFromWebInf(final List<TobagoConfigFragment> configFragmentList)
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
     final URL url = servletContext.getResource("/" + WEB_INF_TOBAGO_CONFIG_XML);
@@ -96,7 +91,8 @@ public class TobagoConfigBuilder {
     }
   }
 
-  private void configFromClasspath() throws ServletException {
+  private void configFromClasspath(final List<TobagoConfigFragment> configFragmentList)
+      throws ServletException {
 
     try {
       if (LOG.isInfoEnabled()) {

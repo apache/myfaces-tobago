@@ -39,7 +39,7 @@ public class TobagoConfigMergingUnitTest {
   public void testPreventFrameAttacksCascadingDefault()
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
-    final TobagoConfigImpl config = loadAndMerge(
+    final TobagoConfigImpl config = load(
         "tobago-config-merge-0.xml",
         "tobago-config-merge-1.xml");
 
@@ -50,7 +50,7 @@ public class TobagoConfigMergingUnitTest {
   public void testPreventFrameAttacks()
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
-    final TobagoConfigImpl config = loadAndMerge("tobago-config-merge-0.xml");
+    final TobagoConfigImpl config = load("tobago-config-merge-0.xml");
 
     Assertions.assertFalse(config.isPreventFrameAttacks());
   }
@@ -59,7 +59,7 @@ public class TobagoConfigMergingUnitTest {
   public void testPreventFrameAttacksDefault()
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
-    final TobagoConfigImpl config = loadAndMerge("tobago-config-merge-1.xml");
+    final TobagoConfigImpl config = load("tobago-config-merge-1.xml");
 
     Assertions.assertTrue(config.isPreventFrameAttacks());
   }
@@ -68,7 +68,7 @@ public class TobagoConfigMergingUnitTest {
   public void testContentSecurityPolicy()
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
-    final TobagoConfigImpl config = loadAndMerge(
+    final TobagoConfigImpl config = load(
         "tobago-config-merge-0.xml");
 
     Assertions.assertSame(config.getContentSecurityPolicy().getMode(), ContentSecurityPolicy.Mode.ON);
@@ -81,7 +81,7 @@ public class TobagoConfigMergingUnitTest {
   public void testContentSecurityPolicyExtend()
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
-    final TobagoConfigImpl config = loadAndMerge(
+    final TobagoConfigImpl config = load(
         "tobago-config-merge-0.xml",
         "tobago-config-merge-1.xml");
 
@@ -96,7 +96,7 @@ public class TobagoConfigMergingUnitTest {
   public void testContentSecurityPolicyOff()
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
-    final TobagoConfigImpl config = loadAndMerge(
+    final TobagoConfigImpl config = load(
         "tobago-config-merge-0.xml",
         "tobago-config-merge-1.xml",
         "tobago-config-merge-2.xml");
@@ -109,7 +109,7 @@ public class TobagoConfigMergingUnitTest {
   public void testContentSecurityPolicyNameAttribute()
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
-    final TobagoConfigImpl config = loadAndMerge(
+    final TobagoConfigImpl config = load(
         "tobago-config-merge-0.xml",
         "tobago-config-merge-3.xml");
 
@@ -123,7 +123,7 @@ public class TobagoConfigMergingUnitTest {
   public void testMimeTypes()
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
-    final TobagoConfigImpl config = loadAndMerge(
+    final TobagoConfigImpl config = load(
         "tobago-config-merge-0.xml",
         "tobago-config-merge-1.xml",
         "tobago-config-merge-2.xml");
@@ -139,7 +139,7 @@ public class TobagoConfigMergingUnitTest {
   public void testResourcePriority()
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
-    final TobagoConfigImpl config = loadAndMerge(
+    final TobagoConfigImpl config = load(
         "tobago-config-5.0.xml", "tobago-config-5.0-replace.xml");
 
     final String[] expected = new String[]{
@@ -161,7 +161,7 @@ public class TobagoConfigMergingUnitTest {
       ex[i++].setName(script);
     }
 
-    config.resolveThemes();
+//    config.resolveThemes();
     final Theme defaultTheme = config.getDefaultTheme();
     final ThemeScript[] scripts = defaultTheme.getScriptResources(true);
 
@@ -170,7 +170,32 @@ public class TobagoConfigMergingUnitTest {
     Assertions.assertEquals("some-version-2", defaultTheme.getVersion());
   }
 
-  public static TobagoConfigImpl loadAndMerge(final String... names)
+  @Test
+  public void testMergeThemePatch()
+      throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
+
+    final TobagoConfigImpl config12 = load(
+        "tobago-config-theme-merge-1.xml",
+        "tobago-config-theme-merge-2.xml");
+    Assertions.assertEquals("2.0", config12.getDefaultTheme().getVersion());
+
+    final ThemeScript[] scripts12 = config12.getDefaultTheme().getScriptResources(false);
+    Assertions.assertEquals(2, scripts12.length);
+    Assertions.assertEquals("script-1", scripts12[0].getName());
+    Assertions.assertEquals("script-2", scripts12[1].getName());
+
+    final TobagoConfigImpl config21 = load(
+        "tobago-config-theme-merge-2.xml",
+        "tobago-config-theme-merge-1.xml");
+    Assertions.assertEquals("2.0", config21.getDefaultTheme().getVersion());
+
+    final ThemeScript[] scripts21 = config21.getDefaultTheme().getScriptResources(false);
+    Assertions.assertEquals(2, scripts21.length);
+    Assertions.assertEquals("script-1", scripts21[0].getName());
+    Assertions.assertEquals("script-2", scripts21[1].getName());
+  }
+
+  public static TobagoConfigImpl load(final String... names)
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
     final List<TobagoConfigFragment> list = new ArrayList<>();
@@ -183,6 +208,9 @@ public class TobagoConfigMergingUnitTest {
 
     final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
     final TobagoConfigMerger merger = new TobagoConfigMerger(sorter.topologicalSort());
-    return merger.merge();
+    final TobagoConfigImpl result = merger.merge();
+    result.resolveThemes();
+    result.lock();
+    return result;
   }
 }

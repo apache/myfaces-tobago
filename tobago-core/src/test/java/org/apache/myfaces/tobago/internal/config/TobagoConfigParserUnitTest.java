@@ -78,16 +78,14 @@ public class TobagoConfigParserUnitTest {
     final ThemeImpl theme1 = fragment.getThemeDefinitions().get(0);
     Assertions.assertEquals("my-theme-1", theme1.getName());
     Assertions.assertEquals("My Theme 1", theme1.getDisplayName());
-    Assertions.assertTrue(theme1.getProductionResources().isProduction());
     Assertions.assertEquals("script.js", theme1.getProductionResources().getScriptList().get(0).getName());
     Assertions.assertEquals("style.css", theme1.getProductionResources().getStyleList().get(0).getName());
 
     final ThemeImpl theme2 = fragment.getThemeDefinitions().get(1);
     Assertions.assertEquals("my-theme-2", theme2.getName());
     Assertions.assertEquals("my-theme-1", theme2.getFallbackName());
-    Assertions.assertFalse(theme2.getResources().isProduction());
-    Assertions.assertEquals(0, theme2.getResources().getScriptList().size());
-    Assertions.assertEquals(0, theme2.getResources().getStyleList().size());
+    Assertions.assertEquals(0, theme2.getDevelopmentResources().getScriptList().size());
+    Assertions.assertEquals(0, theme2.getDevelopmentResources().getStyleList().size());
     Assertions.assertEquals(0, theme2.getProductionResources().getScriptList().size());
     Assertions.assertEquals(0, theme2.getProductionResources().getStyleList().size());
 

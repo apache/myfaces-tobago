@@ -20,15 +20,22 @@
 <tobago-config
     xmlns="http://myfaces.apache.org/tobago/tobago-config"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-2.0.xsd"
-    version="2.0">
+    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-5.0.xsd"
+    version="5.0">
 
   <name>name-0</name>
 
   <prevent-frame-attacks>false</prevent-frame-attacks>
 
   <content-security-policy mode="on">
-    <directive>default-src 'self'</directive>
+    <directive name="default-src">'self'</directive>
   </content-security-policy>
+
+  <theme-definitions>
+    <theme-definition>
+      <name>t1</name>
+      <version>1.0</version>
+    </theme-definition>
+  </theme-definitions>
 
 </tobago-config>

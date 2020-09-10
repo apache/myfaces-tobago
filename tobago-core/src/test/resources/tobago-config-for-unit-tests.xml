@@ -20,14 +20,14 @@
 <tobago-config
     xmlns="http://myfaces.apache.org/tobago/tobago-config"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-2.0.6.xsd"
-    version="2.0.6">
+    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-5.0.xsd"
+    version="5.0">
 
-  <mime-types>
-    <mime-type>
-      <extension>odt</extension>
-      <type>application/vnd.oasis.opendocument.text</type>
-    </mime-type>
-  </mime-types>
+  <theme-definitions>
+    <theme-definition>
+      <name>test</name>
+      <version>1.0</version>
+    </theme-definition>
+  </theme-definitions>
 
 </tobago-config>

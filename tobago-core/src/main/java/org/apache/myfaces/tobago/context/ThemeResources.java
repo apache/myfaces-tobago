@@ -19,7 +19,12 @@
 
 package org.apache.myfaces.tobago.context;
 
+import org.apache.myfaces.tobago.exception.TobagoConfigurationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,53 +35,169 @@ import java.util.List;
  */
 public final class ThemeResources implements Serializable {
 
-  private final boolean production;
-  private final List<ThemeScript> scriptList = new ArrayList<>();
-  private final List<ThemeScript> scriptExcludes = new ArrayList<>();
-  private final List<ThemeStyle> styleList = new ArrayList<>();
-  private final List<ThemeStyle> styleExcludes = new ArrayList<>();
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
+  private boolean production;
+
+  private final List<ThemeScript> includeScripts = new ArrayList<>();
+  private final List<ThemeScript> excludeScripts = new ArrayList<>();
+  private final List<ThemeStyle> includeStyles = new ArrayList<>();
+  private final List<ThemeStyle> excludeStyles = new ArrayList<>();
+
+  public ThemeResources() {
+  }
+
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   public ThemeResources(final boolean production) {
     this.production = production;
   }
 
-  public void merge(final ThemeResources toAddResources) {
-    if (this == toAddResources) {
+  /**
+   * @deprecated since 5.0.0, use static {@link #merge}
+   */
+  @Deprecated
+  public void merge(final ThemeResources fallback) {
+    if (this == fallback) {
       return;
     }
-    for (int i = toAddResources.scriptList.size() - 1; i >= 0; i--) {
-      final ThemeScript script = toAddResources.scriptList.get(i);
-      scriptList.remove(script);
-      if (!scriptExcludes.contains(script)) {
-        scriptList.add(0, script);
+    for (int i = fallback.includeScripts.size() - 1; i >= 0; i--) {
+      final ThemeScript script = fallback.includeScripts.get(i);
+      includeScripts.remove(script);
+      if (!excludeScripts.contains(script)) {
+        includeScripts.add(0, script);
       }
     }
-    for (int i = toAddResources.styleList.size() - 1; i >= 0; i--) {
-      final ThemeStyle style = toAddResources.styleList.get(i);
-      styleList.remove(style);
-      if (!styleExcludes.contains(style)) {
-        styleList.add(0, style);
+    for (int i = fallback.includeStyles.size() - 1; i >= 0; i--) {
+      final ThemeStyle style = fallback.includeStyles.get(i);
+      includeStyles.remove(style);
+      if (!excludeStyles.contains(style)) {
+        includeStyles.add(0, style);
       }
     }
   }
 
+  /**
+   * @since 5.0.0
+   */
+  public static ThemeResources merge(final ThemeResources base, final ThemeResources add) {
+    if (base.production != add.production) {
+      throw new TobagoConfigurationException("Resources mismatch!");
+    }
+    final ThemeResources result = new ThemeResources(base.production);
+
+    for (ThemeScript includeScript : base.includeScripts) {
+      if (!add.excludeScripts.contains(includeScript)) {
+        result.addIncludeScript(includeScript);
+      }
+    }
+    for (ThemeScript includeScript : add.includeScripts) {
+      result.addIncludeScript(includeScript);
+    }
+
+    for (ThemeStyle includeStyle : base.includeStyles) {
+      if (!add.excludeStyles.contains(includeStyle)) {
+        result.addIncludeStyle(includeStyle);
+      }
+    }
+    for (ThemeStyle includeStyle : add.includeStyles) {
+      result.addIncludeStyle(includeStyle);
+    }
+
+    return result;
+  }
+
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   public boolean isProduction() {
     return production;
   }
 
-  public boolean addScript(final ThemeScript script, final boolean exclude) {
-    return exclude ? scriptExcludes.add(script) : scriptList.add(script);
+  /**
+   * @since 5.0.0
+   */
+  public boolean addIncludeScript(final ThemeScript script) {
+    for (ThemeScript resource : includeScripts) {
+      if (resource.getName().equals(script.getName())) {
+        LOG.warn("Overwriting include script '{}'", script.getName());
+        includeScripts.remove(resource);
+        break;
+      }
+    }
+    return includeScripts.add(script);
   }
 
+  /**
+   * @since 5.0.0
+   */
+  public boolean addExcludeScript(final ThemeScript script) {
+    for (ThemeScript resource : excludeScripts) {
+      if (resource.getName().equals(script.getName())) {
+        LOG.warn("Overwriting exclude script '{}'", script.getName());
+        includeScripts.remove(resource);
+        break;
+      }
+    }
+    return excludeScripts.add(script);
+  }
+
+  /**
+   * @deprecated since 5.0.0, use {@link #addIncludeScript} or {@link #addExcludeScript}
+   */
+  @Deprecated
+  public boolean addScript(final ThemeScript script, final boolean exclude) {
+    return exclude ? addExcludeScript(script) : addIncludeScript(script);
+  }
+
+  /**
+   * @since 5.0.0
+   */
+  public boolean addIncludeStyle(final ThemeStyle style) {
+    for (ThemeStyle resource : includeStyles) {
+      if (resource.getName().equals(style.getName())) {
+        LOG.warn("Overwriting include style '{}'", style.getName());
+        includeStyles.remove(resource);
+        break;
+      }
+    }
+    return includeStyles.add(style);
+  }
+
+  /**
+   * @since 5.0.0
+   */
+  public boolean addExcludeStyle(final ThemeStyle style) {
+    for (ThemeStyle resource : excludeStyles) {
+      if (resource.getName().equals(style.getName())) {
+        LOG.warn("Overwriting exclude style '{}'", style.getName());
+        includeStyles.remove(resource);
+        break;
+      }
+    }
+    return excludeStyles.add(style);
+  }
+
+  /**
+   * @deprecated since 5.0.0, use {@link #addIncludeStyle} or {@link #addExcludeStyle}
+   */
+  @Deprecated
   public boolean addStyle(final ThemeStyle style, final boolean exclude) {
-    return exclude ? styleExcludes.add(style) : styleList.add(style);
+    return exclude ? addExcludeStyle(style) : addIncludeStyle(style);
   }
 
   public List<ThemeScript> getScriptList() {
-    return scriptList;
+    return includeScripts;
   }
 
   public List<ThemeStyle> getStyleList() {
-    return styleList;
+    return includeStyles;
   }
 }
