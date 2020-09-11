@@ -1,4 +1,3 @@
-"use strict";
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -15,46 +14,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-exports.__esModule = true;
-// fixme: better don't use Listener and Phase?
-// import {Listener, Phase} from "../tobago/standard/5.0.0-SNAPSHOT/js/bundle";
-var tobago_listener_1 = require("../tobago/standard/5.0.0-SNAPSHOT/js/tobago-listener");
-var Demo;
-(function (Demo) {
-    var ToClipboardButton;
-    (function (ToClipboardButton_1) {
-        var ToClipboardButton = /** @class */ (function () {
-            function ToClipboardButton(element) {
-                /* Copy the command lines to the clipboard.
-                 */
-                element.addEventListener("click", function (event) {
-                    var from = element.getAttribute("data-copy-clipboard-from");
-                    var commandLine = document.getElementById(from);
-                    if (window.getSelection) {
-                        var selection = window.getSelection();
-                        var range = document.createRange();
-                        range.selectNodeContents(commandLine);
-                        selection.removeAllRanges();
-                        selection.addRange(range);
-                    }
-                    else {
-                        console.warn("Text select not possible: Unsupported browser.");
-                    }
-                    try {
-                        var result = document.execCommand("copy");
-                        console.debug("result: " + result);
-                    }
-                    catch (error) {
-                        console.error("Copying text not possible");
-                    }
-                });
+class DemoCopyToClipboard extends HTMLElement {
+    constructor() {
+        super();
+    }
+    connectedCallback() {
+        this.addEventListener("click", (event) => {
+            const sourceElement = document.getElementById(this.source);
+            if (window.getSelection) {
+                const selection = window.getSelection();
+                const range = document.createRange();
+                range.selectNodeContents(sourceElement);
+                selection.removeAllRanges();
+                selection.addRange(range);
             }
-            return ToClipboardButton;
-        }());
-        var init = function () {
-            document.querySelectorAll("[data-copy-clipboard-from]").forEach(function (value) { return new ToClipboardButton(value); });
-        };
-        tobago_listener_1.Listener.register(init, tobago_listener_1.Phase.DOCUMENT_READY);
-        tobago_listener_1.Listener.register(init, tobago_listener_1.Phase.AFTER_UPDATE);
-    })(ToClipboardButton = Demo.ToClipboardButton || (Demo.ToClipboardButton = {}));
-})(Demo || (Demo = {}));
+            else {
+                console.warn("Text select not possible: Unsupported browser.");
+            }
+            try {
+                const result = document.execCommand("copy");
+                console.debug("result: " + result);
+            }
+            catch (error) {
+                console.error("Copying text not possible");
+            }
+        });
+    }
+    get source() {
+        return this.getAttribute("source");
+    }
+    set source(name) {
+        this.setAttribute("source", name);
+    }
+}
+document.addEventListener("DOMContentLoaded", function (event) {
+    window.customElements.define("demo-copy-to-clipboard", DemoCopyToClipboard);
+});
+//# sourceMappingURL=docker.js.map

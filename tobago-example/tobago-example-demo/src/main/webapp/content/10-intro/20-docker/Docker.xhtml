@@ -63,9 +63,9 @@
     <pre><code class="language-bash" id="commandLine"><tc:out
         keepLineBreaks="false" value="#{dockerController.commandLine}"/></code></pre>
 
-      <tc:button id="toClipboardButton" label="Copy Commands" omit="true">
-        <tc:dataAttribute name="copy-clipboard-from" value="commandLine"/>
-      </tc:button>
+      <demo-copy-to-clipboard source="commandLine">
+        <tc:button id="toClipboardButton" label="Copy Commands" omit="true"/>
+      </demo-copy-to-clipboard>
 
       <tc:button label="Browse via HTTP" link="#{dockerController.url}"/>
       <tc:button label="Browse via HTTPS" link="#{dockerController.sslUrl}" disabled="#{not dockerController.server.ssl}"/>

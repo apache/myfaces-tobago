@@ -15,49 +15,44 @@
  * limitations under the License.
  */
 
-// fixme: better don't use Listener and Phase?
-// import {Listener, Phase} from "../tobago/standard/5.0.0-SNAPSHOT/js/bundle";
-import {Listener, Phase} from "../tobago/standard/5.0.0-SNAPSHOT/js/tobago-listener";
+class DemoCopyToClipboard extends HTMLElement {
 
-module Demo.ToClipboardButton {
-
-  class ToClipboardButton {
-
-    constructor(element: HTMLElement) {
-
-      /* Copy the command lines to the clipboard.
-       */
-      element.addEventListener(
-          "click",
-          (event: MouseEvent) => {
-            const from = element.getAttribute("data-copy-clipboard-from");
-            const commandLine = document.getElementById(from);
-
-            if (window.getSelection) {
-              const selection = window.getSelection();
-              const range = document.createRange();
-              range.selectNodeContents(commandLine);
-              selection.removeAllRanges();
-              selection.addRange(range);
-            } else {
-              console.warn("Text select not possible: Unsupported browser.");
-            }
-            try {
-              const result = document.execCommand("copy");
-              console.debug("result: " + result);
-            } catch (error) {
-              console.error("Copying text not possible");
-            }
-          });
-    }
+  constructor() {
+    super();
   }
 
-  const init = function () {
-    document.querySelectorAll<HTMLElement>("[data-copy-clipboard-from]").forEach(
-        (value) => new ToClipboardButton(value)
-    )
-  };
+  connectedCallback(): void {
+    this.addEventListener("click", (event: MouseEvent) => {
+      const sourceElement = document.getElementById(this.source);
 
-  Listener.register(init, Phase.DOCUMENT_READY);
-  Listener.register(init, Phase.AFTER_UPDATE);
+      if (window.getSelection) {
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(sourceElement);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      } else {
+        console.warn("Text select not possible: Unsupported browser.");
+      }
+      try {
+        const result = document.execCommand("copy");
+        console.debug("result: " + result);
+      } catch (error) {
+        console.error("Copying text not possible");
+      }
+    });
+  }
+
+  get source(): string {
+    return this.getAttribute("source");
+  }
+
+  set source(name: string) {
+    this.setAttribute("source", name);
+  }
+
 }
+
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
+  window.customElements.define("demo-copy-to-clipboard", DemoCopyToClipboard);
+});
