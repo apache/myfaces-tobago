@@ -540,6 +540,8 @@ public abstract class AbstractUISheet extends AbstractUIData
       LOG.debug("action = '" + pageEvent.getAction().name() + "'");
     }
 
+    Integer[] scrollPosition = getScrollPosition();
+    scrollPosition[1] = 0;
     switch (pageEvent.getAction()) {
       case FIRST:
         first = 0;
@@ -547,6 +549,7 @@ public abstract class AbstractUISheet extends AbstractUIData
       case PREV:
         first = getFirst() - getRows();
         first = first < 0 ? 0 : first;
+        scrollPosition[1] = Integer.MAX_VALUE;
         break;
       case NEXT:
         if (hasRowCount()) {
@@ -592,7 +595,10 @@ public abstract class AbstractUISheet extends AbstractUIData
       setFirst(first);
     }
 
-    getState().setFirst(first);
+    SheetState sheetState = getState();
+    sheetState.setFirst(first);
+    getAttributes().put(Attributes.SCROLL_POSITION, scrollPosition);
+    sheetState.setScrollPosition(scrollPosition);
 //      sheet.queueEvent(new SheetStateChangeEvent(sheet));
   }
 
