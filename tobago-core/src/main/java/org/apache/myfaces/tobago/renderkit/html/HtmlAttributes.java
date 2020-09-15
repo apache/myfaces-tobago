@@ -95,6 +95,7 @@ public final class HtmlAttributes {
   public static final String ROLE = "role";
   public static final String ROWS = "rows";
   public static final String ROWSPAN = "rowspan";
+  public static final String SANDBOX = "sandbox";
   public static final String SCROLL = "scroll";
   public static final String SELECTED = "selected";
   public static final String SIZE = "size";

@@ -58,6 +58,11 @@ public class ObjectRenderer extends LayoutComponentRendererBase {
     final Style style = new Style(facesContext, object);
     writer.writeStyleAttribute(style);
 
+    String sandbox = object.getSandbox();
+    if (sandbox != null) {
+      writer.writeAttribute(HtmlAttributes.SANDBOX, sandbox, false);
+    }
+
     String noframes = ResourceManagerUtils.getPropertyNotNull(
         facesContext, "tobago", "browser.noframe.message.prefix");
     writer.writeText(noframes);
