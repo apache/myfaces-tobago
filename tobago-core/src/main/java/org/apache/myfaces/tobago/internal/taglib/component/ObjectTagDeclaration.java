@@ -68,4 +68,11 @@ public interface ObjectTagDeclaration extends HasIdBindingAndRendered, IsVisual 
   @TagAttribute
   @UIComponentTagAttribute
   void setName(String name);
+
+  /**
+   * Value of the iframe sandbox attribute.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute
+  void setSandbox(String sandbox);
 }

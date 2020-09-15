@@ -106,6 +106,7 @@ public enum HtmlAttributes implements MarkupLanguageAttributes {
   ROLE("role"),
   ROWS("rows"),
   ROWSPAN("rowspan"),
+  SANDBOX("sandbox"),
   SCROLL("scroll"),
   SELECTED("selected"),
   SIZE("size"),

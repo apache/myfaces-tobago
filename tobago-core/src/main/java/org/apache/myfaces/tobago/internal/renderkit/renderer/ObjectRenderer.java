@@ -57,6 +57,11 @@ public class ObjectRenderer extends RendererBase {
         object.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
 
+    String sandbox = object.getSandbox();
+    if (sandbox != null) {
+      writer.writeAttribute(HtmlAttributes.SANDBOX, sandbox, false);
+    }
+
     writer.writeText(ResourceUtils.getString(facesContext, "object.noframe"));
     writer.writeText(" ");
     if (object.getSrc() != null) {
