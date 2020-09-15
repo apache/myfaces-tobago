@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.MeasureList;
 import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.model.ExpandedState;
+import org.apache.myfaces.tobago.model.ScrollPosition;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -534,7 +535,8 @@ public abstract class AbstractUISheet extends AbstractUIData
     if (LOG.isDebugEnabled()) {
       LOG.debug("action = '" + pageEvent.getAction().name() + "'");
     }
-
+    ScrollPosition scrollPosition = getState().getScrollPosition();
+    scrollPosition.setTop(0);
     switch (pageEvent.getAction()) {
       case first:
         first = 0;
@@ -542,6 +544,7 @@ public abstract class AbstractUISheet extends AbstractUIData
       case prev:
         first = getFirst() - getRows();
         first = first < 0 ? 0 : first;
+        scrollPosition.setTop(Integer.MAX_VALUE);
         break;
       case next:
         if (hasRowCount()) {
