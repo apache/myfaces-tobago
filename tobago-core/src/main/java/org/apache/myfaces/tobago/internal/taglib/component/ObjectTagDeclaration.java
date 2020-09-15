@@ -61,4 +61,11 @@ public interface ObjectTagDeclaration extends HasIdBindingAndRendered, IsGridLay
   @TagAttribute
   @UIComponentTagAttribute
   void setName(String name);
+
+  /**
+   * Value of the iframe sandbox attribute.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute
+  void setSandbox(String sandbox);
 }
