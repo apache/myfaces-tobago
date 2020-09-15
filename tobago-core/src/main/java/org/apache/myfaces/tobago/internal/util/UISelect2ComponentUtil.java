@@ -144,10 +144,11 @@ public class UISelect2ComponentUtil {
     Map<String, javax.faces.model.SelectItem> optionValues = new HashMap<String, javax.faces.model.SelectItem>();
     for (javax.faces.model.SelectItem item : items) {
       itemsToRender.add(item);
+      Object itemValue = item.getValue();
       if (converter != null) {
-        optionValues.put(converter.getAsString(facesContext, component, item.getValue()), item);
+        optionValues.put(converter.getAsString(facesContext, component, itemValue), item);
       } else {
-        optionValues.put(item.getValue().toString(), item);
+        optionValues.put(itemValue != null ? itemValue.toString() : null, item);
       }
     }
 
