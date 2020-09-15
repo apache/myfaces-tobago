@@ -31,4 +31,6 @@ public abstract class AbstractUIObject extends UIOutput implements Visual {
   public abstract String getName();
 
   public abstract String getSrc();
+
+  public abstract String getSandbox();
 }

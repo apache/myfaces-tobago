@@ -60,6 +60,11 @@ public class ObjectRenderer extends RendererBase {
         object.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
 
+    String sandbox = object.getSandbox();
+    if (sandbox != null) {
+      writer.writeAttribute(HtmlAttributes.SANDBOX, sandbox, false);
+    }
+
     String noframes = TobagoResourceBundle.getString(facesContext, "browser.noframe.message.prefix");
     writer.writeText(noframes);
     writer.writeText(" ");
