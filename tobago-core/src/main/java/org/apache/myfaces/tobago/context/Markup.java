@@ -82,22 +82,12 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup EXTRA_LARGE = valueOf("extraLarge");
   public static final Markup FILLER = valueOf("filler");
   public static final Markup FATAL = valueOf("fatal");
-  /**
-   * @deprecated Can be selected via CSS3.
-   */
-  @Deprecated
-  public static final Markup FIRST = valueOf("first");
   public static final Markup FOLDER = valueOf("folder");
   public static final Markup HOVER = valueOf("hover");
   public static final Markup INFO = valueOf("info");
   public static final Markup INLINE = valueOf("inline");
   public static final Markup ITALIC = valueOf("italic");
   public static final Markup JUSTIFY = valueOf("justify");
-  /**
-   * @deprecated since 4.0.0, please use {@link #DARK}
-   */
-  @Deprecated
-  public static final Markup INVERSE = valueOf("inverse");
   public static final Markup LARGE = valueOf("large");
   public static final Markup LEFT = valueOf("left");
   public static final Markup LIGHT = valueOf("light");
@@ -126,21 +116,6 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup SECONDARY = valueOf("secondary");
   public static final Markup SECONDS = valueOf("seconds");
   public static final Markup SELECTED = valueOf("selected");
-  /**
-   * @deprecated since 3.0.4
-   */
-  @Deprecated
-  public static final Markup SHEET_SELECT_ALL = valueOf("sheetSelectAll");
-  /**
-   * @deprecated since 3.0.4
-   */
-  @Deprecated
-  public static final Markup SHEET_DESELECT_ALL = valueOf("sheetDeselectAll");
-  /**
-   * @deprecated since 3.0.4
-   */
-  @Deprecated
-  public static final Markup SHEET_TOGGLE_ALL = valueOf("sheetToggleAll");
   public static final Markup SMALL = valueOf("small");
   public static final Markup SORTABLE = valueOf("sortable");
   public static final Markup SPREAD = valueOf("spread");
@@ -174,22 +149,12 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final String STRING_EXTRA_LARGE = "extraLarge";
   public static final String STRING_FILLER = "filler";
   public static final String STRING_FATAL = "fatal";
-  /**
-   * @deprecated Can be selected via CSS3.
-   */
-  @Deprecated
-  public static final String STRING_FIRST = "first";
   public static final String STRING_FOLDER = "folder";
   public static final String STRING_HOVER = "hover";
   public static final String STRING_INFO = "info";
   public static final String STRING_INLINE = "inline";
   public static final String STRING_ITALIC = "italic";
   public static final String STRING_JUSTIFY = "justify";
-  /**
-   * @deprecated since 4.0.0, please use {@link #DARK}
-   */
-  @Deprecated
-  public static final String STRING_INVERSE = "inverse";
   public static final String STRING_LARGE = "large";
   public static final String STRING_LEFT = "left";
   public static final String STRING_LIGHT = "light";
@@ -218,21 +183,6 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final String STRING_SECONDARY = "secondary";
   public static final String STRING_SECONDS = "seconds";
   public static final String STRING_SELECTED = "selected";
-  /**
-   * @deprecated since 3.0.4
-   */
-  @Deprecated
-  public static final String STRING_SHEET_SELECT_ALL = "sheetSelectAll";
-  /**
-   * @deprecated since 3.0.4
-   */
-  @Deprecated
-  public static final String STRING_SHEET_DESELECT_ALL = "sheetDeselectAll";
-  /**
-   * @deprecated since 3.0.4
-   */
-  @Deprecated
-  public static final String STRING_SHEET_TOGGLE_ALL = "sheetToggleAll";
   public static final String STRING_SMALL = "small";
   public static final String STRING_SORTABLE = "sortable";
   public static final String STRING_SPREAD = "spread";

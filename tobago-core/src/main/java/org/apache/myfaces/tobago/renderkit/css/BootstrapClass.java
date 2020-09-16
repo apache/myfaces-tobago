@@ -29,7 +29,6 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.MeasureList;
 import org.apache.myfaces.tobago.layout.SegmentJustify;
 import org.apache.myfaces.tobago.layout.TextAlign;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,19 +59,9 @@ public enum BootstrapClass implements CssItem {
   ALIGN_ITEMS_STRETCH("align-items-stretch"),
   ARROW("arrow"),
   BG_DARK("bg-dark"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #BG_DARK}
-   */
-  @Deprecated
-  BG_INVERSE("bg-dark"),
   BADGE("badge"),
   BADGE_DANGER("badge-danger"),
   BADGE_DARK("badge-dark"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  BADGE_DEFAULT("badge-default"),
   BADGE_INFO("badge-info"),
   BADGE_LIGHT("badge-light"),
   BADGE_PILL("badge-pill"),
@@ -105,11 +94,6 @@ public enum BootstrapClass implements CssItem {
   BTN_TOOLBAR("btn-toolbar"),
   BTN_WARNING("btn-warning"),
   CARD("card"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #CARD_BODY}
-   */
-  @Deprecated
-  CARD_BLOCK("card-body"),
   CARD_BODY("card-body"),
   CARD_HEADER("card-header"),
   CARD_HEADER_TABS("card-header-tabs"),
@@ -187,66 +171,6 @@ public enum BootstrapClass implements CssItem {
   COL_11("col-11"),
   COL_12("col-12"),
   COL_AUTO("col-auto"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #COL_1}
-   */
-  @Deprecated
-  COL_XS_1("col-1"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #COL_2}
-   */
-  @Deprecated
-  COL_XS_2("col-2"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #COL_3}
-   */
-  @Deprecated
-  COL_XS_3("col-3"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #COL_4}
-   */
-  @Deprecated
-  COL_XS_4("col-4"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #COL_5}
-   */
-  @Deprecated
-  COL_XS_5("col-5"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #COL_6}
-   */
-  @Deprecated
-  COL_XS_6("col-6"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #COL_7}
-   */
-  @Deprecated
-  COL_XS_7("col-7"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #COL_8}
-   */
-  @Deprecated
-  COL_XS_8("col-8"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #COL_9}
-   */
-  @Deprecated
-  COL_XS_9("col-9"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #COL_10}
-   */
-  @Deprecated
-  COL_XS_10("col-10"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #COL_11}
-   */
-  @Deprecated
-  COL_XS_11("col-11"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #COL_12}
-   */
-  @Deprecated
-  COL_XS_12("col-12"),
   CONTAINER("container"),
   CONTAINER_FLUID("container-fluid"),
   CUSTOM_CHECKBOX("custom-checkbox"),
@@ -294,46 +218,10 @@ public enum BootstrapClass implements CssItem {
   FORM_CHECK_LABEL("form-check-label"),
   FORM_CONTROL("form-control"),
   FORM_CONTROL_PLAINTEXT("form-control-plaintext"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #FORM_CONTROL_PLAINTEXT}
-   */
-  @Deprecated
-  FORM_CONTROL_STATIC("form-control-plaintext"),
   FORM_GROUP("form-group"),
   FORM_INLINE("form-inline"),
-  //TODO: adjust to the new bootstrap concept
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  HAS_DANGER("has-danger"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  HAS_SUCCESS("has-success"),
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  HAS_WARNING("has-warning"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #D_SM_NONE}
-   */
-  @Deprecated
-  HIDDEN_SM_UP("d-sm-none"),
   INPUT_GROUP("input-group"),
   INPUT_GROUP_APPEND("input-group-append"),
-  /**
-   * @deprecated since 4.1.0
-   */
-  @Deprecated
-  INPUT_GROUP_ADDON("input-group-addon"),
-  /**
-   * @deprecated since 4.1.0
-   */
-  @Deprecated
-  INPUT_GROUP_BTN("input-group-btn"),
   INPUT_GROUP_PREPEND("input-group-prepend"),
   INPUT_GROUP_TEXT("input-group-text"),
   INVISIBLE("invisible"),
@@ -381,45 +269,10 @@ public enum BootstrapClass implements CssItem {
   NAVBAR_EXPAND_MD("navbar-expand-md"),
   NAVBAR_EXPAND_SM("navbar-expand-sm"),
   NAVBAR_EXPAND_XL("navbar-expand-xl"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #FIXED_BOTTOM}
-   */
-  @Deprecated
-  NAVBAR_FIXED_BOTTOM("fixed-bottom"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #STICKY_TOP}
-   */
-  @Deprecated
-  NAVBAR_FIXED_TOP("fixed-top"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #NAVBAR_DARK}
-   */
-  @Deprecated
-  NAVBAR_INVERSE("navbar-inverse"),
   NAVBAR_LIGHT("navbar-light"),
   NAVBAR_NAV("navbar-nav"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #NAVBAR_EXPAND_SM}
-   */
-  @Deprecated
-  NAVBAR_TOGGLEABLE("navbar-expand-sm"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #NAVBAR_EXPAND_SM}
-   */
-  @Deprecated
-  NAVBAR_TOGGLEABLE_XS("navbar-expand-sm"),
   NAVBAR_TOGGLER("navbar-toggler"),
   NAVBAR_TOGGLER_ICON("navbar-toggler-icon"),
-  /**
-   * @deprecated since 4.0.0, please use markup in tc:bar
-   */
-  @Deprecated
-  NAVBAR_TOGGLER_LEFT("navbar-toggler-left"),
-  /**
-   * @deprecated since 4.0.0, please use markup in tc:bar
-   */
-  @Deprecated
-  NAVBAR_TOGGLER_RIGHT("navbar-toggler-right"),
   OFFSET_1("offset-1"),
   OFFSET_2("offset-2"),
   OFFSET_3("offset-3"),
@@ -479,11 +332,6 @@ public enum BootstrapClass implements CssItem {
   OFFSET_XL_9("offset-xl-9"),
   OFFSET_XL_10("offset-xl-10"),
   OFFSET_XL_11("offset-xl-11"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #SHOW}
-   */
-  @Deprecated
-  OPEN("show"),
   PAGE_ITEM("page-item"),
   PAGE_LINK("page-link"),
   PAGINATION("pagination"),
@@ -515,11 +363,6 @@ public enum BootstrapClass implements CssItem {
   TABLE_DARK("table-dark"),
   TABLE_HOVER("table-hover"),
   TABLE_INFO("table-info"),
-  /**
-   * @deprecated since 4.0.0, please use {@link #TABLE_DARK}
-   */
-  @Deprecated
-  TABLE_INVERSE("table-dark"),
   TABLE_SM("table-sm"),
   TABLE_STRIPED("table-striped");
 
@@ -601,26 +444,6 @@ public enum BootstrapClass implements CssItem {
       default:
         LOG.warn("Not a bootstrap class defined for {}", segmentJustify);
         return null;
-    }
-  }
-
-  /**
-   * @deprecated since 4.0.0, please use ComponentUtils.getMaximumSeverity()
-   * with {@link #borderColor(FacesMessage.Severity)} or {@link #buttonColor(FacesMessage.Severity)}
-   */
-  @Deprecated
-  public static CssItem maximumSeverity(final UIComponent input) {
-    final FacesMessage.Severity maximumSeverity = ComponentUtils.getMaximumSeverity(input);
-    if (maximumSeverity == null) {
-      return null;
-    } else if (maximumSeverity.getOrdinal() >= SEVERITY_ERROR) {
-      return HAS_DANGER;
-    } else if (maximumSeverity.getOrdinal() >= SEVERITY_WARN) {
-      return HAS_WARNING;
-    } else if (maximumSeverity.getOrdinal() >= SEVERITY_INFO) {
-      return TobagoClass.HAS__INFO;
-    } else {
-      return null;
     }
   }
 
