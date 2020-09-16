@@ -30,9 +30,11 @@ import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.facelets.SelectManyBoxRule;
 import org.apache.myfaces.tobago.facelets.SuggestMethodRule;
 import org.apache.myfaces.tobago.facelets.SupportsMarkupRule;
 import org.apache.myfaces.tobago.facelets.TobagoComponentHandler;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyBox;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -259,6 +261,9 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     }
     if (InputSuggest.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SuggestMethodRule.INSTANCE);
+    }
+    if (AbstractUISelectManyBox.class.isAssignableFrom(aClass)) {
+      metaRuleset.addRule(SelectManyBoxRule.INSTANCE);
     }
     return metaRuleset;
   }

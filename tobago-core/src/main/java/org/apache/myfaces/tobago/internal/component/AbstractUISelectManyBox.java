@@ -191,11 +191,11 @@ public abstract class AbstractUISelectManyBox extends AbstractUISelectMany imple
   }
 
   public static String[] parseTokenSeparators(String tokenSeparators) {
-    Set<String> tokens = new HashSet<String>();
+    String[] tokens = new String[tokenSeparators.length()];
     for (int i = 0; i < tokenSeparators.length(); i++) {
-      tokens.add(tokenSeparators.substring(i, i + 1));
+      tokens[i] = tokenSeparators.substring(i, i + 1);
     }
-    return tokens.toArray(new String[0]);
+    return tokens;
   }
 
   public boolean isTokenSeparatorsSet() {

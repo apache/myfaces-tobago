@@ -1,9 +1,6 @@
 package org.apache.myfaces.tobago.facelets;
 
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyBox;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
@@ -22,24 +19,24 @@ public class SelectManyBoxRule extends MetaRule {
   public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget metadataTarget) {
     if (metadataTarget.isTargetInstanceOf(AbstractUISelectManyBox.class)) {
       if (TOKEN_SEPARATORS.equals(name)) {
-        return new SelectManyBoxRule.SelectManyBoxMapper(attribute);
+        return new SelectManyBoxRule.TokenSeparatorsMapper(attribute);
       }
     }
     return null;
   }
 
-  static final class SelectManyBoxMapper extends Metadata {
+  static final class TokenSeparatorsMapper extends Metadata {
 
     private final TagAttribute attribute;
 
-    public SelectManyBoxMapper(TagAttribute attribute) {
+    public TokenSeparatorsMapper(TagAttribute attribute) {
       this.attribute = attribute;
     }
 
     public void applyMetadata(FaceletContext faceletContext, Object instance) {
       if (attribute.isLiteral()) {
-        final String[] components = AbstractUISelectManyBox.parseTokenSeparators(attribute.getValue());
-        ((AbstractUISelectManyBox) instance).setTokenSeparators(components);
+        final String[] tokenSeparators = AbstractUISelectManyBox.parseTokenSeparators(attribute.getValue());
+        ((AbstractUISelectManyBox) instance).setTokenSeparators(tokenSeparators);
       } else {
         final ValueExpression expression = attribute.getValueExpression(faceletContext, Object.class);
         ((UIComponent) instance).setValueExpression(TOKEN_SEPARATORS, expression);
