@@ -24,8 +24,9 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.HttpPartWrapper;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
+import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -115,13 +116,23 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
   }
 
   @Override
+  protected void encodeAttributes(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final AbstractUIFile file = (AbstractUIFile) component;
+    final String placeholder = file.getPlaceholder();
+    final String multiFormat = ResourceUtils.getString(facesContext, "file.selected");
+
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    writer.writeAttribute(HtmlAttributes.PLACEHOLDER, placeholder, true);
+    writer.writeAttribute(CustomAttributes.MULTI_FORMAT, multiFormat, true);
+  }
+
+  @Override
   protected void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUIFile file = (AbstractUIFile) component;
     final String clientId = file.getClientId(facesContext);
     final String fieldId = file.getFieldId(facesContext);
     final String accept = createAcceptFromValidators(file);
-    final String placeholder = file.getPlaceholder();
     final boolean multiple = file.isMultiple() && !file.isRequired();
     final boolean disabled = file.isDisabled();
     final boolean readonly = file.isReadonly();
@@ -133,9 +144,10 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(
-        BootstrapClass.CUSTOM_FILE,
+        BootstrapClass.FORM_FILE,
         TobagoClass.FILE.createMarkup(file.getMarkup()),
-        file.getCustomClass());
+        file.getCustomClass(),
+        BootstrapClass.FORM_CONTROL_PLAINTEXT);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, file);
 
     writer.startElement(HtmlElements.INPUT);
@@ -145,17 +157,12 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
     writer.writeIdAttribute(fieldId);
     writer.writeClassAttribute(
-        BootstrapClass.CUSTOM_FILE_INPUT,
+        BootstrapClass.FORM_FILE_INPUT,
         BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(file)));
     writer.writeNameAttribute(clientId);
-    final String multiFormat = ResourceUtils.getString(facesContext, "file.selected");
-    writer.writeAttribute(DataAttributes.dynamic("tobago-file-multi-format"), multiFormat, true);
     // readonly seems not making sense in browsers.
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled || readonly);
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
-    if (!disabled && !readonly) {
-      writer.writeAttribute(HtmlAttributes.PLACEHOLDER, placeholder, true);
-    }
     writer.writeAttribute(HtmlAttributes.REQUIRED, file.isRequired());
     // TODO Focus
     //HtmlRendererUtils.renderFocus(clientId, file.isFocus(), ComponentUtils.isError(file), facesContext, writer);
@@ -168,14 +175,19 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     encodeBehavior(writer, facesContext, file);
 
     writer.startElement(HtmlElements.LABEL);
-    writer.writeClassAttribute(
-        BootstrapClass.CUSTOM_FILE_LABEL,
-        placeholder != null ? TobagoClass.FILE__PLACEHOLDER : null
-    );
+    writer.writeClassAttribute(BootstrapClass.FORM_FILE_LABEL);
     writer.writeAttribute(HtmlAttributes.FOR, fieldId, false);
-    if (placeholder != null && !disabled && !readonly) {
-      writer.writeText(placeholder);
-    }
+    writer.startElement(HtmlElements.SPAN);
+    writer.writeClassAttribute(BootstrapClass.FORM_FILE_TEXT);
+    writer.endElement(HtmlElements.SPAN);
+    writer.startElement(HtmlElements.SPAN);
+    writer.writeClassAttribute(BootstrapClass.FORM_FILE_BUTTON);
+    writer.startElement(HtmlElements.I);
+    // TODO: define a name
+    writer.writeAttribute(HtmlAttributes.TITLE, "Browse", false);
+    writer.writeClassAttribute(Icons.FA, Icons.FOLDER_OPEN);
+    writer.endElement(HtmlElements.I);
+    writer.endElement(HtmlElements.SPAN);
     writer.endElement(HtmlElements.LABEL);
   }
 

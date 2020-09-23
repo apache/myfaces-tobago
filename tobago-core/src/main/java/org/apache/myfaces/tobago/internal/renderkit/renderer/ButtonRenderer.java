@@ -49,7 +49,7 @@ public class ButtonRenderer extends CommandRendererBase {
         BootstrapClass.BTN,
         getButtonColor(command.getMarkup(), defaultCommand),
         markup.contains(Markup.BADGE) ? BootstrapClass.BADGE : null,
-        markup.contains(Markup.BADGE) && markup.contains(Markup.PILL) ? BootstrapClass.BADGE_PILL : null,
+        markup.contains(Markup.BADGE) && markup.contains(Markup.PILL) ? BootstrapClass.ROUNDED_PILL : null,
     };
   }
 

@@ -19,73 +19,7 @@
 XXX used variables: only for the IDE, will not really used by the build system, because this
 XXX code will be inserted after the _variables.scss
 */
-$alert-padding-x: 1.25rem !default;
-$border-radius: .25rem !default;
-$border-width: 1px !default;
-$font-size-base: 1rem !default;
-$line-height-base: 1.5 !default;
-$custom-control-gutter: .5rem !default;
-$custom-control-indicator-size: 1rem !default;
-$input-border-width: $input-btn-border-width !default;
-$input-btn-border-width: $border-width !default;
-$input-btn-padding-y: .375rem !default;
-$input-padding-y: $input-btn-padding-y !default;
-$zindex-dropdown: 1000 !default;
-$zindex-popover: 1060 !default;
-$spacer: 1rem !default;
-$spacer-x: $spacer !default;
-$spacer-y: $spacer !default;
-$card-spacer-y: .75rem !default;
-$form-group-margin-bottom: $spacer-y !default;
-$brand-primary: #0275d8 !default;
-$link-color: $brand-primary !default;
-$link-hover-color: darken($link-color, 15%) !default;
-$nav-link-padding: .5em 1em !default;
-$blue: #0275d8 !default;
-$white: #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black: #000 !default;
-$body-bg: $white !default;
-$table-dark-color: $body-bg !default;
-$headings-font-weight: 500;
-$navbar-dark-active-color: rgba($white, 1) !default;
-$navbar-light-active-color: rgba($black, .9) !default;
-$border-width: 1px !default;
-$input-color: $gray-700 !default;
-$input-btn-border-width: $border-width !default; // For form controls and buttons
-$input-btn-padding-y: .5rem !default;
-$input-btn-padding-x: .75rem !default;
-$dropdown-item-padding-x: 1.5rem !default;
-$dropdown-item-padding-y: .25rem !default;
-$dropdown-link-color: colors("gray-dark") !default;
-$component-active-color: $white !default;
-$dropdown-link-active-color: $component-active-color !default;
-$dropdown-link-disabled-color: $gray-light !default;
-$dropdown-link-hover-bg: $gray-lightest !default;
-$nav-tabs-link-active-color: #495057 !default;
-$nav-link-disabled-color: #868e96 !default;
-$btn-primary-color: $white !default;
-$btn-secondary-color: colors("gray-dark") !default;
-$form-check-input-gutter: 1.25rem !default;
-$input-box-shadow: inset 0 1px 1px rgba($black, .075) !default;
-$input-btn-focus-width: .2rem !default;
-$input-btn-focus-color: rgba(theme-color("primary"), .25) !default;
-$input-btn-focus-box-shadow: 0 0 0 $input-btn-focus-width $input-btn-focus-color !default;
-$input-focus-box-shadow: $input-btn-focus-box-shadow !default;
-$form-check-inline-input-margin-x: 0.75rem;
-$input-placeholder-color: $gray-600 !default;
-$grid-gutter-width: 30px !default;
-$dropdown-link-hover-color: darken($gray-900, 5%) !default;
-
-$page-padding-top: 1rem;
+@import "variables";
 
 /* used icons ---------------------------------------------------- */
 
@@ -100,8 +34,12 @@ $fa-times-circle: "\f057";
 $fa-toggle-off: "\f204";
 $fa-toggle-on: "\f205";
 
-/* non-bootstrap variabled --------------------------------------- */
+/* non-bootstrap variables --------------------------------------- */
+
 $form-disabled-alpha: 0.5;
+$page-padding-top: 1rem;
+
+/* main ---------------------------------------------------------- */
 
 @mixin tobagoTreeNodeToggle() {
   .tobago-treeNode-toggle:not(.invisible) {
@@ -206,6 +144,7 @@ tobago-behavior {
 
 /* button -------------------------------------------------------------- */
 
+/* XXX for what is this needed?
 a.tobago-button {
   &.btn-primary:focus {
     color: $btn-primary-color;
@@ -214,6 +153,7 @@ a.tobago-button {
     color: $btn-secondary-color;
   }
 }
+*/
 
 button.tobago-button {
   &:disabled {
@@ -277,17 +217,6 @@ workaround for Bootstrap Modal (Popup) with vanillajs-datepicker
 .tobago-file {} //TODO remove
 tobago-file {
   display: block;
-
-  .custom-file-label {
-    &:after {
-      font-family: FontAwesome;
-      content: "\f07c";
-    }
-
-    &.tobago-file-placeholder {
-      color: $input-placeholder-color;
-    }
-  }
 }
 
 /* flexLayout -------------------------------------------------------------- */
@@ -359,8 +288,8 @@ tobago-footer {
   display: grid;
   border-spacing: 0;
   border-collapse: collapse;
-  grid-column-gap: $spacer-x; // old
-  column-gap: $spacer-x;
+  grid-column-gap: $spacer; // old
+  column-gap: $spacer;
 
   .tobago-label-container > {
     .tobago-textarea, .tobago-selectManyListbox, .tobago-selectManyShuttle {
@@ -517,9 +446,7 @@ button {
   }
 
   &.nav-link { /* bootstrap don't know button.nav-link*/
-    padding: $nav-link-padding;
-    padding-top: .55em;
-    padding-bottom: .45em;
+    padding: .55em $nav-link-padding-x .45em;
   }
 }
 
@@ -657,27 +584,28 @@ ul > tobago-dropdown {
 }
 
 .dropdown-menu {
-  .custom-control {
+  .form-check {
     padding-left: 0;
 
-    .custom-control-label.dropdown-item {
-      padding-left: ($custom-control-gutter + $custom-control-indicator-size) + $dropdown-item-padding-x;
+    .form-check-label.dropdown-item {
+      // todo check! this was BS4: padding-left: ($custom-control-gutter + $custom-control-indicator-size) + $dropdown-item-padding-x;
+      padding-left: ($spacer * 1.5 + $spacer) + $dropdown-item-padding-x;
 
       &:before {
-        top: (($font-size-base * $line-height-base - $custom-control-indicator-size) / 2) + $dropdown-item-padding-y;
+        top: (($font-size-base * $line-height-base - $spacer) / 2) + $dropdown-item-padding-y;
         left: $dropdown-item-padding-x;
       }
 
       &:after {
-        top: (($font-size-base * $line-height-base - $custom-control-indicator-size) / 2) + $dropdown-item-padding-y;
+        top: (($font-size-base * $line-height-base - $spacer) / 2) + $dropdown-item-padding-y;
         left: $dropdown-item-padding-x;
       }
     }
   }
 }
 
-
 /* dropdown-submenu ------------------------------------------------------- */
+
 .tobago-dropdown-submenu {
   cursor: pointer;
   position: relative;
@@ -770,7 +698,8 @@ span.tobago-out:empty:before {
 }
 
 .table-dark .form-control-plaintext {
-  color: $table-dark-color;
+  color: $white;
+// was in bs4: color: $table-dark-color;
 }
 
 /* page ----------------------------------------------------------- */
@@ -1016,7 +945,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @mixin adjustCustomControlLabel() {
-  .custom-control-label {
+  .form-check-label {
     &:after {
       content: "";
     }
@@ -1255,7 +1184,7 @@ th.tobago-sheet-headerCell {
   content: "\f0dc";
   font-family: FontAwesome;
   color: $gray-300;
-  margin-left: $spacer-x;
+  margin-left: $spacer;
 }
 
 .tobago-sheet-header-markup-ascending::after {
@@ -1273,8 +1202,8 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
 }
 
 .tobago-sheet-columnSelector {
-  margin-top: ($spacer-y * 0.75);
-  margin-bottom: ($spacer-y * 0.75);
+  margin-top: ($spacer * 0.75);
+  margin-bottom: ($spacer * 0.75);
 }
 
 tobago-sheet {
@@ -1592,7 +1521,7 @@ tobago-tab.tobago-tab-barFacet {
 }
 
 tobago-tab-group {
-  margin-bottom: $form-group-margin-bottom;
+  margin-bottom: $spacer;
 }
 
 /* tree ---------------------------------------------------------------------- */
@@ -1612,8 +1541,8 @@ tobago-tab-group {
 }
 
 .tobago-treeSelect .form-check-inline {
-  margin-left: $form-check-inline-input-margin-x / 2;
-  margin-right: $form-check-inline-input-margin-x / 2;
+  margin-left: $spacer * .75 / 2;
+  margin-right: $spacer * .75 / 2;
 }
 
 .tobago-treeCommand {
@@ -1633,7 +1562,7 @@ tobago-tree {
     tobago-tree-select {
       display: inline;
 
-      &.custom-control {
+      &.form-check {
         display: inline;
       }
     }
@@ -1677,17 +1606,17 @@ tobago-tree-listbox, .tobago-treeListbox {
 .tobago-textarea {
   &-markup-fatal, &-markup-error {
     &.border-danger:focus {
-      box-shadow: 0 0 0 .2rem rgba(theme-color("danger"), .25);
+      box-shadow: 0 0 0 .2rem rgba($danger, .25);
     }
   }
   &-markup-warn {
     &.border-warning:focus {
-      box-shadow: 0 0 0 .2rem rgba(theme-color("warning"), .25);
+      box-shadow: 0 0 0 .2rem rgba($warning, .25);
     }
   }
   &-markup-info {
     &.border-info:focus {
-      box-shadow: 0 0 0 .2rem rgba(theme-color("info"), .25);
+      box-shadow: 0 0 0 .2rem rgba($info, .25);
     }
   }
 }
@@ -1742,5 +1671,10 @@ fixme: there is a problem with the selectManyShuttle with this style.
 .tobago-required label:after,
 label.tobago-required:after {
   content: "*";
-  color: theme-color("danger");
+  color: $danger;
+}
+
+/* added here, because Bootstrap has removed .text-justify */
+.tobago-text-justify {
+  text-align: justify !important;
 }

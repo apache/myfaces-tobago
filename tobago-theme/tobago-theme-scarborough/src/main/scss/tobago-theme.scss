@@ -17,7 +17,10 @@
 
 @import "node_modules/bootstrap/scss/bootstrap";
 
-@import "node_modules/vanillajs-datepicker/sass/datepicker-bs4";
+// XXX patched because of bs5 (begin)
+//@import "node_modules/vanillajs-datepicker/sass/datepicker-bs4";
+@import "scss/datepicker-bs5";
+// XXX patched because of bs5 (end)
 
 .btn-secondary {
   @include button-variant($white, $gray-400);

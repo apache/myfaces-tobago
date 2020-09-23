@@ -57,18 +57,65 @@ public enum BootstrapClass implements CssItem {
   ALIGN_ITEMS_END("align-items-end"),
   ALIGN_ITEMS_START("align-items-start"),
   ALIGN_ITEMS_STRETCH("align-items-stretch"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #POPOVER_ARROW} or {@link #TOOLTIP_ARROW}
+   */
+  @Deprecated
   ARROW("arrow"),
+  BG_DANGER("bg-danger"),
   BG_DARK("bg-dark"),
+  BG_INFO("bg-info"),
+  BG_LIGHT("bg-light"),
+  BG_PRIMARY("bg-primary"),
+  BG_SECONDARY("bg-secondary"),
+  BG_SUCCESS("bg-success"),
+  BG_WARNING("bg-warning"),
   BADGE("badge"),
-  BADGE_DANGER("badge-danger"),
-  BADGE_DARK("badge-dark"),
-  BADGE_INFO("badge-info"),
-  BADGE_LIGHT("badge-light"),
-  BADGE_PILL("badge-pill"),
-  BADGE_PRIMARY("badge-primary"),
-  BADGE_SECONDARY("badge-secondary"),
-  BADGE_SUCCESS("badge-success"),
-  BADGE_WARNING("badge-warning"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #BG_DANGER}
+   */
+  @Deprecated
+  BADGE_DANGER("bg-danger"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #BG_DARK}
+   */
+  @Deprecated
+  BADGE_DARK("bg-dark"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #BG_INFO}
+   */
+  @Deprecated
+  BADGE_INFO("bg-info"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #BG_LIGHT}
+   */
+  @Deprecated
+  BADGE_LIGHT("bg-light"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #ROUNDED_PILL}
+   */
+  @Deprecated
+  BADGE_PILL("rounded-pill"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #BG_PRIMARY}
+   */
+  @Deprecated
+  BADGE_PRIMARY("bg-primary"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #BG_SECONDARY}
+   */
+  @Deprecated
+  BADGE_SECONDARY("bg-secondary"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #BG_SUCCESS}
+   */
+  @Deprecated
+  BADGE_SUCCESS("bg-success"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #BG_WARNING}
+   */
+  @Deprecated
+  BADGE_WARNING("bg-warning"),
   BORDER_DANGER("border-danger"),
   BORDER_INFO("border-info"),
   BORDER_WARNING("border-warning"),
@@ -173,17 +220,61 @@ public enum BootstrapClass implements CssItem {
   COL_AUTO("col-auto"),
   CONTAINER("container"),
   CONTAINER_FLUID("container-fluid"),
-  CUSTOM_CHECKBOX("custom-checkbox"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #FORM_CHECK}
+   */
+  @Deprecated
+  CUSTOM_CHECKBOX("form-check"),
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   CUSTOM_CONTROL("custom-control"),
-  CUSTOM_CONTROL_LABEL("custom-control-label"),
-  CUSTOM_CONTROL_INLINE("custom-control-inline"),
-  CUSTOM_CONTROL_INPUT("custom-control-input"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #FORM_CHECK_LABEL} or maybe any other?
+   */
+  @Deprecated
+  CUSTOM_CONTROL_LABEL("form-check-label"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #FORM_CHECK_INLINE} or maybe any other?
+   */
+  @Deprecated
+  CUSTOM_CONTROL_INLINE("form-check-inline"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #FORM_CHECK_INPUT} or maybe any other?
+   */
+  @Deprecated
+  CUSTOM_CONTROL_INPUT("form-check-input"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #FORM_FILE}
+   */
+  @Deprecated
   CUSTOM_FILE("custom-file"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #FORM_FILE_INPUT}
+   */
+  @Deprecated
   CUSTOM_FILE_INPUT("custom-file-input"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #FORM_FILE_LABEL}
+   */
+  @Deprecated
   CUSTOM_FILE_LABEL("custom-file-label"),
-  CUSTOM_RADIO("custom-radio"),
-  CUSTOM_SELECT("custom-select"),
-  CUSTOM_SWITCH("custom-switch"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #FORM_CHECK}
+   */
+  @Deprecated
+  CUSTOM_RADIO("form-check"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #FORM_SELECT}
+   */
+  @Deprecated
+  CUSTOM_SELECT("form-select"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #FORM_SWITCH}
+   */
+  @Deprecated
+  CUSTOM_SWITCH("form-switch"),
   D_FLEX("d-flex"),
   D_INLINE("d-inline"),
   D_NONE("d-none"),
@@ -218,8 +309,23 @@ public enum BootstrapClass implements CssItem {
   FORM_CHECK_LABEL("form-check-label"),
   FORM_CONTROL("form-control"),
   FORM_CONTROL_PLAINTEXT("form-control-plaintext"),
+  FORM_FILE("form-file"),
+  FORM_FILE_BUTTON("form-file-button"),
+  FORM_FILE_INPUT("form-file-input"),
+  FORM_FILE_LABEL("form-file-label"),
+  FORM_FILE_TEXT("form-file-text"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #MB_3} or other
+   */
+  @Deprecated
   FORM_GROUP("form-group"),
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   FORM_INLINE("form-inline"),
+  FORM_SELECT("form-select"),
+  FORM_SWITCH("form-switch"),
   INPUT_GROUP("input-group"),
   INPUT_GROUP_APPEND("input-group-append"),
   INPUT_GROUP_PREPEND("input-group-prepend"),
@@ -230,6 +336,19 @@ public enum BootstrapClass implements CssItem {
   JUSTIFY_CONTENT_CENTER("justify-content-center"),
   JUSTIFY_CONTENT_END("justify-content-end"),
   JUSTIFY_CONTENT_START("justify-content-start"),
+  MB_0("mb-0"),
+  MB_1("mb-1"),
+  MB_2("mb-2"),
+  MB_3("mb-3"),
+  MB_4("mb-4"),
+  MB_5("mb-5"),
+  MB_AUTO("mb-auto"),
+  ML_0("ml-0"),
+  ML_1("ml-1"),
+  ML_2("ml-2"),
+  ML_3("ml-3"),
+  ML_4("ml-4"),
+  ML_5("ml-5"),
   ML_AUTO("ml-auto"),
   ML_LG_AUTO("ml-lg-auto"),
   ML_MD_AUTO("ml-md-auto"),
@@ -240,11 +359,24 @@ public enum BootstrapClass implements CssItem {
   MODAL_DIALOG("modal-dialog"),
   MODAL_LG("modal-lg"),
   MODAL_SM("modal-sm"),
+  MR_0("mr-0"),
+  MR_1("mr-1"),
+  MR_2("mr-2"),
+  MR_3("mr-3"),
+  MR_4("mr-4"),
+  MR_5("mr-5"),
   MR_AUTO("mr-auto"),
   MR_LG_AUTO("mr-lg-auto"),
   MR_MD_AUTO("mr-md-auto"),
   MR_SM_AUTO("mr-sm-auto"),
   MR_XL_AUTO("mr-xl-auto"),
+  MT_0("mt-0"),
+  MT_1("mt-1"),
+  MT_2("mt-2"),
+  MT_3("mt-3"),
+  MT_4("mt-4"),
+  MT_5("mt-5"),
+  MT_AUTO("mt-auto"),
   MY_LG_0("my-lg-0"),
   MY_LG_1("my-lg-1"),
   MY_LG_2("my-lg-2"),
@@ -336,10 +468,12 @@ public enum BootstrapClass implements CssItem {
   PAGE_LINK("page-link"),
   PAGINATION("pagination"),
   POPOVER("popover"),
+  POPOVER_ARROW("popover-arrow"),
   POPOVER_BODY("popover-body"),
   POPOVER_HEADER("popover-header"),
   PROGRESS("progress"),
   PROGRESS_BAR("progress-bar"),
+  ROUNDED_PILL("rounded-pill"),
   ROW("row"),
   SHOW("show"),
   SR_ONLY("sr-only"),
@@ -353,7 +487,11 @@ public enum BootstrapClass implements CssItem {
   TEXT_SUCCESS("text-success"),
   TEXT_WARNING("text-warning"),
   TEXT_CENTER("text-center"),
-  TEXT_JUSTIFY("text-justify"),
+  /**
+   * @deprecated since 5.0.0, please use {@link org.apache.myfaces.tobago.renderkit.css.TobagoClass#TEXT__JUSTIFY}
+   */
+  @Deprecated
+  TEXT_JUSTIFY("tobago-text-justify"),
   TEXT_LEFT("text-left"),
   TEXT_RIGHT("text-right"),
   TAB_CONTENT("tab-content"),
@@ -364,7 +502,8 @@ public enum BootstrapClass implements CssItem {
   TABLE_HOVER("table-hover"),
   TABLE_INFO("table-info"),
   TABLE_SM("table-sm"),
-  TABLE_STRIPED("table-striped");
+  TABLE_STRIPED("table-striped"),
+  TOOLTIP_ARROW("tooltip-arrow");
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -457,7 +596,7 @@ public enum BootstrapClass implements CssItem {
       case right:
         return BootstrapClass.TEXT_RIGHT;
       case justify:
-        return BootstrapClass.TEXT_JUSTIFY;
+        return TobagoClass.TEXT__JUSTIFY;
       case center:
         return BootstrapClass.TEXT_CENTER;
       default:
@@ -639,9 +778,9 @@ public enum BootstrapClass implements CssItem {
 
     private void generateOffset(final List<BootstrapClass> result, final Object offset, final BootstrapClass[] values) {
       if (offset != null) {
-        int offsetIndex = Integer.valueOf((String) offset);
+        int offsetIndex = Integer.parseInt((String) offset);
         if (offsetIndex >= 0) {
-          offsetIndex = offsetIndex > 11 ? 11 : offsetIndex;
+          offsetIndex = Math.min(offsetIndex, 11);
           result.add(values[offsetIndex]);
         }
       }

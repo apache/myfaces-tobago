@@ -51,7 +51,7 @@ public class BadgeRenderer extends RendererBase {
         TobagoClass.BADGE.createMarkup(markup),
         BootstrapClass.BADGE,
         getBadgeColor(markup),
-        markup.contains(Markup.PILL) ? BootstrapClass.BADGE_PILL : null,
+        markup.contains(Markup.PILL) ? BootstrapClass.ROUNDED_PILL : null,
         getAdditionalCssItem(),
         badge.getCustomClass());
 
@@ -77,23 +77,23 @@ public class BadgeRenderer extends RendererBase {
     if (markup.contains(Markup.NONE)) {
       return null;
     } else if (markup.contains(Markup.PRIMARY)) {
-      return BootstrapClass.BADGE_PRIMARY;
+      return BootstrapClass.BG_PRIMARY;
     } else if (markup.contains(Markup.SECONDARY)) {
-      return BootstrapClass.BADGE_SECONDARY;
+      return BootstrapClass.BG_SECONDARY;
     } else if (markup.contains(Markup.SUCCESS)) {
-      return BootstrapClass.BADGE_SUCCESS;
+      return BootstrapClass.BG_SUCCESS;
     } else if (markup.contains(Markup.DANGER)) {
-      return BootstrapClass.BADGE_DANGER;
+      return BootstrapClass.BG_DANGER;
     } else if (markup.contains(Markup.WARNING)) {
-      return BootstrapClass.BADGE_WARNING;
+      return BootstrapClass.BG_WARNING;
     } else if (markup.contains(Markup.INFO)) {
-      return BootstrapClass.BADGE_INFO;
+      return BootstrapClass.BG_INFO;
     } else if (markup.contains(Markup.LIGHT)) {
-      return BootstrapClass.BADGE_LIGHT;
+      return BootstrapClass.BG_LIGHT;
     } else if (markup.contains(Markup.DARK)) {
-      return BootstrapClass.BADGE_DARK;
+      return BootstrapClass.BG_DARK;
     } else {
-      return BootstrapClass.BADGE_SECONDARY;
+      return BootstrapClass.BG_SECONDARY;
     }
   }
 }

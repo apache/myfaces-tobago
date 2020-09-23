@@ -41,7 +41,7 @@ public class SelectOneChoiceInsideInRenderer extends SelectOneChoiceRenderer {
 
   @Override
   protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectOneChoice select) {
-    return new CssItem[]{BootstrapClass.CUSTOM_SELECT};
+    return new CssItem[]{BootstrapClass.FORM_SELECT};
   }
 
   @Override

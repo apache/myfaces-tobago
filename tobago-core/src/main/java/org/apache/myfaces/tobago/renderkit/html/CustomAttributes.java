@@ -49,6 +49,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
   LOCAL_MENU("local-menu"),
   MAX_ITEMS("max-items"),
   MIN_CHARS("min-chars"),
+  MULTI_FORMAT("multi-format"),
   OMIT("omit"),
   ORIENTATION("orientation"),
   PARENT("parent"),

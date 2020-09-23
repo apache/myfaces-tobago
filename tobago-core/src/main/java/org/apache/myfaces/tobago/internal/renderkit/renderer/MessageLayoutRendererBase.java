@@ -234,7 +234,7 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
     writer.writeClassAttribute(TobagoClass.POPOVER__BOX, BootstrapClass.POPOVER);
     writer.writeNameAttribute(popoverId);
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(BootstrapClass.ARROW);
+    writer.writeClassAttribute(BootstrapClass.POPOVER_ARROW);
     writer.endElement(HtmlElements.DIV);
     writer.startElement(HtmlElements.H3);
     writer.writeClassAttribute(BootstrapClass.POPOVER_HEADER);

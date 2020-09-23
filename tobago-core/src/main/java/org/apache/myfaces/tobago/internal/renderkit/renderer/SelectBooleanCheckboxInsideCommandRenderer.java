@@ -48,8 +48,7 @@ public class SelectBooleanCheckboxInsideCommandRenderer extends SelectBooleanChe
   @Override
   protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {
     return new CssItem[]{
-        BootstrapClass.CUSTOM_CONTROL,
-        BootstrapClass.CUSTOM_CHECKBOX
+        BootstrapClass.FORM_CHECK
     };
   }
 

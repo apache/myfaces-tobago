@@ -42,17 +42,24 @@
     <tc:file placeholder="select a file" label="Upload" value="#{uploadController.fileBasic}"/>
     <tc:file label="Read Only" readonly="true" value="#{uploadController.fileBasic}"/>
     <tc:file label="Disabled" disabled="true" value="#{uploadController.fileBasic}"/>
-    <tc:button label="Submit" action="#{uploadController.uploadBasic}"/>
+    <tc:button label="Upload" action="#{uploadController.uploadBasic}"/>
   </tc:section>
 
   <tc:section id="s2" label="Content type">
     <p>You can filter files using the <code class="language-markup">&lt;tc:validateFileItem/></code> tag within
       the <code class="language-markup">&lt;tc:file/></code>.
       In the following example only images and PDF files are excepted.</p>
-    <tc:file label="Upload image" value="#{uploadController.fileContentType}">
+    <tc:file label="Upload image/PDF" value="#{uploadController.fileContentType}">
       <tc:validateFileItem contentType="image/*,application/pdf"/>
     </tc:file>
-    <tc:button label="Submit" action="#{uploadController.uploadContentType}"/>
+    <tc:button label="Upload" action="#{uploadController.uploadContentType}"/>
+  </tc:section>
+
+  <tc:section id="placeholder" label="Placeholder">
+    <p>Define a text with <code class="language-markup">placeholder</code> attribute</p>
+    <tc:file label="Upload image" value="#{uploadController.fileContentType}"
+    placeholder="Here you can upload your favourite images from your holiday!"/>
+    <tc:button label="Upload" action="#{uploadController.uploadContentType}"/>
   </tc:section>
 
   <tc:section id="upload-multi" label="Multiple files">
@@ -61,7 +68,7 @@
       Use the <code class="language-markup">multiple="true"</code> attribute.
     </p>
     <tc:file label="Multiple" value="#{uploadController.fileMulti}" multiple="true"/>
-    <tc:button label="Submit" action="#{uploadController.uploadMulti}"/>
+    <tc:button label="Upload" action="#{uploadController.uploadMulti}"/>
   </tc:section>
 
   <tc:section id="s3" label="Ajax">

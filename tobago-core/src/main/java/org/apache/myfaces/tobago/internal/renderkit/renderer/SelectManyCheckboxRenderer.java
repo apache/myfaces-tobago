@@ -83,12 +83,10 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
         final String itemId = id + ComponentUtils.SUB_SEPARATOR + i;
         writer.startElement(HtmlElements.DIV);
         writer.writeClassAttribute(
-            BootstrapClass.CUSTOM_CONTROL,
-            BootstrapClass.CUSTOM_CHECKBOX,
-            inline ? BootstrapClass.CUSTOM_CONTROL_INLINE : null);
-
+            BootstrapClass.FORM_CHECK,
+            inline ? BootstrapClass.FORM_CHECK_INLINE : null);
         writer.startElement(HtmlElements.INPUT);
-        writer.writeClassAttribute(BootstrapClass.CUSTOM_CONTROL_INPUT);
+        writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
         final String formattedValue = ComponentUtils.getFormattedValue(facesContext, select, item.getValue());
         final boolean checked;
@@ -113,7 +111,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
         writer.startElement(HtmlElements.LABEL);
         writer.writeClassAttribute(
-            BootstrapClass.CUSTOM_CONTROL_LABEL,
+            BootstrapClass.FORM_CHECK_LABEL,
             getCssItems(facesContext, select));
         writer.writeAttribute(HtmlAttributes.FOR, itemId, false);
 

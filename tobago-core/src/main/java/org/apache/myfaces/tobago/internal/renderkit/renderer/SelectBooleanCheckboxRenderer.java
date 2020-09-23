@@ -101,7 +101,7 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     }
 
     writer.startElement(HtmlElements.INPUT);
-    writer.writeClassAttribute(BootstrapClass.CUSTOM_CONTROL_INPUT);
+    writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
     writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
     writer.writeNameAttribute(clientId);
@@ -116,7 +116,7 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
 
     writer.startElement(HtmlElements.LABEL);
     writer.writeClassAttribute(
-        BootstrapClass.CUSTOM_CONTROL_LABEL,
+        BootstrapClass.FORM_CHECK_LABEL,
         getCssItems(facesContext, select));
     if (!disabled && label.getAccessKey() != null) {
       writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
@@ -160,8 +160,7 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
   protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {
     return new CssItem[]{
         !select.isLabelLayoutSkip() ? BootstrapClass.COL_FORM_LABEL : null,
-        BootstrapClass.CUSTOM_CONTROL,
-        BootstrapClass.CUSTOM_CHECKBOX
+        BootstrapClass.FORM_CHECK
     };
   }
 

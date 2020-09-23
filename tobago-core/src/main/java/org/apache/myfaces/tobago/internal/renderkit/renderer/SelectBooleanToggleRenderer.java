@@ -36,8 +36,8 @@ public class SelectBooleanToggleRenderer extends SelectBooleanCheckboxRenderer {
   protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {
     return new CssItem[]{
         !select.isLabelLayoutSkip() ? BootstrapClass.COL_FORM_LABEL : null,
-        BootstrapClass.CUSTOM_CONTROL,
-        BootstrapClass.CUSTOM_SWITCH
+        BootstrapClass.FORM_CHECK,
+        BootstrapClass.FORM_SWITCH
     };
   }
 

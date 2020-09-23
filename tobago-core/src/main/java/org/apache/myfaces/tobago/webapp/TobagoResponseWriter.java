@@ -21,9 +21,6 @@ package org.apache.myfaces.tobago.webapp;
 
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
-import org.apache.myfaces.tobago.renderkit.css.FontAwesomeIconEncoder;
-import org.apache.myfaces.tobago.renderkit.css.IconEncoder;
-import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlTypes;
@@ -40,8 +37,6 @@ import java.nio.charset.StandardCharsets;
  * to to be escaped. </p>
  */
 public abstract class TobagoResponseWriter extends ResponseWriter {
-
-  private IconEncoder iconEncoder = new FontAwesomeIconEncoder();
 
   // same as in ResponseWriter
 
@@ -227,16 +222,6 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
       }
     }
     return render;
-  }
-
-  /**
-   * Writes an supported icon.
-   *
-   * @deprecated 4.0.0. Use normal rendering methods.
-   */
-  @Deprecated
-  public void writeIcon(final Icons icon, final CssItem... cssItems) throws IOException {
-    iconEncoder.encode(this, icon, cssItems);
   }
 
   /**

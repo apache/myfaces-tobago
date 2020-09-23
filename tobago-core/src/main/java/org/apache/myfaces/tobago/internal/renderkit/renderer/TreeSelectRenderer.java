@@ -117,14 +117,15 @@ public class TreeSelectRenderer extends RendererBase {
     writer.writeClassAttribute(
         treeSelect.getCustomClass(),
         TobagoClass.TREE_SELECT.createMarkup(markup),
-        showCustomControl ? BootstrapClass.CUSTOM_CONTROL : null,
-        showCustomControl && selectable.isMulti() ? BootstrapClass.CUSTOM_CHECKBOX : null,
-        showCustomControl && selectable.isSingle() ? BootstrapClass.CUSTOM_RADIO : null);
+        // TODO: check rendered page for other selectables. Are them looking good?
+        showCustomControl ? BootstrapClass.FORM_CHECK_INLINE : null,
+        showCustomControl && selectable.isMulti() ? BootstrapClass.FORM_CHECK : null,
+        showCustomControl && selectable.isSingle() ? BootstrapClass.FORM_CHECK : null);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, treeSelect);
 
     if (showCustomControl) {
       writer.startElement(HtmlElements.INPUT);
-      writer.writeClassAttribute(BootstrapClass.CUSTOM_CONTROL_INPUT);
+      writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
       if (selectable.isSingle()) {
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
         writer.writeNameAttribute(getClientIdWithoutRowIndex(data, id));
@@ -143,7 +144,7 @@ public class TreeSelectRenderer extends RendererBase {
     final String label = treeSelect.getLabel();
     writer.startElement(HtmlElements.LABEL);
     writer.writeClassAttribute(TobagoClass.TREE_SELECT__LABEL,
-        showCustomControl ? BootstrapClass.CUSTOM_CONTROL_LABEL : null);
+        showCustomControl ? BootstrapClass.FORM_CHECK_LABEL : null);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, treeSelect);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);

@@ -72,6 +72,9 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     encodeEndSurroundingLabel(facesContext, component);
   }
 
+  protected void encodeAttributes(final FacesContext facesContext, final UIComponent component) throws IOException {
+  }
+
   @Override
   public void encodeChildren(final FacesContext context, final UIComponent component) throws IOException {
     if (component.getChildCount() > 0) {
@@ -107,6 +110,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
       case skip:
         writer.startElement(getComponentTag());
         writer.writeIdAttribute(clientId);
+        encodeAttributes(facesContext, component);
         return;
       case flexLeft:
       case flexRight:
@@ -134,10 +138,11 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     } else {
       writer.startElement(getComponentTag());
       writer.writeIdAttribute(clientId);
+      encodeAttributes(facesContext, component);
     }
     writer.writeClassAttribute(
         flex ? TobagoClass.FLEX_LAYOUT : null,
-        BootstrapClass.FORM_GROUP,
+        BootstrapClass.MB_3,
         TobagoClass.LABEL__CONTAINER,
         ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
@@ -167,8 +172,9 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
 
         writer.startElement(getComponentTag());
         writer.writeIdAttribute(clientId);
+        encodeAttributes(facesContext, component);
         writer.writeClassAttribute(
-            BootstrapClass.FORM_GROUP,
+            BootstrapClass.MB_3,
             ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,
             markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
         break;

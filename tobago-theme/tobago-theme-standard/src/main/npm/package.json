@@ -9,7 +9,20 @@
     "url": "git+https://github.com/apache/myfaces-tobago.git"
   },
   "keywords": [
-    "jsf"
+    "jsf",
+    "apache",
+    "java",
+    "myfaces",
+    "css",
+    "sass",
+    "typescript",
+    "responsive",
+    "front-end",
+    "framework",
+    "html",
+    "web",
+    "bootstrap",
+    "theme"
   ],
   "author": "The MyFaces Team",
   "license": "Apache-2.0",
@@ -48,7 +61,7 @@
     "ajv": "^6.12.4",
     "ajv-keywords": "^3.5.2",
     "autoprefixer": "^9.8.6",
-    "bootstrap": "4.5.2",
+    "bootstrap": "5.0.0-alpha1",
     "clean-css-cli": "^4.3.0",
     "eslint": "^7.8.1",
     "eslint-plugin-compat": "^3.8.0",

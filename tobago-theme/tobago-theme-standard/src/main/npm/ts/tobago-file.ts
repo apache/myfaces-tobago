@@ -23,29 +23,31 @@ export class File extends HTMLElement {
 
   connectedCallback(): void {
     this.input.form.enctype = "multipart/form-data";
-
     this.input.addEventListener("change", this.select.bind(this));
+    this.text.textContent = this.placeholder;
+  }
+
+  get placeholder(): string {
+    return this.getAttribute("placeholder");
+  }
+
+  get multiFormat(): string {
+    return this.getAttribute("multi-format");
   }
 
   get input(): HTMLInputElement {
-    return this.querySelector(".custom-file-input");
+    return this.querySelector(".form-file-input");
   }
 
-  get label(): HTMLInputElement {
-    return this.querySelector(".custom-file-label");
+  get text(): HTMLInputElement {
+    return this.querySelector(".form-file-text");
   }
 
   select(event: MouseEvent): void {
-    if (this.input.value === "") {
-      this.label.classList.add("tobago-file-placeholder");
-      this.label.textContent = this.input.placeholder;
-    } else {
-      this.label.classList.remove("tobago-file-placeholder");
-
+    if (this.input.value) {
       let text: string;
       if (this.input.multiple) {
-        const format: string = this.input.dataset.tobagoFileMultiFormat;
-        text = format.replace("{}", String(this.input.files.length));
+        text = this.multiFormat.replace("{}", String(this.input.files.length));
       } else {
         text = this.input.value;
         // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\path\".
@@ -54,7 +56,9 @@ export class File extends HTMLElement {
           text = text.substr(pos + 1);
         }
       }
-      this.label.textContent = text;
+      this.text.textContent = text;
+    } else {
+      this.text.textContent = this.placeholder;
     }
   }
 }
