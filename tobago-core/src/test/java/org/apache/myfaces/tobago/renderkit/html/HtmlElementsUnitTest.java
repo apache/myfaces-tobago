@@ -74,7 +74,7 @@ public class HtmlElementsUnitTest {
   @Test
   public void testCompareTobagoCustomElement() throws IOException, IllegalAccessException {
 
-    Path scssPath = Paths.get("src/main/resources/scss/_tobago.scss");
+    Path scssPath = Paths.get("npm/scss/_tobago.scss");
     final String fileContent = new String(Files.readAllBytes(scssPath), StandardCharsets.UTF_8);
 
     final List<HtmlElements> missing = new ArrayList<>();

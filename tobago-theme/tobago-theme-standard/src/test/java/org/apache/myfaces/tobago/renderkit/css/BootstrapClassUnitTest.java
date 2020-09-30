@@ -81,7 +81,7 @@ public class BootstrapClassUnitTest {
     }
 
     final List<CssItem> missing = CssClassUtils.compareCss(
-        "target/npm/css/tobago.css",
+        "npm/css/tobago.css",
         toCheck.toArray(new BootstrapClass[0]));
 
     Assertions.assertTrue(missing.isEmpty(), "These classes are missing in tobago.css: " + missing);

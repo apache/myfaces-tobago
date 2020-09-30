@@ -1,0 +1,81 @@
+{
+  "name": "tobago-theme-standard",
+  "version": "5.0.0-SNAPSHOT",
+  "xxx_version": "${project.version}",
+  "description": "The 'standard' theme of the Tobago framework",
+  "main": "bundle.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apache/myfaces-tobago.git"
+  },
+  "keywords": [
+    "jsf",
+    "apache",
+    "java",
+    "myfaces",
+    "css",
+    "sass",
+    "typescript",
+    "responsive",
+    "front-end",
+    "framework",
+    "html",
+    "web",
+    "bootstrap",
+    "theme"
+  ],
+  "author": "The MyFaces Team",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://issues.apache.org/jira/projects/TOBAGO/"
+  },
+  "homepage": "https://myfaces.apache.org/tobago/",
+  "scripts": {
+    "build": "npm-run-all --parallel css test ts",
+    "css": "npm-run-all --parallel css-compile --sequential css-prefix css-minify",
+    "css-lint": "echo 'Not implemented yet!'",
+    "css-compile": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/tobago-theme.scss css/tobago.css",
+    "css-prefix": "postcss --config postcss.config.js --replace \"css/*.css\" \"!css/*.min.css\"",
+    "css-minify": "cleancss --level 1 --source-map --source-map-inline-sources --output css/tobago.min.css css/tobago.css",
+    "ts": "npm-run-all --parallel ts-lint ts-compile --sequential rollup",
+    "ts-lint": "tslint --project tsconfig.json --config tslint.json",
+    "ts-compile": "tsc",
+    "rollup": "rollup --config",
+    "test": "jest",
+    "dev-css": "npm-run-all --sequential dev-css-compile dev-mkdir dev-css-cp",
+    "dev-css-compile": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 --include-path ../../../../../tobago-core/src/main/resources ../scss/tobago-theme.scss ../../../target/dist/css/tobago.css",
+    "dev-css-cp": "cp -R ../../../target/dist/css ../../../../../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/$npm_package_version",
+    "dev-ts": "npm-run-all --sequential dev-ts-compile dev-ts-compile-bundle dev-mkdir dev-js-cp",
+    "dev-ts-compile": "tsc --project dev-tsconfig.json",
+    "dev-ts-compile-bundle": "rollup --config dev-rollup.config.js",
+    "dev-js-cp": "cp -R ../../../target/dist/js ../../../../../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/$npm_package_version",
+    "dev-mkdir": "mkdir -p ../../../../../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/$npm_package_version"
+  },
+  "dependencies": {
+    "@trevoreyre/autocomplete": "^2.2.0",
+    "@trevoreyre/autocomplete-js": "^2.2.0",
+    "vanillajs-datepicker": "^1.0.3"
+  },
+  "devDependencies": {
+    "tobago-core": "file:../../../tobago-core/npm",
+    "@types/jest": "^26.0.14",
+    "ajv": "^6.12.5",
+    "ajv-keywords": "^3.5.2",
+    "autoprefixer": "^9.8.6",
+    "bootstrap": "5.0.0-alpha1",
+    "clean-css-cli": "^4.3.0",
+    "eslint": "^7.10.0",
+    "eslint-plugin-compat": "^3.8.0",
+    "jest": "^26.4.2",
+    "node-sass": "^4.14.1",
+    "npm-run-all": "^4.1.5",
+    "popper.js": "^1.16.1",
+    "postcss-cli": "^7.1.2",
+    "rollup": "^2.28.2",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "ts-jest": "^26.4.1",
+    "tslint": "^6.1.3",
+    "typescript": "^4.0.3",
+    "uglify-js": "^3.11.0"
+  }
+}

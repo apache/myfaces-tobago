@@ -29,7 +29,6 @@
 
   <properties>
     <theme.name>undefined-theme-name</theme.name>
-    <frontend.skip>true</frontend.skip>
   </properties>
 
   <modules>
@@ -50,6 +49,7 @@
         <filtering>true</filtering>
       </resource>
       <resource>
+<!--  todo: can be removed, after find a npm way for the roxborough fonts       -->
         <directory>src/main/resources/META-INF/resources/tobago/${theme.name}</directory>
         <excludes>
           <exclude>**/_version/**</exclude>
@@ -58,6 +58,7 @@
         <targetPath>META-INF/resources/tobago/${theme.name}</targetPath>
       </resource>
       <resource>
+        <!--  todo: can be removed, after find a npm way for the roxborough fonts       -->
         <directory>src/main/resources/META-INF/resources/tobago/${theme.name}/_version</directory>
         <filtering>false</filtering>
         <targetPath>META-INF/resources/tobago/${theme.name}/${project.version}</targetPath>
@@ -70,63 +71,7 @@
         <version>3.1.0</version>
         <executions>
           <execution>
-            <!-- copy customization to target/bootstrap -->
-            <id>step #1: copy-custom</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${project.build.directory}/npm</outputDirectory>
-              <resources>
-                <resource>
-                  <directory>src/main/npm</directory>
-                  <includes>
-                    <include>js/*.js</include>
-                    <include>js/*.js.map</include>
-                    <include>ts/*.ts</include>
-                    <include>jest.config.js</include>
-                    <include>package.json</include>
-                    <include>package-lock.json</include>
-                    <include>postcss.config.js</include>
-                    <include>rollup.config.js</include>
-                    <include>tsconfig.json</include>
-                    <include>tslint.json</include>
-                  </includes>
-                </resource>
-                <resource>
-                  <directory>src/main</directory>
-                  <includes>
-                    <include>scss/*</include>
-                  </includes>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-          <execution>
-            <!-- copy the lock to src to be under source control -->
-            <id>step #6: copy-bootstrap-dist to src</id>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>
-                ${basedir}/src/main/npm
-              </outputDirectory>
-              <resources>
-                <resource>
-                  <directory>${project.build.directory}/npm</directory>
-                  <includes>
-                    <include>package-lock.json</include>
-                  </includes>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-          <execution>
-            <!-- copy the result to target/classes -->
-            <id>step #7: copy-bootstrap-dist to target</id>
+            <id>step #7: copy the result to target</id>
             <phase>process-resources</phase>
             <goals>
               <goal>copy-resources</goal>
@@ -137,122 +82,20 @@
               </outputDirectory>
               <resources>
                 <resource>
-                  <directory>${project.build.directory}/npm</directory>
+                  <directory>npm</directory>
                   <includes>
-                    <include>css/tobago.css</include>
-                    <include>css/tobago.min.css</include>
-                    <include>css/tobago.css.map</include>
-                    <include>css/tobago.min.css.map</include>
-                    <include>js/test.js</include>
-                    <include>js/test.js.map</include>
-                    <include>js/ext*.js</include>
-                    <include>js/ext*.js.map</include>
-                    <include>ts/ext*.ts</include>
-                    <include>js/tobago*.js</include>
-                    <include>js/tobago*.js.map</include>
-                    <include>js/jsf*.js</include>
-                    <include>js/jsf*.js.map</include>
-                    <include>js/bundle.js</include>
-                    <include>js/bundle.js.map</include>
-                    <include>ts/tobago*.ts</include>
-                    <include>ts/test.ts</include>
+                    <include>css/*</include>
+                    <!-- tbd: select some files, not all? -->
+                    <include>js/*</include>
+                    <!-- tbd: package ts files? -->
+                    <include>ts/*</include>
                   </includes>
                 </resource>
               </resources>
-              <!-- overwrite, because the default maven-resources-plugin step copies an older version to here -->
-              <overwrite>true</overwrite>
             </configuration>
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.1.1</version>
-        <executions>
-          <execution>
-            <!-- copy customization to target/bootstrap -->
-            <id>step #2: unpack-custom</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>unpack</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${project.build.directory}/npm</outputDirectory>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>org.apache.myfaces.tobago</groupId>
-                  <artifactId>tobago-core</artifactId>
-                  <version>${project.version}</version>
-                </artifactItem>
-              </artifactItems>
-              <includes>**/*.scss</includes>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>com.github.eirslett</groupId>
-        <artifactId>frontend-maven-plugin</artifactId>
-        <version>1.10.0</version>
-
-        <!-- optional -->
-        <configuration>
-          <nodeVersion>v12.18.2</nodeVersion> <!-- contains npm version 6.14.5 -->
-
-          <!-- optional: Where to download Node.js binary from. Defaults to http://nodejs.org/dist/ -->
-          <!--<nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>-->
-
-          <!-- optional: Where to download NPM binary from. Defaults to http://registry.npmjs.org/npm/-/ -->
-          <!--<npmDownloadRoot>https://registry.npmjs.org/npm/-/</npmDownloadRoot>-->
-
-          <!-- optional: Registry override, passed as the registry option during npm install if set. -->
-          <!--<npmRegistryURL>https://registry.npmjs.org/</npmRegistryURL>-->
-
-          <!-- optional: where to install node and npm. Defaults to the working directory -->
-          <installDirectory>${project.build.directory}/npm</installDirectory>
-          <workingDirectory>${project.build.directory}/npm</workingDirectory>
-          <skip>${frontend.skip}</skip>
-        </configuration>
-
-        <executions>
-
-          <execution>
-            <!-- install "node" and "npm" -->
-            <id>step #3: install node and npm</id>
-            <goals>
-              <goal>install-node-and-npm</goal>
-            </goals>
-            <phase>generate-resources</phase>
-          </execution>
-
-          <execution>
-            <!-- install all other required stuff for "bootstrap" -->
-            <id>step #4: npm install</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <phase>generate-resources</phase>
-            <configuration>
-              <arguments>install</arguments>
-            </configuration>
-          </execution>
-
-          <execution>
-            <!-- build "Tobago with Bootstrap" -->
-            <id>step #5: npm run build</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <phase>generate-resources</phase>
-            <configuration>
-              <arguments>run build</arguments>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
     </plugins>
   </build>
-
 </project>
