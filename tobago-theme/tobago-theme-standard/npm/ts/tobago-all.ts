@@ -30,6 +30,7 @@ import "./tobago-jsf";
 import "./tobago-messages";
 import "./tobago-overlay";
 import "./tobago-panel";
+import "./tobago-polyfill";
 import "./tobago-popover";
 import "./tobago-popup";
 import "./tobago-range";

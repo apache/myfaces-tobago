@@ -103,13 +103,9 @@ public class MessagesRenderer extends RendererBase {
 
         writer.startElement(HtmlElements.BUTTON);
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-        writer.writeClassAttribute(BootstrapClass.CLOSE);
+        writer.writeClassAttribute(BootstrapClass.BTN_CLOSE);
         writer.writeAttribute(DataAttributes.DISMISS, "alert", false);
         writer.writeAttribute(Arias.ACTIVEDESCENDANT, "Close", false); // todo: i18n
-        writer.startElement(HtmlElements.SPAN);
-        writer.writeAttribute(Arias.HIDDEN, Boolean.TRUE.toString(), false);
-        writer.writeText("×"); // times
-        writer.endElement(HtmlElements.SPAN);
         writer.endElement(HtmlElements.BUTTON);
       }
 

@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+'use strict'
+
 module.exports = (ctx) => ({
   map: {
     inline: false,
@@ -23,12 +25,7 @@ module.exports = (ctx) => ({
   },
   plugins: {
     autoprefixer: {
-      cascade: false,
-      browsers: [
-        "last 1 version",
-        "ie >= 10",
-        "Firefox >= 45"
-      ],
+      cascade: false
     }
   }
 })

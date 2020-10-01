@@ -32,7 +32,7 @@ class Messages extends HTMLElement {
   }
 
   get closeButtons(): NodeListOf<HTMLButtonElement> {
-    return this.querySelectorAll(".alert button.close");
+    return this.querySelectorAll(".alert button.btn-close");
   }
 }
 

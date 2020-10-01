@@ -51,7 +51,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <required.maven.version>3.0.4</required.maven.version>
     <maven-pmd-plugin.version>3.8</maven-pmd-plugin.version>
-    <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
+    <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
     <checkstyle-rules.version>12</checkstyle-rules.version>
   </properties>
 
@@ -348,13 +348,13 @@
       <plugin>
         <groupId>org.apache.rat</groupId>
         <artifactId>apache-rat-plugin</artifactId>
-        <version>0.11</version>
+        <version>0.13</version>
       </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.0.2</version>
+        <version>3.1.2</version>
         <reportSets>
           <reportSet>
             <reports>
@@ -817,7 +817,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-dependency-plugin</artifactId>
-          <version>3.0.2</version>
+          <version>3.1.2</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -924,14 +924,15 @@
         <plugin>
           <groupId>org.apache.rat</groupId>
           <artifactId>apache-rat-plugin</artifactId>
-          <version>0.11</version>
+          <version>0.13</version>
           <configuration>
             <excludes>
               <!-- This file is created during a release and needs no licensing text -->
               <exclude>DEPENDENCIES</exclude>
 
-              <!-- js-min-map -->
+              <!-- js-min-map / min-css -->
               <exclude>**/*.map</exclude>
+              <exclude>**/*.min.css</exclude>
 
               <!-- jsf.js XXX check for official release -->
               <exclude>**/jsf.js</exclude>
@@ -953,7 +954,6 @@
 
               <!-- log files -->
               <exclude>**/*.log</exclude>
-              <exclude>**/rebuild-theme.txt</exclude>
 
               <!-- maven -->
               <exclude>**/target/**/*</exclude>
@@ -981,7 +981,8 @@
               <exclude>**/tobago-vm/docker/apache-proxy/bootstrap*.css</exclude>
 
               <!-- local npm for IDE -->
-              <exclude>src/main/npm/node_modules/**</exclude>
+              <exclude>npm/node/**/*</exclude>
+              <exclude>npm/node_modules/**/*</exclude>
 
             </excludes>
           </configuration>
@@ -1193,7 +1194,7 @@
     </profile>
 
     <profile>
-      <id>rebuild-theme</id>
+      <id>frontend</id>
       <build>
         <plugins>
           <plugin>
@@ -1222,7 +1223,7 @@
 
             <executions>
               <execution>
-                <id>fontend #1: install node and npm</id>
+                <id>install node and npm</id>
                 <goals>
                   <goal>install-node-and-npm</goal>
                 </goals>
@@ -1230,7 +1231,7 @@
               </execution>
 
               <execution>
-                <id>fontend #2: npm install (load dependencies, etc.)</id>
+                <id>npm install (load dependencies, etc.)</id>
                 <goals>
                   <goal>npm</goal>
                 </goals>
@@ -1241,7 +1242,7 @@
               </execution>
 
               <execution>
-                <id>fontend #3: npm run build</id>
+                <id>npm run build</id>
                 <goals>
                   <goal>npm</goal>
                 </goals>

@@ -120,6 +120,7 @@ public enum BootstrapClass implements CssItem {
   BORDER_INFO("border-info"),
   BORDER_WARNING("border-warning"),
   BTN("btn"),
+  BTN_CLOSE("btn-close"),
   BTN_DANGER("btn-danger"),
   BTN_DARK("btn-dark"),
   BTN_GROUP("btn-group"),
@@ -145,7 +146,11 @@ public enum BootstrapClass implements CssItem {
   CARD_HEADER("card-header"),
   CARD_HEADER_TABS("card-header-tabs"),
   CARD_TITLE("card-title"),
-  CLOSE("close"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #BTN_CLOSE}
+   */
+  @Deprecated
+  CLOSE("btn-close"),
   COLLAPSE("collapse"),
   COL_FORM_LABEL("col-form-label"),
   COL_LG("col-lg"),
@@ -476,6 +481,10 @@ public enum BootstrapClass implements CssItem {
   ROUNDED_PILL("rounded-pill"),
   ROW("row"),
   SHOW("show"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #VISUALLY_HIDDEN}
+   */
+  @Deprecated
   SR_ONLY("sr-only"),
   STICKY_TOP("sticky-top"),
   TEXT_DANGER("text-danger"),
@@ -503,7 +512,8 @@ public enum BootstrapClass implements CssItem {
   TABLE_INFO("table-info"),
   TABLE_SM("table-sm"),
   TABLE_STRIPED("table-striped"),
-  TOOLTIP_ARROW("tooltip-arrow");
+  TOOLTIP_ARROW("tooltip-arrow"),
+  VISUALLY_HIDDEN("visually-hidden");
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 

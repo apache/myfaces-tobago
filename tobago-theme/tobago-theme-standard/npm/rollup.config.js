@@ -18,9 +18,9 @@
 import resolve from "rollup-plugin-node-resolve"
 
 export default {
-  input: 'js/tobago-all.js',
+  input: 'dist/js/tobago-all.js',
   output: {
-    file: 'js/bundle.js',
+    file: 'dist/js/tobago.js',
     format: 'umd', /* tbd: check if "iife" is better? */
     sourcemap: true,
     name: 'tobago'

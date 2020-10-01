@@ -3,7 +3,6 @@
   "version": "5.0.0-SNAPSHOT",
   "xxx_version": "${project.version}",
   "description": "The 'standard' theme of the Tobago framework",
-  "main": "bundle.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/apache/myfaces-tobago.git"
@@ -32,11 +31,11 @@
   "homepage": "https://myfaces.apache.org/tobago/",
   "scripts": {
     "build": "npm-run-all --parallel css test ts",
-    "css": "npm-run-all --parallel css-compile --sequential css-prefix css-minify",
+    "css": "npm-run-all css-compile css-prefix css-minify",
     "css-lint": "echo 'Not implemented yet!'",
-    "css-compile": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/tobago-theme.scss css/tobago.css",
-    "css-prefix": "postcss --config postcss.config.js --replace \"css/*.css\" \"!css/*.min.css\"",
-    "css-minify": "cleancss --level 1 --source-map --source-map-inline-sources --output css/tobago.min.css css/tobago.css",
+    "css-compile": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/tobago-theme.scss dist/css/tobago.css",
+    "css-prefix": "postcss --config postcss.config.js --replace dist/css/tobago.css",
+    "css-minify": "cleancss -O1 specialComments:0 --format breakWith=lf --source-map --source-map-inline-sources --output dist/css/tobago.min.css dist/css/tobago.css",
     "ts": "npm-run-all --parallel ts-lint ts-compile --sequential rollup",
     "ts-lint": "tslint --project tsconfig.json --config tslint.json",
     "ts-compile": "tsc",
@@ -62,7 +61,7 @@
     "ajv": "^6.12.5",
     "ajv-keywords": "^3.5.2",
     "autoprefixer": "^9.8.6",
-    "bootstrap": "5.0.0-alpha1",
+    "bootstrap": "5.0.0-alpha2",
     "clean-css-cli": "^4.3.0",
     "eslint": "^7.10.0",
     "eslint-plugin-compat": "^3.8.0",

@@ -71,7 +71,7 @@
         <version>3.1.0</version>
         <executions>
           <execution>
-            <id>step #7: copy the result to target</id>
+            <id>copy the result to target</id>
             <phase>process-resources</phase>
             <goals>
               <goal>copy-resources</goal>
@@ -82,13 +82,17 @@
               </outputDirectory>
               <resources>
                 <resource>
-                  <directory>npm</directory>
+                  <directory>npm/dist</directory>
                   <includes>
                     <include>css/*</include>
-                    <!-- tbd: select some files, not all? -->
+                    <include>js/tobago.js</include>
+                    <include>js/tobago.js.map</include>
+                  </includes>
+                </resource>
+                <resource>
+                  <directory>npm</directory>
+                  <includes>
                     <include>js/*</include>
-                    <!-- tbd: package ts files? -->
-                    <include>ts/*</include>
                   </includes>
                 </resource>
               </resources>
