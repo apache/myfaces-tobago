@@ -10393,7 +10393,7 @@ tobago-file {
 }
 
 /* the non-label-element inside of a label-layout with flex box */
-.tobago-label-container.tobago-flexLayout > .form-control, .tobago-label-container.tobago-flexLayout > .form-control-plaintext, .tobago-label-container.tobago-flexLayout > vaadin-combo-box-light,
+.tobago-label-container.tobago-flexLayout > .form-control, .tobago-label-container.tobago-flexLayout > .form-control-plaintext,
 .tobago-label-container.tobago-flexLayout > .tobago-input-group-outer, .tobago-label-container.tobago-flexLayout > .tobago-messages-container,
 .tobago-label-container.tobago-flexLayout > .tobago-selectManyShuttle {
   flex: 1 0 0px;

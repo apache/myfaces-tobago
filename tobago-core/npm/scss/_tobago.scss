@@ -245,7 +245,7 @@ tobago-file {
 
 /* the non-label-element inside of a label-layout with flex box */
 .tobago-label-container.tobago-flexLayout > {
-  .form-control, .form-control-plaintext, vaadin-combo-box-light,
+  .form-control, .form-control-plaintext,
   .tobago-input-group-outer, .tobago-messages-container,
   .tobago-selectManyShuttle {
     flex: 1 0 0px;
@@ -500,7 +500,6 @@ a.tobago-messages-button, a.tobago-help-button, a.tobago-popover-button {
 }
 
 .tobago-flexLayout.tobago-messages-container > {
-  /* TODO: maybe add here some stuff for vaadin-combo-box-light for tc:tobago-suggest */
   .tobago-input-group-outer, .tobago-selectManyShuttle {
     flex: 1 0 0px;
   }
