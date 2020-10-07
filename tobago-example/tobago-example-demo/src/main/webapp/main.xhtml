@@ -25,8 +25,8 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns="http://www.w3.org/1999/xhtml">
   <f:view locale="#{localeController.locale}">
-    <tc:page label="Tobago Demo - #{navigationState.currentNode.label}" id="page">
-      <tc:attribute name="label" value="#{title}" mode="valueIfSet"/>
+
+    <tc:page label="#{title != null ? title : 'Tobago Demo - '.concat(navigationState.currentNode.label)}" id="page">
 
       <!--
             <tc:dataAttribute name="tobago-log-level" value="DEBUG"/>
@@ -59,8 +59,7 @@
             <tc:panel>
               <tc:messages id="messages" orderBy="severity" rendered="#{!hideGlobalMessages}"/>
 
-              <tc:section label="#{navigationState.currentNode.label}" id="content">
-                <tc:attribute name="label" value="#{title}" mode="valueIfSet"/>
+              <tc:section label="#{title != null ? title : navigationState.currentNode.label}" id="content">
                 <tc:form id="mainForm">
                   <ui:insert/>
                 </tc:form>

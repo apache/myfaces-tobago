@@ -26,8 +26,14 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import javax.el.ValueExpression;
 
 /**
+ * <p>
  * Add an attribute on the UIComponent
  * associated with the closest parent UIComponent custom action.
+ * </p>
+ * <p>
+ * You might not need this attribute.
+ * Is there a real use case any longer for this tag?
+ * </p>
  */
 @Tag(name = "attribute")
 @SimpleTag(
@@ -46,7 +52,6 @@ public interface AttributeTagDeclaration {
   @TagAttribute(required = true, name = "value", type = "java.lang.String")
   void setValue(final ValueExpression value);
   /**
-   * Warning: The mode is only available when using Facelets.
    * Allowed values are "action", "actionListener", "actionFromValue", "isNotSet", "isSet", "valueIfSet".
    * <br>
    * "action" (method binding) evaluate the expression to find the method binding which is referenced with the template.

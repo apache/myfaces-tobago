@@ -22,22 +22,25 @@ package org.apache.myfaces.tobago.facelets;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.el.ConstantMethodExpression;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.ELContext;
 import javax.el.ELException;
 import javax.el.ExpressionFactory;
 import javax.el.MethodExpression;
+import javax.el.MethodInfo;
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.component.ActionSource;
 import javax.faces.component.ActionSource2;
 import javax.faces.component.EditableValueHolder;
+import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
+import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.event.MethodExpressionActionListener;
 import javax.faces.event.MethodExpressionValueChangeListener;
@@ -51,6 +54,7 @@ import javax.faces.view.facelets.TagHandler;
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.invoke.MethodHandles;
+import java.util.Objects;
 
 public final class AttributeHandler extends TagHandler {
 
@@ -349,6 +353,81 @@ public final class AttributeHandler extends TagHandler {
       ((ValueHolder) parent).setConverter(converter);
     } else {
       parent.setValueExpression(nameValue, expression);
+    }
+  }
+
+  private static class ConstantMethodExpression extends MethodExpression implements StateHolder {
+
+    private String outcome;
+
+    private boolean transientFlag;
+
+    public ConstantMethodExpression() {
+    }
+
+    public ConstantMethodExpression(final String outcome) {
+      this.outcome = outcome;
+    }
+
+    @Override
+    public MethodInfo getMethodInfo(final ELContext context)
+        throws NullPointerException, ELException {
+      return null;
+    }
+
+    @Override
+    public Object invoke(final ELContext context, final Object[] params)
+        throws NullPointerException, ELException {
+      return outcome;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
+
+      final ConstantMethodExpression that = (ConstantMethodExpression) o;
+
+      return Objects.equals(outcome, that.outcome);
+    }
+
+    @Override
+    public int hashCode() {
+      return outcome.hashCode();
+    }
+
+    @Override
+    public String getExpressionString() {
+      return outcome;
+    }
+
+    @Override
+    public boolean isLiteralText() {
+      return true;
+    }
+
+    @Override
+    public Object saveState(final FacesContext context) {
+      return outcome;
+    }
+
+    @Override
+    public void restoreState(final FacesContext context, final Object state) {
+      this.outcome = (String) state;
+    }
+
+    @Override
+    public void setTransient(final boolean transientFlagParameter) {
+      this.transientFlag = transientFlag;
+    }
+
+    @Override
+    public boolean isTransient() {
+      return transientFlag;
     }
   }
 }
