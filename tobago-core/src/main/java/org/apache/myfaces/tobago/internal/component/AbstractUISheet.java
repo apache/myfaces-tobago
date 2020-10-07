@@ -541,6 +541,9 @@ public abstract class AbstractUISheet extends AbstractUIData
     }
 
     Integer[] scrollPosition = getScrollPosition();
+    if (scrollPosition == null) {
+      scrollPosition = new Integer[] {0, 0};
+    }
     scrollPosition[1] = 0;
     switch (pageEvent.getAction()) {
       case FIRST:
