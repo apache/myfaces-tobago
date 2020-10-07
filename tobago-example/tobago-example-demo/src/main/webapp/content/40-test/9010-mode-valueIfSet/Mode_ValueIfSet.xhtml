@@ -26,11 +26,11 @@
 
     <tc:box label="Set value via &lt;tc:attribute>">
 
-      <p>
-        The lable after the input field displays the expected string.
-      </p>
-
       <tc:segmentLayout medium="4seg 4seg 4seg">
+
+        <tc:label value="label:"/>
+        <tc:label value="test field:"/>
+        <tc:label value="expected value:"/>
 
         <tc:label value="direct literal:"/>
         <tc:in id="direct" label="literal value" labelLayout="segmentRight">
@@ -70,11 +70,11 @@
 
     <tc:box label="Set id via &lt;tc:attribute>" id="id-box">
 
-      <p>
-        The lable after the input field displays the expected id attribute.
-      </p>
-
       <tc:segmentLayout medium="4seg 4seg 4seg">
+
+        <tc:label value="label:"/>
+        <tc:label value="test field:"/>
+        <tc:label value="expected id:"/>
 
         <tc:label value="id"/>
         <tc:in label="page:mainForm:my_number_1::field" labelLayout="segmentRight">
