@@ -17,11 +17,8 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.internal.renderkit;
+package org.apache.myfaces.tobago.internal.renderkit;
 
-import org.apache.myfaces.tobago.internal.renderkit.Collapse;
-import org.apache.myfaces.tobago.internal.renderkit.Command;
-import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
