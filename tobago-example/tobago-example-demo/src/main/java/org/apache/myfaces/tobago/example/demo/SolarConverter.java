@@ -22,14 +22,16 @@ package org.apache.myfaces.tobago.example.demo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.inject.spi.CDI;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
+import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 import java.lang.invoke.MethodHandles;
 
-//@FacesConverter(forClass = SolarObject.class)// XXX fixme: is not running with Quarkus!
+@FacesConverter(forClass = SolarObject.class)// XXX fixme: is not running with Quarkus!
 public class SolarConverter implements Converter<SolarObject> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -40,8 +42,13 @@ public class SolarConverter implements Converter<SolarObject> {
   @Override
   public SolarObject getAsObject(final FacesContext context, final UIComponent component, final String value)
       throws ConverterException {
+
+    if (astroData == null) { // XXX @Inject doesn't work in some cases
+      astroData = CDI.current().select(AstroData.class).get();
+    }
+
     final SolarObject solarObject = value != null ? astroData.find(value) : null;
-    LOG.info("{} -> {}", value, solarObject);
+    LOG.info("{} [String] -> {} [SolarObject]", value, solarObject);
     return solarObject;
   }
 
@@ -49,7 +56,7 @@ public class SolarConverter implements Converter<SolarObject> {
   public String getAsString(final FacesContext context, final UIComponent component, final SolarObject value)
       throws ConverterException {
     final String result = value.getName();
-    LOG.info("{} -> {}", value, result);
+    LOG.info("{} [SolarObject] -> {} [String]", value, result);
     return result;
   }
 }

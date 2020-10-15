@@ -42,12 +42,12 @@ import java.util.stream.Stream;
 @Named
 public class AstroData implements Serializable {
 
-  private List<SolarObject> dataList;
-  private Map<String, SolarObject> dataMap;
+  private final List<SolarObject> dataList;
+  private final Map<String, SolarObject> dataMap;
 
-  private List<SelectItem> planets;
-  private List<SelectItem> terrestrialPlanets;
-  private List<SelectItem> giantPlanets;
+  private final List<SelectItem> planets;
+  private final List<SelectItem> terrestrialPlanets;
+  private final List<SelectItem> giantPlanets;
 
   public AstroData() {
 
