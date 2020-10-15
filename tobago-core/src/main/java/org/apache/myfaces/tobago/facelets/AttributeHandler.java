@@ -362,10 +362,10 @@ public final class AttributeHandler extends TagHandler {
 
     private boolean transientFlag;
 
-    public ConstantMethodExpression() {
+    ConstantMethodExpression() {
     }
 
-    public ConstantMethodExpression(final String outcome) {
+    ConstantMethodExpression(final String outcome) {
       this.outcome = outcome;
     }
 
