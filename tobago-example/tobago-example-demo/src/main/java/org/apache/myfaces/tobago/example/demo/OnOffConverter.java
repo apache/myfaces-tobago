@@ -28,12 +28,15 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import java.lang.invoke.MethodHandles;
 
-public class OnOffConverter implements Converter {
+/**
+ * Example of a boolean converter with a string representation in the model ("on" and "off").
+ */
+public class OnOffConverter implements Converter<String> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
-  public Object getAsObject(final FacesContext context, final UIComponent component, final String value)
+  public String getAsObject(final FacesContext facesContext, final UIComponent component, final String value)
       throws ConverterException {
     final String result = Boolean.parseBoolean(value) ? "on" : "off";
     LOG.info("Got value = '" + value + "'. Result = '" + result + "'");
@@ -41,7 +44,7 @@ public class OnOffConverter implements Converter {
   }
 
   @Override
-  public String getAsString(final FacesContext context, final UIComponent component, final Object value)
+  public String getAsString(final FacesContext facesContext, final UIComponent component, final String value)
       throws ConverterException {
     final String result = "on".equals(value) ? Boolean.TRUE.toString() : Boolean.FALSE.toString();
     LOG.info("Got value = '" + value + "'. Result: '" + result + "'");
