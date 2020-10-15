@@ -26,23 +26,17 @@
 
   <tc:box label="&lt;tc:date>">
     <tc:date id="date"/>
-    <tc:date id="dateSkip" label="Date" labelLayout="skip"/>
     <tc:date id="dateNone" label="Date" labelLayout="none"/>
   </tc:box>
   <tc:box label="&lt;tc:file>">
     <tc:file id="file"/>
-    <tc:file id="fileSkip" label="File" labelLayout="skip"/>
     <tc:file id="fileNone" label="File" labelLayout="none"/>
   </tc:box>
   <tc:box label="&lt;tc:in>">
     <tc:in id="in"/>
-    <tc:in id="inSkip" label="In" labelLayout="skip"/>
     <tc:in id="inNone" label="In" labelLayout="none"/>
     <tc:separator/>
     <tc:in id="inGroup">
-      <f:facet name="before">Input Group</f:facet>
-    </tc:in>
-    <tc:in id="inGroupSkip" label="Input Group" labelLayout="skip">
       <f:facet name="before">Input Group</f:facet>
     </tc:in>
     <tc:in id="inGroupNone" label="Input Group" labelLayout="none">
@@ -51,20 +45,15 @@
   </tc:box>
   <tc:box label="&lt;tc:out>">
     <tc:out id="out" value="123"/>
-    <tc:out id="outSkip" label="Out" labelLayout="skip" value="123"/>
-    <tc:out id="outCompact" label="Out" labelLayout="skip" compact="true" value="123"/>
+    <tc:out id="outCompact" label="Out" compact="true" value="123"/>
     <tc:out id="outNone" label="Out " labelLayout="none" value="123"/>
   </tc:box>
   <tc:box label="&lt;tc:selectBooleanCheckbox>">
     <tc:selectBooleanCheckbox id="selectBooleanCheckbox"/>
-    <tc:selectBooleanCheckbox id="selectBooleanCheckboxSkip" label="SelectBooleanCheckbox" labelLayout="skip"/>
     <tc:selectBooleanCheckbox id="selectBooleanCheckboxNone" label="SelectBooleanCheckbox" labelLayout="none"/>
   </tc:box>
   <tc:box label="&lt;tc:selectManyCheckbox>">
     <tc:selectManyCheckbox id="selectManyCheckboxNorm">
-      <tc:selectItem itemValue="Item"/>
-    </tc:selectManyCheckbox>
-    <tc:selectManyCheckbox id="selectManyCheckboxSkip" label="SelectManyCheckbox" labelLayout="skip">
       <tc:selectItem itemValue="Item"/>
     </tc:selectManyCheckbox>
     <tc:selectManyCheckbox id="selectManyCheckboxNone" label="SelectManyCheckbox" labelLayout="none">
@@ -75,18 +64,12 @@
     <tc:selectManyListbox id="selectManyListbox">
       <tc:selectItem itemValue="Item"/>
     </tc:selectManyListbox>
-    <tc:selectManyListbox id="selectManyListboxSkip" label="SelectManyListbox" labelLayout="skip">
-      <tc:selectItem itemValue="Item"/>
-    </tc:selectManyListbox>
     <tc:selectManyListbox id="selectManyListboxNone" label="SelectManyListbox" labelLayout="none">
       <tc:selectItem itemValue="Item"/>
     </tc:selectManyListbox>
   </tc:box>
   <tc:box label="&lt;selectManyShuttle>">
     <tc:selectManyShuttle id="SelectManyShuttle">
-      <tc:selectItem itemValue="Item"/>
-    </tc:selectManyShuttle>
-    <tc:selectManyShuttle id="SelectManyShuttleSkip" label="SelectManyShuttle" labelLayout="skip">
       <tc:selectItem itemValue="Item"/>
     </tc:selectManyShuttle>
     <tc:selectManyShuttle id="SelectManyShuttleNone" label="SelectManyShuttle" labelLayout="none">
@@ -97,18 +80,12 @@
     <tc:selectOneChoice id="selectOneChoice">
       <tc:selectItem itemValue="Item"/>
     </tc:selectOneChoice>
-    <tc:selectOneChoice id="selectOneChoiceSkip" label="SelectOneChoice" labelLayout="skip">
-      <tc:selectItem itemValue="Item"/>
-    </tc:selectOneChoice>
     <tc:selectOneChoice id="selectOneChoiceNone" label="SelectOneChoice" labelLayout="none">
       <tc:selectItem itemValue="Item"/>
     </tc:selectOneChoice>
   </tc:box>
   <tc:box label="&lt;selectOneListbox>">
     <tc:selectOneListbox id="selectOneListbox">
-      <tc:selectItem itemValue="Item"/>
-    </tc:selectOneListbox>
-    <tc:selectOneListbox id="selectOneListboxSkip" label="SelectOneListbox" labelLayout="skip">
       <tc:selectItem itemValue="Item"/>
     </tc:selectOneListbox>
     <tc:selectOneListbox id="selectOneListboxNone" label="SelectOneListbox" labelLayout="none">
@@ -119,16 +96,12 @@
     <tc:selectOneRadio id="selectOneRadio">
       <tc:selectItem itemValue="Item"/>
     </tc:selectOneRadio>
-    <tc:selectOneRadio id="selectOneRadioSkip" label="SelectOneRadio" labelLayout="skip">
-      <tc:selectItem itemValue="Item"/>
-    </tc:selectOneRadio>
     <tc:selectOneRadio id="selectOneRadioNone" label="SelectOneRadio" labelLayout="none">
       <tc:selectItem itemValue="Item"/>
     </tc:selectOneRadio>
   </tc:box>
   <tc:box label="&lt;tc:textarea>">
     <tc:textarea id="textarea"/>
-    <tc:textarea id="textareaSkip" label="Textarea" labelLayout="skip"/>
     <tc:textarea id="textareaNone" label="Textarea" labelLayout="none"/>
   </tc:box>
 </ui:composition>

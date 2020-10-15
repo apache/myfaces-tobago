@@ -24,4 +24,8 @@ public interface SupportsLabelLayout {
   LabelLayout getLabelLayout();
 
   void setLabelLayout(LabelLayout labelLayout);
+
+  boolean isNextToRenderIsLabel();
+
+  void setNextToRenderIsLabel(boolean nextToRenderIsLabel);
 }

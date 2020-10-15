@@ -41,8 +41,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Manages the rendering of the <b>label</b> and the <b>field</b> together with different possibilities for
- * the position of the label (defined by {@link org.apache.myfaces.tobago.component.Attributes#labelLayout}
+ * Manages the rendering of the <b>label</b> and the <b>field</b> together with different possibilities for the position
+ * of the label (defined by {@link org.apache.myfaces.tobago.component.Attributes#labelLayout}
  */
 public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase {
 
@@ -53,13 +53,21 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
 
     encodeBeginSurroundingLabel(facesContext, component);
 
-    encodeBeginMessageField(facesContext, component);
+    if (((SupportsLabelLayout) component).isNextToRenderIsLabel()) {
+      // skip, because its only the lable to render
+    } else {
+      encodeBeginMessageField(facesContext, component);
+    }
   }
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    encodeEndMessageField(facesContext, component);
+    if (((SupportsLabelLayout) component).isNextToRenderIsLabel()) {
+      // skip, because its only the lable to render
+    } else {
+      encodeEndMessageField(facesContext, component);
+    }
 
     // render the styles here, because inside of <select> its not possible.
     if (component.getRendersChildren()) {
@@ -105,57 +113,68 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     final Markup markup = (Markup) ComponentUtils.getAttribute(component, Attributes.markup);
 
     final LabelLayout labelLayout = ((SupportsLabelLayout) component).getLabelLayout();
+    final boolean nextToRenderIsLabel = ((SupportsLabelLayout) component).isNextToRenderIsLabel();
     final boolean flex;
+
     switch (labelLayout) {
-      case skip:
-        writer.startElement(getComponentTag());
-        writer.writeIdAttribute(clientId);
-        encodeAttributes(facesContext, component);
-        return;
       case flexLeft:
       case flexRight:
         flex = true;
         break;
       case segmentLeft:
       case segmentRight:
-        if (LabelLayout.getSegment(facesContext) == labelLayout) {
+        if (nextToRenderIsLabel) {
           clientId += ComponentUtils.SUB_SEPARATOR + "label";
         }
         flex = false;
         break;
+      case flowLeft:
+      case gridLeft:
+      case gridRight:
+      case gridTop:
+      case gridBottom:
+        encodeLabel(facesContext, component, writer, labelLayout);
+        flex = false;
+        break;
       case none:
       case top:
-      case flowLeft:
       case flowRight:
       default:
         flex = false;
     }
 
-    if (labelLayout == LabelLayout.gridLeft || labelLayout == LabelLayout.gridRight
-        || labelLayout == LabelLayout.gridTop || labelLayout == LabelLayout.gridBottom) {
-      writer.startElement(HtmlElements.LABEL);
-      writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "label");
+//    if (labelLayout == LabelLayout.gridLeft || labelLayout == LabelLayout.gridRight
+//        || labelLayout == LabelLayout.gridTop || labelLayout == LabelLayout.gridBottom) {
+//      writer.startElement(HtmlElements.LABEL);
+//      writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "label");
+//    } else {
+    if (nextToRenderIsLabel) {
+      // skip, because its only the lable to render
     } else {
       writer.startElement(getComponentTag());
       writer.writeIdAttribute(clientId);
       encodeAttributes(facesContext, component);
+      writer.writeClassAttribute(
+          flex ? TobagoClass.FLEX_LAYOUT : null,
+          flex ? TobagoClass.LABEL__CONTAINER :  null,
+          BootstrapClass.MB_3,
+          ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,
+          markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     }
-    writer.writeClassAttribute(
-        flex ? TobagoClass.FLEX_LAYOUT : null,
-        BootstrapClass.MB_3,
-        TobagoClass.LABEL__CONTAINER,
-        ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,
-        markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
 
     switch (labelLayout) {
       case none:
-        break;
       case flexRight:
       case flowRight:
+      case flowLeft:
+      case gridLeft:
+      case gridRight:
+      case gridTop:
+      case gridBottom:
         break;
       case segmentLeft:
       case segmentRight:
-        if (LabelLayout.getSegment(facesContext) == labelLayout) {
+        if (nextToRenderIsLabel) {
           encodeLabel(facesContext, component, writer, labelLayout);
         }
         break;
@@ -163,23 +182,23 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
         encodeLabel(facesContext, component, writer, labelLayout);
     }
 
-    switch (labelLayout) {
-      case gridLeft:
-      case gridRight:
-      case gridTop:
-      case gridBottom:
-        writer.endElement(HtmlElements.LABEL);
+//    switch (labelLayout) {
+//      case gridLeft:
+//      case gridRight:
+//      case gridTop:
+//      case gridBottom:
+//        writer.endElement(HtmlElements.LABEL);
 
-        writer.startElement(getComponentTag());
-        writer.writeIdAttribute(clientId);
-        encodeAttributes(facesContext, component);
-        writer.writeClassAttribute(
-            BootstrapClass.MB_3,
-            ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,
-            markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
-        break;
-      default:
-    }
+//        writer.startElement(getComponentTag());
+//        writer.writeIdAttribute(clientId);
+//        encodeAttributes(facesContext, component);
+//        writer.writeClassAttribute(
+//            BootstrapClass.MB_3,
+//            ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,
+//            markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
+//        break;
+//      default:
+//    }
   }
 
   protected void encodeEndSurroundingLabel(final FacesContext facesContext, final UIComponent component)
@@ -188,23 +207,22 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final LabelLayout labelLayout = ((SupportsLabelLayout) component).getLabelLayout();
 
-    switch (labelLayout) {
-      case skip:
-      case none:
-        break;
-      case flexRight:
-      case flowRight:
-        encodeLabel(facesContext, component, writer, labelLayout);
-        break;
-      default:
-        // nothing to do
+    if (labelLayout == LabelLayout.flexRight) {
+      encodeLabel(facesContext, component, writer, labelLayout);
     }
 
-    writer.endElement(getComponentTag());
+    final boolean nextToRenderIsLabel = ((SupportsLabelLayout) component).isNextToRenderIsLabel();
+    if (!nextToRenderIsLabel) {
+      writer.endElement(getComponentTag());
+    }
+
+    if (labelLayout == LabelLayout.flowRight) {
+      encodeLabel(facesContext, component, writer, labelLayout);
+    }
   }
 
   protected void encodeLabel(final FacesContext facesContext, final UIComponent component,
-      final TobagoResponseWriter writer, final LabelLayout labelLayout)
+                             final TobagoResponseWriter writer, final LabelLayout labelLayout)
       throws IOException {
     // TBD: maybe use an interface for getLabel()
     final String label = ComponentUtils.getStringAttribute(component, Attributes.label);

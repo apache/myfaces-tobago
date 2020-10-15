@@ -35,6 +35,8 @@ import javax.faces.context.FacesContext;
 public abstract class AbstractUIInput extends javax.faces.component.UIInput
     implements SupportsAccessKey, SupportsLabelLayout, Visual, ClientBehaviorHolder, SupportFieldId, SupportsHelp {
 
+  private transient boolean nextToRenderIsLabel;
+
   public abstract Integer getTabIndex();
 
   public abstract boolean isFocus();
@@ -46,5 +48,15 @@ public abstract class AbstractUIInput extends javax.faces.component.UIInput
   @Override
   public String getFieldId(final FacesContext facesContext) {
     return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
+  }
+
+  @Override
+  public boolean isNextToRenderIsLabel() {
+    return nextToRenderIsLabel;
+  }
+
+  @Override
+  public void setNextToRenderIsLabel(final boolean nextToRenderIsLabel) {
+    this.nextToRenderIsLabel = nextToRenderIsLabel;
   }
 }

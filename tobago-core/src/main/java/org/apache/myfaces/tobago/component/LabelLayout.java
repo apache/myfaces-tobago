@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.component;
 
+import org.apache.myfaces.tobago.internal.util.Deprecation;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
@@ -66,7 +68,10 @@ public enum LabelLayout {
 
   /**
    * skip rendering the surrounding container.
+   *
+   * @deprecated since 5.0.0, not needed, because there is no surrounding container.
    */
+  @Deprecated
   skip,
 
   /**
@@ -95,15 +100,21 @@ public enum LabelLayout {
     return labelLayout == segmentLeft || labelLayout == segmentRight;
   }
 
+  /**
+   * @deprecated since 5.0.0. Please use {@link SupportsLabelLayout#setNextToRenderIsLabel(boolean)}.
+   */
+  @Deprecated
   public static void setSegment(final FacesContext facesContext, final LabelLayout labelLayout) {
-    if (labelLayout != segmentLeft && labelLayout != segmentRight) {
-      throw new IllegalArgumentException("not supported: " + labelLayout);
-    }
-    facesContext.getAttributes().put(SEGMENT_TO_RENDER_KEY, labelLayout);
+    Deprecation.LOG.error("not longer supported - see javadoc");
   }
 
+  /**
+   * @deprecated since 5.0.0. Please use {@link SupportsLabelLayout#isNextToRenderIsLabel()}.
+   */
+  @Deprecated
   public static LabelLayout getSegment(final FacesContext facesContext) {
-    return (LabelLayout) facesContext.getAttributes().get(SEGMENT_TO_RENDER_KEY);
+    Deprecation.LOG.error("not longer supported - see javadoc");
+    return null;
   }
 
   public static void removeSegment(final FacesContext facesContext) {

@@ -128,31 +128,23 @@
 
   <tc:section id="selectReference" label="Free layout with &lt;tc:selectReference>">
 
-    <p>
-      <span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_DANGER')}">Attanion!</span>
-      The <code class="language-markup">&lt;tc:selectReference></code> currently works only, when the referenced
-      component <code class="language-markup">&lt;tc:selectOneRadio></code> has
-      set <code class="language-markup">labelLayout="skip"</code>.
-    </p>
-
     <tc:segmentLayout medium="4seg 4seg 4seg">
-    <tc:box>
-      First and second giant planets:
-      <tc:selectOneRadio id="giant0" value="#{selectOneRadioController.selectedGiantPlanet}" renderRange="0,1"
-                         labelLayout="skip">
-        <f:selectItems value="#{astroData.giantPlanets}"/>
-      </tc:selectOneRadio>
-    </tc:box>
+      <tc:box>
+        First and second giant planets:
+        <tc:selectOneRadio id="giant0" value="#{selectOneRadioController.selectedGiantPlanet}" renderRange="0,1" labelLayout="segmentRight">
+          <f:selectItems value="#{astroData.giantPlanets}"/>
+        </tc:selectOneRadio>
+      </tc:box>
 
-    <tc:box>
-    Discovered #{astroData.giantPlanets[2].value.discoverYear}:
-    <tc:selectReference id="giant1" for="giant0" renderRange="2"/>
-  </tc:box>
+      <tc:box>
+        Discovered #{astroData.giantPlanets[2].value.discoverYear}:
+        <tc:selectReference id="giant1" for="giant0" renderRange="2"/>
+      </tc:box>
 
-    <tc:box>
-    Discovered #{astroData.giantPlanets[3].value.discoverYear}:
-    <tc:selectReference id="giant2" for="giant0" renderRange="3"/>
-    </tc:box>
+      <tc:box>
+        Discovered #{astroData.giantPlanets[3].value.discoverYear}:
+        <tc:selectReference id="giant2" for="giant0" renderRange="3"/>
+      </tc:box>
     </tc:segmentLayout>
 
     <tc:button label="Submit">
@@ -166,7 +158,7 @@
   <tc:section label="Free layout with pure JSF (JSF 2.3 only)">
 
     <p>
-      <span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_DANGER')}">Attanion!</span>
+      <span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_DANGER')}">Attention!</span>
       This example is only temporary for testing purpose.
     </p>
 

@@ -33,6 +33,8 @@ import java.util.Collection;
 public abstract class AbstractUISelectManyBase extends UISelectMany
     implements Visual, SupportsLabelLayout, ClientBehaviorHolder, SupportsHelp {
 
+  private transient boolean nextToRenderIsLabel;
+
   @Override
   public Object[] getSelectedValues() {
     final Object value = getValue();
@@ -50,4 +52,14 @@ public abstract class AbstractUISelectManyBase extends UISelectMany
   public abstract boolean isReadonly();
 
   public abstract boolean isFocus();
+
+  @Override
+  public boolean isNextToRenderIsLabel() {
+    return nextToRenderIsLabel;
+  }
+
+  @Override
+  public void setNextToRenderIsLabel(final boolean nextToRenderIsLabel) {
+    this.nextToRenderIsLabel = nextToRenderIsLabel;
+  }
 }

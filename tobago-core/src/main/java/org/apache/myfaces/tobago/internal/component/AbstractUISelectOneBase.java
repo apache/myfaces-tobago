@@ -36,6 +36,8 @@ public abstract class AbstractUISelectOneBase extends javax.faces.component.UISe
 
   public static final String MESSAGE_VALUE_REQUIRED = "org.apache.myfaces.tobago.UISelectOne.REQUIRED";
 
+  private transient boolean nextToRenderIsLabel;
+
   @Override
   public void validate(final FacesContext facesContext) {
     if (isRequired() && !isReadonly()) {
@@ -63,4 +65,14 @@ public abstract class AbstractUISelectOneBase extends javax.faces.component.UISe
   public abstract boolean isFocus();
 
   public abstract Integer getTabIndex();
+
+  @Override
+  public boolean isNextToRenderIsLabel() {
+    return nextToRenderIsLabel;
+  }
+
+  @Override
+  public void setNextToRenderIsLabel(final boolean nextToRenderIsLabel) {
+    this.nextToRenderIsLabel = nextToRenderIsLabel;
+  }
 }

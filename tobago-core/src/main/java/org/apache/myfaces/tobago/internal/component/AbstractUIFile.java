@@ -38,6 +38,8 @@ import javax.servlet.http.Part;
 public abstract class AbstractUIFile extends UIInput implements SupportsLabelLayout, Visual, ClientBehaviorHolder,
     SupportFieldId, SupportsHelp {
 
+  private transient boolean nextToRenderIsLabel;
+
   @Override
   public void validate(final FacesContext facesContext) {
     if (isRequired()) {
@@ -73,5 +75,15 @@ public abstract class AbstractUIFile extends UIInput implements SupportsLabelLay
   @Override
   public String getFieldId(final FacesContext facesContext) {
     return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
+  }
+
+  @Override
+  public boolean isNextToRenderIsLabel() {
+    return nextToRenderIsLabel;
+  }
+
+  @Override
+  public void setNextToRenderIsLabel(final boolean nextToRenderIsLabel) {
+    this.nextToRenderIsLabel = nextToRenderIsLabel;
   }
 }

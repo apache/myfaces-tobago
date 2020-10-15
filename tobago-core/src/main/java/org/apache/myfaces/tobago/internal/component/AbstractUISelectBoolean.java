@@ -36,6 +36,8 @@ import javax.faces.context.FacesContext;
 public abstract class AbstractUISelectBoolean extends UISelectBoolean
     implements Visual, ClientBehaviorHolder, SupportFieldId, SupportsAccessKey, SupportsLabelLayout, SupportsHelp {
 
+  private transient boolean nextToRenderIsLabel;
+
   @Override
   public boolean isSelected() {
     Object value = getSubmittedValue();
@@ -88,5 +90,15 @@ public abstract class AbstractUISelectBoolean extends UISelectBoolean
 
   public boolean isLabelLayoutSkip() {
     return getLabelLayout() == LabelLayout.skip;
+  }
+
+  @Override
+  public boolean isNextToRenderIsLabel() {
+    return nextToRenderIsLabel;
+  }
+
+  @Override
+  public void setNextToRenderIsLabel(final boolean nextToRenderIsLabel) {
+    this.nextToRenderIsLabel = nextToRenderIsLabel;
   }
 }

@@ -103,13 +103,15 @@ public class SegmentLayoutRenderer extends RendererBase {
     if (child instanceof SupportsLabelLayout
         && LabelLayout.isSegment(((SupportsLabelLayout) child).getLabelLayout())) {
 
+      final SupportsLabelLayout labeledChild = (SupportsLabelLayout) child;
+
       // left part
-      LabelLayout.setSegment(facesContext, LabelLayout.segmentLeft);
+      labeledChild.setNextToRenderIsLabel(labeledChild.getLabelLayout() == LabelLayout.segmentLeft);
       encodeDiv(facesContext, writer, generator, child);
       generator.next();
 
       // right part
-      LabelLayout.setSegment(facesContext, LabelLayout.segmentRight);
+      labeledChild.setNextToRenderIsLabel(labeledChild.getLabelLayout() == LabelLayout.segmentRight);
       encodeDiv(facesContext, writer, generator, child);
       generator.next();
 

@@ -35,36 +35,32 @@
     <tc:gridLayout columns="auto 120px auto 1fr">
 
       <tc:label value="JUL" tip="Java Util Logging"/>
-      <tc:selectBooleanCheckbox value="#{loggingController.jul.available}" readonly="true"
-                                label="available" labelLayout="skip"/>
+      <tc:selectBooleanCheckbox value="#{loggingController.jul.available}" readonly="true" itemLabel="available"/>
       <tc:button label="Log" tip="Log some stuff in every level" action="#{loggingController.jul.logDemo}"
                  disabled="#{not loggingController.jul.available}"/>
       <tc:out value="#{loggingController.jul.activeLevels}"/>
 
       <tc:label value="SLF4J" tip="Simple Logging Facade"/>
-      <tc:selectBooleanCheckbox value="#{loggingController.slf4j.available}" readonly="true"
-                                label="available" labelLayout="skip"/>
+      <tc:selectBooleanCheckbox value="#{loggingController.slf4j.available}" readonly="true" itemLabel="available"/>
       <tc:button label="Log" tip="Log some stuff in every level" action="#{loggingController.slf4j.logDemo}"
                  disabled="#{not loggingController.slf4j.available}"/>
       <tc:out value="#{loggingController.slf4j.activeLevels}"/>
 
       <tc:label value="LOG4J"/>
-      <tc:selectBooleanCheckbox value="#{loggingController.log4j.available}" readonly="true"
-                                label="available" labelLayout="skip"/>
+      <tc:selectBooleanCheckbox value="#{loggingController.log4j.available}" readonly="true" itemLabel="available"/>
       <tc:button label="Log" tip="Log some stuff in every level" action="#{loggingController.log4j.logDemo}"
                  disabled="#{not loggingController.log4j.available}"/>
       <tc:out value="#{loggingController.log4j.activeLevels}"/>
 
       <tc:label value="LOG4J2"/>
-      <tc:selectBooleanCheckbox value="#{loggingController.log4j2.available}" readonly="true"
-                                label="available" labelLayout="skip"/>
+      <tc:selectBooleanCheckbox value="#{loggingController.log4j2.available}" readonly="true" itemLabel="available" />
       <tc:button label="Log" tip="Log some stuff in every level" action="#{loggingController.log4j2.logDemo}"
                  disabled="#{not loggingController.log4j2.available}"/>
       <tc:out value="#{loggingController.log4j2.activeLevels}"/>
 
       <tc:label value="JCL" tip="Commons Logging"/>
       <tc:selectBooleanCheckbox value="#{loggingController.commonsLogging.available}" readonly="true"
-                                label="available" labelLayout="skip"/>
+                                itemLabel="available"/>
       <tc:button label="Log" tip="Log some stuff in every level" action="#{loggingController.commonsLogging.logDemo}"
                  disabled="#{not loggingController.commonsLogging.available}"/>
       <tc:out value="#{loggingController.commonsLogging.activeLevels}"/>

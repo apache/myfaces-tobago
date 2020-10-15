@@ -76,6 +76,12 @@
     <converter-class>org.apache.myfaces.tobago.example.demo.OnOffConverter</converter-class>
   </converter>
 
+  <!--  @FacesConverter(forClass = SolarObject.class)// XXX fixme: is not running with Quarkus!-->
+  <converter>
+    <converter-id>org.apache.myfaces.tobago.example.demo.SolarConverter</converter-id>
+    <converter-class>org.apache.myfaces.tobago.example.demo.SolarConverter</converter-class>
+  </converter>
+
 <!--
   <factory>
     <exception-handler-factory>

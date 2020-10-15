@@ -23,6 +23,7 @@ import org.apache.myfaces.test.base.junit4.AbstractJsfTestCase;
 import org.apache.myfaces.test.config.ResourceBundleVarNames;
 import org.apache.myfaces.test.mock.MockFacesContext;
 import org.apache.myfaces.test.mock.MockHttpServletRequest;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UIGridLayout;
@@ -31,13 +32,24 @@ import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.component.UISegmentLayout;
 import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.TobagoContext;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.ButtonRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.GridLayoutRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.InRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.LinkRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.OutRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.PanelRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.PopupRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.SegmentLayoutRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.StyleRenderer;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
+import javax.faces.render.RenderKit;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
@@ -91,6 +103,18 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.popup.componentType(), UIPopup.class.getName());
     application.addComponent(Tags.style.componentType(), UIStyle.class.getName());
     application.addComponent(Tags.gridLayout.componentType(), UIGridLayout.class.getName());
+    application.addComponent(Tags.segmentLayout.componentType(), UISegmentLayout.class.getName());
+
+    final RenderKit renderKit = facesContext.getRenderKit();
+    renderKit.addRenderer(UIIn.COMPONENT_FAMILY, RendererTypes.IN, new InRenderer());
+    renderKit.addRenderer(UIOut.COMPONENT_FAMILY, RendererTypes.OUT, new OutRenderer());
+    renderKit.addRenderer(UIPanel.COMPONENT_FAMILY, RendererTypes.PANEL, new PanelRenderer());
+    renderKit.addRenderer(UILink.COMPONENT_FAMILY, RendererTypes.LINK, new LinkRenderer());
+    renderKit.addRenderer(UIButton.COMPONENT_FAMILY, RendererTypes.BUTTON, new ButtonRenderer());
+    renderKit.addRenderer(UIPopup.COMPONENT_FAMILY, RendererTypes.POPUP, new PopupRenderer());
+    renderKit.addRenderer(UIStyle.COMPONENT_FAMILY, RendererTypes.STYLE, new StyleRenderer());
+    renderKit.addRenderer(UIGridLayout.COMPONENT_FAMILY, RendererTypes.GRID_LAYOUT, new GridLayoutRenderer());
+    renderKit.addRenderer(UISegmentLayout.COMPONENT_FAMILY, RendererTypes.SEGMENT_LAYOUT, new SegmentLayoutRenderer());
 
     application.setMessageBundle("org.apache.myfaces.tobago.context.TobagoMessageBundle");
 

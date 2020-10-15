@@ -40,6 +40,8 @@ public abstract class AbstractUIStars extends UIInput
   private int rangeValue;
   private int rangeMax;
 
+  private transient boolean nextToRenderIsLabel;
+
   @Override
   public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
 
@@ -95,4 +97,15 @@ public abstract class AbstractUIStars extends UIInput
   public String getFieldId(final FacesContext facesContext) {
     return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
   }
+
+  @Override
+  public boolean isNextToRenderIsLabel() {
+    return nextToRenderIsLabel;
+  }
+
+  @Override
+  public void setNextToRenderIsLabel(final boolean nextToRenderIsLabel) {
+    this.nextToRenderIsLabel = nextToRenderIsLabel;
+  }
+
 }

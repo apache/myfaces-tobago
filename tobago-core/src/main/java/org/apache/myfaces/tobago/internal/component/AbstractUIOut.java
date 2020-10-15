@@ -30,6 +30,8 @@ import javax.faces.component.UIOutput;
  */
 public abstract class AbstractUIOut extends UIOutput implements SupportsLabelLayout, Visual {
 
+  private transient boolean nextToRenderIsLabel;
+
   public abstract boolean isEscape();
 
   public abstract boolean isKeepLineBreaks();
@@ -47,4 +49,14 @@ public abstract class AbstractUIOut extends UIOutput implements SupportsLabelLay
   public abstract boolean isCompact();
 
   public abstract SanitizeMode getSanitize();
+
+  @Override
+  public boolean isNextToRenderIsLabel() {
+    return nextToRenderIsLabel;
+  }
+
+  @Override
+  public void setNextToRenderIsLabel(final boolean nextToRenderIsLabel) {
+    this.nextToRenderIsLabel = nextToRenderIsLabel;
+  }
 }
