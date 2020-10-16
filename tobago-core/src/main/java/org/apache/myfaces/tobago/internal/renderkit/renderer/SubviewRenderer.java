@@ -29,12 +29,14 @@ import java.io.IOException;
 
 public class SubviewRenderer extends RendererBase {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SubviewRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SubviewRenderer.class);
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component)
       throws IOException {
-    LOG.debug("Subview component = {}", component.getClass().getName());
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Subview component = {}", component.getClass().getName());
+    }
     super.encodeBegin(facesContext, component);
   }
 
@@ -42,6 +44,4 @@ public class SubviewRenderer extends RendererBase {
   public void encodeEnd(final FacesContext facesContext,
                         final UIComponent component) throws IOException {
   }
-
 }
-
