@@ -34,16 +34,13 @@ public class SubviewRenderer extends RendererBase {
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component)
       throws IOException {
-    if (LOG.isInfoEnabled()) {
-      LOG.info("SSSSSSSSSSSSSSSSSSS Subview component = " + component.getClass().getName());
-    }
+    LOG.debug("Subview component = {}", component.getClass().getName());
     super.encodeBegin(facesContext, component);
   }
 
   @Override
   public void encodeEnd(final FacesContext facesContext,
                         final UIComponent component) throws IOException {
-
   }
 
 }
