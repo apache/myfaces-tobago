@@ -36,7 +36,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.el.MethodExpression;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
@@ -46,14 +45,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class SuggestRenderer extends RendererBase {
+public class SuggestRenderer<T extends AbstractUISuggest> extends RendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
-    final AbstractUISuggest suggest = (AbstractUISuggest) component;
-    final String clientId = suggest.getClientId(facesContext);
+  public void decodeInternal(final FacesContext facesContext, final T component) {
+    final String clientId = component.getClientId(facesContext);
     final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     if (requestParameterMap.containsKey(clientId)) {
       final String query = requestParameterMap.get(clientId);
@@ -61,22 +59,21 @@ public class SuggestRenderer extends RendererBase {
         LOG.debug("suggest query='{}'", query);
       }
       // XXX this is for the old way: for "suggestMethod"
-      final AbstractUIInput input = ComponentUtils.findAncestor(suggest, AbstractUIInput.class);
+      final AbstractUIInput input = ComponentUtils.findAncestor(component, AbstractUIInput.class);
       if (input != null) {
         input.setSubmittedValue(query);
       }
       // this is the new way: for select items
-      suggest.setQuery(query);
+      component.setQuery(query);
     }
   }
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUISuggest suggest = (AbstractUISuggest) component;
-    final AbstractUIInput input = ComponentUtils.findAncestor(suggest, AbstractUIInput.class);
-    final MethodExpression suggestMethodExpression = suggest.getSuggestMethodExpression();
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
+    final AbstractUIInput input = ComponentUtils.findAncestor(component, AbstractUIInput.class);
+    final MethodExpression suggestMethodExpression = component.getSuggestMethodExpression();
 
-    int totalCount = suggest.getTotalCount();
+    int totalCount = component.getTotalCount();
     final String[] array;
 
     if (suggestMethodExpression != null && input != null) { // old way (deprecated)
@@ -93,7 +90,7 @@ public class SuggestRenderer extends RendererBase {
         array[i] = items.get(i).getLabel();
       }
     } else {
-      final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, suggest);
+      final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, component);
 
       if (totalCount == -1 || items.size() < totalCount) {
         totalCount = items.size();
@@ -108,7 +105,7 @@ public class SuggestRenderer extends RendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.TOBAGO_SUGGEST);
-    final String clientId = suggest.getClientId(facesContext);
+    final String clientId = component.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
     if (input != null) {
       writer.writeAttribute(HtmlAttributes.FOR, input.getFieldId(facesContext), false);
@@ -116,12 +113,12 @@ public class SuggestRenderer extends RendererBase {
       LOG.error("No ancestor with type AbstractUIInput found for suggest id={}", clientId);
     }
 
-    writer.writeAttribute(CustomAttributes.MIN_CHARS, suggest.getMinimumCharacters());
-    writer.writeAttribute(CustomAttributes.DELAY, suggest.getDelay());
-    writer.writeAttribute(CustomAttributes.MAX_ITEMS, suggest.getMaximumItems());
-    writer.writeAttribute(CustomAttributes.UPDATE, suggest.isUpdate());
+    writer.writeAttribute(CustomAttributes.MIN_CHARS, component.getMinimumCharacters());
+    writer.writeAttribute(CustomAttributes.DELAY, component.getDelay());
+    writer.writeAttribute(CustomAttributes.MAX_ITEMS, component.getMaximumItems());
+    writer.writeAttribute(CustomAttributes.UPDATE, component.isUpdate());
     writer.writeAttribute(CustomAttributes.TOTAL_COUNT, totalCount);
-    writer.writeAttribute(CustomAttributes.LOCAL_MENU, suggest.isLocalMenu());
+    writer.writeAttribute(CustomAttributes.LOCAL_MENU, component.isLocalMenu());
     writer.writeAttribute(CustomAttributes.ITEMS, JsonUtils.encode(array), true);
 
     if (LOG.isDebugEnabled()) {

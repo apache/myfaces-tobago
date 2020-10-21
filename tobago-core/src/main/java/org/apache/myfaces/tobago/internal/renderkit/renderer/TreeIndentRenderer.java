@@ -36,14 +36,13 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class TreeIndentRenderer extends RendererBase {
+public class TreeIndentRenderer<T extends AbstractUITreeIndent> extends RendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUITreeIndent treeIndent = (AbstractUITreeIndent) component;
-    final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(treeIndent, AbstractUITreeNodeBase.class);
-    final AbstractUIData data = ComponentUtils.findAncestor(treeIndent, AbstractUIData.class);
+    final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(component, AbstractUITreeNodeBase.class);
+    final AbstractUIData data = ComponentUtils.findAncestor(component, AbstractUIData.class);
 
     if (node == null) {
       throw new NullPointerException(
@@ -54,18 +53,18 @@ public class TreeIndentRenderer extends RendererBase {
     }
 
     final boolean folder = node.isFolder();
-    final boolean showJunctions = treeIndent.isShowJunctions();
+    final boolean showJunctions = component.isShowJunctions();
     final boolean expanded = folder && data.getExpandedState().isExpanded(node.getPath());
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.SPAN);
-    writer.writeIdAttribute(treeIndent.getClientId(facesContext));
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, treeIndent);
+    writer.writeIdAttribute(component.getClientId(facesContext));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeClassAttribute(
         TobagoClass.TREE_NODE__TOGGLE,
         !folder ? BootstrapClass.INVISIBLE : null,
-        treeIndent.getCustomClass());
+        component.getCustomClass());
 
     // encode tree junction
     if (!showJunctions) {
@@ -83,7 +82,7 @@ public class TreeIndentRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.SPAN);
   }

@@ -27,15 +27,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class SelectReferenceRenderer extends RendererBase {
+public class SelectReferenceRenderer<T extends AbstractUISelectReference> extends RendererBase<T> {
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUISelectReference reference = (AbstractUISelectReference) component;
-    final UIComponent select = component.findComponent(reference.getFor());
+    final UIComponent select = component.findComponent(component.getFor());
     final RenderRange range = (RenderRange) select;
-    range.setRenderRangeReference(reference);
+    range.setRenderRangeReference(component);
 
     select.encodeAll(facesContext);
 

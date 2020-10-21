@@ -19,22 +19,22 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import java.lang.invoke.MethodHandles;
 
-public abstract class DecodingCommandRendererBase extends RendererBase {
+public abstract class DecodingCommandRendererBase<T extends AbstractUICommandBase> extends RendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
+  public void decodeInternal(final FacesContext facesContext, final T component) {
 
     if (ComponentUtils.isOutputOnly(component)) {
       return;
@@ -42,12 +42,12 @@ public abstract class DecodingCommandRendererBase extends RendererBase {
     final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
     final String clientId = component.getClientId(facesContext);
     if (LOG.isDebugEnabled()) {
-      LOG.debug("sourceId = '" + sourceId + "'");
-      LOG.debug("clientId = '" + clientId + "'");
+      LOG.debug("sourceId = '{}", sourceId);
+      LOG.debug("clientId = '{}'", clientId);
     }
     if (clientId.equals(sourceId)) {
       if (LOG.isDebugEnabled()) {
-        LOG.debug("queueEvent = '" + clientId + "'");
+        LOG.debug("queueEvent = '{}'", clientId);
       }
       commandActivated(component);
     }
@@ -56,7 +56,7 @@ public abstract class DecodingCommandRendererBase extends RendererBase {
 
   }
 
-  protected void commandActivated(final UIComponent component) {
+  protected void commandActivated(final T component) {
     component.queueEvent(new ActionEvent(component));
   }
 }

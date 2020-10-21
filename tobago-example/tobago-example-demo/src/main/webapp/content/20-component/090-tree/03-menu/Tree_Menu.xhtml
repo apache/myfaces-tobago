@@ -28,7 +28,7 @@
   </p>
   <p>
     The menu nodes can be build inside of <code class="language-markup">&lt;tc:treeNode/></code> with
-    <code class="language-markup">&lt;tc:treeCommand/></code>,
+    <code class="language-markup">&lt;tc:link/></code>,
     <code class="language-markup">&lt;tc:treeLabel/></code>,
     <code class="language-markup">&lt;tc:treeIcon/></code> and
     <code class="language-markup">&lt;tc:treeIndent/></code> tags.
@@ -40,7 +40,7 @@
     <pre><code class="language-markup">&lt;tc:tree value="\#{treeController.sample}" ...></code></pre>
     <tc:tree value="#{treeController.sample}" var="node">
       <tc:treeNode>
-        <tc:treeCommand label="#{node.userObject.name}"/>
+        <tc:link label="#{node.userObject.name}"/>
         <tc:treeIndent showJunctions="true">
           <tc:style customClass="float-right"/>
         </tc:treeIndent>

@@ -31,21 +31,19 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class TreeLabelRenderer extends RendererBase {
+public class TreeLabelRenderer<T extends AbstractUITreeLabel> extends RendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
     final AbstractUIData data = ComponentUtils.findAncestor(component, AbstractUIData.class);
     final boolean listbox = data instanceof AbstractUITreeListbox;
 
-    final AbstractUITreeLabel label = (AbstractUITreeLabel) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final String text = StringUtils.defaultString((String) label.getValue());
+    final String text = StringUtils.defaultString((String) component.getValue());
 
     if (listbox) {
       writer.writeText(text);
@@ -53,10 +51,10 @@ public class TreeLabelRenderer extends RendererBase {
       writer.startElement(HtmlElements.LABEL);
       writer.writeClassAttribute(
           TobagoClass.TREE_LABEL,
-          TobagoClass.TREE_LABEL.createMarkup(label.getMarkup()),
-          label.getCustomClass());
-      HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
-      final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, label);
+          TobagoClass.TREE_LABEL.createMarkup(component.getMarkup()),
+          component.getCustomClass());
+      HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
+      final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
       if (title != null) {
         writer.writeAttribute(HtmlAttributes.TITLE, title, true);
       }

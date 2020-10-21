@@ -55,20 +55,18 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
+public abstract class SelectManyRendererBase<T extends AbstractUISelectManyBase> extends MessageLayoutRendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
+  public void decodeInternal(final FacesContext facesContext, final T component) {
     if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
 
-    final AbstractUISelectManyBase select = (AbstractUISelectManyBase) component;
-
     String[] newValues =
-        facesContext.getExternalContext().getRequestParameterValuesMap().get(select.getClientId(facesContext));
+        facesContext.getExternalContext().getRequestParameterValuesMap().get(component.getClientId(facesContext));
     if (LOG.isDebugEnabled()) {
       LOG.debug("decode: key='" + component.getClientId(facesContext)
           + "' value='" + Arrays.toString(newValues) + "'");
@@ -83,9 +81,9 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
     if (newValues == null) {
       newValues = ArrayUtils.EMPTY_STRING_ARRAY; // because no selection will not submitted by browsers
     }
-    select.setSubmittedValue(newValues);
+    component.setSubmittedValue(newValues);
 
-    decodeClientBehaviors(facesContext, select);
+    decodeClientBehaviors(facesContext, component);
   }
 
   public String[] getSubmittedValues(final UIInput input) {
@@ -93,8 +91,8 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
   }
 
   @Override
-  public Object getConvertedValue(
-      final FacesContext facesContext, final UIComponent component, final Object submittedValue)
+  public Object getConvertedValueInternal(
+      final FacesContext facesContext, final T component, final Object submittedValue)
       throws ConverterException {
 
     if (submittedValue == null) {
@@ -105,7 +103,7 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
             + component.getClientId(facesContext) + "expected");
       }
     }
-    return getConvertedUISelectManyValue(facesContext, (UISelectMany) component, (String[]) submittedValue);
+    return getConvertedUISelectManyValue(facesContext, component, (String[]) submittedValue);
   }
 
   // #################################################################################################################
@@ -236,8 +234,7 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
           }
         } else if (Collection.class.isAssignableFrom(modelType)) {
           // component.getValue() will implement Collection at this point
-          final Collection<?> componentValue = (Collection<?>) component
-              .getValue();
+          final Collection<?> componentValue = (Collection<?>) component.getValue();
           // can we clone the Collection
           if (componentValue instanceof Cloneable) {
             // clone method of Object is protected --> use reflection

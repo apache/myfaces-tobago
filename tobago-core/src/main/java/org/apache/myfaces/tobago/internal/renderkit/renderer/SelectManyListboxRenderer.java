@@ -30,13 +30,12 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.List;
 
-public class SelectManyListboxRenderer extends SelectManyRendererBase {
+public class SelectManyListboxRenderer<T extends AbstractUISelectManyListbox> extends SelectManyRendererBase<T> {
 
   @Override
   public HtmlElements getComponentTag() {
@@ -49,60 +48,57 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
   }
 
   @Override
-  public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUISelectManyListbox select = (AbstractUISelectManyListbox) component;
+  public void encodeBeginField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    final String clientId = select.getClientId(facesContext);
-    final String fieldId = select.getFieldId(facesContext);
-    final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, select);
-    final boolean readonly = select.isReadonly();
-    final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || readonly;
-    final Markup markup = select.getMarkup();
-    Integer size = select.getSize();
+    final String clientId = component.getClientId(facesContext);
+    final String fieldId = component.getFieldId(facesContext);
+    final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, component);
+    final boolean readonly = component.isReadonly();
+    final boolean disabled = !items.iterator().hasNext() || component.isDisabled() || readonly;
+    final Markup markup = component.getMarkup();
+    Integer size = component.getSize();
     size = Math.max(size != null ? size : items.size(), 2); // must be > 1
 
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     writer.startElement(HtmlElements.SELECT);
     writer.writeIdAttribute(fieldId);
     writer.writeNameAttribute(clientId);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
-    writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
-    HtmlRendererUtils.renderFocus(clientId, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
-    writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
+    writer.writeAttribute(HtmlAttributes.REQUIRED, component.isRequired());
+    HtmlRendererUtils.renderFocus(clientId, component.isFocus(), ComponentUtils.isError(component), facesContext, writer);
+    writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
 
     writer.writeClassAttribute(
         TobagoClass.SELECT_MANY_LISTBOX,
-        TobagoClass.SELECT_MANY_LISTBOX.createMarkup(select.getMarkup()),
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(select)),
+        TobagoClass.SELECT_MANY_LISTBOX.createMarkup(component.getMarkup()),
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
         BootstrapClass.FORM_CONTROL,
-        select.getCustomClass(),
+        component.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    final Object[] values = select.getSelectedValues();
-    final String[] submittedValues = getSubmittedValues(select);
+    final Object[] values = component.getSelectedValues();
+    final String[] submittedValues = getSubmittedValues(component);
 
-    HtmlRendererUtils.renderSelectItems(select, TobagoClass.SELECT_MANY_LISTBOX__OPTION, items, values, submittedValues,
+    HtmlRendererUtils.renderSelectItems(component, TobagoClass.SELECT_MANY_LISTBOX__OPTION, items, values, submittedValues,
         writer, facesContext);
   }
 
   @Override
-  public void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final AbstractUISelectManyListbox select = (AbstractUISelectManyListbox) component;
 
     writer.endElement(HtmlElements.SELECT);
 
-    encodeBehavior(writer, facesContext, select);
+    encodeBehavior(writer, facesContext, component);
   }
 
   @Override
-  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
-    final AbstractUISelectManyListbox select = (AbstractUISelectManyListbox) component;
-    return select.getFieldId(facesContext);
+  protected String getFieldId(final FacesContext facesContext, final T component) {
+    return component.getFieldId(facesContext);
   }
 }

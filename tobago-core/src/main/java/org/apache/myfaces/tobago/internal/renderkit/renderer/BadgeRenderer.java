@@ -30,22 +30,20 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class BadgeRenderer extends RendererBase {
+public class BadgeRenderer<T extends AbstractUIBadge> extends RendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final AbstractUIBadge badge = (AbstractUIBadge) component;
-    final Markup markup = badge.getMarkup() != null ? badge.getMarkup() : Markup.NULL;
-    final String tip = badge.getTip();
-    final String value = RenderUtils.currentValue(badge);
+    final Markup markup = component.getMarkup() != null ? component.getMarkup() : Markup.NULL;
+    final String tip = component.getTip();
+    final String value = RenderUtils.currentValue(component);
 
     writer.startElement(HtmlElements.SPAN);
-    writer.writeIdAttribute(badge.getClientId(facesContext));
+    writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeClassAttribute(
         TobagoClass.BADGE,
         TobagoClass.BADGE.createMarkup(markup),
@@ -53,7 +51,7 @@ public class BadgeRenderer extends RendererBase {
         getBadgeColor(markup),
         markup.contains(Markup.PILL) ? BootstrapClass.ROUNDED_PILL : null,
         getAdditionalCssItem(),
-        badge.getCustomClass());
+        component.getCustomClass());
 
     if (tip != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
@@ -64,7 +62,7 @@ public class BadgeRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEndInternal(FacesContext facesContext, T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.SPAN);
   }

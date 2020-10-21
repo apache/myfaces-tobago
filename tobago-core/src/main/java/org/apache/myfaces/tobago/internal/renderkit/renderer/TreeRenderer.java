@@ -50,21 +50,20 @@ import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TreeRenderer extends RendererBase {
+public class TreeRenderer<T extends AbstractUITree> extends RendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   protected static final String SCROLL_POSITION = "scrollPosition";
 
   @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
-    final AbstractUITree tree = (AbstractUITree) component;
+  public void decodeInternal(final FacesContext facesContext, final T component) {
     final String value = facesContext.getExternalContext().getRequestParameterMap().get(
-        tree.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + SCROLL_POSITION);
+        component.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + SCROLL_POSITION);
     if (value != null) {
-      tree.getState().getScrollPosition().update(value);
+      component.getState().getScrollPosition().update(value);
     }
-    RenderUtils.decodedStateOfTreeData(facesContext, tree);
+    RenderUtils.decodedStateOfTreeData(facesContext, component);
   }
 
   @Override
@@ -73,9 +72,8 @@ public class TreeRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUITree tree = (AbstractUITree) component;
-    for (final UIComponent child : tree.getChildren()) {
+  public void encodeChildrenInternal(final FacesContext facesContext, final T component) throws IOException {
+    for (final UIComponent child : component.getChildren()) {
       if (child instanceof AbstractUIStyle) {
         child.encodeAll(facesContext);
       }
@@ -83,13 +81,12 @@ public class TreeRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final AbstractUITree tree = (AbstractUITree) component;
-    final String clientId = tree.getClientId(facesContext);
-    final Markup markup = tree.getMarkup();
-    final UIComponent root = ComponentUtils.findDescendant(tree, AbstractUITreeNode.class);
+    final String clientId = component.getClientId(facesContext);
+    final Markup markup = component.getMarkup();
+    final UIComponent root = ComponentUtils.findDescendant(component, AbstractUITreeNode.class);
     if (root == null) {
       LOG.error("Can't find the tree root. This may occur while updating a tree from Tobago 1.0 to 1.5. "
           + "Please refer the documentation to see how to use tree tags.");
@@ -99,41 +96,41 @@ public class TreeRenderer extends RendererBase {
     writer.startElement(HtmlElements.TOBAGO_TREE);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
-        tree.getCustomClass(),
+        component.getCustomClass(),
         TobagoClass.TREE.createMarkup(markup));
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeAttribute(DataAttributes.SCROLL_PANEL, Boolean.TRUE.toString(), false);
 
-    final Selectable selectable = tree.getSelectable();
+    final Selectable selectable = component.getSelectable();
     if (selectable.isSupportedByTree()) {
       writer.writeAttribute(DataAttributes.SELECTABLE, selectable.name(), false);
       writer.writeAttribute(CustomAttributes.SELECTABLE, selectable.name(), false);
     }
 
-    final SelectedState selectedState = tree.getSelectedState();
+    final SelectedState selectedState = component.getSelectedState();
     final List<Integer> selectedValue = new ArrayList<>();
 
-    final ExpandedState expandedState = tree.getExpandedState();
+    final ExpandedState expandedState = component.getExpandedState();
     final List<Integer> expandedValue = new ArrayList<>();
 
-    final int last = tree.isRowsUnlimited() ? Integer.MAX_VALUE : tree.getFirst() + tree.getRows();
-    for (int rowIndex = tree.getFirst(); rowIndex < last; rowIndex++) {
-      tree.setRowIndex(rowIndex);
-      if (!tree.isRowAvailable()) {
+    final int last = component.isRowsUnlimited() ? Integer.MAX_VALUE : component.getFirst() + component.getRows();
+    for (int rowIndex = component.getFirst(); rowIndex < last; rowIndex++) {
+      component.setRowIndex(rowIndex);
+      if (!component.isRowAvailable()) {
         break;
       }
 
-      final TreePath path = tree.getPath();
+      final TreePath path = component.getPath();
 
       if (selectedState.isSelected(path)) {
         selectedValue.add(rowIndex);
       }
 
-      if (tree.isFolder() && expandedState.isExpanded(path)) {
+      if (component.isFolder() && expandedState.isExpanded(path)) {
         expandedValue.add(rowIndex);
       }
 
-      for (final UIComponent child : tree.getChildren()) {
+      for (final UIComponent child : component.getChildren()) {
         if (child instanceof AbstractUIStyle) {
           // ignore, this is rendered in encodeChildren()
         } else {
@@ -141,7 +138,7 @@ public class TreeRenderer extends RendererBase {
         }
       }
     }
-    tree.setRowIndex(-1);
+    component.setRowIndex(-1);
 
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
@@ -165,7 +162,7 @@ public class TreeRenderer extends RendererBase {
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + SCROLL_POSITION);
     writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + SCROLL_POSITION);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-    writer.writeAttribute(HtmlAttributes.VALUE, tree.getState().getScrollPosition().encode(), false);
+    writer.writeAttribute(HtmlAttributes.VALUE, component.getState().getScrollPosition().encode(), false);
     writer.writeAttribute(DataAttributes.SCROLL_POSITION, Boolean.TRUE.toString(), false);
     writer.endElement(HtmlElements.INPUT);
 

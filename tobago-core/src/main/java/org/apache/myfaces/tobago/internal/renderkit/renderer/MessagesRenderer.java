@@ -38,22 +38,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.List;
 
-public class MessagesRenderer extends RendererBase {
+public class MessagesRenderer<T extends AbstractUIMessages> extends RendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUIMessages messages = (AbstractUIMessages) component;
-
-    if (messages.isConfirmation()) {
+    if (component.isConfirmation()) {
       LOG.warn("'confirmation' is currently not supported for tc:messages!");
     }
 
@@ -62,7 +59,7 @@ public class MessagesRenderer extends RendererBase {
     if (LOG.isDebugEnabled()) {
       LOG.debug("facesContext is " + facesContext.getClass().getName());
     }
-    final List<AbstractUIMessages.Item> messageList = messages.createMessageList(facesContext);
+    final List<AbstractUIMessages.Item> messageList = component.createMessageList(facesContext);
 
     // with id
       /*String focusId = null;
@@ -76,12 +73,12 @@ public class MessagesRenderer extends RendererBase {
       }*/
 
     writer.startElement(HtmlElements.TOBAGO_MESSAGES);
-    writer.writeIdAttribute(messages.getClientId(facesContext));
-    final Markup markup = messages.getMarkup();
+    writer.writeIdAttribute(component.getClientId(facesContext));
+    final Markup markup = component.getMarkup();
     writer.writeClassAttribute(
         TobagoClass.MESSAGES,
         TobagoClass.MESSAGES.createMarkup(markup),
-        messages.getCustomClass());
+        component.getCustomClass());
 
     FacesMessage.Severity lastSeverity = null;
     boolean first = true;
@@ -98,7 +95,7 @@ public class MessagesRenderer extends RendererBase {
         writer.startElement(HtmlElements.DIV);
         writer.writeClassAttribute(
             BootstrapClass.ALERT, BootstrapClass.ALERT_DISMISSIBLE, BootstrapClass.alert(severity));
-        HtmlRendererUtils.writeDataAttributes(facesContext, writer, messages);
+        HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
         writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.ALERT.toString(), false);
 
         writer.startElement(HtmlElements.BUTTON);
@@ -109,7 +106,7 @@ public class MessagesRenderer extends RendererBase {
         writer.endElement(HtmlElements.BUTTON);
       }
 
-      encodeMessage(writer, messages, message, item.getClientId());
+      encodeMessage(writer, component, message, item.getClientId());
 
       lastSeverity = severity;
       first = false;
@@ -117,8 +114,8 @@ public class MessagesRenderer extends RendererBase {
     if (messageList.size() > 0) {
       writer.endElement(HtmlElements.DIV); // close open tag from for-loop
     }
-    if (messages.getFor() == null) {
-      final String id = messages.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "messagesExists";
+    if (component.getFor() == null) {
+      final String id = component.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "messagesExists";
       writer.startElement(HtmlElements.INPUT);
       writer.writeAttribute(HtmlAttributes.VALUE, Boolean.TRUE.toString(), false);
       writer.writeAttribute(HtmlAttributes.ID, id, false);

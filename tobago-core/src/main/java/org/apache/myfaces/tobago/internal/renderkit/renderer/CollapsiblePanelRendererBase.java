@@ -28,28 +28,26 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Map;
 
-public class PanelRendererBase extends RendererBase {
+public class CollapsiblePanelRendererBase<T extends AbstractUICollapsiblePanel> extends RendererBase<T> {
 
   private static final String SUFFIX_COLLAPSE = "collapse";
 
   @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
-    super.decode(facesContext, component);
+  public void decodeInternal(final FacesContext facesContext, final T component) {
+    super.decodeInternal(facesContext, component);
 
-    final AbstractUICollapsiblePanel collapsible = (AbstractUICollapsiblePanel) component;
-    final String clientId = collapsible.getClientId(facesContext);
+    final String clientId = component.getClientId(facesContext);
     final String hiddenId = clientId + ComponentUtils.SUB_SEPARATOR + SUFFIX_COLLAPSE;
 
     final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     if (requestParameterMap.containsKey(hiddenId)) {
       final String newValue = requestParameterMap.get(hiddenId);
       if (StringUtils.isNotBlank(newValue)) {
-        collapsible.setSubmittedCollapsed(Boolean.valueOf(newValue));
+        component.setSubmittedCollapsed(Boolean.valueOf(newValue));
       }
     }
   }
@@ -71,9 +69,9 @@ public class PanelRendererBase extends RendererBase {
   }
 
   @Override
-  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
-    if (((AbstractUICollapsiblePanel) component).isNormalLifecycle()) {
-      super.encodeChildren(facesContext, component);
+  public void encodeChildrenInternal(final FacesContext facesContext, final T component) throws IOException {
+    if (component.isNormalLifecycle()) {
+      super.encodeChildrenInternal(facesContext, component);
     }
   }
 }

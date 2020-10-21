@@ -27,23 +27,21 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class HiddenRenderer extends DecodingInputRendererBase {
+public class HiddenRenderer<T extends AbstractUIHidden> extends DecodingInputRendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUIHidden hidden = (AbstractUIHidden) component;
-    final String clientId = hidden.getClientId(facesContext);
-    final String value = RenderUtils.currentValue(hidden);
+    final String clientId = component.getClientId(facesContext);
+    final String value = RenderUtils.currentValue(component);
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.INPUT);
-    if (hidden.isDisabled()) {
+    if (component.isDisabled()) {
       // XXX why text instead of hidden here?
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
       writer.writeAttribute(HtmlAttributes.DISABLED, true);
@@ -52,12 +50,12 @@ public class HiddenRenderer extends DecodingInputRendererBase {
     }
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, hidden);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeAttribute(HtmlAttributes.VALUE, value != null ? value : "", true);
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.INPUT);
   }

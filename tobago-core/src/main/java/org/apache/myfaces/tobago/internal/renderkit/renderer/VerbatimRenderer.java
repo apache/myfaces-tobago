@@ -29,10 +29,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class VerbatimRenderer extends RendererBase {
+public class VerbatimRenderer<T extends UIComponent> extends RendererBase<T> {
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 

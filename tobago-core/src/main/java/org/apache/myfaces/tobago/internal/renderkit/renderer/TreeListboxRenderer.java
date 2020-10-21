@@ -49,50 +49,48 @@ import java.util.List;
 
 import static org.apache.myfaces.tobago.util.ComponentUtils.SUB_SEPARATOR;
 
-public class TreeListboxRenderer extends RendererBase {
+public class TreeListboxRenderer<T extends AbstractUITreeListbox> extends RendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(TreeListboxRenderer.class);
 
   @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
-    final AbstractUITree tree = (AbstractUITree) component;
-    decodeState(facesContext, tree);
+  public void decodeInternal(final FacesContext facesContext, final T component) {
+    decodeState(facesContext, component);
   }
 
   @Override
-  public void encodeChildren(final FacesContext context, final UIComponent component) throws IOException {
+  public void encodeChildrenInternal(final FacesContext context, final T component) throws IOException {
     // will be rendered in encodeEnd()
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final AbstractUITreeListbox tree = (AbstractUITreeListbox) component;
-    final String clientId = tree.getClientId(facesContext);
-    final Markup markup = tree.getMarkup();
+    final String clientId = component.getClientId(facesContext);
+    final Markup markup = component.getMarkup();
 
     writer.startElement(HtmlElements.TOBAGO_TREE_LISTBOX);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
         TobagoClass.TREE_LISTBOX,
         TobagoClass.TREE_LISTBOX.createMarkup(markup));
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);
-    writer.writeAttribute(DataAttributes.SELECTION_MODE, tree.getSelectable().name(), false);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
+    writer.writeAttribute(DataAttributes.SELECTION_MODE, component.getSelectable().name(), false);
 
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     writer.writeNameAttribute(clientId + SUB_SEPARATOR + AbstractUIData.SUFFIX_SELECTED);
     writer.writeIdAttribute(clientId + SUB_SEPARATOR + AbstractUIData.SUFFIX_SELECTED);
-    writer.writeAttribute(HtmlAttributes.VALUE, encodeState(tree), false);
+    writer.writeAttribute(HtmlAttributes.VALUE, encodeState(component), false);
     writer.endElement(HtmlElements.INPUT);
 
     List<Integer> thisLevel = new ArrayList<>();
     thisLevel.add(0);
     List<Integer> nextLevel = new ArrayList<>();
-    Integer size = tree.getSize();
+    Integer size = component.getSize();
     size = Math.max(size != null ? size : 10, 2); // must be > 1, default is 10, if not set
-    int depth = tree.getTreeDataModel().getDepth();
+    int depth = component.getTreeDataModel().getDepth();
     if (depth < 0) {
       depth = 7; // XXX
       LOG.warn("No depth, set to {}!", depth);
@@ -119,7 +117,7 @@ public class TreeListboxRenderer extends RendererBase {
       }
 
       for (final Integer rowIndex : thisLevel) {
-        encodeSelectBox(facesContext, tree, writer, rowIndex, nextLevel, size);
+        encodeSelectBox(facesContext, component, writer, rowIndex, nextLevel, size);
       }
 
       thisLevel.clear();
@@ -132,7 +130,7 @@ public class TreeListboxRenderer extends RendererBase {
 
     writer.endElement(HtmlElements.TOBAGO_TREE_LISTBOX);
 
-    tree.setRowIndex(-1);
+    component.setRowIndex(-1);
   }
 
   private void encodeSelectBox(

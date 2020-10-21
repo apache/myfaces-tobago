@@ -23,19 +23,18 @@ import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneChoice;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class SelectOneChoiceInsideInRenderer extends SelectOneChoiceRenderer {
+public class SelectOneChoiceInsideInRenderer<T extends AbstractUISelectOneChoice> extends SelectOneChoiceRenderer<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
     encodeBeginField(facesContext, component);
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     encodeEndField(facesContext, component);
   }
 
@@ -45,7 +44,7 @@ public class SelectOneChoiceInsideInRenderer extends SelectOneChoiceRenderer {
   }
 
   @Override
-  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
+  protected String getFieldId(final FacesContext facesContext, final T component) {
     return component.getClientId(facesContext);
   }
 }

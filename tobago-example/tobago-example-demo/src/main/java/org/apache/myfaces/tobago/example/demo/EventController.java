@@ -66,7 +66,6 @@ import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.component.UITabGroup;
 import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.component.UITree;
-import org.apache.myfaces.tobago.component.UITreeCommand;
 import org.apache.myfaces.tobago.component.UITreeIcon;
 import org.apache.myfaces.tobago.component.UITreeIndent;
 import org.apache.myfaces.tobago.component.UITreeLabel;
@@ -150,7 +149,6 @@ public class EventController implements Serializable {
     eventsOnComponents.add(new EventsOnComponent(new UITabGroup()));
     eventsOnComponents.add(new EventsOnComponent(new UITextarea()));
     eventsOnComponents.add(new EventsOnComponent(new UITree()));
-    eventsOnComponents.add(new EventsOnComponent(new UITreeCommand()));
     eventsOnComponents.add(new EventsOnComponent(new UITreeIcon()));
     eventsOnComponents.add(new EventsOnComponent(new UITreeIndent()));
     eventsOnComponents.add(new EventsOnComponent(new UITreeLabel()));

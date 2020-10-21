@@ -38,7 +38,7 @@ import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.List;
 
-public class SelectManyShuttleRenderer extends SelectManyRendererBase {
+public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> extends SelectManyRendererBase<T> {
 
   @Override
   public HtmlElements getComponentTag() {
@@ -46,37 +46,36 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
   }
 
   @Override
-  public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginField(final FacesContext facesContext, final T component) throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final AbstractUISelectManyShuttle select = (AbstractUISelectManyShuttle) component;
-    final String clientId = select.getClientId(facesContext);
-    final Markup markup = select.getMarkup();
+    final String clientId = component.getClientId(facesContext);
+    final Markup markup = component.getMarkup();
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(
         TobagoClass.SELECT_MANY_SHUTTLE,
         TobagoClass.SELECT_MANY_SHUTTLE.createMarkup(markup),
-        select.getCustomClass(),
+        component.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
-    final boolean hasLabel = select.hasLabel();
-    final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, select);
-    final boolean disabled = !items.iterator().hasNext() || select.isDisabled();
-    final boolean readonly = select.isReadonly();
+//    final boolean hasLabel = component.hasLabel(); // XXX is needed?
+    final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, component);
+    final boolean disabled = !items.iterator().hasNext() || component.isDisabled();
+    final boolean readonly = component.isReadonly();
 
-    final String unselectedLabel = select.getUnselectedLabel();
+    final String unselectedLabel = component.getUnselectedLabel();
     if (unselectedLabel != null) {
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(TobagoClass.SELECT_MANY_SHUTTLE__UNSELECTED_LABEL);
       writer.write(unselectedLabel);
       writer.endElement(HtmlElements.DIV);
     }
-    Integer size = select.getSize();
+    Integer size = component.getSize();
     size = Math.max(size != null ? size : items.size(), 2); // must be > 1
 
     writer.startElement(HtmlElements.SELECT);
@@ -86,16 +85,16 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
 
     // TODO tabIndex
-    writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
+    writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
 
     writer.writeClassAttribute(TobagoClass.SELECT_MANY_SHUTTLE__UNSELECTED, BootstrapClass.FORM_CONTROL);
 
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
 
-    final Object[] values = select.getSelectedValues();
-    final String[] submittedValues = getSubmittedValues(select);
-    HtmlRendererUtils.renderSelectItems(select, TobagoClass.SELECT_MANY_SHUTTLE__OPTION, items, values, submittedValues,
+    final Object[] values = component.getSelectedValues();
+    final String[] submittedValues = getSubmittedValues(component);
+    HtmlRendererUtils.renderSelectItems(component, TobagoClass.SELECT_MANY_SHUTTLE__OPTION, items, values, submittedValues,
         false, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
@@ -110,7 +109,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     createButton(facesContext, component, writer, disabled | readonly,
         Icons.ANGLE_DOUBLE_LEFT, "removeAll", TobagoClass.SELECT_MANY_SHUTTLE__REMOVE_ALL);
     writer.endElement(HtmlElements.DIV);
-    final String selectedLabel = select.getSelectedLabel();
+    final String selectedLabel = component.getSelectedLabel();
     if (selectedLabel != null) {
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(TobagoClass.SELECT_MANY_SHUTTLE__SELECTED_LABEL);
@@ -124,14 +123,14 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
 
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
-    writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
+    writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
     writer.writeClassAttribute(
         TobagoClass.SELECT_MANY_SHUTTLE__SELECTED,
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(select)),
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
         BootstrapClass.FORM_CONTROL);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
-    HtmlRendererUtils.renderSelectItems(select, TobagoClass.SELECT_MANY_SHUTTLE__OPTION, items, values, submittedValues,
+    HtmlRendererUtils.renderSelectItems(component, TobagoClass.SELECT_MANY_SHUTTLE__OPTION, items, values, submittedValues,
         true, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
@@ -141,19 +140,18 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeIdAttribute(hiddenClientId);
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
-    writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
-    HtmlRendererUtils.renderSelectItems(select, TobagoClass.SELECT_MANY_SHUTTLE__OPTION, items, values, submittedValues,
+    writer.writeAttribute(HtmlAttributes.REQUIRED, component.isRequired());
+    HtmlRendererUtils.renderSelectItems(component, TobagoClass.SELECT_MANY_SHUTTLE__OPTION, items, values, submittedValues,
         writer, facesContext);
     writer.endElement(HtmlElements.SELECT);
   }
 
   @Override
-  public void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final AbstractUISelectManyShuttle select = (AbstractUISelectManyShuttle) component;
     writer.endElement(HtmlElements.DIV);
 
-    encodeBehavior(writer, facesContext, select);
+    encodeBehavior(writer, facesContext, component);
   }
 
   private void createButton(
@@ -171,7 +169,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
   }
 
   @Override
-  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
+  protected String getFieldId(final FacesContext facesContext, final T component) {
     return component.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "unselected";
   }
 }

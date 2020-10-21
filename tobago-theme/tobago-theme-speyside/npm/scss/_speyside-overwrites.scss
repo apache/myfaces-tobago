@@ -91,7 +91,7 @@ button {
     }
   }
 
-  &.tobago-link, &.tobago-command, &.tobago-treeCommand {
+  &.tobago-link, &.tobago-command {
     color: $link-color;
     text-decoration: none;
 
@@ -121,7 +121,7 @@ button {
 }
 
 td button {
-  &.tobago-link, &.tobago-command, &.tobago-treeCommand {
+  &.tobago-link, &.tobago-command {
     padding-top: 5px;
     margin-bottom: 12px;
   }
@@ -664,7 +664,7 @@ tobago-tab.tobago-tab-barFacet {
   }
 }
 
-a, button.tobago-link, button.tobago-command, button.tobago-treeCommand {
+a, button.tobago-link, button.tobago-command {
   &[disabled] {
     color: $gray-300;
   }

@@ -31,21 +31,19 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class PanelRenderer extends PanelRendererBase {
+public class PanelRenderer<T extends AbstractUIPanel> extends CollapsiblePanelRendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUIPanel panel = (AbstractUIPanel) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final String clientId = panel.getClientId(facesContext);
-    final boolean collapsed = panel.isCollapsed();
-    final Markup markup = panel.getMarkup();
-    final AbstractUIReload reload = ComponentUtils.getReloadFacet(panel);
+    final String clientId = component.getClientId(facesContext);
+    final boolean collapsed = component.isCollapsed();
+    final Markup markup = component.getMarkup();
+    final AbstractUIReload reload = ComponentUtils.getReloadFacet(component);
 
     writer.startElement(HtmlElements.TOBAGO_PANEL);
     writer.writeIdAttribute(clientId);
@@ -53,11 +51,11 @@ public class PanelRenderer extends PanelRendererBase {
     writer.writeClassAttribute(
         collapsed ? TobagoClass.COLLAPSED : null,
         TobagoClass.PANEL.createMarkup(markup),
-        panel.getCustomClass(),
+        component.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
 
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, panel);
-    final String tip = panel.getTip();
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
+    final String tip = component.getTip();
     if (tip != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     }
@@ -66,15 +64,15 @@ public class PanelRenderer extends PanelRendererBase {
       writer.writeAttribute(DataAttributes.RELOAD, reload.getFrequency());
     }
 
-    if (panel.getCollapsedMode() != CollapseMode.none) {
+    if (component.getCollapsedMode() != CollapseMode.none) {
       encodeHidden(writer, clientId, collapsed);
     }
 
-    encodeBehavior(writer, facesContext, panel);
+    encodeBehavior(writer, facesContext, component);
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.TOBAGO_PANEL);
   }

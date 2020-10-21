@@ -28,31 +28,29 @@ import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class FlowLayoutRenderer extends RendererBase {
+public class FlowLayoutRenderer<T extends AbstractUIFlowLayout> extends RendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final AbstractUIFlowLayout flowLayout = (AbstractUIFlowLayout) component;
-    final Markup markup = flowLayout.getMarkup();
+    final Markup markup = component.getMarkup();
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeIdAttribute(flowLayout.getClientId());
-    final TextAlign textAlign = flowLayout.getTextAlign();
+    writer.writeIdAttribute(component.getClientId());
+    final TextAlign textAlign = component.getTextAlign();
     writer.writeClassAttribute(
         TobagoClass.FLOW_LAYOUT,
         TobagoClass.FLOW_LAYOUT.createMarkup(markup),
-        flowLayout.getCustomClass(),
+        component.getCustomClass(),
         textAlign != null ? BootstrapClass.textAlign(textAlign) : null);
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }

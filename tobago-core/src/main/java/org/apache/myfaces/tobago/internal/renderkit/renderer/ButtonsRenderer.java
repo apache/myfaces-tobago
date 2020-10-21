@@ -38,27 +38,26 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class ButtonsRenderer extends RendererBase {
+public class ButtonsRenderer<T extends AbstractUIButtons> extends RendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUIButtons buttons = (AbstractUIButtons) component;
-    final Markup markup = buttons.getMarkup();
+    final Markup markup = component.getMarkup();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeIdAttribute(buttons.getClientId(facesContext));
+    writer.writeIdAttribute(component.getClientId(facesContext));
 
     writer.writeClassAttribute(
         TobagoClass.BUTTONS,
         TobagoClass.BUTTONS.createMarkup(markup),
-        Orientation.vertical.equals(buttons.getOrientation())
+        Orientation.vertical.equals(component.getOrientation())
             ? BootstrapClass.BTN_GROUP_VERTICAL : BootstrapClass.BTN_GROUP,
-        buttons.getCustomClass());
+        component.getCustomClass());
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.GROUP.toString(), false);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, buttons);
-    final String tip = buttons.getTip();
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
+    final String tip = component.getTip();
     if (tip != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     }
@@ -70,7 +69,7 @@ public class ButtonsRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeChildrenInternal(final FacesContext facesContext, final T component) throws IOException {
     for (final UIComponent child : component.getChildren()) {
       if (child.isRendered()) {
         if (child instanceof AbstractUIButton) {
@@ -87,7 +86,7 @@ public class ButtonsRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }

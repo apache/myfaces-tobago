@@ -19,5 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-public class SheetPageCommandRenderer extends LinkRenderer {
+import org.apache.myfaces.tobago.internal.component.AbstractUILink;
+
+public class SheetPageCommandRenderer<T extends AbstractUILink> extends LinkRenderer<T> {
 }

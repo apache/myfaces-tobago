@@ -31,12 +31,11 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 
-public class SelectOneChoiceRenderer extends SelectOneRendererBase {
+public class SelectOneChoiceRenderer<T extends AbstractUISelectOneChoice> extends SelectOneRendererBase<T> {
 
   @Override
   public HtmlElements getComponentTag() {
@@ -49,53 +48,50 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
   }
 
   @Override
-  protected void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUISelectOneChoice select = (AbstractUISelectOneChoice) component;
+  protected void encodeBeginField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    final String clientId = select.getClientId(facesContext);
-    final String fieldId = getFieldId(facesContext, select);
-    final Iterable<SelectItem> items = SelectItemUtils.getItemIterator(facesContext, select);
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
-    final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || select.isReadonly();
-    final Markup markup = select.getMarkup();
+    final String clientId = component.getClientId(facesContext);
+    final String fieldId = getFieldId(facesContext, component);
+    final Iterable<SelectItem> items = SelectItemUtils.getItemIterator(facesContext, component);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
+    final boolean disabled = !items.iterator().hasNext() || component.isDisabled() || component.isReadonly();
+    final Markup markup = component.getMarkup();
 
     writer.startElement(HtmlElements.SELECT);
     writer.writeIdAttribute(fieldId);
     writer.writeNameAttribute(clientId);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
+    writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
 
     writer.writeClassAttribute(
         TobagoClass.SELECT_ONE_CHOICE,
         TobagoClass.SELECT_ONE_CHOICE.createMarkup(markup),
-        getCssItems(facesContext, select),
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(select)),
-        select.getCustomClass());
+        getCssItems(facesContext, component),
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
+        component.getCustomClass());
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
-    HtmlRendererUtils.renderFocus(clientId, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
+    HtmlRendererUtils.renderFocus(clientId, component.isFocus(), ComponentUtils.isError(component), facesContext, writer);
 
-    HtmlRendererUtils.renderSelectItems(select, TobagoClass.SELECT_ONE_CHOICE__OPTION, items, select.getValue(),
-        (String) select.getSubmittedValue(), writer, facesContext);
+    HtmlRendererUtils.renderSelectItems(component, TobagoClass.SELECT_ONE_CHOICE__OPTION, items, component.getValue(),
+        (String) component.getSubmittedValue(), writer, facesContext);
   }
 
   @Override
-  protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
+  protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final AbstractUISelectOneChoice select = (AbstractUISelectOneChoice) component;
 
     writer.endElement(HtmlElements.SELECT);
 
-    encodeBehavior(writer, facesContext, select);
+    encodeBehavior(writer, facesContext, component);
   }
 
   @Override
-  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
-    final AbstractUISelectOneChoice select = (AbstractUISelectOneChoice) component;
-    return select.getFieldId(facesContext);
+  protected String getFieldId(final FacesContext facesContext, final T component) {
+    return component.getFieldId(facesContext);
   }
 
   protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectOneChoice select) {

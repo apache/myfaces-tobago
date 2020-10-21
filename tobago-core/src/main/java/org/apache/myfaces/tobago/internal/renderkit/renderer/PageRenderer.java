@@ -77,7 +77,7 @@ import java.util.Map;
 
 // using jsf.js from a specific MyFaces version instead, to avoid old bugs
 //@ResourceDependency(name="jsf.js", library="javax.faces", target="head")
-public class PageRenderer extends RendererBase {
+public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -86,10 +86,9 @@ public class PageRenderer extends RendererBase {
   private static final String BODY_TARGET = "body";
 
   @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
+  public void decodeInternal(final FacesContext facesContext, final T component) {
 
-    final AbstractUIPage page = (AbstractUIPage) component;
-    final String clientId = page.getClientId(facesContext);
+    final String clientId = component.getClientId(facesContext);
     final ExternalContext externalContext = facesContext.getExternalContext();
 
     // last focus
@@ -104,14 +103,13 @@ public class PageRenderer extends RendererBase {
   private ProjectStage projectStage;
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUIPage page = (AbstractUIPage) component;
     final TobagoConfig tobagoConfig = CDI.current().select(TobagoConfig.class).get(); // todo: may inject
     final TobagoContext tobagoContext = CDI.current().select(TobagoContext.class).get(); // todo: may inject
 
-    if (tobagoContext.getFocusId() == null && !StringUtils.isBlank(page.getFocusId())) {
-      tobagoContext.setFocusId(page.getFocusId());
+    if (tobagoContext.getFocusId() == null && !StringUtils.isBlank(component.getFocusId())) {
+      tobagoContext.setFocusId(component.getFocusId());
     }
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -127,7 +125,7 @@ public class PageRenderer extends RendererBase {
     ResponseUtils.ensureContentSecurityPolicyHeader(facesContext, tobagoConfig.getContentSecurityPolicy());
 
     if (LOG.isDebugEnabled()) {
-      for (final Object o : page.getAttributes().entrySet()) {
+      for (final Object o : component.getAttributes().entrySet()) {
         final Map.Entry entry = (Map.Entry) o;
         LOG.debug("*** '" + entry.getKey() + "' -> '" + entry.getValue() + "'");
       }
@@ -163,11 +161,11 @@ public class PageRenderer extends RendererBase {
       CookieUtils.setThemeNameToCookie((HttpServletRequest) request, (HttpServletResponse) response, theme.getName());
     }
 
-    final String clientId = page.getClientId(facesContext);
+    final String clientId = component.getClientId(facesContext);
     final boolean productionMode = projectStage == ProjectStage.Production;
-    final Markup markup = page.getMarkup();
+    final Markup markup = component.getMarkup();
     final TobagoClass spread = markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null;
-    final String title = page.getLabel();
+    final String title = component.getLabel();
 
     final Locale locale = viewRoot.getLocale();
     if (!portlet) {
@@ -244,13 +242,13 @@ public class PageRenderer extends RendererBase {
     writer.writeAttribute(CustomAttributes.LOCALE, locale.toString(), false);
     writer.writeClassAttribute(
         BootstrapClass.CONTAINER_FLUID,
-        TobagoClass.PAGE.createMarkup(portlet ? Markup.PORTLET.add(page.getMarkup()) : page.getMarkup()),
+        TobagoClass.PAGE.createMarkup(portlet ? Markup.PORTLET.add(component.getMarkup()) : component.getMarkup()),
         spread,
-        page.getCustomClass());
+        component.getCustomClass());
     writer.writeIdAttribute(clientId);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, page);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
-    encodeBehavior(writer, facesContext, page);
+    encodeBehavior(writer, facesContext, component);
 
     writer.startElement(HtmlElements.FORM);
     writer.writeClassAttribute(spread);
@@ -261,8 +259,8 @@ public class PageRenderer extends RendererBase {
     if (LOG.isDebugEnabled()) {
       LOG.debug("partial action = " + partialAction);
     }
-    writer.writeIdAttribute(page.getFormId(facesContext));
-    writer.writeAttribute(HtmlAttributes.METHOD, getMethod(page), false);
+    writer.writeIdAttribute(component.getFormId(facesContext));
+    writer.writeAttribute(HtmlAttributes.METHOD, getMethod(component), false);
     final String enctype = tobagoContext.getEnctype();
     if (enctype != null) {
       writer.writeAttribute(HtmlAttributes.ENCTYPE, enctype, false);
@@ -324,12 +322,11 @@ public class PageRenderer extends RendererBase {
 */
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUIPage page = (AbstractUIPage) component;
     final UIViewRoot viewRoot = facesContext.getViewRoot();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final String clientId = page.getClientId(facesContext);
+    final String clientId = component.getClientId(facesContext);
     final Application application = facesContext.getApplication();
     final ViewHandler viewHandler = application.getViewHandler();
     final Object response = facesContext.getExternalContext().getResponse();

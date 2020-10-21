@@ -29,11 +29,10 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class StarsRenderer extends MessageLayoutRendererBase {
+public class StarsRenderer<T extends AbstractUIStars> extends MessageLayoutRendererBase<T> {
 
   @Override
   public HtmlElements getComponentTag() {
@@ -41,32 +40,31 @@ public class StarsRenderer extends MessageLayoutRendererBase {
   }
 
   @Override
-  protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
+  protected void encodeBeginField(FacesContext facesContext, T component) throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final AbstractUIStars stars = (AbstractUIStars) component;
-    final String clientId = stars.getClientId(facesContext);
-    final String fieldId = stars.getFieldId(facesContext);
+    final String clientId = component.getClientId(facesContext);
+    final String fieldId = component.getFieldId(facesContext);
     final String hiddenInputId = clientId + ComponentUtils.SUB_SEPARATOR + "input";
     final String sliderId = clientId + ComponentUtils.SUB_SEPARATOR + "slider";
-    final int value = stars.getRangeValue();
-    final int max = stars.getRangeMax();
-    final Double placeholder = stars.getPlaceholder();
-    final boolean readonly = stars.isReadonly();
-    final boolean disabled = stars.isDisabled();
-    final boolean required = stars.isRequired();
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, stars);
+    final int value = component.getRangeValue();
+    final int max = component.getRangeMax();
+    final Double placeholder = component.getPlaceholder();
+    final boolean readonly = component.isReadonly();
+    final boolean disabled = component.isDisabled();
+    final boolean required = component.isRequired();
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
 
-    final String sliderValue = stars.getSubmittedValue() != null
-        ? (String) stars.getSubmittedValue() : String.valueOf(value);
+    final String sliderValue = component.getSubmittedValue() != null
+        ? (String) component.getSubmittedValue() : String.valueOf(value);
     final String hiddenInputValue = required && "0".equals(sliderValue) ? null : sliderValue;
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(fieldId);
     writer.writeClassAttribute(
         TobagoClass.STARS,
-        TobagoClass.STARS.createMarkup(stars.getMarkup()),
-        stars.getCustomClass());
+        TobagoClass.STARS.createMarkup(component.getMarkup()),
+        component.getCustomClass());
 
     // The hidden input must be used to submit the rating. The 'required' attribute is not allowed on slider component.
     writer.startElement(HtmlElements.INPUT);
@@ -96,12 +94,12 @@ public class StarsRenderer extends MessageLayoutRendererBase {
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.REQUIRED, required);
-    HtmlRendererUtils.renderFocus(clientId, stars.isFocus(), ComponentUtils.isError(stars), facesContext, writer);
-    writer.writeAttribute(HtmlAttributes.TABINDEX, stars.getTabIndex());
+    HtmlRendererUtils.renderFocus(clientId, component.isFocus(), ComponentUtils.isError(component), facesContext, writer);
+    writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     writer.endElement(HtmlElements.INPUT);
 
-    encodeBehavior(writer, facesContext, stars);
+    encodeBehavior(writer, facesContext, component);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(TobagoClass.STARS__FOCUS_BOX);
@@ -123,14 +121,13 @@ public class StarsRenderer extends MessageLayoutRendererBase {
   }
 
   @Override
-  protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
+  protected void encodeEndField(FacesContext facesContext, T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }
 
   @Override
-  protected String getFieldId(FacesContext facesContext, UIComponent component) {
-    final AbstractUIStars stars = (AbstractUIStars) component;
-    return stars.getFieldId(facesContext);
+  protected String getFieldId(FacesContext facesContext, T component) {
+    return component.getFieldId(facesContext);
   }
 }

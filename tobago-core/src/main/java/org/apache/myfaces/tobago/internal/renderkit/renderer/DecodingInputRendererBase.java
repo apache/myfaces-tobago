@@ -32,12 +32,12 @@ import javax.faces.context.FacesContext;
 import java.lang.invoke.MethodHandles;
 import java.util.Map;
 
-public abstract class DecodingInputRendererBase extends RendererBase {
+public abstract class DecodingInputRendererBase<T extends UIComponent> extends RendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
+  public void decodeInternal(final FacesContext facesContext, final T component) {
     if (!(component instanceof EditableValueHolder)) {
       return; // no decoding required
     }

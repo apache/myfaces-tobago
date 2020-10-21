@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIBadge;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
-import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -33,7 +32,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class ButtonRenderer extends CommandRendererBase {
+public class ButtonRenderer<T extends AbstractUIButton> extends CommandRendererBase<T> {
 
   @Override
   protected TobagoClass getRendererCssClass() {
@@ -41,7 +40,7 @@ public class ButtonRenderer extends CommandRendererBase {
   }
 
   @Override
-  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUICommand command) {
+  protected CssItem[] getCssItems(final FacesContext facesContext, final T command) {
     final boolean defaultCommand = ComponentUtils.getBooleanAttribute(command, Attributes.defaultCommand);
     final Markup markup = command.getMarkup() != null ? command.getMarkup() : Markup.NULL;
 
@@ -95,10 +94,8 @@ public class ButtonRenderer extends CommandRendererBase {
   }
 
   @Override
-  protected void encodeBadge(FacesContext facesContext, AbstractUICommand command) throws IOException {
-    final AbstractUIButton button = (AbstractUIButton) command;
-
-    for (final UIComponent child : button.getChildren()) {
+  protected void encodeBadge(FacesContext facesContext, T component) throws IOException {
+    for (final UIComponent child : component.getChildren()) {
       if (child instanceof AbstractUIBadge) {
         child.encodeAll(facesContext);
       }

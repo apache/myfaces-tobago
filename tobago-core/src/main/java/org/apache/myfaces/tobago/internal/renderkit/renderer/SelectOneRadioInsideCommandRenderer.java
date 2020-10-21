@@ -28,15 +28,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class SelectOneRadioInsideCommandRenderer extends SelectOneRadioRenderer {
+public class SelectOneRadioInsideCommandRenderer<T extends AbstractUISelectOneRadio> extends SelectOneRadioRenderer<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
     encodeBeginField(facesContext, component);
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     encodeEndField(facesContext, component);
   }
 

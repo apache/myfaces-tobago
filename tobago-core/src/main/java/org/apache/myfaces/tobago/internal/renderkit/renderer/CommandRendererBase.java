@@ -55,25 +55,24 @@ import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class CommandRendererBase extends DecodingCommandRendererBase {
+public abstract class CommandRendererBase<T extends AbstractUICommand> extends DecodingCommandRendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUICommand command = (AbstractUICommand) component;
-    final String clientId = command.getClientId(facesContext);
-    final boolean disabled = command.isDisabled();
-    final LabelWithAccessKey label = new LabelWithAccessKey(command);
-    final boolean anchor = (command.getLink() != null || command.getOutcome() != null) && !disabled;
-    final String target = command.getTarget();
-    final boolean parentOfCommands = command.isParentOfCommands();
+    final String clientId = component.getClientId(facesContext);
+    final boolean disabled = component.isDisabled();
+    final LabelWithAccessKey label = new LabelWithAccessKey(component);
+    final boolean anchor = (component.getLink() != null || component.getOutcome() != null) && !disabled;
+    final String target = component.getTarget();
+    final boolean parentOfCommands = component.isParentOfCommands();
     final boolean dropdownSubmenu = this instanceof LinkInsideCommandRenderer;
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    encodeBeginOuter(facesContext, command);
+    encodeBeginOuter(facesContext, component);
 
     if (anchor) {
       writer.startElement(HtmlElements.A);
@@ -81,17 +80,17 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
       writer.startElement(HtmlElements.BUTTON);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     }
-    writer.writeIdAttribute(command.getFieldId(facesContext));
+    writer.writeIdAttribute(component.getFieldId(facesContext));
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
 
     if (!disabled) {
       if (anchor) {
-        final String href = RenderUtils.generateUrl(facesContext, command);
+        final String href = RenderUtils.generateUrl(facesContext, component);
         writer.writeAttribute(HtmlAttributes.HREF, href, true);
         writer.writeAttribute(HtmlAttributes.TARGET, target, true);
 
-        command.setOmit(true);
+        component.setOmit(true);
       }
 
       if (label.getAccessKey() != null) {
@@ -99,33 +98,33 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
         AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
       }
 
-      final int tabIndex = ComponentUtils.getIntAttribute(command, Attributes.tabIndex);
+      final int tabIndex = ComponentUtils.getIntAttribute(component, Attributes.tabIndex);
       if (tabIndex != 0) {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
     }
 
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, command);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
     if (parentOfCommands) {
       writer.writeAttribute(DataAttributes.TOGGLE, "dropdown", false);
     }
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, command);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
 
     writer.writeClassAttribute(
         getRendererCssClass(),
-        getRendererCssClass().createMarkup(command.getMarkup()),
-        parentOfCommands ? null : getOuterCssItems(facesContext, command),
-        getCssItems(facesContext, command),
+        getRendererCssClass().createMarkup(component.getMarkup()),
+        parentOfCommands ? null : getOuterCssItems(facesContext, component),
+        getCssItems(facesContext, component),
         parentOfCommands && !dropdownSubmenu ? BootstrapClass.DROPDOWN_TOGGLE : null,
-        command.getCustomClass());
+        component.getCustomClass());
 
-    final boolean defaultCommand = ComponentUtils.getBooleanAttribute(command, Attributes.defaultCommand);
+    final boolean defaultCommand = ComponentUtils.getBooleanAttribute(component, Attributes.defaultCommand);
     if (defaultCommand) {
-      final AbstractUIFormBase form = ComponentUtils.findAncestor(command, AbstractUIFormBase.class);
+      final AbstractUIFormBase form = ComponentUtils.findAncestor(component, AbstractUIFormBase.class);
       if (form != null) {
         writer.writeAttribute(DataAttributes.DEFAULT, form.getClientId(facesContext), false);
       } else {
@@ -134,17 +133,17 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     }
 
     if (!disabled) {
-      encodeBehavior(writer, facesContext, command);
+      encodeBehavior(writer, facesContext, component);
     }
 
-    final String image = ComponentUtils.getStringAttribute(command, Attributes.image);
+    final String image = ComponentUtils.getStringAttribute(component, Attributes.image);
     HtmlRendererUtils.encodeIconOrImage(writer, image);
 
     if (label.getLabel() != null) {
       writer.startElement(HtmlElements.SPAN);
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
       writer.endElement(HtmlElements.SPAN);
-      encodeBadge(facesContext, command);
+      encodeBadge(facesContext, component);
     }
 
     if (anchor) {
@@ -160,9 +159,8 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
   }
 
   @Override
-  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUICommand command = (AbstractUICommand) component;
-    final boolean parentOfCommands = command.isParentOfCommands();
+  public void encodeChildrenInternal(final FacesContext facesContext, final T component) throws IOException {
+    final boolean parentOfCommands = component.isParentOfCommands();
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -172,9 +170,9 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(
           BootstrapClass.DROPDOWN_MENU,
-          getDropdownCssItems(facesContext, command));
-      writer.writeAttribute(Arias.LABELLEDBY, command.getFieldId(facesContext), false);
-      writer.writeAttribute(HtmlAttributes.NAME, command.getClientId(facesContext), false);
+          getDropdownCssItems(facesContext, component));
+      writer.writeAttribute(Arias.LABELLEDBY, component.getFieldId(facesContext), false);
+      writer.writeAttribute(HtmlAttributes.NAME, component.getClientId(facesContext), false);
 
       for (final UIComponent child : component.getChildren()) {
         if (child.isRendered()
@@ -225,12 +223,11 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUICommand command = (AbstractUICommand) component;
-    encodeEndOuter(facesContext, command);
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
+    encodeEndOuter(facesContext, component);
   }
 
-  protected void encodeBeginOuter(final FacesContext facesContext, final AbstractUICommand command) throws IOException {
+  protected void encodeBeginOuter(final FacesContext facesContext, final T command) throws IOException {
     final String clientId = command.getClientId(facesContext);
     final boolean parentOfCommands = command.isParentOfCommands();
     final boolean dropdownSubmenu = this instanceof LinkInsideCommandRenderer;
@@ -248,27 +245,27 @@ public abstract class CommandRendererBase extends DecodingCommandRendererBase {
     }
   }
 
-  protected void encodeEndOuter(final FacesContext facesContext, final AbstractUICommand command) throws IOException {
+  protected void encodeEndOuter(final FacesContext facesContext, final T command) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     if (command.isParentOfCommands()) {
       writer.endElement(HtmlElements.TOBAGO_DROPDOWN);
     }
   }
 
-  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUICommand command) {
+  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final T command) {
     return null;
   }
 
   abstract TobagoClass getRendererCssClass();
 
-  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUICommand command) {
+  protected CssItem[] getCssItems(final FacesContext facesContext, final T command) {
     return null;
   }
 
-  protected CssItem[] getDropdownCssItems(final FacesContext facesContext, final AbstractUICommand command) {
+  protected CssItem[] getDropdownCssItems(final FacesContext facesContext, final T command) {
     return null;
   }
 
-  protected void encodeBadge(final FacesContext facesContext, final AbstractUICommand command) throws IOException {
+  protected void encodeBadge(final FacesContext facesContext, final T command) throws IOException {
   }
 }

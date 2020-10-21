@@ -32,11 +32,10 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class TreeIconRenderer extends RendererBase {
+public class TreeIconRenderer<T extends AbstractUITreeIcon> extends RendererBase<T> {
 
   /**
    * @deprecated since Tobago 3.0.0
@@ -55,17 +54,16 @@ public class TreeIconRenderer extends RendererBase {
   protected static final String LEAF = "image/treeNode-icon-leaf";
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUITreeIcon treeIcon = (AbstractUITreeIcon) component;
-    final AbstractUIData data = ComponentUtils.findAncestor(treeIcon, AbstractUIData.class);
-    final AbstractUITreeNode node = ComponentUtils.findAncestor(treeIcon, AbstractUITreeNode.class);
+    final AbstractUIData data = ComponentUtils.findAncestor(component, AbstractUIData.class);
+    final AbstractUITreeNode node = ComponentUtils.findAncestor(component, AbstractUITreeNode.class);
     final boolean folder = node.isFolder();
     final boolean expanded = folder && data.getExpandedState().isExpanded(node.getPath());
 
-    final String value = (String) treeIcon.getValue();
-    String closed = treeIcon.getClosed();
-    String open = treeIcon.getOpen();
+    final String value = (String) component.getValue();
+    String closed = component.getClosed();
+    String open = component.getOpen();
 
     if (closed == null) {
       closed = value;
@@ -89,10 +87,10 @@ public class TreeIconRenderer extends RendererBase {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.SPAN);
-    writer.writeIdAttribute(treeIcon.getClientId());
+    writer.writeIdAttribute(component.getClientId());
     writer.writeClassAttribute(
         TobagoClass.TREE_NODE__TOGGLE,
-        treeIcon.getCustomClass());
+        component.getCustomClass());
 
     if (source != null && source.startsWith("fa-")) {
       writer.startElement(HtmlElements.I);
@@ -104,7 +102,7 @@ public class TreeIconRenderer extends RendererBase {
       writer.endElement(HtmlElements.I);
     } else {
       writer.startElement(HtmlElements.IMG);
-      HtmlRendererUtils.writeDataAttributes(facesContext, writer, treeIcon);
+      HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
       writer.writeAttribute(HtmlAttributes.SRC, source, true);
       if (folder) {
         writer.writeAttribute(DataAttributes.OPEN, open, true);

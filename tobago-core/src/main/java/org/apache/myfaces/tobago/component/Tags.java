@@ -91,7 +91,6 @@ public enum Tags {
   tabGroup,
   toolBar,
   tree,
-  treeCommand,
   treeIcon,
   treeIndent,
   treeLabel,
@@ -163,7 +162,6 @@ public enum Tags {
   public static final String TAB_GROUP = "tabGroup";
   public static final String TOOL_BAR = "toolBar";
   public static final String TREE = "tree";
-  public static final String TREE_COMMAND = "treeCommand";
   public static final String TREE_ICON = "treeIcon";
   public static final String TREE_INDENT = "treeIndent";
   public static final String TREE_LABEL = "treeLabel";

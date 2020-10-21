@@ -30,13 +30,12 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.List;
 
-public class SelectOneListboxRenderer extends SelectOneRendererBase {
+public class SelectOneListboxRenderer<T extends AbstractUISelectOneListbox> extends SelectOneRendererBase<T> {
 
   @Override
   public HtmlElements getComponentTag() {
@@ -49,56 +48,53 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
   }
 
   @Override
-  public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUISelectOneListbox select = (AbstractUISelectOneListbox) component;
+  public void encodeBeginField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    final String clientId = select.getClientId(facesContext);
-    final String fieldId = select.getFieldId(facesContext);
-    final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, select);
-    final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || select.isReadonly();
-    final Markup markup = select.getMarkup();
-    Integer size = select.getSize();
+    final String clientId = component.getClientId(facesContext);
+    final String fieldId = component.getFieldId(facesContext);
+    final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, component);
+    final boolean disabled = !items.iterator().hasNext() || component.isDisabled() || component.isReadonly();
+    final Markup markup = component.getMarkup();
+    Integer size = component.getSize();
     size = Math.max(size != null ? size : items.size(), 2); // must be > 1
 
     writer.startElement(HtmlElements.SELECT);
     writer.writeIdAttribute(fieldId);
     writer.writeNameAttribute(clientId);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    writer.writeAttribute(HtmlAttributes.READONLY, select.isReadonly());
-    writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
-    HtmlRendererUtils.renderFocus(clientId, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
+    writer.writeAttribute(HtmlAttributes.READONLY, component.isReadonly());
+    writer.writeAttribute(HtmlAttributes.REQUIRED, component.isRequired());
+    HtmlRendererUtils.renderFocus(clientId, component.isFocus(), ComponentUtils.isError(component), facesContext, writer);
 
-    writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
+    writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
 
     writer.writeClassAttribute(
         TobagoClass.SELECT_ONE_LISTBOX,
-        TobagoClass.SELECT_ONE_LISTBOX.createMarkup(select.getMarkup()),
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(select)),
+        TobagoClass.SELECT_ONE_LISTBOX.createMarkup(component.getMarkup()),
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
         BootstrapClass.FORM_CONTROL,
-        select.getCustomClass(),
+        component.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
-    HtmlRendererUtils.renderSelectItems(select, TobagoClass.SELECT_ONE_LISTBOX__OPTION, items, select.getValue(),
-        (String) select.getSubmittedValue(), writer, facesContext);
+    HtmlRendererUtils.renderSelectItems(component, TobagoClass.SELECT_ONE_LISTBOX__OPTION, items, component.getValue(),
+        (String) component.getSubmittedValue(), writer, facesContext);
   }
 
   @Override
-  protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
+  protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final AbstractUISelectOneListbox select = (AbstractUISelectOneListbox) component;
 
     writer.endElement(HtmlElements.SELECT);
 
-    encodeBehavior(writer, facesContext, select);
+    encodeBehavior(writer, facesContext, component);
   }
 
   @Override
-  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
-    final AbstractUISelectOneListbox select = (AbstractUISelectOneListbox) component;
-    return select.getFieldId(facesContext);
+  protected String getFieldId(final FacesContext facesContext, final T component) {
+    return component.getFieldId(facesContext);
   }
 }

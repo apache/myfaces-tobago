@@ -30,17 +30,11 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.lang.invoke.MethodHandles;
 
-public class RangeRenderer extends MessageLayoutRendererBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+public class RangeRenderer<T extends AbstractUIRange> extends MessageLayoutRendererBase<T> {
 
   @Override
   public HtmlElements getComponentTag() {
@@ -48,32 +42,31 @@ public class RangeRenderer extends MessageLayoutRendererBase {
   }
 
   @Override
-  protected void encodeBeginField(final FacesContext facesContext, final UIComponent component)
+  protected void encodeBeginField(final FacesContext facesContext, final T component)
       throws IOException {
-    final AbstractUIRange range = (AbstractUIRange) component;
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, range);
-    final String currentValue = getCurrentValue(facesContext, range);
-    final String clientId = range.getClientId(facesContext);
-    final String fieldId = range.getFieldId(facesContext);
-    final boolean readonly = range.isReadonly();
-    final boolean disabled = range.isDisabled();
-    final int min = range.getMin();
-    final int max = range.getMax();
-    final int step = range.getStep();
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
+    final String currentValue = getCurrentValue(facesContext, component);
+    final String clientId = component.getClientId(facesContext);
+    final String fieldId = component.getFieldId(facesContext);
+    final boolean readonly = component.isReadonly();
+    final boolean disabled = component.isDisabled();
+    final int min = component.getMin();
+    final int max = component.getMax();
+    final int step = component.getStep();
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.INPUT);
 
-    if (range.getAccessKey() != null) {
-      writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(range.getAccessKey()), false);
-      AccessKeyLogger.addAccessKey(facesContext, range.getAccessKey(), clientId);
+    if (component.getAccessKey() != null) {
+      writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(component.getAccessKey()), false);
+      AccessKeyLogger.addAccessKey(facesContext, component.getAccessKey(), clientId);
     }
 
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RANGE);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(fieldId);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, range);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     if (currentValue != null) {
       writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);
     }
@@ -82,7 +75,7 @@ public class RangeRenderer extends MessageLayoutRendererBase {
     }
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    writer.writeAttribute(HtmlAttributes.TABINDEX, range.getTabIndex());
+    writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
     writer.writeAttribute(HtmlAttributes.MIN, min);
     writer.writeAttribute(HtmlAttributes.MAX, max);
     writer.writeAttribute(HtmlAttributes.STEP, step);
@@ -90,17 +83,17 @@ public class RangeRenderer extends MessageLayoutRendererBase {
     final CssItem rendererCssClass = getRendererCssClass();
     writer.writeClassAttribute(
         rendererCssClass,
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(range)),
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
         BootstrapClass.FORM_CONTROL,
-        range.getCustomClass());
+        component.getCustomClass());
 
-    HtmlRendererUtils.renderFocus(clientId, range.isFocus(), ComponentUtils.isError(range), facesContext, writer);
+    HtmlRendererUtils.renderFocus(clientId, component.isFocus(), ComponentUtils.isError(component), facesContext, writer);
 
     writer.endElement(HtmlElements.INPUT);
 
     encodeTooltip(writer, currentValue);
 
-    encodeBehavior(writer, facesContext, range);
+    encodeBehavior(writer, facesContext, component);
   }
 
   private void encodeTooltip(final TobagoResponseWriter writer, final String content) throws IOException {
@@ -117,12 +110,10 @@ public class RangeRenderer extends MessageLayoutRendererBase {
     if (content != null) {
       writer.writeText(content);
     }
-    writer.endElement(HtmlElements.DIV);
-    writer.endElement(HtmlElements.DIV);
   }
 
   @Override
-  protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
+  protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
   }
 
   protected CssItem getRendererCssClass() {
@@ -130,8 +121,7 @@ public class RangeRenderer extends MessageLayoutRendererBase {
   }
 
   @Override
-  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
-    final AbstractUIRange range = (AbstractUIRange) component;
-    return range.getFieldId(facesContext);
+  protected String getFieldId(final FacesContext facesContext, final T component) {
+    return component.getFieldId(facesContext);
   }
 }

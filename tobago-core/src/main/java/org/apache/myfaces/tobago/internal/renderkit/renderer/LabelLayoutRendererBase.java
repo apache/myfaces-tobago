@@ -44,16 +44,17 @@ import java.util.List;
  * Manages the rendering of the <b>label</b> and the <b>field</b> together with different possibilities for the position
  * of the label (defined by {@link org.apache.myfaces.tobago.component.Attributes#labelLayout}
  */
-public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase {
+public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLabelLayout>
+    extends DecodingInputRendererBase<T> {
 
   public abstract HtmlElements getComponentTag();
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
     encodeBeginSurroundingLabel(facesContext, component);
 
-    if (((SupportsLabelLayout) component).isNextToRenderIsLabel()) {
+    if (component.isNextToRenderIsLabel()) {
       // skip, because its only the lable to render
     } else {
       encodeBeginMessageField(facesContext, component);
@@ -61,9 +62,9 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    if (((SupportsLabelLayout) component).isNextToRenderIsLabel()) {
+    if (component.isNextToRenderIsLabel()) {
       // skip, because its only the lable to render
     } else {
       encodeEndMessageField(facesContext, component);
@@ -80,11 +81,11 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     encodeEndSurroundingLabel(facesContext, component);
   }
 
-  protected void encodeAttributes(final FacesContext facesContext, final UIComponent component) throws IOException {
+  protected void encodeAttributes(final FacesContext facesContext, final T component) throws IOException {
   }
 
   @Override
-  public void encodeChildren(final FacesContext context, final UIComponent component) throws IOException {
+  public void encodeChildrenInternal(final FacesContext context, final T component) throws IOException {
     if (component.getChildCount() > 0) {
       for (int i = 0, childCount = component.getChildCount(); i < childCount; i++) {
         final UIComponent child = component.getChildren().get(i);
@@ -101,19 +102,19 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     }
   }
 
-  protected abstract void encodeBeginMessageField(FacesContext facesContext, UIComponent component) throws IOException;
+  protected abstract void encodeBeginMessageField(FacesContext facesContext, T component) throws IOException;
 
-  protected abstract void encodeEndMessageField(FacesContext facesContext, UIComponent component) throws IOException;
+  protected abstract void encodeEndMessageField(FacesContext facesContext, T component) throws IOException;
 
-  protected void encodeBeginSurroundingLabel(final FacesContext facesContext, final UIComponent component)
+  protected void encodeBeginSurroundingLabel(final FacesContext facesContext, final T component)
       throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     String clientId = component.getClientId(facesContext);
     final Markup markup = (Markup) ComponentUtils.getAttribute(component, Attributes.markup);
 
-    final LabelLayout labelLayout = ((SupportsLabelLayout) component).getLabelLayout();
-    final boolean nextToRenderIsLabel = ((SupportsLabelLayout) component).isNextToRenderIsLabel();
+    final LabelLayout labelLayout = component.getLabelLayout();
+    final boolean nextToRenderIsLabel = component.isNextToRenderIsLabel();
     final boolean flex;
 
     switch (labelLayout) {
@@ -201,17 +202,17 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
 //    }
   }
 
-  protected void encodeEndSurroundingLabel(final FacesContext facesContext, final UIComponent component)
+  protected void encodeEndSurroundingLabel(final FacesContext facesContext, final T component)
       throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final LabelLayout labelLayout = ((SupportsLabelLayout) component).getLabelLayout();
+    final LabelLayout labelLayout = component.getLabelLayout();
 
     if (labelLayout == LabelLayout.flexRight) {
       encodeLabel(facesContext, component, writer, labelLayout);
     }
 
-    final boolean nextToRenderIsLabel = ((SupportsLabelLayout) component).isNextToRenderIsLabel();
+    final boolean nextToRenderIsLabel = component.isNextToRenderIsLabel();
     if (!nextToRenderIsLabel) {
       writer.endElement(getComponentTag());
     }
@@ -221,7 +222,7 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     }
   }
 
-  protected void encodeLabel(final FacesContext facesContext, final UIComponent component,
+  protected void encodeLabel(final FacesContext facesContext, final T component,
                              final TobagoResponseWriter writer, final LabelLayout labelLayout)
       throws IOException {
     // TBD: maybe use an interface for getLabel()
@@ -240,5 +241,5 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     }
   }
 
-  protected abstract String getFieldId(final FacesContext facesContext, final UIComponent component);
+  protected abstract String getFieldId(final FacesContext facesContext, final T component);
 }

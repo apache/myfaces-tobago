@@ -26,35 +26,31 @@ import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class FormRenderer extends RendererBase {
+public class FormRenderer<T extends AbstractUIForm> extends RendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUIForm form = (AbstractUIForm) component;
-
-    if (!form.isPlain()) {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
+    if (!component.isPlain()) {
       final TobagoResponseWriter writer = getResponseWriter(facesContext);
-      final String clientId = form.getClientId(facesContext);
-      final boolean inline = form.isInline();
+      final String clientId = component.getClientId(facesContext);
+      final boolean inline = component.isInline();
 
       writer.startElement(HtmlElements.DIV);
       writer.writeIdAttribute(clientId);
       writer.writeClassAttribute(
           TobagoClass.FORM,
           inline ? BootstrapClass.D_INLINE : null,
-          form.getCustomClass());
+          component.getCustomClass());
     }
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUIForm form = (AbstractUIForm) component;
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    if (!form.isPlain()) {
+    if (!component.isPlain()) {
       final TobagoResponseWriter writer = getResponseWriter(facesContext);
       writer.endElement(HtmlElements.DIV);
     }

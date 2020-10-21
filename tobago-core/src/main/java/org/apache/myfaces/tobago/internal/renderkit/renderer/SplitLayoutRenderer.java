@@ -35,7 +35,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
@@ -46,14 +45,14 @@ import java.lang.invoke.MethodHandles;
  * </p>
  */
 @Preliminary
-public class SplitLayoutRenderer extends RendererBase {
+public class SplitLayoutRenderer<T extends AbstractUISplitLayout> extends RendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final String SUFFIX_SIZES = ComponentUtils.SUB_SEPARATOR + "sizes";
 
   @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
+  public void decodeInternal(final FacesContext facesContext, final T component) {
     final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
     final String clientId = component.getClientId() + SUFFIX_SIZES;
     if (clientId.equals(sourceId)) {
@@ -66,29 +65,27 @@ public class SplitLayoutRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUISplitLayout splitLayout = (AbstractUISplitLayout) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final Markup markup = splitLayout.getMarkup();
+    final Markup markup = component.getMarkup();
 
     writer.startElement(HtmlElements.TOBAGO_SPLIT_LAYOUT);
-    writer.writeIdAttribute(splitLayout.getClientId(facesContext));
+    writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeClassAttribute(
-        splitLayout.isHorizontal() ? BootstrapClass.FLEX_ROW : BootstrapClass.FLEX_COLUMN,
+        component.isHorizontal() ? BootstrapClass.FLEX_ROW : BootstrapClass.FLEX_COLUMN,
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     writer.writeAttribute(CustomAttributes.ORIENTATION,
-        splitLayout.isHorizontal() ? Orientation.HORIZONTAL : Orientation.VERTICAL, false);
+        component.isHorizontal() ? Orientation.HORIZONTAL : Orientation.VERTICAL, false);
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUISplitLayout splitLayout = (AbstractUISplitLayout) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.INPUT);
-    writer.writeNameAttribute(splitLayout.getClientId(facesContext) + SUFFIX_SIZES);
+    writer.writeNameAttribute(component.getClientId(facesContext) + SUFFIX_SIZES);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
 //    writer.writeAttribute(HtmlAttributes.VALUE, sizes);
     writer.endElement(HtmlElements.INPUT);

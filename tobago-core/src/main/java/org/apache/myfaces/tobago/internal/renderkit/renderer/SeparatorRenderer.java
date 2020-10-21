@@ -33,24 +33,23 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class SeparatorRenderer extends RendererBase {
+public class SeparatorRenderer<T extends AbstractUISeparator> extends RendererBase<T> {
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUISeparator separator = (AbstractUISeparator) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final String clientId = separator.getClientId(facesContext);
-    final String label = getLabel(separator);
-    final Markup markup = separator.getMarkup();
+    final String clientId = component.getClientId(facesContext);
+    final String label = getLabel(component);
+    final Markup markup = component.getMarkup();
 
     if (label != null) {
       writer.startElement(HtmlElements.P);
       writer.writeIdAttribute(clientId);
       writer.writeClassAttribute(
           TobagoClass.SEPARATOR,
-          TobagoClass.SEPARATOR.createMarkup(separator.getMarkup()),
-          separator.getCustomClass());
+          TobagoClass.SEPARATOR.createMarkup(component.getMarkup()),
+          component.getCustomClass());
       writer.writeText(label);
       writer.endElement(HtmlElements.P);
     } else {
@@ -58,8 +57,8 @@ public class SeparatorRenderer extends RendererBase {
       writer.writeIdAttribute(clientId);
       writer.writeClassAttribute(
           TobagoClass.SEPARATOR,
-          TobagoClass.SEPARATOR.createMarkup(separator.getMarkup()),
-          separator.getCustomClass());
+          TobagoClass.SEPARATOR.createMarkup(component.getMarkup()),
+          component.getCustomClass());
       writer.endElement(HtmlElements.HR);
     }
   }

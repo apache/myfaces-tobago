@@ -38,7 +38,7 @@ import javax.faces.component.UIColumn;
  */
 @SuppressWarnings("ALL")
 @Tag(name = "treeNode")
-@BodyContentDescription(anyTagOf = "<tc:treeIndent>|<tc:treeIcon>|<tc:treeSelect>|<tc:treeLabel>|<tc:treeCommand>")
+@BodyContentDescription(anyTagOf = "<tc:treeIndent>|<tc:treeIcon>|<tc:treeSelect>|<tc:treeLabel>|<tc:link>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeNode",
     uiComponentFacesClass = "javax.faces.component.UIColumn",

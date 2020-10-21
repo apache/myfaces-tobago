@@ -25,24 +25,22 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class MetaRenderer extends RendererBase {
+public class MetaRenderer<T extends AbstractUIMeta> extends RendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUIMeta meta = (AbstractUIMeta) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.META);
-    writer.writeAttribute(HtmlAttributes.NAME, meta.getName(), true);
-    writer.writeAttribute(HtmlAttributes.LANG, meta.getLang(), true);
-    writer.writeAttribute(HtmlAttributes.CHARSET, meta.getCharset(), true);
-    writer.writeAttribute(HtmlAttributes.HTTP_EQUIV, meta.getHttpEquiv(), true);
-    writer.writeAttribute(HtmlAttributes.CONTENT, meta.getContent(), true);
+    writer.writeAttribute(HtmlAttributes.NAME, component.getName(), true);
+    writer.writeAttribute(HtmlAttributes.LANG, component.getLang(), true);
+    writer.writeAttribute(HtmlAttributes.CHARSET, component.getCharset(), true);
+    writer.writeAttribute(HtmlAttributes.HTTP_EQUIV, component.getHttpEquiv(), true);
+    writer.writeAttribute(HtmlAttributes.CONTENT, component.getContent(), true);
     writer.endElement(HtmlElements.META);
   }
 }

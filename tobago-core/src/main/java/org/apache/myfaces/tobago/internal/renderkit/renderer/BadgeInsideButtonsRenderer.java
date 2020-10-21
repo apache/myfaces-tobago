@@ -19,10 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.internal.component.AbstractUIBadge;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 
-public class BadgeInsideButtonsRenderer extends BadgeRenderer {
+public class BadgeInsideButtonsRenderer<T extends AbstractUIBadge> extends BadgeRenderer<T> {
 
   @Override
   protected CssItem getAdditionalCssItem() {

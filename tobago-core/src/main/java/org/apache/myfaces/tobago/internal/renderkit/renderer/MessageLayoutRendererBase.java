@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.SupportsHelp;
+import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
@@ -38,21 +39,22 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase {
+public abstract class MessageLayoutRendererBase<T extends UIComponent & SupportsLabelLayout>
+    extends LabelLayoutRendererBase<T> {
 
   @Override
-  public void encodeBeginMessageField(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginMessageField(final FacesContext facesContext, final T component) throws IOException {
     encodeBeginMessagesContainer(facesContext, component);
     encodeBeginField(facesContext, component);
   }
 
   @Override
-  public void encodeEndMessageField(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndMessageField(final FacesContext facesContext, final T component) throws IOException {
     encodeEndField(facesContext, component);
     encodeEndMessagesContainer(facesContext, component);
   }
 
-  private void encodeBeginMessagesContainer(final FacesContext facesContext, final UIComponent component)
+  private void encodeBeginMessagesContainer(final FacesContext facesContext, final T component)
       throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -68,7 +70,7 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
     }
   }
 
-  private void encodeEndMessagesContainer(final FacesContext facesContext, final UIComponent component)
+  private void encodeEndMessagesContainer(final FacesContext facesContext, final T component)
       throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -83,17 +85,19 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
         encodeFacesMessagesButton(facesContext, component, writer, messages);
       }
       if (hasHelp) {
-        encodeHelpButton(facesContext, component, writer, help);
+        encodePopover(writer, component.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "help",
+            BootstrapClass.BTN_OUTLINE_INFO, Icons.QUESTION,
+            ResourceUtils.getString(facesContext, "help.title"), help);
       }
       writer.endElement(HtmlElements.DIV);
     }
   }
 
-  protected abstract void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException;
+  protected abstract void encodeBeginField(FacesContext facesContext, T component) throws IOException;
 
-  protected abstract void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException;
+  protected abstract void encodeEndField(FacesContext facesContext, T component) throws IOException;
 
-  private void encodeFacesMessagesButton(FacesContext facesContext, final UIComponent component,
+  private void encodeFacesMessagesButton(FacesContext facesContext, final T component,
       final TobagoResponseWriter writer, final List<FacesMessage> messages) throws IOException {
 
     encodePopover(writer, component.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "messages",
@@ -185,14 +189,6 @@ public abstract class MessageLayoutRendererBase extends LabelLayoutRendererBase 
       stringBuilder.append(message.getDetail());
     }
     return stringBuilder.toString();
-  }
-
-  private void encodeHelpButton(final FacesContext facesContext, final UIComponent component,
-      final TobagoResponseWriter writer, final String help) throws IOException {
-
-    encodePopover(writer, component.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "help",
-        BootstrapClass.BTN_OUTLINE_INFO, Icons.QUESTION,
-        ResourceUtils.getString(facesContext, "help.title"), help);
   }
 
   private void encodePopover(final TobagoResponseWriter writer, final String popoverId,

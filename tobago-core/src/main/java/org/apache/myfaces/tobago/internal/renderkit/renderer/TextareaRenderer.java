@@ -34,26 +34,20 @@ import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.EditableValueHolder;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.LengthValidator;
 import javax.faces.validator.RegexValidator;
 import javax.faces.validator.Validator;
 import java.io.IOException;
-import java.lang.invoke.MethodHandles;
 
-public class TextareaRenderer extends MessageLayoutRendererBase {
+public class TextareaRenderer<T extends AbstractUITextarea> extends MessageLayoutRendererBase<T> {
 
   @Override
   public HtmlElements getComponentTag() {
     return HtmlElements.TOBAGO_TEXTAREA;
   }
-
-  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   protected void setSubmittedValue(
@@ -77,50 +71,43 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
   }
 
   @Override
-  public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
-    if (!(component instanceof AbstractUITextarea)) {
-      LOG.error(
-          "Wrong type: Need " + AbstractUITextarea.class.getName() + ", but was " + component.getClass().getName());
-      return;
-    }
-
-    final AbstractUITextarea input = (AbstractUITextarea) component;
+  public void encodeBeginField(final FacesContext facesContext, final T component) throws IOException {
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
-    final String clientId = input.getClientId(facesContext);
-    final String fieldId = input.getFieldId(facesContext);
+    final String clientId = component.getClientId(facesContext);
+    final String fieldId = component.getFieldId(facesContext);
+    final Integer rows = component.getRows();
+    final boolean readonly = component.isReadonly();
+    final boolean disabled = component.isDisabled();
+    final Markup markup = component.getMarkup();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final Integer rows = input.getRows();
-    final boolean readonly = input.isReadonly();
-    final boolean disabled = input.isDisabled();
-    final Markup markup = input.getMarkup();
 
     writer.startElement(HtmlElements.TEXTAREA);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(fieldId);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeAttribute(HtmlAttributes.ROWS, rows);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    writer.writeAttribute(HtmlAttributes.REQUIRED, input.isRequired());
-    writer.writeAttribute(HtmlAttributes.TABINDEX, input.getTabIndex());
+    writer.writeAttribute(HtmlAttributes.REQUIRED, component.isRequired());
+    writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
 
-    if (input.getAccessKey() != null) {
-      writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(input.getAccessKey()), false);
-      AccessKeyLogger.addAccessKey(facesContext, input.getAccessKey(), clientId);
+    if (component.getAccessKey() != null) {
+      writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(component.getAccessKey()), false);
+      AccessKeyLogger.addAccessKey(facesContext, component.getAccessKey(), clientId);
     }
 
     writer.writeClassAttribute(
         TobagoClass.TEXTAREA,
-        TobagoClass.TEXTAREA.createMarkup(input.getMarkup()),
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(input)),
+        TobagoClass.TEXTAREA.createMarkup(component.getMarkup()),
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
         BootstrapClass.FORM_CONTROL,
-        input.getCustomClass(),
+        component.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     int maxLength = 0;
     int minLength = 0;
     String pattern = null;
-    for (final Validator validator : input.getValidators()) {
+    for (final Validator validator : component.getValidators()) {
       if (validator instanceof LengthValidator) {
         final LengthValidator lengthValidator = (LengthValidator) validator;
         maxLength = lengthValidator.getMaximum();
@@ -140,16 +127,16 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
       writer.writeAttribute(HtmlAttributes.PATTERN, pattern, true);
     }
 
-    HtmlRendererUtils.renderFocus(clientId, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
+    HtmlRendererUtils.renderFocus(clientId, component.isFocus(), ComponentUtils.isError(component), facesContext, writer);
 
-    final String placeholder = input.getPlaceholder();
+    final String placeholder = component.getPlaceholder();
     if (!disabled && !readonly && StringUtils.isNotBlank(placeholder)) {
       writer.writeAttribute(HtmlAttributes.PLACEHOLDER, placeholder, true);
     }
-    String currentValue = RenderUtils.currentValue(input);
+    String currentValue = RenderUtils.currentValue(component);
     if (currentValue != null) {
-      if (ComponentUtils.getDataAttribute(input, "html-editor") != null
-          && SanitizeMode.auto == input.getSanitize()) {
+      if (ComponentUtils.getDataAttribute(component, "html-editor") != null
+          && SanitizeMode.auto == component.getSanitize()) {
         final Sanitizer sanitizer = TobagoConfig.getInstance(facesContext).getSanitizer();
         currentValue = sanitizer.sanitize(currentValue);
       }
@@ -165,16 +152,15 @@ public class TextareaRenderer extends MessageLayoutRendererBase {
     }
 
     writer.endElement(HtmlElements.TEXTAREA);
-    encodeBehavior(writer, facesContext, input);
+    encodeBehavior(writer, facesContext, component);
   }
 
   @Override
-  protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
+  protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
   }
 
   @Override
-  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
-    final AbstractUITextarea input = (AbstractUITextarea) component;
-    return input.getFieldId(facesContext);
+  protected String getFieldId(final FacesContext facesContext, final T component) {
+    return component.getFieldId(facesContext);
   }
 }

@@ -42,30 +42,29 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class BarRenderer extends RendererBase {
+public class BarRenderer<T extends AbstractUIBar> extends RendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUIBar bar = (AbstractUIBar) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    final String clientId = bar.getClientId(facesContext);
+    final String clientId = component.getClientId(facesContext);
     final String navbarId = clientId + "::navbar";
-    final Markup markup = bar.getMarkup();
+    final Markup markup = component.getMarkup();
 
     writer.startElement(HtmlElements.TOBAGO_BAR);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
         BootstrapClass.NAVBAR,
-        TobagoClass.BAR.createMarkup(bar.getMarkup()),
+        TobagoClass.BAR.createMarkup(component.getMarkup()),
         getNavbarExpand(markup),
         getNavbarColorScheme(markup),
-        bar.getCustomClass());
+        component.getCustomClass());
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.NAVIGATION.toString(), false);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, bar);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
-    encodeOpener(facesContext, bar, writer, navbarId);
+    encodeOpener(facesContext, component, writer, navbarId);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(navbarId);
@@ -107,7 +106,7 @@ public class BarRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeChildrenInternal(final FacesContext facesContext, final T component) throws IOException {
     setRenderTypes(component);
     for (final UIComponent child : component.getChildren()) {
       child.encodeAll(facesContext);
@@ -127,10 +126,9 @@ public class BarRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUIBar bar = (AbstractUIBar) component;
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final UIComponent after = ComponentUtils.getFacet(bar, Facets.after);
+    final UIComponent after = ComponentUtils.getFacet(component, Facets.after);
 
     if (after != null) {
       writer.startElement(HtmlElements.DIV);

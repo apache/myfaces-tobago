@@ -36,12 +36,11 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 
-public class SelectOneRadioRenderer extends SelectOneRendererBase {
+public class SelectOneRadioRenderer<T extends AbstractUISelectOneRadio> extends SelectOneRendererBase<T> {
 
   @Override
   public HtmlElements getComponentTag() {
@@ -49,36 +48,33 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
   }
 
   @Override
-  protected void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUISelectOneRadio select = (AbstractUISelectOneRadio) component;
-    final AbstractUISelectReference reference = select.getRenderRangeReference();
+  protected void encodeBeginField(final FacesContext facesContext, final T component) throws IOException {
+    final AbstractUISelectReference reference = component.getRenderRangeReference();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    final String id = select.getClientId(facesContext);
-    final String referenceId = reference != null ? reference.getClientId(facesContext) : id;
-    final Iterable<SelectItem> items = SelectItemUtils.getItemIterator(facesContext, select);
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
-    final boolean disabled = select.isDisabled();
-    final boolean readonly = select.isReadonly();
-    final boolean required = select.isRequired();
-    final boolean inline = select.isInline();
-    final Markup markup = select.getMarkup();
+    final String id = component.getClientId(facesContext);
+//    final String referenceId = reference != null ? reference.getClientId(facesContext) : id;
+    final Iterable<SelectItem> items = SelectItemUtils.getItemIterator(facesContext, component);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
+    final boolean disabled = component.isDisabled();
+    final boolean readonly = component.isReadonly();
+    final boolean required = component.isRequired();
+    final boolean inline = component.isInline();
+    final Markup markup = component.getMarkup();
 
     writer.startElement(getOuterHtmlTag());
     writer.writeClassAttribute(
         TobagoClass.SELECT_ONE_RADIO,
         TobagoClass.SELECT_ONE_RADIO.createMarkup(markup),
         inline ? TobagoClass.SELECT_ONE_RADIO__INLINE : null,
-        select.getCustomClass());
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
-    if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    }
+        component.getCustomClass());
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
+    writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     boolean first = true;
-    final Object value = select.getValue();
-    final String submittedValue = (String) select.getSubmittedValue();
+    final Object value = component.getValue();
+    final String submittedValue = (String) component.getSubmittedValue();
     int i = 0;
-    final int[] renderRange = getRenderRangeList(select, reference);
+    final int[] renderRange = getRenderRangeList(component, reference);
     for (final SelectItem item : items) {
       if (renderRange == null || ArrayUtils.contains(renderRange, i)) {
         final boolean itemDisabled = item.isDisabled() || disabled;
@@ -90,7 +86,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         writer.startElement(HtmlElements.INPUT);
         writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
-        final String formattedValue = ComponentUtils.getFormattedValue(facesContext, select, item.getValue());
+        final String formattedValue = ComponentUtils.getFormattedValue(facesContext, component, item.getValue());
         final boolean checked;
         if (submittedValue == null) {
           checked = ObjectUtils.equals(item.getValue(), value);
@@ -105,16 +101,16 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         writer.writeAttribute(HtmlAttributes.READONLY, readonly);
         writer.writeAttribute(HtmlAttributes.REQUIRED, required);
         if (first) {
-          HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
+          HtmlRendererUtils.renderFocus(id, component.isFocus(), ComponentUtils.isError(component), facesContext, writer);
           first = false;
         }
-        writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
+        writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
         writer.endElement(HtmlElements.INPUT);
 
         writer.startElement(HtmlElements.LABEL);
         writer.writeClassAttribute(
             BootstrapClass.FORM_CHECK_LABEL,
-            getCssItems(facesContext, select));
+            getCssItems(facesContext, component));
         writer.writeAttribute(HtmlAttributes.FOR, itemId, false);
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
           final org.apache.myfaces.tobago.model.SelectItem tobagoItem =
@@ -147,13 +143,12 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
   }
 
   @Override
-  protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
+  protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final AbstractUISelectOneRadio select = (AbstractUISelectOneRadio) component;
 
     writer.endElement(getOuterHtmlTag());
 
-    encodeBehavior(writer, facesContext, select);
+    encodeBehavior(writer, facesContext, component);
   }
 
   protected HtmlElements getOuterHtmlTag() {
@@ -165,7 +160,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
   }
 
   @Override
-  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
+  protected String getFieldId(final FacesContext facesContext, final T component) {
     return component.getClientId(facesContext);
   }
 }

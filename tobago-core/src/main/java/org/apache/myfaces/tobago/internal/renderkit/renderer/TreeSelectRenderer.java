@@ -42,28 +42,26 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.Map;
 
-public class TreeSelectRenderer extends RendererBase {
+public class TreeSelectRenderer<T extends AbstractUITreeSelect> extends RendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
-    final AbstractUITreeSelect select = (AbstractUITreeSelect) component;
-    final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(select, AbstractUITreeNodeBase.class);
+  public void decodeInternal(final FacesContext facesContext, final T component) {
+    final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(component, AbstractUITreeNodeBase.class);
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
 
-    if (ComponentUtils.isOutputOnly(select)) {
+    if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
 
-    final String clientId = select.getClientId(facesContext);
+    final String clientId = component.getClientId(facesContext);
     final String name;
     if (data.getSelectable().isSingle()) {
       name = getClientIdWithoutRowIndex(data, clientId);
@@ -78,30 +76,29 @@ public class TreeSelectRenderer extends RendererBase {
     }
 
     final boolean selected = clientId.equals(parameter);
-    if (!select.isValueStoredInState()) {
-      select.setSubmittedValue(selected ? "true" : "false");
+    if (!component.isValueStoredInState()) {
+      component.setSubmittedValue(selected ? "true" : "false");
     }
   }
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUITreeSelect treeSelect = (AbstractUITreeSelect) component;
-    final AbstractUITree tree = ComponentUtils.findAncestor(treeSelect, AbstractUITree.class);
-    final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(treeSelect, AbstractUITreeNodeBase.class);
+    final AbstractUITree tree = ComponentUtils.findAncestor(component, AbstractUITree.class);
+    final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(component, AbstractUITreeNodeBase.class);
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     if (data instanceof AbstractUITreeListbox) {
-      writer.write(StringUtils.defaultString(treeSelect.getLabel()));
+      writer.write(StringUtils.defaultString(component.getLabel()));
       return;
     }
 
-    final String id = treeSelect.getClientId(facesContext);
-    final String currentValue = getCurrentValue(facesContext, treeSelect);
+    final String id = component.getClientId(facesContext);
+    final String currentValue = getCurrentValue(facesContext, component);
     final boolean checked;
-    if (treeSelect.isValueStoredInState()) {
+    if (component.isValueStoredInState()) {
       checked = data.getSelectedState().isSelected(node.getPath());
     } else {
       checked = "true".equals(currentValue);
@@ -109,19 +106,19 @@ public class TreeSelectRenderer extends RendererBase {
 
     final boolean folder = data.isFolder();
     final Selectable selectable = data.getSelectable();
-    final boolean showCustomControl = treeSelect.isShowCheckbox()
+    final boolean showCustomControl = component.isShowCheckbox()
         && selectable != Selectable.none && (!selectable.isLeafOnly() || !folder);
 
     writer.startElement(HtmlElements.TOBAGO_TREE_SELECT);
-    final Markup markup = treeSelect.getMarkup();
+    final Markup markup = component.getMarkup();
     writer.writeClassAttribute(
-        treeSelect.getCustomClass(),
+        component.getCustomClass(),
         TobagoClass.TREE_SELECT.createMarkup(markup),
         // TODO: check rendered page for other selectables. Are them looking good?
         showCustomControl ? BootstrapClass.FORM_CHECK_INLINE : null,
         showCustomControl && selectable.isMulti() ? BootstrapClass.FORM_CHECK : null,
         showCustomControl && selectable.isSingle() ? BootstrapClass.FORM_CHECK : null);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, treeSelect);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
     if (showCustomControl) {
       writer.startElement(HtmlElements.INPUT);
@@ -141,11 +138,11 @@ public class TreeSelectRenderer extends RendererBase {
       writer.endElement(HtmlElements.INPUT);
     }
 
-    final String label = treeSelect.getLabel();
+    final String label = component.getLabel();
     writer.startElement(HtmlElements.LABEL);
     writer.writeClassAttribute(TobagoClass.TREE_SELECT__LABEL,
         showCustomControl ? BootstrapClass.FORM_CHECK_LABEL : null);
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, treeSelect);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
@@ -154,7 +151,7 @@ public class TreeSelectRenderer extends RendererBase {
     writer.endElement(HtmlElements.LABEL);
 
     if (showCustomControl) {
-      final CommandMap behaviorCommands = getBehaviorCommands(facesContext, treeSelect);
+      final CommandMap behaviorCommands = getBehaviorCommands(facesContext, component);
       if (behaviorCommands != null) {
         Map<ClientBehaviors, Command> other = behaviorCommands.getOther();
         if (other != null) {
@@ -175,6 +172,6 @@ public class TreeSelectRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
   }
 }

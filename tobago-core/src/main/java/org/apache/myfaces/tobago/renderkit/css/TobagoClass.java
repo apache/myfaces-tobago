@@ -229,7 +229,6 @@ public enum TobagoClass implements CssItem {
   TREE("tobago-tree"),
   TREE__EXPANDED("tobago-tree-expanded"),
   TREE__SELECTED("tobago-tree-selected"),
-  TREE_COMMAND("tobago-treeCommand"),
   TREE_LABEL("tobago-treeLabel"),
   TREE_LISTBOX("tobago-treeListbox"),
   TREE_LISTBOX__LEVEL("tobago-treeListbox-level"),

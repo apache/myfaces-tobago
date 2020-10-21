@@ -22,7 +22,7 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
-  <p>The <code class="language-markup">&lt;tc:treeCommand/></code> tag can be added to a
+  <p>The <code class="language-markup">&lt;tc:link/></code> tag can be added to a
     <code class="language-markup">&lt;tc:treeNode/></code> tag.
     The command can be used to execute an action or a link.</p>
   <p><tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
@@ -39,9 +39,9 @@
       <tc:treeNode id="treeNode">
         <tc:treeIndent showJunctions="false"/>
         <tc:treeLabel value="#{node.name}" rendered="#{node.childCount > 0}"/>
-        <tc:treeCommand id="actionCommand" label="#{node.name}" rendered="#{node.childCount == 0 and empty node.url}"
+        <tc:link id="actionCommand" label="#{node.name}" rendered="#{node.childCount == 0 and empty node.url}"
                         action="#{treeCommandTypesController.increaseActionCount(node.action)}"/>
-        <tc:treeCommand label="#{node.name}" rendered="#{node.childCount == 0 and not empty node.url}"
+        <tc:link label="#{node.name}" rendered="#{node.childCount == 0 and not empty node.url}"
                         link="#{node.url}"/>
       </tc:treeNode>
     </tc:tree>

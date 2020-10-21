@@ -40,7 +40,7 @@ import java.util.List;
 /**
  * Renders the 12 columns grid layout.
  */
-public class SegmentLayoutRenderer extends RendererBase {
+public class SegmentLayoutRenderer<T extends AbstractUISegmentLayout> extends RendererBase<T> {
 
   @Override
   public boolean getRendersChildren() {
@@ -48,15 +48,14 @@ public class SegmentLayoutRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final AbstractUISegmentLayout layout = (AbstractUISegmentLayout) component;
-    final Markup markup = layout.getMarkup();
-    final SegmentJustify segmentJustify = layout.getJustify();
+    final Markup markup = component.getMarkup();
+    final SegmentJustify segmentJustify = component.getJustify();
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeIdAttribute(layout.getClientId(facesContext));
+    writer.writeIdAttribute(component.getClientId(facesContext));
 //    writer.writeClassAttribute(BootstrapClass.FORM_HORIZONTAL, BootstrapClass.CONTAINER_FLUID);
     writer.writeClassAttribute(
         TobagoClass.SEGMENT_LAYOUT,
@@ -68,27 +67,25 @@ public class SegmentLayoutRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeChildrenInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final AbstractUISegmentLayout segmentLayout = (AbstractUISegmentLayout) component;
 
-    if (!segmentLayout.isRendered()) {
+    if (!component.isRendered()) {
       return;
     }
 
-//    final List<UIComponent> children = segmentLayout.getChildren();
-    final List<UIComponent> children = ComponentUtils.findLayoutChildren(segmentLayout);
+    final List<UIComponent> children = ComponentUtils.findLayoutChildren(component);
     final BootstrapClass.Generator generator = new BootstrapClass.Generator(
-        segmentLayout.getExtraSmall(),
-        segmentLayout.getSmall(),
-        segmentLayout.getMedium(),
-        segmentLayout.getLarge(),
-        segmentLayout.getExtraLarge(),
-        MarginTokens.parse(segmentLayout.getMarginExtraSmall()),
-        MarginTokens.parse(segmentLayout.getMarginSmall()),
-        MarginTokens.parse(segmentLayout.getMarginMedium()),
-        MarginTokens.parse(segmentLayout.getMarginLarge()),
-        MarginTokens.parse(segmentLayout.getMarginExtraLarge()));
+        component.getExtraSmall(),
+        component.getSmall(),
+        component.getMedium(),
+        component.getLarge(),
+        component.getExtraLarge(),
+        MarginTokens.parse(component.getMarginExtraSmall()),
+        MarginTokens.parse(component.getMarginSmall()),
+        MarginTokens.parse(component.getMarginMedium()),
+        MarginTokens.parse(component.getMarginLarge()),
+        MarginTokens.parse(component.getMarginExtraLarge()));
     for (final UIComponent child : children) {
       if (child.isRendered()) {
         encodeChild(facesContext, writer, generator, child);
@@ -133,7 +130,7 @@ public class SegmentLayoutRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }

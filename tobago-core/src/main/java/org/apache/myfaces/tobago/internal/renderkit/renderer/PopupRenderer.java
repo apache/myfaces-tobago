@@ -30,33 +30,31 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class PopupRenderer extends PanelRendererBase {
+public class PopupRenderer<T extends AbstractUIPopup> extends CollapsiblePanelRendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUIPopup popup = (AbstractUIPopup) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final String clientId = popup.getClientId(facesContext);
-    final boolean collapsed = popup.isCollapsed();
-    final Markup markup = popup.getMarkup();
+    final String clientId = component.getClientId(facesContext);
+    final boolean collapsed = component.isCollapsed();
+    final Markup markup = component.getMarkup();
 
     // this makes the popup NOT closable with a click to the background
-    ComponentUtils.putDataAttribute(popup, "backdrop", "static");
+    ComponentUtils.putDataAttribute(component, "backdrop", "static");
 
     writer.startElement(HtmlElements.TOBAGO_POPUP);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
         BootstrapClass.MODAL,
         BootstrapClass.FADE,
-        popup.getCustomClass());
+        component.getCustomClass());
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.DIALOG.toString(), false);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, popup);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     // todo: aria-labelledby
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(
@@ -67,13 +65,13 @@ public class PopupRenderer extends PanelRendererBase {
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.MODAL_CONTENT);
 
-    if (popup.getCollapsedMode() != CollapseMode.none) {
+    if (component.getCollapsedMode() != CollapseMode.none) {
       encodeHidden(writer, clientId, collapsed);
     }
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);

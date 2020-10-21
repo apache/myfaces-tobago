@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
-import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeSelect;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.model.Selectable;
@@ -42,35 +41,32 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.Map;
 
-public class TreeNodeRenderer extends RendererBase {
+public class TreeNodeRenderer<T extends AbstractUITreeNode> extends RendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
+  public void decodeInternal(final FacesContext facesContext, final T component) {
 
-    final AbstractUITreeNode node = (AbstractUITreeNode) component;
+    super.decodeInternal(facesContext, component);
 
-    super.decode(facesContext, node);
-
-    if (ComponentUtils.isOutputOnly(node)) {
+    if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
 
-    final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
+    final AbstractUIData data = ComponentUtils.findAncestor(component, AbstractUIData.class);
     if (data instanceof AbstractUITreeListbox) {
       final String clientId = data.getClientId(facesContext);
-      final String nodeStateId = node.nodeStateId(facesContext);
+      final String nodeStateId = component.nodeStateId(facesContext);
       final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
-      final String nodeId = node.getClientId(facesContext);
-      final boolean folder = node.isFolder();
+      final String nodeId = component.getClientId(facesContext);
+      final boolean folder = component.isFolder();
 
       // expand state
       if (folder) {
@@ -91,8 +87,8 @@ public class TreeNodeRenderer extends RendererBase {
         selected = selected.replaceAll("\\[", ";");
         selected = selected.replaceAll("]", ";");
         selected = selected.replaceAll(",", ";");
-        final String searchString = ";" + node.getClientId(facesContext) + ";";
-        final AbstractUITreeSelect treeSelect = ComponentUtils.findDescendant(node, AbstractUITreeSelect.class);
+        final String searchString = ";" + component.getClientId(facesContext) + ";";
+        final AbstractUITreeSelect treeSelect = ComponentUtils.findDescendant(component, AbstractUITreeSelect.class);
         if (treeSelect != null) {
           treeSelect.setSubmittedValue(selected.contains(searchString));
         }
@@ -116,18 +112,16 @@ public class TreeNodeRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUITreeNodeBase node = (AbstractUITreeNodeBase) component;
-    final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
-
+    final AbstractUIData data = ComponentUtils.findAncestor(component, AbstractUIData.class);
     final boolean dataRendersRowContainer = data.isRendersRowContainer();
-    final String clientId = node.getClientId(facesContext);
+    final String clientId = component.getClientId(facesContext);
     final String parentId = data.getRowParentClientId();
     final boolean visible = data.isRowVisible();
-    final boolean folder = node.isFolder();
+    final boolean folder = component.isFolder();
     Markup markup = Markup.NULL;
-    final TreePath path = node.getPath();
+    final TreePath path = component.getPath();
     final SelectedState selectedState = data.getSelectedState();
     final boolean selected = data instanceof AbstractUITree && selectedState.isSelected(path);
 
@@ -164,11 +158,11 @@ public class TreeNodeRenderer extends RendererBase {
           null,
           TobagoClass.TREE_NODE.createMarkup(markup),
           hidden ? BootstrapClass.D_NONE : null,
-          node.getCustomClass());
+          component.getCustomClass());
       writer.writeAttribute(CustomAttributes.SELECTED, selected);
       writer.writeAttribute(CustomAttributes.EXPANDABLE, folder);
       writer.writeAttribute(CustomAttributes.INDEX, data.getRowIndex());
-      HtmlRendererUtils.writeDataAttributes(facesContext, writer, node);
+      HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
       if (parentId != null) {
         // TODO: replace with
         // todo writer.writeIdAttribute(parentId + SUB_SEPARATOR + AbstractUITree.SUFFIX_PARENT);
@@ -176,17 +170,16 @@ public class TreeNodeRenderer extends RendererBase {
         writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
         writer.writeAttribute(CustomAttributes.PARENT, parentId, false);
       }
-      writer.writeAttribute(DataAttributes.LEVEL, data.isShowRoot() ? node.getLevel() : node.getLevel() - 1);
+      writer.writeAttribute(DataAttributes.LEVEL, data.isShowRoot() ? component.getLevel() : component.getLevel() - 1);
     }
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUITreeNodeBase node = (AbstractUITreeNodeBase) component;
-    final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
-    final int level = node.getLevel();
-    final boolean folder = node.isFolder();
-    final boolean expanded = folder && data.getExpandedState().isExpanded(node.getPath()) || level == 0;
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
+    final AbstractUIData data = ComponentUtils.findAncestor(component, AbstractUIData.class);
+    final int level = component.getLevel();
+    final boolean folder = component.isFolder();
+    final boolean expanded = folder && data.getExpandedState().isExpanded(component.getPath()) || level == 0;
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 

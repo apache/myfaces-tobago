@@ -36,32 +36,29 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class ProgressRenderer extends RendererBase {
+public class ProgressRenderer<T extends AbstractUIProgress> extends RendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUIProgress progress = (AbstractUIProgress) component;
-
-    final double value = progress.getRangeValue();
-    final double max = progress.getRangeMax();
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
+    final double value = component.getRangeValue();
+    final double max = component.getRangeMax();
     final double percent = value / max;
-    final Markup markup = progress.getMarkup();
+    final Markup markup = component.getMarkup();
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
-    final String clientId = progress.getClientId(facesContext);
+    final String clientId = component.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
         TobagoClass.PROGRESS,
         TobagoClass.PROGRESS.createMarkup(markup),
         BootstrapClass.PROGRESS,
-        progress.getCustomClass());
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, progress);
+        component.getCustomClass());
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.PROGRESS_BAR);
@@ -75,13 +72,13 @@ public class ProgressRenderer extends RendererBase {
     style.setTransient(true);
     style.setSelector(StyleRenderUtils.encodeIdSelector(clientId) + ">." + BootstrapClass.PROGRESS_BAR.getName());
     style.setWidth(new Measure(percent * 100, Measure.Unit.PERCENT));
-    progress.getChildren().add(style);
+    component.getChildren().add(style);
 
-    encodeBehavior(writer, facesContext, progress);
+    encodeBehavior(writer, facesContext, component);
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);

@@ -25,26 +25,24 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class MetaLinkRenderer extends RendererBase {
+public class MetaLinkRenderer<T extends AbstractUIMetaLink> extends RendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUIMetaLink metaLink = (AbstractUIMetaLink) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.LINK);
-    writer.writeAttribute(HtmlAttributes.CHARSET, metaLink.getCharset(), true);
-    writer.writeAttribute(HtmlAttributes.HREF, metaLink.getHref(), true);
-    writer.writeAttribute(HtmlAttributes.HREFLANG, metaLink.getHreflang(), true);
-    writer.writeAttribute(HtmlAttributes.TYPE, metaLink.getType(), true);
-    writer.writeAttribute(HtmlAttributes.REL, metaLink.getRel(), true);
-    writer.writeAttribute(HtmlAttributes.REV, metaLink.getRev(), true);
-    writer.writeAttribute(HtmlAttributes.MEDIA, metaLink.getMedia(), true);
+    writer.writeAttribute(HtmlAttributes.CHARSET, component.getCharset(), true);
+    writer.writeAttribute(HtmlAttributes.HREF, component.getHref(), true);
+    writer.writeAttribute(HtmlAttributes.HREFLANG, component.getHreflang(), true);
+    writer.writeAttribute(HtmlAttributes.TYPE, component.getType(), true);
+    writer.writeAttribute(HtmlAttributes.REL, component.getRel(), true);
+    writer.writeAttribute(HtmlAttributes.REV, component.getRev(), true);
+    writer.writeAttribute(HtmlAttributes.MEDIA, component.getMedia(), true);
     writer.endElement(HtmlElements.LINK);
   }
 }

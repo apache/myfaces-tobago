@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFooter;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -29,30 +28,27 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class FooterRenderer extends RendererBase {
+public class FooterRenderer<T extends AbstractUIFooter> extends RendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final AbstractUIFooter footer = (AbstractUIFooter) component;
-    final Markup markup = footer.getMarkup();
     writer.startElement(HtmlElements.TOBAGO_FOOTER);
     writer.writeIdAttribute(component.getClientId(facesContext));
 
     writer.writeClassAttribute(
-        footer.isFixed() ? BootstrapClass.FIXED_BOTTOM : null,
-        footer.getCustomClass());
+        component.isFixed() ? BootstrapClass.FIXED_BOTTOM : null,
+        component.getCustomClass());
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.CONTENTINFO.toString(), false);
-    writer.writeAttribute(HtmlAttributes.TITLE, footer.getTip(), true);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, footer);
+    writer.writeAttribute(HtmlAttributes.TITLE, component.getTip(), true);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.TOBAGO_FOOTER);
   }

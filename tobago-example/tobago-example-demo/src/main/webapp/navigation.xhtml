@@ -22,7 +22,7 @@
            xmlns:tc="http://myfaces.apache.org/tobago/component">
   <tc:tree id="nav" value="#{navigationTree.tree}" var="node" state="#{navigationState.state}">
     <tc:treeNode id="node">
-      <tc:treeCommand
+      <tc:link
               id="cmd"
               label="» #{node.label}"
               outcome="#{node.outcome}"/>

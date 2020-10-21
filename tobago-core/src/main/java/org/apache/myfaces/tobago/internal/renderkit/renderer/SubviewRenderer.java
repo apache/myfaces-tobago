@@ -23,25 +23,27 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 
-public class SubviewRenderer extends RendererBase {
+public class SubviewRenderer<T extends UIComponent & NamingContainer> extends RendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component)
+  public void encodeBeginInternal(final FacesContext facesContext, final T component)
       throws IOException {
-    LOG.debug("Subview component = {}", component.getClass().getName());
-    super.encodeBegin(facesContext, component);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Subview component = {}", component.getClass().getName());
+    }
+    super.encodeBeginInternal(facesContext, component);
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext,
-                        final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
   }
 
 }

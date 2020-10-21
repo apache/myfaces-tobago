@@ -34,20 +34,19 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class LinksRenderer extends RendererBase {
+public class LinksRenderer<T extends AbstractUILinks> extends RendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUILinks links = (AbstractUILinks) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.startElement(HtmlElements.UL);
-    writer.writeIdAttribute(links.getClientId(facesContext));
+    writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeClassAttribute(
         TobagoClass.LINKS,
         getExtraCssItem(),
-        Orientation.vertical.equals(links.getOrientation()) ? BootstrapClass.FLEX_COLUMN : null,
-        links.getCustomClass());
+        Orientation.vertical.equals(component.getOrientation()) ? BootstrapClass.FLEX_COLUMN : null,
+        component.getCustomClass());
   }
 
   @Override
@@ -56,7 +55,7 @@ public class LinksRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeChildrenInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     for (final UIComponent child : component.getChildren()) {
@@ -75,7 +74,7 @@ public class LinksRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.UL);
   }

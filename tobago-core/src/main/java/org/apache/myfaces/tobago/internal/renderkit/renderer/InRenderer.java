@@ -50,7 +50,7 @@ import javax.faces.validator.Validator;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 
-public class InRenderer extends MessageLayoutRendererBase {
+public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -60,26 +60,25 @@ public class InRenderer extends MessageLayoutRendererBase {
   }
 
   @Override
-  protected void encodeBeginField(final FacesContext facesContext, final UIComponent component)
+  protected void encodeBeginField(final FacesContext facesContext, final T component)
       throws IOException {
-    final AbstractUIIn input = (AbstractUIIn) component;
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, input);
-    final String currentValue = getCurrentValue(facesContext, input);
-    final boolean password = ComponentUtils.getBooleanAttribute(input, Attributes.password);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
+    final String currentValue = getCurrentValue(facesContext, component);
+    final boolean password = ComponentUtils.getBooleanAttribute(component, Attributes.password);
     if (LOG.isDebugEnabled()) {
       LOG.debug("currentValue = '{}'", StringUtils.toConfidentialString(currentValue, password));
     }
     final HtmlInputTypes type = password ? HtmlInputTypes.PASSWORD : HtmlInputTypes.TEXT;
-    final String clientId = input.getClientId(facesContext);
-    final String fieldId = input.getFieldId(facesContext);
-    final boolean readonly = input.isReadonly();
-    final boolean disabled = input.isDisabled();
-    final boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.required);
+    final String clientId = component.getClientId(facesContext);
+    final String fieldId = component.getFieldId(facesContext);
+    final boolean readonly = component.isReadonly();
+    final boolean disabled = component.isDisabled();
+    final boolean required = ComponentUtils.getBooleanAttribute(component, Attributes.required);
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    final UIComponent after = ComponentUtils.getFacet(input, Facets.after);
-    final UIComponent before = ComponentUtils.getFacet(input, Facets.before);
+    final UIComponent after = ComponentUtils.getFacet(component, Facets.after);
+    final UIComponent before = ComponentUtils.getFacet(component, Facets.before);
 
     if (after != null || before != null) {
       writer.startElement(HtmlElements.DIV); // Wrapping the field to fix input groups with flexLeft/flexRight
@@ -91,15 +90,15 @@ public class InRenderer extends MessageLayoutRendererBase {
 
     writer.startElement(HtmlElements.INPUT);
 
-    if (input.getAccessKey() != null) {
-      writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(input.getAccessKey()), false);
-      AccessKeyLogger.addAccessKey(facesContext, input.getAccessKey(), clientId);
+    if (component.getAccessKey() != null) {
+      writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(component.getAccessKey()), false);
+      AccessKeyLogger.addAccessKey(facesContext, component.getAccessKey(), clientId);
     }
 
     writer.writeAttribute(HtmlAttributes.TYPE, type);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(fieldId);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     if (currentValue != null && !password) {
       writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);
     }
@@ -109,7 +108,7 @@ public class InRenderer extends MessageLayoutRendererBase {
     int maxLength = 0;
     int minLength = 0;
     String pattern = null;
-    for (final Validator validator : input.getValidators()) {
+    for (final Validator validator : component.getValidators()) {
       if (validator instanceof LengthValidator) {
         final LengthValidator lengthValidator = (LengthValidator) validator;
         maxLength = lengthValidator.getMaximum();
@@ -130,26 +129,26 @@ public class InRenderer extends MessageLayoutRendererBase {
     }
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    writer.writeAttribute(HtmlAttributes.TABINDEX, input.getTabIndex());
+    writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
     if (!disabled && !readonly) {
-      writer.writeAttribute(HtmlAttributes.PLACEHOLDER, input.getPlaceholder(), true);
+      writer.writeAttribute(HtmlAttributes.PLACEHOLDER, component.getPlaceholder(), true);
     }
 
     final CssItem rendererCssClass = getRendererCssClass();
     writer.writeClassAttribute(
         rendererCssClass,
 //        rendererCssClass != null ? rendererCssClass.createMarkup(markup) : null,
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(input)),
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
         BootstrapClass.FORM_CONTROL,
-        input.getCustomClass());
+        component.getCustomClass());
 
     writer.writeAttribute(HtmlAttributes.REQUIRED, required);
-    HtmlRendererUtils.renderFocus(clientId, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
-    writeAdditionalAttributes(facesContext, writer, input);
+    HtmlRendererUtils.renderFocus(clientId, component.isFocus(), ComponentUtils.isError(component), facesContext, writer);
+    writeAdditionalAttributes(facesContext, writer, component);
 
     writer.endElement(HtmlElements.INPUT);
 
-    encodeBehavior(writer, facesContext, input);
+    encodeBehavior(writer, facesContext, component);
 
     encodeGroupAddon(facesContext, writer, after, true);
 
@@ -198,7 +197,7 @@ public class InRenderer extends MessageLayoutRendererBase {
   }
 
   @Override
-  protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
+  protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
   }
 
   protected CssItem getRendererCssClass() {
@@ -211,8 +210,7 @@ public class InRenderer extends MessageLayoutRendererBase {
   }
 
   @Override
-  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
-    final AbstractUIInput input = (AbstractUIInput) component;
-    return input.getFieldId(facesContext);
+  protected String getFieldId(final FacesContext facesContext, final T component) {
+    return component.getFieldId(facesContext);
   }
 }

@@ -56,11 +56,72 @@ import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.Map;
 
-public class RendererBase extends Renderer {
+public abstract class RendererBase<T extends UIComponent> extends Renderer {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  protected String getCurrentValue(final FacesContext facesContext, final UIComponent component) {
+  // begin of "redefine" the method signatur (generics): UIComponent -> T
+
+  @Override
+  public final void encodeBegin(FacesContext context, UIComponent component) throws IOException {
+    this.encodeBeginInternal(context, (T) component);
+  }
+
+  public void encodeBeginInternal(FacesContext context, T component) throws IOException {
+    super.encodeBegin(context, component);
+  }
+
+  @Override
+  public final void encodeChildren(FacesContext context, UIComponent component) throws IOException {
+    this.encodeChildrenInternal(context, (T) component);
+  }
+
+  public void encodeChildrenInternal(FacesContext context, T component) throws IOException {
+    super.encodeChildren(context, component);
+  }
+
+  @Override
+  public final void encodeEnd(FacesContext context, UIComponent component) throws IOException {
+    this.encodeEndInternal(context, (T) component);
+  }
+
+  public void encodeEndInternal(FacesContext context, T component) throws IOException {
+    super.encodeEnd(context, component);
+  }
+
+  @Override
+  public final void decode(FacesContext context, UIComponent component) {
+    this.decodeInternal(context, (T) component);
+  }
+
+  public void decodeInternal(FacesContext context, T component) {
+    super.decode(context, component);
+  }
+
+  @Override
+  public Object getConvertedValue(final FacesContext facesContext, final UIComponent component, final Object submittedValue)
+      throws ConverterException {
+    return getConvertedValueInternal(facesContext, (T)component, submittedValue);
+  }
+
+  public Object getConvertedValueInternal(
+      final FacesContext context, final T component, final Object submittedValue)
+      throws ConverterException {
+    if (!(submittedValue instanceof String)) {
+      return submittedValue;
+    }
+    final Converter converter = ComponentUtils.getConverter(context, component, submittedValue);
+    if (converter != null) {
+      return converter.getAsObject(context, component, (String) submittedValue);
+    } else {
+      return submittedValue;
+    }
+  }
+
+
+// end of "redefine"
+
+  protected String getCurrentValue(final FacesContext facesContext, final T component) {
 
     if (component instanceof ValueHolder) {
       final ValueHolder valueHolder = (ValueHolder) component;
@@ -82,24 +143,6 @@ public class RendererBase extends Renderer {
     }
   }
 
-  @Override
-  public Object getConvertedValue(final FacesContext context, final UIComponent component, final Object submittedValue)
-      throws ConverterException {
-    if (!(submittedValue instanceof String)) {
-      return submittedValue;
-    }
-    final Converter converter = ComponentUtils.getConverter(context, component, submittedValue);
-    if (converter != null) {
-      return converter.getAsObject(context, component, (String) submittedValue);
-    } else {
-      return submittedValue;
-    }
-  }
-
-  public void onComponentCreated(
-      final FacesContext facesContext, final UIComponent component, final UIComponent parent) {
-  }
-
   protected TobagoResponseWriter getResponseWriter(final FacesContext facesContext) {
     final ResponseWriter writer = facesContext.getResponseWriter();
     if (writer instanceof TobagoResponseWriter) {
@@ -110,7 +153,7 @@ public class RendererBase extends Renderer {
   }
 
   /**
-   * Special implementation for the reload facet (e.g. for tc:panel and tc:sheet.
+   * Special implementation for the reload facet (e.g. for tc:panel and tc:sheet).
    */
   public void encodeReload(FacesContext facesContext, AbstractUIReload reload) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
@@ -178,8 +221,8 @@ public class RendererBase extends Renderer {
     writer.endElement(HtmlElements.TOBAGO_BEHAVIOR);
   }
 
-  protected CommandMap getBehaviorCommands(final FacesContext facesContext,
-                                               final ClientBehaviorHolder clientBehaviorHolder) {
+  protected CommandMap getBehaviorCommands(
+      final FacesContext facesContext, final ClientBehaviorHolder clientBehaviorHolder) {
     CommandMap commandMap = null;
 
     for (final Map.Entry<String, List<ClientBehavior>> entry : clientBehaviorHolder.getClientBehaviors().entrySet()) {
@@ -219,15 +262,16 @@ public class RendererBase extends Renderer {
     return commandMap;
   }
 
-  private static ClientBehaviorContext getClientBehaviorContext(final FacesContext facesContext,
-      final ClientBehaviorHolder clientBehaviorHolder, final String eventName) {
-    UIComponent component = (UIComponent) clientBehaviorHolder;
+  private static ClientBehaviorContext getClientBehaviorContext(
+      final FacesContext facesContext, final ClientBehaviorHolder clientBehaviorHolder, final String eventName) {
+    final UIComponent component = (UIComponent) clientBehaviorHolder;
     return ClientBehaviorContext.createClientBehaviorContext(facesContext, component, eventName,
         component.getClientId(facesContext), null);
   }
 
-  private static CommandMap getCommandMap(final FacesContext facesContext,
-      final ClientBehaviorContext clientBehaviorContext, final ClientBehavior clientBehavior) {
+  private static CommandMap getCommandMap(
+      final FacesContext facesContext, final ClientBehaviorContext clientBehaviorContext,
+      final ClientBehavior clientBehavior) {
     if (clientBehavior instanceof ClientBehaviorBase) {
       String type = ((ClientBehaviorBase) clientBehavior).getRendererType();
 
@@ -246,7 +290,7 @@ public class RendererBase extends Renderer {
     return null;
   }
 
-  protected void decodeClientBehaviors(final FacesContext facesContext, final UIComponent component) {
+  protected void decodeClientBehaviors(final FacesContext facesContext, final T component) {
     if (component instanceof ClientBehaviorHolder) {
       final ClientBehaviorHolder clientBehaviorHolder = (ClientBehaviorHolder) component;
       final Map<String, List<ClientBehavior>> clientBehaviors = clientBehaviorHolder.getClientBehaviors();

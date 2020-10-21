@@ -33,20 +33,19 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class FigureRenderer extends RendererBase {
+public class FigureRenderer<T extends AbstractUIFigure> extends RendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUIFigure figure = (AbstractUIFigure) component;
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.startElement(HtmlElements.FIGURE);
 
     writer.writeClassAttribute(
         TobagoClass.FIGURE,
-        TobagoClass.FIGURE.createMarkup(figure.getMarkup()),
+        TobagoClass.FIGURE.createMarkup(component.getMarkup()),
         BootstrapClass.FIGURE,
-        figure.getCustomClass());
-    final String tip = figure.getTip();
+        component.getCustomClass());
+    final String tip = component.getTip();
     if (tip != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     }
@@ -56,10 +55,9 @@ public class FigureRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUIFigure figure = (AbstractUIFigure) component;
-    final UIComponent label = ComponentUtils.getFacet(figure, Facets.label);
-    final String labelString = figure.getLabel();
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
+    final UIComponent label = ComponentUtils.getFacet(component, Facets.label);
+    final String labelString = component.getLabel();
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 

@@ -33,12 +33,11 @@ import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
-public class OutRenderer extends MessageLayoutRendererBase {
+public class OutRenderer<T extends AbstractUIOut> extends MessageLayoutRendererBase<T> {
 
   @Override
   public HtmlElements getComponentTag() {
@@ -46,49 +45,46 @@ public class OutRenderer extends MessageLayoutRendererBase {
   }
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUIOut out = (AbstractUIOut) component;
-    final boolean plain = out.isPlain() || out.isCompact() || !out.isCreateSpan();
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
+    final boolean plain = component.isPlain() || component.isCompact() || !component.isCreateSpan();
 
     if (plain) {
-      encodeText(facesContext, out);
+      encodeText(facesContext, component);
     } else {
-      super.encodeBegin(facesContext, component);
+      super.encodeBeginInternal(facesContext, component);
     }
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUIOut out = (AbstractUIOut) component;
-    final boolean plain = out.isPlain() || out.isCompact() || !out.isCreateSpan();
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
+    final boolean plain = component.isPlain() || component.isCompact() || !component.isCreateSpan();
 
     if (!plain) {
-      super.encodeEnd(facesContext, component);
+      super.encodeEndInternal(facesContext, component);
     }
   }
 
   @Override
-  public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUIOut out = (AbstractUIOut) component;
+  public void encodeBeginField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final Markup markup = out.getMarkup();
+    final Markup markup = component.getMarkup();
 
     writer.startElement(HtmlElements.SPAN);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, out);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
     writer.writeClassAttribute(
         TobagoClass.OUT,
         TobagoClass.OUT.createMarkup(markup),
-        getCssItems(facesContext, out),
+        getCssItems(facesContext, component),
         BootstrapClass.textColor(markup),
         BootstrapClass.fontStyle(markup),
-        out.getCustomClass());
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, out);
+        component.getCustomClass());
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
 
-    encodeText(facesContext, out);
+    encodeText(facesContext, component);
   }
 
   private void encodeText(final FacesContext facesContext, final AbstractUIOut out) throws IOException {
@@ -126,16 +122,13 @@ public class OutRenderer extends MessageLayoutRendererBase {
   }
 
   @Override
-  public void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
-
-    final AbstractUIOut out = (AbstractUIOut) component;
+  public void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-
     writer.endElement(HtmlElements.SPAN);
   }
 
   @Override
-  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
+  protected String getFieldId(final FacesContext facesContext, final T component) {
     return component.getClientId(facesContext);
   }
 

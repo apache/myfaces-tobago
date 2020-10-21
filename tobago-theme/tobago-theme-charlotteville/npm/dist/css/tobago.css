@@ -10511,7 +10511,7 @@ h1 button.tobago-link, .h1 button.tobago-link, h2 button.tobago-link, .h2 button
   font-weight: inherit;
 }
 
-button.tobago-link, button.tobago-treeCommand {
+button.tobago-link {
   color: #0d6efd;
   border-width: 0;
   padding: 0;
@@ -10519,23 +10519,23 @@ button.tobago-link, button.tobago-treeCommand {
   text-align: left;
 }
 
-button.tobago-link:focus, button.tobago-link:hover, button.tobago-treeCommand:focus, button.tobago-treeCommand:hover {
+button.tobago-link:focus, button.tobago-link:hover {
   color: #58512e;
   cursor: pointer;
   outline: none;
   text-decoration: underline;
 }
 
-button.tobago-link:disabled, button.tobago-treeCommand:disabled {
+button.tobago-link:disabled {
   color: #777777;
 }
 
-button.tobago-link:disabled:hover, button.tobago-treeCommand:disabled:hover {
+button.tobago-link:disabled:hover {
   cursor: not-allowed;
   text-decoration: none;
 }
 
-button.tobago-link:disabled > img, button.tobago-treeCommand:disabled > img {
+button.tobago-link:disabled > img {
   opacity: .65;
 }
 
@@ -10614,10 +10614,6 @@ a.tobago-messages-button, a.tobago-help-button, a.tobago-popover-button {
 
 .tobago-messages label:last-child {
   margin-bottom: 0;
-}
-
-.tobago-flexLayout.tobago-messages-container > {
-  /* TODO: maybe add here some stuff for vaadin-combo-box-light for tc:tobago-suggest */
 }
 
 .tobago-flexLayout.tobago-messages-container > .tobago-input-group-outer, .tobago-flexLayout.tobago-messages-container > .tobago-selectManyShuttle {
@@ -11649,10 +11645,6 @@ tobago-tab-group {
 .tobago-treeSelect .form-check-inline {
   margin-left: 0.375rem;
   margin-right: 0.375rem;
-}
-
-.tobago-treeCommand {
-  cursor: pointer;
 }
 
 .tobago-treeNode[data-tobago-level] {

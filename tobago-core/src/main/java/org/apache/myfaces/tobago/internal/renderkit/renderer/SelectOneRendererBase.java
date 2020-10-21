@@ -24,30 +24,27 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.lang.invoke.MethodHandles;
 
-public abstract class SelectOneRendererBase extends MessageLayoutRendererBase {
+public abstract class SelectOneRendererBase<T extends AbstractUISelectOneBase> extends MessageLayoutRendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
+  public void decodeInternal(final FacesContext facesContext, final T component) {
     if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
 
-    final AbstractUISelectOneBase select = (AbstractUISelectOneBase) component;
-
-    final String clientId = select.getClientId(facesContext);
+    final String clientId = component.getClientId(facesContext);
     final Object newValue =
         facesContext.getExternalContext().getRequestParameterMap().get(clientId);
     if (LOG.isDebugEnabled()) {
       LOG.debug("decode: key='" + clientId + "' value='" + newValue + "'");
     }
-    select.setSubmittedValue(newValue);
+    component.setSubmittedValue(newValue);
 
-    decodeClientBehaviors(facesContext, select);
+    decodeClientBehaviors(facesContext, component);
   }
 }

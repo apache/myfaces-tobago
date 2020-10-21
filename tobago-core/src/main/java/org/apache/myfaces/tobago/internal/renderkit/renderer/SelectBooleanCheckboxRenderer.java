@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectBoolean;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
@@ -35,35 +36,32 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 
-public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
+public class SelectBooleanCheckboxRenderer<T extends AbstractUISelectBooleanCheckbox>
+    extends MessageLayoutRendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
+  public void decodeInternal(final FacesContext facesContext, final T component) {
 
-    final UIInput input = (UIInput) component;
-
-    if (ComponentUtils.isOutputOnly(input)) {
+    if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
 
     final String newValue = facesContext.getExternalContext()
-        .getRequestParameterMap().get(input.getClientId(facesContext));
+        .getRequestParameterMap().get(component.getClientId(facesContext));
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("new value = '" + newValue + "'");
     }
 
-    input.setSubmittedValue("true".equals(newValue) ? "true" : "false");
+    component.setSubmittedValue("true".equals(newValue) ? "true" : "false");
 
-    decodeClientBehaviors(facesContext, input);
+    decodeClientBehaviors(facesContext, component);
   }
 
   @Override
@@ -72,30 +70,29 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
   }
 
   @Override
-  protected void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUISelectBoolean select = (AbstractUISelectBoolean) component;
+  protected void encodeBeginField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    final String clientId = select.getClientId(facesContext);
-    final String fieldId = select.getFieldId(facesContext);
-    final String currentValue = getCurrentValue(facesContext, select);
+    final String clientId = component.getClientId(facesContext);
+    final String fieldId = component.getFieldId(facesContext);
+    final String currentValue = getCurrentValue(facesContext, component);
     final boolean checked = "true".equals(currentValue);
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
-    final boolean disabled = select.isDisabled();
-    final LabelWithAccessKey label = new LabelWithAccessKey(select, true);
-    final String itemLabel = select.getItemLabel();
-    final String itemImage = select.getItemImage();
-    final Markup markup = select.getMarkup();
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
+    final boolean disabled = component.isDisabled();
+    final LabelWithAccessKey label = new LabelWithAccessKey(component, true);
+    final String itemLabel = component.getItemLabel();
+    final String itemImage = component.getItemImage();
+    final Markup markup = component.getMarkup();
 
     writer.startElement(getOuterHtmlTag());
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
         getTobagoClass(),
         getTobagoClass().createMarkup(markup),
-        getOuterCssItems(facesContext, select),
-        select.getCustomClass());
+        getOuterCssItems(facesContext, component),
+        component.getCustomClass());
 
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
@@ -107,17 +104,17 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(fieldId);
     writer.writeAttribute(HtmlAttributes.CHECKED, checked);
-    writer.writeAttribute(HtmlAttributes.READONLY, select.isReadonly());
+    writer.writeAttribute(HtmlAttributes.READONLY, component.isReadonly());
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
-    HtmlRendererUtils.renderFocus(clientId, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
-    writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
+    writer.writeAttribute(HtmlAttributes.REQUIRED, component.isRequired());
+    HtmlRendererUtils.renderFocus(clientId, component.isFocus(), ComponentUtils.isError(component), facesContext, writer);
+    writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
     writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.LABEL);
     writer.writeClassAttribute(
         BootstrapClass.FORM_CHECK_LABEL,
-        getCssItems(facesContext, select));
+        getCssItems(facesContext, component));
     if (!disabled && label.getAccessKey() != null) {
       writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
       AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
@@ -129,8 +126,8 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
       writer.writeAttribute(HtmlAttributes.ALT, "", false);
       writer.endElement(HtmlElements.IMG);
     }
-    if (itemLabel != null && select.getLabel() == null && select.getAccessKey() != null) {
-      if (itemLabel.contains(Character.toString(select.getAccessKey()))) {
+    if (itemLabel != null && component.getLabel() == null && component.getAccessKey() != null) {
+      if (itemLabel.contains(Character.toString(component.getAccessKey()))) {
         HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
       }
     } else if (itemLabel != null) {
@@ -144,13 +141,12 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
   }
 
   @Override
-  protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
+  protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final AbstractUISelectBoolean select = (AbstractUISelectBoolean) component;
 
     writer.endElement(getOuterHtmlTag());
 
-    encodeBehavior(writer, facesContext, select);
+    encodeBehavior(writer, facesContext, component);
   }
 
   protected HtmlElements getOuterHtmlTag() {
@@ -169,8 +165,7 @@ public class SelectBooleanCheckboxRenderer extends MessageLayoutRendererBase {
   }
 
   @Override
-  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
-    final AbstractUISelectBoolean select = (AbstractUISelectBoolean) component;
-    return select.getFieldId(facesContext);
+  protected String getFieldId(final FacesContext facesContext, final T component) {
+    return component.getFieldId(facesContext);
   }
 }

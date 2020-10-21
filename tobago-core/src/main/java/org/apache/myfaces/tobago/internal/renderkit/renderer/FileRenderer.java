@@ -37,7 +37,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ComponentSystemEventListener;
@@ -52,7 +51,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public class FileRenderer extends MessageLayoutRendererBase implements ComponentSystemEventListener {
+public class FileRenderer<T extends AbstractUIFile>
+    extends MessageLayoutRendererBase<T> implements ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -72,13 +72,12 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
   }
 
   @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
+  public void decodeInternal(final FacesContext facesContext, final T component) {
     if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
 
-    final AbstractUIFile file = (AbstractUIFile) component;
-    final boolean multiple = file.isMultiple() && !file.isRequired();
+    final boolean multiple = component.isMultiple() && !component.isRequired();
     final Object request = facesContext.getExternalContext().getRequest();
     if (request instanceof HttpServletRequest) {
       try {
@@ -86,27 +85,27 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
         if (multiple) {
           final List<Part> parts = new ArrayList<>();
           for (final Part part : httpServletRequest.getParts()) {
-            if (file.getClientId(facesContext).equals(part.getName())) {
+            if (component.getClientId(facesContext).equals(part.getName())) {
               LOG.debug("Uploaded file '{}', size={}, type='{}'",
                   part.getSubmittedFileName(), part.getSize(), part.getContentType());
               parts.add(new HttpPartWrapper(part));
             }
-            file.setSubmittedValue(parts.toArray(new Part[0]));
+            component.setSubmittedValue(parts.toArray(new Part[0]));
           }
         } else {
-          final Part part = httpServletRequest.getPart(file.getClientId(facesContext));
+          final Part part = httpServletRequest.getPart(component.getClientId(facesContext));
           final String submittedFileName = part.getSubmittedFileName();
           if (LOG.isDebugEnabled()) {
             LOG.debug("Uploaded file '{}', size={}, type='{}'",
                 submittedFileName, part.getSize(), part.getContentType());
           }
           if (submittedFileName.length() > 0) {
-            file.setSubmittedValue(new HttpPartWrapper(part));
+            component.setSubmittedValue(new HttpPartWrapper(part));
           }
         }
       } catch (final Exception e) {
         LOG.error("", e);
-        file.setValid(false);
+        component.setValid(false);
       }
     } else { // todo: PortletRequest
       LOG.warn("Unsupported request type: " + request.getClass().getName());
@@ -116,9 +115,8 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
   }
 
   @Override
-  protected void encodeAttributes(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUIFile file = (AbstractUIFile) component;
-    final String placeholder = file.getPlaceholder();
+  protected void encodeAttributes(final FacesContext facesContext, final T component) throws IOException {
+    final String placeholder = component.getPlaceholder();
     final String multiFormat = ResourceUtils.getString(facesContext, "file.selected");
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
@@ -127,16 +125,15 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
   }
 
   @Override
-  protected void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
+  protected void encodeBeginField(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUIFile file = (AbstractUIFile) component;
-    final String clientId = file.getClientId(facesContext);
-    final String fieldId = file.getFieldId(facesContext);
-    final String accept = createAcceptFromValidators(file);
-    final boolean multiple = file.isMultiple() && !file.isRequired();
-    final boolean disabled = file.isDisabled();
-    final boolean readonly = file.isReadonly();
-    if (file.isMultiple() && file.isRequired()) {
+    final String clientId = component.getClientId(facesContext);
+    final String fieldId = component.getFieldId(facesContext);
+    final String accept = createAcceptFromValidators(component);
+    final boolean multiple = component.isMultiple() && !component.isRequired();
+    final boolean disabled = component.isDisabled();
+    final boolean readonly = component.isReadonly();
+    if (component.isMultiple() && component.isRequired()) {
       LOG.warn("Required multiple file upload is not supported."); //TODO TOBAGO-1930
     }
 
@@ -145,10 +142,10 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(
         BootstrapClass.FORM_FILE,
-        TobagoClass.FILE.createMarkup(file.getMarkup()),
-        file.getCustomClass(),
+        TobagoClass.FILE.createMarkup(component.getMarkup()),
+        component.getCustomClass(),
         BootstrapClass.FORM_CONTROL_PLAINTEXT);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, file);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, multiple);
@@ -158,21 +155,21 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
     writer.writeIdAttribute(fieldId);
     writer.writeClassAttribute(
         BootstrapClass.FORM_FILE_INPUT,
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(file)));
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)));
     writer.writeNameAttribute(clientId);
     // readonly seems not making sense in browsers.
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled || readonly);
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
-    writer.writeAttribute(HtmlAttributes.REQUIRED, file.isRequired());
+    writer.writeAttribute(HtmlAttributes.REQUIRED, component.isRequired());
     // TODO Focus
     //HtmlRendererUtils.renderFocus(clientId, file.isFocus(), ComponentUtils.isError(file), facesContext, writer);
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, file);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     writer.endElement(HtmlElements.INPUT);
 
-    encodeBehavior(writer, facesContext, file);
+    encodeBehavior(writer, facesContext, component);
 
     writer.startElement(HtmlElements.LABEL);
     writer.writeClassAttribute(BootstrapClass.FORM_FILE_LABEL);
@@ -210,14 +207,13 @@ public class FileRenderer extends MessageLayoutRendererBase implements Component
   }
 
   @Override
-  protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
+  protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }
 
   @Override
-  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
-    final AbstractUIFile file = (AbstractUIFile) component;
-    return file.getFieldId(facesContext);
+  protected String getFieldId(final FacesContext facesContext, final T component) {
+    return component.getFieldId(facesContext);
   }
 }

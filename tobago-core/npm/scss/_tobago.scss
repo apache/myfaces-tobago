@@ -393,7 +393,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 button {
-  &.tobago-link, &.tobago-treeCommand {
+  &.tobago-link {
     color: $blue;
     border-width: 0;
     padding: 0;
@@ -1544,10 +1544,6 @@ tobago-tab-group {
 .tobago-treeSelect .form-check-inline {
   margin-left: $spacer * .75 / 2;
   margin-right: $spacer * .75 / 2;
-}
-
-.tobago-treeCommand {
-  cursor: pointer;
 }
 
 .tobago-treeNode[data-tobago-level] {

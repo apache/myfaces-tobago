@@ -25,21 +25,19 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class ScriptRenderer extends RendererBase {
+public class ScriptRenderer<T extends AbstractUIScript> extends RendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUIScript script = (AbstractUIScript) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.SCRIPT);
-    writer.writeAttribute(HtmlAttributes.SRC, script.getFile(), true);
-    writer.writeAttribute(HtmlAttributes.TYPE, script.getType(), true);
+    writer.writeAttribute(HtmlAttributes.SRC, component.getFile(), true);
+    writer.writeAttribute(HtmlAttributes.TYPE, component.getType(), true);
     writer.endElement(HtmlElements.SCRIPT);
   }
 

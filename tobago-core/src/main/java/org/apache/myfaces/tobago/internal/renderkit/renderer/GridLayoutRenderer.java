@@ -33,28 +33,26 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class GridLayoutRenderer extends RendererBase {
+public class GridLayoutRenderer<T extends AbstractUIGridLayout> extends RendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUIGridLayout gridLayout = (AbstractUIGridLayout) component;
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final Markup markup = gridLayout.getMarkup();
+    final Markup markup = component.getMarkup();
 
     writer.startElement(HtmlElements.DIV);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
-    writer.writeIdAttribute(gridLayout.getClientId(facesContext));
+    writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeClassAttribute(
         TobagoClass.GRID_LAYOUT,
         TobagoClass.GRID_LAYOUT.createMarkup(markup),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
 
-    final MeasureList columns = MeasureList.parse(gridLayout.getColumns());
-    final MeasureList rows = MeasureList.parse(gridLayout.getRows());
+    final MeasureList columns = MeasureList.parse(component.getColumns());
+    final MeasureList rows = MeasureList.parse(component.getRows());
 
     final AbstractUIStyle style = (AbstractUIStyle) facesContext.getApplication().createComponent(
         facesContext, Tags.style.componentType(), RendererTypes.Style.name());
@@ -73,11 +71,11 @@ public class GridLayoutRenderer extends RendererBase {
 
     style.setGridTemplateColumns(columns.serialize());
     style.setGridTemplateRows(rows.serialize());
-    gridLayout.getChildren().add(style);
+    component.getChildren().add(style);
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.endElement(HtmlElements.DIV);

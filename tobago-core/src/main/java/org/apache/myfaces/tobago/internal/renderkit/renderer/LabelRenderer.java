@@ -43,7 +43,7 @@ import javax.faces.event.PostAddToViewEvent;
 import java.io.IOException;
 
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public class LabelRenderer extends RendererBase implements ComponentSystemEventListener {
+public class LabelRenderer<T extends AbstractUILabel> extends RendererBase<T> implements ComponentSystemEventListener {
 
   @Override
   public void processEvent(final ComponentSystemEvent event) {
@@ -51,19 +51,18 @@ public class LabelRenderer extends RendererBase implements ComponentSystemEventL
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUILabel label = (AbstractUILabel) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final UIComponent corresponding = ComponentUtils.findFor(label);
+    final UIComponent corresponding = ComponentUtils.findFor(component);
     final String forId;
     if (corresponding instanceof SupportFieldId) {
       forId = ((SupportFieldId) corresponding).getFieldId(facesContext);
     } else {
       forId = corresponding != null ? corresponding.getClientId(facesContext) : null;
     }
-    final String clientId = label.getClientId(facesContext);
-    final Markup markup = label.getMarkup();
+    final String clientId = component.getClientId(facesContext);
+    final Markup markup = component.getMarkup();
     final boolean required;
     if (corresponding instanceof UIInput) {
       required = ((UIInput) corresponding).isRequired();
@@ -72,22 +71,22 @@ public class LabelRenderer extends RendererBase implements ComponentSystemEventL
     }
 
     writer.startElement(HtmlElements.LABEL);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeClassAttribute(
         BootstrapClass.COL_FORM_LABEL,
         TobagoClass.LABEL.createMarkup(markup),
         required ? TobagoClass.REQUIRED : null,
-        label.getCustomClass());
+        component.getCustomClass());
     writer.writeIdAttribute(clientId);
     if (forId != null) {
       writer.writeAttribute(HtmlAttributes.FOR, forId, false);
     }
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, label);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
 
-    encodeTextContent(facesContext, writer, label);
+    encodeTextContent(facesContext, writer, component);
 
     writer.endElement(HtmlElements.LABEL);
   }

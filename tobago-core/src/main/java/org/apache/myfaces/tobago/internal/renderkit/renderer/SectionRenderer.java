@@ -36,16 +36,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class SectionRenderer extends PanelRendererBase {
+public class SectionRenderer<T extends AbstractUISection> extends CollapsiblePanelRendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUISection section = (AbstractUISection) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final String clientId = section.getClientId(facesContext);
-    final boolean collapsed = section.isCollapsed();
-    final Markup markup = section.getMarkup();
+    final String clientId = component.getClientId(facesContext);
+    final boolean collapsed = component.isCollapsed();
+    final Markup markup = component.getMarkup();
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
@@ -53,11 +52,11 @@ public class SectionRenderer extends PanelRendererBase {
         TobagoClass.SECTION,
         TobagoClass.SECTION.createMarkup(markup),
         collapsed ? TobagoClass.COLLAPSED : null,
-        section.getCustomClass());
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, section);
+        component.getCustomClass());
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
     final HtmlElements tag;
-    switch (section.getLevel()) {
+    switch (component.getLevel()) {
       case 1:
         tag = HtmlElements.H1;
         break;
@@ -77,7 +76,7 @@ public class SectionRenderer extends PanelRendererBase {
         tag = HtmlElements.H6;
     }
 
-    if (section.getCollapsedMode() != CollapseMode.none) {
+    if (component.getCollapsedMode() != CollapseMode.none) {
       encodeHidden(writer, clientId, collapsed);
     }
 
@@ -85,11 +84,11 @@ public class SectionRenderer extends PanelRendererBase {
     writer.writeClassAttribute(TobagoClass.SECTION__HEADER);
     writer.startElement(tag);
 
-    final String image = section.getImage();
+    final String image = component.getImage();
     HtmlRendererUtils.encodeIconOrImage(writer, image);
 
-    final UIComponent labelFacet = ComponentUtils.getFacet(section, Facets.label);
-    final String labelString = section.getLabel();
+    final UIComponent labelFacet = ComponentUtils.getFacet(component, Facets.label);
+    final String labelString = component.getLabel();
     if (labelFacet != null) {
       for (final UIComponent child : RenderUtils.getFacetChildren(labelFacet)) {
         if (child instanceof AbstractUIOut) {
@@ -104,7 +103,7 @@ public class SectionRenderer extends PanelRendererBase {
     }
     writer.endElement(tag);
 
-    final UIComponent bar = ComponentUtils.getFacet(section, Facets.bar);
+    final UIComponent bar = ComponentUtils.getFacet(component, Facets.bar);
     if (bar != null) {
       bar.encodeAll(facesContext);
     }
@@ -116,7 +115,7 @@ public class SectionRenderer extends PanelRendererBase {
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);

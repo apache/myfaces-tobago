@@ -37,40 +37,39 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class BoxRenderer extends PanelRendererBase {
+public class BoxRenderer<T extends AbstractUIBox> extends CollapsiblePanelRendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUIBox box = (AbstractUIBox) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final Markup markup = box.getMarkup();
+    final Markup markup = component.getMarkup();
 
     writer.startElement(HtmlElements.DIV);
-    final boolean collapsed = box.isCollapsed();
+    final boolean collapsed = component.isCollapsed();
 
     writer.writeClassAttribute(
         TobagoClass.BOX,
         TobagoClass.BOX.createMarkup(markup),
         BootstrapClass.CARD,
         collapsed ? TobagoClass.COLLAPSED : null,
-        box.getCustomClass(),
+        component.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
-    final String clientId = box.getClientId(facesContext);
+    final String clientId = component.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, box);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, box);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
-    if (box.getCollapsedMode() != CollapseMode.none) {
+    if (component.getCollapsedMode() != CollapseMode.none) {
       encodeHidden(writer, clientId, collapsed);
     }
 
-    final UIComponent labelFacet = ComponentUtils.getFacet(box, Facets.label);
-    final String labelString = box.getLabel();
-    final UIComponent bar = ComponentUtils.getFacet(box, Facets.bar);
+    final UIComponent labelFacet = ComponentUtils.getFacet(component, Facets.label);
+    final String labelString = component.getLabel();
+    final UIComponent bar = ComponentUtils.getFacet(component, Facets.bar);
     if (labelFacet != null || labelString != null || bar != null) {
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(BootstrapClass.CARD_HEADER, TobagoClass.BOX__HEADER);
@@ -99,7 +98,7 @@ public class BoxRenderer extends PanelRendererBase {
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);

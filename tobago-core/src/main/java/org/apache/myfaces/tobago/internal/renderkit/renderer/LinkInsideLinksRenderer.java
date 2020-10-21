@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
+import org.apache.myfaces.tobago.internal.component.AbstractUILink;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -28,10 +28,10 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class LinkInsideLinksRenderer extends LinkRenderer {
+public class LinkInsideLinksRenderer<T extends AbstractUILink> extends LinkRenderer<T> {
 
   @Override
-  protected void encodeBeginOuter(final FacesContext facesContext, final AbstractUICommand command) throws IOException {
+  protected void encodeBeginOuter(final FacesContext facesContext, final T command) throws IOException {
     final String clientId = command.getClientId(facesContext);
     final boolean parentOfCommands = command.isParentOfCommands();
 
@@ -49,7 +49,7 @@ public class LinkInsideLinksRenderer extends LinkRenderer {
   }
 
   @Override
-  protected void encodeEndOuter(final FacesContext facesContext, final AbstractUICommand command) throws IOException {
+  protected void encodeEndOuter(final FacesContext facesContext, final T command) throws IOException {
     final boolean parentOfCommands = command.isParentOfCommands();
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
@@ -61,7 +61,7 @@ public class LinkInsideLinksRenderer extends LinkRenderer {
   }
 
   @Override
-  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUICommand command) {
+  protected CssItem[] getCssItems(final FacesContext facesContext, final T command) {
     return new CssItem[]{BootstrapClass.NAV_LINK};
   }
 }

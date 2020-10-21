@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIHeader;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -29,33 +28,30 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class HeaderRenderer extends RendererBase {
+public class HeaderRenderer<T extends AbstractUIHeader> extends RendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final AbstractUIHeader header = (AbstractUIHeader) component;
-    final Markup markup = header.getMarkup();
     writer.startElement(HtmlElements.TOBAGO_HEADER);
     writer.writeIdAttribute(component.getClientId(facesContext));
     // TBD: NAVBAR_DARK and BG_DARK should not be the default
     // TBD: how to configure it when it is needed, with customClass, or with markup?
 
     writer.writeClassAttribute(
-        header.isFixed() ? BootstrapClass.STICKY_TOP : null,
-        header.getCustomClass());
+        component.isFixed() ? BootstrapClass.STICKY_TOP : null,
+        component.getCustomClass());
 // TBD: should NAVBAR class be in the LinksRenderer?
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.BANNER.toString(), false);
-    writer.writeAttribute(HtmlAttributes.TITLE, header.getTip(), true);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, header);
+    writer.writeAttribute(HtmlAttributes.TITLE, component.getTip(), true);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.TOBAGO_HEADER);
   }

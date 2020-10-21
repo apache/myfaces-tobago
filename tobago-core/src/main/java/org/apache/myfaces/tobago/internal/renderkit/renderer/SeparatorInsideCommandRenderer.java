@@ -25,24 +25,22 @@ import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class SeparatorInsideCommandRenderer extends SeparatorRenderer {
+public class SeparatorInsideCommandRenderer<T extends AbstractUISeparator> extends SeparatorRenderer<T> {
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUISeparator separator = (AbstractUISeparator) component;
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final String clientId = separator.getClientId(facesContext);
+    final String clientId = component.getClientId(facesContext);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
         TobagoClass.SEPARATOR,
         BootstrapClass.DROPDOWN_DIVIDER,
-        separator.getCustomClass());
+        component.getCustomClass());
     writer.endElement(HtmlElements.DIV);
   }
 }

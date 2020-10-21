@@ -38,14 +38,13 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DateRenderer extends InRenderer {
+public class DateRenderer<T extends AbstractUIDate> extends InRenderer<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -71,8 +70,7 @@ public class DateRenderer extends InRenderer {
   }
 
   @Override
-  protected void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUIDate date = (AbstractUIDate) component;
+  protected void encodeBeginField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
@@ -85,12 +83,11 @@ public class DateRenderer extends InRenderer {
   }
 
   @Override
-  public void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
 
     super.encodeEndField(facesContext, component);
 
-    final AbstractUIDate date = (AbstractUIDate) component;
-    final String pattern = date.getPattern();
+    final String pattern = component.getPattern();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.SPAN);
@@ -103,8 +100,8 @@ public class DateRenderer extends InRenderer {
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     writer.writeAttribute(HtmlAttributes.TITLE,
         ResourceUtils.getString(facesContext, "date.title"), true);
-    writer.writeAttribute(HtmlAttributes.DISABLED, date.isDisabled() || date.isReadonly());
-    writer.writeAttribute(HtmlAttributes.TABINDEX, date.getTabIndex());
+    writer.writeAttribute(HtmlAttributes.DISABLED, component.isDisabled() || component.isReadonly());
+    writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
 
     final boolean hasDate = StringUtils.containsAny(pattern, "yYMDdE");
     final boolean hasTime = StringUtils.containsAny(pattern, "Hhms");

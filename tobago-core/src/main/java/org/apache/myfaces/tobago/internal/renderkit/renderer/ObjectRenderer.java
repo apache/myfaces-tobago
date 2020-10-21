@@ -29,43 +29,42 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class ObjectRenderer extends RendererBase {
+public class ObjectRenderer<T extends AbstractUIObject> extends RendererBase<T> {
+
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUIObject object = (AbstractUIObject) component;
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final Markup markup = object.getMarkup();
+    final Markup markup = component.getMarkup();
 
     writer.startElement(HtmlElements.IFRAME);
     writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);
-    final String clientId = object.getClientId(facesContext);
+    final String clientId = component.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
-    String name = object.getName();
+    String name = component.getName();
     if (name == null) {
       name = clientId;
     }
     writer.writeNameAttribute(name);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, object);
-    writer.writeAttribute(HtmlAttributes.SRC, object.getSrc(), true);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
+    writer.writeAttribute(HtmlAttributes.SRC, component.getSrc(), true);
     writer.writeClassAttribute(
         TobagoClass.OBJECT,
         TobagoClass.OBJECT.createMarkup(markup),
-        object.getCustomClass(),
+        component.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
 
-    String sandbox = object.getSandbox();
+    String sandbox = component.getSandbox();
     if (sandbox != null) {
       writer.writeAttribute(HtmlAttributes.SANDBOX, sandbox, false);
     }
 
     writer.writeText(ResourceUtils.getString(facesContext, "object.noframe"));
     writer.writeText(" ");
-    if (object.getSrc() != null) {
-      writer.writeText(object.getSrc());
+    if (component.getSrc() != null) {
+      writer.writeText(component.getSrc());
     }
 
     writer.endElement(HtmlElements.IFRAME);

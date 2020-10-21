@@ -35,12 +35,11 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 
-public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
+public class SelectManyCheckboxRenderer<T extends AbstractUISelectManyCheckbox> extends SelectManyRendererBase<T> {
 
   @Override
   public HtmlElements getComponentTag() {
@@ -48,36 +47,35 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
   }
 
   @Override
-  public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUISelectManyCheckbox select = (AbstractUISelectManyCheckbox) component;
-    final AbstractUISelectReference reference = select.getRenderRangeReference();
+  public void encodeBeginField(final FacesContext facesContext, final T component) throws IOException {
+    final AbstractUISelectReference reference = component.getRenderRangeReference();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    final String id = select.getClientId(facesContext);
-    final String referenceId = reference != null ? reference.getClientId(facesContext) : id;
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
-    final boolean disabled = select.isDisabled();
-    final boolean readonly = select.isReadonly();
-    final boolean required = select.isRequired();
-    final boolean inline = select.isInline();
-    final Markup markup = select.getMarkup();
+    final String id = component.getClientId(facesContext);
+//    final String referenceId = reference != null ? reference.getClientId(facesContext) : id;
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
+    final boolean disabled = component.isDisabled();
+    final boolean readonly = component.isReadonly();
+    final boolean required = component.isRequired();
+    final boolean inline = component.isInline();
+    final Markup markup = component.getMarkup();
 
     writer.startElement(getOuterHtmlTag());
     writer.writeClassAttribute(
         TobagoClass.SELECT_MANY_CHECKBOX,
         TobagoClass.SELECT_MANY_CHECKBOX.createMarkup(markup),
         inline ? TobagoClass.SELECT_MANY_CHECKBOX__INLINE : null,
-        select.getCustomClass());
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
+        component.getCustomClass());
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     boolean first = true;
-    final Object[] values = select.getSelectedValues();
-    final String[] submittedValues = getSubmittedValues(select);
+    final Object[] values = component.getSelectedValues();
+    final String[] submittedValues = getSubmittedValues(component);
     int i = 0;
-    final int[] renderRange = getRenderRangeList(select, reference);
-    for (final SelectItem item : SelectItemUtils.getItemIterator(facesContext, select)) {
+    final int[] renderRange = getRenderRangeList(component, reference);
+    for (final SelectItem item : SelectItemUtils.getItemIterator(facesContext, component)) {
       if (renderRange == null || ArrayUtils.contains(renderRange, i)) {
         final boolean itemDisabled = item.isDisabled() || disabled;
         final String itemId = id + ComponentUtils.SUB_SEPARATOR + i;
@@ -88,7 +86,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
         writer.startElement(HtmlElements.INPUT);
         writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
-        final String formattedValue = ComponentUtils.getFormattedValue(facesContext, select, item.getValue());
+        final String formattedValue = ComponentUtils.getFormattedValue(facesContext, component, item.getValue());
         final boolean checked;
         if (submittedValues == null) {
           checked = ArrayUtils.contains(values, item.getValue());
@@ -103,16 +101,16 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
         writer.writeAttribute(HtmlAttributes.READONLY, readonly);
         writer.writeAttribute(HtmlAttributes.REQUIRED, required);
         if (first) {
-          HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
+          HtmlRendererUtils.renderFocus(id, component.isFocus(), ComponentUtils.isError(component), facesContext, writer);
           first = false;
         }
-        writer.writeAttribute(HtmlAttributes.TABINDEX, select.getTabIndex());
+        writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
         writer.endElement(HtmlElements.INPUT);
 
         writer.startElement(HtmlElements.LABEL);
         writer.writeClassAttribute(
             BootstrapClass.FORM_CHECK_LABEL,
-            getCssItems(facesContext, select));
+            getCssItems(facesContext, component));
         writer.writeAttribute(HtmlAttributes.FOR, itemId, false);
 
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
@@ -146,13 +144,12 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
   }
 
   @Override
-  protected void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
+  protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final AbstractUISelectManyCheckbox select = (AbstractUISelectManyCheckbox) component;
 
     writer.endElement(getOuterHtmlTag());
 
-    encodeBehavior(writer, facesContext, select);
+    encodeBehavior(writer, facesContext, component);
   }
 
   protected HtmlElements getOuterHtmlTag() {
@@ -164,7 +161,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
   }
 
   @Override
-  protected String getFieldId(final FacesContext facesContext, final UIComponent component) {
+  protected String getFieldId(final FacesContext facesContext, final T component) {
     return component.getClientId(facesContext);
   }
 }

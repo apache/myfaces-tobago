@@ -66,7 +66,8 @@ import java.util.Collections;
 import java.util.Map;
 
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public class TabGroupRenderer extends RendererBase implements ComponentSystemEventListener {
+public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase<T>
+    implements ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -113,16 +114,16 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
   }
 
   @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
+  public void decodeInternal(final FacesContext facesContext, final T component) {
     if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
 
-    final int oldIndex = ((AbstractUITabGroup) component).getRenderedIndex();
+    final int oldIndex = component.getRenderedIndex();
 
     final String clientId = component.getClientId(facesContext);
-    final Map parameters = facesContext.getExternalContext().getRequestParameterMap();
-    final String newValue = (String) parameters.get(clientId + INDEX_POSTFIX);
+    final Map<String, String> parameters = facesContext.getExternalContext().getRequestParameterMap();
+    final String newValue = parameters.get(clientId + INDEX_POSTFIX);
     try {
       final int newIndex = Integer.parseInt(newValue);
       if (newIndex != oldIndex) {
@@ -135,14 +136,13 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent uiComponent) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T uiComponent) throws IOException {
 
-    final AbstractUITabGroup tabGroup = (AbstractUITabGroup) uiComponent;
-    final int selectedIndex = ensureRenderedSelectedIndex(facesContext, tabGroup);
-    final String clientId = tabGroup.getClientId(facesContext);
+    final int selectedIndex = ensureRenderedSelectedIndex(facesContext, uiComponent);
+    final String clientId = uiComponent.getClientId(facesContext);
     final String hiddenId = clientId + TabGroupRenderer.INDEX_POSTFIX;
-    final SwitchType switchType = tabGroup.getSwitchType();
-    final Markup markup = tabGroup.getMarkup();
+    final SwitchType switchType = uiComponent.getSwitchType();
+    final Markup markup = uiComponent.getMarkup();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.TOBAGO_TAB_GROUP);
@@ -150,12 +150,12 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
     writer.writeClassAttribute(
         BootstrapClass.CARD,
         TobagoClass.TAB_GROUP.createMarkup(markup),
-        tabGroup.getCustomClass(),
+        uiComponent.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, uiComponent);
     writer.writeAttribute(CustomAttributes.SWITCH_TYPE, switchType.name(), false);
 
-    encodeBehavior(writer, facesContext, tabGroup);
+    encodeBehavior(writer, facesContext, uiComponent);
 
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
@@ -164,11 +164,11 @@ public class TabGroupRenderer extends RendererBase implements ComponentSystemEve
     writer.writeIdAttribute(hiddenId);
     writer.endElement(HtmlElements.INPUT);
 
-    if (tabGroup.isShowNavigationBar()) {
-      encodeHeader(facesContext, writer, tabGroup, selectedIndex, switchType);
+    if (uiComponent.isShowNavigationBar()) {
+      encodeHeader(facesContext, writer, uiComponent, selectedIndex, switchType);
     }
 
-    encodeContent(facesContext, writer, tabGroup, selectedIndex, switchType);
+    encodeContent(facesContext, writer, uiComponent, selectedIndex, switchType);
 
     writer.endElement(HtmlElements.TOBAGO_TAB_GROUP);
   }

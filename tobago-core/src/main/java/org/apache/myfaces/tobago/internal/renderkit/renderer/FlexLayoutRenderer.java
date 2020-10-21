@@ -27,30 +27,28 @@ import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class FlexLayoutRenderer extends RendererBase {
+public class FlexLayoutRenderer<T extends AbstractUIFlexLayout> extends RendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUIFlexLayout flexLayout = (AbstractUIFlexLayout) component;
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final Markup markup = flexLayout.getMarkup();
+    final Markup markup = component.getMarkup();
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeIdAttribute(flexLayout.getClientId());
+    writer.writeIdAttribute(component.getClientId());
     writer.writeClassAttribute(
         TobagoClass.FLEX_LAYOUT,
         TobagoClass.FLEX_LAYOUT.createMarkup(markup),
-        flexLayout.isHorizontal() ? BootstrapClass.FLEX_ROW : BootstrapClass.FLEX_COLUMN,
-        BootstrapClass.valueOf(flexLayout.getAlignItems()),
+        component.isHorizontal() ? BootstrapClass.FLEX_ROW : BootstrapClass.FLEX_COLUMN,
+        BootstrapClass.valueOf(component.getAlignItems()),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }

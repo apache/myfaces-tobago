@@ -35,19 +35,17 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class StyleRenderer extends RendererBase {
+public class StyleRenderer<T extends AbstractUIStyle> extends RendererBase<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUIStyle style = (AbstractUIStyle) component;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    final String file = style.getFile();
+    final String file = component.getFile();
     if (StringUtils.isNotBlank(file)) {
 
       writer.startElement(HtmlElements.LINK);
@@ -70,37 +68,37 @@ public class StyleRenderer extends RendererBase {
 
     } else {
 
-      final Measure width = style.getWidth();
-      final Measure height = style.getHeight();
-      final Measure minWidth = style.getMinWidth();
-      final Measure minHeight = style.getMinHeight();
-      final Measure maxWidth = style.getMaxWidth();
-      final Measure maxHeight = style.getMaxHeight();
-      final Measure left = style.getLeft();
-      final Measure right = style.getRight();
-      final Measure top = style.getTop();
-      final Measure bottom = style.getBottom();
-      final Measure paddingLeft = style.getPaddingLeft();
-      final Measure paddingRight = style.getPaddingRight();
-      final Measure paddingTop = style.getPaddingTop();
-      final Measure paddingBottom = style.getPaddingBottom();
-      final Measure marginLeft = style.getMarginLeft();
-      final Measure marginRight = style.getMarginRight();
-      final Measure marginTop = style.getMarginTop();
-      final Measure marginBottom = style.getMarginBottom();
-      final Overflow overflowX = style.getOverflowX();
-      final Overflow overflowY = style.getOverflowY();
-      final Display display = style.getDisplay();
-      final Position position = style.getPosition();
-      final TextAlign textAlign = style.getTextAlign();
-      final String backgroundImage = style.getBackgroundImage();
-      final Number flexGrow = style.getFlexGrow();
-      final Number flexShrink = style.getFlexShrink();
-      final Measure flexBasis = style.getFlexBasis();
-      final String gridTemplateColumns = style.getGridTemplateColumns();
-      final String gridTemplateRows = style.getGridTemplateRows();
-      final GridSpan gridColumn = style.getGridColumn();
-      final GridSpan gridRow = style.getGridRow();
+      final Measure width = component.getWidth();
+      final Measure height = component.getHeight();
+      final Measure minWidth = component.getMinWidth();
+      final Measure minHeight = component.getMinHeight();
+      final Measure maxWidth = component.getMaxWidth();
+      final Measure maxHeight = component.getMaxHeight();
+      final Measure left = component.getLeft();
+      final Measure right = component.getRight();
+      final Measure top = component.getTop();
+      final Measure bottom = component.getBottom();
+      final Measure paddingLeft = component.getPaddingLeft();
+      final Measure paddingRight = component.getPaddingRight();
+      final Measure paddingTop = component.getPaddingTop();
+      final Measure paddingBottom = component.getPaddingBottom();
+      final Measure marginLeft = component.getMarginLeft();
+      final Measure marginRight = component.getMarginRight();
+      final Measure marginTop = component.getMarginTop();
+      final Measure marginBottom = component.getMarginBottom();
+      final Overflow overflowX = component.getOverflowX();
+      final Overflow overflowY = component.getOverflowY();
+      final Display display = component.getDisplay();
+      final Position position = component.getPosition();
+      final TextAlign textAlign = component.getTextAlign();
+      final String backgroundImage = component.getBackgroundImage();
+      final Number flexGrow = component.getFlexGrow();
+      final Number flexShrink = component.getFlexShrink();
+      final Measure flexBasis = component.getFlexBasis();
+      final String gridTemplateColumns = component.getGridTemplateColumns();
+      final String gridTemplateRows = component.getGridTemplateRows();
+      final GridSpan gridColumn = component.getGridColumn();
+      final GridSpan gridRow = component.getGridRow();
 
       // todo: backgroundPosition and zIndex
 
@@ -138,12 +136,12 @@ public class StyleRenderer extends RendererBase {
 
         writer.startElement(HtmlElements.STYLE);
         writer.writeAttribute(HtmlAttributes.NONCE, Nonce.getNonce(facesContext), false);
-        writer.writeIdAttribute(style.getClientId(facesContext));
-        final String selector = style.getSelector();
+        writer.writeIdAttribute(component.getClientId(facesContext));
+        final String selector = component.getSelector();
         if (selector != null) {
           StyleRenderUtils.writeSelector(writer, selector);
         } else {
-          final String parentId = style.getParent().getClientId(facesContext);
+          final String parentId = component.getParent().getClientId(facesContext);
           StyleRenderUtils.writeIdSelector(writer, parentId);
         }
         writer.writeText("{");

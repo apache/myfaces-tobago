@@ -91,7 +91,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class SheetRenderer extends RendererBase {
+public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -103,15 +103,14 @@ public class SheetRenderer extends RendererBase {
   private static final String SUFFIX_PAGE_ACTION = "pageAction";
 
   @Override
-  public void decode(final FacesContext facesContext, final UIComponent component) {
+  public void decodeInternal(final FacesContext facesContext, final T component) {
 
-    final AbstractUISheet sheet = (AbstractUISheet) component;
-    final List<AbstractUIColumnBase> columns = sheet.getAllColumns();
-    final String clientId = sheet.getClientId(facesContext);
+    final List<AbstractUIColumnBase> columns = component.getAllColumns();
+    final String clientId = component.getClientId(facesContext);
 
     String key = clientId + SUFFIX_WIDTHS;
     final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    final SheetState state = sheet.getState();
+    final SheetState state = component.getState();
     if (requestParameterMap.containsKey(key)) {
       final String widths = requestParameterMap.get(key);
       ensureColumnWidthsSize(state.getColumnWidths(), columns, JsonUtils.decodeIntegerArray(widths));
@@ -131,7 +130,7 @@ public class SheetRenderer extends RendererBase {
         selectedRows = Collections.emptyList();
       }
 
-      ComponentUtils.setAttribute(sheet, Attributes.selectedListString, selectedRows);
+      ComponentUtils.setAttribute(component, Attributes.selectedListString, selectedRows);
     }
 
     final String value
@@ -139,9 +138,9 @@ public class SheetRenderer extends RendererBase {
     if (value != null) {
       state.getScrollPosition().update(value);
     }
-    RenderUtils.decodedStateOfTreeData(facesContext, sheet);
+    RenderUtils.decodedStateOfTreeData(facesContext, component);
 
-    decodeSheetAction(facesContext, sheet);
+    decodeSheetAction(facesContext, component);
     decodeColumnAction(facesContext, columns);
 /* this will be done by the javax.faces.component.UIData.processDecodes() because these are facets.
     for (UIComponent facet : sheet.getFacets().values()) {
@@ -224,19 +223,18 @@ public class SheetRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUISheet sheet = (AbstractUISheet) component;
-    final String sheetId = sheet.getClientId(facesContext);
-    final Markup markup = sheet.getMarkup();
+    final String sheetId = component.getClientId(facesContext);
+    final Markup markup = component.getMarkup();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final AbstractUIReload reload = ComponentUtils.getReloadFacet(sheet);
+    final AbstractUIReload reload = ComponentUtils.getReloadFacet(component);
 
-    UIComponent header = sheet.getHeader();
+    UIComponent header = component.getHeader();
     if (header == null) {
       header = ComponentUtils.createComponent(facesContext, Tags.panel.componentType(), null, "_header");
       header.setTransient(true);
-      final List<AbstractUIColumnBase> columns = sheet.getAllColumns();
+      final List<AbstractUIColumnBase> columns = component.getAllColumns();
       int i = 0;
       for (final AbstractUIColumnBase column : columns) {
         if (!(column instanceof AbstractUIRow)) {
@@ -261,40 +259,39 @@ public class SheetRenderer extends RendererBase {
         }
         i++;
       }
-      sheet.setHeader(header);
+      component.setHeader(header);
     }
-    sheet.init(facesContext);
+    component.init(facesContext);
 
     // Outer sheet div
     writer.startElement(HtmlElements.TOBAGO_SHEET);
     writer.writeIdAttribute(sheetId);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, sheet);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeClassAttribute(
-        sheet.getCustomClass(),
+        component.getCustomClass(),
         TobagoClass.SHEET.createMarkup(markup),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     if (reload != null && reload.isRendered()) {
       writer.writeAttribute(DataAttributes.RELOAD, reload.getFrequency());
     }
-    writer.writeAttribute(DataAttributes.SELECTION_MODE, sheet.getSelectable().name(), false);
-    writer.writeAttribute(DataAttributes.FIRST, Integer.toString(sheet.getFirst()), false);
-    writer.writeAttribute(CustomAttributes.ROWS, sheet.getRows());
-    writer.writeAttribute(CustomAttributes.ROW_COUNT, Integer.toString(sheet.getRowCount()), false);
-    writer.writeAttribute(CustomAttributes.LAZY, sheet.isLazy());
-    writer.writeAttribute(CustomAttributes.LAZY_UPDATE, sheet.isLazy() && AjaxUtils.isAjaxRequest(facesContext));
+    writer.writeAttribute(DataAttributes.SELECTION_MODE, component.getSelectable().name(), false);
+    writer.writeAttribute(DataAttributes.FIRST, Integer.toString(component.getFirst()), false);
+    writer.writeAttribute(CustomAttributes.ROWS, component.getRows());
+    writer.writeAttribute(CustomAttributes.ROW_COUNT, Integer.toString(component.getRowCount()), false);
+    writer.writeAttribute(CustomAttributes.LAZY, component.isLazy());
+    writer.writeAttribute(CustomAttributes.LAZY_UPDATE, component.isLazy() && AjaxUtils.isAjaxRequest(facesContext));
 
-    final boolean autoLayout = sheet.isAutoLayout();
+    final boolean autoLayout = component.isAutoLayout();
     if (!autoLayout) {
-      writer.writeAttribute(DataAttributes.LAYOUT, JsonUtils.encode(sheet.getColumnLayout(), "columns"), true);
+      writer.writeAttribute(DataAttributes.LAYOUT, JsonUtils.encode(component.getColumnLayout(), "columns"), true);
     }
 
-    encodeBehavior(writer, facesContext, sheet);
+    encodeBehavior(writer, facesContext, component);
   }
 
   @Override
-  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUISheet sheet = (AbstractUISheet) component;
-    for (final UIComponent child : sheet.getChildren()) {
+  public void encodeChildrenInternal(final FacesContext facesContext, final T component) throws IOException {
+    for (final UIComponent child : component.getChildren()) {
       if (child instanceof AbstractUIStyle) {
         child.encodeAll(facesContext);
       }
@@ -302,20 +299,19 @@ public class SheetRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent uiComponent) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final AbstractUISheet sheet = (AbstractUISheet) uiComponent;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    final String sheetId = sheet.getClientId(facesContext);
-    final Selectable selectable = sheet.getSelectable();
+    final String sheetId = component.getClientId(facesContext);
+    final Selectable selectable = component.getSelectable();
     final Application application = facesContext.getApplication();
-    final SheetState state = sheet.getSheetState(facesContext);
-    final List<Integer> columnWidths = sheet.getState().getColumnWidths();
-    final boolean definedColumnWidths = sheet.getState().isDefinedColumnWidths();
-    final List<Integer> selectedRows = getSelectedRows(sheet, state);
-    final List<AbstractUIColumnBase> columns = sheet.getAllColumns();
-    final boolean autoLayout = sheet.isAutoLayout();
+    final SheetState state = component.getSheetState(facesContext);
+    final List<Integer> columnWidths = component.getState().getColumnWidths();
+    final boolean definedColumnWidths = component.getState().isDefinedColumnWidths();
+    final List<Integer> selectedRows = getSelectedRows(component, state);
+    final List<AbstractUIColumnBase> columns = component.getAllColumns();
+    final boolean autoLayout = component.isAutoLayout();
 
     ensureColumnWidthsSize(columnWidths, columns, Collections.emptyList());
 
@@ -337,8 +333,8 @@ public class SheetRenderer extends RendererBase {
     }
 
     encodeHiddenInput(writer,
-        sheet.getState().getScrollPosition().encode(),
-        sheet.getClientId(facesContext) + SUFFIX_SCROLL_POSITION);
+        component.getState().getScrollPosition().encode(),
+        component.getClientId(facesContext) + SUFFIX_SCROLL_POSITION);
 
     if (selectable != Selectable.none) {
       encodeHiddenInput(writer,
@@ -346,24 +342,24 @@ public class SheetRenderer extends RendererBase {
           sheetId + SUFFIX_SELECTED);
     }
 
-    if (sheet.isLazy()) {
+    if (component.isLazy()) {
       encodeHiddenInput(writer, null, sheetId + SUFFIX_LAZY);
     }
 
-    final List<Integer> expandedValue = sheet.isTreeModel() ? new ArrayList<>() : null;
+    final List<Integer> expandedValue = component.isTreeModel() ? new ArrayList<>() : null;
 
-    encodeTableBody(facesContext, sheet, writer, sheetId, selectable, columnWidths, selectedRows, columns, autoLayout,
+    encodeTableBody(facesContext, component, writer, sheetId, selectable, columnWidths, selectedRows, columns, autoLayout,
         expandedValue);
 
-    if (sheet.isPagingVisible()) {
+    if (component.isPagingVisible()) {
       writer.startElement(HtmlElements.FOOTER);
       writer.writeClassAttribute(TobagoClass.SHEET__FOOTER);
 
       // show row range
-      final Markup showRowRange = markupForLeftCenterRight(sheet.getShowRowRange());
+      final Markup showRowRange = markupForLeftCenterRight(component.getShowRowRange());
       if (showRowRange != Markup.NULL) {
         final AbstractUILink command
-            = ensurePagingCommand(facesContext, sheet, Facets.pagerRow.name(), SheetAction.toRow.name(), false);
+            = ensurePagingCommand(facesContext, component, Facets.pagerRow.name(), SheetAction.toRow.name(), false);
         final String pagerCommandId = command.getClientId(facesContext);
 
         writer.startElement(HtmlElements.UL);
@@ -375,13 +371,13 @@ public class SheetRenderer extends RendererBase {
             ResourceUtils.getString(facesContext, "sheet.setRow"), true);
         writer.startElement(HtmlElements.SPAN);
         writer.writeClassAttribute(TobagoClass.SHEET__PAGING_TEXT, BootstrapClass.PAGE_LINK);
-        if (sheet.getRowCount() != 0) {
+        if (component.getRowCount() != 0) {
           final Locale locale = facesContext.getViewRoot().getLocale();
-          final int first = sheet.getFirst() + 1;
-          final int last1 = sheet.hasRowCount()
-              ? sheet.getLastRowIndexOfCurrentPage()
+          final int first = component.getFirst() + 1;
+          final int last1 = component.hasRowCount()
+              ? component.getLastRowIndexOfCurrentPage()
               : -1;
-          final boolean unknown = !sheet.hasRowCount();
+          final boolean unknown = !component.hasRowCount();
           final String key; // plural
           if (unknown) {
             key = first == last1 ? "sheet.rowX" : "sheet.rowXtoY";
@@ -389,7 +385,7 @@ public class SheetRenderer extends RendererBase {
             key = first == last1 ? "sheet.rowXofZ" : "sheet.rowXtoYofZ";
           }
           final String inputMarker = "{#}";
-          final Object[] args = {inputMarker, last1 == -1 ? "?" : last1, unknown ? "" : sheet.getRowCount()};
+          final Object[] args = {inputMarker, last1 == -1 ? "?" : last1, unknown ? "" : component.getRowCount()};
           final MessageFormat detail = new MessageFormat(ResourceUtils.getString(facesContext, key), locale);
           final String formatted = detail.format(args);
           final int pos = formatted.indexOf(inputMarker);
@@ -406,7 +402,7 @@ public class SheetRenderer extends RendererBase {
             writer.writeClassAttribute(TobagoClass.SHEET__PAGING_INPUT);
             writer.writeAttribute(HtmlAttributes.VALUE, first);
             if (!unknown) {
-              writer.writeAttribute(HtmlAttributes.MAXLENGTH, Integer.toString(sheet.getRowCount()).length());
+              writer.writeAttribute(HtmlAttributes.MAXLENGTH, Integer.toString(component.getRowCount()).length());
             }
             writer.endElement(HtmlElements.INPUT);
             writer.writeText(formatted.substring(pos + inputMarker.length()));
@@ -414,47 +410,47 @@ public class SheetRenderer extends RendererBase {
             writer.writeText(formatted);
           }
         }
-        ComponentUtils.removeFacet(sheet, Facets.pagerRow);
+        ComponentUtils.removeFacet(component, Facets.pagerRow);
         writer.endElement(HtmlElements.SPAN);
         writer.endElement(HtmlElements.LI);
         writer.endElement(HtmlElements.UL);
       }
 
       // show direct links
-      final Markup showDirectLinks = markupForLeftCenterRight(sheet.getShowDirectLinks());
+      final Markup showDirectLinks = markupForLeftCenterRight(component.getShowDirectLinks());
       if (showDirectLinks != Markup.NULL) {
         writer.startElement(HtmlElements.UL);
         writer.writeClassAttribute(TobagoClass.SHEET__PAGING, TobagoClass.SHEET__PAGING.createMarkup(showDirectLinks),
             BootstrapClass.PAGINATION);
-        if (sheet.isShowDirectLinksArrows()) {
-          final boolean disabled = sheet.isAtBeginning();
-          encodeLink(facesContext, sheet, application, disabled, SheetAction.first, null, Icons.STEP_BACKWARD, null);
-          encodeLink(facesContext, sheet, application, disabled, SheetAction.prev, null, Icons.BACKWARD, null);
+        if (component.isShowDirectLinksArrows()) {
+          final boolean disabled = component.isAtBeginning();
+          encodeLink(facesContext, component, application, disabled, SheetAction.first, null, Icons.STEP_BACKWARD, null);
+          encodeLink(facesContext, component, application, disabled, SheetAction.prev, null, Icons.BACKWARD, null);
         }
-        encodeDirectPagingLinks(facesContext, application, sheet);
-        if (sheet.isShowDirectLinksArrows()) {
-          final boolean disabled = sheet.isAtEnd();
-          encodeLink(facesContext, sheet, application, disabled, SheetAction.next, null, Icons.FORWARD, null);
-          encodeLink(facesContext, sheet, application, disabled || !sheet.hasRowCount(), SheetAction.last, null,
+        encodeDirectPagingLinks(facesContext, application, component);
+        if (component.isShowDirectLinksArrows()) {
+          final boolean disabled = component.isAtEnd();
+          encodeLink(facesContext, component, application, disabled, SheetAction.next, null, Icons.FORWARD, null);
+          encodeLink(facesContext, component, application, disabled || !component.hasRowCount(), SheetAction.last, null,
               Icons.STEP_FORWARD, null);
         }
         writer.endElement(HtmlElements.UL);
       }
 
       // show page range
-      final Markup showPageRange = markupForLeftCenterRight(sheet.getShowPageRange());
+      final Markup showPageRange = markupForLeftCenterRight(component.getShowPageRange());
       if (showPageRange != Markup.NULL) {
         final AbstractUILink command
-            = ensurePagingCommand(facesContext, sheet, Facets.pagerPage.name(), SheetAction.toPage.name(), false);
+            = ensurePagingCommand(facesContext, component, Facets.pagerPage.name(), SheetAction.toPage.name(), false);
         final String pagerCommandId = command.getClientId(facesContext);
 
         writer.startElement(HtmlElements.UL);
         writer.writeClassAttribute(TobagoClass.SHEET__PAGING, TobagoClass.SHEET__PAGING.createMarkup(showPageRange),
             BootstrapClass.PAGINATION);
-        if (sheet.isShowPageRangeArrows()) {
-          final boolean disabled = sheet.isAtBeginning();
-          encodeLink(facesContext, sheet, application, disabled, SheetAction.first, null, Icons.STEP_BACKWARD, null);
-          encodeLink(facesContext, sheet, application, disabled, SheetAction.prev, null, Icons.BACKWARD, null);
+        if (component.isShowPageRangeArrows()) {
+          final boolean disabled = component.isAtBeginning();
+          encodeLink(facesContext, component, application, disabled, SheetAction.first, null, Icons.STEP_BACKWARD, null);
+          encodeLink(facesContext, component, application, disabled, SheetAction.prev, null, Icons.BACKWARD, null);
         }
         writer.startElement(HtmlElements.LI);
         writer.writeClassAttribute(BootstrapClass.PAGE_ITEM);
@@ -462,11 +458,11 @@ public class SheetRenderer extends RendererBase {
         writer.writeClassAttribute(TobagoClass.SHEET__PAGING_TEXT, BootstrapClass.PAGE_LINK);
         writer.writeAttribute(HtmlAttributes.TITLE,
             ResourceUtils.getString(facesContext, "sheet.setPage"), true);
-        if (sheet.getRowCount() != 0) {
+        if (component.getRowCount() != 0) {
           final Locale locale = facesContext.getViewRoot().getLocale();
-          final int first = sheet.getCurrentPage() + 1;
-          final boolean unknown = !sheet.hasRowCount();
-          final int pages = unknown ? -1 : sheet.getPages();
+          final int first = component.getCurrentPage() + 1;
+          final boolean unknown = !component.hasRowCount();
+          final int pages = unknown ? -1 : component.getPages();
           final String key;
           if (unknown) {
             key = first == pages ? "sheet.pageX" : "sheet.pageXtoY";
@@ -499,13 +495,13 @@ public class SheetRenderer extends RendererBase {
             writer.writeText(formatted);
           }
         }
-        ComponentUtils.removeFacet(sheet, Facets.pagerPage);
+        ComponentUtils.removeFacet(component, Facets.pagerPage);
         writer.endElement(HtmlElements.SPAN);
         writer.endElement(HtmlElements.LI);
-        if (sheet.isShowPageRangeArrows()) {
-          final boolean disabled = sheet.isAtEnd();
-          encodeLink(facesContext, sheet, application, disabled, SheetAction.next, null, Icons.FORWARD, null);
-          encodeLink(facesContext, sheet, application, disabled || !sheet.hasRowCount(), SheetAction.last, null,
+        if (component.isShowPageRangeArrows()) {
+          final boolean disabled = component.isAtEnd();
+          encodeLink(facesContext, component, application, disabled, SheetAction.next, null, Icons.FORWARD, null);
+          encodeLink(facesContext, component, application, disabled || !component.hasRowCount(), SheetAction.last, null,
               Icons.STEP_FORWARD, null);
         }
         writer.endElement(HtmlElements.UL);
@@ -514,7 +510,7 @@ public class SheetRenderer extends RendererBase {
       writer.endElement(HtmlElements.FOOTER);
     }
 
-    if (sheet.isTreeModel()) {
+    if (component.isTreeModel()) {
       writer.startElement(HtmlElements.INPUT);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
       final String expandedId = sheetId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED;
@@ -526,9 +522,9 @@ public class SheetRenderer extends RendererBase {
     }
 
     writer.endElement(HtmlElements.TOBAGO_SHEET);
-    UIComponent header = sheet.getHeader();
+    UIComponent header = component.getHeader();
     if (header.isTransient()) {
-      sheet.getFacets().remove("header");
+      component.getFacets().remove("header");
     }
   }
 

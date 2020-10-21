@@ -24,19 +24,19 @@ import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class SelectManyCheckboxInsideCommandRenderer extends SelectManyCheckboxRenderer {
+public class SelectManyCheckboxInsideCommandRenderer<T extends AbstractUISelectManyCheckbox>
+    extends SelectManyCheckboxRenderer<T> {
 
   @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
     encodeBeginField(facesContext, component);
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     encodeEndField(facesContext, component);
   }
 

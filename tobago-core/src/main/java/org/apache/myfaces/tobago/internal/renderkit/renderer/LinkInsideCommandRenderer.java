@@ -19,16 +19,16 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
+import org.apache.myfaces.tobago.internal.component.AbstractUILink;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 
 import javax.faces.context.FacesContext;
 
-public class LinkInsideCommandRenderer extends LinkRenderer {
+public class LinkInsideCommandRenderer<T extends AbstractUILink> extends LinkRenderer<T> {
 
   @Override
-  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUICommand command) {
+  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final T command) {
     return new CssItem[]{BootstrapClass.DROPDOWN_ITEM};
   }
 }
