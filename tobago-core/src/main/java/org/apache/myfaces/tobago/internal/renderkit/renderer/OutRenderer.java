@@ -40,6 +40,11 @@ import java.util.StringTokenizer;
 public class OutRenderer<T extends AbstractUIOut> extends MessageLayoutRendererBase<T> {
 
   @Override
+  protected boolean isOutputOnly(T component) {
+    return true;
+  }
+
+  @Override
   public HtmlElements getComponentTag() {
     return HtmlElements.DIV;
   }

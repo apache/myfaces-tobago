@@ -35,6 +35,11 @@ import java.io.IOException;
 public class StarsRenderer<T extends AbstractUIStars> extends MessageLayoutRendererBase<T> {
 
   @Override
+  protected boolean isOutputOnly(T component) {
+    return component.isDisabled() || component.isReadonly();
+  }
+
+  @Override
   public HtmlElements getComponentTag() {
     return HtmlElements.TOBAGO_STARS;
   }

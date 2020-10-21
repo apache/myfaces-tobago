@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +35,7 @@ public abstract class DecodingCommandRendererBase<T extends AbstractUICommandBas
   @Override
   public void decodeInternal(final FacesContext facesContext, final T component) {
 
-    if (ComponentUtils.isOutputOnly(component)) {
+    if (component.isDisabled()) {
       return;
     }
     final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");

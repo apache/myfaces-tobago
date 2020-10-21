@@ -31,7 +31,6 @@ import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,9 +45,14 @@ public class SelectBooleanCheckboxRenderer<T extends AbstractUISelectBooleanChec
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
+  protected boolean isOutputOnly(T component) {
+    return component.isDisabled() || component.isReadonly();
+  }
+
+  @Override
   public void decodeInternal(final FacesContext facesContext, final T component) {
 
-    if (ComponentUtils.isOutputOnly(component)) {
+    if (isOutputOnly(component)) {
       return;
     }
 

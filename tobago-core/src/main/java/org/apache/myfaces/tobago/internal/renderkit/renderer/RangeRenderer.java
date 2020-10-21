@@ -37,6 +37,11 @@ import java.io.IOException;
 public class RangeRenderer<T extends AbstractUIRange> extends MessageLayoutRendererBase<T> {
 
   @Override
+  protected boolean isOutputOnly(T component) {
+    return component.isDisabled() || component.isReadonly();
+  }
+
+  @Override
   public HtmlElements getComponentTag() {
     return HtmlElements.TOBAGO_RANGE;
   }

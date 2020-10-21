@@ -55,6 +55,11 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
+  protected boolean isOutputOnly(T component) {
+    return component.isDisabled() || component.isReadonly();
+  }
+
+  @Override
   public HtmlElements getComponentTag() {
     return HtmlElements.TOBAGO_IN;
   }

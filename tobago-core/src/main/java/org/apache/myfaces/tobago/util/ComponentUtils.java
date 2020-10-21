@@ -448,6 +448,10 @@ public final class ComponentUtils {
     return false;
   }
 
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   public static boolean isOutputOnly(final UIComponent component) {
     return getBooleanAttribute(component, Attributes.disabled)
         || getBooleanAttribute(component, Attributes.readonly);

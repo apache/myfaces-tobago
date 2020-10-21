@@ -57,6 +57,11 @@ public class FileRenderer<T extends AbstractUIFile>
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
+  protected boolean isOutputOnly(T component) {
+    return component.isDisabled() || component.isReadonly();
+  }
+
+  @Override
   public HtmlElements getComponentTag() {
     return HtmlElements.TOBAGO_FILE;
   }
@@ -73,7 +78,7 @@ public class FileRenderer<T extends AbstractUIFile>
 
   @Override
   public void decodeInternal(final FacesContext facesContext, final T component) {
-    if (ComponentUtils.isOutputOnly(component)) {
+    if (isOutputOnly(component)) {
       return;
     }
 

@@ -33,6 +33,11 @@ import java.io.IOException;
 public class HiddenRenderer<T extends AbstractUIHidden> extends DecodingInputRendererBase<T> {
 
   @Override
+  protected boolean isOutputOnly(T component) {
+    return component.isDisabled();
+  }
+
+  @Override
   public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
     final String clientId = component.getClientId(facesContext);

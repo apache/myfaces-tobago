@@ -42,7 +42,7 @@ public abstract class DecodingInputRendererBase<T extends UIComponent> extends R
       return; // no decoding required
     }
 
-    if (ComponentUtils.isOutputOnly(component)) {
+    if (isOutputOnly(component)) {
       return; // no decoding required
     }
 
@@ -62,6 +62,8 @@ public abstract class DecodingInputRendererBase<T extends UIComponent> extends R
 
     decodeClientBehaviors(facesContext, component);
   }
+
+  protected abstract boolean isOutputOnly(T component);
 
   protected void setSubmittedValue(
           final FacesContext facesContext, final EditableValueHolder component, final String newValue) {

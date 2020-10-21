@@ -115,10 +115,6 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
 
   @Override
   public void decodeInternal(final FacesContext facesContext, final T component) {
-    if (ComponentUtils.isOutputOnly(component)) {
-      return;
-    }
-
     final int oldIndex = component.getRenderedIndex();
 
     final String clientId = component.getClientId(facesContext);

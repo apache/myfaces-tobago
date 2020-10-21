@@ -45,6 +45,11 @@ import java.io.IOException;
 public class TextareaRenderer<T extends AbstractUITextarea> extends MessageLayoutRendererBase<T> {
 
   @Override
+  protected boolean isOutputOnly(T component) {
+    return component.isDisabled() || component.isReadonly();
+  }
+
+  @Override
   public HtmlElements getComponentTag() {
     return HtmlElements.TOBAGO_TEXTAREA;
   }

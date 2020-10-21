@@ -54,15 +54,16 @@ public class TreeSelectRenderer<T extends AbstractUITreeSelect> extends Renderer
 
   @Override
   public void decodeInternal(final FacesContext facesContext, final T component) {
-    final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(component, AbstractUITreeNodeBase.class);
-    final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
 
-    if (ComponentUtils.isOutputOnly(component)) {
+    if (component.isDisabled()) {
       return;
     }
 
+    final AbstractUITreeNodeBase node = ComponentUtils.findAncestor(component, AbstractUITreeNodeBase.class);
+    final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
     final String clientId = component.getClientId(facesContext);
     final String name;
+
     if (data.getSelectable().isSingle()) {
       name = getClientIdWithoutRowIndex(data, clientId);
     } else {

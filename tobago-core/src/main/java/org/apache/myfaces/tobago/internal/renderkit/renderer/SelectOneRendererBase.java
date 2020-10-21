@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneBase;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,8 +31,13 @@ public abstract class SelectOneRendererBase<T extends AbstractUISelectOneBase> e
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
+  protected boolean isOutputOnly(T component) {
+    return component.isDisabled() || component.isReadonly();
+  }
+
+  @Override
   public void decodeInternal(final FacesContext facesContext, final T component) {
-    if (ComponentUtils.isOutputOnly(component)) {
+    if (isOutputOnly(component)) {
       return;
     }
 

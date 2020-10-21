@@ -56,7 +56,7 @@ public class TreeNodeRenderer<T extends AbstractUITreeNode> extends RendererBase
 
     super.decodeInternal(facesContext, component);
 
-    if (ComponentUtils.isOutputOnly(component)) {
+    if (component.isDisabled()) {
       return;
     }
 
