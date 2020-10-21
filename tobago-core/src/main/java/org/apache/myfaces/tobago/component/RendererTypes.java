@@ -102,6 +102,10 @@ public enum RendererTypes {
    */
   @Deprecated
   TreeData,
+  /**
+   * @deprecated since 4.0.0, please use {@link #Link}
+   */
+  @Deprecated
   TreeCommand,
   TreeIcon,
   TreeIndent,
@@ -193,6 +197,10 @@ public enum RendererTypes {
    */
   @Deprecated
   public static final String TREE_DATA = "TreeData";
+  /**
+   * @deprecated since 4.0.0, please use {@link #LINK}
+   */
+  @Deprecated
   public static final String TREE_COMMAND = "TreeCommand";
   public static final String TREE_ICON = "TreeIcon";
   public static final String TREE_INDENT = "TreeIndent";
