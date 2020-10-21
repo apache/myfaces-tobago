@@ -43,12 +43,12 @@ pipeline {
                 axes {
                     axis {
                         name 'JAVA_VERSION'
-                        values 'JDK 1.8 (latest)'  /*, 'JDK 11 (latest)'  Tobago 2 officially supports Java 5, but Java 11 compiles no target for Java 5  */
+                        values 'jdk_1.8_latest'  /*, 'JDK 11 (latest)'  Tobago 2 officially supports Java 5, but Java 11 compiles no target for Java 5  */
                     }
                 }
 
                 tools {
-                    maven "Maven (latest)"
+                    maven "maven_latest"
                     jdk "${JAVA_VERSION}"
                 }
 
@@ -70,8 +70,8 @@ pipeline {
         }
         stage('Deploy') {
             tools {
-                maven "Maven (latest)"
-                jdk "JDK 1.8 (latest)"
+                maven "maven_latest"
+                jdk "jdk_1.8_latest"
             }
             steps {
                 sh "mvn clean deploy -Pgenerate-assembly"
@@ -147,5 +147,5 @@ Director of Continuous Integration
         )
       }
     }
-    }
+  }
 }
