@@ -348,7 +348,8 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
     final List<Integer> expandedValue = component.isTreeModel() ? new ArrayList<>() : null;
 
-    encodeTableBody(facesContext, component, writer, sheetId, selectable, columnWidths, selectedRows, columns, autoLayout,
+    encodeTableBody(
+        facesContext, component, writer, sheetId, selectable, columnWidths, selectedRows, columns, autoLayout,
         expandedValue);
 
     if (component.isPagingVisible()) {
@@ -424,7 +425,8 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
             BootstrapClass.PAGINATION);
         if (component.isShowDirectLinksArrows()) {
           final boolean disabled = component.isAtBeginning();
-          encodeLink(facesContext, component, application, disabled, SheetAction.first, null, Icons.STEP_BACKWARD, null);
+          encodeLink(
+              facesContext, component, application, disabled, SheetAction.first, null, Icons.STEP_BACKWARD, null);
           encodeLink(facesContext, component, application, disabled, SheetAction.prev, null, Icons.BACKWARD, null);
         }
         encodeDirectPagingLinks(facesContext, application, component);
@@ -449,7 +451,8 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
             BootstrapClass.PAGINATION);
         if (component.isShowPageRangeArrows()) {
           final boolean disabled = component.isAtBeginning();
-          encodeLink(facesContext, component, application, disabled, SheetAction.first, null, Icons.STEP_BACKWARD, null);
+          encodeLink(
+              facesContext, component, application, disabled, SheetAction.first, null, Icons.STEP_BACKWARD, null);
           encodeLink(facesContext, component, application, disabled, SheetAction.prev, null, Icons.BACKWARD, null);
         }
         writer.startElement(HtmlElements.LI);

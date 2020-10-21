@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
@@ -54,21 +53,8 @@ public final class HtmlRendererUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  private static final String FOCUS_KEY = HtmlRendererUtils.class.getName() + ".FocusId";
-
   private HtmlRendererUtils() {
     // to prevent instantiation
-  }
-
-  public static void renderFocus(
-      final String clientId, final boolean focus, final boolean error, final FacesContext facesContext,
-      final TobagoResponseWriter writer) throws IOException {
-    final Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
-    if (!requestMap.containsKey(FOCUS_KEY)
-        && (clientId.equals(TobagoContext.getInstance(facesContext).getFocusId()) || focus || error)) {
-      requestMap.put(FOCUS_KEY, Boolean.TRUE);
-      writer.writeAttribute(HtmlAttributes.AUTOFOCUS, true);
-    }
   }
 
   public static String getRendererName(final FacesContext facesContext, final UIComponent component) {

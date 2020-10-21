@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.myfaces.tobago.component.ClientBehaviors;
+import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIEvent;
@@ -27,6 +28,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIReload;
 import org.apache.myfaces.tobago.internal.renderkit.Collapse;
 import org.apache.myfaces.tobago.internal.renderkit.Command;
 import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
@@ -59,6 +61,8 @@ import java.util.Map;
 public abstract class RendererBase<T extends UIComponent> extends Renderer {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+  private static final String FOCUS_KEY = HtmlRendererUtils.class.getName() + ".FocusId";
 
   // begin of "redefine" the method signatur (generics): UIComponent -> T
 
@@ -99,9 +103,10 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
   }
 
   @Override
-  public Object getConvertedValue(final FacesContext facesContext, final UIComponent component, final Object submittedValue)
+  public Object getConvertedValue(
+      final FacesContext facesContext, final UIComponent component, final Object submittedValue)
       throws ConverterException {
-    return getConvertedValueInternal(facesContext, (T)component, submittedValue);
+    return getConvertedValueInternal(facesContext, (T) component, submittedValue);
   }
 
   public Object getConvertedValueInternal(
@@ -117,7 +122,6 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
       return submittedValue;
     }
   }
-
 
 // end of "redefine"
 
@@ -140,6 +144,17 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
       return currentValue;
     } else {
       return null;
+    }
+  }
+
+  public static void renderFocus(
+      final String clientId, final boolean focus, final boolean error, final FacesContext facesContext,
+      final TobagoResponseWriter writer) throws IOException {
+    final Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
+    if (!requestMap.containsKey(FOCUS_KEY)
+        && (clientId.equals(TobagoContext.getInstance(facesContext).getFocusId()) || focus || error)) {
+      requestMap.put(FOCUS_KEY, Boolean.TRUE);
+      writer.writeAttribute(HtmlAttributes.AUTOFOCUS, true);
     }
   }
 

@@ -87,7 +87,7 @@ public class RangeRenderer<T extends AbstractUIRange> extends MessageLayoutRende
         BootstrapClass.FORM_CONTROL,
         component.getCustomClass());
 
-    HtmlRendererUtils.renderFocus(clientId, component.isFocus(), ComponentUtils.isError(component), facesContext, writer);
+    renderFocus(clientId, component.isFocus(), component.isError(), facesContext, writer);
 
     writer.endElement(HtmlElements.INPUT);
 

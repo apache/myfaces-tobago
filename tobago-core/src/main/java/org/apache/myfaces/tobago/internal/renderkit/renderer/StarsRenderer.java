@@ -94,7 +94,7 @@ public class StarsRenderer<T extends AbstractUIStars> extends MessageLayoutRende
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.REQUIRED, required);
-    HtmlRendererUtils.renderFocus(clientId, component.isFocus(), ComponentUtils.isError(component), facesContext, writer);
+    renderFocus(clientId, component.isFocus(), component.isError(), facesContext, writer);
     writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     writer.endElement(HtmlElements.INPUT);

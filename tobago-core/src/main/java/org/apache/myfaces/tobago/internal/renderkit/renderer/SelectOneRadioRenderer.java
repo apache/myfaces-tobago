@@ -101,7 +101,7 @@ public class SelectOneRadioRenderer<T extends AbstractUISelectOneRadio> extends 
         writer.writeAttribute(HtmlAttributes.READONLY, readonly);
         writer.writeAttribute(HtmlAttributes.REQUIRED, required);
         if (first) {
-          HtmlRendererUtils.renderFocus(id, component.isFocus(), ComponentUtils.isError(component), facesContext, writer);
+          renderFocus(id, component.isFocus(), component.isError(), facesContext, writer);
           first = false;
         }
         writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());

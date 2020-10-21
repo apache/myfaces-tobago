@@ -143,7 +143,7 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
         component.getCustomClass());
 
     writer.writeAttribute(HtmlAttributes.REQUIRED, required);
-    HtmlRendererUtils.renderFocus(clientId, component.isFocus(), ComponentUtils.isError(component), facesContext, writer);
+    renderFocus(clientId, component.isFocus(), component.isError(), facesContext, writer);
     writeAdditionalAttributes(facesContext, writer, component);
 
     writer.endElement(HtmlElements.INPUT);

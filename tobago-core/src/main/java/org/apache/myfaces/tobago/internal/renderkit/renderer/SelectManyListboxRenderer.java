@@ -68,7 +68,7 @@ public class SelectManyListboxRenderer<T extends AbstractUISelectManyListbox> ex
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.REQUIRED, component.isRequired());
-    HtmlRendererUtils.renderFocus(clientId, component.isFocus(), ComponentUtils.isError(component), facesContext, writer);
+    renderFocus(clientId, component.isFocus(), component.isError(), facesContext, writer);
     writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
 
     writer.writeClassAttribute(
@@ -84,8 +84,8 @@ public class SelectManyListboxRenderer<T extends AbstractUISelectManyListbox> ex
     final Object[] values = component.getSelectedValues();
     final String[] submittedValues = getSubmittedValues(component);
 
-    HtmlRendererUtils.renderSelectItems(component, TobagoClass.SELECT_MANY_LISTBOX__OPTION, items, values, submittedValues,
-        writer, facesContext);
+    HtmlRendererUtils.renderSelectItems(
+        component, TobagoClass.SELECT_MANY_LISTBOX__OPTION, items, values, submittedValues, writer, facesContext);
   }
 
   @Override

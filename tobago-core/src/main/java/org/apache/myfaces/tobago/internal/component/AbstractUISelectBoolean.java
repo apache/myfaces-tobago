@@ -70,6 +70,12 @@ public abstract class AbstractUISelectBoolean extends UISelectBoolean
 
   public abstract boolean isReadonly();
 
+  public boolean isError() {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    return !isValid()
+        || !facesContext.getMessageList(getClientId(facesContext)).isEmpty();
+  }
+
   public abstract boolean isFocus();
 
   public abstract Integer getTabIndex();

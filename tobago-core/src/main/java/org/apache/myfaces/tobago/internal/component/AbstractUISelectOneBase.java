@@ -62,6 +62,12 @@ public abstract class AbstractUISelectOneBase extends javax.faces.component.UISe
 
   public abstract boolean isDisabled();
 
+  public boolean isError() {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    return !isValid()
+        || !facesContext.getMessageList(getClientId(facesContext)).isEmpty();
+  }
+
   public abstract boolean isFocus();
 
   public abstract Integer getTabIndex();

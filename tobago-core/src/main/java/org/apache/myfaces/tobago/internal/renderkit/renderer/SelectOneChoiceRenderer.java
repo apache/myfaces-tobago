@@ -74,7 +74,7 @@ public class SelectOneChoiceRenderer<T extends AbstractUISelectOneChoice> extend
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
-    HtmlRendererUtils.renderFocus(clientId, component.isFocus(), ComponentUtils.isError(component), facesContext, writer);
+    renderFocus(clientId, component.isFocus(), component.isError(), facesContext, writer);
 
     HtmlRendererUtils.renderSelectItems(component, TobagoClass.SELECT_ONE_CHOICE__OPTION, items, component.getValue(),
         (String) component.getSubmittedValue(), writer, facesContext);

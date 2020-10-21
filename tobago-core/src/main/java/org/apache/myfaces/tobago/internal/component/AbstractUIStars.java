@@ -19,14 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.SupportFieldId;
-import org.apache.myfaces.tobago.component.SupportsLabelLayout;
-import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.util.ComponentUtils;
-
-import javax.faces.component.UIInput;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
@@ -34,13 +26,10 @@ import javax.faces.event.PreRenderComponentEvent;
 import javax.swing.BoundedRangeModel;
 
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
-public abstract class AbstractUIStars extends UIInput
-    implements SupportFieldId, SupportsLabelLayout, Visual, ClientBehaviorHolder {
+public abstract class AbstractUIStars extends AbstractUIInput {
 
   private int rangeValue;
   private int rangeMax;
-
-  private transient boolean nextToRenderIsLabel;
 
   @Override
   public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
@@ -73,17 +62,9 @@ public abstract class AbstractUIStars extends UIInput
     }
   }
 
-  public abstract boolean isFocus();
-
-  public abstract boolean isReadonly();
-
-  public abstract boolean isDisabled();
-
   public abstract Integer getMax();
 
   public abstract Double getPlaceholder();
-
-  public abstract Integer getTabIndex();
 
   public int getRangeValue() {
     return rangeValue;
@@ -92,20 +73,4 @@ public abstract class AbstractUIStars extends UIInput
   public int getRangeMax() {
     return rangeMax;
   }
-
-  @Override
-  public String getFieldId(final FacesContext facesContext) {
-    return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
-  }
-
-  @Override
-  public boolean isNextToRenderIsLabel() {
-    return nextToRenderIsLabel;
-  }
-
-  @Override
-  public void setNextToRenderIsLabel(final boolean nextToRenderIsLabel) {
-    this.nextToRenderIsLabel = nextToRenderIsLabel;
-  }
-
 }

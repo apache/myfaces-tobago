@@ -94,8 +94,9 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
 
     final Object[] values = component.getSelectedValues();
     final String[] submittedValues = getSubmittedValues(component);
-    HtmlRendererUtils.renderSelectItems(component, TobagoClass.SELECT_MANY_SHUTTLE__OPTION, items, values, submittedValues,
-        false, writer, facesContext);
+    HtmlRendererUtils.renderSelectItems(
+        component, TobagoClass.SELECT_MANY_SHUTTLE__OPTION, items, values, submittedValues, false, writer,
+        facesContext);
 
     writer.endElement(HtmlElements.SELECT);
     writer.startElement(HtmlElements.DIV);
@@ -130,8 +131,9 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
         BootstrapClass.FORM_CONTROL);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
-    HtmlRendererUtils.renderSelectItems(component, TobagoClass.SELECT_MANY_SHUTTLE__OPTION, items, values, submittedValues,
-        true, writer, facesContext);
+    HtmlRendererUtils.renderSelectItems(
+        component, TobagoClass.SELECT_MANY_SHUTTLE__OPTION, items, values, submittedValues, true, writer,
+        facesContext);
 
     writer.endElement(HtmlElements.SELECT);
     writer.startElement(HtmlElements.SELECT);
@@ -141,8 +143,8 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.REQUIRED, component.isRequired());
-    HtmlRendererUtils.renderSelectItems(component, TobagoClass.SELECT_MANY_SHUTTLE__OPTION, items, values, submittedValues,
-        writer, facesContext);
+    HtmlRendererUtils.renderSelectItems(
+        component, TobagoClass.SELECT_MANY_SHUTTLE__OPTION, items, values, submittedValues, writer, facesContext);
     writer.endElement(HtmlElements.SELECT);
   }
 

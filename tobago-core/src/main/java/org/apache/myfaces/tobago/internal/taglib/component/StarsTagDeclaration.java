@@ -27,8 +27,10 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasHelp;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
@@ -70,7 +72,7 @@ import javax.faces.component.UIInput;
 
 public interface StarsTagDeclaration extends HasIdBindingAndRendered, HasConverter, HasConverterMessage, IsDisabled,
     IsFocus, HasTabIndex, HasLabel, HasLabelLayout, IsReadonly, IsRequired, HasRequiredMessage, HasTip,
-    HasValidator, HasValidatorMessage, HasValue, HasValueChangeListener, IsVisual {
+    HasValidator, HasValidatorMessage, HasValue, HasValueChangeListener, IsVisual, HasAccessKey, HasHelp {
 
   /**
    * The current value of this component. May be a java.lang.Number or a javax.swing.BoundedRangeModel

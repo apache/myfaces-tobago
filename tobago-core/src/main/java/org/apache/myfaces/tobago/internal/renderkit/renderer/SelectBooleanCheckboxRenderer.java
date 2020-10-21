@@ -107,7 +107,7 @@ public class SelectBooleanCheckboxRenderer<T extends AbstractUISelectBooleanChec
     writer.writeAttribute(HtmlAttributes.READONLY, component.isReadonly());
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.REQUIRED, component.isRequired());
-    HtmlRendererUtils.renderFocus(clientId, component.isFocus(), ComponentUtils.isError(component), facesContext, writer);
+    renderFocus(clientId, component.isFocus(), component.isError(), facesContext, writer);
     writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
     writer.endElement(HtmlElements.INPUT);
 

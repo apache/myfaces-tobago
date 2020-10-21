@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.component.Visual;
 
 import javax.faces.component.UISelectMany;
 import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.context.FacesContext;
 import java.util.Collection;
 
 /**
@@ -50,6 +51,12 @@ public abstract class AbstractUISelectManyBase extends UISelectMany
   public abstract boolean isDisabled();
 
   public abstract boolean isReadonly();
+
+  public boolean isError() {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    return !isValid()
+        || !facesContext.getMessageList(getClientId(facesContext)).isEmpty();
+  }
 
   public abstract boolean isFocus();
 

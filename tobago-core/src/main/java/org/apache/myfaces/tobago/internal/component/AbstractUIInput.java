@@ -45,6 +45,12 @@ public abstract class AbstractUIInput extends javax.faces.component.UIInput
 
   public abstract boolean isReadonly();
 
+  public boolean isError() {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    return !isValid()
+        || !facesContext.getMessageList(getClientId(facesContext)).isEmpty();
+  }
+
   @Override
   public String getFieldId(final FacesContext facesContext) {
     return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";

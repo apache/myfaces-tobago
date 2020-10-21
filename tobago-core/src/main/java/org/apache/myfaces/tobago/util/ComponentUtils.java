@@ -427,12 +427,20 @@ public final class ComponentUtils {
     return max;
   }
 
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   public static boolean isError(final UIInput uiInput) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     return !uiInput.isValid()
         || facesContext.getMessages(uiInput.getClientId(facesContext)).hasNext();
   }
 
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   public static boolean isError(final UIComponent component) {
     if (component instanceof AbstractUIInput) {
       return isError((AbstractUIInput) component);

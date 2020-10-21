@@ -127,7 +127,7 @@ public class TextareaRenderer<T extends AbstractUITextarea> extends MessageLayou
       writer.writeAttribute(HtmlAttributes.PATTERN, pattern, true);
     }
 
-    HtmlRendererUtils.renderFocus(clientId, component.isFocus(), ComponentUtils.isError(component), facesContext, writer);
+    renderFocus(clientId, component.isFocus(), component.isError(), facesContext, writer);
 
     final String placeholder = component.getPlaceholder();
     if (!disabled && !readonly && StringUtils.isNotBlank(placeholder)) {
