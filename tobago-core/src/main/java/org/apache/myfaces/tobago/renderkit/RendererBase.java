@@ -167,6 +167,18 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
     }
   }
 
+  protected void insideBegin(final FacesContext facesContext, final HtmlElements inside) {
+    facesContext.getAttributes().put(inside, Boolean.TRUE);
+  }
+
+  protected void insideEnd(final FacesContext facesContext, final HtmlElements inside) {
+    facesContext.getAttributes().remove(inside);
+  }
+
+  protected boolean isInside(final FacesContext facesContext, final HtmlElements inside) {
+    return facesContext.getAttributes().get(inside) != null;
+  }
+
   /**
    * Special implementation for the reload facet (e.g. for tc:panel and tc:sheet).
    */

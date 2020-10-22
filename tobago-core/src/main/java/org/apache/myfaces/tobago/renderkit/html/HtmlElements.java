@@ -143,6 +143,7 @@ public enum HtmlElements {
   TOBAGO_LABEL("tobago-label"),
   TOBAGO_HEADER("tobago-header"),
   TOBAGO_IN("tobago-in"),
+  TOBAGO_LINKS("tobago-links"),
   TOBAGO_MESSAGES("tobago-messages"),
   TOBAGO_PAGE("tobago-page"),
   TOBAGO_PANEL("tobago-panel"),

@@ -12228,11 +12228,11 @@ tobago-tab.tobago-tab-barFacet .nav-link.disabled + div {
   display: inline;
 }
 
-.tobago-box-header > .navbar, .tobago-box-header > .tobago-links {
+.tobago-box-header > .navbar, .tobago-box-header > tobago-links {
   float: right;
 }
 
-.tobago-box-header > .navbar .nav-item > .tobago-link, .tobago-box-header > .tobago-links .nav-item > .tobago-link {
+.tobago-box-header > .navbar .nav-item > .tobago-link, .tobago-box-header > tobago-links .nav-item > .tobago-link {
   padding: 0 .5rem;
 }
 

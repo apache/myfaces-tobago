@@ -25,8 +25,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUILinks;
 import org.apache.myfaces.tobago.layout.Orientation;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -39,14 +37,19 @@ public class LinksRenderer<T extends AbstractUILinks> extends RendererBase<T> {
   @Override
   public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
+//    final boolean insideBar = ComponentUtils.findAncestor(component, AbstractUIBar.class) != null;
+//    final boolean insideBar = facesContext.getAttributes().get("inside-bar") != null;
+    final boolean insideBar = isInside(facesContext, HtmlElements.TOBAGO_BAR);
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.startElement(HtmlElements.UL);
+
+    writer.startElement(HtmlElements.TOBAGO_LINKS);
     writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeClassAttribute(
-        TobagoClass.LINKS,
-        getExtraCssItem(),
         Orientation.vertical.equals(component.getOrientation()) ? BootstrapClass.FLEX_COLUMN : null,
         component.getCustomClass());
+    writer.startElement(HtmlElements.UL);
+    writer.writeClassAttribute(
+        insideBar ? BootstrapClass.NAVBAR_NAV : BootstrapClass.NAV);
   }
 
   @Override
@@ -77,9 +80,6 @@ public class LinksRenderer<T extends AbstractUILinks> extends RendererBase<T> {
   public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.UL);
-  }
-
-  protected CssItem getExtraCssItem() {
-    return BootstrapClass.NAV;
+    writer.endElement(HtmlElements.TOBAGO_LINKS);
   }
 }

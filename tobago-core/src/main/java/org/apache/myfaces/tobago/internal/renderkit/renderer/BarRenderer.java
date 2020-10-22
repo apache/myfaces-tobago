@@ -20,11 +20,8 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIBar;
-import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
-import org.apache.myfaces.tobago.internal.component.AbstractUILinks;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -46,6 +43,8 @@ public class BarRenderer<T extends AbstractUIBar> extends RendererBase<T> {
 
   @Override
   public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
+
+    insideBegin(facesContext, HtmlElements.TOBAGO_BAR);
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -101,31 +100,6 @@ public class BarRenderer<T extends AbstractUIBar> extends RendererBase<T> {
   }
 
   @Override
-  public boolean getRendersChildren() {
-    return true;
-  }
-
-  @Override
-  public void encodeChildrenInternal(final FacesContext facesContext, final T component) throws IOException {
-    setRenderTypes(component);
-    for (final UIComponent child : component.getChildren()) {
-      child.encodeAll(facesContext);
-    }
-  }
-
-  private void setRenderTypes(final UIComponent component) {
-    for (final UIComponent child : component.getChildren()) {
-      if (child.isRendered()) {
-        if (child instanceof AbstractUIForm) {
-          setRenderTypes(child);
-        } else if (child instanceof AbstractUILinks) {
-          child.setRendererType(RendererTypes.LinksInsideBar.name());
-        }
-      }
-    }
-  }
-
-  @Override
   public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final UIComponent after = ComponentUtils.getFacet(component, Facets.after);
@@ -133,14 +107,13 @@ public class BarRenderer<T extends AbstractUIBar> extends RendererBase<T> {
     if (after != null) {
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(BootstrapClass.MY_LG_0, BootstrapClass.ML_AUTO);
-
-      setRenderTypes(after);
       after.encodeAll(facesContext);
-
       writer.endElement(HtmlElements.DIV);
     }
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.TOBAGO_BAR);
+
+    insideEnd(facesContext, HtmlElements.TOBAGO_BAR);
   }
 
   private void encodeOpener(

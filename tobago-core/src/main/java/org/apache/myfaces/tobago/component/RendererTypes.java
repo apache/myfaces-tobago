@@ -53,7 +53,6 @@ public enum RendererTypes {
   LinkInsideCommand,
   LinkInsideLinks,
   Links,
-  LinksInsideBar,
   Label,
   Messages,
   Meta,
@@ -139,7 +138,6 @@ public enum RendererTypes {
   public static final String LINK_INSIDE_COMMAND = "LinkInsideCommand";
   public static final String LINK_INSIDE_LINKS = "LinkInsideLinks";
   public static final String LINKS = "Links";
-  public static final String LINKS_INSIDE_BAR = "LinksInsideBar";
   public static final String LABEL = "Label";
   public static final String MESSAGES = "Messages";
   public static final String META = "Meta";
