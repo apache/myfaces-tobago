@@ -22,23 +22,47 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UILink;
+import org.apache.myfaces.tobago.component.UILinks;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-public class LinkRendererUnitTest extends RendererTestBase {
+public class LinksRendererUnitTest extends RendererTestBase {
 
   @Test
-  public void link() throws IOException {
+  public void linkInsideLinks() throws IOException {
+    final UILinks l = (UILinks) ComponentUtils.createComponent(
+        facesContext, Tags.links.componentType(), RendererTypes.Links, "list");
     final UILink c = (UILink) ComponentUtils.createComponent(
         facesContext, Tags.link.componentType(), RendererTypes.Link, "id");
-    c.setLabel("label");
+    c.setLabel("apache");
     c.setLink("https://www.apache.org/");
-    c.encodeAll(facesContext);
+    l.getChildren().add(c);
+    l.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/link/link.html"), formattedResult());
+    Assert.assertEquals(loadHtml("renderer/links/link-inside-links.html"), formattedResult());
+  }
+
+  @Test
+  public void linkInsideLinksSub() throws IOException {
+    final UILinks l = (UILinks) ComponentUtils.createComponent(
+        facesContext, Tags.links.componentType(), RendererTypes.Links, "list");
+    final UILink c = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "id");
+    c.setLabel("apache");
+
+    final UILink s = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "sub");
+    s.setLabel("sub");
+    s.setLink("https://www.apache.org/");
+    c.getChildren().add(s);
+
+    l.getChildren().add(c);
+    l.encodeAll(facesContext);
+
+    Assert.assertEquals(loadHtml("renderer/links/link-inside-links-sub.html"), formattedResult());
   }
 
 }
