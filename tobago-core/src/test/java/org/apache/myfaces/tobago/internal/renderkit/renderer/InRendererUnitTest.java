@@ -24,20 +24,14 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.component.UISegmentLayout;
-import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.apache.myfaces.tobago.layout.SegmentMeasureList;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.stream.Collectors;
 
-public class InRendererUnitTest extends AbstractTobagoTestBase {
+public class InRendererUnitTest extends RendererTestBase {
 
   @Test
   public void simple() throws IOException {
@@ -203,36 +197,5 @@ public class InRendererUnitTest extends AbstractTobagoTestBase {
     c.encodeAll(facesContext);
 
     Assert.assertEquals(loadHtml("renderer/in/label-none.html"), formattedResult());
-  }
-
-  private String formattedResult() throws IOException {
-    return format1To2Indent(getLastWritten());
-  }
-
-  private String loadHtml(final String fileName) throws IOException {
-    final ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-    try (InputStream is = classLoader.getResourceAsStream(fileName)) {
-      if (is == null) {
-        throw new FileNotFoundException(fileName);
-      }
-      try (final InputStreamReader isr = new InputStreamReader(is);
-           final BufferedReader reader = new BufferedReader(isr)) {
-        return reader.lines().collect(Collectors.joining(System.lineSeparator()))
-            .replaceAll("<!--[^>]*-->", "")
-            .replaceAll("^\n\n", "");
-      }
-    }
-  }
-
-  private String format1To2Indent(final String xml) {
-    return xml.replaceAll("^\n", "")
-    .replaceAll("\n <", "\n\t<")
-    .replaceAll("\n  <", "\n\t\t<")
-    .replaceAll("\n   <", "\n\t\t\t<")
-    .replaceAll("\n    <", "\n\t\t\t\t<")
-    .replaceAll("\n     <", "\n\t\t\t\t\t<")
-    .replaceAll("\n      <", "\n\t\t\t\t\t\t<")
-    .replaceAll("\n       <", "\n\t\t\t\t\t\t\t<")
-        .replaceAll("\t", "  ");
   }
 }

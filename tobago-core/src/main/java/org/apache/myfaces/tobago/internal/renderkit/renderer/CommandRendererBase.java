@@ -120,7 +120,8 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
         parentOfCommands ? null : getOuterCssItems(facesContext, component),
         getCssItems(facesContext, component),
         parentOfCommands && !dropdownSubmenu ? BootstrapClass.DROPDOWN_TOGGLE : null,
-        component.getCustomClass());
+        component.getCustomClass(),
+        isInside(facesContext, HtmlElements.TOBAGO_LINKS) ? BootstrapClass.NAV_LINK : null);
 
     final boolean defaultCommand = ComponentUtils.getBooleanAttribute(component, Attributes.defaultCommand);
     if (defaultCommand) {
@@ -228,6 +229,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
   }
 
   protected void encodeBeginOuter(final FacesContext facesContext, final T command) throws IOException {
+
     final String clientId = command.getClientId(facesContext);
     final boolean parentOfCommands = command.isParentOfCommands();
     final boolean dropdownSubmenu = this instanceof LinkInsideCommandRenderer;
@@ -239,8 +241,16 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
       writer.startElement(HtmlElements.TOBAGO_DROPDOWN);
       writer.writeIdAttribute(clientId);
 
+      final CssItem first;
+      if (childOfButtonGroup) {
+        first = null;
+      } else if (dropdownSubmenu) {
+        first = TobagoClass.DROPDOWN__SUBMENU;
+      } else {
+        first = BootstrapClass.DROPDOWN;
+      }
       writer.writeClassAttribute(
-          childOfButtonGroup ? null : dropdownSubmenu ? TobagoClass.DROPDOWN__SUBMENU : BootstrapClass.DROPDOWN,
+          first,
           getOuterCssItems(facesContext, command));
     }
   }

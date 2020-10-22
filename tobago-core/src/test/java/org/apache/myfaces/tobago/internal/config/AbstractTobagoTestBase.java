@@ -26,20 +26,23 @@ import org.apache.myfaces.test.mock.MockHttpServletRequest;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIButton;
+import org.apache.myfaces.tobago.component.UIButtons;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.component.UILink;
+import org.apache.myfaces.tobago.component.UILinks;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.component.UISegmentLayout;
 import org.apache.myfaces.tobago.component.UIStyle;
-import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.ButtonRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.ButtonsRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.GridLayoutRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.InRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.LinkRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.LinksRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.OutRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PanelRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PopupRenderer;
@@ -55,6 +58,7 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
+import static org.apache.myfaces.tobago.config.TobagoConfig.TOBAGO_CONFIG;
 import static org.apache.myfaces.tobago.util.ResourceUtils.TOBAGO_RESOURCE_BUNDLE;
 
 /**
@@ -87,7 +91,8 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     // Tobago specific extensions
     final TobagoConfigImpl tobagoConfig = TobagoConfigMergingUnitTest.load("tobago-config-for-unit-tests.xml");
     tobagoConfig.initDefaultValidatorInfo();
-    servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
+    servletContext.setAttribute(TOBAGO_CONFIG, tobagoConfig);
+    facesContext.getExternalContext().getApplicationMap().put(TOBAGO_CONFIG, tobagoConfig);
 
     final TobagoContext tobagoContext = new TobagoContext();
     tobagoContext.setTheme(tobagoConfig.getDefaultTheme());
@@ -99,7 +104,9 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.out.componentType(), UIOut.class.getName());
     application.addComponent(Tags.panel.componentType(), UIPanel.class.getName());
     application.addComponent(Tags.link.componentType(), UILink.class.getName());
+    application.addComponent(Tags.links.componentType(), UILinks.class.getName());
     application.addComponent(Tags.button.componentType(), UIButton.class.getName());
+    application.addComponent(Tags.buttons.componentType(), UIButtons.class.getName());
     application.addComponent(Tags.popup.componentType(), UIPopup.class.getName());
     application.addComponent(Tags.style.componentType(), UIStyle.class.getName());
     application.addComponent(Tags.gridLayout.componentType(), UIGridLayout.class.getName());
@@ -110,7 +117,9 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     renderKit.addRenderer(UIOut.COMPONENT_FAMILY, RendererTypes.OUT, new OutRenderer());
     renderKit.addRenderer(UIPanel.COMPONENT_FAMILY, RendererTypes.PANEL, new PanelRenderer());
     renderKit.addRenderer(UILink.COMPONENT_FAMILY, RendererTypes.LINK, new LinkRenderer());
+    renderKit.addRenderer(UILinks.COMPONENT_FAMILY, RendererTypes.LINKS, new LinksRenderer());
     renderKit.addRenderer(UIButton.COMPONENT_FAMILY, RendererTypes.BUTTON, new ButtonRenderer());
+    renderKit.addRenderer(UIButtons.COMPONENT_FAMILY, RendererTypes.BUTTONS, new ButtonsRenderer());
     renderKit.addRenderer(UIPopup.COMPONENT_FAMILY, RendererTypes.POPUP, new PopupRenderer());
     renderKit.addRenderer(UIStyle.COMPONENT_FAMILY, RendererTypes.STYLE, new StyleRenderer());
     renderKit.addRenderer(UIGridLayout.COMPONENT_FAMILY, RendererTypes.GRID_LAYOUT, new GridLayoutRenderer());

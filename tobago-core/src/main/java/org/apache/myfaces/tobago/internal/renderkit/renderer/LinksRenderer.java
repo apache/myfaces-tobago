@@ -19,8 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.component.AbstractUILink;
 import org.apache.myfaces.tobago.internal.component.AbstractUILinks;
 import org.apache.myfaces.tobago.layout.Orientation;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -61,19 +59,16 @@ public class LinksRenderer<T extends AbstractUILinks> extends RendererBase<T> {
   public void encodeChildrenInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
+    insideBegin(facesContext, HtmlElements.TOBAGO_LINKS);
     for (final UIComponent child : component.getChildren()) {
       if (child.isRendered()) {
-        if (child instanceof AbstractUILink) {
-          child.setRendererType(RendererTypes.LinkInsideLinks.name());
-          child.encodeAll(facesContext);
-        } else {
-          writer.startElement(HtmlElements.LI);
-          writer.writeClassAttribute(BootstrapClass.NAV_ITEM);
-          child.encodeAll(facesContext);
-          writer.endElement(HtmlElements.LI);
-        }
+        writer.startElement(HtmlElements.LI);
+        writer.writeClassAttribute(BootstrapClass.NAV_ITEM);
+        child.encodeAll(facesContext);
+        writer.endElement(HtmlElements.LI);
       }
     }
+    insideEnd(facesContext, HtmlElements.TOBAGO_LINKS);
   }
 
   @Override

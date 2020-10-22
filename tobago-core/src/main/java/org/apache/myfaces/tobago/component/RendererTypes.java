@@ -51,7 +51,6 @@ public enum RendererTypes {
   Image,
   Link,
   LinkInsideCommand,
-  LinkInsideLinks,
   Links,
   Label,
   Messages,
@@ -136,7 +135,6 @@ public enum RendererTypes {
   public static final String IMAGE = "Image";
   public static final String LINK = "Link";
   public static final String LINK_INSIDE_COMMAND = "LinkInsideCommand";
-  public static final String LINK_INSIDE_LINKS = "LinkInsideLinks";
   public static final String LINKS = "Links";
   public static final String LABEL = "Label";
   public static final String MESSAGES = "Messages";

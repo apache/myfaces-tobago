@@ -23,6 +23,8 @@ import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.internal.config.ContentSecurityPolicy;
 import org.apache.myfaces.tobago.internal.config.SecurityAnnotation;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.inject.spi.CDI;
 import javax.faces.context.FacesContext;
@@ -31,6 +33,8 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class TobagoConfig {
+
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoConfig.class);
 
   /**
    * @deprecated Since 5.0.0. Please use CDI.
@@ -43,7 +47,18 @@ public abstract class TobagoConfig {
    */
   @Deprecated
   public static TobagoConfig getInstance(final FacesContext facesContext) {
-    return CDI.current().select(TobagoConfig.class).get();
+    TobagoConfig tobagoConfig = null;
+    try {
+      tobagoConfig = CDI.current().select(TobagoConfig.class).get();
+    } catch (Exception e) {
+      LOG.warn("No CDI!");
+    }
+    if (tobagoConfig != null) {
+      return tobagoConfig;
+    } else {
+      // XXX not nice: this happens while unit tests and whenever???
+      return (TobagoConfig) facesContext.getExternalContext().getApplicationMap().get(TOBAGO_CONFIG);
+    }
   }
 
   /**
