@@ -169,9 +169,8 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
       List<UIComponent> renderLater = null;
 
       writer.startElement(HtmlElements.DIV);
-      writer.writeClassAttribute(
-          BootstrapClass.DROPDOWN_MENU,
-          getDropdownCssItems(facesContext, component));
+      writer.writeClassAttribute(BootstrapClass.DROPDOWN_MENU);
+// fixme         isInside(facesContext, x) ? BootstrapClass.DROPDOWN_MENU_RIGHT : null);
       writer.writeAttribute(Arias.LABELLEDBY, component.getFieldId(facesContext), false);
       writer.writeAttribute(HtmlAttributes.NAME, component.getClientId(facesContext), false);
 
@@ -267,10 +266,6 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
   abstract TobagoClass getRendererCssClass();
 
   protected CssItem[] getCssItems(final FacesContext facesContext, final T command) {
-    return null;
-  }
-
-  protected CssItem[] getDropdownCssItems(final FacesContext facesContext, final T command) {
     return null;
   }
 

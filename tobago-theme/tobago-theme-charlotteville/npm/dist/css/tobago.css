@@ -11120,18 +11120,17 @@ tobago-select-many-shuttle {
 }
 
 /* selectOneChoice ---------------------------------------------------------- */
+/* XXX: check removing input-group-prepend and input-group-append for Bootstrap 5
 .input-group-prepend > .tobago-selectOneChoice {
-  /* before facet */
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
 .input-group-append > .tobago-selectOneChoice {
-  /* after facet */
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
-
+*/
 /* segmentLayout ----------------------------------------------------------- */
 .tobago-segmentLayout {
   /*

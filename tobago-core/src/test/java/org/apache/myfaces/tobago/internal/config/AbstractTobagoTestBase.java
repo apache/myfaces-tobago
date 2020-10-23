@@ -40,8 +40,6 @@ import org.apache.myfaces.tobago.component.UISeparator;
 import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.BadgeRenderer;
-import org.apache.myfaces.tobago.internal.renderkit.renderer.ButtonInsideInAfterRenderer;
-import org.apache.myfaces.tobago.internal.renderkit.renderer.ButtonInsideInRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.ButtonRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.ButtonsRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.GridLayoutRenderer;
@@ -131,8 +129,6 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     renderKit.addRenderer(UILink.COMPONENT_FAMILY, RendererTypes.LINK_INSIDE_COMMAND, new LinkInsideCommandRenderer());
     renderKit.addRenderer(UILinks.COMPONENT_FAMILY, RendererTypes.LINKS, new LinksRenderer());
     renderKit.addRenderer(UIButton.COMPONENT_FAMILY, RendererTypes.BUTTON, new ButtonRenderer());
-    renderKit.addRenderer(UIButton.COMPONENT_FAMILY, RendererTypes.BUTTON_INSIDE_IN, new ButtonInsideInRenderer());
-    renderKit.addRenderer(UIButton.COMPONENT_FAMILY, RendererTypes.BUTTON_INSIDE_IN_AFTER, new ButtonInsideInAfterRenderer());
     renderKit.addRenderer(UIButtons.COMPONENT_FAMILY, RendererTypes.BUTTONS, new ButtonsRenderer());
     renderKit.addRenderer(UIPopup.COMPONENT_FAMILY, RendererTypes.POPUP, new PopupRenderer());
     renderKit.addRenderer(UISeparator.COMPONENT_FAMILY, RendererTypes.SEPARATOR, new SeparatorRenderer());

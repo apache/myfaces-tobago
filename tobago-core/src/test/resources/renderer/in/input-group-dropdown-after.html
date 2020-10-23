@@ -14,16 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-
+<!--
+dropdown-menu-right is temporarily not here (in the div with dropdown-menu), XXX might be to fixed?
+-->
 <tobago-in id='id' class='mb-3'>
   <div class='tobago-input-group-outer'>
     <div class='input-group'>
       <input type='text' name='id' id='id::field' class='tobago-in form-control'>
-      <tobago-dropdown id='button' class='dropdown input-group-append'>
+      <tobago-dropdown id='button' class='dropdown'>
         <button type='button' id='button::command' name='button' data-toggle='dropdown' class='tobago-button btn btn-secondary dropdown-toggle'>
           <tobago-behavior event='click' omit='omit' decoupled='decoupled'>
           </tobago-behavior><span>dropdown</span></button>
-        <div class='dropdown-menu dropdown-menu-right' aria-labelledby='button::command' name='button'>
+        <div class='dropdown-menu' aria-labelledby='button::command' name='button'>
           <button type='button' id='l1' name='l1' class='tobago-link dropdown-item'>
             <tobago-behavior event='click' decoupled='decoupled'>
             </tobago-behavior><span>Link 1</span></button>

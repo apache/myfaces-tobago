@@ -332,7 +332,15 @@ public enum BootstrapClass implements CssItem {
   FORM_SELECT("form-select"),
   FORM_SWITCH("form-switch"),
   INPUT_GROUP("input-group"),
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   INPUT_GROUP_APPEND("input-group-append"),
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   INPUT_GROUP_PREPEND("input-group-prepend"),
   INPUT_GROUP_TEXT("input-group-text"),
   INVISIBLE("invisible"),

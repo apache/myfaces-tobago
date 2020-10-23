@@ -91,7 +91,7 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
     }
-    encodeGroupAddon(facesContext, writer, before, false);
+    encodeGroupAddon(facesContext, writer, before);
 
     writer.startElement(HtmlElements.INPUT);
 
@@ -155,7 +155,7 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
 
     encodeBehavior(writer, facesContext, component);
 
-    encodeGroupAddon(facesContext, writer, after, true);
+    encodeGroupAddon(facesContext, writer, after);
 
     if (after != null || before != null) {
       writer.endElement(HtmlElements.DIV);
@@ -164,22 +164,12 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
   }
 
   private void encodeGroupAddon(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final UIComponent addon,
-      final boolean isAfterFacet) throws IOException {
+      final FacesContext facesContext, final TobagoResponseWriter writer, final UIComponent addon) throws IOException {
     if (addon != null) {
       for (final UIComponent child : RenderUtils.getFacetChildren(addon)) {
         if (child instanceof AbstractUIButton && ((AbstractUIButton) child).isParentOfCommands()) {
-          if (isAfterFacet) {
-            child.setRendererType(RendererTypes.ButtonInsideInAfter.name());
-          } else {
-            child.setRendererType(RendererTypes.ButtonInsideIn.name());
-          }
           child.encodeAll(facesContext);
         } else {
-          writer.startElement(HtmlElements.DIV);
-          writer.writeClassAttribute(isAfterFacet
-              ? BootstrapClass.INPUT_GROUP_APPEND : BootstrapClass.INPUT_GROUP_PREPEND);
-
           if (child instanceof AbstractUIButton) {
             child.encodeAll(facesContext);
           } else if (child instanceof AbstractUIOut) {
@@ -194,8 +184,6 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
             child.encodeAll(facesContext);
             writer.endElement(HtmlElements.SPAN);
           }
-
-          writer.endElement(HtmlElements.DIV);
         }
       }
     }
