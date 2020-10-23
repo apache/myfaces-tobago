@@ -53,7 +53,9 @@ public class OutRenderer<T extends AbstractUIOut> extends MessageLayoutRendererB
   public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
     final boolean plain = component.isPlain() || component.isCompact() || !component.isCreateSpan();
 
-    if (plain) {
+    if (isInside(facesContext, HtmlElements.TOBAGO_IN)) {
+      encodeBeginField(facesContext, component);
+    } else if (plain) {
       encodeText(facesContext, component);
     } else {
       super.encodeBeginInternal(facesContext, component);
@@ -64,7 +66,9 @@ public class OutRenderer<T extends AbstractUIOut> extends MessageLayoutRendererB
   public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final boolean plain = component.isPlain() || component.isCompact() || !component.isCreateSpan();
 
-    if (!plain) {
+    if (isInside(facesContext, HtmlElements.TOBAGO_IN)) {
+      encodeEndField(facesContext, component);
+    } else if (!plain) {
       super.encodeEndInternal(facesContext, component);
     }
   }
@@ -138,6 +142,10 @@ public class OutRenderer<T extends AbstractUIOut> extends MessageLayoutRendererB
   }
 
   protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUIOut out) {
-    return new CssItem[]{BootstrapClass.FORM_CONTROL_PLAINTEXT};
+    if (isInside(facesContext, HtmlElements.TOBAGO_IN)) {
+      return new CssItem[]{BootstrapClass.INPUT_GROUP_TEXT};
+    } else {
+      return new CssItem[]{BootstrapClass.FORM_CONTROL_PLAINTEXT};
+    }
   }
 }

@@ -65,6 +65,18 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
   }
 
   @Override
+  public void encodeBeginInternal(FacesContext facesContext, T component) throws IOException {
+    insideBegin(facesContext, HtmlElements.TOBAGO_IN);
+    super.encodeBeginInternal(facesContext, component);
+  }
+
+  @Override
+  public void encodeEndInternal(FacesContext facesContext, T component) throws IOException {
+    super.encodeEndInternal(facesContext, component);
+    insideEnd(facesContext, HtmlElements.TOBAGO_IN);
+  }
+
+  @Override
   protected void encodeBeginField(final FacesContext facesContext, final T component)
       throws IOException {
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
@@ -173,7 +185,6 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
           if (child instanceof AbstractUIButton) {
             child.encodeAll(facesContext);
           } else if (child instanceof AbstractUIOut) {
-            child.setRendererType(RendererTypes.OutInsideIn.name());
             child.encodeAll(facesContext);
           } else if (child instanceof AbstractUISelectOneChoice) {
             child.setRendererType(RendererTypes.SelectOneChoiceInsideIn.name());

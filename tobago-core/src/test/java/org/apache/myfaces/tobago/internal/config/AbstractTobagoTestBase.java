@@ -47,7 +47,6 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.InRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.LinkInsideCommandRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.LinkRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.LinksRenderer;
-import org.apache.myfaces.tobago.internal.renderkit.renderer.OutInsideInRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.OutRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PanelRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PopupRenderer;
@@ -123,7 +122,6 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     final RenderKit renderKit = facesContext.getRenderKit();
     renderKit.addRenderer(UIIn.COMPONENT_FAMILY, RendererTypes.IN, new InRenderer());
     renderKit.addRenderer(UIOut.COMPONENT_FAMILY, RendererTypes.OUT, new OutRenderer());
-    renderKit.addRenderer(UIOut.COMPONENT_FAMILY, RendererTypes.OUT_INSIDE_IN, new OutInsideInRenderer());
     renderKit.addRenderer(UIPanel.COMPONENT_FAMILY, RendererTypes.PANEL, new PanelRenderer());
     renderKit.addRenderer(UILink.COMPONENT_FAMILY, RendererTypes.LINK, new LinkRenderer());
     renderKit.addRenderer(UILink.COMPONENT_FAMILY, RendererTypes.LINK_INSIDE_COMMAND, new LinkInsideCommandRenderer());
