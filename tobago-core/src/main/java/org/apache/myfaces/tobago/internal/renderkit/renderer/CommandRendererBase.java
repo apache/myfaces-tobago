@@ -233,7 +233,6 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
     final String clientId = command.getClientId(facesContext);
     final boolean parentOfCommands = command.isParentOfCommands();
     final boolean dropdownSubmenu = this instanceof LinkInsideCommandRenderer;
-    final boolean childOfButtonGroup = this instanceof ButtonInsideButtonsRenderer;
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -242,9 +241,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
       writer.writeIdAttribute(clientId);
 
       final CssItem first;
-      if (childOfButtonGroup) {
-        first = null;
-      } else if (dropdownSubmenu) {
+      if (dropdownSubmenu) {
         first = TobagoClass.DROPDOWN__SUBMENU;
       } else {
         first = BootstrapClass.DROPDOWN;

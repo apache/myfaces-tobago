@@ -29,7 +29,6 @@ public enum RendererTypes {
   Bar,
   Box,
   Button,
-  ButtonInsideButtons,
   ButtonInsideIn,
   ButtonInsideInAfter,
   Buttons,
@@ -113,7 +112,6 @@ public enum RendererTypes {
   public static final String BAR = "Bar";
   public static final String BOX = "Box";
   public static final String BUTTON = "Button";
-  public static final String BUTTON_INSIDE_BUTTONS = "ButtonInsideButtons";
   public static final String BUTTON_INSIDE_IN = "ButtonInsideIn";
   public static final String BUTTON_INSIDE_IN_AFTER = "ButtonInsideInAfter";
   public static final String BUTTONS = "Buttons";

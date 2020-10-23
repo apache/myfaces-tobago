@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIBadge;
-import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButtons;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.layout.Orientation;
@@ -46,11 +45,11 @@ public class ButtonsRenderer<T extends AbstractUIButtons> extends RendererBase<T
     final Markup markup = component.getMarkup();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.TOBAGO_BUTTONS);
     writer.writeIdAttribute(component.getClientId(facesContext));
 
     writer.writeClassAttribute(
-        TobagoClass.BUTTONS,
+        null,
         TobagoClass.BUTTONS.createMarkup(markup),
         Orientation.vertical.equals(component.getOrientation())
             ? BootstrapClass.BTN_GROUP_VERTICAL : BootstrapClass.BTN_GROUP,
@@ -72,10 +71,7 @@ public class ButtonsRenderer<T extends AbstractUIButtons> extends RendererBase<T
   public void encodeChildrenInternal(final FacesContext facesContext, final T component) throws IOException {
     for (final UIComponent child : component.getChildren()) {
       if (child.isRendered()) {
-        if (child instanceof AbstractUIButton) {
-          child.setRendererType(RendererTypes.ButtonInsideButtons.name());
-          child.encodeAll(facesContext);
-        } else if (child instanceof AbstractUIBadge) {
+        if (child instanceof AbstractUIBadge) {
           child.setRendererType(RendererTypes.BadgeInsideButtons.name());
           child.encodeAll(facesContext);
         } else {
@@ -88,6 +84,6 @@ public class ButtonsRenderer<T extends AbstractUIButtons> extends RendererBase<T
   @Override
   public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.TOBAGO_BUTTONS);
   }
 }
