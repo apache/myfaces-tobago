@@ -31,12 +31,12 @@
     <p>The title of the box is set by the <code>label</code> attribute or with
       <code class="language-markup">&lt;f:facet name="label"></code>.</p>
     <pre><code class="language-markup">&lt;tc:box label="Box">Content&lt;/tc:box></code></pre>
-    <tc:box id="labelAttrBox" label="Box">
+    <tc:box id="labelAttrBox" label="Box one">
       Title set by <code>label</code> attribute.
     </tc:box>
     <tc:box id="labelFacetBox">
       <f:facet name="label">
-        <h:outputText value="#{outController.html}" escape="false"/>
+        <tc:out value="Box another" plain="true"/>
       </f:facet>
       Title set by <code class="language-markup">&lt;f:facet name="label"></code>.
     </tc:box>

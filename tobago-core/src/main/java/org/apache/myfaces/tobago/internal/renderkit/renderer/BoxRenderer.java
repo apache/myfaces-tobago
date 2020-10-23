@@ -19,10 +19,8 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIBox;
-import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.model.CollapseMode;
@@ -77,9 +75,6 @@ public class BoxRenderer<T extends AbstractUIBox> extends CollapsiblePanelRender
       writer.startElement(HtmlElements.H3);
       if (labelFacet != null) {
         for (final UIComponent child : RenderUtils.getFacetChildren(labelFacet)) {
-          if (child instanceof AbstractUIOut) {
-            child.setRendererType(RendererTypes.OutInsideBoxLabel.name());
-          }
           child.encodeAll(facesContext);
         }
       } else if (labelString != null) {

@@ -20,9 +20,7 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.component.AbstractUISection;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
@@ -91,9 +89,6 @@ public class SectionRenderer<T extends AbstractUISection> extends CollapsiblePan
     final String labelString = component.getLabel();
     if (labelFacet != null) {
       for (final UIComponent child : RenderUtils.getFacetChildren(labelFacet)) {
-        if (child instanceof AbstractUIOut) {
-          child.setRendererType(RendererTypes.OutInsideSectionLabel.name());
-        }
         child.encodeAll(facesContext);
       }
     } else if (labelString != null) {
