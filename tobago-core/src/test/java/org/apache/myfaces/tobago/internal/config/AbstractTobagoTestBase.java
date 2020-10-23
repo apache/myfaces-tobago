@@ -36,6 +36,9 @@ import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.component.UISegmentLayout;
+import org.apache.myfaces.tobago.component.UISelectItem;
+import org.apache.myfaces.tobago.component.UISelectOneChoice;
+import org.apache.myfaces.tobago.component.UISelectOneRadio;
 import org.apache.myfaces.tobago.component.UISeparator;
 import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.context.TobagoContext;
@@ -51,6 +54,8 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.OutRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PanelRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PopupRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SegmentLayoutRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectOneChoiceRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectOneRadioRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SeparatorRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.StyleRenderer;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
@@ -115,6 +120,9 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.popup.componentType(), UIPopup.class.getName());
     application.addComponent(Tags.separator.componentType(), UISeparator.class.getName());
     application.addComponent(Tags.style.componentType(), UIStyle.class.getName());
+    application.addComponent(Tags.selectItem.componentType(), UISelectItem.class.getName());
+    application.addComponent(Tags.selectOneRadio.componentType(), UISelectOneRadio.class.getName());
+    application.addComponent(Tags.selectOneChoice.componentType(), UISelectOneChoice.class.getName());
     application.addComponent(Tags.gridLayout.componentType(), UIGridLayout.class.getName());
     application.addComponent(Tags.segmentLayout.componentType(), UISegmentLayout.class.getName());
     application.addComponent(Tags.badge.componentType(), UIBadge.class.getName());
@@ -131,6 +139,10 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     renderKit.addRenderer(UIPopup.COMPONENT_FAMILY, RendererTypes.POPUP, new PopupRenderer());
     renderKit.addRenderer(UISeparator.COMPONENT_FAMILY, RendererTypes.SEPARATOR, new SeparatorRenderer());
     renderKit.addRenderer(UIStyle.COMPONENT_FAMILY, RendererTypes.STYLE, new StyleRenderer());
+    renderKit.addRenderer(
+        UISelectOneRadio.COMPONENT_FAMILY, RendererTypes.SELECT_ONE_RADIO, new SelectOneRadioRenderer());
+    renderKit.addRenderer(
+        UISelectOneChoice.COMPONENT_FAMILY, RendererTypes.SELECT_ONE_CHOICE, new SelectOneChoiceRenderer());
     renderKit.addRenderer(UIGridLayout.COMPONENT_FAMILY, RendererTypes.GRID_LAYOUT, new GridLayoutRenderer());
     renderKit.addRenderer(UISegmentLayout.COMPONENT_FAMILY, RendererTypes.SEGMENT_LAYOUT, new SegmentLayoutRenderer());
     renderKit.addRenderer(UIBadge.COMPONENT_FAMILY, RendererTypes.BADGE, new BadgeRenderer());

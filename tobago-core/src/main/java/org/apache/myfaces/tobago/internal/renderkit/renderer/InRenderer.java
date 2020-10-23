@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUIIn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
@@ -179,22 +178,17 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
       final FacesContext facesContext, final TobagoResponseWriter writer, final UIComponent addon) throws IOException {
     if (addon != null) {
       for (final UIComponent child : RenderUtils.getFacetChildren(addon)) {
-        if (child instanceof AbstractUIButton && ((AbstractUIButton) child).isParentOfCommands()) {
+        if (child instanceof AbstractUIButton) {
+          child.encodeAll(facesContext);
+        } else if (child instanceof AbstractUIOut) {
+          child.encodeAll(facesContext);
+        } else if (child instanceof AbstractUISelectOneChoice) {
           child.encodeAll(facesContext);
         } else {
-          if (child instanceof AbstractUIButton) {
-            child.encodeAll(facesContext);
-          } else if (child instanceof AbstractUIOut) {
-            child.encodeAll(facesContext);
-          } else if (child instanceof AbstractUISelectOneChoice) {
-            child.setRendererType(RendererTypes.SelectOneChoiceInsideIn.name());
-            child.encodeAll(facesContext);
-          } else {
-            writer.startElement(HtmlElements.SPAN);
-            writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_TEXT);
-            child.encodeAll(facesContext);
-            writer.endElement(HtmlElements.SPAN);
-          }
+          writer.startElement(HtmlElements.SPAN);
+          writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_TEXT);
+          child.encodeAll(facesContext);
+          writer.endElement(HtmlElements.SPAN);
         }
       }
     }

@@ -74,7 +74,6 @@ public enum RendererTypes {
   SelectManyListbox,
   SelectManyShuttle,
   SelectOneChoice,
-  SelectOneChoiceInsideIn,
   SelectOneRadio,
   SelectOneRadioInsideCommand,
   SelectOneListbox,
@@ -152,7 +151,6 @@ public enum RendererTypes {
   public static final String SELECT_MANY_LISTBOX = "SelectManyListbox";
   public static final String SELECT_MANY_SHUTTLE = "SelectManyShuttle";
   public static final String SELECT_ONE_CHOICE = "SelectOneChoice";
-  public static final String SELECT_ONE_CHOICE_INSIDE_IN = "SelectOneChoiceInsideIn";
   public static final String SELECT_ONE_RADIO = "SelectOneRadio";
   public static final String SELECT_ONE_RADIO_INSIDE_COMMAND = "SelectOneRadioInsideCommand";
   public static final String SELECT_ONE_LISTBOX = "SelectOneListbox";

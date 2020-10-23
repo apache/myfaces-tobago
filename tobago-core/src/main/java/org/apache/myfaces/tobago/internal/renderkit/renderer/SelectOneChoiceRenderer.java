@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneChoice;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -40,6 +39,24 @@ public class SelectOneChoiceRenderer<T extends AbstractUISelectOneChoice> extend
   @Override
   public HtmlElements getComponentTag() {
     return HtmlElements.TOBAGO_SELECT_ONE_CHOICE;
+  }
+
+  @Override
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
+    if (isInside(facesContext, HtmlElements.TOBAGO_IN)) {
+      encodeBeginField(facesContext, component);
+    } else {
+      super.encodeBeginInternal(facesContext, component);
+    }
+  }
+
+  @Override
+  public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
+    if (isInside(facesContext, HtmlElements.TOBAGO_IN)) {
+      encodeEndField(facesContext, component);
+    } else {
+      super.encodeEndInternal(facesContext, component);
+    }
   }
 
   @Override
@@ -68,7 +85,7 @@ public class SelectOneChoiceRenderer<T extends AbstractUISelectOneChoice> extend
     writer.writeClassAttribute(
         TobagoClass.SELECT_ONE_CHOICE,
         TobagoClass.SELECT_ONE_CHOICE.createMarkup(markup),
-        getCssItems(facesContext, component),
+        isInside(facesContext, HtmlElements.TOBAGO_IN) ? BootstrapClass.FORM_SELECT : BootstrapClass.FORM_CONTROL,
         BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
         component.getCustomClass());
     if (title != null) {
@@ -91,10 +108,8 @@ public class SelectOneChoiceRenderer<T extends AbstractUISelectOneChoice> extend
 
   @Override
   protected String getFieldId(final FacesContext facesContext, final T component) {
-    return component.getFieldId(facesContext);
-  }
-
-  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectOneChoice select) {
-    return new CssItem[]{BootstrapClass.FORM_CONTROL};
+    return isInside(facesContext, HtmlElements.TOBAGO_IN)
+        ? component.getFieldId(facesContext)
+        : component.getClientId(facesContext);
   }
 }

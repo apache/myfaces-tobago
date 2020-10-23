@@ -27,6 +27,8 @@ import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UISegmentLayout;
+import org.apache.myfaces.tobago.component.UISelectItem;
+import org.apache.myfaces.tobago.component.UISelectOneChoice;
 import org.apache.myfaces.tobago.layout.SegmentMeasureList;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.Assert;
@@ -64,6 +66,29 @@ public class InRendererUnitTest extends RendererTestBase {
     c.encodeAll(facesContext);
 
     Assert.assertEquals(loadHtml("renderer/in/input-group-button-before.html"), formattedResult());
+  }
+
+  @Test
+  public void inputGroupChoiceAfter() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+
+    final UISelectOneChoice choice = (UISelectOneChoice) ComponentUtils.createComponent(
+        facesContext, Tags.selectOneChoice.componentType(), RendererTypes.SelectOneChoice, "choice");
+    c.getFacets().put("after", choice);
+
+    final UISelectItem i1 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i1");
+    i1.setItemLabel("Stratocaster");
+    choice.getChildren().add(i1);
+    final UISelectItem i2 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i2");
+    i2.setItemLabel("Telecaster");
+    choice.getChildren().add(i2);
+
+    c.encodeAll(facesContext);
+
+    Assert.assertEquals(loadHtml("renderer/in/input-group-choice-after.html"), formattedResult());
   }
 
   @Test
