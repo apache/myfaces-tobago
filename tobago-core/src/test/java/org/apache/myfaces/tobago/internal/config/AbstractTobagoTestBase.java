@@ -25,6 +25,7 @@ import org.apache.myfaces.test.mock.MockFacesContext;
 import org.apache.myfaces.test.mock.MockHttpServletRequest;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
+import org.apache.myfaces.tobago.component.UIBadge;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UIButtons;
 import org.apache.myfaces.tobago.component.UIGridLayout;
@@ -38,6 +39,7 @@ import org.apache.myfaces.tobago.component.UISegmentLayout;
 import org.apache.myfaces.tobago.component.UISeparator;
 import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.context.TobagoContext;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.BadgeRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.ButtonRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.ButtonsRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.GridLayoutRenderer;
@@ -115,6 +117,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.style.componentType(), UIStyle.class.getName());
     application.addComponent(Tags.gridLayout.componentType(), UIGridLayout.class.getName());
     application.addComponent(Tags.segmentLayout.componentType(), UISegmentLayout.class.getName());
+    application.addComponent(Tags.badge.componentType(), UIBadge.class.getName());
 
     final RenderKit renderKit = facesContext.getRenderKit();
     renderKit.addRenderer(UIIn.COMPONENT_FAMILY, RendererTypes.IN, new InRenderer());
@@ -130,6 +133,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     renderKit.addRenderer(UIStyle.COMPONENT_FAMILY, RendererTypes.STYLE, new StyleRenderer());
     renderKit.addRenderer(UIGridLayout.COMPONENT_FAMILY, RendererTypes.GRID_LAYOUT, new GridLayoutRenderer());
     renderKit.addRenderer(UISegmentLayout.COMPONENT_FAMILY, RendererTypes.SEGMENT_LAYOUT, new SegmentLayoutRenderer());
+    renderKit.addRenderer(UIBadge.COMPONENT_FAMILY, RendererTypes.BADGE, new BadgeRenderer());
 
     application.setMessageBundle("org.apache.myfaces.tobago.context.TobagoMessageBundle");
 

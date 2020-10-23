@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIBadge;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -42,15 +41,15 @@ public class BadgeRenderer<T extends AbstractUIBadge> extends RendererBase<T> {
     final String tip = component.getTip();
     final String value = RenderUtils.currentValue(component);
 
-    writer.startElement(HtmlElements.SPAN);
+    writer.startElement(HtmlElements.TOBAGO_BADGE);
     writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeClassAttribute(
-        TobagoClass.BADGE,
+        null,
         TobagoClass.BADGE.createMarkup(markup),
         BootstrapClass.BADGE,
         getBadgeColor(markup),
         markup.contains(Markup.PILL) ? BootstrapClass.ROUNDED_PILL : null,
-        getAdditionalCssItem(),
+        isInside(facesContext, HtmlElements.TOBAGO_BUTTONS) ? BootstrapClass.BTN : null,
         component.getCustomClass());
 
     if (tip != null) {
@@ -64,11 +63,7 @@ public class BadgeRenderer<T extends AbstractUIBadge> extends RendererBase<T> {
   @Override
   public void encodeEndInternal(FacesContext facesContext, T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.endElement(HtmlElements.SPAN);
-  }
-
-  protected CssItem getAdditionalCssItem() {
-    return null;
+    writer.endElement(HtmlElements.TOBAGO_BADGE);
   }
 
   private BootstrapClass getBadgeColor(final Markup markup) {

@@ -10222,7 +10222,7 @@ XXX code will be inserted after bootstraps _variables.scss
   border: 0;
 }
 
-.btn-group > .tobago-badge.badge.btn {
+.btn-group > tobago-badge.badge.btn {
   z-index: initial;
   cursor: initial;
 }

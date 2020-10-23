@@ -19,9 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.internal.component.AbstractUIBadge;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButtons;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.layout.Orientation;
@@ -33,7 +31,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
@@ -60,29 +57,14 @@ public class ButtonsRenderer<T extends AbstractUIButtons> extends RendererBase<T
     if (tip != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     }
-  }
 
-  @Override
-  public boolean getRendersChildren() {
-    return true;
-  }
-
-  @Override
-  public void encodeChildrenInternal(final FacesContext facesContext, final T component) throws IOException {
-    for (final UIComponent child : component.getChildren()) {
-      if (child.isRendered()) {
-        if (child instanceof AbstractUIBadge) {
-          child.setRendererType(RendererTypes.BadgeInsideButtons.name());
-          child.encodeAll(facesContext);
-        } else {
-          child.encodeAll(facesContext);
-        }
-      }
-    }
+    insideBegin(facesContext, HtmlElements.TOBAGO_BUTTONS);
   }
 
   @Override
   public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
+    insideEnd(facesContext, HtmlElements.TOBAGO_BUTTONS);
+
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.TOBAGO_BUTTONS);
   }

@@ -25,7 +25,6 @@ package org.apache.myfaces.tobago.component;
 public enum RendererTypes {
 
   Badge,
-  BadgeInsideButtons,
   Bar,
   Box,
   Button,
@@ -107,7 +106,6 @@ public enum RendererTypes {
   TreeSelect;
 
   public static final String BADGE = "Badge";
-  public static final String BADGE_INSIDE_BUTTONS = "BadgeInsideButtons";
   public static final String BAR = "Bar";
   public static final String BOX = "Box";
   public static final String BUTTON = "Button";

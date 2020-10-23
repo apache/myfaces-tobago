@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
+import org.apache.myfaces.tobago.component.UIBadge;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UIButtons;
 import org.apache.myfaces.tobago.component.UILink;
@@ -67,6 +68,24 @@ public class ButtonsRendererUnitTest extends RendererTestBase {
     l.encodeAll(facesContext);
 
     Assert.assertEquals(loadHtml("renderer/buttons/separator-inside-buttons.html"), formattedResult());
+  }
+
+  @Test
+  public void badgeInsideButtons() throws IOException {
+    final UIButtons l = (UIButtons) ComponentUtils.createComponent(
+        facesContext, Tags.buttons.componentType(), RendererTypes.Buttons, "list");
+    final UIBadge b = (UIBadge) ComponentUtils.createComponent(
+        facesContext, Tags.badge.componentType(), RendererTypes.Badge, "badge");
+    final UIButton c = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
+    c.setLabel("button");
+
+    l.getChildren().add(b);
+    l.getChildren().add(c);
+
+    l.encodeAll(facesContext);
+
+    Assert.assertEquals(loadHtml("renderer/buttons/badge-inside-buttons.html"), formattedResult());
   }
 
 }
