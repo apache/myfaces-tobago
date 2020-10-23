@@ -22,7 +22,10 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
+import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UIIn;
+import org.apache.myfaces.tobago.component.UILink;
+import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UISegmentLayout;
 import org.apache.myfaces.tobago.layout.SegmentMeasureList;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -32,6 +35,118 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 public class InRendererUnitTest extends RendererTestBase {
+
+  @Test
+  public void inputGroupButtonAfter() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+
+    final UIButton b = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "button");
+    b.setLabel("button");
+    c.getFacets().put("after", b);
+
+    c.encodeAll(facesContext);
+
+    Assert.assertEquals(loadHtml("renderer/in/input-group-button-after.html"), formattedResult());
+  }
+
+  @Test
+  public void inputGroupButtonBefore() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+
+    final UIButton b = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "button");
+    b.setLabel("button");
+    c.getFacets().put("before", b);
+
+    c.encodeAll(facesContext);
+
+    Assert.assertEquals(loadHtml("renderer/in/input-group-button-before.html"), formattedResult());
+  }
+
+  @Test
+  public void inputGroupDropdownAfter() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+
+    final UIButton d = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "button");
+    d.setLabel("dropdown");
+    d.setOmit(true);
+    c.getFacets().put("after", d);
+
+    final UILink l1 = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "l1");
+    l1.setLabel("Link 1");
+    d.getChildren().add(l1);
+
+    final UILink l2 = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "l2");
+    l2.setLabel("Link 2");
+    d.getChildren().add(l2);
+
+    c.encodeAll(facesContext);
+
+    Assert.assertEquals(loadHtml("renderer/in/input-group-dropdown-after.html"), formattedResult());
+  }
+
+  @Test
+  public void inputGroupDropdownBefore() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+
+    final UIButton d = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "button");
+    d.setLabel("dropdown");
+    d.setOmit(true);
+    c.getFacets().put("before", d);
+
+    final UILink l1 = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "l1");
+    l1.setLabel("Link 1");
+    d.getChildren().add(l1);
+
+    final UILink l2 = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "l2");
+    l2.setLabel("Link 2");
+    d.getChildren().add(l2);
+
+    c.encodeAll(facesContext);
+
+    Assert.assertEquals(loadHtml("renderer/in/input-group-dropdown-before.html"), formattedResult());
+  }
+
+  @Test
+  public void inputGroupOutAfter() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+
+    final UIOut o = (UIOut) ComponentUtils.createComponent(
+        facesContext, Tags.out.componentType(), RendererTypes.Out, "out");
+    o.setValue("out");
+    c.getFacets().put("after", o);
+
+    c.encodeAll(facesContext);
+
+    Assert.assertEquals(loadHtml("renderer/in/input-group-out-after.html"), formattedResult());
+  }
+
+  @Test
+  public void inputGroupOutBefore() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+
+    final UIOut o = (UIOut) ComponentUtils.createComponent(
+        facesContext, Tags.out.componentType(), RendererTypes.Out, "out");
+    o.setValue("out");
+    c.getFacets().put("before", o);
+
+    c.encodeAll(facesContext);
+
+    Assert.assertEquals(loadHtml("renderer/in/input-group-out-before.html"), formattedResult());
+  }
 
   @Test
   public void simple() throws IOException {
@@ -198,4 +313,5 @@ public class InRendererUnitTest extends RendererTestBase {
 
     Assert.assertEquals(loadHtml("renderer/in/label-none.html"), formattedResult());
   }
+
 }
