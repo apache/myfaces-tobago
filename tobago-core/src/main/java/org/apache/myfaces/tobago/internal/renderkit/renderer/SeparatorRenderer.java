@@ -20,10 +20,10 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUILabel;
 import org.apache.myfaces.tobago.internal.component.AbstractUISeparator;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -40,26 +40,34 @@ public class SeparatorRenderer<T extends AbstractUISeparator> extends RendererBa
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final String clientId = component.getClientId(facesContext);
-    final String label = getLabel(component);
-    final Markup markup = component.getMarkup();
 
-    if (label != null) {
-      writer.startElement(HtmlElements.P);
+    if (isInside(facesContext, HtmlElements.COMMAND)) {
+      writer.startElement(HtmlElements.TOBAGO_SEPARATOR);
       writer.writeIdAttribute(clientId);
       writer.writeClassAttribute(
-          TobagoClass.SEPARATOR,
-          TobagoClass.SEPARATOR.createMarkup(component.getMarkup()),
+          BootstrapClass.DROPDOWN_DIVIDER,
           component.getCustomClass());
-      writer.writeText(label);
-      writer.endElement(HtmlElements.P);
+      writer.endElement(HtmlElements.TOBAGO_SEPARATOR);
     } else {
-      writer.startElement(HtmlElements.HR);
-      writer.writeIdAttribute(clientId);
-      writer.writeClassAttribute(
-          TobagoClass.SEPARATOR,
-          TobagoClass.SEPARATOR.createMarkup(component.getMarkup()),
-          component.getCustomClass());
-      writer.endElement(HtmlElements.HR);
+      final String label = getLabel(component);
+      if (label != null) {
+        writer.startElement(HtmlElements.P);
+        writer.writeIdAttribute(clientId);
+        writer.writeClassAttribute(
+            TobagoClass.SEPARATOR,
+            TobagoClass.SEPARATOR.createMarkup(component.getMarkup()),
+            component.getCustomClass());
+        writer.writeText(label);
+        writer.endElement(HtmlElements.P);
+      } else {
+        writer.startElement(HtmlElements.HR);
+        writer.writeIdAttribute(clientId);
+        writer.writeClassAttribute(
+            TobagoClass.SEPARATOR,
+            TobagoClass.SEPARATOR.createMarkup(component.getMarkup()),
+            component.getCustomClass());
+        writer.endElement(HtmlElements.HR);
+      }
     }
   }
 

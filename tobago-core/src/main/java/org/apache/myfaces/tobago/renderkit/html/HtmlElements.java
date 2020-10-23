@@ -160,6 +160,7 @@ public enum HtmlElements {
   TOBAGO_SELECT_ONE_CHOICE("tobago-select-one-choice"),
   TOBAGO_SELECT_ONE_LISTBOX("tobago-select-one-listbox"),
   TOBAGO_SELECT_ONE_RADIO("tobago-select-one-radio"),
+  TOBAGO_SEPARATOR("tobago-separator"),
   TOBAGO_SHEET("tobago-sheet"),
   TOBAGO_STARS("tobago-stars"),
   TOBAGO_SUGGEST("tobago-suggest"),

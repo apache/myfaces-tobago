@@ -49,7 +49,6 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.OutRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PanelRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PopupRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SegmentLayoutRenderer;
-import org.apache.myfaces.tobago.internal.renderkit.renderer.SeparatorInsideCommandRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SeparatorRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.StyleRenderer;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
@@ -128,7 +127,6 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     renderKit.addRenderer(UIButtons.COMPONENT_FAMILY, RendererTypes.BUTTONS, new ButtonsRenderer());
     renderKit.addRenderer(UIPopup.COMPONENT_FAMILY, RendererTypes.POPUP, new PopupRenderer());
     renderKit.addRenderer(UISeparator.COMPONENT_FAMILY, RendererTypes.SEPARATOR, new SeparatorRenderer());
-    renderKit.addRenderer(UISeparator.COMPONENT_FAMILY, RendererTypes.SEPARATOR_INSIDE_COMMAND, new SeparatorInsideCommandRenderer());
     renderKit.addRenderer(UIStyle.COMPONENT_FAMILY, RendererTypes.STYLE, new StyleRenderer());
     renderKit.addRenderer(UIGridLayout.COMPONENT_FAMILY, RendererTypes.GRID_LAYOUT, new GridLayoutRenderer());
     renderKit.addRenderer(UISegmentLayout.COMPONENT_FAMILY, RendererTypes.SEGMENT_LAYOUT, new SegmentLayoutRenderer());

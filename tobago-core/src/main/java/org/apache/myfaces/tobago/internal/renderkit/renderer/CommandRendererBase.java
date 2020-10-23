@@ -197,8 +197,9 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
             child.setRendererType(RendererTypes.SelectOneRadioInsideCommand.name());
             child.encodeAll(facesContext);
           } else if (child instanceof AbstractUISeparator) {
-            child.setRendererType(RendererTypes.SeparatorInsideCommand.name());
+            insideBegin(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
             child.encodeAll(facesContext);
+            insideEnd(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
           } else {
             writer.startElement(HtmlElements.DIV);
             writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM);

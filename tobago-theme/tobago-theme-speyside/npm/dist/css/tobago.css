@@ -9993,7 +9993,7 @@ tobago-behavior {
 }
 
 /* buttons, links ------------------------------------------------------- */
-.tobago-buttons > .tobago-button {
+tobago-buttons > .tobago-button {
   display: inline-block;
 }
 
@@ -10842,6 +10842,10 @@ tobago-select-many-shuttle {
 }
 
 /* separator -------------------------------------------------------------- */
+tobago-separator {
+  display: block;
+}
+
 hr.tobago-separator {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
