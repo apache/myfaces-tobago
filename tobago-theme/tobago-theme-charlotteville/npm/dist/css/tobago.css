@@ -10270,11 +10270,11 @@ tobago-behavior {
 }
 
 /* box -------------------------------------------------------------- */
-.tobago-box {
+tobago-box {
   margin-bottom: 1rem;
 }
 
-.tobago-box > .card-body {
+tobago-box > .card-body {
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -10328,8 +10328,8 @@ button.tobago-button:disabled img, button.tobago-button:disabled span {
 }
 
 /* collapsible -------------------------------------------------------------- */
-.tobago-collapsed.tobago-box .card-body,
-.tobago-collapsed.tobago-section .tobago-section-content,
+tobago-box.tobago-collapsed .card-body,
+tobago-section.tobago-collapsed .tobago-section-content,
 tobago-panel.tobago-collapsed {
   display: none;
 }
@@ -11001,15 +11001,15 @@ tobago-stars {
 }
 
 /* section ----------------------------------------------------------- */
-/* to separate the icon from the rest of the title */
-h1 > .fa:first-child, .h1 > .fa:first-child, h1 > img, .h1 > img, h2 > .fa:first-child, .h2 > .fa:first-child, h2 > img, .h2 > img, h3 > .fa:first-child, .h3 > .fa:first-child, h3 > img, .h3 > img, h4 > .fa:first-child, .h4 > .fa:first-child, h4 > img, .h4 > img, h5 > .fa:first-child, .h5 > .fa:first-child, h5 > img, .h5 > img, h6 > .fa:first-child, .h6 > .fa:first-child, h6 > img, .h6 > img {
-  margin-right: 0.7em;
-}
-
-.tobago-section-header {
+tobago-section > div > h1, tobago-section > div > .h1, tobago-section > div > h2, tobago-section > div > .h2, tobago-section > div > h3, tobago-section > div > .h3, tobago-section > div > h4, tobago-section > div > .h4, tobago-section > div > h5, tobago-section > div > .h5, tobago-section > div > h6, tobago-section > div > .h6 {
   display: flex;
   justify-content: space-between;
   align-content: center;
+}
+
+tobago-section > div > h1 > .fa:first-child, tobago-section > div > .h1 > .fa:first-child, tobago-section > div > h1 > img, tobago-section > div > .h1 > img, tobago-section > div > h2 > .fa:first-child, tobago-section > div > .h2 > .fa:first-child, tobago-section > div > h2 > img, tobago-section > div > .h2 > img, tobago-section > div > h3 > .fa:first-child, tobago-section > div > .h3 > .fa:first-child, tobago-section > div > h3 > img, tobago-section > div > .h3 > img, tobago-section > div > h4 > .fa:first-child, tobago-section > div > .h4 > .fa:first-child, tobago-section > div > h4 > img, tobago-section > div > .h4 > img, tobago-section > div > h5 > .fa:first-child, tobago-section > div > .h5 > .fa:first-child, tobago-section > div > h5 > img, tobago-section > div > .h5 > img, tobago-section > div > h6 > .fa:first-child, tobago-section > div > .h6 > .fa:first-child, tobago-section > div > h6 > img, tobago-section > div > .h6 > img {
+  /* to separate the icon from the rest of the title */
+  margin-right: 0.7em;
 }
 
 /* select ----------------------------------------------------------- */

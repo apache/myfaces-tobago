@@ -44,10 +44,10 @@ public class SectionRenderer<T extends AbstractUISection> extends CollapsiblePan
     final boolean collapsed = component.isCollapsed();
     final Markup markup = component.getMarkup();
 
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.TOBAGO_SECTION);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
-        TobagoClass.SECTION,
+        null,
         TobagoClass.SECTION.createMarkup(markup),
         collapsed ? TobagoClass.COLLAPSED : null,
         component.getCustomClass());
@@ -79,7 +79,6 @@ public class SectionRenderer<T extends AbstractUISection> extends CollapsiblePan
     }
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(TobagoClass.SECTION__HEADER);
     writer.startElement(tag);
 
     final String image = component.getImage();
@@ -114,6 +113,6 @@ public class SectionRenderer<T extends AbstractUISection> extends CollapsiblePan
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.TOBAGO_SECTION);
   }
 }

@@ -42,12 +42,11 @@ public class BoxRenderer<T extends AbstractUIBox> extends CollapsiblePanelRender
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final Markup markup = component.getMarkup();
-
-    writer.startElement(HtmlElements.DIV);
     final boolean collapsed = component.isCollapsed();
 
+    writer.startElement(HtmlElements.TOBAGO_BOX);
     writer.writeClassAttribute(
-        TobagoClass.BOX,
+        null,
         TobagoClass.BOX.createMarkup(markup),
         BootstrapClass.CARD,
         collapsed ? TobagoClass.COLLAPSED : null,
@@ -96,6 +95,6 @@ public class BoxRenderer<T extends AbstractUIBox> extends CollapsiblePanelRender
   public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.TOBAGO_BOX);
   }
 }

@@ -96,7 +96,7 @@ tobago-behavior {
 
 /* box -------------------------------------------------------------- */
 
-.tobago-box {
+tobago-box {
   margin-bottom: $card-spacer-y;
   > .card-body {
     overflow-x: hidden;
@@ -170,8 +170,8 @@ button.tobago-button {
 
 /* collapsible -------------------------------------------------------------- */
 
-.tobago-collapsed.tobago-box .card-body,
-.tobago-collapsed.tobago-section .tobago-section-content,
+tobago-box.tobago-collapsed .card-body,
+tobago-section.tobago-collapsed .tobago-section-content,
 tobago-panel.tobago-collapsed {
   display: none;
 }
@@ -930,17 +930,16 @@ tobago-stars {
 
 /* section ----------------------------------------------------------- */
 
-/* to separate the icon from the rest of the title */
-h1, h2, h3, h4, h5, h6 {
-  > .fa:first-child, > img {
-    margin-right: 0.7em;
+tobago-section > div > {
+  h1, h2, h3, h4, h5, h6 {
+    > .fa:first-child, > img {
+      /* to separate the icon from the rest of the title */
+      margin-right: 0.7em;
+    }
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
   }
-}
-
-.tobago-section-header {
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
 }
 
 /* select ----------------------------------------------------------- */

@@ -119,6 +119,11 @@ public enum TobagoClass implements CssItem {
 
   BADGE("tobago-badge"),
   BAR("tobago-bar"),
+
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   BOX("tobago-box"),
   BOX__HEADER("tobago-box-header"),
   BUTTON("tobago-button"),
@@ -166,8 +171,11 @@ public enum TobagoClass implements CssItem {
   POPOVER__BOX("tobago-popover-box"),
   POPOVER__BUTTON("tobago-popover-button"),
   PROGRESS("tobago-progress"),
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   SECTION("tobago-section"),
-  SECTION__HEADER("tobago-section-header"),
   SECTION__CONTENT("tobago-section-content"),
   SEGMENT_LAYOUT("tobago-segmentLayout"),
   SELECT_BOOLEAN_CHECKBOX("tobago-selectBooleanCheckbox"),

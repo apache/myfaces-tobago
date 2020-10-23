@@ -25,8 +25,8 @@ it("Add a river and reset.", function (done) {
   let dischargeFn = querySelectorFn("#page\\:mainForm\\:add\\:inDischarge\\:\\:field");
   let addFn = querySelectorFn("#page\\:mainForm\\:add\\:buttonAdd");
   let resetFn = querySelectorFn("#page\\:mainForm\\:reset\\:buttonReset");
-  let forEachBoxesFn = querySelectorAllFn("#page\\:mainForm\\:forEach .tobago-box");
-  let uiRepeatSectionsFn = querySelectorAllFn("#page\\:mainForm\\:uiRepeat .tobago-section");
+  let forEachBoxesFn = querySelectorAllFn("#page\\:mainForm\\:forEach tobago-box");
+  let uiRepeatSectionsFn = querySelectorAllFn("#page\\:mainForm\\:uiRepeat tobago-section");
 
   let test = new JasmineTestTool(done);
   test.do(() => resetFn().dispatchEvent(new Event("click", {bubbles: true})));
