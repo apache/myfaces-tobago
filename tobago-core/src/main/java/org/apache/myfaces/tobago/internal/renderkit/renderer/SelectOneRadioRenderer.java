@@ -28,7 +28,6 @@ import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -62,11 +61,9 @@ public class SelectOneRadioRenderer<T extends AbstractUISelectOneRadio> extends 
     final Markup markup = component.getMarkup();
     final boolean isInsideCommand = isInside(facesContext, HtmlElements.COMMAND);
 
-    writer.startElement(getOuterHtmlTag(facesContext));
+    writer.startElement(getTag(facesContext));
     writer.writeClassAttribute(
-        TobagoClass.SELECT_ONE_RADIO,
-        TobagoClass.SELECT_ONE_RADIO.createMarkup(markup),
-        inline ? TobagoClass.SELECT_ONE_RADIO__INLINE : null,
+        inline ? BootstrapClass.FORM_CHECK_INLINE : null,
         component.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
@@ -145,13 +142,12 @@ public class SelectOneRadioRenderer<T extends AbstractUISelectOneRadio> extends 
   protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    writer.endElement(getOuterHtmlTag(facesContext));
+    writer.endElement(getTag(facesContext));
 
     encodeBehavior(writer, facesContext, component);
   }
 
-  /** XXX can this be removed? use always HtmlElements.TOBAGO_SELECT_MANY_CHECKBOX ??? */
-  protected HtmlElements getOuterHtmlTag(final FacesContext facesContext) {
+  private HtmlElements getTag(final FacesContext facesContext) {
     if (isInside(facesContext, HtmlElements.COMMAND)) {
       return HtmlElements.TOBAGO_SELECT_ONE_RADIO;
     } else {
@@ -161,6 +157,6 @@ public class SelectOneRadioRenderer<T extends AbstractUISelectOneRadio> extends 
 
   @Override
   protected String getFieldId(final FacesContext facesContext, final T component) {
-    return component.getClientId(facesContext);
+    return null; // there is not a single input element in the type=radio case.
   }
 }

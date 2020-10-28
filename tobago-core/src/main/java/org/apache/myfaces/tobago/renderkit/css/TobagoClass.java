@@ -180,7 +180,15 @@ public enum TobagoClass implements CssItem {
   SEGMENT_LAYOUT("tobago-segmentLayout"),
   SELECT_BOOLEAN_CHECKBOX("tobago-selectBooleanCheckbox"),
   SELECT_BOOLEAN_TOGGLE("tobago-selectBooleanToggle"),
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   SELECT_MANY_CHECKBOX("tobago-selectManyCheckbox"),
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   SELECT_MANY_CHECKBOX__INLINE("tobago-selectManyCheckbox-inline"),
   SELECT_MANY_LISTBOX("tobago-selectManyListbox"),
   SELECT_MANY_LISTBOX__OPTION("tobago-selectManyListbox-option"),
@@ -200,7 +208,15 @@ public enum TobagoClass implements CssItem {
   SELECT_ONE_CHOICE__OPTION("tobago-selectOneChoice-option"),
   SELECT_ONE_LISTBOX("tobago-selectOneListbox"),
   SELECT_ONE_LISTBOX__OPTION("tobago-selectOneListbox-option"),
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   SELECT_ONE_RADIO("tobago-selectOneRadio"),
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   SELECT_ONE_RADIO__INLINE("tobago-selectOneRadio-inline"),
   SEPARATOR("tobago-separator"),
   SHEET("tobago-sheet"),

@@ -155,7 +155,8 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     renderKit.addRenderer(UIStyle.COMPONENT_FAMILY, RendererTypes.STYLE, new StyleRenderer());
     renderKit.addRenderer(UISection.COMPONENT_FAMILY, RendererTypes.SECTION, new SectionRenderer());
     renderKit.addRenderer(
-        UISelectBooleanCheckbox.COMPONENT_FAMILY, RendererTypes.SELECT_BOOLEAN_CHECKBOX, new SelectBooleanCheckboxRenderer());
+        UISelectBooleanCheckbox.COMPONENT_FAMILY, RendererTypes.SELECT_BOOLEAN_CHECKBOX,
+        new SelectBooleanCheckboxRenderer());
     renderKit.addRenderer(
         UISelectManyCheckbox.COMPONENT_FAMILY, RendererTypes.SELECT_MANY_CHECKBOX, new SelectManyCheckboxRenderer());
     renderKit.addRenderer(

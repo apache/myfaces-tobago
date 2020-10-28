@@ -1002,13 +1002,10 @@ tobago-select-one-radio {
   @include adjustCustomControlLabel();
 
   &.tobago-label-container {
-    .tobago-selectOneRadio-inline {
+    .form-check-inline {
       @include inlinePadding();
     }
   }
-}
-
-.tobago-selectOneRadio {
 }
 
 /* selectManyCheckbox ----------------------------------------------------- */
@@ -1017,7 +1014,7 @@ tobago-select-many-checkbox {
   @include adjustCustomControlLabel();
 
   &.tobago-label-container {
-    .tobago-selectManyCheckbox-inline {
+    .form-check-inline {
       @include inlinePadding();
     }
   }

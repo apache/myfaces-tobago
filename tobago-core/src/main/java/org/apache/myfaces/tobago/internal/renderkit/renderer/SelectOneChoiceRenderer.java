@@ -109,7 +109,7 @@ public class SelectOneChoiceRenderer<T extends AbstractUISelectOneChoice> extend
   @Override
   protected String getFieldId(final FacesContext facesContext, final T component) {
     return isInside(facesContext, HtmlElements.TOBAGO_IN)
-        ? component.getFieldId(facesContext)
-        : component.getClientId(facesContext);
+        ? component.getClientId(facesContext)
+        : component.getFieldId(facesContext);
   }
 }

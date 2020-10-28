@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectBoolean;
-import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
@@ -39,7 +38,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 
-public class SelectBooleanCheckboxRenderer<T extends AbstractUISelectBooleanCheckbox>
+public class SelectBooleanCheckboxRenderer<T extends AbstractUISelectBoolean>
     extends MessageLayoutRendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -88,7 +87,7 @@ public class SelectBooleanCheckboxRenderer<T extends AbstractUISelectBooleanChec
     final String itemImage = component.getItemImage();
     final Markup markup = component.getMarkup();
 
-    writer.startElement(getOuterHtmlTag(facesContext));
+    writer.startElement(HtmlElements.TOBAGO_SELECT_BOOLEAN_CHECKBOX);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
         getTobagoClass(),
@@ -146,18 +145,9 @@ public class SelectBooleanCheckboxRenderer<T extends AbstractUISelectBooleanChec
   protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    writer.endElement(getOuterHtmlTag(facesContext));
+    writer.endElement(HtmlElements.TOBAGO_SELECT_BOOLEAN_CHECKBOX);
 
     encodeBehavior(writer, facesContext, component);
-  }
-
-  /** XXX can this be removed? use always HtmlElements.TOBAGO_SELECT_BOOLEAN_CHECKBOX ??? */
-  protected HtmlElements getOuterHtmlTag(final FacesContext facesContext) {
-    if (isInside(facesContext, HtmlElements.COMMAND)) {
-      return HtmlElements.TOBAGO_SELECT_BOOLEAN_CHECKBOX;
-    } else {
-      return HtmlElements.DIV;
-    }
   }
 
   protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {

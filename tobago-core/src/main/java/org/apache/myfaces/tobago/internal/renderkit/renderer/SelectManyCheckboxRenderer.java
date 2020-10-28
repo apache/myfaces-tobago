@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -60,11 +59,9 @@ public class SelectManyCheckboxRenderer<T extends AbstractUISelectManyCheckbox> 
     final Markup markup = component.getMarkup();
     final boolean isInsideCommand = isInside(facesContext, HtmlElements.COMMAND);
 
-    writer.startElement(getOuterHtmlTag(facesContext));
+    writer.startElement(HtmlElements.TOBAGO_SELECT_MANY_CHECKBOX);
     writer.writeClassAttribute(
-        TobagoClass.SELECT_MANY_CHECKBOX,
-        TobagoClass.SELECT_MANY_CHECKBOX.createMarkup(markup),
-        inline ? TobagoClass.SELECT_MANY_CHECKBOX__INLINE : null,
+        inline ? BootstrapClass.FORM_CHECK_INLINE : null,
         component.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     if (title != null) {
@@ -146,18 +143,9 @@ public class SelectManyCheckboxRenderer<T extends AbstractUISelectManyCheckbox> 
   protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    writer.endElement(getOuterHtmlTag(facesContext));
+    writer.endElement(HtmlElements.TOBAGO_SELECT_MANY_CHECKBOX);
 
     encodeBehavior(writer, facesContext, component);
-  }
-
-  /** XXX can this be removed? use always HtmlElements.TOBAGO_SELECT_MANY_CHECKBOX ??? */
-  protected HtmlElements getOuterHtmlTag(final FacesContext facesContext) {
-    if (isInside(facesContext, HtmlElements.COMMAND)) {
-      return HtmlElements.TOBAGO_SELECT_MANY_CHECKBOX;
-    } else {
-      return HtmlElements.DIV;
-    }
   }
 
   @Override

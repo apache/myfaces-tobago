@@ -180,23 +180,11 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
               renderLater = new ArrayList<>();
             }
             renderLater.add(child);
-          } else if (child instanceof AbstractUILink) {
-            insideBegin(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
-            child.encodeAll(facesContext);
-            insideEnd(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
-          } else if (child instanceof AbstractUISelectBooleanCheckbox) {
-            insideBegin(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
-            child.encodeAll(facesContext);
-            insideEnd(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
-          } else if (child instanceof AbstractUISelectManyCheckbox) {
-            insideBegin(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
-            child.encodeAll(facesContext);
-            insideEnd(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
-          } else if (child instanceof AbstractUISelectOneRadio) {
-            insideBegin(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
-            child.encodeAll(facesContext);
-            insideEnd(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
-          } else if (child instanceof AbstractUISeparator) {
+          } else if (child instanceof AbstractUILink
+              || child instanceof AbstractUISelectBooleanCheckbox
+              || child instanceof AbstractUISelectManyCheckbox
+              || child instanceof AbstractUISelectOneRadio
+              || child instanceof AbstractUISeparator) {
             insideBegin(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
             child.encodeAll(facesContext);
             insideEnd(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
