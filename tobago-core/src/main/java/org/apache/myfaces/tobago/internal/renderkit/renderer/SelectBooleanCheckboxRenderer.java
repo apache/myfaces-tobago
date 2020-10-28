@@ -116,9 +116,7 @@ public class SelectBooleanCheckboxRenderer<T extends AbstractUISelectBooleanChec
     writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.LABEL);
-    writer.writeClassAttribute(
-        BootstrapClass.FORM_CHECK_LABEL,
-        getCssItems(facesContext, component));
+    writer.writeClassAttribute(BootstrapClass.FORM_CHECK_LABEL);
     if (!disabled && label.getAccessKey() != null) {
       writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
       AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
@@ -163,19 +161,13 @@ public class SelectBooleanCheckboxRenderer<T extends AbstractUISelectBooleanChec
   }
 
   protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {
-    final boolean colFromLabel = !select.isLabelLayoutSkip() && !isInside(facesContext, HtmlElements.COMMAND);
+    final boolean insideCommand = isInside(facesContext, HtmlElements.COMMAND);
+    final boolean colFromLabel = !select.isLabelLayoutSkip() && !insideCommand;
     return new CssItem[]{
         BootstrapClass.FORM_CHECK,
-        colFromLabel ? BootstrapClass.COL_FORM_LABEL : null
+        colFromLabel ? BootstrapClass.COL_FORM_LABEL : null,
+        insideCommand ? BootstrapClass.DROPDOWN_ITEM : null,
     };
-  }
-
-  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {
-    if (isInside(facesContext, HtmlElements.COMMAND)) {
-      return new CssItem[]{BootstrapClass.DROPDOWN_ITEM};
-    } else {
-      return null;
-    }
   }
 
   @Override

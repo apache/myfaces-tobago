@@ -82,7 +82,8 @@ public class SelectManyCheckboxRenderer<T extends AbstractUISelectManyCheckbox> 
         writer.startElement(HtmlElements.DIV);
         writer.writeClassAttribute(
             BootstrapClass.FORM_CHECK,
-            inline ? BootstrapClass.FORM_CHECK_INLINE : null);
+            inline ? BootstrapClass.FORM_CHECK_INLINE : null,
+            isInsideCommand ? BootstrapClass.DROPDOWN_ITEM : null);
         writer.startElement(HtmlElements.INPUT);
         writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
@@ -108,9 +109,7 @@ public class SelectManyCheckboxRenderer<T extends AbstractUISelectManyCheckbox> 
         writer.endElement(HtmlElements.INPUT);
 
         writer.startElement(HtmlElements.LABEL);
-        writer.writeClassAttribute(
-            BootstrapClass.FORM_CHECK_LABEL,
-            isInsideCommand ? BootstrapClass.DROPDOWN_ITEM : null);
+        writer.writeClassAttribute(BootstrapClass.FORM_CHECK_LABEL);
         writer.writeAttribute(HtmlAttributes.FOR, itemId, false);
 
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
