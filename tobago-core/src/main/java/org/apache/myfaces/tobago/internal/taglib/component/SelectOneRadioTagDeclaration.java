@@ -60,7 +60,7 @@ import javax.faces.component.UISelectOne;
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOneRadio",
     uiComponentFacesClass = "javax.faces.component.UISelectOne",
     componentFamily = UISelectOne.COMPONENT_FAMILY,
-    rendererType = {RendererTypes.SELECT_ONE_RADIO, RendererTypes.SELECT_ONE_RADIO_INSIDE_COMMAND},
+    rendererType = RendererTypes.SELECT_ONE_RADIO,
     allowedChildComponenents = {
         "javax.faces.SelectItem",
         "javax.faces.SelectItems"

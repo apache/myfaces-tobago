@@ -43,7 +43,7 @@ import javax.faces.component.UIPanel;
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
-    rendererType = {RendererTypes.LINKS})
+    rendererType = RendererTypes.LINKS)
 public interface LinksTagDeclaration extends HasIdBindingAndRendered, IsVisual, HasTip, HasOrientation {
 
   /**

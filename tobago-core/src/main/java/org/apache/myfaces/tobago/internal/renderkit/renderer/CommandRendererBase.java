@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUIBadge;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFormBase;
@@ -68,7 +67,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
     final boolean anchor = (component.getLink() != null || component.getOutcome() != null) && !disabled;
     final String target = component.getTarget();
     final boolean parentOfCommands = component.isParentOfCommands();
-    final boolean dropdownSubmenu = this instanceof LinkInsideCommandRenderer;
+    final boolean dropdownSubmenu = isInside(facesContext, HtmlElements.COMMAND);
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -110,15 +109,13 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
       writer.writeAttribute(DataAttributes.TOGGLE, "dropdown", false);
     }
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
-    if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    }
+    writer.writeAttribute(HtmlAttributes.TITLE, title, true);
 
     writer.writeClassAttribute(
         getRendererCssClass(),
         getRendererCssClass().createMarkup(component.getMarkup()),
-        parentOfCommands ? null : getOuterCssItems(facesContext, component),
         getCssItems(facesContext, component),
+        !parentOfCommands && dropdownSubmenu ? BootstrapClass.DROPDOWN_ITEM : null,
         parentOfCommands && !dropdownSubmenu ? BootstrapClass.DROPDOWN_TOGGLE : null,
         component.getCustomClass(),
         isInside(facesContext, HtmlElements.TOBAGO_LINKS) ? BootstrapClass.NAV_LINK : null);
@@ -184,17 +181,21 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
             }
             renderLater.add(child);
           } else if (child instanceof AbstractUILink) {
-            child.setRendererType(RendererTypes.LinkInsideCommand.name());
+            insideBegin(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
             child.encodeAll(facesContext);
+            insideEnd(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
           } else if (child instanceof AbstractUISelectBooleanCheckbox) {
-            child.setRendererType(RendererTypes.SelectBooleanCheckboxInsideCommand.name());
+            insideBegin(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
             child.encodeAll(facesContext);
+            insideEnd(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
           } else if (child instanceof AbstractUISelectManyCheckbox) {
-            child.setRendererType(RendererTypes.SelectManyCheckboxInsideCommand.name());
+            insideBegin(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
             child.encodeAll(facesContext);
+            insideEnd(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
           } else if (child instanceof AbstractUISelectOneRadio) {
-            child.setRendererType(RendererTypes.SelectOneRadioInsideCommand.name());
+            insideBegin(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
             child.encodeAll(facesContext);
+            insideEnd(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
           } else if (child instanceof AbstractUISeparator) {
             insideBegin(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
             child.encodeAll(facesContext);
@@ -232,23 +233,16 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
 
     final String clientId = command.getClientId(facesContext);
     final boolean parentOfCommands = command.isParentOfCommands();
-    final boolean dropdownSubmenu = this instanceof LinkInsideCommandRenderer;
-
+    final boolean dropdownSubmenu = isInside(facesContext, HtmlElements.COMMAND);
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     if (parentOfCommands) {
       writer.startElement(HtmlElements.TOBAGO_DROPDOWN);
       writer.writeIdAttribute(clientId);
 
-      final CssItem first;
-      if (dropdownSubmenu) {
-        first = TobagoClass.DROPDOWN__SUBMENU;
-      } else {
-        first = BootstrapClass.DROPDOWN;
-      }
       writer.writeClassAttribute(
-          first,
-          getOuterCssItems(facesContext, command));
+          dropdownSubmenu ? TobagoClass.DROPDOWN__SUBMENU : BootstrapClass.DROPDOWN,
+          dropdownSubmenu ? BootstrapClass.DROPDOWN_ITEM : null);
     }
   }
 

@@ -46,7 +46,7 @@ import javax.faces.component.UIOutput;
     uiComponent = "org.apache.myfaces.tobago.component.UIOut",
     uiComponentFacesClass = "javax.faces.component.UIOutput",
     componentFamily = UIOutput.COMPONENT_FAMILY,
-    rendererType = {RendererTypes.OUT},
+    rendererType = RendererTypes.OUT,
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "javax.faces.component.behavior.ClientBehaviorHolder"

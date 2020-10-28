@@ -58,7 +58,7 @@ import javax.faces.component.UISelectBoolean;
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanToggle",
     uiComponentFacesClass = "javax.faces.component.UISelectBoolean",
     componentFamily = UISelectBoolean.COMPONENT_FAMILY,
-    rendererType = {RendererTypes.SELECT_BOOLEAN_TOGGLE},
+    rendererType = RendererTypes.SELECT_BOOLEAN_TOGGLE,
     allowedChildComponenents = "NONE",
     behaviors = {
         @Behavior(

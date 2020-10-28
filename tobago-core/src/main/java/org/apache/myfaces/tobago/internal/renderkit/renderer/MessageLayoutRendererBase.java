@@ -43,6 +43,24 @@ public abstract class MessageLayoutRendererBase<T extends UIComponent & Supports
     extends LabelLayoutRendererBase<T> {
 
   @Override
+  public void encodeBeginInternal(FacesContext facesContext, T component) throws IOException {
+    if (isInside(facesContext, HtmlElements.COMMAND)) {
+      encodeBeginField(facesContext, component);
+    } else {
+      super.encodeBeginInternal(facesContext, component);
+    }
+  }
+
+  @Override
+  public void encodeEndInternal(FacesContext facesContext, T component) throws IOException {
+    if (isInside(facesContext, HtmlElements.COMMAND)) {
+      encodeEndField(facesContext, component);
+    } else {
+      super.encodeEndInternal(facesContext, component);
+    }
+  }
+
+  @Override
   public void encodeBeginMessageField(final FacesContext facesContext, final T component) throws IOException {
     encodeBeginMessagesContainer(facesContext, component);
     encodeBeginField(facesContext, component);

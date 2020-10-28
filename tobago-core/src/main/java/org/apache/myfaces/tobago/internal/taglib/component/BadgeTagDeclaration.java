@@ -42,7 +42,7 @@ import javax.faces.component.UIOutput;
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
     componentFamily = UIOutput.COMPONENT_FAMILY,
-    rendererType = {RendererTypes.BADGE},
+    rendererType = RendererTypes.BADGE,
     allowedChildComponenents = "NONE",
     markups = {
         @Markup(

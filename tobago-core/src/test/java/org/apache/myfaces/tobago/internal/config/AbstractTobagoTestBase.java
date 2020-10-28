@@ -38,7 +38,10 @@ import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.component.UISection;
 import org.apache.myfaces.tobago.component.UISegmentLayout;
+import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.component.UISelectItem;
+import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
+import org.apache.myfaces.tobago.component.UISelectManyListbox;
 import org.apache.myfaces.tobago.component.UISelectOneChoice;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
 import org.apache.myfaces.tobago.component.UISeparator;
@@ -50,7 +53,6 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.ButtonRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.ButtonsRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.GridLayoutRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.InRenderer;
-import org.apache.myfaces.tobago.internal.renderkit.renderer.LinkInsideCommandRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.LinkRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.LinksRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.OutRenderer;
@@ -58,6 +60,9 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.PanelRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PopupRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SectionRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SegmentLayoutRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectBooleanCheckboxRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectManyCheckboxRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectManyListboxRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectOneChoiceRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectOneRadioRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SeparatorRenderer;
@@ -127,6 +132,9 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.style.componentType(), UIStyle.class.getName());
     application.addComponent(Tags.section.componentType(), UISection.class.getName());
     application.addComponent(Tags.selectItem.componentType(), UISelectItem.class.getName());
+    application.addComponent(Tags.selectBooleanCheckbox.componentType(), UISelectBooleanCheckbox.class.getName());
+    application.addComponent(Tags.selectManyCheckbox.componentType(), UISelectManyCheckbox.class.getName());
+    application.addComponent(Tags.selectManyListbox.componentType(), UISelectManyListbox.class.getName());
     application.addComponent(Tags.selectOneRadio.componentType(), UISelectOneRadio.class.getName());
     application.addComponent(Tags.selectOneChoice.componentType(), UISelectOneChoice.class.getName());
     application.addComponent(Tags.gridLayout.componentType(), UIGridLayout.class.getName());
@@ -138,7 +146,6 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     renderKit.addRenderer(UIOut.COMPONENT_FAMILY, RendererTypes.OUT, new OutRenderer());
     renderKit.addRenderer(UIPanel.COMPONENT_FAMILY, RendererTypes.PANEL, new PanelRenderer());
     renderKit.addRenderer(UILink.COMPONENT_FAMILY, RendererTypes.LINK, new LinkRenderer());
-    renderKit.addRenderer(UILink.COMPONENT_FAMILY, RendererTypes.LINK_INSIDE_COMMAND, new LinkInsideCommandRenderer());
     renderKit.addRenderer(UILinks.COMPONENT_FAMILY, RendererTypes.LINKS, new LinksRenderer());
     renderKit.addRenderer(UIBox.COMPONENT_FAMILY, RendererTypes.BOX, new BoxRenderer());
     renderKit.addRenderer(UIButton.COMPONENT_FAMILY, RendererTypes.BUTTON, new ButtonRenderer());
@@ -147,6 +154,12 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     renderKit.addRenderer(UISeparator.COMPONENT_FAMILY, RendererTypes.SEPARATOR, new SeparatorRenderer());
     renderKit.addRenderer(UIStyle.COMPONENT_FAMILY, RendererTypes.STYLE, new StyleRenderer());
     renderKit.addRenderer(UISection.COMPONENT_FAMILY, RendererTypes.SECTION, new SectionRenderer());
+    renderKit.addRenderer(
+        UISelectBooleanCheckbox.COMPONENT_FAMILY, RendererTypes.SELECT_BOOLEAN_CHECKBOX, new SelectBooleanCheckboxRenderer());
+    renderKit.addRenderer(
+        UISelectManyCheckbox.COMPONENT_FAMILY, RendererTypes.SELECT_MANY_CHECKBOX, new SelectManyCheckboxRenderer());
+    renderKit.addRenderer(
+        UISelectManyListbox.COMPONENT_FAMILY, RendererTypes.SELECT_MANY_LISTBOX, new SelectManyListboxRenderer());
     renderKit.addRenderer(
         UISelectOneRadio.COMPONENT_FAMILY, RendererTypes.SELECT_ONE_RADIO, new SelectOneRadioRenderer());
     renderKit.addRenderer(

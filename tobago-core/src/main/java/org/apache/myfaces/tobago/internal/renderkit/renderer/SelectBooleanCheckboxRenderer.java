@@ -88,7 +88,7 @@ public class SelectBooleanCheckboxRenderer<T extends AbstractUISelectBooleanChec
     final String itemImage = component.getItemImage();
     final Markup markup = component.getMarkup();
 
-    writer.startElement(getOuterHtmlTag());
+    writer.startElement(getOuterHtmlTag(facesContext));
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
         getTobagoClass(),
@@ -148,24 +148,34 @@ public class SelectBooleanCheckboxRenderer<T extends AbstractUISelectBooleanChec
   protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    writer.endElement(getOuterHtmlTag());
+    writer.endElement(getOuterHtmlTag(facesContext));
 
     encodeBehavior(writer, facesContext, component);
   }
 
-  protected HtmlElements getOuterHtmlTag() {
-    return HtmlElements.DIV;
+  /** XXX can this be removed? use always HtmlElements.TOBAGO_SELECT_BOOLEAN_CHECKBOX ??? */
+  protected HtmlElements getOuterHtmlTag(final FacesContext facesContext) {
+    if (isInside(facesContext, HtmlElements.COMMAND)) {
+      return HtmlElements.TOBAGO_SELECT_BOOLEAN_CHECKBOX;
+    } else {
+      return HtmlElements.DIV;
+    }
   }
 
   protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {
+    final boolean colFromLabel = !select.isLabelLayoutSkip() && !isInside(facesContext, HtmlElements.COMMAND);
     return new CssItem[]{
-        !select.isLabelLayoutSkip() ? BootstrapClass.COL_FORM_LABEL : null,
-        BootstrapClass.FORM_CHECK
+        BootstrapClass.FORM_CHECK,
+        colFromLabel ? BootstrapClass.COL_FORM_LABEL : null
     };
   }
 
   protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {
-    return null;
+    if (isInside(facesContext, HtmlElements.COMMAND)) {
+      return new CssItem[]{BootstrapClass.DROPDOWN_ITEM};
+    } else {
+      return null;
+    }
   }
 
   @Override

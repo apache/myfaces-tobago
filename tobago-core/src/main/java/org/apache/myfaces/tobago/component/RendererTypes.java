@@ -46,7 +46,6 @@ public enum RendererTypes {
   In,
   Image,
   Link,
-  LinkInsideCommand,
   Links,
   Label,
   Messages,
@@ -65,15 +64,12 @@ public enum RendererTypes {
   Section,
   SegmentLayout,
   SelectBooleanCheckbox,
-  SelectBooleanCheckboxInsideCommand,
   SelectBooleanToggle,
   SelectManyCheckbox,
-  SelectManyCheckboxInsideCommand,
   SelectManyListbox,
   SelectManyShuttle,
   SelectOneChoice,
   SelectOneRadio,
-  SelectOneRadioInsideCommand,
   SelectOneListbox,
   SelectReference,
   Separator,
@@ -121,7 +117,6 @@ public enum RendererTypes {
   public static final String IN = "In";
   public static final String IMAGE = "Image";
   public static final String LINK = "Link";
-  public static final String LINK_INSIDE_COMMAND = "LinkInsideCommand";
   public static final String LINKS = "Links";
   public static final String LABEL = "Label";
   public static final String MESSAGES = "Messages";
@@ -140,15 +135,12 @@ public enum RendererTypes {
   public static final String SECTION = "Section";
   public static final String SEGMENT_LAYOUT = "SegmentLayout";
   public static final String SELECT_BOOLEAN_CHECKBOX = "SelectBooleanCheckbox";
-  public static final String SELECT_BOOLEAN_CHECKBOX_INSIDE_COMMAND = "SelectBooleanCheckboxInsideCommand";
   public static final String SELECT_BOOLEAN_TOGGLE = "SelectBooleanToggle";
   public static final String SELECT_MANY_CHECKBOX = "SelectManyCheckbox";
-  public static final String SELECT_MANY_CHECKBOX_INSIDE_COMMAND = "SelectManyCheckboxInsideCommand";
   public static final String SELECT_MANY_LISTBOX = "SelectManyListbox";
   public static final String SELECT_MANY_SHUTTLE = "SelectManyShuttle";
   public static final String SELECT_ONE_CHOICE = "SelectOneChoice";
   public static final String SELECT_ONE_RADIO = "SelectOneRadio";
-  public static final String SELECT_ONE_RADIO_INSIDE_COMMAND = "SelectOneRadioInsideCommand";
   public static final String SELECT_ONE_LISTBOX = "SelectOneListbox";
   public static final String SELECT_REFERENCE = "SelectReference";
   public static final String SEPARATOR = "Separator";

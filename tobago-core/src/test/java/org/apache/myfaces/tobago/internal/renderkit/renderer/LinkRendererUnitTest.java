@@ -22,6 +22,11 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UILink;
+import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
+import org.apache.myfaces.tobago.component.UISelectItem;
+import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
+import org.apache.myfaces.tobago.component.UISelectOneRadio;
+import org.apache.myfaces.tobago.component.UISeparator;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -29,6 +34,23 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 public class LinkRendererUnitTest extends RendererTestBase {
+
+  @Test
+  public void booleanInsideLink() throws IOException {
+    final UILink c = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "id");
+    c.setLabel("dropdown");
+
+    final UISelectBooleanCheckbox s = (UISelectBooleanCheckbox) ComponentUtils.createComponent(
+        facesContext, Tags.selectBooleanCheckbox.componentType(), RendererTypes.SelectBooleanCheckbox, "id");
+    s.setLabel("boolean");
+
+    c.getChildren().add(s);
+
+    c.encodeAll(facesContext);
+
+    Assert.assertEquals(loadHtml("renderer/link/booleanInsideLink.html"), formattedResult());
+  }
 
   @Test
   public void link() throws IOException {
@@ -39,6 +61,86 @@ public class LinkRendererUnitTest extends RendererTestBase {
     c.encodeAll(facesContext);
 
     Assert.assertEquals(loadHtml("renderer/link/link.html"), formattedResult());
+  }
+
+  @Test
+  public void manyInsideLink() throws IOException {
+    final UILink c = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "id");
+    c.setLabel("dropdown");
+
+    final UISelectManyCheckbox s = (UISelectManyCheckbox) ComponentUtils.createComponent(
+        facesContext, Tags.selectManyCheckbox.componentType(), RendererTypes.SelectManyCheckbox, "many");
+    s.setLabel("many");
+
+    c.getChildren().add(s);
+
+    final UISelectItem i1 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i1");
+    i1.setItemLabel("Stratocaster");
+    s.getChildren().add(i1);
+    final UISelectItem i2 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i2");
+    i2.setItemLabel("Telecaster");
+    s.getChildren().add(i2);
+
+    c.encodeAll(facesContext);
+
+    Assert.assertEquals(loadHtml("renderer/link/manyInsideLink.html"), formattedResult());
+  }
+
+  @Test
+  public void radioInsideLink() throws IOException {
+    final UILink c = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "id");
+    c.setLabel("dropdown");
+
+    final UISelectOneRadio s = (UISelectOneRadio) ComponentUtils.createComponent(
+        facesContext, Tags.selectOneRadio.componentType(), RendererTypes.SelectOneRadio, "radio");
+    s.setLabel("radio");
+
+    c.getChildren().add(s);
+
+    final UISelectItem i1 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i1");
+    i1.setItemLabel("Stratocaster");
+    s.getChildren().add(i1);
+    final UISelectItem i2 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i2");
+    i2.setItemLabel("Telecaster");
+    s.getChildren().add(i2);
+
+    c.encodeAll(facesContext);
+
+    Assert.assertEquals(loadHtml("renderer/link/radioInsideLink.html"), formattedResult());
+  }
+
+  @Test
+  public void separatorInsideLink() throws IOException {
+    final UILink c = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "id");
+    c.setLabel("dropdown");
+
+    final UILink l1 = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "link1");
+    l1.setLabel("Link 1");
+    l1.setLink("https://www.apache.org/");
+
+    final UISeparator s = (UISeparator) ComponentUtils.createComponent(
+        facesContext, Tags.separator.componentType(), RendererTypes.Separator, "separator");
+
+    final UILink l2 = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "link2");
+    l2.setLabel("Link 2");
+    l2.setLink("https://www.apache.org/");
+
+    c.getChildren().add(l1);
+    c.getChildren().add(s);
+    c.getChildren().add(l2);
+
+    c.encodeAll(facesContext);
+
+    Assert.assertEquals(loadHtml("renderer/link/separatorInsideLink.html"), formattedResult());
   }
 
 }

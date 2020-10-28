@@ -59,7 +59,7 @@ import javax.faces.component.UICommand;
     uiComponentFacesClass = "javax.faces.component.UICommand",
     interfaces = "org.apache.myfaces.tobago.component.SupportsAccessKey",
     componentFamily = UICommand.COMPONENT_FAMILY,
-    rendererType = {RendererTypes.LINK, RendererTypes.LINK_INSIDE_COMMAND},
+    rendererType = RendererTypes.LINK,
     allowedChildComponenents = "NONE",
     facets = {
         @Facet(

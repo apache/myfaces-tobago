@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -59,8 +58,9 @@ public class SelectManyCheckboxRenderer<T extends AbstractUISelectManyCheckbox> 
     final boolean required = component.isRequired();
     final boolean inline = component.isInline();
     final Markup markup = component.getMarkup();
+    final boolean isInsideCommand = isInside(facesContext, HtmlElements.COMMAND);
 
-    writer.startElement(getOuterHtmlTag());
+    writer.startElement(getOuterHtmlTag(facesContext));
     writer.writeClassAttribute(
         TobagoClass.SELECT_MANY_CHECKBOX,
         TobagoClass.SELECT_MANY_CHECKBOX.createMarkup(markup),
@@ -110,7 +110,7 @@ public class SelectManyCheckboxRenderer<T extends AbstractUISelectManyCheckbox> 
         writer.startElement(HtmlElements.LABEL);
         writer.writeClassAttribute(
             BootstrapClass.FORM_CHECK_LABEL,
-            getCssItems(facesContext, component));
+            isInsideCommand ? BootstrapClass.DROPDOWN_ITEM : null);
         writer.writeAttribute(HtmlAttributes.FOR, itemId, false);
 
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
@@ -147,17 +147,18 @@ public class SelectManyCheckboxRenderer<T extends AbstractUISelectManyCheckbox> 
   protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    writer.endElement(getOuterHtmlTag());
+    writer.endElement(getOuterHtmlTag(facesContext));
 
     encodeBehavior(writer, facesContext, component);
   }
 
-  protected HtmlElements getOuterHtmlTag() {
-    return HtmlElements.DIV;
-  }
-
-  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUISelectManyCheckbox select) {
-    return null;
+  /** XXX can this be removed? use always HtmlElements.TOBAGO_SELECT_MANY_CHECKBOX ??? */
+  protected HtmlElements getOuterHtmlTag(final FacesContext facesContext) {
+    if (isInside(facesContext, HtmlElements.COMMAND)) {
+      return HtmlElements.TOBAGO_SELECT_MANY_CHECKBOX;
+    } else {
+      return HtmlElements.DIV;
+    }
   }
 
   @Override

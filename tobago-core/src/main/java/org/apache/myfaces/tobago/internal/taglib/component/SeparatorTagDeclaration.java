@@ -35,7 +35,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISeparator",
     componentFamily = "org.apache.myfaces.tobago.Separator",
-    rendererType = {RendererTypes.SEPARATOR},
+    rendererType = RendererTypes.SEPARATOR,
     allowedChildComponenents = "NONE",
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
