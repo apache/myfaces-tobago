@@ -29,11 +29,11 @@ services:
 #      - demo-5-staging
       - demo-5-snapshot
       - demo-4-release
-      - demo-4-staging
+#      - demo-4-staging
       - demo-4-snapshot
       - demo-3-release
       - demo-2-release
-      - demo-2-staging
+#      - demo-2-staging
       - demo-2-snapshot
       - demo-1-5-release
 #      - demo-1-5-staging
@@ -46,11 +46,11 @@ services:
 #      - demo-5-staging
       - demo-5-snapshot
       - demo-4-release
-      - demo-4-staging
+#      - demo-4-staging
       - demo-4-snapshot
       - demo-3-release
       - demo-2-release
-      - demo-2-staging
+#      - demo-2-staging
       - demo-2-snapshot
       - demo-1-5-release
 #      - demo-1-5-staging
@@ -89,7 +89,7 @@ services:
   demo-4-release:
     build: tomcat
     environment:
-      - TOBAGO_VERSION=4.5.0
+      - TOBAGO_VERSION=4.5.1
       - CONTEXT_PATH=demo-4-release
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
@@ -99,20 +99,20 @@ services:
       options:
         max-size: "1m"
         max-file: "5"
-  demo-4-staging:
-    build: tomcat
-    environment:
-      - TOBAGO_VERSION=4.5.1
-      - STAGING_NUMBER=1171
-      - CONTEXT_PATH=demo-4-staging
-    volumes:
-      - /opt/docker/artifacts:/opt/docker/artifacts
-    ports:
-      - "8401:8080"
-    logging:
-      options:
-        max-size: "1m"
-        max-file: "5"
+#  demo-4-staging:
+#    build: tomcat
+#    environment:
+#      - TOBAGO_VERSION=4.5.1
+#      - STAGING_NUMBER=1171
+#      - CONTEXT_PATH=demo-4-staging
+#    volumes:
+#      - /opt/docker/artifacts:/opt/docker/artifacts
+#    ports:
+#      - "8401:8080"
+#    logging:
+#      options:
+#        max-size: "1m"
+#        max-file: "5"
   demo-4-snapshot:
     build: tomcat
     environment:
@@ -152,20 +152,20 @@ services:
       options:
         max-size: "1m"
         max-file: "5"
-  demo-2-staging:
-    build: tomcat
-    environment:
-      - TOBAGO_VERSION=2.4.2
-      - STAGING_NUMBER=1156
-      - CONTEXT_PATH=demo-2-staging
-    volumes:
-      - /opt/docker/artifacts:/opt/docker/artifacts
-    ports:
-      - "8201:8080"
-    logging:
-      options:
-        max-size: "1m"
-        max-file: "5"
+#  demo-2-staging:
+#    build: tomcat
+#    environment:
+#      - TOBAGO_VERSION=2.4.2
+#      - STAGING_NUMBER=1156
+#      - CONTEXT_PATH=demo-2-staging
+#    volumes:
+#      - /opt/docker/artifacts:/opt/docker/artifacts
+#    ports:
+#      - "8201:8080"
+#    logging:
+#      options:
+#        max-size: "1m"
+#        max-file: "5"
   demo-2-snapshot:
     build: tomcat
     environment:
