@@ -156,7 +156,6 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
       writer.writeIdAttribute(clientId);
       encodeAttributes(facesContext, component);
       writer.writeClassAttribute(
-          flex ? TobagoClass.FLEX_LAYOUT : null,
           flex ? TobagoClass.LABEL__CONTAINER :  null,
           BootstrapClass.MB_3,
           ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,

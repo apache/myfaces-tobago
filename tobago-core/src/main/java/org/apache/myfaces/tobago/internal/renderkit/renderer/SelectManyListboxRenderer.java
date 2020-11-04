@@ -72,10 +72,8 @@ public class SelectManyListboxRenderer<T extends AbstractUISelectManyListbox> ex
     writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
 
     writer.writeClassAttribute(
-        TobagoClass.SELECT_MANY_LISTBOX,
-        TobagoClass.SELECT_MANY_LISTBOX.createMarkup(component.getMarkup()),
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
         BootstrapClass.FORM_CONTROL,
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
         component.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);

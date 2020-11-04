@@ -43,12 +43,10 @@ public class GridLayoutRenderer<T extends AbstractUIGridLayout> extends Renderer
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final Markup markup = component.getMarkup();
 
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.TOBAGO_GRID_LAYOUT);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
     writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeClassAttribute(
-        TobagoClass.GRID_LAYOUT,
-        TobagoClass.GRID_LAYOUT.createMarkup(markup),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
 
     final MeasureList columns = MeasureList.parse(component.getColumns());
@@ -78,6 +76,6 @@ public class GridLayoutRenderer<T extends AbstractUIGridLayout> extends Renderer
   public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.TOBAGO_GRID_LAYOUT);
   }
 }

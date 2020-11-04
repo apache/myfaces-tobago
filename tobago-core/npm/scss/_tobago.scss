@@ -225,7 +225,7 @@ tobago-file {
 
 /* flexLayout -------------------------------------------------------------- */
 
-.tobago-flexLayout {
+tobago-flex-layout {
   display: flex;
   min-width: 0;
   /* without this, Firefox/Webkit are different from IE:
@@ -240,23 +240,32 @@ tobago-file {
     margin-right: 3px;
   }
 
-  > .tobago-flexLayout {
+  > tobago-flex-layout {
     margin-left: 0;
     margin-right: 0;
   }
 }
 
 /* the non-label-element inside of a label-layout with flex box */
-.tobago-label-container.tobago-flexLayout > {
-  .form-control, .form-control-plaintext,
-  .tobago-input-group-outer, .tobago-messages-container,
-  .tobago-selectManyShuttle {
-    flex: 1 0 0px;
+.tobago-label-container {
+  display: flex;
+
+  > label {
+    // XXX needs to be customizable
+    width: 155px;
+  }
+
+  > {
+    .form-control, .form-control-plaintext,
+    .tobago-input-group-outer, .tobago-messages-container,
+    .tobago-selectManyShuttle {
+      flex: 1 0 0px;
+    }
   }
 }
 
 /* flowLayout ---------------------------------------------------------- */
-.tobago-flowLayout {
+tobago-flow-layout {
 }
 
 /* focus --------------------------------------------------------------- */
@@ -287,7 +296,7 @@ tobago-footer {
 
 /* gridLayout -------------------------------------------------------------- */
 
-.tobago-gridLayout {
+tobago-grid-layout {
   display: -ms-grid;
   display: grid;
   border-spacing: 0;
@@ -354,16 +363,6 @@ tobago-in {
 // todo remove
 .tobago-label {
   color: #6610f2 !important;
-}
-
-/* XXX check if this is needed (was .tobago-label before)
-label {
-  width: 100%;
-}
-*/
-
-.tobago-flexLayout > label {
-  width: 155px;
 }
 
 /* link ----------------------------------------------------------- */
@@ -470,13 +469,12 @@ span.dropdown {
 
 /* messages / help text ----------------------------------------------- */
 .tobago-messages-container {
+  display: flex;
   align-items: flex-start;
 
-  &.tobago-flexLayout {
-    .tobago-messages:first-child small label {
-      margin-right: 0; /* for tc:in margin 5px is already set */
-      margin-bottom: 5px;
-    }
+  .tobago-messages:first-child small label {
+    margin-right: 0; /* for tc:in margin 5px is already set */
+    margin-bottom: 5px;
   }
 }
 
@@ -502,7 +500,7 @@ a.tobago-messages-button, a.tobago-help-button, a.tobago-popover-button {
   }
 }
 
-.tobago-flexLayout.tobago-messages-container > {
+tobago-flex-layout.tobago-messages-container > {
   .tobago-input-group-outer, .tobago-selectManyShuttle {
     flex: 1 0 0px;
   }
@@ -679,7 +677,7 @@ ul > tobago-dropdown {
 
 /* out -------------------------------------------------------------------- */
 
-.tobago-out {
+tobago-out {
   display: inline-block;
 }
 
@@ -802,11 +800,11 @@ tobago-popup {
 }
 
 /* progress ---------------------------------------------------------- */
-.tobago-progress {
+tobago-progress {
 }
 
 /* range ---------------------------------------------------------- */
-.tobago-range {
+tobago-range {
 }
 
 /* stars rating ------------------------------------------------------------ */
@@ -967,18 +965,12 @@ tobago-section > div > {
 /* selectBooleanCheckbox ---------------------------------------------------- */
 tobago-select-boolean-checkbox {
   display: block;
-}
-
-.tobago-selectBooleanCheckbox {
   @include adjustCustomControlLabel();
 }
 
 /* selectBooleanToggle ---------------------------------------------------- */
 tobago-select-boolean-toggle {
   display: block;
-}
-
-.tobago-selectBooleanToggle {
   @include adjustCustomControlLabel();
 }
 
@@ -988,12 +980,16 @@ tobago-select-one-choice {
 }
 
 /* selectOneListbox -------------------------------------------------------- */
-tobago-select-one-listbox {
-  display: block;
+
+//xxx remove me
+.tobago-selectOneListbox {
+}
+//xxx remove me
+.tobago-selectOneListbox-option {
 }
 
-.tobago-selectOneListbox,
-.tobago-selectOneListbox-option {
+tobago-select-one-listbox {
+  display: block;
 }
 
 /* selectOneRadio ---------------------------------------------------------- */
@@ -1078,24 +1074,9 @@ tobago-select-many-shuttle {
 
 /* selectOneChoice ---------------------------------------------------------- */
 
-.tobago-selectOneChoice-option {
-}
-
-/* XXX: check removing input-group-prepend and input-group-append for Bootstrap 5
-.input-group-prepend > .tobago-selectOneChoice {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.input-group-append > .tobago-selectOneChoice {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-*/
-
 /* segmentLayout ----------------------------------------------------------- */
 
-.tobago-segmentLayout {
+tobago-segment-layout {
   /*
   Makes, that the height of the div is set.
   Otherwise floating elements below, may flew into the area of the segmentLayout.
@@ -1603,7 +1584,7 @@ tobago-tree-listbox, .tobago-treeListbox {
 .tobago-date,
 .tobago-in,
 .tobago-selectManyListbox,
-.tobago-selectOneChoice,
+//.tobago-selectOneChoice, XXX
 .tobago-selectOneListbox,
 .tobago-textarea {
   &-markup-fatal, &-markup-error {

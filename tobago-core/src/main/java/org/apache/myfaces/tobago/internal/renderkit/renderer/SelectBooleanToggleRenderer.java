@@ -20,29 +20,26 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectBoolean;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 
 import javax.faces.context.FacesContext;
 
-public class SelectBooleanToggleRenderer extends SelectBooleanCheckboxRenderer {
-
-  protected TobagoClass getTobagoClass() {
-    return TobagoClass.SELECT_BOOLEAN_TOGGLE;
-  }
-
-  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {
-    return new CssItem[]{
-        !select.isLabelLayoutSkip() ? BootstrapClass.COL_FORM_LABEL : null,
-        BootstrapClass.FORM_CHECK,
-        BootstrapClass.FORM_SWITCH
-    };
-  }
+public class SelectBooleanToggleRenderer<T extends AbstractUISelectBooleanCheckbox>
+    extends SelectBooleanRendererBase<T> {
 
   @Override
   public HtmlElements getComponentTag() {
     return HtmlElements.TOBAGO_SELECT_BOOLEAN_TOGGLE;
   }
+
+  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {
+    return new CssItem[]{
+        !select.isLabelLayoutSkip() ? BootstrapClass.COL_FORM_LABEL : null,
+        BootstrapClass.FORM_SWITCH
+    };
+  }
+
 }

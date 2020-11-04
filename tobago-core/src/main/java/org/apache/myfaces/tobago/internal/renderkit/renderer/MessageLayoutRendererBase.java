@@ -84,7 +84,7 @@ public abstract class MessageLayoutRendererBase<T extends UIComponent & Supports
 
     if (hasMessage || hasHelp) {
       writer.startElement(HtmlElements.DIV);
-      writer.writeClassAttribute(TobagoClass.MESSAGES__CONTAINER, TobagoClass.FLEX_LAYOUT);
+      writer.writeClassAttribute(TobagoClass.MESSAGES__CONTAINER);
     }
   }
 

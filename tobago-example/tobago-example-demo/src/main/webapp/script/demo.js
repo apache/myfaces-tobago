@@ -44,7 +44,7 @@ class Demo {
       }
     }
 
-    for (const e of element.querySelectorAll(".tobago-flexLayout")) {
+    for (const e of element.querySelectorAll("tobago-in")) {
 
       // do highlighting with hovering only in the content-area
       if (e.closest("#page\\:content")) {

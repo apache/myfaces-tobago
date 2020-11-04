@@ -10069,7 +10069,7 @@ tobago-file {
 }
 
 /* flexLayout -------------------------------------------------------------- */
-.tobago-flexLayout {
+tobago-flex-layout {
   display: flex;
   min-width: 0;
   /* without this, Firefox/Webkit are different from IE:
@@ -10080,20 +10080,28 @@ tobago-file {
   margin-right: -3px;
 }
 
-.tobago-flexLayout > * {
+tobago-flex-layout > * {
   margin-left: 3px;
   margin-right: 3px;
 }
 
-.tobago-flexLayout > .tobago-flexLayout {
+tobago-flex-layout > tobago-flex-layout {
   margin-left: 0;
   margin-right: 0;
 }
 
 /* the non-label-element inside of a label-layout with flex box */
-.tobago-label-container.tobago-flexLayout > .form-control, .tobago-label-container.tobago-flexLayout > .form-control-plaintext,
-.tobago-label-container.tobago-flexLayout > .tobago-input-group-outer, .tobago-label-container.tobago-flexLayout > .tobago-messages-container,
-.tobago-label-container.tobago-flexLayout > .tobago-selectManyShuttle {
+.tobago-label-container {
+  display: flex;
+}
+
+.tobago-label-container > label {
+  width: 155px;
+}
+
+.tobago-label-container > .form-control, .tobago-label-container > .form-control-plaintext,
+.tobago-label-container > .tobago-input-group-outer, .tobago-label-container > .tobago-messages-container,
+.tobago-label-container > .tobago-selectManyShuttle {
   flex: 1 0 0px;
 }
 
@@ -10120,7 +10128,7 @@ tobago-footer {
 
 /* form -------------------------------------------------------------- */
 /* gridLayout -------------------------------------------------------------- */
-.tobago-gridLayout {
+tobago-grid-layout {
   display: -ms-grid;
   display: grid;
   border-spacing: 0;
@@ -10130,7 +10138,7 @@ tobago-footer {
   column-gap: 1rem;
 }
 
-.tobago-gridLayout .tobago-label-container > .tobago-textarea, .tobago-gridLayout .tobago-label-container > .tobago-selectManyListbox, .tobago-gridLayout .tobago-label-container > .tobago-selectManyShuttle {
+tobago-grid-layout .tobago-label-container > .tobago-textarea, tobago-grid-layout .tobago-label-container > .tobago-selectManyListbox, tobago-grid-layout .tobago-label-container > .tobago-selectManyShuttle {
   height: 100%;
 }
 
@@ -10175,15 +10183,6 @@ tobago-in {
 /* label ----------------------------------------------------------- */
 .tobago-label {
   color: #6610f2 !important;
-}
-
-/* XXX check if this is needed (was .tobago-label before)
-label {
-  width: 100%;
-}
-*/
-.tobago-flexLayout > label {
-  width: 155px;
 }
 
 /* link ----------------------------------------------------------- */
@@ -10281,10 +10280,11 @@ span.dropdown {
 
 /* messages / help text ----------------------------------------------- */
 .tobago-messages-container {
+  display: flex;
   align-items: flex-start;
 }
 
-.tobago-messages-container.tobago-flexLayout .tobago-messages:first-child small label, .tobago-messages-container.tobago-flexLayout .tobago-messages:first-child .small label {
+.tobago-messages-container .tobago-messages:first-child small label, .tobago-messages-container .tobago-messages:first-child .small label {
   margin-right: 0;
   /* for tc:in margin 5px is already set */
   margin-bottom: 5px;
@@ -10314,7 +10314,7 @@ a.tobago-messages-button, a.tobago-help-button, a.tobago-popover-button {
   margin-bottom: 0;
 }
 
-.tobago-flexLayout.tobago-messages-container > .tobago-input-group-outer, .tobago-flexLayout.tobago-messages-container > .tobago-selectManyShuttle {
+tobago-flex-layout.tobago-messages-container > .tobago-input-group-outer, tobago-flex-layout.tobago-messages-container > .tobago-selectManyShuttle {
   flex: 1 0 0px;
 }
 
@@ -10468,7 +10468,7 @@ ul > tobago-dropdown {
 
 /* object ----------------------------------------------------------------- */
 /* out -------------------------------------------------------------------- */
-.tobago-out {
+tobago-out {
   display: inline-block;
 }
 
@@ -10716,11 +10716,11 @@ tobago-select-boolean-checkbox {
   display: block;
 }
 
-.tobago-selectBooleanCheckbox .form-check-label:after {
+tobago-select-boolean-checkbox .form-check-label:after {
   content: "";
 }
 
-.tobago-selectBooleanCheckbox .form-check-label img {
+tobago-select-boolean-checkbox .form-check-label img {
   padding-right: 0.3em;
 }
 
@@ -10729,11 +10729,11 @@ tobago-select-boolean-toggle {
   display: block;
 }
 
-.tobago-selectBooleanToggle .form-check-label:after {
+tobago-select-boolean-toggle .form-check-label:after {
   content: "";
 }
 
-.tobago-selectBooleanToggle .form-check-label img {
+tobago-select-boolean-toggle .form-check-label img {
   padding-right: 0.3em;
 }
 
@@ -10818,19 +10818,8 @@ tobago-select-many-shuttle {
 }
 
 /* selectOneChoice ---------------------------------------------------------- */
-/* XXX: check removing input-group-prepend and input-group-append for Bootstrap 5
-.input-group-prepend > .tobago-selectOneChoice {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.input-group-append > .tobago-selectOneChoice {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-*/
 /* segmentLayout ----------------------------------------------------------- */
-.tobago-segmentLayout {
+tobago-segment-layout {
   /*
   Makes, that the height of the div is set.
   Otherwise floating elements below, may flew into the area of the segmentLayout.
@@ -11477,8 +11466,6 @@ tobago-tree-listbox .tobago-treeListbox-select, .tobago-treeListbox .tobago-tree
 .tobago-in-markup-error.border-danger:focus,
 .tobago-selectManyListbox-markup-fatal.border-danger:focus,
 .tobago-selectManyListbox-markup-error.border-danger:focus,
-.tobago-selectOneChoice-markup-fatal.border-danger:focus,
-.tobago-selectOneChoice-markup-error.border-danger:focus,
 .tobago-selectOneListbox-markup-fatal.border-danger:focus,
 .tobago-selectOneListbox-markup-error.border-danger:focus,
 .tobago-textarea-markup-fatal.border-danger:focus,
@@ -11489,7 +11476,6 @@ tobago-tree-listbox .tobago-treeListbox-select, .tobago-treeListbox .tobago-tree
 .tobago-date-markup-warn.border-warning:focus,
 .tobago-in-markup-warn.border-warning:focus,
 .tobago-selectManyListbox-markup-warn.border-warning:focus,
-.tobago-selectOneChoice-markup-warn.border-warning:focus,
 .tobago-selectOneListbox-markup-warn.border-warning:focus,
 .tobago-textarea-markup-warn.border-warning:focus {
   box-shadow: 0 0 0 0.2rem rgba(240, 173, 78, 0.25);
@@ -11498,7 +11484,6 @@ tobago-tree-listbox .tobago-treeListbox-select, .tobago-treeListbox .tobago-tree
 .tobago-date-markup-info.border-info:focus,
 .tobago-in-markup-info.border-info:focus,
 .tobago-selectManyListbox-markup-info.border-info:focus,
-.tobago-selectOneChoice-markup-info.border-info:focus,
 .tobago-selectOneListbox-markup-info.border-info:focus,
 .tobago-textarea-markup-info.border-info:focus {
   box-shadow: 0 0 0 0.2rem rgba(91, 192, 222, 0.25);

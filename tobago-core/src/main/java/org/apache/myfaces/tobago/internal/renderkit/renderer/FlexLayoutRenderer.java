@@ -37,11 +37,9 @@ public class FlexLayoutRenderer<T extends AbstractUIFlexLayout> extends Renderer
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final Markup markup = component.getMarkup();
 
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.TOBAGO_FLEX_LAYOUT);
     writer.writeIdAttribute(component.getClientId());
     writer.writeClassAttribute(
-        TobagoClass.FLEX_LAYOUT,
-        TobagoClass.FLEX_LAYOUT.createMarkup(markup),
         component.isHorizontal() ? BootstrapClass.FLEX_ROW : BootstrapClass.FLEX_COLUMN,
         BootstrapClass.valueOf(component.getAlignItems()),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
@@ -50,7 +48,7 @@ public class FlexLayoutRenderer<T extends AbstractUIFlexLayout> extends Renderer
   @Override
   public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.TOBAGO_FLEX_LAYOUT);
   }
 
 }

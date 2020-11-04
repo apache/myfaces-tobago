@@ -196,7 +196,7 @@ public final class HtmlRendererUtils {
           writer.writeAttribute(HtmlAttributes.DISABLED, true);
           markup = Markup.DISABLED.add(markup);
         }
-        writer.writeClassAttribute(optionClass, optionClass.createMarkup(markup));
+        writer.writeClassAttribute(optionClass, optionClass != null ? optionClass.createMarkup(markup) : null);
 
         writer.writeText(item.getLabel());
         writer.endElement(HtmlElements.OPTION);

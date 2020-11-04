@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneChoice;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -83,8 +82,6 @@ public class SelectOneChoiceRenderer<T extends AbstractUISelectOneChoice> extend
     writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
 
     writer.writeClassAttribute(
-        TobagoClass.SELECT_ONE_CHOICE,
-        TobagoClass.SELECT_ONE_CHOICE.createMarkup(markup),
         isInside(facesContext, HtmlElements.TOBAGO_IN) ? BootstrapClass.FORM_SELECT : BootstrapClass.FORM_CONTROL,
         BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
         component.getCustomClass());
@@ -93,7 +90,7 @@ public class SelectOneChoiceRenderer<T extends AbstractUISelectOneChoice> extend
     }
     renderFocus(clientId, component.isFocus(), component.isError(), facesContext, writer);
 
-    HtmlRendererUtils.renderSelectItems(component, TobagoClass.SELECT_ONE_CHOICE__OPTION, items, component.getValue(),
+    HtmlRendererUtils.renderSelectItems(component, null, items, component.getValue(),
         (String) component.getSubmittedValue(), writer, facesContext);
   }
 

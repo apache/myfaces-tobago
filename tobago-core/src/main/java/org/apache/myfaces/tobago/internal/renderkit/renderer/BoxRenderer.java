@@ -46,8 +46,6 @@ public class BoxRenderer<T extends AbstractUIBox> extends CollapsiblePanelRender
 
     writer.startElement(HtmlElements.TOBAGO_BOX);
     writer.writeClassAttribute(
-        null,
-        TobagoClass.BOX.createMarkup(markup),
         BootstrapClass.CARD,
         collapsed ? TobagoClass.COLLAPSED : null,
         component.getCustomClass(),

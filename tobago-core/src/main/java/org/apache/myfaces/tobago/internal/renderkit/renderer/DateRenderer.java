@@ -90,8 +90,6 @@ public class DateRenderer<T extends AbstractUIDate> extends InRenderer<T> {
     final String pattern = component.getPattern();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.SPAN);
-    writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_APPEND);
     writer.startElement(HtmlElements.BUTTON);
     writer.writeClassAttribute(
         BootstrapClass.BTN,
@@ -122,7 +120,6 @@ public class DateRenderer<T extends AbstractUIDate> extends InRenderer<T> {
     }
 
     writer.endElement(HtmlElements.BUTTON);
-    writer.endElement(HtmlElements.SPAN);
 
     writer.endElement(HtmlElements.DIV);
 

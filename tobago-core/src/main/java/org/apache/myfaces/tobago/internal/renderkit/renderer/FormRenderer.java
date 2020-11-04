@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -38,10 +37,9 @@ public class FormRenderer<T extends AbstractUIForm> extends RendererBase<T> {
       final String clientId = component.getClientId(facesContext);
       final boolean inline = component.isInline();
 
-      writer.startElement(HtmlElements.DIV);
+      writer.startElement(HtmlElements.TOBAGO_FORM);
       writer.writeIdAttribute(clientId);
       writer.writeClassAttribute(
-          TobagoClass.FORM,
           inline ? BootstrapClass.D_INLINE : null,
           component.getCustomClass());
     }
@@ -52,7 +50,7 @@ public class FormRenderer<T extends AbstractUIForm> extends RendererBase<T> {
 
     if (!component.isPlain()) {
       final TobagoResponseWriter writer = getResponseWriter(facesContext);
-      writer.endElement(HtmlElements.DIV);
+      writer.endElement(HtmlElements.TOBAGO_FORM);
     }
   }
 }

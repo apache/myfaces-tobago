@@ -78,16 +78,15 @@ public class OutRenderer<T extends AbstractUIOut> extends MessageLayoutRendererB
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final Markup markup = component.getMarkup();
 
-    writer.startElement(HtmlElements.SPAN);
+    writer.startElement(HtmlElements.TOBAGO_OUT);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
     writer.writeClassAttribute(
-        TobagoClass.OUT,
+        component.getCustomClass(),
         TobagoClass.OUT.createMarkup(markup),
         getCssItems(facesContext, component),
         BootstrapClass.textColor(markup),
-        BootstrapClass.fontStyle(markup),
-        component.getCustomClass());
+        BootstrapClass.fontStyle(markup));
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
@@ -133,7 +132,7 @@ public class OutRenderer<T extends AbstractUIOut> extends MessageLayoutRendererB
   @Override
   public void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.endElement(HtmlElements.SPAN);
+    writer.endElement(HtmlElements.TOBAGO_OUT);
   }
 
   @Override

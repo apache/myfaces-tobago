@@ -71,16 +71,14 @@ public class SelectOneListboxRenderer<T extends AbstractUISelectOneListbox> exte
     writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
 
     writer.writeClassAttribute(
-        TobagoClass.SELECT_ONE_LISTBOX,
-        TobagoClass.SELECT_ONE_LISTBOX.createMarkup(component.getMarkup()),
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
         BootstrapClass.FORM_CONTROL,
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
         component.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
-    HtmlRendererUtils.renderSelectItems(component, TobagoClass.SELECT_ONE_LISTBOX__OPTION, items, component.getValue(),
+    HtmlRendererUtils.renderSelectItems(component, null, items, component.getValue(),
         (String) component.getSubmittedValue(), writer, facesContext);
   }
 

@@ -54,12 +54,10 @@ public class SegmentLayoutRenderer<T extends AbstractUISegmentLayout> extends Re
     final Markup markup = component.getMarkup();
     final SegmentJustify segmentJustify = component.getJustify();
 
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.TOBAGO_SEGMENT_LAYOUT);
     writer.writeIdAttribute(component.getClientId(facesContext));
 //    writer.writeClassAttribute(BootstrapClass.FORM_HORIZONTAL, BootstrapClass.CONTAINER_FLUID);
     writer.writeClassAttribute(
-        TobagoClass.SEGMENT_LAYOUT,
-        TobagoClass.SEGMENT_LAYOUT.createMarkup(markup),
         BootstrapClass.ROW,
         segmentJustify != null ? BootstrapClass.segmentJustify(segmentJustify) : null,
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
@@ -132,6 +130,6 @@ public class SegmentLayoutRenderer<T extends AbstractUISegmentLayout> extends Re
   @Override
   public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.TOBAGO_SEGMENT_LAYOUT);
   }
 }

@@ -29,7 +29,6 @@ import org.apache.myfaces.tobago.internal.util.StyleRenderUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -50,12 +49,10 @@ public class ProgressRenderer<T extends AbstractUIProgress> extends RendererBase
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.TOBAGO_PROGRESS);
     final String clientId = component.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
-        TobagoClass.PROGRESS,
-        TobagoClass.PROGRESS.createMarkup(markup),
         BootstrapClass.PROGRESS,
         component.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
@@ -82,6 +79,6 @@ public class ProgressRenderer<T extends AbstractUIProgress> extends RendererBase
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.TOBAGO_PROGRESS);
   }
 }

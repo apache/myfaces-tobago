@@ -119,12 +119,6 @@ public enum TobagoClass implements CssItem {
 
   BADGE("tobago-badge"),
   BAR("tobago-bar"),
-
-  /**
-   * @deprecated since 5.0.0
-   */
-  @Deprecated
-  BOX("tobago-box"),
   BOX__HEADER("tobago-box-header"),
   BUTTON("tobago-button"),
   BUTTONS("tobago-buttons"),
@@ -134,11 +128,12 @@ public enum TobagoClass implements CssItem {
   DROPDOWN__OPEN("tobago-dropdown-open"),
   DROPDOWN__SELECTED("tobago-dropdown-selected"),
   FILE("tobago-file"),
-  FLEX_LAYOUT("tobago-flexLayout"),
-  FLOW_LAYOUT("tobago-flowLayout"),
   FIGURE("tobago-figure"),
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   FORM("tobago-form"),
-  GRID_LAYOUT("tobago-gridLayout"),
   /**
    * @deprecated Since 5.0.0. Please use {@link TobagoClass#POPOVER__BUTTON}
    */
@@ -170,27 +165,7 @@ public enum TobagoClass implements CssItem {
   PANEL("tobago-panel"),
   POPOVER__BOX("tobago-popover-box"),
   POPOVER__BUTTON("tobago-popover-button"),
-  PROGRESS("tobago-progress"),
-  /**
-   * @deprecated since 5.0.0
-   */
-  @Deprecated
-  SECTION("tobago-section"),
   SECTION__CONTENT("tobago-section-content"),
-  SEGMENT_LAYOUT("tobago-segmentLayout"),
-  SELECT_BOOLEAN_CHECKBOX("tobago-selectBooleanCheckbox"),
-  SELECT_BOOLEAN_TOGGLE("tobago-selectBooleanToggle"),
-  /**
-   * @deprecated since 5.0.0
-   */
-  @Deprecated
-  SELECT_MANY_CHECKBOX("tobago-selectManyCheckbox"),
-  /**
-   * @deprecated since 5.0.0
-   */
-  @Deprecated
-  SELECT_MANY_CHECKBOX__INLINE("tobago-selectManyCheckbox-inline"),
-  SELECT_MANY_LISTBOX("tobago-selectManyListbox"),
   SELECT_MANY_LISTBOX__OPTION("tobago-selectManyListbox-option"),
   SELECT_MANY_SHUTTLE("tobago-selectManyShuttle"),
   SELECT_MANY_SHUTTLE__ADD("tobago-selectManyShuttle-add"),
@@ -204,20 +179,8 @@ public enum TobagoClass implements CssItem {
   SELECT_MANY_SHUTTLE__TOOL_BAR("tobago-selectManyShuttle-toolBar"),
   SELECT_MANY_SHUTTLE__UNSELECTED("tobago-selectManyShuttle-unselected"),
   SELECT_MANY_SHUTTLE__UNSELECTED_LABEL("tobago-selectManyShuttle-unselectedLabel"),
-  SELECT_ONE_CHOICE("tobago-selectOneChoice"),
-  SELECT_ONE_CHOICE__OPTION("tobago-selectOneChoice-option"),
   SELECT_ONE_LISTBOX("tobago-selectOneListbox"),
   SELECT_ONE_LISTBOX__OPTION("tobago-selectOneListbox-option"),
-  /**
-   * @deprecated since 5.0.0
-   */
-  @Deprecated
-  SELECT_ONE_RADIO("tobago-selectOneRadio"),
-  /**
-   * @deprecated since 5.0.0
-   */
-  @Deprecated
-  SELECT_ONE_RADIO__INLINE("tobago-selectOneRadio-inline"),
   SEPARATOR("tobago-separator"),
   SHEET("tobago-sheet"),
   SHEET__CELL("tobago-sheet-cell"),

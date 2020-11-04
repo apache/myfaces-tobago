@@ -47,8 +47,6 @@ public class SectionRenderer<T extends AbstractUISection> extends CollapsiblePan
     writer.startElement(HtmlElements.TOBAGO_SECTION);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
-        null,
-        TobagoClass.SECTION.createMarkup(markup),
         collapsed ? TobagoClass.COLLAPSED : null,
         component.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
