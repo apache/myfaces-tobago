@@ -173,7 +173,7 @@
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-config-dev</artifactId>
-      <version>${project.version}</version>
+      <version>${tobago.version}</version>
     </dependency>
     <!-- xxx remove me before release !!! -->
 
@@ -196,14 +196,14 @@
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-core</artifactId>
-      <version>${project.version}</version>
+      <version>${tobago.version}</version>
       <classifier>tests</classifier>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-tool-test</artifactId>
-      <version>${project.version}</version>
+      <version>${tobago.version}</version>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>
@@ -256,7 +256,7 @@
                     <artifactItem>
                       <groupId>org.apache.myfaces.tobago</groupId>
                       <artifactId>tobago-theme-standard</artifactId>
-                      <version>${project.version}</version>
+                      <version>${tobago.version}</version>
                     </artifactItem>
                   </artifactItems>
                 </configuration>
@@ -524,7 +524,7 @@
               <dependency>
                 <groupId>org.apache.myfaces.tobago</groupId>
                 <artifactId>tobago-core</artifactId>
-                <version>${project.version}</version>
+                <version>${tobago.version}</version>
               </dependency>
             </dependencies>
           </plugin>
@@ -543,7 +543,7 @@
             <configuration>
               <images>
                 <image>
-                  <name>myfaces/tobago-example-demo:${project.version}</name>
+                  <name>myfaces/tobago-example-demo:${tobago.version}</name>
                   <run>
                     <ports>
                       <port>8080:8080</port>
