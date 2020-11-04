@@ -10419,7 +10419,7 @@ tobago-grid-layout {
   column-gap: 1rem;
 }
 
-tobago-grid-layout .tobago-label-container > .tobago-textarea, tobago-grid-layout .tobago-label-container > .tobago-selectManyListbox, tobago-grid-layout .tobago-label-container > .tobago-selectManyShuttle {
+tobago-grid-layout .tobago-label-container > textarea, tobago-grid-layout .tobago-label-container > .tobago-selectManyListbox, tobago-grid-layout .tobago-label-container > .tobago-selectManyShuttle {
   height: 100%;
 }
 
@@ -11737,7 +11737,7 @@ tobago-tree-listbox .tobago-treeListbox-select, .tobago-treeListbox .tobago-tree
 }
 
 /* textarea --------------------------------------------------------- */
-.tobago-textarea:disabled {
+tobago-textarea textarea:disabled {
   color: rgba(73, 80, 87, 0.5);
 }
 
@@ -11749,8 +11749,8 @@ tobago-tree-listbox .tobago-treeListbox-select, .tobago-treeListbox .tobago-tree
 .tobago-selectManyListbox-markup-error.border-danger:focus,
 .tobago-selectOneListbox-markup-fatal.border-danger:focus,
 .tobago-selectOneListbox-markup-error.border-danger:focus,
-.tobago-textarea-markup-fatal.border-danger:focus,
-.tobago-textarea-markup-error.border-danger:focus {
+tobago-textarea textarea-markup-fatal.border-danger:focus,
+tobago-textarea textarea-markup-error.border-danger:focus {
   box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
 }
 
@@ -11758,7 +11758,7 @@ tobago-tree-listbox .tobago-treeListbox-select, .tobago-treeListbox .tobago-tree
 .tobago-in-markup-warn.border-warning:focus,
 .tobago-selectManyListbox-markup-warn.border-warning:focus,
 .tobago-selectOneListbox-markup-warn.border-warning:focus,
-.tobago-textarea-markup-warn.border-warning:focus {
+tobago-textarea textarea-markup-warn.border-warning:focus {
   box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
 }
 
@@ -11766,7 +11766,7 @@ tobago-tree-listbox .tobago-treeListbox-select, .tobago-treeListbox .tobago-tree
 .tobago-in-markup-info.border-info:focus,
 .tobago-selectManyListbox-markup-info.border-info:focus,
 .tobago-selectOneListbox-markup-info.border-info:focus,
-.tobago-textarea-markup-info.border-info:focus {
+tobago-textarea textarea-markup-info.border-info:focus {
   box-shadow: 0 0 0 0.2rem rgba(13, 202, 240, 0.25);
 }
 

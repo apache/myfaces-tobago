@@ -305,7 +305,7 @@ tobago-grid-layout {
   column-gap: $spacer;
 
   .tobago-label-container > {
-    .tobago-textarea, .tobago-selectManyListbox, .tobago-selectManyShuttle {
+    textarea, .tobago-selectManyListbox, .tobago-selectManyShuttle {
       height: 100%;
     }
   }
@@ -1571,7 +1571,7 @@ tobago-tree-listbox, .tobago-treeListbox {
 }
 
 /* textarea --------------------------------------------------------- */
-.tobago-textarea {
+tobago-textarea textarea {
   &:disabled {
     color: rgba($input-color, $form-disabled-alpha);
   }
@@ -1586,7 +1586,7 @@ tobago-tree-listbox, .tobago-treeListbox {
 .tobago-selectManyListbox,
 //.tobago-selectOneChoice, XXX
 .tobago-selectOneListbox,
-.tobago-textarea {
+tobago-textarea textarea {
   &-markup-fatal, &-markup-error {
     &.border-danger:focus {
       box-shadow: 0 0 0 .2rem rgba($danger, .25);

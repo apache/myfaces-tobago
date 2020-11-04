@@ -210,7 +210,6 @@ public enum TobagoClass implements CssItem {
   TAB__BAR_FACET("tobago-tab-barFacet"),
   TAB__CONTENT("tobago-tab-content"),
   TAB_GROUP("tobago-tabGroup"),
-  TEXTAREA("tobago-textarea"),
   TEXT__JUSTIFY("tobago-text-justify"),
   TREE("tobago-tree"),
   TREE__EXPANDED("tobago-tree-expanded"),

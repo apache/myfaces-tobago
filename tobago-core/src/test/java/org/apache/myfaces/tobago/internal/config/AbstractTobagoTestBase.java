@@ -46,6 +46,7 @@ import org.apache.myfaces.tobago.component.UISelectOneChoice;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
 import org.apache.myfaces.tobago.component.UISeparator;
 import org.apache.myfaces.tobago.component.UIStyle;
+import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.BadgeRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.BoxRenderer;
@@ -67,6 +68,7 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectOneChoiceRend
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectOneRadioRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SeparatorRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.StyleRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.TextareaRenderer;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -119,41 +121,43 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     request.setAttribute(TobagoContext.BEAN_NAME, tobagoContext);
 
     // XXX is there a better way? Get it from Tobagos generated faces-config.xml?
-    application.addComponent(Tags.in.componentType(), UIIn.class.getName());
-    application.addComponent(Tags.out.componentType(), UIOut.class.getName());
-    application.addComponent(Tags.panel.componentType(), UIPanel.class.getName());
-    application.addComponent(Tags.link.componentType(), UILink.class.getName());
-    application.addComponent(Tags.links.componentType(), UILinks.class.getName());
+    application.addComponent(Tags.badge.componentType(), UIBadge.class.getName());
     application.addComponent(Tags.box.componentType(), UIBox.class.getName());
     application.addComponent(Tags.button.componentType(), UIButton.class.getName());
     application.addComponent(Tags.buttons.componentType(), UIButtons.class.getName());
+    application.addComponent(Tags.gridLayout.componentType(), UIGridLayout.class.getName());
+    application.addComponent(Tags.in.componentType(), UIIn.class.getName());
+    application.addComponent(Tags.link.componentType(), UILink.class.getName());
+    application.addComponent(Tags.links.componentType(), UILinks.class.getName());
+    application.addComponent(Tags.out.componentType(), UIOut.class.getName());
+    application.addComponent(Tags.panel.componentType(), UIPanel.class.getName());
     application.addComponent(Tags.popup.componentType(), UIPopup.class.getName());
-    application.addComponent(Tags.separator.componentType(), UISeparator.class.getName());
-    application.addComponent(Tags.style.componentType(), UIStyle.class.getName());
     application.addComponent(Tags.section.componentType(), UISection.class.getName());
+    application.addComponent(Tags.segmentLayout.componentType(), UISegmentLayout.class.getName());
     application.addComponent(Tags.selectItem.componentType(), UISelectItem.class.getName());
     application.addComponent(Tags.selectBooleanCheckbox.componentType(), UISelectBooleanCheckbox.class.getName());
     application.addComponent(Tags.selectManyCheckbox.componentType(), UISelectManyCheckbox.class.getName());
     application.addComponent(Tags.selectManyListbox.componentType(), UISelectManyListbox.class.getName());
     application.addComponent(Tags.selectOneRadio.componentType(), UISelectOneRadio.class.getName());
     application.addComponent(Tags.selectOneChoice.componentType(), UISelectOneChoice.class.getName());
-    application.addComponent(Tags.gridLayout.componentType(), UIGridLayout.class.getName());
-    application.addComponent(Tags.segmentLayout.componentType(), UISegmentLayout.class.getName());
-    application.addComponent(Tags.badge.componentType(), UIBadge.class.getName());
+    application.addComponent(Tags.separator.componentType(), UISeparator.class.getName());
+    application.addComponent(Tags.style.componentType(), UIStyle.class.getName());
+    application.addComponent(Tags.textarea.componentType(), UITextarea.class.getName());
 
     final RenderKit renderKit = facesContext.getRenderKit();
-    renderKit.addRenderer(UIIn.COMPONENT_FAMILY, RendererTypes.IN, new InRenderer());
-    renderKit.addRenderer(UIOut.COMPONENT_FAMILY, RendererTypes.OUT, new OutRenderer());
-    renderKit.addRenderer(UIPanel.COMPONENT_FAMILY, RendererTypes.PANEL, new PanelRenderer());
-    renderKit.addRenderer(UILink.COMPONENT_FAMILY, RendererTypes.LINK, new LinkRenderer());
-    renderKit.addRenderer(UILinks.COMPONENT_FAMILY, RendererTypes.LINKS, new LinksRenderer());
+    renderKit.addRenderer(UIBadge.COMPONENT_FAMILY, RendererTypes.BADGE, new BadgeRenderer());
     renderKit.addRenderer(UIBox.COMPONENT_FAMILY, RendererTypes.BOX, new BoxRenderer());
     renderKit.addRenderer(UIButton.COMPONENT_FAMILY, RendererTypes.BUTTON, new ButtonRenderer());
     renderKit.addRenderer(UIButtons.COMPONENT_FAMILY, RendererTypes.BUTTONS, new ButtonsRenderer());
+    renderKit.addRenderer(UIGridLayout.COMPONENT_FAMILY, RendererTypes.GRID_LAYOUT, new GridLayoutRenderer());
+    renderKit.addRenderer(UIIn.COMPONENT_FAMILY, RendererTypes.IN, new InRenderer());
+    renderKit.addRenderer(UILink.COMPONENT_FAMILY, RendererTypes.LINK, new LinkRenderer());
+    renderKit.addRenderer(UILinks.COMPONENT_FAMILY, RendererTypes.LINKS, new LinksRenderer());
+    renderKit.addRenderer(UIOut.COMPONENT_FAMILY, RendererTypes.OUT, new OutRenderer());
+    renderKit.addRenderer(UIPanel.COMPONENT_FAMILY, RendererTypes.PANEL, new PanelRenderer());
     renderKit.addRenderer(UIPopup.COMPONENT_FAMILY, RendererTypes.POPUP, new PopupRenderer());
-    renderKit.addRenderer(UISeparator.COMPONENT_FAMILY, RendererTypes.SEPARATOR, new SeparatorRenderer());
-    renderKit.addRenderer(UIStyle.COMPONENT_FAMILY, RendererTypes.STYLE, new StyleRenderer());
     renderKit.addRenderer(UISection.COMPONENT_FAMILY, RendererTypes.SECTION, new SectionRenderer());
+    renderKit.addRenderer(UISegmentLayout.COMPONENT_FAMILY, RendererTypes.SEGMENT_LAYOUT, new SegmentLayoutRenderer());
     renderKit.addRenderer(
         UISelectBooleanCheckbox.COMPONENT_FAMILY, RendererTypes.SELECT_BOOLEAN_CHECKBOX,
         new SelectBooleanCheckboxRenderer());
@@ -165,9 +169,9 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
         UISelectOneRadio.COMPONENT_FAMILY, RendererTypes.SELECT_ONE_RADIO, new SelectOneRadioRenderer());
     renderKit.addRenderer(
         UISelectOneChoice.COMPONENT_FAMILY, RendererTypes.SELECT_ONE_CHOICE, new SelectOneChoiceRenderer());
-    renderKit.addRenderer(UIGridLayout.COMPONENT_FAMILY, RendererTypes.GRID_LAYOUT, new GridLayoutRenderer());
-    renderKit.addRenderer(UISegmentLayout.COMPONENT_FAMILY, RendererTypes.SEGMENT_LAYOUT, new SegmentLayoutRenderer());
-    renderKit.addRenderer(UIBadge.COMPONENT_FAMILY, RendererTypes.BADGE, new BadgeRenderer());
+    renderKit.addRenderer(UISeparator.COMPONENT_FAMILY, RendererTypes.SEPARATOR, new SeparatorRenderer());
+    renderKit.addRenderer(UIStyle.COMPONENT_FAMILY, RendererTypes.STYLE, new StyleRenderer());
+    renderKit.addRenderer(UITextarea.COMPONENT_FAMILY, RendererTypes.TEXTAREA, new TextareaRenderer());
 
     application.setMessageBundle("org.apache.myfaces.tobago.context.TobagoMessageBundle");
 
