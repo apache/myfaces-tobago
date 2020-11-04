@@ -17,7 +17,6 @@
 import { Listener } from "./tobago-listener";
 import { Overlay } from "./tobago-overlay";
 import { Collapse } from "./tobago-popup";
-import { Setup } from "./tobago-core";
 import { Page } from "./tobago-page";
 class Behavior extends HTMLElement {
     constructor() {
@@ -247,7 +246,7 @@ CommandHelper.onSubmit = function (listenerOptions) {
         }
     */
     CommandHelper.isSubmit = true;
-    Setup.onBeforeUnload();
+    Page.page().onBeforeUnload();
     return true;
 };
 class Transport {

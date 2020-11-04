@@ -16,7 +16,13 @@
  */
 import { DomUtils } from "./tobago-utils";
 import { Jsf } from "./tobago-jsf";
+import { CommandHelper } from "./tobago-command";
+import { Overlay } from "./tobago-overlay";
+import { Listener } from "./tobago-listener";
 export class Page extends HTMLElement {
+    constructor() {
+        super();
+    }
     /**
      * The Tobago root element
      */
@@ -24,18 +30,17 @@ export class Page extends HTMLElement {
         const pages = document.getElementsByTagName("tobago-page");
         if (pages.length > 0) {
             if (pages.length >= 2) {
-                console.warn("Found more than one tobago page!");
+                console.warn("Found more than one tobago-page element!");
             }
             return pages.item(0);
         }
         console.warn("Found no tobago page!");
         return null;
     }
-    constructor() {
-        super();
-    }
     connectedCallback() {
         Jsf.registerAjaxListener();
+        this.querySelector("form").addEventListener("submit", CommandHelper.onSubmit);
+        window.addEventListener("unload", this.onUnload.bind(this));
         this.addEventListener("keypress", function (event) {
             let code = event.which; // XXX deprecated
             if (code === 0) {
@@ -64,6 +69,29 @@ export class Page extends HTMLElement {
                 return false;
             }
         });
+        // todo remove this
+        Listener.executeDocumentReady(document.documentElement);
+    }
+    onBeforeUnload() {
+        if (this.transition) {
+            new Overlay(Page.page());
+        }
+        this.transition = this.oldTransition;
+    }
+    /**
+     * Wrapper function to call application generated onunload function
+     */
+    onUnload() {
+        console.info("on onload");
+        if (CommandHelper.isSubmit) {
+            if (this.transition) {
+                new Overlay(Page.page());
+            }
+            this.transition = this.oldTransition;
+        }
+        else {
+            Listener.executeBeforeExit();
+        }
     }
     get locale() {
         let locale = this.getAttribute("locale");
@@ -76,4 +104,6 @@ export class Page extends HTMLElement {
 document.addEventListener("DOMContentLoaded", function (event) {
     window.customElements.define("tobago-page", Page);
 });
+// todo remove this
+window.addEventListener("load", Listener.executeWindowLoad);
 //# sourceMappingURL=tobago-page.js.map
