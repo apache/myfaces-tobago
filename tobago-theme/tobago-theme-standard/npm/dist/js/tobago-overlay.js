@@ -79,7 +79,7 @@ export class Overlay {
         }
         wait.append(image);
         wait.style.display = ""; //XXX ?
-        this.overlay.style.backgroundColor = Page.page().style.backgroundColor;
+        this.overlay.style.backgroundColor = Page.page(this.element).style.backgroundColor;
         this.overlay.style.left = left;
         this.overlay.style.top = top;
         setTimeout(() => {

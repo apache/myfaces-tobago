@@ -119,16 +119,18 @@ class SplitLayoutMousedown {
       horizontal: horizontal,
       splitterIndex: this.indexOfSplitter(splitter, horizontal)
     };
-    Page.page().dataset.SplitLayoutMousedownData = JSON.stringify(data);
+    Page.page(splitter).dataset.SplitLayoutMousedownData = JSON.stringify(data);
     return new SplitLayoutMousedown(data);
   }
 
   static load(): SplitLayoutMousedown {
-    return new SplitLayoutMousedown(Page.page().dataset.SplitLayoutMousedownData);
+    const element : HTMLElement = document.documentElement; // XXX this might be the wrong element in case of shadow dom
+    return new SplitLayoutMousedown(Page.page(element).dataset.SplitLayoutMousedownData);
   }
 
   static remove(): void {
-    Page.page().dataset.SplitLayoutMousedownData = null;
+    const element : HTMLElement = document.documentElement; // XXX this might be the wrong element in case of shadow dom
+    Page.page(element).dataset.SplitLayoutMousedownData = null;
   }
 
   private static indexOfSplitter(splitter: HTMLElement, horizontal: boolean): number {

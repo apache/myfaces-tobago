@@ -200,7 +200,7 @@ CommandHelper.submitAction = function (source, actionId, decoupled = true, targe
                     sourceHidden.value = "";
                 }
                 catch (e) {
-                    Overlay.destroy(Page.page().id);
+                    Overlay.destroy(Page.page(form).id);
                     CommandHelper.isSubmit = false;
                     alert("Submit failed: " + e); // XXX localization, better error handling
                 }
@@ -246,7 +246,8 @@ CommandHelper.onSubmit = function (listenerOptions) {
         }
     */
     CommandHelper.isSubmit = true;
-    Page.page().onBeforeUnload();
+    const element = document.documentElement; // XXX this might be the wrong element in case of shadow dom
+    Page.page(element).onBeforeUnload();
     return true;
 };
 class Transport {

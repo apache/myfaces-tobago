@@ -29,8 +29,9 @@ export class Page extends HTMLElement {
   /**
    * The Tobago root element
    */
-  static page(): Page {
-    const pages = document.getElementsByTagName("tobago-page");
+  static page(element: HTMLElement): Page {
+    const rootNode = element.getRootNode() as ShadowRoot | Document;
+    const pages = rootNode.querySelectorAll("tobago-page");
     if (pages.length > 0) {
       if (pages.length >= 2) {
         console.warn("Found more than one tobago-page element!");
@@ -88,7 +89,7 @@ export class Page extends HTMLElement {
 
   onBeforeUnload(): void {
     if (this.transition) {
-      new Overlay(Page.page());
+      new Overlay(this);
     }
     this.transition = this.oldTransition;
   }
@@ -100,7 +101,7 @@ export class Page extends HTMLElement {
     console.info("on onload");
     if (CommandHelper.isSubmit) {
       if (this.transition) {
-        new Overlay(Page.page());
+        new Overlay(this);
       }
       this.transition = this.oldTransition;
     } else {

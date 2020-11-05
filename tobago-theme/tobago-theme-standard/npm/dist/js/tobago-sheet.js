@@ -320,7 +320,7 @@ export class Sheet extends HTMLElement {
                     console.debug("[tobago-sheet][complete] Update after jsf.ajax complete: #" + id); // @DEV_ONLY
                     const sheet = document.getElementById(id);
                     sheet.id = id + "::lazy-temporary";
-                    const page = Page.page();
+                    const page = Page.page(this);
                     page.insertAdjacentHTML("beforeend", `<div id="${id}"></div>`);
                     const sheetLoader = document.getElementById(id);
                 }
@@ -406,7 +406,7 @@ export class Sheet extends HTMLElement {
         }
     }
     mousedown(event) {
-        Page.page().dataset.SheetMousedownData = this.id;
+        Page.page(this).dataset.SheetMousedownData = this.id;
         // begin resizing
         console.debug("down");
         const resizeElement = event.currentTarget;

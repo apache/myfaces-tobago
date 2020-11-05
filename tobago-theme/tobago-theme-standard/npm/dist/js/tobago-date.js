@@ -29,7 +29,7 @@ class DatePicker extends HTMLElement {
         const i18n = input.dataset.tobagoDateTimeI18n ? JSON.parse(input.dataset.tobagoDateTimeI18n) : undefined;
         // todo: refactor "pattern" to "normal" attribute of tobago-date
         const pattern = DateUtils.convertPattern(input.dataset.tobagoPattern);
-        const locale = Page.page().locale;
+        const locale = Page.page(this).locale;
         Datepicker.locales[locale] = {
             days: i18n.dayNames,
             daysShort: i18n.dayNamesShort,

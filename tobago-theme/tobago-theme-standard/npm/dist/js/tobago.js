@@ -5878,7 +5878,7 @@
             }
             wait.append(image);
             wait.style.display = ""; //XXX ?
-            this.overlay.style.backgroundColor = Page.page().style.backgroundColor;
+            this.overlay.style.backgroundColor = Page.page(this.element).style.backgroundColor;
             this.overlay.style.left = left;
             this.overlay.style.top = top;
             setTimeout(() => {
@@ -6721,7 +6721,7 @@
                         sourceHidden.value = "";
                     }
                     catch (e) {
-                        Overlay.destroy(Page.page().id);
+                        Overlay.destroy(Page.page(form).id);
                         CommandHelper.isSubmit = false;
                         alert("Submit failed: " + e); // XXX localization, better error handling
                     }
@@ -6767,7 +6767,8 @@
             }
         */
         CommandHelper.isSubmit = true;
-        Page.page().onBeforeUnload();
+        const element = document.documentElement; // XXX this might be the wrong element in case of shadow dom
+        Page.page(element).onBeforeUnload();
         return true;
     };
     class Transport {
@@ -6847,8 +6848,9 @@
         /**
          * The Tobago root element
          */
-        static page() {
-            const pages = document.getElementsByTagName("tobago-page");
+        static page(element) {
+            const rootNode = element.getRootNode();
+            const pages = rootNode.querySelectorAll("tobago-page");
             if (pages.length > 0) {
                 if (pages.length >= 2) {
                     console.warn("Found more than one tobago-page element!");
@@ -6895,7 +6897,7 @@
         }
         onBeforeUnload() {
             if (this.transition) {
-                new Overlay(Page.page());
+                new Overlay(this);
             }
             this.transition = this.oldTransition;
         }
@@ -6906,7 +6908,7 @@
             console.info("on onload");
             if (CommandHelper.isSubmit) {
                 if (this.transition) {
-                    new Overlay(Page.page());
+                    new Overlay(this);
                 }
                 this.transition = this.oldTransition;
             }
@@ -6956,7 +6958,7 @@
             const i18n = input.dataset.tobagoDateTimeI18n ? JSON.parse(input.dataset.tobagoDateTimeI18n) : undefined;
             // todo: refactor "pattern" to "normal" attribute of tobago-date
             const pattern = DateUtils.convertPattern(input.dataset.tobagoPattern);
-            const locale = Page.page().locale;
+            const locale = Page.page(this).locale;
             Datepicker.locales[locale] = {
                 days: i18n.dayNames,
                 daysShort: i18n.dayNamesShort,
@@ -7104,7 +7106,7 @@
                 && computedStyle.visibility !== "hidden"
                 && computedStyle.display !== "none") {
                 const root = target.getRootNode();
-                const tobagoFocus = root.getElementById(Page.page().id + DomUtils.SUB_COMPONENT_SEP + "lastFocusId");
+                const tobagoFocus = root.getElementById(Page.page(target).id + DomUtils.SUB_COMPONENT_SEP + "lastFocusId");
                 tobagoFocus.querySelector("input").value = target.id;
             }
         }
@@ -8274,7 +8276,7 @@
                         console.debug("[tobago-sheet][complete] Update after jsf.ajax complete: #" + id); // @DEV_ONLY
                         const sheet = document.getElementById(id);
                         sheet.id = id + "::lazy-temporary";
-                        const page = Page.page();
+                        const page = Page.page(this);
                         page.insertAdjacentHTML("beforeend", `<div id="${id}"></div>`);
                         const sheetLoader = document.getElementById(id);
                     }
@@ -8360,7 +8362,7 @@
             }
         }
         mousedown(event) {
-            Page.page().dataset.SheetMousedownData = this.id;
+            Page.page(this).dataset.SheetMousedownData = this.id;
             // begin resizing
             console.debug("down");
             const resizeElement = event.currentTarget;
@@ -8763,14 +8765,16 @@
                 horizontal: horizontal,
                 splitterIndex: this.indexOfSplitter(splitter, horizontal)
             };
-            Page.page().dataset.SplitLayoutMousedownData = JSON.stringify(data);
+            Page.page(splitter).dataset.SplitLayoutMousedownData = JSON.stringify(data);
             return new SplitLayoutMousedown(data);
         }
         static load() {
-            return new SplitLayoutMousedown(Page.page().dataset.SplitLayoutMousedownData);
+            const element = document.documentElement; // XXX this might be the wrong element in case of shadow dom
+            return new SplitLayoutMousedown(Page.page(element).dataset.SplitLayoutMousedownData);
         }
         static remove() {
-            Page.page().dataset.SplitLayoutMousedownData = null;
+            const element = document.documentElement; // XXX this might be the wrong element in case of shadow dom
+            Page.page(element).dataset.SplitLayoutMousedownData = null;
         }
         static indexOfSplitter(splitter, horizontal) {
             const list = splitter.parentElement.getElementsByClassName(horizontal ? "tobago-splitLayout-horizontal" : "tobago-splitLayout-vertical");

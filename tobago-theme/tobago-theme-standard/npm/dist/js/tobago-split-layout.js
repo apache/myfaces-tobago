@@ -99,14 +99,16 @@ class SplitLayoutMousedown {
             horizontal: horizontal,
             splitterIndex: this.indexOfSplitter(splitter, horizontal)
         };
-        Page.page().dataset.SplitLayoutMousedownData = JSON.stringify(data);
+        Page.page(splitter).dataset.SplitLayoutMousedownData = JSON.stringify(data);
         return new SplitLayoutMousedown(data);
     }
     static load() {
-        return new SplitLayoutMousedown(Page.page().dataset.SplitLayoutMousedownData);
+        const element = document.documentElement; // XXX this might be the wrong element in case of shadow dom
+        return new SplitLayoutMousedown(Page.page(element).dataset.SplitLayoutMousedownData);
     }
     static remove() {
-        Page.page().dataset.SplitLayoutMousedownData = null;
+        const element = document.documentElement; // XXX this might be the wrong element in case of shadow dom
+        Page.page(element).dataset.SplitLayoutMousedownData = null;
     }
     static indexOfSplitter(splitter, horizontal) {
         const list = splitter.parentElement.getElementsByClassName(horizontal ? "tobago-splitLayout-horizontal" : "tobago-splitLayout-vertical");

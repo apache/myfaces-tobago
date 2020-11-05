@@ -30,7 +30,7 @@ export class Focus extends HTMLElement {
             && computedStyle.visibility !== "hidden"
             && computedStyle.display !== "none") {
             const root = target.getRootNode();
-            const tobagoFocus = root.getElementById(Page.page().id + DomUtils.SUB_COMPONENT_SEP + "lastFocusId");
+            const tobagoFocus = root.getElementById(Page.page(target).id + DomUtils.SUB_COMPONENT_SEP + "lastFocusId");
             tobagoFocus.querySelector("input").value = target.id;
         }
     }

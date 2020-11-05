@@ -249,7 +249,7 @@ export class CommandHelper {
             sourceHidden.disabled = true;
             sourceHidden.value = "";
           } catch (e) {
-            Overlay.destroy(Page.page().id);
+            Overlay.destroy(Page.page(form).id);
             CommandHelper.isSubmit = false;
             alert("Submit failed: " + e); // XXX localization, better error handling
           }
@@ -296,7 +296,8 @@ export class CommandHelper {
     */
     CommandHelper.isSubmit = true;
 
-    Page.page().onBeforeUnload();
+    const element : HTMLElement = document.documentElement; // XXX this might be the wrong element in case of shadow dom
+    Page.page(element).onBeforeUnload();
 
     return true;
   };
