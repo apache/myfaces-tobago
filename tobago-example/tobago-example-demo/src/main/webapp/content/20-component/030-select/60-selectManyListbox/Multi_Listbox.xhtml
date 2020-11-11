@@ -59,11 +59,11 @@
 
   <tc:section label="Simple Usage">
     <p>Select an entry and press the submit-button. The text in the output field depends on the selection.</p>
-    <pre><code class="language-markup">&lt;tc:selectManyListbox label="List" value="\#{selectManyListboxController.celestials}">
+    <demo-highlight language="markup">&lt;tc:selectManyListbox label="List" value="\#{selectManyListboxController.celestials}">
   &lt;tc:selectItem itemLabel="Sun" itemValue="The sun, "/>
   ...
 &lt;/tc:selectManyListbox>
-&lt;tc:out label="Selection" value="\#{selectManyListboxController.celestial}"/></code></pre>
+&lt;tc:out label="Selection" value="\#{selectManyListboxController.celestial}"/></demo-highlight>
     <tc:selectManyListbox id="s4" label="List" value="#{selectManyListboxController.celestials}">
       <tc:selectItem itemLabel="Sun" itemValue="The sun, "/>
       <tc:selectItem itemLabel="Moon" itemValue="the moon, "/>

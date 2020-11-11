@@ -35,7 +35,7 @@
     Drag the divder between the boxes to see the effect</p>
 
   <tc:section>
-        <pre><code class="language-markup">&lt;tc:splitLayout columns="2fr 1fr 1fr">
+        <demo-highlight language="markup">&lt;tc:splitLayout columns="2fr 1fr 1fr">
   &lt;tc:panel>
     &lt;tc:style minWidth="150px"/>
     &lt;p>...&lt;/p>
@@ -46,7 +46,7 @@
   &lt;tc:textarea value="Text 2" labelLayout="none">
     &lt;tc:style minWidth="150px"/>
   &lt;/tc:textarea>
-&lt;/tc:splitLayout></code></pre>
+&lt;/tc:splitLayout></demo-highlight>
     <tc:splitLayout id="example1" columns="2fr 1fr 1fr">
       <tc:panel>
         <tc:style minWidth="150px"/>
@@ -67,10 +67,10 @@
   </tc:section>
 
   <tc:section>
-    <pre><code class="language-markup">&lt;tc:splitLayout columns="1fr 4fr 1fr">
+    <demo-highlight language="markup">&lt;tc:splitLayout columns="1fr 4fr 1fr">
   &lt;tc:button label="A"/>
   &lt;tc:button label="B"/>
-&lt;/tc:splitLayout></code></pre>
+&lt;/tc:splitLayout></demo-highlight>
     <tc:splitLayout id="example2" columns="1fr 4fr 1fr">
       <tc:button label="A"/>
       <tc:button label="B"/>
@@ -79,7 +79,7 @@
   </tc:section>
 
   <tc:section>
-    <pre><code class="language-markup">&lt;tc:splitLayout columns="\#{splitLayoutController.verticalLayout}">
+    <demo-highlight language="markup">&lt;tc:splitLayout columns="\#{splitLayoutController.verticalLayout}">
   &lt;tc:splitLayout rows="\#{splitLayoutController.horizontalLayout}">
     &lt;tc:box label="Top left box">
       &lt;tc:style minWidth="150px"/>
@@ -101,7 +101,7 @@
     &lt;tc:out
       value="Current vertical layout second value: \#{splitLayoutController.verticalLayoutSecondToken}"/>
   &lt;/tc:box>
-&lt;/tc:splitLayout></code></pre>
+&lt;/tc:splitLayout></demo-highlight>
     <tc:flexLayout rows="auto 1fr">
       <tc:splitLayout id="example3a" columns="#{splitLayoutController.verticalLayout}">
         <tc:splitLayout id="example3b" rows="#{splitLayoutController.horizontalLayout}">

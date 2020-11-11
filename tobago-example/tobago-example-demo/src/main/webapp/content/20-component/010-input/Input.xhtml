@@ -27,16 +27,20 @@
     Input components should always use the <code>label</code> attribute.</p>
 
   <tc:section label="Input">
-    <pre><code class="language-markup">&lt;tc:in label="Input" value="Some Text"/></code></pre>
+    <demo-highlight language="markup">
+      &lt;tc:in label="Input" value="Some Text"/>
+    </demo-highlight>
     <tc:in id="i1" label="Input" value="Some Text"/>
   </tc:section>
 
   <tc:section label="Suggest">
-    <pre><code class="language-markup">&lt;tc:in label="Language">
+    <demo-highlight language="markup">
+&lt;tc:in label="Language">
   &lt;tc:suggest query="\#{suggestController.query}">
     &lt;tc:selectItems value="\#{suggestController.solarObjects}" var="name" itemValue="\#{name}"/>
   &lt;/tc:suggest>
-&lt;/tc:in></code></pre>
+&lt;/tc:in>
+    </demo-highlight>
     <tc:in id="i2" label="Suggest Planet">
       <tc:suggest query="#{suggestController.query}">
         <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
@@ -45,12 +49,12 @@
   </tc:section>
 
   <tc:section label="Text Area">
-    <pre><code class="language-markup">&lt;tc:textarea label="Text Area" value="Some Text"/></code></pre>
+    <demo-highlight language="markup">&lt;tc:textarea label="Text Area" value="Some Text"/></demo-highlight>
     <tc:textarea id="t1" label="Text Area" value="Some Text"/>
   </tc:section>
 
   <tc:section label="Date">
-    <pre><code class="language-markup">&lt;tc:date label="Date" value="2015-12-21"/></code></pre>
+    <demo-highlight language="markup">&lt;tc:date label="Date" value="2015-12-21"/></demo-highlight>
     <tc:date id="d1" label="Date" value="21.12.2015">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
     </tc:date>

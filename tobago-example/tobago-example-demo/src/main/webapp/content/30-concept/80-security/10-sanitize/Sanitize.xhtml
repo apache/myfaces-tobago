@@ -26,8 +26,8 @@
 
   <ul>
     <li>Filter all suspicious content from
-      <pre><code class="language-markup">&lt;tc:textarea></code></pre> and
-      <pre><code class="language-markup">&lt;tc:out escape="false"></code></pre>
+      <demo-highlight language="markup">&lt;tc:textarea></demo-highlight> and
+      <demo-highlight language="markup">&lt;tc:out escape="false"></demo-highlight>
     </li>
     <li>See <tc:link label="OWASP Java HTML Sanitizer Project"
                      link="https://www.owasp.org/index.php/OWASP_Java_HTML_Sanitizer_Project"
@@ -36,12 +36,12 @@
       the <code class="language-markup">&lt;sanitizer></code> tag.</li>
   </ul>
   Example for an configuration which is active by default:
-  <pre><code class="language-markup">&lt;sanitizer>
+  <demo-highlight language="markup">&lt;sanitizer>
   &lt;sanitizer-class>org.apache.myfaces.tobago.sanitizer.JsoupSanitizer&lt;/sanitizer-class>
   &lt;properties>
     &lt;!-- Use one of: basic, basicWithImages, relaxed, simpleText or none -->
     &lt;entry key="whitelist">relaxed&lt;/entry>
   &lt;/properties>
-&lt;/sanitizer></code></pre>
+&lt;/sanitizer></demo-highlight>
 
 </ui:composition>

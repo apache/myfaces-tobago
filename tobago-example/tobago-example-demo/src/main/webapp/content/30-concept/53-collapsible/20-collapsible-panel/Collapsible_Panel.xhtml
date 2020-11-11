@@ -98,10 +98,10 @@
       The buttons have set <code>immediate="true"</code> to execute the transition without validation.</p>
     <p>The <code>collapsibleMode="absent"</code> is set.
       The 'Submit'-button can be executed without violation if the panel is hidden.</p>
-    <pre><code class="language-markup">&lt;tc:button label="show" immediate="true">
+    <demo-highlight language="markup">&lt;tc:button label="show" immediate="true">
   &lt;f:ajax execute="ajaxPanel" render="ajaxPanel"/>
   &lt;tc:operation name="show" for="ajaxPanel"/>
-&lt;/tc:button></code></pre>
+&lt;/tc:button></demo-highlight>
     <tc:form id="ajax">
       <tc:buttons>
         <tc:button id="showAjax" label="show" immediate="true">

@@ -34,7 +34,7 @@
   <tc:section label="Example">
     <p>This example show a dark bar with a 'brand' facet, a menu and right side content inside an 'after' facet.</p>
     <p>The bar should collapse on large size, so the markup <code>large</code> is added.</p>
-    <pre><code class="language-markup">&lt;tc:bar markup="large, dark">
+    <demo-highlight language="markup">&lt;tc:bar markup="large, dark">
   &lt;tc:style customClass="bg-dark"/>
   &lt;f:facet name="brand">
     &lt;tc:link label="BRAND" outcome="/content/10-intro/Intro.xhtml"/>
@@ -49,7 +49,7 @@
       &lt;tc:button label="Go"/>
     &lt;/tc:flexLayout>
   &lt;/f:facet>
-&lt;/tc:bar></code></pre>
+&lt;/tc:bar></demo-highlight>
     <tc:bar markup="large, dark">
       <tc:style customClass="bg-dark"/>
       <f:facet name="brand">
@@ -70,7 +70,7 @@
 
   <tc:section label="Centered Menu Example">
     <p>This example shows how to center content.</p>
-    <pre><code class="language-markup">&lt;tc:bar markup="large, dark">
+    <demo-highlight language="markup">&lt;tc:bar markup="large, dark">
   &lt;tc:style customClass="bg-dark"/>
   &lt;f:facet name="brand">
     &lt;tc:link label="BRAND" outcome="/content/10-intro/Intro.xhtml"/>
@@ -81,7 +81,7 @@
   &lt;f:facet name="after">
     // right side content
   &lt;/f:facet>
-&lt;/tc:bar></code></pre>
+&lt;/tc:bar></demo-highlight>
     <tc:bar markup="large, dark">
       <tc:style customClass="bg-dark"/>
       <f:facet name="brand">
@@ -124,7 +124,7 @@
     <p>Some examples with different background colors.</p>
     <p>For dark backgrounds, add the <code>dark</code> markup value.<br/>
       For light background choose <code>light</code> markup.</p>
-    <pre><code class="language-markup">&lt;tc:bar markup="large, dark">
+    <demo-highlight language="markup">&lt;tc:bar markup="large, dark">
   &lt;tc:style customClass="bg-dark"/>
   ...
 &lt;/tc:bar>
@@ -143,7 +143,7 @@
 &lt;tc:bar markup="large, light">
   &lt;tc:style customClass="bg-warning"/>
   ...
-&lt;/tc:bar></code></pre>
+&lt;/tc:bar></demo-highlight>
     <tc:bar markup="large, dark">
       <tc:style customClass="bg-dark"/>
       <f:facet name="brand">
@@ -230,7 +230,7 @@
     <p>Examples for the different expand sizes.<br/>
       Markup values are: <code>small</code>, <code>medium</code>, <code>large</code>, <code>extraLarge</code></p>
     <p>If no markup is set, the bar never collapse.</p>
-    <pre><code class="language-markup">&lt;tc:bar markup="light">
+    <demo-highlight language="markup">&lt;tc:bar markup="light">
   ...
 &lt;/tc:bar>
 &lt;tc:bar markup="small, light">
@@ -244,7 +244,7 @@
 &lt;/tc:bar>
 &lt;tc:bar markup="extraLarge, light">
   ...
-&lt;/tc:bar></code></pre>
+&lt;/tc:bar></demo-highlight>
     <tc:bar markup="light">
       <tc:style customClass="bg-light"/>
       <f:facet name="brand">

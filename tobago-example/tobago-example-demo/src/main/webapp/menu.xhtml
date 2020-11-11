@@ -72,9 +72,12 @@
           </tc:link>
 
           <tc:link label="Menu" omit="true">
-            <tc:link label="Menu Item" omit="true">
-              <tc:dataAttribute name="alert-text" value="Demo Message"/>
-            </tc:link>
+
+<!--            <demo-alert value="Demo Message">-->
+              <!-- XXX demo-alert not working -->
+              <tc:link label="Menu Item" omit="true" id="menu_item"/>
+<!--            </demo-alert>-->
+<!--
             <tc:separator/>
             <tc:link label="Sub Menu" omit="true">
               <tc:link label="Sub 1" omit="true"/>
@@ -90,12 +93,19 @@
                 <tc:link label="Sub 5 2" omit="true"/>
               </tc:link>
             </tc:link>
+-->
           </tc:link>
 
           <tc:link label="Info" omit="true">
+            <tc:link label="Tobago Demo - #{serverInfo.version}" omit="true" disabled="true"/>
+            <!-- XXX demo-alert not working -->
+            <!--
+            <d emo-alert value="Demo Message">
             <tc:link label="About" omit="true">
               <tc:dataAttribute name="alert-text" value="Tobago Demo - #{serverInfo.version}"/>
             </tc:link>
+            </d emo-alert>
+-->
             <tc:link omit="true" label="Client Info" id="headerInfo">
               <tc:operation name="show" for=":::info"/>
             </tc:link>
@@ -114,11 +124,13 @@
         <tc:flexLayout columns="auto auto">
           <tc:form id="search">
             <tc:flexLayout columns="200px auto">
-              <tc:in id="searchField" placeholder="Search by Google" labelLayout="skip"/>
-              <tc:button id="searchCommand" defaultCommand="true" label="go"
-                         link="https://www.google.com/search?q=site%3Atobago-vm.apache.org%2Fdemo-4-snapshot&amp;oq=site%3Atobago-vm.apache.org%2Fdemo-4-snapshot">
-                <!-- is initialized by demo.js -->
-              </tc:button>
+              <demo-search>
+                <tc:in id="searchField" placeholder="Search by Google" labelLayout="skip">
+                    <f:facet name="after">
+                      <tc:button id="searchCommand" defaultCommand="true" label="go" link="test"/>
+                    </f:facet>
+                </tc:in>
+              </demo-search>
             </tc:flexLayout>
           </tc:form>
           <tc:form id="navbtns">

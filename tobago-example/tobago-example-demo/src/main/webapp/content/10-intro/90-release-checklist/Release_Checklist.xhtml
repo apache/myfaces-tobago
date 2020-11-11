@@ -82,10 +82,10 @@
 &#x0a;
 &#x0a;Regards,
 &#x0a;&lt;sender-name>"/>
-                <pre><code>Subject: ${subject}
+                <demo-highlight>Subject: ${subject}
 
 ${content}
-</code></pre>
+</demo-highlight>
                 <tc:separator/>
                 <tc:button
                     label="Create email"
@@ -120,7 +120,7 @@ ${content}
 
           <li>Perform basic checks on an unmodified checkout for all modules:
 
-            <pre><code class="language-bash"># for Tobago 1.0.x
+            <demo-highlight language="bash"># for Tobago 1.0.x
 $ mvn checkstyle:check rat:check -Pall-modules
 
 # for Tobago 1.5.x and higher
@@ -134,12 +134,11 @@ $ mvn clean install -Pall-modules &amp;&amp; mvn checkstyle:check apache-rat:che
 
 # for Tobago 4.2.0 and higher
 $ mvn clean install &amp;&amp; mvn checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check
-</code></pre>
+</demo-highlight>
           </li>
 
           <li>Check version info in this file manually:
-            <pre><code
-                class="language-bash">$ tobago-core/src/main/java/org/apache/myfaces/tobago/internal/taglib/component/package-info.java</code></pre>
+            <demo-highlight language="bash">$ tobago-core/src/main/java/org/apache/myfaces/tobago/internal/taglib/component/package-info.java</demo-highlight>
           </li>
         </ul>
       </tc:section>
@@ -148,20 +147,20 @@ $ mvn clean install &amp;&amp; mvn checkstyle:check apache-rat:check animal-snif
         <ul>
           <li>Prepare the release with:
 
-            <pre><code class="language-bash">$ mvn release:prepare -Pall-modules</code></pre>
+            <demo-highlight language="bash">$ mvn release:prepare -Pall-modules</demo-highlight>
           </li>
 
           <li>Check out a fresh copy of the svn tag:
 
-            <pre><code class="language-bash">cd ..
+            <demo-highlight language="bash">cd ..
 svn co https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-&lt;version>
 cd tobago-&lt;version>
-</code></pre>
+</demo-highlight>
           </li>
 
           <li>Deploy the fresh copy to the Nexus repository with the apache-release profile (we are not using release:perform here, because of some different options):
 
-            <pre><code class="language-bash"># for Tobago 1.0.x
+            <demo-highlight language="bash"># for Tobago 1.0.x
 # "install" with Java 1.6 and Maven 2
 $ mvn install -Papache-release,jdk14retro,generate-assembly --no-plugin-updates -Dnon-default-modules -Djava14.home=\${java14.jre}
 # "deploy" with Java 1.7 and Maven 3 (hotfix: also comment out the maven-apt-plugin stuff)
@@ -169,7 +168,7 @@ $ mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-defaul
 
 # for Tobago 1.5.x to 2.0.8
 $ mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-default-modules
-</code></pre>
+</demo-highlight>
           </li>
         </ul>
       </tc:section>
@@ -178,14 +177,14 @@ $ mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-defaul
         <ul>
           <li>Prepare and perform the release with:
 
-            <pre><code class="language-bash">$ mvn release:prepare
+            <demo-highlight language="bash">$ mvn release:prepare
 $ mvn release:perform
-</code></pre>
+</demo-highlight>
           </li>
           <li>Make public available:
 
-            <pre><code class="language-bash">$ git push
-</code></pre>
+            <demo-highlight language="bash">$ git push
+</demo-highlight>
           </li>
         </ul>
       </tc:section>
@@ -251,9 +250,9 @@ $ mvn release:perform
 &#x0a;
 &#x0a;Regards,
 &#x0a;&lt;sender-name>"/>
-                <pre><code>Subject: ${subject}
+                <demo-highlight>Subject: ${subject}
 
-${content}</code></pre>
+${content}</demo-highlight>
                 <tc:separator/>
                 <tc:button
                     label="Create email"
@@ -303,13 +302,13 @@ ${content}</code></pre>
               <li>Updating the release and version information in the APT files of trunk, e. g.:
 
                 <!--todo this has changed!-->
-                <pre><code class="language-bash">tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/Release.java
+                <demo-highlight language="bash">tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/Release.java
 src/site/apt/index.apt
-src/site/resources/doap_tobago.rdf</code></pre>
+src/site/resources/doap_tobago.rdf</demo-highlight>
               </li>
 
               <li>
-                <pre><code class="language-bash">$ TOBAGO_SITE=/Volumes/tobago-site
+                <demo-highlight language="bash">$ TOBAGO_SITE=/Volumes/tobago-site
 $ cd $TOBAGO_SITE
 $ git clone https://github.com/apache/myfaces-tobago tobago-master
 $ svn co https://svn.apache.org/repos/asf/myfaces/site/publish/tobago tobago-publish
@@ -317,7 +316,7 @@ $ cd tobago-master
 $ export MAVEN_OPTS="-Xmx1500m \${MAVEN_OPTS}"
 $ mvn clean package -Pattach-source
 $ mvn site:site
-$ mvn site:stage -DstagingDirectory=$TOBAGO_SITE/tobago-publish</code></pre>
+$ mvn site:stage -DstagingDirectory=$TOBAGO_SITE/tobago-publish</demo-highlight>
               </li>
             </ul>
           </li>
@@ -389,9 +388,9 @@ $ mvn site:stage -DstagingDirectory=$TOBAGO_SITE/tobago-publish</code></pre>
 &#x0a;
 &#x0a;Have fun,
 &#x0a;-The MyFaces team"/>
-                <pre><code>Subject: ${subject}
+                <demo-highlight>Subject: ${subject}
 
-${content}</code></pre>
+${content}</demo-highlight>
                 <tc:separator/>
                 <p>
                   For all versions send to MyFaces Discussion list. Only for major versions send to Apache Announces list.

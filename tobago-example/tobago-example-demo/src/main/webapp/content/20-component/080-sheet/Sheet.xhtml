@@ -58,11 +58,11 @@
       Otherwise those components have a negative affect on the proportion of the sheet.<br/>
       For components with a label the attribute <code class="language-css">margin-bottom</code> is set.
       The margin is add to the height of a row.</p>
-    <pre><code class="language-markup">&lt;tc:sheet value="\#{sheetController.solarList}"
+    <demo-highlight language="markup">&lt;tc:sheet value="\#{sheetController.solarList}"
     var="solarobject" rows="4">
   &lt;tc:column label="Name">
     &lt;tc:out value="\#{solarobject.name}" labelLayout="skip"/>
-      ...</code></pre>
+      ...</demo-highlight>
     <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" rows="4">
       <tc:style maxHeight="500px"/>
       <tc:column label="Name">

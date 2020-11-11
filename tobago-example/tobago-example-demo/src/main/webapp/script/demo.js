@@ -15,25 +15,103 @@
  * limitations under the License.
  */
 
-import {Listener, Phase} from "../tobago/standard/5.0.0-SNAPSHOT/js/tobago-listener";
+class DemoAlert extends HTMLElement {
 
-class Demo {
-
-  static init(element) {
-    Demo.initAlert(element);
-    // Demo.initInspect(element); //TODO fix inspection
-    Demo.initTestLinks(element);
-    Demo.initTestFrame(element);
-    Demo.initGoogleSearch(element);
+  constructor() {
+    super();
   }
 
-  static initAlert(element) {
-    for (const e of element.querySelectorAll("[data-alert-text]")) {
-      e.addEventListener("click", function (event) {
-        alert(event.currentTarget.dataset.alertText);
-      });
+  connectedCallback() {
+    this.addEventListener("click", this.alert.bind(this));
+  }
+
+  alert() {
+    window.alert(this.value);
+  }
+
+  get value() {
+    return this.getAttribute("value");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function (event) {
+  if (window.customElements.get("demo-alert") == null) {
+    window.customElements.define("demo-alert", DemoAlert);
+  }
+});
+
+class DemoHighlight extends HTMLElement {
+
+  constructor() {
+    super();
+  }
+
+  connectedCallback() {
+    if (this.language) {
+      this.innerHTML = `<pre><code class="language-${this.language}">${this.innerHTML.trim()}</demo-highlight>`;
+    } else {
+      this.innerHTML = `<pre><code>${this.innerHTML.trim()}</demo-highlight>`;
+    }
+    Prism.highlightElement(this.querySelector("code"));
+  }
+
+  get language() {
+    return this.getAttribute('language');
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function (event) {
+  if (window.customElements.get("demo-highlight") == null) {
+    window.customElements.define("demo-highlight", DemoHighlight);
+  }
+});
+
+class DemoSearch extends HTMLElement {
+
+  constructor() {
+    super();
+  }
+
+  connectedCallback() {
+    const input = this.input;
+    const a = this.a;
+    if (input && a) {
+      a.setAttribute("href", this.google());
+      input.addEventListener("change", this.change.bind(this));
+      input.addEventListener("keypress", this.keypress.bind(this));
     }
   }
+
+  google() {
+    return "https://www.google.com/search?q=site%3Atobago-vm.apache.org+demo-4-release+";
+  }
+
+  change(event) {
+    this.a.href = this.google() + encodeURI(this.input.value);
+  }
+
+  keypress(event) {
+    if (event.which === 13) {
+      this.a.href = this.google() + encodeURI(this.input.value);
+    }
+  }
+
+  get input() {
+    return this.querySelector("input");
+  }
+
+  get a() {
+    return this.querySelector("a");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function (event) {
+  if (window.customElements.get("demo-search") == null) {
+    window.customElements.define("demo-search", DemoSearch);
+  }
+});
+
+class Demo {
 
   static initInspect(element) {
 
@@ -86,31 +164,18 @@ class Demo {
       });
     }
   }
-
-  static initGoogleSearch(element) {
-    const input = document.getElementById("page:search:searchField");
-    if (input) {
-      const search = "+site%3Atobago-vm.apache.org+demo-4";
-      input.addEventListener("change", function (event) {
-        const input = event.currentTarget;
-        const button = document.getElementById("page:search:searchCommand");
-        button.setAttribute("href", "https://www.google.com/search?q=" + encodeURI(input.value) + search);
-      });
-      input.addEventListener("keypress", function (event) {
-        if (event.which === 13) {
-          console.log("ENTER");
-          window.location.href = "https://www.google.com/search?q=" + encodeURI(input.value()) + search;
-        }
-      });
-    }
-  };
-
 }
 
-Listener.register(Demo.init, Phase.DOCUMENT_READY);
-Listener.register(Demo.init, Phase.AFTER_UPDATE);
+document.addEventListener("DOMContentLoaded", function (event) {
+  let element = document; // XXX fixme
+  // Demo.initInspect(element); //TODO fix inspection
+  Demo.initTestLinks(element);
+  Demo.initTestFrame(element);
+});
+
+// XXX init areas after JSF AJAX update not implemented yet!
 
 // call highlighting again. (is called for all, not only for the elements, because it's easier to implement.)
-if (window.location.pathname !== "/test.xhtml") { // not in the test framework
-  Listener.register(Prism.highlightAll, Phase.AFTER_UPDATE);
-}
+// if (window.location.pathname !== "/test.xhtml") { // not in the test framework
+//   Listener.register(Prism.highlightAll, Phase.AFTER_UPDATE);
+// }

@@ -28,9 +28,9 @@
   <tc:section label="Required">
     <p>In this example, the input cannot be empty - in other words, it's required.
       The value in the controller is annotated with <code class="language-java">@NotNull</code>.</p>
-    <pre><code class="language-markup">&lt;tc:in label="Input" value="\#{validationJsr303Controller.required}"/></code></pre>
-    <pre><code class="language-java">@NotNull
-private String required;</code></pre>
+    <demo-highlight language="markup">&lt;tc:in label="Input" value="\#{validationJsr303Controller.required}"/></demo-highlight>
+    <demo-highlight language="java">@NotNull
+private String required;</demo-highlight>
     <tc:form id="required">
       <tc:in id="in1" label="Input (required)" value="#{validationJsr303Controller.required}"/>
       <tc:button id="submit1" label="Submit"/>
@@ -39,10 +39,9 @@ private String required;</code></pre>
 
   <tc:section label="Length">
     <p>The length of the given string must be between 2 and 4 characters.</p>
-    <pre><code
-            class="language-markup">&lt;tc:in label="Input" value="\#{validationJsr303Controller.length}"/></code></pre>
-    <pre><code class="language-java">@Size(min = 2, max = 4, message = "Length must be between 2 and 4")
-private String length;</code></pre>
+    <demo-highlight language="markup">&lt;tc:in label="Input" value="\#{validationJsr303Controller.length}"/></demo-highlight>
+    <demo-highlight language="java">@Size(min = 2, max = 4, message = "Length must be between 2 and 4")
+private String length;</demo-highlight>
     <tc:form id="length">
       <tc:in id="in2" label="2 to 4 Character" value="#{validationJsr303Controller.length}"/>
       <tc:button id="submit2" label="Submit"/>

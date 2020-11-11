@@ -44,7 +44,7 @@
 
   <tc:section label="Multi-Header">
     <p>For multi-header sheets, you should consider to use <code>markup="bordered"</code> for better appearance.</p>
-    <pre><code class="language-markup">&lt;tc:sheet value="\#{sheetController.solarList}" var="luminary" rows="11"
+    <demo-highlight language="markup">&lt;tc:sheet value="\#{sheetController.solarList}" var="luminary" rows="11"
     columns="3fr 2fr 30px 2fr 2fr 2fr 2fr 2fr 2fr" markup="bordered">
   &lt;f:facet name="header">
     &lt;tc:out value="Name">
@@ -52,7 +52,7 @@
     &lt;/tc:out>
     &lt;tc:out value="Information">
       &lt;tc:gridLayoutConstraint columnSpan="2"/>
-    ...</code></pre>
+    ...</demo-highlight>
     <tc:sheet value="#{sheetController.solarList}" var="luminary" rows="11"
               columns="3fr 2fr 30px 2fr 2fr 2fr 2fr 2fr 2fr" markup="bordered">
       <f:facet name="header">

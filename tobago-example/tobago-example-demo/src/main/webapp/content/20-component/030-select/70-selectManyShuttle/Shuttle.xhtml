@@ -40,7 +40,7 @@
              link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/selectItems.html"/></p>
 
   <tc:section label="Basics">
-    <pre><code class="language-markup">&lt;tc:selectManyShuttle label="Shuttle List" size="7"></code></pre>
+    <demo-highlight language="markup">&lt;tc:selectManyShuttle label="Shuttle List" size="7"></demo-highlight>
     <tc:selectManyShuttle id="s1" label="Shuttle List" size="7">
       <tc:selectItem itemLabel="Item1"/>
       <tc:selectItem itemLabel="Item2"/>
@@ -95,9 +95,9 @@
       <code class="language-markup">&lt;tc:selectItems ... var="planet" itemLabel="\#{planet.name}" itemValue="\#{planet}"/></code>.
       The name of a variable is defined by<code>var</code>. In this case, the <code>itemLabel</code> get the name of
       the planet, while the <code>itemValue</code> is object itself.</p>
-    <pre><code class="language-markup">&lt;tc:selectManyShuttle label="Planets" ...>
+    <demo-highlight language="markup">&lt;tc:selectManyShuttle label="Planets" ...>
   &lt;tc:selectItems value="\#{selectManyShuttleController.planets}" .../>
-&lt;/tc:selectManyShuttle></code></pre>
+&lt;/tc:selectManyShuttle></demo-highlight>
     <tc:selectManyShuttle id="submitExample" label="Planets" labelLayout="top"
                           unselectedLabel="Left List" selectedLabel="Right List"
                           value="#{selectManyShuttleController.selectedPlanets}">

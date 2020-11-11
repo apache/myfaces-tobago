@@ -28,7 +28,7 @@
   <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
            link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/selectBooleanToggle.html"/>
   <tc:section label="Basics">
-    <pre><code class="language-markup">&lt;tc:selectBooleanToggle label="Toggle" value="true"/&gt;</code></pre>
+    <demo-highlight language="markup">&lt;tc:selectBooleanToggle label="Toggle" value="true"/&gt;</demo-highlight>
     <tc:selectBooleanToggle id="s1" label="Normal Toggle" value="true"/>
     <tc:selectBooleanToggle id="s2" label="Read Only" readonly="true" value="true"/>
     <tc:selectBooleanToggle id="s3" label="Disabled" disabled="true" value="true"/>
@@ -45,8 +45,8 @@
 
   <tc:section label="Simple Usage">
     <p>In this example, the selected items are displayed in an output field after the submit-button is pressed.</p>
-    <pre><code class="language-markup">&lt;tc:selectBooleanToggle label="A" value="\#{selectBooleanToggleController.a}"/>
-&lt;tc:out label="Selected items: " value="\#{selectBooleanToggleController.selectedItems}"/></code></pre>
+    <demo-highlight language="markup">&lt;tc:selectBooleanToggle label="A" value="\#{selectBooleanToggleController.a}"/>
+&lt;tc:out label="Selected items: " value="\#{selectBooleanToggleController.selectedItems}"/></demo-highlight>
     <tc:selectBooleanToggle id="selectA" label="A" value="#{selectBooleanToggleController.a}"/>
     <tc:selectBooleanToggle id="selectB" label="B" value="#{selectBooleanToggleController.b}"/>
     <tc:selectBooleanToggle id="selectC" label="C" value="#{selectBooleanToggleController.c}"/>
@@ -76,10 +76,10 @@
   </tc:section>
 
   <tc:section label="Images">
-    <pre><code class="language-markup">&lt;tc:selectBooleanToggle itemLabel="Japanese Yen" itemImage="#{request.contextPath}/image/JPY-14.png"/>
+    <demo-highlight language="markup">&lt;tc:selectBooleanToggle itemLabel="Japanese Yen" itemImage="#{request.contextPath}/image/JPY-14.png"/>
 &lt;tc:selectBooleanToggle itemLabel="Trinidad &amp; Tobago Dollar" itemImage="#{request.contextPath}/image/TTD-14.png"/>
 &lt;tc:selectBooleanToggle itemLabel="US Dollar" itemImage="#{request.contextPath}/image/USD-14.png"/>
-&lt;tc:selectBooleanToggle itemLabel="Euro" itemImage="#{request.contextPath}/image/EUR-14.png"/></code></pre>
+&lt;tc:selectBooleanToggle itemLabel="Euro" itemImage="#{request.contextPath}/image/EUR-14.png"/></demo-highlight>
     <tc:selectBooleanToggle itemLabel="Japanese Yen" itemImage="#{request.contextPath}/image/JPY-14.png"/>
     <tc:selectBooleanToggle itemLabel="Trinidad &amp; Tobago Dollar" itemImage="#{request.contextPath}/image/TTD-14.png"/>
     <tc:selectBooleanToggle itemLabel="US Dollar" itemImage="#{request.contextPath}/image/USD-14.png"/>

@@ -28,7 +28,7 @@
   <tc:section label="Basics">
     <p>In most cases, a label should be placed in front of every input field. Use the attribute
       <code>label</code>.</p>
-    <pre><code class="language-markup">&lt;tc:in label="Input" value="Some Text"/&gt;</code></pre>
+    <demo-highlight language="markup">&lt;tc:in label="Input" value="Some Text"/&gt;</demo-highlight>
     <tc:in id="iNormal" label="Input" value="Some Text"/>
     <tc:in id="ireadonly" label="Read Only" readonly="true" value="Some Text"/>
     <tc:in id="i3" label="Disabled" disabled="true" value="Some Text"/>
@@ -37,7 +37,7 @@
 
   <tc:section label="Focus">
     <p>The following input field should be selected after reloading the page. Use the <code>focus</code> attribute.</p>
-    <pre><code class="language-markup">&lt;tc:in label="Input (focus)" focus="true" value="Some Text"/&gt;</code></pre>
+    <demo-highlight language="markup">&lt;tc:in label="Input (focus)" focus="true" value="Some Text"/&gt;</demo-highlight>
     <tc:in id="i5" label="Input (focus)" focus="true" value="Some Text"/>
   </tc:section>
 
@@ -45,29 +45,28 @@
     <p>An input field can be set as required with the <code>required</code> attribute.
       Such an input field must contain a value, otherwise a submit is not possible.
       Leave the field blank and press 'submit' to see the error message.</p>
-    <pre><code class="language-markup">&lt;tc:in label="Input (required)" required="true"/></code></pre>
+    <demo-highlight language="markup">&lt;tc:in label="Input (required)" required="true"/></demo-highlight>
     <tc:in id="ireq" label="Input (required)" required="true" value="#{inController.requiredValue}"/>
     <tc:button label="Submit"/>
   </tc:section>
 
   <tc:section label="Help">
     <p>A help text can be added with the <code>help</code> attribute.</p>
-    <pre><code class="language-markup">&lt;tc:in help="\#{inController.helpText}"/></code></pre>
+    <demo-highlight language="markup">&lt;tc:in help="\#{inController.helpText}"/></demo-highlight>
     <tc:in help="#{inController.helpText}"/>
   </tc:section>
 
   <tc:section label="Password">
     <p>To create an input field for passwords, set the
       <code>password</code> attribute to 'true'. It will hide the text as shown in the following example.</p>
-        <pre><code id="c3"
-                   class="language-markup">&lt;tc:in label="Password" password="true" value="password"/&gt;</code></pre>
+    <demo-highlight language="markup" id="c3">&lt;tc:in label="Password" password="true" value="password"/&gt;</demo-highlight>
     <tc:in id="i6" label="Password" password="true" value="password"/>
   </tc:section>
 
   <tc:section label="Placeholder">
     <p>A <code>placeholder</code> attribute can be used for explaining a user the meaning of a field.</p>
     <p>The text of the placeholder is only shown if the value is an empty string.</p>
-    <pre><code class="language-markup">&lt;tc:in label="Placeholder" placeholder="Grey Text"/&gt;</code></pre>
+    <demo-highlight language="markup">&lt;tc:in label="Placeholder" placeholder="Grey Text"/&gt;</demo-highlight>
     <tc:in id="i7" label="Placeholder" placeholder="Short description of the field." />
   </tc:section>
 

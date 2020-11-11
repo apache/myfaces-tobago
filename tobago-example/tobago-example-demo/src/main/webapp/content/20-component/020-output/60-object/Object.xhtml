@@ -29,7 +29,7 @@
   <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
            link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/object.html"/>
   <tc:section label="Basics">
-    <pre><code class="language-markup">&lt;tc:object src="https://www.openstreetmap.org/..."/&gt;</code></pre>
+    <demo-highlight language="markup">&lt;tc:object src="https://www.openstreetmap.org/..."/&gt;</demo-highlight>
     <tc:object id="o1"
                src="https://www.openstreetmap.org/export/embed.html?bbox=-60.75,11.15,-60.6,11.35"/>
   </tc:section>
@@ -38,7 +38,7 @@
     When Content Security Policy is activated, you need to allow the external source explicitly, for
     security reasons.
     You need to add a child-src policy to the 'tobago-config.xml' like
-    <pre><code class="language-markup">&lt;directive name="child-src"&gt;https://www.openstreetmap.org&lt;/directive&gt;</code></pre>
+    <demo-highlight language="markup">&lt;directive name="child-src"&gt;https://www.openstreetmap.org&lt;/directive&gt;</demo-highlight>
   </tc:section>
   <tc:section label="Style">
     <p>A <code class="language-markup">&lt;tc:object/></code> tag can contain a style tag.
@@ -56,11 +56,11 @@
       the second show the worldmap in <code class="language-markup">&lt;tc:object id="map"></code>.
       The buttons send the parameter (maps-position, maps-zoom, maps-target) to an <code>object.js</code>,
       which is shown in the objects.js-box. The JavaScript build the URL for the iframe.</p>
-    <pre><code class="language-markup">&lt;tc:button label="Show Tobago" omit="true"&gt;
+    <demo-highlight language="markup">&lt;tc:button label="Show Tobago" omit="true"&gt;
   &lt;tc:dataAttribute name="maps-position" value="11.249123,-60.687103"/&gt;
   &lt;tc:dataAttribute name="maps-zoom" value="12"/&gt;
   &lt;tc:dataAttribute name="maps-target" value="page:map"/&gt;
-&lt;/tc:button&gt;</code></pre>
+&lt;/tc:button&gt;</demo-highlight>
     <tc:box id="objectJsBox" label="object.js" collapsed="true" collapsedMode="hidden">
       <f:facet name="bar">
         <tc:buttons>
@@ -72,7 +72,7 @@
           </tc:button>
         </tc:buttons>
       </f:facet>
-      <pre><code class="language-javascript"><tc:out value="#{objectController.javaScriptSource}"/></code></pre>
+      <demo-highlight language="javascript"><tc:out value="#{objectController.javaScriptSource}"/></demo-highlight>
     </tc:box>
     <tc:buttons id="t1">
       <tc:button id="c1" label="Show Tobago" omit="true">

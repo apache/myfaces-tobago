@@ -36,7 +36,7 @@
 
   <tc:section label="Basics">
     <p>A static progressbar, with <code>value</code> of type <code>double</code>.</p>
-    <pre><code class="language-markup">&lt;tc:progress value="15.8" max="20"/></code></pre>
+    <demo-highlight language="markup">&lt;tc:progress value="15.8" max="20"/></demo-highlight>
     <tc:progress value="15.8" max="20"/>
   </tc:section>
 
@@ -50,8 +50,8 @@
 
   <tc:section label="Button">
     <p>By pressing the button, progress is added to the progressbar.</p>
-    <pre><code class="language-markup">&lt;tc:button label="Add Progress" action="\#{progressController.addProgress}"/>
-&lt;tc:progress value="\#{progressController.progress}"/></code></pre>
+    <demo-highlight language="markup">&lt;tc:button label="Add Progress" action="\#{progressController.addProgress}"/>
+&lt;tc:progress value="\#{progressController.progress}"/></demo-highlight>
     <tc:button id="b1" label="Add Progress" action="#{progressController.addProgress}"/>
     <br/>
     <tc:progress value="#{progressController.progress}"/>
@@ -59,8 +59,7 @@
 
   <tc:section label="Time">
     <p>In this example, the current time is displayed as progressbars.</p>
-    <pre><code
-            class="language-markup">&lt;tc:progress value="\#{progressController.currentHours}" max="23"/></code></pre>
+    <demo-highlight language="markup">&lt;tc:progress value="\#{progressController.currentHours}" max="23"/></demo-highlight>
     <tc:panel id="reloadPanel">
       <f:facet name="reload">
         <tc:reload frequency="1000" update="true"/>

@@ -51,10 +51,10 @@
     <tc:section id="forEach" label="For Each">
       <p>The rivers are displayed as <code class="language-markup">&lt;tc:box/></code>
         tags withing a <code class="language-markup">&lt;tc:segmentLayout/></code>.</p>
-    <pre><code class="language-markup">&lt;tc:segmentLayout medium="6seg 6seg">
+    <demo-highlight language="markup">&lt;tc:segmentLayout medium="6seg 6seg">
   &lt;c:forEach items="\#{forEachController.rivers}" var="river">
     &lt;tc:box label="\#{river.name}">
-      ...</code></pre>
+      ...</demo-highlight>
       <tc:segmentLayout medium="6seg 6seg">
         <c:forEach items="#{forEachController.rivers}" var="river">
           <tc:box label="#{river.name}">
@@ -67,9 +67,9 @@
 
     <tc:section id="uiRepeat" label="UI:Repeat">
       <p>In this example, the each data of a river is put in a <code class="language-markup">&lt;tc:section/></code></p>
-    <pre><code class="language-markup">&lt;ui:repeat value="\#{forEachController.rivers}" var="river">
+    <demo-highlight language="markup">&lt;ui:repeat value="\#{forEachController.rivers}" var="river">
   &lt;tc:section label="\#{river.name}">
-    ...</code></pre>
+    ...</demo-highlight>
       <ui:repeat value="#{forEachController.rivers}" var="river">
         <tc:section label="#{river.name}">
           <tc:out label="Length" value="#{river.length} km" markup="number"/>

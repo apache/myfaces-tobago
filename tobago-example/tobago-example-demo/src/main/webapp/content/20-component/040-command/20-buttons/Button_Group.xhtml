@@ -31,11 +31,11 @@
 
   <tc:section label="Basics">
     <p>A simple example with three buttons.</p>
-    <pre><code class="language-markup">&lt;tc:buttons>
+    <demo-highlight language="markup">&lt;tc:buttons>
   &lt;tc:button label="Left"/>
   &lt;tc:button label="Center"/>
   &lt;tc:button label="Right"/>
-&lt;/tc:buttons></code></pre>
+&lt;/tc:buttons></demo-highlight>
     <tc:buttons>
       <tc:button label="Left"/>
       <tc:button label="Center"/>
@@ -45,11 +45,11 @@
 
   <tc:section label="Default Button">
     <p>It is also possible to set a default button.</p>
-    <pre><code class="language-markup">&lt;tc:buttons>
+    <demo-highlight language="markup">&lt;tc:buttons>
   &lt;tc:button label="Left" defaultCommand="true"/>
   &lt;tc:button label="Center"/>
   &lt;tc:button label="Default"/>
-&lt;/tc:buttons></code></pre>
+&lt;/tc:buttons></demo-highlight>
     <tc:buttons>
       <tc:button label="Left" defaultCommand="true"/>
       <tc:button label="Center"/>
@@ -59,7 +59,7 @@
 
   <tc:section label="Dropdown Button">
     <p>A dropdown button can also be placed in a <code class="language-markup">&lt;tc:buttons/></code> tag.</p>
-    <pre><code class="language-markup">&lt;tc:buttons>
+    <demo-highlight language="markup">&lt;tc:buttons>
   &lt;tc:button label="Dropdown" omit="true">
     &lt;tc:link label="Action 1"/>
     ...
@@ -68,7 +68,7 @@
   &lt;/tc:button>
   &lt;tc:button label="Center"/>
   &lt;tc:button label="Right"/>
-&lt;/tc:buttons></code></pre>
+&lt;/tc:buttons></demo-highlight>
     <tc:buttons>
       <tc:button id="buttonWithLinks" label="Dropdown" omit="true">
         <tc:link label="Action 1"/>
@@ -87,11 +87,11 @@
 
   <tc:section label="Vertical">
     <p>Vertical link group.</p>
-    <pre><code class="language-markup">&lt;tc:buttons orientation="vertical">
+    <demo-highlight language="markup">&lt;tc:buttons orientation="vertical">
   &lt;tc:button label="Left"/>
   &lt;tc:button label="Center"/>
   &lt;tc:button label="Right"/>
-&lt;/tc:buttons></code></pre>
+&lt;/tc:buttons></demo-highlight>
     <tc:buttons orientation="vertical">
       <tc:button label="Left"/>
       <tc:button label="Center"/>
@@ -102,11 +102,11 @@
   <tc:section label="Disable">
     <p>This example shows how to disable all buttons in a button group.
       It's also possible to set disable to false e.g. for one button.</p>
-    <pre><code class="language-markup">&lt;tc:buttons disabled="true">
+    <demo-highlight language="markup">&lt;tc:buttons disabled="true">
   &lt;c:button label="Left" disabled="false"/>
   &lt;tc:button label="Center"/>
   &lt;tc:button label="Right"/>
-&lt;/tc:buttons></code></pre>
+&lt;/tc:buttons></demo-highlight>
     <tc:buttons disabled="true">
       <tc:button label="Left" disabled="false"/>
       <tc:button label="Center"/>

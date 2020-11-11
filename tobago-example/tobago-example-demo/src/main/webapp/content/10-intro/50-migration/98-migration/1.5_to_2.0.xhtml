@@ -118,20 +118,20 @@
     <tc:section label="Suggest">
       <p>Please use the new <code class="language-markup">&lt;tc:suggest></code> tag instead of using the inline
         attribute inside of <code class="language-markup">&lt;tc:in></code>.</p>
-      <pre><code class="language-markup">deprecated:
+      <demo-highlight language="markup">deprecated:
 &lt;tc:in suggestMethod="\#{bean.method}"/>
 
 replacement:
 &lt;tc:in>
   &lt;tc:suggest suggestMethod="\#{bean.method}"/>
-&lt;/tc:in></code></pre>
-      <pre><code class="language-markup">deprecated:
+&lt;/tc:in></demo-highlight>
+      <demo-highlight language="markup">deprecated:
 &lt;tx:in suggestMethod="\#{bean.method}"/>
 
 replacement:
 &lt;tx:in>
   &lt;tc:suggest suggestMethod="\#{bean.method}"/>
-&lt;/tx:in></code></pre>
+&lt;/tx:in></demo-highlight>
     </tc:section>
 
     <tc:section label="Tree">

@@ -30,7 +30,7 @@
     To set the switching type, use the <code>switchType</code> attribute. By default it's client side.</p>
 
   <tc:section label="Client side">
-    <pre><code class="language-markup">&lt;tc:tabGroup></code></pre>
+    <demo-highlight language="markup">&lt;tc:tabGroup></demo-highlight>
     <tc:tabGroup id="tabGroupClient">
       <tc:tab id="tab1Client" label="Tab One" markup="one">
         Content of tab one.
@@ -48,7 +48,7 @@
   </tc:section>
 
   <tc:section label="AJAX">
-    <pre><code class="language-markup">&lt;tabGroup switchType="reloadTab"></code></pre>
+    <demo-highlight language="markup">&lt;tabGroup switchType="reloadTab"></demo-highlight>
     <tc:tabGroup id="tabGroupAjax" switchType="reloadTab">
       <tc:tab id="tab1Ajax" label="Tab One" markup="one">
         Content of tab one.
@@ -66,7 +66,7 @@
   </tc:section>
 
   <tc:section label="Server side">
-    <pre><code class="language-markup">&lt;tabGroup switchType="reloadPage"></code></pre>
+    <demo-highlight language="markup">&lt;tabGroup switchType="reloadPage"></demo-highlight>
     <tc:tabGroup id="tabGroupFullReload" switchType="reloadPage">
       <tc:tab id="tab1FullReload" label="Tab One" markup="one">
         Content of tab one.
@@ -79,9 +79,9 @@
       </tc:tab>
       <tc:tab id="tab3FullReload" label="Tab Three" markup="three">
         <f:facet name="bar">
-          <tc:link image="fa-remove" omit="true">
-            <tc:dataAttribute name="alert-text" value="Not implemented yet!"/>
-          </tc:link>
+          <demo-alert value="Not implemented yet!">
+            <tc:link image="fa-remove" omit="true"/>
+          </demo-alert>
         </f:facet>
         Content of tab three.
       </tc:tab>

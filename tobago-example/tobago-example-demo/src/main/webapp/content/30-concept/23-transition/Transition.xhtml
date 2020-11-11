@@ -33,10 +33,10 @@
   <tc:section label="Basics">
     <p>By following one of the links, the site waits five seconds.
       After that, you will be redirected to another page.</p>
-    <pre><code class="language-markup">&lt;tc:link label="link with transition ON"
+    <demo-highlight language="markup">&lt;tc:link label="link with transition ON"
 action="\#{transitionController.sleep5sAndRedirect}"/>
 &lt;tc:link label="link with transition OFF" transition="false"
-action="\#{transitionController.sleep5sAndRedirect}"/></code></pre>
+action="\#{transitionController.sleep5sAndRedirect}"/></demo-highlight>
 
     <tc:link label="link with transition ON" action="#{transitionController.sleep5sAndRedirect}"/>
     <br/>

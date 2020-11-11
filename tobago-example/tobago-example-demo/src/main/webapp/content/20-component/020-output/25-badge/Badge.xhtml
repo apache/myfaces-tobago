@@ -39,19 +39,19 @@
 
     <tc:separator/>
     <p>Badges can placed inside buttons.</p>
-    <pre><code class="language-markup">&lt;tc:button label="Unreaded Messages" omit="true" markup="primary">
+    <demo-highlight language="markup">&lt;tc:button label="Unreaded Messages" omit="true" markup="primary">
   &lt;tc:badge value="9" markup="light"/>
-&lt;/tc:button></code></pre>
+&lt;/tc:button></demo-highlight>
     <tc:button label="Unreaded Messages" omit="true" markup="primary">
       <tc:badge value="9" markup="light"/>
     </tc:button>
 
     <tc:separator/>
     <p>Badges can be placed inside button groups. So it's possible to use them together with buttons. </p>
-    <pre><code class="language-markup">&lt;tc:buttons>
+    <demo-highlight language="markup">&lt;tc:buttons>
   &lt;tc:badge value="badge" markup="warning"/>
   &lt;tc:button image="fa-times" markup="badge" tip="remove" omit="true"/>
-&lt;/tc:buttons></code></pre>
+&lt;/tc:buttons></demo-highlight>
     <tc:buttons>
       <tc:badge value="badge" markup="warning"/>
       <tc:button image="fa-times" markup="badge" tip="remove" omit="true"/>
@@ -63,7 +63,7 @@
     <p>Colors can be set with markups. Markup <code>none</code> unset the color.
       Markup <code>pill</code> make the shape more rounded.
       If no markup is set, the secondary theme color will be applied.</p>
-    <pre><code class="language-markup">&lt;tc:badge value="primary" markup="primary"/>
+    <demo-highlight language="markup">&lt;tc:badge value="primary" markup="primary"/>
 &lt;tc:badge value="secondary" markup="secondary"/>
 &lt;tc:badge value="danger" markup="danger"/>
 &lt;tc:badge value="warning" markup="warning"/>
@@ -72,7 +72,7 @@
 &lt;tc:badge value="light" markup="light"/>
 &lt;tc:badge value="dark" markup="dark"/>
 &lt;tc:badge value="none" markup="none"/>
-&lt;tc:badge value="pill" markup="pill"/></code></pre>
+&lt;tc:badge value="pill" markup="pill"/></demo-highlight>
 
     <tc:badge value="primary" markup="primary"/>
     <tc:badge value="secondary" markup="secondary"/>
@@ -91,11 +91,11 @@
   <tc:section label="Buttons">
     <p>If you need badges with the functionality of buttons use the <code>badge</code> markup.</p>
 
-    <pre><code class="language-markup">&lt;tc:button label="Badge Button" markup="badge" omit="true"/>
+    <demo-highlight language="markup">&lt;tc:button label="Badge Button" markup="badge" omit="true"/>
 &lt;tc:button label="Pill" markup="badge pill" omit="true"/>
 &lt;tc:button label="Warning" markup="badge warning" omit="true"/>
 &lt;tc:button label="Link" markup="badge" link="https://www.apache.org/"/>
-&lt;tc:button label="Disabled" markup="badge" disabled="true"/></code></pre>
+&lt;tc:button label="Disabled" markup="badge" disabled="true"/></demo-highlight>
 
     <tc:button label="Badge Button" markup="badge" omit="true"/>
     <tc:button label="Pill" markup="badge pill" omit="true"/>
@@ -109,10 +109,10 @@
   <tc:section label="Button group">
     <p>This example shows multiple button groups with a badge and a button.
       Clicking the button will remove the current group.</p>
-    <pre><code class="language-markup">&lt;tc:buttons>
+    <demo-highlight language="markup">&lt;tc:buttons>
   &lt;tc:badge value="label" markup="warning"/>
   &lt;tc:button image="fa-times" markup="badge secondary"/>
-&lt;/tc:buttons></code></pre>
+&lt;/tc:buttons></demo-highlight>
 
     <tc:button label="Reset" action="#{badgeController.reset}">
       <f:ajax render="badgesButtonGroup"/>

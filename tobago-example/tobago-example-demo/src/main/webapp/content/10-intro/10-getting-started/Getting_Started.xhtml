@@ -28,12 +28,11 @@
 
     Check out the current development sources by running the following:
 
-    <pre><code class="language-bash">$ git clone https://github.com/apache/myfaces-tobago tobago</code></pre>
+    <demo-highlight language="bash">$ git clone https://github.com/apache/myfaces-tobago tobago</demo-highlight>
 
     You can check out older versions like 2.x by using the git remote branch (tobago-2.x) running:
 
-    <pre><code
-        class="language-bash">$ git clone -b tobago-2.x https://github.com/apache/myfaces-tobago tobago-2.x</code></pre>
+    <demo-highlight language="bash">$ git clone -b tobago-2.x https://github.com/apache/myfaces-tobago tobago-2.x</demo-highlight>
 
   </tc:section>
 
@@ -49,7 +48,7 @@
       Change to the local loaded source directory and call
     </p>
 
-    <pre><code class="language-bash">$ mvn clean install</code></pre>
+    <demo-highlight language="bash">$ mvn clean install</demo-highlight>
 
     <p>
       to run the install target on all sub projects. This will
@@ -66,11 +65,11 @@
 
     You can run the examples inside tobago-example with jetty
 
-    <pre><code class="language-bash">$ mvn jetty:run -Pjetty</code></pre>
+    <demo-highlight language="bash">$ mvn jetty:run -Pjetty</demo-highlight>
 
     or
 
-    <pre><code class="language-bash">$ mvn package</code></pre>
+    <demo-highlight language="bash">$ mvn package</demo-highlight>
 
     and deploy the WAR from the target directory manually.
 
@@ -79,22 +78,22 @@
       By default the example will be started with MyFaces 2.3
       You can run the examples with other version like you see here:
 
-      <pre><code class="language-bash">$ mvn jetty:run -Pjetty</code></pre>
+      <demo-highlight language="bash">$ mvn jetty:run -Pjetty</demo-highlight>
 
       You can select a specific JSF implementation with the <i>jsf</i> variable, like Mojarra.
 
-      <pre><code class="language-bash">$ mvn jetty:run -Pjetty -Djsf=mojarra-2.3</code></pre>
+      <demo-highlight language="bash">$ mvn jetty:run -Pjetty -Djsf=mojarra-2.3</demo-highlight>
     </tc:section>
 
     It's also possible to run the demo in TomEE from Maven directly
 
-    <pre><code class="language-bash">$ mvn clean package tomee:run -Ptomee -Djsf=provided</code></pre>
+    <demo-highlight language="bash">$ mvn clean package tomee:run -Ptomee -Djsf=provided</demo-highlight>
 
   </tc:section>
 
   <tc:section label="Development">
     <p>For development the example-demo could be run with maven profile "dev".</p>
-    <pre><code class="language-bash">$ mvn -Pdev jetty:run -Pjetty</code></pre>
+    <demo-highlight language="bash">$ mvn -Pdev jetty:run -Pjetty</demo-highlight>
     <p>In this case the npm scripts "dev-css" and "dev-ts" could be run to compile css and typescript classes.
       These changes would be detected by jetty without restart.</p>
   </tc:section>

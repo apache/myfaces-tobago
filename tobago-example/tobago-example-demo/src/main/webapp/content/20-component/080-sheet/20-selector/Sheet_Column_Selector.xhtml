@@ -36,14 +36,14 @@
   <tc:section label="Column Selector">
     <p>The first column in this sheet contain radio buttons.
       After clicking the submit button, the number of the selected row is displayed in the output field.</p>
-    <pre><code class="language-markup">&lt;tc:sheet value="\#{sheetController.solarList}"
+    <demo-highlight language="markup">&lt;tc:sheet value="\#{sheetController.solarList}"
     var="solarobject" selectable="singleOrNone" rows="2"
     state="\#{sheetController.sheetState}">
     &lt;tc:columnSelector/>
     &lt;tc:column label="Name">
       &lt;tc:out value="\#{solarobject.name}"/>
     &lt;/tc:column>
-    ...</code></pre>
+    ...</demo-highlight>
     <tc:sheet id="s4" value="#{sheetController.solarList}" var="object" rows="5"
               selectable="#{sheetController.selectable}" state="#{sheetController.sheetState}">
       <tc:columnSelector/>

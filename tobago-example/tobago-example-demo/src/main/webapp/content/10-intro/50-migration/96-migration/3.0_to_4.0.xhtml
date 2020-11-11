@@ -86,19 +86,19 @@
         <p>There is a new after-facet for right side content. Old code which uses
           <code class="language-markup">&lt;tc:flowLayout align=right></code> probably doesn't work correctly.</p>
         <p>Replace the following code...</p>
-        <pre><code class="language-markup">&lt;tc:bar>
+        <demo-highlight language="markup">&lt;tc:bar>
   &lt;tc:flowLayout textAlign="right">
     // right side content
   &lt;/tc:flowLayout>
-&lt;/tc:bar></code></pre>
+&lt;/tc:bar></demo-highlight>
         <p>... with this:</p>
-        <pre><code class="language-markup">&lt;tc:bar>
+        <demo-highlight language="markup">&lt;tc:bar>
   &lt;f:facet name="after">
     &lt;tc:flexLayout columns="1fr auto">
       // right side content
     &lt;/tc:flexLayout>
   &lt;/f:facet>
-&lt;/tc:bar></code></pre>
+&lt;/tc:bar></demo-highlight>
         <p>Also new markups are added to change collapse/expand behavior and color scheme.
           For more information have a look at
           <tc:link label="tc:bar" outcome="/content/20-component/050-container/60-bar/Bar.xhtml"/></p>
@@ -157,7 +157,7 @@
       <tc:section id="layout-script" label="Migration script for layout attributes">
         <p>Here is a simple <tc:link label="migration script" link="migrate4-layout.sh"/>, that may help you to change the layout attributes in the
           facelets XHTML files.</p>
-        <pre><code class="language-bash"><tc:out value="#{migration4Controller.scriptSource}"/></code></pre>
+        <demo-highlight language="bash"><tc:out value="#{migration4Controller.scriptSource}"/></demo-highlight>
       </tc:section>
 
     </tc:section>
@@ -215,11 +215,11 @@
         You may remove this context parameter in your <code>web.xml</code>.
       </p>
 
-      <pre><code class="language-markup">&lt;context-param>
+      <demo-highlight language="markup">&lt;context-param>
     &lt;param-name>javax.faces.FACELETS_RESOURCE_RESOLVER&lt;/param-name>
     &lt;param-value>org.apache.myfaces.tobago.facelets.MetaInfResourcesClasspathResourceResolver&lt;/param-value>
 &lt;/context-param>
-</code></pre>
+</demo-highlight>
 
     </tc:section>
 

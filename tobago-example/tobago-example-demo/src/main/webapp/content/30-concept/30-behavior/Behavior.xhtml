@@ -38,9 +38,9 @@
   <tc:section label="Basic examples">
     <p>Type a text into the input field. After leaving the input field, the given text is shown in the output field.</p>
     <tc:section label="f:ajax">
-      <pre><code class="language-markup">&lt;tc:in label="Ajax Input" value="\#{behaviorController.ajax}">
+      <demo-highlight language="markup">&lt;tc:in label="Ajax Input" value="\#{behaviorController.ajax}">
   &lt;f:ajax render="outAjax"/>
-&lt;/tc:in></code></pre>
+&lt;/tc:in></demo-highlight>
       <tc:in label="Ajax Input" value="#{behaviorController.ajax}">
         <f:ajax render="outAjax"/>
       </tc:in>
@@ -48,9 +48,9 @@
     </tc:section>
 
     <tc:section label="tc:event">
-      <pre><code class="language-markup">&lt;tc:in label="Event Input" value="\#{behaviorController.event}">
+      <demo-highlight language="markup">&lt;tc:in label="Event Input" value="\#{behaviorController.event}">
   &lt;tc:event/>
-&lt;/tc:in></code></pre>
+&lt;/tc:in></demo-highlight>
 
       <tc:in label="Event Input" value="#{behaviorController.event}">
         <tc:event/>
@@ -63,12 +63,12 @@
     <p>It's possible to change the event name. For example if you want a double click event, change the event name to
       <code>dblclick</code>. This is done for the following two buttons.</p>
 
-    <pre><code class="language-markup">&lt;tc:button label="Ajax Double Click">
+    <demo-highlight language="markup">&lt;tc:button label="Ajax Double Click">
   &lt;f:ajax event="dblclick" render="outCounter" listener="..."/>
 &lt;/tc:button>
 &lt;tc:button label="Event Double Click">
   &lt;tc:event event="dblclick" actionListener="..."/>
-&lt;/tc:button></code></pre>
+&lt;/tc:button></demo-highlight>
     <tc:button label="Ajax Double Click">
       <f:ajax event="dblclick" render="outCounter" listener="#{behaviorController.countUp}"/>
     </tc:button>
@@ -89,23 +89,23 @@
       <p>An example can be found for
         <tc:link label="&lt;tc:row>" outcome="/content/20-component/080-sheet/30-event/Sheet_Event.xhtml"/>
         Option: 'open popup on click with AJAX'.</p>
-      <pre><code class="language-markup">&lt;tc:row>
+      <demo-highlight language="markup">&lt;tc:row>
   &lt;tc:event>
     &lt;f:ajax execute=":::popup" render=":::popup" listener="..."/>
     &lt;tc:operation name="show" for=":::popup"/>
   &lt;/tc:event>
-&lt;/tc:row></code></pre>
+&lt;/tc:row></demo-highlight>
     </tc:section>
 
     <tc:section label="f:ajax and tc:event">
       <p>This is an example to show how <code class="language-markup">&lt;f:ajax/></code> and <code
               class="language-markup">&lt;tc:event/></code> can be used together.
         The ajax event is called with a click and the event with a double click.</p>
-      <pre><code class="language-markup">&lt;tc:button id="btnAjaxEvent" label="Submit" type="submit">
+      <demo-highlight language="markup">&lt;tc:button id="btnAjaxEvent" label="Submit" type="submit">
   &lt;f:ajax event="click" render="out" listener="\#{behaviorController.eventOutput}"/>
   &lt;tc:event event="dblclick" actionListener="\#{behaviorController.eventOutput}"/>
 &lt;/tc:button>
-&lt;tc:out id="out" label="Output:" value="\#{behaviorController.output}"/></code></pre>
+&lt;tc:out id="out" label="Output:" value="\#{behaviorController.output}"/></demo-highlight>
       <tc:button id="btnAjaxEvent" label="Submit" type="submit">
         <f:ajax event="click" render="out" listener="#{behaviorController.eventOutput}"/>
         <tc:event event="dblclick" actionListener="#{behaviorController.eventOutput}"/>

@@ -200,10 +200,10 @@
       <p>
         Then verify the signatures for all downloaded files. With gpg for the dist.tar.gz it looks like
       </p>
-      <pre><code class="language-bash">$ TOBAGO_VERSION=#{apiController.releases[0].version} 
+      <demo-highlight language="bash">$ TOBAGO_VERSION=#{apiController.releases[0].version} 
 $ gpg --import KEYS
 $ gpg --verify myfaces-tobago-$TOBAGO_VERSION-dist.tar.gz.asc myfaces-tobago-$TOBAGO_VERSION-dist.tar.gz
-  </code></pre>
+  </demo-highlight>
     </tc:section>
 
   </tc:section>

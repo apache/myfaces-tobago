@@ -30,20 +30,20 @@
     section.</p>
 
   <tc:section label="Deprecated">
-    <pre><code class="language-markup">&lt;tc:in label="Language">
+    <demo-highlight language="markup">&lt;tc:in label="Language">
   &lt;tc:suggest totalCount="10" suggestMethod="\#{suggestController.getInputSuggestItems}"/>
-&lt;/tc:in></code></pre>
+&lt;/tc:in></demo-highlight>
     <tc:in id="deprecated" label="Language">
       <tc:suggest totalCount="10" suggestMethod="#{suggestController.getInputSuggestItems}"/>
     </tc:in>
   </tc:section>
 
   <tc:section label="Replacement">
-    <pre><code class="language-markup">&lt;tc:in label="Language">
+    <demo-highlight language="markup">&lt;tc:in label="Language">
   &lt;tc:suggest totalCount="10" query="\#{suggestController.query}">
     &lt;tc:selectItems value="\#{suggestController.solarObjects}" var="name" itemValue="\#{name}"/>
   &lt;/tc:suggest>
-&lt;/tc:in></code></pre>
+&lt;/tc:in></demo-highlight>
     <tc:in id="replacement" label="Language">
       <tc:suggest totalCount="10" query="#{suggestController.query}">
         <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>

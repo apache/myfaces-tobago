@@ -37,10 +37,10 @@
 
   <tc:section label="Basics">
     <p>A sheet with six rows. The name of the columns is set by the <code>label</code> attribute.</p>
-    <pre><code class="language-markup">&lt;tc:sheet value="\#{sheetController.solarList}" var="object" rows="6">
+    <demo-highlight language="markup">&lt;tc:sheet value="\#{sheetController.solarList}" var="object" rows="6">
   &lt;tc:column label="Name">
     &lt;tc:out value="\#{object.name}"/>
-  ...</code></pre>
+  ...</demo-highlight>
     <tc:sheet id="simpleSheet" value="#{sheetController.solarList}" var="object" rows="6">
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
@@ -64,9 +64,9 @@
     <p>A sheet with ten rows and a maximal height of 500px. The header is scrollable.</p>
     <p>To get a scrolling header, you have to set a maximal height
       and the width of all columns must be calculated automatically.</p>
-    <pre><code class="language-markup">&lt;tc:sheet value="\#{sheetController.solarList}" var="object" rows="10">
+    <demo-highlight language="markup">&lt;tc:sheet value="\#{sheetController.solarList}" var="object" rows="10">
   &lt;tc:style maxHeight="500px"/>
-  ...</code></pre>
+  ...</demo-highlight>
     <tc:sheet id="scrollHeaderSheet" value="#{sheetController.solarList}" var="object" rows="10">
       <tc:style maxHeight="500px"/>
       <tc:column label="Name">
@@ -91,10 +91,10 @@
     <p>A sheet with ten rows and a maximal height of 500px. The header is static.</p>
     <p>To get a static header, you have to set a maximal height and the
       <code>columns</code> attribute must be used to set the width of the columns manually.</p>
-    <pre><code class="language-markup">&lt;tc:sheet value="\#{sheetController.solarList}" var="object" rows="10"
+    <demo-highlight language="markup">&lt;tc:sheet value="\#{sheetController.solarList}" var="object" rows="10"
       columns="3fr 80px 20% 2fr 1fr">
   &lt;tc:style maxHeight="500px"/>
-  ...</code></pre>
+  ...</demo-highlight>
     <tc:sheet id="alwaysVisibleHeaderSheet" value="#{sheetController.solarList}" var="object" rows="10"
               columns="3fr 80px 20% 2fr 1fr">
       <tc:style maxHeight="500px"/>

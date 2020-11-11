@@ -36,27 +36,25 @@
 
   <tc:section label="Format 1">
     <p>The message format is: "#{format1text}"</p>
-    <pre><code class="language-markup">&lt;tc:out value="\#{tc:format1(format1text, 695700)}"/></code></pre>
+    <demo-highlight language="markup">&lt;tc:out value="\#{tc:format1(format1text, 695700)}"/></demo-highlight>
     <tc:out id="o1" value="#{tc:format1(format1text, 695700)}"/>
   </tc:section>
 
   <tc:section label="Format 3">
     <p>The message format is: "#{format3text}"</p>
-    <pre><code
-        class="language-markup">&lt;tc:out value="\#{tc:format3(format3text, 5800, 15700000, 5000000)}"/></code></pre>
+    <demo-highlight language="markup">&lt;tc:out value="\#{tc:format3(format3text, 5800, 15700000, 5000000)}"/></demo-highlight>
     <tc:out id="o2" value="#{tc:format3(format3text, 5800, 15700000, 5000000)}"/>
   </tc:section>
 
   <tc:section label="Format 9">
     <p>The message format is: "#{format9text}"</p>
-    <pre><code
-        class="language-markup">&lt;tc:out value="\#{tc:format9(format9text, 0, 1, 2, 3, 4, 5, 6, 7, 8)}"/></code></pre>
+    <demo-highlight language="markup">&lt;tc:out value="\#{tc:format9(format9text, 0, 1, 2, 3, 4, 5, 6, 7, 8)}"/></demo-highlight>
     <tc:out id="o3" value="#{tc:format9(format9text, 0, 1, 2, 3, 4, 5, 6, 7, 8)}"/>
   </tc:section>
 
   <tc:section label="UpperCase">
     <p>You may also use the <code>fn:</code> function library for string manipulation.</p>
-    <pre><code class="language-markup">&lt;tc:out value="\#{fn:toUpperCase('uppercase')}"/></code></pre>
+    <demo-highlight language="markup">&lt;tc:out value="\#{fn:toUpperCase('uppercase')}"/></demo-highlight>
     <tc:out id="o4" value="#{fn:toUpperCase('uppercase')}"/>
   </tc:section>
 </ui:composition>

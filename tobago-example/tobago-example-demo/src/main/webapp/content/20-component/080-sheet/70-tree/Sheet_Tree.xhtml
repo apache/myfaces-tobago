@@ -38,12 +38,12 @@
       The <code class="language-markup">&lt;tc:columnNode/></code> tag can contain several tags for a tree.
       In this example, it's a <code class="language-markup">&lt;tc:treeIndent/></code> to intent the
       single entries of the tree.</p>
-    <pre><code class="language-markup">&lt;tc:sheet value="\#{sheetTreeController.solarTree}"
+    <demo-highlight language="markup">&lt;tc:sheet value="\#{sheetTreeController.solarTree}"
     var="solarObject" showRoot="true" showRootJunction="true">
   &lt;tc:columnNode label="Name">
     &lt;tc:treeIndent/>
     &lt;tc:out value="\#{solarObject.userObject.name}"/>
-    ...</code></pre>
+    ...</demo-highlight>
     <tc:sheet id="sheet" value="#{sheetTreeController.solarTree}" var="solarObject" showRoot="true" showRootJunction="true">
       <tc:columnNode id="nameCol" label="Name">
         <tc:treeIndent/>

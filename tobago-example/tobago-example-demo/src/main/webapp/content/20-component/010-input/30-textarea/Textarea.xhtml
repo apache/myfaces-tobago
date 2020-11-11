@@ -30,7 +30,7 @@
     <p>The textarea should always have a label attached. For this, use the <code>label</code> attribute.</p>
     <p>Unlike the input field <tc:link label="In"
                                       outcome="/content/20-component/010-input/10-in/In.xhtml"/> there is no placeholder attribute to describe the meaning of a textarea, when no label is set.</p>
-    <pre><code class="language-markup">&lt;tc:textarea label="Text Area" value="Some text, some text, ..."/&gt;</code></pre>
+    <demo-highlight language="markup">&lt;tc:textarea label="Text Area" value="Some text, some text, ..."/&gt;</demo-highlight>
     <tc:textarea id="t1" label="Text Area"
                  value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
     <tc:textarea id="t2" label="Read Only" readonly="true"
@@ -42,7 +42,7 @@
   </tc:section>
   <tc:section label="Focus">
     <p>The following textarea should be selected after reloading this page. Use the <code>focus</code> attribute.</p>
-    <pre><code class="language-markup">&lt;tc:textarea label="Text Area (focus)" focus="true" value="Some Text"/&gt;</code></pre>
+    <demo-highlight language="markup">&lt;tc:textarea label="Text Area (focus)" focus="true" value="Some Text"/&gt;</demo-highlight>
     <tc:textarea id="t5" label="Text Area (focus)" focus="true" value="Some Text"/>
   </tc:section>
 
@@ -50,7 +50,7 @@
     <p>A textarea can be set as required with the <code>required</code> attribute.
       Such a textarea must contain a value, otherwise a submit is not possible.
       Leave the field blank and press 'submit' to see the errormessage.</p>
-    <pre><code class="language-markup">&lt;tc:textarea id="treq" label="Text Area" required="true"/></code></pre>
+    <demo-highlight language="markup">&lt;tc:textarea id="treq" label="Text Area" required="true"/></demo-highlight>
     <tc:textarea id="treq" label="Text Area" required="true"/>
     <tc:button label="Submit" action="#{textareaController.submit}"/>
   </tc:section>
@@ -66,7 +66,7 @@
   <tc:section label="Rows">
     <p>With the <code>rows</code> attribute, the initial size of the textbox can be set. A value less than 1 has no effect.</p>
     <p>The following example show a textarea with five rows.</p>
-    <pre><code class="language-markup">&lt;tc:textarea label="Text Area" rows="5" value="\#{textareaController.longText}"/&gt;</code></pre>
+    <demo-highlight language="markup">&lt;tc:textarea label="Text Area" rows="5" value="\#{textareaController.longText}"/&gt;</demo-highlight>
     <tc:textarea id="t6" label="Text Area" rows="5" value="#{textareaController.longText}"/>
   </tc:section>
 </ui:composition>

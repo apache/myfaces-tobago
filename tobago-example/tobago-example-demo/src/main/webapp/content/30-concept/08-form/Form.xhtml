@@ -34,7 +34,7 @@
   <tc:section label="Example">
     <p>This small example contain two separate forms, each surrounded by a content box.
       The submit button only update the model in the current form.</p>
-    <pre><code class="language-markup">&lt;tc:box label="Form 1">
+    <demo-highlight language="markup">&lt;tc:box label="Form 1">
   &lt;tc:form>
     &lt;tc:in label="Value 1" value="\#{formController.value1}"/>
     &lt;tc:out label="Value 1 in Model" value="\#{formController.value1}"/>
@@ -43,7 +43,7 @@
 &lt;/tc:box>
 &lt;tc:box label="Form 2">
   ...
-&lt;/tc:box></code></pre>
+&lt;/tc:box></demo-highlight>
     <tc:box label="Form 1">
       <tc:form id="form1">
         <tc:in id="in1" label="Value 1" value="#{formController.value1}"/>

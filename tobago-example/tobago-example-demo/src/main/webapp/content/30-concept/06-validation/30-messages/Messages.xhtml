@@ -60,27 +60,26 @@
 
     <tc:tab label="Number of messages">
       <p>A limit for the number of messages can be set with the <code>maxNumber</code> attribute.</p>
-      <pre><code class="language-markup">&lt;tc:messages maxNumber="2"/></code></pre>
+      <demo-highlight language="markup">&lt;tc:messages maxNumber="2"/></demo-highlight>
       <tc:messages maxNumber="2"/>
     </tc:tab>
 
     <tc:tab label="Severity">
       <p>The range, which severities are displayed, can be set with <code>minSeverity</code> and
         <code>maxSeverity</code>. In this example, only warnings and error should be displayed.</p>
-      <pre><code
-              class="language-markup">&lt;tc:messages minSeverity="#{messagesController.severityWarn}" maxSeverity="#{messagesController.severityError}"/></code></pre>
+      <demo-highlight language="markup">&lt;tc:messages minSeverity="#{messagesController.severityWarn}" maxSeverity="#{messagesController.severityError}"/></demo-highlight>
       <tc:messages minSeverity="#{messagesController.severityWarn}" maxSeverity="#{messagesController.severityError}"/>
     </tc:tab>
 
     <tc:tab label="Details">
       <p>A message can also contain 'details', you can show it with <code>showDetail</code>.</p>
-      <pre><code class="language-markup">&lt;tc:messages showDetail="true"/></code></pre>
+      <demo-highlight language="markup">&lt;tc:messages showDetail="true"/></demo-highlight>
       <tc:messages showDetail="true"/>
     </tc:tab>
 
     <tc:tab label="Hide summary">
       <p>In this example, only the details are shown. To hide the summary, use <code>showSummary</code>.</p>
-      <pre><code class="language-markup">&lt;tc:messages showSummary="false" showDetail="true"/></code></pre>
+      <demo-highlight language="markup">&lt;tc:messages showSummary="false" showDetail="true"/></demo-highlight>
       <tc:messages showSummary="false" showDetail="true"/>
     </tc:tab>
 
@@ -89,12 +88,12 @@
         <tc:box label="severity">
           <p>By default, messages are sorted by severity.
             Therefor, the <code>orderBy</code> attribute is not needed in this case.</p>
-          <pre><code class="language-markup">&lt;tc:messages orderBy="severity"/></code></pre>
+          <demo-highlight language="markup">&lt;tc:messages orderBy="severity"/></demo-highlight>
           <tc:messages orderBy="severity"/>
         </tc:box>
         <tc:box label="occurrence">
           <p>Messages displayed in the order they occurred.</p>
-          <pre><code class="language-markup">&lt;tc:messages orderBy="occurrence"/></code></pre>
+          <demo-highlight language="markup">&lt;tc:messages orderBy="occurrence"/></demo-highlight>
           <tc:messages orderBy="occurrence"/>
         </tc:box>
       </tc:segmentLayout>

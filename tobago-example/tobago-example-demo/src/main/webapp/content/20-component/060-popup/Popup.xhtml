@@ -55,9 +55,9 @@
         The other mandatory attribute is the <code>for</code> attribute.
         It contain the ID of the popup on which the transition should be executed.</p>
 
-      <pre><code class="language-markup">&lt;tc:button label="Open" omit="true">
+      <demo-highlight language="markup">&lt;tc:button label="Open" omit="true">
   &lt;tc:operation name="show" for="clientPopup"/>
-&lt;/tc:button></code></pre>
+&lt;/tc:button></demo-highlight>
       <tc:button id="open" label="Open" omit="true">
         <tc:operation name="show" for="clientPopup"/>
       </tc:button>
@@ -71,22 +71,22 @@
           <p>This is a popup dialog with an input field.</p>
 
           <b>Submit</b>
-          <pre><code class="language-markup">&lt;tc:button label="Submit">
+          <demo-highlight language="markup">&lt;tc:button label="Submit">
   &lt;f:ajax execute="in" render="in :::out clientPopupMessages"/>
-&lt;/tc:button></code></pre>
+&lt;/tc:button></demo-highlight>
           <p>The 'Submit'-button send an ajax request to submit the value in the input field.
           </p>
 
           <b>Submit &amp; Close</b>
-          <pre><code class="language-markup">&lt;tc:button label="Submit &amp; Close">
+          <demo-highlight language="markup">&lt;tc:button label="Submit &amp; Close">
   &lt;tc:operation name="hide" for="clientPopup"/>
-&lt;/tc:button></code></pre>
+&lt;/tc:button></demo-highlight>
           <p>The 'Submit &amp; Close'-button execute a submit and run the operation 'hide' to close the popup.</p>
 
           <b>Cancel</b>
-          <pre><code class="language-markup">&lt;tc:button label="Cancel" omit="true">
+          <demo-highlight language="markup">&lt;tc:button label="Cancel" omit="true">
   &lt;tc:operation name="hide" for="clientPopup"/>
-&lt;/tc:button></code></pre>
+&lt;/tc:button></demo-highlight>
           <p>The 'Cancel'-button execute a 'hide'-operation to close the popup.
             Also the attribute <code>omit="true"</code> is set to prevent submit.</p>
 

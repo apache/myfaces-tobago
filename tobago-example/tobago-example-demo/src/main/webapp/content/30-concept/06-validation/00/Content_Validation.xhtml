@@ -36,7 +36,7 @@
   <tc:section label="Required">
     <p>A simple way of validation is the <code>required</code> attribute in some input components.
       The text area must not empty if the submit button is pressed. Otherwise a error message is displayed.</p>
-    <pre><code class="language-markup">&lt;tc:textarea label="Text Area" required="true"/></code></pre>
+    <demo-highlight language="markup">&lt;tc:textarea label="Text Area" required="true"/></demo-highlight>
     <tc:form id="required">
       <tc:textarea id="textarea" label="Text Area" required="true"/>
       <tc:button id="submit_r" label="Submit"/>
@@ -48,9 +48,9 @@
       Length means the number of characters.
       In this example, the given string must have at least two characters and maximal four characters.</p>
     <p>Please note, an empty string will not be validated.</p>
-    <pre><code class="language-markup">&lt;tc:in label="Input">
+    <demo-highlight language="markup">&lt;tc:in label="Input">
   &lt;f:validateLength minimum="2" maximum="4"/>
-&lt;/tc:in></code></pre>
+&lt;/tc:in></demo-highlight>
     <tc:form id="validateLength">
       <tc:in id="in_vl" label="Text">
         <f:validateLength minimum="2" maximum="4"/>
@@ -63,9 +63,9 @@
     <p>The range of a number can be validated via <code class="language-markup">&lt;f:validateLongRange/></code>
       or - for floating point numbers - <code class="language-markup">&lt;f:validateDoubleRange/></code>.
       In the following input field numbers from 3 to 77 can be added.</p>
-    <pre><code class="language-markup">&lt;tc:in label="Number" markup="number">
+    <demo-highlight language="markup">&lt;tc:in label="Number" markup="number">
   &lt;f:validateLongRange minimum="3" maximum="77"/>
-&lt;/tc:in></code></pre>
+&lt;/tc:in></demo-highlight>
     <tc:form id="validateRange">
       <tc:in id="in_vr" label="Number" markup="number">
         <f:validateLongRange minimum="3" maximum="77"/>
@@ -77,9 +77,9 @@
   <tc:section label="Regex Validation">
     <p>A value can be validated against a regex patter via the
       <code class="language-markup">&lt;f:validateRegex/></code> tag.</p>
-    <pre><code class="language-markup">&lt;tc:in label="Letter &amp; Number" >
+    <demo-highlight language="markup">&lt;tc:in label="Letter &amp; Number" >
   &lt;f:validateRegex pattern="[A-Za-z][0-9]"/>
-&lt;/tc:in></code></pre>
+&lt;/tc:in></demo-highlight>
     <tc:form id="regexValidation">
       <p>The value in the field must be a word character combined with a number. For example 'T3'.</p>
       <tc:in id="in_rv" label="Letter &amp; Number" value="#{validationController.letter}">
@@ -102,10 +102,10 @@
     <p>A validator check the password against the confirmation field.
       To get access to the confirmation field from the validator a binding with the <code>binding</code> attribute
       and the <code class="language-markup">&lt;f:attribute/></code> tag is created.</p>
-    <pre><code class="language-markup">&lt;tc:in label="Password" validator="\#{validationController.passwordValidator}">
+    <demo-highlight language="markup">&lt;tc:in label="Password" validator="\#{validationController.passwordValidator}">
   &lt;f:attribute name="confirmationField" value="\#{confirmBinding}"/>
 &lt;/tc:in>
-&lt;tc:in label="Confirmation" binding="\#{confirmBinding}"/></code></pre>
+&lt;tc:in label="Confirmation" binding="\#{confirmBinding}"/></demo-highlight>
     <tc:form>
       <tc:in label="Password" required="true" validator="#{validationController.passwordValidator}">
         <f:attribute name="confirmationField" value="#{confirmBinding}"/>

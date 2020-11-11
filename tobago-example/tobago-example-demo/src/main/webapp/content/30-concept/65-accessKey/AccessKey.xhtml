@@ -47,7 +47,7 @@
 
   <tc:section label="Basics">
     <p>The accesskey is set to 'a'. Notice, that the 'A' in the label of the button has an underscore.</p>
-    <pre><code class="language-markup">&lt;tc:button label="Button AccessKey" accessKey="a"></code></pre>
+    <demo-highlight language="markup">&lt;tc:button label="Button AccessKey" accessKey="a"></demo-highlight>
     <tc:button label="Button AccessKey" accessKey="a">
       <f:facet name="confirmation">
         <tc:out value="'Button AccessKey' pressed"/>
@@ -57,7 +57,7 @@
 
   <tc:section label="Invisible Key">
     <p>The accesskey is '3'. Nothing is underlinded, because the value of the label doesn't contain a '3'.</p>
-    <pre><code class="language-markup">&lt;tc:button label="Button Three" accessKey="3"></code></pre>
+    <demo-highlight language="markup">&lt;tc:button label="Button Three" accessKey="3"></demo-highlight>
     <tc:button label="Button Three" accessKey="3">
       <f:facet name="confirmation">
         <tc:out value="Button 3 pressed"/>
@@ -69,11 +69,11 @@
     <p>The <code>accessKey</code> is also available for input fields.
       An input field will get the focus after pressing the accesskey.</p>
     <tc:section label="In">
-      <pre><code class="language-markup">&lt;tc:in label="Input" accessKey="i"/></code></pre>
+      <demo-highlight language="markup">&lt;tc:in label="Input" accessKey="i"/></demo-highlight>
       <tc:in label="Input" accessKey="i"/>
     </tc:section>
     <tc:section label="Text Area">
-      <pre><code class="language-markup">&lt;tc:textarea label="Textarea" accessKey="t"/></code></pre>
+      <demo-highlight language="markup">&lt;tc:textarea label="Textarea" accessKey="t"/></demo-highlight>
       <tc:textarea label="Textarea" accessKey="t"/>
     </tc:section>
   </tc:section>
@@ -82,8 +82,8 @@
     <p>For the <code class="language-markup">&lt;tc:label/></code> tag
       an accesskey can be set in combination with the <code>for</code> attribute.</p>
     <p>The following example show a label which is automatically bound to the input field after that.</p>
-    <pre><code class="language-markup">&lt;tc:label value="Label" accessKey="l" for="@auto"/>
-&lt;tc:in/></code></pre>
+    <demo-highlight language="markup">&lt;tc:label value="Label" accessKey="l" for="@auto"/>
+&lt;tc:in/></demo-highlight>
     <tc:flowLayout textAlign="right">
       <tc:label value="Label" accessKey="l" for="@auto"/>
       <tc:in/>

@@ -68,9 +68,9 @@
 
             <tc:panel rendered="#{navigationState.viewSource}">
               <tc:style overflowY="auto"/>
-              <pre><code class="language-markup" id="demo-view-source">
-              <tc:out keepLineBreaks="false" value="#{navigationTree.source}"/>
-            </code></pre>
+              <demo-highlight language="markup" id="demo-view-source">
+                <tc:out keepLineBreaks="false" value="#{navigationTree.source}"/>
+              </demo-highlight>
             </tc:panel>
           </tc:splitLayout>
         </tc:segmentLayout>

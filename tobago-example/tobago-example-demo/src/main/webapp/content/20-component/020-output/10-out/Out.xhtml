@@ -27,7 +27,7 @@
            link="#{apiController.base}/doc/#{apiController.currentRelease}/tld/tc/out.html"/>
   <tc:section label="Basics">
     <p>To put a label in front of a outputtext, use the <code>label</code> attribute.</p>
-    <pre><code class="language-markup">&lt;tc:out label="Output" value="Some Text"/&gt;</code></pre>
+    <demo-highlight language="markup">&lt;tc:out label="Output" value="Some Text"/&gt;</demo-highlight>
     <tc:out id="o1" label="Output" value="Some Text"/>
     <tc:out id="o2" value="Output without a label"/>
     <tc:section label="Skip with compact">
@@ -61,15 +61,13 @@
     <p>If the given string to the output field is HTML/XML code, it will be escaped by default.
       But you can turn it off with the <code>escape</code> attribute.</p>
     <tc:section label="Escape on (default)">
-      <pre><code
-              class="language-markup">&lt;tc:out label="Escape on (default)" escape="true" value="\#{outController.html}"/&gt;</code></pre>
+      <demo-highlight language="markup">&lt;tc:out label="Escape on (default)" escape="true" value="\#{outController.html}"/&gt;</demo-highlight>
       <tc:out id="o3" label="Escape on (default)" escape="true" value="#{outController.html}"/>
     </tc:section>
     <tc:section label="Escape off">
       <p>Although the HTML code is not escaped, you can see, that the text is not colored.
         This is, because the code is sanitzed (see next section).</p>
-      <pre><code
-              class="language-markup">&lt;tc:out label="Escape off" escape="false" value="\#{outController.html}"/&gt;</code></pre>
+      <demo-highlight language="markup">&lt;tc:out label="Escape off" escape="false" value="\#{outController.html}"/&gt;</demo-highlight>
       <tc:out id="o4" label="Escape off" escape="false" value="#{outController.html}"/>
     </tc:section>
   </tc:section>
@@ -79,8 +77,7 @@
       <code>org.apache.myfaces.tobago.sanitizer.Sanitizer</code>.</p>
     <p>Sanitzing can be deactivated for a component using the <code>sanitize</code> attribute.
       But be careful, because of XSS vulnerability.</p>
-    <pre><code
-            class="language-markup">&lt;tc:out label="Sanitize off" escape="false" sanitize="never" value="\#{outController.html}"/&gt;</code></pre>
+    <demo-highlight language="markup">&lt;tc:out label="Sanitize off" escape="false" sanitize="never" value="\#{outController.html}"/&gt;</demo-highlight>
     <tc:out id="o5" label="Sanitize off" escape="false" sanitize="never" value="#{outController.html}"/>
   </tc:section>
 </ui:composition>

@@ -31,10 +31,10 @@
   <tc:section label="Basics">
     <p>The panel has a custom class, which set a blue background color. The class of the panel is set via the
       <code class="language-markup">&lt;tc:style customClass="blue"/></code> tag.</p>
-    <pre><code class="language-markup">&lt;tc:panel>
+    <demo-highlight language="markup">&lt;tc:panel>
   &lt;tc:style customClass="blue"/>
   ...
-&lt;/tc:panel></code></pre>
+&lt;/tc:panel></demo-highlight>
     <tc:panel>
       <tc:style customClass="blue"/>
       <p>Content of the panel with the blue background.</p>
@@ -45,10 +45,10 @@
     <p>To reload the panel in a dedicated frequency, you can use the
       <code class="language-markup">&lt;f:facet name="reload"></code> tag.
       The content of the panel is an output text, which display the current time.</p>
-    <pre><code class="language-markup">&lt;tc:panel>
+    <demo-highlight language="markup">&lt;tc:panel>
   &lt;f:facet name="reload">
     &lt;tc:reload frequency="1000" update="true"/>
-      ...</code></pre>
+      ...</demo-highlight>
     <tc:panel>
       <f:facet name="reload">
         <tc:reload frequency="1000" update="true"/>
@@ -63,10 +63,10 @@
     <p>To reload the panel in a dedicated frequency, you can use the
       <code class="language-markup">&lt;f:facet name="reload"></code> tag.
       The content of the panel is an output text, which display the current time.</p>
-    <pre><code class="language-markup">&lt;tc:panel>
+    <demo-highlight language="markup">&lt;tc:panel>
   &lt;f:facet name="reload">
     &lt;tc:reload frequency="1000" update="\#{panelController.oddDecaSecond}"/>
-      ...</code></pre>
+      ...</demo-highlight>
     <tc:panel>
       <f:facet name="reload">
         <tc:reload frequency="1000" update="#{panelController.oddDecaSecond}"/>

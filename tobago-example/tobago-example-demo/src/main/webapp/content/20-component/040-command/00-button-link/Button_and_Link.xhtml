@@ -39,7 +39,7 @@
       'Action' use the <code>action</code> attribute to link the component section.<br/>
       The image leads to www.apache.org.</p>
     <tc:section label="&lt;tc:link>">
-      <pre><code class="language-markup">&lt;tc:link label="apache.org" link="https://www.apache.org/"/></code></pre>
+      <demo-highlight language="markup">&lt;tc:link label="apache.org" link="https://www.apache.org/"/></demo-highlight>
 
       <tc:link id="l0i" label="Alps" link="#{request.contextPath}/image/alps.png"/>
       |
@@ -57,7 +57,7 @@
                link="https://www.apache.org/"/>
     </tc:section>
     <tc:section label="&lt;tc:button>">
-      <pre><code class="language-markup">&lt;tc:button label="apache.org" link="https://www.apache.org/"/></code></pre>
+      <demo-highlight language="markup">&lt;tc:button label="apache.org" link="https://www.apache.org/"/></demo-highlight>
       <tc:button id="b1" label="apache.org" link="https://www.apache.org/"/>
       <tc:button id="b2" label="Disabled" disabled="true" link="https://www.apache.org/"/>
       <tc:button id="b4" label="Action" action="#{buttonLinkController.linkToComponentsRoot}"/>
@@ -77,10 +77,10 @@
       and set the <code>omit</code> attribute for the parent.</p>
 
     <tc:section label="Dropdown Link">
-      <pre><code class="language-markup">&lt;tc:link label="MusicPlayer" omit="true">
+      <demo-highlight language="markup">&lt;tc:link label="MusicPlayer" omit="true">
   &lt;tc:link image="fa-play-circle" label="Play"/>
   ...
-&lt;/tc:link></code></pre>
+&lt;/tc:link></demo-highlight>
       <tc:link label="MusicPlayer" omit="true">
         <tc:link image="fa-play-circle" label="Play"/>
         <tc:link image="fa-pause-circle" label="Pause"/>
@@ -94,10 +94,10 @@
     </tc:section>
 
     <tc:section label="Dropdown Button">
-      <pre><code class="language-markup">&lt;tc:button label="MusicPlayer" omit="true">
+      <demo-highlight language="markup">&lt;tc:button label="MusicPlayer" omit="true">
   &lt;tc:link image="fa-play-circle" label="Play"/>
   ...
-&lt;/tc:button></code></pre>
+&lt;/tc:button></demo-highlight>
       <tc:button label="MusicPlayer" omit="true">
         <tc:link image="fa-play-circle" label="Play"/>
         <tc:link image="fa-pause-circle" label="Pause"/>
@@ -111,14 +111,14 @@
     </tc:section>
 
     <tc:section label="Dropdown with Radio Buttons and Checkboxes">
-      <pre><code class="language-markup">&lt;tc:button label="Options" omit="true">
+      <demo-highlight language="markup">&lt;tc:button label="Options" omit="true">
   ...
   &lt;tc:selectOneRadio>
     &lt;tc:selectItem itemValue="Option 1"/>
     ...
   &lt;/tc:selectOneRadio>
   ...
-&lt;/tc:button></code></pre>
+&lt;/tc:button></demo-highlight>
       <tc:button label="Options" omit="true">
         <tc:link label="Link" omit="true"/>
         <tc:selectBooleanCheckbox label="must ignore" itemLabel="boolean checkbox"/>
@@ -143,7 +143,7 @@
     <tc:segmentLayout medium="7seg 5seg">
       <tc:box label="Buttons">
         <p>Colors can be set with markups. Markup <code>none</code> unset the color.</p>
-        <pre><code class="language-markup">&lt;tc:button label="Primary" markup="primary"/>
+        <demo-highlight language="markup">&lt;tc:button label="Primary" markup="primary"/>
 &lt;tc:button label="Secondary" markup="secondary"/>
 &lt;tc:button label="Success" markup="success"/>
 &lt;tc:button label="Danger" markup="danger"/>
@@ -151,7 +151,7 @@
 &lt;tc:button label="Info" markup="info"/>
 &lt;tc:button label="Light" markup="light"/>
 &lt;tc:button label="Dark" markup="dark"/>
-&lt;tc:button label="None" markup="none"/></code></pre>
+&lt;tc:button label="None" markup="none"/></demo-highlight>
         <tc:button label="Primary" markup="primary"/>
         <tc:button label="Secondary" markup="secondary"/>
         <tc:button label="Success" markup="success"/>
@@ -163,14 +163,14 @@
         <tc:button label="None" markup="none"/>
         <tc:separator/>
         <p>Colors can also be set with an outline markup.</p>
-        <pre><code class="language-markup">&lt;tc:button label="Primary" markup="outlinePrimary"/>
+        <demo-highlight language="markup">&lt;tc:button label="Primary" markup="outlinePrimary"/>
 &lt;tc:button label="Secondary" markup="outlineSecondary"/>
 &lt;tc:button label="Success" markup="outlineSuccess"/>
 &lt;tc:button label="Danger" markup="outlineDanger"/>
 &lt;tc:button label="Warning" markup="outlineWarning"/>
 &lt;tc:button label="Info" markup="outlineInfo"/>
 &lt;tc:button label="Light" markup="outlineLight"/>
-&lt;tc:button label="Dark" markup="outlineDark"/></code></pre>
+&lt;tc:button label="Dark" markup="outlineDark"/></demo-highlight>
         <tc:button label="Primary" markup="outlinePrimary"/>
         <tc:button label="Secondary" markup="outlineSecondary"/>
         <tc:button label="Success" markup="outlineSuccess"/>
@@ -226,9 +226,8 @@
     <p>The destination of the link can be set with the <code>target</code> attribute.
       For example a new window/tab or a specific iframe (<code class="language-markup">&lt;tc:object/></code>).</p>
     <tc:section label="New Window">
-      <pre><code
-              class="language-markup">&lt;tc:link label="open https://www.apache.org/ in new window"
-        link="https://www.apache.org/" target="_blank"/></code></pre>
+      <demo-highlight language="markup">&lt;tc:link label="open https://www.apache.org/ in new window"
+        link="https://www.apache.org/" target="_blank"/></demo-highlight>
       <p><tc:link label="open https://www.apache.org/ in new window" link="https://www.apache.org/" target="_blank"/>
       </p>
     </tc:section>

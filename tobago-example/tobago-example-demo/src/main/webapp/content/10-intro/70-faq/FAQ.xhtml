@@ -56,17 +56,17 @@
     <p>Tobago 2.0.x:</p>
     <p>Tobago supports the JSF 2.0 Facelets.
       Note: Please add following context param in your web.xml</p>
-    <pre><code class="language-markup">&lt;context-param>
+    <demo-highlight language="markup">&lt;context-param>
   &lt;param-name>javax.faces.FACELETS_SKIP_COMMENTS&lt;/param-name>
   &lt;param-value>true&lt;/param-value>
-&lt;/context-param></code></pre>
+&lt;/context-param></demo-highlight>
     <p>Tobago 1.0.x and 1.5.x:</p>
     <p>Tobago supports Facelets with the tobago-facelets.jar.
       Note: Please add following context param in your web.xml</p>
-    <pre><code class="language-markup">&lt;context-param>
+    <demo-highlight language="markup">&lt;context-param>
   &lt;param-name>facelets.SKIP_COMMENTS&lt;/param-name>
   &lt;param-value>true&lt;/param-value>
-&lt;/context-param></code></pre>
+&lt;/context-param></demo-highlight>
   </tc:section>
 
   <tc:section id="tobago-myfaces-extension" label="Can I mix Tobago and MyFaces extensions in the same web application?">
@@ -77,7 +77,7 @@
   </tc:section>
 
   <tc:section id="tobago-layout" label="How do I use GridLayout in Tobago?">
-          <pre><code class="language-markup">&lt;tc:gridLayout rows="auto 100px 1fr 2fr" /></code></pre>
+          <demo-highlight language="markup">&lt;tc:gridLayout rows="auto 100px 1fr 2fr" /></demo-highlight>
     <p>
       The attribute 'fixed' means a theme dependent height of one row (i.e. in Speyside
       a row is typically 20px high.) In a 'fixed' row all one height unit high elements find their place
@@ -138,14 +138,14 @@
     <p>
       Example layout of a theme jar:
     </p>
-    <pre><code class="language-markup">/META-INF/tobago-config.xml (resource-path/html/theme-name)
+    <demo-highlight language="markup">/META-INF/tobago-config.xml (resource-path/html/theme-name)
 /org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/tobago.css (standard styles)
 /org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/tobago-menu.css (menu styles)
 /org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/tobago-sheet.css (sheet styles)
-/org/apache/myfaces/tobago/renderkit/html/xxxxx/msie/style/tobago.css (different styles for msie)</code></pre>
+/org/apache/myfaces/tobago/renderkit/html/xxxxx/msie/style/tobago.css (different styles for msie)</demo-highlight>
 
     Property and resource loading and renderer loading is done in the following order
-    <pre><code class="language-markup">resource-path/content-type/theme/client/[tag(for renderer)|property|style|script|image]_locale.(class|property|property.xml|css|js|gif|png...]</code></pre>
+    <demo-highlight language="markup">resource-path/content-type/theme/client/[tag(for renderer)|property|style|script|image]_locale.(class|property|property.xml|css|js|gif|png...]</demo-highlight>
 
     for example OutRenderer<br/>
 
@@ -208,14 +208,14 @@
       If you want to set up a different mirror for some reason, you can use
       your ~/.m2/settings.xml and add the following lines:
     </p>
-    <pre><code class="language-markup">&lt;mirrors>
+    <demo-highlight language="markup">&lt;mirrors>
   &lt;mirror>
     &lt;id>mirror ID&lt;/id>
     &lt;name>Give it a name&lt;/name>
     &lt;url>The URL of the mirror&lt;/url>
     &lt;mirrorOf>The server ID of the repository being mirrored. This must not match the mirror ID&lt;/mirrorOf>
   &lt;/mirror>
-&lt;/mirrors></code></pre>
+&lt;/mirrors></demo-highlight>
     <p>See:
       <a href="http://maven.apache.org/guides/mini/guide-mirror-settings.html">
         Guide to mirror settings
@@ -234,14 +234,14 @@
       repository, you can configure Maven not to fetch them but use
       the ones already in your local repository by adding the following to your ~/.m2/settings.xml:
     </p>
-    <pre><code class="language-markup">&lt;settings>
+    <demo-highlight language="markup">&lt;settings>
   &lt;offline/>
-&lt;/settings></code></pre>
+&lt;/settings></demo-highlight>
     <p>or use the mvn -o switch.</p>
   </tc:section>
 
   <tc:section id="checkstyle" label="How do I perform a local checkstyle check?">
-    <pre><code class="language-markup">mvn compile checkstyle:check</code></pre>
+    <demo-highlight language="markup">mvn compile checkstyle:check</demo-highlight>
   </tc:section>
 
   <tc:section id="checkstyle-vdl"
@@ -255,7 +255,7 @@
     <p>
       Configure in the applications pom.xml an entry like this example
     </p>
-    <pre><code class="language-markup">&lt;profile>
+    <demo-highlight language="markup">&lt;profile>
   &lt;id>checkstyle-for-view-definition-language&lt;/id>
   &lt;build>
     &lt;plugins>
@@ -278,11 +278,11 @@
       &lt;/plugin>
     &lt;/plugins>
   &lt;/build>
-&lt;/profile></code></pre>
+&lt;/profile></demo-highlight>
     <p>
       To perform a check call
     </p>
-    <pre><code class="language-markup">mvn checkstyle:check -Pcheckstyle-for-view-definition-language</code></pre>
+    <demo-highlight language="markup">mvn checkstyle:check -Pcheckstyle-for-view-definition-language</demo-highlight>
     <p>
       You will find the result in target/checkstyle-result.xml
     </p>
@@ -294,20 +294,20 @@
     a directory like C:\Dokumente und Einstellungen\MyUser\Apache Projects\
     the path will be too long. A workaround will be checking out in an other directory
     or register a new drive letter and check it out in X:
-    <pre><code class="language-markup">SUBST X: "C:\Dokumente und Einstellungen\MyUser\Apache Projects\"</code></pre>
+    <demo-highlight language="markup">SUBST X: "C:\Dokumente und Einstellungen\MyUser\Apache Projects\"</demo-highlight>
   </tc:section>
 
   <tc:section id="integrationTest" label="How can I run the integration tests?">
     <tc:section id="seleniumTobago12" label="Tobago 1 and 2">
       <p>In the tobago-example-test application, the pages can be checked with selenium since Tobago 1.5.
         To run the full test automatically call</p>
-      <pre><code class="language-markup">mvn -P integration-test</code></pre>
+      <demo-highlight language="markup">mvn -P integration-test</demo-highlight>
       <p>This will start a jetty server and a selenium server and calls every listed page in the test application.</p>
       <p>If you want to run the tests from your IDE, please start the jetty with
         <code class="language-markup">mvn jetty:run</code> or
         <code class="language-markup">mvn jetty:run-exploded</code>
         and start the selenium server with</p>
-      <pre><code class="language-markup">mvn selenium:start-server</code></pre>
+      <demo-highlight language="markup">mvn selenium:start-server</demo-highlight>
       <p>Now you can start the selenium tests in the IDE.</p>
       <p>Sometimes there is a problem with Firefox. You may try to use a different version, or an installation without
         plugins.</p>
@@ -316,8 +316,8 @@
     <tc:section id="integrationTestTobago3" label="Tobago 3">
       <p>In the tobago-example-demo application, the pages can be checked with QUnit/Arquillian.
         To run the full test automatically call</p>
-      <pre><code class="language-markup">cd tobago-example/tobago-example-demo
-mvn verify -Pqunit-integration-tests</code></pre>
+      <demo-highlight language="markup">cd tobago-example/tobago-example-demo
+mvn verify -Pqunit-integration-tests</demo-highlight>
       <p>The default arquillian browser is 'phantomjs'.
         You can change it in tobago-example-demo/pom.xml &lt;arquillian.browser>.</p>
       <p>If you want to run the tests from your IDE, please use the maven profile 'tomee'.
@@ -327,21 +327,21 @@ mvn verify -Pqunit-integration-tests</code></pre>
     <tc:section id="integrationTestTobago4" label="Tobago 4">
       <p>Since Tobago  #{apiController.version430} the integration tests are reimplemented with docker.</p>
       <p>To run the integration tests:</p>
-      <pre><code class="language-markup">cd tobago-example/tobago-example-demo
-mvn -Pdocker-qunit-tests</code></pre>
+      <demo-highlight language="markup">cd tobago-example/tobago-example-demo
+mvn -Pdocker-qunit-tests</demo-highlight>
       <p>The docker container can be rebuild with:</p>
-      <pre><code class="language-markup">mvn package -Pdocker-qunit-tests docker:build</code></pre>
+      <demo-highlight language="markup">mvn package -Pdocker-qunit-tests docker:build</demo-highlight>
       <p>You can also just start/stop the docker container manually to run the tests from your IDE.</p>
-      <pre><code class="language-markup">mvn -Pdocker-qunit-tests docker:start
-mvn -Pdocker-qunit-tests docker:stop</code></pre>
+      <demo-highlight language="markup">mvn -Pdocker-qunit-tests docker:start
+mvn -Pdocker-qunit-tests docker:stop</demo-highlight>
     </tc:section>
   </tc:section>
 
   <tc:section id="testInBrowser" label="How can I run tests in the browser? (Tobago 3)">
     <ol>
       <li>start demo
-        <pre><code class="language-markup">cd tobago-example/tobago-example-demo
-mvn clean jetty:run</code></pre>
+        <demo-highlight language="markup">cd tobago-example/tobago-example-demo
+mvn clean jetty:run</demo-highlight>
       </li>
       <li>open 'Test' menu in the header of the Tobago-Demo-Page
         <ol>
@@ -369,9 +369,9 @@ mvn clean jetty:run</code></pre>
         <tc:link label="QUnit Test" link="https://api.qunitjs.com/" image="fa-external-link"/>
         to the <code>sample.test.js</code>.
 
-        <pre><code class="language-js">QUnit.test("Testtitle", function(assert) { 
+        <demo-highlight language="js">QUnit.test("Testtitle", function(assert) { 
   ...
-});</code></pre>
+});</demo-highlight>
 
         <ol>
           <li>The test will run in a different frame.
@@ -381,42 +381,42 @@ mvn clean jetty:run</code></pre>
             This is very usefull, because elements are outdated after an AJAX request or a full page reload.
           </li>
           <li>Create a TobagoTestTools variable:
-            <pre><code class="language-js">var TTT = new TobagoTestTools(assert);</code></pre>
+            <demo-highlight language="js">var TTT = new TobagoTestTools(assert);</demo-highlight>
           </li>
           <li>
             User actions like a click on a button can be added to an action function:
-            <pre><code class="language-js">TTT.action(function () {
+            <demo-highlight language="js">TTT.action(function () {
   $button().click();
-});</code></pre>
+});</demo-highlight>
           </li>
           <li>If the test have to wait for a response or a specific time use the waitForResponse
             or the waitMs function:
-            <pre><code class="language-js">TTT.waitForResponse();
-TTT.waitMs(2000); // wait 2000 milliseconds</code></pre>
+            <demo-highlight language="js">TTT.waitForResponse();
+TTT.waitMs(2000); // wait 2000 milliseconds</demo-highlight>
           </li>
           <li>
             <tc:link label="QUnit Assertions" link="https://api.qunitjs.com/assert/" image="fa-external-link"/>
             can be added to a asserts function. The first parameter is the number of assertions:
-            <pre><code class="language-js">TTT.asserts(2, function () {
+            <demo-highlight language="js">TTT.asserts(2, function () {
   assert.equal($input().val(), "Alice");
   assert.equal($output().text(), "Bob");
-});</code></pre>
+});</demo-highlight>
           </li>
           <li>Start the test with:
-            <pre><code class="language-js">TTT.startTest();</code></pre></li>
+            <demo-highlight language="js">TTT.startTest();</demo-highlight></li>
         </ol>
 
-        <pre><code class="language-java">@Test
+        <demo-highlight language="java">@Test
 public void testname() throws UnsupportedEncodingException, InterruptedException {
   String page = "content/.../testname.xhtml";
   runStandardTest(page);
-}</code></pre>
+}</demo-highlight>
 
       </li>
       <li>
         Run the tests from QUnitTests or type
 
-        <pre><code class="language-bash">mvn verify -Pqunit-integration-tests</code></pre>
+        <demo-highlight language="bash">mvn verify -Pqunit-integration-tests</demo-highlight>
       </li>
     </ol>
   </tc:section>
@@ -430,71 +430,70 @@ public void testname() throws UnsupportedEncodingException, InterruptedException
     </p>
     <ul>
       <li>Download the server like:
-        <pre><code class="language-markup">wlp-developers-runtime-8.5.5.0.jar</code></pre>
+        <demo-highlight language="markup">wlp-developers-runtime-8.5.5.0.jar</demo-highlight>
         from
         <a href="https://www.ibm.com/developerworks/mydeveloperworks/blogs/wasdev/entry/download?lang=en">IBM</a>
       </li>
       <li>
         Unpack the server anywhere in you file system, e.g. like this
-        <pre><code class="language-markup">mkdir /opt/wlp-developers-runtime-8.5.5.0
+        <demo-highlight language="markup">mkdir /opt/wlp-developers-runtime-8.5.5.0
 cd /opt/wlp-developers-runtime-8.5.5.0
-java -jar ~/Downloads/wlp-developers-runtime-8.5.5.0.jar</code></pre>
+java -jar ~/Downloads/wlp-developers-runtime-8.5.5.0.jar</demo-highlight>
       </li>
       <li>
         Adding your server home to a property in the settings.xml of Maven
-        <pre><code
-                class="language-markup">&lt;wlp.directory&gt;/opt/wlp-developers-runtime-8.5.5.0/wlp&lt;/wlp.directory&gt;</code></pre>
+        <demo-highlight language="markup">&lt;wlp.directory&gt;/opt/wlp-developers-runtime-8.5.5.0/wlp&lt;/wlp.directory&gt;</demo-highlight>
       </li>
     </ul>
     <p>
       After these steps you can start/stop the server and deploy an built artifact.
       For these steps, you need to be in the Tobago example demo directory.
     </p>
-    <pre><code class="language-markup">cd tobago-examples/tobago-example-demo</code></pre>
+    <demo-highlight language="markup">cd tobago-examples/tobago-example-demo</demo-highlight>
     <p>
       This is <b>important</b> for the first start of the server,
       because at the first start the server will be initialized.
       For the setup the file
     </p>
-    <pre><code class="language-markup">test/resources/server.xml</code></pre>
+    <demo-highlight language="markup">test/resources/server.xml</demo-highlight>
     <p>
       will be read. It contains the features, the WLP server will be support, and other configurations.
       In our case we have the following features:
     </p>
-    <pre><code class="language-markup">&lt;feature>cdi-1.0&lt;/feature>
+    <demo-highlight language="markup">&lt;feature>cdi-1.0&lt;/feature>
 &lt;feature>jsp-2.2&lt;/feature>
 &lt;feature>servlet-3.0&lt;/feature>
-&lt;feature>jsf-2.0&lt;/feature></code></pre>
+&lt;feature>jsf-2.0&lt;/feature></demo-highlight>
     <ul>
       <li>
         Start the server
-        <pre><code class="language-markup">mvn -Pliberty liberty:start-server</code></pre>
+        <demo-highlight language="markup">mvn -Pliberty liberty:start-server</demo-highlight>
       </li>
       <li>
         Build an artifact (you need the "provided" property, because JSF and OWB comes from the server)
-        <pre><code class="language-markup">mvn clean package -Djsf=provided</code></pre>
+        <demo-highlight language="markup">mvn clean package -Djsf=provided</demo-highlight>
       </li>
       <li>
         Deploy an artifact
-        <pre><code class="language-markup">mvn -Pliberty liberty:deploy</code></pre>
+        <demo-highlight language="markup">mvn -Pliberty liberty:deploy</demo-highlight>
       </li>
       <li>
         You will find the web application under this URL
-        <pre><code class="language-markup">http://localhost:9080/tobago-example-demo/</code></pre>
+        <demo-highlight language="markup">http://localhost:9080/tobago-example-demo/</demo-highlight>
       </li>
       <li>
         Redeploy an artifact: The same as deploy.
       </li>
       <li>
         Stop the server
-        <pre><code class="language-markup">mvn -Pliberty liberty:stop-server</code></pre>
+        <demo-highlight language="markup">mvn -Pliberty liberty:stop-server</demo-highlight>
       </li>
     </ul>
     <p>
       The server starts very fast and is simple to use (very different from the full WebSphere installation).
       The log files you will find here:
     </p>
-    <pre><code class="language-markup">cd /opt/wlp-developers-8.5.next.beta/wlp/usr/servers/tobago/logs/</code></pre>
+    <demo-highlight language="markup">cd /opt/wlp-developers-8.5.next.beta/wlp/usr/servers/tobago/logs/</demo-highlight>
     <p>
       Sometime you may need to the clean the server, in particular when you are changing JAR dependencies.
       For doing that
@@ -505,7 +504,7 @@ java -jar ~/Downloads/wlp-developers-runtime-8.5.5.0.jar</code></pre>
       </li>
       <li>
         Remove the whole concrete server installation
-        <pre><code class="language-markup">rm -r /opt/wlp-developers-8.5.next.beta/wlp/usr/servers/tobago</code></pre>
+        <demo-highlight language="markup">rm -r /opt/wlp-developers-8.5.next.beta/wlp/usr/servers/tobago</demo-highlight>
       </li>
       <li>
         Start the server (don't forget the server.xml)
@@ -515,8 +514,8 @@ java -jar ~/Downloads/wlp-developers-runtime-8.5.5.0.jar</code></pre>
       </li>
     </ul>
     Please also consider the plugin configuration in the tobago-example/pom.xml
-    <pre><code class="language-markup">&lt;groupId>com.ibm.websphere.wlp.maven.plugins&lt;/groupId>
-&lt;artifactId>liberty-maven-plugin&lt;/artifactId></code></pre>
+    <demo-highlight language="markup">&lt;groupId>com.ibm.websphere.wlp.maven.plugins&lt;/groupId>
+&lt;artifactId>liberty-maven-plugin&lt;/artifactId></demo-highlight>
   </tc:section>
 
   <tc:section id="portlet" label="How to setup my project to work with Portlets?">

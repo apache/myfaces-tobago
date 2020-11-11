@@ -41,7 +41,7 @@
   <tc:section label="Basics">
     <p>Dropdown box with hardcoded items. The second item is disabled.
       To disable an item, use the <code>itemDisable</code> attribute.</p>
-    <pre><code class="language-markup">&lt;tc:selectOneChoice label="Dropdown Box"/></code></pre>
+    <demo-highlight language="markup">&lt;tc:selectOneChoice label="Dropdown Box"/></demo-highlight>
     <tc:selectOneChoice id="s1" label="Dropdown Box">
       <tc:selectItem itemLabel="Item One" itemValue="one"/>
       <tc:selectItem itemLabel="Item Two" itemValue="two" itemDisabled="true"/>
@@ -60,7 +60,7 @@
     <p>Select a person. The label of the item is shown in the dropdown box.
       After submitting, the value of the item is shown in the output field.
       So, if 'Alice' is selected, the text in the output field is 'Alice Anderson'.</p>
-    <pre><code class="language-markup">&lt;tc:selectItem itemLabel="Alice" itemValue="Alice Anderson"/></code></pre>
+    <demo-highlight language="markup">&lt;tc:selectItem itemLabel="Alice" itemValue="Alice Anderson"/></demo-highlight>
     <tc:selectOneChoice id="selectPerson" label="Person" value="#{selectOneChoiceController.person}">
       <tc:selectItem itemLabel="Alice" itemValue="Alice Anderson"/>
       <tc:selectItem itemLabel="Bob" itemValue="Bob Brunch"/>
@@ -82,14 +82,14 @@
     <p>Select a planet and a moon. The list of moons depends on the selected planet.
       The planet-dropdownbox contain a <code class="language-markup">&lt;f:ajax render="moonbox"/></code>.
       With it, the moon-dropdownbox will be rerendered, after a value changed in planet-dropdownbox.</p>
-    <pre><code class="language-markup">&lt;tc:selectOneChoice label="Planet"
+    <demo-highlight language="markup">&lt;tc:selectOneChoice label="Planet"
       value="\#{selectOneChoiceController.planet}">
   &lt;f:selectItems value="\#{selectOneChoiceController.planets}"/>
   &lt;f:ajax render="moonbox"/>
 &lt;/tc:selectOneChoice>
 &lt;tc:selectOneChoice id="moonbox" label="Moon">
   &lt;f:selectItems value="\#{selectOneChoiceController.moons}"/>
-&lt;/tc:selectOneChoice></code></pre>
+&lt;/tc:selectOneChoice></demo-highlight>
     <tc:selectOneChoice id="selectPlanet" label="Planet" value="#{selectOneChoiceController.planet}">
       <f:selectItems value="#{selectOneChoiceController.planets}"/>
       <f:ajax render="moonbox"/>

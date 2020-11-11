@@ -42,7 +42,7 @@
         <p>Here is a simple <tc:link label="Java Class" link="ConvertXmlToProperties.java"/>,
           that may help you to change the layout attributes in the
           facelets XHTML files.</p>
-        <pre><code class="language-java"><tc:out value="#{migration5Controller.javaSource}" escape="true" keepLineBreaks="false"/></code></pre>
+        <demo-highlight language="java"><tc:out value="#{migration5Controller.javaSource}" escape="true" keepLineBreaks="false"/></demo-highlight>
       </tc:section>
 
       <tc:section>
@@ -65,13 +65,13 @@
 
       <tc:section id="listener" label="Listener Registration (work in progress)">
 
-        <pre><code class="language-java">Tobago.registerListener(Demo.init, Tobago.Phase.DOCUMENT_READY);
+        <demo-highlight language="java">Tobago.registerListener(Demo.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Demo.init, Tobago.Phase.AFTER_UPDATE);
-</code></pre>
+</demo-highlight>
 
-        <pre><code class="language-java">Listener.register(Demo.init, Phase.DOCUMENT_READY);
+        <demo-highlight language="java">Listener.register(Demo.init, Phase.DOCUMENT_READY);
 Listener.register(Demo.init, Phase.AFTER_UPDATE);
-</code></pre>
+</demo-highlight>
 
       </tc:section>
 

@@ -34,29 +34,29 @@
   <tc:section label="Text">
     <p>The following example show how to add a text-label inside an input field.</p>
     <tc:section label="Before">
-      <pre><code class="language-markup">&lt;tc:in>
+      <demo-highlight language="markup">&lt;tc:in>
   &lt;f:facet name="before">https://example.com/&lt;/f:facet>
-&lt;/tc:in></code></pre>
+&lt;/tc:in></demo-highlight>
       <tc:in id="itextbefore">
         <f:facet name="before">https://example.com/</f:facet>
       </tc:in>
     </tc:section>
     <tc:section label="After">
-      <pre><code class="language-markup">&lt;tc:in label="Price">
+      <demo-highlight language="markup">&lt;tc:in label="Price">
   &lt;f:facet name="after">.00 €&lt;/f:facet>
-&lt;/tc:in></code></pre>
+&lt;/tc:in></demo-highlight>
       <tc:in id="ipriceafter" label="Price">
         <f:facet name="after">.00 €</f:facet>
       </tc:in>
     </tc:section>
     <tc:section label="Output">
       <p>The following example show, how to add twice tc:out on one side in an input group</p>
-      <pre><code class="language-markup"> &lt;tc:in id="values">
+      <demo-highlight language="markup"> &lt;tc:in id="values">
   &lt;f:facet name="before">
     &lt;tc:out id="firstName" value="#{groupController.firstName}"/>
     &lt;tc:out id="lastName" value="#{groupController.lastName}"/>
   &lt;/f:facet>
-&lt;/tc:in></code></pre>
+&lt;/tc:in></demo-highlight>
       <tc:in id="values">
         <f:facet name="before">
           <tc:out id="firstName" value="#{groupController.firstName}"/>
@@ -68,14 +68,14 @@
 
   <tc:section label="Commands">
     <p>Press the 'Send'-Button to add your message to the chat.</p>
-    <pre><code class="language-markup">&lt;tc:in value="\#{groupController.newMessage}">
+    <demo-highlight language="markup">&lt;tc:in value="\#{groupController.newMessage}">
   ...
   &lt;f:facet name="after">
     &lt;tc:button label="Send" action="\#{groupController.sendChat}">
       &lt;f:ajax execute="inewmessage" render="tachatlog"/>
     &lt;/tc:button>
   &lt;/f:facet>
-&lt;/tc:in></code></pre>
+&lt;/tc:in></demo-highlight>
     <tc:textarea id="tachatlog" label="Chat" labelLayout="top" rows="5" value="#{groupController.chatlog}"
                  readonly="true"/>
     <tc:in id="inewmessage" value="#{groupController.newMessage}">
@@ -99,7 +99,7 @@
       directly under the link.</p>
 
     <tc:section label="Commands">
-      <pre><code class="language-markup">&lt;tc:in placeholder="type a message">
+      <demo-highlight language="markup">&lt;tc:in placeholder="type a message">
   &lt;f:facet name="before">
     &lt;tc:button id="lsendtoc" label="\#{groupController.sendTo}" omit="true">
       &lt;tc:command label="SendTo: Peter">
@@ -108,7 +108,7 @@
       ...
     &lt;/tc:button>
   &lt;/f:facet>
-&lt;/tc:in></code></pre>
+&lt;/tc:in></demo-highlight>
       <tc:in id="isendtoc" placeholder="type a message">
         <f:facet name="before">
           <tc:button id="lsendtoc" label="#{groupController.sendTo}" omit="true">
@@ -127,7 +127,7 @@
     </tc:section>
 
     <tc:section label="Radio Buttons">
-      <pre><code class="language-markup">&lt;tc:in id="isendtorb" placeholder="type a message">
+      <demo-highlight language="markup">&lt;tc:in id="isendtorb" placeholder="type a message">
   &lt;f:facet name="after">
     &lt;tc:button id="lsendtorb" label="\#{groupController.sendTo}" omit="true">
       &lt;tc:selectOneRadio value="\#{groupController.sendTo}">
@@ -137,7 +137,7 @@
       &lt;/tc:selectOneRadio>
     &lt;/tc:button>
   &lt;/f:facet>
-&lt;/tc:in></code></pre>
+&lt;/tc:in></demo-highlight>
       <tc:in id="isendtorb" placeholder="type a message">
         <f:facet name="after">
           Send To:

@@ -38,17 +38,17 @@
     <tc:section label="Tomcat">
       <p>Roles are defined in a tomcat-users.xml within the <code class="language-markup">&lt;tomcat-users></code>
         tag.</p>
-      <pre><code class="language-markup">&lt;tomcat-users>
+      <demo-highlight language="markup">&lt;tomcat-users>
   &lt;user username="guest" password="guest" roles="demo-guest"/>
   &lt;user username="admin" password="admin" roles="demo-admin"/>
-&lt;/tomcat-users></code></pre>
+&lt;/tomcat-users></demo-highlight>
     </tc:section>
     <tc:section label="Jetty">
       <p>For Jetty, roles are defined in a config file. This config file could be set in the configuration of the
         jetty-plugin in the pom file.</p>
-      <pre><code class="language-markup"># username: password [,rolename ...]
+      <demo-highlight language="markup"># username: password [,rolename ...]
 guest: guest,demo-guest
-admin: admin,demo-admin</code></pre>
+admin: admin,demo-admin</demo-highlight>
     </tc:section>
   </tc:section>
 

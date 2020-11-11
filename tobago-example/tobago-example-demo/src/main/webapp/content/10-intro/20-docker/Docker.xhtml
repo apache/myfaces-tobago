@@ -60,8 +60,8 @@
     </tc:segmentLayout>
 
     <tc:box label="Docker Command">
-    <pre><code class="language-bash" id="commandLine"><tc:out
-        keepLineBreaks="false" value="#{dockerController.commandLine}"/></code></pre>
+      <demo-highlight language="bash" id="commandLine"><tc:out
+        keepLineBreaks="false" value="#{dockerController.commandLine}"/></demo-highlight>
 
       <demo-copy-to-clipboard source="commandLine">
         <tc:button id="toClipboardButton" label="Copy Commands" omit="true"/>

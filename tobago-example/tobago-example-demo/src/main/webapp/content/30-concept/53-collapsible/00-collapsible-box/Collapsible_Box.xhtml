@@ -29,8 +29,8 @@
   <tc:section label="Simple Collapsible Box">
     <tc:form id="controller">
       <p>This is a simple collapsible box which open and close the content via a controller.</p>
-      <pre><code class="language-markup">&lt;tc:button label="show" immediate="true"
-        action="\#{collapsibleBoxController.showCollapsed1}"/></code></pre>
+      <demo-highlight language="markup">&lt;tc:button label="show" immediate="true"
+        action="\#{collapsibleBoxController.showCollapsed1}"/></demo-highlight>
       <tc:box label="Box" collapsed="#{collapsibleBoxController.collapsed}" collapsedMode="absent">
         <f:facet name="bar">
           <tc:buttons>
@@ -46,12 +46,12 @@
   <tc:section label="Full Server Request">
     <tc:form id="server">
       <p>In this example, the operaction tag is used to change the state of the boxes.</p>
-      <pre><code class="language-markup">&lt;tc:box id="box1" label="Full Request Box 1" collapsedMode="absent">
+      <demo-highlight language="markup">&lt;tc:box id="box1" label="Full Request Box 1" collapsedMode="absent">
   &lt;f:facet name="bar">
     &lt;tc:buttons>
       &lt;tc:button label="show">
         &lt;tc:operation name="show" for="box1"/>
-      ...</code></pre>
+      ...</demo-highlight>
       <tc:box id="box1" label="Full Request Box 1" collapsedMode="absent">
         <f:facet name="bar">
           <tc:buttons>
@@ -90,11 +90,11 @@
         This field will be also validated if the content is hidden.<br/>
         To demonstrate that, leave the input field blank, hide the content and press the 'Submit'-button.</p>
       <p>Notice the <code>omit</code> attribute of the buttons is set to avoid server request.</p>
-      <pre><code class="language-markup">&lt;tc:box id="noRequestBox" label="No Request Box"
+      <demo-highlight language="markup">&lt;tc:box id="noRequestBox" label="No Request Box"
         collapsed="true" collapsedMode="hidden">
   &lt;tc:button label="show" omit="true">
     &lt;tc:operation name="show" for="noRequestBox"/>
-  ...</code></pre>
+  ...</demo-highlight>
       <tc:box id="noRequestBox" label="No Request Box" collapsed="true" collapsedMode="hidden">
         <f:facet name="bar">
           <tc:buttons>
@@ -122,12 +122,12 @@
       <p>You can press the 'Submit'-button after hiding the blank input field.
         The submit will be executed without validation.
         If the content is shown and the field is empty, a violation occurs after hitting 'Submit'.</p>
-      <pre><code class="language-markup">&lt;tc:box id="ajaxBox" label="Collapsible Box (AJAX)" collapsedMode="absent">
+      <demo-highlight language="markup">&lt;tc:box id="ajaxBox" label="Collapsible Box (AJAX)" collapsedMode="absent">
   ...
     &lt;tc:button label="show" immediate="true">
       &lt;f:ajax execute="ajaxBox" render="ajaxBox"/>
       &lt;tc:operation name="show" for="ajaxBox"/>
-    ...</code></pre>
+    ...</demo-highlight>
       <tc:box id="ajaxBox" label="Ajax Box" collapsedMode="absent">
         <f:facet name="bar">
           <tc:buttons>
