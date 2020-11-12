@@ -708,7 +708,9 @@ export class Sheet extends HTMLElement {
     }
 }
 Sheet.SCROLL_BAR_SIZE = Sheet.getScrollBarSize();
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-sheet", Sheet);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-sheet") == null) {
+        window.customElements.define("tobago-sheet", Sheet);
+    }
 });
 //# sourceMappingURL=tobago-sheet.js.map

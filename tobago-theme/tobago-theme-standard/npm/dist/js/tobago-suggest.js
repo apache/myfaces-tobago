@@ -61,7 +61,9 @@ export class Suggest extends HTMLElement {
         console.log(this.autocomplete);
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-suggest", Suggest);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-suggest") == null) {
+        window.customElements.define("tobago-suggest", Suggest);
+    }
 });
 //# sourceMappingURL=tobago-suggest.js.map

@@ -54,7 +54,9 @@ class SelectOneRadio extends HTMLElement {
         return this.querySelectorAll("input[type='radio'][name='" + this.id + "']");
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-select-one-radio", SelectOneRadio);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-select-one-radio") == null) {
+        window.customElements.define("tobago-select-one-radio", SelectOneRadio);
+    }
 });
 //# sourceMappingURL=tobago-select-one-radio.js.map

@@ -92,6 +92,8 @@ export class TreeSelect extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-tree-select", TreeSelect);
+document.addEventListener("tobago.init", function (event: Event): void {
+  if (window.customElements.get("tobago-tree-select") == null) {
+    window.customElements.define("tobago-tree-select", TreeSelect);
+  }
 });

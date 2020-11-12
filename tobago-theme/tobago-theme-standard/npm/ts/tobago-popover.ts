@@ -89,6 +89,8 @@ class Popover extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-popover", Popover);
+document.addEventListener("tobago.init", function (event: Event): void {
+  if (window.customElements.get("tobago-popover") == null) {
+    window.customElements.define("tobago-popover", Popover);
+  }
 });

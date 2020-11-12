@@ -497,8 +497,10 @@ export class Popup extends HTMLElement {
         element.addEventListener(event, listenerWrapper);
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-popup", Popup);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-popup") == null) {
+        window.customElements.define("tobago-popup", Popup);
+    }
 });
 export class Collapse {
     static findHidden(element) {

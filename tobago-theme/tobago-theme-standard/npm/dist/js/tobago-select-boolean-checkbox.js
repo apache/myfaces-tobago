@@ -35,7 +35,9 @@ export class SelectBooleanCheckbox extends HTMLElement {
         return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "field");
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-select-boolean-checkbox", SelectBooleanCheckbox);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-select-boolean-checkbox") == null) {
+        window.customElements.define("tobago-select-boolean-checkbox", SelectBooleanCheckbox);
+    }
 });
 //# sourceMappingURL=tobago-select-boolean-checkbox.js.map

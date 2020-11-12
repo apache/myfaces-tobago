@@ -27,7 +27,9 @@ class Textarea extends HTMLElement {
         return this.querySelector(DomUtils.escapeClientId(this.id + DomUtils.SUB_COMPONENT_SEP + "field"));
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-textarea", Textarea);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-textarea") == null) {
+        window.customElements.define("tobago-textarea", Textarea);
+    }
 });
 //# sourceMappingURL=tobago-textarea.js.map

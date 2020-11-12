@@ -16,7 +16,9 @@
  */
 class Panel extends HTMLElement {
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-panel", Panel);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-panel") == null) {
+        window.customElements.define("tobago-panel", Panel);
+    }
 });
 //# sourceMappingURL=tobago-panel.js.map

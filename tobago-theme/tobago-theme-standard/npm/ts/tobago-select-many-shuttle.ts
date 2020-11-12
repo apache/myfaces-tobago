@@ -117,6 +117,8 @@ class SelectManyShuttle extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-select-many-shuttle", SelectManyShuttle);
+document.addEventListener("tobago.init", function (event: Event): void {
+  if (window.customElements.get("tobago-select-many-shuttle") == null) {
+    window.customElements.define("tobago-select-many-shuttle", SelectManyShuttle);
+  }
 });

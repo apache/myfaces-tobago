@@ -78,7 +78,9 @@ export class TreeSelect extends HTMLElement {
         return this.querySelector("input");
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-tree-select", TreeSelect);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-tree-select") == null) {
+        window.customElements.define("tobago-tree-select", TreeSelect);
+    }
 });
 //# sourceMappingURL=tobago-tree-select.js.map

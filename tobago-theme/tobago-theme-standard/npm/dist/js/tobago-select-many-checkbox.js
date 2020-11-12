@@ -35,7 +35,9 @@ class SelectManyCheckbox extends HTMLElement {
         return this.querySelectorAll("input[name='" + this.id + "']");
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-select-many-checkbox", SelectManyCheckbox);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-select-many-checkbox") == null) {
+        window.customElements.define("tobago-select-many-checkbox", SelectManyCheckbox);
+    }
 });
 //# sourceMappingURL=tobago-select-many-checkbox.js.map

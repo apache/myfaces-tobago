@@ -72,7 +72,9 @@ export class Tree extends HTMLElement {
         return Selectable[this.getAttribute("selectable")];
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-tree", Tree);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-tree") == null) {
+        window.customElements.define("tobago-tree", Tree);
+    }
 });
 //# sourceMappingURL=tobago-tree.js.map

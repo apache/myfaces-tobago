@@ -30,7 +30,9 @@ class Messages extends HTMLElement {
         return this.querySelectorAll(".alert button.btn-close");
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-messages", Messages);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-messages") == null) {
+        window.customElements.define("tobago-messages", Messages);
+    }
 });
 //# sourceMappingURL=tobago-messages.js.map

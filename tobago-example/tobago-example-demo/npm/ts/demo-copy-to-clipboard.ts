@@ -54,5 +54,7 @@ class DemoCopyToClipboard extends HTMLElement {
 }
 
 document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("demo-copy-to-clipboard", DemoCopyToClipboard);
+  if (window.customElements.get("demo-copy-to-clipboard") == null) {
+    window.customElements.define("demo-copy-to-clipboard", DemoCopyToClipboard);
+  }
 });

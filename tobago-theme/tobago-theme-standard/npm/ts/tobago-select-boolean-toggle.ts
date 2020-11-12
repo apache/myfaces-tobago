@@ -20,6 +20,8 @@ import {SelectBooleanCheckbox} from "./tobago-select-boolean-checkbox";
 class SelectBooleanToggle extends SelectBooleanCheckbox {
 }
 
-document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-select-boolean-toggle", SelectBooleanToggle);
+document.addEventListener("tobago.init", function (event: Event): void {
+  if (window.customElements.get("tobago-select-boolean-toggle") == null) {
+    window.customElements.define("tobago-select-boolean-toggle", SelectBooleanToggle);
+  }
 });

@@ -92,7 +92,9 @@ class SelectManyShuttle extends HTMLElement {
         return this.querySelector(".tobago-selectManyShuttle-removeAll");
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-select-many-shuttle", SelectManyShuttle);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-select-many-shuttle") == null) {
+        window.customElements.define("tobago-select-many-shuttle", SelectManyShuttle);
+    }
 });
 //# sourceMappingURL=tobago-select-many-shuttle.js.map

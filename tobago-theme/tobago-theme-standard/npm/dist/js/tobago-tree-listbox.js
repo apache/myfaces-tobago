@@ -116,7 +116,9 @@ class TreeListbox extends HTMLElement {
         return this.querySelector(DomUtils.escapeClientId(this.id + DomUtils.SUB_COMPONENT_SEP + "selected"));
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-tree-listbox", TreeListbox);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-tree-listbox") == null) {
+        window.customElements.define("tobago-tree-listbox", TreeListbox);
+    }
 });
 //# sourceMappingURL=tobago-tree-listbox.js.map

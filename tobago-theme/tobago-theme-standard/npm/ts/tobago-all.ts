@@ -25,7 +25,6 @@ import "./tobago-file";
 import "./tobago-focus";
 import "./tobago-footer";
 import "./tobago-in";
-import "./tobago-jsf";
 import "./tobago-messages";
 import "./tobago-overlay";
 import "./tobago-panel";
@@ -54,3 +53,12 @@ import "./tobago-tree-listbox";
 import "./tobago-tree-node";
 import "./tobago-tree-select";
 import "./tobago-utils";
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded",
+      (event) => {
+        document.dispatchEvent(new CustomEvent("tobago.init"));
+      });
+} else {
+  document.dispatchEvent(new CustomEvent("tobago.init"));
+}

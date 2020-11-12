@@ -127,7 +127,9 @@ class SplitLayoutMousedown {
         return this.splitter ? DomUtils.previousElementSibling(this.splitter) : null;
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-split-layout", SplitLayout);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-split-layout") == null) {
+        window.customElements.define("tobago-split-layout", SplitLayout);
+    }
 });
 //# sourceMappingURL=tobago-split-layout.js.map

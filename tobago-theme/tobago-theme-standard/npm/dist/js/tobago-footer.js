@@ -51,7 +51,9 @@ class Footer extends HTMLElement {
         return this.classList.contains("fixed-bottom");
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-footer", Footer);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-footer") == null) {
+        window.customElements.define("tobago-footer", Footer);
+    }
 });
 //# sourceMappingURL=tobago-footer.js.map

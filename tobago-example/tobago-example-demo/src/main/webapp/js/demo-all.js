@@ -16,6 +16,7 @@
  */
 import "../../../../npm/node_modules/prismjs/prism";
 import "./demo-alert";
+import "./demo-copy-to-clipboard";
 import "./demo-highlight";
 import "./demo-inspect";
 import "./demo-login";

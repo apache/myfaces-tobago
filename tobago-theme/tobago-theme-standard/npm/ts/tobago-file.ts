@@ -63,6 +63,8 @@ export class File extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-file", File);
+document.addEventListener("tobago.init", function (event: Event): void {
+  if (window.customElements.get("tobago-file") == null) {
+    window.customElements.define("tobago-file", File);
+  }
 });

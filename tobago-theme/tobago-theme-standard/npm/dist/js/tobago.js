@@ -357,8 +357,10 @@
             return this.querySelector(".navbar-collapse");
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-bar", Bar);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-bar") == null) {
+            window.customElements.define("tobago-bar", Bar);
+        }
     });
 
     /**!
@@ -3259,8 +3261,10 @@
             this.active = false;
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-dropdown", Dropdown);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-dropdown") == null) {
+            window.customElements.define("tobago-dropdown", Dropdown);
+        }
     });
 
     function hasProperty(obj, prop) {
@@ -5733,58 +5737,6 @@
      * See the License for the specific language governing permissions and
      * limitations under the License.
      */
-    class ReloadManager {
-        constructor() {
-            this.timeouts = new Map();
-        }
-        schedule(id, reloadMillis) {
-            if (reloadMillis > 0) {
-                // may remove old schedule
-                let oldTimeout = this.timeouts.get(id);
-                if (oldTimeout) {
-                    console.debug("clear reload timeout '" + oldTimeout + "' for #'" + id + "'");
-                    window.clearTimeout(oldTimeout);
-                    this.timeouts.delete(id);
-                }
-                // add new schedule
-                let timeout = window.setTimeout(function () {
-                    console.debug("reloading #'" + id + "'");
-                    jsf.ajax.request(id, null, {
-                        "javax.faces.behavior.event": "reload",
-                        execute: id,
-                        render: id
-                    });
-                }, reloadMillis);
-                console.debug("adding reload timeout '" + timeout + "' for #'" + id + "'");
-                this.timeouts.set(id, timeout);
-            }
-        }
-    }
-    ReloadManager.instance = new ReloadManager();
-    ReloadManager.init = function (element) {
-        for (const reload of DomUtils.selfOrQuerySelectorAll(element, "[data-tobago-reload]")) {
-            ReloadManager.instance.schedule(reload.id, Number(reload.dataset.tobagoReload));
-        }
-    };
-    Listener.register(ReloadManager.init, Phase.DOCUMENT_READY);
-    Listener.register(ReloadManager.init, Phase.AFTER_UPDATE);
-
-    /*
-     * Licensed to the Apache Software Foundation (ASF) under one or more
-     * contributor license agreements.  See the NOTICE file distributed with
-     * this work for additional information regarding copyright ownership.
-     * The ASF licenses this file to You under the Apache License, Version 2.0
-     * (the "License"); you may not use this file except in compliance with
-     * the License.  You may obtain a copy of the License at
-     *
-     *      http://www.apache.org/licenses/LICENSE-2.0
-     *
-     * Unless required by applicable law or agreed to in writing, software
-     * distributed under the License is distributed on an "AS IS" BASIS,
-     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     * See the License for the specific language governing permissions and
-     * limitations under the License.
-     */
     class Config {
         static set(key, value) {
             this.map.set(key, value);
@@ -5902,101 +5854,6 @@
     Overlay.overlayMap = new Map();
     Config.set("Tobago.waitOverlayDelay", 1000);
     Config.set("Ajax.waitOverlayDelay", 1000);
-
-    /*
-    * Licensed to the Apache Software Foundation (ASF) under one or more
-    * contributor license agreements.  See the NOTICE file distributed with
-    * this work for additional information regarding copyright ownership.
-    * The ASF licenses this file to You under the Apache License, Version 2.0
-    * (the "License"); you may not use this file except in compliance with
-    * the License.  You may obtain a copy of the License at
-    *
-    *      http://www.apache.org/licenses/LICENSE-2.0
-    *
-    * Unless required by applicable law or agreed to in writing, software
-    * distributed under the License is distributed on an "AS IS" BASIS,
-    * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    * See the License for the specific language governing permissions and
-    * limitations under the License.
-    */
-    var JsfParameter;
-    (function (JsfParameter) {
-        JsfParameter["VIEW_STATE"] = "javax.faces.ViewState";
-        JsfParameter["CLIENT_WINDOW"] = "javax.faces.ClientWindow";
-        JsfParameter["VIEW_ROOT"] = "javax.faces.ViewRoot";
-        JsfParameter["VIEW_HEAD"] = "javax.faces.ViewHead";
-        JsfParameter["VIEW_BODY"] = "javax.faces.ViewBody";
-        JsfParameter["RESOURCE"] = "javax.faces.Resource";
-    })(JsfParameter || (JsfParameter = {}));
-    class Jsf {
-    }
-    Jsf.isId = function (id) {
-        switch (id) {
-            case JsfParameter.VIEW_STATE:
-            case JsfParameter.CLIENT_WINDOW:
-            case JsfParameter.VIEW_ROOT:
-            case JsfParameter.VIEW_HEAD:
-            case JsfParameter.VIEW_BODY:
-            case JsfParameter.RESOURCE:
-                return false;
-            default:
-                return true;
-        }
-    };
-    Jsf.isBody = function (id) {
-        switch (id) {
-            case JsfParameter.VIEW_ROOT:
-            case JsfParameter.VIEW_BODY:
-                return true;
-            default:
-                return false;
-        }
-    };
-    Jsf.registerAjaxListener = function () {
-        jsf.ajax.addOnEvent(function (event) {
-            console.timeEnd("[tobago-jsf] jsf-ajax");
-            console.time("[tobago-jsf] jsf-ajax");
-            console.debug("[tobago-jsf] JSF event status: '%s'", event.status);
-            if (event.status === "success") {
-                event.responseXML.querySelectorAll("update").forEach(function (update) {
-                    const result = /<!\[CDATA\[(.*)]]>/gm.exec(update.innerHTML);
-                    const id = update.id;
-                    if (result !== null && result.length === 2 && result[1].startsWith("{\"reload\"")) {
-                        // not modified on server, needs be reloaded after some time
-                        console.debug("[tobago-jsf] Found reload-JSON in response!");
-                        ReloadManager.instance.schedule(id, JSON.parse(result[1]).reload.frequency);
-                    }
-                    else {
-                        console.info("[tobago-jsf] Update after jsf.ajax success: %s", id);
-                        if (Jsf.isId(id)) {
-                            console.debug("[tobago-jsf] updating #%s", id);
-                            let element = document.getElementById(id);
-                            if (element) {
-                                Listener.executeAfterUpdate(element);
-                            }
-                            else {
-                                console.warn("[tobago-jsf] element not found for #%s", id);
-                            }
-                        }
-                        else if (Jsf.isBody(id)) {
-                            console.debug("[tobago-jsf] updating body");
-                            // there should be only one element with this tag name
-                            Listener.executeAfterUpdate(document.querySelector("tobago-page"));
-                        }
-                    }
-                });
-            }
-            else if (event.status === "complete") {
-                event.responseXML.querySelectorAll("update").forEach(function (update) {
-                    const id = update.id;
-                    if (Jsf.isId(id)) {
-                        console.debug("[tobago-jsf] Update after jsf.ajax complete: #" + id);
-                        Overlay.destroy(id);
-                    }
-                });
-            }
-        });
-    };
 
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -6483,8 +6340,10 @@
             element.addEventListener(event, listenerWrapper);
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-popup", Popup);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-popup") == null) {
+            window.customElements.define("tobago-popup", Popup);
+        }
     });
     class Collapse {
         static findHidden(element) {
@@ -6682,8 +6541,10 @@
             }
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-behavior", Behavior);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-behavior") == null) {
+            window.customElements.define("tobago-behavior", Behavior);
+        }
     });
     class CommandHelper {
     }
@@ -6841,6 +6702,58 @@
      * See the License for the specific language governing permissions and
      * limitations under the License.
      */
+    class ReloadManager {
+        constructor() {
+            this.timeouts = new Map();
+        }
+        schedule(id, reloadMillis) {
+            if (reloadMillis > 0) {
+                // may remove old schedule
+                let oldTimeout = this.timeouts.get(id);
+                if (oldTimeout) {
+                    console.debug("clear reload timeout '" + oldTimeout + "' for #'" + id + "'");
+                    window.clearTimeout(oldTimeout);
+                    this.timeouts.delete(id);
+                }
+                // add new schedule
+                let timeout = window.setTimeout(function () {
+                    console.debug("reloading #'" + id + "'");
+                    jsf.ajax.request(id, null, {
+                        "javax.faces.behavior.event": "reload",
+                        execute: id,
+                        render: id
+                    });
+                }, reloadMillis);
+                console.debug("adding reload timeout '" + timeout + "' for #'" + id + "'");
+                this.timeouts.set(id, timeout);
+            }
+        }
+    }
+    ReloadManager.instance = new ReloadManager();
+    ReloadManager.init = function (element) {
+        for (const reload of DomUtils.selfOrQuerySelectorAll(element, "[data-tobago-reload]")) {
+            ReloadManager.instance.schedule(reload.id, Number(reload.dataset.tobagoReload));
+        }
+    };
+    Listener.register(ReloadManager.init, Phase.DOCUMENT_READY);
+    Listener.register(ReloadManager.init, Phase.AFTER_UPDATE);
+
+    /*
+     * Licensed to the Apache Software Foundation (ASF) under one or more
+     * contributor license agreements.  See the NOTICE file distributed with
+     * this work for additional information regarding copyright ownership.
+     * The ASF licenses this file to You under the Apache License, Version 2.0
+     * (the "License"); you may not use this file except in compliance with
+     * the License.  You may obtain a copy of the License at
+     *
+     *      http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
     class Page extends HTMLElement {
         constructor() {
             super();
@@ -6861,10 +6774,10 @@
             return null;
         }
         connectedCallback() {
-            Jsf.registerAjaxListener();
+            this.registerAjaxListener();
             this.querySelector("form").addEventListener("submit", CommandHelper.onSubmit);
             window.addEventListener("unload", this.onUnload.bind(this));
-            this.addEventListener("keypress", function (event) {
+            this.addEventListener("keypress", (event) => {
                 let code = event.which; // XXX deprecated
                 if (code === 0) {
                     code = event.keyCode;
@@ -6916,6 +6829,56 @@
                 Listener.executeBeforeExit();
             }
         }
+        registerAjaxListener() {
+            jsf.ajax.addOnEvent(this.jsfResponse.bind(this));
+        }
+        jsfResponse(event) {
+            console.timeEnd("[tobago-jsf] jsf-ajax");
+            console.time("[tobago-jsf] jsf-ajax");
+            console.debug("[tobago-jsf] JSF event status: '%s'", event.status);
+            if (event.status === "success") {
+                event.responseXML.querySelectorAll("update").forEach(this.jsfResponseSuccess.bind(this));
+            }
+            else if (event.status === "complete") {
+                event.responseXML.querySelectorAll("update").forEach(this.jsfResponseComplete.bind(this));
+            }
+        }
+        jsfResponseSuccess(update) {
+            const result = /<!\[CDATA\[(.*)]]>/gm.exec(update.innerHTML);
+            const id = update.id;
+            if (result !== null && result.length === 2 && result[1].startsWith("{\"reload\"")) {
+                // not modified on server, needs be reloaded after some time
+                console.debug("[tobago-jsf] Found reload-JSON in response!");
+                ReloadManager.instance.schedule(id, JSON.parse(result[1]).reload.frequency);
+            }
+            else {
+                console.info("[tobago-jsf] Update after jsf.ajax success: %s", id);
+                if (JsfParameter.isJsfId(id)) {
+                    console.debug("[tobago-jsf] updating #%s", id);
+                    const rootNode = this.getRootNode();
+                    let element = rootNode.getElementById(id);
+                    if (element) {
+                        Listener.executeAfterUpdate(element);
+                    }
+                    else {
+                        console.warn("[tobago-jsf] element not found for #%s", id);
+                    }
+                }
+                else if (JsfParameter.isJsfBody(id)) {
+                    console.debug("[tobago-jsf] updating body");
+                    // there should be only one element with this tag name
+                    const rootNode = this.getRootNode();
+                    Listener.executeAfterUpdate(rootNode.querySelector("tobago-page"));
+                }
+            }
+        }
+        jsfResponseComplete(update) {
+            const id = update.id;
+            if (JsfParameter.isJsfId(id)) {
+                console.debug("[tobago-jsf] Update after jsf.ajax complete: #" + id);
+                Overlay.destroy(id);
+            }
+        }
         get locale() {
             let locale = this.getAttribute("locale");
             if (!locale) {
@@ -6924,11 +6887,43 @@
             return locale;
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-page", Page);
+    document.addEventListener("tobago.init", (event) => {
+        if (window.customElements.get("tobago-page") == null) {
+            window.customElements.define("tobago-page", Page);
+        }
     });
     // todo remove this
     window.addEventListener("load", Listener.executeWindowLoad);
+    class JsfParameter {
+        static isJsfId(id) {
+            switch (id) {
+                case JsfParameter.VIEW_STATE:
+                case JsfParameter.CLIENT_WINDOW:
+                case JsfParameter.VIEW_ROOT:
+                case JsfParameter.VIEW_HEAD:
+                case JsfParameter.VIEW_BODY:
+                case JsfParameter.RESOURCE:
+                    return false;
+                default:
+                    return true;
+            }
+        }
+        static isJsfBody(id) {
+            switch (id) {
+                case JsfParameter.VIEW_ROOT:
+                case JsfParameter.VIEW_BODY:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+    }
+    JsfParameter.VIEW_STATE = "javax.faces.ViewState";
+    JsfParameter.CLIENT_WINDOW = "javax.faces.ClientWindow";
+    JsfParameter.VIEW_ROOT = "javax.faces.ViewRoot";
+    JsfParameter.VIEW_HEAD = "javax.faces.ViewHead";
+    JsfParameter.VIEW_BODY = "javax.faces.ViewBody";
+    JsfParameter.RESOURCE = "javax.faces.Resource";
 
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -7010,8 +7005,10 @@
             return this.querySelector(".input");
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-date", DatePicker);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-date") == null) {
+            window.customElements.define("tobago-date", DatePicker);
+        }
     });
 
     /*
@@ -7072,8 +7069,10 @@
             }
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-file", File);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-file") == null) {
+            window.customElements.define("tobago-file", File);
+        }
     });
 
     /*
@@ -7195,8 +7194,10 @@
             }
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-focus", Focus);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-focus") == null) {
+            window.customElements.define("tobago-focus", Focus);
+        }
     });
 
     /*
@@ -7251,8 +7252,10 @@
             return this.classList.contains("fixed-bottom");
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-footer", Footer);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-footer") == null) {
+            window.customElements.define("tobago-footer", Footer);
+        }
     });
 
     /*
@@ -7282,8 +7285,10 @@
             return this.querySelector(DomUtils.escapeClientId(this.id + DomUtils.SUB_COMPONENT_SEP + "field"));
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-in", In);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-in") == null) {
+            window.customElements.define("tobago-in", In);
+        }
     });
     // XXX regexp example only - blueprint
     class RegExpTest {
@@ -7343,8 +7348,10 @@
             return this.querySelectorAll(".alert button.btn-close");
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-messages", Messages);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-messages") == null) {
+            window.customElements.define("tobago-messages", Messages);
+        }
     });
 
     /*
@@ -7365,8 +7372,10 @@
      */
     class Panel extends HTMLElement {
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-panel", Panel);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-panel") == null) {
+            window.customElements.define("tobago-panel", Panel);
+        }
     });
 
     /* Licensed to the Apache Software Foundation (ASF) under one or more
@@ -7505,8 +7514,10 @@
             return root.querySelector(".tobago-page-menuStore");
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-popover", Popover);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-popover") == null) {
+            window.customElements.define("tobago-popover", Popover);
+        }
     });
 
     /*
@@ -7567,8 +7578,10 @@
             }, 5000);
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-range", Range);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-range") == null) {
+            window.customElements.define("tobago-range", Range);
+        }
     });
 
     /*
@@ -7648,8 +7661,10 @@
             return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "field");
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-select-boolean-checkbox", SelectBooleanCheckbox);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-select-boolean-checkbox") == null) {
+            window.customElements.define("tobago-select-boolean-checkbox", SelectBooleanCheckbox);
+        }
     });
 
     /*
@@ -7670,8 +7685,10 @@
      */
     class SelectBooleanToggle extends SelectBooleanCheckbox {
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-select-boolean-toggle", SelectBooleanToggle);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-select-boolean-toggle") == null) {
+            window.customElements.define("tobago-select-boolean-toggle", SelectBooleanToggle);
+        }
     });
 
     /*
@@ -7710,8 +7727,10 @@
             return this.querySelectorAll("input[name='" + this.id + "']");
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-select-many-checkbox", SelectManyCheckbox);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-select-many-checkbox") == null) {
+            window.customElements.define("tobago-select-many-checkbox", SelectManyCheckbox);
+        }
     });
 
     /*
@@ -7742,8 +7761,10 @@
             return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "field");
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-select-one-listbox", SelectOneListbox);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-select-one-listbox") == null) {
+            window.customElements.define("tobago-select-one-listbox", SelectOneListbox);
+        }
     });
 
     /*
@@ -7764,8 +7785,10 @@
      */
     class SelectManyListbox extends SelectOneListbox {
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-select-many-listbox", SelectManyListbox);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-select-many-listbox") == null) {
+            window.customElements.define("tobago-select-many-listbox", SelectManyListbox);
+        }
     });
 
     /*
@@ -7861,8 +7884,10 @@
             return this.querySelector(".tobago-selectManyShuttle-removeAll");
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-select-many-shuttle", SelectManyShuttle);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-select-many-shuttle") == null) {
+            window.customElements.define("tobago-select-many-shuttle", SelectManyShuttle);
+        }
     });
 
     /*
@@ -7893,8 +7918,10 @@
             return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "field");
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-select-one-choice", SelectOneChoice);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-select-one-choice") == null) {
+            window.customElements.define("tobago-select-one-choice", SelectOneChoice);
+        }
     });
 
     /*
@@ -7952,8 +7979,10 @@
             return this.querySelectorAll("input[type='radio'][name='" + this.id + "']");
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-select-one-radio", SelectOneRadio);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-select-one-radio") == null) {
+            window.customElements.define("tobago-select-one-radio", SelectOneRadio);
+        }
     });
 
     /*
@@ -8662,8 +8691,10 @@
         }
     }
     Sheet.SCROLL_BAR_SIZE = Sheet.getScrollBarSize();
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-sheet", Sheet);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-sheet") == null) {
+            window.customElements.define("tobago-sheet", Sheet);
+        }
     });
 
     /*
@@ -8793,8 +8824,10 @@
             return this.splitter ? DomUtils.previousElementSibling(this.splitter) : null;
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-split-layout", SplitLayout);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-split-layout") == null) {
+            window.customElements.define("tobago-split-layout", SplitLayout);
+        }
     });
 
     /*
@@ -9464,8 +9497,10 @@
             console.log(this.autocomplete);
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-suggest", Suggest);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-suggest") == null) {
+            window.customElements.define("tobago-suggest", Suggest);
+        }
     });
 
     /*
@@ -9599,8 +9634,10 @@
             return this.querySelector(DomUtils.escapeClientId(this.id + DomUtils.SUB_COMPONENT_SEP + "field"));
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-textarea", Textarea);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-textarea") == null) {
+            window.customElements.define("tobago-textarea", Textarea);
+        }
     });
 
     /*
@@ -9705,8 +9742,10 @@
             return Selectable[this.getAttribute("selectable")];
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-tree", Tree);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-tree") == null) {
+            window.customElements.define("tobago-tree", Tree);
+        }
     });
 
     /*
@@ -9826,8 +9865,10 @@
             return this.querySelector(DomUtils.escapeClientId(this.id + DomUtils.SUB_COMPONENT_SEP + "selected"));
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-tree-listbox", TreeListbox);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-tree-listbox") == null) {
+            window.customElements.define("tobago-tree-listbox", TreeListbox);
+        }
     });
 
     /*
@@ -9993,8 +10034,10 @@
             return Number(this.getAttribute("index"));
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-tree-node", TreeNode);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-tree-node") == null) {
+            window.customElements.define("tobago-tree-node", TreeNode);
+        }
     });
 
     /*
@@ -10076,9 +10119,36 @@
             return this.querySelector("input");
         }
     }
-    document.addEventListener("DOMContentLoaded", function (event) {
-        window.customElements.define("tobago-tree-select", TreeSelect);
+    document.addEventListener("tobago.init", function (event) {
+        if (window.customElements.get("tobago-tree-select") == null) {
+            window.customElements.define("tobago-tree-select", TreeSelect);
+        }
     });
+
+    /*
+     * Licensed to the Apache Software Foundation (ASF) under one or more
+     * contributor license agreements.  See the NOTICE file distributed with
+     * this work for additional information regarding copyright ownership.
+     * The ASF licenses this file to You under the Apache License, Version 2.0
+     * (the "License"); you may not use this file except in compliance with
+     * the License.  You may obtain a copy of the License at
+     *
+     *      http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", (event) => {
+            document.dispatchEvent(new CustomEvent("tobago.init"));
+        });
+    }
+    else {
+        document.dispatchEvent(new CustomEvent("tobago.init"));
+    }
 
 })));
 //# sourceMappingURL=tobago.js.map

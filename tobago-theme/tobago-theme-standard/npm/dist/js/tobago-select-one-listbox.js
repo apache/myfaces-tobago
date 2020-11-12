@@ -28,7 +28,9 @@ export class SelectOneListbox extends HTMLElement {
         return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "field");
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-select-one-listbox", SelectOneListbox);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-select-one-listbox") == null) {
+        window.customElements.define("tobago-select-one-listbox", SelectOneListbox);
+    }
 });
 //# sourceMappingURL=tobago-select-one-listbox.js.map

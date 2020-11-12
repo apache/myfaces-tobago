@@ -187,6 +187,8 @@ export class TreeNode extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-tree-node", TreeNode);
+document.addEventListener("tobago.init", function (event: Event): void {
+  if (window.customElements.get("tobago-tree-node") == null) {
+    window.customElements.define("tobago-tree-node", TreeNode);
+  }
 });

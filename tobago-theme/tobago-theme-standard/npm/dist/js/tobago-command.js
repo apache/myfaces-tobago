@@ -161,8 +161,10 @@ class Behavior extends HTMLElement {
         }
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-behavior", Behavior);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-behavior") == null) {
+        window.customElements.define("tobago-behavior", Behavior);
+    }
 });
 export class CommandHelper {
 }

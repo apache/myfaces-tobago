@@ -81,7 +81,9 @@ class DatePicker extends HTMLElement {
         return this.querySelector(".input");
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-date", DatePicker);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-date") == null) {
+        window.customElements.define("tobago-date", DatePicker);
+    }
 });
 //# sourceMappingURL=tobago-date.js.map

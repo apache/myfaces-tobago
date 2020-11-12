@@ -283,7 +283,9 @@ class DropdownEntry {
         this.active = false;
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-dropdown", Dropdown);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-dropdown") == null) {
+        window.customElements.define("tobago-dropdown", Dropdown);
+    }
 });
 //# sourceMappingURL=tobago-dropdown.js.map

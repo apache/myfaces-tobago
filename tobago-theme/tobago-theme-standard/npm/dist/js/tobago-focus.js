@@ -119,7 +119,9 @@ export class Focus extends HTMLElement {
         }
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-focus", Focus);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-focus") == null) {
+        window.customElements.define("tobago-focus", Focus);
+    }
 });
 //# sourceMappingURL=tobago-focus.js.map

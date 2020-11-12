@@ -326,6 +326,8 @@ class DropdownEntry {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-dropdown", Dropdown);
+document.addEventListener("tobago.init", function (event: Event): void {
+  if (window.customElements.get("tobago-dropdown") == null) {
+    window.customElements.define("tobago-dropdown", Dropdown);
+  }
 });

@@ -588,8 +588,10 @@ export class Popup extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-popup", Popup);
+document.addEventListener("tobago.init", function (event: Event): void {
+  if (window.customElements.get("tobago-popup") == null) {
+    window.customElements.define("tobago-popup", Popup);
+  }
 });
 
 export class Collapse {

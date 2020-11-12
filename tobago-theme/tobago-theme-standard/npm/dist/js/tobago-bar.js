@@ -66,7 +66,9 @@ class Bar extends HTMLElement {
         return this.querySelector(".navbar-collapse");
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-bar", Bar);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-bar") == null) {
+        window.customElements.define("tobago-bar", Bar);
+    }
 });
 //# sourceMappingURL=tobago-bar.js.map

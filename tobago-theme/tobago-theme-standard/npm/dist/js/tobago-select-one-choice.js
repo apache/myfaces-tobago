@@ -28,7 +28,9 @@ class SelectOneChoice extends HTMLElement {
         return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "field");
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-select-one-choice", SelectOneChoice);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-select-one-choice") == null) {
+        window.customElements.define("tobago-select-one-choice", SelectOneChoice);
+    }
 });
 //# sourceMappingURL=tobago-select-one-choice.js.map

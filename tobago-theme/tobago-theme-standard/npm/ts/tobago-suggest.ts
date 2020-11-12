@@ -79,6 +79,8 @@ export class Suggest extends HTMLElement {
 
 }
 
-document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-suggest", Suggest);
+document.addEventListener("tobago.init", function (event: Event): void {
+  if (window.customElements.get("tobago-suggest") == null) {
+    window.customElements.define("tobago-suggest", Suggest);
+  }
 });

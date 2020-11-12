@@ -16,10 +16,10 @@
  */
 
 import {DomUtils} from "./tobago-utils";
-import {Jsf} from "./tobago-jsf";
 import {CommandHelper} from "./tobago-command";
 import {Overlay} from "./tobago-overlay";
 import {Listener} from "./tobago-listener";
+import {ReloadManager} from "./tobago-reload";
 
 export class Page extends HTMLElement {
 
@@ -48,13 +48,13 @@ export class Page extends HTMLElement {
 
   connectedCallback(): void {
 
-    Jsf.registerAjaxListener();
+    this.registerAjaxListener();
 
     this.querySelector("form").addEventListener("submit", CommandHelper.onSubmit);
 
     window.addEventListener("unload", this.onUnload.bind(this));
 
-    this.addEventListener("keypress", function (event: KeyboardEvent): boolean {
+    this.addEventListener("keypress", (event: KeyboardEvent): boolean => {
       let code = event.which; // XXX deprecated
       if (code === 0) {
         code = event.keyCode;
@@ -109,6 +109,56 @@ export class Page extends HTMLElement {
     }
   }
 
+  registerAjaxListener(): void {
+    jsf.ajax.addOnEvent(this.jsfResponse.bind(this));
+  }
+
+  jsfResponse(event: EventData): void {
+    console.timeEnd("[tobago-jsf] jsf-ajax");
+    console.time("[tobago-jsf] jsf-ajax");
+    console.debug("[tobago-jsf] JSF event status: '%s'", event.status);
+    if (event.status === "success") {
+      event.responseXML.querySelectorAll("update").forEach(this.jsfResponseSuccess.bind(this));
+    } else if (event.status === "complete") {
+      event.responseXML.querySelectorAll("update").forEach(this.jsfResponseComplete.bind(this));
+    }
+  }
+
+  jsfResponseSuccess(update: Element): void {
+    const result = /<!\[CDATA\[(.*)]]>/gm.exec(update.innerHTML);
+    const id = update.id;
+    if (result !== null && result.length === 2 && result[1].startsWith("{\"reload\"")) {
+      // not modified on server, needs be reloaded after some time
+      console.debug("[tobago-jsf] Found reload-JSON in response!");
+      ReloadManager.instance.schedule(id, JSON.parse(result[1]).reload.frequency);
+    } else {
+      console.info("[tobago-jsf] Update after jsf.ajax success: %s", id);
+      if (JsfParameter.isJsfId(id)) {
+        console.debug("[tobago-jsf] updating #%s", id);
+        const rootNode = this.getRootNode() as ShadowRoot | Document;
+        let element = rootNode.getElementById(id);
+        if (element) {
+          Listener.executeAfterUpdate(element);
+        } else {
+          console.warn("[tobago-jsf] element not found for #%s", id);
+        }
+      } else if (JsfParameter.isJsfBody(id)) {
+        console.debug("[tobago-jsf] updating body");
+        // there should be only one element with this tag name
+        const rootNode = this.getRootNode() as ShadowRoot | Document;
+        Listener.executeAfterUpdate(rootNode.querySelector("tobago-page") as HTMLElement);
+      }
+    }
+  }
+
+  jsfResponseComplete(update: Element): void {
+    const id = update.id;
+    if (JsfParameter.isJsfId(id)) {
+      console.debug("[tobago-jsf] Update after jsf.ajax complete: #" + id);
+      Overlay.destroy(id);
+    }
+  }
+
   get locale(): string {
     let locale = this.getAttribute("locale");
     if (!locale) {
@@ -118,9 +168,45 @@ export class Page extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-page", Page);
+document.addEventListener("tobago.init", (event: Event): void => {
+  if (window.customElements.get("tobago-page") == null) {
+    window.customElements.define("tobago-page", Page);
+  }
 });
 
 // todo remove this
 window.addEventListener("load", Listener.executeWindowLoad);
+
+class JsfParameter {
+
+  static VIEW_STATE = "javax.faces.ViewState";
+  static CLIENT_WINDOW = "javax.faces.ClientWindow";
+  static VIEW_ROOT = "javax.faces.ViewRoot";
+  static VIEW_HEAD = "javax.faces.ViewHead";
+  static VIEW_BODY = "javax.faces.ViewBody";
+  static RESOURCE = "javax.faces.Resource";
+
+  static isJsfId(id: string): boolean {
+    switch (id) {
+      case JsfParameter.VIEW_STATE:
+      case JsfParameter.CLIENT_WINDOW:
+      case JsfParameter.VIEW_ROOT:
+      case JsfParameter.VIEW_HEAD:
+      case JsfParameter.VIEW_BODY:
+      case JsfParameter.RESOURCE:
+        return false;
+      default:
+        return true;
+    }
+  }
+
+  static isJsfBody(id): boolean {
+    switch (id) {
+      case JsfParameter.VIEW_ROOT:
+      case JsfParameter.VIEW_BODY:
+        return true;
+      default:
+        return false;
+    }
+  }
+}

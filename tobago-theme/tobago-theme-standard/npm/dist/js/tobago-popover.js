@@ -75,7 +75,9 @@ class Popover extends HTMLElement {
         return root.querySelector(".tobago-page-menuStore");
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-popover", Popover);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-popover") == null) {
+        window.customElements.define("tobago-popover", Popover);
+    }
 });
 //# sourceMappingURL=tobago-popover.js.map

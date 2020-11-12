@@ -136,6 +136,8 @@ export class Focus extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-focus", Focus);
+document.addEventListener("tobago.init", function (event: Event): void {
+  if (window.customElements.get("tobago-focus") == null) {
+    window.customElements.define("tobago-focus", Focus);
+  }
 });

@@ -33,8 +33,10 @@ export class In extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-in", In);
+document.addEventListener("tobago.init", function (event: Event): void {
+  if (window.customElements.get("tobago-in") == null) {
+    window.customElements.define("tobago-in", In);
+  }
 });
 
 // XXX regexp example only - blueprint

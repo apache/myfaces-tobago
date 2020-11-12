@@ -17,7 +17,9 @@
 import { SelectOneListbox } from "./tobago-select-one-listbox";
 class SelectManyListbox extends SelectOneListbox {
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-select-many-listbox", SelectManyListbox);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-select-many-listbox") == null) {
+        window.customElements.define("tobago-select-many-listbox", SelectManyListbox);
+    }
 });
 //# sourceMappingURL=tobago-select-many-listbox.js.map

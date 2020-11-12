@@ -36,6 +36,8 @@ class Messages extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-messages", Messages);
+document.addEventListener("tobago.init", function (event: Event): void {
+  if (window.customElements.get("tobago-messages") == null) {
+    window.customElements.define("tobago-messages", Messages);
+  }
 });

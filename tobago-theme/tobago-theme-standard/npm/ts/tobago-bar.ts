@@ -79,6 +79,8 @@ class Bar extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-bar", Bar);
+document.addEventListener("tobago.init", function (event: Event): void {
+  if (window.customElements.get("tobago-bar") == null) {
+    window.customElements.define("tobago-bar", Bar);
+  }
 });

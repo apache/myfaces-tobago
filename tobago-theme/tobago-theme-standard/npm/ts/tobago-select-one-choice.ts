@@ -33,6 +33,8 @@ class SelectOneChoice extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-select-one-choice", SelectOneChoice);
+document.addEventListener("tobago.init", function (event: Event): void {
+  if (window.customElements.get("tobago-select-one-choice") == null) {
+    window.customElements.define("tobago-select-one-choice", SelectOneChoice);
+  }
 });

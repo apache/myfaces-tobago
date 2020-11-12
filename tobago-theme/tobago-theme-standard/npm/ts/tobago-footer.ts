@@ -66,6 +66,8 @@ class Footer extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-footer", Footer);
+document.addEventListener("tobago.init", function (event: Event): void {
+  if (window.customElements.get("tobago-footer") == null) {
+    window.customElements.define("tobago-footer", Footer);
+  }
 });

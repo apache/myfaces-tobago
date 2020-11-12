@@ -57,7 +57,9 @@ class Range extends HTMLElement {
         }, 5000);
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-range", Range);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-range") == null) {
+        window.customElements.define("tobago-range", Range);
+    }
 });
 //# sourceMappingURL=tobago-range.js.map

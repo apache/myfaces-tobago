@@ -20,6 +20,8 @@ import {SelectOneListbox} from "./tobago-select-one-listbox";
 class SelectManyListbox extends SelectOneListbox {
 }
 
-document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-select-many-listbox", SelectManyListbox);
+document.addEventListener("tobago.init", function (event: Event): void {
+  if (window.customElements.get("tobago-select-many-listbox") == null) {
+    window.customElements.define("tobago-select-many-listbox", SelectManyListbox);
+  }
 });

@@ -28,8 +28,10 @@ export class In extends HTMLElement {
         return this.querySelector(DomUtils.escapeClientId(this.id + DomUtils.SUB_COMPONENT_SEP + "field"));
     }
 }
-document.addEventListener("DOMContentLoaded", function (event) {
-    window.customElements.define("tobago-in", In);
+document.addEventListener("tobago.init", function (event) {
+    if (window.customElements.get("tobago-in") == null) {
+        window.customElements.define("tobago-in", In);
+    }
 });
 // XXX regexp example only - blueprint
 class RegExpTest {

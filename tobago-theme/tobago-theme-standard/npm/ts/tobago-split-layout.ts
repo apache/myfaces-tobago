@@ -161,6 +161,8 @@ class SplitLayoutMousedown {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  window.customElements.define("tobago-split-layout", SplitLayout);
+document.addEventListener("tobago.init", function (event: Event): void {
+  if (window.customElements.get("tobago-split-layout") == null) {
+    window.customElements.define("tobago-split-layout", SplitLayout);
+  }
 });
