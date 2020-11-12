@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+// todo: migrate to typescript
+
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 function elementByIdFn(expression) {

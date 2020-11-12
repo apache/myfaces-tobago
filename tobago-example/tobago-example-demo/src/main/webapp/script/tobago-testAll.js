@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+// todo: migrate to typescript
+
 function testAll() {
   let count = 1;
   const maxCount = document.querySelectorAll(".testframe-wrapper").length;

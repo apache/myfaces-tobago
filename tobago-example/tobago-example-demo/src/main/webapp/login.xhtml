@@ -23,20 +23,20 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="Login"/>
 
-  <tc:script file="#{request.contextPath}/script/login.js"/>
-
   <p>This login site is to demonstrate roles.
     After login, you will be redirected to the roles page.</p>
 
   <tc:section label="Login">
     <p>Use one of the following users to login (Shortcuts:
-      <tc:link label="guest/guest" omit="true">
-        <tc:dataAttribute name="login" value='{"username": "guest", "password": "guest"}'/>
-      </tc:link>
+      <demo-login
+          username="guest" username-id="page:mainForm:username::field"
+          password="guest" password-id="page:mainForm:password::field">
+        <tc:link label="guest/guest" omit="true"/></demo-login>
       or
-      <tc:link label="admin/admin" omit="true">
-        <tc:dataAttribute name="login" value='{"username": "admin", "password": "admin"}'/>
-      </tc:link>).</p>
+      <demo-login
+          username="admin" username-id="page:mainForm:username::field"
+          password="admin" password-id="page:mainForm:password::field">
+        <tc:link label="admin/admin" omit="true"/></demo-login>).</p>
     <tc:in id="username" value="#{loginController.username}" label="User" focus="true" required="true"/>
     <tc:in id="password" value="#{loginController.password}" password="true" label="Password" required="true"/>
     <tc:button id="login" action="#{loginController.login}" label="Login" defaultCommand="true"
