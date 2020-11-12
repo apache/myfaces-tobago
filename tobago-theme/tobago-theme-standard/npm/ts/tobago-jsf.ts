@@ -71,7 +71,7 @@ export class Jsf {
             console.info("[tobago-jsf] Update after jsf.ajax success: %s", id);
             if (Jsf.isId(id)) {
               console.debug("[tobago-jsf] updating #%s", id);
-              let element = document.getElementById(id);
+              const element = document.getElementById(id);
               if (element) {
                 Listener.executeAfterUpdate(element);
               } else {
