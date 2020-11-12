@@ -941,8 +941,7 @@
               <exclude>**/jettykeystore</exclude>
 
               <!-- prism (tobago-example-demo) -->
-              <exclude>**/src/main/webapp/script/prism*.*</exclude>
-              <exclude>**/src/main/webapp/style/prism*.*</exclude>
+              <exclude>**/src/main/webapp/*/prism*.*</exclude>
 
               <!-- qunit (tobago-example-demo) -->
               <exclude>**/src/main/webapp/script/qunit*.*</exclude>
