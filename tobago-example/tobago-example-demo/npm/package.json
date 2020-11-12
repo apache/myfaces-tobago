@@ -13,7 +13,13 @@
   },
   "homepage": "https://myfaces.apache.org/tobago/",
   "scripts": {
-    "build": "npm-run-all --parallel ts test",
+    "build": "npm-run-all --parallel ts css test",
+    "css": "npm-run-all css-compile css-prefix css-minify",
+    "css-lint": "echo 'Not implemented yet!'",
+    "css-compile": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/demo.scss ../src/main/webapp/css/demo.css",
+    "css-prefix": "echo 'Not implemented yet! See css-prefix_xxx'",
+    "css-prefix_xxx": "postcss --config postcss.config.js --replace ../src/main/webapp/css/demo.css",
+    "css-minify": "cleancss -O1 specialComments:0 --format breakWith=lf --source-map --source-map-inline-sources --output ../src/main/webapp/css/demo.min.css ../src/main/webapp/css/demo.css",
     "ts": "npm-run-all --parallel ts-lint ts-compile --sequential rollup",
     "ts-lint": "tslint --project tsconfig.json --config tslint.json",
     "ts-compile": "tsc",
@@ -21,8 +27,12 @@
     "test": "echo 'Skipping'"
   },
   "devDependencies": {
-    "prismjs": "^1.22.0",
+    "autoprefixer": "^10.0.2",
+    "clean-css-cli": "^4.3.0",
+    "node-sass": "^5.0.0",
     "npm-run-all": "^4.1.5",
+    "postcss-cli": "^8.2.0",
+    "prismjs": "^1.22.0",
     "rollup": "^2.33.1",
     "rollup-plugin-node-resolve": "^5.2.0",
     "tslint": "^6.1.3",

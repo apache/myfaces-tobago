@@ -15,29 +15,17 @@
  * limitations under the License.
  */
 
-.tobago-sheet-cell-markup-sun {
-  background-color: #fffacd;
-}
+'use strict'
 
-.tobago-sheet-cell-markup-planet {
-  background-color: #ffb6c1;
-}
-
-.tobago-sheet-cell-markup-moon {
-  background-color: #6495ed;
-}
-
-.tobago-sheet-cell-markup-lightgreen {
-  background-color: #ddffdd;
-}
-
-.tobago-sheet-cell-markup-lightred {
-  background-color: #ffdddd;
-}
-
-.testframe-wrapper {
-  display: inline-block;
-  border: 1px solid;
-  text-align: center;
-  margin-bottom: 2px;
-}
+module.exports = (ctx) => ({
+  map: {
+    inline: false,
+    annotation: true,
+    sourcesContent: true
+  },
+  plugins: {
+    autoprefixer: {
+      cascade: false
+    }
+  }
+})
