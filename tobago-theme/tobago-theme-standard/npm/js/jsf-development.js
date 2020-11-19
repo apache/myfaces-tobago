@@ -399,6 +399,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var Monad_1 = __webpack_require__(/*! ./Monad */ "./src/main/typescript/ext/monadish/Monad.ts");
 var Stream_1 = __webpack_require__(/*! ./Stream */ "./src/main/typescript/ext/monadish/Stream.ts");
+var SourcesCollectors_1 = __webpack_require__(/*! ./SourcesCollectors */ "./src/main/typescript/ext/monadish/SourcesCollectors.ts");
 var Lang_1 = __webpack_require__(/*! ./Lang */ "./src/main/typescript/ext/monadish/Lang.ts");
 var trim = Lang_1.Lang.trim;
 var objToArray = Lang_1.Lang.objToArray;
@@ -644,17 +645,40 @@ var DomQuery = /** @class */ (function () {
     });
     Object.defineProperty(DomQuery.prototype, "elements", {
         get: function () {
-            var _this = this;
-            var elements = this.stream.flatMap(function (item) {
-                var formElement = item.value.value;
-                return new Stream_1.Stream(formElement.elements ? objToArray(formElement.elements) : []);
-            }).filter(function (item) { return !!item; }).collect(new DomQueryCollector());
-            return elements
-                .orElseLazy(function () { return _this.querySelectorAll("input, select, textarea, fieldset"); });
+            //a simple querySelectorAll should suffice
+            return this.querySelectorAll("input, checkbox, select, textarea, fieldset");
         },
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(DomQuery.prototype, "deepElements", {
+        get: function () {
+            var elemStr = "input, select, textarea, checkbox, fieldset";
+            return this.querySelectorAllDeep(elemStr);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * a deep search which treats the single isolated shadow doms
+     * separately and runs the query on earch shadow dom
+     * @param queryStr
+     */
+    DomQuery.prototype.querySelectorAllDeep = function (queryStr) {
+        var found = [];
+        var queryRes = this.querySelectorAll(queryStr);
+        if (queryRes.length) {
+            found.push(queryRes);
+        }
+        var shadowRoots = this.querySelectorAll("*").shadowRoot;
+        if (shadowRoots.length) {
+            var shadowRes = shadowRoots.querySelectorAllDeep(queryStr);
+            if (shadowRes.length) {
+                found.push(shadowRes);
+            }
+        }
+        return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], found)))();
+    };
     Object.defineProperty(DomQuery.prototype, "disabled", {
         /**
          * todo align this api with the rest of the apis
@@ -715,11 +739,16 @@ var DomQuery = /** @class */ (function () {
     });
     Object.defineProperty(DomQuery.prototype, "asArray", {
         get: function () {
-            var ret = [];
-            this.each(function (item) {
-                ret.push(item);
-            });
-            return ret;
+            //filter not supported by IE11
+            return [].concat(Stream_1.LazyStream.of.apply(Stream_1.LazyStream, this.rootNode).filter(function (item) { return item != null; })
+                .map(function (item) { return DomQuery.byId(item); }).collect(new SourcesCollectors_1.ArrayCollector()));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DomQuery.prototype, "asNodeArray", {
+        get: function () {
+            return [].concat(Stream_1.Stream.of(this.rootNode).filter(function (item) { return item != null; }).collect(new SourcesCollectors_1.ArrayCollector()));
         },
         enumerable: true,
         configurable: true
@@ -731,7 +760,12 @@ var DomQuery = /** @class */ (function () {
      * @returns a results dom query object
      */
     DomQuery.querySelectorAll = function (selector) {
-        return new DomQuery(document).querySelectorAll(selector);
+        if (selector.indexOf("/shadow/") != -1) {
+            return new DomQuery(document)._querySelectorAllDeep(selector);
+        }
+        else {
+            return new DomQuery(document)._querySelectorAll(selector);
+        }
     };
     /**
      * byId producer
@@ -739,9 +773,10 @@ var DomQuery = /** @class */ (function () {
      * @param selector id
      * @return a DomQuery containing the found elements
      */
-    DomQuery.byId = function (selector) {
+    DomQuery.byId = function (selector, deep) {
+        if (deep === void 0) { deep = false; }
         if (isString(selector)) {
-            return new DomQuery(document).byId(selector);
+            return (!deep) ? new DomQuery(document).byId(selector) : new DomQuery(document).byIdDeep(selector);
         }
         else {
             return new DomQuery(selector);
@@ -830,6 +865,14 @@ var DomQuery = /** @class */ (function () {
         return (index < this.rootNode.length) ? Monad_1.Optional.fromNullable(this.rootNode[index]) : defaults;
     };
     /**
+     * returns the files from a given elmement
+     * @param index
+     */
+    DomQuery.prototype.filesFromElem = function (index) {
+        var _a;
+        return (index < this.rootNode.length) ? ((_a = this.rootNode[index]) === null || _a === void 0 ? void 0 : _a.files) ? this.rootNode[index].files : [] : [];
+    };
+    /**
      * returns the value array< of all elements
      */
     DomQuery.prototype.allElems = function () {
@@ -877,13 +920,22 @@ var DomQuery = /** @class */ (function () {
             }
         });
     };
+    DomQuery.prototype.querySelectorAll = function (selector) {
+        //We could merge both methods, but for now this is more readable
+        if (selector.indexOf("/shadow/") != -1) {
+            return this._querySelectorAllDeep(selector);
+        }
+        else {
+            return this._querySelectorAll(selector);
+        }
+    };
     /**
-     * query selector all on the existing dom query object
+     * query selector all on the existing dom queryX object
      *
      * @param selector the standard selector
      * @return a DomQuery with the results
      */
-    DomQuery.prototype.querySelectorAll = function (selector) {
+    DomQuery.prototype._querySelectorAll = function (selector) {
         var _a, _b;
         if (!((_a = this === null || this === void 0 ? void 0 : this.rootNode) === null || _a === void 0 ? void 0 : _a.length)) {
             return this;
@@ -898,18 +950,38 @@ var DomQuery = /** @class */ (function () {
         }
         return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], nodes)))();
     };
+    /*deep with a selector and a peudo /shadow/ marker to break into the next level*/
+    DomQuery.prototype._querySelectorAllDeep = function (selector) {
+        var _a;
+        if (!((_a = this === null || this === void 0 ? void 0 : this.rootNode) === null || _a === void 0 ? void 0 : _a.length)) {
+            return this;
+        }
+        var nodes = [];
+        var foundNodes = new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], this.rootNode)))();
+        var selectors = selector.split(/\/shadow\//);
+        for (var cnt2 = 0; cnt2 < selectors.length; cnt2++) {
+            if (selectors[cnt2] == "") {
+                continue;
+            }
+            var levelSelector = selectors[cnt2];
+            foundNodes = foundNodes.querySelectorAll(levelSelector);
+            if (cnt2 < selectors.length - 1) {
+                foundNodes = foundNodes.shadowRoot;
+            }
+        }
+        return foundNodes;
+    };
     /**
      * core byId method
      * @param id the id to search for
      * @param includeRoot also match the root element?
      */
     DomQuery.prototype.byId = function (id, includeRoot) {
-        var _a;
         var res = [];
-        for (var cnt = 0; includeRoot && cnt < this.rootNode.length; cnt++) {
-            if (((_a = this.rootNode[cnt]) === null || _a === void 0 ? void 0 : _a.id) == id) {
-                res.push(new DomQuery(this.rootNode[cnt]));
-            }
+        if (includeRoot) {
+            res = res.concat(Stream_1.LazyStream.of.apply(Stream_1.LazyStream, ((this === null || this === void 0 ? void 0 : this.rootNode) || [])).filter(function (item) { return id == item.id; })
+                .map(function (item) { return new DomQuery(item); })
+                .collect(new SourcesCollectors_1.ArrayCollector()));
         }
         //for some strange kind of reason the # selector fails
         //on hidden elements we use the attributes match selector
@@ -917,20 +989,33 @@ var DomQuery = /** @class */ (function () {
         res = res.concat(this.querySelectorAll("[id=\"" + id + "\"]"));
         return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], res)))();
     };
+    DomQuery.prototype.byIdDeep = function (id, includeRoot) {
+        var res = [];
+        if (includeRoot) {
+            res = res.concat(Stream_1.LazyStream.of.apply(Stream_1.LazyStream, ((this === null || this === void 0 ? void 0 : this.rootNode) || [])).filter(function (item) { return id == item.id; })
+                .map(function (item) { return new DomQuery(item); })
+                .collect(new SourcesCollectors_1.ArrayCollector()));
+        }
+        var subItems = this.querySelectorAllDeep("[id=\"" + id + "\"]");
+        if (subItems.length) {
+            res.push(subItems);
+        }
+        return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], res)))();
+    };
     /**
      * same as byId just for the tag name
      * @param tagName
      * @param includeRoot
      */
-    DomQuery.prototype.byTagName = function (tagName, includeRoot) {
+    DomQuery.prototype.byTagName = function (tagName, includeRoot, deep) {
         var _a;
         var res = [];
         if (includeRoot) {
-            res = Stream_1.Stream.of.apply(Stream_1.Stream, ((_a = this === null || this === void 0 ? void 0 : this.rootNode) !== null && _a !== void 0 ? _a : [])).filter(function (element) { return (element === null || element === void 0 ? void 0 : element.tagName) == tagName; })
+            res = Stream_1.LazyStream.of.apply(Stream_1.LazyStream, ((_a = this === null || this === void 0 ? void 0 : this.rootNode) !== null && _a !== void 0 ? _a : [])).filter(function (element) { return (element === null || element === void 0 ? void 0 : element.tagName) == tagName; })
                 .reduce(function (reduction, item) { return reduction.concat([item]); }, res)
-                .value;
+                .orElse(res).value;
         }
-        res = res.concat(this.querySelectorAll(tagName));
+        (deep) ? res.push(this.querySelectorAllDeep(tagName)) : res.push(this.querySelectorAll(tagName));
         return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], res)))();
     };
     /**
@@ -950,21 +1035,10 @@ var DomQuery = /** @class */ (function () {
      */
     DomQuery.prototype.hasClass = function (clazz) {
         var hasIt = false;
-        this.each(function (item) {
-            var oldClass = item.attr("class").value || "";
-            if (oldClass.toLowerCase().indexOf(clazz.toLowerCase()) == -1) {
-                return;
-            }
-            else {
-                var oldClasses = oldClass.split(/\s+/gi);
-                var found = false;
-                for (var cnt = 0; cnt < oldClasses.length && !found; cnt++) {
-                    found = oldClasses[cnt].toLowerCase() == clazz.toLowerCase();
-                }
-                hasIt = hasIt || found;
-                if (hasIt) {
-                    return false;
-                }
+        this.eachElem(function (node) {
+            hasIt = node.classList.contains(clazz);
+            if (hasIt) {
+                return false;
             }
         });
         return hasIt;
@@ -975,13 +1049,7 @@ var DomQuery = /** @class */ (function () {
      * @param clazz the style class to append
      */
     DomQuery.prototype.addClass = function (clazz) {
-        this.each(function (item) {
-            var oldClass = item.attr("class").value || "";
-            if (!item.hasClass(clazz)) {
-                item.attr("class").value = trim(oldClass + " " + clazz);
-                return;
-            }
-        });
+        this.eachElem(function (item) { return item.classList.add(clazz); });
         return this;
     };
     /**
@@ -990,26 +1058,37 @@ var DomQuery = /** @class */ (function () {
      * @param clazz
      */
     DomQuery.prototype.removeClass = function (clazz) {
-        this.each(function (item) {
-            if (item.hasClass(clazz)) {
-                var oldClass = item.attr("class").value || "";
-                var newClasses = [];
-                var oldClasses = oldClass.split(/\s+/gi);
-                for (var cnt = 0; cnt < oldClasses.length; cnt++) {
-                    if (oldClasses[cnt].toLowerCase() != clazz.toLowerCase()) {
-                        newClasses.push(oldClasses[cnt]);
-                    }
-                }
-                item.attr("class").value = newClasses.join(" ");
-            }
-        });
+        this.eachElem(function (item) { return item.classList.remove(clazz); });
         return this;
     };
     /**
      * checks whether we have a multipart element in our children
+     * or are one
      */
-    DomQuery.prototype.isMultipartCandidate = function () {
-        return this.querySelectorAll("input[type='file']").firstElem().isPresent();
+    DomQuery.prototype.isMultipartCandidate = function (deep) {
+        var _this = this;
+        if (deep === void 0) { deep = false; }
+        var isCandidate = function (item) {
+            var _a;
+            if (item.length == 0) {
+                return false;
+            }
+            if (item.length == 1) {
+                if (item.tagName.get("booga").value.toLowerCase() == "input" &&
+                    (((_a = item.attr("type")) === null || _a === void 0 ? void 0 : _a.value) || "").toLowerCase() == "file") {
+                    return true;
+                }
+                if (deep) {
+                    return _this.querySelectorAllDeep("input[type='file']").firstElem().isPresent();
+                }
+                else {
+                    return _this.querySelectorAll("input[type='file']").firstElem().isPresent();
+                }
+            }
+            return item.isMultipartCandidate(deep);
+        };
+        var ret = this.stream.filter(function (item) { return isCandidate(item); }).first().isPresent();
+        return ret;
     };
     /**
      * innerHtml equivalkent
@@ -1025,6 +1104,13 @@ var DomQuery = /** @class */ (function () {
             return this.isPresent() ? Monad_1.Optional.fromNullable(this.innerHtml) : Monad_1.Optional.absent;
         }
         this.innerHtml = inval;
+        return this;
+    };
+    /**
+     * Standard dispatch event method, delegated from node
+     */
+    DomQuery.prototype.dispatchEvent = function (evt) {
+        this.eachElem(function (elem) { return elem.dispatchEvent(evt); });
         return this;
     };
     Object.defineProperty(DomQuery.prototype, "innerHtml", {
@@ -1376,7 +1462,8 @@ var DomQuery = /** @class */ (function () {
      * @param runEmbeddedScripts
      * @param runEmbeddedCss
      */
-    DomQuery.prototype.outerHTML = function (markup, runEmbeddedScripts, runEmbeddedCss) {
+    DomQuery.prototype.outerHTML = function (markup, runEmbeddedScripts, runEmbeddedCss, deep) {
+        if (deep === void 0) { deep = false; }
         var _a;
         if (this.isAbsent()) {
             return;
@@ -1477,12 +1564,8 @@ var DomQuery = /** @class */ (function () {
             var scriptElements = new DomQuery(this.filterSelector("script"), this.querySelectorAll("script"));
             //script execution order by relative pos in their dom tree
             scriptElements.stream
-                .flatMap(function (item) {
-                return Stream_1.Stream.of(item.values);
-            })
-                .sort(function (node1, node2) {
-                return node1.compareDocumentPosition(node2) - 3; //preceding 2, following == 4
-            })
+                .flatMap(function (item) { return Stream_1.Stream.of(item.values); })
+                .sort(function (node1, node2) { return node1.compareDocumentPosition(node2) - 3; }) //preceding 2, following == 4)
                 .each(function (item) { return execScrpt(item); });
             if (finalScripts.length) {
                 this.globalEval(finalScripts.join("\n"));
@@ -1529,30 +1612,23 @@ var DomQuery = /** @class */ (function () {
                 applyStyle(item, "@import url('" + item.getAttribute("href") + "');");
             }
             else if (tagName && equalsIgnoreCase(tagName, "style") && equalsIgnoreCase(item.getAttribute("type"), "text/css")) {
-                var innerText = [];
+                var innerText_1 = [];
                 //compliant browsers know child nodes
                 var childNodes = item.childNodes;
                 if (childNodes) {
-                    var len = childNodes.length;
-                    for (var cnt = 0; cnt < len; cnt++) {
-                        innerText.push(childNodes[cnt].innerHTML || childNodes[cnt].data);
-                    }
+                    childNodes.forEach(function (child) { return innerText_1.push(child.innerHTML || child.data); });
                     //non compliant ones innerHTML
                 }
                 else if (item.innerHTML) {
-                    innerText.push(item.innerHTML);
+                    innerText_1.push(item.innerHTML);
                 }
-                applyStyle(item, innerText.join(""));
+                applyStyle(item, innerText_1.join(""));
             }
         };
         var scriptElements = new DomQuery(this.filterSelector("link, style"), this.querySelectorAll("link, style"));
         scriptElements.stream
-            .flatMap(function (item) {
-            return Stream_1.Stream.of(item.values);
-        })
-            .sort(function (node1, node2) {
-            return node1.compareDocumentPosition(node2) - 3; //preceding 2, following == 4
-        })
+            .flatMap(function (item) { return Stream_1.Stream.of(item.values); })
+            .sort(function (node1, node2) { return node1.compareDocumentPosition(node2) - 3; })
             .each(function (item) { return execCss(item); });
         return this;
     };
@@ -1564,15 +1640,11 @@ var DomQuery = /** @class */ (function () {
         return this;
     };
     DomQuery.prototype.addEventListener = function (type, listener, options) {
-        this.eachElem(function (node) {
-            node.addEventListener(type, listener, options);
-        });
+        this.eachElem(function (node) { return node.addEventListener(type, listener, options); });
         return this;
     };
     DomQuery.prototype.removeEventListener = function (type, listener, options) {
-        this.eachElem(function (node) {
-            node.removeEventListener(type, listener, options);
-        });
+        this.eachElem(function (node) { return node.removeEventListener(type, listener, options); });
         return this;
     };
     /**
@@ -1737,15 +1809,18 @@ var DomQuery = /** @class */ (function () {
         get: function () {
             var cDataBlock = [];
             var TYPE_CDATA_BLOCK = 4;
-            // response may contain several blocks
-            return this.lazyStream
-                .flatMap(function (item) { return item.childNodes.stream; })
-                .filter(function (item) { var _a, _b; return ((_b = (_a = item === null || item === void 0 ? void 0 : item.value) === null || _a === void 0 ? void 0 : _a.value) === null || _b === void 0 ? void 0 : _b.nodeType) == TYPE_CDATA_BLOCK; })
-                .reduce(function (reduced, item) {
+            var res = this.lazyStream.flatMap(function (item) {
+                return item.childNodes.stream;
+            }).filter(function (item) {
+                var _a, _b;
+                return ((_b = (_a = item === null || item === void 0 ? void 0 : item.value) === null || _a === void 0 ? void 0 : _a.value) === null || _b === void 0 ? void 0 : _b.nodeType) == TYPE_CDATA_BLOCK;
+            }).reduce(function (reduced, item) {
                 var _a, _b, _c;
                 reduced.push((_c = (_b = (_a = item === null || item === void 0 ? void 0 : item.value) === null || _a === void 0 ? void 0 : _a.value) === null || _b === void 0 ? void 0 : _b.data) !== null && _c !== void 0 ? _c : "");
                 return reduced;
-            }, []).value.join("");
+            }, []).value;
+            // response may contain several blocks
+            return res.join("");
         },
         enumerable: true,
         configurable: true
@@ -1777,34 +1852,60 @@ var DomQuery = /** @class */ (function () {
     DomQuery.prototype.reset = function () {
         this.pos = -1;
     };
-    DomQuery.prototype.createShadowRoot = function () {
-        var shadowRoots = [];
-        this.eachElem(function (item) {
-            var _a;
-            var shadowElement;
-            if ((_a = item) === null || _a === void 0 ? void 0 : _a.createShadowRoot) {
-                shadowElement = DomQuery.byId(item.createShadowRoot());
-            }
-            else {
-                throw Error("Shadow dom creation not supported by the browser, please use a shim, to gain this functionality");
-            }
-        });
-        return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], shadowRoots)))();
-    };
     DomQuery.prototype.attachShadow = function (params) {
+        if (params === void 0) { params = { mode: "open" }; }
         var shadowRoots = [];
         this.eachElem(function (item) {
             var _a;
             var shadowElement;
             if ((_a = item) === null || _a === void 0 ? void 0 : _a.attachShadow) {
                 shadowElement = DomQuery.byId(item.attachShadow(params));
+                shadowRoots.push(shadowElement);
             }
             else {
-                //throw error (Shadow dom creation not supported by the browser, please use a shim, to gain this functionality)
+                throw new Error("Shadow dom creation not supported by the browser, please use a shim, to gain this functionality");
             }
         });
         return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], shadowRoots)))();
     };
+    Object.defineProperty(DomQuery.prototype, "shadowElements", {
+        /**
+         * returns the embedded shadow elements
+         */
+        get: function () {
+            var shadowElements = this.querySelectorAll("*")
+                .filter(function (item) { return item.hasShadow; });
+            var mapped = (shadowElements.allElems() || []).map(function (element) { return element.shadowRoot; });
+            return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], mapped)))();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DomQuery.prototype, "shadowRoot", {
+        get: function () {
+            var shadowRoots = [];
+            for (var cnt = 0; cnt < this.rootNode.length; cnt++) {
+                if (this.rootNode[cnt].shadowRoot) {
+                    shadowRoots.push(this.rootNode[cnt].shadowRoot);
+                }
+            }
+            return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], shadowRoots)))();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DomQuery.prototype, "hasShadow", {
+        get: function () {
+            for (var cnt = 0; cnt < this.rootNode.length; cnt++) {
+                if (this.rootNode[cnt].shadowRoot) {
+                    return true;
+                }
+            }
+            return false;
+        },
+        enumerable: true,
+        configurable: true
+    });
     //from
     // http://blog.vishalon.net/index.php/javascript-getting-and-setting-caret-position-in-textarea/
     DomQuery.getCaretPosition = function (ctrl) {
@@ -3925,7 +4026,7 @@ var Implementation;
          *  typecheck assert!, we opt for strong typing here
          *  because it makes it easier to detect bugs
          */
-        var element = monadish_1.DQ.byId(form);
+        var element = monadish_1.DQ.byId(form, true);
         if (!element.isTag(Const_1.TAG_FORM)) {
             throw new Error(getMessage("ERR_VIEWSTATE"));
         }
@@ -4949,7 +5050,7 @@ var ExtDomquery = /** @class */ (function (_super) {
                 .map((function (item) { return !item.attr("src").value.match(/jsf\.js\?ln=javax\.faces/gi); }))
                 .first();
             if (nonceScript.isPresent()) {
-                nonce.value = DomQuery_1.DomQuery.byId(nonceScript.value).attr("nonce").value;
+                nonce.value = DomQuery_1.DomQuery.byId(nonceScript.value, true).attr("nonce").value;
             }
             return nonce.value;
         },
@@ -5163,7 +5264,7 @@ var ExtLang;
         //html 5 for handling
         if (queryElem.attr(Const_1.TAG_FORM).isPresent()) {
             var formId = queryElem.attr(Const_1.TAG_FORM).value;
-            var foundForm = DomQuery_1.DQ.byId(formId);
+            var foundForm = DomQuery_1.DQ.byId(formId, true);
             if (foundForm.isPresent()) {
                 return foundForm;
             }
@@ -5330,7 +5431,7 @@ var EventData = /** @class */ (function () {
             .orElse(context.getIf(Const_1.P_PARTIAL_SOURCE).value)
             .orElse(context.getIf(Const_1.CTX_PARAM_PASS_THR, Const_1.P_PARTIAL_SOURCE).value).value;
         if (sourceId) {
-            eventData.source = monadish_1.DQ.byId(sourceId).first().value.value;
+            eventData.source = monadish_1.DQ.byId(sourceId, true).first().value.value;
         }
         if (name !== Const_1.BEGIN) {
             eventData.responseCode = (_a = request === null || request === void 0 ? void 0 : request.status) === null || _a === void 0 ? void 0 : _a.toString();
@@ -5420,7 +5521,7 @@ function resolveForm(requestCtx, elem, event) {
     var _a, _b, _c;
     var configId = (_c = (_b = (_a = requestCtx.value) === null || _a === void 0 ? void 0 : _a.myfaces) === null || _b === void 0 ? void 0 : _b.form) !== null && _c !== void 0 ? _c : Const_1.MF_NONE; //requestCtx.getIf(MYFACES, "form").orElse(MF_NONE).value;
     return monadish_1.DQ
-        .byId(configId)
+        .byId(configId, true)
         .orElseLazy(function () { return Lang_1.ExtLang.getForm(elem.getAsElem(0).value, event); });
 }
 exports.resolveForm = resolveForm;
@@ -5491,7 +5592,7 @@ function resolveDefaults(event, opts, el) {
     if (el === void 0) { el = null; }
     var _a;
     //deep copy the options, so that further transformations to not backfire into the callers
-    var resolvedEvent = event, options = new monadish_1.Config(opts).deepCopy, elem = monadish_1.DQ.byId(el || resolvedEvent.target), elementId = elem.id, requestCtx = new monadish_1.Config({}), internalCtx = new monadish_1.Config({}), windowId = resolveWindowId(options), isResetValues = true === ((_a = options.value) === null || _a === void 0 ? void 0 : _a.resetValues);
+    var resolvedEvent = event, options = new monadish_1.Config(opts).deepCopy, elem = monadish_1.DQ.byId(el || resolvedEvent.target, true), elementId = elem.id, requestCtx = new monadish_1.Config({}), internalCtx = new monadish_1.Config({}), windowId = resolveWindowId(options), isResetValues = true === ((_a = options.value) === null || _a === void 0 ? void 0 : _a.resetValues);
     return { resolvedEvent: resolvedEvent, options: options, elem: elem, elementId: elementId, requestCtx: requestCtx, internalCtx: internalCtx, windowId: windowId, isResetValues: isResetValues };
 }
 exports.resolveDefaults = resolveDefaults;
@@ -5583,7 +5684,7 @@ exports.resolveContexts = resolveContexts;
  */
 function resolveSourceElement(context, internalContext) {
     var elemId = resolveSourceElementId(context, internalContext);
-    return monadish_2.DQ.byId(elemId.value);
+    return monadish_2.DQ.byId(elemId.value, true);
 }
 exports.resolveSourceElement = resolveSourceElement;
 /**
@@ -5911,14 +6012,14 @@ var ResponseProcessor = /** @class */ (function () {
      * @param cdataBlock the cdata block with the new html code
      */
     ResponseProcessor.prototype.update = function (node, cdataBlock) {
-        var result = monadish_1.DQ.byId(node.id.value).outerHTML(cdataBlock, false, false);
+        var result = monadish_1.DQ.byId(node.id.value, true).outerHTML(cdataBlock, false, false);
         var sourceForm = result === null || result === void 0 ? void 0 : result.parents(Const_1.TAG_FORM).orElse(result.byTagName(Const_1.TAG_FORM, true));
         if (sourceForm) {
             this.storeForPostProcessing(sourceForm, result);
         }
     };
     ResponseProcessor.prototype.delete = function (node) {
-        monadish_1.DQ.byId(node.id.value).delete();
+        monadish_1.DQ.byId(node.id.value, true).delete();
     };
     /**
      * attributes leaf tag... process the attributes
@@ -5926,7 +6027,7 @@ var ResponseProcessor = /** @class */ (function () {
      * @param node
      */
     ResponseProcessor.prototype.attributes = function (node) {
-        var elem = monadish_1.DQ.byId(node.id.value);
+        var elem = monadish_1.DQ.byId(node.id.value, true);
         node.byTagName(Const_1.TAG_ATTR).each(function (item) {
             elem.attr(item.attr(Const_1.ATTR_NAME).value).value = item.attr(Const_1.ATTR_VALUE).value;
         });
@@ -5949,11 +6050,11 @@ var ResponseProcessor = /** @class */ (function () {
         var after = node.attr(Const_1.TAG_AFTER);
         var insertNodes = monadish_1.DQ.fromMarkup(node.cDATAAsString);
         if (before.isPresent()) {
-            monadish_1.DQ.byId(before.value).insertBefore(insertNodes);
+            monadish_1.DQ.byId(before.value, true).insertBefore(insertNodes);
             this.internalContext.assign(Const_1.UPDATE_ELEMS).value.push(insertNodes);
         }
         if (after.isPresent()) {
-            var domQuery = monadish_1.DQ.byId(after.value);
+            var domQuery = monadish_1.DQ.byId(after.value, true);
             domQuery.insertAfter(insertNodes);
             this.internalContext.assign(Const_1.UPDATE_ELEMS).value.push(insertNodes);
         }
@@ -5971,7 +6072,7 @@ var ResponseProcessor = /** @class */ (function () {
             var insertId = item.attr(Const_1.ATTR_ID);
             var insertNodes = monadish_1.DQ.fromMarkup(item.cDATAAsString);
             if (insertId.isPresent()) {
-                monadish_1.DQ.byId(insertId.value).insertBefore(insertNodes);
+                monadish_1.DQ.byId(insertId.value, true).insertBefore(insertNodes);
                 _this.internalContext.assign(Const_1.UPDATE_ELEMS).value.push(insertNodes);
             }
         });
@@ -5979,7 +6080,7 @@ var ResponseProcessor = /** @class */ (function () {
             var insertId = item.attr(Const_1.ATTR_ID);
             var insertNodes = monadish_1.DQ.fromMarkup(item.cDATAAsString);
             if (insertId.isPresent()) {
-                monadish_1.DQ.byId(insertId.value).insertAfter(insertNodes);
+                monadish_1.DQ.byId(insertId.value, true).insertAfter(insertNodes);
                 _this.internalContext.assign(Const_1.UPDATE_ELEMS).value.push(insertNodes);
             }
         });
@@ -6013,7 +6114,7 @@ var ResponseProcessor = /** @class */ (function () {
         monadish_1.Stream.ofAssoc(this.internalContext.getIf(Const_1.APPLIED_VST).orElse({}).value)
             .each(function (item) {
             var value = item[1];
-            var nameSpace = monadish_1.DQ.byId(value.nameSpace).orElse(document.body);
+            var nameSpace = monadish_1.DQ.byId(value.nameSpace, true).orElse(document.body);
             var affectedForms = nameSpace.byTagName(Const_1.TAG_FORM);
             var affectedForms2 = nameSpace.filter(function (item) { return item.tagName.orElse(Const_1.EMPTY_STR).value.toLowerCase() == Const_1.TAG_FORM; });
             _this.appendViewStateToForms(new monadish_1.DomQuery(affectedForms, affectedForms2), value.value);
@@ -6170,6 +6271,7 @@ var XhrFormData = /** @class */ (function (_super) {
         _this.dataSource = dataSource;
         _this.partialIdsArray = partialIdsArray;
         _this.encode = encode;
+        _this.fileInputs = {};
         //a call to getViewState before must pass the encoded line
         //a call from getViewState passes the form element as datasource
         //so we have two call points
@@ -6181,6 +6283,55 @@ var XhrFormData = /** @class */ (function (_super) {
         }
         return _this;
     }
+    /**
+     * generic application of ids
+     * @param executes
+     */
+    XhrFormData.prototype.applyFileInputs = function () {
+        var _this = this;
+        var executes = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            executes[_i] = arguments[_i];
+        }
+        monadish_1.LazyStream.of.apply(monadish_1.LazyStream, executes).map(function (id) {
+            if (id == "@all") {
+                return monadish_1.DomQuery.querySelectorAll("input[type='file']");
+            }
+            else if (id == "@form") {
+                return _this.dataSource.querySelectorAllDeep("input[type='file']");
+            }
+            else {
+                var element = monadish_1.DomQuery.byId(id, true);
+                return _this.getFileInputs(element);
+            }
+        })
+            .filter(function (item) {
+            return !!item.length;
+        })
+            .each(function (item) {
+            _this.fileInputs[item.id.value] = true;
+        });
+    };
+    XhrFormData.prototype.getFileInputs = function (rootElment) {
+        var _this = this;
+        var ret = rootElment.lazyStream.map(function (item) {
+            var _a;
+            if (item.length == 0) {
+                return null;
+            }
+            if (item.length == 1) {
+                if (item.tagName.get("booga").value.toLowerCase() == "input" &&
+                    (((_a = item.attr("type")) === null || _a === void 0 ? void 0 : _a.value) || '').toLowerCase() == "file") {
+                    return item;
+                }
+                return rootElment.querySelectorAllDeep("input[type='file']").firstElem().getAsElem(0).value;
+            }
+            return _this.getFileInputs(item);
+        }).filter(function (item) {
+            return item != null;
+        }).collect(new monadish_1.ArrayCollector());
+        return new (monadish_1.DomQuery.bind.apply(monadish_1.DomQuery, __spreadArrays([void 0], ret)))();
+    };
     XhrFormData.prototype.handleFormSource = function () {
         //encode and append the issuing item if not a partial ids array of ids is passed
         /*
@@ -6202,7 +6353,7 @@ var XhrFormData = /** @class */ (function (_super) {
      * @param form the form holding the viewstate value
      */
     XhrFormData.prototype.applyViewState = function (form) {
-        var viewState = form.byId(Const_1.P_VIEWSTATE).inputValue;
+        var viewState = form.byId(Const_1.P_VIEWSTATE, true).inputValue;
         this.appendIf(viewState.isPresent(), Const_1.P_VIEWSTATE).value = viewState.value;
     };
     /**
@@ -6211,32 +6362,50 @@ var XhrFormData = /** @class */ (function (_super) {
      * @param encoded
      */
     XhrFormData.prototype.assignEncodedString = function (encoded) {
-        var _this = this;
-        var keyValueEntries = encoded.split(/&/gi);
+        var keyValueEntries = decodeURIComponent(encoded).split(/&/gi);
+        this.assignString(keyValueEntries);
+    };
+    XhrFormData.prototype.assignString = function (keyValueEntries) {
+        var toMerge = new monadish_1.Config({});
         monadish_2.Stream.of.apply(monadish_2.Stream, keyValueEntries).map(function (line) { return line.split(/=(.*)/gi); })
             //special case of having keys without values
             .map(function (keyVal) { var _a, _b; return keyVal.length < 3 ? [(_a = keyVal === null || keyVal === void 0 ? void 0 : keyVal[0]) !== null && _a !== void 0 ? _a : [], (_b = keyVal === null || keyVal === void 0 ? void 0 : keyVal[1]) !== null && _b !== void 0 ? _b : []] : keyVal; })
             .each(function (keyVal) {
             var _a, _b;
-            _this.append(keyVal[0]).value = (_b = (_a = keyVal === null || keyVal === void 0 ? void 0 : keyVal.splice(1)) === null || _a === void 0 ? void 0 : _a.join("")) !== null && _b !== void 0 ? _b : "";
+            toMerge.append(keyVal[0]).value = (_b = (_a = keyVal === null || keyVal === void 0 ? void 0 : keyVal.splice(1)) === null || _a === void 0 ? void 0 : _a.join("")) !== null && _b !== void 0 ? _b : "";
         });
+        //merge with overwrite but no append! (aka no double entries are allowed)
+        this.shallowMerge(toMerge);
     };
     // noinspection JSUnusedGlobalSymbols
     /**
      * @returns a Form data representation
      */
     XhrFormData.prototype.toFormData = function () {
+        var _this = this;
         var ret = new FormData();
-        var _loop_1 = function (key) {
-            if (this_1.value.hasOwnProperty(key)) {
-                monadish_2.Stream.of.apply(monadish_2.Stream, this_1.value[key]).each(function (item) { return ret.append(key, item); });
-            }
-        };
-        var this_1 = this;
-        for (var key in this.value) {
-            _loop_1(key);
-        }
+        monadish_2.Stream.of.apply(monadish_2.Stream, Object.keys(this.value)).filter(function (key) { return !(key in _this.fileInputs); })
+            .each(function (key) {
+            monadish_2.Stream.of.apply(monadish_2.Stream, _this.value[key]).each(function (item) { return ret.append(key, item); });
+        });
+        monadish_2.Stream.of.apply(monadish_2.Stream, Object.keys(this.fileInputs)).each(function (key) {
+            monadish_1.DomQuery.byId(key, true).eachElem(function (elem) {
+                var _a;
+                var identifier = _this.resolveSubmitIdentifier(elem);
+                if (!((_a = elem === null || elem === void 0 ? void 0 : elem.files) === null || _a === void 0 ? void 0 : _a.length)) {
+                    ret.append(identifier, elem.value);
+                    return;
+                }
+                ret.append(identifier, elem.files[0]);
+            });
+        });
         return ret;
+    };
+    XhrFormData.prototype.resolveSubmitIdentifier = function (elem) {
+        var _a;
+        var identifier = elem.name;
+        identifier = (((_a = elem === null || elem === void 0 ? void 0 : elem.name) !== null && _a !== void 0 ? _a : "").replace(/s+/gi, "") == "") ? elem.id : identifier;
+        return identifier;
     };
     /**
      * returns an encoded string representation of our xhr form data
@@ -6255,14 +6424,6 @@ var XhrFormData = /** @class */ (function (_super) {
             return encodeURIComponent(keyVal[0]) + "=" + encodeURIComponent(keyVal[1]);
         })
             .collect(new monadish_1.ArrayCollector());
-        /* for (let key in this.value) {
-             if (this.value.hasOwnProperty(key)) {
-                 //key value already encoded so no need to reencode them again
-                 Stream.of(...this.value[key]).each(item => {
-                     entries.push(`${encodeURIComponent(key)}=${encodeURIComponent(item)}`);
-                 });
-             }
-         }*/
         return entries.join("&");
     };
     /**
@@ -6285,14 +6446,17 @@ var XhrFormData = /** @class */ (function (_super) {
             toEncode = parentItem;
         }
         //lets encode the form elements
-        this.shallowMerge(toEncode.querySelectorAll("input, checkbox, select, textarea").encodeFormElement());
+        this.shallowMerge(toEncode.deepElements.encodeFormElement());
     };
     Object.defineProperty(XhrFormData.prototype, "isMultipartRequest", {
         /**
          * checks if the given datasource is a multipart request source
+         * multipart is only needed if one of the executes is a file input
+         * since file inputs are stateless, they fall out of the viewstate
+         * and need special handling
          */
         get: function () {
-            return this.dataSource instanceof monadish_3.DQ && this.dataSource.querySelectorAll("input[type='file']").isPresent();
+            return !!Object.keys(this.fileInputs).length;
         },
         enumerable: true,
         configurable: true
@@ -6390,11 +6554,22 @@ var XhrRequest = /** @class */ (function () {
         var _this = this;
         var ignoreErr = failSaveExecute;
         var xhrObject = this.xhrObject;
+        var executesArr = function () {
+            return _this.requestContext.getIf(Const_1.CTX_PARAM_PASS_THR, Const_1.P_EXECUTE).get("none").value.split(/\s+/gi);
+        };
         try {
-            var viewState = jsf.getViewState(this.sourceForm.getAsElem(0).value);
+            var formElement = this.sourceForm.getAsElem(0).value;
+            var viewState = jsf.getViewState(formElement);
             //encoded we need to decode
-            var formData = new XhrFormData_1.XhrFormData(decodeURIComponent(viewState));
-            this.contentType = formData.isMultipartRequest ? Const_1.MULTIPART : this.contentType;
+            //We generated a base representation of the current form
+            var formData = new XhrFormData_1.XhrFormData(this.sourceForm);
+            //in case someone has overloaded the viewstate with addtional decorators we merge
+            //that in, there is no way around it, the spec allows it and getViewState
+            //must be called, so whatever getViewState delivers has higher priority then
+            //whatever the formData object delivers
+            formData.assignEncodedString(viewState);
+            formData.applyFileInputs.apply(formData, executesArr());
+            this.contentType = formData.isMultipartRequest ? "undefined" : this.contentType;
             //next step the pass through parameters are merged in for post params
             var requestContext = this.requestContext;
             var passThroughParams = requestContext.getIf(Const_1.CTX_PARAM_PASS_THR);
@@ -6412,7 +6587,9 @@ var XhrRequest = /** @class */ (function () {
             //a bug in the xhr stub library prevents the setRequestHeader to be properly executed on fake xhr objects
             //normal browsers should resolve this
             //tests can quietly fail on this one
-            ignoreErr(function () { return xhrObject.setRequestHeader(Const_1.CONTENT_TYPE, _this.contentType + "; charset=utf-8"); });
+            if (this.contentType != "undefined") {
+                ignoreErr(function () { return xhrObject.setRequestHeader(Const_1.CONTENT_TYPE, _this.contentType + "; charset=utf-8"); });
+            }
             ignoreErr(function () { return xhrObject.setRequestHeader(Const_1.HEAD_FACES_REQ, Const_1.VAL_AJAX); });
             //probably not needed anymore, will test this
             //some webkit based mobile browsers do not follow the w3c spec of
@@ -6567,9 +6744,11 @@ var XhrRequest = /** @class */ (function () {
     XhrRequest.prototype.sendRequest = function (formData) {
         var isPost = this.ajaxType != Const_1.REQ_TYPE_GET;
         if (formData.isMultipartRequest) {
+            //in case of a multipart request we send in a formData object as body
             this.xhrObject.send((isPost) ? formData.toFormData() : null);
         }
         else {
+            //in case of a normal request we send it normally
             this.xhrObject.send((isPost) ? formData.toString() : null);
         }
     };
