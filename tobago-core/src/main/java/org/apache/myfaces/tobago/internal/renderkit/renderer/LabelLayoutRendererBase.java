@@ -81,9 +81,6 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
     encodeEndSurroundingLabel(facesContext, component);
   }
 
-  protected void encodeAttributes(final FacesContext facesContext, final T component) throws IOException {
-  }
-
   @Override
   public void encodeChildrenInternal(final FacesContext context, final T component) throws IOException {
     if (component.getChildCount() > 0) {
@@ -154,7 +151,6 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
     } else {
       writer.startElement(getComponentTag());
       writer.writeIdAttribute(clientId);
-      encodeAttributes(facesContext, component);
       writer.writeClassAttribute(
           flex ? TobagoClass.LABEL__CONTAINER :  null,
           BootstrapClass.MB_3,

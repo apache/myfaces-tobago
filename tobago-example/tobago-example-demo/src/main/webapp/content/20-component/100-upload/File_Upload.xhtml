@@ -77,7 +77,7 @@
       to the <code class="language-markup">&lt;tc:file/></code> tag.</p>
     <p><tc:badge value="Warning" markup="warning"/> The Ajax feature of file upload works with JSF 2.2 or higher!</p>
 
-    <tc:file label="Ajax" value="#{uploadController.fileAjax}">
+    <tc:file label="Ajax" value="#{uploadController.fileAjax}" id="fileAjax">
       <f:ajax listener="#{uploadController.uploadAjax}" render="s3 :page:messages"/>
     </tc:file>
 

@@ -251,17 +251,17 @@ public enum BootstrapClass implements CssItem {
   @Deprecated
   CUSTOM_CONTROL_INPUT("form-check-input"),
   /**
-   * @deprecated since 5.0.0, please use {@link #FORM_FILE}
+   * @deprecated since 5.0.0
    */
   @Deprecated
   CUSTOM_FILE("custom-file"),
   /**
-   * @deprecated since 5.0.0, please use {@link #FORM_FILE_INPUT}
+   * @deprecated since 5.0.0
    */
   @Deprecated
   CUSTOM_FILE_INPUT("custom-file-input"),
   /**
-   * @deprecated since 5.0.0, please use {@link #FORM_FILE_LABEL}
+   * @deprecated since 5.0.0
    */
   @Deprecated
   CUSTOM_FILE_LABEL("custom-file-label"),
@@ -305,8 +305,20 @@ public enum BootstrapClass implements CssItem {
   FLEX_COLUMN_REVERSE("flex-column-reverse"),
   FLEX_ROW("flex-row"),
   FLEX_ROW_REVERSE("flex-row-reverse"),
-  FONT_ITALIC("font-italic"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #FST_ITALIC}
+   */
+  @Deprecated
+  FONT_ITALIC("fst-italic"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #FW_BOLD}
+   */
+  @Deprecated
   FONT_WEIGHT_BOLD("font-weight-bold"),
+  /**
+   * @deprecated since 5.0.0, please use {@link #FW_LIGHT}
+   */
+  @Deprecated
   FONT_WEIGHT_LIGHT("font-weight-light"),
   FORM_CHECK("form-check"),
   FORM_CHECK_INLINE("form-check-inline"),
@@ -314,10 +326,30 @@ public enum BootstrapClass implements CssItem {
   FORM_CHECK_LABEL("form-check-label"),
   FORM_CONTROL("form-control"),
   FORM_CONTROL_PLAINTEXT("form-control-plaintext"),
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   FORM_FILE("form-file"),
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   FORM_FILE_BUTTON("form-file-button"),
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   FORM_FILE_INPUT("form-file-input"),
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   FORM_FILE_LABEL("form-file-label"),
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   FORM_FILE_TEXT("form-file-text"),
   /**
    * @deprecated since 5.0.0, please use {@link #MB_3} or other
@@ -331,6 +363,12 @@ public enum BootstrapClass implements CssItem {
   FORM_INLINE("form-inline"),
   FORM_SELECT("form-select"),
   FORM_SWITCH("form-switch"),
+  FST_ITALIC("fst-italic"),
+  FW_BOLD("fw-bold"),
+  FW_BOLDER("fw-bolder"),
+  FW_NORMAL("fw-normal"),
+  FW_LIGHT("fw-light"),
+  FW_LIGHTER("fw-lighter"),
   INPUT_GROUP("input-group"),
   /**
    * @deprecated since 5.0.0
@@ -651,11 +689,11 @@ public enum BootstrapClass implements CssItem {
     if (markup == null || markup.contains(Markup.NONE)) {
       return null;
     } else if (markup.contains(Markup.BOLD)) {
-      return BootstrapClass.FONT_WEIGHT_BOLD;
+      return BootstrapClass.FW_BOLD;
     } else if (markup.contains(Markup.THIN)) {
-      return BootstrapClass.FONT_WEIGHT_LIGHT;
+      return BootstrapClass.FW_LIGHT;
     } else if (markup.contains(Markup.ITALIC)) {
-      return BootstrapClass.FONT_ITALIC;
+      return BootstrapClass.FST_ITALIC;
     } else {
       return null;
     }

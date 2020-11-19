@@ -23,15 +23,14 @@ import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.HttpPartWrapper;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
-import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.validator.FileItemValidator;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -83,33 +82,40 @@ public class FileRenderer<T extends AbstractUIFile>
     }
 
     final boolean multiple = component.isMultiple() && !component.isRequired();
+    final String clientId = component.getClientId(facesContext);
     final Object request = facesContext.getExternalContext().getRequest();
     if (request instanceof HttpServletRequest) {
+      final HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+      final List<Part> parts = new ArrayList<>();
       try {
-        final HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        if (multiple) {
-          final List<Part> parts = new ArrayList<>();
-          for (final Part part : httpServletRequest.getParts()) {
-            if (component.getClientId(facesContext).equals(part.getName())) {
-              LOG.debug("Uploaded file '{}', size={}, type='{}'",
-                  part.getSubmittedFileName(), part.getSize(), part.getContentType());
+        for (final Part part : httpServletRequest.getParts()) {
+          if (clientId.equals(part.getName())) {
+            final String fileName = part.getSubmittedFileName();
+            final String contentType = part.getContentType();
+            LOG.debug("Uploaded file '{}', size={}, type='{}'.", fileName, part.getSize(), contentType);
+            if (StringUtils.isBlank(fileName)) {
+              LOG.warn("No fileName provided for clientId='{}'.", clientId);
+            } else if (StringUtils.isBlank(contentType)) {
+              LOG.warn("No contentType provided for clientId='{}'.", clientId);
+            } else {
               parts.add(new HttpPartWrapper(part));
             }
-            component.setSubmittedValue(parts.toArray(new Part[0]));
+            if (!multiple && parts.size() > 0) { // found one, and one is enough
+              break;
+            }
           }
+        }
+        if (multiple) {
+          LOG.debug("Adding {} parts {}.", parts.size(), parts);
+          component.setSubmittedValue(parts.toArray(new Part[0]));
         } else {
-          final Part part = httpServletRequest.getPart(component.getClientId(facesContext));
-          final String submittedFileName = part.getSubmittedFileName();
-          if (LOG.isDebugEnabled()) {
-            LOG.debug("Uploaded file '{}', size={}, type='{}'",
-                submittedFileName, part.getSize(), part.getContentType());
-          }
-          if (submittedFileName.length() > 0) {
-            component.setSubmittedValue(new HttpPartWrapper(part));
+          if (parts.size() > 0) {
+            LOG.debug("Adding one part {}.", parts.get(0));
+            component.setSubmittedValue(parts.get(0));
           }
         }
       } catch (final Exception e) {
-        LOG.error("", e);
+        LOG.error("clientId='" + clientId + "'", e);
         component.setValid(false);
       }
     } else { // todo: PortletRequest
@@ -117,16 +123,6 @@ public class FileRenderer<T extends AbstractUIFile>
     }
 
     decodeClientBehaviors(facesContext, component);
-  }
-
-  @Override
-  protected void encodeAttributes(final FacesContext facesContext, final T component) throws IOException {
-    final String placeholder = component.getPlaceholder();
-    final String multiFormat = ResourceUtils.getString(facesContext, "file.selected");
-
-    final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.writeAttribute(HtmlAttributes.PLACEHOLDER, placeholder, true);
-    writer.writeAttribute(CustomAttributes.MULTI_FORMAT, multiFormat, true);
   }
 
   @Override
@@ -146,10 +142,9 @@ public class FileRenderer<T extends AbstractUIFile>
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(
-        BootstrapClass.FORM_FILE,
+        BootstrapClass.INPUT_GROUP,
         TobagoClass.FILE.createMarkup(component.getMarkup()),
-        component.getCustomClass(),
-        BootstrapClass.FORM_CONTROL_PLAINTEXT);
+        component.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
     writer.startElement(HtmlElements.INPUT);
@@ -159,7 +154,7 @@ public class FileRenderer<T extends AbstractUIFile>
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
     writer.writeIdAttribute(fieldId);
     writer.writeClassAttribute(
-        BootstrapClass.FORM_FILE_INPUT,
+        BootstrapClass.FORM_CONTROL,
         BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)));
     writer.writeNameAttribute(clientId);
     // readonly seems not making sense in browsers.
@@ -177,16 +172,10 @@ public class FileRenderer<T extends AbstractUIFile>
     encodeBehavior(writer, facesContext, component);
 
     writer.startElement(HtmlElements.LABEL);
-    writer.writeClassAttribute(BootstrapClass.FORM_FILE_LABEL);
+    writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_TEXT);
     writer.writeAttribute(HtmlAttributes.FOR, fieldId, false);
     writer.startElement(HtmlElements.SPAN);
-    writer.writeClassAttribute(BootstrapClass.FORM_FILE_TEXT);
-    writer.endElement(HtmlElements.SPAN);
-    writer.startElement(HtmlElements.SPAN);
-    writer.writeClassAttribute(BootstrapClass.FORM_FILE_BUTTON);
     writer.startElement(HtmlElements.I);
-    // TODO: define a name
-    writer.writeAttribute(HtmlAttributes.TITLE, "Browse", false);
     writer.writeClassAttribute(Icons.FA, Icons.FOLDER_OPEN);
     writer.endElement(HtmlElements.I);
     writer.endElement(HtmlElements.SPAN);

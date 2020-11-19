@@ -23,43 +23,10 @@ export class File extends HTMLElement {
 
   connectedCallback(): void {
     this.input.form.enctype = "multipart/form-data";
-    this.input.addEventListener("change", this.select.bind(this));
-    this.text.textContent = this.placeholder;
-  }
-
-  get placeholder(): string {
-    return this.getAttribute("placeholder");
-  }
-
-  get multiFormat(): string {
-    return this.getAttribute("multi-format");
   }
 
   get input(): HTMLInputElement {
-    return this.querySelector(".form-file-input");
-  }
-
-  get text(): HTMLInputElement {
-    return this.querySelector(".form-file-text");
-  }
-
-  select(event: MouseEvent): void {
-    if (this.input.value) {
-      let text: string;
-      if (this.input.multiple) {
-        text = this.multiFormat.replace("{}", String(this.input.files.length));
-      } else {
-        text = this.input.value;
-        // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\path\".
-        const pos: number = Math.max(text.lastIndexOf("/"), text.lastIndexOf("\\"));
-        if (pos >= 0) {
-          text = text.substr(pos + 1);
-        }
-      }
-      this.text.textContent = text;
-    } else {
-      this.text.textContent = this.placeholder;
-    }
+    return this.querySelector("input");
   }
 }
 

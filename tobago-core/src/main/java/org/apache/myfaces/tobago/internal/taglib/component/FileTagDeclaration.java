@@ -33,7 +33,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasHelp;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasPlaceholder;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
@@ -80,8 +79,7 @@ import javax.faces.component.UIInput;
 public interface FileTagDeclaration
     extends HasValidator, HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
     HasValueChangeListener, HasIdBindingAndRendered, IsDisabled, IsFocus, IsMultiple,
-    HasLabel, HasLabelLayout, HasAccessKey, HasTip, HasHelp, IsReadonly, IsRequired, HasTabIndex, IsVisual,
-    HasPlaceholder {
+    HasLabel, HasLabelLayout, HasAccessKey, HasTip, HasHelp, IsReadonly, IsRequired, HasTabIndex, IsVisual {
 
   /**
    * Value binding expression pointing to a
