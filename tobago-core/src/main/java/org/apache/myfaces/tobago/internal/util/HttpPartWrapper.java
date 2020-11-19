@@ -128,8 +128,6 @@ public class HttpPartWrapper implements Part, FacesWrapper<Part>, StateHolder {
 
   @Override
   public String toString() {
-    return "HttpPartWrapper{" +
-        "delegate=" + delegate +
-        '}';
+    return "HttpPartWrapper{delegate=" + delegate + "}";
   }
 }
