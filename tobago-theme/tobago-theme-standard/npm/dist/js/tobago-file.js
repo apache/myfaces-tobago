@@ -20,40 +20,9 @@ export class File extends HTMLElement {
     }
     connectedCallback() {
         this.input.form.enctype = "multipart/form-data";
-        this.input.addEventListener("change", this.select.bind(this));
-        this.text.textContent = this.placeholder;
-    }
-    get placeholder() {
-        return this.getAttribute("placeholder");
-    }
-    get multiFormat() {
-        return this.getAttribute("multi-format");
     }
     get input() {
-        return this.querySelector(".form-file-input");
-    }
-    get text() {
-        return this.querySelector(".form-file-text");
-    }
-    select(event) {
-        if (this.input.value) {
-            let text;
-            if (this.input.multiple) {
-                text = this.multiFormat.replace("{}", String(this.input.files.length));
-            }
-            else {
-                text = this.input.value;
-                // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\path\".
-                const pos = Math.max(text.lastIndexOf("/"), text.lastIndexOf("\\"));
-                if (pos >= 0) {
-                    text = text.substr(pos + 1);
-                }
-            }
-            this.text.textContent = text;
-        }
-        else {
-            this.text.textContent = this.placeholder;
-        }
+        return this.querySelector("input");
     }
 }
 document.addEventListener("tobago.init", function (event) {
