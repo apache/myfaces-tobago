@@ -169,9 +169,13 @@ public class JsonUtils {
     builder.append("\":{");
     final int initialLength = builder.length();
 
-    final String action = command.getAction();
-    if (action != null) {
-      encode(builder, "action", action);
+    final String clientId = command.getClientId();
+    if (clientId != null) {
+      encode(builder, "clientId", clientId);
+    }
+    final String fieldId = command.getFieldId();
+    if (fieldId != null) {
+      encode(builder, "fieldId", fieldId);
     }
     final Boolean transition = command.getTransition();
     if (transition != null && !transition) { // true is the default, so encoding is needed.
@@ -192,10 +196,6 @@ public class JsonUtils {
     final Collapse collapse = command.getCollapse();
     if (collapse != null) {
       encode(builder, "collapse", collapse);
-    }
-    final String focus = command.getFocus();
-    if (focus != null) {
-      encode(builder, "focus", focus);
     }
     final String confirmation = command.getConfirmation();
     if (confirmation != null) {

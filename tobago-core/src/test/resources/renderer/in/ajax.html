@@ -14,18 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<!--
-CSS class nav-item has moved from "tobago-dropdown" to "li"
--->
-<tobago-links id='list'>
-  <ul class='nav'>
-    <li class='nav-item'>
-      <tobago-dropdown id='id' class='dropdown'>
-        <button type='button' id='id::command' name='id' data-toggle='dropdown' class='tobago-link dropdown-toggle nav-link'><tobago-behavior event='click' client-id='id' field-id='id::command'></tobago-behavior><span>apache</span></button>
-        <div class='dropdown-menu' aria-labelledby='id::command' name='id'>
-          <a id='sub' name='sub' href='https://www.apache.org/' class='tobago-link dropdown-item nav-link'><tobago-behavior event='click' client-id='sub' omit='omit'></tobago-behavior><span>sub</span></a>
-        </div>
-      </tobago-dropdown>
-    </li>
-  </ul>
-</tobago-links>
+
+<tobago-panel id='panel'>
+  <tobago-in id='id' class='tobago-label-container mb-3'>
+    <label for='id::field' class='col-form-label'>label</label>
+    <input type='text' name='id' id='id::field' class='tobago-in form-control'>
+    <tobago-behavior event='change' client-id='id' field-id='id::field' execute='textarea id' render='panel'></tobago-behavior>
+  </tobago-in>
+  <tobago-textarea id='textarea' class='mb-3'>
+    <textarea name='textarea' id='textarea::field' class='form-control'></textarea>
+  </tobago-textarea>
+</tobago-panel>

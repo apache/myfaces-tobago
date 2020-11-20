@@ -31,7 +31,13 @@ class Behavior extends HTMLElement {
                 document.body.addEventListener(this.event, this.callback.bind(this));
                 break;
             default:
-                this.element.addEventListener(this.event, this.callback.bind(this));
+                const eventElement = this.eventElement;
+                if (eventElement) {
+                    eventElement.addEventListener(this.event, this.callback.bind(this));
+                }
+                else {
+                    console.warn("Can't find an element for the event.", this);
+                }
         }
     }
     callback(event) {
@@ -53,7 +59,7 @@ class Behavior extends HTMLElement {
                     }
                 }
             }
-            jsf.ajax.request(this.element, event, {
+            jsf.ajax.request(this.actionElement, event, {
                 "javax.faces.behavior.event": this.event,
                 execute: this.execute,
                 render: this.render
@@ -66,8 +72,8 @@ class Behavior extends HTMLElement {
         }
     }
     submit() {
-        const actionId = this.action != null ? this.action : this.element.id;
-        CommandHelper.submitAction(this, actionId, !this.decoupled, this.target);
+        const id = this.fieldId != null ? this.fieldId : this.clientId;
+        CommandHelper.submitAction(this, id, this.decoupled, this.target);
     }
     get event() {
         return this.getAttribute("event");
@@ -75,11 +81,17 @@ class Behavior extends HTMLElement {
     set event(event) {
         this.setAttribute("event", event);
     }
-    get action() {
-        return this.getAttribute("action");
+    get clientId() {
+        return this.getAttribute("client-id");
     }
-    set action(action) {
-        this.setAttribute("action", action);
+    set clientId(clientId) {
+        this.setAttribute("client-id", clientId);
+    }
+    get fieldId() {
+        return this.getAttribute("field-id");
+    }
+    set fieldId(fieldId) {
+        this.setAttribute("field-id", fieldId);
     }
     get execute() {
         return this.getAttribute("execute");
@@ -145,20 +157,15 @@ class Behavior extends HTMLElement {
             this.removeAttribute("decoupled");
         }
     }
-    get focusId() {
-        return this.getAttribute("focus-id");
+    get actionElement() {
+        const rootNode = this.getRootNode();
+        const id = this.clientId;
+        return rootNode.getElementById(id);
     }
-    set focusId(focusId) {
-        this.setAttribute("focus-id", focusId);
-    }
-    get element() {
-        if (this.parentElement.matches("td.tobago-sheet-cell-markup-filler")) {
-            // XXX special case, using the row, but <tobago-behavior> can't be a child of <tr>
-            return this.parentElement.parentElement;
-        }
-        else {
-            return this.parentElement;
-        }
+    get eventElement() {
+        const rootNode = this.getRootNode();
+        const id = this.fieldId ? this.fieldId : this.clientId;
+        return rootNode.getElementById(id);
     }
 }
 document.addEventListener("tobago.init", function (event) {
@@ -176,7 +183,7 @@ CommandHelper.isSubmit = false;
  * @param decoupled
  * @param target
  */
-CommandHelper.submitAction = function (source, actionId, decoupled = true, target) {
+CommandHelper.submitAction = function (source, actionId, decoupled = false, target) {
     Transport.request(function () {
         if (!CommandHelper.isSubmit) {
             CommandHelper.isSubmit = true;

@@ -49,6 +49,7 @@ import org.apache.myfaces.tobago.component.UISeparator;
 import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.context.TobagoContext;
+import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.BadgeRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.BoxRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.ButtonRenderer;
@@ -71,10 +72,12 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectOneRadioRende
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SeparatorRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.StyleRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TextareaRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
+import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.render.RenderKit;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -147,6 +150,9 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.style.componentType(), UIStyle.class.getName());
     application.addComponent(Tags.textarea.componentType(), UITextarea.class.getName());
 
+    application.addBehavior(AjaxBehavior.BEHAVIOR_ID, AjaxBehavior.class.getName());
+    application.addBehavior(EventBehavior.BEHAVIOR_ID, EventBehavior.class.getName());
+
     final RenderKit renderKit = facesContext.getRenderKit();
     renderKit.addRenderer(UIBadge.COMPONENT_FAMILY, RendererTypes.BADGE, new BadgeRenderer());
     renderKit.addRenderer(UIBox.COMPONENT_FAMILY, RendererTypes.BOX, new BoxRenderer());
@@ -176,6 +182,9 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     renderKit.addRenderer(UISeparator.COMPONENT_FAMILY, RendererTypes.SEPARATOR, new SeparatorRenderer());
     renderKit.addRenderer(UIStyle.COMPONENT_FAMILY, RendererTypes.STYLE, new StyleRenderer());
     renderKit.addRenderer(UITextarea.COMPONENT_FAMILY, RendererTypes.TEXTAREA, new TextareaRenderer());
+
+    renderKit.addClientBehaviorRenderer("org.apache.myfaces.tobago.behavior.Event", new TobagoClientBehaviorRenderer());
+    renderKit.addClientBehaviorRenderer("org.apache.myfaces.tobago.behavior.Ajax", new TobagoClientBehaviorRenderer());
 
     application.setMessageBundle("org.apache.myfaces.tobago.context.TobagoMessageBundle");
 

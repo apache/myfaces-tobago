@@ -28,36 +28,36 @@ public class CommandUnitTest {
   @Test
   public void test() {
 
-    final Command a = new Command();
-    a.setAction("a action");
-    a.setCollapse(new Collapse(Collapse.Action.show, "a collapse"));
-    a.setConfirmation("a conf");
-    a.setExecute("a execute");
+    final Command a = new Command(
+        "a client id", "a field id", null, null, "a execute", null, "a conf", null,
+        new Collapse(Collapse.Action.show, "a collapse"), false);
 
-    final Command b = new Command();
-    b.setAction("b action");
-    b.setCollapse(new Collapse(Collapse.Action.show, "b collapse"));
-    b.setConfirmation("b conf");
-    b.setExecute("b execute");
+    final Command b = new Command(
+    "b client id", "b field id", null, null, "b execute", null, "b conf", null,
+        new Collapse(Collapse.Action.show, "b collapse"), false);
 
     a.merge(b);
 
     Assertions.assertEquals(
         ("{'click':"
-            + "{'action':'a action',"
+            + "{'clientId':'a client id',"
+            + "'fieldId':'a field id',"
             + "'execute':'a execute b execute'"
             + ",'collapse':{'transition':'show','forId':'a collapse'}"
             + ",'confirmation':'a conf'}}")
             .replaceAll("'", "\""),
         JsonUtils.encode(new CommandMap(a)));
 
-    final Command c = new Command();
+    final Command c = new Command(
+        null, null, null, null, null, null, null, null,
+        null, false);
 
     c.merge(b);
 
     Assertions.assertEquals(
         ("{'click':"
-            + "{'action':'b action',"
+            + "{'clientId':'b client id',"
+            + "'fieldId':'b field id',"
             + "'execute':'b execute',"
             + "'collapse':{'transition':'show','forId':'b collapse'},"
             + "'confirmation':'b conf'}}")

@@ -28,8 +28,10 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIReload;
 import org.apache.myfaces.tobago.internal.renderkit.Collapse;
 import org.apache.myfaces.tobago.internal.renderkit.Command;
 import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -228,20 +230,22 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
       throws IOException {
     writer.startElement(HtmlElements.TOBAGO_BEHAVIOR);
     writer.writeAttribute(CustomAttributes.EVENT, behaviors.name(), false);
-    writer.writeAttribute(HtmlAttributes.ACTION, command.getAction(), false); // tbd: rename to actionId?
+    writer.writeAttribute(CustomAttributes.CLIENT_ID, command.getClientId(), false);
+    if (StringUtils.notEquals(command.getClientId(), command.getFieldId())) {
+      writer.writeAttribute(CustomAttributes.FIELD_ID, command.getFieldId(), false);
+    }
     writer.writeAttribute(CustomAttributes.EXECUTE, command.getExecute(), false);
     writer.writeAttribute(CustomAttributes.RENDER, command.getRender(), false);
     writer.writeAttribute(CustomAttributes.OMIT, command.getOmit());
     writer.writeAttribute(CustomAttributes.CONFIRMATION, command.getConfirmation(), true);
     writer.writeAttribute(CustomAttributes.DECOUPLED,
-        command.getTransition() != null ? command.getTransition() : false);
+        command.getTransition() != null && !command.getTransition());
     final Collapse collapse = command.getCollapse();
     if (collapse != null) {
       writer.writeAttribute(CustomAttributes.COLLAPSE_ACTION, collapse.getAction().name(), false);
       writer.writeAttribute(CustomAttributes.COLLAPSE_TARGET, collapse.getFor(), false);
     }
     writer.writeAttribute(CustomAttributes.DELAY, command.getDelay());
-    writer.writeAttribute(CustomAttributes.FOCUS_ID, command.getFocus(), false);
     writer.writeAttribute(HtmlAttributes.TARGET, command.getTarget(), true);
 
     // todo: all the other attributes
@@ -283,7 +287,18 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
       if (commandMap == null) {
         commandMap = new CommandMap();
       }
-      commandMap.addCommand(ClientBehaviors.click, new Command(facesContext, (AbstractUICommand) clientBehaviorHolder));
+      final AbstractUICommand holder = (AbstractUICommand) clientBehaviorHolder;
+      commandMap.addCommand(ClientBehaviors.click, new Command(
+          holder.getClientId(facesContext),
+          holder.getFieldId(facesContext),
+          holder.isTransition(),
+          holder.getTarget(),
+          null,
+          null,
+          ComponentUtils.getConfirmation(holder),
+          null,
+          TobagoClientBehaviorRenderer.createCollapsible(facesContext, holder),
+          holder.isOmit()));
     }
 
     return commandMap;

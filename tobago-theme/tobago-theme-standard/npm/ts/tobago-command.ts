@@ -35,7 +35,12 @@ class Behavior extends HTMLElement {
         document.body.addEventListener(this.event, this.callback.bind(this));
         break;
       default:
-        this.element.addEventListener(this.event, this.callback.bind(this));
+        const eventElement = this.eventElement;
+        if (eventElement) {
+          eventElement.addEventListener(this.event, this.callback.bind(this));
+        } else {
+          console.warn("Can't find an element for the event.", this);
+        }
     }
   }
 
@@ -60,7 +65,7 @@ class Behavior extends HTMLElement {
         }
       }
       jsf.ajax.request(
-          this.element,
+          this.actionElement,
           event,
           {
             "javax.faces.behavior.event": this.event,
@@ -75,8 +80,8 @@ class Behavior extends HTMLElement {
   }
 
   submit(): void {
-    const actionId = this.action != null ? this.action : this.element.id;
-    CommandHelper.submitAction(this, actionId, !this.decoupled, this.target);
+    const id = this.fieldId != null ? this.fieldId : this.clientId;
+    CommandHelper.submitAction(this, id, this.decoupled, this.target);
   }
 
   get event(): string {
@@ -87,12 +92,20 @@ class Behavior extends HTMLElement {
     this.setAttribute("event", event);
   }
 
-  get action(): string {
-    return this.getAttribute("action");
+  get clientId(): string {
+    return this.getAttribute("client-id");
   }
 
-  set action(action: string) {
-    this.setAttribute("action", action);
+  set clientId(clientId: string) {
+    this.setAttribute("client-id", clientId);
+  }
+
+  get fieldId(): string {
+    return this.getAttribute("field-id");
+  }
+
+  set fieldId(fieldId: string) {
+    this.setAttribute("field-id", fieldId);
   }
 
   get execute(): string {
@@ -175,21 +188,16 @@ class Behavior extends HTMLElement {
     }
   }
 
-  get focusId(): string {
-    return this.getAttribute("focus-id");
+  get actionElement(): HTMLElement {
+    const rootNode = this.getRootNode() as ShadowRoot | Document;
+    const id = this.clientId;
+    return rootNode.getElementById(id);
   }
 
-  set focusId(focusId: string) {
-    this.setAttribute("focus-id", focusId);
-  }
-
-  get element(): HTMLElement {
-    if (this.parentElement.matches("td.tobago-sheet-cell-markup-filler")) {
-      // XXX special case, using the row, but <tobago-behavior> can't be a child of <tr>
-      return this.parentElement.parentElement;
-    } else {
-      return this.parentElement;
-    }
+  get eventElement(): HTMLElement {
+    const rootNode = this.getRootNode() as ShadowRoot | Document;
+    const id = this.fieldId ? this.fieldId : this.clientId;
+    return rootNode.getElementById(id);
   }
 
   /* XXX todo:
@@ -225,7 +233,7 @@ export class CommandHelper {
    * @param target
    */
   public static submitAction = function (
-      source: HTMLElement, actionId: string, decoupled: boolean = true, target?: string): void {
+      source: HTMLElement, actionId: string, decoupled: boolean = false, target?: string): void {
 
     Transport.request(function (): void {
       if (!CommandHelper.isSubmit) {

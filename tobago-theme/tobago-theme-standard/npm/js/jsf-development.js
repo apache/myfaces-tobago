@@ -503,6 +503,8 @@ var DomQuery = /** @class */ (function () {
         }
         this.rootNode = [];
         this.pos = -1;
+        //TODO this part probably will be removed
+        //because we can stream from an array stream directly into the dom query
         this._limits = -1;
         if (Monad_1.Optional.fromNullable(rootNode).isAbsent() || !rootNode.length) {
             return;
@@ -732,7 +734,7 @@ var DomQuery = /** @class */ (function () {
          * once they hit a dead end.
          */
         get: function () {
-            return Stream_1.LazyStream.ofStreamDataSource(this);
+            return Stream_1.LazyStream.of.apply(Stream_1.LazyStream, this.asArray);
         },
         enumerable: true,
         configurable: true
@@ -753,6 +755,9 @@ var DomQuery = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    DomQuery.querySelectorAllDeep = function (selector) {
+        return new DomQuery(document).querySelectorAllDeep(selector);
+    };
     /**
      * easy query selector all producer
      *
@@ -1404,8 +1409,9 @@ var DomQuery = /** @class */ (function () {
             }
         };
         this.eachElem(function (item) {
-            while (item.parentNode) {
-                item = item.parentNode;
+            var _a, _b;
+            while (item.parentNode || item.host) {
+                item = (_a = item === null || item === void 0 ? void 0 : item.parentNode) !== null && _a !== void 0 ? _a : (_b = item) === null || _b === void 0 ? void 0 : _b.host;
                 resolveItem(item);
                 //nested forms not possible, performance shortcut
                 if (tagName == "form" && retArr.length) {
@@ -1744,6 +1750,7 @@ var DomQuery = /** @class */ (function () {
         //lets keep it sideffects free
         var target = toMerge.shallowCopy;
         this.each(function (element) {
+            var _a, _b;
             if (element.name.isAbsent()) { //no name, no encoding
                 return;
             }
@@ -1792,7 +1799,7 @@ var DomQuery = /** @class */ (function () {
                     elemType != Submittables.SUBMIT &&
                     elemType != Submittables.IMAGE) && ((elemType != Submittables.CHECKBOX && elemType != Submittables.RADIO) ||
                     element.checked)) {
-                    var files = element.value.files;
+                    var files = (_b = (_a = element.value.value) === null || _a === void 0 ? void 0 : _a.files) !== null && _b !== void 0 ? _b : [];
                     if (files === null || files === void 0 ? void 0 : files.length) {
                         //xhr level2
                         target.append(name).value = files[0];
@@ -6256,6 +6263,11 @@ var Const_1 = __webpack_require__(/*! ../core/Const */ "./src/main/typescript/im
  * We cannot use standard html5 forms everywhere
  * due to api constraints on the HTML Form object in IE11
  * and due to the url encoding constraint given by the jsf.js spec
+ *
+ * TODO not ideal. too many encoding calls
+ * probably only one needed and one overlay!
+ * the entire fileinput storing probably is redundant now
+ * that domquery has been fixed
  */
 var XhrFormData = /** @class */ (function (_super) {
     __extends(XhrFormData, _super);
@@ -6293,44 +6305,49 @@ var XhrFormData = /** @class */ (function (_super) {
         for (var _i = 0; _i < arguments.length; _i++) {
             executes[_i] = arguments[_i];
         }
-        monadish_1.LazyStream.of.apply(monadish_1.LazyStream, executes).map(function (id) {
+        var fetchInput = function (id) {
             if (id == "@all") {
-                return monadish_1.DomQuery.querySelectorAll("input[type='file']");
+                return monadish_3.DQ.querySelectorAllDeep("input[type='file']");
             }
             else if (id == "@form") {
                 return _this.dataSource.querySelectorAllDeep("input[type='file']");
             }
             else {
-                var element = monadish_1.DomQuery.byId(id, true);
+                var element = monadish_3.DQ.byId(id, true);
                 return _this.getFileInputs(element);
             }
-        })
-            .filter(function (item) {
+        };
+        var inputExists = function (item) {
             return !!item.length;
-        })
-            .each(function (item) {
-            _this.fileInputs[item.id.value] = true;
-        });
+        };
+        var applyInput = function (item) {
+            _this.fileInputs[_this.resolveSubmitIdentifier(item.getAsElem(0).value)] = true;
+        };
+        monadish_1.LazyStream.of.apply(monadish_1.LazyStream, executes).map(fetchInput)
+            .filter(inputExists)
+            .each(applyInput);
     };
     XhrFormData.prototype.getFileInputs = function (rootElment) {
         var _this = this;
-        var ret = rootElment.lazyStream.map(function (item) {
+        var resolveFileInputs = function (item) {
             var _a;
-            if (item.length == 0) {
-                return null;
-            }
             if (item.length == 1) {
                 if (item.tagName.get("booga").value.toLowerCase() == "input" &&
                     (((_a = item.attr("type")) === null || _a === void 0 ? void 0 : _a.value) || '').toLowerCase() == "file") {
                     return item;
                 }
-                return rootElment.querySelectorAllDeep("input[type='file']").firstElem().getAsElem(0).value;
+                return rootElment.querySelectorAllDeep("input[type='file']");
             }
             return _this.getFileInputs(item);
-        }).filter(function (item) {
-            return item != null;
-        }).collect(new monadish_1.ArrayCollector());
-        return new (monadish_1.DomQuery.bind.apply(monadish_1.DomQuery, __spreadArrays([void 0], ret)))();
+        };
+        var itemExists = function (item) {
+            return !!(item === null || item === void 0 ? void 0 : item.length);
+        };
+        var ret = rootElment.lazyStream
+            .map(resolveFileInputs)
+            .filter(itemExists)
+            .collect(new monadish_1.DomQueryCollector());
+        return ret;
     };
     XhrFormData.prototype.handleFormSource = function () {
         //encode and append the issuing item if not a partial ids array of ids is passed
@@ -6384,12 +6401,12 @@ var XhrFormData = /** @class */ (function (_super) {
     XhrFormData.prototype.toFormData = function () {
         var _this = this;
         var ret = new FormData();
-        monadish_2.Stream.of.apply(monadish_2.Stream, Object.keys(this.value)).filter(function (key) { return !(key in _this.fileInputs); })
+        monadish_1.LazyStream.of.apply(monadish_1.LazyStream, Object.keys(this.value)).filter(function (key) { return !(key in _this.fileInputs); })
             .each(function (key) {
             monadish_2.Stream.of.apply(monadish_2.Stream, _this.value[key]).each(function (item) { return ret.append(key, item); });
         });
         monadish_2.Stream.of.apply(monadish_2.Stream, Object.keys(this.fileInputs)).each(function (key) {
-            monadish_1.DomQuery.byId(key, true).eachElem(function (elem) {
+            monadish_3.DQ.querySelectorAllDeep("[name='" + key + "'], [id=\"" + key + "\"]").eachElem(function (elem) {
                 var _a;
                 var identifier = _this.resolveSubmitIdentifier(elem);
                 if (!((_a = elem === null || elem === void 0 ? void 0 : elem.files) === null || _a === void 0 ? void 0 : _a.length)) {
@@ -6418,7 +6435,7 @@ var XhrFormData = /** @class */ (function (_super) {
         if (this.isAbsent()) {
             return defaultStr;
         }
-        var entries = monadish_2.Stream.of.apply(monadish_2.Stream, Object.keys(this.value)).filter(function (key) { return _this.value.hasOwnProperty(key); })
+        var entries = monadish_1.LazyStream.of.apply(monadish_1.LazyStream, Object.keys(this.value)).filter(function (key) { return _this.value.hasOwnProperty(key); })
             .flatMap(function (key) { return monadish_2.Stream.of.apply(monadish_2.Stream, _this.value[key]).map(function (val) { return [key, val]; }).collect(new monadish_1.ArrayCollector()); })
             .map(function (keyVal) {
             return encodeURIComponent(keyVal[0]) + "=" + encodeURIComponent(keyVal[1]);

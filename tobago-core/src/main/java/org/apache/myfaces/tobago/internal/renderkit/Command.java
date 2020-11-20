@@ -19,110 +19,54 @@
 
 package org.apache.myfaces.tobago.internal.renderkit;
 
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
-import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
-import org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import java.lang.invoke.MethodHandles;
 
 /**
  * @since 2.0.0
  */
 public class Command {
 
-  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
-  /**
-   * The action is only needed if the action is not the HTML element itself.
-   */
-  private String action;
+  private String clientId;
+  private String fieldId;
   private Boolean transition;
   private String target;
   private String execute;
   private String render;
-  private String focus;
   private String confirmation;
   private Integer delay;
   private Collapse collapse;
   private Boolean omit;
 
-  public Command() {
-  }
-
   public Command(
-      final String action, final Boolean transition, final String target, final String execute,
-      final String render, final String focus, final String confirmation, final Integer delay,
+      final String clientId, final String fieldId, final Boolean transition, final String target, final String execute,
+      final String render, final String confirmation, final Integer delay,
       final Collapse collapse, final Boolean omit) {
-    this.action = action;
-    this.transition = transition;
+    this.clientId = clientId;
+    this.fieldId = fieldId;
+    this.transition = transition != null ? transition : true;
     this.target = target;
     setExecute(execute);
     setRender(render);
-    this.focus = focus;
     this.confirmation = confirmation;
     this.delay = delay;
     this.collapse = collapse;
     this.omit = omit;
   }
 
-  public Command(final FacesContext facesContext, final AbstractUICommand command) {
-    this(
-        null,
-        command.isTransition(),
-        command.getTarget(),
-        null,
-        null,
-        null,
-        ComponentUtils.getConfirmation(command),
-        null,
-        TobagoClientBehaviorRenderer.createCollapsible(facesContext, command),
-        command.isOmit());
+  public String getClientId() {
+    return clientId;
   }
 
-  public Command(final FacesContext facesContext, final UIComponent facetComponent, final String focusId) {
-    final UIComponent component;
-    if (facetComponent instanceof AbstractUIForm && facetComponent.getChildCount() == 1) {
-      LOG.warn("Please don't use a form, but a command with immediate=true instead.");
-      component = facetComponent.getChildren().get(0);
-    } else {
-      component = facetComponent;
-    }
-    this.action = component.getClientId(facesContext);
-    // transition == true is the default
-    if (!ComponentUtils.getBooleanAttribute(component, Attributes.transition)) {
-      this.transition = Boolean.FALSE;
-    }
-    final String targetAttribute = ComponentUtils.getStringAttribute(component, Attributes.target);
-    if (targetAttribute != null) {
-      this.target = targetAttribute;
-    }
-    if (focusId != null) {
-      this.focus = focusId;
-    }
-
-    final int delayAttribute = ComponentUtils.getIntAttribute(component, Attributes.delay);
-    if (delayAttribute > 0) {
-      this.delay = delayAttribute;
-    }
-    // omit == false is the default
-    if (ComponentUtils.getBooleanAttribute(component, Attributes.omit)) {
-      this.omit = Boolean.TRUE;
-    }
+  public void setClientId(String clientId) {
+    this.clientId = clientId;
   }
 
-  public String getAction() {
-    return action;
+  public String getFieldId() {
+    return fieldId;
   }
 
-  public void setAction(final String action) {
-    this.action = action;
+  public void setFieldId(String fieldId) {
+    this.fieldId = fieldId;
   }
 
   public Boolean getTransition() {
@@ -159,14 +103,6 @@ public class Command {
     if (StringUtils.isNotBlank(render)) {
       this.render = render;
     }
-  }
-
-  public String getFocus() {
-    return focus;
-  }
-
-  public void setFocus(final String focus) {
-    this.focus = focus;
   }
 
   public String getConfirmation() {
@@ -206,8 +142,11 @@ public class Command {
     //XXX TBD: check if this is okay.
     // we need at least this for "execute" and "render" in the moment.
 
-    if (action == null) {
-      action = c.action;
+    if (clientId == null) {
+      clientId = c.clientId;
+    }
+    if (fieldId == null) {
+      fieldId = c.fieldId;
     }
     if (transition == null) {
       transition = c.transition;
@@ -228,9 +167,6 @@ public class Command {
       }
     } else {
       render = c.render;
-    }
-    if (focus == null) {
-      focus = c.focus;
     }
     if (confirmation == null) {
       confirmation = c.confirmation;

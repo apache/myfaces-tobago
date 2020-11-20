@@ -24,6 +24,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
   COLLAPSE_ACTION("collapse-action"),
   COLLAPSE_TARGET("collapse-target"),
   CONFIRMATION("confirmation"),
+  CLIENT_ID("client-id"),
   DELAY("delay"),
   EVENT("event"),
   /**
@@ -31,6 +32,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
    */
   EXECUTE("execute"),
   EXPANDABLE("expandable"),
+  FIELD_ID("field-id"),
   FOCUS_ID("focus-id"),
   /**
    * The index of the tab inside the tab group.

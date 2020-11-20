@@ -137,7 +137,7 @@ public enum HtmlElements {
 
   TOBAGO_BADGE("tobago-badge"),
   TOBAGO_BAR("tobago-bar"),
-  TOBAGO_BEHAVIOR("tobago-behavior"),
+  TOBAGO_BEHAVIOR("tobago-behavior", Qualifier.INLINE),
   TOBAGO_BUTTONS("tobago-buttons"),
   TOBAGO_BOX("tobago-box"),
   TOBAGO_DATE("tobago-date"),

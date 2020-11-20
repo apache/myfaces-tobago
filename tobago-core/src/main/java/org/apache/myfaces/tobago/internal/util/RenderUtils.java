@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.renderkit.Command;
 import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
@@ -339,7 +340,18 @@ public final class RenderUtils {
       if (commandMap == null) {
         commandMap = new CommandMap();
       }
-      commandMap.addCommand(ClientBehaviors.click, new Command(facesContext, (AbstractUICommand) clientBehaviorHolder));
+      final AbstractUICommand holder = (AbstractUICommand) clientBehaviorHolder;
+      commandMap.addCommand(ClientBehaviors.click, new Command(
+          holder.getClientId(facesContext),
+          holder.getFieldId(facesContext),
+          holder.isTransition(),
+          holder.getTarget(),
+          null,
+          null,
+          ComponentUtils.getConfirmation(holder),
+          null,
+          TobagoClientBehaviorRenderer.createCollapsible(facesContext, holder),
+          holder.isOmit()));
     }
 
     return commandMap;

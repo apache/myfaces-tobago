@@ -19,23 +19,15 @@ CSS class of "tobago-dropdown" has changed from btn-group to dropdown
 -->
 <tobago-buttons id='list' class='btn-group' role='group'>
   <tobago-dropdown id='id' class='dropdown'>
-    <button type='button' id='id::command' name='id' data-toggle='dropdown' class='tobago-button btn btn-secondary dropdown-toggle'>
-      <tobago-behavior event='click' decoupled='decoupled'>
-      </tobago-behavior><span>button</span></button>
+    <button type='button' id='id::command' name='id' data-toggle='dropdown' class='tobago-button btn btn-secondary dropdown-toggle'><tobago-behavior event='click' client-id='id' field-id='id::command'></tobago-behavior><span>button</span></button>
     <div class='dropdown-menu' aria-labelledby='id::command' name='id'>
-      <button type='button' id='sub1' name='sub1' class='tobago-link dropdown-item'>
-        <tobago-behavior event='click' decoupled='decoupled'>
-        </tobago-behavior><span>sub1</span></button>
+      <button type='button' id='sub1' name='sub1' class='tobago-link dropdown-item'><tobago-behavior event='click' client-id='sub1'></tobago-behavior><span>sub1</span></button>
       <tobago-separator id='separator1' class='dropdown-divider'>
       </tobago-separator>
-      <button type='button' id='sub2' name='sub2' class='tobago-link dropdown-item'>
-        <tobago-behavior event='click' decoupled='decoupled'>
-        </tobago-behavior><span>sub2</span></button>
+      <button type='button' id='sub2' name='sub2' class='tobago-link dropdown-item'><tobago-behavior event='click' client-id='sub2'></tobago-behavior><span>sub2</span></button>
       <tobago-separator id='separator2' class='dropdown-divider'>
       </tobago-separator>
-      <button type='button' id='sub3' name='sub3' class='tobago-link dropdown-item'>
-        <tobago-behavior event='click' decoupled='decoupled'>
-        </tobago-behavior><span>sub3</span></button>
+      <button type='button' id='sub3' name='sub3' class='tobago-link dropdown-item'><tobago-behavior event='click' client-id='sub3'></tobago-behavior><span>sub3</span></button>
     </div>
   </tobago-dropdown>
 </tobago-buttons>

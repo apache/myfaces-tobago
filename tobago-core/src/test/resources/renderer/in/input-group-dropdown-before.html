@@ -19,16 +19,10 @@
   <div class='tobago-input-group-outer'>
     <div class='input-group'>
       <tobago-dropdown id='button' class='dropdown'>
-        <button type='button' id='button::command' name='button' data-toggle='dropdown' class='tobago-button btn btn-secondary dropdown-toggle'>
-          <tobago-behavior event='click' omit='omit' decoupled='decoupled'>
-          </tobago-behavior><span>dropdown</span></button>
+        <button type='button' id='button::command' name='button' data-toggle='dropdown' class='tobago-button btn btn-secondary dropdown-toggle'><tobago-behavior event='click' client-id='button' field-id='button::command' omit='omit'></tobago-behavior><span>dropdown</span></button>
         <div class='dropdown-menu' aria-labelledby='button::command' name='button'>
-          <button type='button' id='l1' name='l1' class='tobago-link dropdown-item'>
-            <tobago-behavior event='click' decoupled='decoupled'>
-            </tobago-behavior><span>Link 1</span></button>
-          <button type='button' id='l2' name='l2' class='tobago-link dropdown-item'>
-            <tobago-behavior event='click' decoupled='decoupled'>
-            </tobago-behavior><span>Link 2</span></button>
+          <button type='button' id='l1' name='l1' class='tobago-link dropdown-item'><tobago-behavior event='click' client-id='l1'></tobago-behavior><span>Link 1</span></button>
+          <button type='button' id='l2' name='l2' class='tobago-link dropdown-item'><tobago-behavior event='click' client-id='l2'></tobago-behavior><span>Link 2</span></button>
         </div>
       </tobago-dropdown>
       <input type='text' name='id' id='id::field' class='tobago-in form-control'>

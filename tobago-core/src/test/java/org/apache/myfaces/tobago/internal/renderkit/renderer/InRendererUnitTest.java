@@ -26,15 +26,19 @@ import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UIOut;
+import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UISegmentLayout;
 import org.apache.myfaces.tobago.component.UISelectItem;
 import org.apache.myfaces.tobago.component.UISelectOneChoice;
+import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.layout.SegmentMeasureList;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
+import javax.faces.component.behavior.AjaxBehavior;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class InRendererUnitTest extends RendererTestBase {
 
@@ -337,6 +341,34 @@ public class InRendererUnitTest extends RendererTestBase {
     c.encodeAll(facesContext);
 
     Assert.assertEquals(loadHtml("renderer/in/label-none.html"), formattedResult());
+  }
+
+  @Test
+  public void ajax() throws IOException {
+    final UIPanel p = (UIPanel) ComponentUtils.createComponent(
+        facesContext, Tags.panel.componentType(), RendererTypes.Panel, "panel");
+
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+    c.setLabel("label");
+
+    // XXX not working ...
+//    final EventBehavior behavior =
+//        (EventBehavior) facesContext.getApplication().createBehavior(EventBehavior.BEHAVIOR_ID);
+    final AjaxBehavior behavior =
+        (AjaxBehavior) facesContext.getApplication().createBehavior(AjaxBehavior.BEHAVIOR_ID);
+    behavior.setExecute(Arrays.asList("textarea"));
+    behavior.setRender(Arrays.asList("panel"));
+    c.addClientBehavior("change", behavior);
+
+    final UITextarea a = (UITextarea) ComponentUtils.createComponent(
+        facesContext, Tags.textarea.componentType(), RendererTypes.Textarea, "textarea");
+
+    p.getChildren().add(c);
+    p.getChildren().add(a);
+    p.encodeAll(facesContext);
+
+    Assert.assertEquals(loadHtml("renderer/in/ajax.html"), formattedResult());
   }
 
 }

@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.ClientBehaviors;
+import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIEvent;
@@ -71,7 +72,8 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
     String renderIds = null;
     Boolean transition = null;
     String target = null;
-    String actionId = null;
+    String clientId = null;
+    String fieldId = null;
     boolean omit = false;
     final String confirmation = ComponentUtils.getConfirmation(uiComponent);
     if (behavior instanceof AjaxBehavior) {
@@ -81,7 +83,10 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
       }
       final Collection<String> execute = ajaxBehavior.getExecute();
       final Collection<String> render = ajaxBehavior.getRender();
-      final String clientId = uiComponent.getClientId(facesContext);
+      clientId = uiComponent.getClientId(facesContext);
+      if (uiComponent instanceof SupportFieldId) {
+        fieldId = ((SupportFieldId) uiComponent).getFieldId(facesContext);
+      }
 
       executeIds = ComponentUtils.evaluateClientIds(facesContext, uiComponent, execute.toArray(new String[0]));
       if (executeIds != null) {
@@ -96,7 +101,6 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
         omit = command.isOmit() || StringUtils.isNotBlank(RenderUtils.generateUrl(facesContext, command));
       }
       renderIds = ComponentUtils.evaluateClientIds(facesContext, uiComponent, render.toArray(new String[0]));
-      actionId = clientId;
     } else if (behavior instanceof EventBehavior) { // <tc:event>
       final EventBehavior eventBehavior = (EventBehavior) behavior;
       final AbstractUIEvent event = RenderUtils.getAbstractUIEvent(uiComponent, eventBehavior);
@@ -107,7 +111,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
         } else {
           transition = event.isTransition();
           target = event.getTarget();
-          actionId = event.getClientId(facesContext);
+          clientId = event.getClientId(facesContext);
           if (collapse == null) {
             collapse = createCollapsible(facesContext, event);
           }
@@ -119,12 +123,12 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
     }
 
     final Command command = new Command(
-        actionId,
+        clientId,
+        fieldId,
         transition,
         target,
         executeIds,
         renderIds,
-        null,
         confirmation,
         null,
         collapse,
