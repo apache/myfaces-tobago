@@ -38,6 +38,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -149,17 +150,17 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
 
     Assertions.assertEquals(Arrays.asList(1, 2, 3, 4), JsonUtils.decodeIntegerArray(" [ 1 , 2 , 3 , 4 ] "));
 
-    Assertions.assertEquals(Arrays.asList(1), JsonUtils.decodeIntegerArray("[1]"));
+    Assertions.assertEquals(Collections.singletonList(1), JsonUtils.decodeIntegerArray("[1]"));
 
-    Assertions.assertEquals(Arrays.asList(), JsonUtils.decodeIntegerArray("[]"));
+    Assertions.assertEquals(Collections.emptyList(), JsonUtils.decodeIntegerArray("[]"));
 
     Assertions.assertEquals(Arrays.asList(1000000000, 2, 3, 4), JsonUtils.decodeIntegerArray("[1000000000,2,3,4]"));
 
     Assertions.assertEquals(Arrays.asList(2, 3, 4), JsonUtils.decodeIntegerArray("[null,2,3,4]"));
 
-    Assertions.assertEquals(Arrays.asList(), JsonUtils.decodeIntegerArray("1,2,3,4"));
+    Assertions.assertEquals(Collections.emptyList(), JsonUtils.decodeIntegerArray("1,2,3,4"));
 
-    Assertions.assertEquals(null, JsonUtils.decodeIntegerArray(null));
+    Assertions.assertNull(JsonUtils.decodeIntegerArray(null));
   }
 
   @Test
@@ -169,7 +170,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
 
     Assertions.assertEquals("[\"foo\\\"bar\"]", JsonUtils.encode(new String[]{"foo\"bar"}));
 
-    Assertions.assertEquals(null, JsonUtils.encode((String[]) null));
+    Assertions.assertNull(JsonUtils.encode((String[]) null));
   }
 
   @Test
@@ -226,7 +227,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
     final Boolean[] array = new Boolean[]{true, false, true};
     Assertions.assertEquals("[true,false,true]", JsonUtils.encode(array));
 
-    Assertions.assertEquals(null, JsonUtils.encode((Boolean[]) null));
+    Assertions.assertNull(JsonUtils.encode((Boolean[]) null));
 
     Assertions.assertEquals("[]", JsonUtils.encode(new Boolean[0]));
   }
@@ -236,7 +237,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
     final Integer[] array = new Integer[]{-1_000_000_000, 0, 42};
     Assertions.assertEquals("[-1000000000,0,42]", JsonUtils.encode(array));
 
-    Assertions.assertEquals(null, JsonUtils.encode((Integer[]) null));
+    Assertions.assertNull(JsonUtils.encode((Integer[]) null));
 
     Assertions.assertEquals("[]", JsonUtils.encode(new Integer[0]));
   }
@@ -246,9 +247,9 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
     final List<Integer> list = Arrays.asList(-1_000_000_000, 0, 42);
     Assertions.assertEquals("[-1000000000,0,42]", JsonUtils.encode(list));
 
-    Assertions.assertEquals(null, JsonUtils.encode((List<Integer>) null));
+    Assertions.assertNull(JsonUtils.encode((List<Integer>) null));
 
-    Assertions.assertEquals("[]", JsonUtils.encode(new ArrayList<Integer>()));
+    Assertions.assertEquals("[]", JsonUtils.encode(new ArrayList<>()));
   }
 
   @Test
