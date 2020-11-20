@@ -32,7 +32,7 @@ it("inputfield with label", function (done) {
 
 it("ajax change event", function (done) {
   let inputFieldFn = querySelectorFn("#page\\:mainForm\\:inputAjax\\:\\:field");
-  let outputFieldFn = querySelectorFn("#page\\:mainForm\\:outputAjax span");
+  let outputFieldFn = querySelectorFn("#page\\:mainForm\\:outputAjax tobago-out");
 
   const test = new JasmineTestTool(done);
   test.do(() => inputFieldFn().value = "some input text");
