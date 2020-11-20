@@ -55,11 +55,11 @@ QUnit.test("wait for test", function (assert) {
   let done = assert.async();
 
   let startTime = new Date().getTime();
-  let contentWindowName = "";
+  let contentWindowReadyState = "";
   let waitingDone = false;
   let interval = setInterval(function () {
-    contentWindowName = document.getElementById("page:testframe").contentWindow.name;
-    waitingDone = new RegExp('[\?&]base=([^&#]*)').exec(window.location.href)[1].indexOf("error%2F") === 0;
+    contentWindowReadyState = document.getElementById("page:testframe").contentWindow.document.readyState;
+    waitingDone = contentWindowReadyState === "complete"
     if (new Date().getTime() - startTime >= 20000 || waitingDone) {
       clearInterval(interval);
       assert.ok(waitingDone);
@@ -93,7 +93,7 @@ QUnit.test("test '???'", function (assert) {
 
 beforeEach(function (done) {
   const test = new JasmineTestTool(done);
-  test.wait(() => document.getElementById("page:testframe"));
+  test.wait(() => document.getElementById("page:testframe").contentWindow.document.readyState === "complete");
   test.do(() => expect("waiting for testframe is done").toBe("waiting for testframe is done"));
   test.start();
 });
