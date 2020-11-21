@@ -1,5 +1,8 @@
 # Apache Tobago
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+![Tobago CI](https://github.com/apache/myfaces-tobago/workflows/Tobago%20CI/badge.svg)
+
 ## Building
 
 You need Maven 3 (at least 3.0.4) and Java 8 or later to build Tobago.
