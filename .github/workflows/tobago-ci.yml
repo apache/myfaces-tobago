@@ -43,4 +43,17 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: |
+         if ! mvn -B checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check package -Dformats=XML -f pom.xml; then
+           find . \( -path '*/target/surefire-reports/*.xml' -o -path '*/target/rat.txt' -o -path '*/target/checkstyle-result.xml' -o -path '*/target/dependency-check-report.xml' \) | zip -q reports.zip -@
+           exit 1
+         fi
+
+    - name:  Reports
+      uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: reports
+        retention-days: 14
+        path: reports.zip
+        if-no-files-found: ignore
