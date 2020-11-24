@@ -50,7 +50,7 @@ class Range extends HTMLElement {
     let range = this.range;
 
     // update value to display
-    this.tooltipBody.innerHTML = `${range.value}`; // todo: use html from lit-html
+    this.tooltipBody.textContent = range.value; // todo: use html from lit-html
 
     // init
     if (!this.popper) {
