@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -28,11 +30,13 @@ import javax.faces.application.ViewHandler;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.invoke.MethodHandles;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -42,6 +46,8 @@ import java.util.List;
 import java.util.Map;
 
 public class WebXmlUtils {
+
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final Map<Class<Throwable>, String> ERROR_PAGE_LOCATIONS = new HashMap<>();
 
@@ -124,7 +130,19 @@ public class WebXmlUtils {
       throws ParserConfigurationException, IOException, SAXException {
     final List<Document> webXmls = new ArrayList<>();
 
-    final DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+    final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    try {
+      factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE);
+      factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+      factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+      factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+      factory.setXIncludeAware(false);
+      factory.setExpandEntityReferences(false);
+    } catch (ParserConfigurationException e) {
+      LOG.info("ParserConfigurationException was thrown. A feature is probably not supported by your XML processor. "
+              + e.getMessage());
+    }
+    final DocumentBuilder documentBuilder = factory.newDocumentBuilder();
     for (final URL url : getWebXmlUrls(facesContext)) {
       webXmls.add(getWebXml(documentBuilder, url));
     }
