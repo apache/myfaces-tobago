@@ -504,7 +504,8 @@ document.addEventListener("tobago.init", function (event) {
 });
 export class Collapse {
     static findHidden(element) {
-        return document.getElementById(element.id + "::collapse");
+        const rootNode = element.getRootNode();
+        return rootNode.getElementById(element.id + "::collapse");
     }
 }
 Collapse.execute = function (action, target) {
