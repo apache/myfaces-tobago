@@ -597,7 +597,8 @@ document.addEventListener("tobago.init", function (event: Event): void {
 export class Collapse {
 
   static findHidden(element: HTMLElement): HTMLInputElement {
-    return document.getElementById(element.id + "::collapse") as HTMLInputElement;
+    const rootNode = element.getRootNode() as ShadowRoot | Document;
+    return rootNode.getElementById(element.id + "::collapse") as HTMLInputElement;
   }
 
   static execute = function (action: string, target: HTMLElement): void {
