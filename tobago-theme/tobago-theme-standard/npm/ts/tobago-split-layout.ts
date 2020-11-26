@@ -15,12 +15,26 @@
  * limitations under the License.
  */
 
-import {DomUtils} from "./tobago-utils";
 import {Page} from "./tobago-page";
 
 class SplitLayout extends HTMLElement {
 
   private offset: number;
+
+  /**
+   * Get the previous sibling element (without <style> elements).
+   */
+  // todo: calls of this method can probably be simplified
+  static previousElementSibling(element: HTMLElement): HTMLElement {
+    let sibling = element.previousElementSibling as HTMLElement;
+    while (sibling != null) {
+      if (sibling.tagName !== "STYLE") {
+        return sibling;
+      }
+      sibling = sibling.previousElementSibling as HTMLElement;
+    }
+    return null;
+  }
 
   constructor() {
     super();
@@ -60,7 +74,7 @@ class SplitLayout extends HTMLElement {
   start(event: MouseEvent): void {
     event.preventDefault();
     const splitter = event.target as HTMLElement;
-    const previous = DomUtils.previousElementSibling(splitter);
+    const previous = SplitLayout.previousElementSibling(splitter);
     this.offset = this.orientation === "horizontal"
         ? event.pageX - previous.offsetWidth : event.pageY - previous.offsetHeight;
     const mousedown = SplitLayoutMousedown.save(event, splitter);
@@ -113,7 +127,7 @@ class SplitLayoutMousedown {
 
   static save(event: MouseEvent, splitter: HTMLElement): SplitLayoutMousedown {
     const horizontal = splitter.classList.contains("tobago-splitLayout-horizontal");
-    const previous = DomUtils.previousElementSibling(splitter);
+    const previous = SplitLayout.previousElementSibling(splitter);
     const data: SplitLayoutMousedownData = {
       splitLayoutId: splitter.parentElement.id,
       horizontal: horizontal,
@@ -157,7 +171,7 @@ class SplitLayoutMousedown {
   }
 
   get previous(): HTMLElement {
-    return this.splitter ? DomUtils.previousElementSibling(this.splitter) : null;
+    return this.splitter ? SplitLayout.previousElementSibling(this.splitter) : null;
   }
 }
 

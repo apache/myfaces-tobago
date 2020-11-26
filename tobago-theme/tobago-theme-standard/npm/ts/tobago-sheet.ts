@@ -450,7 +450,7 @@ export class Sheet extends HTMLElement {
   }
 
   loadColumnWidths(): number[] {
-    const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "widths");
+    const hidden = document.getElementById(this.id + "::widths");
     if (hidden) {
       return JSON.parse(hidden.getAttribute("value"));
     } else {
@@ -459,7 +459,7 @@ export class Sheet extends HTMLElement {
   }
 
   saveColumnWidths(widths: number[]): void {
-    const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "widths");
+    const hidden = document.getElementById(this.id + "::widths");
     if (hidden) {
       hidden.setAttribute("value", JSON.stringify(widths));
     } else {
@@ -468,7 +468,7 @@ export class Sheet extends HTMLElement {
   }
 
   isColumnRendered(): boolean[] {
-    const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "rendered");
+    const hidden = document.getElementById(this.id + "::rendered");
     return JSON.parse(hidden.getAttribute("value"));
   }
 
@@ -704,16 +704,17 @@ export class Sheet extends HTMLElement {
 
   getHiddenSelected(): HTMLInputElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
-    return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "selected")  as HTMLInputElement;
+    return rootNode.getElementById(this.id + "::selected")  as HTMLInputElement;
   }
 
   getHiddenScrollPosition(): HTMLInputElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
-    return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "scrollPosition")  as HTMLInputElement;
+    return rootNode.getElementById(this.id + "::scrollPosition") as HTMLInputElement;
   }
 
   getHiddenExpanded(): HTMLInputElement {
-    return this.querySelector(DomUtils.escapeClientId(this.id + DomUtils.SUB_COMPONENT_SEP + "expanded"));
+    const rootNode = this.getRootNode() as ShadowRoot | Document;
+    return rootNode.getElementById(this.id + "::expanded") as HTMLInputElement;
   }
 
   /**

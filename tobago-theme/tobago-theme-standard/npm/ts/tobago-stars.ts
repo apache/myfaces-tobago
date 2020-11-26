@@ -19,6 +19,18 @@ import {DomUtils} from "./tobago-utils";
 
 class Stars extends HTMLElement {
 
+  private static leftOffset(element: HTMLElement): number {
+    let left = 0;
+
+    let currentElement = element;
+    while (currentElement) {
+      left += (currentElement.offsetLeft - currentElement.scrollLeft + currentElement.clientLeft);
+      currentElement = currentElement.offsetParent as HTMLElement;
+    }
+
+    return left;
+  }
+
   constructor() {
     super();
   }
@@ -94,7 +106,7 @@ class Stars extends HTMLElement {
       /* Workaround for Safari browser on iPhone */
       const target = event.currentTarget as HTMLInputElement;
       const sliderValue = (parseInt(target.max) / target.offsetWidth)
-          * (event.touches[0].pageX - DomUtils.offset(slider).left);
+          * (event.touches[0].pageX - Stars.leftOffset(slider));
       if (sliderValue > parseInt(target.max)) {
         slider.value = target.max;
       } else if (sliderValue < parseInt(target.min)) {

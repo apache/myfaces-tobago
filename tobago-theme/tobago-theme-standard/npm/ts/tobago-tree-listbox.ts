@@ -94,7 +94,8 @@ class TreeListbox extends HTMLElement {
   private getNextActiveSelect(select: HTMLSelectElement, check: number): HTMLSelectElement {
     if (check !== null) {
       const option = select.querySelectorAll("option")[check];
-      return this.querySelector(DomUtils.escapeClientId(option.id + DomUtils.SUB_COMPONENT_SEP + "parent"));
+      const rootNode = this.getRootNode() as ShadowRoot | Document;
+      return rootNode.getElementById(option.id + "::parent") as HTMLSelectElement;
     } else {
       return null;
     }
@@ -128,7 +129,8 @@ class TreeListbox extends HTMLElement {
   }
 
   private get hiddenInput(): HTMLInputElement {
-    return this.querySelector(DomUtils.escapeClientId(this.id + DomUtils.SUB_COMPONENT_SEP + "selected"));
+    const rootNode = this.getRootNode() as ShadowRoot | Document;
+    return rootNode.getElementById(this.id + "::selected") as HTMLInputElement;
   }
 }
 

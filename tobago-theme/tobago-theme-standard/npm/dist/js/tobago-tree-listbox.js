@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { DomUtils } from "./tobago-utils";
 class TreeListbox extends HTMLElement {
     constructor() {
         super();
@@ -83,7 +82,8 @@ class TreeListbox extends HTMLElement {
     getNextActiveSelect(select, check) {
         if (check !== null) {
             const option = select.querySelectorAll("option")[check];
-            return this.querySelector(DomUtils.escapeClientId(option.id + DomUtils.SUB_COMPONENT_SEP + "parent"));
+            const rootNode = this.getRootNode();
+            return rootNode.getElementById(option.id + "::parent");
         }
         else {
             return null;
@@ -113,7 +113,8 @@ class TreeListbox extends HTMLElement {
         return this.querySelectorAll(".tobago-treeListbox-level");
     }
     get hiddenInput() {
-        return this.querySelector(DomUtils.escapeClientId(this.id + DomUtils.SUB_COMPONENT_SEP + "selected"));
+        const rootNode = this.getRootNode();
+        return rootNode.getElementById(this.id + "::selected");
     }
 }
 document.addEventListener("tobago.init", function (event) {
@@ -121,4 +122,5 @@ document.addEventListener("tobago.init", function (event) {
         window.customElements.define("tobago-tree-listbox", TreeListbox);
     }
 });
+export {};
 //# sourceMappingURL=tobago-tree-listbox.js.map

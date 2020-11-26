@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { DomUtils } from "./tobago-utils";
 import { Focus } from "./tobago-focus";
 export class SelectBooleanCheckbox extends HTMLElement {
     constructor() {
@@ -32,7 +31,7 @@ export class SelectBooleanCheckbox extends HTMLElement {
     }
     get field() {
         const rootNode = this.getRootNode();
-        return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "field");
+        return rootNode.getElementById(this.id + "::field");
     }
 }
 document.addEventListener("tobago.init", function (event) {

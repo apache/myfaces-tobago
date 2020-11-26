@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { DomUtils } from "./tobago-utils";
 import { Focus } from "./tobago-focus";
 class Textarea extends HTMLElement {
     constructor() {
@@ -24,7 +23,8 @@ class Textarea extends HTMLElement {
         this.textarea.addEventListener("focus", Focus.setLastFocusId);
     }
     get textarea() {
-        return this.querySelector(DomUtils.escapeClientId(this.id + DomUtils.SUB_COMPONENT_SEP + "field"));
+        const rootNode = this.getRootNode();
+        return rootNode.getElementById(this.id + "::field");
     }
 }
 document.addEventListener("tobago.init", function (event) {

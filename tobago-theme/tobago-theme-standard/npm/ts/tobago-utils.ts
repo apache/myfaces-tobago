@@ -15,34 +15,8 @@
  * limitations under the License.
  */
 
+// XXX remove me, for cleanup
 export class DomUtils {
-
-  /**
-   * JSF's component separator constant
-   */
-  static readonly COMPONENT_SEP = ":";
-
-  /**
-   * Tobago's sub-component separator constant
-   */
-  static readonly SUB_COMPONENT_SEP = "::";
-
-  /**
-   * Find all elements (and also self) which have the class "className".
-   * @param element Starting element in DOM to collect.
-   * @param className Class of elements to find.
-   */
-  static selfOrElementsByClassName(element: HTMLElement, className: string): Array<HTMLElement> {
-    const result: Array<HTMLElement> = new Array<HTMLElement>();
-    if (element.classList.contains(className)) {
-      result.push(element);
-    }
-    const list = element.getElementsByClassName(className);
-    for (let i = 0; i < list.length; i++) {
-      result.push(list.item(i) as HTMLElement);
-    }
-    return result;
-  }
 
   /**
    * Find all elements (and also self) which have the attribute "attributeName".
@@ -62,109 +36,13 @@ export class DomUtils {
   }
 
   /**
-   * Get the previous sibling element (without <style> elements).
-   */
-  static previousElementSibling(element: HTMLElement): HTMLElement {
-    let sibling = element.previousElementSibling as HTMLElement;
-    while (sibling != null) {
-      if (sibling.tagName !== "STYLE") {
-        return sibling;
-      }
-      sibling = sibling.previousElementSibling as HTMLElement;
-    }
-    return null;
-  }
-
-  /**
-   * Get the next sibling element (without <style> elements).
-   */
-  static nextElementSibling(element: HTMLElement): HTMLElement {
-    let sibling = element.nextElementSibling as HTMLElement;
-    while (sibling !== null) {
-      if (sibling.tagName !== "STYLE") {
-        return sibling;
-      }
-      sibling = sibling.nextElementSibling as HTMLElement;
-    }
-    return null;
-  }
-
-  static outerWidthWithMargin(element: HTMLElement): number {
-    const style = window.getComputedStyle(element);
-    return element.offsetWidth + parseInt(style.marginLeft) + parseInt(style.marginRight);
-  }
-
-  static outerHeightWithMargin(element: HTMLElement): number {
-    const style = window.getComputedStyle(element);
-    return element.offsetHeight + parseInt(style.marginTop) + parseInt(style.marginBottom);
-  }
-
-  static offset(element: HTMLElement): { top, left } {
-    let top = 0;
-    let left = 0;
-
-    let currentElement = element;
-    while (currentElement) {
-      top += (currentElement.offsetTop - currentElement.scrollTop + currentElement.clientTop);
-      left += (currentElement.offsetLeft - currentElement.scrollLeft + currentElement.clientLeft);
-      currentElement = currentElement.offsetParent as HTMLElement;
-    }
-
-    return {top: top, left: left};
-  }
-
-  static isVisible(element: HTMLElement): boolean {
-    return element.offsetWidth > 0 || element.offsetHeight > 0 || element.getClientRects().length > 0;
-  }
-
-  /**
-   *
-   * @param id A JSF client id, type=string. Example: escapeClientId("page:input") -> "#page\\:input"
-   * @return A string which can be used as a jQuery selector.
-   */
-  static escapeClientId(id: string): string {
-    return "#" + id.replace(/([:\.])/g, "\\$1");
-  }
-
-  /**
-   * "a:b" -> "a"
-   * "a:b:c" -> "a:b"
-   * "a" -> null
-   * null -> null
-   * "a:b::sub-component" -> "a"
-   * "a::sub-component:b" -> "a::sub-component" // should currently not happen in Tobago
-   *
-   * @param clientId The clientId of a component.
-   * @return The clientId of the naming container.
-   */
-  static getNamingContainerId(clientId: string): string {
-    if (clientId == null || clientId.lastIndexOf(DomUtils.COMPONENT_SEP) === -1) {
-      return null;
-    }
-
-    let id = clientId;
-    while (true) {
-      const sub = id.lastIndexOf(DomUtils.SUB_COMPONENT_SEP);
-      if (sub == -1) {
-        break;
-      }
-      if (sub + 1 == id.lastIndexOf(DomUtils.COMPONENT_SEP)) {
-        id = id.substring(0, sub);
-      } else {
-        break;
-      }
-    }
-    return id.substring(0, id.lastIndexOf(DomUtils.COMPONENT_SEP));
-  }
-
-  /**
    * @param element with transition
    * @return transition time in milliseconds
    */
   static getTransitionTime(element: HTMLElement): number {
-    const style = getComputedStyle(element);
-    let delay: number = parseFloat(style.transitionDelay);
-    let duration: number = parseFloat(style.transitionDuration);
+    const style = window.getComputedStyle(element);
+    let delay: number = Number.parseFloat(style.transitionDelay);
+    let duration: number = Number.parseFloat(style.transitionDuration);
     return (delay + duration) * 1000;
   }
 }

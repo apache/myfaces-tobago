@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { DomUtils } from "./tobago-utils";
 import { Page } from "./tobago-page";
 export class Sheet extends HTMLElement {
     constructor() {
@@ -378,7 +377,7 @@ export class Sheet extends HTMLElement {
         });
     }
     loadColumnWidths() {
-        const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "widths");
+        const hidden = document.getElementById(this.id + "::widths");
         if (hidden) {
             return JSON.parse(hidden.getAttribute("value"));
         }
@@ -387,7 +386,7 @@ export class Sheet extends HTMLElement {
         }
     }
     saveColumnWidths(widths) {
-        const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "widths");
+        const hidden = document.getElementById(this.id + "::widths");
         if (hidden) {
             hidden.setAttribute("value", JSON.stringify(widths));
         }
@@ -396,7 +395,7 @@ export class Sheet extends HTMLElement {
         }
     }
     isColumnRendered() {
-        const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "rendered");
+        const hidden = document.getElementById(this.id + "::rendered");
         return JSON.parse(hidden.getAttribute("value"));
     }
     addHeaderFillerWidth() {
@@ -598,14 +597,15 @@ export class Sheet extends HTMLElement {
     }
     getHiddenSelected() {
         const rootNode = this.getRootNode();
-        return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "selected");
+        return rootNode.getElementById(this.id + "::selected");
     }
     getHiddenScrollPosition() {
         const rootNode = this.getRootNode();
-        return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "scrollPosition");
+        return rootNode.getElementById(this.id + "::scrollPosition");
     }
     getHiddenExpanded() {
-        return this.querySelector(DomUtils.escapeClientId(this.id + DomUtils.SUB_COMPONENT_SEP + "expanded"));
+        const rootNode = this.getRootNode();
+        return rootNode.getElementById(this.id + "::expanded");
     }
     /**
      * Get the element, which indicates the selection

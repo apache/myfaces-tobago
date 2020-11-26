@@ -26,9 +26,9 @@
         return;
       }
       tinymce.init({
-        selector: DomUtils.escapeClientId(this.element.attr("id")),
+        selector: "#" + this.element.id.replace(/([:.])/g, "\\$1"),
         init_instance_callback: function (editor) {
-          var textarea = jQuery(DomUtils.escapeClientId(editor.id));
+          var textarea = document.getElementById(editor.id); // fixme: works not in Shadow DOM
           var editorContainer = jQuery(editor.editorContainer);
 
           editorContainer.css("height", textarea.css("height"));

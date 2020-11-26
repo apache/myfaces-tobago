@@ -15,8 +15,6 @@
  * limitations under the License.
  */
 
-import {DomUtils} from "./tobago-utils";
-
 class Footer extends HTMLElement {
 
   private lastMaxFooterHeight: number;
@@ -26,42 +24,24 @@ class Footer extends HTMLElement {
   }
 
   connectedCallback(): void {
-    this.lastMaxFooterHeight = 0;
-
-    if(this.isFixed) {
-      window.addEventListener("resize", this.resize.bind(this));
-
-      if (this.body) {
-        this.setMargins();
-      }
-    }
-  }
-
-  private resize(event: MouseEvent): void {
-    const maxFooterHeight: number = DomUtils.outerHeightWithMargin(this);
-
-    if (maxFooterHeight !== this.lastMaxFooterHeight) {
-      this.setMargins();
-      this.lastMaxFooterHeight = maxFooterHeight;
-    }
-  }
-
-  private setMargins(): void {
     if (this.isFixed) {
-      const maxFooterHeight = DomUtils.outerHeightWithMargin(this);
-
-      if (maxFooterHeight > 0) {
-        this.body.style.marginBottom = maxFooterHeight + "px";
-      }
+      // call now
+      this.adjustMargin();
+      // and after resize
+      window.addEventListener("resize", this.adjustMargin.bind(this));
     }
   }
 
-  private get body(): HTMLElement {
-    const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector("body");
+  private adjustMargin(event?: MouseEvent): void {
+    const style: CSSStyleDeclaration = window.getComputedStyle(this);
+    const maxFooterHeight = this.offsetHeight + Number.parseInt(style.marginTop) + Number.parseInt(style.marginBottom);
+    if (maxFooterHeight !== this.lastMaxFooterHeight) {
+      this.lastMaxFooterHeight = maxFooterHeight;
+      this.closest("body").style.marginBottom = maxFooterHeight + "px";
+    }
   }
 
-  private get isFixed(): boolean {
+  private isFixed(): boolean {
     return this.classList.contains("fixed-bottom");
   }
 }

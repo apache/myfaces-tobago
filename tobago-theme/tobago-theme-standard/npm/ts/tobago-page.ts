@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
-import {DomUtils} from "./tobago-utils";
 import {CommandHelper} from "./tobago-command";
 import {Overlay} from "./tobago-overlay";
 import {Listener} from "./tobago-listener";
@@ -40,6 +39,37 @@ export class Page extends HTMLElement {
     }
     console.warn("Found no tobago page!");
     return null;
+  }
+
+  /**
+   * "a:b" -> "a"
+   * "a:b:c" -> "a:b"
+   * "a" -> null
+   * null -> null
+   * "a:b::sub-component" -> "a"
+   * "a::sub-component:b" -> "a::sub-component" // should currently not happen in Tobago
+   *
+   * @param clientId The clientId of a component.
+   * @return The clientId of the naming container.
+   */
+  static getNamingContainerId(clientId: string): string {
+    if (clientId == null || clientId.lastIndexOf(":") === -1) {
+      return null;
+    }
+
+    let id = clientId;
+    while (true) {
+      const sub = id.lastIndexOf("::");
+      if (sub == -1) {
+        break;
+      }
+      if (sub + 1 == id.lastIndexOf(":")) {
+        id = id.substring(0, sub);
+      } else {
+        break;
+      }
+    }
+    return id.substring(0, id.lastIndexOf(":"));
   }
 
   constructor() {
@@ -77,7 +107,7 @@ export class Page extends HTMLElement {
             command.dispatchEvent(new MouseEvent("click"));
             break;
           }
-          id = DomUtils.getNamingContainerId(id);
+          id = Page.getNamingContainerId(id);
         }
         return false;
       }

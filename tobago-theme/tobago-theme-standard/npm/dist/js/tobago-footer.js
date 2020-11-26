@@ -14,40 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { DomUtils } from "./tobago-utils";
 class Footer extends HTMLElement {
     constructor() {
         super();
     }
     connectedCallback() {
-        this.lastMaxFooterHeight = 0;
         if (this.isFixed) {
-            window.addEventListener("resize", this.resize.bind(this));
-            if (this.body) {
-                this.setMargins();
-            }
+            // now
+            this.adjustMargin();
+            // and after resize
+            window.addEventListener("resize", this.adjustMargin.bind(this));
         }
     }
-    resize(event) {
-        const maxFooterHeight = DomUtils.outerHeightWithMargin(this);
+    adjustMargin(event) {
+        const style = window.getComputedStyle(this);
+        const maxFooterHeight = this.offsetHeight + Number.parseInt(style.marginTop) + Number.parseInt(style.marginBottom);
         if (maxFooterHeight !== this.lastMaxFooterHeight) {
-            this.setMargins();
+            console.info("diff **************** ", this.lastMaxFooterHeight, maxFooterHeight);
             this.lastMaxFooterHeight = maxFooterHeight;
+            this.closest("body").style.marginBottom = maxFooterHeight + "px";
         }
     }
-    setMargins() {
-        if (this.isFixed) {
-            const maxFooterHeight = DomUtils.outerHeightWithMargin(this);
-            if (maxFooterHeight > 0) {
-                this.body.style.marginBottom = maxFooterHeight + "px";
-            }
-        }
-    }
-    get body() {
-        const root = this.getRootNode();
-        return root.querySelector("body");
-    }
-    get isFixed() {
+    isFixed() {
         return this.classList.contains("fixed-bottom");
     }
 }

@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 import { Page } from "./tobago-page";
-import { DomUtils } from "./tobago-utils";
 export class Focus extends HTMLElement {
     /**
      * The focusListener to set the lastFocusId must be implemented in the appropriate web elements.
@@ -30,7 +29,7 @@ export class Focus extends HTMLElement {
             && computedStyle.visibility !== "hidden"
             && computedStyle.display !== "none") {
             const root = target.getRootNode();
-            const tobagoFocus = root.getElementById(Page.page(target).id + DomUtils.SUB_COMPONENT_SEP + "lastFocusId");
+            const tobagoFocus = root.getElementById(Page.page(target).id + "::lastFocusId");
             tobagoFocus.querySelector("input").value = target.id;
         }
     }

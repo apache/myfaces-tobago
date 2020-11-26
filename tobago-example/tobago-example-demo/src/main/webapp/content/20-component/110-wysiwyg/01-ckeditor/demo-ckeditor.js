@@ -17,7 +17,7 @@
 
 /* global initialzing script for CSS */
 CKEDITOR.on("instanceLoaded", function(event) {
-  var textarea = jQuery(DomUtils.escapeClientId(event.editor.name));
+  var textarea = jQuery("#" + event.editor.name.replace(/([:.])/g, "\\$1"));
   var editor = textarea.next();
   editor.css("height", textarea.css("height"));
   editor.css("width", textarea.css("width"));

@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 import { Listener, Phase } from "./tobago-listener";
-import { DomUtils } from "./tobago-utils";
 import { Focus } from "./tobago-focus";
 export class In extends HTMLElement {
     constructor() {
@@ -25,7 +24,8 @@ export class In extends HTMLElement {
         this.input.addEventListener("focus", Focus.setLastFocusId);
     }
     get input() {
-        return this.querySelector(DomUtils.escapeClientId(this.id + DomUtils.SUB_COMPONENT_SEP + "field"));
+        const rootNode = this.getRootNode();
+        return rootNode.getElementById(this.id + "::field");
     }
 }
 document.addEventListener("tobago.init", function (event) {
@@ -42,9 +42,25 @@ class RegExpTest {
         this.element.addEventListener("change", this.checkValue.bind(this));
     }
     static init(element) {
-        for (const input of DomUtils.selfOrElementsByClassName(element, "tobago-in")) { // todo only for data-regexp
+        for (const input of RegExpTest.selfOrElementsByClassName(element, "tobago-in")) { // todo only for data-regexp
             new RegExpTest(input);
         }
+    }
+    /**
+     * Find all elements (and also self) which have the class "className".
+     * @param element Starting element in DOM to collect.
+     * @param className Class of elements to find.
+     */
+    static selfOrElementsByClassName(element, className) {
+        const result = new Array();
+        if (element.classList.contains(className)) {
+            result.push(element);
+        }
+        const list = element.getElementsByClassName(className);
+        for (let i = 0; i < list.length; i++) {
+            result.push(list.item(i));
+        }
+        return result;
     }
     checkValue(event) {
         console.debug("changed: check if '%s' is okay!", this.regexp.toString());

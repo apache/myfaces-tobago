@@ -29,7 +29,8 @@ export class In extends HTMLElement {
   }
 
   get input(): HTMLInputElement {
-    return this.querySelector(DomUtils.escapeClientId(this.id + DomUtils.SUB_COMPONENT_SEP + "field"));
+    const rootNode = this.getRootNode() as ShadowRoot | Document;
+    return rootNode.getElementById(this.id + "::field") as HTMLInputElement;
   }
 }
 
@@ -46,9 +47,26 @@ class RegExpTest {
   private readonly regexp: RegExp;
 
   static init(element: HTMLElement): void {
-    for (const input of DomUtils.selfOrElementsByClassName(element, "tobago-in")) { // todo only for data-regexp
+    for (const input of RegExpTest.selfOrElementsByClassName(element, "tobago-in")) { // todo only for data-regexp
       new RegExpTest(input as HTMLInputElement);
     }
+  }
+
+  /**
+   * Find all elements (and also self) which have the class "className".
+   * @param element Starting element in DOM to collect.
+   * @param className Class of elements to find.
+   */
+  static selfOrElementsByClassName(element: HTMLElement, className: string): Array<HTMLElement> {
+    const result: Array<HTMLElement> = new Array<HTMLElement>();
+    if (element.classList.contains(className)) {
+      result.push(element);
+    }
+    const list = element.getElementsByClassName(className);
+    for (let i = 0; i < list.length; i++) {
+      result.push(list.item(i) as HTMLElement);
+    }
+    return result;
   }
 
   constructor(element: HTMLInputElement) {

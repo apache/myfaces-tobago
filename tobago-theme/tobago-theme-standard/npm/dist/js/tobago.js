@@ -153,22 +153,6 @@
      */
     class DomUtils {
         /**
-         * Find all elements (and also self) which have the class "className".
-         * @param element Starting element in DOM to collect.
-         * @param className Class of elements to find.
-         */
-        static selfOrElementsByClassName(element, className) {
-            const result = new Array();
-            if (element.classList.contains(className)) {
-                result.push(element);
-            }
-            const list = element.getElementsByClassName(className);
-            for (let i = 0; i < list.length; i++) {
-                result.push(list.item(i));
-            }
-            return result;
-        }
-        /**
          * Find all elements (and also self) which have the attribute "attributeName".
          * @param element Starting element in DOM to collect.
          * @param selectors Name of the attribute of the elements to find.
@@ -185,110 +169,16 @@
             return result;
         }
         /**
-         * Get the previous sibling element (without <style> elements).
-         */
-        static previousElementSibling(element) {
-            let sibling = element.previousElementSibling;
-            while (sibling != null) {
-                if (sibling.tagName !== "STYLE") {
-                    return sibling;
-                }
-                sibling = sibling.previousElementSibling;
-            }
-            return null;
-        }
-        /**
-         * Get the next sibling element (without <style> elements).
-         */
-        static nextElementSibling(element) {
-            let sibling = element.nextElementSibling;
-            while (sibling !== null) {
-                if (sibling.tagName !== "STYLE") {
-                    return sibling;
-                }
-                sibling = sibling.nextElementSibling;
-            }
-            return null;
-        }
-        static outerWidthWithMargin(element) {
-            const style = window.getComputedStyle(element);
-            return element.offsetWidth + parseInt(style.marginLeft) + parseInt(style.marginRight);
-        }
-        static outerHeightWithMargin(element) {
-            const style = window.getComputedStyle(element);
-            return element.offsetHeight + parseInt(style.marginTop) + parseInt(style.marginBottom);
-        }
-        static offset(element) {
-            let top = 0;
-            let left = 0;
-            let currentElement = element;
-            while (currentElement) {
-                top += (currentElement.offsetTop - currentElement.scrollTop + currentElement.clientTop);
-                left += (currentElement.offsetLeft - currentElement.scrollLeft + currentElement.clientLeft);
-                currentElement = currentElement.offsetParent;
-            }
-            return { top: top, left: left };
-        }
-        static isVisible(element) {
-            return element.offsetWidth > 0 || element.offsetHeight > 0 || element.getClientRects().length > 0;
-        }
-        /**
-         *
-         * @param id A JSF client id, type=string. Example: escapeClientId("page:input") -> "#page\\:input"
-         * @return A string which can be used as a jQuery selector.
-         */
-        static escapeClientId(id) {
-            return "#" + id.replace(/([:\.])/g, "\\$1");
-        }
-        /**
-         * "a:b" -> "a"
-         * "a:b:c" -> "a:b"
-         * "a" -> null
-         * null -> null
-         * "a:b::sub-component" -> "a"
-         * "a::sub-component:b" -> "a::sub-component" // should currently not happen in Tobago
-         *
-         * @param clientId The clientId of a component.
-         * @return The clientId of the naming container.
-         */
-        static getNamingContainerId(clientId) {
-            if (clientId == null || clientId.lastIndexOf(DomUtils.COMPONENT_SEP) === -1) {
-                return null;
-            }
-            let id = clientId;
-            while (true) {
-                const sub = id.lastIndexOf(DomUtils.SUB_COMPONENT_SEP);
-                if (sub == -1) {
-                    break;
-                }
-                if (sub + 1 == id.lastIndexOf(DomUtils.COMPONENT_SEP)) {
-                    id = id.substring(0, sub);
-                }
-                else {
-                    break;
-                }
-            }
-            return id.substring(0, id.lastIndexOf(DomUtils.COMPONENT_SEP));
-        }
-        /**
          * @param element with transition
          * @return transition time in milliseconds
          */
         static getTransitionTime(element) {
-            const style = getComputedStyle(element);
-            let delay = parseFloat(style.transitionDelay);
-            let duration = parseFloat(style.transitionDuration);
+            const style = window.getComputedStyle(element);
+            let delay = Number.parseFloat(style.transitionDelay);
+            let duration = Number.parseFloat(style.transitionDuration);
             return (delay + duration) * 1000;
         }
     }
-    /**
-     * JSF's component separator constant
-     */
-    DomUtils.COMPONENT_SEP = ":";
-    /**
-     * Tobago's sub-component separator constant
-     */
-    DomUtils.SUB_COMPONENT_SEP = "::";
 
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -6710,6 +6600,7 @@
      * See the License for the specific language governing permissions and
      * limitations under the License.
      */
+    // TODO: might be implemented with a web component
     class ReloadManager {
         constructor() {
             this.timeouts = new Map();
@@ -6781,6 +6672,36 @@
             console.warn("Found no tobago page!");
             return null;
         }
+        /**
+         * "a:b" -> "a"
+         * "a:b:c" -> "a:b"
+         * "a" -> null
+         * null -> null
+         * "a:b::sub-component" -> "a"
+         * "a::sub-component:b" -> "a::sub-component" // should currently not happen in Tobago
+         *
+         * @param clientId The clientId of a component.
+         * @return The clientId of the naming container.
+         */
+        static getNamingContainerId(clientId) {
+            if (clientId == null || clientId.lastIndexOf(":") === -1) {
+                return null;
+            }
+            let id = clientId;
+            while (true) {
+                const sub = id.lastIndexOf("::");
+                if (sub == -1) {
+                    break;
+                }
+                if (sub + 1 == id.lastIndexOf(":")) {
+                    id = id.substring(0, sub);
+                }
+                else {
+                    break;
+                }
+            }
+            return id.substring(0, id.lastIndexOf(":"));
+        }
         connectedCallback() {
             this.registerAjaxListener();
             this.querySelector("form").addEventListener("submit", CommandHelper.onSubmit);
@@ -6808,7 +6729,7 @@
                             command.dispatchEvent(new MouseEvent("click"));
                             break;
                         }
-                        id = DomUtils.getNamingContainerId(id);
+                        id = Page.getNamingContainerId(id);
                     }
                     return false;
                 }
@@ -7082,7 +7003,7 @@
                 && computedStyle.visibility !== "hidden"
                 && computedStyle.display !== "none") {
                 const root = target.getRootNode();
-                const tobagoFocus = root.getElementById(Page.page(target).id + DomUtils.SUB_COMPONENT_SEP + "lastFocusId");
+                const tobagoFocus = root.getElementById(Page.page(target).id + "::lastFocusId");
                 tobagoFocus.querySelector("input").value = target.id;
             }
         }
@@ -7198,34 +7119,23 @@
             super();
         }
         connectedCallback() {
-            this.lastMaxFooterHeight = 0;
             if (this.isFixed) {
-                window.addEventListener("resize", this.resize.bind(this));
-                if (this.body) {
-                    this.setMargins();
-                }
+                // now
+                this.adjustMargin();
+                // and after resize
+                window.addEventListener("resize", this.adjustMargin.bind(this));
             }
         }
-        resize(event) {
-            const maxFooterHeight = DomUtils.outerHeightWithMargin(this);
+        adjustMargin(event) {
+            const style = window.getComputedStyle(this);
+            const maxFooterHeight = this.offsetHeight + Number.parseInt(style.marginTop) + Number.parseInt(style.marginBottom);
             if (maxFooterHeight !== this.lastMaxFooterHeight) {
-                this.setMargins();
+                console.info("diff **************** ", this.lastMaxFooterHeight, maxFooterHeight);
                 this.lastMaxFooterHeight = maxFooterHeight;
+                this.closest("body").style.marginBottom = maxFooterHeight + "px";
             }
         }
-        setMargins() {
-            if (this.isFixed) {
-                const maxFooterHeight = DomUtils.outerHeightWithMargin(this);
-                if (maxFooterHeight > 0) {
-                    this.body.style.marginBottom = maxFooterHeight + "px";
-                }
-            }
-        }
-        get body() {
-            const root = this.getRootNode();
-            return root.querySelector("body");
-        }
-        get isFixed() {
+        isFixed() {
             return this.classList.contains("fixed-bottom");
         }
     }
@@ -7259,7 +7169,8 @@
             this.input.addEventListener("focus", Focus.setLastFocusId);
         }
         get input() {
-            return this.querySelector(DomUtils.escapeClientId(this.id + DomUtils.SUB_COMPONENT_SEP + "field"));
+            const rootNode = this.getRootNode();
+            return rootNode.getElementById(this.id + "::field");
         }
     }
     document.addEventListener("tobago.init", function (event) {
@@ -7276,9 +7187,25 @@
             this.element.addEventListener("change", this.checkValue.bind(this));
         }
         static init(element) {
-            for (const input of DomUtils.selfOrElementsByClassName(element, "tobago-in")) { // todo only for data-regexp
+            for (const input of RegExpTest.selfOrElementsByClassName(element, "tobago-in")) { // todo only for data-regexp
                 new RegExpTest(input);
             }
+        }
+        /**
+         * Find all elements (and also self) which have the class "className".
+         * @param element Starting element in DOM to collect.
+         * @param className Class of elements to find.
+         */
+        static selfOrElementsByClassName(element, className) {
+            const result = new Array();
+            if (element.classList.contains(className)) {
+                result.push(element);
+            }
+            const list = element.getElementsByClassName(className);
+            for (let i = 0; i < list.length; i++) {
+                result.push(list.item(i));
+            }
+            return result;
         }
         checkValue(event) {
             console.debug("changed: check if '%s' is okay!", this.regexp.toString());
@@ -7635,7 +7562,7 @@
         }
         get field() {
             const rootNode = this.getRootNode();
-            return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "field");
+            return rootNode.getElementById(this.id + "::field");
         }
     }
     document.addEventListener("tobago.init", function (event) {
@@ -7735,7 +7662,7 @@
         }
         get field() {
             const rootNode = this.getRootNode();
-            return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "field");
+            return rootNode.getElementById(this.id + "::field");
         }
     }
     document.addEventListener("tobago.init", function (event) {
@@ -7892,7 +7819,7 @@
         }
         get field() {
             const rootNode = this.getRootNode();
-            return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "field");
+            return rootNode.getElementById(this.id + "::field");
         }
     }
     document.addEventListener("tobago.init", function (event) {
@@ -8340,7 +8267,7 @@
             });
         }
         loadColumnWidths() {
-            const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "widths");
+            const hidden = document.getElementById(this.id + "::widths");
             if (hidden) {
                 return JSON.parse(hidden.getAttribute("value"));
             }
@@ -8349,7 +8276,7 @@
             }
         }
         saveColumnWidths(widths) {
-            const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "widths");
+            const hidden = document.getElementById(this.id + "::widths");
             if (hidden) {
                 hidden.setAttribute("value", JSON.stringify(widths));
             }
@@ -8358,7 +8285,7 @@
             }
         }
         isColumnRendered() {
-            const hidden = document.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "rendered");
+            const hidden = document.getElementById(this.id + "::rendered");
             return JSON.parse(hidden.getAttribute("value"));
         }
         addHeaderFillerWidth() {
@@ -8558,14 +8485,15 @@
         }
         getHiddenSelected() {
             const rootNode = this.getRootNode();
-            return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "selected");
+            return rootNode.getElementById(this.id + "::selected");
         }
         getHiddenScrollPosition() {
             const rootNode = this.getRootNode();
-            return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "scrollPosition");
+            return rootNode.getElementById(this.id + "::scrollPosition");
         }
         getHiddenExpanded() {
-            return this.querySelector(DomUtils.escapeClientId(this.id + DomUtils.SUB_COMPONENT_SEP + "expanded"));
+            const rootNode = this.getRootNode();
+            return rootNode.getElementById(this.id + "::expanded");
         }
         /**
          * Get the element, which indicates the selection
@@ -8714,6 +8642,20 @@
                 child.parentElement.insertBefore(splitter, child);
             }
         }
+        /**
+         * Get the previous sibling element (without <style> elements).
+         */
+        // todo: calls of this method can probably be simplified
+        static previousElementSibling(element) {
+            let sibling = element.previousElementSibling;
+            while (sibling != null) {
+                if (sibling.tagName !== "STYLE") {
+                    return sibling;
+                }
+                sibling = sibling.previousElementSibling;
+            }
+            return null;
+        }
         get orientation() {
             return this.getAttribute("orientation");
         }
@@ -8723,7 +8665,7 @@
         start(event) {
             event.preventDefault();
             const splitter = event.target;
-            const previous = DomUtils.previousElementSibling(splitter);
+            const previous = SplitLayout.previousElementSibling(splitter);
             this.offset = this.orientation === "horizontal"
                 ? event.pageX - previous.offsetWidth : event.pageY - previous.offsetHeight;
             const mousedown = SplitLayoutMousedown.save(event, splitter);
@@ -8767,7 +8709,7 @@
         }
         static save(event, splitter) {
             const horizontal = splitter.classList.contains("tobago-splitLayout-horizontal");
-            const previous = DomUtils.previousElementSibling(splitter);
+            const previous = SplitLayout.previousElementSibling(splitter);
             const data = {
                 splitLayoutId: splitter.parentElement.id,
                 horizontal: horizontal,
@@ -8798,7 +8740,7 @@
                 .item(this.data.splitterIndex) : null;
         }
         get previous() {
-            return this.splitter ? DomUtils.previousElementSibling(this.splitter) : null;
+            return this.splitter ? SplitLayout.previousElementSibling(this.splitter) : null;
         }
     }
     document.addEventListener("tobago.init", function (event) {
@@ -8824,6 +8766,15 @@
      * limitations under the License.
      */
     class Stars extends HTMLElement {
+        static leftOffset(element) {
+            let left = 0;
+            let currentElement = element;
+            while (currentElement) {
+                left += (currentElement.offsetLeft - currentElement.scrollLeft + currentElement.clientLeft);
+                currentElement = currentElement.offsetParent;
+            }
+            return left;
+        }
         constructor() {
             super();
         }
@@ -8892,7 +8843,7 @@
                 /* Workaround for Safari browser on iPhone */
                 const target = event.currentTarget;
                 const sliderValue = (parseInt(target.max) / target.offsetWidth)
-                    * (event.touches[0].pageX - DomUtils.offset(slider).left);
+                    * (event.touches[0].pageX - Stars.leftOffset(slider));
                 if (sliderValue > parseInt(target.max)) {
                     slider.value = target.max;
                 }
@@ -9608,7 +9559,8 @@
             this.textarea.addEventListener("focus", Focus.setLastFocusId);
         }
         get textarea() {
-            return this.querySelector(DomUtils.escapeClientId(this.id + DomUtils.SUB_COMPONENT_SEP + "field"));
+            const rootNode = this.getRootNode();
+            return rootNode.getElementById(this.id + "::field");
         }
     }
     document.addEventListener("tobago.init", function (event) {
@@ -9809,7 +9761,8 @@
         getNextActiveSelect(select, check) {
             if (check !== null) {
                 const option = select.querySelectorAll("option")[check];
-                return this.querySelector(DomUtils.escapeClientId(option.id + DomUtils.SUB_COMPONENT_SEP + "parent"));
+                const rootNode = this.getRootNode();
+                return rootNode.getElementById(option.id + "::parent");
             }
             else {
                 return null;
@@ -9839,7 +9792,8 @@
             return this.querySelectorAll(".tobago-treeListbox-level");
         }
         get hiddenInput() {
-            return this.querySelector(DomUtils.escapeClientId(this.id + DomUtils.SUB_COMPONENT_SEP + "selected"));
+            const rootNode = this.getRootNode();
+            return rootNode.getElementById(this.id + "::selected");
         }
     }
     document.addEventListener("tobago.init", function (event) {

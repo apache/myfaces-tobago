@@ -18,6 +18,7 @@
 import {Listener, Phase} from "./tobago-listener";
 import {DomUtils} from "./tobago-utils";
 
+// TODO: might be implemented with a web component
 export class ReloadManager {
 
   static instance: ReloadManager = new ReloadManager();

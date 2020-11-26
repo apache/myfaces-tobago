@@ -29,7 +29,7 @@ export class SelectOneListbox extends HTMLElement {
 
   get field(): HTMLInputElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
-    return rootNode.getElementById(this.id + DomUtils.SUB_COMPONENT_SEP + "field") as HTMLInputElement;
+    return rootNode.getElementById(this.id + "::field") as HTMLInputElement;
   }
 }
 

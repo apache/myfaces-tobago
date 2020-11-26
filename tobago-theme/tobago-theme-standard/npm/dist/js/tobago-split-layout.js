@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { DomUtils } from "./tobago-utils";
 import { Page } from "./tobago-page";
 class SplitLayout extends HTMLElement {
     constructor() {
@@ -40,6 +39,20 @@ class SplitLayout extends HTMLElement {
             child.parentElement.insertBefore(splitter, child);
         }
     }
+    /**
+     * Get the previous sibling element (without <style> elements).
+     */
+    // todo: calls of this method can probably be simplified
+    static previousElementSibling(element) {
+        let sibling = element.previousElementSibling;
+        while (sibling != null) {
+            if (sibling.tagName !== "STYLE") {
+                return sibling;
+            }
+            sibling = sibling.previousElementSibling;
+        }
+        return null;
+    }
     get orientation() {
         return this.getAttribute("orientation");
     }
@@ -49,7 +62,7 @@ class SplitLayout extends HTMLElement {
     start(event) {
         event.preventDefault();
         const splitter = event.target;
-        const previous = DomUtils.previousElementSibling(splitter);
+        const previous = SplitLayout.previousElementSibling(splitter);
         this.offset = this.orientation === "horizontal"
             ? event.pageX - previous.offsetWidth : event.pageY - previous.offsetHeight;
         const mousedown = SplitLayoutMousedown.save(event, splitter);
@@ -93,7 +106,7 @@ class SplitLayoutMousedown {
     }
     static save(event, splitter) {
         const horizontal = splitter.classList.contains("tobago-splitLayout-horizontal");
-        const previous = DomUtils.previousElementSibling(splitter);
+        const previous = SplitLayout.previousElementSibling(splitter);
         const data = {
             splitLayoutId: splitter.parentElement.id,
             horizontal: horizontal,
@@ -124,7 +137,7 @@ class SplitLayoutMousedown {
             .item(this.data.splitterIndex) : null;
     }
     get previous() {
-        return this.splitter ? DomUtils.previousElementSibling(this.splitter) : null;
+        return this.splitter ? SplitLayout.previousElementSibling(this.splitter) : null;
     }
 }
 document.addEventListener("tobago.init", function (event) {

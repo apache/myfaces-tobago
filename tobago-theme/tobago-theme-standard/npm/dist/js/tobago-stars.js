@@ -14,8 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { DomUtils } from "./tobago-utils";
 class Stars extends HTMLElement {
+    static leftOffset(element) {
+        let left = 0;
+        let currentElement = element;
+        while (currentElement) {
+            left += (currentElement.offsetLeft - currentElement.scrollLeft + currentElement.clientLeft);
+            currentElement = currentElement.offsetParent;
+        }
+        return left;
+    }
     constructor() {
         super();
     }
@@ -84,7 +92,7 @@ class Stars extends HTMLElement {
             /* Workaround for Safari browser on iPhone */
             const target = event.currentTarget;
             const sliderValue = (parseInt(target.max) / target.offsetWidth)
-                * (event.touches[0].pageX - DomUtils.offset(slider).left);
+                * (event.touches[0].pageX - Stars.leftOffset(slider));
             if (sliderValue > parseInt(target.max)) {
                 slider.value = target.max;
             }
@@ -149,4 +157,5 @@ class Stars extends HTMLElement {
 document.addEventListener("DOMContentLoaded", function (event) {
     window.customElements.define("tobago-stars", Stars);
 });
+export {};
 //# sourceMappingURL=tobago-stars.js.map
