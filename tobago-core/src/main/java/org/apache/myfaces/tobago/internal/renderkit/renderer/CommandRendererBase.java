@@ -115,7 +115,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
         getRendererCssClass(),
         getRendererCssClass().createMarkup(component.getMarkup()),
         getCssItems(facesContext, component),
-        !parentOfCommands && dropdownSubmenu ? BootstrapClass.DROPDOWN_ITEM : null,
+        dropdownSubmenu ? BootstrapClass.DROPDOWN_ITEM : null,
         parentOfCommands && !dropdownSubmenu ? BootstrapClass.DROPDOWN_TOGGLE : null,
         component.getCustomClass(),
         isInside(facesContext, HtmlElements.TOBAGO_LINKS) ? BootstrapClass.NAV_LINK : null);
@@ -228,9 +228,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
       writer.startElement(HtmlElements.TOBAGO_DROPDOWN);
       writer.writeIdAttribute(clientId);
 
-      writer.writeClassAttribute(
-          dropdownSubmenu ? TobagoClass.DROPDOWN__SUBMENU : BootstrapClass.DROPDOWN,
-          dropdownSubmenu ? BootstrapClass.DROPDOWN_ITEM : null);
+      writer.writeClassAttribute(dropdownSubmenu ? TobagoClass.DROPDOWN__SUBMENU : BootstrapClass.DROPDOWN);
     }
   }
 
