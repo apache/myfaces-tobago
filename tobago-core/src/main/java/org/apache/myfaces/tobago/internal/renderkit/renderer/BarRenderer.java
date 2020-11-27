@@ -63,6 +63,9 @@ public class BarRenderer<T extends AbstractUIBar> extends RendererBase<T> {
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.NAVIGATION.toString(), false);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(BootstrapClass.CONTAINER_FLUID);
+
     encodeOpener(facesContext, component, writer, navbarId);
 
     writer.startElement(HtmlElements.DIV);
@@ -110,6 +113,7 @@ public class BarRenderer<T extends AbstractUIBar> extends RendererBase<T> {
       after.encodeAll(facesContext);
       writer.endElement(HtmlElements.DIV);
     }
+    writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.TOBAGO_BAR);
 
