@@ -151,6 +151,7 @@
      * See the License for the specific language governing permissions and
      * limitations under the License.
      */
+    // XXX remove me, for cleanup
     class DomUtils {
         /**
          * Find all elements (and also self) which have the attribute "attributeName".
@@ -7120,7 +7121,7 @@
         }
         connectedCallback() {
             if (this.isFixed) {
-                // now
+                // call now
                 this.adjustMargin();
                 // and after resize
                 window.addEventListener("resize", this.adjustMargin.bind(this));
@@ -7130,7 +7131,6 @@
             const style = window.getComputedStyle(this);
             const maxFooterHeight = this.offsetHeight + Number.parseInt(style.marginTop) + Number.parseInt(style.marginBottom);
             if (maxFooterHeight !== this.lastMaxFooterHeight) {
-                console.info("diff **************** ", this.lastMaxFooterHeight, maxFooterHeight);
                 this.lastMaxFooterHeight = maxFooterHeight;
                 this.closest("body").style.marginBottom = maxFooterHeight + "px";
             }

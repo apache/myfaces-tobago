@@ -20,7 +20,7 @@ class Footer extends HTMLElement {
     }
     connectedCallback() {
         if (this.isFixed) {
-            // now
+            // call now
             this.adjustMargin();
             // and after resize
             window.addEventListener("resize", this.adjustMargin.bind(this));
@@ -30,7 +30,6 @@ class Footer extends HTMLElement {
         const style = window.getComputedStyle(this);
         const maxFooterHeight = this.offsetHeight + Number.parseInt(style.marginTop) + Number.parseInt(style.marginBottom);
         if (maxFooterHeight !== this.lastMaxFooterHeight) {
-            console.info("diff **************** ", this.lastMaxFooterHeight, maxFooterHeight);
             this.lastMaxFooterHeight = maxFooterHeight;
             this.closest("body").style.marginBottom = maxFooterHeight + "px";
         }

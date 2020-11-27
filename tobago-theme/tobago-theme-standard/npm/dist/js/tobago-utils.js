@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// XXX remove me, for cleanup
 export class DomUtils {
     /**
      * Find all elements (and also self) which have the attribute "attributeName".
