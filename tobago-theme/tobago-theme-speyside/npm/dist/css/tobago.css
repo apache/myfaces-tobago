@@ -10288,6 +10288,15 @@ tobago-bar.navbar-dark .navbar-brand > .tobago-link:hover, tobago-bar.navbar-dar
   text-decoration: none;
 }
 
+tobago-bar .navbar-brand {
+  /* Normally links are underlined. A navbar-brand link is NOT underlined. In Tobago, the .navbar-brand class is not
+    on the link itself but on the parent tag. */
+}
+
+tobago-bar .navbar-brand > .tobago-link {
+  text-decoration: none;
+}
+
 tobago-behavior {
   display: none;
 }
@@ -11751,7 +11760,12 @@ tobago-tree tobago-tree-node[data-tobago-level='20'] {
 }
 
 tobago-tree tobago-tree-node {
+  /* Links in a tree shouldn't be underlined to look more like a menu point. */
   display: block;
+}
+
+tobago-tree tobago-tree-node > .tobago-link {
+  text-decoration: none;
 }
 
 tobago-tree tobago-tree-node tobago-tree-select {
