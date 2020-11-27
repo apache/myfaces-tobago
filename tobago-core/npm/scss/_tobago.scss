@@ -40,6 +40,11 @@ $form-disabled-alpha: 0.5;
 $page-padding-top: 1rem;
 
 /* main ---------------------------------------------------------- */
+@mixin linkWithoutUnderline() {
+  > .tobago-link {
+    text-decoration: none;
+  }
+}
 
 @mixin tobagoTreeNodeToggle() {
   .tobago-treeNode-toggle:not(.invisible) {
@@ -87,6 +92,12 @@ tobago-bar {
     &:hover, &:focus {
       text-decoration: none;
     }
+  }
+
+  .navbar-brand {
+    /* Normally links are underlined. A navbar-brand link is NOT underlined. In Tobago, the .navbar-brand class is not
+    on the link itself but on the parent tag. */
+    @include linkWithoutUnderline();
   }
 }
 
@@ -1540,6 +1551,9 @@ tobago-tree {
   @include treeNodeMarginLeftLevel();
 
   tobago-tree-node {
+    /* Links in a tree shouldn't be underlined to look more like a menu point. */
+    @include linkWithoutUnderline();
+
     display: block;
 
     tobago-tree-select {
