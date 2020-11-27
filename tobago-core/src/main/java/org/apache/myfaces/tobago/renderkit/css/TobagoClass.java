@@ -150,6 +150,7 @@ public enum TobagoClass implements CssItem {
   LABEL("tobago-label"),
   LABEL__CONTAINER("tobago-label-container"),
   LINK("tobago-link"),
+  MARGIN__BOTTOM("tobago-margin-bottom"),
   MESSAGES("tobago-messages"),
   /**
    * @deprecated Since 5.0.0. Please use {@link TobagoClass#POPOVER__BUTTON}
