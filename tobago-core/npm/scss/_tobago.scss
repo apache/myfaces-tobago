@@ -1661,3 +1661,10 @@ label.tobago-required:after {
 .tobago-text-justify {
   text-align: justify !important;
 }
+
+.tobago-margin-bottom {
+  /* Since bootstrap 5.0.0-alpha1 class "form-group" is removed. In the Bootstrap demo "form-group" is replaced with
+  "mb-3". But we shouldn't use "mb-3", because it's adding an "!important" to the margin-bottom. With "!important" added
+  custom styling is much more complicated. */
+  margin-bottom: 1rem;
+}

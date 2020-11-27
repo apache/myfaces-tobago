@@ -153,7 +153,7 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
       writer.writeIdAttribute(clientId);
       writer.writeClassAttribute(
           flex ? TobagoClass.LABEL__CONTAINER :  null,
-          BootstrapClass.MB_3,
+          TobagoClass.MARGIN__BOTTOM,
           ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,
           markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     }
