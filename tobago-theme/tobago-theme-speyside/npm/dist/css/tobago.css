@@ -10332,6 +10332,14 @@ tobago-buttons > .tobago-button {
 }
 
 /* button, link ------------------------------------------------------- */
+.tobago-button:disabled {
+  pointer-events: auto;
+}
+
+.tobago-button:disabled:hover {
+  cursor: not-allowed;
+}
+
 .tobago-button > img + span, .tobago-link > img + span {
   margin-left: .4em;
 }
@@ -10539,59 +10547,33 @@ a.tobago-link.dropdown-item img, a.tobago-link.dropdown-item span {
 }
 
 h1 button.tobago-link, .h1 button.tobago-link, h2 button.tobago-link, .h2 button.tobago-link, h3 button.tobago-link, .h3 button.tobago-link, h4 button.tobago-link, .h4 button.tobago-link, h5 button.tobago-link, .h5 button.tobago-link, h6 button.tobago-link, .h6 button.tobago-link {
+  font-size: inherit;
   font-weight: inherit;
 }
 
-button.tobago-link {
-  color: #0d6efd;
-  border-width: 0;
+button.tobago-link.btn {
   padding: 0;
-  background-color: transparent;
-  text-align: left;
+  vertical-align: baseline;
 }
 
-button.tobago-link:focus, button.tobago-link:hover {
-  color: #8a5318;
-  cursor: pointer;
-  outline: none;
-  text-decoration: underline;
+button.tobago-link.btn:disabled {
+  pointer-events: auto;
 }
 
-button.tobago-link:disabled {
-  color: #d7d7d7;
-}
-
-button.tobago-link:disabled:hover {
+button.tobago-link.btn:disabled:hover {
   cursor: not-allowed;
-  text-decoration: none;
 }
 
-button.tobago-link:disabled > img {
-  opacity: .65;
-}
-
-button.tobago-link.dropdown-item {
-  padding: 0.25rem 1rem;
-  color: #212529;
-  text-align: inherit;
-  white-space: nowrap;
-}
-
-button.tobago-link.dropdown-item:active {
-  color: #fff;
-}
-
-button.tobago-link.dropdown-item:focus, button.tobago-link.dropdown-item:hover {
-  cursor: pointer;
-  text-decoration: none;
+button.tobago-link.btn:focus {
+  box-shadow: none;
 }
 
 button.tobago-link.dropdown-item:disabled {
-  color: #788c94;
+  pointer-events: auto;
 }
 
-button.tobago-link.dropdown-toggle:focus, button.tobago-link.dropdown-toggle:hover {
-  text-decoration: none;
+button.tobago-link.dropdown-item:disabled:hover {
+  cursor: not-allowed;
 }
 
 button.nav-link {
@@ -10602,14 +10584,6 @@ button.nav-link {
 .navbar-nav button.nav-link {
   padding-left: 0;
   padding-right: 0;
-}
-
-span.dropdown {
-  display: inline-block;
-}
-
-.dropdown > .btn.dropdown-toggle {
-  width: 100%;
 }
 
 /* messages / help text ----------------------------------------------- */
@@ -10683,11 +10657,6 @@ tobago-flex-layout.tobago-messages-container > .tobago-input-group-outer, tobago
 }
 
 /* nav ----------------------------------------------------------- */
-/* styles for drop down menu first level */
-.dropdown-toggle:focus, .dropdown-toggle:hover {
-  text-decoration: none;
-}
-
 /* no bottom border in navtabs, if panel-body under it */
 .nav-tabs {
   border-bottom-width: 0;
@@ -10708,70 +10677,31 @@ tobago-flex-layout.tobago-messages-container > .tobago-input-group-outer, tobago
 }
 
 /* dropdown ------------------------------------------------------- */
-tobago-dropdown {
-  display: inline-block;
+tobago-dropdown .dropdown-menu .form-check {
+  /* move form-check components to the right, so checkbox/radio buttons are inside dropdown-menu */
+  padding-left: 2.5rem;
 }
 
-tobago-dropdown .tobago-dropdown-selected, .tobago-page-menuStore .tobago-dropdown-selected {
-  color: #1e2125;
-  text-decoration: none;
-  background-color: #f7f7f7;
-}
-
-ul > tobago-dropdown {
-  display: list-item;
-}
-
-.dropdown-menu .form-check {
-  padding-left: 0;
-}
-
-.dropdown-menu .form-check .form-check-label.dropdown-item {
-  padding-left: 3.5rem;
-}
-
-.dropdown-menu .form-check .form-check-label.dropdown-item:before {
-  top: 0.5rem;
-  left: 1rem;
-}
-
-.dropdown-menu .form-check .form-check-label.dropdown-item:after {
-  top: 0.5rem;
-  left: 1rem;
-}
-
-/* dropdown-submenu ------------------------------------------------------- */
-.tobago-dropdown-submenu {
+tobago-dropdown.tobago-dropdown-submenu {
   cursor: pointer;
   position: relative;
   width: 100%;
+  float: right;
 }
 
-.tobago-dropdown-submenu:active > button.tobago-link {
-  color: #fff;
+tobago-dropdown.tobago-dropdown-submenu:hover {
+  background-color: #f7f7f7;
 }
 
-.tobago-dropdown-submenu > .dropdown-menu {
+tobago-dropdown.tobago-dropdown-submenu:hover > .dropdown-menu {
+  display: block;
   top: 0;
   left: 100%;
-  margin-top: -6px;
+  margin-top: -0.5rem;
   margin-left: -1px;
-  border-radius: 6px 6px 6px 6px;
 }
 
-.tobago-dropdown-submenu > button:after {
-  display: none;
-}
-
-.tobago-dropdown-submenu > button.tobago-link {
-  color: #212529;
-}
-
-.tobago-dropdown-submenu > button.tobago-link:focus, .tobago-dropdown-submenu > button.tobago-link:hover {
-  text-decoration: none;
-}
-
-.tobago-dropdown-submenu:after {
+tobago-dropdown.tobago-dropdown-submenu > .dropdown-item::after {
   content: " ";
   float: right;
   border-color: transparent;
@@ -10780,24 +10710,6 @@ ul > tobago-dropdown {
   border-left-color: #cccccc;
   margin-top: 7px;
   margin-right: -10px;
-}
-
-.tobago-dropdown-submenu:hover > .dropdown-menu, .tobago-dropdown-submenu.tobago-dropdown-open > .dropdown-menu {
-  display: block;
-}
-
-.tobago-dropdown-submenu:hover > .dropdown-menu > a:after, .tobago-dropdown-submenu.tobago-dropdown-open > .dropdown-menu > a:after {
-  border-left-color: #fff;
-}
-
-.tobago-dropdown-submenu.pull-left {
-  float: none;
-}
-
-.tobago-dropdown-submenu.pull-left > .dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  border-radius: 6px 0 6px 6px;
 }
 
 /* object ----------------------------------------------------------------- */
@@ -11838,6 +11750,11 @@ tobago-textarea textarea-markup-info.border-info:focus {
   z-index: 1060;
 }
 
+.tobago-page-menuStore .dropdown-menu .form-check {
+  /* move form-check components to the right, so checkbox/radio buttons are inside dropdown-menu */
+  padding-left: 2.5rem;
+}
+
 /* Bootstrap workarounds ------------------------------------------------------------------ */
 /* fixes the problem, that input controls have 100% in the toolbar if they are not in a form,
  but in Tobago we have a global form.
@@ -11878,6 +11795,13 @@ label.tobago-required:after {
 /* added here, because Bootstrap has removed .text-justify */
 .tobago-text-justify {
   text-align: justify !important;
+}
+
+.tobago-margin-bottom {
+  /* Since bootstrap 5.0.0-alpha1 class "form-group" is removed. In the Bootstrap demo "form-group" is replaced with
+  "mb-3". But we shouldn't use "mb-3", because it's adding an "!important" to the margin-bottom. With "!important" added
+  custom styling is much more complicated. */
+  margin-bottom: 1rem;
 }
 
 /*
