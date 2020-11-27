@@ -40,6 +40,23 @@ $form-disabled-alpha: 0.5;
 $page-padding-top: 1rem;
 
 /* main ---------------------------------------------------------- */
+@mixin buttonLinkDisabledCursor() {
+  &:disabled {
+    pointer-events: auto;
+
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+}
+
+@mixin dropdownMenuFormCheckComponents() {
+  .dropdown-menu .form-check {
+    /* move form-check components to the right, so checkbox/radio buttons are inside dropdown-menu */
+    padding-left: (($dropdown-item-padding-x ) + ($form-check-padding-left / 1em))
+  }
+}
+
 @mixin linkWithoutUnderline() {
   > .tobago-link {
     text-decoration: none;
@@ -143,10 +160,11 @@ tobago-buttons {
   }
 }
 
-tobago-links {
+/* button, link ------------------------------------------------------- */
+.tobago-button {
+  @include buttonLinkDisabledCursor();
 }
 
-/* button, link ------------------------------------------------------- */
 .tobago-button, .tobago-link {
   > img + span {
     margin-left: .4em;
@@ -401,63 +419,25 @@ a.tobago-link.dropdown-item {
 
 h1, h2, h3, h4, h5, h6 {
   button.tobago-link {
+    font-size: inherit;
     font-weight: inherit;
   }
 }
 
 button {
-  &.tobago-link {
-    color: $blue;
-    border-width: 0;
+  &.tobago-link.btn {
+    @include buttonLinkDisabledCursor();
+
     padding: 0;
-    background-color: transparent;
-    text-align: left;
+    vertical-align: baseline;
 
-    &:focus, &:hover {
-      color: $link-hover-color;
-      cursor: pointer;
-      outline: none;
-      text-decoration: underline;
-    }
-
-    &:disabled {
-      color: $nav-link-disabled-color;
-
-      &:hover {
-        cursor: not-allowed;
-        text-decoration: none;
-      }
-
-      > img {
-        opacity: .65;
-      }
+    &:focus {
+      box-shadow: none;
     }
   }
 
   &.tobago-link.dropdown-item {
-    padding: $dropdown-item-padding-y $dropdown-item-padding-x;
-    color: $dropdown-link-color;
-    text-align: inherit;
-    white-space: nowrap;
-
-    &:active {
-      color: $dropdown-link-active-color;
-    }
-
-    &:focus, &:hover {
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    &:disabled {
-      color: $dropdown-link-disabled-color;
-    }
-  }
-
-  &.tobago-link.dropdown-toggle {
-    &:focus, &:hover {
-      text-decoration: none;
-    }
+    @include buttonLinkDisabledCursor();
   }
 
   &.nav-link { /* bootstrap don't know button.nav-link*/
@@ -470,12 +450,7 @@ button {
   padding-right: 0;
 }
 
-span.dropdown {
-  display: inline-block;
-}
-
-.dropdown > .btn.dropdown-toggle {
-  width: 100%;
+tobago-links {
 }
 
 /* messages / help text ----------------------------------------------- */
@@ -553,13 +528,6 @@ tobago-flex-layout.tobago-messages-container > {
 
 /* nav ----------------------------------------------------------- */
 
-/* styles for drop down menu first level */
-.dropdown-toggle {
-  &:focus, &:hover {
-    text-decoration: none;
-  }
-}
-
 /* no bottom border in navtabs, if panel-body under it */
 .nav-tabs {
   border-bottom-width: 0;
@@ -581,103 +549,35 @@ tobago-flex-layout.tobago-messages-container > {
 
 /* dropdown ------------------------------------------------------- */
 tobago-dropdown {
-  display: inline-block;
-}
+  @include dropdownMenuFormCheckComponents();
 
-tobago-dropdown, .tobago-page-menuStore {
-  .tobago-dropdown-selected {
-    color: $dropdown-link-hover-color;
-    text-decoration: none;
-    @include gradient-bg($dropdown-link-hover-bg);
-  }
-}
-
-ul > tobago-dropdown {
-  display: list-item;
-}
-
-.dropdown-menu {
-  .form-check {
-    padding-left: 0;
-
-    .form-check-label.dropdown-item {
-      // todo check! this was BS4: padding-left: ($custom-control-gutter + $custom-control-indicator-size) + $dropdown-item-padding-x;
-      padding-left: ($spacer * 1.5 + $spacer) + $dropdown-item-padding-x;
-
-      &:before {
-        top: (($font-size-base * $line-height-base - $spacer) / 2) + $dropdown-item-padding-y;
-        left: $dropdown-item-padding-x;
-      }
-
-      &:after {
-        top: (($font-size-base * $line-height-base - $spacer) / 2) + $dropdown-item-padding-y;
-        left: $dropdown-item-padding-x;
-      }
-    }
-  }
-}
-
-/* dropdown-submenu ------------------------------------------------------- */
-
-.tobago-dropdown-submenu {
-  cursor: pointer;
-  position: relative;
-  width: 100%;
-
-  &:active {
-    > button.tobago-link {
-      color: $dropdown-link-active-color;
-    }
-  }
-
-  > .dropdown-menu {
-    top: 0;
-    left: 100%;
-    margin-top: -6px;
-    margin-left: -1px;
-    border-radius: 6px 6px 6px 6px;
-  }
-
-  > button:after {
-    display: none;
-  }
-
-  > button.tobago-link {
-    color: $dropdown-link-color;
-
-    &:focus, &:hover {
-      text-decoration: none;
-    }
-  }
-
-  &:after {
-    content: " ";
+  &.tobago-dropdown-submenu {
+    cursor: pointer;
+    position: relative;
+    width: 100%;
     float: right;
-    border-color: transparent;
-    border-style: solid;
-    border-width: 5px 0 5px 5px;
-    border-left-color: #cccccc;
-    margin-top: 7px;
-    margin-right: -10px;
-  }
 
-  &:hover, &.tobago-dropdown-open {
-    > .dropdown-menu {
-      display: block;
+    &:hover {
+      background-color: $dropdown-link-hover-bg;
 
-      > a:after {
-        border-left-color: $dropdown-bg;
+      > .dropdown-menu {
+        display: block;
+        top: 0;
+        left: 100%;
+        margin-top: -0.5rem;
+        margin-left: -1px;
       }
     }
-  }
 
-  &.pull-left {
-    float: none;
-
-    > .dropdown-menu {
-      left: -100%;
-      margin-left: 10px;
-      border-radius: 6px 0 6px 6px;
+    > .dropdown-item::after {
+      content: " ";
+      float: right;
+      border-color: transparent;
+      border-style: solid;
+      border-width: 5px 0 5px 5px;
+      border-left-color: #cccccc;
+      margin-top: 7px;
+      margin-right: -10px;
     }
   }
 }
@@ -1621,6 +1521,8 @@ tobago-textarea textarea {
 /* menuStore -------------------------------------------------------- */
 
 .tobago-page-menuStore {
+  @include dropdownMenuFormCheckComponents();
+
   position: absolute;
   top: 0;
   left: 0;
@@ -1681,4 +1583,8 @@ label.tobago-required:after {
   "mb-3". But we shouldn't use "mb-3", because it's adding an "!important" to the margin-bottom. With "!important" added
   custom styling is much more complicated. */
   margin-bottom: 1rem;
+}
+
+.tobago-dropdown-open, .tobago-dropdown-select {
+  // deprecated; must be added for test
 }

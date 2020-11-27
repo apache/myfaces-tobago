@@ -125,7 +125,15 @@ public enum TobagoClass implements CssItem {
   COLLAPSED("tobago-collapsed"),
   DATE("tobago-date"),
   DATE__PICKER("tobago-date-picker"),
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   DROPDOWN__OPEN("tobago-dropdown-open"),
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   DROPDOWN__SELECTED("tobago-dropdown-selected"),
   FILE("tobago-file"),
   FIGURE("tobago-figure"),
