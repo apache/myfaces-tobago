@@ -10655,11 +10655,6 @@ tobago-box > .card-body {
   padding: 0;
 }
 
-/* buttons, links ------------------------------------------------------- */
-tobago-buttons > .tobago-button {
-  display: inline-block;
-}
-
 /* button, link ------------------------------------------------------- */
 .tobago-button:disabled {
   pointer-events: auto;
@@ -10669,11 +10664,11 @@ tobago-buttons > .tobago-button {
   cursor: not-allowed;
 }
 
-.tobago-button > img + span, .tobago-link > img + span {
+.tobago-button > img + span {
   margin-left: .4em;
 }
 
-.tobago-button > i + span, .tobago-link > i + span {
+.tobago-button > i + span {
   margin-left: .4em;
 }
 
@@ -10696,6 +10691,10 @@ button.tobago-button:disabled img, button.tobago-button:disabled span {
   pointer-events: none;
 }
 
+tobago-buttons > .tobago-button {
+  display: inline-block;
+}
+
 /* collapsible -------------------------------------------------------------- */
 tobago-box.tobago-collapsed .card-body,
 tobago-section.tobago-collapsed .tobago-section-content,
@@ -10704,6 +10703,18 @@ tobago-panel.tobago-collapsed {
 }
 
 /* date -------------------------------------------------------------- */
+.tobago-date-markup-fatal.border-danger:focus, .tobago-date-markup-error.border-danger:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 178, 67, 0.25);
+}
+
+.tobago-date-markup-warn.border-warning:focus {
+  box-shadow: 0 0 0 0.2rem rgba(178, 104, 18, 0.25);
+}
+
+.tobago-date-markup-info.border-info:focus {
+  box-shadow: 0 0 0 0.2rem rgba(19, 14, 143, 0.25);
+}
+
 tobago-date {
   display: block;
 }
@@ -10731,6 +10742,42 @@ workaround for Bootstrap Modal (Popup) with vanillajs-datepicker
 */
 .datepicker-dropdown {
   z-index: 2000 !important;
+}
+
+/* dropdown ------------------------------------------------------- */
+tobago-dropdown .dropdown-menu .form-check {
+  /* move form-check components to the right, so checkbox/radio buttons are inside dropdown-menu */
+  padding-left: 2.5rem;
+}
+
+tobago-dropdown.tobago-dropdown-submenu {
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+  float: right;
+}
+
+tobago-dropdown.tobago-dropdown-submenu:hover {
+  background-color: #f8f9fa;
+}
+
+tobago-dropdown.tobago-dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+  top: 0;
+  left: 100%;
+  margin-top: -0.5rem;
+  margin-left: -1px;
+}
+
+tobago-dropdown.tobago-dropdown-submenu > .dropdown-item::after {
+  content: " ";
+  float: right;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 7px;
+  margin-right: -10px;
 }
 
 /* figure -------------------------------------------------------------- */
@@ -10777,6 +10824,11 @@ tobago-flex-layout > tobago-flex-layout {
 }
 
 /* flowLayout ---------------------------------------------------------- */
+tobago-flow-layout.tobago-text-justify {
+  /* added here, because Bootstrap has removed .text-justify */
+  text-align: justify !important;
+}
+
 /* focus --------------------------------------------------------------- */
 tobago-focus {
   display: none;
@@ -10843,6 +10895,18 @@ tobago-in {
   display: block;
 }
 
+.tobago-in-markup-fatal.border-danger:focus, .tobago-in-markup-error.border-danger:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 178, 67, 0.25);
+}
+
+.tobago-in-markup-warn.border-warning:focus {
+  box-shadow: 0 0 0 0.2rem rgba(178, 104, 18, 0.25);
+}
+
+.tobago-in-markup-info.border-info:focus {
+  box-shadow: 0 0 0 0.2rem rgba(19, 14, 143, 0.25);
+}
+
 .tobago-in:disabled {
   color: rgba(160, 160, 160, 0.5);
 }
@@ -10859,6 +10923,14 @@ tobago-in {
 /* link ----------------------------------------------------------- */
 .tobago-link {
   white-space: nowrap;
+}
+
+.tobago-link > img + span {
+  margin-left: .4em;
+}
+
+.tobago-link > i + span {
+  margin-left: .4em;
 }
 
 .tobago-link span {
@@ -10955,6 +11027,13 @@ tobago-flex-layout.tobago-messages-container > .tobago-input-group-outer, tobago
   flex: 1 0 0px;
 }
 
+.tobago-margin-bottom {
+  /* Since bootstrap 5.0.0-alpha1 class "form-group" is removed. In the Bootstrap demo "form-group" is replaced with
+  "mb-3". But we shouldn't use "mb-3", because it's adding an "!important" to the margin-bottom. With "!important" added
+  custom styling is much more complicated. */
+  margin-bottom: 1rem;
+}
+
 .tobago-messages .alert.alert-dismissible {
   padding-left: 2.6rem;
 }
@@ -11003,42 +11082,6 @@ tobago-flex-layout.tobago-messages-container > .tobago-input-group-outer, tobago
 
 .dropdown-menu .form-check {
   display: block;
-}
-
-/* dropdown ------------------------------------------------------- */
-tobago-dropdown .dropdown-menu .form-check {
-  /* move form-check components to the right, so checkbox/radio buttons are inside dropdown-menu */
-  padding-left: 2.5rem;
-}
-
-tobago-dropdown.tobago-dropdown-submenu {
-  cursor: pointer;
-  position: relative;
-  width: 100%;
-  float: right;
-}
-
-tobago-dropdown.tobago-dropdown-submenu:hover {
-  background-color: #f8f9fa;
-}
-
-tobago-dropdown.tobago-dropdown-submenu:hover > .dropdown-menu {
-  display: block;
-  top: 0;
-  left: 100%;
-  margin-top: -0.5rem;
-  margin-left: -1px;
-}
-
-tobago-dropdown.tobago-dropdown-submenu > .dropdown-item::after {
-  content: " ";
-  float: right;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: #cccccc;
-  margin-top: 7px;
-  margin-right: -10px;
 }
 
 /* object ----------------------------------------------------------------- */
@@ -11139,6 +11182,21 @@ tobago-page {
   overflow-y: auto;
 }
 
+/* menuStore -------------------------------------------------------- */
+.tobago-page-menuStore {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 1060;
+}
+
+.tobago-page-menuStore .dropdown-menu .form-check {
+  /* move form-check components to the right, so checkbox/radio buttons are inside dropdown-menu */
+  padding-left: 2.5rem;
+}
+
 /* panel ------------------------------------------------------------- */
 tobago-panel {
   display: block;
@@ -11152,6 +11210,24 @@ tobago-panel {
 
 /* progress ---------------------------------------------------------- */
 /* range ---------------------------------------------------------- */
+.tobago-required label:after,
+label.tobago-required:after {
+  content: "*";
+  color: #ffb243;
+}
+
+/* section ----------------------------------------------------------- */
+tobago-section > div > h1, tobago-section > div > .h1, tobago-section > div > h2, tobago-section > div > .h2, tobago-section > div > h3, tobago-section > div > .h3, tobago-section > div > h4, tobago-section > div > .h4, tobago-section > div > h5, tobago-section > div > .h5, tobago-section > div > h6, tobago-section > div > .h6 {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+tobago-section > div > h1 > .fa:first-child, tobago-section > div > .h1 > .fa:first-child, tobago-section > div > h1 > img, tobago-section > div > .h1 > img, tobago-section > div > h2 > .fa:first-child, tobago-section > div > .h2 > .fa:first-child, tobago-section > div > h2 > img, tobago-section > div > .h2 > img, tobago-section > div > h3 > .fa:first-child, tobago-section > div > .h3 > .fa:first-child, tobago-section > div > h3 > img, tobago-section > div > .h3 > img, tobago-section > div > h4 > .fa:first-child, tobago-section > div > .h4 > .fa:first-child, tobago-section > div > h4 > img, tobago-section > div > .h4 > img, tobago-section > div > h5 > .fa:first-child, tobago-section > div > .h5 > .fa:first-child, tobago-section > div > h5 > img, tobago-section > div > .h5 > img, tobago-section > div > h6 > .fa:first-child, tobago-section > div > .h6 > .fa:first-child, tobago-section > div > h6 > img, tobago-section > div > .h6 > img {
+  /* to separate the icon from the rest of the title */
+  margin-right: 0.7em;
+}
+
 /* stars rating ------------------------------------------------------------ */
 tobago-stars {
   display: block;
@@ -11273,18 +11349,6 @@ tobago-stars {
   display: none;
 }
 
-/* section ----------------------------------------------------------- */
-tobago-section > div > h1, tobago-section > div > .h1, tobago-section > div > h2, tobago-section > div > .h2, tobago-section > div > h3, tobago-section > div > .h3, tobago-section > div > h4, tobago-section > div > .h4, tobago-section > div > h5, tobago-section > div > .h5, tobago-section > div > h6, tobago-section > div > .h6 {
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-}
-
-tobago-section > div > h1 > .fa:first-child, tobago-section > div > .h1 > .fa:first-child, tobago-section > div > h1 > img, tobago-section > div > .h1 > img, tobago-section > div > h2 > .fa:first-child, tobago-section > div > .h2 > .fa:first-child, tobago-section > div > h2 > img, tobago-section > div > .h2 > img, tobago-section > div > h3 > .fa:first-child, tobago-section > div > .h3 > .fa:first-child, tobago-section > div > h3 > img, tobago-section > div > .h3 > img, tobago-section > div > h4 > .fa:first-child, tobago-section > div > .h4 > .fa:first-child, tobago-section > div > h4 > img, tobago-section > div > .h4 > img, tobago-section > div > h5 > .fa:first-child, tobago-section > div > .h5 > .fa:first-child, tobago-section > div > h5 > img, tobago-section > div > .h5 > img, tobago-section > div > h6 > .fa:first-child, tobago-section > div > .h6 > .fa:first-child, tobago-section > div > h6 > img, tobago-section > div > .h6 > img {
-  /* to separate the icon from the rest of the title */
-  margin-right: 0.7em;
-}
-
 /* select ----------------------------------------------------------- */
 /* selectBooleanCheckbox ---------------------------------------------------- */
 tobago-select-boolean-checkbox {
@@ -11314,6 +11378,18 @@ tobago-select-boolean-toggle .form-check-label img {
 
 /* selectOneChoice --------------------------------------------------------- */
 /* selectOneListbox -------------------------------------------------------- */
+.tobago-selectOneListbox-markup-fatal.border-danger:focus, .tobago-selectOneListbox-markup-error.border-danger:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 178, 67, 0.25);
+}
+
+.tobago-selectOneListbox-markup-warn.border-warning:focus {
+  box-shadow: 0 0 0 0.2rem rgba(178, 104, 18, 0.25);
+}
+
+.tobago-selectOneListbox-markup-info.border-info:focus {
+  box-shadow: 0 0 0 0.2rem rgba(19, 14, 143, 0.25);
+}
+
 tobago-select-one-listbox {
   display: block;
 }
@@ -11355,6 +11431,18 @@ tobago-select-many-checkbox.tobago-label-container .form-check-inline {
 }
 
 /* selectManyListbox ----------------------------------------------------------- */
+.tobago-selectManyListbox-markup-fatal.border-danger:focus, .tobago-selectManyListbox-markup-error.border-danger:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 178, 67, 0.25);
+}
+
+.tobago-selectManyListbox-markup-warn.border-warning:focus {
+  box-shadow: 0 0 0 0.2rem rgba(178, 104, 18, 0.25);
+}
+
+.tobago-selectManyListbox-markup-info.border-info:focus {
+  box-shadow: 0 0 0 0.2rem rgba(19, 14, 143, 0.25);
+}
+
 /* selectManyShuttle ----------------------------------------------------------- */
 tobago-select-many-shuttle {
   display: block;
@@ -11898,6 +11986,11 @@ tobago-tab-group {
   margin-bottom: 1rem;
 }
 
+/* FIXME: This is to hide the toolbar, until it is implemented */
+.tobago-tabGroup-toolBar {
+  display: none;
+}
+
 /* tree ---------------------------------------------------------------------- */
 .tobago-tree .tobago-treeNode {
   cursor: default;
@@ -12036,100 +12129,19 @@ tobago-tree-listbox .tobago-treeListbox-select, .tobago-treeListbox .tobago-tree
 }
 
 /* textarea --------------------------------------------------------- */
-tobago-textarea textarea:disabled {
-  color: rgba(160, 160, 160, 0.5);
-}
-
-/* facesMessages messageLayout focus shadows ------------------------ */
-.tobago-date-markup-fatal.border-danger:focus, .tobago-date-markup-error.border-danger:focus,
-.tobago-in-markup-fatal.border-danger:focus,
-.tobago-in-markup-error.border-danger:focus,
-.tobago-selectManyListbox-markup-fatal.border-danger:focus,
-.tobago-selectManyListbox-markup-error.border-danger:focus,
-.tobago-selectOneListbox-markup-fatal.border-danger:focus,
-.tobago-selectOneListbox-markup-error.border-danger:focus,
-tobago-textarea textarea-markup-fatal.border-danger:focus,
-tobago-textarea textarea-markup-error.border-danger:focus {
+tobago-textarea textarea-markup-fatal.border-danger:focus, tobago-textarea textarea-markup-error.border-danger:focus {
   box-shadow: 0 0 0 0.2rem rgba(255, 178, 67, 0.25);
 }
 
-.tobago-date-markup-warn.border-warning:focus,
-.tobago-in-markup-warn.border-warning:focus,
-.tobago-selectManyListbox-markup-warn.border-warning:focus,
-.tobago-selectOneListbox-markup-warn.border-warning:focus,
 tobago-textarea textarea-markup-warn.border-warning:focus {
   box-shadow: 0 0 0 0.2rem rgba(178, 104, 18, 0.25);
 }
 
-.tobago-date-markup-info.border-info:focus,
-.tobago-in-markup-info.border-info:focus,
-.tobago-selectManyListbox-markup-info.border-info:focus,
-.tobago-selectOneListbox-markup-info.border-info:focus,
 tobago-textarea textarea-markup-info.border-info:focus {
   box-shadow: 0 0 0 0.2rem rgba(19, 14, 143, 0.25);
 }
 
-/* menuStore -------------------------------------------------------- */
-.tobago-page-menuStore {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  z-index: 1060;
-}
-
-.tobago-page-menuStore .dropdown-menu .form-check {
-  /* move form-check components to the right, so checkbox/radio buttons are inside dropdown-menu */
-  padding-left: 2.5rem;
-}
-
-/* Bootstrap workarounds ------------------------------------------------------------------ */
-/* fixes the problem, that input controls have 100% in the toolbar if they are not in a form,
- but in Tobago we have a global form.
- */
-/*
-.navbar .form-control {
-    width: auto;
-}
-*/
-/*
-fixes missing space, I thinks normal Websites have a " " Space char in the source code, Tobago not.
-
-fixme: there is a problem with the selectManyShuttle with this style.
-*/
-.form-horizontal > * {
-  /* fixes vertical space, todo: why is is needed? is there a better way? */
-  margin-top: 10px;
-  margin-bottom: 5px;
-  /* XXX MUST BE REMOVED */
-}
-
-.form-horizontal .control-label {
-  margin-top: 10px;
-  margin-bottom: 5px;
-}
-
-/* FIXME: This is to hide the toolbar, until it is implemented */
-.tobago-tabGroup-toolBar {
-  display: none;
-}
-
-.tobago-required label:after,
-label.tobago-required:after {
-  content: "*";
-  color: #ffb243;
-}
-
-/* added here, because Bootstrap has removed .text-justify */
-.tobago-text-justify {
-  text-align: justify !important;
-}
-
-.tobago-margin-bottom {
-  /* Since bootstrap 5.0.0-alpha1 class "form-group" is removed. In the Bootstrap demo "form-group" is replaced with
-  "mb-3". But we shouldn't use "mb-3", because it's adding an "!important" to the margin-bottom. With "!important" added
-  custom styling is much more complicated. */
-  margin-bottom: 1rem;
+tobago-textarea textarea:disabled {
+  color: rgba(160, 160, 160, 0.5);
 }
 /*# sourceMappingURL=tobago.css.map */
