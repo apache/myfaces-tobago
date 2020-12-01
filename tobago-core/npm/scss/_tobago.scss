@@ -50,6 +50,15 @@ $page-padding-top: 1rem;
   }
 }
 
+@mixin buttonLinkImageTextSpacing() {
+  > img + span {
+    margin-left: .4em;
+  }
+  > i + span {
+    margin-left: .4em;
+  }
+}
+
 @mixin dropdownMenuFormCheckComponents() {
   .dropdown-menu .form-check {
     /* move form-check components to the right, so checkbox/radio buttons are inside dropdown-menu */
@@ -165,16 +174,7 @@ tobago-buttons {
 /* button, link ------------------------------------------------------- */
 .tobago-button {
   @include buttonLinkDisabledCursor();
-}
-
-.tobago-button, .tobago-link {
-  > img + span {
-    margin-left: .4em;
-  }
-
-  > i + span {
-    margin-left: .4em;
-  }
+  @include buttonLinkImageTextSpacing();
 }
 
 /* button -------------------------------------------------------------- */
@@ -404,6 +404,7 @@ tobago-in {
 /* link ----------------------------------------------------------- */
 
 .tobago-link {
+  @include buttonLinkImageTextSpacing();
   white-space: nowrap;
 
   span {
