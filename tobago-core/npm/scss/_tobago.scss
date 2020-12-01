@@ -40,6 +40,18 @@ $form-disabled-alpha: 0.5;
 $page-padding-top: 1rem;
 
 /* main ---------------------------------------------------------- */
+@mixin adjustCustomControlLabel() {
+  .form-check-label {
+    &:after {
+      content: "";
+    }
+
+    img {
+      padding-right: 0.3em;
+    }
+  }
+}
+
 @mixin buttonLinkDisabledCursor() {
   &:disabled {
     pointer-events: auto;
@@ -66,9 +78,34 @@ $page-padding-top: 1rem;
   }
 }
 
+@mixin inlinePadding() {
+  padding-top: calc(#{$input-padding-y} + #{$input-border-width});
+  padding-bottom: calc(#{$input-padding-y} + #{$input-border-width});
+}
+
 @mixin linkWithoutUnderline() {
   > .tobago-link {
     text-decoration: none;
+  }
+}
+
+@mixin markupFatalErrWarnInfo() {
+  &-markup-fatal, &-markup-error {
+    &.border-danger:focus {
+      box-shadow: 0 0 0 .2rem rgba($danger, .25);
+    }
+  }
+
+  &-markup-warn {
+    &.border-warning:focus {
+      box-shadow: 0 0 0 .2rem rgba($warning, .25);
+    }
+  }
+
+  &-markup-info {
+    &.border-info:focus {
+      box-shadow: 0 0 0 .2rem rgba($info, .25);
+    }
   }
 }
 
@@ -161,16 +198,6 @@ tobago-box {
   }
 }
 
-/* buttons, links ------------------------------------------------------- */
-.tobago-buttons {
-}
-
-tobago-buttons {
-  > .tobago-button {
-    display: inline-block;
-  }
-}
-
 /* button, link ------------------------------------------------------- */
 .tobago-button {
   @include buttonLinkDisabledCursor();
@@ -200,6 +227,15 @@ button.tobago-button {
   }
 }
 
+.tobago-buttons {
+}
+
+tobago-buttons {
+  > .tobago-button {
+    display: inline-block;
+  }
+}
+
 /* collapsible -------------------------------------------------------------- */
 
 tobago-box.tobago-collapsed .card-body,
@@ -212,6 +248,7 @@ tobago-panel.tobago-collapsed {
 
 // XXX remove me
 .tobago-date {
+  @include markupFatalErrWarnInfo();
 }
 
 tobago-date {
@@ -241,6 +278,45 @@ workaround for Bootstrap Modal (Popup) with vanillajs-datepicker
 */
 .datepicker-dropdown {
   z-index: 2000 !important;
+}
+
+/* dropdown ------------------------------------------------------- */
+tobago-dropdown {
+  @include dropdownMenuFormCheckComponents();
+
+  &.tobago-dropdown-submenu {
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+    float: right;
+
+    &:hover {
+      background-color: $dropdown-link-hover-bg;
+
+      > .dropdown-menu {
+        display: block;
+        top: 0;
+        left: 100%;
+        margin-top: -0.5rem;
+        margin-left: -1px;
+      }
+    }
+
+    > .dropdown-item::after {
+      content: " ";
+      float: right;
+      border-color: transparent;
+      border-style: solid;
+      border-width: 5px 0 5px 5px;
+      border-left-color: #cccccc;
+      margin-top: 7px;
+      margin-right: -10px;
+    }
+  }
+}
+
+.tobago-dropdown-open, .tobago-dropdown-select {
+  // deprecated; must be added for test
 }
 
 /* figure -------------------------------------------------------------- */
@@ -301,6 +377,10 @@ tobago-flex-layout {
 
 /* flowLayout ---------------------------------------------------------- */
 tobago-flow-layout {
+  &.tobago-text-justify {
+    /* added here, because Bootstrap has removed .text-justify */
+    text-align: justify !important;
+  }
 }
 
 /* focus --------------------------------------------------------------- */
@@ -382,6 +462,8 @@ tobago-in {
 }
 
 .tobago-in {
+  @include markupFatalErrWarnInfo();
+
   &:disabled {
     color: rgba($input-color, $form-disabled-alpha);
   }
@@ -399,6 +481,9 @@ tobago-in {
 // todo remove
 .tobago-label {
   color: #6610f2 !important;
+}
+
+tobago-links {
 }
 
 /* link ----------------------------------------------------------- */
@@ -458,9 +543,6 @@ button {
   padding-right: 0;
 }
 
-tobago-links {
-}
-
 /* messages / help text ----------------------------------------------- */
 .tobago-messages-container {
   display: flex;
@@ -498,6 +580,13 @@ tobago-flex-layout.tobago-messages-container > {
   .tobago-input-group-outer, .tobago-selectManyShuttle {
     flex: 1 0 0px;
   }
+}
+
+.tobago-margin-bottom {
+  /* Since bootstrap 5.0.0-alpha1 class "form-group" is removed. In the Bootstrap demo "form-group" is replaced with
+  "mb-3". But we shouldn't use "mb-3", because it's adding an "!important" to the margin-bottom. With "!important" added
+  custom styling is much more complicated. */
+  margin-bottom: 1rem;
 }
 
 .tobago-messages {
@@ -555,41 +644,6 @@ tobago-flex-layout.tobago-messages-container > {
 
 .dropdown-menu .form-check {
   display: block;
-}
-
-/* dropdown ------------------------------------------------------- */
-tobago-dropdown {
-  @include dropdownMenuFormCheckComponents();
-
-  &.tobago-dropdown-submenu {
-    cursor: pointer;
-    position: relative;
-    width: 100%;
-    float: right;
-
-    &:hover {
-      background-color: $dropdown-link-hover-bg;
-
-      > .dropdown-menu {
-        display: block;
-        top: 0;
-        left: 100%;
-        margin-top: -0.5rem;
-        margin-left: -1px;
-      }
-    }
-
-    > .dropdown-item::after {
-      content: " ";
-      float: right;
-      border-color: transparent;
-      border-style: solid;
-      border-width: 5px 0 5px 5px;
-      border-left-color: #cccccc;
-      margin-top: 7px;
-      margin-right: -10px;
-    }
-  }
 }
 
 /* object ----------------------------------------------------------------- */
@@ -698,6 +752,18 @@ tobago-page {
   }
 }
 
+/* menuStore -------------------------------------------------------- */
+.tobago-page-menuStore {
+  @include dropdownMenuFormCheckComponents();
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: $zindex-popover;
+}
+
 /* panel ------------------------------------------------------------- */
 
 // todo: remove
@@ -726,6 +792,26 @@ tobago-progress {
 
 /* range ---------------------------------------------------------- */
 tobago-range {
+}
+
+.tobago-required label:after,
+label.tobago-required:after {
+  content: "*";
+  color: $danger;
+}
+
+/* section ----------------------------------------------------------- */
+tobago-section > div > {
+  h1, h2, h3, h4, h5, h6 {
+    > .fa:first-child, > img {
+      /* to separate the icon from the rest of the title */
+      margin-right: 0.7em;
+    }
+
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+  }
 }
 
 /* stars rating ------------------------------------------------------------ */
@@ -851,41 +937,9 @@ tobago-stars {
   }
 }
 
-/* section ----------------------------------------------------------- */
-
-tobago-section > div > {
-  h1, h2, h3, h4, h5, h6 {
-    > .fa:first-child, > img {
-      /* to separate the icon from the rest of the title */
-      margin-right: 0.7em;
-    }
-
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-  }
-}
-
 /* select ----------------------------------------------------------- */
 .tobago-inputPseudo {
   //deprecated should be removed
-}
-
-@mixin adjustCustomControlLabel() {
-  .form-check-label {
-    &:after {
-      content: "";
-    }
-
-    img {
-      padding-right: 0.3em;
-    }
-  }
-}
-
-@mixin inlinePadding() {
-  padding-top: calc(#{$input-padding-y} + #{$input-border-width});
-  padding-bottom: calc(#{$input-padding-y} + #{$input-border-width});
 }
 
 /* selectBooleanCheckbox ---------------------------------------------------- */
@@ -909,6 +963,7 @@ tobago-select-one-choice {
 
 //xxx remove me
 .tobago-selectOneListbox {
+  @include markupFatalErrWarnInfo();
 }
 
 //xxx remove me
@@ -953,6 +1008,10 @@ tobago-select-many-listbox {
 
 .tobago-selectManyListbox,
 .tobago-selectManyListbox-option {
+}
+
+.tobago-selectManyListbox {
+  @include markupFatalErrWarnInfo();
 }
 
 /* selectManyShuttle ----------------------------------------------------------- */
@@ -1442,6 +1501,11 @@ tobago-tab-group {
   margin-bottom: $spacer;
 }
 
+/* FIXME: This is to hide the toolbar, until it is implemented */
+.tobago-tabGroup-toolBar {
+  display: none;
+}
+
 /* tree ---------------------------------------------------------------------- */
 .tobago-tree-expanded,
 .tobago-tree-selected,
@@ -1506,107 +1570,9 @@ tobago-tree-listbox, .tobago-treeListbox {
 
 /* textarea --------------------------------------------------------- */
 tobago-textarea textarea {
+  @include markupFatalErrWarnInfo();
+
   &:disabled {
     color: rgba($input-color, $form-disabled-alpha);
   }
-}
-
-/* facesMessages messageLayout focus shadows ------------------------ */
-
-// todo: check class vs. custom element
-
-.tobago-date,
-.tobago-in,
-.tobago-selectManyListbox,
-  //.tobago-selectOneChoice, XXX
-.tobago-selectOneListbox,
-tobago-textarea textarea {
-  &-markup-fatal, &-markup-error {
-    &.border-danger:focus {
-      box-shadow: 0 0 0 .2rem rgba($danger, .25);
-    }
-  }
-
-  &-markup-warn {
-    &.border-warning:focus {
-      box-shadow: 0 0 0 .2rem rgba($warning, .25);
-    }
-  }
-
-  &-markup-info {
-    &.border-info:focus {
-      box-shadow: 0 0 0 .2rem rgba($info, .25);
-    }
-  }
-}
-
-/* menuStore -------------------------------------------------------- */
-
-.tobago-page-menuStore {
-  @include dropdownMenuFormCheckComponents();
-
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  z-index: $zindex-popover;
-}
-
-/* Bootstrap workarounds ------------------------------------------------------------------ */
-
-/* fixes the problem, that input controls have 100% in the toolbar if they are not in a form,
- but in Tobago we have a global form.
- */
-/*
-.navbar .form-control {
-    width: auto;
-}
-*/
-
-/*
-fixes missing space, I thinks normal Websites have a " " Space char in the source code, Tobago not.
-
-fixme: there is a problem with the selectManyShuttle with this style.
-*/
-
-.form-horizontal {
-
-  > * { /* fixes vertical space, todo: why is is needed? is there a better way? */
-    margin-top: 10px;
-    margin-bottom: 5px;
-    /* XXX MUST BE REMOVED */
-  }
-
-  .control-label {
-    margin-top: 10px;
-    margin-bottom: 5px;
-  }
-}
-
-/* FIXME: This is to hide the toolbar, until it is implemented */
-.tobago-tabGroup-toolBar {
-  display: none;
-}
-
-.tobago-required label:after,
-label.tobago-required:after {
-  content: "*";
-  color: $danger;
-}
-
-/* added here, because Bootstrap has removed .text-justify */
-.tobago-text-justify {
-  text-align: justify !important;
-}
-
-.tobago-margin-bottom {
-  /* Since bootstrap 5.0.0-alpha1 class "form-group" is removed. In the Bootstrap demo "form-group" is replaced with
-  "mb-3". But we shouldn't use "mb-3", because it's adding an "!important" to the margin-bottom. With "!important" added
-  custom styling is much more complicated. */
-  margin-bottom: 1rem;
-}
-
-.tobago-dropdown-open, .tobago-dropdown-select {
-  // deprecated; must be added for test
 }
