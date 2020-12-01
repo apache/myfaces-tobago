@@ -1200,11 +1200,11 @@
           <plugin>
             <groupId>com.github.eirslett</groupId>
             <artifactId>frontend-maven-plugin</artifactId>
-            <version>1.10.0</version>
+            <version>1.10.4</version>
 
             <!-- optional -->
             <configuration>
-              <nodeVersion>v12.18.4</nodeVersion> <!-- contains npm version 6.14.5 -->
+              <nodeVersion>v14.15.1</nodeVersion> <!-- contains npm version 6.14.8 -->
 
               <!-- optional: Where to download Node.js binary from. Defaults to http://nodejs.org/dist/ -->
               <!--<nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>-->
