@@ -99,20 +99,19 @@ public class TobagoConfigSorterUnitTest {
     list.add(m);
     list.add(n);
 
-    final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
-    final List<TobagoConfigFragment> result = sorter.topologicalSort();
+    TobagoConfigSorter.sort(list);
 
-    Assertions.assertEquals(a, result.get(0));
-    Assertions.assertEquals(b, result.get(1));
-    Assertions.assertEquals(c, result.get(2));
-    Assertions.assertEquals(u1, result.get(3));
-    Assertions.assertEquals(u2, result.get(4));
-    Assertions.assertEquals(d, result.get(5));
-    Assertions.assertEquals(e, result.get(6));
-    Assertions.assertEquals(f, result.get(7));
-    Assertions.assertEquals(u3, result.get(8));
-    Assertions.assertEquals(m, result.get(9));
-    Assertions.assertEquals(n, result.get(10));
+    Assertions.assertEquals(a, list.get(0));
+    Assertions.assertEquals(b, list.get(1));
+    Assertions.assertEquals(c, list.get(2));
+    Assertions.assertEquals(u1, list.get(3));
+    Assertions.assertEquals(u2, list.get(4));
+    Assertions.assertEquals(d, list.get(5));
+    Assertions.assertEquals(e, list.get(6));
+    Assertions.assertEquals(f, list.get(7));
+    Assertions.assertEquals(u3, list.get(8));
+    Assertions.assertEquals(m, list.get(9));
+    Assertions.assertEquals(n, list.get(10));
   }
 
   @Test
@@ -122,11 +121,9 @@ public class TobagoConfigSorterUnitTest {
 
     final List<TobagoConfigFragment> list = new ArrayList<>();
 
-    final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
+    TobagoConfigSorter.sort(list);
 
-    final List<TobagoConfigFragment> result = sorter.topologicalSort();
-
-    Assertions.assertTrue(result.isEmpty());
+    Assertions.assertTrue(list.isEmpty());
   }
 
   @Test
@@ -142,10 +139,8 @@ public class TobagoConfigSorterUnitTest {
     final List<TobagoConfigFragment> list = new ArrayList<>();
     list.add(a);
 
-    final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
-
     try {
-      sorter.topologicalSort();
+      TobagoConfigSorter.sort(list);
 
       Assertions.fail("Cycle was not detected!");
     } catch (final RuntimeException e) {
@@ -166,10 +161,8 @@ public class TobagoConfigSorterUnitTest {
     final List<TobagoConfigFragment> list = new ArrayList<>();
     list.add(a);
 
-    final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
-
     try {
-      sorter.topologicalSort();
+      TobagoConfigSorter.sort(list);
 
       Assertions.fail("Cycle was not detected!");
     } catch (final RuntimeException e) {
@@ -196,10 +189,8 @@ public class TobagoConfigSorterUnitTest {
     list.add(a);
     list.add(b);
 
-    final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
-
     try {
-      sorter.topologicalSort();
+      TobagoConfigSorter.sort(list);
 
       Assertions.fail("Cycle was not detected!");
     } catch (final RuntimeException e) {
@@ -227,9 +218,8 @@ public class TobagoConfigSorterUnitTest {
     list.add(a);
     list.add(b);
 
-    final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
     try {
-      sorter.topologicalSort();
+      TobagoConfigSorter.sort(list);
 
       Assertions.fail("Cycle was not detected!");
     } catch (final RuntimeException e) {
@@ -261,10 +251,8 @@ public class TobagoConfigSorterUnitTest {
     list.add(b);
     list.add(c);
 
-    final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
-
     try {
-      sorter.topologicalSort();
+      TobagoConfigSorter.sort(list);
 
       Assertions.fail("Cycle was not detected!");
     } catch (final RuntimeException e) {
@@ -320,15 +308,13 @@ public class TobagoConfigSorterUnitTest {
     list.add(standard);
     list.add(core);
 
-    final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
+    TobagoConfigSorter.sort(list);
 
-    final List<TobagoConfigFragment> result = sorter.topologicalSort();
-
-    Assertions.assertEquals(core, result.get(0));
-    Assertions.assertEquals(standard, result.get(1));
-    Assertions.assertEquals(blank, result.get(6));
-    final int blankPos = result.indexOf(blank);
-    final int speysidePos = result.indexOf(speyside);
+    Assertions.assertEquals(core, list.get(0));
+    Assertions.assertEquals(standard, list.get(1));
+    Assertions.assertEquals(blank, list.get(6));
+    final int blankPos = list.indexOf(blank);
+    final int speysidePos = list.indexOf(speyside);
     Assertions.assertTrue(blankPos > speysidePos);
   }
 }

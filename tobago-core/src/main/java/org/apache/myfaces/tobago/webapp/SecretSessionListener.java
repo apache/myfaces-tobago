@@ -17,37 +17,23 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.util;
+package org.apache.myfaces.tobago.webapp;
 
-public class ArrayUtils {
+import org.apache.myfaces.tobago.config.TobagoConfig;
 
-  public static final String[] EMPTY_STRING_ARRAY = new String[0];
+import javax.servlet.http.HttpSessionEvent;
+import javax.servlet.http.HttpSessionListener;
 
-  public static <T> boolean contains(final T[] list, final T value) {
-    if (list == null) {
-      return false;
+public class SecretSessionListener implements HttpSessionListener {
+
+  @Override
+  public void sessionCreated(final HttpSessionEvent sessionEvent) {
+    if (TobagoConfig.getInstance(sessionEvent.getSession().getServletContext()).isCreateSessionSecret()) {
+      Secret.create(sessionEvent.getSession());
     }
-    for (final T element : list) {
-      if (element == value || element != null && element.equals(value)) {
-        return true;
-      }
-    }
-    return false;
   }
 
-  public static boolean contains(final int[] list, final int value) {
-    if (list == null) {
-      return false;
-    }
-    for (final int element : list) {
-      if (element == value) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  public static boolean isEmpty(final String[] array) {
-    return array == null || array.length == 0;
+  @Override
+  public void sessionDestroyed(final HttpSessionEvent sessionEvent) {
   }
 }

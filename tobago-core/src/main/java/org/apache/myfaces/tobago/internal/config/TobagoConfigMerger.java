@@ -19,7 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
+import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.ThemeImpl;
+import org.apache.myfaces.tobago.exception.TobagoConfigurationException;
 import org.apache.myfaces.tobago.sanitizer.IgnoringSanitizer;
 import org.apache.myfaces.tobago.sanitizer.JsoupSanitizer;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
@@ -35,56 +38,62 @@ public class TobagoConfigMerger {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  private final List<TobagoConfigFragment> list;
+  private final List<TobagoConfigFragment> fragments;
+  private final TobagoConfig tobagoConfig;
 
-  public TobagoConfigMerger(final List<TobagoConfigFragment> list) {
-    this.list =    list;
+  private TobagoConfigMerger(final List<TobagoConfigFragment> fragments, final TobagoConfig tobagoConfig) {
+    this.fragments = fragments;
+    this.tobagoConfig = tobagoConfig;
   }
 
-  public TobagoConfigImpl merge() {
+  public static void merge(final List<TobagoConfigFragment> fragments, final TobagoConfig tobagoConfig) {
+    final TobagoConfigMerger merger = new TobagoConfigMerger(fragments, tobagoConfig);
+    merger.merge();
+    merger.resolveThemes();
+  }
 
-    final TobagoConfigImpl result = new TobagoConfigImpl("fixme"); // fixme workaround
+  private void merge() {
 
     // default sanitizer
     String sanitizerClass = JsoupSanitizer.class.getName();
     Properties sanitizerProperties = new Properties();
     sanitizerProperties.setProperty("whitelist", "relaxed");
 
-    for (TobagoConfigFragment fragment : list) {
+    for (TobagoConfigFragment fragment : fragments) {
 
       // default theme
       final String defaultTheme = fragment.getDefaultThemeName();
       if (defaultTheme != null) {
-        result.setDefaultThemeName(defaultTheme);
+        tobagoConfig.setDefaultThemeName(defaultTheme);
       }
 
       // supported themes
       for (final String supported : fragment.getSupportedThemeNames()) {
-        result.addSupportedThemeName(supported);
+        tobagoConfig.addSupportedThemeName(supported);
       }
 
       // session secret
       if (fragment.getCreateSessionSecret() != null) {
-        result.setCreateSessionSecret(fragment.getCreateSessionSecret());
+        tobagoConfig.setCreateSessionSecret(fragment.getCreateSessionSecret());
       }
       if (fragment.getCheckSessionSecret() != null) {
-        result.setCheckSessionSecret(fragment.getCheckSessionSecret());
+        tobagoConfig.setCheckSessionSecret(fragment.getCheckSessionSecret());
       }
 
       if (fragment.getPreventFrameAttacks() != null) {
-        result.setPreventFrameAttacks(fragment.getPreventFrameAttacks());
+        tobagoConfig.setPreventFrameAttacks(fragment.getPreventFrameAttacks());
       }
 
       if (fragment.getContentSecurityPolicy() != null) {
-        result.getContentSecurityPolicy().merge(fragment.getContentSecurityPolicy());
+        tobagoConfig.getContentSecurityPolicy().merge(fragment.getContentSecurityPolicy());
       }
 
       if (fragment.getSecurityAnnotation() != null) {
-        result.setSecurityAnnotation(fragment.getSecurityAnnotation());
+        tobagoConfig.setSecurityAnnotation(fragment.getSecurityAnnotation());
       }
 
       if (fragment.getSetNosniffHeader() != null) {
-        result.setSetNosniffHeader(fragment.getSetNosniffHeader());
+        tobagoConfig.setSetNosniffHeader(fragment.getSetNosniffHeader());
       }
 
       if (fragment.getSanitizerClass() != null) {
@@ -93,39 +102,37 @@ public class TobagoConfigMerger {
       }
 
       if (fragment.getDecodeLineFeed() != null) {
-        result.setDecodeLineFeed(fragment.getDecodeLineFeed());
+        tobagoConfig.setDecodeLineFeed(fragment.getDecodeLineFeed());
       }
 
       // theme definition
       for (final ThemeImpl theme : fragment.getThemeDefinitions()) {
-        result.addAvailableTheme(theme);
+        tobagoConfig.addAvailableTheme(theme);
       }
 
       // url
       // todo???
 
-      final Map<String, String> mimeTypes = result.getMimeTypes();
+      final Map<String, String> mimeTypes = tobagoConfig.getMimeTypes();
       for (final Map.Entry<String, String> entry : fragment.getMimeTypes().entrySet()) {
         mimeTypes.put(entry.getKey(), entry.getValue());
       }
 
     }
 
-    resolveThemes(result.getAvailableThemes());
+    resolveThemes(tobagoConfig.getAvailableThemes());
 
     if (sanitizerClass != null) {
       try {
         final Class<? extends Sanitizer> aClass = Class.forName(sanitizerClass).asSubclass(Sanitizer.class);
         final Sanitizer sanitizer = aClass.newInstance();
         sanitizer.setProperties(sanitizerProperties);
-        result.setSanitizer(sanitizer);
+        tobagoConfig.setSanitizer(sanitizer);
       } catch (final Exception e) {
         LOG.error("Can't create sanitizer: '" + sanitizerClass + "'", e);
-        result.setSanitizer(new IgnoringSanitizer());
+        tobagoConfig.setSanitizer(new IgnoringSanitizer());
       }
     }
-
-    return result;
   }
 
   private void resolveThemes(final Map<String, ThemeImpl> map) {
@@ -144,5 +151,67 @@ public class TobagoConfigMerger {
       theme.init();
     }
   }
+
+  private void resolveThemes() {
+
+    final Map<String, ThemeImpl> availableThemes = tobagoConfig.getAvailableThemes();
+
+    if (tobagoConfig.getDefaultThemeName() != null) {
+      final String defaultThemeName = tobagoConfig.getDefaultThemeName();
+      final ThemeImpl defaultTheme = availableThemes.get(defaultThemeName);
+      tobagoConfig.setDefaultTheme(defaultTheme);
+      checkThemeIsAvailable(defaultThemeName, defaultTheme, availableThemes);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("name = '{}'", defaultThemeName);
+        LOG.debug("defaultTheme = '{}'", defaultTheme);
+      }
+    } else {
+      int deep = 0;
+      Theme defaultTheme = null;
+      for (final Map.Entry<String, ThemeImpl> entry : availableThemes.entrySet()) {
+        final Theme theme = entry.getValue();
+        if (theme.getFallbackList().size() > deep) {
+          defaultTheme = theme;
+          deep = theme.getFallbackList().size();
+        }
+      }
+      if (defaultTheme == null) {
+        final String error = "Did not found any theme! "
+            + "Please ensure you have a tobago-config.xml with a theme-definition in your "
+            + "theme JAR. Please add a theme JAR to your classpath. Usually "
+            + "tobago-theme-standard.jar in WEB-INF/lib";
+        LOG.error(error);
+        throw new TobagoConfigurationException(error);
+      } else {
+        tobagoConfig.setDefaultTheme(defaultTheme);
+        if (LOG.isInfoEnabled()) {
+          LOG.info("Using default Theme {}", defaultTheme.getName());
+        }
+      }
+    }
+    if (!tobagoConfig.getSupportedThemeNames().isEmpty()) {
+      for (final String name : tobagoConfig.getSupportedThemeNames()) {
+        final Theme theme = availableThemes.get(name);
+        checkThemeIsAvailable(name, theme, availableThemes);
+        tobagoConfig.getSupportedThemes().add(theme);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("name = '{}'", name);
+          LOG.debug("last added theme = '{}'", theme);
+        }
+      }
+    }
+  }
+
+  private void checkThemeIsAvailable(
+      final String name, final Theme theme, final Map<String, ThemeImpl>availableThemes) {
+    if (theme == null) {
+      final String error = "Theme not found! name: '" + name + "'. "
+          + "Please ensure you have a tobago-config.xml with a theme-definition in your "
+          + "theme JAR. Found the following themes: " + availableThemes.keySet();
+      LOG.error(error);
+      throw new TobagoConfigurationException(error);
+    }
+  }
+
 
 }

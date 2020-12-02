@@ -48,6 +48,7 @@ import org.apache.myfaces.tobago.component.UISelectOneRadio;
 import org.apache.myfaces.tobago.component.UISeparator;
 import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.component.UITextarea;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.BadgeRenderer;
@@ -79,6 +80,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.render.RenderKit;
+import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
@@ -115,8 +117,8 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     getFacesContext().setResponseWriter(new HtmlResponseWriter(stringWriter, "", StandardCharsets.UTF_8));
 
     // Tobago specific extensions
-    final TobagoConfigImpl tobagoConfig = TobagoConfigMergingUnitTest.load("tobago-config-for-unit-tests.xml");
-    tobagoConfig.initDefaultValidatorInfo();
+    final TobagoConfig tobagoConfig = new TobagoConfig(
+        (ServletContext) facesContext.getExternalContext().getContext(), "tobago-config-for-unit-tests.xml");
     servletContext.setAttribute(TOBAGO_CONFIG, tobagoConfig);
     facesContext.getExternalContext().getApplicationMap().put(TOBAGO_CONFIG, tobagoConfig);
 
