@@ -29,5 +29,8 @@
   <listener>
     <listener-class>org.apache.myfaces.tobago.webapp.TobagoServletContextListener</listener-class>
   </listener>
+  <listener>
+    <listener-class>org.apache.myfaces.tobago.webapp.SecretSessionListener</listener-class>
+  </listener>
 
 </web-fragment>

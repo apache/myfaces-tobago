@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.webapp.Secret;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.inject.spi.CDI;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
@@ -39,7 +38,7 @@ public class SecretPhaseListener implements PhaseListener {
   @Override
   public void afterPhase(final PhaseEvent event) {
     final FacesContext facesContext = event.getFacesContext();
-    final TobagoConfig tobagoConfig = CDI.current().select(TobagoConfig.class).get();
+    final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
 
     if (!facesContext.getResponseComplete()
         && facesContext.isPostback()
@@ -58,9 +57,9 @@ public class SecretPhaseListener implements PhaseListener {
    */
   private boolean check(final FacesContext facesContext) {
     final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    final String fromRequest = requestParameterMap.get(Secret.KEY);
-    final Secret secret = CDI.current().select(Secret.class).get();
-    return secret.check(fromRequest);
+    final String secretFromRequest = requestParameterMap.get(Secret.KEY);
+    final Secret secret = Secret.getInstance(facesContext);
+    return secret.check(secretFromRequest);
   }
 
   @Override

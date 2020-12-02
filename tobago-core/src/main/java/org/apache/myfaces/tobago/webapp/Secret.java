@@ -20,16 +20,12 @@
 package org.apache.myfaces.tobago.webapp;
 
 import org.apache.myfaces.tobago.internal.util.RandomUtils;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
-import java.io.IOException;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 
-@Named
-@SessionScoped
-public class Secret implements Serializable {
+public final class Secret implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -41,11 +37,23 @@ public class Secret implements Serializable {
     secret = RandomUtils.nextString();
   }
 
+  public static Secret getInstance(final FacesContext facesContext) {
+    return (Secret) facesContext.getExternalContext().getSessionMap().get(Secret.KEY);
+  }
+
+  /**
+   * Create a secret attribute in the session.
+   * Should usually be called in a {@link javax.servlet.http.HttpSessionListener}.
+   */
+  public static void create(final HttpSession session) {
+    session.setAttribute(Secret.KEY, new Secret());
+  }
+
   public boolean check(final String test) {
     return secret.equals(test);
   }
 
-  public void encode(TobagoResponseWriter writer) throws IOException {
-    writer.writeAttribute(HtmlAttributes.VALUE, this.secret, false);
+  public String getSecret() {
+    return secret;
   }
 }

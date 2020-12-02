@@ -54,7 +54,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.inject.spi.CDI;
 import javax.faces.application.Application;
 import javax.faces.application.ProjectStage;
 import javax.faces.application.ViewHandler;
@@ -105,8 +104,8 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
   @Override
   public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
-    final TobagoConfig tobagoConfig = CDI.current().select(TobagoConfig.class).get(); // todo: may inject
-    final TobagoContext tobagoContext = CDI.current().select(TobagoContext.class).get(); // todo: may inject
+    final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
+    final TobagoContext tobagoContext = TobagoContext.getInstance(facesContext);
 
     if (tobagoContext.getFocusId() == null && !StringUtils.isBlank(component.getFocusId())) {
       tobagoContext.setFocusId(component.getFocusId());
@@ -290,13 +289,12 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     writer.endElement(HtmlElements.TOBAGO_FOCUS);
 
     if (tobagoConfig.isCheckSessionSecret()) {
+      final Secret secret = Secret.getInstance(facesContext);
       writer.startElement(HtmlElements.INPUT);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
       writer.writeAttribute(HtmlAttributes.NAME, Secret.KEY, false);
       writer.writeAttribute(HtmlAttributes.ID, Secret.KEY, false);
-//      final Object session = facesContext.getExternalContext().getSession(true);
-      final Secret secret = CDI.current().select(Secret.class).get();
-      secret.encode(writer);
+      writer.writeAttribute(HtmlAttributes.VALUE, secret.getSecret(), false);
       writer.endElement(HtmlElements.INPUT);
     }
 

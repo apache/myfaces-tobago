@@ -25,10 +25,9 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
+import javax.el.ELContext;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.spi.Bean;
-import javax.enterprise.inject.spi.BeanManager;
-import javax.enterprise.inject.spi.CDI;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.lang.annotation.Annotation;
@@ -67,33 +66,15 @@ public class AuthorizationHelper {
 
   private final Map<String, Object> cache = new ConcurrentHashMap<>();
 
-  private final BeanManager beanManager;
-
-  public AuthorizationHelper() {
-    beanManager = CDI.current().getBeanManager();
-    LOG.info("Using bean manager: '{}'", beanManager);
-  }
-
   public static AuthorizationHelper getInstance(final FacesContext facesContext) {
+    final ELContext elContext = facesContext.getELContext();
     return (AuthorizationHelper)
-        facesContext.getELContext().getELResolver().getValue(facesContext.getELContext(), null, AUTHORIZATION_HELPER);
-  }
-
-  Object getObject(String beanString) {
-    Object bean = null;
-    for (final Bean<?> entry : beanManager.getBeans(beanString)) {
-      if (bean == null) {
-        bean = entry;
-      } else {
-        LOG.warn("Bean name ambiguous: '{}'", beanString);
-      }
-    }
-    return bean;
+        elContext.getELResolver().getValue(elContext, null, AUTHORIZATION_HELPER);
   }
 
   public boolean isAuthorized(final FacesContext facesContext, final String expression) {
 
-    final Annotation securityAnnotation = getSecurityAnnotation(expression);
+    final Annotation securityAnnotation = getSecurityAnnotation(facesContext, expression);
     if (securityAnnotation == null) {
       return true;
     }
@@ -126,7 +107,7 @@ public class AuthorizationHelper {
     return true;
   }
 
-  private Annotation getSecurityAnnotation(final String expression) {
+  private Annotation getSecurityAnnotation(final FacesContext facesContext, final String expression) {
     if (cache.containsKey(expression)) {
       final Object obj = cache.get(expression);
       if (obj instanceof Annotation) {
@@ -140,7 +121,9 @@ public class AuthorizationHelper {
         final String beanString = matcher.group(1);
         final String methodString = matcher.group(2);
 
-        final Object bean = getObject(beanString);
+        final ELContext elContext = facesContext.getELContext();
+        final Object bean = elContext
+            .getELResolver().getValue(elContext, null, beanString);
         if (bean != null) {
           // try first from method
           final List<Method> methods = findMethods(bean, methodString);
@@ -188,7 +171,13 @@ public class AuthorizationHelper {
   }
 
   private List<Method> findMethods(final Object bean, final String name) {
-    final Class clazz = ((Bean) bean).getBeanClass();
+    final Class clazz;
+    if (bean instanceof Bean) {
+      clazz = ((Bean) bean).getBeanClass();
+    } else {
+      // XXX check if this works correctly with spring.
+      clazz = bean.getClass();
+    }
     final Method[] methods = clazz.getMethods();
     final List<Method> result = new ArrayList<>();
     for (final Method method : methods) {

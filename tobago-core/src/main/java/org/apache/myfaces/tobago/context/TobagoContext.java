@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.context;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.util.CookieUtils;
-import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,12 +28,12 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 @Named
@@ -45,7 +44,6 @@ public class TobagoContext implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  @Inject
   private TobagoConfig tobagoConfig;
   private Theme theme;
   private UserAgent userAgent;
@@ -58,9 +56,10 @@ public class TobagoContext implements Serializable {
    */
   @Deprecated
   public ResourceBundle getResourceBundle() {
-    final UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final UIViewRoot viewRoot = facesContext.getViewRoot();
     final Locale locale = viewRoot != null
-        ? viewRoot.getLocale() : FacesContext.getCurrentInstance().getApplication().getDefaultLocale();
+        ? viewRoot.getLocale() : facesContext.getApplication().getDefaultLocale();
     return ResourceBundle.getBundle("tobagoResourceBundle", locale);
   }
 
@@ -69,17 +68,17 @@ public class TobagoContext implements Serializable {
    */
   @Deprecated
   public ResourceBundle getMessageBundle() {
-    final UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final UIViewRoot viewRoot = facesContext.getViewRoot();
     final Locale locale = viewRoot != null
-        ? viewRoot.getLocale() : FacesContext.getCurrentInstance().getApplication().getDefaultLocale();
+        ? viewRoot.getLocale() : facesContext.getApplication().getDefaultLocale();
     return ResourceBundle.getBundle("org.apache.myfaces.tobago.context.TobagoMessage", locale);
   }
 
-  /**
-   * @deprecated since 5.0.0. Please get/inject {@link TobagoConfig} directly by CDI.
-   */
-  @Deprecated
   public TobagoConfig getTobagoConfig() {
+    if (tobagoConfig == null) {
+      tobagoConfig = TobagoConfig.getInstance(FacesContext.getCurrentInstance());
+    }
     return tobagoConfig;
   }
 
@@ -97,7 +96,7 @@ public class TobagoContext implements Serializable {
         themeName = null;
       }
 
-      theme = tobagoConfig.getTheme(themeName);
+      theme = getTobagoConfig().getTheme(themeName);
       if (LOG.isDebugEnabled()) {
         LOG.debug("theme='{}'", theme.getName());
       }
@@ -147,6 +146,13 @@ public class TobagoContext implements Serializable {
   }
 
   public static TobagoContext getInstance(final FacesContext facesContext) {
-    return (TobagoContext) VariableResolverUtils.resolveVariable(facesContext, BEAN_NAME);
+    final Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
+    if (requestMap.containsKey(BEAN_NAME)) {
+      return (TobagoContext) requestMap.get(BEAN_NAME);
+    } else {
+      final TobagoContext tobagoContext = new TobagoContext();
+      requestMap.put(BEAN_NAME, tobagoContext);
+      return tobagoContext;
+    }
   }
 }

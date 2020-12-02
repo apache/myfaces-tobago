@@ -32,7 +32,14 @@ public class TobagoConfigSorter {
 
   private final List<Vertex> vertices = new ArrayList<>();
 
-  public TobagoConfigSorter(final List<TobagoConfigFragment> fragmentList) {
+  public static void sort(List<TobagoConfigFragment> fragments) {
+    TobagoConfigSorter sorter = new TobagoConfigSorter(fragments);
+    final List<TobagoConfigFragment> sorted = sorter.topologicalSort();
+    fragments.clear();
+    fragments.addAll(sorted);
+  }
+
+  private TobagoConfigSorter(final List<TobagoConfigFragment> fragmentList) {
     for (TobagoConfigFragment tobagoConfigFragment : fragmentList) {
       vertices.add(new Vertex(tobagoConfigFragment));
     }
@@ -43,7 +50,7 @@ public class TobagoConfigSorter {
    *
    * @throws IllegalStateException When detecting a cycle.
    */
-  public List<TobagoConfigFragment> topologicalSort() {
+  private List<TobagoConfigFragment> topologicalSort() {
 
     createEdges();
     checkCycles();

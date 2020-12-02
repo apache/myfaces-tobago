@@ -25,9 +25,7 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.event.TabChangeSource;
-import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
 
-import javax.enterprise.inject.spi.CDI;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -78,8 +76,8 @@ public class TobagoComponentHandler extends ComponentHandler {
     }
   }
 
-  private void addDefaultValidators(final FacesContext context, final EditableValueHolder component) {
-    final TobagoConfigImpl tobagoConfig = (TobagoConfigImpl) CDI.current().select(TobagoConfig.class).get();
+  private void addDefaultValidators(final FacesContext facesContext, final EditableValueHolder component) {
+    final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
     final Map<String, String> validatorInfoMap = tobagoConfig.getDefaultValidatorInfo();
     if (validatorInfoMap.isEmpty()) {
       return;
@@ -93,12 +91,12 @@ public class TobagoComponentHandler extends ComponentHandler {
       }
       validatorInfoMap.forEach((key, value) -> {
         if (!classNames.contains(value)) {
-          component.addValidator(context.getApplication().createValidator(key));
+          component.addValidator(facesContext.getApplication().createValidator(key));
         }
       });
     } else {
       for (final String next : validatorInfoMap.keySet()) {
-        component.addValidator(context.getApplication().createValidator(next));
+        component.addValidator(facesContext.getApplication().createValidator(next));
       }
     }
   }
