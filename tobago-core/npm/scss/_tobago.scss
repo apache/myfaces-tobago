@@ -392,16 +392,9 @@ tobago-focus {
 
 tobago-footer {
   display: block;
-}
-
-tobago-footer {
-  background-color: #ffffff;
-  padding: 5px 10px;
-  box-shadow: 0 0 5px 5px rgba(200, 200, 200, 0.5);
-}
-
-.fixed-bottom {
-  margin-top: 10px;
+  background-color: $white;
+  padding: $navbar-padding-y ($container-padding-x / 2);
+  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* form -------------------------------------------------------------- */
