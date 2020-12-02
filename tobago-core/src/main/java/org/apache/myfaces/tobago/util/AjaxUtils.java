@@ -71,7 +71,7 @@ public class AjaxUtils {
   public static void navigate(final FacesContext facesContext, final Object outcome) {
     final Application application = facesContext.getApplication();
     final NavigationHandler navigationHandler = application.getNavigationHandler();
-    navigationHandler.handleNavigation(facesContext, null, outcome.toString());
+    navigationHandler.handleNavigation(facesContext, null, outcome != null ? outcome.toString() : null);
     facesContext.renderResponse();
   }
 }
