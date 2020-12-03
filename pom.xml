@@ -40,7 +40,7 @@
 <!--    <myfaces23.version>2.3-next-M3</myfaces23.version>-->
     <myfaces23x.version>2.3-next-M4</myfaces23x.version>
 
-    <mojarra23.version>2.3.9</mojarra23.version>
+    <mojarra23.version>2.3.14</mojarra23.version>
     <openwebbeans.version>2.0.16</openwebbeans.version>
     <slf4j.version>1.7.30</slf4j.version>
     <logback.version>1.2.3</logback.version>
@@ -388,7 +388,13 @@
         <version>${myfaces23.version}</version>
         <optional>true</optional>
       </dependency>
-<!--      jcl-over-slf4j for myfaces -->
+      <dependency>
+        <groupId>org.glassfish</groupId>
+        <artifactId>jakarta.faces</artifactId>
+        <version>${mojarra23.version}</version>
+        <optional>true</optional>
+      </dependency>
+      <!--      jcl-over-slf4j for myfaces -->
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>jcl-over-slf4j</artifactId>
@@ -1351,26 +1357,6 @@
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-impl</artifactId>
             <version>${myfaces23.version}</version>
-            <optional>true</optional>
-          </dependency>
-        </dependencies>
-      </dependencyManagement>
-    </profile>
-
-    <profile>
-      <id>mojarra-2.3</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>mojarra-2.3</value>
-        </property>
-      </activation>
-      <dependencyManagement>
-        <dependencies>
-         <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>javax.faces</artifactId>
-            <version>${mojarra23.version}</version>
             <optional>true</optional>
           </dependency>
         </dependencies>
