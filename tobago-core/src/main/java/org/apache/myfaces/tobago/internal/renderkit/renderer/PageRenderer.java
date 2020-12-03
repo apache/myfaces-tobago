@@ -290,12 +290,16 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
 
     if (tobagoConfig.isCheckSessionSecret()) {
       final Secret secret = Secret.getInstance(facesContext);
-      writer.startElement(HtmlElements.INPUT);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-      writer.writeAttribute(HtmlAttributes.NAME, Secret.KEY, false);
-      writer.writeAttribute(HtmlAttributes.ID, Secret.KEY, false);
-      writer.writeAttribute(HtmlAttributes.VALUE, secret.getSecret(), false);
-      writer.endElement(HtmlElements.INPUT);
+      if (secret != null) {
+        writer.startElement(HtmlElements.INPUT);
+        writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
+        writer.writeAttribute(HtmlAttributes.NAME, Secret.KEY, false);
+        writer.writeAttribute(HtmlAttributes.ID, Secret.KEY, false);
+        writer.writeAttribute(HtmlAttributes.VALUE, secret.getSecret(), false);
+        writer.endElement(HtmlElements.INPUT);
+      } else {
+        LOG.warn("Missing session secret!");
+      }
     }
 
     if (component.getFacet("backButtonDetector") != null) {
