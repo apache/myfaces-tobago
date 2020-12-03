@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UILinks;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -42,7 +42,7 @@ public class LinksRendererUnitTest extends RendererTestBase {
     l.getChildren().add(c);
     l.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/links/link-inside-links.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/links/link-inside-links.html"), formattedResult());
   }
 
   @Test
@@ -62,7 +62,7 @@ public class LinksRendererUnitTest extends RendererTestBase {
     l.getChildren().add(c);
     l.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/links/link-inside-links-sub.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/links/link-inside-links-sub.html"), formattedResult());
   }
 
 }

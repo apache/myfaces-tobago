@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.component.UISelectOneChoice;
 import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.layout.SegmentMeasureList;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import javax.faces.component.behavior.AjaxBehavior;
@@ -54,7 +54,7 @@ public class InRendererUnitTest extends RendererTestBase {
 
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/input-group-button-after.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/input-group-button-after.html"), formattedResult());
   }
 
   @Test
@@ -69,7 +69,7 @@ public class InRendererUnitTest extends RendererTestBase {
 
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/input-group-button-before.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/input-group-button-before.html"), formattedResult());
   }
 
   @Test
@@ -92,7 +92,7 @@ public class InRendererUnitTest extends RendererTestBase {
 
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/input-group-choice-after.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/input-group-choice-after.html"), formattedResult());
   }
 
   @Test
@@ -118,7 +118,7 @@ public class InRendererUnitTest extends RendererTestBase {
 
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/input-group-dropdown-after.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/input-group-dropdown-after.html"), formattedResult());
   }
 
   @Test
@@ -144,7 +144,7 @@ public class InRendererUnitTest extends RendererTestBase {
 
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/input-group-dropdown-before.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/input-group-dropdown-before.html"), formattedResult());
   }
 
   @Test
@@ -159,7 +159,7 @@ public class InRendererUnitTest extends RendererTestBase {
 
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/input-group-out-after.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/input-group-out-after.html"), formattedResult());
   }
 
   @Test
@@ -174,7 +174,7 @@ public class InRendererUnitTest extends RendererTestBase {
 
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/input-group-out-before.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/input-group-out-before.html"), formattedResult());
   }
 
   @Test
@@ -183,7 +183,7 @@ public class InRendererUnitTest extends RendererTestBase {
         facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/simple.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/simple.html"), formattedResult());
   }
 
   @Test
@@ -194,7 +194,7 @@ public class InRendererUnitTest extends RendererTestBase {
     c.setLabelLayout(LabelLayout.flexLeft); // same as default
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/label-flexLeft.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/label-flexLeft.html"), formattedResult());
   }
 
   @Test
@@ -205,7 +205,7 @@ public class InRendererUnitTest extends RendererTestBase {
     c.setLabelLayout(LabelLayout.flexRight);
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/label-flexRight.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/label-flexRight.html"), formattedResult());
   }
 
   @Test
@@ -216,7 +216,7 @@ public class InRendererUnitTest extends RendererTestBase {
     c.setLabelLayout(LabelLayout.flowLeft);
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/label-flowLeft.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/label-flowLeft.html"), formattedResult());
   }
 
   @Test
@@ -227,7 +227,7 @@ public class InRendererUnitTest extends RendererTestBase {
     c.setLabelLayout(LabelLayout.flowRight);
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/label-flowRight.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/label-flowRight.html"), formattedResult());
   }
 
   @Test
@@ -238,7 +238,7 @@ public class InRendererUnitTest extends RendererTestBase {
     c.setLabelLayout(LabelLayout.top);
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/label-top.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/label-top.html"), formattedResult());
   }
 
   @Test
@@ -249,7 +249,7 @@ public class InRendererUnitTest extends RendererTestBase {
     c.setLabelLayout(LabelLayout.gridLeft);
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/label-gridLeft.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/label-gridLeft.html"), formattedResult());
   }
 
   @Test
@@ -260,7 +260,7 @@ public class InRendererUnitTest extends RendererTestBase {
     c.setLabelLayout(LabelLayout.gridRight);
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/label-gridRight.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/label-gridRight.html"), formattedResult());
   }
 
   @Test
@@ -271,7 +271,7 @@ public class InRendererUnitTest extends RendererTestBase {
     c.setLabelLayout(LabelLayout.gridTop);
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/label-gridTop.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/label-gridTop.html"), formattedResult());
   }
 
   @Test
@@ -282,7 +282,7 @@ public class InRendererUnitTest extends RendererTestBase {
     c.setLabelLayout(LabelLayout.gridBottom);
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/label-gridBottom.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/label-gridBottom.html"), formattedResult());
   }
 
   @Test
@@ -300,7 +300,7 @@ public class InRendererUnitTest extends RendererTestBase {
     l.getChildren().add(c);
     l.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/label-segmentLeft.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/label-segmentLeft.html"), formattedResult());
   }
 
   @Test
@@ -318,7 +318,7 @@ public class InRendererUnitTest extends RendererTestBase {
     l.getChildren().add(c);
     l.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/label-segmentRight.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/label-segmentRight.html"), formattedResult());
   }
 
   @Test
@@ -329,7 +329,7 @@ public class InRendererUnitTest extends RendererTestBase {
     c.setLabelLayout(LabelLayout.skip);
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/label-skip.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/label-skip.html"), formattedResult());
   }
 
   @Test
@@ -340,7 +340,7 @@ public class InRendererUnitTest extends RendererTestBase {
     c.setLabelLayout(LabelLayout.none);
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/label-none.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/label-none.html"), formattedResult());
   }
 
   @Test
@@ -368,7 +368,7 @@ public class InRendererUnitTest extends RendererTestBase {
     p.getChildren().add(a);
     p.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/in/ajax.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/in/ajax.html"), formattedResult());
   }
 
 }

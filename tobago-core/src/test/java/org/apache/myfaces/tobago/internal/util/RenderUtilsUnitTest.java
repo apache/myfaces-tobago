@@ -21,8 +21,8 @@ package org.apache.myfaces.tobago.internal.util;
 
 import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.faces.component.UIParameter;
 
@@ -33,7 +33,7 @@ public class RenderUtilsUnitTest extends AbstractTobagoTestBase {
     final UILink link = new UILink();
     link.setLink("local.xhtml");
     final String url = RenderUtils.generateUrl(getFacesContext(), link);
-    Assert.assertEquals("local.xhtml", url);
+    Assertions.assertEquals("local.xhtml", url);
   }
 
   @Test
@@ -54,7 +54,7 @@ public class RenderUtilsUnitTest extends AbstractTobagoTestBase {
     link.getChildren().add(body);
 
     final String url = RenderUtils.generateUrl(getFacesContext(), link);
-    Assert.assertEquals("mailto:MyFaces Discussion <users@myfaces.apache.org>"
+    Assertions.assertEquals("mailto:MyFaces Discussion <users@myfaces.apache.org>"
         + "?subject=%5BTobago%5D%20Preparation%20for%20the%205.0.0%20release"
         + "&body=Hi%2C%20folks%2C%0A%0Awe%20plan%20to%20build%20version%205.0.0%20of%20Tobago%20soon.", url);
   }

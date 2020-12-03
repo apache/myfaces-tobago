@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
 import org.apache.myfaces.tobago.component.UISeparator;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -49,7 +49,7 @@ public class LinkRendererUnitTest extends RendererTestBase {
 
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/link/booleanInsideLink.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/link/booleanInsideLink.html"), formattedResult());
   }
 
   @Test
@@ -60,7 +60,7 @@ public class LinkRendererUnitTest extends RendererTestBase {
     c.setLink("https://www.apache.org/");
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/link/link.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/link/link.html"), formattedResult());
   }
 
   @Test
@@ -86,7 +86,7 @@ public class LinkRendererUnitTest extends RendererTestBase {
 
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/link/manyInsideLink.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/link/manyInsideLink.html"), formattedResult());
   }
 
   @Test
@@ -112,7 +112,7 @@ public class LinkRendererUnitTest extends RendererTestBase {
 
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/link/radioInsideLink.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/link/radioInsideLink.html"), formattedResult());
   }
 
   @Test
@@ -140,7 +140,7 @@ public class LinkRendererUnitTest extends RendererTestBase {
 
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/link/separatorInsideLink.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/link/separatorInsideLink.html"), formattedResult());
   }
 
 }

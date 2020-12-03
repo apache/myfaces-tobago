@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.model;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class SelectedStateUnitTest {
 
@@ -30,30 +30,30 @@ public class SelectedStateUnitTest {
     state.select(new TreePath(0, 0));
     state.select(new TreePath(1, 1, 1));
 
-    Assert.assertTrue(state.isAncestorOfSelected(new TreePath()));
-    Assert.assertTrue(state.isAncestorOfSelected(new TreePath(0)));
-    Assert.assertTrue(state.isAncestorOfSelected(new TreePath(0, 0)));
-    Assert.assertTrue(state.isAncestorOfSelected(new TreePath(1)));
-    Assert.assertTrue(state.isAncestorOfSelected(new TreePath(1, 1)));
-    Assert.assertTrue(state.isAncestorOfSelected(new TreePath(1, 1, 1)));
-    Assert.assertFalse(state.isAncestorOfSelected(new TreePath(2)));
-    Assert.assertFalse(state.isAncestorOfSelected(new TreePath(0, 1)));
-    Assert.assertFalse(state.isAncestorOfSelected(new TreePath(1, 0)));
+    Assertions.assertTrue(state.isAncestorOfSelected(new TreePath()));
+    Assertions.assertTrue(state.isAncestorOfSelected(new TreePath(0)));
+    Assertions.assertTrue(state.isAncestorOfSelected(new TreePath(0, 0)));
+    Assertions.assertTrue(state.isAncestorOfSelected(new TreePath(1)));
+    Assertions.assertTrue(state.isAncestorOfSelected(new TreePath(1, 1)));
+    Assertions.assertTrue(state.isAncestorOfSelected(new TreePath(1, 1, 1)));
+    Assertions.assertFalse(state.isAncestorOfSelected(new TreePath(2)));
+    Assertions.assertFalse(state.isAncestorOfSelected(new TreePath(0, 1)));
+    Assertions.assertFalse(state.isAncestorOfSelected(new TreePath(1, 0)));
   }
 
   @Test
   public void testAncestorOfSelectedEmpty() {
     SelectedState state = new SelectedState();
 
-    Assert.assertFalse(state.isAncestorOfSelected(new TreePath()));
-    Assert.assertFalse(state.isAncestorOfSelected(new TreePath(0)));
-    Assert.assertFalse(state.isAncestorOfSelected(new TreePath(0, 0)));
-    Assert.assertFalse(state.isAncestorOfSelected(new TreePath(1)));
-    Assert.assertFalse(state.isAncestorOfSelected(new TreePath(1, 1)));
-    Assert.assertFalse(state.isAncestorOfSelected(new TreePath(1, 1, 1)));
-    Assert.assertFalse(state.isAncestorOfSelected(new TreePath(2)));
-    Assert.assertFalse(state.isAncestorOfSelected(new TreePath(0, 1)));
-    Assert.assertFalse(state.isAncestorOfSelected(new TreePath(1, 0)));
+    Assertions.assertFalse(state.isAncestorOfSelected(new TreePath()));
+    Assertions.assertFalse(state.isAncestorOfSelected(new TreePath(0)));
+    Assertions.assertFalse(state.isAncestorOfSelected(new TreePath(0, 0)));
+    Assertions.assertFalse(state.isAncestorOfSelected(new TreePath(1)));
+    Assertions.assertFalse(state.isAncestorOfSelected(new TreePath(1, 1)));
+    Assertions.assertFalse(state.isAncestorOfSelected(new TreePath(1, 1, 1)));
+    Assertions.assertFalse(state.isAncestorOfSelected(new TreePath(2)));
+    Assertions.assertFalse(state.isAncestorOfSelected(new TreePath(0, 1)));
+    Assertions.assertFalse(state.isAncestorOfSelected(new TreePath(1, 0)));
   }
 
   @Test
@@ -62,15 +62,15 @@ public class SelectedStateUnitTest {
     state.select(new TreePath(0, 0));
     state.select(new TreePath(1, 1, 1));
 
-    Assert.assertFalse(state.isSelected(new TreePath()));
-    Assert.assertFalse(state.isSelected(new TreePath(0)));
-    Assert.assertTrue(state.isSelected(new TreePath(0, 0)));
-    Assert.assertFalse(state.isSelected(new TreePath(1)));
-    Assert.assertFalse(state.isSelected(new TreePath(1, 1)));
-    Assert.assertTrue(state.isSelected(new TreePath(1, 1, 1)));
-    Assert.assertFalse(state.isSelected(new TreePath(2)));
-    Assert.assertFalse(state.isSelected(new TreePath(0, 1)));
-    Assert.assertFalse(state.isSelected(new TreePath(1, 0)));
+    Assertions.assertFalse(state.isSelected(new TreePath()));
+    Assertions.assertFalse(state.isSelected(new TreePath(0)));
+    Assertions.assertTrue(state.isSelected(new TreePath(0, 0)));
+    Assertions.assertFalse(state.isSelected(new TreePath(1)));
+    Assertions.assertFalse(state.isSelected(new TreePath(1, 1)));
+    Assertions.assertTrue(state.isSelected(new TreePath(1, 1, 1)));
+    Assertions.assertFalse(state.isSelected(new TreePath(2)));
+    Assertions.assertFalse(state.isSelected(new TreePath(0, 1)));
+    Assertions.assertFalse(state.isSelected(new TreePath(1, 0)));
   }
 
 }

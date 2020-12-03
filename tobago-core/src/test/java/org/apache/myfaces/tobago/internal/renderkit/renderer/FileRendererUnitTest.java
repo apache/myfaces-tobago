@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIFile;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -37,6 +37,6 @@ public class FileRendererUnitTest extends RendererTestBase {
     c.setLabel("label");
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/file/file-label.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/file/file-label.html"), formattedResult());
   }
 }
