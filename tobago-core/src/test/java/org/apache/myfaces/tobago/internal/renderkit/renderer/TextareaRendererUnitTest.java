@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -37,7 +37,7 @@ public class TextareaRendererUnitTest extends RendererTestBase {
     c.setLabel("label");
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/textarea/with-label.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/textarea/with-label.html"), formattedResult());
   }
 
 }

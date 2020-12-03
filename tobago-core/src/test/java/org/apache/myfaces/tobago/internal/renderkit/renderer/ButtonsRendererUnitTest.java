@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.component.UIButtons;
 import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UISeparator;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -67,7 +67,7 @@ public class ButtonsRendererUnitTest extends RendererTestBase {
 
     l.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/buttons/separator-inside-buttons.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/buttons/separator-inside-buttons.html"), formattedResult());
   }
 
   @Test
@@ -85,7 +85,7 @@ public class ButtonsRendererUnitTest extends RendererTestBase {
 
     l.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/buttons/badge-inside-buttons.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/buttons/badge-inside-buttons.html"), formattedResult());
   }
 
 }

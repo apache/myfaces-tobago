@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.util.EnumUnitTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class TagsUnitTest extends EnumUnitTest {
 

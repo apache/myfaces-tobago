@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UISelectItem;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -48,7 +48,7 @@ public class SelectOneRadioRendererUnitTest extends RendererTestBase {
 
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/selectOneRadio/selectOneRadioLabel.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/selectOneRadio/selectOneRadioLabel.html"), formattedResult());
   }
 
 }

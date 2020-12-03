@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UISection;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -38,7 +38,7 @@ public class SectionRendererUnitTest extends RendererTestBase {
     c.setLabel("label");
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/section/section-label.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/section/section-label.html"), formattedResult());
   }
 
   @Test
@@ -52,7 +52,7 @@ public class SectionRendererUnitTest extends RendererTestBase {
     c.getFacets().put("label", o);
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/section/section-label-facet.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/section/section-label-facet.html"), formattedResult());
   }
 
   @Test
@@ -61,7 +61,7 @@ public class SectionRendererUnitTest extends RendererTestBase {
         facesContext, Tags.section.componentType(), RendererTypes.Section, "id");
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/section/simple.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/section/simple.html"), formattedResult());
   }
 
 }

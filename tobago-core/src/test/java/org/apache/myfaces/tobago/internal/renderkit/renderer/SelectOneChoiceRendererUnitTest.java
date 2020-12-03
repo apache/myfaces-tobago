@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UISelectItem;
 import org.apache.myfaces.tobago.component.UISelectOneChoice;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -48,7 +48,7 @@ public class SelectOneChoiceRendererUnitTest extends RendererTestBase {
 
     c.encodeAll(facesContext);
 
-    Assert.assertEquals(loadHtml("renderer/selectOneChoice/selectOneChoiceLabel.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/selectOneChoice/selectOneChoiceLabel.html"), formattedResult());
   }
 
 }
