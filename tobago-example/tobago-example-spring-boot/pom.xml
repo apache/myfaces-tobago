@@ -134,11 +134,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
         <dependency> <!-- add JAXB to run the demo with Java 11 and higher -->
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
