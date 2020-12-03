@@ -1,0 +1,9 @@
+joinfaces:
+  jsf:
+    project-stage: development
+
+server:
+  servlet:
+    session:
+      cookie:
+        http-only: true
