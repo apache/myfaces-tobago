@@ -41,14 +41,11 @@
     "ts-compile": "tsc",
     "rollup": "rollup --config",
     "test": "jest",
-    "dev-css": "npm-run-all dev-css-core-build css dev-mkdir dev-css-cp",
-    "dev-css-core-build": "npm run build --prefix ../../../tobago-core/npm",
-    "dev-css-cp": "cp -R dist/css ../../../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/$npm_package_version",
-    "dev-ts": "npm-run-all --sequential dev-ts-compile dev-ts-compile-bundle dev-mkdir dev-js-cp",
-    "dev-ts-compile": "tsc --project dev-tsconfig.json",
-    "dev-ts-compile-bundle": "rollup --config dev-rollup.config.js",
-    "dev-js-cp": "cp -R ../../../target/dist/js ../../../../../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/$npm_package_version",
-    "dev-mkdir": "mkdir -p ../../../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/$npm_package_version"
+    "dev-css": "npm-run-all dev-build-tobago-core css dev-mkdir dev-cp",
+    "dev-ts": "npm-run-all ts dev-mkdir dev-cp",
+    "dev-build-tobago-core": "npm run build --prefix ../../../tobago-core/npm",
+    "dev-mkdir": "mkdir -p ../../../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/$npm_package_version",
+    "dev-cp": "cp -R dist/. ../../../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/$npm_package_version"
   },
   "dependencies": {
     "@trevoreyre/autocomplete": "^2.2.0",
