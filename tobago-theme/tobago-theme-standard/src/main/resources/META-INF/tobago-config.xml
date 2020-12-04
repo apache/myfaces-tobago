@@ -402,6 +402,7 @@
         <script priority="50" name="script/tobago-calendar.js"/>
         <script priority="60" name="script/tobago-console.js"/>
         <script priority="70" name="script/tobago-converter.js"/>
+        <script priority="75" name="script/tobago-deltaspike.js"/>
         <script priority="80" name="script/tobago-file.js"/>
         <script priority="90" name="script/tobago-in.js"/>
         <script priority="100" name="script/tobago-menu.js"/>
