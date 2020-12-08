@@ -15,17 +15,17 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("ajax excecute", function (assert) {
-  let in1Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:in1\\:\\:field");
-  let in2Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:in2\\:\\:field");
-  let in3Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:in3\\:\\:field");
-  let in4Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:in4\\:\\:field");
-  let clearButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:clear");
-  let submitButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:submit");
-  let reloadButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:reload");
+  let in1Fn = querySelectorFn("#page\\:mainForm\\:in1\\:\\:field");
+  let in2Fn = querySelectorFn("#page\\:mainForm\\:in2\\:\\:field");
+  let in3Fn = querySelectorFn("#page\\:mainForm\\:in3\\:\\:field");
+  let in4Fn = querySelectorFn("#page\\:mainForm\\:in4\\:\\:field");
+  let clearButtonFn = querySelectorFn("#page\\:mainForm\\:clear");
+  let submitButtonFn = querySelectorFn("#page\\:mainForm\\:submit");
+  let reloadButtonFn = querySelectorFn("#page\\:mainForm\\:reload");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {

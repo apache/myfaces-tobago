@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorFn} from "/script/tobago-test.js";
 
 QUnit.test("No label set", function (assert) {
   assert.expect(5);
 
-  let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionNoLabel");
+  let sectionFn = querySelectorFn("#page\\:mainForm\\:sectionNoLabel");
   let rootDiv = sectionFn().querySelector(".tobago-section-content > tobago-in");
   let label = rootDiv.querySelector("label");
   let input = rootDiv.querySelector("input");
@@ -35,7 +35,7 @@ QUnit.test("No label set", function (assert) {
 QUnit.test("labelLayout=none", function (assert) {
   assert.expect(5);
 
-  let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionNone");
+  let sectionFn = querySelectorFn("#page\\:mainForm\\:sectionNone");
   let rootDiv = sectionFn().querySelector(".tobago-section-content > tobago-in");
   let label = rootDiv.querySelector("label");
   let input = rootDiv.querySelector("input");
@@ -50,7 +50,7 @@ QUnit.test("labelLayout=none", function (assert) {
 QUnit.test("labelLayout=skip", function (assert) {
   assert.expect(3);
 
-  let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionSkip");
+  let sectionFn = querySelectorFn("#page\\:mainForm\\:sectionSkip");
   let rootInput = sectionFn().querySelector(".tobago-section-content > input");
   let label = sectionFn().querySelector("label");
 
@@ -62,7 +62,7 @@ QUnit.test("labelLayout=skip", function (assert) {
 QUnit.test("labelLayout=top", function (assert) {
   assert.expect(5);
 
-  let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionTop");
+  let sectionFn = querySelectorFn("#page\\:mainForm\\:sectionTop");
   let rootDiv = sectionFn().querySelector(".tobago-section-content > tobago-in");
   let label = rootDiv.querySelector("label");
   let input = rootDiv.querySelector("input");
@@ -77,7 +77,7 @@ QUnit.test("labelLayout=top", function (assert) {
 QUnit.test("labelLayout=flowLeft", function (assert) {
   assert.expect(5);
 
-  let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionFlowLeft");
+  let sectionFn = querySelectorFn("#page\\:mainForm\\:sectionFlowLeft");
   let rootDiv = sectionFn().querySelector(".tobago-section-content > tobago-in");
   let label = rootDiv.querySelector("label");
   let input = rootDiv.querySelector("input");
@@ -92,7 +92,7 @@ QUnit.test("labelLayout=flowLeft", function (assert) {
 QUnit.test("labelLayout=flowRight", function (assert) {
   assert.expect(5);
 
-  let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionFlowRight");
+  let sectionFn = querySelectorFn("#page\\:mainForm\\:sectionFlowRight");
   let rootDiv = sectionFn().querySelector(".tobago-section-content > tobago-in");
   let label = rootDiv.querySelector("label");
   let input = rootDiv.querySelector("input");
@@ -107,7 +107,7 @@ QUnit.test("labelLayout=flowRight", function (assert) {
 QUnit.test("labelLayout=flexLeft", function (assert) {
   assert.expect(5);
 
-  let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionFlexLeft");
+  let sectionFn = querySelectorFn("#page\\:mainForm\\:sectionFlexLeft");
   let rootDiv = sectionFn().querySelector(".tobago-section-content > tobago-in");
   let label = rootDiv.querySelector("label");
   let input = rootDiv.querySelector("input");
@@ -122,7 +122,7 @@ QUnit.test("labelLayout=flexLeft", function (assert) {
 QUnit.test("labelLayout=flexRight", function (assert) {
   assert.expect(5);
 
-  let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionFlexRight");
+  let sectionFn = querySelectorFn("#page\\:mainForm\\:sectionFlexRight");
   let rootDiv = sectionFn().querySelector(".tobago-section-content > tobago-in");
   let label = rootDiv.querySelector("label");
   let input = rootDiv.querySelector("input");
@@ -137,7 +137,7 @@ QUnit.test("labelLayout=flexRight", function (assert) {
 QUnit.test("labelLayout=segmentLeft", function (assert) {
   assert.expect(6);
 
-  let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionSegmentLeft");
+  let sectionFn = querySelectorFn("#page\\:mainForm\\:sectionSegmentLeft");
   let segmentLayout = sectionFn().querySelector(".tobago-section-content > div");
   let labelSegment = segmentLayout.querySelector(".col-3 > tobago-in");
   let inputSegment = segmentLayout.querySelector(".col-9 > tobago-in");
@@ -155,7 +155,7 @@ QUnit.test("labelLayout=segmentLeft", function (assert) {
 QUnit.test("labelLayout=segmentRight", function (assert) {
   assert.expect(6);
 
-  let sectionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sectionSegmentRight");
+  let sectionFn = querySelectorFn("#page\\:mainForm\\:sectionSegmentRight");
   let segmentLayout = sectionFn().querySelector(".tobago-section-content > div");
   let labelSegment = segmentLayout.querySelector(".col-3 > tobago-in");
   let inputSegment = segmentLayout.querySelector(".col-9 > tobago-in");

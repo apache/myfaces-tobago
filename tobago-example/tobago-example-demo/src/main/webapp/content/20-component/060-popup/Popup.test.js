@@ -15,15 +15,15 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Open 'Client Popup' and press 'Cancel'.", function (assert) {
   assert.expect(3);
 
-  let popupFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup input");
-  let openButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:open");
-  let cancelButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
+  let popupFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup input");
+  let openButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:open");
+  let cancelButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
 
   assert.equal(popupFn().getAttribute("value"), "true");
   openButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
@@ -33,13 +33,13 @@ QUnit.test("Open 'Client Popup' and press 'Cancel'.", function (assert) {
 });
 
 QUnit.test("Open 'Client Popup', press 'Submit' while field is empty. Press 'Cancel'.", function (assert) {
-  let popupFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup input");
-  let openButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:open");
-  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:out span");
-  let messagesFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
-  let inputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
-  let submitButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:submit2");
-  let cancelButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
+  let popupFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup input");
+  let openButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:open");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out span");
+  let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
+  let inputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
+  let submitButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:submit2");
+  let cancelButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
   let outputValue = outputFn().textContent;
 
   let TTT = new TobagoTestTool(assert);
@@ -71,13 +71,13 @@ QUnit.test("Open 'Client Popup', press 'Submit' while field is empty. Press 'Can
 });
 
 QUnit.test("Open 'Client Popup', press 'Submit' while field has content. Press 'Cancel'.", function (assert) {
-  let popupFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup input");
-  let openButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:open");
-  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:out span");
-  let messagesFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
-  let inputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
-  let submitButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:submit2");
-  let cancelButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
+  let popupFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup input");
+  let openButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:open");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out span");
+  let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
+  let inputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
+  let submitButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:submit2");
+  let cancelButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
 
   let TTT = new TobagoTestTool(assert);
   TTT.asserts(1, function () {
@@ -108,11 +108,11 @@ QUnit.test("Open 'Client Popup', press 'Submit' while field has content. Press '
 });
 
 QUnit.test("Open 'Client Popup', press 'Submit & Close' while field is empty.", function (assert) {
-  let popupFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup input");
-  let openButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:open");
-  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:out span");
-  let inputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
-  let submitCloseButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:submitClose2");
+  let popupFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup input");
+  let openButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:open");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out span");
+  let inputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
+  let submitCloseButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:submitClose2");
   let outputValue = outputFn().textContent;
 
   let TTT = new TobagoTestTool(assert);
@@ -138,11 +138,11 @@ QUnit.test("Open 'Client Popup', press 'Submit & Close' while field is empty.", 
 });
 
 QUnit.test("Open 'Client Popup', press 'Submit & Close' while field has content.", function (assert) {
-  let popupFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup input");
-  let openButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:open");
-  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:out span");
-  let inputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
-  let submitCloseButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:submitClose2");
+  let popupFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup input");
+  let openButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:open");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out span");
+  let inputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
+  let submitCloseButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:submitClose2");
 
   let TTT = new TobagoTestTool(assert);
   TTT.asserts(1, function () {
@@ -167,11 +167,11 @@ QUnit.test("Open 'Client Popup', press 'Submit & Close' while field has content.
 });
 
 QUnit.test("Open 'Large Popup'.", function (assert) {
-  let dropdownContainerFn = testFrameQuerySelectorFn("#page\\:mainForm\\:dropdownButton");
-  let dropdownButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:dropdownButton\\:\\:command");
-  let openButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:largePopupLink");
-  let popupFn = testFrameQuerySelectorFn("#page\\:mainForm\\:largePopup");
-  let closeButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:largePopup\\:closeLargePopup");
+  let dropdownContainerFn = querySelectorFn("#page\\:mainForm\\:dropdownButton");
+  let dropdownButtonFn = querySelectorFn("#page\\:mainForm\\:dropdownButton\\:\\:command");
+  let openButtonFn = querySelectorFn("#page\\:mainForm\\:largePopupLink");
+  let popupFn = querySelectorFn("#page\\:mainForm\\:largePopup");
+  let closeButtonFn = querySelectorFn("#page\\:mainForm\\:largePopup\\:closeLargePopup");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -213,11 +213,11 @@ QUnit.test("Open 'Large Popup'.", function (assert) {
 });
 
 QUnit.test("Open 'Small Popup'.", function (assert) {
-  let dropdownContainerFn = testFrameQuerySelectorFn("#page\\:mainForm\\:dropdownButton");
-  let dropdownButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:dropdownButton\\:\\:command");
-  let openButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:smallPopupLink");
-  let popupFn = testFrameQuerySelectorFn("#page\\:mainForm\\:smallPopup");
-  let closeButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:smallPopup\\:closeSmallPopup");
+  let dropdownContainerFn = querySelectorFn("#page\\:mainForm\\:dropdownButton");
+  let dropdownButtonFn = querySelectorFn("#page\\:mainForm\\:dropdownButton\\:\\:command");
+  let openButtonFn = querySelectorFn("#page\\:mainForm\\:smallPopupLink");
+  let popupFn = querySelectorFn("#page\\:mainForm\\:smallPopup");
+  let closeButtonFn = querySelectorFn("#page\\:mainForm\\:smallPopup\\:closeSmallPopup");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {

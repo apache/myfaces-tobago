@@ -15,35 +15,35 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Standard Action Button", function (assert) {
-  let commandFn = testFrameQuerySelectorFn("#page\\:mainForm\\:standardButtonAction");
-  let destinationSectionFn = testFrameQuerySelectorFn("#page\\:actionSection");
+  let commandFn = querySelectorFn("#page\\:mainForm\\:standardButtonAction");
+  let destinationSectionFn = querySelectorFn("#page\\:actionSection");
   testStandardCommands(commandFn, destinationSectionFn, assert);
 });
 
 QUnit.test("Standard Link Button", function (assert) {
-  let commandFn = testFrameQuerySelectorFn("#page\\:mainForm\\:standardButtonLink");
-  let destinationSectionFn = testFrameQuerySelectorFn("#page\\:linkSection");
+  let commandFn = querySelectorFn("#page\\:mainForm\\:standardButtonLink");
+  let destinationSectionFn = querySelectorFn("#page\\:linkSection");
   testStandardCommands(commandFn, destinationSectionFn, assert);
 });
 
 QUnit.test("Standard Action Link", function (assert) {
-  let commandFn = testFrameQuerySelectorFn("#page\\:mainForm\\:standardLinkAction");
-  let destinationSectionFn = testFrameQuerySelectorFn("#page\\:actionSection");
+  let commandFn = querySelectorFn("#page\\:mainForm\\:standardLinkAction");
+  let destinationSectionFn = querySelectorFn("#page\\:actionSection");
   testStandardCommands(commandFn, destinationSectionFn, assert);
 });
 
 QUnit.test("Standard Link Link", function (assert) {
-  let commandFn = testFrameQuerySelectorFn("#page\\:mainForm\\:standardLinkLink");
-  let destinationSectionFn = testFrameQuerySelectorFn("#page\\:linkSection");
+  let commandFn = querySelectorFn("#page\\:mainForm\\:standardLinkLink");
+  let destinationSectionFn = querySelectorFn("#page\\:linkSection");
   testStandardCommands(commandFn, destinationSectionFn, assert);
 });
 
 function testStandardCommands(commandFn, destinationSectionFn, assert) {
-  let backFn = testFrameQuerySelectorFn("#page\\:back");
+  let backFn = querySelectorFn("#page\\:back");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -64,31 +64,31 @@ function testStandardCommands(commandFn, destinationSectionFn, assert) {
 }
 
 QUnit.test("Target Action Button", function (assert) {
-  let commandFn = testFrameQuerySelectorFn("#page\\:mainForm\\:targetButtonAction");
+  let commandFn = querySelectorFn("#page\\:mainForm\\:targetButtonAction");
   testTargetCommands(commandFn, "accessed by action", assert);
 });
 
 QUnit.test("Target Link Button", function (assert) {
-  let commandFn = testFrameQuerySelectorFn("#page\\:mainForm\\:targetButtonLink");
+  let commandFn = querySelectorFn("#page\\:mainForm\\:targetButtonLink");
   testTargetCommands(commandFn, "accessed by link", assert);
 });
 
 QUnit.test("Target Action Link", function (assert) {
-  let commandFn = testFrameQuerySelectorFn("#page\\:mainForm\\:targetLinkAction");
+  let commandFn = querySelectorFn("#page\\:mainForm\\:targetLinkAction");
   testTargetCommands(commandFn, "accessed by action", assert);
 });
 
 QUnit.test("Target Link Link", function (assert) {
-  let commandFn = testFrameQuerySelectorFn("#page\\:mainForm\\:targetLinkLink");
+  let commandFn = querySelectorFn("#page\\:mainForm\\:targetLinkLink");
   testTargetCommands(commandFn, "accessed by link", assert);
 });
 
 QUnit.test("Style must not be a dropdown item", function (assert) {
   assert.expect(3);
 
-  let dropdownMenuFn = testFrameQuerySelectorFn("#page\\:mainForm\\:dropdownWithStyle .dropdown-menu");
-  let styleAsItemFn = testFrameQuerySelectorFn("#page\\:mainForm\\:dropdownWithStyle .dropdown-menu .dropdown-item > style");
-  let buttonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:dropdownWithStyle > .tobago-button");
+  let dropdownMenuFn = querySelectorFn("#page\\:mainForm\\:dropdownWithStyle .dropdown-menu");
+  let styleAsItemFn = querySelectorFn("#page\\:mainForm\\:dropdownWithStyle .dropdown-menu .dropdown-item > style");
+  let buttonFn = querySelectorFn("#page\\:mainForm\\:dropdownWithStyle > .tobago-button");
 
   assert.ok(dropdownMenuFn() !== null);
   assert.equal(styleAsItemFn(), null);
@@ -108,6 +108,6 @@ function testTargetCommands(commandFn, expectedText, assert) {
 }
 
 function getTargetFrameTestInputValue() {
-  return testFrameQuerySelectorFn("#page\\:mainForm\\:targetFrame")().contentWindow
+  return querySelectorFn("#page\\:mainForm\\:targetFrame")().contentWindow
       .document.querySelector("#textInput").value;
 }

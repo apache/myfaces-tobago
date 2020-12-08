@@ -15,18 +15,18 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("submit: addAll, removeAll, addItem0to4, removeItem2to3", function (assert) {
-  let unselectedOptions = testFrameQuerySelectorAllFn("#page\\:mainForm\\:submitExample\\:\\:unselected option");
-  let selectedOptions = testFrameQuerySelectorAllFn("#page\\:mainForm\\:submitExample\\:\\:selected option");
-  let addAllButton = testFrameQuerySelectorFn("#page\\:mainForm\\:submitExample\\:\\:addAll");
-  let addButton = testFrameQuerySelectorFn("#page\\:mainForm\\:submitExample\\:\\:add");
-  let removeButton = testFrameQuerySelectorFn("#page\\:mainForm\\:submitExample\\:\\:remove");
-  let removeAllButton = testFrameQuerySelectorFn("#page\\:mainForm\\:submitExample\\:\\:removeAll");
-  let submitButton = testFrameQuerySelectorFn("#page\\:mainForm\\:submitButton");
-  let output = testFrameQuerySelectorFn("#page\\:mainForm\\:submitExampleOutput span");
+  let unselectedOptions = querySelectorAllFn("#page\\:mainForm\\:submitExample\\:\\:unselected option");
+  let selectedOptions = querySelectorAllFn("#page\\:mainForm\\:submitExample\\:\\:selected option");
+  let addAllButton = querySelectorFn("#page\\:mainForm\\:submitExample\\:\\:addAll");
+  let addButton = querySelectorFn("#page\\:mainForm\\:submitExample\\:\\:add");
+  let removeButton = querySelectorFn("#page\\:mainForm\\:submitExample\\:\\:remove");
+  let removeAllButton = querySelectorFn("#page\\:mainForm\\:submitExample\\:\\:removeAll");
+  let submitButton = querySelectorFn("#page\\:mainForm\\:submitButton");
+  let output = querySelectorFn("#page\\:mainForm\\:submitExampleOutput span");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -80,13 +80,13 @@ QUnit.test("submit: addAll, removeAll, addItem0to4, removeItem2to3", function (a
 });
 
 QUnit.test("ajax: addAll, removeAll, addItem1to2, removeItem0", function (assert) {
-  let unselectedOptions = testFrameQuerySelectorAllFn("#page\\:mainForm\\:ajaxExample\\:\\:unselected option");
-  let selectedOptions = testFrameQuerySelectorAllFn("#page\\:mainForm\\:ajaxExample\\:\\:selected option");
-  let addAllButton = testFrameQuerySelectorFn("#page\\:mainForm\\:ajaxExample\\:\\:addAll");
-  let addButton = testFrameQuerySelectorFn("#page\\:mainForm\\:ajaxExample\\:\\:add");
-  let removeButton = testFrameQuerySelectorFn("#page\\:mainForm\\:ajaxExample\\:\\:remove");
-  let removeAllButton = testFrameQuerySelectorFn("#page\\:mainForm\\:ajaxExample\\:\\:removeAll");
-  let output = testFrameQuerySelectorFn("#page\\:mainForm\\:outputStars span");
+  let unselectedOptions = querySelectorAllFn("#page\\:mainForm\\:ajaxExample\\:\\:unselected option");
+  let selectedOptions = querySelectorAllFn("#page\\:mainForm\\:ajaxExample\\:\\:selected option");
+  let addAllButton = querySelectorFn("#page\\:mainForm\\:ajaxExample\\:\\:addAll");
+  let addButton = querySelectorFn("#page\\:mainForm\\:ajaxExample\\:\\:add");
+  let removeButton = querySelectorFn("#page\\:mainForm\\:ajaxExample\\:\\:remove");
+  let removeAllButton = querySelectorFn("#page\\:mainForm\\:ajaxExample\\:\\:removeAll");
+  let output = querySelectorFn("#page\\:mainForm\\:outputStars span");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {

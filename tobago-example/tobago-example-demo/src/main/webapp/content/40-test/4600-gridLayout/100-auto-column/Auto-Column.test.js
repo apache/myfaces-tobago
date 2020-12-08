@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorFn} from "/script/tobago-test.js";
 
 QUnit.test("test width of grid layout and 'auto' button", function (assert) {
   assert.expect(2);
 
-  let gridLayoutFn = testFrameQuerySelectorFn("#page\\:mainForm\\:grid");
-  let buttonAutoFn = testFrameQuerySelectorFn("#page\\:mainForm\\:buttonAuto");
+  let gridLayoutFn = querySelectorFn("#page\\:mainForm\\:grid");
+  let buttonAutoFn = querySelectorFn("#page\\:mainForm\\:buttonAuto");
 
   assert.equal(gridLayoutFn().offsetWidth, 358);
   assert.equal(buttonAutoFn().offsetWidth, 58);

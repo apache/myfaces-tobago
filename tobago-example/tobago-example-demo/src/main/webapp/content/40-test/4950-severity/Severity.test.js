@@ -15,19 +15,19 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Check severity CSS classes", function (assert) {
-  let submitButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:submit");
-  let fatalInputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:fatal\\:\\:field");
-  let errorInputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:error\\:\\:field");
-  let warnInputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:warn\\:\\:field");
-  let infoInputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:info\\:\\:field");
-  let fatalButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:fatal .tobago-messages-button");
-  let errorButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:error .tobago-messages-button");
-  let warnButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:warn .tobago-messages-button");
-  let infoButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:info .tobago-messages-button");
+  let submitButtonFn = querySelectorFn("#page\\:mainForm\\:submit");
+  let fatalInputFieldFn = querySelectorFn("#page\\:mainForm\\:fatal\\:\\:field");
+  let errorInputFieldFn = querySelectorFn("#page\\:mainForm\\:error\\:\\:field");
+  let warnInputFieldFn = querySelectorFn("#page\\:mainForm\\:warn\\:\\:field");
+  let infoInputFieldFn = querySelectorFn("#page\\:mainForm\\:info\\:\\:field");
+  let fatalButtonFn = querySelectorFn("#page\\:mainForm\\:fatal .tobago-messages-button");
+  let errorButtonFn = querySelectorFn("#page\\:mainForm\\:error .tobago-messages-button");
+  let warnButtonFn = querySelectorFn("#page\\:mainForm\\:warn .tobago-messages-button");
+  let infoButtonFn = querySelectorFn("#page\\:mainForm\\:info .tobago-messages-button");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {

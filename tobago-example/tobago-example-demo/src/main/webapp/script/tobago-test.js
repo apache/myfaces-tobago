@@ -37,19 +37,7 @@ function querySelectorAllFn(expression) {
   }
 }
 
-function testFrameQuerySelectorFn(expression) {
-  return function () {
-    return document.getElementById("page:testframe").contentWindow.document.querySelector(expression);
-  }
-}
-
-function testFrameQuerySelectorAllFn(expression) {
-  return function () {
-    return document.getElementById("page:testframe").contentWindow.document.querySelectorAll(expression);
-  }
-}
-
-export {elementByIdFn, querySelectorFn, querySelectorAllFn, testFrameQuerySelectorFn, testFrameQuerySelectorAllFn};
+export {elementByIdFn, querySelectorFn, querySelectorAllFn};
 
 QUnit.test("wait for test", function (assert) {
   let done = assert.async();
@@ -87,7 +75,7 @@ QUnit.test("duplicated IDs", function (assert) {
 });
 
 QUnit.test("test '???'", function (assert) {
-  assert.ok(testFrameQuerySelectorFn("html")().textContent.indexOf("???") <= -1,
+  assert.ok(querySelectorFn("html")().textContent.indexOf("???") <= -1,
       "There must no '???' on the site.");
 });
 
@@ -119,7 +107,7 @@ describe("general", function () {
   });
 
   it("test '???", function () {
-    let result = testFrameQuerySelectorFn("html")().textContent;
+    let result = querySelectorFn("html")().textContent;
 
     expect(result.indexOf("???")).toBeLessThanOrEqual(-1, "There must no '???' on the site.");
   });

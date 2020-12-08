@@ -15,16 +15,16 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Execute 'AJAX' entry in dropdown menu", function (assert) {
-  let dropdownMenuButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:dropdownMenuButton\\:\\:command");
+  let dropdownMenuButtonFn = querySelectorFn("#page\\:mainForm\\:dropdownMenuButton\\:\\:command");
   const ajaxEntryId = "#page\\:mainForm\\:ajaxEntry";
-  let ajaxEntryFn = testFrameQuerySelectorFn(ajaxEntryId);
-  let tobagoPageMenuStoreFn = testFrameQuerySelectorFn(".tobago-page-menuStore");
-  let inputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:inputAjax\\:\\:field");
-  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:outputAjax .tobago-out");
+  let ajaxEntryFn = querySelectorFn(ajaxEntryId);
+  let tobagoPageMenuStoreFn = querySelectorFn(".tobago-page-menuStore");
+  let inputFn = querySelectorFn("#page\\:mainForm\\:inputAjax\\:\\:field");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:outputAjax .tobago-out");
 
   let TTT = new TobagoTestTool(assert);
   TTT.asserts(1, function () {
