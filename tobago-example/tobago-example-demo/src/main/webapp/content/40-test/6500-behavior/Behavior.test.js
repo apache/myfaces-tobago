@@ -15,6 +15,15 @@
  * limitations under the License.
  */
 
+import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+
+it("not implemented yet", function (done) {
+  let test = new JasmineTestTool(done);
+  test.do(() => fail("not implemented yet"));
+  test.start();
+});
+
+/*
 import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
@@ -251,3 +260,4 @@ function compareCounterValues(assert, oldCounterValues,
   assert.equal(parseInt(newCounterValues[9]), parseInt(oldCounterValues[9]) + actionListener3Plus);
   assert.equal(parseInt(newCounterValues[10]), parseInt(oldCounterValues[10]) + ajaxListener3Plus);
 }
+*/

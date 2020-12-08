@@ -15,6 +15,14 @@
  * limitations under the License.
  */
 
+import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+
+it("not implemented yet", function (done) {
+  let test = new JasmineTestTool(done);
+  test.do(() => fail("not implemented yet"));
+  test.start();
+});
+/*
 import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
@@ -257,3 +265,4 @@ QUnit.test("Open 'Small Popup'.", function (assert) {
   });
   TTT.startTest();
 });
+*/

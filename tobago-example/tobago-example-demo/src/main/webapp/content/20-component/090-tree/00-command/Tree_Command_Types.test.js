@@ -15,6 +15,15 @@
  * limitations under the License.
  */
 
+import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+
+it("not implemented yet", function (done) {
+  let test = new JasmineTestTool(done);
+  test.do(() => fail("not implemented yet"));
+  test.start();
+});
+
+/*
 import {querySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
@@ -58,3 +67,4 @@ QUnit.test("execute both 'Action 1' and 'Action 2' two times", function (assert)
   });
   TTT.startTest();
 });
+*/
