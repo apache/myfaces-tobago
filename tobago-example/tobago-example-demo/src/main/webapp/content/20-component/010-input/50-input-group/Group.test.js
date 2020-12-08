@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("ajax: chat send button", function (assert) {
-  let chatlogFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tachatlog\\:\\:field");
-  let inputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:inewmessage\\:\\:field");
-  let sendButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sendButton");
+  let chatlogFn = querySelectorFn("#page\\:mainForm\\:tachatlog\\:\\:field");
+  let inputFn = querySelectorFn("#page\\:mainForm\\:inewmessage\\:\\:field");
+  let sendButtonFn = querySelectorFn("#page\\:mainForm\\:sendButton");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -44,11 +44,11 @@ QUnit.test("ajax: chat send button", function (assert) {
 });
 
 QUnit.test("ajax: dropdown button", function (assert) {
-  let buttonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:lsendtoc\\:\\:command");
-  let buttonLabelFn = testFrameQuerySelectorFn("#page\\:mainForm\\:lsendtoc\\:\\:command span");
-  let sendToPeterFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sendToPeter");
-  let sendToBobFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sendToBob");
-  let sendToAllFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sendToAll");
+  let buttonFn = querySelectorFn("#page\\:mainForm\\:lsendtoc\\:\\:command");
+  let buttonLabelFn = querySelectorFn("#page\\:mainForm\\:lsendtoc\\:\\:command span");
+  let sendToPeterFn = querySelectorFn("#page\\:mainForm\\:sendToPeter");
+  let sendToBobFn = querySelectorFn("#page\\:mainForm\\:sendToBob");
+  let sendToAllFn = querySelectorFn("#page\\:mainForm\\:sendToAll");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -79,10 +79,10 @@ QUnit.test("ajax: dropdown button", function (assert) {
 });
 
 QUnit.test("ajax: currency change event", function (assert) {
-  let currencyInputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:value\\:\\:field");
-  let currencyFn = testFrameQuerySelectorFn("#page\\:mainForm\\:currency");
-  let currencyOptionFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:currency option");
-  let outputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:valueInEuro .tobago-out");
+  let currencyInputFn = querySelectorFn("#page\\:mainForm\\:value\\:\\:field");
+  let currencyFn = querySelectorFn("#page\\:mainForm\\:currency");
+  let currencyOptionFn = querySelectorAllFn("#page\\:mainForm\\:currency option");
+  let outputFieldFn = querySelectorFn("#page\\:mainForm\\:valueInEuro .tobago-out");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {

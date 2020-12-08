@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Basics: 'M'", function (assert) {
@@ -47,7 +47,7 @@ QUnit.test("Basics: 'Mars'", function (assert) {
 });
 
 function testMarsBasics(assert, inputString, expectedLength) {
-  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:inBasic\\:\\:field");
+  let inFn = querySelectorFn("#page\\:mainForm\\:inBasic\\:\\:field");
   let suggestionsFn = getSuggestions("#page\\:mainForm\\:inBasic");
 
   let TTT = new TobagoTestTool(assert);
@@ -66,7 +66,7 @@ function testMarsBasics(assert, inputString, expectedLength) {
 }
 
 QUnit.test("Basics: Add 'eus' and click first entry.", function (assert) {
-  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:inBasic\\:\\:field");
+  let inFn = querySelectorFn("#page\\:mainForm\\:inBasic\\:\\:field");
   let suggestionsFn = getSuggestions("#page\\:mainForm\\:inBasic");
 
   let TTT = new TobagoTestTool(assert);
@@ -93,7 +93,7 @@ QUnit.test("Basics: Add 'eus' and click first entry.", function (assert) {
 });
 
 QUnit.test("Advanced: 'C'", function (assert) {
-  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:inAdvanced\\:\\:field");
+  let inFn = querySelectorFn("#page\\:mainForm\\:inAdvanced\\:\\:field");
   let suggestionsFn = getSuggestions("#page\\:mainForm\\:inAdvanced");
   let suggestionDelay = 2000;
 
@@ -110,7 +110,7 @@ QUnit.test("Advanced: 'C'", function (assert) {
 });
 
 QUnit.test("Advanced: 'Ca'", function (assert) {
-  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:inAdvanced\\:\\:field");
+  let inFn = querySelectorFn("#page\\:mainForm\\:inAdvanced\\:\\:field");
   let suggestionsFn = getSuggestions("#page\\:mainForm\\:inAdvanced");
   let suggestionDelay = 2000;
   let startTime = Date.now();
@@ -137,7 +137,7 @@ QUnit.test("Advanced: 'Ca'", function (assert) {
 });
 
 QUnit.test("Client side: 'Ju'", function (assert) {
-  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:inClient\\:\\:field");
+  let inFn = querySelectorFn("#page\\:mainForm\\:inClient\\:\\:field");
   let suggestionsFn = getSuggestions("#page\\:mainForm\\:inClient");
 
   let TTT = new TobagoTestTool(assert);
@@ -158,6 +158,6 @@ function escapeClientId(clientId) {
 }
 
 function getSuggestions(id) {
-  return testFrameQuerySelectorAllFn(escapeClientId(
-      testFrameQuerySelectorFn(id + " tobago-suggest")().id + "::popup") + " .tt-suggestion");
+  return querySelectorAllFn(escapeClientId(
+      querySelectorFn(id + " tobago-suggest")().id + "::popup") + " .tt-suggestion");
 }

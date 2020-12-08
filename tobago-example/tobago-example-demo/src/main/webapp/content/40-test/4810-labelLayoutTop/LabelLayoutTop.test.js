@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorFn} from "/script/tobago-test.js";
 
 QUnit.test("Check width for tc:date", function (assert) {
   assert.expect(2);
@@ -83,8 +83,8 @@ QUnit.test("Check width for tc:textarea", function (assert) {
 });
 
 function testWidth(assert, idPart) {
-  let compLabelFn = testFrameQuerySelectorFn("#page\\:mainForm\\:" + idPart + " label");
-  let compTopFn = testFrameQuerySelectorFn("#page\\:mainForm\\:" + idPart + "Top");
+  let compLabelFn = querySelectorFn("#page\\:mainForm\\:" + idPart + " label");
+  let compTopFn = querySelectorFn("#page\\:mainForm\\:" + idPart + "Top");
 
   assert.equal(getComputedStyle(compLabelFn()).width, "155px");
   assert.equal(getComputedStyle(compTopFn().querySelector("label")).width, getComputedStyle(compTopFn()).width);

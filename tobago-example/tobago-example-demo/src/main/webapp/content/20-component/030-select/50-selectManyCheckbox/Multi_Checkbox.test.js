@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("submit: select cat", function (assert) {
-  let animalsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:animals input");
-  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:submit");
-  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:animalsOutput span");
+  let animalsFn = querySelectorAllFn("#page\\:mainForm\\:animals input");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:submit");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:animalsOutput span");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -39,9 +39,9 @@ QUnit.test("submit: select cat", function (assert) {
 });
 
 QUnit.test("submit: select fox and rabbit", function (assert) {
-  let animalsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:animals input");
-  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:submit");
-  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:animalsOutput span");
+  let animalsFn = querySelectorAllFn("#page\\:mainForm\\:animals input");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:submit");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:animalsOutput span");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -59,8 +59,8 @@ QUnit.test("submit: select fox and rabbit", function (assert) {
 });
 
 QUnit.test("ajax: click 'Two'", function (assert) {
-  let number2Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:numbers\\:\\:1");
-  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:resultOutput span");
+  let number2Fn = querySelectorFn("#page\\:mainForm\\:numbers\\:\\:1");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:resultOutput span");
   let newOutputValue;
 
   let TTT = new TobagoTestTool(assert);
@@ -83,8 +83,8 @@ QUnit.test("ajax: click 'Two'", function (assert) {
 });
 
 QUnit.test("ajax: click 'Three'", function (assert) {
-  let number3Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:numbers\\:\\:2");
-  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:resultOutput span");
+  let number3Fn = querySelectorFn("#page\\:mainForm\\:numbers\\:\\:2");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:resultOutput span");
   let newOutputValue;
 
   let TTT = new TobagoTestTool(assert);
@@ -107,8 +107,8 @@ QUnit.test("ajax: click 'Three'", function (assert) {
 });
 
 QUnit.test("ajax: click 'Two'", function (assert) {
-  let number2Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:numbers\\:\\:1");
-  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:resultOutput span");
+  let number2Fn = querySelectorFn("#page\\:mainForm\\:numbers\\:\\:1");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:resultOutput span");
   let newOutputValue;
 
   let TTT = new TobagoTestTool(assert);

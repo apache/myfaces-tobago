@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorFn} from "/script/tobago-test.js";
 
 it("no layout manager", function () {
-  const inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:noLayoutIn\\:in\\:\\:field");
-  const outFn = testFrameQuerySelectorFn("#page\\:mainForm\\:noLayoutOut\\:out");
-  const notRenderedFn = testFrameQuerySelectorFn("#page\\:mainForm\\:noLayoutNotRendered\\:in\\:\\:field");
+  const inFn = querySelectorFn("#page\\:mainForm\\:noLayoutIn\\:in\\:\\:field");
+  const outFn = querySelectorFn("#page\\:mainForm\\:noLayoutOut\\:out");
+  const notRenderedFn = querySelectorFn("#page\\:mainForm\\:noLayoutNotRendered\\:in\\:\\:field");
 
   expect(inFn()).not.toBeNull();
   expect(outFn()).not.toBeNull();
@@ -28,9 +28,9 @@ it("no layout manager", function () {
 });
 
 it("flowlayout", function () {
-  const inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:flowLayoutIn\\:in\\:\\:field");
-  const outFn = testFrameQuerySelectorFn("#page\\:mainForm\\:flowLayoutOut\\:out");
-  const notRenderedFn = testFrameQuerySelectorFn("#page\\:mainForm\\:flowLayoutNotRendered\\:in\\:\\:field");
+  const inFn = querySelectorFn("#page\\:mainForm\\:flowLayoutIn\\:in\\:\\:field");
+  const outFn = querySelectorFn("#page\\:mainForm\\:flowLayoutOut\\:out");
+  const notRenderedFn = querySelectorFn("#page\\:mainForm\\:flowLayoutNotRendered\\:in\\:\\:field");
 
   expect(inFn()).not.toBeNull();
   expect(outFn()).not.toBeNull();
@@ -38,9 +38,9 @@ it("flowlayout", function () {
 });
 
 it("flexlayout", function () {
-  const inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:flexLayoutIn\\:in\\:\\:field");
-  const outFn = testFrameQuerySelectorFn("#page\\:mainForm\\:flexLayoutOut\\:out");
-  const notRenderedFn = testFrameQuerySelectorFn("#page\\:mainForm\\:flexLayoutNotRendered\\:in\\:\\:field");
+  const inFn = querySelectorFn("#page\\:mainForm\\:flexLayoutIn\\:in\\:\\:field");
+  const outFn = querySelectorFn("#page\\:mainForm\\:flexLayoutOut\\:out");
+  const notRenderedFn = querySelectorFn("#page\\:mainForm\\:flexLayoutNotRendered\\:in\\:\\:field");
 
   expect(inFn()).not.toBeNull();
   expect(outFn()).not.toBeNull();
@@ -48,9 +48,9 @@ it("flexlayout", function () {
 });
 
 it("segmentlayout", function () {
-  const inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:segLayoutIn\\:in\\:\\:field");
-  const outFn = testFrameQuerySelectorFn("#page\\:mainForm\\:segLayoutOut\\:out");
-  const notRenderedFn = testFrameQuerySelectorFn("#page\\:mainForm\\:segLayoutNotRendered\\:in\\:\\:field");
+  const inFn = querySelectorFn("#page\\:mainForm\\:segLayoutIn\\:in\\:\\:field");
+  const outFn = querySelectorFn("#page\\:mainForm\\:segLayoutOut\\:out");
+  const notRenderedFn = querySelectorFn("#page\\:mainForm\\:segLayoutNotRendered\\:in\\:\\:field");
 
   expect(inFn()).not.toBeNull();
   expect(outFn()).not.toBeNull();
@@ -58,9 +58,9 @@ it("segmentlayout", function () {
 });
 
 it("gridlayout", function () {
-  const inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:gridLayoutIn\\:in\\:\\:field");
-  const outFn = testFrameQuerySelectorFn("#page\\:mainForm\\:gridLayoutOut\\:out");
-  const notRenderedFn = testFrameQuerySelectorFn("#page\\:mainForm\\:gridLayoutNotRendered\\:in\\:\\:field");
+  const inFn = querySelectorFn("#page\\:mainForm\\:gridLayoutIn\\:in\\:\\:field");
+  const outFn = querySelectorFn("#page\\:mainForm\\:gridLayoutOut\\:out");
+  const notRenderedFn = querySelectorFn("#page\\:mainForm\\:gridLayoutNotRendered\\:in\\:\\:field");
 
   expect(inFn()).not.toBeNull();
   expect(outFn()).not.toBeNull();
@@ -68,9 +68,9 @@ it("gridlayout", function () {
 });
 
 it("splitlayout", function () {
-  const inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:splitLayoutIn\\:in\\:\\:field");
-  const outFn = testFrameQuerySelectorFn("#page\\:mainForm\\:splitLayoutOut\\:out");
-  const notRenderedFn = testFrameQuerySelectorFn("#page\\:mainForm\\:splitLayoutNotRendered\\:in\\:\\:field");
+  const inFn = querySelectorFn("#page\\:mainForm\\:splitLayoutIn\\:in\\:\\:field");
+  const outFn = querySelectorFn("#page\\:mainForm\\:splitLayoutOut\\:out");
+  const notRenderedFn = querySelectorFn("#page\\:mainForm\\:splitLayoutNotRendered\\:in\\:\\:field");
 
   expect(inFn()).not.toBeNull();
   expect(outFn()).not.toBeNull();

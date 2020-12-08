@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("execute both 'Action 1' and 'Action 2' two times", function (assert) {
-  let action1Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tree\\:2\\:actionCommand");
-  let action2Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tree\\:3\\:actionCommand");
-  let actionCount1Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:actionCount1 .tobago-out");
-  let actionCount2Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:actionCount2 .tobago-out");
+  let action1Fn = querySelectorFn("#page\\:mainForm\\:tree\\:2\\:actionCommand");
+  let action2Fn = querySelectorFn("#page\\:mainForm\\:tree\\:3\\:actionCommand");
+  let actionCount1Fn = querySelectorFn("#page\\:mainForm\\:actionCount1 .tobago-out");
+  let actionCount2Fn = querySelectorFn("#page\\:mainForm\\:actionCount2 .tobago-out");
 
   const counterBeforeTestResult1 = Number(actionCount1Fn().textContent);
   const counterBeforeTestResult2 = Number(actionCount2Fn().textContent);

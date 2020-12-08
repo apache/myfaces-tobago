@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Basics: 'M'", function (assert) {
@@ -47,7 +47,7 @@ QUnit.test("Basics: 'Mars'", function (assert) {
 });
 
 function testMarsBasics(assert, inputString, expectedLength) {
-  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:input\\:\\:field");
+  let inFn = querySelectorFn("#page\\:mainForm\\:input\\:\\:field");
   let suggestionsFn = getSuggestions("#page\\:mainForm\\:input");
 
   let TTT = new TobagoTestTool(assert);
@@ -70,6 +70,6 @@ function escapeClientId(clientId) {
 }
 
 function getSuggestions(id) {
-  return testFrameQuerySelectorAllFn(escapeClientId(
-      testFrameQuerySelectorFn(id + " tobago-suggest")().id + "::popup") + " .tt-suggestion");
+  return querySelectorAllFn(escapeClientId(
+      querySelectorFn(id + " tobago-suggest")().id + "::popup") + " .tt-suggestion");
 }

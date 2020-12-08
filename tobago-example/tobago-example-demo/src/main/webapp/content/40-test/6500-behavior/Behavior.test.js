@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Simple Event", function (assert) {
-  let buttonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:simpleEvent");
+  let buttonFn = querySelectorFn("#page\\:mainForm\\:simpleEvent");
   let oldCounterValues = getCounterValues();
 
   let TTT = new TobagoTestTool(assert);
@@ -34,7 +34,7 @@ QUnit.test("Simple Event", function (assert) {
 });
 
 QUnit.test("Simple Ajax", function (assert) {
-  let buttonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:simpleAjax");
+  let buttonFn = querySelectorFn("#page\\:mainForm\\:simpleAjax");
   let oldCounterValues = getCounterValues();
 
   let TTT = new TobagoTestTool(assert);
@@ -49,7 +49,7 @@ QUnit.test("Simple Ajax", function (assert) {
 });
 
 QUnit.test("Simple EventAjax", function (assert) {
-  let buttonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:simpleEventAjax");
+  let buttonFn = querySelectorFn("#page\\:mainForm\\:simpleEventAjax");
   let oldCounterValues = getCounterValues();
 
   let TTT = new TobagoTestTool(assert);
@@ -65,42 +65,42 @@ QUnit.test("Simple EventAjax", function (assert) {
 
 QUnit.test("Advanced Button: Option 1", function (assert) {
   const optionId = 0; //Event 1 + no Ajax enabled
-  let buttonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:advancedButton");
+  let buttonFn = querySelectorFn("#page\\:mainForm\\:advancedButton");
   testEventOption(assert, optionId, buttonFn, "dblclick", 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
 });
 
 QUnit.test("Advanced Button: Option 2", function (assert) {
   const optionId = 1; //Event 2 + Ajax 3 enabled
-  let buttonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:advancedButton");
+  let buttonFn = querySelectorFn("#page\\:mainForm\\:advancedButton");
   testAjaxOption(assert, optionId, buttonFn, "dblclick", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1);
 });
 
 QUnit.test("Advanced Button: Option 3", function (assert) {
   const optionId = 2; //Event 3 + all Ajax enabled
-  let buttonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:advancedButton");
+  let buttonFn = querySelectorFn("#page\\:mainForm\\:advancedButton");
   testAjaxOption(assert, optionId, buttonFn, "click", 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1);
 });
 
 QUnit.test("Row: Option 1", function (assert) {
   const optionId = 0; //Event 1 + no Ajax enabled
-  let rowFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:row");
+  let rowFn = querySelectorFn("#page\\:mainForm\\:sheet\\:0\\:row");
   testEventOption(assert, optionId, rowFn, "dblclick", 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
 });
 
 QUnit.test("Row: Option 2", function (assert) {
   const optionId = 1; //Event 2 + Ajax 3 enabled
-  let rowFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:row");
+  let rowFn = querySelectorFn("#page\\:mainForm\\:sheet\\:0\\:row");
   testAjaxOption(assert, optionId, rowFn, "dblclick", 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1);
 });
 
 QUnit.test("Row: Option 3", function (assert) {
   const optionId = 2; //Event 3 + all Ajax enabled
-  let rowFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:row");
+  let rowFn = querySelectorFn("#page\\:mainForm\\:sheet\\:0\\:row");
   testAjaxOption(assert, optionId, rowFn, "click", 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1);
 });
 
 QUnit.test("Input: Click Event", function (assert) {
-  let inputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:inputClick\\:\\:field");
+  let inputFn = querySelectorFn("#page\\:mainForm\\:inputClick\\:\\:field");
   testInputSection(assert, inputFn, "click");
 });
 
@@ -109,10 +109,10 @@ function testEventOption(assert, optionId, componentFn, eventName,
                          action1Plus, actionListener1Plus, ajaxListener1Plus,
                          action2Plus, actionListener2Plus, ajaxListener2Plus,
                          action3Plus, actionListener3Plus, ajaxListener3Plus) {
-  let hideFn = testFrameQuerySelectorFn("#page\\:mainForm\\:hideOperationTextBox");
-  let operationOutFn = testFrameQuerySelectorFn("#page\\:mainForm\\:operationOut");
+  let hideFn = querySelectorFn("#page\\:mainForm\\:hideOperationTextBox");
+  let operationOutFn = querySelectorFn("#page\\:mainForm\\:operationOut");
   let oldCounterValues = getCounterValues();
-  let optionsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:advancedSelector input[type='radio']");
+  let optionsFn = querySelectorAllFn("#page\\:mainForm\\:advancedSelector input[type='radio']");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -151,10 +151,10 @@ function testAjaxOption(assert, optionId, componentFn, eventName,
                         action1Plus, actionListener1Plus, ajaxListener1Plus,
                         action2Plus, actionListener2Plus, ajaxListener2Plus,
                         action3Plus, actionListener3Plus, ajaxListener3Plus) {
-  let hideFn = testFrameQuerySelectorFn("#page\\:mainForm\\:hideOperationTextBox");
-  let operationOutFn = testFrameQuerySelectorFn("#page\\:mainForm\\:operationOut");
+  let hideFn = querySelectorFn("#page\\:mainForm\\:hideOperationTextBox");
+  let operationOutFn = querySelectorFn("#page\\:mainForm\\:operationOut");
   let oldCounterValues = getCounterValues();
-  let optionsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:advancedSelector input[type='radio']");
+  let optionsFn = querySelectorAllFn("#page\\:mainForm\\:advancedSelector input[type='radio']");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -189,8 +189,8 @@ function testAjaxOption(assert, optionId, componentFn, eventName,
 }
 
 function testInputSection(assert, inputFn, eventName) {
-  let hideFn = testFrameQuerySelectorFn("#page\\:mainForm\\:hideOperationTextBox");
-  let operationOutFn = testFrameQuerySelectorFn("#page\\:mainForm\\:operationOut");
+  let hideFn = querySelectorFn("#page\\:mainForm\\:hideOperationTextBox");
+  let operationOutFn = querySelectorFn("#page\\:mainForm\\:operationOut");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -211,20 +211,20 @@ function testInputSection(assert, inputFn, eventName) {
 }
 
 function getCounterValues() {
-  let buttonActionCounter = testFrameQuerySelectorFn("#page\\:mainForm\\:buttonActionCounter.tobago-out")().textContent;
-  let buttonActionListenerCounter = testFrameQuerySelectorFn("#page\\:mainForm\\:buttonActionListenerCounter.tobago-out")().textContent;
+  let buttonActionCounter = querySelectorFn("#page\\:mainForm\\:buttonActionCounter.tobago-out")().textContent;
+  let buttonActionListenerCounter = querySelectorFn("#page\\:mainForm\\:buttonActionListenerCounter.tobago-out")().textContent;
 
-  let actionCount1 = testFrameQuerySelectorFn("#page\\:mainForm\\:actionCounter1.tobago-out")().textContent;
-  let actionListenerCount1 = testFrameQuerySelectorFn("#page\\:mainForm\\:actionListenerCounter1.tobago-out")().textContent;
-  let ajaxListenerCount1 = testFrameQuerySelectorFn("#page\\:mainForm\\:ajaxListenerCounter1.tobago-out")().textContent;
+  let actionCount1 = querySelectorFn("#page\\:mainForm\\:actionCounter1.tobago-out")().textContent;
+  let actionListenerCount1 = querySelectorFn("#page\\:mainForm\\:actionListenerCounter1.tobago-out")().textContent;
+  let ajaxListenerCount1 = querySelectorFn("#page\\:mainForm\\:ajaxListenerCounter1.tobago-out")().textContent;
 
-  let actionCount2 = testFrameQuerySelectorFn("#page\\:mainForm\\:actionCounter2.tobago-out")().textContent;
-  let actionListenerCount2 = testFrameQuerySelectorFn("#page\\:mainForm\\:actionListenerCounter2.tobago-out")().textContent;
-  let ajaxListenerCount2 = testFrameQuerySelectorFn("#page\\:mainForm\\:ajaxListenerCounter2.tobago-out")().textContent;
+  let actionCount2 = querySelectorFn("#page\\:mainForm\\:actionCounter2.tobago-out")().textContent;
+  let actionListenerCount2 = querySelectorFn("#page\\:mainForm\\:actionListenerCounter2.tobago-out")().textContent;
+  let ajaxListenerCount2 = querySelectorFn("#page\\:mainForm\\:ajaxListenerCounter2.tobago-out")().textContent;
 
-  let actionCount3 = testFrameQuerySelectorFn("#page\\:mainForm\\:actionCounter3.tobago-out")().textContent;
-  let actionListenerCount3 = testFrameQuerySelectorFn("#page\\:mainForm\\:actionListenerCounter3.tobago-out")().textContent;
-  let ajaxListenerCount3 = testFrameQuerySelectorFn("#page\\:mainForm\\:ajaxListenerCounter3.tobago-out")().textContent;
+  let actionCount3 = querySelectorFn("#page\\:mainForm\\:actionCounter3.tobago-out")().textContent;
+  let actionListenerCount3 = querySelectorFn("#page\\:mainForm\\:actionListenerCounter3.tobago-out")().textContent;
+  let ajaxListenerCount3 = querySelectorFn("#page\\:mainForm\\:ajaxListenerCounter3.tobago-out")().textContent;
 
   return [buttonActionCounter, buttonActionListenerCounter,
     actionCount1, actionListenerCount1, ajaxListenerCount1,

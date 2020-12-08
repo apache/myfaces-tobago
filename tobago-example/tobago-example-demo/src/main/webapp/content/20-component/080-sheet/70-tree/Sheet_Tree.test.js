@@ -15,23 +15,23 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("Collapse tree", function (done) {
-  let row0nameFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:nameOut");
-  let row0centralBodyFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:centralBodyOut");
-  let row0distanceFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:distanceOut");
-  let row0periodFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:periodOut");
-  let row0discovererFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:discovererOut");
-  let row0yearFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:yearOut");
-  let row1nameFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:1\\:nameOut");
-  let row1centralBodyFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:1\\:centralBodyOut");
-  let row1distanceFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:1\\:distanceOut");
-  let row1periodFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:1\\:periodOut");
-  let row1discovererFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:1\\:discovererOut");
-  let row1yearFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:1\\:yearOut");
-  let rootTreeButtonFn = testFrameQuerySelectorFn("#page\\:mainForm\\:sheet\\:0\\:nameCol .tobago-treeNode-toggle");
+  let row0nameFn = querySelectorFn("#page\\:mainForm\\:sheet\\:0\\:nameOut");
+  let row0centralBodyFn = querySelectorFn("#page\\:mainForm\\:sheet\\:0\\:centralBodyOut");
+  let row0distanceFn = querySelectorFn("#page\\:mainForm\\:sheet\\:0\\:distanceOut");
+  let row0periodFn = querySelectorFn("#page\\:mainForm\\:sheet\\:0\\:periodOut");
+  let row0discovererFn = querySelectorFn("#page\\:mainForm\\:sheet\\:0\\:discovererOut");
+  let row0yearFn = querySelectorFn("#page\\:mainForm\\:sheet\\:0\\:yearOut");
+  let row1nameFn = querySelectorFn("#page\\:mainForm\\:sheet\\:1\\:nameOut");
+  let row1centralBodyFn = querySelectorFn("#page\\:mainForm\\:sheet\\:1\\:centralBodyOut");
+  let row1distanceFn = querySelectorFn("#page\\:mainForm\\:sheet\\:1\\:distanceOut");
+  let row1periodFn = querySelectorFn("#page\\:mainForm\\:sheet\\:1\\:periodOut");
+  let row1discovererFn = querySelectorFn("#page\\:mainForm\\:sheet\\:1\\:discovererOut");
+  let row1yearFn = querySelectorFn("#page\\:mainForm\\:sheet\\:1\\:yearOut");
+  let rootTreeButtonFn = querySelectorFn("#page\\:mainForm\\:sheet\\:0\\:nameCol .tobago-treeNode-toggle");
 
   let test = new JasmineTestTool(done);
   test.do(() => expect(row0nameFn().textContent).toBe("Sun"));

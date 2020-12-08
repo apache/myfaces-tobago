@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("submit: Alice", function (assert) {
-  let aliceFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Alice']");
-  let bobFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Bob']");
-  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:submit");
-  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:outputPerson span");
+  let aliceFn = querySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Alice']");
+  let bobFn = querySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Bob']");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:submit");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:outputPerson span");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -38,10 +38,10 @@ QUnit.test("submit: Alice", function (assert) {
 });
 
 QUnit.test("submit: Bob", function (assert) {
-  let aliceFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Alice']");
-  let bobFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Bob']");
-  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:submit");
-  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:outputPerson span");
+  let aliceFn = querySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Alice']");
+  let bobFn = querySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Bob']");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:submit");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:outputPerson span");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -57,10 +57,10 @@ QUnit.test("submit: Bob", function (assert) {
 });
 
 QUnit.test("ajax: select Mars", function (assert) {
-  let planetFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field");
-  let marsOptionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field option[value='1']");
-  let jupiterOptionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field option[value='2']");
-  let moonsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:moonbox\\:\\:field option");
+  let planetFn = querySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field");
+  let marsOptionFn = querySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field option[value='1']");
+  let jupiterOptionFn = querySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field option[value='2']");
+  let moonsFn = querySelectorAllFn("#page\\:mainForm\\:moonbox\\:\\:field option");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -77,10 +77,10 @@ QUnit.test("ajax: select Mars", function (assert) {
 });
 
 QUnit.test("ajax: select Jupiter", function (assert) {
-  let planetFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field");
-  let marsOptionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field option[value='1']");
-  let jupiterOptionFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field option[value='2']");
-  let moonsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:moonbox\\:\\:field option");
+  let planetFn = querySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field");
+  let marsOptionFn = querySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field option[value='1']");
+  let jupiterOptionFn = querySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field option[value='2']");
+  let moonsFn = querySelectorAllFn("#page\\:mainForm\\:moonbox\\:\\:field option");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {

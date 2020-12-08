@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-import {querySelectorFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorFn, querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("inputfield with label", function (done) {
-  let labelFn = testFrameQuerySelectorFn("#page\\:mainForm\\:iNormal > label");
-  let inputFieldFn = testFrameQuerySelectorFn("#page\\:mainForm\\:iNormal\\:\\:field");
+  let labelFn = querySelectorFn("#page\\:mainForm\\:iNormal > label");
+  let inputFieldFn = querySelectorFn("#page\\:mainForm\\:iNormal\\:\\:field");
 
   const test = new JasmineTestTool(done);
   test.do(() => expect(labelFn().textContent).toBe("Input"));

@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Client: Select Tab 3", function (assert) {
-  let tabGroupFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabGroupClient");
-  let tab1Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab1Client");
-  let tab3Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab3Client");
+  let tabGroupFn = querySelectorFn("#page\\:mainForm\\:tabGroupClient");
+  let tab1Fn = querySelectorFn("#page\\:mainForm\\:tab1Client");
+  let tab3Fn = querySelectorFn("#page\\:mainForm\\:tab3Client");
 
   let TTT = new TobagoTestTool(assert);
   TTT.asserts(5, function () {
@@ -45,9 +45,9 @@ QUnit.test("Client: Select Tab 3", function (assert) {
 });
 
 QUnit.test("Ajax: Select Tab 3", function (assert) {
-  let tabGroupFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabGroupAjax");
-  let tab1Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab1Ajax");
-  let tab3Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab3Ajax");
+  let tabGroupFn = querySelectorFn("#page\\:mainForm\\:tabGroupAjax");
+  let tab1Fn = querySelectorFn("#page\\:mainForm\\:tab1Ajax");
+  let tab3Fn = querySelectorFn("#page\\:mainForm\\:tab3Ajax");
 
   let TTT = new TobagoTestTool(assert);
   TTT.asserts(5, function () {
@@ -72,9 +72,9 @@ QUnit.test("Ajax: Select Tab 3", function (assert) {
 });
 
 QUnit.test("FullReload: Select Tab 3", function (assert) {
-  let tabGroupFn = testFrameQuerySelectorFn("#page\\:mainForm\\:tabGroupFullReload");
-  let tab1Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab1FullReload");
-  let tab3Fn = testFrameQuerySelectorFn("#page\\:mainForm\\:tab3FullReload");
+  let tabGroupFn = querySelectorFn("#page\\:mainForm\\:tabGroupFullReload");
+  let tab1Fn = querySelectorFn("#page\\:mainForm\\:tab1FullReload");
+  let tab3Fn = querySelectorFn("#page\\:mainForm\\:tab3FullReload");
 
   let TTT = new TobagoTestTool(assert);
   TTT.asserts(5, function () {

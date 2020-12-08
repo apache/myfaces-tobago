@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("submit: select 'Nile'", function (assert) {
-  let riversFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:riverList option");
-  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:riverSubmit");
-  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:riverOutput span");
+  let riversFn = querySelectorAllFn("#page\\:mainForm\\:riverList option");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:riverSubmit");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:riverOutput span");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -40,9 +40,9 @@ QUnit.test("submit: select 'Nile'", function (assert) {
 });
 
 QUnit.test("submit: select 'Yangtze'", function (assert) {
-  let riversFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:riverList option");
-  let submitFn = testFrameQuerySelectorFn("#page\\:mainForm\\:riverSubmit");
-  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:riverOutput span");
+  let riversFn = querySelectorAllFn("#page\\:mainForm\\:riverList option");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:riverSubmit");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:riverOutput span");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -62,9 +62,9 @@ QUnit.test("submit: select 'Yangtze'", function (assert) {
 });
 
 QUnit.test("ajax: select Everest", function (assert) {
-  let mountainListFn = testFrameQuerySelectorFn("#page\\:mainForm\\:mountainList\\:\\:field");
-  let mountainsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:mountainList option");
-  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectedMountain span");
+  let mountainListFn = querySelectorFn("#page\\:mainForm\\:mountainList\\:\\:field");
+  let mountainsFn = querySelectorAllFn("#page\\:mainForm\\:mountainList option");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedMountain span");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {
@@ -83,9 +83,9 @@ QUnit.test("ajax: select Everest", function (assert) {
 });
 
 QUnit.test("ajax: select Makalu", function (assert) {
-  let mountainListFn = testFrameQuerySelectorFn("#page\\:mainForm\\:mountainList\\:\\:field");
-  let mountainsFn = testFrameQuerySelectorAllFn("#page\\:mainForm\\:mountainList option");
-  let outputFn = testFrameQuerySelectorFn("#page\\:mainForm\\:selectedMountain span");
+  let mountainListFn = querySelectorFn("#page\\:mainForm\\:mountainList\\:\\:field");
+  let mountainsFn = querySelectorAllFn("#page\\:mainForm\\:mountainList option");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedMountain span");
 
   let TTT = new TobagoTestTool(assert);
   TTT.action(function () {

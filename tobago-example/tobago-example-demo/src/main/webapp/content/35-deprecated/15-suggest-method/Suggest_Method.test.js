@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 
-import {testFrameQuerySelectorAllFn, testFrameQuerySelectorFn} from "/script/tobago-test.js";
+import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("Deprecated: 'Ma'", function (assert) {
   let inputString = "Ma";
   let expectedLength = 4;
 
-  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:deprecated\\:\\:field");
+  let inFn = querySelectorFn("#page\\:mainForm\\:deprecated\\:\\:field");
   let suggestionsFn = getSuggestions("#page\\:mainForm\\:deprecated");
 
   let TTT = new TobagoTestTool(assert);
@@ -44,7 +44,7 @@ QUnit.test("Replacement: 'Ma'", function (assert) {
   let inputString = "Ma";
   let expectedLength = 4;
 
-  let inFn = testFrameQuerySelectorFn("#page\\:mainForm\\:replacement\\:\\:field");
+  let inFn = querySelectorFn("#page\\:mainForm\\:replacement\\:\\:field");
   let suggestionsFn = getSuggestions("#page\\:mainForm\\:replacement");
 
   let TTT = new TobagoTestTool(assert);
@@ -67,6 +67,6 @@ function escapeClientId(clientId) {
 }
 
 function getSuggestions(id) {
-  return testFrameQuerySelectorAllFn(escapeClientId(
-      testFrameQuerySelectorFn(id + " tobago-suggest")().id + "::popup") + " .tt-suggestion");
+  return querySelectorAllFn(escapeClientId(
+      querySelectorFn(id + " tobago-suggest")().id + "::popup") + " .tt-suggestion");
 }
