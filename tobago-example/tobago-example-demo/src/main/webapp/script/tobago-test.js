@@ -39,46 +39,6 @@ function querySelectorAllFn(expression) {
 
 export {elementByIdFn, querySelectorFn, querySelectorAllFn};
 
-QUnit.test("wait for test", function (assert) {
-  let done = assert.async();
-
-  let startTime = new Date().getTime();
-  let contentWindowReadyState = "";
-  let waitingDone = false;
-  let interval = setInterval(function () {
-    contentWindowReadyState = document.getElementById("page:testframe").contentWindow.document.readyState;
-    waitingDone = contentWindowReadyState === "complete"
-    if (new Date().getTime() - startTime >= 20000 || waitingDone) {
-      clearInterval(interval);
-      assert.ok(waitingDone);
-      done();
-    }
-  }, 50);
-});
-
-QUnit.test("duplicated IDs", function (assert) {
-  function getDuplicatedIDs() {
-    let duplicatedIDs = [];
-    let iFrame = document.getElementById("page:testframe").contentWindow.document.querySelectorAll("[id]");
-    iFrame.forEach(element => {
-      let sameIdElements = document.getElementById("page:testframe").contentWindow.document
-          .querySelectorAll("[id='" + element.id + "']");
-      if (sameIdElements.length > 1) {
-        duplicatedIDs.push(element.id);
-      }
-    });
-    return duplicatedIDs;
-  }
-
-  let duplicatedIDs = getDuplicatedIDs();
-  assert.equal(duplicatedIDs.length, 0, "duplicated IDs are: " + duplicatedIDs);
-});
-
-QUnit.test("test '???'", function (assert) {
-  assert.ok(querySelectorFn("html")().textContent.indexOf("???") <= -1,
-      "There must no '???' on the site.");
-});
-
 beforeEach(function (done) {
   const test = new JasmineTestTool(done);
   test.wait(() => document.getElementById("page:testframe").contentWindow.document.readyState === "complete");

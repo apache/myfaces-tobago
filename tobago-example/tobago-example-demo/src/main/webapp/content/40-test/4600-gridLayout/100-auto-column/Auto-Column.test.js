@@ -15,6 +15,15 @@
  * limitations under the License.
  */
 
+import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+
+it("not implemented yet", function (done) {
+  let test = new JasmineTestTool(done);
+  test.do(() => fail("not implemented yet"));
+  test.start();
+});
+
+/*
 import {querySelectorFn} from "/script/tobago-test.js";
 
 QUnit.test("test width of grid layout and 'auto' button", function (assert) {
@@ -26,3 +35,4 @@ QUnit.test("test width of grid layout and 'auto' button", function (assert) {
   assert.equal(gridLayoutFn().offsetWidth, 358);
   assert.equal(buttonAutoFn().offsetWidth, 58);
 });
+*/

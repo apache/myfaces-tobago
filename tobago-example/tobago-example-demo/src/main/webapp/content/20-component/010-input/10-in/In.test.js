@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {querySelectorFn, querySelectorFn} from "/script/tobago-test.js";
+import {querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("inputfield with label", function (done) {

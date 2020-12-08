@@ -15,18 +15,28 @@
  * limitations under the License.
  */
 
+import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+
+it("not implemented yet", function (done) {
+  let test = new JasmineTestTool(done);
+  test.do(() => fail("not implemented yet"));
+  test.start();
+});
+
+/*
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
 QUnit.test("test patterns", function (assert) {
 
   assert.ok(true, "work in progress");
-  /*
+  /!*
   assert.ok(false);
   TestDateTime.testDate();
   TestDateTime.testTime();
   TestDateTime.testBoth();
-  */
+  *!/
 });
+*/
 
 /*TestDateTime = {};
 
