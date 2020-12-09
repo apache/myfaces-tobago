@@ -54,7 +54,8 @@ window.dswh = window.dswh || {
         dswh.initialized = true;
 
         dswh.utils.log('------- DeltaSpike windowhandler.js -------');
-        dswh.utils.log('--- #init(\'' + windowId + '\', \'' + clientWindowRenderMode + '\',' + maxWindowIdLength + ',' + dswh.utils.stringify(cfg) + ')');
+        dswh.utils.log('--- #init(\'' + windowId + '\', \'' + clientWindowRenderMode + '\','
+            + maxWindowIdLength + ',' + dswh.utils.stringify(cfg) + ')');
         dswh.utils.log('window.name: ' + window.name);
 
         this.windowId = windowId;
@@ -320,10 +321,12 @@ window.dswh = window.dswh || {
             }
             localStorage.setItem(window.name + '_bodyAttributes', dswh.utils.stringify(attributes));
 
-            var scrollTop = (window.pageYOffset || document.documentElement.scrollTop) - (document.documentElement.clientTop || 0);
+            var scrollTop = (window.pageYOffset
+                || document.documentElement.scrollTop) - (document.documentElement.clientTop || 0);
             localStorage.setItem(window.name + '_scrollTop', scrollTop);
 
-            var scrollLeft = (window.pageXOffset || document.documentElement.scrollLeft) - (document.documentElement.clientLeft || 0);
+            var scrollLeft = (window.pageXOffset
+                || document.documentElement.scrollLeft) - (document.documentElement.clientLeft || 0);
             localStorage.setItem(window.name + '_scrollLeft', scrollLeft);
           },
 
