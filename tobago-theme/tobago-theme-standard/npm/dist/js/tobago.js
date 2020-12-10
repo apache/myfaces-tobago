@@ -6896,7 +6896,7 @@
                 format: pattern,
                 weekstart: i18n.firstDay
             };
-            new Datepicker(input, {
+            const datepicker = new Datepicker(input, {
                 buttonClass: "btn",
                 orientation: "bottom top auto",
                 autohide: true,
@@ -6904,27 +6904,39 @@
                 // todo readonly
                 // todo show week numbers
             });
-            // XXX these two listeners are needed befor we have a solution for:
+            // XXX these listeners are needed as long as we have a solution for:
             // XXX https://github.com/mymth/vanillajs-datepicker/issues/13
+            // XXX the 2nd point is missing the "normal" change event on the input element
             input.addEventListener("keyup", (event) => {
-                if (event.ctrlKey || event.metaKey
-                    || event.key.length > 1 && event.key !== "Backspace" && event.key !== "Delete") {
+                // console.info("event -----> ", event.type);
+                if (event.metaKey || event.key.length > 1 && event.key !== "Backspace" && event.key !== "Delete") {
                     return;
                 }
                 // back up user's input when user types printable character or backspace/delete
                 const target = event.target;
                 target._oldValue = target.value;
             });
+            input.addEventListener("focus", (event) => {
+                // console.info("event -----> ", event.type);
+                this.lastValue = input.value;
+            });
             input.addEventListener("blur", (event) => {
+                // console.info("event -----> ", event.type);
                 const target = event.target;
-                if (!document.hasFocus() || target._oldValue === undefined) {
-                    // no-op when user goes to another window or the input field has no backed-up value
-                    return;
+                // no-op when user goes to another window or the input field has no backed-up value
+                if (document.hasFocus() && target._oldValue !== undefined) {
+                    if (target._oldValue !== target.value) {
+                        target.datepicker.setDate(target._oldValue || { clear: true });
+                    }
+                    delete target._oldValue;
                 }
-                if (target._oldValue !== target.value) {
-                    target.datepicker.setDate(target._oldValue);
+                if (this.lastValue !== input.value) {
+                    input.dispatchEvent(new Event("change"));
                 }
-                delete target._oldValue;
+            });
+            datepicker.element.addEventListener("changeDate", (event) => {
+                // console.info("event -----> ", event.type);
+                input.dispatchEvent(new Event("change"));
             });
             // simple solution for the picker: currently only open, not close is implemented
             (_a = this.querySelector(".tobago-date-picker")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", (event) => {
