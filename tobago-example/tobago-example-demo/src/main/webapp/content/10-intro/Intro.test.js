@@ -19,9 +19,9 @@ import {querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("First section title is 'Intro'", function (done) {
-  let titleOfFirstSectionHeader = querySelectorFn(".tobago-section-header > h1 > span");
+  let titleOfFirstSectionHeader = querySelectorFn("tobago-section h1");
 
   let test = new JasmineTestTool(done);
-  test.do(() => expect(titleOfFirstSectionHeader().textContent).toEqual("Intro"));
+  test.do(() => expect(titleOfFirstSectionHeader().textContent.trim()).toEqual("Intro"));
   test.start();
 });
