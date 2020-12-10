@@ -35,6 +35,10 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
   FIELD_ID("field-id"),
   FOCUS_ID("focus-id"),
   /**
+   * Internationalization strings for e.g. date specific labels, e.g. January or Monday.
+   */
+  I18N("i18n"),
+  /**
    * The index of the tab inside the tab group.
    */
   INDEX("index"),
@@ -76,6 +80,14 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
    * The mode of the tab switch: client, reloadTab, reloadPage.
    */
   SWITCH_TYPE("switch-type"),
+  /**
+   * The date of today
+   */
+  TODAY("today"),
+  /**
+   * Show the button to set the field to today.
+   */
+  TODAY_BUTTON("today-button"),
   TOTAL_COUNT("total-count"),
   DECOUPLED("decoupled"),
   UPDATE("update");

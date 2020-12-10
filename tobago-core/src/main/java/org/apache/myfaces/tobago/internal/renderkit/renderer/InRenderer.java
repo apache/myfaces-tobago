@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUIIn;
-import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneChoice;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
@@ -160,7 +159,6 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
 
     writer.writeAttribute(HtmlAttributes.REQUIRED, required);
     renderFocus(clientId, component.isFocus(), component.isError(), facesContext, writer);
-    writeAdditionalAttributes(facesContext, writer, component);
 
     writer.endElement(HtmlElements.INPUT);
 
@@ -200,11 +198,6 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
 
   protected CssItem getRendererCssClass() {
     return TobagoClass.IN;
-  }
-
-  protected void writeAdditionalAttributes(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUIInput input)
-      throws IOException {
   }
 
   @Override

@@ -37,17 +37,21 @@ public class DateTimeI18n {
 
   private static final Map<Locale, DateTimeI18n> CACHE = new HashMap<>();
 
-  private final String[] monthNames = new String[12];
-  private final String[] monthNamesShort = new String[12];
-  private final String[] dayNames = new String[7];
-  private final String[] dayNamesShort = new String[7];
-  private final String[] dayNamesMin = new String[7];
-  private final int firstDay;
-  private final int minDays;
+  private final String[] days = new String[7];
+  private final String[] daysShort = new String[7];
+  private final String[] daysMin = new String[7];
+  private final String[] months = new String[12];
+  private final String[] monthsShort = new String[12];
   private final String today;
-  private final String cancel;
+//  private final String monthTitle;
   private final String clear;
-  private final String week;
+  private final int weekStart;
+//  private final String format;
+//  private final String titleFormat;
+
+  private final int minDays; // XXX why?
+  private final String cancel; // XXX why?
+  private final String week; // XXX why?
 
   private DateTimeI18n(final Locale locale) {
 
@@ -58,9 +62,9 @@ public class DateTimeI18n {
     calendar.set(2000, Calendar.JANUARY, 1);
     final SimpleDateFormat dateFormatMMMMM = new SimpleDateFormat("MMMMM", locale);
     final SimpleDateFormat dateFormatMMM = new SimpleDateFormat("MMM", locale);
-    for (int i = 0; i < monthNames.length; i++) {
-      monthNames[i] = dateFormatMMMMM.format(calendar.getTime());
-      monthNamesShort[i] = dateFormatMMM.format(calendar.getTime());
+    for (int i = 0; i < months.length; i++) {
+      months[i] = dateFormatMMMMM.format(calendar.getTime());
+      monthsShort[i] = dateFormatMMM.format(calendar.getTime());
       calendar.add(Calendar.MONTH, 1);
     }
 
@@ -68,14 +72,14 @@ public class DateTimeI18n {
     final SimpleDateFormat dateFormatEEE = new SimpleDateFormat("EEE", locale);
     final SimpleDateFormat dateFormatE = new SimpleDateFormat("E", locale);
     calendar.set(2000, Calendar.JANUARY, 2);
-    for (int i = 0; i < dayNames.length; i++) {
-      dayNames[i] = dateFormatEEEEE.format(calendar.getTime());
-      dayNamesShort[i] = dateFormatEEE.format(calendar.getTime());
-      dayNamesMin[i] = dateFormatE.format(calendar.getTime());
+    for (int i = 0; i < days.length; i++) {
+      days[i] = dateFormatEEEEE.format(calendar.getTime());
+      daysShort[i] = dateFormatEEE.format(calendar.getTime());
+      daysMin[i] = dateFormatE.format(calendar.getTime());
       calendar.add(Calendar.DAY_OF_YEAR, 1);
     }
 
-    firstDay = calendar.getFirstDayOfWeek() - 1; // because Java: 1 = Sunday and JavaScript: 0 = Sunday
+    weekStart = calendar.getFirstDayOfWeek() - 1; // because Java: 1 = Sunday and JavaScript: 0 = Sunday
     minDays = calendar.getMinimalDaysInFirstWeek();
 
     FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -95,28 +99,28 @@ public class DateTimeI18n {
     return dateTimeI18n;
   }
 
-  public String[] getMonthNames() {
-    return monthNames;
+  public String[] getMonths() {
+    return months;
   }
 
-  public String[] getMonthNamesShort() {
-    return monthNamesShort;
+  public String[] getMonthsShort() {
+    return monthsShort;
   }
 
-  public String[] getDayNames() {
-    return dayNames;
+  public String[] getDays() {
+    return days;
   }
 
-  public String[] getDayNamesShort() {
-    return dayNamesShort;
+  public String[] getDaysShort() {
+    return daysShort;
   }
 
-  public String[] getDayNamesMin() {
-    return dayNamesMin;
+  public String[] getDaysMin() {
+    return daysMin;
   }
 
-  public int getFirstDay() {
-    return firstDay;
+  public int getWeekStart() {
+    return weekStart;
   }
 
   public int getMinDays() {
