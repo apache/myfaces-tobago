@@ -44,8 +44,6 @@ public enum DataAttributes implements MarkupLanguageAttributes {
    */
   CONTEXT_PATH("data-tobago-context-path"),
 
-  DATE_TIME_I18N("data-tobago-date-time-i18n"),
-
   /**
    * Holds the day of a calendar control.
    */
@@ -151,10 +149,6 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   TITLE("data-title"),
 
   TO_PAGE("data-tobago-to-page"),
-
-  TODAY("data-tobago-today"),
-
-  TODAY_BUTTON("data-tobago-today-button"),
 
   TOGGLE("data-toggle"),
 

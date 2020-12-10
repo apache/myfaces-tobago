@@ -23,37 +23,28 @@ class DatePicker extends HTMLElement {
     }
     connectedCallback() {
         var _a;
-        const input = this.inputElement;
-        // todo: refactor "i18n" to "normal" attribute of tobago-date
-        // todo: refactor: Make a class or interface for i18n
-        const i18n = input.dataset.tobagoDateTimeI18n ? JSON.parse(input.dataset.tobagoDateTimeI18n) : undefined;
-        // todo: refactor "pattern" to "normal" attribute of tobago-date
-        const pattern = DateUtils.convertPattern(input.dataset.tobagoPattern);
+        const field = this.field;
+        console.info("field --------------->", field);
         const locale = Page.page(this).locale;
-        Datepicker.locales[locale] = {
-            days: i18n.dayNames,
-            daysShort: i18n.dayNamesShort,
-            daysMin: i18n.dayNamesMin,
-            months: i18n.monthNames,
-            monthsShort: i18n.monthNamesShort,
-            today: i18n.today,
-            clear: i18n.clear,
-            titleFormat: "MM y",
-            format: pattern,
-            weekstart: i18n.firstDay
-        };
-        const datepicker = new Datepicker(input, {
+        const i18n = this.i18n;
+        // i18n.titleFormat = "MM y"; // todo i18n (this is the default of the Datepicker lib)
+        i18n.format = this.pattern;
+        Datepicker.locales[locale] = i18n;
+        const options = {
             buttonClass: "btn",
             orientation: "bottom top auto",
             autohide: true,
-            language: locale
+            language: locale,
+            todayBtn: this.todayButton,
+            todayBtnMode: 1
             // todo readonly
             // todo show week numbers
-        });
+        };
+        const datepicker = new Datepicker(field, options);
         // XXX these listeners are needed as long as we have a solution for:
         // XXX https://github.com/mymth/vanillajs-datepicker/issues/13
         // XXX the 2nd point is missing the "normal" change event on the input element
-        input.addEventListener("keyup", (event) => {
+        field.addEventListener("keyup", (event) => {
             // console.info("event -----> ", event.type);
             if (event.metaKey || event.key.length > 1 && event.key !== "Backspace" && event.key !== "Delete") {
                 return;
@@ -62,11 +53,11 @@ class DatePicker extends HTMLElement {
             const target = event.target;
             target._oldValue = target.value;
         });
-        input.addEventListener("focus", (event) => {
+        field.addEventListener("focus", (event) => {
             // console.info("event -----> ", event.type);
-            this.lastValue = input.value;
+            this.lastValue = field.value;
         });
-        input.addEventListener("blur", (event) => {
+        field.addEventListener("blur", (event) => {
             // console.info("event -----> ", event.type);
             const target = event.target;
             // no-op when user goes to another window or the input field has no backed-up value
@@ -76,21 +67,41 @@ class DatePicker extends HTMLElement {
                 }
                 delete target._oldValue;
             }
-            if (this.lastValue !== input.value) {
-                input.dispatchEvent(new Event("change"));
+            if (this.lastValue !== field.value) {
+                field.dispatchEvent(new Event("change"));
             }
         });
         datepicker.element.addEventListener("changeDate", (event) => {
             // console.info("event -----> ", event.type);
-            input.dispatchEvent(new Event("change"));
+            field.dispatchEvent(new Event("change"));
         });
         // simple solution for the picker: currently only open, not close is implemented
         (_a = this.querySelector(".tobago-date-picker")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", (event) => {
-            this.inputElement.focus();
+            this.field.focus();
         });
     }
-    get inputElement() {
-        return this.querySelector(".input");
+    get todayButton() {
+        return this.hasAttribute("today-button");
+    }
+    set todayButton(todayButton) {
+        if (todayButton) {
+            this.setAttribute("today-button", "");
+        }
+        else {
+            this.removeAttribute("today-button");
+        }
+    }
+    get pattern() {
+        const pattern = this.getAttribute("pattern");
+        return DateUtils.convertPatternJava2Js(pattern); // todo: to the conversation in Java, not here
+    }
+    get i18n() {
+        const i18n = this.getAttribute("i18n");
+        return i18n ? JSON.parse(i18n) : undefined;
+    }
+    get field() {
+        const rootNode = this.getRootNode();
+        return rootNode.getElementById(this.id + "::field");
     }
 }
 document.addEventListener("tobago.init", function (event) {

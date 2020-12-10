@@ -156,6 +156,7 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
           TobagoClass.MARGIN__BOTTOM,
           ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,
           markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
+      writeAdditionalAttributes(facesContext, writer, component);
     }
 
     switch (labelLayout) {
@@ -195,6 +196,11 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
 //        break;
 //      default:
 //    }
+  }
+
+  protected void writeAdditionalAttributes(
+      final FacesContext facesContext, final TobagoResponseWriter writer, final T input)
+      throws IOException {
   }
 
   protected void encodeEndSurroundingLabel(final FacesContext facesContext, final T component)

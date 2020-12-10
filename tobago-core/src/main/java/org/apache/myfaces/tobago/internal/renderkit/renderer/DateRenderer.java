@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUIDate;
-import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -28,8 +27,7 @@ import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
-import org.apache.myfaces.tobago.renderkit.css.VaadinClass;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
+import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -55,18 +53,16 @@ public class DateRenderer<T extends AbstractUIDate> extends InRenderer<T> {
 
   @Override
   protected void writeAdditionalAttributes(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUIInput input)
+      final FacesContext facesContext, final TobagoResponseWriter writer, final T input)
       throws IOException {
 
-    final AbstractUIDate date = (AbstractUIDate) input;
-
-    super.writeAdditionalAttributes(facesContext, writer, date);
-    writer.writeAttribute(DataAttributes.PATTERN, date.getPattern(), true);
+    super.writeAdditionalAttributes(facesContext, writer, input);
+    writer.writeAttribute(HtmlAttributes.PATTERN, input.getPattern(), true);
     final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    writer.writeAttribute(DataAttributes.TODAY, sdf.format(new Date()), true);
+    writer.writeAttribute(CustomAttributes.TODAY, sdf.format(new Date()), true);
     final DateTimeI18n dateTimeI18n = DateTimeI18n.valueOf(facesContext.getViewRoot().getLocale());
-    writer.writeAttribute(DataAttributes.DATE_TIME_I18N, JsonUtils.encode(dateTimeI18n), true);
-    writer.writeAttribute(DataAttributes.TODAY_BUTTON, date.isTodayButton());
+    writer.writeAttribute(CustomAttributes.I18N, JsonUtils.encode(dateTimeI18n), true);
+    writer.writeAttribute(CustomAttributes.TODAY_BUTTON, input.isTodayButton());
   }
 
   @Override
@@ -128,6 +124,6 @@ public class DateRenderer<T extends AbstractUIDate> extends InRenderer<T> {
 
   @Override
   protected CssItem getRendererCssClass() {
-    return VaadinClass.INPUT;
+    return null;
   }
 }

@@ -245,12 +245,12 @@ public class JsonUtils {
     builder.append("{");
     final int initialLength = builder.length();
 
-    encode(builder, "monthNames", dateTimeI18n.getMonthNames());
-    encode(builder, "monthNamesShort", dateTimeI18n.getMonthNamesShort());
-    encode(builder, "dayNames", dateTimeI18n.getDayNames());
-    encode(builder, "dayNamesShort", dateTimeI18n.getDayNamesShort());
-    encode(builder, "dayNamesMin", dateTimeI18n.getDayNamesMin());
-    encode(builder, "firstDay", dateTimeI18n.getFirstDay());
+    encode(builder, "months", dateTimeI18n.getMonths());
+    encode(builder, "monthsShort", dateTimeI18n.getMonthsShort());
+    encode(builder, "days", dateTimeI18n.getDays());
+    encode(builder, "daysShort", dateTimeI18n.getDaysShort());
+    encode(builder, "daysMin", dateTimeI18n.getDaysMin());
+    encode(builder, "firstDay", dateTimeI18n.getWeekStart());
     encode(builder, "minDays", dateTimeI18n.getMinDays());
     encode(builder, "today", dateTimeI18n.getToday());
     encode(builder, "cancel", dateTimeI18n.getCancel());

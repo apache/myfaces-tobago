@@ -23,7 +23,7 @@ export class DateUtils {
     and convert it to 'vanillajs-datepicker', see https://mymth.github.io/vanillajs-datepicker/#/date-string+format
     Attention: Not every pattern char is supported.
     */
-    static convertPattern(originalPattern) {
+    static convertPatternJava2Js(originalPattern) {
         let pattern;
         if (!originalPattern || originalPattern.length > 100) {
             console.warn("Pattern not supported: " + originalPattern);

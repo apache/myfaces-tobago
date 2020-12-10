@@ -19,6 +19,29 @@ import Datepicker from "vanillajs-datepicker/js/Datepicker.js";
 import {DateUtils} from "./tobago-date-utils";
 import {Page} from "./tobago-page";
 
+interface DatePickerI18n {
+  days: string[];
+  daysShort: string[];
+  daysMin: string[];
+  months: string[];
+  monthsShort: string[];
+  today: string;
+  monthsTitle: string;
+  clear: string;
+  weekStart: number;
+  format: string;
+  titleFormat: string;
+}
+
+interface DatePickerOptions {
+  buttonClass: string;
+  orientation: string;
+  autohide: boolean;
+  language: string;
+  todayBtn: boolean;
+  todayBtnMode: number;
+}
+
 class DatePicker extends HTMLElement {
 
   lastValue: string;
@@ -28,40 +51,33 @@ class DatePicker extends HTMLElement {
   }
 
   connectedCallback(): void {
-    const input = this.inputElement;
+    const field = this.field;
 
-    // todo: refactor "i18n" to "normal" attribute of tobago-date
-    // todo: refactor: Make a class or interface for i18n
-    const i18n = input.dataset.tobagoDateTimeI18n ? JSON.parse(input.dataset.tobagoDateTimeI18n) : undefined;
-    // todo: refactor "pattern" to "normal" attribute of tobago-date
-    const pattern = DateUtils.convertPattern(input.dataset.tobagoPattern);
+    console.info("field --------------->", field);
+
     const locale: string = Page.page(this).locale;
-    Datepicker.locales[locale] = {
-      days: i18n.dayNames,
-      daysShort: i18n.dayNamesShort,
-      daysMin: i18n.dayNamesMin,
-      months: i18n.monthNames,
-      monthsShort: i18n.monthNamesShort,
-      today: i18n.today,
-      clear: i18n.clear,
-      titleFormat: "MM y", // todo i18n
-      format: pattern,
-      weekstart: i18n.firstDay
-    };
 
-    const datepicker = new Datepicker(input, {
+    const i18n = this.i18n;
+    // i18n.titleFormat = "MM y"; // todo i18n (this is the default of the Datepicker lib)
+    i18n.format = this.pattern;
+    Datepicker.locales[locale] = i18n;
+
+    const options: DatePickerOptions = {
       buttonClass: "btn",
       orientation: "bottom top auto",
       autohide: true,
-      language: locale
+      language: locale,
+      todayBtn: this.todayButton,
+      todayBtnMode: 1
       // todo readonly
       // todo show week numbers
-    });
+    };
+    const datepicker = new Datepicker(field, options);
 
     // XXX these listeners are needed as long as we have a solution for:
     // XXX https://github.com/mymth/vanillajs-datepicker/issues/13
     // XXX the 2nd point is missing the "normal" change event on the input element
-    input.addEventListener("keyup", (event) => {
+    field.addEventListener("keyup", (event) => {
       // console.info("event -----> ", event.type);
       if (event.metaKey || event.key.length > 1 && event.key !== "Backspace" && event.key !== "Delete") {
         return;
@@ -71,12 +87,12 @@ class DatePicker extends HTMLElement {
       target._oldValue = target.value;
     });
 
-    input.addEventListener("focus", (event) => {
+    field.addEventListener("focus", (event) => {
       // console.info("event -----> ", event.type);
-      this.lastValue = input.value;
+      this.lastValue = field.value;
     });
 
-    input.addEventListener("blur", (event) => {
+    field.addEventListener("blur", (event) => {
       // console.info("event -----> ", event.type);
       const target = event.target as any;
 
@@ -88,26 +104,49 @@ class DatePicker extends HTMLElement {
         delete target._oldValue;
       }
 
-      if (this.lastValue !== input.value) {
-        input.dispatchEvent(new Event("change"));
+      if (this.lastValue !== field.value) {
+        field.dispatchEvent(new Event("change"));
       }
     });
 
     datepicker.element.addEventListener("changeDate", (event) => {
       // console.info("event -----> ", event.type);
-      input.dispatchEvent(new Event("change"));
+      field.dispatchEvent(new Event("change"));
     });
 
     // simple solution for the picker: currently only open, not close is implemented
     this.querySelector(".tobago-date-picker")?.addEventListener("click",
         (event: MouseEvent) => {
-          this.inputElement.focus();
+          this.field.focus();
         }
     );
   }
 
-  get inputElement(): HTMLInputElement {
-    return this.querySelector(".input") as HTMLInputElement;
+  get todayButton(): boolean {
+    return this.hasAttribute("today-button");
+  }
+
+  set todayButton(todayButton: boolean) {
+    if (todayButton) {
+      this.setAttribute("today-button", "");
+    } else {
+      this.removeAttribute("today-button");
+    }
+  }
+
+  get pattern(): string {
+    const pattern = this.getAttribute("pattern");
+    return DateUtils.convertPatternJava2Js(pattern); // todo: to the conversation in Java, not here
+  }
+
+  get i18n(): DatePickerI18n {
+    const i18n = this.getAttribute("i18n");
+    return i18n ? JSON.parse(i18n) : undefined;
+  }
+
+  get field(): HTMLInputElement {
+    const rootNode = this.getRootNode() as ShadowRoot | Document;
+    return rootNode.getElementById(this.id + "::field") as HTMLInputElement;
   }
 }
 
