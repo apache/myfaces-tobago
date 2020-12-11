@@ -39,8 +39,6 @@ import org.slf4j.LoggerFactory;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class DateRenderer<T extends AbstractUIDate> extends InRenderer<T> {
 
@@ -58,8 +56,8 @@ public class DateRenderer<T extends AbstractUIDate> extends InRenderer<T> {
 
     super.writeAdditionalAttributes(facesContext, writer, input);
     writer.writeAttribute(HtmlAttributes.PATTERN, input.getPattern(), true);
-    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    writer.writeAttribute(CustomAttributes.TODAY, sdf.format(new Date()), true);
+//    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//    writer.writeAttribute(CustomAttributes.TODAY, sdf.format(new Date()), true); XXX seem no longer needed
     final DateTimeI18n dateTimeI18n = DateTimeI18n.valueOf(facesContext.getViewRoot().getLocale());
     writer.writeAttribute(CustomAttributes.I18N, JsonUtils.encode(dateTimeI18n), true);
     writer.writeAttribute(CustomAttributes.TODAY_BUTTON, input.isTodayButton());
