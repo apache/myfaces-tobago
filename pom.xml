@@ -996,6 +996,10 @@
               <!-- pixelmator -->
               <exclude>**/*.pxm</exclude>
 
+              <!-- select2 -->
+              <exclude>**/contrib/select2/**.css</exclude>
+              <exclude>**/contrib/select2/**/*.js</exclude>
+
               <!-- jetty key store for testing -->
               <exclude>**/jettykeystore</exclude>
             </excludes>
