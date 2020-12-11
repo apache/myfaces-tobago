@@ -80,10 +80,10 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
    * The mode of the tab switch: client, reloadTab, reloadPage.
    */
   SWITCH_TYPE("switch-type"),
-  /**
+  /* * XXX seem no longer needed
    * The date of today
    */
-  TODAY("today"),
+//  TODAY("today"),
   /**
    * Show the button to set the field to today.
    */
