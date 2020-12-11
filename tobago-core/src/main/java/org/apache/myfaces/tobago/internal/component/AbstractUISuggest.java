@@ -24,7 +24,6 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.myfaces.tobago.component.InputSuggest2;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.component.UISelectItems;
 import org.apache.myfaces.tobago.component.UISelectManyBox;
 import org.apache.myfaces.tobago.component.UISelectOneChoice;
 import org.apache.myfaces.tobago.model.AutoSuggestItem;

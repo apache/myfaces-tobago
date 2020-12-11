@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.facelets.extension;
 
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UISelectManyBox;
-import org.apache.myfaces.tobago.component.UISelectManyListbox;
 
 import javax.faces.view.facelets.ComponentConfig;
 
