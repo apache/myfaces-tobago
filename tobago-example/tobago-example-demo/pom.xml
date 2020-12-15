@@ -544,7 +544,7 @@
             <configuration>
               <images>
                 <image>
-                  <name>myfaces/tobago-example-demo:${tobago.version}</name>
+                  <name>myfaces/tobago-example-demo</name>
                   <run>
                     <ports>
                       <port>8080:8080</port>
@@ -552,6 +552,9 @@
                   </run>
                   <build>
                     <from>tomcat</from>
+                    <tags>
+                      <tag>${tobago.version}</tag>
+                    </tags>
                     <assembly>
                       <descriptor>assembly.xml</descriptor>
                       <basedir>/usr/local/tomcat</basedir>
