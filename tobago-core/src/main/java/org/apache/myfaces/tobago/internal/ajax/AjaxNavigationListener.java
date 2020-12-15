@@ -37,8 +37,11 @@ public class AjaxNavigationListener implements PhaseListener {
     if (!facesContext.getResponseComplete()) {
       if (phaseEvent.getPhaseId() == PhaseId.RESTORE_VIEW) {
         AjaxNavigationState.afterRestoreView(facesContext);
+      } else if (phaseEvent.getPhaseId() == PhaseId.APPLY_REQUEST_VALUES
+          && facesContext.getRenderResponse()) {
+        AjaxNavigationState.checkNavigation(facesContext);
       } else if (phaseEvent.getPhaseId() == PhaseId.INVOKE_APPLICATION) {
-        AjaxNavigationState.afterInvokeApplication(facesContext);
+        AjaxNavigationState.checkNavigation(facesContext);
       }
     }
     debug(facesContext);

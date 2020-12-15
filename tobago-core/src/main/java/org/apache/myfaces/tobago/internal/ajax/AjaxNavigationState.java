@@ -196,7 +196,7 @@ public final class AjaxNavigationState {
     return false;
   }
 
-  public static void afterInvokeApplication(FacesContext facesContext) {
+  public static void checkNavigation(FacesContext facesContext) {
     if (AjaxUtils.isAjaxRequest(facesContext) && isNavigation(facesContext)) {
       try {
         AjaxInternalUtils.requestNavigationReload(facesContext, new AjaxNavigationState(facesContext));
