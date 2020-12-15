@@ -35,6 +35,7 @@ import org.slf4j.LoggerFactory;
 import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -45,7 +46,7 @@ import java.util.Set;
 
 public class TobagoConfig {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TobagoConfig.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public static final String TOBAGO_CONFIG = "org.apache.myfaces.tobago.config.TobagoConfig";
 
