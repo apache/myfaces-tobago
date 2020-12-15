@@ -30,7 +30,7 @@
       <!--<useProjectArtifact>true</useProjectArtifact>-->
       <useTransitiveDependencies>false</useTransitiveDependencies>
       <outputDirectory>webapps</outputDirectory>
-      <outputFileNameMapping>tobago-example-demo.war</outputFileNameMapping>
+      <outputFileNameMapping>ROOT.war</outputFileNameMapping>
     </dependencySet>
   </dependencySets>
 
