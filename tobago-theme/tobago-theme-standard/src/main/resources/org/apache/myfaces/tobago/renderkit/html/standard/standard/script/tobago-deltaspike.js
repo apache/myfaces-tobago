@@ -18,13 +18,15 @@
  */
 
 jQuery(document).ready(function() {
-  var dswid = location.search.replace(/.*dswid=(\-?[0-9]+).*/, "$1");
-  if (dswid) {
-    dswh.init(dswid, 'LAZY', 10, {
-      'tokenizedRedirect': false,
-      'storeWindowTreeOnLinkClick': true,
-      'storeWindowTreeOnButtonClick': false
-    });
+  if (location.search.match(/.*dswid=(\-?[0-9]+).*/) !== null) {
+    var dswid = location.search.replace(/.*dswid=(\-?[0-9]+).*/, "$1");
+    if (dswid) {
+      dswh.init(dswid, 'LAZY', 10, {
+        'tokenizedRedirect': false,
+        'storeWindowTreeOnLinkClick': true,
+        'storeWindowTreeOnButtonClick': false
+      });
+    }
   }
 });
 
