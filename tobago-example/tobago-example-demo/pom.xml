@@ -144,7 +144,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <excludes>
-            <exclude>qunit/*</exclude>
+            <exclude>integration/*</exclude>
           </excludes>
         </configuration>
       </plugin>
