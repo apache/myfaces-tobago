@@ -28,7 +28,7 @@
   <tc:script file="#{request.contextPath}/tobago/test/tobago-test-tool.js" type="module"/>
   <tc:script file="#{request.contextPath}/script/tobago-test.js" type="module"/>
   <tc:style file="#{request.contextPath}/style/jasmine-3.5.0.css"/>
-  <tc:script file="#{request.contextPath}/#{param['accessTest'] ? 'error/error' : param['base']}.test.js"
+  <tc:script file="#{request.contextPath}/#{param['basicTest'] ? 'error/error' : param['base']}.test.js"
              type="module"/>
 
   <div id="jasmine-container"></div>

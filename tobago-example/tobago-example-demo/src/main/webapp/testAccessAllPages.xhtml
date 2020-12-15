@@ -29,9 +29,9 @@
     <c:forEach items="#{testController.allTestPages}" var="testPage">
       <div class="testframe-wrapper">
         <div>
-          <tc:link label="open in new tab" link="test.xhtml?base=#{testPage.base}&amp;accessTest=true" target="_blank"/>
+          <tc:link label="open in new tab" link="test.xhtml?base=#{testPage.base}&amp;basicTest=true" target="_blank"/>
         </div>
-        <tc:object id="#{testPage.id}" name="test.xhtml?base=#{testPage.base}&amp;accessTest=true">
+        <tc:object id="#{testPage.id}" name="test.xhtml?base=#{testPage.base}&amp;basicTest=true">
           <tc:style height="300px"/>
         </tc:object>
       </div>
