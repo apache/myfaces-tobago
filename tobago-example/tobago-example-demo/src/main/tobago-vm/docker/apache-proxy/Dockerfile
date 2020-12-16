@@ -15,16 +15,18 @@
 
 FROM debian:buster-slim
 
+RUN echo "deb http://deb.debian.org/debian buster-backports main" >/etc/apt/sources.list.d/buster-backports.list
+
 RUN apt-get update \
  && apt-get upgrade -y \
- && apt-get install -y less vim apache2 \
+ && apt-get install -y less vim \
+ && apt-get install -y -t buster-backports apache2 \
  && apt-get clean \
- && rm -rf /var/lib/apt/lists/* \
- && a2enmod proxy proxy_http
+ && rm -rf /var/lib/apt/lists/*
 
-# todo: SSL
-#COPY 000-default.conf 001-ssl.conf /etc/apache2/sites-enabled/
-COPY 000-default.conf /etc/apache2/sites-enabled/
+RUN a2enmod proxy proxy_http ssl md
+
+COPY 000-default.conf 001-ssl.conf /etc/apache2/sites-enabled/
 COPY *.html /var/www/html/
 COPY *.css *.css.map /var/www/html/
 
@@ -39,4 +41,3 @@ RUN mkdir -p ${APACHE_RUN_DIR} ${APACHE_LOG_DIR}
 EXPOSE 80
 
 CMD ["/usr/sbin/apache2", "-D", "FOREGROUND"]
-

@@ -19,7 +19,7 @@ services:
     build: apache-proxy
     ports:
       - "80:80"
-# todo     - "443:443"
+      - "443:443"
     logging:
       options:
         max-size: "1m"
