@@ -794,7 +794,7 @@ label.tobago-required:after {
 }
 
 /* section ----------------------------------------------------------- */
-tobago-section > div > {
+tobago-section > .tobago-header > {
   h1, h2, h3, h4, h5, h6 {
     > .fa:first-child, > img {
       /* to separate the icon from the rest of the title */

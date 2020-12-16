@@ -77,6 +77,7 @@ public class SectionRenderer<T extends AbstractUISection> extends CollapsiblePan
     }
 
     writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(TobagoClass.HEADER);
     writer.startElement(tag);
 
     final String image = component.getImage();

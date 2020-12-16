@@ -142,6 +142,7 @@ public enum TobagoClass implements CssItem {
    */
   @Deprecated
   FORM("tobago-form"),
+  HEADER("tobago-header"),
   /**
    * @deprecated Since 5.0.0. Please use {@link TobagoClass#POPOVER__BUTTON}
    */
