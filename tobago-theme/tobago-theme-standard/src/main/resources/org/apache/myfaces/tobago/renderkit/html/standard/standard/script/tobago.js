@@ -1920,6 +1920,8 @@ Tobago.Transport.JqueryTransport = {
       requestOptions.textStatus = textStatus;
 
       Tobago.Updater.onSuccess(requestOptions);
+
+      $(document).trigger("tobago.partialSuccess");
     };
 
     requestObject.error = function(xhr, textStatus, errorThrown) {
