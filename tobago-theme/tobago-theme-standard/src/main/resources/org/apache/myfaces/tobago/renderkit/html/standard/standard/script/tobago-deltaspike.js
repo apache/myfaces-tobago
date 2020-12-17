@@ -87,7 +87,11 @@ window.dswh = window.dswh || {
           //     targetStrategy.init(true);
           //   }
           // });
-
+          // XXX Tobago replacement:
+          $(document).bind("tobago.partialSuccess", function(event) {
+            dswh.utils.log('--- #init(true)');
+            targetStrategy.init(true);
+          });
 
           // PF ajax callback
           if (window.$ && window.PrimeFaces) {
