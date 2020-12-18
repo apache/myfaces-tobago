@@ -19,17 +19,19 @@ import {querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("has no exception", function (done) {
-  const error = querySelectorFn("#page\\:mainForm\\:errorSection .tobago-section-header span");
+  let errorFn = querySelectorFn("#page\\:mainForm\\:errorSection .tobago-header span");
 
   const test = new JasmineTestTool(done);
-  test.do(() => expect(error.textContent).not.toEqual("An error has occurred!"));
+  test.do(() => expect(errorFn() === null
+      || errorFn().textContent).not.toEqual("An error has occurred!"));
   test.start();
 });
 
 it("has no 404", function (done) {
-  const error404 = querySelectorFn("#page\\:mainForm\\:pageNotFoundMessage span");
+  let error404Fn = querySelectorFn("#page\\:mainForm\\:pageNotFoundMessage tobago-out");
 
   const test = new JasmineTestTool(done);
-  test.do(() => expect(error404.textContent).not.toEqual("The page was not found!"));
+  test.do(() => expect(error404Fn() === null
+      || error404Fn().textContent.indexOf("The page was not found!") === -1).toBeTrue());
   test.start();
 });
