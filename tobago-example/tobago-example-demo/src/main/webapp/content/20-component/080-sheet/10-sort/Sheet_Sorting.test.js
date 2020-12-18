@@ -28,7 +28,7 @@ it("Basics: Name", function (done) {
       () => colNameFn().classList.contains("tobago-sheet-header-markup-ascending"),
       () => colNameFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.setup(
-      () => rowsFn()[0].querySelector(".tobago-out").textContent === "Earth",
+      () => rowsFn()[0].querySelector("tobago-out").textContent === "Earth",
       () => {
         leftPagingFn().value = "22";
         leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
@@ -69,7 +69,7 @@ it("Basics: Period", function (done) {
       () => colPeriodFn().classList.contains("tobago-sheet-header-markup-ascending"),
       () => colPeriodFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.setup(
-      () => rowsFn()[0].querySelector(".tobago-out").textContent === "Rosalind",
+      () => rowsFn()[0].querySelector("tobago-out").textContent === "Rosalind",
       () => {
         leftPagingFn().value = "29";
         leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
@@ -110,7 +110,7 @@ it("Basics: Year", function (done) {
       () => colYearFn().classList.contains("tobago-sheet-header-markup-ascending"),
       () => colYearFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.setup(
-      () => rowsFn()[0].querySelector(".tobago-out").textContent === "Amalthea",
+      () => rowsFn()[0].querySelector("tobago-out").textContent === "Amalthea",
       () => {
         leftPagingFn().value = "22";
         leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
@@ -119,17 +119,17 @@ it("Basics: Year", function (done) {
   test.do(() => expect(colYearFn().classList.contains("tobago-sheet-header-markup-ascending")).toBe(true));
   test.do(() => expect(colYearFn().classList.contains("tobago-sheet-header-markup-descending")).not.toBe(true));
   test.event("click", colYearFn,
-      () => rowsFn() && rowsFn()[0].querySelectorAll(".tobago-out")[2].textContent === "1999");
-  test.do(() => expect(rowsFn()[0].querySelectorAll(".tobago-out")[2].textContent).toBe("1999"));
-  test.do(() => expect(rowsFn()[1].querySelectorAll(".tobago-out")[2].textContent).toBe("1999"));
-  test.do(() => expect(rowsFn()[2].querySelectorAll(".tobago-out")[2].textContent).toBe("1997"));
-  test.do(() => expect(rowsFn()[3].querySelectorAll(".tobago-out")[2].textContent).toBe("1997"));
+      () => rowsFn() && rowsFn()[0].querySelectorAll("tobago-out")[2].textContent === "1999");
+  test.do(() => expect(rowsFn()[0].querySelectorAll("tobago-out")[2].textContent).toBe("1999"));
+  test.do(() => expect(rowsFn()[1].querySelectorAll("tobago-out")[2].textContent).toBe("1999"));
+  test.do(() => expect(rowsFn()[2].querySelectorAll("tobago-out")[2].textContent).toBe("1997"));
+  test.do(() => expect(rowsFn()[3].querySelectorAll("tobago-out")[2].textContent).toBe("1997"));
   test.event("click", colYearFn,
-      () => rowsFn() && rowsFn()[0].querySelectorAll(".tobago-out")[2].textContent === "1892");
-  test.do(() => expect(rowsFn()[0].querySelectorAll(".tobago-out")[2].textContent).toBe("1892"));
-  test.do(() => expect(rowsFn()[1].querySelectorAll(".tobago-out")[2].textContent).toBe("1898"));
-  test.do(() => expect(rowsFn()[2].querySelectorAll(".tobago-out")[2].textContent).toBe("1904"));
-  test.do(() => expect(rowsFn()[3].querySelectorAll(".tobago-out")[2].textContent).toBe("1905"));
+      () => rowsFn() && rowsFn()[0].querySelectorAll("tobago-out")[2].textContent === "1892");
+  test.do(() => expect(rowsFn()[0].querySelectorAll("tobago-out")[2].textContent).toBe("1892"));
+  test.do(() => expect(rowsFn()[1].querySelectorAll("tobago-out")[2].textContent).toBe("1898"));
+  test.do(() => expect(rowsFn()[2].querySelectorAll("tobago-out")[2].textContent).toBe("1904"));
+  test.do(() => expect(rowsFn()[3].querySelectorAll("tobago-out")[2].textContent).toBe("1905"));
   test.start();
 });
 
@@ -147,7 +147,7 @@ it("Basics: left paging", function (done) {
       () => colNameFn().classList.contains("tobago-sheet-header-markup-ascending"),
       () => colNameFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.setup(
-      () => rowsFn()[0].querySelector(".tobago-out").textContent === "1986U10",
+      () => rowsFn()[0].querySelector("tobago-out").textContent === "1986U10",
       () => {
         leftPagingFn().value = "1";
         leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
@@ -198,7 +198,7 @@ it("Basics: center paging", function (done) {
       () => colNameFn().classList.contains("tobago-sheet-header-markup-ascending"),
       () => colNameFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.setup(
-      () => rowsFn()[0].querySelector(".tobago-out").textContent === "1986U10",
+      () => rowsFn()[0].querySelector("tobago-out").textContent === "1986U10",
       () => {
         leftPagingFn().value = "1";
         leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
@@ -261,7 +261,7 @@ it("Basics: right paging", function (done) {
       () => colNameFn().classList.contains("tobago-sheet-header-markup-ascending"),
       () => colNameFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.setup(
-      () => rowsFn()[0].querySelector(".tobago-out").textContent === "Earth",
+      () => rowsFn()[0].querySelector("tobago-out").textContent === "Earth",
       () => {
         leftPagingFn().value = "22";
         leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
@@ -333,7 +333,7 @@ it("Custom Sorting: Name", function (done) {
       () => colNameFn().classList.contains("tobago-sheet-header-markup-ascending"),
       () => colNameFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.setup(
-      () => rowsFn()[0].querySelector(".tobago-out").textContent === "Earth",
+      () => rowsFn()[0].querySelector("tobago-out").textContent === "Earth",
       () => {
         leftPagingFn().value = "22";
         leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
@@ -374,7 +374,7 @@ it("Custom Sorting: Period", function (done) {
       () => colPeriodFn().classList.contains("tobago-sheet-header-markup-ascending"),
       () => colPeriodFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.setup(
-      () => rowsFn()[0].querySelector(".tobago-out").textContent === "Mimas",
+      () => rowsFn()[0].querySelector("tobago-out").textContent === "Mimas",
       () => {
         leftPagingFn().value = "29";
         leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
@@ -415,7 +415,7 @@ it("Custom Sorting: Year", function (done) {
       () => colYearFn().classList.contains("tobago-sheet-header-markup-ascending"),
       () => colYearFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.setup(
-      () => rowsFn()[0].querySelectorAll(".tobago-out")[2].textContent === "1789",
+      () => rowsFn()[0].querySelectorAll("tobago-out")[2].textContent === "1789",
       () => {
         leftPagingFn().value = "22";
         leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
@@ -424,17 +424,17 @@ it("Custom Sorting: Year", function (done) {
   test.do(() => expect(colYearFn().classList.contains("tobago-sheet-header-markup-ascending")).toBe(true));
   test.do(() => expect(colYearFn().classList.contains("tobago-sheet-header-markup-descending")).not.toBe(true));
   test.event("click", colYearFn,
-      () => rowsFn() && rowsFn()[0].querySelectorAll(".tobago-out")[2].textContent === "1989");
-  test.do(() => expect(rowsFn()[0].querySelectorAll(".tobago-out")[2].textContent).toBe("1989"));
-  test.do(() => expect(rowsFn()[1].querySelectorAll(".tobago-out")[2].textContent).toBe("1989"));
-  test.do(() => expect(rowsFn()[2].querySelectorAll(".tobago-out")[2].textContent).toBe("1989"));
-  test.do(() => expect(rowsFn()[3].querySelectorAll(".tobago-out")[2].textContent).toBe("1986"));
+      () => rowsFn() && rowsFn()[0].querySelectorAll("tobago-out")[2].textContent === "1989");
+  test.do(() => expect(rowsFn()[0].querySelectorAll("tobago-out")[2].textContent).toBe("1989"));
+  test.do(() => expect(rowsFn()[1].querySelectorAll("tobago-out")[2].textContent).toBe("1989"));
+  test.do(() => expect(rowsFn()[2].querySelectorAll("tobago-out")[2].textContent).toBe("1989"));
+  test.do(() => expect(rowsFn()[3].querySelectorAll("tobago-out")[2].textContent).toBe("1986"));
   test.event("click", colYearFn,
-      () => rowsFn() && rowsFn()[0].querySelectorAll(".tobago-out")[2].textContent === "1789");
-  test.do(() => expect(rowsFn()[0].querySelectorAll(".tobago-out")[2].textContent).toBe("1789"));
-  test.do(() => expect(rowsFn()[1].querySelectorAll(".tobago-out")[2].textContent).toBe("1846"));
-  test.do(() => expect(rowsFn()[2].querySelectorAll(".tobago-out")[2].textContent).toBe("1846"));
-  test.do(() => expect(rowsFn()[3].querySelectorAll(".tobago-out")[2].textContent).toBe("1848"));
+      () => rowsFn() && rowsFn()[0].querySelectorAll("tobago-out")[2].textContent === "1789");
+  test.do(() => expect(rowsFn()[0].querySelectorAll("tobago-out")[2].textContent).toBe("1789"));
+  test.do(() => expect(rowsFn()[1].querySelectorAll("tobago-out")[2].textContent).toBe("1846"));
+  test.do(() => expect(rowsFn()[2].querySelectorAll("tobago-out")[2].textContent).toBe("1846"));
+  test.do(() => expect(rowsFn()[3].querySelectorAll("tobago-out")[2].textContent).toBe("1848"));
   test.start();
 });
 
@@ -452,7 +452,7 @@ it("Custom Sorting: left paging", function (done) {
       () => colNameFn().classList.contains("tobago-sheet-header-markup-ascending"),
       () => colNameFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.setup(
-      () => rowsFn()[0].querySelector(".tobago-out").textContent === "1986U10",
+      () => rowsFn()[0].querySelector("tobago-out").textContent === "1986U10",
       () => {
         leftPagingFn().value = "1";
         leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
@@ -503,7 +503,7 @@ it("Custom Sorting: center paging", function (done) {
       () => colNameFn().classList.contains("tobago-sheet-header-markup-ascending"),
       () => colNameFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.setup(
-      () => rowsFn()[0].querySelector(".tobago-out").textContent === "1986U10",
+      () => rowsFn()[0].querySelector("tobago-out").textContent === "1986U10",
       () => {
         leftPagingFn().value = "1";
         leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
@@ -566,7 +566,7 @@ it("Custom Sorting: right paging", function (done) {
       () => colNameFn().classList.contains("tobago-sheet-header-markup-ascending"),
       () => colNameFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.setup(
-      () => rowsFn()[0].querySelector(".tobago-out").textContent === "Earth",
+      () => rowsFn()[0].querySelector("tobago-out").textContent === "Earth",
       () => {
         leftPagingFn().value = "22";
         leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));

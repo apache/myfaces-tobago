@@ -22,7 +22,7 @@ it("submit: Addition (2 + 4)", function (done) {
   let number1Fn = querySelectorAllFn("#page\\:mainForm\\:selectNum1 input");
   let number2Fn = querySelectorAllFn("#page\\:mainForm\\:selectNum2 input");
   let submitAddFn = querySelectorFn("#page\\:mainForm\\:submitAdd");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:resultOutput span");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:resultOutput tobago-out");
 
   const test = new JasmineTestTool(done);
   test.do(() => number1Fn().item(0).checked = false);
@@ -40,7 +40,7 @@ it("submit: Subtraction (4 - 1)", function (done) {
   let number1Fn = querySelectorAllFn("#page\\:mainForm\\:selectNum1 input");
   let number2Fn = querySelectorAllFn("#page\\:mainForm\\:selectNum2 input");
   let submitSubFn = querySelectorFn("#page\\:mainForm\\:submitSub");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:resultOutput span");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:resultOutput tobago-out");
 
   const test = new JasmineTestTool(done);
   test.do(() => number1Fn().item(0).checked = false);
@@ -57,7 +57,7 @@ it("ajax: select Mars", function (done) {
   const earthFn = elementByIdFn("page:mainForm:selectPlanet::0");
   const marsFn = elementByIdFn("page:mainForm:selectPlanet::1");
   const jupiterFn = elementByIdFn("page:mainForm:selectPlanet::2");
-  const moonsFn = querySelectorAllFn("#page\\:mainForm\\:moonradio .custom-control-label");
+  const moonsFn = querySelectorAllFn("#page\\:mainForm\\:moonradio .form-check-label");
 
   const test = new JasmineTestTool(done);
   test.do(() => earthFn().checked = false);
@@ -73,7 +73,7 @@ it("ajax: select Jupiter", function (done) {
   const earthFn = elementByIdFn("page:mainForm:selectPlanet::0");
   const marsFn = elementByIdFn("page:mainForm:selectPlanet::1");
   const jupiterFn = elementByIdFn("page:mainForm:selectPlanet::2");
-  const moonsFn = querySelectorAllFn("#page\\:mainForm\\:moonradio .custom-control-label");
+  const moonsFn = querySelectorAllFn("#page\\:mainForm\\:moonradio .form-check-label");
 
   const test = new JasmineTestTool(done);
   test.do(() => earthFn().checked = false);

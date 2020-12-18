@@ -21,7 +21,7 @@ import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 it("Press '7 Messages' Button and close the first, the last and the fourth", function (done) {
   const tab = querySelectorFn("#page\\:mainForm\\:woAttr > .nav-link");
   const alerts = querySelectorAllFn("#page\\:mainForm\\:woAttr\\:woAttrMessage .alert");
-  const closeButtons = querySelectorAllFn("#page\\:mainForm\\:woAttr\\:woAttrMessage .alert .close");
+  const closeButtons = querySelectorAllFn("#page\\:mainForm\\:woAttr\\:woAttrMessage .alert .btn-close");
   const alertLabels = querySelectorAllFn("#page\\:mainForm\\:woAttr\\:woAttrMessage .alert label");
   const messagesButton = elementByIdFn("page:mainForm:add7messages");
 

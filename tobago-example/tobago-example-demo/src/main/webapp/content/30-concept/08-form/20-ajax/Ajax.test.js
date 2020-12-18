@@ -19,284 +19,402 @@ import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("submit inner form 1 without violations", function (done) {
-  let form1InputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
-  let buttonFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:submit1");
+  let form1InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
+  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 tobago-out");
+  let form1SubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:submit1");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");
 
   let test = new JasmineTestTool(done);
-  test.do(() => form1InputFieldFn().value = "Alice");
-  test.do(() => buttonFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => form1InputFieldFn() && form1InputFieldFn().value === "Alice");
-  test.do(() => expect(form1InputFieldFn().value).toBe("Alice"));
-  test.do(() => expect(form1OutputFieldFn().textContent).toBe("Alice"));
+  test.setup(() => form1OutputFn().textContent !== "Alice",
+      () => {
+        form1InputFn().value = "Bob";
+        form1SubmitFn().dispatchEvent(new Event("click", {bubbles: true}));
+      });
+  test.do(() => form1InputFn().value = "Alice");
+  test.event("click", form1SubmitFn, () => form1OutputFn().textContent === "Alice");
+  test.do(() => expect(form1InputFn().value).toBe("Alice"));
+  test.do(() => expect(form1OutputFn().textContent).toBe("Alice"));
   test.do(() => expect(alertFn().length).toBe(0));
   test.start();
 });
 
 it("submit inner form 2, violate required field", function (done) {
-  let form2InputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
-  let form2OutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
-  let buttonFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:submit2");
+  let form2InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
+  let form2AlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2 .tobago-messages-container");
+  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 tobago-out");
+  let form2SubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:submit2");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");
-
-  let form2OutputFieldValue = form2OutputFieldFn().textContent;
+  let form2OutputValue = form2OutputFn().textContent;
 
   let test = new JasmineTestTool(done);
-  test.do(() => form2InputFieldFn().value = "");
-  test.do(() => buttonFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => form2InputFieldFn() && form2InputFieldFn().value === "");
-  test.do(() => expect(form2InputFieldFn().value).toBe(""));
-  test.do(() => expect(form2OutputFieldFn().textContent).toBe(form2OutputFieldValue));
+  test.setup(() => form2AlertFn() === null,
+      () => {
+        form2InputFn().value = "Bob";
+        form2SubmitFn().dispatchEvent(new Event("click", {bubbles: true}));
+        form2OutputValue = "Bob";
+      });
+  test.do(() => form2InputFn().value = "");
+  test.event("click", form2SubmitFn, () => form2AlertFn() !== null);
+  test.do(() => expect(form2InputFn().value).toBe(""));
+  test.do(() => expect(form2AlertFn()).not.toBeNull());
+  test.do(() => expect(form2OutputFn().textContent).toBe(form2OutputValue));
   test.do(() => expect(alertFn().length).toBe(1));
   test.start();
 });
 
 it("submit inner form 2 without violations", function (done) {
-  let form2InputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
-  let form2OutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
-  let buttonFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:submit2");
+  let form2InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
+  let form2AlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2 .tobago-messages-container");
+  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 tobago-out");
+  let form2SubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:submit2");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");
 
   let test = new JasmineTestTool(done);
-  test.do(() => form2InputFieldFn().value = "Bob");
-  test.do(() => buttonFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => form2InputFieldFn() && form2InputFieldFn().value === "Bob");
-  test.do(() => expect(form2InputFieldFn().value).toBe("Bob"));
-  test.do(() => expect(form2OutputFieldFn().textContent).toBe("Bob"));
+  test.setup(() => form2OutputFn().textContent !== "Bob",
+      () => {
+        form2InputFn().value = "Alice";
+        form2SubmitFn().dispatchEvent(new Event("click", {bubbles: true}));
+      });
+  test.do(() => form2InputFn().value = "Bob");
+  test.event("click", form2SubmitFn, () => form2OutputFn().textContent === "Bob");
+  test.do(() => expect(form2InputFn().value).toBe("Bob"));
+  test.do(() => expect(form2AlertFn()).toBeNull());
+  test.do(() => expect(form2OutputFn().textContent).toBe("Bob"));
   test.do(() => expect(alertFn().length).toBe(0));
   test.start();
 });
 
 it("submit outer form, violate both required fields", function (done) {
-  let form1InputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
-  let form2InputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
-  let form2OutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
-  let outerFormInputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
-  let outerFormOutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out span");
-  let buttonFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submit");
+  let form1InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
+  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 tobago-out");
+  let form2InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
+  let form2AlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2 .tobago-messages-container");
+  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 tobago-out");
+  let outerFormInputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
+  let outerFormAlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in .tobago-messages-container");
+  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out tobago-out");
+  let outerFormSubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submit");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");
-
-  let form1OutputFieldValue = form1OutputFieldFn().textContent;
-  let form2OutputFieldValue = form2OutputFieldFn().textContent;
-  let outerFormOutputFieldValue = outerFormOutputFieldFn().textContent;
+  let form1OutputValue = form1OutputFn().textContent;
+  let form2OutputValue = form2OutputFn().textContent;
+  let outerFormOutputValue = outerFormOutputFn().textContent;
 
   let test = new JasmineTestTool(done);
-  test.do(() => form1InputFieldFn().value = "Charlie");
-  test.do(() => form2InputFieldFn().value = "");
-  test.do(() => outerFormInputFieldFn().value = "");
-  test.do(() => buttonFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => form1InputFieldFn() && form1InputFieldFn().value === "Charlie");
-  test.do(() => expect(form1InputFieldFn().value).toBe("Charlie"));
-  test.do(() => expect(form1OutputFieldFn().textContent).toBe(form1OutputFieldValue));
-  test.do(() => expect(form2InputFieldFn().value).toBe(""));
-  test.do(() => expect(form2OutputFieldFn().textContent).toBe(form2OutputFieldValue));
-  test.do(() => expect(outerFormInputFieldFn().value).toBe(""));
-  test.do(() => expect(outerFormOutputFieldFn().textContent).toBe(outerFormOutputFieldValue));
+  test.setup(() => form1OutputFn().textContent !== "Dave"
+      && form2AlertFn() === null && outerFormAlertFn() === null,
+      () => {
+        form1InputFn().value = "Alice";
+        form2InputFn().value = "Bob";
+        outerFormInputFn().value = "Charlie";
+        outerFormSubmitFn().dispatchEvent(new Event("click", {bubbles: true}));
+        form1OutputValue = "Alice"
+        form2OutputValue = "Bob";
+        outerFormOutputValue = "Charlie"
+      });
+  test.do(() => form1InputFn().value = "Dave");
+  test.do(() => form2InputFn().value = "");
+  test.do(() => outerFormInputFn().value = "");
+  test.event("click", outerFormSubmitFn, () => form2AlertFn() !== null && outerFormAlertFn() !== null);
+  test.do(() => expect(form1InputFn().value).toBe("Dave"));
+  test.do(() => expect(form1OutputFn().textContent).toBe(form1OutputValue));
+  test.do(() => expect(form2InputFn().value).toBe(""));
+  test.do(() => expect(form2AlertFn()).not.toBeNull());
+  test.do(() => expect(form2OutputFn().textContent).toBe(form2OutputValue));
+  test.do(() => expect(outerFormInputFn().value).toBe(""));
+  test.do(() => expect(outerFormAlertFn()).not.toBeNull());
+  test.do(() => expect(outerFormOutputFn().textContent).toBe(outerFormOutputValue));
   test.do(() => expect(alertFn().length).toBe(2));
   test.start();
 });
 
 it("submit outer form, violate required field in form 2", function (done) {
-  let form1InputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
-  let form2InputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
-  let form2OutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
-  let outerFormInputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
-  let outerFormOutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out span");
-  let buttonFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submit");
+  let form1InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
+  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 tobago-out");
+  let form2InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
+  let form2AlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2 .tobago-messages-container");
+  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 tobago-out");
+  let outerFormInputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
+  let outerFormAlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in .tobago-messages-container");
+  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out tobago-out");
+  let outerFormSubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submit");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");
-
-  let form1OutputFieldValue = form1OutputFieldFn().textContent;
-  let form2OutputFieldValue = form2OutputFieldFn().textContent;
-  let outerFormOutputFieldValue = outerFormOutputFieldFn().textContent;
+  let form1OutputValue = form1OutputFn().textContent;
+  let form2OutputValue = form2OutputFn().textContent;
+  let outerFormOutputValue = outerFormOutputFn().textContent;
 
   let test = new JasmineTestTool(done);
-  test.do(() => form1InputFieldFn().value = "Dave");
-  test.do(() => form2InputFieldFn().value = "");
-  test.do(() => outerFormInputFieldFn().value = "Eve");
-  test.do(() => buttonFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => form1InputFieldFn() && form1InputFieldFn().value === "Dave");
-  test.do(() => expect(form1InputFieldFn().value).toBe("Dave"));
-  test.do(() => expect(form1OutputFieldFn().textContent).toBe(form1OutputFieldValue));
-  test.do(() => expect(form2InputFieldFn().value).toBe(""));
-  test.do(() => expect(form2OutputFieldFn().textContent).toBe(form2OutputFieldValue));
-  test.do(() => expect(outerFormInputFieldFn().value).toBe("Eve"));
-  test.do(() => expect(outerFormOutputFieldFn().textContent).toBe(outerFormOutputFieldValue));
+  test.setup(() => form1OutputFn().textContent !== "Charlie" && form2AlertFn() === null,
+      () => {
+        form1InputFn().value = "Alice";
+        form2InputFn().value = "Bob";
+        outerFormInputFn().value = "Charlie";
+        outerFormSubmitFn().dispatchEvent(new Event("click", {bubbles: true}));
+        form1OutputValue = "Alice"
+        form2OutputValue = "Bob";
+        outerFormOutputValue = "Charlie"
+      });
+  test.do(() => form1InputFn().value = "Charlie");
+  test.do(() => form2InputFn().value = "");
+  test.do(() => outerFormInputFn().value = "Dave");
+  test.event("click", outerFormSubmitFn, () => form2AlertFn() !== null);
+  test.do(() => expect(form1InputFn().value).toBe("Charlie"));
+  test.do(() => expect(form1OutputFn().textContent).toBe(form1OutputValue));
+  test.do(() => expect(form2InputFn().value).toBe(""));
+  test.do(() => expect(form2AlertFn()).not.toBeNull());
+  test.do(() => expect(form2OutputFn().textContent).toBe(form2OutputValue));
+  test.do(() => expect(outerFormInputFn().value).toBe("Dave"));
+  test.do(() => expect(outerFormAlertFn()).toBeNull());
+  test.do(() => expect(outerFormOutputFn().textContent).toBe(outerFormOutputValue));
   test.do(() => expect(alertFn().length).toBe(1));
   test.start();
 });
 
 it("submit outer form, violate required field in outer form", function (done) {
-  let form1InputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
-  let form2InputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
-  let form2OutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
-  let outerFormInputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
-  let outerFormOutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out span");
-  let buttonFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submit");
+  let form1InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
+  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 tobago-out");
+  let form2InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
+  let form2AlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2 .tobago-messages-container");
+  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 tobago-out");
+  let outerFormInputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
+  let outerFormAlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in .tobago-messages-container");
+  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out tobago-out");
+  let outerFormSubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submit");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");
-
-  let form1OutputFieldValue = form1OutputFieldFn().textContent;
-  let form2OutputFieldValue = form2OutputFieldFn().textContent;
-  let outerFormOutputFieldValue = outerFormOutputFieldFn().textContent;
+  let form1OutputValue = form1OutputFn().textContent;
+  let form2OutputValue = form2OutputFn().textContent;
+  let outerFormOutputValue = outerFormOutputFn().textContent;
 
   let test = new JasmineTestTool(done);
-  test.do(() => form1InputFieldFn().value = "Frank");
-  test.do(() => form2InputFieldFn().value = "Grace");
-  test.do(() => outerFormInputFieldFn().value = "");
-  test.do(() => buttonFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => form1InputFieldFn() && form1InputFieldFn().value === "Frank");
-  test.do(() => expect(form1InputFieldFn().value).toBe("Frank"));
-  test.do(() => expect(form1OutputFieldFn().textContent).toBe(form1OutputFieldValue));
-  test.do(() => expect(form2InputFieldFn().value).toBe("Grace"));
-  test.do(() => expect(form2OutputFieldFn().textContent).toBe(form2OutputFieldValue));
-  test.do(() => expect(outerFormInputFieldFn().value).toBe(""));
-  test.do(() => expect(outerFormOutputFieldFn().textContent).toBe(outerFormOutputFieldValue));
+  test.setup(() => outerFormAlertFn() === null,
+      () => {
+        form1InputFn().value = "Dave"
+        form2InputFn().value = "Eve"
+        outerFormInputFn().value = "Frank";
+        outerFormSubmitFn().dispatchEvent(new Event("click", {bubbles: true}))
+        form1OutputValue = "Dave"
+        form2OutputValue = "Eve"
+        outerFormOutputValue = "Frank";
+      });
+  test.do(() => form1InputFn().value = "Eve");
+  test.do(() => form2InputFn().value = "Frank");
+  test.do(() => outerFormInputFn().value = "");
+  test.event("click", outerFormSubmitFn, () => outerFormAlertFn() !== null);
+  test.do(() => expect(form1InputFn().value).toBe("Eve"));
+  test.do(() => expect(form1OutputFn().textContent).toBe(form1OutputValue));
+  test.do(() => expect(form2InputFn().value).toBe("Frank"));
+  test.do(() => expect(form2AlertFn()).toBeNull());
+  test.do(() => expect(form2OutputFn().textContent).toBe(form2OutputValue));
+  test.do(() => expect(outerFormInputFn().value).toBe(""));
+  test.do(() => expect(outerFormAlertFn()).not.toBeNull());
+  test.do(() => expect(outerFormOutputFn().textContent).toBe(outerFormOutputValue));
   test.do(() => expect(alertFn().length).toBe(1));
   test.start();
 });
 
 it("submit outer form without violations", function (done) {
-  let form1InputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
-  let form2InputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
-  let form2OutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
-  let outerFormInputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
-  let outerFormOutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out span");
-  let buttonFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submit");
+  let form1InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
+  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 tobago-out");
+  let form2InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
+  let form2AlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2 .tobago-messages-container");
+  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 tobago-out");
+  let outerFormInputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
+  let outerFormAlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in .tobago-messages-container");
+  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out tobago-out");
+  let outerFormSubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submit");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");
 
   let test = new JasmineTestTool(done);
-  test.do(() => form1InputFieldFn().value = "Hank");
-  test.do(() => form2InputFieldFn().value = "Irene");
-  test.do(() => outerFormInputFieldFn().value = "John");
-  test.do(() => buttonFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => form1InputFieldFn() && form1InputFieldFn().value === "Hank");
-  test.do(() => expect(form1InputFieldFn().value).toBe("Hank"));
-  test.do(() => expect(form1OutputFieldFn().textContent).toBe("Hank"));
-  test.do(() => expect(form2InputFieldFn().value).toBe("Irene"));
-  test.do(() => expect(form2OutputFieldFn().textContent).toBe("Irene"));
-  test.do(() => expect(outerFormInputFieldFn().value).toBe("John"));
-  test.do(() => expect(outerFormOutputFieldFn().textContent).toBe("John"));
+  test.setup(() => form1OutputFn().textContent !== "Hank"
+      && form2OutputFn().textContent !== "Irene"
+      && outerFormOutputFn().textContent !== "John",
+      () => {
+        form1InputFn().value = "Eve";
+        form2InputFn().value = "Frank";
+        outerFormInputFn().value = "Grace";
+        outerFormSubmitFn().dispatchEvent(new Event("click", {bubbles: true}))
+      });
+  test.do(() => form1InputFn().value = "Hank");
+  test.do(() => form2InputFn().value = "Irene");
+  test.do(() => outerFormInputFn().value = "John");
+  test.event("click", outerFormSubmitFn, () => form1OutputFn().textContent === "Hank"
+      && form2OutputFn().textContent === "Irene" && outerFormOutputFn().textContent === "John");
+  test.do(() => expect(form1InputFn().value).toBe("Hank"));
+  test.do(() => expect(form1OutputFn().textContent).toBe("Hank"));
+  test.do(() => expect(form2InputFn().value).toBe("Irene"));
+  test.do(() => expect(form2AlertFn()).toBeNull());
+  test.do(() => expect(form2OutputFn().textContent).toBe("Irene"));
+  test.do(() => expect(outerFormInputFn().value).toBe("John"));
+  test.do(() => expect(outerFormAlertFn()).toBeNull());
+  test.do(() => expect(outerFormOutputFn().textContent).toBe("John"));
   test.do(() => expect(alertFn().length).toBe(0));
   test.start();
 });
 
 it("submit inner forms, violate required field in form 2", function (done) {
-  let form1InputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
-  let form2InputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
-  let form2OutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
-  let outerFormInputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
-  let outerFormOutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out span");
-  let buttonFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submitInnerForms");
+  let form1InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
+  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 tobago-out");
+  let form2InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
+  let form2AlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2 .tobago-messages-container");
+  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 tobago-out");
+  let outerFormInputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
+  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out tobago-out");
+  let outerFormSubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submit");
+  let submitInnerForms = querySelectorFn("#page\\:mainForm\\:outerForm\\:submitInnerForms");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");
 
-  let form1OutputFieldValue = form1OutputFieldFn().textContent;
-  let form2OutputFieldValue = form2OutputFieldFn().textContent;
-  let outerFormOutputFieldValue = outerFormOutputFieldFn().textContent;
+  let form1OutputValue = form1OutputFn().textContent;
+  let form2OutputValue = form2OutputFn().textContent;
+  let outerFormOutputValue = outerFormOutputFn().textContent;
 
   let test = new JasmineTestTool(done);
-  test.do(() => form1InputFieldFn().value = "Kate");
-  test.do(() => form2InputFieldFn().value = "");
-  test.do(() => outerFormInputFieldFn().value = "Leonard");
-  test.do(() => buttonFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => form1InputFieldFn() && form1InputFieldFn().value === "Kate");
-  test.do(() => expect(form1InputFieldFn().value).toBe("Kate"));
-  test.do(() => expect(form1OutputFieldFn().textContent).toBe(form1OutputFieldValue));
-  test.do(() => expect(form2InputFieldFn().value).toBe(""));
-  test.do(() => expect(form2OutputFieldFn().textContent).toBe(form2OutputFieldValue));
-  test.do(() => expect(outerFormInputFieldFn().value).toBe("Leonard"));
-  test.do(() => expect(outerFormOutputFieldFn().textContent).toBe(outerFormOutputFieldValue));
+  test.setup(() => form1OutputFn().textContent !== "Kate" && form2AlertFn() === null,
+      () => {
+        form1InputFn().value = "Alice";
+        form2InputFn().value = "Bob";
+        outerFormInputFn().value = "Charlie"
+        outerFormSubmitFn().dispatchEvent(new Event("click", {bubbles: true}));
+        form1OutputValue = "Alice"
+        form2OutputValue = "Bob";
+        outerFormOutputValue = "Charlie";
+      });
+  test.do(() => form1InputFn().value = "Kate");
+  test.do(() => form2InputFn().value = "");
+  test.do(() => outerFormInputFn().value = "Leonard");
+  test.event("click", submitInnerForms, () => form2AlertFn() !== null);
+  test.do(() => expect(form1InputFn().value).toBe("Kate"));
+  test.do(() => expect(form1OutputFn().textContent).toBe(form1OutputValue));
+  test.do(() => expect(form2InputFn().value).toBe(""));
+  test.do(() => expect(form2AlertFn()).not.toBeNull());
+  test.do(() => expect(form2OutputFn().textContent).toBe(form2OutputValue));
+  test.do(() => expect(outerFormInputFn().value).toBe("Leonard"));
+  test.do(() => expect(outerFormOutputFn().textContent).toBe(outerFormOutputValue));
   test.do(() => expect(alertFn().length).toBe(1));
   test.start();
 });
 
 it("submit inner forms without violations", function (done) {
-  let form1InputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
-  let form2InputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
-  let form2OutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
-  let outerFormInputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
-  let outerFormOutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out span");
-  let buttonFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submitInnerForms");
+  let form1InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
+  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 tobago-out");
+  let form2InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
+  let form2AlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2 .tobago-messages-container");
+  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 tobago-out");
+  let outerFormInputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
+  let outerFormAlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in .tobago-messages-container");
+  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out tobago-out");
+  let outerFormSubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submit");
+  let submitInnerForms = querySelectorFn("#page\\:mainForm\\:outerForm\\:submitInnerForms");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");
-
-  let outerFormOutputFieldValue = outerFormOutputFieldFn().textContent;
+  let outerFormOutputValue = outerFormOutputFn().textContent;
 
   let test = new JasmineTestTool(done);
-  test.do(() => form1InputFieldFn().value = "Mike");
-  test.do(() => form2InputFieldFn().value = "Neil");
-  test.do(() => outerFormInputFieldFn().value = "");
-  test.do(() => buttonFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => form1InputFieldFn() && form1InputFieldFn().value === "Mike");
-  test.do(() => expect(form1InputFieldFn().value).toBe("Mike"));
-  test.do(() => expect(form1OutputFieldFn().textContent).toBe("Mike"));
-  test.do(() => expect(form2InputFieldFn().value).toBe("Neil"));
-  test.do(() => expect(form2OutputFieldFn().textContent).toBe("Neil"));
-  test.do(() => expect(outerFormInputFieldFn().value).toBe(""));
-  test.do(() => expect(outerFormOutputFieldFn().textContent).toBe(outerFormOutputFieldValue));
+  test.setup(() => form1OutputFn().textContent !== "Mike"
+      && form2OutputFn().textContent !== "Neil"
+      && outerFormAlertFn() === null,
+      () => {
+        form1InputFn().value = "Kate";
+        form2InputFn().value = "Mike";
+        outerFormInputFn().value = "Leonard";
+        outerFormSubmitFn().dispatchEvent(new Event("click", {bubbles: true}));
+        outerFormOutputValue = "Leonard";
+      });
+  test.do(() => form1InputFn().value = "Mike");
+  test.do(() => form2InputFn().value = "Neil");
+  test.do(() => outerFormInputFn().value = "");
+  test.event("click", submitInnerForms,
+      () => form1OutputFn().textContent === "Mike" && form2OutputFn().textContent === "Neil");
+  test.do(() => expect(form1InputFn().value).toBe("Mike"));
+  test.do(() => expect(form1OutputFn().textContent).toBe("Mike"));
+  test.do(() => expect(form2InputFn().value).toBe("Neil"));
+  test.do(() => expect(form2AlertFn()).toBeNull());
+  test.do(() => expect(form2OutputFn().textContent).toBe("Neil"));
+  test.do(() => expect(outerFormInputFn().value).toBe(""));
+  test.do(() => expect(outerFormAlertFn()).toBeNull());
+  test.do(() => expect(outerFormOutputFn().textContent).toBe(outerFormOutputValue));
   test.do(() => expect(alertFn().length).toBe(0));
   test.start();
 });
 
 it("submit outer value, violate required field", function (done) {
-  let form1InputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
-  let form2InputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
-  let form2OutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
-  let outerFormInputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
-  let outerFormOutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out span");
-  let buttonFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submitOuterValue");
+  let form1InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
+  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 tobago-out");
+  let form2InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
+  let form2AlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2 .tobago-messages-container");
+  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 tobago-out");
+  let outerFormInputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
+  let outerFormAlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in .tobago-messages-container");
+  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out tobago-out");
+  let outerFormSubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submit");
+  let submitOuterValue = querySelectorFn("#page\\:mainForm\\:outerForm\\:submitOuterValue");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");
-
-  let form1OutputFieldValue = form1OutputFieldFn().textContent;
-  let form2OutputFieldValue = form2OutputFieldFn().textContent;
-  let outerFormOutputFieldValue = outerFormOutputFieldFn().textContent;
+  let form1OutputValue = form1OutputFn().textContent;
+  let form2OutputValue = form2OutputFn().textContent;
+  let outerFormOutputValue = outerFormOutputFn().textContent;
 
   let test = new JasmineTestTool(done);
-  test.do(() => form1InputFieldFn().value = "Oscar");
-  test.do(() => form2InputFieldFn().value = "Penny");
-  test.do(() => outerFormInputFieldFn().value = "");
-  test.do(() => buttonFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => form1InputFieldFn() && form1InputFieldFn().value === "Oscar");
-  test.do(() => expect(form1InputFieldFn().value).toBe("Oscar"));
-  test.do(() => expect(form1OutputFieldFn().textContent).toBe(form1OutputFieldValue));
-  test.do(() => expect(form2InputFieldFn().value).toBe("Penny"));
-  test.do(() => expect(form2OutputFieldFn().textContent).toBe(form2OutputFieldValue));
-  test.do(() => expect(outerFormInputFieldFn().value).toBe(""));
-  test.do(() => expect(outerFormOutputFieldFn().textContent).toBe(outerFormOutputFieldValue));
+  test.setup(() => form2AlertFn() === null && outerFormAlertFn() === null,
+      () => {
+        form1InputFn().value = "Leonard";
+        form2InputFn().value = "Mike";
+        outerFormInputFn().value = "Neil";
+        outerFormSubmitFn().dispatchEvent(new Event("click", {bubbles: true}));
+        form1OutputValue = "Leonard";
+        form2OutputValue = "Mike";
+        outerFormOutputValue = "Neil";
+      });
+  test.do(() => form1InputFn().value = "Oscar");
+  test.do(() => form2InputFn().value = "Penny");
+  test.do(() => outerFormInputFn().value = "");
+  test.event("click", submitOuterValue, () => outerFormAlertFn() !== null);
+  test.do(() => expect(form1InputFn().value).toBe("Oscar"));
+  test.do(() => expect(form1OutputFn().textContent).toBe(form1OutputValue));
+  test.do(() => expect(form2InputFn().value).toBe("Penny"));
+  test.do(() => expect(form2AlertFn()).toBeNull());
+  test.do(() => expect(form2OutputFn().textContent).toBe(form2OutputValue));
+  test.do(() => expect(outerFormInputFn().value).toBe(""));
+  test.do(() => expect(outerFormAlertFn()).not.toBeNull());
+  test.do(() => expect(outerFormOutputFn().textContent).toBe(outerFormOutputValue));
   test.do(() => expect(alertFn().length).toBe(1));
   test.start();
 });
 
 it("submit outer value without violations", function (done) {
-  let form1InputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 span");
-  let form2InputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
-  let form2OutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 span");
-  let outerFormInputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
-  let outerFormOutputFieldFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out span");
-  let buttonFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submitOuterValue");
+  let form1InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
+  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 tobago-out");
+  let form2InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
+  let form2AlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2 .tobago-messages-container");
+  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 tobago-out");
+  let outerFormInputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
+  let outerFormAlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in .tobago-messages-container");
+  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out tobago-out");
+  let outerFormSubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submit");
+  let submitOuterValue = querySelectorFn("#page\\:mainForm\\:outerForm\\:submitOuterValue");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");
-
-  let form1OutputFieldValue = form1OutputFieldFn().textContent;
-  let form2OutputFieldValue = form2OutputFieldFn().textContent;
+  let form1OutputValue = form1OutputFn().textContent;
+  let form2OutputValue = form2OutputFn().textContent;
 
   let test = new JasmineTestTool(done);
-  test.do(() => form1InputFieldFn().value = "Quin");
-  test.do(() => form2InputFieldFn().value = "Sue");
-  test.do(() => outerFormInputFieldFn().value = "Ted");
-  test.do(() => buttonFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => form1InputFieldFn() && form1InputFieldFn().value === "Quin");
-  test.do(() => expect(form1InputFieldFn().value).toBe("Quin"));
-  test.do(() => expect(form1OutputFieldFn().textContent).toBe(form1OutputFieldValue));
-  test.do(() => expect(form2InputFieldFn().value).toBe("Sue"));
-  test.do(() => expect(form2OutputFieldFn().textContent).toBe(form2OutputFieldValue));
-  test.do(() => expect(outerFormInputFieldFn().value).toBe("Ted"));
-  test.do(() => expect(outerFormOutputFieldFn().textContent).toBe("Ted"));
+  test.setup(() => form2AlertFn() === null && form1OutputFn().textContent !== "Quin"
+      && form2OutputFn().textContent !== "Sue" && outerFormOutputFn().textContent !== "Ted",
+      () => {
+        form1InputFn().value = "Neil";
+        form2InputFn().value = "Oscar";
+        outerFormInputFn().value = "Penny";
+        outerFormSubmitFn().dispatchEvent(new Event("click", {bubbles: true}));
+        form1OutputValue = "Neil";
+        form2OutputValue = "Oscar";
+      });
+  test.do(() => form1InputFn().value = "Quin");
+  test.do(() => form2InputFn().value = "Sue");
+  test.do(() => outerFormInputFn().value = "Ted");
+  test.event("click", submitOuterValue, () => outerFormOutputFn().textContent === "Ted")
+  test.do(() => expect(form1InputFn().value).toBe("Quin"));
+  test.do(() => expect(form1OutputFn().textContent).toBe(form1OutputValue));
+  test.do(() => expect(form2InputFn().value).toBe("Sue"));
+  test.do(() => expect(form2AlertFn()).toBeNull());
+  test.do(() => expect(form2OutputFn().textContent).toBe(form2OutputValue));
+  test.do(() => expect(outerFormInputFn().value).toBe("Ted"));
+  test.do(() => expect(outerFormAlertFn()).toBeNull());
+  test.do(() => expect(outerFormOutputFn().textContent).toBe("Ted"));
   test.do(() => expect(alertFn().length).toBe(0));
   test.start();
 });
