@@ -273,15 +273,19 @@ class JasmineTestTool {
    * @param result function
    */
   event(type, element, result) {
-    this.do(() => {
-      if (result()) {
-        fail("The result function (" + result + ") returns true BEFORE the '" + type + "' event is dispatched."
-            + " Please define a result function that return false before dispatch event and return true after dispatch"
-            + " event.");
-      }
-    });
-    this.do(() => element().dispatchEvent(new Event(type, {bubbles: true})));
-    this.wait(result);
+    if (typeof element === "function") {
+      this.do(() => {
+        if (result()) {
+          fail("The result function (" + result + ") returns true BEFORE the '" + type + "' event is dispatched."
+              + " Please define a result function that return false before dispatch event and return true after" +
+              " dispatch event.");
+        }
+      });
+      this.do(() => element().dispatchEvent(new Event(type, {bubbles: true})));
+      this.wait(result);
+    } else {
+      fail("event(type, element, result); 'element' must be a function but was: " + element);
+    }
   }
 
   do(fn) {
