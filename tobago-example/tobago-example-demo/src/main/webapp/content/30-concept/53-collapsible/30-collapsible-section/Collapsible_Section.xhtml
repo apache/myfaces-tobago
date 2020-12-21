@@ -54,14 +54,14 @@
       The 'Submit'-button can be executed without violation if the content of section is hidden.</p>
     <tc:form id="server">
       <tc:button id="submitServer" label="Submit"/>
-      <tc:section id="fullRequestSection" label="Collapsible Section" collapsedMode="absent">
+      <tc:section id="serverSection" label="Collapsible Section" collapsedMode="absent">
         <f:facet name="bar">
           <tc:buttons>
             <tc:button id="showServer" label="show">
-              <tc:operation name="show" for="fullRequestSection"/>
+              <tc:operation name="show" for="serverSection"/>
             </tc:button>
             <tc:button id="hideServer" label="hide" immediate="true">
-              <tc:operation name="hide" for="fullRequestSection"/>
+              <tc:operation name="hide" for="serverSection"/>
             </tc:button>
           </tc:buttons>
         </f:facet>
