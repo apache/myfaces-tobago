@@ -18,151 +18,581 @@
 import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-it("Simple Panel", function (done) {
+it("Simple Section: show -> hide transition", function (done) {
   let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
-  let submitFn = querySelectorFn("#page\\:mainForm\\:simple\\:submitSimple");
   let showFn = querySelectorFn("#page\\:mainForm\\:simple\\:showSimple");
   let hideFn = querySelectorFn("#page\\:mainForm\\:simple\\:hideSimple");
   let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:simple\\:simpleSection\\:\\:collapse");
   let inFn = querySelectorFn("#page\\:mainForm\\:simple\\:inSimple\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.do(() => showFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => sectionCollapsedFn() && sectionCollapsedFn().value === "false");
+  test.setup(() => sectionCollapsedFn().value === "false" && inFn() !== null,
+      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
-  test.do(() => expect(inFn() !== null).toBe(true));
-  test.do(() => inFn().value = "some text");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 0);
-  test.do(() => expect(messagesFn().length).toBe(0));
-  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
-  test.do(() => expect(inFn() !== null).toBe(true));
-  test.do(() => inFn().value = "");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 1);
-  test.do(() => expect(messagesFn().length).toBe(1));
-  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
-  test.do(() => expect(inFn() !== null).toBe(true));
-  test.do(() => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 0);
-  test.do(() => expect(messagesFn().length).toBe(0));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.event("click", hideFn, () => sectionCollapsedFn().value === "true" && inFn() === null);
   test.do(() => expect(sectionCollapsedFn().value).toBe("true"));
-  test.do(() => expect(inFn() !== null).toBe(false));
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.do(() => expect(inFn()).toBeNull());
   test.do(() => expect(messagesFn().length).toBe(0));
-  test.do(() => expect(sectionCollapsedFn().value).toBe("true"));
-  test.do(() => expect(inFn() !== null).toBe(false));
   test.start();
 });
 
-it("Full Server Request", function (done) {
+it("Simple Section: hide -> show transition", function (done) {
   let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
-  let submitFn = querySelectorFn("#page\\:mainForm\\:server\\:submitServer");
+  let showFn = querySelectorFn("#page\\:mainForm\\:simple\\:showSimple");
+  let hideFn = querySelectorFn("#page\\:mainForm\\:simple\\:hideSimple");
+  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:simple\\:simpleSection\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:simple\\:inSimple\\:\\:field");
+
+  let test = new JasmineTestTool(done);
+  test.setup(() => sectionCollapsedFn().value === "true" && inFn() === null,
+      () => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.do(() => expect(sectionCollapsedFn().value).toBe("true"));
+  test.do(() => expect(inFn()).toBeNull());
+  test.event("click", showFn, () => sectionCollapsedFn().value === "false" && inFn() !== null);
+  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.start();
+});
+
+it("Simple Section: collapsed = false; submit valid input", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let showFn = querySelectorFn("#page\\:mainForm\\:simple\\:showSimple");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:simple\\:submitSimple");
+  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:simple\\:simpleSection\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:simple\\:inSimple\\:\\:field");
+
+  let test = new JasmineTestTool(done);
+  test.setup(() => sectionCollapsedFn().value === "false" && inFn() !== null,
+      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(() => messagesFn().length > 0,
+      () => {
+        inFn().value = "";
+        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
+      });
+  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => inFn().value = "Alice");
+  test.event("click", submitFn, () => messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.start();
+});
+
+it("Simple Section: collapsed = false; submit empty input", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let showFn = querySelectorFn("#page\\:mainForm\\:simple\\:showSimple");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:simple\\:submitSimple");
+  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:simple\\:simpleSection\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:simple\\:inSimple\\:\\:field");
+
+  let test = new JasmineTestTool(done);
+  test.setup(() => sectionCollapsedFn().value === "false" && inFn() !== null,
+      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(() => messagesFn().length === 0,
+      () => {
+        inFn().value = "Bob";
+        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
+      });
+  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.do(() => inFn().value = "");
+  test.event("click", submitFn, () => messagesFn().length > 0);
+  test.do(() => expect(messagesFn().length).toBeGreaterThan(0));
+  test.start();
+});
+
+it("Simple Section: valid input; show -> hide transition; submit", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let showFn = querySelectorFn("#page\\:mainForm\\:simple\\:showSimple");
+  let hideFn = querySelectorFn("#page\\:mainForm\\:simple\\:hideSimple");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:simple\\:submitSimple");
+  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:simple\\:simpleSection\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:simple\\:inSimple\\:\\:field");
+  let clientSubmitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
+  let clientInFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
+
+  let test = new JasmineTestTool(done);
+  test.setup(() => sectionCollapsedFn().value === "false" && inFn() !== null,
+      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => inFn().value = "Charlie");
+  test.event("click", hideFn, () => sectionCollapsedFn().value === "true" && inFn() === null);
+  test.do(() => expect(sectionCollapsedFn().value).toBe("true"));
+  test.do(() => expect(inFn()).toBeNull());
+  test.setup(() => messagesFn().length > 0, () => {
+    clientInFn().value = "";
+    clientSubmitFn().dispatchEvent(new Event("click", {bubbles: true}))
+  });
+  test.event("click", submitFn, () => messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.start();
+});
+
+it("Simple Section: empty input; show -> hide transition; submit", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let showFn = querySelectorFn("#page\\:mainForm\\:simple\\:showSimple");
+  let hideFn = querySelectorFn("#page\\:mainForm\\:simple\\:hideSimple");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:simple\\:submitSimple");
+  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:simple\\:simpleSection\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:simple\\:inSimple\\:\\:field");
+  let clientSubmitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
+  let clientInFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
+
+  let test = new JasmineTestTool(done);
+  test.setup(() => sectionCollapsedFn().value === "false" && inFn() !== null,
+      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => inFn().value = "");
+  test.event("click", hideFn, () => sectionCollapsedFn().value === "true" && inFn() === null);
+  test.do(() => expect(sectionCollapsedFn().value).toBe("true"));
+  test.do(() => expect(inFn()).toBeNull());
+  test.setup(() => messagesFn().length > 0, () => {
+    clientInFn().value = "";
+    clientSubmitFn().dispatchEvent(new Event("click", {bubbles: true}))
+  });
+  test.event("click", submitFn, () => messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.start();
+});
+
+it("Full Server Request: show -> hide transition", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
   let showFn = querySelectorFn("#page\\:mainForm\\:server\\:showServer");
   let hideFn = querySelectorFn("#page\\:mainForm\\:server\\:hideServer");
-  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:server\\:fullRequestSection\\:\\:collapse");
+  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:server\\:serverSection\\:\\:collapse");
   let inFn = querySelectorFn("#page\\:mainForm\\:server\\:inServer\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.do(() => showFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => sectionCollapsedFn() && sectionCollapsedFn().value === "false");
+  test.setup(() => sectionCollapsedFn().value === "false" && inFn() !== null,
+      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
-  test.do(() => expect(inFn() !== null).toBe(true));
-  test.do(() => inFn().value = "some text");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 0);
-  test.do(() => expect(messagesFn().length).toBe(0));
-  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
-  test.do(() => expect(inFn() !== null).toBe(true));
-  test.do(() => inFn().value = "");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 1);
-  test.do(() => expect(messagesFn().length).toBe(1));
-  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
-  test.do(() => expect(inFn() !== null).toBe(true));
-  test.do(() => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 0);
-  test.do(() => expect(messagesFn().length).toBe(0));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.event("click", hideFn, () => sectionCollapsedFn().value === "true" && inFn() === null);
   test.do(() => expect(sectionCollapsedFn().value).toBe("true"));
-  test.do(() => expect(inFn() !== null).toBe(false));
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.do(() => expect(inFn()).toBeNull());
   test.do(() => expect(messagesFn().length).toBe(0));
-  test.do(() => expect(sectionCollapsedFn().value).toBe("true"));
-  test.do(() => expect(inFn() !== null).toBe(false));
   test.start();
 });
 
-it("Client Side", function (done) {
+it("Full Server Request: hide -> show transition", function (done) {
   let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
-  let submitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
+  let showFn = querySelectorFn("#page\\:mainForm\\:server\\:showServer");
+  let hideFn = querySelectorFn("#page\\:mainForm\\:server\\:hideServer");
+  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:server\\:serverSection\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:server\\:inServer\\:\\:field");
+
+  let test = new JasmineTestTool(done);
+  test.setup(() => sectionCollapsedFn().value === "true" && inFn() === null,
+      () => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.do(() => expect(sectionCollapsedFn().value).toBe("true"));
+  test.do(() => expect(inFn()).toBeNull());
+  test.event("click", showFn, () => sectionCollapsedFn().value === "false" && inFn() !== null);
+  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.start();
+});
+
+it("Full Server Request: collapsed = false; submit valid input", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let showFn = querySelectorFn("#page\\:mainForm\\:server\\:showServer");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:server\\:submitServer");
+  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:server\\:serverSection\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:server\\:inServer\\:\\:field");
+
+  let test = new JasmineTestTool(done);
+  test.setup(() => sectionCollapsedFn().value === "false" && inFn() !== null,
+      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(() => messagesFn().length > 0,
+      () => {
+        inFn().value = "";
+        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
+      });
+  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => inFn().value = "Alice");
+  test.event("click", submitFn, () => messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.start();
+});
+
+it("Full Server Request: collapsed = false; submit empty input", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let showFn = querySelectorFn("#page\\:mainForm\\:server\\:showServer");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:server\\:submitServer");
+  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:server\\:serverSection\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:server\\:inServer\\:\\:field");
+
+  let test = new JasmineTestTool(done);
+  test.setup(() => sectionCollapsedFn().value === "false" && inFn() !== null,
+      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(() => messagesFn().length === 0,
+      () => {
+        inFn().value = "Bob";
+        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
+      });
+  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.do(() => inFn().value = "");
+  test.event("click", submitFn, () => messagesFn().length > 0);
+  test.do(() => expect(messagesFn().length).toBeGreaterThan(0));
+  test.start();
+});
+
+it("Full Server Request: valid input; show -> hide transition; submit", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let showFn = querySelectorFn("#page\\:mainForm\\:server\\:showServer");
+  let hideFn = querySelectorFn("#page\\:mainForm\\:server\\:hideServer");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:server\\:submitServer");
+  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:server\\:serverSection\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:server\\:inServer\\:\\:field");
+  let clientSubmitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
+  let clientInFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
+
+  let test = new JasmineTestTool(done);
+  test.setup(() => sectionCollapsedFn().value === "false" && inFn() !== null,
+      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => inFn().value = "Charlie");
+  test.event("click", hideFn, () => sectionCollapsedFn().value === "true" && inFn() === null);
+  test.do(() => expect(sectionCollapsedFn().value).toBe("true"));
+  test.do(() => expect(inFn()).toBeNull());
+  test.setup(() => messagesFn().length > 0, () => {
+    clientInFn().value = "";
+    clientSubmitFn().dispatchEvent(new Event("click", {bubbles: true}))
+  });
+  test.event("click", submitFn, () => messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.start();
+});
+
+it("Full Server Request: empty input; show -> hide transition; submit", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let showFn = querySelectorFn("#page\\:mainForm\\:server\\:showServer");
+  let hideFn = querySelectorFn("#page\\:mainForm\\:server\\:hideServer");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:server\\:submitServer");
+  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:server\\:serverSection\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:server\\:inServer\\:\\:field");
+  let clientSubmitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
+  let clientInFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
+
+  let test = new JasmineTestTool(done);
+  test.setup(() => sectionCollapsedFn().value === "false" && inFn() !== null,
+      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => inFn().value = "");
+  test.event("click", hideFn, () => sectionCollapsedFn().value === "true" && inFn() === null);
+  test.do(() => expect(sectionCollapsedFn().value).toBe("true"));
+  test.do(() => expect(inFn()).toBeNull());
+  test.setup(() => messagesFn().length > 0, () => {
+    clientInFn().value = "";
+    clientSubmitFn().dispatchEvent(new Event("click", {bubbles: true}))
+  });
+  test.event("click", submitFn, () => messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.start();
+});
+
+it("Client Sided: show -> hide transition", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
   let showFn = querySelectorFn("#page\\:mainForm\\:client\\:showClient");
   let hideFn = querySelectorFn("#page\\:mainForm\\:client\\:hideClient");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
   let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:client\\:clientSection\\:\\:collapse");
   let inFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.do(() => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(() => messagesFn().length === 0,
+      () => {
+        inFn().value = "Alice";
+        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
+      });
+  test.setup(() => sectionCollapsedFn().value === "false",
+      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
-  test.do(() => expect(inFn() !== null).toBe(true));
-  test.do(() => inFn().value = "some text");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 0);
-  test.do(() => expect(messagesFn().length).toBe(0));
-  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
-  test.do(() => expect(inFn() !== null).toBe(true));
-  test.do(() => inFn().value = "");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 1);
-  test.do(() => expect(messagesFn().length).toBe(1));
-  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
-  test.do(() => expect(inFn() !== null).toBe(true));
-  test.do(() => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.do(() => expect(messagesFn().length).toBe(1));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.event("click", hideFn, () => sectionCollapsedFn().value === "true");
   test.do(() => expect(sectionCollapsedFn().value).toBe("true"));
-  test.do(() => expect(inFn() !== null).toBe(true));
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 1);
-  test.do(() => expect(messagesFn().length).toBe(1));
-  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
-  test.do(() => expect(inFn() !== null).toBe(true));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => expect(messagesFn().length).toBe(0));
   test.start();
 });
 
-it("Ajax", function (done) {
+it("Client Sided: hide -> show transition", function (done) {
   let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
-  let submitFn = querySelectorFn("#page\\:mainForm\\:ajax\\:submitAjax");
+  let showFn = querySelectorFn("#page\\:mainForm\\:client\\:showClient");
+  let hideFn = querySelectorFn("#page\\:mainForm\\:client\\:hideClient");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
+  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:client\\:clientSection\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
+
+  let test = new JasmineTestTool(done);
+  test.setup(() => messagesFn().length === 0,
+      () => {
+        inFn().value = "Bob";
+        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
+      });
+  test.setup(() => sectionCollapsedFn().value === "true",
+      () => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.do(() => expect(sectionCollapsedFn().value).toBe("true"));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.event("click", showFn, () => sectionCollapsedFn().value === "false");
+  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.start();
+});
+
+it("Client Sided: collapsed = false; submit valid input", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let showFn = querySelectorFn("#page\\:mainForm\\:client\\:showClient");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
+  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:client\\:clientSection\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
+
+  let test = new JasmineTestTool(done);
+  test.setup(() => messagesFn().length > 0,
+      () => {
+        inFn().value = "";
+        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
+      });
+  test.setup(() => sectionCollapsedFn().value === "false",
+      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => inFn().value = "Charlie");
+  test.event("click", submitFn, () => messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.start();
+});
+
+it("Client Sided: collapsed = false; submit empty input", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let showFn = querySelectorFn("#page\\:mainForm\\:client\\:showClient");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
+  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:client\\:clientSection\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
+
+  let test = new JasmineTestTool(done);
+  test.setup(() => messagesFn().length === 0,
+      () => {
+        inFn().value = "Bob";
+        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
+      });
+  test.setup(() => sectionCollapsedFn().value === "false",
+      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.do(() => inFn().value = "");
+  test.event("click", submitFn, () => messagesFn().length > 0);
+  test.do(() => expect(messagesFn().length).toBeGreaterThan(0));
+  test.start();
+});
+
+it("Client Sided: collapsed = true; submit valid input", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let hideFn = querySelectorFn("#page\\:mainForm\\:client\\:hideClient");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
+  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:client\\:clientSection\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
+
+  let test = new JasmineTestTool(done);
+  test.setup(() => messagesFn().length > 0,
+      () => {
+        inFn().value = "";
+        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
+      });
+  test.setup(() => sectionCollapsedFn().value === "true",
+      () => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.do(() => expect(sectionCollapsedFn().value).toBe("true"));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => inFn().value = "Dave");
+  test.event("click", submitFn, () => messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.start();
+});
+
+it("Client Sided: collapsed = true; submit empty input", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let hideFn = querySelectorFn("#page\\:mainForm\\:client\\:hideClient");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
+  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:client\\:clientSection\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
+
+  let test = new JasmineTestTool(done);
+  test.setup(() => messagesFn().length === 0,
+      () => {
+        inFn().value = "Eve";
+        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
+      });
+  test.setup(() => sectionCollapsedFn().value === "true",
+      () => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.do(() => expect(sectionCollapsedFn().value).toBe("true"));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.do(() => inFn().value = "");
+  test.event("click", submitFn, () => messagesFn().length > 0);
+  test.do(() => expect(messagesFn().length).toBeGreaterThan(0));
+  test.start();
+});
+
+it("Ajax: show -> hide transition", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
   let showFn = querySelectorFn("#page\\:mainForm\\:ajax\\:showAjax");
   let hideFn = querySelectorFn("#page\\:mainForm\\:ajax\\:hideAjax");
   let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:ajax\\:ajaxSection\\:\\:collapse");
   let inFn = querySelectorFn("#page\\:mainForm\\:ajax\\:inAjax\\:\\:field");
+  let clientSubmitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
+  let clientInFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.do(() => showFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => sectionCollapsedFn() && sectionCollapsedFn().value === "false");
+  test.setup(() => sectionCollapsedFn().value === "false" && inFn() !== null,
+      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(() => messagesFn().length === 0, () => {
+    clientInFn().value = "Alice";
+    clientSubmitFn().dispatchEvent(new Event("click", {bubbles: true}))
+  });
   test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
-  test.do(() => expect(inFn() !== null).toBe(true));
-  test.do(() => inFn().value = "some text");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.event("click", hideFn, () => sectionCollapsedFn().value === "true" && inFn() === null);
+  test.do(() => expect(sectionCollapsedFn().value).toBe("true"));
+  test.do(() => expect(inFn()).toBeNull());
   test.do(() => expect(messagesFn().length).toBe(0));
+  test.start();
+});
+
+it("Ajax: hide -> show transition", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let showFn = querySelectorFn("#page\\:mainForm\\:ajax\\:showAjax");
+  let hideFn = querySelectorFn("#page\\:mainForm\\:ajax\\:hideAjax");
+  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:ajax\\:ajaxSection\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:ajax\\:inAjax\\:\\:field");
+  let clientSubmitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
+  let clientInFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
+
+  let test = new JasmineTestTool(done);
+  test.setup(() => sectionCollapsedFn().value === "true" && inFn() === null,
+      () => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(() => messagesFn().length === 0, () => {
+    clientInFn().value = "Bob";
+    clientSubmitFn().dispatchEvent(new Event("click", {bubbles: true}))
+  });
+  test.do(() => expect(sectionCollapsedFn().value).toBe("true"));
+  test.do(() => expect(inFn()).toBeNull());
+  test.event("click", showFn, () => sectionCollapsedFn().value === "false" && inFn() !== null);
   test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
-  test.do(() => expect(inFn() !== null).toBe(true));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.start();
+});
+
+it("Ajax: collapsed = false; submit valid input", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let showFn = querySelectorFn("#page\\:mainForm\\:ajax\\:showAjax");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:ajax\\:submitAjax");
+  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:ajax\\:ajaxSection\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:ajax\\:inAjax\\:\\:field");
+
+  let test = new JasmineTestTool(done);
+  test.setup(() => sectionCollapsedFn().value === "false" && inFn() !== null,
+      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(() => messagesFn().length > 0,
+      () => {
+        inFn().value = "";
+        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
+      });
+  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => inFn().value = "Alice");
+  test.event("click", submitFn, () => messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.start();
+});
+
+it("Ajax: collapsed = false; submit empty input", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let showFn = querySelectorFn("#page\\:mainForm\\:ajax\\:showAjax");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:ajax\\:submitAjax");
+  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:ajax\\:ajaxSection\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:ajax\\:inAjax\\:\\:field");
+
+  let test = new JasmineTestTool(done);
+  test.setup(() => sectionCollapsedFn().value === "false" && inFn() !== null,
+      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(() => messagesFn().length === 0,
+      () => {
+        inFn().value = "Bob";
+        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
+      });
+  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => expect(messagesFn().length).toBe(0));
   test.do(() => inFn().value = "");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 1);
-  test.do(() => expect(messagesFn().length).toBe(1));
+  test.event("click", submitFn, () => messagesFn().length > 0);
+  test.do(() => expect(messagesFn().length).toBeGreaterThan(0));
+  test.start();
+});
+
+it("Ajax: valid input; show -> hide transition; submit", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let showFn = querySelectorFn("#page\\:mainForm\\:ajax\\:showAjax");
+  let hideFn = querySelectorFn("#page\\:mainForm\\:ajax\\:hideAjax");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:ajax\\:submitAjax");
+  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:ajax\\:ajaxSection\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:ajax\\:inAjax\\:\\:field");
+  let clientSubmitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
+  let clientInFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
+
+  let test = new JasmineTestTool(done);
+  test.setup(() => sectionCollapsedFn().value === "false" && inFn() !== null,
+      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
   test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
-  test.do(() => expect(inFn() !== null).toBe(true));
-  test.do(() => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => sectionCollapsedFn() && sectionCollapsedFn().value === "true");
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => inFn().value = "Charlie");
+  test.event("click", hideFn, () => sectionCollapsedFn().value === "true" && inFn() === null);
   test.do(() => expect(sectionCollapsedFn().value).toBe("true"));
-  test.do(() => expect(inFn() !== null).toBe(false));
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.do(() => expect(inFn()).toBeNull());
+  test.setup(() => messagesFn().length > 0, () => {
+    clientInFn().value = "";
+    clientSubmitFn().dispatchEvent(new Event("click", {bubbles: true}))
+  });
+  test.event("click", submitFn, () => messagesFn().length === 0);
   test.do(() => expect(messagesFn().length).toBe(0));
+  test.start();
+});
+
+it("Ajax: empty input; show -> hide transition; submit", function (done) {
+  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let showFn = querySelectorFn("#page\\:mainForm\\:ajax\\:showAjax");
+  let hideFn = querySelectorFn("#page\\:mainForm\\:ajax\\:hideAjax");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:ajax\\:submitAjax");
+  let sectionCollapsedFn = querySelectorFn("#page\\:mainForm\\:ajax\\:ajaxSection\\:\\:collapse");
+  let inFn = querySelectorFn("#page\\:mainForm\\:ajax\\:inAjax\\:\\:field");
+  let clientSubmitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
+  let clientInFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
+
+  let test = new JasmineTestTool(done);
+  test.setup(() => sectionCollapsedFn().value === "false" && inFn() !== null,
+      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.do(() => expect(sectionCollapsedFn().value).toBe("false"));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => inFn().value = "");
+  test.event("click", hideFn, () => sectionCollapsedFn().value === "true" && inFn() === null);
   test.do(() => expect(sectionCollapsedFn().value).toBe("true"));
-  test.do(() => expect(inFn() !== null).toBe(false));
+  test.do(() => expect(inFn()).toBeNull());
+  test.setup(() => messagesFn().length > 0, () => {
+    clientInFn().value = "";
+    clientSubmitFn().dispatchEvent(new Event("click", {bubbles: true}))
+  });
+  test.event("click", submitFn, () => messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
   test.start();
 });
