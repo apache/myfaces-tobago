@@ -335,6 +335,17 @@ mvn -Pdocker-qunit-tests</demo-highlight>
       <demo-highlight language="markup">mvn -Pdocker-qunit-tests docker:start
 mvn -Pdocker-qunit-tests docker:stop</demo-highlight>
     </tc:section>
+
+    <tc:section id="integrationTestTobago5" label="Tobago 5">
+      <p>Since Tobago  #{apiController.version500} the integration tests are reimplemented with jasmine and
+        testcontainers.</p>
+      <p>To run the integration tests:</p>
+      <demo-highlight language="markup">cd tobago-example/tobago-example-demo
+mvn clean install -Pdocker -Pintegration-tests
+      </demo-highlight>
+      <p>The docker container can be rebuild with:</p>
+      <demo-highlight language="markup">mvn package -Pdocker</demo-highlight>
+    </tc:section>
   </tc:section>
 
   <tc:section id="testInBrowser" label="How can I run tests in the browser? (Tobago 3)">

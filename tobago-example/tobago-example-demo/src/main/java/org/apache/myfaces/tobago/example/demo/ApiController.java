@@ -78,6 +78,10 @@ public class ApiController implements Serializable {
     return Release.v4_3_0.getVersion();
   }
 
+  public String getVersion500() {
+    return Release.v5_0_0.getVersion();
+  }
+
   public String getCurrentRelease() {
     for (Release release : releases) {
       if (release.isCurrent()) {
