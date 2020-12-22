@@ -26,7 +26,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.testcontainers.containers.GenericContainer;
@@ -48,20 +48,22 @@ abstract class FrontendBase {
 
   @SuppressWarnings("rawtypes") // this is how to use testcontainers
   @Container
-  public static GenericContainer seleniumChrome =
-      new GenericContainer<>(DockerImageName.parse("selenium/standalone-chrome")).withExposedPorts(4444);
+  private static final GenericContainer SELENIUM_FIREFOX =
+      new GenericContainer<>(DockerImageName.parse("henningn/selenium-standalone-firefox"))
+          .withExposedPorts(4444);
 
   @SuppressWarnings("rawtypes") // this is how to use testcontainers
   @Container
-  public static GenericContainer tomcat =
-      new GenericContainer(DockerImageName.parse("myfaces/tobago-example-demo")).withExposedPorts(8080);
+  private static final GenericContainer TOMCAT =
+      new GenericContainer(DockerImageName.parse("myfaces/tobago-example-demo"))
+          .withExposedPorts(8080);
 
-  private static WebDriver chromeDriver;
+  private static WebDriver firefoxDriver;
 
   @AfterAll
   static void tearDown() {
-    if (chromeDriver != null) {
-      chromeDriver.quit();
+    if (firefoxDriver != null) {
+      firefoxDriver.quit();
     }
   }
 
@@ -77,10 +79,10 @@ abstract class FrontendBase {
   }
 
   WebDriver getWebDriver(final String host, final Integer port) throws MalformedURLException {
-    if (chromeDriver == null || ((RemoteWebDriver) chromeDriver).getSessionId() == null) {
-      chromeDriver = new RemoteWebDriver(new URL("http://" + host + ":" + port + "/wd/hub"), new ChromeOptions());
+    if (firefoxDriver == null || ((RemoteWebDriver) firefoxDriver).getSessionId() == null) {
+      firefoxDriver = new RemoteWebDriver(new URL("http://" + host + ":" + port + "/wd/hub"), new FirefoxOptions());
     }
-    return chromeDriver;
+    return firefoxDriver;
   }
 
   List<WebElement> getJasmineResults(WebDriver webDriver) {
@@ -115,5 +117,13 @@ abstract class FrontendBase {
     } else {
       return "---";
     }
+  }
+
+  int getFirefoxPort() {
+    return SELENIUM_FIREFOX.getFirstMappedPort();
+  }
+
+  int getTomcatPort() {
+    return TOMCAT.getFirstMappedPort();
   }
 }
