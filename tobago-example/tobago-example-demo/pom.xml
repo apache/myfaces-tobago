@@ -274,13 +274,6 @@
         <plugins>
           <plugin>
             <artifactId>maven-failsafe-plugin</artifactId>
-            <dependencies>
-              <dependency>
-                <groupId>org.junit.platform</groupId>
-                <artifactId>junit-platform-surefire-provider</artifactId>
-                <version>1.3.2</version>
-              </dependency>
-            </dependencies>
             <configuration>
               <includes>
                 <include>integration/*</include>
