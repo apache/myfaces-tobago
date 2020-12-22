@@ -53,7 +53,7 @@ class BasicTest extends FrontendBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  static LocalTime startTime;
+  private static LocalTime startTime;
 
   @BeforeAll
   public static void setup() {
@@ -63,14 +63,14 @@ class BasicTest extends FrontendBase {
   @Test
   void verifyExceptionTest() throws MalformedURLException, UnknownHostException, UnsupportedEncodingException {
     final String host = InetAddress.getLocalHost().getHostAddress();
-    final int tomcatPort = tomcat.getFirstMappedPort();
+    final int tomcatPort = getTomcatPort();
     final String path = "error/exception.xhtml";
 
     final String base = path.substring(0, path.length() - 6);
     final String url = "http://" + host + ":" + tomcatPort + "/test.xhtml?base="
         + URLEncoder.encode(base, "UTF-8") + "&basicTest=true";
 
-    WebDriver webDriver = getWebDriver(host, seleniumChrome.getFirstMappedPort());
+    WebDriver webDriver = getWebDriver(host, getFirefoxPort());
     webDriver.get(url);
 
     List<WebElement> results = getJasmineResults(webDriver);
@@ -87,14 +87,14 @@ class BasicTest extends FrontendBase {
   @Test
   void verify404Test() throws MalformedURLException, UnknownHostException, UnsupportedEncodingException {
     final String host = InetAddress.getLocalHost().getHostAddress();
-    final int tomcatPort = tomcat.getFirstMappedPort();
+    final int tomcatPort = getTomcatPort();
     final String path = "error/404.xhtml";
 
     final String base = path.substring(0, path.length() - 6);
     final String url = "http://" + host + ":" + tomcatPort + "/test.xhtml?base="
         + URLEncoder.encode(base, "UTF-8") + "&basicTest=true";
 
-    WebDriver webDriver = getWebDriver(host, seleniumChrome.getFirstMappedPort());
+    WebDriver webDriver = getWebDriver(host, getFirefoxPort());
     webDriver.get(url);
 
     List<WebElement> results = getJasmineResults(webDriver);
@@ -118,7 +118,7 @@ class BasicTest extends FrontendBase {
 
     final String timeLeft = getTimeLeft(startTime, testSize, testNumber);
     final String host = InetAddress.getLocalHost().getHostAddress();
-    final int tomcatPort = tomcat.getFirstMappedPort();
+    final int tomcatPort = getTomcatPort();
 
     LOG.info("(" + testNumber + "/" + testSize + " | time left: " + timeLeft + ")"
         + " - url: http://" + host + ":" + tomcatPort + "/" + path);
@@ -127,7 +127,7 @@ class BasicTest extends FrontendBase {
     final String url = "http://" + host + ":" + tomcatPort + "/test.xhtml?base="
         + URLEncoder.encode(base, "UTF-8") + "&basicTest=true";
 
-    WebDriver webDriver = getWebDriver(host, seleniumChrome.getFirstMappedPort());
+    WebDriver webDriver = getWebDriver(host, getFirefoxPort());
     webDriver.get(url);
 
     List<WebElement> results = getJasmineResults(webDriver);
