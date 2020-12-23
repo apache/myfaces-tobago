@@ -24,16 +24,20 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.utility.DockerImageName;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -45,6 +49,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 abstract class FrontendBase {
+
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @SuppressWarnings("rawtypes") // this is how to use testcontainers
   @Container
@@ -85,20 +91,41 @@ abstract class FrontendBase {
     return firefoxDriver;
   }
 
-  List<WebElement> getJasmineResults(WebDriver webDriver) {
+  List<WebElement> getJasmineResults(WebDriver webDriver, String url) {
     final FluentWait<WebDriver> fluentWait = new FluentWait<>(webDriver)
         .withTimeout(Duration.ofSeconds(60))
         .pollingEvery(Duration.ofSeconds(1))
         .ignoring(NoSuchElementException.class);
-    fluentWait.until(driver -> driver.findElement(By.className("jasmine-overall-result")));
+    try {
+      fluentWait.until(driver -> driver.findElement(By.className("jasmine-overall-result")));
+    } catch (TimeoutException e) {
+      Assertions.fail(url + " timeout");
+    }
 
     return webDriver.findElements(By.cssSelector(".jasmine-symbol-summary li"));
   }
 
-  void parseJasmineResults(List<WebElement> results) {
-    Assertions.assertTrue(results.size() > 0, "no results detected");
+  void parseJasmineResults(List<WebElement> results, String url) {
+    Assertions.assertTrue(results.size() > 0, url + " no results detected");
+
+    StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append("\n");
+    stringBuilder.append(url);
     for (WebElement result : results) {
-      Assertions.assertEquals("jasmine-passed", result.getAttribute("class"), result.getAttribute("title"));
+      stringBuilder.append("\n");
+      if ("jasmine-passed".equals(result.getAttribute("class"))) {
+        stringBuilder.append("✅ passed");
+      } else {
+        stringBuilder.append("❌ failed");
+      }
+      stringBuilder.append(": ");
+      stringBuilder.append(result.getAttribute("title"));
+    }
+    LOG.info(stringBuilder.toString());
+
+    for (WebElement result : results) {
+      Assertions.assertEquals("jasmine-passed", result.getAttribute("class"),
+          url + " " + result.getAttribute("title"));
     }
   }
 
