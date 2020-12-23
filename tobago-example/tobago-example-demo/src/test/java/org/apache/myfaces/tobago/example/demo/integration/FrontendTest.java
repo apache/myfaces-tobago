@@ -64,18 +64,18 @@ class FrontendTest extends FrontendBase {
     final String timeLeft = getTimeLeft(FrontendTest.startTime, testSize, testNumber);
     final String host = InetAddress.getLocalHost().getHostAddress();
     final int tomcatPort = getTomcatPort();
+    final String pageUrl = "http://" + host + ":" + tomcatPort + "/" + path;
 
-    LOG.info("(" + testNumber + "/" + testSize + " | time left: " + timeLeft + ")"
-        + " - url: http://" + host + ":" + tomcatPort + "/" + path);
+    LOG.info("(" + testNumber + "/" + testSize + " | time left: " + timeLeft + ") - url: " + pageUrl);
 
     final String base = path.substring(0, path.length() - 6);
-    final String url = "http://" + host + ":" + tomcatPort + "/test.xhtml?base=" + URLEncoder.encode(base, "UTF-8");
+    final String testUrl = "http://" + host + ":" + tomcatPort + "/test.xhtml?base=" + URLEncoder.encode(base, "UTF-8");
 
     WebDriver webDriver = getWebDriver(host, getFirefoxPort());
-    webDriver.get(url);
+    webDriver.get(testUrl);
 
-    List<WebElement> results = getJasmineResults(webDriver);
-    parseJasmineResults(results);
+    List<WebElement> results = getJasmineResults(webDriver, pageUrl);
+    parseJasmineResults(results, pageUrl);
   }
 
   private static Stream<Arguments> standardTestProvider() throws IOException {
