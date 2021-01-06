@@ -167,7 +167,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
 
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(BootstrapClass.DROPDOWN_MENU);
-// fixme         isInside(facesContext, x) ? BootstrapClass.DROPDOWN_MENU_RIGHT : null);
+// fixme         isInside(facesContext, x) ? BootstrapClass.DROPDOWN_MENU_END : null);
       writer.writeAttribute(Arias.LABELLEDBY, component.getFieldId(facesContext), false);
       writer.writeAttribute(HtmlAttributes.NAME, component.getClientId(facesContext), false);
 

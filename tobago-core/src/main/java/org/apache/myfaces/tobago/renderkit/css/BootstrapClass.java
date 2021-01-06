@@ -289,7 +289,7 @@ public enum BootstrapClass implements CssItem {
   DROPDOWN_DIVIDER("dropdown-divider"),
   DROPDOWN_ITEM("dropdown-item"),
   DROPDOWN_MENU("dropdown-menu"),
-  DROPDOWN_MENU_RIGHT("dropdown-menu-right"),
+  DROPDOWN_MENU_END("dropdown-menu-end"),
   DROPDOWN_TOGGLE("dropdown-toggle"),
   FADE("fade"),
   FIGURE("figure"),
@@ -394,33 +394,33 @@ public enum BootstrapClass implements CssItem {
   MB_4("mb-4"),
   MB_5("mb-5"),
   MB_AUTO("mb-auto"),
-  ML_0("ml-0"),
-  ML_1("ml-1"),
-  ML_2("ml-2"),
-  ML_3("ml-3"),
-  ML_4("ml-4"),
-  ML_5("ml-5"),
-  ML_AUTO("ml-auto"),
-  ML_LG_AUTO("ml-lg-auto"),
-  ML_MD_AUTO("ml-md-auto"),
-  ML_SM_AUTO("ml-sm-auto"),
-  ML_XL_AUTO("ml-xl-auto"),
+  MS_0("ms-0"),
+  MS_1("ms-1"),
+  MS_2("ms-2"),
+  MS_3("ms-3"),
+  MS_4("ms-4"),
+  MS_5("ms-5"),
+  MS_AUTO("ms-auto"),
+  MS_LG_AUTO("ms-lg-auto"),
+  MS_MD_AUTO("ms-md-auto"),
+  MS_SM_AUTO("ms-sm-auto"),
+  MS_XL_AUTO("ms-xl-auto"),
   MODAL("modal"),
   MODAL_CONTENT("modal-content"),
   MODAL_DIALOG("modal-dialog"),
   MODAL_LG("modal-lg"),
   MODAL_SM("modal-sm"),
-  MR_0("mr-0"),
-  MR_1("mr-1"),
-  MR_2("mr-2"),
-  MR_3("mr-3"),
-  MR_4("mr-4"),
-  MR_5("mr-5"),
-  MR_AUTO("mr-auto"),
-  MR_LG_AUTO("mr-lg-auto"),
-  MR_MD_AUTO("mr-md-auto"),
-  MR_SM_AUTO("mr-sm-auto"),
-  MR_XL_AUTO("mr-xl-auto"),
+  ME_0("me-0"),
+  ME_1("me-1"),
+  ME_2("me-2"),
+  ME_3("me-3"),
+  ME_4("me-4"),
+  ME_5("me-5"),
+  ME_AUTO("me-auto"),
+  ME_LG_AUTO("me-lg-auto"),
+  ME_MD_AUTO("me-md-auto"),
+  ME_SM_AUTO("me-sm-auto"),
+  ME_XL_AUTO("me-xl-auto"),
   MT_0("mt-0"),
   MT_1("mt-1"),
   MT_2("mt-2"),
@@ -547,8 +547,18 @@ public enum BootstrapClass implements CssItem {
    */
   @Deprecated
   TEXT_JUSTIFY("tobago-text-justify"),
-  TEXT_LEFT("text-left"),
-  TEXT_RIGHT("text-right"),
+  /**
+   * @deprecated since 5.0.0, use {@link #TEXT_START}
+   */
+  @Deprecated
+  TEXT_LEFT("text-start"),
+  TEXT_START("text-start"),
+  /**
+   * @deprecated since 5.0.0, use {@link #TEXT_END}
+   */
+  @Deprecated
+  TEXT_RIGHT("text-end"),
+  TEXT_END("text-end"),
   TAB_CONTENT("tab-content"),
   TAB_PANE("tab-pane"),
   TABLE("table"),
@@ -648,16 +658,16 @@ public enum BootstrapClass implements CssItem {
   public static CssItem textAlign(final TextAlign textAlign) {
     switch (textAlign) {
       case left:
-        return BootstrapClass.TEXT_LEFT;
+        return BootstrapClass.TEXT_START;
       case right:
-        return BootstrapClass.TEXT_RIGHT;
+        return BootstrapClass.TEXT_END;
       case justify:
         return TobagoClass.TEXT__JUSTIFY;
       case center:
         return BootstrapClass.TEXT_CENTER;
       default:
         LOG.warn("Not a bootstrap class defined for {}", textAlign);
-        return BootstrapClass.TEXT_LEFT;
+        return BootstrapClass.TEXT_START;
     }
   }
 
@@ -865,9 +875,9 @@ public enum BootstrapClass implements CssItem {
 
     switch (margin) {
       case left:
-        return valueOf("ML" + size + "_AUTO");
+        return valueOf("MS" + size + "_AUTO");
       case right:
-        return valueOf("MR" + size + "_AUTO");
+        return valueOf("ME" + size + "_AUTO");
       case both:
         return valueOf("MX" + size + "_AUTO");
       default:
