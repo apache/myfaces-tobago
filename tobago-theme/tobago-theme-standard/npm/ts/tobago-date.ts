@@ -52,13 +52,10 @@ class DatePicker extends HTMLElement {
 
   connectedCallback(): void {
     const field = this.field;
-
-    console.info("field --------------->", field);
-
     const locale: string = Page.page(this).locale;
 
     const i18n = this.i18n;
-    // i18n.titleFormat = "MM y"; // todo i18n (this is the default of the Datepicker lib)
+    i18n.titleFormat = "MM y"; // todo i18n
     i18n.format = this.pattern;
     Datepicker.locales[locale] = i18n;
 
