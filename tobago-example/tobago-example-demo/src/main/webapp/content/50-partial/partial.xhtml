@@ -120,7 +120,7 @@
 
           <tx:selectOneChoice fieldId="navSelect" value="#{partialReloadController.navigateAction}" label="On Change">
             <f:facet name="change">
-              <tc:command action="#{partialReloadController.navigateAction}" renderedPartially="navTest :page:header:headerInfo"/>
+              <tc:command action="#{partialReloadController.navigate}" renderedPartially="navTest :page:header:headerInfo"/>
             </f:facet>
             <f:selectItem itemLabel="Select action" itemValue=""/>
             <f:selectItem itemLabel="Reload left" itemValue="left"/>
