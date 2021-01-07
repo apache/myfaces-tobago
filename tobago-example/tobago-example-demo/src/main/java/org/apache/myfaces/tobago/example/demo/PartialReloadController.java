@@ -73,7 +73,7 @@ public class PartialReloadController {
     return logAndNavigate(null);
   }
 
-  public String navigateAction() {
+  public String navigate() {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
 
     // in case of both the select control is not processed during lifecycle
@@ -89,34 +89,38 @@ public class PartialReloadController {
       navigationState = (NavigationState) expression.getValue(elContext);
     }
 
+    final String outcome;
     LOG.info("navigateAction = \"" + navigateAction + "\"");
     if (navigateAction == null) {
-      return logAndNavigate(null);
+      outcome = logAndNavigate(null);
     } else if ("left".equals(navigateAction)) {
       AjaxUtils.addAjaxComponent(facesContext, "page:left");
       navigateAction = null;
-      return logAndNavigate(null);
+      outcome = logAndNavigate(null);
     } else if ("right".equals(navigateAction)) {
       AjaxUtils.addAjaxComponent(facesContext, "page:right");
       navigateAction = null;
-      return logAndNavigate(null);
+      outcome = logAndNavigate(null);
     } else if ("both".equals(navigateAction)) {
       AjaxUtils.addAjaxComponent(facesContext, "page:left");
       AjaxUtils.addAjaxComponent(facesContext, "page:right");
       navigateAction = null;
-      return logAndNavigate(null);
+      outcome = logAndNavigate(null);
     } else if ("parent".equals(navigateAction)) {
       navigateAction = null;
       AjaxUtils.addAjaxComponent(facesContext, "page:parent");
-      return logAndNavigate(null);
+      outcome = logAndNavigate(null);
     } else if ("prev".equals(navigateAction)) {
       navigateAction = null;
-      return logAndNavigate(navigationState.gotoPrevious());
+      outcome = logAndNavigate(navigationState.gotoPrevious());
     } else if ("next".equals(navigateAction)) {
       navigateAction = null;
-      return logAndNavigate(navigationState.gotoNext());
+      outcome = logAndNavigate(navigationState.gotoNext());
+    } else {
+      outcome = logAndNavigate(null);
     }
-    return logAndNavigate(null);
+    LOG.info("result outcome={}", outcome);
+    return outcome;
   }
 
   private String logAndNavigate(final String navValue) {
