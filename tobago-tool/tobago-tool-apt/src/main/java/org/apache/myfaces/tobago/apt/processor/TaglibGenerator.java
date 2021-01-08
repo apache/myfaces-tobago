@@ -309,19 +309,19 @@ public class TaglibGenerator extends AbstractGenerator {
     }
   }
 
-  private String deprecationComment(String string) {
+  private String deprecationComment(final String string) {
     if (string == null) {
       return null;
     }
     final String deprecated = "@deprecated";
     final int begin = string.indexOf(deprecated);
     if (begin > -1) {
-      string = string.substring(begin + deprecated.length());
+      String comment = string.substring(begin + deprecated.length());
       final int end = string.indexOf("@");
       if (end > -1) {
-        string = string.substring(0, end);
+        comment = string.substring(0, end);
       }
-      return string.trim();
+      return comment.trim();
     } else {
       return null;
     }
@@ -445,13 +445,13 @@ public class TaglibGenerator extends AbstractGenerator {
     JSP,
     FACELETS;
 
-    public String filename(String target, final String path, final String name) {
-      target = StringUtils.isNotBlank(target) ? target + '/' : "";
+    public String filename(final String target, final String path, final String name) {
+      final String string = StringUtils.isNotBlank(target) ? target + '/' : "";
       switch (this) {
         case JSP:
-          return target + path.replace('.', '/') + '/' + name + ".tld";
+          return string + path.replace('.', '/') + '/' + name + ".tld";
         case FACELETS:
-          return target + name + ".taglib.xml";
+          return string + name + ".taglib.xml";
         default:
           throw new IllegalArgumentException("Program error");
       }
