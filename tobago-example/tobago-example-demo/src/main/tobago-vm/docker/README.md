@@ -45,8 +45,8 @@ Update, rebuild, run:
 cd /opt/docker/tobago/tobago-example/tobago-example-demo/src/main/tobago-vm/docker/
 git pull --rebase
 docker-compose down
-docker pull tomcat:8.5-jre8
-docker pull debian:stable-slim
+docker pull tomcat:8.5-jdk8-adoptopenjdk-hotspot
+docker pull debian:buster-slim
 docker-compose build
 docker-compose up -d
 ```

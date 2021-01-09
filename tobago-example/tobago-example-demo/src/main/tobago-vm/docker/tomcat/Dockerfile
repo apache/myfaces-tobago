@@ -18,7 +18,7 @@ MAINTAINER dev@myfaces.apache.org
 
 # ansible is needed for downloading from Nexus, todo: may be changed to mvn
 RUN apt-get update \
- && apt-get install -y less vim procps ansible python-lxml\
+ && apt-get install -y less vim procps ansible python3-lxml\
  && apt-get clean
 
 RUN rm -r /usr/local/tomcat/webapps.dist
