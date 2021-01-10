@@ -61,18 +61,16 @@ class FrontendTest extends FrontendBase {
       throws MalformedURLException, UnknownHostException, UnsupportedEncodingException {
 
     final String timeLeft = getTimeLeft(FrontendTest.startTime, testSize, testNumber);
-    final String pageUrl = getTomcatUrl() + "/" + path;
-
-    LOG.info("(" + testNumber + "/" + testSize + " | time left: " + timeLeft + ") - url: " + pageUrl);
+    LOG.info("(" + testNumber + "/" + testSize + " | time left: " + timeLeft + ") - path: " + path);
 
     final String base = path.substring(0, path.length() - 6);
-    final String testUrl = getTomcatUrl() + "/test.xhtml?base=" + URLEncoder.encode(base, "UTF-8");
+    final String url = getTomcatUrl() + "/test.xhtml?base=" + URLEncoder.encode(base, "UTF-8");
 
     WebDriver webDriver = getWebDriver();
-    webDriver.get(testUrl);
+    webDriver.get(url);
 
-    List<WebElement> results = getJasmineResults(webDriver, pageUrl);
-    parseJasmineResults(results, pageUrl);
+    List<WebElement> results = getJasmineResults(webDriver, path);
+    parseJasmineResults(results, path);
   }
 
   private static Stream<Arguments> standardTestProvider() throws IOException {
