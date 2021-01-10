@@ -33,13 +33,18 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.Network;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
+import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.utility.DockerImageName;
 
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
+import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -52,17 +57,25 @@ abstract class FrontendBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  @SuppressWarnings("rawtypes") // this is how to use testcontainers
-  @Container
-  private static final GenericContainer SELENIUM_FIREFOX =
-      new GenericContainer<>(DockerImageName.parse("henningn/selenium-standalone-firefox"))
-          .withExposedPorts(4444);
+  private static final Network NETWORK = Network.newNetwork();
+  private static final String SELENIUM_ALIAS = "selenium";
+  private static final String TOMCAT_ALIAS = "tomcat";
+  public static final int SELENIUM_PORT = 4444;
+  public static final int TOMCAT_PORT = 8080;
 
-  @SuppressWarnings("rawtypes") // this is how to use testcontainers
   @Container
-  private static final GenericContainer TOMCAT =
-      new GenericContainer(DockerImageName.parse("myfaces/tobago-example-demo"))
-          .withExposedPorts(8080);
+  private static final GenericContainer<?> SELENIUM_FIREFOX =
+      new GenericContainer<>(DockerImageName.parse("henningn/selenium-standalone-firefox"))
+          .withNetwork(NETWORK).withNetworkAliases(SELENIUM_ALIAS).withExposedPorts(SELENIUM_PORT)
+          .waitingFor(Wait.forHttp("/").forPort(SELENIUM_PORT))
+          .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger(SELENIUM_ALIAS)).withSeparateOutputStreams());
+
+  @Container
+  private static final GenericContainer<?> TOMCAT =
+      new GenericContainer<>(DockerImageName.parse("myfaces/tobago-example-demo"))
+          .withNetwork(NETWORK).withNetworkAliases(TOMCAT_ALIAS).withExposedPorts(TOMCAT_PORT)
+          .waitingFor(Wait.forHttp("/").forPort(TOMCAT_PORT))
+          .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger(TOMCAT_ALIAS)).withSeparateOutputStreams());
 
   private static WebDriver firefoxDriver;
 
@@ -84,8 +97,10 @@ abstract class FrontendBase {
         .collect(Collectors.toList());
   }
 
-  WebDriver getWebDriver(final String host, final Integer port) throws MalformedURLException {
+  WebDriver getWebDriver() throws MalformedURLException, UnknownHostException {
     if (firefoxDriver == null || ((RemoteWebDriver) firefoxDriver).getSessionId() == null) {
+      final String host = InetAddress.getLocalHost().getHostAddress();
+      final int port = SELENIUM_FIREFOX.getFirstMappedPort();
       firefoxDriver = new RemoteWebDriver(new URL("http://" + host + ":" + port + "/wd/hub"), new FirefoxOptions());
     }
     return firefoxDriver;
@@ -146,11 +161,7 @@ abstract class FrontendBase {
     }
   }
 
-  int getFirefoxPort() {
-    return SELENIUM_FIREFOX.getFirstMappedPort();
-  }
-
-  int getTomcatPort() {
-    return TOMCAT.getFirstMappedPort();
+  String getTomcatUrl() {
+    return "http://" + TOMCAT_ALIAS + ":" + TOMCAT_PORT;
   }
 }
