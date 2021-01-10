@@ -32,7 +32,6 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.invoke.MethodHandles;
-import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
@@ -62,16 +61,14 @@ class FrontendTest extends FrontendBase {
       throws MalformedURLException, UnknownHostException, UnsupportedEncodingException {
 
     final String timeLeft = getTimeLeft(FrontendTest.startTime, testSize, testNumber);
-    final String host = InetAddress.getLocalHost().getHostAddress();
-    final int tomcatPort = getTomcatPort();
-    final String pageUrl = "http://" + host + ":" + tomcatPort + "/" + path;
+    final String pageUrl = getTomcatUrl() + "/" + path;
 
     LOG.info("(" + testNumber + "/" + testSize + " | time left: " + timeLeft + ") - url: " + pageUrl);
 
     final String base = path.substring(0, path.length() - 6);
-    final String testUrl = "http://" + host + ":" + tomcatPort + "/test.xhtml?base=" + URLEncoder.encode(base, "UTF-8");
+    final String testUrl = getTomcatUrl() + "/test.xhtml?base=" + URLEncoder.encode(base, "UTF-8");
 
-    WebDriver webDriver = getWebDriver(host, getFirefoxPort());
+    WebDriver webDriver = getWebDriver();
     webDriver.get(testUrl);
 
     List<WebElement> results = getJasmineResults(webDriver, pageUrl);

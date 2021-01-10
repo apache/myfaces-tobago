@@ -62,18 +62,15 @@ class BasicTest extends FrontendBase {
 
   @Test
   void verifyExceptionTest() throws MalformedURLException, UnknownHostException, UnsupportedEncodingException {
-    final String host = InetAddress.getLocalHost().getHostAddress();
-    final int tomcatPort = getTomcatPort();
     final String path = "error/exception.xhtml";
 
     final String base = path.substring(0, path.length() - 6);
-    final String url = "http://" + host + ":" + tomcatPort + "/test.xhtml?base="
-        + URLEncoder.encode(base, "UTF-8") + "&basicTest=true";
+    final String testUrl = getTomcatUrl() + "/test.xhtml?base=" + URLEncoder.encode(base, "UTF-8") + "&basicTest=true";
 
-    WebDriver webDriver = getWebDriver(host, getFirefoxPort());
-    webDriver.get(url);
+    WebDriver webDriver = getWebDriver();
+    webDriver.get(testUrl);
 
-    List<WebElement> results = getJasmineResults(webDriver, url);
+    List<WebElement> results = getJasmineResults(webDriver, testUrl);
     Assertions.assertTrue(results.size() > 0, "no results detected");
     for (WebElement result : results) {
       if ("has no exception".equals(result.getAttribute("title"))) {
@@ -86,18 +83,15 @@ class BasicTest extends FrontendBase {
 
   @Test
   void verify404Test() throws MalformedURLException, UnknownHostException, UnsupportedEncodingException {
-    final String host = InetAddress.getLocalHost().getHostAddress();
-    final int tomcatPort = getTomcatPort();
     final String path = "error/404.xhtml";
 
     final String base = path.substring(0, path.length() - 6);
-    final String url = "http://" + host + ":" + tomcatPort + "/test.xhtml?base="
-        + URLEncoder.encode(base, "UTF-8") + "&basicTest=true";
+    final String testUrl = getTomcatUrl() + "/test.xhtml?base=" + URLEncoder.encode(base, "UTF-8") + "&basicTest=true";
 
-    WebDriver webDriver = getWebDriver(host, getFirefoxPort());
-    webDriver.get(url);
+    WebDriver webDriver = getWebDriver();
+    webDriver.get(testUrl);
 
-    List<WebElement> results = getJasmineResults(webDriver, url);
+    List<WebElement> results = getJasmineResults(webDriver, testUrl);
     Assertions.assertTrue(results.size() > 0, "no results detected");
     for (WebElement result : results) {
       if ("has no 404".equals(result.getAttribute("title"))) {
@@ -117,17 +111,14 @@ class BasicTest extends FrontendBase {
       throws MalformedURLException, UnknownHostException, UnsupportedEncodingException {
 
     final String timeLeft = getTimeLeft(startTime, testSize, testNumber);
-    final String host = InetAddress.getLocalHost().getHostAddress();
-    final int tomcatPort = getTomcatPort();
-    final String pageUrl = "http://" + host + ":" + tomcatPort + "/" + path;
+    final String pageUrl = getTomcatUrl() + "/" + path;
 
     LOG.info("(" + testNumber + "/" + testSize + " | time left: " + timeLeft + ") - url: " + pageUrl);
 
     final String base = path.substring(0, path.length() - 6);
-    final String testUrl = "http://" + host + ":" + tomcatPort + "/test.xhtml?base="
-        + URLEncoder.encode(base, "UTF-8") + "&basicTest=true";
+    final String testUrl = getTomcatUrl() + "/test.xhtml?base=" + URLEncoder.encode(base, "UTF-8") + "&basicTest=true";
 
-    WebDriver webDriver = getWebDriver(host, getFirefoxPort());
+    WebDriver webDriver = getWebDriver();
     webDriver.get(testUrl);
 
     List<WebElement> results = getJasmineResults(webDriver, pageUrl);
