@@ -106,7 +106,7 @@ abstract class FrontendBase {
     return firefoxDriver;
   }
 
-  List<WebElement> getJasmineResults(WebDriver webDriver, String url) {
+  List<WebElement> getJasmineResults(WebDriver webDriver, String path) {
     final FluentWait<WebDriver> fluentWait = new FluentWait<>(webDriver)
         .withTimeout(Duration.ofSeconds(60))
         .pollingEvery(Duration.ofSeconds(1))
@@ -114,18 +114,18 @@ abstract class FrontendBase {
     try {
       fluentWait.until(driver -> driver.findElement(By.className("jasmine-overall-result")));
     } catch (TimeoutException e) {
-      Assertions.fail(url + " timeout");
+      Assertions.fail(path + " timeout");
     }
 
     return webDriver.findElements(By.cssSelector(".jasmine-symbol-summary li"));
   }
 
-  void parseJasmineResults(List<WebElement> results, String url) {
-    Assertions.assertTrue(results.size() > 0, url + " no results detected");
+  void parseJasmineResults(List<WebElement> results, String path) {
+    Assertions.assertTrue(results.size() > 0, path + " no results detected");
 
     StringBuilder stringBuilder = new StringBuilder();
     stringBuilder.append("\n");
-    stringBuilder.append(url);
+    stringBuilder.append(path);
     for (WebElement result : results) {
       stringBuilder.append("\n");
       if ("jasmine-passed".equals(result.getAttribute("class"))) {
@@ -140,7 +140,7 @@ abstract class FrontendBase {
 
     for (WebElement result : results) {
       Assertions.assertEquals("jasmine-passed", result.getAttribute("class"),
-          url + " " + result.getAttribute("title"));
+          path + " " + result.getAttribute("title"));
     }
   }
 

@@ -35,7 +35,6 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.invoke.MethodHandles;
-import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
@@ -65,12 +64,12 @@ class BasicTest extends FrontendBase {
     final String path = "error/exception.xhtml";
 
     final String base = path.substring(0, path.length() - 6);
-    final String testUrl = getTomcatUrl() + "/test.xhtml?base=" + URLEncoder.encode(base, "UTF-8") + "&basicTest=true";
+    final String url = getTomcatUrl() + "/test.xhtml?base=" + URLEncoder.encode(base, "UTF-8") + "&basicTest=true";
 
     WebDriver webDriver = getWebDriver();
-    webDriver.get(testUrl);
+    webDriver.get(url);
 
-    List<WebElement> results = getJasmineResults(webDriver, testUrl);
+    List<WebElement> results = getJasmineResults(webDriver, path);
     Assertions.assertTrue(results.size() > 0, "no results detected");
     for (WebElement result : results) {
       if ("has no exception".equals(result.getAttribute("title"))) {
@@ -86,12 +85,12 @@ class BasicTest extends FrontendBase {
     final String path = "error/404.xhtml";
 
     final String base = path.substring(0, path.length() - 6);
-    final String testUrl = getTomcatUrl() + "/test.xhtml?base=" + URLEncoder.encode(base, "UTF-8") + "&basicTest=true";
+    final String url = getTomcatUrl() + "/test.xhtml?base=" + URLEncoder.encode(base, "UTF-8") + "&basicTest=true";
 
     WebDriver webDriver = getWebDriver();
-    webDriver.get(testUrl);
+    webDriver.get(url);
 
-    List<WebElement> results = getJasmineResults(webDriver, testUrl);
+    List<WebElement> results = getJasmineResults(webDriver, path);
     Assertions.assertTrue(results.size() > 0, "no results detected");
     for (WebElement result : results) {
       if ("has no 404".equals(result.getAttribute("title"))) {
@@ -111,18 +110,16 @@ class BasicTest extends FrontendBase {
       throws MalformedURLException, UnknownHostException, UnsupportedEncodingException {
 
     final String timeLeft = getTimeLeft(startTime, testSize, testNumber);
-    final String pageUrl = getTomcatUrl() + "/" + path;
-
-    LOG.info("(" + testNumber + "/" + testSize + " | time left: " + timeLeft + ") - url: " + pageUrl);
+    LOG.info("(" + testNumber + "/" + testSize + " | time left: " + timeLeft + ") - path: " + path);
 
     final String base = path.substring(0, path.length() - 6);
-    final String testUrl = getTomcatUrl() + "/test.xhtml?base=" + URLEncoder.encode(base, "UTF-8") + "&basicTest=true";
+    final String url = getTomcatUrl() + "/test.xhtml?base=" + URLEncoder.encode(base, "UTF-8") + "&basicTest=true";
 
     WebDriver webDriver = getWebDriver();
-    webDriver.get(testUrl);
+    webDriver.get(url);
 
-    List<WebElement> results = getJasmineResults(webDriver, pageUrl);
-    parseJasmineResults(results, pageUrl);
+    List<WebElement> results = getJasmineResults(webDriver, path);
+    parseJasmineResults(results, path);
   }
 
   private static Stream<Arguments> basicTestProvider() throws IOException {
