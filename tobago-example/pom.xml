@@ -74,7 +74,7 @@
           <configuration>
             <!--
             to run the webapp in jetty in development mode use
-            mvn clean jetty:run -Pdev
+            mvn clean jetty:run -Pdev -Pjetty
              -->
             <scanIntervalSeconds>5</scanIntervalSeconds>
           </configuration>
