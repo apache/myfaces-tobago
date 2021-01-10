@@ -36,7 +36,7 @@ class Popover extends HTMLElement {
       placement: "right",
       modifiers: {
         arrow: {
-          element: ".arrow"
+          element: ".popover-arrow"
         }
       },
       onCreate: this.updateBootstrapPopoverCss.bind(this),
@@ -57,13 +57,13 @@ class Popover extends HTMLElement {
 
   private updateBootstrapPopoverCss(): void {
     const placement = this.popover.getAttribute("x-placement");
-    if (placement === "right" && !this.popover.classList.contains("bs-popover-right")) {
-      this.popover.classList.add("bs-popover-right");
-      this.popover.classList.remove("bs-popover-left");
+    if (placement === "right" && !this.popover.classList.contains("bs-popover-end")) {
+      this.popover.classList.add("bs-popover-end");
+      this.popover.classList.remove("bs-popover-start");
       this.updateAfterCssClassChange();
-    } else if (placement === "left" && !this.popover.classList.contains("bs-popover-left")) {
-      this.popover.classList.add("bs-popover-left");
-      this.popover.classList.remove("bs-popover-right");
+    } else if (placement === "left" && !this.popover.classList.contains("bs-popover-start")) {
+      this.popover.classList.add("bs-popover-start");
+      this.popover.classList.remove("bs-popover-end");
       this.updateAfterCssClassChange();
     }
   }
