@@ -26,7 +26,7 @@ it("Simple Collapsible Box: show -> hide transition", function (done) {
   let test = new JasmineTestTool(done);
   test.setup(
       () => contentFn(),
-      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", showFn);
   test.do(() => expect(contentFn() !== null).toBe(true));
   test.event("click", hideFn, () => !contentFn());
   test.do(() => expect(contentFn() !== null).toBe(false));
@@ -41,7 +41,7 @@ it("Simple Collapsible Box: hide -> show transition", function (done) {
   let test = new JasmineTestTool(done);
   test.setup(
       () => !contentFn(),
-      () => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", hideFn);
   test.do(() => expect(contentFn() !== null).toBe(false));
   test.event("click", showFn, () => contentFn());
   test.do(() => expect(contentFn() !== null).toBe(true));
@@ -59,10 +59,10 @@ it("Full Server Request: open both boxes", function (done) {
   let test = new JasmineTestTool(done);
   test.setup(
       () => !content1Fn(),
-      () => hide1Fn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", hide1Fn);
   test.setup(
       () => !content2Fn(),
-      () => hide2Fn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", hide2Fn);
   test.do(() => expect(content1Fn() !== null).toBe(false));
   test.do(() => expect(content2Fn() !== null).toBe(false));
   test.event("click", show1Fn, () => content1Fn());
@@ -85,10 +85,10 @@ it("Full Server Request: open box 1, close box 2", function (done) {
   let test = new JasmineTestTool(done);
   test.setup(
       () => !content1Fn(),
-      () => hide1Fn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", hide1Fn);
   test.setup(
       () => content2Fn(),
-      () => show2Fn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", show2Fn);
   test.do(() => expect(content1Fn() !== null).toBe(false));
   test.do(() => expect(content2Fn() !== null).toBe(true));
   test.event("click", show1Fn, () => content1Fn());
@@ -111,10 +111,10 @@ it("Full Server Request: close box 1, open box 2", function (done) {
   let test = new JasmineTestTool(done);
   test.setup(
       () => content1Fn(),
-      () => show1Fn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", show1Fn);
   test.setup(
       () => !content2Fn(),
-      () => hide2Fn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", hide2Fn);
   test.do(() => expect(content1Fn() !== null).toBe(true));
   test.do(() => expect(content2Fn() !== null).toBe(false));
   test.event("click", hide1Fn, () => !content1Fn());
@@ -137,10 +137,10 @@ it("Full Server Request: close both boxes", function (done) {
   let test = new JasmineTestTool(done);
   test.setup(
       () => content1Fn(),
-      () => show1Fn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", show1Fn);
   test.setup(
       () => content2Fn(),
-      () => show2Fn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", show2Fn);
   test.do(() => expect(content1Fn() !== null).toBe(true));
   test.do(() => expect(content2Fn() !== null).toBe(true));
   test.event("click", hide1Fn, () => !content1Fn());
@@ -158,9 +158,10 @@ it("Client Side: show -> hide transition", function (done) {
   let boxFn = querySelectorFn("#page\\:mainForm\\:client\\:noRequestBox");
 
   let test = new JasmineTestTool(done);
-  test.do(() => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(() => !boxFn().classList.contains("tobago-collapsed"),
+      null, "click", showFn);
   test.do(() => expect(boxFn().classList.contains("tobago-collapsed")).toBe(false));
-  test.do(() => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.event("click", hideFn, () => boxFn().classList.contains("tobago-collapsed"));
   test.do(() => expect(boxFn().classList.contains("tobago-collapsed")).toBe(true));
   test.start();
 });
@@ -171,28 +172,29 @@ it("Client Side: hide -> show transition", function (done) {
   let boxFn = querySelectorFn("#page\\:mainForm\\:client\\:noRequestBox");
 
   let test = new JasmineTestTool(done);
-  test.do(() => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(() => boxFn().classList.contains("tobago-collapsed"),
+      null, "click", hideFn);
   test.do(() => expect(boxFn().classList.contains("tobago-collapsed")).toBe(true));
-  test.do(() => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.event("click", showFn, () => !boxFn().classList.contains("tobago-collapsed"));
   test.do(() => expect(boxFn().classList.contains("tobago-collapsed")).toBe(false));
   test.start();
 });
 
 it("Client Side: hide content and submit empty string", function (done) {
   let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let showFn = querySelectorFn("#page\\:mainForm\\:client\\:showNoRequestBox");
   let hideFn = querySelectorFn("#page\\:mainForm\\:client\\:hideNoRequestBox");
   let boxFn = querySelectorFn("#page\\:mainForm\\:client\\:noRequestBox");
   let inFn = querySelectorFn("#page\\:mainForm\\:client\\:inNoRequestBox\\:\\:field");
   let submitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitNoRequestBox");
 
   let test = new JasmineTestTool(done);
-  test.setup(
-      () => messagesFn() && messagesFn().length === 0,
-      () => {
-        inFn().value = "some content";
-        submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-      });
-  test.do(() => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(() => messagesFn() && messagesFn().length === 0,
+      () => inFn().value = "some content",
+      "click", submitFn);
+  test.setup(() => !boxFn().classList.contains("tobago-collapsed"),
+      null, "click", showFn);
+  test.event("click", hideFn, () => boxFn().classList.contains("tobago-collapsed"));
   test.do(() => expect(boxFn().classList.contains("tobago-collapsed")).toBe(true));
   test.do(() => inFn().value = "");
   test.event("click", submitFn, () => messagesFn() && messagesFn().length === 1);
@@ -208,7 +210,7 @@ it("Ajax: show -> hide transition", function (done) {
   let test = new JasmineTestTool(done);
   test.setup(
       () => inFn(),
-      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", showFn);
   test.do(() => expect(inFn() !== null).toBe(true));
   test.event("click", hideFn, () => !inFn());
   test.do(() => expect(inFn() !== null).toBe(false));
@@ -223,7 +225,7 @@ it("Ajax: hide -> show transition", function (done) {
   let test = new JasmineTestTool(done);
   test.setup(
       () => !inFn(),
-      () => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", hideFn);
   test.do(() => expect(inFn() !== null).toBe(false));
   test.event("click", showFn, () => inFn());
   test.do(() => expect(inFn() !== null).toBe(true));
@@ -241,10 +243,10 @@ it("Ajax: submit empty string with shown and hidden content", function (done) {
   let test = new JasmineTestTool(done);
   test.setup(
       () => inFn(),
-      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", showFn);
   test.setup(
       () => messagesFn() && messagesFn().length === 0,
-      () => hide1FullReqFn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", hide1FullReqFn);
   test.do(() => expect(inFn() !== null).toBe(true));
   test.do(() => inFn().value = "");
   test.event("click", submitFn, () => messagesFn() && messagesFn().length === 1);

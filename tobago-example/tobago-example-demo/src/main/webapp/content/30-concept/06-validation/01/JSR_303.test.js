@@ -18,15 +18,20 @@
 import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-it("Required: Submit without content.", function (done) {
+it("must be fixed first", function (done) {
+  let test = new JasmineTestTool(done);
+  test.do(() => fail("must be fixed first"));
+  test.start();
+});
+
+/*it("Required: Submit without content.", function (done) {
   let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
   let inFn = querySelectorFn("#page\\:mainForm\\:required\\:in1\\:\\:field");
   let submitFn = querySelectorFn("#page\\:mainForm\\:required\\:submit1");
 
   let test = new JasmineTestTool(done);
   test.do(() => inFn().value = "");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 1);
+  test.event("click", submitFn, () => messagesFn() && messagesFn().length === 1);
   test.do(() => expect(messagesFn().length).toBe(1));
   test.start();
 });
@@ -38,8 +43,7 @@ it("Required: Submit with content.", function (done) {
 
   let test = new JasmineTestTool(done);
   test.do(() => inFn().value = "some content");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.event("click", submitFn, () => messagesFn() && messagesFn().length === 0);
   test.do(() => expect(messagesFn().length).toBe(0));
   test.start();
 });
@@ -51,8 +55,7 @@ it("Length: Submit single character.", function (done) {
 
   let test = new JasmineTestTool(done);
   test.do(() => inFn().value = "a");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 1);
+  test.event("click", submitFn, () => messagesFn() && messagesFn().length === 1);
   test.do(() => expect(messagesFn().length).toBe(1));
   test.start();
 });
@@ -64,8 +67,7 @@ it("Length: Submit three characters.", function (done) {
 
   let test = new JasmineTestTool(done);
   test.do(() => inFn().value = "abc");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.event("click", submitFn, () => messagesFn() && messagesFn().length === 0);
   test.do(() => expect(messagesFn().length).toBe(0));
   test.start();
 });
@@ -77,8 +79,7 @@ it("Length: Submit five characters.", function (done) {
 
   let test = new JasmineTestTool(done);
   test.do(() => inFn().value = "abcde");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 1);
+  test.event("click", submitFn, () => messagesFn() && messagesFn().length === 1);
   test.do(() => expect(messagesFn().length).toBe(1));
   test.start();
-});
+});*/

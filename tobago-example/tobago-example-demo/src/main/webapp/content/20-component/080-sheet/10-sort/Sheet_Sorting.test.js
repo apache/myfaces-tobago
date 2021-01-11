@@ -26,13 +26,11 @@ it("Basics: Name", function (done) {
   let test = new JasmineTestTool(done);
   test.setup(
       () => colNameFn().classList.contains("tobago-sheet-header-markup-ascending"),
-      () => colNameFn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", colNameFn);
   test.setup(
       () => rowsFn()[0].querySelector("tobago-out").textContent === "Earth",
-      () => {
-        leftPagingFn().value = "22";
-        leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
-      });
+      () => leftPagingFn().value = "22",
+      "blur", leftPagingFn);
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-sortable")).toBe(true));
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-ascending")).toBe(true));
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-descending")).not.toBe(true));
@@ -67,13 +65,11 @@ it("Basics: Period", function (done) {
   let test = new JasmineTestTool(done);
   test.setup(
       () => colPeriodFn().classList.contains("tobago-sheet-header-markup-ascending"),
-      () => colPeriodFn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", colPeriodFn);
   test.setup(
       () => rowsFn()[0].querySelector("tobago-out").textContent === "Rosalind",
-      () => {
-        leftPagingFn().value = "29";
-        leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
-      });
+      () => leftPagingFn().value = "29",
+      "blur", leftPagingFn);
   test.do(() => expect(colPeriodFn().classList.contains("tobago-sheet-header-markup-sortable")).toBe(true));
   test.do(() => expect(colPeriodFn().classList.contains("tobago-sheet-header-markup-ascending")).toBe(true));
   test.do(() => expect(colPeriodFn().classList.contains("tobago-sheet-header-markup-descending")).not.toBe(true));
@@ -108,13 +104,11 @@ it("Basics: Year", function (done) {
   let test = new JasmineTestTool(done);
   test.setup(
       () => colYearFn().classList.contains("tobago-sheet-header-markup-ascending"),
-      () => colYearFn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", colYearFn);
   test.setup(
       () => rowsFn()[0].querySelector("tobago-out").textContent === "Amalthea",
-      () => {
-        leftPagingFn().value = "22";
-        leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
-      });
+      () => leftPagingFn().value = "22",
+      "blur", leftPagingFn);
   test.do(() => expect(colYearFn().classList.contains("tobago-sheet-header-markup-sortable")).toBe(true));
   test.do(() => expect(colYearFn().classList.contains("tobago-sheet-header-markup-ascending")).toBe(true));
   test.do(() => expect(colYearFn().classList.contains("tobago-sheet-header-markup-descending")).not.toBe(true));
@@ -145,13 +139,11 @@ it("Basics: left paging", function (done) {
   let test = new JasmineTestTool(done);
   test.setup(
       () => colNameFn().classList.contains("tobago-sheet-header-markup-ascending"),
-      () => colNameFn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", colNameFn);
   test.setup(
       () => rowsFn()[0].querySelector("tobago-out").textContent === "1986U10",
-      () => {
-        leftPagingFn().value = "1";
-        leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
-      });
+      () => leftPagingFn().value = "1",
+      "blur", leftPagingFn);
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-sortable")).toBe(true));
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-ascending")).toBe(true));
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-descending")).not.toBe(true));
@@ -196,13 +188,11 @@ it("Basics: center paging", function (done) {
   let test = new JasmineTestTool(done);
   test.setup(
       () => colNameFn().classList.contains("tobago-sheet-header-markup-ascending"),
-      () => colNameFn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", colNameFn);
   test.setup(
       () => rowsFn()[0].querySelector("tobago-out").textContent === "1986U10",
-      () => {
-        leftPagingFn().value = "1";
-        leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
-      });
+      () => leftPagingFn().value = "1",
+      "blur", leftPagingFn);
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-sortable")).toBe(true));
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-ascending")).toBe(true));
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-descending")).not.toBe(true));
@@ -259,13 +249,11 @@ it("Basics: right paging", function (done) {
   let test = new JasmineTestTool(done);
   test.setup(
       () => colNameFn().classList.contains("tobago-sheet-header-markup-ascending"),
-      () => colNameFn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", colNameFn);
   test.setup(
       () => rowsFn()[0].querySelector("tobago-out").textContent === "Earth",
-      () => {
-        leftPagingFn().value = "22";
-        leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
-      });
+      () => leftPagingFn().value = "22",
+      "blur", leftPagingFn);
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-sortable")).toBe(true));
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-ascending")).toBe(true));
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-descending")).not.toBe(true));
@@ -331,13 +319,11 @@ it("Custom Sorting: Name", function (done) {
   let test = new JasmineTestTool(done);
   test.setup(
       () => colNameFn().classList.contains("tobago-sheet-header-markup-ascending"),
-      () => colNameFn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", colNameFn);
   test.setup(
       () => rowsFn()[0].querySelector("tobago-out").textContent === "Earth",
-      () => {
-        leftPagingFn().value = "22";
-        leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
-      });
+      () => leftPagingFn().value = "22",
+      "blur", leftPagingFn);
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-sortable")).toBe(true));
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-ascending")).toBe(true));
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-descending")).not.toBe(true));
@@ -372,13 +358,11 @@ it("Custom Sorting: Period", function (done) {
   let test = new JasmineTestTool(done);
   test.setup(
       () => colPeriodFn().classList.contains("tobago-sheet-header-markup-ascending"),
-      () => colPeriodFn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", colPeriodFn);
   test.setup(
       () => rowsFn()[0].querySelector("tobago-out").textContent === "Mimas",
-      () => {
-        leftPagingFn().value = "29";
-        leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
-      });
+      () => leftPagingFn().value = "29",
+      "blur", leftPagingFn);
   test.do(() => expect(colPeriodFn().classList.contains("tobago-sheet-header-markup-sortable")).toBe(true));
   test.do(() => expect(colPeriodFn().classList.contains("tobago-sheet-header-markup-ascending")).toBe(true));
   test.do(() => expect(colPeriodFn().classList.contains("tobago-sheet-header-markup-descending")).not.toBe(true));
@@ -413,13 +397,11 @@ it("Custom Sorting: Year", function (done) {
   let test = new JasmineTestTool(done);
   test.setup(
       () => colYearFn().classList.contains("tobago-sheet-header-markup-ascending"),
-      () => colYearFn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", colYearFn);
   test.setup(
       () => rowsFn()[0].querySelectorAll("tobago-out")[2].textContent === "1789",
-      () => {
-        leftPagingFn().value = "22";
-        leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
-      });
+      () => leftPagingFn().value = "22",
+      "blur", leftPagingFn);
   test.do(() => expect(colYearFn().classList.contains("tobago-sheet-header-markup-sortable")).toBe(true));
   test.do(() => expect(colYearFn().classList.contains("tobago-sheet-header-markup-ascending")).toBe(true));
   test.do(() => expect(colYearFn().classList.contains("tobago-sheet-header-markup-descending")).not.toBe(true));
@@ -450,13 +432,11 @@ it("Custom Sorting: left paging", function (done) {
   let test = new JasmineTestTool(done);
   test.setup(
       () => colNameFn().classList.contains("tobago-sheet-header-markup-ascending"),
-      () => colNameFn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", colNameFn);
   test.setup(
       () => rowsFn()[0].querySelector("tobago-out").textContent === "1986U10",
-      () => {
-        leftPagingFn().value = "1";
-        leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
-      });
+      () => leftPagingFn().value = "1",
+      "blur", leftPagingFn);
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-sortable")).toBe(true));
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-ascending")).toBe(true));
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-descending")).not.toBe(true));
@@ -501,13 +481,11 @@ it("Custom Sorting: center paging", function (done) {
   let test = new JasmineTestTool(done);
   test.setup(
       () => colNameFn().classList.contains("tobago-sheet-header-markup-ascending"),
-      () => colNameFn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", colNameFn);
   test.setup(
       () => rowsFn()[0].querySelector("tobago-out").textContent === "1986U10",
-      () => {
-        leftPagingFn().value = "1";
-        leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
-      });
+      () => leftPagingFn().value = "1",
+      "blur", leftPagingFn);
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-sortable")).toBe(true));
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-ascending")).toBe(true));
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-descending")).not.toBe(true));
@@ -564,13 +542,11 @@ it("Custom Sorting: right paging", function (done) {
   let test = new JasmineTestTool(done);
   test.setup(
       () => colNameFn().classList.contains("tobago-sheet-header-markup-ascending"),
-      () => colNameFn().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", colNameFn);
   test.setup(
       () => rowsFn()[0].querySelector("tobago-out").textContent === "Earth",
-      () => {
-        leftPagingFn().value = "22";
-        leftPagingFn().dispatchEvent(new Event("blur", {bubbles: true}));
-      });
+      () => leftPagingFn().value = "22",
+      "blur", leftPagingFn);
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-sortable")).toBe(true));
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-ascending")).toBe(true));
   test.do(() => expect(colNameFn().classList.contains("tobago-sheet-header-markup-descending")).not.toBe(true));

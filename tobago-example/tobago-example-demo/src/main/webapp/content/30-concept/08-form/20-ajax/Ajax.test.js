@@ -26,10 +26,8 @@ it("submit inner form 1 without violations", function (done) {
 
   let test = new JasmineTestTool(done);
   test.setup(() => form1OutputFn().textContent !== "Alice",
-      () => {
-        form1InputFn().value = "Bob";
-        form1SubmitFn().dispatchEvent(new Event("click", {bubbles: true}));
-      });
+      () => form1InputFn().value = "Bob",
+      "click", form1SubmitFn);
   test.do(() => form1InputFn().value = "Alice");
   test.event("click", form1SubmitFn, () => form1OutputFn().textContent === "Alice");
   test.do(() => expect(form1InputFn().value).toBe("Alice"));
@@ -50,9 +48,9 @@ it("submit inner form 2, violate required field", function (done) {
   test.setup(() => form2AlertFn() === null,
       () => {
         form2InputFn().value = "Bob";
-        form2SubmitFn().dispatchEvent(new Event("click", {bubbles: true}));
         form2OutputValue = "Bob";
-      });
+      },
+      "click", form2SubmitFn);
   test.do(() => form2InputFn().value = "");
   test.event("click", form2SubmitFn, () => form2AlertFn() !== null);
   test.do(() => expect(form2InputFn().value).toBe(""));
@@ -71,10 +69,8 @@ it("submit inner form 2 without violations", function (done) {
 
   let test = new JasmineTestTool(done);
   test.setup(() => form2OutputFn().textContent !== "Bob",
-      () => {
-        form2InputFn().value = "Alice";
-        form2SubmitFn().dispatchEvent(new Event("click", {bubbles: true}));
-      });
+      () => form2InputFn().value = "Alice",
+      "click", form2SubmitFn);
   test.do(() => form2InputFn().value = "Bob");
   test.event("click", form2SubmitFn, () => form2OutputFn().textContent === "Bob");
   test.do(() => expect(form2InputFn().value).toBe("Bob"));
@@ -106,11 +102,11 @@ it("submit outer form, violate both required fields", function (done) {
         form1InputFn().value = "Alice";
         form2InputFn().value = "Bob";
         outerFormInputFn().value = "Charlie";
-        outerFormSubmitFn().dispatchEvent(new Event("click", {bubbles: true}));
         form1OutputValue = "Alice"
         form2OutputValue = "Bob";
         outerFormOutputValue = "Charlie"
-      });
+      },
+      "click", outerFormSubmitFn);
   test.do(() => form1InputFn().value = "Dave");
   test.do(() => form2InputFn().value = "");
   test.do(() => outerFormInputFn().value = "");
@@ -148,11 +144,11 @@ it("submit outer form, violate required field in form 2", function (done) {
         form1InputFn().value = "Alice";
         form2InputFn().value = "Bob";
         outerFormInputFn().value = "Charlie";
-        outerFormSubmitFn().dispatchEvent(new Event("click", {bubbles: true}));
         form1OutputValue = "Alice"
         form2OutputValue = "Bob";
         outerFormOutputValue = "Charlie"
-      });
+      },
+      "click", outerFormSubmitFn);
   test.do(() => form1InputFn().value = "Charlie");
   test.do(() => form2InputFn().value = "");
   test.do(() => outerFormInputFn().value = "Dave");
@@ -190,11 +186,11 @@ it("submit outer form, violate required field in outer form", function (done) {
         form1InputFn().value = "Dave"
         form2InputFn().value = "Eve"
         outerFormInputFn().value = "Frank";
-        outerFormSubmitFn().dispatchEvent(new Event("click", {bubbles: true}))
         form1OutputValue = "Dave"
         form2OutputValue = "Eve"
         outerFormOutputValue = "Frank";
-      });
+      },
+      "click", outerFormSubmitFn);
   test.do(() => form1InputFn().value = "Eve");
   test.do(() => form2InputFn().value = "Frank");
   test.do(() => outerFormInputFn().value = "");
@@ -231,8 +227,8 @@ it("submit outer form without violations", function (done) {
         form1InputFn().value = "Eve";
         form2InputFn().value = "Frank";
         outerFormInputFn().value = "Grace";
-        outerFormSubmitFn().dispatchEvent(new Event("click", {bubbles: true}))
-      });
+      },
+      "click", outerFormSubmitFn);
   test.do(() => form1InputFn().value = "Hank");
   test.do(() => form2InputFn().value = "Irene");
   test.do(() => outerFormInputFn().value = "John");
@@ -272,11 +268,11 @@ it("submit inner forms, violate required field in form 2", function (done) {
         form1InputFn().value = "Alice";
         form2InputFn().value = "Bob";
         outerFormInputFn().value = "Charlie"
-        outerFormSubmitFn().dispatchEvent(new Event("click", {bubbles: true}));
         form1OutputValue = "Alice"
         form2OutputValue = "Bob";
         outerFormOutputValue = "Charlie";
-      });
+      },
+      "click", outerFormSubmitFn);
   test.do(() => form1InputFn().value = "Kate");
   test.do(() => form2InputFn().value = "");
   test.do(() => outerFormInputFn().value = "Leonard");
@@ -314,9 +310,9 @@ it("submit inner forms without violations", function (done) {
         form1InputFn().value = "Kate";
         form2InputFn().value = "Mike";
         outerFormInputFn().value = "Leonard";
-        outerFormSubmitFn().dispatchEvent(new Event("click", {bubbles: true}));
         outerFormOutputValue = "Leonard";
-      });
+      },
+      "click", outerFormSubmitFn);
   test.do(() => form1InputFn().value = "Mike");
   test.do(() => form2InputFn().value = "Neil");
   test.do(() => outerFormInputFn().value = "");
@@ -356,11 +352,11 @@ it("submit outer value, violate required field", function (done) {
         form1InputFn().value = "Leonard";
         form2InputFn().value = "Mike";
         outerFormInputFn().value = "Neil";
-        outerFormSubmitFn().dispatchEvent(new Event("click", {bubbles: true}));
         form1OutputValue = "Leonard";
         form2OutputValue = "Mike";
         outerFormOutputValue = "Neil";
-      });
+      },
+      "click", outerFormSubmitFn);
   test.do(() => form1InputFn().value = "Oscar");
   test.do(() => form2InputFn().value = "Penny");
   test.do(() => outerFormInputFn().value = "");
@@ -399,10 +395,10 @@ it("submit outer value without violations", function (done) {
         form1InputFn().value = "Neil";
         form2InputFn().value = "Oscar";
         outerFormInputFn().value = "Penny";
-        outerFormSubmitFn().dispatchEvent(new Event("click", {bubbles: true}));
         form1OutputValue = "Neil";
         form2OutputValue = "Oscar";
-      });
+      },
+      "click", outerFormSubmitFn);
   test.do(() => form1InputFn().value = "Quin");
   test.do(() => form2InputFn().value = "Sue");
   test.do(() => outerFormInputFn().value = "Ted");

@@ -29,12 +29,10 @@ it("Select 2,2,0 and submit", function (done) {
 
   const test = new JasmineTestTool(done);
   test.setup(() => isLevelSelectVisible(2, 1),
-      () => {
-        node1().selected = true;
-        node1().dispatchEvent(new Event("change", {bubbles: true}));
-      });
+      () => node1().selected = true,
+      "change", node1);
   test.setup(() => output().textContent !== "[[2, 2, 0]]",
-      () => submit().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", submit);
 
   test.do(() => node3().selected = true);
   test.event("change", node3,
@@ -96,12 +94,10 @@ it("Select 3 and submit", function (done) {
 
   const test = new JasmineTestTool(done);
   test.setup(() => isLevelSelectVisible(2, 1),
-      () => {
-        node1().selected = true;
-        node1().dispatchEvent(new Event("change", {bubbles: true}));
-      });
+      () => node1().selected = true,
+      "change", node1);
   test.setup(() => output().textContent !== "[[3]]",
-      () => submit().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", submit);
 
   test.do(() => node9().selected = true);
   test.event("change", node9,
@@ -136,12 +132,10 @@ it("Select 4,2,1,1 and submit", function (done) {
 
   const test = new JasmineTestTool(done);
   test.setup(() => isLevelSelectVisible(2, 1),
-      () => {
-        node1().selected = true;
-        node1().dispatchEvent(new Event("change", {bubbles: true}));
-      });
+      () => node1().selected = true,
+      "change", node1);
   test.setup(() => output().textContent !== "[[4, 2, 1, 1]]",
-      () => submit().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", submit);
 
   test.do(() => node10().selected = true);
   test.event("change", node10,

@@ -25,9 +25,11 @@ it("Required: Submit without content.", function (done) {
   let textareaValue = textareaFn().value;
 
   let test = new JasmineTestTool(done);
+  test.setup(() => messagesFn() && messagesFn().length === 0,
+      () => textareaFn().value = "Alice",
+      "click", submitFn);
   test.do(() => textareaFn().value = "");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 1);
+  test.event("click", submitFn, () => messagesFn() && messagesFn().length === 1);
   test.do(() => expect(messagesFn().length).toBe(1));
   test.do(() => expect(textareaFn().value).toBe(textareaValue));
   test.start();
@@ -39,9 +41,11 @@ it("Required: Submit with content.", function (done) {
   let submitFn = querySelectorFn("#page\\:mainForm\\:required\\:submit_r");
 
   let test = new JasmineTestTool(done);
+  test.setup(() => messagesFn() && messagesFn().length === 1,
+      () => textareaFn().value = "",
+      "click", submitFn);
   test.do(() => textareaFn().value = "some content");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 0
+  test.event("click", submitFn, () => messagesFn() && messagesFn().length === 0
       && textareaFn().value && textareaFn().value === "some content");
   test.do(() => expect(messagesFn().length).toBe(0));
   test.do(() => expect(textareaFn().value).toBe("some content"));
@@ -54,9 +58,11 @@ it("Validate Length: Submit single character.", function (done) {
   let submitFn = querySelectorFn("#page\\:mainForm\\:validateLength\\:submit_vl");
 
   let test = new JasmineTestTool(done);
+  test.setup(() => messagesFn() && messagesFn().length === 0,
+      () => inFn().value = "Bob",
+      "click", submitFn);
   test.do(() => inFn().value = "a");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 1);
+  test.event("click", submitFn, () => messagesFn() && messagesFn().length === 1);
   test.do(() => expect(messagesFn().length).toBe(1));
   test.start();
 });
@@ -67,9 +73,11 @@ it("Validate Length: Submit two character.", function (done) {
   let submitFn = querySelectorFn("#page\\:mainForm\\:validateLength\\:submit_vl");
 
   let test = new JasmineTestTool(done);
+  test.setup(() => messagesFn() && messagesFn().length === 1,
+      () => inFn().value = "",
+      "click", submitFn);
   test.do(() => inFn().value = "ab");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.event("click", submitFn, () => messagesFn() && messagesFn().length === 0);
   test.do(() => expect(messagesFn().length).toBe(0));
   test.start();
 });
@@ -80,9 +88,11 @@ it("Validate Range: Submit no number.", function (done) {
   let submitFn = querySelectorFn("#page\\:mainForm\\:validateRange\\:submit_vr");
 
   let test = new JasmineTestTool(done);
+  test.setup(() => messagesFn() && messagesFn().length === 0,
+      () => inFn().value = "42",
+      "click", submitFn);
   test.do(() => inFn().value = "no number");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 1);
+  test.event("click", submitFn, () => messagesFn() && messagesFn().length === 1);
   test.do(() => expect(messagesFn().length).toBe(1));
   test.start();
 });
@@ -93,9 +103,11 @@ it("Validate Range: Submit number '2' which is out of range.", function (done) {
   let submitFn = querySelectorFn("#page\\:mainForm\\:validateRange\\:submit_vr");
 
   let test = new JasmineTestTool(done);
+  test.setup(() => messagesFn() && messagesFn().length === 0,
+      () => inFn().value = "42",
+      "click", submitFn);
   test.do(() => inFn().value = "2");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 1);
+  test.event("click", submitFn, () => messagesFn() && messagesFn().length === 1);
   test.do(() => expect(messagesFn().length).toBe(1));
   test.start();
 });
@@ -106,9 +118,11 @@ it("Validate Range: Submit number '78' which is out of range.", function (done) 
   let submitFn = querySelectorFn("#page\\:mainForm\\:validateRange\\:submit_vr");
 
   let test = new JasmineTestTool(done);
+  test.setup(() => messagesFn() && messagesFn().length === 0,
+      () => inFn().value = "42",
+      "click", submitFn);
   test.do(() => inFn().value = "78");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 1);
+  test.event("click", submitFn, () => messagesFn() && messagesFn().length === 1);
   test.do(() => expect(messagesFn().length).toBe(1));
   test.start();
 });
@@ -119,9 +133,11 @@ it("Validate Range: Submit number '64' which is within the range.", function (do
   let submitFn = querySelectorFn("#page\\:mainForm\\:validateRange\\:submit_vr");
 
   let test = new JasmineTestTool(done);
+  test.setup(() => messagesFn() && messagesFn().length === 1,
+      () => inFn().value = "1000",
+      "click", submitFn);
   test.do(() => inFn().value = "64");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.event("click", submitFn, () => messagesFn() && messagesFn().length === 0);
   test.do(() => expect(messagesFn().length).toBe(0));
   test.start();
 });
@@ -132,9 +148,11 @@ it("Regex Validation: Submit 'T' which violates the pattern.", function (done) {
   let submitFn = querySelectorFn("#page\\:mainForm\\:regexValidation\\:submit_rv");
 
   let test = new JasmineTestTool(done);
+  test.setup(() => messagesFn() && messagesFn().length === 0,
+      () => inFn().value = "T3",
+      "click", submitFn);
   test.do(() => inFn().value = "T");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 1);
+  test.event("click", submitFn, () => messagesFn() && messagesFn().length === 1);
   test.do(() => expect(messagesFn().length).toBe(1));
   test.start();
 });
@@ -145,9 +163,11 @@ it("Regex Validation: Submit '3' which violates the pattern.", function (done) {
   let submitFn = querySelectorFn("#page\\:mainForm\\:regexValidation\\:submit_rv");
 
   let test = new JasmineTestTool(done);
+  test.setup(() => messagesFn() && messagesFn().length === 0,
+      () => inFn().value = "T3",
+      "click", submitFn);
   test.do(() => inFn().value = "3");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 1);
+  test.event("click", submitFn, () => messagesFn() && messagesFn().length === 1);
   test.do(() => expect(messagesFn().length).toBe(1));
   test.start();
 });
@@ -158,9 +178,11 @@ it("Regex Validation: Submit 'T3' which is accepted.", function (done) {
   let submitFn = querySelectorFn("#page\\:mainForm\\:regexValidation\\:submit_rv");
 
   let test = new JasmineTestTool(done);
+  test.setup(() => messagesFn() && messagesFn().length === 1,
+      () => inFn().value = "Charlie",
+      "click", submitFn);
   test.do(() => inFn().value = "T3");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.event("click", submitFn, () => messagesFn() && messagesFn().length === 0);
   test.do(() => expect(messagesFn().length).toBe(0));
   test.start();
 });
@@ -171,9 +193,11 @@ it("Custom Validator: Submit rejected string.", function (done) {
   let submitFn = querySelectorFn("#page\\:mainForm\\:customValidator\\:submit_cv");
 
   let test = new JasmineTestTool(done);
+  test.setup(() => messagesFn() && messagesFn().length === 0,
+      () => inFn().value = "tobago",
+      "click", submitFn);
   test.do(() => inFn().value = "java");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 1);
+  test.event("click", submitFn, () => messagesFn() && messagesFn().length === 1);
   test.do(() => expect(messagesFn().length).toBe(1));
   test.start();
 });
@@ -184,9 +208,11 @@ it("Custom Validator: Submit accepted string.", function (done) {
   let submitFn = querySelectorFn("#page\\:mainForm\\:customValidator\\:submit_cv");
 
   let test = new JasmineTestTool(done);
+  test.setup(() => messagesFn() && messagesFn().length === 1,
+      () => inFn().value = "Dave",
+      "click", submitFn);
   test.do(() => inFn().value = "tobago");
-  test.do(() => submitFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => messagesFn() && messagesFn().length === 0);
+  test.event("click", submitFn, () => messagesFn() && messagesFn().length === 0);
   test.do(() => expect(messagesFn().length).toBe(0));
   test.start();
 });
