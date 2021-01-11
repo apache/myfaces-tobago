@@ -21,39 +21,43 @@ import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 it("submit form 1", function (done) {
   let form1InputFieldFn = querySelectorFn("#page\\:mainForm\\:form1\\:in1\\:\\:field");
   let form2InputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:in2\\:\\:field");
-  let form1OutputFieldFn = querySelectorFn("#page\\:mainForm\\:form1\\:out1 span");
-  let form2OutputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:out2 span");
+  let form1OutputFieldFn = querySelectorFn("#page\\:mainForm\\:form1\\:out1 tobago-out");
+  let form2OutputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:out2 tobago-out");
   let form1SubmitButtonFn = querySelectorFn("#page\\:mainForm\\:form1\\:submit1");
-  let $form2OutputFieldValue = form2OutputFieldFn().textContent;
+  let form2OutputFieldValue = form2OutputFieldFn().textContent;
 
   let test = new JasmineTestTool(done);
-  test.do(() => form1InputFieldFn().value = "Oliver");
-  test.do(() => form2InputFieldFn().value = "Peter");
-  test.do(() => form1SubmitButtonFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => form1InputFieldFn() && form1InputFieldFn().value === "Oliver");
-  test.do(() => expect(form1InputFieldFn().value).toBe("Oliver"));
-  test.do(() => expect(form1OutputFieldFn().textContent).toBe("Oliver"));
-  test.do(() => expect(form2InputFieldFn().value).toBe("Peter"));
-  test.do(() => expect(form2OutputFieldFn().textContent).toBe($form2OutputFieldValue));
+  test.setup(() => form1OutputFieldFn().textContent !== "Alice",
+      () => form1InputFieldFn().value = "Eve",
+      "click", form1SubmitButtonFn);
+  test.do(() => form1InputFieldFn().value = "Alice");
+  test.do(() => form2InputFieldFn().value = "Bob");
+  test.event("click", form1SubmitButtonFn, () => form1OutputFieldFn().textContent === "Alice");
+  test.do(() => expect(form1InputFieldFn().value).toBe("Alice"));
+  test.do(() => expect(form1OutputFieldFn().textContent).toBe("Alice"));
+  test.do(() => expect(form2InputFieldFn().value).toBe("Bob"));
+  test.do(() => expect(form2OutputFieldFn().textContent).toBe(form2OutputFieldValue));
   test.start();
 });
 
 it("submit form 2", function (done) {
   let form1InputFieldFn = querySelectorFn("#page\\:mainForm\\:form1\\:in1\\:\\:field");
   let form2InputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:in2\\:\\:field");
-  let form1OutputFieldFn = querySelectorFn("#page\\:mainForm\\:form1\\:out1 span");
-  let form2OutputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:out2 span");
+  let form1OutputFieldFn = querySelectorFn("#page\\:mainForm\\:form1\\:out1 tobago-out");
+  let form2OutputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:out2 tobago-out");
   let form2SubmitButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:submit2");
-  let $form1OutputFieldValue = form1OutputFieldFn().textContent;
+  let form1OutputFieldValue = form1OutputFieldFn().textContent;
 
   let test = new JasmineTestTool(done);
-  test.do(() => form1InputFieldFn().value = "Oliver");
-  test.do(() => form2InputFieldFn().value = "Peter");
-  test.do(() => form2SubmitButtonFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => form1InputFieldFn() && form1InputFieldFn().value === "Oliver");
-  test.do(() => expect(form1InputFieldFn().value).toBe("Oliver"));
-  test.do(() => expect(form1OutputFieldFn().textContent).toBe($form1OutputFieldValue));
-  test.do(() => expect(form2InputFieldFn().value).toBe("Peter"));
-  test.do(() => expect(form2OutputFieldFn().textContent).toBe("Peter"));
+  test.setup(() => form2OutputFieldFn().textContent !== "Dave",
+      () => form2InputFieldFn().value = "Frank",
+      "click", form2SubmitButtonFn);
+  test.do(() => form1InputFieldFn().value = "Charlie");
+  test.do(() => form2InputFieldFn().value = "Dave");
+  test.event("click", form2SubmitButtonFn, () => form2OutputFieldFn().textContent === "Dave");
+  test.do(() => expect(form1InputFieldFn().value).toBe("Charlie"));
+  test.do(() => expect(form1OutputFieldFn().textContent).toBe(form1OutputFieldValue));
+  test.do(() => expect(form2InputFieldFn().value).toBe("Dave"));
+  test.do(() => expect(form2OutputFieldFn().textContent).toBe("Dave"));
   test.start();
 });

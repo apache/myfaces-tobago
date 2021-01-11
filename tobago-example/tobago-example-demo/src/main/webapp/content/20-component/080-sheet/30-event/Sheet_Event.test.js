@@ -18,7 +18,13 @@
 import {querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-it("On click with ajax", function (done) {
+it("must be fixed first", function (done) {
+  let test = new JasmineTestTool(done);
+  test.do(() => fail("must be fixed first"));
+  test.start();
+});
+
+/*it("On click with ajax", function (done) {
   let oneClickAjaxFn = querySelectorFn("#page\\:mainForm\\:changeExample\\:\\:0");
   let venusFn = querySelectorFn("#page\\:mainForm\\:s1\\:2\\:sample0");
   let jupiterFn = querySelectorFn("#page\\:mainForm\\:s1\\:5\\:sample0");
@@ -27,19 +33,15 @@ it("On click with ajax", function (done) {
 
   let test = new JasmineTestTool(done);
   test.do(() => oneClickAjaxFn().checked = true);
-  test.do(() => oneClickAjaxFn().dispatchEvent(new Event("change", {bubbles: true})));
-  test.wait(() => venusFn());
+  test.event("change", oneClickAjaxFn, () => venusFn());
   test.do(() => expect(venusFn() != null).toBe(true));
   test.do(() => expect(jupiterFn() != null).toBe(true));
   test.do(() => expect(saturnFn() != null).toBe(true));
-  test.do(() => venusFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => namefieldFn() && namefieldFn().value === "Venus");
+  test.event("click", venusFn, () => namefieldFn() && namefieldFn().value === "Venus");
   test.do(() => expect(namefieldFn().value).toBe("Venus"));
-  test.do(() => jupiterFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => namefieldFn() && namefieldFn().value === "Jupiter");
+  test.event("click", jupiterFn, () => namefieldFn() && namefieldFn().value === "Jupiter");
   test.do(() => expect(namefieldFn().value).toBe("Jupiter"));
-  test.do(() => saturnFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => namefieldFn() && namefieldFn().value === "Saturn");
+  test.event("click", saturnFn, () => namefieldFn() && namefieldFn().value === "Saturn");
   test.do(() => expect(namefieldFn().value).toBe("Saturn"));
   test.start();
 });
@@ -53,19 +55,15 @@ it("On click with full request", function (done) {
 
   let test = new JasmineTestTool(done);
   test.do(() => oneClickFullRequestFn().checked = true);
-  test.do(() => oneClickFullRequestFn().dispatchEvent(new Event("change", {bubbles: true})));
-  test.wait(() => venusFn());
+  test.event("change", oneClickFullRequestFn, () => venusFn());
   test.do(() => expect(venusFn() != null).toBe(true));
   test.do(() => expect(jupiterFn() != null).toBe(true));
   test.do(() => expect(saturnFn() != null).toBe(true));
-  test.do(() => venusFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => namefieldFn() && namefieldFn().value === "Venus");
+  test.event("click", venusFn, () => namefieldFn() && namefieldFn().value === "Venus");
   test.do(() => expect(namefieldFn().value).toBe("Venus"));
-  test.do(() => jupiterFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => namefieldFn() && namefieldFn().value === "Jupiter");
+  test.event("click", jupiterFn, () => namefieldFn() && namefieldFn().value === "Jupiter");
   test.do(() => expect(namefieldFn().value).toBe("Jupiter"));
-  test.do(() => saturnFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => namefieldFn() && namefieldFn().value === "Saturn");
+  test.event("click", saturnFn, () => namefieldFn() && namefieldFn().value === "Saturn");
   test.do(() => expect(namefieldFn().value).toBe("Saturn"));
   test.start();
 });
@@ -79,19 +77,15 @@ it("On double click with full request", function (done) {
 
   let test = new JasmineTestTool(done);
   test.do(() => doubleClickFullRequestFn().checked = true);
-  test.do(() => doubleClickFullRequestFn().dispatchEvent(new Event("change", {bubbles: true})));
-  test.wait(() => venusFn());
+  test.event("change", doubleClickFullRequestFn, () => venusFn());
   test.do(() => expect(venusFn() != null).toBe(true));
   test.do(() => expect(jupiterFn() != null).toBe(true));
   test.do(() => expect(saturnFn() != null).toBe(true));
-  test.do(() => venusFn().dispatchEvent(new Event("dblclick", {bubbles: true})));
-  test.wait(() => namefieldFn() && namefieldFn().value === "Venus");
+  test.event("dblclick", venusFn, () => namefieldFn() && namefieldFn().value === "Venus");
   test.do(() => expect(namefieldFn().value).toBe("Venus"));
-  test.do(() => jupiterFn().dispatchEvent(new Event("dblclick", {bubbles: true})));
-  test.wait(() => namefieldFn() && namefieldFn().value === "Jupiter");
+  test.event("dblclick", jupiterFn, () => namefieldFn() && namefieldFn().value === "Jupiter");
   test.do(() => expect(namefieldFn().value).toBe("Jupiter"));
-  test.do(() => saturnFn().dispatchEvent(new Event("dblclick", {bubbles: true})));
-  test.wait(() => namefieldFn() && namefieldFn().value === "Saturn");
+  test.event("dblclick", saturnFn, () => namefieldFn() && namefieldFn().value === "Saturn");
   test.do(() => expect(namefieldFn().value).toBe("Saturn"));
   test.start();
 });
@@ -107,31 +101,24 @@ it("Open popup on click with ajax", function (done) {
 
   let test = new JasmineTestTool(done);
   test.do(() => radioButtonFn().checked = true);
-  test.do(() => radioButtonFn().dispatchEvent(new Event("change", {bubbles: true})));
-  test.wait(() => venusFn());
+  test.event("change", radioButtonFn, () => venusFn());
   test.do(() => expect(venusFn() != null).toBe(true));
   test.do(() => expect(jupiterFn() != null).toBe(true));
   test.do(() => expect(saturnFn() != null).toBe(true));
-  test.do(() => venusFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => popupFn() && popupFn().classList.contains("show") === true);
+  test.event("click", venusFn, () => popupFn() && popupFn().classList.contains("show") === true);
   test.do(() => expect(popupFn().classList.contains("show")).toBe(true));
   test.do(() => expect(nameFn().value).toBe("Venus"));
-  test.do(() => cancelFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => popupFn() && popupFn().classList.contains("show") !== true);
+  test.event("click", cancelFn, () => popupFn() && popupFn().classList.contains("show") !== true);
   test.do(() => expect(popupFn().classList.contains("show")).not.toBe(true));
-  test.do(() => jupiterFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => popupFn() && popupFn().classList.contains("show") === true);
+  test.event("click", jupiterFn, () => popupFn() && popupFn().classList.contains("show") === true);
   test.do(() => expect(popupFn().classList.contains("show")).toBe(true));
   test.do(() => expect(nameFn().value).toBe("Jupiter"));
-  test.do(() => cancelFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => popupFn() && popupFn().classList.contains("show") !== true);
+  test.event("click", cancelFn, () => popupFn() && popupFn().classList.contains("show") !== true);
   test.do(() => expect(popupFn().classList.contains("show")).not.toBe(true));
-  test.do(() => saturnFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => popupFn() && popupFn().classList.contains("show") === true);
+  test.event("click", saturnFn, () => popupFn() && popupFn().classList.contains("show") === true);
   test.do(() => expect(popupFn().classList.contains("show")).toBe(true));
   test.do(() => expect(nameFn().value).toBe("Saturn"));
-  test.do(() => cancelFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => popupFn() && popupFn().classList.contains("show") !== true);
+  test.event("click", cancelFn, () => popupFn() && popupFn().classList.contains("show") !== true);
   test.do(() => expect(popupFn().classList.contains("show")).not.toBe(true));
   test.start();
-});
+});*/

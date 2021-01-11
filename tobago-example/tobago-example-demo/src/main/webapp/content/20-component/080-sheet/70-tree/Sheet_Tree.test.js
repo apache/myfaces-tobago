@@ -49,8 +49,7 @@ it("Collapse tree", function (done) {
   let sheetRow = row1yearFn().parentElement.parentElement;
   test.do(() => expect(sheetRow.classList.contains("tobago-sheet-row")).toBe(true));
   test.do(() => expect(getComputedStyle(sheetRow).display).not.toBe("none"));
-  test.do(() => rootTreeButtonFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => row0nameFn() && row0nameFn().textContent === "Sun");
+  test.event("click", rootTreeButtonFn, () => row0nameFn() && row0nameFn().textContent === "Sun");
   test.do(() => expect(row0nameFn().textContent).toBe("Sun"));
   test.do(() => expect(row0centralBodyFn().textContent).toBe("-"));
   test.do(() => expect(row0distanceFn().textContent).toBe("0"));

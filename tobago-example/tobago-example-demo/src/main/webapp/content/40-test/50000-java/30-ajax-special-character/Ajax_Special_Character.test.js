@@ -29,8 +29,7 @@ it("ajax execute", function (done) {
   let tipValue = tipFn().getAttribute('title');
 
   let test = new JasmineTestTool(done);
-  test.do(() => buttonFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => timestampFn() && timestampFn().textContent !== timestampValue);
+  test.event("click", buttonFn, () => timestampFn() && timestampFn().textContent !== timestampValue);
   test.do(() => expect(timestampFn().textContent).not.toBe(timestampValue));
   test.do(() => expect(textFn().textContent).toBe(textValue));
   test.do(() => expect(tipFn().getAttribute('title')).toBe(tipValue));

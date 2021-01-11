@@ -75,13 +75,12 @@ function testFont(done, alinkFn, buttonlinkFn) {
 it("Ajax reload for section 2", function (done) {
   let reloadButtonFn = querySelectorFn("#page\\:mainForm\\:reloadSection2");
   let section2HeaderFn = querySelectorFn("#page\\:mainForm\\:levelTwoSection h3");
-  let timestampFn = querySelectorFn("#page\\:mainForm\\:timestamp span");
+  let timestampFn = querySelectorFn("#page\\:mainForm\\:timestamp tobago-out");
   let firstTimestamp = timestampFn().textContent;
 
   let test = new JasmineTestTool(done);
   test.do(() => expect(section2HeaderFn() !== null).toBe(true));
-  test.do(() => reloadButtonFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => reloadButtonFn() && section2HeaderFn() !== null);
+  test.event("click", reloadButtonFn, () => firstTimestamp < timestampFn().textContent);
   test.do(() => expect(section2HeaderFn() !== null).toBe(true));
   test.do(() => expect(firstTimestamp < timestampFn().textContent).toBe(true, "value of new timestamp must be higher"));
   test.start();

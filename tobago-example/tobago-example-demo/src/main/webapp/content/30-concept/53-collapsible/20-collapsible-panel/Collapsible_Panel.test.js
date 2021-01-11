@@ -26,8 +26,9 @@ it("Simple Panel: show -> hide transition", function (done) {
   let inFn = querySelectorFn("#page\\:mainForm\\:simple\\:inSimple\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => panelCollapsedFn().value === "false" && inFn() !== null,
-      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(
+      () => panelCollapsedFn().value === "false" && inFn() !== null,
+      null, "click", showFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("false"));
   test.do(() => expect(inFn()).not.toBeNull());
   test.event("click", hideFn, () => panelCollapsedFn().value === "true" && inFn() === null);
@@ -45,8 +46,9 @@ it("Simple Panel: hide -> show transition", function (done) {
   let inFn = querySelectorFn("#page\\:mainForm\\:simple\\:inSimple\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => panelCollapsedFn().value === "true" && inFn() === null,
-      () => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(
+      () => panelCollapsedFn().value === "true" && inFn() === null,
+      null, "click", hideFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("true"));
   test.do(() => expect(inFn()).toBeNull());
   test.event("click", showFn, () => panelCollapsedFn().value === "false" && inFn() !== null);
@@ -64,13 +66,13 @@ it("Simple Panel: collapsed = false; submit valid input", function (done) {
   let inFn = querySelectorFn("#page\\:mainForm\\:simple\\:inSimple\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => panelCollapsedFn().value === "false" && inFn() !== null,
-      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.setup(() => messagesFn().length > 0,
-      () => {
-        inFn().value = "";
-        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
-      });
+  test.setup(
+      () => panelCollapsedFn().value === "false" && inFn() !== null,
+      null, "click", showFn);
+  test.setup(
+      () => messagesFn().length > 0,
+      () => inFn().value = "",
+      "click", submitFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("false"));
   test.do(() => expect(inFn()).not.toBeNull());
   test.do(() => inFn().value = "Alice");
@@ -87,13 +89,13 @@ it("Simple Panel: collapsed = false; submit empty input", function (done) {
   let inFn = querySelectorFn("#page\\:mainForm\\:simple\\:inSimple\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => panelCollapsedFn().value === "false" && inFn() !== null,
-      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.setup(() => messagesFn().length === 0,
-      () => {
-        inFn().value = "Bob";
-        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
-      });
+  test.setup(
+      () => panelCollapsedFn().value === "false" && inFn() !== null,
+      null, "click", showFn);
+  test.setup(
+      () => messagesFn().length === 0,
+      () => inFn().value = "Bob",
+      "click", submitFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("false"));
   test.do(() => expect(inFn()).not.toBeNull());
   test.do(() => expect(messagesFn().length).toBe(0));
@@ -114,18 +116,19 @@ it("Simple Panel: valid input; show -> hide transition; submit", function (done)
   let clientInFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => panelCollapsedFn().value === "false" && inFn() !== null,
-      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(
+      () => panelCollapsedFn().value === "false" && inFn() !== null,
+      null, "click", showFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("false"));
   test.do(() => expect(inFn()).not.toBeNull());
   test.do(() => inFn().value = "Charlie");
   test.event("click", hideFn, () => panelCollapsedFn().value === "true" && inFn() === null);
   test.do(() => expect(panelCollapsedFn().value).toBe("true"));
   test.do(() => expect(inFn()).toBeNull());
-  test.setup(() => messagesFn().length > 0, () => {
-    clientInFn().value = "";
-    clientSubmitFn().dispatchEvent(new Event("click", {bubbles: true}))
-  });
+  test.setup(
+      () => messagesFn().length > 0,
+      () => clientInFn().value = "",
+      "click", clientSubmitFn);
   test.event("click", submitFn, () => messagesFn().length === 0);
   test.do(() => expect(messagesFn().length).toBe(0));
   test.start();
@@ -142,18 +145,19 @@ it("Simple Panel: empty input; show -> hide transition; submit", function (done)
   let clientInFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => panelCollapsedFn().value === "false" && inFn() !== null,
-      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(
+      () => panelCollapsedFn().value === "false" && inFn() !== null,
+      null, "click", showFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("false"));
   test.do(() => expect(inFn()).not.toBeNull());
   test.do(() => inFn().value = "");
   test.event("click", hideFn, () => panelCollapsedFn().value === "true" && inFn() === null);
   test.do(() => expect(panelCollapsedFn().value).toBe("true"));
   test.do(() => expect(inFn()).toBeNull());
-  test.setup(() => messagesFn().length > 0, () => {
-    clientInFn().value = "";
-    clientSubmitFn().dispatchEvent(new Event("click", {bubbles: true}))
-  });
+  test.setup(
+      () => messagesFn().length > 0,
+      () => clientInFn().value = "",
+      "click", clientSubmitFn);
   test.event("click", submitFn, () => messagesFn().length === 0);
   test.do(() => expect(messagesFn().length).toBe(0));
   test.start();
@@ -167,8 +171,9 @@ it("Full Server Request: show -> hide transition", function (done) {
   let inFn = querySelectorFn("#page\\:mainForm\\:server\\:inServer\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => panelCollapsedFn().value === "false" && inFn() !== null,
-      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(
+      () => panelCollapsedFn().value === "false" && inFn() !== null,
+      null, "click", showFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("false"));
   test.do(() => expect(inFn()).not.toBeNull());
   test.event("click", hideFn, () => panelCollapsedFn().value === "true" && inFn() === null);
@@ -186,8 +191,9 @@ it("Full Server Request: hide -> show transition", function (done) {
   let inFn = querySelectorFn("#page\\:mainForm\\:server\\:inServer\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => panelCollapsedFn().value === "true" && inFn() === null,
-      () => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(
+      () => panelCollapsedFn().value === "true" && inFn() === null,
+      null, "click", hideFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("true"));
   test.do(() => expect(inFn()).toBeNull());
   test.event("click", showFn, () => panelCollapsedFn().value === "false" && inFn() !== null);
@@ -205,13 +211,13 @@ it("Full Server Request: collapsed = false; submit valid input", function (done)
   let inFn = querySelectorFn("#page\\:mainForm\\:server\\:inServer\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => panelCollapsedFn().value === "false" && inFn() !== null,
-      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.setup(() => messagesFn().length > 0,
-      () => {
-        inFn().value = "";
-        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
-      });
+  test.setup(
+      () => panelCollapsedFn().value === "false" && inFn() !== null,
+      null, "click", showFn);
+  test.setup(
+      () => messagesFn().length > 0,
+      () => inFn().value = "",
+      "click", submitFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("false"));
   test.do(() => expect(inFn()).not.toBeNull());
   test.do(() => inFn().value = "Alice");
@@ -228,13 +234,13 @@ it("Full Server Request: collapsed = false; submit empty input", function (done)
   let inFn = querySelectorFn("#page\\:mainForm\\:server\\:inServer\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => panelCollapsedFn().value === "false" && inFn() !== null,
-      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.setup(() => messagesFn().length === 0,
-      () => {
-        inFn().value = "Bob";
-        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
-      });
+  test.setup(
+      () => panelCollapsedFn().value === "false" && inFn() !== null,
+      null, "click", showFn);
+  test.setup(
+      () => messagesFn().length === 0,
+      () => inFn().value = "Bob",
+      "click", submitFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("false"));
   test.do(() => expect(inFn()).not.toBeNull());
   test.do(() => expect(messagesFn().length).toBe(0));
@@ -255,18 +261,19 @@ it("Full Server Request: valid input; show -> hide transition; submit", function
   let clientInFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => panelCollapsedFn().value === "false" && inFn() !== null,
-      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(
+      () => panelCollapsedFn().value === "false" && inFn() !== null,
+      null, "click", showFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("false"));
   test.do(() => expect(inFn()).not.toBeNull());
   test.do(() => inFn().value = "Charlie");
   test.event("click", hideFn, () => panelCollapsedFn().value === "true" && inFn() === null);
   test.do(() => expect(panelCollapsedFn().value).toBe("true"));
   test.do(() => expect(inFn()).toBeNull());
-  test.setup(() => messagesFn().length > 0, () => {
-    clientInFn().value = "";
-    clientSubmitFn().dispatchEvent(new Event("click", {bubbles: true}))
-  });
+  test.setup(
+      () => messagesFn().length > 0,
+      () => clientInFn().value = "",
+      "click", clientSubmitFn);
   test.event("click", submitFn, () => messagesFn().length === 0);
   test.do(() => expect(messagesFn().length).toBe(0));
   test.start();
@@ -283,18 +290,19 @@ it("Full Server Request: empty input; show -> hide transition; submit", function
   let clientInFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => panelCollapsedFn().value === "false" && inFn() !== null,
-      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(
+      () => panelCollapsedFn().value === "false" && inFn() !== null,
+      null, "click", showFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("false"));
   test.do(() => expect(inFn()).not.toBeNull());
   test.do(() => inFn().value = "");
   test.event("click", hideFn, () => panelCollapsedFn().value === "true" && inFn() === null);
   test.do(() => expect(panelCollapsedFn().value).toBe("true"));
   test.do(() => expect(inFn()).toBeNull());
-  test.setup(() => messagesFn().length > 0, () => {
-    clientInFn().value = "";
-    clientSubmitFn().dispatchEvent(new Event("click", {bubbles: true}))
-  });
+  test.setup(
+      () => messagesFn().length > 0,
+      () => clientInFn().value = "",
+      "click", clientSubmitFn);
   test.event("click", submitFn, () => messagesFn().length === 0);
   test.do(() => expect(messagesFn().length).toBe(0));
   test.start();
@@ -309,13 +317,13 @@ it("Client Sided: show -> hide transition", function (done) {
   let inFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => messagesFn().length === 0,
-      () => {
-        inFn().value = "Alice";
-        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
-      });
-  test.setup(() => panelCollapsedFn().value === "false",
-      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(
+      () => messagesFn().length === 0,
+      () => inFn().value = "Alice",
+      "click", submitFn);
+  test.setup(
+      () => panelCollapsedFn().value === "false",
+      null, "click", showFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("false"));
   test.do(() => expect(inFn()).not.toBeNull());
   test.event("click", hideFn, () => panelCollapsedFn().value === "true");
@@ -334,13 +342,13 @@ it("Client Sided: hide -> show transition", function (done) {
   let inFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => messagesFn().length === 0,
-      () => {
-        inFn().value = "Bob";
-        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
-      });
-  test.setup(() => panelCollapsedFn().value === "true",
-      () => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(
+      () => messagesFn().length === 0,
+      () => inFn().value = "Bob",
+      "click", submitFn);
+  test.setup(
+      () => panelCollapsedFn().value === "true",
+      null, "click", hideFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("true"));
   test.do(() => expect(inFn()).not.toBeNull());
   test.event("click", showFn, () => panelCollapsedFn().value === "false");
@@ -358,13 +366,13 @@ it("Client Sided: collapsed = false; submit valid input", function (done) {
   let inFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => messagesFn().length > 0,
-      () => {
-        inFn().value = "";
-        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
-      });
-  test.setup(() => panelCollapsedFn().value === "false",
-      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(
+      () => messagesFn().length > 0,
+      () => inFn().value = "",
+      "click", submitFn);
+  test.setup(
+      () => panelCollapsedFn().value === "false",
+      null, "click", showFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("false"));
   test.do(() => expect(inFn()).not.toBeNull());
   test.do(() => inFn().value = "Charlie");
@@ -381,13 +389,13 @@ it("Client Sided: collapsed = false; submit empty input", function (done) {
   let inFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => messagesFn().length === 0,
-      () => {
-        inFn().value = "Bob";
-        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
-      });
-  test.setup(() => panelCollapsedFn().value === "false",
-      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(
+      () => messagesFn().length === 0,
+      () => inFn().value = "Bob",
+      "click", submitFn);
+  test.setup(
+      () => panelCollapsedFn().value === "false",
+      null, "click", showFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("false"));
   test.do(() => expect(inFn()).not.toBeNull());
   test.do(() => expect(messagesFn().length).toBe(0));
@@ -405,13 +413,13 @@ it("Client Sided: collapsed = true; submit valid input", function (done) {
   let inFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => messagesFn().length > 0,
-      () => {
-        inFn().value = "";
-        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
-      });
-  test.setup(() => panelCollapsedFn().value === "true",
-      () => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(
+      () => messagesFn().length > 0,
+      () => inFn().value = "",
+      "click", submitFn);
+  test.setup(
+      () => panelCollapsedFn().value === "true",
+      null, "click", hideFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("true"));
   test.do(() => expect(inFn()).not.toBeNull());
   test.do(() => inFn().value = "Dave");
@@ -428,13 +436,13 @@ it("Client Sided: collapsed = true; submit empty input", function (done) {
   let inFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => messagesFn().length === 0,
-      () => {
-        inFn().value = "Eve";
-        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
-      });
-  test.setup(() => panelCollapsedFn().value === "true",
-      () => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(
+      () => messagesFn().length === 0,
+      () => inFn().value = "Eve",
+      "click", submitFn);
+  test.setup(
+      () => panelCollapsedFn().value === "true",
+      null, "click", hideFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("true"));
   test.do(() => expect(inFn()).not.toBeNull());
   test.do(() => expect(messagesFn().length).toBe(0));
@@ -454,12 +462,13 @@ it("Ajax: show -> hide transition", function (done) {
   let clientInFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => panelCollapsedFn().value === "false" && inFn() !== null,
-      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.setup(() => messagesFn().length === 0, () => {
-    clientInFn().value = "Alice";
-    clientSubmitFn().dispatchEvent(new Event("click", {bubbles: true}))
-  });
+  test.setup(
+      () => panelCollapsedFn().value === "false" && inFn() !== null,
+      null, "click", showFn);
+  test.setup(
+      () => messagesFn().length === 0,
+      () => clientInFn().value = "Alice",
+      "click", clientSubmitFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("false"));
   test.do(() => expect(inFn()).not.toBeNull());
   test.event("click", hideFn, () => panelCollapsedFn().value === "true" && inFn() === null);
@@ -479,12 +488,13 @@ it("Ajax: hide -> show transition", function (done) {
   let clientInFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => panelCollapsedFn().value === "true" && inFn() === null,
-      () => hideFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.setup(() => messagesFn().length === 0, () => {
-    clientInFn().value = "Bob";
-    clientSubmitFn().dispatchEvent(new Event("click", {bubbles: true}))
-  });
+  test.setup(
+      () => panelCollapsedFn().value === "true" && inFn() === null,
+      null, "click", hideFn);
+  test.setup(
+      () => messagesFn().length === 0,
+      () => clientInFn().value = "Bob",
+      "click", clientSubmitFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("true"));
   test.do(() => expect(inFn()).toBeNull());
   test.event("click", showFn, () => panelCollapsedFn().value === "false" && inFn() !== null);
@@ -502,13 +512,13 @@ it("Ajax: collapsed = false; submit valid input", function (done) {
   let inFn = querySelectorFn("#page\\:mainForm\\:ajax\\:inAjax\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => panelCollapsedFn().value === "false" && inFn() !== null,
-      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.setup(() => messagesFn().length > 0,
-      () => {
-        inFn().value = "";
-        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
-      });
+  test.setup(
+      () => panelCollapsedFn().value === "false" && inFn() !== null,
+      null, "click", showFn);
+  test.setup(
+      () => messagesFn().length > 0,
+      () => inFn().value = "",
+      "click", submitFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("false"));
   test.do(() => expect(inFn()).not.toBeNull());
   test.do(() => inFn().value = "Alice");
@@ -525,13 +535,13 @@ it("Ajax: collapsed = false; submit empty input", function (done) {
   let inFn = querySelectorFn("#page\\:mainForm\\:ajax\\:inAjax\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => panelCollapsedFn().value === "false" && inFn() !== null,
-      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.setup(() => messagesFn().length === 0,
-      () => {
-        inFn().value = "Bob";
-        submitFn().dispatchEvent(new Event("click", {bubbles: true}))
-      });
+  test.setup(
+      () => panelCollapsedFn().value === "false" && inFn() !== null,
+      null, "click", showFn);
+  test.setup(
+      () => messagesFn().length === 0,
+      () => inFn().value = "Bob",
+      "click", submitFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("false"));
   test.do(() => expect(inFn()).not.toBeNull());
   test.do(() => expect(messagesFn().length).toBe(0));
@@ -552,18 +562,19 @@ it("Ajax: valid input; show -> hide transition; submit", function (done) {
   let clientInFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => panelCollapsedFn().value === "false" && inFn() !== null,
-      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(
+      () => panelCollapsedFn().value === "false" && inFn() !== null,
+      null, "click", showFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("false"));
   test.do(() => expect(inFn()).not.toBeNull());
   test.do(() => inFn().value = "Charlie");
   test.event("click", hideFn, () => panelCollapsedFn().value === "true" && inFn() === null);
   test.do(() => expect(panelCollapsedFn().value).toBe("true"));
   test.do(() => expect(inFn()).toBeNull());
-  test.setup(() => messagesFn().length > 0, () => {
-    clientInFn().value = "";
-    clientSubmitFn().dispatchEvent(new Event("click", {bubbles: true}))
-  });
+  test.setup(
+      () => messagesFn().length > 0,
+      () => clientInFn().value = "",
+      "click", clientSubmitFn);
   test.event("click", submitFn, () => messagesFn().length === 0);
   test.do(() => expect(messagesFn().length).toBe(0));
   test.start();
@@ -580,18 +591,19 @@ it("Ajax: empty input; show -> hide transition; submit", function (done) {
   let clientInFn = querySelectorFn("#page\\:mainForm\\:client\\:inClient\\:\\:field");
 
   let test = new JasmineTestTool(done);
-  test.setup(() => panelCollapsedFn().value === "false" && inFn() !== null,
-      () => showFn().dispatchEvent(new Event("click", {bubbles: true})));
+  test.setup(
+      () => panelCollapsedFn().value === "false" && inFn() !== null,
+      null, "click", showFn);
   test.do(() => expect(panelCollapsedFn().value).toBe("false"));
   test.do(() => expect(inFn()).not.toBeNull());
   test.do(() => inFn().value = "");
   test.event("click", hideFn, () => panelCollapsedFn().value === "true" && inFn() === null);
   test.do(() => expect(panelCollapsedFn().value).toBe("true"));
   test.do(() => expect(inFn()).toBeNull());
-  test.setup(() => messagesFn().length > 0, () => {
-    clientInFn().value = "";
-    clientSubmitFn().dispatchEvent(new Event("click", {bubbles: true}))
-  });
+  test.setup(
+      () => messagesFn().length > 0,
+      () => clientInFn().value = "",
+      "click", clientSubmitFn);
   test.event("click", submitFn, () => messagesFn().length === 0);
   test.do(() => expect(messagesFn().length).toBe(0));
   test.start();

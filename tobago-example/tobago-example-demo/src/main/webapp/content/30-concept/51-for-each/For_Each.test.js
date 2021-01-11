@@ -29,21 +29,17 @@ it("Add a river and reset.", function (done) {
   let uiRepeatSectionsFn = querySelectorAllFn("#page\\:mainForm\\:uiRepeat tobago-section");
 
   let test = new JasmineTestTool(done);
-  test.do(() => resetFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => forEachBoxesFn() && forEachBoxesFn().length !== 0);
+  test.setup(() => forEachBoxesFn().length === 3,
+      null, "click", resetFn);
   test.do(() => expect(forEachBoxesFn().length).toBe(3));
   test.do(() => expect(uiRepeatSectionsFn().length).toBe(3));
   test.do(() => nameFn().value = "Mississippi");
   test.do(() => lengthFn().value = "6275");
   test.do(() => dischargeFn().value = "16200");
-  test.do(() => addFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => forEachBoxesFn() && forEachBoxesFn().length === 4
-      && uiRepeatSectionsFn() && uiRepeatSectionsFn().length === 4);
+  test.event("click", addFn, () => forEachBoxesFn().length === 4 && uiRepeatSectionsFn().length === 4);
   test.do(() => expect(forEachBoxesFn().length).toBe(4));
   test.do(() => expect(uiRepeatSectionsFn().length).toBe(4));
-  test.do(() => resetFn().dispatchEvent(new Event("click", {bubbles: true})));
-  test.wait(() => forEachBoxesFn() && forEachBoxesFn().length === 3
-      && uiRepeatSectionsFn() && uiRepeatSectionsFn().length === 3);
+  test.event("click", resetFn, () => forEachBoxesFn().length === 3 && uiRepeatSectionsFn().length === 3);
   test.do(() => expect(forEachBoxesFn().length).toBe(3));
   test.do(() => expect(uiRepeatSectionsFn().length).toBe(3));
   test.start();

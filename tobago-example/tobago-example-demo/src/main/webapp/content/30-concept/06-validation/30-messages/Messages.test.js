@@ -28,10 +28,10 @@ it("Press '7 Messages' Button and close the first, the last and the fourth", fun
   let test = new JasmineTestTool(done);
   test.setup(
       () => tab().classList.contains("active"),
-      () => tab().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", tab);
   test.setup(
       () => alerts().length === 7,
-      () => messagesButton().dispatchEvent(new Event("click", {bubbles: true})));
+      null, "click", messagesButton);
   test.do(() => expect(alertLabels()[0].textContent).toBe("First Message - Info"));
   test.do(() => expect(alertLabels()[1].textContent).toBe("Second Message - Fatal"));
   test.do(() => expect(alertLabels()[2].textContent).toBe("Third Message - Warn"));
