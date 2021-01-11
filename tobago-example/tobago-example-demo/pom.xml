@@ -335,7 +335,7 @@
                     </ports>
                   </run>
                   <build>
-                    <from>tomcat</from>
+                    <from>tomcat:9.0.41-jdk11</from>
                     <tags>
                       <tag>${tobago.version}</tag>
                     </tags>

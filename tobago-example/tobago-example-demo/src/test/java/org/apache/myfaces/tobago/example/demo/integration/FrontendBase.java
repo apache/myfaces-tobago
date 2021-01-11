@@ -65,7 +65,8 @@ abstract class FrontendBase {
 
   @Container
   private static final GenericContainer<?> SELENIUM_FIREFOX =
-      new GenericContainer<>(DockerImageName.parse("henningn/selenium-standalone-firefox"))
+      new GenericContainer<>(DockerImageName
+          .parse("henningn/selenium-standalone-firefox:4.0.0-beta-1-prerelease-20201208"))
           .withNetwork(NETWORK).withNetworkAliases(SELENIUM_ALIAS).withExposedPorts(SELENIUM_PORT)
           .waitingFor(Wait.forHttp("/").forPort(SELENIUM_PORT))
           .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger(SELENIUM_ALIAS)).withSeparateOutputStreams());
