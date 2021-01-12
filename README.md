@@ -2,6 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![Tobago CI](https://github.com/apache/myfaces-tobago/workflows/Tobago%20CI/badge.svg)
+![CodeQL](https://github.com/apache/myfaces-tobago/workflows/CodeQL/badge.svg)
 
 ## Building
 
