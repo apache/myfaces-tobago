@@ -16,98 +16,102 @@
  */
 
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 
-it("not implemented yet", function (done) {
-  let test = new JasmineTestTool(done);
-  test.do(() => fail("not implemented yet"));
+it("submit: select 'Nile'", function (done) {
+  let riversFn = querySelectorAllFn("#page\\:mainForm\\:riverList option");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:riverSubmit");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:riverOutput tobago-out");
+
+  const test = new JasmineTestTool(done);
+  test.setup(() => outputFn().textContent !== "6853 km",
+      () => {
+        riversFn().item(0).selected = false; // Nile
+        riversFn().item(1).selected = false; // Amazon
+        riversFn().item(2).selected = false; // Yangtze
+        riversFn().item(3).selected = false; // Yellow River
+        riversFn().item(4).selected = false; // Paraná River
+      },
+      "click", submitFn);
+  test.do(() => riversFn().item(0).selected = true); // Nile
+  test.do(() => riversFn().item(1).selected = false); // Amazon
+  test.do(() => riversFn().item(2).selected = false); // Yangtze
+  test.do(() => riversFn().item(3).selected = false); // Yellow River
+  test.do(() => riversFn().item(4).selected = false); // Paraná River
+  test.event("click", submitFn, () => outputFn().textContent === "6853 km");
+  test.do(() => expect(outputFn().textContent).toBe("6853 km"));
   test.start();
 });
-/*
-import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
-QUnit.test("submit: select 'Nile'", function (assert) {
+it("submit: select 'Yangtze'", function (done) {
   let riversFn = querySelectorAllFn("#page\\:mainForm\\:riverList option");
   let submitFn = querySelectorFn("#page\\:mainForm\\:riverSubmit");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:riverOutput span");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:riverOutput tobago-out");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    riversFn().item(0).selected = true; // Nile
-    riversFn().item(1).selected = false; // Amazon
-    riversFn().item(2).selected = false; // Yangtze
-    riversFn().item(3).selected = false; // Yellow River
-    riversFn().item(4).selected = false; // Paraná River
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "6853 km");
-  });
-  TTT.startTest();
+  const test = new JasmineTestTool(done);
+  test.setup(() => outputFn().textContent !== "6300 km",
+      () => {
+        riversFn().item(0).selected = false; // Nile
+        riversFn().item(1).selected = false; // Amazon
+        riversFn().item(2).selected = false; // Yangtze
+        riversFn().item(3).selected = false; // Yellow River
+        riversFn().item(4).selected = false; // Paraná River
+      },
+      "click", submitFn);
+  test.do(() => riversFn().item(0).selected = false); // Nile
+  test.do(() => riversFn().item(1).selected = false); // Amazon
+  test.do(() => riversFn().item(2).selected = true); // Yangtze
+  test.do(() => riversFn().item(3).selected = false); // Yellow River
+  test.do(() => riversFn().item(4).selected = false); // Paraná River
+  test.event("click", submitFn, () => outputFn().textContent === "6300 km");
+  test.do(() => expect(outputFn().textContent).toBe("6300 km"));
+  test.start();
 });
 
-QUnit.test("submit: select 'Yangtze'", function (assert) {
-  let riversFn = querySelectorAllFn("#page\\:mainForm\\:riverList option");
-  let submitFn = querySelectorFn("#page\\:mainForm\\:riverSubmit");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:riverOutput span");
-
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    riversFn().item(0).selected = false; // Nile
-    riversFn().item(1).selected = false; // Amazon
-    riversFn().item(2).selected = true; // Yangtze
-    riversFn().item(3).selected = false; // Yellow River
-    riversFn().item(4).selected = false; // Paraná River
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "6300 km");
-
-  });
-  TTT.startTest();
-});
-
-QUnit.test("ajax: select Everest", function (assert) {
+it("ajax: select Everest", function (done) {
   let mountainListFn = querySelectorFn("#page\\:mainForm\\:mountainList\\:\\:field");
   let mountainsFn = querySelectorAllFn("#page\\:mainForm\\:mountainList option");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedMountain span");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedMountain tobago-out");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    mountainsFn().item(1).selected = false;
-    mountainsFn().item(2).selected = false;
-    mountainsFn().item(3).selected = false;
-    mountainsFn().item(4).selected = false;
-    mountainsFn().item(0).selected = true; // Everest
-    mountainListFn().dispatchEvent(new Event("change", {bubbles: true})); // Everest
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "8848 m");
-  });
-  TTT.startTest();
+  const test = new JasmineTestTool(done);
+  test.setup(() => outputFn().textContent !== "8848 m",
+      () => {
+        mountainsFn().item(0).selected = false;
+        mountainsFn().item(1).selected = false;
+        mountainsFn().item(2).selected = false;
+        mountainsFn().item(3).selected = false;
+        mountainsFn().item(4).selected = false;
+      }, "change", mountainListFn);
+  test.do(() => mountainsFn().item(0).selected = true); // Everest
+  test.do(() => mountainsFn().item(1).selected = false);
+  test.do(() => mountainsFn().item(2).selected = false);
+  test.do(() => mountainsFn().item(3).selected = false);
+  test.do(() => mountainsFn().item(4).selected = false);
+  test.event("change", mountainListFn, () => outputFn().textContent === "8848 m");
+  test.do(() => expect(outputFn().textContent).toBe("8848 m"));
+  test.start();
 });
 
-QUnit.test("ajax: select Makalu", function (assert) {
+it("ajax: select Makalu", function (done) {
   let mountainListFn = querySelectorFn("#page\\:mainForm\\:mountainList\\:\\:field");
   let mountainsFn = querySelectorAllFn("#page\\:mainForm\\:mountainList option");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedMountain span");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedMountain tobago-out");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    mountainsFn().item(0).selected = false;
-    mountainsFn().item(1).selected = false;
-    mountainsFn().item(2).selected = false;
-    mountainsFn().item(3).selected = false;
-    mountainsFn().item(4).selected = true; // Everest
-    mountainListFn().dispatchEvent(new Event("change", {bubbles: true})); // Everest
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "8481 m");
-  });
-  TTT.startTest();
+  const test = new JasmineTestTool(done);
+  test.setup(() => outputFn().textContent !== "8481 m",
+      () => {
+        mountainsFn().item(0).selected = false;
+        mountainsFn().item(1).selected = false;
+        mountainsFn().item(2).selected = false;
+        mountainsFn().item(3).selected = false;
+        mountainsFn().item(4).selected = false;
+      }, "change", mountainListFn);
+  test.do(() => mountainsFn().item(0).selected = false); // Everest
+  test.do(() => mountainsFn().item(1).selected = false);
+  test.do(() => mountainsFn().item(2).selected = false);
+  test.do(() => mountainsFn().item(3).selected = false);
+  test.do(() => mountainsFn().item(4).selected = true); // Makalu
+  test.event("change", mountainListFn, () => outputFn().textContent === "8481 m");
+  test.do(() => expect(outputFn().textContent).toBe("8481 m"));
+  test.start();
 });
-*/

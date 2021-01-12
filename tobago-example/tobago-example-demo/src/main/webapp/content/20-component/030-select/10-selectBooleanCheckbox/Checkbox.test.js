@@ -16,152 +16,132 @@
  */
 
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+import {querySelectorFn} from "/script/tobago-test.js";
 
-it("not implemented yet", function (done) {
+it("submit: select A", function (done) {
+  let selectAFn = querySelectorFn("#page\\:mainForm\\:selectA input");
+  let selectBFn = querySelectorFn("#page\\:mainForm\\:selectB input");
+  let selectCFn = querySelectorFn("#page\\:mainForm\\:selectC input");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:submit");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:submitOutput tobago-out");
+
   let test = new JasmineTestTool(done);
-  test.do(() => fail("not implemented yet"));
+  test.setup(() => outputFn().textContent === "",
+      () => {
+        selectAFn().checked = false;
+        selectBFn().checked = false;
+        selectCFn().checked = false;
+      }, "click", submitFn);
+  test.do(() => selectAFn().checked = true);
+  test.do(() => selectBFn().checked = false);
+  test.do(() => selectCFn().checked = false);
+  test.event("click", submitFn, () => outputFn().textContent.trim(), "A");
+  test.do(() => expect(outputFn().textContent.trim()).toBe("A"));
   test.start();
 });
 
-/*
-import {querySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
-
-QUnit.test("submit: select A", function (assert) {
+it("submit: select B and C", function (done) {
   let selectAFn = querySelectorFn("#page\\:mainForm\\:selectA input");
   let selectBFn = querySelectorFn("#page\\:mainForm\\:selectB input");
   let selectCFn = querySelectorFn("#page\\:mainForm\\:selectC input");
   let submitFn = querySelectorFn("#page\\:mainForm\\:submit");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:submitOutput span");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:submitOutput tobago-out");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    selectAFn().checked = true;
-    selectBFn().checked = false;
-    selectCFn().checked = false;
-    submitFn().click();
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "A ");
-  });
-  TTT.startTest();
+  let test = new JasmineTestTool(done);
+  test.setup(() => outputFn().textContent === "",
+      () => {
+        selectAFn().checked = false;
+        selectBFn().checked = false;
+        selectCFn().checked = false;
+      }, "click", submitFn);
+  test.do(() => selectAFn().checked = false);
+  test.do(() => selectBFn().checked = true);
+  test.do(() => selectCFn().checked = true);
+  test.event("click", submitFn, () => outputFn().textContent.trim(), "B C");
+  test.do(() => expect(outputFn().textContent.trim()).toBe("B C"));
+  test.start();
 });
 
-QUnit.test("submit: select B and C", function (assert) {
-  let selectAFn = querySelectorFn("#page\\:mainForm\\:selectA input");
-  let selectBFn = querySelectorFn("#page\\:mainForm\\:selectB input");
-  let selectCFn = querySelectorFn("#page\\:mainForm\\:selectC input");
-  let submitFn = querySelectorFn("#page\\:mainForm\\:submit");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:submitOutput span");
+it("ajax: select D", function (done) {
+  let selectFn = querySelectorFn("#page\\:mainForm\\:selectD input");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:outputD tobago-out");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    selectAFn().checked = false;
-    selectBFn().checked = true;
-    selectCFn().checked = true;
-    submitFn().click();
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "B C ");
-  });
-  TTT.startTest();
+  let test = new JasmineTestTool(done);
+  test.setup(() => outputFn().textContent === "false",
+      () => selectFn().checked = false,
+      "change", selectFn);
+  test.do(() => selectFn().checked = true);
+  test.event("change", selectFn, () => outputFn().textContent === "true")
+  test.do(() => expect(outputFn().textContent).toBe("true"));
+  test.start();
 });
 
-QUnit.test("ajax: select D", function (assert) {
-  let selectDFn = querySelectorFn("#page\\:mainForm\\:selectD input");
-  let outputDFn = querySelectorFn("#page\\:mainForm\\:outputD span");
+it("ajax: deselect D", function (done) {
+  let selectFn = querySelectorFn("#page\\:mainForm\\:selectD input");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:outputD tobago-out");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    selectDFn().checked = true;
-    selectDFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputDFn().textContent, "true");
-  });
-  TTT.startTest();
+  let test = new JasmineTestTool(done);
+  test.setup(() => outputFn().textContent === "true",
+      () => selectFn().checked = true,
+      "change", selectFn);
+  test.do(() => selectFn().checked = false);
+  test.event("change", selectFn, () => outputFn().textContent === "false")
+  test.do(() => expect(outputFn().textContent).toBe("false"));
+  test.start();
 });
 
-QUnit.test("ajax: deselect D", function (assert) {
-  let selectDFn = querySelectorFn("#page\\:mainForm\\:selectD input");
-  let outputDFn = querySelectorFn("#page\\:mainForm\\:outputD span");
+it("ajax: select E", function (done) {
+  let selectFn = querySelectorFn("#page\\:mainForm\\:selectE input");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:outputE tobago-out");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    selectDFn().checked = false;
-    selectDFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputDFn().textContent, "false");
-  });
-  TTT.startTest();
+  let test = new JasmineTestTool(done);
+  test.setup(() => outputFn().textContent === "false",
+      () => selectFn().checked = false,
+      "change", selectFn);
+  test.do(() => selectFn().checked = true);
+  test.event("change", selectFn, () => outputFn().textContent === "true")
+  test.do(() => expect(outputFn().textContent).toBe("true"));
+  test.start();
 });
 
-QUnit.test("ajax: select E", function (assert) {
-  let selectEFn = querySelectorFn("#page\\:mainForm\\:selectE input");
-  let outputEFn = querySelectorFn("#page\\:mainForm\\:outputE span");
+it("ajax: deselect E", function (done) {
+  let selectFn = querySelectorFn("#page\\:mainForm\\:selectE input");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:outputE tobago-out");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    selectEFn().checked = true;
-    selectEFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputEFn().textContent, "true");
-  });
-  TTT.startTest();
+  let test = new JasmineTestTool(done);
+  test.setup(() => outputFn().textContent === "true",
+      () => selectFn().checked = true,
+      "change", selectFn);
+  test.do(() => selectFn().checked = false);
+  test.event("change", selectFn, () => outputFn().textContent === "false")
+  test.do(() => expect(outputFn().textContent).toBe("false"));
+  test.start();
 });
 
-QUnit.test("ajax: deselect E", function (assert) {
-  let selectEFn = querySelectorFn("#page\\:mainForm\\:selectE input");
-  let outputEFn = querySelectorFn("#page\\:mainForm\\:outputE span");
+it("ajax: select F", function (done) {
+  let selectFn = querySelectorFn("#page\\:mainForm\\:selectF input");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:outputF tobago-out");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    selectEFn().checked = false;
-    selectEFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputEFn().textContent, "false");
-  });
-  TTT.startTest();
+  let test = new JasmineTestTool(done);
+  test.setup(() => outputFn().textContent === "false",
+      () => selectFn().checked = false,
+      "change", selectFn);
+  test.do(() => selectFn().checked = true);
+  test.event("change", selectFn, () => outputFn().textContent === "true")
+  test.do(() => expect(outputFn().textContent).toBe("true"));
+  test.start();
 });
 
-QUnit.test("ajax: select F", function (assert) {
-  let selectFFn = querySelectorFn("#page\\:mainForm\\:selectF input");
-  let outputFFn = querySelectorFn("#page\\:mainForm\\:outputF span");
+it("ajax: deselect F", function (done) {
+  let selectFn = querySelectorFn("#page\\:mainForm\\:selectF input");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:outputF tobago-out");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    selectFFn().checked = true;
-    selectFFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFFn().textContent, "true");
-  });
-  TTT.startTest();
+  let test = new JasmineTestTool(done);
+  test.setup(() => outputFn().textContent === "true",
+      () => selectFn().checked = true,
+      "change", selectFn);
+  test.do(() => selectFn().checked = false);
+  test.event("change", selectFn, () => outputFn().textContent === "false")
+  test.do(() => expect(outputFn().textContent).toBe("false"));
+  test.start();
 });
-
-QUnit.test("ajax: deselect F", function (assert) {
-  let selectFFn = querySelectorFn("#page\\:mainForm\\:selectF input");
-  let outputFFn = querySelectorFn("#page\\:mainForm\\:outputF span");
-
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    selectFFn().checked = false;
-    selectFFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFFn().textContent, "false");
-  });
-  TTT.startTest();
-});
-*/

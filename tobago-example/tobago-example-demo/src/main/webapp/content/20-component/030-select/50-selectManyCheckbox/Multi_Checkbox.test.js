@@ -16,126 +16,124 @@
  */
 
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 
-it("not implemented yet", function (done) {
-  let test = new JasmineTestTool(done);
-  test.do(() => fail("not implemented yet"));
+it("submit: select cat", function (done) {
+  let animalsFn = querySelectorAllFn("#page\\:mainForm\\:animals input");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:submit");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:animalsOutput tobago-out");
+
+  const test = new JasmineTestTool(done);
+  test.setup(() => outputFn().textContent.trim() !== "Cat",
+      () => {
+        animalsFn().item(0).checked = false;
+        animalsFn().item(1).checked = false;
+        animalsFn().item(2).checked = false;
+        animalsFn().item(3).checked = false;
+      },
+      "click", submitFn);
+  test.do(() => animalsFn().item(0).checked = true); // Cat
+  test.do(() => animalsFn().item(1).checked = false);
+  test.do(() => animalsFn().item(2).checked = false);
+  test.do(() => animalsFn().item(3).checked = false);
+  test.event("click", submitFn, () => outputFn().textContent.trim() === "Cat");
+  test.do(() => expect(outputFn().textContent.trim()).toBe("Cat"));
   test.start();
 });
 
-/*
-import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
-
-QUnit.test("submit: select cat", function (assert) {
+it("submit: select fox and rabbit", function (done) {
   let animalsFn = querySelectorAllFn("#page\\:mainForm\\:animals input");
   let submitFn = querySelectorFn("#page\\:mainForm\\:submit");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:animalsOutput span");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:animalsOutput tobago-out");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    animalsFn().item(0).checked = true;
-    animalsFn().item(1).checked = false;
-    animalsFn().item(2).checked = false;
-    animalsFn().item(3).checked = false;
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Cat ");
-  });
-  TTT.startTest();
+  const test = new JasmineTestTool(done);
+  test.setup(() => outputFn().textContent.trim() !== "Fox Rabbit",
+      () => {
+        animalsFn().item(0).checked = false;
+        animalsFn().item(1).checked = false;
+        animalsFn().item(2).checked = false;
+        animalsFn().item(3).checked = false;
+      },
+      "click", submitFn);
+  test.do(() => animalsFn().item(0).checked = false); // Cat
+  test.do(() => animalsFn().item(1).checked = false);
+  test.do(() => animalsFn().item(2).checked = true); // Fox
+  test.do(() => animalsFn().item(3).checked = true); // Rabbit
+  test.event("click", submitFn, () => outputFn().textContent.trim() === "Fox Rabbit");
+  test.do(() => expect(outputFn().textContent.trim()).toBe("Fox Rabbit"));
+  test.start();
 });
 
-QUnit.test("submit: select fox and rabbit", function (assert) {
-  let animalsFn = querySelectorAllFn("#page\\:mainForm\\:animals input");
-  let submitFn = querySelectorFn("#page\\:mainForm\\:submit");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:animalsOutput span");
-
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    animalsFn().item(0).checked = false;
-    animalsFn().item(1).checked = false;
-    animalsFn().item(2).checked = true;
-    animalsFn().item(3).checked = true;
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Fox Rabbit ");
-  });
-  TTT.startTest();
+it("ajax: select 'One'", function (done) {
+  let numberFn = querySelectorFn("#page\\:mainForm\\:numbers\\:\\:0");
+  ajaxSelect(done, numberFn, 1);
 });
 
-QUnit.test("ajax: click 'Two'", function (assert) {
-  let number2Fn = querySelectorFn("#page\\:mainForm\\:numbers\\:\\:1");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:resultOutput span");
-  let newOutputValue;
-
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    if (number2Fn().checked) {
-      newOutputValue = parseInt(outputFn().textContent) - 2;
-      number2Fn().checked = false;
-      number2Fn().dispatchEvent(new Event("change", {bubbles: true}));
-    } else {
-      newOutputValue = parseInt(outputFn().textContent) + 2;
-      number2Fn().checked = true;
-      number2Fn().dispatchEvent(new Event("change", {bubbles: true}));
-    }
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, newOutputValue);
-  });
-  TTT.startTest();
+it("ajax: deselect 'One'", function (done) {
+  let numberFn = querySelectorFn("#page\\:mainForm\\:numbers\\:\\:0");
+  ajaxDeselect(done, numberFn, 1);
 });
 
-QUnit.test("ajax: click 'Three'", function (assert) {
-  let number3Fn = querySelectorFn("#page\\:mainForm\\:numbers\\:\\:2");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:resultOutput span");
-  let newOutputValue;
-
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    if (number3Fn().checked) {
-      newOutputValue = parseInt(outputFn().textContent) - 3;
-      number3Fn().checked = false;
-      number3Fn().dispatchEvent(new Event("change", {bubbles: true}));
-    } else {
-      newOutputValue = parseInt(outputFn().textContent) + 3;
-      number3Fn().checked = true;
-      number3Fn().dispatchEvent(new Event("change", {bubbles: true}));
-    }
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, newOutputValue);
-  });
-  TTT.startTest();
+it("ajax: select 'Two'", function (done) {
+  let numberFn = querySelectorFn("#page\\:mainForm\\:numbers\\:\\:1");
+  ajaxSelect(done, numberFn, 2);
 });
 
-QUnit.test("ajax: click 'Two'", function (assert) {
-  let number2Fn = querySelectorFn("#page\\:mainForm\\:numbers\\:\\:1");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:resultOutput span");
-  let newOutputValue;
-
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    if (number2Fn().checked) {
-      newOutputValue = parseInt(outputFn().textContent) - 2;
-      number2Fn().checked = false;
-      number2Fn().dispatchEvent(new Event("change", {bubbles: true}));
-    } else {
-      newOutputValue = parseInt(outputFn().textContent) + 2;
-      number2Fn().checked = true;
-      number2Fn().dispatchEvent(new Event("change", {bubbles: true}));
-    }
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, newOutputValue);
-  });
-  TTT.startTest();
+it("ajax: deselect 'Two'", function (done) {
+  let numberFn = querySelectorFn("#page\\:mainForm\\:numbers\\:\\:1");
+  ajaxDeselect(done, numberFn, 2);
 });
-*/
+
+it("ajax: select 'Three'", function (done) {
+  let numberFn = querySelectorFn("#page\\:mainForm\\:numbers\\:\\:2");
+  ajaxSelect(done, numberFn, 3);
+});
+
+it("ajax: deselect 'Three'", function (done) {
+  let numberFn = querySelectorFn("#page\\:mainForm\\:numbers\\:\\:2");
+  ajaxDeselect(done, numberFn, 3);
+});
+
+it("ajax: select 'Four'", function (done) {
+  let numberFn = querySelectorFn("#page\\:mainForm\\:numbers\\:\\:3");
+  ajaxSelect(done, numberFn, 4);
+});
+
+it("ajax: deselect 'Four'", function (done) {
+  let numberFn = querySelectorFn("#page\\:mainForm\\:numbers\\:\\:3");
+  ajaxDeselect(done, numberFn, 4);
+});
+
+function ajaxSelect(done, numberFn, number) {
+  let outputFn = querySelectorFn("#page\\:mainForm\\:resultOutput tobago-out");
+  let newOutputValue = parseInt(outputFn().textContent);
+  if (!numberFn().checked) {
+    newOutputValue = parseInt(outputFn().textContent) + number;
+  }
+
+  const test = new JasmineTestTool(done);
+  test.setup(() => parseInt(outputFn().textContent) !== newOutputValue,
+      () => numberFn().checked = false,
+      "change", numberFn);
+  test.do(() => numberFn().checked = true);
+  test.event("change", numberFn, () => parseInt(outputFn().textContent) === newOutputValue);
+  test.do(() => expect(parseInt(outputFn().textContent)).toBe(newOutputValue));
+  test.start();
+}
+
+function ajaxDeselect(done, numberFn, number) {
+  let outputFn = querySelectorFn("#page\\:mainForm\\:resultOutput tobago-out");
+  let newOutputValue = parseInt(outputFn().textContent);
+  if (numberFn().checked) {
+    newOutputValue = parseInt(outputFn().textContent) - number;
+  }
+
+  const test = new JasmineTestTool(done);
+  test.setup(() => parseInt(outputFn().textContent) !== newOutputValue,
+      () => numberFn().checked = true,
+      "change", numberFn);
+  test.do(() => numberFn().checked = false);
+  test.event("change", numberFn, () => parseInt(outputFn().textContent) === newOutputValue);
+  test.do(() => expect(parseInt(outputFn().textContent)).toBe(newOutputValue));
+  test.start();
+}
