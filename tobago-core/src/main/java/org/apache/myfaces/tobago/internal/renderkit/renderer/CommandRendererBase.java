@@ -228,7 +228,9 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
       writer.startElement(HtmlElements.TOBAGO_DROPDOWN);
       writer.writeIdAttribute(clientId);
 
-      writer.writeClassAttribute(dropdownSubmenu ? TobagoClass.DROPDOWN__SUBMENU : BootstrapClass.DROPDOWN);
+      writer.writeClassAttribute(
+          dropdownSubmenu ? TobagoClass.DROPDOWN__SUBMENU : BootstrapClass.DROPDOWN,
+          getOuterCssItems(facesContext, command));
     }
   }
 
