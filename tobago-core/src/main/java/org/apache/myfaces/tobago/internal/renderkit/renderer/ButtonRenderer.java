@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
@@ -37,6 +38,11 @@ public class ButtonRenderer<T extends AbstractUIButton> extends CommandRendererB
   @Override
   protected TobagoClass getRendererCssClass() {
     return TobagoClass.BUTTON;
+  }
+
+  @Override
+  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final T command) {
+    return new CssItem[]{isInside(facesContext, HtmlElements.TOBAGO_BUTTONS) ? BootstrapClass.BTN_GROUP : null};
   }
 
   @Override
