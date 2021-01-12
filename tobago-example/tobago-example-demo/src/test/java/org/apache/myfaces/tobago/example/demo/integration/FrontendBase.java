@@ -121,9 +121,10 @@ abstract class FrontendBase {
     return webDriver.findElements(By.cssSelector(".jasmine-symbol-summary li"));
   }
 
-  void parseJasmineResults(List<WebElement> results, String path) {
+  void parseJasmineResults(List<WebElement> results, String path) throws MalformedURLException, UnknownHostException {
     Assertions.assertTrue(results.size() > 0, path + " no results detected");
 
+    boolean fail = false;
     StringBuilder stringBuilder = new StringBuilder();
     stringBuilder.append("\n");
     stringBuilder.append(path);
@@ -133,9 +134,15 @@ abstract class FrontendBase {
         stringBuilder.append("✅ passed");
       } else {
         stringBuilder.append("❌ failed");
+        fail = true;
       }
       stringBuilder.append(": ");
       stringBuilder.append(result.getAttribute("title"));
+    }
+    if (fail) {
+      stringBuilder.append("\n");
+      stringBuilder.append("failures details:\n");
+      stringBuilder.append(getFailureDetails());
     }
     LOG.info(stringBuilder.toString());
 
@@ -143,6 +150,11 @@ abstract class FrontendBase {
       Assertions.assertEquals("jasmine-passed", result.getAttribute("class"),
           path + " " + result.getAttribute("title"));
     }
+  }
+
+  String getFailureDetails() throws MalformedURLException, UnknownHostException {
+    WebElement failures = getWebDriver().findElement(By.cssSelector(".jasmine-failures"));
+    return failures.getText();
   }
 
   String getTimeLeft(final LocalTime startTime, final int testSize, final int testNo) {
