@@ -16,93 +16,94 @@
  */
 
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 
-it("not implemented yet", function (done) {
-  let test = new JasmineTestTool(done);
-  test.do(() => fail("not implemented yet"));
+it("submit: Alice", function (done) {
+  let aliceFn = querySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Alice']");
+  let bobFn = querySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Bob']");
+  let submitFn = querySelectorFn("#page\\:mainForm\\:submit");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:outputPerson tobago-out");
+
+  const test = new JasmineTestTool(done);
+  test.setup(() => () => outputFn().textContent !== "Alice Anderson",
+      () => {
+        aliceFn().selected = false;
+        bobFn().selected = true;
+      },
+      "click", submitFn);
+  test.do(() => aliceFn().selected = true);
+  test.do(() => bobFn().selected = false);
+  test.event("click", submitFn, () => outputFn().textContent === "Alice Anderson");
+  test.do(() => expect(outputFn().textContent).toBe("Alice Anderson"));
   test.start();
 });
-/*
-import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
-QUnit.test("submit: Alice", function (assert) {
+it("submit: Bob", function (done) {
   let aliceFn = querySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Alice']");
   let bobFn = querySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Bob']");
   let submitFn = querySelectorFn("#page\\:mainForm\\:submit");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:outputPerson span");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:outputPerson tobago-out");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    aliceFn().selected = true;
-    bobFn().selected = false;
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Alice Anderson");
-  });
-  TTT.startTest();
+  const test = new JasmineTestTool(done);
+  test.setup(() => () => outputFn().textContent !== "Bob Brunch",
+      () => {
+        aliceFn().selected = true;
+        bobFn().selected = false;
+      },
+      "click", submitFn);
+  test.do(() => aliceFn().selected = false);
+  test.do(() => bobFn().selected = true);
+  test.event("click", submitFn, () => outputFn().textContent === "Bob Brunch");
+  test.do(() => expect(outputFn().textContent).toBe("Bob Brunch"));
+  test.start();
 });
 
-QUnit.test("submit: Bob", function (assert) {
-  let aliceFn = querySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Alice']");
-  let bobFn = querySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Bob']");
-  let submitFn = querySelectorFn("#page\\:mainForm\\:submit");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:outputPerson span");
-
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    aliceFn().selected = false;
-    bobFn().selected = true;
-    submitFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Bob Brunch");
-  });
-  TTT.startTest();
-});
-
-QUnit.test("ajax: select Mars", function (assert) {
+it("ajax: select Mars", function (done) {
   let planetFn = querySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field");
+  let earthOptionFn = querySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field option[value='0']");
   let marsOptionFn = querySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field option[value='1']");
   let jupiterOptionFn = querySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field option[value='2']");
   let moonsFn = querySelectorAllFn("#page\\:mainForm\\:moonbox\\:\\:field option");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    jupiterOptionFn().selected = false;
-    marsOptionFn().selected = true;
-    planetFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(2, function () {
-    assert.equal(moonsFn().item(0).text, "Phobos");
-    assert.equal(moonsFn().item(1).text, "Deimos");
-  });
-  TTT.startTest();
+  const test = new JasmineTestTool(done);
+  test.setup(() => moonsFn().item(0).text !== "Phobos",
+      () => {
+        earthOptionFn().selected = true;
+        marsOptionFn().selected = false;
+        jupiterOptionFn().selected = false;
+      },
+      "change", planetFn);
+  test.do(() => earthOptionFn().selected = false);
+  test.do(() => marsOptionFn().selected = true);
+  test.do(() => jupiterOptionFn().selected = false);
+  test.event("change", planetFn, () => moonsFn().item(0).text === "Phobos");
+  test.do(() => expect(moonsFn().item(0).text).toBe("Phobos"));
+  test.do(() => expect(moonsFn().item(1).text).toBe("Deimos"));
+  test.start();
 });
 
-QUnit.test("ajax: select Jupiter", function (assert) {
+it("ajax: select Jupiter", function (done) {
   let planetFn = querySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field");
+  let earthOptionFn = querySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field option[value='0']");
   let marsOptionFn = querySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field option[value='1']");
   let jupiterOptionFn = querySelectorFn("#page\\:mainForm\\:selectPlanet\\:\\:field option[value='2']");
   let moonsFn = querySelectorAllFn("#page\\:mainForm\\:moonbox\\:\\:field option");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    marsOptionFn().selected = false;
-    jupiterOptionFn().selected = true;
-    planetFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(4, function () {
-    assert.equal(moonsFn().item(0).text, "Europa");
-    assert.equal(moonsFn().item(1).text, "Ganymed");
-    assert.equal(moonsFn().item(2).text, "Io");
-    assert.equal(moonsFn().item(3).text, "Kallisto");
-  });
-  TTT.startTest();
+  const test = new JasmineTestTool(done);
+  test.setup(() => moonsFn().item(0).text !== "Europa",
+      () => {
+        earthOptionFn().selected = true;
+        marsOptionFn().selected = false;
+        jupiterOptionFn().selected = false;
+      },
+      "change", planetFn);
+  test.do(() => earthOptionFn().selected = false);
+  test.do(() => marsOptionFn().selected = false);
+  test.do(() => jupiterOptionFn().selected = true);
+  test.event("change", planetFn, () => moonsFn().item(0).text === "Europa");
+  test.do(() => expect(moonsFn().item(0).text).toBe("Europa"));
+  test.do(() => expect(moonsFn().item(1).text).toBe("Ganymed"));
+  test.do(() => expect(moonsFn().item(2).text).toBe("Io"));
+  test.do(() => expect(moonsFn().item(3).text).toBe("Kallisto"));
+  test.start();
 });
-*/

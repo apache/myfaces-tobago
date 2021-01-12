@@ -53,6 +53,7 @@ it("submit: Subtraction (4 - 1)", function (done) {
   test.do(() => expect(outputFn().textContent).toBe("3"));
   test.start();
 });
+
 it("ajax: select Mars", function (done) {
   const earthFn = elementByIdFn("page:mainForm:selectPlanet::0");
   const marsFn = elementByIdFn("page:mainForm:selectPlanet::1");

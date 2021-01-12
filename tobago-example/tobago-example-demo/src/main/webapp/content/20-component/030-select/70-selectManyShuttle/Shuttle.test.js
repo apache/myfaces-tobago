@@ -16,17 +16,9 @@
  */
 
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
-
-it("not implemented yet", function (done) {
-  let test = new JasmineTestTool(done);
-  test.do(() => fail("not implemented yet"));
-  test.start();
-});
-/*
 import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
-QUnit.test("submit: addAll, removeAll, addItem0to4, removeItem2to3", function (assert) {
+it("submit: addAll, removeAll, addItem0to4, removeItem2to3", function (done) {
   let unselectedOptions = querySelectorAllFn("#page\\:mainForm\\:submitExample\\:\\:unselected option");
   let selectedOptions = querySelectorAllFn("#page\\:mainForm\\:submitExample\\:\\:selected option");
   let addAllButton = querySelectorFn("#page\\:mainForm\\:submitExample\\:\\:addAll");
@@ -34,117 +26,95 @@ QUnit.test("submit: addAll, removeAll, addItem0to4, removeItem2to3", function (a
   let removeButton = querySelectorFn("#page\\:mainForm\\:submitExample\\:\\:remove");
   let removeAllButton = querySelectorFn("#page\\:mainForm\\:submitExample\\:\\:removeAll");
   let submitButton = querySelectorFn("#page\\:mainForm\\:submitButton");
-  let output = querySelectorFn("#page\\:mainForm\\:submitExampleOutput span");
+  let output = querySelectorFn("#page\\:mainForm\\:submitExampleOutput tobago-out");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    addAllButton().click();
-    submitButton().click();
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(unselectedOptions().length, 0);
-    assert.equal(selectedOptions().length, 9);
-    assert.equal(output().textContent, "[Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto]");
-  });
-  TTT.action(function () {
-    removeAllButton().click();
-    submitButton().click();
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(unselectedOptions().length, 9);
-    assert.equal(selectedOptions().length, 0);
-    assert.equal(output().textContent, "[]");
-  });
-  TTT.action(function () {
-    unselectedOptions().item(0).selected = true;
-    unselectedOptions().item(1).selected = true;
-    unselectedOptions().item(2).selected = true;
-    unselectedOptions().item(3).selected = true;
-    unselectedOptions().item(4).selected = true;
-    addButton().click();
-    submitButton().click();
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(unselectedOptions().length, 4);
-    assert.equal(selectedOptions().length, 5);
-    assert.equal(output().textContent, "[Mercury, Venus, Earth, Mars, Jupiter]");
-  });
-  TTT.action(function () {
-    selectedOptions().item(2).selected = true;
-    selectedOptions().item(3).selected = true;
-    removeButton().click();
-    submitButton().click();
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(unselectedOptions().length, 6);
-    assert.equal(selectedOptions().length, 3);
-    assert.equal(output().textContent, "[Mercury, Venus, Jupiter]");
-  });
-  TTT.startTest();
+  const test = new JasmineTestTool(done);
+  test.setup(() => selectedOptions().length === 0, null, "click", removeAllButton);
+  test.setup(() => output().textContent === "[]", null, "click", submitButton);
+
+  test.event("click", addAllButton, () => selectedOptions().length === 9);
+  test.do(() => expect(unselectedOptions().length).toBe(0));
+  test.do(() => expect(selectedOptions().length).toBe(9));
+  test.event("click", submitButton,
+      () => output().textContent === "[Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto]");
+  test.do(() => expect(output().textContent)
+      .toBe("[Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto]"));
+
+  test.event("click", removeAllButton, () => selectedOptions().length === 0);
+  test.do(() => expect(unselectedOptions().length).toBe(9));
+  test.do(() => expect(selectedOptions().length).toBe(0));
+  test.event("click", submitButton, () => output().textContent === "[]");
+  test.do(() => expect(output().textContent).toBe("[]"));
+
+  test.do(() => unselectedOptions().item(0).selected = true);
+  test.do(() => unselectedOptions().item(1).selected = true);
+  test.do(() => unselectedOptions().item(2).selected = true);
+  test.do(() => unselectedOptions().item(3).selected = true);
+  test.do(() => unselectedOptions().item(4).selected = true);
+  test.event("click", addButton, () => selectedOptions().length === 5);
+  test.do(() => expect(unselectedOptions().length).toBe(4));
+  test.do(() => expect(selectedOptions().length).toBe(5));
+  test.event("click", submitButton, () => output().textContent === "[Mercury, Venus, Earth, Mars, Jupiter]");
+  test.do(() => expect(output().textContent).toBe("[Mercury, Venus, Earth, Mars, Jupiter]"));
+
+  test.do(() => selectedOptions().item(2).selected = true);
+  test.do(() => selectedOptions().item(3).selected = true);
+  test.event("click", removeButton, () => selectedOptions().length === 3);
+  test.do(() => expect(unselectedOptions().length).toBe(6));
+  test.do(() => expect(selectedOptions().length).toBe(3));
+  test.event("click", submitButton, () => output().textContent === "[Mercury, Venus, Jupiter]");
+  test.do(() => expect(output().textContent).toBe("[Mercury, Venus, Jupiter]"));
+
+  const pageOverlays = querySelectorAllFn(".tobago-page-overlay");
+  test.do(() => expect(pageOverlays().length).toBe(0));
+
+  test.start();
 });
 
-QUnit.test("ajax: addAll, removeAll, addItem1to2, removeItem0", function (assert) {
+it("ajax: addAll, removeAll, addItem1to2, removeItem0", function (done) {
   let unselectedOptions = querySelectorAllFn("#page\\:mainForm\\:ajaxExample\\:\\:unselected option");
   let selectedOptions = querySelectorAllFn("#page\\:mainForm\\:ajaxExample\\:\\:selected option");
   let addAllButton = querySelectorFn("#page\\:mainForm\\:ajaxExample\\:\\:addAll");
   let addButton = querySelectorFn("#page\\:mainForm\\:ajaxExample\\:\\:add");
   let removeButton = querySelectorFn("#page\\:mainForm\\:ajaxExample\\:\\:remove");
   let removeAllButton = querySelectorFn("#page\\:mainForm\\:ajaxExample\\:\\:removeAll");
-  let output = querySelectorFn("#page\\:mainForm\\:outputStars span");
+  let output = querySelectorFn("#page\\:mainForm\\:outputStars tobago-out");
+  let submitButton = querySelectorFn("#page\\:mainForm\\:submitButton");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    addAllButton().click();
-  });
-  // TTT.waitForResponse(); //TODO use waitForResponse()
-  TTT.waitMs(5000);
-  TTT.asserts(6, function () {
-    assert.equal(unselectedOptions().length, 0);
-    assert.equal(selectedOptions().length, 4);
-    assert.ok(output().textContent.indexOf(selectedOptions().item(0).value) > 0);
-    assert.ok(output().textContent.indexOf(selectedOptions().item(1).value) > 0);
-    assert.ok(output().textContent.indexOf(selectedOptions().item(2).value) > 0);
-    assert.ok(output().textContent.indexOf(selectedOptions().item(3).value) > 0);
-  });
-  TTT.action(function () {
-    removeAllButton().click();
-  });
-  // TTT.waitForResponse(); //TODO use waitForResponse()
-  TTT.waitMs(5000);
-  TTT.asserts(3, function () {
-    assert.equal(unselectedOptions().length, 4);
-    assert.equal(selectedOptions().length, 0);
-    assert.equal(output().textContent, "[]");
-  });
-  TTT.action(function () {
-    unselectedOptions().item(1).selected = true;
-    unselectedOptions().item(2).selected = true;
-    addButton().click();
-  });
-  // TTT.waitForResponse(); //TODO use waitForResponse()
-  TTT.waitMs(5000);
-  TTT.asserts(4, function () {
-    assert.equal(unselectedOptions().length, 2);
-    assert.equal(selectedOptions().length, 2);
-    assert.ok(output().textContent.indexOf(selectedOptions().item(0).value) > 0);
-    assert.ok(output().textContent.indexOf(selectedOptions().item(1).value) > 0);
-  });
-  TTT.action(function () {
-    selectedOptions().item(0).selected = true;
-    selectedOptions().item(1).selected = false;
-    removeButton().click();
-  });
-  // TTT.waitForResponse(); //TODO use waitForResponse()
-  TTT.waitMs(5000);
-  TTT.asserts(3, function () {
-    assert.equal(unselectedOptions().length, 3);
-    assert.equal(selectedOptions().length, 1);
-    assert.ok(output().textContent.indexOf(selectedOptions().item(0).value) > 0);
-  });
-  TTT.startTest();
+  const test = new JasmineTestTool(done);
+  test.setup(() => output().textContent === "[]", null, "click", removeAllButton);
+  test.setup(() => unselectedOptions().item(0).text === "Proxima Centauri"
+      && unselectedOptions().item(1).text === "Alpha Centauri"
+      && unselectedOptions().item(2).text === "Wolf 359"
+      && unselectedOptions().item(3).text === "Sirius",
+      null, "click", submitButton);
+
+  test.event("click", addAllButton,
+      () => output().textContent === "[Proxima Centauri, Alpha Centauri, Wolf 359, Sirius]");
+  test.do(() => expect(unselectedOptions().length).toBe(0));
+  test.do(() => expect(selectedOptions().length).toBe(4));
+  test.do(() => expect(output().textContent).toBe("[Proxima Centauri, Alpha Centauri, Wolf 359, Sirius]"));
+
+  test.event("click", removeAllButton, () => output().textContent === "[]");
+  test.do(() => expect(unselectedOptions().length).toBe(4));
+  test.do(() => expect(selectedOptions().length).toBe(0));
+  test.do(() => expect(output().textContent).toBe("[]"));
+
+  test.do(() => unselectedOptions().item(1).selected = true);
+  test.do(() => unselectedOptions().item(2).selected = true);
+  test.event("click", addButton, () => output().textContent === "[Alpha Centauri, Wolf 359]");
+  test.do(() => expect(unselectedOptions().length).toBe(2));
+  test.do(() => expect(selectedOptions().length).toBe(2));
+  test.do(() => expect(output().textContent).toBe("[Alpha Centauri, Wolf 359]"));
+
+  test.do(() => selectedOptions().item(0).selected = true);
+  test.do(() => selectedOptions().item(1).selected = false);
+  test.event("click", removeButton, () => output().textContent === "[Wolf 359]");
+  test.do(() => expect(unselectedOptions().length).toBe(3));
+  test.do(() => expect(selectedOptions().length).toBe(1));
+  test.do(() => expect(output().textContent).toBe("[Wolf 359]"));
+
+  const pageOverlays = querySelectorAllFn(".tobago-page-overlay");
+  test.do(() => expect(pageOverlays().length).toBe(0, "there must be no tobago-page-overlay"));
+  test.start();
 });
-*/
