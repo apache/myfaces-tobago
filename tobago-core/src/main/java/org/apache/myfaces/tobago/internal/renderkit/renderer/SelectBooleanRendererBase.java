@@ -80,9 +80,13 @@ public abstract class SelectBooleanRendererBase<T extends AbstractUISelectBoolea
     final String itemLabel = component.getItemLabel();
     final String itemImage = component.getItemImage();
     final Markup markup = component.getMarkup();
+    final boolean insideCommand = isInside(facesContext, HtmlElements.COMMAND);
 
-    writer.startElement(HtmlElements.TOBAGO_SELECT_BOOLEAN_CHECKBOX);
-    writer.writeIdAttribute(clientId);
+    writer.startElement(insideCommand ? getComponentTag() : HtmlElements.DIV);
+    if (insideCommand) {
+      writer.writeIdAttribute(clientId);
+    }
+
     writer.writeClassAttribute(
         BootstrapClass.FORM_CHECK,
         getOuterCssItems(facesContext, component),
@@ -133,8 +137,9 @@ public abstract class SelectBooleanRendererBase<T extends AbstractUISelectBoolea
   @Override
   protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final boolean insideCommand = isInside(facesContext, HtmlElements.COMMAND);
 
-    writer.endElement(HtmlElements.TOBAGO_SELECT_BOOLEAN_CHECKBOX);
+    writer.endElement(insideCommand ? getComponentTag() : HtmlElements.DIV);
 
     encodeBehavior(writer, facesContext, component);
   }
