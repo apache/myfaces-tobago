@@ -149,6 +149,37 @@
         </configuration>
       </plugin>
     </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>io.fabric8</groupId>
+          <artifactId>docker-maven-plugin</artifactId>
+          <version>0.34.1</version>
+          <configuration>
+            <images>
+              <image>
+                <name>myfaces/%a:%l</name>
+                <run>
+                  <ports>
+                    <port>8080:8080</port>
+                  </ports>
+                </run>
+                <build>
+                  <from>tomcat:9.0-jdk11</from>
+                  <assembly>
+                    <descriptor>assembly.xml</descriptor>
+                    <basedir>/usr/local/tomcat</basedir>
+                  </assembly>
+                  <ports>
+                    <port>8080</port>
+                  </ports>
+                </build>
+              </image>
+            </images>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
   </build>
 
   <dependencyManagement>
@@ -273,6 +304,19 @@
       <build>
         <plugins>
           <plugin>
+            <groupId>io.fabric8</groupId>
+            <artifactId>docker-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>build</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>build</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
             <artifactId>maven-failsafe-plugin</artifactId>
             <configuration>
               <includes>
@@ -324,32 +368,6 @@
           <plugin>
             <groupId>io.fabric8</groupId>
             <artifactId>docker-maven-plugin</artifactId>
-            <version>0.34.1</version>
-            <configuration>
-              <images>
-                <image>
-                  <name>myfaces/tobago-example-demo</name>
-                  <run>
-                    <ports>
-                      <port>8080:8080</port>
-                    </ports>
-                  </run>
-                  <build>
-                    <from>tomcat:9.0.41-jdk11</from>
-                    <tags>
-                      <tag>${tobago.version}</tag>
-                    </tags>
-                    <assembly>
-                      <descriptor>assembly.xml</descriptor>
-                      <basedir>/usr/local/tomcat</basedir>
-                    </assembly>
-                    <ports>
-                      <port>8080</port>
-                    </ports>
-                  </build>
-                </image>
-              </images>
-            </configuration>
             <executions>
               <execution>
                 <id>build</id>
