@@ -214,9 +214,10 @@ public abstract class MessageLayoutRendererBase<T extends UIComponent & Supports
     writer.writeAttribute(DataAttributes.BS_TOGGLE, "popover", false);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     writer.writeAttribute(DataAttributes.BS_CONTENT, content, true);
+    writer.writeAttribute(DataAttributes.BS_TRIGGER, "focus", false);
 
     writer.startElement(HtmlElements.A);
-    writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
+    writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex != null ? tabIndex : 0);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlButtonTypes.BUTTON);
     writer.writeClassAttribute(BootstrapClass.BTN, buttonColor);
     writer.startElement(HtmlElements.I);
