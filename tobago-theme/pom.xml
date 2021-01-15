@@ -95,6 +95,13 @@
                     <include>js/*</include>
                   </includes>
                 </resource>
+                <resource>
+                  <!-- XXX cleanup: better via rollup? -->
+                  <directory>npm/node_modules/bootstrap/dist</directory>
+                  <includes>
+                    <include>js/bootstrap.*</include>
+                  </includes>
+                </resource>
               </resources>
             </configuration>
           </execution>

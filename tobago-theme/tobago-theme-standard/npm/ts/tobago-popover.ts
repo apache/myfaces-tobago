@@ -15,72 +15,29 @@
  * limitations under the License.
  */
 
-import Popper from "popper.js";
+// XXX which? nothing works...
+// import * as bootstrap from "bootstrap/dist/js/bootstrap";
+// import * as bootstrap from "bootstrap/dist/js/bootstrap.esm";
+// import * as bootstrap from "bootstrap/dist/js/bootstrap.bundle";
+// import {createPopper} from "@popperjs/core/dist/esm/popper";
 
 class Popover extends HTMLElement {
 
-  private popper: Popper;
+  private popover: Popover;
 
   constructor() {
     super();
   }
 
   connectedCallback(): void {
-    this.button.addEventListener("click", this.showPopover.bind(this));
-    this.button.addEventListener("blur", this.hidePopover.bind(this));
-  }
-
-  showPopover(): void {
-    this.menuStore.appendChild(this.popover);
-    this.popper = new Popper(this.button, this.popover, {
-      placement: "right",
-      modifiers: {
-        arrow: {
-          element: ".popover-arrow"
-        }
-      },
-      onCreate: this.updateBootstrapPopoverCss.bind(this),
-      onUpdate: this.updateBootstrapPopoverCss.bind(this)
+    // @ts-ignore
+    this.popover = new bootstrap.Popover(this.trigger, {
+      container: this.menuStore
     });
-    this.popover.classList.add("show");
   }
 
-  hidePopover(): void {
-    this.popover.classList.remove("show");
-    this.appendChild(this.popover);
-
-    if (this.popper !== undefined && this.popper !== null) {
-      this.popper.destroy();
-      this.popper = null;
-    }
-  }
-
-  private updateBootstrapPopoverCss(): void {
-    const placement = this.popover.getAttribute("x-placement");
-    if (placement === "right" && !this.popover.classList.contains("bs-popover-end")) {
-      this.popover.classList.add("bs-popover-end");
-      this.popover.classList.remove("bs-popover-start");
-      this.updateAfterCssClassChange();
-    } else if (placement === "left" && !this.popover.classList.contains("bs-popover-start")) {
-      this.popover.classList.add("bs-popover-start");
-      this.popover.classList.remove("bs-popover-end");
-      this.updateAfterCssClassChange();
-    }
-  }
-
-  private updateAfterCssClassChange(): void {
-    if (this.popper !== undefined && this.popper !== null) {
-      this.popper.scheduleUpdate();
-    }
-  }
-
-  get button(): HTMLLinkElement {
-    return this.querySelector(":scope > .tobago-popover-button");
-  }
-
-  get popover(): HTMLDivElement {
-    const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(".tobago-popover-box[name='" + this.id + "']");
+  get trigger(): HTMLElement {
+    return this;
   }
 
   private get menuStore(): HTMLDivElement {

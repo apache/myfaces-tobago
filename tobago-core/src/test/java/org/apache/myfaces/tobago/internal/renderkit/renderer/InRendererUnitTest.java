@@ -36,6 +36,7 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.behavior.AjaxBehavior;
 import java.io.IOException;
 import java.util.Arrays;
@@ -341,6 +342,32 @@ public class InRendererUnitTest extends RendererTestBase {
     c.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/in/label-none.html"), formattedResult());
+  }
+
+  @Test
+  public void errorMessage() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+    c.setLabel("label");
+    c.setLabelLayout(LabelLayout.flexLeft); // same as default
+    c.setValid(false);
+    facesContext.addMessage("id",
+        new FacesMessage(FacesMessage.SEVERITY_ERROR, "test", "a test"));
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/in/error-message.html"), formattedResult());
+  }
+
+  @Test
+  public void help() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+    c.setLabel("label");
+    c.setLabelLayout(LabelLayout.flexLeft); // same as default
+    c.setHelp("Help!");
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/in/help.html"), formattedResult());
   }
 
   @Test

@@ -15,20 +15,29 @@
  * limitations under the License.
  */
 
-import Popper from "popper.js";
+class TobagoRange extends HTMLElement {
 
-class Range extends HTMLElement {
-
-  private popper: Popper;
-  private timeout: number;
+  private popover: any;
 
   constructor() {
     super();
   }
 
   connectedCallback(): void {
-    let range = this.range;
-    let listener = this.showPopper.bind(this);
+    // @ts-ignore
+    this.popover = new bootstrap.Popover(this.range, {
+      container: this.menuStore,
+      content: this.content.bind(this),
+      trigger: "input",
+      placement: "auto",
+      delay: {
+        show: 0,
+        hide: 500
+      }
+    });
+
+    const range = this.range;
+    const listener = this.updatePopover.bind(this);
     range.addEventListener("input", listener);
     range.addEventListener("focus", listener);
   }
@@ -37,44 +46,28 @@ class Range extends HTMLElement {
     return this.querySelector("input[type=range]");
   }
 
-  get tooltip(): HTMLElement {
-    return this.querySelector(".popover");
+  get menuStore(): HTMLDivElement {
+    const root = this.getRootNode() as ShadowRoot | Document;
+    return root.querySelector(".tobago-page-menuStore");
   }
 
   get tooltipBody(): HTMLElement {
     return this.querySelector(".popover-body");
   }
 
-  showPopper(): void {
-    let tooltip = this.tooltip;
-    let range = this.range;
+  content(): string {
+    return this.range.value;
+  }
 
-    // update value to display
-    this.tooltipBody.textContent = range.value; // todo: use html from lit-html
-
-    // init
-    if (!this.popper) {
-      this.popper = new Popper(range, tooltip, {
-        placement: "right"
-      });
-    }
-
-    // show
-    tooltip.classList.remove("d-none");
-
-    // hide after some seconds
-    if (this.timeout) {
-      window.clearTimeout(this.timeout);
-    }
-    this.timeout = window.setTimeout(() => {
-      tooltip.classList.add("d-none");
-      console.log("timeout");
-    }, 5_000);
+  updatePopover(): void {
+    // XXX why update doesn't show the new content?
+    //  this.popover.update();
+    this.popover.show();
   }
 }
 
 document.addEventListener("tobago.init", function (event: Event): void {
   if (window.customElements.get("tobago-range") == null) {
-    window.customElements.define("tobago-range", Range);
+    window.customElements.define("tobago-range", TobagoRange);
   }
 });

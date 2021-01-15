@@ -96,25 +96,7 @@ public class RangeRenderer<T extends AbstractUIRange> extends MessageLayoutRende
 
     writer.endElement(HtmlElements.INPUT);
 
-    encodeTooltip(writer, currentValue);
-
     encodeBehavior(writer, facesContext, component);
-  }
-
-  private void encodeTooltip(final TobagoResponseWriter writer, final String content) throws IOException {
-    writer.startElement(HtmlElements.DIV);
-//    writer.writeClassAttribute(TobagoClass.POPOVER__BOX, BootstrapClass.POPOVER);
-    // todo: check to used TOOLTIP instead of POPOVER
-    writer.writeClassAttribute(BootstrapClass.POPOVER, BootstrapClass.D_NONE);
-//    writer.writeNameAttribute(popoverId);
-    writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(BootstrapClass.POPOVER_ARROW);
-    writer.endElement(HtmlElements.DIV);
-    writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(BootstrapClass.POPOVER_BODY);
-    if (content != null) {
-      writer.writeText(content);
-    }
   }
 
   @Override

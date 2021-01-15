@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import Popper from "popper.js";
+import {createPopper} from "@popperjs/core/dist/esm/popper";
 
 const Event = {
   HIDE: "tobago.dropdown.hide",
@@ -132,7 +132,7 @@ class Dropdown extends HTMLElement {
 
     if (!this.inStickyHeader()) {
       this.menuStore.appendChild(this.dropdownMenu);
-      new Popper(this.toggleButton, this.dropdownMenu, {
+      createPopper(this.toggleButton, this.dropdownMenu, {
         placement: "bottom-start"
       });
     }

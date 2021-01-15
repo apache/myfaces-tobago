@@ -38,6 +38,7 @@ import org.apache.myfaces.tobago.component.UILinks;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.component.UIRange;
 import org.apache.myfaces.tobago.component.UISection;
 import org.apache.myfaces.tobago.component.UISegmentLayout;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
@@ -66,6 +67,7 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.LinksRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.OutRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PanelRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PopupRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.RangeRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SectionRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SegmentLayoutRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectBooleanCheckboxRenderer;
@@ -145,6 +147,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.out.componentType(), UIOut.class.getName());
     application.addComponent(Tags.panel.componentType(), UIPanel.class.getName());
     application.addComponent(Tags.popup.componentType(), UIPopup.class.getName());
+    application.addComponent(Tags.range.componentType(), UIRange.class.getName());
     application.addComponent(Tags.section.componentType(), UISection.class.getName());
     application.addComponent(Tags.segmentLayout.componentType(), UISegmentLayout.class.getName());
     application.addComponent(Tags.selectItem.componentType(), UISelectItem.class.getName());
@@ -175,6 +178,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     renderKit.addRenderer(UIOut.COMPONENT_FAMILY, RendererTypes.OUT, new OutRenderer());
     renderKit.addRenderer(UIPanel.COMPONENT_FAMILY, RendererTypes.PANEL, new PanelRenderer());
     renderKit.addRenderer(UIPopup.COMPONENT_FAMILY, RendererTypes.POPUP, new PopupRenderer());
+    renderKit.addRenderer(UIRange.COMPONENT_FAMILY, RendererTypes.RANGE, new RangeRenderer());
     renderKit.addRenderer(UISection.COMPONENT_FAMILY, RendererTypes.SECTION, new SectionRenderer());
     renderKit.addRenderer(UISegmentLayout.COMPONENT_FAMILY, RendererTypes.SEGMENT_LAYOUT, new SegmentLayoutRenderer());
     renderKit.addRenderer(
