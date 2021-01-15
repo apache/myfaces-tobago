@@ -21,11 +21,13 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.SupportsHelp;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
+import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -99,13 +101,16 @@ public abstract class MessageLayoutRendererBase<T extends UIComponent & Supports
     final boolean hasHelp = !StringUtils.isEmpty(help);
 
     if (hasMessage || hasHelp) {
+      Integer tabIndex = (component instanceof AbstractUIInput) ? ((AbstractUIInput) component).getTabIndex() : null;
       if (hasMessage) {
-        encodeFacesMessagesButton(facesContext, component, writer, messages);
+        encodePopover(writer,
+            BootstrapClass.buttonColor(ComponentUtils.getMaximumSeverity(messages)),
+            Icons.EXCLAMATION, getTitle(messages), getMessage(messages), tabIndex);
       }
       if (hasHelp) {
-        encodePopover(writer, component.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "help",
+        encodePopover(writer,
             BootstrapClass.BTN_OUTLINE_INFO, Icons.QUESTION,
-            ResourceUtils.getString(facesContext, "help.title"), help);
+            ResourceUtils.getString(facesContext, "help.title"), help, tabIndex);
       }
       writer.endElement(HtmlElements.DIV);
     }
@@ -114,14 +119,6 @@ public abstract class MessageLayoutRendererBase<T extends UIComponent & Supports
   protected abstract void encodeBeginField(FacesContext facesContext, T component) throws IOException;
 
   protected abstract void encodeEndField(FacesContext facesContext, T component) throws IOException;
-
-  private void encodeFacesMessagesButton(FacesContext facesContext, final T component,
-      final TobagoResponseWriter writer, final List<FacesMessage> messages) throws IOException {
-
-    encodePopover(writer, component.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "messages",
-        BootstrapClass.buttonColor(ComponentUtils.getMaximumSeverity(messages)),
-        Icons.EXCLAMATION, getTitle(messages), getMessage(messages));
-  }
 
   private String getTitle(final List<FacesMessage> messages) {
     int fatalCount = 0;
@@ -209,36 +206,23 @@ public abstract class MessageLayoutRendererBase<T extends UIComponent & Supports
     return stringBuilder.toString();
   }
 
-  private void encodePopover(final TobagoResponseWriter writer, final String popoverId,
-      final CssItem buttonColor, final Icons buttonIcon, final String title, final String content)
+  private void encodePopover(final TobagoResponseWriter writer,
+      final CssItem buttonColor, final Icons buttonIcon, final String title, final String content,
+      final Integer tabIndex)
       throws IOException {
     writer.startElement(HtmlElements.TOBAGO_POPOVER);
-    writer.writeIdAttribute(popoverId);
+    writer.writeAttribute(DataAttributes.BS_TOGGLE, "popover", false);
+    writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    writer.writeAttribute(DataAttributes.BS_CONTENT, content, true);
 
     writer.startElement(HtmlElements.A);
-    writer.writeAttribute(HtmlAttributes.TABINDEX, "0", false);
+    writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlButtonTypes.BUTTON);
-    writer.writeClassAttribute(TobagoClass.POPOVER__BUTTON, BootstrapClass.BTN, buttonColor);
+    writer.writeClassAttribute(BootstrapClass.BTN, buttonColor);
     writer.startElement(HtmlElements.I);
     writer.writeClassAttribute(Icons.FA, buttonIcon);
     writer.endElement(HtmlElements.I);
     writer.endElement(HtmlElements.A);
-
-    writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(TobagoClass.POPOVER__BOX, BootstrapClass.POPOVER);
-    writer.writeNameAttribute(popoverId);
-    writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(BootstrapClass.POPOVER_ARROW);
-    writer.endElement(HtmlElements.DIV);
-    writer.startElement(HtmlElements.H3);
-    writer.writeClassAttribute(BootstrapClass.POPOVER_HEADER);
-    writer.writeText(title);
-    writer.endElement(HtmlElements.H3);
-    writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(BootstrapClass.POPOVER_BODY);
-    writer.writeText(content);
-    writer.endElement(HtmlElements.DIV);
-    writer.endElement(HtmlElements.DIV);
 
     writer.endElement(HtmlElements.TOBAGO_POPOVER);
   }

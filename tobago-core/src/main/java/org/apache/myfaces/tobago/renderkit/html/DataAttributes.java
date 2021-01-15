@@ -26,6 +26,10 @@ package org.apache.myfaces.tobago.renderkit.html;
  */
 public enum DataAttributes implements MarkupLanguageAttributes {
 
+  BS_CONTENT("data-bs-content"),
+  BS_TOGGLE("data-bs-toggle"),
+  BS_TRIGGER("data-bs-trigger"),
+
   /**
    * Contains the closed tree icon or style.
    */
