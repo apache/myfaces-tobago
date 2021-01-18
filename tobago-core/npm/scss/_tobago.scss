@@ -452,6 +452,27 @@ tobago-header {
 /* in ----------------------------------------------------------- */
 tobago-in {
   display: block;
+
+  .input-group {
+
+    tobago-select-one-choice {
+      /* fix style for surrounding container (tobago-select-one-choice).
+      According to bootstrap docs, <select class=.form-select> should be rendered directly to .input-group. But tobago
+      renders the tobago-select-one-choice custom tag (which contain the select component) inside an input group. */
+
+      &.tobago-margin-bottom {
+        margin-bottom: 0;
+      }
+
+      &.form-select {
+        padding: 0;
+
+        > .form-select {
+          border: 0;
+        }
+      }
+    }
+  }
 }
 
 .tobago-in {

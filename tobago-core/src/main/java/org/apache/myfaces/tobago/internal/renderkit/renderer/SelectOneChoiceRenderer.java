@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneChoice;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -41,21 +42,18 @@ public class SelectOneChoiceRenderer<T extends AbstractUISelectOneChoice> extend
   }
 
   @Override
+  protected CssItem[] getComponentCss(final FacesContext facesContext, final T command) {
+    return isInside(facesContext, HtmlElements.TOBAGO_IN) ? new CssItem[]{BootstrapClass.FORM_SELECT} : null;
+  }
+
+  @Override
   public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
-    if (isInside(facesContext, HtmlElements.TOBAGO_IN)) {
-      encodeBeginField(facesContext, component);
-    } else {
-      super.encodeBeginInternal(facesContext, component);
-    }
+    super.encodeBeginInternal(facesContext, component);
   }
 
   @Override
   public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
-    if (isInside(facesContext, HtmlElements.TOBAGO_IN)) {
-      encodeEndField(facesContext, component);
-    } else {
-      super.encodeEndInternal(facesContext, component);
-    }
+    super.encodeEndInternal(facesContext, component);
   }
 
   @Override
@@ -105,8 +103,6 @@ public class SelectOneChoiceRenderer<T extends AbstractUISelectOneChoice> extend
 
   @Override
   protected String getFieldId(final FacesContext facesContext, final T component) {
-    return isInside(facesContext, HtmlElements.TOBAGO_IN)
-        ? component.getClientId(facesContext)
-        : component.getFieldId(facesContext);
+    return component.getFieldId(facesContext);
   }
 }
