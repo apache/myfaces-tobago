@@ -14,13 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { Popover } from "bootstrap";
 class TobagoRange extends HTMLElement {
     constructor() {
         super();
     }
     connectedCallback() {
-        // @ts-ignore
-        this.popover = new bootstrap.Popover(this.range, {
+        this.popover = new Popover(this.range, {
             container: this.menuStore,
             content: this.content.bind(this),
             trigger: "input",

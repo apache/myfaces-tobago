@@ -15,7 +15,8 @@
  * limitations under the License.
  */
 
-import {createPopper} from "@popperjs/core/dist/esm/popper";
+import {createPopper} from "@popperjs/core";
+// import {createPopper} from "@popperjs/core/dist/esm/popper";
 
 const Event = {
   HIDE: "tobago.dropdown.hide",

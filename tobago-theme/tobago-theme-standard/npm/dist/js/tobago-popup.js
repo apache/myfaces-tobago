@@ -17,14 +17,15 @@
 // import * as bootstrap from "bootstrap/dist/js/bootstrap.esm";
 // import "bootstrap/dist/js/bootstrap.esm";
 // import "bootstrap/dist/js/bootstrap";
+import { Modal } from "bootstrap";
+// import {Modal} from "bootstrap/dist/js/bootstrap.bundle";
 export class Popup extends HTMLElement {
     constructor() {
         super();
     }
     connectedCallback() {
         let options = {};
-        // @ts-ignore
-        this.modal = new bootstrap.Modal(this, options);
+        this.modal = new Modal(this, options);
     }
     show() {
         console.log("show");
