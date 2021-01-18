@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -48,6 +49,10 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
     extends DecodingInputRendererBase<T> {
 
   public abstract HtmlElements getComponentTag();
+
+  protected CssItem[] getComponentCss(final FacesContext facesContext, final T command) {
+    return null;
+  }
 
   @Override
   public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
@@ -152,7 +157,8 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
       writer.startElement(getComponentTag());
       writer.writeIdAttribute(clientId);
       writer.writeClassAttribute(
-          flex ? TobagoClass.LABEL__CONTAINER :  null,
+          flex ? TobagoClass.LABEL__CONTAINER : null,
+          getComponentCss(facesContext, component),
           TobagoClass.MARGIN__BOTTOM,
           ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,
           markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
@@ -224,7 +230,7 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
   }
 
   protected void encodeLabel(final FacesContext facesContext, final T component,
-                             final TobagoResponseWriter writer, final LabelLayout labelLayout)
+      final TobagoResponseWriter writer, final LabelLayout labelLayout)
       throws IOException {
     // TBD: maybe use an interface for getLabel()
     final String label = ComponentUtils.getStringAttribute(component, Attributes.label);

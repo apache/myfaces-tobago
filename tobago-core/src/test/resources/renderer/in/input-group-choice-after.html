@@ -19,11 +19,13 @@
   <div class='tobago-input-group-outer'>
     <div class='input-group'>
       <input type='text' name='id' id='id::field' class='tobago-in form-control'>
-      <select id='choice' name='choice' class='form-select'>
-        <option value=''>Stratocaster
-        </option>
-        <option value=''>Telecaster
-        </option></select>
+      <tobago-select-one-choice id='choice' class='form-select tobago-margin-bottom'>
+        <select id='choice::field' name='choice' class='form-select'>
+          <option value=''>Stratocaster
+          </option>
+          <option value=''>Telecaster
+          </option></select>
+      </tobago-select-one-choice>
     </div>
   </div>
 </tobago-in>
