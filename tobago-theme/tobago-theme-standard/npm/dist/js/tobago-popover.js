@@ -16,16 +16,16 @@
  */
 // XXX which? nothing works...
 // import * as bootstrap from "bootstrap/dist/js/bootstrap";
-// import * as bootstrap from "bootstrap/dist/js/bootstrap.esm";
-// import * as bootstrap from "bootstrap/dist/js/bootstrap.bundle";
+// import Popover from "bootstrap/dist/js/bootstrap.bundle";
 // import {createPopper} from "@popperjs/core/dist/esm/popper";
-class Popover extends HTMLElement {
+import { Popover } from "bootstrap";
+// import {Popover} from "bootstrap/dist/js/bootstrap.bundle";
+class TobagoPopover extends HTMLElement {
     constructor() {
         super();
     }
     connectedCallback() {
-        // @ts-ignore
-        this.popover = new bootstrap.Popover(this.trigger, {
+        this.popover = new Popover(this.trigger, {
             container: this.menuStore
         });
     }
@@ -39,7 +39,7 @@ class Popover extends HTMLElement {
 }
 document.addEventListener("tobago.init", function (event) {
     if (window.customElements.get("tobago-popover") == null) {
-        window.customElements.define("tobago-popover", Popover);
+        window.customElements.define("tobago-popover", TobagoPopover);
     }
 });
 //# sourceMappingURL=tobago-popover.js.map
