@@ -16,49 +16,31 @@
  */
 
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+import {elementByIdFn, querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 
-it("not implemented yet", function (done) {
-  let test = new JasmineTestTool(done);
-  test.do(() => fail("not implemented yet"));
+it("Execute 'AJAX' entry in dropdown menu", function (done) {
+  let dropdownButtonFn = elementByIdFn("page:mainForm:dropdownButton::command");
+  let dropdownMenuFn = querySelectorFn(".dropdown-menu[name=page\\:mainForm\\:dropdownButton]");
+  let dropdownAjaxEntryFn = elementByIdFn("page:mainForm:ajaxEntry");
+  let inputFn = elementByIdFn("page:mainForm:inputAjax::field");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:outputAjax tobago-out");
+
+  const test = new JasmineTestTool(done);
+  // no test.setup() because controller is @RequestScoped
+  test.do(() => expect(dropdownMenuFn().classList).not.toContain("show"));
+  test.do(() => expect(outputFn().textContent).toBe(""));
+
+  test.event("click", dropdownButtonFn, () => dropdownMenuFn().classList.contains("show"));
+  test.do(() => expect(dropdownMenuFn().classList).toContain("show"));
+  test.do(() => expect(dropdownMenuFn().parentElement.classList).toContain("tobago-page-menuStore"));
+
+  test.do(() => inputFn().value = "Tobago");
+  test.event("click", dropdownAjaxEntryFn, () => outputFn().textContent === "Tobago");
+  test.do(() => expect(outputFn().textContent).toBe("Tobago"));
+  test.do(() => expect(dropdownMenuFn().classList)
+      .not.toContain("show", "dropdown menu should be closed after menu entry is clicked"));
+
+  const pageOverlays = querySelectorAllFn(".tobago-page-overlay");
+  test.do(() => expect(pageOverlays().length).toBe(0, "there must be no tobago-page-overlay"));
   test.start();
 });
-
-/*
-import {querySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
-
-QUnit.test("Execute 'AJAX' entry in dropdown menu", function (assert) {
-  let dropdownMenuButtonFn = querySelectorFn("#page\\:mainForm\\:dropdownMenuButton\\:\\:command");
-  const ajaxEntryId = "#page\\:mainForm\\:ajaxEntry";
-  let ajaxEntryFn = querySelectorFn(ajaxEntryId);
-  let tobagoPageMenuStoreFn = querySelectorFn(".tobago-page-menuStore");
-  let inputFn = querySelectorFn("#page\\:mainForm\\:inputAjax\\:\\:field");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:outputAjax .tobago-out");
-
-  let TTT = new TobagoTestTool(assert);
-  TTT.asserts(1, function () {
-    assert.ok(tobagoPageMenuStoreFn().querySelector(ajaxEntryId) === null, "Dropdown menu should be closed.");
-  });
-  TTT.action(function () {
-    dropdownMenuButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.asserts(1, function () {
-    assert.ok(tobagoPageMenuStoreFn().querySelector(ajaxEntryId) !== null, "Dropdown menu should be opened.");
-  });
-  TTT.action(function () {
-    inputFn().value = "Tobago, yay!";
-  });
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "", "Output should be empty.");
-  });
-  TTT.action(function () {
-    ajaxEntryFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(2, function () {
-    assert.equal(outputFn().textContent, "Tobago, yay!");
-    assert.ok(tobagoPageMenuStoreFn().querySelector(ajaxEntryId) === null, "Dropdown menu should be closed.");
-  });
-  TTT.startTest();
-});
-*/

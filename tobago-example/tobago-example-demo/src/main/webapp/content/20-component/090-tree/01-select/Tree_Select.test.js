@@ -16,260 +16,167 @@
  */
 
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+import {elementByIdFn, querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 
-it("not implemented yet", function (done) {
-  let test = new JasmineTestTool(done);
-  test.do(() => fail("not implemented yet"));
+it("single: select Music, select Mathematics", function (done) {
+  let radiosFn = querySelectorAllFn("#page\\:mainForm\\:categoriesTree input[type=radio]");
+  let checkboxesFn = querySelectorAllFn("#page\\:mainForm\\:categoriesTree input[type=checkbox]");
+  let selectableNoneFn = elementByIdFn("page:mainForm:selectable::0");
+  let selectableSingleFn = elementByIdFn("page:mainForm:selectable::1");
+  let musicFn = elementByIdFn("page:mainForm:categoriesTree:3:select");
+  let mathematicsFn = elementByIdFn("page:mainForm:categoriesTree:9:select");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedNodesOutput tobago-out");
+
+  const test = new JasmineTestTool(done);
+  test.setup(() => radiosFn().length === 0 && checkboxesFn().length === 0,
+      () => selectableNoneFn().checked = true,
+      "change", selectableNoneFn);
+  test.do(() => expect(radiosFn().length).toEqual(0));
+  test.do(() => expect(checkboxesFn().length).toEqual(0));
+
+  test.do(() => selectableSingleFn().checked = true);
+  test.event("change", selectableSingleFn, () => radiosFn().length > 0);
+  test.do(() => expect(radiosFn().length).toBeGreaterThan(0));
+
+  test.do(() => musicFn().checked = true);
+  test.event("change", musicFn, () => outputFn().textContent === "Music");
+  test.do(() => expect(outputFn().textContent).toBe("Music"));
+
+  test.do(() => mathematicsFn().checked = true);
+  test.event("change", mathematicsFn, () => outputFn().textContent === "Mathematics");
+  test.do(() => expect(outputFn().textContent).toBe("Mathematics"));
   test.start();
 });
 
-/*
-import {querySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+it("singleLeafOnly: select Classic, select Geography", function (done) {
+  let radiosFn = querySelectorAllFn("#page\\:mainForm\\:categoriesTree input[type=radio]");
+  let checkboxesFn = querySelectorAllFn("#page\\:mainForm\\:categoriesTree input[type=checkbox]");
+  let selectableNoneFn = elementByIdFn("page:mainForm:selectable::0");
+  let selectableSingleLeafOnlyFn = elementByIdFn("page:mainForm:selectable::2");
+  let classicFn = elementByIdFn("page:mainForm:categoriesTree:4:select");
+  let geographyFn = elementByIdFn("page:mainForm:categoriesTree:10:select");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedNodesOutput tobago-out");
 
-QUnit.test("single: select Music, select Mathematics", function (assert) {
-  let musicFn = querySelectorFn("#page\\:mainForm\\:categoriesTree\\:3\\:select");
-  let mathematicsFn = querySelectorFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedNodesOutput span");
-  let selectableNoneFn = querySelectorFn("#page\\:mainForm\\:selectable\\:\\:0");
-  let selectableSingleFn = querySelectorFn("#page\\:mainForm\\:selectable\\:\\:1");
-  let inputFn = querySelectorFn("tobago-tree-select input");
+  const test = new JasmineTestTool(done);
+  test.setup(() => radiosFn().length === 0 && checkboxesFn().length === 0,
+      () => selectableNoneFn().checked = true,
+      "change", selectableNoneFn);
+  test.do(() => expect(radiosFn().length).toEqual(0));
+  test.do(() => expect(checkboxesFn().length).toEqual(0));
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    selectableNoneFn().checked = true;
-    selectableNoneFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(inputFn(), null);
-  });
-  TTT.action(function () {
-    selectableSingleFn().checked = true;
-    selectableSingleFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.notEqual(inputFn(), null);
-  });
-  TTT.action(function () {
-    musicFn().checked = true;
-    musicFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Music");
-  });
-  TTT.action(function () {
-    mathematicsFn().checked = true;
-    mathematicsFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Mathematics");
-  });
-  TTT.startTest();
+  test.do(() => selectableSingleLeafOnlyFn().checked = true);
+  test.event("change", selectableSingleLeafOnlyFn, () => radiosFn().length > 0);
+  test.do(() => expect(radiosFn().length).toBeGreaterThan(0));
+
+  test.do(() => classicFn().checked = true);
+  test.event("change", classicFn, () => outputFn().textContent === "Classic");
+  test.do(() => expect(outputFn().textContent).toBe("Classic"));
+
+  test.do(() => geographyFn().checked = true);
+  test.event("change", geographyFn, () => outputFn().textContent === "Geography");
+  test.do(() => expect(outputFn().textContent).toBe("Geography"));
+  test.start();
 });
 
-QUnit.test("singleLeafOnly: select Classic, select Geography", function (assert) {
-  let classicFn = querySelectorFn("#page\\:mainForm\\:categoriesTree\\:4\\:select");
-  let geographyFn = querySelectorFn("#page\\:mainForm\\:categoriesTree\\:10\\:select");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedNodesOutput span");
-  let selectableNoneFn = querySelectorFn("#page\\:mainForm\\:selectable\\:\\:0");
-  let selectableSingleLeafOnlyFn = querySelectorFn("#page\\:mainForm\\:selectable\\:\\:2");
-  let inputFn = querySelectorFn("tobago-tree-select input");
+it("multi: select Music, select Geography, deselect Music", function (done) {
+  let radiosFn = querySelectorAllFn("#page\\:mainForm\\:categoriesTree input[type=radio]");
+  let checkboxesFn = querySelectorAllFn("#page\\:mainForm\\:categoriesTree input[type=checkbox]");
+  let selectableNoneFn = elementByIdFn("page:mainForm:selectable::0");
+  let selectableMultiFn = elementByIdFn("page:mainForm:selectable::3");
+  let musicFn = elementByIdFn("page:mainForm:categoriesTree:3:select");
+  let geographyFn = elementByIdFn("page:mainForm:categoriesTree:10:select");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedNodesOutput tobago-out");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    selectableNoneFn().checked = true;
-    selectableNoneFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(inputFn(), null);
-  });
-  TTT.action(function () {
-    selectableSingleLeafOnlyFn().checked = true;
-    selectableSingleLeafOnlyFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.notEqual(inputFn(), null);
-  });
-  TTT.action(function () {
-    classicFn().checked = true;
-    classicFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Classic");
-  });
-  TTT.action(function () {
-    geographyFn().checked = true;
-    geographyFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Geography");
-  });
-  TTT.startTest();
+  const test = new JasmineTestTool(done);
+  test.setup(() => radiosFn().length === 0 && checkboxesFn().length === 0,
+      () => selectableNoneFn().checked = true,
+      "change", selectableNoneFn);
+  test.do(() => expect(radiosFn().length).toEqual(0));
+  test.do(() => expect(checkboxesFn().length).toEqual(0));
+
+  test.do(() => selectableMultiFn().checked = true);
+  test.event("change", selectableMultiFn, () => checkboxesFn().length > 0);
+  test.do(() => expect(checkboxesFn().length).toBeGreaterThan(0));
+
+  test.do(() => musicFn().checked = true);
+  test.event("change", musicFn, () => outputFn().textContent === "Music");
+  test.do(() => expect(outputFn().textContent).toBe("Music"));
+
+  test.do(() => geographyFn().checked = true);
+  test.event("change", geographyFn, () => outputFn().textContent === "Music, Geography");
+  test.do(() => expect(outputFn().textContent).toBe("Music, Geography"));
+
+  test.do(() => musicFn().checked = false);
+  test.event("change", musicFn, () => outputFn().textContent === "Geography");
+  test.do(() => expect(outputFn().textContent).toBe("Geography"));
+  test.start();
 });
 
-QUnit.test("multi: select Music, select Geography, deselect Music", function (assert) {
-  let musicFn = querySelectorFn("#page\\:mainForm\\:categoriesTree\\:3\\:select");
-  let geographyFn = querySelectorFn("#page\\:mainForm\\:categoriesTree\\:10\\:select");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedNodesOutput span");
-  let selectableNoneFn = querySelectorFn("#page\\:mainForm\\:selectable\\:\\:0");
-  let selectableMultiFn = querySelectorFn("#page\\:mainForm\\:selectable\\:\\:3");
-  let inputFn = querySelectorFn("tobago-tree-select input");
+it("multiLeafOnly: select Classic, select Geography, deselect Classic", function (done) {
+  let radiosFn = querySelectorAllFn("#page\\:mainForm\\:categoriesTree input[type=radio]");
+  let checkboxesFn = querySelectorAllFn("#page\\:mainForm\\:categoriesTree input[type=checkbox]");
+  let selectableNoneFn = elementByIdFn("page:mainForm:selectable::0");
+  let selectableMultiLeafOnlyFn = elementByIdFn("page:mainForm:selectable::4");
+  let classicFn = elementByIdFn("page:mainForm:categoriesTree:4:select");
+  let geographyFn = elementByIdFn("page:mainForm:categoriesTree:10:select");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedNodesOutput tobago-out");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    selectableNoneFn().checked = true;
-    selectableNoneFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(inputFn(), null);
-  });
-  TTT.action(function () {
-    selectableMultiFn().checked = true;
-    selectableMultiFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.notEqual(inputFn(), null);
-  });
-  TTT.action(function () {
-    musicFn().checked = true;
-    musicFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Music");
-  });
-  TTT.action(function () {
-    geographyFn().checked = true;
-    geographyFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Music, Geography");
-  });
-  TTT.action(function () {
-    musicFn().checked = false;
-    musicFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Geography");
-  });
-  TTT.startTest();
+  const test = new JasmineTestTool(done);
+  test.setup(() => radiosFn().length === 0 && checkboxesFn().length === 0,
+      () => selectableNoneFn().checked = true,
+      "change", selectableNoneFn);
+  test.do(() => expect(radiosFn().length).toEqual(0));
+  test.do(() => expect(checkboxesFn().length).toEqual(0));
+
+  test.do(() => selectableMultiLeafOnlyFn().checked = true);
+  test.event("change", selectableMultiLeafOnlyFn, () => checkboxesFn().length > 0);
+  test.do(() => expect(checkboxesFn().length).toBeGreaterThan(0));
+
+  test.do(() => classicFn().checked = true);
+  test.event("change", classicFn, () => outputFn().textContent === "Classic");
+  test.do(() => expect(outputFn().textContent).toBe("Classic"));
+
+  test.do(() => geographyFn().checked = true);
+  test.event("change", geographyFn, () => outputFn().textContent === "Classic, Geography");
+  test.do(() => expect(outputFn().textContent).toBe("Classic, Geography"));
+
+  test.do(() => classicFn().checked = false);
+  test.event("change", classicFn, () => outputFn().textContent === "Geography");
+  test.do(() => expect(outputFn().textContent).toBe("Geography"));
+  test.start();
 });
 
-QUnit.test("multiLeafOnly: select Classic, select Geography, deselect Classic", function (assert) {
-  let classicFn = querySelectorFn("#page\\:mainForm\\:categoriesTree\\:4\\:select");
-  let geographyFn = querySelectorFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedNodesOutput span");
-  let selectableNoneFn = querySelectorFn("#page\\:mainForm\\:selectable\\:\\:0");
-  let selectableMultiLeafOnlyFn = querySelectorFn("#page\\:mainForm\\:selectable\\:\\:4");
-  let inputFn = querySelectorFn("tobago-tree-select input");
+it("multiCascade: select Music, select Mathematics, deselect Classic", function (done) {
+  let radiosFn = querySelectorAllFn("#page\\:mainForm\\:categoriesTree input[type=radio]");
+  let checkboxesFn = querySelectorAllFn("#page\\:mainForm\\:categoriesTree input[type=checkbox]");
+  let selectableNoneFn = elementByIdFn("page:mainForm:selectable::0");
+  let selectableMultiCascadeFn = elementByIdFn("page:mainForm:selectable::5");
+  let musicFn = elementByIdFn("page:mainForm:categoriesTree:3:select");
+  let classicFn = elementByIdFn("page:mainForm:categoriesTree:4:select");
+  let mathematicsFn = elementByIdFn("page:mainForm:categoriesTree:9:select");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedNodesOutput tobago-out");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    selectableNoneFn().checked = true;
-    selectableNoneFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(inputFn(), null);
-  });
-  TTT.action(function () {
-    selectableMultiLeafOnlyFn().checked = true;
-    selectableMultiLeafOnlyFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.notEqual(inputFn(), null);
-  });
-  TTT.action(function () {
-    classicFn().checked = true;
-    classicFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Classic");
-  });
-  TTT.action(function () {
-    geographyFn().checked = true;
-    geographyFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Classic, Geography");
-  });
-  TTT.action(function () {
-    classicFn().checked = false;
-    classicFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Geography");
-  });
-  TTT.startTest();
+  const test = new JasmineTestTool(done);
+  test.setup(() => radiosFn().length === 0 && checkboxesFn().length === 0,
+      () => selectableNoneFn().checked = true,
+      "change", selectableNoneFn);
+  test.do(() => expect(radiosFn().length).toEqual(0));
+  test.do(() => expect(checkboxesFn().length).toEqual(0));
+
+  test.do(() => selectableMultiCascadeFn().checked = true);
+  test.event("change", selectableMultiCascadeFn, () => checkboxesFn().length > 0);
+  test.do(() => expect(checkboxesFn().length).toBeGreaterThan(0));
+
+  test.do(() => musicFn().checked = true);
+  test.event("change", musicFn, () => outputFn().textContent === "Music, Classic, Pop, World");
+  test.do(() => expect(outputFn().textContent).toBe("Music, Classic, Pop, World"));
+
+  test.do(() => mathematicsFn().checked = true);
+  test.event("change", mathematicsFn, () => outputFn().textContent === "Music, Classic, Pop, World, Mathematics");
+  test.do(() => expect(outputFn().textContent).toBe("Music, Classic, Pop, World, Mathematics"));
+
+  test.do(() => classicFn().checked = false);
+  test.event("change", classicFn, () => outputFn().textContent === "Music, Pop, World, Mathematics");
+  test.do(() => expect(outputFn().textContent).toBe("Music, Pop, World, Mathematics"));
+  test.start();
 });
-
-QUnit.test("multiCascade: select Music, select Mathematics, deselect Classic", function (assert) {
-  let musicFn = querySelectorFn("#page\\:mainForm\\:categoriesTree\\:3\\:select");
-  let classicFn = querySelectorFn("#page\\:mainForm\\:categoriesTree\\:4\\:select");
-  let mathematicsFn = querySelectorFn("#page\\:mainForm\\:categoriesTree\\:9\\:select");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedNodesOutput span");
-  let selectableNoneFn = querySelectorFn("#page\\:mainForm\\:selectable\\:\\:0");
-  let selectableMultiCascadeFn = querySelectorFn("#page\\:mainForm\\:selectable\\:\\:5");
-  let inputFn = querySelectorFn("tobago-tree-select input");
-
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    selectableNoneFn().checked = true;
-    selectableNoneFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(inputFn(), null);
-  });
-  TTT.action(function () {
-    selectableMultiCascadeFn().checked = true;
-    selectableMultiCascadeFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.notEqual(inputFn(), null);
-  });
-  TTT.action(function () {
-    musicFn().checked = true;
-    musicFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse(); // an ajax request is send for every leaf (Music, Classic, Pop, World)
-  TTT.waitMs(2000); // wait for the last ajax
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Music, Classic, Pop, World");
-  });
-  TTT.action(function () {
-    mathematicsFn().checked = true;
-    mathematicsFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Music, Classic, Pop, World, Mathematics");
-  });
-  TTT.action(function () {
-    classicFn().checked = false;
-    classicFn().dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(outputFn().textContent, "Music, Pop, World, Mathematics");
-  });
-  TTT.startTest();
-});
-*/

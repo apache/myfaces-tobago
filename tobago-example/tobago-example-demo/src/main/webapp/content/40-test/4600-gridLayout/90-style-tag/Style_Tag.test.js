@@ -16,32 +16,21 @@
  */
 
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
 
-it("not implemented yet", function (done) {
+it("Style tag inside grid layout", function (done) {
+  let submitFn = elementByIdFn("page:mainForm:submitButton");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:output tobago-out");
+  let timestampFn = querySelectorFn("#page\\:mainForm\\:timestamp tobago-out");
+  let timestamp;
+
   let test = new JasmineTestTool(done);
-  test.do(() => fail("not implemented yet"));
+  test.do(() => expect(outputFn().classList).toContain("text-warning"));
+  test.do(() => timestamp = timestampFn().textContent)
+  test.event("click", submitFn, () => timestamp < timestampFn().textContent);
+  test.do(() => expect(timestamp < timestampFn().textContent)
+      .toBe(true, "value of new timestamp must be higher"));
+  test.do(() => expect(outputFn().classList).toContain("text-warning"));
+
   test.start();
 });
-
-/*
-import {querySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
-
-QUnit.test("Style tag inside grid layout", function (assert) {
-  let outputFn = querySelectorFn("#page\\:mainForm\\:output .tobago-out");
-  let buttonFn = querySelectorFn("#page\\:mainForm\\:submitButton");
-
-  let TTT = new TobagoTestTool(assert);
-  TTT.asserts(1, function () {
-    assert.ok(outputFn().classList.contains("text-warning"));
-  });
-  TTT.action(function () {
-    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.ok(outputFn().classList.contains("text-warning"));
-  });
-  TTT.startTest();
-});
-*/

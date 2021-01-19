@@ -17,7 +17,7 @@
 
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-it("not implemented yet", function (done) {
+it("must be fixed first", function (done) {
   let test = new JasmineTestTool(done);
   test.do(() => fail("not implemented yet"));
   test.start();
