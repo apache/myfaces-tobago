@@ -98,6 +98,7 @@
             </tc:button>
             <tc:button id="submitClose2" label="Submit &amp; Close">
               <tc:operation name="hide" for="clientPopup"/>
+              <f:ajax execute="in2" render="in2 :::out clientPopupMessages"/>
             </tc:button>
             <tc:button id="cancel2" label="Cancel" omit="true">
               <tc:operation name="hide" for="clientPopup"/>
