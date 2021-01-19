@@ -16,253 +16,288 @@
  */
 
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+import {elementByIdFn, querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 
-it("not implemented yet", function (done) {
-  let test = new JasmineTestTool(done);
-  test.do(() => fail("not implemented yet"));
+it("Open 'Client Popup' and press 'Cancel'.", function (done) {
+  let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
+  let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
+  let openButtonFn = elementByIdFn("page:mainForm:form2:open");
+  let cancelButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:cancel2");
+
+  let shownEventCount = 0;
+  let hiddenEventCount = 0;
+  popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
+  popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
+
+  const test = new JasmineTestTool(done);
+  test.do(() => hiddenEventCount = 1);
+  test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
+      () => hiddenEventCount = 0,
+      "click", cancelButtonFn);
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+
+  test.do(() => shownEventCount = 0);
+  test.event("click", openButtonFn, () => shownEventCount > 0);
+  test.do(() => expect(popupFn().classList).toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
+
+  test.do(() => hiddenEventCount = 0);
+  test.event("click", cancelButtonFn, () => hiddenEventCount > 0);
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
   test.start();
 });
-/*
-import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 
-QUnit.test("Open 'Client Popup' and press 'Cancel'.", function (assert) {
-  assert.expect(3);
-
-  let popupFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup input");
-  let openButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:open");
-  let cancelButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
-
-  assert.equal(popupFn().getAttribute("value"), "true");
-  openButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  assert.equal(popupFn().getAttribute("value"), "false");
-  cancelButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  assert.equal(popupFn().getAttribute("value"), "true");
-});
-
-QUnit.test("Open 'Client Popup', press 'Submit' while field is empty. Press 'Cancel'.", function (assert) {
-  let popupFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup input");
-  let openButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:open");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out span");
+it("Open 'Client Popup', press 'Submit' while field is empty. Press 'Cancel'.", function (done) {
+  let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
+  let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
+  let openButtonFn = elementByIdFn("page:mainForm:form2:open");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out tobago-out");
   let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
-  let inputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
-  let submitButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:submit2");
-  let cancelButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
+  let messageCloseFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages .btn-close");
+  let inputFieldFn = elementByIdFn("page:mainForm:form2:clientPopup:in2::field");
+  let submitButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:submit2");
+  let cancelButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:cancel2");
   let outputValue = outputFn().textContent;
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.asserts(1, function () {
-    assert.equal(popupFn().getAttribute("value"), "true");
-  });
-  TTT.action(function () {
-    openButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.asserts(1, function () {
-    assert.equal(popupFn().getAttribute("value"), "false");
-  });
-  TTT.action(function () {
-    inputFieldFn().value = "";
-    submitButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(messagesFn().length, 1);
-  });
-  TTT.action(function () {
-    cancelButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.asserts(2, function () {
-    assert.equal(popupFn().getAttribute("value"), "true");
-    assert.equal(outputFn().textContent, outputValue);
-  });
-  TTT.startTest();
+  let shownEventCount = 0;
+  let hiddenEventCount = 0;
+  popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
+  popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
+
+  const test = new JasmineTestTool(done);
+  test.do(() => hiddenEventCount = 1);
+  test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
+      () => hiddenEventCount = 0,
+      "click", cancelButtonFn);
+  test.setup(() => messagesFn().length === 0, null, "click", messageCloseFn);
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+  test.do(() => expect(messagesFn().length).toEqual(0));
+
+  test.do(() => shownEventCount = 0);
+  test.event("click", openButtonFn, () => shownEventCount > 0);
+  test.do(() => expect(popupFn().classList).toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
+
+  test.do(() => inputFieldFn().value = "");
+  test.event("click", submitButtonFn, () => messagesFn().length === 1);
+  test.do(() => expect(messagesFn().length).toEqual(1));
+
+  test.do(() => hiddenEventCount = 0);
+  test.event("click", cancelButtonFn, () => hiddenEventCount > 0);
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+  test.do(() => expect(outputFn().textContent).toBe(outputValue));
+  test.start();
 });
 
-QUnit.test("Open 'Client Popup', press 'Submit' while field has content. Press 'Cancel'.", function (assert) {
-  let popupFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup input");
-  let openButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:open");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out span");
+it("Open 'Client Popup', press 'Submit' while field has content. Press 'Cancel'.", function (done) {
+  let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
+  let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
+  let openButtonFn = elementByIdFn("page:mainForm:form2:open");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out tobago-out");
   let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
-  let inputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
-  let submitButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:submit2");
-  let cancelButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:cancel2");
+  let inputFieldFn = elementByIdFn("page:mainForm:form2:clientPopup:in2::field");
+  let submitButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:submit2");
+  let cancelButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:cancel2");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.asserts(1, function () {
-    assert.equal(popupFn().getAttribute("value"), "true");
-  });
-  TTT.action(function () {
-    openButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.asserts(1, function () {
-    assert.equal(popupFn().getAttribute("value"), "false");
-  });
-  TTT.action(function () {
-    inputFieldFn().value = "test client popup - submit button";
-    submitButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(messagesFn().length, 0);
-  });
-  TTT.action(function () {
-    cancelButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.asserts(2, function () {
-    assert.equal(popupFn().getAttribute("value"), "true");
-    assert.equal(outputFn().textContent, "test client popup - submit button");
-  });
-  TTT.startTest();
+  let shownEventCount = 0;
+  let hiddenEventCount = 0;
+  popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
+  popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
+
+  const test = new JasmineTestTool(done);
+  test.do(() => hiddenEventCount = 1);
+  test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
+      () => hiddenEventCount = 0,
+      "click", cancelButtonFn);
+  test.setup(() => outputFn().textContent !== "Tobago",
+      () => inputFieldFn().value = "Trinidad",
+      "click", submitButtonFn);
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+  test.do(() => expect(outputFn().textContent).not.toBe("Tobago"));
+
+  test.do(() => shownEventCount = 0);
+  test.event("click", openButtonFn, () => shownEventCount > 0);
+  test.do(() => expect(popupFn().classList).toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
+
+  test.do(() => inputFieldFn().value = "Tobago");
+  test.event("click", submitButtonFn, () => outputFn().textContent === "Tobago");
+  test.do(() => expect(outputFn().textContent).toBe("Tobago"));
+
+  test.do(() => hiddenEventCount = 0);
+  test.event("click", cancelButtonFn, () => hiddenEventCount > 0);
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+  test.do(() => expect(messagesFn().length).toEqual(0));
+  test.start();
 });
 
-QUnit.test("Open 'Client Popup', press 'Submit & Close' while field is empty.", function (assert) {
-  let popupFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup input");
-  let openButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:open");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out span");
-  let inputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
-  let submitCloseButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:submitClose2");
+it("Open 'Client Popup', press 'Submit & Close' while field is empty.", function (done) {
+  let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
+  let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
+  let openButtonFn = elementByIdFn("page:mainForm:form2:open");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out tobago-out");
+  let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
+  let messageCloseFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages .btn-close");
+  let inputFieldFn = elementByIdFn("page:mainForm:form2:clientPopup:in2::field");
+  let submitCloseButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:submitClose2");
+  let cancelButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:cancel2");
   let outputValue = outputFn().textContent;
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.asserts(1, function () {
-    assert.equal(popupFn().getAttribute("value"), "true");
-  });
-  TTT.action(function () {
-    openButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.asserts(1, function () {
-    assert.equal(popupFn().getAttribute("value"), "false");
-  });
-  TTT.action(function () {
-    inputFieldFn().value = "";
-    submitCloseButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(2, function () {
-    assert.equal(popupFn().getAttribute("value"), "true");
-    assert.equal(outputFn().textContent, outputValue);
-  });
-  TTT.startTest();
+  let shownEventCount = 0;
+  let hiddenEventCount = 0;
+  popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
+  popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
+
+  const test = new JasmineTestTool(done);
+  test.do(() => hiddenEventCount = 1);
+  test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
+      () => hiddenEventCount = 0,
+      "click", cancelButtonFn);
+  test.setup(() => messagesFn().length === 0, null, "click", messageCloseFn);
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+  test.do(() => expect(messagesFn().length).toEqual(0));
+
+  test.do(() => shownEventCount = 0);
+  test.event("click", openButtonFn, () => shownEventCount > 0);
+  test.do(() => expect(popupFn().classList).toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
+
+  test.do(() => inputFieldFn().value = "");
+  test.do(() => hiddenEventCount = 0);
+  test.event("click", submitCloseButtonFn, () => hiddenEventCount > 0);
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+  test.do(() => expect(messagesFn().length).toEqual(1));
+  test.do(() => expect(outputFn().textContent).toBe(outputValue));
+  test.start();
 });
 
-QUnit.test("Open 'Client Popup', press 'Submit & Close' while field has content.", function (assert) {
-  let popupFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup input");
-  let openButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:open");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out span");
-  let inputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:in2\\:\\:field");
-  let submitCloseButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:submitClose2");
+it("Open 'Client Popup', press 'Submit & Close' while field has content.", function (done) {
+  let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
+  let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
+  let openButtonFn = elementByIdFn("page:mainForm:form2:open");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out tobago-out");
+  let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
+  let inputFieldFn = elementByIdFn("page:mainForm:form2:clientPopup:in2::field");
+  let submitButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:submit2");
+  let submitCloseButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:submitClose2");
+  let cancelButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:cancel2");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.asserts(1, function () {
-    assert.equal(popupFn().getAttribute("value"), "true");
-  });
-  TTT.action(function () {
-    openButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.asserts(1, function () {
-    assert.equal(popupFn().getAttribute("value"), "false");
-  });
-  TTT.action(function () {
-    inputFieldFn().value = "test client popup - submit and close button";
-    submitCloseButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(2, function () {
-    assert.equal(popupFn().getAttribute("value"), "true");
-    assert.equal(outputFn().textContent, "test client popup - submit and close button");
-  });
-  TTT.startTest();
+  let shownEventCount = 0;
+  let hiddenEventCount = 0;
+  popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
+  popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
+
+  const test = new JasmineTestTool(done);
+  test.do(() => hiddenEventCount = 1);
+  test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
+      () => hiddenEventCount = 0,
+      "click", cancelButtonFn);
+  test.setup(() => outputFn().textContent !== "Little Tobago",
+      () => inputFieldFn().value = "Charlotteville",
+      "click", submitButtonFn);
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+  test.do(() => expect(outputFn().textContent).not.toBe("Little Tobago"));
+
+  test.do(() => shownEventCount = 0);
+  test.event("click", openButtonFn, () => shownEventCount > 0);
+  test.do(() => expect(popupFn().classList).toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
+
+  test.do(() => inputFieldFn().value = "Little Tobago");
+  test.do(() => hiddenEventCount = 0);
+  test.event("click", submitCloseButtonFn, () => hiddenEventCount > 0);
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+  test.do(() => expect(messagesFn().length).toEqual(0));
+  test.do(() => expect(outputFn().textContent).toBe("Little Tobago"));
+  test.start();
 });
 
-QUnit.test("Open 'Large Popup'.", function (assert) {
-  let dropdownContainerFn = querySelectorFn("#page\\:mainForm\\:dropdownButton");
-  let dropdownButtonFn = querySelectorFn("#page\\:mainForm\\:dropdownButton\\:\\:command");
-  let openButtonFn = querySelectorFn("#page\\:mainForm\\:largePopupLink");
-  let popupFn = querySelectorFn("#page\\:mainForm\\:largePopup");
-  let closeButtonFn = querySelectorFn("#page\\:mainForm\\:largePopup\\:closeLargePopup");
+it("Open 'Large Popup'.", function (done) {
+  let dropdownButtonFn = elementByIdFn("page:mainForm:dropdownButton::command");
+  let dropdownMenuFn = querySelectorFn(".dropdown-menu[name=page\\:mainForm\\:dropdownButton]");
+  let openButtonFn = elementByIdFn("page:mainForm:largePopupLink");
+  let popupFn = elementByIdFn("page:mainForm:largePopup");
+  let collapseFn = elementByIdFn("page:mainForm:largePopup::collapse");
+  let closeButtonFn = elementByIdFn("page:mainForm:largePopup:closeLargePopup");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    if (popupFn().classList.contains("show")) {
-      closeButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-    }
-    if (dropdownContainerFn().classList.contains("show")) {
-      dropdownButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-    }
-  });
-  TTT.asserts(2, function () {
-    assert.equal(dropdownContainerFn().classList.contains("show"), false);
-    assert.equal(popupFn().classList.contains("show"), false);
-  });
-  TTT.action(function () {
-    dropdownButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.asserts(2, function () {
-    assert.equal(dropdownContainerFn().classList.contains("show"), true);
-    assert.equal(popupFn().classList.contains("show"), false);
-  });
-  TTT.action(function () {
-    openButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitMs(1000); // wait for animation
-  TTT.asserts(2, function () {
-    assert.equal(dropdownContainerFn().classList.contains("show"), false);
-    assert.equal(popupFn().classList.contains("show"), true);
-  });
-  TTT.action(function () {
-    closeButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitMs(1000); // wait for animation
-  TTT.asserts(2, function () {
-    assert.equal(dropdownContainerFn().classList.contains("show"), false);
-    assert.equal(popupFn().classList.contains("show"), false);
-  });
-  TTT.startTest();
+  let shownEventCount = 0;
+  let hiddenEventCount = 0;
+  popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
+  popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
+
+  const test = new JasmineTestTool(done);
+  test.do(() => hiddenEventCount = 1);
+  test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
+      () => hiddenEventCount = 0,
+      "click", closeButtonFn);
+  test.setup(() => !dropdownMenuFn().classList.contains("show"),
+      null, "click", dropdownButtonFn);
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+  test.do(() => expect(dropdownMenuFn().classList).not.toContain("show"));
+
+  test.event("click", dropdownButtonFn, () => dropdownMenuFn().classList.contains("show"));
+  test.do(() => expect(dropdownMenuFn().classList).toContain("show"));
+
+  test.do(() => shownEventCount = 0);
+  test.event("click", openButtonFn, () => shownEventCount > 0);
+  test.do(() => expect(popupFn().classList).toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
+  test.do(() => expect(dropdownMenuFn().classList).not.toContain("show"));
+
+  test.do(() => hiddenEventCount = 0);
+  test.event("click", closeButtonFn, () => hiddenEventCount > 0);
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+  test.start();
 });
 
-QUnit.test("Open 'Small Popup'.", function (assert) {
-  let dropdownContainerFn = querySelectorFn("#page\\:mainForm\\:dropdownButton");
-  let dropdownButtonFn = querySelectorFn("#page\\:mainForm\\:dropdownButton\\:\\:command");
-  let openButtonFn = querySelectorFn("#page\\:mainForm\\:smallPopupLink");
-  let popupFn = querySelectorFn("#page\\:mainForm\\:smallPopup");
-  let closeButtonFn = querySelectorFn("#page\\:mainForm\\:smallPopup\\:closeSmallPopup");
+it("Open 'Small Popup'.", function (done) {
+  let dropdownButtonFn = elementByIdFn("page:mainForm:dropdownButton::command");
+  let dropdownMenuFn = querySelectorFn(".dropdown-menu[name=page\\:mainForm\\:dropdownButton]");
+  let openButtonFn = elementByIdFn("page:mainForm:smallPopupLink");
+  let popupFn = elementByIdFn("page:mainForm:smallPopup");
+  let collapseFn = elementByIdFn("page:mainForm:smallPopup::collapse");
+  let closeButtonFn = elementByIdFn("page:mainForm:smallPopup:closeSmallPopup");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    if (popupFn().classList.contains("show")) {
-      closeButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-    }
-    if (dropdownContainerFn().classList.contains("show")) {
-      dropdownButtonFn().click();
-    }
-  });
-  TTT.asserts(2, function () {
-    assert.equal(dropdownContainerFn().classList.contains("show"), false);
-    assert.equal(popupFn().classList.contains("show"), false);
-  });
-  TTT.action(function () {
-    dropdownButtonFn().click();
-  });
-  TTT.asserts(2, function () {
-    assert.equal(dropdownContainerFn().classList.contains("show"), true);
-    assert.equal(popupFn().classList.contains("show"), false);
-  });
-  TTT.action(function () {
-    openButtonFn().click();
-  });
-  TTT.waitMs(1000); // wait for animation
-  TTT.asserts(2, function () {
-    assert.equal(dropdownContainerFn().classList.contains("show"), false);
-    assert.equal(popupFn().classList.contains("show"), true);
-  });
-  TTT.action(function () {
-    closeButtonFn().click();
-  });
-  TTT.waitMs(1000); // wait for animation
-  TTT.asserts(2, function () {
-    assert.equal(dropdownContainerFn().classList.contains("show"), false);
-    assert.equal(popupFn().classList.contains("show"), false);
-  });
-  TTT.startTest();
+  let shownEventCount = 0;
+  let hiddenEventCount = 0;
+  popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
+  popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
+
+  const test = new JasmineTestTool(done);
+  test.do(() => hiddenEventCount = 1);
+  test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
+      () => hiddenEventCount = 0,
+      "click", closeButtonFn);
+  test.setup(() => !dropdownMenuFn().classList.contains("show"),
+      null, "click", dropdownButtonFn);
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+  test.do(() => expect(dropdownMenuFn().classList).not.toContain("show"));
+
+  test.event("click", dropdownButtonFn, () => dropdownMenuFn().classList.contains("show"));
+  test.do(() => expect(dropdownMenuFn().classList).toContain("show"));
+
+  test.do(() => shownEventCount = 0);
+  test.event("click", openButtonFn, () => shownEventCount > 0);
+  test.do(() => expect(popupFn().classList).toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
+  test.do(() => expect(dropdownMenuFn().classList).not.toContain("show"));
+
+  test.do(() => hiddenEventCount = 0);
+  test.event("click", closeButtonFn, () => hiddenEventCount > 0);
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+  test.start();
 });
-*/
