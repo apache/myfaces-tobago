@@ -16,64 +16,46 @@
  */
 
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+import {elementByIdFn} from "/script/tobago-test.js";
 
-it("not implemented yet", function (done) {
-  let test = new JasmineTestTool(done);
-  test.do(() => fail("not implemented yet"));
+it("ajax execute", function (done) {
+  let in1Fn = elementByIdFn("page:mainForm:in1::field");
+  let in2Fn = elementByIdFn("page:mainForm:in2::field");
+  let in3Fn = elementByIdFn("page:mainForm:in3::field");
+  let in4Fn = elementByIdFn("page:mainForm:in4::field");
+  let clearButtonFn = elementByIdFn("page:mainForm:clear");
+  let submitButtonFn = elementByIdFn("page:mainForm:submit");
+  let reloadButtonFn = elementByIdFn("page:mainForm:reload");
+
+  const test = new JasmineTestTool(done);
+  test.setup(
+      () => in1Fn().value === "" && in2Fn().value === "" && in3Fn().value === "" && in4Fn().value === "",
+      null, "click", clearButtonFn);
+  test.do(() => expect(in1Fn().value).toBe(""));
+  test.do(() => expect(in2Fn().value).toBe(""));
+  test.do(() => expect(in3Fn().value).toBe(""));
+  test.do(() => expect(in4Fn().value).toBe(""));
+
+  test.do(() => in1Fn().value = "Alice");
+  test.do(() => in2Fn().value = "Bob");
+  test.do(() => in3Fn().value = "Charlie");
+  test.do(() => in4Fn().value = "Dave");
+
+  test.event("click", submitButtonFn,
+      () => in1Fn().value === "Alice" && in2Fn().value === "Bob"
+          && in3Fn().value === "Charlie" && in4Fn().value === "");
+  test.do(() => expect(in1Fn().value).toBe("Alice"));
+  test.do(() => expect(in2Fn().value).toBe("Bob"));
+  test.do(() => expect(in3Fn().value).toBe("Charlie"));
+  test.do(() => expect(in4Fn().value).toBe(""));
+
+  test.event("click", reloadButtonFn,
+      () => in1Fn().value === "Alice" && in2Fn().value === ""
+          && in3Fn().value === "Charlie" && in4Fn().value === "");
+  test.do(() => expect(in1Fn().value).toBe("Alice"));
+  test.do(() => expect(in2Fn().value).toBe(""));
+  test.do(() => expect(in3Fn().value).toBe("Charlie"));
+  test.do(() => expect(in4Fn().value).toBe(""));
+
   test.start();
 });
-/*
-import {querySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
-
-QUnit.test("ajax excecute", function (assert) {
-  let in1Fn = querySelectorFn("#page\\:mainForm\\:in1\\:\\:field");
-  let in2Fn = querySelectorFn("#page\\:mainForm\\:in2\\:\\:field");
-  let in3Fn = querySelectorFn("#page\\:mainForm\\:in3\\:\\:field");
-  let in4Fn = querySelectorFn("#page\\:mainForm\\:in4\\:\\:field");
-  let clearButtonFn = querySelectorFn("#page\\:mainForm\\:clear");
-  let submitButtonFn = querySelectorFn("#page\\:mainForm\\:submit");
-  let reloadButtonFn = querySelectorFn("#page\\:mainForm\\:reload");
-
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    in1Fn().value = "a";
-    in2Fn().value = "b";
-    in3Fn().value = "c";
-    in4Fn().value = "d";
-    clearButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(4, function () {
-    assert.equal(in1Fn().value, "");
-    assert.equal(in2Fn().value, "");
-    assert.equal(in3Fn().value, "");
-    assert.equal(in4Fn().value, "");
-  });
-  TTT.action(function () {
-    in1Fn().value = "a";
-    in2Fn().value = "b";
-    in3Fn().value = "c";
-    in4Fn().value = "d";
-    submitButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(4, function () {
-    assert.equal(in1Fn().value, "a");
-    assert.equal(in2Fn().value, "b");
-    assert.equal(in3Fn().value, "c");
-    assert.equal(in4Fn().value, "");
-  });
-  TTT.action(function () {
-    reloadButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(4, function () {
-    assert.equal(in1Fn().value, "a");
-    assert.equal(in2Fn().value, "");
-    assert.equal(in3Fn().value, "c");
-    assert.equal(in4Fn().value, "");
-  });
-  TTT.startTest();
-});
-*/

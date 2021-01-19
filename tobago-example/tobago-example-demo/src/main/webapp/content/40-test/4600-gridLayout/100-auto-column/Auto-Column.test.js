@@ -16,23 +16,14 @@
  */
 
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+import {elementByIdFn} from "/script/tobago-test.js";
 
-it("not implemented yet", function (done) {
+it("test width of grid layout and 'auto' button", function (done) {
+  let gridLayoutFn = elementByIdFn("page:mainForm:grid");
+  let buttonAutoFn = elementByIdFn("page:mainForm:buttonAuto");
+
   let test = new JasmineTestTool(done);
-  test.do(() => fail("not implemented yet"));
+  test.do(() => expect(gridLayoutFn().offsetWidth).toEqual(266));
+  test.do(() => expect(buttonAutoFn().offsetWidth).toBeLessThan(65));
   test.start();
 });
-
-/*
-import {querySelectorFn} from "/script/tobago-test.js";
-
-QUnit.test("test width of grid layout and 'auto' button", function (assert) {
-  assert.expect(2);
-
-  let gridLayoutFn = querySelectorFn("#page\\:mainForm\\:grid");
-  let buttonAutoFn = querySelectorFn("#page\\:mainForm\\:buttonAuto");
-
-  assert.equal(gridLayoutFn().offsetWidth, 358);
-  assert.equal(buttonAutoFn().offsetWidth, 58);
-});
-*/

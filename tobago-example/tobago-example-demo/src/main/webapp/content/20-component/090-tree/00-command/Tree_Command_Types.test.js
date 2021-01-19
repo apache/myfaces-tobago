@@ -16,55 +16,25 @@
  */
 
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+import {querySelectorFn} from "/script/tobago-test.js";
 
 it("not implemented yet", function (done) {
-  let test = new JasmineTestTool(done);
-  test.do(() => fail("not implemented yet"));
-  test.start();
-});
-
-/*
-import {querySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
-
-QUnit.test("execute both 'Action 1' and 'Action 2' two times", function (assert) {
   let action1Fn = querySelectorFn("#page\\:mainForm\\:tree\\:2\\:actionCommand");
   let action2Fn = querySelectorFn("#page\\:mainForm\\:tree\\:3\\:actionCommand");
-  let actionCount1Fn = querySelectorFn("#page\\:mainForm\\:actionCount1 .tobago-out");
-  let actionCount2Fn = querySelectorFn("#page\\:mainForm\\:actionCount2 .tobago-out");
+  let actionCount1Fn = querySelectorFn("#page\\:mainForm\\:actionCount1 tobago-out");
+  let actionCount2Fn = querySelectorFn("#page\\:mainForm\\:actionCount2 tobago-out");
 
-  const counterBeforeTestResult1 = Number(actionCount1Fn().textContent);
-  const counterBeforeTestResult2 = Number(actionCount2Fn().textContent);
+  const action1Count = Number(actionCount1Fn().textContent);
+  const action2Count = Number(actionCount2Fn().textContent);
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    action1Fn().dispatchEvent(new Event('click'));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(Number(actionCount1Fn().textContent), counterBeforeTestResult1 + 1);
-  });
-  TTT.action(function () {
-    action2Fn().dispatchEvent(new Event('click'));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(Number(actionCount2Fn().textContent), counterBeforeTestResult2 + 1);
-  });
-  TTT.action(function () {
-    action1Fn().dispatchEvent(new Event('click'));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(Number(actionCount1Fn().textContent), counterBeforeTestResult1 + 2);
-  });
-  TTT.action(function () {
-    action2Fn().dispatchEvent(new Event('click'));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(Number(actionCount2Fn().textContent), counterBeforeTestResult2 + 2);
-  });
-  TTT.startTest();
+  let test = new JasmineTestTool(done);
+  test.event("click", action1Fn, () => Number(actionCount1Fn().textContent) === action1Count + 1);
+  test.do(() => expect(Number(actionCount1Fn().textContent)).toEqual(action1Count + 1));
+  test.event("click", action2Fn, () => Number(actionCount2Fn().textContent) === action2Count + 1);
+  test.do(() => expect(Number(actionCount2Fn().textContent)).toEqual(action2Count + 1));
+  test.event("click", action1Fn, () => Number(actionCount1Fn().textContent) === action1Count + 2);
+  test.do(() => expect(Number(actionCount1Fn().textContent)).toEqual(action1Count + 2));
+  test.event("click", action2Fn, () => Number(actionCount2Fn().textContent) === action2Count + 2);
+  test.do(() => expect(Number(actionCount2Fn().textContent)).toEqual(action2Count + 2));
+  test.start();
 });
-*/
