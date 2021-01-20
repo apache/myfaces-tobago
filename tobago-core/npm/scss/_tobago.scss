@@ -74,7 +74,12 @@ $page-padding-top: 1rem;
 @mixin dropdownMenuFormCheckComponents() {
   .dropdown-menu .form-check {
     /* move form-check components to the right, so checkbox/radio buttons are inside dropdown-menu */
-    padding-left: (($dropdown-item-padding-x ) + ($form-check-padding-start / 1em))
+    $paddingLeftCheckboxRadio: (($dropdown-item-padding-x / 1rem ) + $form-check-padding-start);
+    padding-left: $paddingLeftCheckboxRadio;
+
+    &.form-switch {
+      padding-left: $paddingLeftCheckboxRadio + ($form-switch-width - $form-check-input-width);
+    }
   }
 }
 

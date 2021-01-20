@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFormBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUILink;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanToggle;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyCheckbox;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneRadio;
 import org.apache.myfaces.tobago.internal.component.AbstractUISeparator;
@@ -182,6 +183,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
             renderLater.add(child);
           } else if (child instanceof AbstractUILink
               || child instanceof AbstractUISelectBooleanCheckbox
+              || child instanceof AbstractUISelectBooleanToggle
               || child instanceof AbstractUISelectManyCheckbox
               || child instanceof AbstractUISelectOneRadio
               || child instanceof AbstractUISeparator) {

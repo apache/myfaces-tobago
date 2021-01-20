@@ -36,8 +36,11 @@ public class SelectBooleanToggleRenderer<T extends AbstractUISelectBooleanCheckb
   }
 
   protected CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select) {
+    final boolean insideCommand = isInside(facesContext, HtmlElements.COMMAND);
+    final boolean colFromLabel = !select.isLabelLayoutSkip() && !insideCommand;
     return new CssItem[]{
-        !select.isLabelLayoutSkip() ? BootstrapClass.COL_FORM_LABEL : null,
+        colFromLabel ? BootstrapClass.COL_FORM_LABEL : null,
+        insideCommand ? BootstrapClass.DROPDOWN_ITEM : null,
         BootstrapClass.FORM_SWITCH
     };
   }
