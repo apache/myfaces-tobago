@@ -15,5 +15,8 @@
   "scripts": {
     "build": "echo 'Nothing to do.'",
     "test": "echo 'Skipping'"
+  },
+  "devDependencies": {
+    "bootstrap": "5.0.0-beta1"
   }
 }
