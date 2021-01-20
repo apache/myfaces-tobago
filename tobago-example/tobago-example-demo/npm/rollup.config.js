@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import resolve from "rollup-plugin-node-resolve"
+import resolve from "@rollup/plugin-node-resolve"
 
 export default {
   input: '../src/main/webapp/js/demo-all.js',

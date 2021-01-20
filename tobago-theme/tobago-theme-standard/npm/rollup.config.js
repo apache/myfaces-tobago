@@ -15,7 +15,8 @@
  * limitations under the License.
  */
 
-import resolve from "rollup-plugin-node-resolve"
+import resolve from "@rollup/plugin-node-resolve"
+import replace from '@rollup/plugin-replace';
 
 export default {
   input: 'dist/js/tobago-all.js',
@@ -26,6 +27,9 @@ export default {
     name: 'tobago'
   },
   plugins: [
-    resolve()
-  ]
+    resolve(),
+    replace({
+      // XXX workaround for popper2 included by bootstrap, otherwise be get an error: process is not defined at runtime
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),  ]
 };

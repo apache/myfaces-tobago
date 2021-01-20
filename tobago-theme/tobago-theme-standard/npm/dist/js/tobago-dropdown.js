@@ -22,6 +22,9 @@ const Event = {
     SHOW: "tobago.dropdown.show",
     SHOWN: "tobago.dropdown.shown"
 };
+/**
+ * The dropdown implementation of Bootstrap does not support submenus. Therefore we need an own dropdown implementation.
+ */
 class Dropdown extends HTMLElement {
     constructor() {
         super();
