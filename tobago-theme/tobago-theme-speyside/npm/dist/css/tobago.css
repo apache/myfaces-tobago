@@ -10746,26 +10746,6 @@ textarea.form-control-lg {
 XXX used variables: only for the IDE, will not really used by the build system, because this
 XXX code will be inserted after the _variables.scss
 */
-/*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/*
-XXX used variables: only for the IDE, will not be used by the build system, because this
-XXX code will be inserted after bootstraps _variables.scss
-*/
 /* used icons ---------------------------------------------------- */
 /* non-bootstrap variables --------------------------------------- */
 /* main ---------------------------------------------------------- */
@@ -10910,7 +10890,10 @@ workaround for Bootstrap Modal (Popup) with vanillajs-datepicker
 /* dropdown ------------------------------------------------------- */
 tobago-dropdown .dropdown-menu .form-check {
   /* move form-check components to the right, so checkbox/radio buttons are inside dropdown-menu */
-  padding-left: 2.5rem;
+  padding-left: 2.5em;
+}
+tobago-dropdown .dropdown-menu .form-check.form-switch {
+  padding-left: 3.5em;
 }
 tobago-dropdown.tobago-dropdown-submenu {
   cursor: pointer;
@@ -11329,7 +11312,10 @@ tobago-page {
 }
 .tobago-page-menuStore .dropdown-menu .form-check {
   /* move form-check components to the right, so checkbox/radio buttons are inside dropdown-menu */
-  padding-left: 2.5rem;
+  padding-left: 2.5em;
+}
+.tobago-page-menuStore .dropdown-menu .form-check.form-switch {
+  padding-left: 3.5em;
 }
 
 /* panel ------------------------------------------------------------- */
