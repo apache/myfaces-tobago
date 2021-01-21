@@ -92,7 +92,7 @@ public class TreeIconRenderer<T extends AbstractUITreeIcon> extends RendererBase
         TobagoClass.TREE_NODE__TOGGLE,
         component.getCustomClass());
 
-    if (source != null && source.startsWith("fa-")) {
+    if (Icons.matches(source)) {
       writer.startElement(HtmlElements.I);
       writer.writeClassAttribute(Icons.FA, Icons.custom(source));
       if (folder) {

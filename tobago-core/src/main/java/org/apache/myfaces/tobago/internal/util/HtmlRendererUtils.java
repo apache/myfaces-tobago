@@ -81,7 +81,7 @@ public final class HtmlRendererUtils {
 
   public static void encodeIconOrImage(final TobagoResponseWriter writer, final String image) throws IOException {
     if (image != null) {
-      if (image.startsWith("fa-")) {
+      if (Icons.matches(image)) {
         writer.startElement(HtmlElements.I);
         writer.writeClassAttribute(Icons.FA, Icons.custom(image));
         writer.endElement(HtmlElements.I);
