@@ -44,7 +44,7 @@
           <script type="module" name="/tobago/standard/${project.version}/js/tobago.min.js"/>
           <style name="/webjars/tether/1.4.0/css/tether.min.css"/>
           <style name="/tobago/standard/${project.version}/css/tobago.min.css"/>
-          <style name="/webjars/font-awesome/4.7.0/css/font-awesome.min.css"/>
+          <style name="/tobago/standard/${project.version}/css/font-awesome.min.css"/>
         </includes>
       </resources>
       <resources production="false">
@@ -83,7 +83,7 @@
 -->
           <style name="/webjars/tether/1.4.0/css/tether.css"/>
           <style name="/tobago/standard/${project.version}/css/tobago.css"/>
-          <style name="/webjars/font-awesome/4.7.0/css/font-awesome.css"/>
+          <style name="/tobago/standard/${project.version}/css/font-awesome.css"/>
         </includes>
       </resources>
     </theme-definition>
