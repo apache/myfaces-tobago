@@ -997,6 +997,7 @@
               <!-- local npm for IDE -->
               <exclude>npm/node/**/*</exclude>
               <exclude>npm/node_modules/**/*</exclude>
+              <exclude>npm/dist/**/*</exclude>
 
             </excludes>
           </configuration>
