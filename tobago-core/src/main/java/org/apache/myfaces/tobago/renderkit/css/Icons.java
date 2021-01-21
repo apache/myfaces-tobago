@@ -61,16 +61,21 @@ public enum Icons implements CssItem {
   };
 
   private static final Pattern PATTERN = Pattern.compile("^(fa(-[a-z]+)+)$");
+  private static final String PREFIX = "fa-";
 
-  private String fa;
+  private final String clazz;
 
   Icons() {
-    this.fa = "fa-" + name().toLowerCase().replaceAll("_", "-");
+    this.clazz = PREFIX + name().toLowerCase().replaceAll("_", "-");
   }
 
   @Override
   public String getName() {
-    return fa;
+    return clazz;
+  }
+
+  public static boolean matches(final String value) {
+    return value != null && PATTERN.matcher(value).matches();
   }
 
   public static CssItem custom(final String name) {

@@ -42,13 +42,13 @@ public class ImageRenderer<T extends AbstractUIImage> extends RendererBase<T> {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final String value = component.getUrl();
-    final boolean fontAwesome = value != null && value.startsWith("fa-");
+    final boolean isIcon = Icons.matches(value);
     final boolean disabled = component.isDisabled()
         || (component.getParent() instanceof AbstractUICommandBase
         && ((AbstractUICommandBase) component.getParent()).isDisabled());
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     final Markup markup = component.getMarkup();
-    if (fontAwesome) {
+    if (isIcon) {
       writer.startElement(HtmlElements.I);
       writer.writeIdAttribute(component.getClientId(facesContext));
       writer.writeClassAttribute(
