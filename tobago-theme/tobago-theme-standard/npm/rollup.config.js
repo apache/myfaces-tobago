@@ -15,7 +15,10 @@
  * limitations under the License.
  */
 
-import resolve from "@rollup/plugin-node-resolve"
+import resolve from "rollup-plugin-node-resolve"
+// fixme: "@rollup/plugin-node-resolve" is the new version of "rollup-plugin-node-resolve", but doesn't work with
+// the vaillajs-datepicker
+// import resolve from "@rollup/plugin-node-resolve"
 import replace from '@rollup/plugin-replace';
 
 export default {
