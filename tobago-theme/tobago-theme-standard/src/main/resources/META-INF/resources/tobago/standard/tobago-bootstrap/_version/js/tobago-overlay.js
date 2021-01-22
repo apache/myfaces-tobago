@@ -52,8 +52,6 @@ Tobago.Config.set("Ajax", "waitOverlayDelay", 1000);
       this.overlay = jQuery("<div>").addClass("tobago-page-overlay");
       if (this.options.error) {
         this.overlay.addClass("tobago-page-overlay-markup-error");
-      } else {
-        this.overlay.addClass("tobago-page-overlay-markup-wait");
       }
 
       var overlayOffset = {};
