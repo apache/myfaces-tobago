@@ -685,10 +685,6 @@ li.tobago-menu-markup-selected {
   z-index: 10000;
 }
 
-.tobago-page-overlay-markup-wait {
-  cursor: wait;
-}
-
 .tobago-page-overlay-markup-error {
   cursor: default;
 }
