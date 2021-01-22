@@ -48,7 +48,7 @@ export class Overlay {
         // create the overlay
         this.overlay = document.createElement("div");
         this.overlay.classList.add("tobago-page-overlay");
-        this.overlay.classList.add(this.error ? "tobago-page-overlay-markup-error" : "tobago-page-overlay-markup-wait");
+        this.overlay.classList.add(this.error ? "tobago-page-overlay-markup-error" : null);
         let left = "0";
         let top = "0";
         if (this.element.matches("body")) {

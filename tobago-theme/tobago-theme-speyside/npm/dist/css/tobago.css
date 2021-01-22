@@ -11260,10 +11260,6 @@ tobago-page {
   opacity: 0.8;
 }
 
-.tobago-page-overlay-markup-wait {
-  cursor: wait;
-}
-
 .tobago-page-overlay-markup-error {
   cursor: default;
 }
