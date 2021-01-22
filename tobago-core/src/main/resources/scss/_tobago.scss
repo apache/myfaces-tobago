@@ -705,10 +705,6 @@ span.tobago-out:empty:before {
   z-index: 500; /* less than the bootstrap navbar */
 }
 
-.tobago-page-overlay-markup-wait {
-  cursor: wait;
-}
-
 .tobago-page-overlay-markup-error {
   cursor: default;
 }
