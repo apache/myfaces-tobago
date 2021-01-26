@@ -24,12 +24,17 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 public interface HasRowLayout {
   /**
+   * <p>
    * This value defines the layout constraints for row layout.
-   * It is a semicolon separated list of layout tokens '[&lt;n&gt;]*', '&lt;n&gt;px' or 'auto'.
-   * Where &lt;n&gt; is a non negative integer and the square brackets means optional.
-   * Example: '2*;*;100px;auto'.
+   * It is a space separated list of layout tokens '&lt;n&gt;fr', '&lt;measure&gt;' or the keyword 'auto'.
+   * Where &lt;n&gt; is a positive integer and &lt;measure&gt; is a valid CSS length.
+   * Example: '2fr 1fr 100px 3rem auto'.
+   * </p>
+   * <p>
+   * Deprecated: The old syntax for "2fr" is "2*". The old name for "auto" is "fixed".
+   * </p>
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "1*")
+  @UIComponentTagAttribute(defaultValue = "1fr")
   void setRows(String rows);
 }
