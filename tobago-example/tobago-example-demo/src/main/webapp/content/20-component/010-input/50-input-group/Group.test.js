@@ -37,36 +37,36 @@ it("ajax: chat send button", function (done) {
 it("ajax: dropdown button", function (done) {
   let buttonFn = querySelectorFn("#page\\:mainForm\\:lsendtoc\\:\\:command");
   let buttonLabelFn = querySelectorFn("#page\\:mainForm\\:lsendtoc\\:\\:command span");
+  let dropdownMenu = querySelectorFn(".dropdown-menu[name='page:mainForm:lsendtoc']");
   let sendToPeterFn = querySelectorFn("#page\\:mainForm\\:sendToPeter");
   let sendToBobFn = querySelectorFn("#page\\:mainForm\\:sendToBob");
   let sendToAllFn = querySelectorFn("#page\\:mainForm\\:sendToAll");
 
   const test = new JasmineTestTool(done);
-  test.do(() => fail("not implemented yet; fix dropdown first"));
-  /*TTT.action(function () {
-    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
-    sendToPeterFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(buttonLabelFn().textContent, "SendTo: Peter");
-  });
-  TTT.action(function () {
-    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
-    sendToBobFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(buttonLabelFn().textContent, "SendTo: Bob");
-  });
-  TTT.action(function () {
-    buttonFn().dispatchEvent(new Event("click", {bubbles: true}));
-    sendToAllFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(buttonLabelFn().textContent, "SendTo: All");
-  });*/
+  test.setup(() => !dropdownMenu().parentElement.classList.contains("tobago-page-menuStore"),
+      null, "click", buttonFn);
+  test.setup(() => buttonLabelFn().textContent !== "SendTo: Peter",
+      null, "click", sendToAllFn);
+  test.do(() => expect(dropdownMenu().parentElement.classList).not.toContain("tobago-page-menuStore"));
+  test.do(() => expect(buttonLabelFn().textContent).not.toBe("SendTo: Peter"));
+
+  test.event("click", buttonFn, () => dropdownMenu().parentElement.classList.contains("tobago-page-menuStore"));
+  test.do(() => expect(dropdownMenu().parentElement.classList).toContain("tobago-page-menuStore"));
+  test.event("click", sendToPeterFn, () => buttonLabelFn().textContent === "SendTo: Peter");
+  test.do(() => expect(dropdownMenu().parentElement.classList).not.toContain("tobago-page-menuStore"));
+  test.do(() => expect(buttonLabelFn().textContent).toBe("SendTo: Peter"));
+
+  test.event("click", buttonFn, () => dropdownMenu().parentElement.classList.contains("tobago-page-menuStore"));
+  test.do(() => expect(dropdownMenu().parentElement.classList).toContain("tobago-page-menuStore"));
+  test.event("click", sendToBobFn, () => buttonLabelFn().textContent === "SendTo: Bob");
+  test.do(() => expect(dropdownMenu().parentElement.classList).not.toContain("tobago-page-menuStore"));
+  test.do(() => expect(buttonLabelFn().textContent).toBe("SendTo: Bob"));
+
+  test.event("click", buttonFn, () => dropdownMenu().parentElement.classList.contains("tobago-page-menuStore"));
+  test.do(() => expect(dropdownMenu().parentElement.classList).toContain("tobago-page-menuStore"));
+  test.event("click", sendToAllFn, () => buttonLabelFn().textContent === "SendTo: All");
+  test.do(() => expect(dropdownMenu().parentElement.classList).not.toContain("tobago-page-menuStore"));
+  test.do(() => expect(buttonLabelFn().textContent).toBe("SendTo: All"));
   test.start();
 });
 
@@ -77,8 +77,7 @@ it("ajax: currency change event", function (done) {
   let outputFn = querySelectorFn("#page\\:mainForm\\:valueInEuro tobago-out");
 
   const test = new JasmineTestTool(done);
-  test.setup(() => parseInt(inputFn().value.replaceAll(".", "")) === 1000
-      && outputFn().textContent === "1.000,00",
+  test.setup(() => convertInt(outputFn().textContent) === 100000,
       () => {
         inputFn().value = "1000";
         optionsFn().item(0).selected = false; // Yen
@@ -93,23 +92,30 @@ it("ajax: currency change event", function (done) {
   test.do(() => optionsFn().item(1).selected = false); // Trinidad-Tobago Dollar
   test.do(() => optionsFn().item(2).selected = false); // US Dollar
   test.do(() => optionsFn().item(3).selected = false); // Euro
-  test.event("change", selectFn, () => outputFn().textContent === "8,85");
-  test.do(() => expect(outputFn().textContent).toBe("8,85"));
+  test.event("change", selectFn, () => convertInt(outputFn().textContent) === 885);
+  test.do(() => expect(convertInt(outputFn().textContent)).toBe(885));
 
   test.do(() => inputFn().value = "2000");
   test.do(() => optionsFn().item(0).selected = false); // Yen
   test.do(() => optionsFn().item(1).selected = true); // Trinidad-Tobago Dollar
   test.do(() => optionsFn().item(2).selected = false); // US Dollar
   test.do(() => optionsFn().item(3).selected = false); // Euro
-  test.event("change", selectFn, () => outputFn().textContent === "267,50");
-  test.do(() => expect(outputFn().textContent).toBe("267,50"));
+  test.event("change", selectFn, () => convertInt(outputFn().textContent) === 26750);
+  test.do(() => expect(convertInt(outputFn().textContent)).toBe(26750));
 
   test.do(() => inputFn().value = "3000");
   test.do(() => optionsFn().item(0).selected = false); // Yen
   test.do(() => optionsFn().item(1).selected = false); // Trinidad-Tobago Dollar
   test.do(() => optionsFn().item(2).selected = true); // US Dollar
   test.do(() => optionsFn().item(3).selected = false); // Euro
-  test.event("change", selectFn, () => outputFn().textContent === "2.688,29");
-  test.do(() => expect(outputFn().textContent).toBe("2.688,29"));
+  test.event("change", selectFn, () => convertInt(outputFn().textContent) === 268829);
+  test.do(() => expect(convertInt(outputFn().textContent)).toBe(268829));
   test.start();
 });
+
+/**
+ * need this function, because chrome displays "1.000,00" and firefox displays "1,000.00"
+ */
+function convertInt(string) {
+  return parseInt(string.replaceAll(",", "").replaceAll(".", ""));
+}
