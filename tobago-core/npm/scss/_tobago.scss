@@ -287,6 +287,8 @@ workaround for Bootstrap Modal (Popup) with vanillajs-datepicker
 
 /* dropdown ------------------------------------------------------- */
 tobago-dropdown {
+  display: inline-block; //make tobago-dropdown height the same the inner button. Important for dropdown-menu position
+
   @include dropdownMenuFormCheckComponents();
 
   &.tobago-dropdown-submenu {

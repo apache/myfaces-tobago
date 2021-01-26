@@ -107,7 +107,8 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
     if (parentOfCommands) {
-      writer.writeAttribute(DataAttributes.TOGGLE, "dropdown", false);
+      writer.writeAttribute(DataAttributes.BS_TOGGLE, "dropdown", false);
+      writer.writeAttribute(Arias.EXPANDED, Boolean.FALSE.toString(), false);
     }
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
