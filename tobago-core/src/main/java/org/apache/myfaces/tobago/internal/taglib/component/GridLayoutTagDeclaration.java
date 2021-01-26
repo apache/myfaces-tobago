@@ -33,65 +33,16 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 /**
- * <p>
- * WARNING: This component is preliminary and may be changed without a major release.
- * </p>
- *
- * Renders a GridLayout.
+ * Renders a grid-layout. The grid is defined by the columns and rows attributes. You can adjust the
+ * widths of the columns and rows by value of the tokens. The number of tokens describe the number of
+ * columns and rows.
  * <pre>
  * columns/rows ::= LAYOUT
  * LAYOUT       ::= TOKEN [" " TOKEN]+
- * TOKEN        ::= AUTO | PIXEL | PROPORTIONAL
- * AUTO         ::= "auto" | "fixed"
- * PIXEL        ::= NUMBER "px"
- * PROPORTIONAL ::= NUMBER "fr"
+ * TOKEN        ::= "auto" | MEASURE | FRACTION
+ * MEASURE      ::= [NUMBER] ("px" | "em" | "ex" | "rem" | ...)
+ * FRACTION     ::= [POSITIVE_INTEGER] "fr"
  * </pre>
- * <table border="1">
- * <caption>GridLayout</caption>
- * <tr>
- * <th>Parent</th>
- * <th>Child</th>
- * <th>Okay?</th>
- * <th>Remarks</th>
- * </tr>
- * <tr>
- * <td>AUTO</td>
- * <td>any combination of AUTO or PIXEL but no PROPORTIONAL</td>
- * <td>okay</td>
- * <td>-</td>
- * </tr>
- * <tr>
- * <td>AUTO</td>
- * <td>any combination with at least one PROPORTIONAL</td>
- * <td>wrong</td>
- * <td>Layout manager cannot compute the auto value.</td>
- * </tr>
- * <tr>
- * <td>PIXEL</td>
- * <td>any combination of AUTO or PIXEL but no PROPORTIONAL</td>
- * <td>potentially wrong</td>
- * <td>The values depend on each other, the programmer has to keep consistency manually.</td>
- * </tr>
- * <tr>
- * <td>PIXEL</td>
- * <td>any combination with at least one PROPORTIONAL</td>
- * <td>okay</td>
- * <td>-</td>
- * </tr>
- * <tr>
- * <td>PROPORTIONAL</td>
- * <td>any combination of AUTO or PIXEL but no PROPORTIONAL</td>
- * <td>potentially wrong</td>
- * <td>No automatic matching:<ul><li>too little space: scroll bar</li>
- * <li>too much space: elements will be spread.</li></ul></td>
- * </tr>
- * <tr>
- * <td>PROPORTIONAL</td>
- * <td>any combination with at least one PROPORTIONAL</td>
- * <td>okay</td>
- * <td>-</td>
- * </tr>
- * </table>
  */
 @Preliminary
 @Tag(name = "gridLayout")
