@@ -29,12 +29,10 @@ QUnit.test("wait for test", function (assert) {
   var done = assert.async();
 
   var startTime = new Date().getTime();
-  var contentWindowName = "";
-  var waitingDone = false;
   var interval = setInterval(function () {
-    contentWindowName = document.getElementById("page:testframe").contentWindow.name;
-    waitingDone = (contentWindowName !== "page:testframe" && contentWindowName !== "ds-tempWindowId")
-        || new RegExp('[\?&]base=([^&#]*)').exec(window.location.href)[1].indexOf("error%2F") === 0;
+    // checks every 50 ms, if the document is ready loaded (max 20 s)
+    var readyState = document.getElementById("page:testframe").contentWindow.document.readyState;
+    var waitingDone = readyState === "complete";
     if (new Date().getTime() - startTime >= 20000 || waitingDone) {
       clearInterval(interval);
       assert.ok(waitingDone);
