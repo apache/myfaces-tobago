@@ -247,7 +247,7 @@ public final class RenderUtils {
       url = viewHandler.getBookmarkableURL(
           facesContext,
           outcome,
-          null,
+          Collections.emptyMap(),
           true);
     } else if (link != null) {
       if (StringUtils.isUrl(link)) { // external link
