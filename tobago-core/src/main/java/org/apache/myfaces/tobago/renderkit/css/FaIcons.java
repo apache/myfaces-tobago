@@ -26,10 +26,9 @@ import java.lang.invoke.MethodHandles;
 import java.util.regex.Pattern;
 
 /**
- * @deprecated since 5.0.0, please use {@link FaIcons}. (Was renamed.)
+ * This is a list of used font-awesome icons in Tobago. Feel free to extend.
  */
-@Deprecated
-public enum Icons implements CssItem {
+public enum FaIcons implements CssItem {
 
   ANGLE_DOUBLE_LEFT,
   ANGLE_DOUBLE_RIGHT,
@@ -40,6 +39,7 @@ public enum Icons implements CssItem {
   BACKWARD,
   BARS,
   CALENDAR,
+  CLOSE,
   CLOCK_O,
   ELLIPSIS_H,
   EXCLAMATION,
@@ -66,7 +66,7 @@ public enum Icons implements CssItem {
 
   private final String clazz;
 
-  Icons() {
+  FaIcons() {
     this.clazz = PREFIX + name().toLowerCase().replaceAll("_", "-");
   }
 

@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUITreeNodeBase;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Icons;
+import org.apache.myfaces.tobago.renderkit.css.FaIcons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -71,11 +71,11 @@ public class TreeIndentRenderer<T extends AbstractUITreeIndent> extends Renderer
     }
     writer.startElement(HtmlElements.I);
     if (folder) {
-      writer.writeClassAttribute(Icons.FA, expanded ? Icons.MINUS_SQUARE_O : Icons.PLUS_SQUARE_O);
-      writer.writeAttribute(DataAttributes.OPEN, Icons.MINUS_SQUARE_O.getName(), false);
-      writer.writeAttribute(DataAttributes.CLOSED, Icons.PLUS_SQUARE_O.getName(), false);
+      writer.writeClassAttribute(FaIcons.FA, expanded ? FaIcons.MINUS_SQUARE_O : FaIcons.PLUS_SQUARE_O);
+      writer.writeAttribute(DataAttributes.OPEN, FaIcons.MINUS_SQUARE_O.getName(), false);
+      writer.writeAttribute(DataAttributes.CLOSED, FaIcons.PLUS_SQUARE_O.getName(), false);
     } else {
-      writer.writeClassAttribute(Icons.FA, Icons.SQUARE_O, BootstrapClass.INVISIBLE);
+      writer.writeClassAttribute(FaIcons.FA, FaIcons.SQUARE_O, BootstrapClass.INVISIBLE);
     }
     writer.endElement(HtmlElements.I);
   }

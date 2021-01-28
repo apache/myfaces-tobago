@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
-import org.apache.myfaces.tobago.renderkit.css.Icons;
+import org.apache.myfaces.tobago.renderkit.css.FaIcons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -100,12 +100,12 @@ public class DateRenderer<T extends AbstractUIDate> extends InRenderer<T> {
 
     if (hasDate || !hasTime) { //  || !hasTime is, to have at least one icon
       writer.startElement(HtmlElements.I);
-      writer.writeClassAttribute(Icons.FA, Icons.CALENDAR);
+      writer.writeClassAttribute(FaIcons.FA, FaIcons.CALENDAR);
       writer.endElement(HtmlElements.I);
     }
     if (hasTime) {
       writer.startElement(HtmlElements.I);
-      writer.writeClassAttribute(Icons.FA, Icons.CLOCK_O);
+      writer.writeClassAttribute(FaIcons.FA, FaIcons.CLOCK_O);
       writer.endElement(HtmlElements.I);
     }
 

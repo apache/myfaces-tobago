@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyShuttle;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Icons;
+import org.apache.myfaces.tobago.renderkit.css.FaIcons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
@@ -102,13 +102,13 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(TobagoClass.SELECT_MANY_SHUTTLE__TOOL_BAR, BootstrapClass.BTN_GROUP_VERTICAL);
     createButton(facesContext, component, writer, disabled | readonly,
-        Icons.ANGLE_DOUBLE_RIGHT, "addAll", TobagoClass.SELECT_MANY_SHUTTLE__ADD_ALL);
+        FaIcons.ANGLE_DOUBLE_RIGHT, "addAll", TobagoClass.SELECT_MANY_SHUTTLE__ADD_ALL);
     createButton(facesContext, component, writer, disabled | readonly,
-        Icons.ANGLE_RIGHT, "add", TobagoClass.SELECT_MANY_SHUTTLE__ADD);
+        FaIcons.ANGLE_RIGHT, "add", TobagoClass.SELECT_MANY_SHUTTLE__ADD);
     createButton(facesContext, component, writer, disabled | readonly,
-        Icons.ANGLE_LEFT, "remove", TobagoClass.SELECT_MANY_SHUTTLE__REMOVE);
+        FaIcons.ANGLE_LEFT, "remove", TobagoClass.SELECT_MANY_SHUTTLE__REMOVE);
     createButton(facesContext, component, writer, disabled | readonly,
-        Icons.ANGLE_DOUBLE_LEFT, "removeAll", TobagoClass.SELECT_MANY_SHUTTLE__REMOVE_ALL);
+        FaIcons.ANGLE_DOUBLE_LEFT, "removeAll", TobagoClass.SELECT_MANY_SHUTTLE__REMOVE_ALL);
     writer.endElement(HtmlElements.DIV);
     final String selectedLabel = component.getSelectedLabel();
     if (selectedLabel != null) {
@@ -158,14 +158,14 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
 
   private void createButton(
       final FacesContext context, final UIComponent component, final TobagoResponseWriter writer,
-      final boolean disabled, final Icons icon, final String sub, final TobagoClass cssClass) throws IOException {
+      final boolean disabled, final FaIcons icon, final String sub, final TobagoClass cssClass) throws IOException {
     writer.startElement(HtmlElements.BUTTON);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     writer.writeClassAttribute(cssClass, BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);
     writer.writeIdAttribute(component.getClientId(context) + ComponentUtils.SUB_SEPARATOR + sub);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.startElement(HtmlElements.I);
-    writer.writeClassAttribute(Icons.FA, icon);
+    writer.writeClassAttribute(FaIcons.FA, icon);
     writer.endElement(HtmlElements.I);
     writer.endElement(HtmlElements.BUTTON);
   }
