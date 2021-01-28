@@ -33,7 +33,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.ValidatorTag;
 import org.apache.myfaces.tobago.apt.generate.ClassUtils;
-import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -60,6 +59,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -76,6 +76,22 @@ import java.util.Set;
 public class TaglibGenerator extends AbstractGenerator {
 
   static final String TARGET_TAGLIB = "targetTaglib";
+
+  static final String LICENSE = "\n"
+      + " * Licensed to the Apache Software Foundation (ASF) under one or more\n"
+      + " * contributor license agreements.  See the NOTICE file distributed with\n"
+      + " * this work for additional information regarding copyright ownership.\n"
+      + " * The ASF licenses this file to You under the Apache License, Version 2.0\n"
+      + " * (the \"License\"); you may not use this file except in compliance with\n"
+      + " * the License.  You may obtain a copy of the License at\n"
+      + " *\n"
+      + " *      http://www.apache.org/licenses/LICENSE-2.0\n"
+      + " *\n"
+      + " * Unless required by applicable law or agreed to in writing, software\n"
+      + " * distributed under the License is distributed on an \"AS IS\" BASIS,\n"
+      + " * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n"
+      + " * See the License for the specific language governing permissions and\n"
+      + " * limitations under the License.\n";
 
   private Set<String> tagSet = new HashSet<>();
   private Set<String> attributeSet = new HashSet<>();
@@ -114,21 +130,19 @@ public class TaglibGenerator extends AbstractGenerator {
     final DocumentBuilder parser = dbf.newDocumentBuilder();
     final Document document = parser.newDocument();
 
+    addComment(LICENSE, document);
+
     final Element taglib = createTaglib(document, taglibAnnotation);
     final String description = processingEnv.getElementUtils().getDocComment(packageElement);
 
-    addComment("The next tags are commented because of MYFACES-3537. "
-        + "The application will not run with MyFaces before 2.0.14/2.1.8. "
-        + "This also affects WebSphere 8.5", taglib, document);
-    addComment("<description>" + description + "</description>", taglib, document);
-    addComment("<display-name>" + taglibAnnotation.displayName() + "</display-name>", taglib, document);
+    addComment("Generated at " + new Date(), taglib, document);
 
     if (description != null) {
       addLeafCDATAElement(description, "description", taglib, document);
     }
     addLeafTextElement(taglibAnnotation.displayName(), "display-name", taglib, document);
-
     addLeafTextElement(taglibAnnotation.uri(), "namespace", taglib, document);
+    addLeafTextElement(taglibAnnotation.shortName(), "short-name", taglib, document);
 
     // XXX hack: should be configurable or generated from annotations.
     if ("http://myfaces.apache.org/tobago/component".equals(taglibAnnotation.uri())) {
@@ -435,9 +449,12 @@ public class TaglibGenerator extends AbstractGenerator {
     }
   }
 
+  protected void addComment(final String text, final Document document) {
+    document.appendChild(document.createComment(text));
+  }
+
   protected void addComment(final String text, final Element parent, final Document document) {
-    final Comment comment = document.createComment(text);
-    parent.appendChild(comment);
+    parent.appendChild(document.createComment(text));
   }
 
   protected void addLeafTextElement(
@@ -458,11 +475,11 @@ public class TaglibGenerator extends AbstractGenerator {
     final Element taglib;
     taglib = document.createElement("facelet-taglib");
     taglib.setAttribute("id", taglibAnnotation.shortName());
-    taglib.setAttribute("xmlns", "http://java.sun.com/xml/ns/javaee");
+    taglib.setAttribute("xmlns", "http://xmlns.jcp.org/xml/ns/javaee");
     taglib.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
     taglib.setAttribute("xsi:schemaLocation",
-        "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd");
-    taglib.setAttribute("version", "2.0");
+        "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_3.xsd");
+    taglib.setAttribute("version", "2.3");
     return taglib;
   }
 
