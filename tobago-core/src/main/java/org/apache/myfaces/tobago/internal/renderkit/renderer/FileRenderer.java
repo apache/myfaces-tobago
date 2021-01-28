@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.HttpPartWrapper;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.Icons;
+import org.apache.myfaces.tobago.renderkit.css.FaIcons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -176,7 +176,7 @@ public class FileRenderer<T extends AbstractUIFile>
     writer.writeAttribute(HtmlAttributes.FOR, fieldId, false);
     writer.startElement(HtmlElements.SPAN);
     writer.startElement(HtmlElements.I);
-    writer.writeClassAttribute(Icons.FA, Icons.FOLDER_OPEN);
+    writer.writeClassAttribute(FaIcons.FA, FaIcons.FOLDER_OPEN);
     writer.endElement(HtmlElements.I);
     writer.endElement(HtmlElements.SPAN);
     writer.endElement(HtmlElements.LABEL);

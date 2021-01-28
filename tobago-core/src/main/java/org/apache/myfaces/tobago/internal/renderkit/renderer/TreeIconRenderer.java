@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUITreeIcon;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.css.Icons;
+import org.apache.myfaces.tobago.renderkit.css.FaIcons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -92,9 +92,9 @@ public class TreeIconRenderer<T extends AbstractUITreeIcon> extends RendererBase
         TobagoClass.TREE_NODE__TOGGLE,
         component.getCustomClass());
 
-    if (Icons.matches(source)) {
+    if (FaIcons.matches(source)) {
       writer.startElement(HtmlElements.I);
-      writer.writeClassAttribute(Icons.FA, Icons.custom(source));
+      writer.writeClassAttribute(FaIcons.FA, FaIcons.custom(source));
       if (folder) {
         writer.writeAttribute(DataAttributes.OPEN, open, true);
         writer.writeAttribute(DataAttributes.CLOSED, closed, true);

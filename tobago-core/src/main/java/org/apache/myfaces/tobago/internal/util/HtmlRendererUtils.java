@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.css.Icons;
+import org.apache.myfaces.tobago.renderkit.css.FaIcons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -81,9 +81,9 @@ public final class HtmlRendererUtils {
 
   public static void encodeIconOrImage(final TobagoResponseWriter writer, final String image) throws IOException {
     if (image != null) {
-      if (Icons.matches(image)) {
+      if (FaIcons.matches(image)) {
         writer.startElement(HtmlElements.I);
-        writer.writeClassAttribute(Icons.FA, Icons.custom(image));
+        writer.writeClassAttribute(FaIcons.FA, FaIcons.custom(image));
         writer.endElement(HtmlElements.I);
       } else {
         writer.startElement(HtmlElements.IMG);

@@ -56,7 +56,7 @@ import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
-import org.apache.myfaces.tobago.renderkit.css.Icons;
+import org.apache.myfaces.tobago.renderkit.css.FaIcons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -426,15 +426,15 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         if (component.isShowDirectLinksArrows()) {
           final boolean disabled = component.isAtBeginning();
           encodeLink(
-              facesContext, component, application, disabled, SheetAction.first, null, Icons.STEP_BACKWARD, null);
-          encodeLink(facesContext, component, application, disabled, SheetAction.prev, null, Icons.BACKWARD, null);
+              facesContext, component, application, disabled, SheetAction.first, null, FaIcons.STEP_BACKWARD, null);
+          encodeLink(facesContext, component, application, disabled, SheetAction.prev, null, FaIcons.BACKWARD, null);
         }
         encodeDirectPagingLinks(facesContext, application, component);
         if (component.isShowDirectLinksArrows()) {
           final boolean disabled = component.isAtEnd();
-          encodeLink(facesContext, component, application, disabled, SheetAction.next, null, Icons.FORWARD, null);
+          encodeLink(facesContext, component, application, disabled, SheetAction.next, null, FaIcons.FORWARD, null);
           encodeLink(facesContext, component, application, disabled || !component.hasRowCount(), SheetAction.last, null,
-              Icons.STEP_FORWARD, null);
+              FaIcons.STEP_FORWARD, null);
         }
         writer.endElement(HtmlElements.UL);
       }
@@ -452,8 +452,8 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         if (component.isShowPageRangeArrows()) {
           final boolean disabled = component.isAtBeginning();
           encodeLink(
-              facesContext, component, application, disabled, SheetAction.first, null, Icons.STEP_BACKWARD, null);
-          encodeLink(facesContext, component, application, disabled, SheetAction.prev, null, Icons.BACKWARD, null);
+              facesContext, component, application, disabled, SheetAction.first, null, FaIcons.STEP_BACKWARD, null);
+          encodeLink(facesContext, component, application, disabled, SheetAction.prev, null, FaIcons.BACKWARD, null);
         }
         writer.startElement(HtmlElements.LI);
         writer.writeClassAttribute(BootstrapClass.PAGE_ITEM);
@@ -503,9 +503,9 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         writer.endElement(HtmlElements.LI);
         if (component.isShowPageRangeArrows()) {
           final boolean disabled = component.isAtEnd();
-          encodeLink(facesContext, component, application, disabled, SheetAction.next, null, Icons.FORWARD, null);
+          encodeLink(facesContext, component, application, disabled, SheetAction.next, null, FaIcons.FORWARD, null);
           encodeLink(facesContext, component, application, disabled || !component.hasRowCount(), SheetAction.last, null,
-              Icons.STEP_FORWARD, null);
+              FaIcons.STEP_FORWARD, null);
         }
         writer.endElement(HtmlElements.UL);
       }
@@ -1052,7 +1052,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
   private void encodeLink(
       final FacesContext facesContext, final AbstractUISheet data, final Application application,
-      final boolean disabled, final SheetAction action, final Integer target, final Icons icon, final CssItem liClass)
+      final boolean disabled, final SheetAction action, final Integer target, final FaIcons icon, final CssItem liClass)
       throws IOException {
 
     final String facet = action == SheetAction.toPage || action == SheetAction.toRow
@@ -1078,7 +1078,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     if (icon != null) {
       writer.startElement(HtmlElements.I);
-      writer.writeClassAttribute(Icons.FA, icon);
+      writer.writeClassAttribute(FaIcons.FA, icon);
       writer.endElement(HtmlElements.I);
     } else {
       writer.writeText(String.valueOf(target));
@@ -1154,7 +1154,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       if (skip < 1) {
         skip = 1;
       }
-      encodeLink(facesContext, sheet, application, false, SheetAction.toPage, skip, Icons.ELLIPSIS_H, null);
+      encodeLink(facesContext, sheet, application, false, SheetAction.toPage, skip, FaIcons.ELLIPSIS_H, null);
     }
     for (final Integer prev : prevs) {
       encodeLink(facesContext, sheet, application, false, SheetAction.toPage, prev, null, null);
@@ -1173,7 +1173,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       if (skip > pages) {
         skip = pages;
       }
-      encodeLink(facesContext, sheet, application, false, SheetAction.toPage, skip, Icons.ELLIPSIS_H, null);
+      encodeLink(facesContext, sheet, application, false, SheetAction.toPage, skip, FaIcons.ELLIPSIS_H, null);
     }
   }
 

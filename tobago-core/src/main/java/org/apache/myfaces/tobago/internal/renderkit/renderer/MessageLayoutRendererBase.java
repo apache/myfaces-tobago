@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
-import org.apache.myfaces.tobago.renderkit.css.Icons;
+import org.apache.myfaces.tobago.renderkit.css.FaIcons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -105,11 +105,11 @@ public abstract class MessageLayoutRendererBase<T extends UIComponent & Supports
       if (hasMessage) {
         encodePopover(writer,
             BootstrapClass.buttonColor(ComponentUtils.getMaximumSeverity(messages)),
-            Icons.EXCLAMATION, getTitle(messages), getMessage(messages), tabIndex);
+            FaIcons.EXCLAMATION, getTitle(messages), getMessage(messages), tabIndex);
       }
       if (hasHelp) {
         encodePopover(writer,
-            BootstrapClass.BTN_OUTLINE_INFO, Icons.QUESTION,
+            BootstrapClass.BTN_OUTLINE_INFO, FaIcons.QUESTION,
             ResourceUtils.getString(facesContext, "help.title"), help, tabIndex);
       }
       writer.endElement(HtmlElements.DIV);
@@ -206,9 +206,9 @@ public abstract class MessageLayoutRendererBase<T extends UIComponent & Supports
     return stringBuilder.toString();
   }
 
-  private void encodePopover(final TobagoResponseWriter writer,
-      final CssItem buttonColor, final Icons buttonIcon, final String title, final String content,
-      final Integer tabIndex)
+  private void encodePopover(
+      final TobagoResponseWriter writer, final CssItem buttonColor, final FaIcons buttonIcon, final String title,
+      final String content, final Integer tabIndex)
       throws IOException {
     writer.startElement(HtmlElements.TOBAGO_POPOVER);
     writer.writeAttribute(DataAttributes.BS_TOGGLE, "popover", false);
@@ -221,7 +221,7 @@ public abstract class MessageLayoutRendererBase<T extends UIComponent & Supports
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlButtonTypes.BUTTON);
     writer.writeClassAttribute(BootstrapClass.BTN, buttonColor);
     writer.startElement(HtmlElements.I);
-    writer.writeClassAttribute(Icons.FA, buttonIcon);
+    writer.writeClassAttribute(FaIcons.FA, buttonIcon);
     writer.endElement(HtmlElements.I);
     writer.endElement(HtmlElements.A);
 
