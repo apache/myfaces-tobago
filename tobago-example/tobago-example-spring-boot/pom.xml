@@ -31,7 +31,7 @@
 
     <properties>
         <joinfaces.version>4.3.6</joinfaces.version>
-        <spring-boot.version>2.4.0</spring-boot.version>
+        <spring-boot.version>2.4.2</spring-boot.version>
     </properties>
 
 
@@ -128,6 +128,8 @@
                     <groupId>org.glassfish</groupId>
                     <artifactId>jakarta.el</artifactId>
                 </exclusion>
+            <!-- tomcat version set were: fix CVE in tomcat-spring-boot-starter -->
+<!--
                 <exclusion>
                     <groupId>org.apache.tomcat.embed</groupId>
                     <artifactId>tomcat-embed-core</artifactId>
@@ -140,24 +142,27 @@
                     <groupId>org.apache.tomcat.embed</groupId>
                     <artifactId>tomcat-embed-websocket</artifactId>
                 </exclusion>
+-->
             </exclusions>
         </dependency>
-        <dependency> <!-- fix CVE in tomcat-spring-boot-starter -->
+        <!-- tomcat version set ware: fix CVE in tomcat-spring-boot-starter -->
+<!--
+        <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
-            <version>9.0.40</version>
+            <version>9.0.41</version>
         </dependency>
-        <dependency> <!-- fix CVE in tomcat-spring-boot-starter -->
+        <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
-            <version>9.0.40</version>
+            <version>9.0.41</version>
         </dependency>
-        <dependency> <!-- fix CVE in tomcat-spring-boot-starter -->
+        <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-websocket</artifactId>
-            <version>9.0.40</version>
+            <version>9.0.41</version>
         </dependency>
-
+-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
