@@ -11158,6 +11158,9 @@ workaround for Bootstrap Modal (Popup) with vanillajs-datepicker
 }
 
 /* dropdown ------------------------------------------------------- */
+tobago-dropdown {
+  display: inline-block;
+}
 tobago-dropdown .dropdown-menu .form-check {
   /* move form-check components to the right, so checkbox/radio buttons are inside dropdown-menu */
   padding-left: 2.5em;
