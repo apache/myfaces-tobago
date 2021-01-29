@@ -15,8 +15,6 @@
  * limitations under the License.
  */
 
-import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("not implemented yet", function (done) {
