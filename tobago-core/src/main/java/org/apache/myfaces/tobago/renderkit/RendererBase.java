@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.myfaces.tobago.component.ClientBehaviors;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
@@ -178,6 +179,18 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
   }
 
   protected boolean isInside(final FacesContext facesContext, final HtmlElements inside) {
+    return facesContext.getAttributes().get(inside) != null;
+  }
+
+  protected void insideBegin(final FacesContext facesContext, final Facets inside) {
+    facesContext.getAttributes().put(inside, Boolean.TRUE);
+  }
+
+  protected void insideEnd(final FacesContext facesContext, final Facets inside) {
+    facesContext.getAttributes().remove(inside);
+  }
+
+  protected boolean isInside(final FacesContext facesContext, final Facets inside) {
     return facesContext.getAttributes().get(inside) != null;
   }
 

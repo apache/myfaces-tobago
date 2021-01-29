@@ -462,6 +462,19 @@ tobago-in {
 
   .input-group {
 
+    > tobago-dropdown {
+      /* fix corner styling, because tobago-dropdown use a surrounding container inside an input group */
+      &:not(:last-child) > .tobago-button {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      &:not(:first-child) > .tobago-button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+
     tobago-select-one-choice {
       /* fix style for surrounding container (tobago-select-one-choice).
       According to bootstrap docs, <select class=.form-select> should be rendered directly to .input-group. But tobago
