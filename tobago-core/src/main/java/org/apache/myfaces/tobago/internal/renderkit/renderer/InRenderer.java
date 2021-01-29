@@ -101,7 +101,7 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
     }
-    encodeGroupAddon(facesContext, writer, before);
+    encodeGroupAddon(facesContext, writer, before, false);
 
     writer.startElement(HtmlElements.INPUT);
 
@@ -164,7 +164,7 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
 
     encodeBehavior(writer, facesContext, component);
 
-    encodeGroupAddon(facesContext, writer, after);
+    encodeGroupAddon(facesContext, writer, after, true);
 
     if (after != null || before != null) {
       writer.endElement(HtmlElements.DIV);
@@ -172,10 +172,13 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
     }
   }
 
-  private void encodeGroupAddon(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final UIComponent addon) throws IOException {
+  private void encodeGroupAddon(final FacesContext facesContext, final TobagoResponseWriter writer,
+      final UIComponent addon, final boolean isAfterFacet) throws IOException {
     if (addon != null) {
       for (final UIComponent child : RenderUtils.getFacetChildren(addon)) {
+        if (isAfterFacet) {
+          insideBegin(facesContext, Facets.after);
+        }
         if (child instanceof AbstractUIButton) {
           child.encodeAll(facesContext);
         } else if (child instanceof AbstractUIOut) {
@@ -187,6 +190,9 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
           writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_TEXT);
           child.encodeAll(facesContext);
           writer.endElement(HtmlElements.SPAN);
+        }
+        if (isAfterFacet) {
+          insideEnd(facesContext, Facets.after);
         }
       }
     }

@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUIBadge;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFormBase;
@@ -168,8 +169,9 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
       List<UIComponent> renderLater = null;
 
       writer.startElement(HtmlElements.DIV);
-      writer.writeClassAttribute(BootstrapClass.DROPDOWN_MENU);
-// fixme         isInside(facesContext, x) ? BootstrapClass.DROPDOWN_MENU_END : null);
+      writer.writeClassAttribute(BootstrapClass.DROPDOWN_MENU,
+          isInside(facesContext, HtmlElements.TOBAGO_IN) && isInside(facesContext, Facets.after)
+              ? BootstrapClass.DROPDOWN_MENU_END : null);
       writer.writeAttribute(Arias.LABELLEDBY, component.getFieldId(facesContext), false);
       writer.writeAttribute(HtmlAttributes.NAME, component.getClientId(facesContext), false);
 

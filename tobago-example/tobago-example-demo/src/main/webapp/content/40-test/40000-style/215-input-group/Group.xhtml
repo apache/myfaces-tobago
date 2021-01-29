@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+  <tc:section label="Dropdown Menu">
+    <p>Test if dropdown menu has correct rounded conrners.</p>
+
+    <tc:in id="ddGroup">
+      <f:facet name="before">
+        <tc:button id="dd1" label="Dropdown1" omit="true">
+          <tc:link id="dd1link" label="Link"/>
+        </tc:button>
+        <tc:button id="dd2" label="Dropdown2" omit="true">
+          <tc:link id="dd2link" label="Link"/>
+        </tc:button>
+      </f:facet>
+      <f:facet name="after">
+        <tc:button id="dd3" label="Dropdown3" omit="true">
+          <tc:link id="dd3link" label="Link"/>
+        </tc:button>
+        <tc:button id="dd4" label="Dropdown4" omit="true">
+          <tc:link id="dd4link" label="Link"/>
+        </tc:button>
+      </f:facet>
+    </tc:in>
+  </tc:section>
+</ui:composition>
