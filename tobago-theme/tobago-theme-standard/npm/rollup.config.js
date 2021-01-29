@@ -15,11 +15,8 @@
  * limitations under the License.
  */
 
-import resolve from "rollup-plugin-node-resolve"
-// fixme: "@rollup/plugin-node-resolve" is the new version of "rollup-plugin-node-resolve", but doesn't work with
-// the vaillajs-datepicker
-// import resolve from "@rollup/plugin-node-resolve"
 import replace from '@rollup/plugin-replace';
+import {nodeResolve} from "@rollup/plugin-node-resolve";
 
 export default {
   input: 'dist/js/tobago-all.js',
@@ -30,9 +27,9 @@ export default {
     name: 'tobago'
   },
   plugins: [
-    resolve(),
+    nodeResolve(),
     replace({
       // XXX workaround for popper2 included by bootstrap, otherwise be get an error: process is not defined at runtime
       'process.env.NODE_ENV': JSON.stringify('production')
-    }),  ]
+    }),]
 };
