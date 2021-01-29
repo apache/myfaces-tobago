@@ -107,7 +107,8 @@ abstract class FrontendBase {
     return firefoxDriver;
   }
 
-  List<WebElement> getJasmineResults(WebDriver webDriver, String path) {
+  List<WebElement> getJasmineResults(WebDriver webDriver, String path)
+      throws MalformedURLException, UnknownHostException {
     final FluentWait<WebDriver> fluentWait = new FluentWait<>(webDriver)
         .withTimeout(Duration.ofSeconds(60))
         .pollingEvery(Duration.ofSeconds(1))
@@ -118,7 +119,21 @@ abstract class FrontendBase {
       Assertions.fail(path + " timeout");
     }
 
+    String errorDetail = getErrorDetail();
+    if (errorDetail != null) {
+      Assertions.fail(errorDetail);
+    }
+
     return webDriver.findElements(By.cssSelector(".jasmine-symbol-summary li"));
+  }
+
+  private String getErrorDetail() throws MalformedURLException, UnknownHostException {
+    try {
+      WebElement failures = getWebDriver().findElement(By.cssSelector(".jasmine-errored"));
+      return failures.getText();
+    } catch (NoSuchElementException e) {
+      return null;
+    }
   }
 
   void parseJasmineResults(List<WebElement> results, String path) throws MalformedURLException, UnknownHostException {
@@ -152,7 +167,7 @@ abstract class FrontendBase {
     }
   }
 
-  String getFailureDetails() throws MalformedURLException, UnknownHostException {
+  private String getFailureDetails() throws MalformedURLException, UnknownHostException {
     WebElement failures = getWebDriver().findElement(By.cssSelector(".jasmine-failures"));
     return failures.getText();
   }
