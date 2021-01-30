@@ -15,21 +15,39 @@
  * limitations under the License.
  */
 
-import {DomUtils} from "./tobago-utils";
 import {Focus} from "./tobago-focus";
 
 export class SelectOneListbox extends HTMLElement {
+
+  private oldselectedIndex: number;
+
   constructor() {
     super();
   }
 
   connectedCallback(): void {
+    this.saveSelection();
+    this.field.addEventListener("click", this.clickSelection.bind(this));
     this.field.addEventListener("focus", Focus.setLastFocusId);
   }
 
-  get field(): HTMLInputElement {
+  private clickSelection(event: MouseEvent): void {
+    const select = event.currentTarget as HTMLSelectElement;
+
+    if (!select.required && this.field.selectedIndex === this.oldselectedIndex) {
+      this.field.selectedIndex = -1;
+    }
+
+    this.saveSelection();
+  }
+
+  private saveSelection(): void {
+    this.oldselectedIndex = this.field.selectedIndex;
+  }
+
+  get field(): HTMLSelectElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
-    return rootNode.getElementById(this.id + "::field") as HTMLInputElement;
+    return rootNode.getElementById(this.id + "::field") as HTMLSelectElement;
   }
 }
 
