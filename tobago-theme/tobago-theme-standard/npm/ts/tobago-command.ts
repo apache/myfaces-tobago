@@ -39,7 +39,10 @@ class Behavior extends HTMLElement {
         if (eventElement) {
           eventElement.addEventListener(this.event, this.callback.bind(this));
         } else {
-          console.warn("Can't find an element for the event.", this);
+          // if the clientId doesn't exists in DOM, it's probably the id of tobago-behavior custom element
+          this.parentElement.addEventListener(this.event, this.callback.bind(this));
+          // todo: not sure if this warning can be removed;
+          console.warn("Can't find an element for the event. Use parentElement instead.", this);
         }
     }
   }
@@ -306,7 +309,7 @@ export class CommandHelper {
     */
     CommandHelper.isSubmit = true;
 
-    const element : HTMLElement = document.documentElement; // XXX this might be the wrong element in case of shadow dom
+    const element: HTMLElement = document.documentElement; // XXX this might be the wrong element in case of shadow dom
     Page.page(element).onBeforeUnload();
 
     return true;
@@ -356,7 +359,7 @@ class Transport {
 
 // TBD XXX REMOVE is this called in non AJAX case?
 
-  static requestComplete = function ():void {
+  static requestComplete = function (): void {
     Transport.requests.shift();
     Transport.currentActionId = null;
     console.debug("Request complete! Duration: " + (new Date().getTime() - Transport.startTime.getTime()) + "ms; "
