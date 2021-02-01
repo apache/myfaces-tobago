@@ -38,17 +38,17 @@ function testAll() {
     const url = iframe.getAttribute("name");
     iframe.setAttribute("src", url);
 
+    const tpWindow = document.getElementById("page:tp" + count).contentWindow;
+
     const timeout = Date.now() + 30000;
 
     waitForTest(function () {
-      const banner = document.getElementById("page:tp" + count).contentWindow
-          .document.getElementById("qunit-banner");
-      return banner !== null
-          && (banner.classList.contains("qunit-pass") || banner.classList.contains("qunit-fail"))
-          || Date.now() > timeout;
+      const banner = tpWindow.document.querySelector(".jasmine-overall-result");
+      return banner !== null || Date.now() > timeout;
     }, function () {
       if (count < maxCount) {
         count++;
+        tpWindow.scrollTo(0, 0)
         cycle();
       }
     });
