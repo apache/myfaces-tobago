@@ -29,7 +29,7 @@ services:
 #      - demo-5-staging
       - demo-5-snapshot
       - demo-4-release
-#      - demo-4-staging
+      - demo-4-staging
       - demo-4-snapshot
       - demo-3-release
       - demo-2-release
@@ -46,7 +46,7 @@ services:
 #      - demo-5-staging
       - demo-5-snapshot
       - demo-4-release
-#      - demo-4-staging
+      - demo-4-staging
       - demo-4-snapshot
       - demo-3-release
       - demo-2-release
@@ -99,24 +99,24 @@ services:
       options:
         max-size: "1m"
         max-file: "5"
-#  demo-4-staging:
-#    build: tomcat
-#    environment:
-#      - TOBAGO_VERSION=4.5.1
-#      - STAGING_NUMBER=1171
-#      - CONTEXT_PATH=demo-4-staging
-#    volumes:
-#      - /opt/docker/artifacts:/opt/docker/artifacts
-#    ports:
-#      - "8401:8080"
-#    logging:
-#      options:
-#        max-size: "1m"
-#        max-file: "5"
+  demo-4-staging:
+    build: tomcat
+    environment:
+      - TOBAGO_VERSION=4.5.2
+      - STAGING_NUMBER=1180
+      - CONTEXT_PATH=demo-4-staging
+    volumes:
+      - /opt/docker/artifacts:/opt/docker/artifacts
+    ports:
+      - "8401:8080"
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "5"
   demo-4-snapshot:
     build: tomcat
     environment:
-      - TOBAGO_VERSION=4.5.2-SNAPSHOT
+      - TOBAGO_VERSION=4.5.3-SNAPSHOT
       - CONTEXT_PATH=demo-4-snapshot
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
@@ -142,7 +142,7 @@ services:
   demo-2-release:
     build: tomcat
     environment:
-      - TOBAGO_VERSION=2.4.2
+      - TOBAGO_VERSION=2.4.3
       - CONTEXT_PATH=demo-2-release
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
@@ -155,8 +155,8 @@ services:
   demo-2-staging:
     build: tomcat
     environment:
-      - TOBAGO_VERSION=2.4.3
-      - STAGING_NUMBER=1174
+      - TOBAGO_VERSION=2.4.4
+      - STAGING_NUMBER=1179
       - CONTEXT_PATH=demo-2-staging
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
@@ -169,7 +169,7 @@ services:
   demo-2-snapshot:
     build: tomcat
     environment:
-      - TOBAGO_VERSION=2.4.3-SNAPSHOT
+      - TOBAGO_VERSION=2.4.5-SNAPSHOT
       - CONTEXT_PATH=demo-2-snapshot
     volumes:
       - /opt/docker/artifacts:/opt/docker/artifacts
