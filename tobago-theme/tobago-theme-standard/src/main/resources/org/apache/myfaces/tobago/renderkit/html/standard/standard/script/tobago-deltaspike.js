@@ -17,9 +17,10 @@
  * under the License.
  */
 
-jQuery(document).ready(function() {
-  if (location.search.match(/.*dswid=(\-?[0-9]+).*/) !== null) {
-    var dswid = location.search.replace(/.*dswid=(\-?[0-9]+).*/, "$1");
+jQuery(document).ready(function () {
+  var regexp = /.*dswid=(-?[0-9]+).*/;
+  if (location.search.match(regexp)) {
+    var dswid = location.search.replace(regexp, "$1");
     if (dswid) {
       dswh.init(dswid, 'LAZY', 10, {
         'tokenizedRedirect': false,
