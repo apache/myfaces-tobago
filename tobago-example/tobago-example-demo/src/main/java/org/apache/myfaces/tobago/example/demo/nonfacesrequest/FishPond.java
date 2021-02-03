@@ -49,6 +49,10 @@ public class FishPond implements Serializable {
     fishes.put(4, "Tamboril");
   }
 
+  public void viewAction() {
+    LOG.info("View action called! selectedFishId='{}'", selectedFishId);
+  }
+
   public void action() {
     LOG.info("Event is called! selectedFishId='{}'", selectedFishId);
     // not needed for this example
