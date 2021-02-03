@@ -26,7 +26,5 @@ import org.apache.myfaces.tobago.component.SupportsAccessKey;
  */
 public abstract class AbstractUILink extends AbstractUICommand implements SupportsAccessKey {
 
-  public abstract java.lang.String getImage();
-
   public abstract Integer getTabIndex();
 }
