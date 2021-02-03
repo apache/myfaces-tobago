@@ -58,10 +58,12 @@ public class WebXmlUtils {
 
     String location = null;
 
-    Class<?> exceptionClass = exception.getClass();
-    while (exceptionClass != null && location == null) {
-      location = ERROR_PAGE_LOCATIONS.get(exceptionClass);
-      exceptionClass = exceptionClass.getSuperclass();
+    if (exception != null) {
+      Class<?> exceptionClass = exception.getClass();
+      while (exceptionClass != null && location == null) {
+        location = ERROR_PAGE_LOCATIONS.get(exceptionClass);
+        exceptionClass = exceptionClass.getSuperclass();
+      }
     }
 
     if (location == null) {
@@ -82,37 +84,39 @@ public class WebXmlUtils {
       String location500 = null;
 
       for (final Document document : webXmls) {
-        final NodeList errorPages = document.getElementsByTagName("error-page");
+        if (document != null) {
+          final NodeList errorPages = document.getElementsByTagName("error-page");
 
-        for (int i = 0; i < errorPages.getLength(); i++) {
-          final Node errorPage = errorPages.item(i);
+          for (int i = 0; i < errorPages.getLength(); i++) {
+            final Node errorPage = errorPages.item(i);
 
-          String errorCode = null;
-          String exceptionType = null;
-          String location = null;
+            String errorCode = null;
+            String exceptionType = null;
+            String location = null;
 
-          final NodeList children = errorPage.getChildNodes();
-          for (int j = 0; j < children.getLength(); j++) {
-            final Node child = children.item(j);
-            final String name = child.getNodeName();
+            final NodeList children = errorPage.getChildNodes();
+            for (int j = 0; j < children.getLength(); j++) {
+              final Node child = children.item(j);
+              final String name = child.getNodeName();
 
-            if ("error-code".equals(name)) {
-              errorCode = child.getFirstChild().getNodeValue().trim();
-            } else if ("exception-type".equals(name)) {
-              exceptionType = child.getFirstChild().getNodeValue().trim();
-            } else if ("location".equals(name)) {
-              location = child.getFirstChild().getNodeValue().trim();
+              if ("error-code".equals(name)) {
+                errorCode = child.getFirstChild().getNodeValue().trim();
+              } else if ("exception-type".equals(name)) {
+                exceptionType = child.getFirstChild().getNodeValue().trim();
+              } else if ("location".equals(name)) {
+                location = child.getFirstChild().getNodeValue().trim();
+              }
             }
-          }
 
-          if (exceptionType != null) {
-            final Class<Throwable> key = (Class<Throwable>) Class.forName(exceptionType);
-            final String value = normalizePath(externalContext, location);
-            ERROR_PAGE_LOCATIONS.put(key, value);
-          } else if ("500".equals(errorCode)) {
-            location500 = location;
-          } else if (errorCode == null && exceptionType == null) {
-            locationDefault = location;
+            if (exceptionType != null) {
+              final Class<Throwable> key = (Class<Throwable>) Class.forName(exceptionType);
+              final String value = normalizePath(externalContext, location);
+              ERROR_PAGE_LOCATIONS.put(key, value);
+            } else if ("500".equals(errorCode)) {
+              location500 = location;
+            } else if (errorCode == null && exceptionType == null) {
+              locationDefault = location;
+            }
           }
         }
       }
