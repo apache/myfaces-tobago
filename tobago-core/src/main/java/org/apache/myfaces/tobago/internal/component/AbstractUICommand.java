@@ -58,6 +58,8 @@ public abstract class AbstractUICommand extends AbstractUICommandBase
     return parentOfCommands;
   }
 
+  public abstract java.lang.String getImage();
+
   @Override
   public abstract String getLabel();
 

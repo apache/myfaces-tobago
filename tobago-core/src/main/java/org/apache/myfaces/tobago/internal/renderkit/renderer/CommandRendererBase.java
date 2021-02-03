@@ -136,7 +136,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
       encodeBehavior(writer, facesContext, component);
     }
 
-    final String image = ComponentUtils.getStringAttribute(component, Attributes.image);
+    final String image = component.getImage();
     HtmlRendererUtils.encodeIconOrImage(writer, image);
 
     if (label.getLabel() != null) {
