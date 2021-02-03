@@ -26,6 +26,13 @@
         xmlns="http://www.w3.org/1999/xhtml">
   <f:view locale="#{localeController.locale}">
 
+<!-- XXX doesn't work, why? it does work, when uidefine with metatag is at the specific page -->
+    <!--
+    <f:metadata>
+      <f:importConstants type="org.apache.myfaces.tobago.renderkit.css.FaIcons" var="fa"/>
+    </f:metadata>
+    -->
+
     <tc:page label="#{title != null ? title : 'Tobago Demo - '.concat(navigationState.currentNode.label)}" id="page">
 
       <!--
@@ -78,6 +85,7 @@
       <tc:popup id="info" collapsedMode="hidden">
         <tc:box label="Client Information">
           <f:facet name="bar">
+<!--            <tc:button image="#{fa.CLOSE.name}">-->
             <tc:button image="fa-close">
               <tc:operation name="hide" for="info"/>
             </tc:button>
