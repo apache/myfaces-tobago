@@ -67,6 +67,7 @@ export class Sheet extends HTMLElement {
             console.assert(headerCols.length - 1 === bodyCols.length, "header and body column number doesn't match: %d != %d ", headerCols.length - 1, bodyCols.length);
             let sumRelative = 0; // tbd: is this needed?
             let widthRelative = bodyTable.offsetWidth;
+            let r = 0;
             for (let i = 0; i < tokens.length; i++) {
                 if (columnRendered[i]) {
                     if (typeof tokens[i] === "number") {
@@ -81,15 +82,20 @@ export class Sheet extends HTMLElement {
                             widthRelative -= bodyTable.offsetWidth * intValue / 100;
                         }
                     }
+                    else if (tokens[i] === "auto") {
+                        let value = headerCols.item(r).offsetWidth;
+                        widthRelative -= value;
+                        tokens[i] = { measure: value + "px" }; // converting "auto" to a specific value
+                    }
                     else {
-                        console.debug("auto? = " + tokens[i]);
+                        console.debug("(layout columns a) auto? token[i]='%s' i=%i", tokens[i], i);
                     }
                 }
             }
             if (widthRelative < 0) {
                 widthRelative = 0;
             }
-            let headerBodyColCount = 0;
+            r = 0;
             for (let i = 0; i < tokens.length; i++) {
                 let colWidth = 0;
                 if (columnRendered[i]) {
@@ -106,13 +112,13 @@ export class Sheet extends HTMLElement {
                         }
                     }
                     else {
-                        console.debug("auto? = " + tokens[i]);
+                        console.debug("(layout columns b) auto? token[i]='%s' i=%i", tokens[i], i);
                     }
                     if (colWidth > 0) { // because tokens[i] == "auto"
-                        headerCols.item(headerBodyColCount).setAttribute("width", String(colWidth));
-                        bodyCols.item(headerBodyColCount).setAttribute("width", String(colWidth));
+                        headerCols.item(r).setAttribute("width", String(colWidth));
+                        bodyCols.item(r).setAttribute("width", String(colWidth));
                     }
-                    headerBodyColCount++;
+                    r++;
                 }
             }
         }

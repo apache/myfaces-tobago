@@ -270,7 +270,6 @@
      * See the License for the specific language governing permissions and
      * limitations under the License.
      */
-    // import {createPopper} from "@popperjs/core/dist/esm/popper";
     const TobagoDropdownEvent = {
         HIDE: "tobago.dropdown.hide",
         HIDDEN: "tobago.dropdown.hidden",
@@ -9871,7 +9870,10 @@
                         eventElement.addEventListener(this.event, this.callback.bind(this));
                     }
                     else {
-                        console.warn("Can't find an element for the event.", this);
+                        // if the clientId doesn't exists in DOM, it's probably the id of tobago-behavior custom element
+                        this.parentElement.addEventListener(this.event, this.callback.bind(this));
+                        // todo: not sure if this warning can be removed;
+                        console.warn("Can't find an element for the event. Use parentElement instead.", this);
                     }
             }
         }
@@ -11198,7 +11200,19 @@
             super();
         }
         connectedCallback() {
+            this.saveSelection();
+            this.field.addEventListener("click", this.clickSelection.bind(this));
             this.field.addEventListener("focus", Focus.setLastFocusId);
+        }
+        clickSelection(event) {
+            const select = event.currentTarget;
+            if (!select.required && this.field.selectedIndex === this.oldselectedIndex) {
+                this.field.selectedIndex = -1;
+            }
+            this.saveSelection();
+        }
+        saveSelection() {
+            this.oldselectedIndex = this.field.selectedIndex;
         }
         get field() {
             const rootNode = this.getRootNode();
@@ -11497,6 +11511,7 @@
                 console.assert(headerCols.length - 1 === bodyCols.length, "header and body column number doesn't match: %d != %d ", headerCols.length - 1, bodyCols.length);
                 let sumRelative = 0; // tbd: is this needed?
                 let widthRelative = bodyTable.offsetWidth;
+                let r = 0;
                 for (let i = 0; i < tokens.length; i++) {
                     if (columnRendered[i]) {
                         if (typeof tokens[i] === "number") {
@@ -11511,15 +11526,20 @@
                                 widthRelative -= bodyTable.offsetWidth * intValue / 100;
                             }
                         }
+                        else if (tokens[i] === "auto") {
+                            let value = headerCols.item(r).offsetWidth;
+                            widthRelative -= value;
+                            tokens[i] = { measure: value + "px" }; // converting "auto" to a specific value
+                        }
                         else {
-                            console.debug("auto? = " + tokens[i]);
+                            console.debug("(layout columns a) auto? token[i]='%s' i=%i", tokens[i], i);
                         }
                     }
                 }
                 if (widthRelative < 0) {
                     widthRelative = 0;
                 }
-                let headerBodyColCount = 0;
+                r = 0;
                 for (let i = 0; i < tokens.length; i++) {
                     let colWidth = 0;
                     if (columnRendered[i]) {
@@ -11536,13 +11556,13 @@
                             }
                         }
                         else {
-                            console.debug("auto? = " + tokens[i]);
+                            console.debug("(layout columns b) auto? token[i]='%s' i=%i", tokens[i], i);
                         }
                         if (colWidth > 0) { // because tokens[i] == "auto"
-                            headerCols.item(headerBodyColCount).setAttribute("width", String(colWidth));
-                            bodyCols.item(headerBodyColCount).setAttribute("width", String(colWidth));
+                            headerCols.item(r).setAttribute("width", String(colWidth));
+                            bodyCols.item(r).setAttribute("width", String(colWidth));
                         }
-                        headerBodyColCount++;
+                        r++;
                     }
                 }
             }
@@ -11751,7 +11771,7 @@
                         sheet.id = id + "::lazy-temporary";
                         const page = Page.page(this);
                         page.insertAdjacentHTML("beforeend", `<div id="${id}"></div>`);
-                        const sheetLoader = document.getElementById(id);
+                        document.getElementById(id);
                     }
                 }
             }
@@ -12249,7 +12269,7 @@
         }
         static save(event, splitter) {
             const horizontal = splitter.classList.contains("tobago-splitLayout-horizontal");
-            const previous = SplitLayout.previousElementSibling(splitter);
+            SplitLayout.previousElementSibling(splitter);
             const data = {
                 splitLayoutId: splitter.parentElement.id,
                 horizontal: horizontal,

@@ -14,7 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import Datepicker from "vanillajs-datepicker/js/Datepicker.js";
+// @ts-ignore
+import { Datepicker } from "vanillajs-datepicker";
 import { DateUtils } from "./tobago-date-utils";
 import { Page } from "./tobago-page";
 class DatePicker extends HTMLElement {

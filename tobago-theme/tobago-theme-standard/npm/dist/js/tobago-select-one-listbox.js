@@ -20,7 +20,19 @@ export class SelectOneListbox extends HTMLElement {
         super();
     }
     connectedCallback() {
+        this.saveSelection();
+        this.field.addEventListener("click", this.clickSelection.bind(this));
         this.field.addEventListener("focus", Focus.setLastFocusId);
+    }
+    clickSelection(event) {
+        const select = event.currentTarget;
+        if (!select.required && this.field.selectedIndex === this.oldselectedIndex) {
+            this.field.selectedIndex = -1;
+        }
+        this.saveSelection();
+    }
+    saveSelection() {
+        this.oldselectedIndex = this.field.selectedIndex;
     }
     get field() {
         const rootNode = this.getRootNode();
