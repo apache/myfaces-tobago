@@ -218,6 +218,7 @@ Tobago.Sheet.setup2 = function (sheets) {
         var intValue;
         var sumRelative = 0;
         var widthRelative = $bodyTable.width();
+        var r = 0;
         for (i = 0; i < tokens.length; i++) {
           if (rendered[i] === "true") {
             if (typeof tokens[i] === "number") {
@@ -229,16 +230,21 @@ Tobago.Sheet.setup2 = function (sheets) {
               } else if (tokens[i].measure.lastIndexOf("%") > 0) {
                 widthRelative -= parseInt($bodyTable.width() / 100 * intValue);
               }
+            } else if(tokens[i] === "auto") {
+              var value = $headerCol.eq(r).width();
+              widthRelative -= value;
+              tokens[i] = {measure: value + "px"}; // converting "auto" to a specific value
             } else {
-              console.debug("auto? = " + tokens[i]); // @DEV_ONLY
+              console.debug("(layout columns a) auto? token[i]='%s' i=%i", tokens[i], i); // @DEV_ONLY
             }
+            r++;
           }
         }
         if (widthRelative < 0) {
           widthRelative = 0;
         }
 
-        var headerBodyColCount = 0;
+        r = 0;
         for (i = 0; i < tokens.length; i++) {
           var colWidth = 0;
           if (rendered[i] === "true") {
@@ -252,13 +258,13 @@ Tobago.Sheet.setup2 = function (sheets) {
                 colWidth = parseInt($bodyTable.width() / 100 * intValue);
               }
             } else {
-              console.debug("auto? = " + tokens[i]); // @DEV_ONLY
+              console.debug("(layout columns b) auto? token[i]='%s' i=%i", tokens[i], i); // @DEV_ONLY
             }
             if (colWidth > 0) { // because tokens[i] == "auto"
-              $headerCol.eq(headerBodyColCount).attr("width", colWidth);
-              $bodyCol.eq(headerBodyColCount).attr("width", colWidth);
+              $headerCol.eq(r).attr("width", colWidth);
+              $bodyCol.eq(r).attr("width", colWidth);
             }
-            headerBodyColCount++;
+            r++;
           }
         }
       }

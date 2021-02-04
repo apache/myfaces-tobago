@@ -94,8 +94,14 @@ import javax.faces.component.UIData;
 public interface SheetTagDeclaration
     extends HasIdBindingAndRendered, IsVisual, IsShowRoot, IsShowRootJunction, HasVar {
   /**
+   * <p>
    * LayoutConstraints for column layout.
-   * Semicolon separated list of layout tokens ('&lt;x&gt;*', '&lt;x&gt;px' or '&lt;x&gt;%') or "auto"
+   * Semicolon separated list of layout tokens '&lt;n&gt;fr', '&lt;x&gt;px', '&lt;x&gt;%' or "auto",
+   * where x is a number and n is an integer.
+   * </p>
+   * <p>
+   * The layout token '&lt;n&gt;*' is deprecated, please use '&lt;n&gt;fr'!
+   * </p>
    */
   @TagAttribute
   @UIComponentTagAttribute()
