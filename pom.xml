@@ -173,11 +173,6 @@
         </configuration>
       </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jxr-plugin</artifactId>
-        <version>3.0.0</version>
-      </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -213,12 +208,6 @@
             <link>http://logback.qos.ch/apidocs/</link>
           </links>
           <excludePackageNames>org.apache.myfaces.tobago.internal.*</excludePackageNames>
-          <docletArtifact>
-            <groupId>com.google.doclava</groupId>
-            <artifactId>doclava</artifactId>
-            <version>1.0.6</version>
-          </docletArtifact>
-          <doclet>com.google.doclava.Doclava</doclet>
           <!--
             | bootclasspath required by Sun's JVM
           -->
