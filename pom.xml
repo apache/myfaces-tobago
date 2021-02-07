@@ -51,7 +51,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <required.maven.version>3.0.4</required.maven.version>
     <maven-pmd-plugin.version>3.8</maven-pmd-plugin.version>
-    <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
+    <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
     <checkstyle-rules.version>12</checkstyle-rules.version>
   </properties>
 
