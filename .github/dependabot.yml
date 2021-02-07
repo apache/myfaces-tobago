@@ -27,21 +27,21 @@ updates:
       - dependency-name: "jetty*"
         versions:
           - ">= 11.0.0"
-      - dependency-name: "myfaces-api"
+      - dependency-name: "org.apache.myfaces:myfaces-api"
         versions:
           - ">= 3.0.0"
-      - dependency-name: "myfaces-impl"
+      - dependency-name: "org.apache.myfaces:myfaces-impl"
         versions:
           - ">= 3.0.0"
-      - dependency-name: "jakarta.faces"
+      - dependency-name: "org.glassfish:jakarta.faces"
         versions:
           - ">= 3.0.0"
-      - dependency-name: "jakarta.inject-api"
+      - dependency-name: "jakarta.inject:jakarta.inject-api"
         versions:
           - ">= 2.0.0"
-      - dependency-name: "maven-checkstyle-plugin"
+      - dependency-name: "org.apache.maven.plugins:maven-checkstyle-plugin"
         versions:
-          - ">= 3.1.0"
+          - ">=3.1.0"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
