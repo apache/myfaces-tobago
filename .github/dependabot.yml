@@ -36,6 +36,9 @@ updates:
       - dependency-name: "jakarta.faces"
         versions:
           - ">= 3.0.0"
+      - dependency-name: "jakarta.inject-api"
+        versions:
+          - ">= 2.0.0"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
