@@ -27,10 +27,10 @@ updates:
       - dependency-name: "jetty*"
         versions:
           - ">= 11.0.0"
-      - dependency-name: "org.apache.myfaces:myfaces-api"
+      - dependency-name: "org.apache.myfaces.core:myfaces-api"
         versions:
           - ">= 3.0.0"
-      - dependency-name: "org.apache.myfaces:myfaces-impl"
+      - dependency-name: "org.apache.myfaces.core:myfaces-impl"
         versions:
           - ">= 3.0.0"
       - dependency-name: "org.glassfish:jakarta.faces"
