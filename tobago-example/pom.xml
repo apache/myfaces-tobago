@@ -402,7 +402,7 @@
         <dependency>
           <groupId>jakarta.inject</groupId>
           <artifactId>jakarta.inject-api</artifactId>
-          <version>1.0.1</version>
+          <version>1.0.3</version>
           <scope>compile</scope>
         </dependency>
         <dependency>
@@ -468,7 +468,7 @@
         <dependency>
           <groupId>jakarta.inject</groupId>
           <artifactId>jakarta.inject-api</artifactId>
-          <version>1.0.1</version>
+          <version>1.0.3</version>
           <scope>compile</scope>
         </dependency>
         <dependency>
