@@ -39,6 +39,9 @@ updates:
       - dependency-name: "jakarta.inject:jakarta.inject-api"
         versions:
           - ">= 2.0.0"
+      - dependency-name: "jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api"
+        versions:
+          - ">= 2.0.0"
       - dependency-name: "jakarta.validation:jakarta.validation-api"
         versions:
           - ">= 3.0.0"
