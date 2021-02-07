@@ -45,6 +45,9 @@ updates:
       - dependency-name: "org.hibernate.validator:hibernate-validator"
         versions:
           - ">= 7.0.0"
+      - dependency-name: "org.antlr:stringtemplate"
+        versions:
+          - ">= 4.0.0"
       - dependency-name: "org.apache.maven.plugins:maven-checkstyle-plugin"
         versions:
           - ">=3.1.0"
