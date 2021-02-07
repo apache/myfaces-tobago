@@ -39,6 +39,9 @@ updates:
       - dependency-name: "jakarta.inject-api"
         versions:
           - ">= 2.0.0"
+      - dependency-name: "maven-checkstyle-plugin"
+        versions:
+          - ">= 3.1.0"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
