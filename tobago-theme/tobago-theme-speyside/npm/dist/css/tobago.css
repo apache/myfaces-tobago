@@ -10742,10 +10742,6 @@ textarea.form-control-lg {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
-XXX used variables: only for the IDE, will not really used by the build system, because this
-XXX code will be inserted after the _variables.scss
-*/
 /* used icons ---------------------------------------------------- */
 /* non-bootstrap variables --------------------------------------- */
 /* main ---------------------------------------------------------- */
@@ -11063,6 +11059,10 @@ tobago-in .input-group tobago-select-one-choice.form-select > .form-select {
   color: #6610f2 !important;
 }
 
+tobago-links .nav .nav-item .nav-link {
+  padding: 0.5rem 1rem;
+}
+
 /* link ----------------------------------------------------------- */
 .tobago-link {
   white-space: nowrap;
@@ -11093,6 +11093,7 @@ h1 button.tobago-link, .h1 button.tobago-link, h2 button.tobago-link, .h2 button
 
 button.tobago-link.btn {
   padding: 0;
+  border: 0;
   vertical-align: baseline;
 }
 button.tobago-link.btn:disabled {
@@ -11103,6 +11104,11 @@ button.tobago-link.btn:disabled:hover {
 }
 button.tobago-link.btn:focus {
   box-shadow: none;
+}
+button.tobago-link.btn:disabled {
+  /* bootstrap reduce opacity for disabled buttons.
+  This results in a different text color for greyed out button.tobago-link */
+  opacity: 1;
 }
 button.tobago-link.dropdown-item:disabled {
   pointer-events: auto;
