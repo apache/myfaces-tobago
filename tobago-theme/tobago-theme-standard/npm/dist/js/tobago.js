@@ -10450,7 +10450,7 @@
             Datepicker.locales[locale] = i18n;
             const options = {
                 buttonClass: "btn",
-                orientation: "bottom top auto",
+                orientation: "auto",
                 autohide: true,
                 language: locale,
                 todayBtn: this.todayButton,
