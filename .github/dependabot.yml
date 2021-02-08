@@ -24,7 +24,7 @@ updates:
       interval: "daily"
     ignore:
       # Jetty >= 11 requires JakartaEE
-      - dependency-name: "jetty*"
+      - dependency-name: "org.eclipse.jetty:jetty-maven-plugin"
         versions:
           - ">= 11.0.0"
       - dependency-name: "org.apache.myfaces.core:myfaces-api"
