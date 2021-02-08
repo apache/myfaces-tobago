@@ -62,7 +62,7 @@ class DatePicker extends HTMLElement {
 
     const options: DatePickerOptions = {
       buttonClass: "btn",
-      orientation: "bottom top auto",
+      orientation: "auto",
       autohide: true,
       language: locale,
       todayBtn: this.todayButton,
