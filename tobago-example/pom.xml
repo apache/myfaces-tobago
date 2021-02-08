@@ -224,7 +224,7 @@
         <dependency>
           <groupId>org.jboss.weld.servlet</groupId>
           <artifactId>weld-servlet-shaded</artifactId>
-          <version>3.1.5.SP1</version>
+          <version>3.1.6.Final</version>
         </dependency>
         <dependency>
           <groupId>jakarta.servlet.jsp.jstl</groupId>
