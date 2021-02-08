@@ -48,6 +48,9 @@ updates:
       - dependency-name: "jakarta.el:jakarta.el-api"
         versions:
           - ">= 4.0.0"
+      - dependency-name: "org.glassfish:jakarta.json"
+        versions:
+          - ">= 2.0.0"
       - dependency-name: "org.hibernate.validator:hibernate-validator"
         versions:
           - ">= 7.0.0"
