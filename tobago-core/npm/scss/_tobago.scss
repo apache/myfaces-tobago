@@ -501,6 +501,9 @@ tobago-in {
 }
 
 tobago-links {
+  .nav .nav-item .nav-link {
+    padding: $nav-link-padding-y $nav-link-padding-x;
+  }
 }
 
 /* link ----------------------------------------------------------- */
@@ -539,10 +542,17 @@ button {
     @include buttonLinkDisabledCursor();
 
     padding: 0;
+    border: 0;
     vertical-align: baseline;
 
     &:focus {
       box-shadow: none;
+    }
+
+    &:disabled {
+      /* bootstrap reduce opacity for disabled buttons.
+      This results in a different text color for greyed out button.tobago-link */
+      opacity: 1;
     }
   }
 

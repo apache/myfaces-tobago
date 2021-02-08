@@ -82,4 +82,53 @@
     </tc:button>
   </tc:section>
 
+  <tc:section label="Link Group">
+    <tc:segmentLayout extraLarge="6seg">
+      <tc:links>
+        <tc:link label="Active"/>
+        <tc:link label="Link"/>
+        <tc:link label="Link" link="https://www.apache.org"/>
+        <tc:link label="Disabled" disabled="true"/>
+      </tc:links>
+      <tc:panel>
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Active</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          </li>
+        </ul>
+      </tc:panel>
+      <tc:panel>
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Active</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          </li>
+        </ul>
+      </tc:panel>
+      <tc:links>
+        <tc:link label="Active"/>
+        <tc:link label="Link"/>
+        <tc:link label="Link" link="https://www.apache.org"/>
+        <tc:link label="Disabled" disabled="true"/>
+      </tc:links>
+    </tc:segmentLayout>
+  </tc:section>
+
 </ui:composition>
