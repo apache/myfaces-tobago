@@ -16,8 +16,8 @@
  */
 
 import {Listener, Phase} from "./tobago-listener";
-import {DomUtils} from "./tobago-utils";
 import {Focus} from "./tobago-focus";
+import {Suggest} from "./tobago-suggest";
 
 export class In extends HTMLElement {
   constructor() {
@@ -26,6 +26,10 @@ export class In extends HTMLElement {
 
   connectedCallback(): void {
     this.input.addEventListener("focus", Focus.setLastFocusId);
+    if (this.querySelector("tobago-suggest")) {
+      const suggest = new Suggest(this);
+      suggest.init();
+    }
   }
 
   get input(): HTMLInputElement {
