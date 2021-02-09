@@ -67,6 +67,8 @@ updates:
         versions:
           - ">=3.1.0"
       - dependency-name: "org.apache.maven.plugins:maven-enforcer-plugin"
+        versions:
+          - ">= 3.0.0"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
