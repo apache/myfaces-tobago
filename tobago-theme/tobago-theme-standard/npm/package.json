@@ -52,7 +52,6 @@
     "dev-cp": "cp -R dist/. ../../../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/$npm_package_version"
   },
   "dependencies": {
-    "@trevoreyre/autocomplete": "^2.2.0",
     "@trevoreyre/autocomplete-js": "^2.2.0",
     "vanillajs-datepicker": "^1.1.2"
   },
