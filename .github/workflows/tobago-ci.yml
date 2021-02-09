@@ -20,9 +20,19 @@ name: Tobago CI
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
+      - tobago-4.x
+    paths-ignore:
+      - '**.md'
+      - 'Jenkinsfile'
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
+      - tobago-4.x
+    paths-ignore:
+      - '**.md'
+      - 'Jenkinsfile'
   workflow_dispatch:  
 
 jobs:
