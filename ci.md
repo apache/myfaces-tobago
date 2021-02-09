@@ -16,9 +16,11 @@ The Plugin is checking all branches for a `Jenkinsfile` containing the build ins
 
 ## Github Actions
 
-For a quick build Github Actions are configured.
+For a quick build and codeql Github Actions are configured.
 
 [.github/workflow/tobago-ci.yml](.github/workflows/tobago-ci.yml)
+
+[.github/workflow/codeql-analysis.yml](.github/workflows/codeql-analysis.yml)
 
 ASF Infra has some restrictions and objections about Github Actions.
 
@@ -26,6 +28,11 @@ ASF Infra has some restrictions and objections about Github Actions.
 
 [GitHub Actions status][5]
 
+## Dependabot Version Updates
+
+[.github/dependabot.yml](.github/dependabot.yml)
+
+[Keeping your dependencies updated automatically][6]
 
 [1]: https://ci-builds.apache.org/job/MyFaces/job/Tobago%20pipeline/
 
@@ -37,3 +44,4 @@ ASF Infra has some restrictions and objections about Github Actions.
 
 [5]: https://cwiki.apache.org/confluence/display/BUILDS/GitHub+Actions+status
 
+[6]: https://docs.github.com/en/github/administering-a-repository/keeping-your-dependencies-updated-automatically
