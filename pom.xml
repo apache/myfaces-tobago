@@ -979,8 +979,8 @@
               <!-- sample -->
               <exclude>**/x-sample.txt</exclude>
 
-              <!-- readme -->
-              <exclude>**/readme.*</exclude>
+              <!-- md files -->
+              <exclude>**/*.md</exclude>
 
               <!-- jetty key store for testing -->
               <exclude>**/jettykeystore</exclude>
