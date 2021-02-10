@@ -89,10 +89,10 @@ updates:
       - dependency-name: "com.sun.faces:jsf-impl"
         versions:
           - ">= 2.1.0"
-      # Jetty >= 11 requires JakartaEE
+      # Jetty >= 10 requires jdk 11
       - dependency-name: "org.eclipse.jetty:jetty-maven-plugin"
         versions:
-          - ">= 11.0.0"
+          - ">= 10.0.0"
       - dependency-name: "org.apache.myfaces.core:myfaces-api"
         versions:
           - ">= 3.0.0"
