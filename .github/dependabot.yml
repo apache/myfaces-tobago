@@ -79,6 +79,7 @@ updates:
 
   - package-ecosystem: "maven"
     directory: "/"
+    target-branch: "tobago-4.x"
     schedule:
       interval: "daily"
     ignore:
@@ -130,7 +131,7 @@ updates:
           - ">= 3.0.0"
   - package-ecosystem: "github-actions"
     directory: "/"
-    target-branch: tobago-4.x
+    target-branch: "tobago-4.x"
     schedule:
       # Check for updates to GitHub Actions every day
       interval: "daily"
