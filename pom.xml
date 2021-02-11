@@ -32,7 +32,7 @@
   <inceptionYear>2002</inceptionYear>
 
   <properties>
-    <myfaces20.version>2.0.24</myfaces20.version>
+    <myfaces20.version>2.3.8</myfaces20.version>
     <myfaces21.version>2.1.18</myfaces21.version>
     <myfaces22.version>2.2.14</myfaces22.version>
     <myfaces23.version>2.3.8</myfaces23.version>
