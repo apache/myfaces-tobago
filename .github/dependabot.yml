@@ -78,11 +78,7 @@ updates:
       interval: "daily"
     ignore:
       - dependency-name: "com.sun.faces:jsf-api"
-        versions:
-          - ">= 2.1.0"
       - dependency-name: "com.sun.faces:jsf-impl"
-        versions:
-          - ">= 2.1.0"
       # Jetty >= 10 requires jdk 11
       - dependency-name: "org.eclipse.jetty:jetty-maven-plugin"
         versions:
