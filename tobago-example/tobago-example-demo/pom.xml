@@ -35,7 +35,7 @@
     <deltaspike.version>1.9.4</deltaspike.version>
     <selenium.version>3.141.59</selenium.version>
     <meecrowave.version>1.2.8</meecrowave.version>
-    <tomcat.version>9.0.41</tomcat.version>
+    <tomcat.version>10.0.2</tomcat.version>
     <exec.version>3.0.0</exec.version>
     <finalName>tobago-example-demo</finalName>
   </properties>
