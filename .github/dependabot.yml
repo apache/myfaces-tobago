@@ -82,26 +82,6 @@ updates:
     # Check the npm registry for updates every day (weekdays)
     schedule:
       interval: "daily"
-  - package-ecosystem: "npm"
-    directory: "/tobago-theme/tobago-theme-standard/npm"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "npm"
-    directory: "/tobago-theme/tobago-theme-speyside/npm"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "npm"
-    directory: "/tobago-theme/tobago-theme-scarborough/npm"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "npm"
-    directory: "/tobago-theme/tobago-theme-roxborough/npm"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "npm"
-    directory: "/tobago-theme/tobago-theme-charlotteville/npm"
-    schedule:
-      interval: "daily"
 
 #### tobago-4.x branch
 
