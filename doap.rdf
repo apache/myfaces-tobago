@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<!--
+  This file is referenced by https://svn.apache.org/repos/asf/comdev/projects.apache.org/trunk/data/projects.xml
+-->
+
+<rdf:RDF xml:lang="en"
+         xmlns="http://usefulinc.com/ns/doap#" 
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+         xmlns:asfext="http://projects.apache.org/ns/asfext#"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/">
+  <Project rdf:about="https://myfaces.apache.org/">
+    <created>2006-07-10</created>
+    <license rdf:resource="http://usefulinc.com/doap/licenses/asl20" />
+    <name>Apache Tobago</name>
+    <homepage rdf:resource="http://myfaces.apache.org/#/tobago" />
+    <asfext:pmc rdf:resource="http://myfaces.apache.org" />
+    <shortdesc>Set of user interface components based on JSF.</shortdesc>
+    <description>The goal of Tobago is to provide the community with a well designed set of user interface components based on JSF.</description>
+    <bug-database rdf:resource="http://issues.apache.org/jira/browse/TOBAGO" />
+    <mailing-list rdf:resource="http://myfaces.apache.org/#/community" />
+    <download-page rdf:resource="http://tobago-vm.apache.org/download.html" />
+    <programming-language>Java</programming-language>
+    <programming-language>TypeScript</programming-language>
+    <category rdf:resource="https://projects.apache.org/projects.html?category#web-framework" />
+    <repository>
+      <GitRepository>
+        <location rdf:resource="https://gitbox.apache.org/repos/asf/myfaces-tobago.git"/>
+        <browse rdf:resource="https://gitbox.apache.org/repos/asf?p=myfaces-tobago.git"/>
+      </GitRepository>
+    </repository>
+    <maintainer>
+      <foaf:Person>
+        <foaf:name>Bernd Bohmann</foaf:name>
+          <foaf:mbox rdf:resource="mailto:bommel@apache.org"/>
+      </foaf:Person>
+    </maintainer>
+  </Project>
+</rdf:RDF>
