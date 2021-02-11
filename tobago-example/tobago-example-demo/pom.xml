@@ -241,7 +241,7 @@
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-          <version>1.0.1</version>
+          <version>1.3</version>
           <scope>provided</scope>
         </dependency>
         <dependency>
@@ -272,7 +272,7 @@
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-          <version>1.0</version>
+          <version>1.3</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
@@ -319,7 +319,7 @@
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-          <version>1.0</version>
+          <version>1.3</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
@@ -366,7 +366,7 @@
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-          <version>1.0</version>
+          <version>1.3</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
@@ -417,7 +417,7 @@
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-          <version>1.0</version>
+          <version>1.3</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
@@ -464,7 +464,7 @@
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-          <version>1.0</version>
+          <version>1.3</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
@@ -511,7 +511,7 @@
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-          <version>1.0</version>
+          <version>1.3</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
@@ -558,7 +558,7 @@
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-          <version>1.0</version>
+          <version>1.3</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
@@ -605,7 +605,7 @@
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
           <artifactId>geronimo-jcdi_2.0_spec</artifactId>
-          <version>1.0</version>
+          <version>1.3</version>
         </dependency>
         <dependency>
           <groupId>org.apache.geronimo.specs</groupId>
