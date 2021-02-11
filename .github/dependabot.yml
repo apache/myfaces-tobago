@@ -103,10 +103,10 @@ updates:
           - ">= 10.0.0"
       - dependency-name: "org.apache.myfaces.core:myfaces-api"
         versions:
-          - ">= 3.0.0"
+          - ">= 2.1.0"
       - dependency-name: "org.apache.myfaces.core:myfaces-impl"
         versions:
-          - ">= 3.0.0"
+          - ">= 2.1.0"
       - dependency-name: "org.glassfish:jakarta.faces"
         versions:
           - ">= 3.0.0"
