@@ -50,7 +50,7 @@ public class ServerInfo {
   private static final String CONFIG_FILE_DEFAULT = "/etc/tobago-example-demo.properties";
   private static final String ENABLED_KEY = "server.info.enabled";
 
-  private static final String LAST_RELEASED_VERSION = "4.5.0";
+  private static final String LAST_RELEASED_VERSION = "4.5.2";
 
   private String version;
 
@@ -109,6 +109,10 @@ public class ServerInfo {
     return enabled;
   }
 
+  /**
+   * @deprecated please use {@link ApiController#getCurrentRelease}
+   */
+  @Deprecated
   public String getStableVersion() {
     if (version == null || version.endsWith("-SNAPSHOT")) {
       return LAST_RELEASED_VERSION;
