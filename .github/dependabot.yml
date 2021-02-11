@@ -70,20 +70,6 @@ updates:
         versions:
           - ">= 3.0.0"
 
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      # Check for updates to GitHub Actions every day
-      interval: "daily"    
-
-  - package-ecosystem: "npm"
-    # Look for `package.json` and `lock` files in the `root` directory
-    directory: "/tobago-core/npm"
-    # Check the npm registry for updates every day (weekdays)
-    schedule:
-      interval: "daily"
-
-#### tobago-4.x branch
 
   - package-ecosystem: "maven"
     directory: "/"
@@ -149,9 +135,23 @@ updates:
       - dependency-name: "org.apache.maven.plugins:maven-enforcer-plugin"
         versions:
           - ">= 3.0.0"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      # Check for updates to GitHub Actions every day
+      interval: "daily"    
+
   - package-ecosystem: "github-actions"
     directory: "/"
     target-branch: "tobago-4.x"
     schedule:
       # Check for updates to GitHub Actions every day
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    # Look for `package.json` and `lock` files in the `root` directory
+    directory: "/tobago-core/npm"
+    # Check the npm registry for updates every day (weekdays)
+    schedule:
       interval: "daily"
