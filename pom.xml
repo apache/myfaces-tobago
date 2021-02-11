@@ -52,7 +52,7 @@
     <required.maven.version>3.0.4</required.maven.version>
     <maven-pmd-plugin.version>3.8</maven-pmd-plugin.version>
     <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
-    <checkstyle-rules.version>12</checkstyle-rules.version>
+    <checkstyle-rules.version>13</checkstyle-rules.version>
   </properties>
 
   <issueManagement>
@@ -910,7 +910,7 @@
         <plugin>
           <groupId>com.github.matinh.vdldoc</groupId>
           <artifactId>vdldoc-maven-plugin</artifactId>
-          <version>1.0</version>
+          <version>2.0</version>
         </plugin>
         <plugin>
           <groupId>org.apache.rat</groupId>
