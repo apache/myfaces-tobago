@@ -47,7 +47,7 @@
     "@trevoreyre/autocomplete": "^2.2.0",
     "@trevoreyre/autocomplete-js": "^2.2.0",
     "vanillajs-datepicker": "^1.0.3",
-    "bootstrap": "5.0.0-beta1"
+    "bootstrap": "5.0.0-beta2"
   },
   "devDependencies": {
     "tobago-core": "file:../../../tobago-core/npm",
