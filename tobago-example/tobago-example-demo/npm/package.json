@@ -33,7 +33,7 @@
     "node-sass": "^5.0.0",
     "npm-run-all": "^4.1.5",
     "postcss-cli": "^8.2.0",
-    "prismjs": "^1.22.0",
+    "prismjs": "^1.23.0",
     "rollup": "^2.37.1",
     "@rollup/plugin-node-resolve": "^11.1.1",
     "@rollup/plugin-replace": "^2.3.4",
