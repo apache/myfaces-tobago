@@ -117,6 +117,9 @@ updates:
       - dependency-name: "org.jboss.weld.servlet:weld-servlet-shaded"
         versions:
           - ">= 4.0.0"
+      - dependency-name: "org.hibernate:hibernate-validator"
+        versions:
+          - ">= 7.0.0"
       - dependency-name: "org.hibernate.validator:hibernate-validator"
         versions:
           - ">= 7.0.0"
