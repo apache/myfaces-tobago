@@ -106,8 +106,8 @@ public enum Release {
   v2_4_0("12344409"),
   v2_4_1("12344899"),
   v2_4_2("12345177"),
-  v2_4_3("12346997", true),
-  v2_4_4("12349632", false, true),
+  v2_4_3("12346997"),
+  v2_4_4("12349632", true),
   v2_4_5("12349661", false, true),
   v2_5_0("12345962", false, true),
 
@@ -139,19 +139,19 @@ public enum Release {
   v4_4_0("12344541"),
   v4_4_1("12345061"),
   v4_5_0("12345562"),
-  v4_5_1("12348200", true),
-  v4_5_2("12349344", false, true),
+  v4_5_1("12348200"),
+  v4_5_2("12349344", true),
   v4_5_3("12349662", false, true),
 
   v5_0_0("12338729", false, true),
   v5_0_1("12344151", false, true),
   v5_1_0("12344152", false, true);
 
-  private String jira;
-  private String version;
-  private boolean tx;
-  private boolean current;
-  private boolean unreleased;
+  private final String jira;
+  private final String version;
+  private final boolean tx;
+  private final boolean current;
+  private final boolean unreleased;
 
   Release(final String jira) {
     this(jira, false, false);
