@@ -2,8 +2,7 @@
 
 ## Semantic Commit Messages
 
-Inspired by [Git Commit Msg][git-commit-msg] 
-and [Angular Commit Message Format][angular-commit-message-format]
+Inspired by [Git Commit Msg][git-commit-msg], [Angular Commit Message Format][angular-commit-message-format] and [Conventional Commits][conventional-commits]
 
 
 ### <a name="commit-message-format"></a> Commit Message Format
@@ -67,3 +66,5 @@ reference Jira issues that this commit **Closes**, **Fixes**, or **Relates to**.
 [git-commit-msg]: http://karma-runner.github.io/6.1/dev/git-commit-msg.html
 
 [angular-commit-message-format]: https://github.com/angular/material/blob/master/.github/CONTRIBUTING.md#-commit-message-format
+
+[conventional-commits]: https://www.conventionalcommits.org/en/v1.0.0/
