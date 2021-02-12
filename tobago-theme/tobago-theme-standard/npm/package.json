@@ -64,7 +64,7 @@
     "ajv-keywords": "^3.5.2",
     "autoprefixer": "^9.8.6",
     "bootstrap": "5.0.0-beta2",
-    "clean-css-cli": "^4.3.0",
+    "clean-css-cli": "^5.0.1",
     "eslint": "^7.19.0",
     "eslint-plugin-compat": "^3.8.0",
     "font-awesome": "4.7.0",
