@@ -78,6 +78,6 @@
     "ts-jest": "^26.5.1",
     "tslint": "^6.1.3",
     "typescript": "^4.1.5",
-    "uglify-js": "^3.12.7"
+    "uglify-js": "^3.12.8"
   }
 }
