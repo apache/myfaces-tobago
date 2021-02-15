@@ -52,8 +52,8 @@
   "devDependencies": {
     "tobago-core": "file:../../../tobago-core/npm",
     "@popperjs/core": "^2.6.0",
-    "ajv": "^6.12.6",
-    "ajv-keywords": "^3.5.2",
+    "ajv": "^7.1.0",
+    "ajv-keywords": "^4.0.0",
     "autoprefixer": "^9.8.6",
     "clean-css-cli": "^5.0.1",
     "eslint": "^7.19.0",
