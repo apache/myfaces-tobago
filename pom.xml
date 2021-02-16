@@ -38,7 +38,7 @@
     <myfaces-test23.version>1.0.8</myfaces-test23.version>
     <!-- new main branch of MyFaces "next" -->
 <!--    <myfaces23.version>2.3-next-M3</myfaces23.version>-->
-    <myfaces23x.version>2.3-next-M4</myfaces23x.version>
+    <myfaces23x.version>2.3-next-M5</myfaces23x.version>
 
     <mojarra23.version>2.3.14</mojarra23.version>
     <openwebbeans.version>2.0.21</openwebbeans.version>
