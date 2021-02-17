@@ -96,11 +96,14 @@ public interface SheetTagDeclaration
   /**
    * <p>
    * LayoutConstraints for column layout.
-   * Semicolon separated list of layout tokens '&lt;n&gt;fr', '&lt;x&gt;px', '&lt;x&gt;%' or "auto",
+   * Contains a space separated list of layout tokens '&lt;n&gt;fr', '&lt;x&gt;px', '&lt;x&gt;%' or 'auto',
    * where x is a number and n is an integer.
    * </p>
    * <p>
    * The layout token '&lt;n&gt;*' is deprecated, please use '&lt;n&gt;fr'!
+   * </p>
+   * <p>
+   * Semicolons as separators are deprecated, please use spaces.
    * </p>
    */
   @TagAttribute

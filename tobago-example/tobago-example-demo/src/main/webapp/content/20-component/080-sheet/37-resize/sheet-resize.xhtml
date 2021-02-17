@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <tc:style file="#{request.contextPath}/style/fix-table-auto.css"/>
+
+  <tc:section label="Resizable Columns">
+
+    You can set the columns to resizable with setting the <code>columns</code> attribute.
+    It contains a space separated list of layout tokens '&lt;n&gt;fr', '&lt;x&gt;px', '&lt;x&gt;%' or 'auto',
+    where x is a number and n is an integer.
+
+    To have a full automatic layout, just leaf the <code>columns</code> attribute out like in
+    the <a href="#page:none">last example</a> on this page.
+
+    <tc:section label="Fraction">
+      <tc:sheet value="#{sheetController.solarList}" var="object" rows="4"
+                columns="3fr 2fr 1fr"
+                selectable="single"
+                showRowRange="none" showPageRange="none">
+        <tc:column label="3fr">
+          <tc:out value="#{object.name}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="2fr">
+          <tc:out value="#{object.distance}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="1fr">
+          <tc:out value="#{object.orbit}" labelLayout="skip"/>
+        </tc:column>
+      </tc:sheet>
+    </tc:section>
+
+    <tc:section label="Percent">
+      Here we left 5% space for the possible vertical scrollbar.
+      The sum is not needed to be 100%. Ist possible to have a lower or a higher sum.
+      <tc:sheet value="#{sheetController.solarList}" var="object" rows="4"
+                columns="30% 20% 45%"
+                selectable="single"
+                showRowRange="none" showPageRange="none">
+        <tc:column label="30%">
+          <tc:out value="#{object.name}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="20%">
+          <tc:out value="#{object.distance}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="45%">
+          <tc:out value="#{object.orbit}" labelLayout="skip"/>
+        </tc:column>
+      </tc:sheet>
+    </tc:section>
+
+    <tc:section label="Auto">
+      <tc:sheet value="#{sheetController.solarList}" var="object" rows="4"
+                columns="auto auto auto"
+                selectable="single"
+                showRowRange="none" showPageRange="none">
+        <tc:column label="auto">
+          <tc:out value="#{object.name}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="auto">
+          <tc:out value="#{object.distance}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="auto">
+          <tc:out value="#{object.orbit}" labelLayout="skip"/>
+        </tc:column>
+      </tc:sheet>
+    </tc:section>
+
+    <tc:section label="Mixed">
+      <tc:sheet value="#{sheetController.solarList}" var="object" rows="4"
+                columns="auto 30% 200px"
+                selectable="single"
+                showRowRange="none" showPageRange="none">
+        <tc:column label="auto">
+          <tc:out value="#{object.name}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="30%">
+          <tc:out value="#{object.distance}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="200px">
+          <tc:out value="#{object.orbit}" labelLayout="skip"/>
+        </tc:column>
+      </tc:sheet>
+    </tc:section>
+
+    <tc:section label="Extra Large Mixed">
+      Here you have a horizontal scroll bar, because the sum of the widths is 130% + 1000px.
+      <tc:sheet value="#{sheetController.solarList}" var="object" rows="4"
+                columns="80% 50% 1000px"
+                selectable="single"
+                showRowRange="none" showPageRange="none">
+        <tc:column label="80%">
+          <tc:out value="#{object.name}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="50%">
+          <tc:out value="#{object.distance}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="1000px">
+          <tc:out value="#{object.orbit}" labelLayout="skip"/>
+        </tc:column>
+      </tc:sheet>
+    </tc:section>
+
+    <tc:section id="none" label="None">
+      No columns attribute is used here. The columns are automatically layed out, and aren't resizeable.
+      <tc:sheet value="#{sheetController.solarList}" var="object" rows="4"
+                selectable="single"
+                showRowRange="none" showPageRange="none">
+        <tc:column label="n/a">
+          <tc:out value="#{object.name}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="n/a">
+          <tc:out value="#{object.distance}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="n/a">
+          <tc:out value="#{object.orbit}" labelLayout="skip"/>
+        </tc:column>
+      </tc:sheet>
+    </tc:section>
+
+  </tc:section>
+
+</ui:composition>
