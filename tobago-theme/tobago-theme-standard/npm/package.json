@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "tobago-core": "file:../../../tobago-core/npm",
-    "@popperjs/core": "^2.6.0",
+    "@popperjs/core": "^2.7.0",
     "@types/jest": "^26.0.15",
     "ajv": "^7.1.0",
     "ajv-keywords": "^4.0.0",
