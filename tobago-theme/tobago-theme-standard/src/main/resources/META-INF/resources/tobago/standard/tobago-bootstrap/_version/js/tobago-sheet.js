@@ -176,6 +176,35 @@ Tobago.Sheet.lazyError = function(data) {
   }
 };
 
+/*
+Tobago.Sheet.logCol = function () {
+
+  var headerTable = jQuery(".tobago-sheet-headerTable");
+  var bodyTable = jQuery(".tobago-sheet-bodyTable");
+  var headerColumns = headerTable.children("colgroup").children("col");
+  var bodyColumns = bodyTable.children("colgroup").children("col");
+
+  var r = "*** header col widths: " + headerTable.width() + " = [";
+
+  var s = 0;
+  for (const headerColumn of headerColumns) {
+    r += " " + headerColumn.width;
+    s += parseInt(headerColumn.width);
+  }
+  r += " ] sum=" + s;
+  r += " body col widths: " + bodyTable.width() + " = [";
+
+  s = 0;
+  for (const bodyColumn of bodyColumns) {
+    r += " " + bodyColumn.width;
+    s += parseInt(bodyColumn.width);
+  }
+  r += " ] sum=" + s;
+
+  console.warn(r);
+}
+*/
+
 Tobago.Sheet.setup2 = function (sheets) {
 
   // synchronize column widths
@@ -200,6 +229,16 @@ Tobago.Sheet.setup2 = function (sheets) {
       var columnWidths = jQuery.parseJSON(hidden.val());
       console.info("columnWidths: " + columnWidths); // @DEV_ONLY
     }
+
+    // Tobago.Sheet.logCol()
+
+    Tobago.Sheet.initHeaderFillerWidths($sheet, columnWidths);
+
+    // Tobago.Sheet.logCol()
+
+    var $headerTable = $sheet.children("header").children("table");
+    var $bodyTable = $sheet.children("div").children("table");
+
     if (columnWidths !== undefined && columnWidths.length === 0) {
       // otherwise use the layout definition
       var layout = $sheet.data("tobago-layout");
@@ -207,13 +246,13 @@ Tobago.Sheet.setup2 = function (sheets) {
         var tokens = layout.columns;
         var rendered = jQuery.parseJSON(Tobago.Sheet.findHiddenRendered($sheet).val());
 
-        var $headerTable = $sheet.children("header").children("table");
         var $headerCol = $headerTable.children("colgroup").children("col");
-        var $bodyTable = $sheet.children("div").children("table");
         var $bodyCol = $bodyTable.children("colgroup").children("col");
 
         console.assert($headerCol.length - 1 === $bodyCol.length, "header and body column number doesn't match");  // @DEV_ONLY
 
+        console.debug("phase 1"); // @DEV_ONLY
+        // phase one: collect data
         var i;
         var intValue;
         var sumRelative = 0;
@@ -231,8 +270,9 @@ Tobago.Sheet.setup2 = function (sheets) {
                 widthRelative -= parseInt($bodyTable.width() / 100 * intValue);
               }
             } else if(tokens[i] === "auto") {
-              var value = $headerCol.eq(r).width();
+              var value = $headerTable.children("tbody").children("tr").children("th").eq(r).outerWidth(true);
               widthRelative -= value;
+              // console.log("auto -> " + value);
               tokens[i] = {measure: value + "px"}; // converting "auto" to a specific value
             } else {
               console.debug("(layout columns a) auto? token[i]='%s' i=%i", tokens[i], i); // @DEV_ONLY
@@ -240,10 +280,17 @@ Tobago.Sheet.setup2 = function (sheets) {
             r++;
           }
         }
+        var scrollCol = $headerCol.last().width();
+        if (scrollCol) {
+          widthRelative -= scrollCol;
+        }
         if (widthRelative < 0) {
           widthRelative = 0;
         }
+        // Tobago.Sheet.logCol()
 
+        console.info("phase 2"); // @DEV_ONLY
+        // phase 2: set widths
         r = 0;
         for (i = 0; i < tokens.length; i++) {
           var colWidth = 0;
@@ -268,8 +315,12 @@ Tobago.Sheet.setup2 = function (sheets) {
           }
         }
       }
+      // Tobago.Sheet.logCol()
     }
-    Tobago.Sheet.addHeaderFillerWidth($sheet);
+
+    // release the overlast col width = 0
+    $headerTable.find("col").eq(-2).removeAttr("width");
+    $bodyTable.find("col").eq(-2).removeAttr("width");
   });
 
   // resize: mouse events
@@ -280,6 +331,7 @@ Tobago.Sheet.setup2 = function (sheets) {
     jQuery(this).mousedown(function (event) {
       // begin resizing
       console.info("down"); // @DEV_ONLY
+      // Tobago.Sheet.logCol()
       var columnIndex = jQuery(this).data("tobago-column-index");
       var body = jQuery("body");
       var sheet = jQuery(this).closest(".tobago-sheet");
@@ -301,18 +353,22 @@ Tobago.Sheet.setup2 = function (sheets) {
 
       body.on("mousemove", data, function(event) {
         console.info("move"); // @DEV_ONLY
+        // Tobago.Sheet.logCol()
         var delta = event.clientX - event.data.originalClientX;
-        delta = -Math.min(-delta, event.data.originalHeaderColumnWidth - 10);
+        // min column width is 40px
+        delta = -Math.min(-delta, event.data.originalHeaderColumnWidth - 40);
         var columnWidth = event.data.originalHeaderColumnWidth + delta;
         event.data.headerColumn.attr("width", columnWidth);
         event.data.bodyColumn.attr("width", columnWidth);
         Tobago.clearSelection();
+        // Tobago.Sheet.logCol()
         return false;
       });
       body.one("mouseup", function(event) {
         // switch off the mouse move listener
         jQuery("body").off("mousemove");
         console.info("up"); // @DEV_ONLY
+        // Tobago.Sheet.logCol()
         // copy the width values from the header to the body, (and build a list of it)
         var tokens = sheet.data("tobago-layout").columns;
         var rendered = jQuery.parseJSON(Tobago.Sheet.findHiddenRendered(sheet).val());
@@ -374,6 +430,7 @@ Tobago.Sheet.setup2 = function (sheets) {
 
         // store the width values in a hidden field
         Tobago.Sheet.findHiddenWidths(sheet).val(JSON.stringify(widths));
+        // Tobago.Sheet.logCol()
         return false;
       });
     });
@@ -695,10 +752,39 @@ Tobago.Sheet.findHiddenRendered = function($sheet){
   return jQuery(Tobago.Utils.escapeClientId(id));
 };
 
-Tobago.Sheet.addHeaderFillerWidth = function($sheet) {
+Tobago.Sheet.initHeaderFillerWidths = function($sheet, columnWidths) {
+  var autoFillNull = false;
+  if (columnWidths !== undefined && columnWidths.length === 0) {
+    var layout = $sheet.data("tobago-layout");
+    if (layout && layout.columns && layout.columns.length > 0) {
+      var rendered = jQuery.parseJSON(Tobago.Sheet.findHiddenRendered($sheet).val());
+      var tokens = layout.columns;
+      var i;
+      for (i = 0; i < tokens.length; i++) {
+        if (rendered[i] === "true") {
+          if (typeof tokens[i] === "number") {
+            autoFillNull = true;
+          } else if (tokens[i] === "auto") {
+            autoFillNull = true;
+          }
+        }
+      }
+    }
+  }
+
   var $headerTable = $sheet.find(".tobago-sheet-headerTable");
   var $headerCols = $headerTable.find("col");
   $headerCols.last().attr("width", Tobago.Sheet.getScrollBarSize());
+  if (autoFillNull) {
+    $headerCols.eq(-2).attr("width", 0);
+  }
+
+  var $bodyTable = $sheet.find(".tobago-sheet-bodyTable");
+  var $bodyCols = $bodyTable.find("col");
+  $bodyCols.last().attr("width", Tobago.Sheet.getScrollBarSize());
+  if (autoFillNull) {
+    $bodyCols.eq(-2).attr("width", 0);
+  }
 };
 
 Tobago.Sheet.getScrollBarSize = function() {

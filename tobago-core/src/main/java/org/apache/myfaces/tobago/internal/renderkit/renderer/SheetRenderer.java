@@ -579,7 +579,7 @@ public class SheetRenderer extends RendererBase {
           sheetMarkup.contains(Markup.DARK) ? BootstrapClass.TABLE_DARK : null,
           sheetMarkup.contains(Markup.BORDERED) ? BootstrapClass.TABLE_BORDERED : null,
           sheetMarkup.contains(Markup.SMALL) ? BootstrapClass.TABLE_SM : null,
-          !autoLayout ? TobagoClass.TABLE_LAYOUT__FIXED : null);
+          TobagoClass.TABLE_LAYOUT__FIXED);
 
       writeColgroup(writer, columnWidths, columns, true);
 
@@ -1029,10 +1029,10 @@ public class SheetRenderer extends RendererBase {
         i++;
       }
     }
-    writeCol(writer, null); // extra entry for resizing...
-    if (isHeader) {
-      writeCol(writer, null); // extra entry for headerFiller
-    }
+    writeCol(writer, 0); // extra entry for resizing...
+//    if (isHeader) {
+      writeCol(writer, 20); // extra entry for headerFiller
+//    }
     // TODO: the value should be added to the list
     writer.endElement(HtmlElements.COLGROUP);
   }

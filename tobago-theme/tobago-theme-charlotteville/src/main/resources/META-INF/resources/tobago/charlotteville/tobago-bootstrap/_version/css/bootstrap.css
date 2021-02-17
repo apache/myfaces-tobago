@@ -11301,7 +11301,7 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   text-align: justify;
 }
 
-.tobago-sheet-cell-markup-filler {
+.tobago-sheet-cell-markup-filler, .tobago-sheet-headerCell-markup-filler {
   padding: 0 !important;
   /* fix for IE 11 */
 }
@@ -11358,7 +11358,7 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   table-layout: fixed;
 }
 
-.tobago-sheet-headerCell-markup-filler {
+.tobago-sheet-headerCell-markup-filler:last-child {
   border-width: 0 !important;
 }
 
@@ -11374,6 +11374,10 @@ th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
   height: 100%;
   z-index: 1;
   cursor: col-resize;
+}
+
+.tobago-sheet-header:hover .tobago-sheet-headerResize {
+  background-color: #d0d0d0;
 }
 
 .tobago-sheet-headerCell {
