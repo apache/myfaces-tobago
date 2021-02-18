@@ -91,6 +91,7 @@ public class CookieUtils {
             }
             cookie.setMaxAge(ONE_YEAR_IN_SECONDS);
           }
+          cookie.setSecure(true);
           response.addCookie(cookie);
         }
       }
@@ -99,6 +100,7 @@ public class CookieUtils {
       final Cookie cookie = new Cookie(THEME_PARAMETER, themeName);
       cookie.setPath(path);
       cookie.setMaxAge(ONE_YEAR_IN_SECONDS);
+      cookie.setSecure(true);
       response.addCookie(cookie);
     }
   }
@@ -106,14 +108,13 @@ public class CookieUtils {
   public static void removeThemeNameCookie(
       final HttpServletRequest request, final HttpServletResponse response) {
 
-    String path = request.getContextPath();
-    path = StringUtils.isBlank(path) ? "/" : path;
     final Cookie[] cookies = request.getCookies();
     if (cookies != null) {
       for (final Cookie cookie : cookies) {
         if (THEME_PARAMETER.equals(cookie.getName())) {
           cookie.setMaxAge(0);
           cookie.setValue(null);
+          cookie.setSecure(true);
           response.addCookie(cookie);
         }
       }
