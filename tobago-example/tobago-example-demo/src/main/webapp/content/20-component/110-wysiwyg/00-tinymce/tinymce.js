@@ -15,61 +15,8 @@
  * limitations under the License.
  */
 
-(function ($) {
-
-  $.widget("demo.htmlEditor", {
-
-    _create: function () {
-
-      if (typeof tinymce == "undefined") {
-        console.error("No TinyMCE installation found!");
-        return;
-      }
-      tinymce.init({
-        selector: "#" + this.element.id.replace(/([:.])/g, "\\$1"),
-        init_instance_callback: function (editor) {
-          var textarea = document.getElementById(editor.id); // fixme: works not in Shadow DOM
-          var editorContainer = jQuery(editor.editorContainer);
-
-          editorContainer.css("height", textarea.css("height"));
-          editorContainer.css("width", textarea.css("width"));
-          editorContainer.css("left", textarea.css("left"));
-          editorContainer.css("top", textarea.css("top"));
-          editorContainer.css("position", textarea.css("position"));
-
-          var text = jQuery(editor.contentAreaContainer);
-
-          // set estimated height
-          text.outerHeight(text.outerHeight - 107);
-
-          // compute the real height a bit later, (didn't found an event to listen, so using setTimeout)
-          setTimeout(function () {
-            var heightDelta = 2; // extra pixel...
-            editorContainer.find(".mce-toolbar, .mce-statusbar").each(function () {
-              heightDelta += jQuery(this).outerHeight();
-            });
-            text.outerHeight(text.outerHeight() - heightDelta);
-          }, 50);
-        },
-        setup: function(ed) {
-          ed.on('init', function(args) {
-            // TinyMCE v4
-            if (jQuery("#" + args.target.id.replace(/:/g, "\\:")).attr('readonly') == "readonly") {
-              tinymce.get(args.target.id).setMode('readonly');
-            }
-          });
-        }
-      });
-    },
-
-    _destroy: function () {
-      // tbd: instance.destroy()
-    }
-
+document.addEventListener("DOMContentLoaded", (event) => {
+  tinymce.init({
+    selector: "textarea[data-html-editor=tinymce]"
   });
-
-}(jQuery));
-
-Listener.register(function () {
-  jQuery("[data-html-editor]").htmlEditor();
-}, Phase.DOCUMENT_READY);
+});
