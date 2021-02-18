@@ -2869,100 +2869,6 @@
      * See the License for the specific language governing permissions and
      * limitations under the License.
      */
-    // XXX it might be nice, if this util was in tobago-date.ts, but in that case there are problems
-    // XXX with Jest (UnitTesting)
-    class DateUtils {
-        /*
-        Get the pattern from the "Java world",
-        see https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/SimpleDateFormat.html
-        and convert it to 'vanillajs-datepicker', see https://mymth.github.io/vanillajs-datepicker/#/date-string+format
-        Attention: Not every pattern char is supported.
-        */
-        static convertPatternJava2Js(originalPattern) {
-            let pattern;
-            if (!originalPattern || originalPattern.length > 100) {
-                console.warn("Pattern not supported: " + originalPattern);
-                pattern = "";
-            }
-            else {
-                pattern = originalPattern;
-            }
-            let analyzedPattern = "";
-            let nextSegment = "";
-            let escMode = false;
-            for (let i = 0; i < pattern.length; i++) {
-                const currentChar = pattern.charAt(i);
-                if (currentChar == "'" && escMode == false) {
-                    escMode = true;
-                    analyzedPattern += DateUtils.convertPatternPart(nextSegment);
-                    nextSegment = "";
-                }
-                else if (currentChar == "'" && pattern.charAt(i + 1) == "'") {
-                    if (escMode) {
-                        nextSegment += "\\";
-                    }
-                    nextSegment += "'";
-                    i++;
-                }
-                else if (currentChar == "'" && escMode == true) {
-                    escMode = false;
-                    analyzedPattern += nextSegment;
-                    nextSegment = "";
-                }
-                else {
-                    if (escMode) {
-                        nextSegment += "\\";
-                    }
-                    nextSegment += currentChar;
-                }
-            }
-            if (nextSegment != "") {
-                if (escMode) {
-                    analyzedPattern += nextSegment;
-                }
-                else {
-                    analyzedPattern += this.convertPatternPart(nextSegment);
-                }
-            }
-            return analyzedPattern;
-        }
-        static convertPatternPart(originalPattern) {
-            let pattern = originalPattern;
-            if (pattern.search("G") > -1 || pattern.search("W") > -1 || pattern.search("F") > -1
-                || pattern.search("K") > -1 || pattern.search("z") > -1 || pattern.search("X") > -1) {
-                console.warn("Pattern chars 'G', 'W', 'F', 'K', 'z' and 'X' are not supported: " + pattern);
-                pattern = "";
-            }
-            if (pattern.search("y") > -1) {
-                pattern = pattern.replace(/y/g, "y");
-            }
-            if (pattern.search("M") > -1) {
-                pattern = pattern.replace(/M/g, "m");
-            }
-            if (pattern.search("d") > -1) {
-                pattern = pattern.replace(/dd+/g, "dd");
-                pattern = pattern.replace(/\bd\b/g, "d");
-            }
-            return pattern;
-        }
-    }
-
-    /*
-     * Licensed to the Apache Software Foundation (ASF) under one or more
-     * contributor license agreements.  See the NOTICE file distributed with
-     * this work for additional information regarding copyright ownership.
-     * The ASF licenses this file to You under the Apache License, Version 2.0
-     * (the "License"); you may not use this file except in compliance with
-     * the License.  You may obtain a copy of the License at
-     *
-     *      http://www.apache.org/licenses/LICENSE-2.0
-     *
-     * Unless required by applicable law or agreed to in writing, software
-     * distributed under the License is distributed on an "AS IS" BASIS,
-     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     * See the License for the specific language governing permissions and
-     * limitations under the License.
-     */
     class Config {
         static set(key, value) {
             this.map.set(key, value);
@@ -3468,6 +3374,7 @@
       requiresIfExists: ['preventOverflow']
     };
 
+    var round = Math.round;
     var unsetSides = {
       top: 'auto',
       right: 'auto',
@@ -3483,8 +3390,8 @@
       var win = window;
       var dpr = win.devicePixelRatio || 1;
       return {
-        x: Math.round(x * dpr) / dpr || 0,
-        y: Math.round(y * dpr) / dpr || 0
+        x: round(round(x * dpr) / dpr) || 0,
+        y: round(round(y * dpr) / dpr) || 0
       };
     }
 
@@ -3500,7 +3407,7 @@
           adaptive = _ref2.adaptive,
           roundOffsets = _ref2.roundOffsets;
 
-      var _ref3 = roundOffsets ? roundOffsetsByDPR(offsets) : offsets,
+      var _ref3 = roundOffsets === true ? roundOffsetsByDPR(offsets) : typeof roundOffsets === 'function' ? roundOffsets(offsets) : offsets,
           _ref3$x = _ref3.x,
           x = _ref3$x === void 0 ? 0 : _ref3$x,
           _ref3$y = _ref3.y,
@@ -3799,7 +3706,7 @@
       }
 
       var scrollParent = getScrollParent(element);
-      var isBody = getNodeName(scrollParent) === 'body';
+      var isBody = scrollParent === element.ownerDocument.body;
       var win = getWindow(scrollParent);
       var target = isBody ? [win].concat(win.visualViewport || [], isScrollParent(scrollParent) ? scrollParent : []) : scrollParent;
       var updatedList = list.concat(target);
@@ -10453,8 +10360,7 @@
             }
         }
         get pattern() {
-            const pattern = this.getAttribute("pattern");
-            return DateUtils.convertPatternJava2Js(pattern); // todo: to the conversation in Java, not here
+            return this.getAttribute("pattern");
         }
         get i18n() {
             const i18n = this.getAttribute("i18n");
@@ -10675,6 +10581,759 @@
         }
     });
 
+    function _classCallCheck(instance, Constructor) {
+      if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+      }
+    }
+
+    function _defineProperties$1(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    function _createClass$1(Constructor, protoProps, staticProps) {
+      if (protoProps) _defineProperties$1(Constructor.prototype, protoProps);
+      if (staticProps) _defineProperties$1(Constructor, staticProps);
+      return Constructor;
+    }
+
+    function _defineProperty(obj, key, value) {
+      if (key in obj) {
+        Object.defineProperty(obj, key, {
+          value: value,
+          enumerable: true,
+          configurable: true,
+          writable: true
+        });
+      } else {
+        obj[key] = value;
+      }
+
+      return obj;
+    }
+
+    // Polyfill for element.matches, to support Internet Explorer. It's a relatively
+    // simple polyfill, so we'll just include it rather than require the user to
+    // include the polyfill themselves. Adapted from
+    // https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
+    var matches = function matches(element, selector) {
+      return element.matches ? element.matches(selector) : element.msMatchesSelector ? element.msMatchesSelector(selector) : element.webkitMatchesSelector ? element.webkitMatchesSelector(selector) : null;
+    };
+
+    // Polyfill for element.closest, to support Internet Explorer. It's a relatively
+
+    var closestPolyfill = function closestPolyfill(el, selector) {
+      var element = el;
+
+      while (element && element.nodeType === 1) {
+        if (matches(element, selector)) {
+          return element;
+        }
+
+        element = element.parentNode;
+      }
+
+      return null;
+    };
+
+    var closest = function closest(element, selector) {
+      return element.closest ? element.closest(selector) : closestPolyfill(element, selector);
+    };
+
+    // Returns true if the value has a "then" function. Adapted from
+    // https://github.com/graphql/graphql-js/blob/499a75939f70c4863d44149371d6a99d57ff7c35/src/jsutils/isPromise.js
+    var isPromise = function isPromise(value) {
+      return Boolean(value && typeof value.then === 'function');
+    };
+
+    var AutocompleteCore = function AutocompleteCore() {
+      var _this = this;
+
+      var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+          search = _ref.search,
+          _ref$autoSelect = _ref.autoSelect,
+          autoSelect = _ref$autoSelect === void 0 ? false : _ref$autoSelect,
+          _ref$setValue = _ref.setValue,
+          setValue = _ref$setValue === void 0 ? function () {} : _ref$setValue,
+          _ref$setAttribute = _ref.setAttribute,
+          setAttribute = _ref$setAttribute === void 0 ? function () {} : _ref$setAttribute,
+          _ref$onUpdate = _ref.onUpdate,
+          onUpdate = _ref$onUpdate === void 0 ? function () {} : _ref$onUpdate,
+          _ref$onSubmit = _ref.onSubmit,
+          onSubmit = _ref$onSubmit === void 0 ? function () {} : _ref$onSubmit,
+          _ref$onShow = _ref.onShow,
+          onShow = _ref$onShow === void 0 ? function () {} : _ref$onShow,
+          _ref$onHide = _ref.onHide,
+          onHide = _ref$onHide === void 0 ? function () {} : _ref$onHide,
+          _ref$onLoading = _ref.onLoading,
+          onLoading = _ref$onLoading === void 0 ? function () {} : _ref$onLoading,
+          _ref$onLoaded = _ref.onLoaded,
+          onLoaded = _ref$onLoaded === void 0 ? function () {} : _ref$onLoaded;
+
+      _classCallCheck(this, AutocompleteCore);
+
+      _defineProperty(this, "value", '');
+
+      _defineProperty(this, "searchCounter", 0);
+
+      _defineProperty(this, "results", []);
+
+      _defineProperty(this, "selectedIndex", -1);
+
+      _defineProperty(this, "handleInput", function (event) {
+        var value = event.target.value;
+
+        _this.updateResults(value);
+
+        _this.value = value;
+      });
+
+      _defineProperty(this, "handleKeyDown", function (event) {
+        var key = event.key;
+
+        switch (key) {
+          case 'Up': // IE/Edge
+
+          case 'Down': // IE/Edge
+
+          case 'ArrowUp':
+          case 'ArrowDown':
+            {
+              var selectedIndex = key === 'ArrowUp' || key === 'Up' ? _this.selectedIndex - 1 : _this.selectedIndex + 1;
+              event.preventDefault();
+
+              _this.handleArrows(selectedIndex);
+
+              break;
+            }
+
+          case 'Tab':
+            {
+              _this.selectResult();
+
+              break;
+            }
+
+          case 'Enter':
+            {
+              var selectedResult = _this.results[_this.selectedIndex];
+
+              _this.selectResult();
+
+              _this.onSubmit(selectedResult);
+
+              break;
+            }
+
+          case 'Esc': // IE/Edge
+
+          case 'Escape':
+            {
+              _this.hideResults();
+
+              _this.setValue();
+
+              break;
+            }
+
+          default:
+            return;
+        }
+      });
+
+      _defineProperty(this, "handleFocus", function (event) {
+        var value = event.target.value;
+
+        _this.updateResults(value);
+
+        _this.value = value;
+      });
+
+      _defineProperty(this, "handleBlur", function () {
+        _this.hideResults();
+      });
+
+      _defineProperty(this, "handleResultMouseDown", function (event) {
+        event.preventDefault();
+      });
+
+      _defineProperty(this, "handleResultClick", function (event) {
+        var target = event.target;
+        var result = closest(target, '[data-result-index]');
+
+        if (result) {
+          _this.selectedIndex = parseInt(result.dataset.resultIndex, 10);
+          var selectedResult = _this.results[_this.selectedIndex];
+
+          _this.selectResult();
+
+          _this.onSubmit(selectedResult);
+        }
+      });
+
+      _defineProperty(this, "handleArrows", function (selectedIndex) {
+        // Loop selectedIndex back to first or last result if out of bounds
+        var resultsCount = _this.results.length;
+        _this.selectedIndex = (selectedIndex % resultsCount + resultsCount) % resultsCount; // Update results and aria attributes
+
+        _this.onUpdate(_this.results, _this.selectedIndex);
+      });
+
+      _defineProperty(this, "selectResult", function () {
+        var selectedResult = _this.results[_this.selectedIndex];
+
+        if (selectedResult) {
+          _this.setValue(selectedResult);
+        }
+
+        _this.hideResults();
+      });
+
+      _defineProperty(this, "updateResults", function (value) {
+        var currentSearch = ++_this.searchCounter;
+
+        _this.onLoading();
+
+        _this.search(value).then(function (results) {
+          if (currentSearch !== _this.searchCounter) {
+            return;
+          }
+
+          _this.results = results;
+
+          _this.onLoaded();
+
+          if (_this.results.length === 0) {
+            _this.hideResults();
+
+            return;
+          }
+
+          _this.selectedIndex = _this.autoSelect ? 0 : -1;
+
+          _this.onUpdate(_this.results, _this.selectedIndex);
+
+          _this.showResults();
+        });
+      });
+
+      _defineProperty(this, "showResults", function () {
+        _this.setAttribute('aria-expanded', true);
+
+        _this.onShow();
+      });
+
+      _defineProperty(this, "hideResults", function () {
+        _this.selectedIndex = -1;
+        _this.results = [];
+
+        _this.setAttribute('aria-expanded', false);
+
+        _this.setAttribute('aria-activedescendant', '');
+
+        _this.onUpdate(_this.results, _this.selectedIndex);
+
+        _this.onHide();
+      });
+
+      _defineProperty(this, "checkSelectedResultVisible", function (resultsElement) {
+        var selectedResultElement = resultsElement.querySelector("[data-result-index=\"".concat(_this.selectedIndex, "\"]"));
+
+        if (!selectedResultElement) {
+          return;
+        }
+
+        var resultsPosition = resultsElement.getBoundingClientRect();
+        var selectedPosition = selectedResultElement.getBoundingClientRect();
+
+        if (selectedPosition.top < resultsPosition.top) {
+          // Element is above viewable area
+          resultsElement.scrollTop -= resultsPosition.top - selectedPosition.top;
+        } else if (selectedPosition.bottom > resultsPosition.bottom) {
+          // Element is below viewable area
+          resultsElement.scrollTop += selectedPosition.bottom - resultsPosition.bottom;
+        }
+      });
+
+      this.search = isPromise(search) ? search : function (value) {
+        return Promise.resolve(search(value));
+      };
+      this.autoSelect = autoSelect;
+      this.setValue = setValue;
+      this.setAttribute = setAttribute;
+      this.onUpdate = onUpdate;
+      this.onSubmit = onSubmit;
+      this.onShow = onShow;
+      this.onHide = onHide;
+      this.onLoading = onLoading;
+      this.onLoaded = onLoaded;
+    };
+
+    // Generates a unique ID, with optional prefix. Adapted from
+    // https://github.com/lodash/lodash/blob/61acdd0c295e4447c9c10da04e287b1ebffe452c/uniqueId.js
+    var idCounter = 0;
+
+    var uniqueId = function uniqueId() {
+      var prefix = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      return "".concat(prefix).concat(++idCounter);
+    };
+
+    // Calculates whether element2 should be above or below element1. Always
+    // places element2 below unless all of the following:
+    // 1. There isn't enough visible viewport below to fit element2
+    // 2. There is more room above element1 than there is below
+    // 3. Placing elemen2 above 1 won't overflow window
+    var getRelativePosition = function getRelativePosition(element1, element2) {
+      var position1 = element1.getBoundingClientRect();
+      var position2 = element2.getBoundingClientRect();
+      var positionAbove =
+      /* 1 */
+      position1.bottom + position2.height > window.innerHeight &&
+      /* 2 */
+      window.innerHeight - position1.bottom < position1.top &&
+      /* 3 */
+      window.pageYOffset + position1.top - position2.height > 0;
+      return positionAbove ? 'above' : 'below';
+    };
+
+    // Credit David Walsh (https://davidwalsh.name/javascript-debounce-function)
+    // Returns a function, that, as long as it continues to be invoked, will not
+    // be triggered. The function will be called after it stops being called for
+    // N milliseconds. If `immediate` is passed, trigger the function on the
+    // leading edge, instead of the trailing.
+    var debounce$1 = function debounce(func, wait, immediate) {
+      var timeout;
+      return function executedFunction() {
+        var context = this;
+        var args = arguments;
+
+        var later = function later() {
+          timeout = null;
+          if (!immediate) func.apply(context, args);
+        };
+
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+      };
+    };
+
+    // string in the format: `key1="value1" key2="value2"` for easy use in an HTML string.
+
+    var Props =
+    /*#__PURE__*/
+    function () {
+      function Props(index, selectedIndex, baseClass) {
+        _classCallCheck(this, Props);
+
+        this.id = "".concat(baseClass, "-result-").concat(index);
+        this["class"] = "".concat(baseClass, "-result");
+        this['data-result-index'] = index;
+        this.role = 'option';
+
+        if (index === selectedIndex) {
+          this['aria-selected'] = 'true';
+        }
+      }
+
+      _createClass$1(Props, [{
+        key: "toString",
+        value: function toString() {
+          var _this = this;
+
+          return Object.keys(this).reduce(function (str, key) {
+            return "".concat(str, " ").concat(key, "=\"").concat(_this[key], "\"");
+          }, '');
+        }
+      }]);
+
+      return Props;
+    }();
+
+    var Autocomplete = function Autocomplete(root) {
+      var _this2 = this;
+
+      var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+          search = _ref.search,
+          _ref$onSubmit = _ref.onSubmit,
+          onSubmit = _ref$onSubmit === void 0 ? function () {} : _ref$onSubmit,
+          _ref$onUpdate = _ref.onUpdate,
+          onUpdate = _ref$onUpdate === void 0 ? function () {} : _ref$onUpdate,
+          _ref$baseClass = _ref.baseClass,
+          baseClass = _ref$baseClass === void 0 ? 'autocomplete' : _ref$baseClass,
+          autoSelect = _ref.autoSelect,
+          _ref$getResultValue = _ref.getResultValue,
+          getResultValue = _ref$getResultValue === void 0 ? function (result) {
+        return result;
+      } : _ref$getResultValue,
+          renderResult = _ref.renderResult,
+          _ref$debounceTime = _ref.debounceTime,
+          debounceTime = _ref$debounceTime === void 0 ? 0 : _ref$debounceTime;
+
+      _classCallCheck(this, Autocomplete);
+
+      _defineProperty(this, "expanded", false);
+
+      _defineProperty(this, "loading", false);
+
+      _defineProperty(this, "position", {});
+
+      _defineProperty(this, "resetPosition", true);
+
+      _defineProperty(this, "initialize", function () {
+        _this2.root.style.position = 'relative';
+
+        _this2.input.setAttribute('role', 'combobox');
+
+        _this2.input.setAttribute('autocomplete', 'off');
+
+        _this2.input.setAttribute('autocapitalize', 'off');
+
+        _this2.input.setAttribute('autocorrect', 'off');
+
+        _this2.input.setAttribute('spellcheck', 'false');
+
+        _this2.input.setAttribute('aria-autocomplete', 'list');
+
+        _this2.input.setAttribute('aria-haspopup', 'listbox');
+
+        _this2.input.setAttribute('aria-expanded', 'false');
+
+        _this2.resultList.setAttribute('role', 'listbox');
+
+        _this2.resultList.style.position = 'absolute';
+        _this2.resultList.style.zIndex = '1';
+        _this2.resultList.style.width = '100%';
+        _this2.resultList.style.boxSizing = 'border-box'; // Generate ID for results list if it doesn't have one
+
+        if (!_this2.resultList.id) {
+          _this2.resultList.id = uniqueId("".concat(_this2.baseClass, "-result-list-"));
+        }
+
+        _this2.input.setAttribute('aria-owns', _this2.resultList.id);
+
+        document.body.addEventListener('click', _this2.handleDocumentClick);
+
+        _this2.input.addEventListener('input', _this2.core.handleInput);
+
+        _this2.input.addEventListener('keydown', _this2.core.handleKeyDown);
+
+        _this2.input.addEventListener('focus', _this2.core.handleFocus);
+
+        _this2.input.addEventListener('blur', _this2.core.handleBlur);
+
+        _this2.resultList.addEventListener('mousedown', _this2.core.handleResultMouseDown);
+
+        _this2.resultList.addEventListener('click', _this2.core.handleResultClick);
+
+        _this2.updateStyle();
+      });
+
+      _defineProperty(this, "setAttribute", function (attribute, value) {
+        _this2.input.setAttribute(attribute, value);
+      });
+
+      _defineProperty(this, "setValue", function (result) {
+        _this2.input.value = result ? _this2.getResultValue(result) : '';
+      });
+
+      _defineProperty(this, "renderResult", function (result, props) {
+        return "<li ".concat(props, ">").concat(_this2.getResultValue(result), "</li>");
+      });
+
+      _defineProperty(this, "handleUpdate", function (results, selectedIndex) {
+        _this2.resultList.innerHTML = '';
+        results.forEach(function (result, index) {
+          var props = new Props(index, selectedIndex, _this2.baseClass);
+
+          var resultHTML = _this2.renderResult(result, props);
+
+          if (typeof resultHTML === 'string') {
+            _this2.resultList.insertAdjacentHTML('beforeend', resultHTML);
+          } else {
+            _this2.resultList.insertAdjacentElement('beforeend', resultHTML);
+          }
+        });
+
+        _this2.input.setAttribute('aria-activedescendant', selectedIndex > -1 ? "".concat(_this2.baseClass, "-result-").concat(selectedIndex) : '');
+
+        if (_this2.resetPosition) {
+          _this2.resetPosition = false;
+          _this2.position = getRelativePosition(_this2.input, _this2.resultList);
+
+          _this2.updateStyle();
+        }
+
+        _this2.core.checkSelectedResultVisible(_this2.resultList);
+
+        _this2.onUpdate(results, selectedIndex);
+      });
+
+      _defineProperty(this, "handleShow", function () {
+        _this2.expanded = true;
+
+        _this2.updateStyle();
+      });
+
+      _defineProperty(this, "handleHide", function () {
+        _this2.expanded = false;
+        _this2.resetPosition = true;
+
+        _this2.updateStyle();
+      });
+
+      _defineProperty(this, "handleLoading", function () {
+        _this2.loading = true;
+
+        _this2.updateStyle();
+      });
+
+      _defineProperty(this, "handleLoaded", function () {
+        _this2.loading = false;
+
+        _this2.updateStyle();
+      });
+
+      _defineProperty(this, "handleDocumentClick", function (event) {
+        if (_this2.root.contains(event.target)) {
+          return;
+        }
+
+        _this2.core.hideResults();
+      });
+
+      _defineProperty(this, "updateStyle", function () {
+        _this2.root.dataset.expanded = _this2.expanded;
+        _this2.root.dataset.loading = _this2.loading;
+        _this2.root.dataset.position = _this2.position;
+        _this2.resultList.style.visibility = _this2.expanded ? 'visible' : 'hidden';
+        _this2.resultList.style.pointerEvents = _this2.expanded ? 'auto' : 'none';
+
+        if (_this2.position === 'below') {
+          _this2.resultList.style.bottom = null;
+          _this2.resultList.style.top = '100%';
+        } else {
+          _this2.resultList.style.top = null;
+          _this2.resultList.style.bottom = '100%';
+        }
+      });
+
+      this.root = typeof root === 'string' ? document.querySelector(root) : root;
+      this.input = this.root.querySelector('input');
+      this.resultList = this.root.querySelector('ul');
+      this.baseClass = baseClass;
+      this.getResultValue = getResultValue;
+      this.onUpdate = onUpdate;
+
+      if (typeof renderResult === 'function') {
+        this.renderResult = renderResult;
+      }
+
+      var core = new AutocompleteCore({
+        search: search,
+        autoSelect: autoSelect,
+        setValue: this.setValue,
+        setAttribute: this.setAttribute,
+        onUpdate: this.handleUpdate,
+        onSubmit: onSubmit,
+        onShow: this.handleShow,
+        onHide: this.handleHide,
+        onLoading: this.handleLoading,
+        onLoaded: this.handleLoaded
+      });
+
+      if (debounceTime > 0) {
+        core.handleInput = debounce$1(core.handleInput, debounceTime);
+      }
+
+      this.core = core;
+      this.initialize();
+    } // Set up aria attributes and events
+    ;
+
+    /*
+     * Licensed to the Apache Software Foundation (ASF) under one or more
+     * contributor license agreements.  See the NOTICE file distributed with
+     * this work for additional information regarding copyright ownership.
+     * The ASF licenses this file to You under the Apache License, Version 2.0
+     * (the "License"); you may not use this file except in compliance with
+     * the License.  You may obtain a copy of the License at
+     *
+     *      http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
+    class Suggest {
+        constructor(tobagoIn) {
+            this.tobagoIn = tobagoIn;
+        }
+        init() {
+            if (!this.suggest) {
+                console.warn("[tobago-suggest] could not find tobago-suggest");
+                return;
+            }
+            this.registerAjaxListener();
+            this.base.classList.add("autocomplete");
+            this.base.insertAdjacentHTML("afterbegin", `<div class="autocomplete-pseudo-container"></div>`);
+            this.suggestInput.classList.add("autocomplete-input");
+            this.suggestInput.insertAdjacentHTML("afterend", `<ul class="autocomplete-result-list"></ul>`);
+            const options = {
+                search: input => {
+                    console.debug("[tobago-suggest] input = '" + input + "'");
+                    const minChars = this.minChars ? this.minChars : 1;
+                    if (input.length < minChars) {
+                        return [];
+                    }
+                    this.hiddenInput.value = input.toLowerCase();
+                    this.positioningSpinner();
+                    return new Promise(resolve => {
+                        if (input.length < 1) {
+                            return resolve([]);
+                        }
+                        if (this.update) {
+                            this.resolve = resolve;
+                            const suggestId = this.suggest.id;
+                            jsf.ajax.request(suggestId, null, {
+                                "javax.faces.behavior.event": "suggest",
+                                execute: suggestId,
+                                render: suggestId
+                            });
+                        }
+                        else {
+                            return resolve(this.filterItems());
+                        }
+                    });
+                },
+                onUpdate: (results, selectedIndex) => {
+                    this.positioningResultList();
+                    this.setResultListMaxHeight();
+                },
+                debounceTime: this.delay
+            };
+            new Autocomplete(this.base, options);
+            if (!this.localMenu) {
+                this.menuStore.append(this.resultList);
+            }
+        }
+        registerAjaxListener() {
+            jsf.ajax.addOnEvent(this.resolvePromise.bind(this));
+        }
+        resolvePromise(event) {
+            if (event.source === this.suggest && event.status === "success") {
+                return this.resolve(this.filterItems());
+            }
+        }
+        filterItems() {
+            return this.items.filter(item => {
+                return item.toLowerCase().indexOf(this.hiddenInput.value) > -1;
+            });
+        }
+        positioningSpinner() {
+            const baseRect = this.base.getBoundingClientRect();
+            const suggestInputRect = this.suggestInput.getBoundingClientRect();
+            const suggestInputStyle = getComputedStyle(this.suggestInput);
+            this.pseudoContainer.style.left = suggestInputRect.x - baseRect.x + suggestInputRect.width
+                - parseFloat(getComputedStyle(this.pseudoContainer, ":after").width)
+                - parseFloat(suggestInputStyle.marginRight)
+                - parseFloat(suggestInputStyle.borderRight)
+                - parseFloat(suggestInputStyle.paddingRight) + "px";
+            this.pseudoContainer.style.top = suggestInputRect.y - baseRect.y + (suggestInputRect.height / 2) + "px";
+        }
+        positioningResultList() {
+            const space = 2;
+            if (this.localMenu) {
+                const parentRect = this.suggestInput.parentElement.getBoundingClientRect();
+                const suggestInputRect = this.suggestInput.getBoundingClientRect();
+                this.resultList.style.marginLeft = (suggestInputRect.x - parentRect.x) + "px";
+                this.resultList.style.maxWidth = suggestInputRect.width + "px";
+                this.resultList.style.marginTop = space + "px";
+                this.resultList.style.marginBottom = space + "px";
+            }
+            else {
+                const suggestInputRect = this.suggestInput.getBoundingClientRect();
+                this.resultList.style.minWidth = suggestInputRect.width + "px";
+                this.resultList.style.left = suggestInputRect.left + "px";
+                if (this.resultListPosition === "below") {
+                    this.resultList.style.marginTop =
+                        window.scrollY + suggestInputRect.top + suggestInputRect.height + space + "px";
+                    this.resultList.style.marginBottom = null;
+                }
+                else if (this.resultListPosition === "above") {
+                    this.resultList.style.marginTop = null;
+                    this.resultList.style.marginBottom = -(window.scrollY + suggestInputRect.top - space) + "px";
+                }
+            }
+        }
+        setResultListMaxHeight() {
+            const resultListEntry = this.resultList.querySelector(".autocomplete-result");
+            if (this.maxItems && resultListEntry) {
+                const resultListStyle = getComputedStyle(this.resultList);
+                this.resultList.style.maxHeight = (parseFloat(resultListStyle.borderTop)
+                    + parseFloat(resultListStyle.paddingTop)
+                    + (this.maxItems * parseFloat(getComputedStyle(resultListEntry).height))
+                    + parseFloat(resultListStyle.paddingBottom)
+                    + parseFloat(resultListStyle.borderBottom)) + "px";
+            }
+        }
+        get base() {
+            return this.tobagoIn;
+        }
+        get pseudoContainer() {
+            return this.base.querySelector(":scope > .autocomplete-pseudo-container");
+        }
+        get suggestInput() {
+            const root = this.base.getRootNode();
+            return root.getElementById(this.suggest.getAttribute("for"));
+        }
+        get suggest() {
+            return this.base.querySelector("tobago-suggest");
+        }
+        get hiddenInput() {
+            return this.suggest.querySelector(":scope > input[type=hidden]");
+        }
+        get items() {
+            return JSON.parse(this.suggest.getAttribute("items"));
+        }
+        get resultList() {
+            const root = this.base.getRootNode();
+            const resultListId = this.suggestInput.getAttribute("aria-owns");
+            return root.getElementById(resultListId);
+        }
+        get resultListPosition() {
+            return this.base.dataset.position;
+        }
+        get menuStore() {
+            const root = this.base.getRootNode();
+            return root.querySelector(".tobago-page-menuStore");
+        }
+        get update() {
+            return this.suggest.getAttribute("update") !== null;
+        }
+        get delay() {
+            return parseInt(this.suggest.getAttribute("delay"));
+        }
+        get maxItems() {
+            return parseInt(this.suggest.getAttribute("max-items"));
+        }
+        get minChars() {
+            return parseInt(this.suggest.getAttribute("min-chars"));
+        }
+        get localMenu() {
+            return this.suggest.getAttribute("local-menu") !== null;
+        }
+    }
+
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
      * contributor license agreements.  See the NOTICE file distributed with
@@ -10697,6 +11356,10 @@
         }
         connectedCallback() {
             this.input.addEventListener("focus", Focus.setLastFocusId);
+            if (this.querySelector("tobago-suggest")) {
+                const suggest = new Suggest(this);
+                suggest.init();
+            }
         }
         get input() {
             const rootNode = this.getRootNode();
@@ -12410,528 +13073,6 @@
     }
     document.addEventListener("DOMContentLoaded", function (event) {
         window.customElements.define("tobago-stars", Stars);
-    });
-
-    // Polyfill for element.matches, to support Internet Explorer. It's a relatively
-    // simple polyfill, so we'll just include it rather than require the user to
-    // include the polyfill themselves. Adapted from
-    // https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
-    const matches = (element, selector) => {
-      return element.matches
-        ? element.matches(selector)
-        : element.msMatchesSelector
-        ? element.msMatchesSelector(selector)
-        : element.webkitMatchesSelector
-        ? element.webkitMatchesSelector(selector)
-        : null
-    };
-
-    // Polyfill for element.closest, to support Internet Explorer. It's a relatively
-
-    const closestPolyfill = (el, selector) => {
-      let element = el;
-      while (element && element.nodeType === 1) {
-        if (matches(element, selector)) {
-          return element
-        }
-        element = element.parentNode;
-      }
-      return null
-    };
-
-    const closest = (element, selector) => {
-      return element.closest
-        ? element.closest(selector)
-        : closestPolyfill(element, selector)
-    };
-
-    // Returns true if the value has a "then" function. Adapted from
-    // https://github.com/graphql/graphql-js/blob/499a75939f70c4863d44149371d6a99d57ff7c35/src/jsutils/isPromise.js
-    const isPromise = value => Boolean(value && typeof value.then === 'function');
-
-    class AutocompleteCore {
-      value = ''
-      searchCounter = 0
-      results = []
-      selectedIndex = -1
-
-      constructor({
-        search,
-        autoSelect = false,
-        setValue = () => {},
-        setAttribute = () => {},
-        onUpdate = () => {},
-        onSubmit = () => {},
-        onShow = () => {},
-        onHide = () => {},
-        onLoading = () => {},
-        onLoaded = () => {},
-      } = {}) {
-        this.search = isPromise(search)
-          ? search
-          : value => Promise.resolve(search(value));
-        this.autoSelect = autoSelect;
-        this.setValue = setValue;
-        this.setAttribute = setAttribute;
-        this.onUpdate = onUpdate;
-        this.onSubmit = onSubmit;
-        this.onShow = onShow;
-        this.onHide = onHide;
-        this.onLoading = onLoading;
-        this.onLoaded = onLoaded;
-      }
-
-      handleInput = event => {
-        const { value } = event.target;
-        this.updateResults(value);
-        this.value = value;
-      }
-
-      handleKeyDown = event => {
-        const { key } = event;
-
-        switch (key) {
-          case 'Up': // IE/Edge
-          case 'Down': // IE/Edge
-          case 'ArrowUp':
-          case 'ArrowDown': {
-            const selectedIndex =
-              key === 'ArrowUp' || key === 'Up'
-                ? this.selectedIndex - 1
-                : this.selectedIndex + 1;
-            event.preventDefault();
-            this.handleArrows(selectedIndex);
-            break
-          }
-          case 'Tab': {
-            this.selectResult();
-            break
-          }
-          case 'Enter': {
-            const selectedResult = this.results[this.selectedIndex];
-            this.selectResult();
-            this.onSubmit(selectedResult);
-            break
-          }
-          case 'Esc': // IE/Edge
-          case 'Escape': {
-            this.hideResults();
-            this.setValue();
-            break
-          }
-          default:
-            return
-        }
-      }
-
-      handleFocus = event => {
-        const { value } = event.target;
-        this.updateResults(value);
-        this.value = value;
-      }
-
-      handleBlur = () => {
-        this.hideResults();
-      }
-
-      // The mousedown event fires before the blur event. Calling preventDefault() when
-      // the results list is clicked will prevent it from taking focus, firing the
-      // blur event on the input element, and closing the results list before click fires.
-      handleResultMouseDown = event => {
-        event.preventDefault();
-      }
-
-      handleResultClick = event => {
-        const { target } = event;
-        const result = closest(target, '[data-result-index]');
-        if (result) {
-          this.selectedIndex = parseInt(result.dataset.resultIndex, 10);
-          const selectedResult = this.results[this.selectedIndex];
-          this.selectResult();
-          this.onSubmit(selectedResult);
-        }
-      }
-
-      handleArrows = selectedIndex => {
-        // Loop selectedIndex back to first or last result if out of bounds
-        const resultsCount = this.results.length;
-        this.selectedIndex =
-          ((selectedIndex % resultsCount) + resultsCount) % resultsCount;
-
-        // Update results and aria attributes
-        this.onUpdate(this.results, this.selectedIndex);
-      }
-
-      selectResult = () => {
-        const selectedResult = this.results[this.selectedIndex];
-        if (selectedResult) {
-          this.setValue(selectedResult);
-        }
-        this.hideResults();
-      }
-
-      updateResults = value => {
-        const currentSearch = ++this.searchCounter;
-        this.onLoading();
-        this.search(value).then(results => {
-          if (currentSearch !== this.searchCounter) {
-            return
-          }
-          this.results = results;
-          this.onLoaded();
-
-          if (this.results.length === 0) {
-            this.hideResults();
-            return
-          }
-
-          this.selectedIndex = this.autoSelect ? 0 : -1;
-          this.onUpdate(this.results, this.selectedIndex);
-          this.showResults();
-        });
-      }
-
-      showResults = () => {
-        this.setAttribute('aria-expanded', true);
-        this.onShow();
-      }
-
-      hideResults = () => {
-        this.selectedIndex = -1;
-        this.results = [];
-        this.setAttribute('aria-expanded', false);
-        this.setAttribute('aria-activedescendant', '');
-        this.onUpdate(this.results, this.selectedIndex);
-        this.onHide();
-      }
-
-      // Make sure selected result isn't scrolled out of view
-      checkSelectedResultVisible = resultsElement => {
-        const selectedResultElement = resultsElement.querySelector(
-          `[data-result-index="${this.selectedIndex}"]`
-        );
-        if (!selectedResultElement) {
-          return
-        }
-
-        const resultsPosition = resultsElement.getBoundingClientRect();
-        const selectedPosition = selectedResultElement.getBoundingClientRect();
-
-        if (selectedPosition.top < resultsPosition.top) {
-          // Element is above viewable area
-          resultsElement.scrollTop -= resultsPosition.top - selectedPosition.top;
-        } else if (selectedPosition.bottom > resultsPosition.bottom) {
-          // Element is below viewable area
-          resultsElement.scrollTop +=
-            selectedPosition.bottom - resultsPosition.bottom;
-        }
-      }
-    }
-
-    // Generates a unique ID, with optional prefix. Adapted from
-    // https://github.com/lodash/lodash/blob/61acdd0c295e4447c9c10da04e287b1ebffe452c/uniqueId.js
-    let idCounter = 0;
-    const uniqueId = (prefix = '') => `${prefix}${++idCounter}`;
-
-    // Calculates whether element2 should be above or below element1. Always
-    // places element2 below unless all of the following:
-    // 1. There isn't enough visible viewport below to fit element2
-    // 2. There is more room above element1 than there is below
-    // 3. Placing elemen2 above 1 won't overflow window
-    const getRelativePosition = (element1, element2) => {
-      const position1 = element1.getBoundingClientRect();
-      const position2 = element2.getBoundingClientRect();
-
-      const positionAbove =
-        /* 1 */ position1.bottom + position2.height > window.innerHeight &&
-        /* 2 */ window.innerHeight - position1.bottom < position1.top &&
-        /* 3 */ window.pageYOffset + position1.top - position2.height > 0;
-
-      return positionAbove ? 'above' : 'below'
-    };
-
-    // Credit David Walsh (https://davidwalsh.name/javascript-debounce-function)
-
-    // Returns a function, that, as long as it continues to be invoked, will not
-    // be triggered. The function will be called after it stops being called for
-    // N milliseconds. If `immediate` is passed, trigger the function on the
-    // leading edge, instead of the trailing.
-    const debounce$1 = (func, wait, immediate) => {
-      let timeout;
-
-      return function executedFunction() {
-        const context = this;
-        const args = arguments;
-
-        const later = function() {
-          timeout = null;
-          if (!immediate) func.apply(context, args);
-        };
-
-        const callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-
-        if (callNow) func.apply(context, args);
-      }
-    };
-
-    // Creates a props object with overridden toString function. toString returns an attributes
-    // string in the format: `key1="value1" key2="value2"` for easy use in an HTML string.
-    class Props {
-      constructor(index, selectedIndex, baseClass) {
-        this.id = `${baseClass}-result-${index}`;
-        this.class = `${baseClass}-result`;
-        this['data-result-index'] = index;
-        this.role = 'option';
-        if (index === selectedIndex) {
-          this['aria-selected'] = 'true';
-        }
-      }
-
-      toString() {
-        return Object.keys(this).reduce(
-          (str, key) => `${str} ${key}="${this[key]}"`,
-          ''
-        )
-      }
-    }
-
-    class Autocomplete {
-      expanded = false
-      loading = false
-      position = {}
-      resetPosition = true
-
-      constructor(
-        root,
-        {
-          search,
-          onSubmit = () => {},
-          onUpdate = () => {},
-          baseClass = 'autocomplete',
-          autoSelect,
-          getResultValue = result => result,
-          renderResult,
-          debounceTime = 0,
-        } = {}
-      ) {
-        this.root = typeof root === 'string' ? document.querySelector(root) : root;
-        this.input = this.root.querySelector('input');
-        this.resultList = this.root.querySelector('ul');
-        this.baseClass = baseClass;
-        this.getResultValue = getResultValue;
-        this.onUpdate = onUpdate;
-        if (typeof renderResult === 'function') {
-          this.renderResult = renderResult;
-        }
-
-        const core = new AutocompleteCore({
-          search,
-          autoSelect,
-          setValue: this.setValue,
-          setAttribute: this.setAttribute,
-          onUpdate: this.handleUpdate,
-          onSubmit,
-          onShow: this.handleShow,
-          onHide: this.handleHide,
-          onLoading: this.handleLoading,
-          onLoaded: this.handleLoaded,
-        });
-        if (debounceTime > 0) {
-          core.handleInput = debounce$1(core.handleInput, debounceTime);
-        }
-        this.core = core;
-
-        this.initialize();
-      }
-
-      // Set up aria attributes and events
-      initialize = () => {
-        this.root.style.position = 'relative';
-
-        this.input.setAttribute('role', 'combobox');
-        this.input.setAttribute('autocomplete', 'off');
-        this.input.setAttribute('autocapitalize', 'off');
-        this.input.setAttribute('autocorrect', 'off');
-        this.input.setAttribute('spellcheck', 'false');
-        this.input.setAttribute('aria-autocomplete', 'list');
-        this.input.setAttribute('aria-haspopup', 'listbox');
-        this.input.setAttribute('aria-expanded', 'false');
-
-        this.resultList.setAttribute('role', 'listbox');
-        this.resultList.style.position = 'absolute';
-        this.resultList.style.zIndex = '1';
-        this.resultList.style.width = '100%';
-        this.resultList.style.boxSizing = 'border-box';
-
-        // Generate ID for results list if it doesn't have one
-        if (!this.resultList.id) {
-          this.resultList.id = uniqueId(`${this.baseClass}-result-list-`);
-        }
-        this.input.setAttribute('aria-owns', this.resultList.id);
-
-        document.body.addEventListener('click', this.handleDocumentClick);
-        this.input.addEventListener('input', this.core.handleInput);
-        this.input.addEventListener('keydown', this.core.handleKeyDown);
-        this.input.addEventListener('focus', this.core.handleFocus);
-        this.input.addEventListener('blur', this.core.handleBlur);
-        this.resultList.addEventListener(
-          'mousedown',
-          this.core.handleResultMouseDown
-        );
-        this.resultList.addEventListener('click', this.core.handleResultClick);
-        this.updateStyle();
-      }
-
-      setAttribute = (attribute, value) => {
-        this.input.setAttribute(attribute, value);
-      }
-
-      setValue = result => {
-        this.input.value = result ? this.getResultValue(result) : '';
-      }
-
-      renderResult = (result, props) =>
-        `<li ${props}>${this.getResultValue(result)}</li>`
-
-      handleUpdate = (results, selectedIndex) => {
-        this.resultList.innerHTML = '';
-        results.forEach((result, index) => {
-          const props = new Props(index, selectedIndex, this.baseClass);
-          const resultHTML = this.renderResult(result, props);
-          if (typeof resultHTML === 'string') {
-            this.resultList.insertAdjacentHTML('beforeend', resultHTML);
-          } else {
-            this.resultList.insertAdjacentElement('beforeend', resultHTML);
-          }
-        });
-
-        this.input.setAttribute(
-          'aria-activedescendant',
-          selectedIndex > -1 ? `${this.baseClass}-result-${selectedIndex}` : ''
-        );
-
-        if (this.resetPosition) {
-          this.resetPosition = false;
-          this.position = getRelativePosition(this.input, this.resultList);
-          this.updateStyle();
-        }
-        this.core.checkSelectedResultVisible(this.resultList);
-        this.onUpdate(results, selectedIndex);
-      }
-
-      handleShow = () => {
-        this.expanded = true;
-        this.updateStyle();
-      }
-
-      handleHide = () => {
-        this.expanded = false;
-        this.resetPosition = true;
-        this.updateStyle();
-      }
-
-      handleLoading = () => {
-        this.loading = true;
-        this.updateStyle();
-      }
-
-      handleLoaded = () => {
-        this.loading = false;
-        this.updateStyle();
-      }
-
-      handleDocumentClick = event => {
-        if (this.root.contains(event.target)) {
-          return
-        }
-        this.core.hideResults();
-      }
-
-      updateStyle = () => {
-        this.root.dataset.expanded = this.expanded;
-        this.root.dataset.loading = this.loading;
-        this.root.dataset.position = this.position;
-
-        this.resultList.style.visibility = this.expanded ? 'visible' : 'hidden';
-        this.resultList.style.pointerEvents = this.expanded ? 'auto' : 'none';
-        if (this.position === 'below') {
-          this.resultList.style.bottom = null;
-          this.resultList.style.top = '100%';
-        } else {
-          this.resultList.style.top = null;
-          this.resultList.style.bottom = '100%';
-        }
-      }
-    }
-
-    /*
-     * Licensed to the Apache Software Foundation (ASF) under one or more
-     * contributor license agreements.  See the NOTICE file distributed with
-     * this work for additional information regarding copyright ownership.
-     * The ASF licenses this file to You under the Apache License, Version 2.0
-     * (the "License"); you may not use this file except in compliance with
-     * the License.  You may obtain a copy of the License at
-     *
-     *      http://www.apache.org/licenses/LICENSE-2.0
-     *
-     * Unless required by applicable law or agreed to in writing, software
-     * distributed under the License is distributed on an "AS IS" BASIS,
-     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     * See the License for the specific language governing permissions and
-     * limitations under the License.
-     */
-    class Suggest extends HTMLElement {
-        constructor() {
-            super();
-        }
-        get hiddenInput() {
-            return this.querySelector(":scope > input[type=hidden]");
-        }
-        get suggestInput() {
-            const root = this.getRootNode();
-            return root.getElementById(this.for);
-        }
-        get base() {
-            return this.suggestInput.closest("tobago-in");
-        }
-        get for() {
-            return this.getAttribute("for");
-        }
-        set for(forValue) {
-            this.setAttribute("for", forValue);
-        }
-        get items() {
-            return JSON.parse(this.getAttribute("items"));
-        }
-        connectedCallback() {
-            console.log("* autocomplete init *********************************************************************");
-            this.base.classList.add("autocomplete");
-            this.suggestInput.classList.add("autocomplete-input");
-            this.suggestInput.insertAdjacentHTML("afterend", `<ul class="autocomplete-result-list"></ul>`);
-            const options = {
-                search: input => {
-                    console.debug("input = '" + input + "'");
-                    if (input.length < 1) {
-                        return [];
-                    }
-                    const inputLower = input.toLowerCase();
-                    let strings = this.items.filter(country => {
-                        return country.toLowerCase().startsWith(inputLower);
-                    });
-                    console.debug("out   = '" + strings + "'");
-                    return strings;
-                }
-            };
-            this.autocomplete = new Autocomplete(this.base, options);
-            console.log(this.autocomplete);
-        }
-    }
-    document.addEventListener("tobago.init", function (event) {
-        if (window.customElements.get("tobago-suggest") == null) {
-            window.customElements.define("tobago-suggest", Suggest);
-        }
     });
 
     /*

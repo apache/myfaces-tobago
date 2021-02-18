@@ -11342,6 +11342,17 @@ tobago-header.sticky-top {
 tobago-in {
   display: block;
 }
+tobago-in .input-group > tobago-dropdown {
+  /* fix corner styling, because tobago-dropdown use a surrounding container inside an input group */
+}
+tobago-in .input-group > tobago-dropdown:not(:last-child) > .tobago-button {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+tobago-in .input-group > tobago-dropdown:not(:first-child) > .tobago-button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
 tobago-in .input-group tobago-select-one-choice {
   /* fix style for surrounding container (tobago-select-one-choice).
   According to bootstrap docs, <select class=.form-select> should be rendered directly to .input-group. But tobago
@@ -11356,7 +11367,43 @@ tobago-in .input-group tobago-select-one-choice.form-select {
 tobago-in .input-group tobago-select-one-choice.form-select > .form-select {
   border: 0;
 }
+tobago-in.autocomplete[data-loading=true] .autocomplete-pseudo-container {
+  position: absolute;
+}
+tobago-in.autocomplete[data-loading=true] .autocomplete-pseudo-container:after {
+  content: "";
+  border: 3px solid rgba(0, 0, 0, 0.12);
+  border-right-color: rgba(0, 0, 0, 0.48);
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  z-index: 5;
+  transform: translateY(-50%);
+  -webkit-animation: rotate 1s linear infinite;
+  animation: rotate 1s linear infinite;
+}
+tobago-in tobago-suggest {
+  display: none;
+}
 
+@-webkit-keyframes rotate {
+  0% {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(359deg);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(359deg);
+  }
+}
 .tobago-in-markup-fatal.border-danger:focus, .tobago-in-markup-error.border-danger:focus {
   box-shadow: 0 0 0 0.2rem rgba(255, 178, 67, 0.25);
 }
@@ -11372,6 +11419,26 @@ tobago-in .input-group tobago-select-one-choice.form-select > .form-select {
 
 .tobago-in-markup-number {
   text-align: right;
+}
+
+.autocomplete-result-list {
+  padding: 0.5rem 0;
+  list-style: none;
+  background-color: #000000;
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+  overflow-y: auto;
+}
+.autocomplete-result-list .autocomplete-result {
+  padding: 0.25rem 1rem;
+}
+.autocomplete-result-list .autocomplete-result:hover, .autocomplete-result-list .autocomplete-result:focus, .autocomplete-result-list .autocomplete-result[aria-selected=true] {
+  color: #1e2125;
+  background-color: #e9ecef;
+}
+.autocomplete-result-list .autocomplete-result:active {
+  color: #ffb243;
+  background-color: #d68200;
 }
 
 /* label ----------------------------------------------------------- */
@@ -12191,115 +12258,6 @@ tobago-split-layout {
   /* TODO: check, if needed (check also with iframes) */
 }
 
-/* suggest ---------------------------------------------------------------------- */
-tobago-suggest {
-  display: none;
-}
-
-.autocomplete-input {
-  /*border: 1px solid #eee;*/
-  /*border-radius: 8px;*/
-  /*width: 100%;*/
-  /*padding: 12px 12px 12px 48px;*/
-  /*box-sizing: border-box;*/
-  /*position: relative;*/
-  /*font-size: 16px;*/
-  /*line-height: 1.5;*/
-  /*flex: 1;*/
-  /*background-color: #eee;*/
-  /*background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNjY2IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PGNpcmNsZSBjeD0iMTEiIGN5PSIxMSIgcj0iOCIvPjxwYXRoIGQ9Ik0yMSAyMWwtNC00Ii8+PC9zdmc+");*/
-  /*background-repeat: no-repeat;*/
-  /*background-position: 12px*/
-}
-
-.autocomplete-input:focus, .autocomplete-input[aria-expanded=true] {
-  /*border-color: rgba(0, 0, 0, .12);*/
-  /*background-color: #fff;*/
-  /*outline: none;*/
-  /*box-shadow: 0 2px 2px rgba(0, 0, 0, .16)*/
-}
-
-[data-position=below] .autocomplete-input[aria-expanded=true] {
-  border-bottom-color: transparent;
-  border-radius: 8px 8px 0 0;
-}
-
-[data-position=above] .autocomplete-input[aria-expanded=true] {
-  border-top-color: transparent;
-  border-radius: 0 0 8px 8px;
-  z-index: 2;
-}
-
-.autocomplete[data-loading=true]:after {
-  content: "";
-  border: 3px solid rgba(0, 0, 0, 0.12);
-  border-right-color: rgba(0, 0, 0, 0.48);
-  border-radius: 100%;
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  -webkit-animation: rotate 1s linear infinite;
-  animation: rotate 1s linear infinite;
-}
-
-.autocomplete-result-list {
-  margin: 0;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  padding: 0;
-  box-sizing: border-box;
-  max-height: 296px;
-  overflow-y: auto;
-  background: #fff;
-  list-style: none;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.16);
-}
-
-[data-position=below] .autocomplete-result-list {
-  margin-top: -1px;
-  border-top-color: transparent;
-  border-radius: 0 0 8px 8px;
-  padding-bottom: 8px;
-}
-
-[data-position=above] .autocomplete-result-list {
-  margin-bottom: -1px;
-  border-bottom-color: transparent;
-  border-radius: 8px 8px 0 0;
-  padding-top: 8px;
-}
-
-.autocomplete-result {
-  cursor: default;
-  padding: 12px 12px 12px 48px;
-  /*background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjY2NjIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PGNpcmNsZSBjeD0iMTEiIGN5PSIxMSIgcj0iOCIvPjxwYXRoIGQ9Ik0yMSAyMWwtNC00Ii8+PC9zdmc+");*/
-  /*background-repeat: no-repeat;*/
-  /*background-position: 12px*/
-}
-
-.autocomplete-result:hover, .autocomplete-result[aria-selected=true] {
-  background-color: rgba(0, 0, 0, 0.06);
-}
-
-@-webkit-keyframes rotate {
-  0% {
-    transform: translateY(-50%) rotate(0deg);
-  }
-  to {
-    transform: translateY(-50%) rotate(359deg);
-  }
-}
-
-@keyframes rotate {
-  0% {
-    transform: translateY(-50%) rotate(0deg);
-  }
-  to {
-    transform: translateY(-50%) rotate(359deg);
-  }
-}
 /* tab / tab-group ----------------------------------------------------------------- */
 tobago-tab .nav-link:not([href]):not([tabindex]) {
   /* fix .nav-links without 'href'; bootstrap tab only works if 'href' is set */
