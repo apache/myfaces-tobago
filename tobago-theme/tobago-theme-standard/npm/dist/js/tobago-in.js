@@ -16,12 +16,17 @@
  */
 import { Listener, Phase } from "./tobago-listener";
 import { Focus } from "./tobago-focus";
+import { Suggest } from "./tobago-suggest";
 export class In extends HTMLElement {
     constructor() {
         super();
     }
     connectedCallback() {
         this.input.addEventListener("focus", Focus.setLastFocusId);
+        if (this.querySelector("tobago-suggest")) {
+            const suggest = new Suggest(this);
+            suggest.init();
+        }
     }
     get input() {
         const rootNode = this.getRootNode();
