@@ -17,7 +17,6 @@
 
 // @ts-ignore
 import {Datepicker} from "vanillajs-datepicker";
-import {DateUtils} from "./tobago-date-utils";
 import {Page} from "./tobago-page";
 
 interface DatePickerI18n {
@@ -133,8 +132,7 @@ class DatePicker extends HTMLElement {
   }
 
   get pattern(): string {
-    const pattern = this.getAttribute("pattern");
-    return DateUtils.convertPatternJava2Js(pattern); // todo: to the conversation in Java, not here
+    return this.getAttribute("pattern");
   }
 
   get i18n(): DatePickerI18n {

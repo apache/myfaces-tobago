@@ -19,7 +19,6 @@ import "./tobago-listener";
 import "./tobago-bar";
 import "./tobago-dropdown";
 import "./tobago-date";
-import "./tobago-date-utils";
 import "./tobago-command";
 import "./tobago-file";
 import "./tobago-focus";
