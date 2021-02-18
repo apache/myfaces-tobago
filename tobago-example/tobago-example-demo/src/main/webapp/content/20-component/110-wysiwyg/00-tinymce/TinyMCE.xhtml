@@ -23,24 +23,27 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
-  <tc:script
-          file="#{request.contextPath}/content/20-component/110-wysiwyg/00-tinymce/tinymce/js/tinymce/tinymce.min.js"/>
+  <tc:script file="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"/>
   <tc:script file="#{request.contextPath}/content/20-component/110-wysiwyg/00-tinymce/tinymce.js"/>
 
-<!--  todo-->
-  <tc:badge value="Todo: This page needs to be refactored, still using jQuery..." markup="warning"/>
+  <tc:section label="Setup">
+    <p>
+      This demo uses the CDN of TinyMCE.
+      For more information to setup see <tc:link image="fa-edit" link="https://www.tiny.cloud/" label="TinyMCE"/>.
+    </p>
 
-  <tc:section label="Installation">
-    <p>Download <tc:link link="http://www.tinymce.com/" target="_blank" label="TinyMCE"/>
-      and unpack the ZIP file directly beside this XHTML-file.</p>
-  </tc:section>
+    <p>
+      The setup needs an entry in <code>tobago-config.xml</code>, because of CSP.
+    </p>
 
-  <tc:section label="Editor">
-    <p>This facelet contains two <code class="language-markup">&lt;tc:script/></code> tags,
+    <p>
+      This page contains two <code class="language-markup">&lt;tc:script/></code> tags,
       one for the TinyMCE and the other for the integration in this application.
       The <code class="language-markup">&lt;tc:textarea/></code> contain
-      <code class="language-markup">&lt;tc:dataAttribute name="html-editor" value=""/></code>,
-      to mark this textarea to be used as rich text editor. The rest does the script: tinymce.js</p>
+      <code class="language-markup">&lt;tc:dataAttribute name="html-editor" value="tinymce"/></code>,
+      to mark this textarea to be used as rich text editor. The initialization is initialted by the
+      <code>tinymce.js</code> script.
+    </p>
 
     <tc:box id="sourceCodeBox" label="tinymce.js" collapsed="true" collapsedMode="hidden">
       <f:facet name="bar">
@@ -56,12 +59,8 @@
       <demo-highlight language="javascript"><tc:out value="#{tinyMceController.source}"/></demo-highlight>
     </tc:box>
 
-    <tc:out markup="strong" rendered="#{not tinyMceController.editorAvailable}"
-            value="The TinyMCE is not installed! Using the fallback textarea."/>
-
     <tc:textarea value="#{tinyMceController.text}">
-      <tc:style width="400px" height="300px"/>
-      <tc:dataAttribute name="html-editor" value=""/>
+      <tc:dataAttribute name="html-editor" value="tinymce"/>
     </tc:textarea>
     <tc:button label="Submit"/>
   </tc:section>
