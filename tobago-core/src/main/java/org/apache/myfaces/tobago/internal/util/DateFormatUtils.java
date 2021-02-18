@@ -19,8 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.DateTimeConverter;
+import java.lang.invoke.MethodHandles;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -30,6 +34,8 @@ import java.util.Locale;
  * TODO: Should be sharable (e.g. myfaces-commons).
  */
 public final class DateFormatUtils {
+
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final String TYPE_DATE = "date";
   private static final String TYPE_TIME = "time";
@@ -104,6 +110,77 @@ public final class DateFormatUtils {
     }
 
     throw new ConverterException("invalid style '" + name + "'");
+  }
+
+  /**
+   * Get the pattern from the "Java world",
+   * see https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/SimpleDateFormat.html
+   * and convert it to 'vanillajs-datepicker', see https://mymth.github.io/vanillajs-datepicker/#/date-string+format
+   * Attention: Not every pattern char is supported.
+   */
+  public static String toJavaScriptPattern(final String originalPattern) {
+    String pattern;
+    if (originalPattern == null || originalPattern.length() > 100) {
+      LOG.warn("Pattern not supported: " + originalPattern);
+      pattern = "";
+    } else {
+      pattern = originalPattern;
+    }
+
+    StringBuilder analyzedPattern = new StringBuilder();
+    StringBuilder nextSegment = new StringBuilder();
+    boolean escMode = false;
+    for (int i = 0; i < pattern.length(); i++) {
+      final char currentChar = pattern.charAt(i);
+      if (currentChar == '\'' && !escMode) {
+        escMode = true;
+        analyzedPattern.append(toJavaScriptPatternPart(nextSegment.toString()));
+        nextSegment = new StringBuilder();
+      } else if (currentChar == '\'' && pattern.charAt(i + 1) == '\'') {
+        nextSegment.append("\\");
+        nextSegment.append("'");
+        i++;
+      } else if (currentChar == '\'') {
+        escMode = false;
+        analyzedPattern.append(nextSegment);
+        nextSegment = new StringBuilder();
+      } else {
+        if (escMode) {
+          nextSegment.append("\\");
+        }
+        nextSegment.append(currentChar);
+      }
+    }
+    if (nextSegment.toString().length() > 0) {
+      if (escMode) {
+        analyzedPattern.append(nextSegment);
+      } else {
+        analyzedPattern.append(toJavaScriptPatternPart(nextSegment.toString()));
+      }
+    }
+
+    return analyzedPattern.toString();
+  }
+
+  public static String toJavaScriptPatternPart(String originalPattern) {
+
+    String pattern = originalPattern;
+
+    if (pattern.contains("G") || pattern.contains("W") || pattern.contains("F")
+        || pattern.contains("K") || pattern.contains("z") || pattern.contains("X")) {
+      LOG.warn("Pattern chars 'G', 'W', 'F', 'K', 'z' and 'X' are not supported: " + pattern);
+      pattern = "";
+    }
+
+    if (pattern.contains("M")) {
+      pattern = pattern.replaceAll("M", "m");
+    }
+
+    if (pattern.contains("d")) {
+      pattern = pattern.replaceAll("dd+", "dd");
+    }
+
+    return pattern;
   }
 
 }
