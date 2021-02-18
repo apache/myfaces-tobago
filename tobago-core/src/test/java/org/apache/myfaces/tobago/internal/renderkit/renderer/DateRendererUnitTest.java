@@ -40,7 +40,7 @@ public class DateRendererUnitTest extends RendererTestBase {
     final UIDate d = (UIDate) ComponentUtils.createComponent(
         facesContext, Tags.date.componentType(), RendererTypes.Date, "id");
     DateTimeConverter c = new DateTimeConverter();
-    c.setPattern("dd.MM.YYYY");
+    c.setPattern("dd.MM.yyyy");
     d.setConverter(c);
 
     d.encodeAll(facesContext);

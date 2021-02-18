@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUIDate;
 import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
+import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -55,7 +56,7 @@ public class DateRenderer<T extends AbstractUIDate> extends InRenderer<T> {
       throws IOException {
 
     super.writeAdditionalAttributes(facesContext, writer, input);
-    writer.writeAttribute(HtmlAttributes.PATTERN, input.getPattern(), true);
+    writer.writeAttribute(HtmlAttributes.PATTERN, DateFormatUtils.toJavaScriptPattern(input.getPattern()), true);
 //    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 //    writer.writeAttribute(CustomAttributes.TODAY, sdf.format(new Date()), true); XXX seem no longer needed
     final DateTimeI18n dateTimeI18n = DateTimeI18n.valueOf(facesContext.getViewRoot().getLocale());

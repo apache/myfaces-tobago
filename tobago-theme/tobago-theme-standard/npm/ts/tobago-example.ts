@@ -15,34 +15,15 @@
  * limitations under the License.
  */
 
-import {DateUtils} from "./tobago-date-utils";
+// XXX it might be nice, if this util was in tobago-date.ts, but in that case there are problems
+// XXX with Jest (UnitTesting)
 
-test('pattern format: yyyy', () => {
-  const result = DateUtils.convertPatternJava2Js("yyyy");
-  expect(result).toBe("yyyy");
-});
+export class Example {
 
-test('pattern format: yy', () => {
-  const result = DateUtils.convertPatternJava2Js("yy");
-  expect(result).toBe("yy");
-});
-
-test('pattern format: dd', () => {
-  const result = DateUtils.convertPatternJava2Js("dd");
-  expect(result).toBe("dd");
-});
-
-test('pattern format: d', () => {
-  const result = DateUtils.convertPatternJava2Js("d");
-  expect(result).toBe("d");
-});
-
-test('pattern format: MM', () => {
-  const result = DateUtils.convertPatternJava2Js("MM");
-  expect(result).toBe("mm");
-});
-
-test('pattern format: M', () => {
-  const result = DateUtils.convertPatternJava2Js("M");
-  expect(result).toBe("m");
-});
+  /*
+  example file to demonstrate TypeScript tests.
+  */
+  public static toUpperCase(text: string): string {
+    return text?.toUpperCase();
+  }
+}
