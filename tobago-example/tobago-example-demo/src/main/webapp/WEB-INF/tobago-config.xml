@@ -64,6 +64,11 @@
     <!-- needed for the tinymce editor demo -->
     <directive name="script-src">https://cdn.tiny.cloud/</directive>
     <directive name="style-src">https://cdn.tiny.cloud/</directive>
+
+    <!-- needed for the ckeditor demo -->
+    <!-- XXX this is not enough, CSP may be turned off completely -->
+    <directive name="script-src">https://cdn.ckeditor.com/</directive>
+    <directive name="style-src">https://cdn.ckeditor.com/</directive>
   </content-security-policy>
 
   <!-- "disable" is the default -->
