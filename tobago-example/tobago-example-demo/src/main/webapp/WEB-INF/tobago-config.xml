@@ -46,13 +46,25 @@
   <content-security-policy mode="on">
     <!-- script-src: 'unsafe-inline' is required for WebSockets -->
 <!--    <directive name="script-src">'unsafe-inline'</directive>-->
-    <!-- needed for <tc:object>  -->
+
+    <!-- needed for <tc:object> demo -->
     <directive name="child-src">https://www.openstreetmap.org</directive>
     <directive name="child-src">https://*.apache.org</directive>
+
     <!-- needed for the test suite -->
     <directive name="child-src">'self'</directive>
+
     <!-- needed for the test suite -->
     <directive name="frame-ancestors">'self'</directive>
+
+    <!-- needed for the tinymce editor demo -->
+    <directive name="script-src">https://cdn.tiny.cloud/</directive>
+    <directive name="style-src">https://cdn.tiny.cloud/</directive>
+
+    <!-- needed for the ckeditor demo -->
+    <!-- XXX this is not enough, CSP may be turned off completely -->
+    <directive name="script-src">https://cdn.ckeditor.com/</directive>
+    <directive name="style-src">https://cdn.ckeditor.com/</directive>
   </content-security-policy>
 
   <!-- "disable" is the default -->

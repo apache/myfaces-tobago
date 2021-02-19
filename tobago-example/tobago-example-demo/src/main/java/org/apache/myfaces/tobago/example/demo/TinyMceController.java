@@ -43,10 +43,6 @@ public class TinyMceController extends SourceFileReader implements Serializable 
   }
 
   public String getSource() {
-    return getSource("tinymce.js");
-  }
-
-  public boolean isEditorAvailable() {
-    return getSource("tinymce/js/tinymce/tinymce.min.js") != null;
+    return getSource("init-tinymce.js");
   }
 }
