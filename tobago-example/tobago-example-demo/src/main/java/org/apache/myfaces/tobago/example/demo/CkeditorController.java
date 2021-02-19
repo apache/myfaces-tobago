@@ -54,10 +54,6 @@ public class CkeditorController extends SourceFileReader implements Serializable
   }
 
   public String getSource() {
-    return getSource("demo-ckeditor.js");
-  }
-
-  public boolean isEditorAvailable() {
-    return getSource("ckeditor/ckeditor.js") != null;
+    return getSource("init-ckeditor.js");
   }
 }
