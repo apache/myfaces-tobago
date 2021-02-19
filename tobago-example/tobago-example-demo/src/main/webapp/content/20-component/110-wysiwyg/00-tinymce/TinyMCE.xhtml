@@ -24,28 +24,30 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
   <tc:script file="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"/>
-  <tc:script file="#{request.contextPath}/content/20-component/110-wysiwyg/00-tinymce/tinymce.js"/>
+  <tc:script file="#{request.contextPath}/content/20-component/110-wysiwyg/00-tinymce/init-tinymce.js"/>
 
   <tc:section label="Setup">
     <p>
-      This demo uses the CDN of TinyMCE.
+      This demo uses the CDN of TinyMCE as a showcase.
+      There are other integration possibilities.
       For more information to setup see <tc:link image="fa-edit" link="https://www.tiny.cloud/" label="TinyMCE"/>.
     </p>
 
     <p>
-      The setup needs an entry in <code>tobago-config.xml</code>, because of CSP.
+      The setup needs entries in <code>tobago-config.xml</code> for CSP.
+      More infomation about these entries you find also on their webside.
     </p>
 
     <p>
       This page contains two <code class="language-markup">&lt;tc:script/></code> tags,
-      one for the TinyMCE and the other for the integration in this application.
+      one for the TinyMCE itself and the other for the initialization in this demo.
       The <code class="language-markup">&lt;tc:textarea/></code> contain
       <code class="language-markup">&lt;tc:dataAttribute name="html-editor" value="tinymce"/></code>,
-      to mark this textarea to be used as rich text editor. The initialization is initialted by the
-      <code>tinymce.js</code> script.
+      to mark this textarea to be used as rich text editor. The initialization is done by the
+      <code>init-tinymce.js</code> script.
     </p>
 
-    <tc:box id="sourceCodeBox" label="tinymce.js" collapsed="true" collapsedMode="hidden">
+    <tc:box id="sourceCodeBox" label="init-tinymce.js" collapsed="true" collapsedMode="hidden">
       <f:facet name="bar">
         <tc:buttons>
           <tc:button label="show" omit="true">
