@@ -3,20 +3,24 @@
     "module": "es6",
     "target": "ES2015",
     "noImplicitAny": false,
+    "rootDir": "ts",
+    "sourceRoot": "../ts",
     "outDir": "dist/js",
-    "sourceMap": false,
+    "sourceMap": true,
+    "inlineSources": true,
     "removeComments": false,
     "noEmitOnError": true,
     "moduleResolution": "node",
     "esModuleInterop": true
   },
   "include": [
-    "ts/*.ts"
+    "ts/tobago-all.ts",
+    "ts/jsf.d.ts"
   ],
   "exclude": [
     "node_modules",
     "node",
-    "dist"
+    "ts/*.test.ts"
   ],
   "_comment for moduleResolution": "this is to fix a compiler problem with @babel/types, see: https://github.com/microsoft/TypeScript/issues/11103"
 }

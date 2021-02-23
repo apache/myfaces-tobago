@@ -199,16 +199,6 @@
 
   <dependencies>
 
-    <!-- xxx remove me before release !!! -->
-    <!-- xxx this enables the development mode -->
-    <!-- xxx currently the production mode is not working.... -->
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-config-dev</artifactId>
-      <version>${tobago.version}</version>
-    </dependency>
-    <!-- xxx remove me before release !!! -->
-
     <!-- Tobago -->
     <dependency>
       <groupId>org.apache.myfaces.test</groupId>

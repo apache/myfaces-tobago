@@ -4,7 +4,9 @@
     "target": "ES2015",
     "noImplicitAny": false,
     "outDir": "dist/js",
-    "sourceMap": false,
+    "sourceRoot": "../ts",
+    "sourceMap": true,
+    "inlineSources": true,
     "removeComments": false,
     "noEmitOnError": true,
     "moduleResolution": "node",
@@ -16,7 +18,9 @@
   "exclude": [
     "node_modules",
     "node",
-    "dist"
+    "dist",
+    "**/*.test.ts",
+    "ts/tobago-example.ts"
   ],
   "_comment for moduleResolution": "this is to fix a compiler problem with @babel/types, see: https://github.com/microsoft/TypeScript/issues/11103"
 }

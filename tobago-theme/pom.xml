@@ -88,6 +88,8 @@
                     <include>fonts/**</include>
                     <include>js/tobago.js</include>
                     <include>js/tobago.js.map</include>
+                    <include>js/tobago*.js</include>
+                    <include>js/tobago*.js.map</include>
                   </includes>
                 </resource>
                 <resource>
