@@ -30,6 +30,8 @@
   <properties>
     <theme.name>standard</theme.name>
     <frontend.skip>false</frontend.skip>
+    <webcomponents__custom-elements.version>1.4.2</webcomponents__custom-elements.version>
+    <tether.version>1.4.0</tether.version>
   </properties>
 
   <dependencies>
@@ -57,12 +59,12 @@
     <dependency>
       <groupId>org.webjars</groupId>
         <artifactId>tether</artifactId>
-      <version>1.4.0</version>
+      <version>${tether.version}</version>
     </dependency>
     <dependency>
       <groupId>org.webjars.npm</groupId>
       <artifactId>webcomponents__custom-elements</artifactId>
-      <version>1.4.2</version>
+      <version>${webcomponents__custom-elements.version}</version>
     </dependency>
   </dependencies>
 

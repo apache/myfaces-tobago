@@ -98,9 +98,6 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     }
   }
 
-//  @Inject // fixme
-  private ProjectStage projectStage;
-
   @Override
   public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
@@ -161,7 +158,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     }
 
     final String clientId = component.getClientId(facesContext);
-    final boolean productionMode = projectStage == ProjectStage.Production;
+    final boolean productionMode = facesContext.isProjectStage(ProjectStage.Production);
     final Markup markup = component.getMarkup();
     final TobagoClass spread = markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null;
     final String title = component.getLabel();

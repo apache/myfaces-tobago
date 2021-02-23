@@ -17,19 +17,37 @@
 
 import replace from '@rollup/plugin-replace';
 import {nodeResolve} from "@rollup/plugin-node-resolve";
+import typescript from 'rollup-plugin-typescript2';
+import {terser} from 'rollup-plugin-terser';
 
 export default {
-  input: 'dist/js/tobago-all.js',
-  output: {
-    file: 'dist/js/tobago.js',
-    format: 'umd', /* tbd: check if "iife" is better? */
-    sourcemap: true,
-    name: 'tobago'
-  },
+  input: 'ts/tobago-all.ts',
+  output: [
+    {
+      file: 'dist/js/tobago.js',
+      format: 'umd', /* tbd: check if "iife" is better? */
+      sourcemap: true,
+      //sourcemapPathTransform: (relativeSourcePath, sourcemapPath) => {
+      //  return relativeSourcePath.substring(3, relativeSourcePath.length)
+      //},
+      name: 'tobago'
+    },
+    {
+      file: 'dist/js/tobago.min.js',
+      format: 'umd',
+      sourcemap: true,
+      name: 'tobago-min',
+      plugins: [terser()]
+    }
+  ],
   plugins: [
     nodeResolve(),
     replace({
       // XXX workaround for popper2 included by bootstrap, otherwise be get an error: process is not defined at runtime
       'process.env.NODE_ENV': JSON.stringify('production')
-    }),]
+    }),
+    typescript({
+      tsconfig: 'tsconfig.production.json'
+    }),
+  ]
 };
