@@ -984,6 +984,7 @@
               <exclude>npm/node_modules/**/*</exclude>
               <exclude>npm/dist/**/*</exclude>
 
+              <exclude>**/.eslintignore</exclude>
             </excludes>
           </configuration>
         </plugin>
