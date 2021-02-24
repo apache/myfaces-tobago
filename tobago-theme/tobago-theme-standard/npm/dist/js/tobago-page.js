@@ -77,7 +77,7 @@ export class Page extends HTMLElement {
                 code = event.keyCode;
             }
             if (code === 13) {
-                let target = event.target;
+                const target = event.target;
                 if (target.tagName === "A" || target.tagName === "BUTTON") {
                     return;
                 }
@@ -150,7 +150,7 @@ export class Page extends HTMLElement {
             if (JsfParameter.isJsfId(id)) {
                 console.debug("[tobago-jsf] updating #%s", id);
                 const rootNode = this.getRootNode();
-                let element = rootNode.getElementById(id);
+                const element = rootNode.getElementById(id);
                 if (element) {
                     Listener.executeAfterUpdate(element);
                 }

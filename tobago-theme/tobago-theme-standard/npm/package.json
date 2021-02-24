@@ -40,7 +40,7 @@
     "fa-mkdir": "mkdir -p dist/css dist/fonts",
     "fa-css": "cp node_modules/font-awesome/css/font-awesome.* dist/css",
     "fa-fonts": "cp node_modules/font-awesome/fonts/fontawesome-webfont.woff* dist/fonts",
-    "ts": "npm-run-all ts-lint ts-compile --sequential rollup",
+    "ts": "npm-run-all ts-lint rollup",
     "ts-lint": "eslint '**/*.ts'",
     "ts-lint-fix": "eslint '**/*.ts' --fix",
     "ts-compile": "tsc --project tsconfig.development.json",
@@ -52,10 +52,7 @@
     "dev-mkdir": "mkdir -p ../../../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/$npm_package_version",
     "dev-cp": "cp -R dist/. ../../../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/$npm_package_version"
   },
-  "dependencies": {
-    "@trevoreyre/autocomplete-js": "^2.2.0",
-    "vanillajs-datepicker": "^1.1.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "tobago-core": "file:../../../tobago-core/npm",
     "@popperjs/core": "^2.8.3",
@@ -63,7 +60,6 @@
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "@typescript-eslint/parser": "^4.15.2",
     "autoprefixer": "^9.8.6",
-    "bootstrap": "5.0.0-beta2",
     "clean-css-cli": "^5.2.0",
     "eslint": "^7.20.0",
     "eslint-plugin-compat": "^3.8.0",

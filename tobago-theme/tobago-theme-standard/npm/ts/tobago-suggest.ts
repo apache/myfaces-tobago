@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import Autocomplete from "@trevoreyre/autocomplete-js";
+import Autocomplete from "../node_modules/tobago-core/node_modules/@trevoreyre/autocomplete-js";
 
 export class Suggest {
 
@@ -35,9 +35,9 @@ export class Suggest {
 
     this.registerAjaxListener();
     this.base.classList.add("autocomplete");
-    this.base.insertAdjacentHTML("afterbegin", `<div class="autocomplete-pseudo-container"></div>`);
+    this.base.insertAdjacentHTML("afterbegin", "<div class=\"autocomplete-pseudo-container\"></div>");
     this.suggestInput.classList.add("autocomplete-input");
-    this.suggestInput.insertAdjacentHTML("afterend", `<ul class="autocomplete-result-list"></ul>`);
+    this.suggestInput.insertAdjacentHTML("afterend", "<ul class=\"autocomplete-result-list\"></ul>");
 
     const options = {
       search: input => {

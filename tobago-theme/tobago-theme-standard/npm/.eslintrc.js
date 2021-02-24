@@ -42,9 +42,10 @@ module.exports = {
     "@typescript-eslint/no-unsafe-assignment": "warn",
     "@typescript-eslint/no-unsafe-member-access": "warn",
     "@typescript-eslint/restrict-template-expressions": "warn",
+    "@typescript-eslint/no-unused-vars": "off",
+    "indent": "off",
     "@typescript-eslint/indent": [
-      "warn",
-      2
+      "off"
     ],
     "@typescript-eslint/member-delimiter-style": [
       "warn",

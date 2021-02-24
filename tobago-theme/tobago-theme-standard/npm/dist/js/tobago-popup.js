@@ -17,14 +17,14 @@
 // import * as bootstrap from "bootstrap/dist/js/bootstrap.esm";
 // import "bootstrap/dist/js/bootstrap.esm";
 // import "bootstrap/dist/js/bootstrap";
-import { Modal } from "bootstrap";
+import { Modal } from "../node_modules/tobago-core/node_modules/bootstrap";
 // import {Modal} from "bootstrap/dist/js/bootstrap.bundle";
 export class Popup extends HTMLElement {
     constructor() {
         super();
     }
     connectedCallback() {
-        let options = {};
+        const options = {};
         this.modal = new Modal(this, options);
     }
     show() {

@@ -16,7 +16,7 @@
  */
 
 // @ts-ignore
-import {Datepicker} from "vanillajs-datepicker";
+import {Datepicker} from "../node_modules/tobago-core/node_modules/vanillajs-datepicker";
 import {Page} from "./tobago-page";
 
 interface DatePickerI18n {

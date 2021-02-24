@@ -18,7 +18,7 @@
 // JSF JS declarations. It's the best of what I've found out - with no guaranty!
 
 declare type Context = {
-  [key: string]: any
+  [key: string]: any;
 };
 
 declare interface EventData {
@@ -43,7 +43,7 @@ declare interface ErrorData {
   responseCode: number;
 }
 
-declare var jsf: jsf;
+declare let jsf: jsf;
 
 interface jsf {
   ajax: {
@@ -62,6 +62,6 @@ interface jsf {
 
     addOnError(
         errorFunc: (data: ErrorData) => void);
-  }
+  };
 
 }

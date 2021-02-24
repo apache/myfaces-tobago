@@ -30,23 +30,18 @@
   },
   "homepage": "https://myfaces.apache.org/tobago/",
   "scripts": {
-    "build": "npm-run-all --parallel css",
-    "css": "npm-run-all css-compile css-prefix css-minify",
+    "build": "npm run css",
+    "css": "npm run css-compile && npm run css-prefix  && npm run css-minify",
     "css-lint": "echo 'Not implemented yet!'",
     "css-compile": "sass --style expanded --source-map --embed-sources --no-error-css --load-path=./ scss/tobago-theme.scss:dist/css/tobago.css",
     "css-prefix": "postcss --config postcss.config.js --replace dist/css/tobago.css",
     "css-minify": "cleancss -O1 specialComments:0 --format breakWith=lf --source-map --source-map-inline-sources --output dist/css/tobago.min.css dist/css/tobago.css"
-  },
-  "dependencies": {
-    "vanillajs-datepicker": "^1.1.2",
-    "bootstrap": "5.0.0-beta2"
   },
   "devDependencies": {
     "tobago-core": "file:../../../tobago-core/npm",
     "@popperjs/core": "^2.8.3",
     "autoprefixer": "^9.8.6",
     "clean-css-cli": "^5.2.0",
-    "npm-run-all": "^4.1.5",
     "postcss-cli": "^7.1.2",
     "sass": "^1.32.8"
   }

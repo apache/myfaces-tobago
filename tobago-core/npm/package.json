@@ -17,6 +17,8 @@
     "test": "echo 'Skipping'"
   },
   "devDependencies": {
+    "@trevoreyre/autocomplete-js": "^2.2.0",
+    "vanillajs-datepicker": "^1.1.2",
     "bootstrap": "5.0.0-beta2"
   }
 }

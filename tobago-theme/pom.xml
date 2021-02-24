@@ -100,7 +100,7 @@
                 </resource>
                 <resource>
                   <!-- XXX cleanup: better via rollup? -->
-                  <directory>npm/node_modules/bootstrap/dist</directory>
+                  <directory>npm/node_modules/tobago-core/node_modules/bootstrap/dist</directory>
                   <includes>
                     <include>js/bootstrap.*</include>
                   </includes>

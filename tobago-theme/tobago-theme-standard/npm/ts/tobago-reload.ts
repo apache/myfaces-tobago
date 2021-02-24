@@ -42,7 +42,7 @@ export class ReloadManager {
     if (reloadMillis > 0) {
 
       // may remove old schedule
-      let oldTimeout = this.timeouts.get(id);
+      const oldTimeout = this.timeouts.get(id);
       if (oldTimeout) {
         console.debug("clear reload timeout '" + oldTimeout + "' for #'" + id + "'");
         window.clearTimeout(oldTimeout);
@@ -50,7 +50,7 @@ export class ReloadManager {
       }
 
       // add new schedule
-      let timeout = window.setTimeout(function (): void {
+      const timeout = window.setTimeout(function (): void {
         console.debug("reloading #'" + id + "'");
         jsf.ajax.request(
             id,

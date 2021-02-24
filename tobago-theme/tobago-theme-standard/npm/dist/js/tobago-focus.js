@@ -22,7 +22,7 @@ export class Focus extends HTMLElement {
      */
     static setLastFocusId(event) {
         const target = event.target;
-        let computedStyle = getComputedStyle(target);
+        const computedStyle = getComputedStyle(target);
         if (target.getAttribute("type") !== "hidden"
             && target.getAttributeNames().indexOf("disabled") === -1
             && target.getAttribute("tabindex") !== "-1"
