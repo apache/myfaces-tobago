@@ -41,7 +41,7 @@ class SplitLayout extends HTMLElement {
 
     let first = true;
     let justAdded = false;
-    for (let child of this.children) {
+    for (const child of this.children) {
       if (justAdded) { // skip, because the just added had enlarges the list of children
         justAdded = false;
         continue;

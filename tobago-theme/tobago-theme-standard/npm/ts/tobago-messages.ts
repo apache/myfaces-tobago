@@ -22,7 +22,7 @@ class Messages extends HTMLElement {
   }
 
   connectedCallback(): void {
-    for (let closeButton of this.closeButtons) {
+    for (const closeButton of this.closeButtons) {
       closeButton.addEventListener("click", this.closeAlert);
     }
   }

@@ -78,7 +78,7 @@ export class Sheet extends HTMLElement {
     //
     // So, if the 2nd is set, we use it, if not set, we use the 1st source.
 
-    let columnWidths = this.loadColumnWidths();
+    const columnWidths = this.loadColumnWidths();
     console.info("columnWidths: %s", JSON.stringify(columnWidths));
     if (columnWidths && columnWidths.length === 0) { // active, but empty
       // otherwise use the layout definition
@@ -107,7 +107,7 @@ export class Sheet extends HTMLElement {
               widthRelative -= bodyTable.offsetWidth * intValue / 100;
             }
           } else if(tokens[i] === "auto") {
-            let value = headerCols.item(r).offsetWidth;
+            const value = headerCols.item(r).offsetWidth;
             widthRelative -= value;
             tokens[i] = {measure: value + "px"}; // converting "auto" to a specific value
           } else {
@@ -187,40 +187,40 @@ export class Sheet extends HTMLElement {
 
     // lazy load by scrolling ----------------------------------------------------------------- //
 
-      const lazy = this.lazy;
+    const lazy = this.lazy;
 
-      if (lazy) {
-        // prepare the sheet with some auto-created (empty) rows
-        const rowCount = this.rowCount;
-        const sheetBody = this.tableBodyDiv;
-        const tableBody = this.tableBody;
-        const columns = tableBody.rows[0].cells.length;
-        let current: HTMLTableRowElement = tableBody.rows[0]; // current row in this algorithm, begin with first
-        // the algorithm goes straight through all rows, not selectors, because of performance
-        for (let i = 0; i < rowCount; i++) {
-          if (current) {
-            const rowIndex = Number(current.getAttribute("row-index"));
-            if (i < rowIndex) {
-              const template = Sheet.getRowTemplate(columns, i);
-              current.insertAdjacentHTML("beforebegin", template);
-            } else if (i === rowIndex) {
-              current = current.nextElementSibling as HTMLTableRowElement;
+    if (lazy) {
+      // prepare the sheet with some auto-created (empty) rows
+      const rowCount = this.rowCount;
+      const sheetBody = this.tableBodyDiv;
+      const tableBody = this.tableBody;
+      const columns = tableBody.rows[0].cells.length;
+      let current: HTMLTableRowElement = tableBody.rows[0]; // current row in this algorithm, begin with first
+      // the algorithm goes straight through all rows, not selectors, because of performance
+      for (let i = 0; i < rowCount; i++) {
+        if (current) {
+          const rowIndex = Number(current.getAttribute("row-index"));
+          if (i < rowIndex) {
+            const template = Sheet.getRowTemplate(columns, i);
+            current.insertAdjacentHTML("beforebegin", template);
+          } else if (i === rowIndex) {
+            current = current.nextElementSibling as HTMLTableRowElement;
             // } else { TBD: I think this is not possible
             //   const template = Sheet.getRowTemplate(columns, i);
             //   current.insertAdjacentHTML("afterend", template);
             //   current = current.nextElementSibling as HTMLTableRowElement;
-            }
-          } else {
-            const template = Sheet.getRowTemplate(columns, i);
-            tableBody.insertAdjacentHTML("beforeend", template);
           }
+        } else {
+          const template = Sheet.getRowTemplate(columns, i);
+          tableBody.insertAdjacentHTML("beforeend", template);
         }
-
-        sheetBody.addEventListener("scroll", this.lazyCheck.bind(this));
-
-        // initial
-        this.lazyCheck();
       }
+
+      sheetBody.addEventListener("scroll", this.lazyCheck.bind(this));
+
+      // initial
+      this.lazyCheck();
+    }
 
     // ---------------------------------------------------------------------------------------- //
 
@@ -512,7 +512,7 @@ export class Sheet extends HTMLElement {
     console.debug("move");
     let delta = event.clientX - this.mousemoveData.originalClientX;
     delta = -Math.min(-delta, this.mousemoveData.originalHeaderColumnWidth - 10);
-    let columnWidth = this.mousemoveData.originalHeaderColumnWidth + delta;
+    const columnWidth = this.mousemoveData.originalHeaderColumnWidth + delta;
     this.getHeaderCols().item(this.mousemoveData.columnIndex).setAttribute("width", columnWidth);
     this.getBodyCols().item(this.mousemoveData.columnIndex).setAttribute("width", columnWidth);
     if (window.getSelection) {

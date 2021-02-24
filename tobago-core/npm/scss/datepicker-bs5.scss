@@ -55,7 +55,7 @@ $dp-input-in-edit-focus-box-shadow-size: 0 0 0.25em 0.25em !default;
 
 // XXX patched because of bs5 begin
 //@import 'mixins';
-@import "node_modules/vanillajs-datepicker/sass/mixins";
+@import "../node_modules/vanillajs-datepicker/sass/mixins";
 // XXX patched because of bs5 end
 
 @mixin dp-button {
@@ -112,5 +112,5 @@ $dp-input-in-edit-focus-box-shadow-size: 0 0 0.25em 0.25em !default;
 
 // XXX patched because of bs5 begin
 //@import 'datepicker';
-@import "node_modules/vanillajs-datepicker/sass/datepicker";
+@import "../node_modules/vanillajs-datepicker/sass/datepicker";
 // XXX patched because of bs5 end

@@ -17,7 +17,7 @@
 
 import {Example} from "./tobago-example";
 
-test('pattern format: yyyy', () => {
+test("pattern format: yyyy", () => {
   const result = Example.toUpperCase("yyyy");
   expect(result).toBe("YYYY");
 });

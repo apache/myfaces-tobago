@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Popover } from "bootstrap";
+import { Popover } from "../node_modules/tobago-core/node_modules/bootstrap";
 class TobagoRange extends HTMLElement {
     constructor() {
         super();

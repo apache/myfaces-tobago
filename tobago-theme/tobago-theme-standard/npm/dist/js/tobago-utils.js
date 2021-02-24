@@ -38,8 +38,8 @@ export class DomUtils {
      */
     static getTransitionTime(element) {
         const style = window.getComputedStyle(element);
-        let delay = Number.parseFloat(style.transitionDelay);
-        let duration = Number.parseFloat(style.transitionDuration);
+        const delay = Number.parseFloat(style.transitionDelay);
+        const duration = Number.parseFloat(style.transitionDuration);
         return (delay + duration) * 1000;
     }
 }

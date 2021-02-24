@@ -36,7 +36,7 @@ export class TreeSelect extends HTMLElement {
                     this.tree.deleteSelectedNode(this.treeNode.index);
                 }
                 if (this.tree.selectable === Selectable.multiCascade) {
-                    let treeNodeIds = [];
+                    const treeNodeIds = [];
                     this.selectChildren(this.treeSelectChildren, this.input.checked, treeNodeIds);
                     /*if (treeNodeIds.length > 0) {
                       for (const id of treeNodeIds) {
@@ -70,7 +70,7 @@ export class TreeSelect extends HTMLElement {
         return this.closest("tobago-tree-node");
     }
     get treeSelectChildren() {
-        let treeNode = this.closest("tobago-tree-node");
+        const treeNode = this.closest("tobago-tree-node");
         return treeNode.parentElement
             .querySelectorAll("tobago-tree-node[parent='" + treeNode.id + "'] tobago-tree-select");
     }

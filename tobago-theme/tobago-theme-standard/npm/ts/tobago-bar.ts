@@ -42,7 +42,7 @@ class Bar extends HTMLElement {
 
     if (this.expanded) {
       this.expanded = false;
-      this.navbarContent.style.height = this.navbarContent.scrollHeight + "px";
+      this.navbarContent.style.height = `${this.navbarContent.scrollHeight}px`;
       this.navbarContent.offsetHeight; //force reflow, to make sure height is set
       this.navbarContent.classList.add(this.CssClass.COLLAPSING);
       this.navbarContent.classList.remove(this.CssClass.COLLAPSE);
@@ -58,7 +58,7 @@ class Bar extends HTMLElement {
       this.expanded = true;
       this.navbarContent.classList.remove(this.CssClass.COLLAPSE);
       this.navbarContent.classList.add(this.CssClass.COLLAPSING);
-      this.navbarContent.style.height = this.navbarContent.scrollHeight + "px";
+      this.navbarContent.style.height = `${this.navbarContent.scrollHeight}px`;
 
       this.timeout = window.setTimeout(() => {
         this.navbarContent.classList.remove(this.CssClass.COLLAPSING);

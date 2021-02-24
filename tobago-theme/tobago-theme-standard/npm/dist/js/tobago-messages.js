@@ -19,7 +19,7 @@ class Messages extends HTMLElement {
         super();
     }
     connectedCallback() {
-        for (let closeButton of this.closeButtons) {
+        for (const closeButton of this.closeButtons) {
             closeButton.addEventListener("click", this.closeAlert);
         }
     }

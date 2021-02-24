@@ -55,7 +55,7 @@ export class Sheet extends HTMLElement {
         // The 2nd source usually is the value set by the user manipulating the column widths.
         //
         // So, if the 2nd is set, we use it, if not set, we use the 1st source.
-        let columnWidths = this.loadColumnWidths();
+        const columnWidths = this.loadColumnWidths();
         console.info("columnWidths: %s", JSON.stringify(columnWidths));
         if (columnWidths && columnWidths.length === 0) { // active, but empty
             // otherwise use the layout definition
@@ -83,7 +83,7 @@ export class Sheet extends HTMLElement {
                         }
                     }
                     else if (tokens[i] === "auto") {
-                        let value = headerCols.item(r).offsetWidth;
+                        const value = headerCols.item(r).offsetWidth;
                         widthRelative -= value;
                         tokens[i] = { measure: value + "px" }; // converting "auto" to a specific value
                     }
@@ -433,7 +433,7 @@ export class Sheet extends HTMLElement {
         console.debug("move");
         let delta = event.clientX - this.mousemoveData.originalClientX;
         delta = -Math.min(-delta, this.mousemoveData.originalHeaderColumnWidth - 10);
-        let columnWidth = this.mousemoveData.originalHeaderColumnWidth + delta;
+        const columnWidth = this.mousemoveData.originalHeaderColumnWidth + delta;
         this.getHeaderCols().item(this.mousemoveData.columnIndex).setAttribute("width", columnWidth);
         this.getBodyCols().item(this.mousemoveData.columnIndex).setAttribute("width", columnWidth);
         if (window.getSelection) {

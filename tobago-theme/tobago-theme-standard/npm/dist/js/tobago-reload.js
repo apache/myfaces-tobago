@@ -24,14 +24,14 @@ export class ReloadManager {
     schedule(id, reloadMillis) {
         if (reloadMillis > 0) {
             // may remove old schedule
-            let oldTimeout = this.timeouts.get(id);
+            const oldTimeout = this.timeouts.get(id);
             if (oldTimeout) {
                 console.debug("clear reload timeout '" + oldTimeout + "' for #'" + id + "'");
                 window.clearTimeout(oldTimeout);
                 this.timeouts.delete(id);
             }
             // add new schedule
-            let timeout = window.setTimeout(function () {
+            const timeout = window.setTimeout(function () {
                 console.debug("reloading #'" + id + "'");
                 jsf.ajax.request(id, null, {
                     "javax.faces.behavior.event": "reload",

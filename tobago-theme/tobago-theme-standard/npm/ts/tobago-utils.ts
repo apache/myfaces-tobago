@@ -23,7 +23,7 @@ export class DomUtils {
    * @param element Starting element in DOM to collect.
    * @param selectors Name of the attribute of the elements to find.
    */
-// todo: may return NodeListOf<HTMLElementTagNameMap[K]> or something like that.
+  // todo: may return NodeListOf<HTMLElementTagNameMap[K]> or something like that.
   static selfOrQuerySelectorAll(element: HTMLElement, selectors: string): Array<HTMLElement> {
     const result: Array<HTMLElement> = new Array<HTMLElement>();
     if (element.matches(selectors)) {
@@ -41,8 +41,8 @@ export class DomUtils {
    */
   static getTransitionTime(element: HTMLElement): number {
     const style = window.getComputedStyle(element);
-    let delay: number = Number.parseFloat(style.transitionDelay);
-    let duration: number = Number.parseFloat(style.transitionDuration);
+    const delay: number = Number.parseFloat(style.transitionDelay);
+    const duration: number = Number.parseFloat(style.transitionDuration);
     return (delay + duration) * 1000;
   }
 }

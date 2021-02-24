@@ -90,7 +90,7 @@ export class Page extends HTMLElement {
         code = event.keyCode;
       }
       if (code === 13) {
-        let target = event.target as HTMLElement;
+        const target = event.target as HTMLElement;
         if (target.tagName === "A" || target.tagName === "BUTTON") {
           return;
         }
@@ -113,7 +113,7 @@ export class Page extends HTMLElement {
       }
     });
 
-// todo remove this
+    // todo remove this
     Listener.executeDocumentReady(document.documentElement);
   }
 
@@ -166,7 +166,7 @@ export class Page extends HTMLElement {
       if (JsfParameter.isJsfId(id)) {
         console.debug("[tobago-jsf] updating #%s", id);
         const rootNode = this.getRootNode() as ShadowRoot | Document;
-        let element = rootNode.getElementById(id);
+        const element = rootNode.getElementById(id);
         if (element) {
           Listener.executeAfterUpdate(element);
         } else {

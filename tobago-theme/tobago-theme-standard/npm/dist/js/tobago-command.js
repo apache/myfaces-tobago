@@ -51,7 +51,7 @@ class Behavior extends HTMLElement {
         if (this.execute || this.render) { // this means: AJAX case?
             if (this.render) {
                 // prepare overlay for all by AJAX reloaded elements
-                let partialIds = this.render.split(" ");
+                const partialIds = this.render.split(" ");
                 for (let i = 0; i < partialIds.length; i++) {
                     const partialElement = document.getElementById(partialIds[i]);
                     if (partialElement) {

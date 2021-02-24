@@ -65,10 +65,10 @@ export class Overlay {
             // XXX is set via class, but seams to be overridden in IE11?
         }
         document.getElementsByTagName("body")[0].append(this.overlay);
-        let wait = document.createElement("div");
+        const wait = document.createElement("div");
         wait.classList.add("tobago-page-overlayCenter");
         this.overlay.append(wait);
-        let image = document.createElement("i");
+        const image = document.createElement("i");
         if (this.error) {
             image.classList.add("fa", "fa-flash", "fa-3x");
             wait.classList.add("alert-danger");

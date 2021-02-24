@@ -19,7 +19,7 @@
 // import * as bootstrap from "bootstrap/dist/js/bootstrap";
 // import Popover from "bootstrap/dist/js/bootstrap.bundle";
 // import {createPopper} from "@popperjs/core/dist/esm/popper";
-import {Popover} from "bootstrap";
+import {Popover} from "../node_modules/tobago-core/node_modules/bootstrap";
 // import {Popover} from "bootstrap/dist/js/bootstrap.bundle";
 
 class TobagoPopover extends HTMLElement {

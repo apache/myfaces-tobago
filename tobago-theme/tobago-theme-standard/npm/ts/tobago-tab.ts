@@ -56,7 +56,7 @@ export class Tab extends HTMLElement {
   }
 
   connectedCallback(): void {
-    let navLink = this.navLink;
+    const navLink = this.navLink;
     if (!navLink.classList.contains("disabled")) {
       navLink.addEventListener("click", this.select.bind(this));
     }
