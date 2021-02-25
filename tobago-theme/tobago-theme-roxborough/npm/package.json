@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "tobago-core": "file:../../../tobago-core/npm",
-    "@popperjs/core": "^2.8.3",
+    "@popperjs/core": "^2.8.4",
     "autoprefixer": "^9.8.6",
     "clean-css-cli": "^5.2.0",
     "postcss-cli": "^7.1.2",
