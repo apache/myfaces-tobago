@@ -115,6 +115,7 @@
   <entry key="sheet_column_selector">Column Selector</entry>
   <entry key="sheet_event">Event</entry>
   <entry key="sheet_markup">Markup</entry>
+  <entry key="sheet_resize">Resize</entry>
   <entry key="sheet_style">Styling</entry>
   <entry key="sheet_dropdown">Dropdown Box</entry>
   <entry key="sheet_filter">Filtering</entry>
