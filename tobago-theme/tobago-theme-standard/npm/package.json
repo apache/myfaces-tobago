@@ -55,7 +55,7 @@
   "dependencies": {},
   "devDependencies": {
     "tobago-core": "file:../../../tobago-core/npm",
-    "@popperjs/core": "^2.8.4",
+    "@popperjs/core": "^2.8.6",
     "@types/jest": "^26.0.15",
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "@typescript-eslint/parser": "^4.15.2",
