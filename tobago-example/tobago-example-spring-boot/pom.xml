@@ -30,7 +30,7 @@
     <description>A minimal Tobago application with spring boot</description>
 
     <properties>
-        <joinfaces.version>4.4.2</joinfaces.version>
+        <joinfaces.version>4.4.3</joinfaces.version>
         <spring-boot.version>2.4.3</spring-boot.version>
     </properties>
 
