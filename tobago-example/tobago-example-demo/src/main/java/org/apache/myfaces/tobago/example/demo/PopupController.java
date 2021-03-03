@@ -21,8 +21,10 @@ package org.apache.myfaces.tobago.example.demo;
 
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.time.LocalTime;
 
 @SessionScoped
 @Named
@@ -31,6 +33,7 @@ public class PopupController implements Serializable {
   private boolean popup1Collapsed = true;
   private String popup1Text;
   private String popup2Text;
+  private String time;
 
   public boolean isPopup1Collapsed() {
     return popup1Collapsed;
@@ -62,5 +65,18 @@ public class PopupController implements Serializable {
 
   public void setPopup2Text(final String popup2Text) {
     this.popup2Text = popup2Text;
+  }
+
+  public String getTime() {
+    return time;
+  }
+
+  public void setTime(String time) {
+    this.time = time;
+  }
+
+  public void refreshContent(final AjaxBehaviorEvent event) throws InterruptedException {
+    Thread.sleep(2000);
+    time = LocalTime.now().toString();
   }
 }

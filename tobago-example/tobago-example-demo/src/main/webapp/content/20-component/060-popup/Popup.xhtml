@@ -138,4 +138,22 @@
       </tc:box>
     </tc:popup>
   </tc:section>
+
+  <tc:section label="Refresh Content">
+    <p>The content of the popup will be refreshed with AJAX after opening the popup. The refresh method waits two
+      seconds before execution.</p>
+    <tc:button label="Open Popup" immediate="true">
+      <tc:operation name="show" for="refreshPopup"/>
+      <f:ajax render="refreshPopup:refreshPopupContent" listener="#{popupController.refreshContent}"/>
+    </tc:button>
+
+    <tc:popup id="refreshPopup" collapsedMode="hidden" markup="small">
+      <tc:box id="refreshPopupContent" label="Current Time">
+        <tc:out label="Current Time" value="#{popupController.time}"/>
+        <tc:button label="Close" omit="true">
+          <tc:operation name="hide" for="refreshPopup"/>
+        </tc:button>
+      </tc:box>
+    </tc:popup>
+  </tc:section>
 </ui:composition>
