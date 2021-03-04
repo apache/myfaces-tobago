@@ -28,7 +28,7 @@
 
   <properties>
     <app.packaging>war</app.packaging>
-    <quarkus.version>1.12.0.Final</quarkus.version>
+    <quarkus.version>1.12.1.Final</quarkus.version>
     <tobago.version>${project.version}</tobago.version>
     <jetty.version>9.4.38.v20210224</jetty.version>
   </properties>
