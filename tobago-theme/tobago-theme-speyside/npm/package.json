@@ -40,7 +40,7 @@
   "devDependencies": {
     "tobago-core": "file:../../../tobago-core/npm",
     "autoprefixer": "^9.8.6",
-    "clean-css-cli": "^5.2.0",
+    "clean-css-cli": "^5.2.1",
     "postcss-cli": "^7.1.2",
     "sass": "^1.32.8"
   }
