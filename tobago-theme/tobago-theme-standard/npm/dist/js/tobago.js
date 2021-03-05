@@ -303,7 +303,7 @@
    * The dropdown implementation of Bootstrap does not move the menu to the tobago-page-menuStore. This behavior is
    * implemented in this class.
    */
-  class Dropdown extends HTMLElement {
+  class Dropdown$1 extends HTMLElement {
       constructor() {
           super();
           if (!this.classList.contains("tobago-dropdown-submenu")) { // ignore submenus
@@ -341,7 +341,7 @@
   }
   document.addEventListener("tobago.init", function (event) {
       if (window.customElements.get("tobago-dropdown") == null) {
-          window.customElements.define("tobago-dropdown", Dropdown);
+          window.customElements.define("tobago-dropdown", Dropdown$1);
       }
   });
 
@@ -3016,7 +3016,7 @@
     * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
     */
 
-  function _defineProperties(target, props) {
+  function _defineProperties$1(target, props) {
     for (var i = 0; i < props.length; i++) {
       var descriptor = props[i];
       descriptor.enumerable = descriptor.enumerable || false;
@@ -3026,9 +3026,9 @@
     }
   }
 
-  function _createClass(Constructor, protoProps, staticProps) {
-    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) _defineProperties(Constructor, staticProps);
+  function _createClass$1(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties$1(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties$1(Constructor, staticProps);
     return Constructor;
   }
 
@@ -3656,7 +3656,7 @@
       return Data.getData(element, this.DATA_KEY);
     };
 
-    _createClass(BaseComponent, null, [{
+    _createClass$1(BaseComponent, null, [{
       key: "VERSION",
       get: function get() {
         return VERSION;
@@ -3771,7 +3771,7 @@
       };
     };
 
-    _createClass(Alert, null, [{
+    _createClass$1(Alert, null, [{
       key: "DATA_KEY",
       get: // Getters
       function get() {
@@ -3847,7 +3847,7 @@
       });
     };
 
-    _createClass(Button, null, [{
+    _createClass$1(Button, null, [{
       key: "DATA_KEY",
       get: // Getters
       function get() {
@@ -4597,7 +4597,7 @@
       event.preventDefault();
     };
 
-    _createClass(Carousel, null, [{
+    _createClass$1(Carousel, null, [{
       key: "Default",
       get: function get() {
         return Default;
@@ -4672,7 +4672,7 @@
    * ------------------------------------------------------------------------
    */
 
-  var Collapse = /*#__PURE__*/function (_BaseComponent) {
+  var Collapse$1 = /*#__PURE__*/function (_BaseComponent) {
     _inheritsLoose(Collapse, _BaseComponent);
 
     function Collapse(element, config) {
@@ -4964,7 +4964,7 @@
       });
     };
 
-    _createClass(Collapse, null, [{
+    _createClass$1(Collapse, null, [{
       key: "Default",
       get: function get() {
         return Default$1;
@@ -5010,7 +5010,7 @@
         config = triggerData;
       }
 
-      Collapse.collapseInterface(element, config);
+      Collapse$1.collapseInterface(element, config);
     });
   });
   /**
@@ -5020,7 +5020,7 @@
    * add .Collapse to jQuery only if jQuery is present
    */
 
-  defineJQueryPlugin(NAME$3, Collapse);
+  defineJQueryPlugin(NAME$3, Collapse$1);
 
   /**
    * ------------------------------------------------------------------------
@@ -5087,7 +5087,7 @@
    * ------------------------------------------------------------------------
    */
 
-  var Dropdown$1 = /*#__PURE__*/function (_BaseComponent) {
+  var Dropdown = /*#__PURE__*/function (_BaseComponent) {
     _inheritsLoose(Dropdown, _BaseComponent);
 
     function Dropdown(element, config) {
@@ -5496,7 +5496,7 @@
       items[index].focus();
     };
 
-    _createClass(Dropdown, null, [{
+    _createClass$1(Dropdown, null, [{
       key: "Default",
       get: function get() {
         return Default$2;
@@ -5522,14 +5522,14 @@
    */
 
 
-  EventHandler.on(document, EVENT_KEYDOWN_DATA_API, SELECTOR_DATA_TOGGLE$2, Dropdown$1.dataApiKeydownHandler);
-  EventHandler.on(document, EVENT_KEYDOWN_DATA_API, SELECTOR_MENU, Dropdown$1.dataApiKeydownHandler);
-  EventHandler.on(document, EVENT_CLICK_DATA_API$4, Dropdown$1.clearMenus);
-  EventHandler.on(document, EVENT_KEYUP_DATA_API, Dropdown$1.clearMenus);
+  EventHandler.on(document, EVENT_KEYDOWN_DATA_API, SELECTOR_DATA_TOGGLE$2, Dropdown.dataApiKeydownHandler);
+  EventHandler.on(document, EVENT_KEYDOWN_DATA_API, SELECTOR_MENU, Dropdown.dataApiKeydownHandler);
+  EventHandler.on(document, EVENT_CLICK_DATA_API$4, Dropdown.clearMenus);
+  EventHandler.on(document, EVENT_KEYUP_DATA_API, Dropdown.clearMenus);
   EventHandler.on(document, EVENT_CLICK_DATA_API$4, SELECTOR_DATA_TOGGLE$2, function (event) {
     event.preventDefault();
     event.stopPropagation();
-    Dropdown$1.dropdownInterface(this, 'toggle');
+    Dropdown.dropdownInterface(this, 'toggle');
   });
   EventHandler.on(document, EVENT_CLICK_DATA_API$4, SELECTOR_FORM_CHILD, function (e) {
     return e.stopPropagation();
@@ -5541,7 +5541,7 @@
    * add .Dropdown to jQuery only if jQuery is present
    */
 
-  defineJQueryPlugin(NAME$4, Dropdown$1);
+  defineJQueryPlugin(NAME$4, Dropdown);
 
   /**
    * ------------------------------------------------------------------------
@@ -6085,7 +6085,7 @@
       });
     };
 
-    _createClass(Modal, null, [{
+    _createClass$1(Modal, null, [{
       key: "Default",
       get: function get() {
         return Default$3;
@@ -6999,7 +6999,7 @@
       });
     };
 
-    _createClass(Tooltip, null, [{
+    _createClass$1(Tooltip, null, [{
       key: "Default",
       get: function get() {
         return Default$4;
@@ -7166,7 +7166,7 @@
       });
     };
 
-    _createClass(Popover, null, [{
+    _createClass$1(Popover, null, [{
       key: "Default",
       get: // Getters
       function get() {
@@ -7462,7 +7462,7 @@
       });
     };
 
-    _createClass(ScrollSpy, null, [{
+    _createClass$1(ScrollSpy, null, [{
       key: "Default",
       get: function get() {
         return Default$6;
@@ -7530,7 +7530,7 @@
    * ------------------------------------------------------------------------
    */
 
-  var Tab = /*#__PURE__*/function (_BaseComponent) {
+  var Tab$1 = /*#__PURE__*/function (_BaseComponent) {
     _inheritsLoose(Tab, _BaseComponent);
 
     function Tab() {
@@ -7667,7 +7667,7 @@
       });
     };
 
-    _createClass(Tab, null, [{
+    _createClass$1(Tab, null, [{
       key: "DATA_KEY",
       get: // Getters
       function get() {
@@ -7686,7 +7686,7 @@
 
   EventHandler.on(document, EVENT_CLICK_DATA_API$6, SELECTOR_DATA_TOGGLE$4, function (event) {
     event.preventDefault();
-    var data = Data.getData(this, DATA_KEY$9) || new Tab(this);
+    var data = Data.getData(this, DATA_KEY$9) || new Tab$1(this);
     data.show();
   });
   /**
@@ -7696,7 +7696,7 @@
    * add .Tab to jQuery only if jQuery is present
    */
 
-  defineJQueryPlugin(NAME$9, Tab);
+  defineJQueryPlugin(NAME$9, Tab$1);
 
   /**
    * ------------------------------------------------------------------------
@@ -7881,7 +7881,7 @@
       });
     };
 
-    _createClass(Toast, null, [{
+    _createClass$1(Toast, null, [{
       key: "DefaultType",
       get: function get() {
         return DefaultType$7;
@@ -7949,14 +7949,14 @@
           window.customElements.define("tobago-popup", Popup);
       }
   });
-  class Collapse$1 {
+  class Collapse {
       static findHidden(element) {
           const rootNode = element.getRootNode();
           return rootNode.getElementById(element.id + "::collapse");
       }
   }
-  Collapse$1.execute = function (action, target) {
-      const hidden = Collapse$1.findHidden(target);
+  Collapse.execute = function (action, target) {
+      const hidden = Collapse.findHidden(target);
       let newCollapsed;
       switch (action) {
           case "hide":
@@ -8031,7 +8031,7 @@
       callback(event) {
           if (this.collapseAction && this.collapseTarget) {
               const rootNode = this.getRootNode();
-              Collapse$1.execute(this.collapseAction, rootNode.getElementById(this.collapseTarget));
+              Collapse.execute(this.collapseAction, rootNode.getElementById(this.collapseTarget));
           }
           if (this.execute || this.render) { // this means: AJAX case?
               if (this.render) {
@@ -8888,7 +8888,7 @@
     }
   }
 
-  function _defineProperties$1(target, props) {
+  function _defineProperties(target, props) {
     for (var i = 0; i < props.length; i++) {
       var descriptor = props[i];
       descriptor.enumerable = descriptor.enumerable || false;
@@ -8898,9 +8898,9 @@
     }
   }
 
-  function _createClass$1(Constructor, protoProps, staticProps) {
-    if (protoProps) _defineProperties$1(Constructor.prototype, protoProps);
-    if (staticProps) _defineProperties$1(Constructor, staticProps);
+  function _createClass(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
     return Constructor;
   }
 
@@ -9244,7 +9244,7 @@
       }
     }
 
-    _createClass$1(Props, [{
+    _createClass(Props, [{
       key: "toString",
       value: function toString() {
         var _this = this;
@@ -11415,7 +11415,7 @@
           this.hiddenInput.value = String(index);
       }
   }
-  class Tab$1 extends HTMLElement {
+  class Tab extends HTMLElement {
       constructor() {
           super();
       }
@@ -11475,7 +11475,7 @@
       }
   }
   document.addEventListener("DOMContentLoaded", function (event) {
-      window.customElements.define("tobago-tab", Tab$1);
+      window.customElements.define("tobago-tab", Tab);
       window.customElements.define("tobago-tab-content", TabContent);
       window.customElements.define("tobago-tab-group", TabGroup);
   });
