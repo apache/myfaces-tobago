@@ -1209,7 +1209,7 @@
                 <fileset>
                   <directory>.</directory>
                   <includes>
-                    <include>npm</include>
+                    <include>npm/**</include>
                     <include>dist/**</include>
                     <include>node/**</include>
                     <include>node_modules/**</include>
