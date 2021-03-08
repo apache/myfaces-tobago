@@ -29,7 +29,7 @@
 
   <properties>
     <theme.name>speyside</theme.name>
-    <frontend.skip>false</frontend.skip>
+    <frontend.skip>true</frontend.skip>
   </properties>
 
   <dependencies>

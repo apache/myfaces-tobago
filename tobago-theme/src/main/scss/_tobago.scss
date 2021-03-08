@@ -1,0 +1,1562 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@import "node_modules/bootstrap/scss/variables";
+
+/* used icons ---------------------------------------------------- */
+
+$fa-square-o: "\f096";
+$fa-check-square-o: "\f046";
+$fa-circle-thin: "\f1db";
+$fa-dot-circle-o: "\f192";
+$fa-exclamation-triangle: "\f071";
+$zero-width-space: "\200b";
+$fa-info: "\f129";
+$fa-times-circle: "\f057";
+$fa-toggle-off: "\f204";
+$fa-toggle-on: "\f205";
+
+/* non-bootstrap variables --------------------------------------- */
+
+$form-disabled-alpha: 0.5;
+$page-padding-top: 1rem;
+
+/* main ---------------------------------------------------------- */
+@mixin adjustCustomControlLabel() {
+  .form-check-label {
+    &:after {
+      content: "";
+    }
+
+    img {
+      padding-right: 0.3em;
+    }
+  }
+}
+
+@mixin buttonLinkDisabledCursor() {
+  &:disabled {
+    pointer-events: auto;
+
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+}
+
+@mixin buttonLinkImageTextSpacing() {
+  > img + span {
+    margin-left: .4em;
+  }
+  > i + span {
+    margin-left: .4em;
+  }
+}
+
+@mixin dropdownMenuFormCheckComponents() {
+  .dropdown-menu .form-check {
+    /* move form-check components to the right, so checkbox/radio buttons are inside dropdown-menu */
+    $paddingLeftCheckboxRadio: (($dropdown-item-padding-x / 1rem ) + $form-check-padding-start);
+    padding-left: $paddingLeftCheckboxRadio;
+
+    &.form-switch {
+      padding-left: $paddingLeftCheckboxRadio + ($form-switch-width - $form-check-input-width);
+    }
+  }
+}
+
+@mixin inlinePadding() {
+  padding-top: calc(#{$input-padding-y} + #{$input-border-width});
+  padding-bottom: calc(#{$input-padding-y} + #{$input-border-width});
+}
+
+@mixin linkWithoutUnderline() {
+  > .tobago-link {
+    text-decoration: none;
+  }
+}
+
+@mixin markupFatalErrWarnInfo() {
+  &-markup-fatal, &-markup-error {
+    &.border-danger:focus {
+      box-shadow: 0 0 0 .2rem rgba($danger, .25);
+    }
+  }
+
+  &-markup-warn {
+    &.border-warning:focus {
+      box-shadow: 0 0 0 .2rem rgba($warning, .25);
+    }
+  }
+
+  &-markup-info {
+    &.border-info:focus {
+      box-shadow: 0 0 0 .2rem rgba($info, .25);
+    }
+  }
+}
+
+@mixin tobagoTreeNodeToggle() {
+  .tobago-treeNode-toggle:not(.invisible) {
+    cursor: pointer;
+  }
+}
+
+@mixin treeNodeMarginLeftLevel() {
+  @for $i from 0 through 20 {
+    tobago-tree-node[data-tobago-level='#{$i}'] {
+      margin-left: #{$i}rem;
+    }
+  }
+}
+
+/* badge -------------------------------------------------------------- */
+.tobago-badge {
+}
+
+.badge.btn {
+  border: 0;
+}
+
+.btn-group > tobago-badge.badge.btn {
+  z-index: initial;
+  cursor: initial;
+}
+
+/* bar -------------------------------------------------------------- */
+// todo: remove CSS class
+.tobago-bar {
+}
+
+tobago-bar {
+  &.navbar-light .navbar-brand > .tobago-link {
+    color: $navbar-light-active-color;
+
+    &:hover, &:focus {
+      text-decoration: none;
+    }
+  }
+
+  &.navbar-dark .navbar-brand > .tobago-link {
+    color: $navbar-dark-active-color;
+
+    &:hover, &:focus {
+      text-decoration: none;
+    }
+  }
+
+  .navbar-brand {
+    /* Normally links are underlined. A navbar-brand link is NOT underlined. In Tobago, the .navbar-brand class is not
+    on the link itself but on the parent tag. */
+    @include linkWithoutUnderline();
+  }
+}
+
+tobago-behavior {
+  display: none;
+}
+
+/* box -------------------------------------------------------------- */
+
+tobago-box {
+  margin-bottom: $card-spacer-y;
+
+  > .card-body {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+
+.tobago-box-header {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.card-header {
+
+  > h3:first-child {
+    margin-bottom: 0;
+    align-self: center;
+  }
+
+  .navbar {
+    padding: 0;
+  }
+}
+
+/* button, link ------------------------------------------------------- */
+.tobago-button {
+  @include buttonLinkDisabledCursor();
+  @include buttonLinkImageTextSpacing();
+}
+
+/* button -------------------------------------------------------------- */
+
+/* XXX for what is this needed?
+a.tobago-button {
+  &.btn-primary:focus {
+    color: $btn-primary-color;
+  }
+  &.btn-secondary:focus {
+    color: $btn-secondary-color;
+  }
+}
+*/
+
+button.tobago-button {
+  &:disabled {
+    cursor: not-allowed;
+
+    img, span {
+      pointer-events: none;
+    }
+  }
+}
+
+.tobago-buttons {
+}
+
+tobago-buttons {
+  > .tobago-button {
+    display: inline-block;
+  }
+}
+
+/* collapsible -------------------------------------------------------------- */
+
+tobago-box.tobago-collapsed .card-body,
+tobago-section.tobago-collapsed .tobago-section-content,
+tobago-panel.tobago-collapsed {
+  display: none;
+}
+
+/* date -------------------------------------------------------------- */
+
+// XXX remove me
+.tobago-date {
+  @include markupFatalErrWarnInfo();
+}
+
+tobago-date {
+  display: block;
+
+  input {
+    min-width: 7em;
+
+    &::-ms-clear {
+      /* Remove IE10's "clear field" X button */
+      display: none;
+    }
+
+    &:disabled {
+      color: rgba($input-color, $form-disabled-alpha);
+    }
+  }
+}
+
+/* for pickers with more than one icon, e.g. date-time picker */
+.btn.tobago-date-picker > .fa:nth-child(n+2) {
+  margin-left: .3em;
+}
+
+/*
+workaround for Bootstrap Modal (Popup) with vanillajs-datepicker
+*/
+.datepicker-dropdown {
+  z-index: 2000 !important;
+}
+
+/* dropdown ------------------------------------------------------- */
+tobago-dropdown {
+  display: inline-block; //make tobago-dropdown height the same the inner button. Important for dropdown-menu position
+
+  @include dropdownMenuFormCheckComponents();
+
+  &.tobago-dropdown-submenu {
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+    float: right;
+
+    &:hover {
+      background-color: $dropdown-link-hover-bg;
+
+      > .dropdown-menu {
+        display: block;
+        top: 0;
+        left: 100%;
+        margin-top: -0.5rem;
+        margin-left: -1px;
+      }
+    }
+
+    > .dropdown-item::after {
+      content: " ";
+      float: right;
+      border-color: transparent;
+      border-style: solid;
+      border-width: 5px 0 5px 5px;
+      border-left-color: #cccccc;
+      margin-top: 7px;
+      margin-right: -10px;
+    }
+  }
+}
+
+.tobago-dropdown-open, .tobago-dropdown-select {
+  // deprecated; must be added for test
+}
+
+/* figure -------------------------------------------------------------- */
+
+.tobago-figure {
+}
+
+/* file -------------------------------------------------------------- */
+.tobago-file {
+}
+
+//TODO remove
+
+tobago-file {
+  display: block;
+}
+
+/* flexLayout -------------------------------------------------------------- */
+
+tobago-flex-layout {
+  display: flex;
+  min-width: 0;
+  /* without this, Firefox/Webkit are different from IE:
+     Set the minimal width to zero make flex-layout responsive for the width,
+     even if there is overflowing content.
+     currently e.g. PRE-code blocks in the demo are too wide. XXX */
+  margin-left: -3px;
+  margin-right: -3px;
+
+  > * {
+    margin-left: 3px;
+    margin-right: 3px;
+  }
+
+  > tobago-flex-layout {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+/* the non-label-element inside of a label-layout with flex box */
+.tobago-label-container {
+  display: flex;
+
+  > label {
+    // XXX needs to be customizable
+    width: 155px;
+  }
+
+  > {
+    .form-control, .form-control-plaintext,
+    .tobago-input-group-outer, .tobago-messages-container,
+    .tobago-selectManyShuttle {
+      flex: 1 0 0px;
+    }
+  }
+}
+
+/* flowLayout ---------------------------------------------------------- */
+tobago-flow-layout {
+  &.tobago-text-justify {
+    /* added here, because Bootstrap has removed .text-justify */
+    text-align: justify !important;
+  }
+}
+
+/* focus --------------------------------------------------------------- */
+tobago-focus {
+  display: none;
+}
+
+/* footer -------------------------------------------------------------- */
+
+tobago-footer {
+  display: block;
+  background-color: $white;
+  padding: $navbar-padding-y ($container-padding-x / 2);
+  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* form -------------------------------------------------------------- */
+
+.tobago-form {
+}
+
+/* gridLayout -------------------------------------------------------------- */
+
+tobago-grid-layout {
+  display: -ms-grid;
+  display: grid;
+  border-spacing: 0;
+  border-collapse: collapse;
+  grid-column-gap: $spacer; // old
+  column-gap: $spacer;
+
+  .tobago-label-container > {
+    textarea, .tobago-selectManyListbox, .tobago-selectManyShuttle {
+      height: 100%;
+    }
+  }
+}
+
+/* header ----------------------------------------------------------- */
+tobago-header {
+  display: block;
+}
+
+tobago-header {
+  margin-bottom: 1rem;
+
+  &.sticky-top {
+    margin-top: -$page-padding-top;
+    margin-left: -($grid-gutter-width / 2);
+    margin-right: -($grid-gutter-width / 2);
+  }
+}
+
+/* hidden ----------------------------------------------------------- */
+
+.tobago-hidden:disabled {
+  display: none;
+}
+
+/* image ----------------------------------------------------------- */
+
+.tobago-image {
+}
+
+.tobago-image.disabled {
+  filter: grayscale(1) blur(2px) contrast(0.5) brightness(1.2);
+}
+
+/* in ----------------------------------------------------------- */
+tobago-in {
+  display: block;
+
+  .input-group {
+
+    > tobago-dropdown {
+      /* fix corner styling, because tobago-dropdown use a surrounding container inside an input group */
+      &:not(:last-child) > .tobago-button {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      &:not(:first-child) > .tobago-button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+
+    tobago-select-one-choice {
+      /* fix style for surrounding container (tobago-select-one-choice).
+      According to bootstrap docs, <select class=.form-select> should be rendered directly to .input-group. But tobago
+      renders the tobago-select-one-choice custom tag (which contain the select component) inside an input group. */
+
+      &.tobago-margin-bottom {
+        margin-bottom: 0;
+      }
+
+      &.form-select {
+        padding: 0;
+
+        > .form-select {
+          border: 0;
+        }
+      }
+    }
+  }
+
+  &.autocomplete[data-loading=true] .autocomplete-pseudo-container {
+    position: absolute;
+
+    &:after {
+      content: "";
+      border: 3px solid rgba(0, 0, 0, .12);
+      border-right-color: rgba(0, 0, 0, .48);
+      border-radius: 100%;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      z-index: 5;
+      transform: translateY(-50%);
+      animation: rotate 1s linear infinite
+    }
+  }
+
+  tobago-suggest {
+    display: none;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: translateY(-50%) rotate(0deg)
+  }
+  to {
+    transform: translateY(-50%) rotate(359deg)
+  }
+}
+
+.tobago-in {
+  @include markupFatalErrWarnInfo();
+
+  &:disabled {
+    color: rgba($input-color, $form-disabled-alpha);
+  }
+}
+
+.tobago-in-markup-number {
+  text-align: right;
+}
+
+.tobago-input-group-outer {
+}
+
+.autocomplete-result-list {
+  padding: $dropdown-padding-y $dropdown-padding-x;
+  list-style: none;
+  background-color: $dropdown-bg;
+  border: $dropdown-border-width solid $dropdown-border-color;
+  @include border-radius($dropdown-border-radius);
+  @include box-shadow($dropdown-box-shadow);
+  overflow-y: auto;
+
+  .autocomplete-result {
+    padding: $dropdown-item-padding-y $dropdown-item-padding-x;
+
+    &:hover, &:focus, &[aria-selected=true] {
+      color: $dropdown-link-hover-color;
+      @include gradient-bg($dropdown-link-hover-bg);
+    }
+
+    &:active {
+      color: $dropdown-link-active-color;
+      @include gradient-bg($dropdown-link-active-bg);
+    }
+  }
+}
+
+/* label ----------------------------------------------------------- */
+
+// todo remove
+.tobago-label {
+  color: #6610f2 !important;
+}
+
+tobago-links {
+  .nav .nav-item .nav-link {
+    padding: $nav-link-padding-y $nav-link-padding-x;
+  }
+}
+
+/* link ----------------------------------------------------------- */
+
+.tobago-link {
+  @include buttonLinkImageTextSpacing();
+  white-space: nowrap;
+
+  span {
+    white-space: normal
+  }
+
+  &.nav-link {
+    &:focus, &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+a.tobago-link.dropdown-item {
+  img, span {
+    display: inline-block; /* fix for IE11 - :active selector doesn't work for nested elements */
+    pointer-events: none;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  button.tobago-link {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+}
+
+button {
+  &.tobago-link.btn {
+    @include buttonLinkDisabledCursor();
+
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+
+    &:focus {
+      box-shadow: none;
+    }
+
+    &:disabled {
+      /* bootstrap reduce opacity for disabled buttons.
+      This results in a different text color for greyed out button.tobago-link */
+      opacity: 1;
+    }
+  }
+
+  &.tobago-link.dropdown-item {
+    @include buttonLinkDisabledCursor();
+  }
+
+  &.nav-link { /* bootstrap don't know button.nav-link*/
+    padding: .55em $nav-link-padding-x .45em;
+  }
+}
+
+.navbar-nav button.nav-link {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* messages / help text ----------------------------------------------- */
+.tobago-messages-container {
+  display: flex;
+  align-items: flex-start;
+
+  .tobago-messages:first-child small label {
+    margin-right: 0; /* for tc:in margin 5px is already set */
+    margin-bottom: 5px;
+  }
+}
+
+.tobago-popover-box {
+  display: none;
+  width: max-content;
+
+  &.show {
+    display: block;
+  }
+}
+
+a.tobago-messages-button, a.tobago-help-button, a.tobago-popover-button {
+  padding-left: 0.4em;
+  padding-right: 0.4em;
+}
+
+.tobago-messages label {
+  display: block;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+tobago-flex-layout.tobago-messages-container > {
+  .tobago-input-group-outer, .tobago-selectManyShuttle {
+    flex: 1 0 0px;
+  }
+}
+
+.tobago-margin-bottom {
+  /* Since bootstrap 5.0.0-alpha1 class "form-group" is removed. In the Bootstrap demo "form-group" is replaced with
+  "mb-3". But we shouldn't use "mb-3", because it's adding an "!important" to the margin-bottom. With "!important" added
+  custom styling is much more complicated. */
+  margin-bottom: 1rem;
+}
+
+.tobago-messages {
+  $alert-icon-padding-x: $alert-padding-x / 1.25;
+  $alert-icon-width: $alert-icon-padding-x + 1rem + $alert-icon-padding-x;
+
+  .alert.alert-dismissible {
+    padding-left: $alert-icon-width;
+
+    &:before {
+      font-family: FontAwesome;
+      position: absolute;
+      left: 0;
+      padding-left: $alert-icon-padding-x;
+      padding-right: $alert-icon-padding-x;
+      width: $alert-icon-width;
+      text-align: center;
+    }
+
+    &.alert-danger:before {
+      content: $fa-times-circle;
+    }
+
+    &.alert-warning:before {
+      content: $fa-exclamation-triangle;
+    }
+
+    &.alert-info:before {
+      content: $fa-info;
+    }
+  }
+}
+
+.popover .popover-body {
+  // allow linebreaks for messages / help text
+  white-space: pre-line;
+}
+
+/* nav ----------------------------------------------------------- */
+
+/* no bottom border in navtabs, if panel-body under it */
+.nav-tabs {
+  border-bottom-width: 0;
+
+  > li.active > a {
+    background-image: linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%);
+    background-repeat: repeat-x;
+    border-bottom: #dddddd;
+
+    &:hover {
+      border-bottom: #dddddd;
+    }
+  }
+}
+
+.dropdown-menu .form-check {
+  display: block;
+}
+
+/* object ----------------------------------------------------------------- */
+.tobago-object {
+}
+
+/* out -------------------------------------------------------------------- */
+
+tobago-out {
+  display: inline-block;
+}
+
+.tobago-out-markup-strong {
+  font-weight: bold;
+}
+
+.tobago-out-markup-deleted {
+  text-decoration: line-through;
+}
+
+.tobago-out-markup-number {
+  display: block;
+  text-align: right;
+}
+
+/* make sure, tc:out has always the same height, no matter if value is empty */
+span.tobago-out:empty:before {
+  content: "\200b";
+}
+
+.table-dark .form-control-plaintext {
+  color: $white;
+  // was in bs4: color: $table-dark-color;
+}
+
+/* page ----------------------------------------------------------- */
+
+// todo: remove
+.tobago-page {
+}
+
+tobago-page {
+  display: block;
+  padding-top: $page-padding-top;
+  padding-bottom: 1rem;
+}
+
+.tobago-page-overlay {
+  display: table;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* TODO: better z-index strategy */
+  z-index: 500; /* less than the bootstrap navbar */
+  transition-delay: 1s;
+  transition-duration: 250ms;
+  transition-property: opacity;
+  opacity: 0;
+}
+
+.tobago-page-overlay-timeout {
+  opacity: 0.8;
+}
+
+.tobago-page-overlay-markup-error {
+  cursor: default;
+}
+
+.tobago-page-overlayCenter {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
+  /* TODO: better z-index strategy */
+  z-index: 500; /* less than the bootstrap navbar */
+
+  img {
+    position: relative;
+  }
+}
+
+.tobago-page-noscript {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  right: 100px;
+  height: 50px;
+  border: 1px solid black;
+  padding: 30px;
+  background-color: white;
+  font-size: 15px;
+}
+
+.tobago-spread {
+  height: 100%;
+
+  &tobago-panel {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+
+/* menuStore -------------------------------------------------------- */
+.tobago-page-menuStore {
+  @include dropdownMenuFormCheckComponents();
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: $zindex-popover;
+}
+
+/* panel ------------------------------------------------------------- */
+
+// todo: remove
+.tobago-panel {
+}
+
+tobago-panel {
+  display: block;
+}
+
+/* popover ------------------------------------------------------------- */
+tobago-popover {
+}
+
+/* popup ------------------------------------------------------------- */
+tobago-popup {
+}
+
+.modal-content > .card {
+  margin-bottom: 0;
+}
+
+/* progress ---------------------------------------------------------- */
+tobago-progress {
+}
+
+/* range ---------------------------------------------------------- */
+tobago-range {
+}
+
+.tobago-required label:after,
+label.tobago-required:after {
+  content: "*";
+  color: $danger;
+}
+
+/* section ----------------------------------------------------------- */
+tobago-section > .tobago-header > {
+  h1, h2, h3, h4, h5, h6 {
+    > .fa:first-child, > img {
+      /* to separate the icon from the rest of the title */
+      margin-right: 0.7em;
+    }
+
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+  }
+}
+
+/* stars rating ------------------------------------------------------------ */
+tobago-stars {
+  display: block;
+}
+
+.tobago-stars {
+  .tobago-stars-container {
+    position: relative;
+    display: inline-block;
+    color: transparent;
+    font-family: FontAwesome;
+    font-size: 1.5rem;
+
+    &:before {
+      content: "\f005 \f005 \f005 \f005 \f005";
+    }
+
+    .tobago-stars-focusBox {
+      display: inline-block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+    }
+
+    .tobago-stars-slider:focus ~ .tobago-stars-focusBox {
+      box-shadow: $input-box-shadow, $input-focus-box-shadow;
+    }
+
+    .tobago-stars-tooltip {
+      display: inline-block;
+      position: absolute;
+      font-family: sans-serif;
+      font-size: 1.1rem;
+      background-color: $black;
+      color: $white;
+      padding-left: 0.25rem;
+      padding-right: 0.25rem;
+      text-align: center;
+      border-radius: 0.25rem;
+      width: 40px;
+      top: -23px;
+      left: 35px;
+
+      &.trash:before {
+        font-family: FontAwesome;
+        content: "\f014";
+      }
+    }
+
+    .tobago-stars-selected {
+      display: block;
+      position: absolute;
+      top: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      color: $progress-bar-bg;
+
+      &:before {
+        content: "\f005 \f005 \f005 \f005 \f005";
+      }
+    }
+
+    .tobago-stars-slider:disabled ~ .tobago-stars-selected {
+      filter: grayscale(1);
+    }
+
+    .tobago-stars-selected.tobago-placeholder {
+      filter: grayscale(0.3);
+    }
+
+    .tobago-stars-unselected {
+      display: block;
+      position: absolute;
+      top: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      color: $progress-bg;
+      direction: rtl;
+
+      &:before {
+        content: "\f005 \f005 \f005 \f005 \f005";
+      }
+    }
+
+    input[type="range"]:disabled ~ .tobago-stars-unselected {
+      filter: grayscale(1);
+    }
+
+    .tobago-stars-preselected {
+      display: none;
+      position: absolute;
+      top: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      color: lighten($progress-bar-bg, 25%);
+      opacity: 0.8;
+
+      &:before {
+        content: "\f005 \f005 \f005 \f005 \f005";
+      }
+
+      &.show {
+        display: block;
+      }
+    }
+
+    .tobago-stars-slider {
+      position: absolute;
+      height: 100%;
+      opacity: 0;
+      z-index: 1;
+      left: 0;
+      width: 100%;
+
+      &::-ms-tooltip {
+        display: none;
+      }
+    }
+  }
+}
+
+/* select ----------------------------------------------------------- */
+.tobago-inputPseudo {
+  //deprecated should be removed
+}
+
+/* selectBooleanCheckbox ---------------------------------------------------- */
+tobago-select-boolean-checkbox {
+  display: block;
+  @include adjustCustomControlLabel();
+}
+
+/* selectBooleanToggle ---------------------------------------------------- */
+tobago-select-boolean-toggle {
+  display: block;
+  @include adjustCustomControlLabel();
+}
+
+/* selectOneChoice --------------------------------------------------------- */
+tobago-select-one-choice {
+
+}
+
+/* selectOneListbox -------------------------------------------------------- */
+
+//xxx remove me
+.tobago-selectOneListbox {
+  @include markupFatalErrWarnInfo();
+}
+
+//xxx remove me
+.tobago-selectOneListbox-option {
+}
+
+tobago-select-one-listbox {
+  display: block;
+}
+
+/* selectOneRadio ---------------------------------------------------------- */
+tobago-select-one-radio {
+  display: block;
+  @include adjustCustomControlLabel();
+
+  &.tobago-label-container {
+    .form-check-inline {
+      @include inlinePadding();
+    }
+  }
+}
+
+/* selectManyCheckbox ----------------------------------------------------- */
+tobago-select-many-checkbox {
+  display: block;
+  @include adjustCustomControlLabel();
+
+  &.tobago-label-container {
+    .form-check-inline {
+      @include inlinePadding();
+    }
+  }
+}
+
+.tobago-selectManyCheckbox {
+}
+
+/* selectManyListbox ----------------------------------------------------------- */
+tobago-select-many-listbox {
+
+}
+
+.tobago-selectManyListbox,
+.tobago-selectManyListbox-option {
+}
+
+.tobago-selectManyListbox {
+  @include markupFatalErrWarnInfo();
+}
+
+/* selectManyShuttle ----------------------------------------------------------- */
+tobago-select-many-shuttle {
+  display: block;
+}
+
+.tobago-selectManyShuttle-add,
+.tobago-selectManyShuttle-addAll,
+.tobago-selectManyShuttle-option,
+.tobago-selectManyShuttle-remove,
+.tobago-selectManyShuttle-removeAll,
+.tobago-selectManyShuttle-selectedLabel,
+.tobago-selectManyShuttle-unselectedLabel {
+}
+
+.tobago-selectManyShuttle {
+  display: flex;
+
+  .tobago-selectManyShuttle-unselected,
+  .tobago-selectManyShuttle-selected {
+    flex: 1 0 0px;
+  }
+}
+
+.tobago-selectManyShuttle-hidden {
+  display: none;
+}
+
+.tobago-selectManyShuttle-toolBar {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0.5rem;
+
+  > button {
+    display: block;
+  }
+
+  > div {
+    flex: 1 0 0px;
+  }
+
+  > * { /* XXX this fixes the margin left from .btn:nth-child(n+2), but is ugly */
+    margin-left: 0 !important;
+  }
+}
+
+/* selectOneChoice ---------------------------------------------------------- */
+
+/* segmentLayout ----------------------------------------------------------- */
+
+tobago-segment-layout {
+  /*
+  Makes, that the height of the div is set.
+  Otherwise floating elements below, may flew into the area of the segmentLayout.
+  */
+  /*display: inline-block;
+  todo: this breaks the general layout in IE11 and others
+  */
+}
+
+/* separator -------------------------------------------------------------- */
+tobago-separator {
+  display: block;
+}
+
+hr.tobago-separator {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+p.tobago-separator {
+  text-align: center;
+  border: 0;
+  white-space: nowrap;
+  display: block;
+  overflow: hidden;
+  padding: 0;
+  margin-top: 1em;
+  margin-bottom: 1em;
+
+  &:before, &:after {
+    content: "";
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  &:before {
+    width: 80px;
+    margin-left: 0;
+    margin-right: 5px;
+  }
+
+  &:after {
+    width: 100%;
+    margin-left: 5px;
+    margin-right: 0;
+  }
+}
+
+/* sheet -------------------------------------------------------------- */
+.tobago-sheet,
+.tobago-sheet-expanded,
+.tobago-sheet-row {
+}
+
+tobago-sheet {
+  .tobago-sheet-cell {
+    @include treeNodeMarginLeftLevel();
+
+    > tobago-tree-node {
+      display: flex;
+      align-items: center;
+
+      @include tobagoTreeNodeToggle();
+
+      .tobago-treeNode-toggle {
+        padding-right: 5px;
+      }
+    }
+  }
+}
+
+th.tobago-sheet-headerCell {
+  font-weight: normal;
+
+  .tobago-out {
+    font-weight: bold;
+  }
+}
+
+.tobago-sheet-header {
+  overflow: hidden;
+  flex-shrink: 0;
+  display: block;
+}
+
+.tobago-sheet-headerCell > .tobago-sheet-header > * {
+  display: inline;
+}
+
+.tobago-sheet-header-markup-sortable::after {
+  content: "\f0dc";
+  font-family: FontAwesome;
+  color: $gray-300;
+  margin-left: $spacer;
+}
+
+.tobago-sheet-header-markup-ascending::after {
+  content: "\f0de";
+  color: inherit;
+}
+
+.tobago-sheet-header-markup-descending::after {
+  content: "\f0dd";
+  color: inherit;
+}
+
+th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
+  height: 14px; /* XXX why? */
+}
+
+.tobago-sheet-columnSelector {
+  margin-top: ($spacer * 0.75);
+  margin-bottom: ($spacer * 0.75);
+}
+
+tobago-sheet {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: $spacer;
+
+  .table {
+    margin-bottom: 0;
+  }
+}
+
+.tobago-sheet-cell-markup-right {
+  text-align: right;
+}
+
+.tobago-sheet-cell-markup-center {
+  text-align: center;
+}
+
+.tobago-sheet-cell-markup-justify {
+  text-align: justify;
+}
+
+.tobago-sheet-cell-markup-filler {
+  padding: 0 !important; /* fix for IE 11 */
+}
+
+.tobago-sheet-cell.tobago-sheet-cell-markup-middle {
+  vertical-align: middle;
+  line-height: initial;
+}
+
+.tobago-sheet-cell.tobago-sheet-cell-markup-bottom {
+  vertical-align: bottom;
+  line-height: initial;
+}
+
+.tobago-sheet-footer {
+  text-align: center;
+}
+
+.tobago-sheet-paging {
+  display: inline-flex;
+}
+
+.tobago-sheet-paging-markup-left {
+  float: left;
+}
+
+.tobago-sheet-paging-markup-center {
+}
+
+.tobago-sheet-paging-markup-right {
+  float: right;
+}
+
+.tobago-sheet-pagingInput {
+  text-align: center;
+  display: none;
+  margin: -4px 0;
+  width: 3em;
+}
+
+.tobago-sheet-pagingText {
+  cursor: pointer;
+}
+
+.tobago-sheet-body {
+  overflow-y: auto;
+  flex: 1 1 auto;
+}
+
+.tobago-sheet-headerTable {
+  margin-bottom: 0;
+}
+
+.tobago-tableLayout-fixed {
+  table-layout: fixed;
+}
+
+.tobago-sheet-headerCell-markup-filler {
+  border-width: 0 !important;
+}
+
+.tobago-sheet-headerCell {
+  position: relative;
+}
+
+.tobago-sheet-headerResize {
+  position: absolute;
+  right: -5px;
+  top: 0;
+  width: 10px;
+  height: 100%;
+  z-index: 1;
+  cursor: col-resize;
+}
+
+.tobago-sheet-header:hover .tobago-sheet-headerResize {
+  background-color: $gray-200;
+}
+
+.tobago-sheet-headerCell {
+  overflow: hidden;
+}
+
+.tobago-sheet-cell div {
+  overflow: hidden;
+}
+
+.tobago-sheet-bodyTable {
+}
+
+.tobago-sheet-pagingOutput {
+}
+
+/* splitLayout ---------------------------------------------------------------------- */
+tobago-split-layout {
+  display: flex;
+}
+
+.tobago-splitLayout {
+}
+
+.tobago-splitLayout-horizontal {
+  width: .5rem;
+  cursor: col-resize;
+}
+
+.tobago-splitLayout-horizontal:hover {
+  border: dotted #000000 thin;
+  z-index: 10000; /* TODO: check, if needed (check also with iframes) */
+}
+
+.tobago-splitLayout-vertical {
+  height: .5rem;
+  cursor: row-resize;
+}
+
+.tobago-splitLayout-vertical:hover {
+  border: dotted #000000 thin;
+  z-index: 10000; /* TODO: check, if needed (check also with iframes) */
+}
+
+/* tab / tab-group ----------------------------------------------------------------- */
+.tobago-tabGroup, .tobago-tab, .tobago-tab-content {
+}
+
+tobago-tab {
+
+  .nav-link:not([href]):not([tabindex]) {
+    /* fix .nav-links without 'href'; bootstrap tab only works if 'href' is set */
+    &.active {
+      color: $nav-tabs-link-active-color;
+      cursor: pointer;
+    }
+
+    &:not(.active) {
+      color: $link-color;
+      cursor: pointer;
+
+      &:hover {
+        color: $link-hover-color;
+      }
+    }
+
+    &.disabled {
+      color: $nav-link-disabled-color;
+      cursor: not-allowed;
+
+      &:focus, &:hover {
+        color: $nav-link-disabled-color;
+      }
+    }
+  }
+}
+
+tobago-tab.tobago-tab-barFacet {
+  display: flex;
+
+  > .nav-link {
+    border-right: 0;
+    border-top-right-radius: 0;
+  }
+
+  > div {
+    border: $nav-tabs-border-width solid transparent;
+    border-top-right-radius: $nav-tabs-border-radius;
+    padding-right: $nav-link-padding-x;
+
+    & > button {
+      height: 100%;
+    }
+
+    & > a {
+      display: inline-block;
+      padding-top: 0.5rem;
+    }
+  }
+
+  .nav-link.active + div {
+    background-color: $nav-tabs-link-active-bg;
+    border-top-color: $nav-tabs-border-color;
+    border-right-color: $nav-tabs-border-color;
+  }
+
+  .nav-link:not(.disabled):hover + div {
+    border-top-color: $gray-200;
+    border-right-color: $gray-200;
+  }
+}
+
+tobago-tab-group {
+  margin-bottom: $spacer;
+}
+
+/* FIXME: This is to hide the toolbar, until it is implemented */
+.tobago-tabGroup-toolBar {
+  display: none;
+}
+
+/* tree ---------------------------------------------------------------------- */
+.tobago-tree-expanded,
+.tobago-tree-selected,
+.tobago-treeLabel,
+.tobago-treeSelect,
+.tobago-treeSelect-label {
+}
+
+.tobago-tree {
+  .tobago-treeNode {
+    cursor: default;
+
+    @include tobagoTreeNodeToggle();
+  }
+}
+
+.tobago-treeSelect .form-check-inline {
+  margin-left: $spacer * .75 / 2;
+  margin-right: $spacer * .75 / 2;
+}
+
+.tobago-treeNode[data-tobago-level] {
+  margin-left: 7rem;
+}
+
+tobago-tree {
+  @include treeNodeMarginLeftLevel();
+
+  tobago-tree-node {
+    /* Links in a tree shouldn't be underlined to look more like a menu point. */
+    @include linkWithoutUnderline();
+
+    display: block;
+
+    tobago-tree-select {
+      display: inline;
+
+      &.form-check {
+        display: inline;
+      }
+    }
+  }
+
+  .tobago-treeLabel, .tobago-treeSelect-label {
+    margin-bottom: 0;
+  }
+}
+
+/* treeListbox ---------------------------------------------------------------------- */
+tobago-tree-listbox, .tobago-treeListbox {
+  display: block;
+
+  .tobago-treeListbox-level {
+    display: inline-block;
+    min-width: 10rem;
+  }
+
+  .tobago-treeListbox-select {
+    width: 100%;
+  }
+}
+
+/* textarea --------------------------------------------------------- */
+tobago-textarea textarea {
+  @include markupFatalErrWarnInfo();
+
+  &:disabled {
+    color: rgba($input-color, $form-disabled-alpha);
+  }
+}
