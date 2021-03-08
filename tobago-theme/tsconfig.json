@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "es6",
+    "target": "ES2015",
+    "noImplicitAny": false,
+    "outDir": "tobago-theme-standard/src/main/js",
+    "sourceMap": false,
+    "removeComments": false,
+    "noEmitOnError": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true
+  },
+  "include": [
+    "tobago-theme-standard/src/main/ts/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "node",
+    "tobago-theme-standard/npm/dist"
+  ],
+  "_comment for moduleResolution": "this is to fix a compiler problem with @babel/types, see: https://github.com/microsoft/TypeScript/issues/11103"
+}

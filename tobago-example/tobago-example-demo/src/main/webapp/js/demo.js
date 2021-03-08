@@ -1,5 +1,5 @@
 (function (factory) {
-	typeof define === 'function' && define.amd ? define(factory) :
+	typeof define === 'function' && define.amd ? define(['demo-alert', 'demo-copy-to-clipboard', 'demo-highlight', 'demo-inspect', 'demo-login', 'demo-search', 'demo-test'], factory) :
 	factory();
 }((function () { 'use strict';
 
@@ -25,7 +25,7 @@
 	 * @namespace
 	 * @public
 	 */
-	var Prism$1 = (function (_self){
+	var Prism = (function (_self){
 
 	// Private helper vars
 	var lang = /\blang(?:uage)?-([\w-]+)\b/i;
@@ -1146,12 +1146,12 @@
 	})(_self);
 
 	if (typeof module !== 'undefined' && module.exports) {
-		module.exports = Prism$1;
+		module.exports = Prism;
 	}
 
 	// hack for components to work correctly in node.js
 	if (typeof global !== 'undefined') {
-		global.Prism = Prism$1;
+		global.Prism = Prism;
 	}
 
 	// some additional documentation/types
@@ -1208,7 +1208,7 @@
 	     Begin prism-markup.js
 	********************************************** */
 
-	Prism$1.languages.markup = {
+	Prism.languages.markup = {
 		'comment': /<!--[\s\S]*?-->/,
 		'prolog': /<\?[\s\S]+?\?>/,
 		'doctype': {
@@ -1274,19 +1274,19 @@
 		]
 	};
 
-	Prism$1.languages.markup['tag'].inside['attr-value'].inside['entity'] =
-		Prism$1.languages.markup['entity'];
-	Prism$1.languages.markup['doctype'].inside['internal-subset'].inside = Prism$1.languages.markup;
+	Prism.languages.markup['tag'].inside['attr-value'].inside['entity'] =
+		Prism.languages.markup['entity'];
+	Prism.languages.markup['doctype'].inside['internal-subset'].inside = Prism.languages.markup;
 
 	// Plugin to make entity title show the real entity, idea by Roman Komarov
-	Prism$1.hooks.add('wrap', function (env) {
+	Prism.hooks.add('wrap', function (env) {
 
 		if (env.type === 'entity') {
 			env.attributes['title'] = env.content.replace(/&amp;/, '&');
 		}
 	});
 
-	Object.defineProperty(Prism$1.languages.markup.tag, 'addInlined', {
+	Object.defineProperty(Prism.languages.markup.tag, 'addInlined', {
 		/**
 		 * Adds an inlined language to markup.
 		 *
@@ -1303,7 +1303,7 @@
 			includedCdataInside['language-' + lang] = {
 				pattern: /(^<!\[CDATA\[)[\s\S]+?(?=\]\]>$)/i,
 				lookbehind: true,
-				inside: Prism$1.languages[lang]
+				inside: Prism.languages[lang]
 			};
 			includedCdataInside['cdata'] = /^<!\[CDATA\[|\]\]>$/i;
 
@@ -1315,7 +1315,7 @@
 			};
 			inside['language-' + lang] = {
 				pattern: /[\s\S]+/,
-				inside: Prism$1.languages[lang]
+				inside: Prism.languages[lang]
 			};
 
 			var def = {};
@@ -1326,18 +1326,18 @@
 				inside: inside
 			};
 
-			Prism$1.languages.insertBefore('markup', 'cdata', def);
+			Prism.languages.insertBefore('markup', 'cdata', def);
 		}
 	});
 
-	Prism$1.languages.html = Prism$1.languages.markup;
-	Prism$1.languages.mathml = Prism$1.languages.markup;
-	Prism$1.languages.svg = Prism$1.languages.markup;
+	Prism.languages.html = Prism.languages.markup;
+	Prism.languages.mathml = Prism.languages.markup;
+	Prism.languages.svg = Prism.languages.markup;
 
-	Prism$1.languages.xml = Prism$1.languages.extend('markup', {});
-	Prism$1.languages.ssml = Prism$1.languages.xml;
-	Prism$1.languages.atom = Prism$1.languages.xml;
-	Prism$1.languages.rss = Prism$1.languages.xml;
+	Prism.languages.xml = Prism.languages.extend('markup', {});
+	Prism.languages.ssml = Prism.languages.xml;
+	Prism.languages.atom = Prism.languages.xml;
+	Prism.languages.rss = Prism.languages.xml;
 
 
 	/* **********************************************
@@ -1425,14 +1425,14 @@
 			}, markup.tag);
 		}
 
-	}(Prism$1));
+	}(Prism));
 
 
 	/* **********************************************
 	     Begin prism-clike.js
 	********************************************** */
 
-	Prism$1.languages.clike = {
+	Prism.languages.clike = {
 		'comment': [
 			{
 				pattern: /(^|[^\\])\/\*[\s\S]*?(?:\*\/|$)/,
@@ -1469,9 +1469,9 @@
 	     Begin prism-javascript.js
 	********************************************** */
 
-	Prism$1.languages.javascript = Prism$1.languages.extend('clike', {
+	Prism.languages.javascript = Prism.languages.extend('clike', {
 		'class-name': [
-			Prism$1.languages.clike['class-name'],
+			Prism.languages.clike['class-name'],
 			{
 				pattern: /(^|[^$\w\xA0-\uFFFF])(?!\s)[_$A-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\.(?:prototype|constructor))/,
 				lookbehind: true
@@ -1493,9 +1493,9 @@
 		'operator': /--|\+\+|\*\*=?|=>|&&=?|\|\|=?|[!=]==|<<=?|>>>?=?|[-+*/%&|^!=<>]=?|\.{3}|\?\?=?|\?\.?|[~:]/
 	});
 
-	Prism$1.languages.javascript['class-name'][0].pattern = /(\b(?:class|interface|extends|implements|instanceof|new)\s+)[\w.\\]+/;
+	Prism.languages.javascript['class-name'][0].pattern = /(\b(?:class|interface|extends|implements|instanceof|new)\s+)[\w.\\]+/;
 
-	Prism$1.languages.insertBefore('javascript', 'keyword', {
+	Prism.languages.insertBefore('javascript', 'keyword', {
 		'regex': {
 			pattern: /((?:^|[^$\w\xA0-\uFFFF."'\])\s]|\b(?:return|yield))\s*)\/(?:\[(?:[^\]\\\r\n]|\\.)*]|\\.|[^/\\\[\r\n])+\/[gimyus]{0,6}(?=(?:\s|\/\*(?:[^*]|\*(?!\/))*\*\/)*(?:$|[\r\n,.;:})\]]|\/\/))/,
 			lookbehind: true,
@@ -1505,7 +1505,7 @@
 					pattern: /^(\/)[\s\S]+(?=\/[a-z]*$)/,
 					lookbehind: true,
 					alias: 'language-regex',
-					inside: Prism$1.languages.regex
+					inside: Prism.languages.regex
 				},
 				'regex-flags': /[a-z]+$/,
 				'regex-delimiter': /^\/|\/$/
@@ -1520,27 +1520,27 @@
 			{
 				pattern: /(function(?:\s+(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*)?\s*\(\s*)(?!\s)(?:[^()\s]|\s+(?![\s)])|\([^()]*\))+(?=\s*\))/,
 				lookbehind: true,
-				inside: Prism$1.languages.javascript
+				inside: Prism.languages.javascript
 			},
 			{
 				pattern: /(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\s*=>)/i,
-				inside: Prism$1.languages.javascript
+				inside: Prism.languages.javascript
 			},
 			{
 				pattern: /(\(\s*)(?!\s)(?:[^()\s]|\s+(?![\s)])|\([^()]*\))+(?=\s*\)\s*=>)/,
 				lookbehind: true,
-				inside: Prism$1.languages.javascript
+				inside: Prism.languages.javascript
 			},
 			{
 				pattern: /((?:\b|\s|^)(?!(?:as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|undefined|var|void|while|with|yield)(?![$\w\xA0-\uFFFF]))(?:(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*\s*)\(\s*|\]\s*\(\s*)(?!\s)(?:[^()\s]|\s+(?![\s)])|\([^()]*\))+(?=\s*\)\s*\{)/,
 				lookbehind: true,
-				inside: Prism$1.languages.javascript
+				inside: Prism.languages.javascript
 			}
 		],
 		'constant': /\b[A-Z](?:[A-Z_]|\dx?)*\b/
 	});
 
-	Prism$1.languages.insertBefore('javascript', 'string', {
+	Prism.languages.insertBefore('javascript', 'string', {
 		'template-string': {
 			pattern: /`(?:\\[\s\S]|\${(?:[^{}]|{(?:[^{}]|{[^}]*})*})+}|(?!\${)[^\\`])*`/,
 			greedy: true,
@@ -1557,7 +1557,7 @@
 							pattern: /^\${|}$/,
 							alias: 'punctuation'
 						},
-						rest: Prism$1.languages.javascript
+						rest: Prism.languages.javascript
 					}
 				},
 				'string': /[\s\S]+/
@@ -1565,11 +1565,11 @@
 		}
 	});
 
-	if (Prism$1.languages.markup) {
-		Prism$1.languages.markup.tag.addInlined('script', 'javascript');
+	if (Prism.languages.markup) {
+		Prism.languages.markup.tag.addInlined('script', 'javascript');
 	}
 
-	Prism$1.languages.js = Prism$1.languages.javascript;
+	Prism.languages.js = Prism.languages.javascript;
 
 
 	/* **********************************************
@@ -1722,340 +1722,6 @@
 		};
 
 	})();
-
-	/*
-	 * Licensed to the Apache Software Foundation (ASF) under one or more
-	 * contributor license agreements.  See the NOTICE file distributed with
-	 * this work for additional information regarding copyright ownership.
-	 * The ASF licenses this file to You under the Apache License, Version 2.0
-	 * (the "License"); you may not use this file except in compliance with
-	 * the License.  You may obtain a copy of the License at
-	 *
-	 *      http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
-	class DemoAlert extends HTMLElement {
-	    constructor() {
-	        super();
-	    }
-	    connectedCallback() {
-	        this.addEventListener("click", this.alert.bind(this));
-	    }
-	    alert() {
-	        window.alert(this.value);
-	    }
-	    get value() {
-	        return this.getAttribute("value");
-	    }
-	}
-	document.addEventListener("DOMContentLoaded", function (event) {
-	    if (window.customElements.get("demo-alert") == null) {
-	        window.customElements.define("demo-alert", DemoAlert);
-	    }
-	});
-
-	/*
-	 * Licensed to the Apache Software Foundation (ASF) under one or more
-	 * contributor license agreements.  See the NOTICE file distributed with
-	 * this work for additional information regarding copyright ownership.
-	 * The ASF licenses this file to You under the Apache License, Version 2.0
-	 * (the "License"); you may not use this file except in compliance with
-	 * the License.  You may obtain a copy of the License at
-	 *
-	 *      http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
-	class DemoCopyToClipboard extends HTMLElement {
-	    constructor() {
-	        super();
-	    }
-	    connectedCallback() {
-	        this.addEventListener("click", (event) => {
-	            const sourceElement = document.getElementById(this.source);
-	            if (window.getSelection) {
-	                const selection = window.getSelection();
-	                const range = document.createRange();
-	                range.selectNodeContents(sourceElement);
-	                selection.removeAllRanges();
-	                selection.addRange(range);
-	            }
-	            else {
-	                console.warn("Text select not possible: Unsupported browser.");
-	            }
-	            try {
-	                const result = document.execCommand("copy");
-	                console.debug("result: " + result);
-	            }
-	            catch (error) {
-	                console.error("Copying text not possible");
-	            }
-	        });
-	    }
-	    get source() {
-	        return this.getAttribute("source");
-	    }
-	    set source(name) {
-	        this.setAttribute("source", name);
-	    }
-	}
-	document.addEventListener("DOMContentLoaded", function (event) {
-	    if (window.customElements.get("demo-copy-to-clipboard") == null) {
-	        window.customElements.define("demo-copy-to-clipboard", DemoCopyToClipboard);
-	    }
-	});
-
-	/*
-	 * Licensed to the Apache Software Foundation (ASF) under one or more
-	 * contributor license agreements.  See the NOTICE file distributed with
-	 * this work for additional information regarding copyright ownership.
-	 * The ASF licenses this file to You under the Apache License, Version 2.0
-	 * (the "License"); you may not use this file except in compliance with
-	 * the License.  You may obtain a copy of the License at
-	 *
-	 *      http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
-	// import {Prism} from "prismjs/prism.js";
-	class DemoHighlight extends HTMLElement {
-	    constructor() {
-	        super();
-	    }
-	    connectedCallback() {
-	        if (this.language) {
-	            this.innerHTML = `<pre><code class="language-${this.language}">${this.innerHTML.trim()}</demo-highlight>`;
-	        }
-	        else {
-	            this.innerHTML = `<pre><code>${this.innerHTML.trim()}</demo-highlight>`;
-	        }
-	        // @ts-ignore
-	        Prism.highlightElement(this.querySelector("code"));
-	    }
-	    get language() {
-	        return this.getAttribute("language");
-	    }
-	}
-	document.addEventListener("DOMContentLoaded", function (event) {
-	    if (window.customElements.get("demo-highlight") == null) {
-	        window.customElements.define("demo-highlight", DemoHighlight);
-	    }
-	});
-
-	/*
-	 * Licensed to the Apache Software Foundation (ASF) under one or more
-	 * contributor license agreements.  See the NOTICE file distributed with
-	 * this work for additional information regarding copyright ownership.
-	 * The ASF licenses this file to You under the Apache License, Version 2.0
-	 * (the "License"); you may not use this file except in compliance with
-	 * the License.  You may obtain a copy of the License at
-	 *
-	 *      http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
-	// todo: this code is not tested
-	class DemoInspect {
-	    static initInspect(element) {
-	        for (const code of element.querySelectorAll("code")) {
-	            for (const br of code.querySelectorAll("br")) {
-	                br.parentNode.insertBefore(document.createTextNode("\n"), br);
-	                br.parentNode.removeChild(br);
-	            }
-	        }
-	        for (const e of element.querySelectorAll("tobago-in")) {
-	            // do highlighting with hovering only in the content-area
-	            if (e.closest("#page\\:content")) {
-	                e.addEventListener("hover", function (event) {
-	                    // clear old selections:
-	                    for (const selected of document.querySelectorAll(".demo-selected")) {
-	                        selected.classList.remove("demo-selected");
-	                    }
-	                    const element = event.currentTarget;
-	                    element.classList.add("demo-selected");
-	                    const clientId = element.closest("[id]").id;
-	                    const id = clientId.substr(clientId.lastIndexOf(":") + 1);
-	                    const source = document.getElementById("demo-view-source");
-	                    for (const span of source.querySelectorAll("span.token.attr-value")) {
-	                        if (span.textContent === `id="${id}"`) {
-	                            span.parentElement.classList.add("demo-selected");
-	                        }
-	                    }
-	                });
-	            }
-	        }
-	    }
-	}
-	document.addEventListener("DOMContentLoaded", function (event) {
-	    let element = document.documentElement; // XXX fixme
-	    // XXX init areas after JSF AJAX update not implemented yet!
-	    DemoInspect.initInspect(element); //TODO fix inspection
-	});
-
-	/*
-	 * Licensed to the Apache Software Foundation (ASF) under one or more
-	 * contributor license agreements.  See the NOTICE file distributed with
-	 * this work for additional information regarding copyright ownership.
-	 * The ASF licenses this file to You under the Apache License, Version 2.0
-	 * (the "License"); you may not use this file except in compliance with
-	 * the License.  You may obtain a copy of the License at
-	 *
-	 *      http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
-	/**
-	 * Utility links:
-	 * Copies the values from the data-login attribute to the username/password fields.
-	 */
-	class DemoLogin extends HTMLElement {
-	    constructor() {
-	        super();
-	    }
-	    connectedCallback() {
-	        this.addEventListener("click", this.fillFields.bind(this));
-	    }
-	    fillFields(event) {
-	        const rootNode = this.getRootNode();
-	        const username = rootNode.getElementById(this.usernameId);
-	        username.value = this.username;
-	        const password = rootNode.getElementById(this.passwordId);
-	        password.value = this.password;
-	        event.preventDefault();
-	    }
-	    get username() {
-	        return this.getAttribute("username");
-	    }
-	    get usernameId() {
-	        return this.getAttribute("username-id");
-	    }
-	    get password() {
-	        return this.getAttribute("password");
-	    }
-	    get passwordId() {
-	        return this.getAttribute("password-id");
-	    }
-	}
-	document.addEventListener("DOMContentLoaded", function (event) {
-	    if (window.customElements.get("demo-login") == null) {
-	        window.customElements.define("demo-login", DemoLogin);
-	    }
-	});
-
-	/*
-	 * Licensed to the Apache Software Foundation (ASF) under one or more
-	 * contributor license agreements.  See the NOTICE file distributed with
-	 * this work for additional information regarding copyright ownership.
-	 * The ASF licenses this file to You under the Apache License, Version 2.0
-	 * (the "License"); you may not use this file except in compliance with
-	 * the License.  You may obtain a copy of the License at
-	 *
-	 *      http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
-	class DemoSearch extends HTMLElement {
-	    constructor() {
-	        super();
-	    }
-	    connectedCallback() {
-	        const input = this.input;
-	        const a = this.a;
-	        if (input && a) {
-	            a.href = DemoSearch.GOOGLE;
-	            input.addEventListener("change", this.change.bind(this));
-	            input.addEventListener("keypress", this.keypress.bind(this));
-	        }
-	    }
-	    change(event) {
-	        this.a.href = DemoSearch.GOOGLE + encodeURI(this.input.value);
-	    }
-	    keypress(event) {
-	        if (event.which === 13) {
-	            this.change(event);
-	        }
-	    }
-	    get input() {
-	        return this.querySelector("input");
-	    }
-	    get a() {
-	        return this.querySelector("a");
-	    }
-	}
-	DemoSearch.GOOGLE = "https://www.google.com/search?q=site%3Atobago-vm.apache.org+demo-4-release+";
-	document.addEventListener("DOMContentLoaded", function (event) {
-	    if (window.customElements.get("demo-search") == null) {
-	        window.customElements.define("demo-search", DemoSearch);
-	    }
-	});
-
-	/*
-	 * Licensed to the Apache Software Foundation (ASF) under one or more
-	 * contributor license agreements.  See the NOTICE file distributed with
-	 * this work for additional information regarding copyright ownership.
-	 * The ASF licenses this file to You under the Apache License, Version 2.0
-	 * (the "License"); you may not use this file except in compliance with
-	 * the License.  You may obtain a copy of the License at
-	 *
-	 *      http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
-	// todo: this code is not tested
-	class DemoTest {
-	    static initTestLinks(element) {
-	        const runLink = document.getElementById("page:header:runtest");
-	        if (runLink && parent.document.getElementById("qunit")) {
-	            runLink.classList.add("d-none");
-	        }
-	    }
-	    static initTestFrame(element) {
-	        const testFrame = document.getElementById("page:testframe");
-	        if (testFrame) {
-	            alert("Might currently not working...");
-	            testFrame.addEventListener("onload", function () {
-	                // XXX is element an iframe?
-	                const iframe = element;
-	                iframe.style.height = "" + iframe.contentWindow.document.querySelector("body").scrollHeight + "px";
-	            });
-	        }
-	    }
-	}
-	document.addEventListener("DOMContentLoaded", function (event) {
-	    let element = document.documentElement; // XXX fixme
-	    // XXX init areas after JSF AJAX update not implemented yet!
-	    DemoTest.initTestLinks(element);
-	    DemoTest.initTestFrame(element);
-	});
 
 })));
 //# sourceMappingURL=demo.js.map

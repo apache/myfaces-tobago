@@ -29,6 +29,7 @@
 
   <properties>
     <theme.name>undefined-theme-name</theme.name>
+    <frontend.skip>false</frontend.skip>
   </properties>
 
   <modules>
@@ -82,7 +83,7 @@
               </outputDirectory>
               <resources>
                 <resource>
-                  <directory>npm/dist</directory>
+                  <directory>src/main</directory>
                   <includes>
                     <include>css/**</include>
                     <include>fonts/**</include>
@@ -93,14 +94,14 @@
                   </includes>
                 </resource>
                 <resource>
-                  <directory>npm</directory>
+                  <directory>src/main</directory>
                   <includes>
                     <include>js/*</include>
                   </includes>
                 </resource>
                 <resource>
                   <!-- XXX cleanup: better via rollup? -->
-                  <directory>npm/node_modules/tobago-core/node_modules/bootstrap/dist</directory>
+                  <directory>../node_modules/bootstrap/dist</directory>
                   <includes>
                     <include>js/bootstrap.*</include>
                   </includes>

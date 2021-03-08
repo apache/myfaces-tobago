@@ -41,7 +41,7 @@ public class SelectableUnitTest extends EnumUnitTest {
   @Test
   public void testTypeScript() throws IOException {
     final Path path = Paths.get("").toAbsolutePath().getParent().resolve(
-        Paths.get("tobago-theme", "tobago-theme-standard", "npm", "ts", "tobago-selectable.ts"));
+        Paths.get("tobago-theme", "tobago-theme-standard", "src", "main", "ts", "tobago-selectable.ts"));
 
     final List<String> words = getWords(path);
 
