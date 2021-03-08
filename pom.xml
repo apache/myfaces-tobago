@@ -980,9 +980,11 @@
               <exclude>**/tobago-vm/docker/apache-proxy/bootstrap*.css</exclude>
 
               <!-- local npm for IDE -->
-              <exclude>npm/node/**/*</exclude>
-              <exclude>npm/node_modules/**/*</exclude>
-              <exclude>npm/dist/**/*</exclude>
+              <exclude>node/**/*</exclude>
+              <exclude>node_modules/**/*</exclude>
+              <exclude>src/main/css/font-awesome.css</exclude>
+              <exclude>src/main/js/tobago.min.js</exclude>
+              <exclude>src/main/webapp/js/demo.js</exclude>
 
               <exclude>**/.eslintignore</exclude>
             </excludes>
@@ -1205,7 +1207,7 @@
             <configuration>
               <filesets>
                 <fileset>
-                  <directory>npm</directory>
+                  <directory>.</directory>
                   <includes>
                     <include>dist/**</include>
                     <include>node/**</include>
@@ -1235,8 +1237,7 @@
               <!--<npmRegistryURL>https://registry.npmjs.org/</npmRegistryURL>-->
 
               <!-- optional: where to install node and npm. Defaults to the working directory -->
-              <installDirectory>npm</installDirectory>
-              <workingDirectory>npm</workingDirectory>
+              <installDirectory>.</installDirectory>
               <skip>${frontend.skip}</skip>
             </configuration>
 

@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "module": "es6",
+    "target": "ES2015",
+    "noImplicitAny": false,
+    "rootDir": "src/main/ts",
+    "outDir": "./src/main/webapp/js",
+    "sourceMap": true,
+    "removeComments": false,
+    "noEmitOnError": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true
+  },
+  "include": [
+    "src/main/ts/*.ts"
+  ],
+  "exclude": [
+    "src/main/ts/*.test.ts",
+    "node_modules",
+    "node"
+  ],
+  "_comment for moduleResolution": "this is to fix a compiler problem with @babel/types, see: https://github.com/microsoft/TypeScript/issues/11103"
+}

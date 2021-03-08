@@ -29,7 +29,7 @@
 
   <properties>
     <theme.name>standard</theme.name>
-    <frontend.skip>false</frontend.skip>
+    <frontend.skip>true</frontend.skip>
     <webcomponents__custom-elements.version>1.4.2</webcomponents__custom-elements.version>
     <tether.version>1.4.0</tether.version>
   </properties>
