@@ -67,7 +67,7 @@
     "bootstrap": "5.0.0-beta2"
   },
   "devDependencies": {
-    "@popperjs/core": "^2.9.0",
+    "@popperjs/core": "^2.9.1",
     "@types/jest": "^26.0.15",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.16.1",
