@@ -76,6 +76,6 @@
     "ts-jest": "^26.5.3",
     "tslib": "^2.1.0",
     "typescript": "^4.2.3",
-    "uglify-js": "^3.13.0"
+    "uglify-js": "^3.13.1"
   }
 }
