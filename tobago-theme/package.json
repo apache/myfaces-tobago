@@ -63,7 +63,7 @@
   },
   "dependencies": {
     "@trevoreyre/autocomplete-js": "^2.2.0",
-    "vanillajs-datepicker": "^1.1.2",
+    "vanillajs-datepicker": "^1.1.4",
     "bootstrap": "5.0.0-beta2"
   },
   "devDependencies": {
