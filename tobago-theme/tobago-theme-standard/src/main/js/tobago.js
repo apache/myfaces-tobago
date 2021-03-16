@@ -2335,7 +2335,7 @@
   }
 
   function onFocus(datepicker) {
-    if (datepicker.config.showOnFocus) {
+    if (datepicker.config.showOnFocus && !datepicker._showing) {
       datepicker.show();
     }
   }
@@ -2668,8 +2668,15 @@
      * Show the picker element
      */
     show() {
-      if (this.inputField && this.inputField.disabled) {
-        return;
+      if (this.inputField) {
+        if (this.inputField.disabled) {
+          return;
+        }
+        if (this.inputField !== document.activeElement) {
+          this._showing = true;
+          this.inputField.focus();
+          delete this._showing;
+        }
       }
       this.picker.show();
     }
@@ -3253,7 +3260,7 @@
 
 
   function getContainingBlock(element) {
-    var isFirefox = navigator.userAgent.toLowerCase().includes('firefox');
+    var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') !== -1;
     var currentNode = getParentNode(element);
 
     while (isHTMLElement(currentNode) && ['html', 'body'].indexOf(getNodeName(currentNode)) < 0) {
@@ -3261,7 +3268,7 @@
       // create a containing block.
       // https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#identifying_the_containing_block
 
-      if (css.transform !== 'none' || css.perspective !== 'none' || css.contain === 'paint' || ['transform', 'perspective'].includes(css.willChange) || isFirefox && css.willChange === 'filter' || isFirefox && css.filter && css.filter !== 'none') {
+      if (css.transform !== 'none' || css.perspective !== 'none' || css.contain === 'paint' || ['transform', 'perspective'].indexOf(css.willChange) !== -1 || isFirefox && css.willChange === 'filter' || isFirefox && css.filter && css.filter !== 'none') {
         return currentNode;
       } else {
         currentNode = currentNode.parentNode;
@@ -4683,25 +4690,15 @@
   }
   var createPopper$2 = /*#__PURE__*/popperGenerator(); // eslint-disable-next-line import/no-unused-modules
 
-  /*:: export type * from './types'; */
-
-  /*;; export * from './types'; */
-
   var defaultModifiers$1 = [eventListeners, popperOffsets$1, computeStyles$1, applyStyles$1];
   var createPopper$1 = /*#__PURE__*/popperGenerator({
     defaultModifiers: defaultModifiers$1
   }); // eslint-disable-next-line import/no-unused-modules
 
-  /*:: export type * from './types'; */
-
-  /*;; export * from './types'; */
-
   var defaultModifiers = [eventListeners, popperOffsets$1, computeStyles$1, applyStyles$1, offset$1, flip$1, preventOverflow$1, arrow$1, hide$1];
   var createPopper = /*#__PURE__*/popperGenerator({
     defaultModifiers: defaultModifiers
   }); // eslint-disable-next-line import/no-unused-modules
-
-  /*:: export type * from './types'; */
 
   var Popper = /*#__PURE__*/Object.freeze({
     __proto__: null,
