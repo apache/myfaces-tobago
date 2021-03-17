@@ -49,10 +49,6 @@
       version of tar.
     </p>
 
-    <tc:selectBooleanCheckbox value="#{apiController.onlyCurrent}" label="Show current only">
-      <f:ajax render="download" listener="#{apiController.init}"/>
-    </tc:selectBooleanCheckbox>
-
     <ui:repeat value="#{apiController.releases}" var="release">
 
       <tc:section label="MyFaces Tobago #{release.version} Distribution">
@@ -110,32 +106,6 @@
             <td><tc:link
                 link="https://downloads.apache.org/myfaces/source/myfaces-tobago-#{release.version}-source-release.zip.asc"
                 label="myfaces-tobago-#{release.version}-source-release.zip.asc" image="fa-external-link"/></td>
-          </tr>
-          <tr>
-            <td>MyFaces Tobago Example</td>
-            <td>tar.gz</td>
-            <td><tc:link
-                link="https://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-#{release.version}-example.tar.gz"
-                label="myfaces-tobago-#{release.version}-example.tar.gz" image="fa-external-link"/></td>
-            <td><tc:link
-                link="https://downloads.apache.org/myfaces/binaries/myfaces-tobago-#{release.version}-example.tar.gz.sha256"
-                label="myfaces-tobago-#{release.version}-example.tar.gz.sha256" image="fa-external-link"/></td>
-            <td><tc:link
-                link="https://downloads.apache.org/myfaces/binaries/myfaces-tobago-#{release.version}-example.tar.gz.asc"
-                label="myfaces-tobago-#{release.version}-example.tar.gz.asc" image="fa-external-link"/></td>
-          </tr>
-          <tr>
-            <td>MyFaces Tobago Example</td>
-            <td>zip</td>
-            <td><tc:link
-                link="https://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-#{release.version}-example.zip"
-                label="myfaces-tobago-#{release.version}-example.zip" image="fa-external-link"/></td>
-            <td><tc:link
-                link="https://downloads.apache.org/myfaces/binaries/myfaces-tobago-#{release.version}-example.zip.sha256"
-                label="myfaces-tobago-#{release.version}-example.zip.sha256" image="fa-external-link"/></td>
-            <td><tc:link
-                link="https://downloads.apache.org/myfaces/binaries/myfaces-tobago-#{release.version}-example.zip.asc"
-                label="myfaces-tobago-#{release.version}-example.zip.asc" image="fa-external-link"/></td>
           </tr>
           </tbody>
         </table>
