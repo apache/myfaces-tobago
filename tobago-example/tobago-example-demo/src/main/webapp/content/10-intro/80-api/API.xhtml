@@ -29,10 +29,6 @@
       Documentation of the Java classes and the tags.
     </p>
 
-    <tc:selectBooleanCheckbox value="#{apiController.onlyCurrent}" label="Show current only">
-      <f:ajax render="api" listener="#{apiController.init}"/>
-    </tc:selectBooleanCheckbox>
-
     <tc:sheet value="#{apiController.releases}" var="release">
       <tc:column label="Version">
         <tc:out value="#{release.version}" labelLayout="skip" compact="true"/>
