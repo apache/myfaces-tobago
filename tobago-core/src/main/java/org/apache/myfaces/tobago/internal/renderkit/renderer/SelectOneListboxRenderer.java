@@ -78,7 +78,7 @@ public class SelectOneListboxRenderer<T extends AbstractUISelectOneListbox> exte
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
-    HtmlRendererUtils.renderSelectItems(component, null, items, component.getValue(),
+    renderSelectItems(component, null, items, component.getValue(),
         (String) component.getSubmittedValue(), writer, facesContext);
   }
 

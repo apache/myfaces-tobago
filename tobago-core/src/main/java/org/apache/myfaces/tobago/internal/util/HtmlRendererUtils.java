@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.FaIcons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -112,12 +113,20 @@ public final class HtmlRendererUtils {
     return result;
   }
 
+  /**
+   * @deprecated since 5.0.0. Please use {@link RendererBase#renderSelectItems}
+   */
+  @Deprecated
   public static void renderSelectItems(final UIInput component, final TobagoClass optionClass,
       final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
       final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
     renderSelectItems(component, optionClass, items, values, submittedValues, null, writer, facesContext);
   }
 
+  /**
+   * @deprecated since 5.0.0. Please use {@link RendererBase#renderSelectItems}
+   */
+  @Deprecated
   public static void renderSelectItems(final UIInput component, final TobagoClass optionClass,
       final Iterable<SelectItem> items, final Object value, final String submittedValue,
       final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
@@ -125,6 +134,10 @@ public final class HtmlRendererUtils {
         submittedValue != null ? new String[]{submittedValue} : null, null, writer, facesContext);
   }
 
+  /**
+   * @deprecated since 5.0.0. Please use {@link RendererBase#renderSelectItems}
+   */
+  @Deprecated
   public static void renderSelectItems(final UIInput component, final TobagoClass optionClass,
       final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
       final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext)

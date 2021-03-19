@@ -88,7 +88,7 @@ public class SelectOneChoiceRenderer<T extends AbstractUISelectOneChoice> extend
     }
     renderFocus(clientId, component.isFocus(), component.isError(), facesContext, writer);
 
-    HtmlRendererUtils.renderSelectItems(component, null, items, component.getValue(),
+    renderSelectItems(component, null, items, component.getValue(),
         (String) component.getSubmittedValue(), writer, facesContext);
   }
 
