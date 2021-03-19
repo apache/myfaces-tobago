@@ -38,11 +38,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.application.ViewHandler;
-import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.component.UIParameter;
-import javax.faces.component.ValueHolder;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorBase;
@@ -142,22 +140,11 @@ public final class RenderUtils {
    */
   @Deprecated
   public static String currentValue(final UIComponent component) {
-    String currentValue = null;
-    if (component instanceof ValueHolder) {
-      Object value;
-      if (component instanceof EditableValueHolder) {
-        value = ((EditableValueHolder) component).getSubmittedValue();
-        if (value != null) {
-          return (String) value;
-        }
+    return new RendererBase<UIComponent>() {
+      public String fake(final UIComponent component) {
+        return getCurrentValue(FacesContext.getCurrentInstance(), component);
       }
-
-      value = ((ValueHolder) component).getValue();
-      if (value != null) {
-        currentValue = ComponentUtils.getFormattedValue(FacesContext.getCurrentInstance(), component, value);
-      }
-    }
-    return currentValue;
+    }.fake(component);
   }
 
   public static void decodedStateOfTreeData(final FacesContext facesContext, final AbstractUIData data) {

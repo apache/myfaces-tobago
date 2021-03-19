@@ -20,11 +20,6 @@
 package org.apache.myfaces.tobago.internal.util;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.Tags;
-import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.FaIcons;
@@ -43,10 +38,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import javax.faces.model.SelectItemGroup;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
 
@@ -142,79 +135,14 @@ public final class HtmlRendererUtils {
       final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
       final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext)
       throws IOException {
-
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("component id = '{}'", component.getId());
-      LOG.debug("values = '{}'", Arrays.toString(values));
-      LOG.debug("submittedValues = '{}'", Arrays.toString(submittedValues));
-    }
-    for (final SelectItem item : items) {
-      if (item instanceof SelectItemGroup) {
-        writer.startElement(HtmlElements.OPTGROUP);
-        writer.writeAttribute(HtmlAttributes.LABEL, item.getLabel(), true);
-        if (item.isDisabled()) {
-          writer.writeAttribute(HtmlAttributes.DISABLED, true);
-        }
-        final SelectItem[] selectItems = ((SelectItemGroup) item).getSelectItems();
-        renderSelectItems(component, optionClass, Arrays.asList(selectItems), values, submittedValues,
-            onlySelected, writer, facesContext);
-        writer.endElement(HtmlElements.OPTGROUP);
-      } else {
-
-        Object itemValue = item.getValue();
-        // when using selectItem tag with a literal value: use the converted value
-        if (itemValue instanceof String && values != null && values.length > 0 && !(values[0] instanceof String)) {
-          itemValue = ComponentUtils.getConvertedValue(facesContext, component, (String) itemValue);
-        }
-        final String formattedValue = ComponentUtils.getFormattedValue(facesContext, component, itemValue);
-        final boolean contains;
-        if (submittedValues == null) {
-          contains = ArrayUtils.contains(values, itemValue);
-        } else {
-          contains = ArrayUtils.contains(submittedValues, formattedValue);
-        }
-        if (onlySelected != null) {
-          if (onlySelected) {
-            if (!contains) {
-              continue;
-            }
-          } else {
-            if (contains) {
-              continue;
-            }
-          }
-        }
-        writer.startElement(HtmlElements.OPTION);
-        writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
-        if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
-          final String image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
-          if (image != null) {
-            final AbstractUIStyle style = (AbstractUIStyle) facesContext.getApplication()
-                .createComponent(facesContext, Tags.style.componentType(), RendererTypes.Style.name());
-            style.setTransient(true);
-            style.setBackgroundImage(image);
-            style.setSelector(
-                StyleRenderUtils.encodeIdSelector(component.getClientId(facesContext))
-                    + " option[value=" + formattedValue + "]");
-            // XXX This works not in common browsers...
-            component.getChildren().add(style);
-          }
-        }
-        Markup markup = item instanceof Visual ? ((Visual) item).getMarkup() : Markup.NULL;
-        if (onlySelected == null && contains) {
-          writer.writeAttribute(HtmlAttributes.SELECTED, true);
-          markup = Markup.SELECTED.add(markup);
-        }
-        if (item.isDisabled()) {
-          writer.writeAttribute(HtmlAttributes.DISABLED, true);
-          markup = Markup.DISABLED.add(markup);
-        }
-        writer.writeClassAttribute(optionClass, optionClass != null ? optionClass.createMarkup(markup) : null);
-
-        writer.writeText(item.getLabel());
-        writer.endElement(HtmlElements.OPTION);
+    new RendererBase<UIComponent>() {
+      public void fake(final UIInput component, final TobagoClass optionClass,
+                       final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
+                       final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext)
+          throws IOException {
+        renderSelectItems(component, optionClass, items, values, submittedValues, onlySelected, writer, facesContext);
       }
-    }
+    }.fake(component, optionClass, items, values, submittedValues, onlySelected, writer, facesContext);
   }
 
   public static void writeDataAttributes(
