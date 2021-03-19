@@ -63,7 +63,7 @@ The body should include the motivation for the change and contrast this with pre
 ##### Footer
 
 The footer should contain any information about **Breaking Changes** and is also the place to
-reference Jira issues that this commit **Closes**, **Fixes**, or **Relates to**.
+reference Jira issues that this commit **Issue: TOBAGO-XXXX**.
 
 [git-commit-msg]: http://karma-runner.github.io/6.1/dev/git-commit-msg.html
 
