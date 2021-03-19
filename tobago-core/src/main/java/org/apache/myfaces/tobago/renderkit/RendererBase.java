@@ -154,7 +154,7 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
       String currentValue = null;
       final Object result = ((ValueHolder) component).getValue();
       if (result != null) {
-        currentValue = ComponentUtils.getFormattedValue(facesContext, component, result);
+        currentValue = getFormattedValue(facesContext, component, result);
       }
       return currentValue;
     } else {
@@ -420,7 +420,7 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
         if (itemValue instanceof String && values != null && values.length > 0 && !(values[0] instanceof String)) {
           itemValue = ComponentUtils.getConvertedValue(facesContext, component, (String) itemValue);
         }
-        final String formattedValue = ComponentUtils.getFormattedValue(facesContext, component, itemValue);
+        final String formattedValue = getFormattedValue(facesContext, component, itemValue);
         final boolean contains;
         if (submittedValues == null) {
           contains = ArrayUtils.contains(values, itemValue);
@@ -471,4 +471,19 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
     }
   }
 
+  protected String getFormattedValue(
+      final FacesContext facesContext, final UIComponent component, final Object currentValue)
+      throws ConverterException {
+
+    if (currentValue == null) {
+      return "";
+    }
+
+    final Converter converter = ComponentUtils.getConverter(facesContext, component, currentValue);
+    if (converter != null) {
+      return converter.getAsString(facesContext, component, currentValue);
+    } else {
+      return currentValue.toString();
+    }
+  }
 }

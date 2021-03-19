@@ -84,7 +84,7 @@ public class SelectManyCheckboxRenderer<T extends AbstractUISelectManyCheckbox> 
         writer.startElement(HtmlElements.INPUT);
         writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
-        final String formattedValue = ComponentUtils.getFormattedValue(facesContext, component, item.getValue());
+        final String formattedValue = getFormattedValue(facesContext, component, item.getValue());
         final boolean checked;
         if (submittedValues == null) {
           checked = ArrayUtils.contains(values, item.getValue());

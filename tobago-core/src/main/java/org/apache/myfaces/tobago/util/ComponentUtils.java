@@ -873,20 +873,19 @@ public final class ComponentUtils {
     return converter;
   }
 
+  /**
+   * @deprecated since 5.0.0. Please use {@link RendererBase#getFormattedValue}
+   */
+  @Deprecated
   public static String getFormattedValue(
       final FacesContext facesContext, final UIComponent component, final Object currentValue)
       throws ConverterException {
-
-    if (currentValue == null) {
-      return "";
-    }
-
-    final Converter converter = ComponentUtils.getConverter(facesContext, component, currentValue);
-    if (converter != null) {
-      return converter.getAsString(facesContext, component, currentValue);
-    } else {
-      return currentValue.toString();
-    }
+    return new RendererBase<UIComponent>() {
+      public String fake(
+          final FacesContext facesContext, final UIComponent component, final Object currentValue) {
+        return getFormattedValue(facesContext, component, currentValue);
+      }
+    }.fake(facesContext, component, currentValue);
   }
 
   public static UIComponent createComponent(
