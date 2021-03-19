@@ -45,6 +45,8 @@ Examples
 - fix(select):
 - docs(menu):
 
+The `(<scope>)` field is optional.
+
 ##### Subject
 
 The subject contains a succinct description of the change:
