@@ -82,7 +82,7 @@ public class SelectManyListboxRenderer<T extends AbstractUISelectManyListbox> ex
     final Object[] values = component.getSelectedValues();
     final String[] submittedValues = getSubmittedValues(component);
 
-    HtmlRendererUtils.renderSelectItems(
+    renderSelectItems(
         component, TobagoClass.SELECT_MANY_LISTBOX__OPTION, items, values, submittedValues, writer, facesContext);
   }
 

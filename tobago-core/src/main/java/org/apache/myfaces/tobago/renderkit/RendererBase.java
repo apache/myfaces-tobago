@@ -21,19 +21,27 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.Tags;
+import org.apache.myfaces.tobago.component.Visual;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIReload;
+import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.internal.renderkit.Collapse;
 import org.apache.myfaces.tobago.internal.renderkit.Command;
 import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer;
+import org.apache.myfaces.tobago.internal.util.ArrayUtils;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.apache.myfaces.tobago.internal.util.StyleRenderUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -44,6 +52,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.component.ValueHolder;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
@@ -54,10 +63,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
+import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
 import javax.faces.render.ClientBehaviorRenderer;
 import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -363,6 +375,98 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
             }
           }
         }
+      }
+    }
+  }
+
+  protected void renderSelectItems(final UIInput component, final TobagoClass optionClass,
+                                       final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
+                                       final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
+    renderSelectItems(component, optionClass, items, values, submittedValues, null, writer, facesContext);
+  }
+
+  protected void renderSelectItems(final UIInput component, final TobagoClass optionClass,
+                                       final Iterable<SelectItem> items, final Object value, final String submittedValue,
+                                       final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
+    renderSelectItems(component, optionClass, items, value != null ? new Object[]{value} : null,
+        submittedValue != null ? new String[]{submittedValue} : null, null, writer, facesContext);
+  }
+
+  protected void renderSelectItems(final UIInput component, final TobagoClass optionClass,
+                                       final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
+                                       final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext)
+      throws IOException {
+
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("component id = '{}'", component.getId());
+      LOG.debug("values = '{}'", Arrays.toString(values));
+      LOG.debug("submittedValues = '{}'", Arrays.toString(submittedValues));
+    }
+    for (final SelectItem item : items) {
+      if (item instanceof SelectItemGroup) {
+        writer.startElement(HtmlElements.OPTGROUP);
+        writer.writeAttribute(HtmlAttributes.LABEL, item.getLabel(), true);
+        if (item.isDisabled()) {
+          writer.writeAttribute(HtmlAttributes.DISABLED, true);
+        }
+        final SelectItem[] selectItems = ((SelectItemGroup) item).getSelectItems();
+        renderSelectItems(component, optionClass, Arrays.asList(selectItems), values, submittedValues,
+            onlySelected, writer, facesContext);
+        writer.endElement(HtmlElements.OPTGROUP);
+      } else {
+
+        Object itemValue = item.getValue();
+        // when using selectItem tag with a literal value: use the converted value
+        if (itemValue instanceof String && values != null && values.length > 0 && !(values[0] instanceof String)) {
+          itemValue = ComponentUtils.getConvertedValue(facesContext, component, (String) itemValue);
+        }
+        final String formattedValue = ComponentUtils.getFormattedValue(facesContext, component, itemValue);
+        final boolean contains;
+        if (submittedValues == null) {
+          contains = ArrayUtils.contains(values, itemValue);
+        } else {
+          contains = ArrayUtils.contains(submittedValues, formattedValue);
+        }
+        if (onlySelected != null) {
+          if (onlySelected) {
+            if (!contains) {
+              continue;
+            }
+          } else {
+            if (contains) {
+              continue;
+            }
+          }
+        }
+        writer.startElement(HtmlElements.OPTION);
+        writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
+        if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
+          final String image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
+          if (image != null) {
+            final AbstractUIStyle style = (AbstractUIStyle) facesContext.getApplication()
+                .createComponent(facesContext, Tags.style.componentType(), RendererTypes.Style.name());
+            style.setTransient(true);
+            style.setBackgroundImage(image);
+            style.setSelector(
+                StyleRenderUtils.encodeIdSelector(component.getClientId(facesContext))
+                    + " option[value=" + formattedValue + "]");
+            // XXX This works not in common browsers...
+            component.getChildren().add(style);
+          }
+        }
+        Markup markup = item instanceof Visual ? ((Visual) item).getMarkup() : Markup.NULL;
+        if (onlySelected == null && contains) {
+          writer.writeAttribute(HtmlAttributes.SELECTED, true);
+          markup = Markup.SELECTED.add(markup);
+        }
+        if (item.isDisabled()) {
+          writer.writeAttribute(HtmlAttributes.DISABLED, true);
+          markup = Markup.DISABLED.add(markup);
+        }
+        writer.writeClassAttribute(optionClass, optionClass != null ? optionClass.createMarkup(markup) : null);
+
+        writer.writeText(item.getLabel());
+        writer.endElement(HtmlElements.OPTION);
       }
     }
   }
