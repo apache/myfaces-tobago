@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -95,12 +94,12 @@ public class OutRenderer<T extends AbstractUIOut> extends MessageLayoutRendererB
     encodeText(facesContext, component);
   }
 
-  private void encodeText(final FacesContext facesContext, final AbstractUIOut out) throws IOException {
+  private void encodeText(final FacesContext facesContext, final T out) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final boolean escape = out.isEscape();
     final boolean keepLineBreaks = out.isKeepLineBreaks();
 
-    String text = RenderUtils.currentValue(out);
+    String text = getCurrentValue(facesContext, out);
     if (text == null) {
       text = "";
     }

@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUIHidden;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -41,7 +40,7 @@ public class HiddenRenderer<T extends AbstractUIHidden> extends DecodingInputRen
   public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
     final String clientId = component.getClientId(facesContext);
-    final String value = RenderUtils.currentValue(component);
+    final String value = getCurrentValue(facesContext, component);
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 

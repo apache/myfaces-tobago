@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUITextarea;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -136,7 +135,7 @@ public class TextareaRenderer<T extends AbstractUITextarea> extends MessageLayou
     if (!disabled && !readonly && StringUtils.isNotBlank(placeholder)) {
       writer.writeAttribute(HtmlAttributes.PLACEHOLDER, placeholder, true);
     }
-    String currentValue = RenderUtils.currentValue(component);
+    String currentValue = getCurrentValue(facesContext, component);
     if (currentValue != null) {
       if (ComponentUtils.getDataAttribute(component, "html-editor") != null
           && SanitizeMode.auto == component.getSanitize()) {
