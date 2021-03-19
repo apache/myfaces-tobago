@@ -845,32 +845,11 @@ public final class ComponentUtils {
   public static Converter getConverter(
       final FacesContext facesContext, final UIComponent component, final Object value) {
 
-    Converter converter = null;
-    if (component instanceof ValueHolder) {
-      converter = ((ValueHolder) component).getConverter();
-    }
-
-    if (converter == null) {
-      final ValueExpression valueExpression = component.getValueExpression("value");
-      if (valueExpression != null) {
-        Class converterType = null;
-        try {
-          converterType = valueExpression.getType(facesContext.getELContext());
-        } catch (final Exception e) {
-          // ignore, seems not to be possible, when EL is a function like #{bean.getName(item.id)}
-        }
-        if (converterType == null) {
-          if (value != null) {
-            converterType = value.getClass();
-          }
-        }
-        if (converterType != null && converterType != Object.class) {
-          converter = facesContext.getApplication().createConverter(converterType);
-        }
+    return new RendererBase<UIComponent>() {
+      public Converter fake(final FacesContext facesContext, final UIComponent component, final Object value) {
+        return getConverter(facesContext, component, value);
       }
-    }
-
-    return converter;
+    }.fake(facesContext, component, value);
   }
 
   /**
