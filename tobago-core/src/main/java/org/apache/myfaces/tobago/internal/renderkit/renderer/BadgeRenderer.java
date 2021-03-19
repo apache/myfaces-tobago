@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIBadge;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -39,7 +38,7 @@ public class BadgeRenderer<T extends AbstractUIBadge> extends RendererBase<T> {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final Markup markup = component.getMarkup() != null ? component.getMarkup() : Markup.NULL;
     final String tip = component.getTip();
-    final String value = RenderUtils.currentValue(component);
+    final String value = getCurrentValue(facesContext, component);
 
     writer.startElement(HtmlElements.TOBAGO_BADGE);
     writer.writeIdAttribute(component.getClientId(facesContext));

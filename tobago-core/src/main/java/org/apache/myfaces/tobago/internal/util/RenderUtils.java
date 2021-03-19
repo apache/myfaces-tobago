@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehavio
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -136,6 +137,10 @@ public final class RenderUtils {
     return false;
   }
 
+  /**
+   * @deprecated since 5.0.0. Please use {@link RendererBase#getCurrentValue}
+   */
+  @Deprecated
   public static String currentValue(final UIComponent component) {
     String currentValue = null;
     if (component instanceof ValueHolder) {

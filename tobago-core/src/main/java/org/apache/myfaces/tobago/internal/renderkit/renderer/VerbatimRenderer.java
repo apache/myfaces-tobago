@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -36,7 +35,7 @@ public class VerbatimRenderer<T extends UIComponent> extends RendererBase<T> {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    final String value = RenderUtils.currentValue(component);
+    final String value = getCurrentValue(facesContext, component);
     if (value == null) {
       return;
     }
