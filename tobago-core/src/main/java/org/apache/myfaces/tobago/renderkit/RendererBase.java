@@ -50,6 +50,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.ValueExpression;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -130,7 +131,7 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
     if (!(submittedValue instanceof String)) {
       return submittedValue;
     }
-    final Converter converter = ComponentUtils.getConverter(context, component, submittedValue);
+    final Converter converter = getConverter(context, component, submittedValue);
     if (converter != null) {
       return converter.getAsObject(context, component, (String) submittedValue);
     } else {
@@ -479,11 +480,45 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
       return "";
     }
 
-    final Converter converter = ComponentUtils.getConverter(facesContext, component, currentValue);
+    final Converter converter = getConverter(facesContext, component, currentValue);
     if (converter != null) {
       return converter.getAsString(facesContext, component, currentValue);
     } else {
       return currentValue.toString();
     }
+  }
+
+  /**
+   * May return null, if no converter can be find.
+   */
+  protected Converter getConverter(
+      final FacesContext facesContext, final UIComponent component, final Object value) {
+
+    Converter converter = null;
+    if (component instanceof ValueHolder) {
+      converter = ((ValueHolder) component).getConverter();
+    }
+
+    if (converter == null) {
+      final ValueExpression valueExpression = component.getValueExpression("value");
+      if (valueExpression != null) {
+        Class converterType = null;
+        try {
+          converterType = valueExpression.getType(facesContext.getELContext());
+        } catch (final Exception e) {
+          // ignore, seems not to be possible, when EL is a function like #{bean.getName(item.id)}
+        }
+        if (converterType == null) {
+          if (value != null) {
+            converterType = value.getClass();
+          }
+        }
+        if (converterType != null && converterType != Object.class) {
+          converter = facesContext.getApplication().createConverter(converterType);
+        }
+      }
+    }
+
+    return converter;
   }
 }
