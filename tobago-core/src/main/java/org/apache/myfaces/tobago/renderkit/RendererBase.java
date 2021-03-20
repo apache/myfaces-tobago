@@ -381,21 +381,21 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
   }
 
   protected void renderSelectItems(final UIInput component, final TobagoClass optionClass,
-                                       final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
-                                       final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
+      final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
+      final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
     renderSelectItems(component, optionClass, items, values, submittedValues, null, writer, facesContext);
   }
 
   protected void renderSelectItems(final UIInput component, final TobagoClass optionClass,
-                                       final Iterable<SelectItem> items, final Object value, final String submittedValue,
-                                       final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
+      final Iterable<SelectItem> items, final Object value, final String submittedValue,
+      final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
     renderSelectItems(component, optionClass, items, value != null ? new Object[]{value} : null,
         submittedValue != null ? new String[]{submittedValue} : null, null, writer, facesContext);
   }
 
   protected void renderSelectItems(final UIInput component, final TobagoClass optionClass,
-                                       final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
-                                       final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext)
+      final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
+      final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext)
       throws IOException {
 
     if (LOG.isDebugEnabled()) {
