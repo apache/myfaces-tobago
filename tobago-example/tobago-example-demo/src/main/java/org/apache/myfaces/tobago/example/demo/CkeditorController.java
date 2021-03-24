@@ -19,10 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.config.TobagoConfig;
-
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
 
@@ -30,19 +27,11 @@ import java.io.Serializable;
 @Named
 public class CkeditorController extends SourceFileReader implements Serializable {
 
-  private String contentSecurityPolicyMode;
   private String text;
 
   public CkeditorController() {
-    final TobagoConfig tobagoConfig = TobagoConfig.getInstance(FacesContext.getCurrentInstance());
-    contentSecurityPolicyMode = tobagoConfig.getContentSecurityPolicy().getMode().getValue();
-
     text = "<p><strong>Sun</strong></p>"
         + "<p>The sun is a star in our galaxy.</p>";
-  }
-
-  public String getContentSecurityPolicyMode() {
-    return contentSecurityPolicyMode;
   }
 
   public String getText() {
