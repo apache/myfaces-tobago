@@ -59,7 +59,7 @@
     "dev-css": "npm-run-all css dev-mkdir dev-cp",
     "dev-ts": "npm-run-all ts dev-mkdir dev-cp",
     "dev-mkdir": "mkdir -p ../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/$npm_package_version",
-    "dev-cp": "cp -R tobago-theme-standard/src/main/ ../../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/$npm_package_version"
+    "dev-cp": "cp -R tobago-theme-standard/src/main/ ../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/$npm_package_version"
   },
   "dependencies": {
     "@trevoreyre/autocomplete-js": "^2.2.0",
