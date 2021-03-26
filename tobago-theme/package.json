@@ -68,7 +68,7 @@
   },
   "devDependencies": {
     "@popperjs/core": "^2.9.1",
-    "@types/jest": "^26.0.21",
+    "@types/jest": "^26.0.22",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
     "autoprefixer": "^9.8.6",
