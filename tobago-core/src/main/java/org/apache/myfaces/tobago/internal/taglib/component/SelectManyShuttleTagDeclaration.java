@@ -42,6 +42,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidator;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidatorMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
@@ -83,7 +84,8 @@ import javax.faces.component.UISelectMany;
 public interface SelectManyShuttleTagDeclaration extends
     IsDisabled, HasId, HasTip, HasHelp, IsRendered, IsRequiredForSelect, HasBinding, IsReadonly, HasConverter,
     HasLabel, HasValidator, HasValueChangeListener, HasLabelLayout,
-    HasValidatorMessage, HasConverterMessage, HasRequiredMessageForSelect, HasTabIndex, IsFocus, IsVisual, HasSize {
+    HasValidatorMessage, HasConverterMessage, HasRequiredMessageForSelect, HasTabIndex, IsFocus, IsVisual, HasSize,
+    HasAutoSpacing {
 
   /**
    * The value of the multi select.

@@ -39,6 +39,7 @@ public enum Attributes {
   alt,
   autocomplete,
   autoReload,
+  autoSpacing,
   backgroundImage,
   bodyContent,
   border,

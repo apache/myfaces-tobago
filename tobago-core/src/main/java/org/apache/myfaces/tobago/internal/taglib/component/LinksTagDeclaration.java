@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasOrientation;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIPanel;
@@ -44,7 +45,7 @@ import javax.faces.component.UIPanel;
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
     rendererType = RendererTypes.LINKS)
-public interface LinksTagDeclaration extends HasIdBindingAndRendered, IsVisual, HasTip, HasOrientation {
+public interface LinksTagDeclaration extends HasIdBindingAndRendered, IsVisual, HasTip, HasOrientation, HasAutoSpacing {
 
   /**
    * Flag indicating that this element and all children are disabled.

@@ -19,10 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
+
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.BoxTagDeclaration}
  */
-public abstract class AbstractUIBox extends AbstractUICollapsiblePanel {
+public abstract class AbstractUIBox extends AbstractUICollapsiblePanel implements SupportsAutoSpacing {
 
   public abstract String getLabel();
 }

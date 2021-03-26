@@ -43,11 +43,13 @@ public class BoxRenderer<T extends AbstractUIBox> extends CollapsiblePanelRender
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final Markup markup = component.getMarkup();
     final boolean collapsed = component.isCollapsed();
+    final boolean autoSpacing = component.getAutoSpacing(facesContext);
 
     writer.startElement(HtmlElements.TOBAGO_BOX);
     writer.writeClassAttribute(
         BootstrapClass.CARD,
         collapsed ? TobagoClass.COLLAPSED : null,
+        autoSpacing ? TobagoClass.AUTO__SPACING : null,
         component.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     final String clientId = component.getClientId(facesContext);
@@ -71,15 +73,19 @@ public class BoxRenderer<T extends AbstractUIBox> extends CollapsiblePanelRender
 
       writer.startElement(HtmlElements.H3);
       if (labelFacet != null) {
+        insideBegin(facesContext, Facets.label);
         for (final UIComponent child : RenderUtils.getFacetChildren(labelFacet)) {
           child.encodeAll(facesContext);
         }
+        insideEnd(facesContext, Facets.label);
       } else if (labelString != null) {
         writer.writeText(labelString);
       }
       writer.endElement(HtmlElements.H3);
       if (bar != null) {
+        insideBegin(facesContext, Facets.bar);
         bar.encodeAll(facesContext);
+        insideEnd(facesContext, Facets.bar);
       }
 
       writer.endElement(HtmlElements.DIV);

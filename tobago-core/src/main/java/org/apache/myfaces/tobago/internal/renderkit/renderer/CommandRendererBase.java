@@ -68,6 +68,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
     final LabelWithAccessKey label = new LabelWithAccessKey(component);
     final boolean anchor = (component.getLink() != null || component.getOutcome() != null) && !disabled;
     final String target = component.getTarget();
+    final boolean autoSpacing = component.getAutoSpacing(facesContext);
     final boolean parentOfCommands = component.isParentOfCommands();
     final boolean dropdownSubmenu = isInside(facesContext, HtmlElements.COMMAND);
 
@@ -118,6 +119,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
         getRendererCssClass(),
         getRendererCssClass().createMarkup(component.getMarkup()),
         getCssItems(facesContext, component),
+        autoSpacing && !dropdownSubmenu ? TobagoClass.AUTO__SPACING : null,
         dropdownSubmenu ? BootstrapClass.DROPDOWN_ITEM : null,
         parentOfCommands && !dropdownSubmenu ? BootstrapClass.DROPDOWN_TOGGLE : null,
         component.getCustomClass(),

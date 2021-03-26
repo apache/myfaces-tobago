@@ -41,6 +41,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidator;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidatorMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
@@ -80,7 +81,7 @@ public interface DateTagDeclaration
     extends HasAccessKey, HasValidator, HasValue, HasValueChangeListener, HasTabIndex, IsFocus, IsVisual,
     HasValidatorMessage, HasConverterMessage, HasRequiredMessage, HasIdBindingAndRendered, IsReadonly,
     IsDisabled, HasConverter, HasLabel, HasHelp, HasLabelLayout,
-    HasTip, IsRequired, HasPlaceholder {
+    HasTip, IsRequired, HasPlaceholder, HasAutoSpacing {
 
   /**
    * If true, a today button is displayed on the datetimepicker.

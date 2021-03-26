@@ -139,6 +139,7 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
     final String hiddenId = clientId + TabGroupRenderer.INDEX_POSTFIX;
     final SwitchType switchType = uiComponent.getSwitchType();
     final Markup markup = uiComponent.getMarkup();
+    final boolean autoSpacing = uiComponent.getAutoSpacing(facesContext);
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.TOBAGO_TAB_GROUP);
@@ -146,6 +147,7 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
     writer.writeClassAttribute(
         BootstrapClass.CARD,
         TobagoClass.TAB_GROUP.createMarkup(markup),
+        autoSpacing ? TobagoClass.AUTO__SPACING : null,
         uiComponent.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, uiComponent);
@@ -296,7 +298,9 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
             labelEmpty = false;
           }
           if (labelFacet != null) {
+            insideBegin(facesContext, Facets.label);
             labelFacet.encodeAll(facesContext);
+            insideEnd(facesContext, Facets.label);
             labelEmpty = false;
           }
           if (labelEmpty) {
@@ -305,9 +309,11 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
           writer.endElement(HtmlElements.A);
 
           if (barFacet != null) {
+            insideBegin(facesContext, Facets.bar);
             writer.startElement(HtmlElements.DIV);
             barFacet.encodeAll(facesContext);
             writer.endElement(HtmlElements.DIV);
+            insideEnd(facesContext, Facets.bar);
           }
 
           writer.endElement(HtmlElements.TOBAGO_TAB);

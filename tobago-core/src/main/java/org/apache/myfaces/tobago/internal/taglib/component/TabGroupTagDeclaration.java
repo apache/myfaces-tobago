@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasAction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsImmediateCommand;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import org.apache.myfaces.tobago.model.SwitchType;
@@ -62,7 +63,8 @@ import javax.faces.component.UIPanel;
         )
     })
 public interface TabGroupTagDeclaration
-    extends HasIdBindingAndRendered, IsImmediateCommand, HasAction, HasActionListener, IsVisual, HasTip {
+    extends HasIdBindingAndRendered, IsImmediateCommand, HasAction, HasActionListener, IsVisual, HasTip,
+    HasAutoSpacing {
 
   /**
    * Flag indicating that the tab navigation bar is rendered.

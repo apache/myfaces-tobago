@@ -176,9 +176,7 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
       final UIComponent addon, final boolean isAfterFacet) throws IOException {
     if (addon != null) {
       for (final UIComponent child : RenderUtils.getFacetChildren(addon)) {
-        if (isAfterFacet) {
-          insideBegin(facesContext, Facets.after);
-        }
+        insideBegin(facesContext, isAfterFacet ? Facets.after : Facets.before);
         if (child instanceof AbstractUIButton) {
           child.encodeAll(facesContext);
         } else if (child instanceof AbstractUIOut) {
@@ -191,9 +189,7 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
           child.encodeAll(facesContext);
           writer.endElement(HtmlElements.SPAN);
         }
-        if (isAfterFacet) {
-          insideEnd(facesContext, Facets.after);
-        }
+        insideEnd(facesContext, isAfterFacet ? Facets.after : Facets.before);
       }
     }
   }

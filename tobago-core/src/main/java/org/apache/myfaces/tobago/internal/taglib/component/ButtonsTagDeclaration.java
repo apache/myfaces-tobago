@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasOrientation;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIPanel;
@@ -46,7 +47,7 @@ import javax.faces.component.UIPanel;
     })
 
 public interface ButtonsTagDeclaration
-    extends HasIdBindingAndRendered, IsVisual, HasTip, HasOrientation {
+    extends HasIdBindingAndRendered, IsVisual, HasTip, HasOrientation, HasAutoSpacing {
 
   /**
    * Flag indicating that this element and all children are disabled.
