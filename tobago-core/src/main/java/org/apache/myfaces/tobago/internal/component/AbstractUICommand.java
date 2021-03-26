@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
+import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -34,7 +35,7 @@ import javax.faces.context.FacesContext;
  * Base class for commands.
  */
 public abstract class AbstractUICommand extends AbstractUICommandBase
-    implements SupportsAccessKey, Visual, ClientBehaviorHolder, SupportFieldId {
+    implements SupportsAutoSpacing, SupportsAccessKey, Visual, ClientBehaviorHolder, SupportFieldId {
 
   enum PropertyKeys {
     disabled,

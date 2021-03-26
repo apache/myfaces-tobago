@@ -42,6 +42,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidator;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidatorMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
@@ -81,7 +82,7 @@ import javax.faces.component.UISelectOne;
 public interface SelectOneRadioTagDeclaration
     extends HasValidator, HasValue, HasValueChangeListener, HasTabIndex, IsFocus, IsVisual,
     HasValidatorMessage, HasConverterMessage, HasRequiredMessage, IsDisabled, IsReadonly, HasId, HasTip, HasHelp,
-    IsInline, HasRenderRange, IsRendered, HasBinding, HasConverter, HasLabel, HasLabelLayout {
+    IsInline, HasRenderRange, IsRendered, HasBinding, HasConverter, HasLabel, HasLabelLayout, HasAutoSpacing {
 
   /**
    * Flag indicating that selecting an Item representing a Value is Required.

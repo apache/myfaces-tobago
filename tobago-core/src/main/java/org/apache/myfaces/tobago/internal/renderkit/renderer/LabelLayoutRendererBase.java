@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
+import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
@@ -45,7 +46,7 @@ import java.util.List;
  * Manages the rendering of the <b>label</b> and the <b>field</b> together with different possibilities for the position
  * of the label (defined by {@link org.apache.myfaces.tobago.component.Attributes#labelLayout}
  */
-public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLabelLayout>
+public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLabelLayout & SupportsAutoSpacing>
     extends DecodingInputRendererBase<T> {
 
   public abstract HtmlElements getComponentTag();
@@ -115,6 +116,7 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
     String clientId = component.getClientId(facesContext);
     final Markup markup = (Markup) ComponentUtils.getAttribute(component, Attributes.markup);
 
+    final boolean autoSpacing = component.getAutoSpacing(facesContext);
     final LabelLayout labelLayout = component.getLabelLayout();
     final boolean nextToRenderIsLabel = component.isNextToRenderIsLabel();
     final boolean flex;
@@ -159,7 +161,7 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
       writer.writeClassAttribute(
           flex ? TobagoClass.LABEL__CONTAINER : null,
           getComponentCss(facesContext, component),
-          TobagoClass.MARGIN__BOTTOM,
+          autoSpacing ? TobagoClass.AUTO__SPACING : null,
           ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,
           markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
       writeAdditionalAttributes(facesContext, writer, component);

@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
 import org.apache.myfaces.tobago.component.SupportsHelp;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.Visual;
@@ -32,7 +33,7 @@ import javax.faces.context.FacesContext;
  * Base class for select one.
  */
 public abstract class AbstractUISelectOneBase extends javax.faces.component.UISelectOne
-    implements Visual, SupportsLabelLayout, ClientBehaviorHolder, SupportsHelp {
+    implements SupportsAutoSpacing, Visual, SupportsLabelLayout, ClientBehaviorHolder, SupportsHelp {
 
   public static final String MESSAGE_VALUE_REQUIRED = "org.apache.myfaces.tobago.UISelectOne.REQUIRED";
 

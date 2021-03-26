@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasCollapsedMode;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsCollapsed;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
@@ -60,5 +61,5 @@ import javax.faces.component.UIPanel;
     })
 
 public interface BoxTagDeclaration
-    extends HasIdBindingAndRendered, IsVisual, HasLabel, HasTip, IsCollapsed, HasCollapsedMode {
+    extends HasIdBindingAndRendered, IsVisual, HasLabel, HasTip, IsCollapsed, HasCollapsedMode, HasAutoSpacing {
 }

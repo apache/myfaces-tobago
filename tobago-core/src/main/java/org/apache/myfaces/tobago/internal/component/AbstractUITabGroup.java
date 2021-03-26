@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource;
@@ -47,7 +48,7 @@ import java.util.List;
  * {@link org.apache.myfaces.tobago.internal.taglib.component.TabGroupTagDeclaration}
  */
 public abstract class AbstractUITabGroup extends AbstractUIPanelBase
-    implements TabChangeSource, TobagoActionSource, ClientBehaviorHolder {
+    implements TabChangeSource, TobagoActionSource, ClientBehaviorHolder, SupportsAutoSpacing {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 

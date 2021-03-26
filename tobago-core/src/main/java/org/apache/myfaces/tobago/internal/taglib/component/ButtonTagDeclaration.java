@@ -41,6 +41,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasOutcome;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTarget;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDefaultCommand;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabledBySecurity;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsImmediateCommand;
@@ -132,5 +133,5 @@ public interface ButtonTagDeclaration
     extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand, HasConfirmation,
     HasLink, HasOutcome, HasFragment, IsTransition, HasTarget, IsDisabledBySecurity,
     IsOmit, IsVisual, HasLabel, HasAccessKey, HasTip, HasImage,
-    IsDefaultCommand, HasTabIndex {
+    IsDefaultCommand, HasTabIndex, HasAutoSpacing {
 }

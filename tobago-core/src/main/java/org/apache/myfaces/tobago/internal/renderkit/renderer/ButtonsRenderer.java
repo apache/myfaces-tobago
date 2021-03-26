@@ -41,6 +41,7 @@ public class ButtonsRenderer<T extends AbstractUIButtons> extends RendererBase<T
 
     final Markup markup = component.getMarkup();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final boolean autoSpacing = component.getAutoSpacing(facesContext);
 
     writer.startElement(HtmlElements.TOBAGO_BUTTONS);
     writer.writeIdAttribute(component.getClientId(facesContext));
@@ -50,6 +51,7 @@ public class ButtonsRenderer<T extends AbstractUIButtons> extends RendererBase<T
         TobagoClass.BUTTONS.createMarkup(markup),
         Orientation.vertical.equals(component.getOrientation())
             ? BootstrapClass.BTN_GROUP_VERTICAL : BootstrapClass.BTN_GROUP,
+        autoSpacing ? TobagoClass.AUTO__SPACING : null,
         component.getCustomClass());
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.GROUP.toString(), false);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);

@@ -110,7 +110,9 @@ public class BarRenderer<T extends AbstractUIBar> extends RendererBase<T> {
     if (after != null) {
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(BootstrapClass.MY_LG_0, BootstrapClass.MS_AUTO);
+      insideBegin(facesContext, Facets.after);
       after.encodeAll(facesContext);
+      insideEnd(facesContext, Facets.after);
       writer.endElement(HtmlElements.DIV);
     }
     writer.endElement(HtmlElements.DIV);

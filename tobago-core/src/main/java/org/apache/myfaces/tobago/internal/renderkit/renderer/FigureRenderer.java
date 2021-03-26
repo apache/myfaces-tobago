@@ -70,7 +70,9 @@ public class FigureRenderer<T extends AbstractUIFigure> extends RendererBase<T> 
         writer.writeText(labelString);
       }
       if (label != null) {
+        insideBegin(facesContext, Facets.label);
         label.encodeAll(facesContext);
+        insideEnd(facesContext, Facets.label);
       }
       writer.endElement(HtmlElements.FIGCAPTION);
     }

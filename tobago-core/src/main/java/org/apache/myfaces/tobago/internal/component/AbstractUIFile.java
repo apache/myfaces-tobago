@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportFieldId;
+import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
 import org.apache.myfaces.tobago.component.SupportsHelp;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.Visual;
@@ -36,7 +37,7 @@ import javax.servlet.http.Part;
  * {@link org.apache.myfaces.tobago.internal.taglib.component.FileTagDeclaration}
  */
 public abstract class AbstractUIFile extends UIInput implements SupportsLabelLayout, Visual, ClientBehaviorHolder,
-    SupportFieldId, SupportsHelp {
+    SupportFieldId, SupportsHelp, SupportsAutoSpacing {
 
   private transient boolean nextToRenderIsLabel;
 

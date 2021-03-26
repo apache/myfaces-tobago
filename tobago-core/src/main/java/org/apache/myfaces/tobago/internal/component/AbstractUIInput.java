@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
+import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
 import org.apache.myfaces.tobago.component.SupportsHelp;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.Visual;
@@ -33,7 +34,8 @@ import javax.faces.context.FacesContext;
  * Base class for some inputs.
  */
 public abstract class AbstractUIInput extends javax.faces.component.UIInput
-    implements SupportsAccessKey, SupportsLabelLayout, Visual, ClientBehaviorHolder, SupportFieldId, SupportsHelp {
+    implements SupportsAccessKey, SupportsAutoSpacing, SupportsLabelLayout, Visual, ClientBehaviorHolder,
+    SupportFieldId, SupportsHelp {
 
   private transient boolean nextToRenderIsLabel;
 

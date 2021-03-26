@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUILinks;
 import org.apache.myfaces.tobago.layout.Orientation;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -39,11 +40,13 @@ public class LinksRenderer<T extends AbstractUILinks> extends RendererBase<T> {
 //    final boolean insideBar = facesContext.getAttributes().get("inside-bar") != null;
     final boolean insideBar = isInside(facesContext, HtmlElements.TOBAGO_BAR);
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final boolean autoSpacing = component.getAutoSpacing(facesContext);
 
     writer.startElement(HtmlElements.TOBAGO_LINKS);
     writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeClassAttribute(
         Orientation.vertical.equals(component.getOrientation()) ? BootstrapClass.FLEX_COLUMN : null,
+        autoSpacing ? TobagoClass.AUTO__SPACING : null,
         component.getCustomClass());
     writer.startElement(HtmlElements.UL);
     writer.writeClassAttribute(

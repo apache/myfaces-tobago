@@ -67,7 +67,7 @@ public enum TobagoClass implements CssItem {
    */
   @Deprecated
   ALIGN_ITEMS__STRETCH("tobago-alignItems-stretch"),
-
+  AUTO__SPACING("tobago-auto-spacing"),
   /**
    * @deprecated since 4.0.0, use {@link BootstrapClass#JUSTIFY_CONTENT_CENTER}
    */
@@ -159,7 +159,6 @@ public enum TobagoClass implements CssItem {
   LABEL("tobago-label"),
   LABEL__CONTAINER("tobago-label-container"),
   LINK("tobago-link"),
-  MARGIN__BOTTOM("tobago-margin-bottom"),
   MESSAGES("tobago-messages"),
   /**
    * @deprecated Since 5.0.0. Please use surrounding tag &lt;tobago-popover&gt;.

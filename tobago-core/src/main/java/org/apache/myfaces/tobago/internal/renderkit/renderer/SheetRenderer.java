@@ -264,6 +264,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     component.init(facesContext);
 
     // Outer sheet div
+    insideBegin(facesContext, HtmlElements.TOBAGO_SHEET);
     writer.startElement(HtmlElements.TOBAGO_SHEET);
     writer.writeIdAttribute(sheetId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
@@ -529,6 +530,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     if (header.isTransient()) {
       component.getFacets().remove("header");
     }
+    insideEnd(facesContext, HtmlElements.TOBAGO_SHEET);
   }
 
   private void encodeTableBody(

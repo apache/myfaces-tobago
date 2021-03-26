@@ -36,6 +36,7 @@ public class HeaderRenderer<T extends AbstractUIHeader> extends RendererBase<T> 
   @Override
   public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    insideBegin(facesContext, HtmlElements.TOBAGO_HEADER);
     writer.startElement(HtmlElements.TOBAGO_HEADER);
     writer.writeIdAttribute(component.getClientId(facesContext));
     // TBD: NAVBAR_DARK and BG_DARK should not be the default
@@ -54,5 +55,6 @@ public class HeaderRenderer<T extends AbstractUIHeader> extends RendererBase<T> 
   public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.TOBAGO_HEADER);
+    insideEnd(facesContext, HtmlElements.TOBAGO_HEADER);
   }
 }

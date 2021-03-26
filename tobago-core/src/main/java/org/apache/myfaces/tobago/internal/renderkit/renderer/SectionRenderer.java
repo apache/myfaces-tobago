@@ -86,9 +86,11 @@ public class SectionRenderer<T extends AbstractUISection> extends CollapsiblePan
     final UIComponent labelFacet = ComponentUtils.getFacet(component, Facets.label);
     final String labelString = component.getLabel();
     if (labelFacet != null) {
+      insideBegin(facesContext, Facets.label);
       for (final UIComponent child : RenderUtils.getFacetChildren(labelFacet)) {
         child.encodeAll(facesContext);
       }
+      insideEnd(facesContext, Facets.label);
     } else if (labelString != null) {
       writer.startElement(HtmlElements.SPAN);
       writer.writeText(labelString);
@@ -98,7 +100,9 @@ public class SectionRenderer<T extends AbstractUISection> extends CollapsiblePan
 
     final UIComponent bar = ComponentUtils.getFacet(component, Facets.bar);
     if (bar != null) {
+      insideBegin(facesContext, Facets.bar);
       bar.encodeAll(facesContext);
+      insideEnd(facesContext, Facets.bar);
     }
 
     writer.endElement(HtmlElements.DIV);

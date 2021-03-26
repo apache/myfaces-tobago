@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
 import org.apache.myfaces.tobago.component.SupportsHelp;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
@@ -41,7 +42,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class MessageLayoutRendererBase<T extends UIComponent & SupportsLabelLayout>
+public abstract class MessageLayoutRendererBase<T extends UIComponent & SupportsLabelLayout & SupportsAutoSpacing>
     extends LabelLayoutRendererBase<T> {
 
   @Override

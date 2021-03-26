@@ -17,21 +17,27 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.internal.taglib.declaration;
 
-import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
-import org.apache.myfaces.tobago.component.SupportsDisabled;
-import org.apache.myfaces.tobago.layout.Orientation;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/**
- * {@link org.apache.myfaces.tobago.internal.taglib.component.ButtonsTagDeclaration}
- */
-public abstract class AbstractUIButtons extends AbstractUIPanelBase implements SupportsAutoSpacing, SupportsDisabled {
-
-  enum PropertyKeys {
-    disabled,
-  }
-
-  public abstract Orientation getOrientation();
-
+public interface HasAutoSpacing {
+  /**
+   * Automatically add spacing (margins/paddings) to the component for better positioning.
+   * Default is 'true' except the component is inside a:
+   * - header
+   * - footer
+   * - bar
+   * - sheet
+   * - link group
+   * - button group
+   * - before facet
+   * - after facet
+   * - label facet
+   * - bar facet
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  void setAutoSpacing(String autoSpacing);
 }
