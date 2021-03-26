@@ -11709,10 +11709,12 @@ label.tobago-required:after {
 }
 
 /* section ----------------------------------------------------------- */
-tobago-section > .tobago-header > h1, tobago-section > .tobago-header > .h1, tobago-section > .tobago-header > h2, tobago-section > .tobago-header > .h2, tobago-section > .tobago-header > h3, tobago-section > .tobago-header > .h3, tobago-section > .tobago-header > h4, tobago-section > .tobago-header > .h4, tobago-section > .tobago-header > h5, tobago-section > .tobago-header > .h5, tobago-section > .tobago-header > h6, tobago-section > .tobago-header > .h6 {
+tobago-section > .tobago-header {
   display: flex;
-  justify-content: space-between;
-  align-content: center;
+}
+tobago-section > .tobago-header > h1, tobago-section > .tobago-header > .h1, tobago-section > .tobago-header > h2, tobago-section > .tobago-header > .h2, tobago-section > .tobago-header > h3, tobago-section > .tobago-header > .h3, tobago-section > .tobago-header > h4, tobago-section > .tobago-header > .h4, tobago-section > .tobago-header > h5, tobago-section > .tobago-header > .h5, tobago-section > .tobago-header > h6, tobago-section > .tobago-header > .h6 {
+  /* because the parent is flex, auto margin moves components like tc:buttons to the right */
+  margin-right: auto;
 }
 tobago-section > .tobago-header > h1 > .fa:first-child, tobago-section > .tobago-header > .h1 > .fa:first-child, tobago-section > .tobago-header > h1 > img, tobago-section > .tobago-header > .h1 > img, tobago-section > .tobago-header > h2 > .fa:first-child, tobago-section > .tobago-header > .h2 > .fa:first-child, tobago-section > .tobago-header > h2 > img, tobago-section > .tobago-header > .h2 > img, tobago-section > .tobago-header > h3 > .fa:first-child, tobago-section > .tobago-header > .h3 > .fa:first-child, tobago-section > .tobago-header > h3 > img, tobago-section > .tobago-header > .h3 > img, tobago-section > .tobago-header > h4 > .fa:first-child, tobago-section > .tobago-header > .h4 > .fa:first-child, tobago-section > .tobago-header > h4 > img, tobago-section > .tobago-header > .h4 > img, tobago-section > .tobago-header > h5 > .fa:first-child, tobago-section > .tobago-header > .h5 > .fa:first-child, tobago-section > .tobago-header > h5 > img, tobago-section > .tobago-header > .h5 > img, tobago-section > .tobago-header > h6 > .fa:first-child, tobago-section > .tobago-header > .h6 > .fa:first-child, tobago-section > .tobago-header > h6 > img, tobago-section > .tobago-header > .h6 > img {
   /* to separate the icon from the rest of the title */
