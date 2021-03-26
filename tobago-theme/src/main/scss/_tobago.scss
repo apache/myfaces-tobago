@@ -891,16 +891,19 @@ label.tobago-required:after {
 }
 
 /* section ----------------------------------------------------------- */
-tobago-section > .tobago-header > {
-  h1, h2, h3, h4, h5, h6 {
-    > .fa:first-child, > img {
-      /* to separate the icon from the rest of the title */
-      margin-right: 0.7em;
-    }
+tobago-section > .tobago-header {
+  display: flex;
 
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
+  > {
+    h1, h2, h3, h4, h5, h6 {
+      /* because the parent is flex, auto margin moves components like tc:buttons to the right */
+      margin-right: auto;
+
+      > .fa:first-child, > img {
+        /* to separate the icon from the rest of the title */
+        margin-right: 0.7em;
+      }
+    }
   }
 }
 
