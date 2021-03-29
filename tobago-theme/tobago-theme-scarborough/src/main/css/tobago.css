@@ -12195,7 +12195,7 @@ tobago-sheet .table {
   overflow: hidden;
 }
 
-.tobago-sheet-cell div {
+.tobago-sheet-cell {
   overflow: hidden;
 }
 
