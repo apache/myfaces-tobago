@@ -43,11 +43,13 @@ public class SectionRenderer<T extends AbstractUISection> extends CollapsiblePan
     final String clientId = component.getClientId(facesContext);
     final boolean collapsed = component.isCollapsed();
     final Markup markup = component.getMarkup();
+    final boolean autoSpacing = component.getAutoSpacing(facesContext);
 
     writer.startElement(HtmlElements.TOBAGO_SECTION);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
         collapsed ? TobagoClass.COLLAPSED : null,
+        autoSpacing ? TobagoClass.AUTO__SPACING : null,
         component.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
