@@ -10747,6 +10747,13 @@ textarea.form-control-lg {
 /* used icons ---------------------------------------------------- */
 /* non-bootstrap variables --------------------------------------- */
 /* main ---------------------------------------------------------- */
+.tobago-auto-spacing {
+  /* Since bootstrap 5.0.0-alpha1 class "form-group" is removed. In the Bootstrap demo "form-group" is replaced with
+  "mb-3". But we shouldn't use "mb-3", because it's adding an "!important" to the margin-bottom. With "!important" added
+  custom styling is much more complicated. */
+  margin-bottom: 1rem;
+}
+
 /* badge -------------------------------------------------------------- */
 .badge.btn {
   border: 0;
@@ -10783,9 +10790,6 @@ tobago-behavior {
 }
 
 /* box -------------------------------------------------------------- */
-tobago-box {
-  margin-bottom: 1rem;
-}
 tobago-box > .card-body {
   overflow-x: hidden;
   overflow-y: auto;
@@ -11039,9 +11043,6 @@ tobago-in .input-group tobago-select-one-choice {
   According to bootstrap docs, <select class=.form-select> should be rendered directly to .input-group. But tobago
   renders the tobago-select-one-choice custom tag (which contain the select component) inside an input group. */
 }
-tobago-in .input-group tobago-select-one-choice.tobago-margin-bottom {
-  margin-bottom: 0;
-}
 tobago-in .input-group tobago-select-one-choice.form-select {
   padding: 0;
 }
@@ -11218,13 +11219,6 @@ tobago-flex-layout.tobago-messages-container > .tobago-input-group-outer, tobago
   flex: 1 0 0px;
 }
 
-.tobago-margin-bottom {
-  /* Since bootstrap 5.0.0-alpha1 class "form-group" is removed. In the Bootstrap demo "form-group" is replaced with
-  "mb-3". But we shouldn't use "mb-3", because it's adding an "!important" to the margin-bottom. With "!important" added
-  custom styling is much more complicated. */
-  margin-bottom: 1rem;
-}
-
 .tobago-messages .alert.alert-dismissible {
   padding-left: 2.6rem;
 }
@@ -11398,6 +11392,9 @@ label.tobago-required:after {
 }
 
 /* section ----------------------------------------------------------- */
+tobago-section {
+  display: block;
+}
 tobago-section > .tobago-header {
   display: flex;
 }
@@ -11978,10 +11975,6 @@ tobago-tab.tobago-tab-barFacet .nav-link.active + div {
 tobago-tab.tobago-tab-barFacet .nav-link:not(.disabled):hover + div {
   border-top-color: #e3e4e5;
   border-right-color: #e3e4e5;
-}
-
-tobago-tab-group {
-  margin-bottom: 1rem;
 }
 
 /* FIXME: This is to hide the toolbar, until it is implemented */
