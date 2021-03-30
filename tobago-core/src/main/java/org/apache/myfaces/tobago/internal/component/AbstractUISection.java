@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.context.FacesContext;
@@ -27,7 +28,7 @@ import java.io.IOException;
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SectionTagDeclaration}
  */
-public abstract class AbstractUISection extends AbstractUICollapsiblePanel {
+public abstract class AbstractUISection extends AbstractUICollapsiblePanel implements SupportsAutoSpacing {
 
   public abstract String getLabel();
 
