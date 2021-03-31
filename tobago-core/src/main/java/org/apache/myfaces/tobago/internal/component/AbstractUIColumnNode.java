@@ -26,5 +26,5 @@ import org.apache.myfaces.tobago.component.Visual;
  *
  * @since Tobago 2.0.0
  */
-public abstract class AbstractUIColumnNode extends AbstractUITreeNodeBase implements Visual {
+public abstract class AbstractUIColumnNode extends AbstractUITreeNode implements Visual {
 }
