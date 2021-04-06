@@ -30,6 +30,7 @@ public interface HasAutoSpacing {
    * - footer
    * - bar
    * - sheet
+   * - tree
    * - link group
    * - button group
    * - before facet

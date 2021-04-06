@@ -40,6 +40,7 @@ public interface SupportsAutoSpacing {
       return attributes.get(HtmlElements.TOBAGO_HEADER) == null
           && attributes.get(HtmlElements.TOBAGO_FOOTER) == null
           && attributes.get(HtmlElements.TOBAGO_SHEET) == null
+          && attributes.get(HtmlElements.TOBAGO_TREE) == null
           && attributes.get(HtmlElements.TOBAGO_LINKS) == null
           && attributes.get(HtmlElements.TOBAGO_BUTTONS) == null
           && attributes.get(Facets.before) == null
