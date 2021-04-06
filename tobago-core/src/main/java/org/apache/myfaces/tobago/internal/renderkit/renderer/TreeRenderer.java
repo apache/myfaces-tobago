@@ -93,6 +93,7 @@ public class TreeRenderer<T extends AbstractUITree> extends RendererBase<T> {
       return;
     }
 
+    insideBegin(facesContext, HtmlElements.TOBAGO_TREE);
     writer.startElement(HtmlElements.TOBAGO_TREE);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
@@ -167,5 +168,6 @@ public class TreeRenderer<T extends AbstractUITree> extends RendererBase<T> {
     writer.endElement(HtmlElements.INPUT);
 
     writer.endElement(HtmlElements.TOBAGO_TREE);
+    insideEnd(facesContext, HtmlElements.TOBAGO_TREE);
   }
 }
