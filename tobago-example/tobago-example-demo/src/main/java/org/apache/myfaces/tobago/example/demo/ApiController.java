@@ -62,8 +62,12 @@ public class ApiController implements Serializable {
     return releases;
   }
 
-  public String getBase() {
-    return "https://myfaces.apache.org/tobago";
+  public String getApiBase() {
+    return "https://javadoc.io/doc/org.apache.myfaces.tobago/tobago-core";
+  }
+
+  public String getTldBase() {
+    return "https://myfaces.apache.org/tobago/doc";
   }
 
   public boolean isOnlyCurrent() {
