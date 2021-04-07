@@ -185,7 +185,12 @@ public class WebXmlUtils {
       if (path.endsWith(suffix)) {
         return path;
       } else {
-        return path.substring(0, path.lastIndexOf('.')) + suffix;
+        final int lastIndex = path.lastIndexOf('.');
+        if (lastIndex >= 0) {
+          return path.substring(0, lastIndex) + suffix;
+        } else {
+          return path;
+        }
       }
     }
   }
