@@ -35,14 +35,11 @@
       </tc:column>
       <tc:column label="JavaDoc API Documentation">
         <tc:link label="#{release.version} API Documentation"
-                 link="#{apiController.base}/doc/#{release.version}/api/index.html"/>
+                 link="#{apiController.apiBase}/#{release.version}/index.html"/>
       </tc:column>
       <tc:column label="Tag Library Documentation (TLD)">
         <tc:link label="#{release.version} TLD &lt;tc:> Documentation"
-                 link="#{apiController.base}/doc/#{release.version}/tld/index.html"/>
-        <f:verbatim rendered="#{release.tx}"><br/></f:verbatim>
-        <tc:link label="#{release.version} TLD &lt;tx:> Documentation" rendered="#{release.tx}"
-                 link="#{apiController.base}/doc/#{release.version}/tld-tx/index.html"/>
+                 link="#{apiController.tldBase}/#{release.version}/tld/index.html"/>
       </tc:column>
     </tc:sheet>
 
