@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.ValueExpression;
 import javax.faces.component.ActionSource;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
@@ -212,7 +213,14 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
     Collapse collapse = null;
     if (operations.size() > 0) {
       final AbstractUIOperation operation = operations.get(0);
-      final String forId = ComponentUtils.evaluateClientId(facesContext, component, operation.getFor());
+      final ValueExpression valueExpression = operation.getValueExpression("for");
+      final String value;
+      if (valueExpression != null) {
+        value = (String) valueExpression.getValue(facesContext.getELContext());
+      } else {
+        value = operation.getFor();
+      }
+      final String forId = ComponentUtils.evaluateClientId(facesContext, component, value);
       collapse = new Collapse(Collapse.Action.valueOf(operation.getName()), forId);
     }
 
