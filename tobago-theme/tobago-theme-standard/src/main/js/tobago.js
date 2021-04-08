@@ -11462,51 +11462,6 @@
           window.customElements.define("tobago-in", In);
       }
   });
-  // XXX regexp example only - blueprint
-  class RegExpTest {
-      constructor(element) {
-          this.element = element;
-          this.regexp = new RegExp(this.element.dataset.regexp);
-          console.debug("constructor: '%s'", element.id);
-          this.element.addEventListener("change", this.checkValue.bind(this));
-      }
-      // todo: use "custom-elements" instead of this init listener
-      static init(element) {
-          for (const input of RegExpTest.selfOrElementsByClassName(element, "tobago-in")) { // todo only for data-regexp
-              new RegExpTest(input);
-          }
-      }
-      /**
-       * Find all elements (and also self) which have the class "className".
-       * @param element Starting element in DOM to collect.
-       * @param className Class of elements to find.
-       */
-      static selfOrElementsByClassName(element, className) {
-          const result = new Array();
-          if (!element) {
-              element = document.documentElement;
-          }
-          if (element.classList.contains(className)) {
-              result.push(element);
-          }
-          const list = element.getElementsByClassName(className);
-          for (let i = 0; i < list.length; i++) {
-              result.push(list.item(i));
-          }
-          return result;
-      }
-      checkValue(event) {
-          console.debug("changed: check if '%s' is okay!", this.regexp.toString());
-          if (!this.regexp.test(this.element.value)) {
-              this.element.classList.add("border-danger");
-          }
-          else {
-              this.element.classList.remove("border-danger");
-          }
-      }
-  }
-  Listener.register(RegExpTest.init, Phase.DOCUMENT_READY);
-  Listener.register(RegExpTest.init, Phase.AFTER_UPDATE);
 
   /*
    * Licensed to the Apache Software Foundation (ASF) under one or more
