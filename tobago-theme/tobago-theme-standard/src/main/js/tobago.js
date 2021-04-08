@@ -161,6 +161,9 @@
       // todo: may return NodeListOf<HTMLElementTagNameMap[K]> or something like that.
       static selfOrQuerySelectorAll(element, selectors) {
           const result = new Array();
+          if (!element) {
+              element = document.documentElement;
+          }
           if (element.matches(selectors)) {
               result.push(element);
           }
@@ -3261,6 +3264,17 @@
 
   function getContainingBlock(element) {
     var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') !== -1;
+    var isIE = navigator.userAgent.indexOf('Trident') !== -1;
+
+    if (isIE && isHTMLElement(element)) {
+      // In IE 9, 10 and 11 fixed elements containing block is always established by the viewport
+      var elementCss = getComputedStyle$1(element);
+
+      if (elementCss.position === 'fixed') {
+        return null;
+      }
+    }
+
     var currentNode = getParentNode(element);
 
     while (isHTMLElement(currentNode) && ['html', 'body'].indexOf(getNodeName(currentNode)) < 0) {
@@ -10271,10 +10285,14 @@
               ReloadManager.instance.schedule(id, JSON.parse(result[1]).reload.frequency);
           }
           else {
+              let rootNode = this.getRootNode();
+              // XXX in case of "this" is tobago-page (e.g. ajax exception handling) rootNode is not set correctly???
+              if (!rootNode.getElementById) {
+                  rootNode = document;
+              }
               console.info("[tobago-jsf] Update after jsf.ajax success: %s", id);
               if (JsfParameter.isJsfId(id)) {
                   console.debug("[tobago-jsf] updating #%s", id);
-                  const rootNode = this.getRootNode();
                   const element = rootNode.getElementById(id);
                   if (element) {
                       Listener.executeAfterUpdate(element);
@@ -10286,7 +10304,6 @@
               else if (JsfParameter.isJsfBody(id)) {
                   console.debug("[tobago-jsf] updating body");
                   // there should be only one element with this tag name
-                  const rootNode = this.getRootNode();
                   Listener.executeAfterUpdate(rootNode.querySelector("tobago-page"));
               }
           }
@@ -11453,6 +11470,7 @@
           console.debug("constructor: '%s'", element.id);
           this.element.addEventListener("change", this.checkValue.bind(this));
       }
+      // todo: use "custom-elements" instead of this init listener
       static init(element) {
           for (const input of RegExpTest.selfOrElementsByClassName(element, "tobago-in")) { // todo only for data-regexp
               new RegExpTest(input);
@@ -11465,6 +11483,9 @@
        */
       static selfOrElementsByClassName(element, className) {
           const result = new Array();
+          if (!element) {
+              element = document.documentElement;
+          }
           if (element.classList.contains(className)) {
               result.push(element);
           }
