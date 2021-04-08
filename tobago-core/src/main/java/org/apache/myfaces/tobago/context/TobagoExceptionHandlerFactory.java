@@ -41,7 +41,6 @@ public class TobagoExceptionHandlerFactory extends ExceptionHandlerFactory {
 
   @Override
   public ExceptionHandler getExceptionHandler() {
-    LOG.error("xxxxxxxxx enableTobagoExceptionHandler={}", TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isEnableTobagoExceptionHandler());
     if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isEnableTobagoExceptionHandler()) {
       return new TobagoExceptionHandler(getWrapped().getExceptionHandler());
     } else {
