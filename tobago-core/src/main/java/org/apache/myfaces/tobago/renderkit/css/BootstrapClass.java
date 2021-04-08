@@ -361,6 +361,7 @@ public enum BootstrapClass implements CssItem {
    */
   @Deprecated
   FORM_INLINE("form-inline"),
+  FORM_RANGE("form-range"),
   FORM_SELECT("form-select"),
   FORM_SWITCH("form-switch"),
   FST_ITALIC("fst-italic"),

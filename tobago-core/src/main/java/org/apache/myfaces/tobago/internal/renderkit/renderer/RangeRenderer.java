@@ -89,7 +89,7 @@ public class RangeRenderer<T extends AbstractUIRange> extends MessageLayoutRende
     writer.writeClassAttribute(
         rendererCssClass,
         BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
-        BootstrapClass.FORM_CONTROL,
+        BootstrapClass.FORM_RANGE,
         component.getCustomClass());
 
     renderFocus(clientId, component.isFocus(), component.isError(), facesContext, writer);
