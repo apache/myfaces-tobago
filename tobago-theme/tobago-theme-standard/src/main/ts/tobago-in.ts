@@ -50,6 +50,7 @@ class RegExpTest {
   private readonly element: HTMLInputElement;
   private readonly regexp: RegExp;
 
+  // todo: use "custom-elements" instead of this init listener
   static init(element: HTMLElement): void {
     for (const input of RegExpTest.selfOrElementsByClassName(element, "tobago-in")) { // todo only for data-regexp
       new RegExpTest(input as HTMLInputElement);
@@ -63,6 +64,9 @@ class RegExpTest {
    */
   static selfOrElementsByClassName(element: HTMLElement, className: string): Array<HTMLElement> {
     const result: Array<HTMLElement> = new Array<HTMLElement>();
+    if (!element) {
+      element = document.documentElement;
+    }
     if (element.classList.contains(className)) {
       result.push(element);
     }

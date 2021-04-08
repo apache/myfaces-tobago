@@ -26,6 +26,9 @@ export class DomUtils {
   // todo: may return NodeListOf<HTMLElementTagNameMap[K]> or something like that.
   static selfOrQuerySelectorAll(element: HTMLElement, selectors: string): Array<HTMLElement> {
     const result: Array<HTMLElement> = new Array<HTMLElement>();
+    if (!element) {
+      element = document.documentElement;
+    }
     if (element.matches(selectors)) {
       result.push(element);
     }

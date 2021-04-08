@@ -162,10 +162,14 @@ export class Page extends HTMLElement {
       console.debug("[tobago-jsf] Found reload-JSON in response!");
       ReloadManager.instance.schedule(id, JSON.parse(result[1]).reload.frequency);
     } else {
+      let rootNode = this.getRootNode() as ShadowRoot | Document;
+      // XXX in case of "this" is tobago-page (e.g. ajax exception handling) rootNode is not set correctly???
+      if (! rootNode.getElementById) {
+        rootNode = document;
+      }
       console.info("[tobago-jsf] Update after jsf.ajax success: %s", id);
       if (JsfParameter.isJsfId(id)) {
         console.debug("[tobago-jsf] updating #%s", id);
-        const rootNode = this.getRootNode() as ShadowRoot | Document;
         const element = rootNode.getElementById(id);
         if (element) {
           Listener.executeAfterUpdate(element);
@@ -175,7 +179,6 @@ export class Page extends HTMLElement {
       } else if (JsfParameter.isJsfBody(id)) {
         console.debug("[tobago-jsf] updating body");
         // there should be only one element with this tag name
-        const rootNode = this.getRootNode() as ShadowRoot | Document;
         Listener.executeAfterUpdate(rootNode.querySelector("tobago-page") as HTMLElement);
       }
     }
