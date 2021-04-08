@@ -19,21 +19,21 @@
 
 package org.apache.myfaces.tobago.context;
 
+import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.faces.context.ExceptionHandler;
 import javax.faces.context.ExceptionHandlerFactory;
+import javax.faces.context.FacesContext;
 
 /**
- * To enable the TobagoExceptionHandler insert this class in the faces-config.xml like:
- * <pre>
- *   &lt;factory&gt;
- *     &lt;exception-handler-factory&gt;
- *       org.apache.myfaces.tobago.example.demo.TobagoExceptionHandlerFactory
- *     &lt;/exception-handler-factory&gt;
- *   &lt;/factory&gt;
- * </pre>
- *
+ * The TobagoExceptionHandler is activated by default via the basic faces-config.xml of tobago-core.
+ * To disable, set the enableTobagoExceptionHandler to false in the tobago-config.xml of the application.
  */
 public class TobagoExceptionHandlerFactory extends ExceptionHandlerFactory {
+
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoExceptionHandlerFactory.class);
 
   public TobagoExceptionHandlerFactory(final ExceptionHandlerFactory parent) {
     super(parent);
@@ -41,6 +41,11 @@ public class TobagoExceptionHandlerFactory extends ExceptionHandlerFactory {
 
   @Override
   public ExceptionHandler getExceptionHandler() {
-    return new TobagoExceptionHandler(getWrapped().getExceptionHandler());
+    LOG.error("xxxxxxxxx enableTobagoExceptionHandler={}", TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isEnableTobagoExceptionHandler());
+    if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isEnableTobagoExceptionHandler()) {
+      return new TobagoExceptionHandler(getWrapped().getExceptionHandler());
+    } else {
+      return getWrapped().getExceptionHandler();
+    }
   }
 }

@@ -105,6 +105,10 @@ public class TobagoConfigMerger {
         tobagoConfig.setDecodeLineFeed(fragment.getDecodeLineFeed());
       }
 
+      if (fragment.getEnableTobagoExceptionHandler() != null) {
+        tobagoConfig.setEnableTobagoExceptionHandler(fragment.getEnableTobagoExceptionHandler());
+      }
+
       // theme definition
       for (final ThemeImpl theme : fragment.getThemeDefinitions()) {
         tobagoConfig.addAvailableTheme(theme);

@@ -48,6 +48,7 @@ public class TobagoConfigFragment {
   private Boolean decodeLineFeed;
   private Properties sanitizerProperties;
   private Map<String, String> mimeTypes;
+  private Boolean enableTobagoExceptionHandler;
 
   public TobagoConfigFragment() {
     before = new ArrayList<>();
@@ -191,6 +192,14 @@ public class TobagoConfigFragment {
 
   public Map<String, String> getMimeTypes() {
     return mimeTypes;
+  }
+
+  public Boolean getEnableTobagoExceptionHandler() {
+    return enableTobagoExceptionHandler;
+  }
+
+  public void setEnableTobagoExceptionHandler(Boolean enableTobagoExceptionHandler) {
+    this.enableTobagoExceptionHandler = enableTobagoExceptionHandler;
   }
 
   @Override

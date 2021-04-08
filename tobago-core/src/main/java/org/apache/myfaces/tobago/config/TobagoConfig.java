@@ -65,6 +65,7 @@ public class TobagoConfig {
   private Sanitizer sanitizer;
   private boolean decodeLineFeed;
   private Map<String, String> mimeTypes;
+  private boolean enableTobagoExceptionHandler;
 
   private boolean locked = false;
 
@@ -111,6 +112,7 @@ public class TobagoConfig {
     decodeLineFeed = true;
     contentSecurityPolicy = new ContentSecurityPolicy(ContentSecurityPolicy.Mode.OFF.getValue());
     mimeTypes = new HashMap<>();
+    enableTobagoExceptionHandler = true;
 
     // internal
     final List<TobagoConfigFragment> fragments = new ArrayList<>();
@@ -290,6 +292,15 @@ public class TobagoConfig {
     this.decodeLineFeed = decodeLineFeed;
   }
 
+  public boolean isEnableTobagoExceptionHandler() {
+    return enableTobagoExceptionHandler;
+  }
+
+  public void setEnableTobagoExceptionHandler(boolean enableTobagoExceptionHandler) {
+    checkUnlocked();
+    this.enableTobagoExceptionHandler = enableTobagoExceptionHandler;
+  }
+
   public Map<String, String> getMimeTypes() {
     return mimeTypes;
   }
@@ -352,6 +363,8 @@ public class TobagoConfig {
     builder.append(all);
     builder.append(", \nmimeTypes=");
     builder.append(mimeTypes);
+    builder.append(", \nenableTobagoExceptionHandler=");
+    builder.append(enableTobagoExceptionHandler);
     builder.append('}');
     return builder.toString();
   }

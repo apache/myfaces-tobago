@@ -135,6 +135,14 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
+      <xs:element name="enable-tobago-exception-handler" type="xs:boolean" minOccurs="0" default="true">
+        <xs:annotation>
+          <xs:documentation>
+            Use an instance of org.apache.myfaces.tobago.context.TobagoExceptionHandler as
+            exception handler. Set to false to deactivate.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="decode-line-feed" type="xs:boolean" minOccurs="0" default="true">
         <xs:annotation>
           <xs:documentation>
