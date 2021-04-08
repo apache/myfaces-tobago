@@ -101,6 +101,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int SANITIZER = 1807639849;
   private static final int SANITIZER_CLASS = -974266412;
   private static final int DECODE_LINE_FEED = -1764519240;
+  private static final int ENABLE_TOBAGO_EXCEPTION_HANDLER = 1967055403;
   private static final int SCRIPT = -907685685;
   private static final int STYLE = 109780401;
   private static final int PROPERTIES = -926053069;
@@ -423,6 +424,10 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
 
       case DECODE_LINE_FEED:
         tobagoConfig.setDecodeLineFeed(Boolean.parseBoolean(text));
+        break;
+
+      case ENABLE_TOBAGO_EXCEPTION_HANDLER:
+        tobagoConfig.setEnableTobagoExceptionHandler(Boolean.parseBoolean(text));
         break;
 
       case ENTRY:

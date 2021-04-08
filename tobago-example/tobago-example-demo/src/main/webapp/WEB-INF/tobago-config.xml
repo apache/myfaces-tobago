@@ -86,6 +86,9 @@
   </sanitizer>
 -->
 
+  <!-- "false" disables the TobagoExceptionHandler -->
+  <!--<enable-tobago-exception-handler>false</enable-tobago-exception-handler>-->
+
   <!-- true is the default -->
   <!--<decode-line-feed>false</decode-line-feed>-->
 
