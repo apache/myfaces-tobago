@@ -23,12 +23,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.SessionScoped;
-//import javax.faces.push.Push;
-//import javax.faces.push.PushContext;
+import javax.faces.push.Push;
+import javax.faces.push.PushContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
+import java.time.LocalTime;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -42,8 +43,8 @@ public class WebSocketController implements Serializable {
   private ScheduledExecutorService scheduledExecutorService;
 
   @Inject
-//  @Push(channel = "clock")
-//  private PushContext push;
+  @Push(channel = "clock")
+  private PushContext push;
 
   public String startClock() {
     if (scheduledExecutorService == null || scheduledExecutorService.isShutdown()) {
@@ -53,7 +54,7 @@ public class WebSocketController implements Serializable {
     scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
       @Override
       public void run() {
-//        push.send(LocalTime.now().toString());
+        push.send(LocalTime.now().toString());
       }
     }, 0, 17, TimeUnit.MILLISECONDS);
     return null;
