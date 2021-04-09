@@ -49,7 +49,7 @@
 
   <content-security-policy mode="on">
     <!-- script-src: 'unsafe-inline' is required for WebSockets -->
-<!--    <directive name="script-src">'unsafe-inline'</directive>-->
+    <directive name="script-src">'unsafe-inline'</directive>
 
     <!-- needed for <tc:object> demo -->
     <directive name="child-src">https://www.openstreetmap.org</directive>

@@ -16,5 +16,5 @@
  */
 
 function websocketListener(message, channel, event) {
-  document.getElementById("clockId").innerHTML = message + "<br/>";
+  document.getElementById("clockId").innerHTML = message;
 }
