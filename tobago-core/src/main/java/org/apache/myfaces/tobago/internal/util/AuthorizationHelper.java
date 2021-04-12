@@ -28,6 +28,8 @@ import javax.annotation.security.RolesAllowed;
 import javax.el.ELContext;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.lang.annotation.Annotation;
@@ -52,6 +54,8 @@ public class AuthorizationHelper {
 
   private static final Pattern PATTERN = Pattern.compile("#\\{(\\w+(?:\\.\\w+)*)\\.(\\w+)(?:\\(.*\\))?}");
 
+  private static final String CC_ATTRS = "cc.attrs.";
+
   private static final Annotation NULL_VALUE = new Annotation() {
     @Override
     public Class<? extends Annotation> annotationType() {
@@ -72,9 +76,9 @@ public class AuthorizationHelper {
         elContext.getELResolver().getValue(elContext, null, AUTHORIZATION_HELPER);
   }
 
-  public boolean isAuthorized(final FacesContext facesContext, final String expression) {
+  public boolean isAuthorized(final FacesContext facesContext, final UIComponent component, final String expression) {
 
-    final Annotation securityAnnotation = getSecurityAnnotation(facesContext, expression);
+    final Annotation securityAnnotation = getSecurityAnnotation(facesContext, component, expression);
     if (securityAnnotation == null) {
       return true;
     }
@@ -107,23 +111,22 @@ public class AuthorizationHelper {
     return true;
   }
 
-  private Annotation getSecurityAnnotation(final FacesContext facesContext, final String expression) {
+  private Annotation getSecurityAnnotation(final FacesContext facesContext, final UIComponent component,
+      final String expression) {
+    Annotation securityAnnotation = null;
+
     if (cache.containsKey(expression)) {
       final Object obj = cache.get(expression);
       if (obj instanceof Annotation) {
-        return (Annotation) obj;
+        securityAnnotation = (Annotation) obj;
       }
-      return null;
     } else {
-      Annotation securityAnnotation = null;
       final Matcher matcher = PATTERN.matcher(expression);
       if (matcher.matches()) {
         final String beanString = matcher.group(1);
         final String methodString = matcher.group(2);
 
-        final ELContext elContext = facesContext.getELContext();
-        final Object bean = elContext
-            .getELResolver().getValue(elContext, null, beanString);
+        final Object bean = getBean(facesContext, beanString);
         if (bean != null) {
           // try first from method
           final List<Method> methods = findMethods(bean, methodString);
@@ -152,8 +155,59 @@ public class AuthorizationHelper {
       if (LOG.isInfoEnabled()) {
         LOG.info("Security annotation '{}' saved for expression '{}'", securityAnnotation, expression);
       }
+    }
 
+    if (securityAnnotation == NULL_VALUE && expression.contains(CC_ATTRS)) {
+
+      UIComponent compositeComponent = getParentCompositeComponent(component);
+      if (compositeComponent != null) {
+        final int attrNameStart = expression.indexOf(CC_ATTRS) + CC_ATTRS.length();
+        final int attrNameEnd = attrNameStart + expression.substring(attrNameStart).indexOf(".");
+        final String attrName = expression.substring(attrNameStart, attrNameEnd);
+
+        final String ccExpression = compositeComponent.getValueExpression(attrName).getExpressionString();
+        final int bracketStart = ccExpression.indexOf('{');
+        final int bracketEnd = ccExpression.indexOf("}");
+        final String trimmedCcExpression = ccExpression.substring(bracketStart + 1, bracketEnd).trim();
+
+        return getSecurityAnnotation(facesContext, component,
+            expression.replace(CC_ATTRS + attrName, trimmedCcExpression));
+      } else {
+        return securityAnnotation;
+      }
+    } else {
       return securityAnnotation;
+    }
+  }
+
+  private Object getBean(final FacesContext facesContext, final String beanName) {
+    BeanManager beanManager = (BeanManager) FacesContext.getCurrentInstance().getExternalContext().getApplicationMap()
+        .get(BeanManager.class.getName());
+
+    Object bean = null;
+    for (final Bean<?> entry : beanManager.getBeans(beanName)) {
+      if (bean == null) {
+        bean = entry;
+      } else {
+        LOG.warn("Bean name ambiguous: '{}'", beanName);
+      }
+    }
+
+    if (bean == null) {
+      final ELContext elContext = facesContext.getELContext();
+      bean = elContext.getELResolver().getValue(elContext, null, beanName);
+    }
+
+    return bean;
+  }
+
+  private UIComponent getParentCompositeComponent(final UIComponent component) {
+    if (component == null) {
+      return null;
+    } else if (UIComponent.isCompositeComponent(component)) {
+      return component;
+    } else {
+      return getParentCompositeComponent(component.getParent());
     }
   }
 

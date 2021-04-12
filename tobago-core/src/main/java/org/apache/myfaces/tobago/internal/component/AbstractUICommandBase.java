@@ -125,11 +125,7 @@ public abstract class AbstractUICommandBase extends UICommand
     final AuthorizationHelper authorizationHelper = AuthorizationHelper.getInstance(facesContext);
     final MethodExpression actionExpression = getActionExpression();
     if (actionExpression != null) {
-      final boolean authorized =
-          authorizationHelper.isAuthorized(facesContext, actionExpression.getExpressionString());
-      if (!authorized) {
-        return false;
-      }
+      return authorizationHelper.isAuthorized(facesContext, this, actionExpression.getExpressionString());
     }
     return true;
   }
