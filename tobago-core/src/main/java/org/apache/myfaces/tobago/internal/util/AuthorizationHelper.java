@@ -26,6 +26,7 @@ import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.faces.bean.ManagedBean;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
@@ -48,6 +49,8 @@ public class AuthorizationHelper {
   public static final String AUTHORIZATION_HELPER = "authorizationHelper";
 
   private static final Pattern PATTERN = Pattern.compile("#\\{(\\w+(?:\\.\\w+)*)\\.(\\w+)(?:\\(.*\\))?}");
+
+  private static final String CC_ATTRS = "cc.attrs.";
 
   private static final Annotation NULL_VALUE = new Annotation() {
     @Override
@@ -83,9 +86,9 @@ public class AuthorizationHelper {
         facesContext.getELContext().getELResolver().getValue(facesContext.getELContext(), null, AUTHORIZATION_HELPER);
   }
 
-  public boolean isAuthorized(final FacesContext facesContext, final String expression) {
+  public boolean isAuthorized(final FacesContext facesContext, final UIComponent component, final String expression) {
 
-    final Annotation securityAnnotation = getSecurityAnnotation(facesContext, expression);
+    final Annotation securityAnnotation = getSecurityAnnotation(facesContext, component, expression);
     if (securityAnnotation == null) {
       return true;
     }
@@ -118,15 +121,16 @@ public class AuthorizationHelper {
     return true;
   }
 
-  private Annotation getSecurityAnnotation(final FacesContext facesContext, final String expression) {
+  private Annotation getSecurityAnnotation(final FacesContext facesContext, final UIComponent component,
+      final String expression) {
+    Annotation securityAnnotation = null;
+
     if (cache.containsKey(expression)) {
       final Object obj = cache.get(expression);
       if (obj instanceof Annotation) {
-        return (Annotation) obj;
+        securityAnnotation = (Annotation) obj;
       }
-      return null;
     } else {
-      Annotation securityAnnotation = null;
       final Matcher matcher = PATTERN.matcher(expression);
       if (matcher.matches()) {
         final String beanString = matcher.group(1);
@@ -167,8 +171,38 @@ public class AuthorizationHelper {
       if (LOG.isInfoEnabled()) {
         LOG.info("Security annotation '{}' saved for expression '{}'", securityAnnotation, expression);
       }
+    }
 
+    if (securityAnnotation == NULL_VALUE && expression.contains(CC_ATTRS)) {
+
+      UIComponent compositeComponent = getParentCompositeComponent(component);
+      if (compositeComponent != null) {
+        final int attrNameStart = expression.indexOf(CC_ATTRS) + CC_ATTRS.length();
+        final int attrNameEnd = attrNameStart + expression.substring(attrNameStart).indexOf(".");
+        final String attrName = expression.substring(attrNameStart, attrNameEnd);
+
+        final String ccExpression = compositeComponent.getValueExpression(attrName).getExpressionString();
+        final int bracketStart = ccExpression.indexOf('{');
+        final int bracketEnd = ccExpression.indexOf("}");
+        final String trimmedCcExpression = ccExpression.substring(bracketStart + 1, bracketEnd).trim();
+
+        return getSecurityAnnotation(facesContext, component,
+            expression.replace(CC_ATTRS + attrName, trimmedCcExpression));
+      } else {
+        return securityAnnotation;
+      }
+    } else {
       return securityAnnotation;
+    }
+  }
+
+  private UIComponent getParentCompositeComponent(final UIComponent component) {
+    if (component == null) {
+      return null;
+    } else if (UIComponent.isCompositeComponent(component)) {
+      return component;
+    } else {
+      return getParentCompositeComponent(component.getParent());
     }
   }
 
