@@ -157,8 +157,8 @@ public class TreeSelectRenderer<T extends AbstractUITreeSelect> extends Renderer
         Map<ClientBehaviors, Command> other = behaviorCommands.getOther();
         if (other != null) {
           Command change = other.get(ClientBehaviors.change);
-          change.setExecute(change.getExecute() + " " + tree.getClientId(facesContext));
-          change.setRender(change.getRender() + " " + tree.getClientId(facesContext));
+          change.setExecute(change.getExecute() + " " + tree.getBaseClientId(facesContext));
+          change.setRender(change.getRender() + " " + tree.getBaseClientId(facesContext));
         }
       }
       encodeBehavior(writer, behaviorCommands);

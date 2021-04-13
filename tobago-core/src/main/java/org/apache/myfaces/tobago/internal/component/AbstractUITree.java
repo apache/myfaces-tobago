@@ -30,6 +30,7 @@ import javax.el.ELContext;
 import javax.el.ValueExpression;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 
 /**
@@ -40,6 +41,25 @@ public abstract class AbstractUITree extends AbstractUIData implements NamingCon
   public static final String SUFFIX_PARENT = "parent";
 
   private TreeState state;
+  private String baseClientId;
+
+  /**
+   * Workaround for mojarra: UIData.getClientId() returns the clientId + row index if an index is set.
+   * @return clientId without row index
+   */
+  public String getBaseClientId(final FacesContext facesContext) {
+    if (baseClientId == null) {
+      final String clientId = super.getClientId(facesContext);
+      final char separatorChar = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
+      final String separatorRowIndex = separatorChar + String.valueOf(getRowIndex());
+      if (clientId.endsWith(separatorRowIndex)) {
+        baseClientId = clientId.substring(0, clientId.indexOf(separatorRowIndex));
+      } else {
+        baseClientId = clientId;
+      }
+    }
+    return baseClientId;
+  }
 
   @Override
   public void processValidators(final FacesContext facesContext) {
