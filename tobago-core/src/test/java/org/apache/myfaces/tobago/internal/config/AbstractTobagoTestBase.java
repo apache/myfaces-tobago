@@ -51,6 +51,10 @@ import org.apache.myfaces.tobago.component.UISelectOneRadio;
 import org.apache.myfaces.tobago.component.UISeparator;
 import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.component.UITextarea;
+import org.apache.myfaces.tobago.component.UITree;
+import org.apache.myfaces.tobago.component.UITreeIndent;
+import org.apache.myfaces.tobago.component.UITreeNode;
+import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
@@ -80,6 +84,10 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.SeparatorRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.StyleRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TextareaRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.TreeIndentRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.TreeNodeRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.TreeRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.TreeSelectRenderer;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -160,6 +168,10 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.separator.componentType(), UISeparator.class.getName());
     application.addComponent(Tags.style.componentType(), UIStyle.class.getName());
     application.addComponent(Tags.textarea.componentType(), UITextarea.class.getName());
+    application.addComponent(Tags.tree.componentType(), UITree.class.getName());
+    application.addComponent(Tags.treeNode.componentType(), UITreeNode.class.getName());
+    application.addComponent(Tags.treeIndent.componentType(), UITreeIndent.class.getName());
+    application.addComponent(Tags.treeSelect.componentType(), UITreeSelect.class.getName());
 
     application.addBehavior(AjaxBehavior.BEHAVIOR_ID, AjaxBehavior.class.getName());
     application.addBehavior(EventBehavior.BEHAVIOR_ID, EventBehavior.class.getName());
@@ -198,6 +210,10 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     renderKit.addRenderer(UISeparator.COMPONENT_FAMILY, RendererTypes.SEPARATOR, new SeparatorRenderer());
     renderKit.addRenderer(UIStyle.COMPONENT_FAMILY, RendererTypes.STYLE, new StyleRenderer());
     renderKit.addRenderer(UITextarea.COMPONENT_FAMILY, RendererTypes.TEXTAREA, new TextareaRenderer());
+    renderKit.addRenderer(UITree.COMPONENT_FAMILY, RendererTypes.TREE, new TreeRenderer());
+    renderKit.addRenderer(UITreeNode.COMPONENT_FAMILY, RendererTypes.TREE_NODE, new TreeNodeRenderer());
+    renderKit.addRenderer(UITreeIndent.COMPONENT_FAMILY, RendererTypes.TREE_INDENT, new TreeIndentRenderer());
+    renderKit.addRenderer(UITreeSelect.COMPONENT_FAMILY, RendererTypes.TREE_SELECT, new TreeSelectRenderer());
 
     renderKit.addClientBehaviorRenderer("org.apache.myfaces.tobago.behavior.Event", new TobagoClientBehaviorRenderer());
     renderKit.addClientBehaviorRenderer("org.apache.myfaces.tobago.behavior.Ajax", new TobagoClientBehaviorRenderer());
