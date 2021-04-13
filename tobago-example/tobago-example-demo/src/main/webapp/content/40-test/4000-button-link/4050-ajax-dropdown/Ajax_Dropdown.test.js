@@ -23,7 +23,7 @@ it("Execute 'AJAX' entry in dropdown menu", function (done) {
   let dropdownMenuFn = querySelectorFn(".dropdown-menu[name=page\\:mainForm\\:dropdownButton]");
   let dropdownAjaxEntryFn = elementByIdFn("page:mainForm:ajaxEntry");
   let inputFn = elementByIdFn("page:mainForm:inputAjax::field");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:outputAjax tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:outputAjax .form-control-plaintext");
 
   const test = new JasmineTestTool(done);
   // no test.setup() because controller is @RequestScoped

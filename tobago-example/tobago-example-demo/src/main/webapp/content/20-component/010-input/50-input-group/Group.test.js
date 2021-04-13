@@ -74,7 +74,7 @@ it("ajax: currency change event", function (done) {
   let inputFn = querySelectorFn("#page\\:mainForm\\:value\\:\\:field");
   let selectFn = querySelectorFn("#page\\:mainForm\\:currency\\:\\:field");
   let optionsFn = querySelectorAllFn("#page\\:mainForm\\:currency option");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:valueInEuro tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:valueInEuro .form-control-plaintext");
 
   const test = new JasmineTestTool(done);
   test.setup(() => convertInt(outputFn().textContent) === 100000,

@@ -22,7 +22,7 @@ it("submit: Alice", function (done) {
   let aliceFn = querySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Alice']");
   let bobFn = querySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Bob']");
   let submitFn = querySelectorFn("#page\\:mainForm\\:submit");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:outputPerson tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:outputPerson .form-control-plaintext");
 
   const test = new JasmineTestTool(done);
   test.setup(() => () => outputFn().textContent !== "Alice Anderson",
@@ -42,7 +42,7 @@ it("submit: Bob", function (done) {
   let aliceFn = querySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Alice']");
   let bobFn = querySelectorFn("#page\\:mainForm\\:selectPerson\\:\\:field option[value^='Bob']");
   let submitFn = querySelectorFn("#page\\:mainForm\\:submit");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:outputPerson tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:outputPerson .form-control-plaintext");
 
   const test = new JasmineTestTool(done);
   test.setup(() => () => outputFn().textContent !== "Bob Brunch",

@@ -26,7 +26,7 @@ it("submit: addAll, removeAll, addItem0to4, removeItem2to3", function (done) {
   let removeButton = querySelectorFn("#page\\:mainForm\\:submitExample\\:\\:remove");
   let removeAllButton = querySelectorFn("#page\\:mainForm\\:submitExample\\:\\:removeAll");
   let submitButton = querySelectorFn("#page\\:mainForm\\:submitButton");
-  let output = querySelectorFn("#page\\:mainForm\\:submitExampleOutput tobago-out");
+  let output = querySelectorFn("#page\\:mainForm\\:submitExampleOutput .form-control-plaintext");
 
   const test = new JasmineTestTool(done);
   test.setup(() => selectedOptions().length === 0, null, "click", removeAllButton);
@@ -78,7 +78,7 @@ it("ajax: addAll, removeAll, addItem1to2, removeItem0", function (done) {
   let addButton = querySelectorFn("#page\\:mainForm\\:ajaxExample\\:\\:add");
   let removeButton = querySelectorFn("#page\\:mainForm\\:ajaxExample\\:\\:remove");
   let removeAllButton = querySelectorFn("#page\\:mainForm\\:ajaxExample\\:\\:removeAll");
-  let output = querySelectorFn("#page\\:mainForm\\:outputStars tobago-out");
+  let output = querySelectorFn("#page\\:mainForm\\:outputStars .form-control-plaintext");
   let submitButton = querySelectorFn("#page\\:mainForm\\:submitButton");
 
   const test = new JasmineTestTool(done);

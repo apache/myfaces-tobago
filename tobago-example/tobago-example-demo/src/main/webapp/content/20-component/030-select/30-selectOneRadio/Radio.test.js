@@ -22,7 +22,7 @@ it("submit: Addition (2 + 4)", function (done) {
   let number1Fn = querySelectorAllFn("#page\\:mainForm\\:selectNum1 input");
   let number2Fn = querySelectorAllFn("#page\\:mainForm\\:selectNum2 input");
   let submitAddFn = querySelectorFn("#page\\:mainForm\\:submitAdd");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:resultOutput tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:resultOutput .form-control-plaintext");
 
   const test = new JasmineTestTool(done);
   test.do(() => number1Fn().item(0).checked = false);
@@ -40,7 +40,7 @@ it("submit: Subtraction (4 - 1)", function (done) {
   let number1Fn = querySelectorAllFn("#page\\:mainForm\\:selectNum1 input");
   let number2Fn = querySelectorAllFn("#page\\:mainForm\\:selectNum2 input");
   let submitSubFn = querySelectorFn("#page\\:mainForm\\:submitSub");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:resultOutput tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:resultOutput .form-control-plaintext");
 
   const test = new JasmineTestTool(done);
   test.do(() => number1Fn().item(0).checked = false);

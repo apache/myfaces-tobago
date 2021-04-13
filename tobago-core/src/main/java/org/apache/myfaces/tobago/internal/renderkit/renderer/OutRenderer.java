@@ -77,7 +77,7 @@ public class OutRenderer<T extends AbstractUIOut> extends MessageLayoutRendererB
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final Markup markup = component.getMarkup();
 
-    writer.startElement(isInside(facesContext, HtmlElements.TOBAGO_IN) ? HtmlElements.TOBAGO_OUT : HtmlElements.DIV);
+    writer.startElement(isInside(facesContext, HtmlElements.TOBAGO_IN) ? HtmlElements.TOBAGO_OUT : HtmlElements.SPAN);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
     writer.writeClassAttribute(
@@ -131,7 +131,7 @@ public class OutRenderer<T extends AbstractUIOut> extends MessageLayoutRendererB
   @Override
   public void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.endElement(isInside(facesContext, HtmlElements.TOBAGO_IN) ? HtmlElements.TOBAGO_OUT : HtmlElements.DIV);
+    writer.endElement(isInside(facesContext, HtmlElements.TOBAGO_IN) ? HtmlElements.TOBAGO_OUT : HtmlElements.SPAN);
   }
 
   @Override

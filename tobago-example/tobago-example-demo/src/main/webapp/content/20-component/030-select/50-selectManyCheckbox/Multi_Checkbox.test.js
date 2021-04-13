@@ -21,7 +21,7 @@ import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 it("submit: select cat", function (done) {
   let animalsFn = querySelectorAllFn("#page\\:mainForm\\:animals input");
   let submitFn = querySelectorFn("#page\\:mainForm\\:submit");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:animalsOutput tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:animalsOutput .form-control-plaintext");
 
   const test = new JasmineTestTool(done);
   test.setup(() => outputFn().textContent.trim() !== "Cat",
@@ -44,7 +44,7 @@ it("submit: select cat", function (done) {
 it("submit: select fox and rabbit", function (done) {
   let animalsFn = querySelectorAllFn("#page\\:mainForm\\:animals input");
   let submitFn = querySelectorFn("#page\\:mainForm\\:submit");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:animalsOutput tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:animalsOutput .form-control-plaintext");
 
   const test = new JasmineTestTool(done);
   test.setup(() => outputFn().textContent.trim() !== "Fox Rabbit",
@@ -105,7 +105,7 @@ it("ajax: deselect 'Four'", function (done) {
 });
 
 function ajaxSelect(done, numberFn, number) {
-  let outputFn = querySelectorFn("#page\\:mainForm\\:resultOutput tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:resultOutput .form-control-plaintext");
   let newOutputValue = parseInt(outputFn().textContent);
   if (!numberFn().checked) {
     newOutputValue = parseInt(outputFn().textContent) + number;
@@ -122,7 +122,7 @@ function ajaxSelect(done, numberFn, number) {
 }
 
 function ajaxDeselect(done, numberFn, number) {
-  let outputFn = querySelectorFn("#page\\:mainForm\\:resultOutput tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:resultOutput .form-control-plaintext");
   let newOutputValue = parseInt(outputFn().textContent);
   if (numberFn().checked) {
     newOutputValue = parseInt(outputFn().textContent) - number;

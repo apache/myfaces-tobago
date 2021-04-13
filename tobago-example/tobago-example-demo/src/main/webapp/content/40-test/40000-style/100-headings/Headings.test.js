@@ -75,7 +75,7 @@ function testFont(done, alinkFn, buttonlinkFn) {
 it("Ajax reload for section 2", function (done) {
   let reloadButtonFn = querySelectorFn("#page\\:mainForm\\:reloadSection2");
   let section2HeaderFn = querySelectorFn("#page\\:mainForm\\:levelTwoSection h3");
-  let timestampFn = querySelectorFn("#page\\:mainForm\\:timestamp tobago-out");
+  let timestampFn = querySelectorFn("#page\\:mainForm\\:timestamp .form-control-plaintext");
   let firstTimestamp = timestampFn().textContent;
 
   let test = new JasmineTestTool(done);

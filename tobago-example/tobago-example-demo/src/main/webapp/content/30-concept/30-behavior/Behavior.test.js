@@ -25,7 +25,7 @@ it("must be fixed first", function (done) {
 
 /*it("Ajax Input", function (done) {
   let ajaxInputFn = querySelectorFn("#page\\:mainForm\\:j_id_2g\\:\\:field");
-  let ajaxOutputFn = querySelectorFn("#page\\:mainForm\\:outAjax tobago-out");
+  let ajaxOutputFn = querySelectorFn("#page\\:mainForm\\:outAjax .form-control-plaintext");
 
   let test = new JasmineTestTool(done);
   test.do(() => ajaxInputFn().value = "Alice");
@@ -36,7 +36,7 @@ it("must be fixed first", function (done) {
 
 it("Event Input", function (done) {
   let eventInputFn = querySelectorFn("#page\\:mainForm\\:j_id_2k\\:\\:field");
-  let eventOutputFn = querySelectorFn("#page\\:mainForm\\:j_id_2m tobago-out");
+  let eventOutputFn = querySelectorFn("#page\\:mainForm\\:j_id_2m .form-control-plaintext");
 
   let test = new JasmineTestTool(done);
   test.do(() => eventInputFn().value = "Alice");
@@ -48,7 +48,7 @@ it("Event Input", function (done) {
 it("change the event name", function (done) {
   let ajaxFn = querySelectorFn("#page\\:mainForm\\:j_id_2p");
   let eventFn = querySelectorFn("#page\\:mainForm\\:j_id_2q");
-  let outCounterFn = querySelectorFn("#page\\:mainForm\\:outCounter tobago-out");
+  let outCounterFn = querySelectorFn("#page\\:mainForm\\:outCounter .form-control-plaintext");
   let counter = Number(outCounterFn().textContent);
 
   let test = new JasmineTestTool(done);
@@ -69,7 +69,7 @@ it("change the event name", function (done) {
 
 it("f:ajax and tc:event", function (done) {
   let submitFn = querySelectorFn("#page\\:mainForm\\:btnAjaxEvent");
-  let outFn = querySelectorFn("#page\\:mainForm\\:out tobago-out");
+  let outFn = querySelectorFn("#page\\:mainForm\\:out .form-control-plaintext");
 
   let test = new JasmineTestTool(done);
   test.setup(() => outFn().textContent === "Ajax",
