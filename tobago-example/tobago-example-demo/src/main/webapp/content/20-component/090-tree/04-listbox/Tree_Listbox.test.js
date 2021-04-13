@@ -21,7 +21,7 @@ import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 it("Select 2,2,0 and submit", function (done) {
   const hiddenInput = elementByIdFn("page:mainForm:listbox::selected");
   const submit = elementByIdFn("page:mainForm:submit");
-  const output = querySelectorFn("#page\\:mainForm\\:output tobago-out");
+  const output = querySelectorFn("#page\\:mainForm\\:output .form-control-plaintext");
   const node1 = elementByIdFn("page:mainForm:listbox:1:node");
   const node3 = elementByIdFn("page:mainForm:listbox:3:node"); // 2
   const node6 = elementByIdFn("page:mainForm:listbox:6:node"); // 2,2
@@ -88,7 +88,7 @@ it("Select 2,2,0 and submit", function (done) {
 it("Select 3 and submit", function (done) {
   const hiddenInput = elementByIdFn("page:mainForm:listbox::selected");
   const submit = elementByIdFn("page:mainForm:submit");
-  const output = querySelectorFn("#page\\:mainForm\\:output tobago-out");
+  const output = querySelectorFn("#page\\:mainForm\\:output .form-control-plaintext");
   const node1 = elementByIdFn("page:mainForm:listbox:1:node");
   const node9 = elementByIdFn("page:mainForm:listbox:9:node"); // 3
 
@@ -123,7 +123,7 @@ it("Select 3 and submit", function (done) {
 it("Select 4,2,1,1 and submit", function (done) {
   const hiddenInput = elementByIdFn("page:mainForm:listbox::selected");
   const submit = elementByIdFn("page:mainForm:submit");
-  const output = querySelectorFn("#page\\:mainForm\\:output tobago-out");
+  const output = querySelectorFn("#page\\:mainForm\\:output .form-control-plaintext");
   const node1 = elementByIdFn("page:mainForm:listbox:1:node");
   const node10 = elementByIdFn("page:mainForm:listbox:10:node"); // 4
   const node15 = elementByIdFn("page:mainForm:listbox:15:node"); // 4,2

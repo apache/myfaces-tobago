@@ -20,7 +20,7 @@ import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("submit inner form 1 without violations", function (done) {
   let form1InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 tobago-out");
+  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 .form-control-plaintext");
   let form1SubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:submit1");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");
 
@@ -39,7 +39,7 @@ it("submit inner form 1 without violations", function (done) {
 it("submit inner form 2, violate required field", function (done) {
   let form2InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
   let form2AlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2 .tobago-messages-container");
-  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 tobago-out");
+  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 .form-control-plaintext");
   let form2SubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:submit2");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");
   let form2OutputValue = form2OutputFn().textContent;
@@ -63,7 +63,7 @@ it("submit inner form 2, violate required field", function (done) {
 it("submit inner form 2 without violations", function (done) {
   let form2InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
   let form2AlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2 .tobago-messages-container");
-  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 tobago-out");
+  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 .form-control-plaintext");
   let form2SubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:submit2");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");
 
@@ -82,13 +82,13 @@ it("submit inner form 2 without violations", function (done) {
 
 it("submit outer form, violate both required fields", function (done) {
   let form1InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 tobago-out");
+  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 .form-control-plaintext");
   let form2InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
   let form2AlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2 .tobago-messages-container");
-  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 tobago-out");
+  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 .form-control-plaintext");
   let outerFormInputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
   let outerFormAlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in .tobago-messages-container");
-  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out tobago-out");
+  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out .form-control-plaintext");
   let outerFormSubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submit");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");
   let form1OutputValue = form1OutputFn().textContent;
@@ -125,13 +125,13 @@ it("submit outer form, violate both required fields", function (done) {
 
 it("submit outer form, violate required field in form 2", function (done) {
   let form1InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 tobago-out");
+  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 .form-control-plaintext");
   let form2InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
   let form2AlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2 .tobago-messages-container");
-  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 tobago-out");
+  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 .form-control-plaintext");
   let outerFormInputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
   let outerFormAlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in .tobago-messages-container");
-  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out tobago-out");
+  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out .form-control-plaintext");
   let outerFormSubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submit");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");
   let form1OutputValue = form1OutputFn().textContent;
@@ -167,13 +167,13 @@ it("submit outer form, violate required field in form 2", function (done) {
 
 it("submit outer form, violate required field in outer form", function (done) {
   let form1InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 tobago-out");
+  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 .form-control-plaintext");
   let form2InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
   let form2AlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2 .tobago-messages-container");
-  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 tobago-out");
+  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 .form-control-plaintext");
   let outerFormInputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
   let outerFormAlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in .tobago-messages-container");
-  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out tobago-out");
+  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out .form-control-plaintext");
   let outerFormSubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submit");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");
   let form1OutputValue = form1OutputFn().textContent;
@@ -209,13 +209,13 @@ it("submit outer form, violate required field in outer form", function (done) {
 
 it("submit outer form without violations", function (done) {
   let form1InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 tobago-out");
+  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 .form-control-plaintext");
   let form2InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
   let form2AlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2 .tobago-messages-container");
-  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 tobago-out");
+  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 .form-control-plaintext");
   let outerFormInputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
   let outerFormAlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in .tobago-messages-container");
-  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out tobago-out");
+  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out .form-control-plaintext");
   let outerFormSubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submit");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");
 
@@ -248,12 +248,12 @@ it("submit outer form without violations", function (done) {
 
 it("submit inner forms, violate required field in form 2", function (done) {
   let form1InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 tobago-out");
+  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 .form-control-plaintext");
   let form2InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
   let form2AlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2 .tobago-messages-container");
-  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 tobago-out");
+  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 .form-control-plaintext");
   let outerFormInputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
-  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out tobago-out");
+  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out .form-control-plaintext");
   let outerFormSubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submit");
   let submitInnerForms = querySelectorFn("#page\\:mainForm\\:outerForm\\:submitInnerForms");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");
@@ -290,13 +290,13 @@ it("submit inner forms, violate required field in form 2", function (done) {
 
 it("submit inner forms without violations", function (done) {
   let form1InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 tobago-out");
+  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 .form-control-plaintext");
   let form2InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
   let form2AlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2 .tobago-messages-container");
-  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 tobago-out");
+  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 .form-control-plaintext");
   let outerFormInputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
   let outerFormAlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in .tobago-messages-container");
-  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out tobago-out");
+  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out .form-control-plaintext");
   let outerFormSubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submit");
   let submitInnerForms = querySelectorFn("#page\\:mainForm\\:outerForm\\:submitInnerForms");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");
@@ -332,13 +332,13 @@ it("submit inner forms without violations", function (done) {
 
 it("submit outer value, violate required field", function (done) {
   let form1InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 tobago-out");
+  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 .form-control-plaintext");
   let form2InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
   let form2AlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2 .tobago-messages-container");
-  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 tobago-out");
+  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 .form-control-plaintext");
   let outerFormInputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
   let outerFormAlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in .tobago-messages-container");
-  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out tobago-out");
+  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out .form-control-plaintext");
   let outerFormSubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submit");
   let submitOuterValue = querySelectorFn("#page\\:mainForm\\:outerForm\\:submitOuterValue");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");
@@ -375,13 +375,13 @@ it("submit outer value, violate required field", function (done) {
 
 it("submit outer value without violations", function (done) {
   let form1InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:in1\\:\\:field");
-  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 tobago-out");
+  let form1OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form1\\:out1 .form-control-plaintext");
   let form2InputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2\\:\\:field");
   let form2AlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:in2 .tobago-messages-container");
-  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 tobago-out");
+  let form2OutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:form2\\:out2 .form-control-plaintext");
   let outerFormInputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in\\:\\:field");
   let outerFormAlertFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:in .tobago-messages-container");
-  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out tobago-out");
+  let outerFormOutputFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:out .form-control-plaintext");
   let outerFormSubmitFn = querySelectorFn("#page\\:mainForm\\:outerForm\\:submit");
   let submitOuterValue = querySelectorFn("#page\\:mainForm\\:outerForm\\:submitOuterValue");
   let alertFn = querySelectorAllFn("#page\\:messages .alert-danger label");

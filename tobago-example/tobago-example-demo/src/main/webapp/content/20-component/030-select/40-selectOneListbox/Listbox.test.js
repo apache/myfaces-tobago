@@ -21,7 +21,7 @@ import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 it("submit: select 'Nile'", function (done) {
   let riversFn = querySelectorAllFn("#page\\:mainForm\\:riverList option");
   let submitFn = querySelectorFn("#page\\:mainForm\\:riverSubmit");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:riverOutput tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:riverOutput .form-control-plaintext");
 
   const test = new JasmineTestTool(done);
   test.setup(() => outputFn().textContent !== "6853 km",
@@ -46,7 +46,7 @@ it("submit: select 'Nile'", function (done) {
 it("submit: select 'Yangtze'", function (done) {
   let riversFn = querySelectorAllFn("#page\\:mainForm\\:riverList option");
   let submitFn = querySelectorFn("#page\\:mainForm\\:riverSubmit");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:riverOutput tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:riverOutput .form-control-plaintext");
 
   const test = new JasmineTestTool(done);
   test.setup(() => outputFn().textContent !== "6300 km",
@@ -71,7 +71,7 @@ it("submit: select 'Yangtze'", function (done) {
 it("ajax: select Everest", function (done) {
   let mountainListFn = querySelectorFn("#page\\:mainForm\\:mountainList\\:\\:field");
   let mountainsFn = querySelectorAllFn("#page\\:mainForm\\:mountainList option");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedMountain tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedMountain .form-control-plaintext");
 
   const test = new JasmineTestTool(done);
   test.setup(() => outputFn().textContent !== "8848 m",
@@ -95,7 +95,7 @@ it("ajax: select Everest", function (done) {
 it("ajax: select Makalu", function (done) {
   let mountainListFn = querySelectorFn("#page\\:mainForm\\:mountainList\\:\\:field");
   let mountainsFn = querySelectorAllFn("#page\\:mainForm\\:mountainList option");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedMountain tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedMountain .form-control-plaintext");
 
   const test = new JasmineTestTool(done);
   test.setup(() => outputFn().textContent !== "8481 m",

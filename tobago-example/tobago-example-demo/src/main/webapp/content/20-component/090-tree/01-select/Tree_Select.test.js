@@ -25,7 +25,7 @@ it("single: select Music, select Mathematics", function (done) {
   let selectableSingleFn = elementByIdFn("page:mainForm:selectable::1");
   let musicFn = elementByIdFn("page:mainForm:categoriesTree:3:select");
   let mathematicsFn = elementByIdFn("page:mainForm:categoriesTree:9:select");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedNodesOutput tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedNodesOutput .form-control-plaintext");
 
   const test = new JasmineTestTool(done);
   test.setup(() => radiosFn().length === 0 && checkboxesFn().length === 0,
@@ -55,7 +55,7 @@ it("singleLeafOnly: select Classic, select Geography", function (done) {
   let selectableSingleLeafOnlyFn = elementByIdFn("page:mainForm:selectable::2");
   let classicFn = elementByIdFn("page:mainForm:categoriesTree:4:select");
   let geographyFn = elementByIdFn("page:mainForm:categoriesTree:10:select");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedNodesOutput tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedNodesOutput .form-control-plaintext");
 
   const test = new JasmineTestTool(done);
   test.setup(() => radiosFn().length === 0 && checkboxesFn().length === 0,
@@ -85,7 +85,7 @@ it("multi: select Music, select Geography, deselect Music", function (done) {
   let selectableMultiFn = elementByIdFn("page:mainForm:selectable::3");
   let musicFn = elementByIdFn("page:mainForm:categoriesTree:3:select");
   let geographyFn = elementByIdFn("page:mainForm:categoriesTree:10:select");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedNodesOutput tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedNodesOutput .form-control-plaintext");
 
   const test = new JasmineTestTool(done);
   test.setup(() => radiosFn().length === 0 && checkboxesFn().length === 0,
@@ -119,7 +119,7 @@ it("multiLeafOnly: select Classic, select Geography, deselect Classic", function
   let selectableMultiLeafOnlyFn = elementByIdFn("page:mainForm:selectable::4");
   let classicFn = elementByIdFn("page:mainForm:categoriesTree:4:select");
   let geographyFn = elementByIdFn("page:mainForm:categoriesTree:10:select");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedNodesOutput tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedNodesOutput .form-control-plaintext");
 
   const test = new JasmineTestTool(done);
   test.setup(() => radiosFn().length === 0 && checkboxesFn().length === 0,
@@ -154,7 +154,7 @@ it("multiCascade: select Music, select Mathematics, deselect Classic", function 
   let musicFn = elementByIdFn("page:mainForm:categoriesTree:3:select");
   let classicFn = elementByIdFn("page:mainForm:categoriesTree:4:select");
   let mathematicsFn = elementByIdFn("page:mainForm:categoriesTree:9:select");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedNodesOutput tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:selectedNodesOutput .form-control-plaintext");
 
   const test = new JasmineTestTool(done);
   test.setup(() => radiosFn().length === 0 && checkboxesFn().length === 0,

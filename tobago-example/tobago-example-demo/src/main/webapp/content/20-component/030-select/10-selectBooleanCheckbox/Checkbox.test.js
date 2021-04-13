@@ -23,7 +23,7 @@ it("submit: select A", function (done) {
   let selectBFn = querySelectorFn("#page\\:mainForm\\:selectB input");
   let selectCFn = querySelectorFn("#page\\:mainForm\\:selectC input");
   let submitFn = querySelectorFn("#page\\:mainForm\\:submit");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:submitOutput tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:submitOutput .form-control-plaintext");
 
   let test = new JasmineTestTool(done);
   test.setup(() => outputFn().textContent === "",
@@ -45,7 +45,7 @@ it("submit: select B and C", function (done) {
   let selectBFn = querySelectorFn("#page\\:mainForm\\:selectB input");
   let selectCFn = querySelectorFn("#page\\:mainForm\\:selectC input");
   let submitFn = querySelectorFn("#page\\:mainForm\\:submit");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:submitOutput tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:submitOutput .form-control-plaintext");
 
   let test = new JasmineTestTool(done);
   test.setup(() => outputFn().textContent === "",
@@ -64,7 +64,7 @@ it("submit: select B and C", function (done) {
 
 it("ajax: select D", function (done) {
   let selectFn = querySelectorFn("#page\\:mainForm\\:selectD input");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:outputD tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:outputD .form-control-plaintext");
 
   let test = new JasmineTestTool(done);
   test.setup(() => outputFn().textContent === "false",
@@ -78,7 +78,7 @@ it("ajax: select D", function (done) {
 
 it("ajax: deselect D", function (done) {
   let selectFn = querySelectorFn("#page\\:mainForm\\:selectD input");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:outputD tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:outputD .form-control-plaintext");
 
   let test = new JasmineTestTool(done);
   test.setup(() => outputFn().textContent === "true",
@@ -92,7 +92,7 @@ it("ajax: deselect D", function (done) {
 
 it("ajax: select E", function (done) {
   let selectFn = querySelectorFn("#page\\:mainForm\\:selectE input");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:outputE tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:outputE .form-control-plaintext");
 
   let test = new JasmineTestTool(done);
   test.setup(() => outputFn().textContent === "false",
@@ -106,7 +106,7 @@ it("ajax: select E", function (done) {
 
 it("ajax: deselect E", function (done) {
   let selectFn = querySelectorFn("#page\\:mainForm\\:selectE input");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:outputE tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:outputE .form-control-plaintext");
 
   let test = new JasmineTestTool(done);
   test.setup(() => outputFn().textContent === "true",
@@ -120,7 +120,7 @@ it("ajax: deselect E", function (done) {
 
 it("ajax: select F", function (done) {
   let selectFn = querySelectorFn("#page\\:mainForm\\:selectF input");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:outputF tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:outputF .form-control-plaintext");
 
   let test = new JasmineTestTool(done);
   test.setup(() => outputFn().textContent === "false",
@@ -134,7 +134,7 @@ it("ajax: select F", function (done) {
 
 it("ajax: deselect F", function (done) {
   let selectFn = querySelectorFn("#page\\:mainForm\\:selectF input");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:outputF tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:outputF .form-control-plaintext");
 
   let test = new JasmineTestTool(done);
   test.setup(() => outputFn().textContent === "true",

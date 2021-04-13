@@ -20,8 +20,8 @@ import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
 
 it("Style tag inside grid layout", function (done) {
   let submitFn = elementByIdFn("page:mainForm:submitButton");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:output tobago-out");
-  let timestampFn = querySelectorFn("#page\\:mainForm\\:timestamp tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:output .form-control-plaintext");
+  let timestampFn = querySelectorFn("#page\\:mainForm\\:timestamp .form-control-plaintext");
   let timestamp;
 
   let test = new JasmineTestTool(done);

@@ -21,8 +21,8 @@ import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 it("submit form 1", function (done) {
   let form1InputFieldFn = querySelectorFn("#page\\:mainForm\\:form1\\:in1\\:\\:field");
   let form2InputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:in2\\:\\:field");
-  let form1OutputFieldFn = querySelectorFn("#page\\:mainForm\\:form1\\:out1 tobago-out");
-  let form2OutputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:out2 tobago-out");
+  let form1OutputFieldFn = querySelectorFn("#page\\:mainForm\\:form1\\:out1 .form-control-plaintext");
+  let form2OutputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:out2 .form-control-plaintext");
   let form1SubmitButtonFn = querySelectorFn("#page\\:mainForm\\:form1\\:submit1");
   let form2OutputFieldValue = form2OutputFieldFn().textContent;
 
@@ -43,8 +43,8 @@ it("submit form 1", function (done) {
 it("submit form 2", function (done) {
   let form1InputFieldFn = querySelectorFn("#page\\:mainForm\\:form1\\:in1\\:\\:field");
   let form2InputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:in2\\:\\:field");
-  let form1OutputFieldFn = querySelectorFn("#page\\:mainForm\\:form1\\:out1 tobago-out");
-  let form2OutputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:out2 tobago-out");
+  let form1OutputFieldFn = querySelectorFn("#page\\:mainForm\\:form1\\:out1 .form-control-plaintext");
+  let form2OutputFieldFn = querySelectorFn("#page\\:mainForm\\:form2\\:out2 .form-control-plaintext");
   let form2SubmitButtonFn = querySelectorFn("#page\\:mainForm\\:form2\\:submit2");
   let form1OutputFieldValue = form1OutputFieldFn().textContent;
 

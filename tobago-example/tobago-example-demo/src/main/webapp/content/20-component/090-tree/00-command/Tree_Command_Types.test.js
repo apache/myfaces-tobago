@@ -21,8 +21,8 @@ import {querySelectorFn} from "/script/tobago-test.js";
 it("not implemented yet", function (done) {
   let action1Fn = querySelectorFn("#page\\:mainForm\\:tree\\:2\\:actionCommand");
   let action2Fn = querySelectorFn("#page\\:mainForm\\:tree\\:3\\:actionCommand");
-  let actionCount1Fn = querySelectorFn("#page\\:mainForm\\:actionCount1 tobago-out");
-  let actionCount2Fn = querySelectorFn("#page\\:mainForm\\:actionCount2 tobago-out");
+  let actionCount1Fn = querySelectorFn("#page\\:mainForm\\:actionCount1 .form-control-plaintext");
+  let actionCount2Fn = querySelectorFn("#page\\:mainForm\\:actionCount2 .form-control-plaintext");
 
   const action1Count = Number(actionCount1Fn().textContent);
   const action2Count = Number(actionCount2Fn().textContent);

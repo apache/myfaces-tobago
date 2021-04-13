@@ -19,9 +19,9 @@ import {querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("ajax execute", function (done) {
-  let timestampFn = querySelectorFn("#page\\:mainForm\\:timestamp tobago-out");
-  let textFn = querySelectorFn("#page\\:mainForm\\:outText tobago-out");
-  let tipFn = querySelectorFn("#page\\:mainForm\\:outTip tobago-out");
+  let timestampFn = querySelectorFn("#page\\:mainForm\\:timestamp .form-control-plaintext");
+  let textFn = querySelectorFn("#page\\:mainForm\\:outText .form-control-plaintext");
+  let tipFn = querySelectorFn("#page\\:mainForm\\:outTip .form-control-plaintext");
   let buttonFn = querySelectorFn("#page\\:mainForm\\:ajaxButton");
 
   let timestampValue = timestampFn().textContent;

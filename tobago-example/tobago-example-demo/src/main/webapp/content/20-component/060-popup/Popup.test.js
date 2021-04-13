@@ -53,7 +53,7 @@ it("Open 'Client Popup', press 'Submit' while field is empty. Press 'Cancel'.", 
   let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
   let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
   let openButtonFn = elementByIdFn("page:mainForm:form2:open");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out .form-control-plaintext");
   let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
   let messageCloseFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages .btn-close");
   let inputFieldFn = elementByIdFn("page:mainForm:form2:clientPopup:in2::field");
@@ -97,7 +97,7 @@ it("Open 'Client Popup', press 'Submit' while field has content. Press 'Cancel'.
   let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
   let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
   let openButtonFn = elementByIdFn("page:mainForm:form2:open");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out .form-control-plaintext");
   let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
   let inputFieldFn = elementByIdFn("page:mainForm:form2:clientPopup:in2::field");
   let submitButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:submit2");
@@ -141,7 +141,7 @@ it("Open 'Client Popup', press 'Submit & Close' while field is empty.", function
   let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
   let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
   let openButtonFn = elementByIdFn("page:mainForm:form2:open");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out .form-control-plaintext");
   let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
   let messageCloseFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages .btn-close");
   let inputFieldFn = elementByIdFn("page:mainForm:form2:clientPopup:in2::field");
@@ -183,7 +183,7 @@ it("Open 'Client Popup', press 'Submit & Close' while field has content.", funct
   let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
   let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
   let openButtonFn = elementByIdFn("page:mainForm:form2:open");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out tobago-out");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out .form-control-plaintext");
   let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
   let inputFieldFn = elementByIdFn("page:mainForm:form2:clientPopup:in2::field");
   let submitButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:submit2");
