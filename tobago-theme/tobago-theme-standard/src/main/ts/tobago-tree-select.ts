@@ -26,7 +26,9 @@ export class TreeSelect extends HTMLElement {
   }
 
   connectedCallback(): void {
-    this.input.addEventListener("change", this.select.bind(this));
+    if (this.input) {
+      this.input.addEventListener("change", this.select.bind(this));
+    }
   }
 
   select(event: Event): void {
@@ -45,13 +47,6 @@ export class TreeSelect extends HTMLElement {
         if (this.tree.selectable === Selectable.multiCascade) {
           const treeNodeIds = [];
           this.selectChildren(this.treeSelectChildren, this.input.checked, treeNodeIds);
-
-          /*if (treeNodeIds.length > 0) {
-            for (const id of treeNodeIds) {
-              let ts: TreeSelect = document.getElementById(id).querySelector("tobago-tree-select") as TreeSelect;
-              ts.input.dispatchEvent(new Event("change", {bubbles: false}));
-            }
-          }*/
         }
         break;
     }
