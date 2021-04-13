@@ -369,18 +369,6 @@
       <id>jetty</id>
       <dependencies>
         <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-api</artifactId>
-          <version>${myfaces23.version}</version>
-          <scope>compile</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-impl</artifactId>
-          <version>${myfaces23.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
           <groupId>org.slf4j</groupId>
           <artifactId>jcl-over-slf4j</artifactId>
         </dependency>
