@@ -45,6 +45,7 @@ public enum HtmlAttributes implements MarkupLanguageAttributes {
   ENCTYPE("enctype"),
   FOR("for"),
   FRAMEBORDER("frameborder"),
+  FREQUENCY("frequency"),
   HEIGHT("height"),
   HREF("href"),
   HREFLANG("hreflang"),

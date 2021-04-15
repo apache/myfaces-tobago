@@ -15,58 +15,66 @@
  * limitations under the License.
  */
 
-import {Listener, Phase} from "./tobago-listener";
-import {DomUtils} from "./tobago-utils";
-
-// TODO: might be implemented with a web component
-export class ReloadManager {
-
-  static instance: ReloadManager = new ReloadManager();
+class TobagoReload extends HTMLElement {
 
   /**
    * Map to store the scheduled timeouts by id, to prevent duplicate scheduling of the same elements.
    */
-  private timeouts: Map<string, number>;
+  private static timeoutMap: Map<string, number> = new Map<string, number>();
 
-  static init = function (element: HTMLElement): void {
-    for (const reload of DomUtils.selfOrQuerySelectorAll(element, "[data-tobago-reload]")) {
-      ReloadManager.instance.schedule(reload.id, Number(reload.dataset.tobagoReload));
-    }
-  };
-
-  private constructor() {
-    this.timeouts = new Map<string, number>();
+  constructor() {
+    super();
   }
 
-  public schedule(id: string, reloadMillis: number): void {
+  connectedCallback(): void {
+    this.schedule(this.id, this.component.id, this.frequency);
+  }
+
+  public schedule(reloadId: string, componentId: string, reloadMillis: number): void {
     if (reloadMillis > 0) {
 
       // may remove old schedule
-      const oldTimeout = this.timeouts.get(id);
+      const oldTimeout = TobagoReload.timeoutMap.get(componentId);
       if (oldTimeout) {
-        console.debug("clear reload timeout '" + oldTimeout + "' for #'" + id + "'");
+        console.debug("clear reload timeout '" + oldTimeout + "' for #'" + componentId + "'");
         window.clearTimeout(oldTimeout);
-        this.timeouts.delete(id);
+        TobagoReload.timeoutMap.delete(componentId);
       }
 
       // add new schedule
       const timeout = window.setTimeout(function (): void {
-        console.debug("reloading #'" + id + "'");
+        console.debug("reloading #'" + componentId + "'");
         jsf.ajax.request(
-            id,
+            reloadId,
             null,
             {
               "javax.faces.behavior.event": "reload",
-              execute: id,
-              render: id
+              execute: reloadId + " " + componentId,
+              render: reloadId + " " + componentId
             });
       }, reloadMillis);
-      console.debug("adding reload timeout '" + timeout + "' for #'" + id + "'");
-      this.timeouts.set(id, timeout);
+      console.debug("adding reload timeout '" + timeout + "' for #'" + componentId + "'");
+      TobagoReload.timeoutMap.set(componentId, timeout);
     }
   }
 
+  get component(): HTMLElement {
+    return this.parentElement;
+  }
+
+  /** frequency is the number of millis for the timeout */
+  get frequency(): number {
+    const frequency = this.getAttribute("frequency");
+    if (frequency) {
+      return Number.parseFloat(frequency);
+    } else {
+      return 0;
+    }
+  }
 }
 
-Listener.register(ReloadManager.init, Phase.DOCUMENT_READY);
-Listener.register(ReloadManager.init, Phase.AFTER_UPDATE);
+document.addEventListener("tobago.init", function (event: Event): void {
+  if (window.customElements.get("tobago-reload") == null) {
+    window.customElements.define("tobago-reload", TobagoReload);
+  }
+});

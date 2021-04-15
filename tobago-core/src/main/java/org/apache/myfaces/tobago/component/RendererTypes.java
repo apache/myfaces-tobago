@@ -59,6 +59,7 @@ public enum RendererTypes {
   Popup,
   Progress,
   Range,
+  Reload,
   Row,
   Script,
   Section,
@@ -129,6 +130,7 @@ public enum RendererTypes {
   public static final String PANEL = "Panel";
   public static final String POPUP = "Popup";
   public static final String PROGRESS = "Progress";
+  public static final String RELOAD = "Reload";
   public static final String RANGE = "Range";
   public static final String ROW = "Row";
   public static final String SCRIPT = "Script";

@@ -42,12 +42,14 @@
   </tc:section>
 
   <tc:section label="Reload">
+    <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tldBase}/#{apiController.currentRelease}/tld/tc/reload.html"/>
     <p>To reload the panel in a dedicated frequency, you can use the
       <code class="language-markup">&lt;f:facet name="reload"></code> tag.
       The content of the panel is an output text, which display the current time.</p>
     <demo-highlight language="markup">&lt;tc:panel>
   &lt;f:facet name="reload">
-    &lt;tc:reload frequency="1000" update="true"/>
+    &lt;tc:reload frequency="1000"/>
       ...</demo-highlight>
     <tc:panel>
       <f:facet name="reload">
@@ -60,21 +62,29 @@
   </tc:section>
 
   <tc:section label="Reload with update control">
-    <p>To reload the panel in a dedicated frequency, you can use the
-      <code class="language-markup">&lt;f:facet name="reload"></code> tag.
-      The content of the panel is an output text, which display the current time.</p>
+    <p>With the <code class="language-markup">update</code> attribute
+      the rendering of the panel can be dropped, if there is no need to
+      update the content.
+      In this example, we only display the current time, if the seconds
+      are between 10 - 19, 30 - 39 or 50 - 59.</p>
     <demo-highlight language="markup">&lt;tc:panel>
   &lt;f:facet name="reload">
     &lt;tc:reload frequency="1000" update="\#{panelController.oddDecaSecond}"/>
       ...</demo-highlight>
-    <tc:panel>
+    <tc:panel id="panel-reload-update">
       <f:facet name="reload">
-        <tc:reload frequency="1000" update="#{panelController.oddDecaSecond}"/>
+        <tc:reload id="reload-update" frequency="1000" update="#{panelController.oddDecaSecond}"/>
       </f:facet>
       <tc:out id="r" label="Current Date" value="#{panelController.currentDate}">
         <f:convertDateTime pattern="HH:mm:ss"/>
       </tc:out>
     </tc:panel>
+
+    This
+    <tc:link label="explicit reload link">
+      <f:ajax execute="panel-reload-update" render="panel-reload-update"/>
+    </tc:link>
+    reloads the panel directly (only for testing purpuse here).
   </tc:section>
 
   <tc:section label="Ajax">

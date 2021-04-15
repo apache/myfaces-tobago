@@ -272,9 +272,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         component.getCustomClass(),
         TobagoClass.SHEET.createMarkup(markup),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
-    if (reload != null && reload.isRendered()) {
-      writer.writeAttribute(DataAttributes.RELOAD, reload.getFrequency());
-    }
     writer.writeAttribute(DataAttributes.SELECTION_MODE, component.getSelectable().name(), false);
     writer.writeAttribute(DataAttributes.FIRST, Integer.toString(component.getFirst()), false);
     writer.writeAttribute(CustomAttributes.ROWS, component.getRows());
@@ -288,6 +285,10 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     }
 
     encodeBehavior(writer, facesContext, component);
+
+    if (reload != null) {
+      reload.encodeAll(facesContext);
+    }
   }
 
   @Override

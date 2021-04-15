@@ -31,7 +31,7 @@ public enum ClientBehaviors {
   load,
   mouseover,
   mouseout,
-  reload, // tbd
+  reload, // tbd - may be called timeout?
   resize,
   suggest; // tbd
 
@@ -45,7 +45,7 @@ public enum ClientBehaviors {
   public static final String LOAD = "load";
   public static final String MOUSEOVER = "mouseover";
   public static final String MOUSEOUT = "mouseout";
-  public static final String RELOAD = "reload"; // tbd
+  public static final String RELOAD = "reload"; // tbd - may be called timeout?
   public static final String RESIZE = "resize";
   public static final String SUGGEST = "suggest"; // tbd
 

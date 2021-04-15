@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIReload;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.model.CollapseMode;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -60,15 +59,15 @@ public class PanelRenderer<T extends AbstractUIPanel> extends CollapsiblePanelRe
       writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     }
 
-    if (reload != null && reload.isRendered()) {
-      writer.writeAttribute(DataAttributes.RELOAD, reload.getFrequency());
-    }
-
     if (component.getCollapsedMode() != CollapseMode.none) {
       encodeHidden(writer, clientId, collapsed);
     }
 
     encodeBehavior(writer, facesContext, component);
+
+    if (reload != null) {
+      reload.encodeAll(facesContext);
+    }
   }
 
   @Override

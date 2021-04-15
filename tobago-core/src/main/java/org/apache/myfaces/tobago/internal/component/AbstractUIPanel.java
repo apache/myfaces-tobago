@@ -19,40 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.util.AjaxUtils;
-import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
-import java.io.IOException;
-import java.lang.invoke.MethodHandles;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.PanelTagDeclaration}
  */
 public abstract class AbstractUIPanel extends AbstractUICollapsiblePanel implements ClientBehaviorHolder {
-
-  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
-  @Override
-  public void encodeAll(FacesContext facesContext) throws IOException {
-
-    final AbstractUIReload reload = ComponentUtils.getReloadFacet(this);
-
-    if (reload != null && AjaxUtils.isAjaxRequest(facesContext) && reload.isRendered() && !reload.isUpdate()) {
-      // do not render content
-      final Renderer renderer = getRenderer(facesContext);
-      if (renderer instanceof RendererBase) {
-        ((RendererBase) renderer).encodeReload(facesContext, reload);
-      } else {
-        LOG.warn("Found reload facet but no renderer support for it id='{}'!", getClientId(facesContext));
-      }
-    } else {
-      super.encodeAll(facesContext);
-    }
-  }
 }
