@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 
 /**
@@ -39,6 +40,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIReload",
     componentFamily = "org.apache.myfaces.tobago.Reload",
+    rendererType = RendererTypes.RELOAD,
     allowedChildComponenents = "NONE")
 public interface ReloadTagDeclaration extends HasIdBindingAndRendered {
 

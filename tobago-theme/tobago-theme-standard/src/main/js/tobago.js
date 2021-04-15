@@ -10104,59 +10104,6 @@
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-  // TODO: might be implemented with a web component
-  class ReloadManager {
-      constructor() {
-          this.timeouts = new Map();
-      }
-      schedule(id, reloadMillis) {
-          if (reloadMillis > 0) {
-              // may remove old schedule
-              const oldTimeout = this.timeouts.get(id);
-              if (oldTimeout) {
-                  console.debug("clear reload timeout '" + oldTimeout + "' for #'" + id + "'");
-                  window.clearTimeout(oldTimeout);
-                  this.timeouts.delete(id);
-              }
-              // add new schedule
-              const timeout = window.setTimeout(function () {
-                  console.debug("reloading #'" + id + "'");
-                  jsf.ajax.request(id, null, {
-                      "javax.faces.behavior.event": "reload",
-                      execute: id,
-                      render: id
-                  });
-              }, reloadMillis);
-              console.debug("adding reload timeout '" + timeout + "' for #'" + id + "'");
-              this.timeouts.set(id, timeout);
-          }
-      }
-  }
-  ReloadManager.instance = new ReloadManager();
-  ReloadManager.init = function (element) {
-      for (const reload of DomUtils.selfOrQuerySelectorAll(element, "[data-tobago-reload]")) {
-          ReloadManager.instance.schedule(reload.id, Number(reload.dataset.tobagoReload));
-      }
-  };
-  Listener.register(ReloadManager.init, Phase.DOCUMENT_READY);
-  Listener.register(ReloadManager.init, Phase.AFTER_UPDATE);
-
-  /*
-   * Licensed to the Apache Software Foundation (ASF) under one or more
-   * contributor license agreements.  See the NOTICE file distributed with
-   * this work for additional information regarding copyright ownership.
-   * The ASF licenses this file to You under the Apache License, Version 2.0
-   * (the "License"); you may not use this file except in compliance with
-   * the License.  You may obtain a copy of the License at
-   *
-   *      http://www.apache.org/licenses/LICENSE-2.0
-   *
-   * Unless required by applicable law or agreed to in writing, software
-   * distributed under the License is distributed on an "AS IS" BASIS,
-   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   * See the License for the specific language governing permissions and
-   * limitations under the License.
-   */
   class Page extends HTMLElement {
       constructor() {
           super();
@@ -10277,35 +10224,27 @@
           }
       }
       jsfResponseSuccess(update) {
-          const result = /<!\[CDATA\[(.*)]]>/gm.exec(update.innerHTML);
           const id = update.id;
-          if (result !== null && result.length === 2 && result[1].startsWith("{\"reload\"")) {
-              // not modified on server, needs be reloaded after some time
-              console.debug("[tobago-jsf] Found reload-JSON in response!");
-              ReloadManager.instance.schedule(id, JSON.parse(result[1]).reload.frequency);
+          let rootNode = this.getRootNode();
+          // XXX in case of "this" is tobago-page (e.g. ajax exception handling) rootNode is not set correctly???
+          if (!rootNode.getElementById) {
+              rootNode = document;
           }
-          else {
-              let rootNode = this.getRootNode();
-              // XXX in case of "this" is tobago-page (e.g. ajax exception handling) rootNode is not set correctly???
-              if (!rootNode.getElementById) {
-                  rootNode = document;
+          console.info("[tobago-jsf] Update after jsf.ajax success: %s", id);
+          if (JsfParameter.isJsfId(id)) {
+              console.debug("[tobago-jsf] updating #%s", id);
+              const element = rootNode.getElementById(id);
+              if (element) {
+                  Listener.executeAfterUpdate(element);
               }
-              console.info("[tobago-jsf] Update after jsf.ajax success: %s", id);
-              if (JsfParameter.isJsfId(id)) {
-                  console.debug("[tobago-jsf] updating #%s", id);
-                  const element = rootNode.getElementById(id);
-                  if (element) {
-                      Listener.executeAfterUpdate(element);
-                  }
-                  else {
-                      console.warn("[tobago-jsf] element not found for #%s", id);
-                  }
+              else {
+                  console.warn("[tobago-jsf] element not found for #%s", id);
               }
-              else if (JsfParameter.isJsfBody(id)) {
-                  console.debug("[tobago-jsf] updating body");
-                  // there should be only one element with this tag name
-                  Listener.executeAfterUpdate(rootNode.querySelector("tobago-page"));
-              }
+          }
+          else if (JsfParameter.isJsfBody(id)) {
+              console.debug("[tobago-jsf] updating body");
+              // there should be only one element with this tag name
+              Listener.executeAfterUpdate(rootNode.querySelector("tobago-page"));
           }
       }
       jsfResponseComplete(update) {
@@ -11683,6 +11622,75 @@
   document.addEventListener("tobago.init", function (event) {
       if (window.customElements.get("tobago-range") == null) {
           window.customElements.define("tobago-range", TobagoRange);
+      }
+  });
+
+  /*
+   * Licensed to the Apache Software Foundation (ASF) under one or more
+   * contributor license agreements.  See the NOTICE file distributed with
+   * this work for additional information regarding copyright ownership.
+   * The ASF licenses this file to You under the Apache License, Version 2.0
+   * (the "License"); you may not use this file except in compliance with
+   * the License.  You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  class TobagoReload extends HTMLElement {
+      constructor() {
+          super();
+      }
+      connectedCallback() {
+          this.schedule(this.id, this.component.id, this.frequency);
+      }
+      schedule(reloadId, componentId, reloadMillis) {
+          if (reloadMillis > 0) {
+              // may remove old schedule
+              const oldTimeout = TobagoReload.timeoutMap.get(componentId);
+              if (oldTimeout) {
+                  console.debug("clear reload timeout '" + oldTimeout + "' for #'" + componentId + "'");
+                  window.clearTimeout(oldTimeout);
+                  TobagoReload.timeoutMap.delete(componentId);
+              }
+              // add new schedule
+              const timeout = window.setTimeout(function () {
+                  console.debug("reloading #'" + componentId + "'");
+                  jsf.ajax.request(reloadId, null, {
+                      "javax.faces.behavior.event": "reload",
+                      execute: reloadId + " " + componentId,
+                      render: reloadId + " " + componentId
+                  });
+              }, reloadMillis);
+              console.debug("adding reload timeout '" + timeout + "' for #'" + componentId + "'");
+              TobagoReload.timeoutMap.set(componentId, timeout);
+          }
+      }
+      get component() {
+          return this.parentElement;
+      }
+      /** frequency is the number of millis for the timeout */
+      get frequency() {
+          const frequency = this.getAttribute("frequency");
+          if (frequency) {
+              return Number.parseFloat(frequency);
+          }
+          else {
+              return 0;
+          }
+      }
+  }
+  /**
+   * Map to store the scheduled timeouts by id, to prevent duplicate scheduling of the same elements.
+   */
+  TobagoReload.timeoutMap = new Map();
+  document.addEventListener("tobago.init", function (event) {
+      if (window.customElements.get("tobago-reload") == null) {
+          window.customElements.define("tobago-reload", TobagoReload);
       }
   });
 

@@ -18,7 +18,6 @@
 import {CommandHelper} from "./tobago-command";
 import {Overlay} from "./tobago-overlay";
 import {Listener} from "./tobago-listener";
-import {ReloadManager} from "./tobago-reload";
 
 export class Page extends HTMLElement {
 
@@ -155,32 +154,25 @@ export class Page extends HTMLElement {
   }
 
   jsfResponseSuccess(update: Element): void {
-    const result = /<!\[CDATA\[(.*)]]>/gm.exec(update.innerHTML);
     const id = update.id;
-    if (result !== null && result.length === 2 && result[1].startsWith("{\"reload\"")) {
-      // not modified on server, needs be reloaded after some time
-      console.debug("[tobago-jsf] Found reload-JSON in response!");
-      ReloadManager.instance.schedule(id, JSON.parse(result[1]).reload.frequency);
-    } else {
-      let rootNode = this.getRootNode() as ShadowRoot | Document;
-      // XXX in case of "this" is tobago-page (e.g. ajax exception handling) rootNode is not set correctly???
-      if (! rootNode.getElementById) {
-        rootNode = document;
+    let rootNode = this.getRootNode() as ShadowRoot | Document;
+    // XXX in case of "this" is tobago-page (e.g. ajax exception handling) rootNode is not set correctly???
+    if (!rootNode.getElementById) {
+      rootNode = document;
+    }
+    console.info("[tobago-jsf] Update after jsf.ajax success: %s", id);
+    if (JsfParameter.isJsfId(id)) {
+      console.debug("[tobago-jsf] updating #%s", id);
+      const element = rootNode.getElementById(id);
+      if (element) {
+        Listener.executeAfterUpdate(element);
+      } else {
+        console.warn("[tobago-jsf] element not found for #%s", id);
       }
-      console.info("[tobago-jsf] Update after jsf.ajax success: %s", id);
-      if (JsfParameter.isJsfId(id)) {
-        console.debug("[tobago-jsf] updating #%s", id);
-        const element = rootNode.getElementById(id);
-        if (element) {
-          Listener.executeAfterUpdate(element);
-        } else {
-          console.warn("[tobago-jsf] element not found for #%s", id);
-        }
-      } else if (JsfParameter.isJsfBody(id)) {
-        console.debug("[tobago-jsf] updating body");
-        // there should be only one element with this tag name
-        Listener.executeAfterUpdate(rootNode.querySelector("tobago-page") as HTMLElement);
-      }
+    } else if (JsfParameter.isJsfBody(id)) {
+      console.debug("[tobago-jsf] updating body");
+      // there should be only one element with this tag name
+      Listener.executeAfterUpdate(rootNode.querySelector("tobago-page") as HTMLElement);
     }
   }
 
