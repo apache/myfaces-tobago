@@ -561,6 +561,10 @@ public final class ComponentUtils {
     }
   }
 
+  /**
+   * @deprecated since 5.0.0
+   */
+  @Deprecated
   public static boolean isFacetOf(final UIComponent component, final UIComponent parent) {
     for (final Object o : parent.getFacets().keySet()) {
       final UIComponent facet = parent.getFacet((String) o);
