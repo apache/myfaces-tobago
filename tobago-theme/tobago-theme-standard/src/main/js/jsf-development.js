@@ -1,99 +1,13 @@
-(function(e, a) { for(var i in a) e[i] = a[i]; }(window, /******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/main/typescript/api/Jsf.ts");
-/******/ })
-/************************************************************************/
-/******/ ({
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/main/typescript/api/Jsf.ts":
 /*!****************************************!*\
   !*** ./src/main/typescript/api/Jsf.ts ***!
   \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -110,14 +24,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.myfaces = exports.jsf = void 0;
 ///<reference types='../../types/typedefs'/>
 var AjaxImpl_1 = __webpack_require__(/*! ../impl/AjaxImpl */ "./src/main/typescript/impl/AjaxImpl.ts");
 var PushImpl_1 = __webpack_require__(/*! ../impl/PushImpl */ "./src/main/typescript/impl/PushImpl.ts");
@@ -278,7 +191,7 @@ var jsf;
             for (var _i = 2; _i < arguments.length; _i++) {
                 funcs[_i - 2] = arguments[_i];
             }
-            return AjaxImpl_1.Implementation.chain.apply(AjaxImpl_1.Implementation, __spreadArrays([source, event], funcs));
+            return AjaxImpl_1.Implementation.chain.apply(AjaxImpl_1.Implementation, __spreadArray([source, event], funcs));
         }
         util.chain = chain;
     })(util = jsf.util || (jsf.util = {}));
@@ -356,10 +269,8 @@ var myfaces;
 /*!******************************************************!*\
   !*** ./src/main/typescript/ext/monadish/DomQuery.ts ***!
   \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -380,23 +291,24 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.DQ = exports.DomQueryCollector = exports.DomQuery = exports.ElementAttribute = void 0;
 var Monad_1 = __webpack_require__(/*! ./Monad */ "./src/main/typescript/ext/monadish/Monad.ts");
 var Stream_1 = __webpack_require__(/*! ./Stream */ "./src/main/typescript/ext/monadish/Stream.ts");
 var SourcesCollectors_1 = __webpack_require__(/*! ./SourcesCollectors */ "./src/main/typescript/ext/monadish/SourcesCollectors.ts");
@@ -450,7 +362,7 @@ var ElementAttribute = /** @class */ (function (_super) {
             }
             val[0].setAttribute(this.name, value);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     ElementAttribute.prototype.getClass = function () {
@@ -534,14 +446,14 @@ var DomQuery = /** @class */ (function () {
         get: function () {
             return this.getAsElem(0);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DomQuery.prototype, "values", {
         get: function () {
             return this.allElems();
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DomQuery.prototype, "id", {
@@ -551,7 +463,7 @@ var DomQuery = /** @class */ (function () {
         get: function () {
             return new ElementAttribute(this.get(0), "id");
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DomQuery.prototype, "length", {
@@ -561,7 +473,7 @@ var DomQuery = /** @class */ (function () {
         get: function () {
             return this.rootNode.length;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DomQuery.prototype, "tagName", {
@@ -571,7 +483,7 @@ var DomQuery = /** @class */ (function () {
         get: function () {
             return this.getAsElem(0).getIf("tagName");
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DomQuery.prototype, "nodeName", {
@@ -581,7 +493,7 @@ var DomQuery = /** @class */ (function () {
         get: function () {
             return this.getAsElem(0).getIf("nodeName");
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     DomQuery.prototype.isTag = function (tagName) {
@@ -601,7 +513,7 @@ var DomQuery = /** @class */ (function () {
         get: function () {
             return this.getAsElem(0).getIf("type");
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DomQuery.prototype, "name", {
@@ -614,7 +526,7 @@ var DomQuery = /** @class */ (function () {
         get: function () {
             return new Monad_1.ValueEmbedder(this.getAsElem(0).value, "name");
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DomQuery.prototype, "inputValue", {
@@ -632,7 +544,7 @@ var DomQuery = /** @class */ (function () {
                 return Monad_1.ValueEmbedder.absent;
             }
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DomQuery.prototype, "checked", {
@@ -642,7 +554,7 @@ var DomQuery = /** @class */ (function () {
         set: function (newChecked) {
             this.eachElem(function (el) { return el.checked = newChecked; });
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DomQuery.prototype, "elements", {
@@ -650,7 +562,7 @@ var DomQuery = /** @class */ (function () {
             //a simple querySelectorAll should suffice
             return this.querySelectorAll("input, checkbox, select, textarea, fieldset");
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DomQuery.prototype, "deepElements", {
@@ -658,7 +570,7 @@ var DomQuery = /** @class */ (function () {
             var elemStr = "input, select, textarea, checkbox, fieldset";
             return this.querySelectorAllDeep(elemStr);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     /**
@@ -679,7 +591,7 @@ var DomQuery = /** @class */ (function () {
                 found.push(shadowRes);
             }
         }
-        return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], found)))();
+        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], found)))();
     };
     Object.defineProperty(DomQuery.prototype, "disabled", {
         /**
@@ -697,7 +609,7 @@ var DomQuery = /** @class */ (function () {
                 this.attr("disabled").value = "disabled";
             }
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     DomQuery.prototype.removeAttribute = function (name) {
@@ -709,9 +621,9 @@ var DomQuery = /** @class */ (function () {
             this.eachElem(function (item) {
                 childNodeArr = childNodeArr.concat(objToArray(item.childNodes));
             });
-            return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], childNodeArr)))();
+            return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], childNodeArr)))();
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DomQuery.prototype, "stream", {
@@ -719,9 +631,9 @@ var DomQuery = /** @class */ (function () {
          * binding into stream
          */
         get: function () {
-            return new (Stream_1.Stream.bind.apply(Stream_1.Stream, __spreadArrays([void 0], this.asArray)))();
+            return new (Stream_1.Stream.bind.apply(Stream_1.Stream, __spreadArray([void 0], this.asArray)))();
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DomQuery.prototype, "lazyStream", {
@@ -736,7 +648,7 @@ var DomQuery = /** @class */ (function () {
         get: function () {
             return Stream_1.LazyStream.of.apply(Stream_1.LazyStream, this.asArray);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DomQuery.prototype, "asArray", {
@@ -745,14 +657,14 @@ var DomQuery = /** @class */ (function () {
             return [].concat(Stream_1.LazyStream.of.apply(Stream_1.LazyStream, this.rootNode).filter(function (item) { return item != null; })
                 .map(function (item) { return DomQuery.byId(item); }).collect(new SourcesCollectors_1.ArrayCollector()));
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DomQuery.prototype, "asNodeArray", {
         get: function () {
             return [].concat(Stream_1.Stream.of(this.rootNode).filter(function (item) { return item != null; }).collect(new SourcesCollectors_1.ArrayCollector()));
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     DomQuery.querySelectorAllDeep = function (selector) {
@@ -953,7 +865,7 @@ var DomQuery = /** @class */ (function () {
             var res = this.rootNode[cnt].querySelectorAll(selector);
             nodes = nodes.concat(objToArray(res));
         }
-        return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], nodes)))();
+        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], nodes)))();
     };
     /*deep with a selector and a peudo /shadow/ marker to break into the next level*/
     DomQuery.prototype._querySelectorAllDeep = function (selector) {
@@ -962,7 +874,7 @@ var DomQuery = /** @class */ (function () {
             return this;
         }
         var nodes = [];
-        var foundNodes = new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], this.rootNode)))();
+        var foundNodes = new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], this.rootNode)))();
         var selectors = selector.split(/\/shadow\//);
         for (var cnt2 = 0; cnt2 < selectors.length; cnt2++) {
             if (selectors[cnt2] == "") {
@@ -992,7 +904,7 @@ var DomQuery = /** @class */ (function () {
         //on hidden elements we use the attributes match selector
         //that works
         res = res.concat(this.querySelectorAll("[id=\"" + id + "\"]"));
-        return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], res)))();
+        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], res)))();
     };
     DomQuery.prototype.byIdDeep = function (id, includeRoot) {
         var res = [];
@@ -1005,7 +917,7 @@ var DomQuery = /** @class */ (function () {
         if (subItems.length) {
             res.push(subItems);
         }
-        return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], res)))();
+        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], res)))();
     };
     /**
      * same as byId just for the tag name
@@ -1021,7 +933,7 @@ var DomQuery = /** @class */ (function () {
                 .orElse(res).value;
         }
         (deep) ? res.push(this.querySelectorAllDeep(tagName)) : res.push(this.querySelectorAll(tagName));
-        return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], res)))();
+        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], res)))();
     };
     /**
      * attr accessor, usage myQuery.attr("class").value = "bla"
@@ -1127,7 +1039,7 @@ var DomQuery = /** @class */ (function () {
         set: function (inVal) {
             this.eachElem(function (elem) { return elem.innerHTML = inVal; });
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     //source: https://developer.mozilla.org/en-US/docs/Web/API/Element/matches
@@ -1161,7 +1073,7 @@ var DomQuery = /** @class */ (function () {
                 matched.push(item);
             }
         });
-        return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], matched)))();
+        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], matched)))();
     };
     DomQuery.prototype.matchesSelector = function (selector) {
         var _this = this;
@@ -1242,7 +1154,7 @@ var DomQuery = /** @class */ (function () {
         this.each(function (item) {
             func(item) ? reArr.push(item) : null;
         });
-        return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], reArr)))();
+        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], reArr)))();
     };
     //TODO append prepend
     /**
@@ -1357,7 +1269,7 @@ var DomQuery = /** @class */ (function () {
         var res = [];
         res.push(this);
         res = res.concat(toInsertParams);
-        return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], res)))();
+        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], res)))();
     };
     DomQuery.prototype.insertBefore = function () {
         var toInsertParams = [];
@@ -1376,7 +1288,7 @@ var DomQuery = /** @class */ (function () {
         var res = [];
         res.push(this);
         res = res.concat(toInsertParams);
-        return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], res)))();
+        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], res)))();
     };
     DomQuery.prototype.orElse = function () {
         var elseValue = [];
@@ -1387,7 +1299,7 @@ var DomQuery = /** @class */ (function () {
             return this;
         }
         else {
-            return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], elseValue)))();
+            return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], elseValue)))();
         }
     };
     DomQuery.prototype.orElseLazy = function (func) {
@@ -1419,7 +1331,7 @@ var DomQuery = /** @class */ (function () {
                 }
             }
         });
-        return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], retArr)))();
+        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], retArr)))();
     };
     DomQuery.prototype.copyAttrs = function (sourceItem) {
         var _this = this;
@@ -1469,8 +1381,8 @@ var DomQuery = /** @class */ (function () {
      * @param runEmbeddedCss
      */
     DomQuery.prototype.outerHTML = function (markup, runEmbeddedScripts, runEmbeddedCss, deep) {
-        if (deep === void 0) { deep = false; }
         var _a;
+        if (deep === void 0) { deep = false; }
         if (this.isAbsent()) {
             return;
         }
@@ -1491,7 +1403,7 @@ var DomQuery = /** @class */ (function () {
         var insertAdditionalItems = [];
         if (nodes.length > 1) {
             insertAdditionalItems = insertAdditionalItems.concat.apply(insertAdditionalItems, nodes.values.slice(1));
-            res.push(DomQuery.byId(replaced).insertAfter(new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], insertAdditionalItems)))()));
+            res.push(DomQuery.byId(replaced).insertAfter(new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], insertAdditionalItems)))()));
         }
         if (runEmbeddedScripts) {
             this.runScripts();
@@ -1829,14 +1741,14 @@ var DomQuery = /** @class */ (function () {
             // response may contain several blocks
             return res.join("");
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     DomQuery.prototype.subNodes = function (from, to) {
         if (Monad_1.Optional.fromNullable(to).isAbsent()) {
             to = this.length;
         }
-        return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], this.rootNode.slice(from, Math.min(to, this.length)))))();
+        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], this.rootNode.slice(from, Math.min(to, this.length)))))();
     };
     DomQuery.prototype.limits = function (end) {
         this._limits = end;
@@ -1873,7 +1785,7 @@ var DomQuery = /** @class */ (function () {
                 throw new Error("Shadow dom creation not supported by the browser, please use a shim, to gain this functionality");
             }
         });
-        return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], shadowRoots)))();
+        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], shadowRoots)))();
     };
     Object.defineProperty(DomQuery.prototype, "shadowElements", {
         /**
@@ -1883,9 +1795,9 @@ var DomQuery = /** @class */ (function () {
             var shadowElements = this.querySelectorAll("*")
                 .filter(function (item) { return item.hasShadow; });
             var mapped = (shadowElements.allElems() || []).map(function (element) { return element.shadowRoot; });
-            return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], mapped)))();
+            return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], mapped)))();
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DomQuery.prototype, "shadowRoot", {
@@ -1896,9 +1808,9 @@ var DomQuery = /** @class */ (function () {
                     shadowRoots.push(this.rootNode[cnt].shadowRoot);
                 }
             }
-            return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], shadowRoots)))();
+            return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], shadowRoots)))();
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DomQuery.prototype, "hasShadow", {
@@ -1910,7 +1822,7 @@ var DomQuery = /** @class */ (function () {
             }
             return false;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     //from
@@ -1971,9 +1883,9 @@ var DomQueryCollector = /** @class */ (function () {
     };
     Object.defineProperty(DomQueryCollector.prototype, "finalValue", {
         get: function () {
-            return new (DomQuery.bind.apply(DomQuery, __spreadArrays([void 0], this.data)))();
+            return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], this.data)))();
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return DomQueryCollector;
@@ -1991,10 +1903,8 @@ exports.DQ = DomQuery;
 /*!**************************************************!*\
   !*** ./src/main/typescript/ext/monadish/Lang.ts ***!
   \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -2011,7 +1921,8 @@ exports.DQ = DomQuery;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Lang = void 0;
 var Monad_1 = __webpack_require__(/*! ./Monad */ "./src/main/typescript/ext/monadish/Monad.ts");
 /**
  * Lang helpers crossported from the apache myfaces project
@@ -2186,10 +2097,8 @@ var Lang;
 /*!***************************************************!*\
   !*** ./src/main/typescript/ext/monadish/Monad.ts ***!
   \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -2210,16 +2119,19 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Config = exports.ValueEmbedder = exports.Optional = exports.Monad = void 0;
 /**
  * A module which keeps  basic monadish like definitions in place without any sidedependencies to other modules.
  * Useful if you need the functions in another library to keep its dependencies down
@@ -2242,7 +2154,7 @@ var Monad = /** @class */ (function () {
         get: function () {
             return this._value;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Monad.prototype.map = function (fn) {
@@ -2279,7 +2191,7 @@ var Optional = /** @class */ (function (_super) {
             }
             return this._value;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Optional.fromNullable = function (value) {
@@ -2511,7 +2423,7 @@ var ValueEmbedder = /** @class */ (function (_super) {
             }
             this._value[this.key] = newVal;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     ValueEmbedder.prototype.orElse = function (elseValue) {
@@ -2580,7 +2492,7 @@ var ConfigEntry = /** @class */ (function (_super) {
             }
             this._value[this.key] = val;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     /*default value for absent*/
@@ -2602,14 +2514,14 @@ var Config = /** @class */ (function (_super) {
         get: function () {
             return new Config(Stream_1.Stream.ofAssoc(this.value).collect(new SourcesCollectors_1.AssocArrayCollector()));
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Config.prototype, "deepCopy", {
         get: function () {
             return new Config(objAssign({}, this.value));
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Config.fromNullable = function (value) {
@@ -2801,10 +2713,8 @@ exports.Config = Config;
 /*!***************************************************************!*\
   !*** ./src/main/typescript/ext/monadish/SourcesCollectors.ts ***!
   \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -2821,14 +2731,13 @@ exports.Config = Config;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.QueryFormStringCollector = exports.QueryFormDataCollector = exports.FormDataCollector = exports.AssocArrayCollector = exports.ArrayCollector = exports.FlatMapStreamDataSource = exports.MappedStreamDataSource = exports.FilteredStreamDatasource = exports.ArrayStreamDataSource = void 0;
 var Stream_1 = __webpack_require__(/*! ./Stream */ "./src/main/typescript/ext/monadish/Stream.ts");
 /**
  * implementation of iteratable on top of array
@@ -2949,7 +2858,7 @@ var FlatMapStreamDataSource = /** @class */ (function () {
         while (!next && this.inputDataSource.hasNext()) {
             var mapped = this.mapFunc(this.inputDataSource.next());
             if (Array.isArray(mapped)) {
-                this.activeDataSource = new (ArrayStreamDataSource.bind.apply(ArrayStreamDataSource, __spreadArrays([void 0], mapped)))();
+                this.activeDataSource = new (ArrayStreamDataSource.bind.apply(ArrayStreamDataSource, __spreadArray([void 0], mapped)))();
             }
             else {
                 this.activeDataSource = mapped;
@@ -2982,7 +2891,7 @@ var ArrayCollector = /** @class */ (function () {
         get: function () {
             return this.data;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return ArrayCollector;
@@ -3053,7 +2962,7 @@ var QueryFormStringCollector = /** @class */ (function () {
                 .reduce(function (item1, item2) { return [item1, item2].join("&"); })
                 .orElse("").value;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return QueryFormStringCollector;
@@ -3067,10 +2976,8 @@ exports.QueryFormStringCollector = QueryFormStringCollector;
 /*!****************************************************!*\
   !*** ./src/main/typescript/ext/monadish/Stream.ts ***!
   \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -3087,14 +2994,13 @@ exports.QueryFormStringCollector = QueryFormStringCollector;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.LazyStream = exports.Stream = void 0;
 /*
  * A small stream implementation
  */
@@ -3124,7 +3030,7 @@ var Stream = /** @class */ (function () {
         for (var _i = 0; _i < arguments.length; _i++) {
             data[_i] = arguments[_i];
         }
-        return new (Stream.bind.apply(Stream, __spreadArrays([void 0], data)))();
+        return new (Stream.bind.apply(Stream, __spreadArray([void 0], data)))();
     };
     Stream.ofAssoc = function (data) {
         return this.of.apply(this, Object.keys(data)).map(function (key) { return [key, data[key]]; });
@@ -3134,7 +3040,7 @@ var Stream = /** @class */ (function () {
         while (dataSource.hasNext()) {
             value.push(dataSource.next());
         }
-        return new (Stream.bind.apply(Stream, __spreadArrays([void 0], value)))();
+        return new (Stream.bind.apply(Stream, __spreadArray([void 0], value)))();
     };
     Stream.prototype.limits = function (end) {
         this._limits = end;
@@ -3159,7 +3065,7 @@ var Stream = /** @class */ (function () {
         this.each(function (item, cnt) {
             res.push(fn(item));
         });
-        return new (Stream.bind.apply(Stream, __spreadArrays([void 0], res)))();
+        return new (Stream.bind.apply(Stream, __spreadArray([void 0], res)))();
     };
     /*
      * we need to implement it to fullfill the contract, although it is used only internally
@@ -3180,7 +3086,7 @@ var Stream = /** @class */ (function () {
                 res.push(data);
             }
         });
-        return new (Stream.bind.apply(Stream, __spreadArrays([void 0], res)))();
+        return new (Stream.bind.apply(Stream, __spreadArray([void 0], res)))();
     };
     Stream.prototype.reduce = function (fn, startVal) {
         if (startVal === void 0) { startVal = null; }
@@ -3299,7 +3205,7 @@ var LazyStream = /** @class */ (function () {
         for (var _i = 0; _i < arguments.length; _i++) {
             values[_i] = arguments[_i];
         }
-        return new LazyStream(new (SourcesCollectors_1.ArrayStreamDataSource.bind.apply(SourcesCollectors_1.ArrayStreamDataSource, __spreadArrays([void 0], values)))());
+        return new LazyStream(new (SourcesCollectors_1.ArrayStreamDataSource.bind.apply(SourcesCollectors_1.ArrayStreamDataSource, __spreadArray([void 0], values)))());
     };
     LazyStream.ofAssoc = function (data) {
         return this.of.apply(this, Object.keys(data)).map(function (key) { return [key, data[key]]; });
@@ -3443,7 +3349,7 @@ var LazyStream = /** @class */ (function () {
         get: function () {
             return this.collect(new SourcesCollectors_1.ArrayCollector());
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     LazyStream.prototype.stop = function () {
@@ -3463,10 +3369,8 @@ exports.LazyStream = LazyStream;
 /*!******************************************************!*\
   !*** ./src/main/typescript/ext/monadish/XmlQuery.ts ***!
   \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -3487,16 +3391,19 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.XQ = exports.XMLQuery = void 0;
 var Lang_1 = __webpack_require__(/*! ./Lang */ "./src/main/typescript/ext/monadish/Lang.ts");
 var DomQuery_1 = __webpack_require__(/*! ./DomQuery */ "./src/main/typescript/ext/monadish/DomQuery.ts");
 var isString = Lang_1.Lang.isString;
@@ -3574,40 +3481,39 @@ exports.XQ = XMLQuery;
 /*!***************************************************!*\
   !*** ./src/main/typescript/ext/monadish/index.ts ***!
   \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.QueryFormDataCollector = exports.FormDataCollector = exports.AssocArrayCollector = exports.ArrayCollector = exports.QueryFormStringCollector = exports.FlatMapStreamDataSource = exports.FilteredStreamDatasource = exports.MappedStreamDataSource = exports.ArrayStreamDataSource = exports.LazyStream = exports.Stream = exports.XQ = exports.XMLQuery = exports.ValueEmbedder = exports.Optional = exports.Monad = exports.Config = exports.Lang = exports.DQ = exports.DomQueryCollector = exports.ElementAttribute = exports.DomQuery = void 0;
 var DomQuery_1 = __webpack_require__(/*! ./DomQuery */ "./src/main/typescript/ext/monadish/DomQuery.ts");
-exports.DomQuery = DomQuery_1.DomQuery;
-exports.ElementAttribute = DomQuery_1.ElementAttribute;
-exports.DomQueryCollector = DomQuery_1.DomQueryCollector;
-exports.DQ = DomQuery_1.DQ;
+Object.defineProperty(exports, "DomQuery", ({ enumerable: true, get: function () { return DomQuery_1.DomQuery; } }));
+Object.defineProperty(exports, "ElementAttribute", ({ enumerable: true, get: function () { return DomQuery_1.ElementAttribute; } }));
+Object.defineProperty(exports, "DomQueryCollector", ({ enumerable: true, get: function () { return DomQuery_1.DomQueryCollector; } }));
+Object.defineProperty(exports, "DQ", ({ enumerable: true, get: function () { return DomQuery_1.DQ; } }));
 var Lang_1 = __webpack_require__(/*! ./Lang */ "./src/main/typescript/ext/monadish/Lang.ts");
-exports.Lang = Lang_1.Lang;
+Object.defineProperty(exports, "Lang", ({ enumerable: true, get: function () { return Lang_1.Lang; } }));
 var Monad_1 = __webpack_require__(/*! ./Monad */ "./src/main/typescript/ext/monadish/Monad.ts");
-exports.Config = Monad_1.Config;
-exports.Monad = Monad_1.Monad;
-exports.Optional = Monad_1.Optional;
-exports.ValueEmbedder = Monad_1.ValueEmbedder;
+Object.defineProperty(exports, "Config", ({ enumerable: true, get: function () { return Monad_1.Config; } }));
+Object.defineProperty(exports, "Monad", ({ enumerable: true, get: function () { return Monad_1.Monad; } }));
+Object.defineProperty(exports, "Optional", ({ enumerable: true, get: function () { return Monad_1.Optional; } }));
+Object.defineProperty(exports, "ValueEmbedder", ({ enumerable: true, get: function () { return Monad_1.ValueEmbedder; } }));
 var XmlQuery_1 = __webpack_require__(/*! ./XmlQuery */ "./src/main/typescript/ext/monadish/XmlQuery.ts");
-exports.XMLQuery = XmlQuery_1.XMLQuery;
-exports.XQ = XmlQuery_1.XQ;
+Object.defineProperty(exports, "XMLQuery", ({ enumerable: true, get: function () { return XmlQuery_1.XMLQuery; } }));
+Object.defineProperty(exports, "XQ", ({ enumerable: true, get: function () { return XmlQuery_1.XQ; } }));
 var Stream_1 = __webpack_require__(/*! ./Stream */ "./src/main/typescript/ext/monadish/Stream.ts");
-exports.Stream = Stream_1.Stream;
-exports.LazyStream = Stream_1.LazyStream;
+Object.defineProperty(exports, "Stream", ({ enumerable: true, get: function () { return Stream_1.Stream; } }));
+Object.defineProperty(exports, "LazyStream", ({ enumerable: true, get: function () { return Stream_1.LazyStream; } }));
 var SourcesCollectors_1 = __webpack_require__(/*! ./SourcesCollectors */ "./src/main/typescript/ext/monadish/SourcesCollectors.ts");
-exports.ArrayStreamDataSource = SourcesCollectors_1.ArrayStreamDataSource;
-exports.MappedStreamDataSource = SourcesCollectors_1.MappedStreamDataSource;
-exports.FilteredStreamDatasource = SourcesCollectors_1.FilteredStreamDatasource;
-exports.FlatMapStreamDataSource = SourcesCollectors_1.FlatMapStreamDataSource;
-exports.QueryFormStringCollector = SourcesCollectors_1.QueryFormStringCollector;
-exports.ArrayCollector = SourcesCollectors_1.ArrayCollector;
-exports.AssocArrayCollector = SourcesCollectors_1.AssocArrayCollector;
-exports.FormDataCollector = SourcesCollectors_1.FormDataCollector;
-exports.QueryFormDataCollector = SourcesCollectors_1.QueryFormDataCollector;
+Object.defineProperty(exports, "ArrayStreamDataSource", ({ enumerable: true, get: function () { return SourcesCollectors_1.ArrayStreamDataSource; } }));
+Object.defineProperty(exports, "MappedStreamDataSource", ({ enumerable: true, get: function () { return SourcesCollectors_1.MappedStreamDataSource; } }));
+Object.defineProperty(exports, "FilteredStreamDatasource", ({ enumerable: true, get: function () { return SourcesCollectors_1.FilteredStreamDatasource; } }));
+Object.defineProperty(exports, "FlatMapStreamDataSource", ({ enumerable: true, get: function () { return SourcesCollectors_1.FlatMapStreamDataSource; } }));
+Object.defineProperty(exports, "QueryFormStringCollector", ({ enumerable: true, get: function () { return SourcesCollectors_1.QueryFormStringCollector; } }));
+Object.defineProperty(exports, "ArrayCollector", ({ enumerable: true, get: function () { return SourcesCollectors_1.ArrayCollector; } }));
+Object.defineProperty(exports, "AssocArrayCollector", ({ enumerable: true, get: function () { return SourcesCollectors_1.AssocArrayCollector; } }));
+Object.defineProperty(exports, "FormDataCollector", ({ enumerable: true, get: function () { return SourcesCollectors_1.FormDataCollector; } }));
+Object.defineProperty(exports, "QueryFormDataCollector", ({ enumerable: true, get: function () { return SourcesCollectors_1.QueryFormDataCollector; } }));
 
 
 /***/ }),
@@ -3616,10 +3522,8 @@ exports.QueryFormDataCollector = SourcesCollectors_1.QueryFormDataCollector;
 /*!**********************************************!*\
   !*** ./src/main/typescript/impl/AjaxImpl.ts ***!
   \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -3636,7 +3540,8 @@ exports.QueryFormDataCollector = SourcesCollectors_1.QueryFormDataCollector;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Implementation = void 0;
 var Response_1 = __webpack_require__(/*! ./xhrCore/Response */ "./src/main/typescript/impl/xhrCore/Response.ts");
 var XhrRequest_1 = __webpack_require__(/*! ./xhrCore/XhrRequest */ "./src/main/typescript/impl/xhrCore/XhrRequest.ts");
 var AsyncQueue_1 = __webpack_require__(/*! ./util/AsyncQueue */ "./src/main/typescript/impl/util/AsyncQueue.ts");
@@ -4199,15 +4104,14 @@ var Implementation;
 /*!**********************************************!*\
   !*** ./src/main/typescript/impl/PushImpl.ts ***!
   \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 /**
  * Typescript port of the jsf.push part in the myfaces implementation
  */
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.PushImpl = void 0;
 //TODO still work in progress
 //this is a 1:1 port for the time being
 var Jsf_1 = __webpack_require__(/*! ../api/Jsf */ "./src/main/typescript/api/Jsf.ts");
@@ -4424,10 +4328,8 @@ var PushImpl;
 /*!************************************************!*\
   !*** ./src/main/typescript/impl/core/Const.ts ***!
   \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -4444,7 +4346,10 @@ var PushImpl;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CTX_PARAM_RST = exports.CTX_PARAM_TIMEOUT = exports.CTX_PARAM_DELAY = exports.CTX_PARAM_PASS_THR = exports.CTX_PARAM_TR_TYPE = exports.CTX_PARAM_SRC_CTL_ID = exports.CTX_PARAM_SRC_FRM_ID = exports.CTX_PARAM_MF_INTERNAL = exports.TIMEOUT_EVENT = exports.CLIENT_ERROR = exports.SERVER_ERROR = exports.MALFORMEDXML = exports.EMPTY_RESPONSE = exports.HTTPERROR = exports.RESPONSE_XML = exports.RESPONSE_TEXT = exports.ERROR_MESSAGE = exports.ERROR_NAME = exports.STATUS = exports.SOURCE = exports.SUCCESS = exports.COMPLETE = exports.BEGIN = exports.ON_EVENT = exports.ON_ERROR = exports.EVENT = exports.ERROR = exports.WINDOW_ID = exports.RENDER = exports.P_WINDOW_ID = exports.P_RESET_VALUES = exports.P_CLIENT_WINDOW = exports.P_EVT = exports.P_RENDER = exports.P_EXECUTE = exports.P_AJAX = exports.IDENT_FORM = exports.IDENT_THIS = exports.IDENT_NONE = exports.IDENT_ALL = exports.HTML_VIEWSTATE = exports.EMPTY_MAP = exports.EMPTY_STR = exports.EMPTY_FUNC = exports.P_VIEWBODY = exports.P_VIEWHEAD = exports.P_VIEWROOT = exports.P_VIEWSTATE = exports.PARTIAL_ID = exports.P_PARTIAL_SOURCE = void 0;
+exports.RECONNECT_INTERVAL = exports.APPLIED_CLIENT_WINDOW = exports.APPLIED_VST = exports.REASON_EXPIRED = exports.MF_NONE = exports.SEL_SCRIPTS_STYLES = exports.MYFACES = exports.UPDATE_ELEMS = exports.UPDATE_FORMS = exports.CMD_REDIRECT = exports.CMD_EXTENSION = exports.CMD_ATTRIBUTES = exports.CMD_ERROR = exports.CMD_EVAL = exports.CMD_INSERT = exports.CMD_DELETE = exports.CMD_UPDATE = exports.CMD_CHANGES = exports.RESP_PARTIAL = exports.ATTR_ID = exports.ATTR_VALUE = exports.ATTR_NAME = exports.ATTR_URL = exports.ERR_NO_PARTIAL_RESPONSE = exports.PHASE_PROCESS_RESPONSE = exports.SEL_RESPONSE_XML = exports.SEL_CLIENT_WINDOW_ELEM = exports.SEL_VIEWSTATE_ELEM = exports.TAG_ATTR = exports.TAG_AFTER = exports.TAG_BEFORE = exports.TAG_BODY = exports.TAG_FORM = exports.TAG_HEAD = exports.STD_ACCEPT = exports.NO_TIMEOUT = exports.MULTIPART = exports.URL_ENCODED = exports.STATE_EVT_COMPLETE = exports.STATE_EVT_TIMEOUT = exports.STATE_EVT_BEGIN = exports.REQ_TYPE_POST = exports.REQ_TYPE_GET = exports.ENCODED_URL = exports.VAL_AJAX = exports.REQ_ACCEPT = exports.HEAD_FACES_REQ = exports.CONTENT_TYPE = exports.STAGE_DEVELOPMENT = exports.CTX_PARAM_EXECUTE = void 0;
+exports.UNKNOWN = exports.MAX_RECONNECT_ATTEMPTS = void 0;
 /*
  * [export const] constants
  */
@@ -4527,6 +4432,7 @@ exports.TAG_BEFORE = "before";
 exports.TAG_AFTER = "after";
 exports.TAG_ATTR = "attribute";
 exports.SEL_VIEWSTATE_ELEM = "[name='" + exports.P_VIEWSTATE + "']";
+exports.SEL_CLIENT_WINDOW_ELEM = "[name='" + exports.P_CLIENT_WINDOW + "']";
 exports.SEL_RESPONSE_XML = "responseXML";
 exports.PHASE_PROCESS_RESPONSE = "processResponse";
 exports.ERR_NO_PARTIAL_RESPONSE = "Partial response not set";
@@ -4554,6 +4460,7 @@ exports.SEL_SCRIPTS_STYLES = "script, style, link";
 exports.MF_NONE = "__mf_none__";
 exports.REASON_EXPIRED = "Expired";
 exports.APPLIED_VST = "appliedViewState";
+exports.APPLIED_CLIENT_WINDOW = "appliedClientWindow";
 exports.RECONNECT_INTERVAL = 500;
 exports.MAX_RECONNECT_ATTEMPTS = 25;
 exports.UNKNOWN = "UNKNOWN";
@@ -4565,12 +4472,11 @@ exports.UNKNOWN = "UNKNOWN";
 /*!****************************************************!*\
   !*** ./src/main/typescript/impl/core/ImplTypes.ts ***!
   \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.StateHolder = void 0;
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -4589,26 +4495,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Const_1 = __webpack_require__(/*! ./Const */ "./src/main/typescript/impl/core/Const.ts");
 /**
  * a helper class to isolate the
- * view state data processing
+ * view state and client window and other
+ * future states which follow a similar pattern
  */
-var ViewState = /** @class */ (function () {
-    function ViewState(id, value) {
+var StateHolder = /** @class */ (function () {
+    function StateHolder(id, value) {
         this.id = id;
         this.value = value;
         var viewStatePos = id.indexOf(Const_1.P_VIEWSTATE);
         this.nameSpace = viewStatePos > 0 ? id.substr(0, viewStatePos - 1) : Const_1.EMPTY_STR;
     }
-    Object.defineProperty(ViewState.prototype, "hasNameSpace", {
+    Object.defineProperty(StateHolder.prototype, "hasNameSpace", {
         get: function () {
             var _a;
             return !!((_a = this === null || this === void 0 ? void 0 : this.nameSpace) !== null && _a !== void 0 ? _a : Const_1.EMPTY_STR).length;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
-    return ViewState;
+    return StateHolder;
 }());
-exports.ViewState = ViewState;
+exports.StateHolder = StateHolder;
 
 
 /***/ }),
@@ -4617,10 +4524,8 @@ exports.ViewState = ViewState;
 /*!***************************************************!*\
   !*** ./src/main/typescript/impl/i18n/Messages.ts ***!
   \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -4637,7 +4542,8 @@ exports.ViewState = ViewState;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Messages = void 0;
 var Messages = /** @class */ (function () {
     function Messages() {
         this.MSG_TEST = "Testmessage";
@@ -4741,12 +4647,11 @@ exports.Messages = Messages;
 /*!*****************************************************!*\
   !*** ./src/main/typescript/impl/util/Assertions.ts ***!
   \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Assertions = void 0;
 var monadish_1 = __webpack_require__(/*! ../../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
 var Lang_1 = __webpack_require__(/*! ./Lang */ "./src/main/typescript/impl/util/Lang.ts");
 var getMessage = Lang_1.ExtLang.getMessage;
@@ -4841,12 +4746,11 @@ var Assertions;
 /*!*****************************************************!*\
   !*** ./src/main/typescript/impl/util/AsyncQueue.ts ***!
   \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AsynchronouseQueue = void 0;
 /**
  * Asynchronous queue which starts to work
  * through the callbacks until the queue is empty
@@ -4866,7 +4770,7 @@ var AsynchronouseQueue = /** @class */ (function () {
         get: function () {
             return !this.runnableQueue.length;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     /**
@@ -4955,25 +4859,26 @@ exports.AsynchronouseQueue = AsynchronouseQueue;
 /*!******************************************************!*\
   !*** ./src/main/typescript/impl/util/ExtDomQuery.ts ***!
   \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ExtDQ = exports.ExtDomquery = void 0;
 var Monad_1 = __webpack_require__(/*! ../../ext/monadish/Monad */ "./src/main/typescript/ext/monadish/Monad.ts");
 var DomQuery_1 = __webpack_require__(/*! ../../ext/monadish/DomQuery */ "./src/main/typescript/ext/monadish/DomQuery.ts");
 var Const_1 = __webpack_require__(/*! ../core/Const */ "./src/main/typescript/impl/core/Const.ts");
@@ -4995,14 +4900,14 @@ var ExtDomquery = /** @class */ (function (_super) {
         get: function () {
             return new ExtDomquery(document.body).windowId;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(ExtDomquery, "nonce", {
         get: function () {
             return new ExtDomquery(document.body).nonce;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(ExtDomquery.prototype, "windowId", {
@@ -5029,7 +4934,7 @@ var ExtDomquery = /** @class */ (function (_super) {
                 return fetchWindowIdFromURL();
             }
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(ExtDomquery.prototype, "nonce", {
@@ -5061,7 +4966,7 @@ var ExtDomquery = /** @class */ (function (_super) {
             }
             return nonce.value;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     ExtDomquery.searchJsfJsFor = function (item) {
@@ -5093,10 +4998,8 @@ exports.ExtDQ = DomQuery_1.DQ;
 /*!***********************************************!*\
   !*** ./src/main/typescript/impl/util/Lang.ts ***!
   \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -5116,7 +5019,8 @@ exports.ExtDQ = DomQuery_1.DQ;
  * todo replace singleton with module definition
  *
  */
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ExtLang = void 0;
 var Lang_1 = __webpack_require__(/*! ../../ext/monadish/Lang */ "./src/main/typescript/ext/monadish/Lang.ts");
 var Messages_1 = __webpack_require__(/*! ../i18n/Messages */ "./src/main/typescript/impl/i18n/Messages.ts");
 // noinspection TypeScriptPreferShortImport
@@ -5186,11 +5090,11 @@ var ExtLang;
      * @param templateParams the param list to be filled in
      */
     function getMessage(key, defaultMessage) {
+        var _a, _b;
         var templateParams = [];
         for (var _i = 2; _i < arguments.length; _i++) {
             templateParams[_i - 2] = arguments[_i];
         }
-        var _a, _b;
         installedLocale = installedLocale !== null && installedLocale !== void 0 ? installedLocale : new Messages_1.Messages();
         var msg = (_b = (_a = installedLocale[key]) !== null && _a !== void 0 ? _a : defaultMessage) !== null && _b !== void 0 ? _b : key + " - undefined message";
         monadish_1.Stream.of.apply(monadish_1.Stream, templateParams).each(function (param, cnt) {
@@ -5321,25 +5225,26 @@ var ExtLang;
 /*!*******************************************************!*\
   !*** ./src/main/typescript/impl/xhrCore/ErrorData.ts ***!
   \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ErrorData = exports.ErrorType = void 0;
 var Const_1 = __webpack_require__(/*! ../core/Const */ "./src/main/typescript/impl/core/Const.ts");
 var EventData_1 = __webpack_require__(/*! ./EventData */ "./src/main/typescript/impl/xhrCore/EventData.ts");
 var Lang_1 = __webpack_require__(/*! ../util/Lang */ "./src/main/typescript/impl/util/Lang.ts");
@@ -5399,7 +5304,7 @@ var ErrorData = /** @class */ (function (_super) {
         var status = getMsg(context, Const_1.STATUS);
         var responseText = getMsg(context, Const_1.RESPONSE_TEXT);
         var responseXML = getMsg(context, Const_1.RESPONSE_XML);
-        return new ErrorData(source, name, errorMessage, responseText, responseXML, errorCode + Const_1.EMPTY_STR, status, errorType);
+        return new ErrorData(source, errorName, errorMessage, responseText, responseXML, errorCode + Const_1.EMPTY_STR, status, errorType);
     };
     ErrorData.getMsg = function (context, param) {
         return getMessage(context.getIf(param).orElse(Const_1.UNKNOWN).value);
@@ -5418,12 +5323,11 @@ exports.ErrorData = ErrorData;
 /*!*******************************************************!*\
   !*** ./src/main/typescript/impl/xhrCore/EventData.ts ***!
   \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.EventData = void 0;
 var monadish_1 = __webpack_require__(/*! ../../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
 var Const_1 = __webpack_require__(/*! ../core/Const */ "./src/main/typescript/impl/core/Const.ts");
 var EventData = /** @class */ (function () {
@@ -5458,10 +5362,8 @@ exports.EventData = EventData;
 /*!*****************************************************************!*\
   !*** ./src/main/typescript/impl/xhrCore/RequestDataResolver.ts ***!
   \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -5478,7 +5380,8 @@ exports.EventData = EventData;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.resolveDefaults = exports.getEventTarget = exports.resolveWindowId = exports.resolveDelay = exports.resolveTimeout = exports.resolveForm = exports.resolveFinalUrl = exports.resolveTargetUrl = exports.resolveHandlerFunc = void 0;
 var monadish_1 = __webpack_require__(/*! ../../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
 var Const_1 = __webpack_require__(/*! ../core/Const */ "./src/main/typescript/impl/core/Const.ts");
 var Lang_1 = __webpack_require__(/*! ../util/Lang */ "./src/main/typescript/impl/util/Lang.ts");
@@ -5595,9 +5498,9 @@ exports.getEventTarget = getEventTarget;
  * @param el
  */
 function resolveDefaults(event, opts, el) {
+    var _a;
     if (opts === void 0) { opts = {}; }
     if (el === void 0) { el = null; }
-    var _a;
     //deep copy the options, so that further transformations to not backfire into the callers
     var resolvedEvent = event, options = new monadish_1.Config(opts).deepCopy, elem = monadish_1.DQ.byId(el || resolvedEvent.target, true), elementId = elem.id, requestCtx = new monadish_1.Config({}), internalCtx = new monadish_1.Config({}), windowId = resolveWindowId(options), isResetValues = true === ((_a = options.value) === null || _a === void 0 ? void 0 : _a.resetValues);
     return { resolvedEvent: resolvedEvent, options: options, elem: elem, elementId: elementId, requestCtx: requestCtx, internalCtx: internalCtx, windowId: windowId, isResetValues: isResetValues };
@@ -5611,10 +5514,8 @@ exports.resolveDefaults = resolveDefaults;
 /*!*****************************************************************!*\
   !*** ./src/main/typescript/impl/xhrCore/ResonseDataResolver.ts ***!
   \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -5631,7 +5532,8 @@ exports.resolveDefaults = resolveDefaults;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.resolveSourceForm = exports.resolveSourceElement = exports.resolveContexts = exports.resolveResponseXML = void 0;
 var monadish_1 = __webpack_require__(/*! ../../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
 var Assertions_1 = __webpack_require__(/*! ../util/Assertions */ "./src/main/typescript/impl/util/Assertions.ts");
 var monadish_2 = __webpack_require__(/*! ../../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
@@ -5724,10 +5626,8 @@ function resolveSourceElementId(context, internalContext) {
 /*!******************************************************!*\
   !*** ./src/main/typescript/impl/xhrCore/Response.ts ***!
   \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -5744,7 +5644,8 @@ function resolveSourceElementId(context, internalContext) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Response = void 0;
 var monadish_1 = __webpack_require__(/*! ../../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
 var ResponseProcessor_1 = __webpack_require__(/*! ./ResponseProcessor */ "./src/main/typescript/impl/xhrCore/ResponseProcessor.ts");
 var Const_1 = __webpack_require__(/*! ../core/Const */ "./src/main/typescript/impl/core/Const.ts");
@@ -5771,11 +5672,14 @@ var Response;
         //we now process the partial tags, or in none given raise an error
         responseXML.querySelectorAll(Const_1.RESP_PARTIAL)
             .each(function (item) { return processPartialTag(item, responseProcessor, internalContext); });
-        //we now process the viewstates and the evals deferred
+        //we now process the viewstates, client windows and the evals deferred
         //the reason for this is that often it is better
         //to wait until the document has caught up before
         //doing any evals even on embedded scripts
+        //usually this does not matter, the client window comes in almost last always anyway
+        //we maybe drop this deferred assignment in the future, but myfaces did it until now
         responseProcessor.fixViewStates();
+        responseProcessor.fixClientWindow();
         responseProcessor.globalEval();
         responseProcessor.done();
     }
@@ -5842,6 +5746,17 @@ var Response;
         return true;
     }
     /**
+     * checks and stores a state update for delayed processing
+     *
+     * @param responseProcessor the response processor to perform the store operation
+     * @param node the xml node to check for the state
+     *
+     * @private
+     */
+    function storeState(responseProcessor, node) {
+        return responseProcessor.processViewState(node) || responseProcessor.processClientWindow(node);
+    }
+    /**
      * branch tag update.. drill further down into the updates
      * special case viewstate in that case it is a leaf
      * and the viewstate must be processed
@@ -5850,7 +5765,8 @@ var Response;
      * @param responseProcessor
      */
     function processUpdateTag(node, responseProcessor) {
-        if (!responseProcessor.processViewState(node)) {
+        //early state storing, if no state we perform a normal update cycle
+        if (!storeState(responseProcessor, node)) {
             handleElementUpdate(node, responseProcessor);
         }
     }
@@ -5886,10 +5802,8 @@ var Response;
 /*!***************************************************************!*\
   !*** ./src/main/typescript/impl/xhrCore/ResponseProcessor.ts ***!
   \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -5906,14 +5820,13 @@ var Response;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ResponseProcessor = void 0;
 var monadish_1 = __webpack_require__(/*! ../../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
 var AjaxImpl_1 = __webpack_require__(/*! ../AjaxImpl */ "./src/main/typescript/impl/AjaxImpl.ts");
 var Assertions_1 = __webpack_require__(/*! ../util/Assertions */ "./src/main/typescript/impl/util/Assertions.ts");
@@ -6099,17 +6012,24 @@ var ResponseProcessor = /** @class */ (function () {
      */
     ResponseProcessor.prototype.processViewState = function (node) {
         if (ResponseProcessor.isViewStateNode(node)) {
-            var viewStateValue = node.cDATAAsString;
-            this.internalContext.assign(Const_1.APPLIED_VST, node.id.value).value = new ImplTypes_1.ViewState(node.id.value, viewStateValue);
+            var state = node.cDATAAsString;
+            this.internalContext.assign(Const_1.APPLIED_VST, node.id.value).value = new ImplTypes_1.StateHolder(node.id.value, state);
             return true;
         }
         return false;
+    };
+    ResponseProcessor.prototype.processClientWindow = function (node) {
+        if (ResponseProcessor.isClientWindowNode(node)) {
+            var state = node.cDATAAsString;
+            this.internalContext.assign(Const_1.APPLIED_CLIENT_WINDOW, node.id.value).value = new ImplTypes_1.StateHolder(node.id.value, state);
+            return true;
+        }
     };
     /**
      * generic global eval which runs the embedded css and scripts
      */
     ResponseProcessor.prototype.globalEval = function () {
-        var updateElems = new (monadish_1.DQ.bind.apply(monadish_1.DQ, __spreadArrays([void 0], this.internalContext.getIf(Const_1.UPDATE_ELEMS).value)))();
+        var updateElems = new (monadish_1.DQ.bind.apply(monadish_1.DQ, __spreadArray([void 0], this.internalContext.getIf(Const_1.UPDATE_ELEMS).value)))();
         updateElems.runCss();
         updateElems.runScripts();
     };
@@ -6125,6 +6045,17 @@ var ResponseProcessor = /** @class */ (function () {
             var affectedForms = nameSpace.byTagName(Const_1.TAG_FORM);
             var affectedForms2 = nameSpace.filter(function (item) { return item.tagName.orElse(Const_1.EMPTY_STR).value.toLowerCase() == Const_1.TAG_FORM; });
             _this.appendViewStateToForms(new monadish_1.DomQuery(affectedForms, affectedForms2), value.value);
+        });
+    };
+    ResponseProcessor.prototype.fixClientWindow = function () {
+        var _this = this;
+        monadish_1.Stream.ofAssoc(this.internalContext.getIf(Const_1.APPLIED_CLIENT_WINDOW).orElse({}).value)
+            .each(function (item) {
+            var value = item[1];
+            var nameSpace = monadish_1.DQ.byId(value.nameSpace, true).orElse(document.body);
+            var affectedForms = nameSpace.byTagName(Const_1.TAG_FORM);
+            var affectedForms2 = nameSpace.filter(function (item) { return item.tagName.orElse(Const_1.EMPTY_STR).value.toLowerCase() == Const_1.TAG_FORM; });
+            _this.appendClientWindowToForms(new monadish_1.DomQuery(affectedForms, affectedForms2), value.value);
         });
     };
     /**
@@ -6143,10 +6074,31 @@ var ResponseProcessor = /** @class */ (function () {
      * @param viewState the final viewstate
      */
     ResponseProcessor.prototype.appendViewStateToForms = function (forms, viewState) {
+        this.assignState(forms, Const_1.SEL_VIEWSTATE_ELEM, viewState);
+    };
+    /**
+     * proper clientwindow -> form assignment
+     *
+     * @param forms the forms to append the viewstate to
+     * @param clientWindow the final viewstate
+     */
+    ResponseProcessor.prototype.appendClientWindowToForms = function (forms, clientWindow) {
+        this.assignState(forms, Const_1.SEL_CLIENT_WINDOW_ELEM, clientWindow);
+    };
+    /**
+     * generic append state which appends a certain state as hidden element to an existing set of forms
+     *
+     * @param forms the forms to append or change to
+     * @param selector the selector for the state
+     * @param state the state itself which needs to be assigned
+     *
+     * @private
+     */
+    ResponseProcessor.prototype.assignState = function (forms, selector, state) {
         forms.each(function (form) {
-            var viewStateElems = form.querySelectorAll(Const_1.SEL_VIEWSTATE_ELEM)
+            var stateHolders = form.querySelectorAll(selector)
                 .orElseLazy(function () { return ResponseProcessor.newViewStateElement(form); });
-            viewStateElems.attr("value").value = viewState;
+            stateHolders.attr("value").value = state;
         });
     };
     /**
@@ -6199,6 +6151,19 @@ var ResponseProcessor = /** @class */ (function () {
             ((_d = (_c = node === null || node === void 0 ? void 0 : node.id) === null || _c === void 0 ? void 0 : _c.value) === null || _d === void 0 ? void 0 : _d.indexOf([separatorChar, Const_1.P_VIEWSTATE].join(Const_1.EMPTY_STR))) != -1 ||
             ((_f = (_e = node === null || node === void 0 ? void 0 : node.id) === null || _e === void 0 ? void 0 : _e.value) === null || _f === void 0 ? void 0 : _f.indexOf([Const_1.P_VIEWSTATE, separatorChar].join(Const_1.EMPTY_STR))) != -1);
     };
+    /**
+     * incoming client window node also needs special processing
+     *
+     * @param node the node to check
+     * @returns true of it ii
+     */
+    ResponseProcessor.isClientWindowNode = function (node) {
+        var _a, _b, _c, _d, _e, _f;
+        var separatorChar = window.jsf.separatorchar;
+        return "undefined" != typeof ((_a = node === null || node === void 0 ? void 0 : node.id) === null || _a === void 0 ? void 0 : _a.value) && (((_b = node === null || node === void 0 ? void 0 : node.id) === null || _b === void 0 ? void 0 : _b.value) == Const_1.P_CLIENT_WINDOW ||
+            ((_d = (_c = node === null || node === void 0 ? void 0 : node.id) === null || _c === void 0 ? void 0 : _c.value) === null || _d === void 0 ? void 0 : _d.indexOf([separatorChar, Const_1.P_CLIENT_WINDOW].join(Const_1.EMPTY_STR))) != -1 ||
+            ((_f = (_e = node === null || node === void 0 ? void 0 : node.id) === null || _e === void 0 ? void 0 : _e.value) === null || _f === void 0 ? void 0 : _f.indexOf([Const_1.P_CLIENT_WINDOW, separatorChar].join(Const_1.EMPTY_STR))) != -1);
+    };
     return ResponseProcessor;
 }());
 exports.ResponseProcessor = ResponseProcessor;
@@ -6210,32 +6175,31 @@ exports.ResponseProcessor = ResponseProcessor;
 /*!*********************************************************!*\
   !*** ./src/main/typescript/impl/xhrCore/XhrFormData.ts ***!
   \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.XhrFormData = void 0;
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -6455,7 +6419,7 @@ var XhrFormData = /** @class */ (function (_super) {
             //in case of our myfaces reduced ppr we only
             //only submit the partials
             this._value = {};
-            toEncode = new (monadish_3.DQ.bind.apply(monadish_3.DQ, __spreadArrays([void 0], this.partialIdsArray)))();
+            toEncode = new (monadish_3.DQ.bind.apply(monadish_3.DQ, __spreadArray([void 0], this.partialIdsArray)))();
         }
         else {
             if (parentItem.isAbsent())
@@ -6475,7 +6439,7 @@ var XhrFormData = /** @class */ (function (_super) {
         get: function () {
             return !!Object.keys(this.fileInputs).length;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return XhrFormData;
@@ -6489,10 +6453,8 @@ exports.XhrFormData = XhrFormData;
 /*!********************************************************!*\
   !*** ./src/main/typescript/impl/xhrCore/XhrRequest.ts ***!
   \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -6509,7 +6471,8 @@ exports.XhrFormData = XhrFormData;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.XhrRequest = void 0;
 var monadish_1 = __webpack_require__(/*! ../../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
 var AjaxImpl_1 = __webpack_require__(/*! ../AjaxImpl */ "./src/main/typescript/impl/AjaxImpl.ts");
 var XhrFormData_1 = __webpack_require__(/*! ./XhrFormData */ "./src/main/typescript/impl/xhrCore/XhrFormData.ts");
@@ -6776,5 +6739,43 @@ exports.XhrRequest = XhrRequest;
 
 /***/ })
 
-/******/ })));
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/main/typescript/api/Jsf.ts");
+/******/ 	var __webpack_export_target__ = window;
+/******/ 	for(var i in __webpack_exports__) __webpack_export_target__[i] = __webpack_exports__[i];
+/******/ 	if(__webpack_exports__.__esModule) Object.defineProperty(__webpack_export_target__, "__esModule", { value: true });
+/******/ 	
+/******/ })()
+;
 //# sourceMappingURL=jsf-development.js.map
+//# sourceMappingURL=jsf-development.js.map.jsf?ln=scripts
