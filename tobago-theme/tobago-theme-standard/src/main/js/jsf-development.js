@@ -1,6 +1,16 @@
 /******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
+
+/***/ "./node_modules/mona-dish/dist/js/commonjs/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/mona-dish/dist/js/commonjs/index.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+!function(){"use strict";var t={585:function(t,e,n){var r,o=this&&this.__extends||(r=function(t,e){return(r=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)Object.prototype.hasOwnProperty.call(e,n)&&(t[n]=e[n])})(t,e)},function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Class extends value "+String(e)+" is not a constructor or null");function n(){this.constructor=t}r(t,e),t.prototype=null===e?Object.create(e):(n.prototype=e.prototype,new n)}),i=this&&this.__read||function(t,e){var n="function"==typeof Symbol&&t[Symbol.iterator];if(!n)return t;var r,o,i=n.call(t),a=[];try{for(;(void 0===e||e-- >0)&&!(r=i.next()).done;)a.push(r.value)}catch(t){o={error:t}}finally{try{r&&!r.done&&(n=i.return)&&n.call(i)}finally{if(o)throw o.error}}return a},a=this&&this.__spreadArray||function(t,e){for(var n=0,r=e.length,o=t.length;n<r;n++,o++)t[o]=e[n];return t},l=this&&this.__values||function(t){var e="function"==typeof Symbol&&Symbol.iterator,n=e&&t[e],r=0;if(n)return n.call(t);if(t&&"number"==typeof t.length)return{next:function(){return t&&r>=t.length&&(t=void 0),{value:t&&t[r++],done:!t}}};throw new TypeError(e?"Object is not iterable.":"Symbol.iterator is not defined.")};Object.defineProperty(e,"__esModule",{value:!0}),e.DQ=e.DomQueryCollector=e.DomQuery=e.ElementAttribute=void 0;var u,s=n(152),c=n(551),f=n(255),p=n(805),h=p.Lang.trim,d=p.Lang.objToArray,v=p.Lang.isString,y=p.Lang.equalsIgnoreCase;!function(t){t.SELECT="select",t.BUTTON="button",t.SUBMIT="submit",t.RESET="reset",t.IMAGE="image",t.RADIO="radio",t.CHECKBOX="checkbox"}(u||(u={}));var m=function(t){function e(e,n,r){void 0===r&&(r=null);var o=t.call(this,e,n)||this;return o.element=e,o.name=n,o.defaultVal=r,o}return o(e,t),Object.defineProperty(e.prototype,"value",{get:function(){var t,e=(t=this.element.get(0)).orElse.apply(t,[]).values;return e.length?e[0].getAttribute(this.name):this.defaultVal},set:function(t){for(var e,n=(e=this.element.get(0)).orElse.apply(e,[]).values,r=0;r<n.length;r++)n[r].setAttribute(this.name,t);n[0].setAttribute(this.name,t)},enumerable:!1,configurable:!0}),e.prototype.getClass=function(){return e},e.fromNullable=function(t,n){return void 0===n&&(n="value"),new e(t,n)},e}(s.ValueEmbedder);e.ElementAttribute=m;var b=function(t){return-1==t.indexOf("ln=scripts")&&-1==t.indexOf("ln=javax.faces")||-1==t.indexOf("/jsf.js")&&-1==t.indexOf("/jsf-uncompressed.js")},g=function(){function t(){for(var e,n=[],r=0;r<arguments.length;r++)n[r]=arguments[r];if(this.rootNode=[],this.pos=-1,this._limits=-1,!s.Optional.fromNullable(n).isAbsent()&&n.length)for(var o=0;o<n.length;o++)if(v(n[o])){var l=t.querySelectorAll(n[o]);l.isAbsent()||n.push.apply(n,a([],i(l.values)))}else n[o]instanceof t?(e=this.rootNode).push.apply(e,a([],i(n[o].values))):this.rootNode.push(n[o])}return Object.defineProperty(t.prototype,"value",{get:function(){return this.getAsElem(0)},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"values",{get:function(){return this.allElems()},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"id",{get:function(){return new m(this.get(0),"id")},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"length",{get:function(){return this.rootNode.length},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"tagName",{get:function(){return this.getAsElem(0).getIf("tagName")},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"nodeName",{get:function(){return this.getAsElem(0).getIf("nodeName")},enumerable:!1,configurable:!0}),t.prototype.isTag=function(t){return!this.isAbsent()&&(this.nodeName.orElse("__none___").value.toLowerCase()==t.toLowerCase()||this.tagName.orElse("__none___").value.toLowerCase()==t.toLowerCase())},Object.defineProperty(t.prototype,"type",{get:function(){return this.getAsElem(0).getIf("type")},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"name",{get:function(){return new s.ValueEmbedder(this.getAsElem(0).value,"name")},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"inputValue",{get:function(){return this.getAsElem(0).getIf("value").isPresent()?new s.ValueEmbedder(this.getAsElem(0).value):s.ValueEmbedder.absent},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"checked",{get:function(){return c.Stream.of.apply(c.Stream,a([],i(this.values))).allMatch((function(t){return!!t.checked}))},set:function(t){this.eachElem((function(e){return e.checked=t}))},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"elements",{get:function(){return this.querySelectorAll("input, checkbox, select, textarea, fieldset")},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"deepElements",{get:function(){return this.querySelectorAllDeep("input, select, textarea, checkbox, fieldset")},enumerable:!1,configurable:!0}),t.prototype.querySelectorAllDeep=function(e){var n=[],r=this.querySelectorAll(e);r.length&&n.push(r);var o=this.querySelectorAll("*").shadowRoot;if(o.length){var l=o.querySelectorAllDeep(e);l.length&&n.push(l)}return new(t.bind.apply(t,a([void 0],i(n))))},Object.defineProperty(t.prototype,"disabled",{get:function(){return this.attr("disabled").isPresent()},set:function(t){t?this.attr("disabled").value="disabled":this.removeAttribute("disabled")},enumerable:!1,configurable:!0}),t.prototype.removeAttribute=function(t){this.eachElem((function(e){return e.removeAttribute(t)}))},Object.defineProperty(t.prototype,"childNodes",{get:function(){var e=[];return this.eachElem((function(t){e=e.concat(d(t.childNodes))})),new(t.bind.apply(t,a([void 0],i(e))))},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"stream",{get:function(){return new(c.Stream.bind.apply(c.Stream,a([void 0],i(this.asArray))))},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"lazyStream",{get:function(){return c.LazyStream.of.apply(c.LazyStream,a([],i(this.asArray)))},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"asArray",{get:function(){return[].concat(c.LazyStream.of.apply(c.LazyStream,a([],i(this.rootNode))).filter((function(t){return null!=t})).map((function(e){return t.byId(e)})).collect(new f.ArrayCollector))},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"asNodeArray",{get:function(){return[].concat(c.Stream.of(this.rootNode).filter((function(t){return null!=t})).collect(new f.ArrayCollector))},enumerable:!1,configurable:!0}),t.querySelectorAllDeep=function(e){return new t(document).querySelectorAllDeep(e)},t.querySelectorAll=function(e){return-1!=e.indexOf("/shadow/")?new t(document)._querySelectorAllDeep(e):new t(document)._querySelectorAll(e)},t.byId=function(e,n){return void 0===n&&(n=!1),v(e)?n?new t(document).byIdDeep(e):new t(document).byId(e):new t(e)},t.byTagName=function(e){return v(e)?new t(document).byTagName(e):new t(e)},t.globalEval=function(e,n){return new t(document).globalEval(e,n)},t.fromMarkup=function(e){var n=document.implementation.createHTMLDocument(""),r=(e=h(e)).toLowerCase();if(-1!=r.indexOf("<!doctype")||-1!=r.indexOf("<html")||-1!=r.indexOf("<head")||-1!=r.indexOf("<body"))return n.documentElement.innerHTML=e,new t(n.documentElement);var o=function(t,e){var n=["<",e,">"].join(""),r=["<",e," "].join("");return 0==t.indexOf(n)||0==t.indexOf(r)},i=new t(document.createElement("div"));return o(r,"thead")||o(r,"tbody")?(i.html("<table>"+e+"</table>"),i.querySelectorAll("table").get(0).childNodes.detach()):o(r,"tfoot")?(i.html("<table><thead></thead><tbody><tbody"+e+"</table>"),i.querySelectorAll("table").get(2).childNodes.detach()):o(r,"tr")?(i.html("<table><tbody>"+e+"</tbody></table>"),i.querySelectorAll("tbody").get(0).childNodes.detach()):o(r,"td")?(i.html("<table><tbody><tr>"+e+"</tr></tbody></table>"),i.querySelectorAll("tr").get(0).childNodes.detach()):(i.html(e),i.childNodes.detach())},t.prototype.get=function(e){return e<this.rootNode.length?new t(this.rootNode[e]):t.absent},t.prototype.getAsElem=function(t,e){return void 0===e&&(e=s.Optional.absent),t<this.rootNode.length?s.Optional.fromNullable(this.rootNode[t]):e},t.prototype.filesFromElem=function(t){var e;return t<this.rootNode.length&&(null===(e=this.rootNode[t])||void 0===e?void 0:e.files)?this.rootNode[t].files:[]},t.prototype.allElems=function(){return this.rootNode},t.prototype.isAbsent=function(){return 0==this.length},t.prototype.isPresent=function(t){var e=this.isAbsent();return!e&&t&&t.call(this,this),!e},t.prototype.ifPresentLazy=function(t){return void 0===t&&(t=function(){}),this.isPresent.call(this,t),this},t.prototype.delete=function(){this.eachElem((function(t){t.parentNode&&t.parentNode.removeChild(t)}))},t.prototype.querySelectorAll=function(t){return-1!=t.indexOf("/shadow/")?this._querySelectorAllDeep(t):this._querySelectorAll(t)},t.prototype._querySelectorAll=function(e){var n,r;if(!(null===(n=null==this?void 0:this.rootNode)||void 0===n?void 0:n.length))return this;for(var o=[],l=0;l<this.rootNode.length;l++)if(null===(r=this.rootNode[l])||void 0===r?void 0:r.querySelectorAll){var u=this.rootNode[l].querySelectorAll(e);o=o.concat(d(u))}return new(t.bind.apply(t,a([void 0],i(o))))},t.prototype._querySelectorAllDeep=function(e){var n;if(!(null===(n=null==this?void 0:this.rootNode)||void 0===n?void 0:n.length))return this;for(var r=new(t.bind.apply(t,a([void 0],i(this.rootNode)))),o=e.split(/\/shadow\//),l=0;l<o.length;l++)if(""!=o[l]){var u=o[l];r=r.querySelectorAll(u),l<o.length-1&&(r=r.shadowRoot)}return r},t.prototype.byId=function(e,n){var r=[];return n&&(r=r.concat(c.LazyStream.of.apply(c.LazyStream,a([],i((null==this?void 0:this.rootNode)||[]))).filter((function(t){return e==t.id})).map((function(e){return new t(e)})).collect(new f.ArrayCollector))),r=r.concat(this.querySelectorAll('[id="'+e+'"]')),new(t.bind.apply(t,a([void 0],i(r))))},t.prototype.byIdDeep=function(e,n){var r=[];n&&(r=r.concat(c.LazyStream.of.apply(c.LazyStream,a([],i((null==this?void 0:this.rootNode)||[]))).filter((function(t){return e==t.id})).map((function(e){return new t(e)})).collect(new f.ArrayCollector)));var o=this.querySelectorAllDeep('[id="'+e+'"]');return o.length&&r.push(o),new(t.bind.apply(t,a([void 0],i(r))))},t.prototype.byTagName=function(e,n,r){var o,l=[];return n&&(l=c.LazyStream.of.apply(c.LazyStream,a([],i(null!==(o=null==this?void 0:this.rootNode)&&void 0!==o?o:[]))).filter((function(t){return(null==t?void 0:t.tagName)==e})).reduce((function(t,e){return t.concat([e])}),l).orElse(l).value),r?l.push(this.querySelectorAllDeep(e)):l.push(this.querySelectorAll(e)),new(t.bind.apply(t,a([void 0],i(l))))},t.prototype.attr=function(t,e){return void 0===e&&(e=null),new m(this,t,e)},t.prototype.hasClass=function(t){var e=!1;return this.eachElem((function(n){if(e=n.classList.contains(t))return!1})),e},t.prototype.addClass=function(t){return this.eachElem((function(e){return e.classList.add(t)})),this},t.prototype.removeClass=function(t){return this.eachElem((function(e){return e.classList.remove(t)})),this},t.prototype.isMultipartCandidate=function(t){var e=this;return void 0===t&&(t=!1),this.stream.filter((function(n){return function(n){var r;return 0!=n.length&&(1==n.length?"input"==n.tagName.get("booga").value.toLowerCase()&&"file"==((null===(r=n.attr("type"))||void 0===r?void 0:r.value)||"").toLowerCase()||(t?e.querySelectorAllDeep("input[type='file']").firstElem().isPresent():e.querySelectorAll("input[type='file']").firstElem().isPresent()):n.isMultipartCandidate(t))}(n)})).first().isPresent()},t.prototype.html=function(t){return s.Optional.fromNullable(t).isAbsent()?this.isPresent()?s.Optional.fromNullable(this.innerHtml):s.Optional.absent:(this.innerHtml=t,this)},t.prototype.dispatchEvent=function(t){return this.eachElem((function(e){return e.dispatchEvent(t)})),this},Object.defineProperty(t.prototype,"innerHtml",{get:function(){var t=[];return this.eachElem((function(e){return t.push(e.innerHTML)})),t.join("")},set:function(t){this.eachElem((function(e){return e.innerHTML=t}))},enumerable:!1,configurable:!0}),t.prototype._mozMatchesSelector=function(t,e){var n=t;return(n.matchesSelector||n.mozMatchesSelector||n.msMatchesSelector||n.oMatchesSelector||n.webkitMatchesSelector||function(e){for(var n=(document||window.ownerDocument).querySelectorAll(e),r=n.length;--r>=0&&n.item(r)!==t;);return r>-1}).call(t,e)},t.prototype.filterSelector=function(e){var n=this,r=[];return this.eachElem((function(t){n._mozMatchesSelector(t,e)&&r.push(t)})),new(t.bind.apply(t,a([void 0],i(r))))},t.prototype.matchesSelector=function(t){var e=this;return this.eachElem((function(n){if(!e._mozMatchesSelector(n,t))return!1})),!0},t.prototype.getIf=function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];for(var n=this.childNodes,r=0;r<t.length;r++)if((n=n.filterSelector(t[r])).isAbsent())return n;return n},t.prototype.eachElem=function(t){for(var e=0,n=this.rootNode.length;e<n&&!1!==t(this.rootNode[e],e);e++);return this},t.prototype.firstElem=function(t){return void 0===t&&(t=function(t){return t}),this.rootNode.length>1&&t(this.rootNode[0],0),this},t.prototype.each=function(e){return c.Stream.of.apply(c.Stream,a([],i(this.rootNode))).each((function(n,r){if(null!=n)return e(t.byId(n),r)})),this},t.prototype.first=function(t){return void 0===t&&(t=function(t){return t}),this.rootNode.length>=1?(t(this.get(0),0),this.get(0)):this},t.prototype.filter=function(e){var n=[];return this.each((function(t){e(t)&&n.push(t)})),new(t.bind.apply(t,a([void 0],i(n))))},t.prototype.globalEval=function(t,e){var n=document.getElementsByTagName("head")[0]||document.documentElement,r=document.createElement("script");e&&r.setAttribute("nonce",e),r.type="text/javascript",r.innerHTML=t;var o=n.appendChild(r);return n.removeChild(o),this},t.prototype.detach=function(){return this.eachElem((function(t){t.parentNode.removeChild(t)})),this},t.prototype.appendTo=function(t){this.eachElem((function(e){t.getAsElem(0).orElseLazy((function(){return{appendChild:function(t){}}})).value.appendChild(e)}))},t.prototype.loadScriptEval=function(t,e,n){var r=this;void 0===e&&(e=0),void 0===n&&(n="utf-8");var o=new XMLHttpRequest;return o.open("GET",t,!1),n&&o.setRequestHeader("Content-Type","application/x-javascript; charset:"+n),o.send(null),o.onload=function(n){e?setTimeout((function(){r.globalEval(o.responseText+"\r\n//@ sourceURL="+t)}),e):r.globalEval(o.responseText.replace("\n","\r\n")+"\r\n//@ sourceURL="+t)},o.onerror=function(t){throw Error(t)},this},t.prototype.insertAfter=function(){for(var e=[],n=0;n<arguments.length;n++)e[n]=arguments[n];this.each((function(t){for(var n=t.getAsElem(0).value,r=n.parentNode,o=function(t){var o=n.nextSibling;e[t].eachElem((function(t){o?(r.insertBefore(t,o),n=o):r.appendChild(t)}))},i=0;i<e.length;i++)o(i)}));var r=[];return r.push(this),r=r.concat(e),new(t.bind.apply(t,a([void 0],i(r))))},t.prototype.insertBefore=function(){for(var e=[],n=0;n<arguments.length;n++)e[n]=arguments[n];this.each((function(t){for(var n=t.getAsElem(0).value,r=n.parentNode,o=0;o<e.length;o++)e[o].eachElem((function(t){r.insertBefore(t,n)}))}));var r=[];return r.push(this),r=r.concat(e),new(t.bind.apply(t,a([void 0],i(r))))},t.prototype.orElse=function(){for(var e=[],n=0;n<arguments.length;n++)e[n]=arguments[n];return this.isPresent()?this:new(t.bind.apply(t,a([void 0],i(e))))},t.prototype.orElseLazy=function(e){return this.isPresent()?this:new t(e())},t.prototype.parents=function(e){var n=new Set,r=[],o=e.toLowerCase(),l=function(t){(t.tagName||"").toLowerCase()!=o||n.has(t)||(n.add(t),r.push(t))};return this.eachElem((function(t){for(var n,o;t.parentNode||t.host;)if(t=null!==(n=null==t?void 0:t.parentNode)&&void 0!==n?n:null===(o=t)||void 0===o?void 0:o.host,l(t),"form"==e&&r.length)return!1})),new(t.bind.apply(t,a([void 0],i(r))))},t.prototype.copyAttrs=function(t){var e=this;return t.eachElem((function(t){var n,r,o=d(t.attributes);try{for(var i=l(o),a=i.next();!a.done;a=i.next()){var u=a.value,s=u.value,c=u.name;switch(c){case"id":e.id.value=s;break;case"disabled":e.resolveAttributeHolder("disabled").disabled=s;break;case"checked":e.resolveAttributeHolder("checked").checked=s;break;default:e.attr(c).value=s}}}catch(t){n={error:t}}finally{try{a&&!a.done&&(r=i.return)&&r.call(i)}finally{if(n)throw n.error}}})),this},t.prototype.resolveAttributeHolder=function(t){void 0===t&&(t="value");var e=[];return e[t]=null,t in this.getAsElem(0).value?this.getAsElem(0).value:e},t.prototype.outerHTML=function(e,n,r,o){var l;if(void 0===o&&(o=!1),!this.isAbsent()){var u=null===(l=null===document||void 0===document?void 0:document.activeElement)||void 0===l?void 0:l.id,s=u?t.getCaretPosition(document.activeElement):null,c=t.fromMarkup(e),f=[],p=this.getAsElem(0).value,h=c.get(0),d=p.parentNode,v=h.getAsElem(0).value;if(d.replaceChild(v,p),f.push(new t(v)),this.isAbsent())return this;var y=[];c.length>1&&(y=y.concat.apply(y,a([],i(c.values.slice(1)))),f.push(t.byId(v).insertAfter(new(t.bind.apply(t,a([void 0],i(y))))))),n&&this.runScripts(),r&&this.runCss();var m=t.byId(u);return u&&m.isPresent()&&null!=s&&void 0!==s&&m.eachElem((function(e){return t.setCaretPosition(e,s)})),c}},t.prototype.runScripts=function(e){var n=this;void 0===e&&(e=b);var r=[],o=y,i=function(t){var i=t.tagName,a=t.type||"";if(i&&o(i,"script")&&(""===a||o(a,"text/javascript")||o(a,"javascript")||o(a,"text/ecmascript")||o(a,"ecmascript"))){var l=t.getAttribute("src");if(void 0!==l&&null!=l&&l.length>0)e(l)&&(r.length&&(n.globalEval(r.join("\n")),r=[]),n.loadScriptEval(l,0,"UTF-8"));else{for(var u=h(t.text||t.innerText||t.innerHTML),s=!0;s;)s=!1,"\x3c!--"==u.substring(0,4)&&(u=u.substring(4),s=!0),"//\x3c!--"==u.substring(0,4)&&(u=u.substring(6),s=!0),"//<![CDATA["==u.substring(0,11)&&(u=u.substring(11),s=!0);r.push(u)}}};try{new t(this.filterSelector("script"),this.querySelectorAll("script")).stream.flatMap((function(t){return c.Stream.of(t.values)})).sort((function(t,e){return t.compareDocumentPosition(e)-3})).each((function(t){return i(t)})),r.length&&this.globalEval(r.join("\n"))}catch(t){window.console&&window.console.error&&console.error(t.message||t.description)}finally{i=null}return this},t.prototype.runCss=function(){var e=function(t,e){var n,r,o,i,a=document.createElement("style");document.getElementsByTagName("head")[0].appendChild(a);var l=null!==(n=a.sheet)&&void 0!==n?n:a.styleSheet;a.setAttribute("rel",null!==(r=t.getAttribute("rel"))&&void 0!==r?r:"stylesheet"),a.setAttribute("type",null!==(o=t.getAttribute("type"))&&void 0!==o?o:"text/css"),null!==(i=null==l?void 0:l.cssText)&&void 0!==i&&i?l.cssText=e:a.appendChild(document.createTextNode(e))};return new t(this.filterSelector("link, style"),this.querySelectorAll("link, style")).stream.flatMap((function(t){return c.Stream.of(t.values)})).sort((function(t,e){return t.compareDocumentPosition(e)-3})).each((function(t){return function(t){var n=t.tagName;if(n&&y(n,"link")&&y(t.getAttribute("type"),"text/css"))e(t,"@import url('"+t.getAttribute("href")+"');");else if(n&&y(n,"style")&&y(t.getAttribute("type"),"text/css")){var r=[],o=Array.prototype.slice.call(t.childNodes);o?o.forEach((function(t){return r.push(t.innerHTML||t.data)})):t.innerHTML&&r.push(t.innerHTML),e(t,r.join(""))}}(t)})),this},t.prototype.click=function(){return this.fireEvent("click"),this},t.prototype.addEventListener=function(t,e,n){return this.eachElem((function(r){return r.addEventListener(t,e,n)})),this},t.prototype.removeEventListener=function(t,e,n){return this.eachElem((function(r){return r.removeEventListener(t,e,n)})),this},t.prototype.fireEvent=function(t){this.eachElem((function(e){var n;if(e.ownerDocument)n=e.ownerDocument;else{if(9!=e.nodeType)throw new Error("Invalid node passed to fireEvent: "+e.id);n=e}if(e.dispatchEvent){var r="";switch(t){case"click":case"mousedown":case"mouseup":r="MouseEvents";break;case"focus":case"change":case"blur":case"select":r="HTMLEvents";break;default:throw"fireEvent: Couldn't find an event class for event '"+t+"'."}var o=n.createEvent(r);o.initEvent(t,!0,!0),o.synthetic=!0,e.dispatchEvent(o)}else if(e.fireEvent){var i=n.createEventObject();i.synthetic=!0,e.fireEvent("on"+t,i)}}))},t.prototype.textContent=function(t){return void 0===t&&(t=""),this.stream.map((function(t){return t.getAsElem(0).orElseLazy((function(){return{textContent:""}})).value.textContent||""})).reduce((function(e,n){return e+t+n}),"").value},t.prototype.innerText=function(t){return void 0===t&&(t=""),this.stream.map((function(t){return t.getAsElem(0).orElseLazy((function(){return{innerText:""}})).value.innerText||""})).reduce((function(e,n){return[e,n].join(t)}),"").value},t.prototype.encodeFormElement=function(t){if(void 0===t&&(t=new s.Config({})),!this.name.isAbsent()){var e=t.shallowCopy;return this.each((function(t){var n,r;if(!t.name.isAbsent()){var o=t.name.value,i=t.tagName.orElse("__none__").value.toLowerCase(),a=t.type.orElse("__none__").value.toLowerCase();if(a=a.toLowerCase(),("input"==i||"textarea"==i||"select"==i)&&null!=o&&""!=o&&!t.disabled){if("select"==i){var l=t.getAsElem(0).value;if(l.selectedIndex>=0)for(var s=l.options.length,c=0;c<s;c++)if(l.options[c].selected){var f=l.options[c];e.append(o).value=null!=f.getAttribute("value")?f.value:f.text}}if(i!=u.SELECT&&a!=u.BUTTON&&a!=u.RESET&&a!=u.SUBMIT&&a!=u.IMAGE&&(a!=u.CHECKBOX&&a!=u.RADIO||t.checked)){var p=null!==(r=null===(n=t.value.value)||void 0===n?void 0:n.files)&&void 0!==r?r:[];(null==p?void 0:p.length)?e.append(o).value=p[0]:e.append(o).value=t.inputValue.value}}}})),e}},Object.defineProperty(t.prototype,"cDATAAsString",{get:function(){return this.lazyStream.flatMap((function(t){return t.childNodes.stream})).filter((function(t){var e,n;return 4==(null===(n=null===(e=null==t?void 0:t.value)||void 0===e?void 0:e.value)||void 0===n?void 0:n.nodeType)})).reduce((function(t,e){var n,r,o;return t.push(null!==(o=null===(r=null===(n=null==e?void 0:e.value)||void 0===n?void 0:n.value)||void 0===r?void 0:r.data)&&void 0!==o?o:""),t}),[]).value.join("")},enumerable:!1,configurable:!0}),t.prototype.subNodes=function(e,n){return s.Optional.fromNullable(n).isAbsent()&&(n=this.length),new(t.bind.apply(t,a([void 0],i(this.rootNode.slice(e,Math.min(n,this.length))))))},t.prototype.limits=function(t){return this._limits=t,this},t.prototype.hasNext=function(){var t=-1!=this._limits&&this.pos>=this._limits-1,e=this.pos>=this.values.length-1;return!(t||e)},t.prototype.next=function(){return this.hasNext()?(this.pos++,new t(this.values[this.pos])):null},t.prototype.reset=function(){this.pos=-1},t.prototype.attachShadow=function(e){void 0===e&&(e={mode:"open"});var n=[];return this.eachElem((function(r){var o,i;if(!(null===(o=r)||void 0===o?void 0:o.attachShadow))throw new Error("Shadow dom creation not supported by the browser, please use a shim, to gain this functionality");i=t.byId(r.attachShadow(e)),n.push(i)})),new(t.bind.apply(t,a([void 0],i(n))))},Object.defineProperty(t.prototype,"shadowElements",{get:function(){var e=(this.querySelectorAll("*").filter((function(t){return t.hasShadow})).allElems()||[]).map((function(t){return t.shadowRoot}));return new(t.bind.apply(t,a([void 0],i(e))))},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"shadowRoot",{get:function(){for(var e=[],n=0;n<this.rootNode.length;n++)this.rootNode[n].shadowRoot&&e.push(this.rootNode[n].shadowRoot);return new(t.bind.apply(t,a([void 0],i(e))))},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"hasShadow",{get:function(){for(var t=0;t<this.rootNode.length;t++)if(this.rootNode[t].shadowRoot)return!0;return!1},enumerable:!1,configurable:!0}),t.getCaretPosition=function(t){var e,n=0;try{if(null===(e=document)||void 0===e?void 0:e.selection){t.focus();var r=document.selection.createRange();r.moveStart("character",-t.value.length),n=r.text.length}}catch(t){}return n},t.setCaretPosition=function(t,e){(null==t?void 0:t.focus)&&(null==t||t.focus()),(null==t?void 0:t.setSelectiongRange)&&(null==t||t.setSelectiongRange(e,e))},t.absent=new t,t}();e.DomQuery=g;var w=function(){function t(){this.data=[]}return t.prototype.collect=function(t){this.data.push(t)},Object.defineProperty(t.prototype,"finalValue",{get:function(){return new(g.bind.apply(g,a([void 0],i(this.data))))},enumerable:!1,configurable:!0}),t}();e.DomQueryCollector=w,e.DQ=g},805:function(t,e,n){Object.defineProperty(e,"__esModule",{value:!0}),e.Lang=void 0;var r=n(152);!function(t){function e(t){for(var e=/\s/,n=(t=t.replace(/^\s\s*/,"")).length;e.test(t.charAt(--n)););return t.slice(0,n+1)}function n(t){return!!arguments.length&&null!=t&&("string"==typeof t||t instanceof String)}t.saveResolve=function(t,e){void 0===e&&(e=null);try{var n=t();return r.Optional.fromNullable(null!=n?n:e)}catch(t){return r.Optional.absent}},t.saveResolveLazy=function(t,e){void 0===e&&(e=null);try{var n=t();return r.Optional.fromNullable(null!=n?n:e())}catch(t){return r.Optional.absent}},t.strToArray=function(t,n){void 0===n&&(n=/\./gi);var r=[];return t.split(n).forEach((function(t){r.push(e(t))})),r},t.trim=e,t.objToArray=function(t,e,n){return void 0===e&&(e=0),void 0===n&&(n=[]),"__undefined__"==(null!=t?t:"__undefined__")?null!=n?n:null:t instanceof Array&&!e&&!n?t:n.concat(Array.prototype.slice.call(t,e))},t.equalsIgnoreCase=function(t,e){var n=null!=e?e:"___no_value__";return(null!=t?t:"___no_value__").toLowerCase()===n.toLowerCase()},t.assertType=function(t,e){return n(e)?typeof t==e:t instanceof e},t.isString=n,t.isFunc=function(t){return t instanceof Function||"function"==typeof t},t.objAssign=function(t){for(var e=[],n=1;n<arguments.length;n++)e[n-1]=arguments[n];if(null==t)throw new TypeError("Cannot convert undefined or null to object");var r=Object(t);return Object.assign?(e.forEach((function(t){return Object.assign(r,t)})),r):(e.filter((function(t){return null!=t})).forEach((function(t){var e=t;Object.keys(e).filter((function(t){return Object.prototype.hasOwnProperty.call(e,t)})).forEach((function(t){return r[t]=e[t]}))})),r)}}(e.Lang||(e.Lang={}))},493:function(t,e){var n,r=this&&this.__extends||(n=function(t,e){return(n=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)Object.prototype.hasOwnProperty.call(e,n)&&(t[n]=e[n])})(t,e)},function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Class extends value "+String(e)+" is not a constructor or null");function r(){this.constructor=t}n(t,e),t.prototype=null===e?Object.create(e):(r.prototype=e.prototype,new r)});Object.defineProperty(e,"__esModule",{value:!0}),e.Broker=e.BroadcastChannelBroker=e.Message=void 0;var o=function(t,e){void 0===t&&(t={}),void 0===e&&(e="*"),this.message=t,this.targetOrigin=e,this.creationDate=(new Date).getMilliseconds(),this.identifier=(new Date).getMilliseconds()+"_"+Math.random()+"_"+Math.random()};e.Message=o;var i=function(t,e){this.detail=e,this.bubbles=!0,this.cancelable=!0,this.composed=!0,this.channel=t},a=function(){function t(){this.messageListeners={},this.processedMessages={},this.cleanupCnt=0,this.TIMEOUT_IN_MS=1e3,this.MSG_EVENT="message"}return t.prototype.registerListener=function(t,e){var n=this;this.reserveListenerNS(t),this.messageListeners[t].push((function(t){t.identifier in n.processedMessages||e(t)}))},t.prototype.reserveListenerNS=function(t){this.messageListeners[t]||(this.messageListeners[t]=[]),this.messageListeners["*"]||(this.messageListeners["*"]=[])},t.prototype.unregisterListener=function(t,e){this.messageListeners[t]=(this.messageListeners[t]||[]).filter((function(t){return t!==e}))},t.prototype.answer=function(e,n,r){"string"==typeof n&&(n=new o(n)),t.isAnswer(n)||(r.identifier=t.getAnswerId(n),this.broadcast(e,r))},t.getAnswerId=function(t){return"_r_"+t.identifier},t.isAnswer=function(t){return 0==t.identifier.indexOf("_r_")},t.prototype.request=function(t,e){var n=this;"string"==typeof e&&(e=new o(e));var r=e.identifier,i=new Promise((function(e,o){var i=null,a=function(o){o.identifier!=r&&o.identifier=="_r_"+r&&(clearTimeout(i),n.unregisterListener(t,a),e(o))};i=setTimeout((function(){n.unregisterListener(t,a),o("request message performed, timeout, no return value")}),3e3),n.registerListener(t,a)}));return this.broadcast(t,e),i},t.prototype.gcProcessedMessages=function(){var t=this;if(++this.cleanupCnt%10==0){var e={};Object.keys(this.processedMessages).forEach((function(n){t.messageStillActive(n)||(e[n]=t.processedMessages[n])})),this.processedMessages=e}},t.prototype.messageStillActive=function(t){return this.processedMessages[t]>(new Date).getMilliseconds()-this.TIMEOUT_IN_MS},t.prototype.markMessageAsProcessed=function(t){this.processedMessages[t.identifier]=t.creationDate},t.EVENT_TYPE="brokerEvent",t}(),l=function(t){function e(e,n){void 0===e&&(e=function(t){if(null===window||void 0===window?void 0:window.BroadcastChannel)return new window.BroadcastChannel(t);throw Error("No Broadcast channel in the system, use a shim or provide a factory functionin the constructor")}),void 0===n&&(n="brokr");var r=t.call(this)||this;return r.brokerFactory=e,r.channelGroup=n,r.openChannels={},r.msgListener=function(t){var e,n,o=t.detail,i=t.channel;return(null===(e=r.messageListeners)||void 0===e?void 0:e[i])&&(null===(n=r.messageListeners)||void 0===n||n[i].forEach((function(t){t(o)}))),r.markMessageAsProcessed(o),!0},r.register(),r}return r(e,t),e.prototype.broadcast=function(t,e,n){void 0===n&&(n=!0);try{"string"==typeof e&&(e=new o(e));var r=JSON.stringify(e);e=JSON.parse(r);var a=new i(t,e);this.openChannels[this.channelGroup].postMessage(a),n&&this.msgListener(a)}finally{this.gcProcessedMessages()}},e.prototype.registerListener=function(e,n){t.prototype.registerListener.call(this,e,n)},e.prototype.register=function(){this.openChannels[this.channelGroup]||(this.openChannels[this.channelGroup]=this.brokerFactory(this.channelGroup)),this.openChannels[this.channelGroup].addEventListener("message",this.msgListener)},e.prototype.unregister=function(){this.openChannels[this.channelGroup].close()},e}(a);e.BroadcastChannelBroker=l;var u=function(t){function e(e,n){void 0===e&&(e=window),void 0===n&&(n="brokr");var r=t.call(this)||this;return r.name=n,r.msgHandler=function(t){return function(t){var e,n,o,i,a,l,u,s,c=null!==(n=null===(e=t)||void 0===e?void 0:e.detail)&&void 0!==n?n:null===(i=null===(o=t)||void 0===o?void 0:o.data)||void 0===i?void 0:i.detail,f=null!==(u=null===(l=null===(a=t)||void 0===a?void 0:a.data)||void 0===l?void 0:l.channel)&&void 0!==u?u:null===(s=t)||void 0===s?void 0:s.channel;if((null==c?void 0:c.identifier)&&(null==c?void 0:c.message)){var p=c;if(p.identifier in r.processedMessages)return;r.broadcast(f,p)}}(t)},r.register(e),r}return r(e,t),e.prototype.register=function(t){this.rootElem=t.host?t.host:t,t.host?t.host.setAttribute("data-broker","1"):(null==t?void 0:t.setAttribute)&&t.setAttribute("data-broker","1"),this.rootElem.addEventListener(e.EVENT_TYPE,this.msgHandler,{capture:!0}),this.rootElem.addEventListener(this.MSG_EVENT,this.msgHandler,{capture:!0})},e.prototype.unregister=function(){this.rootElem.removeEventListener(e.EVENT_TYPE,this.msgHandler),this.rootElem.removeEventListener(this.MSG_EVENT,this.msgHandler)},e.prototype.broadcast=function(t,e){"string"==typeof e&&(e=new o(e));try{this.dispatchUp(t,e,!1,!0),this.dispatchDown(t,e,!0,!1)}finally{this.gcProcessedMessages()}},e.prototype.dispatchUp=function(t,n,r,o){if(void 0===r&&(r=!0),void 0===o&&(o=!0),r||this.msgCallListeners(t,n),this.markMessageAsProcessed(n),null!=window.parent){var a=new i(t,n);window.parent.postMessage(JSON.parse(JSON.stringify(a)),n.targetOrigin)}o&&e.dispatchSameLevel(t,n)},e.dispatchSameLevel=function(t,n){var r=e.transformToEvent(t,n,!0);window.dispatchEvent(r)},e.prototype.dispatchDown=function(t,n,r,o){void 0===r&&(r=!0),void 0===o&&(o=!0),r||this.msgCallListeners(t,n),this.processedMessages[n.identifier]=n.creationDate;var a=e.transformToEvent(t,n);Array.prototype.slice.call(document.querySelectorAll("iframe")).forEach((function(e){var r=new i(t,n);e.contentWindow.postMessage(JSON.parse(JSON.stringify(r)),n.targetOrigin)})),Array.prototype.slice.call(document.querySelectorAll("[data-broker='1']")).forEach((function(t){return t.dispatchEvent(a)})),o&&e.dispatchSameLevel(t,n)},e.prototype.msgCallListeners=function(t,e){var n=this.messageListeners[t];(null==n?void 0:n.length)&&n.forEach((function(t){t(e)}))},e.transformToEvent=function(t,n,r){void 0===r&&(r=!1);var o=new i(t,n);return o.bubbles=r,e.createCustomEvent(e.EVENT_TYPE,o)},e.createCustomEvent=function(t,e){if("function"!=typeof window.CustomEvent){var n=document.createEvent("HTMLEvents");return n.detail=e.detail,n.channel=e.channel,n.initEvent(t,e.bubbles,e.cancelable),n}var r=new window.CustomEvent(t,e);return r.channel=e.channel,r},e}(a);e.Broker=u},152:function(t,e,n){var r,o=this&&this.__extends||(r=function(t,e){return(r=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)Object.prototype.hasOwnProperty.call(e,n)&&(t[n]=e[n])})(t,e)},function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Class extends value "+String(e)+" is not a constructor or null");function n(){this.constructor=t}r(t,e),t.prototype=null===e?Object.create(e):(n.prototype=e.prototype,new n)}),i=this&&this.__read||function(t,e){var n="function"==typeof Symbol&&t[Symbol.iterator];if(!n)return t;var r,o,i=n.call(t),a=[];try{for(;(void 0===e||e-- >0)&&!(r=i.next()).done;)a.push(r.value)}catch(t){o={error:t}}finally{try{r&&!r.done&&(n=i.return)&&n.call(i)}finally{if(o)throw o.error}}return a},a=this&&this.__spreadArray||function(t,e){for(var n=0,r=e.length,o=t.length;n<r;n++,o++)t[o]=e[n];return t};Object.defineProperty(e,"__esModule",{value:!0}),e.Config=e.ValueEmbedder=e.Optional=e.Monad=void 0;var l=n(805),u=n(255),s=n(551),c=l.Lang.objAssign,f=function(){function t(t){this._value=t}return Object.defineProperty(t.prototype,"value",{get:function(){return this._value},enumerable:!1,configurable:!0}),t.prototype.map=function(e){return e||(e=function(t){return t}),new t(e(this.value))},t.prototype.flatMap=function(e){for(var n=this.map(e);(null==n?void 0:n.value)instanceof t;)n=n.value;return n},t}();e.Monad=f;var p=function(t){function e(e){return t.call(this,e)||this}return o(e,t),Object.defineProperty(e.prototype,"value",{get:function(){return this._value instanceof f?this._value.flatMap().value:this._value},enumerable:!1,configurable:!0}),e.fromNullable=function(t){return new e(t)},e.prototype.isAbsent=function(){return void 0===this.value||null==this.value},e.prototype.isPresent=function(t){var e=this.isAbsent();return!e&&t&&t.call(this,this),!e},e.prototype.ifPresentLazy=function(t){return void 0===t&&(t=function(){}),this.isPresent.call(this,t),this},e.prototype.orElse=function(t){return this.isPresent()?this:null==t?e.absent:this.flatMap((function(){return t}))},e.prototype.orElseLazy=function(t){return this.isPresent()?this:this.flatMap(t)},e.prototype.flatMap=function(n){var r=t.prototype.flatMap.call(this,n);return r instanceof e?r.flatMap():e.fromNullable(r.value)},e.prototype.getIf=function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];for(var n=this,r=0;r<t.length;r++){var o=this.keyVal(t[r]),i=this.arrayIndex(t[r]);if(""===o&&i>=0){if((n=this.getClass().fromNullable(n.value instanceof Array?n.value.length<i?null:n.value[i]:null)).isAbsent())return n}else if(o&&i>=0){if(n.getIfPresent(o).isAbsent())return n;if((n=n.getIfPresent(o).value instanceof Array?this.getClass().fromNullable(n.getIfPresent(o).value[i]):this.getClass().absent).isAbsent())return n}else{if((n=n.getIfPresent(o)).isAbsent())return n;i>-1&&(n=this.getClass().fromNullable(n.value[i]))}}return n},e.prototype.match=function(t){return!this.isAbsent()&&t(this.value)},e.prototype.get=function(t){return void 0===t&&(t=e.absent),this.isAbsent()?this.getClass().fromNullable(t).flatMap():this.getClass().fromNullable(this.value).flatMap()},e.prototype.toJson=function(){return JSON.stringify(this.value)},e.prototype.getClass=function(){return e},e.prototype.arrayIndex=function(t){var e=t.indexOf("["),n=t.indexOf("]");return e>=0&&n>0&&e<n?parseInt(t.substring(e+1,n)):-1},e.prototype.keyVal=function(t){var e=t.indexOf("[");return e>=0?t.substring(0,e):t},e.prototype.getIfPresent=function(t){return this.isAbsent()?this.getClass().absent:this.getClass().fromNullable(this.value[t]).flatMap()},e.prototype.resolve=function(t){if(this.isAbsent())return e.absent;try{return e.fromNullable(t(this.value))}catch(t){return e.absent}},e.absent=e.fromNullable(null),e}(f);e.Optional=p;var h=function(t){function e(e,n){void 0===n&&(n="value");var r=t.call(this,e)||this;return r.key=n,r}return o(e,t),Object.defineProperty(e.prototype,"value",{get:function(){return this._value?this._value[this.key]:null},set:function(t){this._value&&(this._value[this.key]=t)},enumerable:!1,configurable:!0}),e.prototype.orElse=function(t){var n={};return n[this.key]=t,this.isPresent()?this:new e(n,this.key)},e.prototype.orElseLazy=function(t){if(this.isPresent())return this;var n={};return n[this.key]=t(),new e(n,this.key)},e.prototype.getClass=function(){return e},e.fromNullable=function(t,n){return void 0===n&&(n="value"),new e(t,n)},e.absent=e.fromNullable(null),e}(p);e.ValueEmbedder=h;var d=function(t){function e(e,n,r){var o=t.call(this,e,n)||this;return o.arrPos=null!=r?r:-1,o}return o(e,t),Object.defineProperty(e.prototype,"value",{get:function(){return""==this.key&&this.arrPos>=0?this._value[this.arrPos]:this.key&&this.arrPos>=0?this._value[this.key][this.arrPos]:this._value[this.key]},set:function(t){""==this.key&&this.arrPos>=0?this._value[this.arrPos]=t:this.key&&this.arrPos>=0?this._value[this.key][this.arrPos]=t:this._value[this.key]=t},enumerable:!1,configurable:!0}),e.absent=e.fromNullable(null),e}(h),v=function(t){function e(e){return t.call(this,e)||this}return o(e,t),Object.defineProperty(e.prototype,"shallowCopy",{get:function(){return new e(s.Stream.ofAssoc(this.value).collect(new u.AssocArrayCollector))},enumerable:!1,configurable:!0}),Object.defineProperty(e.prototype,"deepCopy",{get:function(){return new e(c({},this.value))},enumerable:!1,configurable:!0}),e.fromNullable=function(t){return new e(t)},e.prototype.shallowMerge=function(t,e,n){var r=this;void 0===e&&(e=!0),void 0===n&&(n=!1);var o=function(o){!e&&o in l.value||(n?Array.isArray(t.getIf(o).value)?s.Stream.of.apply(s.Stream,a([],i(t.getIf(o).value))).each((function(t){return r.append(o).value=t})):l.append(o).value=t.getIf(o).value:l.assign(o).value=t.getIf(o).value)},l=this;for(var u in t.value)o(u)},e.prototype.append=function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];var n=t.length<1;if(!n){var r=t[t.length-1],o=(this.keyVal(r),this.getIf.apply(this,a([],i(t))).isPresent());this.buildPath(t);var l=this.arrayIndex(r);if(l>-1)throw Error("Append only possible on non array properties, use assign on indexed data");var u=this.getIf.apply(this,a([],i(t))).value;Array.isArray(u)||(u=this.assign.apply(this,a([],i(t))).value=[u]),o&&u.push({}),l=u.length-1;var s=new d(1==t.length?this.value:this.getIf.apply(this,t.slice(0,t.length-1)).value,r,l);return s}},e.prototype.appendIf=function(t){for(var e=[],n=1;n<arguments.length;n++)e[n-1]=arguments[n];return t?this.append.apply(this,a([],i(e))):{value:null}},e.prototype.assign=function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];if(!(t.length<1)){this.buildPath(t);var n=this.keyVal(t[t.length-1]),r=this.arrayIndex(t[t.length-1]),o=new d(1==t.length?this.value:this.getIf.apply(this,t.slice(0,t.length-1)).value,n,r);return o}},e.prototype.assignIf=function(t){for(var e=[],n=1;n<arguments.length;n++)e[n-1]=arguments[n];return t?this.assign.apply(this,a([],i(e))):{value:null}},e.prototype.getIf=function(){for(var e=[],n=0;n<arguments.length;n++)e[n]=arguments[n];return this.getClass().fromNullable(t.prototype.getIf.apply(this,e).value)},e.prototype.get=function(e){return this.getClass().fromNullable(t.prototype.get.call(this,e).value)},e.prototype.delete=function(t){return t in this.value&&delete this.value[t],this},e.prototype.toJson=function(){return JSON.stringify(this.value)},e.prototype.getClass=function(){return e},e.prototype.setVal=function(t){this._value=t},e.prototype.buildPath=function(t){for(var e=this,n=this.getClass().fromNullable(null),r=-1,o=function(t,e){for(var n=t.length,r=n+e,o=n;o<r;o++)t.push({})},i=0;i<t.length;i++){var a=this.keyVal(t[i]),l=this.arrayIndex(t[i]);if(""===a&&l>=0)e.setVal(e.value instanceof Array?e.value:[]),o(e.value,l+1),r>=0&&(n.value[r]=e.value),n=e,r=l,e=this.getClass().fromNullable(e.value[l]);else{var u=e.getIf(a);if(-1==l)u.isAbsent()?u=this.getClass().fromNullable(e.value[a]={}):e=u;else{var s=u.value instanceof Array?u.value:[];o(s,l+1),e.value[a]=s,u=this.getClass().fromNullable(s[l])}n=e,r=l,e=u}}return this},e}(p);e.Config=v},376:function(t,e,n){var r,o=this&&this.__extends||(r=function(t,e){return(r=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)Object.prototype.hasOwnProperty.call(e,n)&&(t[n]=e[n])})(t,e)},function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Class extends value "+String(e)+" is not a constructor or null");function n(){this.constructor=t}r(t,e),t.prototype=null===e?Object.create(e):(n.prototype=e.prototype,new n)});Object.defineProperty(e,"__esModule",{value:!0}),e.CancellablePromise=e.Promise=e.interval=e.timeout=e.PromiseStatus=void 0;var i,a=n(152);!function(t){t[t.PENDING=0]="PENDING",t[t.FULLFILLED=1]="FULLFILLED",t[t.REJECTED=2]="REJECTED"}(i=e.PromiseStatus||(e.PromiseStatus={})),e.timeout=function(t){var e=null;return new u((function(n,r){e=setTimeout((function(){return n()}),t)}),(function(){e&&(clearTimeout(e),e=null)}))},e.interval=function(t){var e=null;return new u((function(n,r){e=setInterval((function(){n()}),t)}),(function(){e&&(clearInterval(e),e=null)}))};var l=function(){function t(t){var e=this;this.status=i.PENDING,this.allFuncs=[],this.value=t,this.value((function(t){return e.resolve(t)}),(function(t){return e.reject(t)}))}return t.all=function(){for(var e=[],n=0;n<arguments.length;n++)e[n]=arguments[n];var r,o=0,i=new t((function(t,e){r=t})),a=function(){o++,e.length==o&&r()};a.__last__=!0;for(var l=0;l<e.length;l++)e[l].finally(a);return i},t.race=function(){for(var e=[],n=0;n<arguments.length;n++)e[n]=arguments[n];var r,o,i=new t((function(t,e){r=t,o=e})),a=function(){return r&&r(),r=null,o=null,null};a.__last__=!0;var l=function(){return o&&o(),o=null,r=null,null};l.__last__=!0;for(var u=0;u<e.length;u++)e[u].then(a),e[u].catch(l);return i},t.reject=function(e){return new t((function(n,r){e instanceof t?e.then((function(t){r(t)})):setTimeout((function(){r(e)}),1)}))},t.resolve=function(e){return new t((function(n,r){e instanceof t?e.then((function(t){return n(t)})):setTimeout((function(){n(e)}),1)}))},t.prototype.then=function(t,e){return this.allFuncs.push({then:t}),e&&this.allFuncs.push({catch:e}),this.spliceLastFuncs(),this},t.prototype.catch=function(t){return this.allFuncs.push({catch:t}),this.spliceLastFuncs(),this},t.prototype.finally=function(t){if(!this.__reason__)return this.allFuncs.push({finally:t}),this.spliceLastFuncs(),this;this.__reason__.finally(t)},t.prototype.resolve=function(e){for(;this.allFuncs.length&&this.allFuncs[0].then;){var n=this.allFuncs.shift(),r=a.Optional.fromNullable(n.then(e));if(!r.isPresent())break;if((e=(r=r.flatMap()).value)instanceof t)return void this.transferIntoNewPromise(e)}this.appyFinally(),this.status=i.FULLFILLED},t.prototype.reject=function(e){for(;this.allFuncs.length&&!this.allFuncs[0].finally;){var n=this.allFuncs.shift();if(n.catch){var r=a.Optional.fromNullable(n.catch(e));if(r.isPresent()){if((e=(r=r.flatMap()).value)instanceof t)return void this.transferIntoNewPromise(e);this.status=i.REJECTED;break}break}}this.status=i.REJECTED,this.appyFinally()},t.prototype.appyFinally=function(){for(;this.allFuncs.length;){var t=this.allFuncs.shift();t.finally&&t.finally()}},t.prototype.spliceLastFuncs=function(){for(var t=[],e=[],n=0;n<this.allFuncs.length;n++)for(var r in this.allFuncs[n])this.allFuncs[n][r].__last__?t.push(this.allFuncs[n]):e.push(this.allFuncs[n]);this.allFuncs=e.concat(t)},t.prototype.transferIntoNewPromise=function(t){for(var e=0;e<this.allFuncs.length;e++)for(var n in this.allFuncs[e])t[n](this.allFuncs[e][n])},t}();e.Promise=l;var u=function(t){function e(e,n){var r=t.call(this,e)||this;return r.cancellator=function(){},r.cancellator=n,r}return o(e,t),e.prototype.cancel=function(){this.status=i.REJECTED,this.appyFinally(),this.allFuncs=[]},e.prototype.then=function(e,n){return t.prototype.then.call(this,e,n)},e.prototype.catch=function(e){return t.prototype.catch.call(this,e)},e.prototype.finally=function(e){return t.prototype.finally.call(this,e)},e}(l);e.CancellablePromise=u},255:function(t,e,n){var r=this&&this.__read||function(t,e){var n="function"==typeof Symbol&&t[Symbol.iterator];if(!n)return t;var r,o,i=n.call(t),a=[];try{for(;(void 0===e||e-- >0)&&!(r=i.next()).done;)a.push(r.value)}catch(t){o={error:t}}finally{try{r&&!r.done&&(n=i.return)&&n.call(i)}finally{if(o)throw o.error}}return a},o=this&&this.__spreadArray||function(t,e){for(var n=0,r=e.length,o=t.length;n<r;n++,o++)t[o]=e[n];return t};Object.defineProperty(e,"__esModule",{value:!0}),e.QueryFormStringCollector=e.QueryFormDataCollector=e.FormDataCollector=e.AssocArrayCollector=e.Run=e.ArrayAssocArrayCollector=e.ArrayCollector=e.FlatMapStreamDataSource=e.MappedStreamDataSource=e.FilteredStreamDatasource=e.ArrayStreamDataSource=e.SequenceDataSource=void 0;var i=n(551),a=function(){function t(t,e){this.total=e,this.start=t,this.value=t}return t.prototype.hasNext=function(){return this.value<this.total},t.prototype.next=function(){return Math.min(this.value++,this.total-1)},t.prototype.reset=function(){this.value=0},t}();e.SequenceDataSource=a;var l=function(){function t(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];this.dataPos=-1,this.value=t}return t.prototype.hasNext=function(){return this.value.length-1>this.dataPos},t.prototype.next=function(){return this.dataPos++,this.value[this.dataPos]},t.prototype.reset=function(){this.dataPos=-1},t}();e.ArrayStreamDataSource=l;var u=function(){function t(t,e){this.filteredNext=null,this.filterFunc=t,this.inputDataSource=e}return t.prototype.hasNext=function(){for(;null==this.filteredNext&&this.inputDataSource.hasNext();){var t=this.inputDataSource.next();if(this.filterFunc(t))return this.filteredNext=t,!0;this.filteredNext=null}return null!=this.filteredNext},t.prototype.next=function(){var t=this.filteredNext;return this.filteredNext=null,this.hasNext(),t},t.prototype.reset=function(){this.filteredNext=null,this.inputDataSource.reset()},t}();e.FilteredStreamDatasource=u;var s=function(){function t(t,e){this.mapFunc=t,this.inputDataSource=e}return t.prototype.hasNext=function(){return this.inputDataSource.hasNext()},t.prototype.next=function(){return this.mapFunc(this.inputDataSource.next())},t.prototype.reset=function(){this.inputDataSource.reset()},t}();e.MappedStreamDataSource=s;var c=function(){function t(t,e){this.mapFunc=t,this.inputDataSource=e}return t.prototype.hasNext=function(){return this.resolveCurrentNext()||this.resolveNextNext()},t.prototype.resolveCurrentNext=function(){var t=!1;return this.activeDataSource&&(t=this.activeDataSource.hasNext()),t},t.prototype.resolveNextNext=function(){for(var t=!1;!t&&this.inputDataSource.hasNext();){var e=this.mapFunc(this.inputDataSource.next());Array.isArray(e)?this.activeDataSource=new(l.bind.apply(l,o([void 0],r(e)))):this.activeDataSource=e,t=this.activeDataSource.hasNext()}return t},t.prototype.next=function(){return this.activeDataSource.next()},t.prototype.reset=function(){this.inputDataSource.reset()},t}();e.FlatMapStreamDataSource=c;var f=function(){function t(){this.data=[]}return t.prototype.collect=function(t){this.data.push(t)},Object.defineProperty(t.prototype,"finalValue",{get:function(){return this.data},enumerable:!1,configurable:!0}),t}();e.ArrayCollector=f;var p=function(){function t(){this.finalValue={}}return t.prototype.collect=function(t){var e,n,r,o,i=null!==(e=null==t?void 0:t[0])&&void 0!==e?e:t;this.finalValue[i]=null!==(r=null===(n=this.finalValue)||void 0===n?void 0:n[i])&&void 0!==r?r:[],this.finalValue[i].push(null===(o=null==t?void 0:t[1])||void 0===o||o)},t}();e.ArrayAssocArrayCollector=p;var h=function(){function t(){}return t.prototype.collect=function(t){},Object.defineProperty(t.prototype,"finalValue",{get:function(){return null},enumerable:!1,configurable:!0}),t}();e.Run=h;var d=function(){function t(){this.finalValue={}}return t.prototype.collect=function(t){var e,n;this.finalValue[null!==(e=t[0])&&void 0!==e?e:t]=null===(n=t[1])||void 0===n||n},t}();e.AssocArrayCollector=d;var v=function(){function t(){this.finalValue=new FormData}return t.prototype.collect=function(t){this.finalValue.append(t.key,t.value)},t}();e.FormDataCollector=v;var y=function(){function t(){this.finalValue=new FormData}return t.prototype.collect=function(t){var e=t.encodeFormElement();e.isPresent()&&this.finalValue.append(t.name.value,e.get(t.name).value)},t}();e.QueryFormDataCollector=y;var m=function(){function t(){this.formData=[]}return t.prototype.collect=function(t){var e=t.encodeFormElement();e.isPresent()&&this.formData.push([t.name.value,e.get(t.name).value])},Object.defineProperty(t.prototype,"finalValue",{get:function(){return i.Stream.of.apply(i.Stream,o([],r(this.formData))).map((function(t){return t.join("=")})).reduce((function(t,e){return[t,e].join("&")})).orElse("").value},enumerable:!1,configurable:!0}),t}();e.QueryFormStringCollector=m},551:function(t,e,n){var r=this&&this.__read||function(t,e){var n="function"==typeof Symbol&&t[Symbol.iterator];if(!n)return t;var r,o,i=n.call(t),a=[];try{for(;(void 0===e||e-- >0)&&!(r=i.next()).done;)a.push(r.value)}catch(t){o={error:t}}finally{try{r&&!r.done&&(n=i.return)&&n.call(i)}finally{if(o)throw o.error}}return a},o=this&&this.__spreadArray||function(t,e){for(var n=0,r=e.length,o=t.length;n<r;n++,o++)t[o]=e[n];return t};Object.defineProperty(e,"__esModule",{value:!0}),e.LazyStream=e.Stream=void 0;var i=n(152),a=n(255),l=function(){function t(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];this._limits=-1,this.pos=-1,this.value=t}return t.of=function(){for(var e=[],n=0;n<arguments.length;n++)e[n]=arguments[n];return new(t.bind.apply(t,o([void 0],r(e))))},t.ofAssoc=function(t){return this.of.apply(this,o([],r(Object.keys(t)))).map((function(e){return[e,t[e]]}))},t.ofDataSource=function(e){for(var n=[];e.hasNext();)n.push(e.next());return new(t.bind.apply(t,o([void 0],r(n))))},t.prototype.limits=function(t){return this._limits=t,this},t.prototype.concat=function(){for(var e=[],n=0;n<arguments.length;n++)e[n]=arguments[n];return t.of.apply(t,o([this],r(e))).flatMap((function(t){return t}))},t.prototype.onElem=function(t){for(var e=0;e<this.value.length&&(-1==this._limits||e<this._limits)&&!1!==t(this.value[e],e);e++);return this},t.prototype.each=function(t){this.onElem(t)},t.prototype.map=function(e){e||(e=function(t){return t});var n=[];return this.each((function(t,r){n.push(e(t))})),new(t.bind.apply(t,o([void 0],r(n))))},t.prototype.flatMap=function(e){var n=[];return this.each((function(t){var i=e(t);n=Array.isArray(i)?n.concat(i):n.concat.apply(n,o([],r(i.value)))})),t.of.apply(t,o([],r(n)))},t.prototype.filter=function(e){var n=[];return this.each((function(t){e(t)&&n.push(t)})),new(t.bind.apply(t,o([void 0],r(n))))},t.prototype.reduce=function(t,e){void 0===e&&(e=null);for(var n=null!=e?0:1,r=null!=e?e:this.value.length?this.value[0]:null,o=n;o<this.value.length&&(-1==this._limits||o<this._limits);o++)r=t(r,this.value[o]);return i.Optional.fromNullable(r)},t.prototype.first=function(){return this.value&&this.value.length?i.Optional.fromNullable(this.value[0]):i.Optional.absent},t.prototype.last=function(){var t=this._limits>0?Math.min(this._limits,this.value.length):this.value.length;return i.Optional.fromNullable(t?this.value[t-1]:null)},t.prototype.anyMatch=function(t){for(var e=0;e<this.value.length&&(-1==this._limits||e<this._limits);e++)if(t(this.value[e]))return!0;return!1},t.prototype.allMatch=function(t){if(!this.value.length)return!1;for(var e=0,n=0;n<this.value.length;n++)t(this.value[n])&&e++;return e==this.value.length},t.prototype.noneMatch=function(t){for(var e=0,n=0;n<this.value.length;n++)t(this.value[n])||e++;return e==this.value.length},t.prototype.sort=function(e){var n=this.value.slice().sort(e);return t.of.apply(t,o([],r(n)))},t.prototype.collect=function(t){return this.each((function(e){return t.collect(e)})),t.finalValue},t.prototype.hasNext=function(){var t=-1!=this._limits&&this.pos>=this._limits-1,e=this.pos>=this.value.length-1;return!(t||e)},t.prototype.next=function(){return this.hasNext()?(this.pos++,this.value[this.pos]):null},t.prototype.reset=function(){this.pos=-1},t}();e.Stream=l;var u=function(){function t(t){this._limits=-1,this.pos=-1,this.dataSource=t}return t.of=function(){for(var e=[],n=0;n<arguments.length;n++)e[n]=arguments[n];return new t(new(a.ArrayStreamDataSource.bind.apply(a.ArrayStreamDataSource,o([void 0],r(e)))))},t.ofAssoc=function(t){return this.of.apply(this,o([],r(Object.keys(t)))).map((function(e){return[e,t[e]]}))},t.ofStreamDataSource=function(e){return new t(e)},t.prototype.hasNext=function(){return!this.isOverLimits()&&this.dataSource.hasNext()},t.prototype.next=function(){var t=this.dataSource.next();return this.pos++,t},t.prototype.reset=function(){this.dataSource.reset(),this.pos=0,this._limits=-1},t.prototype.concat=function(){for(var e=[],n=0;n<arguments.length;n++)e[n]=arguments[n];return t.of.apply(t,o([this],r(e))).flatMap((function(t){return t}))},t.prototype.nextFilter=function(t){if(this.hasNext()){var e=this.next();return t(e)?e:this.nextFilter(t)}return null},t.prototype.limits=function(t){return this._limits=t,this},t.prototype.collect=function(t){for(;this.hasNext();){var e=this.next();t.collect(e)}return t.finalValue},t.prototype.onElem=function(e){var n=this;return new t(new a.MappedStreamDataSource((function(t){return!1===e(t,n.pos)&&n.stop(),t}),this))},t.prototype.filter=function(e){return new t(new a.FilteredStreamDatasource(e,this))},t.prototype.map=function(e){return new t(new a.MappedStreamDataSource(e,this))},t.prototype.flatMap=function(e){return new t(new a.FlatMapStreamDataSource(e,this))},t.prototype.each=function(t){for(;this.hasNext();)!1===t(this.next())&&this.stop()},t.prototype.reduce=function(t,e){if(void 0===e&&(e=null),!this.hasNext())return i.Optional.absent;var n=null,r=null;if(null!=e)n=e,r=this.next();else{if(n=this.next(),!this.hasNext())return i.Optional.fromNullable(n);r=this.next()}for(n=t(n,r);this.hasNext();)n=t(n,r=this.next());return i.Optional.fromNullable(n)},t.prototype.last=function(){return this.hasNext()?this.reduce((function(t,e){return e})):i.Optional.absent},t.prototype.first=function(){return this.reset(),this.hasNext()?i.Optional.fromNullable(this.next()):i.Optional.absent},t.prototype.anyMatch=function(t){for(;this.hasNext();)if(t(this.next()))return!0;return!1},t.prototype.allMatch=function(t){for(;this.hasNext();)if(!t(this.next()))return!1;return!0},t.prototype.noneMatch=function(t){for(;this.hasNext();)if(t(this.next()))return!1;return!0},t.prototype.sort=function(e){var n=this.collect(new a.ArrayCollector);return n=n.sort(e),t.of.apply(t,o([],r(n)))},Object.defineProperty(t.prototype,"value",{get:function(){return this.collect(new a.ArrayCollector)},enumerable:!1,configurable:!0}),t.prototype.stop=function(){this.pos=this._limits+1e9},t.prototype.isOverLimits=function(){return-1!=this._limits&&this.pos>=this._limits-1},t}();e.LazyStream=u},356:function(t,e,n){var r,o=this&&this.__extends||(r=function(t,e){return(r=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)Object.prototype.hasOwnProperty.call(e,n)&&(t[n]=e[n])})(t,e)},function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Class extends value "+String(e)+" is not a constructor or null");function n(){this.constructor=t}r(t,e),t.prototype=null===e?Object.create(e):(n.prototype=e.prototype,new n)});Object.defineProperty(e,"__esModule",{value:!0}),e.TagBuilder=void 0;var i=n(585);"undefined"!=typeof window&&function(){if(void 0!==window.Reflect&&void 0!==window.customElements&&!window.customElements.polyfillWrapFlushCallback){var t=HTMLElement;window.HTMLElement={HTMLElement:function(){return Reflect.construct(t,[],this.constructor)}}.HTMLElement,HTMLElement.prototype=t.prototype,HTMLElement.prototype.constructor=HTMLElement,Object.setPrototypeOf(HTMLElement,t)}}();var a=function(){function t(t){this.extendsType=HTMLElement,this.observedAttrs=[],this.tagName=t}return t.withTagName=function(e){return new t(e)},t.prototype.withObservedAttributes=function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];this.observedAttrs=t},t.prototype.withConnectedCallback=function(t){return this.connectedCallback=t,this},t.prototype.withDisconnectedCallback=function(t){return this.disconnectedCallback=t,this},t.prototype.withAdoptedCallback=function(t){return this.adoptedCallback=t,this},t.prototype.withAttributeChangedCallback=function(t){return this.attributeChangedCallback=t,this},t.prototype.withExtendsType=function(t){return this.extendsType=t,this},t.prototype.withOptions=function(t){return this.theOptions=t,this},t.prototype.withClass=function(t){if(this.markup)throw Error("Markup already defined, markup must be set in the class");return this.clazz=t,this},t.prototype.withMarkup=function(t){if(this.clazz)throw Error("Class already defined, markup must be set in the class");return this.markup=t,this},t.prototype.register=function(){var t=this;if(!this.clazz&&!this.markup)throw Error("Class or markup must be defined");if(this.clazz){var e=function(e){var n=t[e],r=t.clazz.prototype[e],o=n||r;o&&(t.clazz.prototype[e]=function(){n?o.apply(i.DomQuery.byId(this)):r.apply(this)})};e("connectedCallback"),e("disconnectedCallback"),e("adoptedCallback"),e("attributeChangedCallback"),this.observedAttrs.length&&Object.defineProperty(this.clazz.prototype,"observedAttributes",{get:function(){return this.observedAttrs}}),window.customElements.define(this.tagName,this.clazz,this.theOptions||null)}else{var n=this,r=function(t,e){n[t]&&n[t].apply(i.DomQuery.byId(e))};window.customElements.define(this.tagName,function(t){function e(){var e=t.call(this)||this;return e.innerHTML=n.markup,e}return o(e,t),Object.defineProperty(e,"observedAttributes",{get:function(){return n.observedAttrs},enumerable:!1,configurable:!0}),e.prototype.connectedCallback=function(){r("connectedCallback",this)},e.prototype.disconnectedCallback=function(){r("disconnectedCallback",this)},e.prototype.adoptedCallback=function(){r("adoptedCallback",this)},e.prototype.attributeChangedCallback=function(){r("attributeChangedCallback",this)},e}(this.extendsType),this.theOptions||null)}},t}();e.TagBuilder=a},121:function(t,e,n){var r,o=this&&this.__extends||(r=function(t,e){return(r=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)Object.prototype.hasOwnProperty.call(e,n)&&(t[n]=e[n])})(t,e)},function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Class extends value "+String(e)+" is not a constructor or null");function n(){this.constructor=t}r(t,e),t.prototype=null===e?Object.create(e):(n.prototype=e.prototype,new n)});Object.defineProperty(e,"__esModule",{value:!0}),e.XQ=e.XMLQuery=void 0;var i=n(805),a=n(585),l=i.Lang.isString,u=function(t){function e(e,n){var r;return void 0===n&&(n="text/xml"),l(e)?t.call(this,null==(r=e)?null:i.Lang.saveResolveLazy((function(){return new window.DOMParser}),(function(){return(t=new ActiveXObject("Microsoft.XMLDOM")).async=!1,{parseFromString:function(e,n){return t.loadXML(e)}};var t})).value.parseFromString(r,n))||this:t.call(this,e)||this}return o(e,t),e.prototype.isXMLParserError=function(){return this.querySelectorAll("parsererror").isPresent()},e.prototype.toString=function(){var t=[];return this.eachElem((function(e){var n,r,o,i,a=null!==(i=null===(o=null===(r=null===(n=window)||void 0===n?void 0:n.XMLSerializer)||void 0===r?void 0:r.constructor())||void 0===o?void 0:o.serializeToString(e))&&void 0!==i?i:null==e?void 0:e.xml;a&&t.push(a)})),t.join("")},e.prototype.parserErrorText=function(t){return this.querySelectorAll("parsererror").textContent(t)},e.parseXML=function(t){return new e(t)},e.parseHTML=function(t){return new e(t,"text/html")},e.fromString=function(t,n){return void 0===n&&(n="text/xml"),new e(t,n)},e}(a.DomQuery);e.XMLQuery=u,e.XQ=u}},e={};function n(r){var o=e[r];if(void 0!==o)return o.exports;var i=e[r]={exports:{}};return t[r].call(i.exports,i,i.exports,n),i.exports}var r={};!function(){var t=r;Object.defineProperty(t,"__esModule",{value:!0}),t.BroadcastChannelBroker=t.Broker=t.Message=t.TagBuilder=t.QueryFormDataCollector=t.FormDataCollector=t.AssocArrayCollector=t.ArrayCollector=t.QueryFormStringCollector=t.SequenceDataSource=t.FlatMapStreamDataSource=t.FilteredStreamDatasource=t.MappedStreamDataSource=t.ArrayStreamDataSource=t.LazyStream=t.Stream=t.XQ=t.XMLQuery=t.PromiseStatus=t.Promise=t.CancellablePromise=t.ValueEmbedder=t.Optional=t.Monad=t.Config=t.Lang=t.DQ=t.DomQueryCollector=t.ElementAttribute=t.DomQuery=void 0;var e=n(585);Object.defineProperty(t,"DomQuery",{enumerable:!0,get:function(){return e.DomQuery}}),Object.defineProperty(t,"ElementAttribute",{enumerable:!0,get:function(){return e.ElementAttribute}}),Object.defineProperty(t,"DomQueryCollector",{enumerable:!0,get:function(){return e.DomQueryCollector}}),Object.defineProperty(t,"DQ",{enumerable:!0,get:function(){return e.DQ}});var o=n(805);Object.defineProperty(t,"Lang",{enumerable:!0,get:function(){return o.Lang}});var i=n(152);Object.defineProperty(t,"Config",{enumerable:!0,get:function(){return i.Config}}),Object.defineProperty(t,"Monad",{enumerable:!0,get:function(){return i.Monad}}),Object.defineProperty(t,"Optional",{enumerable:!0,get:function(){return i.Optional}}),Object.defineProperty(t,"ValueEmbedder",{enumerable:!0,get:function(){return i.ValueEmbedder}});var a=n(376);Object.defineProperty(t,"CancellablePromise",{enumerable:!0,get:function(){return a.CancellablePromise}}),Object.defineProperty(t,"Promise",{enumerable:!0,get:function(){return a.Promise}}),Object.defineProperty(t,"PromiseStatus",{enumerable:!0,get:function(){return a.PromiseStatus}});var l=n(121);Object.defineProperty(t,"XMLQuery",{enumerable:!0,get:function(){return l.XMLQuery}}),Object.defineProperty(t,"XQ",{enumerable:!0,get:function(){return l.XQ}});var u=n(551);Object.defineProperty(t,"Stream",{enumerable:!0,get:function(){return u.Stream}}),Object.defineProperty(t,"LazyStream",{enumerable:!0,get:function(){return u.LazyStream}});var s=n(255);Object.defineProperty(t,"ArrayStreamDataSource",{enumerable:!0,get:function(){return s.ArrayStreamDataSource}}),Object.defineProperty(t,"MappedStreamDataSource",{enumerable:!0,get:function(){return s.MappedStreamDataSource}}),Object.defineProperty(t,"FilteredStreamDatasource",{enumerable:!0,get:function(){return s.FilteredStreamDatasource}}),Object.defineProperty(t,"FlatMapStreamDataSource",{enumerable:!0,get:function(){return s.FlatMapStreamDataSource}}),Object.defineProperty(t,"SequenceDataSource",{enumerable:!0,get:function(){return s.SequenceDataSource}}),Object.defineProperty(t,"QueryFormStringCollector",{enumerable:!0,get:function(){return s.QueryFormStringCollector}}),Object.defineProperty(t,"ArrayCollector",{enumerable:!0,get:function(){return s.ArrayCollector}}),Object.defineProperty(t,"AssocArrayCollector",{enumerable:!0,get:function(){return s.AssocArrayCollector}}),Object.defineProperty(t,"FormDataCollector",{enumerable:!0,get:function(){return s.FormDataCollector}}),Object.defineProperty(t,"QueryFormDataCollector",{enumerable:!0,get:function(){return s.QueryFormDataCollector}});var c=n(356);Object.defineProperty(t,"TagBuilder",{enumerable:!0,get:function(){return c.TagBuilder}});var f=n(493);Object.defineProperty(t,"Message",{enumerable:!0,get:function(){return f.Message}}),Object.defineProperty(t,"Broker",{enumerable:!0,get:function(){return f.Broker}}),Object.defineProperty(t,"BroadcastChannelBroker",{enumerable:!0,get:function(){return f.BroadcastChannelBroker}})}();var o=exports;for(var i in r)o[i]=r[i];r.__esModule&&Object.defineProperty(o,"__esModule",{value:!0})}();
+//# sourceMappingURL=index.js.map
+
+/***/ }),
 
 /***/ "./src/main/typescript/api/Jsf.ts":
 /*!****************************************!*\
@@ -8,6 +18,7 @@
   \****************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
+"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -265,3265 +276,13 @@ var myfaces;
 
 /***/ }),
 
-/***/ "./src/main/typescript/ext/monadish/DomQuery.ts":
-/*!******************************************************!*\
-  !*** ./src/main/typescript/ext/monadish/DomQuery.ts ***!
-  \******************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-/* Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to you under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.DQ = exports.DomQueryCollector = exports.DomQuery = exports.ElementAttribute = void 0;
-var Monad_1 = __webpack_require__(/*! ./Monad */ "./src/main/typescript/ext/monadish/Monad.ts");
-var Stream_1 = __webpack_require__(/*! ./Stream */ "./src/main/typescript/ext/monadish/Stream.ts");
-var SourcesCollectors_1 = __webpack_require__(/*! ./SourcesCollectors */ "./src/main/typescript/ext/monadish/SourcesCollectors.ts");
-var Lang_1 = __webpack_require__(/*! ./Lang */ "./src/main/typescript/ext/monadish/Lang.ts");
-var trim = Lang_1.Lang.trim;
-var objToArray = Lang_1.Lang.objToArray;
-var isString = Lang_1.Lang.isString;
-var equalsIgnoreCase = Lang_1.Lang.equalsIgnoreCase;
-/**
- *
- *        // - submit checkboxes and radio inputs only if checked
- if ((tagName != "select" && elemType != "button"
- && elemType != "reset" && elemType != "submit" && elemType != "image")
- && ((elemType != "checkbox" && elemType != "radio"
- */
-var Submittables;
-(function (Submittables) {
-    Submittables["SELECT"] = "select";
-    Submittables["BUTTON"] = "button";
-    Submittables["SUBMIT"] = "submit";
-    Submittables["RESET"] = "reset";
-    Submittables["IMAGE"] = "image";
-    Submittables["RADIO"] = "radio";
-    Submittables["CHECKBOX"] = "checkbox";
-})(Submittables || (Submittables = {}));
-// @ts-ignore supression needed here due to fromnullable
-var ElementAttribute = /** @class */ (function (_super) {
-    __extends(ElementAttribute, _super);
-    function ElementAttribute(element, name, defaultVal) {
-        if (defaultVal === void 0) { defaultVal = null; }
-        var _this = _super.call(this, element, name) || this;
-        _this.element = element;
-        _this.name = name;
-        _this.defaultVal = defaultVal;
-        return _this;
-    }
-    Object.defineProperty(ElementAttribute.prototype, "value", {
-        get: function () {
-            var _a;
-            var val = (_a = this.element.get(0)).orElse.apply(_a, []).values;
-            if (!val.length) {
-                return this.defaultVal;
-            }
-            return val[0].getAttribute(this.name);
-        },
-        set: function (value) {
-            var _a;
-            var val = (_a = this.element.get(0)).orElse.apply(_a, []).values;
-            for (var cnt = 0; cnt < val.length; cnt++) {
-                val[cnt].setAttribute(this.name, value);
-            }
-            val[0].setAttribute(this.name, value);
-        },
-        enumerable: false,
-        configurable: true
-    });
-    ElementAttribute.prototype.getClass = function () {
-        return ElementAttribute;
-    };
-    ElementAttribute.fromNullable = function (value, valueKey) {
-        if (valueKey === void 0) { valueKey = "value"; }
-        return new ElementAttribute(value, valueKey);
-    };
-    return ElementAttribute;
-}(Monad_1.ValueEmbedder));
-exports.ElementAttribute = ElementAttribute;
-/**
- * small helper for the specialized jsf case
- * @param src
- * @constructor
- */
-var DEFAULT_JSF_WHITELIST = function (src) {
-    return (src.indexOf("ln=scripts") == -1 &&
-        src.indexOf("ln=javax.faces") == -1) ||
-        (src.indexOf("/jsf.js") == -1 &&
-            src.indexOf("/jsf-uncompressed.js") == -1);
-};
-/**
- * Monadic DomNode representation, ala jquery
- * This is a thin wrapper over querySelectorAll
- * to get slim monadic support
- * to reduce implementation code on the users side.
- * This is vital for frameworks which want to rely on
- * plain dom but still do not want to lose
- * the reduced code footprint of querying dom trees and traversing
- * by using functional patterns.
- *
- * Also a few convenience methods are added to reduce
- * the code footprint of standard dom processing
- * operations like eval
- *
- * TODO add jquery fallback support, since it is supported
- * in most older systems
- * Note parts of this code still stem from the Dom.js I have written 10 years
- * ago, those parts look a little bit ancient and will be replaced over time.
- *
- */
-var DomQuery = /** @class */ (function () {
-    function DomQuery() {
-        var _a;
-        var rootNode = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            rootNode[_i] = arguments[_i];
-        }
-        this.rootNode = [];
-        this.pos = -1;
-        //TODO this part probably will be removed
-        //because we can stream from an array stream directly into the dom query
-        this._limits = -1;
-        if (Monad_1.Optional.fromNullable(rootNode).isAbsent() || !rootNode.length) {
-            return;
-        }
-        else {
-            //we need to flatten out the arrays
-            for (var cnt = 0; cnt < rootNode.length; cnt++) {
-                if (isString(rootNode[cnt])) {
-                    var foundElement = DomQuery.querySelectorAll(rootNode[cnt]);
-                    if (!foundElement.isAbsent()) {
-                        rootNode.push.apply(rootNode, foundElement.values);
-                    }
-                }
-                else if (rootNode[cnt] instanceof DomQuery) {
-                    (_a = this.rootNode).push.apply(_a, rootNode[cnt].values);
-                }
-                else {
-                    this.rootNode.push(rootNode[cnt]);
-                }
-            }
-        }
-    }
-    Object.defineProperty(DomQuery.prototype, "value", {
-        /**
-         * returns the first element
-         */
-        get: function () {
-            return this.getAsElem(0);
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(DomQuery.prototype, "values", {
-        get: function () {
-            return this.allElems();
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(DomQuery.prototype, "id", {
-        /**
-         * returns the id of the first element
-         */
-        get: function () {
-            return new ElementAttribute(this.get(0), "id");
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(DomQuery.prototype, "length", {
-        /**
-         * length of the entire query set
-         */
-        get: function () {
-            return this.rootNode.length;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(DomQuery.prototype, "tagName", {
-        /**
-         * convenience method for tagName
-         */
-        get: function () {
-            return this.getAsElem(0).getIf("tagName");
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(DomQuery.prototype, "nodeName", {
-        /**
-         * convenience method for nodeName
-         */
-        get: function () {
-            return this.getAsElem(0).getIf("nodeName");
-        },
-        enumerable: false,
-        configurable: true
-    });
-    DomQuery.prototype.isTag = function (tagName) {
-        return !this.isAbsent()
-            && (this.nodeName.orElse("__none___")
-                .value.toLowerCase() == tagName.toLowerCase()
-                || this.tagName.orElse("__none___")
-                    .value.toLowerCase() == tagName.toLowerCase());
-    };
-    Object.defineProperty(DomQuery.prototype, "type", {
-        /**
-         * convenience property for type
-         *
-         * returns null in case of no type existing otherwise
-         * the type of the first element
-         */
-        get: function () {
-            return this.getAsElem(0).getIf("type");
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(DomQuery.prototype, "name", {
-        /**
-         * convenience property for name
-         *
-         * returns null in case of no type existing otherwise
-         * the name of the first element
-         */
-        get: function () {
-            return new Monad_1.ValueEmbedder(this.getAsElem(0).value, "name");
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(DomQuery.prototype, "inputValue", {
-        /**
-         * convenience property for value
-         *
-         * returns null in case of no type existing otherwise
-         * the value of the first element
-         */
-        get: function () {
-            if (this.getAsElem(0).getIf("value").isPresent()) {
-                return new Monad_1.ValueEmbedder(this.getAsElem(0).value);
-            }
-            else {
-                return Monad_1.ValueEmbedder.absent;
-            }
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(DomQuery.prototype, "checked", {
-        get: function () {
-            return Stream_1.Stream.of.apply(Stream_1.Stream, this.values).allMatch(function (el) { return !!el.checked; });
-        },
-        set: function (newChecked) {
-            this.eachElem(function (el) { return el.checked = newChecked; });
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(DomQuery.prototype, "elements", {
-        get: function () {
-            //a simple querySelectorAll should suffice
-            return this.querySelectorAll("input, checkbox, select, textarea, fieldset");
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(DomQuery.prototype, "deepElements", {
-        get: function () {
-            var elemStr = "input, select, textarea, checkbox, fieldset";
-            return this.querySelectorAllDeep(elemStr);
-        },
-        enumerable: false,
-        configurable: true
-    });
-    /**
-     * a deep search which treats the single isolated shadow doms
-     * separately and runs the query on earch shadow dom
-     * @param queryStr
-     */
-    DomQuery.prototype.querySelectorAllDeep = function (queryStr) {
-        var found = [];
-        var queryRes = this.querySelectorAll(queryStr);
-        if (queryRes.length) {
-            found.push(queryRes);
-        }
-        var shadowRoots = this.querySelectorAll("*").shadowRoot;
-        if (shadowRoots.length) {
-            var shadowRes = shadowRoots.querySelectorAllDeep(queryStr);
-            if (shadowRes.length) {
-                found.push(shadowRes);
-            }
-        }
-        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], found)))();
-    };
-    Object.defineProperty(DomQuery.prototype, "disabled", {
-        /**
-         * todo align this api with the rest of the apis
-         */
-        get: function () {
-            return this.attr("disabled").isPresent();
-        },
-        set: function (disabled) {
-            // this.attr("disabled").value = disabled + "";
-            if (!disabled) {
-                this.removeAttribute("disabled");
-            }
-            else {
-                this.attr("disabled").value = "disabled";
-            }
-        },
-        enumerable: false,
-        configurable: true
-    });
-    DomQuery.prototype.removeAttribute = function (name) {
-        this.eachElem(function (item) { return item.removeAttribute(name); });
-    };
-    Object.defineProperty(DomQuery.prototype, "childNodes", {
-        get: function () {
-            var childNodeArr = [];
-            this.eachElem(function (item) {
-                childNodeArr = childNodeArr.concat(objToArray(item.childNodes));
-            });
-            return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], childNodeArr)))();
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(DomQuery.prototype, "stream", {
-        /**
-         * binding into stream
-         */
-        get: function () {
-            return new (Stream_1.Stream.bind.apply(Stream_1.Stream, __spreadArray([void 0], this.asArray)))();
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(DomQuery.prototype, "lazyStream", {
-        /**
-         * fetches a lazy stream representation
-         * lazy should be applied if you have some filters etc
-         * in between, this can reduce the number of post filter operations
-         * and ram usage
-         * significantly because the operations are done lazily and stop
-         * once they hit a dead end.
-         */
-        get: function () {
-            return Stream_1.LazyStream.of.apply(Stream_1.LazyStream, this.asArray);
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(DomQuery.prototype, "asArray", {
-        get: function () {
-            //filter not supported by IE11
-            return [].concat(Stream_1.LazyStream.of.apply(Stream_1.LazyStream, this.rootNode).filter(function (item) { return item != null; })
-                .map(function (item) { return DomQuery.byId(item); }).collect(new SourcesCollectors_1.ArrayCollector()));
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(DomQuery.prototype, "asNodeArray", {
-        get: function () {
-            return [].concat(Stream_1.Stream.of(this.rootNode).filter(function (item) { return item != null; }).collect(new SourcesCollectors_1.ArrayCollector()));
-        },
-        enumerable: false,
-        configurable: true
-    });
-    DomQuery.querySelectorAllDeep = function (selector) {
-        return new DomQuery(document).querySelectorAllDeep(selector);
-    };
-    /**
-     * easy query selector all producer
-     *
-     * @param selector the selector
-     * @returns a results dom query object
-     */
-    DomQuery.querySelectorAll = function (selector) {
-        if (selector.indexOf("/shadow/") != -1) {
-            return new DomQuery(document)._querySelectorAllDeep(selector);
-        }
-        else {
-            return new DomQuery(document)._querySelectorAll(selector);
-        }
-    };
-    /**
-     * byId producer
-     *
-     * @param selector id
-     * @return a DomQuery containing the found elements
-     */
-    DomQuery.byId = function (selector, deep) {
-        if (deep === void 0) { deep = false; }
-        if (isString(selector)) {
-            return (!deep) ? new DomQuery(document).byId(selector) : new DomQuery(document).byIdDeep(selector);
-        }
-        else {
-            return new DomQuery(selector);
-        }
-    };
-    /**
-     * byTagName producer
-     *
-     * @param selector name
-     * @return a DomQuery containing the found elements
-     */
-    DomQuery.byTagName = function (selector) {
-        if (isString(selector)) {
-            return new DomQuery(document).byTagName(selector);
-        }
-        else {
-            return new DomQuery(selector);
-        }
-    };
-    DomQuery.globalEval = function (code, nonce) {
-        return new DomQuery(document).globalEval(code, nonce);
-    };
-    /**
-     * builds the ie nodes properly in a placeholder
-     * and bypasses a non script insert bug that way
-     * @param markup the marku code
-     */
-    DomQuery.fromMarkup = function (markup) {
-        //https://developer.mozilla.org/de/docs/Web/API/DOMParser license creative commons
-        var doc = document.implementation.createHTMLDocument("");
-        markup = trim(markup);
-        var lowerMarkup = markup.toLowerCase();
-        if (lowerMarkup.indexOf('<!doctype') != -1 ||
-            lowerMarkup.indexOf('<html') != -1 ||
-            lowerMarkup.indexOf('<head') != -1 || //TODO proper regexps here to avoid embedded tags with same element names to be triggered
-            lowerMarkup.indexOf('<body') != -1) {
-            doc.documentElement.innerHTML = markup;
-            return new DomQuery(doc.documentElement);
-        }
-        else {
-            var startsWithTag = function (str, tagName) {
-                var tag1 = ["<", tagName, ">"].join("");
-                var tag2 = ["<", tagName, " "].join("");
-                return (str.indexOf(tag1) == 0) || (str.indexOf(tag2) == 0);
-            };
-            var dummyPlaceHolder = new DomQuery(document.createElement("div"));
-            //table needs special treatment due to the browsers auto creation
-            if (startsWithTag(lowerMarkup, "thead") || startsWithTag(lowerMarkup, "tbody")) {
-                dummyPlaceHolder.html("<table>" + markup + "</table>");
-                return dummyPlaceHolder.querySelectorAll("table").get(0).childNodes.detach();
-            }
-            else if (startsWithTag(lowerMarkup, "tfoot")) {
-                dummyPlaceHolder.html("<table><thead></thead><tbody><tbody" + markup + "</table>");
-                return dummyPlaceHolder.querySelectorAll("table").get(2).childNodes.detach();
-            }
-            else if (startsWithTag(lowerMarkup, "tr")) {
-                dummyPlaceHolder.html("<table><tbody>" + markup + "</tbody></table>");
-                return dummyPlaceHolder.querySelectorAll("tbody").get(0).childNodes.detach();
-            }
-            else if (startsWithTag(lowerMarkup, "td")) {
-                dummyPlaceHolder.html("<table><tbody><tr>" + markup + "</tr></tbody></table>");
-                return dummyPlaceHolder.querySelectorAll("tr").get(0).childNodes.detach();
-            }
-            dummyPlaceHolder.html(markup);
-            return dummyPlaceHolder.childNodes.detach();
-        }
-    };
-    /**
-     * returns the nth element as domquery
-     * from the internal elements
-     * note if you try to reach a non existing element position
-     * you will get back an absent entry
-     *
-     * @param index the nth index
-     */
-    DomQuery.prototype.get = function (index) {
-        return (index < this.rootNode.length) ? new DomQuery(this.rootNode[index]) : DomQuery.absent;
-    };
-    /**
-     * returns the nth element as optional of an Element object
-     * @param index the number from the index
-     * @param defaults the default value if the index is overrun default Optional.absent
-     */
-    DomQuery.prototype.getAsElem = function (index, defaults) {
-        if (defaults === void 0) { defaults = Monad_1.Optional.absent; }
-        return (index < this.rootNode.length) ? Monad_1.Optional.fromNullable(this.rootNode[index]) : defaults;
-    };
-    /**
-     * returns the files from a given elmement
-     * @param index
-     */
-    DomQuery.prototype.filesFromElem = function (index) {
-        var _a;
-        return (index < this.rootNode.length) ? ((_a = this.rootNode[index]) === null || _a === void 0 ? void 0 : _a.files) ? this.rootNode[index].files : [] : [];
-    };
-    /**
-     * returns the value array< of all elements
-     */
-    DomQuery.prototype.allElems = function () {
-        return this.rootNode;
-    };
-    /**
-     * absent no values reached?
-     */
-    DomQuery.prototype.isAbsent = function () {
-        return this.length == 0;
-    };
-    /**
-     * should make the code clearer
-     * note if you pass a function
-     * this refers to the active dopmquery object
-     */
-    DomQuery.prototype.isPresent = function (presentRunnable) {
-        var absent = this.isAbsent();
-        if (!absent && presentRunnable) {
-            presentRunnable.call(this, this);
-        }
-        return !absent;
-    };
-    /**
-     * should make the code clearer
-     * note if you pass a function
-     * this refers to the active dopmquery object
-     *
-     *
-     * @param presentRunnable
-     */
-    DomQuery.prototype.ifPresentLazy = function (presentRunnable) {
-        if (presentRunnable === void 0) { presentRunnable = function () {
-        }; }
-        this.isPresent.call(this, presentRunnable);
-        return this;
-    };
-    /**
-     * remove all affected nodes from this query object from the dom tree
-     */
-    DomQuery.prototype.delete = function () {
-        this.eachElem(function (node) {
-            if (node.parentNode) {
-                node.parentNode.removeChild(node);
-            }
-        });
-    };
-    DomQuery.prototype.querySelectorAll = function (selector) {
-        //We could merge both methods, but for now this is more readable
-        if (selector.indexOf("/shadow/") != -1) {
-            return this._querySelectorAllDeep(selector);
-        }
-        else {
-            return this._querySelectorAll(selector);
-        }
-    };
-    /**
-     * query selector all on the existing dom queryX object
-     *
-     * @param selector the standard selector
-     * @return a DomQuery with the results
-     */
-    DomQuery.prototype._querySelectorAll = function (selector) {
-        var _a, _b;
-        if (!((_a = this === null || this === void 0 ? void 0 : this.rootNode) === null || _a === void 0 ? void 0 : _a.length)) {
-            return this;
-        }
-        var nodes = [];
-        for (var cnt = 0; cnt < this.rootNode.length; cnt++) {
-            if (!((_b = this.rootNode[cnt]) === null || _b === void 0 ? void 0 : _b.querySelectorAll)) {
-                continue;
-            }
-            var res = this.rootNode[cnt].querySelectorAll(selector);
-            nodes = nodes.concat(objToArray(res));
-        }
-        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], nodes)))();
-    };
-    /*deep with a selector and a peudo /shadow/ marker to break into the next level*/
-    DomQuery.prototype._querySelectorAllDeep = function (selector) {
-        var _a;
-        if (!((_a = this === null || this === void 0 ? void 0 : this.rootNode) === null || _a === void 0 ? void 0 : _a.length)) {
-            return this;
-        }
-        var nodes = [];
-        var foundNodes = new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], this.rootNode)))();
-        var selectors = selector.split(/\/shadow\//);
-        for (var cnt2 = 0; cnt2 < selectors.length; cnt2++) {
-            if (selectors[cnt2] == "") {
-                continue;
-            }
-            var levelSelector = selectors[cnt2];
-            foundNodes = foundNodes.querySelectorAll(levelSelector);
-            if (cnt2 < selectors.length - 1) {
-                foundNodes = foundNodes.shadowRoot;
-            }
-        }
-        return foundNodes;
-    };
-    /**
-     * core byId method
-     * @param id the id to search for
-     * @param includeRoot also match the root element?
-     */
-    DomQuery.prototype.byId = function (id, includeRoot) {
-        var res = [];
-        if (includeRoot) {
-            res = res.concat(Stream_1.LazyStream.of.apply(Stream_1.LazyStream, ((this === null || this === void 0 ? void 0 : this.rootNode) || [])).filter(function (item) { return id == item.id; })
-                .map(function (item) { return new DomQuery(item); })
-                .collect(new SourcesCollectors_1.ArrayCollector()));
-        }
-        //for some strange kind of reason the # selector fails
-        //on hidden elements we use the attributes match selector
-        //that works
-        res = res.concat(this.querySelectorAll("[id=\"" + id + "\"]"));
-        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], res)))();
-    };
-    DomQuery.prototype.byIdDeep = function (id, includeRoot) {
-        var res = [];
-        if (includeRoot) {
-            res = res.concat(Stream_1.LazyStream.of.apply(Stream_1.LazyStream, ((this === null || this === void 0 ? void 0 : this.rootNode) || [])).filter(function (item) { return id == item.id; })
-                .map(function (item) { return new DomQuery(item); })
-                .collect(new SourcesCollectors_1.ArrayCollector()));
-        }
-        var subItems = this.querySelectorAllDeep("[id=\"" + id + "\"]");
-        if (subItems.length) {
-            res.push(subItems);
-        }
-        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], res)))();
-    };
-    /**
-     * same as byId just for the tag name
-     * @param tagName
-     * @param includeRoot
-     */
-    DomQuery.prototype.byTagName = function (tagName, includeRoot, deep) {
-        var _a;
-        var res = [];
-        if (includeRoot) {
-            res = Stream_1.LazyStream.of.apply(Stream_1.LazyStream, ((_a = this === null || this === void 0 ? void 0 : this.rootNode) !== null && _a !== void 0 ? _a : [])).filter(function (element) { return (element === null || element === void 0 ? void 0 : element.tagName) == tagName; })
-                .reduce(function (reduction, item) { return reduction.concat([item]); }, res)
-                .orElse(res).value;
-        }
-        (deep) ? res.push(this.querySelectorAllDeep(tagName)) : res.push(this.querySelectorAll(tagName));
-        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], res)))();
-    };
-    /**
-     * attr accessor, usage myQuery.attr("class").value = "bla"
-     * or let value myQuery.attr("class").value
-     * @param attr the attribute to set
-     * @param defaultValue the default value in case nothing is presented (defaults to null)
-     */
-    DomQuery.prototype.attr = function (attr, defaultValue) {
-        if (defaultValue === void 0) { defaultValue = null; }
-        return new ElementAttribute(this, attr, defaultValue);
-    };
-    /**
-     * hasclass, checks for an existing class in the class attributes
-     *
-     * @param clazz the class to search for
-     */
-    DomQuery.prototype.hasClass = function (clazz) {
-        var hasIt = false;
-        this.eachElem(function (node) {
-            hasIt = node.classList.contains(clazz);
-            if (hasIt) {
-                return false;
-            }
-        });
-        return hasIt;
-    };
-    /**
-     * appends a class string if not already in the element(s)
-     *
-     * @param clazz the style class to append
-     */
-    DomQuery.prototype.addClass = function (clazz) {
-        this.eachElem(function (item) { return item.classList.add(clazz); });
-        return this;
-    };
-    /**
-     * remove the style class if in the class definitions
-     *
-     * @param clazz
-     */
-    DomQuery.prototype.removeClass = function (clazz) {
-        this.eachElem(function (item) { return item.classList.remove(clazz); });
-        return this;
-    };
-    /**
-     * checks whether we have a multipart element in our children
-     * or are one
-     */
-    DomQuery.prototype.isMultipartCandidate = function (deep) {
-        var _this = this;
-        if (deep === void 0) { deep = false; }
-        var isCandidate = function (item) {
-            var _a;
-            if (item.length == 0) {
-                return false;
-            }
-            if (item.length == 1) {
-                if (item.tagName.get("booga").value.toLowerCase() == "input" &&
-                    (((_a = item.attr("type")) === null || _a === void 0 ? void 0 : _a.value) || "").toLowerCase() == "file") {
-                    return true;
-                }
-                if (deep) {
-                    return _this.querySelectorAllDeep("input[type='file']").firstElem().isPresent();
-                }
-                else {
-                    return _this.querySelectorAll("input[type='file']").firstElem().isPresent();
-                }
-            }
-            return item.isMultipartCandidate(deep);
-        };
-        var ret = this.stream.filter(function (item) { return isCandidate(item); }).first().isPresent();
-        return ret;
-    };
-    /**
-     * innerHtml equivalkent
-     * equivalent to jqueries html
-     * as setter the html is set and the
-     * DomQuery is given back
-     * as getter the html string is returned
-     *
-     * @param inval
-     */
-    DomQuery.prototype.html = function (inval) {
-        if (Monad_1.Optional.fromNullable(inval).isAbsent()) {
-            return this.isPresent() ? Monad_1.Optional.fromNullable(this.innerHtml) : Monad_1.Optional.absent;
-        }
-        this.innerHtml = inval;
-        return this;
-    };
-    /**
-     * Standard dispatch event method, delegated from node
-     */
-    DomQuery.prototype.dispatchEvent = function (evt) {
-        this.eachElem(function (elem) { return elem.dispatchEvent(evt); });
-        return this;
-    };
-    Object.defineProperty(DomQuery.prototype, "innerHtml", {
-        get: function () {
-            var retArr = [];
-            this.eachElem(function (elem) { return retArr.push(elem.innerHTML); });
-            return retArr.join("");
-        },
-        set: function (inVal) {
-            this.eachElem(function (elem) { return elem.innerHTML = inVal; });
-        },
-        enumerable: false,
-        configurable: true
-    });
-    //source: https://developer.mozilla.org/en-US/docs/Web/API/Element/matches
-    //code snippet license: https://creativecommons.org/licenses/by-sa/2.5/
-    DomQuery.prototype._mozMatchesSelector = function (toMatch, selector) {
-        var prot = toMatch;
-        var matchesSelector = prot.matchesSelector ||
-            prot.mozMatchesSelector ||
-            prot.msMatchesSelector ||
-            prot.oMatchesSelector ||
-            prot.webkitMatchesSelector ||
-            function (s) {
-                var matches = (document || window.ownerDocument).querySelectorAll(s), i = matches.length;
-                while (--i >= 0 && matches.item(i) !== toMatch) {
-                }
-                return i > -1;
-            };
-        return matchesSelector.call(toMatch, selector);
-    };
-    /**
-     * filters the current dom query elements
-     * upon a given selector
-     *
-     * @param selector
-     */
-    DomQuery.prototype.filterSelector = function (selector) {
-        var _this = this;
-        var matched = [];
-        this.eachElem(function (item) {
-            if (_this._mozMatchesSelector(item, selector)) {
-                matched.push(item);
-            }
-        });
-        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], matched)))();
-    };
-    DomQuery.prototype.matchesSelector = function (selector) {
-        var _this = this;
-        this.eachElem(function (item) {
-            if (!_this._mozMatchesSelector(item, selector)) {
-                return false;
-            }
-        });
-        return true;
-    };
-    /**
-     * easy node traversal, you can pass
-     * a set of node selectors which are joined as direct childs
-     *
-     * not the rootnodes are not in the getIf, those are always the child nodes
-     *
-     * @param nodeSelector
-     */
-    DomQuery.prototype.getIf = function () {
-        var nodeSelector = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            nodeSelector[_i] = arguments[_i];
-        }
-        var selectorStage = this.childNodes;
-        for (var cnt = 0; cnt < nodeSelector.length; cnt++) {
-            selectorStage = selectorStage.filterSelector(nodeSelector[cnt]);
-            if (selectorStage.isAbsent()) {
-                return selectorStage;
-            }
-        }
-        return selectorStage;
-    };
-    DomQuery.prototype.eachElem = function (func) {
-        for (var cnt = 0, len = this.rootNode.length; cnt < len; cnt++) {
-            if (func(this.rootNode[cnt], cnt) === false) {
-                break;
-            }
-        }
-        return this;
-    };
-    DomQuery.prototype.firstElem = function (func) {
-        if (func === void 0) { func = function (item) { return item; }; }
-        if (this.rootNode.length > 1) {
-            func(this.rootNode[0], 0);
-        }
-        return this;
-    };
-    DomQuery.prototype.each = function (func) {
-        Stream_1.Stream.of.apply(Stream_1.Stream, this.rootNode).each(function (item, cnt) {
-            //we could use a filter, but for the best performance we dont
-            if (item == null) {
-                return;
-            }
-            return func(DomQuery.byId(item), cnt);
-        });
-        return this;
-    };
-    /**
-     * returns a new dom query containing only the first element max
-     *
-     * @param func a an optional callback function to perform an operation on the first element
-     */
-    DomQuery.prototype.first = function (func) {
-        if (func === void 0) { func = function (item) { return item; }; }
-        if (this.rootNode.length >= 1) {
-            func(this.get(0), 0);
-            return this.get(0);
-        }
-        return this;
-    };
-    /**
-     * filter function which filters a subset
-     *
-     * @param func
-     */
-    DomQuery.prototype.filter = function (func) {
-        var reArr = [];
-        this.each(function (item) {
-            func(item) ? reArr.push(item) : null;
-        });
-        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], reArr)))();
-    };
-    //TODO append prepend
-    /**
-     * global eval head appendix method
-     * no other methods are supported anymore
-     * @param code the code to be evaled
-     * @param  nonce optional  nonce key for higher security
-     */
-    DomQuery.prototype.globalEval = function (code, nonce) {
-        var head = document.getElementsByTagName("head")[0] || document.documentElement;
-        var script = document.createElement("script");
-        if (nonce) {
-            script.setAttribute("nonce", nonce);
-        }
-        script.type = "text/javascript";
-        script.innerHTML = code;
-        var newScriptElement = head.appendChild(script);
-        head.removeChild(newScriptElement);
-        return this;
-    };
-    /**
-     * detaches a set of nodes from their parent elements
-     * in a browser independend manner
-     * @param {Object} items the items which need to be detached
-     * @return {Array} an array of nodes with the detached dom nodes
-     */
-    DomQuery.prototype.detach = function () {
-        this.eachElem(function (item) {
-            item.parentNode.removeChild(item);
-        });
-        return this;
-    };
-    /**
-     * appends the current set of elements
-     * to the element or first element passed via elem
-     * @param elem
-     */
-    DomQuery.prototype.appendTo = function (elem) {
-        this.eachElem(function (item) {
-            var value1 = elem.getAsElem(0).orElseLazy(function () {
-                return {
-                    appendChild: function (theItem) {
-                    }
-                };
-            }).value;
-            value1.appendChild(item);
-        });
-    };
-    /**
-     * loads and evals a script from a source uri
-     *
-     * @param src the source to be loaded and evaled
-     * @param defer in miliseconds execution default (0 == no defer)
-     * @param charSet
-     */
-    DomQuery.prototype.loadScriptEval = function (src, defer, charSet) {
-        var _this = this;
-        if (defer === void 0) { defer = 0; }
-        if (charSet === void 0) { charSet = "utf-8"; }
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", src, false);
-        if (charSet) {
-            xhr.setRequestHeader("Content-Type", "application/x-javascript; charset:" + charSet);
-        }
-        xhr.send(null);
-        xhr.onload = function (responseData) {
-            //defer also means we have to process after the ajax response
-            //has been processed
-            //we can achieve that with a small timeout, the timeout
-            //triggers after the processing is done!
-            if (!defer) {
-                _this.globalEval(xhr.responseText.replace("\n", "\r\n") + "\r\n//@ sourceURL=" + src);
-            }
-            else {
-                //TODO not ideal we maybe ought to move to something else here
-                //but since it is not in use yet, it is ok
-                setTimeout(function () {
-                    _this.globalEval(xhr.responseText + "\r\n//@ sourceURL=" + src);
-                }, defer);
-            }
-        };
-        xhr.onerror = function (data) {
-            throw Error(data);
-        };
-        //since we are synchronous we do it after not with onReadyStateChange
-        return this;
-    };
-    DomQuery.prototype.insertAfter = function () {
-        var toInsertParams = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            toInsertParams[_i] = arguments[_i];
-        }
-        this.each(function (existingItem) {
-            var existingElement = existingItem.getAsElem(0).value;
-            var rootNode = existingElement.parentNode;
-            var _loop_1 = function (cnt) {
-                var nextSibling = existingElement.nextSibling;
-                toInsertParams[cnt].eachElem(function (insertElem) {
-                    if (nextSibling) {
-                        rootNode.insertBefore(insertElem, nextSibling);
-                        existingElement = nextSibling;
-                    }
-                    else {
-                        rootNode.appendChild(insertElem);
-                    }
-                });
-            };
-            for (var cnt = 0; cnt < toInsertParams.length; cnt++) {
-                _loop_1(cnt);
-            }
-        });
-        var res = [];
-        res.push(this);
-        res = res.concat(toInsertParams);
-        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], res)))();
-    };
-    DomQuery.prototype.insertBefore = function () {
-        var toInsertParams = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            toInsertParams[_i] = arguments[_i];
-        }
-        this.each(function (existingItem) {
-            var existingElement = existingItem.getAsElem(0).value;
-            var rootNode = existingElement.parentNode;
-            for (var cnt = 0; cnt < toInsertParams.length; cnt++) {
-                toInsertParams[cnt].eachElem(function (insertElem) {
-                    rootNode.insertBefore(insertElem, existingElement);
-                });
-            }
-        });
-        var res = [];
-        res.push(this);
-        res = res.concat(toInsertParams);
-        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], res)))();
-    };
-    DomQuery.prototype.orElse = function () {
-        var elseValue = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            elseValue[_i] = arguments[_i];
-        }
-        if (this.isPresent()) {
-            return this;
-        }
-        else {
-            return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], elseValue)))();
-        }
-    };
-    DomQuery.prototype.orElseLazy = function (func) {
-        if (this.isPresent()) {
-            return this;
-        }
-        else {
-            return new DomQuery(func());
-        }
-    };
-    DomQuery.prototype.parents = function (tagName) {
-        var retSet = new Set();
-        var retArr = [];
-        var lowerTagName = tagName.toLowerCase();
-        var resolveItem = function (item) {
-            if ((item.tagName || "").toLowerCase() == lowerTagName && !retSet.has(item)) {
-                retSet.add(item);
-                retArr.push(item);
-            }
-        };
-        this.eachElem(function (item) {
-            var _a, _b;
-            while (item.parentNode || item.host) {
-                item = (_a = item === null || item === void 0 ? void 0 : item.parentNode) !== null && _a !== void 0 ? _a : (_b = item) === null || _b === void 0 ? void 0 : _b.host;
-                resolveItem(item);
-                //nested forms not possible, performance shortcut
-                if (tagName == "form" && retArr.length) {
-                    return false;
-                }
-            }
-        });
-        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], retArr)))();
-    };
-    DomQuery.prototype.copyAttrs = function (sourceItem) {
-        var _this = this;
-        sourceItem.eachElem(function (sourceNode) {
-            var attrs = objToArray(sourceNode.attributes);
-            for (var _i = 0, attrs_1 = attrs; _i < attrs_1.length; _i++) {
-                var item = attrs_1[_i];
-                var value = item.value;
-                var name_1 = item.name;
-                switch (name_1) {
-                    case "id":
-                        _this.id.value = value;
-                        break;
-                    case "disabled":
-                        _this.resolveAttributeHolder("disabled").disabled = value;
-                        break;
-                    case "checked":
-                        _this.resolveAttributeHolder("checked").checked = value;
-                        break;
-                    default:
-                        _this.attr(name_1).value = value;
-                }
-            }
-        });
-        return this;
-    };
-    /**
-     * resolves an attribute holder compared
-     * @param attrName the attribute name
-     */
-    DomQuery.prototype.resolveAttributeHolder = function (attrName) {
-        if (attrName === void 0) { attrName = "value"; }
-        var ret = [];
-        ret[attrName] = null;
-        return (attrName in this.getAsElem(0).value) ?
-            this.getAsElem(0).value :
-            ret;
-    };
-    /**
-     * outerhtml convenience method
-     * browsers only support innerHTML but
-     * for instance for your jsf.js we have a full
-     * replace pattern which needs outerHTML processing
-     *
-     * @param markup
-     * @param runEmbeddedScripts
-     * @param runEmbeddedCss
-     */
-    DomQuery.prototype.outerHTML = function (markup, runEmbeddedScripts, runEmbeddedCss, deep) {
-        var _a;
-        if (deep === void 0) { deep = false; }
-        if (this.isAbsent()) {
-            return;
-        }
-        var focusElementId = (_a = document === null || document === void 0 ? void 0 : document.activeElement) === null || _a === void 0 ? void 0 : _a.id;
-        var caretPosition = (focusElementId) ? DomQuery.getCaretPosition(document.activeElement) : null;
-        var nodes = DomQuery.fromMarkup(markup);
-        var res = [];
-        var toReplace = this.getAsElem(0).value;
-        var firstInsert = nodes.get(0);
-        var parentNode = toReplace.parentNode;
-        var replaced = firstInsert.getAsElem(0).value;
-        parentNode.replaceChild(replaced, toReplace);
-        res.push(new DomQuery(replaced));
-        //no replacement possible
-        if (this.isAbsent()) {
-            return this;
-        }
-        var insertAdditionalItems = [];
-        if (nodes.length > 1) {
-            insertAdditionalItems = insertAdditionalItems.concat.apply(insertAdditionalItems, nodes.values.slice(1));
-            res.push(DomQuery.byId(replaced).insertAfter(new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], insertAdditionalItems)))()));
-        }
-        if (runEmbeddedScripts) {
-            this.runScripts();
-        }
-        if (runEmbeddedCss) {
-            this.runCss();
-        }
-        var focusElement = DomQuery.byId(focusElementId);
-        if (focusElementId && focusElement.isPresent() &&
-            caretPosition != null && "undefined" != typeof caretPosition) {
-            focusElement.eachElem(function (item) { return DomQuery.setCaretPosition(item, caretPosition); });
-        }
-        return nodes;
-    };
-    /**
-     * Run through the given nodes in the DomQuery execute the inline scripts
-     * @param whilteListed: optional whitelist function which can filter out script tags which are not processed
-     * defaults to the standard jsf.js exclusion (we use this code for myfaces)
-     */
-    DomQuery.prototype.runScripts = function (whilteListed) {
-        var _this = this;
-        if (whilteListed === void 0) { whilteListed = DEFAULT_JSF_WHITELIST; }
-        var finalScripts = [], equi = equalsIgnoreCase, execScrpt = function (item) {
-            var tagName = item.tagName;
-            var itemType = item.type || "";
-            if (tagName && equi(tagName, "script") &&
-                (itemType === "" || equi(itemType, "text/javascript") ||
-                    equi(itemType, "javascript") ||
-                    equi(itemType, "text/ecmascript") ||
-                    equi(itemType, "ecmascript"))) {
-                var src = item.getAttribute('src');
-                if ('undefined' != typeof src
-                    && null != src
-                    && src.length > 0) {
-                    //we have to move this into an inner if because chrome otherwise chokes
-                    //due to changing the and order instead of relying on left to right
-                    //if jsf.js is already registered we do not replace it anymore
-                    if (whilteListed(src)) {
-                        if (finalScripts.length) {
-                            //script source means we have to eval the existing
-                            //scripts before running the include
-                            _this.globalEval(finalScripts.join("\n"));
-                            finalScripts = [];
-                        }
-                        _this.loadScriptEval(src, 0, "UTF-8");
-                    }
-                }
-                else {
-                    // embedded script auto eval
-                    //TODO this probably needs to be changed due to our new parsing structures
-                    //probably not needed anymore
-                    var evalText = trim(item.text || item.innerText || item.innerHTML);
-                    var go = true;
-                    while (go) {
-                        go = false;
-                        if (evalText.substring(0, 4) == "<!--") {
-                            evalText = evalText.substring(4);
-                            go = true;
-                        }
-                        if (evalText.substring(0, 4) == "//<!--") {
-                            evalText = evalText.substring(6);
-                            go = true;
-                        }
-                        if (evalText.substring(0, 11) == "//<![CDATA[") {
-                            evalText = evalText.substring(11);
-                            go = true;
-                        }
-                    }
-                    // we have to run the script under a global context
-                    //we store the script for less calls to eval
-                    finalScripts.push(evalText);
-                }
-            }
-        };
-        try {
-            var scriptElements = new DomQuery(this.filterSelector("script"), this.querySelectorAll("script"));
-            //script execution order by relative pos in their dom tree
-            scriptElements.stream
-                .flatMap(function (item) { return Stream_1.Stream.of(item.values); })
-                .sort(function (node1, node2) { return node1.compareDocumentPosition(node2) - 3; }) //preceding 2, following == 4)
-                .each(function (item) { return execScrpt(item); });
-            if (finalScripts.length) {
-                this.globalEval(finalScripts.join("\n"));
-            }
-        }
-        catch (e) {
-            if (window.console && window.console.error) {
-                //not sure if we
-                //should use our standard
-                //error mechanisms here
-                //because in the head appendix
-                //method only a console
-                //error would be raised as well
-                console.error(e.message || e.description);
-            }
-        }
-        finally {
-            //the usual ie6 fix code
-            //the IE6 garbage collector is broken
-            //nulling closures helps somewhat to reduce
-            //mem leaks, which are impossible to avoid
-            //at this browser
-            execScrpt = null;
-        }
-        return this;
-    };
-    DomQuery.prototype.runCss = function () {
-        var applyStyle = function (item, style) {
-            var _a, _b, _c, _d;
-            var newSS = document.createElement("style");
-            document.getElementsByTagName("head")[0].appendChild(newSS);
-            var styleSheet = (_a = newSS.sheet) !== null && _a !== void 0 ? _a : newSS.styleSheet;
-            newSS.setAttribute("rel", (_b = item.getAttribute("rel")) !== null && _b !== void 0 ? _b : "stylesheet");
-            newSS.setAttribute("type", (_c = item.getAttribute("type")) !== null && _c !== void 0 ? _c : "text/css");
-            if ((_d = styleSheet === null || styleSheet === void 0 ? void 0 : styleSheet.cssText) !== null && _d !== void 0 ? _d : false) {
-                styleSheet.cssText = style;
-            }
-            else {
-                newSS.appendChild(document.createTextNode(style));
-            }
-        }, execCss = function (item) {
-            var tagName = item.tagName;
-            if (tagName && equalsIgnoreCase(tagName, "link") && equalsIgnoreCase(item.getAttribute("type"), "text/css")) {
-                applyStyle(item, "@import url('" + item.getAttribute("href") + "');");
-            }
-            else if (tagName && equalsIgnoreCase(tagName, "style") && equalsIgnoreCase(item.getAttribute("type"), "text/css")) {
-                var innerText_1 = [];
-                //compliant browsers know child nodes
-                var childNodes = item.childNodes;
-                if (childNodes) {
-                    childNodes.forEach(function (child) { return innerText_1.push(child.innerHTML || child.data); });
-                    //non compliant ones innerHTML
-                }
-                else if (item.innerHTML) {
-                    innerText_1.push(item.innerHTML);
-                }
-                applyStyle(item, innerText_1.join(""));
-            }
-        };
-        var scriptElements = new DomQuery(this.filterSelector("link, style"), this.querySelectorAll("link, style"));
-        scriptElements.stream
-            .flatMap(function (item) { return Stream_1.Stream.of(item.values); })
-            .sort(function (node1, node2) { return node1.compareDocumentPosition(node2) - 3; })
-            .each(function (item) { return execCss(item); });
-        return this;
-    };
-    /**
-     * fires a click event on the underlying dom elements
-     */
-    DomQuery.prototype.click = function () {
-        this.fireEvent("click");
-        return this;
-    };
-    DomQuery.prototype.addEventListener = function (type, listener, options) {
-        this.eachElem(function (node) { return node.addEventListener(type, listener, options); });
-        return this;
-    };
-    DomQuery.prototype.removeEventListener = function (type, listener, options) {
-        this.eachElem(function (node) { return node.removeEventListener(type, listener, options); });
-        return this;
-    };
-    /**
-     * fires an event
-     */
-    DomQuery.prototype.fireEvent = function (eventName) {
-        this.eachElem(function (node) {
-            var doc;
-            if (node.ownerDocument) {
-                doc = node.ownerDocument;
-            }
-            else if (node.nodeType == 9) {
-                // the node may be the document itself, nodeType 9 = DOCUMENT_NODE
-                doc = node;
-            }
-            else {
-                throw new Error("Invalid node passed to fireEvent: " + node.id);
-            }
-            if (node.dispatchEvent) {
-                // Gecko-style approach (now the standard) takes more work
-                var eventClass = "";
-                // Different events have different event classes.
-                // If this switch statement can't map an eventName to an eventClass,
-                // the event firing is going to fail.
-                switch (eventName) {
-                    case "click": // Dispatching of 'click' appears to not work correctly in Safari. Use 'mousedown' or 'mouseup' instead.
-                    case "mousedown":
-                    case "mouseup":
-                        eventClass = "MouseEvents";
-                        break;
-                    case "focus":
-                    case "change":
-                    case "blur":
-                    case "select":
-                        eventClass = "HTMLEvents";
-                        break;
-                    default:
-                        throw "fireEvent: Couldn't find an event class for event '" + eventName + "'.";
-                        break;
-                }
-                var event_1 = doc.createEvent(eventClass);
-                event_1.initEvent(eventName, true, true); // All events created as bubbling and cancelable.
-                event_1.synthetic = true; // allow detection of synthetic events
-                // The second parameter says go ahead with the default action
-                node.dispatchEvent(event_1);
-            }
-            else if (node.fireEvent) {
-                // IE-old school style, you can drop this if you don't need to support IE8 and lower
-                var event_2 = doc.createEventObject();
-                event_2.synthetic = true; // allow detection of synthetic events
-                node.fireEvent("on" + eventName, event_2);
-            }
-        });
-    };
-    DomQuery.prototype.textContent = function (joinstr) {
-        if (joinstr === void 0) { joinstr = ""; }
-        return this.stream
-            .map(function (value) {
-            var item = value.getAsElem(0).orElseLazy(function () {
-                return {
-                    textContent: ""
-                };
-            }).value;
-            return item.textContent || "";
-        })
-            .reduce(function (text1, text2) { return text1 + joinstr + text2; }, "").value;
-    };
-    DomQuery.prototype.innerText = function (joinstr) {
-        if (joinstr === void 0) { joinstr = ""; }
-        return this.stream
-            .map(function (value) {
-            var item = value.getAsElem(0).orElseLazy(function () {
-                return {
-                    innerText: ""
-                };
-            }).value;
-            return item.innerText || "";
-        })
-            .reduce(function (text1, text2) { return [text1, text2].join(joinstr); }, "").value;
-    };
-    /**
-     * encodes all input elements properly into respective
-     * config entries, this can be used
-     * for legacy systems, for newer usecases, use the
-     * HTML5 Form class which all newer browsers provide
-     *
-     * @param toMerge optional config which can be merged in
-     * @return a copy pf
-     */
-    DomQuery.prototype.encodeFormElement = function (toMerge) {
-        if (toMerge === void 0) { toMerge = new Monad_1.Config({}); }
-        //browser behavior no element name no encoding (normal submit fails in that case)
-        //https://issues.apache.org/jira/browse/MYFACES-2847
-        if (this.name.isAbsent()) {
-            return;
-        }
-        //lets keep it sideffects free
-        var target = toMerge.shallowCopy;
-        this.each(function (element) {
-            var _a, _b;
-            if (element.name.isAbsent()) { //no name, no encoding
-                return;
-            }
-            var name = element.name.value;
-            var tagName = element.tagName.orElse("__none__").value.toLowerCase();
-            var elemType = element.type.orElse("__none__").value.toLowerCase();
-            elemType = elemType.toLowerCase();
-            // routine for all elements
-            // rules:
-            // - process only inputs, textareas and selects
-            // - elements muest have attribute "name"
-            // - elements must not be disabled
-            if (((tagName == "input" || tagName == "textarea" || tagName == "select") &&
-                (name != null && name != "")) && !element.disabled) {
-                // routine for select elements
-                // rules:
-                // - if select-one and value-Attribute exist => "name=value"
-                // (also if value empty => "name=")
-                // - if select-one and value-Attribute don't exist =>
-                // "name=DisplayValue"
-                // - if select multi and multple selected => "name=value1&name=value2"
-                // - if select and selectedIndex=-1 don't submit
-                if (tagName == "select") {
-                    // selectedIndex must be >= 0 sein to be submittet
-                    var selectElem = element.getAsElem(0).value;
-                    if (selectElem.selectedIndex >= 0) {
-                        var uLen = selectElem.options.length;
-                        for (var u = 0; u < uLen; u++) {
-                            // find all selected options
-                            //let subBuf = [];
-                            if (selectElem.options[u].selected) {
-                                var elementOption = selectElem.options[u];
-                                target.append(name).value = (elementOption.getAttribute("value") != null) ?
-                                    elementOption.value : elementOption.text;
-                            }
-                        }
-                    }
-                }
-                // routine for remaining elements
-                // rules:
-                // - don't submit no selects (processed above), buttons, reset buttons, submit buttons,
-                // - submit checkboxes and radio inputs only if checked
-                if ((tagName != Submittables.SELECT &&
-                    elemType != Submittables.BUTTON &&
-                    elemType != Submittables.RESET &&
-                    elemType != Submittables.SUBMIT &&
-                    elemType != Submittables.IMAGE) && ((elemType != Submittables.CHECKBOX && elemType != Submittables.RADIO) ||
-                    element.checked)) {
-                    var files = (_b = (_a = element.value.value) === null || _a === void 0 ? void 0 : _a.files) !== null && _b !== void 0 ? _b : [];
-                    if (files === null || files === void 0 ? void 0 : files.length) {
-                        //xhr level2
-                        target.append(name).value = files[0];
-                    }
-                    else {
-                        target.append(name).value = element.inputValue.value;
-                    }
-                }
-            }
-        });
-        return target;
-    };
-    Object.defineProperty(DomQuery.prototype, "cDATAAsString", {
-        get: function () {
-            var cDataBlock = [];
-            var TYPE_CDATA_BLOCK = 4;
-            var res = this.lazyStream.flatMap(function (item) {
-                return item.childNodes.stream;
-            }).filter(function (item) {
-                var _a, _b;
-                return ((_b = (_a = item === null || item === void 0 ? void 0 : item.value) === null || _a === void 0 ? void 0 : _a.value) === null || _b === void 0 ? void 0 : _b.nodeType) == TYPE_CDATA_BLOCK;
-            }).reduce(function (reduced, item) {
-                var _a, _b, _c;
-                reduced.push((_c = (_b = (_a = item === null || item === void 0 ? void 0 : item.value) === null || _a === void 0 ? void 0 : _a.value) === null || _b === void 0 ? void 0 : _b.data) !== null && _c !== void 0 ? _c : "");
-                return reduced;
-            }, []).value;
-            // response may contain several blocks
-            return res.join("");
-        },
-        enumerable: false,
-        configurable: true
-    });
-    DomQuery.prototype.subNodes = function (from, to) {
-        if (Monad_1.Optional.fromNullable(to).isAbsent()) {
-            to = this.length;
-        }
-        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], this.rootNode.slice(from, Math.min(to, this.length)))))();
-    };
-    DomQuery.prototype.limits = function (end) {
-        this._limits = end;
-        return this;
-    };
-    //-- internally exposed methods needed for the interconnectivity
-    DomQuery.prototype.hasNext = function () {
-        var isLimitsReached = this._limits != -1 && this.pos >= this._limits - 1;
-        var isEndOfArray = this.pos >= this.values.length - 1;
-        return !(isLimitsReached ||
-            isEndOfArray);
-    };
-    DomQuery.prototype.next = function () {
-        if (!this.hasNext()) {
-            return null;
-        }
-        this.pos++;
-        return new DomQuery(this.values[this.pos]);
-    };
-    DomQuery.prototype.reset = function () {
-        this.pos = -1;
-    };
-    DomQuery.prototype.attachShadow = function (params) {
-        if (params === void 0) { params = { mode: "open" }; }
-        var shadowRoots = [];
-        this.eachElem(function (item) {
-            var _a;
-            var shadowElement;
-            if ((_a = item) === null || _a === void 0 ? void 0 : _a.attachShadow) {
-                shadowElement = DomQuery.byId(item.attachShadow(params));
-                shadowRoots.push(shadowElement);
-            }
-            else {
-                throw new Error("Shadow dom creation not supported by the browser, please use a shim, to gain this functionality");
-            }
-        });
-        return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], shadowRoots)))();
-    };
-    Object.defineProperty(DomQuery.prototype, "shadowElements", {
-        /**
-         * returns the embedded shadow elements
-         */
-        get: function () {
-            var shadowElements = this.querySelectorAll("*")
-                .filter(function (item) { return item.hasShadow; });
-            var mapped = (shadowElements.allElems() || []).map(function (element) { return element.shadowRoot; });
-            return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], mapped)))();
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(DomQuery.prototype, "shadowRoot", {
-        get: function () {
-            var shadowRoots = [];
-            for (var cnt = 0; cnt < this.rootNode.length; cnt++) {
-                if (this.rootNode[cnt].shadowRoot) {
-                    shadowRoots.push(this.rootNode[cnt].shadowRoot);
-                }
-            }
-            return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], shadowRoots)))();
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(DomQuery.prototype, "hasShadow", {
-        get: function () {
-            for (var cnt = 0; cnt < this.rootNode.length; cnt++) {
-                if (this.rootNode[cnt].shadowRoot) {
-                    return true;
-                }
-            }
-            return false;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    //from
-    // http://blog.vishalon.net/index.php/javascript-getting-and-setting-caret-position-in-textarea/
-    DomQuery.getCaretPosition = function (ctrl) {
-        var _a;
-        var caretPos = 0;
-        try {
-            if ((_a = document) === null || _a === void 0 ? void 0 : _a.selection) {
-                ctrl.focus();
-                var selection = document.selection.createRange();
-                //the selection now is start zero
-                selection.moveStart('character', -ctrl.value.length);
-                //the caretposition is the selection start
-                caretPos = selection.text.length;
-            }
-        }
-        catch (e) {
-            //now this is ugly, but not supported input types throw errors for selectionStart
-            //just in case someone dumps this code onto unsupported browsers
-        }
-        return caretPos;
-    };
-    /**
-     * sets the caret position
-     *
-     * @param ctrl the control to set the caret position to
-     * @param pos the position to set
-     *
-     * note if the control does not have any selectable and focusable behavior
-     * calling this method does nothing (silent fail)
-     *
-     */
-    DomQuery.setCaretPosition = function (ctrl, pos) {
-        (ctrl === null || ctrl === void 0 ? void 0 : ctrl.focus) ? ctrl === null || ctrl === void 0 ? void 0 : ctrl.focus() : null;
-        //the selection range is our caret position
-        (ctrl === null || ctrl === void 0 ? void 0 : ctrl.setSelectiongRange) ? ctrl === null || ctrl === void 0 ? void 0 : ctrl.setSelectiongRange(pos, pos) : null;
-    };
-    DomQuery.absent = new DomQuery();
-    return DomQuery;
-}());
-exports.DomQuery = DomQuery;
-/**
- * Various collectors
- * which can be used in conjunction with Streams
- */
-/**
- * A collector which bundles a full dom query stream into a single dom query element
- *
- * This connects basically our stream back into DomQuery
- */
-var DomQueryCollector = /** @class */ (function () {
-    function DomQueryCollector() {
-        this.data = [];
-    }
-    DomQueryCollector.prototype.collect = function (element) {
-        this.data.push(element);
-    };
-    Object.defineProperty(DomQueryCollector.prototype, "finalValue", {
-        get: function () {
-            return new (DomQuery.bind.apply(DomQuery, __spreadArray([void 0], this.data)))();
-        },
-        enumerable: false,
-        configurable: true
-    });
-    return DomQueryCollector;
-}());
-exports.DomQueryCollector = DomQueryCollector;
-/**
- * abbreviation for DomQuery
- */
-exports.DQ = DomQuery;
-
-
-/***/ }),
-
-/***/ "./src/main/typescript/ext/monadish/Lang.ts":
-/*!**************************************************!*\
-  !*** ./src/main/typescript/ext/monadish/Lang.ts ***!
-  \**************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-/* Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to you under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.Lang = void 0;
-var Monad_1 = __webpack_require__(/*! ./Monad */ "./src/main/typescript/ext/monadish/Monad.ts");
-/**
- * Lang helpers crossported from the apache myfaces project
- */
-var Lang;
-(function (Lang) {
-    //should be in lang, but for now here to avoid recursive imports, not sure if typescript still has a problem with those
-    /**
-     * helper function to savely resolve anything
-     * this is not an elvis operator, it resolves
-     * a value without exception in a tree and if
-     * it is not resolvable then an optional of
-     * a default value is restored or Optional.empty
-     * if none is given
-     *
-     * usage
-     * <code>
-     *     let var: Optiona<string> = saveResolve(() => a.b.c.d.e, "foobaz")
-     * </code>
-     *
-     * @param resolverProducer a lambda which can produce the value
-     * @param defaultValue an optional default value if the producer failes to produce anything
-     * @returns an Optional of the produced value
-     */
-    function saveResolve(resolverProducer, defaultValue) {
-        if (defaultValue === void 0) { defaultValue = null; }
-        try {
-            var result = resolverProducer();
-            return Monad_1.Optional.fromNullable(result !== null && result !== void 0 ? result : defaultValue);
-        }
-        catch (e) {
-            return Monad_1.Optional.absent;
-        }
-    }
-    Lang.saveResolve = saveResolve;
-    function saveResolveLazy(resolverProducer, defaultValue) {
-        if (defaultValue === void 0) { defaultValue = null; }
-        try {
-            var result = resolverProducer();
-            return Monad_1.Optional.fromNullable(result !== null && result !== void 0 ? result : defaultValue());
-        }
-        catch (e) {
-            return Monad_1.Optional.absent;
-        }
-    }
-    Lang.saveResolveLazy = saveResolveLazy;
-    /**
-     * String to array function performs a string to array transformation
-     * @param {String} it the string which has to be changed into an array
-     * @param {RegExp} splitter our splitter reglar expression
-     * @return a trimmed array of the splitted string
-     */
-    function strToArray(it, splitter) {
-        if (splitter === void 0) { splitter = /\./gi; }
-        var ret = [];
-        it.split(splitter).forEach((function (element) {
-            ret.push(trim(element));
-        }));
-        return ret;
-    }
-    Lang.strToArray = strToArray;
-    /**
-     * hyperfast trim
-     * http://blog.stevenlevithan.com/archives/faster-trim-javascript
-     * crossported from dojo
-     */
-    function trim(str) {
-        str = str.replace(/^\s\s*/, '');
-        var ws = /\s/, i = str.length;
-        while (ws.test(str.charAt(--i))) {
-            //do nothing
-        }
-        return str.slice(0, i + 1);
-    }
-    Lang.trim = trim;
-    /**
-     * generic object arrays like dom definitions to array conversion method which
-     * transforms any object to something array like
-     * @param obj
-     * @param offset
-     * @param pack
-     * @returns an array converted from the object
-     */
-    function objToArray(obj, offset, pack) {
-        if (offset === void 0) { offset = 0; }
-        if (pack === void 0) { pack = []; }
-        if ((obj !== null && obj !== void 0 ? obj : "__undefined__") == "__undefined__") {
-            return pack !== null && pack !== void 0 ? pack : null;
-        }
-        //since offset is numeric we cannot use the shortcut due to 0 being false
-        //special condition array delivered no offset no pack
-        if (obj instanceof Array && !offset && !pack)
-            return obj;
-        return pack.concat(Array.prototype.slice.call(obj, offset));
-    }
-    Lang.objToArray = objToArray;
-    /**
-     * equalsIgnoreCase, case insensitive comparison of two strings
-     *
-     * @param source
-     * @param destination
-     */
-    function equalsIgnoreCase(source, destination) {
-        var finalSource = source !== null && source !== void 0 ? source : "___no_value__";
-        var finalDest = destination !== null && destination !== void 0 ? destination : "___no_value__";
-        //in any other case we do a strong string comparison
-        return finalSource.toLowerCase() === finalDest.toLowerCase();
-    }
-    Lang.equalsIgnoreCase = equalsIgnoreCase;
-    /**
-     * runtime type assertion
-     *
-     * @param probe the probe to be tested for a type
-     * @param theType the type to be tested for
-     */
-    function assertType(probe, theType) {
-        return isString(theType) ? typeof probe == theType : probe instanceof theType;
-    }
-    Lang.assertType = assertType;
-    /**
-     * Backported from dojo
-     * a failsafe string determination method
-     * (since in javascript String != "" typeof alone fails!)
-     * @param it {|Object|} the object to be checked for being a string
-     * @return true in case of being a string false otherwise
-     */
-    function isString(it) {
-        //	summary:
-        //		Return true if it is a String
-        return !!arguments.length && it != null && (typeof it == "string" || it instanceof String); // Boolean
-    }
-    Lang.isString = isString;
-    function isFunc(it) {
-        return it instanceof Function || typeof it === "function";
-    }
-    Lang.isFunc = isFunc;
-    // code from https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
-    // license https://creativecommons.org/licenses/by-sa/2.5/
-    function objAssign(target) {
-        var theArgs = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            theArgs[_i - 1] = arguments[_i];
-        }
-        if (target == null) { // TypeError if undefined or null
-            throw new TypeError('Cannot convert undefined or null to object');
-        }
-        var to = Object(target);
-        if (Object.assign) {
-            theArgs.forEach(function (item) { return Object.assign(to, item); });
-            return to;
-        }
-        theArgs.forEach(function (item) {
-            var nextSource = item;
-            if (nextSource != null) { // Skip over if undefined or null
-                for (var nextKey in nextSource) {
-                    // Avoid bugs when hasOwnProperty is shadowed
-                    if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
-                        to[nextKey] = nextSource[nextKey];
-                    }
-                }
-            }
-        });
-        return to;
-    }
-    Lang.objAssign = objAssign;
-})(Lang = exports.Lang || (exports.Lang = {}));
-
-
-/***/ }),
-
-/***/ "./src/main/typescript/ext/monadish/Monad.ts":
-/*!***************************************************!*\
-  !*** ./src/main/typescript/ext/monadish/Monad.ts ***!
-  \***************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-/* Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to you under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.Config = exports.ValueEmbedder = exports.Optional = exports.Monad = void 0;
-/**
- * A module which keeps  basic monadish like definitions in place without any sidedependencies to other modules.
- * Useful if you need the functions in another library to keep its dependencies down
- */
-/*IMonad definitions*/
-var Lang_1 = __webpack_require__(/*! ./Lang */ "./src/main/typescript/ext/monadish/Lang.ts");
-var SourcesCollectors_1 = __webpack_require__(/*! ./SourcesCollectors */ "./src/main/typescript/ext/monadish/SourcesCollectors.ts");
-var Stream_1 = __webpack_require__(/*! ./Stream */ "./src/main/typescript/ext/monadish/Stream.ts");
-var objAssign = Lang_1.Lang.objAssign;
-/**
- * Implementation of a monad
- * (Sideffect free), no write allowed directly on the monads
- * value state
- */
-var Monad = /** @class */ (function () {
-    function Monad(value) {
-        this._value = value;
-    }
-    Object.defineProperty(Monad.prototype, "value", {
-        get: function () {
-            return this._value;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Monad.prototype.map = function (fn) {
-        if (!fn) {
-            fn = function (inval) { return inval; };
-        }
-        var result = fn(this.value);
-        return new Monad(result);
-    };
-    Monad.prototype.flatMap = function (fn) {
-        var mapped = this.map(fn);
-        while ((mapped === null || mapped === void 0 ? void 0 : mapped.value) instanceof Monad) {
-            mapped = mapped.value;
-        }
-        return mapped;
-    };
-    return Monad;
-}());
-exports.Monad = Monad;
-/**
- * optional implementation, an optional is basically an implementation of a Monad with additional syntactic
- * sugar on top
- * (Sideeffect free, since value assignment is not allowed)
- * */
-var Optional = /** @class */ (function (_super) {
-    __extends(Optional, _super);
-    function Optional(value) {
-        return _super.call(this, value) || this;
-    }
-    Object.defineProperty(Optional.prototype, "value", {
-        get: function () {
-            if (this._value instanceof Monad) {
-                return this._value.flatMap().value;
-            }
-            return this._value;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Optional.fromNullable = function (value) {
-        return new Optional(value);
-    };
-    /*syntactic sugar for absent and present checks*/
-    Optional.prototype.isAbsent = function () {
-        return "undefined" == typeof this.value || null == this.value;
-    };
-    /**
-     * any value present
-     */
-    Optional.prototype.isPresent = function (presentRunnable) {
-        var absent = this.isAbsent();
-        if (!absent && presentRunnable) {
-            presentRunnable.call(this, this);
-        }
-        return !absent;
-    };
-    Optional.prototype.ifPresentLazy = function (presentRunnable) {
-        if (presentRunnable === void 0) { presentRunnable = function () {
-        }; }
-        this.isPresent.call(this, presentRunnable);
-        return this;
-    };
-    Optional.prototype.orElse = function (elseValue) {
-        if (this.isPresent()) {
-            return this;
-        }
-        else {
-            //shortcut
-            if (elseValue == null) {
-                return Optional.absent;
-            }
-            return this.flatMap(function () { return elseValue; });
-        }
-    };
-    /**
-     * lazy, passes a function which then is lazily evaluated
-     * instead of a direct value
-     * @param func
-     */
-    Optional.prototype.orElseLazy = function (func) {
-        if (this.isPresent()) {
-            return this;
-        }
-        else {
-            return this.flatMap(func);
-        }
-    };
-    /*
-     * we need to implement it to fullfill the contract, although it is used only internally
-     * all values are flattened when accessed anyway, so there is no need to call this methiod
-     */
-    Optional.prototype.flatMap = function (fn) {
-        var val = _super.prototype.flatMap.call(this, fn);
-        if (!(val instanceof Optional)) {
-            return Optional.fromNullable(val.value);
-        }
-        return val.flatMap();
-    };
-    /*
-     * elvis operation, take care, if you use this you lose typesafety and refactoring
-     * capabilites, unfortunately typesceript does not allow to have its own elvis operator
-     * this is some syntactic sugar however which is quite useful*/
-    Optional.prototype.getIf = function () {
-        var key = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            key[_i] = arguments[_i];
-        }
-        var currentPos = this;
-        for (var cnt = 0; cnt < key.length; cnt++) {
-            var currKey = this.keyVal(key[cnt]);
-            var arrPos = this.arrayIndex(key[cnt]);
-            if (currKey === "" && arrPos >= 0) {
-                currentPos = this.getClass().fromNullable(!(currentPos.value instanceof Array) ? null : (currentPos.value.length < arrPos ? null : currentPos.value[arrPos]));
-                if (currentPos.isAbsent()) {
-                    return currentPos;
-                }
-                continue;
-            }
-            else if (currKey && arrPos >= 0) {
-                if (currentPos.getIfPresent(currKey).isAbsent()) {
-                    return currentPos;
-                }
-                currentPos = (currentPos.getIfPresent(currKey).value instanceof Array) ? this.getClass().fromNullable(currentPos.getIfPresent(currKey).value[arrPos]) : this.getClass().absent;
-                if (currentPos.isAbsent()) {
-                    return currentPos;
-                }
-                continue;
-            }
-            else {
-                currentPos = currentPos.getIfPresent(currKey);
-            }
-            if (currentPos.isAbsent()) {
-                return currentPos;
-            }
-            else if (arrPos > -1) {
-                currentPos = this.getClass().fromNullable(currentPos.value[arrPos]);
-            }
-        }
-        var retVal = currentPos;
-        return retVal;
-    };
-    /**
-     * simple match, if the first order function call returns
-     * true then there is a match, if the value is not present
-     * it never matches
-     *
-     * @param fn the first order function performing the match
-     */
-    Optional.prototype.match = function (fn) {
-        if (this.isAbsent()) {
-            return false;
-        }
-        return fn(this.value);
-    };
-    /**
-     * convenience function to flatmap the internal value
-     * and replace it with a default in case of being absent
-     *
-     * @param defaultVal
-     * @returns {Optional<any>}
-     */
-    Optional.prototype.get = function (defaultVal) {
-        if (defaultVal === void 0) { defaultVal = Optional.absent; }
-        if (this.isAbsent()) {
-            return this.getClass().fromNullable(defaultVal).flatMap();
-        }
-        return this.getClass().fromNullable(this.value).flatMap();
-    };
-    Optional.prototype.toJson = function () {
-        return JSON.stringify(this.value);
-    };
-    /**
-     * helper to override several implementations in a more fluent way
-     * by having a getClass operation we can avoid direct calls into the constructor or
-     * static methods and do not have to implement several methods which rely on the type
-     * of "this"
-     * @returns {Monadish.Optional}
-     */
-    Optional.prototype.getClass = function () {
-        return Optional;
-    };
-    /*helper method for getIf with array access aka <name>[<indexPos>]*/
-    Optional.prototype.arrayIndex = function (key) {
-        var start = key.indexOf("[");
-        var end = key.indexOf("]");
-        if (start >= 0 && end > 0 && start < end) {
-            return parseInt(key.substring(start + 1, end));
-        }
-        else {
-            return -1;
-        }
-    };
-    /*helper method for getIf with array access aka <name>[<indexPos>]*/
-    Optional.prototype.keyVal = function (key) {
-        var start = key.indexOf("[");
-        if (start >= 0) {
-            return key.substring(0, start);
-        }
-        else {
-            return key;
-        }
-    };
-    /**
-     * additional syntactic sugar which is not part of the usual optional implementation
-     * but makes life easier, if you want to sacrifice typesafety and refactoring
-     * capabilities in typescript
-     */
-    Optional.prototype.getIfPresent = function (key) {
-        if (this.isAbsent()) {
-            return this.getClass().absent;
-        }
-        return this.getClass().fromNullable(this.value[key]).flatMap();
-    };
-    /**
-     * elvis like typesafe functional save resolver
-     * a typesafe option for getIfPresent
-     *
-     * usage myOptional.resolve(value => value.subAttr.subAttr2).orElseLazy(....)
-     * if this is resolvable without any errors an Optional with the value is returned
-     * if not, then an Optional absent is returned, also if you return Optional absent
-     * it is flatmapped into absent
-     *
-     * @param resolver the resolver function, can throw any arbitrary errors, int  the error case
-     * the resolution goes towards absent
-     */
-    Optional.prototype.resolve = function (resolver) {
-        if (this.isAbsent()) {
-            return Optional.absent;
-        }
-        try {
-            return Optional.fromNullable(resolver(this.value));
-        }
-        catch (e) {
-            return Optional.absent;
-        }
-    };
-    /*default value for absent*/
-    Optional.absent = Optional.fromNullable(null);
-    return Optional;
-}(Monad));
-exports.Optional = Optional;
-// --------------------- From here onwards we break out the sideffects free limits ------------
-/**
- * ValueEmbedder is the writeable version
- * of optional, it basically is a wrappber
- * around a construct which has a state
- * and can be written to.
- *
- * For the readonly version see Optional
- */
-var ValueEmbedder = /** @class */ (function (_super) {
-    __extends(ValueEmbedder, _super);
-    function ValueEmbedder(rootElem, valueKey) {
-        if (valueKey === void 0) { valueKey = "value"; }
-        var _this = _super.call(this, rootElem) || this;
-        _this.key = valueKey;
-        return _this;
-    }
-    Object.defineProperty(ValueEmbedder.prototype, "value", {
-        get: function () {
-            return this._value ? this._value[this.key] : null;
-        },
-        set: function (newVal) {
-            if (!this._value) {
-                return;
-            }
-            this._value[this.key] = newVal;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    ValueEmbedder.prototype.orElse = function (elseValue) {
-        var alternative = {};
-        alternative[this.key] = elseValue;
-        return this.isPresent() ? this : new ValueEmbedder(alternative, this.key);
-    };
-    ValueEmbedder.prototype.orElseLazy = function (func) {
-        if (this.isPresent()) {
-            return this;
-        }
-        else {
-            var alternative = {};
-            alternative[this.key] = func();
-            return new ValueEmbedder(alternative, this.key);
-        }
-    };
-    /**
-     * helper to override several implementations in a more fluent way
-     * by having a getClass operation we can avoid direct calls into the constructor or
-     * static methods and do not have to implement several methods which rely on the type
-     * of "this"
-     * @returns {Monadish.Optional}
-     */
-    ValueEmbedder.prototype.getClass = function () {
-        return ValueEmbedder;
-    };
-    ValueEmbedder.fromNullable = function (value, valueKey) {
-        if (valueKey === void 0) { valueKey = "value"; }
-        return new ValueEmbedder(value, valueKey);
-    };
-    /*default value for absent*/
-    ValueEmbedder.absent = ValueEmbedder.fromNullable(null);
-    return ValueEmbedder;
-}(Optional));
-exports.ValueEmbedder = ValueEmbedder;
-/**
- * specialized value embedder
- * for our Configuration
- */
-var ConfigEntry = /** @class */ (function (_super) {
-    __extends(ConfigEntry, _super);
-    function ConfigEntry(rootElem, key, arrPos) {
-        var _this = _super.call(this, rootElem, key) || this;
-        _this.arrPos = arrPos !== null && arrPos !== void 0 ? arrPos : -1;
-        return _this;
-    }
-    Object.defineProperty(ConfigEntry.prototype, "value", {
-        get: function () {
-            if (this.key == "" && this.arrPos >= 0) {
-                return this._value[this.arrPos];
-            }
-            else if (this.key && this.arrPos >= 0) {
-                return this._value[this.key][this.arrPos];
-            }
-            return this._value[this.key];
-        },
-        set: function (val) {
-            if (this.key == "" && this.arrPos >= 0) {
-                this._value[this.arrPos] = val;
-                return;
-            }
-            else if (this.key && this.arrPos >= 0) {
-                this._value[this.key][this.arrPos] = val;
-                return;
-            }
-            this._value[this.key] = val;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    /*default value for absent*/
-    ConfigEntry.absent = ConfigEntry.fromNullable(null);
-    return ConfigEntry;
-}(ValueEmbedder));
-/**
- * Config, basically an optional wrapper for a json structure
- * (not sideeffect free, since we can alter the internal config state
- * without generating a new config), not sure if we should make it sideffect free
- * since this would swallow a lot of performane and ram
- */
-var Config = /** @class */ (function (_super) {
-    __extends(Config, _super);
-    function Config(root) {
-        return _super.call(this, root) || this;
-    }
-    Object.defineProperty(Config.prototype, "shallowCopy", {
-        get: function () {
-            return new Config(Stream_1.Stream.ofAssoc(this.value).collect(new SourcesCollectors_1.AssocArrayCollector()));
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(Config.prototype, "deepCopy", {
-        get: function () {
-            return new Config(objAssign({}, this.value));
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Config.fromNullable = function (value) {
-        return new Config(value);
-    };
-    /**
-     * simple merge for the root configs
-     */
-    Config.prototype.shallowMerge = function (other, overwrite, withAppend) {
-        var _this = this;
-        if (overwrite === void 0) { overwrite = true; }
-        if (withAppend === void 0) { withAppend = false; }
-        var _loop_1 = function (key) {
-            if (overwrite || !(key in this_1.value)) {
-                if (!withAppend) {
-                    this_1.assign(key).value = other.getIf(key).value;
-                }
-                else {
-                    if (Array.isArray(other.getIf(key).value)) {
-                        Stream_1.Stream.of.apply(Stream_1.Stream, other.getIf(key).value).each(function (item) { return _this.append(key).value = item; });
-                    }
-                    else {
-                        this_1.append(key).value = other.getIf(key).value;
-                    }
-                }
-            }
-        };
-        var this_1 = this;
-        for (var key in other.value) {
-            _loop_1(key);
-        }
-    };
-    /**
-     * assigns a single value as array, or appends it
-     * to an existing value mapping a single value to array
-     *
-     *
-     * usage myConfig.append("foobaz").value = "newValue"
-     *       myConfig.append("foobaz").value = "newValue2"
-     *
-     * resulting in myConfig.foobaz == ["newValue, newValue2"]
-     *
-     * @param keys
-     */
-    Config.prototype.append = function () {
-        var keys = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            keys[_i] = arguments[_i];
-        }
-        var noKeys = keys.length < 1;
-        if (noKeys) {
-            return;
-        }
-        var lastKey = keys[keys.length - 1];
-        var currKey, finalKey = this.keyVal(lastKey);
-        var pathExists = this.getIf.apply(this, keys).isPresent();
-        this.buildPath(keys);
-        var finalKeyArrPos = this.arrayIndex(lastKey);
-        if (finalKeyArrPos > -1) {
-            throw Error("Append only possible on non array properties, use assign on indexed data");
-        }
-        var value = this.getIf.apply(this, keys).value;
-        if (!Array.isArray(value)) {
-            value = this.assign.apply(this, keys).value = [value];
-        }
-        if (pathExists) {
-            value.push({});
-        }
-        finalKeyArrPos = value.length - 1;
-        var retVal = new ConfigEntry(keys.length == 1 ? this.value : this.getIf.apply(this, keys.slice(0, keys.length - 1)).value, lastKey, finalKeyArrPos);
-        return retVal;
-    };
-    Config.prototype.appendIf = function (condition) {
-        var keys = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            keys[_i - 1] = arguments[_i];
-        }
-        if (!condition) {
-            return { value: null };
-        }
-        return this.append.apply(this, keys);
-    };
-    Config.prototype.assign = function () {
-        var keys = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            keys[_i] = arguments[_i];
-        }
-        if (keys.length < 1) {
-            return;
-        }
-        this.buildPath(keys);
-        var currKey = this.keyVal(keys[keys.length - 1]);
-        var arrPos = this.arrayIndex(keys[keys.length - 1]);
-        var retVal = new ConfigEntry(keys.length == 1 ? this.value : this.getIf.apply(this, keys.slice(0, keys.length - 1)).value, currKey, arrPos);
-        return retVal;
-    };
-    Config.prototype.assignIf = function (condition) {
-        var keys = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            keys[_i - 1] = arguments[_i];
-        }
-        return condition ? this.assign.apply(this, keys) : { value: null };
-    };
-    Config.prototype.getIf = function () {
-        var keys = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            keys[_i] = arguments[_i];
-        }
-        return this.getClass().fromNullable(_super.prototype.getIf.apply(this, keys).value);
-    };
-    Config.prototype.get = function (defaultVal) {
-        return this.getClass().fromNullable(_super.prototype.get.call(this, defaultVal).value);
-    };
-    //empties the current config entry
-    Config.prototype.delete = function (key) {
-        if (key in this.value) {
-            delete this.value[key];
-        }
-        return this;
-    };
-    Config.prototype.toJson = function () {
-        return JSON.stringify(this.value);
-    };
-    Config.prototype.getClass = function () {
-        return Config;
-    };
-    Config.prototype.setVal = function (val) {
-        this._value = val;
-    };
-    /**
-     * builds the config path
-     *
-     * @param keys a sequential array of keys containing either a key name or an array reference name[<index>]
-     */
-    Config.prototype.buildPath = function (keys) {
-        var val = this;
-        var parentVal = this.getClass().fromNullable(null);
-        var parentPos = -1;
-        var alloc = function (arr, length) {
-            var length1 = arr.length;
-            var length2 = length1 + length;
-            for (var cnt = length1; cnt < length2; cnt++) {
-                arr.push({});
-            }
-        };
-        for (var cnt = 0; cnt < keys.length; cnt++) {
-            var currKey = this.keyVal(keys[cnt]);
-            var arrPos = this.arrayIndex(keys[cnt]);
-            if (currKey === "" && arrPos >= 0) {
-                val.setVal((val.value instanceof Array) ? val.value : []);
-                alloc(val.value, arrPos + 1);
-                if (parentPos >= 0) {
-                    parentVal.value[parentPos] = val.value;
-                }
-                parentVal = val;
-                parentPos = arrPos;
-                val = this.getClass().fromNullable(val.value[arrPos]);
-                continue;
-            }
-            var tempVal = val.getIf(currKey);
-            if (arrPos == -1) {
-                if (tempVal.isAbsent()) {
-                    tempVal = this.getClass().fromNullable(val.value[currKey] = {});
-                }
-                else {
-                    val = tempVal;
-                }
-            }
-            else {
-                var arr = (tempVal.value instanceof Array) ? tempVal.value : [];
-                alloc(arr, arrPos + 1);
-                val.value[currKey] = arr;
-                tempVal = this.getClass().fromNullable(arr[arrPos]);
-            }
-            parentVal = val;
-            parentPos = arrPos;
-            val = tempVal;
-        }
-        return this;
-    };
-    return Config;
-}(Optional));
-exports.Config = Config;
-
-
-/***/ }),
-
-/***/ "./src/main/typescript/ext/monadish/SourcesCollectors.ts":
-/*!***************************************************************!*\
-  !*** ./src/main/typescript/ext/monadish/SourcesCollectors.ts ***!
-  \***************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-/* Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to you under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.QueryFormStringCollector = exports.QueryFormDataCollector = exports.FormDataCollector = exports.AssocArrayCollector = exports.ArrayCollector = exports.FlatMapStreamDataSource = exports.MappedStreamDataSource = exports.FilteredStreamDatasource = exports.ArrayStreamDataSource = void 0;
-var Stream_1 = __webpack_require__(/*! ./Stream */ "./src/main/typescript/ext/monadish/Stream.ts");
-/**
- * implementation of iteratable on top of array
- */
-var ArrayStreamDataSource = /** @class */ (function () {
-    function ArrayStreamDataSource() {
-        var value = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            value[_i] = arguments[_i];
-        }
-        this.dataPos = -1;
-        this.value = value;
-    }
-    ArrayStreamDataSource.prototype.hasNext = function () {
-        return this.value.length - 1 > this.dataPos;
-    };
-    ArrayStreamDataSource.prototype.next = function () {
-        this.dataPos++;
-        return this.value[this.dataPos];
-    };
-    ArrayStreamDataSource.prototype.reset = function () {
-        this.dataPos = -1;
-    };
-    return ArrayStreamDataSource;
-}());
-exports.ArrayStreamDataSource = ArrayStreamDataSource;
-/**
- * an intermediate data source wich prefilters
- * incoming stream data
- * and lets only the data out which
- * passes the filter function check
- */
-var FilteredStreamDatasource = /** @class */ (function () {
-    function FilteredStreamDatasource(filterFunc, parent) {
-        this.filteredNext = null;
-        this.filterFunc = filterFunc;
-        this.inputDataSource = parent;
-    }
-    /**
-     * in order to filter we have to make a look ahead until the
-     * first next allowed element
-     * hence we prefetch the element and then
-     * serve it via next
-     */
-    FilteredStreamDatasource.prototype.hasNext = function () {
-        while (this.filteredNext == null && this.inputDataSource.hasNext()) {
-            var next = this.inputDataSource.next();
-            if (this.filterFunc(next)) {
-                this.filteredNext = next;
-                return true;
-            }
-            else {
-                this.filteredNext = null;
-            }
-        }
-        return this.filteredNext != null;
-    };
-    /**
-     * serve the next element
-     */
-    FilteredStreamDatasource.prototype.next = function () {
-        var ret = this.filteredNext;
-        this.filteredNext = null;
-        //We have to call hasNext, to roll another
-        //prefetch in case someone runs next
-        //sequentially without calling hasNext
-        this.hasNext();
-        return ret;
-    };
-    FilteredStreamDatasource.prototype.reset = function () {
-        this.filteredNext = null;
-        this.inputDataSource.reset();
-    };
-    return FilteredStreamDatasource;
-}());
-exports.FilteredStreamDatasource = FilteredStreamDatasource;
-/**
- * an intermediate datasource which maps the items from
- * one into another
- */
-var MappedStreamDataSource = /** @class */ (function () {
-    function MappedStreamDataSource(mapFunc, parent) {
-        this.mapFunc = mapFunc;
-        this.inputDataSource = parent;
-    }
-    MappedStreamDataSource.prototype.hasNext = function () {
-        return this.inputDataSource.hasNext();
-    };
-    MappedStreamDataSource.prototype.next = function () {
-        return this.mapFunc(this.inputDataSource.next());
-    };
-    MappedStreamDataSource.prototype.reset = function () {
-        this.inputDataSource.reset();
-    };
-    return MappedStreamDataSource;
-}());
-exports.MappedStreamDataSource = MappedStreamDataSource;
-/**
- * Same for flatmap to deal with element -> stream mappings
- */
-var FlatMapStreamDataSource = /** @class */ (function () {
-    function FlatMapStreamDataSource(func, parent) {
-        this.mapFunc = func;
-        this.inputDataSource = parent;
-    }
-    FlatMapStreamDataSource.prototype.hasNext = function () {
-        return this.resolveCurrentNext() || this.resolveNextNext();
-    };
-    FlatMapStreamDataSource.prototype.resolveCurrentNext = function () {
-        var next = false;
-        if (this.activeDataSource) {
-            next = this.activeDataSource.hasNext();
-        }
-        return next;
-    };
-    FlatMapStreamDataSource.prototype.resolveNextNext = function () {
-        var next = false;
-        while (!next && this.inputDataSource.hasNext()) {
-            var mapped = this.mapFunc(this.inputDataSource.next());
-            if (Array.isArray(mapped)) {
-                this.activeDataSource = new (ArrayStreamDataSource.bind.apply(ArrayStreamDataSource, __spreadArray([void 0], mapped)))();
-            }
-            else {
-                this.activeDataSource = mapped;
-            }
-            next = this.activeDataSource.hasNext();
-        }
-        return next;
-    };
-    FlatMapStreamDataSource.prototype.next = function () {
-        return this.activeDataSource.next();
-    };
-    FlatMapStreamDataSource.prototype.reset = function () {
-        this.inputDataSource.reset();
-    };
-    return FlatMapStreamDataSource;
-}());
-exports.FlatMapStreamDataSource = FlatMapStreamDataSource;
-/**
- * For the time being we only need one collector
- * a collector which collects a stream back into arrays
- */
-var ArrayCollector = /** @class */ (function () {
-    function ArrayCollector() {
-        this.data = [];
-    }
-    ArrayCollector.prototype.collect = function (element) {
-        this.data.push(element);
-    };
-    Object.defineProperty(ArrayCollector.prototype, "finalValue", {
-        get: function () {
-            return this.data;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    return ArrayCollector;
-}());
-exports.ArrayCollector = ArrayCollector;
-/**
- * collects an assoc stream back to an assoc array
- */
-var AssocArrayCollector = /** @class */ (function () {
-    function AssocArrayCollector() {
-        this.finalValue = {};
-    }
-    AssocArrayCollector.prototype.collect = function (element) {
-        var _a, _b;
-        this.finalValue[(_a = element[0]) !== null && _a !== void 0 ? _a : element] = (_b = element[1]) !== null && _b !== void 0 ? _b : true;
-    };
-    return AssocArrayCollector;
-}());
-exports.AssocArrayCollector = AssocArrayCollector;
-/**
- * Form data collector for key value pair streams
- */
-var FormDataCollector = /** @class */ (function () {
-    function FormDataCollector() {
-        this.finalValue = new FormData();
-    }
-    FormDataCollector.prototype.collect = function (element) {
-        this.finalValue.append(element.key, element.value);
-    };
-    return FormDataCollector;
-}());
-exports.FormDataCollector = FormDataCollector;
-/**
- * Form data collector for DomQuery streams
- */
-var QueryFormDataCollector = /** @class */ (function () {
-    function QueryFormDataCollector() {
-        this.finalValue = new FormData();
-    }
-    QueryFormDataCollector.prototype.collect = function (element) {
-        var toMerge = element.encodeFormElement();
-        if (toMerge.isPresent()) {
-            this.finalValue.append(element.name.value, toMerge.get(element.name).value);
-        }
-    };
-    return QueryFormDataCollector;
-}());
-exports.QueryFormDataCollector = QueryFormDataCollector;
-/**
- * Encoded String collector from dom query streams
- */
-var QueryFormStringCollector = /** @class */ (function () {
-    function QueryFormStringCollector() {
-        this.formData = [];
-    }
-    QueryFormStringCollector.prototype.collect = function (element) {
-        var _this = this;
-        var toMerge = element.encodeFormElement();
-        if (toMerge.isPresent()) {
-            Stream_1.Stream.of.apply(Stream_1.Stream, toMerge.value).each(function (item) {
-                _this.formData.push([element.name.value, item]);
-            });
-        }
-    };
-    Object.defineProperty(QueryFormStringCollector.prototype, "finalValue", {
-        get: function () {
-            return Stream_1.Stream.of.apply(Stream_1.Stream, this.formData).map(function (keyVal) { return keyVal.join("="); })
-                .reduce(function (item1, item2) { return [item1, item2].join("&"); })
-                .orElse("").value;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    return QueryFormStringCollector;
-}());
-exports.QueryFormStringCollector = QueryFormStringCollector;
-
-
-/***/ }),
-
-/***/ "./src/main/typescript/ext/monadish/Stream.ts":
-/*!****************************************************!*\
-  !*** ./src/main/typescript/ext/monadish/Stream.ts ***!
-  \****************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-/* Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to you under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.LazyStream = exports.Stream = void 0;
-/*
- * A small stream implementation
- */
-var Monad_1 = __webpack_require__(/*! ./Monad */ "./src/main/typescript/ext/monadish/Monad.ts");
-var SourcesCollectors_1 = __webpack_require__(/*! ./SourcesCollectors */ "./src/main/typescript/ext/monadish/SourcesCollectors.ts");
-/**
- * A simple typescript based reimplementation of streams
- *
- * This is the early eval version
- * for a lazy eval version check, LazyStream, which is api compatible
- * to this implementation, however with the benefit of being able
- * to provide infinite data sources and generic data providers, the downside
- * is, it might be a tad slower in some situations
- */
-var Stream = /** @class */ (function () {
-    function Stream() {
-        var value = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            value[_i] = arguments[_i];
-        }
-        this._limits = -1;
-        this.pos = -1;
-        this.value = value;
-    }
-    Stream.of = function () {
-        var data = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            data[_i] = arguments[_i];
-        }
-        return new (Stream.bind.apply(Stream, __spreadArray([void 0], data)))();
-    };
-    Stream.ofAssoc = function (data) {
-        return this.of.apply(this, Object.keys(data)).map(function (key) { return [key, data[key]]; });
-    };
-    Stream.ofDataSource = function (dataSource) {
-        var value = [];
-        while (dataSource.hasNext()) {
-            value.push(dataSource.next());
-        }
-        return new (Stream.bind.apply(Stream, __spreadArray([void 0], value)))();
-    };
-    Stream.prototype.limits = function (end) {
-        this._limits = end;
-        return this;
-    };
-    Stream.prototype.onElem = function (fn) {
-        for (var cnt = 0; cnt < this.value.length && (this._limits == -1 || cnt < this._limits); cnt++) {
-            if (fn(this.value[cnt], cnt) === false) {
-                break;
-            }
-        }
-        return this;
-    };
-    Stream.prototype.each = function (fn) {
-        this.onElem(fn);
-    };
-    Stream.prototype.map = function (fn) {
-        if (!fn) {
-            fn = function (inval) { return inval; };
-        }
-        var res = [];
-        this.each(function (item, cnt) {
-            res.push(fn(item));
-        });
-        return new (Stream.bind.apply(Stream, __spreadArray([void 0], res)))();
-    };
-    /*
-     * we need to implement it to fullfill the contract, although it is used only internally
-     * all values are flattened when accessed anyway, so there is no need to call this methiod
-     */
-    Stream.prototype.flatMap = function (fn) {
-        var ret = [];
-        this.each(function (item) {
-            var strmR = fn(item);
-            ret = Array.isArray(strmR) ? ret.concat(strmR) : ret.concat.apply(ret, strmR.value);
-        });
-        return Stream.of.apply(Stream, ret);
-    };
-    Stream.prototype.filter = function (fn) {
-        var res = [];
-        this.each(function (data) {
-            if (fn(data)) {
-                res.push(data);
-            }
-        });
-        return new (Stream.bind.apply(Stream, __spreadArray([void 0], res)))();
-    };
-    Stream.prototype.reduce = function (fn, startVal) {
-        if (startVal === void 0) { startVal = null; }
-        var offset = startVal != null ? 0 : 1;
-        var val1 = startVal != null ? startVal : this.value.length ? this.value[0] : null;
-        for (var cnt = offset; cnt < this.value.length && (this._limits == -1 || cnt < this._limits); cnt++) {
-            val1 = fn(val1, this.value[cnt]);
-        }
-        return Monad_1.Optional.fromNullable(val1);
-    };
-    Stream.prototype.first = function () {
-        return this.value && this.value.length ? Monad_1.Optional.fromNullable(this.value[0]) : Monad_1.Optional.absent;
-    };
-    Stream.prototype.last = function () {
-        //could be done via reduce, but is faster this way
-        var length = this._limits > 0 ? Math.min(this._limits, this.value.length) : this.value.length;
-        return Monad_1.Optional.fromNullable(length ? this.value[length - 1] : null);
-    };
-    Stream.prototype.anyMatch = function (fn) {
-        for (var cnt = 0; cnt < this.value.length && (this._limits == -1 || cnt < this._limits); cnt++) {
-            if (fn(this.value[cnt])) {
-                return true;
-            }
-        }
-        return false;
-    };
-    Stream.prototype.allMatch = function (fn) {
-        if (!this.value.length) {
-            return false;
-        }
-        var matches = 0;
-        for (var cnt = 0; cnt < this.value.length; cnt++) {
-            if (fn(this.value[cnt])) {
-                matches++;
-            }
-        }
-        return matches == this.value.length;
-    };
-    Stream.prototype.noneMatch = function (fn) {
-        var matches = 0;
-        for (var cnt = 0; cnt < this.value.length; cnt++) {
-            if (!fn(this.value[cnt])) {
-                matches++;
-            }
-        }
-        return matches == this.value.length;
-    };
-    Stream.prototype.sort = function (comparator) {
-        var newArr = this.value.slice().sort(comparator);
-        return Stream.of.apply(Stream, newArr);
-    };
-    Stream.prototype.collect = function (collector) {
-        this.each(function (data) { return collector.collect(data); });
-        return collector.finalValue;
-    };
-    //-- internally exposed methods needed for the interconnectivity
-    Stream.prototype.hasNext = function () {
-        var isLimitsReached = this._limits != -1 && this.pos >= this._limits - 1;
-        var isEndOfArray = this.pos >= this.value.length - 1;
-        return !(isLimitsReached || isEndOfArray);
-    };
-    Stream.prototype.next = function () {
-        if (!this.hasNext()) {
-            return null;
-        }
-        this.pos++;
-        return this.value[this.pos];
-    };
-    Stream.prototype.reset = function () {
-        this.pos = -1;
-    };
-    return Stream;
-}());
-exports.Stream = Stream;
-/**
- * Lazy implementation of a Stream
- * The idea is to connect the intermediate
- * streams as datasources like a linked list
- * with reverse referencing and for special
- * operations like filtering flatmapping
- * have intermediate datasources in the list
- * with specialized functions.
- *
- * Sort of a modified pipe valve pattern
- * the streams are the pipes the intermediate
- * data sources are the valves
- *
- * We then can use passed in functions to control
- * the flow in the valves
- *
- * That way we can have a lazy evaluating stream
- *
- * So if an endpoint requests data
- * a callback trace goes back the stream list
- * which triggers an operation upwards
- * which sends data down the drain which then is processed
- * and filtered until one element hits the endpoint.
- *
- * That is repeated, until all elements are processed
- * or an internal limit is hit.
- *
- */
-var LazyStream = /** @class */ (function () {
-    function LazyStream(parent) {
-        this._limits = -1;
-        /*
-         * needed to have the limits check working
-         * we need to keep track of the current position
-         * in the stream
-         */
-        this.pos = -1;
-        this.dataSource = parent;
-    }
-    LazyStream.of = function () {
-        var values = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            values[_i] = arguments[_i];
-        }
-        return new LazyStream(new (SourcesCollectors_1.ArrayStreamDataSource.bind.apply(SourcesCollectors_1.ArrayStreamDataSource, __spreadArray([void 0], values)))());
-    };
-    LazyStream.ofAssoc = function (data) {
-        return this.of.apply(this, Object.keys(data)).map(function (key) { return [key, data[key]]; });
-    };
-    LazyStream.ofStreamDataSource = function (value) {
-        return new LazyStream(value);
-    };
-    LazyStream.prototype.hasNext = function () {
-        if (this.isOverLimits()) {
-            return false;
-        }
-        return this.dataSource.hasNext();
-    };
-    LazyStream.prototype.next = function () {
-        var next = this.dataSource.next();
-        // @ts-ignore
-        this.pos++;
-        return next;
-    };
-    LazyStream.prototype.reset = function () {
-        this.dataSource.reset();
-        this.pos = 0;
-        this._limits = -1;
-    };
-    LazyStream.prototype.nextFilter = function (fn) {
-        if (this.hasNext()) {
-            var newVal = this.next();
-            if (!fn(newVal)) {
-                return this.nextFilter(fn);
-            }
-            return newVal;
-        }
-        return null;
-    };
-    LazyStream.prototype.limits = function (max) {
-        this._limits = max;
-        return this;
-    };
-    //main stream methods
-    LazyStream.prototype.collect = function (collector) {
-        while (this.hasNext()) {
-            var t = this.next();
-            collector.collect(t);
-        }
-        return collector.finalValue;
-    };
-    LazyStream.prototype.onElem = function (fn) {
-        var _this = this;
-        return new LazyStream(new SourcesCollectors_1.MappedStreamDataSource(function (el) {
-            if (fn(el, _this.pos) === false) {
-                _this.stop();
-            }
-            return el;
-        }, this));
-    };
-    LazyStream.prototype.filter = function (fn) {
-        return new LazyStream(new SourcesCollectors_1.FilteredStreamDatasource(fn, this));
-    };
-    LazyStream.prototype.map = function (fn) {
-        return new LazyStream(new SourcesCollectors_1.MappedStreamDataSource(fn, this));
-    };
-    LazyStream.prototype.flatMap = function (fn) {
-        return new LazyStream(new SourcesCollectors_1.FlatMapStreamDataSource(fn, this));
-    };
-    //endpoint
-    LazyStream.prototype.each = function (fn) {
-        while (this.hasNext()) {
-            if (fn(this.next()) === false) {
-                this.stop();
-            }
-        }
-    };
-    LazyStream.prototype.reduce = function (fn, startVal) {
-        if (startVal === void 0) { startVal = null; }
-        if (!this.hasNext()) {
-            return Monad_1.Optional.absent;
-        }
-        var value1 = null;
-        var value2 = null;
-        if (startVal != null) {
-            value1 = startVal;
-            value2 = this.next();
-        }
-        else {
-            value1 = this.next();
-            if (!this.hasNext()) {
-                return Monad_1.Optional.fromNullable(value1);
-            }
-            value2 = this.next();
-        }
-        value1 = fn(value1, value2);
-        while (this.hasNext()) {
-            value2 = this.next();
-            value1 = fn(value1, value2);
-        }
-        return Monad_1.Optional.fromNullable(value1);
-    };
-    LazyStream.prototype.last = function () {
-        if (!this.hasNext()) {
-            return Monad_1.Optional.absent;
-        }
-        return this.reduce(function (el1, el2) { return el2; });
-    };
-    LazyStream.prototype.first = function () {
-        this.reset();
-        if (!this.hasNext()) {
-            return Monad_1.Optional.absent;
-        }
-        return Monad_1.Optional.fromNullable(this.next());
-    };
-    LazyStream.prototype.anyMatch = function (fn) {
-        while (this.hasNext()) {
-            if (fn(this.next())) {
-                return true;
-            }
-        }
-        return false;
-    };
-    LazyStream.prototype.allMatch = function (fn) {
-        while (this.hasNext()) {
-            if (!fn(this.next())) {
-                return false;
-            }
-        }
-        return true;
-    };
-    LazyStream.prototype.noneMatch = function (fn) {
-        while (this.hasNext()) {
-            if (fn(this.next())) {
-                return false;
-            }
-        }
-        return true;
-    };
-    LazyStream.prototype.sort = function (comparator) {
-        var arr = this.collect(new SourcesCollectors_1.ArrayCollector());
-        arr = arr.sort(comparator);
-        return LazyStream.of.apply(LazyStream, arr);
-    };
-    Object.defineProperty(LazyStream.prototype, "value", {
-        get: function () {
-            return this.collect(new SourcesCollectors_1.ArrayCollector());
-        },
-        enumerable: false,
-        configurable: true
-    });
-    LazyStream.prototype.stop = function () {
-        this.pos = this._limits + 1000000000;
-    };
-    LazyStream.prototype.isOverLimits = function () {
-        return this._limits != -1 && this.pos >= this._limits - 1;
-    };
-    return LazyStream;
-}());
-exports.LazyStream = LazyStream;
-
-
-/***/ }),
-
-/***/ "./src/main/typescript/ext/monadish/XmlQuery.ts":
-/*!******************************************************!*\
-  !*** ./src/main/typescript/ext/monadish/XmlQuery.ts ***!
-  \******************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-/* Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to you under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.XQ = exports.XMLQuery = void 0;
-var Lang_1 = __webpack_require__(/*! ./Lang */ "./src/main/typescript/ext/monadish/Lang.ts");
-var DomQuery_1 = __webpack_require__(/*! ./DomQuery */ "./src/main/typescript/ext/monadish/DomQuery.ts");
-var isString = Lang_1.Lang.isString;
-/**
- * xml query as specialized case for DomQuery
- */
-var XMLQuery = /** @class */ (function (_super) {
-    __extends(XMLQuery, _super);
-    function XMLQuery(rootNode, docType) {
-        if (docType === void 0) { docType = "text/xml"; }
-        var _this = this;
-        var createIe11DomQueryShim = function () {
-            //at the time if wroting ie11 is the only relevant browser
-            //left withut any DomQuery support
-            var parser = new ActiveXObject("Microsoft.XMLDOM");
-            parser.async = false;
-            //we shim th dom parser from ie in
-            return {
-                parseFromString: function (text, contentType) {
-                    return parser.loadXML(text);
-                }
-            };
-        };
-        var parseXML = function (xml) {
-            if (xml == null) {
-                return null;
-            }
-            var domParser = Lang_1.Lang.saveResolveLazy(function () { return new window.DOMParser(); }, function () { return createIe11DomQueryShim(); }).value;
-            return domParser.parseFromString(xml, docType);
-        };
-        if (isString(rootNode)) {
-            _this = _super.call(this, parseXML(rootNode)) || this;
-        }
-        else {
-            _this = _super.call(this, rootNode) || this;
-        }
-        return _this;
-    }
-    XMLQuery.prototype.isXMLParserError = function () {
-        return this.querySelectorAll("parsererror").isPresent();
-    };
-    XMLQuery.prototype.toString = function () {
-        var ret = [];
-        this.eachElem(function (node) {
-            var _a, _b, _c, _d;
-            var serialized = (_d = (_c = (_b = (_a = window) === null || _a === void 0 ? void 0 : _a.XMLSerializer) === null || _b === void 0 ? void 0 : _b.constructor()) === null || _c === void 0 ? void 0 : _c.serializeToString(node)) !== null && _d !== void 0 ? _d : node === null || node === void 0 ? void 0 : node.xml;
-            if (!!serialized) {
-                ret.push(serialized);
-            }
-        });
-        return ret.join("");
-    };
-    XMLQuery.prototype.parserErrorText = function (joinstr) {
-        return this.querySelectorAll("parsererror").textContent(joinstr);
-    };
-    XMLQuery.parseXML = function (txt) {
-        return new XMLQuery(txt);
-    };
-    XMLQuery.parseHTML = function (txt) {
-        return new XMLQuery(txt, "text/html");
-    };
-    XMLQuery.fromString = function (txt, parseType) {
-        if (parseType === void 0) { parseType = "text/xml"; }
-        return new XMLQuery(txt, parseType);
-    };
-    return XMLQuery;
-}(DomQuery_1.DomQuery));
-exports.XMLQuery = XMLQuery;
-exports.XQ = XMLQuery;
-
-
-/***/ }),
-
-/***/ "./src/main/typescript/ext/monadish/index.ts":
-/*!***************************************************!*\
-  !*** ./src/main/typescript/ext/monadish/index.ts ***!
-  \***************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.QueryFormDataCollector = exports.FormDataCollector = exports.AssocArrayCollector = exports.ArrayCollector = exports.QueryFormStringCollector = exports.FlatMapStreamDataSource = exports.FilteredStreamDatasource = exports.MappedStreamDataSource = exports.ArrayStreamDataSource = exports.LazyStream = exports.Stream = exports.XQ = exports.XMLQuery = exports.ValueEmbedder = exports.Optional = exports.Monad = exports.Config = exports.Lang = exports.DQ = exports.DomQueryCollector = exports.ElementAttribute = exports.DomQuery = void 0;
-var DomQuery_1 = __webpack_require__(/*! ./DomQuery */ "./src/main/typescript/ext/monadish/DomQuery.ts");
-Object.defineProperty(exports, "DomQuery", ({ enumerable: true, get: function () { return DomQuery_1.DomQuery; } }));
-Object.defineProperty(exports, "ElementAttribute", ({ enumerable: true, get: function () { return DomQuery_1.ElementAttribute; } }));
-Object.defineProperty(exports, "DomQueryCollector", ({ enumerable: true, get: function () { return DomQuery_1.DomQueryCollector; } }));
-Object.defineProperty(exports, "DQ", ({ enumerable: true, get: function () { return DomQuery_1.DQ; } }));
-var Lang_1 = __webpack_require__(/*! ./Lang */ "./src/main/typescript/ext/monadish/Lang.ts");
-Object.defineProperty(exports, "Lang", ({ enumerable: true, get: function () { return Lang_1.Lang; } }));
-var Monad_1 = __webpack_require__(/*! ./Monad */ "./src/main/typescript/ext/monadish/Monad.ts");
-Object.defineProperty(exports, "Config", ({ enumerable: true, get: function () { return Monad_1.Config; } }));
-Object.defineProperty(exports, "Monad", ({ enumerable: true, get: function () { return Monad_1.Monad; } }));
-Object.defineProperty(exports, "Optional", ({ enumerable: true, get: function () { return Monad_1.Optional; } }));
-Object.defineProperty(exports, "ValueEmbedder", ({ enumerable: true, get: function () { return Monad_1.ValueEmbedder; } }));
-var XmlQuery_1 = __webpack_require__(/*! ./XmlQuery */ "./src/main/typescript/ext/monadish/XmlQuery.ts");
-Object.defineProperty(exports, "XMLQuery", ({ enumerable: true, get: function () { return XmlQuery_1.XMLQuery; } }));
-Object.defineProperty(exports, "XQ", ({ enumerable: true, get: function () { return XmlQuery_1.XQ; } }));
-var Stream_1 = __webpack_require__(/*! ./Stream */ "./src/main/typescript/ext/monadish/Stream.ts");
-Object.defineProperty(exports, "Stream", ({ enumerable: true, get: function () { return Stream_1.Stream; } }));
-Object.defineProperty(exports, "LazyStream", ({ enumerable: true, get: function () { return Stream_1.LazyStream; } }));
-var SourcesCollectors_1 = __webpack_require__(/*! ./SourcesCollectors */ "./src/main/typescript/ext/monadish/SourcesCollectors.ts");
-Object.defineProperty(exports, "ArrayStreamDataSource", ({ enumerable: true, get: function () { return SourcesCollectors_1.ArrayStreamDataSource; } }));
-Object.defineProperty(exports, "MappedStreamDataSource", ({ enumerable: true, get: function () { return SourcesCollectors_1.MappedStreamDataSource; } }));
-Object.defineProperty(exports, "FilteredStreamDatasource", ({ enumerable: true, get: function () { return SourcesCollectors_1.FilteredStreamDatasource; } }));
-Object.defineProperty(exports, "FlatMapStreamDataSource", ({ enumerable: true, get: function () { return SourcesCollectors_1.FlatMapStreamDataSource; } }));
-Object.defineProperty(exports, "QueryFormStringCollector", ({ enumerable: true, get: function () { return SourcesCollectors_1.QueryFormStringCollector; } }));
-Object.defineProperty(exports, "ArrayCollector", ({ enumerable: true, get: function () { return SourcesCollectors_1.ArrayCollector; } }));
-Object.defineProperty(exports, "AssocArrayCollector", ({ enumerable: true, get: function () { return SourcesCollectors_1.AssocArrayCollector; } }));
-Object.defineProperty(exports, "FormDataCollector", ({ enumerable: true, get: function () { return SourcesCollectors_1.FormDataCollector; } }));
-Object.defineProperty(exports, "QueryFormDataCollector", ({ enumerable: true, get: function () { return SourcesCollectors_1.QueryFormDataCollector; } }));
-
-
-/***/ }),
-
 /***/ "./src/main/typescript/impl/AjaxImpl.ts":
 /*!**********************************************!*\
   !*** ./src/main/typescript/impl/AjaxImpl.ts ***!
   \**********************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
+"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -3545,7 +304,7 @@ exports.Implementation = void 0;
 var Response_1 = __webpack_require__(/*! ./xhrCore/Response */ "./src/main/typescript/impl/xhrCore/Response.ts");
 var XhrRequest_1 = __webpack_require__(/*! ./xhrCore/XhrRequest */ "./src/main/typescript/impl/xhrCore/XhrRequest.ts");
 var AsyncQueue_1 = __webpack_require__(/*! ./util/AsyncQueue */ "./src/main/typescript/impl/util/AsyncQueue.ts");
-var monadish_1 = __webpack_require__(/*! ../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
+var mona_dish_1 = __webpack_require__(/*! mona-dish */ "./node_modules/mona-dish/dist/js/commonjs/index.js");
 var Assertions_1 = __webpack_require__(/*! ./util/Assertions */ "./src/main/typescript/impl/util/Assertions.ts");
 var XhrFormData_1 = __webpack_require__(/*! ./xhrCore/XhrFormData */ "./src/main/typescript/impl/xhrCore/XhrFormData.ts");
 var ExtDomQuery_1 = __webpack_require__(/*! ./util/ExtDomQuery */ "./src/main/typescript/impl/util/ExtDomQuery.ts");
@@ -3588,7 +347,7 @@ var BlockFilter;
  */
 var Implementation;
 (function (Implementation) {
-    var trim = monadish_1.Lang.trim;
+    var trim = mona_dish_1.Lang.trim;
     var getMessage = Lang_1.ExtLang.getMessage;
     var getGlobalConfig = Lang_1.ExtLang.getGlobalConfig;
     var assert = Assertions_1.Assertions.assert;
@@ -3671,7 +430,7 @@ var Implementation;
         };
         //we can use our stream each functionality to run our chain here..
         //the no return value == false stop stream functionality is handled by our resolveAndExecute
-        monadish_1.Stream.of.apply(monadish_1.Stream, funcs).each(function (func) { return resolveAndExecute(func); });
+        mona_dish_1.Stream.of.apply(mona_dish_1.Stream, funcs).each(function (func) { return resolveAndExecute(func); });
         return ret;
     }
     Implementation.chain = chain;
@@ -3879,7 +638,7 @@ var Implementation;
         /**
          * the search root for the dom element search
          */
-        var searchRoot = new monadish_1.DQ(node || document.body);
+        var searchRoot = new mona_dish_1.DQ(node || document.body);
         /**
          * lazy helper to fetch the window id from the window url
          */
@@ -3938,7 +697,7 @@ var Implementation;
          *  typecheck assert!, we opt for strong typing here
          *  because it makes it easier to detect bugs
          */
-        var element = monadish_1.DQ.byId(form, true);
+        var element = mona_dish_1.DQ.byId(form, true);
         if (!element.isTag(Const_1.TAG_FORM)) {
             throw new Error(getMessage("ERR_VIEWSTATE"));
         }
@@ -4087,9 +846,9 @@ var Implementation;
     function filterPassthroughValues(mappedOpts) {
         //we now can use the full code reduction given by our stream api
         //to filter
-        return monadish_1.Stream.ofAssoc(mappedOpts)
+        return mona_dish_1.Stream.ofAssoc(mappedOpts)
             .filter(function (item) { return !(item[0] in BlockFilter); })
-            .collect(new monadish_1.AssocArrayCollector());
+            .collect(new mona_dish_1.AssocArrayCollector());
     }
     function resolveGlobalConfig() {
         var _a, _b;
@@ -4106,6 +865,7 @@ var Implementation;
   \**********************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
+"use strict";
 
 /**
  * Typescript port of the jsf.push part in the myfaces implementation
@@ -4330,6 +1090,7 @@ var PushImpl;
   \************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
+"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -4474,6 +1235,7 @@ exports.UNKNOWN = "UNKNOWN";
   \****************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
+"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.StateHolder = void 0;
@@ -4526,6 +1288,7 @@ exports.StateHolder = StateHolder;
   \***************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
+"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -4649,10 +1412,11 @@ exports.Messages = Messages;
   \*****************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
+"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Assertions = void 0;
-var monadish_1 = __webpack_require__(/*! ../../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
+var mona_dish_1 = __webpack_require__(/*! mona-dish */ "./node_modules/mona-dish/dist/js/commonjs/index.js");
 var Lang_1 = __webpack_require__(/*! ./Lang */ "./src/main/typescript/impl/util/Lang.ts");
 var getMessage = Lang_1.ExtLang.getMessage;
 var makeException = Lang_1.ExtLang.makeException;
@@ -4725,7 +1489,7 @@ var Assertions;
         if (msg === void 0) { msg = Const_1.EMPTY_STR; }
         if (caller === void 0) { caller = Const_1.EMPTY_STR; }
         if (title === void 0) { title = "Type Assertion Error"; }
-        if ((!!value) && !monadish_1.Lang.assertType(value, theType)) {
+        if ((!!value) && !mona_dish_1.Lang.assertType(value, theType)) {
             throw Assertions.raiseError(new Error(), msg, caller, title);
         }
     }
@@ -4748,6 +1512,7 @@ var Assertions;
   \*****************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
+"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AsynchronouseQueue = void 0;
@@ -4861,6 +1626,7 @@ exports.AsynchronouseQueue = AsynchronouseQueue;
   \******************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
+"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -4879,8 +1645,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ExtDQ = exports.ExtDomquery = void 0;
-var Monad_1 = __webpack_require__(/*! ../../ext/monadish/Monad */ "./src/main/typescript/ext/monadish/Monad.ts");
-var DomQuery_1 = __webpack_require__(/*! ../../ext/monadish/DomQuery */ "./src/main/typescript/ext/monadish/DomQuery.ts");
+var mona_dish_1 = __webpack_require__(/*! mona-dish */ "./node_modules/mona-dish/dist/js/commonjs/index.js");
 var Const_1 = __webpack_require__(/*! ../core/Const */ "./src/main/typescript/impl/core/Const.ts");
 /**
  * Extension which adds implementation specific
@@ -4944,25 +1709,25 @@ var ExtDomquery = /** @class */ (function (_super) {
         */
         get: function () {
             //already processed
-            var myfacesConfig = new Monad_1.Config(window.myfaces);
+            var myfacesConfig = new mona_dish_1.Config(window.myfaces);
             var nonce = myfacesConfig.assign("config", "cspMeta", "nonce");
             if (nonce.value) {
                 return nonce.value;
             }
-            var curScript = new DomQuery_1.DQ(document.currentScript);
+            var curScript = new mona_dish_1.DQ(document.currentScript);
             //since our baseline atm is ie11 we cannot use document.currentScript globally
             if (curScript.attr("nonce").value != null) {
                 //fastpath for modern browsers
                 return curScript.attr("nonce").value;
             }
-            var nonceScript = DomQuery_1.DQ
+            var nonceScript = mona_dish_1.DQ
                 .querySelectorAll("script[src], link[src]")
                 .lazyStream
                 .filter(function (item) { return item.attr("nonce").value != null && item.attr("src") != null; })
                 .map((function (item) { return !item.attr("src").value.match(/jsf\.js\?ln=javax\.faces/gi); }))
                 .first();
             if (nonceScript.isPresent()) {
-                nonce.value = DomQuery_1.DomQuery.byId(nonceScript.value, true).attr("nonce").value;
+                nonce.value = mona_dish_1.DomQuery.byId(nonceScript.value, true).attr("nonce").value;
             }
             return nonce.value;
         },
@@ -4974,7 +1739,7 @@ var ExtDomquery = /** @class */ (function (_super) {
     };
     ExtDomquery.prototype.searchJsfJsFor = function (rexp) {
         //perfect application for lazy stream
-        return DomQuery_1.DQ.querySelectorAll("script").lazyStream
+        return mona_dish_1.DQ.querySelectorAll("script").lazyStream
             .filter(function (item) {
             var _a;
             return ((_a = item.attr("src").value) !== null && _a !== void 0 ? _a : Const_1.EMPTY_STR).search(/\/javax\.faces\.resource.*\/jsf\.js.*separator/) != -1;
@@ -4987,9 +1752,9 @@ var ExtDomquery = /** @class */ (function (_super) {
         return _super.prototype.globalEval.call(this, code, nonce !== null && nonce !== void 0 ? nonce : this.nonce);
     };
     return ExtDomquery;
-}(DomQuery_1.DQ));
+}(mona_dish_1.DQ));
 exports.ExtDomquery = ExtDomquery;
-exports.ExtDQ = DomQuery_1.DQ;
+exports.ExtDQ = mona_dish_1.DQ;
 
 
 /***/ }),
@@ -5000,6 +1765,7 @@ exports.ExtDQ = DomQuery_1.DQ;
   \***********************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
+"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -5021,11 +1787,8 @@ exports.ExtDQ = DomQuery_1.DQ;
  */
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ExtLang = void 0;
-var Lang_1 = __webpack_require__(/*! ../../ext/monadish/Lang */ "./src/main/typescript/ext/monadish/Lang.ts");
+var mona_dish_1 = __webpack_require__(/*! mona-dish */ "./node_modules/mona-dish/dist/js/commonjs/index.js");
 var Messages_1 = __webpack_require__(/*! ../i18n/Messages */ "./src/main/typescript/impl/i18n/Messages.ts");
-// noinspection TypeScriptPreferShortImport
-var DomQuery_1 = __webpack_require__(/*! ../../ext/monadish/DomQuery */ "./src/main/typescript/ext/monadish/DomQuery.ts");
-var monadish_1 = __webpack_require__(/*! ../../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
 var Const_1 = __webpack_require__(/*! ../core/Const */ "./src/main/typescript/impl/core/Const.ts");
 var RequestDataResolver_1 = __webpack_require__(/*! ../xhrCore/RequestDataResolver */ "./src/main/typescript/impl/xhrCore/RequestDataResolver.ts");
 var ExtLang;
@@ -5060,7 +1823,7 @@ var ExtLang;
      */
     function failSaveResolve(resolverProducer, defaultValue) {
         if (defaultValue === void 0) { defaultValue = null; }
-        return Lang_1.Lang.saveResolve(resolverProducer, defaultValue);
+        return mona_dish_1.Lang.saveResolve(resolverProducer, defaultValue);
     }
     ExtLang.failSaveResolve = failSaveResolve;
     /**
@@ -5074,7 +1837,7 @@ var ExtLang;
      */
     function failSaveExecute(resolverProducer, defaultValue) {
         if (defaultValue === void 0) { defaultValue = null; }
-        Lang_1.Lang.saveResolve(resolverProducer, defaultValue);
+        mona_dish_1.Lang.saveResolve(resolverProducer, defaultValue);
     }
     ExtLang.failSaveExecute = failSaveExecute;
     /**
@@ -5097,7 +1860,7 @@ var ExtLang;
         }
         installedLocale = installedLocale !== null && installedLocale !== void 0 ? installedLocale : new Messages_1.Messages();
         var msg = (_b = (_a = installedLocale[key]) !== null && _a !== void 0 ? _a : defaultMessage) !== null && _b !== void 0 ? _b : key + " - undefined message";
-        monadish_1.Stream.of.apply(monadish_1.Stream, templateParams).each(function (param, cnt) {
+        mona_dish_1.Stream.of.apply(mona_dish_1.Stream, templateParams).each(function (param, cnt) {
             msg = msg.replace(new RegExp(["\\{", cnt, "\\}"].join(Const_1.EMPTY_STR), "g"), param);
         });
         return msg;
@@ -5167,15 +1930,15 @@ var ExtLang;
      * @param event
      */
     function getForm(elem, event) {
-        var queryElem = new DomQuery_1.DQ(elem);
-        var eventTarget = new DomQuery_1.DQ(RequestDataResolver_1.getEventTarget(event));
+        var queryElem = new mona_dish_1.DQ(elem);
+        var eventTarget = new mona_dish_1.DQ(RequestDataResolver_1.getEventTarget(event));
         if (queryElem.isTag(Const_1.TAG_FORM)) {
             return queryElem;
         }
         //html 5 for handling
         if (queryElem.attr(Const_1.TAG_FORM).isPresent()) {
             var formId = queryElem.attr(Const_1.TAG_FORM).value;
-            var foundForm = DomQuery_1.DQ.byId(formId, true);
+            var foundForm = mona_dish_1.DQ.byId(formId, true);
             if (foundForm.isPresent()) {
                 return foundForm;
             }
@@ -5227,6 +1990,7 @@ var ExtLang;
   \*******************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
+"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -5325,10 +2089,11 @@ exports.ErrorData = ErrorData;
   \*******************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
+"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.EventData = void 0;
-var monadish_1 = __webpack_require__(/*! ../../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
+var mona_dish_1 = __webpack_require__(/*! mona-dish */ "./node_modules/mona-dish/dist/js/commonjs/index.js");
 var Const_1 = __webpack_require__(/*! ../core/Const */ "./src/main/typescript/impl/core/Const.ts");
 var EventData = /** @class */ (function () {
     function EventData() {
@@ -5342,7 +2107,7 @@ var EventData = /** @class */ (function () {
             .orElse(context.getIf(Const_1.P_PARTIAL_SOURCE).value)
             .orElse(context.getIf(Const_1.CTX_PARAM_PASS_THR, Const_1.P_PARTIAL_SOURCE).value).value;
         if (sourceId) {
-            eventData.source = monadish_1.DQ.byId(sourceId, true).first().value.value;
+            eventData.source = mona_dish_1.DQ.byId(sourceId, true).first().value.value;
         }
         if (name !== Const_1.BEGIN) {
             eventData.responseCode = (_a = request === null || request === void 0 ? void 0 : request.status) === null || _a === void 0 ? void 0 : _a.toString();
@@ -5364,6 +2129,7 @@ exports.EventData = EventData;
   \*****************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
+"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -5382,7 +2148,7 @@ exports.EventData = EventData;
  */
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.resolveDefaults = exports.getEventTarget = exports.resolveWindowId = exports.resolveDelay = exports.resolveTimeout = exports.resolveForm = exports.resolveFinalUrl = exports.resolveTargetUrl = exports.resolveHandlerFunc = void 0;
-var monadish_1 = __webpack_require__(/*! ../../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
+var mona_dish_1 = __webpack_require__(/*! mona-dish */ "./node_modules/mona-dish/dist/js/commonjs/index.js");
 var Const_1 = __webpack_require__(/*! ../core/Const */ "./src/main/typescript/impl/core/Const.ts");
 var Lang_1 = __webpack_require__(/*! ../util/Lang */ "./src/main/typescript/impl/util/Lang.ts");
 var ExtDomQuery_1 = __webpack_require__(/*! ../util/ExtDomQuery */ "./src/main/typescript/impl/util/ExtDomQuery.ts");
@@ -5430,7 +2196,7 @@ exports.resolveFinalUrl = resolveFinalUrl;
 function resolveForm(requestCtx, elem, event) {
     var _a, _b, _c;
     var configId = (_c = (_b = (_a = requestCtx.value) === null || _a === void 0 ? void 0 : _a.myfaces) === null || _b === void 0 ? void 0 : _b.form) !== null && _c !== void 0 ? _c : Const_1.MF_NONE; //requestCtx.getIf(MYFACES, "form").orElse(MF_NONE).value;
-    return monadish_1.DQ
+    return mona_dish_1.DQ
         .byId(configId, true)
         .orElseLazy(function () { return Lang_1.ExtLang.getForm(elem.getAsElem(0).value, event); });
 }
@@ -5502,7 +2268,7 @@ function resolveDefaults(event, opts, el) {
     if (opts === void 0) { opts = {}; }
     if (el === void 0) { el = null; }
     //deep copy the options, so that further transformations to not backfire into the callers
-    var resolvedEvent = event, options = new monadish_1.Config(opts).deepCopy, elem = monadish_1.DQ.byId(el || resolvedEvent.target, true), elementId = elem.id, requestCtx = new monadish_1.Config({}), internalCtx = new monadish_1.Config({}), windowId = resolveWindowId(options), isResetValues = true === ((_a = options.value) === null || _a === void 0 ? void 0 : _a.resetValues);
+    var resolvedEvent = event, options = new mona_dish_1.Config(opts).deepCopy, elem = mona_dish_1.DQ.byId(el || resolvedEvent.target, true), elementId = elem.id, requestCtx = new mona_dish_1.Config({}), internalCtx = new mona_dish_1.Config({}), windowId = resolveWindowId(options), isResetValues = true === ((_a = options.value) === null || _a === void 0 ? void 0 : _a.resetValues);
     return { resolvedEvent: resolvedEvent, options: options, elem: elem, elementId: elementId, requestCtx: requestCtx, internalCtx: internalCtx, windowId: windowId, isResetValues: isResetValues };
 }
 exports.resolveDefaults = resolveDefaults;
@@ -5516,6 +2282,7 @@ exports.resolveDefaults = resolveDefaults;
   \*****************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
+"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -5534,9 +2301,9 @@ exports.resolveDefaults = resolveDefaults;
  */
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.resolveSourceForm = exports.resolveSourceElement = exports.resolveContexts = exports.resolveResponseXML = void 0;
-var monadish_1 = __webpack_require__(/*! ../../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
+var mona_dish_1 = __webpack_require__(/*! mona-dish */ "./node_modules/mona-dish/dist/js/commonjs/index.js");
 var Assertions_1 = __webpack_require__(/*! ../util/Assertions */ "./src/main/typescript/impl/util/Assertions.ts");
-var monadish_2 = __webpack_require__(/*! ../../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
+var mona_dish_2 = __webpack_require__(/*! mona-dish */ "./node_modules/mona-dish/dist/js/commonjs/index.js");
 var Const_1 = __webpack_require__(/*! ../core/Const */ "./src/main/typescript/impl/core/Const.ts");
 /**
  * Resolver functions for various aspects of the response data
@@ -5554,7 +2321,7 @@ var Const_1 = __webpack_require__(/*! ../core/Const */ "./src/main/typescript/im
  *
  */
 function resolveResponseXML(request) {
-    var ret = new monadish_1.XMLQuery(request.getIf(Const_1.SEL_RESPONSE_XML).value);
+    var ret = new mona_dish_1.XMLQuery(request.getIf(Const_1.SEL_RESPONSE_XML).value);
     Assertions_1.Assertions.assertValidXMLResponse(ret);
     return ret;
 }
@@ -5571,10 +2338,10 @@ function resolveContexts(context) {
      * we split the context apart into the external one and
      * some internal values
      */
-    var externalContext = monadish_1.Config.fromNullable(context);
+    var externalContext = mona_dish_1.Config.fromNullable(context);
     var internalContext = externalContext.getIf(Const_1.CTX_PARAM_MF_INTERNAL);
     if (!internalContext.isPresent()) {
-        internalContext = monadish_1.Config.fromNullable({});
+        internalContext = mona_dish_1.Config.fromNullable({});
     }
     /**
      * prepare storage for some deferred operations
@@ -5593,7 +2360,7 @@ exports.resolveContexts = resolveContexts;
  */
 function resolveSourceElement(context, internalContext) {
     var elemId = resolveSourceElementId(context, internalContext);
-    return monadish_2.DQ.byId(elemId.value, true);
+    return mona_dish_2.DQ.byId(elemId.value, true);
 }
 exports.resolveSourceElement = resolveSourceElement;
 /**
@@ -5606,10 +2373,10 @@ exports.resolveSourceElement = resolveSourceElement;
  */
 function resolveSourceForm(internalContext, elem) {
     var sourceFormId = internalContext.getIf(Const_1.CTX_PARAM_SRC_FRM_ID);
-    var sourceForm = new monadish_2.DQ(sourceFormId.isPresent() ? document.forms[sourceFormId.value] : null);
+    var sourceForm = new mona_dish_2.DQ(sourceFormId.isPresent() ? document.forms[sourceFormId.value] : null);
     sourceForm = sourceForm.orElse(elem.parents(Const_1.TAG_FORM))
         .orElse(elem.querySelectorAll(Const_1.TAG_FORM))
-        .orElse(monadish_2.DQ.querySelectorAll(Const_1.TAG_FORM));
+        .orElse(mona_dish_2.DQ.querySelectorAll(Const_1.TAG_FORM));
     return sourceForm;
 }
 exports.resolveSourceForm = resolveSourceForm;
@@ -5628,6 +2395,7 @@ function resolveSourceElementId(context, internalContext) {
   \******************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
+"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -5646,7 +2414,7 @@ function resolveSourceElementId(context, internalContext) {
  */
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Response = void 0;
-var monadish_1 = __webpack_require__(/*! ../../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
+var mona_dish_1 = __webpack_require__(/*! mona-dish */ "./node_modules/mona-dish/dist/js/commonjs/index.js");
 var ResponseProcessor_1 = __webpack_require__(/*! ./ResponseProcessor */ "./src/main/typescript/impl/xhrCore/ResponseProcessor.ts");
 var Const_1 = __webpack_require__(/*! ../core/Const */ "./src/main/typescript/impl/core/Const.ts");
 var ResonseDataResolver_1 = __webpack_require__(/*! ./ResonseDataResolver */ "./src/main/typescript/impl/xhrCore/ResonseDataResolver.ts");
@@ -5664,7 +2432,7 @@ var Response;
      *
      */
     function processResponse(request, context) {
-        var req = monadish_1.Config.fromNullable(request);
+        var req = mona_dish_1.Config.fromNullable(request);
         var _a = ResonseDataResolver_1.resolveContexts(context), externalContext = _a.externalContext, internalContext = _a.internalContext;
         var responseXML = ResonseDataResolver_1.resolveResponseXML(req);
         var responseProcessor = new ResponseProcessor_1.ResponseProcessor(req, externalContext, internalContext);
@@ -5780,13 +2548,13 @@ var Response;
         var cdataBlock = node.cDATAAsString;
         switch (node.id.value) {
             case Const_1.P_VIEWROOT:
-                responseProcessor.replaceViewRoot(monadish_1.DQ.fromMarkup(cdataBlock.substring(cdataBlock.indexOf("<html"))));
+                responseProcessor.replaceViewRoot(mona_dish_1.DQ.fromMarkup(cdataBlock.substring(cdataBlock.indexOf("<html"))));
                 break;
             case Const_1.P_VIEWHEAD:
-                responseProcessor.replaceHead(monadish_1.DQ.fromMarkup(cdataBlock));
+                responseProcessor.replaceHead(mona_dish_1.DQ.fromMarkup(cdataBlock));
                 break;
             case Const_1.P_VIEWBODY:
-                responseProcessor.replaceBody(monadish_1.DQ.fromMarkup(cdataBlock));
+                responseProcessor.replaceBody(mona_dish_1.DQ.fromMarkup(cdataBlock));
                 break;
             default: //htmlItem replacement
                 responseProcessor.update(node, cdataBlock);
@@ -5804,6 +2572,7 @@ var Response;
   \***************************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
+"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -5827,14 +2596,14 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ResponseProcessor = void 0;
-var monadish_1 = __webpack_require__(/*! ../../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
+var mona_dish_1 = __webpack_require__(/*! mona-dish */ "./node_modules/mona-dish/dist/js/commonjs/index.js");
 var AjaxImpl_1 = __webpack_require__(/*! ../AjaxImpl */ "./src/main/typescript/impl/AjaxImpl.ts");
 var Assertions_1 = __webpack_require__(/*! ../util/Assertions */ "./src/main/typescript/impl/util/Assertions.ts");
 var ErrorData_1 = __webpack_require__(/*! ./ErrorData */ "./src/main/typescript/impl/xhrCore/ErrorData.ts");
 var ImplTypes_1 = __webpack_require__(/*! ../core/ImplTypes */ "./src/main/typescript/impl/core/ImplTypes.ts");
 var EventData_1 = __webpack_require__(/*! ./EventData */ "./src/main/typescript/impl/xhrCore/EventData.ts");
 var Const_1 = __webpack_require__(/*! ../core/Const */ "./src/main/typescript/impl/core/Const.ts");
-var trim = monadish_1.Lang.trim;
+var trim = mona_dish_1.Lang.trim;
 /**
  * Response processor
  *
@@ -5859,7 +2628,7 @@ var ResponseProcessor = /** @class */ (function () {
         if (!shadowHead.isPresent()) {
             return;
         }
-        var oldHead = monadish_1.DQ.querySelectorAll(Const_1.TAG_HEAD);
+        var oldHead = mona_dish_1.DQ.querySelectorAll(Const_1.TAG_HEAD);
         //delete all to avoid script and style overlays
         oldHead.querySelectorAll(Const_1.SEL_SCRIPTS_STYLES).delete();
         this.storeForEval(shadowHead);
@@ -5878,7 +2647,7 @@ var ResponseProcessor = /** @class */ (function () {
             return;
         }
         var shadowInnerHTML = shadowBody.html().value;
-        var resultingBody = monadish_1.DQ.querySelectorAll(Const_1.TAG_BODY).html(shadowInnerHTML);
+        var resultingBody = mona_dish_1.DQ.querySelectorAll(Const_1.TAG_BODY).html(shadowInnerHTML);
         var updateForms = resultingBody.querySelectorAll(Const_1.TAG_FORM);
         resultingBody.copyAttrs(shadowBody);
         this.storeForPostProcessing(updateForms, resultingBody);
@@ -5889,7 +2658,7 @@ var ResponseProcessor = /** @class */ (function () {
      * @param node the node to eval
      */
     ResponseProcessor.prototype.eval = function (node) {
-        monadish_1.DQ.globalEval(node.cDATAAsString);
+        mona_dish_1.DQ.globalEval(node.cDATAAsString);
     };
     /**
      * processes an incoming error from the response
@@ -5904,7 +2673,7 @@ var ResponseProcessor = /** @class */ (function () {
          *      <error-message><![CDATA[message]]></error-message>
          * <error>
          */
-        var mergedErrorData = new monadish_1.Config({});
+        var mergedErrorData = new mona_dish_1.Config({});
         mergedErrorData.assign(Const_1.SOURCE).value = this.externalContext.getIf(Const_1.P_PARTIAL_SOURCE).get(0).value;
         mergedErrorData.assign(Const_1.ERROR_NAME).value = node.getIf(Const_1.ERROR_NAME).textContent(Const_1.EMPTY_STR);
         mergedErrorData.assign(Const_1.ERROR_MESSAGE).value = node.getIf(Const_1.ERROR_MESSAGE).cDATAAsString;
@@ -5932,14 +2701,14 @@ var ResponseProcessor = /** @class */ (function () {
      * @param cdataBlock the cdata block with the new html code
      */
     ResponseProcessor.prototype.update = function (node, cdataBlock) {
-        var result = monadish_1.DQ.byId(node.id.value, true).outerHTML(cdataBlock, false, false);
+        var result = mona_dish_1.DQ.byId(node.id.value, true).outerHTML(cdataBlock, false, false);
         var sourceForm = result === null || result === void 0 ? void 0 : result.parents(Const_1.TAG_FORM).orElse(result.byTagName(Const_1.TAG_FORM, true));
         if (sourceForm) {
             this.storeForPostProcessing(sourceForm, result);
         }
     };
     ResponseProcessor.prototype.delete = function (node) {
-        monadish_1.DQ.byId(node.id.value, true).delete();
+        mona_dish_1.DQ.byId(node.id.value, true).delete();
     };
     /**
      * attributes leaf tag... process the attributes
@@ -5947,7 +2716,7 @@ var ResponseProcessor = /** @class */ (function () {
      * @param node
      */
     ResponseProcessor.prototype.attributes = function (node) {
-        var elem = monadish_1.DQ.byId(node.id.value, true);
+        var elem = mona_dish_1.DQ.byId(node.id.value, true);
         node.byTagName(Const_1.TAG_ATTR).each(function (item) {
             elem.attr(item.attr(Const_1.ATTR_NAME).value).value = item.attr(Const_1.ATTR_VALUE).value;
         });
@@ -5968,13 +2737,13 @@ var ResponseProcessor = /** @class */ (function () {
         //let insertId = node.id; //not used atm
         var before = node.attr(Const_1.TAG_BEFORE);
         var after = node.attr(Const_1.TAG_AFTER);
-        var insertNodes = monadish_1.DQ.fromMarkup(node.cDATAAsString);
+        var insertNodes = mona_dish_1.DQ.fromMarkup(node.cDATAAsString);
         if (before.isPresent()) {
-            monadish_1.DQ.byId(before.value, true).insertBefore(insertNodes);
+            mona_dish_1.DQ.byId(before.value, true).insertBefore(insertNodes);
             this.internalContext.assign(Const_1.UPDATE_ELEMS).value.push(insertNodes);
         }
         if (after.isPresent()) {
-            var domQuery = monadish_1.DQ.byId(after.value, true);
+            var domQuery = mona_dish_1.DQ.byId(after.value, true);
             domQuery.insertAfter(insertNodes);
             this.internalContext.assign(Const_1.UPDATE_ELEMS).value.push(insertNodes);
         }
@@ -5990,17 +2759,17 @@ var ResponseProcessor = /** @class */ (function () {
         var after = node.querySelectorAll(Const_1.TAG_AFTER);
         before.each(function (item) {
             var insertId = item.attr(Const_1.ATTR_ID);
-            var insertNodes = monadish_1.DQ.fromMarkup(item.cDATAAsString);
+            var insertNodes = mona_dish_1.DQ.fromMarkup(item.cDATAAsString);
             if (insertId.isPresent()) {
-                monadish_1.DQ.byId(insertId.value, true).insertBefore(insertNodes);
+                mona_dish_1.DQ.byId(insertId.value, true).insertBefore(insertNodes);
                 _this.internalContext.assign(Const_1.UPDATE_ELEMS).value.push(insertNodes);
             }
         });
         after.each(function (item) {
             var insertId = item.attr(Const_1.ATTR_ID);
-            var insertNodes = monadish_1.DQ.fromMarkup(item.cDATAAsString);
+            var insertNodes = mona_dish_1.DQ.fromMarkup(item.cDATAAsString);
             if (insertId.isPresent()) {
-                monadish_1.DQ.byId(insertId.value, true).insertAfter(insertNodes);
+                mona_dish_1.DQ.byId(insertId.value, true).insertAfter(insertNodes);
                 _this.internalContext.assign(Const_1.UPDATE_ELEMS).value.push(insertNodes);
             }
         });
@@ -6029,7 +2798,7 @@ var ResponseProcessor = /** @class */ (function () {
      * generic global eval which runs the embedded css and scripts
      */
     ResponseProcessor.prototype.globalEval = function () {
-        var updateElems = new (monadish_1.DQ.bind.apply(monadish_1.DQ, __spreadArray([void 0], this.internalContext.getIf(Const_1.UPDATE_ELEMS).value)))();
+        var updateElems = new (mona_dish_1.DQ.bind.apply(mona_dish_1.DQ, __spreadArray([void 0], this.internalContext.getIf(Const_1.UPDATE_ELEMS).value)))();
         updateElems.runCss();
         updateElems.runScripts();
     };
@@ -6038,24 +2807,24 @@ var ResponseProcessor = /** @class */ (function () {
      */
     ResponseProcessor.prototype.fixViewStates = function () {
         var _this = this;
-        monadish_1.Stream.ofAssoc(this.internalContext.getIf(Const_1.APPLIED_VST).orElse({}).value)
+        mona_dish_1.Stream.ofAssoc(this.internalContext.getIf(Const_1.APPLIED_VST).orElse({}).value)
             .each(function (item) {
             var value = item[1];
-            var nameSpace = monadish_1.DQ.byId(value.nameSpace, true).orElse(document.body);
+            var nameSpace = mona_dish_1.DQ.byId(value.nameSpace, true).orElse(document.body);
             var affectedForms = nameSpace.byTagName(Const_1.TAG_FORM);
             var affectedForms2 = nameSpace.filter(function (item) { return item.tagName.orElse(Const_1.EMPTY_STR).value.toLowerCase() == Const_1.TAG_FORM; });
-            _this.appendViewStateToForms(new monadish_1.DomQuery(affectedForms, affectedForms2), value.value);
+            _this.appendViewStateToForms(new mona_dish_1.DomQuery(affectedForms, affectedForms2), value.value);
         });
     };
     ResponseProcessor.prototype.fixClientWindow = function () {
         var _this = this;
-        monadish_1.Stream.ofAssoc(this.internalContext.getIf(Const_1.APPLIED_CLIENT_WINDOW).orElse({}).value)
+        mona_dish_1.Stream.ofAssoc(this.internalContext.getIf(Const_1.APPLIED_CLIENT_WINDOW).orElse({}).value)
             .each(function (item) {
             var value = item[1];
-            var nameSpace = monadish_1.DQ.byId(value.nameSpace, true).orElse(document.body);
+            var nameSpace = mona_dish_1.DQ.byId(value.nameSpace, true).orElse(document.body);
             var affectedForms = nameSpace.byTagName(Const_1.TAG_FORM);
             var affectedForms2 = nameSpace.filter(function (item) { return item.tagName.orElse(Const_1.EMPTY_STR).value.toLowerCase() == Const_1.TAG_FORM; });
-            _this.appendClientWindowToForms(new monadish_1.DomQuery(affectedForms, affectedForms2), value.value);
+            _this.appendClientWindowToForms(new mona_dish_1.DomQuery(affectedForms, affectedForms2), value.value);
         });
     };
     /**
@@ -6108,7 +2877,7 @@ var ResponseProcessor = /** @class */ (function () {
      * (usually a form node)
      */
     ResponseProcessor.newViewStateElement = function (parent) {
-        var newViewState = monadish_1.DQ.fromMarkup(Const_1.HTML_VIEWSTATE);
+        var newViewState = mona_dish_1.DQ.fromMarkup(Const_1.HTML_VIEWSTATE);
         newViewState.appendTo(parent);
         return newViewState;
     };
@@ -6177,6 +2946,7 @@ exports.ResponseProcessor = ResponseProcessor;
   \*********************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
+"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -6215,10 +2985,9 @@ exports.XhrFormData = void 0;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var monadish_1 = __webpack_require__(/*! ../../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
-var monadish_2 = __webpack_require__(/*! ../../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
-var monadish_3 = __webpack_require__(/*! ../../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
-var isString = monadish_1.Lang.isString;
+var mona_dish_1 = __webpack_require__(/*! mona-dish */ "./node_modules/mona-dish/dist/js/commonjs/index.js");
+var mona_dish_2 = __webpack_require__(/*! mona-dish */ "./node_modules/mona-dish/dist/js/commonjs/index.js");
+var isString = mona_dish_1.Lang.isString;
 var Const_1 = __webpack_require__(/*! ../core/Const */ "./src/main/typescript/impl/core/Const.ts");
 /**
  * A unified form data class
@@ -6271,13 +3040,13 @@ var XhrFormData = /** @class */ (function (_super) {
         }
         var fetchInput = function (id) {
             if (id == "@all") {
-                return monadish_3.DQ.querySelectorAllDeep("input[type='file']");
+                return mona_dish_2.DQ.querySelectorAllDeep("input[type='file']");
             }
             else if (id == "@form") {
                 return _this.dataSource.querySelectorAllDeep("input[type='file']");
             }
             else {
-                var element = monadish_3.DQ.byId(id, true);
+                var element = mona_dish_2.DQ.byId(id, true);
                 return _this.getFileInputs(element);
             }
         };
@@ -6287,7 +3056,7 @@ var XhrFormData = /** @class */ (function (_super) {
         var applyInput = function (item) {
             _this.fileInputs[_this.resolveSubmitIdentifier(item.getAsElem(0).value)] = true;
         };
-        monadish_1.LazyStream.of.apply(monadish_1.LazyStream, executes).map(fetchInput)
+        mona_dish_1.LazyStream.of.apply(mona_dish_1.LazyStream, executes).map(fetchInput)
             .filter(inputExists)
             .each(applyInput);
     };
@@ -6310,7 +3079,7 @@ var XhrFormData = /** @class */ (function (_super) {
         var ret = rootElment.lazyStream
             .map(resolveFileInputs)
             .filter(itemExists)
-            .collect(new monadish_1.DomQueryCollector());
+            .collect(new mona_dish_1.DomQueryCollector());
         return ret;
     };
     XhrFormData.prototype.handleFormSource = function () {
@@ -6347,8 +3116,8 @@ var XhrFormData = /** @class */ (function (_super) {
         this.assignString(keyValueEntries);
     };
     XhrFormData.prototype.assignString = function (keyValueEntries) {
-        var toMerge = new monadish_1.Config({});
-        monadish_2.Stream.of.apply(monadish_2.Stream, keyValueEntries).map(function (line) { return line.split(/=(.*)/gi); })
+        var toMerge = new mona_dish_1.Config({});
+        mona_dish_2.Stream.of.apply(mona_dish_2.Stream, keyValueEntries).map(function (line) { return line.split(/=(.*)/gi); })
             //special case of having keys without values
             .map(function (keyVal) { var _a, _b; return keyVal.length < 3 ? [(_a = keyVal === null || keyVal === void 0 ? void 0 : keyVal[0]) !== null && _a !== void 0 ? _a : [], (_b = keyVal === null || keyVal === void 0 ? void 0 : keyVal[1]) !== null && _b !== void 0 ? _b : []] : keyVal; })
             .each(function (keyVal) {
@@ -6365,12 +3134,12 @@ var XhrFormData = /** @class */ (function (_super) {
     XhrFormData.prototype.toFormData = function () {
         var _this = this;
         var ret = new FormData();
-        monadish_1.LazyStream.of.apply(monadish_1.LazyStream, Object.keys(this.value)).filter(function (key) { return !(key in _this.fileInputs); })
+        mona_dish_1.LazyStream.of.apply(mona_dish_1.LazyStream, Object.keys(this.value)).filter(function (key) { return !(key in _this.fileInputs); })
             .each(function (key) {
-            monadish_2.Stream.of.apply(monadish_2.Stream, _this.value[key]).each(function (item) { return ret.append(key, item); });
+            mona_dish_2.Stream.of.apply(mona_dish_2.Stream, _this.value[key]).each(function (item) { return ret.append(key, item); });
         });
-        monadish_2.Stream.of.apply(monadish_2.Stream, Object.keys(this.fileInputs)).each(function (key) {
-            monadish_3.DQ.querySelectorAllDeep("[name='" + key + "'], [id=\"" + key + "\"]").eachElem(function (elem) {
+        mona_dish_2.Stream.of.apply(mona_dish_2.Stream, Object.keys(this.fileInputs)).each(function (key) {
+            mona_dish_2.DQ.querySelectorAllDeep("[name='" + key + "'], [id=\"" + key + "\"]").eachElem(function (elem) {
                 var _a;
                 var identifier = _this.resolveSubmitIdentifier(elem);
                 if (!((_a = elem === null || elem === void 0 ? void 0 : elem.files) === null || _a === void 0 ? void 0 : _a.length)) {
@@ -6399,12 +3168,12 @@ var XhrFormData = /** @class */ (function (_super) {
         if (this.isAbsent()) {
             return defaultStr;
         }
-        var entries = monadish_1.LazyStream.of.apply(monadish_1.LazyStream, Object.keys(this.value)).filter(function (key) { return _this.value.hasOwnProperty(key); })
-            .flatMap(function (key) { return monadish_2.Stream.of.apply(monadish_2.Stream, _this.value[key]).map(function (val) { return [key, val]; }).collect(new monadish_1.ArrayCollector()); })
+        var entries = mona_dish_1.LazyStream.of.apply(mona_dish_1.LazyStream, Object.keys(this.value)).filter(function (key) { return _this.value.hasOwnProperty(key); })
+            .flatMap(function (key) { return mona_dish_2.Stream.of.apply(mona_dish_2.Stream, _this.value[key]).map(function (val) { return [key, val]; }).collect(new mona_dish_1.ArrayCollector()); })
             .map(function (keyVal) {
             return encodeURIComponent(keyVal[0]) + "=" + encodeURIComponent(keyVal[1]);
         })
-            .collect(new monadish_1.ArrayCollector());
+            .collect(new mona_dish_1.ArrayCollector());
         return entries.join("&");
     };
     /**
@@ -6419,7 +3188,7 @@ var XhrFormData = /** @class */ (function (_super) {
             //in case of our myfaces reduced ppr we only
             //only submit the partials
             this._value = {};
-            toEncode = new (monadish_3.DQ.bind.apply(monadish_3.DQ, __spreadArray([void 0], this.partialIdsArray)))();
+            toEncode = new (mona_dish_2.DQ.bind.apply(mona_dish_2.DQ, __spreadArray([void 0], this.partialIdsArray)))();
         }
         else {
             if (parentItem.isAbsent())
@@ -6443,7 +3212,7 @@ var XhrFormData = /** @class */ (function (_super) {
         configurable: true
     });
     return XhrFormData;
-}(monadish_1.Config));
+}(mona_dish_1.Config));
 exports.XhrFormData = XhrFormData;
 
 
@@ -6455,6 +3224,7 @@ exports.XhrFormData = XhrFormData;
   \********************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
+"use strict";
 
 /* Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -6473,7 +3243,7 @@ exports.XhrFormData = XhrFormData;
  */
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.XhrRequest = void 0;
-var monadish_1 = __webpack_require__(/*! ../../ext/monadish */ "./src/main/typescript/ext/monadish/index.ts");
+var mona_dish_1 = __webpack_require__(/*! mona-dish */ "./node_modules/mona-dish/dist/js/commonjs/index.js");
 var AjaxImpl_1 = __webpack_require__(/*! ../AjaxImpl */ "./src/main/typescript/impl/AjaxImpl.ts");
 var XhrFormData_1 = __webpack_require__(/*! ./XhrFormData */ "./src/main/typescript/impl/xhrCore/XhrFormData.ts");
 var ErrorData_1 = __webpack_require__(/*! ./ErrorData */ "./src/main/typescript/impl/xhrCore/ErrorData.ts");
@@ -6593,12 +3363,12 @@ var XhrRequest = /** @class */ (function () {
         }
     };
     XhrRequest.prototype.resolve = function (data) {
-        monadish_1.Stream.of.apply(monadish_1.Stream, this.thenFunc).reduce(function (inputVal, thenFunc) {
+        mona_dish_1.Stream.of.apply(mona_dish_1.Stream, this.thenFunc).reduce(function (inputVal, thenFunc) {
             return thenFunc(inputVal);
         }, data);
     };
     XhrRequest.prototype.reject = function (data) {
-        monadish_1.Stream.of.apply(monadish_1.Stream, this.catchFuncs).reduce(function (inputVal, catchFunc) {
+        mona_dish_1.Stream.of.apply(mona_dish_1.Stream, this.catchFuncs).reduce(function (inputVal, catchFunc) {
             return catchFunc(inputVal);
         }, data);
     };
