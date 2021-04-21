@@ -19,36 +19,30 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
-import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.DateTimeConverter;
-import java.lang.invoke.MethodHandles;
-import java.util.Date;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.DateTagDeclaration}
  */
-public abstract class AbstractUIDate extends AbstractUIIn {
+public abstract class AbstractUIDate extends AbstractUIInput {
 
-  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+  private transient HtmlInputTypes type;
+  private transient String pattern;
+
+  public HtmlInputTypes getType() {
+    return type;
+  }
+
+  public void setType(HtmlInputTypes type) {
+    this.type = type;
+  }
 
   public String getPattern() {
-    final FacesContext facesContext = getFacesContext();
-    Converter converter = ComponentUtils.getConverter(facesContext, this, getSubmittedValue());
-    if (!(converter instanceof DateTimeConverter)) {
-      // hack for prototyping, if there is no value behind the component.
-      converter = facesContext.getApplication().createConverter(Date.class);
-      if (LOG.isWarnEnabled()) {
-        LOG.warn("Can't find a converter to get a pattern in component {}! Using default.",
-            getClientId(facesContext));
-      }
-    }
-    return DateFormatUtils.findPattern((DateTimeConverter) converter);
+    return pattern;
+  }
+
+  public void setPattern(String pattern) {
+    this.pattern = pattern;
   }
 
   public abstract boolean isTodayButton();

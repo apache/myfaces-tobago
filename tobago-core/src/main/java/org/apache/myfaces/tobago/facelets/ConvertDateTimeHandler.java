@@ -39,6 +39,10 @@ import java.lang.invoke.MethodHandles;
 import java.util.Locale;
 import java.util.TimeZone;
 
+/**
+ * @deprecated Since 5.0.0. Should work with &lt;f:convertDateTime> since JSF 2.3.
+ */
+@Deprecated
 public class ConvertDateTimeHandler extends ConverterHandler {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());

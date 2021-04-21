@@ -10321,6 +10321,13 @@
           super();
       }
       connectedCallback() {
+          console.debug("input type=date support", DatePicker.SUPPORTS_INPUT_TYPE_DATE);
+          if (!DatePicker.SUPPORTS_INPUT_TYPE_DATE) {
+              this.setAttribute("type", "text");
+              this.initVanillaDatePicker();
+          }
+      }
+      initVanillaDatePicker() {
           var _a;
           const field = this.field;
           const locale = Page.page(this).locale;
@@ -10390,7 +10397,8 @@
           }
       }
       get pattern() {
-          return this.getAttribute("pattern");
+          let pattern = this.getAttribute("pattern");
+          return pattern ? pattern : "yyyy-mm-dd";
       }
       get i18n() {
           const i18n = this.getAttribute("i18n");
@@ -10401,6 +10409,13 @@
           return rootNode.getElementById(this.id + "::field");
       }
   }
+  DatePicker.SUPPORTS_INPUT_TYPE_DATE = (() => {
+      let input = document.createElement('input');
+      input.setAttribute('type', 'date');
+      let thisIsNoDate = 'this is not a date';
+      input.setAttribute('value', thisIsNoDate);
+      return (input.value !== thisIsNoDate);
+  })();
   document.addEventListener("tobago.init", function (event) {
       if (window.customElements.get("tobago-date") == null) {
           window.customElements.define("tobago-date", DatePicker);

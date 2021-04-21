@@ -44,6 +44,14 @@ interface DatePickerOptions {
 
 class DatePicker extends HTMLElement {
 
+  static readonly SUPPORTS_INPUT_TYPE_DATE : boolean = (() => {
+    let input = document.createElement('input');
+    input.setAttribute('type','date');
+    let thisIsNoDate = 'this is not a date';
+    input.setAttribute('value', thisIsNoDate);
+    return (input.value !== thisIsNoDate);
+  })();
+
   lastValue: string;
 
   constructor() {
@@ -51,6 +59,15 @@ class DatePicker extends HTMLElement {
   }
 
   connectedCallback(): void {
+    console.debug("input type=date support", DatePicker.SUPPORTS_INPUT_TYPE_DATE);
+
+    if (!DatePicker.SUPPORTS_INPUT_TYPE_DATE) {
+      this.setAttribute("type", "text");
+      this.initVanillaDatePicker();
+    }
+  }
+
+  initVanillaDatePicker(): void {
     const field = this.field;
     const locale: string = Page.page(this).locale;
 
@@ -132,7 +149,8 @@ class DatePicker extends HTMLElement {
   }
 
   get pattern(): string {
-    return this.getAttribute("pattern");
+    let pattern = this.getAttribute("pattern");
+    return pattern ? pattern : "yyyy-mm-dd";
   }
 
   get i18n(): DatePickerI18n {

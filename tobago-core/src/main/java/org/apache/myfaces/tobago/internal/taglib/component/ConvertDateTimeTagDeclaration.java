@@ -31,7 +31,10 @@ import javax.el.ValueExpression;
 /**
  * Register a DateTimeConverter instance on the UIComponent associated with the closest parent UIComponent custom
  * action.
+ *
+ * @deprecated Since 5.0.0. Should work with &lt;f:convertDateTime> since JSF 2.3.
  */
+@Deprecated
 @Tag(name = "convertDateTime")
 @ConverterTag(
     converterId = DateTimeConverter.CONVERTER_ID,

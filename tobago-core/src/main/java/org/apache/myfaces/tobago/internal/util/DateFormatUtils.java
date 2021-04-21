@@ -118,69 +118,129 @@ public final class DateFormatUtils {
    * and convert it to 'vanillajs-datepicker', see https://mymth.github.io/vanillajs-datepicker/#/date-string+format
    * Attention: Not every pattern char is supported.
    */
-  public static String toJavaScriptPattern(final String originalPattern) {
-    String pattern;
-    if (originalPattern == null || originalPattern.length() > 100) {
-      LOG.warn("Pattern not supported: " + originalPattern);
-      pattern = "";
-    } else {
-      pattern = originalPattern;
+  public static class DateTimeJavaScriptPattern {
+
+    private StringBuilder buffer = new StringBuilder();
+    private StringBuilder datePattern;
+    private StringBuilder timePattern;
+    private String separator;
+
+    private boolean dateMode = false;
+    private boolean timeMode = false;
+
+    private int lastDateIndex = -1;
+    private int lastTimeIndex = -1;
+
+    public DateTimeJavaScriptPattern(final String javaPattern) {
+      String pattern;
+      if (javaPattern == null) {
+        LOG.warn("Empty pattern not supported!");
+        // XXX an missing pattern might be supporable without Datepicker, but with simple <tc:in>
+        pattern = "";
+      } else if (javaPattern.length() > 100) {
+        LOG.warn("Pattern too long (max = 100): '{}'!", javaPattern);
+        pattern = "";
+      } else if (javaPattern.indexOf('\'') > -1) {
+        LOG.warn("Pattern escape char ' is not supported: '{}'!", javaPattern);
+        pattern = "";
+      } else if (StringUtils.containsAny(javaPattern, "GWFKzX")) {
+        LOG.warn("Pattern chars 'G', 'W', 'F', 'K', 'z' and 'X' are not supported: '{}'!", javaPattern);
+        pattern = "";
+      } else {
+        pattern = javaPattern;
+      }
+
+      for (int i = 0; i < pattern.length(); i++) {
+        final char c = pattern.charAt(i);
+        checkSpit(i, c);
+        append(c);
+      }
     }
 
-    StringBuilder analyzedPattern = new StringBuilder();
-    StringBuilder nextSegment = new StringBuilder();
-    boolean escMode = false;
-    for (int i = 0; i < pattern.length(); i++) {
-      final char currentChar = pattern.charAt(i);
-      if (currentChar == '\'' && !escMode) {
-        escMode = true;
-        analyzedPattern.append(toJavaScriptPatternPart(nextSegment.toString()));
-        nextSegment = new StringBuilder();
-      } else if (currentChar == '\'' && pattern.charAt(i + 1) == '\'') {
-        nextSegment.append("\\");
-        nextSegment.append("'");
-        i++;
-      } else if (currentChar == '\'') {
-        escMode = false;
-        analyzedPattern.append(nextSegment);
-        nextSegment = new StringBuilder();
-      } else {
-        if (escMode) {
-          nextSegment.append("\\");
+    private void checkSpit(final int index, final char c) {
+
+      boolean isDate = isDate(c);
+      boolean isTime = isTime(c);
+
+      if (isDate){
+        lastDateIndex = index;
+      }
+      if (isTime){
+        lastTimeIndex = index;
+      }
+
+      if (!dateMode && !timeMode && isDate) {
+        dateMode = true;
+        datePattern = new StringBuilder(buffer);
+        buffer.setLength(0);
+      } else if (!dateMode && !timeMode && isTime) {
+        timeMode = true;
+        timePattern = new StringBuilder(buffer);
+        buffer.setLength(0);
+      } else if (!dateMode && !timeMode) {
+        LOG.warn("Prefix without date/time char currently not supported!");
+      } else if (dateMode && isTime) {
+        timeMode = true;
+        dateMode = false;
+        timePattern = new StringBuilder();
+        separator = datePattern.substring(lastDateIndex + 1);
+        datePattern.setLength(lastDateIndex + 1);
+        if (timePattern != null) {
+          LOG.warn("Pattern mixed!");
         }
-        nextSegment.append(currentChar);
-      }
-    }
-    if (nextSegment.toString().length() > 0) {
-      if (escMode) {
-        analyzedPattern.append(nextSegment);
+      } else if (timeMode && isDate) {
+        timeMode = false;
+        dateMode = true;
+        datePattern = new StringBuilder();
+        separator = timePattern.substring(lastTimeIndex + 1);
+        timePattern.setLength(lastTimeIndex + 1);
+        if (datePattern != null) {
+          LOG.warn("Pattern mixed!");
+        }
       } else {
-        analyzedPattern.append(toJavaScriptPatternPart(nextSegment.toString()));
+        // nothing to switch
       }
     }
 
-    return analyzedPattern.toString();
+    private void append(final char c) {
+      final char converted = convert(c);
+
+      if (dateMode) {
+        datePattern.append(converted);
+      } else if (timeMode) {
+        timePattern.append(converted);
+      } else {
+        buffer.append(converted);
+      }
+    }
+
+    public String getDatePattern() {
+      return datePattern != null ? datePattern.toString() : null;
+    }
+
+    public String getTimePattern() {
+      return timePattern != null ? timePattern.toString() : null;
+    }
+
+    public String getSeparator() {
+      return separator;
+    }
+
+    public static boolean isDate(final char c) {
+      return c == 'y' || c == 'Y' || c == 'M' || c == 'L' || c == 'd';
+    }
+
+    private static boolean isTime(final char c) {
+      return c == 'H' || c == 'm' || c == 's';
+    }
+
+    private char convert(char c) {
+
+      if (c == 'M') {
+        return 'm';
+      } else {
+        return c;
+      }
+    }
   }
-
-  public static String toJavaScriptPatternPart(String originalPattern) {
-
-    String pattern = originalPattern;
-
-    if (pattern.contains("G") || pattern.contains("W") || pattern.contains("F")
-        || pattern.contains("K") || pattern.contains("z") || pattern.contains("X")) {
-      LOG.warn("Pattern chars 'G', 'W', 'F', 'K', 'z' and 'X' are not supported: " + pattern);
-      pattern = "";
-    }
-
-    if (pattern.contains("M")) {
-      pattern = pattern.replaceAll("M", "m");
-    }
-
-    if (pattern.contains("d")) {
-      pattern = pattern.replaceAll("dd+", "dd");
-    }
-
-    return pattern;
-  }
-
 }

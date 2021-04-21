@@ -93,11 +93,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import javax.faces.component.behavior.AjaxBehavior;
+import javax.faces.convert.DateTimeConverter;
 import javax.faces.render.RenderKit;
 import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.Locale;
 
 import static org.apache.myfaces.tobago.config.TobagoConfig.TOBAGO_CONFIG;
@@ -175,6 +177,9 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
 
     application.addBehavior(AjaxBehavior.BEHAVIOR_ID, AjaxBehavior.class.getName());
     application.addBehavior(EventBehavior.BEHAVIOR_ID, EventBehavior.class.getName());
+
+    application.addConverter(Date.class, DateTimeConverter.class.getName());
+    application.addConverter("javax.faces.DateTime", DateTimeConverter.class.getName());
 
     final RenderKit renderKit = facesContext.getRenderKit();
     renderKit.addRenderer(UIBadge.COMPONENT_FAMILY, RendererTypes.BADGE, new BadgeRenderer());
