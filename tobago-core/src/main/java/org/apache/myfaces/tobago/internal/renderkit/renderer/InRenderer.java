@@ -79,7 +79,7 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
       throws IOException {
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     final String currentValue = getCurrentValue(facesContext, component);
-    final boolean password = ComponentUtils.getBooleanAttribute(component, Attributes.password);
+    final boolean password = component.isPassword();
     if (LOG.isDebugEnabled()) {
       LOG.debug("currentValue = '{}'", StringUtils.toConfidentialString(currentValue, password));
     }
@@ -117,9 +117,7 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
     if (currentValue != null && !password) {
       writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);
     }
-    if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    }
+    writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     int maxLength = 0;
     int minLength = 0;
     String pattern = null;

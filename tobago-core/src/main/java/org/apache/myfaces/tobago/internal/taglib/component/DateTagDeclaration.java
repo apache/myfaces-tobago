@@ -86,6 +86,7 @@ public interface DateTagDeclaration
   /**
    * If true, a today button is displayed on the datetimepicker.
    */
+  // todo: might be deprecated
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setTodayButton(String required);

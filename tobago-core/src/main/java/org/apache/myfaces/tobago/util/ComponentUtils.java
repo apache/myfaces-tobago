@@ -845,7 +845,10 @@ public final class ComponentUtils {
 
   /**
    * May return null, if no converter can be find.
+   *
+   * @deprecated since 5.0.0. Please use {@link RendererBase#getConverter}.
    */
+  @Deprecated
   public static Converter getConverter(
       final FacesContext facesContext, final UIComponent component, final Object value) {
 

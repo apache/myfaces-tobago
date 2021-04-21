@@ -25,6 +25,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
   COLLAPSE_TARGET("collapse-target"),
   CONFIRMATION("confirmation"),
   CLIENT_ID("client-id"),
+  DATE_PATTERN("date-pattern"),
   DELAY("delay"),
   EVENT("event"),
   /**
@@ -84,6 +85,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
    * The date of today
    */
 //  TODAY("today"),
+  TIME_PATTERN("time-pattern"),
   /**
    * Show the button to set the field to today.
    */

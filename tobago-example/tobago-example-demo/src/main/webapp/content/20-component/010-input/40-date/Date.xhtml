@@ -42,18 +42,11 @@
         <demo-highlight language="markup">&lt;tc:date label="Date" value="\#{dateController.now}"&gt;
   &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
 &lt;/tc:date&gt;</demo-highlight>
-    <tc:date id="dNormal" label="Date" value="#{dateController.now}">
-      <f:convertDateTime pattern="dd.MM.yyyy"/>
-    </tc:date>
-    <tc:date id="dReadonly" label="Read Only" readonly="true" value="#{dateController.now}">
-      <f:convertDateTime pattern="dd.MM.yyyy"/>
-    </tc:date>
-    <tc:date id="d3" label="Disabled" disabled="true" value="#{dateController.now}">
-      <f:convertDateTime pattern="dd.MM.yyyy"/>
-    </tc:date>
-    <tc:date id="d4" value="#{dateController.now}">
-      <f:convertDateTime pattern="dd.MM.yyyy"/>
-    </tc:date>
+    <tc:date id="dNormal" label="Date" value="#{dateController.sputnikLd}"/>
+    <tc:date id="dReadonly" label="Read Only" readonly="true" value="#{dateController.now}"/>
+    <tc:date id="d3" label="Disabled" disabled="true" value="#{dateController.now}"/>
+      Without a label:
+    <tc:date id="d4" value="#{dateController.now}"/>
   </tc:section>
   <tc:section label="Focus">
     <p>The following date should be selected after reloading the page. This can be done with the attribute
@@ -61,9 +54,7 @@
         <demo-highlight language="markup">&lt;tc:date label="Date (focus)" focus="true"&gt;
   &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
 &lt;/tc:date&gt;</demo-highlight>
-    <tc:date id="d5" label="Date (focus)" focus="true">
-      <f:convertDateTime pattern="dd.MM.yyyy"/>
-    </tc:date>
+    <tc:date id="d5" label="Date (focus)" focus="true"/>
   </tc:section>
 
   <tc:section label="Required">
@@ -73,9 +64,7 @@
     <demo-highlight language="markup">&lt;tc:date label="Date (required)" required="true"
     value="\#{dateController.once}"></demo-highlight>
     <tc:form>
-      <tc:date id="dreq" label="Date (required)" required="true" value="#{dateController.once}">
-        <f:convertDateTime pattern="dd.MM.yyyy"/>
-      </tc:date>
+      <tc:date id="dreq" label="Date (required)" required="true" value="#{dateController.once}"/>
       <tc:button label="Submit"/>
     </tc:form>
   </tc:section>
@@ -195,7 +184,6 @@
       The date can be changed by button or by entering a valid date in the textfield. If the date is not valid,
       it won't be adopted.</p>
     <tc:date id="ajaxinput" label="On Change" value="#{dateController.onchange}">
-      <f:convertDateTime pattern="dd.MM.yyyy"/>
       <f:ajax render="outputfield"/>
     </tc:date>
     <tc:out id="outputfield" label="On Server" value="#{dateController.onchange}">

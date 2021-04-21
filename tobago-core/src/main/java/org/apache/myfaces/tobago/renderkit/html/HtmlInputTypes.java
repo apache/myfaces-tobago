@@ -31,7 +31,47 @@ public enum HtmlInputTypes implements HtmlTypes {
   FILE("file"),
   HIDDEN("hidden"),
   IMAGE("image"),
-  BUTTON("button");
+  BUTTON("button"),
+  COLOR("color"),
+  DATE("date"),
+  /** @deprecated */
+  @Deprecated
+  DATETIME("datetime"),
+  DATETIME_LOCAL("datetime-local"),
+  EMAIL("email"),
+  MONTH("month"),
+  NUMBER("number"),
+  SEARCH("search"),
+  TEL("tel"),
+  TIME("time"),
+  URL("url"),
+  WEEK("week");
+
+  public static final String STRING_TEXT = "text";
+  public static final String STRING_PASSWORD = "password";
+  public static final String STRING_CHECKBOX = "checkbox";
+  public static final String STRING_RADIO = "radio";
+  public static final String STRING_RANGE = "range";
+  public static final String STRING_SUBMIT = "submit";
+  public static final String STRING_RESET = "reset";
+  public static final String STRING_FILE = "file";
+  public static final String STRING_HIDDEN = "hidden";
+  public static final String STRING_IMAGE = "image";
+  public static final String STRING_BUTTON = "button";
+  public static final String STRING_COLOR = "color";
+  public static final String STRING_DATE = "date";
+  /** @deprecated */
+  @Deprecated
+  public static final String STRING_DATETIME = "datetime";
+  public static final String STRING_DATETIME_LOCAL = "datetime-local";
+  public static final String STRING_EMAIL = "email";
+  public static final String STRING_MONTH = "month";
+  public static final String STRING_NUMBER = "number";
+  public static final String STRING_SEARCH = "search";
+  public static final String STRING_TEL = "tel";
+  public static final String STRING_TIME = "time";
+  public static final String STRING_URL = "url";
+  public static final String STRING_WEEK = "week";
 
   private final String value;
 
@@ -43,4 +83,13 @@ public enum HtmlInputTypes implements HtmlTypes {
   public String getValue() {
     return value;
   }
+
+  public final boolean supportsDate() {
+    return this == DATE || this == DATETIME_LOCAL || this == WEEK || this == MONTH;
+  }
+
+  public final boolean supportsTime() {
+    return this == TIME || this == DATETIME_LOCAL;
+  }
+
 }

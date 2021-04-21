@@ -44,6 +44,10 @@ import java.util.TimeZone;
 
 import static org.apache.myfaces.tobago.convert.DateTimeConverter.CONVERTER_ID;
 
+/**
+ * @deprecated Since 5.0.0. Should work with &lt;f:convertDateTime> since JSF 2.3.
+ */
+@Deprecated
 @org.apache.myfaces.tobago.apt.annotation.Converter(id = CONVERTER_ID)
 public class DateTimeConverter extends javax.faces.convert.DateTimeConverter {
 

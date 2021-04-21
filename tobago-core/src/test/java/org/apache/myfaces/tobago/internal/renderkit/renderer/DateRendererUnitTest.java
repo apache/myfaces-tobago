@@ -22,64 +22,206 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIDate;
-import org.apache.myfaces.tobago.convert.DateTimeConverter;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.faces.convert.Converter;
+import javax.faces.convert.DateTimeConverter;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.TimeZone;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 
 public class DateRendererUnitTest extends RendererTestBase {
 
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+  private static final LocalDateTime SPUTNIK_LOCAL_DATE_TIME = LocalDateTime.of(1957, 10, 5, 0, 28, 34, 123456789);
+  private static final LocalDate SPUTNIK_LOCAL_DATE = SPUTNIK_LOCAL_DATE_TIME.toLocalDate();
+  private static final LocalTime SPUTNIK_LOCAL_TIME = SPUTNIK_LOCAL_DATE_TIME.toLocalTime();
+  private static final ZonedDateTime SPUTNIK_ZONED_DATE_TIME = SPUTNIK_LOCAL_DATE_TIME.atZone(ZoneId.of("+05:00"));
+  private static final Date SPUTNIK_DATE = Date.from(SPUTNIK_ZONED_DATE_TIME.toInstant());
+
+//  Naming scheme: value-type + converter-type
+
   @Test
-  public void date() throws IOException {
+  public void dateBoth() throws IOException {
 
     final UIDate d = (UIDate) ComponentUtils.createComponent(
         facesContext, Tags.date.componentType(), RendererTypes.Date, "id");
+    d.setValue(SPUTNIK_DATE);
+
     DateTimeConverter c = new DateTimeConverter();
-    c.setPattern("dd.MM.yyyy");
+    c.setType("both");
+    c.setPattern("yyyy-MM-dd'T'HH:mm:ss");
     d.setConverter(c);
 
+    log(d);
     d.encodeAll(facesContext);
 
-    Assertions.assertEquals(loadHtml("renderer/date/date.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/date/dateBoth.html"), formattedResult());
   }
 
   @Test
-  public void dateLabel() throws IOException, ParseException {
+  public void dateDate() throws IOException {
+
+    final UIDate d = (UIDate) ComponentUtils.createComponent(
+        facesContext, Tags.date.componentType(), RendererTypes.Date, "id");
+    d.setValue(SPUTNIK_DATE);
+
+    DateTimeConverter c = new DateTimeConverter();
+    c.setType("date");
+    c.setPattern("yyyy-MM-dd");
+    d.setConverter(c);
+
+    log(d);
+    d.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/date/dateDate.html"), formattedResult());
+  }
+
+  @Test
+  public void dateAuto() throws IOException {
+
+    final UIDate d = (UIDate) ComponentUtils.createComponent(
+        facesContext, Tags.date.componentType(), RendererTypes.Date, "id");
+    d.setValue(SPUTNIK_DATE);
+
+    log(d);
+    d.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/date/dateAuto.html"), formattedResult());
+  }
+
+  @Test
+  public void dateTime() throws IOException {
+
+    final UIDate d = (UIDate) ComponentUtils.createComponent(
+        facesContext, Tags.date.componentType(), RendererTypes.Date, "id");
+    d.setValue(SPUTNIK_DATE);
+
+    DateTimeConverter c = new DateTimeConverter();
+    c.setType("time");
+    c.setPattern("HH:mm:ss");
+    d.setConverter(c);
+
+    log(d);
+    d.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/date/dateTime.html"), formattedResult());
+  }
+
+  @Test
+  public void testLabel() throws IOException, ParseException {
 
     final UIDate d = (UIDate) ComponentUtils.createComponent(
         facesContext, Tags.date.componentType(), RendererTypes.Date, "id");
     d.setLabel("Label");
-    DateTimeConverter c = new DateTimeConverter();
-    c.setPattern("dd.MM.yyyy");
-    d.setConverter(c);
-    final SimpleDateFormat sdf = new SimpleDateFormat(c.getPattern());
-    sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-    d.setValue(sdf.parse("10.12.2020"));
+    d.setValue(SPUTNIK_LOCAL_DATE);
 
+    log(d);
     d.encodeAll(facesContext);
 
-    Assertions.assertEquals(loadHtml("renderer/date/date-label.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/date/testLabel.html"), formattedResult());
   }
 
   @Test
-  public void dateTodayButton() throws IOException {
+  public void localDateAuto() throws IOException {
+
+    final UIDate d = (UIDate) ComponentUtils.createComponent(
+        facesContext, Tags.date.componentType(), RendererTypes.Date, "id");
+    d.setValue(SPUTNIK_LOCAL_DATE);
+
+    d.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/date/localDateAuto.html"), formattedResult());
+  }
+
+  @Test
+  public void localDateTimeAuto() throws IOException {
+
+    final UIDate d = (UIDate) ComponentUtils.createComponent(
+        facesContext, Tags.date.componentType(), RendererTypes.Date, "id");
+    d.setValue(SPUTNIK_LOCAL_DATE_TIME);
+
+    d.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/date/localDateTimeAuto.html"), formattedResult());
+  }
+
+  // old
+
+  @Test
+  public void zonedDateTimeAuto() throws IOException {
+
+    final UIDate d = (UIDate) ComponentUtils.createComponent(
+        facesContext, Tags.date.componentType(), RendererTypes.Date, "id");
+    d.setValue(SPUTNIK_ZONED_DATE_TIME);
+
+    d.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/date/zonedDateTimeAuto.html"), formattedResult());
+  }
+
+  // todo: might be removed
+  @Test
+  public void testTodayButton() throws IOException {
 
     final UIDate d = (UIDate) ComponentUtils.createComponent(
         facesContext, Tags.date.componentType(), RendererTypes.Date, "id");
     d.setLabel("Label");
+    d.setValue(SPUTNIK_LOCAL_DATE);
     d.setTodayButton(true);
-    DateTimeConverter c = new DateTimeConverter();
-    c.setPattern("dd.MM.yyyy");
-    d.setConverter(c);
 
     d.encodeAll(facesContext);
 
-    Assertions.assertEquals(loadHtml("renderer/date/date-today-button.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/date/testTodayButton.html"), formattedResult());
+  }
+
+  @Test
+  @Disabled
+  public void text() throws IOException {
+
+    final UIDate d = (UIDate) ComponentUtils.createComponent(
+        facesContext, Tags.date.componentType(), RendererTypes.Date, "id");
+    d.setValue(SPUTNIK_LOCAL_DATE_TIME);
+
+    d.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/date/text.html"), formattedResult());
+  }
+
+  @Test
+  public void localTimeAuto() throws IOException {
+
+    final UIDate d = (UIDate) ComponentUtils.createComponent(
+        facesContext, Tags.date.componentType(), RendererTypes.Date, "id");
+    d.setValue(SPUTNIK_LOCAL_TIME);
+
+    d.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/date/localTimeAuto.html"), formattedResult());
+  }
+
+  private void log(UIDate d) {
+    Converter<?> converter = d.getConverter();
+    String pattern = converter instanceof DateTimeConverter ? ((DateTimeConverter) converter).getPattern() : "-";
+    String type = converter instanceof DateTimeConverter ? ((DateTimeConverter) converter).getType() : "-";
+    LOG.info(
+        "type-of-value='{}' with converter='{}', pattern='{}', type='{}'",
+        d.getValue().getClass().getName(),
+        converter != null ? converter.getClass().getName() : "-",
+        pattern,
+        type);
   }
 
 }

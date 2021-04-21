@@ -421,7 +421,7 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
         if (itemValue instanceof String && values != null && values.length > 0 && !(values[0] instanceof String)) {
           itemValue = ComponentUtils.getConvertedValue(facesContext, component, (String) itemValue);
         }
-        final String formattedValue = getFormattedValue(facesContext, component, itemValue);
+        final String formattedValue = getFormattedValue(facesContext, (T) component, itemValue);
         final boolean contains;
         if (submittedValues == null) {
           contains = ArrayUtils.contains(values, itemValue);
@@ -473,7 +473,7 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
   }
 
   protected String getFormattedValue(
-      final FacesContext facesContext, final UIComponent component, final Object currentValue)
+      final FacesContext facesContext, final T component, final Object currentValue)
       throws ConverterException {
 
     if (currentValue == null) {
@@ -492,7 +492,7 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
    * May return null, if no converter can be find.
    */
   protected Converter getConverter(
-      final FacesContext facesContext, final UIComponent component, final Object value) {
+      final FacesContext facesContext, final T component, final Object value) {
 
     Converter converter = null;
     if (component instanceof ValueHolder) {

@@ -26,4 +26,5 @@ public abstract class AbstractUIIn extends AbstractUIInput {
 
   public abstract String getPlaceholder();
 
+  public abstract boolean isPassword();
 }
