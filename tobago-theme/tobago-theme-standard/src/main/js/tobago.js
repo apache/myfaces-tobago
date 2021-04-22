@@ -10321,10 +10321,12 @@
           super();
       }
       connectedCallback() {
-          console.debug("input type=date support", DatePicker.SUPPORTS_INPUT_TYPE_DATE);
-          if (!DatePicker.SUPPORTS_INPUT_TYPE_DATE) {
-              this.setAttribute("type", "text");
-              this.initVanillaDatePicker();
+          if (this.type == "date") {
+              console.debug("check input type=date support", DatePicker.SUPPORTS_INPUT_TYPE_DATE);
+              if (!DatePicker.SUPPORTS_INPUT_TYPE_DATE) {
+                  this.setAttribute("type", "text");
+                  this.initVanillaDatePicker();
+              }
           }
       }
       initVanillaDatePicker() {
@@ -10341,7 +10343,9 @@
               autohide: true,
               language: locale,
               todayBtn: this.todayButton,
-              todayBtnMode: 1
+              todayBtnMode: 1,
+              minDate: this.min,
+              maxDate: this.max,
               // todo readonly
               // todo show week numbers
           };
@@ -10395,6 +10399,18 @@
           else {
               this.removeAttribute("today-button");
           }
+      }
+      get type() {
+          var _a;
+          return (_a = this.field) === null || _a === void 0 ? void 0 : _a.getAttribute("type");
+      }
+      get min() {
+          var _a;
+          return (_a = this.field) === null || _a === void 0 ? void 0 : _a.getAttribute("min");
+      }
+      get max() {
+          var _a;
+          return (_a = this.field) === null || _a === void 0 ? void 0 : _a.getAttribute("max");
       }
       get pattern() {
           let pattern = this.getAttribute("pattern");

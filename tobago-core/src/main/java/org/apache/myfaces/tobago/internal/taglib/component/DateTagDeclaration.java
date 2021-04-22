@@ -90,4 +90,18 @@ public interface DateTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setTodayButton(String required);
+
+  /**
+   * Sets the minimum value of the date.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = {"java.time.LocalDate", "java.util.Date"})
+  void setMin(String min);
+
+  /**
+   * Sets the maximum value of the date.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = {"java.time.LocalDate", "java.util.Date"})
+  void setMax(String max);
 }

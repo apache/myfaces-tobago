@@ -50,6 +50,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -154,6 +155,8 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
 //    if (!disabled && !readonly) {
 //      writer.writeAttribute(HtmlAttributes.PLACEHOLDER, component.getPlaceholder(), true);
 //    }
+    writer.writeAttribute(HtmlAttributes.MIN, convertToString(component.getMin()), true);
+    writer.writeAttribute(HtmlAttributes.MAX, convertToString(component.getMax()), true);
 
     writer.writeClassAttribute(
         BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
@@ -172,6 +175,19 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
     }
     if (type.supportsTime()) {
       encodeButton(facesContext, component, FaIcons.CLOCK_O);
+    }
+  }
+
+  private String convertToString(Object value) {
+    if (value == null) {
+      return null;
+    } else if (value instanceof String) {
+      return (String) value;
+    } else if (value instanceof LocalDate) {
+      return ((LocalDate) value).format(DateTimeFormatter.ISO_LOCAL_DATE);
+    } else {
+      LOG.warn("Unknown type for min/max: '{}'", value);
+      return value.toString();
     }
   }
 

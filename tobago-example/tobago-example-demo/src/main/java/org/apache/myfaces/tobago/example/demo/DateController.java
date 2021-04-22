@@ -50,6 +50,12 @@ public class DateController implements Serializable {
   private LocalDateTime sputnikLdt = SPUTNIK_LOCAL_DATE_TIME;
   private LocalDate sputnikLd = APOLLO11_LOCAL_DATE_TIME.toLocalDate();
 
+  private final LocalDate today = LocalDate.now();
+
+  private LocalDate party;
+  private final LocalDate partyMin = today.plusDays(3);
+  private final LocalDate partyMax = today.plusDays(10);
+
   public DateController() {
     once = new Date();
     final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -102,5 +108,25 @@ public class DateController implements Serializable {
 
   public void setSputnikLd(LocalDate sputnikLd) {
     this.sputnikLd = sputnikLd;
+  }
+
+  public LocalDate getToday() {
+    return today;
+  }
+
+  public LocalDate getParty() {
+    return party;
+  }
+
+  public void setParty(LocalDate party) {
+    this.party = party;
+  }
+
+  public LocalDate getPartyMin() {
+    return partyMin;
+  }
+
+  public LocalDate getPartyMax() {
+    return partyMax;
   }
 }

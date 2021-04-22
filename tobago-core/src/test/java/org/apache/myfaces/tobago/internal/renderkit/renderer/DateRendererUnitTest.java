@@ -147,6 +147,20 @@ public class DateRendererUnitTest extends RendererTestBase {
   }
 
   @Test
+  public void minMax() throws IOException {
+
+    final UIDate d = (UIDate) ComponentUtils.createComponent(
+        facesContext, Tags.date.componentType(), RendererTypes.Date, "id");
+    d.setValue(SPUTNIK_LOCAL_DATE);
+    d.setMin(SPUTNIK_LOCAL_DATE.minusDays(30));
+    d.setMax(SPUTNIK_LOCAL_DATE.plusDays(30));
+
+    d.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/date/minMax.html"), formattedResult());
+  }
+
+  @Test
   public void localDateTimeAuto() throws IOException {
 
     final UIDate d = (UIDate) ComponentUtils.createComponent(

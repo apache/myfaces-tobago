@@ -46,4 +46,8 @@ public abstract class AbstractUIDate extends AbstractUIInput {
   }
 
   public abstract boolean isTodayButton();
+
+  public abstract Object getMin();
+
+  public abstract Object getMax();
 }
