@@ -163,6 +163,14 @@
       <f:convertDateTime dateStyle="full" timeStyle="full" type="both"/>
     </tc:date>
   </tc:section>
+  <tc:section label="Min and Max">
+    <p>
+      To define the earliest or latest acceptable date, the attributes <code>min</code>
+      and <code>max</code> can be used.
+    </p>
+      <tc:date id="minmax" label="Party" value="#{dateController.party}" tip="Pick a date in the next 3 to 10 days"
+      min="#{dateController.partyMin}" max="#{dateController.partyMax}"/>
+  </tc:section>
   <tc:section label="Submit">
     <tc:form id="formSubmit">
       <p>Press the button to submit the date to the server. The output field show the current value.

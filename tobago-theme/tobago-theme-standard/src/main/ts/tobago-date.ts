@@ -40,6 +40,8 @@ interface DatePickerOptions {
   language: string;
   todayBtn: boolean;
   todayBtnMode: number;
+  minDate: string;
+  maxDate: string;
 }
 
 class DatePicker extends HTMLElement {
@@ -59,11 +61,12 @@ class DatePicker extends HTMLElement {
   }
 
   connectedCallback(): void {
-    console.debug("input type=date support", DatePicker.SUPPORTS_INPUT_TYPE_DATE);
-
-    if (!DatePicker.SUPPORTS_INPUT_TYPE_DATE) {
-      this.setAttribute("type", "text");
-      this.initVanillaDatePicker();
+    if (this.type == "date") {
+      console.debug("check input type=date support", DatePicker.SUPPORTS_INPUT_TYPE_DATE);
+      if (!DatePicker.SUPPORTS_INPUT_TYPE_DATE) {
+        this.setAttribute("type", "text");
+        this.initVanillaDatePicker();
+      }
     }
   }
 
@@ -82,7 +85,9 @@ class DatePicker extends HTMLElement {
       autohide: true,
       language: locale,
       todayBtn: this.todayButton,
-      todayBtnMode: 1
+      todayBtnMode: 1,
+      minDate: this.min,
+      maxDate: this.max,
       // todo readonly
       // todo show week numbers
     };
@@ -146,6 +151,18 @@ class DatePicker extends HTMLElement {
     } else {
       this.removeAttribute("today-button");
     }
+  }
+
+  get type(): string {
+    return this.field?.getAttribute("type");
+  }
+
+  get min(): string {
+    return this.field?.getAttribute("min");
+  }
+
+  get max(): string {
+    return this.field?.getAttribute("max");
   }
 
   get pattern(): string {
