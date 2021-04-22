@@ -31,7 +31,6 @@
     <theme.name>standard</theme.name>
     <frontend.skip>true</frontend.skip>
     <webcomponents__custom-elements.version>1.4.2</webcomponents__custom-elements.version>
-    <tether.version>1.4.0</tether.version>
   </properties>
 
   <dependencies>
@@ -55,11 +54,6 @@
       <version>${project.version}</version>
       <classifier>tests</classifier>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-        <artifactId>tether</artifactId>
-      <version>${tether.version}</version>
     </dependency>
     <dependency>
       <groupId>org.webjars.npm</groupId>

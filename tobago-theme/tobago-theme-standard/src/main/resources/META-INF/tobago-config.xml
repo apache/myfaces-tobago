@@ -39,10 +39,8 @@
       <resources production="true">
         <includes>
           <script name="/webjars/webcomponents__custom-elements/${webcomponents__custom-elements.version}/custom-elements.min.js"/>
-          <script name="/webjars/tether/${tether.version}/js/tether.min.js"/>
           <script name="/tobago/standard/${project.version}/js/jsf.js"/>
           <script type="module" name="/tobago/standard/${project.version}/js/tobago.min.js"/>
-          <style name="/webjars/tether/${tether.version}/css/tether.min.css"/>
           <style name="/tobago/standard/${project.version}/css/tobago.min.css"/>
           <style name="/tobago/standard/${project.version}/css/font-awesome.min.css"/>
         </includes>
@@ -50,7 +48,6 @@
       <resources production="false">
         <includes>
           <script name="/webjars/webcomponents__custom-elements/${webcomponents__custom-elements.version}/externs/custom-elements.js"/>
-          <script name="/webjars/tether/${tether.version}/js/tether.js"/>
           <script name="/tobago/standard/${project.version}/js/jsf-development.js"/>
           <script type="module" name="/tobago/standard/${project.version}/js/tobago.js"/>
 <!--
@@ -81,7 +78,6 @@
           <script name="/tobago/standard/${project.version}/js/tobago-tree-listbox.js"/>
           <script name="/tobago/standard/${project.version}/js/tobago-utils.js"/>
 -->
-          <style name="/webjars/tether/${tether.version}/css/tether.css"/>
           <style name="/tobago/standard/${project.version}/css/tobago.css"/>
           <style name="/tobago/standard/${project.version}/css/font-awesome.css"/>
         </includes>
