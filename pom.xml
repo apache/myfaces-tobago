@@ -944,9 +944,6 @@
               <!-- moment -->
               <exclude>**/tobago/standard/moment/**/moment*.*</exclude>
 
-              <!-- tether -->
-              <exclude>**/tobago/standard/tether/**/tether*.*</exclude>
-
               <!-- typeahead -->
               <exclude>**/tobago/standard/typeahead/**/typeahead*.*</exclude>
 
