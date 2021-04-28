@@ -861,12 +861,29 @@ tobago-panel {
 tobago-popover {
 }
 
-/* popup ------------------------------------------------------------- */
 tobago-popup {
-}
+  .modal-header {
+    .modal-title {
+      margin-right: auto;
+    }
 
-.modal-content > .card {
-  margin-bottom: 0;
+    .tobago-link {
+      color: $btn-close-color;
+      opacity: $btn-close-opacity;
+
+      &:hover {
+        opacity: $btn-close-hover-opacity;
+      }
+
+      &:focus {
+        opacity: $btn-close-focus-opacity;
+      }
+    }
+  }
+
+  .modal-content > .card {
+    margin-bottom: 0;
+  }
 }
 
 /* progress ---------------------------------------------------------- */

@@ -56,55 +56,66 @@
         It contain the ID of the popup on which the transition should be executed.</p>
 
       <demo-highlight language="markup">&lt;tc:button label="Open" omit="true">
-  &lt;tc:operation name="show" for="clientPopup"/>
-&lt;/tc:button></demo-highlight>
+        &lt;tc:operation name="show" for="clientPopup"/>
+        &lt;/tc:button>
+      </demo-highlight>
       <tc:button id="open" label="Open" omit="true">
         <tc:operation name="show" for="clientPopup"/>
       </tc:button>
       <tc:out id="out" label="Text from Popup" value="#{popupController.popup2Text}"/>
 
       <tc:popup id="clientPopup" collapsedMode="hidden">
-        <tc:box label="Client Side Popup">
-          <tc:panel id="clientPopupMessages">
-            <tc:messages id="messages"/>
-          </tc:panel>
-          <p>This is a popup dialog with an input field.</p>
+        <f:facet name="label">
+          Client Side Popup
+        </f:facet>
+        <f:facet name="bar">
+          <tc:link image="fa-times" omit="true">
+            <tc:operation name="hide" for="clientPopup"/>
+          </tc:link>
+        </f:facet>
+        <tc:panel id="clientPopupMessages">
+          <tc:messages id="messages"/>
+        </tc:panel>
+        <p>This is a popup dialog with an input field.</p>
 
-          <b>Submit</b>
-          <demo-highlight language="markup">&lt;tc:button label="Submit">
-  &lt;f:ajax execute="in" render="in :::out clientPopupMessages"/>
-&lt;/tc:button></demo-highlight>
-          <p>The 'Submit'-button send an ajax request to submit the value in the input field.
-          </p>
+        <b>Submit</b>
+        <demo-highlight language="markup">&lt;tc:button label="Submit">
+          &lt;f:ajax execute="in" render="in :::out clientPopupMessages"/>
+          &lt;/tc:button>
+        </demo-highlight>
+        <p>The 'Submit'-button send an ajax request to submit the value in the input field.
+        </p>
 
-          <b>Submit &amp; Close</b>
-          <demo-highlight language="markup">&lt;tc:button label="Submit &amp; Close">
-  &lt;tc:operation name="hide" for="clientPopup"/>
-&lt;/tc:button></demo-highlight>
-          <p>The 'Submit &amp; Close'-button execute a submit and run the operation 'hide' to close the popup.</p>
+        <b>Submit &amp; Close</b>
+        <demo-highlight language="markup">&lt;tc:button label="Submit &amp; Close">
+          &lt;tc:operation name="hide" for="clientPopup"/>
+          &lt;/tc:button>
+        </demo-highlight>
+        <p>The 'Submit &amp; Close'-button execute a submit and run the operation 'hide' to close the popup.</p>
 
-          <b>Cancel</b>
-          <demo-highlight language="markup">&lt;tc:button label="Cancel" omit="true">
-  &lt;tc:operation name="hide" for="clientPopup"/>
-&lt;/tc:button></demo-highlight>
-          <p>The 'Cancel'-button execute a 'hide'-operation to close the popup.
-            Also the attribute <code>omit="true"</code> is set to prevent submit.</p>
+        <b>Cancel</b>
+        <demo-highlight language="markup">&lt;tc:button label="Cancel" omit="true">
+          &lt;tc:operation name="hide" for="clientPopup"/>
+          &lt;/tc:button>
+        </demo-highlight>
+        <p>The 'Cancel'-button execute a 'hide'-operation to close the popup.
+          Also the attribute <code>omit="true"</code> is set to prevent submit.</p>
 
-          <tc:in id="in2" label="Required Field" required="true" value="#{popupController.popup2Text}"/>
-          <tc:date id="d2" label="Date Field"/>
-          <tc:buttons>
-            <tc:button id="submit2" label="Submit">
-              <f:ajax execute="in2" render="in2 :::out clientPopupMessages"/>
-            </tc:button>
-            <tc:button id="submitClose2" label="Submit &amp; Close">
-              <tc:operation name="hide" for="clientPopup"/>
-              <f:ajax execute="in2" render="in2 :::out clientPopupMessages"/>
-            </tc:button>
-            <tc:button id="cancel2" label="Cancel" omit="true">
-              <tc:operation name="hide" for="clientPopup"/>
-            </tc:button>
-          </tc:buttons>
-        </tc:box>
+        <tc:in id="in2" label="Required Field" required="true" value="#{popupController.popup2Text}"/>
+        <tc:date id="d2" label="Date Field"/>
+
+        <f:facet name="footer">
+          <tc:button id="submit2" label="Submit">
+            <f:ajax execute="in2" render="in2 :::out clientPopupMessages"/>
+          </tc:button>
+          <tc:button id="submitClose2" label="Submit &amp; Close">
+            <tc:operation name="hide" for="clientPopup"/>
+            <f:ajax execute="in2" render="in2 :::out clientPopupMessages"/>
+          </tc:button>
+          <tc:button id="cancel2" label="Cancel" omit="true">
+            <tc:operation name="hide" for="clientPopup"/>
+          </tc:button>
+        </f:facet>
       </tc:popup>
     </tc:form>
   </tc:section>
@@ -137,6 +148,10 @@
         </tc:button>
       </tc:box>
     </tc:popup>
+  </tc:section>
+
+  <tc:section label="Plain Popup">
+
   </tc:section>
 
   <tc:section label="Refresh Content">

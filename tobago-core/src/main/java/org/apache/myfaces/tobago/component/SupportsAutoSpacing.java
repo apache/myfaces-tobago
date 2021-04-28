@@ -46,7 +46,8 @@ public interface SupportsAutoSpacing {
           && attributes.get(Facets.before) == null
           && attributes.get(Facets.after) == null
           && attributes.get(Facets.label) == null
-          && attributes.get(Facets.bar) == null;
+          && attributes.get(Facets.bar) == null
+          && attributes.get(Facets.footer) == null;
     }
   }
 }
