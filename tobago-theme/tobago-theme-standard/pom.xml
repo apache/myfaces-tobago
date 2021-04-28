@@ -30,7 +30,6 @@
   <properties>
     <theme.name>standard</theme.name>
     <frontend.skip>true</frontend.skip>
-    <webcomponents__custom-elements.version>1.4.2</webcomponents__custom-elements.version>
   </properties>
 
   <dependencies>
@@ -54,11 +53,6 @@
       <version>${project.version}</version>
       <classifier>tests</classifier>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars.npm</groupId>
-      <artifactId>webcomponents__custom-elements</artifactId>
-      <version>${webcomponents__custom-elements.version}</version>
     </dependency>
   </dependencies>
 
