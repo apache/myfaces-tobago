@@ -19,9 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.model.CollapseMode;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -30,6 +32,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
@@ -42,6 +45,9 @@ public class PopupRenderer<T extends AbstractUIPopup> extends CollapsiblePanelRe
     final String clientId = component.getClientId(facesContext);
     final boolean collapsed = component.isCollapsed();
     final Markup markup = component.getMarkup();
+    final UIComponent labelFacet = ComponentUtils.getFacet(component, Facets.label);
+    final UIComponent barFacet = ComponentUtils.getFacet(component, Facets.bar);
+    final UIComponent footerFacet = ComponentUtils.getFacet(component, Facets.footer);
 
     // this makes the popup NOT closable with a click to the background
     ComponentUtils.putDataAttribute(component, "backdrop", "static");
@@ -68,12 +74,55 @@ public class PopupRenderer<T extends AbstractUIPopup> extends CollapsiblePanelRe
     if (component.getCollapsedMode() != CollapseMode.none) {
       encodeHidden(writer, clientId, collapsed);
     }
+
+    if (labelFacet != null || barFacet != null) {
+      writer.startElement(HtmlElements.DIV);
+      writer.writeClassAttribute(BootstrapClass.MODAL_HEADER);
+
+      writer.startElement(HtmlElements.H5);
+      writer.writeClassAttribute(BootstrapClass.MODAL_TITLE);
+      insideBegin(facesContext, Facets.label);
+      for (final UIComponent child : RenderUtils.getFacetChildren(labelFacet)) {
+        child.encodeAll(facesContext);
+      }
+      insideEnd(facesContext, Facets.label);
+      writer.endElement(HtmlElements.H5);
+
+      insideBegin(facesContext, Facets.bar);
+      for (final UIComponent child : RenderUtils.getFacetChildren(barFacet)) {
+        child.encodeAll(facesContext);
+      }
+      insideEnd(facesContext, Facets.bar);
+
+      writer.endElement(HtmlElements.DIV);
+    }
+    if (labelFacet != null || barFacet != null || footerFacet != null) {
+      writer.startElement(HtmlElements.DIV);
+      writer.writeClassAttribute(BootstrapClass.MODAL_BODY);
+    }
   }
 
   @Override
   public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final UIComponent labelFacet = ComponentUtils.getFacet(component, Facets.label);
+    final UIComponent barFacet = ComponentUtils.getFacet(component, Facets.bar);
+    final UIComponent footerFacet = ComponentUtils.getFacet(component, Facets.footer);
+
+    if (labelFacet != null || barFacet != null || footerFacet != null) {
+      writer.endElement(HtmlElements.DIV);
+    }
+    if (footerFacet != null) {
+      writer.startElement(HtmlElements.DIV);
+      writer.writeClassAttribute(BootstrapClass.MODAL_FOOTER);
+      insideBegin(facesContext, Facets.footer);
+      for (final UIComponent child : RenderUtils.getFacetChildren(footerFacet)) {
+        child.encodeAll(facesContext);
+      }
+      insideEnd(facesContext, Facets.footer);
+      writer.endElement(HtmlElements.DIV);
+    }
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.TOBAGO_POPUP);
