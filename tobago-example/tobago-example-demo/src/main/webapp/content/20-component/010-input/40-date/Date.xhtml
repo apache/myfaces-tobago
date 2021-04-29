@@ -34,14 +34,8 @@
   </p>
 
   <tc:section label="Basics">
-    <p>In general, a date should always have a label. To get a label use the <code>label</code> attribute.</p>
-    <p>It is recommended to use a pattern. For that, use <code>&lt;f:convertDateTime&gt;</code>.</p>
-    <p>The <code>value</code> must be a
-      <tc:link label="Date" link="https://docs.oracle.com/javase/8/docs/api/java/util/Date.html"/>
-      or a string with a matching pattern.</p>
-        <demo-highlight language="markup">&lt;tc:date label="Date" value="\#{dateController.now}"&gt;
-  &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
-&lt;/tc:date&gt;</demo-highlight>
+    <p>In general, a date had a label. To get a label use the <code>label</code> attribute, <code>&lt;tc:in&gt;</code>.</p>
+        <demo-highlight language="markup">&lt;tc:date label="Date" value="\#{dateController.sputnikLd}"/&gt;</demo-highlight>
     <tc:date id="dNormal" label="Date" value="#{dateController.sputnikLd}"/>
     <tc:date id="dReadonly" label="Read Only" readonly="true" value="#{dateController.now}"/>
     <tc:date id="d3" label="Disabled" disabled="true" value="#{dateController.now}"/>
@@ -51,10 +45,54 @@
   <tc:section label="Focus">
     <p>The following date should be selected after reloading the page. This can be done with the attribute
       <code>focus</code>.</p>
-        <demo-highlight language="markup">&lt;tc:date label="Date (focus)" focus="true"&gt;
-  &lt;f:convertDateTime pattern="dd.MM.yyyy"/&gt;
-&lt;/tc:date&gt;</demo-highlight>
+        <demo-highlight language="markup">&lt;tc:date label="Date (focus)" focus="true"/&gt;&gt;</demo-highlight>
     <tc:date id="d5" label="Date (focus)" focus="true"/>
+  </tc:section>
+
+  <tc:section label="Types">
+    <p><tc:badge value="New!" markup="info"/>
+      It is NOT recommended to use <code>&lt;f:convertDateTime&gt;</code>,
+      in most cases the converter will be configured automatically.</p>
+    <p>The <code>value</code> must be one of a set of several types.
+      There are some new classes
+      from <tc:link label="JEP 150" link="http://openjdk.java.net/jeps/150"/>
+      since Java 8, which are generally preferred to use
+      (there are several discussions in the net).
+    </p>
+    <ul>
+      <li><tc:link label="java.time.LocalDate" link="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html"/></li>
+      <li><tc:link label="java.time.LocalDateTime" link="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html"/></li>
+      <li><tc:link label="java.time.LocalTime" link="https://docs.oracle.com/javase/8/docs/api/java/time/LocalTime.html"/></li>
+      <li><tc:link label="java.util.Date" link="https://docs.oracle.com/javase/8/docs/api/java/util/Date.html"/> (not recommended)</li>
+      <li><tc:link label="java.lang.Long" link="https://docs.oracle.com/javase/8/docs/api/java/lang/Long.html"/> (not recommended)</li>
+      <li><tc:link label="java.lang.String" link="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html"/> for plain text (TBD)</li>
+    </ul>
+    <p>
+      Technical hint: Until Tobago 4 the user readable localized formatted String (e. g. 12/31/2050) was rendered into the HTML file and
+      was post back to the server.
+      <tc:badge value="New!" markup="info"/>
+      Since Tobago 5 the string will be tranfered as ISO 8601 (e. g. 2050-12-31) to satisfy the HTML5 specification for
+      input type="date", type="time" and type="datetimelocal".
+    </p>
+    <tc:date id="typeLocalDate" label="LocalDate" value="#{dateController.typeLocalDate}"/>
+    <tc:date id="typeLocalDateTime" label="LocalDateTime" value="#{dateController.typeLocalDateTime}"/>
+    <tc:date id="typeLocalTime" label="LocalTime" value="#{dateController.typeLocalTime}"/>
+
+    <tc:in id="zone" label="Time Zone" value="#{dateController.timezoneString}"
+           validator="#{dateController.timeZoneValidator}">
+      <f:facet name="after">
+        <tc:button image="fa-refresh" tip="Update" actionListener="#{dateController.timeZoneChanged}">
+          <f:ajax render="mainForm" execute="zone"/>
+        </tc:button>
+      </f:facet>
+    </tc:in>
+    <tc:date id="typeDate" label="Date (as date)" value="#{dateController.typeDate}"/>
+    <tc:date id="typeDateAsTimeC" label="Date (as time)" value="#{dateController.typeDate}">
+      <f:convertDateTime type="time"/>
+    </tc:date>
+    <tc:date id="typeLong" label="Long" value="#{dateController.typeLong}"/>
+<!--    <tc:date id="typeCalendar" label="Calendar" value="#{dateController.typeCalendar}"/>-->
+    <tc:date id="typeString" label="String" value="#{dateController.typeString}"/>
   </tc:section>
 
   <tc:section label="Required">

@@ -15,13 +15,9 @@
  * limitations under the License.
  */
 
+import {querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-it("not implemented yet", function (done) {
-  let test = new JasmineTestTool(done);
-  test.do(() => fail("not implemented yet"));
-  test.start();
-});
 /*
 
 function getToday(dateFieldFn) {
@@ -29,32 +25,24 @@ function getToday(dateFieldFn) {
   let todayArray = tobagoToday.split("-");
   return todayArray[2] + "." + todayArray[1] + "." + todayArray[0];
 }
-
-QUnit.test("date with label", function (assert) {
-  assert.expect(5);
+*/
+it("inputfield with label", function (done) {
 
   let labelFn = querySelectorFn("#page\\:mainForm\\:dNormal > label");
   let dateFieldFn = querySelectorFn("#page\\:mainForm\\:dNormal\\:\\:field");
-  let dateButtonFn = querySelectorFn("#page\\:mainForm\\:dNormal button");
-  let dayTodayFn = querySelectorFn(".day.today");
-  let today = getToday(dateFieldFn);
+  // let dateButtonFn = querySelectorFn("#page\\:mainForm\\:dNormal button");
+  // let dayTodayFn = querySelectorFn(".day.today");
+  let sputnik = "1969-07-20";
+  let other = "1999-12-31";
 
-  assert.equal(labelFn().textContent, "Date");
-  assert.equal(dateFieldFn().value, today);
-
-  dateFieldFn().value = "32.05.2016";
-  dateButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-
-  assert.equal(dateFieldFn().value, today);
-  assert.notOk(dayTodayFn().classList.contains("past"));
-  if (dayTodayFn().previousElementSibling !== null) {
-    assert.ok(dayTodayFn().previousElementSibling.classList.contains("past"));
-  } else {
-    assert.notOk(dayTodayFn().nextElementSibling.classList.contains("past"));
-  }
-
-  dateButtonFn().dispatchEvent(new Event("click", {bubbles: true})); // IE11: close datetimepicker for next test
+  const test = new JasmineTestTool(done);
+  test.do(() => expect(labelFn().textContent).toBe("Date"));
+  test.do(() => expect(dateFieldFn().value).toBe(sputnik));
+  test.do(() => dateFieldFn().value = other);
+  test.do(() => expect(dateFieldFn().value).toBe(other));
+  test.start();
 });
+/*
 
 QUnit.test("date+time pattern", function (assert) {
   let dateButtonFn = querySelectorFn("#page\\:mainForm\\:dateTimePattern .datepickerbutton");

@@ -403,6 +403,10 @@ JustifyContentProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+HtmlInputTypesProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 SwitchTypeProperty(property) ::= <<
 <NormalProperty(property)>
 >>

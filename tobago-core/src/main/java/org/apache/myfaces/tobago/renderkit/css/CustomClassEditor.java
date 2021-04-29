@@ -19,18 +19,13 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
-import org.apache.myfaces.tobago.apt.annotation.Preliminary;
-
 import java.beans.PropertyEditorSupport;
 
 /**
  * Converter for {@link org.apache.myfaces.tobago.renderkit.css.CustomClass}
  *
- * XXX preliminary
- *
  * @since 3.0.0
  */
-@Preliminary
 public class CustomClassEditor extends PropertyEditorSupport {
 
   @Override

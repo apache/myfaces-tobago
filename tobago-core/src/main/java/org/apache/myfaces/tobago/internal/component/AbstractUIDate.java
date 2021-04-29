@@ -26,16 +26,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
  */
 public abstract class AbstractUIDate extends AbstractUIInput {
 
-  private transient HtmlInputTypes type;
   private transient String pattern;
-
-  public HtmlInputTypes getType() {
-    return type;
-  }
-
-  public void setType(HtmlInputTypes type) {
-    this.type = type;
-  }
 
   public String getPattern() {
     return pattern;
@@ -46,6 +37,10 @@ public abstract class AbstractUIDate extends AbstractUIInput {
   }
 
   public abstract boolean isTodayButton();
+
+  public abstract HtmlInputTypes getType();
+
+  public abstract void setType(HtmlInputTypes type);
 
   public abstract Object getMin();
 
