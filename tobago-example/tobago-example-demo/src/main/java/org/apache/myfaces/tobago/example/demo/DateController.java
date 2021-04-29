@@ -23,13 +23,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.faces.validator.ValidatorException;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 @RequestScoped
@@ -56,6 +64,15 @@ public class DateController implements Serializable {
   private final LocalDate partyMin = today.plusDays(3);
   private final LocalDate partyMax = today.plusDays(10);
 
+  private String timezoneString = "Europe/London";
+
+  private LocalDate typeLocalDate = SPUTNIK_LOCAL_DATE_TIME.toLocalDate();
+  private LocalDateTime typeLocalDateTime = SPUTNIK_LOCAL_DATE_TIME;
+  private LocalTime typeLocalTime = SPUTNIK_LOCAL_DATE_TIME.toLocalTime().withSecond(0).withNano(0);
+  private Date typeDate;
+  private Long typeLong;
+  private String typeString;
+
   public DateController() {
     once = new Date();
     final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -64,6 +81,27 @@ public class DateController implements Serializable {
     } catch (final ParseException e) {
       LOG.error("Unexpected parse exception", e);
     }
+    timeZoneChanged();
+  }
+
+  private void timeZoneChanged() {  // XXX buggy
+    final Instant instant = SPUTNIK_LOCAL_DATE_TIME.atZone(ZoneId.of(timezoneString)).toInstant();
+    typeDate = Date.from(instant);
+    typeLong = typeDate.getTime();
+    typeString = typeDate.toString();
+  }
+
+  public void timeZoneValidator(
+      final FacesContext facesContext, final UIComponent uiComponent, final Object string) throws ValidatorException {
+    try {
+      ZoneId.of((String)string);
+    } catch (Exception e) {
+      throw new ValidatorException(new FacesMessage("Invalid Time Zone Identifier!"), e);
+    }
+  }
+
+  public void timeZoneChanged(ActionEvent event) {
+    timeZoneChanged();
   }
 
   public Date getOnce() {
@@ -128,5 +166,61 @@ public class DateController implements Serializable {
 
   public LocalDate getPartyMax() {
     return partyMax;
+  }
+
+  public String getTimezoneString() {
+    return timezoneString;
+  }
+
+  public void setTimezoneString(String timezoneString) {
+    this.timezoneString = timezoneString;
+  }
+
+  public LocalDate getTypeLocalDate() {
+    return typeLocalDate;
+  }
+
+  public void setTypeLocalDate(LocalDate typeLocalDate) {
+    this.typeLocalDate = typeLocalDate;
+  }
+
+  public LocalDateTime getTypeLocalDateTime() {
+    return typeLocalDateTime;
+  }
+
+  public void setTypeLocalDateTime(LocalDateTime typeLocalDateTime) {
+    this.typeLocalDateTime = typeLocalDateTime;
+  }
+
+  public LocalTime getTypeLocalTime() {
+    return typeLocalTime;
+  }
+
+  public void setTypeLocalTime(LocalTime typeLocalTime) {
+    this.typeLocalTime = typeLocalTime;
+  }
+
+  public Date getTypeDate() {
+    return typeDate;
+  }
+
+  public void setTypeDate(Date typeDate) {
+    this.typeDate = typeDate;
+  }
+
+  public Long getTypeLong() {
+    return typeLong;
+  }
+
+  public void setTypeLong(Long typeLong) {
+    this.typeLong = typeLong;
+  }
+
+  public String getTypeString() {
+    return typeString;
+  }
+
+  public void setTypeString(String typeString) {
+    this.typeString = typeString;
   }
 }

@@ -101,7 +101,7 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
 //    writer.writeAttribute(HtmlAttributes.PATTERN,
 //    new DateFormatUtils.DateTimeJavaScriptPattern(input.getPattern()).getDatePattern(), true);
     final HtmlInputTypes type = date.getType();
-    if (date.getType() == HtmlInputTypes.TEXT) {
+    if (type == HtmlInputTypes.TEXT) {
       // todo
       final DateFormatUtils.DateTimeJavaScriptPattern patterns
           = new DateFormatUtils.DateTimeJavaScriptPattern(date.getPattern());
@@ -170,12 +170,12 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
 
     encodeBehavior(writer, facesContext, component);
 
-    if (type.supportsDate()) {
-      encodeButton(facesContext, component, FaIcons.CALENDAR);
-    }
-    if (type.supportsTime()) {
-      encodeButton(facesContext, component, FaIcons.CLOCK_O);
-    }
+//    if (type.supportsDate()) {
+//      encodeButton(facesContext, component, FaIcons.CALENDAR);
+//    }
+//    if (type.supportsTime()) {
+//      encodeButton(facesContext, component, FaIcons.CLOCK_O);
+//    }
   }
 
   private String convertToString(Object value) {
@@ -261,6 +261,9 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
         } else if (estimatedType.isAssignableFrom(ZonedDateTime.class)) {
           dateTimeConverter.setType("zonedDateTime");
           dateTimeConverter.setPattern(PATTERN_DATETIME);
+        } else if (estimatedType.isAssignableFrom(Long.class)) {
+          dateTimeConverter.setType("date");
+          dateTimeConverter.setPattern(PATTERN_DATE);
         } else if (estimatedType.isAssignableFrom(Date.class)) {
           dateTimeConverter.setType("date");
           dateTimeConverter.setPattern(PATTERN_DATE);
@@ -320,72 +323,77 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
   private void prepare(final FacesContext facesContext, final T component) {
     HtmlInputTypes type = component.getType();
     String pattern = component.getPattern();
+
+    DateTimeConverter converter = null;
     if (type == null || pattern == null) {
-      Converter converter = getConverter(facesContext, component, component.getSubmittedValue()); // XXX submitted?
-      if (converter instanceof DateTimeConverter) {
-        DateTimeConverter dtConverter = (DateTimeConverter) converter;
-        String t = dtConverter.getType();
-        if (TYPE_DATE.equals(t)) {
+      Converter someConverter = getConverter(facesContext, component, component.getSubmittedValue()); // XXX submitted?
+      if (someConverter instanceof DateTimeConverter) {
+        converter = (DateTimeConverter) someConverter;
+      }
+    }
+
+    if (type == null) {
+      if (converter != null) {
+        final String typeFromConverter = converter.getType();
+        if (TYPE_DATE.equals(typeFromConverter)) {
           type = HtmlInputTypes.DATE;
-        } else if (TYPE_BOTH.equals(t)) {
+        } else if (TYPE_BOTH.equals(typeFromConverter)) {
           type = HtmlInputTypes.DATETIME_LOCAL;
-        } else if (TYPE_TIME.equals(t)) {
+        } else if (TYPE_TIME.equals(typeFromConverter)) {
           type = HtmlInputTypes.TIME;
-        } else if (TYPE_LOCAL_DATE.equals(t)) {
+        } else if (TYPE_LOCAL_DATE.equals(typeFromConverter)) {
           type = HtmlInputTypes.DATE;
-        } else if (TYPE_LOCAL_DATE_TIME.equals(t)) {
+        } else if (TYPE_LOCAL_DATE_TIME.equals(typeFromConverter)) {
           type = HtmlInputTypes.DATETIME_LOCAL;
-        } else if (TYPE_LOCAL_TIME.equals(t)) {
+        } else if (TYPE_LOCAL_TIME.equals(typeFromConverter)) {
           type = HtmlInputTypes.TIME;
-        } else if (TYPE_ZONED_DATE_TIME.equals(t)) {
+        } else if (TYPE_ZONED_DATE_TIME.equals(typeFromConverter)) {
           type = HtmlInputTypes.DATETIME_LOCAL;
-        } else if (TYPE_OFFSET_DATE_TIME.equals(t)) {
+        } else if (TYPE_OFFSET_DATE_TIME.equals(typeFromConverter)) {
           type = HtmlInputTypes.DATETIME_LOCAL;
-        } else if (TYPE_OFFSET_TIME.equals(t)) {
+        } else if (TYPE_OFFSET_TIME.equals(typeFromConverter)) {
           type = HtmlInputTypes.TIME;
-        } else if (TYPE_MONTH.equals(t)) {
+        } else if (TYPE_MONTH.equals(typeFromConverter)) {
           type = HtmlInputTypes.MONTH;
-        } else if (TYPE_WEEK.equals(t)) {
+        } else if (TYPE_WEEK.equals(typeFromConverter)) {
           type = HtmlInputTypes.WEEK;
-        } else {
+        } else { // unknown type
           type = HtmlInputTypes.TEXT;
-        }
-        pattern = dtConverter.getPattern();
-        if (pattern == null) {
-          if (TYPE_DATE.equals(t)) {
-            pattern = PATTERN_DATE;
-          } else if (TYPE_BOTH.equals(t)) {
-            pattern = PATTERN_DATETIME;
-          } else if (TYPE_TIME.equals(t)) {
-            pattern = PATTERN_TIME;
-          } else if (TYPE_LOCAL_DATE.equals(t)) {
-            pattern = PATTERN_DATE;
-          } else if (TYPE_LOCAL_DATE_TIME.equals(t)) {
-            pattern = PATTERN_DATETIME;
-          } else if (TYPE_LOCAL_TIME.equals(t)) {
-            pattern = PATTERN_TIME;
-          } else if (TYPE_ZONED_DATE_TIME.equals(t)) {
-            pattern = PATTERN_DATETIME;
-          } else if (TYPE_OFFSET_DATE_TIME.equals(t)) {
-            pattern = PATTERN_DATETIME;
-          } else if (TYPE_OFFSET_TIME.equals(t)) {
-            pattern = PATTERN_TIME;
-          } else if (TYPE_MONTH.equals(t)) {
-            pattern = PATTERN_MONTH;
-          } else if (TYPE_WEEK.equals(t)) {
-            pattern = PATTERN_WEEK;
-          } else {
-            pattern = DateFormatUtils.findPattern(dtConverter);
-          }
-        } else {
-          pattern = PATTERN_DATETIME;
         }
       } else {
         type = HtmlInputTypes.TEXT;
       }
     }
+
+    if (pattern == null && converter != null) {
+      pattern = converter.getPattern();
+    }
+
+    if (pattern == null) {
+      switch (type) {
+        case DATE:
+          pattern = PATTERN_DATE;
+          break;
+        case TIME:
+          pattern = PATTERN_TIME;
+          break;
+        case DATETIME_LOCAL:
+        case DATETIME:
+          pattern = PATTERN_DATETIME;
+          break;
+        case MONTH:
+          pattern = PATTERN_MONTH;
+          break;
+        case WEEK:
+          pattern = PATTERN_WEEK;
+          break;
+        case TEXT:
+        default:
+          pattern = PATTERN_DATETIME;
+      }
+    }
+
     component.setPattern(pattern);
     component.setType(type);
   }
-
 }

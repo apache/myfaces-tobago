@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
+import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -47,6 +48,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 
 import javax.faces.component.UIInput;
 
@@ -104,4 +106,22 @@ public interface DateTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(type = {"java.time.LocalDate", "java.util.Date"})
   void setMax(String max);
+
+  /**
+   * XXX Preliminary: check if this is the right way
+   *
+   * Type of the date/time input.
+   */
+  @Preliminary
+  @TagAttribute
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes",
+      allowedValues = {
+          HtmlInputTypes.STRING_DATE,
+          HtmlInputTypes.STRING_TIME,
+          HtmlInputTypes.STRING_DATETIME_LOCAL,
+          HtmlInputTypes.STRING_MONTH,
+          HtmlInputTypes.STRING_WEEK
+      })
+  void setType(String type);
 }
