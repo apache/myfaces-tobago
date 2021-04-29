@@ -53,6 +53,12 @@
     <maven-pmd-plugin.version>3.14.0</maven-pmd-plugin.version>
     <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
     <checkstyle-rules.version>13</checkstyle-rules.version>
+
+    <!-- Note: defined here in master pom, because of problems with enforcer plugin -->
+    <jetty.version>9.4.40.v20210413</jetty.version>
+    <joinfaces.version>4.4.5</joinfaces.version>
+    <spring-boot.version>2.4.5</spring-boot.version>
+
   </properties>
 
   <issueManagement>

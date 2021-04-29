@@ -29,12 +29,6 @@
     <name>Tobago Example Spring Boot</name>
     <description>A minimal Tobago application with spring boot</description>
 
-    <properties>
-        <joinfaces.version>4.4.5</joinfaces.version>
-        <spring-boot.version>2.4.5</spring-boot.version>
-    </properties>
-
-
     <build>
         <finalName>tobago-example-spring-boot</finalName>
 
