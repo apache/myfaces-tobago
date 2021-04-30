@@ -11378,8 +11378,20 @@ tobago-panel {
 }
 
 /* popover ------------------------------------------------------------- */
-/* popup ------------------------------------------------------------- */
-.modal-content > .card {
+tobago-popup .modal-header .modal-title {
+  margin-right: auto;
+}
+tobago-popup .modal-header .tobago-link {
+  color: #000;
+  opacity: 0.5;
+}
+tobago-popup .modal-header .tobago-link:hover {
+  opacity: 0.75;
+}
+tobago-popup .modal-header .tobago-link:focus {
+  opacity: 1;
+}
+tobago-popup .modal-content > .card {
   margin-bottom: 0;
 }
 
