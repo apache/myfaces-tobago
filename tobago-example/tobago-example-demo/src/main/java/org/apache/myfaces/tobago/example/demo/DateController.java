@@ -94,7 +94,7 @@ public class DateController implements Serializable {
   public void timeZoneValidator(
       final FacesContext facesContext, final UIComponent uiComponent, final Object string) throws ValidatorException {
     try {
-      ZoneId.of((String)string);
+      ZoneId.of((String) string);
     } catch (Exception e) {
       throw new ValidatorException(new FacesMessage("Invalid Time Zone Identifier!"), e);
     }
