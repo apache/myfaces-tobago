@@ -112,7 +112,7 @@ public class AuthorizationHelper {
   }
 
   private Annotation getSecurityAnnotation(final FacesContext facesContext, final UIComponent component,
-      final String expression) {
+                                           final String expression) {
     Annotation securityAnnotation = null;
 
     if (cache.containsKey(expression)) {
@@ -181,16 +181,26 @@ public class AuthorizationHelper {
   }
 
   private Object getBean(final FacesContext facesContext, final String beanName) {
-    BeanManager beanManager = (BeanManager) FacesContext.getCurrentInstance().getExternalContext().getApplicationMap()
-        .get(BeanManager.class.getName());
 
     Object bean = null;
-    for (final Bean<?> entry : beanManager.getBeans(beanName)) {
-      if (bean == null) {
-        bean = entry;
-      } else {
-        LOG.warn("Bean name ambiguous: '{}'", beanName);
+
+    try {
+      BeanManager beanManager = (BeanManager) FacesContext.getCurrentInstance().getExternalContext().getApplicationMap()
+          .get(BeanManager.class.getName());
+
+      if (beanManager != null) {
+        for (final Bean<?> entry : beanManager.getBeans(beanName)) {
+          if (bean == null) {
+            bean = entry;
+          } else {
+            LOG.warn("Bean name ambiguous: '{}'", beanName);
+          }
+        }
       }
+    } catch (NoClassDefFoundError e) {
+      // ignore - if there is no class BeanManager is in class path
+    } catch (Exception e) {
+      LOG.warn("Problem with getting bean from BeanManager", e);
     }
 
     if (bean == null) {
@@ -225,11 +235,18 @@ public class AuthorizationHelper {
   }
 
   private List<Method> findMethods(final Object bean, final String name) {
-    final Class clazz;
-    if (bean instanceof Bean) {
-      clazz = ((Bean) bean).getBeanClass();
-    } else {
-      // XXX check if this works correctly with spring.
+    Class clazz = null;
+    try {
+      if (bean instanceof Bean) {
+        clazz = ((Bean) bean).getBeanClass();
+      }
+    } catch (NoClassDefFoundError e) {
+      // ignore - if there is no class Bean is in class path
+    } catch (Exception e) {
+      LOG.warn("Problem with getting bean from BeanManager", e);
+    }
+    // XXX check if this works correctly with spring.
+    if (clazz == null) {
       clazz = bean.getClass();
     }
     final Method[] methods = clazz.getMethods();
