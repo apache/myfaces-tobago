@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.component.AbstractUIDate;
 import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
-import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -99,18 +98,6 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
 
     super.writeAdditionalAttributes(facesContext, writer, date);
 //    writer.writeAttribute(HtmlAttributes.PATTERN,
-//    new DateFormatUtils.DateTimeJavaScriptPattern(input.getPattern()).getDatePattern(), true);
-    final HtmlInputTypes type = date.getType();
-    if (type == HtmlInputTypes.TEXT) {
-      // todo
-      final DateFormatUtils.DateTimeJavaScriptPattern patterns
-          = new DateFormatUtils.DateTimeJavaScriptPattern(date.getPattern());
-      writer.writeAttribute(CustomAttributes.DATE_PATTERN, patterns.getDatePattern(), true);
-      writer.writeAttribute(CustomAttributes.TIME_PATTERN, patterns.getTimePattern(), true);
-    }
-    // todo: also render pattern, either yyyy-mm-dd or in case of type=text the combination of upper
-//    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//    writer.writeAttribute(CustomAttributes.TODAY, sdf.format(new Date()), true); XXX seem no longer needed
     final DateTimeI18n dateTimeI18n = DateTimeI18n.valueOf(facesContext.getViewRoot().getLocale());
     writer.writeAttribute(CustomAttributes.I18N, JsonUtils.encode(dateTimeI18n), true);
     writer.writeAttribute(CustomAttributes.TODAY_BUTTON, date.isTodayButton());
@@ -358,10 +345,10 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
         } else if (TYPE_WEEK.equals(typeFromConverter)) {
           type = HtmlInputTypes.WEEK;
         } else { // unknown type
-          type = HtmlInputTypes.TEXT;
+          type = HtmlInputTypes.DATE;
         }
-      } else {
-        type = HtmlInputTypes.TEXT;
+      } else { // no converter
+        type = HtmlInputTypes.DATE;
       }
     }
 
