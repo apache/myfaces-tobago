@@ -19,19 +19,19 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-import org.apache.commons.fileupload.FileItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.Part;
 import java.io.Serializable;
 
 public class Upload implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(Upload.class);
 
-  private FileItem file;
+  private Part file;
 
   private String result;
 
@@ -42,16 +42,16 @@ public class Upload implements Serializable {
           null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No UploadItem found!", null));
       return null;
     }
-    result = "type='" + file.getContentType() + "' size='" + file.get().length + "' name='" + file.getName() + "'";
+    result = "type='" + file.getContentType() + "' size='" + file.getSize() + "' name='" + file.getName() + "'";
     LOG.info(result);
     return "/test/file/file.xhtml";
   }
-  
-  public FileItem getFile() {
+
+  public Part getFile() {
     return file;
   }
 
-  public void setFile(final FileItem file) {
+  public void setFile(final Part file) {
     this.file = file;
   }
 
