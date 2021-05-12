@@ -20,8 +20,6 @@
 package org.apache.myfaces.tobago.context;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.context.ExceptionHandler;
 import javax.faces.context.ExceptionHandlerFactory;
@@ -32,8 +30,6 @@ import javax.faces.context.FacesContext;
  * To disable, set the enableTobagoExceptionHandler to false in the tobago-config.xml of the application.
  */
 public class TobagoExceptionHandlerFactory extends ExceptionHandlerFactory {
-
-  private static final Logger LOG = LoggerFactory.getLogger(TobagoExceptionHandlerFactory.class);
 
   public TobagoExceptionHandlerFactory(final ExceptionHandlerFactory parent) {
     super(parent);
