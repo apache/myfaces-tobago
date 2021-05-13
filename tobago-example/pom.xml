@@ -28,7 +28,7 @@
 
   <properties>
     <app.packaging>war</app.packaging>
-    <quarkus.version>1.13.3.Final</quarkus.version>
+    <quarkus.version>1.13.4.Final</quarkus.version>
     <tobago.version>${project.version}</tobago.version>
   </properties>
 
