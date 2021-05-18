@@ -56,6 +56,8 @@ $theme-colors: map-merge((
         "dark": $dark
 ), $theme-colors);
 
+$print-page-size: auto; //enable landscape printing in webkit browsers
+
 $body-color: $mud;
 $body-bg: lighten($sand, 10%);
 

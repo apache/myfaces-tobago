@@ -20,4 +20,5 @@
 // Copy variables from `_variables.scss` to this file to override default values
 // without modifying source files.
 
+$print-page-size: auto; //enable landscape printing in webkit browsers
 $body-bg:    #bbccdd !default;
