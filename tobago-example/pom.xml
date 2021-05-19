@@ -60,9 +60,8 @@
             </httpConnector>
 -->
 <!--
-  XXX to run jetty with mojarra > 2.3 please call:
-  mvn clean install -Djsf=mojarra-2.3 -Dmojarra23.version=2.3.14 jetty:run
-  XXX (currently (for 2.3.15 and newer) it seems the classpath is not clean)
+  hint: to run jetty with mojarra > 2.3 please call:
+  mvn clean install -Djsf=mojarra-2.3 jetty:run
 -->
           </configuration>
       </plugin>
