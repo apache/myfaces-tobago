@@ -365,6 +365,7 @@
     </profile>
 
     <profile>
+      <!-- only use for jetty with MyFaces, do not use with Mojarra -->
       <id>jetty</id>
       <dependencies>
         <dependency>
