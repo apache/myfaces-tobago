@@ -52,7 +52,7 @@
     <required.maven.version>3.0.4</required.maven.version>
     <maven-pmd-plugin.version>3.14.0</maven-pmd-plugin.version>
     <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
-    <checkstyle-rules.version>13</checkstyle-rules.version>
+    <checkstyle-rules.version>14-SNAPSHOT</checkstyle-rules.version>
 
     <!-- Note: defined here in master pom, because of problems with enforcer plugin -->
     <jetty.version>9.4.40.v20210413</jetty.version>
@@ -1042,7 +1042,7 @@
           <version>6.1.6</version>
           <configuration>
             <failBuildOnCVSS>0</failBuildOnCVSS>
-            <suppressionFile>tobago/dependency-check-suppression.xml</suppressionFile>
+            <suppressionFile>tobago/dependency-check-suppression-for-tobago-5.x.xml</suppressionFile>
           </configuration>
           <dependencies>
             <dependency>
