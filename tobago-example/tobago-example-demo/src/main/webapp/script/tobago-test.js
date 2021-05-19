@@ -47,23 +47,23 @@ beforeEach(function (done) {
 });
 
 describe("general", function () {
-  it("duplicated IDs", function () {
-    let duplicatedIDs = getDuplicatedIDs();
+  it("duplicate id", function () {
+    let duplicateIds = getDuplicateIds();
 
-    function getDuplicatedIDs() {
-      let duplicatedIDs = [];
+    function getDuplicateIds() {
+      let duplicateIds = [];
       let iFrame = document.getElementById("page:testframe").contentWindow.document.querySelectorAll("[id]");
       iFrame.forEach(element => {
         let sameIdElements = document.getElementById("page:testframe").contentWindow.document
             .querySelectorAll("[id='" + element.id + "']");
         if (sameIdElements.length > 1) {
-          duplicatedIDs.push(element.id);
+          duplicateIds.push(element.id);
         }
       });
-      return duplicatedIDs;
+      return duplicateIds;
     }
 
-    expect(duplicatedIDs.length).toBe(0, "duplicated IDs are: " + duplicatedIDs);
+    expect(duplicateIds.length).toBe(0, "duplicate id is from: " + duplicateIds);
   });
 
   it("test '???", function () {

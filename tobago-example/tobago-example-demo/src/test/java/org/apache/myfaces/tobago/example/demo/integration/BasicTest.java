@@ -102,7 +102,7 @@ class BasicTest extends FrontendBase {
   }
 
   /**
-   * Call every page without a specific *.test.js and run general tests (duplicated Ids, 404, exception, ...).
+   * Call every page without a specific *.test.js and run general tests (duplicate id, 404, exception, ...).
    */
   @ParameterizedTest
   @MethodSource("basicTestProvider")
