@@ -41,7 +41,7 @@
           <script name="/tobago/standard/${project.version}/js/jsf.js"/>
           <script type="module" name="/tobago/standard/${project.version}/js/tobago.min.js"/>
           <style name="/tobago/standard/${project.version}/css/tobago.min.css"/>
-          <style name="/tobago/standard/${project.version}/css/font-awesome.min.css"/>
+          <style name="/tobago/standard/${project.version}/css/bootstrap-icons.css"/>
         </includes>
       </resources>
       <resources production="false">
@@ -77,7 +77,7 @@
           <script name="/tobago/standard/${project.version}/js/tobago-utils.js"/>
 -->
           <style name="/tobago/standard/${project.version}/css/tobago.css"/>
-          <style name="/tobago/standard/${project.version}/css/font-awesome.css"/>
+          <style name="/tobago/standard/${project.version}/css/bootstrap-icons.css"/>
         </includes>
       </resources>
     </theme-definition>

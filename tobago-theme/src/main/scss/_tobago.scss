@@ -17,18 +17,18 @@
 
 @import "node_modules/bootstrap/scss/variables";
 
-/* used icons ---------------------------------------------------- */
+/* used bootstrap icons ---------------------------------------------------- */
 
-$fa-square-o: "\f096";
-$fa-check-square-o: "\f046";
-$fa-circle-thin: "\f1db";
-$fa-dot-circle-o: "\f192";
-$fa-exclamation-triangle: "\f071";
-$zero-width-space: "\200b";
-$fa-info: "\f129";
-$fa-times-circle: "\f057";
-$fa-toggle-off: "\f204";
-$fa-toggle-on: "\f205";
+$icon-alert-info: "\f646";
+$icon-alert-warning: "\f33a";
+$icon-alert-danger: "\f622";
+$icon-star: "\f588";
+$icon-star-sep: " ";
+$icon-stars: $icon-star + $icon-star-sep + $icon-star + $icon-star-sep + $icon-star + $icon-star-sep + $icon-star + $icon-star-sep + $icon-star;
+$icon-trash: "\f5de";
+$icon-sort: "\f2f1";
+$icon-sort-ascending: "\f238";
+$icon-sort-descending: "\f22c";
 
 /* non-bootstrap variables --------------------------------------- */
 
@@ -684,7 +684,7 @@ tobago-flex-layout.tobago-messages-container > {
     padding-left: $alert-icon-width;
 
     &:before {
-      font-family: FontAwesome;
+      font-family: bootstrap-icons;
       position: absolute;
       left: 0;
       padding-left: $alert-icon-padding-x;
@@ -694,15 +694,16 @@ tobago-flex-layout.tobago-messages-container > {
     }
 
     &.alert-danger:before {
-      content: $fa-times-circle;
+      content: $icon-alert-danger;
+
     }
 
     &.alert-warning:before {
-      content: $fa-exclamation-triangle;
+      content: $icon-alert-warning;
     }
 
     &.alert-info:before {
-      content: $fa-info;
+      content: $icon-alert-info;
     }
   }
 }
@@ -926,6 +927,7 @@ tobago-section {
 }
 
 /* stars rating ------------------------------------------------------------ */
+
 tobago-stars {
   display: block;
 }
@@ -935,11 +937,11 @@ tobago-stars {
     position: relative;
     display: inline-block;
     color: transparent;
-    font-family: FontAwesome;
+    font-family: bootstrap-icons;
     font-size: 1.5rem;
 
     &:before {
-      content: "\f005 \f005 \f005 \f005 \f005";
+      content: $icon-stars;
     }
 
     .tobago-stars-focusBox {
@@ -971,8 +973,8 @@ tobago-stars {
       left: 35px;
 
       &.trash:before {
-        font-family: FontAwesome;
-        content: "\f014";
+        font-family: bootstrap-icons;
+        content: $icon-trash;
       }
     }
 
@@ -985,7 +987,7 @@ tobago-stars {
       color: $progress-bar-bg;
 
       &:before {
-        content: "\f005 \f005 \f005 \f005 \f005";
+        content: $icon-stars;
       }
     }
 
@@ -1007,7 +1009,7 @@ tobago-stars {
       direction: rtl;
 
       &:before {
-        content: "\f005 \f005 \f005 \f005 \f005";
+        content: $icon-stars;
       }
     }
 
@@ -1025,7 +1027,7 @@ tobago-stars {
       opacity: 0.8;
 
       &:before {
-        content: "\f005 \f005 \f005 \f005 \f005";
+        content: $icon-stars;
       }
 
       &.show {
@@ -1266,19 +1268,19 @@ th.tobago-sheet-headerCell {
 }
 
 .tobago-sheet-header-markup-sortable::after {
-  content: "\f0dc";
-  font-family: FontAwesome;
+  content: $icon-sort;
+  font-family: bootstrap-icons;
   color: $gray-300;
   margin-left: $spacer;
 }
 
 .tobago-sheet-header-markup-ascending::after {
-  content: "\f0de";
+  content: $icon-sort-ascending;
   color: inherit;
 }
 
 .tobago-sheet-header-markup-descending::after {
-  content: "\f0dd";
+  content: $icon-sort-descending;
   color: inherit;
 }
 

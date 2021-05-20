@@ -30,22 +30,22 @@
 
       Checklist of tasks to perform for each release. For general information about Apache releases you may also consult
       <tc:link label="Publishing Maven Releases" link="http://infra.apache.org/maven-releases.html"
-               image="fa-external-link"/>.
+               image="bi-box-arrow-up-right"/>.
 
       <tc:section label="Preparation">
 
         <ul>
           <li>You need to add your GPG keys in <tc:link label="Subversion"
                                                         link="https://svn.apache.org/repos/asf/myfaces/keys/KEYS"
-                                                        image="fa-external-link"/>
+                                                        image="bi-box-arrow-up-right"/>
             and the <tc:link label="Apache site" link="https://www.apache.org/dist/myfaces/KEYS"
-                             image="fa-external-link"/> before a release.
+                             image="bi-box-arrow-up-right"/> before a release.
           </li>
 
           <li>Ensure that all open bugs and issues in
             <tc:link label="Jira"
                      link="https://issues.apache.org/jira/issues/"
-                     image="fa-external-link">
+                     image="bi-box-arrow-up-right">
               <f:param name="jql" value="project = TOBAGO AND fixVersion = #{apiController.releases[0].version}"/>
             </tc:link>
             have been either fixed
@@ -59,14 +59,14 @@
           </li>
 
           <li>
-            <tc:link label="Post a note" omit="true" image="fa-info">
+            <tc:link label="Post a note" omit="true" image="bi-info-lg">
               <tc:operation name="show" for="preparation-email"/>
             </tc:link>
             and ask for problems with the release candidate.
             <tc:popup markup="large" collapsedMode="hidden" id="preparation-email">
               <tc:box label="Preparation email">
                 <f:facet name="bar">
-                  <tc:button image="fa-close" tip="Close" omit="true">
+                  <tc:button image="bi-x-lg" tip="Close" omit="true">
                     <tc:operation name="hide" for="preparation-email"/>
                   </tc:button>
                 </f:facet>
@@ -91,7 +91,7 @@ ${content}
                     label="Create email"
                     defaultCommand="true"
                     link="mailto:MyFaces Development &lt;dev@myfaces.apache.org>"
-                    image="fa-external-link">
+                    image="bi-box-arrow-up-right">
                   <f:param name="subject" value="${subject}"/>
                   <f:param name="body" value="${content}"/>
                 </tc:button>
@@ -192,7 +192,7 @@ $ mvn release:perform
       <tc:section label="Staging repository">
         <ul>
           <li><i>Close</i> the repository on the <tc:link label="Nexus" link="https://repository.apache.org/"
-                                                          image="fa-external-link"/> instance for staging (you will receive a mail with the staging location).
+                                                          image="bi-box-arrow-up-right"/> instance for staging (you will receive a mail with the staging location).
           </li>
 
           <li>Update the staging and snapshot version on tobago-vm.apache.org
@@ -203,13 +203,13 @@ $ mvn release:perform
       <tc:section label="Voting">
         <ul>
           <li>Propose a
-            <tc:link label="vote on the dev list" omit="true" image="fa-info">
+            <tc:link label="vote on the dev list" omit="true" image="bi-info-lg">
               <tc:operation name="show" for="vote-email"/>
             </tc:link> with the staging location.
             <tc:popup markup="large" collapsedMode="hidden" id="vote-email">
               <tc:box label="Voting email">
                 <f:facet name="bar">
-                  <tc:button image="fa-close" tip="Close" omit="true">
+                  <tc:button image="bi-x-lg" tip="Close" omit="true">
                     <tc:operation name="hide" for="vote-email"/>
                   </tc:button>
                 </f:facet>
@@ -258,7 +258,7 @@ ${content}</demo-highlight>
                     label="Create email"
                     defaultCommand="true"
                     link="mailto:MyFaces Development &lt;dev@myfaces.apache.org>"
-                    image="fa-pencil">
+                    image="bi-pencil">
                   <f:param name="subject" value="${subject}"/>
                   <f:param name="body" value="${content}"/>
                 </tc:button>
@@ -277,20 +277,20 @@ ${content}</demo-highlight>
       <tc:section label="Publishing">
         <ul>
           <li><i>Release</i> the version in <tc:link label="Jira" link="https://issues.apache.org/jira/"
-                                                     image="fa-external-link"/> and close all resolved issues for the release.
+                                                     image="bi-box-arrow-up-right"/> and close all resolved issues for the release.
           </li>
 
           <li><i>Release</i> the staging repository on the <tc:link label="Nexus" link="https://repository.apache.org/"
-                                                                    image="fa-external-link"/> instance.
+                                                                    image="bi-box-arrow-up-right"/> instance.
           </li>
 
           <li>Copy the download artifacts from the repository to the site (see script
-            <tc:link label="release-artifacts.sh" link="./release-artifacts.sh" image="fa-download"/>).
+            <tc:link label="release-artifacts.sh" link="./release-artifacts.sh" image="bi-download"/>).
           </li>
 
           <li>Add the release version and date to the <tc:link label="Apache Committee Report Helper"
                                                                link="https://reporter.apache.org/addrelease.html?myfaces"
-                                                               image="fa-external-link"/>.
+                                                               image="bi-box-arrow-up-right"/>.
           </li>
 
           <li>Update the release and staging version on tobago-vm.apache.org
@@ -333,10 +333,10 @@ $ mvn site:stage -DstagingDirectory=$TOBAGO_SITE/tobago-publish</demo-highlight>
           </li>
 
           <li>Remove old download artifacts from the site (see script
-            <tc:link label="drop-artifacts.sh" link="./drop-artifacts.sh" image="fa-download"/>).
+            <tc:link label="drop-artifacts.sh" link="./drop-artifacts.sh" image="bi-download"/>).
             Older releases are automatic available in the <tc:link label=" archive"
                                                                    link="http://archive.apache.org/dist/myfaces/"
-                                                                   image="fa-external-link"/>.
+                                                                   image="bi-box-arrow-up-right"/>.
           </li>
 
           <li>Remove old snapshots in the maven snapshot repository. This is done automatically, it is only needed, when
@@ -345,13 +345,13 @@ $ mvn site:stage -DstagingDirectory=$TOBAGO_SITE/tobago-publish</demo-highlight>
           </li>
 
           <li>
-            <tc:link label="Create and send announcement" omit="true" image="fa-info">
+            <tc:link label="Create and send announcement" omit="true" image="bi-info-lg">
               <tc:operation name="show" for="announcement-email"/>
             </tc:link>.
             <tc:popup markup="large" collapsedMode="hidden" id="announcement-email">
               <tc:box label="Announcement email">
                 <f:facet name="bar">
-                  <tc:button image="fa-close" tip="Close" omit="true">
+                  <tc:button image="bi-x-lg" tip="Close" omit="true">
                     <tc:operation name="hide" for="announcement-email"/>
                   </tc:button>
                 </f:facet>
@@ -399,7 +399,7 @@ ${content}</demo-highlight>
                     label="Create email for any version"
                     defaultCommand="true"
                     link="mailto:MyFaces Discussion &lt;users@myfaces.apache.org>"
-                    image="fa-pencil">
+                    image="bi-pencil">
                   <f:param name="subject" value="${subject}"/>
                   <f:param name="body" value="${content}"/>
                 </tc:button>
@@ -407,7 +407,7 @@ ${content}</demo-highlight>
                     label="Create email for major version"
                     defaultCommand="true"
                     link="mailto:MyFaces Announces &lt;announce@apache.org>"
-                    image="fa-pencil">
+                    image="bi-pencil">
                   <f:param name="subject" value="${subject}"/>
                   <f:param name="body" value="${content}"/>
                 </tc:button>

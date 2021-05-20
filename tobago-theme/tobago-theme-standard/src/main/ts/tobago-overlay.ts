@@ -99,15 +99,12 @@ export class Overlay {
     wait.classList.add("tobago-page-overlayCenter");
     this.overlay.append(wait);
 
-    const image = document.createElement("i");
     if (this.error) {
-      image.classList.add("fa", "fa-flash", "fa-3x");
       wait.classList.add("alert-danger");
+      wait.innerHTML = `<i class="bi-flash fs-1"></i>`; // todo: test
     } else {
-      image.classList.add("fa", "fa-refresh", "fa-3x", "fa-spin");
-      image.style.opacity = "0.4";
+      wait.innerHTML = `<div class="spinner-border"></div>`;
     }
-    wait.append(image);
     wait.style.display = ""; //XXX ?
 
     this.overlay.style.backgroundColor = Page.page(this.element).style.backgroundColor;

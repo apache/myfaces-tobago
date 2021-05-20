@@ -27,19 +27,19 @@
   Some commands are using popups and AJAX.</p>
 
   <tc:buttons>
-    <tc:button label="New" omit="true" image="fa-file-o">
+    <tc:button label="New" omit="true" image="bi-file-earmark">
       <tc:operation name="show" for="createPopup"/>
     </tc:button>
-    <tc:button label="Delete" image="fa-trash-o" action="#{treeEditorController.delete}"/>
-    <tc:button label="Rename" omit="true" image="fa-edit">
+    <tc:button label="Delete" image="bi-trash" action="#{treeEditorController.delete}"/>
+    <tc:button label="Rename" omit="true" image="bi-pencil">
       <tc:operation name="show" for="renamePopup"/>
     </tc:button>
-    <tc:button label="Cut" action="#{treeEditorController.cut}" image="fa-cut"/>
-    <tc:button label="Copy" action="#{treeEditorController.copy}" image="fa-copy"/>
-    <tc:button label="Paste" action="#{treeEditorController.paste}" image="fa-paste"/>
-    <tc:button label="Up" action="#{treeEditorController.moveUp}" image="fa-level-up"/>
-    <tc:button label="Down" action="#{treeEditorController.moveDown}" image="fa-level-down"/>
-    <tc:button label="Reset" action="#{treeEditorController.reset}" image="fa-undo"/>
+    <tc:button label="Cut" action="#{treeEditorController.cut}" image="bi-scissors"/>
+    <tc:button label="Copy" action="#{treeEditorController.copy}" image="bi-clipboard-plus"/>
+    <tc:button label="Paste" action="#{treeEditorController.paste}" image="bi-clipboard-check"/>
+    <tc:button label="Up" action="#{treeEditorController.moveUp}" image="bi-arrow-up"/>
+    <tc:button label="Down" action="#{treeEditorController.moveDown}" image="bi-arrow-down"/>
+    <tc:button label="Reset" action="#{treeEditorController.reset}" image="bi-arrow-counterclockwise"/>
   </tc:buttons>
 
   <tc:popup id="createPopup" collapsedMode="hidden">

@@ -37,9 +37,9 @@ public enum Salutation {
   public String getIcon() {
     switch (this) {
       case MR:
-        return "fa-male";
+        return "bi-gender-male";
       case MRS:
-        return "fa-female";
+        return "bi-gender-female";
       default:
         return null;
     }

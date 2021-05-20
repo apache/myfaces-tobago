@@ -11012,7 +11012,7 @@ textarea.form-control-lg {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/* used icons ---------------------------------------------------- */
+/* used bootstrap icons ---------------------------------------------------- */
 /* non-bootstrap variables --------------------------------------- */
 /* main ---------------------------------------------------------- */
 .tobago-auto-spacing {
@@ -11492,7 +11492,7 @@ tobago-flex-layout.tobago-messages-container > .tobago-input-group-outer, tobago
   padding-left: 2.6rem;
 }
 .tobago-messages .alert.alert-dismissible:before {
-  font-family: FontAwesome;
+  font-family: bootstrap-icons;
   position: absolute;
   left: 0;
   padding-left: 0.8rem;
@@ -11501,13 +11501,13 @@ tobago-flex-layout.tobago-messages-container > .tobago-input-group-outer, tobago
   text-align: center;
 }
 .tobago-messages .alert.alert-dismissible.alert-danger:before {
-  content: "";
+  content: "";
 }
 .tobago-messages .alert.alert-dismissible.alert-warning:before {
-  content: "";
+  content: "";
 }
 .tobago-messages .alert.alert-dismissible.alert-info:before {
-  content: "";
+  content: "";
 }
 
 .popover .popover-body {
@@ -11698,11 +11698,11 @@ tobago-stars {
   position: relative;
   display: inline-block;
   color: transparent;
-  font-family: FontAwesome;
+  font-family: bootstrap-icons;
   font-size: 1.5rem;
 }
 .tobago-stars .tobago-stars-container:before {
-  content: "";
+  content: "    ";
 }
 .tobago-stars .tobago-stars-container .tobago-stars-focusBox {
   display: inline-block;
@@ -11731,8 +11731,8 @@ tobago-stars {
   left: 35px;
 }
 .tobago-stars .tobago-stars-container .tobago-stars-tooltip.trash:before {
-  font-family: FontAwesome;
-  content: "";
+  font-family: bootstrap-icons;
+  content: "";
 }
 .tobago-stars .tobago-stars-container .tobago-stars-selected {
   display: block;
@@ -11743,7 +11743,7 @@ tobago-stars {
   color: #0d6efd;
 }
 .tobago-stars .tobago-stars-container .tobago-stars-selected:before {
-  content: "";
+  content: "    ";
 }
 .tobago-stars .tobago-stars-container .tobago-stars-slider:disabled ~ .tobago-stars-selected {
   filter: grayscale(1);
@@ -11761,7 +11761,7 @@ tobago-stars {
   direction: rtl;
 }
 .tobago-stars .tobago-stars-container .tobago-stars-unselected:before {
-  content: "";
+  content: "    ";
 }
 .tobago-stars .tobago-stars-container input[type=range]:disabled ~ .tobago-stars-unselected {
   filter: grayscale(1);
@@ -11776,7 +11776,7 @@ tobago-stars {
   opacity: 0.8;
 }
 .tobago-stars .tobago-stars-container .tobago-stars-preselected:before {
-  content: "";
+  content: "    ";
 }
 .tobago-stars .tobago-stars-container .tobago-stars-preselected.show {
   display: block;
@@ -12048,19 +12048,19 @@ th.tobago-sheet-headerCell .tobago-out {
 }
 
 .tobago-sheet-header-markup-sortable::after {
-  content: "";
-  font-family: FontAwesome;
+  content: "";
+  font-family: bootstrap-icons;
   color: #dee2e6;
   margin-left: 1rem;
 }
 
 .tobago-sheet-header-markup-ascending::after {
-  content: "";
+  content: "";
   color: inherit;
 }
 
 .tobago-sheet-header-markup-descending::after {
-  content: "";
+  content: "";
   color: inherit;
 }
 

@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
-import org.apache.myfaces.tobago.renderkit.css.FaIcons;
+import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -106,11 +106,11 @@ public abstract class MessageLayoutRendererBase<T extends UIComponent & Supports
       if (hasMessage) {
         encodePopover(writer,
             BootstrapClass.buttonColor(ComponentUtils.getMaximumSeverity(messages)),
-            FaIcons.EXCLAMATION, getTitle(messages), getMessage(messages), tabIndex);
+            Icons.EXCLAMATION_LG, getTitle(messages), getMessage(messages), tabIndex);
       }
       if (hasHelp) {
         encodePopover(writer,
-            BootstrapClass.BTN_OUTLINE_INFO, FaIcons.QUESTION,
+            BootstrapClass.BTN_OUTLINE_INFO, Icons.QUESTION_LG,
             ResourceUtils.getString(facesContext, "help.title"), help, tabIndex);
       }
       writer.endElement(HtmlElements.DIV);
@@ -208,7 +208,7 @@ public abstract class MessageLayoutRendererBase<T extends UIComponent & Supports
   }
 
   private void encodePopover(
-      final TobagoResponseWriter writer, final CssItem buttonColor, final FaIcons buttonIcon, final String title,
+      final TobagoResponseWriter writer, final CssItem buttonColor, final Icons icon, final String title,
       final String content, final Integer tabIndex)
       throws IOException {
     writer.startElement(HtmlElements.TOBAGO_POPOVER);
@@ -222,7 +222,7 @@ public abstract class MessageLayoutRendererBase<T extends UIComponent & Supports
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlButtonTypes.BUTTON);
     writer.writeClassAttribute(BootstrapClass.BTN, buttonColor);
     writer.startElement(HtmlElements.I);
-    writer.writeClassAttribute(FaIcons.FA, buttonIcon);
+    writer.writeClassAttribute(icon);
     writer.endElement(HtmlElements.I);
     writer.endElement(HtmlElements.A);
 

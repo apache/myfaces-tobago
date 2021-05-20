@@ -81,7 +81,7 @@
     <tc:in id="zone" label="Time Zone" value="#{dateController.timezoneString}"
            validator="#{dateController.timeZoneValidator}">
       <f:facet name="after">
-        <tc:button image="fa-refresh" tip="Update" actionListener="#{dateController.timeZoneChanged}">
+        <tc:button image="bi-arrow-counterclockwise" tip="Update" actionListener="#{dateController.timeZoneChanged}">
           <f:ajax render="mainForm" execute="zone"/>
         </tc:button>
       </f:facet>
