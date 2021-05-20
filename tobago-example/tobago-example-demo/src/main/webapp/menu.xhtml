@@ -135,18 +135,18 @@
             <tc:flexLayout columns="auto auto">
               <tc:buttons>
                 <tc:button immediate="true" id="previous"
-                           image="fa-angle-left"
+                           image="bi-chevron-left"
                            action="#{navigationState.gotoPrevious}"
                            disabled="#{navigationState.first}"
                            tip="Previous"/>
                 <tc:button immediate="true" id="next"
-                           image="fa-angle-right"
+                           image="bi-chevron-right"
                            action="#{navigationState.gotoNext}"
                            disabled="#{navigationState.last}"
                            tip="Next"/>
               </tc:buttons>
               <tc:button action="#{navigationState.toggleViewSource}"
-                         image="fa-code"
+                         image="bi-code-slash"
                          immediate="true" tip="View Source"/>
             </tc:flexLayout>
           </tc:form>

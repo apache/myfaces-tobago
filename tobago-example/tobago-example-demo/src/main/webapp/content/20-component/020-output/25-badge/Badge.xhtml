@@ -50,11 +50,11 @@
     <p>Badges can be placed inside button groups. So it's possible to use them together with buttons. </p>
     <demo-highlight language="markup">&lt;tc:buttons>
   &lt;tc:badge value="badge" markup="warning"/>
-  &lt;tc:button image="fa-times" markup="badge" tip="remove" omit="true"/>
+  &lt;tc:button image="bi-x-lg" markup="badge" tip="remove" omit="true"/>
 &lt;/tc:buttons></demo-highlight>
     <tc:buttons>
       <tc:badge value="badge" markup="warning"/>
-      <tc:button image="fa-times" markup="badge" tip="remove" omit="true"/>
+      <tc:button image="bi-x-lg" markup="badge" tip="remove" omit="true"/>
     </tc:buttons>
     <p/>
   </tc:section>
@@ -111,7 +111,7 @@
       Clicking the button will remove the current group.</p>
     <demo-highlight language="markup">&lt;tc:buttons>
   &lt;tc:badge value="label" markup="warning"/>
-  &lt;tc:button image="fa-times" markup="badge secondary"/>
+  &lt;tc:button image="bi-x-lg" markup="badge secondary"/>
 &lt;/tc:buttons></demo-highlight>
 
     <tc:button label="Reset" action="#{badgeController.reset}">
@@ -122,7 +122,7 @@
         <span>
           <tc:buttons>
             <tc:badge value="#{item}" markup="#{item}"/>
-            <tc:button image="fa-times" markup="badge secondary" action="#{badgeController.remove(item)}">
+            <tc:button image="bi-x-lg" markup="badge secondary" action="#{badgeController.remove(item)}">
               <f:ajax render="badgesButtonGroup"/>
             </tc:button>
           </tc:buttons>

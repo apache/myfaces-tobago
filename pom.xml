@@ -988,7 +988,8 @@
               <!-- local npm for IDE -->
               <exclude>node/**/*</exclude>
               <exclude>node_modules/**/*</exclude>
-              <exclude>src/main/css/font-awesome.css</exclude>
+              <exclude>src/main/webapp/css/font-awesome.css</exclude>
+              <exclude>src/main/css/bootstrap-icons.css</exclude>
               <exclude>src/main/js/tobago.min.js</exclude>
               <exclude>src/main/webapp/js/demo.js</exclude>
 

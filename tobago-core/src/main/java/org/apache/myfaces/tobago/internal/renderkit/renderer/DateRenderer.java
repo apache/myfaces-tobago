@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.FaIcons;
+import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -158,10 +158,10 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
     encodeBehavior(writer, facesContext, component);
 
 //    if (type.supportsDate()) {
-//      encodeButton(facesContext, component, FaIcons.CALENDAR);
+//      encodeButton(facesContext, component, Icons.CALENDAR3);
 //    }
 //    if (type.supportsTime()) {
-//      encodeButton(facesContext, component, FaIcons.CLOCK_O);
+//      encodeButton(facesContext, component, Icons.CLOCK);
 //    }
   }
 
@@ -178,7 +178,7 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
     }
   }
 
-  private void encodeButton(final FacesContext facesContext, final T component, final FaIcons icon)
+  private void encodeButton(final FacesContext facesContext, final T component, final Icons icon)
       throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
@@ -195,7 +195,7 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
     writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
 
     writer.startElement(HtmlElements.I);
-    writer.writeClassAttribute(FaIcons.FA, icon);
+    writer.writeClassAttribute(icon);
     writer.endElement(HtmlElements.I);
 
     writer.endElement(HtmlElements.BUTTON);

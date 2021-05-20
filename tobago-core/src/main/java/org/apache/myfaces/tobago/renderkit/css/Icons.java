@@ -26,48 +26,40 @@ import java.lang.invoke.MethodHandles;
 import java.util.regex.Pattern;
 
 /**
- * @deprecated since 5.0.0, please use {@link FaIcons}. (Was renamed.)
+ * This is a list of used bootstrap icons in Tobago. Might be extended.
  */
-@Deprecated
 public enum Icons implements CssItem {
 
-  ANGLE_DOUBLE_LEFT,
-  ANGLE_DOUBLE_RIGHT,
-  ANGLE_DOWN,
-  ANGLE_LEFT,
-  ANGLE_RIGHT,
-  ANGLE_UP,
-  BACKWARD,
-  BARS,
-  CALENDAR,
-  CLOCK_O,
-  ELLIPSIS_H,
+  CHEVRON_DOUBLE_LEFT,
+  CHEVRON_DOUBLE_RIGHT,
+  CHEVRON_LEFT,
+  CHEVRON_RIGHT,
+  CARET_LEFT,
+  CALENDAR3,
+  CLOCK,
+  THREE_DOTS,
   EXCLAMATION,
-  FOLDER_OPEN,
-  FORWARD,
-  MINUS_SQUARE_O,
-  PLUS_SQUARE_O,
+  EXCLAMATION_LG,
+  FOLDER2_OPEN,
+  CARET_RIGHT,
+  DASH_SQUARE,
+  PLUS_SQUARE,
   QUESTION,
-  SQUARE_O,
-  STEP_BACKWARD,
-  STEP_FORWARD;
+  QUESTION_LG,
+  SQUARE,
+  SKIP_START,
+  SKIP_END;
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  public static final CssItem FA = new CssItem() {
-    @Override
-    public String getName() {
-      return "fa";
-    }
-  };
-
-  private static final Pattern PATTERN = Pattern.compile("^(fa(-[a-z]+)+)$");
-  private static final String PREFIX = "fa-";
+  private static final Pattern PATTERN = Pattern.compile("^((fa|bi)(-[a-z]+)+)$");
+  private static final Pattern PATTERN_BI = Pattern.compile("^(bi(-[a-z]+)+)$");
+  private static final Pattern PATTERN_FA = Pattern.compile("^(fa(-[a-z]+)+)$");
 
   private final String clazz;
 
   Icons() {
-    this.clazz = PREFIX + name().toLowerCase().replaceAll("_", "-");
+    this.clazz = "bi-" + name().toLowerCase().replaceAll("_", "-");
   }
 
   @Override
@@ -85,12 +77,17 @@ public enum Icons implements CssItem {
 
       @Override
       public String getName() {
-        if (PATTERN.matcher(name).matches()) {
-          return name;
-        } else {
-          LOG.warn("Unknown Icon: '" + name + "'");
+        if (name == null) {
           return null;
         }
+        if (PATTERN_BI.matcher(name).matches()) {
+          return name;
+        }
+        if (PATTERN_FA.matcher(name).matches()) {
+          return "fa " + name;
+        }
+        LOG.warn("Unknown icon format for name: '" + name + "'");
+        return null;
       }
     };
   }

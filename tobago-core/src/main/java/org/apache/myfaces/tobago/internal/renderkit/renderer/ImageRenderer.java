@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIImage;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.FaIcons;
+import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -42,7 +42,7 @@ public class ImageRenderer<T extends AbstractUIImage> extends RendererBase<T> {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     final String value = component.getUrl();
-    final boolean isIcon = FaIcons.matches(value);
+    final boolean isIcon = Icons.matches(value);
     final boolean disabled = component.isDisabled()
         || (component.getParent() instanceof AbstractUICommandBase
         && ((AbstractUICommandBase) component.getParent()).isDisabled());
@@ -52,8 +52,7 @@ public class ImageRenderer<T extends AbstractUIImage> extends RendererBase<T> {
       writer.startElement(HtmlElements.I);
       writer.writeIdAttribute(component.getClientId(facesContext));
       writer.writeClassAttribute(
-          FaIcons.FA,
-          FaIcons.custom(value),
+          Icons.custom(value),
           disabled ? BootstrapClass.DISABLED : null,
           component.getCustomClass());
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);

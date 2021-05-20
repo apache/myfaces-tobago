@@ -30,7 +30,7 @@
   },
   "homepage": "https://myfaces.apache.org/tobago/",
   "scripts": {
-    "build": "npm-run-all --parallel test ts css fa",
+    "build": "npm-run-all --parallel test ts css bi",
     "css": "npm-run-all --parallel css-compile-* css-prefix-* css-minify-*",
     "css-compile-standard": "sass --style expanded --source-map --embed-sources --no-error-css --load-path=./ tobago-theme-standard/src/main/scss/tobago-theme.scss:tobago-theme-standard/src/main/css/tobago.css",
     "css-prefix-standard": "postcss --config postcss.config.js --replace tobago-theme-standard/src/main/css/tobago.css",
@@ -47,10 +47,9 @@
     "css-compile-charlotteville": "sass --style expanded --source-map --embed-sources --no-error-css --load-path=./ tobago-theme-charlotteville/src/main/scss/tobago-theme.scss:tobago-theme-charlotteville/src/main/css/tobago.css",
     "css-prefix-charlotteville": "postcss --config postcss.config.js --replace tobago-theme-charlotteville/src/main/css/tobago.css",
     "css-minify-charlotteville": "cleancss -O1 specialComments:0 --format breakWith=lf --source-map --source-map-inline-sources --output tobago-theme-charlotteville/src/main/css/tobago.min.css tobago-theme-charlotteville/src/main/css/tobago.css",
-    "fa": "npm-run-all fa-mkdir --parallel fa-css fa-fonts",
-    "fa-mkdir": "mkdir -p tobago-theme-standard/src/main/css tobago-theme-standard/src/main/fonts",
-    "fa-css": "cp node_modules/font-awesome/css/font-awesome.* tobago-theme-standard/src/main/css",
-    "fa-fonts": "cp node_modules/font-awesome/fonts/fontawesome-webfont.woff* tobago-theme-standard/src/main/fonts",
+    "bi": "npm-run-all --parallel bi-css bi-fonts",
+    "bi-css": "cp node_modules/bootstrap-icons/font/bootstrap-icons.css tobago-theme-standard/src/main/css",
+    "bi-fonts": "cp -r node_modules/bootstrap-icons/font/fonts tobago-theme-standard/src/main/css",
     "ts": "npm-run-all ts-lint rollup",
     "ts-lint": "eslint 'tobago-theme-standard/src/main/ts/**/*.ts'",
     "ts-compile": "tsc --project tsconfig.development.json",
@@ -64,6 +63,7 @@
   "dependencies": {
     "@trevoreyre/autocomplete-js": "^2.2.0",
     "bootstrap": "5.0.1",
+    "bootstrap-icons": "1.5.0",
     "vanillajs-datepicker": "^1.1.4"
   },
   "devDependencies": {
@@ -78,7 +78,6 @@
     "clean-css-cli": "^5.3.0",
     "eslint": "^7.25.0",
     "eslint-plugin-compat": "^3.9.0",
-    "font-awesome": "4.7.0",
     "jest": "^26.6.3",
     "lodash": "^4.17.21",
     "npm-run-all": "^4.1.5",
