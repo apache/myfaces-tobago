@@ -11432,7 +11432,7 @@ tobago-stars {
   font-size: 1.5rem;
 }
 .tobago-stars .tobago-stars-container:before {
-  content: "    ";
+  content: "    ";
 }
 .tobago-stars .tobago-stars-container .tobago-stars-focusBox {
   display: inline-block;
@@ -11473,7 +11473,7 @@ tobago-stars {
   color: #d90;
 }
 .tobago-stars .tobago-stars-container .tobago-stars-selected:before {
-  content: "    ";
+  content: "    ";
 }
 .tobago-stars .tobago-stars-container .tobago-stars-slider:disabled ~ .tobago-stars-selected {
   filter: grayscale(1);
@@ -11491,7 +11491,7 @@ tobago-stars {
   direction: rtl;
 }
 .tobago-stars .tobago-stars-container .tobago-stars-unselected:before {
-  content: "    ";
+  content: "    ";
 }
 .tobago-stars .tobago-stars-container input[type=range]:disabled ~ .tobago-stars-unselected {
   filter: grayscale(1);
@@ -11506,7 +11506,7 @@ tobago-stars {
   opacity: 0.8;
 }
 .tobago-stars .tobago-stars-container .tobago-stars-preselected:before {
-  content: "    ";
+  content: "    ";
 }
 .tobago-stars .tobago-stars-container .tobago-stars-preselected.show {
   display: block;
