@@ -1,0 +1,24 @@
+{
+  "name": "myfaces-tobago",
+  "version": "5.0.0-SNAPSHOT",
+  "description": "The goal of Tobago is to provide the community with a well designed set of user interface components based on JSF and run on MyFaces.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apache/myfaces-tobago.git"
+  },
+  "keywords": [
+    "jsf",
+    "apache",
+    "java",
+    "myfaces",
+    "framework",
+    "html",
+    "web"
+  ],
+  "author": "The MyFaces Team",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://issues.apache.org/jira/projects/TOBAGO/"
+  },
+  "homepage": "https://myfaces.apache.org/tobago/"
+}
