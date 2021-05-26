@@ -15,7 +15,8 @@
  * limitations under the License.
  */
 
-// import {Prism} from "prismjs/prism.js";
+// this import seems to initialize and do the highlighting?!?
+import * as Prism from "prismjs";
 
 class DemoHighlight extends HTMLElement {
 
@@ -29,8 +30,15 @@ class DemoHighlight extends HTMLElement {
     } else {
       this.innerHTML = `<pre><code>${this.innerHTML.trim()}</demo-highlight>`;
     }
-    // @ts-ignore
-    Prism.highlightElement(this.querySelector("code"));
+
+    // XXX this doesn't work, because rollup? replaces this with "unknown".
+    // XXX But, highlighting works automatically ?!? (but not, when removing this)
+    try {
+      Prism.highlightElement(this.querySelector("code"));
+    } catch (e) {
+      console.debug("Prism.highlight");
+      // ignore
+    }
   }
 
   get language(): string {
