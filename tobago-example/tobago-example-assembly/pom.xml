@@ -52,13 +52,13 @@
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-example-demo</artifactId>
-                      <version>${tobago.version}</version>
+                      <version>${project.version}</version>
                       <type>war</type>
                     </artifactItem>
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-example-blank</artifactId>
-                      <version>${tobago.version}</version>
+                      <version>${project.version}</version>
                       <type>war</type>
                     </artifactItem>
                   </artifactItems>
@@ -80,7 +80,7 @@
                   <descriptors>
                     <descriptor>src/main/assembly/dep.xml</descriptor>
                   </descriptors>
-                  <finalName>myfaces-tobago-${tobago.version}</finalName>
+                  <finalName>myfaces-tobago-${project.version}</finalName>
                   <outputDirectory>target/assembly/out</outputDirectory>
                   <workDirectory>target/assembly/work</workDirectory>
                   <tarLongFileMode>gnu</tarLongFileMode>
