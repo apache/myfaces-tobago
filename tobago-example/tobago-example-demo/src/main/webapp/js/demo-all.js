@@ -14,12 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import "../../../../node_modules/prismjs/prism";
-import "demo-alert";
-import "demo-copy-to-clipboard";
-import "demo-highlight";
-import "demo-inspect";
-import "demo-login";
-import "demo-search";
-import "demo-test";
+import "./demo-alert";
+import "./demo-copy-to-clipboard";
+import "./demo-highlight";
+import "./demo-inspect";
+import "./demo-login";
+import "./demo-search";
+import "./demo-test";
 //# sourceMappingURL=demo-all.js.map

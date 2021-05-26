@@ -15,12 +15,10 @@
  * limitations under the License.
  */
 
-import "../../../../node_modules/prismjs/prism";
-
-import "demo-alert";
-import "demo-copy-to-clipboard";
-import "demo-highlight";
-import "demo-inspect";
-import "demo-login";
-import "demo-search";
-import "demo-test";
+import "./demo-alert";
+import "./demo-copy-to-clipboard";
+import "./demo-highlight";
+import "./demo-inspect";
+import "./demo-login";
+import "./demo-search";
+import "./demo-test";
