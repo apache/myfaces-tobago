@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>5.0.0-alpha-1-SNAPSHOT</version>
+    <version>5.0.0-alpha-1</version>
   </parent>
   <artifactId>tobago-example-demo</artifactId>
   <packaging>${app.packaging}</packaging>
@@ -100,7 +100,7 @@
             <phase>initialize</phase>
             <configuration>
               <target>
-                <mkdir dir="${tobago-theme-standard-dir}/META-INF/resources"/>
+                <mkdir dir="${tobago-theme-standard-dir}/META-INF/resources" />
               </target>
             </configuration>
             <goals>
