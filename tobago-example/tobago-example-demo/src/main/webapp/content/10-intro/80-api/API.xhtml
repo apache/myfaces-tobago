@@ -31,7 +31,7 @@
 
     <tc:sheet value="#{apiController.releases}" var="release">
       <tc:column label="Version">
-        <tc:out value="#{release.version}" labelLayout="skip" compact="true"/>
+        <tc:out value="#{release.version}" labelLayout="skip" plain="true"/>
       </tc:column>
       <tc:column label="JavaDoc API Documentation">
         <tc:link label="#{release.version} API Documentation"
