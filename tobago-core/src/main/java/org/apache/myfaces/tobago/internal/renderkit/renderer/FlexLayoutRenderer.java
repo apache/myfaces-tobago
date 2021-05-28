@@ -42,6 +42,7 @@ public class FlexLayoutRenderer<T extends AbstractUIFlexLayout> extends Renderer
     writer.writeClassAttribute(
         component.isHorizontal() ? BootstrapClass.FLEX_ROW : BootstrapClass.FLEX_COLUMN,
         BootstrapClass.valueOf(component.getAlignItems()),
+        BootstrapClass.valueOf(component.getJustifyContent()),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
   }
 
