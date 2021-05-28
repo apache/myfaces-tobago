@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.layout.AlignItems;
+import org.apache.myfaces.tobago.layout.JustifyContent;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.MeasureList;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -100,6 +101,8 @@ public abstract class AbstractUIFlexLayout extends AbstractUILayoutBase {
   public abstract MeasureList getRows();
 
   public abstract AlignItems getAlignItems();
+
+  public abstract JustifyContent getJustifyContent();
 
   public boolean isHorizontal() {
     return getRows() == null;
