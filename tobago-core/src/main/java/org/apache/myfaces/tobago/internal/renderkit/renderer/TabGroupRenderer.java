@@ -285,12 +285,8 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
 
           boolean labelEmpty = true;
           final String image = tab.getImage();
-          // tab.getImage() resolves to empty string if el-expression resolves to null
-          if (image != null && !image.isEmpty()) {
-            writer.startElement(HtmlElements.IMG);
-            writer.writeAttribute(HtmlAttributes.SRC, image, true);
-// TBD      writer.writeClassAttribute(Classes.create(tab, (label.getLabel() != null? "image-right-margin" : "image")));
-            writer.endElement(HtmlElements.IMG);
+          if (image != null) {
+            HtmlRendererUtils.encodeIconOrImage(writer, image);
             labelEmpty = false;
           }
           if (label.getLabel() != null) {
