@@ -79,8 +79,8 @@
       </tc:tab>
       <tc:tab id="t25">
         <f:facet name="label">
-          <tc:out value="Once: " labelLayout="skip" compact="true"/>
-          <tc:out value="#{dateController.once}" labelLayout="skip" compact="true">
+          <tc:out value="Once: " labelLayout="skip" plain="true"/>
+          <tc:out value="#{dateController.once}" labelLayout="skip" plain="true">
             <f:convertDateTime dateStyle="short" type="date"/>
           </tc:out>
         </f:facet>
@@ -88,7 +88,7 @@
           It's also possible to set the label via a label facet. So you can use e. g. converters.
         </p>
         <p>
-          If using this, don't forget to set <code>labelLayout="skip" compact="true"</code> to switch off
+          If using this, don't forget to set <code>labelLayout="skip" plain="true"</code> to switch off
           the layout and boxes of the components.
         </p>
       </tc:tab>
