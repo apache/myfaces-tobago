@@ -60,6 +60,8 @@ public abstract class AbstractUISuggest
 
   public abstract void setMinimumCharacters(Integer minimumCharacters);
 
+  public abstract SuggestFilter getFilter();
+
   public abstract void setFilter(SuggestFilter filter);
 
   public String getQuery() {

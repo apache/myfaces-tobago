@@ -26,8 +26,8 @@ public class SuggestFilterUnitTest {
 
   @Test
   public void testConstants() {
-    Assertions.assertEquals(SuggestFilter.ALL.getValue(), SuggestFilter.STRING_ALL);
-    Assertions.assertEquals(SuggestFilter.PREFIX.getValue(), SuggestFilter.STRING_PREFIX);
-    Assertions.assertEquals(SuggestFilter.CONTAINS.getValue(), SuggestFilter.STRING_CONTAINS);
+    Assertions.assertEquals(SuggestFilter.all.getValue(), SuggestFilter.ALL);
+    Assertions.assertEquals(SuggestFilter.prefix.getValue(), SuggestFilter.PREFIX);
+    Assertions.assertEquals(SuggestFilter.contains.getValue(), SuggestFilter.CONTAINS);
   }
 }

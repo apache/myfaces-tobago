@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
@@ -58,9 +57,6 @@ public class TobagoComponentHandler extends ComponentHandler {
     }
     if (Visual.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SupportsMarkupRule.INSTANCE);
-    }
-    if (InputSuggest.class.isAssignableFrom(aClass)) {
-      metaRuleset.addRule(SuggestMethodRule.INSTANCE);
     }
 
     return metaRuleset;
