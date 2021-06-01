@@ -83,6 +83,24 @@
         <tc:selectItems value="#{suggestController.allSolarObjects}"/>
       </tc:suggest>
     </tc:in>
+
+    <tc:in id="inClientFilterAll" label="Filter All">
+      <tc:suggest update="false" filter="all">
+        <tc:selectItems value="#{suggestController.allSolarObjects}"/>
+      </tc:suggest>
+    </tc:in>
+
+    <tc:in id="inClientFilterPrefix" label="Filter Prefix">
+      <tc:suggest update="false" filter="prefix">
+        <tc:selectItems value="#{suggestController.allSolarObjects}"/>
+      </tc:suggest>
+    </tc:in>
+
+    <tc:in id="inClientFilterContains" label="Filter Contains">
+      <tc:suggest update="false" filter="contains">
+        <tc:selectItems value="#{suggestController.allSolarObjects}"/>
+      </tc:suggest>
+    </tc:in>
   </tc:section>
 
   <tc:section id="localMenu" label="Render local menu">

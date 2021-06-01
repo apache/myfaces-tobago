@@ -119,6 +119,7 @@ public class SuggestRenderer<T extends AbstractUISuggest> extends RendererBase<T
     writer.writeAttribute(CustomAttributes.UPDATE, component.isUpdate());
     writer.writeAttribute(CustomAttributes.TOTAL_COUNT, totalCount);
     writer.writeAttribute(CustomAttributes.LOCAL_MENU, component.isLocalMenu());
+    writer.writeAttribute(CustomAttributes.FILTER, component.getFilter().getValue(), false);
     writer.writeAttribute(CustomAttributes.ITEMS, JsonUtils.encode(array), true);
 
     if (LOG.isDebugEnabled()) {

@@ -16,6 +16,7 @@
  */
 
 import Autocomplete from "@trevoreyre/autocomplete-js";
+import {SuggestFilter} from "./tobago-suggest-filter";
 
 export class Suggest {
 
@@ -64,7 +65,17 @@ export class Suggest {
               render: suggestId
             });
           } else {
-            return resolve(this.filterItems());
+            switch (this.filter) {
+              case SuggestFilter.all:
+                return resolve(this.filterAll());
+                break;
+              case SuggestFilter.prefix:
+                return resolve(this.filterPrefix());
+                break;
+              default:
+                return resolve(this.filterContains());
+                break;
+            }
           }
         });
       },
@@ -87,11 +98,21 @@ export class Suggest {
 
   private resolvePromise(event: EventData): void {
     if (event.source === this.suggest && event.status === "success") {
-      return this.resolve(this.filterItems());
+      return this.resolve(this.filterAll());
     }
   }
 
-  private filterItems(): string[] {
+  private filterAll(): string[] {
+    return this.items;
+  }
+
+  private filterPrefix(): string[] {
+    return this.items.filter(item => {
+      return item.toLowerCase().startsWith(this.hiddenInput.value);
+    });
+  }
+
+  private filterContains(): string[] {
     return this.items.filter(item => {
       return item.toLowerCase().indexOf(this.hiddenInput.value) > -1;
     });
@@ -205,5 +226,9 @@ export class Suggest {
 
   private get localMenu(): boolean {
     return this.suggest.getAttribute("local-menu") !== null;
+  }
+
+  private get filter(): SuggestFilter {
+    return SuggestFilter[this.suggest.getAttribute("filter")];
   }
 }

@@ -112,7 +112,6 @@ public interface SuggestTagDeclaration extends HasIdBindingAndRendered {
   void setTotalCount(String totalCount);
 
   /**
-   * TODO: not implemented yet
    * <p>
    * Additional client side filtering of the result list.
    * This is useful when sending the full list initially to the client and
@@ -137,18 +136,17 @@ public interface SuggestTagDeclaration extends HasIdBindingAndRendered {
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.model.SuggestFilter",
-      defaultValue = "SuggestFilter.ALL",
+      defaultValue = SuggestFilter.CONTAINS,
+      defaultCode = "org.apache.myfaces.tobago.model.SuggestFilter.contains",
       allowedValues = {
-          SuggestFilter.STRING_ALL,
-          SuggestFilter.STRING_PREFIX,
-          SuggestFilter.STRING_CONTAINS})
+          SuggestFilter.ALL,
+          SuggestFilter.PREFIX,
+          SuggestFilter.CONTAINS})
   void setFilter(String filter);
 
   /**
-   * TODO: not implemented yet
    * <p>
    * Should the list be updated while typing (via AJAX). This is the default behavior.
-   * If you set this value to <code>false</code>, please set the <code>minimumCharacters="0"</code>.
    * </p>
    */
   @TagAttribute

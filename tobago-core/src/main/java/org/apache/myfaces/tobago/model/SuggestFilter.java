@@ -21,13 +21,13 @@ package org.apache.myfaces.tobago.model;
 
 public enum SuggestFilter {
 
-  ALL,
-  PREFIX,
-  CONTAINS;
+  all,
+  prefix,
+  contains;
 
-  public static final String STRING_ALL = "all";
-  public static final String STRING_PREFIX = "prefix";
-  public static final String STRING_CONTAINS = "contains";
+  public static final String ALL = "all";
+  public static final String PREFIX = "prefix";
+  public static final String CONTAINS = "contains";
 
   public String getValue() {
     return name().toLowerCase();
