@@ -1506,6 +1506,11 @@ tobago-tab.tobago-tab-barFacet {
 }
 
 tobago-tab-group {
+  tobago-tab {
+    > .nav-link {
+      @include buttonLinkImageTextSpacing();
+    }
+  }
 }
 
 /* FIXME: This is to hide the toolbar, until it is implemented */
