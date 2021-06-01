@@ -290,7 +290,9 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
             labelEmpty = false;
           }
           if (label.getLabel() != null) {
+            writer.startElement(HtmlElements.SPAN);
             HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
+            writer.endElement(HtmlElements.SPAN);
             labelEmpty = false;
           }
           if (labelFacet != null) {
