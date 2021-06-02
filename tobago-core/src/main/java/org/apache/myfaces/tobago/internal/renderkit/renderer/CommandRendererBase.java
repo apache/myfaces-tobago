@@ -123,7 +123,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
         dropdownSubmenu ? BootstrapClass.DROPDOWN_ITEM : null,
         parentOfCommands && !dropdownSubmenu ? BootstrapClass.DROPDOWN_TOGGLE : null,
         component.getCustomClass(),
-        isInside(facesContext, HtmlElements.TOBAGO_LINKS) ? BootstrapClass.NAV_LINK : null);
+        isInside(facesContext, HtmlElements.TOBAGO_LINKS) && !dropdownSubmenu ? BootstrapClass.NAV_LINK : null);
 
     final boolean defaultCommand = ComponentUtils.getBooleanAttribute(component, Attributes.defaultCommand);
     if (defaultCommand) {
