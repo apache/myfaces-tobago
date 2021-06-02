@@ -508,6 +508,10 @@ tobago-in {
     }
   }
 
+  .autocomplete-result-list {
+    cursor: pointer;
+  }
+
   tobago-suggest {
     display: none;
   }
