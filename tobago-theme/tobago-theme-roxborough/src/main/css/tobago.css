@@ -12302,6 +12302,13 @@ tobago-tab.tobago-tab-barFacet .nav-link:not(.disabled):hover + div {
   border-right-color: #e9ecef;
 }
 
+tobago-tab-group tobago-tab > .nav-link > img + span {
+  margin-left: 0.4em;
+}
+tobago-tab-group tobago-tab > .nav-link > i + span {
+  margin-left: 0.4em;
+}
+
 /* FIXME: This is to hide the toolbar, until it is implemented */
 .tobago-tabGroup-toolBar {
   display: none;
