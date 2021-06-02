@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 public abstract class RendererTestBase extends AbstractTobagoTestBase {
 
   protected String formattedResult() throws IOException {
-    return format1To2Indent(getLastWritten());
+    return formatCrlf2LfAndTrim(format1To2Indent(getLastWritten()));
   }
 
   protected String loadHtml(final String fileName) throws IOException {
@@ -42,9 +42,10 @@ public abstract class RendererTestBase extends AbstractTobagoTestBase {
       }
       try (final InputStreamReader isr = new InputStreamReader(is);
            final BufferedReader reader = new BufferedReader(isr)) {
-        return reader.lines().collect(Collectors.joining(System.lineSeparator()))
+        final String xml = reader.lines().collect(Collectors.joining(System.lineSeparator()))
             .replaceAll("<!--[^>]*-->", "")
             .replaceAll("^\n\n", "");
+        return formatCrlf2LfAndTrim(xml);
       }
     }
   }
@@ -59,5 +60,9 @@ public abstract class RendererTestBase extends AbstractTobagoTestBase {
     .replaceAll("\n      <", "\n\t\t\t\t\t\t<")
     .replaceAll("\n       <", "\n\t\t\t\t\t\t\t<")
         .replaceAll("\t", "  ");
+  }
+
+  protected String formatCrlf2LfAndTrim(final String xml) {
+    return xml.replaceAll("\r\n", "\n").trim();
   }
 }
