@@ -18,7 +18,7 @@
 
 version: 2
 updates:
-  - package-ecosystem: "maven" 
+  - package-ecosystem: "maven"
     directory: "/"
     commit-message:
       prefix: "build"
@@ -97,9 +97,9 @@ updates:
       - dependency-name: "org.apache.myfaces.core:myfaces-impl"
         versions:
           - ">= 2.1.0"
-      - dependency-name: "org.glassfish:javax.faces"
+      - dependency-name: "org.glassfish:jakarta.faces"
         versions:
-          - ">= 2.4.0"
+          - ">= 3.0.0"
       - dependency-name: "jakarta.inject:jakarta.inject-api"
         versions:
           - ">= 2.0.0"
@@ -147,7 +147,7 @@ updates:
     directory: "/"
     schedule:
       # Check for updates to GitHub Actions every day
-      interval: "daily"    
+      interval: "daily"
 
   - package-ecosystem: "github-actions"
     directory: "/"
