@@ -49,6 +49,21 @@ $page-padding-top: 1rem;
   }
 }
 
+@mixin badge() {
+  &.badge {
+    @each $color, $value in $theme-colors {
+      &.bg-#{$color}, &.btn-#{$color} {
+        // set text color to make sure there is no white text on white background
+        color: color-contrast($value);
+      }
+    }
+
+    &.btn {
+      border: 0; //badge have no border; a button with markup badge should also have no border
+    }
+  }
+}
+
 @mixin buttonLinkDisabledCursor() {
   &:disabled {
     pointer-events: auto;
@@ -132,17 +147,16 @@ $page-padding-top: 1rem;
   margin-bottom: $spacer;
 }
 
-/* badge -------------------------------------------------------------- */
+tobago-badge {
+  @include badge();
+
+  &.btn {
+    cursor: initial; //revert cursor attribute on .btn class
+  }
+}
+
 .tobago-badge {
-}
-
-.badge.btn {
-  border: 0;
-}
-
-.btn-group > tobago-badge.badge.btn {
-  z-index: initial;
-  cursor: initial;
+  // only for unit test
 }
 
 /* bar -------------------------------------------------------------- */
@@ -209,6 +223,7 @@ tobago-box {
 .tobago-button {
   @include buttonLinkDisabledCursor();
   @include buttonLinkImageTextSpacing();
+  @include badge();
 }
 
 /* button -------------------------------------------------------------- */
