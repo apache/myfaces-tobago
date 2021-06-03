@@ -17,7 +17,7 @@
   ~ under the License.
   -->
 
-<tobago-tree id='tree' data-tobago-scroll-panel='true' data-tobago-selectable='single' selectable='single'>
+<tobago-tree id='tree' data-tobago-selectable='single' selectable='single'>
   <tobago-tree-node id='tree:0:treeNode' class='tobago-treeNode-markup-folder tobago-treeNode-markup-expanded' expandable='expandable' index='0' data-tobago-level='0'>
     <span id='tree:0:treeIndent' class='tobago-treeNode-toggle'><i class='bi-dash-square' data-tobago-open='bi-dash-square' data-tobago-closed='bi-plus-square'></i></span>
     <tobago-tree-select class='form-check-inline form-check'>
@@ -180,5 +180,7 @@
   </tobago-tree-node>
   <input type='hidden' name='tree::selected' id='tree::selected' class='tobago-tree-selected' value='[]'>
   <input type='hidden' name='tree::expanded' id='tree::expanded' class='tobago-tree-expanded' value='[0,3,6,10,11,15,17]'>
-  <input id='tree::scrollPosition' name='tree::scrollPosition' type='hidden' value='[0,0]' data-tobago-scroll-position='true'>
+  <tobago-scroll>
+    <input id='tree::scrollPosition' name='tree::scrollPosition' type='hidden' value='[0,0]' data-tobago-scroll-position='true'>
+  </tobago-scroll>
 </tobago-tree>

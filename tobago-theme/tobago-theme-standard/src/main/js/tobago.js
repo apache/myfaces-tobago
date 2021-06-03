@@ -11854,31 +11854,37 @@
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-  class Scroll {
-  }
-  Scroll.initScrollPosition = function (element) {
-      for (const panel of DomUtils.selfOrQuerySelectorAll(element, "[data-tobago-scroll-panel]")) {
-          const hidden = panel.querySelector(":scope > [data-tobago-scroll-position]");
-          const values = JSON.parse(hidden.value);
+  class TobagoScroll extends HTMLElement {
+      constructor() {
+          super();
+      }
+      connectedCallback() {
+          const text = this.hiddenElement.value;
+          const values = JSON.parse(text);
           if (values.length === 2) {
-              panel.scrollLeft = values[0];
-              panel.scrollTop = values[1];
+              this.parentElement.scrollLeft = values[0];
+              this.parentElement.scrollTop = values[1];
           }
           else {
-              console.warn("Wrong syntax for scroll: " + hidden.value);
+              console.warn("Syntax error for scroll position: " + text);
           }
-          panel.addEventListener("scroll", Scroll.scroll);
+          this.parentElement.addEventListener("scroll", this.storeScrollPosition.bind(this));
       }
-  };
-  Scroll.scroll = function (event) {
-      const panel = event.currentTarget;
-      const scrollLeft = panel.scrollLeft;
-      const scrollTop = panel.scrollTop;
-      const hidden = panel.querySelector(":scope > [data-tobago-scroll-position]");
-      hidden.value = JSON.stringify([scrollLeft, scrollTop]);
-  };
-  Listener.register(Scroll.initScrollPosition, Phase.DOCUMENT_READY, Order.LATER);
-  Listener.register(Scroll.initScrollPosition, Phase.AFTER_UPDATE, Order.LATER);
+      storeScrollPosition(event) {
+          const panel = event.currentTarget;
+          const scrollLeft = panel.scrollLeft;
+          const scrollTop = panel.scrollTop;
+          this.hiddenElement.value = JSON.stringify([scrollLeft, scrollTop]);
+      }
+      get hiddenElement() {
+          return this.querySelector("input");
+      }
+  }
+  document.addEventListener("tobago.init", function (event) {
+      if (window.customElements.get("tobago-scroll") == null) {
+          window.customElements.define("tobago-scroll", TobagoScroll);
+      }
+  });
 
   /*
    * Licensed to the Apache Software Foundation (ASF) under one or more

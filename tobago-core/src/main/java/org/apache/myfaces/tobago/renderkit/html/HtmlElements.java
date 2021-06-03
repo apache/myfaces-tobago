@@ -162,6 +162,7 @@ public enum HtmlElements {
   TOBAGO_PROGRESS("tobago-progress"),
   TOBAGO_RANGE("tobago-range"),
   TOBAGO_RELOAD("tobago-reload"),
+  TOBAGO_SCROLL("tobago-scroll"),
   TOBAGO_SECTION("tobago-section"),
   TOBAGO_SEGMENT_LAYOUT("tobago-segment-layout"),
   TOBAGO_SELECT_BOOLEAN_CHECKBOX("tobago-select-boolean-checkbox"),
