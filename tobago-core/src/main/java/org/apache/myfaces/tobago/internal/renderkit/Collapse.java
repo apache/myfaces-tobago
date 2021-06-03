@@ -21,23 +21,23 @@ package org.apache.myfaces.tobago.internal.renderkit;
 
 public class Collapse {
 
-  private Action action;
-  private String forId;
+  private final Operation operation;
+  private final String forId;
 
-  public Collapse(final Action action, final String forId) {
-    this.action = action;
+  public Collapse(final Operation operation, final String forId) {
+    this.operation = operation;
     this.forId = forId;
   }
 
-  public Action getAction() {
-    return action;
+  public Operation getOperation() {
+    return operation;
   }
 
   public String getFor() {
     return forId;
   }
 
-  public enum Action {
-    show, hide
+  public enum Operation {
+    none, show, hide, toggle
   }
 }

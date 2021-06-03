@@ -273,6 +273,54 @@
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
+  var BehaviorMode;
+  (function (BehaviorMode) {
+      BehaviorMode[BehaviorMode["none"] = 0] = "none";
+      BehaviorMode[BehaviorMode["client"] = 1] = "client";
+      BehaviorMode[BehaviorMode["ajax"] = 2] = "ajax";
+      BehaviorMode[BehaviorMode["full"] = 3] = "full";
+  })(BehaviorMode || (BehaviorMode = {}));
+
+  /*
+   * Licensed to the Apache Software Foundation (ASF) under one or more
+   * contributor license agreements.  See the NOTICE file distributed with
+   * this work for additional information regarding copyright ownership.
+   * The ASF licenses this file to You under the Apache License, Version 2.0
+   * (the "License"); you may not use this file except in compliance with
+   * the License.  You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  var CollapseOperation;
+  (function (CollapseOperation) {
+      CollapseOperation[CollapseOperation["none"] = 0] = "none";
+      CollapseOperation[CollapseOperation["show"] = 1] = "show";
+      CollapseOperation[CollapseOperation["hide"] = 2] = "hide";
+      CollapseOperation[CollapseOperation["toggle"] = 3] = "toggle";
+  })(CollapseOperation || (CollapseOperation = {}));
+
+  /*
+   * Licensed to the Apache Software Foundation (ASF) under one or more
+   * contributor license agreements.  See the NOTICE file distributed with
+   * this work for additional information regarding copyright ownership.
+   * The ASF licenses this file to You under the Apache License, Version 2.0
+   * (the "License"); you may not use this file except in compliance with
+   * the License.  You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
   const TobagoDropdownEvent = {
       HIDE: "tobago.dropdown.hide",
       HIDDEN: "tobago.dropdown.hidden",
@@ -9712,7 +9760,6 @@
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-  // import {Modal} from "bootstrap/dist/js/bootstrap.bundle";
   class Popup extends HTMLElement {
       constructor() {
           super();
@@ -9720,14 +9767,28 @@
       connectedCallback() {
           const options = {};
           this.modal = new Modal(this, options);
+          if (!this.collapsed) {
+              this.show();
+          }
       }
-      show() {
+      disconnectedCallback() {
+          this.hide();
+          this.modal.dispose();
+      }
+      show(behaviorMode) {
           console.log("show");
-          this.modal.show();
+          if (behaviorMode == null || behaviorMode == BehaviorMode.client) {
+              this.modal.show();
+          }
       }
-      hide() {
+      hide(behaviorMode) {
           console.log("hide");
-          this.modal.hide();
+          if (behaviorMode == null || behaviorMode == BehaviorMode.client) {
+              this.modal.hide();
+          }
+      }
+      get collapsed() {
+          return JSON.parse(Collapse.findHidden(this).value);
       }
   }
   document.addEventListener("tobago.init", function (event) {
@@ -9741,22 +9802,22 @@
           return rootNode.getElementById(element.id + "::collapse");
       }
   }
-  Collapse.execute = function (action, target) {
+  Collapse.execute = function (operation, target, behaviorMode) {
       const hidden = Collapse.findHidden(target);
       let newCollapsed;
-      switch (action) {
-          case "hide":
+      switch (operation) {
+          case CollapseOperation.hide:
               newCollapsed = true;
               break;
-          case "show":
+          case CollapseOperation.show:
               newCollapsed = false;
               break;
           default:
-              console.error("unknown action: '" + action + "'");
+              console.error("unknown operation: '" + operation + "'");
       }
       if (newCollapsed) {
           if (target instanceof Popup) {
-              target.hide();
+              target.hide(behaviorMode);
           }
           else {
               target.classList.add("tobago-collapsed");
@@ -9764,7 +9825,7 @@
       }
       else {
           if (target instanceof Popup) {
-              target.show();
+              target.show(behaviorMode);
           }
           else {
               target.classList.remove("tobago-collapsed");
@@ -9815,39 +9876,51 @@
           }
       }
       callback(event) {
-          if (this.collapseAction && this.collapseTarget) {
+          if (this.collapseOperation && this.collapseTarget) {
               const rootNode = this.getRootNode();
-              Collapse.execute(this.collapseAction, rootNode.getElementById(this.collapseTarget));
+              Collapse.execute(this.collapseOperation, rootNode.getElementById(this.collapseTarget), this.mode);
           }
-          if (this.execute || this.render) { // this means: AJAX case?
-              if (this.render) {
-                  // prepare overlay for all by AJAX reloaded elements
-                  const partialIds = this.render.split(" ");
-                  for (let i = 0; i < partialIds.length; i++) {
-                      const partialElement = document.getElementById(partialIds[i]);
-                      if (partialElement) {
-                          new Overlay(partialElement, true);
-                      }
-                      else {
-                          console.warn("No element found by id='%s' for overlay!", partialIds[i]);
+          switch (this.mode) {
+              case BehaviorMode.ajax:
+                  if (this.render) {
+                      // prepare overlay for all by AJAX reloaded elements
+                      const partialIds = this.render.split(" ");
+                      for (let i = 0; i < partialIds.length; i++) {
+                          const partialElement = document.getElementById(partialIds[i]);
+                          if (partialElement) {
+                              new Overlay(partialElement, true);
+                          }
+                          else {
+                              console.warn("No element found by id='%s' for overlay!", partialIds[i]);
+                          }
                       }
                   }
-              }
-              jsf.ajax.request(this.actionElement, event, {
-                  "javax.faces.behavior.event": this.event,
-                  execute: this.execute,
-                  render: this.render
-              });
-          }
-          else {
-              if (!this.omit) {
+                  jsf.ajax.request(this.actionElement, event, {
+                      "javax.faces.behavior.event": this.event,
+                      execute: this.execute,
+                      render: this.render
+                  });
+                  break;
+              case BehaviorMode.full:
                   setTimeout(this.submit.bind(this), this.delay);
-              }
+                  break;
+              // nothing to do
           }
       }
       submit() {
           const id = this.fieldId != null ? this.fieldId : this.clientId;
           CommandHelper.submitAction(this, id, this.decoupled, this.target);
+      }
+      get mode() {
+          if (this.render || this.execute) {
+              return BehaviorMode.ajax;
+          }
+          else if (!this.omit) {
+              return BehaviorMode.full;
+          }
+          else {
+              return BehaviorMode.client;
+          }
       }
       get event() {
           return this.getAttribute("event");
@@ -9908,11 +9981,11 @@
       set confirmation(confirmation) {
           this.setAttribute("confirmation", confirmation);
       }
-      get collapseAction() {
-          return this.getAttribute("collapse-action");
+      get collapseOperation() {
+          return CollapseOperation[this.getAttribute("collapse-operation")];
       }
-      set collapseAction(collapseAction) {
-          this.setAttribute("collapse-action", collapseAction);
+      set collapseOperation(collapseOperation) {
+          this.setAttribute("collapse-operation", CollapseOperation[collapseOperation]);
       }
       get collapseTarget() {
           return this.getAttribute("collapse-target");

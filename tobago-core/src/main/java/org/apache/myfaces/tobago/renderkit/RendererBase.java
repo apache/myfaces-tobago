@@ -268,7 +268,7 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
         command.getTransition() != null && !command.getTransition());
     final Collapse collapse = command.getCollapse();
     if (collapse != null) {
-      writer.writeAttribute(CustomAttributes.COLLAPSE_ACTION, collapse.getAction().name(), false);
+      writer.writeAttribute(CustomAttributes.COLLAPSE_OPERATION, collapse.getOperation().name(), false);
       writer.writeAttribute(CustomAttributes.COLLAPSE_TARGET, collapse.getFor(), false);
     }
     writer.writeAttribute(CustomAttributes.DELAY, command.getDelay());

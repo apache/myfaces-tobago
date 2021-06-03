@@ -19,6 +19,8 @@ import {Listener} from "./tobago-listener";
 import {Overlay} from "./tobago-overlay";
 import {Collapse} from "./tobago-popup";
 import {Page} from "./tobago-page";
+import {CollapseOperation} from "./tobago-collapsible-operation";
+import {BehaviorMode} from "./tobago-behavior-mode";
 
 class Behavior extends HTMLElement {
 
@@ -49,42 +51,56 @@ class Behavior extends HTMLElement {
 
   callback(event?: Event): void {
 
-    if (this.collapseAction && this.collapseTarget) {
+    if (this.collapseOperation && this.collapseTarget) {
       const rootNode = this.getRootNode() as ShadowRoot | Document;
-      Collapse.execute(this.collapseAction, rootNode.getElementById(this.collapseTarget));
+      Collapse.execute(this.collapseOperation, rootNode.getElementById(this.collapseTarget), this.mode);
     }
 
-    if (this.execute || this.render) { // this means: AJAX case?
-      if (this.render) {
-        // prepare overlay for all by AJAX reloaded elements
-        const partialIds = this.render.split(" ");
-        for (let i = 0; i < partialIds.length; i++) {
-          const partialElement = document.getElementById(partialIds[i]);
-          if (partialElement) {
-            new Overlay(partialElement, true);
-          } else {
-            console.warn("No element found by id='%s' for overlay!", partialIds[i]);
+    switch (this.mode) {
+      case BehaviorMode.ajax:
+        if (this.render) {
+          // prepare overlay for all by AJAX reloaded elements
+          const partialIds = this.render.split(" ");
+          for (let i = 0; i < partialIds.length; i++) {
+            const partialElement = document.getElementById(partialIds[i]);
+            if (partialElement) {
+              new Overlay(partialElement, true);
+            } else {
+              console.warn("No element found by id='%s' for overlay!", partialIds[i]);
+            }
           }
         }
-      }
-      jsf.ajax.request(
-          this.actionElement,
-          event,
-          {
-            "javax.faces.behavior.event": this.event,
-            execute: this.execute,
-            render: this.render
-          });
-    } else {
-      if (!this.omit) {
+        jsf.ajax.request(
+            this.actionElement,
+            event,
+            {
+              "javax.faces.behavior.event": this.event,
+              execute: this.execute,
+              render: this.render
+            });
+        break;
+      case BehaviorMode.full:
         setTimeout(this.submit.bind(this), this.delay);
-      }
+        break;
+      default:
+        // nothing to do
+
     }
   }
 
   submit(): void {
     const id = this.fieldId != null ? this.fieldId : this.clientId;
     CommandHelper.submitAction(this, id, this.decoupled, this.target);
+  }
+
+  get mode(): BehaviorMode {
+    if (this.render || this.execute) {
+      return BehaviorMode.ajax;
+    } else if (!this.omit) {
+      return BehaviorMode.full;
+    } else {
+      return BehaviorMode.client;
+    }
   }
 
   get event(): string {
@@ -163,12 +179,12 @@ class Behavior extends HTMLElement {
     this.setAttribute("confirmation", confirmation);
   }
 
-  get collapseAction(): string {
-    return this.getAttribute("collapse-action");
+  get collapseOperation(): CollapseOperation {
+    return CollapseOperation[this.getAttribute("collapse-operation")];
   }
 
-  set collapseAction(collapseAction: string) {
-    this.setAttribute("collapse-action", collapseAction);
+  set collapseOperation(collapseOperation: CollapseOperation) {
+    this.setAttribute("collapse-operation", CollapseOperation[collapseOperation]);
   }
 
   get collapseTarget(): string {
