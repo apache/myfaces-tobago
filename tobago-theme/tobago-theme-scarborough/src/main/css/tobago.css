@@ -11052,13 +11052,34 @@ textarea.form-control-lg {
   margin-bottom: 1rem;
 }
 
-/* badge -------------------------------------------------------------- */
-.badge.btn {
+tobago-badge.badge.bg-primary, tobago-badge.badge.btn-primary {
+  color: #fff;
+}
+tobago-badge.badge.bg-secondary, tobago-badge.badge.btn-secondary {
+  color: #fff;
+}
+tobago-badge.badge.bg-success, tobago-badge.badge.btn-success {
+  color: #fff;
+}
+tobago-badge.badge.bg-info, tobago-badge.badge.btn-info {
+  color: #000;
+}
+tobago-badge.badge.bg-warning, tobago-badge.badge.btn-warning {
+  color: #000;
+}
+tobago-badge.badge.bg-danger, tobago-badge.badge.btn-danger {
+  color: #fff;
+}
+tobago-badge.badge.bg-light, tobago-badge.badge.btn-light {
+  color: #000;
+}
+tobago-badge.badge.bg-dark, tobago-badge.badge.btn-dark {
+  color: #fff;
+}
+tobago-badge.badge.btn {
   border: 0;
 }
-
-.btn-group > tobago-badge.badge.btn {
-  z-index: initial;
+tobago-badge.btn {
   cursor: initial;
 }
 
@@ -11119,6 +11140,33 @@ tobago-box > .card-body {
 }
 .tobago-button > i + span {
   margin-left: 0.4em;
+}
+.tobago-button.badge.bg-primary, .tobago-button.badge.btn-primary {
+  color: #fff;
+}
+.tobago-button.badge.bg-secondary, .tobago-button.badge.btn-secondary {
+  color: #fff;
+}
+.tobago-button.badge.bg-success, .tobago-button.badge.btn-success {
+  color: #fff;
+}
+.tobago-button.badge.bg-info, .tobago-button.badge.btn-info {
+  color: #000;
+}
+.tobago-button.badge.bg-warning, .tobago-button.badge.btn-warning {
+  color: #000;
+}
+.tobago-button.badge.bg-danger, .tobago-button.badge.btn-danger {
+  color: #fff;
+}
+.tobago-button.badge.bg-light, .tobago-button.badge.btn-light {
+  color: #000;
+}
+.tobago-button.badge.bg-dark, .tobago-button.badge.btn-dark {
+  color: #fff;
+}
+.tobago-button.badge.btn {
+  border: 0;
 }
 
 /* button -------------------------------------------------------------- */
@@ -11361,6 +11409,9 @@ tobago-in.autocomplete[data-loading=true] .autocomplete-pseudo-container:after {
   z-index: 5;
   transform: translateY(-50%);
   animation: rotate 1s linear infinite;
+}
+tobago-in .autocomplete-result-list {
+  cursor: pointer;
 }
 tobago-in tobago-suggest {
   display: none;
