@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
-import "./tobago-listener";
 import "./tobago-bar";
 import "./tobago-behavior-mode";
 import "./tobago-collapsible-operation";

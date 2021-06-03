@@ -17,7 +17,6 @@
 
 import {CommandHelper} from "./tobago-command";
 import {Overlay} from "./tobago-overlay";
-import {Listener} from "./tobago-listener";
 
 export class Page extends HTMLElement {
 
@@ -111,9 +110,6 @@ export class Page extends HTMLElement {
         return false;
       }
     });
-
-    // todo remove this
-    Listener.executeDocumentReady(document.documentElement);
   }
 
   onBeforeUnload(): void {
@@ -133,8 +129,6 @@ export class Page extends HTMLElement {
         new Overlay(this);
       }
       this.transition = this.oldTransition;
-    } else {
-      Listener.executeBeforeExit();
     }
   }
 
@@ -161,19 +155,6 @@ export class Page extends HTMLElement {
       rootNode = document;
     }
     console.info("[tobago-jsf] Update after jsf.ajax success: %s", id);
-    if (JsfParameter.isJsfId(id)) {
-      console.debug("[tobago-jsf] updating #%s", id);
-      const element = rootNode.getElementById(id);
-      if (element) {
-        Listener.executeAfterUpdate(element);
-      } else {
-        console.warn("[tobago-jsf] element not found for #%s", id);
-      }
-    } else if (JsfParameter.isJsfBody(id)) {
-      console.debug("[tobago-jsf] updating body");
-      // there should be only one element with this tag name
-      Listener.executeAfterUpdate(rootNode.querySelector("tobago-page") as HTMLElement);
-    }
   }
 
   jsfResponseComplete(update: Element): void {
@@ -198,9 +179,6 @@ document.addEventListener("tobago.init", (event: Event): void => {
     window.customElements.define("tobago-page", Page);
   }
 });
-
-// todo remove this
-window.addEventListener("load", Listener.executeWindowLoad);
 
 class JsfParameter {
 
