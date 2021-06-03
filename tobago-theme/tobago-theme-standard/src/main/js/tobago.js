@@ -19,138 +19,6 @@
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-  var Phase;
-  (function (Phase) {
-      /** after the DOM was build */
-      Phase[Phase["DOCUMENT_READY"] = 0] = "DOCUMENT_READY";
-      /** after all images and CSS was loaded */
-      Phase[Phase["WINDOW_LOAD"] = 1] = "WINDOW_LOAD";
-      /** before sending a normal submit action */
-      Phase[Phase["BEFORE_SUBMIT"] = 2] = "BEFORE_SUBMIT";
-      /** after an AJAX call */
-      Phase[Phase["AFTER_UPDATE"] = 3] = "AFTER_UPDATE";
-      /** before ending a page */
-      Phase[Phase["BEFORE_UNLOAD"] = 4] = "BEFORE_UNLOAD";
-      /** before closing a window or tab */
-      Phase[Phase["BEFORE_EXIT"] = 5] = "BEFORE_EXIT";
-  })(Phase || (Phase = {}));
-  var Order;
-  (function (Order) {
-      Order[Order["EARLIER"] = 0] = "EARLIER";
-      Order[Order["EARLY"] = 1] = "EARLY";
-      Order[Order["NORMAL"] = 2] = "NORMAL";
-      Order[Order["LATE"] = 3] = "LATE";
-      Order[Order["LATER"] = 4] = "LATER";
-  })(Order || (Order = {}));
-  class ListenerList {
-      constructor() {
-          this.map = new Map([
-              [Order.EARLIER, []],
-              [Order.EARLY, []],
-              [Order.NORMAL, []],
-              [Order.LATE, []],
-              [Order.LATER, []]
-          ]);
-      }
-      add(listener, order) {
-          this.map.get(order).push(listener);
-      }
-      execute(element) {
-          this.map.forEach((listeners, order) => {
-              listeners.forEach((listener, index) => {
-                  console.time("[tobago] execute " + order + " " + index);
-                  listener(element);
-                  console.timeEnd("[tobago] execute " + order + " " + index);
-              });
-          });
-      }
-  }
-  class Listener {
-      /**
-       * Register a function to be executed on certain events.
-       * @param listener Function to be executed.
-       * @param phase The phase when code should be executed (e. g. Phase.DOCUMENT_READY).
-       * @param order An optional order to sort function they depend on others (default: Tobago.Order.NORMAL).
-       */
-      static register(listener, phase, order = Order.NORMAL) {
-          switch (phase) {
-              case Phase.DOCUMENT_READY:
-                  Listener.documentReady.add(listener, order);
-                  break;
-              case Phase.WINDOW_LOAD:
-                  Listener.windowLoad.add(listener, order);
-                  break;
-              case Phase.BEFORE_SUBMIT:
-                  Listener.beforeSubmit.add(listener, order);
-                  break;
-              case Phase.AFTER_UPDATE:
-                  Listener.afterUpdate.add(listener, order);
-                  break;
-              case Phase.BEFORE_UNLOAD:
-                  Listener.beforeUnload.add(listener, order);
-                  break;
-              case Phase.BEFORE_EXIT:
-                  Listener.beforeExit.add(listener, order);
-                  break;
-              default:
-                  console.error("Unknown phase: '" + phase + "'");
-          }
-      }
-      static executeDocumentReady(element) {
-          console.time("[tobago] execute documentReady");
-          Listener.documentReady.execute(element);
-          console.timeEnd("[tobago] execute documentReady");
-      }
-      static executeWindowLoad() {
-          console.time("[tobago] execute windowLoad");
-          Listener.windowLoad.execute();
-          console.timeEnd("[tobago] execute windowLoad");
-      }
-      static executeBeforeSubmit() {
-          console.time("[tobago] execute beforeSubmit");
-          Listener.beforeSubmit.execute();
-          console.timeEnd("[tobago] execute beforeSubmit");
-      }
-      static executeAfterUpdate(element) {
-          console.time("[tobago] execute afterUpdate");
-          Listener.afterUpdate.execute(element);
-          console.timeEnd("[tobago] execute afterUpdate");
-      }
-      static executeBeforeUnload() {
-          console.time("[tobago] execute beforeUnload");
-          Listener.beforeUnload.execute();
-          console.timeEnd("[tobago] execute beforeUnload");
-      }
-      static executeBeforeExit() {
-          console.time("[tobago] execute beforeExit");
-          Listener.beforeExit.execute();
-          console.timeEnd("[tobago] execute beforeExit");
-      }
-  }
-  // XXX check if "static" is nice
-  Listener.documentReady = new ListenerList();
-  Listener.windowLoad = new ListenerList();
-  Listener.beforeSubmit = new ListenerList();
-  Listener.afterUpdate = new ListenerList();
-  Listener.beforeUnload = new ListenerList();
-  Listener.beforeExit = new ListenerList();
-
-  /*
-   * Licensed to the Apache Software Foundation (ASF) under one or more
-   * contributor license agreements.  See the NOTICE file distributed with
-   * this work for additional information regarding copyright ownership.
-   * The ASF licenses this file to You under the Apache License, Version 2.0
-   * (the "License"); you may not use this file except in compliance with
-   * the License.  You may obtain a copy of the License at
-   *
-   *      http://www.apache.org/licenses/LICENSE-2.0
-   *
-   * Unless required by applicable law or agreed to in writing, software
-   * distributed under the License is distributed on an "AS IS" BASIS,
-   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   * See the License for the specific language governing permissions and
-   * limitations under the License.
-   */
   // XXX remove me, for cleanup
   class DomUtils {
       /**
@@ -10080,27 +9948,6 @@
       }, true);
   };
   CommandHelper.onSubmit = function (listenerOptions) {
-      Listener.executeBeforeSubmit();
-      /*
-      XXX check if we need the return false case
-      XXX maybe we cancel the submit, but we continue the rest?
-      XXX should the other phases also have this feature?
-
-          var result = true; // Do not continue if any function returns false
-          for (var order = 0; order < Listeners.beforeSubmit.length; order++) {
-            var list = Listeners.beforeSubmit[order];
-            for (var i = 0; i < list.length; i++) {
-              result = list[i](listenerOptions);
-              if (result === false) {
-                break;
-              }
-            }
-          }
-          if (result === false) {
-            this.isSubmit = false;
-            return false;
-          }
-      */
       CommandHelper.isSubmit = true;
       const element = document.documentElement; // XXX this might be the wrong element in case of shadow dom
       Page.page(element).onBeforeUnload();
@@ -10257,8 +10104,6 @@
                   return false;
               }
           });
-          // todo remove this
-          Listener.executeDocumentReady(document.documentElement);
       }
       onBeforeUnload() {
           if (this.transition) {
@@ -10276,9 +10121,6 @@
                   new Overlay(this);
               }
               this.transition = this.oldTransition;
-          }
-          else {
-              Listener.executeBeforeExit();
           }
       }
       registerAjaxListener() {
@@ -10303,21 +10145,6 @@
               rootNode = document;
           }
           console.info("[tobago-jsf] Update after jsf.ajax success: %s", id);
-          if (JsfParameter.isJsfId(id)) {
-              console.debug("[tobago-jsf] updating #%s", id);
-              const element = rootNode.getElementById(id);
-              if (element) {
-                  Listener.executeAfterUpdate(element);
-              }
-              else {
-                  console.warn("[tobago-jsf] element not found for #%s", id);
-              }
-          }
-          else if (JsfParameter.isJsfBody(id)) {
-              console.debug("[tobago-jsf] updating body");
-              // there should be only one element with this tag name
-              Listener.executeAfterUpdate(rootNode.querySelector("tobago-page"));
-          }
       }
       jsfResponseComplete(update) {
           const id = update.id;
@@ -10339,8 +10166,6 @@
           window.customElements.define("tobago-page", Page);
       }
   });
-  // todo remove this
-  window.addEventListener("load", Listener.executeWindowLoad);
   class JsfParameter {
       static isJsfId(id) {
           switch (id) {

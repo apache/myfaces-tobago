@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
-import {Listener} from "./tobago-listener";
 import {Overlay} from "./tobago-overlay";
 import {Collapse} from "./tobago-popup";
 import {Page} from "./tobago-page";
@@ -302,27 +301,7 @@ export class CommandHelper {
   };
 
   static onSubmit = function (listenerOptions: any): boolean {
-    Listener.executeBeforeSubmit();
-    /*
-    XXX check if we need the return false case
-    XXX maybe we cancel the submit, but we continue the rest?
-    XXX should the other phases also have this feature?
 
-        var result = true; // Do not continue if any function returns false
-        for (var order = 0; order < Listeners.beforeSubmit.length; order++) {
-          var list = Listeners.beforeSubmit[order];
-          for (var i = 0; i < list.length; i++) {
-            result = list[i](listenerOptions);
-            if (result === false) {
-              break;
-            }
-          }
-        }
-        if (result === false) {
-          this.isSubmit = false;
-          return false;
-        }
-    */
     CommandHelper.isSubmit = true;
 
     const element: HTMLElement = document.documentElement; // XXX this might be the wrong element in case of shadow dom
