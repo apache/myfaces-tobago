@@ -50,7 +50,7 @@ public class PopupRenderer<T extends AbstractUIPopup> extends CollapsiblePanelRe
     final UIComponent footerFacet = ComponentUtils.getFacet(component, Facets.footer);
 
     // this makes the popup NOT closable with a click to the background
-    ComponentUtils.putDataAttribute(component, "backdrop", "static");
+    ComponentUtils.putDataAttribute(component, "bs-backdrop", "static");
 
     writer.startElement(HtmlElements.TOBAGO_POPUP);
     writer.writeIdAttribute(clientId);
