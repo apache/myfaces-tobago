@@ -101,7 +101,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
         "_blank",
         StringUtils.join(Arrays.asList("id1", "id2"), ' '),
         StringUtils.join(Arrays.asList("id1", "id2"), ' '),
-        "Really?", 1000, new Collapse(Collapse.Action.show, "myId"), true));
+        "Really?", 1000, new Collapse(Collapse.Operation.show, "myId"), true));
     final String expected = (
         "{"
             + "'click':{"
@@ -195,7 +195,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
         ClientBehaviors.blur,
         new Command(
             "doit", null, false, "field", "execute", "render", "Do \"you\" want?", 100,
-            new Collapse(Collapse.Action.hide, "box"), false));
+            new Collapse(Collapse.Operation.hide, "box"), false));
 
     final String expected
         = ("{'blur':"

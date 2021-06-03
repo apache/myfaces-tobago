@@ -224,7 +224,7 @@ public class JsonUtils {
     builder.append("\":{");
     final int initialLength = builder.length();
 
-    final Collapse.Action action = collapse.getAction();
+    final Collapse.Operation action = collapse.getOperation();
     if (action != null) {
       encode(builder, "transition", action.name());
     }

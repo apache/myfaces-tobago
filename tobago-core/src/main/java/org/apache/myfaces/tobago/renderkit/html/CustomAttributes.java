@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html;
 
 public enum CustomAttributes implements MarkupLanguageAttributes {
 
-  COLLAPSE_ACTION("collapse-action"),
+  COLLAPSE_OPERATION("collapse-operation"),
   COLLAPSE_TARGET("collapse-target"),
   CONFIRMATION("confirmation"),
   CLIENT_ID("client-id"),

@@ -110,7 +110,7 @@
           </tc:button>
           <tc:button id="submitClose2" label="Submit &amp; Close">
             <tc:operation name="hide" for="clientPopup"/>
-            <f:ajax execute="in2" render="in2 :::out clientPopupMessages"/>
+            <f:ajax execute="in2" render="in2 :::out clientPopupMessages clientPopup :page:messages"/>
           </tc:button>
           <tc:button id="cancel2" label="Cancel" omit="true">
             <tc:operation name="hide" for="clientPopup"/>
@@ -151,18 +151,49 @@
   </tc:section>
 
   <tc:section label="Plain Popup">
+<!--    todo-->
+    <tc:badge markup="warning">!</tc:badge> missing content
+  </tc:section>
 
+  <tc:section label="Popup opend after AJAX call">
+    <tc:button label="Open Popup" immediate="true" id="ajaxButton">
+      <tc:operation name="show" for="ajaxPopup"/>
+      <f:ajax render="@this ajaxPopup" execute="@this ajaxPopup"/>
+    </tc:button>
+
+    <tc:popup id="ajaxPopup" collapsedMode="absent" markup="small">
+      <tc:box label="Popup">
+        Simple Popup loaded by AJAX.
+        <tc:button label="Close" omit="true">
+          <tc:operation name="hide" for="ajaxPopup"/>
+        </tc:button>
+      </tc:box>
+    </tc:popup>
   </tc:section>
 
   <tc:section label="Refresh Content">
     <p>The content of the popup will be refreshed with AJAX after opening the popup. The refresh method waits two
       seconds before execution.</p>
-    <tc:button label="Open Popup" immediate="true">
+
+    <!--    todo-->
+    <p>
+    <tc:badge markup="warning">tbd (to be defined)!</tc:badge> in this example the "show" should be
+    called directly, and not after the ajax call is complete. On the other and, to avoid flickering,
+    the popup should be shown after the ajax call.
+    (<tc:link link="https://issues.apache.org/jira/browse/TOBAGO-2083" label="Jira TOBAGO-2083" image="bi-box-arrow-up-right"/>)
+    </p>
+
+    <tc:button label="Open Popup (to dicuss)" immediate="true">
       <tc:operation name="show" for="refreshPopup"/>
       <f:ajax render="refreshPopup:refreshPopupContent" listener="#{popupController.refreshContent}"/>
     </tc:button>
 
-    <tc:popup id="refreshPopup" collapsedMode="hidden" markup="small">
+    <tc:button label="Open Popup (to alternative)" immediate="true">
+      <tc:operation name="show" for="refreshPopup"/>
+      <f:ajax render="@this refreshPopup" execute="@this refreshPopup" listener="#{popupController.refreshContent}"/>
+    </tc:button>
+
+    <tc:popup id="refreshPopup" collapsedMode="absent" markup="small">
       <tc:box id="refreshPopupContent" label="Current Time">
         <tc:out label="Current Time" value="#{popupController.time}"/>
         <tc:button label="Close" omit="true">

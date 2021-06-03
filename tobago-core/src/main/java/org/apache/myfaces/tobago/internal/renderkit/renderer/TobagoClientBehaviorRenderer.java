@@ -226,7 +226,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
         value = operation.getFor();
       }
       final String forId = ComponentUtils.evaluateClientId(facesContext, component, value);
-      collapse = new Collapse(Collapse.Action.valueOf(operation.getName()), forId);
+      collapse = new Collapse(Collapse.Operation.valueOf(operation.getName()), forId);
     }
 
     //// TBD: is this nice?

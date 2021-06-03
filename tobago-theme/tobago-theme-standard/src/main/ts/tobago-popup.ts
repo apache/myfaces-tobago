@@ -18,12 +18,14 @@
 // import * as bootstrap from "bootstrap/dist/js/bootstrap.esm";
 // import "bootstrap/dist/js/bootstrap.esm";
 // import "bootstrap/dist/js/bootstrap";
-import {Modal} from "bootstrap";
 // import {Modal} from "bootstrap/dist/js/bootstrap.bundle";
+import {Modal} from "bootstrap";
+import {BehaviorMode} from "./tobago-behavior-mode";
+import {CollapseOperation} from "./tobago-collapsible-operation";
 
 export class Popup extends HTMLElement {
 
-  modal:any;
+  modal: Modal;
 
   constructor() {
     super();
@@ -31,18 +33,37 @@ export class Popup extends HTMLElement {
 
   connectedCallback(): void {
     const options = {};
-
     this.modal = new Modal(this, options);
+    if (!this.collapsed) {
+      this.show();
+    }
   }
 
-  show():void {
+  disconnectedCallback(): void {
+    this.hide();
+    this.modal.dispose();
+  }
+
+  show(behaviorMode?: BehaviorMode): void {
     console.log("show");
-    this.modal.show();
+    if (behaviorMode == null || behaviorMode == BehaviorMode.client) {
+      this.modal.show();
+    } else {
+      // otherwise the update from server will show the popup
+    }
   }
 
-  hide():void {
+  hide(behaviorMode?: BehaviorMode): void {
     console.log("hide");
-    this.modal.hide();
+    if (behaviorMode == null || behaviorMode == BehaviorMode.client) {
+      this.modal.hide();
+    } else {
+      // otherwise the update from server will hide the popup
+    }
+  }
+
+  get collapsed(): boolean {
+    return JSON.parse(Collapse.findHidden(this).value);
   }
 }
 
@@ -59,28 +80,28 @@ export class Collapse {
     return rootNode.getElementById(element.id + "::collapse") as HTMLInputElement;
   }
 
-  static execute = function (action: string, target: HTMLElement): void {
+  static execute = function (operation: CollapseOperation, target: HTMLElement, behaviorMode: BehaviorMode): void {
     const hidden = Collapse.findHidden(target);
     let newCollapsed;
-    switch (action) {
-      case "hide":
+    switch (operation) {
+      case CollapseOperation.hide:
         newCollapsed = true;
         break;
-      case "show":
+      case CollapseOperation.show:
         newCollapsed = false;
         break;
       default:
-        console.error("unknown action: '" + action + "'");
+        console.error("unknown operation: '" + operation + "'");
     }
     if (newCollapsed) {
       if (target instanceof Popup) {
-        target.hide();
+        target.hide(behaviorMode);
       } else {
         target.classList.add("tobago-collapsed");
       }
     } else {
       if (target instanceof Popup) {
-        target.show();
+        target.show(behaviorMode);
       } else {
         target.classList.remove("tobago-collapsed");
       }

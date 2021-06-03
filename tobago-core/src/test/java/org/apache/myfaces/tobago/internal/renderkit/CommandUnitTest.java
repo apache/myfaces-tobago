@@ -30,11 +30,11 @@ public class CommandUnitTest {
 
     final Command a = new Command(
         "a client id", "a field id", null, null, "a execute", null, "a conf", null,
-        new Collapse(Collapse.Action.show, "a collapse"), false);
+        new Collapse(Collapse.Operation.show, "a collapse"), false);
 
     final Command b = new Command(
     "b client id", "b field id", null, null, "b execute", null, "b conf", null,
-        new Collapse(Collapse.Action.show, "b collapse"), false);
+        new Collapse(Collapse.Operation.show, "b collapse"), false);
 
     a.merge(b);
 
