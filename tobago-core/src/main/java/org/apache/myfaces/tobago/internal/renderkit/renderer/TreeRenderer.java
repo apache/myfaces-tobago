@@ -100,7 +100,6 @@ public class TreeRenderer<T extends AbstractUITree> extends RendererBase<T> {
         component.getCustomClass(),
         TobagoClass.TREE.createMarkup(markup));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
-    writer.writeAttribute(DataAttributes.SCROLL_PANEL, Boolean.TRUE.toString(), false);
 
     final Selectable selectable = component.getSelectable();
     if (selectable.isSupportedByTree()) {
@@ -159,6 +158,7 @@ public class TreeRenderer<T extends AbstractUITree> extends RendererBase<T> {
     writer.writeAttribute(HtmlAttributes.VALUE, JsonUtils.encode(expandedValue), false);
     writer.endElement(HtmlElements.INPUT);
 
+    writer.startElement(HtmlElements.TOBAGO_SCROLL);
     writer.startElement(HtmlElements.INPUT);
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + SCROLL_POSITION);
     writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + SCROLL_POSITION);
@@ -166,6 +166,7 @@ public class TreeRenderer<T extends AbstractUITree> extends RendererBase<T> {
     writer.writeAttribute(HtmlAttributes.VALUE, component.getState().getScrollPosition().encode(), false);
     writer.writeAttribute(DataAttributes.SCROLL_POSITION, Boolean.TRUE.toString(), false);
     writer.endElement(HtmlElements.INPUT);
+    writer.endElement(HtmlElements.TOBAGO_SCROLL);
 
     writer.endElement(HtmlElements.TOBAGO_TREE);
     insideEnd(facesContext, HtmlElements.TOBAGO_TREE);

@@ -15,35 +15,40 @@
  * limitations under the License.
  */
 
-import {Listener, Order, Phase} from "./tobago-listener";
-import {DomUtils} from "./tobago-utils";
+class TobagoScroll extends HTMLElement {
 
-class Scroll {
+  constructor() {
+    super();
+  }
 
-  static initScrollPosition = function (element: HTMLElement): void {
-    for (const panel of DomUtils.selfOrQuerySelectorAll(element, "[data-tobago-scroll-panel]")) {
-
-      const hidden = panel.querySelector(":scope > [data-tobago-scroll-position]") as HTMLInputElement;
-      const values: number[] = JSON.parse(hidden.value);
-      if (values.length === 2) {
-        panel.scrollLeft = values[0];
-        panel.scrollTop = values[1];
-      } else {
-        console.warn("Wrong syntax for scroll: " + hidden.value);
-      }
-
-      panel.addEventListener("scroll", Scroll.scroll);
+  connectedCallback(): void {
+    const text = this.hiddenElement.value;
+    const values = JSON.parse(text) as number[];
+    if (values.length === 2) {
+      this.parentElement.scrollLeft = values[0];
+      this.parentElement.scrollTop = values[1];
+    } else {
+      console.warn("Syntax error for scroll position: " + text);
     }
-  };
 
-  static scroll = function (event: Event): void {
-    const panel = event.currentTarget as HTMLDivElement;
+    this.parentElement.addEventListener("scroll", this.storeScrollPosition.bind(this));
+  }
+
+  storeScrollPosition(event: Event): void {
+    const panel = event.currentTarget as HTMLElement;
     const scrollLeft = panel.scrollLeft;
     const scrollTop = panel.scrollTop;
-    const hidden = panel.querySelector(":scope > [data-tobago-scroll-position]") as HTMLInputElement;
-    hidden.value = JSON.stringify([scrollLeft, scrollTop]);
-  };
+    this.hiddenElement.value = JSON.stringify([scrollLeft, scrollTop]);
+  }
+
+  get hiddenElement(): HTMLInputElement {
+    return this.querySelector("input");
+  }
+
 }
 
-Listener.register(Scroll.initScrollPosition, Phase.DOCUMENT_READY, Order.LATER);
-Listener.register(Scroll.initScrollPosition, Phase.AFTER_UPDATE, Order.LATER);
+document.addEventListener("tobago.init", function (event: Event): void {
+  if (window.customElements.get("tobago-scroll") == null) {
+    window.customElements.define("tobago-scroll", TobagoScroll);
+  }
+});
