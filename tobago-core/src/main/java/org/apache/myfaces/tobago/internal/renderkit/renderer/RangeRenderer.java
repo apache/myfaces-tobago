@@ -104,7 +104,7 @@ public class RangeRenderer<T extends AbstractUIRange> extends MessageLayoutRende
   }
 
   protected CssItem getRendererCssClass() {
-    return TobagoClass.IN;
+    return TobagoClass.RANGE;
   }
 
   @Override
