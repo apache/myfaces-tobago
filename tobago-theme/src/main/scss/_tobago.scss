@@ -911,8 +911,11 @@ tobago-popup {
 tobago-progress {
 }
 
-/* range ---------------------------------------------------------- */
 tobago-range {
+  align-items: center;
+
+  .tobago-range {
+  }
 }
 
 .tobago-required label:after,
