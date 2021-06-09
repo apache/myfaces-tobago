@@ -24,18 +24,21 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import java.lang.invoke.MethodHandles;
 
-public abstract class DecodingCommandRendererBase<T extends AbstractUICommandBase> extends RendererBase<T> {
+// XXX we need T extends AbstractUICommandBase OR AbstractUIRow
+public abstract class DecodingCommandRendererBase<T extends UIComponent> extends RendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public void decodeInternal(final FacesContext facesContext, final T component) {
 
-    if (component.isDisabled()) {
+    if (component instanceof AbstractUICommandBase
+        && ((AbstractUICommandBase) component).isDisabled()) {
       return;
     }
     final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");

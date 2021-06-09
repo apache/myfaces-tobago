@@ -19,5 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-public class EventRenderer extends DecodingCommandRendererBase {
+import org.apache.myfaces.tobago.internal.component.AbstractUIEvent;
+
+public class EventRenderer<T extends AbstractUIEvent> extends DecodingCommandRendererBase<T> {
 }
