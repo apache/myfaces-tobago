@@ -19,13 +19,13 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIEvent;
+import org.apache.myfaces.tobago.internal.component.AbstractUIRow;
 
 import javax.faces.component.UIComponent;
 import javax.faces.event.ActionEvent;
 
-public class RowRenderer<T extends AbstractUICommandBase> extends DecodingCommandRendererBase<T> {
+public class RowRenderer<T extends AbstractUIRow> extends DecodingCommandRendererBase<T> {
 
   // XXX hack to fix TOBAGO-1572
   @Override
