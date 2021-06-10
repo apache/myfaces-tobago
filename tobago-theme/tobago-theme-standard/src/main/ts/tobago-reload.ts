@@ -36,14 +36,14 @@ class TobagoReload extends HTMLElement {
       // may remove old schedule
       const oldTimeout = TobagoReload.timeoutMap.get(componentId);
       if (oldTimeout) {
-        console.debug("clear reload timeout '" + oldTimeout + "' for #'" + componentId + "'");
+        console.debug("clear reload timeout '%s' for #'%s'", oldTimeout, componentId);
         window.clearTimeout(oldTimeout);
         TobagoReload.timeoutMap.delete(componentId);
       }
 
       // add new schedule
       const timeout = window.setTimeout(function (): void {
-        console.debug("reloading #'" + componentId + "'");
+        console.debug("reloading #'%s'", componentId);
         jsf.ajax.request(
             reloadId,
             null,
@@ -53,7 +53,7 @@ class TobagoReload extends HTMLElement {
               render: reloadId + " " + componentId
             });
       }, reloadMillis);
-      console.debug("adding reload timeout '" + timeout + "' for #'" + componentId + "'");
+      console.debug("adding reload timeout '%s' for #'%s'", timeout, componentId);
       TobagoReload.timeoutMap.set(componentId, timeout);
     }
   }

@@ -207,8 +207,6 @@
               this.addEventListener("hidden.bs.dropdown", this.closeDropdown.bind(this));
           }
       }
-      connectedCallback() {
-      }
       openDropdown() {
           this.dispatchEvent(new CustomEvent(TobagoDropdownEvent.SHOW));
           if (!this.inStickyHeader()) {
@@ -9681,7 +9679,7 @@
               newCollapsed = false;
               break;
           default:
-              console.error("unknown operation: '" + operation + "'");
+              console.error("unknown operation: '%s'", operation);
       }
       if (newCollapsed) {
           if (target instanceof Popup) {
@@ -10323,11 +10321,11 @@
       }
   }
   DatePicker.SUPPORTS_INPUT_TYPE_DATE = (() => {
-      let input = document.createElement('input');
-      input.setAttribute('type', 'date');
-      let thisIsNoDate = 'this is not a date';
-      input.setAttribute('value', thisIsNoDate);
-      return (input.value !== thisIsNoDate);
+      const input = document.createElement("input");
+      input.setAttribute("type", "date");
+      const thisIsNoDate = "this is not a date";
+      input.setAttribute("value", thisIsNoDate);
+      return input.value !== thisIsNoDate;
   })();
   document.addEventListener("tobago.init", function (event) {
       if (window.customElements.get("tobago-date") == null) {
@@ -10385,6 +10383,9 @@
    * limitations under the License.
    */
   class Focus extends HTMLElement {
+      constructor() {
+          super();
+      }
       /**
        * The focusListener to set the lastFocusId must be implemented in the appropriate web elements.
        * @param event
@@ -10401,9 +10402,6 @@
               const tobagoFocus = root.getElementById(Page.page(target).id + "::lastFocusId");
               tobagoFocus.querySelector("input").value = target.id;
           }
-      }
-      constructor() {
-          super();
       }
       /**
        * Sets the focus to the requested element or to the first possible if
@@ -10526,7 +10524,7 @@
           const maxFooterHeight = this.offsetHeight + Number.parseInt(style.marginTop) + Number.parseInt(style.marginBottom);
           if (maxFooterHeight !== this.lastMaxFooterHeight) {
               this.lastMaxFooterHeight = maxFooterHeight;
-              this.closest("body").style.marginBottom = maxFooterHeight + "px";
+              this.closest("body").style.marginBottom = `${maxFooterHeight}px`;
           }
       }
       isFixed() {
@@ -11170,8 +11168,8 @@
           this.suggestInput.classList.add("autocomplete-input");
           this.suggestInput.insertAdjacentHTML("afterend", "<ul class=\"autocomplete-result-list\"></ul>");
           const options = {
-              search: input => {
-                  console.debug("[tobago-suggest] input = '" + input + "'");
+              search: (input) => {
+                  console.debug("[tobago-suggest] input = '%s'", input);
                   const minChars = this.minChars ? this.minChars : 1;
                   if (input.length < minChars) {
                       return [];
@@ -11239,35 +11237,35 @@
           const baseRect = this.base.getBoundingClientRect();
           const suggestInputRect = this.suggestInput.getBoundingClientRect();
           const suggestInputStyle = getComputedStyle(this.suggestInput);
-          this.pseudoContainer.style.left = suggestInputRect.x - baseRect.x + suggestInputRect.width
-              - parseFloat(getComputedStyle(this.pseudoContainer, ":after").width)
-              - parseFloat(suggestInputStyle.marginRight)
-              - parseFloat(suggestInputStyle.borderRight)
-              - parseFloat(suggestInputStyle.paddingRight) + "px";
-          this.pseudoContainer.style.top = suggestInputRect.y - baseRect.y + (suggestInputRect.height / 2) + "px";
+          this.pseudoContainer.style.left = `${suggestInputRect.x - baseRect.x + suggestInputRect.width
+            - parseFloat(getComputedStyle(this.pseudoContainer, ":after").width)
+            - parseFloat(suggestInputStyle.marginRight)
+            - parseFloat(suggestInputStyle.borderRight)
+            - parseFloat(suggestInputStyle.paddingRight)}px`;
+          this.pseudoContainer.style.top = `${suggestInputRect.y - baseRect.y + (suggestInputRect.height / 2)}px`;
       }
       positioningResultList() {
           const space = 2;
           if (this.localMenu) {
               const parentRect = this.suggestInput.parentElement.getBoundingClientRect();
               const suggestInputRect = this.suggestInput.getBoundingClientRect();
-              this.resultList.style.marginLeft = (suggestInputRect.x - parentRect.x) + "px";
-              this.resultList.style.maxWidth = suggestInputRect.width + "px";
-              this.resultList.style.marginTop = space + "px";
-              this.resultList.style.marginBottom = space + "px";
+              this.resultList.style.marginLeft = `${suggestInputRect.x - parentRect.x}px`;
+              this.resultList.style.maxWidth = `${suggestInputRect.width}px`;
+              this.resultList.style.marginTop = `${space}px`;
+              this.resultList.style.marginBottom = `${space}px`;
           }
           else {
               const suggestInputRect = this.suggestInput.getBoundingClientRect();
-              this.resultList.style.minWidth = suggestInputRect.width + "px";
-              this.resultList.style.left = suggestInputRect.left + "px";
+              this.resultList.style.minWidth = `${suggestInputRect.width}px`;
+              this.resultList.style.left = `${suggestInputRect.left}px`;
               if (this.resultListPosition === "below") {
                   this.resultList.style.marginTop =
-                      window.scrollY + suggestInputRect.top + suggestInputRect.height + space + "px";
+                      `${window.scrollY + suggestInputRect.top + suggestInputRect.height + space}px`;
                   this.resultList.style.marginBottom = null;
               }
               else if (this.resultListPosition === "above") {
                   this.resultList.style.marginTop = null;
-                  this.resultList.style.marginBottom = -(window.scrollY + suggestInputRect.top - space) + "px";
+                  this.resultList.style.marginBottom = `${-(window.scrollY + suggestInputRect.top - space)}px`;
               }
           }
       }
@@ -11275,11 +11273,11 @@
           const resultListEntry = this.resultList.querySelector(".autocomplete-result");
           if (this.maxItems && resultListEntry) {
               const resultListStyle = getComputedStyle(this.resultList);
-              this.resultList.style.maxHeight = (parseFloat(resultListStyle.borderTop)
-                  + parseFloat(resultListStyle.paddingTop)
-                  + (this.maxItems * parseFloat(getComputedStyle(resultListEntry).height))
-                  + parseFloat(resultListStyle.paddingBottom)
-                  + parseFloat(resultListStyle.borderBottom)) + "px";
+              this.resultList.style.maxHeight = `${parseFloat(resultListStyle.borderTop)
+                + parseFloat(resultListStyle.paddingTop)
+                + (this.maxItems * parseFloat(getComputedStyle(resultListEntry).height))
+                + parseFloat(resultListStyle.paddingBottom)
+                + parseFloat(resultListStyle.borderBottom)}px`;
           }
       }
       get base() {
@@ -11622,20 +11620,20 @@
               // may remove old schedule
               const oldTimeout = TobagoReload.timeoutMap.get(componentId);
               if (oldTimeout) {
-                  console.debug("clear reload timeout '" + oldTimeout + "' for #'" + componentId + "'");
+                  console.debug("clear reload timeout '%s' for #'%s'", oldTimeout, componentId);
                   window.clearTimeout(oldTimeout);
                   TobagoReload.timeoutMap.delete(componentId);
               }
               // add new schedule
               const timeout = window.setTimeout(function () {
-                  console.debug("reloading #'" + componentId + "'");
+                  console.debug("reloading #'%s'", componentId);
                   jsf.ajax.request(reloadId, null, {
                       "javax.faces.behavior.event": "reload",
                       execute: reloadId + " " + componentId,
                       render: reloadId + " " + componentId
                   });
               }, reloadMillis);
-              console.debug("adding reload timeout '" + timeout + "' for #'" + componentId + "'");
+              console.debug("adding reload timeout '%s' for #'%s'", timeout, componentId);
               TobagoReload.timeoutMap.set(componentId, timeout);
           }
       }
@@ -12872,10 +12870,10 @@
           document.addEventListener("mouseup", this.stop.bind(this));
           const previousArea = mousedown.previous;
           if (this.orientation === "horizontal") {
-              previousArea.style.width = String(previousArea.offsetWidth + "px");
+              previousArea.style.width = `${previousArea.offsetWidth}px`;
           }
           else {
-              previousArea.style.height = String(previousArea.offsetHeight + "px");
+              previousArea.style.height = `${previousArea.offsetHeight}px`;
           }
           previousArea.style.flexGrow = "inherit";
           previousArea.style.flexBasis = "auto";
@@ -12965,6 +12963,9 @@
    * limitations under the License.
    */
   class Stars extends HTMLElement {
+      constructor() {
+          super();
+      }
       static leftOffset(element) {
           let left = 0;
           let currentElement = element;
@@ -12973,9 +12974,6 @@
               currentElement = currentElement.offsetParent;
           }
           return left;
-      }
-      constructor() {
-          super();
       }
       connectedCallback() {
           const hiddenInput = this.querySelector("input[type=hidden]");
@@ -12991,22 +12989,22 @@
           const max = parseInt(slider.max);
           const placeholder = parseInt(slider.placeholder);
           if (parseInt(slider.min) === 0) {
-              slider.style["left"] = "-" + (100 / max) + "%";
-              slider.style["width"] = 100 + (100 / max) + "%";
+              slider.style["left"] = `${-100 / max}%`;
+              slider.style["width"] = `${100 + (100 / max)}%`;
           }
           const currentValue = parseInt(hiddenInput.value);
           if (currentValue > 0) {
               const percentValue = 100 * currentValue / max;
-              selected.style["width"] = percentValue + "%";
-              unselected.style["left"] = percentValue + "%";
-              unselected.style["width"] = 100 - percentValue + "%";
+              selected.style["width"] = `${percentValue}%`;
+              unselected.style["left"] = `${percentValue}%`;
+              unselected.style["width"] = `${100 - percentValue}%`;
           }
           else if (placeholder) {
               selected.classList.add("tobago-placeholder");
               const placeholderValue = 100 * placeholder / max;
-              selected.style["width"] = placeholderValue + "%";
-              unselected.style["left"] = placeholderValue + "%";
-              unselected.style["width"] = 100 - placeholderValue + "%";
+              selected.style["width"] = `${placeholderValue}%`;
+              unselected.style["left"] = `${placeholderValue}%`;
+              unselected.style["width"] = `${100 - placeholderValue}%`;
           }
           if (!readonly && !disabled) {
               /* preselectMode is a Workaround for IE11: fires change event instead of input event */
@@ -13060,14 +13058,14 @@
                   tooltip.classList.remove("trash");
                   tooltip.textContent = (5 * (parseInt(slider.value)) / max).toFixed(2);
                   preselected.classList.add("show");
-                  preselected.style["width"] = (100 * parseInt(slider.value) / max) + "%";
+                  preselected.style["width"] = `${100 * parseInt(slider.value) / max}%`;
               }
               else {
                   tooltip.textContent = "";
                   tooltip.classList.add("trash");
                   if (placeholder) {
                       preselected.classList.add("show");
-                      preselected.style["width"] = (100 * placeholder / max) + "%";
+                      preselected.style["width"] = `${100 * placeholder / max}%`;
                   }
                   else {
                       preselected.classList.remove("show");
@@ -13080,18 +13078,18 @@
               if (parseInt(slider.value) > 0) {
                   selected.classList.remove("tobago-placeholder");
                   const percentValue = 100 * parseInt(slider.value) / max;
-                  selected.style["width"] = percentValue + "%";
-                  unselected.style["left"] = percentValue + "%";
-                  unselected.style["width"] = 100 - percentValue + "%";
+                  selected.style["width"] = `${percentValue}%`;
+                  unselected.style["left"] = `${percentValue}%`;
+                  unselected.style["width"] = `${100 - percentValue}%`;
                   hiddenInput.value = slider.value;
               }
               else {
                   if (placeholder) {
                       selected.classList.add("tobago-placeholder");
                       const placeholderValue = 100 * placeholder / max;
-                      selected.style["width"] = placeholderValue + "%";
-                      unselected.style["left"] = placeholderValue + "%";
-                      unselected.style["width"] = 100 - placeholderValue + "%";
+                      selected.style["width"] = `${placeholderValue}%`;
+                      unselected.style["left"] = `${placeholderValue}%`;
+                      unselected.style["width"] = `${100 - placeholderValue}%`;
                   }
                   else {
                       selected.classList.remove("tobago-placeholder");
@@ -13129,8 +13127,6 @@
           super();
           this.hiddenInput = this.querySelector(":scope > input[type=hidden]");
       }
-      connectedCallback() {
-      }
       get switchType() {
           return this.getAttribute("switch-type");
       }
@@ -13138,7 +13134,7 @@
           return this.querySelectorAll(":scope > .card-header > .card-header-tabs > tobago-tab");
       }
       getSelectedTab() {
-          return this.querySelector(":scope > .card-header > .card-header-tabs > tobago-tab[index='" + this.selected + "']");
+          return this.querySelector(`:scope > .card-header > .card-header-tabs > tobago-tab[index='${this.selected}']`);
       }
       get selected() {
           return parseInt(this.hiddenInput.value);
@@ -13193,14 +13189,12 @@
       }
       get content() {
           return this.closest("tobago-tab-group")
-              .querySelector(":scope > .card-body.tab-content > .tab-pane[index='" + this.index + "']");
+              .querySelector(`:scope > .card-body.tab-content > .tab-pane[index='${this.index}']`);
       }
   }
   class TabContent extends HTMLElement {
       constructor() {
           super();
-      }
-      connectedCallback() {
       }
       get index() {
           return parseInt(this.getAttribute("index"));
@@ -13295,8 +13289,6 @@
       constructor() {
           super();
       }
-      connectedCallback() {
-      }
       clearSelectedNodes() {
           this.hiddenInputSelected.value = "[]"; //empty set
       }
@@ -13305,25 +13297,27 @@
           selectedNodes.add(selectedNode);
           this.hiddenInputSelected.value = JSON.stringify(Array.from(selectedNodes));
       }
-      getSelectedNodes() {
-          let queryString = "";
-          for (const selectedNodeIndex of JSON.parse(this.hiddenInputSelected.value)) {
-              if (queryString.length > 0) {
-                  queryString += ", ";
-              }
-              queryString += "tobago-tree-node[index='" + selectedNodeIndex + "']";
-          }
-          if (queryString.length > 0) {
-              return this.querySelectorAll(queryString);
-          }
-          else {
-              return null;
-          }
-      }
       deleteSelectedNode(selectedNode) {
           const selectedNodes = new Set(JSON.parse(this.hiddenInputSelected.value));
           selectedNodes.delete(selectedNode);
           this.hiddenInputSelected.value = JSON.stringify(Array.from(selectedNodes));
+      }
+      getSelectedNodes() {
+          const queryString = [];
+          for (const selectedNodeIndex of JSON.parse(this.hiddenInputSelected.value)) {
+              if (queryString.length > 0) {
+                  queryString.push(", ");
+              }
+              queryString.push("tobago-tree-node[index='");
+              queryString.push(selectedNodeIndex);
+              queryString.push("']");
+          }
+          if (queryString.length > 0) {
+              return this.querySelectorAll(queryString.join(""));
+          }
+          else {
+              return null;
+          }
       }
       get hiddenInputSelected() {
           return this.querySelector(":scope > .tobago-tree-selected");

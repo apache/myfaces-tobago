@@ -18,41 +18,37 @@
 import {querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-function escapeClientId(clientId) {
-  return '#' + clientId.replace(/([:\.])/g, '\\$1');
-}
-
-it("inputfield with label", function (done) {
+it("set input value", function (done) {
   let test = new JasmineTestTool(done);
 
-  function testValueEquals(id) {
-    let fieldFn = querySelectorFn(escapeClientId(id));
-    let labelFn = querySelectorFn("[for='" + id + "']");
+  function testValueEqualsLabel(inputSel, labelSel) {
+    let fieldFn = querySelectorFn((inputSel));
+    let labelFn = querySelectorFn(labelSel);
     test.do(() => expect(fieldFn().value).toBe(labelFn().textContent));
   }
 
-  testValueEquals("page:mainForm:direct::field");
-  testValueEquals("page:mainForm:v1::field");
-  testValueEquals("page:mainForm:v2::field");
-  testValueEquals("page:mainForm:v3::field");
-  testValueEquals("page:mainForm:v4::field");
+  testValueEqualsLabel("#page\\:mainForm\\:direct\\:\\:field", "[for='page:mainForm:direct::field']");
+  testValueEqualsLabel("#page\\:mainForm\\:v1\\:\\:field", "[for='page:mainForm:v1::field']");
+  testValueEqualsLabel("#page\\:mainForm\\:v2\\:\\:field", "[for='page:mainForm:v2::field']");
+  testValueEqualsLabel("#page\\:mainForm\\:v3\\:\\:field", "[for='page:mainForm:v3::field']");
+  testValueEqualsLabel("#page\\:mainForm\\:v4\\:\\:field", "[for='page:mainForm:v4::field']");
 
-  const testVuId = "page:mainForm:vu::field";
-  let fieldVuFn = querySelectorFn(escapeClientId(testVuId));
+  let fieldVuFn = querySelectorFn("#page\\:mainForm\\:vu\\:\\:field");
   test.do(() => expect(fieldVuFn().value).toBe(""));
   test.start();
 });
 
-it("inputfield with label", function (done) {
+it("set input id", function (done) {
   let test = new JasmineTestTool(done);
 
-  function testValueEquals(id) {
-    let fieldFn = querySelectorFn(escapeClientId(id));
-    let labelFn = querySelectorFn("[for='" + id + "']");
+  function testIdEqualsLabel(inputSel, labelSel) {
+    let fieldFn = querySelectorFn(inputSel);
+    let labelFn = querySelectorFn(labelSel);
     test.do(() => expect(fieldFn().id).toBe(labelFn().textContent));
   }
 
-  testValueEquals("page:mainForm:my_number_1::field");
-  testValueEquals("page:mainForm:my_number_3::field");
+  testIdEqualsLabel("#page\\:mainForm\\:my_number_1\\:\\:field", "[for='page:mainForm:my_number_1::field']");
+  testIdEqualsLabel("#page\\:mainForm\\:my_number_3\\:\\:field", "[for='page:mainForm:my_number_3::field']");
+
   test.start();
 });

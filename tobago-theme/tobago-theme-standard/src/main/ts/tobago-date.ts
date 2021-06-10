@@ -47,11 +47,11 @@ interface DatePickerOptions {
 class DatePicker extends HTMLElement {
 
   static readonly SUPPORTS_INPUT_TYPE_DATE : boolean = (() => {
-    let input = document.createElement('input');
-    input.setAttribute('type','date');
-    let thisIsNoDate = 'this is not a date';
-    input.setAttribute('value', thisIsNoDate);
-    return (input.value !== thisIsNoDate);
+    const input = document.createElement("input");
+    input.setAttribute("type","date");
+    const thisIsNoDate = "this is not a date";
+    input.setAttribute("value", thisIsNoDate);
+    return input.value !== thisIsNoDate;
   })();
 
   lastValue: string;

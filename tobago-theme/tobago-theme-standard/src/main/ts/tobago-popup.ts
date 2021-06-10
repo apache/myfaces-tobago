@@ -91,7 +91,7 @@ export class Collapse {
         newCollapsed = false;
         break;
       default:
-        console.error("unknown operation: '" + operation + "'");
+        console.error("unknown operation: '%s'", operation);
     }
     if (newCollapsed) {
       if (target instanceof Popup) {

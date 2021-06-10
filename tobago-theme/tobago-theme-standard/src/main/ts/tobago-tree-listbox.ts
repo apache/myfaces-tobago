@@ -41,7 +41,7 @@ class TreeListbox extends HTMLElement {
   }
 
   private unselectDescendants(select: HTMLSelectElement): void {
-    let unselect: boolean = false;
+    let unselect = false;
     for (const listbox of this.listboxes) {
       if (unselect) {
         const checkedOption = listbox.querySelector<HTMLOptionElement>("option:checked");
@@ -67,7 +67,7 @@ class TreeListbox extends HTMLElement {
   }
 
   private applySelected(): void {
-    const selected: number[] = JSON.parse(this.hiddenInput.value);
+    const selected: number[] = JSON.parse(this.hiddenInput.value) as number[];
     let nextActiveSelect: HTMLSelectElement = this.querySelector(".tobago-treeListbox-select");
 
     const levelElements = this.levelElements;

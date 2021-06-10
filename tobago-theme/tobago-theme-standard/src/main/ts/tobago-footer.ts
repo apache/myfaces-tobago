@@ -37,7 +37,7 @@ class Footer extends HTMLElement {
     const maxFooterHeight = this.offsetHeight + Number.parseInt(style.marginTop) + Number.parseInt(style.marginBottom);
     if (maxFooterHeight !== this.lastMaxFooterHeight) {
       this.lastMaxFooterHeight = maxFooterHeight;
-      this.closest("body").style.marginBottom = maxFooterHeight + "px";
+      this.closest("body").style.marginBottom = `${maxFooterHeight}px`;
     }
   }
 

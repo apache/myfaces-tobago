@@ -41,8 +41,8 @@ export class Suggest {
     this.suggestInput.insertAdjacentHTML("afterend", "<ul class=\"autocomplete-result-list\"></ul>");
 
     const options = {
-      search: input => {
-        console.debug("[tobago-suggest] input = '" + input + "'");
+      search: (input: string) => {
+        console.debug("[tobago-suggest] input = '%s'", input);
         const minChars = this.minChars ? this.minChars : 1;
         if (input.length < minChars) {
           return [];
@@ -68,13 +68,10 @@ export class Suggest {
             switch (this.filter) {
               case SuggestFilter.all:
                 return resolve(this.filterAll());
-                break;
               case SuggestFilter.prefix:
                 return resolve(this.filterPrefix());
-                break;
               default:
                 return resolve(this.filterContains());
-                break;
             }
           }
         });
@@ -122,12 +119,12 @@ export class Suggest {
     const baseRect = this.base.getBoundingClientRect();
     const suggestInputRect = this.suggestInput.getBoundingClientRect();
     const suggestInputStyle = getComputedStyle(this.suggestInput);
-    this.pseudoContainer.style.left = suggestInputRect.x - baseRect.x + suggestInputRect.width
-        - parseFloat(getComputedStyle(this.pseudoContainer, ":after").width)
-        - parseFloat(suggestInputStyle.marginRight)
-        - parseFloat(suggestInputStyle.borderRight)
-        - parseFloat(suggestInputStyle.paddingRight) + "px";
-    this.pseudoContainer.style.top = suggestInputRect.y - baseRect.y + (suggestInputRect.height / 2) + "px";
+    this.pseudoContainer.style.left = `${suggestInputRect.x - baseRect.x + suggestInputRect.width
+    - parseFloat(getComputedStyle(this.pseudoContainer, ":after").width)
+    - parseFloat(suggestInputStyle.marginRight)
+    - parseFloat(suggestInputStyle.borderRight)
+    - parseFloat(suggestInputStyle.paddingRight)}px`;
+    this.pseudoContainer.style.top = `${suggestInputRect.y - baseRect.y + (suggestInputRect.height / 2)}px`;
   }
 
   private positioningResultList(): void {
@@ -136,21 +133,21 @@ export class Suggest {
     if (this.localMenu) {
       const parentRect = this.suggestInput.parentElement.getBoundingClientRect();
       const suggestInputRect = this.suggestInput.getBoundingClientRect();
-      this.resultList.style.marginLeft = (suggestInputRect.x - parentRect.x) + "px";
-      this.resultList.style.maxWidth = suggestInputRect.width + "px";
-      this.resultList.style.marginTop = space + "px";
-      this.resultList.style.marginBottom = space + "px";
+      this.resultList.style.marginLeft = `${suggestInputRect.x - parentRect.x}px`;
+      this.resultList.style.maxWidth = `${suggestInputRect.width}px`;
+      this.resultList.style.marginTop = `${space}px`;
+      this.resultList.style.marginBottom = `${space}px`;
     } else {
       const suggestInputRect = this.suggestInput.getBoundingClientRect();
-      this.resultList.style.minWidth = suggestInputRect.width + "px";
-      this.resultList.style.left = suggestInputRect.left + "px";
+      this.resultList.style.minWidth = `${suggestInputRect.width}px`;
+      this.resultList.style.left = `${suggestInputRect.left}px`;
       if (this.resultListPosition === "below") {
         this.resultList.style.marginTop =
-            window.scrollY + suggestInputRect.top + suggestInputRect.height + space + "px";
+            `${window.scrollY + suggestInputRect.top + suggestInputRect.height + space}px`;
         this.resultList.style.marginBottom = null;
       } else if (this.resultListPosition === "above") {
         this.resultList.style.marginTop = null;
-        this.resultList.style.marginBottom = -(window.scrollY + suggestInputRect.top - space) + "px";
+        this.resultList.style.marginBottom = `${-(window.scrollY + suggestInputRect.top - space)}px`;
       }
     }
   }
@@ -159,12 +156,11 @@ export class Suggest {
     const resultListEntry = this.resultList.querySelector(".autocomplete-result");
     if (this.maxItems && resultListEntry) {
       const resultListStyle = getComputedStyle(this.resultList);
-      this.resultList.style.maxHeight = (
-          parseFloat(resultListStyle.borderTop)
-          + parseFloat(resultListStyle.paddingTop)
-          + (this.maxItems * parseFloat(getComputedStyle(resultListEntry).height))
-          + parseFloat(resultListStyle.paddingBottom)
-          + parseFloat(resultListStyle.borderBottom)) + "px";
+      this.resultList.style.maxHeight = `${parseFloat(resultListStyle.borderTop)
+      + parseFloat(resultListStyle.paddingTop)
+      + (this.maxItems * parseFloat(getComputedStyle(resultListEntry).height))
+      + parseFloat(resultListStyle.paddingBottom)
+      + parseFloat(resultListStyle.borderBottom)}px`;
     }
   }
 
@@ -190,7 +186,7 @@ export class Suggest {
   }
 
   private get items(): string[] {
-    return JSON.parse(this.suggest.getAttribute("items"));
+    return JSON.parse(this.suggest.getAttribute("items")) as string[];
   }
 
   private get resultList(): HTMLUListElement {
@@ -229,6 +225,6 @@ export class Suggest {
   }
 
   private get filter(): SuggestFilter {
-    return SuggestFilter[this.suggest.getAttribute("filter")];
+    return SuggestFilter[this.suggest.getAttribute("filter")] as SuggestFilter;
   }
 }

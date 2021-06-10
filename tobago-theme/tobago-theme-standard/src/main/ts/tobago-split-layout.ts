@@ -21,21 +21,6 @@ class SplitLayout extends HTMLElement {
 
   private offset: number;
 
-  /**
-   * Get the previous sibling element (without <style> elements).
-   */
-  // todo: calls of this method can probably be simplified
-  static previousElementSibling(element: HTMLElement): HTMLElement {
-    let sibling = element.previousElementSibling as HTMLElement;
-    while (sibling != null) {
-      if (sibling.tagName !== "STYLE") {
-        return sibling;
-      }
-      sibling = sibling.previousElementSibling as HTMLElement;
-    }
-    return null;
-  }
-
   constructor() {
     super();
 
@@ -63,6 +48,21 @@ class SplitLayout extends HTMLElement {
     }
   }
 
+  /**
+   * Get the previous sibling element (without <style> elements).
+   */
+  // todo: calls of this method can probably be simplified
+  static previousElementSibling(element: HTMLElement): HTMLElement {
+    let sibling = element.previousElementSibling as HTMLElement;
+    while (sibling != null) {
+      if (sibling.tagName !== "STYLE") {
+        return sibling;
+      }
+      sibling = sibling.previousElementSibling as HTMLElement;
+    }
+    return null;
+  }
+
   get orientation(): string {
     return this.getAttribute("orientation");
   }
@@ -82,9 +82,9 @@ class SplitLayout extends HTMLElement {
     document.addEventListener("mouseup", this.stop.bind(this));
     const previousArea = mousedown.previous;
     if (this.orientation === "horizontal") {
-      previousArea.style.width = String(previousArea.offsetWidth + "px");
+      previousArea.style.width = `${previousArea.offsetWidth}px`;
     } else {
-      previousArea.style.height = String(previousArea.offsetHeight + "px");
+      previousArea.style.height = `${previousArea.offsetHeight}px`;
     }
     previousArea.style.flexGrow = "inherit";
     previousArea.style.flexBasis = "auto";
@@ -125,6 +125,12 @@ class SplitLayoutMousedown {
 
   private data: SplitLayoutMousedownData;
 
+  private constructor(data: SplitLayoutMousedownData | string) {
+    if (data) {
+      this.data = typeof data === "string" ? JSON.parse(data) as SplitLayoutMousedownData : data;
+    }
+  }
+
   static save(event: MouseEvent, splitter: HTMLElement): SplitLayoutMousedown {
     const horizontal = splitter.classList.contains("tobago-splitLayout-horizontal");
     const previous = SplitLayout.previousElementSibling(splitter);
@@ -156,12 +162,6 @@ class SplitLayoutMousedown {
       }
     }
     return -1;
-  }
-
-  private constructor(data: SplitLayoutMousedownData | string) {
-    if (data) {
-      this.data = typeof data === "string" ? JSON.parse(data) : data;
-    }
   }
 
   get splitter(): HTMLElement {
