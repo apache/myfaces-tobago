@@ -24,9 +24,6 @@ export class Tree extends HTMLElement {
     super();
   }
 
-  connectedCallback(): void {
-  }
-
   clearSelectedNodes(): void {
     this.hiddenInputSelected.value = "[]"; //empty set
   }
@@ -37,26 +34,28 @@ export class Tree extends HTMLElement {
     this.hiddenInputSelected.value = JSON.stringify(Array.from(selectedNodes));
   }
 
-  private getSelectedNodes(): NodeListOf<TreeNode> {
-    let queryString: string = "";
-    for (const selectedNodeIndex of JSON.parse(this.hiddenInputSelected.value)) {
-      if (queryString.length > 0) {
-        queryString += ", ";
-      }
-      queryString += "tobago-tree-node[index='" + selectedNodeIndex + "']";
-    }
-
-    if (queryString.length > 0) {
-      return this.querySelectorAll(queryString) as NodeListOf<TreeNode>;
-    } else {
-      return null;
-    }
-  }
-
   deleteSelectedNode(selectedNode: number): void {
     const selectedNodes = new Set(JSON.parse(this.hiddenInputSelected.value));
     selectedNodes.delete(selectedNode);
     this.hiddenInputSelected.value = JSON.stringify(Array.from(selectedNodes));
+  }
+
+  private getSelectedNodes(): NodeListOf<TreeNode> {
+    const queryString: string[] = [];
+    for (const selectedNodeIndex of JSON.parse(this.hiddenInputSelected.value)) {
+      if (queryString.length > 0) {
+        queryString.push(", ");
+      }
+      queryString.push("tobago-tree-node[index='");
+      queryString.push(selectedNodeIndex);
+      queryString.push("']");
+    }
+
+    if (queryString.length > 0) {
+      return this.querySelectorAll(queryString.join(""));
+    } else {
+      return null;
+    }
   }
 
   private get hiddenInputSelected(): HTMLInputElement {
@@ -84,7 +83,7 @@ export class Tree extends HTMLElement {
   }
 
   get selectable(): Selectable {
-    return Selectable[this.getAttribute("selectable")];
+    return Selectable[this.getAttribute("selectable")] as Selectable;
   }
 }
 

@@ -20,6 +20,10 @@ import {DomUtils} from "./tobago-utils";
 
 export class Focus extends HTMLElement {
 
+  constructor() {
+    super();
+  }
+
   /**
    * The focusListener to set the lastFocusId must be implemented in the appropriate web elements.
    * @param event
@@ -37,10 +41,6 @@ export class Focus extends HTMLElement {
       const tobagoFocus = root.getElementById(Page.page(target).id + "::lastFocusId");
       tobagoFocus.querySelector("input").value = target.id;
     }
-  }
-
-  constructor() {
-    super();
   }
 
   /**
@@ -80,8 +80,8 @@ export class Focus extends HTMLElement {
 
   private get errorElement(): HTMLElement {
     const root = this.getRootNode() as ShadowRoot | Document;
-    const elements = root.querySelectorAll(
-        ".tobago-messages-container .border-danger:not([disabled]):not([tabindex='-1'])") as NodeListOf<HTMLElement>;
+    const elements: NodeListOf<HTMLElement> = root.querySelectorAll(
+        ".tobago-messages-container .border-danger:not([disabled]):not([tabindex='-1'])");
 
     for (const element of elements) {
       const computedStyle = getComputedStyle(element);
@@ -112,10 +112,10 @@ export class Focus extends HTMLElement {
 
   private get focusableElement(): HTMLElement {
     const root = this.getRootNode() as ShadowRoot | Document;
-    const elements = root.querySelectorAll(
+    const elements: NodeListOf<HTMLElement> = root.querySelectorAll(
         "input:not([type='hidden']):not([disabled]):not([tabindex='-1'])," +
         "select:not([disabled]):not([tabindex='-1'])," +
-        "textarea:not([disabled]):not([tabindex='-1'])") as NodeListOf<HTMLElement>;
+        "textarea:not([disabled]):not([tabindex='-1'])");
 
     for (const element of elements) {
       if (this.isVisible(element)) {

@@ -24,20 +24,17 @@ class TabGroup extends HTMLElement {
     this.hiddenInput = this.querySelector(":scope > input[type=hidden]");
   }
 
-  connectedCallback(): void {
-  }
-
   get switchType(): string {
     return this.getAttribute("switch-type");
   }
 
   get tabs(): NodeListOf<Tab> {
-    return this.querySelectorAll(":scope > .card-header > .card-header-tabs > tobago-tab") as NodeListOf<Tab>;
+    return this.querySelectorAll(":scope > .card-header > .card-header-tabs > tobago-tab");
   }
 
   getSelectedTab(): Tab {
     return this.querySelector(
-        ":scope > .card-header > .card-header-tabs > tobago-tab[index='" + this.selected + "']") as Tab;
+        `:scope > .card-header > .card-header-tabs > tobago-tab[index='${this.selected}']`);
   }
 
   get selected(): number {
@@ -71,7 +68,7 @@ export class Tab extends HTMLElement {
   }
 
   get tabGroup(): TabGroup {
-    return this.closest("tobago-tab-group") as TabGroup;
+    return this.closest("tobago-tab-group");
   }
 
   select(event: MouseEvent): void {
@@ -103,7 +100,7 @@ export class Tab extends HTMLElement {
 
   get content(): HTMLElement {
     return this.closest("tobago-tab-group")
-        .querySelector(":scope > .card-body.tab-content > .tab-pane[index='" + this.index + "']");
+        .querySelector(`:scope > .card-body.tab-content > .tab-pane[index='${this.index}']`);
   }
 }
 
@@ -111,9 +108,6 @@ export class TabContent extends HTMLElement {
 
   constructor() {
     super();
-  }
-
-  connectedCallback(): void {
   }
 
   get index(): number {

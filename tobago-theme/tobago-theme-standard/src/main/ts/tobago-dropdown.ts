@@ -36,9 +36,6 @@ class Dropdown extends HTMLElement {
     }
   }
 
-  connectedCallback(): void {
-  }
-
   openDropdown(): void {
     this.dispatchEvent(new CustomEvent(TobagoDropdownEvent.SHOW));
 

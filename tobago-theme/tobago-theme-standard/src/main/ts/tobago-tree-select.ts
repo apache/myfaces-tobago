@@ -73,7 +73,7 @@ export class TreeSelect extends HTMLElement {
   }
 
   private get treeNode(): TreeNode {
-    return this.closest("tobago-tree-node") as TreeNode;
+    return this.closest("tobago-tree-node");
   }
 
   private get treeSelectChildren(): NodeListOf<TreeSelect> {

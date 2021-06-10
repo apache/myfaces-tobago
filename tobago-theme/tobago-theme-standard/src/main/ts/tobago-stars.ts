@@ -19,6 +19,11 @@ import {DomUtils} from "./tobago-utils";
 
 class Stars extends HTMLElement {
 
+  constructor() {
+    super();
+  }
+
+
   private static leftOffset(element: HTMLElement): number {
     let left = 0;
 
@@ -31,18 +36,14 @@ class Stars extends HTMLElement {
     return left;
   }
 
-  constructor() {
-    super();
-  }
-
   connectedCallback(): void {
-    const hiddenInput = this.querySelector("input[type=hidden]") as HTMLInputElement;
-    const container = this.querySelector(".tobago-stars-container") as HTMLElement;
-    const tooltip = container.querySelector(".tobago-stars-tooltip") as HTMLElement;
-    const selected = container.querySelector(".tobago-stars-selected") as HTMLElement;
-    const unselected = container.querySelector(".tobago-stars-unselected") as HTMLElement;
-    const preselected = container.querySelector(".tobago-stars-preselected") as HTMLElement;
-    const slider = container.querySelector(".tobago-stars-slider") as HTMLInputElement;
+    const hiddenInput: HTMLInputElement = this.querySelector("input[type=hidden]");
+    const container: HTMLElement = this.querySelector(".tobago-stars-container");
+    const tooltip: HTMLElement = container.querySelector(".tobago-stars-tooltip");
+    const selected: HTMLElement = container.querySelector(".tobago-stars-selected");
+    const unselected: HTMLElement = container.querySelector(".tobago-stars-unselected");
+    const preselected: HTMLElement = container.querySelector(".tobago-stars-preselected");
+    const slider: HTMLInputElement = container.querySelector(".tobago-stars-slider");
 
     const readonly = slider.readOnly;
     const disabled = slider.disabled;
@@ -52,22 +53,22 @@ class Stars extends HTMLElement {
     const placeholder = parseInt(slider.placeholder);
 
     if (parseInt(slider.min) === 0) {
-      slider.style["left"] = "-" + (100 / max) + "%";
-      slider.style["width"] = 100 + (100 / max) + "%";
+      slider.style["left"] = `${-100 / max}%`;
+      slider.style["width"] = `${100 + (100 / max)}%`;
     }
 
     const currentValue = parseInt(hiddenInput.value);
     if (currentValue > 0) {
       const percentValue = 100 * currentValue / max;
-      selected.style["width"] = percentValue + "%";
-      unselected.style["left"] = percentValue + "%";
-      unselected.style["width"] = 100 - percentValue + "%";
+      selected.style["width"] = `${percentValue}%`;
+      unselected.style["left"] = `${percentValue}%`;
+      unselected.style["width"] = `${100 - percentValue}%`;
     } else if (placeholder) {
       selected.classList.add("tobago-placeholder");
       const placeholderValue = 100 * placeholder / max;
-      selected.style["width"] = placeholderValue + "%";
-      unselected.style["left"] = placeholderValue + "%";
-      unselected.style["width"] = 100 - placeholderValue + "%";
+      selected.style["width"] = `${placeholderValue}%`;
+      unselected.style["left"] = `${placeholderValue}%`;
+      unselected.style["width"] = `${100 - placeholderValue}%`;
     }
 
     if (!readonly && !disabled) {
@@ -125,14 +126,14 @@ class Stars extends HTMLElement {
         tooltip.textContent = (5 * (parseInt(slider.value)) / max).toFixed(2);
 
         preselected.classList.add("show");
-        preselected.style["width"] = (100 * parseInt(slider.value) / max) + "%";
+        preselected.style["width"] = `${100 * parseInt(slider.value) / max}%`;
       } else {
         tooltip.textContent = "";
         tooltip.classList.add("trash");
 
         if (placeholder) {
           preselected.classList.add("show");
-          preselected.style["width"] = (100 * placeholder / max) + "%";
+          preselected.style["width"] = `${100 * placeholder / max}%`;
         } else {
           preselected.classList.remove("show");
         }
@@ -147,18 +148,18 @@ class Stars extends HTMLElement {
         selected.classList.remove("tobago-placeholder");
 
         const percentValue = 100 * parseInt(slider.value) / max;
-        selected.style["width"] = percentValue + "%";
-        unselected.style["left"] = percentValue + "%";
-        unselected.style["width"] = 100 - percentValue + "%";
+        selected.style["width"] = `${percentValue}%`;
+        unselected.style["left"] = `${percentValue}%`;
+        unselected.style["width"] = `${100 - percentValue}%`;
 
         hiddenInput.value = slider.value;
       } else {
         if (placeholder) {
           selected.classList.add("tobago-placeholder");
           const placeholderValue = 100 * placeholder / max;
-          selected.style["width"] = placeholderValue + "%";
-          unselected.style["left"] = placeholderValue + "%";
-          unselected.style["width"] = 100 - placeholderValue + "%";
+          selected.style["width"] = `${placeholderValue}%`;
+          unselected.style["left"] = `${placeholderValue}%`;
+          unselected.style["width"] = `${100 - placeholderValue}%`;
         } else {
           selected.classList.remove("tobago-placeholder");
           selected.style["width"] = "";

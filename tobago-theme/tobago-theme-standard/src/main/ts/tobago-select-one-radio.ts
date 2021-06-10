@@ -19,7 +19,7 @@ import {Focus} from "./tobago-focus";
 
 class SelectOneRadio extends HTMLElement {
 
-  private oldCheckedId: string = "";
+  private oldCheckedId = "";
 
   constructor() {
     super();
