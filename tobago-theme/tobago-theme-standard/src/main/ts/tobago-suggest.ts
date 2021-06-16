@@ -128,7 +128,7 @@ export class Suggest {
   }
 
   private positioningResultList(): void {
-    const space: number = 2;
+    const space = 2;
 
     if (this.localMenu) {
       const parentRect = this.suggestInput.parentElement.getBoundingClientRect();

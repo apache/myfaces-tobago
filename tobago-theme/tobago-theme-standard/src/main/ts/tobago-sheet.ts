@@ -15,17 +15,33 @@
  * limitations under the License.
  */
 
-import {DomUtils} from "./tobago-utils";
 import {Page} from "./tobago-page";
+
+interface MousemoveData {
+  columnIndex: number;
+  originalClientX: number;
+  originalHeaderColumnWidth: number;
+  mousemoveListener: (event: MouseEvent) => boolean;
+  mouseupListener: (event: MouseEvent) => boolean;
+}
+
+interface MousedownOnRowData {
+  x: number;
+  y: number;
+}
 
 export class Sheet extends HTMLElement {
 
   static readonly SCROLL_BAR_SIZE: number = Sheet.getScrollBarSize();
 
-  mousemoveData: any;
-  mousedownOnRowData: any;
+  mousemoveData: MousemoveData;
+  mousedownOnRowData: MousedownOnRowData;
 
   lastCheckMillis: number;
+
+  constructor() {
+    super();
+  }
 
   private static getScrollBarSize(): number {
     const body = document.getElementsByTagName("body").item(0);
@@ -56,10 +72,6 @@ export class Sheet extends HTMLElement {
 </tr>`;
   }
 
-  constructor() {
-    super();
-  }
-
   connectedCallback(): void {
 
     if (this.lazyUpdate) {
@@ -82,7 +94,7 @@ export class Sheet extends HTMLElement {
     console.info("columnWidths: %s", JSON.stringify(columnWidths));
     if (columnWidths && columnWidths.length === 0) { // active, but empty
       // otherwise use the layout definition
-      const tokens = JSON.parse(this.dataset.tobagoLayout).columns;
+      const tokens: any[] = JSON.parse(this.dataset.tobagoLayout).columns;
       const columnRendered = this.isColumnRendered();
 
       const headerCols = this.getHeaderCols();
@@ -109,7 +121,7 @@ export class Sheet extends HTMLElement {
           } else if(tokens[i] === "auto") {
             const value = headerCols.item(r).offsetWidth;
             widthRelative -= value;
-            tokens[i] = {measure: value + "px"}; // converting "auto" to a specific value
+            tokens[i] = {measure: `${value}px`}; // converting "auto" to a specific value
           } else {
             console.debug("(layout columns a) auto? token[i]='%s' i=%i", tokens[i], i);
           }
@@ -147,7 +159,7 @@ export class Sheet extends HTMLElement {
 
     // resize column: mouse events -------------------------------------------------------------------------------- //
 
-    for (const resizeElement of <NodeListOf<HTMLElement>>this.querySelectorAll(".tobago-sheet-headerResize")) {
+    for (const resizeElement of this.querySelectorAll(".tobago-sheet-headerResize")) {
       resizeElement.addEventListener("click", function (): boolean {
         return false;
       });
@@ -158,14 +170,14 @@ export class Sheet extends HTMLElement {
     const sheetBody = this.getBody();
 
     // restore scroll position
-    const value: number[] = JSON.parse(this.getHiddenScrollPosition().getAttribute("value"));
+    const value = JSON.parse(this.getHiddenScrollPosition().getAttribute("value")) as number[];
     sheetBody.scrollLeft = value[0];
     sheetBody.scrollTop = value[1];
 
     this.syncScrolling();
 
     // scroll events
-    sheetBody.addEventListener("scroll", this.scroll.bind(this));
+    sheetBody.addEventListener("scroll", this.scrollAction.bind(this));
 
     // add selection listeners ------------------------------------------------------------------------------------ //
     const selectionMode = this.dataset.tobagoSelectionMode;
@@ -178,7 +190,7 @@ export class Sheet extends HTMLElement {
       }
     }
 
-    for (const checkbox of <NodeListOf<HTMLInputElement>>this.querySelectorAll(
+    for (const checkbox of this.querySelectorAll(
         ".tobago-sheet-cell > input.tobago-sheet-columnSelector")) {
       checkbox.addEventListener("click", (event) => {
         event.preventDefault();
@@ -224,14 +236,14 @@ export class Sheet extends HTMLElement {
 
     // ---------------------------------------------------------------------------------------- //
 
-    for (const checkbox of <NodeListOf<HTMLInputElement>>this.querySelectorAll(
+    for (const checkbox of this.querySelectorAll(
         ".tobago-sheet-header .tobago-sheet-columnSelector")) {
       checkbox.addEventListener("click", this.clickOnCheckbox.bind(this));
     }
 
     // init paging by pages ---------------------------------------------------------------------------------------- //
 
-    for (const pagingText of <NodeListOf<HTMLElement>>this.querySelectorAll(".tobago-sheet-pagingText")) {
+    for (const pagingText of this.querySelectorAll(".tobago-sheet-pagingText")) {
 
       pagingText.addEventListener("click", this.clickOnPaging.bind(this));
 
@@ -314,7 +326,7 @@ export class Sheet extends HTMLElement {
   /**
    * Checks if a lazy update is required, because there are unloaded rows in the visible area.
    */
-  lazyCheck(event?): void {
+  lazyCheck(event?: Event): void {
 
     if (this.lazyActive) {
       // nothing to do, because there is an active AJAX running
@@ -345,7 +357,7 @@ export class Sheet extends HTMLElement {
     let min = 0;
     let max = rowElements.length;
     // binary search
-    let i;
+    let i: number;
     while (min < max) {
       i = Math.floor((max - min) / 2) + min;
       // console.log("min i max -> %d %d %d", min, i, max); // @DEV_ONLY
@@ -371,22 +383,22 @@ export class Sheet extends HTMLElement {
     return trEnd < viewStart;
   }
 
-  isRowDummy(tr): boolean {
+  isRowDummy(tr: HTMLTableRowElement): boolean {
     return tr.hasAttribute("dummy");
   }
 
-  lazyResponse(event): void {
-    let updates;
+  lazyResponse(event: EventData): void {
+    let updates: NodeListOf<Element>;
     if (event.status === "complete") {
       updates = event.responseXML.querySelectorAll("update");
       for (let i = 0; i < updates.length; i++) {
         const update = updates[i];
         const id = update.getAttribute("id");
         if (id.indexOf(":") > -1) { // is a JSF element id, but not a technical id from the framework
-          console.debug("[tobago-sheet][complete] Update after jsf.ajax complete: #" + id); // @DEV_ONLY
+          console.debug(`[tobago-sheet][complete] Update after jsf.ajax complete: #${id}`); // @DEV_ONLY
 
           const sheet = document.getElementById(id);
-          sheet.id = id + "::lazy-temporary";
+          sheet.id = `${id}::lazy-temporary`;
 
           const page = Page.page(this);
           page.insertAdjacentHTML("beforeend", `<div id="${id}"></div>`);
@@ -399,11 +411,11 @@ export class Sheet extends HTMLElement {
         const update = updates[i];
         const id = update.getAttribute("id");
         if (id.indexOf(":") > -1) { // is a JSF element id, but not a technical id from the framework
-          console.debug("[tobago-sheet][success] Update after jsf.ajax complete: #" + id); // @DEV_ONLY
+          console.debug(`[tobago-sheet][success] Update after jsf.ajax complete: #${id}`); // @DEV_ONLY
 
           // sync the new rows into the sheet
           const sheetLoader = document.getElementById(id);
-          const sheet = document.getElementById(id + "::lazy-temporary");
+          const sheet = document.getElementById(`${id}::lazy-temporary`);
           sheet.id = id;
           const tbody = sheet.querySelector(".tobago-sheet-bodyTable>tbody");
 
@@ -411,7 +423,7 @@ export class Sheet extends HTMLElement {
           for (i = 0; i < newRows.length; i++) {
             const newRow = newRows[i];
             const rowIndex = Number(newRow.getAttribute("row-index"));
-            const row = tbody.querySelector("tr[row-index='" + rowIndex + "']");
+            const row = tbody.querySelector(`tr[row-index='${rowIndex}']`);
             // replace the old row with the new row
             row.insertAdjacentElement("afterend", newRow);
             tbody.removeChild(row);
@@ -424,20 +436,19 @@ export class Sheet extends HTMLElement {
     }
   }
 
-  lazyError(data): void {
-    console.error("Sheet lazy loading error:"
-        + "\nError Description: " + data.description
-        + "\nError Name: " + data.errorName
-        + "\nError errorMessage: " + data.errorMessage
-        + "\nResponse Code: " + data.responseCode
-        + "\nResponse Text: " + data.responseText
-        + "\nStatus: " + data.status
-        + "\nType: " + data.type);
+  lazyError(data: ErrorData): void {
+    console.error(`Sheet lazy loading error:
+Error Name: ${data.errorName}
+Error errorMessage: ${data.errorMessage}
+Response Code: ${data.responseCode}
+Response Text: ${data.responseText}
+Status: ${data.status}
+Type: ${data.type}`);
   }
 
   // tbd: how to do this in Tobago 5?
   reloadWithAction(source: HTMLElement): void {
-    console.debug("reload sheet with action '" + source.id + "'"); // @DEV_ONLY
+    console.debug(`reload sheet with action '${source.id}'`); // @DEV_ONLY
     const executeIds = this.id;
     const renderIds = this.id;
     const lazy = this.lazy;
@@ -468,7 +479,7 @@ export class Sheet extends HTMLElement {
     if (hidden) {
       hidden.setAttribute("value", JSON.stringify(widths));
     } else {
-      console.warn("ignored, should not be called, id='" + this.id + "'");
+      console.warn("ignored, should not be called, id='%s'", this.id);
     }
   }
 
@@ -494,18 +505,16 @@ export class Sheet extends HTMLElement {
     const resizeElement = event.currentTarget as HTMLElement;
     const columnIndex = parseInt(resizeElement.dataset.tobagoColumnIndex);
     const headerColumn = this.getHeaderCols().item(columnIndex);
-    const mousemoveListener = this.mousemove.bind(this);
-    const mouseupListener = this.mouseup.bind(this);
     this.mousemoveData = {
       columnIndex: columnIndex,
       originalClientX: event.clientX,
       originalHeaderColumnWidth: parseInt(headerColumn.getAttribute("width")),
-      mousemoveListener: mousemoveListener,
-      mouseupListener: mouseupListener
+      mousemoveListener: this.mousemove.bind(this),
+      mouseupListener: this.mouseup.bind(this)
     };
 
-    document.addEventListener("mousemove", mousemoveListener);
-    document.addEventListener("mouseup", mouseupListener);
+    document.addEventListener("mousemove", this.mousemoveData.mousemoveListener);
+    document.addEventListener("mouseup", this.mousemoveData.mouseupListener);
   }
 
   mousemove(event: MouseEvent): boolean {
@@ -513,8 +522,8 @@ export class Sheet extends HTMLElement {
     let delta = event.clientX - this.mousemoveData.originalClientX;
     delta = -Math.min(-delta, this.mousemoveData.originalHeaderColumnWidth - 10);
     const columnWidth = this.mousemoveData.originalHeaderColumnWidth + delta;
-    this.getHeaderCols().item(this.mousemoveData.columnIndex).setAttribute("width", columnWidth);
-    this.getBodyCols().item(this.mousemoveData.columnIndex).setAttribute("width", columnWidth);
+    this.getHeaderCols().item(this.mousemoveData.columnIndex).setAttribute("width", String(columnWidth));
+    this.getBodyCols().item(this.mousemoveData.columnIndex).setAttribute("width", String(columnWidth));
     if (window.getSelection) {
       window.getSelection().removeAllRanges();
     }
@@ -528,7 +537,7 @@ export class Sheet extends HTMLElement {
     document.removeEventListener("mousemove", this.mousemoveData.mousemoveListener);
     document.removeEventListener("mouseup", this.mousemoveData.mouseupListener);
     // copy the width values from the header to the body, (and build a list of it)
-    const tokens = JSON.parse(this.dataset.tobagoLayout).columns;
+    const tokens: any[] = JSON.parse(this.dataset.tobagoLayout).columns;
     const columnRendered = this.isColumnRendered();
     const columnWidths = this.loadColumnWidths();
 
@@ -572,10 +581,10 @@ export class Sheet extends HTMLElement {
     return false;
   }
 
-  scroll(event): void {
+  scrollAction(event: Event): void {
     console.debug("scroll");
 
-    const sheetBody: HTMLElement = event.currentTarget;
+    const sheetBody = event.currentTarget as HTMLElement;
 
     this.syncScrolling();
 
@@ -644,10 +653,10 @@ export class Sheet extends HTMLElement {
   clickOnPaging(event: MouseEvent): void {
     const element = event.currentTarget as HTMLElement;
 
-    const output = element.querySelector(".tobago-sheet-pagingOutput") as HTMLElement;
+    const output: HTMLElement = element.querySelector(".tobago-sheet-pagingOutput");
     output.style.display = "none";
 
-    const input = element.querySelector(".tobago-sheet-pagingInput") as HTMLInputElement;
+    const input: HTMLInputElement = element.querySelector(".tobago-sheet-pagingInput");
     input.style.display = "initial";
     input.focus();
     input.select();
@@ -655,10 +664,9 @@ export class Sheet extends HTMLElement {
 
   blurPaging(event: FocusEvent): void {
     const input = event.currentTarget as HTMLInputElement;
-    const output = input.parentElement.querySelector(".tobago-sheet-pagingOutput") as HTMLElement;
+    const output: HTMLElement = input.parentElement.querySelector(".tobago-sheet-pagingOutput");
     if (output.innerHTML !== input.value) {
-      console.debug(
-          "Reloading sheet '" + this.id + "' old value='" + output.innerHTML + "' new value='" + input.value + "'");
+      console.debug("Reloading sheet '%s' old value='%s' new value='%s'", this.id, output.innerHTML, input.value);
       output.innerHTML = input.value;
       jsf.ajax.request(
           input.id,

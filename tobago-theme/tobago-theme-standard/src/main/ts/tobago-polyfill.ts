@@ -50,7 +50,7 @@ try {
     return function (selector: any): any {
       if (selector.toLowerCase().indexOf(":scope") >= 0) {
         const attr = "tobagoScopeAttribute";
-        arguments[0] = selector.replace(scope, "[" + attr + "]");
+        arguments[0] = selector.replace(scope, `[${attr}]`);
         this.setAttribute(attr, "");
         const element = prototypeFunc.apply(this, arguments);
         this.removeAttribute(attr);

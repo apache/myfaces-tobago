@@ -28,7 +28,7 @@ class TobagoScroll extends HTMLElement {
       this.parentElement.scrollLeft = values[0];
       this.parentElement.scrollTop = values[1];
     } else {
-      console.warn("Syntax error for scroll position: " + text);
+      console.warn("Syntax error for scroll position: ", text);
     }
 
     this.parentElement.addEventListener("scroll", this.storeScrollPosition.bind(this));

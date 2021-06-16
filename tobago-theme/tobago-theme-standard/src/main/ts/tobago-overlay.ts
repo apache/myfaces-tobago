@@ -53,13 +53,13 @@ export class Overlay {
   overlay: HTMLDivElement;
 
   static destroy(id: string): void {
-    console.debug("----> get overlay " + id);
+    console.debug("----> get overlay ", id);
     const overlay = Overlay.overlayMap.get(id);
     if (overlay) {
       overlay.overlay.remove();
       Overlay.overlayMap.delete(id);
     } else {
-      console.warn("Overlay not found for id='" + id + "'");
+      console.warn("Overlay not found for id='%s'", id);
     }
   }
 
@@ -115,7 +115,7 @@ export class Overlay {
     }, this.waitOverlayDelay);
 
     Overlay.overlayMap.set(element.id, this);
-    console.debug("----> set overlay " + element.id);
+    console.debug("----> set overlay ", element.id);
   }
 }
 

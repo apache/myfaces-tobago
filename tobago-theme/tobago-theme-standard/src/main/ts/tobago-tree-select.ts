@@ -79,7 +79,7 @@ export class TreeSelect extends HTMLElement {
   private get treeSelectChildren(): NodeListOf<TreeSelect> {
     const treeNode = this.closest("tobago-tree-node");
     return treeNode.parentElement
-        .querySelectorAll("tobago-tree-node[parent='" + treeNode.id + "'] tobago-tree-select");
+        .querySelectorAll(`tobago-tree-node[parent='${treeNode.id}'] tobago-tree-select`);
   }
 
   private get input(): HTMLInputElement {

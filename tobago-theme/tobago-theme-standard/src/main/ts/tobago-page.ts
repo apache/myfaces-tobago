@@ -100,7 +100,7 @@ export class Page extends HTMLElement {
         const name = target.getAttribute("name");
         let id = name ? name : target.id;
         while (id != null) {
-          const command = document.querySelector("[data-tobago-default='" + id + "']");
+          const command = document.querySelector(`[data-tobago-default='${id}']`);
           if (command) {
             command.dispatchEvent(new MouseEvent("click"));
             break;
@@ -160,7 +160,7 @@ export class Page extends HTMLElement {
   jsfResponseComplete(update: Element): void {
     const id = update.id;
     if (JsfParameter.isJsfId(id)) {
-      console.debug("[tobago-jsf] Update after jsf.ajax complete: #" + id);
+      console.debug("[tobago-jsf] Update after jsf.ajax complete: #", id);
       Overlay.destroy(id);
     }
   }

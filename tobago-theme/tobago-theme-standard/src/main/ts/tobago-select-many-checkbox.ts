@@ -39,7 +39,7 @@ class SelectManyCheckbox extends HTMLElement {
   }
 
   get inputs(): NodeListOf<HTMLInputElement> {
-    return this.querySelectorAll("input[name='" + this.id + "']");
+    return this.querySelectorAll(`input[name='${this.id}']`);
   }
 }
 

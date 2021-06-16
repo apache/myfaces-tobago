@@ -328,7 +328,7 @@ class Transport {
       index = Transport.requests.push(req);
       //console.debug('index = ' + index)
     } else if (!Transport.pageSubmitted) { // AJAX case
-      console.debug("Current ActionId = " + Transport.currentActionId + " action= " + actionId);
+      console.debug("Current ActionId='%s' action='%s'", Transport.currentActionId, actionId);
       if (actionId && Transport.currentActionId === actionId) {
         console.info("Ignoring request");
         // If actionId equals currentActionId assume double request: do nothing
@@ -341,7 +341,7 @@ class Transport {
       console.debug("else case");
       return false;
     }
-    console.debug("index = " + index);
+    console.debug("index='%s'", index);
     if (index === 1) {
       console.info("Execute request!");
       Transport.startTime = new Date();
@@ -357,8 +357,8 @@ class Transport {
   static requestComplete = function (): void {
     Transport.requests.shift();
     Transport.currentActionId = null;
-    console.debug("Request complete! Duration: " + (new Date().getTime() - Transport.startTime.getTime()) + "ms; "
-        + "Queue size : " + Transport.requests.length);
+    console.debug("Request complete! Duration: %s ms; "
+        + "Queue size : %s", new Date().getTime() - Transport.startTime.getTime(),  Transport.requests.length);
     if (Transport.requests.length > 0) {
       console.debug("Execute request!");
       Transport.startTime = new Date();

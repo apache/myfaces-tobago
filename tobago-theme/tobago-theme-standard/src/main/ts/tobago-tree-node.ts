@@ -161,9 +161,9 @@ export class TreeNode extends HTMLElement {
 
   private get treeChildNodes(): NodeListOf<TreeNode> {
     if (this.sheet) {
-      return this.closest("tbody").querySelectorAll("tobago-tree-node[parent='" + this.id + "']");
+      return this.closest("tbody").querySelectorAll(`tobago-tree-node[parent='${this.id}']`);
     } else if (this.tree) {
-      return this.parentElement.querySelectorAll("tobago-tree-node[parent='" + this.id + "']");
+      return this.parentElement.querySelectorAll(`tobago-tree-node[parent='${this.id}']`);
     } else {
       console.error("Cannot detect 'tobago-tree' or 'tobago-sheet'.");
       return null;
