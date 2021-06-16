@@ -83,7 +83,7 @@ class SelectManyShuttle extends HTMLElement {
   }
 
   private changeHiddenOption(option: HTMLOptionElement, select: boolean): void {
-    const hiddenOption: HTMLOptionElement = this.hiddenSelect.querySelector("option[value='" + option.value + "']");
+    const hiddenOption: HTMLOptionElement = this.hiddenSelect.querySelector(`option[value='${option.value}']`);
     hiddenOption.selected = select;
     this.dispatchEvent(new Event("change"));
   }

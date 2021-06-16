@@ -49,8 +49,8 @@ class TobagoReload extends HTMLElement {
             null,
             {
               "javax.faces.behavior.event": "reload",
-              execute: reloadId + " " + componentId,
-              render: reloadId + " " + componentId
+              execute: `${reloadId} ${componentId}`,
+              render: `${reloadId} ${componentId}`
             });
       }, reloadMillis);
       console.debug("adding reload timeout '%s' for #'%s'", timeout, componentId);

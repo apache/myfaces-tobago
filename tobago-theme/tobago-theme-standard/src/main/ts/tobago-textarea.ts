@@ -29,7 +29,7 @@ class Textarea extends HTMLElement {
 
   get textarea(): HTMLInputElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
-    return rootNode.getElementById(this.id + "::field") as HTMLInputElement;
+    return rootNode.getElementById(`${this.id}::field`) as HTMLInputElement;
   }
 }
 

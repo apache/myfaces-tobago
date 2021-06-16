@@ -60,7 +60,7 @@ class Dropdown extends HTMLElement {
 
   private get dropdownMenu(): HTMLDivElement {
     const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(".dropdown-menu[name='" + this.id + "']");
+    return root.querySelector(`.dropdown-menu[name='${this.id}']`);
   }
 
   private get menuStore(): HTMLDivElement {

@@ -226,7 +226,7 @@
       }
       get dropdownMenu() {
           const root = this.getRootNode();
-          return root.querySelector(".dropdown-menu[name='" + this.id + "']");
+          return root.querySelector(`.dropdown-menu[name='${this.id}']`);
       }
       get menuStore() {
           const root = this.getRootNode();
@@ -2895,17 +2895,17 @@
               this.overlay.classList.add("tobago-page-overlay-timeout");
           }, this.waitOverlayDelay);
           Overlay.overlayMap.set(element.id, this);
-          console.debug("----> set overlay " + element.id);
+          console.debug("----> set overlay ", element.id);
       }
       static destroy(id) {
-          console.debug("----> get overlay " + id);
+          console.debug("----> get overlay ", id);
           const overlay = Overlay.overlayMap.get(id);
           if (overlay) {
               overlay.overlay.remove();
               Overlay.overlayMap.delete(id);
           }
           else {
-              console.warn("Overlay not found for id='" + id + "'");
+              console.warn("Overlay not found for id='%s'", id);
           }
       }
   }
@@ -9967,7 +9967,7 @@
           //console.debug('index = ' + index)
       }
       else if (!Transport.pageSubmitted) { // AJAX case
-          console.debug("Current ActionId = " + Transport.currentActionId + " action= " + actionId);
+          console.debug("Current ActionId='%s' action='%s'", Transport.currentActionId, actionId);
           if (actionId && Transport.currentActionId === actionId) {
               console.info("Ignoring request");
               // If actionId equals currentActionId assume double request: do nothing
@@ -9981,7 +9981,7 @@
           console.debug("else case");
           return false;
       }
-      console.debug("index = " + index);
+      console.debug("index='%s'", index);
       if (index === 1) {
           console.info("Execute request!");
           Transport.startTime = new Date();
@@ -9996,8 +9996,8 @@
   Transport.requestComplete = function () {
       Transport.requests.shift();
       Transport.currentActionId = null;
-      console.debug("Request complete! Duration: " + (new Date().getTime() - Transport.startTime.getTime()) + "ms; "
-          + "Queue size : " + Transport.requests.length);
+      console.debug("Request complete! Duration: %s ms; "
+          + "Queue size : %s", new Date().getTime() - Transport.startTime.getTime(), Transport.requests.length);
       if (Transport.requests.length > 0) {
           console.debug("Execute request!");
           Transport.startTime = new Date();
@@ -10092,7 +10092,7 @@
                   const name = target.getAttribute("name");
                   let id = name ? name : target.id;
                   while (id != null) {
-                      const command = document.querySelector("[data-tobago-default='" + id + "']");
+                      const command = document.querySelector(`[data-tobago-default='${id}']`);
                       if (command) {
                           command.dispatchEvent(new MouseEvent("click"));
                           break;
@@ -10147,7 +10147,7 @@
       jsfResponseComplete(update) {
           const id = update.id;
           if (JsfParameter.isJsfId(id)) {
-              console.debug("[tobago-jsf] Update after jsf.ajax complete: #" + id);
+              console.debug("[tobago-jsf] Update after jsf.ajax complete: #", id);
               Overlay.destroy(id);
           }
       }
@@ -10463,9 +10463,7 @@
       }
       get focusableElement() {
           const root = this.getRootNode();
-          const elements = root.querySelectorAll("input:not([type='hidden']):not([disabled]):not([tabindex='-1'])," +
-              "select:not([disabled]):not([tabindex='-1'])," +
-              "textarea:not([disabled]):not([tabindex='-1'])");
+          const elements = root.querySelectorAll(`input:not([type='hidden']):not([disabled]):not([tabindex='-1']),select:not([disabled]):not([tabindex='-1']),textarea:not([disabled]):not([tabindex='-1'])`);
           for (const element of elements) {
               if (this.isVisible(element)) {
                   return element;
@@ -11477,7 +11475,7 @@
           return function (selector) {
               if (selector.toLowerCase().indexOf(":scope") >= 0) {
                   const attr = "tobagoScopeAttribute";
-                  arguments[0] = selector.replace(scope, "[" + attr + "]");
+                  arguments[0] = selector.replace(scope, `[${attr}]`);
                   this.setAttribute(attr, "");
                   const element = prototypeFunc.apply(this, arguments);
                   this.removeAttribute(attr);
@@ -11629,8 +11627,8 @@
                   console.debug("reloading #'%s'", componentId);
                   jsf.ajax.request(reloadId, null, {
                       "javax.faces.behavior.event": "reload",
-                      execute: reloadId + " " + componentId,
-                      render: reloadId + " " + componentId
+                      execute: `${reloadId} ${componentId}`,
+                      render: `${reloadId} ${componentId}`
                   });
               }, reloadMillis);
               console.debug("adding reload timeout '%s' for #'%s'", timeout, componentId);
@@ -11689,7 +11687,7 @@
               this.parentElement.scrollTop = values[1];
           }
           else {
-              console.warn("Syntax error for scroll position: " + text);
+              console.warn("Syntax error for scroll position: ", text);
           }
           this.parentElement.addEventListener("scroll", this.storeScrollPosition.bind(this));
       }
@@ -11807,7 +11805,7 @@
           }
       }
       get inputs() {
-          return this.querySelectorAll("input[name='" + this.id + "']");
+          return this.querySelectorAll(`input[name='${this.id}']`);
       }
   }
   document.addEventListener("tobago.init", function (event) {
@@ -11953,7 +11951,7 @@
           }
       }
       changeHiddenOption(option, select) {
-          const hiddenOption = this.hiddenSelect.querySelector("option[value='" + option.value + "']");
+          const hiddenOption = this.hiddenSelect.querySelector(`option[value='${option.value}']`);
           hiddenOption.selected = select;
           this.dispatchEvent(new Event("change"));
       }
@@ -12071,7 +12069,7 @@
           }
       }
       get radioGroup() {
-          return this.querySelectorAll("input[type='radio'][name='" + this.id + "']");
+          return this.querySelectorAll(`input[type='radio'][name='${this.id}']`);
       }
   }
   document.addEventListener("tobago.init", function (event) {
@@ -12166,7 +12164,7 @@
                       else if (tokens[i] === "auto") {
                           const value = headerCols.item(r).offsetWidth;
                           widthRelative -= value;
-                          tokens[i] = { measure: value + "px" }; // converting "auto" to a specific value
+                          tokens[i] = { measure: `${value}px` }; // converting "auto" to a specific value
                       }
                       else {
                           console.debug("(layout columns a) auto? token[i]='%s' i=%i", tokens[i], i);
@@ -12219,7 +12217,7 @@
           sheetBody.scrollTop = value[1];
           this.syncScrolling();
           // scroll events
-          sheetBody.addEventListener("scroll", this.scroll.bind(this));
+          sheetBody.addEventListener("scroll", this.scrollAction.bind(this));
           // add selection listeners ------------------------------------------------------------------------------------ //
           const selectionMode = this.dataset.tobagoSelectionMode;
           if (selectionMode === "single" || selectionMode === "singleOrNone" || selectionMode === "multi") {
@@ -12403,9 +12401,9 @@
                   const update = updates[i];
                   const id = update.getAttribute("id");
                   if (id.indexOf(":") > -1) { // is a JSF element id, but not a technical id from the framework
-                      console.debug("[tobago-sheet][complete] Update after jsf.ajax complete: #" + id); // @DEV_ONLY
+                      console.debug(`[tobago-sheet][complete] Update after jsf.ajax complete: #${id}`); // @DEV_ONLY
                       const sheet = document.getElementById(id);
-                      sheet.id = id + "::lazy-temporary";
+                      sheet.id = `${id}::lazy-temporary`;
                       const page = Page.page(this);
                       page.insertAdjacentHTML("beforeend", `<div id="${id}"></div>`);
                       document.getElementById(id);
@@ -12418,17 +12416,17 @@
                   const update = updates[i];
                   const id = update.getAttribute("id");
                   if (id.indexOf(":") > -1) { // is a JSF element id, but not a technical id from the framework
-                      console.debug("[tobago-sheet][success] Update after jsf.ajax complete: #" + id); // @DEV_ONLY
+                      console.debug(`[tobago-sheet][success] Update after jsf.ajax complete: #${id}`); // @DEV_ONLY
                       // sync the new rows into the sheet
                       const sheetLoader = document.getElementById(id);
-                      const sheet = document.getElementById(id + "::lazy-temporary");
+                      const sheet = document.getElementById(`${id}::lazy-temporary`);
                       sheet.id = id;
                       const tbody = sheet.querySelector(".tobago-sheet-bodyTable>tbody");
                       const newRows = sheetLoader.querySelectorAll(".tobago-sheet-bodyTable>tbody>tr");
                       for (i = 0; i < newRows.length; i++) {
                           const newRow = newRows[i];
                           const rowIndex = Number(newRow.getAttribute("row-index"));
-                          const row = tbody.querySelector("tr[row-index='" + rowIndex + "']");
+                          const row = tbody.querySelector(`tr[row-index='${rowIndex}']`);
                           // replace the old row with the new row
                           row.insertAdjacentElement("afterend", newRow);
                           tbody.removeChild(row);
@@ -12440,18 +12438,17 @@
           }
       }
       lazyError(data) {
-          console.error("Sheet lazy loading error:"
-              + "\nError Description: " + data.description
-              + "\nError Name: " + data.errorName
-              + "\nError errorMessage: " + data.errorMessage
-              + "\nResponse Code: " + data.responseCode
-              + "\nResponse Text: " + data.responseText
-              + "\nStatus: " + data.status
-              + "\nType: " + data.type);
+          console.error(`Sheet lazy loading error:
+Error Name: ${data.errorName}
+Error errorMessage: ${data.errorMessage}
+Response Code: ${data.responseCode}
+Response Text: ${data.responseText}
+Status: ${data.status}
+Type: ${data.type}`);
       }
       // tbd: how to do this in Tobago 5?
       reloadWithAction(source) {
-          console.debug("reload sheet with action '" + source.id + "'"); // @DEV_ONLY
+          console.debug(`reload sheet with action '${source.id}'`); // @DEV_ONLY
           const executeIds = this.id;
           const renderIds = this.id;
           const lazy = this.lazy;
@@ -12478,7 +12475,7 @@
               hidden.setAttribute("value", JSON.stringify(widths));
           }
           else {
-              console.warn("ignored, should not be called, id='" + this.id + "'");
+              console.warn("ignored, should not be called, id='%s'", this.id);
           }
       }
       isColumnRendered() {
@@ -12498,25 +12495,23 @@
           const resizeElement = event.currentTarget;
           const columnIndex = parseInt(resizeElement.dataset.tobagoColumnIndex);
           const headerColumn = this.getHeaderCols().item(columnIndex);
-          const mousemoveListener = this.mousemove.bind(this);
-          const mouseupListener = this.mouseup.bind(this);
           this.mousemoveData = {
               columnIndex: columnIndex,
               originalClientX: event.clientX,
               originalHeaderColumnWidth: parseInt(headerColumn.getAttribute("width")),
-              mousemoveListener: mousemoveListener,
-              mouseupListener: mouseupListener
+              mousemoveListener: this.mousemove.bind(this),
+              mouseupListener: this.mouseup.bind(this)
           };
-          document.addEventListener("mousemove", mousemoveListener);
-          document.addEventListener("mouseup", mouseupListener);
+          document.addEventListener("mousemove", this.mousemoveData.mousemoveListener);
+          document.addEventListener("mouseup", this.mousemoveData.mouseupListener);
       }
       mousemove(event) {
           console.debug("move");
           let delta = event.clientX - this.mousemoveData.originalClientX;
           delta = -Math.min(-delta, this.mousemoveData.originalHeaderColumnWidth - 10);
           const columnWidth = this.mousemoveData.originalHeaderColumnWidth + delta;
-          this.getHeaderCols().item(this.mousemoveData.columnIndex).setAttribute("width", columnWidth);
-          this.getBodyCols().item(this.mousemoveData.columnIndex).setAttribute("width", columnWidth);
+          this.getHeaderCols().item(this.mousemoveData.columnIndex).setAttribute("width", String(columnWidth));
+          this.getBodyCols().item(this.mousemoveData.columnIndex).setAttribute("width", String(columnWidth));
           if (window.getSelection) {
               window.getSelection().removeAllRanges();
           }
@@ -12570,7 +12565,7 @@
           this.saveColumnWidths(widths);
           return false;
       }
-      scroll(event) {
+      scrollAction(event) {
           console.debug("scroll");
           const sheetBody = event.currentTarget;
           this.syncScrolling();
@@ -12641,7 +12636,7 @@
           const input = event.currentTarget;
           const output = input.parentElement.querySelector(".tobago-sheet-pagingOutput");
           if (output.innerHTML !== input.value) {
-              console.debug("Reloading sheet '" + this.id + "' old value='" + output.innerHTML + "' new value='" + input.value + "'");
+              console.debug("Reloading sheet '%s' old value='%s' new value='%s'", this.id, output.innerHTML, input.value);
               output.innerHTML = input.value;
               jsf.ajax.request(input.id, null, {
                   "javax.faces.behavior.event": "reload",
@@ -13231,7 +13226,7 @@
       }
       get textarea() {
           const rootNode = this.getRootNode();
-          return rootNode.getElementById(this.id + "::field");
+          return rootNode.getElementById(`${this.id}::field`);
       }
   }
   document.addEventListener("tobago.init", function (event) {
@@ -13613,10 +13608,10 @@
       }
       get treeChildNodes() {
           if (this.sheet) {
-              return this.closest("tbody").querySelectorAll("tobago-tree-node[parent='" + this.id + "']");
+              return this.closest("tbody").querySelectorAll(`tobago-tree-node[parent='${this.id}']`);
           }
           else if (this.tree) {
-              return this.parentElement.querySelectorAll("tobago-tree-node[parent='" + this.id + "']");
+              return this.parentElement.querySelectorAll(`tobago-tree-node[parent='${this.id}']`);
           }
           else {
               console.error("Cannot detect 'tobago-tree' or 'tobago-sheet'.");
@@ -13711,7 +13706,7 @@
       get treeSelectChildren() {
           const treeNode = this.closest("tobago-tree-node");
           return treeNode.parentElement
-              .querySelectorAll("tobago-tree-node[parent='" + treeNode.id + "'] tobago-tree-select");
+              .querySelectorAll(`tobago-tree-node[parent='${treeNode.id}'] tobago-tree-select`);
       }
       get input() {
           return this.querySelector("input");

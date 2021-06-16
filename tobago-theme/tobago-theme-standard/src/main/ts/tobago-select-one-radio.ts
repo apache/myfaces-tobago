@@ -61,7 +61,7 @@ class SelectOneRadio extends HTMLElement {
   }
 
   get radioGroup(): NodeListOf<HTMLInputElement> {
-    return this.querySelectorAll<HTMLInputElement>("input[type='radio'][name='" + this.id + "']");
+    return this.querySelectorAll<HTMLInputElement>(`input[type='radio'][name='${this.id}']`);
   }
 }
 
