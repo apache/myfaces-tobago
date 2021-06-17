@@ -87,9 +87,48 @@ class Behavior extends HTMLElement {
     }
   }
 
+  /**
+   * Submitting the page (= the form).
+   */
   submit(): void {
-    const id = this.fieldId != null ? this.fieldId : this.clientId;
-    CommandHelper.submitAction(this, id, this.decoupled, this.target);
+    console.info("Execute submit!");
+    const page = Page.page(this);
+    if (!page.submitActive) {
+      page.submitActive = true;
+      const actionId = this.fieldId != null ? this.fieldId : this.clientId;
+      const form = page.form;
+      const oldTarget = form.getAttribute("target");
+      const sourceHidden = document.getElementById("javax.faces.source") as HTMLInputElement;
+      sourceHidden.disabled = false;
+      sourceHidden.value = actionId;
+      if (this.target) {
+        form.setAttribute("target", this.target);
+      }
+
+      page.beforeSubmit();
+
+      try {
+        form.submit();
+        // reset the source field after submit, to be prepared for possible next AJAX with decoupled=true
+        sourceHidden.disabled = true;
+        sourceHidden.value = "";
+      } catch (e) {
+        console.error("Submit failed!", e);
+        Overlay.destroy(page.id);
+        page.submitActive = false;
+        alert(`Submit failed: ${e}`); // XXX localization, better error handling
+      }
+      if (this.target) {
+        if (oldTarget) {
+          form.setAttribute("target", oldTarget);
+        } else {
+          form.removeAttribute("target");
+        }
+      }
+      if (this.target || this.decoupled) {
+        page.submitActive = false;
+      }
+    }
   }
 
   get mode(): BehaviorMode {
@@ -217,21 +256,6 @@ class Behavior extends HTMLElement {
     const id = this.fieldId ? this.fieldId : this.clientId;
     return rootNode.getElementById(id);
   }
-
-  /* XXX todo:
-    get element(): HTMLElement {
-      let e = this.parentElement;
-      // XXX special case, using the row, but <tobago-behavior> can't be a child of <tr>
-      while (e.matches("td.tobago-sheet-cell-markup-filler")
-      // XXX fix position of <tobago-behavior> inside of input-group
-      || e.matches(".input-group")
-      || e.matches(".tobago-input-group-outer")) {
-        e = e.parentElement;
-      }
-      return e;
-    }
-  */
-
 }
 
 document.addEventListener("tobago.init", function (event: Event): void {
@@ -239,130 +263,3 @@ document.addEventListener("tobago.init", function (event: Event): void {
     window.customElements.define("tobago-behavior", Behavior);
   }
 });
-
-export class CommandHelper {
-  static isSubmit: boolean = false;
-
-  /**
-   * Submitting the page with specified actionId.
-   * @param source
-   * @param actionId
-   * @param decoupled
-   * @param target
-   */
-  public static submitAction = function (
-      source: HTMLElement, actionId: string, decoupled: boolean = false, target?: string): void {
-
-    Transport.request(function (): void {
-      if (!CommandHelper.isSubmit) {
-        CommandHelper.isSubmit = true;
-        const form = document.getElementsByTagName("form")[0] as HTMLFormElement;
-        const oldTarget = form.getAttribute("target");
-        const sourceHidden = document.getElementById("javax.faces.source") as HTMLInputElement;
-        sourceHidden.disabled = false;
-        sourceHidden.value = actionId;
-        if (target) {
-          form.setAttribute("target", target);
-        }
-        const listenerOptions = {
-          source: source,
-          actionId: actionId/*,
-          options: commandHelper*/
-        };
-        const onSubmitResult = CommandHelper.onSubmit(listenerOptions);
-        if (onSubmitResult) {
-          try {
-            form.submit();
-            // reset the source field after submit, to be prepared for possible next AJAX with decoupled=true
-            sourceHidden.disabled = true;
-            sourceHidden.value = "";
-          } catch (e) {
-            Overlay.destroy(Page.page(form).id);
-            CommandHelper.isSubmit = false;
-            alert("Submit failed: " + e); // XXX localization, better error handling
-          }
-        }
-        if (target) {
-          if (oldTarget) {
-            form.setAttribute("target", oldTarget);
-          } else {
-            form.removeAttribute("target");
-          }
-        }
-        if (target || decoupled || !onSubmitResult) {
-          CommandHelper.isSubmit = false;
-          Transport.pageSubmitted = false;
-        }
-      }
-      if (!CommandHelper.isSubmit) {
-        Transport.requestComplete(); // remove this from queue
-      }
-    }, true);
-  };
-
-  static onSubmit = function (listenerOptions: any): boolean {
-
-    CommandHelper.isSubmit = true;
-
-    const element: HTMLElement = document.documentElement; // XXX this might be the wrong element in case of shadow dom
-    Page.page(element).onBeforeUnload();
-
-    return true;
-  };
-
-}
-
-class Transport {
-  static requests = [];
-  static currentActionId = null;
-  static pageSubmitted = false;
-  static startTime: Date;
-
-  /**
-   * @return true if the request is queued.
-   */
-  static request = function (req: () => void, submitPage: boolean, actionId?: string): boolean {
-    let index = 0;
-    if (submitPage) {
-      Transport.pageSubmitted = true;
-      index = Transport.requests.push(req);
-      //console.debug('index = ' + index)
-    } else if (!Transport.pageSubmitted) { // AJAX case
-      console.debug("Current ActionId='%s' action='%s'", Transport.currentActionId, actionId);
-      if (actionId && Transport.currentActionId === actionId) {
-        console.info("Ignoring request");
-        // If actionId equals currentActionId assume double request: do nothing
-        return false;
-      }
-      index = Transport.requests.push(req);
-      //console.debug('index = ' + index)
-      Transport.currentActionId = actionId;
-    } else {
-      console.debug("else case");
-      return false;
-    }
-    console.debug("index='%s'", index);
-    if (index === 1) {
-      console.info("Execute request!");
-      Transport.startTime = new Date();
-      Transport.requests[0]();
-    } else {
-      console.info("Request queued!");
-    }
-    return true;
-  };
-
-  // TBD XXX REMOVE is this called in non AJAX case?
-
-  static requestComplete = function (): void {
-    Transport.requests.shift();
-    Transport.currentActionId = null;
-    console.debug("Request complete! Duration: %s ms; "
-        + "Queue size : %s", new Date().getTime() - Transport.startTime.getTime(),  Transport.requests.length);
-    if (Transport.requests.length > 0) {
-      console.debug("Execute request!");
-      Transport.startTime = new Date();
-      Transport.requests[0]();
-    }
-  };
-}

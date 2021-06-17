@@ -2913,6 +2913,339 @@
   Config.set("Tobago.waitOverlayDelay", 1000);
   Config.set("Ajax.waitOverlayDelay", 1000);
 
+  /*
+   * Licensed to the Apache Software Foundation (ASF) under one or more
+   * contributor license agreements.  See the NOTICE file distributed with
+   * this work for additional information regarding copyright ownership.
+   * The ASF licenses this file to You under the Apache License, Version 2.0
+   * (the "License"); you may not use this file except in compliance with
+   * the License.  You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  class Page extends HTMLElement {
+      constructor() {
+          super();
+          this.submitActive = false;
+      }
+      /**
+       * The Tobago root element
+       */
+      static page(element) {
+          const rootNode = element.getRootNode();
+          const pages = rootNode.querySelectorAll("tobago-page");
+          if (pages.length > 0) {
+              if (pages.length >= 2) {
+                  console.warn("Found more than one tobago-page element!");
+              }
+              return pages.item(0);
+          }
+          console.warn("Found no tobago page!");
+          return null;
+      }
+      /**
+       * "a:b" -> "a"
+       * "a:b:c" -> "a:b"
+       * "a" -> null
+       * null -> null
+       * "a:b::sub-component" -> "a"
+       * "a::sub-component:b" -> "a::sub-component" // should currently not happen in Tobago
+       *
+       * @param clientId The clientId of a component.
+       * @return The clientId of the naming container.
+       */
+      static getNamingContainerId(clientId) {
+          if (clientId == null || clientId.lastIndexOf(":") === -1) {
+              return null;
+          }
+          let id = clientId;
+          while (true) {
+              const sub = id.lastIndexOf("::");
+              if (sub == -1) {
+                  break;
+              }
+              if (sub + 1 == id.lastIndexOf(":")) {
+                  id = id.substring(0, sub);
+              }
+              else {
+                  break;
+              }
+          }
+          return id.substring(0, id.lastIndexOf(":"));
+      }
+      connectedCallback() {
+          this.registerAjaxListener();
+          this.form.addEventListener("submit", this.beforeSubmit.bind(this));
+          window.addEventListener("unload", this.onUnload.bind(this));
+          this.addEventListener("keypress", (event) => {
+              let code = event.which; // XXX deprecated
+              if (code === 0) {
+                  code = event.keyCode;
+              }
+              if (code === 13) {
+                  const target = event.target;
+                  if (target.tagName === "A" || target.tagName === "BUTTON") {
+                      return;
+                  }
+                  if (target.tagName === "TEXTAREA") {
+                      if (!event.metaKey && !event.ctrlKey) {
+                          return;
+                      }
+                  }
+                  const name = target.getAttribute("name");
+                  let id = name ? name : target.id;
+                  while (id != null) {
+                      const command = document.querySelector(`[data-tobago-default='${id}']`);
+                      if (command) {
+                          command.dispatchEvent(new MouseEvent("click"));
+                          break;
+                      }
+                      id = Page.getNamingContainerId(id);
+                  }
+                  return false;
+              }
+          });
+      }
+      beforeSubmit() {
+          this.submitActive = true;
+          if (this.transition) {
+              new Overlay(this);
+          }
+          this.transition = this.oldTransition;
+      }
+      /**
+       * Wrapper function to call application generated onunload function
+       */
+      onUnload() {
+          console.info("on unload");
+          if (Page.page(this).submitActive) {
+              if (this.transition) {
+                  new Overlay(this);
+              }
+              this.transition = this.oldTransition;
+          }
+      }
+      registerAjaxListener() {
+          jsf.ajax.addOnEvent(this.jsfResponse.bind(this));
+      }
+      jsfResponse(event) {
+          console.timeEnd("[tobago-jsf] jsf-ajax");
+          console.time("[tobago-jsf] jsf-ajax");
+          console.debug("[tobago-jsf] JSF event status: '%s'", event.status);
+          if (event.status === "success") {
+              event.responseXML.querySelectorAll("update").forEach(this.jsfResponseSuccess.bind(this));
+          }
+          else if (event.status === "complete") {
+              event.responseXML.querySelectorAll("update").forEach(this.jsfResponseComplete.bind(this));
+          }
+      }
+      jsfResponseSuccess(update) {
+          const id = update.id;
+          let rootNode = this.getRootNode();
+          // XXX in case of "this" is tobago-page (e.g. ajax exception handling) rootNode is not set correctly???
+          if (!rootNode.getElementById) {
+              rootNode = document;
+          }
+          console.debug("[tobago-jsf] Update after jsf.ajax success: %s", id);
+      }
+      jsfResponseComplete(update) {
+          const id = update.id;
+          if (JsfParameter.isJsfId(id)) {
+              console.debug("[tobago-jsf] Update after jsf.ajax complete: #", id);
+              Overlay.destroy(id);
+          }
+      }
+      get form() {
+          return this.querySelector("form");
+      }
+      get locale() {
+          let locale = this.getAttribute("locale");
+          if (!locale) {
+              locale = document.documentElement.lang;
+          }
+          return locale;
+      }
+  }
+  document.addEventListener("tobago.init", (event) => {
+      if (window.customElements.get("tobago-page") == null) {
+          window.customElements.define("tobago-page", Page);
+      }
+  });
+  class JsfParameter {
+      static isJsfId(id) {
+          switch (id) {
+              case JsfParameter.VIEW_STATE:
+              case JsfParameter.CLIENT_WINDOW:
+              case JsfParameter.VIEW_ROOT:
+              case JsfParameter.VIEW_HEAD:
+              case JsfParameter.VIEW_BODY:
+              case JsfParameter.RESOURCE:
+                  return false;
+              default:
+                  return true;
+          }
+      }
+      static isJsfBody(id) {
+          switch (id) {
+              case JsfParameter.VIEW_ROOT:
+              case JsfParameter.VIEW_BODY:
+                  return true;
+              default:
+                  return false;
+          }
+      }
+  }
+  JsfParameter.VIEW_STATE = "javax.faces.ViewState";
+  JsfParameter.CLIENT_WINDOW = "javax.faces.ClientWindow";
+  JsfParameter.VIEW_ROOT = "javax.faces.ViewRoot";
+  JsfParameter.VIEW_HEAD = "javax.faces.ViewHead";
+  JsfParameter.VIEW_BODY = "javax.faces.ViewBody";
+  JsfParameter.RESOURCE = "javax.faces.Resource";
+
+  /*
+   * Licensed to the Apache Software Foundation (ASF) under one or more
+   * contributor license agreements.  See the NOTICE file distributed with
+   * this work for additional information regarding copyright ownership.
+   * The ASF licenses this file to You under the Apache License, Version 2.0
+   * (the "License"); you may not use this file except in compliance with
+   * the License.  You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+  class DatePicker extends HTMLElement {
+      constructor() {
+          super();
+      }
+      connectedCallback() {
+          if (this.type == "date") {
+              console.debug("check input type=date support", DatePicker.SUPPORTS_INPUT_TYPE_DATE);
+              if (!DatePicker.SUPPORTS_INPUT_TYPE_DATE) {
+                  this.setAttribute("type", "text");
+                  this.initVanillaDatePicker();
+              }
+          }
+      }
+      initVanillaDatePicker() {
+          var _a;
+          const field = this.field;
+          const locale = Page.page(this).locale;
+          const i18n = this.i18n;
+          i18n.titleFormat = "MM y"; // todo i18n
+          i18n.format = this.pattern;
+          Datepicker.locales[locale] = i18n;
+          const options = {
+              buttonClass: "btn",
+              orientation: "auto",
+              autohide: true,
+              language: locale,
+              todayBtn: this.todayButton,
+              todayBtnMode: 1,
+              minDate: this.min,
+              maxDate: this.max,
+              // todo readonly
+              // todo show week numbers
+          };
+          const datepicker = new Datepicker(field, options);
+          // XXX these listeners are needed as long as we have a solution for:
+          // XXX https://github.com/mymth/vanillajs-datepicker/issues/13
+          // XXX the 2nd point is missing the "normal" change event on the input element
+          field.addEventListener("keyup", (event) => {
+              // console.info("event -----> ", event.type);
+              if (event.metaKey || event.key.length > 1 && event.key !== "Backspace" && event.key !== "Delete") {
+                  return;
+              }
+              // back up user's input when user types printable character or backspace/delete
+              const target = event.target;
+              target._oldValue = target.value;
+          });
+          field.addEventListener("focus", (event) => {
+              // console.info("event -----> ", event.type);
+              this.lastValue = field.value;
+          });
+          field.addEventListener("blur", (event) => {
+              // console.info("event -----> ", event.type);
+              const target = event.target;
+              // no-op when user goes to another window or the input field has no backed-up value
+              if (document.hasFocus() && target._oldValue !== undefined) {
+                  if (target._oldValue !== target.value) {
+                      target.datepicker.setDate(target._oldValue || { clear: true });
+                  }
+                  delete target._oldValue;
+              }
+              if (this.lastValue !== field.value) {
+                  field.dispatchEvent(new Event("change"));
+              }
+          });
+          datepicker.element.addEventListener("changeDate", (event) => {
+              // console.info("event -----> ", event.type);
+              field.dispatchEvent(new Event("change"));
+          });
+          // simple solution for the picker: currently only open, not close is implemented
+          (_a = this.querySelector(".tobago-date-picker")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", (event) => {
+              this.field.focus();
+          });
+      }
+      get todayButton() {
+          return this.hasAttribute("today-button");
+      }
+      set todayButton(todayButton) {
+          if (todayButton) {
+              this.setAttribute("today-button", "");
+          }
+          else {
+              this.removeAttribute("today-button");
+          }
+      }
+      get type() {
+          var _a;
+          return (_a = this.field) === null || _a === void 0 ? void 0 : _a.getAttribute("type");
+      }
+      get min() {
+          var _a;
+          return (_a = this.field) === null || _a === void 0 ? void 0 : _a.getAttribute("min");
+      }
+      get max() {
+          var _a;
+          return (_a = this.field) === null || _a === void 0 ? void 0 : _a.getAttribute("max");
+      }
+      get pattern() {
+          let pattern = this.getAttribute("pattern");
+          return pattern ? pattern : "yyyy-mm-dd";
+      }
+      get i18n() {
+          const i18n = this.getAttribute("i18n");
+          return i18n ? JSON.parse(i18n) : undefined;
+      }
+      get field() {
+          const rootNode = this.getRootNode();
+          return rootNode.getElementById(this.id + "::field");
+      }
+  }
+  DatePicker.SUPPORTS_INPUT_TYPE_DATE = (() => {
+      const input = document.createElement("input");
+      input.setAttribute("type", "date");
+      const thisIsNoDate = "this is not a date";
+      input.setAttribute("value", thisIsNoDate);
+      return input.value !== thisIsNoDate;
+  })();
+  document.addEventListener("tobago.init", function (event) {
+      if (window.customElements.get("tobago-date") == null) {
+          window.customElements.define("tobago-date", DatePicker);
+      }
+  });
+
   var top = 'top';
   var bottom = 'bottom';
   var right = 'right';
@@ -9773,9 +10106,48 @@
               // nothing to do
           }
       }
+      /**
+       * Submitting the page (= the form).
+       */
       submit() {
-          const id = this.fieldId != null ? this.fieldId : this.clientId;
-          CommandHelper.submitAction(this, id, this.decoupled, this.target);
+          console.info("Execute submit!");
+          const page = Page.page(this);
+          if (!page.submitActive) {
+              page.submitActive = true;
+              const actionId = this.fieldId != null ? this.fieldId : this.clientId;
+              const form = page.form;
+              const oldTarget = form.getAttribute("target");
+              const sourceHidden = document.getElementById("javax.faces.source");
+              sourceHidden.disabled = false;
+              sourceHidden.value = actionId;
+              if (this.target) {
+                  form.setAttribute("target", this.target);
+              }
+              page.beforeSubmit();
+              try {
+                  form.submit();
+                  // reset the source field after submit, to be prepared for possible next AJAX with decoupled=true
+                  sourceHidden.disabled = true;
+                  sourceHidden.value = "";
+              }
+              catch (e) {
+                  console.error("Submit failed!", e);
+                  Overlay.destroy(page.id);
+                  page.submitActive = false;
+                  alert(`Submit failed: ${e}`); // XXX localization, better error handling
+              }
+              if (this.target) {
+                  if (oldTarget) {
+                      form.setAttribute("target", oldTarget);
+                  }
+                  else {
+                      form.removeAttribute("target");
+                  }
+              }
+              if (this.target || this.decoupled) {
+                  page.submitActive = false;
+              }
+          }
       }
       get mode() {
           if (this.render || this.execute) {
@@ -9884,452 +10256,6 @@
   document.addEventListener("tobago.init", function (event) {
       if (window.customElements.get("tobago-behavior") == null) {
           window.customElements.define("tobago-behavior", Behavior);
-      }
-  });
-  class CommandHelper {
-  }
-  CommandHelper.isSubmit = false;
-  /**
-   * Submitting the page with specified actionId.
-   * @param source
-   * @param actionId
-   * @param decoupled
-   * @param target
-   */
-  CommandHelper.submitAction = function (source, actionId, decoupled = false, target) {
-      Transport.request(function () {
-          if (!CommandHelper.isSubmit) {
-              CommandHelper.isSubmit = true;
-              const form = document.getElementsByTagName("form")[0];
-              const oldTarget = form.getAttribute("target");
-              const sourceHidden = document.getElementById("javax.faces.source");
-              sourceHidden.disabled = false;
-              sourceHidden.value = actionId;
-              if (target) {
-                  form.setAttribute("target", target);
-              }
-              const listenerOptions = {
-                  source: source,
-                  actionId: actionId /*,
-                  options: commandHelper*/
-              };
-              const onSubmitResult = CommandHelper.onSubmit(listenerOptions);
-              if (onSubmitResult) {
-                  try {
-                      form.submit();
-                      // reset the source field after submit, to be prepared for possible next AJAX with decoupled=true
-                      sourceHidden.disabled = true;
-                      sourceHidden.value = "";
-                  }
-                  catch (e) {
-                      Overlay.destroy(Page.page(form).id);
-                      CommandHelper.isSubmit = false;
-                      alert("Submit failed: " + e); // XXX localization, better error handling
-                  }
-              }
-              if (target) {
-                  if (oldTarget) {
-                      form.setAttribute("target", oldTarget);
-                  }
-                  else {
-                      form.removeAttribute("target");
-                  }
-              }
-              if (target || decoupled || !onSubmitResult) {
-                  CommandHelper.isSubmit = false;
-                  Transport.pageSubmitted = false;
-              }
-          }
-          if (!CommandHelper.isSubmit) {
-              Transport.requestComplete(); // remove this from queue
-          }
-      }, true);
-  };
-  CommandHelper.onSubmit = function (listenerOptions) {
-      CommandHelper.isSubmit = true;
-      const element = document.documentElement; // XXX this might be the wrong element in case of shadow dom
-      Page.page(element).onBeforeUnload();
-      return true;
-  };
-  class Transport {
-  }
-  Transport.requests = [];
-  Transport.currentActionId = null;
-  Transport.pageSubmitted = false;
-  /**
-   * @return true if the request is queued.
-   */
-  Transport.request = function (req, submitPage, actionId) {
-      let index = 0;
-      if (submitPage) {
-          Transport.pageSubmitted = true;
-          index = Transport.requests.push(req);
-          //console.debug('index = ' + index)
-      }
-      else if (!Transport.pageSubmitted) { // AJAX case
-          console.debug("Current ActionId='%s' action='%s'", Transport.currentActionId, actionId);
-          if (actionId && Transport.currentActionId === actionId) {
-              console.info("Ignoring request");
-              // If actionId equals currentActionId assume double request: do nothing
-              return false;
-          }
-          index = Transport.requests.push(req);
-          //console.debug('index = ' + index)
-          Transport.currentActionId = actionId;
-      }
-      else {
-          console.debug("else case");
-          return false;
-      }
-      console.debug("index='%s'", index);
-      if (index === 1) {
-          console.info("Execute request!");
-          Transport.startTime = new Date();
-          Transport.requests[0]();
-      }
-      else {
-          console.info("Request queued!");
-      }
-      return true;
-  };
-  // TBD XXX REMOVE is this called in non AJAX case?
-  Transport.requestComplete = function () {
-      Transport.requests.shift();
-      Transport.currentActionId = null;
-      console.debug("Request complete! Duration: %s ms; "
-          + "Queue size : %s", new Date().getTime() - Transport.startTime.getTime(), Transport.requests.length);
-      if (Transport.requests.length > 0) {
-          console.debug("Execute request!");
-          Transport.startTime = new Date();
-          Transport.requests[0]();
-      }
-  };
-
-  /*
-   * Licensed to the Apache Software Foundation (ASF) under one or more
-   * contributor license agreements.  See the NOTICE file distributed with
-   * this work for additional information regarding copyright ownership.
-   * The ASF licenses this file to You under the Apache License, Version 2.0
-   * (the "License"); you may not use this file except in compliance with
-   * the License.  You may obtain a copy of the License at
-   *
-   *      http://www.apache.org/licenses/LICENSE-2.0
-   *
-   * Unless required by applicable law or agreed to in writing, software
-   * distributed under the License is distributed on an "AS IS" BASIS,
-   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   * See the License for the specific language governing permissions and
-   * limitations under the License.
-   */
-  class Page extends HTMLElement {
-      constructor() {
-          super();
-      }
-      /**
-       * The Tobago root element
-       */
-      static page(element) {
-          const rootNode = element.getRootNode();
-          const pages = rootNode.querySelectorAll("tobago-page");
-          if (pages.length > 0) {
-              if (pages.length >= 2) {
-                  console.warn("Found more than one tobago-page element!");
-              }
-              return pages.item(0);
-          }
-          console.warn("Found no tobago page!");
-          return null;
-      }
-      /**
-       * "a:b" -> "a"
-       * "a:b:c" -> "a:b"
-       * "a" -> null
-       * null -> null
-       * "a:b::sub-component" -> "a"
-       * "a::sub-component:b" -> "a::sub-component" // should currently not happen in Tobago
-       *
-       * @param clientId The clientId of a component.
-       * @return The clientId of the naming container.
-       */
-      static getNamingContainerId(clientId) {
-          if (clientId == null || clientId.lastIndexOf(":") === -1) {
-              return null;
-          }
-          let id = clientId;
-          while (true) {
-              const sub = id.lastIndexOf("::");
-              if (sub == -1) {
-                  break;
-              }
-              if (sub + 1 == id.lastIndexOf(":")) {
-                  id = id.substring(0, sub);
-              }
-              else {
-                  break;
-              }
-          }
-          return id.substring(0, id.lastIndexOf(":"));
-      }
-      connectedCallback() {
-          this.registerAjaxListener();
-          this.querySelector("form").addEventListener("submit", CommandHelper.onSubmit);
-          window.addEventListener("unload", this.onUnload.bind(this));
-          this.addEventListener("keypress", (event) => {
-              let code = event.which; // XXX deprecated
-              if (code === 0) {
-                  code = event.keyCode;
-              }
-              if (code === 13) {
-                  const target = event.target;
-                  if (target.tagName === "A" || target.tagName === "BUTTON") {
-                      return;
-                  }
-                  if (target.tagName === "TEXTAREA") {
-                      if (!event.metaKey && !event.ctrlKey) {
-                          return;
-                      }
-                  }
-                  const name = target.getAttribute("name");
-                  let id = name ? name : target.id;
-                  while (id != null) {
-                      const command = document.querySelector(`[data-tobago-default='${id}']`);
-                      if (command) {
-                          command.dispatchEvent(new MouseEvent("click"));
-                          break;
-                      }
-                      id = Page.getNamingContainerId(id);
-                  }
-                  return false;
-              }
-          });
-      }
-      onBeforeUnload() {
-          if (this.transition) {
-              new Overlay(this);
-          }
-          this.transition = this.oldTransition;
-      }
-      /**
-       * Wrapper function to call application generated onunload function
-       */
-      onUnload() {
-          console.info("on onload");
-          if (CommandHelper.isSubmit) {
-              if (this.transition) {
-                  new Overlay(this);
-              }
-              this.transition = this.oldTransition;
-          }
-      }
-      registerAjaxListener() {
-          jsf.ajax.addOnEvent(this.jsfResponse.bind(this));
-      }
-      jsfResponse(event) {
-          console.timeEnd("[tobago-jsf] jsf-ajax");
-          console.time("[tobago-jsf] jsf-ajax");
-          console.debug("[tobago-jsf] JSF event status: '%s'", event.status);
-          if (event.status === "success") {
-              event.responseXML.querySelectorAll("update").forEach(this.jsfResponseSuccess.bind(this));
-          }
-          else if (event.status === "complete") {
-              event.responseXML.querySelectorAll("update").forEach(this.jsfResponseComplete.bind(this));
-          }
-      }
-      jsfResponseSuccess(update) {
-          const id = update.id;
-          let rootNode = this.getRootNode();
-          // XXX in case of "this" is tobago-page (e.g. ajax exception handling) rootNode is not set correctly???
-          if (!rootNode.getElementById) {
-              rootNode = document;
-          }
-          console.info("[tobago-jsf] Update after jsf.ajax success: %s", id);
-      }
-      jsfResponseComplete(update) {
-          const id = update.id;
-          if (JsfParameter.isJsfId(id)) {
-              console.debug("[tobago-jsf] Update after jsf.ajax complete: #", id);
-              Overlay.destroy(id);
-          }
-      }
-      get locale() {
-          let locale = this.getAttribute("locale");
-          if (!locale) {
-              locale = document.documentElement.lang;
-          }
-          return locale;
-      }
-  }
-  document.addEventListener("tobago.init", (event) => {
-      if (window.customElements.get("tobago-page") == null) {
-          window.customElements.define("tobago-page", Page);
-      }
-  });
-  class JsfParameter {
-      static isJsfId(id) {
-          switch (id) {
-              case JsfParameter.VIEW_STATE:
-              case JsfParameter.CLIENT_WINDOW:
-              case JsfParameter.VIEW_ROOT:
-              case JsfParameter.VIEW_HEAD:
-              case JsfParameter.VIEW_BODY:
-              case JsfParameter.RESOURCE:
-                  return false;
-              default:
-                  return true;
-          }
-      }
-      static isJsfBody(id) {
-          switch (id) {
-              case JsfParameter.VIEW_ROOT:
-              case JsfParameter.VIEW_BODY:
-                  return true;
-              default:
-                  return false;
-          }
-      }
-  }
-  JsfParameter.VIEW_STATE = "javax.faces.ViewState";
-  JsfParameter.CLIENT_WINDOW = "javax.faces.ClientWindow";
-  JsfParameter.VIEW_ROOT = "javax.faces.ViewRoot";
-  JsfParameter.VIEW_HEAD = "javax.faces.ViewHead";
-  JsfParameter.VIEW_BODY = "javax.faces.ViewBody";
-  JsfParameter.RESOURCE = "javax.faces.Resource";
-
-  /*
-   * Licensed to the Apache Software Foundation (ASF) under one or more
-   * contributor license agreements.  See the NOTICE file distributed with
-   * this work for additional information regarding copyright ownership.
-   * The ASF licenses this file to You under the Apache License, Version 2.0
-   * (the "License"); you may not use this file except in compliance with
-   * the License.  You may obtain a copy of the License at
-   *
-   *      http://www.apache.org/licenses/LICENSE-2.0
-   *
-   * Unless required by applicable law or agreed to in writing, software
-   * distributed under the License is distributed on an "AS IS" BASIS,
-   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   * See the License for the specific language governing permissions and
-   * limitations under the License.
-   */
-  class DatePicker extends HTMLElement {
-      constructor() {
-          super();
-      }
-      connectedCallback() {
-          if (this.type == "date") {
-              console.debug("check input type=date support", DatePicker.SUPPORTS_INPUT_TYPE_DATE);
-              if (!DatePicker.SUPPORTS_INPUT_TYPE_DATE) {
-                  this.setAttribute("type", "text");
-                  this.initVanillaDatePicker();
-              }
-          }
-      }
-      initVanillaDatePicker() {
-          var _a;
-          const field = this.field;
-          const locale = Page.page(this).locale;
-          const i18n = this.i18n;
-          i18n.titleFormat = "MM y"; // todo i18n
-          i18n.format = this.pattern;
-          Datepicker.locales[locale] = i18n;
-          const options = {
-              buttonClass: "btn",
-              orientation: "auto",
-              autohide: true,
-              language: locale,
-              todayBtn: this.todayButton,
-              todayBtnMode: 1,
-              minDate: this.min,
-              maxDate: this.max,
-              // todo readonly
-              // todo show week numbers
-          };
-          const datepicker = new Datepicker(field, options);
-          // XXX these listeners are needed as long as we have a solution for:
-          // XXX https://github.com/mymth/vanillajs-datepicker/issues/13
-          // XXX the 2nd point is missing the "normal" change event on the input element
-          field.addEventListener("keyup", (event) => {
-              // console.info("event -----> ", event.type);
-              if (event.metaKey || event.key.length > 1 && event.key !== "Backspace" && event.key !== "Delete") {
-                  return;
-              }
-              // back up user's input when user types printable character or backspace/delete
-              const target = event.target;
-              target._oldValue = target.value;
-          });
-          field.addEventListener("focus", (event) => {
-              // console.info("event -----> ", event.type);
-              this.lastValue = field.value;
-          });
-          field.addEventListener("blur", (event) => {
-              // console.info("event -----> ", event.type);
-              const target = event.target;
-              // no-op when user goes to another window or the input field has no backed-up value
-              if (document.hasFocus() && target._oldValue !== undefined) {
-                  if (target._oldValue !== target.value) {
-                      target.datepicker.setDate(target._oldValue || { clear: true });
-                  }
-                  delete target._oldValue;
-              }
-              if (this.lastValue !== field.value) {
-                  field.dispatchEvent(new Event("change"));
-              }
-          });
-          datepicker.element.addEventListener("changeDate", (event) => {
-              // console.info("event -----> ", event.type);
-              field.dispatchEvent(new Event("change"));
-          });
-          // simple solution for the picker: currently only open, not close is implemented
-          (_a = this.querySelector(".tobago-date-picker")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", (event) => {
-              this.field.focus();
-          });
-      }
-      get todayButton() {
-          return this.hasAttribute("today-button");
-      }
-      set todayButton(todayButton) {
-          if (todayButton) {
-              this.setAttribute("today-button", "");
-          }
-          else {
-              this.removeAttribute("today-button");
-          }
-      }
-      get type() {
-          var _a;
-          return (_a = this.field) === null || _a === void 0 ? void 0 : _a.getAttribute("type");
-      }
-      get min() {
-          var _a;
-          return (_a = this.field) === null || _a === void 0 ? void 0 : _a.getAttribute("min");
-      }
-      get max() {
-          var _a;
-          return (_a = this.field) === null || _a === void 0 ? void 0 : _a.getAttribute("max");
-      }
-      get pattern() {
-          let pattern = this.getAttribute("pattern");
-          return pattern ? pattern : "yyyy-mm-dd";
-      }
-      get i18n() {
-          const i18n = this.getAttribute("i18n");
-          return i18n ? JSON.parse(i18n) : undefined;
-      }
-      get field() {
-          const rootNode = this.getRootNode();
-          return rootNode.getElementById(this.id + "::field");
-      }
-  }
-  DatePicker.SUPPORTS_INPUT_TYPE_DATE = (() => {
-      const input = document.createElement("input");
-      input.setAttribute("type", "date");
-      const thisIsNoDate = "this is not a date";
-      input.setAttribute("value", thisIsNoDate);
-      return input.value !== thisIsNoDate;
-  })();
-  document.addEventListener("tobago.init", function (event) {
-      if (window.customElements.get("tobago-date") == null) {
-          window.customElements.define("tobago-date", DatePicker);
       }
   });
 
