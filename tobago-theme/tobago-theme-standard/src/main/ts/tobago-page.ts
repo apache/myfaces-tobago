@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-import {CommandHelper} from "./tobago-command";
 import {Overlay} from "./tobago-overlay";
 
 export class Page extends HTMLElement {
 
   private transition: boolean;
   private oldTransition: boolean;
+  submitActive: boolean = false;
 
   /**
    * The Tobago root element
@@ -78,7 +78,7 @@ export class Page extends HTMLElement {
 
     this.registerAjaxListener();
 
-    this.querySelector("form").addEventListener("submit", CommandHelper.onSubmit);
+    this.form.addEventListener("submit", this.beforeSubmit.bind(this));
 
     window.addEventListener("unload", this.onUnload.bind(this));
 
@@ -112,7 +112,8 @@ export class Page extends HTMLElement {
     });
   }
 
-  onBeforeUnload(): void {
+  beforeSubmit(): void {
+    this.submitActive = true;
     if (this.transition) {
       new Overlay(this);
     }
@@ -123,8 +124,8 @@ export class Page extends HTMLElement {
    * Wrapper function to call application generated onunload function
    */
   onUnload(): void {
-    console.info("on onload");
-    if (CommandHelper.isSubmit) {
+    console.info("on unload");
+    if (Page.page(this).submitActive) {
       if (this.transition) {
         new Overlay(this);
       }
@@ -154,7 +155,7 @@ export class Page extends HTMLElement {
     if (!rootNode.getElementById) {
       rootNode = document;
     }
-    console.info("[tobago-jsf] Update after jsf.ajax success: %s", id);
+    console.debug("[tobago-jsf] Update after jsf.ajax success: %s", id);
   }
 
   jsfResponseComplete(update: Element): void {
@@ -163,6 +164,10 @@ export class Page extends HTMLElement {
       console.debug("[tobago-jsf] Update after jsf.ajax complete: #", id);
       Overlay.destroy(id);
     }
+  }
+
+  get form(): HTMLFormElement {
+    return this.querySelector("form");
   }
 
   get locale(): string {
