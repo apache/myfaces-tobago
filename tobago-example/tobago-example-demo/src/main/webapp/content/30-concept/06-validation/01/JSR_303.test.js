@@ -15,45 +15,50 @@
  * limitations under the License.
  */
 
-import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
+import {elementByIdFn, querySelectorAllFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-it("must be fixed first", function (done) {
-  let test = new JasmineTestTool(done);
-  test.do(() => fail("must be fixed first"));
-  test.start();
-});
+it("Required: Submit without content.", function (done) {
+  const messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  const inFn = elementByIdFn("page:mainForm:required:in1::field");
+  const submitFn = elementByIdFn("page:mainForm:required:submit1");
 
-/*it("Required: Submit without content.", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
-  let inFn = querySelectorFn("#page\\:mainForm\\:required\\:in1\\:\\:field");
-  let submitFn = querySelectorFn("#page\\:mainForm\\:required\\:submit1");
-
-  let test = new JasmineTestTool(done);
+  const test = new JasmineTestTool(done);
+  test.setup(() => messagesFn() && messagesFn().length === 0,
+      () => inFn().value = "Alice",
+      "click", submitFn);
   test.do(() => inFn().value = "");
   test.event("click", submitFn, () => messagesFn() && messagesFn().length === 1);
   test.do(() => expect(messagesFn().length).toBe(1));
+  test.do(() => expect(inFn().value).toBe(""));
   test.start();
 });
 
 it("Required: Submit with content.", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
-  let inFn = querySelectorFn("#page\\:mainForm\\:required\\:in1\\:\\:field");
-  let submitFn = querySelectorFn("#page\\:mainForm\\:required\\:submit1");
+  const messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  const inFn = elementByIdFn("page:mainForm:required:in1::field");
+  const submitFn = elementByIdFn("page:mainForm:required:submit1");
 
-  let test = new JasmineTestTool(done);
+  const test = new JasmineTestTool(done);
+  test.setup(() => messagesFn() && messagesFn().length === 1,
+      () => inFn().value = "",
+      "click", submitFn);
   test.do(() => inFn().value = "some content");
   test.event("click", submitFn, () => messagesFn() && messagesFn().length === 0);
   test.do(() => expect(messagesFn().length).toBe(0));
+  test.do(() => expect(inFn().value).toBe("some content"));
   test.start();
 });
 
 it("Length: Submit single character.", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
-  let inFn = querySelectorFn("#page\\:mainForm\\:length\\:in2\\:\\:field");
-  let submitFn = querySelectorFn("#page\\:mainForm\\:length\\:submit2");
+  const messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  const inFn = elementByIdFn("page:mainForm:length:in2::field");
+  const submitFn = elementByIdFn("page:mainForm:length:submit2");
 
-  let test = new JasmineTestTool(done);
+  const test = new JasmineTestTool(done);
+  test.setup(() => messagesFn() && messagesFn().length === 0,
+      () => inFn().value = "Bob",
+      "click", submitFn);
   test.do(() => inFn().value = "a");
   test.event("click", submitFn, () => messagesFn() && messagesFn().length === 1);
   test.do(() => expect(messagesFn().length).toBe(1));
@@ -61,11 +66,14 @@ it("Length: Submit single character.", function (done) {
 });
 
 it("Length: Submit three characters.", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
-  let inFn = querySelectorFn("#page\\:mainForm\\:length\\:in2\\:\\:field");
-  let submitFn = querySelectorFn("#page\\:mainForm\\:length\\:submit2");
+  const messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  const inFn = elementByIdFn("page:mainForm:length:in2::field");
+  const submitFn = elementByIdFn("page:mainForm:length:submit2");
 
-  let test = new JasmineTestTool(done);
+  const test = new JasmineTestTool(done);
+  test.setup(() => messagesFn() && messagesFn().length === 1,
+      () => inFn().value = "provoke exception",
+      "click", submitFn);
   test.do(() => inFn().value = "abc");
   test.event("click", submitFn, () => messagesFn() && messagesFn().length === 0);
   test.do(() => expect(messagesFn().length).toBe(0));
@@ -73,13 +81,16 @@ it("Length: Submit three characters.", function (done) {
 });
 
 it("Length: Submit five characters.", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
-  let inFn = querySelectorFn("#page\\:mainForm\\:length\\:in2\\:\\:field");
-  let submitFn = querySelectorFn("#page\\:mainForm\\:length\\:submit2");
+  const messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  const inFn = elementByIdFn("page:mainForm:length:in2::field");
+  const submitFn = elementByIdFn("page:mainForm:length:submit2");
 
-  let test = new JasmineTestTool(done);
+  const test = new JasmineTestTool(done);
+  test.setup(() => messagesFn() && messagesFn().length === 0,
+      () => inFn().value = "Dave",
+      "click", submitFn);
   test.do(() => inFn().value = "abcde");
   test.event("click", submitFn, () => messagesFn() && messagesFn().length === 1);
   test.do(() => expect(messagesFn().length).toBe(1));
   test.start();
-});*/
+});

@@ -15,60 +15,61 @@
  * limitations under the License.
  */
 
+import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-it("must be fixed first", function (done) {
-  let test = new JasmineTestTool(done);
-  test.do(() => fail("must be fixed first"));
-  test.start();
-});
+it("Ajax Input", function (done) {
+  const ajaxInputFn = elementByIdFn("page:mainForm:inputAjax::field");
+  const ajaxOutputFn = querySelectorFn("#page\\:mainForm\\:outputAjax .form-control-plaintext");
 
-/*it("Ajax Input", function (done) {
-  let ajaxInputFn = querySelectorFn("#page\\:mainForm\\:j_id_2g\\:\\:field");
-  let ajaxOutputFn = querySelectorFn("#page\\:mainForm\\:outAjax .form-control-plaintext");
-
-  let test = new JasmineTestTool(done);
+  const test = new JasmineTestTool(done);
+  test.setup(() => ajaxOutputFn().textContent !== "Alice",
+      () => ajaxInputFn().value = "Bob",
+      "change", ajaxInputFn);
   test.do(() => ajaxInputFn().value = "Alice");
   test.event("change", ajaxInputFn, () => ajaxOutputFn() && ajaxOutputFn().textContent === "Alice");
-  test.do(() => expect(ajaxOutputFn().textContent).toBe(ajaxInputFn().value));
+  test.do(() => expect(ajaxOutputFn().textContent).toBe("Alice"));
   test.start();
 });
 
 it("Event Input", function (done) {
-  let eventInputFn = querySelectorFn("#page\\:mainForm\\:j_id_2k\\:\\:field");
-  let eventOutputFn = querySelectorFn("#page\\:mainForm\\:j_id_2m .form-control-plaintext");
+  const eventInputFn = elementByIdFn("page:mainForm:inputEvent::field");
+  const eventOutputFn = querySelectorFn("#page\\:mainForm\\:outputEvent .form-control-plaintext");
 
   let test = new JasmineTestTool(done);
-  test.do(() => eventInputFn().value = "Alice");
-  test.event("change", eventInputFn, () => eventOutputFn() && eventOutputFn().textContent === "Alice");
-  test.do(() => expect(eventOutputFn().textContent).toBe(eventInputFn().value));
+  test.setup(() => eventOutputFn().textContent !== "Charlie",
+      () => eventInputFn().value = "Dave",
+      "change", eventInputFn);
+  test.do(() => eventInputFn().value = "Charlie");
+  test.event("change", eventInputFn, () => eventOutputFn() && eventOutputFn().textContent === "Charlie");
+  test.do(() => expect(eventOutputFn().textContent).toBe("Charlie"));
   test.start();
 });
 
 it("change the event name", function (done) {
-  let ajaxFn = querySelectorFn("#page\\:mainForm\\:j_id_2p");
-  let eventFn = querySelectorFn("#page\\:mainForm\\:j_id_2q");
-  let outCounterFn = querySelectorFn("#page\\:mainForm\\:outCounter .form-control-plaintext");
-  let counter = Number(outCounterFn().textContent);
+  const dblButtonAjaxFn = elementByIdFn("page:mainForm:dblButtonAjax");
+  const dblButtonEventFn = elementByIdFn("page:mainForm:dblButtonEvent");
+  const dblCounterFn = querySelectorFn("#page\\:mainForm\\:dblCounter .form-control-plaintext");
+  let counter = Number(dblCounterFn().textContent);
 
   let test = new JasmineTestTool(done);
-  test.event("dblclick", ajaxFn, () => outCounterFn() && Number(outCounterFn().textContent) === counter + 1);
-  test.do(() => expect(Number(outCounterFn().textContent)).toBe(counter + 1));
-  test.event("dblclick", eventFn, () => outCounterFn() && Number(outCounterFn().textContent) === counter + 2);
-  test.do(() => expect(Number(outCounterFn().textContent)).toBe(counter + 2));
-  test.event("click", ajaxFn, () => outCounterFn() && Number(outCounterFn().textContent) === counter + 2);
-  test.do(() => expect(Number(outCounterFn().textContent)).toBe(counter + 2));
-  test.event("dblclick", eventFn, () => outCounterFn() && Number(outCounterFn().textContent) === counter + 3);
-  test.do(() => expect(Number(outCounterFn().textContent)).toBe(counter + 3));
-  test.event("click", eventFn, () => outCounterFn() && Number(outCounterFn().textContent) === counter + 3);
-  test.do(() => expect(Number(outCounterFn().textContent)).toBe(counter + 3));
-  test.event("dblclick", ajaxFn, () => outCounterFn() && Number(outCounterFn().textContent) === counter + 4);
-  test.do(() => expect(Number(outCounterFn().textContent)).toBe(counter + 4));
+  test.event("dblclick", dblButtonAjaxFn,
+      () => dblCounterFn() && Number(dblCounterFn().textContent) === counter + 1);
+  test.do(() => expect(Number(dblCounterFn().textContent)).toBe(counter + 1));
+  test.event("dblclick", dblButtonEventFn,
+      () => dblCounterFn() && Number(dblCounterFn().textContent) === counter + 2);
+  test.do(() => expect(Number(dblCounterFn().textContent)).toBe(counter + 2));
+  test.event("dblclick", dblButtonEventFn,
+      () => dblCounterFn() && Number(dblCounterFn().textContent) === counter + 3);
+  test.do(() => expect(Number(dblCounterFn().textContent)).toBe(counter + 3));
+  test.event("dblclick", dblButtonAjaxFn,
+      () => dblCounterFn() && Number(dblCounterFn().textContent) === counter + 4);
+  test.do(() => expect(Number(dblCounterFn().textContent)).toBe(counter + 4));
   test.start();
 });
 
 it("f:ajax and tc:event", function (done) {
-  let submitFn = querySelectorFn("#page\\:mainForm\\:btnAjaxEvent");
+  let submitFn = elementByIdFn("page:mainForm:btnAjaxEvent");
   let outFn = querySelectorFn("#page\\:mainForm\\:out .form-control-plaintext");
 
   let test = new JasmineTestTool(done);
@@ -79,4 +80,4 @@ it("f:ajax and tc:event", function (done) {
   test.event("click", submitFn, () => outFn() && outFn().textContent === "Ajax");
   test.do(() => expect(outFn().textContent).toBe("Ajax"));
   test.start();
-});*/
+});

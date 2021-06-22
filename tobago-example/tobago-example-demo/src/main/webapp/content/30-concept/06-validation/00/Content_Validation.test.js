@@ -22,7 +22,6 @@ it("Required: Submit without content.", function (done) {
   let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
   let textareaFn = querySelectorFn("#page\\:mainForm\\:required\\:textarea\\:\\:field");
   let submitFn = querySelectorFn("#page\\:mainForm\\:required\\:submit_r");
-  let textareaValue = textareaFn().value;
 
   let test = new JasmineTestTool(done);
   test.setup(() => messagesFn() && messagesFn().length === 0,
@@ -31,7 +30,7 @@ it("Required: Submit without content.", function (done) {
   test.do(() => textareaFn().value = "");
   test.event("click", submitFn, () => messagesFn() && messagesFn().length === 1);
   test.do(() => expect(messagesFn().length).toBe(1));
-  test.do(() => expect(textareaFn().value).toBe(textareaValue));
+  test.do(() => expect(textareaFn().value).toBe(""));
   test.start();
 });
 
@@ -74,7 +73,7 @@ it("Validate Length: Submit two character.", function (done) {
 
   let test = new JasmineTestTool(done);
   test.setup(() => messagesFn() && messagesFn().length === 1,
-      () => inFn().value = "",
+      () => inFn().value = "x",
       "click", submitFn);
   test.do(() => inFn().value = "ab");
   test.event("click", submitFn, () => messagesFn() && messagesFn().length === 0);
