@@ -41,10 +41,10 @@
       <demo-highlight language="markup">&lt;tc:in label="Ajax Input" value="\#{behaviorController.ajax}">
   &lt;f:ajax render="outAjax"/>
 &lt;/tc:in></demo-highlight>
-      <tc:in label="Ajax Input" value="#{behaviorController.ajax}">
-        <f:ajax render="outAjax"/>
+      <tc:in id="inputAjax" label="Ajax Input" value="#{behaviorController.ajax}">
+        <f:ajax render="outputAjax"/>
       </tc:in>
-      <tc:out id="outAjax" label="Ajax Output" value="#{behaviorController.ajax}"/>
+      <tc:out id="outputAjax" label="Ajax Output" value="#{behaviorController.ajax}"/>
     </tc:section>
 
     <tc:section label="tc:event">
@@ -52,10 +52,10 @@
   &lt;tc:event/>
 &lt;/tc:in></demo-highlight>
 
-      <tc:in label="Event Input" value="#{behaviorController.event}">
+      <tc:in id="inputEvent" label="Event Input" value="#{behaviorController.event}">
         <tc:event/>
       </tc:in>
-      <tc:out label="Event Output" value="#{behaviorController.event}"/>
+      <tc:out id="outputEvent" label="Event Output" value="#{behaviorController.event}"/>
     </tc:section>
   </tc:section>
 
@@ -69,13 +69,13 @@
 &lt;tc:button label="Event Double Click">
   &lt;tc:event event="dblclick" actionListener="..."/>
 &lt;/tc:button></demo-highlight>
-    <tc:button label="Ajax Double Click">
-      <f:ajax event="dblclick" render="outCounter" listener="#{behaviorController.countUp}"/>
+    <tc:button id="dblButtonAjax" label="Ajax Double Click">
+      <f:ajax event="dblclick" render="dblCounter" listener="#{behaviorController.countUp}"/>
     </tc:button>
-    <tc:button label="Event Double Click">
+    <tc:button id="dblButtonEvent" label="Event Double Click">
       <tc:event event="dblclick" actionListener="#{behaviorController.countUp}"/>
     </tc:button>
-    <tc:out id="outCounter" label="Counter" value="#{behaviorController.counter}"/>
+    <tc:out id="dblCounter" label="Counter" value="#{behaviorController.counter}"/>
   </tc:section>
 
   <tc:section label="Advanced">
