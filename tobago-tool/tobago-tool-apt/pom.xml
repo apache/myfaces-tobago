@@ -94,32 +94,9 @@
       <version>3.0</version>
     </dependency>
     <dependency>
-      <groupId>jdom</groupId>
-      <artifactId>jdom</artifactId>
-      <version>1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>jaxen</groupId>
-      <artifactId>jaxen</artifactId>
-      <version>1.1</version>
-      <exclusions>
-        <exclusion>
-          <groupId>dom4j</groupId>
-          <artifactId>dom4j</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>xerces</groupId>
-          <artifactId>xmlParserAPIs</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>xerces</groupId>
-          <artifactId>xercesImpl</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>xom</groupId>
-          <artifactId>xom</artifactId>
-        </exclusion>
-      </exclusions>
+      <groupId>org.jdom</groupId>
+      <artifactId>jdom2</artifactId>
+      <version>2.0.6</version>
     </dependency>
   </dependencies>
 
