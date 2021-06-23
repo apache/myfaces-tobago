@@ -32,8 +32,8 @@ public class ForEachController implements Serializable {
 
   private List<River> rivers;
   private String name;
-  private String length;
-  private String discharge;
+  private Integer length;
+  private Integer discharge;
 
   public ForEachController() {
     reset();
@@ -51,24 +51,24 @@ public class ForEachController implements Serializable {
     this.name = name;
   }
 
-  public String getLength() {
+  public Integer getLength() {
     return length;
   }
 
-  public void setLength(final String length) {
+  public void setLength(Integer length) {
     this.length = length;
   }
 
-  public String getDischarge() {
+  public Integer getDischarge() {
     return discharge;
   }
 
-  public void setDischarge(final String discharge) {
+  public void setDischarge(Integer discharge) {
     this.discharge = discharge;
   }
 
   public String addNewRiver() {
-    rivers.add(new River(name, Integer.valueOf(length), Integer.valueOf(discharge)));
+    rivers.add(new River(name, length, discharge));
     resetInputFields();
     return null;
   }

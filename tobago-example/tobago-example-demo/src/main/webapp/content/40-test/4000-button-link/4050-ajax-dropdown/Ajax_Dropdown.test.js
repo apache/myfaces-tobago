@@ -40,7 +40,7 @@ it("Execute 'AJAX' entry in dropdown menu", function (done) {
   test.do(() => expect(dropdownMenuFn().classList)
       .not.toContain("show", "dropdown menu should be closed after menu entry is clicked"));
 
-  const pageOverlays = querySelectorAllFn(".tobago-page-overlay");
-  test.do(() => expect(pageOverlays().length).toBe(0, "there must be no tobago-page-overlay"));
+  const pageOverlays = querySelectorAllFn("tobago-overlay");
+  test.do(() => expect(pageOverlays().length).toBe(0, "there must be no tobago-overlay"));
   test.start();
 });
