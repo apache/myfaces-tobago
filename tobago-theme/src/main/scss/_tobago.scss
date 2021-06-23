@@ -793,6 +793,33 @@ span.tobago-out:empty:before {
   // was in bs4: color: $table-dark-color;
 }
 
+/* overlay ----------------------------------------------------------- */
+
+tobago-overlay {
+  display: table;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* TODO: better z-index strategy */
+  z-index: 500; /* less than the bootstrap navbar */
+  //transition-delay: 1s;
+  //transition-duration: 250ms;
+  //transition-property: opacity;
+  opacity: 0.8;
+
+  > div {
+    background-color: #8884;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+    /* TODO: better z-index strategy */
+    z-index: 500; /* less than the bootstrap navbar */
+  }
+}
+
 /* page ----------------------------------------------------------- */
 
 // todo: remove
@@ -803,42 +830,6 @@ tobago-page {
   display: block;
   padding-top: $page-padding-top;
   padding-bottom: 1rem;
-}
-
-.tobago-page-overlay {
-  display: table;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* TODO: better z-index strategy */
-  z-index: 500; /* less than the bootstrap navbar */
-  transition-delay: 1s;
-  transition-duration: 250ms;
-  transition-property: opacity;
-  opacity: 0;
-}
-
-.tobago-page-overlay-timeout {
-  opacity: 0.8;
-}
-
-.tobago-page-overlay-markup-error {
-  cursor: default;
-}
-
-.tobago-page-overlayCenter {
-  display: table-cell;
-  text-align: center;
-  vertical-align: middle;
-  width: 100%;
-  /* TODO: better z-index strategy */
-  z-index: 500; /* less than the bootstrap navbar */
-
-  img {
-    position: relative;
-  }
 }
 
 .tobago-page-noscript {

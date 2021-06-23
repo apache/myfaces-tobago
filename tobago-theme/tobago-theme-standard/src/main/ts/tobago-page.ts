@@ -15,13 +15,9 @@
  * limitations under the License.
  */
 
-import {Overlay} from "./tobago-overlay";
-
 export class Page extends HTMLElement {
 
-  private transition: boolean;
-  private oldTransition: boolean;
-  submitActive: boolean = false;
+  submitActive = false;
 
   /**
    * The Tobago root element
@@ -80,7 +76,7 @@ export class Page extends HTMLElement {
 
     this.form.addEventListener("submit", this.beforeSubmit.bind(this));
 
-    window.addEventListener("unload", this.onUnload.bind(this));
+    window.addEventListener("unload", this.beforeUnload.bind(this));
 
     this.addEventListener("keypress", (event: KeyboardEvent): boolean => {
       let code = event.which; // XXX deprecated
@@ -112,25 +108,20 @@ export class Page extends HTMLElement {
     });
   }
 
-  beforeSubmit(): void {
+  beforeSubmit(event: Event, decoupled: boolean = false): void {
     this.submitActive = true;
-    if (this.transition) {
-      new Overlay(this);
+    if (!decoupled) {
+      this.body.insertAdjacentHTML("beforeend", `<tobago-overlay for='${this.id}'></tobago-overlay>`);
     }
-    this.transition = this.oldTransition;
+    console.debug(this.body.querySelector("tobago-overlay"));
   }
 
   /**
    * Wrapper function to call application generated onunload function
    */
-  onUnload(): void {
-    console.info("on unload");
-    if (Page.page(this).submitActive) {
-      if (this.transition) {
-        new Overlay(this);
-      }
-      this.transition = this.oldTransition;
-    }
+  beforeUnload(): void {
+    console.debug("unload");
+    // todo: here me may check, if user will loose its edit state on the page
   }
 
   registerAjaxListener(): void {
@@ -162,12 +153,21 @@ export class Page extends HTMLElement {
     const id = update.id;
     if (JsfParameter.isJsfId(id)) {
       console.debug("[tobago-jsf] Update after jsf.ajax complete: #", id);
-      Overlay.destroy(id);
+      const overlay = this.querySelector(`tobago-overlay[for='${id}']`);
+      if (overlay) {
+        overlay.remove();
+      } else {
+        console.warn("Didn't found overlay for id", id);
+      }
     }
   }
 
   get form(): HTMLFormElement {
     return this.querySelector("form");
+  }
+
+  get body(): HTMLBodyElement {
+    return this.closest("body");
   }
 
   get locale(): string {

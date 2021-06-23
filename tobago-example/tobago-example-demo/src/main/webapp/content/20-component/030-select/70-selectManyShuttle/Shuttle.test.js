@@ -65,7 +65,7 @@ it("submit: addAll, removeAll, addItem0to4, removeItem2to3", function (done) {
   test.event("click", submitButton, () => output().textContent === "[Mercury, Venus, Jupiter]");
   test.do(() => expect(output().textContent).toBe("[Mercury, Venus, Jupiter]"));
 
-  const pageOverlays = querySelectorAllFn(".tobago-page-overlay");
+  const pageOverlays = querySelectorAllFn("tobago-overlay");
   test.do(() => expect(pageOverlays().length).toBe(0));
 
   test.start();
@@ -114,7 +114,7 @@ it("ajax: addAll, removeAll, addItem1to2, removeItem0", function (done) {
   test.do(() => expect(selectedOptions().length).toBe(1));
   test.do(() => expect(output().textContent).toBe("[Wolf 359]"));
 
-  const pageOverlays = querySelectorAllFn(".tobago-page-overlay");
-  test.do(() => expect(pageOverlays().length).toBe(0, "there must be no tobago-page-overlay"));
+  const pageOverlays = querySelectorAllFn("tobago-overlay");
+  test.do(() => expect(pageOverlays().length).toBe(0, "there must be no tobago-overlay"));
   test.start();
 });

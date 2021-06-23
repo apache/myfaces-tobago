@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
-import {Overlay} from "./tobago-overlay";
 import {Collapse} from "./tobago-popup";
 import {Page} from "./tobago-page";
 import {CollapseOperation} from "./tobago-collapsible-operation";
@@ -61,11 +60,12 @@ class Behavior extends HTMLElement {
           // prepare overlay for all by AJAX reloaded elements
           const partialIds = this.render.split(" ");
           for (let i = 0; i < partialIds.length; i++) {
-            const partialElement = document.getElementById(partialIds[i]);
+            const partialId = partialIds[i];
+            const partialElement = document.getElementById(partialId);
             if (partialElement) {
-              new Overlay(partialElement, true);
+              partialElement.insertAdjacentHTML("beforeend", `<tobago-overlay for='${partialElement.id}'></tobago-overlay>`);
             } else {
-              console.warn("No element found by id='%s' for overlay!", partialIds[i]);
+              console.warn("No element found by id='%s' for overlay!", partialId);
             }
           }
         }
@@ -105,7 +105,7 @@ class Behavior extends HTMLElement {
         form.setAttribute("target", this.target);
       }
 
-      page.beforeSubmit();
+      page.beforeSubmit(null, this.decoupled);
 
       try {
         form.submit();
@@ -114,7 +114,8 @@ class Behavior extends HTMLElement {
         sourceHidden.value = "";
       } catch (e) {
         console.error("Submit failed!", e);
-        Overlay.destroy(page.id);
+        const overlay = this.closest("body").querySelector(`tobago-overlay[for='${page.id}']`);
+        overlay.remove();
         page.submitActive = false;
         alert(`Submit failed: ${e}`); // XXX localization, better error handling
       }
