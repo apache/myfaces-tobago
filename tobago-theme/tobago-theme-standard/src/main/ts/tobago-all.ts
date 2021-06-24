@@ -16,11 +16,11 @@
  */
 
 import "./tobago-bar";
+import "./tobago-behavior";
 import "./tobago-behavior-mode";
 import "./tobago-collapsible-operation";
 import "./tobago-dropdown";
 import "./tobago-date";
-import "./tobago-command";
 import "./tobago-file";
 import "./tobago-focus";
 import "./tobago-footer";
