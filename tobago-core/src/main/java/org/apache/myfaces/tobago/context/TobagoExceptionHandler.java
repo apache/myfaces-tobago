@@ -143,7 +143,11 @@ public class TobagoExceptionHandler extends ExceptionHandlerWrapper {
             } else {
               final HttpServletResponse response =
                   (HttpServletResponse) facesContext.getExternalContext().getResponse();
-              response.resetBuffer(); // undo rendering, if you can.
+              try {
+                response.resetBuffer(); // undo rendering, if you can.
+              } catch (Exception e) {
+                LOG.info("Can't reset buffer!");
+              }
               final ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
               final ViewDeclarationLanguage vdl = viewHandler.getViewDeclarationLanguage(facesContext, viewId);
               final UIViewRoot viewRoot = viewHandler.createView(facesContext, viewId);
