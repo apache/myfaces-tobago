@@ -51,10 +51,10 @@ public class ActivityPhaseListener implements PhaseListener {
     final String sessionId = ((HttpSession) facesContext.getExternalContext().getSession(true)).getId();
 
     if (facesContext.getPartialViewContext().isAjaxRequest()) {
-      LOG.debug("ajax for sessionId='{}'", sessionId);
+      LOG.debug("AJAX request for sessionId='{}'", sessionId);
       activityList.executeAjaxRequest(sessionId);
     } else {
-      LOG.debug("full for sessionId='{}'", sessionId);
+      LOG.debug("Normal request for sessionId='{}'", sessionId);
       activityList.executeJsfRequest(sessionId);
     }
   }
