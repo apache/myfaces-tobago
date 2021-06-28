@@ -15,71 +15,73 @@
  * limitations under the License.
  */
 
+import {elementByIdFn, querySelectorAllFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-it("not implemented yet", function (done) {
-  let test = new JasmineTestTool(done);
-  test.do(() => fail("must be fixed first"));
+it("Basics: 'M'", function (done) {
+  const inputFn = elementByIdFn("page:mainForm:input::field");
+  const resultId = inputFn().getAttribute("aria-owns");
+  const resultListFn = querySelectorAllFn("#" + resultId + " .autocomplete-result");
+
+  const test = new JasmineTestTool(done);
+  test.setup(() => resultListFn().length !== 3,
+      () => inputFn().value = "", "focus", inputFn);
+  test.do(() => inputFn().value = "M");
+  test.event("focus", inputFn, () => resultListFn().length === 3);
+  test.do(() => expect(resultListFn().length).toBe(3));
+  test.do(() => expect(resultListFn()[0].textContent).toBe("Mercury"));
+  test.do(() => expect(resultListFn()[1].textContent).toBe("Mars"));
+  test.do(() => expect(resultListFn()[2].textContent).toBe("Quotation\"Mark"));
+  test.event("blur", inputFn, () => resultListFn().length === 0);
   test.start();
 });
 
-/*
-import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
+it("Basics: 'Ma'", function (done) {
+  const inputFn = elementByIdFn("page:mainForm:input::field");
+  const resultId = inputFn().getAttribute("aria-owns");
+  const resultListFn = querySelectorAllFn("#" + resultId + " .autocomplete-result");
 
-QUnit.test("Basics: 'M'", function (assert) {
-  let inputString = "M";
-  let expectedLength = 3;
-
-  testMarsBasics(assert, inputString, expectedLength);
+  const test = new JasmineTestTool(done);
+  test.setup(() => resultListFn().length !== 2,
+      () => inputFn().value = "", "focus", inputFn);
+  test.do(() => inputFn().value = "Ma");
+  test.event("focus", inputFn, () => resultListFn().length === 2);
+  test.do(() => expect(resultListFn().length).toBe(2));
+  test.do(() => expect(resultListFn()[0].textContent).toBe("Mars"));
+  test.do(() => expect(resultListFn()[1].textContent).toBe("Quotation\"Mark"));
+  test.event("blur", inputFn, () => resultListFn().length === 0);
+  test.start();
 });
 
-QUnit.test("Basics: 'Ma'", function (assert) {
-  let inputString = "Ma";
-  let expectedLength = 2;
+it("Basics: 'Mar'", function (done) {
+  const inputFn = elementByIdFn("page:mainForm:input::field");
+  const resultId = inputFn().getAttribute("aria-owns");
+  const resultListFn = querySelectorAllFn("#" + resultId + " .autocomplete-result");
 
-  testMarsBasics(assert, inputString, expectedLength);
+  const test = new JasmineTestTool(done);
+  test.setup(() => resultListFn().length !== 2,
+      () => inputFn().value = "", "focus", inputFn);
+  test.do(() => inputFn().value = "Mar");
+  test.event("focus", inputFn, () => resultListFn().length === 2);
+  test.do(() => expect(resultListFn().length).toBe(2));
+  test.do(() => expect(resultListFn()[0].textContent).toBe("Mars"));
+  test.do(() => expect(resultListFn()[1].textContent).toBe("Quotation\"Mark"));
+  test.event("blur", inputFn, () => resultListFn().length === 0);
+  test.start();
 });
 
-QUnit.test("Basics: 'Mar'", function (assert) {
-  let inputString = "Mar";
-  let expectedLength = 2;
+it("Basics: 'Mars'", function (done) {
+  const inputFn = elementByIdFn("page:mainForm:input::field");
+  const resultId = inputFn().getAttribute("aria-owns");
+  const resultListFn = querySelectorAllFn("#" + resultId + " .autocomplete-result");
 
-  testMarsBasics(assert, inputString, expectedLength);
+  const test = new JasmineTestTool(done);
+  test.setup(() => resultListFn().length !== 1,
+      () => inputFn().value = "", "focus", inputFn);
+  test.do(() => inputFn().value = "Mars");
+  test.event("focus", inputFn, () => resultListFn().length === 1);
+  test.do(() => expect(resultListFn().length).toBe(1));
+  test.do(() => expect(resultListFn()[0].textContent).toBe("Mars"));
+  test.event("blur", inputFn, () => resultListFn().length === 0);
+  test.start();
 });
-
-QUnit.test("Basics: 'Mars'", function (assert) {
-  let inputString = "Mars";
-  let expectedLength = 1;
-
-  testMarsBasics(assert, inputString, expectedLength);
-});
-
-function testMarsBasics(assert, inputString, expectedLength) {
-  let inFn = querySelectorFn("#page\\:mainForm\\:input\\:\\:field");
-  let suggestionsFn = getSuggestions("#page\\:mainForm\\:input");
-
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    inFn().value = inputString;
-    inFn().dispatchEvent(new Event("input", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(expectedLength + 1, function () {
-    assert.equal(suggestionsFn().length, expectedLength);
-    for (let i = 0; i < expectedLength; i++) {
-      assert.ok(suggestionsFn().item(i).querySelector("strong").textContent.toUpperCase().indexOf(inputString.toUpperCase()) >= 0);
-    }
-  });
-  TTT.startTest();
-}
-
-function escapeClientId(clientId) {
-  return '#' + clientId.replace(/([:\.])/g, '\\$1');
-}
-
-function getSuggestions(id) {
-  return querySelectorAllFn(escapeClientId(
-      querySelectorFn(id + " tobago-suggest")().id + "::popup") + " .tt-suggestion");
-}
-*/

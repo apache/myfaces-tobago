@@ -28,7 +28,7 @@ it("has no exception", function (done) {
 });
 
 it("has no 404", function (done) {
-  let error404Fn = querySelectorFn("#page\\:mainForm\\:pageNotFoundMessage tobago-out");
+  let error404Fn = querySelectorFn("#page\\:mainForm\\:pageNotFoundMessage .form-control-plaintext");
 
   const test = new JasmineTestTool(done);
   test.do(() => expect(error404Fn() === null
