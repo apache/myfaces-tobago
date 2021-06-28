@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIOut;
+import org.apache.myfaces.tobago.renderkit.css.CustomClass;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,7 @@ import java.io.IOException;
 public class OutRendererUnitTest extends RendererTestBase {
 
   @Test
-  public void inputGroupButtonAfter() throws IOException {
+  public void out() throws IOException {
     final UIOut c = (UIOut) ComponentUtils.createComponent(
         facesContext, Tags.out.componentType(), RendererTypes.Out, "id");
     c.setValue("out");
@@ -41,4 +42,26 @@ public class OutRendererUnitTest extends RendererTestBase {
     Assertions.assertEquals(loadHtml("renderer/out/out.html"), formattedResult());
   }
 
+  @Test
+  public void outLabel() throws IOException {
+    final UIOut c = (UIOut) ComponentUtils.createComponent(
+        facesContext, Tags.out.componentType(), RendererTypes.Out, "id");
+    c.setValue("out");
+    c.setLabel("label");
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/out/outLabel.html"), formattedResult());
+  }
+
+  @Test
+  public void outLabelCustomClass() throws IOException {
+    final UIOut c = (UIOut) ComponentUtils.createComponent(
+        facesContext, Tags.out.componentType(), RendererTypes.Out, "id");
+    c.setValue("out");
+    c.setLabel("label");
+    c.setCustomClass(new CustomClass("custom-class"));
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/out/outLabelCustomClass.html"), formattedResult());
+  }
 }
