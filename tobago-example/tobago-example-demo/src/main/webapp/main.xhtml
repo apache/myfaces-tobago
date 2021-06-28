@@ -33,7 +33,7 @@
     </f:metadata>
     -->
 
-    <tc:page label="#{title != null ? title : 'Tobago Demo - '.concat(navigationState.currentNode.label)}" id="page">
+    <tc:page label="#{'Tobago Demo - '.concat(navigationState.currentNode.label)}" id="page">
 
       <!--
             <tc:dataAttribute name="tobago-log-level" value="DEBUG"/>
@@ -66,7 +66,7 @@
             <tc:panel>
               <tc:messages id="messages" orderBy="severity" rendered="#{!hideGlobalMessages}"/>
 
-              <tc:section label="#{title != null ? title : navigationState.currentNode.label}" id="content">
+              <tc:section label="#{navigationState.currentNode.label}" id="content">
                 <tc:form id="mainForm">
                   <ui:insert/>
                 </tc:form>
