@@ -25,6 +25,9 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.Interaction;
+import org.openqa.selenium.interactions.PointerInput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -35,6 +38,7 @@ import java.lang.invoke.MethodHandles;
 import java.net.MalformedURLException;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
+import java.time.Duration;
 import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.List;
@@ -68,6 +72,12 @@ class FrontendTest extends FrontendBase {
 
     WebDriver webDriver = getWebDriver();
     webDriver.get(url);
+
+    // move the mouse cursor away to avoid issues with CSS :hover event
+    Actions actions = new Actions(webDriver);
+    PointerInput pointerInput = new PointerInput(PointerInput.Kind.MOUSE, "default mouse");
+    Interaction interaction = pointerInput.createPointerMove(Duration.ZERO, PointerInput.Origin.pointer(), 1, 1);
+    actions.tick(interaction).build().perform();
 
     List<WebElement> results = getJasmineResults(webDriver, path);
     parseJasmineResults(results, path);
