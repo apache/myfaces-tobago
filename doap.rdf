@@ -39,7 +39,7 @@
     <download-page rdf:resource="http://tobago-vm.apache.org/download.html" />
     <programming-language>Java</programming-language>
     <programming-language>TypeScript</programming-language>
-    <category rdf:resource="https://projects.apache.org/projects.html?category#web-framework" />
+    <category rdf:resource="http://projects.apache.org/category/web-framework" />
     <repository>
       <GitRepository>
         <location rdf:resource="https://gitbox.apache.org/repos/asf/myfaces-tobago.git"/>
