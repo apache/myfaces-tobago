@@ -86,7 +86,7 @@ $page-padding-top: 1rem;
 @mixin dropdownMenuFormCheckComponents() {
   .dropdown-menu .form-check {
     /* move form-check components to the right, so checkbox/radio buttons are inside dropdown-menu */
-    $paddingLeftCheckboxRadio: (($dropdown-item-padding-x / 1rem ) + $form-check-padding-start);
+    $paddingLeftCheckboxRadio: (divide($dropdown-item-padding-x, 1rem) + $form-check-padding-start);
     padding-left: $paddingLeftCheckboxRadio;
 
     &.form-switch {
@@ -423,7 +423,7 @@ tobago-focus {
 tobago-footer {
   display: block;
   background-color: $white;
-  padding: $navbar-padding-y ($container-padding-x / 2);
+  padding: $navbar-padding-y ($container-padding-x * .5);
   box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -459,8 +459,8 @@ tobago-header {
 
   &.sticky-top {
     margin-top: -$page-padding-top;
-    margin-left: -($grid-gutter-width / 2);
-    margin-right: -($grid-gutter-width / 2);
+    margin-left: -($grid-gutter-width * .5);
+    margin-right: -($grid-gutter-width * .5);
   }
 }
 
@@ -703,7 +703,7 @@ tobago-flex-layout.tobago-messages-container > {
 }
 
 .tobago-messages {
-  $alert-icon-padding-x: $alert-padding-x / 1.25;
+  $alert-icon-padding-x: $alert-padding-x * .8;
   $alert-icon-width: $alert-icon-padding-x + 1rem + $alert-icon-padding-x;
 
   .alert.alert-dismissible {
@@ -1554,8 +1554,8 @@ tobago-tab-group {
 }
 
 .tobago-treeSelect .form-check-inline {
-  margin-left: $spacer * .75 / 2;
-  margin-right: $spacer * .75 / 2;
+  margin-left: $spacer * .375;
+  margin-right: $spacer * .375;
 }
 
 .tobago-treeNode[data-tobago-level] {
