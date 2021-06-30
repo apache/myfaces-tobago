@@ -11289,6 +11289,7 @@ tobago-flex-layout > tobago-flex-layout {
 /* the non-label-element inside of a label-layout with flex box */
 .tobago-label-container {
   display: flex;
+  align-items: center;
 }
 .tobago-label-container > label {
   width: 155px;
