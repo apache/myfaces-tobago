@@ -10984,8 +10984,8 @@
           }
           this.registerAjaxListener();
           this.base.classList.add("autocomplete");
-          this.base.insertAdjacentHTML("afterbegin", "<div class=\"autocomplete-pseudo-container\"></div>");
           this.suggestInput.classList.add("autocomplete-input");
+          this.suggestInput.insertAdjacentHTML("beforebegin", "<div class=\"autocomplete-pseudo-container\"></div>");
           this.suggestInput.insertAdjacentHTML("afterend", "<ul class=\"autocomplete-result-list\"></ul>");
           const options = {
               search: (input) => {

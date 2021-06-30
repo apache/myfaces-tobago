@@ -11304,12 +11304,12 @@ tobago-flex-layout {
      Set the minimal width to zero make flex-layout responsive for the width,
      even if there is overflowing content.
      currently e.g. PRE-code blocks in the demo are too wide. XXX */
-  margin-left: -3px;
-  margin-right: -3px;
+  margin-left: -0.25rem;
+  margin-right: -0.25rem;
 }
 tobago-flex-layout > * {
-  margin-left: 3px;
-  margin-right: 3px;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
 }
 tobago-flex-layout > tobago-flex-layout {
   margin-left: 0;
@@ -11320,6 +11320,12 @@ tobago-flex-layout > tobago-flex-layout {
 .tobago-label-container {
   display: flex;
   align-items: center;
+}
+.tobago-label-container > label:first-child {
+  margin-right: 0.5rem;
+}
+.tobago-label-container > label:last-child {
+  margin-left: 0.5rem;
 }
 .tobago-label-container > label {
   width: 155px;
