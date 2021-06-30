@@ -384,6 +384,7 @@ tobago-flex-layout {
 /* the non-label-element inside of a label-layout with flex box */
 .tobago-label-container {
   display: flex;
+  align-items: center;
 
   > label {
     // XXX needs to be customizable
