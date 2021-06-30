@@ -35,6 +35,7 @@
     <selenium.version>3.141.59</selenium.version>
     <exec.version>1.6.0</exec.version>
     <tobago-theme-standard-dir>${basedir}/target/tobago-theme-standard</tobago-theme-standard-dir>
+    <docker-tomcat-dir>${project.build.directory}/docker-tomcat</docker-tomcat-dir>
     <frontend.skip>false</frontend.skip>
   </properties>
 
@@ -148,37 +149,6 @@
         </configuration>
       </plugin>
     </plugins>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>io.fabric8</groupId>
-          <artifactId>docker-maven-plugin</artifactId>
-          <version>0.36.1</version>
-          <configuration>
-            <images>
-              <image>
-                <name>myfaces/%a:%l</name>
-                <run>
-                  <ports>
-                    <port>8080:8080</port>
-                  </ports>
-                </run>
-                <build>
-                  <from>tomcat:9.0-jdk11</from>
-                  <assembly>
-                    <descriptor>assembly.xml</descriptor>
-                    <basedir>/usr/local/tomcat</basedir>
-                  </assembly>
-                  <ports>
-                    <port>8080</port>
-                  </ports>
-                </build>
-              </image>
-            </images>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
   </build>
 
   <dependencyManagement>
@@ -298,19 +268,6 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>io.fabric8</groupId>
-            <artifactId>docker-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>build</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>build</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
             <artifactId>maven-failsafe-plugin</artifactId>
             <configuration>
               <includes>
@@ -360,8 +317,59 @@
       <build>
         <plugins>
           <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>copy-resources</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>copy-resources</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${docker-tomcat-dir}</outputDirectory>
+                  <resources>
+                    <resource>
+                      <directory>${basedir}/src/main/docker</directory>
+                      <includes>
+                        <include>Dockerfile</include>
+                      </includes>
+                    </resource>
+                    <resource>
+                      <directory>${basedir}/src/test/tomee/conf</directory>
+                      <includes>
+                        <include>tomcat-users.xml</include>
+                      </includes>
+                    </resource>
+                    <resource>
+                      <directory>${project.build.directory}</directory>
+                      <includes>
+                        <include>*.war</include>
+                      </includes>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
             <groupId>io.fabric8</groupId>
             <artifactId>docker-maven-plugin</artifactId>
+            <version>0.36.1</version>
+            <configuration>
+              <images>
+                <image>
+                  <name>myfaces/%a:%l</name>
+                  <run>
+                    <ports>
+                      <port>8080:8080</port>
+                    </ports>
+                  </run>
+                  <build>
+                    <dockerFileDir>${docker-tomcat-dir}</dockerFileDir>
+                  </build>
+                </image>
+              </images>
+            </configuration>
             <executions>
               <execution>
                 <id>build</id>
