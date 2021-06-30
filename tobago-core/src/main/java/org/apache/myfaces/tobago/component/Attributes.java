@@ -399,8 +399,6 @@ public enum Attributes {
   statePreview,
   step,
   style,
-  suggestMethod,
-  suggestMethodExpression,
   switchType,
   tabChangeListener,
   tabChangeListenerExpression,

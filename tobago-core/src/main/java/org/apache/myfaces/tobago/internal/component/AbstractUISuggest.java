@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.model.SuggestFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +33,7 @@ import java.lang.invoke.MethodHandles;
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SuggestTagDeclaration}
  */
 public abstract class AbstractUISuggest
-    extends UIComponentBase implements InputSuggest, ClientBehaviorHolder {
+    extends UIComponentBase implements ClientBehaviorHolder {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
