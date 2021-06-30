@@ -35,7 +35,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.el.MethodExpression;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
@@ -71,35 +70,19 @@ public class SuggestRenderer<T extends AbstractUISuggest> extends RendererBase<T
   @Override
   public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
     final AbstractUIInput input = ComponentUtils.findAncestor(component, AbstractUIInput.class);
-    final MethodExpression suggestMethodExpression = component.getSuggestMethodExpression();
 
     int totalCount = component.getTotalCount();
     final String[] array;
 
-    if (suggestMethodExpression != null && input != null) { // old way (deprecated)
-      final AutoSuggestItems autoSuggestItems
-          = createAutoSuggestItems(suggestMethodExpression.invoke(facesContext.getELContext(), new Object[]{input}));
-      final List<AutoSuggestItem> items = autoSuggestItems.getItems();
+    final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, component);
 
-      if (totalCount == -1 || items.size() < totalCount) {
-        totalCount = items.size();
-      }
+    if (totalCount == -1 || items.size() < totalCount) {
+      totalCount = items.size();
+    }
 
-      array = new String[totalCount];
-      for (int i = 0; i < totalCount; i++) {
-        array[i] = items.get(i).getLabel();
-      }
-    } else {
-      final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, component);
-
-      if (totalCount == -1 || items.size() < totalCount) {
-        totalCount = items.size();
-      }
-
-      array = new String[totalCount];
-      for (int i = 0; i < totalCount; i++) {
-        array[i] = items.get(i).getLabel();
-      }
+    array = new String[totalCount];
+    for (int i = 0; i < totalCount; i++) {
+      array[i] = items.get(i).getLabel();
     }
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);

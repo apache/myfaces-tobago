@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -59,24 +58,6 @@ import javax.faces.component.UIInput;
             isDefault = true)
     }*/)
 public interface SuggestTagDeclaration extends HasIdBindingAndRendered {
-
-  /**
-   * {@link javax.el.MethodExpression} which generates a list of suggested input values based on
-   * the currently entered text, which could be retrieved via getSubmittedValue() on the UIIn.
-   * The expression has to evaluate to a public method which has a javax.faces.component.UIInput parameter
-   * and returns a List&lt;String&gt;, a List&lt;org.apache.myfaces.tobago.model.AutoSuggestItem&gt;
-   * or a org.apache.myfaces.tobago.model.AutoSuggestItems.
-   *
-   * @deprecated since 3.0.0.
-   * Please use an <code>&lt;tc:selectItems&gt;</code> tag or a list of <code>&lt;tc:selectItem&gt;</code> tags.
-   */
-  @Deprecated
-  @TagAttribute
-  @UIComponentTagAttribute(type = {},
-      expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
-      methodSignature = "javax.faces.component.UIInput",
-      methodReturnType = "java.lang.Object")
-  void setSuggestMethod(String suggestMethod);
 
   /**
    * Minimum number of characters to type before the list will be requested.
