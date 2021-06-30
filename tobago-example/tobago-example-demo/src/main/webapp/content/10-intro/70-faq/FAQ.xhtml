@@ -338,13 +338,14 @@ mvn -Pdocker-qunit-tests docker:stop</demo-highlight>
 
     <tc:section id="integrationTestTobago5" label="Tobago 5">
       <p>Since Tobago  #{apiController.version500} the integration tests are reimplemented with jasmine and
-        testcontainers.</p>
-      <p>To run the integration tests:</p>
-      <demo-highlight language="markup">cd tobago-example/tobago-example-demo
-mvn clean install -Pintegration-tests
-      </demo-highlight>
+        testcontainers. Testcontainers expect a myfaces/tobago-example-demo image to exist.
+      The following commands have to be executed in "./tobago-example/tobago-example-demo/"</p>
+      <p>To build a image and run the integration tests:</p>
+      <demo-highlight language="markup">mvn clean verify -Pdocker -Pintegration-tests</demo-highlight>
+      <p>To run the integration tests only:</p>
+      <demo-highlight language="markup">mvn verify -Pintegration-tests</demo-highlight>
       <p>The docker container can be rebuild with:</p>
-      <demo-highlight language="markup">mvn package -Pdocker</demo-highlight>
+      <demo-highlight language="markup">mvn clean package -Pdocker</demo-highlight>
     </tc:section>
   </tc:section>
 
