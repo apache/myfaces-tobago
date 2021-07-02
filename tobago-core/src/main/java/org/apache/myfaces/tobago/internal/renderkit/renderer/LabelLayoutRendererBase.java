@@ -25,6 +25,8 @@ import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyCheckbox;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneRadio;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -157,7 +159,15 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
       // skip, because its only the lable to render
     } else {
       writer.startElement(getComponentTag());
-      writer.writeIdAttribute(clientId);
+      if (component instanceof AbstractUISelectOneRadio // XXX a bit hacky
+          && ((AbstractUISelectOneRadio)component).getRenderRangeReference() != null) {
+        writer.writeIdAttribute(((AbstractUISelectOneRadio)component).getRenderRangeReference().getClientId());
+      } else if (component instanceof AbstractUISelectManyCheckbox // XXX a bit hacky
+          && ((AbstractUISelectManyCheckbox)component).getRenderRangeReference() != null) {
+        writer.writeIdAttribute(((AbstractUISelectManyCheckbox)component).getRenderRangeReference().getClientId());
+      } else {
+        writer.writeIdAttribute(clientId);
+      }
       writer.writeClassAttribute(
           flex ? TobagoClass.LABEL__CONTAINER : null,
           getComponentCss(facesContext, component),

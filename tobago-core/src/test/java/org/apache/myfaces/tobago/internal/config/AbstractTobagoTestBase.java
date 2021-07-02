@@ -48,6 +48,7 @@ import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
 import org.apache.myfaces.tobago.component.UISelectManyListbox;
 import org.apache.myfaces.tobago.component.UISelectOneChoice;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
+import org.apache.myfaces.tobago.component.UISelectReference;
 import org.apache.myfaces.tobago.component.UISeparator;
 import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.component.UITextarea;
@@ -80,6 +81,7 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectManyCheckboxR
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectManyListboxRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectOneChoiceRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectOneRadioRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectReferenceRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SeparatorRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.StyleRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TextareaRenderer;
@@ -167,6 +169,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.selectManyListbox.componentType(), UISelectManyListbox.class.getName());
     application.addComponent(Tags.selectOneRadio.componentType(), UISelectOneRadio.class.getName());
     application.addComponent(Tags.selectOneChoice.componentType(), UISelectOneChoice.class.getName());
+    application.addComponent(Tags.selectReference.componentType(), UISelectReference.class.getName());
     application.addComponent(Tags.separator.componentType(), UISeparator.class.getName());
     application.addComponent(Tags.style.componentType(), UIStyle.class.getName());
     application.addComponent(Tags.textarea.componentType(), UITextarea.class.getName());
@@ -212,6 +215,8 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
         UISelectOneRadio.COMPONENT_FAMILY, RendererTypes.SELECT_ONE_RADIO, new SelectOneRadioRenderer());
     renderKit.addRenderer(
         UISelectOneChoice.COMPONENT_FAMILY, RendererTypes.SELECT_ONE_CHOICE, new SelectOneChoiceRenderer());
+    renderKit.addRenderer(
+        UISelectReference.COMPONENT_FAMILY, RendererTypes.SELECT_REFERENCE, new SelectReferenceRenderer());
     renderKit.addRenderer(UISeparator.COMPONENT_FAMILY, RendererTypes.SEPARATOR, new SeparatorRenderer());
     renderKit.addRenderer(UIStyle.COMPONENT_FAMILY, RendererTypes.STYLE, new StyleRenderer());
     renderKit.addRenderer(UITextarea.COMPONENT_FAMILY, RendererTypes.TEXTAREA, new TextareaRenderer());
