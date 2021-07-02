@@ -37,6 +37,11 @@ $form-disabled-alpha: 0.5;
 $page-padding-top: 1rem;
 $flex-layout-spacing: 0.5rem;
 
+/* utilities ----------------------------------------------------- */
+.tobago-display-inline-block {
+  display: inline-block;
+}
+
 /* main ---------------------------------------------------------- */
 @mixin adjustCustomControlLabel() {
   .form-check-label {
