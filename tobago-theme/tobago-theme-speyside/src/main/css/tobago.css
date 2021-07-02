@@ -10762,6 +10762,11 @@ textarea.form-control-lg {
  */
 /* used bootstrap icons ---------------------------------------------------- */
 /* non-bootstrap variables --------------------------------------- */
+/* utilities ----------------------------------------------------- */
+.tobago-display-inline-block {
+  display: inline-block;
+}
+
 /* main ---------------------------------------------------------- */
 .tobago-auto-spacing {
   /* Since bootstrap 5.0.0-alpha1 class "form-group" is removed. In the Bootstrap demo "form-group" is replaced with
