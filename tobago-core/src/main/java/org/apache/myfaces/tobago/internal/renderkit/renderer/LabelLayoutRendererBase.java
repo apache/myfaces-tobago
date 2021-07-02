@@ -120,6 +120,7 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
     final LabelLayout labelLayout = component.getLabelLayout();
     final boolean nextToRenderIsLabel = component.isNextToRenderIsLabel();
     final boolean flex;
+    final boolean flow;
 
     switch (labelLayout) {
       case flexLeft:
@@ -148,6 +149,15 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
         flex = false;
     }
 
+    switch (labelLayout) {
+      case flowLeft:
+      case flowRight:
+        flow = true;
+        break;
+      default:
+        flow = false;
+    }
+
 //    if (labelLayout == LabelLayout.gridLeft || labelLayout == LabelLayout.gridRight
 //        || labelLayout == LabelLayout.gridTop || labelLayout == LabelLayout.gridBottom) {
 //      writer.startElement(HtmlElements.LABEL);
@@ -163,6 +173,7 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
           getComponentCss(facesContext, component),
           autoSpacing ? TobagoClass.AUTO__SPACING : null,
           ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,
+          flow ? TobagoClass.DISPLAY__INLINE__BLOCK : null,
           markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
       writeAdditionalAttributes(facesContext, writer, component);
     }
