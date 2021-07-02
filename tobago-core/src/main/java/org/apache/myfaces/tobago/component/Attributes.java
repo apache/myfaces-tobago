@@ -121,6 +121,7 @@ public enum Attributes {
   gridRow,
   gridTemplateColumns,
   gridTemplateRows,
+  group,
   help,
   height,
   hidden,

@@ -155,26 +155,80 @@
 
   </tc:section>
 
-  <tc:section label="Free layout with pure JSF (JSF 2.3 only)">
+  <tc:section id="selectGroup" label="Free layout with group attribute">
+
+    <tc:badge markup="warning" value="Work in progress!"/>
+    Decoding and validation is case of "group" is not implemented yet.
+
+    <tc:segmentLayout medium="4seg 4seg 4seg">
+      <tc:box>
+        First and second giant planets:
+        <tc:selectOneRadio id="group0" group="giantGroup" labelLayout="segmentRight"
+                           value="#{selectOneRadioController.selectedGiantPlanet}">
+          <f:selectItem id="si0" itemValue="#{astroData.giantPlanets[0].value}" itemLabel="#{astroData.giantPlanets[0].label}"/>
+          <f:selectItem id="si1" itemValue="#{astroData.giantPlanets[1].value}" itemLabel="#{astroData.giantPlanets[1].label}"/>
+        </tc:selectOneRadio>
+      </tc:box>
+
+      <tc:box>
+        Discovered #{astroData.giantPlanets[2].value.discoverYear}:
+        <tc:selectOneRadio id="group2" group="giantGroup" labelLayout="segmentRight">
+          <f:selectItem id="si2" itemValue="#{astroData.giantPlanets[2].value}" itemLabel="#{astroData.giantPlanets[2].label}"/>
+        </tc:selectOneRadio>
+      </tc:box>
+
+      <tc:box>
+        Discovered #{astroData.giantPlanets[3].value.discoverYear}:
+        <tc:selectOneRadio id="group3" group="giantGroup" labelLayout="segmentRight">
+          <f:selectItem id="si3" itemValue="#{astroData.giantPlanets[3].value}" itemLabel="#{astroData.giantPlanets[3].label}"/>
+        </tc:selectOneRadio>
+      </tc:box>
+    </tc:segmentLayout>
+
+    <tc:button label="Submit">
+      <f:ajax execute="selectGroup" render="selectGroup :page:messages"/>
+    </tc:button>
+
+    <tc:out label="Selected:" value="#{selectOneRadioController.selectedGiantPlanet.name}"/>
+
+  </tc:section>
+
+  <tc:section id="selectGroupJsf" label="Free layout with group attribute (JSF HTML tags - since JSF 2.3)">
 
     <p>
       <span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_DANGER')}">Attention!</span>
       This example is only temporary for testing purpose.
+      Does not currently work with Mojarra or MyFaces, but for different reasons.
     </p>
 
-    <h:selectOneRadio id="terrestrial0" group="terrestrial"
-                      value="#{selectOneRadioController.selectedTerrestrialPlanet}">
-      <f:selectItems value="#{astroData.terrestrialPlanets}"/>
-    </h:selectOneRadio>
+    <tc:segmentLayout medium="3seg 3seg 3seg 3seg">
 
-    <br/>
-    <h:selectOneRadio id="terrestrial1" group="terrestrial"/>
+      <tc:box>
+        <h:selectOneRadio id="terrestrial0" group="terrestrial"
+                          value="#{selectOneRadioController.selectedTerrestrialPlanet}">
+          <f:selectItems value="#{astroData.terrestrialPlanets}"/>
+        </h:selectOneRadio>
+      </tc:box>
 
-    <br/>
-    <h:selectOneRadio id="terrestrial2" group="terrestrial"/>
+      <tc:box>
+        <h:selectOneRadio id="terrestrial1" group="terrestrial"/>
+      </tc:box>
 
-    <br/>
-    <h:selectOneRadio id="terrestrial3" group="terrestrial"/>
+      <tc:box>
+        <h:selectOneRadio id="terrestrial2" group="terrestrial"/>
+      </tc:box>
+
+      <tc:box>
+        <h:selectOneRadio id="terrestrial3" group="terrestrial"/>
+      </tc:box>
+
+    </tc:segmentLayout>
+
+    <tc:button label="Submit">
+      <f:ajax execute="selectGroupJsf" render="selectGroupJsf :page:messages"/>
+    </tc:button>
+
+    <tc:out label="Selected:" value="#{selectOneRadioController.selectedTerrestrialPlanet.name}"/>
 
   </tc:section>
 

@@ -97,7 +97,10 @@ public class TobagoExceptionHandler extends ExceptionHandlerWrapper {
       while (iterator.hasNext()) {
         final ExceptionQueuedEvent event = iterator.next();
         final ExceptionQueuedEventContext context = (ExceptionQueuedEventContext) event.getSource();
-        final Throwable cause = this.getWrapped().getRootCause(context.getException());
+        Throwable cause = this.getWrapped().getRootCause(context.getException());
+        if (cause == null) {
+          cause = context.getException();
+        }
         final NavigationHandler nav = facesContext.getApplication().getNavigationHandler();
 
         if (cause instanceof ViewExpiredException
@@ -143,22 +146,18 @@ public class TobagoExceptionHandler extends ExceptionHandlerWrapper {
             } else {
               final HttpServletResponse response =
                   (HttpServletResponse) facesContext.getExternalContext().getResponse();
-              try {
-                response.resetBuffer(); // undo rendering, if you can.
-              } catch (Exception e) {
-                LOG.info("Can't reset buffer!");
-              }
+              response.resetBuffer(); // undo rendering, if you can.
               final ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
               final ViewDeclarationLanguage vdl = viewHandler.getViewDeclarationLanguage(facesContext, viewId);
               final UIViewRoot viewRoot = viewHandler.createView(facesContext, viewId);
               vdl.buildView(facesContext, viewRoot);
               facesContext.getApplication().publishEvent(facesContext, PreRenderViewEvent.class, viewRoot);
               vdl.renderView(facesContext, viewRoot);
-              facesContext.responseComplete();
             }
           } catch (Exception e) {
             LOG.error("Exception while exception handling!", e);
           } finally {
+            facesContext.responseComplete();
             iterator.remove();
           }
         }
