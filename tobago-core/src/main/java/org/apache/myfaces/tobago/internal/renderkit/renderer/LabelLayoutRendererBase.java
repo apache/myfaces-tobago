@@ -170,11 +170,11 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
     } else {
       writer.startElement(getComponentTag());
       if (component instanceof AbstractUISelectOneRadio // XXX a bit hacky
-          && ((AbstractUISelectOneRadio)component).getRenderRangeReference() != null) {
-        writer.writeIdAttribute(((AbstractUISelectOneRadio)component).getRenderRangeReference().getClientId());
+          && ((AbstractUISelectOneRadio) component).getRenderRangeReference() != null) {
+        writer.writeIdAttribute(((AbstractUISelectOneRadio) component).getRenderRangeReference().getClientId());
       } else if (component instanceof AbstractUISelectManyCheckbox // XXX a bit hacky
-          && ((AbstractUISelectManyCheckbox)component).getRenderRangeReference() != null) {
-        writer.writeIdAttribute(((AbstractUISelectManyCheckbox)component).getRenderRangeReference().getClientId());
+          && ((AbstractUISelectManyCheckbox) component).getRenderRangeReference() != null) {
+        writer.writeIdAttribute(((AbstractUISelectManyCheckbox) component).getRenderRangeReference().getClientId());
       } else {
         writer.writeIdAttribute(clientId);
       }
