@@ -23,10 +23,12 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UISelectItem;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
+import org.apache.myfaces.tobago.component.UISelectReference;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import javax.faces.component.UIPanel;
 import java.io.IOException;
 
 public class SelectOneRadioRendererUnitTest extends RendererTestBase {
@@ -49,6 +51,37 @@ public class SelectOneRadioRendererUnitTest extends RendererTestBase {
     c.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/selectOneRadio/selectOneRadioLabel.html"), formattedResult());
+  }
+
+  @Test
+  public void reference() throws IOException {
+    final UIPanel panel = (UIPanel) ComponentUtils.createComponent(
+        facesContext, Tags.panel.componentType(), RendererTypes.Panel, "panel");
+
+    final UISelectOneRadio c = (UISelectOneRadio) ComponentUtils.createComponent(
+        facesContext, Tags.selectOneRadio.componentType(), RendererTypes.SelectOneRadio, "id");
+    c.setLabel("label");
+
+    final UISelectItem i1 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i1");
+    i1.setItemLabel("Stratocaster");
+    c.getChildren().add(i1);
+    final UISelectItem i2 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i2");
+    i2.setItemLabel("Telecaster");
+    c.getChildren().add(i2);
+    c.setRenderRange("0");
+    panel.getChildren().add(c);
+
+    final UISelectReference r = (UISelectReference) ComponentUtils.createComponent(
+        facesContext, Tags.selectReference.componentType(), RendererTypes.SelectReference, "ref");
+    r.setFor("id");
+    r.setRenderRange("1");
+    panel.getChildren().add(r);
+
+    panel.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/selectOneRadio/selectReference.html"), formattedResult());
   }
 
 }
