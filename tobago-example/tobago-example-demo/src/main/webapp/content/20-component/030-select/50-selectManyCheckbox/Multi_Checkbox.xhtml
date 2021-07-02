@@ -145,26 +145,42 @@
 
   </tc:section>
 
-  <tc:section label="Free layout with pure JSF (JSF 2.3 only)">
+  <tc:section id="selectGroupJsf" label="Free layout with group attribute (JSF HTML tags - since JSF 2.3)">
 
     <p>
-      <span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_DANGER')}">Attanion!</span>
+      <span class="#{demo:bootstrapClass('BADGE')} #{demo:bootstrapClass('BADGE_DANGER')}">Attention!</span>
       This example is only temporary for testing purpose.
+      Does not currently work with Mojarra or MyFaces, but for different reasons.
     </p>
 
-    <h:selectManyCheckbox id="terrestrial0" group="terrestrial"
-                      value="#{selectManyCheckboxController.selectedTerrestrialPlanet}">
-      <f:selectItems value="#{astroData.terrestrialPlanets}"/>
-    </h:selectManyCheckbox>
+    <tc:segmentLayout medium="3seg 3seg 3seg 3seg">
 
-    <br/>
-    <h:selectManyCheckbox id="terrestrial1" group="terrestrial"/>
+      <tc:box>
+        <h:selectManyCheckbox id="terrestrial0" group="terrestrial"
+                              value="#{selectManyCheckboxController.selectedTerrestrialPlanet}">
+          <f:selectItems value="#{astroData.terrestrialPlanets}"/>
+        </h:selectManyCheckbox>
+      </tc:box>
 
-    <br/>
-    <h:selectManyCheckbox id="terrestrial2" group="terrestrial"/>
+      <tc:box>
+        <h:selectManyCheckbox id="terrestrial1" group="terrestrial"/>
+      </tc:box>
 
-    <br/>
-    <h:selectManyCheckbox id="terrestrial3" group="terrestrial"/>
+      <tc:box>
+        <h:selectManyCheckbox id="terrestrial2" group="terrestrial"/>
+      </tc:box>
+
+      <tc:box>
+        <h:selectManyCheckbox id="terrestrial3" group="terrestrial"/>
+      </tc:box>
+
+    </tc:segmentLayout>
+
+    <tc:button label="Submit">
+      <f:ajax execute="selectGroupJsf" render="selectGroupJsf :page:messages"/>
+    </tc:button>
+
+    <tc:out label="Selected:" value="#{selectManyCheckboxController.selectedTerrestrialPlanet.name}"/>
 
   </tc:section>
 
