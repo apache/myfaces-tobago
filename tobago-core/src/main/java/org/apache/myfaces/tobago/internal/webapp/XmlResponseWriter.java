@@ -32,15 +32,6 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
 
   private final WriterHelper helper;
 
-  /**
-   * @deprecated since 4.3.0
-   */
-  @Deprecated
-  public XmlResponseWriter(
-      final Writer writer, final String contentType, final String characterEncoding) {
-    this(writer, contentType, Charset.forName(characterEncoding));
-  }
-
   public XmlResponseWriter(
       final Writer writer, final String contentType, final Charset charset) {
     super(writer, contentType, charset);
