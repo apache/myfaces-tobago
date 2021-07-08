@@ -75,10 +75,13 @@
 
     <tc:section label="Using different JSF implementations">
 
-      By default the example will be started with MyFaces 2.3
-      You can run the examples with other version like you see here:
+      By default the example will be started with MyFaces 2.3 and Jetty 9.
 
       <demo-highlight language="bash">$ mvn jetty:run -Pjetty</demo-highlight>
+
+      For Jetty 10 use the profile jee8.
+
+      <demo-highlight language="bash">$ mvn jetty:run -Pjetty -Pjee8</demo-highlight>
 
       You can select a specific JSF implementation with the <i>jsf</i> variable, like Mojarra.
 

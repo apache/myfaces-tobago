@@ -155,7 +155,7 @@
       <id>jee8</id>
       <properties>
         <!-- jetty 10 requires jdk 11 -->
-        <jetty.version>10.0.3</jetty.version>
+        <jetty.version>10.0.5</jetty.version>
       </properties>
     </profile>
 
@@ -227,6 +227,8 @@
           <groupId>org.glassfish</groupId>
           <artifactId>jakarta.faces</artifactId>
         </dependency>
+        <!-- todo: check use of "weld-servlet-core", because "weld-servlet-shaded"
+        has double dependencies with this project.-->
         <dependency>
           <groupId>org.jboss.weld.servlet</groupId>
           <artifactId>weld-servlet-shaded</artifactId>
