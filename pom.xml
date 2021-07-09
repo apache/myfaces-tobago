@@ -960,6 +960,7 @@
 
               <!-- log files -->
               <exclude>**/*.log</exclude>
+              <exclude>**/test-scenarios-locally/**/*</exclude>
 
               <!-- maven -->
               <exclude>**/target/**/*</exclude>
