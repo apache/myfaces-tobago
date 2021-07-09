@@ -16,3 +16,4 @@ target/
 bin/
 node/
 node_modules/
+test-scenarios-locally/
