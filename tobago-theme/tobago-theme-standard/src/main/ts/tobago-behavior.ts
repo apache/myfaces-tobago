@@ -255,7 +255,16 @@ class Behavior extends HTMLElement {
   get eventElement(): HTMLElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
     const id = this.fieldId ? this.fieldId : this.clientId;
-    return rootNode.getElementById(id);
+    let result = rootNode.getElementById(id);
+    if (result == null) {
+      if (this.parentElement.tagName === "TD") {
+        // if <tc:event> is inside <tc:row> the <tobago-behaviour> is rendered inside a <td>, because it's not
+        // allowed directly inside a <tr>.
+        result = this.parentElement.parentElement;
+        // XXX this might not be a good solution, better fix this in the SheetRenderer
+      }
+    }
+    return result;
   }
 }
 
