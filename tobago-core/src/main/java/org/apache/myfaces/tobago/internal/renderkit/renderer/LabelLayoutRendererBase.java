@@ -21,12 +21,11 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.LabelLayout;
+import org.apache.myfaces.tobago.component.RenderRange;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyCheckbox;
-import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneRadio;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -115,7 +114,10 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
       throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    String clientId = component.getClientId(facesContext);
+    final String clientId =
+        component instanceof RenderRange && ((RenderRange) component).getRenderRangeReference() != null
+            ? ((RenderRange) component).getRenderRangeReference().getClientId(facesContext)
+            : component.getClientId(facesContext);
     final Markup markup = (Markup) ComponentUtils.getAttribute(component, Attributes.markup);
 
     final boolean autoSpacing = component.getAutoSpacing(facesContext);
@@ -131,9 +133,6 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
         break;
       case segmentLeft:
       case segmentRight:
-        if (nextToRenderIsLabel) {
-          clientId += ComponentUtils.SUB_SEPARATOR + "label";
-        }
         flex = false;
         break;
       case flowLeft:
@@ -160,24 +159,11 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
         flow = false;
     }
 
-//    if (labelLayout == LabelLayout.gridLeft || labelLayout == LabelLayout.gridRight
-//        || labelLayout == LabelLayout.gridTop || labelLayout == LabelLayout.gridBottom) {
-//      writer.startElement(HtmlElements.LABEL);
-//      writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "label");
-//    } else {
     if (nextToRenderIsLabel) {
       // skip, because its only the lable to render
     } else {
       writer.startElement(getComponentTag());
-      if (component instanceof AbstractUISelectOneRadio // XXX a bit hacky
-          && ((AbstractUISelectOneRadio) component).getRenderRangeReference() != null) {
-        writer.writeIdAttribute(((AbstractUISelectOneRadio) component).getRenderRangeReference().getClientId());
-      } else if (component instanceof AbstractUISelectManyCheckbox // XXX a bit hacky
-          && ((AbstractUISelectManyCheckbox) component).getRenderRangeReference() != null) {
-        writer.writeIdAttribute(((AbstractUISelectManyCheckbox) component).getRenderRangeReference().getClientId());
-      } else {
-        writer.writeIdAttribute(clientId);
-      }
+      writer.writeIdAttribute(clientId);
       writer.writeClassAttribute(
           flex ? TobagoClass.LABEL__CONTAINER : null,
           getComponentCss(facesContext, component),
@@ -207,24 +193,6 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
       default:
         encodeLabel(facesContext, component, writer, labelLayout);
     }
-
-//    switch (labelLayout) {
-//      case gridLeft:
-//      case gridRight:
-//      case gridTop:
-//      case gridBottom:
-//        writer.endElement(HtmlElements.LABEL);
-
-//        writer.startElement(getComponentTag());
-//        writer.writeIdAttribute(clientId);
-//        encodeAttributes(facesContext, component);
-//        writer.writeClassAttribute(
-//            BootstrapClass.MB_3,
-//            ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,
-//            markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
-//        break;
-//      default:
-//    }
   }
 
   protected void writeAdditionalAttributes(
