@@ -227,6 +227,15 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
     final String label = ComponentUtils.getStringAttribute(component, Attributes.label);
     if (StringUtils.isNotBlank(label)) {
       writer.startElement(HtmlElements.LABEL);
+      if (labelLayout == LabelLayout.gridLeft || labelLayout == LabelLayout.gridRight
+          || labelLayout == LabelLayout.gridTop || labelLayout == LabelLayout.gridBottom) {
+        final String clientId =
+            component instanceof RenderRange && ((RenderRange) component).getRenderRangeReference() != null
+                ? ((RenderRange) component).getRenderRangeReference().getClientId(facesContext)
+                : component.getClientId(facesContext);
+        final String labelId = clientId + ComponentUtils.SUB_SEPARATOR + "label";
+        writer.writeIdAttribute(labelId);
+      }
       writer.writeAttribute(HtmlAttributes.FOR, getFieldId(facesContext, component), false);
       writer.writeClassAttribute(BootstrapClass.COL_FORM_LABEL);
       if (component instanceof SupportsAccessKey) {
