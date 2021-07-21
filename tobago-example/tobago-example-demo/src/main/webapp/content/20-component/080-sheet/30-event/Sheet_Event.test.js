@@ -15,110 +15,171 @@
  * limitations under the License.
  */
 
-import {querySelectorFn} from "/script/tobago-test.js";
+import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-it("must be fixed first", function (done) {
-  let test = new JasmineTestTool(done);
-  test.do(() => fail("must be fixed first"));
-  test.start();
-});
+it("On click with ajax", function (done) {
+  const onClickAjaxFn = elementByIdFn("page:mainForm:changeExample::0");
+  const onClickAjaxPopupFn = elementByIdFn("page:mainForm:changeExample::3");
+  const detailsBoxFn = elementByIdFn("page:mainForm:detail");
+  const detailsBoxNameFieldFn = elementByIdFn("page:mainForm:name::field");
+  const sunFn = elementByIdFn("page:mainForm:s1:0:sample0");
+  const venusFn = elementByIdFn("page:mainForm:s1:2:sample0");
+  const jupiterFn = elementByIdFn("page:mainForm:s1:5:sample0");
+  const saturnFn = elementByIdFn("page:mainForm:s1:6:sample0");
 
-/*it("On click with ajax", function (done) {
-  let oneClickAjaxFn = querySelectorFn("#page\\:mainForm\\:changeExample\\:\\:0");
-  let venusFn = querySelectorFn("#page\\:mainForm\\:s1\\:2\\:sample0");
-  let jupiterFn = querySelectorFn("#page\\:mainForm\\:s1\\:5\\:sample0");
-  let saturnFn = querySelectorFn("#page\\:mainForm\\:s1\\:6\\:sample0");
-  let namefieldFn = querySelectorFn("#page\\:mainForm\\:name\\:\\:field");
-
-  let test = new JasmineTestTool(done);
-  test.do(() => oneClickAjaxFn().checked = true);
-  test.event("change", oneClickAjaxFn, () => venusFn());
-  test.do(() => expect(venusFn() != null).toBe(true));
-  test.do(() => expect(jupiterFn() != null).toBe(true));
-  test.do(() => expect(saturnFn() != null).toBe(true));
-  test.event("click", venusFn, () => namefieldFn() && namefieldFn().value === "Venus");
-  test.do(() => expect(namefieldFn().value).toBe("Venus"));
-  test.event("click", jupiterFn, () => namefieldFn() && namefieldFn().value === "Jupiter");
-  test.do(() => expect(namefieldFn().value).toBe("Jupiter"));
-  test.event("click", saturnFn, () => namefieldFn() && namefieldFn().value === "Saturn");
-  test.do(() => expect(namefieldFn().value).toBe("Saturn"));
+  const test = new JasmineTestTool(done);
+  test.setup(() => detailsBoxFn() === null,
+      () => onClickAjaxPopupFn().checked = true, "change", onClickAjaxPopupFn);
+  test.setup(() => detailsBoxFn() !== null,
+      () => onClickAjaxFn().checked = true, "change", onClickAjaxFn);
+  test.setup(() => detailsBoxNameFieldFn().value === "Sun", null, "click", sunFn);
+  test.event("click", venusFn, () => detailsBoxNameFieldFn().value === "Venus");
+  test.do(() => expect(detailsBoxNameFieldFn().value).toBe("Venus"));
+  test.event("click", jupiterFn, () => detailsBoxNameFieldFn().value === "Jupiter");
+  test.do(() => expect(detailsBoxNameFieldFn().value).toBe("Jupiter"));
+  test.event("click", saturnFn, () => detailsBoxNameFieldFn().value === "Saturn");
+  test.do(() => expect(detailsBoxNameFieldFn().value).toBe("Saturn"));
   test.start();
 });
 
 it("On click with full request", function (done) {
-  let oneClickFullRequestFn = querySelectorFn("#page\\:mainForm\\:changeExample\\:\\:1");
-  let venusFn = querySelectorFn("#page\\:mainForm\\:s1\\:2\\:sample1");
-  let jupiterFn = querySelectorFn("#page\\:mainForm\\:s1\\:5\\:sample1");
-  let saturnFn = querySelectorFn("#page\\:mainForm\\:s1\\:6\\:sample1");
-  let namefieldFn = querySelectorFn("#page\\:mainForm\\:name\\:\\:field");
+  const onClickFullRequestFn = elementByIdFn("page:mainForm:changeExample::1");
+  const onClickAjaxPopupFn = elementByIdFn("page:mainForm:changeExample::3");
+  const detailsBoxFn = elementByIdFn("page:mainForm:detail");
+  const detailsBoxNameFieldFn = elementByIdFn("page:mainForm:name::field");
+  const sunFn = elementByIdFn("page:mainForm:s1:0:sample1");
+  const venusFn = elementByIdFn("page:mainForm:s1:2:sample1");
+  const jupiterFn = elementByIdFn("page:mainForm:s1:5:sample1");
+  const saturnFn = elementByIdFn("page:mainForm:s1:6:sample1");
 
-  let test = new JasmineTestTool(done);
-  test.do(() => oneClickFullRequestFn().checked = true);
-  test.event("change", oneClickFullRequestFn, () => venusFn());
-  test.do(() => expect(venusFn() != null).toBe(true));
-  test.do(() => expect(jupiterFn() != null).toBe(true));
-  test.do(() => expect(saturnFn() != null).toBe(true));
-  test.event("click", venusFn, () => namefieldFn() && namefieldFn().value === "Venus");
-  test.do(() => expect(namefieldFn().value).toBe("Venus"));
-  test.event("click", jupiterFn, () => namefieldFn() && namefieldFn().value === "Jupiter");
-  test.do(() => expect(namefieldFn().value).toBe("Jupiter"));
-  test.event("click", saturnFn, () => namefieldFn() && namefieldFn().value === "Saturn");
-  test.do(() => expect(namefieldFn().value).toBe("Saturn"));
+  const test = new JasmineTestTool(done);
+  test.setup(() => detailsBoxFn() === null,
+      () => onClickAjaxPopupFn().checked = true, "change", onClickAjaxPopupFn);
+  test.setup(() => detailsBoxFn() !== null,
+      () => onClickFullRequestFn().checked = true, "change", onClickFullRequestFn);
+  test.setup(() => detailsBoxNameFieldFn().value === "Sun", null, "click", sunFn);
+  test.event("click", venusFn, () => detailsBoxNameFieldFn().value === "Venus");
+  test.do(() => expect(detailsBoxNameFieldFn().value).toBe("Venus"));
+  test.event("click", jupiterFn, () => detailsBoxNameFieldFn().value === "Jupiter");
+  test.do(() => expect(detailsBoxNameFieldFn().value).toBe("Jupiter"));
+  test.event("click", saturnFn, () => detailsBoxNameFieldFn().value === "Saturn");
+  test.do(() => expect(detailsBoxNameFieldFn().value).toBe("Saturn"));
   test.start();
 });
 
 it("On double click with full request", function (done) {
-  let doubleClickFullRequestFn = querySelectorFn("#page\\:mainForm\\:changeExample\\:\\:2");
-  let venusFn = querySelectorFn("#page\\:mainForm\\:s1\\:2\\:sample2");
-  let jupiterFn = querySelectorFn("#page\\:mainForm\\:s1\\:5\\:sample2");
-  let saturnFn = querySelectorFn("#page\\:mainForm\\:s1\\:6\\:sample2");
-  let namefieldFn = querySelectorFn("#page\\:mainForm\\:name\\:\\:field");
+  const onDblclickFullRequestFn = elementByIdFn("page:mainForm:changeExample::2");
+  const onClickAjaxPopupFn = elementByIdFn("page:mainForm:changeExample::3");
+  const detailsBoxFn = elementByIdFn("page:mainForm:detail");
+  const detailsBoxNameFieldFn = elementByIdFn("page:mainForm:name::field");
+  const sunFn = elementByIdFn("page:mainForm:s1:0:sample2");
+  const venusFn = elementByIdFn("page:mainForm:s1:2:sample2");
+  const jupiterFn = elementByIdFn("page:mainForm:s1:5:sample2");
+  const saturnFn = elementByIdFn("page:mainForm:s1:6:sample2");
 
-  let test = new JasmineTestTool(done);
-  test.do(() => doubleClickFullRequestFn().checked = true);
-  test.event("change", doubleClickFullRequestFn, () => venusFn());
-  test.do(() => expect(venusFn() != null).toBe(true));
-  test.do(() => expect(jupiterFn() != null).toBe(true));
-  test.do(() => expect(saturnFn() != null).toBe(true));
-  test.event("dblclick", venusFn, () => namefieldFn() && namefieldFn().value === "Venus");
-  test.do(() => expect(namefieldFn().value).toBe("Venus"));
-  test.event("dblclick", jupiterFn, () => namefieldFn() && namefieldFn().value === "Jupiter");
-  test.do(() => expect(namefieldFn().value).toBe("Jupiter"));
-  test.event("dblclick", saturnFn, () => namefieldFn() && namefieldFn().value === "Saturn");
-  test.do(() => expect(namefieldFn().value).toBe("Saturn"));
+  const test = new JasmineTestTool(done);
+  test.setup(() => detailsBoxFn() === null,
+      () => onClickAjaxPopupFn().checked = true, "change", onClickAjaxPopupFn);
+  test.setup(() => detailsBoxFn() !== null,
+      () => onDblclickFullRequestFn().checked = true, "change", onDblclickFullRequestFn);
+  test.setup(() => detailsBoxNameFieldFn().value === "Sun", null, "dblclick", sunFn);
+  test.event("dblclick", venusFn, () => detailsBoxNameFieldFn().value === "Venus");
+  test.do(() => expect(detailsBoxNameFieldFn().value).toBe("Venus"));
+  test.event("dblclick", jupiterFn, () => detailsBoxNameFieldFn().value === "Jupiter");
+  test.do(() => expect(detailsBoxNameFieldFn().value).toBe("Jupiter"));
+  test.event("dblclick", saturnFn, () => detailsBoxNameFieldFn().value === "Saturn");
+  test.do(() => expect(detailsBoxNameFieldFn().value).toBe("Saturn"));
   test.start();
 });
 
 it("Open popup on click with ajax", function (done) {
-  let radioButtonFn = querySelectorFn("#page\\:mainForm\\:changeExample\\:\\:3");
-  let venusFn = querySelectorFn("#page\\:mainForm\\:s1\\:2\\:sample3");
-  let jupiterFn = querySelectorFn("#page\\:mainForm\\:s1\\:5\\:sample3");
-  let saturnFn = querySelectorFn("#page\\:mainForm\\:s1\\:6\\:sample3");
-  let popupFn = querySelectorFn("#page\\:mainForm\\:popup");
-  let nameFn = querySelectorFn("#page\\:mainForm\\:popup\\:popupName\\:\\:field");
-  let cancelFn = querySelectorFn("#page\\:mainForm\\:popup\\:cancel");
+  const onClickAjaxFn = elementByIdFn("page:mainForm:changeExample::0");
+  const onClickAjaxPopupFn = elementByIdFn("page:mainForm:changeExample::3");
+  const detailsBoxFn = elementByIdFn("page:mainForm:detail");
+  const venusFn = elementByIdFn("page:mainForm:s1:2:sample3");
+  const jupiterFn = elementByIdFn("page:mainForm:s1:5:sample3");
+  const saturnFn = elementByIdFn("page:mainForm:s1:6:sample3");
+  const bodyFn = querySelectorFn("body");
+  const backdropFn = querySelectorFn(".modal-backdrop.fade.show")
+  const reloadableFn = elementByIdFn("page:mainForm:reloadable");
+  const popupFn = elementByIdFn("page:mainForm:popup");
+  const popupNameFieldFn = elementByIdFn("page:mainForm:popup:popupName::field");
+  const cancelFn = elementByIdFn("page:mainForm:popup:cancel");
 
-  let test = new JasmineTestTool(done);
-  test.do(() => radioButtonFn().checked = true);
-  test.event("change", radioButtonFn, () => venusFn());
-  test.do(() => expect(venusFn() != null).toBe(true));
-  test.do(() => expect(jupiterFn() != null).toBe(true));
-  test.do(() => expect(saturnFn() != null).toBe(true));
-  test.event("click", venusFn, () => popupFn() && popupFn().classList.contains("show") === true);
-  test.do(() => expect(popupFn().classList.contains("show")).toBe(true));
-  test.do(() => expect(nameFn().value).toBe("Venus"));
-  test.event("click", cancelFn, () => popupFn() && popupFn().classList.contains("show") !== true);
-  test.do(() => expect(popupFn().classList.contains("show")).not.toBe(true));
-  test.event("click", jupiterFn, () => popupFn() && popupFn().classList.contains("show") === true);
-  test.do(() => expect(popupFn().classList.contains("show")).toBe(true));
-  test.do(() => expect(nameFn().value).toBe("Jupiter"));
-  test.event("click", cancelFn, () => popupFn() && popupFn().classList.contains("show") !== true);
-  test.do(() => expect(popupFn().classList.contains("show")).not.toBe(true));
-  test.event("click", saturnFn, () => popupFn() && popupFn().classList.contains("show") === true);
-  test.do(() => expect(popupFn().classList.contains("show")).toBe(true));
-  test.do(() => expect(nameFn().value).toBe("Saturn"));
-  test.event("click", cancelFn, () => popupFn() && popupFn().classList.contains("show") !== true);
-  test.do(() => expect(popupFn().classList.contains("show")).not.toBe(true));
+  let shownEventCount = 0;
+  let hiddenEventCount = 0;
+  reloadableFn().addEventListener("shown.bs.modal", () => shownEventCount++);
+  reloadableFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
+
+  const test = new JasmineTestTool(done);
+  test.setup(() => detailsBoxFn() !== null,
+      () => onClickAjaxFn().checked = true, "change", onClickAjaxFn);
+  test.setup(() => detailsBoxFn() === null,
+      () => onClickAjaxPopupFn().checked = true, "change", onClickAjaxPopupFn);
+
+  test.do(() => shownEventCount = 0);
+  test.event("click", venusFn, () => shownEventCount > 0);
+  test.do(() => expect(popupNameFieldFn().value).toBe("Venus"));
+  test.do(() => expect(bodyFn().classList.contains("modal-open")).toBeTrue());
+  test.do(() => expect(backdropFn()).not.toBeNull());
+  test.do(() => expect(popupFn().classList.contains("show")).toBeTrue());
+
+  test.do(() => hiddenEventCount = 0);
+  test.event("click", cancelFn, () => hiddenEventCount > 0);
+  test.do(() => expect(bodyFn().classList.contains("modal-open")).toBeFalse());
+  test.do(() => expect(backdropFn()).toBeNull());
+  test.do(() => expect(popupFn().classList.contains("show")).toBeFalse());
+
+  test.do(() => shownEventCount = 0);
+  test.event("click", jupiterFn, () => shownEventCount > 0);
+  test.do(() => expect(popupNameFieldFn().value).toBe("Jupiter"));
+  test.do(() => expect(bodyFn().classList.contains("modal-open")).toBeTrue());
+  test.do(() => expect(backdropFn()).not.toBeNull());
+  test.do(() => expect(popupFn().classList.contains("show")).toBeTrue());
+
+  test.do(() => hiddenEventCount = 0);
+  test.event("click", cancelFn, () => hiddenEventCount > 0);
+  test.do(() => expect(bodyFn().classList.contains("modal-open")).toBeFalse());
+  test.do(() => expect(backdropFn()).toBeNull());
+  test.do(() => expect(popupFn().classList.contains("show")).toBeFalse());
+
+  test.do(() => shownEventCount = 0);
+  test.event("click", saturnFn, () => shownEventCount > 0);
+  test.do(() => expect(popupNameFieldFn().value).toBe("Saturn"));
+  test.do(() => expect(bodyFn().classList.contains("modal-open")).toBeTrue());
+  test.do(() => expect(backdropFn()).not.toBeNull());
+  test.do(() => expect(popupFn().classList.contains("show")).toBeTrue());
+
+  test.do(() => hiddenEventCount = 0);
+  test.event("click", cancelFn, () => hiddenEventCount > 0);
+  test.do(() => expect(bodyFn().classList.contains("modal-open")).toBeFalse());
+  test.do(() => expect(backdropFn()).toBeNull());
+  test.do(() => expect(popupFn().classList.contains("show")).toBeFalse());
   test.start();
-});*/
+});
+
+it("On double click with ajax", function (done) {
+  const onClickAjaxPopupFn = elementByIdFn("page:mainForm:changeExample::3");
+  const onDblclickAjaxFn = elementByIdFn("page:mainForm:changeExample::4");
+  const detailsBoxFn = elementByIdFn("page:mainForm:detail");
+  const detailsBoxNameFieldFn = elementByIdFn("page:mainForm:name::field");
+  const sunFn = elementByIdFn("page:mainForm:s1:0:sample4");
+  const venusFn = elementByIdFn("page:mainForm:s1:2:sample4");
+  const jupiterFn = elementByIdFn("page:mainForm:s1:5:sample4");
+  const saturnFn = elementByIdFn("page:mainForm:s1:6:sample4");
+
+  const test = new JasmineTestTool(done);
+  test.setup(() => detailsBoxFn() === null,
+      () => onClickAjaxPopupFn().checked = true, "change", onClickAjaxPopupFn);
+  test.setup(() => detailsBoxFn() !== null,
+      () => onDblclickAjaxFn().checked = true, "change", onDblclickAjaxFn);
+  test.setup(() => detailsBoxNameFieldFn().value === "Sun", null, "dblclick", sunFn);
+  test.event("dblclick", venusFn, () => detailsBoxNameFieldFn().value === "Venus");
+  test.do(() => expect(detailsBoxNameFieldFn().value).toBe("Venus"));
+  test.event("dblclick", jupiterFn, () => detailsBoxNameFieldFn().value === "Jupiter");
+  test.do(() => expect(detailsBoxNameFieldFn().value).toBe("Jupiter"));
+  test.event("dblclick", saturnFn, () => detailsBoxNameFieldFn().value === "Saturn");
+  test.do(() => expect(detailsBoxNameFieldFn().value).toBe("Saturn"));
+  test.start();
+});
