@@ -141,6 +141,9 @@ $ mvn clean install &amp;&amp; mvn checkstyle:check apache-rat:check animal-snif
             <demo-highlight>package-info.java</demo-highlight>
             <demo-highlight>package.json</demo-highlight>
           </li>
+
+          <li>check with test-scenarios-locally.sh
+          </li>
         </ul>
       </tc:section>
       <tc:section label="Building the Release (Tobago 1.0.x to 2.0.8)">
@@ -300,36 +303,31 @@ ${content}</demo-highlight>
           <li>Update the release and staging version on tobago-vm.apache.org
           </li>
 
-          <li>Building the site
+          <li>Update the site
 
             <ul>
               <li>Updating the release and version information in the APT files of trunk, e. g.:
-
-                <!--todo this has changed!-->
-                <demo-highlight language="bash">tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/Release.java
-src/site/apt/index.apt
-src/site/resources/doap_tobago.rdf</demo-highlight>
+                <demo-highlight language="bash">tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/Release.java</demo-highlight>
               </li>
 
-              <li>
-                <demo-highlight language="bash">$ TOBAGO_SITE=/Volumes/tobago-site
-$ cd $TOBAGO_SITE
-$ git clone https://github.com/apache/myfaces-tobago tobago-master
-$ svn co https://svn.apache.org/repos/asf/myfaces/site/publish/tobago tobago-publish
-$ cd tobago-master
-$ export MAVEN_OPTS="-Xmx1500m \${MAVEN_OPTS}"
-$ mvn clean package -Pattach-source
-$ mvn site:site
-$ mvn site:stage -DstagingDirectory=$TOBAGO_SITE/tobago-publish</demo-highlight>
+              <li>Updating Tag Library Documentation (TLD)
+<demo-highlight language="bash">
+$ git clone https://github.com/apache/myfaces-tobago.git
+$ git clone https://github.com/apache/myfaces-homepage.git
+$ cd myfaces-tobago
+$ mvn clean package -Pgenerate-assembly
+$ cp -r tobago-core/target/tlddoc ../myfaces-homepage/tobago/doc/{tobago-version}
+$ cd ../myfaces-homepage/
+$ git add tobago/doc/{tobago-version}
+$ git commit -m "docs: TLD docs for Tobago release {tobago-version}"
+$ git push
+</demo-highlight>
+              </li>
+
+              <li>Updating 'tobago.md'.:
+                <demo-highlight language="bash">myfaces-homepage/tobago.md</demo-highlight>
               </li>
             </ul>
-          </li>
-
-          <li>Call "reformat code" on all *.html file in $TOBAGO_SITE/tobago-publish in the IDE
-            (the generated code has the main content in only one single line).
-          </li>
-
-          <li>Update the site after the distribution is on the Apache mirrors available.
           </li>
 
           <li>Unpack and commit the API Docs of the release with the update.sh (or update-1.5.sh) script in
