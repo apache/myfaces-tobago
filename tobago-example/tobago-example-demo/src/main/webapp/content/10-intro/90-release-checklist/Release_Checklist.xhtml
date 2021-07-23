@@ -311,17 +311,11 @@ ${content}</demo-highlight>
               </li>
 
               <li>Updating Tag Library Documentation (TLD)
-<demo-highlight language="bash">
-$ git clone https://github.com/apache/myfaces-tobago.git
-$ git clone https://github.com/apache/myfaces-homepage.git
-$ cd myfaces-tobago
-$ mvn clean package -Pgenerate-assembly
-$ cp -r tobago-core/target/tlddoc ../myfaces-homepage/tobago/doc/{tobago-version}/tld
-$ cd ../myfaces-homepage/
-$ git add tobago/doc/{tobago-version}
-$ git commit -m "docs: TLD docs for Tobago release {tobago-version}"
-$ git push
-</demo-highlight>
+                <ul>
+                  <li>generate in myfaces-tobago folder with: <demo-highlight language="bash">mvn clean package -Pgenerate-assembly</demo-highlight></li>
+                  <li>Copy from 'myfaces-tobago/tobago-core/target/tlddoc' to 'myfaces-homepage/tobago/doc/{tobago-version}/tld'</li>
+                  <li>Commit and push ("docs: TLD docs for Tobago release {tobago-version}")</li>
+                </ul>
               </li>
 
               <li>Updating 'tobago.md'.:
