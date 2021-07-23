@@ -207,15 +207,12 @@ Tobago.registerListener(Tobago.File.init, Tobago.Phase.AFTER_UPDATE);
 
     hide: function () {
       // console.info("hide"); // @DEV_ONLY
-      this.fileDropArea.off("drop");
+      this.fileDropArea.off("drop", this.filesDropped);
       this.fileDropArea.css({display: 'none'});
     },
 
     filesDropped: function (event) {
       console.info("dropFile"); // @DEV_ONLY
-      event.stopPropagation();
-      event.stopImmediatePropagation();
-      event.preventDefault();
 
       var dropThis = jQuery(this);
       var fileDrop = dropThis.data("widget-element");
@@ -225,13 +222,18 @@ Tobago.registerListener(Tobago.File.init, Tobago.Phase.AFTER_UPDATE);
       //noinspection JSUnresolvedVariable
       var files = event.originalEvent.dataTransfer.files;
       console.info("files.length: " + files.length); // @DEV_ONLY
+
+      if (files.length === 0) {
+        console.warn("no files dropped, aborting upload!");
+        return
+      }
+
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      event.preventDefault();
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
         console.info("file: " + file.name); // @DEV_ONLY
-      }
-
-      if (files.length == 0) {
-        console.warn("no files dropped, aborting upload!");
       }
 
       var fileElement = fileDrop.find("input[type='file']");
