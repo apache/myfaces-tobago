@@ -40,6 +40,9 @@
                                                         image="bi-box-arrow-up-right"/>
             and the <tc:link label="Apache site" link="https://www.apache.org/dist/myfaces/KEYS"
                              image="bi-box-arrow-up-right"/> before a release.
+            The SVN is read-only in general but the KEYS file can be committed.
+            Change the <tc:link label="KEYS" link="https://dist.apache.org/repos/dist/release/myfaces/KEYS"
+                                image="bi-box-arrow-up-right"/> file as it will be copied to the Apache site.
           </li>
 
           <li>Ensure that all open bugs and issues in
@@ -179,19 +182,28 @@ $ mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-defaul
 
       <tc:section label="Building the Release (Tobago 2.0.9 and higher)">
         <ul>
-          <li>Prepare and perform the release with:
-
-            <demo-highlight language="bash">$ mvn release:prepare
-$ mvn release:perform
-</demo-highlight>
+          <li>Set next version in:
+            <demo-highlight>package.json
+package-lock.json</demo-highlight>
+            and commit: "chore(release): prepare"
           </li>
-          <li>Make public available:
-
-            <demo-highlight language="bash">$ git push
-</demo-highlight>
+          <li>Prepare the release with:
+            <demo-highlight language="bash">$ mvn release:prepare</demo-highlight>
+            The release-plugin make use of the
+            <tc:link label="maven-gpg-plugin" link="https://maven.apache.org/plugins/maven-gpg-plugin/"
+                     image="bi-box-arrow-up-right"/>.
           </li>
-          <li>Set next snapshot version in:
-            <demo-highlight>package.json</demo-highlight>
+          <li>Make sure "apache.snapshots.https" and "apache.releases.https" servers are configured in settings.xml.
+            Have a look at <tc:link label="Publishing Maven Releases"
+                                    link="https://infra.apache.org/publishing-maven-artifacts.html"
+                                    image="bi-box-arrow-up-right"/> for more information.
+            Then perform the release with:
+            <demo-highlight language="bash">$ mvn release:perform</demo-highlight>
+          </li>
+          <li>Set next SNAPSHOT version in:
+              <demo-highlight>package.json
+package-lock.json</demo-highlight>
+              and commit: "chore(release): set next SNAPSHOT version"
           </li>
         </ul>
       </tc:section>
