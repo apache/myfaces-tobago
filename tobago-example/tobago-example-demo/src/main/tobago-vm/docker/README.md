@@ -18,10 +18,9 @@ Copy these file to the server and login there:
 ```
 ssh tobago-vm.apache.org
 
-cd /opt/docker
-git clone https://github.com/apache/myfaces-tobago tobago
-chmod o+w -R tobago
-cd /opt/docker/tobago/tobago-example/tobago-example-demo/src/main/tobago-vm/docker/
+cd
+git clone https://github.com/apache/myfaces-tobago
+cd ~/myfaces-tobago/tobago-example/tobago-example-demo/src/main/tobago-vm/docker/
 
 docker-compose up -d
 ```
@@ -31,7 +30,7 @@ docker-compose up -d
 only minor changes like version, or staging for votes: 
 
 ```
-cd /opt/docker/tobago/tobago-example/tobago-example-demo/src/main/tobago-vm/docker/
+cd ~/myfaces-tobago/tobago-example/tobago-example-demo/src/main/tobago-vm/docker/
 git pull --rebase
 docker-compose build
 docker-compose up -d
@@ -42,7 +41,7 @@ docker-compose up -d
 Update, rebuild, run: 
 
 ```
-cd /opt/docker/tobago/tobago-example/tobago-example-demo/src/main/tobago-vm/docker/
+cd ~/myfaces-tobago/tobago-example/tobago-example-demo/src/main/tobago-vm/docker/
 git pull --rebase
 docker-compose down
 docker pull tomcat:8.5-jdk8-adoptopenjdk-hotspot
