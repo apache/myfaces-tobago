@@ -192,7 +192,7 @@ done
 
 # run with Maven
 
-mvn clean install -Pdev && docker run -it --rm -p 8080:8080 -v `pwd`/target/tobago-example-demo.war:/usr/local/tomcat/webapps/demo.war tomcat:7-jre8
+mvn clean install -Ptomcat -Pdev && docker run -it --rm -p 8080:8080 -v `pwd`/target/tobago-example-demo.war:/usr/local/tomcat/webapps/demo.war tomcat:9-jdk8
 
 echo "+--------------------------------------------------------------------------------------------------+"
 echo "All checks successful!"
