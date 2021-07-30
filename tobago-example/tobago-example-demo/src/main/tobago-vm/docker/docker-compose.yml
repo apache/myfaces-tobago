@@ -70,8 +70,8 @@ services:
   demo-5-staging:
     build: tomcat
     environment:
-      - TOBAGO_VERSION=5.0.0-alpha-1
-      - STAGING_NUMBER=1192
+      - TOBAGO_VERSION=5.0.0-alpha-2
+      - STAGING_NUMBER=1194
       - CONTEXT_PATH=demo-5-staging
     volumes:
       - ~/tobago-vm/artifacts:/opt/docker/artifacts
