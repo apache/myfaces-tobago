@@ -182,10 +182,19 @@ $ mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-defaul
 
       <tc:section label="Building the Release (Tobago 2.0.9 and higher)">
         <ul>
-          <li>Set next version in:
-            <demo-highlight>package.json
-package-lock.json</demo-highlight>
-            and commit: "chore(release): prepare"
+          <li>Commit: "chore(release): prepare"
+            <ul>
+              <li>Set next version in:
+                <demo-highlight>package.json
+package-lock.json
+                </demo-highlight>
+              </li>
+              <li>Adjust versions in demo:
+                <demo-highlight>Release
+ApiController
+                </demo-highlight>
+              </li>
+            </ul>
           </li>
           <li>Prepare the release with:
             <demo-highlight language="bash">$ mvn release:prepare</demo-highlight>
@@ -299,7 +308,7 @@ ${content}</demo-highlight>
                                                      image="bi-box-arrow-up-right"/> and close all resolved issues for the release.
           </li>
 
-          <li><i>Release</i> the staging repository on the <tc:link label="Nexus" link="https://repository.apache.org/"
+          <li><i>Release</i> and drop the staging repository on the <tc:link label="Nexus" link="https://repository.apache.org/"
                                                                     image="bi-box-arrow-up-right"/> instance.
           </li>
 
@@ -310,6 +319,7 @@ ${content}</demo-highlight>
           <li>Add the release version and date to the <tc:link label="Apache Committee Report Helper"
                                                                link="https://reporter.apache.org/addrelease.html?myfaces"
                                                                image="bi-box-arrow-up-right"/>.
+            Full version name is "tobago-{VERSION}".
           </li>
 
           <li>Update the release and staging version on tobago-vm.apache.org
@@ -318,7 +328,7 @@ ${content}</demo-highlight>
           <li>Update the site
 
             <ul>
-              <li>Updating the release and version information in the APT files of trunk, e. g.:
+              <li>Updating the release and version information in other branches, e. g.:
                 <demo-highlight language="bash">tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/Release.java</demo-highlight>
               </li>
 
