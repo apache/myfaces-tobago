@@ -61,7 +61,7 @@
   },
   "dependencies": {
     "@trevoreyre/autocomplete-js": "^2.2.0",
-    "bootstrap": "5.0.2",
+    "bootstrap": "5.1.0",
     "bootstrap-icons": "1.5.0",
     "vanillajs-datepicker": "^1.1.4"
   },
@@ -88,7 +88,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.30.0",
     "sass": "^1.37.0",
-    "ts-jest": "^27.0.4",
+    "ts-jest": "^27.0.5",
     "tslib": "^2.3.0",
     "typescript": "^4.3.5",
     "uglify-js": "^3.14.1"
