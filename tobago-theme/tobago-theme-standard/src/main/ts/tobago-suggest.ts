@@ -119,12 +119,13 @@ export class Suggest {
     const baseRect = this.base.getBoundingClientRect();
     const suggestInputRect = this.suggestInput.getBoundingClientRect();
     const suggestInputStyle = getComputedStyle(this.suggestInput);
-    this.pseudoContainer.style.left = `${suggestInputRect.x - baseRect.x + suggestInputRect.width
-    - parseFloat(getComputedStyle(this.pseudoContainer, ":after").width)
+    const pseudoContainer = this.pseudoContainer;
+    pseudoContainer.style.left = `${suggestInputRect.x - baseRect.x + suggestInputRect.width
+    - parseFloat(getComputedStyle(pseudoContainer, ":after").width)
     - parseFloat(suggestInputStyle.marginRight)
     - parseFloat(suggestInputStyle.borderRight)
     - parseFloat(suggestInputStyle.paddingRight)}px`;
-    this.pseudoContainer.style.top = `${suggestInputRect.y - baseRect.y + (suggestInputRect.height / 2)}px`;
+    pseudoContainer.style.top = `${suggestInputRect.y - baseRect.y + (suggestInputRect.height / 2)}px`;
   }
 
   private positioningResultList(): void {
@@ -169,7 +170,7 @@ export class Suggest {
   }
 
   private get pseudoContainer(): HTMLDivElement {
-    return this.base.querySelector(":scope > .autocomplete-pseudo-container");
+    return this.base.querySelector(".autocomplete-pseudo-container");
   }
 
   private get suggestInput(): HTMLInputElement {
