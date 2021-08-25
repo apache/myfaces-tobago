@@ -284,7 +284,8 @@ public class FacesConfigGenerator extends AbstractGenerator {
     return getEqualElement(components, newElement) != null;
   }
 
-  private org.jdom2.Element getEqualElement(final List<org.jdom2.Element> components, final org.jdom2.Element newElement) {
+  private org.jdom2.Element getEqualElement(
+      final List<org.jdom2.Element> components, final org.jdom2.Element newElement) {
     for (final org.jdom2.Element element : components) {
       if (equals(element, newElement)) {
         return element;
@@ -545,7 +546,8 @@ public class FacesConfigGenerator extends AbstractGenerator {
     }
   }
 
-  private void addFacets(final UIComponentTag componentTag, final Namespace namespace, final org.jdom2.Element element) {
+  private void addFacets(
+      final UIComponentTag componentTag, final Namespace namespace, final org.jdom2.Element element) {
     final Facet[] facets = componentTag.facets();
     for (final Facet facet : facets) {
       final org.jdom2.Element facetElement = new org.jdom2.Element(FACET, namespace);
@@ -559,7 +561,8 @@ public class FacesConfigGenerator extends AbstractGenerator {
       facetName.setText(facet.name());
       facetElement.addContent(facetName);
       final org.jdom2.Element facetExtension = new org.jdom2.Element(FACET_EXTENSION, namespace);
-      final org.jdom2.Element elementAllowedChildComponents = new org.jdom2.Element(ALLOWED_CHILD_COMPONENTS, namespace);
+      final org.jdom2.Element elementAllowedChildComponents
+          = new org.jdom2.Element(ALLOWED_CHILD_COMPONENTS, namespace);
       final String[] allowedChildComponents = facet.allowedChildComponenents();
       String allowedComponentTypes = "";
       for (final String componentType : allowedChildComponents) {
