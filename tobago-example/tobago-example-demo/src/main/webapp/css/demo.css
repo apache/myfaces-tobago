@@ -33,7 +33,7 @@
 .demo-data-attribute {
   height: 100px;
   border: 1px solid #000000;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 }
 
 demo-highlight {
