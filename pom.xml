@@ -55,7 +55,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jsf.target>2.0</jsf.target>
     <required.maven.version>2.2.1</required.maven.version>
-    <checkstyle-rules.version>13</checkstyle-rules.version>
+    <checkstyle-rules.version>15-SNAPSHOT</checkstyle-rules.version>
     <tobago.basedir>${project.basedir}</tobago.basedir>
   </properties>
 
