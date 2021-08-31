@@ -24,7 +24,7 @@ class Bar extends HTMLElement {
     COLLAPSE: "collapse",
     COLLAPSING: "collapsing"
   };
-  private readonly ariaExpanded: string = "aria-expanded";
+
   private timeout: number;
   private expanded: boolean;
 
@@ -34,7 +34,7 @@ class Bar extends HTMLElement {
   }
 
   connectedCallback(): void {
-    this.expanded = this.toggleButton.getAttribute(this.ariaExpanded) === "true";
+    this.expanded = this.toggleButton.ariaExpanded === "true";
   }
 
   private toggleCollapse(event: MouseEvent): void {
@@ -52,7 +52,7 @@ class Bar extends HTMLElement {
       this.timeout = window.setTimeout(() => {
         this.navbarContent.classList.remove(this.CssClass.COLLAPSING);
         this.navbarContent.classList.add(this.CssClass.COLLAPSE);
-        this.toggleButton.setAttribute(this.ariaExpanded, "false");
+        this.toggleButton.ariaExpanded = "false";
       }, DomUtils.getTransitionTime(this.navbarContent));
     } else {
       this.expanded = true;
@@ -65,7 +65,7 @@ class Bar extends HTMLElement {
         this.navbarContent.classList.add(this.CssClass.COLLAPSE);
         this.navbarContent.classList.add(this.CssClass.SHOW);
         this.navbarContent.style.height = null;
-        this.toggleButton.setAttribute(this.ariaExpanded, "true");
+        this.toggleButton.ariaExpanded = "true";
       }, DomUtils.getTransitionTime(this.navbarContent));
     }
   }
