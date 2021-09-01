@@ -49,6 +49,13 @@ class Behavior extends HTMLElement {
 
   callback(event?: Event): void {
 
+    if (this.confirmation) {
+      if (!window.confirm(this.confirmation)) {
+        event?.preventDefault();
+        return;
+      }
+    }
+
     if (this.collapseOperation && this.collapseTarget) {
       const rootNode = this.getRootNode() as ShadowRoot | Document;
       Collapse.execute(this.collapseOperation, rootNode.getElementById(this.collapseTarget), this.mode);

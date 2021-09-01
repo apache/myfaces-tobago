@@ -76,11 +76,10 @@
               COLLAPSE: "collapse",
               COLLAPSING: "collapsing"
           };
-          this.ariaExpanded = "aria-expanded";
           this.toggleButton.addEventListener("click", this.toggleCollapse.bind(this));
       }
       connectedCallback() {
-          this.expanded = this.toggleButton.getAttribute(this.ariaExpanded) === "true";
+          this.expanded = this.toggleButton.ariaExpanded === "true";
       }
       toggleCollapse(event) {
           window.clearTimeout(this.timeout);
@@ -95,7 +94,7 @@
               this.timeout = window.setTimeout(() => {
                   this.navbarContent.classList.remove(this.CssClass.COLLAPSING);
                   this.navbarContent.classList.add(this.CssClass.COLLAPSE);
-                  this.toggleButton.setAttribute(this.ariaExpanded, "false");
+                  this.toggleButton.ariaExpanded = "false";
               }, DomUtils.getTransitionTime(this.navbarContent));
           }
           else {
@@ -108,7 +107,7 @@
                   this.navbarContent.classList.add(this.CssClass.COLLAPSE);
                   this.navbarContent.classList.add(this.CssClass.SHOW);
                   this.navbarContent.style.height = null;
-                  this.toggleButton.setAttribute(this.ariaExpanded, "true");
+                  this.toggleButton.ariaExpanded = "true";
               }, DomUtils.getTransitionTime(this.navbarContent));
           }
       }
@@ -7254,6 +7253,12 @@
           }
       }
       callback(event) {
+          if (this.confirmation) {
+              if (!window.confirm(this.confirmation)) {
+                  event === null || event === void 0 ? void 0 : event.preventDefault();
+                  return;
+              }
+          }
           if (this.collapseOperation && this.collapseTarget) {
               const rootNode = this.getRootNode();
               Collapse.execute(this.collapseOperation, rootNode.getElementById(this.collapseTarget), this.mode);
