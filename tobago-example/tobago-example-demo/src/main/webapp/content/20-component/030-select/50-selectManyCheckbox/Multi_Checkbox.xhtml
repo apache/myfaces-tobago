@@ -76,7 +76,7 @@
   <tc:section label="Simple Usage">
     <p>Select an animal. The selection is shown in the output field, after pressing 'Submit'.</p>
     <p><code
-            class="language-markup">&lt;tc:selectManyCheckbox label="Checkbox Group" value="\#{selectManyCheckboxController.animals}"></code>
+        class="language-markup">&lt;tc:selectManyCheckbox label="Checkbox Group" value="\#{selectManyCheckboxController.animals}"></code>
       save the selected value in the controller.
       The available items are added with <code class="language-markup">&lt;tc:selectItem .../></code>.
       The
@@ -121,7 +121,7 @@
       <tc:box>
         First and second giant planets:
         <tc:selectManyCheckbox id="giant0" value="#{selectManyCheckboxController.selectedGiantPlanet}" renderRange="0,1"
-                           labelLayout="skip">
+                               labelLayout="skip">
           <f:selectItems value="#{astroData.giantPlanets}"/>
         </tc:selectManyCheckbox>
       </tc:box>
