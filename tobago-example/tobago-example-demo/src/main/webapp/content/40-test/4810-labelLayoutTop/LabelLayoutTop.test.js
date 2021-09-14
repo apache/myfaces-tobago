@@ -23,7 +23,7 @@ it("fix tc:file first", function (done) {
   test.start();
 });
 
-/*
+
 import {querySelectorFn} from "/script/tobago-test.js";
 
 QUnit.test("Check width for tc:date", function (assert) {
@@ -98,4 +98,3 @@ function testWidth(assert, idPart) {
   assert.equal(getComputedStyle(compLabelFn()).width, "155px");
   assert.equal(getComputedStyle(compTopFn().querySelector("label")).width, getComputedStyle(compTopFn()).width);
 }
-*/

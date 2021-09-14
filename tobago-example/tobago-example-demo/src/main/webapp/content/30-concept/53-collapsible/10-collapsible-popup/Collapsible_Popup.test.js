@@ -23,7 +23,7 @@ it("not implemented yet", function (done) {
   test.start();
 });
 
-/*
+
 import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
@@ -195,4 +195,3 @@ QUnit.test("Client Side", function (assert) {
   });
   TTT.startTest();
 });
-*/
