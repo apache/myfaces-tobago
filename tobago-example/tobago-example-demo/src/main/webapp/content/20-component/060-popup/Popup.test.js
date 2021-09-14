@@ -193,7 +193,7 @@ it("Open 'Client Popup', press 'Submit & Close' while field has content.", funct
   let shownEventCount = 0;
   let hiddenEventCount = 0;
   popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
-  popupFn().addEventListener("hidd4en.bs.modal", () => hiddenEventCount++);
+  popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
 
   const test = new JasmineTestTool(done);
   test.do(() => hiddenEventCount = 1);
