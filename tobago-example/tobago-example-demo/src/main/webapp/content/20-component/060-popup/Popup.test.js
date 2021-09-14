@@ -19,285 +19,285 @@ import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 import {elementByIdFn, querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 
 it("Open 'Client Popup' and press 'Cancel'.", function (done) {
-  let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
-  let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
-  let openButtonFn = elementByIdFn("page:mainForm:form2:open");
-  let cancelButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:cancel2");
+    let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
+    let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
+    let openButtonFn = elementByIdFn("page:mainForm:form2:open");
+    let cancelButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:cancel2");
 
-  let shownEventCount = 0;
-  let hiddenEventCount = 0;
-  popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
-  popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
+    let shownEventCount = 0;
+    let hiddenEventCount = 0;
+    popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
+    popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
 
-  const test = new JasmineTestTool(done);
-  test.do(() => hiddenEventCount = 1);
-  test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
-      () => hiddenEventCount = 0,
-      "click", cancelButtonFn);
-  test.do(() => expect(popupFn().classList).not.toContain("show"));
-  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+    const test = new JasmineTestTool(done);
+    test.do(() => hiddenEventCount = 1);
+    test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
+        () => hiddenEventCount = 0,
+        "click", cancelButtonFn);
+    test.do(() => expect(popupFn().classList).not.toContain("show"));
+    test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
 
-  test.do(() => shownEventCount = 0);
-  test.event("click", openButtonFn, () => shownEventCount > 0);
-  test.do(() => expect(popupFn().classList).toContain("show"));
-  test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
+    test.do(() => shownEventCount = 0);
+    test.event("click", openButtonFn, () => shownEventCount > 0);
+    test.do(() => expect(popupFn().classList).toContain("show"));
+    test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
 
-  test.do(() => hiddenEventCount = 0);
-  test.event("click", cancelButtonFn, () => hiddenEventCount > 0);
-  test.do(() => expect(popupFn().classList).not.toContain("show"));
-  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
-  test.start();
+    test.do(() => hiddenEventCount = 0);
+    test.event("click", cancelButtonFn, () => hiddenEventCount > 0);
+    test.do(() => expect(popupFn().classList).not.toContain("show"));
+    test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+    test.start();
 });
 
 it("Open 'Client Popup', press 'Submit' while field is empty. Press 'Cancel'.", function (done) {
-  let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
-  let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
-  let openButtonFn = elementByIdFn("page:mainForm:form2:open");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out .form-control-plaintext");
-  let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
-  let messageCloseFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages .btn-close");
-  let inputFieldFn = elementByIdFn("page:mainForm:form2:clientPopup:in2::field");
-  let submitButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:submit2");
-  let cancelButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:cancel2");
-  let outputValue = outputFn().textContent;
+    let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
+    let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
+    let openButtonFn = elementByIdFn("page:mainForm:form2:open");
+    let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out .form-control-plaintext");
+    let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
+    let messageCloseFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages .btn-close");
+    let inputFieldFn = elementByIdFn("page:mainForm:form2:clientPopup:in2::field");
+    let submitButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:submit2");
+    let cancelButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:cancel2");
+    let outputValue = outputFn().textContent;
 
-  let shownEventCount = 0;
-  let hiddenEventCount = 0;
-  popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
-  popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
+    let shownEventCount = 0;
+    let hiddenEventCount = 0;
+    popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
+    popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
 
-  const test = new JasmineTestTool(done);
-  test.do(() => hiddenEventCount = 1);
-  test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
-      () => hiddenEventCount = 0,
-      "click", cancelButtonFn);
-  test.setup(() => messagesFn().length === 0, null, "click", messageCloseFn);
-  test.do(() => expect(popupFn().classList).not.toContain("show"));
-  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
-  test.do(() => expect(messagesFn().length).toEqual(0));
+    const test = new JasmineTestTool(done);
+    test.do(() => hiddenEventCount = 1);
+    test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
+        () => hiddenEventCount = 0,
+        "click", cancelButtonFn);
+    test.setup(() => messagesFn().length === 0, null, "click", messageCloseFn);
+    test.do(() => expect(popupFn().classList).not.toContain("show"));
+    test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+    test.do(() => expect(messagesFn().length).toEqual(0));
 
-  test.do(() => shownEventCount = 0);
-  test.event("click", openButtonFn, () => shownEventCount > 0);
-  test.do(() => expect(popupFn().classList).toContain("show"));
-  test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
+    test.do(() => shownEventCount = 0);
+    test.event("click", openButtonFn, () => shownEventCount > 0);
+    test.do(() => expect(popupFn().classList).toContain("show"));
+    test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
 
-  test.do(() => inputFieldFn().value = "");
-  test.event("click", submitButtonFn, () => messagesFn().length === 1);
-  test.do(() => expect(messagesFn().length).toEqual(1));
+    test.do(() => inputFieldFn().value = "");
+    test.event("click", submitButtonFn, () => messagesFn().length === 1);
+    test.do(() => expect(messagesFn().length).toEqual(1));
 
-  test.do(() => hiddenEventCount = 0);
-  test.event("click", cancelButtonFn, () => hiddenEventCount > 0);
-  test.do(() => expect(popupFn().classList).not.toContain("show"));
-  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
-  test.do(() => expect(outputFn().textContent).toBe(outputValue));
-  test.start();
+    test.do(() => hiddenEventCount = 0);
+    test.event("click", cancelButtonFn, () => hiddenEventCount > 0);
+    test.do(() => expect(popupFn().classList).not.toContain("show"));
+    test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+    test.do(() => expect(outputFn().textContent).toBe(outputValue));
+    test.start();
 });
 
 it("Open 'Client Popup', press 'Submit' while field has content. Press 'Cancel'.", function (done) {
-  let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
-  let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
-  let openButtonFn = elementByIdFn("page:mainForm:form2:open");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out .form-control-plaintext");
-  let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
-  let inputFieldFn = elementByIdFn("page:mainForm:form2:clientPopup:in2::field");
-  let submitButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:submit2");
-  let cancelButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:cancel2");
+    let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
+    let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
+    let openButtonFn = elementByIdFn("page:mainForm:form2:open");
+    let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out .form-control-plaintext");
+    let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
+    let inputFieldFn = elementByIdFn("page:mainForm:form2:clientPopup:in2::field");
+    let submitButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:submit2");
+    let cancelButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:cancel2");
 
-  let shownEventCount = 0;
-  let hiddenEventCount = 0;
-  popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
-  popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
+    let shownEventCount = 0;
+    let hiddenEventCount = 0;
+    popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
+    popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
 
-  const test = new JasmineTestTool(done);
-  test.do(() => hiddenEventCount = 1);
-  test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
-      () => hiddenEventCount = 0,
-      "click", cancelButtonFn);
-  test.setup(() => outputFn().textContent !== "Tobago",
-      () => inputFieldFn().value = "Trinidad",
-      "click", submitButtonFn);
-  test.do(() => expect(popupFn().classList).not.toContain("show"));
-  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
-  test.do(() => expect(outputFn().textContent).not.toBe("Tobago"));
+    const test = new JasmineTestTool(done);
+    test.do(() => hiddenEventCount = 1);
+    test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
+        () => hiddenEventCount = 0,
+        "click", cancelButtonFn);
+    test.setup(() => outputFn().textContent !== "Tobago",
+        () => inputFieldFn().value = "Trinidad",
+        "click", submitButtonFn);
+    test.do(() => expect(popupFn().classList).not.toContain("show"));
+    test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+    test.do(() => expect(outputFn().textContent).not.toBe("Tobago"));
 
-  test.do(() => shownEventCount = 0);
-  test.event("click", openButtonFn, () => shownEventCount > 0);
-  test.do(() => expect(popupFn().classList).toContain("show"));
-  test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
+    test.do(() => shownEventCount = 0);
+    test.event("click", openButtonFn, () => shownEventCount > 0);
+    test.do(() => expect(popupFn().classList).toContain("show"));
+    test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
 
-  test.do(() => inputFieldFn().value = "Tobago");
-  test.event("click", submitButtonFn, () => outputFn().textContent === "Tobago");
-  test.do(() => expect(outputFn().textContent).toBe("Tobago"));
+    test.do(() => inputFieldFn().value = "Tobago");
+    test.event("click", submitButtonFn, () => outputFn().textContent === "Tobago");
+    test.do(() => expect(outputFn().textContent).toBe("Tobago"));
 
-  test.do(() => hiddenEventCount = 0);
-  test.event("click", cancelButtonFn, () => hiddenEventCount > 0);
-  test.do(() => expect(popupFn().classList).not.toContain("show"));
-  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
-  test.do(() => expect(messagesFn().length).toEqual(0));
-  test.start();
+    test.do(() => hiddenEventCount = 0);
+    test.event("click", cancelButtonFn, () => hiddenEventCount > 0);
+    test.do(() => expect(popupFn().classList).not.toContain("show"));
+    test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+    test.do(() => expect(messagesFn().length).toEqual(0));
+    test.start();
 });
 
 it("Open 'Client Popup', press 'Submit & Close' while field is empty.", function (done) {
-  let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
-  let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
-  let openButtonFn = elementByIdFn("page:mainForm:form2:open");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out .form-control-plaintext");
-  let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
-  let messageCloseFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages .btn-close");
-  let inputFieldFn = elementByIdFn("page:mainForm:form2:clientPopup:in2::field");
-  let submitCloseButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:submitClose2");
-  let cancelButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:cancel2");
-  let outputValue = outputFn().textContent;
+    let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
+    let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
+    let openButtonFn = elementByIdFn("page:mainForm:form2:open");
+    let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out .form-control-plaintext");
+    let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
+    let messageCloseFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages .btn-close");
+    let inputFieldFn = elementByIdFn("page:mainForm:form2:clientPopup:in2::field");
+    let submitCloseButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:submitClose2");
+    let cancelButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:cancel2");
+    let outputValue = outputFn().textContent;
 
-  let shownEventCount = 0;
-  let hiddenEventCount = 0;
-  popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
-  popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
+    let shownEventCount = 0;
+    let hiddenEventCount = 0;
+    popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
+    popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
 
-  const test = new JasmineTestTool(done);
-  test.do(() => hiddenEventCount = 1);
-  test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
-      () => hiddenEventCount = 0,
-      "click", cancelButtonFn);
-  test.setup(() => messagesFn().length === 0, null, "click", messageCloseFn);
-  test.do(() => expect(popupFn().classList).not.toContain("show"));
-  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
-  test.do(() => expect(messagesFn().length).toEqual(0));
+    const test = new JasmineTestTool(done);
+    test.do(() => hiddenEventCount = 1);
+    test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
+        () => hiddenEventCount = 0,
+        "click", cancelButtonFn);
+    test.setup(() => messagesFn().length === 0, null, "click", messageCloseFn);
+    test.do(() => expect(popupFn().classList).not.toContain("show"));
+    test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+    test.do(() => expect(messagesFn().length).toEqual(0));
 
-  test.do(() => shownEventCount = 0);
-  test.event("click", openButtonFn, () => shownEventCount > 0);
-  test.do(() => expect(popupFn().classList).toContain("show"));
-  test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
+    test.do(() => shownEventCount = 0);
+    test.event("click", openButtonFn, () => shownEventCount > 0);
+    test.do(() => expect(popupFn().classList).toContain("show"));
+    test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
 
-  test.do(() => inputFieldFn().value = "");
-  test.do(() => hiddenEventCount = 0);
-  test.event("click", submitCloseButtonFn, () => hiddenEventCount > 0);
-  test.do(() => expect(popupFn().classList).not.toContain("show"));
-  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
-  test.do(() => expect(messagesFn().length).toEqual(1));
-  test.do(() => expect(outputFn().textContent).toBe(outputValue));
-  test.start();
+    test.do(() => inputFieldFn().value = "");
+    test.do(() => hiddenEventCount = 0);
+    test.event("click", submitCloseButtonFn, () => hiddenEventCount > 0);
+    test.do(() => expect(popupFn().classList).not.toContain("show"));
+    test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+    test.do(() => expect(messagesFn().length).toEqual(1));
+    test.do(() => expect(outputFn().textContent).toBe(outputValue));
+    test.start();
 });
 
 it("Open 'Client Popup', press 'Submit & Close' while field has content.", function (done) {
-  let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
-  let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
-  let openButtonFn = elementByIdFn("page:mainForm:form2:open");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out .form-control-plaintext");
-  let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
-  let inputFieldFn = elementByIdFn("page:mainForm:form2:clientPopup:in2::field");
-  let submitButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:submit2");
-  let submitCloseButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:submitClose2");
-  let cancelButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:cancel2");
+    let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
+    let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
+    let openButtonFn = elementByIdFn("page:mainForm:form2:open");
+    let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out .form-control-plaintext");
+    let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
+    let inputFieldFn = elementByIdFn("page:mainForm:form2:clientPopup:in2::field");
+    let submitButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:submit2");
+    let submitCloseButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:submitClose2");
+    let cancelButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:cancel2");
 
-  let shownEventCount = 0;
-  let hiddenEventCount = 0;
-  popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
-  popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
+    let shownEventCount = 0;
+    let hiddenEventCount = 0;
+    popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
+    popupFn().addEventListener("hidd4en.bs.modal", () => hiddenEventCount++);
 
-  const test = new JasmineTestTool(done);
-  test.do(() => hiddenEventCount = 1);
-  test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
-      () => hiddenEventCount = 0,
-      "click", cancelButtonFn);
-  test.setup(() => outputFn().textContent !== "Little Tobago",
-      () => inputFieldFn().value = "Charlotteville",
-      "click", submitButtonFn);
-  test.do(() => expect(popupFn().classList).not.toContain("show"));
-  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
-  test.do(() => expect(outputFn().textContent).not.toBe("Little Tobago"));
+    const test = new JasmineTestTool(done);
+    test.do(() => hiddenEventCount = 1);
+    test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
+        () => hiddenEventCount = 0,
+        "click", cancelButtonFn);
+    test.setup(() => outputFn().textContent !== "Little Tobago",
+        () => inputFieldFn().value = "Charlotteville",
+        "click", submitButtonFn);
+    test.do(() => expect(popupFn().classList).not.toContain("show"));
+    test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+    test.do(() => expect(outputFn().textContent).not.toBe("Little Tobago"));
 
-  test.do(() => shownEventCount = 0);
-  test.event("click", openButtonFn, () => shownEventCount > 0);
-  test.do(() => expect(popupFn().classList).toContain("show"));
-  test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
+    test.do(() => shownEventCount = 0);
+    test.event("click", openButtonFn, () => shownEventCount > 0);
+    test.do(() => expect(popupFn().classList).toContain("show"));
+    test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
 
-  test.do(() => inputFieldFn().value = "Little Tobago");
-  test.do(() => hiddenEventCount = 0);
-  test.event("click", submitCloseButtonFn, () => hiddenEventCount > 0);
-  test.do(() => expect(popupFn().classList).not.toContain("show"));
-  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
-  test.do(() => expect(messagesFn().length).toEqual(0));
-  test.do(() => expect(outputFn().textContent).toBe("Little Tobago"));
-  test.start();
+    test.do(() => inputFieldFn().value = "Little Tobago");
+    test.do(() => hiddenEventCount = 0);
+    test.event("click", submitCloseButtonFn, () => hiddenEventCount > 0);
+    test.do(() => expect(popupFn().classList).not.toContain("show"));
+    test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+    test.do(() => expect(messagesFn().length).toEqual(0));
+    test.do(() => expect(outputFn().textContent).toBe("Little Tobago"));
+    test.start();
 });
 
 it("Open 'Large Popup'.", function (done) {
-  let dropdownButtonFn = elementByIdFn("page:mainForm:dropdownButton::command");
-  let dropdownMenuFn = querySelectorFn(".dropdown-menu[name=page\\:mainForm\\:dropdownButton]");
-  let openButtonFn = elementByIdFn("page:mainForm:largePopupLink");
-  let popupFn = elementByIdFn("page:mainForm:largePopup");
-  let collapseFn = elementByIdFn("page:mainForm:largePopup::collapse");
-  let closeButtonFn = elementByIdFn("page:mainForm:largePopup:closeLargePopup");
+    let dropdownButtonFn = elementByIdFn("page:mainForm:dropdownButton::command");
+    let dropdownMenuFn = querySelectorFn(".dropdown-menu[name=page\\:mainForm\\:dropdownButton]");
+    let openButtonFn = elementByIdFn("page:mainForm:largePopupLink");
+    let popupFn = elementByIdFn("page:mainForm:largePopup");
+    let collapseFn = elementByIdFn("page:mainForm:largePopup::collapse");
+    let closeButtonFn = elementByIdFn("page:mainForm:largePopup:closeLargePopup");
 
-  let shownEventCount = 0;
-  let hiddenEventCount = 0;
-  popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
-  popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
+    let shownEventCount = 0;
+    let hiddenEventCount = 0;
+    popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
+    popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
 
-  const test = new JasmineTestTool(done);
-  test.do(() => hiddenEventCount = 1);
-  test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
-      () => hiddenEventCount = 0,
-      "click", closeButtonFn);
-  test.setup(() => !dropdownMenuFn().classList.contains("show"),
-      null, "click", dropdownButtonFn);
-  test.do(() => expect(popupFn().classList).not.toContain("show"));
-  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
-  test.do(() => expect(dropdownMenuFn().classList).not.toContain("show"));
+    const test = new JasmineTestTool(done);
+    test.do(() => hiddenEventCount = 1);
+    test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
+        () => hiddenEventCount = 0,
+        "click", closeButtonFn);
+    test.setup(() => !dropdownMenuFn().classList.contains("show"),
+        null, "click", dropdownButtonFn);
+    test.do(() => expect(popupFn().classList).not.toContain("show"));
+    test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+    test.do(() => expect(dropdownMenuFn().classList).not.toContain("show"));
 
-  test.event("click", dropdownButtonFn, () => dropdownMenuFn().classList.contains("show"));
-  test.do(() => expect(dropdownMenuFn().classList).toContain("show"));
+    test.event("click", dropdownButtonFn, () => dropdownMenuFn().classList.contains("show"));
+    test.do(() => expect(dropdownMenuFn().classList).toContain("show"));
 
-  test.do(() => shownEventCount = 0);
-  test.event("click", openButtonFn, () => shownEventCount > 0);
-  test.do(() => expect(popupFn().classList).toContain("show"));
-  test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
-  test.do(() => expect(dropdownMenuFn().classList).not.toContain("show"));
+    test.do(() => shownEventCount = 0);
+    test.event("click", openButtonFn, () => shownEventCount > 0);
+    test.do(() => expect(popupFn().classList).toContain("show"));
+    test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
+    test.do(() => expect(dropdownMenuFn().classList).not.toContain("show"));
 
-  test.do(() => hiddenEventCount = 0);
-  test.event("click", closeButtonFn, () => hiddenEventCount > 0);
-  test.do(() => expect(popupFn().classList).not.toContain("show"));
-  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
-  test.start();
+    test.do(() => hiddenEventCount = 0);
+    test.event("click", closeButtonFn, () => hiddenEventCount > 0);
+    test.do(() => expect(popupFn().classList).not.toContain("show"));
+    test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+    test.start();
 });
 
 it("Open 'Small Popup'.", function (done) {
-  let dropdownButtonFn = elementByIdFn("page:mainForm:dropdownButton::command");
-  let dropdownMenuFn = querySelectorFn(".dropdown-menu[name=page\\:mainForm\\:dropdownButton]");
-  let openButtonFn = elementByIdFn("page:mainForm:smallPopupLink");
-  let popupFn = elementByIdFn("page:mainForm:smallPopup");
-  let collapseFn = elementByIdFn("page:mainForm:smallPopup::collapse");
-  let closeButtonFn = elementByIdFn("page:mainForm:smallPopup:closeSmallPopup");
+    let dropdownButtonFn = elementByIdFn("page:mainForm:dropdownButton::command");
+    let dropdownMenuFn = querySelectorFn(".dropdown-menu[name=page\\:mainForm\\:dropdownButton]");
+    let openButtonFn = elementByIdFn("page:mainForm:smallPopupLink");
+    let popupFn = elementByIdFn("page:mainForm:smallPopup");
+    let collapseFn = elementByIdFn("page:mainForm:smallPopup::collapse");
+    let closeButtonFn = elementByIdFn("page:mainForm:smallPopup:closeSmallPopup");
 
-  let shownEventCount = 0;
-  let hiddenEventCount = 0;
-  popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
-  popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
+    let shownEventCount = 0;
+    let hiddenEventCount = 0;
+    popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
+    popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
 
-  const test = new JasmineTestTool(done);
-  test.do(() => hiddenEventCount = 1);
-  test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
-      () => hiddenEventCount = 0,
-      "click", closeButtonFn);
-  test.setup(() => !dropdownMenuFn().classList.contains("show"),
-      null, "click", dropdownButtonFn);
-  test.do(() => expect(popupFn().classList).not.toContain("show"));
-  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
-  test.do(() => expect(dropdownMenuFn().classList).not.toContain("show"));
+    const test = new JasmineTestTool(done);
+    test.do(() => hiddenEventCount = 1);
+    test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
+        () => hiddenEventCount = 0,
+        "click", closeButtonFn);
+    test.setup(() => !dropdownMenuFn().classList.contains("show"),
+        null, "click", dropdownButtonFn);
+    test.do(() => expect(popupFn().classList).not.toContain("show"));
+    test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+    test.do(() => expect(dropdownMenuFn().classList).not.toContain("show"));
 
-  test.event("click", dropdownButtonFn, () => dropdownMenuFn().classList.contains("show"));
-  test.do(() => expect(dropdownMenuFn().classList).toContain("show"));
+    test.event("click", dropdownButtonFn, () => dropdownMenuFn().classList.contains("show"));
+    test.do(() => expect(dropdownMenuFn().classList).toContain("show"));
 
-  test.do(() => shownEventCount = 0);
-  test.event("click", openButtonFn, () => shownEventCount > 0);
-  test.do(() => expect(popupFn().classList).toContain("show"));
-  test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
-  test.do(() => expect(dropdownMenuFn().classList).not.toContain("show"));
+    test.do(() => shownEventCount = 0);
+    test.event("click", openButtonFn, () => shownEventCount > 0);
+    test.do(() => expect(popupFn().classList).toContain("show"));
+    test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
+    test.do(() => expect(dropdownMenuFn().classList).not.toContain("show"));
 
-  test.do(() => hiddenEventCount = 0);
-  test.event("click", closeButtonFn, () => hiddenEventCount > 0);
-  test.do(() => expect(popupFn().classList).not.toContain("show"));
-  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
-  test.start();
+    test.do(() => hiddenEventCount = 0);
+    test.event("click", closeButtonFn, () => hiddenEventCount > 0);
+    test.do(() => expect(popupFn().classList).not.toContain("show"));
+    test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+    test.start();
 });

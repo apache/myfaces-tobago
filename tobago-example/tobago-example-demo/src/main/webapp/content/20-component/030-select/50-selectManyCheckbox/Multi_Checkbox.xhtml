@@ -103,7 +103,7 @@
       <tc:selectItem itemLabel="Two" itemValue="2"/>
       <tc:selectItem itemLabel="Three" itemValue="3"/>
       <tc:selectItem itemLabel="Four" itemValue="4"/>
-      <f:ajax render="resultOutput"/>
+      <f:ajax execute="@this" render="resultOutput"/>
     </tc:selectManyCheckbox>
     <tc:out id="resultOutput" label="Result" value="#{selectManyCheckboxController.result}"/>
   </tc:section>
@@ -180,7 +180,7 @@
       <f:ajax execute="selectGroupJsf" render="selectGroupJsf :page:messages"/>
     </tc:button>
 
-    <tc:out label="Selected:" value="#{selectManyCheckboxController.selectedTerrestrialPlanet.name}"/>
+    <tc:out label="Selected:" value="#{selectManyCheckboxController.selectedTerrestrialPlanet}"/>
 
   </tc:section>
 
