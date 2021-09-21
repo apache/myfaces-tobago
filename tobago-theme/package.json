@@ -71,7 +71,7 @@
     "@rollup/plugin-replace": "^3.0.0",
     "@types/jest": "^27.0.2",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
-    "@typescript-eslint/parser": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.2",
     "autoprefixer": "^10.3.4",
     "cache-base": "^4.0.0",
     "clean-css-cli": "^5.3.3",
