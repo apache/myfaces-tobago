@@ -22,6 +22,10 @@ package org.apache.myfaces.tobago.model;
 import java.util.Calendar;
 import java.util.Locale;
 
+/**
+ * @deprecated since 4.5.5.
+ */
+@Deprecated
 public class DateModel {
 
   private int year;
