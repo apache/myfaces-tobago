@@ -223,6 +223,12 @@
     </tc:form>
   </tc:section>
   <tc:section label="Ajax">
+    <!-- todo -->
+    <tc:badge markup="warning" value="Attention:"/>
+    Using AJAX on change of date is currently problematic.
+    In some cases, e.g. changing the last field, the change event will be fired (at the first key you've typed)
+    and the cursor will lost it's position.<br/>
+    <hr/>
     <p>The output field in this example, display the given date.
       With <code class="language-markup">&lt;f:ajax render="outputfield"/></code>,
       the <code class="language-markup">&lt;tc:out id="outputfield" .../></code> will be rerendered,
