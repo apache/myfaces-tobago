@@ -39,7 +39,7 @@ class Dropdown extends HTMLElement {
   openDropdown(): void {
     this.dispatchEvent(new CustomEvent(TobagoDropdownEvent.SHOW));
 
-    if (!this.inStickyHeader()) {
+    if (!this.inStickyHeaderOrBar()) {
       this.menuStore.appendChild(this.dropdownMenu);
     }
 
@@ -48,14 +48,14 @@ class Dropdown extends HTMLElement {
 
   closeDropdown(): void {
     this.dispatchEvent(new CustomEvent(TobagoDropdownEvent.HIDE));
-    if (!this.inStickyHeader()) {
+    if (!this.inStickyHeaderOrBar()) {
       this.appendChild(this.dropdownMenu);
     }
     this.dispatchEvent(new CustomEvent(TobagoDropdownEvent.HIDDEN));
   }
 
-  private inStickyHeader(): boolean {
-    return Boolean(this.closest("tobago-header.sticky-top"));
+  private inStickyHeaderOrBar(): boolean {
+    return Boolean(this.closest("tobago-header.sticky-top,tobago-bar"));
   }
 
   private get dropdownMenu(): HTMLDivElement {
