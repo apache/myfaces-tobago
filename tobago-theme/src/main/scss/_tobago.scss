@@ -33,9 +33,10 @@ $icon-sort-descending: "\f22c";
 
 /* non-bootstrap variables --------------------------------------- */
 
-$form-disabled-alpha: 0.5;
-$page-padding-top: 1rem;
-$flex-layout-spacing: 0.5rem;
+$tobago-form-disabled-alpha: 0.5;
+$tobago-page-padding-top: 1rem;
+$tobago-header-margin-bottom: $tobago-page-padding-top;
+$tobago-flex-layout-spacing: 0.5rem;
 
 /* utilities ----------------------------------------------------- */
 .tobago-display-inline-block {
@@ -291,7 +292,7 @@ tobago-date {
     }
 
     &:disabled {
-      color: rgba($input-color, $form-disabled-alpha);
+      color: rgba($input-color, $tobago-form-disabled-alpha);
     }
   }
 }
@@ -373,12 +374,12 @@ tobago-flex-layout {
      Set the minimal width to zero make flex-layout responsive for the width,
      even if there is overflowing content.
      currently e.g. PRE-code blocks in the demo are too wide. XXX */
-  margin-left: -$flex-layout-spacing * 0.5;
-  margin-right: -$flex-layout-spacing * 0.5;
+  margin-left: -$tobago-flex-layout-spacing * 0.5;
+  margin-right: -$tobago-flex-layout-spacing * 0.5;
 
   > * {
-    margin-left: $flex-layout-spacing * 0.5;
-    margin-right: $flex-layout-spacing * 0.5;
+    margin-left: $tobago-flex-layout-spacing * 0.5;
+    margin-right: $tobago-flex-layout-spacing * 0.5;
   }
 
   > tobago-flex-layout {
@@ -393,11 +394,11 @@ tobago-flex-layout {
   align-items: center;
 
   > label:first-child {
-    margin-right: $flex-layout-spacing;
+    margin-right: $tobago-flex-layout-spacing;
   }
 
   > label:last-child {
-    margin-left: $flex-layout-spacing;
+    margin-left: $tobago-flex-layout-spacing;
   }
 
   > label {
@@ -470,10 +471,10 @@ tobago-header {
 }
 
 tobago-header {
-  margin-bottom: 1rem;
+  margin-bottom: $tobago-header-margin-bottom;
 
   &.sticky-top {
-    margin-top: -$page-padding-top;
+    margin-top: -$tobago-page-padding-top;
     margin-left: -($grid-gutter-width * .5);
     margin-right: -($grid-gutter-width * .5);
   }
@@ -566,7 +567,7 @@ tobago-in {
   @include markupFatalErrWarnInfo();
 
   &:disabled {
-    color: rgba($input-color, $form-disabled-alpha);
+    color: rgba($input-color, $tobago-form-disabled-alpha);
   }
 }
 
@@ -843,7 +844,7 @@ tobago-overlay {
 
 tobago-page {
   display: block;
-  padding-top: $page-padding-top;
+  padding-top: $tobago-page-padding-top;
   padding-bottom: 1rem;
 }
 
@@ -1619,7 +1620,7 @@ tobago-textarea textarea {
   @include markupFatalErrWarnInfo();
 
   &:disabled {
-    color: rgba($input-color, $form-disabled-alpha);
+    color: rgba($input-color, $tobago-form-disabled-alpha);
   }
 }
 
