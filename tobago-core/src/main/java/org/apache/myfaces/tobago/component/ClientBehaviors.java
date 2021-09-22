@@ -28,6 +28,7 @@ public enum ClientBehaviors {
   complete,
   dblclick,
   focus,
+  input,
   load,
   mouseover,
   mouseout,
@@ -42,6 +43,7 @@ public enum ClientBehaviors {
   public static final String COMPLETE = "complete";
   public static final String DBLCLICK = "dblclick";
   public static final String FOCUS = "focus";
+  public static final String INPUT = "input";
   public static final String LOAD = "load";
   public static final String MOUSEOVER = "mouseover";
   public static final String MOUSEOUT = "mouseout";

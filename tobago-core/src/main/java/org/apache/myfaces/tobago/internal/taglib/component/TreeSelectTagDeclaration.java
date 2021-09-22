@@ -56,6 +56,8 @@ import javax.faces.component.UISelectBoolean;
             name = ClientBehaviors.CHANGE,
             isDefault = true),
         @Behavior(
+            name = ClientBehaviors.INPUT),
+        @Behavior(
             name = ClientBehaviors.CLICK),
         @Behavior(
             name = ClientBehaviors.DBLCLICK),

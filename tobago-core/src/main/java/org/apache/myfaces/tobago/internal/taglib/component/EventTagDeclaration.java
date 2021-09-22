@@ -61,6 +61,7 @@ import javax.faces.component.UICommand;
             name = ClientBehaviors.CLICK,
             description = "Behavior of a click event.",
             isDefault = true),
+        @Behavior(name = ClientBehaviors.INPUT),
         @Behavior(name = ClientBehaviors.DBLCLICK),
         @Behavior(name = ClientBehaviors.FOCUS),
         @Behavior(name = ClientBehaviors.BLUR),
