@@ -1,7 +1,7 @@
 (function (factory) {
   typeof define === 'function' && define.amd ? define(factory) :
   factory();
-}((function () { 'use strict';
+})((function () { 'use strict';
 
   /*
    * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -13769,5 +13769,5 @@ Type: ${data.type}`);
       document.dispatchEvent(new CustomEvent("tobago.init"));
   }
 
-})));
+}));
 //# sourceMappingURL=tobago.js.map
