@@ -27,9 +27,9 @@ import java.util.Iterator;
 public abstract class AbstractResetInputActionListener implements ActionListener {
 
   protected void resetChildren(final UIComponent component) {
-    final Iterator it = component.getFacetsAndChildren();
+    final Iterator<UIComponent> it = component.getFacetsAndChildren();
     while (it.hasNext()) {
-      final UIComponent child = (UIComponent) it.next();
+      final UIComponent child = it.next();
       if (child instanceof EditableValueHolder) {
         reset((EditableValueHolder) child);
       }

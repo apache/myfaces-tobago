@@ -46,9 +46,9 @@ public abstract class AbstractUIFormBase extends UIForm implements Visual {
     // for the following children
     decode(facesContext);
 
-    final Iterator kids = getFacetsAndChildren();
+    final Iterator<UIComponent> kids = getFacetsAndChildren();
     while (kids.hasNext()) {
-      final UIComponent kid = (UIComponent) kids.next();
+      final UIComponent kid = kids.next();
       kid.processDecodes(facesContext);
     }
   }
@@ -71,9 +71,9 @@ public abstract class AbstractUIFormBase extends UIForm implements Visual {
     }
     if (isSubmitted() || AjaxUtils.isAjaxRequest(facesContext)) {
       // Process all facets and children of this component
-      final Iterator kids = getFacetsAndChildren();
+      final Iterator<UIComponent> kids = getFacetsAndChildren();
       while (kids.hasNext()) {
-        final UIComponent kid = (UIComponent) kids.next();
+        final UIComponent kid = kids.next();
         kid.processValidators(facesContext);
       }
     } else {
@@ -91,9 +91,9 @@ public abstract class AbstractUIFormBase extends UIForm implements Visual {
     }
     if (isSubmitted() || AjaxUtils.isAjaxRequest(facesContext)) {
       // Process all facets and children of this component
-      final Iterator kids = getFacetsAndChildren();
+      final Iterator<UIComponent> kids = getFacetsAndChildren();
       while (kids.hasNext()) {
-        final UIComponent kid = (UIComponent) kids.next();
+        final UIComponent kid = kids.next();
         kid.processUpdates(facesContext);
       }
     } else {

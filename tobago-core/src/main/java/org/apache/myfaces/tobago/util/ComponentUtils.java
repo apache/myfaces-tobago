@@ -107,11 +107,10 @@ public final class ComponentUtils {
   }
 
   public static String getFacesMessageAsString(final FacesContext facesContext, final UIComponent component) {
-    final Iterator messages = facesContext.getMessages(
-        component.getClientId(facesContext));
+    final Iterator<FacesMessage> messages = facesContext.getMessages(component.getClientId(facesContext));
     final StringBuilder stringBuffer = new StringBuilder();
     while (messages.hasNext()) {
-      final FacesMessage message = (FacesMessage) messages.next();
+      final FacesMessage message = messages.next();
       stringBuffer.append(message.getDetail());
     }
     if (stringBuffer.length() > 0) {
@@ -791,9 +790,9 @@ public final class ComponentUtils {
       FacesMessage.Severity max = null;
       for (final String id : (Iterable<String>) facesContext::getClientIdsWithMessages) {
         if (id != null && id.startsWith(clientId)) {
-          final Iterator messages = facesContext.getMessages(id);
+          final Iterator<FacesMessage> messages = facesContext.getMessages(id);
           while (messages.hasNext()) {
-            final FacesMessage message = (FacesMessage) messages.next();
+            final FacesMessage message = messages.next();
             if (max == null || message.getSeverity().getOrdinal() > max.getOrdinal()) {
               max = message.getSeverity();
             }

@@ -37,9 +37,9 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
 
   public List<Item> createMessageList(final FacesContext facesContext) {
 
-    final Iterator clientIds;
+    final Iterator<String> clientIds;
     if (isGlobalOnly()) {
-      clientIds = Collections.singleton(null).iterator();
+      clientIds = Collections.singleton((String)null).iterator();
     } else if (getFor() != null) {
       clientIds = Collections.singleton(getFor()).iterator();
     } else {
@@ -56,10 +56,10 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
     return messages;
   }
 
-  private List<Item> collectMessageList(final FacesContext facesContext, final Iterator clientIds) {
+  private List<Item> collectMessageList(final FacesContext facesContext, final Iterator<String> clientIds) {
     final List<Item> messages = new ArrayList<>();
     while (clientIds.hasNext()) {
-      final String clientId = (String) clientIds.next();
+      final String clientId = clientIds.next();
       final Iterator<FacesMessage> i = facesContext.getMessages(clientId);
       while (i.hasNext()) {
         final FacesMessage facesMessage = i.next();

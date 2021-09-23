@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.apt.annotation.Validator;
 import org.apache.myfaces.tobago.apt.generate.ComponentInfo;
 import org.jdom2.Attribute;
 import org.jdom2.Comment;
+import org.jdom2.Content;
 import org.jdom2.Document;
 import org.jdom2.Namespace;
 import org.jdom2.filter.ContentFilter;
@@ -623,7 +624,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
   }
 
   private void normaliseLineEndings(final Document document) {
-    final Iterator i = document.getDescendants(new ContentFilter(ContentFilter.COMMENT));
+    final Iterator<Content> i = document.getDescendants(new ContentFilter(ContentFilter.COMMENT));
     while (i.hasNext()) {
       final Comment c = (Comment) i.next();
       c.setText(c.getText().replaceAll("\n", SEPARATOR));
