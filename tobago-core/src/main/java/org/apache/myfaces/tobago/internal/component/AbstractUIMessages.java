@@ -39,7 +39,7 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
 
     final Iterator<String> clientIds;
     if (isGlobalOnly()) {
-      clientIds = Collections.singleton((String)null).iterator();
+      clientIds = Collections.singleton((String) null).iterator();
     } else if (getFor() != null) {
       clientIds = Collections.singleton(getFor()).iterator();
     } else {
