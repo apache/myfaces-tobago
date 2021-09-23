@@ -72,7 +72,7 @@ public class BestPracticeController {
   }
 
   private InputStream getInputStream(boolean pdf, FacesContext facesContext) {
-    final String path = "content/30-concept/24-non-faces-response/x-sample." + (pdf ? "pdf" : "txt");
+    final String path = "content/360-non-faces-response/x-sample." + (pdf ? "pdf" : "txt");
     InputStream inputStream = facesContext.getExternalContext().getResourceAsStream(path);
     if (inputStream == null) {
       inputStream = facesContext.getExternalContext().getResourceAsStream("/" + path);
