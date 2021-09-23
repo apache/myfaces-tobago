@@ -149,7 +149,7 @@ check() {
   echo "Found a process ${PID} on port ${PORT} running!"
   echo "Now testing..."
 
-  STATUS=$(curl -o ${WORK}/JSR_303.xhtml -w "%{http_code}" http://localhost:${PORT}/content/30-concept/06-validation/01/JSR_303.xhtml)
+  STATUS=$(curl -o ${WORK}/JSR_303.xhtml -w "%{http_code}" http://localhost:${PORT}/content/170-validation/01/JSR_303.xhtml)
 
   if [[ $? -gt 0 ]] ; then
     error "The curl command has failed!" ${PID}

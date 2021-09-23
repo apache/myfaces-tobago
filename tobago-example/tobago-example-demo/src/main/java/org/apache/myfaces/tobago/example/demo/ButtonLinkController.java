@@ -33,9 +33,9 @@ public class ButtonLinkController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  public Outcome linkToComponentsRoot() {
+  public Outcome linkToCommandsRoot() {
     LOG.info("link to components root");
-    return Outcome.COMPONENT_COMPONENT;
+    return Outcome.COMMAND;
   }
 
   public Outcome actionPage() {
