@@ -25,7 +25,7 @@ package org.apache.myfaces.tobago.example.demo;
 public enum Outcome {
 
   CONCEPT_SECURITY_ROLES_XLOGIN(
-      "/content/30-concept/80-security/20-roles/x-login.xhtml?faces-redirect=true"),
+      "/content/280-security/20-roles/x-login.xhtml?faces-redirect=true"),
   CONCEPT_LOCALE(
       "/content/220-locale/Locale.xhtml"),
   COMMAND(
