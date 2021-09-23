@@ -27,7 +27,7 @@
   <tc:section label="Example">
     <p><tc:badge value="Warning" markup="warning"/> CSP script-src: 'unsafe-inline' is needed.</p>
 
-    <tc:script file="#{request.contextPath}/content/30-concept/18-websocket/WebSocket.js"/>
+    <tc:script file="WebSocket.js"/>
     <f:websocket channel="clock" onmessage="websocketListener"/>
 
     <tc:buttons>
