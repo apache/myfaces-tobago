@@ -36,7 +36,7 @@ public class FishPond implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  private Map<Integer, String> fishes;
+  private final Map<Integer, String> fishes;
 
   private Integer selectedFishId = null;
 

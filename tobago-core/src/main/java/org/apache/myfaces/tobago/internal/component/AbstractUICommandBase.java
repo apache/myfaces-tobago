@@ -73,9 +73,9 @@ public abstract class AbstractUICommandBase extends UICommand
       throw e;
     }
 
-    final Iterator kids = getFacetsAndChildren();
+    final Iterator<UIComponent> kids = getFacetsAndChildren();
     while (kids.hasNext()) {
-      final UIComponent kid = (UIComponent) kids.next();
+      final UIComponent kid = kids.next();
       kid.processDecodes(context);
     }
   }

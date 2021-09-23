@@ -89,7 +89,7 @@ public class LocaleController implements Serializable {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final Application application = facesContext.getApplication();
     final Locale defaultLocale = application.getDefaultLocale();
-    final Iterator supportedLocales = application.getSupportedLocales();
+    final Iterator<Locale> supportedLocales = application.getSupportedLocales();
 
     boolean defaultInList = false;
     final List<SelectItem> localeItems = new ArrayList<>();
