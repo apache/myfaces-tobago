@@ -23,7 +23,7 @@ import {Config} from "./tobago-config";
 
 // XXX issue: if a ajax call is scheduled on the same element, the animation arrow will stacking and not desapearing.
 // XXX issue: "error" is not implemented correctly
-// see http://localhost:8080/demo-5-snapshot/content/30-concept/50-partial/Partial_Ajax.xhtml to use this feature
+// see http://localhost:8080/demo-5-snapshot/content/140-partial/Partial_Ajax.xhtml to use this feature
 // XXX todo: check full page transitions
 
 Config.set("Tobago.waitOverlayDelay", 1000);
