@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+  <tc:script file="#{request.contextPath}/content/020-output/60-object/object.js"/>
+
+  <p>The <code class="language-markup">&lt;tc:object/></code> tag creates an <code class="language-markup">&lt;iframe></code>.</p>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+           link="#{apiController.tldBase}/#{apiController.currentRelease}/tld/tc/object.html"/>
+  <tc:section label="Basics">
+    <demo-highlight language="markup">&lt;tc:object src="https://www.openstreetmap.org/..."/&gt;</demo-highlight>
+    <tc:object id="o1"
+               src="https://www.openstreetmap.org/export/embed.html?bbox=-60.75,11.15,-60.6,11.35"/>
+  </tc:section>
+  <tc:section label="Content Security Policy (CSP)">
+    It's very usual to include content from external source.
+    When Content Security Policy is activated, you need to allow the external source explicitly, for
+    security reasons.
+    You need to add a child-src policy to the 'tobago-config.xml' like
+    <demo-highlight language="markup">&lt;directive name="child-src"&gt;https://www.openstreetmap.org&lt;/directive&gt;</demo-highlight>
+  </tc:section>
+  <tc:section label="Style">
+    <p>A <code class="language-markup">&lt;tc:object/></code> tag can contain a style tag.
+      In this case it's <code class="language-markup">&lt;tc:style width="100%"/></code> to
+      let grow the width to the full size of the container.</p>
+    <tc:object id="o2"
+               src="https://www.openstreetmap.org/export/embed.html?bbox=-60.75,11.15,-60.6,11.35">
+      <tc:style width="100%"/>
+    </tc:object>
+  </tc:section>
+  <tc:section label="Tool Bar">
+    <p>There are two <code class="language-markup">&lt;tc:button/></code>
+      within a <code class="language-markup">&lt;tc:buttons/></code> in this example.
+      The first show the island Tobago,
+      the second show the worldmap in <code class="language-markup">&lt;tc:object id="map"></code>.
+      The buttons send the parameter (maps-position, maps-zoom, maps-target) to an <code>object.js</code>,
+      which is shown in the objects.js-box. The JavaScript build the URL for the iframe.</p>
+    <demo-highlight language="markup">&lt;tc:button label="Show Tobago" omit="true"&gt;
+  &lt;tc:dataAttribute name="maps-position" value="11.249123,-60.687103"/&gt;
+  &lt;tc:dataAttribute name="maps-zoom" value="12"/&gt;
+  &lt;tc:dataAttribute name="maps-target" value="page:map"/&gt;
+&lt;/tc:button&gt;</demo-highlight>
+    <tc:box id="objectJsBox" label="object.js" collapsed="true" collapsedMode="hidden">
+      <f:facet name="bar">
+        <tc:buttons>
+          <tc:button label="show" omit="true">
+            <tc:operation name="show" for="objectJsBox"/>
+          </tc:button>
+          <tc:button label="hide" omit="true">
+            <tc:operation name="hide" for="objectJsBox"/>
+          </tc:button>
+        </tc:buttons>
+      </f:facet>
+      <demo-highlight language="javascript"><tc:out value="#{objectController.javaScriptSource}"/></demo-highlight>
+    </tc:box>
+    <tc:buttons id="t1">
+      <tc:button id="c1" label="Show Tobago" omit="true">
+        <tc:dataAttribute name="maps-position" value='{"x":-60.687103,"y":11.249123}'/>
+        <tc:dataAttribute name="maps-zoom" value="0.1"/>
+        <tc:dataAttribute name="maps-target" value="page:mainForm:map"/>
+      </tc:button>
+      <tc:button id="c2" label="Show World" omit="true">
+        <tc:dataAttribute name="maps-position" value='{"x":0.0,"y":0.0}'/>
+        <tc:dataAttribute name="maps-zoom" value="70"/>
+        <tc:dataAttribute name="maps-target" value="page:mainForm:map"/>
+      </tc:button>
+    </tc:buttons>
+    <tc:object id="map">
+      <tc:style width="100%" height="500px"/>
+    </tc:object>
+  </tc:section>
+</ui:composition>

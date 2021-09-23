@@ -21,27 +21,36 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-  <ui:param name="title" value="Browser"/>
 
-  <p>
-    Tobago is completely browser independent.
-    Support of the different browsers takes place in the JSF renderkit.
-  </p>
-  <p>
-    Tobago supports all common browsers like
-  </p>
-  <ul>
-    <li><tc:image value="fa-chrome"/> Google Chrome,</li>
-    <li><tc:image value="fa-firefox"/> Firefox,</li>
-    <li><tc:image value="fa-edge"/> Edge,</li>
-    <li><tc:image value="fa-safari"/> Safari,</li>
-    <li><tc:image value="fa-opera"/> Opera or</li>
-    <li> any other browser, if they are standard conform to current specifications.</li>
-  </ul>
+  <tc:section label="Migration of Tobago applications">
 
-  <p>
-    More information of the support of different version you may find in the
-    <tc:link label="Compatiblity" link="#{request.contextPath}/content/000-intro/60-compatibility/Compatibility.xhtml"/>
-    of Tobago.
-  </p>
+    <p>
+      Here you can find migration guides to the major versions of Tobago.
+    </p>
+
+    <ul>
+      <li>
+        <tc:link label="Upgrade from 4.0 to 5.0"
+                 outcome="/content/000-intro/50-migration/95-migration/4.0_to_5.0.xhtml"/>
+      </li>
+      <li>
+        <tc:link label="Upgrade from 3.0 to 4.0"
+                 outcome="/content/000-intro/50-migration/96-migration/3.0_to_4.0.xhtml"/>
+      </li>
+      <li>
+        <tc:link label="Upgrade from 2.0 to 3.0"
+                 outcome="/content/000-intro/50-migration/97-migration/2.0_to_3.0.xhtml"/>
+      </li>
+      <li>
+        <tc:link label="Upgrade from 1.5 to 2.0"
+                 outcome="/content/000-intro/50-migration/98-migration/1.5_to_2.0.xhtml"/>
+      </li>
+      <li>
+        <tc:link label="Upgrade from 1.0 to 1.5"
+                 outcome="/content/000-intro/50-migration/99-migration/1.0_to_1.5.xhtml"/>
+      </li>
+    </ul>
+
+  </tc:section>
+
 </ui:composition>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+  The tree control displays a tree which is generated from application data. The key features are:
+  <ul>
+    <li>Attributes control the rendering of the tree.</li>
+    <li>The possibility to define the tree as "single" or "multiselect",
+      i. e. select one or multiple nodes of the tree.
+    </li>
+    <li>Editing mode for simple handling of tree structures inside the application.</li>
+  </ul>
+  Furthermore there is a TreeListbox Control, which can be described as a vertical tree.
+  This is handy for categorization actions.
+
+  <p>A classic tree can created with the <code class="language-markup">&lt;tc:tree/></code> tag.
+    Tobago knows two more presentations of a tree. As a
+    <tc:link label="menu" outcome="/content/090-tree/03-menu/Tree_Menu.xhtml"/>
+    and as a <tc:link label="list" outcome="/content/090-tree/04-listbox/Tree_Listbox.xhtml"/>.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:tree/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tldBase}/#{apiController.currentRelease}/tld/tc/tree.html"/>
+    |
+    <tc:link label="&lt;tc:treeNode/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tldBase}/#{apiController.currentRelease}/tld/tc/treeNode.html"/>
+    |
+    <tc:link label="&lt;tc:treeIndent/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tldBase}/#{apiController.currentRelease}/tld/tc/treeIndent.html"/>
+    |
+    <tc:link label="&lt;tc:treeLabel/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tldBase}/#{apiController.currentRelease}/tld/tc/treeLabel.html"/>
+    |
+    <tc:link label="&lt;tc:treeIcon/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tldBase}/#{apiController.currentRelease}/tld/tc/treeIcon.html"/></p>
+
+  <tc:section label="Basics">
+    <p>The tree tag has two attributes, <code>value</code> and <code>var</code>. The attribute <code>value</code>
+      contain a DefaultMutableTreeNode, which represent the tree.
+      The <code>var</code> attribute is the name of the variable, to get specific content.</p>
+    <demo-highlight language="markup">&lt;tc:tree value="#{treeController.sample}" var="node"></demo-highlight>
+    <p>In every tree, a <code class="language-markup">&lt;tc:treeNode/></code> has to be added.
+      A <code class="language-markup">&lt;tc:treeNode/></code> can contain several tags to describe the node.
+      In this example, two tags are used.<br/>
+      The <code class="language-markup">&lt;tc:treeIndent/></code> tag, which add an indent besides a node
+      and <code class="language-markup">&lt;tc:treeLabel value="\#{node.userObject.name}"/></code>, which contain the
+      String for the label. Notice that 'node' is the value of the <code>var</code> attribute from the tree tag.</p>
+    <tc:tree value="#{treeController.sample}" var="node">
+      <tc:treeNode>
+        <tc:treeIndent/>
+        <tc:treeLabel value="#{node.userObject.name}"/>
+      </tc:treeNode>
+    </tc:tree>
+  </tc:section>
+
+  <tc:section label="Icon">
+    <p>An icon can be added to a node with
+      <code
+          class="language-markup">&lt;tc:treeIcon value="image/feather-leaf.png" closed="image/feather-closed.png" open="image/feather-open.png"/></code>.
+      In this case, the targeted image is 'feather-leaf.png'. It is displayed for leaf nodes.
+      For open or closed folder there are explicit attributes.
+      If these attributes are not used, defaults are used.</p>
+    <tc:tree value="#{treeController.sample}" var="node">
+      <tc:treeNode>
+        <tc:treeIndent/>
+        <tc:treeIcon value="#{request.contextPath}/image/feather-leaf.png"
+                     closed="#{request.contextPath}/image/feather-closed.png"
+                     open="#{request.contextPath}/image/feather-open.png"/>
+        <tc:treeIcon value="bi-file-earmark"
+                     closed="bi-folder2"
+                     open="bi-folder2-open"/>
+        <tc:treeLabel value="#{node.userObject.name}"/>
+      </tc:treeNode>
+    </tc:tree>
+  </tc:section>
+
+  <tc:section label="Additional Attributes">
+    <p>In this example, some boolean attributes can be activated and deactivated in the right boxes for
+      <code class="language-markup">&lt;tc:tree/></code> and
+      <code class="language-markup">&lt;tc:treeIndent/></code>.</p>
+    <tc:panel id="p1">
+      <tc:flexLayout columns="1fr auto">
+        <tc:tree value="#{treeController.sample}" var="node" showRoot="#{treeController.treeShowRoot}"
+                 showRootJunction="#{treeController.treeShowRootJunction}">
+          <tc:treeNode>
+            <tc:treeIndent rendered="#{treeController.treeIndentRendered}"
+                           showJunctions="#{treeController.treeIndentShowJunction}"/>
+            <tc:treeLabel value="#{node.userObject.name}"/>
+          </tc:treeNode>
+        </tc:tree>
+        <tc:panel>
+          <tc:box label="&lt;tc:tree/>">
+            <tc:selectBooleanCheckbox itemLabel="showRoot" value="#{treeController.treeShowRoot}">
+              <f:ajax render="p1"/>
+            </tc:selectBooleanCheckbox>
+            <tc:selectBooleanCheckbox itemLabel="showRootJunction" value="#{treeController.treeShowRootJunction}">
+              <f:ajax render="p1"/>
+            </tc:selectBooleanCheckbox>
+          </tc:box>
+          <tc:box label="&lt;tc:treeIndent/>">
+            <tc:selectBooleanCheckbox itemLabel="rendered" value="#{treeController.treeIndentRendered}">
+              <f:ajax render="p1"/>
+            </tc:selectBooleanCheckbox>
+            <tc:selectBooleanCheckbox itemLabel="showJunction" value="#{treeController.treeIndentShowJunction}">
+              <f:ajax render="p1"/>
+            </tc:selectBooleanCheckbox>
+          </tc:box>
+        </tc:panel>
+      </tc:flexLayout>
+    </tc:panel>
+  </tc:section>
+</ui:composition>

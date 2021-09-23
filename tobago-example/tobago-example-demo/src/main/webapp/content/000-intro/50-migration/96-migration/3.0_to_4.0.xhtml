@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+  <tc:section label="Migration from Tobago 3.0 to 4.0">
+    <p>
+      There are some migration steps to do, dependent on the application
+      you want to migrate. The steps can be classified by
+    </p>
+
+    <ul>
+      <li><tc:link link="" fragment="page:mainForm:taglib" label="Tag library"/></li>
+      <li><tc:link link="" fragment="page:mainForm:markups" label="Markups"/></li>
+      <li><tc:link link="" fragment="page:mainForm:layout" label="Layout Manager"/></li>
+      <li><tc:link link="" fragment="page:mainForm:css" label="CSS / Bootstrap"/></li>
+      <li><tc:link link="" fragment="page:mainForm:theme" label="Theme building"/></li>
+      <li><tc:link link="" fragment="page:mainForm:crlf" label="CRLF in textarea"/></li>
+      <li><tc:link link="" fragment="page:mainForm:resourceResolver"
+                   label="Removed class: MetaInfResourcesClasspathResourceResolver"/></li>
+    </ul>
+
+    <tc:section id="taglib" label="Tag Library">
+
+      <tc:section label="ViewId over attribute &quot;link&quot;">
+        <p>
+          Using the <code class="language-markup">link</code> attribute of
+          <code class="language-markup">&lt;tc:link></code>,
+          <code class="language-markup">&lt;tc:button></code>,
+          <code class="language-markup">&lt;tc:treeCommand></code> or
+          <code class="language-markup">&lt;tc:event></code>
+          in Tobago 3 has three cases:
+        </p>
+        <ol>
+          <li>
+            External link to an URL e. g. <code class="language-markup">link="http://www.apache.com"</code>
+            <p>
+              Here is nothing to do.
+            </p>
+          </li>
+          <li>
+            Internal link to a resource e. g. <code class="language-markup">link="image/alps.png"</code>
+            <p>
+              Here you need to add the contextPath which might not be an empty string:
+              <code class="language-markup">link="\#{request.contextPath}/image/alps.png"</code>.
+              So, this is now the same like resources used over other attributes.
+            </p>
+          </li>
+          <li>
+            Internal link to a viewId e. g. <code class="language-markup">link="/intro.xhtml"</code>
+            <p>
+              In this case you need to use the new attribute <code class="language-markup">outcome="/intro.xhtml"</code>.
+              Please use only full pathes here!
+              This this, the GET parameter will be respected.
+              This is needed e. g. for the windowId of <tc:link label="DeltaSpike"
+                                                                link="https://deltaspike.apache.org/"/>.
+            </p>
+          </li>
+        </ol>
+      </tc:section>
+
+      <tc:section label="&lt;tc:bar&gt;">
+        <p>
+          The content of <code class="language-markup">&lt;tc:bar&gt;</code> needs to be checked.
+          The layout inside of the bar has been changed by CSS.
+        </p>
+        <p>There is a new after-facet for right side content. Old code which uses
+          <code class="language-markup">&lt;tc:flowLayout align=right></code> probably doesn't work correctly.</p>
+        <p>Replace the following code...</p>
+        <demo-highlight language="markup">&lt;tc:bar>
+  &lt;tc:flowLayout textAlign="right">
+    // right side content
+  &lt;/tc:flowLayout>
+&lt;/tc:bar></demo-highlight>
+        <p>... with this:</p>
+        <demo-highlight language="markup">&lt;tc:bar>
+  &lt;f:facet name="after">
+    &lt;tc:flexLayout columns="1fr auto">
+      // right side content
+    &lt;/tc:flexLayout>
+  &lt;/f:facet>
+&lt;/tc:bar></demo-highlight>
+        <p>Also new markups are added to change collapse/expand behavior and color scheme.
+          For more information have a look at
+          <tc:link label="tc:bar" outcome="/content/050-container/60-bar/Bar.xhtml"/></p>
+      </tc:section>
+    </tc:section>
+
+    <tc:section id="markups" label="Markups">
+      <p>Markups are now space separated. Instead of <code>markupOne, markupTwo</code> you can write
+        <code>markupOne markupTwo</code>. Comma seperated markups are deprecated but still possible.</p>
+
+      <p>Default markups are removed.
+        The default markups had rendered specific CSS classes for required/readonly/disabled components.</p>
+      <ul>
+        <li><code class="language-css">.tobago-[componentName]-markup-required</code></li>
+        <li><code class="language-css">.tobago-[componentName]-markup-readonly</code></li>
+        <li><code class="language-css">.tobago-[componentName]-markup-disabled</code></li>
+      </ul>
+    </tc:section>
+
+
+    <tc:section id="layout" label="Layout Manager">
+
+      <tc:section id="flexLayout" label="&lt;tc:flexLayout>">
+        <p>Column/row attribute values are now space separated. The '*' character is replaced by 'fr'.</p>
+        <p>Instead of <code class="language-markup">&lt;tc:flexLayout column="200px;auto;1*;2*;10rem"></code>
+          you can write <code class="language-markup">&lt;tc:flexLayout column="200px auto 1fr 2fr 10rem"></code>.</p>
+        <p>The old syntax is deprecated but still possible.</p>
+      </tc:section>
+
+      <tc:section id="segmentLayout" label="&lt;tc:segmentLayout>">
+        <p>Attribute values are now space seperated. Integer values now have the unit 'seg'.</p>
+        <p>The old syntax is deprecated but still possible.</p>
+        <p>The 12 columns of a segment layout are no longer filled up.</p>
+        <p>Explained on the example <code>medium="3seg 4seg"</code>:</p>
+        <ul>
+          <li>Result in Tobago3: The first child of the segment layout spans 3 columns, the second 4 columns,
+            the third 5 columns (filled up) and the fourth 3 columns again.
+          </li>
+          <li>Result in Tobago4: The first child spans 3 columns, the second 4 columns, the third 3 columns again and the
+            fourth 4 columns.
+          </li>
+        </ul>
+        <p>There are also two new 'auto' and '1fr' attribute values. For more information see
+          <tc:link label="tc:segmentLayout" outcome="/content/30-concept/16-layout/30-segment/Segment_Layout.xhtml"/>.
+        </p>
+      </tc:section>
+
+      <tc:section id="gridLayout" label="&lt;tc:gridLayout>">
+        <p>The attribute syntax for columns and rows has also been changed. See script below.</p>
+      </tc:section>
+
+      <tc:section id="sheet" label="&lt;tc:sheet>">
+        <p>The attribute syntax for columns has also been changed. See script below.</p>
+      </tc:section>
+
+      <tc:section id="layout-script" label="Migration script for layout attributes">
+        <p>Here is a simple <tc:link label="migration script" link="migrate4-layout.sh"/>, that may help you to change the layout attributes in the
+          facelets XHTML files.</p>
+        <demo-highlight language="bash"><tc:out value="#{migration4Controller.scriptSource}"/></demo-highlight>
+      </tc:section>
+
+    </tc:section>
+
+    <tc:section id="css" label="CSS / Bootstrap">
+      <p>
+        The included Bootstrap CSS library has been updated from
+        <tc:link link="https://blog.getbootstrap.com/2016/10/19/bootstrap-4-alpha-5/" label="v4.0.0-alpha.5"/> to
+        <tc:link link="https://blog.getbootstrap.com/2017/10/19/bootstrap-4-beta-2/" label="v4.0.0-beta.2"/>.
+        Thought some changes need to be made, if you use Bootstrap classes directly.
+      </p>
+      <p>
+        Some of the generated HTML code has been changed, mostly in these tags:
+      </p>
+      <ul>
+        <li>
+          <code>&lt;tc:menu&gt;</code>
+        </li>
+        <li>
+          <code>&lt;tc:box&gt;</code>
+        </li>
+        <li>
+          <code>&lt;tc:bar&gt;</code>
+        </li>
+        <li>
+          <code>&lt;tc:segmentLayout&gt;</code>
+        </li>
+      </ul>
+      <p>
+        Here you may need modifications only, if you have own CSS with are related with these tags.
+      </p>
+    </tc:section>
+
+    <tc:section id="theme" label="Theme building">
+      <p>
+        Building a theme is in general compatible, but if using the build mechanism of Tobago
+        (defined in the pom.xml of tobago-theme) it can be better automated.
+        The build mechanism now uses _tobago.scss from tobago-core to generated the CSS file,
+        the is no longer a manual copy needed.
+      </p>
+    </tc:section>
+
+    <tc:section id="crlf" label="CRLF in textarea">
+      <p>
+        CRLF in textarea will be converted to LF automatically to avoid inconsistencies with length validation.
+        If you need the old behavior, set <code>&lt;decode-line-feed>false&lt;/decode-line-feed></code>
+        in the <code>tobago-config.xml</code>.
+      </p>
+    </tc:section>
+
+    <tc:section id="resourceResolver" label="Removed class: MetaInfResourcesClasspathResourceResolver">
+      <p>
+        The deprecated class <code>org.apache.myfaces.tobago.facelets.MetaInfResourcesClasspathResourceResolver</code>
+        has been removed, because it was no longer needed since Servelt 3.0.
+        You may remove this context parameter in your <code>web.xml</code>.
+      </p>
+
+      <demo-highlight language="markup">&lt;context-param>
+    &lt;param-name>javax.faces.FACELETS_RESOURCE_RESOLVER&lt;/param-name>
+    &lt;param-value>org.apache.myfaces.tobago.facelets.MetaInfResourcesClasspathResourceResolver&lt;/param-value>
+&lt;/context-param>
+</demo-highlight>
+
+    </tc:section>
+
+  </tc:section>
+
+</ui:composition>
