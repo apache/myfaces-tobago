@@ -46,7 +46,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
 @ApplicationScoped
@@ -198,8 +197,6 @@ public class NavigationTree implements Serializable {
     ZipFile zip;
     try {
       zip = new ZipFile(file);
-    } catch (final ZipException e) {
-      throw new Error(e);
     } catch (final IOException e) {
       throw new Error(e);
     }
