@@ -1,7 +1,7 @@
 (function (factory) {
     typeof define === 'function' && define.amd ? define(factory) :
     factory();
-}((function () { 'use strict';
+})((function () { 'use strict';
 
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2137,5 +2137,5 @@
         DemoTest.initTestFrame(element);
     });
 
-})));
+}));
 //# sourceMappingURL=demo.js.map
