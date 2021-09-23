@@ -143,7 +143,7 @@
     <display-name>Security Constraint</display-name>
     <web-resource-collection>
       <web-resource-name>Application Area</web-resource-name>
-      <url-pattern>/content/30-concept/80-security/20-roles/*</url-pattern>
+      <url-pattern>/content/280-security/20-roles/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
       <role-name>demo-admin</role-name>
