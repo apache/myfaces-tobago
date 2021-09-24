@@ -96,9 +96,7 @@ public class TreeRenderer<T extends AbstractUITree> extends RendererBase<T> {
     insideBegin(facesContext, HtmlElements.TOBAGO_TREE);
     writer.startElement(HtmlElements.TOBAGO_TREE);
     writer.writeIdAttribute(clientId);
-    writer.writeClassAttribute(
-        component.getCustomClass(),
-        TobagoClass.TREE.createMarkup(markup));
+    writer.writeClassAttribute(component.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
     final Selectable selectable = component.getSelectable();
@@ -145,7 +143,7 @@ public class TreeRenderer<T extends AbstractUITree> extends RendererBase<T> {
     final String selectedId = clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_SELECTED;
     writer.writeNameAttribute(selectedId);
     writer.writeIdAttribute(selectedId);
-    writer.writeClassAttribute(TobagoClass.TREE__SELECTED);
+    writer.writeClassAttribute(TobagoClass.SELECTED);
     writer.writeAttribute(HtmlAttributes.VALUE, JsonUtils.encode(selectedValue), false);
     writer.endElement(HtmlElements.INPUT);
 
@@ -154,7 +152,7 @@ public class TreeRenderer<T extends AbstractUITree> extends RendererBase<T> {
     final String expandedId = clientId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED;
     writer.writeNameAttribute(expandedId);
     writer.writeIdAttribute(expandedId);
-    writer.writeClassAttribute(TobagoClass.TREE__EXPANDED);
+    writer.writeClassAttribute(TobagoClass.EXPANDED);
     writer.writeAttribute(HtmlAttributes.VALUE, JsonUtils.encode(expandedValue), false);
     writer.endElement(HtmlElements.INPUT);
 

@@ -136,8 +136,10 @@ public enum TobagoClass implements CssItem {
    */
   @Deprecated
   DROPDOWN__SELECTED("tobago-dropdown-selected"),
+  EXPANDED("tobago-expanded"),
   FILE("tobago-file"),
   FIGURE("tobago-figure"),
+  FOLDER("tobago-folder"),
   /**
    * @deprecated since 5.0.0
    */
@@ -191,6 +193,7 @@ public enum TobagoClass implements CssItem {
   SELECT_MANY_SHUTTLE__UNSELECTED_LABEL("tobago-selectManyShuttle-unselectedLabel"),
   SELECT_ONE_LISTBOX("tobago-selectOneListbox"),
   SELECT_ONE_LISTBOX__OPTION("tobago-selectOneListbox-option"),
+  SELECTED("tobago-selected"),
   SEPARATOR("tobago-separator"),
   SHEET("tobago-sheet"),
   SHEET__CELL("tobago-sheet-cell"),
@@ -221,9 +224,6 @@ public enum TobagoClass implements CssItem {
   TAB__CONTENT("tobago-tab-content"),
   TAB_GROUP("tobago-tabGroup"),
   TEXT__JUSTIFY("tobago-text-justify"),
-  TREE("tobago-tree"),
-  TREE__EXPANDED("tobago-tree-expanded"),
-  TREE__SELECTED("tobago-tree-selected"),
   TREE_LABEL("tobago-treeLabel"),
   TREE_LISTBOX("tobago-treeListbox"),
   TREE_LISTBOX__LEVEL("tobago-treeListbox-level"),

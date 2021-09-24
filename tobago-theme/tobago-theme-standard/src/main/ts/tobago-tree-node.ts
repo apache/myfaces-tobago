@@ -45,7 +45,7 @@ export class TreeNode extends HTMLElement {
       }
 
       this.deleteExpandedNode(this.index);
-      this.classList.remove("tobago-treeNode-markup-expanded");
+      this.classList.remove("tobago-expanded");
 
       this.hideNodes(this.treeChildNodes);
       if (this.tree) {
@@ -65,7 +65,7 @@ export class TreeNode extends HTMLElement {
       }
 
       this.addExpandedNode(this.index);
-      this.classList.add("tobago-treeNode-markup-expanded");
+      this.classList.add("tobago-expanded");
 
       this.showNodes(this.treeChildNodes);
       if (this.tree) {

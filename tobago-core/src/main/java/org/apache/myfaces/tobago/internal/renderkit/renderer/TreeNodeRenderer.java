@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
@@ -120,20 +119,10 @@ public class TreeNodeRenderer<T extends AbstractUITreeNode> extends RendererBase
     final String parentId = data.getRowParentClientId();
     final boolean visible = data.isRowVisible();
     final boolean folder = component.isFolder();
-    Markup markup = Markup.NULL;
     final TreePath path = component.getPath();
+    final boolean expanded = folder && data.getExpandedState().isExpanded(path);
     final SelectedState selectedState = data.getSelectedState();
     final boolean selected = data instanceof AbstractUITree && selectedState.isSelected(path);
-
-    if (selected) {
-      markup = markup.add(Markup.SELECTED);
-    }
-    if (folder) {
-      markup = markup.add(Markup.FOLDER);
-      if (data.getExpandedState().isExpanded(path)) {
-        markup = markup.add(Markup.EXPANDED);
-      }
-    }
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -155,8 +144,9 @@ public class TreeNodeRenderer<T extends AbstractUITreeNode> extends RendererBase
       final boolean hidden = !dataRendersRowContainer && !visible;
 
       writer.writeClassAttribute(
-          null,
-          TobagoClass.TREE_NODE.createMarkup(markup),
+          selected ? TobagoClass.SELECTED : null,
+          folder ? TobagoClass.FOLDER : null,
+          expanded ? TobagoClass.EXPANDED : null,
           hidden ? BootstrapClass.D_NONE : null,
           component.getCustomClass());
       writer.writeAttribute(CustomAttributes.SELECTED, selected);

@@ -86,6 +86,15 @@ demo-highlight {
   background-color: #ffdddd;
 }
 
+tobago-tree {
+  .tobago-selected {
+    font-weight: bold;
+    a {
+      background-color: #ceecf5;
+    }
+  }
+}
+
 .testframe-wrapper {
   display: inline-block;
   border: 1px solid;
