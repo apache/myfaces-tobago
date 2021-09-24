@@ -11411,6 +11411,9 @@ textarea.form-control-lg {
   margin-bottom: 1rem;
 }
 
+tobago-badge {
+  background-color: #6c757d;
+}
 tobago-badge.badge.bg-primary, tobago-badge.badge.btn-primary {
   color: #fff;
 }
