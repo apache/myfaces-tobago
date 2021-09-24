@@ -36,6 +36,7 @@
       <tc:style customClass="#{object.orbit eq 'Sun' ? 'planet' : ''}"/>
     </tc:row>
     <tc:column label="Name">
+      <tc:style customClass="#{object.orbit == 'Sun' ? 'bg-primary' : ''}"/>
       <tc:out value="#{object.name}" labelLayout="skip"/>
     </tc:column>
     <tc:column label="Orbit">

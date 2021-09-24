@@ -48,7 +48,6 @@ import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.layout.TextAlign;
-import org.apache.myfaces.tobago.layout.VerticalAlign;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.model.SheetState;
@@ -684,14 +683,12 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
             if (markup == null) {
               markup = Markup.NULL;
             }
-            if (column instanceof AbstractUIColumn) {
-              final AbstractUIColumn normalColumn = (AbstractUIColumn) column;
-              markup = markup.add(getMarkupForAlign(normalColumn));
-              markup = markup.add(getMarkupForVerticalAlign(normalColumn));
-            }
             writer.writeClassAttribute(
                 TobagoClass.SHEET__CELL,
-                TobagoClass.SHEET__CELL.createMarkup(markup),
+                BootstrapClass.textAlign(
+                    column instanceof AbstractUIColumn ? ((AbstractUIColumn)column).getAlign() : null),
+                BootstrapClass.verticalAlign(
+                    column instanceof AbstractUIColumn ? ((AbstractUIColumn)column).getVerticalAlign() : null),
                 column.getCustomClass());
 
             if (column instanceof AbstractUIColumnSelector) {
@@ -724,7 +721,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       }
 
       writer.startElement(HtmlElements.TD);
-      writer.writeClassAttribute(TobagoClass.SHEET__CELL, TobagoClass.SHEET__CELL.createMarkup(Markup.FILLER));
+      writer.writeClassAttribute(TobagoClass.SHEET__CELL);
       writer.startElement(HtmlElements.DIV);
       writer.endElement(HtmlElements.DIV);
       encodeBehavior(writer, facesContext, row);
@@ -752,7 +749,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       writer.endElement(HtmlElements.TD);
       if (!autoLayout) {
         writer.startElement(HtmlElements.TD);
-        writer.writeClassAttribute(TobagoClass.SHEET__CELL, TobagoClass.SHEET__CELL.createMarkup(Markup.FILLER));
+        writer.writeClassAttribute(TobagoClass.SHEET__CELL);
 //      writer.write("&nbsp;");
         writer.startElement(HtmlElements.DIV);
         writer.endElement(HtmlElements.DIV);
@@ -806,38 +803,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     }
   }
 
-  private Markup getMarkupForAlign(final UIColumn column) {
-    final String textAlign = ComponentUtils.getStringAttribute(column, Attributes.align);
-    if (textAlign != null) {
-      switch (TextAlign.valueOf(textAlign)) {
-        case right:
-          return Markup.RIGHT;
-        case center:
-          return Markup.CENTER;
-        case justify:
-          return Markup.JUSTIFY;
-        default:
-          // nothing to do
-      }
-    }
-    return null;
-  }
-
-  private Markup getMarkupForVerticalAlign(final AbstractUIColumn column) {
-    final VerticalAlign verticalAlign = column.getVerticalAlign();
-    if (verticalAlign != null) {
-      switch (verticalAlign) {
-        case bottom:
-          return Markup.BOTTOM;
-        case middle:
-          return Markup.MIDDLE;
-        default:
-          // nothing to do
-      }
-    }
-    return null;
-  }
-
   private void encodeHeaderRows(
       final FacesContext facesContext, final AbstractUISheet sheet, final TobagoResponseWriter writer,
       final List<AbstractUIColumnBase> columns)
@@ -869,33 +834,18 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
             if (cell.getRowSpan() > 1) {
               writer.writeAttribute(HtmlAttributes.ROWSPAN, cell.getRowSpan());
             }
-
+            final TextAlign align;
             final UIComponent cellComponent = cell.getComponent();
-
-            final Markup align;
-            final String alignString = ComponentUtils.getStringAttribute(column, Attributes.align);
             if (multiHeader && cell.getColumnSpan() > 1) {
-              align = Markup.CENTER;
-            } else if (alignString != null) {
-              switch (TextAlign.valueOf(alignString)) {
-                case right:
-                  align = Markup.RIGHT;
-                  break;
-                case center:
-                  align = Markup.CENTER;
-                  break;
-                case justify:
-                  align = Markup.JUSTIFY;
-                  break;
-                default:
-                  align = null;
-              }
+              align = TextAlign.center;
+            } else if (column instanceof AbstractUIColumn) {
+              align = ((AbstractUIColumn)column).getAlign();
             } else {
               align = null;
             }
             writer.writeClassAttribute(
                 TobagoClass.SHEET__HEADER_CELL,
-                TobagoClass.SHEET__CELL.createMarkup(align),
+                BootstrapClass.textAlign(align),
                 column.getCustomClass());
             writer.startElement(HtmlElements.SPAN);
             Markup markup = Markup.NULL;
@@ -986,9 +936,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
   private void encodeHeaderFiller(final TobagoResponseWriter writer, final AbstractUISheet sheet) throws IOException {
     writer.startElement(HtmlElements.TH);
-    writer.writeClassAttribute(
-        TobagoClass.SHEET__HEADER_CELL,
-        TobagoClass.SHEET__HEADER_CELL.createMarkup(Markup.FILLER));
+    writer.writeClassAttribute(TobagoClass.SHEET__HEADER_CELL);
     writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(TobagoClass.SHEET__HEADER);
     writer.endElement(HtmlElements.SPAN);

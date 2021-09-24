@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.layout.VerticalAlign;
 
 /**
@@ -31,4 +32,6 @@ public abstract class AbstractUIColumn extends AbstractUIColumnBase {
   public abstract String getLabel();
 
   public abstract VerticalAlign getVerticalAlign();
+
+  public abstract TextAlign getAlign();
 }
