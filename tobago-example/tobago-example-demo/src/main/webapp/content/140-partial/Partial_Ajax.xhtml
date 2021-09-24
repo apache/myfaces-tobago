@@ -27,13 +27,14 @@
 
     <tc:out value="Demonstration and test of partial reload"/>
 
-    <tc:style file="content/50-partial/partial.css"/>
+    <tc:style file="partial.css"/>
 
     <tc:gridLayout columns="1fr 1fr">
       <tc:box label="Left panel" id="left">
         <tc:gridLayout rows="auto 1fr">
           <tc:label value="Current seconds on server: "/>
-          <tc:out value="#{partialReloadController.currentDate}" markup="demoSeconds">
+          <tc:out value="#{partialReloadController.currentDate}">
+            <tc:style customClass="demo-seconds"/>
             <f:convertDateTime pattern="ss:SSS"/>
           </tc:out>
         </tc:gridLayout>
@@ -41,7 +42,8 @@
       <tc:box label="Right panel" id="right">
         <tc:gridLayout rows="auto 1fr">
           <tc:label value="Current seconds on server: "/>
-          <tc:out value="#{partialReloadController.currentDate}" markup="demoSeconds">
+          <tc:out value="#{partialReloadController.currentDate}">
+            <tc:style customClass="demo-seconds"/>
             <f:convertDateTime pattern="ss:SSS"/>
           </tc:out>
         </tc:gridLayout>
