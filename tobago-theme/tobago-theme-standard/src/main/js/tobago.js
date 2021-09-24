@@ -13341,7 +13341,7 @@ Type: ${data.type}`);
           }
       }
       get hiddenInputSelected() {
-          return this.querySelector(":scope > .tobago-tree-selected");
+          return this.querySelector(":scope > input[type=hidden].tobago-selected");
       }
       clearExpandedNodes() {
           this.hiddenInputExpanded.value = "[]"; //empty set
@@ -13357,7 +13357,7 @@ Type: ${data.type}`);
           this.hiddenInputExpanded.value = JSON.stringify(Array.from(expandedNodes));
       }
       get hiddenInputExpanded() {
-          return this.querySelector(":scope > .tobago-tree-expanded");
+          return this.querySelector(":scope > input[type=hidden].tobago-expanded");
       }
       get selectable() {
           return Selectable[this.getAttribute("selectable")];
@@ -13534,7 +13534,7 @@ Type: ${data.type}`);
                   }
               }
               this.deleteExpandedNode(this.index);
-              this.classList.remove("tobago-treeNode-markup-expanded");
+              this.classList.remove("tobago-expanded");
               this.hideNodes(this.treeChildNodes);
               if (this.tree) {
                   this.ajax(event, false);
@@ -13554,7 +13554,7 @@ Type: ${data.type}`);
                   }
               }
               this.addExpandedNode(this.index);
-              this.classList.add("tobago-treeNode-markup-expanded");
+              this.classList.add("tobago-expanded");
               this.showNodes(this.treeChildNodes);
               if (this.tree) {
                   this.ajax(event, this.treeChildNodes.length === 0);

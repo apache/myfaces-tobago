@@ -12447,13 +12447,12 @@ tobago-tab-group tobago-tab > .nav-link > i + span {
 }
 
 /* tree ---------------------------------------------------------------------- */
-.tobago-tree .tobago-treeNode {
+tobago-tree .tobago-treeNode {
   cursor: default;
 }
-.tobago-tree .tobago-treeNode .tobago-treeNode-toggle:not(.invisible) {
+tobago-tree .tobago-treeNode .tobago-treeNode-toggle:not(.invisible) {
   cursor: pointer;
 }
-
 .tobago-treeSelect .form-check-inline {
   margin-left: 0.375rem;
   margin-right: 0.375rem;

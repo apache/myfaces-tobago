@@ -1557,18 +1557,25 @@ tobago-tab-group {
 }
 
 /* tree ---------------------------------------------------------------------- */
-.tobago-tree-expanded,
-.tobago-tree-selected,
 .tobago-treeLabel,
 .tobago-treeSelect,
 .tobago-treeSelect-label {
 }
 
-.tobago-tree {
+tobago-tree {
   .tobago-treeNode {
     cursor: default;
 
     @include tobagoTreeNodeToggle();
+  }
+
+  .tobago-selected {
+  }
+
+  .tobago-expanded {
+  }
+
+  .tobago-folder {
   }
 }
 

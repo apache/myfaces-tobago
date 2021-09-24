@@ -59,7 +59,7 @@ export class Tree extends HTMLElement {
   }
 
   private get hiddenInputSelected(): HTMLInputElement {
-    return this.querySelector(":scope > .tobago-tree-selected");
+    return this.querySelector(":scope > input[type=hidden].tobago-selected");
   }
 
   private clearExpandedNodes(): void {
@@ -79,7 +79,7 @@ export class Tree extends HTMLElement {
   }
 
   get hiddenInputExpanded(): HTMLInputElement {
-    return this.querySelector(":scope > .tobago-tree-expanded");
+    return this.querySelector(":scope > input[type=hidden].tobago-expanded");
   }
 
   get selectable(): Selectable {
