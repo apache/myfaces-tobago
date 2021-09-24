@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
+import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.layout.VerticalAlign;
 
 import javax.faces.component.UIColumn;
@@ -48,12 +49,21 @@ import javax.faces.component.UIColumn;
     })
 public interface ColumnTagDeclaration
     extends HasIdBindingAndRendered, HasLabel, HasTip, IsVisual {
+
   /**
    * Horizontal alignment of this column.
-   * Possible values: left (default), right, center, justify
+   * Possible values:
+   * {@link org.apache.myfaces.tobago.layout.TextAlign#left} (default),
+   * {@link org.apache.myfaces.tobago.layout.TextAlign#right},
+   * {@link org.apache.myfaces.tobago.layout.TextAlign#center},
+   * {@link org.apache.myfaces.tobago.layout.TextAlign#justify}
    */
   @TagAttribute
-  @UIComponentTagAttribute()
+  @UIComponentTagAttribute(
+      type = {"org.apache.myfaces.tobago.layout.TextAlign"},
+      allowedValues = {
+          TextAlign.LEFT, TextAlign.RIGHT, TextAlign.CENTER, TextAlign.JUSTIFY
+      })
   void setAlign(String align);
 
   /**

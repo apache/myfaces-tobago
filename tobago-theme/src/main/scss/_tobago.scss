@@ -1338,32 +1338,6 @@ tobago-sheet {
   }
 }
 
-.tobago-sheet-cell-markup-right {
-  text-align: right;
-}
-
-.tobago-sheet-cell-markup-center {
-  text-align: center;
-}
-
-.tobago-sheet-cell-markup-justify {
-  text-align: justify;
-}
-
-.tobago-sheet-cell-markup-filler {
-  padding: 0 !important; /* fix for IE 11 */
-}
-
-.tobago-sheet-cell.tobago-sheet-cell-markup-middle {
-  vertical-align: middle;
-  line-height: initial;
-}
-
-.tobago-sheet-cell.tobago-sheet-cell-markup-bottom {
-  vertical-align: bottom;
-  line-height: initial;
-}
-
 .tobago-sheet-footer {
   text-align: center;
 }

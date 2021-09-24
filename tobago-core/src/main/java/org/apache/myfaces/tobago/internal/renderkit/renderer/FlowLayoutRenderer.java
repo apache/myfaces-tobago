@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFlowLayout;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -36,14 +35,13 @@ public class FlowLayoutRenderer<T extends AbstractUIFlowLayout> extends Renderer
   public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final Markup markup = component.getMarkup();
 
     writer.startElement(HtmlElements.TOBAGO_FLOW_LAYOUT);
     writer.writeIdAttribute(component.getClientId());
     final TextAlign textAlign = component.getTextAlign();
     writer.writeClassAttribute(
         component.getCustomClass(),
-        textAlign != null ? BootstrapClass.textAlign(textAlign) : null);
+        BootstrapClass.textAlign(textAlign));
   }
 
   @Override

@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.MeasureList;
 import org.apache.myfaces.tobago.layout.SegmentJustify;
 import org.apache.myfaces.tobago.layout.TextAlign;
+import org.apache.myfaces.tobago.layout.VerticalAlign;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,6 +58,9 @@ public enum BootstrapClass implements CssItem {
   ALIGN_ITEMS_END("align-items-end"),
   ALIGN_ITEMS_START("align-items-start"),
   ALIGN_ITEMS_STRETCH("align-items-stretch"),
+  ALIGN_BOTTOM("align-bottom"),
+  ALIGN_MIDDLE("align-middle"),
+  ALIGN_TOP("align-top"),
   /**
    * @deprecated since 5.0.0, please use {@link #POPOVER_ARROW} or {@link #TOOLTIP_ARROW}
    */
@@ -627,7 +631,7 @@ public enum BootstrapClass implements CssItem {
   }
 
   private static CssItem getSeverityCssItem(FacesMessage.Severity severity,
-      BootstrapClass info, BootstrapClass warning, BootstrapClass error) {
+                                            BootstrapClass info, BootstrapClass warning, BootstrapClass error) {
     if (severity.equals(FacesMessage.SEVERITY_INFO)) {
       return info;
     } else if (severity.equals(FacesMessage.SEVERITY_WARN)) {
@@ -661,18 +665,43 @@ public enum BootstrapClass implements CssItem {
    * @since 4.0.0
    */
   public static CssItem textAlign(final TextAlign textAlign) {
-    switch (textAlign) {
-      case left:
-        return BootstrapClass.TEXT_START;
-      case right:
-        return BootstrapClass.TEXT_END;
-      case justify:
-        return TobagoClass.TEXT__JUSTIFY;
-      case center:
-        return BootstrapClass.TEXT_CENTER;
-      default:
-        LOG.warn("Not a bootstrap class defined for {}", textAlign);
-        return BootstrapClass.TEXT_START;
+    if (textAlign != null) {
+      switch (textAlign) {
+        case left:
+          return BootstrapClass.TEXT_START;
+        case right:
+          return BootstrapClass.TEXT_END;
+        case justify:
+          return TobagoClass.TEXT__JUSTIFY;
+        case center:
+          return BootstrapClass.TEXT_CENTER;
+        default:
+          LOG.warn("Not a bootstrap class defined for {}", textAlign);
+          return BootstrapClass.TEXT_START;
+      }
+    } else {
+      return null;
+    }
+  }
+
+  /**
+   * @since 5.0.0
+   */
+  public static CssItem verticalAlign(final VerticalAlign verticalAlign) {
+    if (verticalAlign != null) {
+      switch (verticalAlign) {
+        case bottom:
+          return BootstrapClass.ALIGN_BOTTOM;
+        case middle:
+          return BootstrapClass.ALIGN_MIDDLE;
+        case top:
+          return BootstrapClass.ALIGN_TOP;
+        default:
+          LOG.warn("Not a bootstrap class defined for {}", verticalAlign);
+          return BootstrapClass.TEXT_START;
+      }
+    } else {
+      return null;
     }
   }
 
@@ -833,7 +862,7 @@ public enum BootstrapClass implements CssItem {
     }
 
     private void generate(final List<BootstrapClass> result, final MarginTokens margins,
-        final Map<String, Object> attributes, final Attributes attribute) {
+                          final Map<String, Object> attributes, final Attributes attribute) {
       final Object overwrite = attributes.get(attribute.name());
 
       if (overwrite != null) {
