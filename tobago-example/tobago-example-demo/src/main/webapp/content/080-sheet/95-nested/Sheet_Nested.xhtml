@@ -22,25 +22,27 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
   <ui:param name="title" value="Nested Sheet"/>
 
-    <tc:sheet value="#{sheetController.solarList}" id="sheet"
-              columns="1fr 2fr" var="luminary">
-      <tc:column label="Name" id="name" sortable="true" markup="#{luminary.markup}">
-        <tc:out value="#{luminary.name}" id="t_name"/>
-      </tc:column>
-      <tc:column label="Chemical Composition" id="cc" sortable="false" resizable="false"
-                 tip="Chemical Composition of the Crust">
+  <tc:badge markup="warning" value="Experimental"/>
 
-          <tc:sheet value="#{luminary.chemicalComposition}" id="nested"
-                    columns="1fr 1fr" var="element">
-              <tc:column label="Element" id="element" sortable="false" resizable="false">
-                  <tc:out value="#{element.name}"/>
-              </tc:column>
-              <tc:column label="Ratio" id="ratio" sortable="false" resizable="false">
-                  <tc:out value="#{element.ratio}"/>
-              </tc:column>
-          </tc:sheet>
+  <tc:sheet value="#{sheetController.solarList}" id="sheet"
+            columns="1fr 2fr" var="luminary">
+    <tc:column label="Name" id="name" sortable="true" markup="#{luminary.markup}">
+      <tc:out value="#{luminary.name}" id="t_name"/>
+    </tc:column>
+    <tc:column label="Chemical Composition" id="cc" sortable="false" resizable="false"
+               tip="Chemical Composition of the Crust">
 
-      </tc:column>
-    </tc:sheet>
+      <tc:sheet value="#{luminary.chemicalComposition}" id="nested"
+                columns="1fr 1fr" var="element">
+        <tc:column label="Element" id="element" sortable="false" resizable="false">
+          <tc:out value="#{element.name}"/>
+        </tc:column>
+        <tc:column label="Ratio" id="ratio" sortable="false" resizable="false">
+          <tc:out value="#{element.ratio}"/>
+        </tc:column>
+      </tc:sheet>
+
+    </tc:column>
+  </tc:sheet>
 
 </ui:composition>

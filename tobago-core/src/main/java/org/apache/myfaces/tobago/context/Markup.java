@@ -80,7 +80,6 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup EVEN = valueOf("even");
   public static final Markup EXPANDED = valueOf("expanded");
   public static final Markup EXTRA_LARGE = valueOf("extraLarge");
-  public static final Markup FILLER = valueOf("filler");
   public static final Markup FATAL = valueOf("fatal");
   public static final Markup FOLDER = valueOf("folder");
   public static final Markup HOVER = valueOf("hover");
@@ -147,7 +146,6 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final String STRING_EVEN = "even";
   public static final String STRING_EXPANDED = "expanded";
   public static final String STRING_EXTRA_LARGE = "extraLarge";
-  public static final String STRING_FILLER = "filler";
   public static final String STRING_FATAL = "fatal";
   public static final String STRING_FOLDER = "folder";
   public static final String STRING_HOVER = "hover";
