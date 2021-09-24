@@ -21,8 +21,6 @@ package org.apache.myfaces.tobago.renderkit.css;
 
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.layout.AlignItems;
-import org.apache.myfaces.tobago.layout.JustifyContent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,6 +123,7 @@ public enum TobagoClass implements CssItem {
   COLLAPSED("tobago-collapsed"),
   DATE("tobago-date"),
   DATE__PICKER("tobago-date-picker"),
+  DELETED("tobago-deleted"),
   DISPLAY__INLINE__BLOCK("tobago-display-inline-block"),
   /**
    * @deprecated since 5.0.0
@@ -169,6 +168,7 @@ public enum TobagoClass implements CssItem {
   @Deprecated
   MESSAGES__BUTTON("tobago-messages-button"),
   MESSAGES__CONTAINER("tobago-messages-container"),
+  NUMBER("tobago-number"),
   OBJECT("tobago-object"),
   OUT("tobago-out"),
   PAGE("tobago-page"),
@@ -242,22 +242,6 @@ public enum TobagoClass implements CssItem {
   @Override
   public String getName() {
     return name;
-  }
-
-  /**
-   * @deprecated since 4.0.0, use {@link BootstrapClass#valueOf(AlignItems)}
-   */
-  @Deprecated
-  public static CssItem valueOf(final AlignItems alignItems) {
-    return BootstrapClass.valueOf(alignItems);
-  }
-
-  /**
-   * @deprecated since 4.0.0, use {@link BootstrapClass#valueOf(JustifyContent)}
-   */
-  @Deprecated
-  public static CssItem valueOf(final JustifyContent justifyContent) {
-    return BootstrapClass.valueOf(justifyContent);
   }
 
   @Preliminary

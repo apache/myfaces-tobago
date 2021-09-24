@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIBar;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -56,7 +55,6 @@ public class BarRenderer<T extends AbstractUIBar> extends RendererBase<T> {
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
         BootstrapClass.NAVBAR,
-        TobagoClass.BAR.createMarkup(component.getMarkup()),
         getNavbarExpand(markup),
         getNavbarColorScheme(markup),
         component.getCustomClass());
