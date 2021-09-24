@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIBadge;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -43,8 +42,6 @@ public class BadgeRenderer<T extends AbstractUIBadge> extends RendererBase<T> {
     writer.startElement(HtmlElements.TOBAGO_BADGE);
     writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeClassAttribute(
-        null,
-        TobagoClass.BADGE.createMarkup(markup),
         BootstrapClass.BADGE,
         getBadgeColor(markup),
         markup.contains(Markup.PILL) ? BootstrapClass.ROUNDED_PILL : null,
@@ -85,7 +82,7 @@ public class BadgeRenderer<T extends AbstractUIBadge> extends RendererBase<T> {
     } else if (markup.contains(Markup.DARK)) {
       return BootstrapClass.BG_DARK;
     } else {
-      return BootstrapClass.BG_SECONDARY;
+      return null;
     }
   }
 }
