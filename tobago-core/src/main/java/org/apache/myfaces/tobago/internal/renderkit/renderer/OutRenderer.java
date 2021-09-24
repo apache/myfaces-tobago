@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -81,9 +80,11 @@ public class OutRenderer<T extends AbstractUIOut> extends MessageLayoutRendererB
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
     writer.writeClassAttribute(
+        markup != null && markup.contains(Markup.DELETED) ? TobagoClass.DELETED : null,
+        markup != null && markup.contains(Markup.NUMBER) ? TobagoClass.NUMBER : null,
         component.getCustomClass(),
-        TobagoClass.OUT.createMarkup(markup),
-        getCssItems(facesContext, component),
+        isInside(facesContext, HtmlElements.TOBAGO_IN)
+            ? BootstrapClass.INPUT_GROUP_TEXT : BootstrapClass.FORM_CONTROL_PLAINTEXT,
         BootstrapClass.textColor(markup),
         BootstrapClass.fontStyle(markup));
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
@@ -119,7 +120,7 @@ public class OutRenderer<T extends AbstractUIOut> extends MessageLayoutRendererB
         writer.writeText(text);
       }
     } else { // escape="false"
-      writer.writeText("", null); // to ensure the closing > of the <span> start tag.
+      writer.writeText(""); // to ensure the closing > of the <span> start tag.
       if (SanitizeMode.auto == out.getSanitize()) {
         final Sanitizer sanitizer = TobagoConfig.getInstance(facesContext).getSanitizer();
         text = sanitizer.sanitize(text);
@@ -139,11 +140,4 @@ public class OutRenderer<T extends AbstractUIOut> extends MessageLayoutRendererB
     return component.getClientId(facesContext);
   }
 
-  protected CssItem[] getCssItems(final FacesContext facesContext, final AbstractUIOut out) {
-    if (isInside(facesContext, HtmlElements.TOBAGO_IN)) {
-      return new CssItem[]{BootstrapClass.INPUT_GROUP_TEXT};
-    } else {
-      return new CssItem[]{BootstrapClass.FORM_CONTROL_PLAINTEXT};
-    }
-  }
 }

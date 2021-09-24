@@ -12013,15 +12013,11 @@ tobago-out {
   display: inline-block;
 }
 
-.tobago-out-markup-strong {
-  font-weight: bold;
-}
-
-.tobago-out-markup-deleted {
+.tobago-deleted {
   text-decoration: line-through;
 }
 
-.tobago-out-markup-number {
+.tobago-number {
   display: block;
   text-align: right;
 }

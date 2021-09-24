@@ -52,9 +52,18 @@
       <tc:out value="danger" markup="danger"/>
       <tc:out value="warning" markup="warning"/>
       <tc:out value="info" markup="info"/>
-      <tc:out value="light" markup="light"/>
+      <tc:out value="light" markup="light">
+        <tc:style customClass="bg-dark"/>
+      </tc:out>
       <tc:out value="dark" markup="dark"/>
       <tc:out value="muted" markup="muted"/>
+    </tc:segmentLayout>
+    <tc:segmentLayout extraSmall="4seg">
+      <tc:out value="deleted" markup="deleted"/>
+      <tc:out value="number" markup="number"/>
+    </tc:segmentLayout>
+    <tc:segmentLayout>
+      <tc:out value="combination: deleted danger italic" markup="deleted danger italic"/>
     </tc:segmentLayout>
   </tc:section>
   <tc:section label="Escape">
@@ -79,5 +88,11 @@
       But be careful, because of XSS vulnerability.</p>
     <demo-highlight language="markup">&lt;tc:out label="Sanitize off" escape="false" sanitize="never" value="\#{outController.html}"/&gt;</demo-highlight>
     <tc:out id="o5" label="Sanitize off" escape="false" sanitize="never" value="#{outController.html}"/>
+    <p>
+      Probably you will find no colors here. In that case, the CSP in the browser protectes against inline style.
+      Moro information about CSP in Tobago find in the
+      <tc:link label="security section"
+               link="#{request.contextPath}/content/280-security/05-csp/Content_Security_Policy.xhtml"/>.
+    </p>
   </tc:section>
 </ui:composition>

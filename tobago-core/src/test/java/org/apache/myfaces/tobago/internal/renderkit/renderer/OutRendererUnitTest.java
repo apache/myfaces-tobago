@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.renderkit.css.CustomClass;
+import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -64,4 +65,30 @@ public class OutRendererUnitTest extends RendererTestBase {
 
     Assertions.assertEquals(loadHtml("renderer/out/outLabelCustomClass.html"), formattedResult());
   }
+
+  @Test
+  public void outSanitizeAuto() throws IOException {
+    final UIOut c = (UIOut) ComponentUtils.createComponent(
+        facesContext, Tags.out.componentType(), RendererTypes.Out, "id");
+    c.setValue("Hello <span style='display: none'>Peter</span>!");
+    c.setEscape(false);
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/out/outSanitizeAuto.html"), formattedResult());
+  }
+
+  @Test
+  public void outSanitizeNever() throws IOException {
+    final UIOut c = (UIOut) ComponentUtils.createComponent(
+        facesContext, Tags.out.componentType(), RendererTypes.Out, "id");
+    c.setValue("Hello <span style='display: none'>Peter</span>!");
+    c.setEscape(false);
+    c.setSanitize(SanitizeMode.never);
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/out/outSanitizeNever.html"), formattedResult());
+  }
+
 }
