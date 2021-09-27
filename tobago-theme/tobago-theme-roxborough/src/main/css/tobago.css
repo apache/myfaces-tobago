@@ -12036,15 +12036,11 @@ tobago-out {
   display: inline-block;
 }
 
-.tobago-out-markup-strong {
-  font-weight: bold;
-}
-
-.tobago-out-markup-deleted {
+.tobago-deleted {
   text-decoration: line-through;
 }
 
-.tobago-out-markup-number {
+.tobago-number {
   display: block;
   text-align: right;
 }
@@ -12568,33 +12564,6 @@ tobago-sheet {
 }
 tobago-sheet .table {
   margin-bottom: 0;
-}
-
-.tobago-sheet-cell-markup-right {
-  text-align: right;
-}
-
-.tobago-sheet-cell-markup-center {
-  text-align: center;
-}
-
-.tobago-sheet-cell-markup-justify {
-  text-align: justify;
-}
-
-.tobago-sheet-cell-markup-filler {
-  padding: 0 !important;
-  /* fix for IE 11 */
-}
-
-.tobago-sheet-cell.tobago-sheet-cell-markup-middle {
-  vertical-align: middle;
-  line-height: initial;
-}
-
-.tobago-sheet-cell.tobago-sheet-cell-markup-bottom {
-  vertical-align: bottom;
-  line-height: initial;
 }
 
 .tobago-sheet-footer {
