@@ -58,7 +58,7 @@
     <!-- Note: defined here in master pom, because of problems with enforcer plugin -->
     <jetty.version>9.4.43.v20210629</jetty.version>
     <joinfaces.version>4.5.4</joinfaces.version>
-    <spring-boot.version>2.5.4</spring-boot.version>
+    <spring-boot.version>2.5.5</spring-boot.version>
 
   </properties>
 
@@ -456,7 +456,7 @@
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-api</artifactId>
-        <version>5.8.0</version>
+        <version>5.8.1</version>
         <scope>test</scope>
       </dependency>
       <dependency>

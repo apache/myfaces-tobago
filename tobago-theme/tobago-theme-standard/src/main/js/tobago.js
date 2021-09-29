@@ -7522,20 +7522,25 @@
       }
       openDropdown() {
           this.dispatchEvent(new CustomEvent(TobagoDropdownEvent.SHOW));
-          if (!this.inStickyHeader()) {
+          if (!this.insideNavbar()) {
               this.menuStore.appendChild(this.dropdownMenu);
           }
           this.dispatchEvent(new CustomEvent(TobagoDropdownEvent.SHOWN));
       }
       closeDropdown() {
           this.dispatchEvent(new CustomEvent(TobagoDropdownEvent.HIDE));
-          if (!this.inStickyHeader()) {
+          if (!this.insideNavbar()) {
               this.appendChild(this.dropdownMenu);
           }
           this.dispatchEvent(new CustomEvent(TobagoDropdownEvent.HIDDEN));
       }
-      inStickyHeader() {
-          return Boolean(this.closest("tobago-header.sticky-top"));
+      /**
+       * The bootstrap dropdown implementation doesn't adjust the position of the dropdown menu if inside a '.navbar'.
+       * In this case the dropdown menu should not be appended to the menu store.
+       * https://github.com/twbs/bootstrap/blob/0d81d3cbc14dfcdca8a868e3f25189a4f1ab273c/js/src/dropdown.js#L294
+       */
+      insideNavbar() {
+          return Boolean(this.closest(".navbar"));
       }
       get dropdownMenu() {
           const root = this.getRootNode();

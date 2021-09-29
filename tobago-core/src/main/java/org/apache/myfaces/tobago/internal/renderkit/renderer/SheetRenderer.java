@@ -839,7 +839,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
             if (multiHeader && cell.getColumnSpan() > 1) {
               align = TextAlign.center;
             } else if (column instanceof AbstractUIColumn) {
-              align = ((AbstractUIColumn)column).getAlign();
+              align = ((AbstractUIColumn) column).getAlign();
             } else {
               align = null;
             }
