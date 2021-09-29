@@ -52,7 +52,6 @@ public class ObjectRenderer<T extends AbstractUIObject> extends RendererBase<T> 
     writer.writeAttribute(HtmlAttributes.SRC, component.getSrc(), true);
     writer.writeClassAttribute(
         TobagoClass.OBJECT,
-        TobagoClass.OBJECT.createMarkup(markup),
         component.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
 

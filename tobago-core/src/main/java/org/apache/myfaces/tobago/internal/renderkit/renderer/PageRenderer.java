@@ -238,7 +238,6 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     writer.writeAttribute(CustomAttributes.LOCALE, locale.toString(), false);
     writer.writeClassAttribute(
         BootstrapClass.CONTAINER_FLUID,
-        TobagoClass.PAGE.createMarkup(portlet ? Markup.PORTLET.add(component.getMarkup()) : component.getMarkup()),
         spread,
         component.getCustomClass());
     writer.writeIdAttribute(clientId);

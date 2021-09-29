@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.internal.util.HttpPartWrapper;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -143,7 +142,6 @@ public class FileRenderer<T extends AbstractUIFile>
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(
         BootstrapClass.INPUT_GROUP,
-        TobagoClass.FILE.createMarkup(component.getMarkup()),
         component.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 

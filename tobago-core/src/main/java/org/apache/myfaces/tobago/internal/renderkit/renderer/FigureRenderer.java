@@ -42,7 +42,6 @@ public class FigureRenderer<T extends AbstractUIFigure> extends RendererBase<T> 
 
     writer.writeClassAttribute(
         TobagoClass.FIGURE,
-        TobagoClass.FIGURE.createMarkup(component.getMarkup()),
         BootstrapClass.FIGURE,
         component.getCustomClass());
     final String tip = component.getTip();

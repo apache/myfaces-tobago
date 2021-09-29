@@ -19,12 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
-import org.apache.myfaces.tobago.apt.annotation.Preliminary;
-import org.apache.myfaces.tobago.context.Markup;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Declaration of the Tobago CSS classes.
  *
@@ -32,89 +26,8 @@ import java.util.List;
  */
 public enum TobagoClass implements CssItem {
 
-  // general classes
-
-  /**
-   * @deprecated since 4.5.0
-   */
-  @Deprecated
-  INPUT_PSEUDO("tobago-inputPseudo"),
-
-  /**
-   * @deprecated since 4.0.0, use {@link BootstrapClass#ALIGN_ITEMS_BASELINE}
-   */
-  @Deprecated
-  ALIGN_ITEMS__BASELINE("tobago-alignItems-baseline"),
-  /**
-   * @deprecated since 4.0.0, use {@link BootstrapClass#ALIGN_ITEMS_CENTER}
-   */
-  @Deprecated
-  ALIGN_ITEMS__CENTER("tobago-alignItems-center"),
-  /**
-   * @deprecated since 4.0.0, use {@link BootstrapClass#ALIGN_ITEMS_END}
-   */
-  @Deprecated
-  ALIGN_ITEMS__FLEX_END("tobago-alignItems-flexEnd"),
-  /**
-   * @deprecated since 4.0.0, use {@link BootstrapClass#ALIGN_ITEMS_START}
-   */
-  @Deprecated
-  ALIGN_ITEMS__FLEX_START("tobago-alignItems-flexStart"),
-  /**
-   * @deprecated since 4.0.0, use {@link BootstrapClass#ALIGN_ITEMS_STRETCH}
-   */
-  @Deprecated
-  ALIGN_ITEMS__STRETCH("tobago-alignItems-stretch"),
+  ASCENDING("tobago-ascending"),
   AUTO__SPACING("tobago-auto-spacing"),
-  /**
-   * @deprecated since 4.0.0, use {@link BootstrapClass#JUSTIFY_CONTENT_CENTER}
-   */
-  @Deprecated
-  JUSTIFY_CONTENT__CENTER("tobago-justifyContent-center"),
-  /**
-   * @deprecated since 4.0.0, use {@link BootstrapClass#JUSTIFY_CONTENT_START}
-   */
-  @Deprecated
-  JUSTIFY_CONTENT__FLEX_START("tobago-justifyContent-flexStart"),
-  /**
-   * @deprecated since 4.0.0, use {@link BootstrapClass#JUSTIFY_CONTENT_END}
-   */
-  @Deprecated
-  JUSTIFY_CONTENT__FLEX_END("tobago-justifyContent-flexEnd"),
-  /**
-   * @deprecated since 4.0.0, use {@link BootstrapClass#JUSTIFY_CONTENT_BETWEEN}
-   */
-  @Deprecated
-  JUSTIFY_CONTENT__SPACE_BETWEEN("tobago-justifyContent-spaceBetween"),
-  /**
-   * @deprecated since 4.0.0, use {@link BootstrapClass#JUSTIFY_CONTENT_AROUND}
-   */
-  @Deprecated
-  JUSTIFY_CONTENT__SPACE_AROUND("tobago-justifyContent-spaceAround"),
-
-  DROPDOWN__SUBMENU("tobago-dropdown-submenu"),
-  /**
-   * @deprecated Since 3.0.1. Please use {@link TobagoClass#DROPDOWN__SUBMENU}
-   */
-  @Deprecated
-  DROPDOWN_SUBMENU(DROPDOWN__SUBMENU.getName()),
-  TABLE_LAYOUT__FIXED("tobago-tableLayout-fixed"),
-
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
-  HAS__INFO("tobago-has-info"),
-  /**
-   * @deprecated Since 3.0.1. Please use {@link TobagoClass#HAS__INFO}
-   */
-  @Deprecated
-  HAS_INFO(HAS__INFO.getName()),
-  REQUIRED("tobago-required"),
-  SPREAD("tobago-spread"),
-
-  // component based classes
-
   BADGE("tobago-badge"),
   BAR("tobago-bar"),
   BOX__HEADER("tobago-box-header"),
@@ -124,49 +37,21 @@ public enum TobagoClass implements CssItem {
   DATE("tobago-date"),
   DATE__PICKER("tobago-date-picker"),
   DELETED("tobago-deleted"),
+  DESCENDING("tobago-descending"),
   DISPLAY__INLINE__BLOCK("tobago-display-inline-block"),
-  /**
-   * @deprecated since 5.0.0
-   */
-  @Deprecated
-  DROPDOWN__OPEN("tobago-dropdown-open"),
-  /**
-   * @deprecated since 5.0.0
-   */
-  @Deprecated
-  DROPDOWN__SELECTED("tobago-dropdown-selected"),
+  DROPDOWN__SUBMENU("tobago-dropdown-submenu"),
   EXPANDED("tobago-expanded"),
   FILE("tobago-file"),
   FIGURE("tobago-figure"),
   FOLDER("tobago-folder"),
-  /**
-   * @deprecated since 5.0.0
-   */
-  @Deprecated
-  FORM("tobago-form"),
   HEADER("tobago-header"),
-  /**
-   * @deprecated Since 5.0.0. Please use surrounding tag &lt;tobago-popover&gt;.
-   */
-  @Deprecated
-  HELP__BUTTON("tobago-help-button"),
   IMAGE("tobago-image"),
   IN("tobago-in"),
   INPUT__GROUP__OUTER("tobago-input-group-outer"),
-  /**
-   * @deprecated Since 3.0.1. Please use {@link TobagoClass#INPUT__GROUP__OUTER}
-   */
-  @Deprecated
-  INPUT_GROUP_OUTER(INPUT__GROUP__OUTER.getName()),
   LABEL("tobago-label"),
   LABEL__CONTAINER("tobago-label-container"),
   LINK("tobago-link"),
   MESSAGES("tobago-messages"),
-  /**
-   * @deprecated Since 5.0.0. Please use surrounding tag &lt;tobago-popover&gt;.
-   */
-  @Deprecated
-  MESSAGES__BUTTON("tobago-messages-button"),
   MESSAGES__CONTAINER("tobago-messages-container"),
   NUMBER("tobago-number"),
   OBJECT("tobago-object"),
@@ -177,6 +62,7 @@ public enum TobagoClass implements CssItem {
   PANEL("tobago-panel"),
   POPOVER__BOX("tobago-popover-box"),
   RANGE("tobago-range"),
+  REQUIRED("tobago-required"),
   SECTION__CONTENT("tobago-section-content"),
   SELECT_MANY_LISTBOX__OPTION("tobago-selectManyListbox-option"),
   SELECT_MANY_SHUTTLE("tobago-selectManyShuttle"),
@@ -207,10 +93,11 @@ public enum TobagoClass implements CssItem {
   SHEET__BODY_TABLE("tobago-sheet-bodyTable"),
   SHEET__COLUMN_SELECTOR("tobago-sheet-columnSelector"),
   SHEET__HEADER_TABLE("tobago-sheet-headerTable"),
-  SHEET__PAGING("tobago-sheet-paging"),
   SHEET__PAGING_INPUT("tobago-sheet-pagingInput"),
   SHEET__PAGING_OUTPUT("tobago-sheet-pagingOutput"),
   SHEET__ROW("tobago-sheet-row"),
+  SORTABLE("tobago-sortable"),
+  SPREAD("tobago-spread"),
   STARS("tobago-stars"),
   STARS__CONTAINER("tobago-stars-container"),
   STARS__FOCUS_BOX("tobago-stars-focusBox"),
@@ -223,6 +110,7 @@ public enum TobagoClass implements CssItem {
   TAB__BAR_FACET("tobago-tab-barFacet"),
   TAB__CONTENT("tobago-tab-content"),
   TAB_GROUP("tobago-tabGroup"),
+  TABLE_LAYOUT__FIXED("tobago-tableLayout-fixed"),
   TEXT__JUSTIFY("tobago-text-justify"),
   TREE_LABEL("tobago-treeLabel"),
   TREE_LISTBOX("tobago-treeListbox"),
@@ -242,35 +130,5 @@ public enum TobagoClass implements CssItem {
   @Override
   public String getName() {
     return name;
-  }
-
-  @Preliminary
-  public CssItem[] createMarkup(final Markup markup) {
-    if (markup != null) {
-      final List<CssItem> markups = new ArrayList<>();
-      for (final String markupString : markup) {
-        markups.add(new MarkupClass(this, markupString));
-      }
-      return markups.toArray(new CssItem[0]);
-    } else {
-      return null;
-    }
-  }
-
-  private static class MarkupClass implements CssItem {
-
-    private final TobagoClass rendererClass;
-    private final String markup;
-
-    private MarkupClass(final TobagoClass rendererClass, final String markup) {
-      this.rendererClass = rendererClass;
-      this.markup = markup;
-    }
-
-    @Override
-    public String getName() {
-      // These values are statistically tested length of the html class attribute
-      return rendererClass.getName() + "-markup-" + markup;
-    }
   }
 }

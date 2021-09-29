@@ -49,7 +49,6 @@ public class PanelRenderer<T extends AbstractUIPanel> extends CollapsiblePanelRe
 
     writer.writeClassAttribute(
         collapsed ? TobagoClass.COLLAPSED : null,
-        TobagoClass.PANEL.createMarkup(markup),
         component.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
 

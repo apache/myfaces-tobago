@@ -114,7 +114,6 @@ public class TreeSelectRenderer<T extends AbstractUITreeSelect> extends Renderer
     final Markup markup = component.getMarkup();
     writer.writeClassAttribute(
         component.getCustomClass(),
-        TobagoClass.TREE_SELECT.createMarkup(markup),
         // TODO: check rendered page for other selectables. Are them looking good?
         showCustomControl ? BootstrapClass.FORM_CHECK_INLINE : null,
         showCustomControl && selectable.isMulti() ? BootstrapClass.FORM_CHECK : null,

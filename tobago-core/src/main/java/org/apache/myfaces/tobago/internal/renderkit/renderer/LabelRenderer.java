@@ -74,7 +74,6 @@ public class LabelRenderer<T extends AbstractUILabel> extends RendererBase<T> im
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeClassAttribute(
         BootstrapClass.COL_FORM_LABEL,
-        TobagoClass.LABEL.createMarkup(markup),
         required ? TobagoClass.REQUIRED : null,
         component.getCustomClass());
     writer.writeIdAttribute(clientId);

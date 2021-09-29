@@ -68,7 +68,6 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup BOLD = valueOf("bold");
   public static final Markup BORDERED = valueOf("bordered");
   public static final Markup BOTTOM = valueOf("bottom");
-  public static final Markup CENTER = valueOf("center");
   public static final Markup CLICKABLE = valueOf("clickable");
   public static final Markup DANGER = valueOf("danger");
   public static final Markup DARK = valueOf("dark");
@@ -88,7 +87,6 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup ITALIC = valueOf("italic");
   public static final Markup JUSTIFY = valueOf("justify");
   public static final Markup LARGE = valueOf("large");
-  public static final Markup LEFT = valueOf("left");
   public static final Markup LIGHT = valueOf("light");
   public static final Markup MARKED = valueOf("marked");
   public static final Markup MEDIUM = valueOf("medium");
@@ -111,7 +109,6 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup READONLY = valueOf("readonly");
   public static final Markup REQUIRED = valueOf("required");
   public static final Markup RESIZABLE = valueOf("resizable");
-  public static final Markup RIGHT = valueOf("right");
   public static final Markup SECONDARY = valueOf("secondary");
   public static final Markup SECONDS = valueOf("seconds");
   public static final Markup SELECTED = valueOf("selected");
@@ -134,7 +131,6 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final String STRING_BOLD = "bold";
   public static final String STRING_BORDERED = "bordered";
   public static final String STRING_BOTTOM = "bottom";
-  public static final String STRING_CENTER = "center";
   public static final String STRING_CLICKABLE = "clickable";
   public static final String STRING_DANGER = "danger";
   public static final String STRING_DARK = "dark";
@@ -154,7 +150,6 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final String STRING_ITALIC = "italic";
   public static final String STRING_JUSTIFY = "justify";
   public static final String STRING_LARGE = "large";
-  public static final String STRING_LEFT = "left";
   public static final String STRING_LIGHT = "light";
   public static final String STRING_MARKED = "marked";
   public static final String STRING_MEDIUM = "medium";
@@ -177,7 +172,6 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final String STRING_READONLY = "readonly";
   public static final String STRING_REQUIRED = "required";
   public static final String STRING_RESIZABLE = "resizable";
-  public static final String STRING_RIGHT = "right";
   public static final String STRING_SECONDARY = "secondary";
   public static final String STRING_SECONDS = "seconds";
   public static final String STRING_SELECTED = "selected";

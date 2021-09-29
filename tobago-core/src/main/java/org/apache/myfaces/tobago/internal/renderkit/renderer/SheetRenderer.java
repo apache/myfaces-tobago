@@ -269,7 +269,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeClassAttribute(
         component.getCustomClass(),
-        TobagoClass.SHEET.createMarkup(markup),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     writer.writeAttribute(DataAttributes.SELECTION_MODE, component.getSelectable().name(), false);
     writer.writeAttribute(DataAttributes.FIRST, Integer.toString(component.getFirst()), false);
@@ -358,14 +357,16 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       writer.writeClassAttribute(TobagoClass.SHEET__FOOTER);
 
       // show row range
-      final Markup showRowRange = markupForLeftCenterRight(component.getShowRowRange());
-      if (showRowRange != Markup.NULL) {
+      final ShowPosition showPositionRowRange = component.getShowRowRange();
+      if (showPositionRowRange != ShowPosition.none) {
         final AbstractUILink command
             = ensurePagingCommand(facesContext, component, Facets.pagerRow.name(), SheetAction.toRow.name(), false);
         final String pagerCommandId = command.getClientId(facesContext);
 
         writer.startElement(HtmlElements.UL);
-        writer.writeClassAttribute(TobagoClass.SHEET__PAGING, TobagoClass.SHEET__PAGING.createMarkup(showRowRange),
+        writer.writeClassAttribute(
+            BootstrapClass.D_INLINE_FLEX,
+            cssForLeftCenterRight(showPositionRowRange),
             BootstrapClass.PAGINATION);
         writer.startElement(HtmlElements.LI);
         writer.writeClassAttribute(BootstrapClass.PAGE_ITEM);
@@ -419,10 +420,12 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       }
 
       // show direct links
-      final Markup showDirectLinks = markupForLeftCenterRight(component.getShowDirectLinks());
-      if (showDirectLinks != Markup.NULL) {
+      final ShowPosition showPositionDirectLinks = component.getShowDirectLinks();
+      if (showPositionDirectLinks != ShowPosition.none) {
         writer.startElement(HtmlElements.UL);
-        writer.writeClassAttribute(TobagoClass.SHEET__PAGING, TobagoClass.SHEET__PAGING.createMarkup(showDirectLinks),
+        writer.writeClassAttribute(
+            BootstrapClass.D_INLINE_FLEX,
+            cssForLeftCenterRight(showPositionDirectLinks),
             BootstrapClass.PAGINATION);
         if (component.isShowDirectLinksArrows()) {
           final boolean disabled = component.isAtBeginning();
@@ -441,14 +444,16 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       }
 
       // show page range
-      final Markup showPageRange = markupForLeftCenterRight(component.getShowPageRange());
-      if (showPageRange != Markup.NULL) {
+      final ShowPosition showPositionPageRange = component.getShowPageRange();
+      if (showPositionRowRange != ShowPosition.none) {
         final AbstractUILink command
             = ensurePagingCommand(facesContext, component, Facets.pagerPage.name(), SheetAction.toPage.name(), false);
         final String pagerCommandId = command.getClientId(facesContext);
 
         writer.startElement(HtmlElements.UL);
-        writer.writeClassAttribute(TobagoClass.SHEET__PAGING, TobagoClass.SHEET__PAGING.createMarkup(showPageRange),
+        writer.writeClassAttribute(
+            BootstrapClass.D_INLINE_FLEX,
+            cssForLeftCenterRight(showPositionPageRange),
             BootstrapClass.PAGINATION);
         if (component.isShowPageRangeArrows()) {
           final boolean disabled = component.isAtBeginning();
@@ -640,14 +645,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       writer.startElement(HtmlElements.TR);
       writer.writeAttribute(CustomAttributes.ROW_INDEX, rowIndex);
       final boolean selected = selectedRows.contains(rowIndex);
-      final String[] rowMarkups = (String[]) sheet.getAttributes().get("rowMarkup");
-      Markup rowMarkup = Markup.NULL;
-      if (selected) {
-        rowMarkup = rowMarkup.add(Markup.SELECTED);
-      }
-      if (rowMarkups != null) {
-        rowMarkup = rowMarkup.add(Markup.valueOf(rowMarkups));
-      }
       final String parentId = sheet.getRowParentClientId();
       if (parentId != null) {
         // TODO: replace with
@@ -669,7 +666,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       writer.writeIdAttribute(row != null ? row.getClientId(facesContext): sheet.getRowClientId());
       writer.writeClassAttribute(
           TobagoClass.SHEET__ROW,
-          TobagoClass.SHEET__ROW.createMarkup(rowMarkup),
+          selected ? TobagoClass.SELECTED : null,
           selected ? BootstrapClass.TABLE_INFO : null,
           row != null ? row.getCustomClass() : null,
           sheet.isRowVisible() ? null : BootstrapClass.D_NONE);
@@ -848,12 +845,14 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
                 BootstrapClass.textAlign(align),
                 column.getCustomClass());
             writer.startElement(HtmlElements.SPAN);
-            Markup markup = Markup.NULL;
+            boolean sortable = false;
+            boolean ascending = false;
+            boolean descending = false;
             String tip = ComponentUtils.getStringAttribute(column, Attributes.tip);
             // sorter icons should only displayed when there is only 1 column and not input
             CommandMap behaviorCommands = null;
             if (cell.getColumnSpan() == 1 && cellComponent instanceof AbstractUIOut) {
-              final boolean sortable = ComponentUtils.getBooleanAttribute(column, Attributes.sortable);
+              sortable = ComponentUtils.getBooleanAttribute(column, Attributes.sortable);
               if (sortable) {
                 AbstractUILink sortCommand = (AbstractUILink) ComponentUtils.getFacet(column, Facets.sorter);
                 if (sortCommand == null) {
@@ -877,24 +876,26 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
                 }
                 tip += ResourceUtils.getString(facesContext, "sheet.sorting");
 
-                markup = markup.add(Markup.SORTABLE);
-
                 final SheetState sheetState = sheet.getSheetState(facesContext);
                 if (column.getId().equals(sheetState.getSortedColumnId())) {
                   final String sortTitle;
                   if (sheetState.isAscending()) {
                     sortTitle = ResourceUtils.getString(facesContext, "sheet.ascending");
-                    markup = markup.add(Markup.ASCENDING);
+                    ascending = true;
                   } else {
                     sortTitle = ResourceUtils.getString(facesContext, "sheet.descending");
-                    markup = markup.add(Markup.DESCENDING);
+                    descending = true;
                   }
                   tip += " - " + sortTitle;
                 }
               }
             }
 
-            writer.writeClassAttribute(TobagoClass.SHEET__HEADER, TobagoClass.SHEET__HEADER.createMarkup(markup));
+            writer.writeClassAttribute(
+                TobagoClass.SHEET__HEADER,
+                sortable ? TobagoClass.SORTABLE : null,
+                ascending ? TobagoClass.ASCENDING : null,
+                descending ? TobagoClass.DESCENDING : null);
             writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
 
             encodeBehavior(writer, behaviorCommands);
@@ -972,16 +973,15 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     writer.endElement(HtmlElements.COL);
   }
 
-  private Markup markupForLeftCenterRight(final ShowPosition position) {
+  private CssItem cssForLeftCenterRight(final ShowPosition position) {
     switch (position) {
       case left:
-        return Markup.LEFT;
-      case center:
-        return Markup.CENTER;
+        return BootstrapClass.FLOAT_START;
       case right:
-        return Markup.RIGHT;
+        return BootstrapClass.FLOAT_END;
+      case center:
       default:
-        return Markup.NULL;
+        return null;
     }
   }
 

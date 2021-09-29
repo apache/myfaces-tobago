@@ -77,7 +77,6 @@ public class MessagesRenderer<T extends AbstractUIMessages> extends RendererBase
     final Markup markup = component.getMarkup();
     writer.writeClassAttribute(
         TobagoClass.MESSAGES,
-        TobagoClass.MESSAGES.createMarkup(markup),
         component.getCustomClass());
 
     FacesMessage.Severity lastSeverity = null;

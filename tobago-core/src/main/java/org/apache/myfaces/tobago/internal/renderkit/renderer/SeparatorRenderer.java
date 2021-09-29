@@ -55,7 +55,6 @@ public class SeparatorRenderer<T extends AbstractUISeparator> extends RendererBa
         writer.writeIdAttribute(clientId);
         writer.writeClassAttribute(
             TobagoClass.SEPARATOR,
-            TobagoClass.SEPARATOR.createMarkup(component.getMarkup()),
             component.getCustomClass());
         writer.writeText(label);
         writer.endElement(HtmlElements.P);
@@ -64,7 +63,6 @@ public class SeparatorRenderer<T extends AbstractUISeparator> extends RendererBa
         writer.writeIdAttribute(clientId);
         writer.writeClassAttribute(
             TobagoClass.SEPARATOR,
-            TobagoClass.SEPARATOR.createMarkup(component.getMarkup()),
             component.getCustomClass());
         writer.endElement(HtmlElements.HR);
       }

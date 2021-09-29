@@ -464,7 +464,7 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
           writer.writeAttribute(HtmlAttributes.DISABLED, true);
           markup = Markup.DISABLED.add(markup);
         }
-        writer.writeClassAttribute(optionClass, optionClass != null ? optionClass.createMarkup(markup) : null);
+        writer.writeClassAttribute(optionClass);
 
         writer.writeText(item.getLabel());
         writer.endElement(HtmlElements.OPTION);
