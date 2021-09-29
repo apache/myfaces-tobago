@@ -12792,7 +12792,7 @@ Type: ${data.type}`);
       selectRow(selected, rowIndex, row, checkbox) {
           const selectedSet = new Set(JSON.parse(selected.value));
           selected.value = JSON.stringify(Array.from(selectedSet.add(rowIndex)));
-          row.classList.add("tobago-sheet-row-markup-selected");
+          row.classList.add("tobago-selected");
           row.classList.add("table-info");
           checkbox.checked = true;
           setTimeout(function () {
@@ -12809,7 +12809,7 @@ Type: ${data.type}`);
           const selectedSet = new Set(JSON.parse(selected.value));
           selectedSet.delete(rowIndex);
           selected.value = JSON.stringify(Array.from(selectedSet));
-          row.classList.remove("tobago-sheet-row-markup-selected");
+          row.classList.remove("tobago-selected");
           row.classList.remove("table-info");
           checkbox.checked = false;
           // XXX check if this is still needed... Async because of TOBAGO-1312

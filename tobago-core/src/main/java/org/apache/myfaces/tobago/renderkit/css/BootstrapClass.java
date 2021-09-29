@@ -286,6 +286,7 @@ public enum BootstrapClass implements CssItem {
   CUSTOM_SWITCH("form-switch"),
   D_FLEX("d-flex"),
   D_INLINE("d-inline"),
+  D_INLINE_FLEX("d-inline-flex"),
   D_NONE("d-none"),
   D_SM_NONE("d-sm-none"),
   DISABLED("disabled"),
@@ -309,6 +310,8 @@ public enum BootstrapClass implements CssItem {
   FLEX_COLUMN_REVERSE("flex-column-reverse"),
   FLEX_ROW("flex-row"),
   FLEX_ROW_REVERSE("flex-row-reverse"),
+  FLOAT_END("float-end"),
+  FLOAT_START("float-start"),
   /**
    * @deprecated since 5.0.0, please use {@link #FST_ITALIC}
    */

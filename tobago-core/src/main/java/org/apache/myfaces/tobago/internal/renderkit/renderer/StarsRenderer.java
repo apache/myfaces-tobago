@@ -68,7 +68,6 @@ public class StarsRenderer<T extends AbstractUIStars> extends MessageLayoutRende
     writer.writeIdAttribute(fieldId);
     writer.writeClassAttribute(
         TobagoClass.STARS,
-        TobagoClass.STARS.createMarkup(component.getMarkup()),
         component.getCustomClass());
 
     // The hidden input must be used to submit the rating. The 'required' attribute is not allowed on slider component.

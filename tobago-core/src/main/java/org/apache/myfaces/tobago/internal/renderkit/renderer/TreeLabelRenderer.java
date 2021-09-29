@@ -51,7 +51,6 @@ public class TreeLabelRenderer<T extends AbstractUITreeLabel> extends RendererBa
       writer.startElement(HtmlElements.LABEL);
       writer.writeClassAttribute(
           TobagoClass.TREE_LABEL,
-          TobagoClass.TREE_LABEL.createMarkup(component.getMarkup()),
           component.getCustomClass());
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
       final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);

@@ -66,7 +66,6 @@ public class ImageRenderer<T extends AbstractUIImage> extends RendererBase<T> {
       writer.writeAttribute(HtmlAttributes.ALT, alt != null ? alt : "", true);
       writer.writeClassAttribute(
           TobagoClass.IMAGE,
-          TobagoClass.IMAGE.createMarkup(markup),
           disabled ? BootstrapClass.DISABLED : null,
           component.getCustomClass());
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);

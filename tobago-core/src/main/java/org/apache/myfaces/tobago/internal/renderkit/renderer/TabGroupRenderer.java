@@ -146,7 +146,6 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
         BootstrapClass.CARD,
-        TobagoClass.TAB_GROUP.createMarkup(markup),
         autoSpacing ? TobagoClass.AUTO__SPACING : null,
         uiComponent.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
@@ -245,7 +244,6 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
           writer.writeIdAttribute(tabId);
           writer.writeClassAttribute(
               BootstrapClass.NAV_ITEM,
-              TobagoClass.TAB.createMarkup(markup),
               barFacet != null ? TobagoClass.TAB__BAR_FACET : null,
               tab.getCustomClass());
           writer.writeAttribute(HtmlAttributes.FOR, tabGroupClientId, true);
@@ -338,7 +336,6 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
           writer.startElement(HtmlElements.TOBAGO_TAB_CONTENT);
           writer.writeClassAttribute(
               BootstrapClass.TAB_PANE,
-              TobagoClass.TAB__CONTENT.createMarkup(markup),
               index == selectedIndex ? BootstrapClass.ACTIVE : null);
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TABPANEL.toString(), false);
           writer.writeIdAttribute(getTabPanelId(facesContext, tab));

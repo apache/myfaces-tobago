@@ -55,7 +55,6 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(
         TobagoClass.SELECT_MANY_SHUTTLE,
-        TobagoClass.SELECT_MANY_SHUTTLE.createMarkup(markup),
         component.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);

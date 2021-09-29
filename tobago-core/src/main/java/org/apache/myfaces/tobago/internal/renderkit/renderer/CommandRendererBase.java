@@ -117,7 +117,6 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
 
     writer.writeClassAttribute(
         getRendererCssClass(),
-        getRendererCssClass().createMarkup(component.getMarkup()),
         getCssItems(facesContext, component),
         autoSpacing && !dropdownSubmenu ? TobagoClass.AUTO__SPACING : null,
         dropdownSubmenu ? BootstrapClass.DROPDOWN_ITEM : null,

@@ -12517,19 +12517,19 @@ th.tobago-sheet-headerCell .tobago-out {
   display: inline;
 }
 
-.tobago-sheet-header-markup-sortable::after {
+.tobago-sortable::after {
   content: "\f2f1";
   font-family: bootstrap-icons;
   color: #dee2e6;
   margin-left: 1rem;
 }
 
-.tobago-sheet-header-markup-ascending::after {
+.tobago-ascending::after {
   content: "\f238";
   color: inherit;
 }
 
-.tobago-sheet-header-markup-descending::after {
+.tobago-descending::after {
   content: "\f22c";
   color: inherit;
 }
@@ -12555,18 +12555,6 @@ tobago-sheet .table {
 
 .tobago-sheet-footer {
   text-align: center;
-}
-
-.tobago-sheet-paging {
-  display: inline-flex;
-}
-
-.tobago-sheet-paging-markup-left {
-  float: left;
-}
-
-.tobago-sheet-paging-markup-right {
-  float: right;
 }
 
 .tobago-sheet-pagingInput {

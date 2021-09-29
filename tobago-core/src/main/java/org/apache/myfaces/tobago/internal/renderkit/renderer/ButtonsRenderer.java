@@ -47,8 +47,6 @@ public class ButtonsRenderer<T extends AbstractUIButtons> extends RendererBase<T
     writer.writeIdAttribute(component.getClientId(facesContext));
 
     writer.writeClassAttribute(
-        null,
-        TobagoClass.BUTTONS.createMarkup(markup),
         Orientation.vertical.equals(component.getOrientation())
             ? BootstrapClass.BTN_GROUP_VERTICAL : BootstrapClass.BTN_GROUP,
         autoSpacing ? TobagoClass.AUTO__SPACING : null,
