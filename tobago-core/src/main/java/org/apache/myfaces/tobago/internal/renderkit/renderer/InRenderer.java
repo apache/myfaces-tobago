@@ -147,10 +147,8 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
       writer.writeAttribute(HtmlAttributes.PLACEHOLDER, component.getPlaceholder(), true);
     }
 
-    final CssItem rendererCssClass = getRendererCssClass();
     writer.writeClassAttribute(
-        rendererCssClass,
-//        rendererCssClass != null ? rendererCssClass.createMarkup(markup) : null,
+        getRendererCssClass(),
         BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
         BootstrapClass.FORM_CONTROL,
         component.getCustomClass());
