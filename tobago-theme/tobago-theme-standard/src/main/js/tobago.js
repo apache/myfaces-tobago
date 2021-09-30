@@ -6983,16 +6983,18 @@
       }
       disconnectedCallback() {
           this.hide();
-          this.modal.dispose();
+          // this.modal.dispose();
       }
       show(behaviorMode) {
           console.log("show");
+          console.log("behaviorMode", behaviorMode, BehaviorMode.client);
           if (behaviorMode == null || behaviorMode == BehaviorMode.client) {
               this.modal.show();
           }
       }
       hide(behaviorMode) {
           console.log("hide");
+          console.log("behaviorMode", behaviorMode, BehaviorMode.client);
           if (behaviorMode == null || behaviorMode == BehaviorMode.client) {
               this.modal.hide();
           }

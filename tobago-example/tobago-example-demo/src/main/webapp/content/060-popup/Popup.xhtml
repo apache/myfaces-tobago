@@ -56,13 +56,13 @@
         It contain the ID of the popup on which the transition should be executed.</p>
 
       <demo-highlight language="markup">&lt;tc:button label="Open" omit="true">
-        &lt;tc:operation name="show" for="clientPopup"/>
-        &lt;/tc:button>
+  &lt;tc:operation name="show" for="clientPopup"/>
+&lt;/tc:button>
       </demo-highlight>
       <tc:button id="open" label="Open" omit="true">
         <tc:operation name="show" for="clientPopup"/>
       </tc:button>
-      <tc:out id="out" label="Text from Popup" value="#{popupController.popup2Text}"/>
+      <tc:in readonly="true" id="out" label="Text from Popup" value="#{popupController.popup2Text}"/>
 
       <tc:popup id="clientPopup" collapsedMode="hidden">
         <f:facet name="label">
@@ -188,7 +188,7 @@
       <f:ajax render="refreshPopup:refreshPopupContent" listener="#{popupController.refreshContent}"/>
     </tc:button>
 
-    <tc:button label="Open Popup (to alternative)" immediate="true">
+    <tc:button label="Open Popup (alternative)" immediate="true">
       <tc:operation name="show" for="refreshPopup"/>
       <f:ajax render="@this refreshPopup" execute="@this refreshPopup" listener="#{popupController.refreshContent}"/>
     </tc:button>
