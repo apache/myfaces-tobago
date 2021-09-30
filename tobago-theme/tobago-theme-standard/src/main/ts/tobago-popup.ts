@@ -41,11 +41,13 @@ export class Popup extends HTMLElement {
 
   disconnectedCallback(): void {
     this.hide();
-    this.modal.dispose();
+    // dispose seems to make trouble here: Scrolling is out or order after this call.
+    // this.modal.dispose();
   }
 
   show(behaviorMode?: BehaviorMode): void {
     console.log("show");
+    console.log("behaviorMode", behaviorMode, BehaviorMode.client);
     if (behaviorMode == null || behaviorMode == BehaviorMode.client) {
       this.modal.show();
     } else {
@@ -55,6 +57,7 @@ export class Popup extends HTMLElement {
 
   hide(behaviorMode?: BehaviorMode): void {
     console.log("hide");
+    console.log("behaviorMode", behaviorMode, BehaviorMode.client);
     if (behaviorMode == null || behaviorMode == BehaviorMode.client) {
       this.modal.hide();
     } else {
