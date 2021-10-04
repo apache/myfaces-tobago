@@ -28,7 +28,7 @@
 
   <properties>
     <app.packaging>war</app.packaging>
-    <quarkus.version>1.13.7.Final</quarkus.version>
+    <quarkus.version>2.3.0.Final</quarkus.version>
   </properties>
 
   <modules>
