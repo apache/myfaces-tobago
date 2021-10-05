@@ -53,13 +53,13 @@ it("Open 'Client Popup', press 'Submit' while field is empty. Press 'Cancel'.", 
   let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
   let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
   let openButtonFn = elementByIdFn("page:mainForm:form2:open");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out .form-control-plaintext");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out input");
   let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
   let messageCloseFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages .btn-close");
   let inputFieldFn = elementByIdFn("page:mainForm:form2:clientPopup:in2::field");
   let submitButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:submit2");
   let cancelButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:cancel2");
-  let outputValue = outputFn().textContent;
+  let outputValue = outputFn().value;
 
   let shownEventCount = 0;
   let hiddenEventCount = 0;
@@ -89,7 +89,7 @@ it("Open 'Client Popup', press 'Submit' while field is empty. Press 'Cancel'.", 
   test.event("click", cancelButtonFn, () => hiddenEventCount > 0);
   test.do(() => expect(popupFn().classList).not.toContain("show"));
   test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
-  test.do(() => expect(outputFn().textContent).toBe(outputValue));
+  test.do(() => expect(outputFn().value).toBe(outputValue));
   test.start();
 });
 
@@ -97,7 +97,7 @@ it("Open 'Client Popup', press 'Submit' while field has content. Press 'Cancel'.
   let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
   let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
   let openButtonFn = elementByIdFn("page:mainForm:form2:open");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out .form-control-plaintext");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out input");
   let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
   let inputFieldFn = elementByIdFn("page:mainForm:form2:clientPopup:in2::field");
   let submitButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:submit2");
@@ -113,12 +113,12 @@ it("Open 'Client Popup', press 'Submit' while field has content. Press 'Cancel'.
   test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
       () => hiddenEventCount = 0,
       "click", cancelButtonFn);
-  test.setup(() => outputFn().textContent !== "Tobago",
+  test.setup(() => outputFn().value !== "Tobago",
       () => inputFieldFn().value = "Trinidad",
       "click", submitButtonFn);
   test.do(() => expect(popupFn().classList).not.toContain("show"));
   test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
-  test.do(() => expect(outputFn().textContent).not.toBe("Tobago"));
+  test.do(() => expect(outputFn().value).not.toBe("Tobago"));
 
   test.do(() => shownEventCount = 0);
   test.event("click", openButtonFn, () => shownEventCount > 0);
@@ -126,8 +126,8 @@ it("Open 'Client Popup', press 'Submit' while field has content. Press 'Cancel'.
   test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
 
   test.do(() => inputFieldFn().value = "Tobago");
-  test.event("click", submitButtonFn, () => outputFn().textContent === "Tobago");
-  test.do(() => expect(outputFn().textContent).toBe("Tobago"));
+  test.event("click", submitButtonFn, () => outputFn().value === "Tobago");
+  test.do(() => expect(outputFn().value).toBe("Tobago"));
 
   test.do(() => hiddenEventCount = 0);
   test.event("click", cancelButtonFn, () => hiddenEventCount > 0);
@@ -141,13 +141,13 @@ it("Open 'Client Popup', press 'Submit & Close' while field is empty.", function
   let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
   let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
   let openButtonFn = elementByIdFn("page:mainForm:form2:open");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out .form-control-plaintext");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out input");
   let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
   let messageCloseFn = querySelectorFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages .btn-close");
   let inputFieldFn = elementByIdFn("page:mainForm:form2:clientPopup:in2::field");
   let submitCloseButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:submitClose2");
   let cancelButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:cancel2");
-  let outputValue = outputFn().textContent;
+  let outputValue = outputFn().value;
 
   let shownEventCount = 0;
   let hiddenEventCount = 0;
@@ -175,7 +175,7 @@ it("Open 'Client Popup', press 'Submit & Close' while field is empty.", function
   test.do(() => expect(popupFn().classList).not.toContain("show"));
   test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
   test.do(() => expect(messagesFn().length).toEqual(1));
-  test.do(() => expect(outputFn().textContent).toBe(outputValue));
+  test.do(() => expect(outputFn().value).toBe(outputValue));
   test.start();
 });
 
@@ -183,7 +183,7 @@ it("Open 'Client Popup', press 'Submit & Close' while field has content.", funct
   let popupFn = elementByIdFn("page:mainForm:form2:clientPopup");
   let collapseFn = elementByIdFn("page:mainForm:form2:clientPopup::collapse");
   let openButtonFn = elementByIdFn("page:mainForm:form2:open");
-  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out .form-control-plaintext");
+  let outputFn = querySelectorFn("#page\\:mainForm\\:form2\\:out input");
   let messagesFn = querySelectorAllFn("#page\\:mainForm\\:form2\\:clientPopup\\:messages div");
   let inputFieldFn = elementByIdFn("page:mainForm:form2:clientPopup:in2::field");
   let submitButtonFn = elementByIdFn("page:mainForm:form2:clientPopup:submit2");
@@ -200,12 +200,12 @@ it("Open 'Client Popup', press 'Submit & Close' while field has content.", funct
   test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
       () => hiddenEventCount = 0,
       "click", cancelButtonFn);
-  test.setup(() => outputFn().textContent !== "Little Tobago",
+  test.setup(() => outputFn().value !== "Little Tobago",
       () => inputFieldFn().value = "Charlotteville",
       "click", submitButtonFn);
   test.do(() => expect(popupFn().classList).not.toContain("show"));
   test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
-  test.do(() => expect(outputFn().textContent).not.toBe("Little Tobago"));
+  test.do(() => expect(outputFn().value).not.toBe("Little Tobago"));
 
   test.do(() => shownEventCount = 0);
   test.event("click", openButtonFn, () => shownEventCount > 0);
@@ -218,7 +218,7 @@ it("Open 'Client Popup', press 'Submit & Close' while field has content.", funct
   test.do(() => expect(popupFn().classList).not.toContain("show"));
   test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
   test.do(() => expect(messagesFn().length).toEqual(0));
-  test.do(() => expect(outputFn().textContent).toBe("Little Tobago"));
+  test.do(() => expect(outputFn().value).toBe("Little Tobago"));
   test.start();
 });
 
