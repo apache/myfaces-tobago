@@ -366,6 +366,10 @@ tobago-dropdown {
 
 tobago-file {
   display: block;
+
+  > .input-group {
+    flex: 1 0 0px;
+  }
 }
 
 /* flexLayout -------------------------------------------------------------- */
