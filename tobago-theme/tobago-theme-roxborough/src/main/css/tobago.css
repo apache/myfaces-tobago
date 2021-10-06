@@ -11967,6 +11967,13 @@ button.nav-link {
   /* for tc:in margin 5px is already set */
   margin-bottom: 5px;
 }
+.tobago-messages-container tobago-popover {
+  margin-left: 0.75rem;
+}
+.tobago-messages-container tobago-popover .btn {
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+}
 
 .tobago-popover-box {
   display: none;
