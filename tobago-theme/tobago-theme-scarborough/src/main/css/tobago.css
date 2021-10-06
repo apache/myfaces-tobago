@@ -11676,6 +11676,9 @@ tobago-dropdown.tobago-dropdown-submenu > .dropdown-item::after {
 tobago-file {
   display: block;
 }
+tobago-file > .input-group {
+  flex: 1 0 0px;
+}
 
 /* flexLayout -------------------------------------------------------------- */
 tobago-flex-layout {
