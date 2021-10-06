@@ -1307,10 +1307,6 @@ th.tobago-sheet-headerCell {
   display: block;
 }
 
-.tobago-sheet-headerCell > .tobago-sheet-header > * {
-  display: inline;
-}
-
 .tobago-sortable::after {
   content: $icon-sort;
   font-family: bootstrap-icons;
