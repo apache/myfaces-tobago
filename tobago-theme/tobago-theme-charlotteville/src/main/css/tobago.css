@@ -12516,10 +12516,6 @@ th.tobago-sheet-headerCell .tobago-out {
   display: block;
 }
 
-.tobago-sheet-headerCell > .tobago-sheet-header > * {
-  display: inline;
-}
-
 .tobago-sortable::after {
   content: "\f2f1";
   font-family: bootstrap-icons;
