@@ -19,12 +19,14 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 @Named
+@RequestScoped
 public class SeverityController {
 
   public void addFatal(final FacesContext facesContext, final UIComponent component, final Object value) {
