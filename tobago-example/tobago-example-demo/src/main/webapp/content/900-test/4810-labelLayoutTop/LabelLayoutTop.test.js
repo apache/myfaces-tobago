@@ -16,86 +16,92 @@
  */
 
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
 
-it("fix tc:file first", function (done) {
-  let test = new JasmineTestTool(done);
-  test.do(() => fail("not implemented yet"));
+it("Check width for tc:date", function (done) {
+  const test = new JasmineTestTool(done);
+  addSteps(test, "date");
   test.start();
 });
 
-/*
-import {querySelectorFn} from "/script/tobago-test.js";
-
-QUnit.test("Check width for tc:date", function (assert) {
-  assert.expect(2);
-  testWidth(assert, "date");
+it("Check width for tc:file", function (done) {
+  const test = new JasmineTestTool(done);
+  addSteps(test, "file");
+  test.start();
 });
 
-QUnit.test("Check width for tc:file", function (assert) {
-  assert.expect(2);
-  testWidth(assert, "file");
+it("Check width for tc:in", function (done) {
+  const test = new JasmineTestTool(done);
+  addSteps(test, "in");
+  test.start();
 });
 
-QUnit.test("Check width for tc:in", function (assert) {
-  assert.expect(2);
-  testWidth(assert, "in");
+it("Check width for input group", function (done) {
+  const test = new JasmineTestTool(done);
+  addSteps(test, "inGroup");
+  test.start();
 });
 
-QUnit.test("Check width for input group", function (assert) {
-  assert.expect(2);
-  testWidth(assert, "inGroup");
+it("Check width for tc:out", function (done) {
+  const test = new JasmineTestTool(done);
+  addSteps(test, "out");
+  test.start();
 });
 
-QUnit.test("Check width for tc:out", function (assert) {
-  assert.expect(2);
-  testWidth(assert, "out");
+it("Check width for tc:selectBooleanCheckbox", function (done) {
+  const test = new JasmineTestTool(done);
+  addSteps(test, "selectBooleanCheckbox");
+  test.start();
 });
 
-QUnit.test("Check width for tc:selectBooleanCheckbox", function (assert) {
-  assert.expect(2);
-  testWidth(assert, "selectBooleanCheckbox");
+it("Check width for tc:selectManyCheckbox", function (done) {
+  const test = new JasmineTestTool(done);
+  addSteps(test, "selectManyCheckbox");
+  test.start();
 });
 
-QUnit.test("Check width for tc:selectManyCheckbox", function (assert) {
-  assert.expect(2);
-  testWidth(assert, "selectManyCheckbox");
+it("Check width for tc:selectManyListbox", function (done) {
+  const test = new JasmineTestTool(done);
+  addSteps(test, "selectManyListbox");
+  test.start();
 });
 
-QUnit.test("Check width for tc:selectManyListbox", function (assert) {
-  assert.expect(2);
-  testWidth(assert, "selectManyListbox");
+it("Check width for tc:selectManyShuttle", function (done) {
+  const test = new JasmineTestTool(done);
+  addSteps(test, "selectManyShuttle");
+  test.start();
 });
 
-QUnit.test("Check width for tc:selectManyShuttle", function (assert) {
-  assert.expect(2);
-  testWidth(assert, "selectManyShuttle");
+it("Check width for tc:selectOneChoice", function (done) {
+  const test = new JasmineTestTool(done);
+  addSteps(test, "selectOneChoice");
+  test.start();
 });
 
-QUnit.test("Check width for tc:selectOneChoice", function (assert) {
-  assert.expect(2);
-  testWidth(assert, "selectOneChoice");
+it("Check width for tc:selectOneListbox", function (done) {
+  const test = new JasmineTestTool(done);
+  addSteps(test, "selectOneListbox");
+  test.start();
 });
 
-QUnit.test("Check width for tc:selectOneListbox", function (assert) {
-  assert.expect(2);
-  testWidth(assert, "selectOneListbox");
+it("Check width for tc:selectOneRadio", function (done) {
+  const test = new JasmineTestTool(done);
+  addSteps(test, "selectOneRadio");
+  test.start();
 });
 
-QUnit.test("Check width for tc:selectOneRadio", function (assert) {
-  assert.expect(2);
-  testWidth(assert, "selectOneRadio");
+it("Check width for tc:textarea", function (done) {
+  const test = new JasmineTestTool(done);
+  addSteps(test, "textarea");
+  test.start();
 });
 
-QUnit.test("Check width for tc:textarea", function (assert) {
-  assert.expect(2);
-  testWidth(assert, "textarea");
-});
+function addSteps(test, idPart) {
+  const compLabelFn = querySelectorFn("#page\\:mainForm\\:" + idPart + " label");
+  const compTopLabelFn = querySelectorFn("#page\\:mainForm\\:" + idPart + "Top label");
+  const referenceLabel = elementByIdFn("page:mainForm:referenceLabel");
 
-function testWidth(assert, idPart) {
-  let compLabelFn = querySelectorFn("#page\\:mainForm\\:" + idPart + " label");
-  let compTopFn = querySelectorFn("#page\\:mainForm\\:" + idPart + "Top");
-
-  assert.equal(getComputedStyle(compLabelFn()).width, "155px");
-  assert.equal(getComputedStyle(compTopFn().querySelector("label")).width, getComputedStyle(compTopFn()).width);
+  test.do(() => expect(getComputedStyle(compLabelFn()).width).toBe("155px"));
+  test.do(() => expect(getComputedStyle(compTopLabelFn()).width)
+      .toBeLessThanOrEqual(getComputedStyle(referenceLabel()).width));
 }
-*/
