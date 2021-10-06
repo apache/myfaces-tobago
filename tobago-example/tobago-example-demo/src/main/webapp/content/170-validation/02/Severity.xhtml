@@ -23,10 +23,10 @@
 
   The validator of each field creates a FacesMessage with the given severity.
 
-  <tc:in label="Fatal" value="something" validator="#{severityController.addFatal}"/>
-  <tc:in label="Error" value="something" validator="#{severityController.addError}"/>
-  <tc:in label="Warn" value="something" validator="#{severityController.addWarn}"/>
-  <tc:in label="Info" value="something" validator="#{severityController.addInfo}"/>
+  <tc:in id="fatal" label="Fatal" validator="#{severityController.addFatal}"/>
+  <tc:in id="error" label="Error" validator="#{severityController.addError}"/>
+  <tc:in id="warn" label="Warn" validator="#{severityController.addWarn}"/>
+  <tc:in id="info" label="Info" validator="#{severityController.addInfo}"/>
 
   <tc:button label="Submit" defaultCommand="true"/>
 </ui:composition>
