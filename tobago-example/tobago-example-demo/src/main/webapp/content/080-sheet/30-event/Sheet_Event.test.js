@@ -33,7 +33,8 @@ it("On click with ajax", function (done) {
       () => onClickAjaxPopupFn().checked = true, "change", onClickAjaxPopupFn);
   test.setup(() => detailsBoxFn() !== null,
       () => onClickAjaxFn().checked = true, "change", onClickAjaxFn);
-  test.setup(() => detailsBoxNameFieldFn().value === "Sun", null, "click", sunFn);
+  test.setup(() => detailsBoxNameFieldFn() !== null && detailsBoxNameFieldFn().value === "Sun",
+      null, "click", sunFn);
   test.event("click", venusFn, () => detailsBoxNameFieldFn().value === "Venus");
   test.do(() => expect(detailsBoxNameFieldFn().value).toBe("Venus"));
   test.event("click", jupiterFn, () => detailsBoxNameFieldFn().value === "Jupiter");
@@ -58,7 +59,8 @@ it("On click with full request", function (done) {
       () => onClickAjaxPopupFn().checked = true, "change", onClickAjaxPopupFn);
   test.setup(() => detailsBoxFn() !== null,
       () => onClickFullRequestFn().checked = true, "change", onClickFullRequestFn);
-  test.setup(() => detailsBoxNameFieldFn().value === "Sun", null, "click", sunFn);
+  test.setup(() => detailsBoxNameFieldFn() !== null && detailsBoxNameFieldFn().value === "Sun",
+      null, "click", sunFn);
   test.event("click", venusFn, () => detailsBoxNameFieldFn().value === "Venus");
   test.do(() => expect(detailsBoxNameFieldFn().value).toBe("Venus"));
   test.event("click", jupiterFn, () => detailsBoxNameFieldFn().value === "Jupiter");
@@ -83,7 +85,8 @@ it("On double click with full request", function (done) {
       () => onClickAjaxPopupFn().checked = true, "change", onClickAjaxPopupFn);
   test.setup(() => detailsBoxFn() !== null,
       () => onDblclickFullRequestFn().checked = true, "change", onDblclickFullRequestFn);
-  test.setup(() => detailsBoxNameFieldFn().value === "Sun", null, "dblclick", sunFn);
+  test.setup(() => detailsBoxNameFieldFn() !== null && detailsBoxNameFieldFn().value === "Sun",
+      null, "dblclick", sunFn);
   test.event("dblclick", venusFn, () => detailsBoxNameFieldFn().value === "Venus");
   test.do(() => expect(detailsBoxNameFieldFn().value).toBe("Venus"));
   test.event("dblclick", jupiterFn, () => detailsBoxNameFieldFn().value === "Jupiter");
@@ -174,7 +177,8 @@ it("On double click with ajax", function (done) {
       () => onClickAjaxPopupFn().checked = true, "change", onClickAjaxPopupFn);
   test.setup(() => detailsBoxFn() !== null,
       () => onDblclickAjaxFn().checked = true, "change", onDblclickAjaxFn);
-  test.setup(() => detailsBoxNameFieldFn().value === "Sun", null, "dblclick", sunFn);
+  test.setup(() => detailsBoxNameFieldFn() !== null && detailsBoxNameFieldFn().value === "Sun",
+      null, "dblclick", sunFn);
   test.event("dblclick", venusFn, () => detailsBoxNameFieldFn().value === "Venus");
   test.do(() => expect(detailsBoxNameFieldFn().value).toBe("Venus"));
   test.event("dblclick", jupiterFn, () => detailsBoxNameFieldFn().value === "Jupiter");
