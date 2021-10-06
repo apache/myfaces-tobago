@@ -691,6 +691,15 @@ button {
     margin-right: 0; /* for tc:in margin 5px is already set */
     margin-bottom: 5px;
   }
+
+  tobago-popover {
+    margin-left: 0.75rem;
+
+    .btn {
+      padding-left: 0.4rem;
+      padding-right: 0.4rem;
+    }
+  }
 }
 
 .tobago-popover-box {
