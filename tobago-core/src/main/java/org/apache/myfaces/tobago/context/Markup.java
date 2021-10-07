@@ -104,7 +104,6 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup OUTLINE_SUCCESS = valueOf("outlineSuccess");
   public static final Markup OUTLINE_WARNING = valueOf("outlineWarning");
   public static final Markup PILL = valueOf("pill");
-  public static final Markup PORTLET = valueOf("portlet");
   public static final Markup PRIMARY = valueOf("primary");
   public static final Markup READONLY = valueOf("readonly");
   public static final Markup REQUIRED = valueOf("required");
@@ -167,7 +166,6 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final String STRING_OUTLINE_SUCCESS = "outlineSuccess";
   public static final String STRING_OUTLINE_WARNING = "outlineWarning";
   public static final String STRING_PILL = "pill";
-  public static final String STRING_PORTLET = "portlet";
   public static final String STRING_PRIMARY = "primary";
   public static final String STRING_READONLY = "readonly";
   public static final String STRING_REQUIRED = "required";

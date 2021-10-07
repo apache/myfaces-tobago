@@ -117,7 +117,7 @@ public class FileRenderer<T extends AbstractUIFile>
         LOG.error("clientId='" + clientId + "'", e);
         component.setValid(false);
       }
-    } else { // todo: PortletRequest
+    } else {
       LOG.warn("Unsupported request type: " + request.getClass().getName());
     }
 

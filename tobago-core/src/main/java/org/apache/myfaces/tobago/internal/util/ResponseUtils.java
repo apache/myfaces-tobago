@@ -23,12 +23,10 @@ import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.internal.config.ContentSecurityPolicy;
 import org.apache.myfaces.tobago.internal.context.Nonce;
-import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
-import javax.portlet.MimeResponse;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.invoke.MethodHandles;
 import java.util.Map;
@@ -45,8 +43,6 @@ public final class ResponseUtils {
     final Object response = facesContext.getExternalContext().getResponse();
     if (response instanceof HttpServletResponse) {
       ensureNoCacheHeader((HttpServletResponse) response);
-    } else if (PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse) {
-      ensureNoCacheHeader((MimeResponse) response);
     }
   }
 
@@ -57,17 +53,10 @@ public final class ResponseUtils {
     response.setDateHeader("max-age", 0);
   }
 
-  public static void ensureNoCacheHeader(final MimeResponse response) {
-    // TODO validate this
-    response.getCacheControl().setExpirationTime(0);
-  }
-
   public static void ensureContentTypeHeader(final FacesContext facesContext, final String contentType) {
     final Object response = facesContext.getExternalContext().getResponse();
     if (response instanceof HttpServletResponse) {
       ensureContentTypeHeader((HttpServletResponse) response, contentType);
-    } else if (PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse) {
-      ensureContentTypeHeader((MimeResponse) response, contentType);
     }
   }
 
@@ -82,17 +71,6 @@ public final class ResponseUtils {
           LOG.debug("Response already contains Header Content-Type '" + responseContentType
               + "'. Overwriting with '" + contentType + "'");
         }
-      }
-    }
-  }
-
-  public static void ensureContentTypeHeader(final MimeResponse response, final String contentType) {
-    final String responseContentType = response.getContentType();
-    if (!StringUtils.equalsIgnoreCaseAndWhitespace(responseContentType, contentType)) {
-      response.setContentType(contentType);
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("Response already contains Header Content-Type '" + responseContentType
-            + "'. Overwriting with '" + contentType + "'");
       }
     }
   }
@@ -128,11 +106,6 @@ public final class ResponseUtils {
       }
       for (final String cspHeader : cspHeaders) {
         servletResponse.setHeader(cspHeader, builder.toString());
-      }
-    } else if (PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse) {
-     // TODO Portlet
-      if (contentSecurityPolicy.getMode() != ContentSecurityPolicy.Mode.OFF) {
-        LOG.warn("CSP not implemented for Portlet!");
       }
     }
   }
