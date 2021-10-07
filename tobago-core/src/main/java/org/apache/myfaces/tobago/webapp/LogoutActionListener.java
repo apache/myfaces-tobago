@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.webapp;
 
-import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +28,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
-import javax.portlet.PortletSession;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
@@ -46,9 +44,6 @@ public class LogoutActionListener implements ActionListener {
     if (session != null) {
       if (session instanceof HttpSession) {
         ((HttpSession) session).invalidate();
-      }
-      if (PortletUtils.isPortletApiAvailable() && session instanceof PortletSession) {
-        ((PortletSession) session).invalidate();
       }
     }
     final String forward = externalContext.getRequestContextPath() + "/";

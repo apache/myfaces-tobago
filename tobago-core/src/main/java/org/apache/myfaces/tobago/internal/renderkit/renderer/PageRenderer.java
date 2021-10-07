@@ -38,7 +38,6 @@ import org.apache.myfaces.tobago.internal.util.CookieUtils;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -62,8 +61,6 @@ import javax.faces.component.UIOutput;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.portlet.MimeResponse;
-import javax.portlet.ResourceURL;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -136,15 +133,6 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     final UIViewRoot viewRoot = facesContext.getViewRoot();
     final String viewId = viewRoot.getViewId();
     final String formAction = externalContext.encodeActionURL(viewHandler.getActionURL(facesContext, viewId));
-    final String partialAction;
-    final boolean portlet = PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse;
-    if (portlet) {
-      final MimeResponse mimeResponse = (MimeResponse) response;
-      final ResourceURL resourceURL = mimeResponse.createResourceURL();
-      partialAction = externalContext.encodeResourceURL(resourceURL.toString());
-    } else {
-      partialAction = null;
-    }
 
     final String contentType = writer.getContentTypeWithCharSet();
     ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
@@ -164,13 +152,11 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     final String title = component.getLabel();
 
     final Locale locale = viewRoot.getLocale();
-    if (!portlet) {
-      writer.startElement(HtmlElements.HTML);
-      if (locale != null) {
-        final String language = locale.getLanguage();
-        if (language != null) {
-          writer.writeAttribute(HtmlAttributes.LANG, language, false);
-        }
+    writer.startElement(HtmlElements.HTML);
+    if (locale != null) {
+      final String language = locale.getLanguage();
+      if (language != null) {
+        writer.writeAttribute(HtmlAttributes.LANG, language, false);
       }
     }
     writer.writeClassAttribute(spread);
@@ -228,10 +214,8 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
 
     writer.endElement(HtmlElements.HEAD);
 
-    if (!portlet) {
-      writer.startElement(HtmlElements.BODY);
-      writer.writeClassAttribute(spread);
-    }
+    writer.startElement(HtmlElements.BODY);
+    writer.writeClassAttribute(spread);
 
     writer.startElement(HtmlElements.TOBAGO_PAGE);
 
@@ -248,12 +232,6 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     writer.startElement(HtmlElements.FORM);
     writer.writeClassAttribute(spread);
     writer.writeAttribute(HtmlAttributes.ACTION, formAction, true);
-    if (partialAction != null) {
-      writer.writeAttribute(DataAttributes.PARTIAL_ACTION, partialAction, true);
-    }
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("partial action = " + partialAction);
-    }
     writer.writeIdAttribute(component.getFormId(facesContext));
     writer.writeAttribute(HtmlAttributes.METHOD, getMethod(component), false);
     final String enctype = tobagoContext.getEnctype();
@@ -327,8 +305,6 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     final String clientId = component.getClientId(facesContext);
     final Application application = facesContext.getApplication();
     final ViewHandler viewHandler = application.getViewHandler();
-    final Object response = facesContext.getExternalContext().getResponse();
-    final boolean portlet = PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse;
     final boolean ajax = facesContext.getPartialViewContext().isAjaxRequest();
 
     // placeholder for menus
@@ -359,10 +335,8 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
       bodyResource.encodeAll(facesContext);
     }
 
-    if (!portlet) {
-      writer.endElement(HtmlElements.BODY);
-      writer.endElement(HtmlElements.HTML);
-    }
+    writer.endElement(HtmlElements.BODY);
+    writer.endElement(HtmlElements.HTML);
 
     AccessKeyLogger.logStatus(facesContext);
   }
