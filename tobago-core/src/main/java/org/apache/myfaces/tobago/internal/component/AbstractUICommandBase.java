@@ -26,16 +26,16 @@ import org.apache.myfaces.tobago.internal.config.SecurityAnnotation;
 import org.apache.myfaces.tobago.internal.util.AuthorizationHelper;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
-import javax.el.MethodExpression;
-import javax.faces.component.UICommand;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ComponentSystemEventListener;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.PhaseId;
-import javax.faces.event.PostAddToViewEvent;
+import jakarta.el.MethodExpression;
+import jakarta.faces.component.UICommand;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ComponentSystemEventListener;
+import jakarta.faces.event.FacesEvent;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PhaseId;
+import jakarta.faces.event.PostAddToViewEvent;
 import java.util.Iterator;
 import java.util.List;
 

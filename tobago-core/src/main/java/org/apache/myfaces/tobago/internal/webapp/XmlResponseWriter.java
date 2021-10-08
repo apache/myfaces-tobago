@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.internal.webapp;
 import org.apache.myfaces.tobago.internal.util.HtmlWriterHelper;
 import org.apache.myfaces.tobago.internal.util.WriterHelper;
 
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.Charset;

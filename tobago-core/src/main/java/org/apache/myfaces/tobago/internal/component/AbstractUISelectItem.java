@@ -24,9 +24,9 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UISelectItem;
-import javax.faces.component.UISelectMany;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UISelectItem;
+import jakarta.faces.component.UISelectMany;
+import jakarta.faces.context.FacesContext;
 import java.lang.invoke.MethodHandles;
 
 /**

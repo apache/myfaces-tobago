@@ -36,8 +36,8 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.behavior.AjaxBehavior;
 import java.io.IOException;
 import java.util.Arrays;
 

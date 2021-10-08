@@ -50,7 +50,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UISelectOne;
+import jakarta.faces.component.UISelectOne;
 
 /**
  * Render a single selection option listbox.
@@ -59,12 +59,12 @@ import javax.faces.component.UISelectOne;
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOneListbox",
-    uiComponentFacesClass = "javax.faces.component.UISelectOne",
+    uiComponentFacesClass = "jakarta.faces.component.UISelectOne",
     componentFamily = UISelectOne.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_ONE_LISTBOX,
     allowedChildComponenents = {
-        "javax.faces.SelectItem",
-        "javax.faces.SelectItems"
+        "jakarta.faces.SelectItem",
+        "jakarta.faces.SelectItems"
         },
     behaviors = {
         @Behavior(

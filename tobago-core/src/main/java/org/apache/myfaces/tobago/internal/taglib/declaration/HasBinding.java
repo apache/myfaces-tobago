@@ -28,6 +28,6 @@ public interface HasBinding {
    * For Facelets, the component is the outer UIPanel, not the input control.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
+  @UIComponentTagAttribute(type = "jakarta.faces.component.UIComponent")
   void setBinding(String binding);
 }

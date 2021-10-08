@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.faces.model.ListDataModel;
+import jakarta.faces.model.ListDataModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

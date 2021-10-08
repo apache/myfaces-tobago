@@ -26,6 +26,26 @@ updates:
       include: "scope"
     schedule:
       interval: "daily"
+      ignore:
+        - dependency-name: "org.antlr:stringtemplate"
+          versions:
+            - ">= 4.0.0"
+        - dependency-name: "org.apache.maven.plugins:maven-checkstyle-plugin"
+          versions:
+            - ">=3.1.0"
+        - dependency-name: "org.apache.maven.plugins:maven-enforcer-plugin"
+          versions:
+            - ">= 3.0.0"
+
+  - package-ecosystem: "maven"
+    directory: "/"
+    target-branch: "tobago-5.x"
+    commit-message:
+      prefix: "build"
+      prefix-development: "build"
+      include: "scope"
+    schedule:
+      interval: "daily"
     ignore:
       # Jetty >= 10 requires jdk 11
       - dependency-name: "org.eclipse.jetty:jetty-maven-plugin"
@@ -76,7 +96,6 @@ updates:
       - dependency-name: "org.apache.maven.plugins:maven-enforcer-plugin"
         versions:
           - ">= 3.0.0"
-
 
   - package-ecosystem: "maven"
     directory: "/"
@@ -148,6 +167,13 @@ updates:
 
   - package-ecosystem: "github-actions"
     directory: "/"
+    schedule:
+      # Check for updates to GitHub Actions every day
+      interval: "daily"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "tobago-5.x"
     schedule:
       # Check for updates to GitHub Actions every day
       interval: "daily"

@@ -44,15 +44,15 @@ import org.apache.myfaces.tobago.internal.util.ArrayUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.component.Tags;
-import javax.annotation.Generated;
-import javax.el.ELException;
-import javax.faces.FacesException;
+import jakarta.annotation.Generated;
+import jakarta.el.ELException;
+import jakarta.faces.FacesException;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import javax.el.MethodExpression;
-import javax.el.ValueExpression;
+import jakarta.el.MethodExpression;
+import jakarta.el.ValueExpression;
 
 /**
  <if(componentInfo.description)>

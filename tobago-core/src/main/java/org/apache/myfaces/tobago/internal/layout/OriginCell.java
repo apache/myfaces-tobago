@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.layout;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 /**
  * @deprecated since 4.0.0

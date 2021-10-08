@@ -22,11 +22,11 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 
-import javax.faces.component.UICommand;
+import jakarta.faces.component.UICommand;
 
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UICommand",
-    uiComponentFacesClass = "javax.faces.component.UICommand",
+    uiComponentFacesClass = "jakarta.faces.component.UICommand",
     componentFamily = UICommand.COMPONENT_FAMILY,
     generate = false,
     rendererType = RendererTypes.SHEET_PAGE_COMMAND)

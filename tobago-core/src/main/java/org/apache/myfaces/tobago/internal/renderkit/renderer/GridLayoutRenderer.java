@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 
 public class GridLayoutRenderer<T extends AbstractUIGridLayout> extends RendererBase<T> {

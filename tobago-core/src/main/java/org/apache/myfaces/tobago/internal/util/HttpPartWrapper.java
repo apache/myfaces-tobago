@@ -19,11 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
-import javax.faces.FacesException;
-import javax.faces.FacesWrapper;
-import javax.faces.component.StateHolder;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.Part;
+import jakarta.faces.FacesException;
+import jakarta.faces.FacesWrapper;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;

@@ -21,10 +21,10 @@ package org.apache.myfaces.tobago.convert;
 
 import org.apache.myfaces.tobago.util.LocaleUtils;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.ConverterException;
 import java.util.Locale;
 
 @org.apache.myfaces.tobago.apt.annotation.Converter(forClass = "java.util.Locale")

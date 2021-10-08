@@ -22,13 +22,13 @@ package org.apache.myfaces.tobago.webapp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.FacesException;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.ActionListener;
-import javax.servlet.http.HttpSession;
+import jakarta.faces.FacesException;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.ActionListener;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 

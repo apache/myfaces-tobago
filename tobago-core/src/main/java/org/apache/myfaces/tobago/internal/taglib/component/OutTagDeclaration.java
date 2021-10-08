@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsPlain;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UIOutput;
+import jakarta.faces.component.UIOutput;
 
 /**
  * Renders a text
@@ -45,12 +45,12 @@ import javax.faces.component.UIOutput;
 @BodyContentDescription(anyTagOf = "f:converter|f:convertNumber|f:convertDateTime|...")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIOut",
-    uiComponentFacesClass = "javax.faces.component.UIOutput",
+    uiComponentFacesClass = "jakarta.faces.component.UIOutput",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.OUT,
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
-        "javax.faces.component.behavior.ClientBehaviorHolder"
+        "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponenents = "NONE")
 

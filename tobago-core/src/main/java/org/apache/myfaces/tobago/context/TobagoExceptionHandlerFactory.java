@@ -21,9 +21,9 @@ package org.apache.myfaces.tobago.context;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
 
-import javax.faces.context.ExceptionHandler;
-import javax.faces.context.ExceptionHandlerFactory;
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.ExceptionHandler;
+import jakarta.faces.context.ExceptionHandlerFactory;
+import jakarta.faces.context.FacesContext;
 
 /**
  * The TobagoExceptionHandler is activated by default via the basic faces-config.xml of tobago-core.

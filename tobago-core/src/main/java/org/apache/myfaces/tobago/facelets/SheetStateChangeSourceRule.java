@@ -21,12 +21,12 @@ package org.apache.myfaces.tobago.facelets;
 
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 
-import javax.faces.event.ActionEvent;
-import javax.faces.view.facelets.FaceletContext;
-import javax.faces.view.facelets.MetaRule;
-import javax.faces.view.facelets.Metadata;
-import javax.faces.view.facelets.MetadataTarget;
-import javax.faces.view.facelets.TagAttribute;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.view.facelets.FaceletContext;
+import jakarta.faces.view.facelets.MetaRule;
+import jakarta.faces.view.facelets.Metadata;
+import jakarta.faces.view.facelets.MetadataTarget;
+import jakarta.faces.view.facelets.TagAttribute;
 
 public class SheetStateChangeSourceRule extends MetaRule {
 

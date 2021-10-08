@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequiredForSelect;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UISelectBoolean;
+import jakarta.faces.component.UISelectBoolean;
 
 /**
  * Makes a tree node selectable.
@@ -47,7 +47,7 @@ import javax.faces.component.UISelectBoolean;
 @Tag(name = "treeSelect")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeSelect",
-    uiComponentFacesClass = "javax.faces.component.UISelectBoolean",
+    uiComponentFacesClass = "jakarta.faces.component.UISelectBoolean",
     componentFamily = UISelectBoolean.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_SELECT,
     allowedChildComponenents = "NONE",

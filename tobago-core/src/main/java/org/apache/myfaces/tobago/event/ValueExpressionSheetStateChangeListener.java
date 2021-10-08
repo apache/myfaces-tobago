@@ -22,10 +22,10 @@ package org.apache.myfaces.tobago.event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.el.ValueExpression;
-import javax.faces.component.StateHolder;
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.context.FacesContext;
 import java.lang.invoke.MethodHandles;
 
 public class ValueExpressionSheetStateChangeListener implements SheetStateChangeListener, StateHolder {

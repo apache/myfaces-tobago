@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.ValidatorTag;
 import org.apache.myfaces.tobago.validator.FileItemValidator;
 
-import javax.el.ValueExpression;
+import jakarta.el.ValueExpression;
 
 /**
  * Register an {@link FileItemValidator} instance on the UIComponent

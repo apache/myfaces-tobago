@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRootJunction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import org.apache.myfaces.tobago.model.Selectable;
 
-import javax.faces.component.UIData;
+import jakarta.faces.component.UIData;
 
 /**
  * A tree with classical look.
@@ -44,12 +44,12 @@ import javax.faces.component.UIData;
 @BodyContentDescription(anyTagOf = "<tc:treeNode>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITree",
-    uiComponentFacesClass = "javax.faces.component.UIData",
+    uiComponentFacesClass = "jakarta.faces.component.UIData",
     componentFamily = UIData.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE,
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
-        "javax.faces.component.behavior.ClientBehaviorHolder"
+        "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.TreeNode"

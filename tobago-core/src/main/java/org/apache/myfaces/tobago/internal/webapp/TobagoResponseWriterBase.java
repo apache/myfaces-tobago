@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 import java.io.IOException;
 import java.io.Writer;
 import java.lang.invoke.MethodHandles;

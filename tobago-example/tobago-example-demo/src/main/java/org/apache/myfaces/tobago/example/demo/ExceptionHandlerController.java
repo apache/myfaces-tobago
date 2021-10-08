@@ -23,12 +23,12 @@ import org.apache.myfaces.tobago.model.SheetState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.ComponentSystemEvent;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.event.AjaxBehaviorEvent;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.stream.Collectors;

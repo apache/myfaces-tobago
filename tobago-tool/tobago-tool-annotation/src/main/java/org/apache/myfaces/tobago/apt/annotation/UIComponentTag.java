@@ -37,7 +37,7 @@ public @interface UIComponentTag {
   @Deprecated
   String uiComponentBaseClass() default "";
 
-  String uiComponentFacesClass() default "javax.faces.component.UIComponentBase";
+  String uiComponentFacesClass() default "jakarta.faces.component.UIComponentBase";
 
   /**
    * @deprecated since 4.4.0. Will set automatically.

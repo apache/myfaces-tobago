@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import javax.faces.component.UIComponentBase;
+import jakarta.faces.component.UIComponentBase;
 
 public abstract class AbstractUIReload extends UIComponentBase {
 

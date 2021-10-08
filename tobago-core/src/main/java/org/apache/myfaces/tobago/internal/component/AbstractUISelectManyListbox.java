@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectManyListboxTagDeclaration}

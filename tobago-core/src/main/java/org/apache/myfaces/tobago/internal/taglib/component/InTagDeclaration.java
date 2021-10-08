@@ -51,7 +51,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UIInput;
+import jakarta.faces.component.UIInput;
 
 /**
  * Renders a text input field.
@@ -60,7 +60,7 @@ import javax.faces.component.UIInput;
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIIn",
-    uiComponentFacesClass = "javax.faces.component.UIInput",
+    uiComponentFacesClass = "jakarta.faces.component.UIInput",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.IN,
     allowedChildComponenents = {

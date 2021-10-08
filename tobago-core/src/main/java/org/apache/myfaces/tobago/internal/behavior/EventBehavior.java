@@ -19,13 +19,13 @@
 
 package org.apache.myfaces.tobago.internal.behavior;
 
-import javax.el.ValueExpression;
-import javax.faces.component.StateHelper;
-import javax.faces.component.behavior.ClientBehaviorBase;
-import javax.faces.component.behavior.ClientBehaviorHint;
-import javax.faces.component.behavior.FacesBehavior;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorListener;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.behavior.ClientBehaviorBase;
+import jakarta.faces.component.behavior.ClientBehaviorHint;
+import jakarta.faces.component.behavior.FacesBehavior;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AjaxBehaviorListener;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;

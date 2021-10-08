@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import org.apache.myfaces.tobago.layout.OrderBy;
 
-import javax.faces.component.UIMessages;
+import jakarta.faces.component.UIMessages;
 
 /**
  * Renders error/validation messages.
@@ -37,12 +37,12 @@ import javax.faces.component.UIMessages;
 @Tag(name = "messages")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMessages",
-    uiComponentFacesClass = "javax.faces.component.UIMessages",
+    uiComponentFacesClass = "jakarta.faces.component.UIMessages",
     componentFamily = UIMessages.COMPONENT_FAMILY,
     rendererType = RendererTypes.MESSAGES,
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
-        "javax.faces.component.behavior.ClientBehaviorHolder"
+        "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponenents = "NONE")
 
@@ -75,8 +75,8 @@ public interface MessagesTagDeclaration
    * Sets the mininum severity to be shown. E. g. "warn" shows only "warn", "error" and "fatal".
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "javax.faces.application.FacesMessage$Severity", defaultValue = "info",
-      defaultCode = "javax.faces.application.FacesMessage.SEVERITY_INFO")
+  @UIComponentTagAttribute(type = "jakarta.faces.application.FacesMessage$Severity", defaultValue = "info",
+      defaultCode = "jakarta.faces.application.FacesMessage.SEVERITY_INFO")
   void setMinSeverity(String minSeverity);
 
    /**
@@ -85,8 +85,8 @@ public interface MessagesTagDeclaration
     * higher severity levels.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "javax.faces.application.FacesMessage$Severity", defaultValue = "fatal",
-      defaultCode = "javax.faces.application.FacesMessage.SEVERITY_FATAL")
+  @UIComponentTagAttribute(type = "jakarta.faces.application.FacesMessage$Severity", defaultValue = "fatal",
+      defaultCode = "jakarta.faces.application.FacesMessage.SEVERITY_FATAL")
   void setMaxSeverity(String maxSeverity);
 
    /**

@@ -100,7 +100,7 @@ public class PropertyInfo {
   }
 
   public boolean isMethodExpression() {
-    return "javax.el.MethodExpression".equals(type);
+    return "jakarta.el.MethodExpression".equals(type);
   }
 
   public String getShortType() {

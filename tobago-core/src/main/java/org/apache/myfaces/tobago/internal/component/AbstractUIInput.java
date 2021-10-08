@@ -27,13 +27,13 @@ import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.context.FacesContext;
 
 /**
  * Base class for some inputs.
  */
-public abstract class AbstractUIInput extends javax.faces.component.UIInput
+public abstract class AbstractUIInput extends jakarta.faces.component.UIInput
     implements SupportsAccessKey, SupportsAutoSpacing, SupportsLabelLayout, Visual, ClientBehaviorHolder,
     SupportFieldId, SupportsHelp {
 

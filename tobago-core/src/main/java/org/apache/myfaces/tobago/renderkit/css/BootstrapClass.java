@@ -33,8 +33,8 @@ import org.apache.myfaces.tobago.layout.VerticalAlign;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;

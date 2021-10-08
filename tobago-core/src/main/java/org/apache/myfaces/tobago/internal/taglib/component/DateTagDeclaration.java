@@ -50,19 +50,19 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 
-import javax.faces.component.UIInput;
+import jakarta.faces.component.UIInput;
 
 /**
  * Renders a date input field.
  * <p>
  * For a time input field set you'll need to set the &lt;f:convertDateTime type="time"&gt; inside the &lt;tc:date&gt;.
  * <p>
- * If there is no converter given, a default instance of {@link javax.faces.convert.DateTimeConverter} will be used.
+ * If there is no converter given, a default instance of {@link jakarta.faces.convert.DateTimeConverter} will be used.
  */
 @Tag(name = "date")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIDate",
-    uiComponentFacesClass = "javax.faces.component.UIInput",
+    uiComponentFacesClass = "jakarta.faces.component.UIInput",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.DATE,
     allowedChildComponenents = "NONE",

@@ -29,18 +29,18 @@ import org.apache.myfaces.tobago.util.ValueExpressionComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.el.ValueExpression;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIColumn;
-import javax.faces.component.UICommand;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.component.UIOutput;
-import javax.faces.component.UISelectBoolean;
-import javax.faces.component.UISelectMany;
-import javax.faces.component.UISelectOne;
-import javax.faces.context.FacesContext;
-import javax.faces.model.DataModel;
+import jakarta.el.ValueExpression;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIColumn;
+import jakarta.faces.component.UICommand;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.component.UISelectBoolean;
+import jakarta.faces.component.UISelectMany;
+import jakarta.faces.component.UISelectOne;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.DataModel;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -207,7 +207,7 @@ public class SortingUtils {
         break;
       }
       if (child instanceof UICommand
-          || child instanceof javax.faces.component.UIPanel) {
+          || child instanceof jakarta.faces.component.UIPanel) {
         child = getFirstSortableChild(child.getChildren());
         if (child instanceof UIOutput) {
           break;

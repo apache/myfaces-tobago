@@ -21,9 +21,9 @@ package org.apache.myfaces.tobago.facelets;
 
 import org.apache.myfaces.tobago.validator.FileItemValidator;
 
-import javax.faces.view.facelets.MetaRuleset;
-import javax.faces.view.facelets.ValidatorConfig;
-import javax.faces.view.facelets.ValidatorHandler;
+import jakarta.faces.view.facelets.MetaRuleset;
+import jakarta.faces.view.facelets.ValidatorConfig;
+import jakarta.faces.view.facelets.ValidatorHandler;
 
 public class TobagoValidateHandler extends ValidatorHandler {
 

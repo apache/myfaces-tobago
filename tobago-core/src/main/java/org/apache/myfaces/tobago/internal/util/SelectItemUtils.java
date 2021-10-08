@@ -26,12 +26,12 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UISelectItem;
-import javax.faces.component.UISelectItems;
-import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UISelectItem;
+import jakarta.faces.component.UISelectItems;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.SelectItem;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -74,7 +74,7 @@ public class SelectItemUtils {
   /**
    * Creates a list of SelectItems to use for rendering.
    * You should only use this method (which returns a list), when you need a list.
-   * Otherwise please use {@link #getItemIterator(javax.faces.context.FacesContext, javax.faces.component.UIComponent)}
+   * Otherwise please use {@link #getItemIterator(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent)}
    */
   public static List<SelectItem> getItemList(final FacesContext facesContext, final UIComponent selector) {
     if (selector.getChildCount() == 0) {

@@ -23,10 +23,10 @@ import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.ConverterException;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.ConverterException;
 import java.lang.invoke.MethodHandles;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,7 +49,7 @@ import static org.apache.myfaces.tobago.convert.DateTimeConverter.CONVERTER_ID;
  */
 @Deprecated
 @org.apache.myfaces.tobago.apt.annotation.Converter(id = CONVERTER_ID)
-public class DateTimeConverter extends javax.faces.convert.DateTimeConverter {
+public class DateTimeConverter extends jakarta.faces.convert.DateTimeConverter {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 

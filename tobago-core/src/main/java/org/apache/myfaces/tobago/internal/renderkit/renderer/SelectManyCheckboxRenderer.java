@@ -33,8 +33,8 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.SelectItem;
 import java.io.IOException;
 
 public class SelectManyCheckboxRenderer<T extends AbstractUISelectManyCheckbox> extends SelectManyRendererBase<T> {

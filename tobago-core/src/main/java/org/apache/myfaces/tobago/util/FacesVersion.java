@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.util;
 
-import javax.faces.application.Application;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Application;
+import jakarta.faces.context.FacesContext;
 
 public enum FacesVersion {
 

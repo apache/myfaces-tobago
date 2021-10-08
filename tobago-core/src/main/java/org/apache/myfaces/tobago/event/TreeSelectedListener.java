@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.event;
 
-import javax.faces.event.FacesListener;
+import jakarta.faces.event.FacesListener;
 
 public interface TreeSelectedListener extends FacesListener {
 

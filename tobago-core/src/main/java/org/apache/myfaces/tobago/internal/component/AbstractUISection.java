@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 
 /**

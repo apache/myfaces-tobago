@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.event;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ActionEvent;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIForm;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ActionEvent;
 import java.io.Serializable;
 
 public class ResetFormActionListener extends AbstractResetInputActionListener implements Serializable{

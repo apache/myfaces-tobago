@@ -21,8 +21,8 @@ package org.apache.myfaces.tobago.webapp;
 
 import org.apache.myfaces.tobago.internal.util.RandomUtils;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.http.HttpSession;
 import java.io.Serializable;
 
 public final class Secret implements Serializable {
@@ -43,7 +43,7 @@ public final class Secret implements Serializable {
 
   /**
    * Create a secret attribute in the session.
-   * Should usually be called in a {@link javax.servlet.http.HttpSessionListener}.
+   * Should usually be called in a {@link jakarta.servlet.http.HttpSessionListener}.
    */
   public static void create(final HttpSession session) {
     session.setAttribute(Secret.KEY, new Secret());

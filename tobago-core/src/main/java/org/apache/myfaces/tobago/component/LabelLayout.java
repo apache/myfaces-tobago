@@ -21,8 +21,8 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 
 public enum LabelLayout {
 

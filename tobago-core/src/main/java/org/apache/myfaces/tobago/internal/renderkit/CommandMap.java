@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit;
 
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;

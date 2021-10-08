@@ -23,9 +23,9 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.NamingContainer;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.NamingContainer;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 

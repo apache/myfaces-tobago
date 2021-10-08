@@ -34,11 +34,11 @@ import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.EditableValueHolder;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.LengthValidator;
-import javax.faces.validator.RegexValidator;
-import javax.faces.validator.Validator;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.LengthValidator;
+import jakarta.faces.validator.RegexValidator;
+import jakarta.faces.validator.Validator;
 import java.io.IOException;
 
 public class TextareaRenderer<T extends AbstractUITextarea> extends MessageLayoutRendererBase<T> {

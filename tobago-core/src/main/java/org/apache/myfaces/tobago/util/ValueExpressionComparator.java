@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
 import java.lang.invoke.MethodHandles;
 import java.util.Comparator;
 import java.util.Map;
@@ -33,11 +33,11 @@ public class ValueExpressionComparator extends ComparatorBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  private FacesContext facesContext;
+  private final FacesContext facesContext;
 
-  private String var;
+  private final String var;
 
-  private ValueExpression valueExpression;
+  private final ValueExpression valueExpression;
 
   public ValueExpressionComparator(
       final FacesContext facesContext, final String var,

@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.StringTokenizer;
 

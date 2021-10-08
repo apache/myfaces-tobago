@@ -22,11 +22,11 @@ package org.apache.myfaces.tobago.example.demo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.NormalScope;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
-import javax.servlet.ServletContext;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.NormalScope;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
+import jakarta.servlet.ServletContext;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;

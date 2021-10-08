@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UIOutput;
+import jakarta.faces.component.UIOutput;
 
 /**
  * Renders a badge element.
@@ -36,10 +36,10 @@ import javax.faces.component.UIOutput;
 @Tag(name = "badge")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIBadge",
-    uiComponentFacesClass = "javax.faces.component.UIOutput",
+    uiComponentFacesClass = "jakarta.faces.component.UIOutput",
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
-        "javax.faces.component.behavior.ClientBehaviorHolder"
+        "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.BADGE,

@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 
-import javax.faces.component.UIComponentBase;
+import jakarta.faces.component.UIComponentBase;
 
 /**
  * <p>

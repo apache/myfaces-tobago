@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 
 public class FlowLayoutRenderer<T extends AbstractUIFlowLayout> extends RendererBase<T> {

@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 public class SelectBooleanCheckboxRenderer<T extends AbstractUISelectBooleanCheckbox>
     extends SelectBooleanRendererBase<T> {

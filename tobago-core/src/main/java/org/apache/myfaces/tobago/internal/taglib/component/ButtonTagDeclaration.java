@@ -49,7 +49,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsOmit;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsTransition;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UICommand;
+import jakarta.faces.component.UICommand;
 
 /**
  * Renders a button element.
@@ -58,7 +58,7 @@ import javax.faces.component.UICommand;
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIButton",
-    uiComponentFacesClass = "javax.faces.component.UICommand",
+    uiComponentFacesClass = "jakarta.faces.component.UICommand",
     interfaces = {
         "org.apache.myfaces.tobago.component.SupportsAccessKey"
     },

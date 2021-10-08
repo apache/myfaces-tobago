@@ -24,8 +24,8 @@ import org.apache.myfaces.tobago.model.TreeDataModel;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
-import javax.faces.component.UIData;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIData;
+import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
 

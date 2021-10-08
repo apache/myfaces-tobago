@@ -50,7 +50,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UIInput;
+import jakarta.faces.component.UIInput;
 
 /**
  * Renders a multi line text input control.
@@ -58,7 +58,7 @@ import javax.faces.component.UIInput;
 @Tag(name = "textarea")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITextarea",
-    uiComponentFacesClass = "javax.faces.component.UIInput",
+    uiComponentFacesClass = "jakarta.faces.component.UIInput",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.TEXTAREA,
     allowedChildComponenents = "NONE",

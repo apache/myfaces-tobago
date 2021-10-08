@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import javax.enterprise.context.SessionScoped;
-import javax.faces.event.FacesEvent;
-import javax.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.event.FacesEvent;
+import jakarta.inject.Named;
 import javax.swing.DefaultBoundedRangeModel;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;

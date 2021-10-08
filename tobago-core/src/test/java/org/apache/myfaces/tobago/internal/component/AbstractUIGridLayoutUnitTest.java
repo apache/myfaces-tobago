@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 import java.util.Arrays;
 
 public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {

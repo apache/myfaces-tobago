@@ -28,8 +28,8 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.PartialViewContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 

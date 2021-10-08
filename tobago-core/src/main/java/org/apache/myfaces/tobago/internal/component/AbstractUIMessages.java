@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.layout.OrderBy;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.MessagesTagDeclaration}
  */
-public abstract class AbstractUIMessages extends javax.faces.component.UIMessages
+public abstract class AbstractUIMessages extends jakarta.faces.component.UIMessages
     implements Visual {
 
   public List<Item> createMessageList(final FacesContext facesContext) {

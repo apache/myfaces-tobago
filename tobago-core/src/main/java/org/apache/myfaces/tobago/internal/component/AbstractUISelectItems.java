@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import javax.faces.component.UISelectItems;
+import jakarta.faces.component.UISelectItems;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectItemsTagDeclaration}

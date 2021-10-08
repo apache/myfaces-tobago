@@ -23,13 +23,13 @@ import org.apache.myfaces.tobago.util.AjaxUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.el.ELContext;
-import javax.el.ValueExpression;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.el.ELContext;
+import jakarta.el.ValueExpression;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AjaxBehaviorEvent;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import java.lang.invoke.MethodHandles;
 import java.util.Date;
 

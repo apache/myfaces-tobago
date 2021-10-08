@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UIPanel;
+import jakarta.faces.component.UIPanel;
 
 /**
  * Defines a container for navigation elements, branding, ...
@@ -41,7 +41,7 @@ import javax.faces.component.UIPanel;
     rendererType = RendererTypes.BAR,
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
-        "javax.faces.component.behavior.ClientBehaviorHolder"
+        "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     facets = {
         @Facet(

@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.example.demo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.event.AjaxBehaviorEvent;
+import jakarta.faces.event.AjaxBehaviorEvent;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.Collections;

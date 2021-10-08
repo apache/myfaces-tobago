@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.internal.component.AbstractUIEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIRow;
 
-import javax.faces.component.UIComponent;
-import javax.faces.event.ActionEvent;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.event.ActionEvent;
 
 public class RowRenderer<T extends AbstractUIRow> extends DecodingCommandRendererBase<T> {
 

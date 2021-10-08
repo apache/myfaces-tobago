@@ -21,10 +21,10 @@ package org.apache.myfaces.tobago.event;
 
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
-import javax.faces.component.StateHolder;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ActionEvent;
 import java.util.Collection;
 
 public class ResetInputActionListener extends AbstractResetInputActionListener implements StateHolder {

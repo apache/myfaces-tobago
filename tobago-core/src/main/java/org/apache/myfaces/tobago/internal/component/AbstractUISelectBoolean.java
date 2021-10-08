@@ -29,10 +29,10 @@ import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.MessageUtils;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UISelectBoolean;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UISelectBoolean;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.context.FacesContext;
 
 public abstract class AbstractUISelectBoolean extends UISelectBoolean
     implements SupportsAutoSpacing, Visual, ClientBehaviorHolder, SupportFieldId, SupportsAccessKey,

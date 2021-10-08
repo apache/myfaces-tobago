@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
-import javax.servlet.http.Part;
+import jakarta.servlet.http.Part;
 
 /**
  * Only needed for Servlet 3.0. Not needed for Servlet 3.1 or higher.

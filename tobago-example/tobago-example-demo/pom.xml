@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>5.0.0-SNAPSHOT</version>
+    <version>6.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-example-demo</artifactId>
   <packaging>${app.packaging}</packaging>
@@ -170,8 +170,8 @@
 
     <!-- Tobago -->
     <dependency>
-      <groupId>org.apache.myfaces.test</groupId>
-      <artifactId>myfaces-test23</artifactId>
+      <groupId>org.apache.myfaces.core</groupId>
+      <artifactId>myfaces-test</artifactId>
     </dependency>
     <dependency>
       <groupId>commons-logging</groupId>
@@ -392,24 +392,74 @@
           <groupId>org.slf4j</groupId>
           <artifactId>jcl-over-slf4j</artifactId>
         </dependency>
+
+        <!-- openwebbeans -->
         <dependency>
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-jsf</artifactId>
+          <classifier>jakarta</classifier>
           <version>${openwebbeans.version}</version>
           <scope>runtime</scope>
+          <exclusions>
+            <exclusion>
+              <groupId>org.apache.openwebbeans</groupId>
+              <artifactId>*</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-impl</artifactId>
+          <classifier>jakarta</classifier>
+          <version>${openwebbeans.version}</version>
+          <scope>runtime</scope>
+          <exclusions>
+            <exclusion>
+              <groupId>org.apache.openwebbeans</groupId>
+              <artifactId>*</artifactId>
+            </exclusion>
+          </exclusions>
         </dependency>
         <dependency>
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-web</artifactId>
+          <classifier>jakarta</classifier>
           <version>${openwebbeans.version}</version>
           <scope>runtime</scope>
+          <exclusions>
+            <exclusion>
+              <groupId>org.apache.openwebbeans</groupId>
+              <artifactId>*</artifactId>
+            </exclusion>
+          </exclusions>
         </dependency>
         <dependency>
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-resource</artifactId>
+          <classifier>jakarta</classifier>
           <version>${openwebbeans.version}</version>
           <scope>runtime</scope>
+          <exclusions>
+            <exclusion>
+              <groupId>org.apache.openwebbeans</groupId>
+              <artifactId>*</artifactId>
+            </exclusion>
+          </exclusions>
         </dependency>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-spi</artifactId>
+          <classifier>jakarta</classifier>
+          <version>${openwebbeans.version}</version>
+          <scope>runtime</scope>
+          <exclusions>
+            <exclusion>
+              <groupId>org.apache.openwebbeans</groupId>
+              <artifactId>*</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>
+
         <dependency>
           <groupId>org.apache.myfaces.tobago</groupId>
           <artifactId>tobago-config-owb</artifactId>

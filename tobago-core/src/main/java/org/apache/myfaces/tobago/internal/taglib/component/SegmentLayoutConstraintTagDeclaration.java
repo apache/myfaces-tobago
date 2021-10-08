@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.layout.Margin;
 
-import javax.el.ValueExpression;
+import jakarta.el.ValueExpression;
 
 /**
  * Set a offset for the parent UIComponent withing a segment layout.

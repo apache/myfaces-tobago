@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UIForm;
+import jakarta.faces.component.UIForm;
 
 /**
  * <p>
@@ -48,7 +48,7 @@ import javax.faces.component.UIForm;
 @Tag(name = "page")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPage",
-    uiComponentFacesClass = "javax.faces.component.UIForm",
+    uiComponentFacesClass = "jakarta.faces.component.UIForm",
     componentFamily = UIForm.COMPONENT_FAMILY,
     rendererType = RendererTypes.PAGE,
     behaviors = {

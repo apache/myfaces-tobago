@@ -26,8 +26,8 @@ import org.apache.myfaces.tobago.internal.context.Nonce;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.http.HttpServletResponse;
 import java.lang.invoke.MethodHandles;
 import java.util.Map;
 

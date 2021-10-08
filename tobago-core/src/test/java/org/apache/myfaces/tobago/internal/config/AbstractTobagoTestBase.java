@@ -94,10 +94,10 @@ import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
-import javax.faces.component.behavior.AjaxBehavior;
-import javax.faces.convert.DateTimeConverter;
-import javax.faces.render.RenderKit;
-import javax.servlet.ServletContext;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.convert.DateTimeConverter;
+import jakarta.faces.render.RenderKit;
+import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;

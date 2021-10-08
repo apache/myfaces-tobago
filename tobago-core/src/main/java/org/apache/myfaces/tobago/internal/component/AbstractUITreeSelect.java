@@ -22,10 +22,10 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Visual;
 
-import javax.el.ValueExpression;
-import javax.faces.component.UISelectBoolean;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.context.FacesContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.UISelectBoolean;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.context.FacesContext;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.TreeSelectTagDeclaration}

@@ -21,13 +21,13 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Visual;
 
-import javax.faces.component.UIOutput;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ComponentSystemEventListener;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.PreRenderComponentEvent;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ComponentSystemEventListener;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PreRenderComponentEvent;
 import javax.swing.BoundedRangeModel;
 
 /**

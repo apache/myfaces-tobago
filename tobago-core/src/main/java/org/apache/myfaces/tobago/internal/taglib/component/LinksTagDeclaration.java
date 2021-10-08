@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UIPanel;
+import jakarta.faces.component.UIPanel;
 
 /**
  * Defines a navigation element, which contains a menu-like structure
@@ -38,11 +38,11 @@ import javax.faces.component.UIPanel;
 @Tag(name = "links")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UILinks",
-    uiComponentFacesClass = "javax.faces.component.UIPanel",
+    uiComponentFacesClass = "jakarta.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
-        "javax.faces.component.behavior.ClientBehaviorHolder"
+        "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     rendererType = RendererTypes.LINKS)
 public interface LinksTagDeclaration extends HasIdBindingAndRendered, IsVisual, HasTip, HasOrientation, HasAutoSpacing {

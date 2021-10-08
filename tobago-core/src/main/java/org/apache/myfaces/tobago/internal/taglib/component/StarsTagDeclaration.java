@@ -48,7 +48,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UIInput;
+import jakarta.faces.component.UIInput;
 
 /**
  * Renders a star rating component.
@@ -56,7 +56,7 @@ import javax.faces.component.UIInput;
 @Tag(name = "stars")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIStars",
-    uiComponentFacesClass = "javax.faces.component.UIInput",
+    uiComponentFacesClass = "jakarta.faces.component.UIInput",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.STARS,
     allowedChildComponenents = "NONE",

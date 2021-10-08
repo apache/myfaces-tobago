@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UIColumn;
+import jakarta.faces.component.UIColumn;
 
 /**
  * Renders a column with checkboxes to mark selected rows.
@@ -34,12 +34,12 @@ import javax.faces.component.UIColumn;
 @Tag(name = "columnSelector")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIColumnSelector",
-    uiComponentFacesClass = "javax.faces.component.UIColumn",
+    uiComponentFacesClass = "jakarta.faces.component.UIColumn",
     componentFamily = UIColumn.COMPONENT_FAMILY,
     rendererType = RendererTypes.COLUMN_SELECTOR,
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
-        "javax.faces.component.behavior.ClientBehaviorHolder"
+        "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponenents = "NONE")
 public interface ColumnSelectorTagDeclaration

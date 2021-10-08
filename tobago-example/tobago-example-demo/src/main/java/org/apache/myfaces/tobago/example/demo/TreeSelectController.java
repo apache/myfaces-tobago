@@ -21,8 +21,8 @@ package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.model.Selectable;
 
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.Serializable;
 

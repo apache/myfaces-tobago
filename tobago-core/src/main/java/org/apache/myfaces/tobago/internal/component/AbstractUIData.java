@@ -29,13 +29,13 @@ import org.apache.myfaces.tobago.model.TreePath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.FacesException;
-import javax.faces.component.ContextCallback;
-import javax.faces.component.UIComponent;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.context.FacesContext;
-import javax.faces.model.DataModel;
+import jakarta.faces.FacesException;
+import jakarta.faces.component.ContextCallback;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.DataModel;
 import javax.swing.tree.TreeNode;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
@@ -44,7 +44,7 @@ import java.util.List;
 /**
  * Base class for sheet and tree.
  */
-public abstract class AbstractUIData extends javax.faces.component.UIData implements Visual {
+public abstract class AbstractUIData extends jakarta.faces.component.UIData implements Visual {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -117,7 +117,7 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
    * (Currently Tobago supports {@link TreeNode} out of the box.
    *
    * @param value    The reference to the data model
-   *                 (comes from the value attribute of the {@link javax.faces.component.UIData})
+   *                 (comes from the value attribute of the {@link jakarta.faces.component.UIData})
    * @param showRoot comes from the showRoot attribute.
    */
   protected void createTreeDataModel(final Object value, final boolean showRoot) {

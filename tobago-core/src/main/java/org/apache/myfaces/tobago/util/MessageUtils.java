@@ -21,11 +21,11 @@ package org.apache.myfaces.tobago.util;
 
 import org.apache.myfaces.tobago.application.LabelValueExpressionFacesMessage;
 
-import javax.el.ValueExpression;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.MissingResourceException;

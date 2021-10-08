@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.example.demo.nonfacesrequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.HashMap;

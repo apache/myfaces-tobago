@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import javax.enterprise.context.Conversation;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
+import jakarta.enterprise.context.Conversation;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 import java.io.Serializable;
 
 // XXX a solution might be putting this example to its own small JAR.

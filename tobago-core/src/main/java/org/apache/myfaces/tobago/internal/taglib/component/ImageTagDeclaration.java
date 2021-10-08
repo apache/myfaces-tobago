@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UIGraphic;
+import jakarta.faces.component.UIGraphic;
 
 /**
  * Renders an image.
@@ -38,12 +38,12 @@ import javax.faces.component.UIGraphic;
 @Tag(name = "image")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIImage",
-    uiComponentFacesClass = "javax.faces.component.UIGraphic",
+    uiComponentFacesClass = "jakarta.faces.component.UIGraphic",
     componentFamily = UIGraphic.COMPONENT_FAMILY,
     rendererType = RendererTypes.IMAGE,
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
-        "javax.faces.component.behavior.ClientBehaviorHolder"
+        "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponenents = "NONE")
 public interface ImageTagDeclaration

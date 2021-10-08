@@ -21,10 +21,10 @@ package org.apache.myfaces.tobago.event;
 
 import org.apache.myfaces.tobago.util.FacesELUtils;
 
-import javax.el.ELContext;
-import javax.el.MethodExpression;
-import javax.faces.component.StateHolder;
-import javax.faces.context.FacesContext;
+import jakarta.el.ELContext;
+import jakarta.el.MethodExpression;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.context.FacesContext;
 
 public class MethodExpressionTreeSelectedListener implements TreeSelectedListener, StateHolder {
 

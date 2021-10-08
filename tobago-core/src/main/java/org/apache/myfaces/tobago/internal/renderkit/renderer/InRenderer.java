@@ -40,11 +40,11 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.LengthValidator;
-import javax.faces.validator.RegexValidator;
-import javax.faces.validator.Validator;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.LengthValidator;
+import jakarta.faces.validator.RegexValidator;
+import jakarta.faces.validator.Validator;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 

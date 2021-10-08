@@ -22,9 +22,9 @@ package org.apache.myfaces.tobago.renderkit.css;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.el.ELContext;
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
+import jakarta.el.ELContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
 import java.lang.invoke.MethodHandles;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
