@@ -25,8 +25,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface IsDisabledBySecurity {
   /**
    * Flag indicating that this element is disabled. If configured so in the tobago-config.xml the action will be
-   * checked for the annotations {@link javax.annotation.security.RolesAllowed},
-   * {@link javax.annotation.security.PermitAll} or {@link javax.annotation.security.DenyAll}.
+   * checked for the annotations {@link jakarta.annotation.security.RolesAllowed},
+   * {@link jakarta.annotation.security.PermitAll} or {@link jakarta.annotation.security.DenyAll}.
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "boolean", generate = false)
