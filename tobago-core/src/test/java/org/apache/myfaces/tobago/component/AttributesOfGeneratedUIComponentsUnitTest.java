@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
 

@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 
-import javax.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.EventTagDeclaration}

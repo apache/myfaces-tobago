@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UIColumn;
+import jakarta.faces.component.UIColumn;
 
 /**
  * Creates a tree node. This component represents a single node inside a tree structure.
@@ -41,7 +41,7 @@ import javax.faces.component.UIColumn;
 @BodyContentDescription(anyTagOf = "<tc:treeIndent>|<tc:treeIcon>|<tc:treeSelect>|<tc:treeLabel>|<tc:link>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeNode",
-    uiComponentFacesClass = "javax.faces.component.UIColumn",
+    uiComponentFacesClass = "jakarta.faces.component.UIColumn",
     componentFamily = UIColumn.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_NODE,
     allowedChildComponenents = {

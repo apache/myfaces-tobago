@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.event;
 
-import javax.faces.component.UIComponent;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.FacesListener;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.FacesListener;
 
 public class TabChangeEvent extends ActionEvent {
 

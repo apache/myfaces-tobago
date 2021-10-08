@@ -21,8 +21,8 @@ package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.model.SelectItem;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Named;
 import java.io.Serializable;
 
 @RequestScoped

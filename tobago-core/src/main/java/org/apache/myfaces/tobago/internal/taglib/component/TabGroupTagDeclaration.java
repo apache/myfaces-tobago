@@ -38,7 +38,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsImmediateCommand;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import org.apache.myfaces.tobago.model.SwitchType;
 
-import javax.faces.component.UIPanel;
+import jakarta.faces.component.UIPanel;
 
 /**
  * Renders a tab group which contains tab panels.
@@ -47,7 +47,7 @@ import javax.faces.component.UIPanel;
 @BodyContentDescription(anyTagOf = "(<tc:tab>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITabGroup",
-    uiComponentFacesClass = "javax.faces.component.UIPanel",
+    uiComponentFacesClass = "jakarta.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.TAB_GROUP,
     allowedChildComponenents = "org.apache.myfaces.tobago.Tab",

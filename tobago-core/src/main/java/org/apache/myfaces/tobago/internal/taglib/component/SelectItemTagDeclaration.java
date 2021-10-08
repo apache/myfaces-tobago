@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 @Tag(name = "selectItem")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectItem",
-    uiComponentFacesClass = "javax.faces.component.UISelectItem",
+    uiComponentFacesClass = "jakarta.faces.component.UISelectItem",
     allowedChildComponenents = "NONE")
 public interface SelectItemTagDeclaration extends HasBinding, HasId, IsVisual, HasItemLabel, HasItemImage, HasTip {
 
@@ -73,7 +73,7 @@ public interface SelectItemTagDeclaration extends HasBinding, HasId, IsVisual, H
    */
   @TagAttribute
   @UIComponentTagAttribute(
-      type = "javax.faces.model.SelectItem",
+      type = "jakarta.faces.model.SelectItem",
       expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
 }

@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import javax.faces.component.UIPanel;
+import jakarta.faces.component.UIPanel;
 import java.io.IOException;
 
 public class SelectOneRadioRendererUnitTest extends RendererTestBase {

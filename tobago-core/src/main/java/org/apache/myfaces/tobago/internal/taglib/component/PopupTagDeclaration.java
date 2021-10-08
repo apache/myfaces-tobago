@@ -37,11 +37,11 @@ import org.apache.myfaces.tobago.model.CollapseMode;
 @Tag(name = "popup")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPopup",
-    uiComponentFacesClass = "javax.faces.component.UIPanel",
+    uiComponentFacesClass = "jakarta.faces.component.UIPanel",
     componentFamily = AbstractUIPopup.COMPONENT_FAMILY,
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
-        "javax.faces.component.behavior.ClientBehaviorHolder"
+        "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     rendererType = RendererTypes.POPUP,
     markups = {

@@ -47,7 +47,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UIInput;
+import jakarta.faces.component.UIInput;
 
 /**
  * <p>
@@ -60,7 +60,7 @@ import javax.faces.component.UIInput;
 @Tag(name = "file")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIFile",
-    uiComponentFacesClass = "javax.faces.component.UIInput",
+    uiComponentFacesClass = "jakarta.faces.component.UIInput",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.FILE,
     allowedChildComponenents = "NONE",
@@ -87,12 +87,12 @@ public interface FileTagDeclaration
 
   /**
    * Value binding expression pointing to a
-   * {@link javax.servlet.http.Part} property to store the
+   * {@link jakarta.servlet.http.Part} property to store the
    * uploaded file.
    */
   @TagAttribute()
   @UIComponentTagAttribute(
-      type = { "javax.servlet.http.Part", "javax.servlet.http.Part[]" },
+      type = { "jakarta.servlet.http.Part", "jakarta.servlet.http.Part[]" },
       expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
 }

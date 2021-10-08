@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsFixed;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UIPanel;
+import jakarta.faces.component.UIPanel;
 
 /**
  * Defines a header of its parent (like page, box, ...)
@@ -40,7 +40,7 @@ import javax.faces.component.UIPanel;
     rendererType = RendererTypes.HEADER,
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
-        "javax.faces.component.behavior.ClientBehaviorHolder"
+        "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponenents = "ALL")
 public interface HeaderTagDeclaration

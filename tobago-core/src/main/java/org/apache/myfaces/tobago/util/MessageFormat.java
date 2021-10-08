@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.util;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 /**
  * Helper class for the EL functions <code>tc:format1()</code> ... <code>tc:format9()</code>

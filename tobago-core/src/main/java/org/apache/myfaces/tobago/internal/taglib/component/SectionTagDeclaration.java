@@ -41,12 +41,12 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 @Tag(name = "section")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISection",
-    uiComponentFacesClass = "javax.faces.component.UIPanel",
+    uiComponentFacesClass = "jakarta.faces.component.UIPanel",
     componentFamily = "org.apache.myfaces.tobago.Section",
     rendererType = RendererTypes.SECTION,
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
-        "javax.faces.component.behavior.ClientBehaviorHolder"
+        "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     facets = {
         @Facet(name = Facets.LABEL,

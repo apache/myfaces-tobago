@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UIOutput;
+import jakarta.faces.component.UIOutput;
 
 /**
  * Renders a progress bar.
@@ -39,7 +39,7 @@ import javax.faces.component.UIOutput;
 @Tag(name = "progress")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIProgress",
-    uiComponentFacesClass = "javax.faces.component.UIOutput",
+    uiComponentFacesClass = "jakarta.faces.component.UIOutput",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.PROGRESS,
     allowedChildComponenents = "NONE",

@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.model.Selectable;
 
-import javax.faces.component.UIData;
+import jakarta.faces.component.UIData;
 
 /**
  * Render a sheet element.
@@ -48,11 +48,11 @@ import javax.faces.component.UIData;
 @BodyContentDescription(anyTagOf = "<tc:column>* <tc:columnSelector>? <tc:row>?")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISheet",
-    uiComponentFacesClass = "javax.faces.component.UIData",
+    uiComponentFacesClass = "jakarta.faces.component.UIData",
     componentFamily = UIData.COMPONENT_FAMILY,
     rendererType = RendererTypes.SHEET,
     allowedChildComponenents = {
-        "javax.faces.Column",
+        "jakarta.faces.Column",
         "org.apache.myfaces.tobago.ColumnSelector"},
     facets = {
         @Facet(
@@ -135,8 +135,8 @@ public interface SheetTagDeclaration
    * The sheet's data.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = {"java.lang.Object[]", "java.util.List", "javax.servlet.jsp.jstl.sql.Result",
-      "java.sql.ResultSet", "java.lang.Object", "javax.faces.model.DataModel"},
+  @UIComponentTagAttribute(type = {"java.lang.Object[]", "java.util.List", "jakarta.servlet.jsp.jstl.sql.Result",
+      "java.sql.ResultSet", "java.lang.Object", "jakarta.faces.model.DataModel"},
       expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
 
@@ -241,7 +241,7 @@ public interface SheetTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(type = {},
       expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
-      methodSignature = "javax.faces.event.ActionEvent")
+      methodSignature = "jakarta.faces.event.ActionEvent")
   void setStateChangeListener(String stateChangeListener);
 
   /**
@@ -260,7 +260,7 @@ public interface SheetTagDeclaration
   @UIComponentTagAttribute(
       type = {},
       expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
-      methodSignature = "javax.faces.event.ActionEvent")
+      methodSignature = "jakarta.faces.event.ActionEvent")
   void setSortActionListener(String sortActionListener);
 
   /**

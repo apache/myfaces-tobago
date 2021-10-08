@@ -39,8 +39,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsImmediateCommand;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsOmit;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsTransition;
 
-import javax.el.ValueExpression;
-import javax.faces.component.UICommand;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.UICommand;
 
 /**
  * Add an event behavior to the component.
@@ -48,12 +48,12 @@ import javax.faces.component.UICommand;
  */
 @Tag(name = "event")
 @UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UIEvent",
-    uiComponentFacesClass = "javax.faces.component.UICommand",
+    uiComponentFacesClass = "jakarta.faces.component.UICommand",
     componentFamily = UICommand.COMPONENT_FAMILY,
     rendererType = RendererTypes.EVENT,
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
-        "javax.faces.component.behavior.ClientBehaviorHolder"
+        "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     behaviors = {
         @Behavior(name = ClientBehaviors.CHANGE),

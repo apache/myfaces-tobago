@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.event;
 
-import javax.faces.component.EditableValueHolder;
-import javax.faces.component.UIComponent;
-import javax.faces.event.ActionListener;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.event.ActionListener;
 import java.util.Iterator;
 
 public abstract class AbstractResetInputActionListener implements ActionListener {

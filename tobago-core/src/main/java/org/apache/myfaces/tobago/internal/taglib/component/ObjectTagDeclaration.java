@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UIOutput;
+import jakarta.faces.component.UIOutput;
 
 /**
  * Show external content inside of an application.
@@ -37,12 +37,12 @@ import javax.faces.component.UIOutput;
 @Tag(name = "object")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIObject",
-    uiComponentFacesClass = "javax.faces.component.UIOutput",
+    uiComponentFacesClass = "jakarta.faces.component.UIOutput",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.OBJECT,
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
-        "javax.faces.component.behavior.ClientBehaviorHolder"
+        "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponenents = "NONE",
     markups = {

@@ -49,7 +49,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequiredForSelect;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UISelectMany;
+import jakarta.faces.component.UISelectMany;
 
 /**
  * Render a multi selection option listbox.
@@ -57,10 +57,10 @@ import javax.faces.component.UISelectMany;
 @Tag(name = "selectManyListbox")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectManyListbox",
-    uiComponentFacesClass = "javax.faces.component.UISelectMany",
+    uiComponentFacesClass = "jakarta.faces.component.UISelectMany",
     componentFamily = UISelectMany.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_MANY_LISTBOX,
-    allowedChildComponenents = {"javax.faces.SelectItem", "javax.faces.SelectItems"},
+    allowedChildComponenents = {"jakarta.faces.SelectItem", "jakarta.faces.SelectItems"},
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CHANGE,

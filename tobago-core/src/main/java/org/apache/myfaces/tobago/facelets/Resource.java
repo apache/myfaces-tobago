@@ -22,9 +22,9 @@ package org.apache.myfaces.tobago.facelets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.ServletContext;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,11 +45,11 @@ public final class Resource {
   }
 
   /**
-   * Get an URL of an internal resource. First, {@link javax.faces.context.ExternalContext#getResource(String)} is
+   * Get an URL of an internal resource. First, {@link jakarta.faces.context.ExternalContext#getResource(String)} is
    * checked for an non-null URL return value. In the case of a null return value (as it is the case for Weblogic 8.1
    * for a packed war), a URL with a special URL handler is constructed, which can be used for <em>opening</em> a
    * serlvet resource later. Internally, this special URL handler will call
-   * {@link javax.servlet.ServletContext#getResourceAsStream(String)} when an inputstream is requested.
+   * {@link jakarta.servlet.ServletContext#getResourceAsStream(String)} when an inputstream is requested.
    * This works even on Weblogic 8.1
    *
    * @param ctx  the faces context from which to retrieve the resource

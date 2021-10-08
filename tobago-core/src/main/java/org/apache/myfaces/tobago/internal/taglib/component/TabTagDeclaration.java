@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UIPanel;
+import jakarta.faces.component.UIPanel;
 
 /**
  * Renders a tab within a tab group.
@@ -42,7 +42,7 @@ import javax.faces.component.UIPanel;
 @Tag(name = "tab")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITab",
-    uiComponentFacesClass = "javax.faces.component.UIPanel",
+    uiComponentFacesClass = "jakarta.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.TAB,
     facets = {

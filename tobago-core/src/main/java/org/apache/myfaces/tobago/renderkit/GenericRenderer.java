@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
-import javax.faces.render.Renderer;
+import jakarta.faces.render.Renderer;
 
 public class GenericRenderer extends Renderer {
 

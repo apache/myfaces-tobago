@@ -48,7 +48,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequiredForSelect;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UISelectBoolean;
+import jakarta.faces.component.UISelectBoolean;
 
 /**
  * Renders a checkbox as toggle.
@@ -57,7 +57,7 @@ import javax.faces.component.UISelectBoolean;
 @BodyContentDescription(anyTagOf = "<f:facet>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanToggle",
-    uiComponentFacesClass = "javax.faces.component.UISelectBoolean",
+    uiComponentFacesClass = "jakarta.faces.component.UISelectBoolean",
     componentFamily = UISelectBoolean.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_BOOLEAN_TOGGLE,
     allowedChildComponenents = "NONE",

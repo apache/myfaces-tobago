@@ -23,9 +23,9 @@ import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.SessionScoped;
-import javax.faces.event.AjaxBehaviorEvent;
-import javax.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.event.AjaxBehaviorEvent;
+import jakarta.inject.Named;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.Currency;

@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.model;
 
-import javax.faces.model.DataModel;
+import jakarta.faces.model.DataModel;
 import java.util.List;
 
 /**

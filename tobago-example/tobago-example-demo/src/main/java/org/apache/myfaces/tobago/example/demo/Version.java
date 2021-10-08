@@ -21,8 +21,8 @@ package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.util.FacesVersion;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 
 @Named
 @ApplicationScoped

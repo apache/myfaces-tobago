@@ -21,8 +21,8 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
 
-import javax.faces.component.NamingContainer;
-import javax.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.component.NamingContainer;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.TabTagDeclaration}

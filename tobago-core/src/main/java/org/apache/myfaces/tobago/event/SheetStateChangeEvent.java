@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.event;
 
-import javax.faces.component.UIComponent;
-import javax.faces.event.FacesListener;
-import javax.faces.event.ActionEvent;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.event.FacesListener;
+import jakarta.faces.event.ActionEvent;
 
 public class SheetStateChangeEvent extends ActionEvent {
 

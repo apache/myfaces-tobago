@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UIColumn;
+import jakarta.faces.component.UIColumn;
 
 /**
  * This component creates a representative in a UISheet for each row.
@@ -36,7 +36,7 @@ import javax.faces.component.UIColumn;
 @Tag(name = "row")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIRow",
-    uiComponentFacesClass = "javax.faces.component.UIColumn",
+    uiComponentFacesClass = "jakarta.faces.component.UIColumn",
     componentFamily = UIColumn.COMPONENT_FAMILY,
     rendererType = RendererTypes.ROW,
     behaviors = {

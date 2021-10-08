@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Visual;
 
-import javax.faces.component.UIGraphic;
+import jakarta.faces.component.UIGraphic;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.TreeIndentTagDeclaration}

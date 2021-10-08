@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.faces.convert.Converter;
+import jakarta.faces.convert.Converter;
 
 public class DurationConverterUnitTest extends AbstractTobagoTestBase {
 

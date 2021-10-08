@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.ActionSource2;
-import javax.faces.el.MethodBinding;
+import jakarta.faces.component.ActionSource2;
+import jakarta.faces.el.MethodBinding;
 import java.lang.invoke.MethodHandles;
 
 public interface TobagoActionSource extends ActionSource2 {

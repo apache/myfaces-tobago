@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import javax.faces.component.UIInput;
+import jakarta.faces.component.UIInput;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.HiddenTagDeclaration}

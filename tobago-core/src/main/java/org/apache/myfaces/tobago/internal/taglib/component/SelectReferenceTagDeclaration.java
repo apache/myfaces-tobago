@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 
-import javax.faces.component.UIOutput;
+import jakarta.faces.component.UIOutput;
 
 /**
  * Renders a set of option related to and same type as the <strong>for</strong>
@@ -35,7 +35,7 @@ import javax.faces.component.UIOutput;
 @Tag(name = "selectReference")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectReference",
-    uiComponentFacesClass = "javax.faces.component.UIOutput",
+    uiComponentFacesClass = "jakarta.faces.component.UIOutput",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_REFERENCE,
     allowedChildComponenents = "NONE")

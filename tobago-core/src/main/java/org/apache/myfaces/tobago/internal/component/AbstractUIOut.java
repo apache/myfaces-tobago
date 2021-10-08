@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 
-import javax.faces.component.UIOutput;
+import jakarta.faces.component.UIOutput;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.OutTagDeclaration}

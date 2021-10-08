@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsPlain;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UIForm;
+import jakarta.faces.component.UIForm;
 
 /**
  * If an action is preformed, everything within the next parent form belongs to the submit-area.
@@ -40,12 +40,12 @@ import javax.faces.component.UIForm;
 @Tag(name = "form")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIForm",
-    uiComponentFacesClass = "javax.faces.component.UIForm",
+    uiComponentFacesClass = "jakarta.faces.component.UIForm",
     componentFamily = UIForm.COMPONENT_FAMILY,
     rendererType = RendererTypes.FORM,
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
-        "javax.faces.component.behavior.ClientBehaviorHolder"
+        "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponenents = "ALL")
 public interface FormTagDeclaration extends HasBinding, HasId, IsVisual, IsPlain {

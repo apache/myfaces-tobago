@@ -19,14 +19,14 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.MethodExpression;
-import javax.el.MethodInfo;
-import javax.el.MethodNotFoundException;
-import javax.el.PropertyNotFoundException;
-import javax.faces.FacesWrapper;
-import javax.faces.view.facelets.TagAttribute;
+import jakarta.el.ELContext;
+import jakarta.el.ELException;
+import jakarta.el.MethodExpression;
+import jakarta.el.MethodInfo;
+import jakarta.el.MethodNotFoundException;
+import jakarta.el.PropertyNotFoundException;
+import jakarta.faces.FacesWrapper;
+import jakarta.faces.view.facelets.TagAttribute;
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;

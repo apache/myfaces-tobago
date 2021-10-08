@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.example.demo;
 import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.model.Selectable;
 
-import javax.faces.model.SelectItem;
+import jakarta.faces.model.SelectItem;
 import java.util.HashSet;
 import java.util.Set;
 

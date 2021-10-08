@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.example.demo.bestpractice;
 
-import javax.enterprise.context.SessionScoped;
-import javax.faces.component.UIParameter;
-import javax.faces.event.ActionEvent;
-import javax.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.component.UIParameter;
+import jakarta.faces.event.ActionEvent;
+import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;

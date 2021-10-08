@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.PreRenderComponentEvent;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PreRenderComponentEvent;
 import javax.swing.BoundedRangeModel;
 
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)

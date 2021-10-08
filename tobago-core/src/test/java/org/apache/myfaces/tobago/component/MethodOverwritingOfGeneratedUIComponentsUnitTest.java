@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.component;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;

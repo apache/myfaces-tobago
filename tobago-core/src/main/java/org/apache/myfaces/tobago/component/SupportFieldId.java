@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.component;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 public interface SupportFieldId {
 

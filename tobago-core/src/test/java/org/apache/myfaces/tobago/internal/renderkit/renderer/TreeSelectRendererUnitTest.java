@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import javax.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.behavior.AjaxBehavior;
 import java.io.IOException;
 
 public class TreeSelectRendererUnitTest extends TreeRendererTestBase {

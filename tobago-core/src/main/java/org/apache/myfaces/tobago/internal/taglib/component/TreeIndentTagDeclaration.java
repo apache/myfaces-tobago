@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UIGraphic;
+import jakarta.faces.component.UIGraphic;
 
 /**
  * Renders an indent beside a tree node.
@@ -36,12 +36,12 @@ import javax.faces.component.UIGraphic;
 @Tag(name = "treeIndent")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeIndent",
-    uiComponentFacesClass = "javax.faces.component.UIGraphic",
+    uiComponentFacesClass = "jakarta.faces.component.UIGraphic",
     componentFamily = UIGraphic.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_INDENT,
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
-        "javax.faces.component.behavior.ClientBehaviorHolder"
+        "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponenents = "NONE")
 public interface TreeIndentTagDeclaration extends HasIdBindingAndRendered, HasTip, IsVisual {

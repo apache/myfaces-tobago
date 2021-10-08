@@ -21,11 +21,11 @@ package org.apache.myfaces.tobago.internal.behavior;
 
 import org.apache.myfaces.tobago.exception.TobagoException;
 
-import javax.el.ValueExpression;
-import javax.faces.component.StateHelper;
-import javax.faces.component.StateHolder;
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;

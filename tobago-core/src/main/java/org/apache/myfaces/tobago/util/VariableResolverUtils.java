@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.util;
 
-import javax.el.ELContext;
-import javax.faces.context.FacesContext;
+import jakarta.el.ELContext;
+import jakarta.faces.context.FacesContext;
 
 public final class VariableResolverUtils {
 

@@ -50,18 +50,18 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequiredForSelect;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UISelectMany;
+import jakarta.faces.component.UISelectMany;
 
 @Tag(name = "selectManyShuttle")
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectManyShuttle",
-    uiComponentFacesClass = "javax.faces.component.UISelectMany",
+    uiComponentFacesClass = "jakarta.faces.component.UISelectMany",
     componentFamily = UISelectMany.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_MANY_SHUTTLE,
     allowedChildComponenents = {
-        "javax.faces.SelectItem",
-        "javax.faces.SelectItems"},
+        "jakarta.faces.SelectItem",
+        "jakarta.faces.SelectItems"},
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CHANGE,

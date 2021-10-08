@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 
-import javax.el.ValueExpression;
+import jakarta.el.ValueExpression;
 
 /**
  * Add an data attribute on the UIComponent

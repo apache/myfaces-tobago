@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UIOutput;
+import jakarta.faces.component.UIOutput;
 
 /**
  * Renders a label component.
@@ -38,10 +38,10 @@ import javax.faces.component.UIOutput;
 @Tag(name = "label")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UILabel",
-    uiComponentFacesClass = "javax.faces.component.UIOutput",
+    uiComponentFacesClass = "jakarta.faces.component.UIOutput",
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
-        "javax.faces.component.behavior.ClientBehaviorHolder",
+        "jakarta.faces.component.behavior.ClientBehaviorHolder",
         "org.apache.myfaces.tobago.component.SupportsAccessKey"
     },
     componentFamily = UIOutput.COMPONENT_FAMILY,

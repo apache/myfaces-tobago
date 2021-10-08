@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.Visual;
 /**
  * Base class for panels.
  */
-public abstract class AbstractUIPanelBase extends javax.faces.component.UIPanel implements Visual {
+public abstract class AbstractUIPanelBase extends jakarta.faces.component.UIPanel implements Visual {
 
   public abstract java.lang.String getTip();
 }

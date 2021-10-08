@@ -24,8 +24,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.apache.myfaces.tobago.model.SelectItem;
 
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.InputStreamReader;
 import java.io.Serializable;

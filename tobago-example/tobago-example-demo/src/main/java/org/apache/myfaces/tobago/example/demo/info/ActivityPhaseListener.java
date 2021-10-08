@@ -22,13 +22,13 @@ package org.apache.myfaces.tobago.example.demo.info;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.inject.spi.CDI;
-import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseEvent;
-import javax.faces.event.PhaseId;
-import javax.faces.event.PhaseListener;
-import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
+import jakarta.enterprise.inject.spi.CDI;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.PhaseEvent;
+import jakarta.faces.event.PhaseId;
+import jakarta.faces.event.PhaseListener;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpSession;
 import java.lang.invoke.MethodHandles;
 
 // XXX @Inject in PhaseListener doesn't work with Quarkus

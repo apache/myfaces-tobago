@@ -51,7 +51,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import javax.faces.component.UISelectOne;
+import jakarta.faces.component.UISelectOne;
 
 /**
  * Render a set of radio buttons.
@@ -60,12 +60,12 @@ import javax.faces.component.UISelectOne;
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOneRadio",
-    uiComponentFacesClass = "javax.faces.component.UISelectOne",
+    uiComponentFacesClass = "jakarta.faces.component.UISelectOne",
     componentFamily = UISelectOne.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_ONE_RADIO,
     allowedChildComponenents = {
-        "javax.faces.SelectItem",
-        "javax.faces.SelectItems"
+        "jakarta.faces.SelectItem",
+        "jakarta.faces.SelectItems"
         },
     behaviors = {
         @Behavior(

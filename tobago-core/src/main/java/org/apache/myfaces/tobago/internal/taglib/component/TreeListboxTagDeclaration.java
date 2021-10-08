@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import org.apache.myfaces.tobago.model.Selectable;
 
-import javax.faces.component.UIData;
+import jakarta.faces.component.UIData;
 
 /**
  * A tree data structure displayed as a set of list boxes.
@@ -43,12 +43,12 @@ import javax.faces.component.UIData;
 @BodyContentDescription(anyTagOf = "<tc:treeNode>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeListbox",
-    uiComponentFacesClass = "javax.faces.component.UIData",
+    uiComponentFacesClass = "jakarta.faces.component.UIData",
     componentFamily = UIData.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_LISTBOX,
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
-        "javax.faces.component.behavior.ClientBehaviorHolder"
+        "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.TreeNode"

@@ -21,14 +21,14 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Visual;
 
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.LabelTagDeclaration}
  */
 public abstract class AbstractUILabelBase
-    extends javax.faces.component.UIOutput implements Visual {
+    extends jakarta.faces.component.UIOutput implements Visual {
 
   public String getLabel() {
     final Converter converter = getConverter();

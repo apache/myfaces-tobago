@@ -52,7 +52,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
     rendererType = RendererTypes.GRID_LAYOUT,
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
-        "javax.faces.component.behavior.ClientBehaviorHolder"
+        "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponenents = "NONE",
     markups = {

@@ -26,7 +26,7 @@
   <artifactId>tobago</artifactId>
   <packaging>pom</packaging>
   <name>Apache Tobago</name>
-  <version>5.0.0-SNAPSHOT</version>
+  <version>6.0.0-SNAPSHOT</version>
   <description>The goal of Tobago is to provide the community with a well designed set of user interface components based on JSF and run on MyFaces.</description>
   <url>http://myfaces.apache.org/tobago</url>
   <inceptionYear>2002</inceptionYear>
@@ -34,13 +34,12 @@
   <properties>
     <frontend.skip>true</frontend.skip>
     <!-- old main branch of MyFaces -->
-    <myfaces23.version>2.3.9</myfaces23.version>
-    <myfaces-test23.version>1.0.8</myfaces-test23.version>
+    <myfaces23.version>3.0.1</myfaces23.version>
     <!-- new main branch of MyFaces "next" -->
 <!--    <myfaces23.version>2.3-next-M6</myfaces23.version>-->
     <myfaces23x.version>2.3-next-M6</myfaces23x.version>
 
-    <mojarra23.version>2.3.16</mojarra23.version>
+    <mojarra23.version>3.0.1</mojarra23.version>
     <openwebbeans.version>2.0.23</openwebbeans.version>
     <slf4j.version>1.7.32</slf4j.version>
     <logback.version>1.2.6</logback.version>
@@ -56,7 +55,7 @@
     <checkstyle-rules.version>15-SNAPSHOT</checkstyle-rules.version>
 
     <!-- Note: defined here in master pom, because of problems with enforcer plugin -->
-    <jetty.version>9.4.43.v20210629</jetty.version>
+    <jetty.version>11.0.6</jetty.version>
     <joinfaces.version>4.5.5</joinfaces.version>
     <spring-boot.version>2.5.5</spring-boot.version>
 
@@ -400,13 +399,13 @@
       <dependency>
         <groupId>jakarta.servlet</groupId>
         <artifactId>jakarta.servlet-api</artifactId>
-        <version>4.0.4</version>
+        <version>5.0.0</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>jakarta.el</groupId>
         <artifactId>jakarta.el-api</artifactId>
-        <version>3.0.3</version>
+        <version>4.0.0</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
@@ -474,23 +473,23 @@
       <dependency>
         <groupId>jakarta.annotation</groupId>
         <artifactId>jakarta.annotation-api</artifactId>
-        <version>1.3.5</version>
+        <version>2.0.0</version>
       </dependency>
       <dependency>
         <groupId>jakarta.validation</groupId>
         <artifactId>jakarta.validation-api</artifactId>
-        <version>2.0.2</version>
+        <version>3.0.0</version>
       </dependency>
       <dependency>
         <groupId>jakarta.inject</groupId>
         <artifactId>jakarta.inject-api</artifactId>
-        <version>1.0.3</version>
+        <version>2.0.0</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>jakarta.enterprise</groupId>
         <artifactId>jakarta.enterprise.cdi-api</artifactId>
-        <version>2.0.2</version>
+        <version>3.0.0</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
@@ -500,9 +499,9 @@
         <version>1.14.2</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.myfaces.test</groupId>
-        <artifactId>myfaces-test23</artifactId>
-        <version>${myfaces-test23.version}</version>
+        <groupId>org.apache.myfaces.core</groupId>
+        <artifactId>myfaces-test</artifactId>
+        <version>${myfaces23.version}</version>
         <scope>test</scope>
       </dependency>
       <!--        myfaces "next"-->
@@ -1017,7 +1016,7 @@
           <version>6.3.2</version>
           <configuration>
             <failBuildOnCVSS>0</failBuildOnCVSS>
-            <suppressionFile>tobago/dependency-check-suppression-for-tobago-5.x.xml</suppressionFile>
+            <suppressionFile>tobago/dependency-check-suppression-for-tobago-6.x.xml</suppressionFile>
           </configuration>
           <dependencies>
             <dependency>

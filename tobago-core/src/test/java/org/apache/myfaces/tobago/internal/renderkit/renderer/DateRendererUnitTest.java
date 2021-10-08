@@ -29,8 +29,8 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.convert.Converter;
-import javax.faces.convert.DateTimeConverter;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.DateTimeConverter;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.text.ParseException;

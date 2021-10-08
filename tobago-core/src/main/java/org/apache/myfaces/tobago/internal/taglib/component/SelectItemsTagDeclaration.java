@@ -38,7 +38,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 @Tag(name = "selectItems")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectItems",
-    uiComponentFacesClass = "javax.faces.component.UISelectItems",
+    uiComponentFacesClass = "jakarta.faces.component.UISelectItems",
     isComponentAlreadyDefined = false,
     allowedChildComponenents = "NONE")
 public interface SelectItemsTagDeclaration extends HasId, HasBinding, HasItemLabel, HasItemImage, HasTip {
@@ -49,7 +49,7 @@ public interface SelectItemsTagDeclaration extends HasId, HasBinding, HasItemLab
    */
   @TagAttribute
   @UIComponentTagAttribute(
-      type = {"javax.faces.model.SelectItem[]", "java.lang.Object[]", "java.util.Collection"},
+      type = {"jakarta.faces.model.SelectItem[]", "java.lang.Object[]", "java.util.Collection"},
       expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
 

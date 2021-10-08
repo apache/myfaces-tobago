@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.component;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;

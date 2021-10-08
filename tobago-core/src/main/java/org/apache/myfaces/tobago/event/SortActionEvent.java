@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.event;
 
-import javax.faces.component.UIColumn;
-import javax.faces.component.UIData;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.PhaseId;
+import jakarta.faces.component.UIColumn;
+import jakarta.faces.component.UIData;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.PhaseId;
 
 public class SortActionEvent extends ActionEvent {
 

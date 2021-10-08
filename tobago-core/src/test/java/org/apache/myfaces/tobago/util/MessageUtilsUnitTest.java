@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.validator.FileItemValidator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import javax.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage;
 import java.util.Locale;
 
 public class MessageUtilsUnitTest extends AbstractTobagoTestBase {

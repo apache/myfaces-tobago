@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.example.demo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.inject.Model;
+import jakarta.enterprise.inject.Model;
 import java.lang.invoke.MethodHandles;
 
 @Model

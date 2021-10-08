@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.convert.DateTimeConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasFor;
 
-import javax.el.ValueExpression;
+import jakarta.el.ValueExpression;
 
 /**
  * Register a DateTimeConverter instance on the UIComponent associated with the closest parent UIComponent custom

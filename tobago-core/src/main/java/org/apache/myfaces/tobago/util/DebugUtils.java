@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.util;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.application.ProjectStage;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -83,9 +83,9 @@ public final class DebugUtils {
 //      buf.append(component.getId());
 //      buf.append(" ");
       buf.append(component.getClientId(FacesContext.getCurrentInstance()));
-    if (component instanceof javax.faces.component.UIViewRoot) {
+    if (component instanceof jakarta.faces.component.UIViewRoot) {
       buf.append(" viewId=");
-      buf.append(((javax.faces.component.UIViewRoot) component).getViewId());
+      buf.append(((jakarta.faces.component.UIViewRoot) component).getViewId());
     }
     buf.append(" rendered=");
     buf.append(component.isRendered());

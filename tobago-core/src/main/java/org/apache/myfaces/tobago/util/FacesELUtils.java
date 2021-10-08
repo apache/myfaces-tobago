@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.util;
 
-import javax.el.MethodExpression;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesEvent;
+import jakarta.el.MethodExpression;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.FacesEvent;
 
 public final class FacesELUtils {
 

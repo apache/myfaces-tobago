@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 
-import javax.faces.component.UIInput;
+import jakarta.faces.component.UIInput;
 
 /**
  * Renders a hidden input element.
@@ -39,7 +39,7 @@ import javax.faces.component.UIInput;
 @Tag(name = "hidden")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIHidden",
-    uiComponentFacesClass = "javax.faces.component.UIInput",
+    uiComponentFacesClass = "jakarta.faces.component.UIInput",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.HIDDEN,
     allowedChildComponenents = "NONE",

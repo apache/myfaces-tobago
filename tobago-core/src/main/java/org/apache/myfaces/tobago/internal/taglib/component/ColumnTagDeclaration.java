@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.layout.VerticalAlign;
 
-import javax.faces.component.UIColumn;
+import jakarta.faces.component.UIColumn;
 
 /**
  * Renders a UIComponent that represents a single column of data within a
@@ -40,12 +40,12 @@ import javax.faces.component.UIColumn;
 @Tag(name = "column")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIColumn",
-    uiComponentFacesClass = "javax.faces.component.UIColumn",
+    uiComponentFacesClass = "jakarta.faces.component.UIColumn",
     componentFamily = UIColumn.COMPONENT_FAMILY,
     rendererType = RendererTypes.COLUMN,
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
-        "javax.faces.component.behavior.ClientBehaviorHolder"
+        "jakarta.faces.component.behavior.ClientBehaviorHolder"
     })
 public interface ColumnTagDeclaration
     extends HasIdBindingAndRendered, HasLabel, HasTip, IsVisual {

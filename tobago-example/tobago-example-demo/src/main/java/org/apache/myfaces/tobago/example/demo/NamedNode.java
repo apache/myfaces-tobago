@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.example.demo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.event.ActionEvent;
+import jakarta.faces.event.ActionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.lang.invoke.MethodHandles;
 

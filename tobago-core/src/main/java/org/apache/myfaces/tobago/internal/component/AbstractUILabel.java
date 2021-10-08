@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
 
-import javax.el.ValueExpression;
+import jakarta.el.ValueExpression;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.LabelTagDeclaration}

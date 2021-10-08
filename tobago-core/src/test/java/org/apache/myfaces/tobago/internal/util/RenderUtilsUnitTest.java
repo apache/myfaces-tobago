@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import javax.faces.component.UIParameter;
+import jakarta.faces.component.UIParameter;
 
 public class RenderUtilsUnitTest extends AbstractTobagoTestBase {
 

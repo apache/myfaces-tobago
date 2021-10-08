@@ -34,7 +34,6 @@ import org.apache.myfaces.tobago.apt.generate.PropertyInfo;
 
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
-import javax.faces.component.UIComponent;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
@@ -42,6 +41,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.tools.FileObject;
+import jakarta.faces.component.UIComponent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -189,7 +189,7 @@ public class ClassesGenerator extends AbstractGenerator {
 
     final ComponentPropertyInfo componentPropertyInfo = (ComponentPropertyInfo) info.fill(new ComponentPropertyInfo());
     componentInfo.addImport(componentPropertyInfo.getUnmodifiedType());
-    componentInfo.addImport("javax.faces.context.FacesContext");
+    componentInfo.addImport("jakarta.faces.context.FacesContext");
 //    if ("markup".equals(info.getName())) {
 //      componentInfo.addInterface("org.apache.myfaces.tobago.component.Visual");
 //    }
@@ -250,7 +250,7 @@ public class ClassesGenerator extends AbstractGenerator {
         final String type;
         if (uiComponentTagAttribute.expression().isMethodExpression()) {
           propertyInfo.setMethodExpressionRequired(true);
-          type = "javax.el.MethodExpression";
+          type = "jakarta.el.MethodExpression";
         } else {
           if (uiComponentTagAttribute.expression() == DynamicExpression.VALUE_EXPRESSION_REQUIRED) {
             propertyInfo.setValueExpressionRequired(true);

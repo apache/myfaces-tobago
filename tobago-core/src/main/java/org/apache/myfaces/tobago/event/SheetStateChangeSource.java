@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.event;
 
-import javax.el.MethodExpression;
+import jakarta.el.MethodExpression;
 
 public interface SheetStateChangeSource {
 

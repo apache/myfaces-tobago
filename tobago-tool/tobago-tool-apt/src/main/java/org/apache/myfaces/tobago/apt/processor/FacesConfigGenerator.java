@@ -478,12 +478,12 @@ public class FacesConfigGenerator extends AbstractGenerator {
     } else if (componentAttribute.type().length == 1) {
       String className = componentAttribute.type()[0];
       if (componentAttribute.expression().isMethodExpression()) {
-        className = "javax.el.MethodExpression";
+        className = "jakarta.el.MethodExpression";
       }
       attributeClass.setText(className);
     } else {
       if (componentAttribute.expression().isMethodExpression()) {
-        attributeClass.setText("javax.el.MethodExpression");
+        attributeClass.setText("jakarta.el.MethodExpression");
       }
     }
   }

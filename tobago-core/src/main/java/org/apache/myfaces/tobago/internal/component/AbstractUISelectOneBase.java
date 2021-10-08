@@ -25,14 +25,14 @@ import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.MessageUtils;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.context.FacesContext;
 
 /**
  * Base class for select one.
  */
-public abstract class AbstractUISelectOneBase extends javax.faces.component.UISelectOne
+public abstract class AbstractUISelectOneBase extends jakarta.faces.component.UISelectOne
     implements SupportsAutoSpacing, Visual, SupportsLabelLayout, ClientBehaviorHolder, SupportsHelp {
 
   public static final String MESSAGE_VALUE_REQUIRED = "org.apache.myfaces.tobago.UISelectOne.REQUIRED";

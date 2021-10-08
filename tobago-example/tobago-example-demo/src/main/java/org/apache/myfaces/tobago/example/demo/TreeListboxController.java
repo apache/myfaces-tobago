@@ -24,9 +24,9 @@ import org.apache.myfaces.tobago.model.TreeState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;

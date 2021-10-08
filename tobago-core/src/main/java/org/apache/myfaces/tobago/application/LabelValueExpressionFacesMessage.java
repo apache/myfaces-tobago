@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.application;
 
-import javax.el.ValueExpression;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 
 public class LabelValueExpressionFacesMessage extends FacesMessage {
   public LabelValueExpressionFacesMessage() {

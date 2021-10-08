@@ -21,8 +21,8 @@ package org.apache.myfaces.tobago.webapp;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
 
-import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionListener;
+import jakarta.servlet.http.HttpSessionEvent;
+import jakarta.servlet.http.HttpSessionListener;
 
 public class SecretSessionListener implements HttpSessionListener {
 

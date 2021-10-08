@@ -21,10 +21,10 @@ package org.apache.myfaces.tobago.event;
 
 import org.apache.myfaces.tobago.util.FacesELUtils;
 
-import javax.el.MethodExpression;
-import javax.faces.component.StateHolder;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
+import jakarta.el.MethodExpression;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
 
 public class MethodExpressionStateChangeListener implements SheetStateChangeListener, StateHolder {
 

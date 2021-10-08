@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Visual;
 
-import javax.faces.component.UIColumn;
+import jakarta.faces.component.UIColumn;
 
 public abstract class AbstractUIColumnBase extends UIColumn implements Visual {
 
