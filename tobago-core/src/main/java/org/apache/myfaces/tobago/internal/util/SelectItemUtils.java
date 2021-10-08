@@ -72,9 +72,9 @@ public class SelectItemUtils {
   }
 
   /**
-   * Creates a list of SelectItems to use for rendering.
-   * You should only use this method (which returns a list), when you need a list.
-   * Otherwise please use {@link #getItemIterator(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent)}
+   * Creates a list of SelectItems to use for rendering. You should only use this method (which returns a list), when
+   * you need a list. Otherwise, please use {@link #getItemIterator(jakarta.faces.context.FacesContext,
+   * jakarta.faces.component.UIComponent)}
    */
   public static List<SelectItem> getItemList(final FacesContext facesContext, final UIComponent selector) {
     if (selector.getChildCount() == 0) {
