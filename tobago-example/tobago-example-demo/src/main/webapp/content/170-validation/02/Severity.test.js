@@ -16,43 +16,29 @@
  */
 
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+import {elementByIdFn, querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 
-it("must be fixed first", function (done) {
+it("Check severity CSS classes", function (done) {
+  const alertsFn = querySelectorAllFn("#page\\:messages .alert");
+  const submitFn = elementByIdFn("page:mainForm:submit");
+  const fatalInputFieldFn = elementByIdFn("page:mainForm:fatal::field");
+  const errorInputFieldFn = elementByIdFn("page:mainForm:error::field");
+  const warnInputFieldFn = elementByIdFn("page:mainForm:warn::field");
+  const infoInputFieldFn = elementByIdFn("page:mainForm:info::field");
+  const fatalButtonFn = querySelectorFn("#page\\:mainForm\\:fatal tobago-popover .btn");
+  const errorButtonFn = querySelectorFn("#page\\:mainForm\\:error tobago-popover .btn");
+  const warnButtonFn = querySelectorFn("#page\\:mainForm\\:warn tobago-popover .btn");
+  const infoButtonFn = querySelectorFn("#page\\:mainForm\\:info tobago-popover .btn");
+
   let test = new JasmineTestTool(done);
-  test.do(() => fail("not implemented yet"));
+  test.setup(() => alertsFn().length > 0, null, "click", submitFn);
+  test.do(() => expect(fatalInputFieldFn().classList).toContain("border-danger"));
+  test.do(() => expect(errorInputFieldFn().classList).toContain("border-danger"));
+  test.do(() => expect(warnInputFieldFn().classList).toContain("border-warning"));
+  test.do(() => expect(infoInputFieldFn().classList).toContain("border-info"));
+  test.do(() => expect(fatalButtonFn().classList).toContain("btn-danger"));
+  test.do(() => expect(errorButtonFn().classList).toContain("btn-danger"));
+  test.do(() => expect(warnButtonFn().classList).toContain("btn-warning"));
+  test.do(() => expect(infoButtonFn().classList).toContain("btn-info"));
   test.start();
 });
-/*
-import {querySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
-
-QUnit.test("Check severity CSS classes", function (assert) {
-  let submitButtonFn = querySelectorFn("#page\\:mainForm\\:submit");
-  let fatalInputFieldFn = querySelectorFn("#page\\:mainForm\\:fatal\\:\\:field");
-  let errorInputFieldFn = querySelectorFn("#page\\:mainForm\\:error\\:\\:field");
-  let warnInputFieldFn = querySelectorFn("#page\\:mainForm\\:warn\\:\\:field");
-  let infoInputFieldFn = querySelectorFn("#page\\:mainForm\\:info\\:\\:field");
-  let fatalButtonFn = querySelectorFn("#page\\:mainForm\\:fatal .tobago-messages-button");
-  let errorButtonFn = querySelectorFn("#page\\:mainForm\\:error .tobago-messages-button");
-  let warnButtonFn = querySelectorFn("#page\\:mainForm\\:warn .tobago-messages-button");
-  let infoButtonFn = querySelectorFn("#page\\:mainForm\\:info .tobago-messages-button");
-
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    submitButtonFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(8, function () {
-    assert.ok(fatalInputFieldFn().classList.contains("border-danger"));
-    assert.ok(errorInputFieldFn().classList.contains("border-danger"));
-    assert.ok(warnInputFieldFn().classList.contains("border-warning"));
-    assert.ok(infoInputFieldFn().classList.contains("border-info"));
-
-    assert.ok(fatalButtonFn().classList.contains("btn-danger"));
-    assert.ok(errorButtonFn().classList.contains("btn-danger"));
-    assert.ok(warnButtonFn().classList.contains("btn-warning"));
-    assert.ok(infoButtonFn().classList.contains("btn-info"));
-  });
-  TTT.startTest();
-});
-*/
