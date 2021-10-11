@@ -118,7 +118,7 @@ class JasmineTestTool {
       eventType: type,
       eventFunc: eventFn,
       resultFunc: result,
-      substep: 3
+      substep: 4
     });
   }
 
@@ -130,6 +130,10 @@ class JasmineTestTool {
     });
   }
 
+  /**
+   * Wait till the given function is 'true'.
+   * @param fn given function
+   */
   wait(fn) {
     this.steps.push({
       type: "wait",
@@ -187,6 +191,13 @@ class JasmineTestTool {
       } else if (nextStep.type === "setup" && nextStep.substep === 1) {
         console.debug("[JasmineTestTool] setup/1-step: wait for " + nextStep.startConditionFunc);
         waitFor(nextStep.startConditionFunc, nextStep);
+      } else if (nextStep.type === "event" && nextStep.substep === 4) {
+        console.debug("[JasmineTestTool] event/4-step: wait for negative result of: " + nextStep.resultFunc);
+        if (!nextStep.resultFunc()) {
+          nextStep.substep--;
+          resetTimeout();
+        }
+        window.setTimeout(cycle, 50);
       } else if (nextStep.type === "event" && nextStep.substep === 3) {
         console.debug("[JasmineTestTool] event/3-step: " + nextStep.resultFunc);
         if (nextStep.resultFunc()) {
