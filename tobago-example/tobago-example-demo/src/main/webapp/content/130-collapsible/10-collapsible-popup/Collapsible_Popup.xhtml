@@ -19,6 +19,7 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
@@ -34,12 +35,14 @@
         Even if the required input field is empty.</p>
       <tc:button id="open1" label="Open" action="#{collapsiblePopupController.open}"/>
       <tc:button id="submitOnPage1" label="Submit"/>
-      <tc:popup id="controllerPopup" collapsed="#{collapsiblePopupController.collapsed}">
-        <tc:box label="Simple Popup">
-          <tc:in id="in1" label="Required" required="true"/>
+      <tc:popup id="simplePopup" collapsed="#{collapsiblePopupController.collapsed}">
+        <f:facet name="label">Simple Popup</f:facet>
+        <tc:in id="in1" label="Required" required="true" value="#{collapsiblePopupController.input1}"/>
+        <tc:out id="out1" label="Output" value="#{collapsiblePopupController.input1}"/>
+        <f:facet name="footer">
           <tc:button id="submitOnPopup1" label="Submit"/>
           <tc:button id="close1" label="Close" immediate="true" action="#{collapsiblePopupController.close}"/>
-        </tc:box>
+        </f:facet>
       </tc:popup>
     </tc:form>
   </tc:section>
@@ -51,17 +54,19 @@
         If you press the 'Submit'-button in the popup, the popup remains open,
         because the server know the current state.</p>
       <tc:button id="open2" label="Open">
-        <tc:operation name="show" for="fullServerRequestPopup"/>
+        <tc:operation name="show" for="serverPopup"/>
       </tc:button>
       <tc:button id="submitOnPage2" label="Submit"/>
-      <tc:popup id="fullServerRequestPopup">
-        <tc:box label="Full Server Request">
-          <tc:in id="in2" label="Required" required="true"/>
+      <tc:popup id="serverPopup">
+        <f:facet name="label">Full Server Request Popup</f:facet>
+        <tc:in id="in2" label="Required" required="true" value="#{collapsiblePopupController.input2}"/>
+        <tc:out id="out2" label="Output" value="#{collapsiblePopupController.input2}"/>
+        <f:facet name="footer">
           <tc:button id="submitOnPopup2" label="Submit"/>
           <tc:button id="close2" label="Close" immediate="true">
-            <tc:operation name="hide" for="fullServerRequestPopup"/>
+            <tc:operation name="hide" for="serverPopup"/>
           </tc:button>
-        </tc:box>
+        </f:facet>
       </tc:popup>
     </tc:form>
   </tc:section>
@@ -81,15 +86,17 @@
       </tc:button>
       <tc:button id="submitOnPage3" label="Submit"/>
       <tc:popup id="clientPopup" collapsedMode="hidden">
-        <tc:box label="Full Server Request">
-          <p>The opening of the popup is client side.
-            Therefor the popup will be closed after pressing the 'Submit'-button which reload the page.</p>
-          <tc:in id="in3" label="Required" required="true"/>
+        <f:facet name="label">Client Sided Popup</f:facet>
+        <p>The opening of the popup is client side.
+          Therefor the popup will be closed after pressing the 'Submit'-button which reload the page.</p>
+        <tc:in id="in3" label="Required" required="true" value="#{collapsiblePopupController.input3}"/>
+        <tc:out id="out3" label="Output" value="#{collapsiblePopupController.input3}"/>
+        <f:facet name="footer">
           <tc:button id="submitOnPopup3" label="Submit"/>
           <tc:button id="close3" label="Close" omit="true">
             <tc:operation name="hide" for="clientPopup"/>
           </tc:button>
-        </tc:box>
+        </f:facet>
       </tc:popup>
     </tc:form>
   </tc:section>
