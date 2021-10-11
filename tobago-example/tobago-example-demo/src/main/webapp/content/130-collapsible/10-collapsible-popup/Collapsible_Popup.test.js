@@ -16,183 +16,182 @@
  */
 
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+import {elementByIdFn, querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 
-it("not implemented yet", function (done) {
-  let test = new JasmineTestTool(done);
-  test.do(() => fail("must be fixed first"));
+it("Simple Popup", function (done) {
+  const messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  const openFn = elementByIdFn("page:mainForm:simple:open1");
+  const submitOnPageFn = elementByIdFn("page:mainForm:simple:submitOnPage1");
+  const popupFn = elementByIdFn("page:mainForm:simple:simplePopup");
+  const inFn = elementByIdFn("page:mainForm:simple:simplePopup:in1::field");
+  const outFn = querySelectorFn("#page\\:mainForm\\:simple\\:simplePopup\\:out1 .form-control-plaintext");
+  const submitOnPopupFn = elementByIdFn("page:mainForm:simple:simplePopup:submitOnPopup1");
+  const closeFn = elementByIdFn("page:mainForm:simple:simplePopup:close1");
+
+  const clientInFn = elementByIdFn("page:mainForm:client:clientPopup:in3::field");
+  const clientSubmitOnPopupFn = elementByIdFn("page:mainForm:client:clientPopup:submitOnPopup3");
+
+  const date = new Date().toString();
+
+  const test = new JasmineTestTool(done);
+  test.setup(() => !popupFn().classList.contains("show"), null, "click", closeFn);
+  test.event("click", openFn, () => popupFn().classList.contains("show"));
+  test.do(() => expect(popupFn().classList).toContain("show"));
+  test.do(() => expect(inFn()).not.toBeNull());
+
+  test.do(() => inFn().value = date);
+  test.event("click", submitOnPopupFn, () => outFn().textContent === date);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => expect(inFn().value).toBe(date));
+  test.do(() => expect(outFn().textContent).toBe(date));
+
+  test.do(() => inFn().value = "");
+  test.event("click", submitOnPopupFn, () => messagesFn().length === 1);
+  test.do(() => expect(messagesFn().length).toBe(1));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => expect(inFn().value).toBe(""));
+  test.do(() => expect(outFn().textContent).toBe(date));
+
+  test.event("click", closeFn, () => !popupFn().classList.contains("show"));
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(inFn()).toBeNull());
+
+  //add an error message for the next step
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.do(() => clientInFn().value = "");
+  test.event("click", clientSubmitOnPopupFn, () => messagesFn().length === 1);
+  test.do(() => expect(messagesFn().length).toBe(1));
+
+  test.event("click", submitOnPageFn, () => messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
   test.start();
 });
 
-/*
-import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
-import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+it("Full Server Request", function (done) {
+  const messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  const openFn = elementByIdFn("page:mainForm:server:open2");
+  const submitOnPageFn = elementByIdFn("page:mainForm:server:submitOnPage2");
+  const popupFn = elementByIdFn("page:mainForm:server:serverPopup");
+  const inFn = elementByIdFn("page:mainForm:server:serverPopup:in2::field");
+  const outFn = querySelectorFn("#page\\:mainForm\\:server\\:serverPopup\\:out2 .form-control-plaintext");
+  const submitOnPopupFn = elementByIdFn("page:mainForm:server:serverPopup:submitOnPopup2");
+  const closeFn = elementByIdFn("page:mainForm:server:serverPopup:close2");
 
-QUnit.test("Simple Popup", function (assert) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
-  let openFn = querySelectorFn("#page\\:mainForm\\:simple\\:open1");
-  let submitOnPageFn = querySelectorFn("#page\\:mainForm\\:simple\\:submitOnPage1");
-  let inFn = querySelectorFn("#page\\:mainForm\\:simple\\:controllerPopup\\:in1\\:\\:field");
-  let submitOnPopupFn = querySelectorFn("#page\\:mainForm\\:simple\\:controllerPopup\\:submitOnPopup1");
-  let closeFn = querySelectorFn("#page\\:mainForm\\:simple\\:controllerPopup\\:close1");
+  const clientInFn = elementByIdFn("page:mainForm:client:clientPopup:in3::field");
+  const clientSubmitOnPopupFn = elementByIdFn("page:mainForm:client:clientPopup:submitOnPopup3");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    openFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.ok(inFn() !== null);
-  });
-  TTT.action(function () {
-    inFn().value = "some text";
-    submitOnPopupFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(messagesFn().length, 0);
-    assert.ok(inFn() !== null);
-    assert.equal(inFn().value, "some text");
-  });
-  TTT.action(function () {
-    inFn().value = "";
-    submitOnPopupFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(messagesFn().length, 1);
-    assert.ok(inFn() !== null);
-    assert.equal(inFn().value, "");
-  });
-  TTT.action(function () {
-    closeFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(inFn(), null);
-  });
-  TTT.action(function () {
-    submitOnPageFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(messagesFn().length, 0);
-  });
-  TTT.startTest();
+  const date = new Date().toString();
+
+  const test = new JasmineTestTool(done);
+  test.setup(() => !popupFn().classList.contains("show"), null, "click", closeFn);
+  test.event("click", openFn, () => popupFn().classList.contains("show"));
+  test.do(() => expect(popupFn().classList).toContain("show"));
+  test.do(() => expect(inFn()).not.toBeNull());
+
+  test.do(() => inFn().value = date);
+  test.event("click", submitOnPopupFn, () => outFn().textContent === date);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => expect(inFn().value).toBe(date));
+  test.do(() => expect(outFn().textContent).toBe(date));
+
+  test.do(() => inFn().value = "");
+  test.event("click", submitOnPopupFn, () => messagesFn().length === 1);
+  test.do(() => expect(messagesFn().length).toBe(1));
+  test.do(() => expect(inFn()).not.toBeNull());
+  test.do(() => expect(inFn().value).toBe(""));
+  test.do(() => expect(outFn().textContent).toBe(date));
+
+  test.event("click", closeFn, () => !popupFn().classList.contains("show"));
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(inFn()).toBeNull());
+
+  //add an error message for the next step
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.do(() => clientInFn().value = "");
+  test.event("click", clientSubmitOnPopupFn, () => messagesFn().length === 1);
+  test.do(() => expect(messagesFn().length).toBe(1));
+
+  test.event("click", submitOnPageFn, () => messagesFn().length === 0);
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.start();
 });
 
-QUnit.test("Full Server Request", function (assert) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
-  let openFn = querySelectorFn("#page\\:mainForm\\:server\\:open2");
-  let submitOnPageFn = querySelectorFn("#page\\:mainForm\\:server\\:submitOnPage2");
-  let inFn = querySelectorFn("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:in2\\:\\:field");
-  let submitOnPopupFn = querySelectorFn("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:submitOnPopup2");
-  let closeFn = querySelectorFn("#page\\:mainForm\\:server\\:fullServerRequestPopup\\:close2");
+it("Client Side", function (done) {
+  const messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  const openFn = elementByIdFn("page:mainForm:client:open3");
+  const submitOnPageFn = elementByIdFn("page:mainForm:client:submitOnPage3");
+  const popupFn = elementByIdFn("page:mainForm:client:clientPopup");
+  const collapseFn = elementByIdFn("page:mainForm:client:clientPopup::collapse");
+  const inFn = elementByIdFn("page:mainForm:client:clientPopup:in3::field");
+  const outFn = querySelectorFn("#page\\:mainForm\\:client\\:clientPopup\\:out3 .form-control-plaintext");
+  const submitOnPopupFn = elementByIdFn("page:mainForm:client:clientPopup:submitOnPopup3");
+  const closeFn = elementByIdFn("page:mainForm:client:clientPopup:close3");
 
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    openFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.ok(inFn() !== null);
-  });
-  TTT.action(function () {
-    inFn().value = "some text";
-    submitOnPopupFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(messagesFn().length, 0);
-    assert.ok(inFn() !== null);
-    assert.equal(inFn().value, "some text");
-  });
-  TTT.action(function () {
-    inFn().value = "";
-    submitOnPopupFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(3, function () {
-    assert.equal(messagesFn().length, 1);
-    assert.ok(inFn() !== null);
-    assert.equal(inFn().value, "");
-  });
-  TTT.action(function () {
-    closeFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(inFn(), null);
-  });
-  TTT.action(function () {
-    submitOnPageFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(messagesFn().length, 0);
-  });
-  TTT.startTest();
+  const simpleSubmitOnPageFn = elementByIdFn("page:mainForm:simple:submitOnPage1");
+
+  const date = new Date().toString();
+
+  let shownEventCount = 0;
+  let hiddenEventCount = 0;
+  popupFn().addEventListener("shown.bs.modal", () => shownEventCount++);
+  popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
+
+  const test = new JasmineTestTool(done);
+  test.do(() => hiddenEventCount = 1);
+  test.setup(() => collapseFn().value === "true" && hiddenEventCount === 1,
+      () => hiddenEventCount = 0,
+      "click", closeFn);
+
+  test.do(() => shownEventCount = 0);
+  test.event("click", openFn, () => shownEventCount > 0);
+  test.do(() => expect(popupFn().classList).toContain("show"));
+  test.do(() => expect(collapseFn().value).toBe("false"));
+
+  test.do(() => hiddenEventCount = 0);
+  test.event("click", closeFn, () => hiddenEventCount > 0);
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(collapseFn().value).toBe("true"));
+
+  test.do(() => shownEventCount = 0);
+  test.event("click", openFn, () => shownEventCount > 0);
+  test.do(() => expect(popupFn().classList).toContain("show"));
+  test.do(() => expect(collapseFn().value).toBe("false"));
+
+  test.do(() => inFn().value = date);
+  test.event("click", submitOnPopupFn, () => outFn().textContent === date);
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(collapseFn().value).toBe("true"));
+  test.do(() => expect(messagesFn().length).toBe(0));
+  test.do(() => expect(inFn().value).toBe(date));
+  test.do(() => expect(outFn().textContent).toBe(date));
+
+  test.do(() => popupFn().addEventListener("shown.bs.modal", () => shownEventCount++));
+  test.do(() => popupFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++));
+
+  test.do(() => shownEventCount = 0);
+  test.event("click", openFn, () => shownEventCount > 0);
+  test.do(() => expect(popupFn().classList).toContain("show"));
+  test.do(() => expect(collapseFn().value).toBe("false"));
+
+  test.do(() => inFn().value = "");
+  test.event("click", submitOnPopupFn, () => messagesFn().length === 1);
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(collapseFn().value).toBe("true"));
+  test.do(() => expect(messagesFn().length).toBe(1));
+  test.do(() => expect(inFn().value).toBe(""));
+  test.do(() => expect(outFn().textContent).toBe(date));
+
+  //remove error message for the next step
+  test.event("click", simpleSubmitOnPageFn, () => messagesFn().length === 0);
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(collapseFn().value).toBe("true"));
+  test.do(() => expect(messagesFn().length).toBe(0));
+
+  test.event("click", submitOnPageFn, () => messagesFn().length === 1);
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(collapseFn().value).toBe("true"));
+  test.do(() => expect(messagesFn().length).toBe(1));
+  test.start();
 });
-
-QUnit.test("Client Side", function (assert) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
-  let openFn = querySelectorFn("#page\\:mainForm\\:client\\:open3");
-  let submitOnPageFn = querySelectorFn("#page\\:mainForm\\:client\\:submitOnPage3");
-  let popupCollapsedFn = querySelectorFn("#page\\:mainForm\\:client\\:clientPopup\\:\\:collapse");
-  let inFn = querySelectorFn("#page\\:mainForm\\:client\\:clientPopup\\:in3\\:\\:field");
-  let submitOnPopupFn = querySelectorFn("#page\\:mainForm\\:client\\:clientPopup\\:submitOnPopup3");
-  let closeFn = querySelectorFn("#page\\:mainForm\\:client\\:clientPopup\\:close3");
-
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    openFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.asserts(1, function () {
-    assert.equal(popupCollapsedFn().value, "false");
-  });
-  TTT.action(function () {
-    closeFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.asserts(1, function () {
-    assert.equal(popupCollapsedFn().value, "true");
-  });
-  TTT.action(function () {
-    openFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.asserts(1, function () {
-    assert.equal(popupCollapsedFn().value, "false");
-  });
-  TTT.action(function () {
-    inFn().value = "some text";
-    submitOnPopupFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(2, function () {
-    assert.equal(messagesFn().length, 0);
-    assert.equal(popupCollapsedFn().value, "true");
-  });
-  TTT.action(function () {
-    openFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.asserts(1, function () {
-    assert.equal(popupCollapsedFn().value, "false");
-  });
-  TTT.action(function () {
-    inFn().value = "";
-    submitOnPopupFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(2, function () {
-    assert.equal(messagesFn().length, 1);
-    assert.equal(popupCollapsedFn().value, "true");
-  });
-  TTT.action(function () {
-    submitOnPageFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.equal(messagesFn().length, 1);
-  });
-  TTT.startTest();
-});
-*/
