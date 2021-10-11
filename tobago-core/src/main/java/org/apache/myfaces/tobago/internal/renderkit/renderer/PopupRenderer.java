@@ -82,17 +82,21 @@ public class PopupRenderer<T extends AbstractUIPopup> extends CollapsiblePanelRe
       writer.startElement(HtmlElements.H5);
       writer.writeClassAttribute(BootstrapClass.MODAL_TITLE);
       insideBegin(facesContext, Facets.label);
-      for (final UIComponent child : RenderUtils.getFacetChildren(labelFacet)) {
-        child.encodeAll(facesContext);
+      if (labelFacet != null) {
+        for (final UIComponent child : RenderUtils.getFacetChildren(labelFacet)) {
+          child.encodeAll(facesContext);
+        }
       }
       insideEnd(facesContext, Facets.label);
       writer.endElement(HtmlElements.H5);
 
-      insideBegin(facesContext, Facets.bar);
-      for (final UIComponent child : RenderUtils.getFacetChildren(barFacet)) {
-        child.encodeAll(facesContext);
+      if (barFacet != null) {
+        insideBegin(facesContext, Facets.bar);
+        for (final UIComponent child : RenderUtils.getFacetChildren(barFacet)) {
+          child.encodeAll(facesContext);
+        }
+        insideEnd(facesContext, Facets.bar);
       }
-      insideEnd(facesContext, Facets.bar);
 
       writer.endElement(HtmlElements.DIV);
     }
