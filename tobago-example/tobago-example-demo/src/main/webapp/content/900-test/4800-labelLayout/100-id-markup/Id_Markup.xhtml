@@ -24,48 +24,68 @@
   <ui:param name="title" value="Test position of ids and markups"/>
 
   <tc:section id="sectionNoLabel" label="No label set">
-    <tc:in id="inNoLabel" markup="testmarkup"/>
+    <tc:in id="inNoLabel">
+      <tc:style customClass="testcssclass"/>
+    </tc:in>
   </tc:section>
 
   <tc:section id="sectionNone" label="labelLayout=none">
-    <tc:in id="inNone" label="Input" markup="testmarkup" labelLayout="none"/>
+    <tc:in id="inNone" label="Input" labelLayout="none">
+      <tc:style customClass="testcssclass"/>
+    </tc:in>
   </tc:section>
 
   <tc:section id="sectionSkip" label="labelLayout=skip">
-    <tc:in id="inSkip" label="Input" markup="testmarkup" labelLayout="skip"/>
+    <tc:in id="inSkip" label="Input" labelLayout="skip">
+      <tc:style customClass="testcssclass"/>
+    </tc:in>
   </tc:section>
 
   <tc:section id="sectionTop" label="labelLayout=top">
-    <tc:in id="inTop" label="Input" markup="testmarkup" labelLayout="top"/>
+    <tc:in id="inTop" label="Input" labelLayout="top">
+      <tc:style customClass="testcssclass"/>
+    </tc:in>
   </tc:section>
 
   <tc:section label="FlowLayout">
     <tc:section id="sectionFlowLeft" label="labelLayout=flowLeft">
-      <tc:in id="inFlowLeft" label="Input" markup="testmarkup" labelLayout="flowLeft"/>
+      <tc:in id="inFlowLeft" label="Input" labelLayout="flowLeft">
+        <tc:style customClass="testcssclass"/>
+      </tc:in>
     </tc:section>
     <tc:section id="sectionFlowRight" label="labelLayout=flowRight">
-      <tc:in id="inFlowRight" label="Input" markup="testmarkup" labelLayout="flowRight"/>
+      <tc:in id="inFlowRight" label="Input" labelLayout="flowRight">
+        <tc:style customClass="testcssclass"/>
+      </tc:in>
     </tc:section>
   </tc:section>
 
   <tc:section label="FlexLayout">
     <tc:section id="sectionFlexLeft" label="labelLayout=flexLeft">
-      <tc:in id="inFlexLeft" label="Input" markup="testmarkup" labelLayout="flexLeft"/>
+      <tc:in id="inFlexLeft" label="Input" labelLayout="flexLeft">
+        <tc:style customClass="testcssclass"/>
+      </tc:in>
     </tc:section>
     <tc:section id="sectionFlexRight" label="labelLayout=flexRight">
-      <tc:in id="inFlexRight" label="Input" markup="testmarkup" labelLayout="flexRight"/>
+      <tc:in id="inFlexRight" label="Input" labelLayout="flexRight">
+        <tc:style customClass="testcssclass"/>
+      </tc:in>
     </tc:section>
   </tc:section>
 
   <tc:section label="SegmentLayout">
     <tc:section id="sectionSegmentLeft" label="labelLayout=segmentLeft">
       <tc:segmentLayout extraSmall="3seg 9seg">
-        <tc:in id="inSegmentLeft" label="Input" markup="testmarkup" labelLayout="segmentLeft"/>
+        <tc:in id="inSegmentLeft" label="Input" labelLayout="segmentLeft">
+          <tc:style customClass="testcssclass"/>
+        </tc:in>
       </tc:segmentLayout>
     </tc:section>
     <tc:section id="sectionSegmentRight" label="labelLayout=segmentRight">
       <tc:segmentLayout extraSmall="9seg 3seg">
-        <tc:in id="inSegmentRight" label="Input" markup="testmarkup" labelLayout="segmentRight"/>
+        <tc:in id="inSegmentRight" label="Input" labelLayout="segmentRight">
+          <tc:style customClass="testcssclass"/>
+        </tc:in>
       </tc:segmentLayout>
     </tc:section>
   </tc:section>
