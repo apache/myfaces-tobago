@@ -232,7 +232,7 @@
         <dependency>
           <groupId>org.jboss.weld.servlet</groupId>
           <artifactId>weld-servlet-shaded</artifactId>
-          <version>3.1.8.Final</version>
+          <version>4.0.2.Final</version>
         </dependency>
         <dependency>
           <groupId>jakarta.annotation</groupId>
