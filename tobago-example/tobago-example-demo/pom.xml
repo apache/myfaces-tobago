@@ -33,7 +33,7 @@
 
   <properties>
     <deltaspike.version>1.9.5</deltaspike.version>
-    <selenium.version>3.141.59</selenium.version>
+    <selenium.version>4.0.0</selenium.version>
     <meecrowave.version>1.2.12</meecrowave.version>
     <tomcat.version>9.0.53</tomcat.version>
     <exec.version>3.0.0</exec.version>
