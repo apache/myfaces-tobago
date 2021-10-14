@@ -421,6 +421,12 @@ tobago-flex-layout {
     }
   }
 
+  > .tobago-messages-container {
+    .tobago-input-group-outer, .tobago-selectManyShuttle {
+      flex: 1 0 0px;
+    }
+  }
+
   > .form-check {
     /* .form-check has a margin-bottom which will be normally ignored, except in a label layout
    this results in different hights for form-check components with label and itemLabel */
