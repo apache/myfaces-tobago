@@ -29,19 +29,13 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.DateTimeConverter;
 import javax.faces.event.FacesEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -153,31 +147,6 @@ public class SheetController implements Serializable {
 
   public int getColumnEventSample() {
     return columnEventSample;
-  }
-
-  public javax.faces.convert.Converter getYearConverter() {
-
-    final DateTimeConverter dateTimeConverter = new DateTimeConverter() {
-
-      @Override
-      public Object getAsObject(final FacesContext facesContext, final UIComponent uiComponent, final String value) {
-        final Date date = (Date) super.getAsObject(facesContext, uiComponent, value);
-        final Calendar calendar = GregorianCalendar.getInstance(facesContext.getViewRoot().getLocale());
-        calendar.setTime(date);
-        return calendar.get(Calendar.YEAR);
-      }
-
-      @Override
-      public String getAsString(final FacesContext facesContext, final UIComponent uiComponent, final Object value) {
-        final Calendar calendar = GregorianCalendar.getInstance(facesContext.getViewRoot().getLocale());
-        calendar.set(Calendar.YEAR, (Integer) value);
-        final Date date = calendar.getTime();
-        return super.getAsString(facesContext, uiComponent, date);
-      }
-    };
-
-    dateTimeConverter.setPattern("yyyy");
-    return dateTimeConverter;
   }
 
   public Selectable getSelectable() {

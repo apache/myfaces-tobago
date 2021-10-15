@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
+import org.apache.myfaces.tobago.model.DateType;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.DateTagDeclaration}
@@ -38,11 +38,13 @@ public abstract class AbstractUIDate extends AbstractUIInput {
 
   public abstract boolean isTodayButton();
 
-  public abstract HtmlInputTypes getType();
+  public abstract DateType getType();
 
-  public abstract void setType(HtmlInputTypes type);
+  public abstract void setType(DateType type);
 
   public abstract Object getMin();
 
   public abstract Object getMax();
+
+  public abstract Double getStep();
 }

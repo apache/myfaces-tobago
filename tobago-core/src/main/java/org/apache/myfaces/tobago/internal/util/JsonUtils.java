@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.util;
 
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
 import org.apache.myfaces.tobago.internal.renderkit.Collapse;
 import org.apache.myfaces.tobago.internal.renderkit.Command;
 import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
@@ -238,31 +237,6 @@ public class JsonUtils {
     }
 
     builder.append("},");
-  }
-
-  public static String encode(final DateTimeI18n dateTimeI18n) {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("{");
-    final int initialLength = builder.length();
-
-    encode(builder, "months", dateTimeI18n.getMonths());
-    encode(builder, "monthsShort", dateTimeI18n.getMonthsShort());
-    encode(builder, "days", dateTimeI18n.getDays());
-    encode(builder, "daysShort", dateTimeI18n.getDaysShort());
-    encode(builder, "daysMin", dateTimeI18n.getDaysMin());
-    encode(builder, "firstDay", dateTimeI18n.getWeekStart());
-    encode(builder, "minDays", dateTimeI18n.getMinDays());
-    encode(builder, "today", dateTimeI18n.getToday());
-    encode(builder, "cancel", dateTimeI18n.getCancel());
-    encode(builder, "clear", dateTimeI18n.getClear());
-    encode(builder, "week", dateTimeI18n.getWeek());
-
-    if (builder.length() - initialLength > 0) {
-      assert builder.charAt(builder.length() - 1) == ',';
-      builder.deleteCharAt(builder.length() - 1);
-    }
-    builder.append("}");
-    return builder.toString();
   }
 
   public static String encode(final String[] strings) {

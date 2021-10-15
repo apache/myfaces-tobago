@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
-import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
 import org.apache.myfaces.tobago.internal.renderkit.Collapse;
 import org.apache.myfaces.tobago.internal.renderkit.Command;
 import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
@@ -40,7 +39,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 // using ' instead of " to make it better readable.
 
@@ -120,27 +118,6 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
             + "}"
             + "}").replaceAll("'", "\"");
     Assertions.assertEquals(expected, JsonUtils.encode(map));
-  }
-
-  @Test
-  public void months() {
-    final DateTimeI18n dateTimeI18n = DateTimeI18n.valueOf(Locale.GERMANY);
-    final String marchShort = dateTimeI18n.getMonthsShort()[2]; // different with JDK 1.8.0_51 and 1.8.0_60
-    final String[] daysShort = dateTimeI18n.getDaysShort(); // different with JDK 1.8.0    and 1.9.0
-    final String[] daysMin = dateTimeI18n.getDaysMin(); // different with JDK 1.8.0 and 1.9.0
-    final String expected
-        = ("{'months':['Januar','Februar','März','April','Mai','Juni',"
-        + "'Juli','August','September','Oktober','November','Dezember'],"
-        + "'monthsShort':['Jan','Feb','" + marchShort + "','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],"
-        + "'days':['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'],"
-        + "'daysShort':['" + daysShort[0] + "','" + daysShort[1] + "','" + daysShort[2] + "','"
-        + daysShort[3] + "','" + daysShort[4] + "','" + daysShort[5] + "','" + daysShort[6] + "'],"
-        + "'daysMin':['" + daysMin[0] + "','" + daysMin[1] + "','" + daysMin[2] + "','"
-        + daysMin[3] + "','" + daysMin[4] + "','" + daysMin[5] + "','" + daysMin[6] + "'],"
-        + "'firstDay':1,'minDays':4,'today':'Today','cancel':'Cancel','clear':'Clear','week':'Week'}")
-        .replaceAll("'", "\"");
-
-    Assertions.assertEquals(expected, JsonUtils.encode(dateTimeI18n));
   }
 
   @Test

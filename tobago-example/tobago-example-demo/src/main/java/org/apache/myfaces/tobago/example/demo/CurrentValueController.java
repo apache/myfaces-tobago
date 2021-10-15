@@ -19,39 +19,23 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import java.lang.invoke.MethodHandles;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.Currency;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 @Named
 @RequestScoped
 public class CurrentValueController {
 
-  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
   private String string;
-  private Date date;
+  private LocalDate date;
   private Currency currency;
 
   public CurrentValueController() {
 
     string = "simple string";
-
-    try {
-      this.date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("1969-07-24 16:50:35");
-    } catch (final ParseException e) {
-      LOG.error("", e);
-    }
-
+    date = LocalDate.of(1969, 7, 24);
     currency = Currency.getInstance("TTD");
   }
 
@@ -59,14 +43,12 @@ public class CurrentValueController {
     return text != null ? text.toUpperCase() : null;
   }
 
-  public Date plus50(final Date base) {
+  public LocalDate plus50(final LocalDate base) {
     if (date == null) {
       return null;
+    } else {
+      return date.plusYears(50);
     }
-    final GregorianCalendar calendar = new GregorianCalendar();
-    calendar.setTime(date);
-    calendar.add(Calendar.YEAR, 50);
-    return calendar.getTime();
   }
 
   public Currency toCurrency(final String currencyString) {
@@ -77,7 +59,7 @@ public class CurrentValueController {
     return string;
   }
 
-  public Date getDate() {
+  public LocalDate getDate() {
     return date;
   }
 
