@@ -19,12 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIData;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.convert.Converter;
-import jakarta.faces.convert.DateTimeConverter;
-import jakarta.faces.event.FacesEvent;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.model.SelectItem;
 import org.apache.myfaces.tobago.model.Selectable;
@@ -35,6 +29,8 @@ import org.slf4j.LoggerFactory;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.component.UIData;
+import jakarta.faces.event.FacesEvent;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
