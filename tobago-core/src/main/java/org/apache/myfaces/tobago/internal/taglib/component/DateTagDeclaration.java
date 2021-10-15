@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
-import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -28,6 +27,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasHelp;
@@ -42,13 +42,12 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidator;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidatorMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
-import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
+import org.apache.myfaces.tobago.model.DateType;
 
 import javax.faces.component.UIInput;
 
@@ -99,31 +98,79 @@ public interface DateTagDeclaration
    * Sets the minimum value of the date.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = {"java.time.LocalDate", "java.util.Date"})
+  @UIComponentTagAttribute(type = {
+      "java.time.LocalDate",
+      "java.time.LocalTime",
+      "java.time.LocalDateTime",
+      "java.time.ZonedDateTime",
+      "java.time.Month",
+      "java.util.Date",
+      "java.util.Calendar",
+      "java.lang.Long",
+      "java.lang.String"
+  })
+  void setValue(String value);
+
+  /**
+   * Sets the minimum value of the date.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = {
+      "java.time.LocalDate",
+      "java.time.LocalTime",
+      "java.time.LocalDateTime",
+      "java.time.ZonedDateTime",
+      "java.time.Month",
+      "java.util.Date",
+      "java.util.Calendar",
+      "java.lang.Long",
+      "java.lang.String"
+  })
   void setMin(String min);
 
   /**
    * Sets the maximum value of the date.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = {"java.time.LocalDate", "java.util.Date"})
+  @UIComponentTagAttribute(type = {
+      "java.time.LocalDate",
+      "java.time.LocalTime",
+      "java.time.LocalDateTime",
+      "java.time.ZonedDateTime",
+      "java.time.Month",
+      "java.util.Date",
+      "java.util.Calendar",
+      "java.lang.Long",
+      "java.lang.String"
+  })
   void setMax(String max);
 
   /**
-   * XXX Preliminary: check if this is the right way
-   *
-   * Type of the date/time input.
+   * Sets the step of a date or time picker. Value is in seconds.
+   * Reasonable values are e.g. 0.001, 1, 5, 10, 60, 300, 3600.
+   * If not set, browsers drop the seconds, so it's the same as the value of 60.
+   * To show seconds use 1.
+   * To show milliseconds use 0.001.
+   * Browser support is in progress.
    */
-  @Preliminary
+  @TagAttribute
+  @UIComponentTagAttribute(type = {"java.lang.Double"})
+  void setStep(String step);
+
+  /**
+   * Type of the date/time input.
+   *
+   * Warning: month and week currently not supported.
+   */
   @TagAttribute
   @UIComponentTagAttribute(
-      type = "org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes",
+      type = "org.apache.myfaces.tobago.model.DateType",
       allowedValues = {
-          HtmlInputTypes.STRING_DATE,
-          HtmlInputTypes.STRING_TIME,
-          HtmlInputTypes.STRING_DATETIME_LOCAL,
-          HtmlInputTypes.STRING_MONTH,
-          HtmlInputTypes.STRING_WEEK
+          DateType.STRING_DATE,
+          DateType.STRING_TIME,
+          DateType.STRING_DATETIME_LOCAL,
+          DateType.STRING_MONTH,
+          DateType.STRING_WEEK
       })
   void setType(String type);
 }

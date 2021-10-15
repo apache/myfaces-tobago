@@ -21,10 +21,9 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.component.AbstractUIDate;
-import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
+import org.apache.myfaces.tobago.model.DateType;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -32,7 +31,6 @@ import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -50,7 +48,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Date;
 
 public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendererBase<T> {
@@ -68,12 +65,6 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
   private static final String TYPE_ZONED_DATE_TIME = "zonedDateTime";
   private static final String TYPE_MONTH = "month";
   private static final String TYPE_WEEK = "week";
-
-  private static final String PATTERN_DATE = "yyyy-MM-dd";
-  private static final String PATTERN_DATETIME = "yyyy-MM-dd'T'HH:mm:ss.SSS";
-  private static final String PATTERN_TIME = "HH:mm:ss.SSS";
-  private static final String PATTERN_MONTH = "yyyy-MM";
-  private static final String PATTERN_WEEK = "yyyy-'W'MM";
 
   @Override
   public void encodeBeginInternal(FacesContext facesContext, T component) throws IOException {
@@ -97,9 +88,7 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
       throws IOException {
 
     super.writeAdditionalAttributes(facesContext, writer, date);
-//    writer.writeAttribute(HtmlAttributes.PATTERN,
-    final DateTimeI18n dateTimeI18n = DateTimeI18n.valueOf(facesContext.getViewRoot().getLocale());
-    writer.writeAttribute(CustomAttributes.I18N, JsonUtils.encode(dateTimeI18n), true);
+//    writer.writeAttribute(HtmlAttributes.PATTERN, date.getPattern(), true);
     writer.writeAttribute(CustomAttributes.TODAY_BUTTON, date.isTodayButton());
   }
 
@@ -114,7 +103,7 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
     writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
 
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
-    final HtmlInputTypes type = component.getType();
+    final DateType type = component.getType();
 
     final String currentValue = getCurrentValue(facesContext, component);
     final String clientId = component.getClientId(facesContext);
@@ -130,7 +119,11 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
       AccessKeyLogger.addAccessKey(facesContext, component.getAccessKey(), clientId);
     }
 
-    writer.writeAttribute(HtmlAttributes.TYPE, type.getValue(), false);
+    writer.writeAttribute(HtmlAttributes.TYPE, type.getName(), false);
+    final Double step = component.getStep();
+    if (step != null) {
+      writer.writeAttribute(HtmlAttributes.STEP, Double.toString(step), false);
+    }
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(fieldId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
@@ -234,40 +227,51 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
         LOG.warn("No converter for java.lang.String");
         return null;
       } else {
-        final DateTimeConverter dateTimeConverter
-            = (DateTimeConverter) facesContext.getApplication().createConverter("javax.faces.DateTime");
+        final DateTimeConverter dateTimeConverter = (DateTimeConverter)
+            facesContext.getApplication().createConverter("javax.faces.DateTime");
         if (estimatedType.isAssignableFrom(LocalDateTime.class)) {
           dateTimeConverter.setType("localDateTime");
-          dateTimeConverter.setPattern(PATTERN_DATETIME);
+          final Double step = component.getStep();
+          if (step == null || step >= 60) {
+            dateTimeConverter.setPattern(DateType.PATTERN_DATETIME_LOCAL);
+          } else if (step >= 1) {
+            dateTimeConverter.setPattern(DateType.PATTERN_DATETIME_LOCAL_SECONDS);
+          } else {
+            dateTimeConverter.setPattern(DateType.PATTERN_DATETIME_LOCAL_MILLIS);
+          }
         } else if (estimatedType.isAssignableFrom(LocalDate.class)) {
           dateTimeConverter.setType("localDate");
-          dateTimeConverter.setPattern(PATTERN_DATE);
+          dateTimeConverter.setPattern(DateType.PATTERN_DATE);
         } else if (estimatedType.isAssignableFrom(LocalTime.class)) {
           dateTimeConverter.setType("localTime");
-          dateTimeConverter.setPattern(PATTERN_TIME);
+          final Double step = component.getStep();
+          if (step == null || step >= 60) {
+            dateTimeConverter.setPattern(DateType.PATTERN_TIME);
+          } else if (step >= 1) {
+            dateTimeConverter.setPattern(DateType.PATTERN_TIME_SECONDS);
+          } else {
+            dateTimeConverter.setPattern(DateType.PATTERN_TIME_MILLIS);
+          }
         } else if (estimatedType.isAssignableFrom(ZonedDateTime.class)) {
           dateTimeConverter.setType("zonedDateTime");
-          dateTimeConverter.setPattern(PATTERN_DATETIME);
+          final Double step = component.getStep();
+          if (step == null || step >= 60) {
+            dateTimeConverter.setPattern(DateType.PATTERN_DATETIME_LOCAL);
+          } else if (step >= 1) {
+            dateTimeConverter.setPattern(DateType.PATTERN_DATETIME_LOCAL_SECONDS);
+          } else {
+            dateTimeConverter.setPattern(DateType.PATTERN_DATETIME_LOCAL_MILLIS);
+          }
         } else if (estimatedType.isAssignableFrom(Long.class)) {
           dateTimeConverter.setType("date");
-          dateTimeConverter.setPattern(PATTERN_DATE);
+          dateTimeConverter.setPattern(DateType.PATTERN_DATE);
         } else if (estimatedType.isAssignableFrom(Date.class)) {
           dateTimeConverter.setType("date");
-          dateTimeConverter.setPattern(PATTERN_DATE);
-        } else if (estimatedType.isAssignableFrom(Calendar.class)) {
-          dateTimeConverter.setType("date");
-          dateTimeConverter.setPattern(PATTERN_DATE);
+          dateTimeConverter.setPattern(DateType.PATTERN_DATE);
         } else if (estimatedType.isAssignableFrom(Number.class)) {
           LOG.error("date");
           dateTimeConverter.setType("date");
-          dateTimeConverter.setPattern(PATTERN_DATE);
-//      } else if (estimatedType.isAssignableFrom(Month.class)) {
-//        LOG.error("month");
-//        dateTimeConverter.setType("month"); // XXX is there a type month?
-//      } else if (estimatedType.isAssignableFrom(Week.class)) {
-//        LOG.error("week");
-//        dateTimeConverter.setType("week"); // XXX is there a type week?
-          // todo: ZonedDateTime
+          dateTimeConverter.setPattern(DateType.PATTERN_DATE);
         } else {
           LOG.warn("Type might not be supported (type='{}' clientId='{}')!",
               estimatedType.getName(), component.getClientId(facesContext));
@@ -308,7 +312,7 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
   }
 
   private void prepare(final FacesContext facesContext, final T component) {
-    HtmlInputTypes type = component.getType();
+    DateType type = component.getType();
     String pattern = component.getPattern();
 
     DateTimeConverter converter = null;
@@ -323,32 +327,32 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
       if (converter != null) {
         final String typeFromConverter = converter.getType();
         if (TYPE_DATE.equals(typeFromConverter)) {
-          type = HtmlInputTypes.DATE;
+          type = DateType.DATE;
         } else if (TYPE_BOTH.equals(typeFromConverter)) {
-          type = HtmlInputTypes.DATETIME_LOCAL;
+          type = DateType.DATETIME_LOCAL;
         } else if (TYPE_TIME.equals(typeFromConverter)) {
-          type = HtmlInputTypes.TIME;
+          type = DateType.TIME;
         } else if (TYPE_LOCAL_DATE.equals(typeFromConverter)) {
-          type = HtmlInputTypes.DATE;
+          type = DateType.DATE;
         } else if (TYPE_LOCAL_DATE_TIME.equals(typeFromConverter)) {
-          type = HtmlInputTypes.DATETIME_LOCAL;
+          type = DateType.DATETIME_LOCAL;
         } else if (TYPE_LOCAL_TIME.equals(typeFromConverter)) {
-          type = HtmlInputTypes.TIME;
+          type = DateType.TIME;
         } else if (TYPE_ZONED_DATE_TIME.equals(typeFromConverter)) {
-          type = HtmlInputTypes.DATETIME_LOCAL;
+          type = DateType.DATETIME_LOCAL;
         } else if (TYPE_OFFSET_DATE_TIME.equals(typeFromConverter)) {
-          type = HtmlInputTypes.DATETIME_LOCAL;
+          type = DateType.DATETIME_LOCAL;
         } else if (TYPE_OFFSET_TIME.equals(typeFromConverter)) {
-          type = HtmlInputTypes.TIME;
+          type = DateType.TIME;
         } else if (TYPE_MONTH.equals(typeFromConverter)) {
-          type = HtmlInputTypes.MONTH;
+          type = DateType.MONTH;
         } else if (TYPE_WEEK.equals(typeFromConverter)) {
-          type = HtmlInputTypes.WEEK;
+          type = DateType.WEEK;
         } else { // unknown type
-          type = HtmlInputTypes.DATE;
+          type = DateType.DATE;
         }
       } else { // no converter
-        type = HtmlInputTypes.DATE;
+        type = DateType.DATE;
       }
     }
 
@@ -357,27 +361,7 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
     }
 
     if (pattern == null) {
-      switch (type) {
-        case DATE:
-          pattern = PATTERN_DATE;
-          break;
-        case TIME:
-          pattern = PATTERN_TIME;
-          break;
-        case DATETIME_LOCAL:
-        case DATETIME:
-          pattern = PATTERN_DATETIME;
-          break;
-        case MONTH:
-          pattern = PATTERN_MONTH;
-          break;
-        case WEEK:
-          pattern = PATTERN_WEEK;
-          break;
-        case TEXT:
-        default:
-          pattern = PATTERN_DATETIME;
-      }
+      pattern = type.getPattern();
     }
 
     component.setPattern(pattern);

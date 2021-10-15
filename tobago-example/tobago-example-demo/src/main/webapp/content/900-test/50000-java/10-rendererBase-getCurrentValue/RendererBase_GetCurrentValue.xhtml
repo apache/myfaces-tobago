@@ -29,12 +29,12 @@
   <tc:out id="outStringFromMethod" labelLayout="none" value="#{currentValueController.toUpperCase('Hello world!')}"/>
 
   <tc:out id="outDate" labelLayout="none" value="#{currentValueController.date}">
-    <f:convertDateTime pattern="dd.MM.yyyy"/>
+    <f:convertDateTime pattern="dd.MM.yyyy" type="localDate"/>
   </tc:out>
 
   <tc:out id="outDateFromMethod" labelLayout="none"
           value="#{currentValueController.plus50(currentValueController.date)}">
-    <f:convertDateTime pattern="dd.MM.yyyy"/>
+    <f:convertDateTime pattern="dd.MM.yyyy" type="localDate"/>
   </tc:out>
 
   <tc:out id="outCurrency" labelLayout="none" value="#{currentValueController.currency}"/>
