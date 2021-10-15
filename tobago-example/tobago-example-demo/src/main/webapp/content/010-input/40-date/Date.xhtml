@@ -24,7 +24,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
   <p>The <code class="language-markup">&lt;tc:date/&gt;</code>
-    tag create an input field with a button to open a calendar to edit the date.
+    tag create an input field for a date or time.
     The date can also be edited in the textfield.</p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:date/>" image="#{request.contextPath}/image/feather-leaf.png" link="#{apiController.tldBase}/#{apiController.currentRelease}/tld/tc/date.html"/>
@@ -34,7 +34,7 @@
   </p>
 
   <tc:section label="Basics">
-    <p>In general, a date had a label. To get a label use the <code>label</code> attribute, <code>&lt;tc:in&gt;</code>.</p>
+    <p>In general, a date has a label. To get a label use the <code>label</code> attribute.</p>
         <demo-highlight language="markup">&lt;tc:date label="Date" value="\#{dateController.sputnikLd}"/&gt;</demo-highlight>
     <tc:date id="dNormal" label="Date" value="#{dateController.sputnikLd}"/>
     <tc:date id="dReadonly" label="Read Only" readonly="true" value="#{dateController.now}"/>
@@ -64,7 +64,6 @@
       <li><tc:link label="java.time.LocalDateTime" link="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html"/></li>
       <li><tc:link label="java.time.LocalTime" link="https://docs.oracle.com/javase/8/docs/api/java/time/LocalTime.html"/></li>
       <li><tc:link label="java.util.Date" link="https://docs.oracle.com/javase/8/docs/api/java/util/Date.html"/> (not recommended)</li>
-      <li><tc:link label="java.lang.Long" link="https://docs.oracle.com/javase/8/docs/api/java/lang/Long.html"/> (not recommended)</li>
       <li><tc:link label="java.lang.String" link="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html"/> for plain text (TBD)</li>
     </ul>
     <p>
@@ -91,7 +90,6 @@
       <f:convertDateTime type="time"/>
     </tc:date>
     <tc:date id="typeLong" label="Long" value="#{dateController.typeLong}"/>
-<!--    <tc:date id="typeCalendar" label="Calendar" value="#{dateController.typeCalendar}"/>-->
     <tc:date id="typeString" label="String" value="#{dateController.typeString}"/>
   </tc:section>
 
@@ -183,6 +181,7 @@
       <tc:date id="dateTodayButton" label="Today Button" value="#{dateController.now}" todayButton="true">
         <f:convertDateTime pattern="dd.MM.yyyy"/>
       </tc:date>
+      <tc:badge markup="warning" value="Attention:"/> Currently not supported!
     </tc:section>
   </tc:section>
   <tc:section label="Styles">

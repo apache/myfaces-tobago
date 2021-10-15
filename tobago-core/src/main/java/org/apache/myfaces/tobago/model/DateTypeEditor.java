@@ -17,25 +17,24 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.renderkit.html;
-
-import org.apache.myfaces.tobago.apt.annotation.Preliminary;
+package org.apache.myfaces.tobago.model;
 
 import java.beans.PropertyEditorSupport;
 
 /**
- * XXX Preliminary: check if this is the right way
- *
- * Converter for {@link org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes}
+ * Converter for {@link DateType}
  *
  * @since 5.0.0
  */
-@Preliminary
-public class HtmlInputTypesEditor extends PropertyEditorSupport {
+public final class DateTypeEditor extends PropertyEditorSupport {
 
   @Override
   public void setAsText(final String text) throws IllegalArgumentException {
-    setValue(HtmlInputTypes.valueOf(text));
+    setValue(DateType.valueOf(text));
   }
 
+  @Override
+  public String getAsText() {
+    return ((DateType) getValue()).getName();
+  }
 }

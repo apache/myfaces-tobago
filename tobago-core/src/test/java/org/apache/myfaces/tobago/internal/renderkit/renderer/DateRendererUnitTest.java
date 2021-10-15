@@ -121,6 +121,25 @@ public class DateRendererUnitTest extends RendererTestBase {
   }
 
   @Test
+  public void dateTimeStep() throws IOException {
+
+    final UIDate d = (UIDate) ComponentUtils.createComponent(
+        facesContext, Tags.date.componentType(), RendererTypes.Date, "id");
+    d.setValue(SPUTNIK_DATE);
+    d.setStep(.001);
+
+    DateTimeConverter c = new DateTimeConverter();
+    c.setType("time");
+    c.setPattern("HH:mm:ss.SSS");
+    d.setConverter(c);
+
+    log(d);
+    d.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/date/dateTimeStep.html"), formattedResult());
+  }
+
+  @Test
   public void testLabel() throws IOException, ParseException {
 
     final UIDate d = (UIDate) ComponentUtils.createComponent(
