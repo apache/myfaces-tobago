@@ -158,6 +158,6 @@ public class SheetController implements Serializable {
   }
 
   public SelectItem[] getSelectableModes() {
-   return SHEET_SELECTABLE;
+    return SHEET_SELECTABLE;
   }
 }
