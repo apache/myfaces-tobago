@@ -403,7 +403,7 @@ JustifyContentProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
-HtmlInputTypesProperty(property) ::= <<
+DateTypeProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 

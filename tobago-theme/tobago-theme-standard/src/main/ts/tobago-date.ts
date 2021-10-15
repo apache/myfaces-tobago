@@ -15,130 +15,83 @@
  * limitations under the License.
  */
 
-// @ts-ignore
-import {Datepicker} from "vanillajs-datepicker";
-import {Page} from "./tobago-page";
+class InputSupport {
 
-interface DatePickerI18n {
-  days: string[];
-  daysShort: string[];
-  daysMin: string[];
-  months: string[];
-  monthsShort: string[];
-  today: string;
-  monthsTitle: string;
-  clear: string;
-  weekStart: number;
-  format: string;
-  titleFormat: string;
-}
+  static readonly YEAR_MONTH = `${new Date().toISOString().substr(0, 7)}`;
 
-interface DatePickerOptions {
-  buttonClass: string;
-  orientation: string;
-  autohide: boolean;
-  language: string;
-  todayBtn: boolean;
-  todayBtnMode: number;
-  minDate: string;
-  maxDate: string;
-}
+  readonly type: string;
+  readonly support: boolean;
 
-class DatePicker extends HTMLElement {
+  constructor(type: string) {
+    this.type = type;
+    this.support = InputSupport.checkSupport(type);
+  }
 
-  static readonly SUPPORTS_INPUT_TYPE_DATE : boolean = (() => {
+  private static checkSupport(type: string): boolean {
     const input = document.createElement("input");
-    input.setAttribute("type","date");
-    const thisIsNoDate = "this is not a date";
-    input.setAttribute("value", thisIsNoDate);
-    return input.value !== thisIsNoDate;
-  })();
+    input.setAttribute("type", type);
+    const INVALID_TEXT = "this is not a date";
+    input.setAttribute("value", INVALID_TEXT);
+    return input.value !== INVALID_TEXT;
+  }
 
-  lastValue: string;
+  example(step: number): string {
+    switch (this.type) {
+      case "date":
+        return InputSupport.YEAR_MONTH + "-20";
+      case "time":
+        switch (step) {
+          case 1:
+            return "20:15:00";
+          case 0.001:
+            return "20:15:00.000";
+          default:
+            return "20:15";
+        }
+      case "datetime-local":
+        switch (step) {
+          case 1:
+            return InputSupport.YEAR_MONTH + "-20T20:15:00";
+          case 0.001:
+            return InputSupport.YEAR_MONTH + "-20T20:15:00.000";
+          default:
+            return InputSupport.YEAR_MONTH + "-20T20:15";
+        }
+      case "month":
+        return InputSupport.YEAR_MONTH;
+      case "week":
+        return InputSupport.YEAR_MONTH.substr(0, 4) + "-W52";
+      default:
+        return "";
+    }
+  }
+}
+
+class TobagoDate extends HTMLElement {
+
+  private static readonly SUPPORTS = {
+    "date": new InputSupport("date"),
+    "time": new InputSupport("time"),
+    "datetime-local": new InputSupport("datetime-local"),
+    "month": new InputSupport("month"),
+    "week": new InputSupport("week")
+  };
 
   constructor() {
     super();
   }
 
   connectedCallback(): void {
-    if (this.type == "date") {
-      console.debug("check input type=date support", DatePicker.SUPPORTS_INPUT_TYPE_DATE);
-      if (!DatePicker.SUPPORTS_INPUT_TYPE_DATE) {
-        this.setAttribute("type", "text");
-        this.initVanillaDatePicker();
-      }
+    const support: InputSupport = TobagoDate.SUPPORTS[this.type];
+    console.debug("check input type support", this.type, support);
+    if (!support?.support) {
+      this.type = "text";
+      this.field.placeholder = support.example(this.step) + " " + (this.pattern ? this.pattern : "");
     }
   }
 
-  initVanillaDatePicker(): void {
-    const field = this.field;
-    const locale: string = Page.page(this).locale;
-
-    const i18n = this.i18n;
-    i18n.titleFormat = "MM y"; // todo i18n
-    i18n.format = this.pattern;
-    Datepicker.locales[locale] = i18n;
-
-    const options: DatePickerOptions = {
-      buttonClass: "btn",
-      orientation: "auto",
-      autohide: true,
-      language: locale,
-      todayBtn: this.todayButton,
-      todayBtnMode: 1,
-      minDate: this.min,
-      maxDate: this.max,
-      // todo readonly
-      // todo show week numbers
-    };
-    const datepicker = new Datepicker(field, options);
-
-    // XXX these listeners are needed as long as we have a solution for:
-    // XXX https://github.com/mymth/vanillajs-datepicker/issues/13
-    // XXX the 2nd point is missing the "normal" change event on the input element
-    field.addEventListener("keyup", (event) => {
-      // console.info("event -----> ", event.type);
-      if (event.metaKey || event.key.length > 1 && event.key !== "Backspace" && event.key !== "Delete") {
-        return;
-      }
-      // back up user's input when user types printable character or backspace/delete
-      const target = event.target as any;
-      target._oldValue = target.value;
-    });
-
-    field.addEventListener("focus", (event) => {
-      // console.info("event -----> ", event.type);
-      this.lastValue = field.value;
-    });
-
-    field.addEventListener("blur", (event) => {
-      // console.info("event -----> ", event.type);
-      const target = event.target as any;
-
-      // no-op when user goes to another window or the input field has no backed-up value
-      if (document.hasFocus() && target._oldValue !== undefined) {
-        if (target._oldValue !== target.value) {
-          target.datepicker.setDate(target._oldValue || {clear: true});
-        }
-        delete target._oldValue;
-      }
-
-      if (this.lastValue !== field.value) {
-        field.dispatchEvent(new Event("change"));
-      }
-    });
-
-    datepicker.element.addEventListener("changeDate", (event) => {
-      // console.info("event -----> ", event.type);
-      field.dispatchEvent(new Event("change"));
-    });
-
-    // simple solution for the picker: currently only open, not close is implemented
-    this.querySelector(".tobago-date-picker")?.addEventListener("click",
-        (event: MouseEvent) => {
-          this.field.focus();
-        }
-    );
+  workaround(): void {
+    window.alert("workaround!");
   }
 
   get todayButton(): boolean {
@@ -157,6 +110,10 @@ class DatePicker extends HTMLElement {
     return this.field?.getAttribute("type");
   }
 
+  set type(type: string) {
+    this.field?.setAttribute("type", type);
+  }
+
   get min(): string {
     return this.field?.getAttribute("min");
   }
@@ -165,14 +122,12 @@ class DatePicker extends HTMLElement {
     return this.field?.getAttribute("max");
   }
 
-  get pattern(): string {
-    let pattern = this.getAttribute("pattern");
-    return pattern ? pattern : "yyyy-mm-dd";
+  get step(): number {
+    return Number.parseFloat(this.field?.getAttribute("step"));
   }
 
-  get i18n(): DatePickerI18n {
-    const i18n = this.getAttribute("i18n");
-    return i18n ? JSON.parse(i18n) : undefined;
+  get pattern(): string {
+    return this.getAttribute("pattern");
   }
 
   get field(): HTMLInputElement {
@@ -183,6 +138,6 @@ class DatePicker extends HTMLElement {
 
 document.addEventListener("tobago.init", function (event: Event): void {
   if (window.customElements.get("tobago-date") == null) {
-    window.customElements.define("tobago-date", DatePicker);
+    window.customElements.define("tobago-date", TobagoDate);
   }
 });
