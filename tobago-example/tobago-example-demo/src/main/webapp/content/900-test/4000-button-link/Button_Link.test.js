@@ -16,7 +16,7 @@
  */
 
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
-import {elementByIdFn} from "/script/tobago-test.js";
+import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
 
 it("Standard Action Button", function (done) {
   const commandFn = elementByIdFn("page:mainForm:standardButtonAction");
@@ -114,17 +114,12 @@ function getTargetFrameInput() {
       .document.getElementById("textInput");
 }
 
-
-/*it("Style must not be a dropdown item", function (done) {
-  assert.expect(3);
-
+it("Style must not be a dropdown item", function (done) {
   const dropdownMenuFn = querySelectorFn("#page\\:mainForm\\:dropdownWithStyle .dropdown-menu");
   const styleAsItemFn = querySelectorFn("#page\\:mainForm\\:dropdownWithStyle .dropdown-menu .dropdown-item > style");
-  const buttonFn = querySelectorFn("#page\\:mainForm\\:dropdownWithStyle > .tobago-button");
+  const buttonFn = elementByIdFn("page:mainForm:dropdownWithStyle::command");
 
-  assert.ok(dropdownMenuFn() !== null);
-  assert.equal(styleAsItemFn(), null);
-  assert.equal(buttonFn().offsetWidth, 200);
-});*/
-
-
+  expect(dropdownMenuFn()).not.toBeNull();
+  expect(styleAsItemFn()).toBeNull();
+  expect(buttonFn().offsetWidth).toEqual(200);
+});
