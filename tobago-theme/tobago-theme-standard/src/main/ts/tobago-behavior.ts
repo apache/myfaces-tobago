@@ -108,11 +108,11 @@ class Behavior extends HTMLElement {
       const sourceHidden = document.getElementById("javax.faces.source") as HTMLInputElement;
       sourceHidden.disabled = false;
       sourceHidden.value = actionId;
-      if (this.target) {
+      if (this.target != null) {
         form.setAttribute("target", this.target);
       }
 
-      page.beforeSubmit(null, this.decoupled);
+      page.beforeSubmit(null, this.decoupled || this.target != null);
 
       try {
         form.submit();

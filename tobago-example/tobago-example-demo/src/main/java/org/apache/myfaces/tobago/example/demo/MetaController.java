@@ -40,6 +40,6 @@ public class MetaController implements Serializable {
 
   public boolean isRenderNoindex() {
     final String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-    return viewId.contains("content/35-deprecated") || viewId.contains("content/40-test");
+    return viewId.contains(Outcome.TEST.toString());
   }
 }
