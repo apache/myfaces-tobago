@@ -85,6 +85,14 @@ class JasmineTestTool {
     let eventFn;
     if (typeof eventElement !== "function") {
       eventFn = () => fail("'eventElement' must be a function but was: " + eventElement);
+    } else if (eventType === "click") {
+      eventFn = () => {
+        if (eventElement().getAttribute("href")) {
+          eventElement().click(); //links are only executed with 'click()'
+        } else {
+          eventElement().dispatchEvent(new Event(eventType, {bubbles: true}))
+        }
+      }
     } else {
       eventFn = () => eventElement().dispatchEvent(new Event(eventType, {bubbles: true}));
     }
@@ -109,6 +117,14 @@ class JasmineTestTool {
     let eventFn;
     if (typeof element !== "function") {
       eventFn = () => fail("'element' must be a function but was: " + element);
+    } else if (type === "click") {
+      eventFn = () => {
+        if (element().getAttribute("href")) {
+          element().click(); //links are only executed with 'click()'
+        } else {
+          element().dispatchEvent(new Event(type, {bubbles: true}))
+        }
+      }
     } else {
       eventFn = () => element().dispatchEvent(new Event(type, {bubbles: true}));
     }
