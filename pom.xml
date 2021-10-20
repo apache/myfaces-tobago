@@ -56,7 +56,7 @@
     <checkstyle-rules.version>15-SNAPSHOT</checkstyle-rules.version>
 
     <!-- Note: defined here in master pom, because of problems with enforcer plugin -->
-    <jetty.version>9.4.43.v20210629</jetty.version>
+    <jetty.version>9.4.44.v20210927</jetty.version>
     <joinfaces.version>4.5.5</joinfaces.version>
     <spring-boot.version>2.5.5</spring-boot.version>
 
