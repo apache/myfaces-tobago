@@ -35,7 +35,10 @@
     <module>tobago-example-blank</module>
     <module>tobago-example-demo</module>
     <module>tobago-example-assembly</module>
-    <module>tobago-example-spring-boot</module>
+    <!-- XXX the spring-boot demo was temporarily removed, because it doesn't support Jakarta EE 9
+    See: https://spring.io/blog/2021/09/02/a-java-17-and-jakarta-ee-9-baseline-for-spring-framework-6
+     -->
+<!--    <module>tobago-example-spring-boot</module>-->
   </modules>
 
   <build>
