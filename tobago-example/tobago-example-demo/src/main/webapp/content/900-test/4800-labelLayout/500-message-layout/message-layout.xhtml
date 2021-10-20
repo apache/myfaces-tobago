@@ -50,14 +50,17 @@
     </tc:section>
 
     <tc:section label="Shuttle">
-      <tc:selectManyShuttle id="shuttleCompare" label="Shuttle" value="#{selectManyShuttleController.selectedPlanets}">
-        <tc:selectItems value="#{selectManyShuttleController.planets}"
-                        var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+      <tc:selectManyShuttle id="shuttleCompare" label="Shuttle">
+        <tc:selectItem itemLabel="Alpha"/>
+        <tc:selectItem itemLabel="Beta"/>
+        <tc:selectItem itemLabel="Gamma"/>
+        <tc:selectItem itemLabel="Delta"/>
       </tc:selectManyShuttle>
-      <tc:selectManyShuttle id="shuttle" label="Shuttle" value="#{selectManyShuttleController.selectedPlanets}"
-                            required="true">
-        <tc:selectItems value="#{selectManyShuttleController.planets}"
-                        var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+      <tc:selectManyShuttle id="shuttle" label="Shuttle" required="true">
+        <tc:selectItem itemLabel="Alpha"/>
+        <tc:selectItem itemLabel="Beta"/>
+        <tc:selectItem itemLabel="Gamma"/>
+        <tc:selectItem itemLabel="Delta"/>
       </tc:selectManyShuttle>
     </tc:section>
   </tc:panel>
