@@ -16,107 +16,115 @@
  */
 
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+import {elementByIdFn} from "/script/tobago-test.js";
 
-it("not implemented yet", function (done) {
-  let test = new JasmineTestTool(done);
-  test.do(() => fail("must be fixed first"));
+it("Standard Action Button", function (done) {
+  const commandFn = elementByIdFn("page:mainForm:standardButtonAction");
+  const destinationSectionFn = elementByIdFn("page:actionSection");
+  testStandardCommands(done, commandFn, destinationSectionFn);
+});
+
+it("Standard Link Button", function (done) {
+  const commandFn = elementByIdFn("page:mainForm:standardButtonLink");
+  const destinationSectionFn = elementByIdFn("page:linkSection");
+  testStandardCommands(done, commandFn, destinationSectionFn);
+});
+
+it("Standard Action Link", function (done) {
+  const commandFn = elementByIdFn("page:mainForm:standardLinkAction");
+  const destinationSectionFn = elementByIdFn("page:actionSection");
+  testStandardCommands(done, commandFn, destinationSectionFn);
+});
+
+it("Standard Link Link", function (done) {
+  const commandFn = elementByIdFn("page:mainForm:standardLinkLink");
+  const destinationSectionFn = elementByIdFn("page:linkSection");
+  testStandardCommands(done, commandFn, destinationSectionFn);
+});
+
+function testStandardCommands(done, commandFn, destinationSectionFn) {
+  const backFn = elementByIdFn("page:back");
+
+  const test = new JasmineTestTool(done);
+  test.event("click", commandFn, () => destinationSectionFn() !== null);
+  test.do(() => expect(destinationSectionFn()).not.toBeNull());
+  test.event("click", backFn, () => commandFn() !== null);
+  test.do(() => expect(commandFn()).not.toBeNull());
   test.start();
-});
-/*
-import {querySelectorFn} from "/script/tobago-test.js";
-import {TobagoTestTool} from "/tobago/test/tobago-test-tool.js";
-
-QUnit.test("Standard Action Button", function (assert) {
-  let commandFn = querySelectorFn("#page\\:mainForm\\:standardButtonAction");
-  let destinationSectionFn = querySelectorFn("#page\\:actionSection");
-  testStandardCommands(commandFn, destinationSectionFn, assert);
-});
-
-QUnit.test("Standard Link Button", function (assert) {
-  let commandFn = querySelectorFn("#page\\:mainForm\\:standardButtonLink");
-  let destinationSectionFn = querySelectorFn("#page\\:linkSection");
-  testStandardCommands(commandFn, destinationSectionFn, assert);
-});
-
-QUnit.test("Standard Action Link", function (assert) {
-  let commandFn = querySelectorFn("#page\\:mainForm\\:standardLinkAction");
-  let destinationSectionFn = querySelectorFn("#page\\:actionSection");
-  testStandardCommands(commandFn, destinationSectionFn, assert);
-});
-
-QUnit.test("Standard Link Link", function (assert) {
-  let commandFn = querySelectorFn("#page\\:mainForm\\:standardLinkLink");
-  let destinationSectionFn = querySelectorFn("#page\\:linkSection");
-  testStandardCommands(commandFn, destinationSectionFn, assert);
-});
-
-function testStandardCommands(commandFn, destinationSectionFn, assert) {
-  let backFn = querySelectorFn("#page\\:back");
-
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    commandFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.ok(destinationSectionFn() !== null);
-  });
-  TTT.action(function () {
-    backFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitForResponse();
-  TTT.asserts(1, function () {
-    assert.ok(commandFn() !== null);
-  });
-  TTT.startTest();
 }
 
-QUnit.test("Target Action Button", function (assert) {
-  let commandFn = querySelectorFn("#page\\:mainForm\\:targetButtonAction");
-  testTargetCommands(commandFn, "accessed by action", assert);
+it("Target Action Button", function (done) {
+  const actionFn = elementByIdFn("page:mainForm:targetButtonAction");
+  const linkFn = elementByIdFn("page:mainForm:targetButtonLink");
+  const expectedValue = "accessed by action";
+
+  const test = new JasmineTestTool(done);
+  test.setup(() => getTargetFrameInput() !== null && getTargetFrameInput().value !== expectedValue,
+      null, "click", linkFn);
+  test.event("click", actionFn,
+      () => getTargetFrameInput() !== null && getTargetFrameInput().value === expectedValue);
+  test.do(() => expect(getTargetFrameInput().value).toBe(expectedValue));
+  test.start();
 });
 
-QUnit.test("Target Link Button", function (assert) {
-  let commandFn = querySelectorFn("#page\\:mainForm\\:targetButtonLink");
-  testTargetCommands(commandFn, "accessed by link", assert);
+it("Target Link Button", function (done) {
+  const actionFn = elementByIdFn("page:mainForm:targetButtonAction");
+  const linkFn = elementByIdFn("page:mainForm:targetButtonLink");
+  const expectedValue = "accessed by link";
+
+  const test = new JasmineTestTool(done);
+  test.setup(() => getTargetFrameInput() !== null && getTargetFrameInput().value !== expectedValue,
+      null, "click", actionFn);
+  test.event("click", linkFn,
+      () => getTargetFrameInput() !== null && getTargetFrameInput().value === expectedValue);
+  test.do(() => expect(getTargetFrameInput().value).toBe(expectedValue));
+  test.start();
 });
 
-QUnit.test("Target Action Link", function (assert) {
-  let commandFn = querySelectorFn("#page\\:mainForm\\:targetLinkAction");
-  testTargetCommands(commandFn, "accessed by action", assert);
+it("Target Action Link", function (done) {
+  const actionFn = elementByIdFn("page:mainForm:targetLinkAction");
+  const linkFn = elementByIdFn("page:mainForm:targetLinkLink");
+  const expectedValue = "accessed by action";
+
+  const test = new JasmineTestTool(done);
+  test.setup(() => getTargetFrameInput() !== null && getTargetFrameInput().value !== expectedValue,
+      null, "click", linkFn);
+  test.event("click", actionFn,
+      () => getTargetFrameInput() !== null && getTargetFrameInput().value === expectedValue);
+  test.do(() => expect(getTargetFrameInput().value).toBe(expectedValue));
+  test.start();
 });
 
-QUnit.test("Target Link Link", function (assert) {
-  let commandFn = querySelectorFn("#page\\:mainForm\\:targetLinkLink");
-  testTargetCommands(commandFn, "accessed by link", assert);
+it("Target Link Link", function (done) {
+  const actionFn = elementByIdFn("page:mainForm:targetLinkAction");
+  const linkFn = elementByIdFn("page:mainForm:targetLinkLink");
+  const expectedValue = "accessed by link";
+
+  const test = new JasmineTestTool(done);
+  test.setup(() => getTargetFrameInput() !== null && getTargetFrameInput().value !== expectedValue,
+      null, "click", actionFn);
+  test.event("click", linkFn,
+      () => getTargetFrameInput() !== null && getTargetFrameInput().value === expectedValue);
+  test.do(() => expect(getTargetFrameInput().value).toBe(expectedValue));
+  test.start();
 });
 
-QUnit.test("Style must not be a dropdown item", function (assert) {
+function getTargetFrameInput() {
+  return elementByIdFn("page:mainForm:targetFrame")().contentWindow
+      .document.getElementById("textInput");
+}
+
+
+/*it("Style must not be a dropdown item", function (done) {
   assert.expect(3);
 
-  let dropdownMenuFn = querySelectorFn("#page\\:mainForm\\:dropdownWithStyle .dropdown-menu");
-  let styleAsItemFn = querySelectorFn("#page\\:mainForm\\:dropdownWithStyle .dropdown-menu .dropdown-item > style");
-  let buttonFn = querySelectorFn("#page\\:mainForm\\:dropdownWithStyle > .tobago-button");
+  const dropdownMenuFn = querySelectorFn("#page\\:mainForm\\:dropdownWithStyle .dropdown-menu");
+  const styleAsItemFn = querySelectorFn("#page\\:mainForm\\:dropdownWithStyle .dropdown-menu .dropdown-item > style");
+  const buttonFn = querySelectorFn("#page\\:mainForm\\:dropdownWithStyle > .tobago-button");
 
   assert.ok(dropdownMenuFn() !== null);
   assert.equal(styleAsItemFn(), null);
   assert.equal(buttonFn().offsetWidth, 200);
-});
+});*/
 
-function testTargetCommands(commandFn, expectedText, assert) {
-  let TTT = new TobagoTestTool(assert);
-  TTT.action(function () {
-    commandFn().dispatchEvent(new Event("click", {bubbles: true}));
-  });
-  TTT.waitMs(2000); //TobagoTestTools.waitForResponse() didn't recognize responses on a target frame, so we just wait
-  TTT.asserts(1, function () {
-    assert.equal(getTargetFrameTestInputValue(), expectedText);
-  });
-  TTT.startTest();
-}
 
-function getTargetFrameTestInputValue() {
-  return querySelectorFn("#page\\:mainForm\\:targetFrame")().contentWindow
-      .document.querySelector("#textInput").value;
-}
-*/
