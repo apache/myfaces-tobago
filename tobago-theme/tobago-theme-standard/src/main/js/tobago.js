@@ -7340,10 +7340,10 @@
               const sourceHidden = document.getElementById("javax.faces.source");
               sourceHidden.disabled = false;
               sourceHidden.value = actionId;
-              if (this.target) {
+              if (this.target != null) {
                   form.setAttribute("target", this.target);
               }
-              page.beforeSubmit(null, this.decoupled);
+              page.beforeSubmit(null, this.decoupled || this.target != null);
               try {
                   form.submit();
                   // reset the source field after submit, to be prepared for possible next AJAX with decoupled=true

@@ -30,8 +30,8 @@ public class AttributeController implements Serializable {
   private int counter;
   private boolean condition;
 
-  public String update() {
-    return "/content/40-test/9000-attribute/attribute.xhtml?faces-redirect=true";
+  public Outcome update() {
+    return Outcome.TEST_ATTRIBUTE;
   }
 
   public String reload() {
