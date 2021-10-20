@@ -119,7 +119,9 @@ it("Style must not be a dropdown item", function (done) {
   const styleAsItemFn = querySelectorFn("#page\\:mainForm\\:dropdownWithStyle .dropdown-menu .dropdown-item > style");
   const buttonFn = elementByIdFn("page:mainForm:dropdownWithStyle::command");
 
-  expect(dropdownMenuFn()).not.toBeNull();
-  expect(styleAsItemFn()).toBeNull();
-  expect(buttonFn().offsetWidth).toEqual(200);
+  const test = new JasmineTestTool(done);
+  test.do(() => expect(dropdownMenuFn()).not.toBeNull());
+  test.do(() => expect(styleAsItemFn()).toBeNull());
+  test.do(() => expect(buttonFn().offsetWidth).toEqual(200));
+  test.start();
 });
