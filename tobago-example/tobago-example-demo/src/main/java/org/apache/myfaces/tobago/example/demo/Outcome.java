@@ -24,16 +24,22 @@ package org.apache.myfaces.tobago.example.demo;
  */
 public enum Outcome {
 
-  CONCEPT_SECURITY_ROLES_XLOGIN(
-      "/content/280-security/20-roles/x-login.xhtml?faces-redirect=true"),
-  CONCEPT_LOCALE(
-      "/content/220-locale/Locale.xhtml"),
   COMMAND(
       "/content/040-command/Command.xhtml?faces-redirect=true"),
+  CONCEPT_LOCALE(
+      "/content/220-locale/Locale.xhtml"),
+  CONCEPT_SECURITY_ROLES_XLOGIN(
+      "/content/280-security/20-roles/x-login.xhtml?faces-redirect=true"),
   TEST_BUTTONLINK_XACTION(
-      "/content/40-test/4000-button-link/x-action.xhtml?faces-redirect=true"),
+      "/content/900-test/4000-button-link/x-action.xhtml?faces-redirect=true"),
   TEST_BUTTONLINK_XTARGETACTION(
-      "/content/40-test/4000-button-link/x-targetAction.xhtml");
+      "/content/900-test/4000-button-link/x-targetAction.xhtml"),
+  TEST_ATTRIBUTE(
+      "/content/900-test/9000-attribute/Attribute.xhtml?faces-redirect=true"),
+  TEST_JAVA_AJAX_EXECUTE(
+      "/content/900-test/50000-java/20-ajax-execute/Ajax_Execute.xhtml?faces-redirect=true"),
+
+  TEST("content/900-test");
 
   private final String outcome;
 
