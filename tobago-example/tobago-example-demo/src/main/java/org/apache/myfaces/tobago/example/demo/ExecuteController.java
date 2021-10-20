@@ -38,20 +38,20 @@ public class ExecuteController implements Serializable {
   private String value3;
   private String value4;
 
-  public String clear() {
+  public Outcome clear() {
     LOG.info("action");
     value1=null;
     value2=null;
     value3=null;
     value4=null;
     log();
-    return "/content/40-test/50000-java/20-ajax-execute/Ajax_Execute.xhtml?faces-redirect=true";
+    return Outcome.TEST_JAVA_AJAX_EXECUTE;
   }
 
-  public String reload() {
+  public Outcome reload() {
     LOG.info("reload");
     log();
-    return "/content/40-test/50000-java/20-ajax-execute/Ajax_Execute.xhtml?faces-redirect=true";
+    return Outcome.TEST_JAVA_AJAX_EXECUTE;
   }
 
   public String action() {
