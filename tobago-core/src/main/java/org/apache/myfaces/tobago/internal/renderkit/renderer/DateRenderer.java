@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.model.DateType;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
-import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -83,17 +82,7 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
   }
 
   @Override
-  protected void writeAdditionalAttributes(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final T date)
-      throws IOException {
-
-    super.writeAdditionalAttributes(facesContext, writer, date);
-//    writer.writeAttribute(HtmlAttributes.PATTERN, date.getPattern(), true);
-    writer.writeAttribute(CustomAttributes.TODAY_BUTTON, date.isTodayButton());
-  }
-
-  @Override
-  protected void encodeBeginField(final FacesContext facesContext, final T component) throws IOException {
+  protected void encodeBeginField(final FacesContext facesContext, final T date) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
@@ -102,60 +91,54 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
 
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
-    final DateType type = component.getType();
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, date);
+    final DateType type = date.getType();
 
-    final String currentValue = getCurrentValue(facesContext, component);
-    final String clientId = component.getClientId(facesContext);
-    final String fieldId = component.getFieldId(facesContext);
-    final boolean readonly = component.isReadonly();
-    final boolean disabled = component.isDisabled();
-    final boolean required = ComponentUtils.getBooleanAttribute(component, Attributes.required);
+    final String currentValue = getCurrentValue(facesContext, date);
+    final String clientId = date.getClientId(facesContext);
+    final String fieldId = date.getFieldId(facesContext);
+    final boolean readonly = date.isReadonly();
+    final boolean disabled = date.isDisabled();
+    final boolean required = ComponentUtils.getBooleanAttribute(date, Attributes.required);
 
     writer.startElement(HtmlElements.INPUT);
 
-    if (component.getAccessKey() != null) {
-      writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(component.getAccessKey()), false);
-      AccessKeyLogger.addAccessKey(facesContext, component.getAccessKey(), clientId);
+    if (date.getAccessKey() != null) {
+      writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(date.getAccessKey()), false);
+      AccessKeyLogger.addAccessKey(facesContext, date.getAccessKey(), clientId);
     }
 
     writer.writeAttribute(HtmlAttributes.TYPE, type.getName(), false);
-    final Double step = component.getStep();
+    final Double step = date.getStep();
     if (step != null) {
       writer.writeAttribute(HtmlAttributes.STEP, Double.toString(step), false);
     }
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(fieldId);
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, date);
     writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
-//    if (!disabled && !readonly) {
-//      writer.writeAttribute(HtmlAttributes.PLACEHOLDER, component.getPlaceholder(), true);
-//    }
-    writer.writeAttribute(HtmlAttributes.MIN, convertToString(component.getMin()), true);
-    writer.writeAttribute(HtmlAttributes.MAX, convertToString(component.getMax()), true);
+    writer.writeAttribute(HtmlAttributes.TABINDEX, date.getTabIndex());
+    writer.writeAttribute(HtmlAttributes.MIN, convertToString(date.getMin()), true);
+    writer.writeAttribute(HtmlAttributes.MAX, convertToString(date.getMax()), true);
 
     writer.writeClassAttribute(
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(date)),
         BootstrapClass.FORM_CONTROL,
-        component.getCustomClass());
+        date.getCustomClass());
 
     writer.writeAttribute(HtmlAttributes.REQUIRED, required);
-    renderFocus(clientId, component.isFocus(), component.isError(), facesContext, writer);
+    renderFocus(clientId, date.isFocus(), date.isError(), facesContext, writer);
 
     writer.endElement(HtmlElements.INPUT);
 
-    encodeBehavior(writer, facesContext, component);
+    encodeBehavior(writer, facesContext, date);
 
-//    if (type.supportsDate()) {
-//      encodeButton(facesContext, component, Icons.CALENDAR3);
-//    }
-//    if (type.supportsTime()) {
-//      encodeButton(facesContext, component, Icons.CLOCK);
-//    }
+    if (date.isTodayButton()) {
+      encodeButton(facesContext, date, type);
+    }
   }
 
   private String convertToString(Object value) {
@@ -171,24 +154,26 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
     }
   }
 
-  private void encodeButton(final FacesContext facesContext, final T component, final Icons icon)
+  private void encodeButton(final FacesContext facesContext, final T component, final DateType type)
       throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+
+    final String title = ResourceUtils.getString(facesContext,
+        type == DateType.DATETIME_LOCAL || type == DateType.TIME ? "date.now" : "date.today");
 
     writer.startElement(HtmlElements.BUTTON);
     writer.writeClassAttribute(
         BootstrapClass.BTN,
         BootstrapClass.BTN_SECONDARY,
-        TobagoClass.DATE__PICKER);
+        TobagoClass.NOW);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-    writer.writeAttribute(HtmlAttributes.TITLE,
-        ResourceUtils.getString(facesContext, "date.title"), true);
+    writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     writer.writeAttribute(HtmlAttributes.DISABLED, component.isDisabled() || component.isReadonly());
     writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
 
     writer.startElement(HtmlElements.I);
-    writer.writeClassAttribute(icon);
+    writer.writeClassAttribute(Icons.ARROW_DOWN);
     writer.endElement(HtmlElements.I);
 
     writer.endElement(HtmlElements.BUTTON);
