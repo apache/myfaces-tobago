@@ -15,8 +15,6 @@
  * limitations under the License.
  */
 
-import {DomUtils} from "./tobago-utils";
-
 class TreeListbox extends HTMLElement {
 
   constructor() {

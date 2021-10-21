@@ -52,7 +52,6 @@ import "./tobago-tree";
 import "./tobago-tree-listbox";
 import "./tobago-tree-node";
 import "./tobago-tree-select";
-import "./tobago-utils";
 
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded",
