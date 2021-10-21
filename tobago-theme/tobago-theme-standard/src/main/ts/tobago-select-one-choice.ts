@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
-import {DomUtils} from "./tobago-utils";
 import {Focus} from "./tobago-focus";
 
 class SelectOneChoice extends HTMLElement {
