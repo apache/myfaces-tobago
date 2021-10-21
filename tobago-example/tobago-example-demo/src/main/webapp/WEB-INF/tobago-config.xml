@@ -44,6 +44,9 @@
     <supported-theme>charlotteville</supported-theme>
   </theme-config>
 
+  <!-- currently you need to switch this check off for quarkus -->
+<!--  <check-session-secret>false</check-session-secret>-->
+
   <!-- This is needed for the testing functionality of the demo, it works with iframes -->
   <prevent-frame-attacks>false</prevent-frame-attacks>
 
