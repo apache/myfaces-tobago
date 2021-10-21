@@ -7594,20 +7594,16 @@
               this.type = "text";
               this.field.placeholder = support.example(this.step) + " " + (this.pattern ? this.pattern : "");
           }
+          const nowButton = this.nowButton;
+          if (nowButton) {
+              nowButton.addEventListener("click", this.initNowButton.bind(this));
+          }
+      }
+      initNowButton() {
+          this.field.valueAsDate = new Date();
       }
       workaround() {
           window.alert("workaround!");
-      }
-      get todayButton() {
-          return this.hasAttribute("today-button");
-      }
-      set todayButton(todayButton) {
-          if (todayButton) {
-              this.setAttribute("today-button", "");
-          }
-          else {
-              this.removeAttribute("today-button");
-          }
       }
       get type() {
           var _a;
@@ -7635,6 +7631,9 @@
       get field() {
           const rootNode = this.getRootNode();
           return rootNode.getElementById(this.id + "::field");
+      }
+      get nowButton() {
+          return this.querySelector(".tobago-now");
       }
   }
   TobagoDate.SUPPORTS = {

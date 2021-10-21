@@ -88,22 +88,18 @@ class TobagoDate extends HTMLElement {
       this.type = "text";
       this.field.placeholder = support.example(this.step) + " " + (this.pattern ? this.pattern : "");
     }
+    const nowButton = this.nowButton;
+    if (nowButton) {
+      nowButton.addEventListener("click", this.initNowButton.bind(this));
+    }
+  }
+
+  initNowButton(): void {
+    this.field.valueAsDate = new Date();
   }
 
   workaround(): void {
     window.alert("workaround!");
-  }
-
-  get todayButton(): boolean {
-    return this.hasAttribute("today-button");
-  }
-
-  set todayButton(todayButton: boolean) {
-    if (todayButton) {
-      this.setAttribute("today-button", "");
-    } else {
-      this.removeAttribute("today-button");
-    }
   }
 
   get type(): string {
@@ -133,6 +129,10 @@ class TobagoDate extends HTMLElement {
   get field(): HTMLInputElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
     return rootNode.getElementById(this.id + "::field") as HTMLInputElement;
+  }
+
+  get nowButton(): HTMLButtonElement {
+    return this.querySelector(".tobago-now");
   }
 }
 

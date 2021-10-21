@@ -176,12 +176,10 @@
         <f:convertDateTime pattern="dd.MM. - HH:mm" type="both"/>
       </tc:date>
     </tc:section>
-    <tc:section label="Today Button">
-      <p>Display a today button on the datepicker with the attribute <code>todayButton=true</code>.</p>
-      <tc:date id="dateTodayButton" label="Today Button" value="#{dateController.now}" todayButton="true">
-        <f:convertDateTime pattern="dd.MM.yyyy"/>
-      </tc:date>
-      <tc:badge markup="warning" value="Attention:"/> Currently not supported!
+    <tc:section label="Today (or Now) Button">
+      <p>Display a today-/now-button on the datepicker with the attribute <code>todayButton=true</code>.</p>
+      <tc:date id="dateTodayButton" label="Today Button" value="#{dateController.todayDate}" todayButton="true"/>
+      <tc:date id="timeNowButton" label="Now Button" value="#{dateController.nowTime}" todayButton="true"/>
     </tc:section>
   </tc:section>
   <tc:section label="Styles">
