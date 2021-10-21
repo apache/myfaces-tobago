@@ -16,7 +16,6 @@
  */
 
 import {Page} from "./tobago-page";
-import {DomUtils} from "./tobago-utils";
 
 export class Focus extends HTMLElement {
 

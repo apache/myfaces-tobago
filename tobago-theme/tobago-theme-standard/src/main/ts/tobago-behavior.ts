@@ -34,7 +34,7 @@ class Behavior extends HTMLElement {
       case "resize":
         document.body.addEventListener(this.event, this.callback.bind(this));
         break;
-      default:
+      default: {
         const eventElement = this.eventElement;
         if (eventElement) {
           eventElement.addEventListener(this.event, this.callback.bind(this));
@@ -44,6 +44,7 @@ class Behavior extends HTMLElement {
           // todo: not sure if this warning can be removed;
           console.warn("Can't find an element for the event. Use parentElement instead.", this);
         }
+      }
     }
   }
 
@@ -70,7 +71,8 @@ class Behavior extends HTMLElement {
             const partialId = partialIds[i];
             const partialElement = document.getElementById(partialId);
             if (partialElement) {
-              partialElement.insertAdjacentHTML("beforeend", `<tobago-overlay for='${partialElement.id}'></tobago-overlay>`);
+              partialElement.insertAdjacentHTML(
+                  "beforeend", `<tobago-overlay for='${partialElement.id}'></tobago-overlay>`);
             } else {
               console.warn("No element found by id='%s' for overlay!", partialId);
             }
@@ -124,7 +126,7 @@ class Behavior extends HTMLElement {
         const overlay = this.closest("body").querySelector(`tobago-overlay[for='${page.id}']`);
         overlay.remove();
         page.submitActive = false;
-        alert(`Submit failed: ${e}`); // XXX localization, better error handling
+        alert("Submit failed!"); // XXX localization, better error handling
       }
       if (this.target) {
         if (oldTarget) {
