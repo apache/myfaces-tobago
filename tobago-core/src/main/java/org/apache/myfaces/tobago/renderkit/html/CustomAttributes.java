@@ -82,15 +82,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
    * The mode of the tab switch: client, reloadTab, reloadPage.
    */
   SWITCH_TYPE("switch-type"),
-  /* * XXX seem no longer needed
-   * The date of today
-   */
-//  TODAY("today"),
   TIME_PATTERN("time-pattern"),
-  /**
-   * Show the button to set the field to today.
-   */
-  TODAY_BUTTON("today-button"),
   TOTAL_COUNT("total-count"),
   DECOUPLED("decoupled"),
   UPDATE("update");
