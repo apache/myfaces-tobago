@@ -86,7 +86,7 @@ public class NavigationTree implements Serializable {
     Collections.sort(nodes);
 
     // after sorting the first node is the root node.
-    root = nodes.get(0);
+    root = nodes.size() > 0 ? nodes.get(0) : null;
 
     final Map<String, NavigationNode> map = new HashMap<>();
 
@@ -134,7 +134,7 @@ public class NavigationTree implements Serializable {
   }
 
   public NavigationNode findByViewId(final String viewId) {
-    if (viewId != null) {
+    if (viewId != null && root != null) {
       final Enumeration enumeration = root.depthFirstEnumeration();
       while (enumeration.hasMoreElements()) {
         final NavigationNode node = (NavigationNode) enumeration.nextElement();
@@ -153,8 +153,10 @@ public class NavigationTree implements Serializable {
   public void gotoNode(final NavigationNode node) {
     if (node != null) {
       events.fire(node);
-    } else {
+    } else if (root != null) {
       events.fire(root);
+    } else {
+      LOG.error("No navigation tree available!");
     }
   }
 
