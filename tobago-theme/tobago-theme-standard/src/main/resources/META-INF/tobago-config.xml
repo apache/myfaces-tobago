@@ -48,34 +48,6 @@
         <includes>
           <script name="/tobago/standard/${project.version}/js/jsf-development.js"/>
           <script type="module" name="/tobago/standard/${project.version}/js/tobago.js"/>
-<!--
-          <script name="/tobago/standard/${project.version}/js/ext-bootstrap.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-listener.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-core.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-dropdown.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-date.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-command.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-file.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-focus.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-header-footer.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-in.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-jsf.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-overlay.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-panel.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-popover.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-popup.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-reload.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-scroll.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-select-....js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-sheet.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-split-layout.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-stars.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-suggest.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-tab.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-tree.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-tree-listbox.js"/>
-          <script name="/tobago/standard/${project.version}/js/tobago-utils.js"/>
--->
           <style name="/tobago/standard/${project.version}/css/tobago.css"/>
           <style name="/tobago/standard/${project.version}/css/bootstrap-icons.css"/>
         </includes>

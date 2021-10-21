@@ -19,55 +19,6 @@
    * See the License for the specific language governing permissions and
    * limitations under the License.
    */
-  // XXX remove me, for cleanup
-  class DomUtils {
-      /**
-       * Find all elements (and also self) which have the attribute "attributeName".
-       * @param element Starting element in DOM to collect.
-       * @param selectors Name of the attribute of the elements to find.
-       */
-      // todo: may return NodeListOf<HTMLElementTagNameMap[K]> or something like that.
-      static selfOrQuerySelectorAll(element, selectors) {
-          const result = new Array();
-          if (!element) {
-              element = document.documentElement;
-          }
-          if (element.matches(selectors)) {
-              result.push(element);
-          }
-          for (const found of element.querySelectorAll(selectors)) {
-              result.push(found);
-          }
-          return result;
-      }
-      /**
-       * @param element with transition
-       * @return transition time in milliseconds
-       */
-      static getTransitionTime(element) {
-          const style = window.getComputedStyle(element);
-          const delay = Number.parseFloat(style.transitionDelay);
-          const duration = Number.parseFloat(style.transitionDuration);
-          return (delay + duration) * 1000;
-      }
-  }
-
-  /*
-   * Licensed to the Apache Software Foundation (ASF) under one or more
-   * contributor license agreements.  See the NOTICE file distributed with
-   * this work for additional information regarding copyright ownership.
-   * The ASF licenses this file to You under the Apache License, Version 2.0
-   * (the "License"); you may not use this file except in compliance with
-   * the License.  You may obtain a copy of the License at
-   *
-   *      http://www.apache.org/licenses/LICENSE-2.0
-   *
-   * Unless required by applicable law or agreed to in writing, software
-   * distributed under the License is distributed on an "AS IS" BASIS,
-   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   * See the License for the specific language governing permissions and
-   * limitations under the License.
-   */
   class Bar extends HTMLElement {
       constructor() {
           super();
@@ -95,7 +46,7 @@
                   this.navbarContent.classList.remove(this.CssClass.COLLAPSING);
                   this.navbarContent.classList.add(this.CssClass.COLLAPSE);
                   this.toggleButton.ariaExpanded = "false";
-              }, DomUtils.getTransitionTime(this.navbarContent));
+              }, this.evaluateTransitionTime());
           }
           else {
               this.expanded = true;
@@ -108,8 +59,19 @@
                   this.navbarContent.classList.add(this.CssClass.SHOW);
                   this.navbarContent.style.height = null;
                   this.toggleButton.ariaExpanded = "true";
-              }, DomUtils.getTransitionTime(this.navbarContent));
+              }, this.evaluateTransitionTime());
           }
+      }
+      /**
+       * Evaluates the transition time of the content from CSS properties.
+       *
+       * @return transition time in milliseconds
+       */
+      evaluateTransitionTime() {
+          const style = window.getComputedStyle(this.navbarContent);
+          const delay = Number.parseFloat(style.transitionDelay);
+          const duration = Number.parseFloat(style.transitionDuration);
+          return (delay + duration) * 1000;
       }
       get toggleButton() {
           return this.querySelector(".navbar-toggler");
@@ -7274,7 +7236,7 @@
               case "resize":
                   document.body.addEventListener(this.event, this.callback.bind(this));
                   break;
-              default:
+              default: {
                   const eventElement = this.eventElement;
                   if (eventElement) {
                       eventElement.addEventListener(this.event, this.callback.bind(this));
@@ -7285,6 +7247,7 @@
                       // todo: not sure if this warning can be removed;
                       console.warn("Can't find an element for the event. Use parentElement instead.", this);
                   }
+              }
           }
       }
       callback(event) {
@@ -7355,7 +7318,7 @@
                   const overlay = this.closest("body").querySelector(`tobago-overlay[for='${page.id}']`);
                   overlay.remove();
                   page.submitActive = false;
-                  alert(`Submit failed: ${e}`); // XXX localization, better error handling
+                  alert("Submit failed!"); // XXX localization, better error handling
               }
               if (this.target) {
                   if (oldTarget) {

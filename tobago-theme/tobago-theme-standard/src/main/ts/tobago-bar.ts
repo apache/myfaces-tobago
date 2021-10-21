@@ -15,8 +15,6 @@
  * limitations under the License.
  */
 
-import {DomUtils} from "./tobago-utils";
-
 class Bar extends HTMLElement {
 
   private readonly CssClass = {
@@ -53,7 +51,7 @@ class Bar extends HTMLElement {
         this.navbarContent.classList.remove(this.CssClass.COLLAPSING);
         this.navbarContent.classList.add(this.CssClass.COLLAPSE);
         this.toggleButton.ariaExpanded = "false";
-      }, DomUtils.getTransitionTime(this.navbarContent));
+      }, this.evaluateTransitionTime());
     } else {
       this.expanded = true;
       this.navbarContent.classList.remove(this.CssClass.COLLAPSE);
@@ -66,8 +64,20 @@ class Bar extends HTMLElement {
         this.navbarContent.classList.add(this.CssClass.SHOW);
         this.navbarContent.style.height = null;
         this.toggleButton.ariaExpanded = "true";
-      }, DomUtils.getTransitionTime(this.navbarContent));
+      }, this.evaluateTransitionTime());
     }
+  }
+
+  /**
+   * Evaluates the transition time of the content from CSS properties.
+   *
+   * @return transition time in milliseconds
+   */
+  private evaluateTransitionTime(): number {
+    const style = window.getComputedStyle(this.navbarContent);
+    const delay: number = Number.parseFloat(style.transitionDelay);
+    const duration: number = Number.parseFloat(style.transitionDuration);
+    return (delay + duration) * 1000;
   }
 
   private get toggleButton(): HTMLButtonElement {

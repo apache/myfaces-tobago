@@ -15,8 +15,6 @@
  * limitations under the License.
  */
 
-import {DomUtils} from "./tobago-utils";
-
 class Stars extends HTMLElement {
 
   constructor() {
@@ -173,6 +171,6 @@ class Stars extends HTMLElement {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (event:Event): void {
+document.addEventListener("DOMContentLoaded", function (event: Event): void {
   window.customElements.define("tobago-stars", Stars);
 });
