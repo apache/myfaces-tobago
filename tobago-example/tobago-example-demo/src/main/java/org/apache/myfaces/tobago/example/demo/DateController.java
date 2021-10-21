@@ -73,6 +73,9 @@ public class DateController implements Serializable {
   private Long typeLong;
   private String typeString;
 
+  private LocalDate todayDate;
+  private LocalTime nowTime;
+
   public DateController() {
     once = new Date();
     final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -222,5 +225,21 @@ public class DateController implements Serializable {
 
   public void setTypeString(String typeString) {
     this.typeString = typeString;
+  }
+
+  public LocalDate getTodayDate() {
+    return todayDate;
+  }
+
+  public void setTodayDate(LocalDate todayDate) {
+    this.todayDate = todayDate;
+  }
+
+  public LocalTime getNowTime() {
+    return nowTime;
+  }
+
+  public void setNowTime(LocalTime nowTime) {
+    this.nowTime = nowTime;
   }
 }
