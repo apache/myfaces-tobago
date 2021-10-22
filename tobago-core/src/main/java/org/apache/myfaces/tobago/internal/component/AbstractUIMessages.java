@@ -19,10 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.layout.OrderBy;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -72,7 +74,14 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
         if (facesMessage.getSeverity().getOrdinal() > getMaxSeverity().getOrdinal()) {
           continue;
         }
-        messages.add(new Item(clientId, facesMessage));
+        final UIComponent component = clientId != null ? facesContext.getViewRoot().findComponent(clientId) : null;
+        final String forId;
+        if (component instanceof SupportFieldId) {
+          forId = ((SupportFieldId)component).getFieldId(facesContext);
+        } else {
+          forId = clientId;
+        }
+        messages.add(new Item(forId, facesMessage));
       }
     }
     return messages;
@@ -80,20 +89,36 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
 
   public static class Item {
 
-    private String clientId;
+    private String forId;
     private FacesMessage facesMessage;
 
     public Item(final String clientId, final FacesMessage facesMessage) {
-      this.clientId = clientId;
+      this.forId = clientId;
       this.facesMessage = facesMessage;
     }
 
-    public String getClientId() {
-      return clientId;
+    public String getForId() {
+      return forId;
     }
 
-    public void setClientId(final String clientId) {
-      this.clientId = clientId;
+    public void setForId(final String forId) {
+      this.forId = forId;
+    }
+
+    /**
+     * @deprecated since Tobago 5.0.0. Please use {@link #setForId}
+     */
+    @Deprecated
+    public String getClientId() {
+      return forId;
+    }
+
+    /**
+     * @deprecated since Tobago 5.0.0. Please use {@link #setForId}
+     */
+    @Deprecated
+    public void setClientId(final String forId) {
+      this.forId = forId;
     }
 
     public FacesMessage getFacesMessage() {
@@ -114,9 +139,4 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
   public abstract OrderBy getOrderBy();
 
   public abstract boolean isConfirmation();
-
-/* TBD: if we support JSF 1.2 whe have to do something here.
-  public abstract String getFor();
-*/
-
 }
