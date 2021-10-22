@@ -77,7 +77,7 @@ public abstract class AbstractUIMessages extends jakarta.faces.component.UIMessa
         final UIComponent component = clientId != null ? facesContext.getViewRoot().findComponent(clientId) : null;
         final String forId;
         if (component instanceof SupportFieldId) {
-          forId = ((SupportFieldId)component).getFieldId(facesContext);
+          forId = ((SupportFieldId) component).getFieldId(facesContext);
         } else {
           forId = clientId;
         }
@@ -117,8 +117,8 @@ public abstract class AbstractUIMessages extends jakarta.faces.component.UIMessa
      * @deprecated since Tobago 5.0.0. Please use {@link #setForId}
      */
     @Deprecated
-    public void setClientId(final String forId) {
-      this.forId = forId;
+    public void setClientId(final String clientId) {
+      this.forId = clientId;
     }
 
     public FacesMessage getFacesMessage() {
