@@ -31,7 +31,7 @@ import jakarta.faces.context.FacesContext;
 public class LinkRenderer<T extends AbstractUILink> extends CommandRendererBase<T> {
 
   @Override
-  protected TobagoClass getRendererCssClass() {
+  protected CssItem getRendererCssClass() {
     return TobagoClass.LINK;
   }
 

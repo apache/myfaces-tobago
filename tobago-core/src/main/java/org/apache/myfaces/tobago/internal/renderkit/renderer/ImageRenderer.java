@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -59,17 +58,18 @@ public class ImageRenderer<T extends AbstractUIImage> extends RendererBase<T> {
       writer.endElement(HtmlElements.I);
     } else {
       final String alt = component.getAlt();
-      writer.startElement(HtmlElements.IMG);
+      writer.startElement(HtmlElements.TOBAGO_IMAGE);
       writer.writeIdAttribute(component.getClientId(facesContext));
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
-      writer.writeAttribute(HtmlAttributes.SRC, value, true);
-      writer.writeAttribute(HtmlAttributes.ALT, alt != null ? alt : "", true);
       writer.writeClassAttribute(
-          TobagoClass.IMAGE,
           disabled ? BootstrapClass.DISABLED : null,
           component.getCustomClass());
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+      writer.startElement(HtmlElements.IMG);
+      writer.writeAttribute(HtmlAttributes.SRC, value, true);
+      writer.writeAttribute(HtmlAttributes.ALT, alt != null ? alt : "", true);
       writer.endElement(HtmlElements.IMG);
+      writer.endElement(HtmlElements.TOBAGO_IMAGE);
     }
   }
 }

@@ -151,6 +151,7 @@ public enum HtmlElements {
   TOBAGO_GRID_LAYOUT("tobago-grid-layout"),
   TOBAGO_LABEL("tobago-label"),
   TOBAGO_HEADER("tobago-header"),
+  TOBAGO_IMAGE("tobago-image"),
   TOBAGO_IN("tobago-in"),
   TOBAGO_LINKS("tobago-links"),
   TOBAGO_MESSAGES("tobago-messages"),
