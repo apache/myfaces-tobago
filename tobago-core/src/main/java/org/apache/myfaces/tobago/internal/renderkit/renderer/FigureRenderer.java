@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFigure;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -41,7 +40,6 @@ public class FigureRenderer<T extends AbstractUIFigure> extends RendererBase<T> 
     writer.startElement(HtmlElements.FIGURE);
 
     writer.writeClassAttribute(
-        TobagoClass.FIGURE,
         BootstrapClass.FIGURE,
         component.getCustomClass());
     final String tip = component.getTip();

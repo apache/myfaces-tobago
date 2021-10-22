@@ -251,7 +251,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
     return null;
   }
 
-  abstract TobagoClass getRendererCssClass();
+  abstract CssItem getRendererCssClass();
 
   protected CssItem[] getCssItems(final FacesContext facesContext, final T command) {
     return null;
