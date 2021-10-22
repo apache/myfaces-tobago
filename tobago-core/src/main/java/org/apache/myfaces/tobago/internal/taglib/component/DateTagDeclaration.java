@@ -87,9 +87,8 @@ public interface DateTagDeclaration
     HasTip, IsRequired, HasPlaceholder, HasAutoSpacing {
 
   /**
-   * If true, a today button is displayed on the datetimepicker.
+   * If true, a today- or now-button is displayed.
    */
-  // todo: might be deprecated
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setTodayButton(String required);
