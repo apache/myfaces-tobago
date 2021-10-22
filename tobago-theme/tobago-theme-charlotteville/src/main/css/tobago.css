@@ -11335,18 +11335,17 @@ tobago-panel.tobago-collapsed {
 }
 
 /* date -------------------------------------------------------------- */
-.tobago-date-markup-fatal.border-danger:focus, .tobago-date-markup-error.border-danger:focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 0, 190, 0.25);
-}
-.tobago-date-markup-warn.border-warning:focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 0, 190, 0.25);
-}
-.tobago-date-markup-info.border-info:focus {
-  box-shadow: 0 0 0 0.2rem rgba(56, 156, 48, 0.25);
-}
-
 tobago-date {
   display: block;
+}
+tobago-date-markup-fatal.border-danger:focus, tobago-date-markup-error.border-danger:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 0, 190, 0.25);
+}
+tobago-date-markup-warn.border-warning:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 0, 190, 0.25);
+}
+tobago-date-markup-info.border-info:focus {
+  box-shadow: 0 0 0 0.2rem rgba(56, 156, 48, 0.25);
 }
 tobago-date input {
   min-width: 7em;
@@ -11357,11 +11356,6 @@ tobago-date input::-ms-clear {
 }
 tobago-date input:disabled {
   color: rgba(160, 160, 160, 0.5);
-}
-
-/* for pickers with more than one icon, e.g. date-time picker */
-.btn.tobago-date-picker > .fa:nth-child(n+2) {
-  margin-left: 0.3em;
 }
 
 /*
@@ -11519,8 +11513,16 @@ tobago-header.sticky-top {
 }
 
 /* image ----------------------------------------------------------- */
-.tobago-image.disabled {
+tobago-image.disabled {
   filter: grayscale(1) blur(2px) contrast(0.5) brightness(1.2);
+}
+
+tobago-image {
+  display: inline-block;
+}
+tobago-image > img {
+  width: 100%;
+  height: 100%;
 }
 
 /* in ----------------------------------------------------------- */
@@ -11719,10 +11721,10 @@ a.tobago-messages-button, a.tobago-help-button, a.tobago-popover-button {
   padding-right: 0.4em;
 }
 
-.tobago-messages label {
+tobago-messages label {
   display: block;
 }
-.tobago-messages label:last-child {
+tobago-messages label:last-child {
   margin-bottom: 0;
 }
 
@@ -11730,10 +11732,10 @@ tobago-flex-layout.tobago-messages-container > .tobago-input-group-outer, tobago
   flex: 1 0 0px;
 }
 
-.tobago-messages .alert.alert-dismissible {
+tobago-messages .alert.alert-dismissible {
   padding-left: 2.6rem;
 }
-.tobago-messages .alert.alert-dismissible:before {
+tobago-messages .alert.alert-dismissible:before {
   font-family: bootstrap-icons;
   position: absolute;
   left: 0;
@@ -11742,13 +11744,13 @@ tobago-flex-layout.tobago-messages-container > .tobago-input-group-outer, tobago
   width: 2.6rem;
   text-align: center;
 }
-.tobago-messages .alert.alert-dismissible.alert-danger:before {
+tobago-messages .alert.alert-dismissible.alert-danger:before {
   content: "\f622";
 }
-.tobago-messages .alert.alert-dismissible.alert-warning:before {
+tobago-messages .alert.alert-dismissible.alert-warning:before {
   content: "\f33a";
 }
-.tobago-messages .alert.alert-dismissible.alert-info:before {
+tobago-messages .alert.alert-dismissible.alert-info:before {
   content: "\f646";
 }
 

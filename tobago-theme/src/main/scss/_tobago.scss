@@ -165,14 +165,7 @@ tobago-badge {
   background-color: $secondary;
 }
 
-.tobago-badge {
-  // only for unit test
-}
-
 /* bar -------------------------------------------------------------- */
-// todo: remove CSS class
-.tobago-bar {
-}
 
 tobago-bar {
   &.navbar-light .navbar-brand > .tobago-link {
@@ -278,12 +271,10 @@ tobago-panel.tobago-collapsed {
 
 /* date -------------------------------------------------------------- */
 
-// XXX remove me
-.tobago-date {
-  @include markupFatalErrWarnInfo();
-}
-
 tobago-date {
+
+  @include markupFatalErrWarnInfo();
+
   display: block;
 
   input {
@@ -298,11 +289,6 @@ tobago-date {
       color: rgba($input-color, $tobago-form-disabled-alpha);
     }
   }
-}
-
-/* for pickers with more than one icon, e.g. date-time picker */
-.btn.tobago-date-picker > .fa:nth-child(n+2) {
-  margin-left: .3em;
 }
 
 /*
@@ -359,14 +345,7 @@ tobago-dropdown {
 
 /* figure -------------------------------------------------------------- */
 
-.tobago-figure {
-}
-
 /* file -------------------------------------------------------------- */
-.tobago-file {
-}
-
-//TODO remove
 
 tobago-file {
   display: block;
@@ -505,11 +484,17 @@ tobago-header {
 
 /* image ----------------------------------------------------------- */
 
-.tobago-image {
+tobago-image.disabled {
+  filter: grayscale(1) blur(2px) contrast(0.5) brightness(1.2);
 }
 
-.tobago-image.disabled {
-  filter: grayscale(1) blur(2px) contrast(0.5) brightness(1.2);
+tobago-image {
+  display: inline-block;
+
+  > img {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 /* in ----------------------------------------------------------- */
@@ -730,7 +715,7 @@ a.tobago-messages-button, a.tobago-help-button, a.tobago-popover-button {
   padding-right: 0.4em;
 }
 
-.tobago-messages label {
+tobago-messages label {
   display: block;
 
   &:last-child {
@@ -744,7 +729,7 @@ tobago-flex-layout.tobago-messages-container > {
   }
 }
 
-.tobago-messages {
+tobago-messages {
   $alert-icon-padding-x: $alert-padding-x * .8;
   $alert-icon-width: $alert-icon-padding-x + 1rem + $alert-icon-padding-x;
 
@@ -859,10 +844,6 @@ tobago-overlay {
 }
 
 /* page ----------------------------------------------------------- */
-
-// todo: remove
-.tobago-page {
-}
 
 tobago-page {
   display: block;
