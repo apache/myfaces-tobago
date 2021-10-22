@@ -104,8 +104,6 @@ public interface DateTagDeclaration
       "java.time.ZonedDateTime",
       "java.time.Month",
       "java.util.Date",
-      "java.util.Calendar",
-      "java.lang.Long",
       "java.lang.String"
   })
   void setValue(String value);
@@ -121,8 +119,6 @@ public interface DateTagDeclaration
       "java.time.ZonedDateTime",
       "java.time.Month",
       "java.util.Date",
-      "java.util.Calendar",
-      "java.lang.Long",
       "java.lang.String"
   })
   void setMin(String min);
@@ -138,8 +134,6 @@ public interface DateTagDeclaration
       "java.time.ZonedDateTime",
       "java.time.Month",
       "java.util.Date",
-      "java.util.Calendar",
-      "java.lang.Long",
       "java.lang.String"
   })
   void setMax(String max);
