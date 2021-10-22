@@ -36,7 +36,7 @@ import java.io.IOException;
 public class ButtonRenderer<T extends AbstractUIButton> extends CommandRendererBase<T> {
 
   @Override
-  protected TobagoClass getRendererCssClass() {
+  protected CssItem getRendererCssClass() {
     return TobagoClass.BUTTON;
   }
 

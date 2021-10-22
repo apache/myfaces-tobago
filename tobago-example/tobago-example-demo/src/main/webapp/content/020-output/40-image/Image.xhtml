@@ -49,13 +49,24 @@
       <tc:image id="i4" disabled="true" value="#{request.contextPath}/image/alps.png"/>
     </tc:section>
   </tc:section>
-  <tc:section label="Font Awesome">
-    <p>
-      todo doc: font awesome  not longer shipped with Tobago. But now Bootstrap Icons.
-      stil integratable... manually
-    </p>
-    <demo-highlight language="markup">&lt;tc:image id="fa" value="fa-coffee"/&gt;</demo-highlight>
-    FA: <tc:image id="fa" value="fa-coffee"/> -
-    BI: <tc:image id="bi" value="bi-emoji-smile"/>
+  <tc:section label="Using Font Icons">
+    <tc:section label="Bootstrap Icons">
+      <p>
+        Since Tobago 5
+        <tc:link link="https://icons.getbootstrap.com/" label="Bootstrap Icons" image="bi-box-arrow-up-right"/>
+        is shipped with Tobago.
+      </p>
+      <demo-highlight language="markup">&lt;tc:image id="bi" value="bi-emoji-smile"/&gt;</demo-highlight>
+      Example: <tc:image id="bi" value="bi-emoji-smile"/>
+    </tc:section>
+    <tc:section label="Font Awesome">
+      <p>
+        <tc:link link="https://fontawesome.com/" label="Font Awesome" image="bi-box-arrow-up-right"/>
+        is not longer shipped with Tobago.
+        But it is stil integratable, like in this demo. You need to add the resources manually.
+      </p>
+      <demo-highlight language="markup">&lt;tc:image id="fa" value="fa-coffee"/&gt;</demo-highlight>
+      Example: <tc:image id="fa" value="fa-coffee"/>
+    </tc:section>
   </tc:section>
 </ui:composition>
