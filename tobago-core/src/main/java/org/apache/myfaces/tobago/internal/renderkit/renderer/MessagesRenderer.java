@@ -19,12 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMessages;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -74,10 +72,7 @@ public class MessagesRenderer<T extends AbstractUIMessages> extends RendererBase
 
     writer.startElement(HtmlElements.TOBAGO_MESSAGES);
     writer.writeIdAttribute(component.getClientId(facesContext));
-    final Markup markup = component.getMarkup();
-    writer.writeClassAttribute(
-        TobagoClass.MESSAGES,
-        component.getCustomClass());
+    writer.writeClassAttribute(component.getCustomClass());
 
     FacesMessage.Severity lastSeverity = null;
     boolean first = true;
@@ -105,7 +100,7 @@ public class MessagesRenderer<T extends AbstractUIMessages> extends RendererBase
         writer.endElement(HtmlElements.BUTTON);
       }
 
-      encodeMessage(writer, component, message, item.getClientId());
+      encodeMessage(writer, component, message, item.getForId());
 
       lastSeverity = severity;
       first = false;
@@ -140,7 +135,7 @@ public class MessagesRenderer<T extends AbstractUIMessages> extends RendererBase
 
   private void encodeMessage(
       final TobagoResponseWriter writer, final AbstractUIMessages messages, final FacesMessage message,
-      final String clientId)
+      final String forId)
       throws IOException {
 
     final String summary = message.getSummary();
@@ -148,9 +143,7 @@ public class MessagesRenderer<T extends AbstractUIMessages> extends RendererBase
     final boolean showSummary = summary != null && messages.isShowSummary() && summary.length() > 0;
     final boolean showDetails = detail != null && messages.isShowDetail() && detail.length() > 0;
     writer.startElement(HtmlElements.LABEL);
-    if (clientId != null) {
-      writer.writeAttribute(HtmlAttributes.FOR, clientId, false);
-    }
+    writer.writeAttribute(HtmlAttributes.FOR, forId, false);
     writer.writeAttribute(HtmlAttributes.TITLE, detail, true);
 
     if (showSummary && showDetails && !summary.equals(detail)) {
