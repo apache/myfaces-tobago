@@ -26,6 +26,7 @@ import org.apache.myfaces.test.mock.MockHttpServletRequest;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIBadge;
+import org.apache.myfaces.tobago.component.UIBar;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UIButtons;
@@ -60,6 +61,7 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.BadgeRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.BarRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.BoxRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.ButtonRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.ButtonsRenderer;
@@ -147,6 +149,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
 
     // XXX is there a better way? Get it from Tobagos generated faces-config.xml?
     application.addComponent(Tags.badge.componentType(), UIBadge.class.getName());
+    application.addComponent(Tags.bar.componentType(), UIBar.class.getName());
     application.addComponent(Tags.box.componentType(), UIBox.class.getName());
     application.addComponent(Tags.button.componentType(), UIButton.class.getName());
     application.addComponent(Tags.buttons.componentType(), UIButtons.class.getName());
@@ -186,6 +189,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
 
     final RenderKit renderKit = facesContext.getRenderKit();
     renderKit.addRenderer(UIBadge.COMPONENT_FAMILY, RendererTypes.BADGE, new BadgeRenderer());
+    renderKit.addRenderer(UIBar.COMPONENT_FAMILY, RendererTypes.BAR, new BarRenderer());
     renderKit.addRenderer(UIBox.COMPONENT_FAMILY, RendererTypes.BOX, new BoxRenderer());
     renderKit.addRenderer(UIButton.COMPONENT_FAMILY, RendererTypes.BUTTON, new ButtonRenderer());
     renderKit.addRenderer(UIButtons.COMPONENT_FAMILY, RendererTypes.BUTTONS, new ButtonsRenderer());
