@@ -121,6 +121,7 @@
                     <artifactId>jakarta.el</artifactId>
                 </exclusion>
             <!-- tomcat version set where: fix CVE in tomcat-spring-boot-starter -->
+<!--
                 <exclusion>
                     <groupId>org.apache.tomcat.embed</groupId>
                     <artifactId>tomcat-embed-core</artifactId>
@@ -133,9 +134,11 @@
                     <groupId>org.apache.tomcat.embed</groupId>
                     <artifactId>tomcat-embed-websocket</artifactId>
                 </exclusion>
+-->
             </exclusions>
         </dependency>
         <!-- tomcat version set where: fix CVE in tomcat-spring-boot-starter -->
+<!--
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
@@ -151,6 +154,7 @@
             <artifactId>tomcat-embed-websocket</artifactId>
             <version>9.0.54</version>
         </dependency>
+-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
