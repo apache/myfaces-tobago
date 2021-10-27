@@ -72,7 +72,6 @@ public class TreeListboxRenderer<T extends AbstractUITreeListbox> extends Render
 
     writer.startElement(HtmlElements.TOBAGO_TREE_LISTBOX);
     writer.writeIdAttribute(clientId);
-    writer.writeClassAttribute(TobagoClass.TREE_LISTBOX);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeAttribute(DataAttributes.SELECTION_MODE, component.getSelectable().name(), false);
 
@@ -99,7 +98,7 @@ public class TreeListboxRenderer<T extends AbstractUITreeListbox> extends Render
     for (int level = 0; level < depth; level++) {
 
       writer.startElement(HtmlElements.DIV);
-      writer.writeClassAttribute(TobagoClass.TREE_LISTBOX__LEVEL);
+      writer.writeClassAttribute(TobagoClass.LEVEL);
 //      final Style levelStyle = new Style();
 //      levelStyle.setLeft(width.multiply(level));
 //      levelStyle.setWidth(width);
@@ -110,7 +109,7 @@ public class TreeListboxRenderer<T extends AbstractUITreeListbox> extends Render
         writer.startElement(HtmlElements.SELECT);
         writer.writeAttribute(HtmlAttributes.DISABLED, true);
         writer.writeAttribute(HtmlAttributes.SIZE, size);
-        writer.writeClassAttribute(TobagoClass.TREE_LISTBOX__SELECT);
+        writer.writeClassAttribute(TobagoClass.SELECTED);
         writer.endElement(HtmlElements.SELECT);
       }
 
@@ -142,7 +141,7 @@ public class TreeListboxRenderer<T extends AbstractUITreeListbox> extends Render
     final String parentId = node.getClientId(facesContext);
 
     writer.startElement(HtmlElements.SELECT);
-    writer.writeClassAttribute(TobagoClass.TREE_LISTBOX__SELECT);
+    writer.writeClassAttribute(TobagoClass.SELECTED);
     writer.writeIdAttribute(parentId + SUB_SEPARATOR + AbstractUITree.SUFFIX_PARENT);
 
     writer.writeAttribute(HtmlAttributes.SIZE, size);
