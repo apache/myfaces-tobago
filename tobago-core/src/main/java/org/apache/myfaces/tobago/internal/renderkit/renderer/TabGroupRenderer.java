@@ -244,7 +244,7 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
           writer.writeIdAttribute(tabId);
           writer.writeClassAttribute(
               BootstrapClass.NAV_ITEM,
-              barFacet != null ? TobagoClass.TAB__BAR_FACET : null,
+              barFacet != null ? TobagoClass.BAR : null,
               tab.getCustomClass());
           writer.writeAttribute(HtmlAttributes.FOR, tabGroupClientId, true);
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
@@ -333,18 +333,18 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
         if (tab.isRendered() && (switchType == SwitchType.client || index == selectedIndex) && !tab.isDisabled()) {
           final Markup markup = tab.getMarkup();
 
-          writer.startElement(HtmlElements.TOBAGO_TAB_CONTENT);
+          writer.startElement(HtmlElements.DIV);
           writer.writeClassAttribute(
               BootstrapClass.TAB_PANE,
               index == selectedIndex ? BootstrapClass.ACTIVE : null);
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TABPANEL.toString(), false);
           writer.writeIdAttribute(getTabPanelId(facesContext, tab));
 
-          writer.writeAttribute(CustomAttributes.INDEX, index);
+          writer.writeAttribute(DataAttributes.INDEX, index);
 
           tab.encodeAll(facesContext);
 
-          writer.endElement(HtmlElements.TOBAGO_TAB_CONTENT);
+          writer.endElement(HtmlElements.DIV);
         }
         index++;
       }

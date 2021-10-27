@@ -100,23 +100,11 @@ export class Tab extends HTMLElement {
 
   get content(): HTMLElement {
     return this.closest("tobago-tab-group")
-        .querySelector(`:scope > .card-body.tab-content > .tab-pane[index='${this.index}']`);
-  }
-}
-
-export class TabContent extends HTMLElement {
-
-  constructor() {
-    super();
-  }
-
-  get index(): number {
-    return parseInt(this.getAttribute("index"));
+        .querySelector(`:scope > .card-body.tab-content > .tab-pane[data-index='${this.index}']`);
   }
 }
 
 document.addEventListener("DOMContentLoaded", function (event: Event): void {
   window.customElements.define("tobago-tab", Tab);
-  window.customElements.define("tobago-tab-content", TabContent);
   window.customElements.define("tobago-tab-group", TabGroup);
 });
