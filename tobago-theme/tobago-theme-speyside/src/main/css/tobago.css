@@ -12125,31 +12125,31 @@ tobago-tab .nav-link:not([href]):not([tabindex]).disabled:focus, tobago-tab .nav
   color: #d7d7d7;
 }
 
-tobago-tab.tobago-tab-barFacet {
+tobago-tab.tobago-bar {
   display: flex;
 }
-tobago-tab.tobago-tab-barFacet > .nav-link {
+tobago-tab.tobago-bar > .nav-link {
   border-right: 0;
   border-top-right-radius: 0;
 }
-tobago-tab.tobago-tab-barFacet > div {
+tobago-tab.tobago-bar > div {
   border: white solid transparent;
   border-top-right-radius: 0.25rem;
   padding-right: 1rem;
 }
-tobago-tab.tobago-tab-barFacet > div > button {
+tobago-tab.tobago-bar > div > button {
   height: 100%;
 }
-tobago-tab.tobago-tab-barFacet > div > a {
+tobago-tab.tobago-bar > div > a {
   display: inline-block;
   padding-top: 0.5rem;
 }
-tobago-tab.tobago-tab-barFacet .nav-link.active + div {
+tobago-tab.tobago-bar .nav-link.active + div {
   background-color: white;
   border-top-color: white;
   border-right-color: white;
 }
-tobago-tab.tobago-tab-barFacet .nav-link:not(.disabled):hover + div {
+tobago-tab.tobago-bar .nav-link:not(.disabled):hover + div {
   border-top-color: #e3e4e5;
   border-right-color: #e3e4e5;
 }
@@ -12159,11 +12159,6 @@ tobago-tab-group tobago-tab > .nav-link > img + span {
 }
 tobago-tab-group tobago-tab > .nav-link > i + span {
   margin-left: 0.4em;
-}
-
-/* FIXME: This is to hide the toolbar, until it is implemented */
-.tobago-tabGroup-toolBar {
-  display: none;
 }
 
 /* tree ---------------------------------------------------------------------- */
@@ -12908,7 +12903,7 @@ tobago-tab .nav-link:not([href]):not([tabindex]):not(.active):not(.disabled):hov
   color: #d90;
 }
 
-tobago-tab.tobago-tab-barFacet .nav-link.disabled + div {
+tobago-tab.tobago-bar .nav-link.disabled + div {
   background-color: #f7f7f7;
 }
 

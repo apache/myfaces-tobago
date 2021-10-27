@@ -10626,20 +10626,11 @@ Type: ${data.type}`);
       }
       get content() {
           return this.closest("tobago-tab-group")
-              .querySelector(`:scope > .card-body.tab-content > .tab-pane[index='${this.index}']`);
-      }
-  }
-  class TabContent extends HTMLElement {
-      constructor() {
-          super();
-      }
-      get index() {
-          return parseInt(this.getAttribute("index"));
+              .querySelector(`:scope > .card-body.tab-content > .tab-pane[data-index='${this.index}']`);
       }
   }
   document.addEventListener("DOMContentLoaded", function (event) {
       window.customElements.define("tobago-tab", Tab);
-      window.customElements.define("tobago-tab-content", TabContent);
       window.customElements.define("tobago-tab-group", TabGroup);
   });
 

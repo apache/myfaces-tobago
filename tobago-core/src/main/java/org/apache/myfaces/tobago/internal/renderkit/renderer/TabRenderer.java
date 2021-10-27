@@ -19,9 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.internal.component.AbstractUITab;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
-public class TabRenderer extends RendererBase {
+public class TabRenderer<T extends AbstractUITab> extends RendererBase<T> {
 
   @Override
   public boolean getRendersChildren() {

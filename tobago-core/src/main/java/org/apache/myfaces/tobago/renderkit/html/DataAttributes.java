@@ -80,6 +80,11 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   FIRST_DAY_OF_WEEK("data-tobago-first-day-of-week"),
 
   /**
+   * Defines e.g. the index of a tab inside a tab group.
+   */
+  INDEX("data-index"),
+
+  /**
    * Defines a maximum value.
    */
   LAYOUT("data-tobago-layout"),
