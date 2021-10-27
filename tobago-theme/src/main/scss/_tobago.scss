@@ -1431,8 +1431,6 @@ tobago-split-layout {
 }
 
 /* tab / tab-group ----------------------------------------------------------------- */
-.tobago-tabGroup, .tobago-tab, .tobago-tab-content {
-}
 
 tobago-tab {
 
@@ -1463,7 +1461,7 @@ tobago-tab {
   }
 }
 
-tobago-tab.tobago-tab-barFacet {
+tobago-tab.tobago-bar {
   display: flex;
 
   > .nav-link {
@@ -1504,11 +1502,6 @@ tobago-tab-group {
       @include buttonLinkImageTextSpacing();
     }
   }
-}
-
-/* FIXME: This is to hide the toolbar, until it is implemented */
-.tobago-tabGroup-toolBar {
-  display: none;
 }
 
 /* tree ---------------------------------------------------------------------- */

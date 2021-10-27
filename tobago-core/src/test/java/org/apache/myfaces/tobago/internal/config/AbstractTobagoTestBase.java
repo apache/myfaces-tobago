@@ -52,6 +52,8 @@ import org.apache.myfaces.tobago.component.UISelectOneRadio;
 import org.apache.myfaces.tobago.component.UISelectReference;
 import org.apache.myfaces.tobago.component.UISeparator;
 import org.apache.myfaces.tobago.component.UIStyle;
+import org.apache.myfaces.tobago.component.UITab;
+import org.apache.myfaces.tobago.component.UITabGroup;
 import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeIndent;
@@ -86,6 +88,8 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectOneRadioRende
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectReferenceRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SeparatorRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.StyleRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.TabGroupRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.TabRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TextareaRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TreeIndentRenderer;
@@ -175,6 +179,8 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.selectReference.componentType(), UISelectReference.class.getName());
     application.addComponent(Tags.separator.componentType(), UISeparator.class.getName());
     application.addComponent(Tags.style.componentType(), UIStyle.class.getName());
+    application.addComponent(Tags.tab.componentType(), UITab.class.getName());
+    application.addComponent(Tags.tabGroup.componentType(), UITabGroup.class.getName());
     application.addComponent(Tags.textarea.componentType(), UITextarea.class.getName());
     application.addComponent(Tags.tree.componentType(), UITree.class.getName());
     application.addComponent(Tags.treeNode.componentType(), UITreeNode.class.getName());
@@ -223,6 +229,8 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
         UISelectReference.COMPONENT_FAMILY, RendererTypes.SELECT_REFERENCE, new SelectReferenceRenderer());
     renderKit.addRenderer(UISeparator.COMPONENT_FAMILY, RendererTypes.SEPARATOR, new SeparatorRenderer());
     renderKit.addRenderer(UIStyle.COMPONENT_FAMILY, RendererTypes.STYLE, new StyleRenderer());
+    renderKit.addRenderer(UITab.COMPONENT_FAMILY, RendererTypes.TAB, new TabRenderer<UITab>());
+    renderKit.addRenderer(UITabGroup.COMPONENT_FAMILY, RendererTypes.TAB_GROUP, new TabGroupRenderer<UITabGroup>());
     renderKit.addRenderer(UITextarea.COMPONENT_FAMILY, RendererTypes.TEXTAREA, new TextareaRenderer());
     renderKit.addRenderer(UITree.COMPONENT_FAMILY, RendererTypes.TREE, new TreeRenderer());
     renderKit.addRenderer(UITreeNode.COMPONENT_FAMILY, RendererTypes.TREE_NODE, new TreeNodeRenderer());

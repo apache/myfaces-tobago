@@ -180,7 +180,6 @@ public enum HtmlElements {
   TOBAGO_STARS("tobago-stars"),
   TOBAGO_SUGGEST("tobago-suggest"),
   TOBAGO_TAB("tobago-tab"),
-  TOBAGO_TAB_CONTENT("tobago-tab-content"),
   TOBAGO_TAB_GROUP("tobago-tab-group"),
   TOBAGO_TEXTAREA("tobago-textarea"),
   TOBAGO_TREE("tobago-tree"),
