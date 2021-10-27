@@ -11361,14 +11361,14 @@ tobago-panel.tobago-collapsed {
 tobago-date {
   display: block;
 }
-tobago-date-markup-fatal.border-danger:focus, tobago-date-markup-error.border-danger:focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 178, 67, 0.25);
+tobago-date.border-danger:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 178, 67, 0.25);
 }
-tobago-date-markup-warn.border-warning:focus {
-  box-shadow: 0 0 0 0.2rem rgba(178, 104, 18, 0.25);
+tobago-date.border-warning:focus {
+  box-shadow: 0 0 0 0.25rem rgba(178, 104, 18, 0.25);
 }
-tobago-date-markup-info.border-info:focus {
-  box-shadow: 0 0 0 0.2rem rgba(19, 14, 143, 0.25);
+tobago-date.border-info:focus {
+  box-shadow: 0 0 0 0.25rem rgba(19, 14, 143, 0.25);
 }
 tobago-date input {
   min-width: 7em;
@@ -11470,11 +11470,11 @@ tobago-flex-layout > tobago-flex-layout {
   width: 155px;
 }
 .tobago-label-container > .form-control, .tobago-label-container > .form-control-plaintext,
-.tobago-label-container > .tobago-input-group-outer, .tobago-label-container > .tobago-messages-container,
+.tobago-label-container > .input-group, .tobago-label-container > .tobago-messages-container,
 .tobago-label-container > .tobago-selectManyShuttle {
   flex: 1 0 0px;
 }
-.tobago-label-container > .tobago-messages-container .tobago-input-group-outer, .tobago-label-container > .tobago-messages-container .tobago-selectManyShuttle {
+.tobago-label-container > .tobago-messages-container .tobago-selectManyShuttle {
   flex: 1 0 0px;
 }
 .tobago-label-container > .form-check {
@@ -11552,6 +11552,18 @@ tobago-image > img {
 tobago-in {
   display: block;
 }
+tobago-in input[type=text].border-danger:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 178, 67, 0.25);
+}
+tobago-in input[type=text].border-warning:focus {
+  box-shadow: 0 0 0 0.25rem rgba(178, 104, 18, 0.25);
+}
+tobago-in input[type=text].border-info:focus {
+  box-shadow: 0 0 0 0.25rem rgba(19, 14, 143, 0.25);
+}
+tobago-in input[type=text]:disabled {
+  color: rgba(160, 160, 160, 0.5);
+}
 tobago-in .input-group > tobago-dropdown {
   /* fix corner styling, because tobago-dropdown use a surrounding container inside an input group */
 }
@@ -11604,19 +11616,6 @@ tobago-in tobago-suggest {
     transform: translateY(-50%) rotate(359deg);
   }
 }
-.tobago-in-markup-fatal.border-danger:focus, .tobago-in-markup-error.border-danger:focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 178, 67, 0.25);
-}
-.tobago-in-markup-warn.border-warning:focus {
-  box-shadow: 0 0 0 0.2rem rgba(178, 104, 18, 0.25);
-}
-.tobago-in-markup-info.border-info:focus {
-  box-shadow: 0 0 0 0.2rem rgba(19, 14, 143, 0.25);
-}
-.tobago-in:disabled {
-  color: rgba(160, 160, 160, 0.5);
-}
-
 .tobago-in-markup-number {
   text-align: right;
 }
@@ -11749,10 +11748,6 @@ tobago-messages label {
 }
 tobago-messages label:last-child {
   margin-bottom: 0;
-}
-
-tobago-flex-layout.tobago-messages-container > .tobago-input-group-outer, tobago-flex-layout.tobago-messages-container > .tobago-selectManyShuttle {
-  flex: 1 0 0px;
 }
 
 tobago-messages .alert.alert-dismissible {
@@ -12070,14 +12065,14 @@ tobago-select-boolean-toggle .form-check-label img {
 
 /* selectOneChoice --------------------------------------------------------- */
 /* selectOneListbox -------------------------------------------------------- */
-.tobago-selectOneListbox-markup-fatal.border-danger:focus, .tobago-selectOneListbox-markup-error.border-danger:focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 178, 67, 0.25);
+.tobago-selectOneListbox.border-danger:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 178, 67, 0.25);
 }
-.tobago-selectOneListbox-markup-warn.border-warning:focus {
-  box-shadow: 0 0 0 0.2rem rgba(178, 104, 18, 0.25);
+.tobago-selectOneListbox.border-warning:focus {
+  box-shadow: 0 0 0 0.25rem rgba(178, 104, 18, 0.25);
 }
-.tobago-selectOneListbox-markup-info.border-info:focus {
-  box-shadow: 0 0 0 0.2rem rgba(19, 14, 143, 0.25);
+.tobago-selectOneListbox.border-info:focus {
+  box-shadow: 0 0 0 0.25rem rgba(19, 14, 143, 0.25);
 }
 
 tobago-select-one-listbox {
@@ -12115,14 +12110,14 @@ tobago-select-many-checkbox.tobago-label-container .form-check-inline {
 }
 
 /* selectManyListbox ----------------------------------------------------------- */
-.tobago-selectManyListbox-markup-fatal.border-danger:focus, .tobago-selectManyListbox-markup-error.border-danger:focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 178, 67, 0.25);
+.tobago-selectManyListbox.border-danger:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 178, 67, 0.25);
 }
-.tobago-selectManyListbox-markup-warn.border-warning:focus {
-  box-shadow: 0 0 0 0.2rem rgba(178, 104, 18, 0.25);
+.tobago-selectManyListbox.border-warning:focus {
+  box-shadow: 0 0 0 0.25rem rgba(178, 104, 18, 0.25);
 }
-.tobago-selectManyListbox-markup-info.border-info:focus {
-  box-shadow: 0 0 0 0.2rem rgba(19, 14, 143, 0.25);
+.tobago-selectManyListbox.border-info:focus {
+  box-shadow: 0 0 0 0.25rem rgba(19, 14, 143, 0.25);
 }
 
 /* selectManyShuttle ----------------------------------------------------------- */
@@ -12584,14 +12579,14 @@ tobago-tree-listbox .tobago-treeListbox-select, .tobago-treeListbox .tobago-tree
 }
 
 /* textarea --------------------------------------------------------- */
-tobago-textarea textarea-markup-fatal.border-danger:focus, tobago-textarea textarea-markup-error.border-danger:focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 178, 67, 0.25);
+tobago-textarea textarea.border-danger:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 178, 67, 0.25);
 }
-tobago-textarea textarea-markup-warn.border-warning:focus {
-  box-shadow: 0 0 0 0.2rem rgba(178, 104, 18, 0.25);
+tobago-textarea textarea.border-warning:focus {
+  box-shadow: 0 0 0 0.25rem rgba(178, 104, 18, 0.25);
 }
-tobago-textarea textarea-markup-info.border-info:focus {
-  box-shadow: 0 0 0 0.2rem rgba(19, 14, 143, 0.25);
+tobago-textarea textarea.border-info:focus {
+  box-shadow: 0 0 0 0.25rem rgba(19, 14, 143, 0.25);
 }
 tobago-textarea textarea:disabled {
   color: rgba(160, 160, 160, 0.5);
