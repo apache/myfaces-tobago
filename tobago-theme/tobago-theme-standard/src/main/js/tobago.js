@@ -9398,25 +9398,25 @@
           this.dispatchEvent(new Event("change"));
       }
       get unselectedSelect() {
-          return this.querySelector(".tobago-selectManyShuttle-unselected");
+          return this.querySelector(".tobago-unselected");
       }
       get selectedSelect() {
-          return this.querySelector(".tobago-selectManyShuttle-selected");
+          return this.querySelector(".tobago-selected");
       }
       get hiddenSelect() {
-          return this.querySelector(".tobago-selectManyShuttle-hidden");
+          return this.querySelector("select.d-none");
       }
       get addAllButton() {
-          return this.querySelector(".tobago-selectManyShuttle-addAll");
+          return this.querySelector(".btn-group-vertical button:nth-child(1)");
       }
       get addButton() {
-          return this.querySelector(".tobago-selectManyShuttle-add");
+          return this.querySelector(".btn-group-vertical button:nth-child(2)");
       }
       get removeButton() {
-          return this.querySelector(".tobago-selectManyShuttle-remove");
+          return this.querySelector(".btn-group-vertical button:nth-child(3)");
       }
       get removeAllButton() {
-          return this.querySelector(".tobago-selectManyShuttle-removeAll");
+          return this.querySelector(".btn-group-vertical button:nth-child(4)");
       }
   }
   document.addEventListener("tobago.init", function (event) {
