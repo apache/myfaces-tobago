@@ -32,7 +32,7 @@ it("Collapse tree", function (done) {
   let row1periodFn = querySelectorFn("#page\\:mainForm\\:sheet\\:1\\:periodOut");
   let row1discovererFn = querySelectorFn("#page\\:mainForm\\:sheet\\:1\\:discovererOut");
   let row1yearFn = querySelectorFn("#page\\:mainForm\\:sheet\\:1\\:yearOut");
-  let rootTreeButtonFn = querySelectorFn("#page\\:mainForm\\:sheet\\:0\\:nameCol .tobago-treeNode-toggle");
+  let rootTreeButtonFn = querySelectorFn("#page\\:mainForm\\:sheet\\:0\\:nameCol .tobago-toggle");
 
   let test = new JasmineTestTool(done);
   test.do(() => expect(row0nameFn().textContent).toBe("Sun"));

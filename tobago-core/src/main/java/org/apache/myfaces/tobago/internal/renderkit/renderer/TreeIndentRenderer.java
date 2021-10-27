@@ -61,7 +61,7 @@ public class TreeIndentRenderer<T extends AbstractUITreeIndent> extends Renderer
     writer.writeIdAttribute(component.getClientId(facesContext));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeClassAttribute(
-        TobagoClass.TREE_NODE__TOGGLE,
+        TobagoClass.TOGGLE,
         !folder ? BootstrapClass.INVISIBLE : null,
         component.getCustomClass());
 

@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.ClientBehaviors;
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
@@ -33,7 +32,6 @@ import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -107,20 +105,18 @@ public class TreeSelectRenderer<T extends AbstractUITreeSelect> extends Renderer
 
     final boolean folder = data.isFolder();
     final Selectable selectable = data.getSelectable();
-    final boolean showCustomControl = component.isShowCheckbox()
+    final boolean showFormCheck = component.isShowCheckbox()
         && selectable != Selectable.none && (!selectable.isLeafOnly() || !folder);
 
     writer.startElement(HtmlElements.TOBAGO_TREE_SELECT);
-    final Markup markup = component.getMarkup();
     writer.writeClassAttribute(
         component.getCustomClass(),
-        // TODO: check rendered page for other selectables. Are them looking good?
-        showCustomControl ? BootstrapClass.FORM_CHECK_INLINE : null,
-        showCustomControl && selectable.isMulti() ? BootstrapClass.FORM_CHECK : null,
-        showCustomControl && selectable.isSingle() ? BootstrapClass.FORM_CHECK : null);
+        showFormCheck ? BootstrapClass.FORM_CHECK_INLINE : null,
+        showFormCheck && selectable.isMulti() ? BootstrapClass.FORM_CHECK : null,
+        showFormCheck && selectable.isSingle() ? BootstrapClass.FORM_CHECK : null);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
-    if (showCustomControl) {
+    if (showFormCheck) {
       writer.startElement(HtmlElements.INPUT);
       writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
       if (selectable.isSingle()) {
@@ -140,8 +136,7 @@ public class TreeSelectRenderer<T extends AbstractUITreeSelect> extends Renderer
 
     final String label = component.getLabel();
     writer.startElement(HtmlElements.LABEL);
-    writer.writeClassAttribute(TobagoClass.TREE_SELECT__LABEL,
-        showCustomControl ? BootstrapClass.FORM_CHECK_LABEL : null);
+    writer.writeClassAttribute(showFormCheck ? BootstrapClass.FORM_CHECK_LABEL : null);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
@@ -150,7 +145,7 @@ public class TreeSelectRenderer<T extends AbstractUITreeSelect> extends Renderer
     writer.writeText(label);
     writer.endElement(HtmlElements.LABEL);
 
-    if (showCustomControl) {
+    if (showFormCheck) {
       final CommandMap behaviorCommands = getBehaviorCommands(facesContext, component);
       if (behaviorCommands != null) {
         Map<ClientBehaviors, Command> other = behaviorCommands.getOther();

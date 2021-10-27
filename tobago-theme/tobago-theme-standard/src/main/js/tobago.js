@@ -11052,13 +11052,13 @@ Type: ${data.type}`);
           }
       }
       get toggles() {
-          return this.querySelectorAll(".tobago-treeNode-toggle");
+          return this.querySelectorAll(".tobago-toggle");
       }
       get icons() {
-          return this.querySelectorAll(".tobago-treeNode-toggle i");
+          return this.querySelectorAll(".tobago-toggle i");
       }
       get images() {
-          return this.querySelectorAll(".tobago-treeNode-toggle img");
+          return this.querySelectorAll(".tobago-toggle img");
       }
       get index() {
           return Number(this.getAttribute("index"));
