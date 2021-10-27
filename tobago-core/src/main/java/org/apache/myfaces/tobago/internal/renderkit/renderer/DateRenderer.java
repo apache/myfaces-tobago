@@ -86,9 +86,6 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(TobagoClass.INPUT__GROUP__OUTER);
-
-    writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
 
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, date);
@@ -182,7 +179,6 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
   @Override
   public void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
   }
 

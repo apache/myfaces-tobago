@@ -113,23 +113,17 @@ $tobago-flex-layout-spacing: 0.5rem;
   }
 }
 
-@mixin markupFatalErrWarnInfo() {
-  &-markup-fatal, &-markup-error {
-    &.border-danger:focus {
-      box-shadow: 0 0 0 .2rem rgba($danger, .25);
-    }
+@mixin messageShadow() {
+  &.border-danger:focus {
+    box-shadow: 0 0 $input-btn-focus-blur $input-focus-width rgba($danger, $input-btn-focus-color-opacity);
   }
 
-  &-markup-warn {
-    &.border-warning:focus {
-      box-shadow: 0 0 0 .2rem rgba($warning, .25);
-    }
+  &.border-warning:focus {
+    box-shadow: 0 0 $input-btn-focus-blur $input-focus-width rgba($warning, $input-btn-focus-color-opacity);
   }
 
-  &-markup-info {
-    &.border-info:focus {
-      box-shadow: 0 0 0 .2rem rgba($info, .25);
-    }
+  &.border-info:focus {
+    box-shadow: 0 0 $input-btn-focus-blur $input-focus-width rgba($info, $input-btn-focus-color-opacity);
   }
 }
 
@@ -273,7 +267,7 @@ tobago-panel.tobago-collapsed {
 
 tobago-date {
 
-  @include markupFatalErrWarnInfo();
+  @include messageShadow();
 
   display: block;
 
@@ -398,14 +392,14 @@ tobago-flex-layout {
 
   > {
     .form-control, .form-control-plaintext,
-    .tobago-input-group-outer, .tobago-messages-container,
+    .input-group, .tobago-messages-container,
     .tobago-selectManyShuttle {
       flex: 1 0 0px;
     }
   }
 
   > .tobago-messages-container {
-    .tobago-input-group-outer, .tobago-selectManyShuttle {
+    .tobago-selectManyShuttle {
       flex: 1 0 0px;
     }
   }
@@ -501,6 +495,14 @@ tobago-image {
 tobago-in {
   display: block;
 
+  input[type='text'] {
+    @include messageShadow();
+
+    &:disabled {
+      color: rgba($input-color, $tobago-form-disabled-alpha);
+    }
+  }
+
   .input-group {
 
     > tobago-dropdown {
@@ -565,19 +567,8 @@ tobago-in {
   }
 }
 
-.tobago-in {
-  @include markupFatalErrWarnInfo();
-
-  &:disabled {
-    color: rgba($input-color, $tobago-form-disabled-alpha);
-  }
-}
-
 .tobago-in-markup-number {
   text-align: right;
-}
-
-.tobago-input-group-outer {
 }
 
 .autocomplete-result-list {
@@ -720,12 +711,6 @@ tobago-messages label {
 
   &:last-child {
     margin-bottom: 0;
-  }
-}
-
-tobago-flex-layout.tobago-messages-container > {
-  .tobago-input-group-outer, .tobago-selectManyShuttle {
-    flex: 1 0 0px;
   }
 }
 
@@ -1115,7 +1100,7 @@ tobago-select-one-choice {
 
 //xxx remove me
 .tobago-selectOneListbox {
-  @include markupFatalErrWarnInfo();
+  @include messageShadow();
 }
 
 //xxx remove me
@@ -1163,7 +1148,7 @@ tobago-select-many-listbox {
 }
 
 .tobago-selectManyListbox {
-  @include markupFatalErrWarnInfo();
+  @include messageShadow();
 }
 
 /* selectManyShuttle ----------------------------------------------------------- */
@@ -1575,7 +1560,7 @@ tobago-tree-listbox, .tobago-treeListbox {
 
 /* textarea --------------------------------------------------------- */
 tobago-textarea textarea {
-  @include markupFatalErrWarnInfo();
+  @include messageShadow();
 
   &:disabled {
     color: rgba($input-color, $tobago-form-disabled-alpha);

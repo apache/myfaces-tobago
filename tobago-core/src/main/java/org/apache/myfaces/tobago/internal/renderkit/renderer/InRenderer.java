@@ -19,6 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.LengthValidator;
+import jakarta.faces.validator.RegexValidator;
+import jakarta.faces.validator.Validator;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
@@ -30,8 +35,6 @@ import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -40,11 +43,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.validator.LengthValidator;
-import jakarta.faces.validator.RegexValidator;
-import jakarta.faces.validator.Validator;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 
@@ -96,8 +94,6 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
     final UIComponent before = ComponentUtils.getFacet(component, Facets.before);
 
     if (after != null || before != null) {
-      writer.startElement(HtmlElements.DIV); // Wrapping the field to fix input groups with flexLeft/flexRight
-      writer.writeClassAttribute(TobagoClass.INPUT__GROUP__OUTER);
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
     }
@@ -148,7 +144,6 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
     }
 
     writer.writeClassAttribute(
-        getRendererCssClass(),
         BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
         BootstrapClass.FORM_CONTROL,
         component.getCustomClass());
@@ -163,7 +158,6 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
     encodeGroupAddon(facesContext, writer, after, true);
 
     if (after != null || before != null) {
-      writer.endElement(HtmlElements.DIV);
       writer.endElement(HtmlElements.DIV);
     }
   }
@@ -192,10 +186,6 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
 
   @Override
   protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
-  }
-
-  protected CssItem getRendererCssClass() {
-    return TobagoClass.IN;
   }
 
   @Override

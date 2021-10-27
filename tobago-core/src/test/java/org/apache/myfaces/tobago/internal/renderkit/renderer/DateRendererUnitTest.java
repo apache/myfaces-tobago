@@ -19,6 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.DateTimeConverter;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIDate;
@@ -29,8 +32,6 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jakarta.faces.convert.Converter;
-import jakarta.faces.convert.DateTimeConverter;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.text.ParseException;
@@ -243,6 +244,32 @@ public class DateRendererUnitTest extends RendererTestBase {
     d.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/date/localTimeAuto.html"), formattedResult());
+  }
+
+  @Test
+  public void errorMessage() throws IOException {
+    final UIDate d = (UIDate) ComponentUtils.createComponent(
+        facesContext, Tags.date.componentType(), RendererTypes.Date, "id");
+    d.setValue(SPUTNIK_LOCAL_DATE);
+
+    d.setValid(false);
+    facesContext.addMessage("id",
+        new FacesMessage(FacesMessage.SEVERITY_ERROR, "test", "a test"));
+    d.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/date/error-message.html"), formattedResult());
+  }
+
+  @Test
+  public void help() throws IOException {
+    final UIDate d = (UIDate) ComponentUtils.createComponent(
+        facesContext, Tags.date.componentType(), RendererTypes.Date, "id");
+    d.setValue(SPUTNIK_LOCAL_DATE);
+
+    d.setHelp("Help!");
+    d.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/date/help.html"), formattedResult());
   }
 
   private void log(UIDate d) {
