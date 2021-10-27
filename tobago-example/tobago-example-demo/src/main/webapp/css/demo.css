@@ -76,11 +76,11 @@ demo-highlight {
   background-color: #6495ed;
 }
 
-.tobago-sheet-cell-markup-lightgreen {
+td.demo-lightgreen {
   background-color: #ddffdd;
 }
 
-.tobago-sheet-cell-markup-lightred {
+td.demo-lightred {
   background-color: #ffdddd;
 }
 
