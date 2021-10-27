@@ -581,7 +581,7 @@ tobago-tab .nav-link:not([href]):not([tabindex]):not(.active):not(.disabled) {
   }
 }
 
-tobago-tab.tobago-tab-barFacet {
+tobago-tab.tobago-bar {
   .nav-link.disabled + div {
     background-color: $gray-100;
   }
