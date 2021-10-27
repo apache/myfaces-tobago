@@ -50,7 +50,7 @@ public enum TobagoClass implements CssItem {
   // tbd: can be removed?
 //  IN("tobago-in"),
 //  INPUT__GROUP__OUTER("tobago-input-group-outer"),
-  LABEL("tobago-label"),
+//  LABEL("tobago-label"),
   LABEL__CONTAINER("tobago-label-container"),
   LINK("tobago-link"),
   MESSAGES("tobago-messages"),
@@ -115,14 +115,14 @@ public enum TobagoClass implements CssItem {
 //  TAB_GROUP("tobago-tabGroup"),
   TABLE_LAYOUT__FIXED("tobago-tableLayout-fixed"),
   TEXT__JUSTIFY("tobago-text-justify"),
-  TREE_LABEL("tobago-treeLabel"),
+  TOGGLE("tobago-toggle"),
+//  TREE_LABEL("tobago-treeLabel"),
   TREE_LISTBOX("tobago-treeListbox"),
   TREE_LISTBOX__LEVEL("tobago-treeListbox-level"),
-  TREE_LISTBOX__SELECT("tobago-treeListbox-select"),
-  TREE_NODE("tobago-treeNode"),
-  TREE_NODE__TOGGLE("tobago-treeNode-toggle"),
-  TREE_SELECT("tobago-treeSelect"),
-  TREE_SELECT__LABEL("tobago-treeSelect-label");
+  TREE_LISTBOX__SELECT("tobago-treeListbox-select");
+//  TREE_NODE("tobago-treeNode"),
+//  TREE_SELECT("tobago-treeSelect");
+//  TREE_SELECT__LABEL("tobago-treeSelect-label");
 
   private final String name;
 

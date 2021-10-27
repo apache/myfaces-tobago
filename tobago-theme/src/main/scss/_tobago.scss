@@ -128,7 +128,7 @@ $tobago-flex-layout-spacing: 0.5rem;
 }
 
 @mixin tobagoTreeNodeToggle() {
-  .tobago-treeNode-toggle:not(.invisible) {
+  .tobago-toggle:not(.invisible) {
     cursor: pointer;
   }
 }
@@ -596,11 +596,6 @@ tobago-in {
 }
 
 /* label ----------------------------------------------------------- */
-
-// todo remove
-.tobago-label {
-  color: #6610f2 !important;
-}
 
 tobago-links {
   .nav .nav-item .nav-link {
@@ -1266,7 +1261,7 @@ tobago-sheet {
 
       @include tobagoTreeNodeToggle();
 
-      .tobago-treeNode-toggle {
+      .tobago-toggle {
         padding-right: 5px;
       }
     }
@@ -1490,18 +1485,8 @@ tobago-tab-group {
 }
 
 /* tree ---------------------------------------------------------------------- */
-.tobago-treeLabel,
-.tobago-treeSelect,
-.tobago-treeSelect-label {
-}
 
 tobago-tree {
-  .tobago-treeNode {
-    cursor: default;
-
-    @include tobagoTreeNodeToggle();
-  }
-
   .tobago-selected {
   }
 
@@ -1510,15 +1495,6 @@ tobago-tree {
 
   .tobago-folder {
   }
-}
-
-.tobago-treeSelect .form-check-inline {
-  margin-left: $spacer * .375;
-  margin-right: $spacer * .375;
-}
-
-.tobago-treeNode[data-tobago-level] {
-  margin-left: 7rem;
 }
 
 tobago-tree {
@@ -1531,17 +1507,21 @@ tobago-tree {
     display: block;
 
     tobago-tree-select {
-      display: inline;
 
-      &.form-check {
-        display: inline;
+      &.form-check-inline {
+        margin-left: $spacer * .375;
+        margin-right: $spacer * .375;
       }
     }
   }
 
-  .tobago-treeLabel, .tobago-treeSelect-label {
+  label {
     margin-bottom: 0;
   }
+}
+
+tobago-tree-node {
+  cursor: default;
 }
 
 /* treeListbox ---------------------------------------------------------------------- */

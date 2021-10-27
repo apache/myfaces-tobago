@@ -89,7 +89,7 @@ public class TreeIconRenderer<T extends AbstractUITreeIcon> extends RendererBase
     writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(component.getClientId());
     writer.writeClassAttribute(
-        TobagoClass.TREE_NODE__TOGGLE,
+        TobagoClass.TOGGLE,
         component.getCustomClass());
 
     if (Icons.matches(source)) {

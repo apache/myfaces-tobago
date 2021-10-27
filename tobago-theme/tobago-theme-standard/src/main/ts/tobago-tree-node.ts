@@ -171,15 +171,15 @@ export class TreeNode extends HTMLElement {
   }
 
   private get toggles(): NodeListOf<HTMLSpanElement> {
-    return this.querySelectorAll(".tobago-treeNode-toggle");
+    return this.querySelectorAll(".tobago-toggle");
   }
 
   private get icons(): NodeListOf<HTMLElement> {
-    return this.querySelectorAll(".tobago-treeNode-toggle i");
+    return this.querySelectorAll(".tobago-toggle i");
   }
 
   private get images(): NodeListOf<HTMLImageElement> {
-    return this.querySelectorAll(".tobago-treeNode-toggle img");
+    return this.querySelectorAll(".tobago-toggle img");
   }
 
   get index(): number {

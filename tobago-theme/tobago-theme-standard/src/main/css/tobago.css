@@ -11598,10 +11598,6 @@ tobago-in tobago-suggest {
 }
 
 /* label ----------------------------------------------------------- */
-.tobago-label {
-  color: #6610f2 !important;
-}
-
 tobago-links .nav .nav-item .nav-link {
   padding: 0.5rem 1rem;
 }
@@ -12227,10 +12223,10 @@ tobago-sheet .tobago-sheet-cell > tobago-tree-node {
   display: flex;
   align-items: center;
 }
-tobago-sheet .tobago-sheet-cell > tobago-tree-node .tobago-treeNode-toggle:not(.invisible) {
+tobago-sheet .tobago-sheet-cell > tobago-tree-node .tobago-toggle:not(.invisible) {
   cursor: pointer;
 }
-tobago-sheet .tobago-sheet-cell > tobago-tree-node .tobago-treeNode-toggle {
+tobago-sheet .tobago-sheet-cell > tobago-tree-node .tobago-toggle {
   padding-right: 5px;
 }
 
@@ -12428,21 +12424,6 @@ tobago-tab-group tobago-tab > .nav-link > i + span {
 }
 
 /* tree ---------------------------------------------------------------------- */
-tobago-tree .tobago-treeNode {
-  cursor: default;
-}
-tobago-tree .tobago-treeNode .tobago-treeNode-toggle:not(.invisible) {
-  cursor: pointer;
-}
-.tobago-treeSelect .form-check-inline {
-  margin-left: 0.375rem;
-  margin-right: 0.375rem;
-}
-
-.tobago-treeNode[data-tobago-level] {
-  margin-left: 7rem;
-}
-
 tobago-tree tobago-tree-node[data-tobago-level="0"] {
   margin-left: 0rem;
 }
@@ -12513,14 +12494,16 @@ tobago-tree tobago-tree-node {
 tobago-tree tobago-tree-node > .tobago-link {
   text-decoration: none;
 }
-tobago-tree tobago-tree-node tobago-tree-select {
-  display: inline;
+tobago-tree tobago-tree-node tobago-tree-select.form-check-inline {
+  margin-left: 0.375rem;
+  margin-right: 0.375rem;
 }
-tobago-tree tobago-tree-node tobago-tree-select.form-check {
-  display: inline;
-}
-tobago-tree .tobago-treeLabel, tobago-tree .tobago-treeSelect-label {
+tobago-tree label {
   margin-bottom: 0;
+}
+
+tobago-tree-node {
+  cursor: default;
 }
 
 /* treeListbox ---------------------------------------------------------------------- */
