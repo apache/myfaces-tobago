@@ -10828,7 +10828,7 @@ Type: ${data.type}`);
           const selected = [];
           for (const level of this.levelElements) {
               const checkedOption = level
-                  .querySelector(".tobago-treeListbox-select:not(.d-none) option:checked");
+                  .querySelector(".tobago-selected:not(.d-none) option:checked");
               if (checkedOption) {
                   selected.push(checkedOption.index);
               }
@@ -10837,7 +10837,7 @@ Type: ${data.type}`);
       }
       applySelected() {
           const selected = JSON.parse(this.hiddenInput.value);
-          let nextActiveSelect = this.querySelector(".tobago-treeListbox-select");
+          let nextActiveSelect = this.querySelector(".tobago-selected");
           const levelElements = this.levelElements;
           for (let i = 0; i < levelElements.length; i++) {
               const level = levelElements[i];
@@ -10855,7 +10855,7 @@ Type: ${data.type}`);
           }
       }
       getSelectElements(level) {
-          return level.querySelectorAll(".tobago-treeListbox-select");
+          return level.querySelectorAll(".tobago-selected");
       }
       getNextActiveSelect(select, check) {
           if (check !== null) {
@@ -10885,10 +10885,10 @@ Type: ${data.type}`);
           }
       }
       get listboxes() {
-          return this.querySelectorAll(".tobago-treeListbox-select");
+          return this.querySelectorAll(".tobago-selected");
       }
       get levelElements() {
-          return this.querySelectorAll(".tobago-treeListbox-level");
+          return this.querySelectorAll(".tobago-level");
       }
       get hiddenInput() {
           const rootNode = this.getRootNode();
