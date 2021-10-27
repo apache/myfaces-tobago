@@ -48,8 +48,8 @@ public enum TobagoClass implements CssItem {
   HEADER("tobago-header"),
 //  IMAGE("tobago-image"),
   // tbd: can be removed?
-  IN("tobago-in"),
-  INPUT__GROUP__OUTER("tobago-input-group-outer"),
+//  IN("tobago-in"),
+//  INPUT__GROUP__OUTER("tobago-input-group-outer"),
   LABEL("tobago-label"),
   LABEL__CONTAINER("tobago-label-container"),
   LINK("tobago-link"),
