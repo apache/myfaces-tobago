@@ -54,7 +54,7 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(
-        TobagoClass.SELECT_MANY_SHUTTLE,
+        TobagoClass.BODY,
         component.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
@@ -70,7 +70,6 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
     final String unselectedLabel = component.getUnselectedLabel();
     if (unselectedLabel != null) {
       writer.startElement(HtmlElements.DIV);
-      writer.writeClassAttribute(TobagoClass.SELECT_MANY_SHUTTLE__UNSELECTED_LABEL);
       writer.write(unselectedLabel);
       writer.endElement(HtmlElements.DIV);
     }
@@ -86,33 +85,28 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
     // TODO tabIndex
     writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
 
-    writer.writeClassAttribute(TobagoClass.SELECT_MANY_SHUTTLE__UNSELECTED, BootstrapClass.FORM_CONTROL);
+    writer.writeClassAttribute(TobagoClass.UNSELECTED, BootstrapClass.FORM_CONTROL);
 
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
 
     final Object[] values = component.getSelectedValues();
     final String[] submittedValues = getSubmittedValues(component);
-    renderSelectItems(
-        component, TobagoClass.SELECT_MANY_SHUTTLE__OPTION, items, values, submittedValues, false, writer,
-        facesContext);
+    renderSelectItems(component, null, items, values, submittedValues, false, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(TobagoClass.SELECT_MANY_SHUTTLE__TOOL_BAR, BootstrapClass.BTN_GROUP_VERTICAL);
-    createButton(facesContext, component, writer, disabled | readonly,
-        Icons.CHEVRON_DOUBLE_RIGHT, "addAll", TobagoClass.SELECT_MANY_SHUTTLE__ADD_ALL);
-    createButton(facesContext, component, writer, disabled | readonly,
-        Icons.CHEVRON_RIGHT, "add", TobagoClass.SELECT_MANY_SHUTTLE__ADD);
-    createButton(facesContext, component, writer, disabled | readonly,
-        Icons.CHEVRON_LEFT, "remove", TobagoClass.SELECT_MANY_SHUTTLE__REMOVE);
-    createButton(facesContext, component, writer, disabled | readonly,
-        Icons.CHEVRON_DOUBLE_LEFT, "removeAll", TobagoClass.SELECT_MANY_SHUTTLE__REMOVE_ALL);
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(BootstrapClass.BTN_GROUP_VERTICAL);
+    createButton(facesContext, component, writer, disabled | readonly, Icons.CHEVRON_DOUBLE_RIGHT, "addAll");
+    createButton(facesContext, component, writer, disabled | readonly, Icons.CHEVRON_RIGHT, "add");
+    createButton(facesContext, component, writer, disabled | readonly, Icons.CHEVRON_LEFT, "remove");
+    createButton(facesContext, component, writer, disabled | readonly, Icons.CHEVRON_DOUBLE_LEFT, "removeAll");
+    writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
     final String selectedLabel = component.getSelectedLabel();
     if (selectedLabel != null) {
       writer.startElement(HtmlElements.DIV);
-      writer.writeClassAttribute(TobagoClass.SELECT_MANY_SHUTTLE__SELECTED_LABEL);
       writer.write(selectedLabel);
       writer.endElement(HtmlElements.DIV);
     }
@@ -125,25 +119,22 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
     writer.writeClassAttribute(
-        TobagoClass.SELECT_MANY_SHUTTLE__SELECTED,
+        TobagoClass.SELECTED,
         BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
         BootstrapClass.FORM_CONTROL);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
-    renderSelectItems(
-        component, TobagoClass.SELECT_MANY_SHUTTLE__OPTION, items, values, submittedValues, true, writer,
-        facesContext);
+    renderSelectItems(component, null, items, values, submittedValues, true, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
     writer.startElement(HtmlElements.SELECT);
-    writer.writeClassAttribute(TobagoClass.SELECT_MANY_SHUTTLE__HIDDEN);
+    writer.writeClassAttribute(BootstrapClass.D_NONE);
     final String hiddenClientId = clientId + ComponentUtils.SUB_SEPARATOR + "hidden";
     writer.writeIdAttribute(hiddenClientId);
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.REQUIRED, component.isRequired());
-    renderSelectItems(
-        component, TobagoClass.SELECT_MANY_SHUTTLE__OPTION, items, values, submittedValues, writer, facesContext);
+    renderSelectItems(component, null, items, values, submittedValues, writer, facesContext);
     writer.endElement(HtmlElements.SELECT);
   }
 
@@ -157,10 +148,10 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
 
   private void createButton(
       final FacesContext context, final UIComponent component, final TobagoResponseWriter writer,
-      final boolean disabled, final Icons icon, final String sub, final TobagoClass cssClass) throws IOException {
+      final boolean disabled, final Icons icon, final String sub) throws IOException {
     writer.startElement(HtmlElements.BUTTON);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-    writer.writeClassAttribute(cssClass, BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);
+    writer.writeClassAttribute(BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);
     writer.writeIdAttribute(component.getClientId(context) + ComponentUtils.SUB_SEPARATOR + sub);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.startElement(HtmlElements.I);
