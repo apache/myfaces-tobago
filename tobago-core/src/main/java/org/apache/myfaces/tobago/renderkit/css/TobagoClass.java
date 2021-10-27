@@ -30,6 +30,7 @@ public enum TobagoClass implements CssItem {
   AUTO__SPACING("tobago-auto-spacing"),
 //  BADGE("tobago-badge"),
   BAR("tobago-bar"),
+  BODY("tobago-body"),
   BOX__HEADER("tobago-box-header"),
   // tbd: can this be removed, when using <tobago-button>?
   BUTTON("tobago-button"),
@@ -68,18 +69,18 @@ public enum TobagoClass implements CssItem {
   REQUIRED("tobago-required"),
   SECTION__CONTENT("tobago-section-content"),
   SELECT_MANY_LISTBOX__OPTION("tobago-selectManyListbox-option"),
-  SELECT_MANY_SHUTTLE("tobago-selectManyShuttle"),
-  SELECT_MANY_SHUTTLE__ADD("tobago-selectManyShuttle-add"),
-  SELECT_MANY_SHUTTLE__ADD_ALL("tobago-selectManyShuttle-addAll"),
-  SELECT_MANY_SHUTTLE__HIDDEN("tobago-selectManyShuttle-hidden"),
-  SELECT_MANY_SHUTTLE__OPTION("tobago-selectManyShuttle-option"),
-  SELECT_MANY_SHUTTLE__REMOVE("tobago-selectManyShuttle-remove"),
-  SELECT_MANY_SHUTTLE__REMOVE_ALL("tobago-selectManyShuttle-removeAll"),
-  SELECT_MANY_SHUTTLE__SELECTED("tobago-selectManyShuttle-selected"),
-  SELECT_MANY_SHUTTLE__SELECTED_LABEL("tobago-selectManyShuttle-selectedLabel"),
-  SELECT_MANY_SHUTTLE__TOOL_BAR("tobago-selectManyShuttle-toolBar"),
-  SELECT_MANY_SHUTTLE__UNSELECTED("tobago-selectManyShuttle-unselected"),
-  SELECT_MANY_SHUTTLE__UNSELECTED_LABEL("tobago-selectManyShuttle-unselectedLabel"),
+//  SELECT_MANY_SHUTTLE("tobago-selectManyShuttle"),
+//  SELECT_MANY_SHUTTLE__ADD("tobago-selectManyShuttle-add"),
+//  SELECT_MANY_SHUTTLE__ADD_ALL("tobago-selectManyShuttle-addAll"),
+//  SELECT_MANY_SHUTTLE__HIDDEN("tobago-selectManyShuttle-hidden"),
+//  SELECT_MANY_SHUTTLE__OPTION("tobago-selectManyShuttle-option"),
+//  SELECT_MANY_SHUTTLE__REMOVE("tobago-selectManyShuttle-remove"),
+//  SELECT_MANY_SHUTTLE__REMOVE_ALL("tobago-selectManyShuttle-removeAll"),
+//  SELECT_MANY_SHUTTLE__SELECTED("tobago-selectManyShuttle-selected"),
+//  SELECT_MANY_SHUTTLE__SELECTED_LABEL("tobago-selectManyShuttle-selectedLabel"),
+//  SELECT_MANY_SHUTTLE__TOOL_BAR("tobago-selectManyShuttle-toolBar"),
+//  SELECT_MANY_SHUTTLE__UNSELECTED("tobago-selectManyShuttle-unselected"),
+//  SELECT_MANY_SHUTTLE__UNSELECTED_LABEL("tobago-selectManyShuttle-unselectedLabel"),
   SELECT_ONE_LISTBOX("tobago-selectOneListbox"),
   SELECT_ONE_LISTBOX__OPTION("tobago-selectOneListbox-option"),
   SELECTED("tobago-selected"),
@@ -119,10 +120,11 @@ public enum TobagoClass implements CssItem {
 //  TREE_LABEL("tobago-treeLabel"),
   TREE_LISTBOX("tobago-treeListbox"),
   TREE_LISTBOX__LEVEL("tobago-treeListbox-level"),
-  TREE_LISTBOX__SELECT("tobago-treeListbox-select");
+  TREE_LISTBOX__SELECT("tobago-treeListbox-select"),
 //  TREE_NODE("tobago-treeNode"),
 //  TREE_SELECT("tobago-treeSelect");
 //  TREE_SELECT__LABEL("tobago-treeSelect-label");
+  UNSELECTED("tobago-unselected");
 
   private final String name;
 

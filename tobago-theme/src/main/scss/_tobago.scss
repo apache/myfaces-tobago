@@ -392,14 +392,7 @@ tobago-flex-layout {
 
   > {
     .form-control, .form-control-plaintext,
-    .input-group, .tobago-messages-container,
-    .tobago-selectManyShuttle {
-      flex: 1 0 0px;
-    }
-  }
-
-  > .tobago-messages-container {
-    .tobago-selectManyShuttle {
+    .input-group, .tobago-messages-container {
       flex: 1 0 0px;
     }
   }
@@ -449,7 +442,7 @@ tobago-grid-layout {
   column-gap: $spacer;
 
   .tobago-label-container > {
-    textarea, .tobago-selectManyListbox, .tobago-selectManyShuttle {
+    textarea, .tobago-selectManyListbox {
       height: 100%;
     }
   }
@@ -468,12 +461,6 @@ tobago-header {
     margin-left: -($grid-gutter-width * .5);
     margin-right: -($grid-gutter-width * .5);
   }
-}
-
-/* hidden ----------------------------------------------------------- */
-
-.tobago-hidden:disabled {
-  display: none;
 }
 
 /* image ----------------------------------------------------------- */
@@ -1149,45 +1136,28 @@ tobago-select-many-listbox {
 /* selectManyShuttle ----------------------------------------------------------- */
 tobago-select-many-shuttle {
   display: block;
-}
 
-.tobago-selectManyShuttle-add,
-.tobago-selectManyShuttle-addAll,
-.tobago-selectManyShuttle-option,
-.tobago-selectManyShuttle-remove,
-.tobago-selectManyShuttle-removeAll,
-.tobago-selectManyShuttle-selectedLabel,
-.tobago-selectManyShuttle-unselectedLabel {
-}
+  .tobago-body {
+    display: flex;
+    height: 100%; //size should be the same as the outer custom tag; important for horizontal grid layout
 
-.tobago-selectManyShuttle {
-  display: flex;
+    .btn-group-vertical {
+      padding-left: $list-inline-padding;
+      padding-right: $list-inline-padding;
+    }
 
-  .tobago-selectManyShuttle-unselected,
-  .tobago-selectManyShuttle-selected {
-    flex: 1 0 0px;
-  }
-}
+    .tobago-unselected {
+    }
 
-.tobago-selectManyShuttle-hidden {
-  display: none;
-}
-
-.tobago-selectManyShuttle-toolBar {
-  display: flex;
-  flex-direction: column;
-  padding: 0 0.5rem;
-
-  > button {
-    display: block;
+    .tobago-selected {
+      @include messageShadow()
+    }
   }
 
-  > div {
-    flex: 1 0 0px;
-  }
-
-  > * { /* XXX this fixes the margin left from .btn:nth-child(n+2), but is ugly */
-    margin-left: 0 !important;
+  &.tobago-label-container, .tobago-messages-container {
+    > .tobago-body {
+      flex: 1 0 0px;
+    }
   }
 }
 

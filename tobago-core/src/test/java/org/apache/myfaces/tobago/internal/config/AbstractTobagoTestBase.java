@@ -47,6 +47,7 @@ import org.apache.myfaces.tobago.component.UISelectBooleanToggle;
 import org.apache.myfaces.tobago.component.UISelectItem;
 import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
 import org.apache.myfaces.tobago.component.UISelectManyListbox;
+import org.apache.myfaces.tobago.component.UISelectManyShuttle;
 import org.apache.myfaces.tobago.component.UISelectOneChoice;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
 import org.apache.myfaces.tobago.component.UISelectReference;
@@ -83,6 +84,7 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectBooleanCheckb
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectBooleanToggleRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectManyCheckboxRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectManyListboxRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectManyShuttleRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectOneChoiceRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectOneRadioRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectReferenceRenderer;
@@ -174,6 +176,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.selectBooleanToggle.componentType(), UISelectBooleanToggle.class.getName());
     application.addComponent(Tags.selectManyCheckbox.componentType(), UISelectManyCheckbox.class.getName());
     application.addComponent(Tags.selectManyListbox.componentType(), UISelectManyListbox.class.getName());
+    application.addComponent(Tags.selectManyShuttle.componentType(), UISelectManyShuttle.class.getName());
     application.addComponent(Tags.selectOneRadio.componentType(), UISelectOneRadio.class.getName());
     application.addComponent(Tags.selectOneChoice.componentType(), UISelectOneChoice.class.getName());
     application.addComponent(Tags.selectReference.componentType(), UISelectReference.class.getName());
@@ -221,6 +224,8 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
         UISelectManyCheckbox.COMPONENT_FAMILY, RendererTypes.SELECT_MANY_CHECKBOX, new SelectManyCheckboxRenderer());
     renderKit.addRenderer(
         UISelectManyListbox.COMPONENT_FAMILY, RendererTypes.SELECT_MANY_LISTBOX, new SelectManyListboxRenderer());
+    renderKit.addRenderer(
+        UISelectManyListbox.COMPONENT_FAMILY, RendererTypes.SELECT_MANY_SHUTTLE, new SelectManyShuttleRenderer());
     renderKit.addRenderer(
         UISelectOneRadio.COMPONENT_FAMILY, RendererTypes.SELECT_ONE_RADIO, new SelectOneRadioRenderer());
     renderKit.addRenderer(

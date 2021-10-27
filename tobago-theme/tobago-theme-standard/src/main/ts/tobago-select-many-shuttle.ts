@@ -89,31 +89,31 @@ class SelectManyShuttle extends HTMLElement {
   }
 
   get unselectedSelect(): HTMLSelectElement {
-    return this.querySelector(".tobago-selectManyShuttle-unselected");
+    return this.querySelector(".tobago-unselected");
   }
 
   get selectedSelect(): HTMLSelectElement {
-    return this.querySelector(".tobago-selectManyShuttle-selected");
+    return this.querySelector(".tobago-selected");
   }
 
   get hiddenSelect(): HTMLSelectElement {
-    return this.querySelector(".tobago-selectManyShuttle-hidden");
+    return this.querySelector("select.d-none");
   }
 
   get addAllButton(): HTMLButtonElement {
-    return this.querySelector(".tobago-selectManyShuttle-addAll");
+    return this.querySelector(".btn-group-vertical button:nth-child(1)");
   }
 
   get addButton(): HTMLButtonElement {
-    return this.querySelector(".tobago-selectManyShuttle-add");
+    return this.querySelector(".btn-group-vertical button:nth-child(2)");
   }
 
   get removeButton(): HTMLButtonElement {
-    return this.querySelector(".tobago-selectManyShuttle-remove");
+    return this.querySelector(".btn-group-vertical button:nth-child(3)");
   }
 
   get removeAllButton(): HTMLButtonElement {
-    return this.querySelector(".tobago-selectManyShuttle-removeAll");
+    return this.querySelector(".btn-group-vertical button:nth-child(4)");
   }
 }
 
