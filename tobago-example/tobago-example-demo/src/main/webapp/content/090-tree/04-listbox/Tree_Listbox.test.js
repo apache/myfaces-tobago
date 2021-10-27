@@ -203,7 +203,7 @@ it("Select 4,2,1,1 and submit", function (done) {
 });
 
 function isLevelSelectVisible(level, select) {
-  const selectElement = querySelectorFn("#page\\:mainForm\\:listbox .tobago-treeListbox-level:nth-of-type("
-      + level + ") .tobago-treeListbox-select:nth-of-type(" + select + ")");
+  const selectElement = querySelectorFn("#page\\:mainForm\\:listbox .tobago-level:nth-of-type("
+      + level + ") .tobago-selected:nth-of-type(" + select + ")");
   return !selectElement().classList.contains("d-none");
 }

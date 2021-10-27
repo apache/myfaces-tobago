@@ -12533,14 +12533,14 @@ tobago-tree-node {
 }
 
 /* treeListbox ---------------------------------------------------------------------- */
-tobago-tree-listbox, .tobago-treeListbox {
+tobago-tree-listbox {
   display: block;
 }
-tobago-tree-listbox .tobago-treeListbox-level, .tobago-treeListbox .tobago-treeListbox-level {
+tobago-tree-listbox .tobago-level {
   display: inline-block;
   min-width: 10rem;
 }
-tobago-tree-listbox .tobago-treeListbox-select, .tobago-treeListbox .tobago-treeListbox-select {
+tobago-tree-listbox .tobago-selected {
   width: 100%;
 }
 
