@@ -63,103 +63,117 @@
     <tc:column label="Tag Name">
       <tc:out value="#{comp.tagName}" labelLayout="skip"/>
     </tc:column>
-    <tc:column label="change" align="center" markup="#{comp.hasChangeEvent() ? 'lightgreen' : 'lightred'}">
+    <tc:column label="change" align="center">
       <tc:button id="changeBehavior" label="X"
                  actionListener="#{eventController.selectComponent}" rendered="#{comp.hasChangeEvent()}">
         <f:attribute name="eventName" value="change"/>
       </tc:button>
       <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasChangeEvent()}"/>
+      <tc:style customClass="#{comp.hasChangeEvent() ? 'demo-lightgreen' : 'demo-lightred'}"/>
     </tc:column>
-    <tc:column label="click" align="center" markup="#{comp.hasClickEvent() ? 'lightgreen' : 'lightred'}">
+    <tc:column label="click" align="center">
       <tc:button id="clickBehavior" label="X"
                  actionListener="#{eventController.selectComponent}" rendered="#{comp.hasClickEvent()}">
         <f:attribute name="eventName" value="click"/>
       </tc:button>
       <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasClickEvent()}"/>
+      <tc:style customClass="#{comp.hasClickEvent() ? 'demo-lightgreen' : 'demo-lightred'}"/>
     </tc:column>
-    <tc:column label="dblclick" align="center" markup="#{comp.hasDblclickEvent() ? 'lightgreen' : 'lightred'}">
+    <tc:column label="dblclick" align="center">
       <tc:button id="dblclickBehavior" label="X"
                  actionListener="#{eventController.selectComponent}" rendered="#{comp.hasDblclickEvent()}">
         <f:attribute name="eventName" value="dblclick"/>
       </tc:button>
       <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasDblclickEvent()}"/>
+      <tc:style customClass="#{comp.hasDblclickEvent() ? 'demo-lightgreen' : 'demo-lightred'}"/>
     </tc:column>
-    <tc:column label="focus" align="center" markup="#{comp.hasFocusEvent() ? 'lightgreen' : 'lightred'}">
+    <tc:column label="focus" align="center">
       <tc:button id="focusBehavior" label="X"
                  actionListener="#{eventController.selectComponent}" rendered="#{comp.hasFocusEvent()}">
         <f:attribute name="eventName" value="focus"/>
       </tc:button>
       <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasFocusEvent()}"/>
+      <tc:style customClass="#{comp.hasFocusEvent() ? 'demo-lightgreen' : 'demo-lightred'}"/>
     </tc:column>
-    <tc:column label="blur" align="center" markup="#{comp.hasBlurEvent() ? 'lightgreen' : 'lightred'}">
+    <tc:column label="blur" align="center">
       <tc:button id="blurBehavior" label="X"
                  actionListener="#{eventController.selectComponent}" rendered="#{comp.hasBlurEvent()}">
         <f:attribute name="eventName" value="blur"/>
       </tc:button>
       <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasBlurEvent()}"/>
+      <tc:style customClass="#{comp.hasBlurEvent() ? 'demo-lightgreen' : 'demo-lightred'}"/>
     </tc:column>
-    <tc:column label="key down" align="center" markup="#{comp.hasKeydownEvent() ? 'lightgreen' : 'lightred'}">
+    <tc:column label="key down" align="center">
       <tc:button id="keydownBehavior" label="X"
                  actionListener="#{eventController.selectComponent}" rendered="#{comp.hasKeydownEvent()}">
         <f:attribute name="eventName" value="keydown"/>
       </tc:button>
       <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasKeydownEvent()}"/>
+      <tc:style customClass="#{comp.hasKeydownEvent() ? 'demo-lightgreen' : 'demo-lightred'}"/>
     </tc:column>
-    <tc:column label="key press" align="center" markup="#{comp.hasKeypressEvent() ? 'lightgreen' : 'lightred'}">
+    <tc:column label="key press" align="center">
       <tc:button id="keypressBehavior" label="X"
                  actionListener="#{eventController.selectComponent}" rendered="#{comp.hasKeypressEvent()}">
         <f:attribute name="eventName" value="keypress"/>
       </tc:button>
       <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasKeypressEvent()}"/>
+      <tc:style customClass="#{comp.hasKeypressEvent() ? 'demo-lightgreen' : 'demo-lightred'}"/>
     </tc:column>
-    <tc:column label="key up" align="center" markup="#{comp.hasKeyupEvent() ? 'lightgreen' : 'lightred'}">
+    <tc:column label="key up" align="center">
       <tc:button id="keyupBehavior" label="X"
                  actionListener="#{eventController.selectComponent}" rendered="#{comp.hasKeyupEvent()}">
         <f:attribute name="eventName" value="keyup"/>
       </tc:button>
       <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasKeyupEvent()}"/>
+      <tc:style customClass="#{comp.hasKeyupEvent() ? 'demo-lightgreen' : 'demo-lightred'}"/>
     </tc:column>
-    <tc:column label="mouse down" align="center" markup="#{comp.hasMousedownEvent() ? 'lightgreen' : 'lightred'}">
+    <tc:column label="mouse down" align="center">
       <tc:button id="mousedownBehavior" label="X"
                  actionListener="#{eventController.selectComponent}" rendered="#{comp.hasMousedownEvent()}">
         <f:attribute name="eventName" value="mousedown"/>
       </tc:button>
       <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasMousedownEvent()}"/>
+      <tc:style customClass="#{comp.hasMousedownEvent() ? 'demo-lightgreen' : 'demo-lightred'}"/>
     </tc:column>
-    <tc:column label="mouse move" align="center" markup="#{comp.hasMousemoveEvent() ? 'lightgreen' : 'lightred'}">
+    <tc:column label="mouse move" align="center">
       <tc:button id="mousemoveBehavior" label="X"
                  actionListener="#{eventController.selectComponent}" rendered="#{comp.hasMousemoveEvent()}">
         <f:attribute name="eventName" value="mousemove"/>
       </tc:button>
       <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasMousemoveEvent()}"/>
+      <tc:style customClass="#{comp.hasMousemoveEvent() ? 'demo-lightgreen' : 'demo-lightred'}"/>
     </tc:column>
-    <tc:column label="mouse out" align="center" markup="#{comp.hasMouseoutEvent() ? 'lightgreen' : 'lightred'}">
+    <tc:column label="mouse out" align="center">
       <tc:button id="mouseoutBehavior" label="X"
                  actionListener="#{eventController.selectComponent}" rendered="#{comp.hasMouseoutEvent()}">
         <f:attribute name="eventName" value="mouseout"/>
       </tc:button>
       <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasMouseoutEvent()}"/>
+      <tc:style customClass="#{comp.hasMouseoutEvent() ? 'demo-lightgreen' : 'demo-lightred'}"/>
     </tc:column>
-    <tc:column label="mouse over" align="center" markup="#{comp.hasMouseoverEvent() ? 'lightgreen' : 'lightred'}">
+    <tc:column label="mouse over" align="center">
       <tc:button id="mouseoverBehavior" label="X"
                  actionListener="#{eventController.selectComponent}" rendered="#{comp.hasMouseoverEvent()}">
         <f:attribute name="eventName" value="mouseover"/>
       </tc:button>
       <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasMouseoverEvent()}"/>
+      <tc:style customClass="#{comp.hasMouseoverEvent() ? 'demo-lightgreen' : 'demo-lightred'}"/>
     </tc:column>
-    <tc:column label="mouse up" align="center" markup="#{comp.hasMouseupEvent() ? 'lightgreen' : 'lightred'}">
+    <tc:column label="mouse up" align="center">
       <tc:button id="mouseupBehavior" label="X"
                  actionListener="#{eventController.selectComponent}" rendered="#{comp.hasMouseupEvent()}">
         <f:attribute name="eventName" value="mouseup"/>
       </tc:button>
       <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasMouseupEvent()}"/>
+      <tc:style customClass="#{comp.hasMouseupEvent() ? 'demo-lightgreen' : 'demo-lightred'}"/>
     </tc:column>
-    <tc:column label="select" align="center" markup="#{comp.hasSelectEvent() ? 'lightgreen' : 'lightred'}">
+    <tc:column label="select" align="center">
       <tc:button id="selectBehavior" label="X"
                  actionListener="#{eventController.selectComponent}" rendered="#{comp.hasSelectEvent()}">
         <f:attribute name="eventName" value="select"/>
       </tc:button>
       <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasSelectEvent()}"/>
+      <tc:style customClass="#{comp.hasSelectEvent() ? 'demo-lightgreen' : 'demo-lightred'}"/>
     </tc:column>
     <tc:column label="special events">
       <tc:out value="#{comp.specialEvents}" labelLayout="skip"/>
