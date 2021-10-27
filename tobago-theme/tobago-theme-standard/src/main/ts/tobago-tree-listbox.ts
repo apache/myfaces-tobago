@@ -56,7 +56,7 @@ class TreeListbox extends HTMLElement {
     const selected: number[] = [];
     for (const level of this.levelElements) {
       const checkedOption: HTMLOptionElement = level
-          .querySelector(".tobago-treeListbox-select:not(.d-none) option:checked");
+          .querySelector(".tobago-selected:not(.d-none) option:checked");
       if (checkedOption) {
         selected.push(checkedOption.index);
       }
@@ -66,7 +66,7 @@ class TreeListbox extends HTMLElement {
 
   private applySelected(): void {
     const selected: number[] = JSON.parse(this.hiddenInput.value) as number[];
-    let nextActiveSelect: HTMLSelectElement = this.querySelector(".tobago-treeListbox-select");
+    let nextActiveSelect: HTMLSelectElement = this.querySelector(".tobago-selected");
 
     const levelElements = this.levelElements;
     for (let i = 0; i < levelElements.length; i++) {
@@ -86,7 +86,7 @@ class TreeListbox extends HTMLElement {
   }
 
   private getSelectElements(level: HTMLDivElement): NodeListOf<HTMLSelectElement> {
-    return level.querySelectorAll<HTMLSelectElement>(".tobago-treeListbox-select");
+    return level.querySelectorAll<HTMLSelectElement>(".tobago-selected");
   }
 
   private getNextActiveSelect(select: HTMLSelectElement, check: number): HTMLSelectElement {
@@ -119,11 +119,11 @@ class TreeListbox extends HTMLElement {
   }
 
   private get listboxes(): NodeListOf<HTMLSelectElement> {
-    return this.querySelectorAll(".tobago-treeListbox-select");
+    return this.querySelectorAll(".tobago-selected");
   }
 
   private get levelElements(): NodeListOf<HTMLDivElement> {
-    return this.querySelectorAll(".tobago-treeListbox-level");
+    return this.querySelectorAll(".tobago-level");
   }
 
   private get hiddenInput(): HTMLInputElement {

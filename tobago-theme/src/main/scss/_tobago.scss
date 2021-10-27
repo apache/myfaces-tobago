@@ -1495,15 +1495,15 @@ tobago-tree-node {
 }
 
 /* treeListbox ---------------------------------------------------------------------- */
-tobago-tree-listbox, .tobago-treeListbox {
+tobago-tree-listbox {
   display: block;
 
-  .tobago-treeListbox-level {
+  .tobago-level {
     display: inline-block;
     min-width: 10rem;
   }
 
-  .tobago-treeListbox-select {
+  .tobago-selected {
     width: 100%;
   }
 }
