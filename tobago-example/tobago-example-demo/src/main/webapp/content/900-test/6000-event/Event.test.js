@@ -97,7 +97,7 @@ function createSteps(test, componentName, eventNames, eventComponentFn, ajaxComp
   const valueChangeListenerCountFn = elementByIdFn("page:mainForm:inValueChangeListener::field");
   const timestampFn = elementByIdFn("page:mainForm:inTimestamp::field");
 
-  const rows = querySelectorAllFn("#page\\:mainForm\\:componentTable .tobago-sheet-row");
+  const rows = querySelectorAllFn("#page\\:mainForm\\:componentTable tr");
   let oldActionCount;
   let oldActionListenerCount;
   let oldAjaxListenerCount;

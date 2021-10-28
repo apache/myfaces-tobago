@@ -137,9 +137,13 @@ td button {
   }
 }
 
-.tobago-sheet-cell {
-  button.tobago-link {
-    margin-bottom: 0;
+.tobago-sheet {
+  .tobago-body {
+    td {
+      button.tobago-link {
+        margin-bottom: 0;
+      }
+    }
   }
 }
 

@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import jakarta.faces.component.UIComponent;
 
-public class ColumnRenderer extends RendererBase {
+public class ColumnRenderer<T extends AbstractUIColumn> extends RendererBase<T> {
 
   /**
    * Differ between simple content and complex content.
