@@ -89,7 +89,7 @@ export class TreeNode extends HTMLElement {
     for (const treeChildNode of treeChildNodes) {
 
       if (treeChildNode.sheet) {
-        treeChildNode.closest(".tobago-sheet-row").classList.add("d-none");
+        treeChildNode.closest("tr").classList.add("d-none");
       } else {
         treeChildNode.classList.add("d-none");
       }
@@ -102,7 +102,7 @@ export class TreeNode extends HTMLElement {
     for (const treeChildNode of treeChildNodes) {
 
       if (treeChildNode.sheet) {
-        treeChildNode.closest(".tobago-sheet-row").classList.remove("d-none");
+        treeChildNode.closest("tr").classList.remove("d-none");
       } else {
         treeChildNode.classList.remove("d-none");
       }

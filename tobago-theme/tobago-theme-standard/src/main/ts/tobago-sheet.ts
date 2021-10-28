@@ -67,8 +67,8 @@ export class Sheet extends HTMLElement {
   }
 
   private static getRowTemplate(columns: number, rowIndex: number) : string {
-    return `<tr row-index="${rowIndex}" class="tobago-sheet-row" dummy="dummy">
-<td class="tobago-sheet-cell" colspan="${columns}"> </td>
+    return `<tr row-index="${rowIndex}" dummy="dummy">
+<td colspan="${columns}"> </td>
 </tr>`;
   }
 
@@ -159,7 +159,7 @@ export class Sheet extends HTMLElement {
 
     // resize column: mouse events -------------------------------------------------------------------------------- //
 
-    for (const resizeElement of this.querySelectorAll(".tobago-sheet-headerResize")) {
+    for (const resizeElement of this.querySelectorAll(".tobago-resize")) {
       resizeElement.addEventListener("click", function (): boolean {
         return false;
       });
@@ -191,7 +191,7 @@ export class Sheet extends HTMLElement {
     }
 
     for (const checkbox of this.querySelectorAll(
-        ".tobago-sheet-cell > input.tobago-sheet-columnSelector")) {
+        ".tobago-body td > input.tobago-selected")) {
       checkbox.addEventListener("click", (event) => {
         event.preventDefault();
       });
@@ -204,7 +204,7 @@ export class Sheet extends HTMLElement {
     if (lazy) {
       // prepare the sheet with some auto-created (empty) rows
       const rowCount = this.rowCount;
-      const sheetBody = this.tableBodyDiv;
+      const sheetBody = this.sheetBody;
       const tableBody = this.tableBody;
       const columns = tableBody.rows[0].cells.length;
       let current: HTMLTableRowElement = tableBody.rows[0]; // current row in this algorithm, begin with first
@@ -236,18 +236,19 @@ export class Sheet extends HTMLElement {
 
     // ---------------------------------------------------------------------------------------- //
 
-    for (const checkbox of this.querySelectorAll(
-        ".tobago-sheet-header .tobago-sheet-columnSelector")) {
-      checkbox.addEventListener("click", this.clickOnCheckbox.bind(this));
+    console.error("want adding checkbox");
+    for (const checkbox of this.querySelectorAll("thead .tobago-selected")) {
+      console.error("adding checkbox", checkbox);
+      checkbox.addEventListener("click", this.clickOnCheckboxForAll.bind(this));
     }
 
     // init paging by pages ---------------------------------------------------------------------------------------- //
 
-    for (const pagingText of this.querySelectorAll(".tobago-sheet-pagingText")) {
+    for (const pagingText of this.querySelectorAll(".tobago-paging")) {
 
       pagingText.addEventListener("click", this.clickOnPaging.bind(this));
 
-      const pagingInput = pagingText.querySelector("input.tobago-sheet-pagingInput");
+      const pagingInput = pagingText.querySelector("input");
       pagingInput.addEventListener("blur", this.blurPaging.bind(this));
 
       pagingInput.addEventListener("keydown", function (event: KeyboardEvent): void {
@@ -298,12 +299,12 @@ export class Sheet extends HTMLElement {
     return parseInt(this.getAttribute("row-count"));
   }
 
-  get tableBodyDiv(): HTMLDivElement {
-    return this.querySelector(".tobago-sheet-body");
+  get sheetBody(): HTMLDivElement {
+    return this.querySelector(".tobago-body");
   }
 
   get tableBody(): HTMLTableSectionElement {
-    return this.querySelector(".tobago-sheet-bodyTable>tbody");
+    return this.querySelector(".tobago-body tbody");
   }
 
   // -------------------------------------------------------------------------------------- //
@@ -377,7 +378,7 @@ export class Sheet extends HTMLElement {
   }
 
   isRowAboveVisibleArea(tr: HTMLTableRowElement): boolean {
-    const sheetBody = this.tableBodyDiv;
+    const sheetBody = this.sheetBody;
     const viewStart = sheetBody.scrollTop;
     const trEnd = tr.offsetTop + tr.clientHeight;
     return trEnd < viewStart;
@@ -417,9 +418,9 @@ export class Sheet extends HTMLElement {
           const sheetLoader = document.getElementById(id);
           const sheet = document.getElementById(`${id}::lazy-temporary`);
           sheet.id = id;
-          const tbody = sheet.querySelector(".tobago-sheet-bodyTable>tbody");
+          const tbody = sheet.querySelector(".tobago-body tbody");
 
-          const newRows = sheetLoader.querySelectorAll(".tobago-sheet-bodyTable>tbody>tr");
+          const newRows = sheetLoader.querySelectorAll(".tobago-body tbody>tr");
           for (i = 0; i < newRows.length; i++) {
             const newRow = newRows[i];
             const rowIndex = Number(newRow.getAttribute("row-index"));
@@ -489,7 +490,7 @@ Type: ${data.type}`);
   }
 
   addHeaderFillerWidth(): void {
-    const last = document.getElementById(this.id).querySelector(".tobago-sheet-headerTable col:last-child");
+    const last = document.getElementById(this.id).querySelector("tobago-sheet header table col:last-child");
     if (last) {
       last.setAttribute("width", String(Sheet.SCROLL_BAR_SIZE));
     }
@@ -602,7 +603,7 @@ Type: ${data.type}`);
     };
   }
 
-  clickOnCheckbox(event: MouseEvent): void {
+  clickOnCheckboxForAll(event: MouseEvent): void {
     const checkbox = event.currentTarget as HTMLInputElement;
     if (checkbox.checked) {
       this.selectAll();
@@ -614,7 +615,7 @@ Type: ${data.type}`);
   clickOnRow(event: MouseEvent): void {
 
     const row = event.currentTarget as HTMLTableRowElement;
-    if (row.classList.contains("tobago-sheet-columnSelector") || !Sheet.isInputElement(row)) {
+    if (row.classList.contains("tobago-selected") || !Sheet.isInputElement(row)) {
 
       if (Math.abs(this.mousedownOnRowData.x - event.clientX)
           + Math.abs(this.mousedownOnRowData.y - event.clientY) > 5) {
@@ -653,10 +654,10 @@ Type: ${data.type}`);
   clickOnPaging(event: MouseEvent): void {
     const element = event.currentTarget as HTMLElement;
 
-    const output: HTMLElement = element.querySelector(".tobago-sheet-pagingOutput");
+    const output: HTMLElement = element.querySelector("span");
     output.style.display = "none";
 
-    const input: HTMLInputElement = element.querySelector(".tobago-sheet-pagingInput");
+    const input: HTMLInputElement = element.querySelector("input");
     input.style.display = "initial";
     input.focus();
     input.select();
@@ -664,7 +665,7 @@ Type: ${data.type}`);
 
   blurPaging(event: FocusEvent): void {
     const input = event.currentTarget as HTMLInputElement;
-    const output: HTMLElement = input.parentElement.querySelector(".tobago-sheet-pagingOutput");
+    const output: HTMLElement = input.parentElement.querySelector("span");
     if (output.innerHTML !== input.value) {
       console.debug("Reloading sheet '%s' old value='%s' new value='%s'", this.id, output.innerHTML, input.value);
       output.innerHTML = input.value;
@@ -704,15 +705,15 @@ Type: ${data.type}`);
   }
 
   getBody(): HTMLElement {
-    return this.querySelector("tobago-sheet>.tobago-sheet-body");
+    return this.querySelector("tobago-sheet>.tobago-body");
   }
 
   getBodyTable(): HTMLElement {
-    return this.querySelector("tobago-sheet>.tobago-sheet-body>.tobago-sheet-bodyTable");
+    return this.querySelector("tobago-sheet>.tobago-body>table");
   }
 
   getBodyCols(): NodeListOf<HTMLElement> {
-    return this.querySelectorAll("tobago-sheet>.tobago-sheet-body>.tobago-sheet-bodyTable>colgroup>col");
+    return this.querySelectorAll("tobago-sheet>.tobago-body>table>colgroup>col");
   }
 
   getHiddenSelected(): HTMLInputElement {
@@ -734,7 +735,7 @@ Type: ${data.type}`);
    * Get the element, which indicates the selection
    */
   getSelectorCheckbox(row: HTMLTableRowElement): HTMLInputElement {
-    return row.querySelector("tr>td>input.tobago-sheet-columnSelector");
+    return row.querySelector("tr>td>input.tobago-selected");
   }
 
   getRowElements(): NodeListOf<HTMLTableRowElement> {
