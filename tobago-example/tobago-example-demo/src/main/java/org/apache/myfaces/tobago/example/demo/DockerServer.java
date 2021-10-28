@@ -30,14 +30,11 @@ public enum DockerServer implements Serializable {
       0,
       "tomcat",
       new String[]{
-          "7-jre8",
-          "8-jre8",
-          "8-jre11",
           "9-jre8",
           "9-jre11"},
       false,
 //    XXX JSTL is only needed, if jsf=mojarra... and Server = Tomcat
-      ""),
+      " -Ptomcat"),
   tomee(
       "TomEE",
       "/usr/local/tomee/webapps/demo.war",
