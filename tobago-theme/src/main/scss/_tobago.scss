@@ -1216,40 +1216,85 @@ p.tobago-separator {
 }
 
 /* sheet -------------------------------------------------------------- */
-.tobago-sheet,
-.tobago-sheet-expanded,
-.tobago-sheet-row {
-}
 
 tobago-sheet {
-  .tobago-sheet-cell {
-    @include treeNodeMarginLeftLevel();
 
-    > tobago-tree-node {
-      display: flex;
-      align-items: center;
+  .tobago-expanded {
+  }
 
-      @include tobagoTreeNodeToggle();
+  header {
+    table {
+      margin-bottom: 0;
 
-      .tobago-toggle {
-        padding-right: 5px;
+      th {
+        font-weight: normal;
+        position: relative;
+        overflow: hidden;
+
+        tobago-out {
+          font-weight: bold;
+        }
       }
     }
   }
-}
 
-th.tobago-sheet-headerCell {
-  font-weight: normal;
-
-  .tobago-out {
-    font-weight: bold;
+  header:hover .tobago-resize {
+    background-color: $gray-200;
   }
-}
 
-.tobago-sheet-header {
-  overflow: hidden;
-  flex-shrink: 0;
-  display: block;
+  .tobago-selected {
+    margin-top: ($spacer * 0.75);
+    margin-bottom: ($spacer * 0.75);
+  }
+
+  .tobago-resize {
+    position: absolute;
+    right: -5px;
+    top: 0;
+    width: 10px;
+    height: 100%;
+    z-index: 1;
+    cursor: col-resize;
+  }
+
+  .tobago-body {
+    overflow-y: auto;
+    flex: 1 1 auto;
+
+    td {
+      overflow: hidden;
+
+      @include treeNodeMarginLeftLevel();
+
+      > tobago-tree-node {
+        display: flex;
+        align-items: center;
+
+        @include tobagoTreeNodeToggle();
+
+        .tobago-toggle {
+          padding-right: 5px;
+        }
+      }
+    }
+
+  }
+
+  footer {
+    text-align: center;
+  }
+
+  .tobago-paging {
+    cursor: pointer;
+
+    input {
+      text-align: center;
+      display: none;
+      margin: -4px 0;
+      width: 3em;
+    }
+  }
+
 }
 
 .tobago-sortable::after {
@@ -1269,15 +1314,6 @@ th.tobago-sheet-headerCell {
   color: inherit;
 }
 
-th.tobago-sheet-headerCell-markup-filler > .tobago-sheet-header {
-  height: 14px; /* XXX why? */
-}
-
-.tobago-sheet-columnSelector {
-  margin-top: ($spacer * 0.75);
-  margin-bottom: ($spacer * 0.75);
-}
-
 tobago-sheet {
   display: flex;
   flex-direction: column;
@@ -1288,68 +1324,8 @@ tobago-sheet {
   }
 }
 
-.tobago-sheet-footer {
-  text-align: center;
-}
-
-.tobago-sheet-pagingInput {
-  text-align: center;
-  display: none;
-  margin: -4px 0;
-  width: 3em;
-}
-
-.tobago-sheet-pagingText {
-  cursor: pointer;
-}
-
-.tobago-sheet-body {
-  overflow-y: auto;
-  flex: 1 1 auto;
-}
-
-.tobago-sheet-headerTable {
-  margin-bottom: 0;
-}
-
 .tobago-tableLayout-fixed {
   table-layout: fixed;
-}
-
-.tobago-sheet-headerCell-markup-filler {
-  border-width: 0 !important;
-}
-
-.tobago-sheet-headerCell {
-  position: relative;
-}
-
-.tobago-sheet-headerResize {
-  position: absolute;
-  right: -5px;
-  top: 0;
-  width: 10px;
-  height: 100%;
-  z-index: 1;
-  cursor: col-resize;
-}
-
-.tobago-sheet-header:hover .tobago-sheet-headerResize {
-  background-color: $gray-200;
-}
-
-.tobago-sheet-headerCell {
-  overflow: hidden;
-}
-
-.tobago-sheet-cell {
-  overflow: hidden;
-}
-
-.tobago-sheet-bodyTable {
-}
-
-.tobago-sheet-pagingOutput {
 }
 
 /* splitLayout ---------------------------------------------------------------------- */

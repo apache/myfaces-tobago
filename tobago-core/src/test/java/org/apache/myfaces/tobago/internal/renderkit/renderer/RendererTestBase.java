@@ -21,11 +21,14 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class RendererTestBase extends AbstractTobagoTestBase {
@@ -52,17 +55,77 @@ public abstract class RendererTestBase extends AbstractTobagoTestBase {
 
   protected String format1To2Indent(final String xml) {
     return xml.replaceAll("^\n", "")
-    .replaceAll("\n <", "\n\t<")
-    .replaceAll("\n  <", "\n\t\t<")
-    .replaceAll("\n   <", "\n\t\t\t<")
-    .replaceAll("\n    <", "\n\t\t\t\t<")
-    .replaceAll("\n     <", "\n\t\t\t\t\t<")
-    .replaceAll("\n      <", "\n\t\t\t\t\t\t<")
-    .replaceAll("\n       <", "\n\t\t\t\t\t\t\t<")
+        .replaceAll("\n <", "\n\t<")
+        .replaceAll("\n  <", "\n\t\t<")
+        .replaceAll("\n   <", "\n\t\t\t<")
+        .replaceAll("\n    <", "\n\t\t\t\t<")
+        .replaceAll("\n     <", "\n\t\t\t\t\t<")
+        .replaceAll("\n      <", "\n\t\t\t\t\t\t<")
+        .replaceAll("\n       <", "\n\t\t\t\t\t\t\t<")
         .replaceAll("\t", "  ");
   }
 
   protected String formatCrlf2LfAndTrim(final String xml) {
     return xml.replaceAll("\r\n", "\n").trim();
   }
+
+  protected DefaultMutableTreeNode getTreeSample() {
+    final DefaultMutableTreeNode root = new DefaultMutableTreeNode("Category");
+    addNode(root, 0, "Sports");
+    addNode(root, 0, "Movies");
+    addNode(root, 0, "Music");
+    addNode(root, 1, "Classic");
+    addNode(root, 1, "Pop");
+    addNode(root, 1, "World");
+    addNode(root, 2, "Carib");
+    addNode(root, 2, "Africa");
+    addNode(root, 0, "Games");
+    addNode(root, 0, "Science");
+    addNode(root, 1, "Mathematics");
+    addNode(root, 2, "Analysis");
+    addNode(root, 2, "Algebra");
+    addNode(root, 1, "Geography");
+    addNode(root, 1, "Astronomy");
+    addNode(root, 2, "Education");
+    addNode(root, 2, "Pictures");
+    addNode(root, 3, "NGC");
+    addNode(root, 3, "Messier");
+
+    return root;
+  }
+
+  private void addNode(DefaultMutableTreeNode root, int level, Object userObject) {
+    DefaultMutableTreeNode node = root;
+    for (int i = 0; i < level; i++) {
+      node = (DefaultMutableTreeNode) node.getLastChild();
+    }
+    node.add(new DefaultMutableTreeNode(userObject));
+  }
+
+  protected List<Item> getSheetSample(final int count) {
+    final List<Item> list = new ArrayList<Item>();
+    for (int i = 0; i < count; i++) {
+       list.add(new Item("Name " + i));
+
+    }
+    return list;
+  }
+
+  public static class Item {
+
+    private String name;
+
+    public Item(String name) {
+      this.name = name;
+    }
+
+    public String getName() {
+      return name;
+    }
+
+    public void setName(String name) {
+      this.name = name;
+    }
+  }
+
 }

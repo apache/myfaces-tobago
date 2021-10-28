@@ -9558,8 +9558,8 @@
           return ["INPUT", "TEXTAREA", "SELECT", "A", "BUTTON"].indexOf(element.tagName) > -1;
       }
       static getRowTemplate(columns, rowIndex) {
-          return `<tr row-index="${rowIndex}" class="tobago-sheet-row" dummy="dummy">
-<td class="tobago-sheet-cell" colspan="${columns}"> </td>
+          return `<tr row-index="${rowIndex}" dummy="dummy">
+<td colspan="${columns}"> </td>
 </tr>`;
       }
       connectedCallback() {
@@ -9645,7 +9645,7 @@
           }
           this.addHeaderFillerWidth();
           // resize column: mouse events -------------------------------------------------------------------------------- //
-          for (const resizeElement of this.querySelectorAll(".tobago-sheet-headerResize")) {
+          for (const resizeElement of this.querySelectorAll(".tobago-resize")) {
               resizeElement.addEventListener("click", function () {
                   return false;
               });
@@ -9668,7 +9668,7 @@
                   row.addEventListener("click", this.clickOnRow.bind(this));
               }
           }
-          for (const checkbox of this.querySelectorAll(".tobago-sheet-cell > input.tobago-sheet-columnSelector")) {
+          for (const checkbox of this.querySelectorAll(".tobago-body td > input.tobago-selected")) {
               checkbox.addEventListener("click", (event) => {
                   event.preventDefault();
               });
@@ -9678,7 +9678,7 @@
           if (lazy) {
               // prepare the sheet with some auto-created (empty) rows
               const rowCount = this.rowCount;
-              const sheetBody = this.tableBodyDiv;
+              const sheetBody = this.sheetBody;
               const tableBody = this.tableBody;
               const columns = tableBody.rows[0].cells.length;
               let current = tableBody.rows[0]; // current row in this algorithm, begin with first
@@ -9708,13 +9708,15 @@
               this.lazyCheck();
           }
           // ---------------------------------------------------------------------------------------- //
-          for (const checkbox of this.querySelectorAll(".tobago-sheet-header .tobago-sheet-columnSelector")) {
-              checkbox.addEventListener("click", this.clickOnCheckbox.bind(this));
+          console.error("want adding checkbox");
+          for (const checkbox of this.querySelectorAll("thead .tobago-selected")) {
+              console.error("adding checkbox", checkbox);
+              checkbox.addEventListener("click", this.clickOnCheckboxForAll.bind(this));
           }
           // init paging by pages ---------------------------------------------------------------------------------------- //
-          for (const pagingText of this.querySelectorAll(".tobago-sheet-pagingText")) {
+          for (const pagingText of this.querySelectorAll(".tobago-paging")) {
               pagingText.addEventListener("click", this.clickOnPaging.bind(this));
-              const pagingInput = pagingText.querySelector("input.tobago-sheet-pagingInput");
+              const pagingInput = pagingText.querySelector("input");
               pagingInput.addEventListener("blur", this.blurPaging.bind(this));
               pagingInput.addEventListener("keydown", function (event) {
                   if (event.keyCode === 13) {
@@ -9757,11 +9759,11 @@
       get rowCount() {
           return parseInt(this.getAttribute("row-count"));
       }
-      get tableBodyDiv() {
-          return this.querySelector(".tobago-sheet-body");
+      get sheetBody() {
+          return this.querySelector(".tobago-body");
       }
       get tableBody() {
-          return this.querySelector(".tobago-sheet-bodyTable>tbody");
+          return this.querySelector(".tobago-body tbody");
       }
       // -------------------------------------------------------------------------------------- //
       /*
@@ -9827,7 +9829,7 @@
           return null;
       }
       isRowAboveVisibleArea(tr) {
-          const sheetBody = this.tableBodyDiv;
+          const sheetBody = this.sheetBody;
           const viewStart = sheetBody.scrollTop;
           const trEnd = tr.offsetTop + tr.clientHeight;
           return trEnd < viewStart;
@@ -9863,8 +9865,8 @@
                       const sheetLoader = document.getElementById(id);
                       const sheet = document.getElementById(`${id}::lazy-temporary`);
                       sheet.id = id;
-                      const tbody = sheet.querySelector(".tobago-sheet-bodyTable>tbody");
-                      const newRows = sheetLoader.querySelectorAll(".tobago-sheet-bodyTable>tbody>tr");
+                      const tbody = sheet.querySelector(".tobago-body tbody");
+                      const newRows = sheetLoader.querySelectorAll(".tobago-body tbody>tr");
                       for (i = 0; i < newRows.length; i++) {
                           const newRow = newRows[i];
                           const rowIndex = Number(newRow.getAttribute("row-index"));
@@ -9925,7 +9927,7 @@ Type: ${data.type}`);
           return JSON.parse(hidden.getAttribute("value"));
       }
       addHeaderFillerWidth() {
-          const last = document.getElementById(this.id).querySelector(".tobago-sheet-headerTable col:last-child");
+          const last = document.getElementById(this.id).querySelector("tobago-sheet header table col:last-child");
           if (last) {
               last.setAttribute("width", String(Sheet.SCROLL_BAR_SIZE));
           }
@@ -10022,7 +10024,7 @@ Type: ${data.type}`);
               y: event.clientY
           };
       }
-      clickOnCheckbox(event) {
+      clickOnCheckboxForAll(event) {
           const checkbox = event.currentTarget;
           if (checkbox.checked) {
               this.selectAll();
@@ -10033,7 +10035,7 @@ Type: ${data.type}`);
       }
       clickOnRow(event) {
           const row = event.currentTarget;
-          if (row.classList.contains("tobago-sheet-columnSelector") || !Sheet.isInputElement(row)) {
+          if (row.classList.contains("tobago-selected") || !Sheet.isInputElement(row)) {
               if (Math.abs(this.mousedownOnRowData.x - event.clientX)
                   + Math.abs(this.mousedownOnRowData.y - event.clientY) > 5) {
                   // The user has moved the mouse. We assume, the user want to select some text inside the sheet,
@@ -10067,16 +10069,16 @@ Type: ${data.type}`);
       }
       clickOnPaging(event) {
           const element = event.currentTarget;
-          const output = element.querySelector(".tobago-sheet-pagingOutput");
+          const output = element.querySelector("span");
           output.style.display = "none";
-          const input = element.querySelector(".tobago-sheet-pagingInput");
+          const input = element.querySelector("input");
           input.style.display = "initial";
           input.focus();
           input.select();
       }
       blurPaging(event) {
           const input = event.currentTarget;
-          const output = input.parentElement.querySelector(".tobago-sheet-pagingOutput");
+          const output = input.parentElement.querySelector("span");
           if (output.innerHTML !== input.value) {
               console.debug("Reloading sheet '%s' old value='%s' new value='%s'", this.id, output.innerHTML, input.value);
               output.innerHTML = input.value;
@@ -10109,13 +10111,13 @@ Type: ${data.type}`);
           return this.querySelectorAll("tobago-sheet>header>table>colgroup>col");
       }
       getBody() {
-          return this.querySelector("tobago-sheet>.tobago-sheet-body");
+          return this.querySelector("tobago-sheet>.tobago-body");
       }
       getBodyTable() {
-          return this.querySelector("tobago-sheet>.tobago-sheet-body>.tobago-sheet-bodyTable");
+          return this.querySelector("tobago-sheet>.tobago-body>table");
       }
       getBodyCols() {
-          return this.querySelectorAll("tobago-sheet>.tobago-sheet-body>.tobago-sheet-bodyTable>colgroup>col");
+          return this.querySelectorAll("tobago-sheet>.tobago-body>table>colgroup>col");
       }
       getHiddenSelected() {
           const rootNode = this.getRootNode();
@@ -10133,7 +10135,7 @@ Type: ${data.type}`);
        * Get the element, which indicates the selection
        */
       getSelectorCheckbox(row) {
-          return row.querySelector("tr>td>input.tobago-sheet-columnSelector");
+          return row.querySelector("tr>td>input.tobago-selected");
       }
       getRowElements() {
           return this.getBodyTable().querySelectorAll("tbody>tr");
@@ -10978,7 +10980,7 @@ Type: ${data.type}`);
       hideNodes(treeChildNodes) {
           for (const treeChildNode of treeChildNodes) {
               if (treeChildNode.sheet) {
-                  treeChildNode.closest(".tobago-sheet-row").classList.add("d-none");
+                  treeChildNode.closest("tr").classList.add("d-none");
               }
               else {
                   treeChildNode.classList.add("d-none");
@@ -10989,7 +10991,7 @@ Type: ${data.type}`);
       showNodes(treeChildNodes) {
           for (const treeChildNode of treeChildNodes) {
               if (treeChildNode.sheet) {
-                  treeChildNode.closest(".tobago-sheet-row").classList.remove("d-none");
+                  treeChildNode.closest("tr").classList.remove("d-none");
               }
               else {
                   treeChildNode.classList.remove("d-none");

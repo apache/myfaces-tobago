@@ -354,7 +354,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
     if (component.isPagingVisible()) {
       writer.startElement(HtmlElements.FOOTER);
-      writer.writeClassAttribute(TobagoClass.SHEET__FOOTER);
 
       // show row range
       final ShowPosition showPositionRowRange = component.getShowRowRange();
@@ -373,7 +372,9 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         writer.writeAttribute(HtmlAttributes.TITLE,
             ResourceUtils.getString(facesContext, "sheet.setRow"), true);
         writer.startElement(HtmlElements.SPAN);
-        writer.writeClassAttribute(TobagoClass.SHEET__PAGING_TEXT, BootstrapClass.PAGE_LINK);
+        writer.writeClassAttribute(
+            TobagoClass.PAGING,
+            BootstrapClass.PAGE_LINK);
         if (component.getRowCount() != 0) {
           final Locale locale = facesContext.getViewRoot().getLocale();
           final int first = component.getFirst() + 1;
@@ -395,14 +396,12 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
           if (pos >= 0) {
             writer.writeText(formatted.substring(0, pos));
             writer.startElement(HtmlElements.SPAN);
-            writer.writeClassAttribute(TobagoClass.SHEET__PAGING_OUTPUT);
             writer.writeText(Integer.toString(first));
             writer.endElement(HtmlElements.SPAN);
             writer.startElement(HtmlElements.INPUT);
             writer.writeIdAttribute(pagerCommandId);
             writer.writeNameAttribute(pagerCommandId);
             writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
-            writer.writeClassAttribute(TobagoClass.SHEET__PAGING_INPUT);
             writer.writeAttribute(HtmlAttributes.VALUE, first);
             if (!unknown) {
               writer.writeAttribute(HtmlAttributes.MAXLENGTH, Integer.toString(component.getRowCount()).length());
@@ -464,7 +463,9 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         writer.startElement(HtmlElements.LI);
         writer.writeClassAttribute(BootstrapClass.PAGE_ITEM);
         writer.startElement(HtmlElements.SPAN);
-        writer.writeClassAttribute(TobagoClass.SHEET__PAGING_TEXT, BootstrapClass.PAGE_LINK);
+        writer.writeClassAttribute(
+            TobagoClass.PAGING,
+            BootstrapClass.PAGE_LINK);
         writer.writeAttribute(HtmlAttributes.TITLE,
             ResourceUtils.getString(facesContext, "sheet.setPage"), true);
         if (component.getRowCount() != 0) {
@@ -486,14 +487,12 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
           if (pos >= 0) {
             writer.writeText(formatted.substring(0, pos));
             writer.startElement(HtmlElements.SPAN);
-            writer.writeClassAttribute(TobagoClass.SHEET__PAGING_OUTPUT);
             writer.writeText(Integer.toString(first));
             writer.endElement(HtmlElements.SPAN);
             writer.startElement(HtmlElements.INPUT);
             writer.writeIdAttribute(pagerCommandId);
             writer.writeNameAttribute(pagerCommandId);
             writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
-            writer.writeClassAttribute(TobagoClass.SHEET__PAGING_INPUT);
             writer.writeAttribute(HtmlAttributes.VALUE, first);
             if (!unknown) {
               writer.writeAttribute(HtmlAttributes.MAXLENGTH, Integer.toString(pages).length());
@@ -525,7 +524,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       final String expandedId = sheetId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED;
       writer.writeNameAttribute(expandedId);
       writer.writeIdAttribute(expandedId);
-      writer.writeClassAttribute(TobagoClass.SHEET__EXPANDED);
+      writer.writeClassAttribute(TobagoClass.EXPANDED);
       writer.writeAttribute(HtmlAttributes.VALUE, JsonUtils.encode(expandedValue), false);
       writer.endElement(HtmlElements.INPUT);
     }
@@ -553,14 +552,12 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       // if no autoLayout, we render the header in a separate table.
 
       writer.startElement(HtmlElements.HEADER);
-      writer.writeClassAttribute(TobagoClass.SHEET__HEADER);
       writer.startElement(HtmlElements.TABLE);
       writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
       writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
       writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
       writer.writeClassAttribute(
           BootstrapClass.TABLE,
-          TobagoClass.SHEET__HEADER_TABLE,
           sheetMarkup.contains(Markup.DARK) ? BootstrapClass.TABLE_DARK : null,
           sheetMarkup.contains(Markup.BORDERED) ? BootstrapClass.TABLE_BORDERED : null,
           sheetMarkup.contains(Markup.SMALL) ? BootstrapClass.TABLE_SM : null,
@@ -568,16 +565,15 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
       writeColgroup(writer, columnWidths, columns, true);
 
-      writer.startElement(HtmlElements.TBODY);
+      writer.startElement(HtmlElements.THEAD);
       encodeHeaderRows(facesContext, sheet, writer, columns);
-      writer.endElement(HtmlElements.TBODY);
+      writer.endElement(HtmlElements.THEAD);
       writer.endElement(HtmlElements.TABLE);
       writer.endElement(HtmlElements.HEADER);
     }
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "data_div");
-    writer.writeClassAttribute(TobagoClass.SHEET__BODY);
+    writer.writeClassAttribute(TobagoClass.BODY);
 
     writer.startElement(HtmlElements.TABLE);
     writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
@@ -585,7 +581,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
     writer.writeClassAttribute(
         BootstrapClass.TABLE,
-        TobagoClass.SHEET__BODY_TABLE,
         sheetMarkup.contains(Markup.DARK) ? BootstrapClass.TABLE_DARK : null,
         sheetMarkup.contains(Markup.STRIPED) ? BootstrapClass.TABLE_STRIPED : null,
         sheetMarkup.contains(Markup.BORDERED) ? BootstrapClass.TABLE_BORDERED : null,
@@ -665,7 +660,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       // the row client id depends from the existence of an UIRow component! TBD: is this good?
       writer.writeIdAttribute(row != null ? row.getClientId(facesContext): sheet.getRowClientId());
       writer.writeClassAttribute(
-          TobagoClass.SHEET__ROW,
           selected ? TobagoClass.SELECTED : null,
           selected ? BootstrapClass.TABLE_INFO : null,
           row != null ? row.getCustomClass() : null,
@@ -681,7 +675,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
               markup = Markup.NULL;
             }
             writer.writeClassAttribute(
-                TobagoClass.SHEET__CELL,
                 BootstrapClass.textAlign(
                     column instanceof AbstractUIColumn ? ((AbstractUIColumn) column).getAlign() : null),
                 BootstrapClass.verticalAlign(
@@ -701,7 +694,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
               writer.writeAttribute(HtmlAttributes.DISABLED, selector.isDisabled());
               writer.writeClassAttribute(
                   BootstrapClass.FORM_CHECK_INLINE,
-                  TobagoClass.SHEET__COLUMN_SELECTOR);
+                  TobagoClass.SELECTED);
               writer.endElement(HtmlElements.INPUT);
             } else /*if (normalColumn instanceof AbstractUIColumnNode)*/ {
               column.encodeAll(facesContext);
@@ -718,7 +711,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       }
 
       writer.startElement(HtmlElements.TD);
-      writer.writeClassAttribute(TobagoClass.SHEET__CELL);
       writer.startElement(HtmlElements.DIV);
       writer.endElement(HtmlElements.DIV);
       encodeBehavior(writer, facesContext, row);
@@ -746,7 +738,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       writer.endElement(HtmlElements.TD);
       if (!autoLayout) {
         writer.startElement(HtmlElements.TD);
-        writer.writeClassAttribute(TobagoClass.SHEET__CELL);
 //      writer.write("&nbsp;");
         writer.startElement(HtmlElements.DIV);
         writer.endElement(HtmlElements.DIV);
@@ -841,7 +832,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
               align = null;
             }
             writer.writeClassAttribute(
-                TobagoClass.SHEET__HEADER_CELL,
                 BootstrapClass.textAlign(align),
                 column.getCustomClass());
             writer.startElement(HtmlElements.SPAN);
@@ -892,7 +882,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
             }
 
             writer.writeClassAttribute(
-                TobagoClass.SHEET__HEADER,
                 sortable ? TobagoClass.SORTABLE : null,
                 ascending ? TobagoClass.ASCENDING : null,
                 descending ? TobagoClass.DESCENDING : null);
@@ -903,8 +892,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
             if (column instanceof AbstractUIColumnSelector && selectable.isMulti()) {
               writer.startElement(HtmlElements.INPUT);
               writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
-
-              writer.writeClassAttribute(TobagoClass.SHEET__COLUMN_SELECTOR);
+              writer.writeClassAttribute(TobagoClass.SELECTED);
               writer.writeAttribute(
                   HtmlAttributes.TITLE,
                   ResourceUtils.getString(facesContext, "sheet.selectAll"),
@@ -937,9 +925,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
   private void encodeHeaderFiller(final TobagoResponseWriter writer, final AbstractUISheet sheet) throws IOException {
     writer.startElement(HtmlElements.TH);
-    writer.writeClassAttribute(TobagoClass.SHEET__HEADER_CELL);
     writer.startElement(HtmlElements.SPAN);
-    writer.writeClassAttribute(TobagoClass.SHEET__HEADER);
     writer.endElement(HtmlElements.SPAN);
     writer.endElement(HtmlElements.TH);
   }
@@ -1049,7 +1035,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
   private void encodeResizing(final TobagoResponseWriter writer, final AbstractUISheet sheet, final int columnIndex)
       throws IOException {
     writer.startElement(HtmlElements.SPAN);
-    writer.writeClassAttribute(TobagoClass.SHEET__HEADER_RESIZE);
+    writer.writeClassAttribute(TobagoClass.RESIZE);
     writer.writeAttribute(DataAttributes.COLUMN_INDEX, Integer.toString(columnIndex), false);
     writer.write("&nbsp;&nbsp;"); // is needed for IE
     writer.endElement(HtmlElements.SPAN);

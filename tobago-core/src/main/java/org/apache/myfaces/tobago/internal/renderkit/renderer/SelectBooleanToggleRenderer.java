@@ -20,14 +20,14 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectBoolean;
-import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanToggle;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 
 import jakarta.faces.context.FacesContext;
 
-public class SelectBooleanToggleRenderer<T extends AbstractUISelectBooleanCheckbox>
+public class SelectBooleanToggleRenderer<T extends AbstractUISelectBooleanToggle>
     extends SelectBooleanRendererBase<T> {
 
   @Override

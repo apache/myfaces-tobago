@@ -25,7 +25,7 @@ it("Collapse tree", function (done) {
   let row0periodFn = querySelectorFn("#page\\:mainForm\\:sheet\\:0\\:periodOut");
   let row0discovererFn = querySelectorFn("#page\\:mainForm\\:sheet\\:0\\:discovererOut");
   let row0yearFn = querySelectorFn("#page\\:mainForm\\:sheet\\:0\\:yearOut");
-  let row1 = querySelectorFn("#page\\:mainForm\\:sheet\\:\\:data_div tr[row-index='1']");
+  let row1 = querySelectorFn("#page\\:mainForm\\:sheet .tobago-body tr[row-index='1']");
   let row1nameFn = querySelectorFn("#page\\:mainForm\\:sheet\\:1\\:nameOut");
   let row1centralBodyFn = querySelectorFn("#page\\:mainForm\\:sheet\\:1\\:centralBodyOut");
   let row1distanceFn = querySelectorFn("#page\\:mainForm\\:sheet\\:1\\:distanceOut");
