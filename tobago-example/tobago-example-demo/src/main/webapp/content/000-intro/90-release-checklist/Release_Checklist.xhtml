@@ -142,11 +142,6 @@ $ mvn clean install -Pall-modules &amp;&amp; mvn checkstyle:check apache-rat:che
 $ mvn clean install &amp;&amp; mvn checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check
 </demo-highlight>
           </li>
-
-          <li>Check version info in these files manually:
-            <demo-highlight>package-info.java</demo-highlight>
-            <demo-highlight>package.json</demo-highlight>
-          </li>
         </ul>
       </tc:section>
       <tc:section label="Building the Release (Tobago 1.0.x to 2.0.8)">
@@ -184,15 +179,12 @@ $ mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-defaul
         <ul>
           <li>Commit: "chore(release): prepare"
             <ul>
-              <li>Set next version in:
-                <demo-highlight>package.json
-package-lock.json
-                </demo-highlight>
-              </li>
-              <li>Adjust versions in demo:
-                <demo-highlight>Release
-ApiController
-                </demo-highlight>
+              <li>Check version info in these files manually:
+                <demo-highlight>package.json</demo-highlight>
+                <demo-highlight>package-lock.json</demo-highlight>
+                <demo-highlight>package-info.java</demo-highlight>
+                <demo-highlight>Release.java</demo-highlight>
+                <demo-highlight>ApiController.java</demo-highlight>
               </li>
             </ul>
           </li>
