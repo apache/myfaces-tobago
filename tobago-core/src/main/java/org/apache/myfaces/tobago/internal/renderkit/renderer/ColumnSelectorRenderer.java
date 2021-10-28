@@ -19,7 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.internal.component.AbstractUIColumnSelector;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
-public class ColumnSelectorRenderer extends RendererBase {
+public class ColumnSelectorRenderer<T extends AbstractUIColumnSelector> extends RendererBase<T> {
 }

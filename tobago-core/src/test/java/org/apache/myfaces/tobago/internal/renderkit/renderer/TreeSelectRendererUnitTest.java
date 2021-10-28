@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 import javax.faces.component.behavior.AjaxBehavior;
 import java.io.IOException;
 
-public class TreeSelectRendererUnitTest extends TreeRendererTestBase {
+public class TreeSelectRendererUnitTest extends RendererTestBase {
 
   @Test
   public void treeSelectSingle() throws IOException {
@@ -43,7 +43,7 @@ public class TreeSelectRendererUnitTest extends TreeRendererTestBase {
     tree.setVar("node");
     tree.setShowRoot(true);
     tree.setSelectable(Selectable.single);
-    tree.setValue(getSample());
+    tree.setValue(getTreeSample());
     tree.getExpandedState().expandAll();
 
     final UITreeNode treeNode = (UITreeNode) ComponentUtils.createComponent(

@@ -20,7 +20,7 @@ import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("Basics: Name", function (done) {
   let colNameFn = elementByIdFn("page:mainForm:s1:columnName_sorter");
-  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s1 .tobago-body tbody tr");
   let leftPagingFn = elementByIdFn("page:mainForm:s1:pageActiontoRow");
 
   let test = new JasmineTestTool(done);
@@ -59,7 +59,7 @@ it("Basics: Name", function (done) {
 
 it("Basics: Period", function (done) {
   let colPeriodFn = querySelectorFn("#page\\:mainForm\\:s1\\:columnPeriod_sorter");
-  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s1 .tobago-body tbody tr");
   let leftPagingFn = elementByIdFn("page:mainForm:s1:pageActiontoRow");
 
   let test = new JasmineTestTool(done);
@@ -98,7 +98,7 @@ it("Basics: Period", function (done) {
 
 it("Basics: Year", function (done) {
   let colYearFn = querySelectorFn("#page\\:mainForm\\:s1\\:columnDiscoverYear_sorter");
-  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s1 .tobago-body tbody tr");
   let leftPagingFn = elementByIdFn("page:mainForm:s1:pageActiontoRow");
 
   let test = new JasmineTestTool(done);
@@ -133,7 +133,7 @@ it("Basics: Year", function (done) {
  */
 it("Basics: left paging", function (done) {
   let colNameFn = elementByIdFn("page:mainForm:s1:columnName_sorter");
-  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s1 .tobago-body tbody tr");
   let leftPagingFn = elementByIdFn("page:mainForm:s1:pageActiontoRow");
 
   let test = new JasmineTestTool(done);
@@ -179,7 +179,7 @@ it("Basics: left paging", function (done) {
  */
 it("Basics: center paging", function (done) {
   let colNameFn = elementByIdFn("page:mainForm:s1:columnName_sorter");
-  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s1 .tobago-body tbody tr");
   let leftPagingFn = elementByIdFn("page:mainForm:s1:pageActiontoRow");
   let centerPaging7Fn = elementByIdFn("page:mainForm:s1:pageActiontoPage-7");
   let centerPaging14Fn = elementByIdFn("page:mainForm:s1:pageActiontoPage-14");
@@ -238,7 +238,7 @@ it("Basics: center paging", function (done) {
  */
 it("Basics: right paging", function (done) {
   let colNameFn = elementByIdFn("page:mainForm:s1:columnName_sorter");
-  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s1 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s1 .tobago-body tbody tr");
   let leftPagingFn = elementByIdFn("page:mainForm:s1:pageActiontoRow");
   let rightPagingFirstFn = elementByIdFn("page:mainForm:s1:pageActionfirst");
   let rightPagingPrevFn = elementByIdFn("page:mainForm:s1:pageActionprev");
@@ -312,7 +312,7 @@ it("Basics: right paging", function (done) {
 });
 it("Custom Sorting: Name", function (done) {
   let colNameFn = elementByIdFn("page:mainForm:s2:customColumnName_sorter");
-  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s2 .tobago-body tbody tr");
   let leftPagingFn = elementByIdFn("page:mainForm:s2:pageActiontoRow");
 
   let test = new JasmineTestTool(done);
@@ -351,7 +351,7 @@ it("Custom Sorting: Name", function (done) {
 
 it("Custom Sorting: Period", function (done) {
   let colPeriodFn = querySelectorFn("#page\\:mainForm\\:s2\\:customColumnPeriod_sorter");
-  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s2 .tobago-body tbody tr");
   let leftPagingFn = elementByIdFn("page:mainForm:s2:pageActiontoRow");
 
   let test = new JasmineTestTool(done);
@@ -390,7 +390,7 @@ it("Custom Sorting: Period", function (done) {
 
 it("Custom Sorting: Year", function (done) {
   let colYearFn = querySelectorFn("#page\\:mainForm\\:s2\\:customColumnYear_sorter");
-  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s2 .tobago-body tbody tr");
   let leftPagingFn = elementByIdFn("page:mainForm:s2:pageActiontoRow");
 
   let test = new JasmineTestTool(done);
@@ -425,7 +425,7 @@ it("Custom Sorting: Year", function (done) {
  */
 it("Custom Sorting: left paging", function (done) {
   let colNameFn = elementByIdFn("page:mainForm:s2:customColumnName_sorter");
-  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s2 .tobago-body tbody tr");
   let leftPagingFn = elementByIdFn("page:mainForm:s2:pageActiontoRow");
 
   let test = new JasmineTestTool(done);
@@ -471,7 +471,7 @@ it("Custom Sorting: left paging", function (done) {
  */
 it("Custom Sorting: center paging", function (done) {
   let colNameFn = elementByIdFn("page:mainForm:s2:customColumnName_sorter");
-  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s2 .tobago-body tbody tr");
   let leftPagingFn = elementByIdFn("page:mainForm:s2:pageActiontoRow");
   let centerPaging7Fn = elementByIdFn("page:mainForm:s2:pageActiontoPage-7");
   let centerPaging14Fn = elementByIdFn("page:mainForm:s2:pageActiontoPage-14");
@@ -530,7 +530,7 @@ it("Custom Sorting: center paging", function (done) {
  */
 it("Custom Sorting: right paging", function (done) {
   let colNameFn = elementByIdFn("page:mainForm:s2:customColumnName_sorter");
-  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s2 .tobago-sheet-bodyTable tbody .tobago-sheet-row");
+  let rowsFn = querySelectorAllFn("#page\\:mainForm\\:s2 .tobago-body tbody tr");
   let leftPagingFn = elementByIdFn("page:mainForm:s2:pageActiontoRow");
   let rightPagingFirstFn = elementByIdFn("page:mainForm:s2:pageActionfirst");
   let rightPagingPrevFn = elementByIdFn("page:mainForm:s2:pageActionprev");
@@ -605,18 +605,18 @@ it("Custom Sorting: right paging", function (done) {
 
 function waitForBodyTable(rowsFn, row0col0, row0col1, row0col2, row1col0, row1col1, row1col2,
                           row2col0, row2col1, row2col2, row3col0, row3col1, row3col2) {
-  let $row0Col0 = rowsFn.item(0).querySelectorAll(".tobago-sheet-cell").item(0).textContent.trim();
-  let $row0Col1 = rowsFn.item(0).querySelectorAll(".tobago-sheet-cell").item(1).textContent.trim();
-  let $row0Col2 = rowsFn.item(0).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim();
-  let $row1Col0 = rowsFn.item(1).querySelectorAll(".tobago-sheet-cell").item(0).textContent.trim();
-  let $row1Col1 = rowsFn.item(1).querySelectorAll(".tobago-sheet-cell").item(1).textContent.trim();
-  let $row1Col2 = rowsFn.item(1).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim();
-  let $row2Col0 = rowsFn.item(2).querySelectorAll(".tobago-sheet-cell").item(0).textContent.trim();
-  let $row2Col1 = rowsFn.item(2).querySelectorAll(".tobago-sheet-cell").item(1).textContent.trim();
-  let $row2Col2 = rowsFn.item(2).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim();
-  let $row3Col0 = rowsFn.item(3).querySelectorAll(".tobago-sheet-cell").item(0).textContent.trim();
-  let $row3Col1 = rowsFn.item(3).querySelectorAll(".tobago-sheet-cell").item(1).textContent.trim();
-  let $row3Col2 = rowsFn.item(3).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim();
+  let $row0Col0 = rowsFn.item(0).querySelectorAll("td").item(0).textContent.trim();
+  let $row0Col1 = rowsFn.item(0).querySelectorAll("td").item(1).textContent.trim();
+  let $row0Col2 = rowsFn.item(0).querySelectorAll("td").item(2).textContent.trim();
+  let $row1Col0 = rowsFn.item(1).querySelectorAll("td").item(0).textContent.trim();
+  let $row1Col1 = rowsFn.item(1).querySelectorAll("td").item(1).textContent.trim();
+  let $row1Col2 = rowsFn.item(1).querySelectorAll("td").item(2).textContent.trim();
+  let $row2Col0 = rowsFn.item(2).querySelectorAll("td").item(0).textContent.trim();
+  let $row2Col1 = rowsFn.item(2).querySelectorAll("td").item(1).textContent.trim();
+  let $row2Col2 = rowsFn.item(2).querySelectorAll("td").item(2).textContent.trim();
+  let $row3Col0 = rowsFn.item(3).querySelectorAll("td").item(0).textContent.trim();
+  let $row3Col1 = rowsFn.item(3).querySelectorAll("td").item(1).textContent.trim();
+  let $row3Col2 = rowsFn.item(3).querySelectorAll("td").item(2).textContent.trim();
 
   return ($row0Col0 === row0col0 && $row0Col1 === row0col1 && $row0Col2 === row0col2
       && $row1Col0 === row1col0 && $row1Col1 === row1col1 && $row1Col2 === row1col2
@@ -626,18 +626,18 @@ function waitForBodyTable(rowsFn, row0col0, row0col1, row0col2, row1col0, row1co
 
 function expectBodyTable(rowsFn, row0col0, row0col1, row0col2, row1col0, row1col1, row1col2,
                          row2col0, row2col1, row2col2, row3col0, row3col1, row3col2) {
-  let $row0Col0 = rowsFn.item(0).querySelectorAll(".tobago-sheet-cell").item(0).textContent.trim();
-  let $row0Col1 = rowsFn.item(0).querySelectorAll(".tobago-sheet-cell").item(1).textContent.trim();
-  let $row0Col2 = rowsFn.item(0).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim();
-  let $row1Col0 = rowsFn.item(1).querySelectorAll(".tobago-sheet-cell").item(0).textContent.trim();
-  let $row1Col1 = rowsFn.item(1).querySelectorAll(".tobago-sheet-cell").item(1).textContent.trim();
-  let $row1Col2 = rowsFn.item(1).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim();
-  let $row2Col0 = rowsFn.item(2).querySelectorAll(".tobago-sheet-cell").item(0).textContent.trim();
-  let $row2Col1 = rowsFn.item(2).querySelectorAll(".tobago-sheet-cell").item(1).textContent.trim();
-  let $row2Col2 = rowsFn.item(2).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim();
-  let $row3Col0 = rowsFn.item(3).querySelectorAll(".tobago-sheet-cell").item(0).textContent.trim();
-  let $row3Col1 = rowsFn.item(3).querySelectorAll(".tobago-sheet-cell").item(1).textContent.trim();
-  let $row3Col2 = rowsFn.item(3).querySelectorAll(".tobago-sheet-cell").item(2).textContent.trim();
+  let $row0Col0 = rowsFn.item(0).querySelectorAll("td").item(0).textContent.trim();
+  let $row0Col1 = rowsFn.item(0).querySelectorAll("td").item(1).textContent.trim();
+  let $row0Col2 = rowsFn.item(0).querySelectorAll("td").item(2).textContent.trim();
+  let $row1Col0 = rowsFn.item(1).querySelectorAll("td").item(0).textContent.trim();
+  let $row1Col1 = rowsFn.item(1).querySelectorAll("td").item(1).textContent.trim();
+  let $row1Col2 = rowsFn.item(1).querySelectorAll("td").item(2).textContent.trim();
+  let $row2Col0 = rowsFn.item(2).querySelectorAll("td").item(0).textContent.trim();
+  let $row2Col1 = rowsFn.item(2).querySelectorAll("td").item(1).textContent.trim();
+  let $row2Col2 = rowsFn.item(2).querySelectorAll("td").item(2).textContent.trim();
+  let $row3Col0 = rowsFn.item(3).querySelectorAll("td").item(0).textContent.trim();
+  let $row3Col1 = rowsFn.item(3).querySelectorAll("td").item(1).textContent.trim();
+  let $row3Col2 = rowsFn.item(3).querySelectorAll("td").item(2).textContent.trim();
 
   expect($row0Col0).toBe(row0col0, "row0col0");
   expect($row0Col1).toBe(row0col1, "row0col1");
