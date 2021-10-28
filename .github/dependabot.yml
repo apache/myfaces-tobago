@@ -36,6 +36,13 @@ updates:
       - dependency-name: "org.apache.maven.plugins:maven-enforcer-plugin"
         versions:
           - ">= 3.0.0"
+      # todo: update quarkus
+      - dependency-name: "io.quarkus:quarkus-maven-plugin"
+        versions:
+          - ">= 2.0.0"
+      - dependency-name: "org.seleniumhq.selenium:selenium-java"
+        versions:
+          - ">= 4.0.0"
 
   - package-ecosystem: "maven"
     directory: "/"
@@ -96,6 +103,13 @@ updates:
       - dependency-name: "org.apache.maven.plugins:maven-enforcer-plugin"
         versions:
           - ">= 3.0.0"
+      # todo: update quarkus
+      - dependency-name: "io.quarkus:quarkus-maven-plugin"
+        versions:
+          - ">= 2.0.0"
+      - dependency-name: "org.seleniumhq.selenium:selenium-java"
+        versions:
+          - ">= 4.0.0"
 
   - package-ecosystem: "maven"
     directory: "/"
@@ -164,6 +178,9 @@ updates:
       - dependency-name: "org.apache.maven.plugins:maven-enforcer-plugin"
         versions:
           - ">= 3.0.0"
+      - dependency-name: "org.seleniumhq.selenium:selenium-java"
+        versions:
+          - ">= 4.0.0"
 
   - package-ecosystem: "github-actions"
     directory: "/"
