@@ -147,10 +147,12 @@ public enum Release {
   v4_5_5("12350236", false, true),
 
   v5_0_0_alpha_1("12350237"),
-  v5_0_0_alpha_2("12350431", true),
-  v5_0_0("12338729", false, true),
+  v5_0_0_alpha_2("12350431"),
+  v5_0_0("12338729", true),
   v5_0_1("12344151", false, true),
-  v5_1_0("12344152", false, true);
+  v5_1_0("12344152", false, true),
+
+  v6_0_0("12350675", false, true);
 
   private final String jira;
   private final String version;
