@@ -57,7 +57,7 @@ pipeline {
                 stages {
                     stage('BuildAndTest') {
                         steps {
-                            sh "mvn clean package checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check -Pgenerate-assembly -Pfrontend"
+                            sh "mvn -U clean package checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check -Pgenerate-assembly -Pfrontend"
                         }
                         post {
                             always {
