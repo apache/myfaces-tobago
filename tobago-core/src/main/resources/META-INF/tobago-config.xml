@@ -20,8 +20,8 @@
 <tobago-config
     xmlns="http://myfaces.apache.org/tobago/tobago-config"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-5.0.xsd"
-    version="5.0">
+    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-5.1.xsd"
+    version="5.1">
 
   <name>tobago-core</name>
 
@@ -32,5 +32,53 @@
     <directive name="script-src">'self'</directive>
     <directive name="frame-ancestors">'none'</directive>
   </content-security-policy>
+
+  <tags>
+    <tag name="date">
+      <attribute name="labelLayout" default="flexLeft"/>
+    </tag>
+    <tag name="file">
+      <attribute name="labelLayout" default="flexLeft"/>
+    </tag>
+    <tag name="in">
+     <attribute name="labelLayout" default="flexLeft"/>
+    </tag>
+    <tag name="out">
+      <attribute name="labelLayout" default="flexLeft"/>
+    </tag>
+    <tag name="range">
+      <attribute name="labelLayout" default="flexLeft"/>
+    </tag>
+    <tag name="selectBooleanCheckbox">
+      <attribute name="labelLayout" default="flexLeft"/>
+    </tag>
+    <tag name="selectBooleanToggle">
+      <attribute name="labelLayout" default="flexLeft"/>
+    </tag>
+    <tag name="selectManyCheckbox">
+      <attribute name="labelLayout" default="flexLeft"/>
+    </tag>
+    <tag name="selectManyListbox">
+      <attribute name="labelLayout" default="flexLeft"/>
+    </tag>
+    <tag name="selectManyShuttle">
+      <attribute name="labelLayout" default="flexLeft"/>
+    </tag>
+    <tag name="selectOneChoice">
+      <attribute name="labelLayout" default="flexLeft"/>
+    </tag>
+    <tag name="selectOneListbox">
+      <attribute name="labelLayout" default="flexLeft"/>
+    </tag>
+    <tag name="selectOneRadio">
+      <attribute name="labelLayout" default="flexLeft"/>
+    </tag>
+    <tag name="stars">
+      <attribute name="labelLayout" default="flexLeft"/>
+    </tag>
+    <tag name="textarea">
+      <attribute name="labelLayout" default="flexLeft"/>
+    </tag>
+  </tags>
 
 </tobago-config>
