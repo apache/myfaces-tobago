@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema
+    targetNamespace="http://myfaces.apache.org/tobago/tobago-config"
+    xmlns:tobago="http://myfaces.apache.org/tobago/tobago-config"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified"
+    version="5.1">
+
+  <xs:annotation>
+    <xs:documentation>
+      <![CDATA[
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
+
+           http://www.apache.org/licenses/LICENSE-2.0
+
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+      ]]>
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:annotation>
+    <xs:documentation>
+      <![CDATA[
+
+      ************************************************************************************
+      ************************************************************************************
+      WARNING
+      THIS IS A PRE-RELEASE VERSION OF THIS FILE, PLEASE CHECK IF THERE IS AN UPDATE ON
+      http://myfaces.apache.org/tobago/tobago-config-5.1.xsd
+      ************************************************************************************
+      ************************************************************************************
+
+      This is the XML schema for the Tobago configuration files version 5.1.
+
+      Use the following definition:
+
+      <tobago-config
+          xmlns="http://myfaces.apache.org/tobago/tobago-config"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-5.1.xsd"
+          version="5.1">
+        ...
+      </tobago-config>
+      ]]>
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name="tobago-config" type="tobago:tobago-config-type"/>
+
+  <xs:complexType name="tobago-config-type">
+    <xs:sequence>
+      <xs:element name="name" type="tobago:name-type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            Name of this instance of the configuration to be referenced in other tobago-config.xml files.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ordering" type="tobago:ordering-type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            Can be used to order this instance of the configuration against other tobago-config.xml files.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="theme-config" type="tobago:theme-config-type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            Configure the themes to be used.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="create-session-secret" type="xs:boolean" minOccurs="0" default="true">
+
+      </xs:element>
+      <xs:element name="check-session-secret" type="xs:boolean" minOccurs="0" default="true">
+
+      </xs:element>
+      <xs:element name="prevent-frame-attacks" type="xs:boolean" minOccurs="0" default="true">
+        <xs:annotation>
+          <xs:documentation>
+            Sets the HTTP header "X-Frame-Options" to "DENY".
+            This setting is deprecated but needed for IE11. The current way to configure this is using
+            the Content Security Policy directive 'frame-ancestors'.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="set-nosniff-header" type="xs:boolean" minOccurs="0" default="true">
+        <xs:annotation>
+          <xs:documentation>
+            Sets the HTTP header "X-Content-Type-Options" to "nosniff".
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="classic-date-time-picker" type="xs:boolean" minOccurs="0" default="false">
+        <xs:annotation>
+          <xs:documentation>
+            Warning: No longer supported.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="content-security-policy" type="tobago:content-security-policy-type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            Define rule for CSP.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sanitizer" type="tobago:sanitizer-type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            <![CDATA[
+            Define a Java class which implements org.apache.myfaces.tobago.sanitizer.Sanitizer
+            to protect against HTML content of <tc:out escape="true"/> and
+            <tc:textarea/>.
+
+            This is the default:
+            <sanitizer>
+              <sanitizer-class>org.apache.myfaces.tobago.sanitizer.JsoupSanitizer</sanitizer-class>
+              <properties>
+                <entry key="whitelist">relaxed</entry>
+              </properties>
+            </sanitizer>
+            ]]>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="enable-tobago-exception-handler" type="xs:boolean" minOccurs="0" default="true">
+        <xs:annotation>
+          <xs:documentation>
+            Use an instance of org.apache.myfaces.tobago.context.TobagoExceptionHandler as
+            exception handler. Set to false to deactivate.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="decode-line-feed" type="xs:boolean" minOccurs="0" default="true">
+        <xs:annotation>
+          <xs:documentation>
+            Use LF instead of CR+LF in textarea while decoding.
+            HTTP transports usually a line break with CR+LF
+            (see https://www.w3.org/TR/html401/interact/forms.html#h-17.13.4).
+            When this property is set to true (by default), the Java bean will get the string only with LF ('\n').
+
+            When this property is set to false, there might be a conflict with the length validator,
+            because you have 2 character for each line break.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="security-annotation" type="tobago:security-annotation-type" minOccurs="0" default="disable">
+        <xs:annotation>
+          <xs:documentation>
+            Defines the behavior of actions in buttons and links, if the MethodExpression
+            has a security annotation.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="theme-definitions" type="tobago:theme-definitions-type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            Configuration of a new theme which may come with this JAR file.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="tags" type="tobago:tags-type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            Configuration of tags, if supported.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="version"
+                  type="tobago:tobago-config-version-type"
+                  use="required"/>
+  </xs:complexType>
+
+  <xs:simpleType name="security-annotation-type">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="hide"/>
+      <xs:enumeration value="disable"/>
+      <xs:enumeration value="ignore"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="tobago-config-version-type">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="5.1"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="ordering-type">
+    <xs:sequence>
+      <xs:element name="after" type="tobago:before-after-type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            This configuration instance needs to be applied after the referenced instance.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="before" type="tobago:before-after-type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            This configuration instance needs to be applied before the referenced instance.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="before-after-type">
+    <xs:sequence>
+      <xs:element name="name" type="tobago:name-type" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="theme-config-type">
+    <xs:sequence>
+      <xs:element name="default-theme" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The default theme, which is used when no theme is selected programmatically.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="supported-theme" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>
+            Other supported theme for this application.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="content-security-policy-type">
+    <xs:sequence>
+      <xs:element name="directive" type="tobago:directive-type" maxOccurs="unbounded" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            CSP directive to be added to the HTTP header.
+            It is possible to define more than one directive with the same name, to allow
+            more than one value.
+            The mode defines, if the SCP headers should be written, not written, or only
+            reporting headers should be written.
+
+            For more information about the directives see
+            https://www.w3.org/TR/CSP/
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="mode" type="tobago:csp-mode-type" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="directive-type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="name" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation>
+              Name of the CSP directive e. g. script-src, style-src, frame-ancestors, child-src, ...
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="sanitizer-type">
+    <xs:sequence>
+      <xs:element name="sanitizer-class" type="xs:string"/>
+      <xs:element name="properties" type="tobago:properties-type" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="properties-type">
+    <xs:sequence>
+      <xs:element name="entry" type="tobago:entry-type" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="entry-type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="key" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="csp-mode-type">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="on"/>
+      <xs:enumeration value="off"/>
+      <xs:enumeration value="report-only"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="theme-definitions-type">
+    <xs:sequence>
+      <xs:element name="theme-definition" type="tobago:theme-definition-type" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="theme-definition-type">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The technical name of the theme, which e. g. is used in paths.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="display-name" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            The display name of the theme, which may be used in a theme selector.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="fallback" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            The parent of the theme.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="version" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The version of the theme. The version string will be encoded into the
+            resource path, to avoid caching problems. The version can be accessed by
+            #{tobagoContext.theme.version}.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="resources" type="tobago:resources-type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>
+            A list of resources this theme is using.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="resources-type">
+    <xs:annotation>
+      <xs:documentation>
+        Resources can be added, or removed (if they are coming from its fallback theme).
+        To removed the resources, put it inside the "excludes" with the same name it was included
+        in the parent.
+
+        There a two different sets of resources, one for production and one for development.
+        Use the production flag to set this mode explicitly.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="includes" type="tobago:includes-excludes-type" minOccurs="0"/>
+      <xs:element name="excludes" type="tobago:includes-excludes-type" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="production" type="xs:boolean" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="includes-excludes-type">
+    <xs:sequence>
+      <xs:element name="script" type="tobago:script-type" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="style" type="tobago:style-type" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="script-type">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="type" type="xs:string"/>
+    <xs:attribute name="priority" type="xs:unsignedShort"/>
+  </xs:complexType>
+
+  <xs:complexType name="style-type">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="priority" type="xs:unsignedShort"/>
+  </xs:complexType>
+
+  <xs:simpleType name="name-type">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:complexType name="tags-type">
+    <xs:sequence>
+      <xs:element name="tag" type="tobago:tag-type" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="tag-type">
+    <xs:sequence>
+      <xs:element name="attribute" type="tobago:attribute-type" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="attribute-type">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="default" type="xs:string"/>
+  </xs:complexType>
+
+</xs:schema>

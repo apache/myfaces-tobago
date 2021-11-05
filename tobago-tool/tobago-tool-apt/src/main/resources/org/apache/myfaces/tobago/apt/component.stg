@@ -72,10 +72,10 @@ import jakarta.el.ValueExpression;
 public class <componentInfo.className>
     extends <componentInfo.superClassName> <first(componentInfo.interfaces):{ n | implements <n>}><rest(componentInfo.interfaces):{ n |, <n>}> {
 
-  <if(componentInfo.componentType)>
-  public static final String COMPONENT_TYPE = Tags.<componentInfo.tagName>.componentType();
+  private static final Tags TAG = Tags.<componentInfo.tagName>;
 
-  <endif>
+  public static final String COMPONENT_TYPE = TAG.componentType();
+
   <if(componentInfo.componentFamily)>
   public static final String COMPONENT_FAMILY = "<componentInfo.componentFamily>";
 

@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.apt.processor;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.myfaces.tobago.apt.AnnotationUtils;
 import org.apache.myfaces.tobago.apt.annotation.ConverterTag;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Markup;
@@ -497,7 +496,10 @@ public class TaglibGenerator extends AbstractGenerator {
       final Element componentElement = document.createElement("component");
       tagElement.appendChild(componentElement);
       addLeafTextElement(
-          AnnotationUtils.componentType(componentTag), "component-type", componentElement, document);
+          componentTag.uiComponent().replace(".component.UI", "."),
+          "component-type",
+          componentElement,
+          document);
       if (componentTag.rendererType().length > 0) {
         addLeafTextElement(componentTag.rendererType()[0], "renderer-type", componentElement, document);
       }

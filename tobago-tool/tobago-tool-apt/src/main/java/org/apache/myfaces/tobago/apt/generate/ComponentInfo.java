@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.apt.generate;
 
-import org.apache.myfaces.tobago.apt.AnnotationUtils;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
 import javax.lang.model.element.TypeElement;
@@ -40,7 +39,7 @@ public class ComponentInfo extends TagInfo {
   public ComponentInfo(final TypeElement declaration, final UIComponentTag componentTag) {
     super(declaration.getQualifiedName().toString(), componentTag.uiComponent(), componentTag.rendererType());
 
-    setComponentType(AnnotationUtils.componentType(componentTag));
+    setComponentType(componentTag.uiComponent().replace(".component.UI", "."));
     setComponentFamily(componentTag.componentFamily());
     setComponentClassName(componentTag.uiComponent());
   }

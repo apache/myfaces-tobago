@@ -33,8 +33,9 @@ public interface HasLabelLayout {
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.component.LabelLayout",
-      defaultCode = "getLabel() != null "
-          + "? org.apache.myfaces.tobago.component.LabelLayout.flexLeft "
-          + ": org.apache.myfaces.tobago.component.LabelLayout.none")
-  void setLabelLayout(String markup);
+      defaultCode = "getLabel() == null\n"
+          + "        ? LabelLayout.none\n"
+          + "        : LabelLayout.valueOf(org.apache.myfaces.tobago.config.TobagoConfig"
+          + ".getInstance(getFacesContext()).getTagAttributeDefault(TAG, \"labelLayout\"))")
+  void setLabelLayout(String labelLayout);
 }
