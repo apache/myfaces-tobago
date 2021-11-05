@@ -31,10 +31,10 @@ import java.util.Properties;
 public class TobagoConfigFragment {
 
   private String name;
-  private List<String> before;
-  private List<String> after;
+  private final List<String> before;
+  private final List<String> after;
 
-  private List<String> supportedThemeNames;
+  private final List<String> supportedThemeNames;
   private String defaultThemeName;
   private Boolean createSessionSecret;
   private Boolean checkSessionSecret;
@@ -42,13 +42,14 @@ public class TobagoConfigFragment {
   private ContentSecurityPolicy contentSecurityPolicy;
   private SecurityAnnotation securityAnnotation;
   private Boolean setNosniffHeader;
-  private List<ThemeImpl> themeDefinitions;
+  private final List<ThemeImpl> themeDefinitions;
   private URL url;
   private String sanitizerClass;
   private Boolean decodeLineFeed;
   private Properties sanitizerProperties;
-  private Map<String, String> mimeTypes;
+  private final Map<String, String> mimeTypes;
   private Boolean enableTobagoExceptionHandler;
+  private final Map<String, String> tagAttributeDefaults;
 
   public TobagoConfigFragment() {
     before = new ArrayList<>();
@@ -56,6 +57,7 @@ public class TobagoConfigFragment {
     supportedThemeNames = new ArrayList<>();
     themeDefinitions = new ArrayList<>();
     mimeTypes = new HashMap<>();
+    tagAttributeDefaults = new HashMap<>();
   }
 
   public void addSupportedThemeName(final String supportedThemeName) {
@@ -200,6 +202,14 @@ public class TobagoConfigFragment {
 
   public void setEnableTobagoExceptionHandler(Boolean enableTobagoExceptionHandler) {
     this.enableTobagoExceptionHandler = enableTobagoExceptionHandler;
+  }
+
+  public void addTagDefault(String tag, String attribute, String defaultValue) {
+    tagAttributeDefaults.put(tag + ' ' + attribute, defaultValue);
+  }
+
+  public Map<String, String> getTagAttributeDefaults() {
+    return tagAttributeDefaults;
   }
 
   @Override

@@ -111,12 +111,17 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int EXTENSION = -612557761;
   private static final int TYPE = 3575610;
 
+  private static final int TAGS = 3552281;
+  private static final int TAG = 114586;
+  private static final int ATTRIBUTE = 13085340;
+
   private static final String ATTR_MODE = "mode";
   private static final String ATTR_PRODUCTION = "production";
   private static final String ATTR_NAME = "name";
   private static final String ATTR_KEY = "key";
   private static final String ATTR_PRIORITY = "priority";
   private static final String ATTR_TYPE = "type";
+  private static final String ATTR_DEFAULT = "default";
 
   private static final int MAX_PRIORITY = 65536;
 
@@ -130,6 +135,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private String directiveName;
   private String extension;
   private String type;
+  private String tagName;
 
   private Stack<String> stack;
 
@@ -267,6 +273,14 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         directiveName = attributes.getValue(ATTR_NAME);
         break;
 
+      case TAG:
+        tagName = attributes.getValue(ATTR_NAME);
+        break;
+
+      case ATTRIBUTE:
+        tobagoConfig.addTagDefault(tagName, attributes.getValue(ATTR_NAME), attributes.getValue(ATTR_DEFAULT));
+        break;
+
       case NAME:
       case ORDERING:
       case BEFORE:
@@ -295,6 +309,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case RENDERERS:
       case RENDERER:
       case INCLUDES:
+      case TAGS:
         // nothing to do
         break;
 
@@ -464,6 +479,9 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case MARKUP:
       case INCLUDES:
       case VERSIONED:
+      case ATTRIBUTE:
+      case TAG:
+      case TAGS:
         // nothing to do
         break;
 
@@ -494,7 +512,9 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
 
     final SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
     final Schema schema;
-    if ("5.0".equals(version.getVersion())) {
+    if ("5.1".equals(version.getVersion())) {
+      schema = schemaFactory.newSchema(getClass().getResource(TOBAGO_CONFIG_XSD_5_1));
+    } else if ("5.0".equals(version.getVersion())) {
       schema = schemaFactory.newSchema(getClass().getResource(TOBAGO_CONFIG_XSD_5_0));
     } else if ("4.0".equals(version.getVersion())) {
       schema = schemaFactory.newSchema(getClass().getResource(TOBAGO_CONFIG_XSD_4_0));

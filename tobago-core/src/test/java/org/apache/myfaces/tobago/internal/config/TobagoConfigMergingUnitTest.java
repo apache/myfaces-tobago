@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
+import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.ThemeScript;
@@ -169,4 +170,10 @@ public class TobagoConfigMergingUnitTest {
     Assertions.assertEquals("script-2", scripts21[1].getName());
   }
 
+  @Test
+  public void test51() {
+    final TobagoConfig config = new TobagoConfig(null, "tobago-config-5.1.xml");
+
+    Assertions.assertEquals("top", config.getTagAttributeDefault(Tags.date, "labelLayout"));
+  }
 }

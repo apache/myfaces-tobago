@@ -110,19 +110,7 @@ public class ClassesGenerator extends AbstractGenerator {
           + tag.name().substring(0, 1).toUpperCase() + tag.name().substring(1);
       final StringTemplate componentStringTemplate = componentStringTemplateGroup.getInstanceOf("component");
       final ComponentInfo componentInfo = new ComponentInfo(declaration, componentTag);
-      String componentBaseClass = componentTag.uiComponentBaseClass();
-      if ("".equals(componentBaseClass)) {
-        componentBaseClass = generic;
-      }
-      componentInfo.setSuperClass(componentBaseClass);
-
-      // check
-      if (!componentBaseClass.equals(generic)) {
-        warn("**********************************************************************************");
-        warn("generic name is unequal to the defined name: " + componentBaseClass + " != " + generic);
-        warn("**********************************************************************************");
-      }
-
+      componentInfo.setSuperClass(generic);
       componentInfo.setDescription(getDescription(declaration));
       componentInfo.setDeprecated(declaration.getAnnotation(Deprecated.class) != null);
       for (final String interfaces : componentTag.interfaces()) {
