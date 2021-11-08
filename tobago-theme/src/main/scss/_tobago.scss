@@ -102,6 +102,18 @@ $tobago-flex-layout-spacing: 0.5rem;
   }
 }
 
+@mixin formControlDisabled() {
+  &:disabled {
+    color: rgba($input-color, $tobago-form-disabled-alpha);
+  }
+}
+
+@mixin formControlSelectListDisabled() {
+  &:disabled option, option:disabled {
+    color: rgba($input-color, $tobago-form-disabled-alpha);
+  }
+}
+
 @mixin inlinePadding() {
   padding-top: calc(#{$input-padding-y} + #{$input-border-width});
   padding-bottom: calc(#{$input-padding-y} + #{$input-border-width});
@@ -272,15 +284,13 @@ tobago-date {
   display: block;
 
   input {
+    @include formControlDisabled();
+
     min-width: 7em;
 
     &::-ms-clear {
       /* Remove IE10's "clear field" X button */
       display: none;
-    }
-
-    &:disabled {
-      color: rgba($input-color, $tobago-form-disabled-alpha);
     }
   }
 }
@@ -484,10 +494,7 @@ tobago-in {
 
   input[type='text'] {
     @include messageShadow();
-
-    &:disabled {
-      color: rgba($input-color, $tobago-form-disabled-alpha);
-    }
+    @include formControlDisabled();
   }
 
   .input-group {
@@ -1075,7 +1082,9 @@ tobago-select-boolean-toggle {
 
 /* selectOneChoice --------------------------------------------------------- */
 tobago-select-one-choice {
-
+  select {
+    @include formControlDisabled();
+  }
 }
 
 /* selectOneListbox -------------------------------------------------------- */
@@ -1091,6 +1100,10 @@ tobago-select-one-choice {
 
 tobago-select-one-listbox {
   display: block;
+
+  select {
+    @include formControlSelectListDisabled();
+  }
 }
 
 /* selectOneRadio ---------------------------------------------------------- */
@@ -1122,7 +1135,9 @@ tobago-select-many-checkbox {
 
 /* selectManyListbox ----------------------------------------------------------- */
 tobago-select-many-listbox {
-
+  select {
+    @include formControlSelectListDisabled();
+  }
 }
 
 .tobago-selectManyListbox,
@@ -1147,10 +1162,12 @@ tobago-select-many-shuttle {
     }
 
     .tobago-unselected {
+      @include formControlSelectListDisabled();
     }
 
     .tobago-selected {
-      @include messageShadow()
+      @include messageShadow();
+      @include formControlSelectListDisabled();
     }
   }
 
@@ -1487,10 +1504,7 @@ tobago-tree-listbox {
 /* textarea --------------------------------------------------------- */
 tobago-textarea textarea {
   @include messageShadow();
-
-  &:disabled {
-    color: rgba($input-color, $tobago-form-disabled-alpha);
-  }
+  @include formControlDisabled();
 }
 
 /* scroll --------------------------------------------------------- */
