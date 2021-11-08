@@ -11330,12 +11330,12 @@ tobago-date.border-info:focus {
 tobago-date input {
   min-width: 7em;
 }
+tobago-date input:disabled {
+  color: rgba(33, 37, 41, 0.5);
+}
 tobago-date input::-ms-clear {
   /* Remove IE10's "clear field" X button */
   display: none;
-}
-tobago-date input:disabled {
-  color: rgba(33, 37, 41, 0.5);
 }
 
 /*
@@ -12008,6 +12008,10 @@ tobago-select-boolean-toggle .form-check-label img {
 }
 
 /* selectOneChoice --------------------------------------------------------- */
+tobago-select-one-choice select:disabled {
+  color: rgba(33, 37, 41, 0.5);
+}
+
 /* selectOneListbox -------------------------------------------------------- */
 .tobago-selectOneListbox.border-danger:focus {
   box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
@@ -12021,6 +12025,9 @@ tobago-select-boolean-toggle .form-check-label img {
 
 tobago-select-one-listbox {
   display: block;
+}
+tobago-select-one-listbox select:disabled option, tobago-select-one-listbox select option:disabled {
+  color: rgba(33, 37, 41, 0.5);
 }
 
 /* selectOneRadio ---------------------------------------------------------- */
@@ -12054,6 +12061,10 @@ tobago-select-many-checkbox.tobago-label-container .form-check-inline {
 }
 
 /* selectManyListbox ----------------------------------------------------------- */
+tobago-select-many-listbox select:disabled option, tobago-select-many-listbox select option:disabled {
+  color: rgba(33, 37, 41, 0.5);
+}
+
 .tobago-selectManyListbox.border-danger:focus {
   box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
 }
@@ -12076,6 +12087,9 @@ tobago-select-many-shuttle .tobago-body .btn-group-vertical {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
+tobago-select-many-shuttle .tobago-body .tobago-unselected:disabled option, tobago-select-many-shuttle .tobago-body .tobago-unselected option:disabled {
+  color: rgba(33, 37, 41, 0.5);
+}
 tobago-select-many-shuttle .tobago-body .tobago-selected.border-danger:focus {
   box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
 }
@@ -12084,6 +12098,9 @@ tobago-select-many-shuttle .tobago-body .tobago-selected.border-warning:focus {
 }
 tobago-select-many-shuttle .tobago-body .tobago-selected.border-info:focus {
   box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25);
+}
+tobago-select-many-shuttle .tobago-body .tobago-selected:disabled option, tobago-select-many-shuttle .tobago-body .tobago-selected option:disabled {
+  color: rgba(33, 37, 41, 0.5);
 }
 tobago-select-many-shuttle.tobago-label-container > .tobago-body, tobago-select-many-shuttle .tobago-messages-container > .tobago-body {
   flex: 1 0 0px;
