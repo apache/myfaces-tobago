@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UIButtons;
 import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UISeparator;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -86,6 +87,25 @@ public class ButtonsRendererUnitTest extends RendererTestBase {
     l.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/buttons/badge-inside-buttons.html"), formattedResult());
+  }
+
+  @Test
+  public void badgeWarningInsideButtons() throws IOException {
+    final UIButtons l = (UIButtons) ComponentUtils.createComponent(
+        facesContext, Tags.buttons.componentType(), RendererTypes.Buttons, "list");
+    final UIBadge b = (UIBadge) ComponentUtils.createComponent(
+        facesContext, Tags.badge.componentType(), RendererTypes.Badge, "badge");
+    b.setMarkup(Markup.WARNING);
+    final UIButton c = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
+    c.setLabel("button");
+
+    l.getChildren().add(b);
+    l.getChildren().add(c);
+
+    l.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/buttons/badgeWarning-inside-buttons.html"), formattedResult());
   }
 
 }
