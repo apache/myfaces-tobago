@@ -295,13 +295,6 @@ tobago-date {
   }
 }
 
-/*
-workaround for Bootstrap Modal (Popup) with vanillajs-datepicker
-*/
-.datepicker-dropdown {
-  z-index: 2000 !important;
-}
-
 .tobago-now {
   // dummy for unit tests
 }
