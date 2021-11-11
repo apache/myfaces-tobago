@@ -36,11 +36,11 @@ it("test numbers of tab-group-index", function (done) {
   test.do(() => expect(tab3Fn()).toBe(null, "Tab three is not rendered"));
   test.do(() => expect(tab4Fn().index).toBe(3));
   test.do(() => expect(tab5Fn().index).toBe(4));
-  test.do(() => expect(tabContent1Fn().index).toBe(0));
-  test.do(() => expect(tabContent2Fn().index).toBe(1));
+  test.do(() => expect(tabContent1Fn().dataset["index"]).toBe("0"));
+  test.do(() => expect(tabContent2Fn().dataset["index"]).toBe("1"));
   test.do(() => expect(tabContent3Fn()).toBe(null, "Tab three content is not rendered"));
   test.do(() => expect(tabContent4Fn()).toBe(null, "Tab four content is not rendered (disabled)"));
-  test.do(() => expect(tabContent5Fn().index).toBe(4));
+  test.do(() => expect(tabContent5Fn().dataset["index"]).toBe("4"));
   test.do(() => expect(tab1Fn().querySelector(".nav-link").classList.contains("active")).toBe(true));
   test.do(() => expect(tab2Fn().querySelector(".nav-link").classList.contains("active")).not.toBe(true));
   test.do(() => expect(tab4Fn().querySelector(".nav-link").classList.contains("active")).not.toBe(true));
