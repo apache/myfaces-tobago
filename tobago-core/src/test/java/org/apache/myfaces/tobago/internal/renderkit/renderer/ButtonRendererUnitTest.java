@@ -41,4 +41,63 @@ public class ButtonRendererUnitTest extends RendererTestBase {
     Assertions.assertEquals(loadHtml("renderer/button/button.html"), formattedResult());
   }
 
+  @Test
+  public void iconBi() throws IOException {
+    final UIButton b = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
+    b.setLabel("button");
+    b.setImage("bi-code");
+
+    b.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/button/iconBi.html"), formattedResult());
+  }
+
+  @Test
+  public void iconBiJpg() throws IOException {
+    final UIButton b = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
+    b.setLabel("button");
+    b.setImage("bi-code.jpg");
+
+    b.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/button/iconBiJpg.html"), formattedResult());
+  }
+
+  @Test
+  public void iconFa() throws IOException {
+    final UIButton b = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
+    b.setLabel("button");
+    b.setImage("fa-code");
+
+    b.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/button/iconFa.html"), formattedResult());
+  }
+
+  @Test
+  public void iconFx() throws IOException {
+    final UIButton b = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
+    b.setLabel("button");
+    b.setImage("fx-code");
+
+    b.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/button/iconFx.html"), formattedResult());
+  }
+
+  @Test
+  public void iconFar() throws IOException {
+    final UIButton b = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
+    b.setLabel("button");
+    b.setImage("far fa-code");
+
+    b.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/button/iconFar.html"), formattedResult());
+  }
 }
