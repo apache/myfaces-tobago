@@ -621,7 +621,11 @@
             <artifactId>tomee-maven-plugin</artifactId>
             <version>8.0.8</version>
             <configuration>
-              <tomeeVersion>8.0.8</tomeeVersion>
+<!--              9.0.0-M7 is NOT using MyFaces 3.0.0 - see https://issues.apache.org/jira/browse/TOMEE-3754-->
+              <tomeeVersion>9.0.0-M8-SNAPSHOT</tomeeVersion>
+<!--              XXX currently not working !!!-->
+<!--              why?-->
+<!--              java.lang.ClassNotFoundException: org.apache.webbeans.spi.InstantiatingClassService-->
               <tomeeClassifier>plus</tomeeClassifier>
               <!--<tomeeHttpPort>9090</tomeeHttpPort>-->
               <context>ROOT</context>
@@ -634,7 +638,7 @@
     </profile>
 
     <!--
-    todo: profile for meecromave?
+    todo: profile for meecrowave?
     todo: profile for wildfly?
     todo: profile for websphere?
     todo: profile for weblogic?
