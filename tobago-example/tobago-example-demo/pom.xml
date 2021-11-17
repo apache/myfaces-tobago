@@ -787,7 +787,7 @@
           <plugin>
             <groupId>io.fabric8</groupId>
             <artifactId>docker-maven-plugin</artifactId>
-            <version>0.37.0</version>
+            <version>0.38.0</version>
             <configuration>
               <startParallel>true</startParallel>
               <sourceDirectory>src/main/docker-tests</sourceDirectory>
@@ -988,7 +988,7 @@
           <plugin>
             <groupId>io.fabric8</groupId>
             <artifactId>docker-maven-plugin</artifactId>
-            <version>0.37.0</version>
+            <version>0.38.0</version>
             <configuration>
               <images>
                 <image>
