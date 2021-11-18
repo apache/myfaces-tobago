@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.config;
 
-import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.exception.TobagoConfigurationException;
@@ -67,7 +66,6 @@ public class TobagoConfig {
   private boolean decodeLineFeed;
   private Map<String, String> mimeTypes;
   private boolean enableTobagoExceptionHandler;
-  private Map<String, String> tagAttributeDefaults;
 
   private boolean locked = false;
 
@@ -115,7 +113,6 @@ public class TobagoConfig {
     contentSecurityPolicy = new ContentSecurityPolicy(ContentSecurityPolicy.Mode.OFF.getValue());
     mimeTypes = new HashMap<>();
     enableTobagoExceptionHandler = true;
-    tagAttributeDefaults = new HashMap<>();
 
     // internal
     final List<TobagoConfigFragment> fragments = new ArrayList<>();
@@ -370,13 +367,5 @@ public class TobagoConfig {
     builder.append(enableTobagoExceptionHandler);
     builder.append('}');
     return builder.toString();
-  }
-
-  public Map<String, String> getTagAttributeDefaults() {
-    return tagAttributeDefaults;
-  }
-
-  public String getTagAttributeDefault(Tags tag, String attribute) {
-    return tagAttributeDefaults.get(tag.name() + ' ' + attribute);
   }
 }
