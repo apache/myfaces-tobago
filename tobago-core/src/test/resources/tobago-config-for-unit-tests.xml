@@ -27,55 +27,56 @@
     <theme-definition>
       <name>test</name>
       <version>1.0</version>
+
+      <tags>
+        <tag name="date">
+          <attribute name="labelLayout" default="flexLeft"/>
+        </tag>
+        <tag name="file">
+          <attribute name="labelLayout" default="flexLeft"/>
+        </tag>
+        <tag name="in">
+          <attribute name="labelLayout" default="flexLeft"/>
+        </tag>
+        <tag name="out">
+          <attribute name="labelLayout" default="flexLeft"/>
+        </tag>
+        <tag name="range">
+          <attribute name="labelLayout" default="flexLeft"/>
+        </tag>
+        <tag name="selectBooleanCheckbox">
+          <attribute name="labelLayout" default="flexLeft"/>
+        </tag>
+        <tag name="selectBooleanToggle">
+          <attribute name="labelLayout" default="flexLeft"/>
+        </tag>
+        <tag name="selectManyCheckbox">
+          <attribute name="labelLayout" default="flexLeft"/>
+        </tag>
+        <tag name="selectManyListbox">
+          <attribute name="labelLayout" default="flexLeft"/>
+        </tag>
+        <tag name="selectManyShuttle">
+          <attribute name="labelLayout" default="flexLeft"/>
+        </tag>
+        <tag name="selectOneChoice">
+          <attribute name="labelLayout" default="flexLeft"/>
+        </tag>
+        <tag name="selectOneListbox">
+          <attribute name="labelLayout" default="flexLeft"/>
+        </tag>
+        <tag name="selectOneRadio">
+          <attribute name="labelLayout" default="flexLeft"/>
+        </tag>
+        <tag name="stars">
+          <attribute name="labelLayout" default="flexLeft"/>
+        </tag>
+        <tag name="textarea">
+          <attribute name="labelLayout" default="flexLeft"/>
+        </tag>
+      </tags>
+
     </theme-definition>
   </theme-definitions>
-
-  <tags>
-    <tag name="date">
-      <attribute name="labelLayout" default="flexLeft"/>
-    </tag>
-    <tag name="file">
-      <attribute name="labelLayout" default="flexLeft"/>
-    </tag>
-    <tag name="in">
-     <attribute name="labelLayout" default="flexLeft"/>
-    </tag>
-    <tag name="out">
-      <attribute name="labelLayout" default="flexLeft"/>
-    </tag>
-    <tag name="range">
-      <attribute name="labelLayout" default="flexLeft"/>
-    </tag>
-    <tag name="selectBooleanCheckbox">
-      <attribute name="labelLayout" default="flexLeft"/>
-    </tag>
-    <tag name="selectBooleanToggle">
-      <attribute name="labelLayout" default="flexLeft"/>
-    </tag>
-    <tag name="selectManyCheckbox">
-      <attribute name="labelLayout" default="flexLeft"/>
-    </tag>
-    <tag name="selectManyListbox">
-      <attribute name="labelLayout" default="flexLeft"/>
-    </tag>
-    <tag name="selectManyShuttle">
-      <attribute name="labelLayout" default="flexLeft"/>
-    </tag>
-    <tag name="selectOneChoice">
-      <attribute name="labelLayout" default="flexLeft"/>
-    </tag>
-    <tag name="selectOneListbox">
-      <attribute name="labelLayout" default="flexLeft"/>
-    </tag>
-    <tag name="selectOneRadio">
-      <attribute name="labelLayout" default="flexLeft"/>
-    </tag>
-    <tag name="stars">
-      <attribute name="labelLayout" default="flexLeft"/>
-    </tag>
-    <tag name="textarea">
-      <attribute name="labelLayout" default="flexLeft"/>
-    </tag>
-  </tags>
 
 </tobago-config>

@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.context;
 
+import org.apache.myfaces.tobago.component.Tags;
+
 import java.util.List;
 
 public interface Theme {
@@ -33,5 +35,7 @@ public interface Theme {
   ThemeStyle[] getStyleResources(boolean production);
 
   String getVersion();
+
+  String getTagAttributeDefault(Tags tag, String attribute);
 
 }
