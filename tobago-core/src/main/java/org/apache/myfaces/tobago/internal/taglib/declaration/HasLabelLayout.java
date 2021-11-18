@@ -35,7 +35,7 @@ public interface HasLabelLayout {
       type = "org.apache.myfaces.tobago.component.LabelLayout",
       defaultCode = "getLabel() == null\n"
           + "        ? LabelLayout.none\n"
-          + "        : LabelLayout.valueOf(org.apache.myfaces.tobago.config.TobagoConfig"
-          + ".getInstance(getFacesContext()).getTagAttributeDefault(TAG, \"labelLayout\"))")
+          + "        : LabelLayout.valueOf(org.apache.myfaces.tobago.context.TobagoContext"
+          + ".getInstance(getFacesContext()).getTheme().getTagAttributeDefault(TAG, \"labelLayout\"))")
   void setLabelLayout(String labelLayout);
 }

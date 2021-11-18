@@ -278,7 +278,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         break;
 
       case ATTRIBUTE:
-        tobagoConfig.addTagDefault(tagName, attributes.getValue(ATTR_NAME), attributes.getValue(ATTR_DEFAULT));
+        currentTheme.addTagDefault(tagName, attributes.getValue(ATTR_NAME), attributes.getValue(ATTR_DEFAULT));
         break;
 
       case NAME:

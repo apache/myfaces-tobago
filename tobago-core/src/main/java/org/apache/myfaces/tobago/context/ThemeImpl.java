@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.context;
 
+import org.apache.myfaces.tobago.component.Tags;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +28,9 @@ import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ThemeImpl implements Theme, Serializable {
 
@@ -47,12 +50,14 @@ public class ThemeImpl implements Theme, Serializable {
   private ThemeScript[] scripts;
   private ThemeStyle[] styles;
   private String version;
+  private final Map<String, String> tagAttributeDefaults;
 
   private boolean locked = false;
 
   public ThemeImpl() {
     developmentResources = new ThemeResources();
     productionResources = new ThemeResources();
+    tagAttributeDefaults = new HashMap<>();
   }
 
   public static ThemeImpl merge(ThemeImpl base, ThemeImpl add) {
@@ -218,6 +223,23 @@ public class ThemeImpl implements Theme, Serializable {
   public void setVersion(final String version) {
     checkUnlocked();
     this.version = version;
+  }
+
+  public void addTagDefault(String tag, String attribute, String defaultValue) {
+    tagAttributeDefaults.put(tag + ' ' + attribute, defaultValue);
+  }
+
+  @Override
+  public String getTagAttributeDefault(Tags tag, String attribute) {
+    final String value = tagAttributeDefaults.get(tag.name() + ' ' + attribute);
+    if (value != null) {
+      return value;
+    } else {
+      final String fallbackValue = fallback != null ? fallback.getTagAttributeDefault(tag, attribute) : null;
+      // cache values from fallback
+      tagAttributeDefaults.put(tag.name() + ' ' + attribute, fallbackValue);
+      return fallbackValue;
+    }
   }
 
   public String toString() {

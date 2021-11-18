@@ -171,13 +171,6 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="tags" type="tobago:tags-type" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>
-            Configuration of tags, if supported.
-          </xs:documentation>
-        </xs:annotation>
-      </xs:element>
     </xs:sequence>
     <xs:attribute name="version"
                   type="tobago:tobago-config-version-type"
@@ -347,6 +340,13 @@
         <xs:annotation>
           <xs:documentation>
             A list of resources this theme is using.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="tags" type="tobago:tags-type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            Configuration of tags, if supported.
           </xs:documentation>
         </xs:annotation>
       </xs:element>

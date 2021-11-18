@@ -122,11 +122,6 @@ public class TobagoConfigMerger {
         mimeTypes.put(entry.getKey(), entry.getValue());
       }
 
-      final Map<String, String> tagAttributeDefaults = tobagoConfig.getTagAttributeDefaults();
-      for (final Map.Entry<String, String> entry : fragment.getTagAttributeDefaults().entrySet()) {
-        tagAttributeDefaults.put(entry.getKey(), entry.getValue());
-      }
-
     }
 
     resolveThemes(tobagoConfig.getAvailableThemes());
