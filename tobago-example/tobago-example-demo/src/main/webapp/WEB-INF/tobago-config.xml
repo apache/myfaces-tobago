@@ -92,14 +92,4 @@
   <!-- true is the default -->
   <!--<decode-line-feed>false</decode-line-feed>-->
 
-  <!-- example for different label position
-  <tags>
-    <tag name="in">
-      <attribute name="labelLayout" default="top"/>
-    </tag>
-    <tag name="textarea">
-      <attribute name="labelLayout" default="top"/>
-    </tag>
-  </tags>
-  -->
 </tobago-config>

@@ -74,6 +74,16 @@
           <style name="style-1.css" priority="1"/>
         </includes>
       </resources>
+
+      <tags>
+        <tag name="in">
+          <attribute name="labelLayout" default="flexLeft"/>
+        </tag>
+        <tag name="out">
+          <attribute name="labelLayout" default="flexLeft"/>
+        </tag>
+      </tags>
+
     </theme-definition>
 
     <theme-definition>
@@ -81,18 +91,18 @@
       <fallback>my-theme-1</fallback>
       <version>some-version-1</version>
       <resources production="false"/>
+
+      <tags>
+        <tag name="in">
+          <attribute name="labelLayout" default="top"/>
+        </tag>
+        <tag name="date">
+          <attribute name="labelLayout" default="top"/>
+        </tag>
+      </tags>
+
     </theme-definition>
 
   </theme-definitions>
-
-  <tags>
-    <tag name="in">
-      <attribute name="labelLayout" default="top"/>
-      <attribute name="test" default="test"/>
-    </tag>
-    <tag name="date">
-      <attribute name="labelLayout" default="top"/>
-    </tag>
-  </tags>
 
 </tobago-config>

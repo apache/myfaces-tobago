@@ -174,6 +174,14 @@ public class TobagoConfigMergingUnitTest {
   public void test51() {
     final TobagoConfig config = new TobagoConfig(null, "tobago-config-5.1.xml");
 
-    Assertions.assertEquals("top", config.getTagAttributeDefault(Tags.date, "labelLayout"));
+    final Theme theme1 = config.getTheme("my-theme-1");
+    Assertions.assertNull(theme1.getTagAttributeDefault(Tags.date, "labelLayout"));
+    Assertions.assertEquals("flexLeft", theme1.getTagAttributeDefault(Tags.in, "labelLayout"));
+    Assertions.assertEquals("flexLeft", theme1.getTagAttributeDefault(Tags.out, "labelLayout"));
+
+    final Theme theme2 = config.getTheme("my-theme-2");
+    Assertions.assertEquals("top", theme2.getTagAttributeDefault(Tags.date, "labelLayout"));
+    Assertions.assertEquals("top", theme2.getTagAttributeDefault(Tags.in, "labelLayout"));
+    Assertions.assertEquals("flexLeft", theme2.getTagAttributeDefault(Tags.out, "labelLayout"));
   }
 }

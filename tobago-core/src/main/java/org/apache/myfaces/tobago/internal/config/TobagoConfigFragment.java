@@ -49,7 +49,6 @@ public class TobagoConfigFragment {
   private Properties sanitizerProperties;
   private final Map<String, String> mimeTypes;
   private Boolean enableTobagoExceptionHandler;
-  private final Map<String, String> tagAttributeDefaults;
 
   public TobagoConfigFragment() {
     before = new ArrayList<>();
@@ -57,7 +56,6 @@ public class TobagoConfigFragment {
     supportedThemeNames = new ArrayList<>();
     themeDefinitions = new ArrayList<>();
     mimeTypes = new HashMap<>();
-    tagAttributeDefaults = new HashMap<>();
   }
 
   public void addSupportedThemeName(final String supportedThemeName) {
@@ -202,14 +200,6 @@ public class TobagoConfigFragment {
 
   public void setEnableTobagoExceptionHandler(Boolean enableTobagoExceptionHandler) {
     this.enableTobagoExceptionHandler = enableTobagoExceptionHandler;
-  }
-
-  public void addTagDefault(String tag, String attribute, String defaultValue) {
-    tagAttributeDefaults.put(tag + ' ' + attribute, defaultValue);
-  }
-
-  public Map<String, String> getTagAttributeDefaults() {
-    return tagAttributeDefaults;
   }
 
   @Override
