@@ -20,11 +20,11 @@ import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 import {elementByIdFn, querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 
 it("Input", function (done) {
-  const alertsFn = querySelectorAllFn(".tobago-messages .alert");
+  const alertsFn = querySelectorAllFn("tobago-messages .alert");
   const submitFn = elementByIdFn("page:mainForm:submit");
   const compareFn = elementByIdFn("page:mainForm:inCompare");
   const labelFn = querySelectorFn("#page\\:mainForm\\:in label");
-  const inputFn = querySelectorFn("#page\\:mainForm\\:in input");
+  const inputFn = querySelectorFn("#page\\:mainForm\\:in\\:\\:field");
   const popoverFn = querySelectorFn("#page\\:mainForm\\:in tobago-popover");
 
   const test = new JasmineTestTool(done);
@@ -36,7 +36,7 @@ it("Input", function (done) {
 });
 
 it("Input Group", function (done) {
-  const alertsFn = querySelectorAllFn(".tobago-messages .alert");
+  const alertsFn = querySelectorAllFn("tobago-messages .alert");
   const submitFn = elementByIdFn("page:mainForm:submit");
   const compareFn = elementByIdFn("page:mainForm:inputGroupCompare");
   const labelFn = querySelectorFn("#page\\:mainForm\\:inputGroup label");
@@ -52,11 +52,11 @@ it("Input Group", function (done) {
 });
 
 it("Date", function (done) {
-  const alertsFn = querySelectorAllFn(".tobago-messages .alert");
+  const alertsFn = querySelectorAllFn("tobago-messages .alert");
   const submitFn = elementByIdFn("page:mainForm:submit");
   const compareFn = elementByIdFn("page:mainForm:dateCompare");
   const labelFn = querySelectorFn("#page\\:mainForm\\:date label");
-  const inputFn = querySelectorFn("#page\\:mainForm\\:date input");
+  const inputFn = querySelectorFn("#page\\:mainForm\\:date\\:\\:field");
   const popoverFn = querySelectorFn("#page\\:mainForm\\:date tobago-popover");
 
   const test = new JasmineTestTool(done);
@@ -68,11 +68,11 @@ it("Date", function (done) {
 });
 
 it("Shuttle", function (done) {
-  const alertsFn = querySelectorAllFn(".tobago-messages .alert");
+  const alertsFn = querySelectorAllFn("tobago-messages .alert");
   const submitFn = elementByIdFn("page:mainForm:submit");
   const compareFn = elementByIdFn("page:mainForm:shuttleCompare");
   const labelFn = querySelectorFn("#page\\:mainForm\\:shuttle label");
-  const inputFn = querySelectorFn("#page\\:mainForm\\:shuttle .tobago-selectManyShuttle");
+  const inputFn = querySelectorFn("#page\\:mainForm\\:shuttle .tobago-body");
   const popoverFn = querySelectorFn("#page\\:mainForm\\:shuttle tobago-popover");
 
   const test = new JasmineTestTool(done);
