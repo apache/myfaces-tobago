@@ -1128,6 +1128,8 @@ tobago-select-many-checkbox {
 
 /* selectManyListbox ----------------------------------------------------------- */
 tobago-select-many-listbox {
+  display: block;
+
   select {
     @include formControlSelectListDisabled();
   }
