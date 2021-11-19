@@ -1081,6 +1081,7 @@ tobago-select-boolean-toggle {
 
 /* selectOneChoice --------------------------------------------------------- */
 tobago-select-one-choice {
+  display: block;
   select {
     @include formControlDisabled();
   }
