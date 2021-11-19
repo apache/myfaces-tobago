@@ -11938,6 +11938,9 @@ tobago-select-one-radio .form-check-label:after {
 tobago-select-one-radio .form-check-label img {
   padding-right: 0.3em;
 }
+tobago-select-one-radio label + .form-check-inline {
+  display: block;
+}
 tobago-select-one-radio.tobago-label-container .form-check-inline {
   padding-top: calc(0.375rem + 1px);
   padding-bottom: calc(0.375rem + 1px);
@@ -11953,12 +11956,18 @@ tobago-select-many-checkbox .form-check-label:after {
 tobago-select-many-checkbox .form-check-label img {
   padding-right: 0.3em;
 }
+tobago-select-many-checkbox label + .form-check-inline {
+  display: block;
+}
 tobago-select-many-checkbox.tobago-label-container .form-check-inline {
   padding-top: calc(0.375rem + 1px);
   padding-bottom: calc(0.375rem + 1px);
 }
 
 /* selectManyListbox ----------------------------------------------------------- */
+tobago-select-many-listbox {
+  display: block;
+}
 tobago-select-many-listbox select:disabled option, tobago-select-many-listbox select option:disabled {
   color: rgba(33, 37, 41, 0.5);
 }
