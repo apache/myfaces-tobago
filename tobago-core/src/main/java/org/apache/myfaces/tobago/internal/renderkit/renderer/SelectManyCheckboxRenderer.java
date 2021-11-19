@@ -59,7 +59,7 @@ public class SelectManyCheckboxRenderer<T extends AbstractUISelectManyCheckbox> 
     final Markup markup = component.getMarkup();
     final boolean isInsideCommand = isInside(facesContext, HtmlElements.COMMAND);
 
-    writer.startElement(HtmlElements.TOBAGO_SELECT_MANY_CHECKBOX);
+    writer.startElement(getTag(facesContext));
     writer.writeClassAttribute(
         inline ? BootstrapClass.FORM_CHECK_INLINE : null,
         component.getCustomClass());
@@ -143,9 +143,17 @@ public class SelectManyCheckboxRenderer<T extends AbstractUISelectManyCheckbox> 
   protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    writer.endElement(HtmlElements.TOBAGO_SELECT_MANY_CHECKBOX);
+    writer.endElement(getTag(facesContext));
 
     encodeBehavior(writer, facesContext, component);
+  }
+
+  private HtmlElements getTag(final FacesContext facesContext) {
+    if (isInside(facesContext, HtmlElements.COMMAND)) {
+      return HtmlElements.TOBAGO_SELECT_MANY_CHECKBOX;
+    } else {
+      return HtmlElements.DIV;
+    }
   }
 
   @Override
