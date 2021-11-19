@@ -52,7 +52,7 @@
     <maven-pmd-plugin.version>3.15.0</maven-pmd-plugin.version>
     <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
     <!-- xxx set back to 14 after release of version 14 (expected may 30, 2021) -->
-    <checkstyle-rules.version>15-SNAPSHOT</checkstyle-rules.version>
+    <checkstyle-rules.version>15</checkstyle-rules.version>
 
     <!-- Note: defined here in master pom, because of problems with enforcer plugin -->
     <jetty.version>11.0.6</jetty.version>
