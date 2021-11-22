@@ -53,10 +53,10 @@ public enum Icons implements CssItem {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  private static final Pattern PATTERN = Pattern.compile("^(bi|fa|(fas|far|fal|fad)\\sfa)-[\\w\\d]+$");
-  private static final Pattern PATTERN_BI = Pattern.compile("^bi-[\\w\\d]+$");
-  private static final Pattern PATTERN_FA = Pattern.compile("^fa-[\\w\\d]+$");
-  private static final Pattern PATTERN_FA5 = Pattern.compile("^(fas|far|fal|fad)\\sfa-[\\w\\d]+$");
+  private static final Pattern PATTERN = Pattern.compile("^(bi|fa|(fas|far|fal|fad)\\sfa)-[\\w\\d-]+$");
+  private static final Pattern PATTERN_BI = Pattern.compile("^bi-[\\w\\d-]+$");
+  private static final Pattern PATTERN_FA = Pattern.compile("^fa-[\\w\\d-]+$");
+  private static final Pattern PATTERN_FA5 = Pattern.compile("^(fas|far|fal|fad)\\sfa-[\\w\\d-]+$");
 
   private final String clazz;
 
