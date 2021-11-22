@@ -61,6 +61,12 @@ public class IconsUnitTest {
   }
 
   @Test
+  public void iconFarFaAngleLeft() {
+    Assertions.assertTrue(Icons.matches("far fa-angle-left"));
+    Assertions.assertEquals("far fa-angle-left", Icons.custom("far fa-angle-left").getName());
+  }
+
+  @Test
   public void iconFal() {
     Assertions.assertTrue(Icons.matches("fal fa-code"));
     Assertions.assertEquals("fal fa-code", Icons.custom("fal fa-code").getName());
