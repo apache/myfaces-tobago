@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -17,20 +15,4 @@
  * limitations under the License.
 -->
 
-<tobago-config
-    xmlns="http://myfaces.apache.org/tobago/tobago-config"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-5.1.xsd"
-    version="5.1">
-
-  <name>tobago-core</name>
-
-  <content-security-policy mode="on">
-    <directive name="style-src">'unsafe-inline'</directive> <!-- is only active, when browser doesn't support nonce -->
-    <directive name="style-src">'nonce-${nonce}'</directive>
-    <directive name="style-src">'self'</directive>
-    <directive name="script-src">'self'</directive>
-    <directive name="frame-ancestors">'none'</directive>
-  </content-security-policy>
-
-</tobago-config>
+<button type='button' id='id' name='id' class='tobago-button btn btn-secondary tobago-auto-spacing'><tobago-behavior event='click' client-id='id'></tobago-behavior><i class='bi-code'></i><span>button</span></button>

@@ -139,6 +139,12 @@ $tobago-flex-layout-spacing: 0.5rem;
   }
 }
 
+@mixin radioCheckboxInline() {
+  label + .form-check-inline {
+    display: block; // must be 'block' to make labelLayout=top work for inline=true
+  }
+}
+
 @mixin tobagoTreeNodeToggle() {
   .tobago-toggle:not(.invisible) {
     cursor: pointer;
@@ -1075,6 +1081,7 @@ tobago-select-boolean-toggle {
 
 /* selectOneChoice --------------------------------------------------------- */
 tobago-select-one-choice {
+  display: block;
   select {
     @include formControlDisabled();
   }
@@ -1103,6 +1110,7 @@ tobago-select-one-listbox {
 tobago-select-one-radio {
   display: block;
   @include adjustCustomControlLabel();
+  @include radioCheckboxInline();
 
   &.tobago-label-container {
     .form-check-inline {
@@ -1115,6 +1123,7 @@ tobago-select-one-radio {
 tobago-select-many-checkbox {
   display: block;
   @include adjustCustomControlLabel();
+  @include radioCheckboxInline();
 
   &.tobago-label-container {
     .form-check-inline {
@@ -1128,6 +1137,8 @@ tobago-select-many-checkbox {
 
 /* selectManyListbox ----------------------------------------------------------- */
 tobago-select-many-listbox {
+  display: block;
+
   select {
     @include formControlSelectListDisabled();
   }
