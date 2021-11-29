@@ -69,7 +69,7 @@
     "bootstrap-icons": "1.7.1"
   },
   "devDependencies": {
-    "@popperjs/core": "^2.10.2",
+    "@popperjs/core": "^2.11.0",
     "@rollup/plugin-node-resolve": "^13.0.6",
     "@rollup/plugin-replace": "^3.0.0",
     "@types/jest": "^27.0.3",
