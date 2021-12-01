@@ -22,6 +22,10 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+  <tc:form>
+    <tc:button label="Reset"></tc:button>
+  </tc:form>
+
   <tc:segmentLayout large="6seg 6seg" medium="12seg">
 
     <tc:form>
@@ -42,7 +46,8 @@
 
     <tc:form>
       <tc:box label="#3 model=java.time.LocalTime step=1">
-        <tc:date id="localTimeStepA" label="LocalTime" value="#{dateTestController.localTimeStepA}" step="1" required="true"/>
+        <tc:date id="localTimeStepA" label="LocalTime" value="#{dateTestController.localTimeStepA}" step="1"
+                 required="true"/>
         <tc:out label="Output" value="#{dateTestController.localTimeStepA}">
           <f:convertDateTime pattern="hh:mm:ss" type="localTime"/>
         </tc:out>
@@ -52,7 +57,8 @@
 
     <tc:form>
       <tc:box label="#4 model=java.time.LocalTime step=0.001">
-        <tc:date id="localTimeStepB" label="LocalTime" value="#{dateTestController.localTimeStepB}" step="0.001" required="true"/>
+        <tc:date id="localTimeStepB" label="LocalTime" value="#{dateTestController.localTimeStepB}" step="0.001"
+                 required="true"/>
         <tc:out label="Output" value="#{dateTestController.localTimeStepB}">
           <f:convertDateTime pattern="hh:mm:ss.SSS" type="localDateTime"/>
         </tc:out>
