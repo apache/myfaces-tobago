@@ -32,7 +32,6 @@
   <!-- how to run tests: http://tobago-vm.apache.org/faq.html  -->
 
   <properties>
-    <selenium.version>3.141.59</selenium.version>
     <exec.version>1.6.0</exec.version>
     <tobago-theme-standard-dir>${basedir}/target/tobago-theme-standard</tobago-theme-standard-dir>
     <docker-tomcat-dir>${project.build.directory}/docker-tomcat</docker-tomcat-dir>
@@ -156,7 +155,7 @@
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-java</artifactId>
-        <version>${selenium.version}</version>
+        <version>4.1.0</version>
       </dependency>
       <dependency>
         <groupId>com.google.guava</groupId>
