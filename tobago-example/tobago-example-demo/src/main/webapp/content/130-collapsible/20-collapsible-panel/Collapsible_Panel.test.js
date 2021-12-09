@@ -19,7 +19,7 @@ import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("Simple Panel: show -> hide transition", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:simple\\:showSimple");
   let hideFn = querySelectorFn("#page\\:mainForm\\:simple\\:hideSimple");
   let panelCollapsedFn = querySelectorFn("#page\\:mainForm\\:simple\\:simplePanel\\:\\:collapse");
@@ -39,7 +39,7 @@ it("Simple Panel: show -> hide transition", function (done) {
 });
 
 it("Simple Panel: hide -> show transition", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:simple\\:showSimple");
   let hideFn = querySelectorFn("#page\\:mainForm\\:simple\\:hideSimple");
   let panelCollapsedFn = querySelectorFn("#page\\:mainForm\\:simple\\:simplePanel\\:\\:collapse");
@@ -59,7 +59,7 @@ it("Simple Panel: hide -> show transition", function (done) {
 });
 
 it("Simple Panel: collapsed = false; submit valid input", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:simple\\:showSimple");
   let submitFn = querySelectorFn("#page\\:mainForm\\:simple\\:submitSimple");
   let panelCollapsedFn = querySelectorFn("#page\\:mainForm\\:simple\\:simplePanel\\:\\:collapse");
@@ -82,7 +82,7 @@ it("Simple Panel: collapsed = false; submit valid input", function (done) {
 });
 
 it("Simple Panel: collapsed = false; submit empty input", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:simple\\:showSimple");
   let submitFn = querySelectorFn("#page\\:mainForm\\:simple\\:submitSimple");
   let panelCollapsedFn = querySelectorFn("#page\\:mainForm\\:simple\\:simplePanel\\:\\:collapse");
@@ -106,7 +106,7 @@ it("Simple Panel: collapsed = false; submit empty input", function (done) {
 });
 
 it("Simple Panel: valid input; show -> hide transition; submit", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:simple\\:showSimple");
   let hideFn = querySelectorFn("#page\\:mainForm\\:simple\\:hideSimple");
   let submitFn = querySelectorFn("#page\\:mainForm\\:simple\\:submitSimple");
@@ -135,7 +135,7 @@ it("Simple Panel: valid input; show -> hide transition; submit", function (done)
 });
 
 it("Simple Panel: empty input; show -> hide transition; submit", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:simple\\:showSimple");
   let hideFn = querySelectorFn("#page\\:mainForm\\:simple\\:hideSimple");
   let submitFn = querySelectorFn("#page\\:mainForm\\:simple\\:submitSimple");
@@ -164,7 +164,7 @@ it("Simple Panel: empty input; show -> hide transition; submit", function (done)
 });
 
 it("Full Server Request: show -> hide transition", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:server\\:showServer");
   let hideFn = querySelectorFn("#page\\:mainForm\\:server\\:hideServer");
   let panelCollapsedFn = querySelectorFn("#page\\:mainForm\\:server\\:serverPanel\\:\\:collapse");
@@ -184,7 +184,7 @@ it("Full Server Request: show -> hide transition", function (done) {
 });
 
 it("Full Server Request: hide -> show transition", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:server\\:showServer");
   let hideFn = querySelectorFn("#page\\:mainForm\\:server\\:hideServer");
   let panelCollapsedFn = querySelectorFn("#page\\:mainForm\\:server\\:serverPanel\\:\\:collapse");
@@ -204,7 +204,7 @@ it("Full Server Request: hide -> show transition", function (done) {
 });
 
 it("Full Server Request: collapsed = false; submit valid input", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:server\\:showServer");
   let submitFn = querySelectorFn("#page\\:mainForm\\:server\\:submitServer");
   let panelCollapsedFn = querySelectorFn("#page\\:mainForm\\:server\\:serverPanel\\:\\:collapse");
@@ -227,7 +227,7 @@ it("Full Server Request: collapsed = false; submit valid input", function (done)
 });
 
 it("Full Server Request: collapsed = false; submit empty input", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:server\\:showServer");
   let submitFn = querySelectorFn("#page\\:mainForm\\:server\\:submitServer");
   let panelCollapsedFn = querySelectorFn("#page\\:mainForm\\:server\\:serverPanel\\:\\:collapse");
@@ -251,7 +251,7 @@ it("Full Server Request: collapsed = false; submit empty input", function (done)
 });
 
 it("Full Server Request: valid input; show -> hide transition; submit", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:server\\:showServer");
   let hideFn = querySelectorFn("#page\\:mainForm\\:server\\:hideServer");
   let submitFn = querySelectorFn("#page\\:mainForm\\:server\\:submitServer");
@@ -280,7 +280,7 @@ it("Full Server Request: valid input; show -> hide transition; submit", function
 });
 
 it("Full Server Request: empty input; show -> hide transition; submit", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:server\\:showServer");
   let hideFn = querySelectorFn("#page\\:mainForm\\:server\\:hideServer");
   let submitFn = querySelectorFn("#page\\:mainForm\\:server\\:submitServer");
@@ -309,7 +309,7 @@ it("Full Server Request: empty input; show -> hide transition; submit", function
 });
 
 it("Client Sided: show -> hide transition", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:client\\:showClient");
   let hideFn = querySelectorFn("#page\\:mainForm\\:client\\:hideClient");
   let submitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
@@ -334,7 +334,7 @@ it("Client Sided: show -> hide transition", function (done) {
 });
 
 it("Client Sided: hide -> show transition", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:client\\:showClient");
   let hideFn = querySelectorFn("#page\\:mainForm\\:client\\:hideClient");
   let submitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
@@ -359,7 +359,7 @@ it("Client Sided: hide -> show transition", function (done) {
 });
 
 it("Client Sided: collapsed = false; submit valid input", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:client\\:showClient");
   let submitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
   let panelCollapsedFn = querySelectorFn("#page\\:mainForm\\:client\\:clientPanel\\:\\:collapse");
@@ -382,7 +382,7 @@ it("Client Sided: collapsed = false; submit valid input", function (done) {
 });
 
 it("Client Sided: collapsed = false; submit empty input", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:client\\:showClient");
   let submitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
   let panelCollapsedFn = querySelectorFn("#page\\:mainForm\\:client\\:clientPanel\\:\\:collapse");
@@ -406,7 +406,7 @@ it("Client Sided: collapsed = false; submit empty input", function (done) {
 });
 
 it("Client Sided: collapsed = true; submit valid input", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let hideFn = querySelectorFn("#page\\:mainForm\\:client\\:hideClient");
   let submitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
   let panelCollapsedFn = querySelectorFn("#page\\:mainForm\\:client\\:clientPanel\\:\\:collapse");
@@ -429,7 +429,7 @@ it("Client Sided: collapsed = true; submit valid input", function (done) {
 });
 
 it("Client Sided: collapsed = true; submit empty input", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let hideFn = querySelectorFn("#page\\:mainForm\\:client\\:hideClient");
   let submitFn = querySelectorFn("#page\\:mainForm\\:client\\:submitClient");
   let panelCollapsedFn = querySelectorFn("#page\\:mainForm\\:client\\:clientPanel\\:\\:collapse");
@@ -453,7 +453,7 @@ it("Client Sided: collapsed = true; submit empty input", function (done) {
 });
 
 it("Ajax: show -> hide transition", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:ajax\\:showAjax");
   let hideFn = querySelectorFn("#page\\:mainForm\\:ajax\\:hideAjax");
   let panelCollapsedFn = querySelectorFn("#page\\:mainForm\\:ajax\\:ajaxPanel\\:\\:collapse");
@@ -479,7 +479,7 @@ it("Ajax: show -> hide transition", function (done) {
 });
 
 it("Ajax: hide -> show transition", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:ajax\\:showAjax");
   let hideFn = querySelectorFn("#page\\:mainForm\\:ajax\\:hideAjax");
   let panelCollapsedFn = querySelectorFn("#page\\:mainForm\\:ajax\\:ajaxPanel\\:\\:collapse");
@@ -505,7 +505,7 @@ it("Ajax: hide -> show transition", function (done) {
 });
 
 it("Ajax: collapsed = false; submit valid input", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:ajax\\:showAjax");
   let submitFn = querySelectorFn("#page\\:mainForm\\:ajax\\:submitAjax");
   let panelCollapsedFn = querySelectorFn("#page\\:mainForm\\:ajax\\:ajaxPanel\\:\\:collapse");
@@ -528,7 +528,7 @@ it("Ajax: collapsed = false; submit valid input", function (done) {
 });
 
 it("Ajax: collapsed = false; submit empty input", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:ajax\\:showAjax");
   let submitFn = querySelectorFn("#page\\:mainForm\\:ajax\\:submitAjax");
   let panelCollapsedFn = querySelectorFn("#page\\:mainForm\\:ajax\\:ajaxPanel\\:\\:collapse");
@@ -552,7 +552,7 @@ it("Ajax: collapsed = false; submit empty input", function (done) {
 });
 
 it("Ajax: valid input; show -> hide transition; submit", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:ajax\\:showAjax");
   let hideFn = querySelectorFn("#page\\:mainForm\\:ajax\\:hideAjax");
   let submitFn = querySelectorFn("#page\\:mainForm\\:ajax\\:submitAjax");
@@ -581,7 +581,7 @@ it("Ajax: valid input; show -> hide transition; submit", function (done) {
 });
 
 it("Ajax: empty input; show -> hide transition; submit", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:ajax\\:showAjax");
   let hideFn = querySelectorFn("#page\\:mainForm\\:ajax\\:hideAjax");
   let submitFn = querySelectorFn("#page\\:mainForm\\:ajax\\:submitAjax");
