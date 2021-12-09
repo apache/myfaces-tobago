@@ -181,7 +181,7 @@ it("Client Side: hide -> show transition", function (done) {
 });
 
 it("Client Side: hide content and submit empty string", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:client\\:showNoRequestBox");
   let hideFn = querySelectorFn("#page\\:mainForm\\:client\\:hideNoRequestBox");
   let boxFn = querySelectorFn("#page\\:mainForm\\:client\\:noRequestBox");
@@ -234,7 +234,7 @@ it("Ajax: hide -> show transition", function (done) {
 
 it("Ajax: submit empty string with shown and hidden content", function (done) {
   let hide1FullReqFn = querySelectorFn("#page\\:mainForm\\:server\\:hide1");
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages .alert");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let showFn = querySelectorFn("#page\\:mainForm\\:ajax\\:showAjaxBox");
   let hideFn = querySelectorFn("#page\\:mainForm\\:ajax\\:hideAjaxBox");
   let inFn = querySelectorFn("#page\\:mainForm\\:ajax\\:inAjaxBox\\:\\:field");
