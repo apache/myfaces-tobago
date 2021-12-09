@@ -19,7 +19,7 @@ import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 import {elementByIdFn, querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 
 it("Simple Popup", function (done) {
-  const messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  const messagesFn = querySelectorAllFn("#page\\:messages .alert");
   const openFn = elementByIdFn("page:mainForm:simple:open1");
   const submitOnPageFn = elementByIdFn("page:mainForm:simple:submitOnPage1");
   const popupFn = elementByIdFn("page:mainForm:simple:simplePopup");
@@ -69,7 +69,7 @@ it("Simple Popup", function (done) {
 });
 
 it("Full Server Request", function (done) {
-  const messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  const messagesFn = querySelectorAllFn("#page\\:messages .alert");
   const openFn = elementByIdFn("page:mainForm:server:open2");
   const submitOnPageFn = elementByIdFn("page:mainForm:server:submitOnPage2");
   const popupFn = elementByIdFn("page:mainForm:server:serverPopup");
@@ -119,7 +119,7 @@ it("Full Server Request", function (done) {
 });
 
 it("Client Side", function (done) {
-  const messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  const messagesFn = querySelectorAllFn("#page\\:messages .alert");
   const openFn = elementByIdFn("page:mainForm:client:open3");
   const submitOnPageFn = elementByIdFn("page:mainForm:client:submitOnPage3");
   const popupFn = elementByIdFn("page:mainForm:client:clientPopup");

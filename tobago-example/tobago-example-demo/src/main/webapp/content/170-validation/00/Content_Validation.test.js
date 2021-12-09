@@ -19,7 +19,7 @@ import {querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("Required: Submit without content.", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let textareaFn = querySelectorFn("#page\\:mainForm\\:required\\:textarea\\:\\:field");
   let submitFn = querySelectorFn("#page\\:mainForm\\:required\\:submit_r");
 
@@ -35,7 +35,7 @@ it("Required: Submit without content.", function (done) {
 });
 
 it("Required: Submit with content.", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let textareaFn = querySelectorFn("#page\\:mainForm\\:required\\:textarea\\:\\:field");
   let submitFn = querySelectorFn("#page\\:mainForm\\:required\\:submit_r");
 
@@ -52,7 +52,7 @@ it("Required: Submit with content.", function (done) {
 });
 
 it("Validate Length: Submit single character.", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let inFn = querySelectorFn("#page\\:mainForm\\:validateLength\\:in_vl\\:\\:field");
   let submitFn = querySelectorFn("#page\\:mainForm\\:validateLength\\:submit_vl");
 
@@ -67,7 +67,7 @@ it("Validate Length: Submit single character.", function (done) {
 });
 
 it("Validate Length: Submit two character.", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let inFn = querySelectorFn("#page\\:mainForm\\:validateLength\\:in_vl\\:\\:field");
   let submitFn = querySelectorFn("#page\\:mainForm\\:validateLength\\:submit_vl");
 
@@ -82,7 +82,7 @@ it("Validate Length: Submit two character.", function (done) {
 });
 
 it("Validate Range: Submit no number.", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let inFn = querySelectorFn("#page\\:mainForm\\:validateRange\\:in_vr\\:\\:field");
   let submitFn = querySelectorFn("#page\\:mainForm\\:validateRange\\:submit_vr");
 
@@ -97,7 +97,7 @@ it("Validate Range: Submit no number.", function (done) {
 });
 
 it("Validate Range: Submit number '2' which is out of range.", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let inFn = querySelectorFn("#page\\:mainForm\\:validateRange\\:in_vr\\:\\:field");
   let submitFn = querySelectorFn("#page\\:mainForm\\:validateRange\\:submit_vr");
 
@@ -112,7 +112,7 @@ it("Validate Range: Submit number '2' which is out of range.", function (done) {
 });
 
 it("Validate Range: Submit number '78' which is out of range.", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let inFn = querySelectorFn("#page\\:mainForm\\:validateRange\\:in_vr\\:\\:field");
   let submitFn = querySelectorFn("#page\\:mainForm\\:validateRange\\:submit_vr");
 
@@ -127,7 +127,7 @@ it("Validate Range: Submit number '78' which is out of range.", function (done) 
 });
 
 it("Validate Range: Submit number '64' which is within the range.", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let inFn = querySelectorFn("#page\\:mainForm\\:validateRange\\:in_vr\\:\\:field");
   let submitFn = querySelectorFn("#page\\:mainForm\\:validateRange\\:submit_vr");
 
@@ -142,7 +142,7 @@ it("Validate Range: Submit number '64' which is within the range.", function (do
 });
 
 it("Regex Validation: Submit 'T' which violates the pattern.", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let inFn = querySelectorFn("#page\\:mainForm\\:regexValidation\\:in_rv\\:\\:field");
   let submitFn = querySelectorFn("#page\\:mainForm\\:regexValidation\\:submit_rv");
 
@@ -157,7 +157,7 @@ it("Regex Validation: Submit 'T' which violates the pattern.", function (done) {
 });
 
 it("Regex Validation: Submit '3' which violates the pattern.", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let inFn = querySelectorFn("#page\\:mainForm\\:regexValidation\\:in_rv\\:\\:field");
   let submitFn = querySelectorFn("#page\\:mainForm\\:regexValidation\\:submit_rv");
 
@@ -172,7 +172,7 @@ it("Regex Validation: Submit '3' which violates the pattern.", function (done) {
 });
 
 it("Regex Validation: Submit 'T3' which is accepted.", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let inFn = querySelectorFn("#page\\:mainForm\\:regexValidation\\:in_rv\\:\\:field");
   let submitFn = querySelectorFn("#page\\:mainForm\\:regexValidation\\:submit_rv");
 
@@ -187,7 +187,7 @@ it("Regex Validation: Submit 'T3' which is accepted.", function (done) {
 });
 
 it("Custom Validator: Submit rejected string.", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let inFn = querySelectorFn("#page\\:mainForm\\:customValidator\\:in_cv\\:\\:field");
   let submitFn = querySelectorFn("#page\\:mainForm\\:customValidator\\:submit_cv");
 
@@ -202,7 +202,7 @@ it("Custom Validator: Submit rejected string.", function (done) {
 });
 
 it("Custom Validator: Submit accepted string.", function (done) {
-  let messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let inFn = querySelectorFn("#page\\:mainForm\\:customValidator\\:in_cv\\:\\:field");
   let submitFn = querySelectorFn("#page\\:mainForm\\:customValidator\\:submit_cv");
 
