@@ -19,7 +19,7 @@ import {elementByIdFn, querySelectorAllFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("Required: Submit without content.", function (done) {
-  const messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  const messagesFn = querySelectorAllFn("#page\\:messages .alert");
   const inFn = elementByIdFn("page:mainForm:required:in1::field");
   const submitFn = elementByIdFn("page:mainForm:required:submit1");
 
@@ -35,7 +35,7 @@ it("Required: Submit without content.", function (done) {
 });
 
 it("Required: Submit with content.", function (done) {
-  const messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  const messagesFn = querySelectorAllFn("#page\\:messages .alert");
   const inFn = elementByIdFn("page:mainForm:required:in1::field");
   const submitFn = elementByIdFn("page:mainForm:required:submit1");
 
@@ -51,7 +51,7 @@ it("Required: Submit with content.", function (done) {
 });
 
 it("Length: Submit single character.", function (done) {
-  const messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  const messagesFn = querySelectorAllFn("#page\\:messages .alert");
   const inFn = elementByIdFn("page:mainForm:length:in2::field");
   const submitFn = elementByIdFn("page:mainForm:length:submit2");
 
@@ -66,7 +66,7 @@ it("Length: Submit single character.", function (done) {
 });
 
 it("Length: Submit three characters.", function (done) {
-  const messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  const messagesFn = querySelectorAllFn("#page\\:messages .alert");
   const inFn = elementByIdFn("page:mainForm:length:in2::field");
   const submitFn = elementByIdFn("page:mainForm:length:submit2");
 
@@ -81,7 +81,7 @@ it("Length: Submit three characters.", function (done) {
 });
 
 it("Length: Submit five characters.", function (done) {
-  const messagesFn = querySelectorAllFn("#page\\:messages.tobago-messages div");
+  const messagesFn = querySelectorAllFn("#page\\:messages .alert");
   const inFn = elementByIdFn("page:mainForm:length:in2::field");
   const submitFn = elementByIdFn("page:mainForm:length:submit2");
 
