@@ -43,7 +43,7 @@
     "clean-css-cli": "^5.5.0",
     "lodash": "^4.17.21",
     "npm-run-all": "^4.1.5",
-    "postcss-cli": "^9.0.2",
+    "postcss-cli": "^9.1.0",
     "rollup": "^2.61.1",
     "sass": "^1.44.0",
     "tslint": "^6.1.3",
