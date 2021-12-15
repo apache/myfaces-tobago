@@ -12207,6 +12207,9 @@ tobago-select-boolean-toggle .form-check-label img {
 }
 
 /* selectOneChoice --------------------------------------------------------- */
+tobago-select-one-choice {
+  display: block;
+}
 tobago-select-one-choice select:disabled {
   color: rgba(33, 37, 41, 0.5);
 }
