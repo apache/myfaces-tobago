@@ -916,6 +916,7 @@
 
               <!-- jsf.js XXX check for official release -->
               <exclude>**/jsf.js</exclude>
+              <exclude>**/tobago.js</exclude>
 
               <!-- jettykeystore -->
               <exclude>**/jettykeystore</exclude>
