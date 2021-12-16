@@ -39,14 +39,14 @@
       <resources production="true">
         <includes>
           <script name="/tobago/standard/${project.version}/js/jsf.js"/>
-          <script type="module" name="/tobago/standard/${project.version}/js/tobago.min.js"/>
+          <script type="module" name="/tobago/standard/${project.version}/js/tobago.js"/>
           <style name="/tobago/standard/${project.version}/css/tobago.min.css"/>
           <style name="/tobago/standard/${project.version}/css/bootstrap-icons.css"/>
         </includes>
       </resources>
       <resources production="false">
         <includes>
-          <script name="/tobago/standard/${project.version}/js/jsf-development.js"/>
+          <script name="/tobago/standard/${project.version}/js/jsf.js"/>
           <script type="module" name="/tobago/standard/${project.version}/js/tobago.js"/>
           <style name="/tobago/standard/${project.version}/css/tobago.css"/>
           <style name="/tobago/standard/${project.version}/css/bootstrap-icons.css"/>

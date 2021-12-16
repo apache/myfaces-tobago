@@ -3,14 +3,19 @@
     "module": "es6",
     "target": "ES2015",
     "noImplicitAny": false,
+    "rootDir": "tobago-theme-standard/src/main/ts",
+    "sourceRoot": "../ts",
     "outDir": "tobago-theme-standard/src/main/js",
-    "sourceMap": false,
+    "sourceMap": true,
+    "inlineSources": true,
     "removeComments": false,
     "noEmitOnError": true,
     "moduleResolution": "node",
     "esModuleInterop": true
   },
   "include": [
+//    "tobago-theme-standard/src/main/ts/tobago-all.ts",
+//    "tobago-theme-standard/src/main/ts/jsf.d.ts",
     "tobago-theme-standard/src/main/ts/*.ts"
   ],
   "exclude": [

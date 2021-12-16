@@ -25,18 +25,12 @@ export default {
   output: [
     {
       file: 'tobago-theme-standard/src/main/js/tobago.js',
-      format: 'umd', /* tbd: check if "iife" is better? */
+      format: 'umd',
       sourcemap: true,
       //sourcemapPathTransform: (relativeSourcePath, sourcemapPath) => {
       //  return relativeSourcePath.substring(3, relativeSourcePath.length)
       //},
-      name: 'tobago'
-    },
-    {
-      file: 'tobago-theme-standard/src/main/js/tobago.min.js',
-      format: 'umd',
-      sourcemap: true,
-      name: 'tobago-min',
+      name: 'tobago',
       plugins: [terser()]
     }
   ],
@@ -47,7 +41,7 @@ export default {
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
     typescript({
-      tsconfig: 'tsconfig.production.json'
+      tsconfig: 'tsconfig.json'
     }),
   ]
 };
