@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "font-awesome": "4.7.0",
-    "prismjs": "^1.25.0"
+    "prismjs": "^1.26.0"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^13.1.3",
