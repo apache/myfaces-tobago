@@ -79,7 +79,7 @@
     "clean-css-cli": "^5.5.0",
     "eslint": "^8.6.0",
     "eslint-plugin-compat": "^4.0.0",
-    "jest": "^27.4.5",
+    "jest": "^27.4.7",
     "jsf.js_next_gen": "^1.0.0-beta-1",
     "lodash": "^4.17.21",
     "ncp": "^2.0.0",
