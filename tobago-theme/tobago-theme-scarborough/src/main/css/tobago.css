@@ -11623,6 +11623,9 @@ tobago-flex-layout > tobago-flex-layout {
 }
 
 /* flowLayout ---------------------------------------------------------- */
+tobago-flow-layout {
+  display: block;
+}
 tobago-flow-layout.tobago-text-justify {
   /* added here, because Bootstrap has removed .text-justify */
   text-align: justify !important;
