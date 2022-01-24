@@ -253,7 +253,7 @@
         <dependency> <!-- Optional, only when <f:validateBean> or <f:validateWholeBean> is used. -->
           <groupId>org.hibernate.validator</groupId>
           <artifactId>hibernate-validator</artifactId>
-          <version>6.2.0.Final</version>
+          <version>6.2.1.Final</version>
         </dependency>
         <!-- [END] -->
       </dependencies>
