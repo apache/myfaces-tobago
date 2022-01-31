@@ -74,7 +74,7 @@ public final class HtmlRendererUtils {
   }
 
   public static void encodeIconOrImage(final TobagoResponseWriter writer, final String image) throws IOException {
-    if (image != null) {
+    if (image != null && !image.isEmpty()) {
       if (Icons.matches(image)) {
         writer.startElement(HtmlElements.I);
         writer.writeClassAttribute(Icons.custom(image));
