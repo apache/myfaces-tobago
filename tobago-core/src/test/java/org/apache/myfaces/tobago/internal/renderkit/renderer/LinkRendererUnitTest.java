@@ -64,6 +64,30 @@ public class LinkRendererUnitTest extends RendererTestBase {
   }
 
   @Test
+  public void linkWithImage() throws IOException {
+    final UILink c = (UILink) ComponentUtils.createComponent(
+      facesContext, Tags.link.componentType(), RendererTypes.Link, "id");
+    c.setLabel("label");
+    c.setImage("url");
+    c.setLink("https://www.apache.org/");
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/link/linkWithImage.html"), formattedResult());
+  }
+
+  @Test
+  public void linkWithEmptyImage() throws IOException {
+    final UILink c = (UILink) ComponentUtils.createComponent(
+      facesContext, Tags.link.componentType(), RendererTypes.Link, "id");
+    c.setLabel("label");
+    c.setImage("");
+    c.setLink("https://www.apache.org/");
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/link/link.html"), formattedResult());
+  }
+
+  @Test
   public void manyInsideLink() throws IOException {
     final UILink c = (UILink) ComponentUtils.createComponent(
         facesContext, Tags.link.componentType(), RendererTypes.Link, "id");
