@@ -11806,6 +11806,10 @@ a.tobago-link.dropdown-item img, a.tobago-link.dropdown-item span {
   pointer-events: none;
 }
 
+button.tobago-link {
+  text-align: left;
+}
+
 h1 button.tobago-link, .h1 button.tobago-link, h2 button.tobago-link, .h2 button.tobago-link, h3 button.tobago-link, .h3 button.tobago-link, h4 button.tobago-link, .h4 button.tobago-link, h5 button.tobago-link, .h5 button.tobago-link, h6 button.tobago-link, .h6 button.tobago-link {
   font-size: inherit;
   font-weight: inherit;
