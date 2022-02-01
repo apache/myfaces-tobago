@@ -623,6 +623,10 @@ a.tobago-link.dropdown-item {
   }
 }
 
+button.tobago-link {
+  text-align: left;
+}
+
 h1, h2, h3, h4, h5, h6 {
   button.tobago-link {
     font-size: inherit;
@@ -1085,6 +1089,7 @@ tobago-select-boolean-toggle {
 /* selectOneChoice --------------------------------------------------------- */
 tobago-select-one-choice {
   display: block;
+
   select {
     @include formControlDisabled();
   }
