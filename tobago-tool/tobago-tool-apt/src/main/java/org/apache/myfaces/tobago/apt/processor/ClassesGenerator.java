@@ -49,6 +49,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -66,6 +67,8 @@ import java.util.Set;
     "org.apache.myfaces.tobago.apt.annotation.SimpleTag"})
 public class ClassesGenerator extends AbstractGenerator {
 
+  private static final String COMPONENT_STG = "org/apache/myfaces/tobago/apt/component.stg";
+
   private StringTemplateGroup componentStringTemplateGroup;
   private Set<String> ignoredProperties;
 
@@ -75,8 +78,12 @@ public class ClassesGenerator extends AbstractGenerator {
     info("Generating the classes *Component");
 
     final InputStream componentStream
-        = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/component.stg");
-    final Reader componentReader = new InputStreamReader(componentStream);
+        = getClass().getClassLoader().getResourceAsStream(COMPONENT_STG);
+    if (componentStream == null) {
+      throw new TobagoGeneratorException("Resource not found:" + COMPONENT_STG);
+    }
+
+    final Reader componentReader = new InputStreamReader(componentStream, StandardCharsets.UTF_8);
     componentStringTemplateGroup = new StringTemplateGroup(componentReader);
 
     ignoredProperties = new HashSet<>();
