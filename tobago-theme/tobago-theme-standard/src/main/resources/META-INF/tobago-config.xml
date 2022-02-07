@@ -38,7 +38,7 @@
       <versioned>true</versioned>
       <resources production="true">
         <script name="/tobago/standard/jquery/jquery-3.5.1.min.js"/>
-        <script name="/tobago/standard/jquery-ui/1.12.1.custom/jquery-ui.min.js"/>
+        <script name="/tobago/standard/jquery-ui/1.13.1/jquery-ui.min.js"/>
         <script name="/tobago/standard/popper-js/1.12.3/popper.min.js"/>
         <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/bootstrap.min.js"/>
         <script name="/tobago/standard/moment/2.13.0/moment-with-locales.min.js"/>
@@ -51,7 +51,7 @@
       </resources>
       <resources production="false">
         <script name="/tobago/standard/jquery/jquery-3.5.1.js"/>
-        <script name="/tobago/standard/jquery-ui/1.12.1.custom/jquery-ui.js"/>
+        <script name="/tobago/standard/jquery-ui/1.13.1/jquery-ui.js"/>
         <script name="/tobago/standard/popper-js/1.12.3/popper.js"/>
         <script name="/tobago/standard/tobago-bootstrap/${project.version}/js/bootstrap.js"/>
         <script name="/tobago/standard/moment/2.13.0/moment-with-locales.js"/>
