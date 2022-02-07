@@ -57,7 +57,7 @@
     <checkstyle-rules.version>15</checkstyle-rules.version>
 
     <!-- Note: defined here in master pom, because of problems with enforcer plugin -->
-    <jetty.version>11.0.6</jetty.version>
+    <jetty.version>11.0.8</jetty.version>
     <joinfaces.version>4.5.5</joinfaces.version>
     <spring-boot.version>2.5.5</spring-boot.version>
 
