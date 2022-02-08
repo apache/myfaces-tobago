@@ -12374,6 +12374,10 @@ p.tobago-separator:after {
 }
 
 /* sheet -------------------------------------------------------------- */
+tobago-sheet header {
+  overflow-x: hidden;
+  flex-shrink: 0;
+}
 tobago-sheet header table {
   margin-bottom: 0;
 }
