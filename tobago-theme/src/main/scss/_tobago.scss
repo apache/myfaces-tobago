@@ -1252,6 +1252,9 @@ tobago-sheet {
   }
 
   header {
+    overflow-x: hidden;
+    flex-shrink: 0; //if "column" attribute used: header must remain same height (fix overflow hidden)
+
     table {
       margin-bottom: 0;
 
