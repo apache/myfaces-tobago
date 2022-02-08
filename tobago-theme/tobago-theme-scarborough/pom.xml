@@ -41,7 +41,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
-        <version>1.6</version>
+        <version>3.0.0</version>
         <executions>
           <execution>
             <id>strip-javascript</id>
