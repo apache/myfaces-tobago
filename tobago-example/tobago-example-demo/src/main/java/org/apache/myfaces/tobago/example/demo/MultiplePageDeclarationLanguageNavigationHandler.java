@@ -47,7 +47,6 @@ public class MultiplePageDeclarationLanguageNavigationHandler extends Navigation
   public void handleNavigation(
       final FacesContext facesContext, final String fromAction, final String outcomeParameter) {
 
-    final String original = outcome;
     String outcome = outcomeParameter;
 
     if (outcome != null) {
@@ -74,7 +73,7 @@ public class MultiplePageDeclarationLanguageNavigationHandler extends Navigation
     }
 
     if (LOG.isDebugEnabled()) {
-      LOG.debug("Original outcome='" + original + "', adjusted outcome = '" + outcome + "'");
+      LOG.debug("Original outcome='" + outcomeParameter + "', adjusted outcome = '" + outcome + "'");
     }
 
     if (StringUtils.startsWith(outcome, "/content/")) {
