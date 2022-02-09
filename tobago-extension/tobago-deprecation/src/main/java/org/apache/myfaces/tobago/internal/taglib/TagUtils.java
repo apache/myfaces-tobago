@@ -59,7 +59,8 @@ public class TagUtils {
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public static void setIntegerProperty(final UIComponent component, final String name, String value) {
+  public static void setIntegerProperty(final UIComponent component, final String name, final String valueParameter) {
+    String value = valueParameter;
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
         component.setValueBinding(name, createValueBinding(value));
@@ -313,7 +314,8 @@ public class TagUtils {
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public static String getValueFromEl(String script) {
+  public static String getValueFromEl(final String scriptParameter) {
+    String script = scriptParameter;
     if (UIComponentTag.isValueReference(script)) {
       final ValueBinding valueBinding = createValueBinding(script);
       script = (String) valueBinding.getValue(FacesContext.getCurrentInstance());

@@ -253,8 +253,9 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static String replaceStyleAttribute(String style, final String name,
+  public static String replaceStyleAttribute(String styleParameter, final String name,
       final String value) {
+    String style = styleParameter;
     style = removeStyleAttribute(style != null ? style : "", name);
     return style + " " + name + ": " + value + ";";
   }
@@ -287,11 +288,17 @@ public final class HtmlRendererUtil {
     StyleClasses.ensureStyleClasses(component).addFullQualifiedClass(clazz);
   }
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static void createHeaderAndBodyStyles(final FacesContext facesContext, final UIComponent component) {
     Deprecation.LOG.error("HtmlRendererUtils.createHeaderAndBodyStyles() no longer supported");
   }
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static void createHeaderAndBodyStyles(
       final FacesContext facesContext, final UIComponent component, final boolean width) {
@@ -327,7 +334,7 @@ public final class HtmlRendererUtil {
   }
 
   /**
-   * @deprecated
+   * @deprecated xxx
    */
   @Deprecated
   public static void addImageSources(
@@ -434,7 +441,8 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static String addTip(String title, final Object tip) {
+  public static String addTip(String titleParameter, final Object tip) {
+    String title = titleParameter;
     if (tip != null) {
       if (title != null && title.length() > 0) {
         title += " :: ";

@@ -51,7 +51,7 @@ public final class VariableResolverUtil {
   public static ClientProperties resolveClientProperties(final FacesContext facesContext) {
     return (ClientProperties) resolveVariable(facesContext, ClientProperties.MANAGED_BEAN_NAME);
   }
-  
+
   /**
    * Clears the value of the variable.
    * Useful for cleaning up e.g. a session or application variable

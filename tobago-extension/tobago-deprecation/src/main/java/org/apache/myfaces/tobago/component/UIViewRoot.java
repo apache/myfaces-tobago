@@ -119,7 +119,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
       clearEvents();
     }
   }
-  
+
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 //
@@ -235,7 +235,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
   }
 
   private void decodeActionComponent(final FacesContext facesContext, final AbstractUIPage page, final Map<String,
-      UIComponent> ajaxComponents) {
+    UIComponent> ajaxComponents) {
     final String actionId = page.getActionId();
     UIComponent actionComponent = null;
     if (actionId != null) {

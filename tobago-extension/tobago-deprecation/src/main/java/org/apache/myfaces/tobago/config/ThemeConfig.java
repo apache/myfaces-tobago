@@ -25,6 +25,9 @@ import org.apache.myfaces.tobago.internal.util.Deprecation;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+/**
+ * @deprecated xxx
+ */
 @Deprecated
 public class ThemeConfig {
 

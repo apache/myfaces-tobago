@@ -67,7 +67,8 @@ public final class AccessKeyMap {
     duplicated = duplicated.append(key);
   }
 
-  public static boolean addAccessKey(final FacesContext facesContext, Character key) {
+  public static boolean addAccessKey(final FacesContext facesContext, final Character keyParameter) {
+    Character key = keyParameter;
     key = key.toString().toLowerCase(Locale.ENGLISH).charAt(0);
     final AccessKeyMap instance = getInstance(facesContext);
     if (instance.getSet().contains(key)) {

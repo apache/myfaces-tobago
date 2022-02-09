@@ -60,7 +60,7 @@ public abstract class AbstractCrud implements Crud {
    * business logic completed successfully, the method has to return <i>true</i>.
    * Otherwise the method has to return <i>false</i>.
    * </p>
-   * 
+   *
    * @return true if the method completed sucessfully, false if not
    */
   protected abstract boolean doDeleteItem();
@@ -90,7 +90,7 @@ public abstract class AbstractCrud implements Crud {
    * business logic completed successfully, the method has to return <i>true</i>.
    * Otherwise the method has to return <i>false</i>.
    * </p>
-   * 
+   *
    * @return true if the method completed sucessfully, false if not
    */
   protected abstract boolean doShowItem();
@@ -111,7 +111,7 @@ public abstract class AbstractCrud implements Crud {
    * business logic completed successfully, the method has to return <i>true</i>.
    * Otherwise the method has to return <i>false</i>.
    * </p>
-   * 
+   *
    * @return true if the method completed sucessfully, false if not
    */
   protected abstract boolean doCreateItem();
@@ -131,7 +131,7 @@ public abstract class AbstractCrud implements Crud {
    * business logic completed successfully, the method has to return <i>true</i>.
    * Otherwise the method has to return <i>false</i>.
    * </p>
-   * 
+   *
    * @return true if the method completed sucessfully, false if not
    */
   protected abstract boolean doSaveItem();
@@ -163,9 +163,8 @@ public abstract class AbstractCrud implements Crud {
 
   /**
    * Set the outcome for all actions of the crud component.
-   * 
-   * @param defaultOutcome
-   *          The outcome for all actions of the crud component
+   *
+   * @param defaultOutcome The outcome for all actions of the crud component
    */
   public final void setDefaultOutcome(final String defaultOutcome) {
     this.defaultOutcome = defaultOutcome;

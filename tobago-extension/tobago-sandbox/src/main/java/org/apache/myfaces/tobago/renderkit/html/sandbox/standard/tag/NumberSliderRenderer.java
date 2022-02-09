@@ -56,7 +56,7 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUINumberSlider slider = (AbstractUINumberSlider) component;
-    
+
     final String id = slider.getClientId(facesContext);
     final String currentValue = getCurrentValue(facesContext, slider);
     final boolean readonly = slider.isReadonly();
@@ -67,14 +67,14 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
 
     final Style style = new Style(facesContext, slider);
     final int width = -1;
-    int sliderWidthPerc 
-        = getResourceManager().getThemeMeasure(facesContext, slider, SLIDER_WIDTH_PERCENT).getPixel();
-      if (sliderWidthPerc <= 25) {
-        sliderWidthPerc = 25;
-      }
-      if (sliderWidthPerc >= 75) {
-        sliderWidthPerc = 75;
-      }
+    int sliderWidthPerc
+      = getResourceManager().getThemeMeasure(facesContext, slider, SLIDER_WIDTH_PERCENT).getPixel();
+    if (sliderWidthPerc <= 25) {
+      sliderWidthPerc = 25;
+    }
+    if (sliderWidthPerc >= 75) {
+      sliderWidthPerc = 75;
+    }
     int sliderWidth = 100; // fixme
     int inputWidth = 50; // fixme;
     if (style.getWidth() != null && style.getWidth().getPixel() >= 0) {
@@ -182,7 +182,7 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
 
   private String getAbsoluteImagePath(final FacesContext facesContext, final String relativeImagePath) {
     return facesContext.getExternalContext().getRequestContextPath()
-        + ResourceManagerUtils.getImage(facesContext, relativeImagePath);
+      + ResourceManagerUtils.getImage(facesContext, relativeImagePath);
   }
 
   private String getIdForInputField(final FacesContext context, final UIComponent component) {
@@ -201,8 +201,8 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
   }
 
   private void writeSliderJavaScript(
-      final FacesContext context, final UIComponent component, final TobagoResponseWriter writer)
-      throws IOException {
+    final FacesContext context, final UIComponent component, final TobagoResponseWriter writer)
+    throws IOException {
     final String trackId = getIdForSliderTrack(context, component);
     final String handleId = getIdForSliderHandle(context, component);
     final String inputId = getIdForInputField(context, component);
@@ -210,20 +210,20 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
     final Integer min = ComponentUtils.getIntAttribute(component, "min");
     final Integer max = ComponentUtils.getIntAttribute(component, "max");
     final String script = "    var slider_" + jsId + " = new Control.Slider('" + handleId + "', '" + trackId + "', {\n"
-        + "        sliderValue:$('" + inputId + "').value,\n"
-        + "        range : $R(" + min + ", " + max + "),\n"
-        + "        values: $R(" + min + ", " + max + ").toArray(),\n"
-        + "        onSlide:function(v) {\n"
-        + "            $('" + inputId + "').value = v;\n"
-        + "        },\n"
-        + "        onChange:function(v) {\n"
-        + "            $('" + inputId + "').value = v;\n"
-        + "        }\n"
-        + "    });\n"
-        + "\n"
-        + "    Event.observe('value', 'change', function() {\n"
-        + "        slider_" + jsId + ".setValue($('" + inputId + "').value);\n"
-        + "    });\n";
+      + "        sliderValue:$('" + inputId + "').value,\n"
+      + "        range : $R(" + min + ", " + max + "),\n"
+      + "        values: $R(" + min + ", " + max + ").toArray(),\n"
+      + "        onSlide:function(v) {\n"
+      + "            $('" + inputId + "').value = v;\n"
+      + "        },\n"
+      + "        onChange:function(v) {\n"
+      + "            $('" + inputId + "').value = v;\n"
+      + "        }\n"
+      + "    });\n"
+      + "\n"
+      + "    Event.observe('value', 'change', function() {\n"
+      + "        slider_" + jsId + ".setValue($('" + inputId + "').value);\n"
+      + "    });\n";
     writer.writeJavascript(script);
   }
 

@@ -54,7 +54,7 @@ public class ValueBindingResetInputActionListener extends AbstractResetInputActi
 
   public void processAction(final ActionEvent event) {
     final Object obj = clientIdsBinding.getValue(FacesContext.getCurrentInstance());
-    final String [] clientIds;
+    final String[] clientIds;
     if (obj instanceof String[]) {
       clientIds = (String[]) obj;
     } else if (obj instanceof String) {
