@@ -594,7 +594,7 @@
         <plugin>
           <groupId>org.codehaus.cargo</groupId>
           <artifactId>cargo-maven2-plugin</artifactId>
-          <version>1.0.3</version>
+          <version>1.8.5</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
