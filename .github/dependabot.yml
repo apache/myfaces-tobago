@@ -201,6 +201,12 @@ updates:
       - dependency-name: "org.apache.myfaces.core:myfaces-impl"
         versions:
           - ">= 2.1.0"
+      - dependency-name: "com.sun.faces:jsf-api"
+        versions:
+          - ">= 2.1.0"
+      - dependency-name: "com.sun.faces:jsf-impl"
+        versions:
+          - ">= 2.1.0"
 
   - package-ecosystem: "github-actions"
     directory: "/"
