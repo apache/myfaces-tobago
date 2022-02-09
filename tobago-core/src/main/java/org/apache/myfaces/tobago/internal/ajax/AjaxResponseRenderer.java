@@ -74,7 +74,7 @@ public class AjaxResponseRenderer {
   }
 
   private void renderComponent(final FacesContext facesContext, final RenderKit renderKit, final String charset,
-      final String clientId, final UIComponent component)
+                               final String clientId, final UIComponent component)
       throws IOException {
     final PrintWriter writer = getPrintWriter(facesContext);
     final JsonResponseWriter jsonWriter = getJsonResponseWriter(renderKit, writer, charset);
@@ -116,7 +116,8 @@ public class AjaxResponseRenderer {
   }
 
   private static void ensureContentTypeHeader(
-      final FacesContext facesContext, String charset, final String contentType) {
+      final FacesContext facesContext, final String charsetParameter, final String contentType) {
+    String charset = charsetParameter;
     final StringBuilder sb = new StringBuilder(contentType);
     if (charset == null) {
       charset = "UTF-8";

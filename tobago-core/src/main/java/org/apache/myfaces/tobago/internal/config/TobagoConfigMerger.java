@@ -37,7 +37,7 @@ public class TobagoConfigMerger {
   private final List<TobagoConfigFragment> list;
 
   public TobagoConfigMerger(final List<TobagoConfigFragment> list) {
-    this.list =    list;
+    this.list = list;
   }
 
   public TobagoConfigImpl merge() {

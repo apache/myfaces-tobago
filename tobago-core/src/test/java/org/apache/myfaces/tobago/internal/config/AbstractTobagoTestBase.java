@@ -52,8 +52,7 @@ import java.util.Map;
  * mock object environment for a particular simulated request.
  * </p>
  * <p>
- * This is a port of the class AbstractJsfTestCase from myfaces-test12 to JUnit 4.
- * It also contains Tobago specifics.
+ * This is a port of the class AbstractJsfTestCase from myfaces-test12 to JUnit 4. It also contains Tobago specifics.
  * </p>
  */
 

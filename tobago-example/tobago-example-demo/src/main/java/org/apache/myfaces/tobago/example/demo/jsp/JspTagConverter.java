@@ -55,7 +55,7 @@ public class JspTagConverter extends AbstractConverter {
   }
 
   public String convertMatch(final String fragment) {
-    final String key = "tag" + tags.size();;
+    final String key = "tag" + tags.size();
     String tag = XmlUtils.escape(fragment, false);
     if (fragment.startsWith("<%--")) {
       tag = "<span class=\"jsp-comment\">" + tag + "</span>";

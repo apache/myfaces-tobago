@@ -53,9 +53,8 @@ public class ClearValidatorsActionListener implements ActionListener {
 
     // FIXME: finding mechanism??? JSF ???
 
-    for (final StringTokenizer tokenizer
-        = new StringTokenizer(clearValidatorsFieldIds, ",");
-         tokenizer.hasMoreTokens();) {
+    final StringTokenizer tokenizer = new StringTokenizer(clearValidatorsFieldIds, ",");
+    while (tokenizer.hasMoreTokens()) {
       final String clearValidatorsFieldId = tokenizer.nextToken();
 
       UIComponent component = source.findComponent(clearValidatorsFieldId);
@@ -71,7 +70,7 @@ public class ClearValidatorsActionListener implements ActionListener {
         component = facesContext.getViewRoot().findComponent(clearValidatorsFieldId);
       }
 
-      if (component == null) { // not found 
+      if (component == null) { // not found
         LOG.warn("Component not found.");
       } else {
 //        component.clearValidators();

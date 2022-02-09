@@ -166,7 +166,7 @@ public class FileDropRenderer extends FileRenderer {
   }
 
   protected UIComponent createViewComponent(FacesContext facesContext, UIFileDrop fileDrop, String componentType,
-      String rendererType) {
+                                            String rendererType) {
     UIComponent viewComponent = (UIComponent) facesContext.getApplication()
         .createComponent(facesContext, componentType, rendererType);
     viewComponent.setId(fileDrop.getId() + "-view-facet");
@@ -237,7 +237,7 @@ public class FileDropRenderer extends FileRenderer {
 
   @Override
   protected void writeVisibleInput(FacesContext facesContext, TobagoResponseWriter writer, AbstractUIFile file,
-      String clientId, Style style) throws IOException {
+                                   String clientId, Style style) throws IOException {
     UIFileDrop fileDrop = (UIFileDrop) file;
     VisibleType visibleType = getVisibleType(fileDrop);
     switch (visibleType) {
@@ -359,7 +359,7 @@ public class FileDropRenderer extends FileRenderer {
         return getResourceManager()
             .getThemeMeasure(facesContext, RendererTypes.LINK, null, Attributes.MAXIMUM_HEIGHT);
       default:
-      return null;
+        return null;
     }
   }
 
@@ -394,8 +394,8 @@ public class FileDropRenderer extends FileRenderer {
       switch (visibleType) {
         case DROP_ZONE:
           return component;
-          default:
-            return createCssComponent(RendererTypes.PANEL, component);
+        default:
+          return createCssComponent(RendererTypes.PANEL, component);
       }
     }
   }

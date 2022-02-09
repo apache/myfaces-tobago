@@ -43,6 +43,9 @@ public final class CreateComponentUtils {
   private CreateComponentUtils() {
   }
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static UIComponent createComponent(final String componentType, final String rendererType) {
     return createComponent(componentType, rendererType, null);
@@ -54,6 +57,9 @@ public final class CreateComponentUtils {
     return createComponent(facesContext, componentType, rendererType, clientId);
   }
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static UIComponent createComponent(
       final FacesContext facesContext, final String componentType, final String rendererType) {
@@ -62,18 +68,24 @@ public final class CreateComponentUtils {
 
   public static UIComponent createComponent(
       final FacesContext facesContext, final String componentType, final String rendererType, final String clientId) {
-    final UIComponent component  = facesContext.getApplication().createComponent(componentType);
+    final UIComponent component = facesContext.getApplication().createComponent(componentType);
     component.setRendererType(rendererType);
     component.setId(clientId);
     return component;
   }
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static AbstractUIColumn createTextColumn(
       final String label, final String sortable, final String align, final String value) {
     return createTextColumn(label, sortable, align, value, null);
   }
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static AbstractUIColumn createTextColumn(
       final String label, final String sortable, final String align, final String value, final String clientId) {
@@ -85,12 +97,18 @@ public final class CreateComponentUtils {
     return createColumn(label, sortable, align, text, clientId);
   }
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static AbstractUIColumn createColumn(
       final String label, final String sortable, final String align, final UIComponent child) {
     return createColumn(label, sortable, align, child, null);
   }
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static AbstractUIColumn createColumn(
       final String label, final String sortable, final String align, final UIComponent child, final String clientId) {
@@ -100,6 +118,9 @@ public final class CreateComponentUtils {
     return column;
   }
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static AbstractUIColumn createColumn(final String label, final String sortable, final String align) {
     return createColumn(label, sortable, align, (String) null);
@@ -114,6 +135,9 @@ public final class CreateComponentUtils {
     return column;
   }
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static UIMenuSelectOne createUIMenuSelectOneFacet(
       final FacesContext facesContext, final UICommand command) {
@@ -136,6 +160,9 @@ public final class CreateComponentUtils {
     return radio;
   }
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static UIComponent createUISelectBooleanFacet(final FacesContext facesContext, final UICommand command) {
     return createUISelectBooleanFacet(facesContext, command, null);

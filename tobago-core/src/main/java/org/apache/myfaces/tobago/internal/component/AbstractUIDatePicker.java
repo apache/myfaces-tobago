@@ -32,8 +32,8 @@ import javax.faces.event.FacesEvent;
 import javax.faces.render.Renderer;
 
 /**
- * @deprecated Since 2.0.0. It's no longer needed, because this is resolved by JavaScript now.
- * Set backward compatibility mode via classic-date-time-picker.
+ * @deprecated Since 2.0.0. It's no longer needed, because this is resolved by JavaScript now. Set backward
+ * compatibility mode via classic-date-time-picker.
  */
 @Deprecated
 public abstract class AbstractUIDatePicker extends AbstractUILink implements OnComponentCreated {

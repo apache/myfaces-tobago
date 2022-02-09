@@ -19,25 +19,29 @@
 
 package org.apache.myfaces.tobago.apt.annotation;
 
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.annotation.ElementType;
 
 @Retention(value = RetentionPolicy.SOURCE)
 @Target(value = ElementType.METHOD)
 
 public @interface UIComponentTagAttribute {
 
-  /** type of attribute in the UIComponent */
+  /**
+   * type of attribute in the UIComponent
+   */
   String[] type() default {"java.lang.String"};
 
-  String[] allowedValues() default { };
+  String[] allowedValues() default {};
 
-  /** allow faces expression language, e.g. #{bean}  */
+  /**
+   * allow faces expression language, e.g. #{bean}
+   */
   DynamicExpression expression() default DynamicExpression.VALUE_EXPRESSION;
 
-  String[] methodSignature() default { };
+  String[] methodSignature() default {};
 
   String methodReturnType() default "void";
 
@@ -48,14 +52,12 @@ public @interface UIComponentTagAttribute {
   String displayName() default "";
 
   /**
-   * Specifies whether this property should be visible
-   * in a property editor
+   * Specifies whether this property should be visible in a property editor
    */
   boolean isHidden() default false;
 
   /**
-   * Specifies whether this property should be read-only
-   * in a property editor
+   * Specifies whether this property should be read-only in a property editor
    */
   boolean isReadOnly() default false;
 

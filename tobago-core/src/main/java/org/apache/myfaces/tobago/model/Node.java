@@ -88,12 +88,12 @@ public class Node {
   public TreePath getPath() {
     final List<Integer> result = new ArrayList<Integer>();
     Node node = this;
-    Node parent = this.parent;
-    while (parent != null) {
-      final int index = parent.getIndex(node);
+    Node theParent = this.parent;
+    while (theParent != null) {
+      final int index = theParent.getIndex(node);
       result.add(index);
-      node = parent;
-      parent = node.getParent();
+      node = theParent;
+      theParent = node.getParent();
     }
     result.add(0);
     Collections.reverse(result);

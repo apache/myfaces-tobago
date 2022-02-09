@@ -33,16 +33,26 @@ public final class Attributes {
   public static final String AUTO_RELOAD = "autoReload";
   public static final String BODY_CONTENT = "bodyContent";
   public static final String BORDER = "border";
-  /** Used by a layout manager */
+  /**
+   * Used by a layout manager
+   */
   public static final String BORDER_BOTTOM = "borderBottom";
-  /** Used by a layout manager */
+  /**
+   * Used by a layout manager
+   */
   public static final String BORDER_LEFT = "borderLeft";
-  /** Used by a layout manager */
+  /**
+   * Used by a layout manager
+   */
   public static final String BORDER_RIGHT = "borderRight";
-  /** Used by a layout manager */
+  /**
+   * Used by a layout manager
+   */
   public static final String BORDER_TOP = "borderTop";
   public static final String CHARSET = "charset";
-  /** @deprecated */
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static final String CELLSPACING = "cellspacing";
   public static final String CLIENT_PROPERTIES = "clientProperties";
@@ -52,7 +62,9 @@ public final class Attributes {
   public static final String CONVERTER = "converter";
   public static final String CREATE_SPAN = "createSpan";
   public static final String CSS_CLASSES_BLOCKS = "cssClassesBlocks";
-  /** @deprecated since 2.0.0 */
+  /**
+   * @deprecated since 2.0.0
+   */
   @Deprecated
   public static final String DATE_INPUT_ID = "dateInputId";
   public static final String DATE_STYLE = "dateStyle";
@@ -83,10 +95,14 @@ public final class Attributes {
   public static final String IMMEDIATE = "immediate";
   public static final String IMAGE = "image";
   public static final String INLINE = "inline";
-  /** @deprecated */
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static final String INNER_HEIGHT = "innerHeight";
-  /** @deprecated */
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static final String INNER_WIDTH = "innerWidth";
   public static final String ITEM_DESCRIPTION = "itemDescription";
@@ -103,16 +119,26 @@ public final class Attributes {
   public static final String LAYOUT_WIDTH = "layoutWidth";
   public static final String LEFT = "left";
   public static final String LINK = "link";
-  /** @deprecated */
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static final String MARGIN = "margin";
-  /** Used by a layout manager */
+  /**
+   * Used by a layout manager
+   */
   public static final String MARGIN_BOTTOM = "marginBottom";
-  /** Used by a layout manager */
+  /**
+   * Used by a layout manager
+   */
   public static final String MARGIN_LEFT = "marginLeft";
-  /** Used by a layout manager */
+  /**
+   * Used by a layout manager
+   */
   public static final String MARGIN_RIGHT = "marginRight";
-  /** Used by a layout manager */
+  /**
+   * Used by a layout manager
+   */
   public static final String MARGIN_TOP = "marginTop";
   public static final String MARKED = "marked";
   public static final String MARKUP = "markup";
@@ -133,23 +159,37 @@ public final class Attributes {
   public static final String NAVIGATE = "navigate";
   public static final String NUMBER_STYLE = "numberStyle";
   public static final String OMIT = "omit";
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   public static final String ONCHANGE = "onchange";
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   public static final String ONCLICK = "onclick";
   public static final String ORDER_BY = "orderBy";
   public static final String ORIENTATION = "orientation";
-  /** Used by a layout manager */
+  /**
+   * Used by a layout manager
+   */
   public static final String PADDING_BOTTOM = "paddingBottom";
-  /** Used by a layout manager */
+  /**
+   * Used by a layout manager
+   */
   public static final String PADDING_LEFT = "paddingLeft";
-  /** Used by a layout manager */
+  /**
+   * Used by a layout manager
+   */
   public static final String PADDING_RIGHT = "paddingRight";
-  /** Used by a layout manager */
+  /**
+   * Used by a layout manager
+   */
   public static final String PADDING_TOP = "paddingTop";
-  /** @deprecated Since 2.0.6. No longer needed. */
+  /**
+   * @deprecated Since 2.0.6. No longer needed.
+   */
   @Deprecated
   public static final String PAGE_MENU = "pageMenu";
   public static final String PASSWORD = "password";
@@ -202,7 +242,9 @@ public final class Attributes {
   public static final String STATE = "state";
   public static final String STATE_PREVIEW = "statePreview";
   public static final String STYLE = "style";
-  /** @deprecated */
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static final String STYLE_CLASS = "styleClass";
   public static final String SUPPRESS_TOOLBAR_CONTAINER = "suppressToolbarContainer";

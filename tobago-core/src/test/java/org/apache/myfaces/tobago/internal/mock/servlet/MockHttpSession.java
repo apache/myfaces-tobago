@@ -38,7 +38,7 @@ public class MockHttpSession implements HttpSession {
   }
 
   public Enumeration getAttributeNames() {
-    return (new IteratorEnumeration(attributes.keySet().iterator()));
+    return new IteratorEnumeration(attributes.keySet().iterator());
   }
 
   public long getCreationTime() {
@@ -57,7 +57,10 @@ public class MockHttpSession implements HttpSession {
     return 0;
   }
 
-  /** @deprecated */
+  /**
+   * @deprecated by API
+   */
+  @Deprecated
   public HttpSessionContext getSessionContext() {
     return null;
   }

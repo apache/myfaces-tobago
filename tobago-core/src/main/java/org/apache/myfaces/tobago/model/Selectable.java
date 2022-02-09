@@ -67,8 +67,7 @@ public enum Selectable {
   SIBLING_LEAF_ONLY("siblingLeafOnly"),
 
   /**
-   * Multi selection possible. When selecting or deselecting an item, the subtree will also
-   * be selected or unselected.
+   * Multi selection possible. When selecting or deselecting an item, the subtree will also be selected or unselected.
    */
   MULTI_CASCADE("multiCascade");
 

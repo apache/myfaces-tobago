@@ -41,7 +41,7 @@ public class AppenderModel {
   }
 
   public String getFile() {
-    return (appender instanceof FileAppender)
+    return appender instanceof FileAppender
         ? ((FileAppender) appender).getFileName() : "";
   }
 

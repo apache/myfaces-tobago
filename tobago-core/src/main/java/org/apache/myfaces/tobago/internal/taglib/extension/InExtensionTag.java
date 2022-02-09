@@ -33,9 +33,7 @@ import javax.el.ValueExpression;
 import javax.servlet.jsp.JspException;
 
 /**
- * Renders a text input field with a label.
- * <br />
- * Short syntax of:
+ * Renders a text input field with a label. <br /> Short syntax of:
  * <p/>
  * <pre>
  * &lt;tc:panel>
@@ -72,10 +70,19 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   private ValueExpression value;
   private MethodExpression valueChangeListener;
   private ValueExpression onchange;
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   private MethodExpression suggestMethod;
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   private ValueExpression suggestMinChars;
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   private ValueExpression suggestDelay;
   private ValueExpression markup;
@@ -237,8 +244,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Indicate markup of this component.
-   * Possible value is 'none'. But this can be overridden in the theme.
+   * Indicate markup of this component. Possible value is 'none'. But this can be overridden in the theme.
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
@@ -256,12 +262,9 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * MethodBinding representing a value change listener method
-   * that will be notified when a new value has been set for this input component.
-   * The expression must evaluate to a public method that takes a ValueChangeEvent
-   * parameter, with a return type of void.
-   *
-   * @param valueChangeListener
+   * MethodBinding representing a value change listener method that will be notified when a new value has been set for
+   * this input component. The expression must evaluate to a public method that takes a ValueChangeEvent parameter, with
+   * a return type of void.
    */
   @TagAttribute
   @UIComponentTagAttribute(
@@ -273,8 +276,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Text value to display as label.
-   * If text contains an underscore the next character is used as accesskey.
+   * Text value to display as label. If text contains an underscore the next character is used as accesskey.
    */
   @TagAttribute
   @UIComponentTagAttribute()
@@ -301,8 +303,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * The value binding expression linking this
-   * component to a property in a backing bean.
+   * The value binding expression linking this component to a property in a backing bean.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
@@ -311,8 +312,8 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Flag indicating whether or not this component should be rendered
-   * (during Render Response Phase), or processed on any subsequent form submit.
+   * Flag indicating whether or not this component should be rendered (during Render Response Phase), or processed on
+   * any subsequent form submit.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
@@ -321,13 +322,9 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * An expression that specifies the Converter for this component.
-   * If the value binding expression is a String,
-   * the String is used as an ID to look up a Converter.
-   * If the value binding expression is a Converter,
-   * uses that instance as the converter.
-   * The value can either be a static value (ID case only)
-   * or an EL expression.
+   * An expression that specifies the Converter for this component. If the value binding expression is a String, the
+   * String is used as an ID to look up a Converter. If the value binding expression is a Converter, uses that instance
+   * as the converter. The value can either be a static value (ID case only) or an EL expression.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.convert.Converter",
@@ -346,11 +343,10 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * MethodBinding which generates a list of suggested input values based on
-   * the currently entered text, which could be retrieved via getSubmittedValue() on the UIIn.
-   * The expression has to evaluate to a public method which has a javax.faces.component.UIInput parameter
-   * and returns a List&lt;String>(deprecated), a List&lt;org.apache.myfaces.tobago.model.AutoSuggestItem>
-   * or a org.apache.myfaces.tobago.model.AutoSuggestItems.
+   * MethodBinding which generates a list of suggested input values based on the currently entered text, which could be
+   * retrieved via getSubmittedValue() on the UIIn. The expression has to evaluate to a public method which has a
+   * javax.faces.component.UIInput parameter and returns a List&lt;String>(deprecated), a
+   * List&lt;org.apache.myfaces.tobago.model.AutoSuggestItem> or a org.apache.myfaces.tobago.model.AutoSuggestItems.
    *
    * @deprecated since 2.0.0, please use tc:suggest
    */
@@ -390,10 +386,8 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * A method binding EL expression,
-   * accepting FacesContext, UIComponent,
-   * and Object parameters, and returning void, that validates
-   * the component's local value.
+   * A method binding EL expression, accepting FacesContext, UIComponent, and Object parameters, and returning void,
+   * that validates the component's local value.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {},
@@ -404,8 +398,8 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Flag indicating whether or not this component should be rendered as
-   * password field , so you will not see the typed charakters.
+   * Flag indicating whether or not this component should be rendered as password field , so you will not see the typed
+   * charakters.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
@@ -432,9 +426,8 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Flag indicating that a value is required.
-   * If the value is an empty string a
-   * ValidationError occurs and a Error Message is rendered.
+   * Flag indicating that a value is required. If the value is an empty string a ValidationError occurs and a Error
+   * Message is rendered.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
@@ -452,8 +445,8 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Displays a short text in the input field, that describes the meaning of this field.
-   * This is part of HTML 5, the theme should emulate the behaviour, when the browser doesn't support it.
+   * Displays a short text in the input field, that describes the meaning of this field. This is part of HTML 5, the
+   * theme should emulate the behaviour, when the browser doesn't support it.
    */
   @TagAttribute
   @UIComponentTagAttribute()
@@ -462,9 +455,8 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * The width for the label component. Default: 'auto'.
-   * This value is used in the gridLayouts columns attribute.
-   * See gridLayout tag for valid values.
+   * The width for the label component. Default: 'auto'. This value is used in the gridLayouts columns attribute. See
+   * gridLayout tag for valid values.
    */
   @TagAttribute
   @UIComponentTagAttribute()
@@ -506,8 +498,8 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * The component identifier for the input field component inside of the container.
-   * This value must be unique within the closest parent component that is a naming container.
+   * The component identifier for the input field component inside of the container. This value must be unique within
+   * the closest parent component that is a naming container.
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
@@ -516,10 +508,9 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * The component identifier for this component.
-   * This value must be unique within the closest parent component that is a naming container.
-   * For tx components the id will be set to the container (e. g. the panel).
-   * To set the id of the input field, you have to use the attribute "fieldId".
+   * The component identifier for this component. This value must be unique within the closest parent component that is
+   * a naming container. For tx components the id will be set to the container (e. g. the panel). To set the id of the
+   * input field, you have to use the attribute "fieldId".
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute

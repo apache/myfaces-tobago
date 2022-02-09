@@ -81,7 +81,7 @@ public final class ComponentUtils {
   private static final Logger LOG = LoggerFactory.getLogger(ComponentUtils.class);
 
   public static final String SUB_SEPARATOR = "::";
-  
+
   private static final String RENDER_KEY_PREFIX
       = "org.apache.myfaces.tobago.util.ComponentUtils.RendererKeyPrefix_";
 
@@ -95,6 +95,7 @@ public final class ComponentUtils {
 
   /**
    * Name of the map for data attributes in components. New in JSF 2.2.
+   *
    * @since 2.0.0
    */
   public static final String DATA_ATTRIBUTES_KEY = "javax.faces.component.DATA_ATTRIBUTES_KEY";
@@ -137,12 +138,13 @@ public final class ComponentUtils {
     }
   }
 
-  public static boolean isInPopup(UIComponent component) {
-    while (component != null) {
-      if (component instanceof AbstractUIPopup) {
+  public static boolean isInPopup(final UIComponent component) {
+    UIComponent c = component;
+    while (c != null) {
+      if (c instanceof AbstractUIPopup) {
         return true;
       }
-      component = component.getParent();
+      c = c.getParent();
     }
     return false;
   }
@@ -155,8 +157,8 @@ public final class ComponentUtils {
   }
 
   /**
-   * Tries to walk up the parents to find the UIViewRoot, if not found, then go to FaceletContext's FacesContext for
-   * the view root.
+   * Tries to walk up the parents to find the UIViewRoot, if not found, then go to FaceletContext's FacesContext for the
+   * view root.
    */
   public static UIViewRoot findViewRoot(final FaceletContext faceletContext, final UIComponent component) {
     final UIViewRoot viewRoot = findAncestor(component, UIViewRoot.class);
@@ -182,15 +184,16 @@ public final class ComponentUtils {
     }
   }
 
-  public static AbstractUIPage findPage(UIComponent component) {
-    if (component instanceof UIViewRoot) {
-      return findPageBreadthFirst(component);
+  public static AbstractUIPage findPage(final UIComponent component) {
+    UIComponent c = component;
+    if (c instanceof UIViewRoot) {
+      return findPageBreadthFirst(c);
     } else {
-      while (component != null) {
-        if (component instanceof AbstractUIPage) {
-          return (AbstractUIPage) component;
+      while (c != null) {
+        if (c instanceof AbstractUIPage) {
+          return (AbstractUIPage) c;
         }
-        component = component.getParent();
+        c = c.getParent();
       }
       return null;
     }
@@ -216,30 +219,32 @@ public final class ComponentUtils {
   }
 
 
-  public static AbstractUIForm findForm(UIComponent component) {
-    while (component != null) {
-      if (component instanceof AbstractUIForm) {
-        return (AbstractUIForm) component;
+  public static AbstractUIForm findForm(final UIComponent component) {
+
+    UIComponent c = component;
+    while (c != null) {
+      if (c instanceof AbstractUIForm) {
+        return (AbstractUIForm) c;
       }
-      component = component.getParent();
+      c = c.getParent();
     }
     return null;
   }
 
-  public static <T> T findAncestor(UIComponent component, final Class<T> type) {
+  public static <T> T findAncestor(final UIComponent component, final Class<T> type) {
 
-    while (component != null) {
-      if (type.isAssignableFrom(component.getClass())) {
-        return (T) component;
+    UIComponent c = component;
+    while (c != null) {
+      if (type.isAssignableFrom(c.getClass())) {
+        return (T) c;
       }
-      component = component.getParent();
+      c = c.getParent();
     }
     return null;
   }
 
   /**
-   * Find all sub forms of a component, and collects it.
-   * It does not find sub forms of sub forms.
+   * Find all sub forms of a component, and collects it. It does not find sub forms of sub forms.
    */
   public static List<AbstractUIForm> findSubForms(final UIComponent component) {
     final List<AbstractUIForm> collect = new ArrayList<AbstractUIForm>();
@@ -314,7 +319,7 @@ public final class ComponentUtils {
   public static <T extends UIComponent> List<T> findDescendantList(final UIComponent component, final Class<T> type) {
 
     final List<T> result = new ArrayList<T>();
-    
+
     for (final UIComponent child : component.getChildren()) {
       if (type.isAssignableFrom(child.getClass())) {
         result.add((T) child);
@@ -325,11 +330,9 @@ public final class ComponentUtils {
   }
 
   /**
-   * Looks for the attribute "for" in the component. If there is any
-   * search for the component which is referenced by the "for" attribute,
-   * and return their clientId.
-   * If there is no "for" attribute, return the "clientId" of the parent
-   * (if it has a parent). This is useful for labels.
+   * Looks for the attribute "for" in the component. If there is any search for the component which is referenced by the
+   * "for" attribute, and return their clientId. If there is no "for" attribute, return the "clientId" of the parent (if
+   * it has a parent). This is useful for labels.
    */
   public static String findClientIdFor(final UIComponent component, final FacesContext facesContext) {
     final UIComponent forComponent = findFor(component);
@@ -355,11 +358,11 @@ public final class ComponentUtils {
   }
 
   /**
-   * Looks for the attribute "for" of the component.
-   * In case that the value is equals to "@auto" the children of the parent will be
-   * checked if they are a UIInput. The "id" of the first one will be used to reset the "for"
-   * attribute of the component.
-   * @deprecated
+   * Looks for the attribute "for" of the component. In case that the value is equals to "@auto" the children of the
+   * parent will be checked if they are a UIInput. The "id" of the first one will be used to reset the "for" attribute
+   * of the component.
+   *
+   * @deprecated xxx
    */
   @Deprecated
   public static void evaluateAutoFor(final UIComponent component) {
@@ -377,10 +380,9 @@ public final class ComponentUtils {
   }
 
   /**
-   * Looks for the attribute "for" of the component.
-   * In case that the value is equals to "@auto" the children of the parent will be
-   * checked if they are of the type of the parameter clazz. The "id" of the first one will be used to reset the "for"
-   * attribute of the component.
+   * Looks for the attribute "for" of the component. In case that the value is equals to "@auto" the children of the
+   * parent will be checked if they are of the type of the parameter clazz. The "id" of the first one will be used to
+   * reset the "for" attribute of the component.
    */
   public static void evaluateAutoFor(final UIComponent component, final Class<? extends UIComponent> clazz) {
     final String forComponent = (String) component.getAttributes().get(Attributes.FOR);
@@ -419,15 +421,16 @@ public final class ComponentUtils {
     return false;
   }
 
-  public static boolean isInActiveForm(UIComponent component) {
-    while (component != null) {
-      if (component instanceof AbstractUIForm) {
-        final AbstractUIForm form = (AbstractUIForm) component;
+  public static boolean isInActiveForm(final UIComponent component) {
+    UIComponent c = component;
+    while (c != null) {
+      if (c instanceof AbstractUIForm) {
+        final AbstractUIForm form = (AbstractUIForm) c;
         if (form.isSubmitted()) {
           return true;
         }
       }
-      component = component.getParent();
+      c = c.getParent();
     }
     return false;
   }
@@ -506,9 +509,8 @@ public final class ComponentUtils {
   }
 
   /**
-   * @deprecated since 1.5.0
-   * Please define a {@link Markup} and set it to the component with
-   * {@link SupportsMarkup#setMarkup(Markup markup)} before the rendering phase.
+   * @deprecated since 1.5.0 Please define a {@link Markup} and set it to the component with {@link
+   * SupportsMarkup#setMarkup(Markup markup)} before the rendering phase.
    */
   @Deprecated
   public static void setStyleClasses(final UIComponent component, final String styleClasses) {
@@ -544,7 +546,7 @@ public final class ComponentUtils {
   }
 
   public static int getIntAttribute(final UIComponent component, final String name,
-      final int defaultValue) {
+                                    final int defaultValue) {
     final Object integer = component.getAttributes().get(name);
     if (integer instanceof Number) {
       return ((Number) integer).intValue();
@@ -569,9 +571,9 @@ public final class ComponentUtils {
     if (character == null) {
       return null;
     } else if (character instanceof Character) {
-      return ((Character) character);
+      return (Character) character;
     } else if (character instanceof String) {
-      final String asString = ((String) character);
+      final String asString = (String) character;
       return asString.length() > 0 ? asString.charAt(0) : null;
     } else {
       LOG.warn("Unknown type '" + character.getClass().getName()
@@ -711,7 +713,8 @@ public final class ComponentUtils {
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public static String removePx(String value) {
+  public static String removePx(final String valueParameter) {
+    String value = valueParameter;
     if (value != null && value.endsWith("px")) {
       value = value.substring(0, value.length() - 2);
     }
@@ -791,6 +794,7 @@ public final class ComponentUtils {
 
   /**
    * Checks if the Component has a label facet and if not creates one with the label attribute.
+   *
    * @deprecated since 2.0.0
    */
   @Deprecated
@@ -1033,7 +1037,8 @@ public final class ComponentUtils {
     return stringValue;
   }
 
-  public static Markup updateMarkup(final UIComponent component, Markup markup) {
+  public static Markup updateMarkup(final UIComponent component, final Markup markupParameter) {
+    Markup markup = markupParameter;
     if (markup == null) {
       markup = Markup.NULL;
     }
@@ -1077,7 +1082,7 @@ public final class ComponentUtils {
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public static boolean hasChildrenWithMessages(final FacesContext facesContext, final NamingContainer  container) {
+  public static boolean hasChildrenWithMessages(final FacesContext facesContext, final NamingContainer container) {
     if (container instanceof UIComponent) {
       final String clientId = ((UIComponent) container).getClientId(facesContext);
       for (final Iterator ids = facesContext.getClientIdsWithMessages(); ids.hasNext();) {
@@ -1132,8 +1137,7 @@ public final class ComponentUtils {
   }
 
   /**
-   * Adding a data attribute to the component. 
-   * The name must start with "data-", e. g. "data-tobago-foo" or "data-bar"
+   * Adding a data attribute to the component. The name must start with "data-", e. g. "data-tobago-foo" or "data-bar"
    */
   public static void putDataAttributeWithPrefix(final UIComponent component, final String name, final Object value) {
     if (name.startsWith("data-")) {
@@ -1144,8 +1148,7 @@ public final class ComponentUtils {
   }
 
   /**
-   * Adding a data attribute to the component.
-   * The name should not start with "data-", e. g. "tobago-foo" or "bar"
+   * Adding a data attribute to the component. The name should not start with "data-", e. g. "tobago-foo" or "bar"
    */
   public static void putDataAttribute(final UIComponent component, final Object name, final Object value) {
     Map<Object, Object> map = getDataAttributes(component);
@@ -1171,6 +1174,7 @@ public final class ComponentUtils {
    * {@link javax.faces.component.UIComponent#invokeOnComponent(javax.faces.context.FacesContext, java.lang.String,
       javax.faces.component.ContextCallback) }
    */
+  @Deprecated
   public static boolean invokeOnComponent(
       final FacesContext context, final UIComponent component, final String clientId, final ContextCallback callback) {
     return component.invokeOnComponent(context, clientId, callback);

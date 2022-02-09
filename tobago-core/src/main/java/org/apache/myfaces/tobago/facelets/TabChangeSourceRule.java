@@ -45,7 +45,7 @@ public class TabChangeSourceRule extends MetaRule {
 
     private final TagAttribute attribute;
 
-    public TabChangeListenerMapper(final TagAttribute attribute) {
+    TabChangeListenerMapper(final TagAttribute attribute) {
       this.attribute = attribute;
     }
 

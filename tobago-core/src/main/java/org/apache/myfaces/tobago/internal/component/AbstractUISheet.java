@@ -76,13 +76,15 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   /**
    * @see org.apache.myfaces.tobago.component.Facets
-   * @deprecated Please use Facets instead. Will be removed after Tobago 1.5.0 */
+   * @deprecated Please use Facets instead. Will be removed after Tobago 1.5.0
+   */
   @Deprecated
   public static final String FACET_SORTER = "sorter";
   public static final String SORTER_ID = "sorter";
   /**
    * @see org.apache.myfaces.tobago.component.Attributes
-   * @deprecated Please use Attributes instead. Will be removed after Tobago 1.5.0 */
+   * @deprecated Please use Attributes instead. Will be removed after Tobago 1.5.0
+   */
   @Deprecated
   public static final String ATTR_SCROLL_POSITION = "attrScrollPosition";
 
@@ -106,8 +108,8 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   @Override
   public void encodeBegin(final FacesContext facesContext) throws IOException {
-    final SheetState state = getSheetState(facesContext);
-    final int first = state.getFirst();
+    final SheetState sheetState = getSheetState(facesContext);
+    final int first = sheetState.getFirst();
     if (first > -1 && (!hasRowCount() || first < getRowCount())) {
       final ValueExpression expression = getValueExpression(Attributes.FIRST);
       if (expression != null) {
@@ -161,21 +163,21 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   /**
-   * Remove the (by user) resized column widths. An application may provide a button to access it.
-   * Since 1.0.26.
+   * Remove the (by user) resized column widths. An application may provide a button to access it. Since 1.0.26.
    */
   public void resetColumnWidths() {
-    final SheetState state = getState();
-    if (state != null) {
-      state.setColumnWidths(null);
+    final SheetState sheetState = getState();
+    if (sheetState != null) {
+      sheetState.setColumnWidths(null);
     }
     getAttributes().remove(Attributes.WIDTH_LIST_STRING);
   }
 
   /**
-   * @deprecated The name of this method is ambiguous.
-   * You may use {@link #getLastRowIndexOfCurrentPage()}. Deprecated since 1.5.5.
+   * @deprecated The name of this method is ambiguous. You may use {@link #getLastRowIndexOfCurrentPage()}. Deprecated
+   * since 1.5.5.
    */
+  @Deprecated
   public int getLast() {
     final int last = getFirst() + getRows();
     return last < getRowCount() ? last : getRowCount();
@@ -183,8 +185,9 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   /**
    * The rowIndex of the last row on the current page plus one (because of zero based iterating).
-   * @throws IllegalArgumentException If the number of rows in the model returned
-   * by {@link #getRowCount()} is -1 (undefined).
+   *
+   * @throws IllegalArgumentException If the number of rows in the model returned by {@link #getRowCount()} is -1
+   * (undefined).
    */
   public int getLastRowIndexOfCurrentPage() {
     if (!hasRowCount()) {
@@ -211,10 +214,10 @@ public abstract class AbstractUISheet extends AbstractUIData
     if (hasRowCount() && first >= getRowCount()) {
       return getPages() - 1; // last page
     } else {
-      return (first / rows);
+      return first / rows;
     }
   }
-  
+
   /**
    * @return returns the current page (based by 1).
    * @deprecated Please use {@link #getCurrentPage()} which returns the value zero-based. Deprecated since 1.5.5.
@@ -226,8 +229,9 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   /**
    * The number of pages to render.
-   * @throws IllegalArgumentException If the number of rows in the model returned
-   * by {@link #getRowCount()} is -1 (undefined).
+   *
+   * @throws IllegalArgumentException If the number of rows in the model returned by {@link #getRowCount()} is -1
+   * (undefined).
    */
   public int getPages() {
     if (isRowsUnlimited()) {
@@ -265,8 +269,8 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   /**
-   * @return Should the paging controls be rendered? Either because of the need of paging or because
-   * the show is enforced by {@link #isShowPagingAlways()}
+   * @return Should the paging controls be rendered? Either because of the need of paging or because the show is
+   * enforced by {@link #isShowPagingAlways()}
    */
   public boolean isPagingVisible() {
     return isShowPagingAlways() || needMoreThanOnePage();
@@ -300,8 +304,8 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   /**
-   * @deprecated The name of this method is ambiguous.
-   * You may use {@link #getFirstRowIndexOfLastPage()}. Deprecated since 1.5.5.
+   * @deprecated The name of this method is ambiguous. You may use {@link #getFirstRowIndexOfLastPage()}. Deprecated
+   * since 1.5.5.
    */
   @Deprecated
   public int getLastPageIndex() {
@@ -313,11 +317,12 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   /**
-   * Determines the beginning of the last page in the model.
-   * If the number of rows to display on one page is unlimited, the value is 0 (there is only one page).
+   * Determines the beginning of the last page in the model. If the number of rows to display on one page is unlimited,
+   * the value is 0 (there is only one page).
+   *
    * @return The index of the first row of the last paging page.
-   * @throws IllegalArgumentException If the number of rows in the model returned
-   * by {@link #getRowCount()} is -1 (undefined).
+   * @throws IllegalArgumentException If the number of rows in the model returned by {@link #getRowCount()} is -1
+   * (undefined).
    */
   public int getFirstRowIndexOfLastPage() {
     if (isRowsUnlimited()) {
@@ -340,8 +345,8 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   private void updateSheetState(final FacesContext facesContext) {
-    final SheetState state = getSheetState(facesContext);
-    if (state != null) {
+    final SheetState sheetState = getSheetState(facesContext);
+    if (sheetState != null) {
       // ensure sortActionListener
 //      getSortActionListener();
 //      state.setSortedColumn(sortActionListener != null ? sortActionListener.getColumn() : -1);
@@ -349,9 +354,9 @@ public abstract class AbstractUISheet extends AbstractUIData
       final Map attributes = getAttributes();
       //noinspection unchecked
       final List<Integer> list = (List<Integer>) attributes.get(Attributes.SELECTED_LIST_STRING);
-      state.setSelectedRows(list != null ? list : Collections.<Integer>emptyList());
-      state.setColumnWidths((String) attributes.get(Attributes.WIDTH_LIST_STRING));
-      state.setScrollPosition((Integer[]) attributes.get(Attributes.SCROLL_POSITION));
+      sheetState.setSelectedRows(list != null ? list : Collections.<Integer>emptyList());
+      sheetState.setColumnWidths((String) attributes.get(Attributes.WIDTH_LIST_STRING));
+      sheetState.setScrollPosition((Integer[]) attributes.get(Attributes.SCROLL_POSITION));
       attributes.remove(Attributes.SELECTED_LIST_STRING);
       attributes.remove(Attributes.SCROLL_POSITION);
     }
@@ -390,7 +395,7 @@ public abstract class AbstractUISheet extends AbstractUIData
       if (all || child.isRendered()) {
         if (child instanceof AbstractUIColumn) {
           result.add((AbstractUIColumn) child);
-        } else if (child instanceof AbstractUIData){
+        } else if (child instanceof AbstractUIData) {
           // ignore nested sheets
         } else {
           findColumns(child, result, all);
@@ -459,7 +464,8 @@ public abstract class AbstractUISheet extends AbstractUIData
     }
   }
 
-  protected void sort(FacesContext facesContext, SortActionEvent event) {
+  protected void sort(final FacesContext facesContext, final SortActionEvent eventParameter) {
+    SortActionEvent event = eventParameter;
     final SheetState sheetState = getSheetState(getFacesContext());
     if (sheetState.isToBeSorted()) {
       final MethodExpression expression = getSortActionListenerExpression();
@@ -501,7 +507,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
 
-
   public Integer[] getScrollPosition() {
     Integer[] scrollPosition = (Integer[]) getAttributes().get(Attributes.SCROLL_POSITION);
     if (scrollPosition == null) {
@@ -516,7 +521,8 @@ public abstract class AbstractUISheet extends AbstractUIData
     return super.findComponent(stripRowIndex(searchId));
   }
 
-  public String stripRowIndex(String searchId) {
+  public String stripRowIndex(final String searchIdParameter) {
+    String searchId = searchIdParameter;
     if (searchId.length() > 0 && Character.isDigit(searchId.charAt(0))) {
       for (int i = 1; i < searchId.length(); ++i) {
         final char c = searchId.charAt(i);
@@ -542,7 +548,7 @@ public abstract class AbstractUISheet extends AbstractUIData
 
     Integer[] scrollPosition = getScrollPosition();
     if (scrollPosition == null) {
-      scrollPosition = new Integer[] {0, 0};
+      scrollPosition = new Integer[]{0, 0};
     }
     scrollPosition[1] = 0;
     switch (pageEvent.getAction()) {

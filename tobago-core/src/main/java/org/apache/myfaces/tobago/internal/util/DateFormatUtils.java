@@ -45,9 +45,7 @@ public final class DateFormatUtils {
   }
 
   /**
-   * Find a pattern for the converter.
-   * Returns the pattern inside the converter, if any.
-   * Otherwise compute the pattern.
+   * Find a pattern for the converter. Returns the pattern inside the converter, if any. Otherwise compute the pattern.
    *
    * @return the patter or null, if DateFormat.getDateInstance() returns no SimpleDateFormat.
    */

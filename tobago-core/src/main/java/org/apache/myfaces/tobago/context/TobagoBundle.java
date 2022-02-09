@@ -28,9 +28,9 @@ import java.util.Enumeration;
 import java.util.ResourceBundle;
 
 /**
- * This class works like the Java resource bundle mechanism for a named resource bundle
- * and adds the functionality of the tobago themes and also supports XML properties files.
- * This class might be used in the faces-config.xml as an alternative to the tc:loadBundle tag.
+ * This class works like the Java resource bundle mechanism for a named resource bundle and adds the functionality of
+ * the tobago themes and also supports XML properties files. This class might be used in the faces-config.xml as an
+ * alternative to the tc:loadBundle tag.
  *
  * @since 1.5.0
  */

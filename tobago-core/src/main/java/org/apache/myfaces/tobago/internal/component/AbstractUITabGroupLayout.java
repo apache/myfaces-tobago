@@ -127,7 +127,7 @@ public abstract class AbstractUITabGroupLayout extends AbstractUILayoutBase impl
 
   private LayoutContainer getLayoutContainer() {
     // todo: check with instanceof and do something in the error case
-    return ((LayoutContainer) getParent());
+    return (LayoutContainer) getParent();
   }
 
   @Override

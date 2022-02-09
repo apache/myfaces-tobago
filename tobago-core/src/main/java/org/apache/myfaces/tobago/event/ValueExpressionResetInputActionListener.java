@@ -50,11 +50,11 @@ public class ValueExpressionResetInputActionListener extends AbstractResetInputA
 
   public void processAction(final ActionEvent event) {
     final Object obj = clientIdsExpression.getValue(FacesContext.getCurrentInstance().getELContext());
-    final String [] clientIds;
+    final String[] clientIds;
     if (obj instanceof String[]) {
       clientIds = (String[]) obj;
     } else if (obj instanceof String) {
-      clientIds= StringUtils.split((String) obj, ", ");
+      clientIds = StringUtils.split((String) obj, ", ");
     } else {
       LOG.error("Ignore unknown value of " + obj + " for reset.");
       return;

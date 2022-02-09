@@ -20,11 +20,11 @@
 package org.apache.myfaces.tobago.facelets;
 
 import javax.servlet.Filter;
+import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.FilterChain;
 import java.io.IOException;
 
 public class FixCharacterEncodingFilter implements Filter {
@@ -33,7 +33,7 @@ public class FixCharacterEncodingFilter implements Filter {
   }
 
   public void doFilter(final ServletRequest servletRequest,
-      final ServletResponse servletResponse, final FilterChain filterChain)
+                       final ServletResponse servletResponse, final FilterChain filterChain)
       throws IOException, ServletException {
     if (servletRequest.getCharacterEncoding() == null) {
       servletRequest.setCharacterEncoding("UTF-8");

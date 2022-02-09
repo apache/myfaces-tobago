@@ -96,9 +96,8 @@ public final class ResourceManagerUtils {
   }
 
   /**
-   * Searches for an image and return it with the context path.
-   * The extension of the image will be automatically extended (.png, .gif, .jpg).
-   * A missing image will be logged as an error.
+   * Searches for an image and return it with the context path. The extension of the image will be automatically
+   * extended (.png, .gif, .jpg). A missing image will be logged as an error.
    *
    * @param facesContext the current FacesContext
    * @param name the name of the image without extension
@@ -109,8 +108,8 @@ public final class ResourceManagerUtils {
   }
 
   /**
-   * Searches for an image and return it with the context path.
-   * The extension of the image will be automatically extended (.png, .gif, .jpg)
+   * Searches for an image and return it with the context path. The extension of the image will be automatically
+   * extended (.png, .gif, .jpg)
    *
    * @param facesContext the current FacesContext
    * @param name the name of the image without extension
@@ -195,7 +194,7 @@ public final class ResourceManagerUtils {
   }
 
   public static String getDisabledImage(final FacesContext facesContext, final String image,
-                                                final boolean ignoreMissing) {
+                                        final boolean ignoreMissing) {
     return getImage(facesContext, image + "Disabled", ignoreMissing);
   }
 
@@ -230,10 +229,10 @@ public final class ResourceManagerUtils {
       return true;
     }
     final String upper = value.toUpperCase(Locale.ENGLISH);
-    return (upper.startsWith("/")
+    return upper.startsWith("/")
         || upper.startsWith("HTTP:")
         || upper.startsWith("HTTPS:")
-        || upper.startsWith("FTP:"));
+        || upper.startsWith("FTP:");
   }
 
   public static int indexOfExtension(final String value) {
@@ -254,7 +253,7 @@ public final class ResourceManagerUtils {
   }
 
   public static String getImageOrDisabledImageWithPath(
-          final FacesContext facesContext, final String image, final boolean disabled, final boolean ignoreMissing) {
+      final FacesContext facesContext, final String image, final boolean disabled, final boolean ignoreMissing) {
     String imageWithPath = null;
     if (disabled) {
       imageWithPath = ResourceManagerUtils.getDisabledImageWithPath(facesContext, image, false);
@@ -271,7 +270,7 @@ public final class ResourceManagerUtils {
   }
 
   public static String getImageOrDisabledImage(
-          final FacesContext facesContext, final String image, final boolean disabled, final boolean ignoreMissing) {
+      final FacesContext facesContext, final String image, final boolean disabled, final boolean ignoreMissing) {
     String imageWithPath = null;
     if (disabled) {
       imageWithPath = ResourceManagerUtils.getDisabledImage(facesContext, image, false);

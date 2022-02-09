@@ -26,14 +26,16 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 
 /**
- *  @deprecated since 2.0.8
+ * @deprecated since 2.0.8
  */
+@Deprecated
 public final class HtmlUtils {
 
   public static final String LAYOUT_ATTRIBUTE_PREFIX = "layout.";
   /**
-   *  @deprecated since 2.0.8, use HtmlRendererUtils
+   * @deprecated since 2.0.8, use HtmlRendererUtils
    */
+  @Deprecated
   public static final String CHAR_NON_BEAKING_SPACE = "\u00a0";
 
   private HtmlUtils() {
@@ -48,21 +50,24 @@ public final class HtmlUtils {
     } else {
       stringValue = value.toString();
     }
-    return (stringValue != null && stringValue.length() > 0)
+    return stringValue != null && stringValue.length() > 0
         ? name + "=\"" + value + "\""
         : "";
   }
 
   public static String appendAttribute(final UIComponent component, final String name,
-      final String appendValue) {
+                                       final String appendValue) {
     final Object attribute = component.getAttributes().get(name);
     return attribute != null
         ? attribute.toString() + " " + appendValue : appendValue;
   }
 
-  /** @deprecated Since 2.0.8. Not allowed with CSP */
+  /**
+   * @deprecated Since 2.0.8. Not allowed with CSP
+   */
+  @Deprecated
   public static String generateOnchange(final UIInput component,
-      final FacesContext facesContext) {
+                                        final FacesContext facesContext) {
 
     /*Validator[] validators = component.getValidators();
     for (int i = 0; i < validators.length; i++) {

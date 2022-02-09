@@ -19,12 +19,12 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -36,7 +36,7 @@ public class VerbatimRenderer extends LayoutComponentRendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(VerbatimRenderer.class);
 
   public void encodeEnd(final FacesContext facesContext,
-      final UIComponent component) throws IOException {
+                        final UIComponent component) throws IOException {
 
     LOG.info("HI! " + component.getClientId(facesContext), new Exception());
 

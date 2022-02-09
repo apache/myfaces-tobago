@@ -25,7 +25,7 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import java.io.Serializable;
 
-public class ResetFormActionListener extends AbstractResetInputActionListener implements Serializable{
+public class ResetFormActionListener extends AbstractResetInputActionListener implements Serializable {
 
   public void processAction(final ActionEvent actionEvent) throws AbortProcessingException {
     UIComponent component = actionEvent.getComponent();

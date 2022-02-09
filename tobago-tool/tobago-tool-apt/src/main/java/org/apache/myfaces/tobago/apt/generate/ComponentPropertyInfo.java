@@ -51,8 +51,8 @@ public class ComponentPropertyInfo extends PropertyInfo {
     return nonTransientIndex + 1;
   }
 
-  public void setNonTransientIndex(final int index) {
-    this.nonTransientIndex = index;
+  public void setNonTransientIndex(final int indexParameter) {
+    this.nonTransientIndex = indexParameter;
   }
 
   public int getIndexPlusOne() {

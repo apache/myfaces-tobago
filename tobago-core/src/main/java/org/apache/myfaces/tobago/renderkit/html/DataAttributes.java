@@ -20,9 +20,8 @@
 package org.apache.myfaces.tobago.renderkit.html;
 
 /**
- * Custom data attributes.
- * These attributes may transport data to DOM which are not standardized.
- * The format is "data-tobago-*" which is conform to HTML 5, but also works in older browsers.
+ * Custom data attributes. These attributes may transport data to DOM which are not standardized. The format is
+ * "data-tobago-*" which is conform to HTML 5, but also works in older browsers.
  */
 public final class DataAttributes {
 
@@ -32,14 +31,15 @@ public final class DataAttributes {
    */
   public static final String COLUMN_INDEX = "data-tobago-column-index";
 
-  /** @deprecated Since 1.5.11 */
+  /**
+   * @deprecated Since 1.5.11
+   */
   @Deprecated
   public static final String COLUMNINDEX = COLUMN_INDEX;
 
   /**
-   * TBD: needed? may replace with VALUE?
-   * Custom command attribute. Is used to mark different client side JavaScript buttons.
-   * Should only contain the command name as a keyword, for security reasons.
+   * TBD: needed? may replace with VALUE? Custom command attribute. Is used to mark different client side JavaScript
+   * buttons. Should only contain the command name as a keyword, for security reasons.
    */
   public static final String COMMAND = "data-tobago-command";
 
@@ -56,7 +56,9 @@ public final class DataAttributes {
   @Deprecated
   public static final String DATE_INPUT_ID = "data-tobago-date-input-id";
 
-  /** @deprecated Since 1.5.11 */
+  /**
+   * @deprecated Since 1.5.11
+   */
   @Deprecated
   public static final String DATEINPUTID = DATE_INPUT_ID;
 
@@ -73,7 +75,9 @@ public final class DataAttributes {
   @Deprecated
   public static final String DATE_PICKER_OK = "data-tobago-date-picker-ok";
 
-  /** @deprecated Since 1.5.11 */
+  /**
+   * @deprecated Since 1.5.11
+   */
   @Deprecated
   public static final String DATEPICKEROK = DATE_PICKER_OK;
 
@@ -115,7 +119,9 @@ public final class DataAttributes {
    */
   public static final String FIRST_DAY_OF_WEEK = "data-tobago-first-day-of-week";
 
-  /** @deprecated Since 1.5.11 */
+  /**
+   * @deprecated Since 1.5.11
+   */
   @Deprecated
   public static final String FIRSTDAYOFWEEK = FIRST_DAY_OF_WEEK;
 
@@ -134,7 +140,9 @@ public final class DataAttributes {
    */
   public static final String MONTH_NAMES = "data-tobago-month-names";
 
-  /** @deprecated Since 1.5.11 */
+  /**
+   * @deprecated Since 1.5.11
+   */
   @Deprecated
   public static final String MONTHNAMES = MONTH_NAMES;
 
@@ -154,13 +162,17 @@ public final class DataAttributes {
 
   public static final String ROW_ACTION = "data-tobago-row-action";
 
-  /** @deprecated Since 1.5.11 */
+  /**
+   * @deprecated Since 1.5.11
+   */
   @Deprecated
   public static final String ROWACTION = ROW_ACTION;
 
   public static final String SELECTION_MODE = "data-tobago-selection-mode";
 
-  /** @deprecated Since 1.5.11 */
+  /**
+   * @deprecated Since 1.5.11
+   */
   @Deprecated
   public static final String SELECTIONMODE = SELECTION_MODE;
 
@@ -174,7 +186,9 @@ public final class DataAttributes {
    */
   public static final String SHEET_ID = "data-tobago-sheet-id";
 
-  /** @deprecated Since 1.5.11 */
+  /**
+   * @deprecated Since 1.5.11
+   */
   @Deprecated
   public static final String SHEETID = SHEET_ID;
 
@@ -183,7 +197,9 @@ public final class DataAttributes {
    */
   public static final String SRC_HOVER = "data-tobago-src-hover";
 
-  /** @deprecated Since 1.5.11 */
+  /**
+   * @deprecated Since 1.5.11
+   */
   @Deprecated
   public static final String SRCHOVER = SRC_HOVER;
 
@@ -192,7 +208,9 @@ public final class DataAttributes {
    */
   public static final String SRC_DEFAULT = "data-tobago-src-default";
 
-  /** @deprecated Since 1.5.11 */
+  /**
+   * @deprecated Since 1.5.11
+   */
   @Deprecated
   public static final String SRCDEFAULT = SRC_DEFAULT;
 
@@ -201,7 +219,9 @@ public final class DataAttributes {
    */
   public static final String SRC_CLOSE = "data-tobago-src-close";
 
-  /** @deprecated Since 1.5.11 */
+  /**
+   * @deprecated Since 1.5.11
+   */
   @Deprecated
   public static final String SRCCLOSE = SRC_CLOSE;
 
@@ -210,7 +230,9 @@ public final class DataAttributes {
    */
   public static final String SRC_OPEN = "data-tobago-src-open";
 
-  /** @deprecated Since 1.5.11 */
+  /**
+   * @deprecated Since 1.5.11
+   */
   @Deprecated
   public static final String SRCOPEN = SRC_OPEN;
 
@@ -221,6 +243,7 @@ public final class DataAttributes {
 
   /**
    * Custom suggest attribute. Used for input suggest.
+   *
    * @deprecated Since Tobago 2.0.0. No longer needed.
    */
   @Deprecated
@@ -249,7 +272,9 @@ public final class DataAttributes {
    */
   public static final String TREE_PARENT = "data-tobago-tree-parent";
 
-  /** @deprecated Since 1.5.11 */
+  /**
+   * @deprecated Since 1.5.11
+   */
   @Deprecated
   public static final String TREEPARENT = TREE_PARENT;
 

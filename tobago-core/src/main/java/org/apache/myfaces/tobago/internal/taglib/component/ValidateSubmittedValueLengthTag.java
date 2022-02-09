@@ -33,10 +33,9 @@ import javax.faces.webapp.ValidatorELTag;
 import javax.servlet.jsp.JspException;
 
 /**
- * Register an SubmittedValueLengthValidator instance on the UIComponent
- * associated with the closest parent UIComponent custom action.
- * The standard LengthValidator validate the length on the converted value.toString()
- * not on the submitted value. Sometime you need to check the length of the submitted value.
+ * Register an SubmittedValueLengthValidator instance on the UIComponent associated with the closest parent UIComponent
+ * custom action. The standard LengthValidator validate the length on the converted value.toString() not on the
+ * submitted value. Sometime you need to check the length of the submitted value.
  */
 @Tag(name = "validateSubmittedValueLength")
 @ValidatorTag(

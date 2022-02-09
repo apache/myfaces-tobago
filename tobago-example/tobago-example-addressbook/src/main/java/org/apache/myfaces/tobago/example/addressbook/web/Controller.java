@@ -114,8 +114,8 @@ public class Controller {
     final List<Theme> themes = new ArrayList<Theme>(tobagoConfig.getSupportedThemes());
     themes.add(0, tobagoConfig.getDefaultTheme());
     themeItems = new ArrayList<SelectItem>();
-    for (final Theme theme : themes) {
-      themeItems.add(new SelectItem(theme, theme.getDisplayName()));
+    for (final Theme t : themes) {
+      themeItems.add(new SelectItem(t, t.getDisplayName()));
     }
 
     final ClientProperties client = ClientProperties.getInstance(facesContext);
@@ -219,12 +219,11 @@ public class Controller {
   }
 
   public String getCurrentAddressPictureUrl() {
-     return (currentAddress != null && currentAddress.getPicture() != null)
-         ? FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/faces/picture?id=XXXX"
-         :"image/empty-portrait.png";
+    return currentAddress != null && currentAddress.getPicture() != null
+        ? FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/faces/picture?id=XXXX"
+        : "image/empty-portrait.png";
+  }
 
-   }
-  
   public void validatePhoneNumber(
       final FacesContext context, final UIComponent component, final Object value) {
     final String phoneNumber = (String) value;

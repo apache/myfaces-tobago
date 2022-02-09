@@ -22,59 +22,59 @@ package org.apache.myfaces.tobago.example.test;
 import java.io.Serializable;
 
 public class SelectBooleanCheckboxBean implements Serializable {
-  
-  private boolean value00 = true;
-  private boolean value01 = true;
-  private boolean value02 = true;
-  private boolean value10 = true;
-  private boolean value11 = true;
-  private boolean value12 = true;
+
+  private boolean value0 = true;
+  private boolean value1 = true;
+  private boolean value2 = true;
+  private boolean required0 = true;
+  private boolean required1 = true;
+  private boolean required2 = true;
 
   public boolean isValue0() {
-    return value00;
+    return value0;
   }
 
-  public void setValue0(final boolean value00) {
-    this.value00 = value00;
+  public void setValue0(final boolean value0) {
+    this.value0 = value0;
   }
 
   public boolean isValue1() {
-    return value01;
+    return value1;
   }
 
-  public void setValue1(final boolean value01) {
-    this.value01 = value01;
+  public void setValue1(final boolean value1) {
+    this.value1 = value1;
   }
 
   public boolean isValue2() {
-    return value02;
+    return value2;
   }
 
-  public void setValue2(final boolean value02) {
-    this.value02 = value02;
+  public void setValue2(final boolean value2) {
+    this.value2 = value2;
   }
 
   public boolean isRequired0() {
-    return value10;
+    return required0;
   }
 
-  public void setRequired0(final boolean value10) {
-    this.value10 = value10;
+  public void setRequired0(final boolean required0) {
+    this.required0 = required0;
   }
 
   public boolean isRequired1() {
-    return value11;
+    return required1;
   }
 
-  public void setRequired1(final boolean value11) {
-    this.value11 = value11;
+  public void setRequired1(final boolean required1) {
+    this.required1 = required1;
   }
 
   public boolean isRequired2() {
-    return value12;
+    return required2;
   }
 
-  public void setRequired2(final boolean value12) {
-    this.value12 = value12;
+  public void setRequired2(final boolean required2) {
+    this.required2 = required2;
   }
 }

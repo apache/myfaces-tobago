@@ -160,8 +160,8 @@ public final class LabelWithAccessKey {
    * @deprecated since 2.0.0. Attributes are final now, use a new instance.
    */
   @Deprecated
-  public void setup(final String label) {
-    Deprecation.LOG.error("Ignoring label: " + label);
+  public void setup(final String labelParameter) {
+    Deprecation.LOG.error("Ignoring label: " + labelParameter);
   }
 
   /**
@@ -209,10 +209,11 @@ public final class LabelWithAccessKey {
   }
 
   /**
-   * Ensures, that no illegal character will be write out.
-   * (If this is changed from only allowing normal letters and numbers, the renderers may change the escaping)
+   * Ensures, that no illegal character will be write out. (If this is changed from only allowing normal letters and
+   * numbers, the renderers may change the escaping)
    */
-  private boolean isPermitted(final Character accessKey) {
-    return accessKey == null || accessKey >= 'a' && accessKey <= 'z' || accessKey >= '0' && accessKey <= '9';
+  private boolean isPermitted(final Character accessKeyParameter) {
+    return accessKeyParameter == null || accessKeyParameter >= 'a'
+        && accessKeyParameter <= 'z' || accessKeyParameter >= '0' && accessKeyParameter <= '9';
   }
 }

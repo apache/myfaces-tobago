@@ -68,7 +68,7 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
 
       writer.startElement(HtmlElements.TD, component);
       writer.writeClassAttribute(Classes.create(component, "start"));
-      writer.startElement(HtmlElements.HR , component);
+      writer.startElement(HtmlElements.HR, component);
       writer.endElement(HtmlElements.HR);
       writer.endElement(HtmlElements.TD);
 
@@ -79,14 +79,14 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
 
       writer.startElement(HtmlElements.TD, component);
       writer.writeClassAttribute(Classes.create(component, "end"));
-      writer.startElement(HtmlElements.HR , component);
+      writer.startElement(HtmlElements.HR, component);
       writer.endElement(HtmlElements.HR);
       writer.endElement(HtmlElements.TD);
 
       writer.endElement(HtmlElements.TR);
       writer.endElement(HtmlElements.TABLE);
     } else {
-      writer.startElement(HtmlElements.HR , component);
+      writer.startElement(HtmlElements.HR, component);
       writer.writeIdAttribute(separator.getClientId(facesContext));
       writer.writeClassAttribute(Classes.create(component));
       final Style style = new Style(facesContext, separator);

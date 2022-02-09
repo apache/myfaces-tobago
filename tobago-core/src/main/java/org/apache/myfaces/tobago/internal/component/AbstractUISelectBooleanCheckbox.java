@@ -36,7 +36,7 @@ public abstract class AbstractUISelectBooleanCheckbox extends UISelectBoolean
       value = getValue();
     }
     if (value instanceof Boolean) {
-      return ((Boolean) value);
+      return (Boolean) value;
     } else {
       return value != null && Boolean.valueOf(value.toString());
     }

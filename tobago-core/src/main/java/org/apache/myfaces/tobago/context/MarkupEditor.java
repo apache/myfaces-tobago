@@ -26,8 +26,8 @@ import java.beans.PropertyEditorSupport;
  */
 public class MarkupEditor extends PropertyEditorSupport {
 
-    @Override
-    public void setAsText(final String text) throws IllegalArgumentException {
-        setValue(Markup.valueOf(text));
-    }
+  @Override
+  public void setAsText(final String text) throws IllegalArgumentException {
+    setValue(Markup.valueOf(text));
+  }
 }

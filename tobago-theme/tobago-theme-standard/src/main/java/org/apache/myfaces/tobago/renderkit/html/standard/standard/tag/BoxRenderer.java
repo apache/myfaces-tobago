@@ -100,7 +100,7 @@ public class BoxRenderer extends BoxRendererBase {
     if (menuBar != null) {
       RenderUtils.encode(facesContext, menuBar);
     }
-    
+
     writer.startElement(HtmlElements.DIV, box);
     writer.writeClassAttribute(Classes.create(box, "content")); // needed to be scrollable inside of the box
     final Measure borderLeft = getBorderLeft(facesContext, box);

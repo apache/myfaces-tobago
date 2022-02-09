@@ -25,13 +25,10 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 public interface HasAction {
   /**
-   * Action to invoke when clicked.
-   * This must be a MethodBinding or a String representing the application action to invoke when
-   * this component is activated by the user.
-   * The MethodBinding must evaluate to a public method that takes no parameters,
-   * and returns a String (the logical outcome) which is passed to the
-   * NavigationHandler for this application.
-   * The string is directly passed to the navigation handler.
+   * Action to invoke when clicked. This must be a MethodBinding or a String representing the application action to
+   * invoke when this component is activated by the user. The MethodBinding must evaluate to a public method that takes
+   * no parameters, and returns a String (the logical outcome) which is passed to the NavigationHandler for this
+   * application. The string is directly passed to the navigation handler.
    */
   @TagAttribute
   @UIComponentTagAttribute(

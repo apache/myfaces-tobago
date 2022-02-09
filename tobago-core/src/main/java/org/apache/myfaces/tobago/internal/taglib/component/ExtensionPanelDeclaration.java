@@ -37,6 +37,6 @@ import javax.faces.component.UIPanel;
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.PANEL)
 public interface ExtensionPanelDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent,
-        IsGridLayoutContainer, HasMarkup, HasCurrentMarkup, HasTip {
+    IsGridLayoutContainer, HasMarkup, HasCurrentMarkup, HasTip {
 
 }

@@ -32,10 +32,9 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * A markup signs a component to be rendered different from the normal.
- * E. g. <code>markup="emphasized"</code> might be rendered bold
- * or a <code>markup="deleted"</code> might be rendered with line-through style.
- * The concrete rendering depends from the theme.
+ * A markup signs a component to be rendered different from the normal. E. g. <code>markup="emphasized"</code> might be
+ * rendered bold or a <code>markup="deleted"</code> might be rendered with line-through style. The concrete rendering
+ * depends from the theme.
  * <p/>
  * The markup can also hold more than one value, e. g. <code>markup="emphasized, deleted"</code>.
  * <p/>
@@ -191,8 +190,8 @@ public final class Markup implements Serializable, Iterable<String> {
   }
 
   /**
-   * Adds one markup to an other.
-   * Attention: The markup itself is not modified, you need to use the result of this operation.
+   * Adds one markup to an other. Attention: The markup itself is not modified, you need to use the result of this
+   * operation.
    */
   public Markup add(final Markup markup) {
     if (markup == null) {
@@ -295,12 +294,12 @@ public final class Markup implements Serializable, Iterable<String> {
     if (value != null) {
       return value.equals(markup);
     }
-    for (final String value : values) {
-        if (value.equals(markup)) {
-          return true;
-        }
+    for (final String v : values) {
+      if (v.equals(markup)) {
+        return true;
       }
-      return false;
+    }
+    return false;
   }
 
   @Override

@@ -64,7 +64,7 @@ public final class AjaxInternalUtils {
     }
     //if (compClass != null && !(compClass.isAssignableFrom(uiComponent.getClass())))
     // why isAssignableFrom with additional getClass method call if isInstance does the same?
-    if (compClass != null && !(compClass.isInstance(uiComponent))) {
+    if (compClass != null && !compClass.isInstance(uiComponent)) {
       throw new IllegalArgumentException("uiComponent : "
           + uiComponent.getClass().getName() + " is not instance of "
           + compClass.getName() + " as it should be");
@@ -106,7 +106,7 @@ public final class AjaxInternalUtils {
   }
 
   public static List<String> getMessagesClientIds(final FacesContext facesContext) {
-     return (List<String>) facesContext.getAttributes().get(TOBAGO_MESSAGES_CLIENT_IDS);
+    return (List<String>) facesContext.getAttributes().get(TOBAGO_MESSAGES_CLIENT_IDS);
   }
 
   public static List<String> getMessagesComponentIds(final FacesContext facesContext) {

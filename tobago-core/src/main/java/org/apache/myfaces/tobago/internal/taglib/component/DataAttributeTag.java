@@ -35,10 +35,8 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
- * Add an data attribute on the UIComponent
- * associated with the closest parent UIComponent custom action.
- * Data attributes will be passed through the renderers into the DOM of the user agent and
- * can be used by scripts.
+ * Add an data attribute on the UIComponent associated with the closest parent UIComponent custom action. Data
+ * attributes will be passed through the renderers into the DOM of the user agent and can be used by scripts.
  */
 @Preliminary
 @Tag(name = "dataAttribute")
@@ -72,7 +70,7 @@ public abstract class DataAttributeTag extends TagSupport {
     }
 
     if (!tag.getCreated()) {
-      return (SKIP_BODY);
+      return SKIP_BODY;
     }
 
     final UIComponent component = tag.getComponentInstance();
@@ -88,7 +86,7 @@ public abstract class DataAttributeTag extends TagSupport {
 
     ComponentUtils.putDataAttribute(component, attributeName, attributeValue);
 
-    return (SKIP_BODY);
+    return SKIP_BODY;
   }
 
   /**

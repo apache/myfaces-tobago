@@ -226,7 +226,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     final boolean showHeader = sheet.isShowHeader();
     final boolean ie6SelectOneFix = showHeader
         && ClientProperties.getInstance(facesContext).getUserAgent().isMsie6()
-            && ComponentUtils.findDescendant(sheet, UISelectOne.class) != null;
+        && ComponentUtils.findDescendant(sheet, UISelectOne.class) != null;
 
 // BEGIN RENDER BODY CONTENT
     final Style bodyStyle = new Style();
@@ -322,7 +322,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       }
 
       final Object rowRendered = sheet.getAttributes().get("rowRendered");
-      if (rowRendered instanceof  Boolean && !((Boolean) rowRendered)) {
+      if (rowRendered instanceof Boolean && !((Boolean) rowRendered)) {
         continue;
       }
 
@@ -343,7 +343,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       }
 
       writer.startElement(HtmlElements.TR, null);
-      if (rowRendered instanceof  Boolean) {
+      if (rowRendered instanceof Boolean) {
         // if rowRendered attribute is set we need the rowIndex on the client
         writer.writeAttribute(DataAttributes.ROW_INDEX, rowIndex);
       }
@@ -572,12 +572,10 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   }
 
   /**
-   * Differ between simple content and complex content.
-   * Decide if the content of a cell needs usually the whole possible space or
-   * is the character of the content like flowing text.
-   * In the second case, the style usually sets a padding.<br/>
-   * Pure is needed for &lt;tc:panel>,  &lt;tc:in>, etc.<br/>
-   * Pure is not needed for  &lt;tc:out> and &lt;tc:link>
+   * Differ between simple content and complex content. Decide if the content of a cell needs usually the whole possible
+   * space or is the character of the content like flowing text. In the second case, the style usually sets a
+   * padding.<br/> Pure is needed for &lt;tc:panel>,  &lt;tc:in>, etc.<br/> Pure is not needed for  &lt;tc:out> and
+   * &lt;tc:link>
    */
   private boolean isPure(final UIColumn column) {
     for (final UIComponent child : column.getChildren()) {
@@ -879,7 +877,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
             markup = markup.add(Markup.FIRST);
           }
           if (pure) {
-             markup = markup.add(Markup.PURE);
+            markup = markup.add(Markup.PURE);
           }
           writer.writeClassAttribute(Classes.create(sheet, "header", markup));
           writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
@@ -1053,15 +1051,15 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       }
     }
 
-    if (prevs.size() > (linkCount / 2)
-        && nexts.size() > (linkCount - (linkCount / 2))) {
-      while (prevs.size() > (linkCount / 2)) {
+    if (prevs.size() > linkCount / 2
+        && nexts.size() > linkCount - linkCount / 2) {
+      while (prevs.size() > linkCount / 2) {
         prevs.remove(0);
       }
-      while (nexts.size() > (linkCount - (linkCount / 2))) {
+      while (nexts.size() > linkCount - linkCount / 2) {
         nexts.remove(nexts.size() - 1);
       }
-    } else if (prevs.size() <= (linkCount / 2)) {
+    } else if (prevs.size() <= linkCount / 2) {
       while (prevs.size() + nexts.size() > linkCount) {
         nexts.remove(nexts.size() - 1);
       }
@@ -1074,7 +1072,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     String name;
     int skip = prevs.size() > 0 ? prevs.get(0) : 1;
     if (!sheet.isShowDirectLinksArrows() && skip > 1) {
-      skip -= (linkCount - (linkCount / 2));
+      skip -= linkCount - linkCount / 2;
       skip--;
       name = DOTS;
       if (skip < 1) {
@@ -1104,7 +1102,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       name = DOTS;
       if (skip > pages) {
         skip = pages;
-        if ((nexts.get(nexts.size() - 1)) == skip - 1) {
+        if (nexts.get(nexts.size() - 1) == skip - 1) {
           name = Integer.toString(skip);
         }
       }

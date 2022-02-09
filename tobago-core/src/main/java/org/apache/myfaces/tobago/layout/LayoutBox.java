@@ -24,27 +24,35 @@ import org.apache.myfaces.tobago.config.Configurable;
 public interface LayoutBox extends Configurable {
 
   Measure getBorderLeft();
+
   void setBorderLeft(Measure borderLeft);
 
   Measure getBorderRight();
+
   void setBorderRight(Measure borderRight);
 
   Measure getBorderTop();
+
   void setBorderTop(Measure borderTop);
 
   Measure getBorderBottom();
+
   void setBorderBottom(Measure borderBottom);
 
   Measure getPaddingLeft();
+
   void setPaddingLeft(Measure paddingLeft);
 
   Measure getPaddingRight();
+
   void setPaddingRight(Measure paddingRight);
 
   Measure getPaddingTop();
+
   void setPaddingTop(Measure paddingTop);
 
   Measure getPaddingBottom();
+
   void setPaddingBottom(Measure paddingBottom);
 
 }

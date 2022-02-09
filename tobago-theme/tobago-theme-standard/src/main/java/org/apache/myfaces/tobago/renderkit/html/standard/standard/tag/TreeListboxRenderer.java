@@ -131,7 +131,7 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
         writer.endElement(HtmlElements.SELECT);
       }
 
-      for(final Integer rowIndex : thisLevel) {
+      for (final Integer rowIndex : thisLevel) {
         encodeSelectBox(facesContext, tree, writer, rowIndex, nextLevel);
       }
 

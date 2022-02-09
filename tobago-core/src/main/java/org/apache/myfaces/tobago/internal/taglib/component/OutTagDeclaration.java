@@ -54,18 +54,16 @@ public interface OutTagDeclaration
     HasMarkup, HasCurrentMarkup, HasSanitize {
 
   /**
-   * Flag indicating that characters that are
-   * sensitive in HTML and XML markup must be escaped.
+   * Flag indicating that characters that are sensitive in HTML and XML markup must be escaped.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setEscape(String escape);
 
   /**
-   * Indicates that the renderer should create an element in the output language
-   * (e. g. an span or div tag around the output text).
-   * Use true, if you enable the possibility to apply styles to the output.
-   * Use false, if you want to keep the code small (especially inside of sheets).
+   * Indicates that the renderer should create an element in the output language (e. g. an span or div tag around the
+   * output text). Use true, if you enable the possibility to apply styles to the output. Use false, if you want to keep
+   * the code small (especially inside of sheets).
    */
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setCreateSpan(String createSpan);

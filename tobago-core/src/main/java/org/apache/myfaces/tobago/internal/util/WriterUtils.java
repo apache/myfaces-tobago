@@ -154,9 +154,8 @@ public abstract class WriterUtils {
       throws IOException;
 
   /**
-   * Writes a character as a decimal escape.  Hex escapes are smaller than
-   * the decimal version, but Netscape didn't support hex escapes until
-   * 4.7.4.
+   * Writes a character as a decimal escape.  Hex escapes are smaller than the decimal version, but Netscape didn't
+   * support hex escapes until 4.7.4.
    */
   protected void writeDecRef(final char ch) throws IOException {
     if (ch == '\u20ac') {
@@ -169,27 +168,27 @@ public abstract class WriterUtils {
     // going gonzo, it should be even better)
     int i = (int) ch;
     if (i > 10000) {
-      out.write('0' + (i / 10000));
+      out.write('0' + i / 10000);
       i = i % 10000;
-      out.write('0' + (i / 1000));
+      out.write('0' + i / 1000);
       i = i % 1000;
-      out.write('0' + (i / 100));
+      out.write('0' + i / 100);
       i = i % 100;
-      out.write('0' + (i / 10));
+      out.write('0' + i / 10);
       i = i % 10;
       out.write('0' + i);
     } else if (i > 1000) {
-      out.write('0' + (i / 1000));
+      out.write('0' + i / 1000);
       i = i % 1000;
-      out.write('0' + (i / 100));
+      out.write('0' + i / 100);
       i = i % 100;
-      out.write('0' + (i / 10));
+      out.write('0' + i / 10);
       i = i % 10;
       out.write('0' + i);
     } else {
-      out.write('0' + (i / 100));
+      out.write('0' + i / 100);
       i = i % 100;
-      out.write('0' + (i / 10));
+      out.write('0' + i / 10);
       i = i % 10;
       out.write('0' + i);
     }

@@ -49,8 +49,8 @@ public interface MessagesTagDeclaration
     extends HasIdBindingAndRendered, HasFor, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup {
 
   /**
-   * Flag indicating that only messages that are not associated to any
-   * particular UIComponent should be displayed. That are messages without clientId.
+   * Flag indicating that only messages that are not associated to any particular UIComponent should be displayed. That
+   * are messages without clientId.
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "false")
@@ -70,7 +70,7 @@ public interface MessagesTagDeclaration
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setShowSummary(String showSummary);
 
-   /**
+  /**
    * Sets the mininum severity to be shown. E. g. "warn" shows only "warn", "error" and "fatal".
    */
   @TagAttribute
@@ -78,37 +78,35 @@ public interface MessagesTagDeclaration
       defaultCode = "javax.faces.application.FacesMessage.SEVERITY_INFO")
   void setMinSeverity(String minSeverity);
 
-   /**
-   * Sets the maximum severity to be shown. E. g. "warn" shows only "warn" and "info".
-    * When setting this attribute you usually shoud take care, that you have a second message tag to show the
-    * higher severity levels.
+  /**
+   * Sets the maximum severity to be shown. E. g. "warn" shows only "warn" and "info". When setting this attribute you
+   * usually shoud take care, that you have a second message tag to show the higher severity levels.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.application.FacesMessage$Severity", defaultValue = "fatal",
       defaultCode = "javax.faces.application.FacesMessage.SEVERITY_FATAL")
   void setMaxSeverity(String maxSeverity);
 
-   /**
+  /**
    * Sets the maximum number of messages to show.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "2147483647")
   void setMaxNumber(String maxNumber);
 
-   /**
+  /**
    * Sets the order of the messages.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.component.UIMessages$OrderBy",
       allowedValues = {AbstractUIMessages.OrderBy.OCCURRENCE_STRING, AbstractUIMessages.OrderBy.SEVERITY_STRING},
-      defaultValue = AbstractUIMessages.OrderBy.OCCURRENCE_STRING, 
+      defaultValue = AbstractUIMessages.OrderBy.OCCURRENCE_STRING,
       defaultCode = "org.apache.myfaces.tobago.internal.component.AbstractUIMessages.OrderBy.OCCURRENCE")
   void setOrderBy(String orderBy);
 
   /**
-   * Has the user to confirm this message?
-   * This attributes handles the case, if the application wants to warn the user about a problem,
-   * and the user has to confirm the message before he/she can continue.
+   * Has the user to confirm this message? This attributes handles the case, if the application wants to warn the user
+   * about a problem, and the user has to confirm the message before he/she can continue.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")

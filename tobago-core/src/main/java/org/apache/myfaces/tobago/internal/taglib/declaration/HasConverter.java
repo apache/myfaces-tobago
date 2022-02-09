@@ -25,13 +25,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 public interface HasConverter {
   /**
-   * An expression that specifies the Converter for this component.
-   * If the value binding expression is a String,
-   * the String is used as an ID to look up a Converter.
-   * If the value binding expression is a Converter,
-   * uses that instance as the converter.
-   * The value can either be a static value (ID case only)
-   * or an EL expression.
+   * An expression that specifies the Converter for this component. If the value binding expression is a String, the
+   * String is used as an ID to look up a Converter. If the value binding expression is a Converter, uses that instance
+   * as the converter. The value can either be a static value (ID case only) or an EL expression.
    */
   @TagAttribute
   @UIComponentTagAttribute(

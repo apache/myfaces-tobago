@@ -33,13 +33,13 @@ import java.io.Serializable;
 import java.util.Locale;
 
 /**
- * The ClientProperties contains data, which are individual for each user.
- * It is stored in the session by default, but the application can override this in the faces-config.xml.
+ * The ClientProperties contains data, which are individual for each user. It is stored in the session by default, but
+ * the application can override this in the faces-config.xml.
  * <p/>
  * The managed bean name which is Tobago using for the instance is {@link #MANAGED_BEAN_NAME}.
  * <p/>
- * Please use {@link ClientProperties#getInstance(javax.faces.context.FacesContext)}
- * to access to the users client properties.
+ * Please use {@link ClientProperties#getInstance(javax.faces.context.FacesContext)} to access to the users client
+ * properties.
  */
 
 public class ClientProperties implements Serializable {
@@ -57,7 +57,9 @@ public class ClientProperties implements Serializable {
   private Theme theme;
   private UserAgent userAgent = UserAgent.DEFAULT;
 
-  /** @deprecated since Tobago 1.5.14 */
+  /**
+   * @deprecated since Tobago 1.5.14
+   */
   @Deprecated
   private boolean debugMode;
 
@@ -67,7 +69,7 @@ public class ClientProperties implements Serializable {
   private Measure pageWidth;
   private Measure pageHeight;
 
-  /** 
+  /**
    * managed bean constructor
    */
   public ClientProperties() {
@@ -120,7 +122,7 @@ public class ClientProperties implements Serializable {
   public Theme getTheme() {
     return theme;
   }
-  
+
   public void setTheme(final Theme theme) {
     this.theme = theme;
     reset();
@@ -135,13 +137,17 @@ public class ClientProperties implements Serializable {
     reset();
   }
 
-  /** @deprecated since Tobago 1.5.14 */
+  /**
+   * @deprecated since Tobago 1.5.14
+   */
   @Deprecated
   public boolean isDebugMode() {
     return debugMode;
   }
 
-  /** @deprecated since Tobago 1.5.14 */
+  /**
+   * @deprecated since Tobago 1.5.14
+   */
   @Deprecated
   public void setDebugMode(final boolean debugMode) {
     this.debugMode = debugMode;
@@ -150,16 +156,17 @@ public class ClientProperties implements Serializable {
   /**
    * @deprecated since 2.0.0, please use {@link javax.faces.component.UIViewRoot#getLocale()}
    */
+  @Deprecated
   public Locale getLocale() {
     Deprecation.LOG.warn("Please get locale via UIViewRoot.");
     return FacesContext.getCurrentInstance().getViewRoot().getLocale();
   }
 
   /**
-   * @deprecated since 2.0.0
-   * This setter should not be called from the application directly,
-   * but via {@link javax.faces.component.UIViewRoot#setLocale(Locale locale)}
+   * @deprecated since 2.0.0 This setter should not be called from the application directly, but via {@link
+   * javax.faces.component.UIViewRoot#setLocale(Locale locale)}
    */
+  @Deprecated
   public void setLocale(final Locale locale) {
     Deprecation.LOG.warn("Please set locale via UIViewRoot.");
     FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);

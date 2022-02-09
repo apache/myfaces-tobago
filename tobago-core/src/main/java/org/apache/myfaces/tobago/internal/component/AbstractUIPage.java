@@ -160,14 +160,13 @@ public abstract class AbstractUIPage extends AbstractUIForm
   }
 
   private void decodeActionComponent(
-      final FacesContext facesContext, final AbstractUIPage page, final Map<String,
-      UIComponent> ajaxComponents) {
-    final String actionId = page.getActionId();
+      final FacesContext facesContext, final AbstractUIPage page, final Map<String, UIComponent> ajaxComponents) {
+    final String id = page.getActionId();
     UIComponent actionComponent = null;
-    if (actionId != null) {
-      actionComponent = findComponent(actionId);
+    if (id != null) {
+      actionComponent = findComponent(id);
       if (actionComponent == null && FacesVersion.supports20() && FacesVersion.isMyfaces()) {
-        final String bugActionId = actionId.replaceAll(":\\d+:", ":");
+        final String bugActionId = id.replaceAll(":\\d+:", ":");
         try {
           actionComponent = findComponent(bugActionId);
           //LOG.info("command = \"" + actionComponent + "\"", new Exception());
@@ -188,7 +187,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
         component = component.getParent();
       }
     }
-    invokeOnComponent(facesContext, actionId, APPLY_REQUEST_VALUES_CALLBACK);
+    invokeOnComponent(facesContext, id, APPLY_REQUEST_VALUES_CALLBACK);
   }
 
 
@@ -322,6 +321,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
   /**
    * @deprecated since 1.5.7 and 2.0.0
    */
+  @Deprecated
   public String getDefaultActionId() {
     Deprecation.LOG.error("The default action handling has been changed!");
     return null;
@@ -330,6 +330,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
   /**
    * @deprecated since 1.5.7 and 2.0.0
    */
+  @Deprecated
   public void setDefaultActionId(final String defaultActionId) {
     Deprecation.LOG.error("The default action handling has been changed!");
   }

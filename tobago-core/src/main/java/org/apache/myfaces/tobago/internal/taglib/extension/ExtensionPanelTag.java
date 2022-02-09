@@ -18,6 +18,7 @@
  */
 
 package org.apache.myfaces.tobago.internal.taglib.extension;
+
 import org.apache.myfaces.tobago.component.UIExtensionPanel;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.internal.taglib.TobagoELTag;
@@ -31,13 +32,14 @@ import javax.faces.context.FacesContext;
 
 public final class ExtensionPanelTag extends TobagoELTag {
   private static final Logger LOG = LoggerFactory.getLogger(ExtensionPanelTag.class);
-  private javax.el.ValueExpression  markup;
-  private javax.el.ValueExpression  tip;
+  private javax.el.ValueExpression markup;
+  private javax.el.ValueExpression tip;
 
   @Override
   public String getComponentType() {
     return UIExtensionPanel.COMPONENT_TYPE;
   }
+
   @Override
   public String getRendererType() {
     return "Panel";

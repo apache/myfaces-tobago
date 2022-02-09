@@ -87,7 +87,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
     }
 
     if (!tag.getCreated()) {
-      return (SKIP_BODY);
+      return SKIP_BODY;
     }
 
     UIComponent component = tag.getComponentInstance();
@@ -314,7 +314,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
       }
     }
 
-    return (SKIP_BODY);
+    return SKIP_BODY;
   }
 
   @Override

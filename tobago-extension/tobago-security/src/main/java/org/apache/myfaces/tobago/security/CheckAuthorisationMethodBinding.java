@@ -22,13 +22,13 @@ package org.apache.myfaces.tobago.security;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.el.MethodBinding;
-import javax.faces.el.MethodNotFoundException;
-import javax.faces.el.EvaluationException;
-import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponentBase;
-import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.el.EvaluationException;
+import javax.faces.el.MethodBinding;
+import javax.faces.el.MethodNotFoundException;
 
 public class CheckAuthorisationMethodBinding extends MethodBinding implements StateHolder {
   private static final Logger LOG = LoggerFactory.getLogger(CheckAuthorisationMethodBinding.class);
@@ -56,7 +56,7 @@ public class CheckAuthorisationMethodBinding extends MethodBinding implements St
       LOG.debug("MethodBinding invoke " + getExpressionString());
     }
     // MethodBindings with a argument list would not be checked for authorisation
-    if ((objects!=null && objects.length > 0) || AuthorizationUtils.isAuthorized(facesContext, getExpressionString())) {
+    if (objects != null && objects.length > 0 || AuthorizationUtils.isAuthorized(facesContext, getExpressionString())) {
       return methodBinding.invoke(facesContext, objects);
     } else {
       // TODO better message

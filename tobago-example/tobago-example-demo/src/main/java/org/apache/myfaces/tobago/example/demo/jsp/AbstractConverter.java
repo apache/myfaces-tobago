@@ -80,8 +80,8 @@ public abstract class AbstractConverter implements Converter {
     final StringBuilder buffer = new StringBuilder();
     int lastStart = 0;
     final PatternMatcherInput patternMatcherInput = new PatternMatcherInput(input);
-    final Pattern pattern = getPattern();
-    if (matcher.contains(patternMatcherInput, pattern)) {
+    final Pattern p = getPattern();
+    if (matcher.contains(patternMatcherInput, p)) {
       do {
         final MatchResult result = matcher.getMatch();
         final int start = result.beginOffset(0);
@@ -89,7 +89,7 @@ public abstract class AbstractConverter implements Converter {
         buffer.append(convertMisc(input, lastStart, start));
         buffer.append(convertMatch(input, start, end));
         lastStart = end;
-      } while (matcher.contains(patternMatcherInput, pattern));
+      } while (matcher.contains(patternMatcherInput, p));
     }
     buffer.append(convertMisc(input, lastStart, input.length()));
     return buffer.toString();

@@ -40,7 +40,7 @@ public class MethodExpressionTabChangeListener implements TabChangeListener, Sta
   }
 
   public void processTabChange(final TabChangeEvent actionEvent) throws AbortProcessingException {
-     FacesUtilsEL.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, actionEvent);
+    FacesUtilsEL.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, actionEvent);
   }
 
   public void restoreState(final FacesContext context, final Object state) {

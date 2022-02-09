@@ -52,11 +52,12 @@ import javax.faces.component.UIColumn;
         "org.apache.myfaces.tobago.TreeData"
     })
 public interface
-    TreeNodeTagDeclaration
+TreeNodeTagDeclaration
     extends HasIdBindingAndRendered, HasMarkup, HasCurrentMarkup, HasTip, IsDisabled, IsGridLayoutContainer {
 
   /**
    * Flag indicating if the subnodes are to be displayed.
+   *
    * @deprecated since 2.0.0. Please use the state attribute of the tree with a TreeState
    */
   @Deprecated
@@ -66,6 +67,7 @@ public interface
 
   /**
    * Flag indicating if the node is marked, and should be displayed in a special way.
+   *
    * @deprecated since 2.0.0. Please use the state attribute of the tree with a TreeState
    */
   @Deprecated
@@ -75,6 +77,7 @@ public interface
 
   /**
    * Flag indicating if the node is selected (only possible, when the tree component allows it).
+   *
    * @deprecated since 2.0.0. Please use <code>&lt;tc:treeSelect></code>
    */
   @Deprecated
@@ -94,8 +97,10 @@ public interface
 
   /**
    * Method binding representing a markedListener method that ....
+   *
    * @deprecated since 2.0.0.
    */
+  @Deprecated
   @TagAttribute
   @UIComponentTagAttribute(type = {},
       generate = false,

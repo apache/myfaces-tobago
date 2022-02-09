@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.component;
 import javax.el.MethodExpression;
 
 public interface InputSuggest2 extends InputSuggest {
-  
+
   MethodExpression getSuggestMethodExpression();
 
   void setSuggestMethodExpression(MethodExpression suggestExpression);

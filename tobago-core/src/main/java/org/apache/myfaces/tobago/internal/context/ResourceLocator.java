@@ -45,8 +45,7 @@ import java.util.zip.ZipInputStream;
 
 /**
  * <p>
- * This class helps to locate all resources of the ResourceManager.
- * It will be called in the initialization phase.
+ * This class helps to locate all resources of the ResourceManager. It will be called in the initialization phase.
  * </p>
  * <p>
  * Basically it looks at the following places:
@@ -71,7 +70,7 @@ class ResourceLocator {
   private ResourceManagerImpl resourceManager;
   private ThemeBuilder themeBuilder;
 
-  public ResourceLocator(
+  ResourceLocator(
       final ServletContext servletContext, final ResourceManagerImpl resourceManager, final ThemeBuilder themeBuilder) {
     this.servletContext = servletContext;
     this.resourceManager = resourceManager;
@@ -87,9 +86,9 @@ class ResourceLocator {
   }
 
   private void locateResourcesInWar(
-      final ServletContext servletContext, final ResourceManagerImpl resources, String path)
+      final ServletContext servletContextParameter, final ResourceManagerImpl resources, final String pathParameter)
       throws ServletException {
-
+    String path = pathParameter;
     if (path.startsWith("/WEB-INF/")) {
       return; // ignore
     }
@@ -97,7 +96,7 @@ class ResourceLocator {
     if (path.endsWith("/") && path.length() > 1) {
       path = path.substring(0, path.length() - 1);
     }
-    final Set<String> resourcePaths = servletContext.getResourcePaths(path);
+    final Set<String> resourcePaths = servletContextParameter.getResourcePaths(path);
     if (resourcePaths == null || resourcePaths.isEmpty()) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("Skipping empty resource path: path='{}'", path);
@@ -111,19 +110,19 @@ class ResourceLocator {
           if (LOG.isDebugEnabled()) {
             LOG.debug("childPath dir {}", childPath);
           }
-          locateResourcesInWar(servletContext, resources, childPath);
+          locateResourcesInWar(servletContextParameter, resources, childPath);
         }
       } else {
         //Log.debug("add resc " + childPath);
         if (childPath.endsWith(".properties")) {
-          final InputStream inputStream = servletContext.getResourceAsStream(childPath);
+          final InputStream inputStream = servletContextParameter.getResourceAsStream(childPath);
           try {
             addProperties(inputStream, resources, childPath, false, 0);
           } finally {
             IoUtils.closeQuietly(inputStream);
           }
         } else if (childPath.endsWith(".properties.xml")) {
-          final InputStream inputStream = servletContext.getResourceAsStream(childPath);
+          final InputStream inputStream = servletContextParameter.getResourceAsStream(childPath);
           try {
             addProperties(inputStream, resources, childPath, true, 0);
           } catch (final RuntimeException e) {
@@ -174,8 +173,8 @@ class ResourceLocator {
   }
 
   /**
-   * Searches the /WEB-INF/lib directory for *.jar files which contains /META-INF/resources directory
-   * to hold resources and add them to the ResourceManager.
+   * Searches the /WEB-INF/lib directory for *.jar files which contains /META-INF/resources directory to hold resources
+   * and add them to the ResourceManager.
    *
    * @param resources Resource Manager which collects all the resources.
    * @throws ServletException An error while accessing the resource.
@@ -232,8 +231,6 @@ class ResourceLocator {
     LOG.info("resourceIndex='" + resourceIndex + "'");
 
 
-
-
     final URL resource = findMatchingResourceIndexUrl(themeUrl);
 
 
@@ -246,8 +243,8 @@ class ResourceLocator {
   }
 
   /**
-   * Find a matching tobago-resource-index.txt to the given tobago-config.xml
-   * We look here all possible URL from ClassLoader, because an AppServer may protect direct access...
+   * Find a matching tobago-resource-index.txt to the given tobago-config.xml We look here all possible URL from
+   * ClassLoader, because an AppServer may protect direct access...
    */
   private URL findMatchingResourceIndexUrl(final URL themeUrl) throws IOException {
     final String themeProtocol = themeUrl.getProtocol();
@@ -278,10 +275,11 @@ class ResourceLocator {
   }
 
   private void addResourcesFromZip(
-      final ResourceManagerImpl resources, String fileName, final String protocol,
+      final ResourceManagerImpl resources, final String fileNameParameter, final String protocol,
       final String prefix, final int skipPrefix)
       throws ServletException, IOException {
 
+    String fileName = fileNameParameter;
     final int exclamationPoint = fileName.indexOf("!");
     if (exclamationPoint != -1) {
       fileName = fileName.substring(0, exclamationPoint);
@@ -366,7 +364,8 @@ class ResourceLocator {
     }
   }
 
-  private String ensureSlash(String resourcePath) {
+  private String ensureSlash(final String resourcePathParameter) {
+    String resourcePath = resourcePathParameter;
     if (!resourcePath.startsWith("/")) {
       resourcePath = '/' + resourcePath;
     }

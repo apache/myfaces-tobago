@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 
 public class TabRenderer extends LayoutComponentRendererBase {
 

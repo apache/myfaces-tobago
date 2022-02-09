@@ -22,7 +22,9 @@ package org.apache.myfaces.tobago.internal.taglib.declaration;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/** @deprecated since Tobago 2.0.9. Please use {@link HasMargins} */
+/**
+ * @deprecated since Tobago 2.0.9. Please use {@link HasMargins}
+ */
 @Deprecated
 public interface HasMargin {
 

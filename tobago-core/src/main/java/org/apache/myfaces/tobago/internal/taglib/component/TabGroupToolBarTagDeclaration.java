@@ -32,5 +32,5 @@ import javax.faces.component.UIPanel;
     rendererType = RendererTypes.TAB_GROUP_TOOL_BAR,
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.Command"})
-public interface TabGroupToolBarTagDeclaration extends ToolBarTagDeclaration{
+public interface TabGroupToolBarTagDeclaration extends ToolBarTagDeclaration {
 }

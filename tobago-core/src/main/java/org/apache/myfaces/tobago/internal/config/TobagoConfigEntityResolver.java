@@ -35,6 +35,9 @@ public class TobagoConfigEntityResolver extends DefaultHandler {
   private static final String TOBAGO_CONFIG_DTD_1_0_30 = "/org/apache/myfaces/tobago/config/tobago-config-1.0.30.dtd";
   private static final String TOBAGO_CONFIG_DTD_1_0_34 = "/org/apache/myfaces/tobago/config/tobago-config-1.0.34.dtd";
   protected static final String TOBAGO_CONFIG_XSD_1_5 = "/org/apache/myfaces/tobago/config/tobago-config-1.5.xsd";
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   protected static final String TOBAGO_CONFIG_XSD_1_6 = "/org/apache/myfaces/tobago/config/tobago-config-1.6.xsd";
   protected static final String TOBAGO_CONFIG_XSD_2_0 = "/org/apache/myfaces/tobago/config/tobago-config-2.0.xsd";

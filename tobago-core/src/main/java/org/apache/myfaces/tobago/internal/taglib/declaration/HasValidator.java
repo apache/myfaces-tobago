@@ -25,14 +25,12 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 public interface HasValidator {
   /**
-   * A method binding EL expression,
-   * accepting FacesContext, UIComponent,
-   * and Object parameters, and returning void, that validates
-   * the component's local value.
+   * A method binding EL expression, accepting FacesContext, UIComponent, and Object parameters, and returning void,
+   * that validates the component's local value.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {},
       expression = DynamicExpression.METHOD_EXPRESSION,
-      methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
+      methodSignature = {"javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object"})
   void setValidator(String validator);
 }

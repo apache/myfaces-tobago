@@ -44,7 +44,7 @@ public class ThemeParserUnitTest {
 
     final TobagoConfigParser parser = new TobagoConfigParser();
     ThemeImpl theme = null;
-    if  (urls.hasMoreElements()) {
+    if (urls.hasMoreElements()) {
       final URL themeUrl = urls.nextElement();
       theme = parser.parse(themeUrl).getThemeDefinitions().get(0);
       Assert.assertEquals("test", theme.getName());

@@ -22,14 +22,14 @@ package org.apache.myfaces.tobago.example.test;
 import java.io.Serializable;
 
 public class Reload implements Serializable {
-  
+
   private int counter;
 
   public boolean isReload() {
     counter++;
     return true;
   }
-  
+
   public String tick() {
     counter++;
     return null;

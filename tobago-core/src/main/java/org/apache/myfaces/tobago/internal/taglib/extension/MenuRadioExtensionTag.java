@@ -160,8 +160,9 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
       if (expression != null) {
         command.setValueExpression(Attributes.RENDERED_PARTIALLY, expression);
       } else {
-        final Object renderedPartially = inComponent.getAttributes().get(Attributes.RENDERED_PARTIALLY);
-        command.setRenderedPartially(StringUtils.split((String) renderedPartially, ", "));
+        final String renderedPartiallyAttribute =
+            (String) inComponent.getAttributes().get(Attributes.RENDERED_PARTIALLY);
+        command.setRenderedPartially(StringUtils.split(renderedPartiallyAttribute, ", "));
       }
     }
 
@@ -194,13 +195,10 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Action to invoke when clicked.
-   * This must be a MethodBinding or a String representing the application action to invoke when
-   * this component is activated by the user.
-   * The MethodBinding must evaluate to a public method that takes no parameters,
-   * and returns a String (the logical outcome) which is passed to the
-   * NavigationHandler for this application.
-   * The String is directly passed to the Navigationhandler.
+   * Action to invoke when clicked. This must be a MethodBinding or a String representing the application action to
+   * invoke when this component is activated by the user. The MethodBinding must evaluate to a public method that takes
+   * no parameters, and returns a String (the logical outcome) which is passed to the NavigationHandler for this
+   * application. The String is directly passed to the Navigationhandler.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {}, expression = DynamicExpression.METHOD_EXPRESSION,
@@ -210,10 +208,9 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * MethodBinding representing an action listener method that will be
-   * notified when this component is activated by the user.
-   * The expression must evaluate to a public method that takes an ActionEvent
-   * parameter, with a return type of void.
+   * MethodBinding representing an action listener method that will be notified when this component is activated by the
+   * user. The expression must evaluate to a public method that takes an ActionEvent parameter, with a return type of
+   * void.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {}, expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
@@ -241,8 +238,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * The value binding expression linking this
-   * component to a property in a backing bean.
+   * The value binding expression linking this component to a property in a backing bean.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
@@ -251,8 +247,8 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Flag indicating whether or not this component should be rendered
-   * (during Render Response Phase), or processed on any subsequent form submit.
+   * Flag indicating whether or not this component should be rendered (during Render Response Phase), or processed on
+   * any subsequent form submit.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
@@ -279,8 +275,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Text value to display as label.
-   * If text contains an underscore the next character is used as accesskey.
+   * Text value to display as label. If text contains an underscore the next character is used as accesskey.
    */
   @TagAttribute
   @UIComponentTagAttribute()
@@ -289,10 +284,9 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Flag indicating that, if this component is activated by the user,
-   * notifications should be delivered to interested listeners and actions
-   * immediately (that is, during Apply Request Values phase) rather than
-   * waiting until Invoke Application phase.
+   * Flag indicating that, if this component is activated by the user, notifications should be delivered to interested
+   * listeners and actions immediately (that is, during Apply Request Values phase) rather than waiting until Invoke
+   * Application phase.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
@@ -301,8 +295,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Specify, if the command calls an JSF-Action.
-   * Useful to switch off the Double-Submit-Check and Waiting-Behavior.
+   * Specify, if the command calls an JSF-Action. Useful to switch off the Double-Submit-Check and Waiting-Behavior.
    *
    * @param transition Indicates the transition.
    */
@@ -313,13 +306,9 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * An expression that specifies the Converter for this component.
-   * If the value binding expression is a String,
-   * the String is used as an ID to look up a Converter.
-   * If the value binding expression is a Converter,
-   * uses that instance as the converter.
-   * The value can either be a static value (ID case only)
-   * or an EL expression.
+   * An expression that specifies the Converter for this component. If the value binding expression is a String, the
+   * String is used as an ID to look up a Converter. If the value binding expression is a Converter, uses that instance
+   * as the converter. The value can either be a static value (ID case only) or an EL expression.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.convert.Converter",
@@ -331,15 +320,15 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   /**
    * Indicate the partially rendered Components in a case of a submit.
    */
-   @TagAttribute
-   @UIComponentTagAttribute(type = "java.lang.String[]")
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.String[]")
   public void setRenderedPartially(final javax.el.ValueExpression renderedPartially) {
     this.renderedPartially = renderedPartially;
   }
 
   /**
-   * The component identifier for the input field component inside of the container.
-   * This value must be unique within the closest parent component that is a naming container.
+   * The component identifier for the input field component inside of the container. This value must be unique within
+   * the closest parent component that is a naming container.
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
@@ -348,10 +337,9 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * The component identifier for this component.
-   * This value must be unique within the closest parent component that is a naming container.
-   * For tx components the id will be set to the container (e. g. the panel).
-   * To set the id of the input field, you have to use the attribute "fieldId".
+   * The component identifier for this component. This value must be unique within the closest parent component that is
+   * a naming container. For tx components the id will be set to the container (e. g. the panel). To set the id of the
+   * input field, you have to use the attribute "fieldId".
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute

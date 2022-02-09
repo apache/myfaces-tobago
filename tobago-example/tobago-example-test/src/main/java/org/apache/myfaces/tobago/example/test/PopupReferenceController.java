@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.example.test;
 
+import org.apache.myfaces.tobago.component.UISheet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.component.UISheet;
 
 import javax.faces.component.UIComponent;
 import javax.faces.event.ActionEvent;
@@ -55,8 +55,8 @@ public class PopupReferenceController implements Serializable {
       component = component.getParent();
     }
 
-    final UISheet sheet = (UISheet) component;
-    entry = (Entry) sheet.getRowData();
+    final UISheet uiSheet = (UISheet) component;
+    entry = (Entry) uiSheet.getRowData();
     LOG.info("entry = \"" + entry.getColumn1() + "\"");
   }
 
@@ -78,7 +78,7 @@ public class PopupReferenceController implements Serializable {
     this.entry = entry;
   }
 
-  public static class Entry{
+  public static class Entry {
     private String column1;
     private String column2;
     private String column3;

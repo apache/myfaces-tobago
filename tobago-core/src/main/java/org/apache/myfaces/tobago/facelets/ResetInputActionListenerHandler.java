@@ -51,7 +51,7 @@ public class ResetInputActionListenerHandler extends TagHandler {
         final ActionSource actionSource = (ActionSource) parent;
         if (execute == null) {
           actionSource.addActionListener(new ResetFormActionListener());
-        } else if (execute.isLiteral())  {
+        } else if (execute.isLiteral()) {
           actionSource.addActionListener(new ResetInputActionListener(ComponentUtils.splitList(execute.getValue())));
         } else {
           final ValueExpression forValueExpression = execute.getValueExpression(faceletContext, String.class);

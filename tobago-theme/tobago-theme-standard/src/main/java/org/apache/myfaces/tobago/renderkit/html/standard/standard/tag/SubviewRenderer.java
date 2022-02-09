@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -29,7 +29,7 @@ import java.io.IOException;
 
 public class SubviewRenderer extends LayoutComponentRendererBase {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SubviewRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SubviewRenderer.class);
 
   public void encodeBegin(final FacesContext facesContext, final UIComponent component)
       throws IOException {
@@ -40,7 +40,7 @@ public class SubviewRenderer extends LayoutComponentRendererBase {
   }
 
   public void encodeEnd(final FacesContext facesContext,
-      final UIComponent component) throws IOException {
+                        final UIComponent component) throws IOException {
 
   }
 

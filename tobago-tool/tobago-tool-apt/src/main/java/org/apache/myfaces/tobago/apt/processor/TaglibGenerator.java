@@ -441,7 +441,7 @@ public class TaglibGenerator extends AbstractGenerator {
     parent.appendChild(element);
   }
 
-  protected static enum Type {
+  protected enum Type {
     JSP,
     FACELETS;
 

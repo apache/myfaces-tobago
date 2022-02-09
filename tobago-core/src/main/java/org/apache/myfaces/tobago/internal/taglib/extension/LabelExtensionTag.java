@@ -35,10 +35,7 @@ import javax.faces.webapp.FacetTag;
 import javax.servlet.jsp.JspException;
 
 /**
- * Renders a label to any component.
- * <br />
- * Short syntax of:
- * <br />
+ * Renders a label to any component. <br /> Short syntax of: <br />
  * <pre>
  * &lt;tc:panel>
  *   &lt;f:facet name="layout">
@@ -48,8 +45,7 @@ import javax.servlet.jsp.JspException;
  *     ...
  * &lt;/tc:panel>
  * </pre>
- * This is the universal version of the special versions: &lt;tx:in>, etc.
- * In other words:
+ * This is the universal version of the special versions: &lt;tx:in>, etc. In other words:
  * <pre>
  * &lt;tx:label>
  *   &lt;tc:in/>
@@ -165,7 +161,7 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
     markup = null;
   }
 
-   /**
+  /**
    * The current value of this component.
    */
   @TagAttribute
@@ -174,7 +170,7 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
     this.value = value;
   }
 
-   /**
+  /**
    * The accessKey of this component.
    */
   @TagAttribute
@@ -193,8 +189,8 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Flag indicating whether or not this component should be rendered
-   * (during Render Response Phase), or processed on any subsequent form submit.
+   * Flag indicating whether or not this component should be rendered (during Render Response Phase), or processed on
+   * any subsequent form submit.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
@@ -216,10 +212,9 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
     this.rows = rows;
   }
 
-   /**
-   * The width for the label component. Default: 'auto'.
-   * This value is used in the gridLayouts columns attribute.
-   * See gridLayout tag for valid values.
+  /**
+   * The width for the label component. Default: 'auto'. This value is used in the gridLayouts columns attribute. See
+   * gridLayout tag for valid values.
    */
   @TagAttribute
   @UIComponentTagAttribute()
@@ -227,9 +222,8 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
     this.labelWidth = labelWidth;
   }
 
- /**
-   * Indicate markup of this component.
-   * Possible value is 'none'. But this can be overridden in the theme.
+  /**
+   * Indicate markup of this component. Possible value is 'none'. But this can be overridden in the theme.
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")

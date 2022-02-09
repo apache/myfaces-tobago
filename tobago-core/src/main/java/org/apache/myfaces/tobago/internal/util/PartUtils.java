@@ -28,7 +28,7 @@ import java.util.Map;
 
 /**
  * Only needed for Servlet 3.0. Not needed for Servlet 3.1 or higher.
- *
+ * <p>
  * Basically taken from Apache Tomcat 8
  */
 public final class PartUtils {
@@ -37,8 +37,8 @@ public final class PartUtils {
   }
 
   /**
-   * This is a helper method, to get the original file name of the upload.
-   * If you have at least Servlet 3.1, you wouldn't need this function.
+   * This is a helper method, to get the original file name of the upload. If you have at least Servlet 3.1, you
+   * wouldn't need this function.
    *
    * @since Tobago 3.0.0
    */
@@ -113,43 +113,40 @@ public final class PartUtils {
     /**
      * Default ParameterParser constructor.
      */
-    public ParameterParser() {
+    ParameterParser() {
       super();
     }
 
     /**
      * Are there any characters left to parse?
      *
-     * @return {@code true} if there are unparsed characters,
-     * {@code false} otherwise.
+     * @return {@code true} if there are unparsed characters, {@code false} otherwise.
      */
     private boolean hasChar() {
       return this.pos < this.len;
     }
 
     /**
-     * A helper method to process the parsed token. This method removes
-     * leading and trailing blanks as well as enclosing quotation marks,
-     * when necessary.
+     * A helper method to process the parsed token. This method removes leading and trailing blanks as well as enclosing
+     * quotation marks, when necessary.
      *
-     * @param quoted {@code true} if quotation marks are expected,
-     *               {@code false} otherwise.
+     * @param quoted {@code true} if quotation marks are expected, {@code false} otherwise.
      * @return the token
      */
     private String getToken(boolean quoted) {
       // Trim leading white spaces
-      while ((i1 < i2) && (Character.isWhitespace(chars[i1]))) {
+      while (i1 < i2 && Character.isWhitespace(chars[i1])) {
         i1++;
       }
       // Trim trailing white spaces
-      while ((i2 > i1) && (Character.isWhitespace(chars[i2 - 1]))) {
+      while (i2 > i1 && Character.isWhitespace(chars[i2 - 1])) {
         i2--;
       }
       // Strip away quotation marks if necessary
       if (quoted
-          && ((i2 - i1) >= 2)
-          && (chars[i1] == '"')
-          && (chars[i2 - 1] == '"')) {
+          && i2 - i1 >= 2
+          && chars[i1] == '"'
+          && chars[i2 - 1] == '"') {
         i1++;
         i2--;
       }
@@ -163,10 +160,9 @@ public final class PartUtils {
     /**
      * Tests if the given character is present in the array of characters.
      *
-     * @param ch      the character to test for presense in the array of characters
+     * @param ch the character to test for presense in the array of characters
      * @param charray the array of characters to test against
-     * @return {@code true} if the character is present in the array of
-     * characters, {@code false} otherwise.
+     * @return {@code true} if the character is present in the array of characters, {@code false} otherwise.
      */
     private boolean isOneOf(char ch, final char[] charray) {
       boolean result = false;
@@ -180,11 +176,10 @@ public final class PartUtils {
     }
 
     /**
-     * Parses out a token until any of the given terminators
-     * is encountered.
+     * Parses out a token until any of the given terminators is encountered.
      *
-     * @param terminators the array of terminating characters. Any of these
-     *                    characters when encountered signify the end of the token
+     * @param terminators the array of terminating characters. Any of these characters when encountered signify the end
+     * of the token
      * @return the token
      */
     private String parseToken(final char[] terminators) {
@@ -203,12 +198,10 @@ public final class PartUtils {
     }
 
     /**
-     * Parses out a token until any of the given terminators
-     * is encountered outside the quotation marks.
+     * Parses out a token until any of the given terminators is encountered outside the quotation marks.
      *
-     * @param terminators the array of terminating characters. Any of these
-     *                    characters when encountered outside the quotation marks signify the end
-     *                    of the token
+     * @param terminators the array of terminating characters. Any of these characters when encountered outside the
+     * quotation marks signify the end of the token
      * @return the token
      */
     private String parseQuotedToken(final char[] terminators) {
@@ -225,7 +218,7 @@ public final class PartUtils {
         if (!charEscaped && ch == '"') {
           quoted = !quoted;
         }
-        charEscaped = (!charEscaped && ch == '\\');
+        charEscaped = !charEscaped && ch == '\\';
         i2++;
         pos++;
 
@@ -234,22 +227,19 @@ public final class PartUtils {
     }
 
     /**
-     * Sets the flag if parameter names are to be converted to lower case when
-     * name/value pairs are parsed.
+     * Sets the flag if parameter names are to be converted to lower case when name/value pairs are parsed.
      *
-     * @param b {@code true} if parameter names are to be
-     *          converted to lower case when name/value pairs are parsed.
-     *          {@code false} otherwise.
+     * @param b {@code true} if parameter names are to be converted to lower case when name/value pairs are parsed.
+     * {@code false} otherwise.
      */
     public void setLowerCaseNames(boolean b) {
       this.lowerCaseNames = b;
     }
 
     /**
-     * Extracts a map of name/value pairs from the given string. Names are
-     * expected to be unique.
+     * Extracts a map of name/value pairs from the given string. Names are expected to be unique.
      *
-     * @param str       the string that contains a sequence of name/value pairs
+     * @param str the string that contains a sequence of name/value pairs
      * @param separator the name/value pairs separator
      * @return a map of name/value pairs
      */
@@ -261,11 +251,9 @@ public final class PartUtils {
     }
 
     /**
-     * Extracts a map of name/value pairs from the given array of
-     * characters. Names are expected to be unique.
+     * Extracts a map of name/value pairs from the given array of characters. Names are expected to be unique.
      *
-     * @param charArray the array of characters that contains a sequence of
-     *                  name/value pairs
+     * @param charArray the array of characters that contains a sequence of name/value pairs
      * @param separator the name/value pairs separator
      * @return a map of name/value pairs
      */
@@ -277,13 +265,11 @@ public final class PartUtils {
     }
 
     /**
-     * Extracts a map of name/value pairs from the given array of
-     * characters. Names are expected to be unique.
+     * Extracts a map of name/value pairs from the given array of characters. Names are expected to be unique.
      *
-     * @param charArray the array of characters that contains a sequence of
-     *                  name/value pairs
-     * @param offset    - the initial offset.
-     * @param length    - the length.
+     * @param charArray the array of characters that contains a sequence of name/value pairs
+     * @param offset - the initial offset.
+     * @param length - the length.
      * @param separator the name/value pairs separator
      * @return a map of name/value pairs
      */
@@ -308,16 +294,16 @@ public final class PartUtils {
             '=', separator
         });
         paramValue = null;
-        if (hasChar() && (charArray[pos] == '=')) {
+        if (hasChar() && charArray[pos] == '=') {
           pos++; // skip '='
           paramValue = parseQuotedToken(new char[]{
               separator
           });
         }
-        if (hasChar() && (charArray[pos] == separator)) {
+        if (hasChar() && charArray[pos] == separator) {
           pos++; // skip separator
         }
-        if ((paramName != null) && (paramName.length() > 0)) {
+        if (paramName != null && paramName.length() > 0) {
           if (this.lowerCaseNames) {
             paramName = paramName.toLowerCase(Locale.ENGLISH);
           }

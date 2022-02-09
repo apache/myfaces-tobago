@@ -93,28 +93,32 @@ public class Command {
   }
 
   public Command(final FacesContext facesContext, UIComponent facetComponent, final String focusId) {
+    final UIComponent facet;
     if (facetComponent instanceof UIForm && facetComponent.getChildCount() == 1) {
       Deprecation.LOG.warn("Please don't use a form, but a command with immediate=true instead.");
-      facetComponent = facetComponent.getChildren().get(0);
+      facet = facetComponent.getChildren().get(0);
+    } else {
+      facet = facetComponent;
     }
-    this.action = facetComponent.getClientId(facesContext);
+
+    this.action = facet.getClientId(facesContext);
     // transition == true is the default
-    if (!ComponentUtils.getBooleanAttribute(facetComponent, Attributes.TRANSITION)) {
+    if (!ComponentUtils.getBooleanAttribute(facet, Attributes.TRANSITION)) {
       this.transition = Boolean.FALSE;
     }
-    final String target = ComponentUtils.getStringAttribute(facetComponent, Attributes.TARGET);
-    if (target != null) {
-      this.target = target;
+    final String targetAttribute = ComponentUtils.getStringAttribute(facet, Attributes.TARGET);
+    if (targetAttribute != null) {
+      this.target = targetAttribute;
     }
-    if (facetComponent instanceof AbstractUICommand
-        && ((AbstractUICommand) facetComponent).getRenderedPartially().length > 0) {
+    if (facet instanceof AbstractUICommand
+        && ((AbstractUICommand) facet).getRenderedPartially().length > 0) {
       this.partially = ComponentUtils.evaluateClientIds(
-          facesContext, facetComponent, ((UICommand) facetComponent).getRenderedPartially());
+          facesContext, facet, ((UICommand) facet).getRenderedPartially());
     } else {
-      String facetAction = (String) facetComponent.getAttributes().get(Attributes.ONCLICK);
+      String facetAction = (String) facet.getAttributes().get(Attributes.ONCLICK);
       if (facetAction != null) {
         // Replace @autoId
-        facetAction = StringUtils.replace(facetAction, "@autoId", facetComponent.getClientId(facesContext));
+        facetAction = StringUtils.replace(facetAction, "@autoId", facet.getClientId(facesContext));
         // XXX this case is deprecated.
         // not allowed with Content Security Policy (CSP)
         this.script = facetAction;
@@ -124,12 +128,12 @@ public class Command {
       }
     }
 
-    final int delay = ComponentUtils.getIntAttribute(facetComponent, Attributes.DELAY);
-    if (delay > 0) {
-      this.delay = delay;
+    final int delayAttribute = ComponentUtils.getIntAttribute(facet, Attributes.DELAY);
+    if (delayAttribute > 0) {
+      this.delay = delayAttribute;
     }
     // omit == false is the default
-    if (ComponentUtils.getBooleanAttribute(facetComponent, Attributes.OMIT)) {
+    if (ComponentUtils.getBooleanAttribute(facet, Attributes.OMIT)) {
       this.omit = Boolean.TRUE;
     }
   }
@@ -222,6 +226,7 @@ public class Command {
   /**
    * @deprecated Script will not work when CSP is activated
    */
+  @Deprecated
   public String getScript() {
     return script;
   }

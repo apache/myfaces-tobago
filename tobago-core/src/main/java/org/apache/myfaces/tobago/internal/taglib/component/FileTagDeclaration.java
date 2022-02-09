@@ -51,7 +51,7 @@ import javax.faces.component.UIInput;
 
 /**
  * Renders a file input field.
- * <p />
+ * <p/>
  * For content constraints please use <a href="validateFileItem.html">tc:validateFileItem</a>.
  */
 @Tag(name = "file")
@@ -79,7 +79,7 @@ public interface FileTagDeclaration
    */
   @TagAttribute()
   @UIComponentTagAttribute(
-      type = { "javax.servlet.http.Part", "javax.servlet.http.Part[]" },
+      type = {"javax.servlet.http.Part", "javax.servlet.http.Part[]"},
       expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
 }

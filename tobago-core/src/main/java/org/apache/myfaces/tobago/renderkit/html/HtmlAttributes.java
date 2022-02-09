@@ -51,40 +51,64 @@ public final class HtmlAttributes {
   public static final String METHOD = "method";
   public static final String MULTIPLE = "multiple";
   public static final String NAME = "name";
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   public static final String ONBLUR = "onblur";
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   public static final String ONCHANGE = "onchange";
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   public static final String ONCLICK = "onclick";
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   public static final String ONDBLCLICK = "ondblclick";
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   public static final String ONFOCUS = "onfocus";
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   public static final String ONFOCUSIN = "onfocusin";
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   public static final String ONKEYDOWN = "onkeydown";
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   public static final String ONKEYPRESS = "onkeypress";
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   public static final String ONKEYUP = "onkeyup";
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   public static final String ONLOAD = "onload";
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   public static final String ONMOUSEOVER = "onmouseover";
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   public static final String ONMOUSEOUT = "onmouseout";
   public static final String PATTERN = "pattern";
@@ -100,7 +124,9 @@ public final class HtmlAttributes {
   public static final String SELECTED = "selected";
   public static final String SIZE = "size";
   public static final String SRC = "src";
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   public static final String STYLE = "style";
   public static final String SUMMARY = "summary";

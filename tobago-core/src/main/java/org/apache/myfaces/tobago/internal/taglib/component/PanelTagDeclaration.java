@@ -34,8 +34,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
 import javax.faces.component.UIPanel;
 
 /**
- * Intended for use in situations when only one UIComponent child can be
- * nested, such as in the case of facets.
+ * Intended for use in situations when only one UIComponent child can be nested, such as in the case of facets.
  */
 @Tag(name = "panel")
 @UIComponentTag(
@@ -46,10 +45,10 @@ import javax.faces.component.UIPanel;
     rendererType = RendererTypes.PANEL,
     interfaces = "org.apache.myfaces.tobago.component.SupportsMarkup",
     facets = {
-    @Facet(name= Facets.RELOAD, description = "Contains an instance of UIReload",
+        @Facet(name = Facets.RELOAD, description = "Contains an instance of UIReload",
             allowedChildComponenents = "org.apache.myfaces.tobago.Reload"),
-    @Facet(name=Facets.LAYOUT, description = "Contains an instance of AbstractUILayoutBase",
+        @Facet(name = Facets.LAYOUT, description = "Contains an instance of AbstractUILayoutBase",
             allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
-public interface PanelTagDeclaration 
+public interface PanelTagDeclaration
     extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup, HasCurrentMarkup, HasTip {
 }

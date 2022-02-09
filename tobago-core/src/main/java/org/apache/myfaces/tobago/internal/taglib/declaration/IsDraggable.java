@@ -35,8 +35,7 @@ public interface IsDraggable {
   void setDraggable(String draggable);
 
   /**
-   * Indicate draggable of this component.
-   * Possible value is 'none'. But this can be overridden in the theme.
+   * Indicate draggable of this component. Possible value is 'none'. But this can be overridden in the theme.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.String[]")

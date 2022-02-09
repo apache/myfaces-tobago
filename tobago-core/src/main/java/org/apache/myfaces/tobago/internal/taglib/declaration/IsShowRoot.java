@@ -25,9 +25,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface IsShowRoot {
 
   /**
-   * Only applicable in the case that the data model is a tree.
-   * This flag indicates that the root node should be displayed.
-   * Often in tree structures the root node is special and should not be displayed.
+   * Only applicable in the case that the data model is a tree. This flag indicates that the root node should be
+   * displayed. Often in tree structures the root node is special and should not be displayed.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")

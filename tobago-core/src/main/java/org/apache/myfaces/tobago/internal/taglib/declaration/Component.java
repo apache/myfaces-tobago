@@ -29,21 +29,15 @@ public interface Component {
   void setId(String s);
 
   /**
-   * Flag indicating whether or not this component should be rendered
-   * (during Render Response Phase), or processed on any subsequent form submit.
-   *
-   * @param s
+   * Flag indicating whether or not this component should be rendered (during Render Response Phase), or processed on
+   * any subsequent form submit.
    */
 
   @TagAttribute
   void setRendered(String s);
 
   /**
-   * The value binding expression linking this component to a property
-   * in a backing bean
-   *
-   * @param binding
-   * @throws JspException
+   * The value binding expression linking this component to a property in a backing bean
    */
 
   @TagAttribute

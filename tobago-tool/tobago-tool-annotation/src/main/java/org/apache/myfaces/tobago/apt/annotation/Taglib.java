@@ -30,8 +30,12 @@ import java.lang.annotation.Target;
 public @interface Taglib {
 
   String shortName();
+
   String uri();
+
   String name();
+
   String displayName();
-  String [] listener() default {};
+
+  String[] listener() default {};
 }

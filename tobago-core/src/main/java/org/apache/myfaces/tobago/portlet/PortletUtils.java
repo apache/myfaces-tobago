@@ -43,8 +43,8 @@ public final class PortletUtils {
   }
 
   /**
-   * The Portlet API is optional in the class path. We are only allowed to check instance of e. g. PortletRequest,
-   * if the API exists.
+   * The Portlet API is optional in the class path. We are only allowed to check instance of e. g. PortletRequest, if
+   * the API exists.
    *
    * @return Are the Portlet classes available?
    */

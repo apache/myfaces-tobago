@@ -24,10 +24,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 public interface HasResource {
   /**
-   * Link to an internal resource.
-   * Resources will be processed by the resource management.
-   * E. g. define help.html and it will be served help_es.html or help_de.html if available.
-   * For JSF-Pages you have to set the jsfResource attribute.
+   * Link to an internal resource. Resources will be processed by the resource management. E. g. define help.html and it
+   * will be served help_es.html or help_de.html if available. For JSF-Pages you have to set the jsfResource attribute.
    *
    * @param resource The internal resource.
    * @see #setJsfResource(String)
@@ -37,9 +35,8 @@ public interface HasResource {
   void setResource(String resource);
 
   /**
-   * Flag indicating that the resource referenced by the resource attribute is a jsf resource.
-   * That means that the url has to be processed to change the prefix or suffix (e. g. *.jsf or
-   * /faces/*). Default is false.
+   * Flag indicating that the resource referenced by the resource attribute is a jsf resource. That means that the url
+   * has to be processed to change the prefix or suffix (e. g. *.jsf or /faces/*). Default is false.
    *
    * @param jsfResource Is the Resource a JSF page or not?
    */

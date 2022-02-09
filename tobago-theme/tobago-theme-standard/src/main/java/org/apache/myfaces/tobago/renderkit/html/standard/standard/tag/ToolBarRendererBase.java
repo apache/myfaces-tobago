@@ -124,6 +124,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       final FacesContext facesContext, final UIToolBar toolBar, final AbstractUICommand command,
       final TobagoResponseWriter writer, Measure width) throws IOException {
 
+    Measure result = width;
     final List<SelectItem> items;
 
     UIMenuSelectOne radio = (UIMenuSelectOne) command.getFacet(Facets.RADIO);
@@ -177,8 +178,8 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
         }
 
         final CommandMap map = new CommandMap(new Command());
-        width = renderToolbarButton(
-            facesContext, toolBar, command, writer, checked, width, map, formattedValue);
+        result = renderToolbarButton(
+            facesContext, toolBar, command, writer, checked, result, map, formattedValue);
       }
 
       writer.startElement(HtmlElements.INPUT, null);
@@ -188,7 +189,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       writer.endElement(HtmlElements.INPUT);
       writer.endElement(HtmlElements.SPAN);
     }
-    return width;
+    return result;
   }
 
   // todo: remove component creation in renderer, for JSF 2.0
@@ -198,6 +199,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       final FacesContext facesContext, final UIToolBar toolBar, final AbstractUICommand command,
       final TobagoResponseWriter writer, Measure width) throws IOException {
 
+    Measure result = width;
     UIComponent checkbox = command.getFacet(Facets.CHECKBOX);
     if (checkbox == null) {
       checkbox = CreateComponentUtils.createUISelectBooleanFacetWithId(facesContext, command);
@@ -211,7 +213,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
         = checkbox instanceof SupportsMarkup ? ((SupportsMarkup) checkbox).getCurrentMarkup() : Markup.NULL;
     writer.writeClassAttribute(Classes.createWorkaround("toolBar", "selectBoolean", itemMarkup));
     final CommandMap map = new CommandMap(new Command());
-    width = renderToolbarButton(facesContext, toolBar, command, writer, checked, width, map, null);
+    result = renderToolbarButton(facesContext, toolBar, command, writer, checked, result, map, null);
 
     writer.startElement(HtmlElements.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
@@ -220,7 +222,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.INPUT);
     writer.endElement(HtmlElements.SPAN);
 
-    return width;
+    return result;
   }
 
   private Measure renderToolbarButton(
@@ -372,7 +374,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       openerStyle.setLeft(openerStyle.getLeft().add(buttonStyle.getWidth()));
       buttonStyle.setWidth(buttonStyle.getWidth().add(menuStyle.getWidth()));
     }
-    
+
     // start rendering
     writer.startElement(HtmlElements.SPAN, command);
     Markup itemMarkup = command instanceof SupportsMarkup ? ((SupportsMarkup) command).getCurrentMarkup() : Markup.NULL;

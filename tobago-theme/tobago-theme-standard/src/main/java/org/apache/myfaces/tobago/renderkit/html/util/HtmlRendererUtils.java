@@ -78,6 +78,7 @@ public final class HtmlRendererUtils {
   }
 
   /** @deprecated since 2.0.0, because of CSP */
+  @Deprecated
   private static boolean renderErrorFocusId(final FacesContext facesContext, final UIInput input) throws IOException {
     if (ComponentUtils.isError(input)) {
       if (!FacesContext.getCurrentInstance().getExternalContext().getRequestMap().containsKey(ERROR_FOCUS_KEY)) {
@@ -105,6 +106,7 @@ public final class HtmlRendererUtils {
   }
 
   /** @deprecated since 2.0.0, because of CSP */
+  @Deprecated
   public static void renderFocusId(final FacesContext facesContext, final UIComponent component)
       throws IOException {
     if (component instanceof UIInput) {
@@ -113,6 +115,7 @@ public final class HtmlRendererUtils {
   }
 
   /** @deprecated since 2.0.0, because of CSP */
+  @Deprecated
   public static void renderFocusId(final FacesContext facesContext, final UIInput component)
       throws IOException {
     if (renderErrorFocusId(facesContext, component)) {
@@ -359,15 +362,16 @@ public final class HtmlRendererUtils {
   }
 
   public static String addTip(String title, final Object tip) {
+    String result = title;
     if (tip != null) {
-      if (title != null && title.length() > 0) {
-        title += " :: ";
+      if (result != null && result.length() > 0) {
+        result += " :: ";
       } else {
-        title = "";
+        result = "";
       }
-      title += tip;
+      result += tip;
     }
-    return title;
+    return result;
   }
 
   /**
@@ -509,6 +513,7 @@ public final class HtmlRendererUtils {
    * @deprecated Since 2.0.3, please use {@link org.apache.myfaces.tobago.util.ComponentUtils#evaluateClientIds(
    * javax.faces.context.FacesContext, javax.faces.component.UIComponent, String[])}
    */
+  @Deprecated
   public static String[] getComponentIdsAsList(
       final FacesContext context, final UIComponent component, final String[] componentIds) {
     return ComponentUtils.evaluateClientIds(context, component, componentIds);
@@ -518,6 +523,7 @@ public final class HtmlRendererUtils {
    * @deprecated Since 2.0.3, please use {@link org.apache.myfaces.tobago.util.ComponentUtils#evaluateClientId(
    * javax.faces.context.FacesContext, javax.faces.component.UIComponent, String)}
    */
+  @Deprecated
   public static String getComponentId(
       final FacesContext context, final UIComponent component, final String componentId) {
     return ComponentUtils.evaluateClientId(context, component, componentId);
@@ -564,6 +570,7 @@ public final class HtmlRendererUtils {
   /**
    * @deprecated since Tobago 1.5.0. Please use getTitleFromTipAndMessages and write it out.
    */
+  @Deprecated
   public static void renderImageTip(final UIComponent component, final TobagoResponseWriter writer) throws IOException {
     final Object objTip = component.getAttributes().get(Attributes.TIP);
     if (objTip != null) {

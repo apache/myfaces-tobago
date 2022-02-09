@@ -37,8 +37,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
 import javax.faces.component.UIColumn;
 
 /**
- * Creates a tree node inside of a sheet (also known as tree table).
- * This component represents a single node inside a tree structure.
+ * Creates a tree node inside of a sheet (also known as tree table). This component represents a single node inside a
+ * tree structure.
  */
 @SuppressWarnings("ALL")
 @Tag(name = "columnNode")

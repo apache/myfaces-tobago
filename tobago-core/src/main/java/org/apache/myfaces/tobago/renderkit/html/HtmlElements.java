@@ -60,6 +60,9 @@ public final class HtmlElements {
   public static final String TH = "th";
   public static final String TITLE = "title";
   public static final String TR = "tr";
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static final String U = "u";
   public static final String UL = "ul";

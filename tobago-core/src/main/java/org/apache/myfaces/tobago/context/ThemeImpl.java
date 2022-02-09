@@ -144,14 +144,14 @@ public class ThemeImpl implements Theme, Serializable {
       renderersConfig = new RenderersConfigImpl();
     }
     if (!renderersConfig.isMerged()) {
-      final ThemeImpl fallback = getFallback();
-      if (fallback != null) {
-        fallback.resolveRendererConfig(rendererConfigFromTobagoConfig);
-        final RenderersConfigImpl fallbackRenderersConfig = fallback.getRenderersConfigImpl();
+      final ThemeImpl fallbackTheme = getFallback();
+      if (fallbackTheme != null) {
+        fallbackTheme.resolveRendererConfig(rendererConfigFromTobagoConfig);
+        final RenderersConfigImpl fallbackRenderersConfig = fallbackTheme.getRenderersConfigImpl();
         if (fallbackRenderersConfig != null) {
           renderersConfig.merge(fallbackRenderersConfig, false);
           if (LOG.isDebugEnabled()) {
-            LOG.debug("merge markupconfig from {} for {}", fallback.getName(), getName());
+            LOG.debug("merge markupconfig from {} for {}", fallbackTheme.getName(), getName());
           }
         }
       }
@@ -167,11 +167,11 @@ public class ThemeImpl implements Theme, Serializable {
 
   public void resolveResources() {
     checkLocked();
-    final ThemeImpl fallback = getFallback();
-    if (fallback != null) {
-      fallback.resolveResources();
-      addResources(fallback.getProductionResources());
-      addResources(fallback.getResources());
+    final ThemeImpl fallbackTheme = getFallback();
+    if (fallbackTheme != null) {
+      fallbackTheme.resolveResources();
+      addResources(fallbackTheme.getProductionResources());
+      addResources(fallbackTheme.getResources());
     }
   }
 

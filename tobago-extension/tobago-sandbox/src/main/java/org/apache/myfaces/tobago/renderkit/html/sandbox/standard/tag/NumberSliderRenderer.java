@@ -78,8 +78,8 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
     int sliderWidth = 100; // fixme
     int inputWidth = 50; // fixme;
     if (style.getWidth() != null && style.getWidth().getPixel() >= 0) {
-      sliderWidth = (width * sliderWidthPerc) / 100;
-      inputWidth = (width * (100 - sliderWidthPerc)) / 100;
+      sliderWidth = width * sliderWidthPerc / 100;
+      inputWidth = width * (100 - sliderWidthPerc) / 100;
     }
 
     writer.startElement(HtmlElements.TABLE, slider);

@@ -57,10 +57,10 @@ import javax.faces.component.UIInput;
         "org.apache.myfaces.tobago.Suggest"
     },
     facets = {
-    @Facet(name = Facets.CHANGE,
-        description =
-            "This facet can contain a UICommand that is invoked in a case of a change event from the component")
-        })
+        @Facet(name = Facets.CHANGE,
+            description =
+                "This facet can contain a UICommand that is invoked in a case of a change event from the component")
+    })
 public interface InTagDeclaration
     extends HasIdBindingAndRendered, HasConverter, IsReadonly, IsDisabled, IsRequired, HasTip, IsPassword,
     HasSuggestMethod, HasMarkup, HasCurrentMarkup, InputTagDeclaration, HasInputLabel,

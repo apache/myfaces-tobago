@@ -166,7 +166,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
           }
 
           if (token instanceof AutoLayoutToken || token instanceof RelativeLayoutToken) {
-            if ((component.isRendered() || isRigid())) {
+            if (component.isRendered() || isRigid()) {
               if (origin.getSpan(orientation) == 1) {
                 intervalList.add(new Interval(component, orientation));
               } else {
@@ -190,7 +190,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
           } else {
             heads[i].setCurrent(Measure.valueOf(100));
             LOG.warn("Found an 'auto' token in {} definition, but there is no component inside with span = 1! "
-                + "So the value for 'auto' can't be evaluated (clientId={}). Using 100px.",
+                    + "So the value for 'auto' can't be evaluated (clientId={}). Using 100px.",
                 orientation == Orientation.HORIZONTAL ? "columns" : "rows",
                 getClientId(getFacesContext()));
           }
@@ -416,8 +416,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
   }
 
   /**
-   * Compute the sum of the space between the cells.
-   * There is one "space" less than cells that are not void.
+   * Compute the sum of the space between the cells. There is one "space" less than cells that are not void.
    */
   private Measure computeSpacing(final Orientation orientation, final int startIndex, final int length) {
 
@@ -425,7 +424,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
 
     int count = 0;
     for (int i = startIndex; i < startIndex + length; i++) {
-      if ((heads[i].isRendered())
+      if (heads[i].isRendered()
           && (heads[i].getCurrent() == null || heads[i].getCurrent().greaterThan(Measure.ZERO))) {
         count++;
       }
@@ -445,6 +444,9 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
 
   public abstract void setColumns(String columns);
 
+  /**
+   * @deprecated by API
+   */
   @Deprecated
   public abstract Measure getCellspacing();
 

@@ -24,12 +24,10 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 public interface IsOmit {
   /**
-   * Flag indicating that the action of this element, will not be executed from client side
-   * (e. g. when the user clicks a button.
-   * When setting this value to true, the action will not be executed by the Tobago, but it can executed
-   * by JavaScript.
-   * This attribute is useful, when you want to add JavaScript event handlers to commands manually.
-   * In this case you usually don't want a submit with a full reload of the page.
+   * Flag indicating that the action of this element, will not be executed from client side (e. g. when the user clicks
+   * a button. When setting this value to true, the action will not be executed by the Tobago, but it can executed by
+   * JavaScript. This attribute is useful, when you want to add JavaScript event handlers to commands manually. In this
+   * case you usually don't want a submit with a full reload of the page.
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")

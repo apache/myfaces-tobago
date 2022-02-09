@@ -121,7 +121,7 @@ public class Address implements Serializable {
       jobEmailStr = jobEmail.getEmail();
     }
   }
-  
+
   @PostLoad
   private void load() {
     if (countryCode != null && languageCode != null) {

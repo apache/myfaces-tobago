@@ -39,8 +39,8 @@ public class TobagoContext {
   }
 
   /**
-   * Returns the dimension of the page. Might be useful to set the size of a popup.
-   * E. g. <code>width="#{tobagoContext.pageDimension.width.pixel - 100}"</code>
+   * Returns the dimension of the page. Might be useful to set the size of a popup. E. g.
+   * <code>width="#{tobagoContext.pageDimension.width.pixel - 100}"</code>
    */
   public Dimension getPageDimension() {
     final FacesContext facesContext = FacesContext.getCurrentInstance();

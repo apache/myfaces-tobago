@@ -61,7 +61,7 @@ public final class RendererTypes {
   public static final String SELECT_MANY_BOX = "SelectManyBox";
   public static final String SELECT_MANY_CHECKBOX = "SelectManyCheckbox";
   public static final String SELECT_MANY_LISTBOX = "SelectManyListbox";
-  public static final String SELECT_MANY_SHUTTLE = "SelectManyShuttle";;
+  public static final String SELECT_MANY_SHUTTLE = "SelectManyShuttle";
   public static final String SELECT_ONE_CHOICE = "SelectOneChoice";
   public static final String SELECT_ONE_RADIO = "SelectOneRadio";
   public static final String SELECT_ONE_LISTBOX = "SelectOneListbox";

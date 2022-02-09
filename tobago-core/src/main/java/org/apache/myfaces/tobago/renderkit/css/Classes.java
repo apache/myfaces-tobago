@@ -33,9 +33,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 /**
- * Builds the CSS class attribute of tags.
- * The names will be generated in a formal way, so generic name (and abbrevation) are possible.
- * The class works like a factory, so caching will be possible.
+ * Builds the CSS class attribute of tags. The names will be generated in a formal way, so generic name (and
+ * abbrevation) are possible. The class works like a factory, so caching will be possible.
  * <p/>
  * The default naming conventions allow these values:<br/>
  *
@@ -45,7 +44,7 @@ import javax.faces.context.FacesContext;
  * <li>tobago-&lt;rendererName>-&lt;subElement></li>
  * <li>tobago-&lt;rendererName>-&lt;subElement>-markup-&lt;markupName></li>
  * </ul>
- *
+ * <p>
  * where
  * <ul>
  * <li>&lt;rendererName>, &lt;subElement> and &lt;markupName> must only contain ASCII-chars and -numbers</li>
@@ -56,7 +55,6 @@ import javax.faces.context.FacesContext;
  * If the markup contains more than one name, there will be generated more than one output string.
  * E.g.: UIIn with Markup [readonly, error] will get the class
  * "tobago-in tobago-in-markup-readonly tobago-in-markup-error".
- *
  */
 public final class Classes {
 
@@ -139,7 +137,9 @@ public final class Classes {
     return stringValue;
   }
 
-  /** @deprecated This workaround will be removed later */
+  /**
+   * @deprecated This workaround will be removed later
+   */
   @Deprecated
   public static String requiredWorkaround(final UIComponent component) {
     final String rendererName = StringUtils.uncapitalize(component.getRendererType());
