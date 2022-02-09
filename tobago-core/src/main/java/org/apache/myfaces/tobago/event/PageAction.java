@@ -63,7 +63,7 @@ public enum PageAction {
   public String getToken() {
     return token;
   }
-  
+
   private static final Map<String, PageAction> MAPPING;
 
   static {
@@ -75,7 +75,6 @@ public enum PageAction {
   }
 
   /**
-   * 
    * @param name Name of the PageAction
    * @return The matching page action (can't be null).
    * @throws IllegalArgumentException When the name doesn't match any PageAction.

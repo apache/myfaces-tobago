@@ -126,7 +126,7 @@ public final class FacesContextUtils {
     }
     return list;
   }
-  
+
   public static void addScriptFile(final FacesContext context, final String file) {
     List<String> list = (List<String>) context.getAttributes().get(TOBAGO_SCRIPT_FILES);
     if (list == null) {
@@ -143,7 +143,7 @@ public final class FacesContextUtils {
   @Deprecated
   public static Set<String> getScriptBlocks(final FacesContext context) {
     final Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_SCRIPT_BLOCKS);
-     if (set == null) {
+    if (set == null) {
       return Collections.emptySet();
     }
     return set;

@@ -23,8 +23,8 @@ import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.Measure;
 
 /**
- * BankHead represents the head information of a bank like the token for this bank, the computed
- * "current" and "minimum" measure and if it will be rendered. A bank is a generalization for columns and rows.
+ * BankHead represents the head information of a bank like the token for this bank, the computed "current" and "minimum"
+ * measure and if it will be rendered. A bank is a generalization for columns and rows.
  */
 public class BankHead {
 

@@ -23,14 +23,10 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * Buffering scheme: we use a tremendously simple buffering
- * scheme that greatly reduces the number of calls into the
- * Writer/PrintWriter.  In practice this has produced significant
- * measured performance gains (at least in JDK 1.3.1).  We only
- * support adding single characters to the buffer, so anytime
- * multiple characters need to be written out, the entire buffer
- * gets flushed.  In practice, this is good enough, and keeps
- * the core simple.
+ * Buffering scheme: we use a tremendously simple buffering scheme that greatly reduces the number of calls into the
+ * Writer/PrintWriter.  In practice this has produced significant measured performance gains (at least in JDK 1.3.1).
+ * We only support adding single characters to the buffer, so anytime multiple characters need to be written out, the
+ * entire buffer gets flushed.  In practice, this is good enough, and keeps the core simple.
  */
 public class ResponseWriterBuffer {
 
@@ -47,8 +43,7 @@ public class ResponseWriterBuffer {
   }
 
   /**
-   * Add a character to the buffer, flushing the buffer if the buffer is
-   * full, and returning the new buffer index
+   * Add a character to the buffer, flushing the buffer if the buffer is full, and returning the new buffer index
    */
   public void addToBuffer(final char ch) throws IOException {
     if (bufferIndex >= BUFFER_SIZE) {
@@ -70,8 +65,7 @@ public class ResponseWriterBuffer {
   }
 
   /**
-   * Flush the contents of the buffer to the output stream
-   * and return the reset buffer index
+   * Flush the contents of the buffer to the output stream and return the reset buffer index
    */
   public void flushBuffer() throws IOException {
     if (bufferIndex > 0) {

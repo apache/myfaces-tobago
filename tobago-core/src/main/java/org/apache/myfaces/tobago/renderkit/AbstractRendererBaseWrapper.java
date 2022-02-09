@@ -31,7 +31,7 @@ import javax.faces.convert.ConverterException;
 import java.io.IOException;
 
 public abstract class AbstractRendererBaseWrapper extends RendererBase {
-  
+
   private static final Logger LOG = LoggerFactory.getLogger(AbstractRendererBaseWrapper.class);
 
   @Override
@@ -44,10 +44,12 @@ public abstract class AbstractRendererBaseWrapper extends RendererBase {
   public final void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     getRenderer(facesContext).prepareRender(facesContext, component);
   }
+
   @Override
   public final boolean getPrepareRendersChildren() {
     return getRenderer(FacesContext.getCurrentInstance()).getPrepareRendersChildren();
   }
+
   @Override
   public final void prepareRendersChildren(final FacesContext context, final UIComponent component) throws IOException {
     getRenderer(context).prepareRendersChildren(context, component);
@@ -62,7 +64,7 @@ public abstract class AbstractRendererBaseWrapper extends RendererBase {
   public final void decode(final FacesContext facesContext, final UIComponent component) {
     getRenderer(facesContext).decode(facesContext, component);
   }
-  
+
   @Override
   protected final Object getCurrentValueAsObject(final UIInput input) {
     return getRenderer(FacesContext.getCurrentInstance()).getCurrentValueAsObject(input);
@@ -114,7 +116,7 @@ public abstract class AbstractRendererBaseWrapper extends RendererBase {
     final RendererBase renderer = (RendererBase) ResourceManagerFactory.
         getResourceManager(facesContext).getRenderer(facesContext.getViewRoot(), getRendererType());
     if (renderer == null) {
-      throw new RuntimeException("No renderer found for rendererType='"+ getRendererType()
+      throw new RuntimeException("No renderer found for rendererType='" + getRendererType()
           + "' in wrapper class '" + this.getClass().getName() + "'");
     }
     return renderer;

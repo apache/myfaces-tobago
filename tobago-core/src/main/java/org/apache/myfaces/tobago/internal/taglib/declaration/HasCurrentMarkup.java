@@ -22,10 +22,10 @@ package org.apache.myfaces.tobago.internal.taglib.declaration;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 public interface HasCurrentMarkup {
-  
+
   /**
-   * The current markup is the current internal state of the markup.
-   * It is the same as markup plus additional values like "required", "error", "selected", ....
+   * The current markup is the current internal state of the markup. It is the same as markup plus additional values
+   * like "required", "error", "selected", ....
    */
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.context.Markup",

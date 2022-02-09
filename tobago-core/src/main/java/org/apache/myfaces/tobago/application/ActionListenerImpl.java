@@ -79,7 +79,7 @@ public class ActionListenerImpl implements ActionListener {
       // Retrieve the NavigationHandler instance..
       final NavigationHandler navHandler = application.getNavigationHandler();
       // Invoke nav handling..
-      final String navBinding = (null != expression) ? expression.getExpressionString() : null;
+      final String navBinding = null != expression ? expression.getExpressionString() : null;
       navHandler.handleNavigation(facesContext, navBinding, errorOutcome);
       // Trigger a switch to Render Response if needed
       facesContext.renderResponse();

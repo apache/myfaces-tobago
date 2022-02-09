@@ -242,7 +242,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
             }
             writer.startElement(HtmlElements.IMG, null);
             writer.writeAttribute(HtmlAttributes.SRC, image, true);
-            writer.writeClassAttribute(Classes.create(tab, (label.getLabel() != null? "image-right-margin" : "image")));
+            writer.writeClassAttribute(Classes.create(tab, label.getLabel() != null ? "image-right-margin" : "image"));
             writer.endElement(HtmlElements.IMG);
           }
           if (label.getLabel() != null) {

@@ -33,13 +33,11 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 import javax.faces.component.UICommand;
 
 /**
- * Renders a date picker.
- * The component needs a DateFormat Pattern from a converter. The converter
- * should be an instance of DateTimeConverter and return a valid pattern from
- * the method getPattern()
+ * Renders a date picker. The component needs a DateFormat Pattern from a converter. The converter should be an instance
+ * of DateTimeConverter and return a valid pattern from the method getPattern()
  *
- * @deprecated Since 2.0.0. It's no longer needed, because this is resolved by JavaScript now.
- * Set backward compatibility mode via classic-date-time-picker.
+ * @deprecated Since 2.0.0. It's no longer needed, because this is resolved by JavaScript now. Set backward
+ * compatibility mode via classic-date-time-picker.
  */
 @Deprecated
 @Tag(name = "datePicker")

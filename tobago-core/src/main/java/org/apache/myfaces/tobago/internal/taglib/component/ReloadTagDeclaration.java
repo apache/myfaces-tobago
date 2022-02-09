@@ -52,10 +52,8 @@ public interface ReloadTagDeclaration extends HasIdBindingAndRendered {
   void setUpdate(String update);
 
   /**
-   * Flag indicating that
-   * the update check should be performed
-   * immediately (that is, during Apply Request Values phase) rather than
-   * waiting until Render Response phase.
+   * Flag indicating that the update check should be performed immediately (that is, during Apply Request Values phase)
+   * rather than waiting until Render Response phase.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")

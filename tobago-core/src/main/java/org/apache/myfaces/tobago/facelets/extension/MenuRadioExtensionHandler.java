@@ -57,5 +57,5 @@ public class MenuRadioExtensionHandler extends TobagoMenuExtensionHandler {
   protected String getFacetName() {
     return Facets.RADIO;
   }
-  
+
 }

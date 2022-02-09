@@ -75,8 +75,8 @@ public final class Secret implements Serializable {
   }
 
   /**
-   * Checks that the request contains a parameter {@link org.apache.myfaces.tobago.webapp.Secret#KEY}
-   * which is equals to a secret value in the session.
+   * Checks that the request contains a parameter {@link org.apache.myfaces.tobago.webapp.Secret#KEY} which is equals to
+   * a secret value in the session.
    */
   public static boolean check(final FacesContext facesContext) {
     final Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
@@ -88,7 +88,7 @@ public final class Secret implements Serializable {
 
   private static Secret getSecret(Object session) {
     Secret secret = null;
-    if (session!=null) {
+    if (session != null) {
       if (session instanceof HttpSession) {
         secret = (Secret) ((HttpSession) session).getAttribute(Secret.KEY);
       } else if (PortletUtils.isPortletApiAvailable() && session instanceof PortletSession) {
@@ -117,8 +117,8 @@ public final class Secret implements Serializable {
   }
 
   /**
-   * Create a secret attribute in the session.
-   * Should usually be called in a {@link javax.servlet.http.HttpSessionListener}.
+   * Create a secret attribute in the session. Should usually be called in a {@link
+   * javax.servlet.http.HttpSessionListener}.
    */
   public static void create(final HttpSession session) {
     session.setAttribute(Secret.KEY, new Secret());

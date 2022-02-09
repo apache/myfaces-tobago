@@ -54,24 +54,23 @@ import javax.faces.component.UISelectOne;
     allowedChildComponenents = {
         "javax.faces.SelectItem",
         "javax.faces.SelectItems"
-        },
+    },
     facets = {
-    @Facet(name= Facets.CLICK,
-        description =
-            "This facet can contain a UICommand that is invoked in case of a click event from the component",
-        allowedChildComponenents = "org.apache.myfaces.tobago.Command"),
-    @Facet(name=Facets.CHANGE,
-        description =
-            "This facet can contain a UICommand that is invoked in case of a change event from the component",
-        allowedChildComponenents = "org.apache.myfaces.tobago.Command")
-        })
+        @Facet(name = Facets.CLICK,
+            description =
+                "This facet can contain a UICommand that is invoked in case of a click event from the component",
+            allowedChildComponenents = "org.apache.myfaces.tobago.Command"),
+        @Facet(name = Facets.CHANGE,
+            description =
+                "This facet can contain a UICommand that is invoked in case of a change event from the component",
+            allowedChildComponenents = "org.apache.myfaces.tobago.Command")
+    })
 public interface SelectOneRadioTagDeclaration extends SelectOneTagDeclaration, IsDisabled, IsReadonly, HasId,
     HasTip, IsInline, HasRenderRange, IsRendered, HasBinding, HasConverter, HasInputLabel {
 
   /**
-   * Flag indicating that selecting an Item representing a Value is Required.
-   * If an SelectItem was chosen which underling value is an empty string an
-   * ValidationError occurs and a Error Message is rendered.
+   * Flag indicating that selecting an Item representing a Value is Required. If an SelectItem was chosen which
+   * underling value is an empty string an ValidationError occurs and a Error Message is rendered.
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")

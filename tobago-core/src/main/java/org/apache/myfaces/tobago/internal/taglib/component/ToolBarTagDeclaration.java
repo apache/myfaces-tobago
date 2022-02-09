@@ -31,16 +31,12 @@ import javax.faces.component.UIPanel;
 
 /**
  * <p/>
- * Renders a toolbar.<p />
- * Allowed subcomponents are subtypes of UICommand i.e.
+ * Renders a toolbar.<p /> Allowed subcomponents are subtypes of UICommand i.e.
  * <code>'button'</code> and <code>'link'</code> tags.
- * These are rendered by ToolbarRenderer, so the result has
- * no difference.<p />
- * To add an drop down menu to a button add a facet <code>'dropDownMenu'</code>
- * containing a
+ * These are rendered by ToolbarRenderer, so the result has no difference.<p /> To add an drop down menu to a button add
+ * a facet <code>'dropDownMenu'</code> containing a
  * <a href="menu.html"><code>&lt;tc:menu></code></a>
- * tag to the button. Label's and Image's on those menu tag's are ignored
- * and replaced by the renderer.
+ * tag to the button. Label's and Image's on those menu tag's are ignored and replaced by the renderer.
  * <pre>
  *      &lt;tc:button onclick="alert('test 0')"
  *          label="Alert 0" &gt;
@@ -69,8 +65,8 @@ import javax.faces.component.UIPanel;
         "org.apache.myfaces.tobago.Command"})
 public interface ToolBarTagDeclaration extends PanelTagDeclaration {
   /**
-   * Position of the button label, possible values are: right, bottom, off.
-   * If toolbar is facet of box: bottom is changed to right!
+   * Position of the button label, possible values are: right, bottom, off. If toolbar is facet of box: bottom is
+   * changed to right!
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = AbstractUIToolBar.LABEL_BOTTOM,

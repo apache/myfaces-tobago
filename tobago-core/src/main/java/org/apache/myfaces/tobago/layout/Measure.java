@@ -27,7 +27,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- *  In JSPs the class {@link org.apache.myfaces.tobago.layout.MeasureEditor} will convert the string literals.
+ * In JSPs the class {@link org.apache.myfaces.tobago.layout.MeasureEditor} will convert the string literals.
  */
 public abstract class Measure implements Serializable {
 
@@ -39,7 +39,7 @@ public abstract class Measure implements Serializable {
   public static final Measure MAX = valueOf(Integer.MAX_VALUE);
 
   // todo: refactor and consolidate with LayoutToken
-  
+
   public static Measure valueOf(final Measure value) {
     if (value == null) {
       return ZERO;

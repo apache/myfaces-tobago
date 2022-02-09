@@ -35,10 +35,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
 import javax.faces.component.UIPanel;
 
 /**
- * Renders a popup panel.
- * The popup gets a grid layout manager with columns="auto" and rows="auto" as definition.
- * So a popup should contain only one layout component.
- * The default layout manager can be overwritten with the layout facet.
+ * Renders a popup panel. The popup gets a grid layout manager with columns="auto" and rows="auto" as definition. So a
+ * popup should contain only one layout component. The default layout manager can be overwritten with the layout facet.
  */
 @Tag(name = "popup")
 @UIComponentTag(
@@ -52,14 +50,14 @@ import javax.faces.component.UIPanel;
             description = "Contains an instance of AbstractUILayoutBase",
             allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")}
 )
-public interface PopupTagDeclaration 
+public interface PopupTagDeclaration
     extends HasIdBindingAndRendered, IsGridLayoutComponentWithDimension, IsGridLayoutContainer,
     HasMarkup, HasCurrentMarkup {
 
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setModal(String modal);
-  
+
   /**
    * This value will usually be set by the layout manager.
    *

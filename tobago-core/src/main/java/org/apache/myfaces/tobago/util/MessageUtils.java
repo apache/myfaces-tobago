@@ -32,8 +32,8 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
- * Utility to create and add {@link FacesMessage} object to the context.
- * The message will be internationalized with a bundle in the following order:
+ * Utility to create and add {@link FacesMessage} object to the context. The message will be internationalized with a
+ * bundle in the following order:
  * <ol>
  * <li>Application bundle</li>
  * <li>Tobago bundle</li>

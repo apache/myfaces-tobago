@@ -31,10 +31,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 import javax.faces.component.UIPanel;
 
 /**
-* Renders a menu bar.<br />
-* Add menu bar as facet name="menuBar" to page tag or use it anywhere
-* on page.<br />
-*/
+ * Renders a menu bar.<br /> Add menu bar as facet name="menuBar" to page tag or use it anywhere on page.<br />
+ */
 @Tag(name = "menuBar")
 @BodyContentDescription(
     anyClassOf = {"org.apache.myfaces.tobago.internal.taglib.MenuTag",
@@ -55,7 +53,7 @@ import javax.faces.component.UIPanel;
         "org.apache.myfaces.tobago.SelectBooleanCommand",
         "org.apache.myfaces.tobago.MenuSelectOne",
         "org.apache.myfaces.tobago.MenuSeparator"
-        })
+    })
 public interface MenuBarTagDeclaration
     extends HasIdBindingAndRendered, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup {
 }

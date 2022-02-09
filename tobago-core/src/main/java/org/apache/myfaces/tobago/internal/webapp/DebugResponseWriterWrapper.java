@@ -65,11 +65,17 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
     return new DebugResponseWriterWrapper((TobagoResponseWriter) responseWriter.cloneWithWriter(writer));
   }
 
+  /**
+   * @deprecated by API
+   */
   @Deprecated
   public void writeAttribute(final String name, final Object value, final String property) throws IOException {
     responseWriter.writeAttribute(name, value, property);
   }
 
+  /**
+   * @deprecated by API
+   */
   @Deprecated
   public void writeText(final Object text, final String property) throws IOException {
     responseWriter.writeText(text, property);
@@ -83,6 +89,9 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.writeAttribute(name, value, escape);
   }
 
+  /**
+   * @deprecated by API
+   */
   @Override
   @Deprecated
   public String getStyleClasses() {

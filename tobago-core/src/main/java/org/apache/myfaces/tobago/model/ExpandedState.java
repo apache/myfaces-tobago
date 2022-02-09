@@ -182,11 +182,12 @@ public class ExpandedState implements Serializable {
   /**
    * Collapses all nodes that level are higher or equals the parameter level.
    *
-   * @param level The level to expand.
+   * @param levelParameter The level to expand.
    */
-  public void collapse(int level) {
+  public void collapse(final int levelParameter) {
+
     // to use a symmetric algorithm like in expand
-    level--;
+    int level = levelParameter - 1;
 
     final ArrayList<TreePath> toRemove = new ArrayList<TreePath>();
     if (level < defaultExpandedLevels) {
@@ -227,8 +228,8 @@ public class ExpandedState implements Serializable {
   }
 
   /**
-   * Resets the state to the defaults. After this call, the nodes with level smaller than defaultExpandedLevels
-   * are expanded, the other ones are collapsed.
+   * Resets the state to the defaults. After this call, the nodes with level smaller than defaultExpandedLevels are
+   * expanded, the other ones are collapsed.
    */
   public void reset() {
     expandedSet.clear();

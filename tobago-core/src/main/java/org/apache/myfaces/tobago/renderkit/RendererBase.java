@@ -187,7 +187,7 @@ public class RendererBase extends Renderer {
   public void onComponentCreated(
       final FacesContext facesContext, final UIComponent component, final UIComponent parent) {
   }
-  
+
   protected synchronized ResourceManager getResourceManager() {
     if (resourceManager == null) {
       resourceManager = ResourceManagerFactory.getResourceManager(FacesContext.getCurrentInstance());

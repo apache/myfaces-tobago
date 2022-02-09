@@ -52,12 +52,12 @@ public final class ComponentAttributeUtils {
 
   public static boolean isValueReference(final String value) {
 
-      final int start = value.indexOf("#{");
-      if (start < 0) {
-        return false;
-      }
-      final int end = value.lastIndexOf('}');
-      return (end >=0 && start < end);
+    final int start = value.indexOf("#{");
+    if (start < 0) {
+      return false;
+    }
+    final int end = value.lastIndexOf('}');
+    return end >= 0 && start < end;
   }
 
   /**

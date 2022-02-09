@@ -33,8 +33,8 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * This provides an alternative ResponseWriter interfaces, which allows optimizations.
- * E. g. some attributes needed to to be escaped.
+ * This provides an alternative ResponseWriter interfaces, which allows optimizations. E. g. some attributes needed to
+ * to be escaped.
  * <p/>
  */
 public abstract class TobagoResponseWriter extends ResponseWriter {
@@ -54,7 +54,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   @Override
   public abstract void endElement(String name) throws IOException;
-    
+
   public abstract void write(String string) throws IOException;
 
   @Override
@@ -81,8 +81,8 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   // others (not from ResponseWriter)
 
   /**
-   * Writes a string attribute. The renderer may set escape=false to switch of escaping of the string,
-   * if it is not necessary.
+   * Writes a string attribute. The renderer may set escape=false to switch of escaping of the string, if it is not
+   * necessary.
    */
   public abstract void writeAttribute(String name, String string, boolean escape) throws IOException;
 
@@ -104,6 +104,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   /**
    * Writes a property as attribute. The value will be escaped.
+   *
    * @deprecated since Tobago 2.0.9
    */
   @Deprecated
@@ -127,6 +128,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   /**
    * Write the class attribute. The value will not escaped.
+   *
    * @deprecated since Tobago 1.5.0
    */
   @Deprecated
@@ -136,17 +138,22 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   /**
    * Write the class attribute. The value will not escaped.
+   *
    * @param classes The abstract representation of the css class string, normally created by the renderer.
    */
   public void writeClassAttribute(final Classes classes) throws IOException {
     writeAttribute(HtmlAttributes.CLASS, classes.getStringValue(), false);
   }
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public abstract String getStyleClasses();
 
   /**
    * Write the class attribute. The value will not escaped.
+   *
    * @deprecated since Tobago 1.5.0
    */
   @Deprecated
@@ -169,6 +176,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   /**
    * Write the style attribute. The value will not escaped.
+   *
    * @deprecated since 1.5.0, use writeStyleAttribute(Style) instead.
    */
   @Deprecated

@@ -36,8 +36,8 @@ import javax.faces.webapp.ValidatorELTag;
 import javax.servlet.jsp.JspException;
 
 /**
- * Register an FileItemValidator instance on the UIComponent
- * associated with the closest parent UIComponent custom action.
+ * Register an FileItemValidator instance on the UIComponent associated with the closest parent UIComponent custom
+ * action.
  */
 @Tag(name = "validateFileItem")
 @ValidatorTag(

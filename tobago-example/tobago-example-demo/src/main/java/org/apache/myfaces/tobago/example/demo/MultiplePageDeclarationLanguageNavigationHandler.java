@@ -44,10 +44,12 @@ public class MultiplePageDeclarationLanguageNavigationHandler extends Navigation
     this.navigationHandler = navigationHandler;
   }
 
-  public void handleNavigation(final FacesContext facesContext, final String fromAction, String outcome) {
+  public void handleNavigation(
+      final FacesContext facesContext, final String fromAction, final String outcomeParameter) {
 
     final String original = outcome;
-    
+    String outcome = outcomeParameter;
+
     if (outcome != null) {
       final PageDeclarationLanguageBean bean = (PageDeclarationLanguageBean)
           VariableResolverUtils.resolveVariable(facesContext, "pageDeclarationLanguage");

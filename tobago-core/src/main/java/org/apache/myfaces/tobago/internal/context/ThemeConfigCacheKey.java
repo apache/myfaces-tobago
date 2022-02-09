@@ -73,12 +73,12 @@ public final class ThemeConfigCacheKey {
     result = 31 * result + (markup != null ? markup.hashCode() : 0);
     return result;
   }
-  
+
   @Override
   public int hashCode() {
     return hashCode;
   }
-  
+
 
   @Override
   public String toString() {

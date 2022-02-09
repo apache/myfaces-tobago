@@ -47,7 +47,7 @@ public class SuggestRenderer extends InputRendererBase {
 
     final UISuggest suggest = (UISuggest) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    final String id  = suggest.getClientId(facesContext);
+    final String id = suggest.getClientId(facesContext);
     final UIIn in = (UIIn) suggest.getParent();
     String inClientId = in.getClientId(facesContext);
     final MethodExpression suggestMethodExpression = suggest.getSuggestMethodExpression();

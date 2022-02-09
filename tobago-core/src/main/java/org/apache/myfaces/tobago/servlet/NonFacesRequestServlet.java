@@ -89,8 +89,7 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
   public abstract String invokeApplication(FacesContext facesContext);
 
   /**
-   * will be called to initialize the first ViewRoot,
-   * may be overwritten by extended classes
+   * will be called to initialize the first ViewRoot, may be overwritten by extended classes
    */
   public String getFromViewId() {
     return "";

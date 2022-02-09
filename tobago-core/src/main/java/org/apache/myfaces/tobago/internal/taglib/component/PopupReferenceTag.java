@@ -35,8 +35,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
- * Register an PopupActionListener instance on the UIComponent
- * associated with the closest parent UIComponent.
+ * Register an PopupActionListener instance on the UIComponent associated with the closest parent UIComponent.
  */
 @Tag(name = "popupReference")
 @SimpleTag(
@@ -58,7 +57,7 @@ public abstract class PopupReferenceTag extends TagSupport {
     }
 
     if (!tag.getCreated()) {
-      return (SKIP_BODY);
+      return SKIP_BODY;
     }
 
     final UIComponent component = tag.getComponentInstance();
@@ -80,15 +79,15 @@ public abstract class PopupReferenceTag extends TagSupport {
     } else {
       component.setValueExpression(Attributes.FOR, forValue);
     }
-    return (SKIP_BODY);
+    return SKIP_BODY;
   }
 
   /**
    * The id of a Popup.
    */
   @TagAttribute(required = true, name = "for", type = "java.lang.String")
-  public void setFor(final ValueExpression forValue) {
-    this.forValue = forValue;
+  public void setFor(final ValueExpression forValueParameter) {
+    this.forValue = forValueParameter;
   }
 
 }

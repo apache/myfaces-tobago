@@ -25,8 +25,8 @@ import java.math.BigInteger;
 import java.util.Enumeration;
 
 /**
- * Builds a tree with the iterations of the <a href="http://en.wikipedia.org/wiki/Cantor_set">Cantor set</a>.
- * The tree is infinitive, so it will be created on the fly.
+ * Builds a tree with the iterations of the <a href="http://en.wikipedia.org/wiki/Cantor_set">Cantor set</a>. The tree
+ * is infinitive, so it will be created on the fly.
  */
 public class CantorInterval extends DefaultMutableTreeNode {
 
@@ -106,14 +106,16 @@ public class CantorInterval extends DefaultMutableTreeNode {
       denominator = BigInteger.ONE;
     }
 
-    private Fraction(BigInteger numerator, BigInteger denominator) {
-      while (numerator.remainder(THREE).equals(BigInteger.ZERO)
-          && denominator.remainder(THREE).equals(BigInteger.ZERO)) {
-        numerator = numerator.divide(THREE);
-        denominator = denominator.divide(THREE);
+    private Fraction(BigInteger numeratorParameter, BigInteger denominatorParameter) {
+      BigInteger n = numeratorParameter;
+      BigInteger d = denominatorParameter;
+      while (n.remainder(THREE).equals(BigInteger.ZERO)
+          && d.remainder(THREE).equals(BigInteger.ZERO)) {
+        n = n.divide(THREE);
+        d = d.divide(THREE);
       }
-      this.numerator = numerator;
-      this.denominator = denominator;
+      this.numerator = n;
+      this.denominator = d;
     }
 
     public Fraction add(final Fraction value) {

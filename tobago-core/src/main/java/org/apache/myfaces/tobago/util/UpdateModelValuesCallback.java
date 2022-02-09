@@ -29,7 +29,7 @@ public class UpdateModelValuesCallback implements javax.faces.component.ContextC
 
   public void invokeContextCallback(final FacesContext facesContext, final UIComponent component) {
     if (facesContext.getExternalContext().getRequestMap().get(AbstractUIForm.SUBMITTED_MARKER) == null
-        || ((Boolean) facesContext.getExternalContext().getRequestMap().get(AbstractUIForm.SUBMITTED_MARKER))) {
+        || (Boolean) facesContext.getExternalContext().getRequestMap().get(AbstractUIForm.SUBMITTED_MARKER)) {
       component.processUpdates(facesContext);
     } else {
       // if we're not the submitted form, only process sub forms.

@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.ajax;
 
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -165,7 +164,7 @@ public final class AjaxNavigationState {
         try {
           final ExternalContext externalContext = facesContext.getExternalContext();
           final String url = externalContext.getRequestContextPath()
-                       + externalContext.getRequestServletPath() + externalContext.getRequestPathInfo();
+              + externalContext.getRequestServletPath() + externalContext.getRequestPathInfo();
           AjaxUtils.redirect(facesContext, url);
           facesContext.responseComplete();
         } catch (IOException e1) {

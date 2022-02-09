@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.example.addressbook.web;
 import org.apache.myfaces.tobago.model.PageStateImpl;
 
 /**
- * @deprecated since 1.5.0, please configure constraints for the page size with a tc:gridLayoutConstraints tag 
+ * @deprecated since 1.5.0, please configure constraints for the page size with a tc:gridLayoutConstraints tag
  * inside the tc:page tag.
  */
 @Deprecated

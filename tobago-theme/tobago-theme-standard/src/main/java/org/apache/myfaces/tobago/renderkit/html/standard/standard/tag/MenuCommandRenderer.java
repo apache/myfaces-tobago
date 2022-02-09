@@ -146,7 +146,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
         markup = Markup.TOP.add(markup);
       }
     }
-     // todo: solve workaround
+    // todo: solve workaround
     String css = Classes.createWorkaround("menu", markup).getStringValue();
     if (sub != null) {
       css += " tobago-menu-" + sub;
@@ -216,6 +216,6 @@ public class MenuCommandRenderer extends CommandRendererBase {
   public boolean getRendersChildren() {
     return true;
   }
-  
+
 
 }

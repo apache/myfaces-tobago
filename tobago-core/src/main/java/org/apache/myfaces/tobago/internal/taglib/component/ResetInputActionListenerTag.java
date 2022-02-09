@@ -39,8 +39,8 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
- * A ResetInputActionListener is a declarative way to allow an action source to reset all EditableValueHolder
- * of a page or in a sub-form or part of the component tree.
+ * A ResetInputActionListener is a declarative way to allow an action source to reset all EditableValueHolder of a page
+ * or in a sub-form or part of the component tree.
  */
 @Tag(name = "resetInputActionListener")
 @SimpleTag(
@@ -62,7 +62,7 @@ public abstract class ResetInputActionListenerTag extends TagSupport {
     }
 
     if (!tag.getCreated()) {
-      return (SKIP_BODY);
+      return SKIP_BODY;
     }
 
     final UIComponent component = tag.getComponentInstance();
@@ -86,7 +86,7 @@ public abstract class ResetInputActionListenerTag extends TagSupport {
     } else {
       actionSource.addActionListener(new ValueExpressionResetInputActionListener(execute));
     }
-    return (SKIP_BODY);
+    return SKIP_BODY;
   }
 
   @Override
@@ -96,8 +96,8 @@ public abstract class ResetInputActionListenerTag extends TagSupport {
   }
 
   /**
-   * A list of ids of components. For each id, the surrounding (virtual) UIForm will be searched, and for each of
-   * them, all containing EditableValueHolder will be reset.
+   * A list of ids of components. For each id, the surrounding (virtual) UIForm will be searched, and for each of them,
+   * all containing EditableValueHolder will be reset.
    */
   @TagAttribute(required = false, name = Attributes.EXECUTE, type = "java.lang.String")
   public void setExecute(final javax.el.ValueExpression execute) {

@@ -39,8 +39,8 @@ public class Bird implements Serializable {
   }
 
   /**
-   * Selects this bird in the controller. 
-   * It would be nicer to implement this method in the controller, but this is to show that it is possible.
+   * Selects this bird in the controller. It would be nicer to implement this method in the controller, but this is to
+   * show that it is possible.
    */
   public String select() {
     LOG.info("Select Bird: name=" + name + " size=" + size);

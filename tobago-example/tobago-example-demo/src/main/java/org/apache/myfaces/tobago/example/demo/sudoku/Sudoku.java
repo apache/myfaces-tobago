@@ -101,7 +101,7 @@ public class Sudoku {
             }
             break;
           default:
-            assert(false);
+            assert false;
         }
       }
     }
@@ -165,7 +165,7 @@ public class Sudoku {
     for (int i = 0; i < 9; i++) {
       final BitSet xxx = new BitSet();
       for (int j = 0; j < 9; j++) {
-        final int i1 = (i % 3) * 3 + i / 3 * 27 + j % 3 + j / 3 * 9;
+        final int i1 = i % 3 * 3 + i / 3 * 27 + j % 3 + j / 3 * 9;
         final byte value = field[i1];
         if (value != -1) {
           if (xxx.get(value)) {
@@ -248,14 +248,14 @@ public class Sudoku {
       return stack;
     }
 
-    public void removeSmallest(final int n) {
-      for (byte i = 0; i < n; i++) {
+    public void removeSmallest(final int number) {
+      for (byte i = 0; i < number; i++) {
         list.remove((Byte) i);
       }
     }
   }
 
-  private static enum Result {
+  private enum Result {
     UNIQUE,
     MULTIPLE,
     ERROR

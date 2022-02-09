@@ -48,8 +48,7 @@ public final class Facets {
   }
 
   /**
-   * @deprecated since 2.0.0. Please use {@link #POPUP}
-   * Using compatible names for  backward compatibility.
+   * @deprecated since 2.0.0. Please use {@link #POPUP} Using compatible names for  backward compatibility.
    */
   @Deprecated
   public static final String PICKER_POPUP = POPUP;

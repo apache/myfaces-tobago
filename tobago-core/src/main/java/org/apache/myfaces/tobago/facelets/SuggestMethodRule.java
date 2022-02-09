@@ -55,7 +55,7 @@ public class SuggestMethodRule extends MetaRule {
   static final class SuggestMethodMapper extends Metadata {
     private final TagAttribute attribute;
 
-    public SuggestMethodMapper(final TagAttribute attribute) {
+    SuggestMethodMapper(final TagAttribute attribute) {
       this.attribute = attribute;
     }
 

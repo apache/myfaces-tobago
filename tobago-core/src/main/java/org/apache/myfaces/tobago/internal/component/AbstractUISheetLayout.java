@@ -50,7 +50,7 @@ import java.util.Map;
 
 /**
  * XXX: Not completely implemented yet.
- */ 
+ */
 public abstract class AbstractUISheetLayout extends AbstractUILayoutBase implements LayoutManager {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISheetLayout.class);
@@ -118,7 +118,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
   public void mainProcessing(final Orientation orientation) {
 
     // find *
-    if (orientation == Orientation.HORIZONTAL && !horizontalAuto 
+    if (orientation == Orientation.HORIZONTAL && !horizontalAuto
         || orientation == Orientation.VERTICAL && !verticalAuto) {
 
       final FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -204,7 +204,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
 
   private LayoutContainer getLayoutContainer() {
     // todo: check with instanceof and do something in the error case
-    return ((LayoutContainer) getParent());
+    return (LayoutContainer) getParent();
   }
 
   @Override
@@ -420,7 +420,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     rows.addToken(AutoLayoutToken.INSTANCE);
     final Grid grid = new Grid(columns, rows);
 
-    for(final UIComponent child : header.getChildren()) {
+    for (final UIComponent child : header.getChildren()) {
       if (child instanceof LayoutComponent) {
         if (child.isRendered()) {
           final LayoutComponent c = (LayoutComponent) child;

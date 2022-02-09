@@ -25,10 +25,11 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface HasPlaceholder {
 
   /**
-   * Displays a short text in the input field, that describes the meaning of this field.
-   * This is part of HTML 5, the theme should emulate the behaviour, when the browser doesn't support it.
+   * Displays a short text in the input field, that describes the meaning of this field. This is part of HTML 5, the
+   * theme should emulate the behaviour, when the browser doesn't support it.
    * <p/>
    * The text will not be displayed, when the input field is readonly or disabled.
+   *
    * @param placeholder The text to display
    */
   @TagAttribute

@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.internal.taglib.declaration;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 /**
- * @deprecated This class should not be used directly, please use IsGridLayoutComponent. 
+ * @deprecated This class should not be used directly, please use IsGridLayoutComponent.
  */
 @Deprecated
 public interface IsGridLayoutComponentBase {
@@ -44,7 +44,7 @@ public interface IsGridLayoutComponentBase {
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
       defaultCode = "getHeight()")
   void setCurrentHeight(String currentHeight);
-  
+
   /**
    * @param columnSpan The number of horizontal cells this component should use.
    */
@@ -176,5 +176,5 @@ public interface IsGridLayoutComponentBase {
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Display")
   void setDisplay(String display);
-  
+
 }

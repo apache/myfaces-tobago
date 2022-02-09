@@ -40,10 +40,10 @@ import javax.faces.component.UIForm;
 public interface FormTagDeclaration extends HasBinding, HasId {
 
   /**
-   *   
+   *
 
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.String")
-  void setNotFor(String notFor);
-  */
+   @TagAttribute
+   @UIComponentTagAttribute(type = "java.lang.String")
+   void setNotFor(String notFor);
+   */
 }

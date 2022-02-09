@@ -49,7 +49,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     final UISelectOne select = (UISelectOne) component;
     super.prepareRender(facesContext, select);
     if (select instanceof UISelectOneRadio && ((UISelectOneRadio) select).isInline()) {
-      ComponentUtils.addCurrentMarkup(((UISelectOneRadio) select), Markup.INLINE);
+      ComponentUtils.addCurrentMarkup((UISelectOneRadio) select, Markup.INLINE);
     }
   }
 
@@ -144,7 +144,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       return heightOfOne;
     } else {
       int count = 0;
-      for(SelectItem ignored : SelectItemUtils.getItemIterator(facesContext, (UISelectOne) component)) {
+      for (SelectItem ignored : SelectItemUtils.getItemIterator(facesContext, (UISelectOne) component)) {
         count++;
       }
       return heightOfOne.multiply(count);

@@ -38,7 +38,7 @@ public class DerbyShutdownServletContextListener implements ServletContextListen
     try {
       DriverManager.getConnection("jdbc:derby:target/addressDB;shutdown=true");
     } catch (final Exception e) {
-      LOG.error("", e); 
+      LOG.error("", e);
     }
   }
 }

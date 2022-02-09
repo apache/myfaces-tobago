@@ -95,7 +95,7 @@ public class ValueBindingTabChangeListener implements TabChangeListener, StateHo
   private TabChangeListener createTabChangeListener(final String className) {
     try {
       final Class clazz = getClass().getClassLoader().loadClass(className);
-      return ((TabChangeListener) clazz.newInstance());
+      return (TabChangeListener) clazz.newInstance();
     } catch (final Exception e) {
       LOG.error("", e);
     }

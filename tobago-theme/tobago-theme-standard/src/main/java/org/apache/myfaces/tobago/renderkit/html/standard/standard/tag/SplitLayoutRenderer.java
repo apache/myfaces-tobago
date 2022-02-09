@@ -19,9 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.apache.myfaces.tobago.internal.component.AbstractUISplitLayout;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
@@ -37,6 +34,8 @@ import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -45,7 +44,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SplitLayoutRenderer extends GridLayoutRenderer {
-  
+
   private static final Logger LOG = LoggerFactory.getLogger(SplitLayoutRenderer.class);
   private static final String POSITION_ID_POSTFIX = "_spLP";
 
@@ -81,7 +80,7 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
 
   protected void encodeHandle(final FacesContext facesContext, final AbstractUISplitLayout layout) throws IOException {
     final String id = layout.getClientId(facesContext);
-    
+
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.SPAN, layout);
     writer.writeIdAttribute(id);
@@ -121,7 +120,7 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
       minimum = secondComponent.getMinimumWidth();
       final int minimumSize2 = minimum != null ? minimum.getPixel() : 0;
       final int totalSize = container.getCurrentWidth().getPixel();
-      return new StringBuilder("[").append(minimumSize1).append(", 0, ").append(totalSize-minimumSize2).append(", 0]")
+      return new StringBuilder("[").append(minimumSize1).append(", 0, ").append(totalSize - minimumSize2).append(", 0]")
           .toString();
     } else {
       minimum = firstComponent.getMinimumHeight();
@@ -129,7 +128,7 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
       minimum = secondComponent.getMinimumHeight();
       final int minimumSize2 = minimum != null ? minimum.getPixel() : 0;
       final int totalSize = container.getCurrentHeight().getPixel();
-      return new StringBuilder("[0, ").append(minimumSize1).append(", 0, ").append(totalSize-minimumSize2).append("]")
+      return new StringBuilder("[0, ").append(minimumSize1).append(", 0, ").append(totalSize - minimumSize2).append("]")
           .toString();
     }
   }

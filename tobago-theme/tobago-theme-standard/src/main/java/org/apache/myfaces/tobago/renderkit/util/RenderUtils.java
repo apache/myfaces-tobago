@@ -352,7 +352,7 @@ public class RenderUtils {
           final SelectItem[] items = (SelectItem[]) value;
           list.addAll(Arrays.asList(items));
         } else if (value instanceof Collection) {
-          for (final Object o : ((Collection) value)) {
+          for (final Object o : (Collection) value) {
             list.add((SelectItem) o);
           }
         } else if (value instanceof Map) {

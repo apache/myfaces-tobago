@@ -501,15 +501,15 @@ public class TobagoDemoController implements Serializable {
     if (event instanceof SortActionEvent) {
       final SortActionEvent sortEvent = (SortActionEvent) event;
       final UISheet sheet = (UISheet) sortEvent.getComponent();
-      final SheetState sheetState = sheet.getSheetState(FacesContext.getCurrentInstance());
+      final SheetState sheetStateValue = sheet.getSheetState(FacesContext.getCurrentInstance());
       final List<SolarObject> list = (List<SolarObject>) sheet.getValue();
-      sheetSorter(sheetState, list);
+      sheetSorter(sheetStateValue, list);
     }
   }
 
-  private void sheetSorter(final SheetState sheetState, final List<SolarObject> list) {
+  private void sheetSorter(final SheetState sheetStateParameter, final List<SolarObject> list) {
     final SolarObject sun = list.remove(0);
-    final String columnId = sheetState.getSortedColumnId();
+    final String columnId = sheetStateParameter.getSortedColumnId();
 
     LOG.info("Sorting column '{}'", columnId);
 
@@ -560,7 +560,7 @@ public class TobagoDemoController implements Serializable {
     }
 
     Collections.sort(list, comparator);
-    if (!sheetState.isAscending()) {
+    if (!sheetStateParameter.isAscending()) {
       Collections.reverse(list);
     }
 

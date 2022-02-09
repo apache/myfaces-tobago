@@ -49,8 +49,8 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * Returns the level of the tree node inside of the virtual tree. The root node has level 0.
-   * The children of the root note have level 1, and so on.
+   * Returns the level of the tree node inside of the virtual tree. The root node has level 0. The children of the root
+   * note have level 1, and so on.
    */
   public int getLevel() {
     final TreeDataModel model = ComponentUtils.findAncestor(this, AbstractUIData.class).getTreeDataModel();
@@ -178,18 +178,18 @@ public abstract class AbstractUITreeNode
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public MethodBinding getTreeExpansionListener(){
-      Deprecation.LOG.error("treeExpansionListener!");
-      return null;
-    }
+  public MethodBinding getTreeExpansionListener() {
+    Deprecation.LOG.error("treeExpansionListener!");
+    return null;
+  }
 
   /**
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public void setTreeExpansionListener(final MethodBinding treeExpansionListener){
-        Deprecation.LOG.error("treeExpansionListener!");
-      }
+  public void setTreeExpansionListener(final MethodBinding treeExpansionListener) {
+    Deprecation.LOG.error("treeExpansionListener!");
+  }
 
   /**
    * @deprecated since 2.0.0
@@ -220,18 +220,18 @@ public abstract class AbstractUITreeNode
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public  MethodBinding getTreeMarkedListener(){
-        Deprecation.LOG.error("treeMarkedListener!");
-        return null;
-      }
+  public MethodBinding getTreeMarkedListener() {
+    Deprecation.LOG.error("treeMarkedListener!");
+    return null;
+  }
 
   /**
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public  void setTreeMarkedListener(final MethodBinding treeMarkedListener){
-          Deprecation.LOG.error("treeMarkedListener!");
-        }
+  public void setTreeMarkedListener(final MethodBinding treeMarkedListener) {
+    Deprecation.LOG.error("treeMarkedListener!");
+  }
 
   /**
    * @deprecated since 2.0.0

@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.event;
 
 import javax.faces.component.UIComponent;
-import javax.faces.event.FacesListener;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.FacesListener;
 
 public class SheetStateChangeEvent extends ActionEvent {
 

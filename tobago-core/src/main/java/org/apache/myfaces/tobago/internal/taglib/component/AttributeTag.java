@@ -38,8 +38,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
- * Add an attribute on the UIComponent
- * associated with the closest parent UIComponent custom action.
+ * Add an attribute on the UIComponent associated with the closest parent UIComponent custom action.
  */
 @Tag(name = "attribute")
 @SimpleTag(
@@ -67,7 +66,7 @@ public abstract class AttributeTag extends TagSupport {
     }
 
     if (!tag.getCreated()) {
-      return (SKIP_BODY);
+      return SKIP_BODY;
     }
 
     final UIComponent component = tag.getComponentInstance();
@@ -78,7 +77,7 @@ public abstract class AttributeTag extends TagSupport {
 
     final ELContext elContext = FacesContext.getCurrentInstance().getELContext();
 
-    final String attributeName =  (String) name.getValue(elContext);
+    final String attributeName = (String) name.getValue(elContext);
 
     if (!value.isLiteralText()) {
       component.setValueExpression(attributeName, value);
@@ -91,7 +90,7 @@ public abstract class AttributeTag extends TagSupport {
     } else {
       component.getAttributes().put(attributeName, value.getValue(elContext));
     }
-    return (SKIP_BODY);
+    return SKIP_BODY;
   }
 
   @Override
@@ -105,7 +104,7 @@ public abstract class AttributeTag extends TagSupport {
    * The name of the attribute in the parent component.
    */
   @TagAttribute(required = true, name = "name", type = "java.lang.String")
-  public void setName(final ValueExpression name){
+  public void setName(final ValueExpression name) {
     this.name = name;
   }
 
@@ -113,25 +112,17 @@ public abstract class AttributeTag extends TagSupport {
    * The value of the attribute in the parent component.
    */
   @TagAttribute(required = true, name = "value", type = "java.lang.String")
-  public  void setValue(final ValueExpression value){
+  public void setValue(final ValueExpression value) {
     this.value = value;
   }
 
   /**
-   * Warning: The mode is only available when using Facelets.
-   * Allowed values are "action", "actionListener", "actionFromValue", "isNotSet", "isSet", "valueIfSet".
-   * <br/>
-   * "action" (method binding) evaluate the expression to find the method binding which is referenced with the template.
-   * <br/>
-   * "actionListener" same as "action" but for the method signature of ActionListeners.
-   * <br/>
-   * "isSet" (boolean) checks, if the expression is set from the composition caller.
-   * <br/>
-   * "isNotSet" (boolean) negation of "isSet"
-   * <br/>
-   * "actionFromValue" Evaluates the ValueBinding to get an outcome set directly (no action method)
-   * <br/>
-   * "valueIfSet" set the attribute only if the value is set.
+   * Warning: The mode is only available when using Facelets. Allowed values are "action", "actionListener",
+   * "actionFromValue", "isNotSet", "isSet", "valueIfSet". <br/> "action" (method binding) evaluate the expression to
+   * find the method binding which is referenced with the template. <br/> "actionListener" same as "action" but for the
+   * method signature of ActionListeners. <br/> "isSet" (boolean) checks, if the expression is set from the composition
+   * caller. <br/> "isNotSet" (boolean) negation of "isSet" <br/> "actionFromValue" Evaluates the ValueBinding to get an
+   * outcome set directly (no action method) <br/> "valueIfSet" set the attribute only if the value is set.
    */
   @TagAttribute(name = "mode")
   public void setMode(final ValueExpression mode) {

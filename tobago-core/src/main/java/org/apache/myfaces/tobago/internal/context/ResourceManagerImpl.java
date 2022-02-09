@@ -57,27 +57,27 @@ public class ResourceManagerImpl implements ResourceManager {
   public static final String[] EXT_JPG = new String[]{".jpg"};
   public static final String[] EXT_ICO = new String[]{".ico"};
   public static final String[] EXT_IMAGES = new String[]{".svg", ".png", ".gif", ".jpg"};
-  public static final String[] EXT_JSP= new String[]{".jsp"};
-  public static final String[] EXT_JSPX= new String[]{".jspx"};
-  public static final String[] EXT_XHTML= new String[]{".xhtml"};
-  public static final String[] EXT_SVG= new String[]{".svg"};
+  public static final String[] EXT_JSP = new String[]{".jsp"};
+  public static final String[] EXT_JSPX = new String[]{".jspx"};
+  public static final String[] EXT_XHTML = new String[]{".xhtml"};
+  public static final String[] EXT_SVG = new String[]{".svg"};
 
   private boolean production;
 
-  private final Map<String, String> resourceList 
+  private final Map<String, String> resourceList
       = new ConcurrentHashMap<String, String>(100, 0.75f, 1);
 
-  private final Map<RendererCacheKey, Renderer> rendererCache 
+  private final Map<RendererCacheKey, Renderer> rendererCache
       = new ConcurrentHashMap<RendererCacheKey, Renderer>(100, 0.75f, 1);
-  private final Map<ImageCacheKey, StringValue> imageCache 
+  private final Map<ImageCacheKey, StringValue> imageCache
       = new ConcurrentHashMap<ImageCacheKey, StringValue>(100, 0.75f, 1);
-  private final Map<JspCacheKey, String> jspCache 
+  private final Map<JspCacheKey, String> jspCache
       = new ConcurrentHashMap<JspCacheKey, String>(100, 0.75f, 1);
-  private final Map<MiscCacheKey, String[]> miscCache 
+  private final Map<MiscCacheKey, String[]> miscCache
       = new ConcurrentHashMap<MiscCacheKey, String[]>(100, 0.75f, 1);
-  private final Map<PropertyCacheKey, StringValue> propertyCache 
+  private final Map<PropertyCacheKey, StringValue> propertyCache
       = new ConcurrentHashMap<PropertyCacheKey, StringValue>(100, 0.75f, 1);
-  private final Map<ThemeConfigCacheKey, MeasureValue> themeCache 
+  private final Map<ThemeConfigCacheKey, MeasureValue> themeCache
       = new ConcurrentHashMap<ThemeConfigCacheKey, MeasureValue>(100, 0.75f, 1);
   private final Map<String, String[]> extensionCache
       = new ConcurrentHashMap<String, String[]>(10, 0.75f, 1);
@@ -115,6 +115,9 @@ public class ResourceManagerImpl implements ResourceManager {
     resourceList.put(resourceKey, value);
   }
 
+  /**
+   * @deprecated by API
+   */
   @Deprecated
   public String getJsp(final UIViewRoot viewRoot, final String name) {
     String result = null;
@@ -128,7 +131,7 @@ public class ResourceManagerImpl implements ResourceManager {
         return result;
       }
       try {
-        result = (String) getPaths(clientKey, "",
+        result = (String) getPaths(clientKey,
             JSP, name, EXT_NONE, false, true, true, null, true, false).get(0);
         jspCache.put(cacheKey, result);
       } catch (final Exception e) {
@@ -138,6 +141,11 @@ public class ResourceManagerImpl implements ResourceManager {
     return result;
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @deprecated by API
+   */
   @Deprecated
   public String getProperty(final UIViewRoot viewRoot, final String bundle, final String propertyKey) {
     return getProperty(FacesContext.getCurrentInstance(), bundle, propertyKey);
@@ -148,11 +156,11 @@ public class ResourceManagerImpl implements ResourceManager {
     if (bundle != null && propertyKey != null) {
       final ClientPropertiesKey clientKey = ClientPropertiesKey.get(facesContext);
       final PropertyCacheKey cacheKey = new PropertyCacheKey(clientKey, bundle, propertyKey);
-      
+
       StringValue result = propertyCache.get(cacheKey);
       if (result == null) {
         final List properties
-            = getPaths(clientKey, "", PROPERTY, bundle, EXT_NONE, false, true, false, propertyKey, true, false);
+            = getPaths(clientKey, PROPERTY, bundle, EXT_NONE, false, true, false, propertyKey, true, false);
         if (properties != null) {
           result = new StringValue((String) properties.get(0));
         } else {
@@ -165,6 +173,11 @@ public class ResourceManagerImpl implements ResourceManager {
     return null;
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @deprecated by API
+   */
   @Deprecated
   public Renderer getRenderer(final UIViewRoot viewRoot, final String rendererType) {
     return getRenderer(FacesContext.getCurrentInstance(), rendererType);
@@ -185,7 +198,7 @@ public class ResourceManagerImpl implements ResourceManager {
       try {
         simpleClassName = getRendererClassName(rendererType);
         final List<Class> classes
-            = getPaths(clientKey, "", TAG, simpleClassName, EXT_NONE, false, true, true, null, false, false);
+            = getPaths(clientKey, TAG, simpleClassName, EXT_NONE, false, true, true, null, false, false);
         if (classes != null && !classes.isEmpty()) {
           final Class clazz = classes.get(0);
           renderer = (Renderer) clazz.newInstance();
@@ -201,16 +214,22 @@ public class ResourceManagerImpl implements ResourceManager {
     }
     return renderer;
   }
-  
+
+  /**
+   * @deprecated by API
+   */
   @Deprecated
   public String[] getScripts(final UIViewRoot viewRoot, final String name) {
     return getScripts(FacesContext.getCurrentInstance(), name);
   }
-  
+
   public String[] getScripts(final FacesContext facesContext, final String name) {
     return getStrings(facesContext, name, null);
   }
 
+  /**
+   * @deprecated by API
+   */
   @Deprecated
   public String[] getStyles(final UIViewRoot viewRoot, final String name) {
     return getStyles(FacesContext.getCurrentInstance(), name);
@@ -220,6 +239,9 @@ public class ResourceManagerImpl implements ResourceManager {
     return getStrings(facesContext, name, null);
   }
 
+  /**
+   * @deprecated by API
+   */
   @Deprecated
   public String getThemeProperty(final UIViewRoot viewRoot, final String bundle, final String propertyKey) {
     if (bundle != null && propertyKey != null) {
@@ -230,7 +252,7 @@ public class ResourceManagerImpl implements ResourceManager {
       StringValue result = propertyCache.get(cacheKey);
       if (result == null) {
         final List properties
-            = getPaths(clientKey, "", PROPERTY, bundle, EXT_NONE, false, true, false, propertyKey, true, true);
+            = getPaths(clientKey, PROPERTY, bundle, EXT_NONE, false, true, false, propertyKey, true, true);
         if (properties != null) {
           result = new StringValue((String) properties.get(0));
         } else {
@@ -256,7 +278,7 @@ public class ResourceManagerImpl implements ResourceManager {
     MeasureValue result = themeCache.get(cacheKey);
 
     if (result == null) {
-      final List properties = getPaths(clientKey, "", PROPERTY, "tobago-theme-config", EXT_NONE,
+      final List properties = getPaths(clientKey, PROPERTY, "tobago-theme-config", EXT_NONE,
           false, true, false, rendererType + "." + name, true, true);
 
       Measure measure = null;
@@ -266,7 +288,7 @@ public class ResourceManagerImpl implements ResourceManager {
 
       if (markup != null) {
         for (final String m : markup) {
-          final List mProperties = getPaths(clientKey, "", PROPERTY, "tobago-theme-config", EXT_NONE,
+          final List mProperties = getPaths(clientKey, PROPERTY, "tobago-theme-config", EXT_NONE,
               false, true, false, rendererType + "[" + m + "]" + "." + name, true, true);
           if (mProperties != null) {
             final Measure summand = Measure.valueOf(mProperties.get(0));
@@ -285,16 +307,27 @@ public class ResourceManagerImpl implements ResourceManager {
     return result.getValue();
   }
 
+  /**
+   * @deprecated by API
+   */
   @Deprecated
   public String getImage(final UIViewRoot viewRoot, final String name) {
     return getImage(FacesContext.getCurrentInstance(), name);
   }
 
+  /**
+   * @deprecated by API
+   */
   @Deprecated
   public String getImage(final FacesContext facesContext, final String name) {
     return getImage(facesContext, name, false);
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @deprecated by API
+   */
   @Deprecated
   public String getImage(final UIViewRoot viewRoot, final String name, final boolean ignoreMissing) {
     return getImage(FacesContext.getCurrentInstance(), name, ignoreMissing);
@@ -302,6 +335,8 @@ public class ResourceManagerImpl implements ResourceManager {
 
   /**
    * {@inheritDoc}
+   *
+   * @deprecated by API
    */
   @Deprecated
   public String getImage(
@@ -336,7 +371,7 @@ public class ResourceManagerImpl implements ResourceManager {
       StringValue result = imageCache.get(cacheKey);
       if (result == null) {
         final List paths
-            = getPaths(clientKey, "", null, name, extensions, false, true, true, null, true, ignoreMissing);
+            = getPaths(clientKey, null, name, extensions, false, true, true, null, true, ignoreMissing);
         if (paths != null) {
           result = new StringValue((String) paths.get(0));
         } else {
@@ -357,9 +392,10 @@ public class ResourceManagerImpl implements ResourceManager {
   }
 
   private List getPaths(
-      final ClientPropertiesKey clientKey, final String prefix, final String subDir, final String name,
+      final ClientPropertiesKey clientKey, final String subDir, final String name,
       final String[] extensions, final boolean reverseOrder, final boolean single, final boolean returnKey,
-      final String key, final boolean returnStrings, boolean ignoreMissing) {
+      final String key, final boolean returnStrings, final boolean ignoreMissingParameter) {
+    boolean ignoreMissing = ignoreMissingParameter;
     final List matches = new ArrayList();
     final String contentType = clientKey.getContentType();
     final Theme theme = clientKey.getTheme();
@@ -370,20 +406,20 @@ public class ResourceManagerImpl implements ResourceManager {
     for (final String localeSuffix : locales) {
       for (final String extension : extensions) {
         if (production) {
-          boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+          boolean found = checkPath(reverseOrder, returnKey, returnStrings, matches,
               name, MINIMIZE_SUFFIX, localeSuffix, extension, key);
           if (found && (single || !returnStrings)) {
             return matches;
           }
           if (!found) {
-            found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+            found = checkPath(reverseOrder, returnKey, returnStrings, matches,
                 name, null, localeSuffix, extension, key);
             if (found && (single || !returnStrings)) {
               return matches;
             }
           }
         } else {
-          final boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+          final boolean found = checkPath(reverseOrder, returnKey, returnStrings, matches,
               name, null, localeSuffix, extension, key);
           if (found && (single || !returnStrings)) {
             return matches;
@@ -400,14 +436,14 @@ public class ResourceManagerImpl implements ResourceManager {
           for (final String localeSuffix : locales) { // locale loop
             for (final String extension : extensions) { // extensions loop
               if (production) {
-                boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+                boolean found = checkPath(reverseOrder, returnKey, returnStrings, matches,
                     resourceDirectory, contentType, currentTheme, browserType, subDir, name, MINIMIZE_SUFFIX,
                     localeSuffix, extension, key);
                 if (found && (single || !returnStrings)) {
                   return matches;
                 }
                 if (!found) {
-                  found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+                  found = checkPath(reverseOrder, returnKey, returnStrings, matches,
                       resourceDirectory, contentType, currentTheme, browserType, subDir, name, null,
                       localeSuffix, extension, key);
                   if (found && (single || !returnStrings)) {
@@ -415,7 +451,7 @@ public class ResourceManagerImpl implements ResourceManager {
                   }
                 }
               } else {
-                final boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+                final boolean found = checkPath(reverseOrder, returnKey, returnStrings, matches,
                     resourceDirectory, contentType, currentTheme, browserType, subDir, name, null,
                     localeSuffix, extension, key);
                 if (found && (single || !returnStrings)) {
@@ -455,16 +491,12 @@ public class ResourceManagerImpl implements ResourceManager {
   }
 
   private boolean checkPath(
-      final String prefix, final boolean reverseOrder, final boolean returnKey, final boolean returnStrings,
+      final boolean reverseOrder, final boolean returnKey, final boolean returnStrings,
       final List matches, final String name, final String minimizeSuffix, final String localeSuffix,
       final String extension, final String key) {
     String path = makePath(name, minimizeSuffix, localeSuffix, extension, key);
     if (returnStrings && resourceList.containsKey(path)) {
-      final String result =
-          returnKey
-              ? prefix + path
-              : prefix + resourceList.get(path);
-
+      final String result = returnKey ? path : resourceList.get(path);
       if (reverseOrder) {
         matches.add(0, result);
       } else {
@@ -499,7 +531,7 @@ public class ResourceManagerImpl implements ResourceManager {
   }
 
   private boolean checkPath(
-      final String prefix, final boolean reverseOrder, final boolean returnKey, final boolean returnStrings,
+      final boolean reverseOrder, final boolean returnKey, final boolean returnStrings,
       final List matches, final String resourceDirectory, final String contentType, final Theme currentTheme,
       final String browserType, final String subDir, final String name, final String minimizeSuffix,
       final String localeSuffix, final String extension, final String key) {
@@ -507,12 +539,11 @@ public class ResourceManagerImpl implements ResourceManager {
         localeSuffix, extension, key, null);
     if (returnStrings && resourceList.containsKey(path)) {
       final String result;
-      if (prefix.length() == 0 && returnKey && resourceDirectory.equals(currentTheme.getResourcePath())) {
+      if (returnKey && resourceDirectory.equals(currentTheme.getResourcePath())) {
         result = makePath(resourceDirectory, contentType, currentTheme, browserType, subDir, name, minimizeSuffix,
             localeSuffix, extension, key, currentTheme.getVersion());
       } else {
-        result = returnKey
-            ? prefix + path : prefix + resourceList.get(path);
+        result = returnKey ? path : resourceList.get(path);
       }
       if (reverseOrder) {
         matches.add(0, result);
@@ -645,7 +676,7 @@ public class ResourceManagerImpl implements ResourceManager {
         return cacheResult;
       }
       try {
-        final List matches = getPaths(key, "", type,
+        final List matches = getPaths(key, type,
             nameWithoutExtension, extensions, true, false, true, null, true, false);
         if (matches != null) {
           result = (String[]) matches.toArray(new String[matches.size()]);
@@ -664,7 +695,7 @@ public class ResourceManagerImpl implements ResourceManager {
     if (cached != null) {
       extensions = cached;
     } else {
-      extensions = new String[] {extension};
+      extensions = new String[]{extension};
       extensionCache.put(extension, extensions);
       if (LOG.isInfoEnabled()) {
         LOG.info("Adding extension '{}' to cache.", extension);

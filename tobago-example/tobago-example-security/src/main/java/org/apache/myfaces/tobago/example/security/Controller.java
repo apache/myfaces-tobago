@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.example.security;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import javax.annotation.security.RolesAllowed;
-import javax.annotation.security.PermitAll;
 
 
 @PermitAll()
@@ -37,7 +37,7 @@ public class Controller {
     return "logout";
   }
 
-  @RolesAllowed({ "tobago-example-security" })
+  @RolesAllowed({"tobago-example-security"})
   public String doSomething() {
     return null;
   }
@@ -46,7 +46,7 @@ public class Controller {
     return null;
   }
 
-  @RolesAllowed({ "tobago-example-security" })  
+  @RolesAllowed({"tobago-example-security"})
   public String admin() {
     return null;
   }

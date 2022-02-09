@@ -47,6 +47,6 @@ public class LoadBundleHandler extends TagHandler {
     // TODO find a better way
     facesContext.getExternalContext().
         getSessionMap().put(var.getValue(faceletContext), map);
-        //getRequestMap().put(var.getValue(faceletContext), map);
+    //getRequestMap().put(var.getValue(faceletContext), map);
   }
 }

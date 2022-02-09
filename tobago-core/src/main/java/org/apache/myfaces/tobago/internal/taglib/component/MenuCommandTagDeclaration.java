@@ -36,7 +36,7 @@ import javax.faces.component.UICommand;
 /**
  * Renders a menu item. (This tag was renamed from tc:menuItem since Tobago 1.5.0)
  */
-@Tag(name = "menuCommand", 
+@Tag(name = "menuCommand",
     tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenuCommand",

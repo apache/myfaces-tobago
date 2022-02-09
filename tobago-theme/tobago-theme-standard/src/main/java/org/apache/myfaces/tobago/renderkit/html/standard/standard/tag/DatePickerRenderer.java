@@ -53,8 +53,8 @@ import java.io.IOException;
 import java.util.TimeZone;
 
 /**
- * @deprecated Since 2.0.0. It's no longer needed, because this is resolved by JavaScript now.
- * Set backward compatibility mode via classic-date-time-picker.
+ * @deprecated Since 2.0.0. It's no longer needed, because this is resolved by JavaScript now. Set backward
+ * compatibility mode via classic-date-time-picker.
  */
 @Deprecated
 public class DatePickerRenderer extends LinkRenderer {

@@ -24,9 +24,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 public interface IsRequiredForSelect {
   /**
-   * Flag indicating that a value is required.
-   * If the value is an empty string a
-   * ValidationError occurs and a Error Message is rendered.
+   * Flag indicating that a value is required. If the value is an empty string a ValidationError occurs and a Error
+   * Message is rendered.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")

@@ -47,7 +47,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     if (!(component instanceof UISelectManyListbox)) {
-      LOG.error("Wrong type: Need " + UISelectManyListbox.class.getName() 
+      LOG.error("Wrong type: Need " + UISelectManyListbox.class.getName()
           + ", but was " + component.getClass().getName());
       return;
     }

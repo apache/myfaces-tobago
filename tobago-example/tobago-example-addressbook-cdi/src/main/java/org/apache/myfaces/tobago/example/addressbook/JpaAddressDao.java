@@ -64,7 +64,8 @@ public class JpaAddressDao implements AddressDao, Serializable {
 
 //  @Transactional(readOnly = true)
   @SuppressWarnings("unchecked")
-  public List<Address> findAddresses(String filter, final String column, final boolean order) {
+  public List<Address> findAddresses(final String filterParameter, final String column, final boolean order) {
+    String filter = filterParameter;
     final StringBuilder builder = new StringBuilder();
     builder.append("select a from Address a");
     if (filter != null) {
@@ -87,8 +88,7 @@ public class JpaAddressDao implements AddressDao, Serializable {
   }
 
   public void removeAddress(Address address) {
-    address = getAddress(address.getId());
-    entityManager.remove(address);
+    entityManager.remove(getAddress(address.getId()));
   }
 //  @Transactional(readOnly = true)
   public Address getAddress(final Integer id) {

@@ -37,15 +37,15 @@ public class EncodeAjaxCallback implements TobagoCallback {
 
   public void invokeContextCallback(final FacesContext facesContext, final UIComponent component) {
     try {
-       final UIComponent reload = component.getFacet(Facets.RELOAD);
-       if (reload != null && reload.isRendered()) {
-         final Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
-         if (immediate != null && !immediate) {
-           final Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
-           if (update != null && !update) {
-             return;
-           }
-         }
+      final UIComponent reload = component.getFacet(Facets.RELOAD);
+      if (reload != null && reload.isRendered()) {
+        final Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
+        if (immediate != null && !immediate) {
+          final Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
+          if (update != null && !update) {
+            return;
+          }
+        }
       }
       EncodeUtils.prepareRendererAll(facesContext, component);
       if (component instanceof LayoutContainer) {
@@ -65,11 +65,11 @@ public class EncodeAjaxCallback implements TobagoCallback {
       throw new FacesException(e);
     }
   }
-  
+
   public PhaseId getPhaseId() {
-      return PhaseId.RENDER_RESPONSE;
+    return PhaseId.RENDER_RESPONSE;
   }
-  
+
   /**
    * @deprecated since 2.0.0, please use component.encodeAll()
    */

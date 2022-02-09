@@ -32,8 +32,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 import javax.faces.component.UIPanel;
 
 /**
- * Component to put other components from other frameworks into.
- * Gives the possibility, to interchange layout information.
+ * Component to put other components from other frameworks into. Gives the possibility, to interchange layout
+ * information.
  */
 @Tag(name = "mediator")
 @UIComponentTag(

@@ -33,11 +33,10 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMargins;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
 
-  /**
-   * Renders a SplitLayout.
-   * A area with two child components rendered horizontally or vertically and allows to change the
-   * layout relation of this two components on the client.
-   */
+/**
+ * Renders a SplitLayout. A area with two child components rendered horizontally or vertically and allows to change the
+ * layout relation of this two components on the client.
+ */
 @Tag(name = "splitLayout")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISplitLayout",
@@ -50,17 +49,15 @@ public interface SplitLayoutTagDeclaration extends HasId, HasBorder, HasSpacing,
     HasMargins, HasBinding, HasMarkup, HasCurrentMarkup {
 
   /**
-   * This value defines the layout constraints for the layout.
-   * It is two layout tokens separated by a semicolon. See GridLayout.
-   * Example: '2*;*'.
+   * This value defines the layout constraints for the layout. It is two layout tokens separated by a semicolon. See
+   * GridLayout. Example: '2*;*'.
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "1*;1*")
   void setLayout(String rows);
 
   /**
-   * This value defines the orientation of the split layout.
-   * Possible values are 'HORIZONTAL' and 'VERTICAL'.
+   * This value defines the orientation of the split layout. Possible values are 'HORIZONTAL' and 'VERTICAL'.
    */
 
   @TagAttribute(required = true)

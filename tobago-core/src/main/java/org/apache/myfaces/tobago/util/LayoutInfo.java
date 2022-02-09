@@ -33,7 +33,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @deprecated
+ * @deprecated xxx
  */
 @Deprecated
 public class LayoutInfo {
@@ -55,7 +55,7 @@ public class LayoutInfo {
   }
 
   public LayoutInfo(final int cellCount, final int space, final LayoutTokens layoutTokens,
-      final String clientIdForLogging, final boolean ignoreMismatch) {
+                    final String clientIdForLogging, final boolean ignoreMismatch) {
 
     this.cellsLeft = cellCount;
     this.spaceLeft = space;
@@ -75,7 +75,7 @@ public class LayoutInfo {
 
       layoutTokens.shrinkSizeTo(cellCount);
     } else {
-      if (!ignoreMismatch && LOG.isWarnEnabled() && (cellCount - layoutTokens.getSize()) != 0) {
+      if (!ignoreMismatch && LOG.isWarnEnabled() && cellCount - layoutTokens.getSize() != 0) {
         LOG.warn("More cells (" + cellCount + ") than tokens (" + layoutTokens.getSize()
             + ") for layout found! Setting missing tokens to '1*'."
             + " Token string was: " + layoutTokens
@@ -105,7 +105,8 @@ public class LayoutInfo {
     update(space, index, false);
   }
 
-  public void update(int space, final int index, final boolean force) {
+  public void update(final int spaceParameter, final int index, final boolean force) {
+    int space = spaceParameter;
     if (space > spaceLeft) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("More space (" + space + ") needed than available (" + spaceLeft + ")!"

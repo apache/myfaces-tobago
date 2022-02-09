@@ -45,7 +45,7 @@ public class Wizard {
   }
 
   public void gotoStep(final ActionEvent event) {
-    final Object step = (event.getComponent().getAttributes().get("step"));
+    final Object step = event.getComponent().getAttributes().get("step");
     if (step instanceof Integer) {
       index = (Integer) step;
     } else { // todo: The JSP Tag uses String in the moment
@@ -128,8 +128,9 @@ public class Wizard {
       return null;
     }
   }
+
   public WizardStep getCurrentStep() {
-      return course.get(index);
+    return course.get(index);
   }
 
   public void removeForwardSteps() {

@@ -128,7 +128,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       return heightOfOne;
     } else {
       int count = 0;
-      for(SelectItem ignored : SelectItemUtils.getItemIterator(facesContext, (UISelectMany) component)) {
+      for (SelectItem ignored : SelectItemUtils.getItemIterator(facesContext, (UISelectMany) component)) {
         count++;
       }
       return heightOfOne.multiply(count);

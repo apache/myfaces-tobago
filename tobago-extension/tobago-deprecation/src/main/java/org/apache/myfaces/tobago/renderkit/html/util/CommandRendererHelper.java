@@ -170,7 +170,7 @@ public class CommandRendererHelper {
     return target;
   }
 
-  public static enum Tag {
+  public enum Tag {
     ANCHOR, BUTTON
   }
 }

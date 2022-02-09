@@ -43,7 +43,7 @@ public class DebugNavigationHandler extends NavigationHandler {
     }
 
     if (outcome != null && AjaxUtils.isAjaxRequest(facesContext)) {
-        LOG.warn("An AJAX-Request should not have an outcome set: outcome='" + outcome + "'");
+      LOG.warn("An AJAX-Request should not have an outcome set: outcome='" + outcome + "'");
     }
 
     navigationHandler.handleNavigation(facesContext, fromAction, outcome);

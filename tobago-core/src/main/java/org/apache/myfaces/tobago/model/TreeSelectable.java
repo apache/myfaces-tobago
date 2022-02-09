@@ -47,7 +47,7 @@ public enum TreeSelectable {
   }
 
   public String getValue() {
-   return value;
+    return value;
   }
 
   private static final Map<String, TreeSelectable> MAPPING;

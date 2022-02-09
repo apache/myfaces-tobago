@@ -28,7 +28,7 @@ public class RangeParserUnitTest {
   @Test
   public void test() {
 
-    int[] ints =  {0, 5, 10};
+    int[] ints = {0, 5, 10};
     String s = "0,5,10";
     checkEquals(ints, StringUtils.getIndices(s));
     s = "0, 5, 10";
@@ -36,7 +36,7 @@ public class RangeParserUnitTest {
     s = " 0 , 5 , 10 ";
     checkEquals(ints, StringUtils.getIndices(s));
 
-    ints = new int[] {3, 4, 5, 6, 7, 15, 16, 17};
+    ints = new int[]{3, 4, 5, 6, 7, 15, 16, 17};
     s = "3-7,15-17";
     checkEquals(ints, StringUtils.getIndices(s));
     s = "3-5,6,7,15,16-17";
@@ -44,7 +44,7 @@ public class RangeParserUnitTest {
     s = "3-5, 6, 7, 15, 16 - 17 ";
     checkEquals(ints, StringUtils.getIndices(s));
 
-    ints = new int[] {3, 4, 5, 6, 7, 15, 14, 13};
+    ints = new int[]{3, 4, 5, 6, 7, 15, 14, 13};
     s = "3-7,15-13";
     checkEquals(ints, StringUtils.getIndices(s));
     s = "3 - 7, 15 - 13";
@@ -54,7 +54,7 @@ public class RangeParserUnitTest {
   private void checkEquals(final int[] ints, final int[] indices) {
     Assert.assertTrue(ints.length == indices.length);
     for (int i = 0; i < ints.length; i++) {
-       Assert.assertTrue(ints[i] == indices[i]);
+      Assert.assertTrue(ints[i] == indices[i]);
     }
   }
 }

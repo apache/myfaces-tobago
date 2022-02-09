@@ -68,11 +68,11 @@ public class JsonUtils {
   }
 
   static void encode(final StringBuilder builder, final String name, String value) {
-    value = value.replaceAll("\\\"", "\\\\\\\""); // todo: optimize
+    final String escaped = value.replaceAll("\\\"", "\\\\\\\""); // todo: optimize
     builder.append("\"");
     builder.append(name);
     builder.append("\":\"");
-    builder.append(value);
+    builder.append(escaped);
     builder.append("\",");
   }
 

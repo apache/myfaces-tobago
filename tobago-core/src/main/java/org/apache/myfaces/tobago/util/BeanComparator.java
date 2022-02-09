@@ -23,8 +23,8 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Comparator;
 import java.io.Serializable;
+import java.util.Comparator;
 
 public class BeanComparator extends ComparatorBase implements Serializable {
 
@@ -70,7 +70,7 @@ public class BeanComparator extends ComparatorBase implements Serializable {
 
   public int hashCode() {
     int result;
-    result = (property != null ? property.hashCode() : 0);
+    result = property != null ? property.hashCode() : 0;
     result = 29 * result + super.hashCode();
     return result;
   }

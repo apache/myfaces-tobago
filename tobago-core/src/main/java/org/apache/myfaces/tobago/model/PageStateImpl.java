@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.model;
 import java.io.Serializable;
 
 /**
- * @deprecated since 1.5.0, please configure constraints for the page size with a tc:gridLayoutConstraints tag 
- * inside the tc:page tag.
+ * @deprecated since 1.5.0, please configure constraints for the page size with a tc:gridLayoutConstraints tag inside
+ * the tc:page tag.
  */
 @Deprecated
 public class PageStateImpl implements PageState, Serializable {

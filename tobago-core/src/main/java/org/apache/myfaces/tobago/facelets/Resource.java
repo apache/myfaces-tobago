@@ -47,14 +47,13 @@ public final class Resource {
    * Get an URL of an internal resource. First, {@link javax.faces.context.ExternalContext#getResource(String)} is
    * checked for an non-null URL return value. In the case of a null return value (as it is the case for Weblogic 8.1
    * for a packed war), a URL with a special URL handler is constructed, which can be used for <em>opening</em> a
-   * serlvet resource later. Internally, this special URL handler will call
-   * {@link javax.servlet.ServletContext#getResourceAsStream(String)} when an inputstream is requested.
-   * This works even on Weblogic 8.1
+   * serlvet resource later. Internally, this special URL handler will call {@link
+   * javax.servlet.ServletContext#getResourceAsStream(String)} when an inputstream is requested. This works even on
+   * Weblogic 8.1
    *
-   * @param ctx  the faces context from which to retrieve the resource
+   * @param ctx the faces context from which to retrieve the resource
    * @param path an URL path
    * @return an url representing the URL and on which getInputStream() can be called to get the resource
-   * @throws java.net.MalformedURLException
    */
   public static URL getResourceUrl(final FacesContext ctx, final String path) throws MalformedURLException {
     final ExternalContext externalContext = ctx.getExternalContext();

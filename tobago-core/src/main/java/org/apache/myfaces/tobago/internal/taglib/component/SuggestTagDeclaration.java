@@ -34,7 +34,7 @@ import javax.faces.component.UIInput;
 
 /**
  * Renders a list of suggested texts for a given input field.
- *
+ * <p>
  * Basic features:
  * <ul>
  *   <li>provide a list directly while rendering (not AJAX needed) [todo]</li>
@@ -76,9 +76,8 @@ public interface SuggestTagDeclaration extends HasIdBindingAndRendered, HasMarku
   void setSuggestMethod(String suggestMethod);
 
   /**
-   * Minimum number of characters to type before the list will be requested.
-   * If the value is 0, there will be send an initial list to the client.
-   * So, if you set <pre>update="false"</pre> this value should be 0.
+   * Minimum number of characters to type before the list will be requested. If the value is 0, there will be send an
+   * initial list to the client. So, if you set <pre>update="false"</pre> this value should be 0.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "1")
@@ -99,10 +98,9 @@ public interface SuggestTagDeclaration extends HasIdBindingAndRendered, HasMarku
   void setMaximumItems(String maximumItems);
 
   /**
-   * The real size of the result list.
-   * Typically the result list will be cropped (in the backend) to save memory.
-   * This value can be set, to show the user there are more results for the given string.
-   * If the value is -1, no hint will be displayed.
+   * The real size of the result list. Typically the result list will be cropped (in the backend) to save memory. This
+   * value can be set, to show the user there are more results for the given string. If the value is -1, no hint will be
+   * displayed.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "-1")

@@ -31,7 +31,7 @@ import javax.faces.context.FacesContext;
 import java.io.Serializable;
 
 public class Style implements Serializable {
-                                          
+
   private static final long serialVersionUID = 4L;
 
   private Measure width;
@@ -88,7 +88,7 @@ public class Style implements Serializable {
   public Style(final FacesContext facesContext, final LayoutBase layout) {
 
     final String rendererType = layout.getRendererType();
-    
+
     width = layout.getCurrentWidth();
     if (width != null) {
       // TODO: Make configurable: this is needed if the box-sizing is border-box, not content-box (see CSS3)
@@ -133,9 +133,8 @@ public class Style implements Serializable {
   }
 
   /**
-   * Checks if the encode string holds free text, which must be escaped.
-   * This is the case for image URLs.
-   * For {@link Measure}, and enum types like {@link Display} no escaping is needed.
+   * Checks if the encode string holds free text, which must be escaped. This is the case for image URLs. For {@link
+   * Measure}, and enum types like {@link Display} no escaping is needed.
    */
   public boolean needsToBeEscaped() {
     return backgroundImage != null;
@@ -542,8 +541,8 @@ public class Style implements Serializable {
     return zIndex;
   }
 
-  public void setZIndex(final Integer zIndex) {
-    this.zIndex = zIndex;
+  public void setZIndex(final Integer zIndexParameter) {
+    this.zIndex = zIndexParameter;
   }
 
   public TextAlign getTextAlign() {

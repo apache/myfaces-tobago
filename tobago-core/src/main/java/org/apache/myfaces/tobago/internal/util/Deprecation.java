@@ -30,10 +30,9 @@ public final class Deprecation {
   }
 
   /**
-   * This Logger object should help to detect the usage of deprecated code.
-   * The main reason for this class is the lack of a "deprecated concept"
-   * for tag libraries. Thought the designer of a Tobago page cannot see
-   * in his IDE that a tag or attribute is deprecated.
+   * This Logger object should help to detect the usage of deprecated code. The main reason for this class is the lack
+   * of a "deprecated concept" for tag libraries. Thought the designer of a Tobago page cannot see in his IDE that a tag
+   * or attribute is deprecated.
    * <p>
    * The Tobago Java code will log into this Logger object, with
    * <dl>

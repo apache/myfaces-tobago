@@ -19,11 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.layout;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.Orientation;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,9 +57,9 @@ public class Grid {
     assert columns.getSize() > 0;
     assert rows.getSize() > 0;
 
-    this.columnCount = columns.getSize(); 
-    this.rowCount = rows.getSize(); 
-    
+    this.columnCount = columns.getSize();
+    this.rowCount = rows.getSize();
+
     this.columnHeads = new BankHead[columnCount];
     for (int i = 0; i < columnCount; i++) {
       columnHeads[i] = new BankHead(columns.get(i));
@@ -75,11 +75,12 @@ public class Grid {
     }
   }
 
-  public void add(final OriginCell cell, int columnSpan, final int rowSpan) {
+  public void add(final OriginCell cell, final int columnSpanParameter, final int rowSpan) {
 
-    assert columnSpan > 0;
+    assert columnSpanParameter > 0;
     assert rowSpan > 0;
 
+    int columnSpan = columnSpanParameter;
     boolean error = false;
 
     if (columnSpan + columnCursor > columnCount) {
@@ -156,9 +157,9 @@ public class Grid {
   public BankHead[] getBankHeads(final Orientation orientation) {
     return orientation == Orientation.HORIZONTAL ? columnHeads : rowHeads;
   }
-  
+
   private void enlarge(final int newRows) {
-    
+
     // process cells
     for (int i = 0; i < newRows; i++) {
       for (int j = 0; j < columnCount; j++) {
@@ -171,7 +172,7 @@ public class Grid {
     System.arraycopy(rowHeads, 0, newRowHeads, 0, rowHeads.length);
     rowHeads = newRowHeads;
     // todo: shorter in jdk 1.6: rowHeads = Arrays.copyOf(rowHeads, rowHeads.length + newRows);
-    
+
     for (int i = rowCount; i < rowCount + newRows; i++) {
       rowHeads[i] = new BankHead(RelativeLayoutToken.DEFAULT_INSTANCE);
     }
@@ -230,18 +231,8 @@ public class Grid {
   }
 
   /**
-   * Prints the state of the grid as an Unicode shape like this:
-   * ┏━┳━┳━┳━┯━┓
-   * ┃█┃█┃█┃█│➞┃
-   * ┠─╂─╊━╇━┿━┫
-   * ┃⬇┃⬇┃█│➞│➞┃
-   * ┣━╉─╊━╈━╈━┫
-   * ┃█┃⬇┃█┃█┃█┃
-   * ┣━╇━╇━╉─╊━┩
-   * ┃█│➞│➞┃⬇┃◌│
-   * ┡━┿━┿━╉─╂─┤
-   * │◌│◌│◌┃⬇┃◌│
-   * └─┴─┴─┺━┹─┘
+   * Prints the state of the grid as an Unicode shape like this: ┏━┳━┳━┳━┯━┓ ┃█┃█┃█┃█│➞┃ ┠─╂─╊━╇━┿━┫ ┃⬇┃⬇┃█│➞│➞┃
+   * ┣━╉─╊━╈━╈━┫ ┃█┃⬇┃█┃█┃█┃ ┣━╇━╇━╉─╊━┩ ┃█│➞│➞┃⬇┃◌│ ┡━┿━┿━╉─╂─┤ │◌│◌│◌┃⬇┃◌│ └─┴─┴─┺━┹─┘
    */
   public String gridAsString() {
 

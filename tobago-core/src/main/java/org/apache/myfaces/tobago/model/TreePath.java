@@ -29,9 +29,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Handles a path in a tree from the root node to the position inside this tree.
- * The position of the root node is dropped in the list, because it would always be zero.
- * The path of the root node as length 0.
+ * Handles a path in a tree from the root node to the position inside this tree. The position of the root node is
+ * dropped in the list, because it would always be zero. The path of the root node as length 0.
  * <p/>
  * Example:
  * <pre>
@@ -87,7 +86,8 @@ public class TreePath implements Serializable {
     this(StringUtils.parseIntegerList(string, "_"));
   }
 
-  public TreePath(TreeNode node) {
+  public TreePath(final TreeNode nodeParameter) {
+    TreeNode node = nodeParameter;
     if (node == null) {
       throw new IllegalArgumentException();
     }
@@ -133,6 +133,7 @@ public class TreePath implements Serializable {
   /**
    * @deprecated since 2.0.0
    */
+  @Deprecated
   public String getPathString() {
     final StringBuilder builder = new StringBuilder();
     for (final int item : path) {
@@ -158,12 +159,13 @@ public class TreePath implements Serializable {
   /**
    * Returns the node at the position of this NodePath applied to the parameter node.
    *
-   * @param tree The start node.
+   * @param treeParameter The start node.
    * @return The node applied to the given path.
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public DefaultMutableTreeNode getNode(DefaultMutableTreeNode tree) {
+  public DefaultMutableTreeNode getNode(final DefaultMutableTreeNode treeParameter) {
+    DefaultMutableTreeNode tree = treeParameter;
     if (tree == null) {
       return null;
     }

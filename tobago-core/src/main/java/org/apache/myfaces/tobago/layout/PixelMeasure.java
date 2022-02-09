@@ -28,14 +28,14 @@ public final class PixelMeasure extends Measure {
 
   static final PixelMeasure[] PIXEL_CACHE;
   static final int PIXEL_CACHE_MAX = 4000;
-  
+
   static {
     PIXEL_CACHE = new PixelMeasure[PIXEL_CACHE_MAX + 1];
     for (int i = 0; i < PIXEL_CACHE.length; i++) {
       PIXEL_CACHE[i] = new PixelMeasure(i);
     }
   }
-  
+
   private final int pixel;
 
   private PixelMeasure(final int pixel) {
@@ -48,7 +48,7 @@ public final class PixelMeasure extends Measure {
     }
     return new PixelMeasure(value);
   }
-  
+
   public Measure add(final Measure m) {
     if (m == null) {
       return this;
@@ -89,7 +89,7 @@ public final class PixelMeasure extends Measure {
   }
 
   public Measure subtract(final int m) {
-      return pixelValueOf(pixel - m);
+    return pixelValueOf(pixel - m);
   }
 
   public int getPixel() {

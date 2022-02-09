@@ -31,9 +31,7 @@ import javax.faces.webapp.FacetTag;
 import javax.servlet.jsp.JspException;
 
 /**
- * Renders a separator.
- * <br />
- * Short syntax of:
+ * Renders a separator. <br /> Short syntax of:
  * <p/>
  * <pre>
  * &lt;tc:separator>
@@ -51,7 +49,7 @@ import javax.servlet.jsp.JspException;
     rendererType = "Separator",
     faceletHandler = "org.apache.myfaces.tobago.facelets.extension.SeparatorExtensionHandler")
 public class SeparatorExtensionTag extends TobagoExtensionBodyTagSupport {
-  
+
   private javax.el.ValueExpression binding;
   private javax.el.ValueExpression rendered;
   private javax.el.ValueExpression label;
@@ -108,18 +106,17 @@ public class SeparatorExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * The value binding expression linking this
-   * component to a property in a backing bean.
+   * The value binding expression linking this component to a property in a backing bean.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
   public void setBinding(final javax.el.ValueExpression binding) throws JspException {
     this.binding = binding;
   }
-  
+
   /**
-   * Flag indicating whether or not this component should be rendered
-   * (during Render Response Phase), or processed on any subsequent form submit.
+   * Flag indicating whether or not this component should be rendered (during Render Response Phase), or processed on
+   * any subsequent form submit.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
@@ -128,8 +125,7 @@ public class SeparatorExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Text value to display as label.
-   * If text contains an underscore the next character is used as accesskey.
+   * Text value to display as label. If text contains an underscore the next character is used as accesskey.
    */
   @TagAttribute
   @UIComponentTagAttribute()

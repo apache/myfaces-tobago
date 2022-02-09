@@ -36,8 +36,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
- * Register an Converter instance on the UIComponent
- * associated with the closest parent UIComponent.
+ * Register an Converter instance on the UIComponent associated with the closest parent UIComponent.
  */
 @Tag(name = "converter")
 @SimpleTag(
@@ -50,11 +49,10 @@ public abstract class ConverterTag extends TagSupport {
   private ValueExpression converterId;
 
   /**
-   * Create a new instance of the specified {@link javax.faces.convert.Converter}
-   * class, and register it with the {@link javax.faces.component.UIComponent} instance associated
-   * with our most immediately surrounding {@link javax.faces.webapp.UIComponentELTag} instance, if
-   * the {@link javax.faces.component.UIComponent} instance was created by this execution of the
-   * containing JSP page.
+   * Create a new instance of the specified {@link javax.faces.convert.Converter} class, and register it with the {@link
+   * javax.faces.component.UIComponent} instance associated with our most immediately surrounding {@link
+   * javax.faces.webapp.UIComponentELTag} instance, if the {@link javax.faces.component.UIComponent} instance was
+   * created by this execution of the containing JSP page.
    *
    * @throws javax.servlet.jsp.JspException if a JSP error occurs
    */
@@ -69,7 +67,7 @@ public abstract class ConverterTag extends TagSupport {
     }
 
     if (!tag.getCreated()) {
-      return (SKIP_BODY);
+      return SKIP_BODY;
     }
 
     final UIComponent component = tag.getComponentInstance();
@@ -109,7 +107,7 @@ public abstract class ConverterTag extends TagSupport {
       }
     }
 
-    return (SKIP_BODY);
+    return SKIP_BODY;
   }
 
   @Override

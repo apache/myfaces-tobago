@@ -47,7 +47,7 @@ public class PopupReferenceHandler extends TagHandler {
     if (parent instanceof ActionSource) {
       if (ComponentHandler.isNew(parent)) {
         final ActionSource actionSource = (ActionSource) parent;
-        if (forComponent.isLiteral())  {
+        if (forComponent.isLiteral()) {
           actionSource.addActionListener(new PopupActionListener(forComponent.getValue()));
         } else {
           final ValueExpression forValueExpression = forComponent.getValueExpression(faceletContext, String.class);

@@ -34,5 +34,5 @@ import javax.faces.component.UIPanel;
         "org.apache.myfaces.tobago.SelectOneCommand",
         "org.apache.myfaces.tobago.SelectBooleanCommand",
         "org.apache.myfaces.tobago.Command"})
-public interface BoxToolBarTagDeclaration extends ToolBarTagDeclaration{
+public interface BoxToolBarTagDeclaration extends ToolBarTagDeclaration {
 }

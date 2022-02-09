@@ -42,8 +42,8 @@ public class TransientStateHolder implements StateHolder, Serializable {
     return null;
   }
 
-  public void put(final Object object) {
-    this.object = object;
+  public void put(final Object objectParameter) {
+    this.object = objectParameter;
   }
 
   public boolean isEmpty() {

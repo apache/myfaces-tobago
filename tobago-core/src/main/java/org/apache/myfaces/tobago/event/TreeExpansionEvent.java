@@ -43,7 +43,7 @@ public class TreeExpansionEvent extends FacesEvent {
   public void processListener(final FacesListener facesListener) {
     if (facesListener instanceof TreeExpansionListener) {
       if (oldExpanded && !newExpanded) {
-   //todo     ((TreeExpansionListener) facesListener).treeCollapsed(this);
+        //todo     ((TreeExpansionListener) facesListener).treeCollapsed(this);
         ((TreeExpansionListener) facesListener).treeExpanded(this);
       } else if (!oldExpanded && newExpanded) {
         ((TreeExpansionListener) facesListener).treeExpanded(this);

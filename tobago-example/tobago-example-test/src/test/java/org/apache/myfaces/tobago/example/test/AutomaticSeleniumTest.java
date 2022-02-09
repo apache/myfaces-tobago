@@ -69,12 +69,12 @@ public class AutomaticSeleniumTest extends SeleniumTest {
     }
   }
 
-  private SeleniumScript getSeleniumScript(final String url)
+  private SeleniumScript getSeleniumScript(final String urlParameter)
       throws XPathExpressionException, SAXException, IOException, ParserConfigurationException {
-    String seleniumUrl = url.substring("/faces/".length());
+    String seleniumUrl = urlParameter.substring("/faces/".length());
     seleniumUrl = seleniumUrl.substring(0, seleniumUrl.lastIndexOf("."));
     seleniumUrl = "http://localhost:8080/" + seleniumUrl + ".selenium.html";
-    return new SeleniumScript(new URL(seleniumUrl), url);
+    return new SeleniumScript(new URL(seleniumUrl), urlParameter);
   }
 
   @Parameterized.Parameters

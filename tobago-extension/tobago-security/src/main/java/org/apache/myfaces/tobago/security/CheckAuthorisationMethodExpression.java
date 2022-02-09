@@ -53,7 +53,7 @@ public class CheckAuthorisationMethodExpression extends MethodExpression impleme
       LOG.debug("MethodBinding invoke " + getExpressionString());
     }
     // MethodExpression with a argument list would not be checked for authorisation
-    if ((objects!=null && objects.length > 0)
+    if (objects != null && objects.length > 0
         || AuthorizationUtils.isAuthorized(FacesContext.getCurrentInstance(), getExpressionString())) {
       return methodExpression.invoke(context, objects);
     } else {

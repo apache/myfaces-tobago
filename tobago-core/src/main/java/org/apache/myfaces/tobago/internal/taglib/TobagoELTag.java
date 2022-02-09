@@ -59,7 +59,6 @@ public abstract class TobagoELTag extends UIComponentELTag {
   }
 
   /**
-   *
    * @deprecated Not supported anymore
    */
   @Deprecated
@@ -70,7 +69,6 @@ public abstract class TobagoELTag extends UIComponentELTag {
   }
 
   /**
-   *
    * @deprecated Not supported anymore
    */
   @Deprecated

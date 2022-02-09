@@ -36,8 +36,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
 import javax.faces.component.UIColumn;
 
 /**
- * Renders a UIComponent that represents a single column of data within a
- * parent UISheet component.
+ * Renders a UIComponent that represents a single column of data within a parent UISheet component.
  */
 @Tag(name = "column")
 @UIComponentTag(
@@ -60,8 +59,8 @@ public interface ColumnTagDeclaration
   void setAlign(String align);
 
   /**
-   * Flag indicating whether or not this column is sortable.
-   * To make a column sortable the data of the sheet must be one of
+   * Flag indicating whether or not this column is sortable. To make a column sortable the data of the sheet must be one
+   * of
    * <code>java.util.List</code> or <code>Object[]</code>.
    */
   @TagAttribute
@@ -76,9 +75,8 @@ public interface ColumnTagDeclaration
   void setResizable(String resizable);
 
   /**
-   * The layout token for this column.
-   * Allowd layout tokens ('*', '&lt;x>*', '&lt;x>px' or '&lt;x>%').
-   * Where '*' is equivalent to '1*'.
+   * The layout token for this column. Allowd layout tokens ('*', '&lt;x>*', '&lt;x>px' or '&lt;x>%'). Where '*' is
+   * equivalent to '1*'.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")

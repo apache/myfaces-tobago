@@ -31,8 +31,7 @@ import javax.faces.validator.ValidatorException;
 
 /**
  * <p><strong>SubmittedLengthValidator</strong> is a {@link Validator} that checks
- * the number of characters in the submitted value of the
- * associated component.
+ * the number of characters in the submitted value of the associated component.
  */
 @Validator(id = SubmittedValueLengthValidator.VALIDATOR_ID)
 public class SubmittedValueLengthValidator extends LengthValidator {
@@ -130,7 +129,7 @@ public class SubmittedValueLengthValidator extends LengthValidator {
 
   public int hashCode() {
     int result;
-    result = (minimum != null ? minimum.hashCode() : 0);
+    result = minimum != null ? minimum.hashCode() : 0;
     result = 31 * result + (maximum != null ? maximum.hashCode() : 0);
     return result;
   }

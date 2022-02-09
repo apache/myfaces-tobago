@@ -26,6 +26,7 @@ public interface LayoutContainer extends LayoutBox, LayoutBase {
   List<LayoutComponent> getComponents();
 
   LayoutManager getLayoutManager();
+
   void setLayoutManager(LayoutManager layoutManager);
 
   /**
@@ -34,8 +35,10 @@ public interface LayoutContainer extends LayoutBox, LayoutBase {
   boolean isLayoutChildren();
 
   boolean isOverflowX();
+
   void setOverflowX(boolean overflowX);
 
   boolean isOverflowY();
+
   void setOverflowY(boolean overflowY);
 }

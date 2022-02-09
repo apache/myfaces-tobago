@@ -29,8 +29,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface HasOnclick {
   /**
    * Script to be invoked when clicked
-   *
-   * @param onclick
    */
   @TagAttribute
   @UIComponentTagAttribute()

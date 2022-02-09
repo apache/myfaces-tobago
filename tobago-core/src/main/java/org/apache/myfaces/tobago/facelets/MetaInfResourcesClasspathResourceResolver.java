@@ -25,8 +25,8 @@ import org.slf4j.LoggerFactory;
 import java.net.URL;
 
 /**
- * Provides facelets from the directory "META-INF/resources/" of any jar file in the classpath.
- * With the Servlet 3.0 specification this is no longer needed.
+ * Provides facelets from the directory "META-INF/resources/" of any jar file in the classpath. With the Servlet 3.0
+ * specification this is no longer needed.
  * <p/>
  * To configure this ResourceResolver put this code into the web.xml file:
  * <pre>
@@ -49,7 +49,8 @@ public class MetaInfResourcesClasspathResourceResolver extends DefaultResourceRe
     }
   }
 
-  public URL resolveUrl(String path) {
+  public URL resolveUrl(final String pathParameter) {
+    String path = pathParameter;
     URL url = super.resolveUrl(path);
     if (LOG.isDebugEnabled()) {
       LOG.debug("default   url='" + url + "'");

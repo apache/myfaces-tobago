@@ -27,15 +27,15 @@ import javax.servlet.jsp.tagext.JspIdConsumer;
 public class TobagoExtensionBodyTagSupport extends BodyTagSupport implements JspIdConsumer {
 
   protected static final String PREFIX = "tx";
-  
+
   private String jspId;
   private int idSuffix;
-    
+
   protected ValueExpression createStringValueExpression(final String expression) {
     return JspFactory.getDefaultFactory().getJspApplicationContext(pageContext.getServletContext())
         .getExpressionFactory().createValueExpression(pageContext.getELContext(), expression, String.class);
   }
-  
+
   public void setJspId(final String jspId) {
     this.jspId = jspId;
   }

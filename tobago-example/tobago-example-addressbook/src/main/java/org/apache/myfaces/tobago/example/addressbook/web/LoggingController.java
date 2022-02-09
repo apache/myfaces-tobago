@@ -19,9 +19,20 @@
 
 package org.apache.myfaces.tobago.example.addressbook.web;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Appender;
+import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.core.config.Configuration;
+import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.example.addressbook.Log4jUtils;
 import org.apache.myfaces.tobago.model.SelectItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
@@ -34,18 +45,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Appender;
-import org.apache.logging.log4j.core.LoggerContext;
-import org.apache.logging.log4j.core.config.Configuration;
-import org.apache.logging.log4j.core.config.LoggerConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 @Component("logging")
 @Scope("session")
@@ -119,10 +118,10 @@ public class LoggingController {
 
   public String updateCategories() {
       boolean update = false;
-      for (final CategoryModel category : categories) {
-          if (category.isLevelUpdated()) {
-              final LoggerConfig logger = getLogger(category.getName());
-              logger.setLevel(Level.toLevel(category.getLevel()));
+      for (final CategoryModel categoryModel : categories) {
+          if (categoryModel.isLevelUpdated()) {
+              final LoggerConfig logger = getLogger(categoryModel.getName());
+              logger.setLevel(Level.toLevel(categoryModel.getLevel()));
               update = true;
           }
       }
@@ -155,11 +154,11 @@ public class LoggingController {
       return null;
   }
 
-  private LoggerConfig getLogger(final String category) {
-    Configuration configuration = ((LoggerContext) LogManager.getContext(false)).getConfiguration();
-    return ("root".equals(category))
+  private LoggerConfig getLogger(final String categoryParameter) {
+    final Configuration configuration = ((LoggerContext) LogManager.getContext(false)).getConfiguration();
+    return "root".equals(categoryParameter)
               ? configuration.getRootLogger()
-              : configuration.getLoggerConfig(category);
+              : configuration.getLoggerConfig(categoryParameter);
   }
 
   public List<AppenderModel> getAppenders() {

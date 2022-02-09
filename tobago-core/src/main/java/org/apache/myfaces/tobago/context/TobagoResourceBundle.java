@@ -20,9 +20,9 @@
 package org.apache.myfaces.tobago.context;
 
 /**
- * This ResourceBundle encapsulate string resources of Tobago components.
- * This class works like the Java resource bundle mechanism for the resource bundle "tobago"
- * and adds the functionality of the tobago themes and also supports XML properties files.
+ * This ResourceBundle encapsulate string resources of Tobago components. This class works like the Java resource bundle
+ * mechanism for the resource bundle "tobago" and adds the functionality of the tobago themes and also supports XML
+ * properties files.
  */
 public class TobagoResourceBundle extends TobagoBundle {
 

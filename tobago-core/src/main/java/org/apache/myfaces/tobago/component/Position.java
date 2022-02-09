@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.component;
 import org.apache.myfaces.tobago.layout.Measure;
 
 /**
- * This interface indicates that the component has a position like e. g. UIPopup.
- * XXX Warning: It is to discussed, if this is a good solution.
+ * This interface indicates that the component has a position like e. g. UIPopup. XXX Warning: It is to discussed, if
+ * this is a good solution.
  */
 public interface Position {
 

@@ -37,8 +37,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRoot;
 import javax.faces.component.UIData;
 
 /**
- * A tree which will be displayed like a flat menu.
- * This menu is often used for navigation on the left side of an application.
+ * A tree which will be displayed like a flat menu. This menu is often used for navigation on the left side of an
+ * application.
  */
 @Tag(name = "treeMenu")
 @BodyContentDescription(anyTagOf = "<tc:treeData>")
@@ -51,13 +51,12 @@ import javax.faces.component.UIData;
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.TreeNode",
         "org.apache.myfaces.tobago.TreeData"
-        })
+    })
 public interface TreeMenuTagDeclaration
     extends HasIdBindingAndRendered, HasValue, HasVar, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup,
     IsShowRoot {
 
   /**
-   *
    * <strong>ValueBindingExpression</strong> pointing to a object to save the
    * component's state.
    */

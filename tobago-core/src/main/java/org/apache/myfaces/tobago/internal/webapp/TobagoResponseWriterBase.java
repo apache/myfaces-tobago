@@ -49,11 +49,15 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
       HtmlElements.BASE,
       HtmlElements.META));
 
-  /** @deprecated Since Tobago 1.5.3 */
+  /**
+   * @deprecated Since Tobago 1.5.3
+   */
   @Deprecated
   public static final String XML_VERSION_1_0_ENCODING_UTF_8 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 
-  /** @deprecated Since Tobago 1.5.3 */
+  /**
+   * @deprecated Since Tobago 1.5.3
+   */
   @Deprecated
   public static final int XML_VERSION_1_0_ENCODING_UTF_8_LENGTH = XML_VERSION_1_0_ENCODING_UTF_8.length();
 
@@ -136,9 +140,9 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     writeInternal(writer, string);
   }
 
-  protected final void writeInternal(final Writer writer, final String string) throws IOException {
+  protected final void writeInternal(final Writer writerParameter, final String string) throws IOException {
     closeOpenTag();
-    writer.write(string);
+    writerParameter.write(string);
   }
 
   @Override
@@ -175,10 +179,6 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
   }
 
 
-
-
-
-
   protected void closeOpenTag() throws IOException {
     if (startStillOpen) {
       writer.write("\n>");
@@ -207,15 +207,16 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     startElementInternal(writer, name, currentComponent);
   }
 
-  protected void startElementInternal(final Writer writer, final String name, final UIComponent currentComponent)
+  protected void startElementInternal(
+      final Writer writerParameter, final String name, final UIComponent currentComponent)
       throws IOException {
     this.component = currentComponent;
 //    closeOpenTag();
     if (startStillOpen) {
-      writer.write("\n>");
+      writerParameter.write("\n>");
     }
-    writer.write("<");
-    writer.write(name);
+    writerParameter.write("<");
+    writerParameter.write(name);
     startStillOpen = true;
   }
 
@@ -230,7 +231,6 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     write(comment);
     write("-->");
   }
-
 
 
   public void writeAttribute(final String name, final Object value, final String property)
@@ -264,10 +264,10 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     writeAttributeInternal(writer, name, value, escape);
   }
 
-  @Override
   /**
    * @deprecated Since Tobago 2.0.0
    */
+  @Override
   @Deprecated
   public String getStyleClasses() {
     if (component == null) {
@@ -286,24 +286,25 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
   }
 
 
-  protected void endElementInternal(final Writer writer, final String name) throws IOException {
+  protected void endElementInternal(final Writer writerParameter, final String name) throws IOException {
     if (EMPTY_TAG.contains(name)) {
       closeEmptyTag();
     } else {
       if (startStillOpen) {
-        writer.write("\n>");
+        writerParameter.write("\n>");
       }
-      writer.write("</");
-      writer.write(name);
+      writerParameter.write("</");
+      writerParameter.write(name);
 //      writer.write("\n>"); // FIXME: this makes problems with Tidy
-      writer.write(">");
+      writerParameter.write(">");
     }
     startStillOpen = false;
   }
+
   protected abstract void closeEmptyTag() throws IOException;
 
   protected void writeAttributeInternal(
-      final Writer writer, final String name, final String value, final boolean escape)
+      final Writer writerParameter, final String name, final String value, final boolean escape)
       throws IOException {
     if (!startStillOpen) {
       final String trace = getCallingClassStackTraceElementString();
@@ -316,13 +317,14 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     }
 
     if (value != null) {
-      writer.write(' ');
-      writer.write(name);
-      writer.write("='");
+      writerParameter.write(' ');
+      writerParameter.write(name);
+      writerParameter.write("='");
       writerAttributeValue(value, escape);
-      writer.write('\'');
+      writerParameter.write('\'');
     }
   }
+
   protected abstract void writerAttributeValue(String value, boolean escape) throws IOException;
 
 

@@ -49,6 +49,7 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
 
   /**
    * Creates a new instance of MethodBindingToMethodExpression
+   *
    * @param methodBinding The MethodBinding to wrap.
    */
   public MethodBindingToMethodExpression(final MethodBinding methodBinding) {
@@ -58,6 +59,7 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
 
   /**
    * Return the wrapped MethodBinding.
+   *
    * @return the wrapped MethodBinding
    */
   public MethodBinding getMethodBinding() {
@@ -142,8 +144,8 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
     }
   }
 
-  public void setTransient(final boolean transientFlag) {
-    this.transientFlag = transientFlag;
+  public void setTransient(final boolean transientParameter) {
+    this.transientFlag = transientParameter;
   }
 
   public boolean isTransient() {
@@ -154,7 +156,7 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((methodBinding == null) ? 0 : methodBinding.hashCode());
+    result = prime * result + (methodBinding == null ? 0 : methodBinding.hashCode());
     return result;
   }
 

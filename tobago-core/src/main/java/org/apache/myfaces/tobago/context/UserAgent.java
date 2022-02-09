@@ -104,6 +104,7 @@ public final class UserAgent implements Serializable {
   /**
    * @deprecated no longer supported, since Tobago 1.5. Please use {@link #PRESTO}.
    */
+  @Deprecated
   public static final UserAgent OPERA = new UserAgent("opera", null);
 
   /**
@@ -189,8 +190,8 @@ public final class UserAgent implements Serializable {
   private final String name;
 
   /**
-   * @deprecated Version shouldn't be used in the future. Use capability instead, even better
-   * use same code on the server when possible and use capability via JavaScript.
+   * @deprecated Version shouldn't be used in the future. Use capability instead, even better use same code on the
+   * server when possible and use capability via JavaScript.
    */
   @Deprecated
   private final String version;
@@ -348,16 +349,16 @@ public final class UserAgent implements Serializable {
         : name;
   }
 
-  private static enum CspHeader {
+  private enum CspHeader {
 
-    NOT_SUPPORTED(new String[] {}),
-    X(new String[] {"Content-Security-Policy", "X-Content-Security-Policy"}),
-    WEBKIT(new String[] {"Content-Security-Policy", "X-WebKit-CSP"}),
-    STANDARD(new String[] {"Content-Security-Policy"});
+    NOT_SUPPORTED(new String[]{}),
+    X(new String[]{"Content-Security-Policy", "X-Content-Security-Policy"}),
+    WEBKIT(new String[]{"Content-Security-Policy", "X-WebKit-CSP"}),
+    STANDARD(new String[]{"Content-Security-Policy"});
 
     private String[] names;
 
-    private CspHeader(final String[] names) {
+    CspHeader(final String[] names) {
       this.names = names;
     }
 
@@ -366,16 +367,16 @@ public final class UserAgent implements Serializable {
     }
   }
 
-  private static enum CsproHeader {
+  private enum CsproHeader {
 
-    NOT_SUPPORTED(new String[] {}),
-    X(new String[] {"Content-Security-Policy-Report-Only", "X-Content-Security-Policy-Report-Only"}),
-    WEBKIT(new String[] {"Content-Security-Policy-Report-Only", "X-WebKit-CSP-Report-Only"}),
-    STANDARD(new String[] {"Content-Security-Policy-Report-Only"});
+    NOT_SUPPORTED(new String[]{}),
+    X(new String[]{"Content-Security-Policy-Report-Only", "X-Content-Security-Policy-Report-Only"}),
+    WEBKIT(new String[]{"Content-Security-Policy-Report-Only", "X-WebKit-CSP-Report-Only"}),
+    STANDARD(new String[]{"Content-Security-Policy-Report-Only"});
 
     private String[] names;
 
-    private CsproHeader(final String[] names) {
+    CsproHeader(final String[] names) {
       this.names = names;
     }
 

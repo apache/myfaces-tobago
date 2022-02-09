@@ -23,14 +23,14 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 /**
- * The width and height attributes can be set explicitly on some components.
- * Generally it should be checked, if using of a layout manager is a better alternative.
+ * The width and height attributes can be set explicitly on some components. Generally it should be checked, if using of
+ * a layout manager is a better alternative.
  */
 public interface IsGridLayoutComponentWithDimension extends IsGridLayoutComponentBase {
 
   /**
-   * The width of the component in the UI.
-   * This value will usually be set by the layout manager, but can be set explicitly here.
+   * The width of the component in the UI. This value will usually be set by the layout manager, but can be set
+   * explicitly here.
    *
    * @param width The width for this component.
    */
@@ -41,8 +41,8 @@ public interface IsGridLayoutComponentWithDimension extends IsGridLayoutComponen
   void setWidth(String width);
 
   /**
-   * The height of the component in the UI.
-   * This value will usually be set by the layout manager, but can be set explicitly here.
+   * The height of the component in the UI. This value will usually be set by the layout manager, but can be set
+   * explicitly here.
    *
    * @param height The height for this component.
    */

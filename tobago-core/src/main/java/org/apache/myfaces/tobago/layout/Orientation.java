@@ -20,10 +20,10 @@
 package org.apache.myfaces.tobago.layout;
 
 public enum Orientation {
-  
+
   HORIZONTAL,
   VERTICAL;
-  
+
   public Orientation other() {
     if (this == HORIZONTAL) {
       return VERTICAL;

@@ -36,8 +36,8 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
- * Register an TabChangedListener instance on the UIComponent
- * associated with the closest parent UIComponent custom action.
+ * Register an TabChangedListener instance on the UIComponent associated with the closest parent UIComponent custom
+ * action.
  */
 @Tag(name = "tabChangeListener")
 @SimpleTag(
@@ -50,8 +50,7 @@ public abstract class TabChangeListenerTag extends TagSupport {
   private ValueExpression binding;
 
   /**
-   * Fully qualified Java class name of a TabChangeListener to be
-   * created and registered.
+   * Fully qualified Java class name of a TabChangeListener to be created and registered.
    */
   @TagAttribute(required = true, name = "type", type = "java.lang.String")
   public void setType(final ValueExpression type) {
@@ -68,10 +67,9 @@ public abstract class TabChangeListenerTag extends TagSupport {
 
   /**
    * <p>Create a new instance of the specified {@link TabChangeListener}
-   * class, and register it with the {@link javax.faces.component.UIComponent} instance associated
-   * with our most immediately surrounding {@link javax.faces.webapp.UIComponentELTag} instance, if
-   * the {@link javax.faces.component.UIComponent} instance was created by this execution of the
-   * containing JSP page.</p>
+   * class, and register it with the {@link javax.faces.component.UIComponent} instance associated with our most
+   * immediately surrounding {@link javax.faces.webapp.UIComponentELTag} instance, if the {@link
+   * javax.faces.component.UIComponent} instance was created by this execution of the containing JSP page.</p>
    *
    * @throws JspException if a JSP error occurs
    */
@@ -86,7 +84,7 @@ public abstract class TabChangeListenerTag extends TagSupport {
     }
 
     if (!tag.getCreated()) {
-      return (SKIP_BODY);
+      return SKIP_BODY;
     }
 
     final UIComponent component = tag.getComponentInstance();
@@ -126,7 +124,7 @@ public abstract class TabChangeListenerTag extends TagSupport {
       }
     }
 
-    return (SKIP_BODY);
+    return SKIP_BODY;
   }
 
   /**
@@ -138,7 +136,7 @@ public abstract class TabChangeListenerTag extends TagSupport {
   protected TabChangeListener createTabChangeListener(final String className) throws JspException {
     try {
       final Class clazz = getClass().getClassLoader().loadClass(className);
-      return ((TabChangeListener) clazz.newInstance());
+      return (TabChangeListener) clazz.newInstance();
     } catch (final Exception e) {
       throw new JspException(e);
     }

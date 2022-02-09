@@ -66,32 +66,32 @@ public class MathUtilsUnitTest {
   @Test
   public void testIsZero() {
     Assert.assertTrue(MathUtils.isZero(0));
-    Assert.assertFalse(MathUtils.isZero(1.0/1000.0));
-    Assert.assertTrue(MathUtils.isZero(1.0/1000000000.0));
-    Assert.assertTrue(MathUtils.isZero(-1.0/1000000000.0));
+    Assert.assertFalse(MathUtils.isZero(1.0 / 1000.0));
+    Assert.assertTrue(MathUtils.isZero(1.0 / 1000000000.0));
+    Assert.assertTrue(MathUtils.isZero(-1.0 / 1000000000.0));
   }
 
   @Test
   public void testIsNotZero() {
     Assert.assertFalse(MathUtils.isNotZero(0));
-    Assert.assertTrue(MathUtils.isNotZero(1.0/1000.0));
-    Assert.assertFalse(MathUtils.isNotZero(1.0/1000000000.0));
-    Assert.assertFalse(MathUtils.isNotZero(-1.0/1000000000.0));
+    Assert.assertTrue(MathUtils.isNotZero(1.0 / 1000.0));
+    Assert.assertFalse(MathUtils.isNotZero(1.0 / 1000000000.0));
+    Assert.assertFalse(MathUtils.isNotZero(-1.0 / 1000000000.0));
   }
 
   @Test
   public void testIsInteger() {
     Assert.assertTrue(MathUtils.isInteger(1.0));
     Assert.assertTrue(MathUtils.isInteger(0.0));
-    Assert.assertTrue(MathUtils.isInteger(1.0/1000000000.0));
-    Assert.assertFalse(MathUtils.isInteger(1.0/1000.0));
+    Assert.assertTrue(MathUtils.isInteger(1.0 / 1000000000.0));
+    Assert.assertFalse(MathUtils.isInteger(1.0 / 1000.0));
   }
 
   @Test
   public void testIsNotInteger() {
     Assert.assertFalse(MathUtils.isNotInteger(1.0));
     Assert.assertFalse(MathUtils.isNotInteger(0.0));
-    Assert.assertFalse(MathUtils.isNotInteger(1.0/1000000000.0));
-    Assert.assertTrue(MathUtils.isNotInteger(1.0/1000.0));
+    Assert.assertFalse(MathUtils.isNotInteger(1.0 / 1000000000.0));
+    Assert.assertTrue(MathUtils.isNotInteger(1.0 / 1000.0));
   }
 }

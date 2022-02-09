@@ -47,11 +47,11 @@ import javax.faces.component.UIOutput;
     rendererType = RendererTypes.PROGRESS,
     allowedChildComponenents = "NONE",
     facets = {@Facet(
-        name= Facets.COMPLETE,
+        name = Facets.COMPLETE,
         description =
             "Contains an instance of UICommand (tc:command). The action is invoked if the full progress has reached",
         allowedChildComponenents = "org.apache.myfaces.tobago.Command")})
-        
+
 public interface ProgressTagDeclaration
     extends HasIdBindingAndRendered, HasTip, HasMarkup, HasCurrentMarkup, IsGridLayoutComponent {
 
@@ -60,7 +60,7 @@ public interface ProgressTagDeclaration
    */
   @TagAttribute
   @UIComponentTagAttribute(
-      type = { "javax.swing.BoundedRangeModel" },
+      type = {"javax.swing.BoundedRangeModel"},
       expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
 }

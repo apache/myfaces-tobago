@@ -68,7 +68,7 @@ public final class XmlUtils {
   }
 
   private static void appendEntityRef(final StringBuilder buffer, final char ch,
-      final boolean isAttributeValue) {
+                                      final boolean isAttributeValue) {
     // Encode special XML characters into the equivalent character references.
     // These five are defined by default for all XML documents.
     switch (ch) {
@@ -100,7 +100,9 @@ public final class XmlUtils {
     }
   }
 
-  /** @deprecated */
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static void load(final Properties properties, final InputStream stream)
       throws IOException {
@@ -143,7 +145,7 @@ public final class XmlUtils {
         final Element entry = (Element) child;
         if (entry.hasAttribute("key")) {
           final Node node = entry.getFirstChild();
-          final String value = (node == null) ? "" : node.getNodeValue();
+          final String value = node == null ? "" : node.getNodeValue();
           properties.setProperty(entry.getAttribute("key"), value);
         }
       }

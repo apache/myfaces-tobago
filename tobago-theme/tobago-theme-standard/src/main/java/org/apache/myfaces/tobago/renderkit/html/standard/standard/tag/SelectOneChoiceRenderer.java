@@ -80,9 +80,9 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     if (onchange != null) {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, true);
     }
-    HtmlRendererUtils.renderCommandFacet(select, facesContext , writer);
+    HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
-    
+
     HtmlRendererUtils.renderSelectItems(select, items, select.getValue(), (String) select.getSubmittedValue(), writer,
         facesContext);
 

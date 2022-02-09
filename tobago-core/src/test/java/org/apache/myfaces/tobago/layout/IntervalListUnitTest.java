@@ -52,9 +52,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
   }
 
   /**
-   * f=100
-   * f=200
-   * f=300
+   * f=100 f=200 f=300
    */
   @Test
   public void test3Fixed() {
@@ -80,9 +78,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
   }
 
   /**
-   * 10/100/1000
-   * 20/200/2000
-   * 30/300/3000
+   * 10/100/1000 20/200/2000 30/300/3000
    */
   @Test
   public void test3MinPrefMax() {
@@ -96,8 +92,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
   }
 
   /**
-   * 10/100/1000
-   * 1000/10000/100000
+   * 10/100/1000 1000/10000/100000
    */
   @Test
   public void test2MinPrefMax() {
@@ -110,8 +105,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
   }
 
   /**
-   * 10/100/1000
-   * 2000/20000/200000
+   * 10/100/1000 2000/20000/200000
    */
   @Test
   public void test4MinPrefMax() {
@@ -124,9 +118,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
   }
 
   /**
-   * 10/./.
-   * ./200/.
-   * ././3000
+   * 10/./. ./200/. ././3000
    */
   @Test
   public void test3MinPrefMaxWithGaps() {
@@ -140,12 +132,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
   }
 
   /**
-   * f=100
-   * f=200
-   * f=300
-   * 10/111/1000
-   * 20/222/2000
-   * 30/333/3000
+   * f=100 f=200 f=300 10/111/1000 20/222/2000 30/333/3000
    */
   @Test
   public void test6Mixed() {
@@ -162,12 +149,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
   }
 
   /**
-   * f=100
-   * f=200
-   * f=300
-   * 10/111/210
-   * 120/222/220
-   * 130/333/230
+   * f=100 f=200 f=300 10/111/210 120/222/220 130/333/230
    */
   @Test
   public void test6Squeeze() {
@@ -184,11 +166,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
   }
 
   /**
-   * f=100
-   * f=300
-   * 10/111/210
-   * 120/222/220
-   * 130/333/230
+   * f=100 f=300 10/111/210 120/222/220 130/333/230
    */
   @Test
   public void test5Squeeze() {
