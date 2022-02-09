@@ -80,7 +80,7 @@ public class MeasureBean {
   }
 
   public static class Any {
-    
+
     private String value;
 
     public Any(final String value) {

@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.event;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;

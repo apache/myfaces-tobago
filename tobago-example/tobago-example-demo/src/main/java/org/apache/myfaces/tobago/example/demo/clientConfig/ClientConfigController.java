@@ -108,9 +108,9 @@ public class ClientConfigController {
     boolean defaultInList = false;
     final List<SelectItem> localeItems = new ArrayList<SelectItem>();
     while (supportedLocales.hasNext()) {
-      final Locale locale = (Locale) supportedLocales.next();
-      localeItems.add(createLocaleItem(locale));
-      if (locale.equals(defaultLocale)) {
+      final Locale supported = (Locale) supportedLocales.next();
+      localeItems.add(createLocaleItem(supported));
+      if (supported.equals(defaultLocale)) {
         defaultInList = true;
       }
     }

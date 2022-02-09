@@ -34,15 +34,14 @@ import javax.servlet.jsp.tagext.TagSupport;
 import java.util.Map;
 
 /**
- * Load a resource bundle localized for the locale of the current view
- * from the tobago resource path, and expose it (as a Map) in the session
- * attributes (session scope is needed to support ajax requests).
- * <p />
- * The main difference to the JSF tag f:localBundle is the support of Tobago themes and
- * the XML formal for properties files.
- * <p />
- * Since JSF 1.2 it is possible to use a {@link org.apache.myfaces.tobago.context.TobagoBundle}
- * and configure it in the faces-config.xml.
+ * Load a resource bundle localized for the locale of the current view from the tobago resource path, and expose it (as
+ * a Map) in the session attributes (session scope is needed to support ajax requests).
+ * <p/>
+ * The main difference to the JSF tag f:localBundle is the support of Tobago themes and the XML formal for properties
+ * files.
+ * <p/>
+ * Since JSF 1.2 it is possible to use a {@link org.apache.myfaces.tobago.context.TobagoBundle} and configure it in the
+ * faces-config.xml.
  */
 @Tag(name = "loadBundle")
 @SimpleTag(
@@ -82,12 +81,11 @@ public abstract class LoadBundleTag extends TagSupport {
   }
 
   /**
-   * Name of a session-scope attribute under which the bundle data
-   * will be exposed.
+   * Name of a session-scope attribute under which the bundle data will be exposed.
    */
   @TagAttribute(required = true, name = "var")
   @UIComponentTagAttribute(expression = DynamicExpression.PROHIBITED)
-  public  void setVar(final String var){
+  public void setVar(final String var) {
     this.var = var;
   }
 

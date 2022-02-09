@@ -31,9 +31,7 @@ import javax.el.ValueExpression;
 import javax.servlet.jsp.JspException;
 
 /**
- * Renders a multi line text input control with a label.
- * <br />
- * Short syntax of:
+ * Renders a multi line text input control with a label. <br /> Short syntax of:
  * <p/>
  * <pre>
  * &lt;tc:panel>
@@ -215,25 +213,21 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * MethodBinding representing a value change listener method
-   * that will be notified when a new value has been set for this input component.
-   * The expression must evaluate to a public method that takes a ValueChangeEvent
-   * parameter, with a return type of void.
-   *
-   * @param valueChangeListener
+   * MethodBinding representing a value change listener method that will be notified when a new value has been set for
+   * this input component. The expression must evaluate to a public method that takes a ValueChangeEvent parameter, with
+   * a return type of void.
    */
   @TagAttribute
   @UIComponentTagAttribute(
-          type = {},
-          expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
-          methodSignature = "javax.faces.event.ValueChangeEvent")
+      type = {},
+      expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
+      methodSignature = "javax.faces.event.ValueChangeEvent")
   public void setValueChangeListener(final MethodExpression valueChangeListener) {
     this.valueChangeListener = valueChangeListener;
   }
 
   /**
-   * Text value to display as label.
-   * If text contains an underscore the next character is used as accesskey.
+   * Text value to display as label. If text contains an underscore the next character is used as accesskey.
    */
   @TagAttribute
   @UIComponentTagAttribute()
@@ -260,8 +254,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * The value binding expression linking this
-   * component to a property in a backing bean.
+   * The value binding expression linking this component to a property in a backing bean.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
@@ -270,8 +263,8 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Flag indicating whether or not this component should be rendered
-   * (during Render Response Phase), or processed on any subsequent form submit.
+   * Flag indicating whether or not this component should be rendered (during Render Response Phase), or processed on
+   * any subsequent form submit.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
@@ -280,13 +273,9 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * An expression that specifies the Converter for this component.
-   * If the value binding expression is a String,
-   * the String is used as an ID to look up a Converter.
-   * If the value binding expression is a Converter,
-   * uses that instance as the converter.
-   * The value can either be a static value (ID case only)
-   * or an EL expression.
+   * An expression that specifies the Converter for this component. If the value binding expression is a String, the
+   * String is used as an ID to look up a Converter. If the value binding expression is a Converter, uses that instance
+   * as the converter. The value can either be a static value (ID case only) or an EL expression.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.convert.Converter",
@@ -296,15 +285,13 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * A method binding EL expression,
-   * accepting FacesContext, UIComponent,
-   * and Object parameters, and returning void, that validates
-   * the component's local value.
+   * A method binding EL expression, accepting FacesContext, UIComponent, and Object parameters, and returning void,
+   * that validates the component's local value.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {},
       expression = DynamicExpression.METHOD_EXPRESSION,
-      methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
+      methodSignature = {"javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object"})
   public void setValidator(final MethodExpression validator) {
     this.validator = validator;
   }
@@ -319,8 +306,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Indicate markup of this component.
-   * Possible value is 'none'. But this can be overridden in the theme.
+   * Indicate markup of this component. Possible value is 'none'. But this can be overridden in the theme.
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
@@ -347,9 +333,8 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Flag indicating that a value is required.
-   * If the value is an empty string a
-   * ValidationError occurs and a Error Message is rendered.
+   * Flag indicating that a value is required. If the value is an empty string a ValidationError occurs and a Error
+   * Message is rendered.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
@@ -366,10 +351,9 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
     this.tip = tip;
   }
 
-   /**
-   * The width for the label component. Default: 'auto'.
-   * This value is used in the gridLayouts columns attribute.
-   * See gridLayout tag for valid values.
+  /**
+   * The width for the label component. Default: 'auto'. This value is used in the gridLayouts columns attribute. See
+   * gridLayout tag for valid values.
    */
   @TagAttribute
   @UIComponentTagAttribute()
@@ -411,8 +395,8 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * The component identifier for the input field component inside of the container.
-   * This value must be unique within the closest parent component that is a naming container.
+   * The component identifier for the input field component inside of the container. This value must be unique within
+   * the closest parent component that is a naming container.
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
@@ -421,10 +405,9 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * The component identifier for this component.
-   * This value must be unique within the closest parent component that is a naming container.
-   * For tx components the id will be set to the container (e. g. the panel).
-   * To set the id of the input field, you have to use the attribute "fieldId".
+   * The component identifier for this component. This value must be unique within the closest parent component that is
+   * a naming container. For tx components the id will be set to the container (e. g. the panel). To set the id of the
+   * input field, you have to use the attribute "fieldId".
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute

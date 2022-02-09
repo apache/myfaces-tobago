@@ -132,7 +132,7 @@ public class TobagoSelenium extends WebDriverBackedSelenium {
 
 
   class WaitForElementPresent extends IsElementPresent {
-    public WaitForElementPresent(final ElementFinder finder) {
+    WaitForElementPresent(final ElementFinder finder) {
       super(finder);
     }
 
@@ -150,7 +150,7 @@ public class TobagoSelenium extends WebDriverBackedSelenium {
   }
 
   class WaitForElementNotPresent extends IsElementPresent {
-    public WaitForElementNotPresent(final ElementFinder finder) {
+    WaitForElementNotPresent(final ElementFinder finder) {
       super(finder);
     }
 
@@ -168,7 +168,7 @@ public class TobagoSelenium extends WebDriverBackedSelenium {
   }
 
   class WaitForValue extends GetValue {
-    public WaitForValue(final ElementFinder finder) {
+    WaitForValue(final ElementFinder finder) {
       super(finder);
     }
 
@@ -189,7 +189,7 @@ public class TobagoSelenium extends WebDriverBackedSelenium {
   class ClickAndWait extends WaitForPageToLoad {
     private final ElementFinder finder;
 
-    public ClickAndWait(final ElementFinder finder) {
+    ClickAndWait(final ElementFinder finder) {
       this.finder = finder;
     }
 
@@ -202,7 +202,7 @@ public class TobagoSelenium extends WebDriverBackedSelenium {
   }
 
   class VerifyValue extends GetValue {
-    public VerifyValue(final ElementFinder finder) {
+    VerifyValue(final ElementFinder finder) {
       super(finder);
     }
 
@@ -218,7 +218,7 @@ public class TobagoSelenium extends WebDriverBackedSelenium {
   }
 
   class VerifyText extends GetText {
-    public VerifyText(final JavascriptLibrary library, final ElementFinder finder) {
+    VerifyText(final JavascriptLibrary library, final ElementFinder finder) {
       super(library, finder);
     }
 
@@ -232,7 +232,7 @@ public class TobagoSelenium extends WebDriverBackedSelenium {
   }
 
   class AssertElementHeight extends GetElementHeight {
-    public AssertElementHeight(final ElementFinder finder) {
+    AssertElementHeight(final ElementFinder finder) {
       super(finder);
     }
 
@@ -245,7 +245,7 @@ public class TobagoSelenium extends WebDriverBackedSelenium {
   }
 
   class AssertElementPositionLeft extends GetElementPositionLeft {
-    public AssertElementPositionLeft(final ElementFinder finder) {
+    AssertElementPositionLeft(final ElementFinder finder) {
       super(finder);
     }
 
@@ -259,7 +259,7 @@ public class TobagoSelenium extends WebDriverBackedSelenium {
   }
 
   class AssertElementPositionTop extends GetElementPositionTop {
-    public AssertElementPositionTop(final ElementFinder finder) {
+    AssertElementPositionTop(final ElementFinder finder) {
       super(finder);
     }
 
@@ -273,7 +273,7 @@ public class TobagoSelenium extends WebDriverBackedSelenium {
   }
 
   class VerifyTextPresent extends IsTextPresent {
-    public VerifyTextPresent(final JavascriptLibrary js) {
+    VerifyTextPresent(final JavascriptLibrary js) {
       super(js);
     }
 
@@ -286,7 +286,7 @@ public class TobagoSelenium extends WebDriverBackedSelenium {
   }
 
   class AssertAttribute extends GetAttribute {
-    public AssertAttribute(final JavascriptLibrary library, final ElementFinder finder) {
+    AssertAttribute(final JavascriptLibrary library, final ElementFinder finder) {
       super(library, finder);
     }
 
@@ -300,7 +300,7 @@ public class TobagoSelenium extends WebDriverBackedSelenium {
   }
 
   class WaitForAttribute extends GetAttribute {
-    public WaitForAttribute(final JavascriptLibrary library, final ElementFinder finder) {
+    WaitForAttribute(final JavascriptLibrary library, final ElementFinder finder) {
       super(library, finder);
     }
 

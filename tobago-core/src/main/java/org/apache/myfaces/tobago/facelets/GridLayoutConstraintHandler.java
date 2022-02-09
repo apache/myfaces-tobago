@@ -95,12 +95,13 @@ public class GridLayoutConstraintHandler extends TagHandler {
     paddingBottom = getAttribute(Attributes.PADDING_BOTTOM);
   }
 
-  public void apply(final FaceletContext faceletContext, UIComponent parent) throws IOException {
+  public void apply(final FaceletContext faceletContext, final UIComponent parentComponent) throws IOException {
+    UIComponent parent = parentComponent;
     if (parent.getParent() != null && parent.getParent() instanceof UIExtensionPanel) {
-       parent = parent.getParent();
+      parent = parent.getParent();
     } else if (parent.getAttributes().get("tobago.panel") != null
-         && parent.getAttributes().get("tobago.panel") instanceof UIExtensionPanel) {
-       parent = (UIComponent) parent.getAttributes().get("tobago.panel");
+        && parent.getAttributes().get("tobago.panel") instanceof UIExtensionPanel) {
+      parent = (UIComponent) parent.getAttributes().get("tobago.panel");
     }
     if (parent instanceof LayoutBase) {
       final LayoutBase component = (LayoutBase) parent;

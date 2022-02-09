@@ -65,8 +65,8 @@ class PhaseListenerManager {
 
   private boolean isListenerForThisPhase(final PhaseListener phaseListener, final PhaseId phaseId) {
     final int listenerPhaseId = phaseListener.getPhaseId().getOrdinal();
-    return (listenerPhaseId == PhaseId.ANY_PHASE.getOrdinal()
-        || listenerPhaseId == phaseId.getOrdinal());
+    return listenerPhaseId == PhaseId.ANY_PHASE.getOrdinal()
+        || listenerPhaseId == phaseId.getOrdinal();
   }
 
   void informPhaseListenersBefore(final PhaseId phaseId) {

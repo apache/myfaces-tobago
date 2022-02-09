@@ -44,6 +44,7 @@ public interface ScriptTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * File name to include into the rendered page.
+   *
    * @param file A JavaScript file.
    */
   @TagAttribute()

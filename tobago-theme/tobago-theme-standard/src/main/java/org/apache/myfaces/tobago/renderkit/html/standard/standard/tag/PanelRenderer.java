@@ -62,7 +62,7 @@ public class PanelRenderer extends LayoutComponentRendererBase {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
-    
+
     // UIPanel or UICell (deprecated)
     final AbstractUIPanel panel = (AbstractUIPanel) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
@@ -123,7 +123,7 @@ public class PanelRenderer extends LayoutComponentRendererBase {
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final ResponseWriter writer = facesContext.getResponseWriter();
     final AbstractUIPanel panel = (AbstractUIPanel) component;
-    
+
     final Measure borderLeft = panel.getBorderLeft();
     final Measure borderRight = panel.getBorderRight();
     final Measure borderTop = panel.getBorderTop();
@@ -131,7 +131,7 @@ public class PanelRenderer extends LayoutComponentRendererBase {
 
     if (borderLeft.greaterThan(Measure.ZERO) || borderRight.greaterThan(Measure.ZERO)
         || borderTop.greaterThan(Measure.ZERO) || borderBottom.greaterThan(Measure.ZERO)) {
-    writer.endElement(HtmlElements.DIV);
+      writer.endElement(HtmlElements.DIV);
     }
     writer.endElement(HtmlElements.DIV);
   }

@@ -65,7 +65,7 @@ public class RendererConfig implements Serializable {
   }
 
   public void merge(final RendererConfig rendererConfig) {
-     supportedMarkups = supportedMarkups.add(rendererConfig.supportedMarkups);
+    supportedMarkups = supportedMarkups.add(rendererConfig.supportedMarkups);
   }
 
   public String toString() {

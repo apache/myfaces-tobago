@@ -28,6 +28,9 @@ public final class ComponentTypes {
 
   public static final String BOX = "org.apache.myfaces.tobago.Box";
   public static final String BUTTON = "org.apache.myfaces.tobago.Button";
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static final String CELL = "org.apache.myfaces.tobago.Cell";
   public static final String COLUMN = "org.apache.myfaces.tobago.Column";

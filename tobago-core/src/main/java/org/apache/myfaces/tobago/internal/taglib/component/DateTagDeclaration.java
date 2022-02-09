@@ -50,10 +50,10 @@ import javax.faces.component.UIInput;
     rendererType = RendererTypes.DATE,
     allowedChildComponenents = "NONE",
     facets = {
-    @Facet(name = Facets.CHANGE,
-        description =
-            "This facet can contain a UICommand that is invoked in a case of a change event from the component")
-        })
+        @Facet(name = Facets.CHANGE,
+            description =
+                "This facet can contain a UICommand that is invoked in a case of a change event from the component")
+    })
 public interface DateTagDeclaration
     extends InputTagDeclaration, HasIdBindingAndRendered, IsReadonly,
     IsDisabled, HasConverter, HasLabel,

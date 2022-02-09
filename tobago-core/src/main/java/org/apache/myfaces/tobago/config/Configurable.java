@@ -24,11 +24,12 @@ import org.apache.myfaces.tobago.context.Markup;
 public interface Configurable {
 
   /**
-   * The renderer is an id that is used by Tobago to gather information about the components which are 
-   * configured in the theme configuration files. E. g. the preferredWidth of a component.
+   * The renderer is an id that is used by Tobago to gather information about the components which are configured in the
+   * theme configuration files. E. g. the preferredWidth of a component.
+   *
    * @return The renderer type.
    */
-  String getRendererType();  
-  
+  String getRendererType();
+
   Markup getCurrentMarkup();
 }

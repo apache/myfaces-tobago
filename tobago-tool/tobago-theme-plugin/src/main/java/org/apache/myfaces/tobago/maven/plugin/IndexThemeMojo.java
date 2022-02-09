@@ -37,7 +37,7 @@ import java.io.StringWriter;
 public class IndexThemeMojo extends AbstractThemeMojo {
 
   private static final char FILE_SEPARATOR = System.getProperty("file.separator").charAt(0);
-  private static final boolean FILE_SEPARATOR_IS_SLASH = (FILE_SEPARATOR == '/');
+  private static final boolean FILE_SEPARATOR_IS_SLASH = FILE_SEPARATOR == '/';
 
   private static final String[] EXCLUDES = new String[]{
       "META-INF/**/*",
@@ -136,8 +136,7 @@ public class IndexThemeMojo extends AbstractThemeMojo {
 
     @Override
     protected boolean isSelected(final String name, final File file) {
-      final long lastModified = file.lastModified();
-      if (lastModified > this.lastModified) {
+      if (file.lastModified() > this.lastModified) {
         isUp2date = false;
       }
       return super.isSelected(name, file);

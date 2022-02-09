@@ -143,15 +143,16 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
   }
 
   /**
-   * @deprecated
+   * @deprecated xxx
    */
   @Deprecated
-  public static Style ensureHtmlStyleMap(final UIComponent component, Style styles) {
+  public static Style ensureHtmlStyleMap(final UIComponent component, final Style styles) {
+    Style result = styles;
     if (styles == null) {
-      styles = new Style();
-      ((Map<String, Object>) component.getAttributes()).put(Attributes.STYLE, styles);
+      result = new Style();
+      ((Map<String, Object>) component.getAttributes()).put(Attributes.STYLE, result);
     }
-    return styles;
+    return result;
   }
 
   @Override
@@ -163,7 +164,7 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
 
   @Override
   public void endElement(final String name) throws IOException {
-    if (name == HtmlElements.BODY) {
+    if (HtmlElements.BODY.equals(name)) {
       final String javascript = getJavascript();
       if (StringUtils.isNotEmpty(javascript)) {
         startElement(HtmlElements.SCRIPT, null);

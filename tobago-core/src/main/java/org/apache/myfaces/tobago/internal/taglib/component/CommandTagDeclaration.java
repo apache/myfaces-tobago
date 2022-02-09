@@ -36,11 +36,11 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 import javax.faces.component.UICommand;
 
 /**
- * Use this tag only as a facet for click, change in selectOneRadio,
- * selectBooleanCheckbox, selectManyCheckbox and selectOneChoice
+ * Use this tag only as a facet for click, change in selectOneRadio, selectBooleanCheckbox, selectManyCheckbox and
+ * selectOneChoice
  */
 @Tag(
-    name = "command", 
+    name = "command",
     tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UICommand",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommand",
@@ -56,7 +56,6 @@ import javax.faces.component.UICommand;
 public interface CommandTagDeclaration
     extends AbstractCommandTagDeclaration, HasId, HasValue, IsDisabled, IsGridLayoutComponent, HasMarkup,
     HasCurrentMarkup, HasLabel {
-
 
 
 }

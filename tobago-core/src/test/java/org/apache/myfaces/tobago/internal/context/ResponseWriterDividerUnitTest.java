@@ -74,7 +74,7 @@ public class ResponseWriterDividerUnitTest extends AbstractTobagoTestBase {
         + "2.7182\n"
         + "3.1415\n"
         + "(/Doubles)\n";
-    
+
     Assert.assertEquals(expected, stringWriter.toString());
   }
 

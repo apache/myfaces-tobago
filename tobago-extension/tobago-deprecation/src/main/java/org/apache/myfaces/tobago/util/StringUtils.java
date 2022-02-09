@@ -29,6 +29,7 @@ import java.util.StringTokenizer;
 /**
  * @deprecated Please use VariableResolverUtils
  */
+@Deprecated
 public class StringUtils {
 
   private StringUtils() {

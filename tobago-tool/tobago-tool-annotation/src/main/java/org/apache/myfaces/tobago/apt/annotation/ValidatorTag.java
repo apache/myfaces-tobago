@@ -25,5 +25,6 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(value = RetentionPolicy.SOURCE)
 public @interface ValidatorTag {
   String validatorId();
+
   String faceletHandler() default "";
 }

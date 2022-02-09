@@ -50,9 +50,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 import javax.faces.component.UIInput;
 
 /**
- * Renders a file drop component.
- * This component always makes a partial (ajax) upload!
- * <p />
+ * Renders a file drop component. This component always makes a partial (ajax) upload!
+ * <p/>
  * For content constraints please use <a href="validateFileItem.html">tc:validateFileItem</a>.
  */
 @Tag(name = "fileDrop")
@@ -76,7 +75,7 @@ public interface FileDropTagDeclaration
    */
   @TagAttribute()
   @UIComponentTagAttribute(
-      type = { "javax.servlet.http.Part", "org.apache.commons.fileupload.FileItem[]" },
+      type = {"javax.servlet.http.Part", "org.apache.commons.fileupload.FileItem[]"},
       expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
 
@@ -115,7 +114,7 @@ public interface FileDropTagDeclaration
    * Indicate the highlighted file drop area.
    * </p>
    * <p>
-   *   You should use:
+   * You should use:
    *   <ul>
    *     <li>a clientId (absolute or relative see setRenderedPartially)</li>
    *     <li>@this to use only the layouted space of this tc:fileDrop</li>
@@ -123,7 +122,6 @@ public interface FileDropTagDeclaration
    *     <li>@panel to use the layouted space of the next parent tc:panel</li>
    *   </ul>
    * </p>
-   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.String")
@@ -134,7 +132,7 @@ public interface FileDropTagDeclaration
    * Indicate visible component style.
    * </p>
    * <p>
-   *   Possible values:
+   * Possible values:
    *   <ul>
    *     <li>DROP_ZONE</li>
    *     <li>FILE</li>
@@ -146,7 +144,6 @@ public interface FileDropTagDeclaration
    * <p>
    *   Default is DROP_ZONE.
    * </p>
-   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.String")

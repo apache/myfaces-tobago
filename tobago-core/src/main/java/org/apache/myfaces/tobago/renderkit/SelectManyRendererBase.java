@@ -119,25 +119,18 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
   static final String VALUE_TYPE_KEY = "valueType";
 
   static Object getConvertedUISelectManyValue(FacesContext facesContext, UISelectMany component,
-      String[] submittedValue) throws ConverterException {
+                                              String[] submittedValue) throws ConverterException {
     return getConvertedUISelectManyValue(facesContext, component,
         submittedValue, false);
   }
 
   /**
-   * Gets the converted value of a UISelectMany component.
-   * If the considerValueType is true, this method will also consider the
-   * valueType attribute of Tomahawk UISelectMany components.
-   *
-   * @param facesContext
-   * @param component
-   * @param submittedValue
-   * @param considerValueType
-   * @return
-   * @throws ConverterException
+   * Gets the converted value of a UISelectMany component. If the considerValueType is true, this method will also
+   * consider the valueType attribute of Tomahawk UISelectMany components.
    */
   static Object getConvertedUISelectManyValue(FacesContext facesContext, UISelectMany component,
-      String[] submittedValue, boolean considerValueType) throws ConverterException {
+                                              String[] submittedValue, boolean considerValueType)
+      throws ConverterException {
     // Attention!
     // This code is duplicated in shared renderkit package (except for considerValueType).
     // If you change something here please do the same in the other class!
@@ -186,7 +179,7 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
             // and we do not have a Converter
             throw new ConverterException(
                 "Could not obtain a Converter for "
-                + componentType.getName());
+                    + componentType.getName());
           }
         }
         // instantiate the array
@@ -206,27 +199,27 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
           if (collectionType == null) {
             throw new FacesException(
                 "The attribute "
-                + COLLECTION_TYPE_KEY
-                + " of component "
-                + component.getClientId(facesContext)
-                + " does not evaluate to a "
-                + "String, a Class object or a ValueExpression pointing "
-                + "to a String or a Class object.");
+                    + COLLECTION_TYPE_KEY
+                    + " of component "
+                    + component.getClientId(facesContext)
+                    + " does not evaluate to a "
+                    + "String, a Class object or a ValueExpression pointing "
+                    + "to a String or a Class object.");
           }
           // now we have a collectionType --> but is it really some kind of Collection
           if (!Collection.class.isAssignableFrom(collectionType)) {
             throw new FacesException("The attribute "
-                                     + COLLECTION_TYPE_KEY + " of component "
-                                     + component.getClientId(facesContext)
-                                     + " does not point to a valid type of Collection.");
+                + COLLECTION_TYPE_KEY + " of component "
+                + component.getClientId(facesContext)
+                + " does not point to a valid type of Collection.");
           }
           // now we have a real collectionType --> try to instantiate it
           try {
             targetForConvertedValues = collectionType.newInstance();
           } catch (Exception e) {
             throw new FacesException("The Collection "
-                                     + collectionType.getName()
-                                     + "can not be instantiated.", e);
+                + collectionType.getName()
+                + "can not be instantiated.", e);
           }
         } else if (Collection.class.isAssignableFrom(modelType)) {
           // component.getValue() will implement Collection at this point
@@ -253,8 +246,8 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
             // or with the class object of componentValue (if any)
             try {
               targetForConvertedValues = (componentValue != null
-                                          ? componentValue.getClass()
-                                          : modelType).newInstance();
+                  ? componentValue.getClass()
+                  : modelType).newInstance();
             } catch (Exception e) {
               // this did not work either
               // use the standard concrete type
@@ -293,7 +286,7 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
 
     // convert the values with the selected converter (if any)
     // and store them in targetForConvertedValues
-    boolean isArray = (targetForConvertedValues.getClass().isArray());
+    boolean isArray = targetForConvertedValues.getClass().isArray();
     for (int i = 0; i < submittedValue.length; i++) {
       // get the value
       Object value;
@@ -315,21 +308,18 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
   }
 
   /**
-   * Gets a Class object from a given component attribute. The attribute can
-   * be a ValueExpression (that evaluates to a String or a Class) or a
-   * String (that is a fully qualified Java class name) or a Class object.
+   * Gets a Class object from a given component attribute. The attribute can be a ValueExpression (that evaluates to a
+   * String or a Class) or a String (that is a fully qualified Java class name) or a Class object.
    *
-   * @param facesContext
-   * @param attribute
-   * @return
-   * @throws FacesException if the value is a String and the represented
-   *                        class cannot be found
+   * @throws FacesException if the value is a String and the represented class cannot be found
    */
-  static Class<?> getClassFromAttribute(FacesContext facesContext,
-      Object attribute) throws FacesException {
+  static Class<?> getClassFromAttribute(final FacesContext facesContext,
+                                        final Object attributeParameter) throws FacesException {
     // Attention!
     // This code is duplicated in shared renderkit package.
     // If you change something here please do the same in the other class!
+
+    Object attribute = attributeParameter;
 
     Class<?> type = null;
 
@@ -337,8 +327,7 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
     // ... a ValueExpression that evaluates to a String or a Class
     if (attribute instanceof ValueExpression) {
       // get the value of the ValueExpression
-      attribute = ((ValueExpression) attribute)
-          .getValue(facesContext.getELContext());
+      attribute = ((ValueExpression) attribute).getValue(facesContext.getELContext());
     }
     // ... String that is a fully qualified Java class name
     if (attribute instanceof String) {
@@ -347,8 +336,8 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
       } catch (ClassNotFoundException cnfe) {
         throw new FacesException(
             "Unable to find class "
-            + attribute
-            + " on the classpath.", cnfe);
+                + attribute
+                + " on the classpath.", cnfe);
       }
     } else if (attribute instanceof Class) {
       // ... a Class object
@@ -359,12 +348,7 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
   }
 
   /**
-   * Uses the valueType attribute of the given UISelectMany component to
-   * get a by-type converter.
-   *
-   * @param facesContext
-   * @param component
-   * @return
+   * Uses the valueType attribute of the given UISelectMany component to get a by-type converter.
    */
   static Converter getValueTypeConverter(FacesContext facesContext, UISelectMany component) {
     Converter converter = null;
@@ -376,12 +360,12 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
       if (valueType == null) {
         throw new FacesException(
             "The attribute "
-            + VALUE_TYPE_KEY
-            + " of component "
-            + component.getClientId(facesContext)
-            + " does not evaluate to a "
-            + "String, a Class object or a ValueExpression pointing "
-            + "to a String or a Class object.");
+                + VALUE_TYPE_KEY
+                + " of component "
+                + component.getClientId(facesContext)
+                + " does not evaluate to a "
+                + "String, a Class object or a ValueExpression pointing "
+                + "to a String or a Class object.");
       }
       // now we have a valid valueType
       // --> try to get a registered-by-class converter
@@ -389,9 +373,9 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
 
       if (converter == null) {
         facesContext.getExternalContext().log("Found attribute valueType on component "
-                                              + getPathToComponent(component)
-                                              + ", but could not get a by-type converter for type "
-                                              + valueType.getName());
+            + getPathToComponent(component)
+            + ", but could not get a by-type converter for type "
+            + valueType.getName());
       }
     }
 
@@ -399,11 +383,9 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
   }
 
   /**
-   * Iterates through the SelectItems with the given Iterator and tries to obtain
-   * a by-class-converter based on the Class of SelectItem.getValue().
+   * Iterates through the SelectItems with the given Iterator and tries to obtain a by-class-converter based on the
+   * Class of SelectItem.getValue().
    *
-   * @param iterator
-   * @param facesContext
    * @return The first suitable Converter for the given SelectItems or null.
    */
   static Converter getSelectItemsValueConverter(Iterator<SelectItem> iterator, FacesContext facesContext) {
@@ -512,10 +494,10 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
     private UISelectItems currentUISelectItems;
     private FacesContext facesContext;
 
-    public SelectItemsIterator(UIComponent selectItemsParent, FacesContext facesContext) {
+    SelectItemsIterator(UIComponent selectItemsParent, FacesContext facesContext) {
       children = selectItemsParent.getChildCount() > 0
-                  ? selectItemsParent.getChildren().iterator()
-                  : EMPTY_UICOMPONENT_ITERATOR;
+          ? selectItemsParent.getChildren().iterator()
+          : EMPTY_UICOMPONENT_ITERATOR;
       this.facesContext = facesContext;
     }
 
@@ -568,14 +550,14 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
           } else if (!(item instanceof SelectItem)) {
             ValueExpression expression = uiSelectItem.getValueExpression("value");
             throw new IllegalArgumentException("ValueExpression '"
-                 + (expression == null ? null : expression.getExpressionString()) + "' of UISelectItem : "
-                 + getPathToComponent(child) + " does not reference an Object of type SelectItem");
+                + (expression == null ? null : expression.getExpressionString()) + "' of UISelectItem : "
+                + getPathToComponent(child) + " does not reference an Object of type SelectItem");
           }
           nextItem = (SelectItem) item;
           currentComponent = child;
           return true;
         } else if (child instanceof UISelectItems) {
-          currentUISelectItems = ((UISelectItems) child);
+          currentUISelectItems = (UISelectItems) child;
           Object value = currentUISelectItems.getValue();
           currentComponent = child;
 
@@ -597,7 +579,7 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
             nestedItems = ((Iterable<?>) value).iterator();
             return hasNext();
           } else if (value instanceof Map) {
-            Map<Object, Object> map = ((Map<Object, Object>) value);
+            Map<Object, Object> map = (Map<Object, Object>) value;
             Collection<SelectItem> items = new ArrayList<SelectItem>(map.size());
             for (Map.Entry<Object, Object> entry : map.entrySet()) {
               items.add(new SelectItem(entry.getValue(), entry.getKey().toString()));
@@ -607,17 +589,17 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
             return hasNext();
           } else {
 
-            if ((facesContext.isProjectStage(ProjectStage.Production) && LOG.isDebugEnabled())
+            if (facesContext.isProjectStage(ProjectStage.Production) && LOG.isDebugEnabled()
                 || LOG.isWarnEnabled()) {
               ValueExpression expression = currentUISelectItems.getValueExpression("value");
               Object[] objects = {
-                  (expression == null ? null : expression.getExpressionString()),
+                  expression == null ? null : expression.getExpressionString(),
                   getPathToComponent(child),
-                  (value == null ? null : value.getClass().getName())
+                  value == null ? null : value.getClass().getName()
               };
               String message = "ValueExpression {0} of UISelectItems with component-path {1}"
-                               + " does not reference an Object of type SelectItem,"
-                               + " array, Iterable or Map, but of type: {2}";
+                  + " does not reference an Object of type SelectItem,"
+                  + " array, Iterable or Map, but of type: {2}";
               if (facesContext.isProjectStage(ProjectStage.Production)) {
                 LOG.debug(message, objects);
               } else {

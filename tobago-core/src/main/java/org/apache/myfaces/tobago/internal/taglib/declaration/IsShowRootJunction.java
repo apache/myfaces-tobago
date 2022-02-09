@@ -25,8 +25,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface IsShowRootJunction {
 
   /**
-   * Only applicable in the case that the data model is a tree.
-   * This flag indicates that the root node should be displayed with an open-close-switch.
+   * Only applicable in the case that the data model is a tree. This flag indicates that the root node should be
+   * displayed with an open-close-switch.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")

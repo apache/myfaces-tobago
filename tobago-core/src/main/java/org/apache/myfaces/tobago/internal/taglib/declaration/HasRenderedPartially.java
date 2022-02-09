@@ -55,7 +55,7 @@ public interface HasRenderedPartially {
    * You can also use @this for the component itself.
    * </p>
    */
-   @TagAttribute
-   @UIComponentTagAttribute(type = "java.lang.String[]")
-   void setRenderedPartially(String componentIds);
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.String[]")
+  void setRenderedPartially(String componentIds);
 }

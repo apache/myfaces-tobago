@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.context;
 
+import org.apache.myfaces.tobago.internal.util.FastStringWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.internal.util.FastStringWriter;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -31,8 +31,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * In some cases the rendered output must be places in the Response in a different order than it was rendered.
- * The <code>ResponseWriterDivider</code> helps to manage a list of buffers which holds the temporary output.
+ * In some cases the rendered output must be places in the Response in a different order than it was rendered. The
+ * <code>ResponseWriterDivider</code> helps to manage a list of buffers which holds the temporary output.
  *
  * @deprecated Since Tobago 2.0.9, no longer needed.
  */
@@ -43,11 +43,11 @@ public final class ResponseWriterDivider {
 
   private List<ResponseWriter> writers;
   private List<FastStringWriter> buffers;
-  
+
   private ResponseWriter original;
-  
+
   private int current;
-  
+
   private String nameInRequest;
 
   public static ResponseWriterDivider getInstance(final FacesContext facesContext, final String nameInRequest) {
@@ -57,7 +57,7 @@ public final class ResponseWriterDivider {
       divider = new ResponseWriterDivider(facesContext);
       map.put(nameInRequest, divider);
       divider.nameInRequest = nameInRequest;
-      
+
     }
     return divider;
   }
@@ -70,10 +70,10 @@ public final class ResponseWriterDivider {
   }
 
   /**
-   * Create (if needed) and activate a new branch. 
-   * After this call, all output will be stored in this new branch. 
+   * Create (if needed) and activate a new branch. After this call, all output will be stored in this new branch.
    * <p>
    * It is usually needed to get the response writer again with HtmlRendererUtils.getTobagoResponseWriter();
+   *
    * @return true if the branch was not created new. So the branch was already existent.
    */
   public boolean activateBranch(final FacesContext facesContext) {
@@ -95,18 +95,19 @@ public final class ResponseWriterDivider {
     }
     return created;
   }
-  
+
   /**
-   * Passivate the current branch. 
-   * After this call, all output will be written in the former branch (if any) or into the original writer.
+   * Passivate the current branch. After this call, all output will be written in the former branch (if any) or into the
+   * original writer.
    * <p>
    * It is usually needed to get the response writer again with HtmlRendererUtils.getTobagoResponseWriter();
-   * @return true, if the current writer is not the original writer. So the "stack" is at the bottom. 
+   *
+   * @return true, if the current writer is not the original writer. So the "stack" is at the bottom.
    */
   public boolean passivateBranch(final FacesContext facesContext) {
 
     assert writers.size() == buffers.size();
-    
+
     current--;
     if (current >= 0) {
       facesContext.setResponseWriter(writers.get(current));
@@ -124,8 +125,7 @@ public final class ResponseWriterDivider {
   }
 
   /**
-   * Write the collected stuff in the original writer.
-   * This is always the last call on this object.
+   * Write the collected stuff in the original writer. This is always the last call on this object.
    */
   public void writeOutAndCleanUp(final FacesContext facesContext) throws IOException {
     facesContext.setResponseWriter(original);

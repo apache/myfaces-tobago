@@ -115,7 +115,7 @@ public class SheetConfig {
 
   public int getSheetFirstValue() {
     final int value = getSheetFirst();
-    return (value - 1) < 0 ? 0 : value - 1;
+    return value - 1 < 0 ? 0 : value - 1;
   }
 
   public void setSheetFirst(final int sheetFirst) {

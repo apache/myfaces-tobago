@@ -195,7 +195,7 @@ public class ClassesGenerator extends AbstractGenerator {
       for (final PropertyInfo info : properties.values()) {
         final String infoType = info.getType();
         final String methodName
-            = ((infoType.equals("java.lang.Boolean") || infoType.equals("boolean")) ? "is" : "get")
+            = (infoType.equals("java.lang.Boolean") || infoType.equals("boolean") ? "is" : "get")
             + info.getUpperCamelCaseName();
 
         boolean generate = info.isGenerate();
@@ -310,7 +310,7 @@ public class ClassesGenerator extends AbstractGenerator {
 
   protected void addProperties(final TypeMirror typeMirror, final Map<String, PropertyInfo> properties) {
     if (typeMirror.getKind() != TypeKind.NONE) {
-      addProperties((TypeElement) (processingEnv.getTypeUtils().asElement(typeMirror)), properties);
+      addProperties((TypeElement) processingEnv.getTypeUtils().asElement(typeMirror), properties);
     }
   }
 

@@ -33,7 +33,7 @@ public class KillSession extends HttpServlet {
       throws ServletException, IOException {
     final HttpSession session = request.getSession(false);
     if (session != null) {
-       session.invalidate();
+      session.invalidate();
     }
     response.getOutputStream().write("session killed".getBytes());
   }

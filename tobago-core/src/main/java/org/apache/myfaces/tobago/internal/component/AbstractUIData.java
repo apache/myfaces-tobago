@@ -104,11 +104,11 @@ public abstract class AbstractUIData extends javax.faces.component.UIData {
   }
 
   /**
-   * Creates the TreeDataModel which should be used.
-   * Override this method to use a custom model for an unsupported tree model.
-   * (Currently Tobago supports {@link TreeNode} out of the box.
-   * @param value The reference to the data model
-   *              (comes from the value attribute of the {@link javax.faces.component.UIData})
+   * Creates the TreeDataModel which should be used. Override this method to use a custom model for an unsupported tree
+   * model. (Currently Tobago supports {@link TreeNode} out of the box.
+   *
+   * @param value The reference to the data model (comes from the value attribute of the {@link
+   * javax.faces.component.UIData})
    * @param showRoot comes from the showRoot attribute.
    */
   protected void createTreeDataModel(final Object value, final boolean showRoot) {
@@ -133,8 +133,8 @@ public abstract class AbstractUIData extends javax.faces.component.UIData {
   public abstract SelectedState getSelectedState();
 
   /**
-   * @deprecated The name of this method is ambiguous.
-   * You may use the inverse of {@link #isRowsUnlimited()}. Deprecated since 1.5.5.
+   * @deprecated The name of this method is ambiguous. You may use the inverse of {@link #isRowsUnlimited()}. Deprecated
+   * since 1.5.5.
    */
   @Deprecated
   public boolean hasRows() {
@@ -174,10 +174,10 @@ public abstract class AbstractUIData extends javax.faces.component.UIData {
   }
 
   /**
-   * The value describes, if the UIData renderer creates container elements to hold the row information.
-   * This information is important for the TreeNodeRenderer to set the visible state in the output or not.
-   * Typically the Sheet returns true and a Tree returns false, because the sheet renders the HTML TR tags,
-   * the the sheet also is responsible for the visible state.
+   * The value describes, if the UIData renderer creates container elements to hold the row information. This
+   * information is important for the TreeNodeRenderer to set the visible state in the output or not. Typically the
+   * Sheet returns true and a Tree returns false, because the sheet renders the HTML TR tags, the the sheet also is
+   * responsible for the visible state.
    */
   public boolean isRendersRowContainer() {
     return false;

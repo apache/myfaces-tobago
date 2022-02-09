@@ -39,11 +39,11 @@ public class BirdController implements Serializable {
   );
 
   private String status;
-  
+
   private String newBirdName;
-  
+
   private int newBirdSize;
-  
+
   public List<Bird> getBirds() {
     return birds;
   }

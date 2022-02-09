@@ -48,7 +48,7 @@ public class SupportsRenderedPartiallyRule extends MetaRule {
 
     private final TagAttribute attribute;
 
-    public SupportsRenderedPartiallyMapper(final TagAttribute attribute) {
+    SupportsRenderedPartiallyMapper(final TagAttribute attribute) {
       this.attribute = attribute;
     }
 

@@ -53,8 +53,7 @@ public class SelectedState implements Serializable {
   }
 
   /**
-   * Set the selected path and remove all prior selections.
-   * This is useful for "single selection" mode.
+   * Set the selected path and remove all prior selections. This is useful for "single selection" mode.
    */
   public void clearAndSelect(final TreePath path) {
     clear();
@@ -71,8 +70,8 @@ public class SelectedState implements Serializable {
   /**
    * Set the selection state of the given path
    */
-  public void select(final TreePath path, final boolean selected) {
-    if (selected) {
+  public void select(final TreePath path, final boolean selectedParameter) {
+    if (selectedParameter) {
       select(path);
     } else {
       unselect(path);

@@ -29,9 +29,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasItemLabel;
 
 /**
- * Add a child UISelectItems component to the UIComponent
- * associated with the closed parent UIComponent custom
- * action.
+ * Add a child UISelectItems component to the UIComponent associated with the closed parent UIComponent custom action.
  */
 @Tag(name = "selectItems")
 @UIComponentTag(
@@ -43,8 +41,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasItemLabel;
 public interface SelectItemsTagDeclaration extends HasId, HasBinding, HasItemLabel {
 
   /**
-   * Value binding expression pointing at a List or array of SelectItem instances containing
-   * the information for this option.
+   * Value binding expression pointing at a List or array of SelectItem instances containing the information for this
+   * option.
    */
   @TagAttribute
   @UIComponentTagAttribute(
@@ -53,16 +51,14 @@ public interface SelectItemsTagDeclaration extends HasId, HasBinding, HasItemLab
   void setValue(String value);
 
   /**
-   * Name of a variable under which the iterated data will be exposed.
-   * It may be referred to in EL of other attributes.
+   * Name of a variable under which the iterated data will be exposed. It may be referred to in EL of other attributes.
    */
   @TagAttribute
   @UIComponentTagAttribute(expression = DynamicExpression.PROHIBITED)
   void setVar(final String var);
 
   /**
-   * Flag indicating whether the option created
-   * by this component is disabled.
+   * Flag indicating whether the option created by this component is disabled.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {"boolean"}, defaultValue = "false")

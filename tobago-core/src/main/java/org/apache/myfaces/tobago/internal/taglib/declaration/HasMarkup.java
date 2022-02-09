@@ -23,11 +23,10 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 public interface HasMarkup {
-  
+
   /**
-   * Indicate markup of this component.
-   * The allowed markups can be defined or overridden in the theme.
-   * The value 'none' should not be used any longer. Just leave the attribute empty, or use a NULL pointer. 
+   * Indicate markup of this component. The allowed markups can be defined or overridden in the theme. The value 'none'
+   * should not be used any longer. Just leave the attribute empty, or use a NULL pointer.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.context.Markup")

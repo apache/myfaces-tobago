@@ -46,9 +46,9 @@ public class TobagoResponseWriterUnitTest {
     writer.startDocument();
     writer.endDocument();
     Assert.assertEquals("content expected",
-        "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n" 
-        + "<html\n"
-        + "></html>", stringWriter.toString());
+        "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n"
+            + "<html\n"
+            + "></html>", stringWriter.toString());
   }
 
   @Test
@@ -72,7 +72,7 @@ public class TobagoResponseWriterUnitTest {
     writer.endElement(HtmlElements.SELECT);
     Assert.assertEquals("attr tag", "<select value='0'\n></select>", stringWriter.toString());
   }
-  
+
   @Test
   public void testURIAttribute() throws IOException {
     writer.startElement(HtmlElements.A, null);
@@ -144,8 +144,9 @@ public class TobagoResponseWriterUnitTest {
 
   @Test
   public void testCharArray() throws IOException {
-    final TobagoResponseWriter writer = new XmlResponseWriter(stringWriter, "text/xml", "ISO-8859-1");
-    writer.writeText("123".toCharArray(), 0, 3);
+    final TobagoResponseWriter xmlResponseWriter
+        = new XmlResponseWriter(stringWriter, "text/xml", "ISO-8859-1");
+    xmlResponseWriter.writeText("123".toCharArray(), 0, 3);
     Assert.assertEquals("123", stringWriter.toString());
   }
 }

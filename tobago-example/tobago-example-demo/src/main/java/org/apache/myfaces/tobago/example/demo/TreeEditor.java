@@ -43,7 +43,7 @@ public class TreeEditor {
     if (node != null) {
       final String name = "new node";
       // todo: go to a edit page or popup
-      node.insert(CategoryTree.createNode(name, "id" + System.identityHashCode(name)), 0); 
+      node.insert(CategoryTree.createNode(name, "id" + System.identityHashCode(name)), 0);
      }
     return null;
   }

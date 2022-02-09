@@ -87,17 +87,9 @@ public class MixedTreeModelUnitTest {
   }
 
   /**
-   * * --o Root (0)
-   * *   |
-   * *   +--o Individual Node (0,0)
-   * *   |
-   * *   +--o Data Root Node (0,1)
-   * *      |
-   * *      +--o Data Sub Node 1 (0,1,0)
-   * *      |
-   * *      +--o Data Sub Node 2 (0,1,1)
-   * *         |
-   * *         +--o Data Sub Sub Node 3 (0,1,1,0)
+   * * --o Root (0) *   | *   +--o Individual Node (0,0) *   | *   +--o Data Root Node (0,1) *      | *      +--o Data
+   * Sub Node 1 (0,1,0) *      | *      +--o Data Sub Node 2 (0,1,1) *         | *         +--o Data Sub Sub Node 3
+   * (0,1,1,0)
    */
   @Test
   public void testLifecycleMixed() {

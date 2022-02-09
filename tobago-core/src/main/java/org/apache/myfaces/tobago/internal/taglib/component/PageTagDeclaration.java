@@ -48,16 +48,16 @@ import javax.faces.component.UIForm;
     componentFamily = UIForm.COMPONENT_FAMILY,
     rendererType = RendererTypes.PAGE,
     facets =
-        { @Facet(name = Facets.ACTION,
-                description ="Contains an instance of UICommand (tc:command) for an auto-action",
-                allowedChildComponenents = "org.apache.myfaces.tobago.Command"),
-          @Facet(name = Facets.RESIZE,
-                description ="Contains an instance of UICommand which will be executed when the"
+        {@Facet(name = Facets.ACTION,
+            description = "Contains an instance of UICommand (tc:command) for an auto-action",
+            allowedChildComponenents = "org.apache.myfaces.tobago.Command"),
+            @Facet(name = Facets.RESIZE,
+                description = "Contains an instance of UICommand which will be executed when the"
                     + "size of the user agent was changed. Typically a <tc:command immediate='true' />",
                 allowedChildComponenents = {"org.apache.myfaces.tobago.Command", "org.apache.myfaces.tobago.Form"}),
-          @Facet(name = Facets.MENUBAR, description = "Menubar",
+            @Facet(name = Facets.MENUBAR, description = "Menubar",
                 allowedChildComponenents = "javax.faces.component.UIPanel"), //fake
-          @Facet(name=Facets.LAYOUT, description = "Contains an instance of AbstractUILayoutBase",
+            @Facet(name = Facets.LAYOUT, description = "Contains an instance of AbstractUILayoutBase",
                 allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
 
 public interface PageTagDeclaration
@@ -65,18 +65,16 @@ public interface PageTagDeclaration
     IsGridLayoutComponentWithDimension, IsGridLayoutContainer {
 
   /**
-   * Contains the id of the component which should have the focus after
-   * loading the page.
-   * Set to empty string for disabling setting of focus.
-   * Default (null) enables the "auto focus" feature.
+   * Contains the id of the component which should have the focus after loading the page. Set to empty string for
+   * disabling setting of focus. Default (null) enables the "auto focus" feature.
    */
   @TagAttribute
   @UIComponentTagAttribute()
   void setFocusId(String focusId);
 
   /**
-   * Absolute URL to an image or image name to lookup in tobago resource path
-   * representing the application. In HTML it is used as a favicon.
+   * Absolute URL to an image or image name to lookup in tobago resource path representing the application. In HTML it
+   * is used as a favicon.
    */
   @TagAttribute
   @UIComponentTagAttribute()
@@ -85,8 +83,8 @@ public interface PageTagDeclaration
   /**
    * <strong>ValueBindingExpression</strong> pointing to a object to save the
    * component's state.
-   * @deprecated since Tobago 1.5.0. Please set the min/max values with e. g. 
-   * a tc:gridLayoutConstraint tag.
+   *
+   * @deprecated since Tobago 1.5.0. Please set the min/max values with e. g. a tc:gridLayoutConstraint tag.
    */
   @Deprecated
   @TagAttribute

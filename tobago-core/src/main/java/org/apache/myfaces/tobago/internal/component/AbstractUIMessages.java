@@ -56,7 +56,7 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
 
   private List<Item> collectMessageList(final FacesContext facesContext, final Iterator clientIds) {
     final List<Item> messages = new ArrayList<Item>();
-    while(clientIds.hasNext()) {
+    while (clientIds.hasNext()) {
       final String clientId = (String) clientIds.next();
       final Iterator<FacesMessage> i = facesContext.getMessages(clientId);
       while (i.hasNext()) {
@@ -121,7 +121,7 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
   public abstract String getFor();
 */
 
-  public static enum OrderBy {
+  public enum OrderBy {
 
     OCCURRENCE,
     SEVERITY;

@@ -89,7 +89,7 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
 
   protected MetaRuleset createSubComponentMetaRuleset(final Class aClass) {
     final MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
-    final TagAttribute [] attrs = tag.getAttributes().getAll();
+    final TagAttribute[] attrs = tag.getAttributes().getAll();
     for (int i = 0; i < attrs.length; i++) {
       final TagAttribute attr = attrs[i];
       if (!(attr.getLocalName().equals(Attributes.CONVERTER)

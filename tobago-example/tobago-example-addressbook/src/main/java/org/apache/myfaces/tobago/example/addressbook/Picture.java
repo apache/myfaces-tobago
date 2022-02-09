@@ -41,7 +41,7 @@ public class Picture implements Serializable {
   private String contentType;
   @Lob
   @Basic(fetch = FetchType.EAGER)
-  private byte [] content;
+  private byte[] content;
 
 
   public Picture() {

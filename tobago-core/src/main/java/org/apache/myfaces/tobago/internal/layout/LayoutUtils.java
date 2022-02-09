@@ -66,7 +66,7 @@ public final class LayoutUtils {
       if (child instanceof LayoutComponent) {
         result.add((LayoutComponent) child);
       } else {
-        // Child seems to be transparent for layout, like UIForm. 
+        // Child seems to be transparent for layout, like UIForm.
         // So we try to add the inner components.
         addLayoutChildren(child, result);
       }
@@ -102,7 +102,11 @@ public final class LayoutUtils {
     return orientation == Orientation.HORIZONTAL ? component.getCurrentWidth() : component.getCurrentHeight();
   }
 
-  public static void setCurrentSize(final Orientation orientation, final LayoutBase component, Measure size) {
+  public static void setCurrentSize(
+      final Orientation orientation, final LayoutBase component, final Measure sizeParameter) {
+
+    Measure size = sizeParameter;
+
     if (orientation == Orientation.HORIZONTAL) {
       final Measure width = component.getWidth();
       if (width != null) { // to not override set sizes

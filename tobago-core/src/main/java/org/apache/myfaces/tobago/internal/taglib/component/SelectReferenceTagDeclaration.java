@@ -29,8 +29,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import javax.faces.component.UIOutput;
 
 /**
- * Renders a set of option related to and same type as the <strong>for</strong>
- * component.
+ * Renders a set of option related to and same type as the <strong>for</strong> component.
  */
 @Tag(name = "selectReference")
 @UIComponentTag(

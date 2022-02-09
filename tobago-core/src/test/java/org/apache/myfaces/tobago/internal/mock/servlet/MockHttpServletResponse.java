@@ -48,7 +48,10 @@ public class MockHttpServletResponse implements HttpServletResponse {
     return null;
   }
 
-  /** @deprecated */
+  /**
+   * @deprecated by API
+   */
+  @Deprecated
   public String encodeRedirectUrl(final String s) {
     return null;
   }
@@ -57,7 +60,10 @@ public class MockHttpServletResponse implements HttpServletResponse {
     return s;
   }
 
-  /** @deprecated */
+  /**
+   * @deprecated by API
+   */
+  @Deprecated
   public String encodeUrl(final String s) {
     return s;
   }
@@ -125,7 +131,10 @@ public class MockHttpServletResponse implements HttpServletResponse {
   public void setLocale(final Locale locale) {
   }
 
-  /** @deprecated */
+  /**
+   * @deprecated XXX
+   */
+  @Deprecated
   public void setStatus(final int i) {
   }
 

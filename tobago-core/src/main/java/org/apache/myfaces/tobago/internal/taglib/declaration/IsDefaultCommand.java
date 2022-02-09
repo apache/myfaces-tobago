@@ -24,8 +24,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 public interface IsDefaultCommand {
   /**
-   * If true the command is executed as default -- for example if the
-   * user presses the enter key inside a related input field.
+   * If true the command is executed as default -- for example if the user presses the enter key inside a related input
+   * field.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")

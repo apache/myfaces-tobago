@@ -61,7 +61,7 @@ public final class JsonWriterUtils extends WriterUtils {
 
   @Override
   protected void writeEncodedValue(final char[] text, final int start,
-      final int length, final boolean isAttribute) throws IOException {
+                                   final int length, final boolean isAttribute) throws IOException {
 
     int localIndex = -1;
 
@@ -89,7 +89,7 @@ public final class JsonWriterUtils extends WriterUtils {
 
         // Tilde or less...
         if (ch < CHARS_TO_ESCAPE.length) {
-          if (isAttribute && ch == '&' && (i + 1 < end) && text[i + 1] == '{') {
+          if (isAttribute && ch == '&' && i + 1 < end && text[i + 1] == '{') {
             // HTML 4.0, section B.7.1: ampersands followed by
             // an open brace don't get escaped
             buffer.addToBuffer('&');

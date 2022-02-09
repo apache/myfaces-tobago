@@ -55,7 +55,7 @@ public class JsoupSanitizer implements Sanitizer {
 
     final Enumeration<String> enumeration = (Enumeration<String>) configuration.propertyNames();
     while (enumeration.hasMoreElements()) {
-      String key =  enumeration.nextElement();
+      String key = enumeration.nextElement();
       if ("whitelist".equals(key)) {
         whitelistName = configuration.getProperty(key);
         if ("basic".equals(whitelistName)) {

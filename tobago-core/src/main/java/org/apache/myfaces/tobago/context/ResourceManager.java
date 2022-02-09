@@ -28,29 +28,47 @@ import javax.faces.render.Renderer;
 
 public interface ResourceManager {
 
+  /**
+   * @deprecated by API
+   */
   @Deprecated
   String getJsp(UIViewRoot viewRoot, String name);
 
+  /**
+   * @deprecated by API
+   */
   @Deprecated
   String getProperty(UIViewRoot viewRoot, String bundle, String propertyKey);
 
   String getProperty(FacesContext facesContext, String bundle, String propertyKey);
 
+  /**
+   * @deprecated by API
+   */
   @Deprecated
   Renderer getRenderer(UIViewRoot viewRoot, String rendererType);
 
   Renderer getRenderer(FacesContext facesContext, String rendererType);
 
+  /**
+   * @deprecated by API
+   */
   @Deprecated
   String[] getScripts(UIViewRoot viewRoot, String name);
 
   String[] getScripts(FacesContext facesContext, String name);
 
+  /**
+   * @deprecated by API
+   */
   @Deprecated
   String[] getStyles(UIViewRoot viewRoot, String name);
 
   String[] getStyles(FacesContext facesContext, String name);
 
+  /**
+   * @deprecated by API
+   */
   @Deprecated
   String getThemeProperty(UIViewRoot viewRoot, String bundle, String propertyKey);
 
@@ -58,6 +76,9 @@ public interface ResourceManager {
 
   Measure getThemeMeasure(FacesContext facesContext, String rendererType, Markup markup, String name);
 
+  /**
+   * @deprecated by API
+   */
   @Deprecated
   String getImage(UIViewRoot viewRoot, String name);
 
@@ -67,6 +88,9 @@ public interface ResourceManager {
   @Deprecated
   String getImage(FacesContext facesContext, String name);
 
+  /**
+   * @deprecated by API
+   */
   @Deprecated
   String getImage(UIViewRoot viewRoot, String name, boolean ignoreMissing);
 
@@ -75,8 +99,7 @@ public interface ResourceManager {
    * @param nameWithExtension The name with extension
    * @param ignoreMissing if set to false, an error message will be logged, when image is missing
    * @return the full file path
-   *
-   * @deprecated
+   * @deprecated xxx
    */
   @Deprecated
   String getImage(FacesContext facesContext, String nameWithExtension, boolean ignoreMissing);
@@ -91,4 +114,4 @@ public interface ResourceManager {
   String getImage(
       FacesContext facesContext, String name, String extension, boolean ignoreMissing);
 
-  }
+}

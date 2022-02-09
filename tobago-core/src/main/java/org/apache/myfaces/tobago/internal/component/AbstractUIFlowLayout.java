@@ -37,7 +37,7 @@ public abstract class AbstractUIFlowLayout extends AbstractUILayoutBase implemen
   }
 
   public void mainProcessing(final Orientation orientation) {
-    
+
   }
 
   public void postProcessing(final Orientation orientation) {

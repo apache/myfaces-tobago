@@ -200,9 +200,9 @@ public class MockHttpServletRequest implements HttpServletRequest {
   public String getParameter(final String name) {
     final String[] values = (String[]) parameters.get(name);
     if (values != null) {
-      return (values[0]);
+      return values[0];
     } else {
-      return (null);
+      return null;
     }
   }
 
@@ -262,7 +262,10 @@ public class MockHttpServletRequest implements HttpServletRequest {
     return null;
   }
 
-  /** @deprecated */
+  /**
+   * @deprecated by API
+   */
+  @Deprecated
   public String getRealPath(final String s) {
     return null;
   }
@@ -313,7 +316,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
   }
 
   public Enumeration getParameterNames() {
-    return (new IteratorEnumeration(parameters.keySet().iterator()));
+    return new IteratorEnumeration(parameters.keySet().iterator());
   }
 
   public String[] getParameterValues(final String name) {

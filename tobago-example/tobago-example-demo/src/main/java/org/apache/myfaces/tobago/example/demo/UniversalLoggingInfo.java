@@ -168,10 +168,10 @@ public class UniversalLoggingInfo {
       }
     }
 
-    private void invoke(String id, Object logger, String name) throws Exception {
+    private void invoke(String idParameter, Object loggerParameter, String name) throws Exception {
       final Class clazz = usesString ? String.class : Object.class;
-      final Method method = logger.getClass().getMethod(name, clazz);
-      method.invoke(logger, "Hello " + id + ", this is the level: " + name);
+      final Method method = loggerParameter.getClass().getMethod(name, clazz);
+      method.invoke(loggerParameter, "Hello " + idParameter + ", this is the level: " + name);
     }
 
     public boolean isAvailable() {

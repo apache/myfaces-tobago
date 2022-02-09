@@ -30,10 +30,11 @@ public final class MathUtils {
   }
 
   /**
-   * Adjusts the list of double values to rounded values with the same sum.
-   * E. g. 2.3, 2.4, 2.5, 2.8 -> 2.0, 2.0, 3.0, 3.0
+   * Adjusts the list of double values to rounded values with the same sum. E. g. 2.3, 2.4, 2.5, 2.8 -> 2.0, 2.0, 3.0,
+   * 3.0
    */
-  public static void adjustRemainders(final double[] list, double bias) {
+  public static void adjustRemainders(final double[] list, final double biasParameter) {
+    double bias = biasParameter;
     for (final double ignored : list) {
       final double lastBias;
       if (bias < 0.0) {

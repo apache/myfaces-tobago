@@ -30,12 +30,12 @@ package org.apache.myfaces.tobago.example.addressbook;
  * is important, since enhanced classes will wind up implementing
  * <em>org.apache.openjpa.enhance.PersistenceCapable</em>, so it there
  * is a mismatch between the PersistenceCapable that is loaded by the
- * system classloader and the one that is loaded by the 
+ * system classloader and the one that is loaded by the
  * instrumenting ClassLoader, then OpenJPA will not function properly.
  *
  * <p>
  *
- * This loader can be specific by including the following in the 
+ * This loader can be specific by including the following in the
  * spring configuration XML as follows:
  *
  * <p>
@@ -48,7 +48,7 @@ package org.apache.myfaces.tobago.example.addressbook;
  *    &lt;/property&rt;
  *    &lt;/bean&rt;
  * </code>
- * 
+ *
  * author Marc Prud'hommeaux
  * @since 2.0
  */

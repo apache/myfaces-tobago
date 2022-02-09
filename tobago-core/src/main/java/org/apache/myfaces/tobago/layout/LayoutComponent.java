@@ -25,18 +25,23 @@ package org.apache.myfaces.tobago.layout;
 public interface LayoutComponent extends LayoutBase {
 
   Integer getColumnSpan();
+
   void setColumnSpan(Integer columnSpan);
 
   Integer getRowSpan();
+
   void setRowSpan(Integer rowSpan);
 
   Integer getHorizontalIndex();
+
   void setHorizontalIndex(Integer horizontalIndex);
 
   Integer getVerticalIndex();
+
   void setVerticalIndex(Integer verticalIndex);
 
   Display getDisplay();
+
   void setDisplay(Display display);
 
   boolean isRendered();

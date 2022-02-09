@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.event;
 
 
-import javax.faces.event.ActionEvent;
 import javax.faces.component.UIComponent;
+import javax.faces.event.ActionEvent;
 
 
 public class PageActionEvent extends ActionEvent {
@@ -48,8 +48,7 @@ public class PageActionEvent extends ActionEvent {
   }
 
   /**
-   * Returns the value for action types {@link PageAction#TO_ROW}
-   * and {@link PageAction#TO_PAGE}.
+   * Returns the value for action types {@link PageAction#TO_ROW} and {@link PageAction#TO_PAGE}.
    */
   public int getValue() {
     return value;

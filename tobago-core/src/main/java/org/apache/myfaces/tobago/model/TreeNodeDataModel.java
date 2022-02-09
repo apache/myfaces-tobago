@@ -46,8 +46,8 @@ public class TreeNodeDataModel extends TreeDataModel {
   private ExpandedState expandedState;
 
   /**
-   * @param data          The tree data, which shall be wrapped.
-   * @param showRoot      Is the root node visible.
+   * @param data The tree data, which shall be wrapped.
+   * @param showRoot Is the root node visible.
    * @param expandedState Defines which nodes are expanded, (XXX should it be so?) a value of {@code null} means all.
    */
   public TreeNodeDataModel(final TreeNode data, final boolean showRoot, final ExpandedState expandedState) {
@@ -79,8 +79,8 @@ public class TreeNodeDataModel extends TreeDataModel {
   }
 
   @Override
-  public void update(final ExpandedState expandedState) {
-    this.expandedState = expandedState;
+  public void update(final ExpandedState expandedStateParameter) {
+    this.expandedState = expandedStateParameter;
     TreeNode current = data;
     int counter = back.size();
     while (current != null) {
@@ -92,7 +92,7 @@ public class TreeNodeDataModel extends TreeDataModel {
       }
 
       // if the node has children and is expanded, go to the children
-      if (current.getChildCount() > 0 && expandedState.isExpanded(current)) {
+      if (current.getChildCount() > 0 && expandedStateParameter.isExpanded(current)) {
         current = current.getChildAt(0);
       } else {
         current = getNextNodeButNoChild(current);
@@ -100,7 +100,8 @@ public class TreeNodeDataModel extends TreeDataModel {
     }
   }
 
-  private TreeNode getNextNodeButNoChild(TreeNode node) {
+  private TreeNode getNextNodeButNoChild(final TreeNode nodeParameter) {
+    TreeNode node = nodeParameter;
     TreeNode next;
     while (true) {
       next = nextSibling(node);
@@ -186,8 +187,8 @@ public class TreeNodeDataModel extends TreeDataModel {
   }
 
   @Override
-  public void setWrappedData(final Object data) {
-    this.data = (TreeNode) data;
+  public void setWrappedData(final Object dataObject) {
+    this.data = (TreeNode) dataObject;
   }
 
   @Override
@@ -201,8 +202,8 @@ public class TreeNodeDataModel extends TreeDataModel {
     }
     TreeNode node = start.getParent();
     while (node != null && back.get(node) != null) {
-      final Data data = mapping.get(back.get(node));
-      if (data.getNode().getParent() == null && !showRoot) {
+      final Data dataObject = mapping.get(back.get(node));
+      if (dataObject.getNode().getParent() == null && !showRoot) {
         return true;
       }
       if (!expandedState.isExpanded(new TreePath(node))) {

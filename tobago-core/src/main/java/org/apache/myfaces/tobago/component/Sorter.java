@@ -99,9 +99,9 @@ public class Sorter {
           if (child.getValueExpression(attributeName) != null) {
             final String var = data.getVar();
             if (var == null) {
-                LOG.error("No sorting performed. Property var of sheet is not set!");
-                unsetSortableAttribute(column);
-                return;
+              LOG.error("No sorting performed. Property var of sheet is not set!");
+              unsetSortableAttribute(column);
+              return;
             }
             String expressionString = child.getValueExpression(attributeName).getExpressionString();
             if (isSimpleProperty(expressionString)) {
@@ -126,9 +126,9 @@ public class Sorter {
               actualComparator = new ValueExpressionComparator(facesContext, var, expression, descending, comparator);
             }
           } else {
-              LOG.error("No sorting performed. No Expression target found for sorting!");
-              unsetSortableAttribute(column);
-              return;
+            LOG.error("No sorting performed. No Expression target found for sorting!");
+            unsetSortableAttribute(column);
+            return;
           }
         } else {
           LOG.error("No sorting performed. Value is not instanceof List or Object[]!");
@@ -229,8 +229,8 @@ public class Sorter {
       if (child instanceof UISelectMany
           || child instanceof UISelectOne
           || child instanceof UISelectBoolean
-          || (child instanceof AbstractUICommand && child.getChildren().isEmpty())
-          || (child instanceof UIInput && RendererTypes.HIDDEN.equals(child.getRendererType()))) {
+          || child instanceof AbstractUICommand && child.getChildren().isEmpty()
+          || child instanceof UIInput && RendererTypes.HIDDEN.equals(child.getRendererType())) {
         continue;
         // look for a better component if any
       }

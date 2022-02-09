@@ -27,51 +27,67 @@ import org.apache.myfaces.tobago.config.Configurable;
 public interface LayoutBase extends Configurable {
 
   Measure getWidth();
+
   void setWidth(Measure width);
 
   Measure getHeight();
+
   void setHeight(Measure height);
 
   Measure getCurrentWidth();
+
   void setCurrentWidth(Measure width);
 
   Measure getCurrentHeight();
+
   void setCurrentHeight(Measure height);
 
   Measure getMinimumWidth();
+
   void setMinimumWidth(Measure minimumWidth);
 
   Measure getMinimumHeight();
+
   void setMinimumHeight(Measure minimumHeight);
 
   void setPreferredWidth(Measure preferredWidth);
+
   Measure getPreferredWidth();
 
   void setPreferredHeight(Measure preferredHeight);
+
   Measure getPreferredHeight();
 
   Measure getMaximumWidth();
+
   void setMaximumWidth(Measure maximumWidth);
 
   Measure getMaximumHeight();
+
   void setMaximumHeight(Measure maximumHeight);
 
   Measure getLeft();
+
   void setLeft(Measure left);
 
   Measure getTop();
+
   void setTop(Measure top);
 
   Measure getMarginLeft();
+
   void setMarginLeft(Measure marginLeft);
 
   Measure getMarginRight();
+
   void setMarginRight(Measure marginRight);
 
   Measure getMarginTop();
+
   void setMarginTop(Measure marginTop);
 
   Measure getMarginBottom();
+
   void setMarginBottom(Measure marginBottom);
 
 

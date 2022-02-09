@@ -26,6 +26,6 @@ public abstract class AbstractUISelectManyShuttle extends AbstractUISelectMany {
   public abstract String getUnselectedLabel();
 
   public boolean hasLabel() {
-     return getSelectedLabel() != null || getUnselectedLabel() != null;
+    return getSelectedLabel() != null || getUnselectedLabel() != null;
   }
 }

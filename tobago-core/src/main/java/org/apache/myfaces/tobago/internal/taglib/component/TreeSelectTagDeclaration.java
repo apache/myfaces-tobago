@@ -53,12 +53,12 @@ import javax.faces.component.UISelectBoolean;
     allowedChildComponenents = "NONE")
 public interface TreeSelectTagDeclaration
     extends HasIdBindingAndRendered, HasLabel, HasTip, HasMarkup, HasCurrentMarkup, HasValue, HasValueChangeListener,
-        IsDisabled, IsRequiredForSelect, HasConverter,
-        HasValidatorMessage, HasRequiredMessageForSelect, HasConverterMessage {
+    IsDisabled, IsRequiredForSelect, HasConverter,
+    HasValidatorMessage, HasRequiredMessageForSelect, HasConverterMessage {
 
   /**
-   * Show a checkbox to visualize the selection state.
-   * This is useful to hide the checkbox, e. g. dependent of the type of the node.
+   * Show a checkbox to visualize the selection state. This is useful to hide the checkbox, e. g. dependent of the type
+   * of the node.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")

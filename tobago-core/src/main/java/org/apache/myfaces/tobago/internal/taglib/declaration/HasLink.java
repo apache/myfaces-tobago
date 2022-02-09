@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface HasLink {
   /**
    * Link to an arbitrary URL, either an internal link or an external link.
-
+   *
    * <dl>
    *   <dt>internal absolute link</dt>
    *   <dd>Starts with a slash '/' character. The context path will be added.

@@ -31,9 +31,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasItemLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 
 /**
- * Add a child UISelectItem component to the UIComponent
- * associated with the closed parent UIComponent custom
- * action.
+ * Add a child UISelectItem component to the UIComponent associated with the closed parent UIComponent custom action.
  */
 @Tag(name = "selectItem")
 @UIComponentTag(
@@ -45,6 +43,7 @@ public interface SelectItemTagDeclaration extends HasBinding, HasId, HasMarkup, 
 
   /**
    * Description of an item, might be rendered as a tool tip.
+   *
    * @deprecated since 2.0.0, please use itemTip.
    */
   @Deprecated
@@ -53,8 +52,7 @@ public interface SelectItemTagDeclaration extends HasBinding, HasId, HasMarkup, 
   void setItemDescription(String itemDescription);
 
   /**
-   * Flag indicating whether the option created
-   * by this component is disabled.
+   * Flag indicating whether the option created by this component is disabled.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {"boolean"}, defaultValue = "false")
@@ -68,8 +66,7 @@ public interface SelectItemTagDeclaration extends HasBinding, HasId, HasMarkup, 
   void setItemValue(String itemValue);
 
   /**
-   * Value binding expression pointing at a SelectItem instance containing
-   * the information for this option.
+   * Value binding expression pointing at a SelectItem instance containing the information for this option.
    */
   @TagAttribute
   @UIComponentTagAttribute(

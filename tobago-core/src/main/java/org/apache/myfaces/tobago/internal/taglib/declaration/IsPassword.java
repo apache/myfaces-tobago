@@ -25,8 +25,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface IsPassword {
 
   /**
-   * Flag indicating whether or not this component should be rendered as
-   * password field , so you will not see the typed charakters.
+   * Flag indicating whether or not this component should be rendered as password field , so you will not see the typed
+   * charakters.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")

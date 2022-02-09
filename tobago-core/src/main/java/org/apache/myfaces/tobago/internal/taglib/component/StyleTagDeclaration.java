@@ -53,6 +53,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * stylesheet to add to page.
+   *
    * @deprecated inline styles are deprecated because of CSP
    */
   @Deprecated

@@ -57,7 +57,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     final Calendar calendar;
     if (value instanceof Calendar) {
       calendar = (Calendar) value;
-    } else { 
+    } else {
       calendar = new GregorianCalendar();
       if (value instanceof Date) {
         calendar.setTime((Date) value);
@@ -188,7 +188,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
 
     writer.endElement(HtmlElements.DIV);
   }
-  
+
   private String getMonthNames(final Locale locale) {
     final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMM", locale);
     final StringBuilder buffer = new StringBuilder(64);

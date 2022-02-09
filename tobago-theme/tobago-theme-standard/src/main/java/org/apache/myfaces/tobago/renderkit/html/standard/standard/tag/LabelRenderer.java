@@ -86,8 +86,8 @@ public class LabelRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.LABEL);
   }
 
-  /** Encodes the text inside of the label.
-   * Can be overwritten in other themes.
+  /**
+   * Encodes the text inside of the label. Can be overwritten in other themes.
    */
   protected void encodeTextContent(
       final FacesContext facesContext, final TobagoResponseWriter writer, final UILabel component)

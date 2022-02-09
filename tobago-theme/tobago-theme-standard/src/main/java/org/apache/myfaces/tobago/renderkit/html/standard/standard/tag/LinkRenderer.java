@@ -147,7 +147,7 @@ public class LinkRenderer extends CommandRendererBase {
       final Measure m = RenderUtils.calculateStringWidth(facesContext, link, text);
       width = width.add(m);
     }
-    if ((text != null && image != null)) {
+    if (text != null && image != null) {
       width = width.add(4);
     }
     if (image != null) {

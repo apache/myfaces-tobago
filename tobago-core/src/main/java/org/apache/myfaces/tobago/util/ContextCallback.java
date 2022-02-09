@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.util;
 
 
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 
 public interface ContextCallback {
   void invokeContextCallback(FacesContext facesContext, UIComponent component);

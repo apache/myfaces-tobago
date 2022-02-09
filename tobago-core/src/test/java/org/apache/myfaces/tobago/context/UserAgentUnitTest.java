@@ -63,7 +63,7 @@ public class UserAgentUnitTest {
         {"Internet Explorer 8 - Windows XP",
             UserAgent.MSIE_8_0,
             "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727;"
-            + " .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)"},
+                + " .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)"},
 
         {"Internet Explorer 8 - Compatibility Mode - Windows XP",
             UserAgent.MSIE_7_0_COMPAT,
@@ -148,32 +148,32 @@ public class UserAgentUnitTest {
         {"Chrome 4.1 - Windows 7",
             UserAgent.WEBKIT,
             "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/532.5 (KHTML, like Gecko)"
-            + " Chrome/4.1.249.1042 Safari/532.5"},
+                + " Chrome/4.1.249.1042 Safari/532.5"},
 
         {"Chrome 5 - Mac OS X Snow Leopard",
             UserAgent.WEBKIT,
             "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_4; en-US) AppleWebKit/533.4 (KHTML, like Gecko)"
-            + " Chrome/5.0.375.127 Safari/533.4"},
+                + " Chrome/5.0.375.127 Safari/533.4"},
 
         {"Chrome 5 - Ubuntu 9.10",
             UserAgent.WEBKIT,
             "Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/533.3 (KHTML, like Gecko)"
-            + " Chrome/5.0.360.0 Safari/533.3"},
+                + " Chrome/5.0.360.0 Safari/533.3"},
 
         {"Chromium 5 - Ubuntu 9.10",
             UserAgent.WEBKIT,
             "Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/533.3 (KHTML, like Gecko)"
-            + " Chrome/5.0.365.0 Safari/533.3"},
+                + " Chrome/5.0.365.0 Safari/533.3"},
 
         {"Safari 5 - Mac OS X Snow Leopard",
             UserAgent.WEBKIT,
             "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_4; de-de) AppleWebKit/533.17.8 (KHTML, like Gecko) "
-            + "Version/5.0.1 Safari/533.17.8"},
+                + "Version/5.0.1 Safari/533.17.8"},
 
         {"Safari 4 - Mac OS X Snow Leopard",
             UserAgent.WEBKIT,
             "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_2; de-de) AppleWebKit/531.22.7 (KHTML, like Gecko) "
-            + "Version/4.0.5 Safari/531.22.7"},
+                + "Version/4.0.5 Safari/531.22.7"},
 
         {"Safari 4 - iPad",
             UserAgent.WEBKIT,

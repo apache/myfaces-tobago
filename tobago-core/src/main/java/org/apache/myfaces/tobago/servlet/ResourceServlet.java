@@ -82,7 +82,7 @@ public class ResourceServlet extends HttpServlet {
     super.init(servletConfig);
     final TobagoConfig tobagoConfig = TobagoConfig.getInstance(servletConfig.getServletContext());
     if (tobagoConfig.getProjectStage() == ProjectStage.Production) {
-       expires = 24 * 60 * 60 * 1000L;
+      expires = 24 * 60 * 60 * 1000L;
     }
     final Theme defaultTheme = tobagoConfig.getDefaultTheme();
     addResourceDir(defaultTheme.getFallbackList());
@@ -110,7 +110,7 @@ public class ResourceServlet extends HttpServlet {
 
   private void addResourceDir(final List<Theme> themes) {
     for (final Theme theme : themes) {
-        addResourceDir(theme);
+      addResourceDir(theme);
     }
   }
 
@@ -123,7 +123,7 @@ public class ResourceServlet extends HttpServlet {
     }
   }
 
-    @Override
+  @Override
   protected void doGet(
       final HttpServletRequest request, final HttpServletResponse response)
       throws ServletException, IOException {

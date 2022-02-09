@@ -124,7 +124,7 @@ public final class ResponseUtils {
         servletResponse.setHeader(cspHeader, value);
       }
     } else if (PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse) {
-     // TODO Portlet
+      // TODO Portlet
       if (contentSecurityPolicy.getMode() != ContentSecurityPolicy.Mode.OFF) {
         LOG.warn("CSP not implemented for Portlet!");
       }

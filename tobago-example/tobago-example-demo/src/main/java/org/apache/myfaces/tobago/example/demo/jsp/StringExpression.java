@@ -69,7 +69,7 @@ public class StringExpression implements Serializable {
           // throw exception ?
           LOG.error("Property ${" + propertyName + "} has not been set");
         }
-        fragment = (variables.containsKey(propertyName))
+        fragment = variables.containsKey(propertyName)
             ? variables.get(propertyName)
             : "${" + propertyName + "}";
       }
@@ -86,7 +86,7 @@ public class StringExpression implements Serializable {
       if (pos > 0) {
         fragments.addElement(value.substring(prev, pos));
       }
-      if (pos == (value.length() - 1)) {
+      if (pos == value.length() - 1) {
         fragments.addElement("$");
         prev = pos + 1;
       } else if (value.charAt(pos + 1) != '{') {

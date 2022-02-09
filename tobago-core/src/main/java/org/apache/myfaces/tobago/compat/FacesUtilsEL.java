@@ -55,6 +55,7 @@ public final class FacesUtilsEL {
   /**
    * @deprecated since 2.0.0
    */
+  @Deprecated
   public static boolean invokeOnComponent(
       final FacesContext context, final UIComponent component, final String clientId, final ContextCallback callback) {
     final String thisClientId = component.getClientId(context);
@@ -68,7 +69,7 @@ public final class FacesUtilsEL {
       // Otherwise we know the client id we're looking for is not in this naming container,
       // so for improved performance short circuit and return false.
       if (clientId.startsWith(thisClientId)
-          && (clientId.charAt(thisClientId.length()) == UINamingContainer.getSeparatorChar(context))) {
+          && clientId.charAt(thisClientId.length()) == UINamingContainer.getSeparatorChar(context)) {
         if (invokeOnComponentFacetsAndChildren(context, component, clientId, callback)) {
           return true;
         }
@@ -199,6 +200,7 @@ public final class FacesUtilsEL {
   /**
    * @deprecated since 2.0.0
    */
+  @Deprecated
   public static void setValidator(final EditableValueHolder editableValueHolder, final Object validator) {
     if (validator instanceof MethodExpression) {
       editableValueHolder.addValidator(new MethodExpressionValidator((MethodExpression) validator));
@@ -210,6 +212,7 @@ public final class FacesUtilsEL {
   /**
    * @deprecated since 2.0.0
    */
+  @Deprecated
   public static void setConverter(final ValueHolder valueHolder, final Object converterExpression) {
     if (converterExpression instanceof ValueExpression) {
       final ValueExpression expression = (ValueExpression) converterExpression;
@@ -225,6 +228,7 @@ public final class FacesUtilsEL {
   /**
    * @deprecated since 2.0.0
    */
+  @Deprecated
   public static void setBindingOrExpression(
       final UIComponent component, final String name, final Object valueBindingOrExpression) {
     component.setValueExpression(name, (ValueExpression) valueBindingOrExpression);
@@ -233,6 +237,7 @@ public final class FacesUtilsEL {
   /**
    * @deprecated since 2.0.0
    */
+  @Deprecated
   public static void addBindingOrExpressionTabChangeListener(
       final TabChangeSource source, final String type, final Object bindingOrExpression) {
     if (bindingOrExpression instanceof ValueExpression) {
@@ -243,6 +248,7 @@ public final class FacesUtilsEL {
   /**
    * @deprecated since 2.0.0
    */
+  @Deprecated
   public static Comparator getBindingOrExpressionComparator(
       final FacesContext facesContext, final UIComponent child, final String var, final boolean descending,
       final Comparator comparator) {
@@ -253,6 +259,7 @@ public final class FacesUtilsEL {
   /**
    * @deprecated since 2.0.0
    */
+  @Deprecated
   public static void addBindingOrExpressionPopupActionListener(
       final ActionSource actionSource, final Object bindingOrExpression) {
     actionSource.addActionListener(new ValueExpressionPopupActionListener((ValueExpression) bindingOrExpression));
@@ -261,6 +268,7 @@ public final class FacesUtilsEL {
   /**
    * @deprecated since 2.0.0
    */
+  @Deprecated
   public static void addBindingOrExpressionResetActionListener(
       final ActionSource actionSource, final Object bindingOrExpression) {
     actionSource.addActionListener(new ValueExpressionResetInputActionListener((ValueExpression) bindingOrExpression));

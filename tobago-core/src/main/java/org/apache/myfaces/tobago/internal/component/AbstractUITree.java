@@ -210,12 +210,12 @@ public abstract class AbstractUITree extends AbstractUIData
     final ValueExpression expression = getValueExpression(Attributes.STATE);
 
     if (expression != null) {
-      TreeState state = (TreeState) expression.getValue(elContext);
-      if (state == null) {
-        state = new TreeState(new ExpandedState(2), new SelectedState());
-        expression.setValue(elContext, state);
+      TreeState treeState = (TreeState) expression.getValue(elContext);
+      if (treeState == null) {
+        treeState = new TreeState(new ExpandedState(2), new SelectedState());
+        expression.setValue(elContext, treeState);
       }
-      return state;
+      return treeState;
     }
 
     state = new TreeState(new ExpandedState(2), new SelectedState());

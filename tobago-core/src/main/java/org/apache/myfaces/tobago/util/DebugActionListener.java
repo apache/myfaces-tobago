@@ -22,9 +22,9 @@ package org.apache.myfaces.tobago.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.event.ActionListener;
-import javax.faces.event.ActionEvent;
 import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.ActionListener;
 
 public class DebugActionListener implements ActionListener {
 

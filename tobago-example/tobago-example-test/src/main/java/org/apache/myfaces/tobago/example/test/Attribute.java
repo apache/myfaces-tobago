@@ -49,7 +49,7 @@ public class Attribute implements Serializable {
   public void setCondition(final boolean condition) {
     this.condition = condition;
   }
-  
+
   public String getValue() {
     return "value from model";
   }

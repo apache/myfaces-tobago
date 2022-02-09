@@ -124,9 +124,9 @@ public class MockPageContext extends PageContext {
   }
 
   public void initialize(
-      final Servlet servlet, final ServletRequest request, final ServletResponse response, final String s,
-      final boolean b, final int i,
-      final boolean b1) throws IOException, IllegalStateException, IllegalArgumentException {
+      final Servlet servlet, final ServletRequest servletRequest, final ServletResponse response, final String s,
+      final boolean b, final int i, final boolean b1)
+      throws IOException, IllegalStateException, IllegalArgumentException {
   }
 
   public void release() {

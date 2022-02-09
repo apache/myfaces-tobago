@@ -24,8 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 public interface HasTarget {
   /**
-   * Name of a frame where the resource retrieved via this hyperlink is to be
-   * displayed.
+   * Name of a frame where the resource retrieved via this hyperlink is to be displayed.
    */
   @TagAttribute
   @UIComponentTagAttribute()

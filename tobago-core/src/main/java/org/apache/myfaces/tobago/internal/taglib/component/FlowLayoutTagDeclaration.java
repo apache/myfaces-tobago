@@ -34,8 +34,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.layout.TextAlign;
 
 /**
- * XXX Warning: Still in progress! Please do not use it until other announcement.
- * Renders a FlowLayout that positions the content components in there natural order.
+ * XXX Warning: Still in progress! Please do not use it until other announcement. Renders a FlowLayout that positions
+ * the content components in there natural order.
  */
 @Tag(name = "flowLayout")
 @UIComponentTag(
@@ -48,15 +48,12 @@ import org.apache.myfaces.tobago.layout.TextAlign;
 public interface FlowLayoutTagDeclaration
     extends HasId,
     /*HasSpacing, TODO*/
-    HasMargin, HasMargins, /*todo: do we need the margin here? Or should be use the margin from the container? */ 
+    HasMargin, HasMargins, /*todo: do we need the margin here? Or should be use the margin from the container? */
     HasBinding, HasMarkup, HasCurrentMarkup {
 
   /**
-   * The alignment of the elements inside of the container, possible values are:
-   * {@value TextAlign#STRING_LEFT},
-   * {@value TextAlign#STRING_RIGHT},
-   * {@value TextAlign#STRING_CENTER} und
-   * {@value TextAlign#STRING_JUSTIFY}.
+   * The alignment of the elements inside of the container, possible values are: {@value TextAlign#STRING_LEFT}, {@value
+   * TextAlign#STRING_RIGHT}, {@value TextAlign#STRING_CENTER} und {@value TextAlign#STRING_JUSTIFY}.
    */
   @TagAttribute
   @UIComponentTagAttribute(

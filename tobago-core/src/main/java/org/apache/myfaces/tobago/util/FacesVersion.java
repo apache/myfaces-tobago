@@ -76,6 +76,7 @@ public enum FacesVersion {
 
   /**
    * Does the JSF is version 1.2 or higher
+   *
    * @return Supports 1.2 or higher
    */
   public static boolean supports12() {
@@ -87,6 +88,7 @@ public enum FacesVersion {
 
   /**
    * Does the JSF is version 2.0 or higher
+   *
    * @return Supports 2.0 or higher
    */
   public static boolean supports20() {
@@ -97,6 +99,7 @@ public enum FacesVersion {
 
   /**
    * Does the JSF is version 2.1 or higher
+   *
    * @return Supports 2.1 or higher
    */
   public static boolean supports21() {
@@ -106,6 +109,7 @@ public enum FacesVersion {
 
   /**
    * Does the JSF is version 2.2 or higher
+   *
    * @return Supports 2.2 or higher
    */
   public static boolean supports22() {

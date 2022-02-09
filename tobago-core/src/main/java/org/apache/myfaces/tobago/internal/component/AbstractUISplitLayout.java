@@ -65,7 +65,9 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
   }
 
   // TODO: MathUtils
-  public static int gcd(int a, int b) {
+  public static int gcd(final int aParameter, final int bParameter) {
+    int a = aParameter;
+    int b = bParameter;
     if (a < 0) {
       a = -a;
     }
@@ -102,7 +104,7 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
     return orientation == Orientation.HORIZONTAL ? getColumnSpacing() : getRowSpacing();
   }
 
-@Override
+  @Override
   public void setColumns(final String columns) {
   }
 
@@ -142,6 +144,9 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
 
   public abstract String getOrientation();
 
+  /**
+   * @deprecated by API
+   */
   @Deprecated
   public abstract Measure getCellspacing();
 

@@ -24,9 +24,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 public interface HasSanitize {
   /**
-   * Should HTML content sanitized?
-   * The effect of sanitizing depends on the configuration.
-   * The value "auto" means, that sanitizing take place for
+   * Should HTML content sanitized? The effect of sanitizing depends on the configuration. The value "auto" means, that
+   * sanitizing take place for
    * <ul>
    *   <li>tc:out when escape="false" or</li>
    *   <li>tc:textarea when attribute data-html-editor is set,</li>

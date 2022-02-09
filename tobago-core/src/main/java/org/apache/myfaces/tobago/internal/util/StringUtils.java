@@ -99,15 +99,14 @@ public final class StringUtils {
       } else if (chars[i] == '_') {
         builder.append(chars[++i]);
       } else {
-        builder.append((((Character) chars[i]).toString().toLowerCase(Locale.ENGLISH)));
+        builder.append(((Character) chars[i]).toString().toLowerCase(Locale.ENGLISH));
       }
     }
     return builder.toString();
   }
 
   /**
-   * Is the same string, by ignoring differences that are only whitespaces.
-   * (null and "" are not equal)
+   * Is the same string, by ignoring differences that are only whitespaces. (null and "" are not equal)
    */
   @SuppressWarnings("StringEquality")
   public static boolean equalsIgnoreCaseAndWhitespace(final String type1, final String type2) {
@@ -171,7 +170,7 @@ public final class StringUtils {
    */
   public static boolean endsWith(final String string, final String suffix) {
     if (string == null || suffix == null) {
-      return (string == null && suffix == null);
+      return string == null && suffix == null;
     }
     if (suffix.length() > string.length()) {
       return false;
@@ -337,7 +336,7 @@ public final class StringUtils {
       return true;
     }
     for (int i = 0; i < strLen; i++) {
-      if ((!Character.isWhitespace(string.charAt(i)))) {
+      if (!Character.isWhitespace(string.charAt(i))) {
         return false;
       }
     }
@@ -366,8 +365,8 @@ public final class StringUtils {
     }
     final int replLength = searchString.length();
     int increase = replacement.length() - replLength;
-    increase = (increase < 0 ? 0 : increase);
-    increase *= (max < 0 ? 16 : (max > 64 ? 64 : max));
+    increase = increase < 0 ? 0 : increase;
+    increase *= max < 0 ? 16 : max > 64 ? 64 : max;
     final StringBuilder buf = new StringBuilder(text.length() + increase);
     while (end != -1) {
       buf.append(text.substring(start, end)).append(replacement);

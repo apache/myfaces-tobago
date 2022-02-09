@@ -26,18 +26,21 @@ import javax.faces.component.UIComponent;
 /**
  * @deprecated Since 2.0.3
  */
+@Deprecated
 public final class FindComponentUtils {
 
   /**
    * @deprecated Since 2.0.3
    */
+  @Deprecated
   private FindComponentUtils() {
   }
 
   /**
    * @deprecated Since 2.0.3, please use {@link org.apache.myfaces.tobago.util.ComponentUtils#findComponent(
-   * javax.faces.component.UIComponent, String)}
+   *javax.faces.component.UIComponent, String)}
    */
+  @Deprecated
   public static UIComponent findComponent(UIComponent from, String relativeId) {
     return ComponentUtils.findComponent(from, relativeId);
   }

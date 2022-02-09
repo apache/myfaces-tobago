@@ -24,8 +24,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 public interface HasFieldId {
   /**
-   * The component identifier for the input field component inside of the container.
-   * This value must be unique within the closest parent component that is a naming container.
+   * The component identifier for the input field component inside of the container. This value must be unique within
+   * the closest parent component that is a naming container.
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute

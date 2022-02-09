@@ -33,8 +33,9 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
 import javax.faces.component.UIPanel;
 
 /**
- * Renders a panel-like layout element with the ability to span over more than
- * one layout cell. A cell may only contain one child.
+ * Renders a panel-like layout element with the ability to span over more than one layout cell. A cell may only contain
+ * one child.
+ *
  * @deprecated The Cell is deprecated since Tobago 1.5.0
  */
 @Deprecated
@@ -45,7 +46,7 @@ import javax.faces.component.UIPanel;
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.CELL)
-public interface CellTagDeclaration 
+public interface CellTagDeclaration
     extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup, HasCurrentMarkup {
 
   @UIComponentTagAttribute(
@@ -75,7 +76,7 @@ public interface CellTagDeclaration
   @UIComponentTagAttribute(
       type = {"java.lang.Integer"},
       defaultValue = "1",
-  generate = false)
+      generate = false)
   void setSpanY(String spanY);
 
   /**

@@ -29,29 +29,29 @@ import java.util.List;
 
 public class SorterUnitTest extends AbstractTobagoTestBase {
 
-    @Test
-    public void testSorter() {
-        final UISheet sheet = new UISheet();
-        final UIColumn column = new UIColumn();
-        sheet.getChildren().add(column);
-        
-        final Sorter sorter = new Sorter();
-        final SortActionEvent sortActionEvent = new SortActionEvent(sheet, column);
-        sorter.perform(sortActionEvent);
+  @Test
+  public void testSorter() {
+    final UISheet sheet = new UISheet();
+    final UIColumn column = new UIColumn();
+    sheet.getChildren().add(column);
 
-        final List list = new ArrayList();
-        sheet.setValue(list);
-        sorter.perform(sortActionEvent);
+    final Sorter sorter = new Sorter();
+    final SortActionEvent sortActionEvent = new SortActionEvent(sheet, column);
+    sorter.perform(sortActionEvent);
 
-        final UILink link = new UILink();
-        column.getChildren().add(link);
+    final List list = new ArrayList();
+    sheet.setValue(list);
+    sorter.perform(sortActionEvent);
 
-        sorter.perform(sortActionEvent);
-        
-        link.setValueBinding(Attributes.LABEL,
-                new MockValueBinding(getFacesContext().getApplication(), "var.test"));
+    final UILink link = new UILink();
+    column.getChildren().add(link);
 
-        sorter.perform(sortActionEvent);
+    sorter.perform(sortActionEvent);
 
-    }
+    link.setValueBinding(Attributes.LABEL,
+        new MockValueBinding(getFacesContext().getApplication(), "var.test"));
+
+    sorter.perform(sortActionEvent);
+
+  }
 }

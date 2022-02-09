@@ -19,9 +19,10 @@
 
 package org.apache.myfaces.tobago.facelets.extension;
 
-import javax.faces.view.facelets.ComponentConfig;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UISelectOneListbox;
+
+import javax.faces.view.facelets.ComponentConfig;
 
 public class SelectOneListboxExtensionHandler extends TobagoLabelExtensionHandler {
 

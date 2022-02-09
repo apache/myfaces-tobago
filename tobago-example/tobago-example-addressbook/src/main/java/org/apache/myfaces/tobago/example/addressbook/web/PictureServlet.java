@@ -56,6 +56,6 @@ public class PictureServlet extends NonFacesRequestServlet {
       }
       facesContext.responseComplete();
     }
-    return null;  
+    return null;
   }
 }

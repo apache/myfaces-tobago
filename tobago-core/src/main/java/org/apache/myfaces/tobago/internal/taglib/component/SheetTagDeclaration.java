@@ -56,13 +56,13 @@ import javax.faces.component.UIData;
         "javax.faces.Column",
         "org.apache.myfaces.tobago.ColumnSelector"},
     facets = {@Facet(name = Facets.RELOAD, description = "Contains an instance of UIReload",
-                     allowedChildComponenents = "org.apache.myfaces.tobago.Reload")})
-public interface SheetTagDeclaration 
+        allowedChildComponenents = "org.apache.myfaces.tobago.Reload")})
+public interface SheetTagDeclaration
     extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup, HasCurrentMarkup,
     HasRenderedPartially, IsShowRoot, IsShowRootJunction, HasVar {
   /**
-   * LayoutConstraints for column layout.
-   * Semicolon separated list of layout tokens ('&lt;x>*', '&lt;x>px' or '&lt;x>%').
+   * LayoutConstraints for column layout. Semicolon separated list of layout tokens ('&lt;x>*', '&lt;x>px' or
+   * '&lt;x>%').
    */
   @TagAttribute
   @UIComponentTagAttribute()
@@ -76,10 +76,8 @@ public interface SheetTagDeclaration
   void setShowHeader(String showHeader);
 
   /**
-   * The number of rows to display, starting with the one identified by the
-   * "first" property.
-   * <br/> The default has been changed from 100 to 0 because this is the default
-   * in the JSF standard (since Tobago 1.5).
+   * The number of rows to display, starting with the one identified by the "first" property. <br/> The default has been
+   * changed from 100 to 0 because this is the default in the JSF standard (since Tobago 1.5).
    */
   @TagAttribute
   @UIComponentTagAttribute(
@@ -131,8 +129,8 @@ public interface SheetTagDeclaration
   void setDirectLinkCount(String directLinkCount);
 
   /**
-   * Flag indicating whether or not this sheet should reserve space for
-   * vertical toolbar when calculating column width's.<br />
+   * Flag indicating whether or not this sheet should reserve space for vertical toolbar when calculating column
+   * width's.<br />
    * Possible values are: <pre>
    *      'auto'  : sheet try to estimate the need of scrollbar.
    *      'true'  : space for scrollbar is reserved.
@@ -145,8 +143,7 @@ public interface SheetTagDeclaration
   void setForceVerticalScrollbar(String forceVerticalScrollbar);
 
   /**
-   * Flag indicating whether or not a range of direct paging links should be
-   * rendered in the sheet's footer.
+   * Flag indicating whether or not a range of direct paging links should be rendered in the sheet's footer.
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "center",
@@ -154,9 +151,8 @@ public interface SheetTagDeclaration
   void setShowDirectLinks(String showDirectLinks);
 
   /**
-   * Flag indicating whether and where the range pages should
-   * rendered in the sheet's footer. Rendering this range also offers the
-   * capability to enter the index displayed page directly.
+   * Flag indicating whether and where the range pages should rendered in the sheet's footer. Rendering this range also
+   * offers the capability to enter the index displayed page directly.
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "right",
@@ -164,9 +160,8 @@ public interface SheetTagDeclaration
   void setShowPageRange(String showPageRange);
 
   /**
-   * Flag indicating whether or not the range of displayed rows should
-   * rendered in the sheet's footer. Rendering this range also offers the
-   * capability to enter the index of the start row directly.
+   * Flag indicating whether or not the range of displayed rows should rendered in the sheet's footer. Rendering this
+   * range also offers the capability to enter the index of the start row directly.
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "left",
@@ -192,10 +187,9 @@ public interface SheetTagDeclaration
   void setState(String state);
 
   /**
-   * Method binding representing a stateChangeListener method that will be
-   * notified when the state was changed by the user.
-    * The expression must evaluate to a public method that takes a
-    * SheetStateChangeEvent parameter, with a return type of void.
+   * Method binding representing a stateChangeListener method that will be notified when the state was changed by the
+   * user. The expression must evaluate to a public method that takes a SheetStateChangeEvent parameter, with a return
+   * type of void.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {},
@@ -204,16 +198,12 @@ public interface SheetTagDeclaration
   void setStateChangeListener(String stateChangeListener);
 
   /**
-   * Method binding representing an actionListener method that will be
-   * invoked when sorting was requested by the user.
-   * Use this if your application needs special handling for sorting columns.
-   * If this is not set and the sortable attribute column is set to true the sheet
-   * implementation will use a default sort method.
-   * The expression must evaluate to a public method which takes an
-   * ActionEvent as parameter and with a return type of void.
-   * The method will receive a {@link org.apache.myfaces.tobago.event.SortActionEvent}.
-   * The method should sort according to the sortColumnId and direction getting from
-   * the sheet's {@link org.apache.myfaces.tobago.model.SheetState} object.
+   * Method binding representing an actionListener method that will be invoked when sorting was requested by the user.
+   * Use this if your application needs special handling for sorting columns. If this is not set and the sortable
+   * attribute column is set to true the sheet implementation will use a default sort method. The expression must
+   * evaluate to a public method which takes an ActionEvent as parameter and with a return type of void. The method will
+   * receive a {@link org.apache.myfaces.tobago.event.SortActionEvent}. The method should sort according to the
+   * sortColumnId and direction getting from the sheet's {@link org.apache.myfaces.tobago.model.SheetState} object.
    */
   @TagAttribute
   @UIComponentTagAttribute(
@@ -224,6 +214,7 @@ public interface SheetTagDeclaration
 
   /**
    * Flag indicating if paging arrows are shown near direct links
+   *
    * @since 2.0.0
    */
   @TagAttribute
@@ -232,6 +223,7 @@ public interface SheetTagDeclaration
 
   /**
    * Flag indicating if paging arrows are shown near page range
+   *
    * @since 2.0.0
    */
   @TagAttribute

@@ -104,7 +104,7 @@ public class ImageRenderer extends LayoutComponentRendererBase {
   }
 
   private boolean isDisabled(final AbstractUIImage graphic) {
-    return graphic.isDisabled() 
-        || (graphic.getParent() instanceof UICommand && ((UICommand) graphic.getParent()).isDisabled());
+    return graphic.isDisabled()
+        || graphic.getParent() instanceof UICommand && ((UICommand) graphic.getParent()).isDisabled();
   }
 }

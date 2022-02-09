@@ -32,7 +32,7 @@ import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
 public class PositionRule extends MetaRule {
-  
+
   public static final PositionRule INSTANCE = new PositionRule();
 
   public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
@@ -71,7 +71,7 @@ public class PositionRule extends MetaRule {
 
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
       if (attribute.isLiteral()) {
-         ((Position) instance).setTop(Measure.parse(attribute.getValue()));
+        ((Position) instance).setTop(Measure.parse(attribute.getValue()));
       } else {
         final ValueExpression expression = attribute.getValueExpression(ctx, Object.class);
         ((UIComponent) instance).setValueExpression(Attributes.TOP, expression);

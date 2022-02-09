@@ -60,7 +60,7 @@ public class DebugPhaseListener implements PhaseListener {
 
       if (LOG.isDebugEnabled()) {
         final Long start = (Long) map.get(KEY + phaseEvent.getPhaseId().getOrdinal() + "S");
-        LOG.debug("Phase " + phaseEvent.getPhaseId() + " needs " + (end - start + " milliseconds"));
+        LOG.debug("Phase " + phaseEvent.getPhaseId() + " needs " + (end - start) + " milliseconds");
       }
 
       if (phaseEvent.getPhaseId().getOrdinal() == 6) {
@@ -73,7 +73,7 @@ public class DebugPhaseListener implements PhaseListener {
 
         final Long start = (Long) map.get(KEY + "1S");
         if (start != null) {
-          LOG.info("Total response time : " + (end - start + " milliseconds"));
+          LOG.info("Total response time : " + (end - start) + " milliseconds");
         }
       }
       for (final Iterator iterator = facesContext.getClientIdsWithMessages(); iterator.hasNext();) {
@@ -82,8 +82,8 @@ public class DebugPhaseListener implements PhaseListener {
         for (final Iterator messageIterator = facesContext.getMessages(clientId); messageIterator.hasNext();) {
           final FacesMessage msg = (FacesMessage) messageIterator.next();
           LOG.info(MessageFormat.format("Faces message found."
-              + "\n  Component: {0} \n  Severity : {1}"
-              + "\n  Summary  : {2} \n  Detail   : {3}",
+                  + "\n  Component: {0} \n  Severity : {1}"
+                  + "\n  Summary  : {2} \n  Detail   : {3}",
               clientId, msg.getSeverity(), msg.getSummary(), msg.getDetail()));
         }
       }

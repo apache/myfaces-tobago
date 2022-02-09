@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.example.test;
 
+import org.apache.myfaces.tobago.model.Wizard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.model.Wizard;
 
 import java.io.Serializable;
 
@@ -30,7 +30,7 @@ public class FilterController implements Serializable {
   private static final Logger LOG = LoggerFactory.getLogger(FilterController.class);
 
   private Wizard wizard;
-  
+
   private String filterType;
   private String filterValue;
 
@@ -41,7 +41,7 @@ public class FilterController implements Serializable {
   public Wizard getWizard() {
     return wizard;
   }
-  
+
   public String createFilter() {
     LOG.info("Filter type: '" + filterType + "'");
     if ("fileInto".equals(filterType)) {

@@ -23,9 +23,9 @@ public class DummyBean {
 // ----------------------------------------------------------------- attributes
 
   private boolean male;
-  
+
   private int size;
-  
+
   private String name;
 
 // --------------------------------------------------------------- constructors

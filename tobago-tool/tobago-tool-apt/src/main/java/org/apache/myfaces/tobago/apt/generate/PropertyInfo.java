@@ -248,8 +248,8 @@ public class PropertyInfo {
     return transientValue;
   }
 
-  public void setTransient(final boolean transientValue) {
-    this.transientValue = transientValue;
+  public void setTransient(final boolean transientValueParameter) {
+    this.transientValue = transientValueParameter;
   }
 
   public boolean isGenerate() {

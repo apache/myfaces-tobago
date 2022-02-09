@@ -48,12 +48,10 @@ public final class VariableResolverUtils {
   public static ClientProperties resolveClientProperties(final FacesContext facesContext) {
     return ClientProperties.getInstance(facesContext);
   }
-  
+
   /**
-   * Clears the value of the variable.
-   * Useful for cleaning up e.g. a session or application variable
-   * to save memory without the knowledge of the scope.
-   * Also useful to enforce a new creation of a managed-bean.
+   * Clears the value of the variable. Useful for cleaning up e.g. a session or application variable to save memory
+   * without the knowledge of the scope. Also useful to enforce a new creation of a managed-bean.
    */
   public static void clearVariable(final FacesContext context, final String variable) {
     final ELContext elContext = context.getELContext();

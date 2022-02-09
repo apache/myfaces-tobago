@@ -162,7 +162,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
   }
 
   private void createButton(final FacesContext context, final UIComponent component, final TobagoResponseWriter writer,
-        final boolean disabled, final String image, final String sub) throws IOException {
+                            final boolean disabled, final String image, final String sub) throws IOException {
     writer.startElement(HtmlElements.BUTTON, null);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON, false);
     writer.writeClassAttribute(Classes.create(component, sub));

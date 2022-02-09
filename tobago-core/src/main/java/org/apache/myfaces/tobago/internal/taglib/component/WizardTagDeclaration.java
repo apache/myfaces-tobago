@@ -47,7 +47,7 @@ import javax.faces.component.UIPanel;
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.WIZARD)
-public interface WizardTagDeclaration 
+public interface WizardTagDeclaration
     extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup, HasCurrentMarkup {
 
   @TagAttribute(required = true)

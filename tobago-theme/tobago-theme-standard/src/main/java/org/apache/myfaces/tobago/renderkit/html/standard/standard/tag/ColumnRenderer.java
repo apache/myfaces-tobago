@@ -46,12 +46,10 @@ public class ColumnRenderer extends LayoutComponentRendererBase {
   }
 
   /**
-   * Differ between simple content and complex content.
-   * Decide if the content of a cell needs usually the whole possible space or
-   * is the character of the content like flowing text.
-   * In the second case, the style usually sets a padding.<br/>
-   * Pure is needed for &lt;tc:panel>,  &lt;tc:in>, etc.<br/>
-   * Pure is not needed for  &lt;tc:out> and &lt;tc:link>
+   * Differ between simple content and complex content. Decide if the content of a cell needs usually the whole possible
+   * space or is the character of the content like flowing text. In the second case, the style usually sets a
+   * padding.<br/> Pure is needed for &lt;tc:panel>,  &lt;tc:in>, etc.<br/> Pure is not needed for  &lt;tc:out> and
+   * &lt;tc:link>
    */
   private boolean isPure(final UIColumn column) {
     for (final UIComponent child : column.getChildren()) {

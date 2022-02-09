@@ -72,6 +72,7 @@ public class SelectItem extends javax.faces.model.SelectItem implements Supports
   /**
    * @deprecated since 1.5.0
    */
+  @Deprecated
   public SelectItem(
       final Object value, final String label, final String tip, final boolean disabled, final String image,
       final String[] markup) {

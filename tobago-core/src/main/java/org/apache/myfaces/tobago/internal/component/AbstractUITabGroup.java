@@ -255,7 +255,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
 
   public boolean isSwitchTypeClient() {
     final String switchType = getSwitchType();
-    return (switchType == null || switchType.equals(SWITCH_TYPE_CLIENT));
+    return switchType == null || switchType.equals(SWITCH_TYPE_CLIENT);
   }
 
   public void removeTabChangeListener(final TabChangeListener listener) {

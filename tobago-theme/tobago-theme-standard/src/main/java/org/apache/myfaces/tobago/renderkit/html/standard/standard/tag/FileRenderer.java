@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.internal.util.HttpPartWrapper;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
+import org.apache.myfaces.tobago.internal.util.HttpPartWrapper;
 import org.apache.myfaces.tobago.internal.util.PartUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
@@ -176,7 +176,7 @@ public class FileRenderer extends InputRendererBase {
   }
 
   protected void writeVisibleInput(FacesContext facesContext, TobagoResponseWriter writer, AbstractUIFile file,
-      String clientId, Style style) throws IOException {
+                                   String clientId, Style style) throws IOException {
     final Style inputStyle = new Style();
     final Measure prettyWidthSub = getPrettyWidthSub(facesContext, file);
     inputStyle.setWidth(style.getWidth().subtract(prettyWidthSub));

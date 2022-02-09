@@ -19,10 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 
 import javax.faces.component.ActionSource2;
 import javax.faces.event.ActionListener;
@@ -53,6 +52,7 @@ public abstract class AbstractUIFileDrop extends AbstractUIFile implements Suppo
   enum PropertyKeys {height}
 
   public abstract String getDropZoneId();
+
   public abstract String getVisibleType();
 
   public void addActionListener(ActionListener listener) {
@@ -64,7 +64,7 @@ public abstract class AbstractUIFileDrop extends AbstractUIFile implements Suppo
   }
 
   public ActionListener[] getActionListeners() {
-    return (ActionListener[]) ((ActionListener[]) this.getFacesListeners(ActionListener.class));
+    return (ActionListener[]) this.getFacesListeners(ActionListener.class);
   }
 
   // not a file drop attribute

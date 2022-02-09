@@ -104,11 +104,11 @@ public final class AjaxUtils {
     boolean added = false;
 
     if (clientIds.hasNext()) { // messages in the partial part
-      for (final String componentClientId: list) {
+      for (final String componentClientId : list) {
         added = AjaxInternalUtils.addNextPossibleAjaxComponent(context, componentClientId);
       }
     } else {  // checking for an existing shown error on page
-      for (final String componentClientId: list) {
+      for (final String componentClientId : list) {
         if (context.getExternalContext().getRequestParameterMap().containsKey(
             componentClientId + ComponentUtils.SUB_SEPARATOR + "messagesExists")) {
           added = AjaxInternalUtils.addNextPossibleAjaxComponent(context, componentClientId);

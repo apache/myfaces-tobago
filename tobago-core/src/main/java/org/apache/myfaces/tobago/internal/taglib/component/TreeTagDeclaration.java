@@ -38,8 +38,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRootJunction;
 import javax.faces.component.UIData;
 
 /**
- * A tree with classical look. 
- * Usually used with icons and junction lines to open folder, etc.
+ * A tree with classical look. Usually used with icons and junction lines to open folder, etc.
  */
 @Tag(name = "tree")
 @BodyContentDescription(anyTagOf = "<tc:treeData>")
@@ -52,14 +51,13 @@ import javax.faces.component.UIData;
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.TreeNode",
         "org.apache.myfaces.tobago.TreeData"
-        })
+    })
 public interface TreeTagDeclaration
     extends HasIdBindingAndRendered, HasValue, HasVar, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup,
     IsShowRoot, IsShowRootJunction {
 
   /**
-   * Flag indicating whether or not this component should be render selectable items.
-   * Possible values are:
+   * Flag indicating whether or not this component should be render selectable items. Possible values are:
    * <ul>
    * <li><strong>none</strong> : not selectable</li>
    * <li><strong>multi</strong> : a multi section tree is rendered</li>

@@ -20,13 +20,13 @@
 package org.apache.myfaces.tobago.renderkit.css;
 
 import org.apache.myfaces.tobago.component.ComponentTypes;
-import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -112,7 +112,7 @@ public class ClassesUnitTest extends AbstractTobagoTestBase {
     in.setMarkup(Markup.valueOf("important,deleted"));
     updateCurrentMarkup(in);
     Assert.assertEquals("tobago-in-sub tobago-in-sub-markup-important tobago-in-sub-markup-deleted "
-        + "tobago-in-sub-markup-disabled tobago-in-sub-markup-readonly tobago-in-sub-markup-error",
+            + "tobago-in-sub-markup-disabled tobago-in-sub-markup-readonly tobago-in-sub-markup-error",
         Classes.create(in, "sub").getStringValue());
   }
 
