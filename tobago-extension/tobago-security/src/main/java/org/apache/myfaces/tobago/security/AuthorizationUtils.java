@@ -62,7 +62,7 @@ public class AuthorizationUtils {
       return false;
     }
     if (securityAnnotation instanceof RolesAllowed) {
-      final String [] roles = ((RolesAllowed) securityAnnotation).value();
+      final String[] roles = ((RolesAllowed) securityAnnotation).value();
       if (LOG.isDebugEnabled()) {
         LOG.debug("RolesAllowed " + Arrays.asList(((RolesAllowed) securityAnnotation).value()));
       }

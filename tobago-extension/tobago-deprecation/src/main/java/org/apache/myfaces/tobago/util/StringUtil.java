@@ -34,6 +34,9 @@ public class StringUtil {
   private StringUtil() {
   }
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static String firstToUpperCase(final String string) {
     if (Deprecation.LOG.isWarnEnabled()) {
@@ -42,6 +45,9 @@ public class StringUtil {
     return StringUtils.firstToUpperCase(string);
   }
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static List<Integer> parseIntegerList(final String integerList)
       throws NumberFormatException {
@@ -51,6 +57,9 @@ public class StringUtil {
    return StringUtils.parseIntegerList(integerList);
   }
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static <T> String toString(final List<T> list) {
     if (Deprecation.LOG.isWarnEnabled()) {

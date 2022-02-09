@@ -42,18 +42,27 @@ public final class MessageFactory {
 
   private static final Map<Locale, ResourceBundle> FACES_MESSAGES_MAP = new HashMap<Locale, ResourceBundle>();
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static FacesMessage createFacesMessage(
       final FacesContext facesContext, final String key, final FacesMessage.Severity severity, final Object[] args) {
     return createFacesMessage(facesContext, "tobago", key, severity, args);
   }
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static FacesMessage createFacesMessage(
       final FacesContext facesContext, final String key, final FacesMessage.Severity severity) {
     return createFacesMessage(facesContext, key, severity, new Object[0]);
   }
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static FacesMessage createFacesMessage(
       final FacesContext facesContext, final String bundle, final String key, final FacesMessage.Severity severity,
@@ -75,6 +84,9 @@ public final class MessageFactory {
     return new FacesMessage(severity, summary != null ? summary : key, detail);
   }
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static Locale getLocale(final FacesContext facesContext) {
     final UIViewRoot root = facesContext.getViewRoot();
@@ -87,12 +99,18 @@ public final class MessageFactory {
     return locale;
   }
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static FacesMessage createFacesMessage(
       final FacesContext facesContext, final String bundle, final String key, final FacesMessage.Severity severity) {
     return createFacesMessage(facesContext, bundle, key, severity, new Object[0]);
   }
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static String getMessageText(
       final FacesContext facesContext, final String bundle, final String key) {
@@ -108,6 +126,9 @@ public final class MessageFactory {
     return message;
   }
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static ResourceBundle getFacesMessages(final Locale locale) {
     ResourceBundle facesMessages = FACES_MESSAGES_MAP.get(locale);

@@ -31,7 +31,7 @@ public class JQueryUtils {
 
   /**
    * Puts two backslashes before : and . to escape them.
-   * Two are needed, because of JavaScript string literals. 
+   * Two are needed, because of JavaScript string literals.
    */
   public static String escapeId(final String id) {
     return id.replaceAll("([\\:\\.])", "\\\\\\\\$1");
@@ -39,7 +39,7 @@ public class JQueryUtils {
 
   /**
    * Puts one backslashes before \ to escape it.
-   * It is needed, because of JavaScript string literals. 
+   * It is needed, because of JavaScript string literals.
    */
   public static String escapeValue(final String value) {
     return value.replaceAll("\\\\", "\\\\\\\\");
@@ -48,7 +48,7 @@ public class JQueryUtils {
   /**
    * Puts two backslashes before #;&,.+*~':"!^$[]()=>|/ to escape them.
    * Two are needed, because of JavaScript string literals.
-   * Puts three backslashes before a \ itself, to escape it. 
+   * Puts three backslashes before a \ itself, to escape it.
    */
   public static String escapeSelector(final String value) {
     final StringBuilder builder = new StringBuilder();
