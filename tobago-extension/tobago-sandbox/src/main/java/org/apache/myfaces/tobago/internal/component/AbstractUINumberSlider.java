@@ -32,7 +32,7 @@ public abstract class AbstractUINumberSlider extends javax.faces.component.UIInp
   public abstract Integer getMax();
 
   public abstract boolean isReadonly();
-  
+
   public abstract boolean isDisabled();
 
   public void validate(final FacesContext context) {

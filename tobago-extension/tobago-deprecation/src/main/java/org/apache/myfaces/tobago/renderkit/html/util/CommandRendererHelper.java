@@ -107,8 +107,8 @@ public class CommandRendererHelper {
 
       } else {
         final String clientId = command.getClientId(facesContext);
-        final String target = ComponentUtils.getStringAttribute(command, Attributes.TARGET);
-        onclick = HtmlRendererUtils.createSubmitAction(clientId, transition, target, null);
+        final String t = ComponentUtils.getStringAttribute(command, Attributes.TARGET);
+        onclick = HtmlRendererUtils.createSubmitAction(clientId, transition, t, null);
       }
 
       if (command.getAttributes().get(Attributes.POPUP_CLOSE) != null
@@ -132,26 +132,27 @@ public class CommandRendererHelper {
       return null;
     }
     final AbstractUICommand command = (AbstractUICommand) base;
-    String onclick = command.getOnclick();
-    if (onclick.contains("@autoId")) {
-      onclick = StringUtils.replace(onclick, "@autoId", command.getClientId(facesContext));
+    String click = command.getOnclick();
+    if (click.contains("@autoId")) {
+      click = StringUtils.replace(click, "@autoId", command.getClientId(facesContext));
     }
-    return onclick;
+    return click;
   }
 
-  private String appendConfirmationScript(String onclick, final UIComponent component) {
+  private String appendConfirmationScript(String onclickParameter, final UIComponent component) {
+    String click = onclickParameter;
     final ValueHolder confirmation = (ValueHolder) component.getFacet(Facets.CONFIRMATION);
     if (confirmation != null) {
       final StringBuilder script = new StringBuilder("return confirm('");
       script.append(confirmation.getValue());
       script.append("')");
-      if (onclick != null) {
+      if (click != null) {
         script.append(" && ");
-        script.append(onclick);
+        script.append(click);
       }
-      onclick = script.toString();
+      click = script.toString();
     }
-    return onclick;
+    return click;
   }
 
   public String getOnclick() {

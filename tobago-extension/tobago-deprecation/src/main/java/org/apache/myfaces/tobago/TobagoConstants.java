@@ -27,7 +27,7 @@ package org.apache.myfaces.tobago;
  * @see org.apache.myfaces.tobago.component.OnComponentCreated
  * @see org.apache.myfaces.tobago.renderkit.HtmlUtils
  * @see org.apache.myfaces.tobago.util.ComponentUtils
- * @deprecated
+ * @deprecated xxx
  */
 @Deprecated
 public final class TobagoConstants {
@@ -674,12 +674,24 @@ public final class TobagoConstants {
   @Deprecated
   public static final String RENDERER_TYPE_VERBATIM = "Verbatim";
 
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static final String ATTR_NAME_REFERENCE = "nameReference";
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static final String ATTR_DISABLED_REFERENCE = "disabledReference";
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static final String ATTR_ID_REFERENCE = "idReference";
+  /**
+   * @deprecated xxx
+   */
   @Deprecated
   public static final String ATTR_TIP_REFERENCE = "tipReference";
 

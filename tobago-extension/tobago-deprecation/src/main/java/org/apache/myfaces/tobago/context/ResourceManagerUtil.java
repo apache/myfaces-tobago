@@ -50,7 +50,7 @@ public class ResourceManagerUtil {
   @Deprecated
   public static String getPropertyNotNull(final FacesContext facesContext, final String bundle, final String key) {
     final String result
-        = ResourceManagerFactory.getResourceManager(facesContext).getProperty(facesContext, bundle, key);
+      = ResourceManagerFactory.getResourceManager(facesContext).getProperty(facesContext, bundle, key);
     if (result == null) {
       return "???" + key + "???";
     } else {
@@ -60,6 +60,7 @@ public class ResourceManagerUtil {
 
   /**
    * Searches for an image and return it with the context path
+   *
    * @deprecated please use {@link ResourceManagerUtils}
    */
   @Deprecated
@@ -69,11 +70,12 @@ public class ResourceManagerUtil {
 
   /**
    * Searches for an image and return it with the context path
+   *
    * @deprecated please use {@link ResourceManagerUtils}
    */
   @Deprecated
   public static String getImageWithPath(
-      final FacesContext facesContext, final String name, final boolean ignoreMissing) {
+    final FacesContext facesContext, final String name, final boolean ignoreMissing) {
     return ResourceManagerUtils.getImageWithPath(facesContext, name, ignoreMissing);
   }
 
@@ -178,7 +180,7 @@ public class ResourceManagerUtil {
    */
   @Deprecated
   public static Measure getThemeMeasure(
-      final FacesContext facesContext, final Configurable configurable, final String name) {
+    final FacesContext facesContext, final Configurable configurable, final String name) {
     return ResourceManagerUtils.getThemeMeasure(facesContext, configurable, name);
   }
 
@@ -189,5 +191,5 @@ public class ResourceManagerUtil {
   public static boolean isAbsoluteResource(final String value) {
     return ResourceManagerUtils.isAbsoluteResource(value);
   }
-  
+
 }

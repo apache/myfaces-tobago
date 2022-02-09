@@ -43,9 +43,9 @@ import java.io.IOException;
 public class BoxRenderer extends BoxRendererBase {
 
   /*
-  
+
 with shadow
-  
+
 <div class="tobago-box" style="width: 100px; height: 100px">
   <div class="tobago-box-shadow" style="width: 99px; height: 99px">
     <div class="tobago-box-border" style="width: 97px; height: 97px">
@@ -89,10 +89,10 @@ without shadow
   }
 
   private void encodeBox(final FacesContext facesContext, final TobagoResponseWriter writer, final UIBox box)
-      throws IOException {
+    throws IOException {
 
     // todo: shadow = 0px means, that shadow is disabled, but it may be better, if we can set a boolean in the config.
-    // todo: this is possible after fixing 
+    // todo: this is possible after fixing
     final Measure measure = getResourceManager().getThemeMeasure(facesContext, box, "shadow");
     final boolean hasShadow = measure.greaterThan(Measure.ZERO);
 
@@ -103,11 +103,11 @@ without shadow
 
       final Style shadow = new Style();
       Measure boxCurrentWidth = box.getCurrentWidth();
-      if (boxCurrentWidth!=null) {
+      if (boxCurrentWidth != null) {
         shadow.setWidth(boxCurrentWidth.subtract(1));
       }
       Measure boxCurrentHeight = box.getCurrentHeight();
-      if (boxCurrentHeight!=null) {
+      if (boxCurrentHeight != null) {
         shadow.setHeight(boxCurrentHeight.subtract(1));
       }
       writer.writeStyleAttribute(shadow);
@@ -117,10 +117,10 @@ without shadow
       writer.writeClassAttribute(Classes.create(box, "border"));
 
       final Style border = new Style();
-      if (boxCurrentWidth!=null) {
+      if (boxCurrentWidth != null) {
         border.setWidth(boxCurrentWidth.subtract(3));
       }
-      if (boxCurrentHeight!=null) {
+      if (boxCurrentHeight != null) {
         border.setHeight(boxCurrentHeight.subtract(3));
       }
       writer.writeStyleAttribute(border);
@@ -137,7 +137,7 @@ without shadow
     if (toolbar != null) {
       renderToolbar(facesContext, writer, box, toolbar);
     }
-    
+
     if (hasShadow) {
       // border end
       writer.endElement(HtmlElements.DIV);
@@ -152,10 +152,10 @@ without shadow
     final Measure borderRight = box.getBorderRight();
     final Measure borderTop = box.getBorderTop();
     final Measure borderBottom = box.getBorderBottom();
-    if (style.getWidth()!=null) {
+    if (style.getWidth() != null) {
       style.setWidth(style.getWidth().subtract(borderLeft).subtract(borderRight));
     }
-    if (style.getHeight()!=null) {
+    if (style.getHeight() != null) {
       style.setHeight(style.getHeight().subtract(borderTop).subtract(borderBottom));
     }
     style.setLeft(borderLeft);
@@ -164,7 +164,7 @@ without shadow
   }
 
   protected void renderBoxHeader(FacesContext facesContext, TobagoResponseWriter writer, UIComponent box)
-      throws IOException {
+    throws IOException {
     final UIComponent label = box.getFacet(Facets.LABEL);
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(box, "header"));
@@ -185,8 +185,8 @@ without shadow
   }
 
   protected void renderToolbar(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final UIBox box, final UIPanel toolbar)
-      throws IOException {
+    final FacesContext facesContext, final TobagoResponseWriter writer, final UIBox box, final UIPanel toolbar)
+    throws IOException {
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(box, "headerToolBar"));
     toolbar.setRendererType(RendererTypes.BOX_TOOL_BAR);

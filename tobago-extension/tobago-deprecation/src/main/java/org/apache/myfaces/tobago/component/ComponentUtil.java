@@ -500,7 +500,8 @@ public class ComponentUtil {
    * @deprecated Since Tobago 1.5 please use {@link ComponentUtils}
    */
   @Deprecated
-  public static String getValueFromEl(String script) {
+  public static String getValueFromEl(String scriptParameter) {
+    String script = scriptParameter;
     if (UIComponentTag.isValueReference(script)) {
       final ValueBinding valueBinding = ComponentUtils.createValueBinding(script);
       script = (String) valueBinding.getValue(FacesContext.getCurrentInstance());

@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @deprecated
+ * @deprecated xxx
  * @see org.apache.myfaces.tobago.renderkit.css.Style
  */
 @Deprecated
@@ -35,7 +35,8 @@ public class HtmlStyleMap extends HashMap<String, Object> {
   private static final Logger LOG = LoggerFactory.getLogger(HtmlStyleMap.class);
   private static final long serialVersionUID = 342607693971417143L;
 
-  public Object put(final String s, Object o) {
+  public Object put(final String s, Object oParameter) {
+    Object o = oParameter;
     if (o instanceof String && (s.equals("height") || s.equals("width"))) {
       final String str = (String) o;
       if (str.endsWith("px")) {

@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @deprecated since 1.5.0. 
+ * @deprecated since 1.5.0.
  */
 @Deprecated
 public class AjaxUtils {
@@ -39,31 +39,31 @@ public class AjaxUtils {
   }
 
   /**
-   * @deprecated
+   * @deprecated xxx
    */
   @Deprecated
   public static final String AJAX_COMPONENTS = AjaxUtils.class.getName() + ".AJAX_COMPONENTS";
 
   /**
-   * @deprecated Please use AjaxInternalUtils.checkParamValidity() 
+   * @deprecated Please use AjaxInternalUtils.checkParamValidity()
    */
   @Deprecated
   public static void checkParamValidity(
-      final FacesContext facesContext, final UIComponent uiComponent, final Class compClass) {
+    final FacesContext facesContext, final UIComponent uiComponent, final Class compClass) {
     AjaxInternalUtils.checkParamValidity(facesContext, uiComponent, compClass);
   }
 
   /**
-   * @deprecated Please use AjaxInternalUtils.encodeAjaxComponent() 
+   * @deprecated Please use AjaxInternalUtils.encodeAjaxComponent()
    */
   @Deprecated
   public static void encodeAjaxComponent(final FacesContext facesContext, final UIComponent component)
-      throws IOException {
+    throws IOException {
     AjaxInternalUtils.encodeAjaxComponent(facesContext, component);
   }
 
   /**
-   * @deprecated Please use AjaxInternalUtils.parseAndStoreComponents() 
+   * @deprecated Please use AjaxInternalUtils.parseAndStoreComponents()
    */
   @Deprecated
   public static Map<String, UIComponent> parseAndStoreComponents(final FacesContext facesContext) {
@@ -71,7 +71,7 @@ public class AjaxUtils {
   }
 
   /**
-   * @deprecated Please use AjaxInternalUtils.getAjaxComponents() 
+   * @deprecated Please use AjaxInternalUtils.getAjaxComponents()
    */
   @Deprecated
   public static Map<String, UIComponent> getAjaxComponents(final FacesContext facesContext) {
@@ -79,7 +79,7 @@ public class AjaxUtils {
   }
 
   /**
-   * @deprecated Please use org.apache.myfaces.tobago.ajax.AjaxUtils.isAjaxRequest() 
+   * @deprecated Please use org.apache.myfaces.tobago.ajax.AjaxUtils.isAjaxRequest()
    */
   @Deprecated
   public static boolean isAjaxRequest(final FacesContext facesContext) {
@@ -87,7 +87,7 @@ public class AjaxUtils {
   }
 
   /**
-   * @deprecated Please use org.apache.myfaces.tobago.ajax.AjaxUtils.removeAjaxComponent() 
+   * @deprecated Please use org.apache.myfaces.tobago.ajax.AjaxUtils.removeAjaxComponent()
    */
   @Deprecated
   public static void removeAjaxComponent(final FacesContext facesContext, final String clientId) {
@@ -95,7 +95,7 @@ public class AjaxUtils {
   }
 
   /**
-   * @deprecated Please use org.apache.myfaces.tobago.ajax.AjaxUtils.addAjaxComponent() 
+   * @deprecated Please use org.apache.myfaces.tobago.ajax.AjaxUtils.addAjaxComponent()
    */
   @Deprecated
   public static void addAjaxComponent(final FacesContext facesContext, final String clientId) {
@@ -103,7 +103,7 @@ public class AjaxUtils {
   }
 
   /**
-   * @deprecated Please use org.apache.myfaces.tobago.ajax.AjaxUtils.addAjaxComponent() 
+   * @deprecated Please use org.apache.myfaces.tobago.ajax.AjaxUtils.addAjaxComponent()
    */
   @Deprecated
   public static void addAjaxComponent(final FacesContext facesContext, final UIComponent component) {

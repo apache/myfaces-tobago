@@ -27,7 +27,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * @deprecated
+ * @deprecated xxx
  */
 @Deprecated
 public class ResourceMap extends Properties {
