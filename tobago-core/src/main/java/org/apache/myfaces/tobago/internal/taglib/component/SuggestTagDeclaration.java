@@ -138,9 +138,9 @@ public interface SuggestTagDeclaration extends HasIdBindingAndRendered, HasMarku
 
   /**
    * TODO: not implemented yet
-   * <p/>
+   * <p>
    * Should the list be updated while typing (via AJAX). This is the default behaviour.
-   * If you set this value to <code>false</code>, please set the <code>minimumCharacters="0"</pre>.
+   * If you set this value to <code>false</code>, please set the <code>minimumCharacters="0"</code>.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")

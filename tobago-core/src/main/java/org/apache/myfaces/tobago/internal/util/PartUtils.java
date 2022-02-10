@@ -152,7 +152,7 @@ public final class PartUtils {
       }
       String result = null;
       if (i2 > i1) {
-        result = new String(chars, i1, i2 - i1);
+        result = String.copyValueOf(chars, i1, i2 - i1);
       }
       return result;
     }

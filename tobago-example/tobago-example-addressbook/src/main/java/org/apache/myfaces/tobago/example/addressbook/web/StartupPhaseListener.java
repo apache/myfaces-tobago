@@ -50,8 +50,8 @@ public class StartupPhaseListener implements PhaseListener {
       LOG.debug("externalContext.getRequestPathInfo() = '" + pathInfo + "'");
     }
 
-    if (pathInfo.equals("/error.xhtml") || // todo: not nice, find a declarative way.
-        pathInfo.startsWith("/auth/")) {
+    if (pathInfo.equals("/error.xhtml") // todo: not nice, find a declarative way.
+        || pathInfo.startsWith("/auth/")) {
       final Object session = externalContext.getSession(false);
       if (session != null) {
         externalContext.getSessionMap().put(LOGGED_IN, Boolean.FALSE);
