@@ -384,7 +384,7 @@
         </renderer>
       </renderers>
       <resources production="true">
-        <script priority="10" name="script/contrib/jquery-3.5.1.js"/>
+        <script priority="10" name="script/contrib/jquery-3.6.0.js"/>
         <script priority="20" name="script/contrib/jquery-ui-1.13.1.custom.js"/>
         <script priority="30" name="script/contrib/jquery-ui-timepicker-addon-1.4.5.js"/>
         <script priority="40" name="script/tobago.js"/>
@@ -395,7 +395,7 @@
         <style priority="40" name="style/style.css"/>
       </resources>
       <resources production="false">
-        <script priority="10" name="script/contrib/jquery-3.5.1.js"/>
+        <script priority="10" name="script/contrib/jquery-3.6.0.js"/>
         <script priority="20" name="script/contrib/jquery-ui-1.13.1.custom.js"/>
         <script priority="30" name="script/contrib/jquery-ui-timepicker-addon-1.4.5.js"/>
         <script priority="40" name="script/tobago.js"/>
