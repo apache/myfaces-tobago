@@ -17,11 +17,11 @@
 
 # Please call this script in its directory
 
-# Click "Download" on this site http://jqueryui.com/download/#!version=1.10.4&components=1111100000001000100000000000000000
+# Click "Download" on this site https://jqueryui.com/download/#!version=1.13.1&components=111000110100100000000010010010000000000000000000
 # Unpack the ZIP in a directory and set it here:
-SOURCE=~/Downloads/jquery-ui-1.10.4.custom
+VERSION=1.13.1
+SOURCE=~/Downloads/jquery-ui-${VERSION}.custom
 TARGET=../../main/resources/org/apache/myfaces/tobago/renderkit/html/standard/standard
-VERSION=1.10.4
 
 patchLocale () {
 

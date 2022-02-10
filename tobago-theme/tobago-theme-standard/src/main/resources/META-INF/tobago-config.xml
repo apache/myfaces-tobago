@@ -400,11 +400,11 @@
       </renderers>
       <resources production="true">
         <script priority="10" name="script/contrib/jquery-3.5.1.js"/>
-        <script priority="20" name="script/contrib/jquery-ui-1.10.4.custom.js"/>
+        <script priority="20" name="script/contrib/jquery-ui-1.13.1.custom.js"/>
         <script priority="30" name="script/contrib/jquery-ui-timepicker-addon-1.4.5.js"/>
         <script priority="35" name="script/contrib/select2/select2.full.js"/>
         <script priority="40" name="script/tobago.js"/>
-        <style priority="10" name="style/contrib/ui-lightness/jquery-ui-1.10.4.custom.css"/>
+        <style priority="10" name="style/contrib/ui-lightness/jquery-ui-1.13.1.custom.css"/>
         <style priority="20" name="style/contrib/jquery-ui-timepicker-addon-1.4.5.css"/>
         <style priority="25" name="style/contrib/select2/select2.css"/>
         <style priority="30" name="style/tobago.css"/>
@@ -413,7 +413,7 @@
       </resources>
       <resources production="false">
         <script priority="10" name="script/contrib/jquery-3.5.1.js"/>
-        <script priority="20" name="script/contrib/jquery-ui-1.10.4.custom.js"/>
+        <script priority="20" name="script/contrib/jquery-ui-1.13.1.custom.js"/>
         <script priority="30" name="script/contrib/jquery-ui-timepicker-addon-1.4.5.js"/>
         <script priority="35" name="script/contrib/select2/select2.full.js"/>
         <script priority="40" name="script/tobago.js"/>
@@ -433,7 +433,7 @@
         <script priority="160" name="script/tobago-tree.js"/>
         <script priority="170" name="script/tobago-utils.js"/>
         <script priority="180" name="script/tobago-logging.js"/>
-        <style priority="10" name="style/contrib/ui-lightness/jquery-ui-1.10.4.custom.css"/>
+        <style priority="10" name="style/contrib/ui-lightness/jquery-ui-1.13.1.custom.css"/>
         <style priority="20" name="style/contrib/jquery-ui-timepicker-addon-1.4.5.css"/>
         <style priority="25" name="style/contrib/select2/select2.css"/>
         <style priority="30" name="style/tobago.css"/>
