@@ -643,7 +643,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-checkstyle-plugin</artifactId>
-            <version>3.1.2</version>
+            <version>${maven-checkstyle-plugin.version}</version>
             <configuration>
               <configLocation>META-INF/checkstyle-tobago.xml</configLocation>
               <includes>**/*.xhtml,**/*.jsp,**/*.tag</includes>
@@ -655,6 +655,11 @@
                 <groupId>org.apache.myfaces.tobago</groupId>
                 <artifactId>tobago-core</artifactId>
                 <version>${project.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>com.puppycrawl.tools</groupId>
+                <artifactId>checkstyle</artifactId>
+                <version>${checkstyle.version}</version>
               </dependency>
             </dependencies>
           </plugin>
