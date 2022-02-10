@@ -170,7 +170,7 @@ public class ClientConfigController {
   public String getLocalizedLocale() {
     if (locale != null) {
       return locale.getDisplayName(locale);
-    } else{
+    } else {
       return null;
     }
   }

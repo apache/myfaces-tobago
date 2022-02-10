@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @deprecated use {@link PageAction.parse()}
+ * @deprecated use {@link PageAction#parse(String)}
  */
 @Deprecated
 public class PageActionUtil {

@@ -67,7 +67,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
    * @deprecated Should not directly called via this interface. There is be a special method which might be better.
    */
   @Deprecated
-  public abstract void writeAttribute(String name, Object value, final String property) throws IOException;
+  public abstract void writeAttribute(String name, Object value, String property) throws IOException;
 
   /**
    * @deprecated Should not directly called via this interface. There is be a special method which might be better.

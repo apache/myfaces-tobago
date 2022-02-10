@@ -80,7 +80,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
     if (FacesVersion.isMojarra() && FacesVersion.supports20()) {
       final StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
       if (stackTraceElements[2].getClassName().equals("com.sun.faces.renderkit.ServerSideStateHelper")) {
-        super.write(StringUtils.replace(new String(chars), "\"", "\\\""));
+        super.write(StringUtils.replace(String.copyValueOf(chars), "\"", "\\\""));
         return;
       }
     }

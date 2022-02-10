@@ -117,7 +117,7 @@ public final class LabelWithAccessKey {
             j++;
           }
         }
-        label0 = new String(chars, 0, j);
+        label0 = String.copyValueOf(chars, 0, j);
       }
 
     } else {

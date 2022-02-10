@@ -643,12 +643,12 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-checkstyle-plugin</artifactId>
-            <version>2.9</version>
+            <version>3.1.2</version>
             <configuration>
               <configLocation>META-INF/checkstyle-tobago.xml</configLocation>
               <includes>**/*.xhtml,**/*.jsp,**/*.tag</includes>
               <excludes>**/*.java</excludes>
-              <sourceDirectory>src/main/webapp</sourceDirectory>
+              <sourceDirectories>src/main/webapp</sourceDirectories>
             </configuration>
             <dependencies>
               <dependency>
