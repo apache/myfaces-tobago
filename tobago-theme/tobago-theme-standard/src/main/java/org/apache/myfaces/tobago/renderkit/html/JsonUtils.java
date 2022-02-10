@@ -88,7 +88,7 @@ public class JsonUtils {
 
     final Map<String, Command> other = commandMap.getOther();
     if (other != null) {
-      for(final Map.Entry<String, Command> entry : other.entrySet()) {
+      for (final Map.Entry<String, Command> entry : other.entrySet()) {
         encode(builder, entry.getKey(), entry.getValue());
       }
     }

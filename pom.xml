@@ -55,7 +55,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jsf.target>2.0</jsf.target>
     <required.maven.version>2.2.1</required.maven.version>
-    <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
+    <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
+    <maven-checkstyle.version>8.45.1</maven-checkstyle.version>
     <checkstyle-rules.version>16-SNAPSHOT</checkstyle-rules.version>
     <tobago.basedir>${project.basedir}</tobago.basedir>
   </properties>
@@ -385,6 +386,7 @@
           <xrefLocation>xref</xrefLocation>
           <excludes>**/package-info.java</excludes>
           <indentSize>2</indentSize>
+          <sourceDirectories>${project.build.sourceDirectory}</sourceDirectories>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
         </configuration>
         <dependencies>
@@ -392,6 +394,11 @@
             <groupId>org.apache.myfaces.buildtools</groupId>
             <artifactId>checkstyle-rules</artifactId>
             <version>${checkstyle-rules.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>${maven-checkstyle.version}</version>
           </dependency>
         </dependencies>
       </plugin>
@@ -540,19 +547,6 @@
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>build-helper-maven-plugin</artifactId>
           <version>1.7</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-checkstyle-plugin</artifactId>
-          <version>${maven-checkstyle-plugin.version}</version>
-          <configuration>
-            <configLocation>tobago/checkstyle.xml</configLocation>
-            <headerLocation>default/myfaces-header.txt</headerLocation>
-            <xrefLocation>xref</xrefLocation>
-            <excludes>**/package-info.java</excludes>
-            <indentSize>2</indentSize>
-            <includeTestSourceDirectory>true</includeTestSourceDirectory>
-          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-remote-resources-plugin</artifactId>

@@ -137,12 +137,12 @@ public abstract class GenericTestBase extends AbstractTobagoTestBase {
     for (final PropertyDescriptor descriptor : descriptors) {
       if (isTagProperty(descriptor)) {
         final String name = descriptor.getName();
-        final Class propertyType = descriptor.getPropertyType();
+        final Class<?> propertyType = descriptor.getPropertyType();
         Object value = null;
         if (propertyType == String.class) {
-          value = new String("bla");
+          value = "bla";
         } else if (propertyType == Integer.TYPE) {
-          value = new Integer(42);
+          value = 42;
         } else if (propertyType == Boolean.TYPE) {
           value = Boolean.TRUE;
         } else {
