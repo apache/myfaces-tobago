@@ -29,7 +29,7 @@
 
   <properties>
     <openjpa.version>1.2.3</openjpa.version>
-    <openwebbeans.version>1.2.8</openwebbeans.version>
+    <openwebbeans.version>2.0.26</openwebbeans.version>
     <deltaspike.version>1.9.4</deltaspike.version>
     <tobago.basedir>${project.basedir}/../..</tobago.basedir>
   </properties>
