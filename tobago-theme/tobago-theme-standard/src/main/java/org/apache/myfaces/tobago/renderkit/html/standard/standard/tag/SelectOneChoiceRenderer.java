@@ -118,7 +118,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
       writer.writeAttribute(DataAttributes.SUGGEST_ID, suggest.getClientId(facesContext), false);
     }
 
-    HtmlRendererUtils.renderCommandFacet(select, facesContext , writer);
+    HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
     if (renderAsSelect2 && select.getPlaceholder() != null && select.getPlaceholder().length() > 0) {
      writer.startElement(HtmlElements.OPTION, null);

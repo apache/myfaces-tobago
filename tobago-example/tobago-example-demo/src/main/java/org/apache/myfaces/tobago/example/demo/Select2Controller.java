@@ -135,11 +135,11 @@ public class Select2Controller implements Serializable {
 
   public List<SelectItem> getMany7CountryItems() {
     if (many7Countries != null && !many7Countries.isEmpty()) {
-      List<SelectItem> items = new ArrayList<SelectItem>();
+      List<SelectItem> selectItems = new ArrayList<SelectItem>();
       for (String locale : many7Countries) {
-        items.add(new SelectItem(locale));
+        selectItems.add(new SelectItem(locale));
       }
-      return items;
+      return selectItems;
     } else {
       return Collections.emptyList();
     }
@@ -158,11 +158,11 @@ public class Select2Controller implements Serializable {
   public List<SelectItem> getMany8LocaleItems() {
     if (many8Locales != null && !many8Locales.isEmpty()) {
       Locale displayLocale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
-      List<SelectItem> items = new ArrayList<SelectItem>();
+      List<SelectItem> selectItems = new ArrayList<SelectItem>();
       for (Locale locale : many8Locales) {
-        items.add(new SelectItem(locale, locale.getDisplayName(displayLocale)));
+        selectItems.add(new SelectItem(locale, locale.getDisplayName(displayLocale)));
       }
-      return items;
+      return selectItems;
     } else {
       return Collections.emptyList();
     }
@@ -180,11 +180,11 @@ public class Select2Controller implements Serializable {
 
   public List<SelectItem> getMany9NumbersItems() {
     if (many9Numbers != null && !many9Numbers.isEmpty()) {
-      List<SelectItem> items = new ArrayList<SelectItem>();
+      List<SelectItem> selectItems = new ArrayList<SelectItem>();
       for (Integer number : many9Numbers) {
-        items.add(new SelectItem(number, Integer.toString(number)));
+        selectItems.add(new SelectItem(number, Integer.toString(number)));
       }
-      return items;
+      return selectItems;
     } else {
       return Collections.emptyList();
     }
@@ -217,7 +217,7 @@ public class Select2Controller implements Serializable {
 
     private Map<String, Locale> localeMap;
 
-    public LocaleConverter() {
+    private LocaleConverter() {
       localeMap = new HashMap<String, Locale>();
       for (final Locale locale : Locale.getAvailableLocales()) {
         localeMap.put(locale.toString(), locale);

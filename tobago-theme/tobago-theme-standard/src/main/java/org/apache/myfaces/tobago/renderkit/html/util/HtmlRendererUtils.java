@@ -414,8 +414,9 @@ public final class HtmlRendererUtils {
       LOG.debug("values = '{}'", Arrays.toString(values));
       LOG.debug("submittedValues = '{}'", Arrays.toString(submittedValues));
     }
-    items = UISelect2ComponentUtil.ensureSubmittedValues(facesContext, component, items, submittedValues);
-    for (final SelectItem item : items) {
+    Iterable<SelectItem> iterableItems
+      = UISelect2ComponentUtil.ensureSubmittedValues(facesContext, component, items, submittedValues);
+    for (final SelectItem item : iterableItems) {
       if (item instanceof SelectItemGroup) {
         writer.startElement(HtmlElements.OPTGROUP, null);
         writer.writeAttribute(HtmlAttributes.LABEL, item.getLabel(), true);

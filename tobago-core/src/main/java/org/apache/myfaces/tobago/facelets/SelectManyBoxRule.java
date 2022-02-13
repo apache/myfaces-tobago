@@ -48,7 +48,7 @@ public class SelectManyBoxRule extends MetaRule {
 
     private final TagAttribute attribute;
 
-    public TokenSeparatorsMapper(TagAttribute attribute) {
+    TokenSeparatorsMapper(TagAttribute attribute) {
       this.attribute = attribute;
     }
 
