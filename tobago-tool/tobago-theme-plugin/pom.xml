@@ -25,7 +25,7 @@
   <artifactId>tobago-theme-plugin</artifactId>
   <packaging>maven-plugin</packaging>
   <name>Tobago Maven2 Theme Plugin</name>
-  
+
   <!--scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/tobago-theme-plugin</connection>
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/tobago-theme-plugin</developerConnection>
@@ -37,16 +37,19 @@
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
       <version>${mavenVersion}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-project</artifactId>
       <version>${mavenVersion}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
     <groupId>org.apache.maven</groupId>
       <artifactId>maven-model</artifactId>
       <version>${mavenVersion}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
@@ -62,6 +65,7 @@
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-artifact</artifactId>
       <version>${mavenVersion}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
@@ -82,6 +86,7 @@
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-core</artifactId>
         <version>3.8.1</version>
+        <scope>provided</scope>
       </dependency>
       <!-- guava is a dependency of maven-core (set explicitly, because of
       setting the version, because of CVE-2020-8908) -->
