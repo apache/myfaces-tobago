@@ -42,21 +42,22 @@
     <mojarra20.version>2.0.11-04</mojarra20.version>
     <mojarra21.version>2.1.29-11</mojarra21.version>
     <mojarra22.version>2.2.20</mojarra22.version>
-    <slf4j.version>1.7.35</slf4j.version>
+    <slf4j.version>1.7.36</slf4j.version>
     <logback.version>1.2.10</logback.version>
     <log4j.version>2.17.1</log4j.version>
     <commons-io.version>2.11.0</commons-io.version>
     <commons-lang.version>2.6</commons-lang.version>
-    <commons-logging.version>1.1.1</commons-logging.version>
+    <commons-logging.version>1.2</commons-logging.version>
     <commons-collection.version>3.2.2</commons-collection.version>
     <maven.compile.source>1.5</maven.compile.source>
     <maven.compile.target>1.5</maven.compile.target>
     <maven.compile.encoding>UTF-8</maven.compile.encoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jsf.target>2.0</jsf.target>
-    <required.maven.version>2.2.1</required.maven.version>
+    <required.maven.version>3.3.1</required.maven.version>
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
-    <checkstyle.version>8.45.1</checkstyle.version>
+    <checkstyle.version>9.3</checkstyle.version>
+    <!-- XXX use 16, if released -->
     <checkstyle-rules.version>16-SNAPSHOT</checkstyle-rules.version>
     <tobago.basedir>${project.basedir}</tobago.basedir>
   </properties>
@@ -237,12 +238,12 @@
       <dependency>
         <groupId>commons-codec</groupId>
         <artifactId>commons-codec</artifactId>
-        <version>1.4</version>
+        <version>1.15</version>
       </dependency>
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
-        <version>4.12</version>
+        <version>4.13.2</version>
         <scope>test</scope>
       </dependency>
       <dependency>
@@ -406,7 +407,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>1.4.1</version>
+        <version>3.0.0</version>
         <executions>
           <execution>
             <id>enforce</id>
@@ -491,7 +492,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>animal-sniffer-maven-plugin</artifactId>
-        <version>1.17</version>
+        <version>1.21</version>
         <configuration>
           <signature>
             <groupId>org.codehaus.mojo.signature</groupId>
@@ -541,7 +542,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-pmd-plugin</artifactId>
-          <version>3.4</version>
+          <version>3.16.0</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
@@ -550,7 +551,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-remote-resources-plugin</artifactId>
-          <version>1.2.1</version>
+          <version>1.7.0</version>
           <executions>
             <execution>
               <goals>
@@ -570,7 +571,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
-          <version>2.3.2</version>
+          <version>3.2.2</version>
           <configuration>
             <archive>
               <manifest>
@@ -599,7 +600,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.3</version>
+          <version>3.10.0</version>
           <configuration>
             <source>${maven.compile.source}</source>
             <target>${maven.compile.target}</target>
@@ -613,7 +614,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-dependency-plugin</artifactId>
-          <version>2.8</version>
+          <version>3.2.0</version>
         </plugin>
         <plugin>
           <groupId>org.apache.tomcat.maven</groupId>
@@ -638,7 +639,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>2.8</version>
+          <version>2.10.4</version>
           <configuration>
             <!-- switched off check in Java 8 -->
             <additionalparam>-Xdoclint:none</additionalparam>
@@ -674,11 +675,11 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-clean-plugin</artifactId>
-          <version>2.4.1</version>
+          <version>3.1.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-source-plugin</artifactId>
-          <version>2.1.2</version>
+          <version>3.2.1</version>
           <executions>
             <!-- here we override the super-pom attach-sources executionid which
             calls sources:jar goal. That goals forks the lifecycle, causing
@@ -700,7 +701,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-scm-plugin</artifactId>
-          <version>1.5</version>
+          <version>1.12.2</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -778,17 +779,12 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
-          <version>3.3</version>
-        </plugin>
-        <plugin>
-          <groupId>org.bsc.maven</groupId>
-          <artifactId>maven-processor-plugin</artifactId>
-          <version>2.2.4</version>
+          <version>3.11.0</version>
         </plugin>
         <plugin>
           <groupId>org.owasp</groupId>
           <artifactId>dependency-check-maven</artifactId>
-          <version>6.5.1</version>
+          <version>6.5.3</version>
           <configuration>
             <failBuildOnCVSS>0</failBuildOnCVSS>
             <suppressionFile>tobago/dependency-check-suppression-for-tobago-2.x.xml</suppressionFile>
@@ -863,7 +859,7 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>buildnumber-maven-plugin</artifactId>
-            <version>1.0</version>
+            <version>3.0.0</version>
             <executions>
               <execution>
                 <phase>validate</phase>
@@ -883,7 +879,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-enforcer-plugin</artifactId>
-            <version>1.4.1</version>
+            <version>3.0.0</version>
             <executions>
               <execution>
                 <id>enforce-java</id>
@@ -897,6 +893,9 @@
                       <message>Tobago must be compiled with Java 8</message>
                       <version>[1.8.0-100,1.8.0-999]</version>
                     </requireJavaVersion>
+                    <requireReleaseDeps>
+                      <message>No snapshots allowed in a release!</message>
+                    </requireReleaseDeps>
                   </rules>
                 </configuration>
               </execution>
@@ -930,7 +929,6 @@
 
           <plugin>
             <artifactId>maven-source-plugin</artifactId>
-            <version>2.1.2</version>
             <executions>
               <execution>
                 <id>attach-sources</id>
@@ -942,7 +940,7 @@
           </plugin>
           <plugin>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>2.8</version>
+            <version>2.10.4</version>
             <executions>
               <execution>
                 <id>attach-javadocs</id>
@@ -986,7 +984,7 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>buildnumber-maven-plugin</artifactId>
-            <version>1.0</version>
+            <version>3.0.0</version>
             <executions>
               <execution>
                 <phase>validate</phase>
@@ -1029,7 +1027,7 @@
               <dependency>
                 <groupId>org.apache.apache.resources</groupId>
                 <artifactId>apache-source-release-assembly-descriptor</artifactId>
-                <version>1.0.2</version>
+                <version>1.0.6</version>
               </dependency>
             </dependencies>
             <executions>

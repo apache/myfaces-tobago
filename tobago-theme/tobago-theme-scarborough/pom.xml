@@ -78,7 +78,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>1.1</version>
+        <version>3.0.0</version>
         <executions>
           <execution>
             <id>compress-standard</id>
@@ -102,24 +102,6 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>net.alchim31.maven</groupId>
-        <artifactId>yuicompressor-maven-plugin</artifactId>
-        <version>1.1</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>compress</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <suffix>.min</suffix>
-          <excludes>
-            <exclude>**/*.js</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
 
@@ -141,7 +123,7 @@
     <dependency>
       <groupId>rhino</groupId>
       <artifactId>js</artifactId>
-      <version>1.6R2</version>
+      <version>1.7R2</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
