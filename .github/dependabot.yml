@@ -207,6 +207,21 @@ updates:
       - dependency-name: "com.sun.faces:jsf-impl"
         versions:
           - ">= 2.1.0"
+      - dependency-name: "org.apache.openwebbeans:openwebbeans-jsf"
+        versions:
+          - ">= 2.0.0"
+      - dependency-name: "org.apache.openwebbeans:openwebbeans-web"
+        versions:
+          - ">= 2.0.0"
+      - dependency-name: "org.apache.openwebbeans:openwebbeans-resources"
+        versions:
+          - ">= 2.0.0"
+      - dependency-name: "org.apache.openwebbeans:openwebbeans-impl"
+        versions:
+          - ">= 2.0.0"
+      - dependency-name: "org.apache.openwebbeans:openwebbeans-spi"
+        versions:
+          - ">= 2.0.0"
       - dependency-name: "org.apache.maven.plugins:maven-antrun-plugin"
         versions:
           - ">= 3.0.0"
