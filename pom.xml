@@ -39,7 +39,7 @@
     <myfaces21.version>2.1.18</myfaces21.version>
     <myfaces22.version>2.2.14</myfaces22.version>
     <myfaces23.version>2.3.9</myfaces23.version>
-    <mojarra20.version>2.0.11-04</mojarra20.version>
+    <mojarra20.version>2.1.3_01</mojarra20.version>
     <mojarra21.version>2.1.29-11</mojarra21.version>
     <mojarra22.version>2.2.20</mojarra22.version>
     <slf4j.version>1.7.35</slf4j.version>
