@@ -103,7 +103,7 @@
       <dependency>
         <groupId>javax.el</groupId>
         <artifactId>javax.el-api</artifactId>
-        <version>3.0.1-b04</version>
+        <version>3.0.1-b06</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
