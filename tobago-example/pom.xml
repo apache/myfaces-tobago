@@ -430,7 +430,7 @@
         <plugin>
           <groupId>org.jboss.as.plugins</groupId>
           <artifactId>jboss-as-maven-plugin</artifactId>
-          <version>7.3.Final</version>
+          <version>7.9.Final</version>
         </plugin>
       </plugins>
       </build>
