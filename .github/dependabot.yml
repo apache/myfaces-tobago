@@ -243,6 +243,9 @@ updates:
       - dependency-name: "javax.servlet.jsp:jsp-api"
         versions:
           - ">= 2.2"
+      - dependency-name: "org.antlr:stringtemplate"
+        versions:
+          - ">= 4.0.0"
 
   - package-ecosystem: "github-actions"
     directory: "/"
