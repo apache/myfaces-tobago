@@ -228,6 +228,9 @@ updates:
       - dependency-name: "org.apache.openjpa:openjpa-persistence-jdbc"
         versions:
           - ">= 2.0.0"
+      - dependency-name: "org.apache.maven.plugins:maven-javadoc-plugin"
+        versions:
+          - ">= 3.0.0"
 
   - package-ecosystem: "github-actions"
     directory: "/"
