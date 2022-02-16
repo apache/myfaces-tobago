@@ -231,6 +231,15 @@ updates:
       - dependency-name: "org.apache.maven.plugins:maven-javadoc-plugin"
         versions:
           - ">= 3.0.0"
+      - dependency-name: "org.springframework:spring-orm"
+        versions:
+          - ">= 5.0.0"
+      - dependency-name: "org.springframework:spring-jdbc"
+        versions:
+          - ">= 5.0.0"
+      - dependency-name: "org.springframework:spring-web"
+        versions:
+          - ">= 5.0.0"
 
   - package-ecosystem: "github-actions"
     directory: "/"
