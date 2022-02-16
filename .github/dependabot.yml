@@ -240,6 +240,9 @@ updates:
       - dependency-name: "org.springframework:spring-web"
         versions:
           - ">= 5.0.0"
+      - dependency-name: "javax.servlet.jsp:jsp-api"
+        versions:
+          - ">= 2.2"
 
   - package-ecosystem: "github-actions"
     directory: "/"
