@@ -18,7 +18,7 @@
  */
 
 /**
- * <b>Tobago Framework Component Tag Library 2.4.x -
+ * <b>Tobago Framework Component Tag Library 2.4.5 -
  * (C) Copyright 2005-2021 The Apache Software Foundation</b>
  */
 @org.apache.myfaces.tobago.apt.annotation.Taglib(
@@ -28,6 +28,6 @@
         "org.apache.myfaces.tobago.webapp.TobagoServletContextListener",
         "org.apache.myfaces.tobago.webapp.SecretSessionListener"},
     name = "tobago",
-    displayName = "Tobago Components 2.4.x")
+    displayName = "Tobago Components 2.4.5")
 
 package org.apache.myfaces.tobago.internal.taglib.component;
