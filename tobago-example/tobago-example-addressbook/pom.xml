@@ -215,7 +215,7 @@
 
   <properties>
     <openjpa.version>1.2.3</openjpa.version>
-    <spring.version>4.3.29.RELEASE</spring.version>
+    <spring.version>4.3.30.RELEASE</spring.version>
     <tobago.basedir>${project.basedir}/../..</tobago.basedir>
   </properties>
 
