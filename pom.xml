@@ -198,7 +198,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.3.1</version>
+        <version>3.3.2</version>
         <!-- XXX mvn site:site is not working with 2.10.4 -->
         <!--<version>2.10.4</version>-->
         <configuration>
@@ -840,7 +840,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>3.3.1</version>
+          <version>3.3.2</version>
           <configuration>
             <source>${maven.compile.source}</source>
             <!-- switched off check in Java 8 -->
