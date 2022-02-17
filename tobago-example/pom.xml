@@ -165,49 +165,49 @@
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-api</artifactId>
-          <version>${myfaces23.version}</version>
+          <version>${myfaces30.version}</version>
           <scope>provided</scope>
         </dependency>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
-          <version>${myfaces23.version}</version>
+          <version>${myfaces30.version}</version>
           <scope>provided</scope>
         </dependency>
       </dependencies>
     </profile>
 
     <profile>
-      <id>myfaces-2.3</id>
+      <id>myfaces-3.0</id>
       <activation>
         <property>
           <name>!jsf</name>
 <!--          <name>jsf</name>-->
-<!--          <value>myfaces-2.3</value>-->
+<!--          <value>myfaces-3.0</value>-->
         </property>
       </activation>
       <dependencies>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-api</artifactId>
-          <version>${myfaces23.version}</version>
+          <version>${myfaces30.version}</version>
           <scope>compile</scope>
         </dependency>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
-          <version>${myfaces23.version}</version>
+          <version>${myfaces30.version}</version>
           <scope>runtime</scope>
         </dependency>
       </dependencies>
     </profile>
 
     <profile>
-      <id>mojarra-2.3</id>
+      <id>mojarra-3.0</id>
       <activation>
         <property>
           <name>jsf</name>
-          <value>mojarra-2.3</value>
+          <value>mojarra-3.0</value>
         </property>
       </activation>
       <dependencies>
@@ -238,6 +238,7 @@
           <groupId>jakarta.servlet.jsp.jstl</groupId>
           <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
           <version>2.0.0</version>
+          <scope>provided</scope>
         </dependency>
         <dependency> <!-- Optional, only when <f:websocket> is used. -->
           <groupId>org.glassfish</groupId>
@@ -250,117 +251,6 @@
           <version>6.2.0.Final</version>
         </dependency>
         <!-- [END] -->
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>quarkus</id>
-      <properties>
-        <app.packaging>jar</app.packaging>
-      </properties>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-maven-plugin</artifactId>
-            <version>${quarkus.version}</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>build</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <source>${maven.compile.source}</source>
-              <target>${maven.compile.target}</target>
-            </configuration>
-          </plugin>
-          <plugin>
-            <artifactId>maven-resources-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>copy-web-pages</id>
-                <phase>compile</phase>
-                <goals>
-                  <goal>copy-resources</goal>
-                </goals>
-                <configuration>
-                  <outputDirectory>${project.build.outputDirectory}/META-INF/resources</outputDirectory>
-                  <resources>
-                    <resource>
-                      <directory>src/main/webapp</directory>
-                      <excludes>
-                        <exclude>WEB-INF/**</exclude>
-                      </excludes>
-                    </resource>
-                  </resources>
-                </configuration>
-              </execution>
-              <execution>
-                <id>copy-web-configuration</id>
-                <phase>compile</phase>
-                <goals>
-                  <goal>copy-resources</goal>
-                </goals>
-                <configuration>
-                  <outputDirectory>${project.build.outputDirectory}/META-INF</outputDirectory>
-                  <resources>
-                    <resource>
-                      <directory>src/main/webapp/WEB-INF</directory>
-                    </resource>
-                  </resources>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-      <dependencyManagement>
-        <dependencies>
-          <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-bom</artifactId>
-            <version>${quarkus.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-          </dependency>
-        </dependencies>
-      </dependencyManagement>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-api</artifactId>
-          <version>${myfaces23x.version}</version>
-          <scope>compile</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-impl</artifactId>
-          <version>${myfaces23x.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.core.extensions.quarkus</groupId>
-          <artifactId>myfaces-quarkus</artifactId>
-          <version>${myfaces23x.version}</version>
-        </dependency>
-        <!-- this enables the development mode -->
-        <dependency>
-          <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>tobago-config-dev</artifactId>
-          <version>${project.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>ch.qos.logback</groupId>
-          <artifactId>logback-classic</artifactId>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>ch.qos.logback</groupId>
-          <artifactId>logback-core</artifactId>
-          <scope>provided</scope>
-        </dependency>
       </dependencies>
     </profile>
 
@@ -468,13 +358,13 @@
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-api</artifactId>
-          <version>${myfaces23.version}</version>
+          <version>${myfaces30.version}</version>
           <scope>compile</scope>
         </dependency>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
-          <version>${myfaces23.version}</version>
+          <version>${myfaces30.version}</version>
           <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -585,13 +475,13 @@
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-api</artifactId>
-          <version>${myfaces23.version}</version>
+          <version>${myfaces30.version}</version>
           <scope>provided</scope>
         </dependency>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
-          <version>${myfaces23.version}</version>
+          <version>${myfaces30.version}</version>
           <scope>provided</scope>
         </dependency>
         <dependency>

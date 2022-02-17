@@ -265,7 +265,7 @@
     </profile>
 
     <profile>
-      <id>jsf-2.3</id>
+      <id>jsf-3.0</id>
       <activation>
         <property>
           <name>!jsf</name>

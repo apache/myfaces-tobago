@@ -199,7 +199,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addBehavior(EventBehavior.BEHAVIOR_ID, EventBehavior.class.getName());
 
     application.addConverter(Date.class, DateTimeConverter.class.getName());
-    application.addConverter("javax.faces.DateTime", DateTimeConverter.class.getName());
+    application.addConverter("jakarta.faces.DateTime", DateTimeConverter.class.getName());
 
     final RenderKit renderKit = facesContext.getRenderKit();
     renderKit.addRenderer(UIBadge.COMPONENT_FAMILY, RendererTypes.BADGE, new BadgeRenderer<UIBadge>());

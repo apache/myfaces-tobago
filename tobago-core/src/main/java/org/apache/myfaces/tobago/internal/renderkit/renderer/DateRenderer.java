@@ -209,7 +209,7 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
         return null;
       } else {
         final DateTimeConverter dateTimeConverter = (DateTimeConverter)
-            facesContext.getApplication().createConverter("javax.faces.DateTime");
+            facesContext.getApplication().createConverter("jakarta.faces.DateTime");
         if (estimatedType.isAssignableFrom(LocalDateTime.class)) {
           dateTimeConverter.setType("localDateTime");
           final Double step = component.getStep();
