@@ -7,19 +7,20 @@
 
 ## Building
 
-You need Maven 3 (at least 3.0.4) and Java 8 or later to build Tobago.
+You need Maven 3 and Java 8 or later to build Tobago.
 
 In the project directory you can use:
 
-```  
-mvn install  
-
+```
+mvn clean install
 ```
 
 to run the install target on all sub projects. This will
 put all necessary artifacts into your local repository.
 
-## Demo - Jetty
+## Demo - Jetty - MyFaces - OWB
+### ⚠ currently broken ⚠
+* Problem with CDI
 
 Switch to sub-directory and call Maven to run the demo:
 
@@ -30,26 +31,29 @@ mvn clean jetty:run -Pjetty
 
 Browse to the local URL http://localhost:8080/
 
-## Demo - Tomcat in Docker
+## Demo - Jetty - Mojarra - Weld
+### ⚠ some problems ⚠
+* AJAX is not working
 
 Switch to sub-directory and call Maven to run the demo:
 
 ```
 cd tobago-example/tobago-example-demo
-mvn clean install -Ptomcat
-docker run -it --rm -p 8080:8080 -v `pwd`/target/tobago-example-demo.war:/usr/local/tomcat/webapps/tobago-example-demo.war --name tobago-example-demo tomcat:9-jre8
-```
-
-Browse to the local URL http://localhost:8080/tobago-example-demo/
-
-## Demo - Quarkus
-
-Switch to sub-directory and call Maven to run the demo:
-
-```
-cd tobago-example/tobago-example-demo
-mvn clean install -Pquarkus
-java -jar ./target/tobago-example-demo-runner.jar
+mvn clean jetty:run -Pjetty -Djsf=mojarra-3.0
 ```
 
 Browse to the local URL http://localhost:8080/
+
+## Demo - Tomcat - Mojarra - Weld (in Docker)
+### ⚠ some problems ⚠
+* AJAX is not working
+
+Switch to sub-directory and call Maven to build and Docker to run the demo:
+
+```
+cd tobago-example/tobago-example-demo
+mvn clean install -Djsf=mojarra-3.0
+docker run -it --rm -p 8080:8080 -v `pwd`/target/tobago-example-demo.war:/usr/local/tomcat/webapps/tobago-example-demo.war --name tobago-example-demo tomcat:10.0-jre11
+```
+
+Browse to the local URL http://localhost:8080/tobago-example-demo/
