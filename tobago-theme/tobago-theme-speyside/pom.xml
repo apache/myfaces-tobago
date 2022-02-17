@@ -112,26 +112,6 @@
           <outputDirectory>${project.build.directory}/classes</outputDirectory>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>net.alchim31.maven</groupId>
-        <artifactId>yuicompressor-maven-plugin</artifactId>
-        <version>1.1</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>compress</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <suffix>.min</suffix>
-          <sourceDirectory>${project.build.directory}/classes</sourceDirectory>
-          <excludes>
-            <exclude>**/*.js</exclude>
-            <exclude>**/*.min.css</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
   <properties>
