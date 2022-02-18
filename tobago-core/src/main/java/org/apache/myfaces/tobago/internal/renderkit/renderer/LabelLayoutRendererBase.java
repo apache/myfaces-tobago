@@ -218,5 +218,5 @@ public abstract class LabelLayoutRendererBase extends DecodingInputRendererBase 
     }
   }
 
-  protected abstract String getFieldId(final FacesContext facesContext, final UIComponent component);
+  protected abstract String getFieldId(FacesContext facesContext, UIComponent component);
 }

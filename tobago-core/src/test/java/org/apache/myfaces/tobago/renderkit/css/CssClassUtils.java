@@ -20,12 +20,12 @@
 package org.apache.myfaces.tobago.renderkit.css;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Helpful for tests. Not for use in production.
+ */
 class CssClassUtils {
 
   /**
@@ -34,8 +34,7 @@ class CssClassUtils {
   static List<CssItem> compareCss(final String cssFileName, final CssItem[] cssItems) throws IOException {
 
     final List<CssItem> missing = new ArrayList<>();
-
-    final String fileContent = new String(Files.readAllBytes(Paths.get(cssFileName)), StandardCharsets.UTF_8);
+    final String fileContent = FileTestUtils.fileToString(cssFileName);
 
     for (final CssItem cssItem : cssItems) {
       if (!containsClassName(fileContent, cssItem.getName())) {
@@ -48,10 +47,10 @@ class CssClassUtils {
 
   private static boolean containsClassName(final String content, final String className) {
     return content.contains("." + className + " ")
-        || content.contains("." + className + "{")
-        || content.contains("." + className + ",")
-        || content.contains("." + className + ":")
-        || content.contains("." + className + ".")
-        || content.contains("." + className + ">");
+      || content.contains("." + className + "{")
+      || content.contains("." + className + ",")
+      || content.contains("." + className + ":")
+      || content.contains("." + className + ".")
+      || content.contains("." + className + ">");
   }
 }

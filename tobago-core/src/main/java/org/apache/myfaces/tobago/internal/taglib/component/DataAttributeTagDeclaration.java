@@ -40,11 +40,11 @@ public interface DataAttributeTagDeclaration {
    * The name of the attribute in the parent component.
    */
   @TagAttribute(required = true, name = "name", type = "java.lang.String")
-  void setName(final ValueExpression name);
+  void setName(ValueExpression name);
 
   /**
    * The value of the attribute in the parent component.
    */
   @TagAttribute(required = true, name = "value", type = "java.lang.String")
-  void setValue(final ValueExpression value);
+  void setValue(ValueExpression value);
 }

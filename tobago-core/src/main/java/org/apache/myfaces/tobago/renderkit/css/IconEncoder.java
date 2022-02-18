@@ -29,6 +29,6 @@ import java.io.IOException;
 @Deprecated
 public interface IconEncoder {
 
-  void encode(TobagoResponseWriter writer, Icons icon, final CssItem... cssItems) throws IOException;
+  void encode(TobagoResponseWriter writer, Icons icon, CssItem... cssItems) throws IOException;
 
 }

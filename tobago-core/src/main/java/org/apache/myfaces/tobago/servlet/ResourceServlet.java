@@ -126,7 +126,7 @@ public class ResourceServlet extends HttpServlet {
       return;
     }
 
-    try (final InputStream inputStream = locateResource(resource)) {
+    try (InputStream inputStream = locateResource(resource)) {
       if (inputStream != null) {
         copy(inputStream, response.getOutputStream());
       } else {

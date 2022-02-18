@@ -44,14 +44,14 @@ public class HtmlElementsUnitTest {
 
     // list from spec.
     final List<String> voids = Arrays.asList(
-        "area", "base", "br", "col", "command", "embed",
-        "hr", "img", "input", "keygen", "link", "meta",
-        "param", "source", "track", "wbr");
+      "area", "base", "br", "col", "command", "embed",
+      "hr", "img", "input", "keygen", "link", "meta",
+      "param", "source", "track", "wbr");
 
     for (final Field field : HtmlElements.class.getFields()) {
       final HtmlElements element = (HtmlElements) field.get(null);
 
-      Assert.assertEquals("Check void: '" + element + "'", voids.contains(element.getValue()),  element.isVoid());
+      Assert.assertEquals("Check void: '" + element + "'", voids.contains(element.getValue()), element.isVoid());
     }
 
   }

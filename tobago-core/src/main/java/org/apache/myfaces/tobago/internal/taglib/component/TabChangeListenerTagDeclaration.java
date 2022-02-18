@@ -39,12 +39,12 @@ public interface TabChangeListenerTagDeclaration {
    * created and registered.
    */
   @TagAttribute(required = true, name = "type", type = "java.lang.String")
-  void setType(final ValueExpression type);
+  void setType(ValueExpression type);
 
   /**
    * The value binding expression to a TabChangeListener.
    */
   @TagAttribute(name = "binding", type = "org.apache.myfaces.tobago.event.TabChangeListener")
-  void setBinding(final ValueExpression binding);
+  void setBinding(ValueExpression binding);
 
 }

@@ -55,7 +55,7 @@ public class BestPracticeController {
 
     final FacesContext facesContext = FacesContext.getCurrentInstance();
 
-    try (final InputStream inputStream = getInputStream(pdf, facesContext)) {
+    try (InputStream inputStream = getInputStream(pdf, facesContext)) {
       final HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
       response.setContentType(pdf ? "application/pdf" : "text/plain");
       if (outside) {

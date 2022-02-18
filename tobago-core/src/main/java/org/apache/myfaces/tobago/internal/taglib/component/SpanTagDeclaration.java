@@ -40,11 +40,11 @@ public interface SpanTagDeclaration {
    * The number of horizontal cells this component should use.
    */
   @TagAttribute(type = "java.lang.Integer")
-  void setColumn(final ValueExpression column);
+  void setColumn(ValueExpression column);
 
   /**
    * The number of vertical cells this component should use.
    */
   @TagAttribute(type = "java.lang.Integer")
-  void setRow(final ValueExpression row);
+  void setRow(ValueExpression row);
 }
