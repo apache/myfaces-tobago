@@ -23,5 +23,5 @@ import jakarta.faces.context.FacesContext;
 
 public interface SupportFieldId {
 
-  String getFieldId(final FacesContext facesContext);
+  String getFieldId(FacesContext facesContext);
 }

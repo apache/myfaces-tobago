@@ -44,8 +44,8 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <required.maven.version>3.3.1</required.maven.version>
-    <maven-pmd-plugin.version>3.15.0</maven-pmd-plugin.version>
-    <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
+    <maven-pmd-plugin.version>3.16.0</maven-pmd-plugin.version>
+    <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
     <!-- XXX use 16, if released -->
     <checkstyle-rules.version>16-SNAPSHOT</checkstyle-rules.version>
 

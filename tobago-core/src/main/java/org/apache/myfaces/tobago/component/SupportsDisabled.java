@@ -23,5 +23,5 @@ public interface SupportsDisabled {
 
   boolean isDisabled();
 
-  void setDisabled(final boolean disabled);
+  void setDisabled(boolean disabled);
 }

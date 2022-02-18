@@ -19,15 +19,12 @@
 
 package org.apache.myfaces.tobago.model;
 
+import org.apache.myfaces.tobago.renderkit.css.FileTestUtils;
 import org.apache.myfaces.tobago.util.EnumUnitTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,32 +37,30 @@ public class SelectableUnitTest extends EnumUnitTest {
 
   @Test
   public void testTypeScript() throws IOException {
-    final Path path = Paths.get("").toAbsolutePath().getParent().resolve(
-        Paths.get("tobago-theme", "tobago-theme-standard", "src", "main", "ts", "tobago-selectable.ts"));
-
-    final List<String> words = getWords(path);
+    final List<String> words = getWords();
 
     for (Selectable selectable : Selectable.values()) {
       Assertions.assertTrue(words.contains(selectable.name()),
-          selectable.name() + " should be found in tobago-selectable.ts");
+        selectable.name() + " should be found in tobago-selectable.ts");
     }
   }
 
-  private List<String> getWords(final Path path) throws IOException {
-    List<String> words = new ArrayList<>();
+  private List<String> getWords() throws IOException {
 
-    final String fileContent = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
-
+    final List<String> words = new ArrayList<>();
+    final String fileContent
+      = FileTestUtils.fileToString("../tobago-theme/tobago-theme-standard/src/main/ts/tobago-selectable.ts");
 
     StringBuilder stringBuilder = new StringBuilder();
-
     for (char c : fileContent.toCharArray()) {
       if (('0' <= c && c <= '9')
-          || ('A' <= c && c <= 'Z')
-          || ('a' <= c && c <= 'z')) {
+        || ('A' <= c && c <= 'Z')
+        || ('a' <= c && c <= 'z')) {
         stringBuilder.append(c);
       } else {
-        words.add(stringBuilder.toString());
+        if (stringBuilder.length() > 0) {
+          words.add(stringBuilder.toString());
+        }
         stringBuilder = new StringBuilder();
       }
     }
