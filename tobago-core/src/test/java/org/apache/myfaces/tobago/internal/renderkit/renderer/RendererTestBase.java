@@ -43,8 +43,8 @@ public abstract class RendererTestBase extends AbstractTobagoTestBase {
       if (is == null) {
         throw new FileNotFoundException(fileName);
       }
-      try (final InputStreamReader isr = new InputStreamReader(is);
-           final BufferedReader reader = new BufferedReader(isr)) {
+      try (InputStreamReader isr = new InputStreamReader(is);
+           BufferedReader reader = new BufferedReader(isr)) {
         final String xml = reader.lines().collect(Collectors.joining(System.lineSeparator()))
             .replaceAll("<!--[^>]*-->", "")
             .replaceAll("^\n\n", "");

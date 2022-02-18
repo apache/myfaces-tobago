@@ -30,16 +30,16 @@ import javax.el.ValueExpression;
  * Register an {@link SubmittedValueLengthValidator} instance on the UIComponent
  * associated with the closest parent UIComponent custom action.
  * The standard LengthValidator validate the length on the converted value.toString()
- * not on the submitted value. Sometime you need to check the length of the submitted value.
+ * not on the submitted value. Sometimes you need to check the length of the submitted value.
  */
 @Tag(name = "validateSubmittedValueLength")
 @ValidatorTag(validatorId = SubmittedValueLengthValidator.VALIDATOR_ID)
 public interface ValidateSubmittedValueLengthTagDeclaration {
 
   @TagAttribute(name = "minimum", type = "java.lang.Integer")
-  void setMinimum(final ValueExpression minimum);
+  void setMinimum(ValueExpression minimum);
 
   @TagAttribute(name = "maximum", type = "java.lang.Integer")
-  void setMaximum(final ValueExpression maximum);
+  void setMaximum(ValueExpression maximum);
 
 }

@@ -38,6 +38,6 @@ public interface ResetInputActionListenerTagDeclaration {
    * them, all containing EditableValueHolder will be reset.
    */
   @TagAttribute(required = false, name = Attributes.EXECUTE, type = "java.lang.String")
-  void setExecute(final javax.el.ValueExpression execute);
+  void setExecute(javax.el.ValueExpression execute);
 
 }

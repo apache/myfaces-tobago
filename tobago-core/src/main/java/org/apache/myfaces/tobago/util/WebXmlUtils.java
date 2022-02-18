@@ -174,7 +174,7 @@ public class WebXmlUtils {
       final URLConnection connection = url.openConnection();
       connection.setUseCaches(false);
 
-      try (final InputStream input = connection.getInputStream()) {
+      try (InputStream input = connection.getInputStream()) {
         final Document document = documentBuilder.parse(input);
         document.getDocumentElement().normalize();
         return document;

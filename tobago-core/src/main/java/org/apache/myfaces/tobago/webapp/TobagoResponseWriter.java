@@ -73,7 +73,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
    */
   @Override
   @Deprecated
-  public abstract void writeAttribute(String name, Object value, final String property) throws IOException;
+  public abstract void writeAttribute(String name, Object value, String property) throws IOException;
 
   /**
    * @deprecated since 1.0.11, should not directly called via this interface. There is be a special method which might
@@ -81,7 +81,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
    */
   @Override
   @Deprecated
-  public abstract void writeURIAttribute(String name, Object value, final String property) throws IOException;
+  public abstract void writeURIAttribute(String name, Object value, String property) throws IOException;
 
   /**
    * @deprecated Should not directly called via this interface. There is be a special method which might be better.

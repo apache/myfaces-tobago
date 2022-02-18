@@ -144,7 +144,7 @@ public abstract class SelectBooleanRendererBase<T extends AbstractUISelectBoolea
     encodeBehavior(writer, facesContext, component);
   }
 
-  protected abstract CssItem[] getOuterCssItems(final FacesContext facesContext, final AbstractUISelectBoolean select);
+  protected abstract CssItem[] getOuterCssItems(FacesContext facesContext, AbstractUISelectBoolean select);
 
   @Override
   protected String getFieldId(final FacesContext facesContext, final T component) {
