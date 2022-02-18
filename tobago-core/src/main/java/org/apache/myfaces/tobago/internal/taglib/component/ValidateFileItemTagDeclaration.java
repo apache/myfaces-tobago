@@ -37,9 +37,9 @@ import jakarta.el.ValueExpression;
 public interface ValidateFileItemTagDeclaration {
 
   @TagAttribute(name = "maxSize", type = "java.lang.Integer")
-  void setMaxSize(final ValueExpression maxSize);
+  void setMaxSize(ValueExpression maxSize);
 
   @TagAttribute(name = "contentType", type = "java.lang.String")
-  void setContentType(final ValueExpression contentType);
+  void setContentType(ValueExpression contentType);
 
 }

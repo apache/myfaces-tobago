@@ -36,23 +36,23 @@ public interface GridLayoutConstraintTagDeclaration {
    * The number of horizontal cells this component should use.
    */
   @TagAttribute(type = "java.lang.Integer")
-  void setColumnSpan(final ValueExpression columnSpan);
+  void setColumnSpan(ValueExpression columnSpan);
 
   /**
    * The number of vertical cells this component should use.
    */
   @TagAttribute(type = "java.lang.Integer")
-  void setRowSpan(final ValueExpression rowSpan);
+  void setRowSpan(ValueExpression rowSpan);
 
   /**
    * The horizontal position in the grid of this component. Please use gridColumn and gridRow both or none.
    */
   @TagAttribute(type = "java.lang.Integer")
-  void setGridColumn(final ValueExpression gridColumn);
+  void setGridColumn(ValueExpression gridColumn);
 
   /**
    * The vertical position in the grid of this component. Please use gridColumn and gridRow both or none.
    */
   @TagAttribute(type = "java.lang.Integer")
-  void setGridRow(final ValueExpression gridRow);
+  void setGridRow(ValueExpression gridRow);
 }

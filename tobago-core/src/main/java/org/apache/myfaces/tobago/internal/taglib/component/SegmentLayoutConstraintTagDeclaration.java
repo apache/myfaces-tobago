@@ -39,98 +39,98 @@ public interface SegmentLayoutConstraintTagDeclaration {
    * Possible values are: segment values between 1 and 12, 'auto' and '*'.
    */
   @TagAttribute
-  void setExtraSmall(final ValueExpression extraSmall);
+  void setExtraSmall(ValueExpression extraSmall);
 
   /**
    * Overwrite the default layout for small devices.
    * Possible values are: segment values between 1 and 12, 'auto' and '*'.
    */
   @TagAttribute
-  void setSmall(final ValueExpression small);
+  void setSmall(ValueExpression small);
 
   /**
    * Overwrite the default layout for medium devices.
    * Possible values are: segment values between 1 and 12, 'auto' and '*'.
    */
   @TagAttribute
-  void setMedium(final ValueExpression medium);
+  void setMedium(ValueExpression medium);
 
   /**
    * Overwrite the default layout for large devices.
    * Possible values are: segment values between 1 and 12, 'auto' and '*'.
    */
   @TagAttribute
-  void setLarge(final ValueExpression large);
+  void setLarge(ValueExpression large);
 
   /**
    * Overwrite the default layout for extra large devices.
    * Possible values are: segment values between 1 and 12, 'auto' and '*'.
    */
   @TagAttribute
-  void setExtraLarge(final ValueExpression extraLarge);
+  void setExtraLarge(ValueExpression extraLarge);
 
   /**
    * Overwrite the default margin for extra small devices.
    */
   @TagAttribute
   @UIComponentTagAttribute(allowedValues = {Margin.NONE, Margin.LEFT, Margin.RIGHT, Margin.BOTH})
-  void setMarginExtraSmall(final ValueExpression overwriteMarginExtraSmall);
+  void setMarginExtraSmall(ValueExpression overwriteMarginExtraSmall);
 
   /**
    * Overwrite the default margin for small devices.
    */
   @TagAttribute
   @UIComponentTagAttribute(allowedValues = {Margin.NONE, Margin.LEFT, Margin.RIGHT, Margin.BOTH})
-  void setMarginSmall(final ValueExpression overwriteMarginSmall);
+  void setMarginSmall(ValueExpression overwriteMarginSmall);
 
   /**
    * Overwrite the default margin for medium devices.
    */
   @TagAttribute
   @UIComponentTagAttribute(allowedValues = {Margin.NONE, Margin.LEFT, Margin.RIGHT, Margin.BOTH})
-  void setMarginMedium(final ValueExpression overwriteMarginMedium);
+  void setMarginMedium(ValueExpression overwriteMarginMedium);
 
   /**
    * Overwrite the default margin for large devices.
    */
   @TagAttribute
   @UIComponentTagAttribute(allowedValues = {Margin.NONE, Margin.LEFT, Margin.RIGHT, Margin.BOTH})
-  void setMarginLarge(final ValueExpression overwriteMarginLarge);
+  void setMarginLarge(ValueExpression overwriteMarginLarge);
 
   /**
    * Overwrite the default margin for extra large devices.
    */
   @TagAttribute
   @UIComponentTagAttribute(allowedValues = {Margin.NONE, Margin.LEFT, Margin.RIGHT, Margin.BOTH})
-  void setMarginExtraLarge(final ValueExpression overwriteMarginExtraLarge);
+  void setMarginExtraLarge(ValueExpression overwriteMarginExtraLarge);
 
   /**
    * The number of columns this component moves to the right for extra small devices.
    */
   @TagAttribute(type = "java.lang.Integer")
-  void setOffsetExtraSmall(final ValueExpression offsetExtraSmall);
+  void setOffsetExtraSmall(ValueExpression offsetExtraSmall);
 
   /**
    * The number of columns this component moves to the right for small devices.
    */
   @TagAttribute(type = "java.lang.Integer")
-  void setOffsetSmall(final ValueExpression offsetSmall);
+  void setOffsetSmall(ValueExpression offsetSmall);
 
   /**
    * The number of columns this component moves to the right for medium devices.
    */
   @TagAttribute(type = "java.lang.Integer")
-  void setOffsetMedium(final ValueExpression offsetMedium);
+  void setOffsetMedium(ValueExpression offsetMedium);
 
   /**
    * The number of columns this component moves to the right for large devices.
    */
   @TagAttribute(type = "java.lang.Integer")
-  void setOffsetLarge(final ValueExpression offsetLarge);
+  void setOffsetLarge(ValueExpression offsetLarge);
 
   /**
    * The number of columns this component moves to the right for extra large devices.
    */
   @TagAttribute(type = "java.lang.Integer")
-  void setOffsetExtraLarge(final ValueExpression offsetLarge);
+  void setOffsetExtraLarge(ValueExpression offsetLarge);
 }

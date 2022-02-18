@@ -19,15 +19,12 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
+import org.apache.myfaces.tobago.renderkit.css.FileTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,13 +38,13 @@ public class HtmlElementsUnitTest {
       final HtmlElements element = (HtmlElements) field.get(null);
       final String value = element.getValue();
       Assertions.assertEquals(
-          value,
-          element.name().toLowerCase().replaceAll("_", "-"),
-          "Check to lower: '" + element + "'");
+        value,
+        element.name().toLowerCase().replaceAll("_", "-"),
+        "Check to lower: '" + element + "'");
       Assertions.assertEquals(
-          value.toUpperCase().replaceAll("-", "_"),
-          element.name(),
-          "Check to upper: '" + element + "'");
+        value.toUpperCase().replaceAll("-", "_"),
+        element.name(),
+        "Check to upper: '" + element + "'");
     }
   }
 
@@ -56,9 +53,9 @@ public class HtmlElementsUnitTest {
 
     // list from spec.
     final List<String> voids = Arrays.asList(
-        "area", "base", "br", "col", "command", "embed",
-        "hr", "img", "input", "keygen", "link", "meta",
-        "param", "source", "track", "wbr");
+      "area", "base", "br", "col", "command", "embed",
+      "hr", "img", "input", "keygen", "link", "meta",
+      "param", "source", "track", "wbr");
 
     for (final Field field : HtmlElements.class.getFields()) {
       final HtmlElements element = (HtmlElements) field.get(null);
@@ -74,15 +71,14 @@ public class HtmlElementsUnitTest {
   @Test
   public void testCompareTobagoCustomElement() throws IOException, IllegalAccessException {
 
-    Path scssPath = Paths.get("../tobago-theme/src/main/scss/_tobago.scss");
-    final String fileContent = new String(Files.readAllBytes(scssPath), StandardCharsets.UTF_8);
+    final String fileContent = FileTestUtils.fileToString("../tobago-theme/src/main/scss/_tobago.scss");
 
     final List<HtmlElements> missing = new ArrayList<>();
     for (final Field field : HtmlElements.class.getFields()) {
       final HtmlElements element = (HtmlElements) field.get(null);
       final String tagName = element.getValue();
 
-      if (tagName.startsWith("tobago-") && !containsTagName(fileContent, tagName)) {
+      if (tagName.startsWith("tobago-") && !containsTagName(fileContent.toString(), tagName)) {
         missing.add(element);
       }
     }
@@ -92,10 +88,10 @@ public class HtmlElementsUnitTest {
 
   private boolean containsTagName(final String content, final String tagName) {
     return content.contains(tagName + " ")
-        || content.contains(tagName + "{")
-        || content.contains(tagName + ",")
-        || content.contains(tagName + ":")
-        || content.contains(tagName + ".")
-        || content.contains(tagName + ">");
+      || content.contains(tagName + "{")
+      || content.contains(tagName + ",")
+      || content.contains(tagName + ":")
+      || content.contains(tagName + ".")
+      || content.contains(tagName + ">");
   }
 }

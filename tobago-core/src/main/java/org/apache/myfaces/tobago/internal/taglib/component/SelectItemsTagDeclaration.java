@@ -59,7 +59,7 @@ public interface SelectItemsTagDeclaration extends HasId, HasBinding, HasItemLab
    */
   @TagAttribute
   @UIComponentTagAttribute(expression = DynamicExpression.PROHIBITED)
-  void setVar(final String var);
+  void setVar(String var);
 
   /**
    * Flag indicating whether the option created

@@ -248,5 +248,5 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
     }
   }
 
-  protected abstract String getFieldId(final FacesContext facesContext, final T component);
+  protected abstract String getFieldId(FacesContext facesContext, T component);
 }
