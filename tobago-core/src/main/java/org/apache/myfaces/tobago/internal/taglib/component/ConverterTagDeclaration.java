@@ -38,11 +38,11 @@ public interface ConverterTagDeclaration {
    * The converterId of a registered converter.
    */
   @TagAttribute(name = "converterId", type = "java.lang.String")
-  void setConverterId(final ValueExpression converterId);
+  void setConverterId(ValueExpression converterId);
 
   /**
    * The value binding expression to a converter.
    */
   @TagAttribute(name = "binding", type = "javax.faces.convert.Converter")
-  void setBinding(final ValueExpression binding);
+  void setBinding(ValueExpression binding);
 }

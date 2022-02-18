@@ -52,7 +52,7 @@
     <required.maven.version>3.0.4</required.maven.version>
     <maven-pmd-plugin.version>3.16.0</maven-pmd-plugin.version>
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
-    <!-- xxx set back to 15 after release of version 15 (expected october 31, 2021) -->
+    <!-- XXX use 16, if released -->
     <checkstyle-rules.version>16-SNAPSHOT</checkstyle-rules.version>
 
     <!-- Note: defined here in master pom, because of problems with enforcer plugin -->
