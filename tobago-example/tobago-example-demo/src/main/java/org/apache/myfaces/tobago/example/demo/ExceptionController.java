@@ -35,7 +35,7 @@ public class ExceptionController implements Serializable {
             .getRequestMap().get("javax.servlet.error.exception");
     final StringWriter stringWriter = new StringWriter();
     final PrintWriter printWriter = new PrintWriter(stringWriter);
-    if(exception != null) {
+    if (exception != null) {
       exception.printStackTrace(printWriter);
     }
     return stringWriter.toString();
