@@ -42,7 +42,7 @@ public abstract class TobagoConfig {
     return (TobagoConfig) servletContext.getAttribute(TOBAGO_CONFIG);
   }
 
-  public abstract Theme getTheme(final String name);
+  public abstract Theme getTheme(String name);
 
   public abstract List<Theme> getSupportedThemes();
 

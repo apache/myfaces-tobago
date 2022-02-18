@@ -134,7 +134,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       validate(url, version);
     }
 
-    try (final InputStream inputStream = url.openStream()) {
+    try (InputStream inputStream = url.openStream()) {
       final SAXParserFactory factory = SAXParserFactory.newInstance();
       if (!version.isSchema()) {
         factory.setValidating(true);

@@ -38,13 +38,13 @@ public interface AttributeTagDeclaration {
    * The name of the attribute in the parent component.
    */
   @TagAttribute(required = true, name = "name", type = "java.lang.String")
-  void setName(final ValueExpression name);
+  void setName(ValueExpression name);
 
   /**
    * The value of the attribute in the parent component.
    */
   @TagAttribute(required = true, name = "value", type = "java.lang.String")
-  void setValue(final ValueExpression value);
+  void setValue(ValueExpression value);
   /**
    * Warning: The mode is only available when using Facelets.
    * Allowed values are "action", "actionListener", "actionFromValue", "isNotSet", "isSet", "valueIfSet".
@@ -62,6 +62,6 @@ public interface AttributeTagDeclaration {
    * "valueIfSet" set the attribute only if the value is set.
    */
   @TagAttribute(name = "mode")
-  void setMode(final ValueExpression mode);
+  void setMode(ValueExpression mode);
 
 }

@@ -89,7 +89,7 @@ public abstract class AbstractUICollapsiblePanel extends AbstractUIPanelBase {
 
   public abstract boolean isCollapsed();
 
-  public abstract void setCollapsed(final boolean collapsed);
+  public abstract void setCollapsed(boolean collapsed);
 
   public abstract CollapseMode getCollapsedMode();
 

@@ -140,7 +140,7 @@ public class TreeListboxRenderer extends RendererBase {
         writer.endElement(HtmlElements.SELECT);
       }
 
-      for(final Integer rowIndex : thisLevel) {
+      for (Integer rowIndex : thisLevel) {
         encodeSelectBox(facesContext, tree, writer, rowIndex, nextLevel, size);
       }
 

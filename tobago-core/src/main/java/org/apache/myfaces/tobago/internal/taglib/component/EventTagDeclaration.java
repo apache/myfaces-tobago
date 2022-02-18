@@ -82,6 +82,6 @@ public interface EventTagDeclaration
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.component.ClientBehaviors")
-  void setEvent(final ValueExpression event);
+  void setEvent(ValueExpression event);
 
 }

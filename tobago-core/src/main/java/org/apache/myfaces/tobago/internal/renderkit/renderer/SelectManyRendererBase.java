@@ -134,11 +134,6 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
    * If the considerValueType is true, this method will also consider the
    * valueType attribute of Tomahawk UISelectMany components.
    *
-   * @param facesContext
-   * @param component
-   * @param submittedValue
-   * @param considerValueType
-   * @return
    * @throws ConverterException
    */
   static Object getConvertedUISelectManyValue(final FacesContext facesContext, final UISelectMany component,
@@ -325,9 +320,6 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
    * be a ValueExpression (that evaluates to a String or a Class) or a
    * String (that is a fully qualified Java class name) or a Class object.
    *
-   * @param facesContext
-   * @param attribute
-   * @return
    * @throws FacesException if the value is a String and the represented
    *                        class cannot be found
    */

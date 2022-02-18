@@ -38,7 +38,7 @@ public abstract class SourceFileReader {
     final ExternalContext externalContext = facesContext.getExternalContext();
     final String viewId = facesContext.getViewRoot().getViewId();
     final String file = viewId.substring(0, viewId.lastIndexOf("/")) + "/" + filename;
-    try (final InputStream resourceAsStream = externalContext.getResourceAsStream(file)) {
+    try (InputStream resourceAsStream = externalContext.getResourceAsStream(file)) {
       if (resourceAsStream != null) {
         return IOUtils.toString(resourceAsStream, StandardCharsets.UTF_8);
       }

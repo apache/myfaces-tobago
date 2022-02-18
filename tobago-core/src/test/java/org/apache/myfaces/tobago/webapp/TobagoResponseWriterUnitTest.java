@@ -134,7 +134,7 @@ public class TobagoResponseWriterUnitTest extends AbstractJsfTestCase {
 
   @Test
   public void testNonUtf8() throws IOException {
-    try (final TobagoResponseWriter writer1
+    try (TobagoResponseWriter writer1
              = new HtmlResponseWriter(stringWriter, "", StandardCharsets.ISO_8859_1)) {
       writer1.startElement(HtmlElements.INPUT);
       writer1.writeAttribute(HtmlAttributes.VALUE, "Gutschein über 100 €.", true);

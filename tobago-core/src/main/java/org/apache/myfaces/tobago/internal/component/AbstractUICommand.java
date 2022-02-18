@@ -34,7 +34,7 @@ import javax.faces.context.FacesContext;
  * Base class for commands.
  */
 public abstract class AbstractUICommand extends AbstractUICommandBase
-    implements SupportsAccessKey, Visual, ClientBehaviorHolder, SupportFieldId {
+  implements SupportsAccessKey, Visual, ClientBehaviorHolder, SupportFieldId {
 
   enum PropertyKeys {
     disabled,
@@ -48,8 +48,8 @@ public abstract class AbstractUICommand extends AbstractUICommandBase
       parentOfCommands = false;
       for (final UIComponent child : getChildren()) {
         if (child.isRendered()
-            && !(child instanceof AbstractUIEvent)
-            && (child instanceof UICommand || child instanceof UIInput)) {
+          && !(child instanceof AbstractUIEvent)
+          && (child instanceof UICommand || child instanceof UIInput)) {
           parentOfCommands = true;
           break;
         }
@@ -63,7 +63,7 @@ public abstract class AbstractUICommand extends AbstractUICommandBase
 
   @Override
   public String getFieldId(final FacesContext facesContext) {
-    if(isParentOfCommands()) {
+    if (isParentOfCommands()) {
       return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "command";
     } else {
       return getClientId(facesContext);
