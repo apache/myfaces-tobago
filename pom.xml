@@ -53,7 +53,7 @@
     <maven-pmd-plugin.version>3.16.0</maven-pmd-plugin.version>
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
     <!-- XXX use 16, if released -->
-    <checkstyle-rules.version>16-SNAPSHOT</checkstyle-rules.version>
+    <checkstyle-rules.version>16</checkstyle-rules.version>
 
     <!-- Note: defined here in master pom, because of problems with enforcer plugin -->
     <jetty.version>9.4.44.v20210927</jetty.version>
