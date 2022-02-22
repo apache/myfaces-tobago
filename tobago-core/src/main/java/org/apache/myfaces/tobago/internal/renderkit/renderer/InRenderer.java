@@ -26,6 +26,7 @@ import jakarta.faces.validator.RegexValidator;
 import jakarta.faces.validator.Validator;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUIIn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
@@ -35,6 +36,7 @@ import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -74,7 +76,7 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
 
   @Override
   protected void encodeBeginField(final FacesContext facesContext, final T component)
-      throws IOException {
+    throws IOException {
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     final String currentValue = getCurrentValue(facesContext, component);
     final boolean password = component.isPassword();
@@ -86,6 +88,7 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
     final String fieldId = component.getFieldId(facesContext);
     final boolean readonly = component.isReadonly();
     final boolean disabled = component.isDisabled();
+    final Markup markup = component.getMarkup();
     final boolean required = ComponentUtils.getBooleanAttribute(component, Attributes.required);
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
@@ -144,9 +147,10 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
     }
 
     writer.writeClassAttribute(
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
-        BootstrapClass.FORM_CONTROL,
-        component.getCustomClass());
+      markup != null && markup.contains(Markup.NUMBER) ? TobagoClass.NUMBER : null,
+      BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
+      BootstrapClass.FORM_CONTROL,
+      component.getCustomClass());
 
     writer.writeAttribute(HtmlAttributes.REQUIRED, required);
     renderFocus(clientId, component.isFocus(), component.isError(), facesContext, writer);
@@ -163,7 +167,7 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
   }
 
   private void encodeGroupAddon(final FacesContext facesContext, final TobagoResponseWriter writer,
-      final UIComponent addon, final boolean isAfterFacet) throws IOException {
+    final UIComponent addon, final boolean isAfterFacet) throws IOException {
     if (addon != null) {
       for (final UIComponent child : RenderUtils.getFacetChildren(addon)) {
         insideBegin(facesContext, isAfterFacet ? Facets.after : Facets.before);
