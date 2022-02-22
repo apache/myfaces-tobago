@@ -1298,6 +1298,10 @@ tobago-sheet {
 
       @include treeNodeMarginLeftLevel();
 
+      > tobago-out {
+        display: block;
+      }
+
       > tobago-tree-node {
         display: flex;
         align-items: center;
@@ -1309,7 +1313,6 @@ tobago-sheet {
         }
       }
     }
-
   }
 
   footer {
@@ -1326,7 +1329,6 @@ tobago-sheet {
       width: 3em;
     }
   }
-
 }
 
 .tobago-sortable::after {
