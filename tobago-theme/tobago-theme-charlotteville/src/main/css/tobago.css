@@ -12465,6 +12465,9 @@ tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="19"] {
 tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="20"] {
   margin-left: 20rem;
 }
+tobago-sheet .tobago-body td > tobago-out {
+  display: block;
+}
 tobago-sheet .tobago-body td > tobago-tree-node {
   display: flex;
   align-items: center;
