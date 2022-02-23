@@ -249,6 +249,9 @@ updates:
       - dependency-name: "org.antlr:stringtemplate"
         versions:
           - ">= 3.1"
+      - dependency-name: "org.eclipse.jetty:jetty-maven-plugin"
+        versions:
+          - ">= 10.0.0"
 
   - package-ecosystem: "github-actions"
     directory: "/"
