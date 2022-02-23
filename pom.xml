@@ -161,6 +161,16 @@
         <version>2.1.2</version>
         <optional>true</optional>
         <scope>provided</scope>
+        <exclusions>
+          <exclusion>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>javax.el</groupId>
+            <artifactId>el-api</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
