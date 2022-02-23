@@ -282,9 +282,10 @@
                 <goals>
                   <goal>single</goal>
                 </goals>
-
                 <configuration>
-                  <descriptor>src/main/assembly/dep.xml</descriptor>
+                  <descriptors>
+                    <descriptor>src/main/assembly/dep.xml</descriptor>
+                  </descriptors>
                   <finalName>myfaces-tobago-${project.version}</finalName>
                   <outputDirectory>target/assembly/out</outputDirectory>
                   <workDirectory>target/assembly/work</workDirectory>
