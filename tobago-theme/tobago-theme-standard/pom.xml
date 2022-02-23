@@ -134,6 +134,10 @@
       <classifier>tests</classifier>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-el_2.2_spec</artifactId>
+    </dependency>
   </dependencies>
   <properties>
     <tobago.basedir>${project.basedir}/../..</tobago.basedir>
