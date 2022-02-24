@@ -509,7 +509,7 @@
                  -->
             <groupId>org.apache.tomee.maven</groupId>
             <artifactId>tomee-maven-plugin</artifactId>
-            <version>8.0.9</version>
+            <version>8.0.10</version>
             <configuration>
 <!--              9.0.0-M7 is NOT using MyFaces 3.0.0 - see https://issues.apache.org/jira/browse/TOMEE-3754-->
               <tomeeVersion>9.0.0-M8-SNAPSHOT</tomeeVersion>
