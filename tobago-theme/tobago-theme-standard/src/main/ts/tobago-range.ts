@@ -15,55 +15,44 @@
  * limitations under the License.
  */
 
-import {Popover} from "bootstrap";
-
 class TobagoRange extends HTMLElement {
 
-  private popover: any;
+  private timer: ReturnType<typeof setTimeout>;
 
   constructor() {
     super();
   }
 
   connectedCallback(): void {
-    this.popover = new Popover(this.range, {
-      container: this.menuStore,
-      content: this.content.bind(this),
-      trigger: "input",
-      placement: "auto",
-      delay: {
-        show: 0,
-        hide: 500
-      }
-    });
-
-    const range = this.range;
-    const listener = this.updatePopover.bind(this);
-    range.addEventListener("input", listener);
-    range.addEventListener("focus", listener);
+    this.range.addEventListener("input", this.updateTooltip.bind(this));
+    this.range.addEventListener("focus", this.updateTooltip.bind(this));
   }
 
-  get range(): HTMLInputElement {
+  private get range(): HTMLInputElement {
     return this.querySelector("input[type=range]");
   }
 
-  get menuStore(): HTMLDivElement {
+  private get tooltip(): HTMLInputElement {
+    return this.querySelector(".tobago-tooltip");
+  }
+
+  private get menuStore(): HTMLDivElement {
     const root = this.getRootNode() as ShadowRoot | Document;
     return root.querySelector(".tobago-page-menuStore");
   }
 
-  get tooltipBody(): HTMLElement {
-    return this.querySelector(".popover-body");
-  }
+  private updateTooltip(): void {
+    this.tooltip.textContent = this.range.value;
 
-  content(): string {
-    return this.range.value;
-  }
+    this.tooltip.style.top = String(this.range.offsetTop - this.tooltip.offsetHeight) + "px";
+    this.tooltip.style.left = String(this.range.offsetLeft + this.range.offsetWidth / 2
+      - this.tooltip.offsetWidth / 2) + "px";
+    this.tooltip.classList.add("show");
 
-  updatePopover(): void {
-    // XXX why update doesn't show the new content?
-    //  this.popover.update();
-    this.popover.show();
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      this.tooltip.classList.remove("show");
+    }, 1000);
   }
 }
 
