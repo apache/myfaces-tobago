@@ -11766,6 +11766,15 @@ tobago-popup .modal-content > .card {
 tobago-range {
   align-items: center;
 }
+tobago-range .tobago-tooltip {
+  position: absolute;
+  background-color: #000;
+  color: #fff;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  border-radius: 0.25rem;
+}
+
 .tobago-required label:after,
 label.tobago-required:after {
   content: "*";
