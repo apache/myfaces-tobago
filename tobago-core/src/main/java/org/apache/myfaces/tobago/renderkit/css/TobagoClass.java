@@ -120,6 +120,7 @@ public enum TobagoClass implements CssItem {
   TABLE_LAYOUT__FIXED("tobago-tableLayout-fixed"),
   TEXT__JUSTIFY("tobago-text-justify"),
   TOGGLE("tobago-toggle"),
+  TOOLTIP("tobago-tooltip"),
 //  TREE_LABEL("tobago-treeLabel"),
 //  TREE_LISTBOX("tobago-treeListbox");
 //  TREE_LISTBOX__LEVEL("tobago-treeListbox-level"),
