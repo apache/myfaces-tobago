@@ -916,6 +916,15 @@ tobago-range {
 
   .tobago-range {
   }
+
+  .tobago-tooltip {
+    position: absolute;
+    background-color: $black;
+    color: $white;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    border-radius: 0.25rem;
+  }
 }
 
 .tobago-required label:after,
