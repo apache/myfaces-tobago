@@ -252,6 +252,9 @@ updates:
       - dependency-name: "org.eclipse.jetty:jetty-maven-plugin"
         versions:
           - ">= 10.0.0"
+      - dependency-name: "org.seleniumhq.selenium:selenium-java"
+        versions:
+          - ">= 3.0.0"
 
   - package-ecosystem: "github-actions"
     directory: "/"
