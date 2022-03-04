@@ -52,7 +52,7 @@
     "bi": "npm-run-all --parallel bi-css bi-fonts",
     "bi-css": "ncp node_modules/bootstrap-icons/font/bootstrap-icons.css tobago-theme-standard/src/main/css/bootstrap-icons.css",
     "bi-fonts": "ncp node_modules/bootstrap-icons/font/fonts tobago-theme-standard/src/main/css/fonts",
-    "jsf-js": "ncp node_modules/jsf.js_next_gen/dist/window tobago-theme-standard/src/main/js --filter='.*(window|\\jsf.js|\\jsf.js.map)$'",
+    "jsf-js": "node copy-jsf-js.js",
     "ts": "npm-run-all ts-lint rollup",
     "ts-lint": "eslint 'tobago-theme-standard/src/main/ts/**/*.ts'",
     "ts-compile": "tsc --project tsconfig.development.json",
