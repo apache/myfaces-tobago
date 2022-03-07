@@ -52,7 +52,6 @@
     <required.maven.version>3.0.4</required.maven.version>
     <maven-pmd-plugin.version>3.16.0</maven-pmd-plugin.version>
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
-    <!-- XXX use 16, if released -->
     <checkstyle-rules.version>16</checkstyle-rules.version>
   </properties>
 
