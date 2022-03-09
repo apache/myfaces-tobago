@@ -91,7 +91,7 @@ public class CookieUtils {
             }
             cookie.setMaxAge(ONE_YEAR_IN_SECONDS);
           }
-          cookie.setSecure(true);
+          cookie.setSecure(request.isSecure());
           response.addCookie(cookie);
         }
       }
@@ -100,7 +100,7 @@ public class CookieUtils {
       final Cookie cookie = new Cookie(THEME_PARAMETER, themeName);
       cookie.setPath(path);
       cookie.setMaxAge(ONE_YEAR_IN_SECONDS);
-      cookie.setSecure(true);
+      cookie.setSecure(request.isSecure());
       response.addCookie(cookie);
     }
   }
@@ -114,7 +114,7 @@ public class CookieUtils {
         if (THEME_PARAMETER.equals(cookie.getName())) {
           cookie.setMaxAge(0);
           cookie.setValue(null);
-          cookie.setSecure(true);
+          cookie.setSecure(request.isSecure());
           response.addCookie(cookie);
         }
       }

@@ -181,4 +181,20 @@ public class TobagoConfigParserUnitTest {
     }
   }
 
+  @Test
+  public void testThemeCookieUndefined() throws Exception {
+    final URL url = getClass().getClassLoader().getResource("tobago-config-5.0.xml");
+    final TobagoConfigParser parser = new TobagoConfigParser();
+    final TobagoConfigFragment fragment = parser.parse(url);
+    Assertions.assertNull(fragment.getThemeCookie());
+  }
+
+  @Test
+  public void testThemeCookieFalse() throws Exception {
+    final URL url = getClass().getClassLoader().getResource("tobago-config-5.1.xml");
+    final TobagoConfigParser parser = new TobagoConfigParser();
+    final TobagoConfigFragment fragment = parser.parse(url);
+    Assertions.assertFalse(fragment.getThemeCookie());
+  }
+
 }

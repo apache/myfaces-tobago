@@ -141,7 +141,8 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     }
 
     final Theme theme = tobagoContext.getTheme();
-    if (response instanceof HttpServletResponse && request instanceof HttpServletRequest) {
+    if (response instanceof HttpServletResponse && request instanceof HttpServletRequest
+      && tobagoConfig.isThemeCookie()) {
       CookieUtils.setThemeNameToCookie((HttpServletRequest) request, (HttpServletResponse) response, theme.getName());
     }
 
