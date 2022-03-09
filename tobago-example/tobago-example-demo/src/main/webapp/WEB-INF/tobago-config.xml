@@ -42,7 +42,6 @@
     <supported-theme>speyside</supported-theme>
     <supported-theme>roxborough</supported-theme>
     <supported-theme>charlotteville</supported-theme>
-    <theme-cookie>false</theme-cookie>
   </theme-config>
 
   <!-- currently you need to switch this check off for quarkus -->
