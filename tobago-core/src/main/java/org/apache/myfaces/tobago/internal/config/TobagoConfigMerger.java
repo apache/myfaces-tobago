@@ -72,6 +72,11 @@ public class TobagoConfigMerger {
         tobagoConfig.addSupportedThemeName(supported);
       }
 
+      // theme cookie
+      if (fragment.getThemeCookie() != null) {
+        tobagoConfig.setThemeCookie(fragment.getThemeCookie());
+      }
+
       // session secret
       if (fragment.getCreateSessionSecret() != null) {
         tobagoConfig.setCreateSessionSecret(fragment.getCreateSessionSecret());

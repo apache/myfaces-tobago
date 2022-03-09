@@ -36,6 +36,7 @@ public class TobagoConfigFragment {
 
   private final List<String> supportedThemeNames;
   private String defaultThemeName;
+  private Boolean themeCookie;
   private Boolean createSessionSecret;
   private Boolean checkSessionSecret;
   private Boolean preventFrameAttacks;
@@ -104,6 +105,14 @@ public class TobagoConfigFragment {
 
   public List<ThemeImpl> getThemeDefinitions() {
     return themeDefinitions;
+  }
+
+  public Boolean getThemeCookie() {
+    return themeCookie;
+  }
+
+  public void setThemeCookie(final String themeCookie) {
+    this.themeCookie = Boolean.valueOf(themeCookie);
   }
 
   public Boolean getCreateSessionSecret() {

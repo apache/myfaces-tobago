@@ -55,6 +55,7 @@ public class TobagoConfig {
   private Theme defaultTheme;
   private String defaultThemeName;
   private Map<String, ThemeImpl> availableThemes;
+  private boolean themeCookie;
   private boolean createSessionSecret;
   private boolean checkSessionSecret;
   private boolean preventFrameAttacks;
@@ -104,6 +105,7 @@ public class TobagoConfig {
     supportedThemeNames = new ArrayList<>();
     supportedThemes = new ArrayList<>();
     availableThemes = new HashMap<>();
+    themeCookie = true;
     createSessionSecret = true;
     checkSessionSecret = true;
     preventFrameAttacks = true;
@@ -124,6 +126,9 @@ public class TobagoConfig {
       initDefaultValidatorInfo();
       lock();
 //todo?        servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, this);
+      if (LOG.isInfoEnabled()) {
+        LOG.info(this.toString());
+      }
     } catch (final Exception e) {
       final String error = "Tobago can't be initialized! Application will not run correctly!";
       LOG.error(error, e);
@@ -214,6 +219,14 @@ public class TobagoConfig {
 
   public Map<String, ThemeImpl> getAvailableThemes() {
     return availableThemes;
+  }
+
+  public boolean isThemeCookie() {
+    return themeCookie;
+  }
+
+  public void setThemeCookie(boolean themeCookie) {
+    this.themeCookie = themeCookie;
   }
 
   public boolean isCreateSessionSecret() {
@@ -339,6 +352,8 @@ public class TobagoConfig {
     builder.append(defaultTheme != null ? defaultTheme.getName() : null);
     builder.append(", \navailableThemes=");
     builder.append(availableThemes.keySet());
+    builder.append(", \nthemeCookie=");
+    builder.append(themeCookie);
     builder.append(", \ncreateSessionSecret=");
     builder.append(createSessionSecret);
     builder.append(", \ncheckSessionSecret=");

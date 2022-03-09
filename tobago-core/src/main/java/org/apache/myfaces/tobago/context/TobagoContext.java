@@ -90,13 +90,14 @@ public class TobagoContext implements Serializable {
 
       final String themeName;
       final Object request = externalContext.getRequest();
-      if (request instanceof HttpServletRequest) {
+      final TobagoConfig tobagoConfig = getTobagoConfig();
+      if (request instanceof HttpServletRequest && tobagoConfig.isThemeCookie()) {
         themeName = CookieUtils.getThemeNameFromCookie((HttpServletRequest) request);
       } else {
         themeName = null;
       }
 
-      theme = getTobagoConfig().getTheme(themeName);
+      theme = tobagoConfig.getTheme(themeName);
       if (LOG.isDebugEnabled()) {
         LOG.debug("theme='{}'", theme.getName());
       }
