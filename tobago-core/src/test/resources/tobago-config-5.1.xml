@@ -38,6 +38,7 @@
   <theme-config>
     <default-theme>my-theme-1</default-theme>
     <supported-theme>my-theme-2</supported-theme>
+    <theme-cookie>false</theme-cookie>
   </theme-config>
 
   <create-session-secret>false</create-session-secret>
