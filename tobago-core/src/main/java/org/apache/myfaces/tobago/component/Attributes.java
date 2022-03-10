@@ -450,6 +450,9 @@ public enum Attributes {
     try {
       return Attributes.valueOf(name);
     } catch (final IllegalArgumentException e) {
+      if (name.equals("for")) {
+        return Attributes.forValue;
+      }
       LOG.warn("Can't find enum for {} with name '{}'", Attributes.class.getName(), name);
       return null;
     }
