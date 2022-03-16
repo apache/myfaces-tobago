@@ -75,7 +75,7 @@
     "@types/jest": "^27.4.1",
     "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.15.0",
-    "autoprefixer": "^10.4.2",
+    "autoprefixer": "^10.4.4",
     "clean-css-cli": "^5.5.2",
     "eslint": "^8.11.0",
     "eslint-plugin-compat": "^4.0.2",
