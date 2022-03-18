@@ -21,21 +21,19 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns="http://www.w3.org/1999/xhtml">
-  <tc:script file="#{request.contextPath}/script/demo.js" type="module"/>
-  <tc:script file="#{request.contextPath}/script/jasmine-3.5.0/jasmine.js"/>
-  <tc:script file="#{request.contextPath}/script/jasmine-3.5.0/jasmine-html.js"/>
-  <tc:script file="#{request.contextPath}/script/jasmine-3.5.0/boot.js"/>
+  <tc:script file="#{request.contextPath}/js/jasmine.js"/>
+  <tc:script file="#{request.contextPath}/js/jasmine-html.js"/>
+  <tc:script file="#{request.contextPath}/js/boot0.js"/>
+  <tc:script file="#{request.contextPath}/js/boot1.js"/>
   <tc:script file="#{request.contextPath}/tobago/test/tobago-test-tool.js" type="module"/>
   <tc:script file="#{request.contextPath}/script/tobago-test.js" type="module"/>
-  <tc:style file="#{request.contextPath}/style/jasmine-3.5.0.css"/>
+  <tc:style file="#{request.contextPath}/css/jasmine.css"/>
+  <tc:style file="#{request.contextPath}/style/tobago-test.css"/>
   <tc:script file="#{request.contextPath}/#{param['basicTest'] ? 'error/error' : param['base']}.test.js"
              type="module"/>
 
-  <div id="jasmine-container"></div>
-
-  <tc:button label="Close Test" link="#{param['base']}.xhtml"/>
-
   <tc:object id="testframe" src="#{request.contextPath}/#{param['base']}.xhtml">
-    <tc:style width="100%" minHeight="500px"/>
+    <tc:style width="100%" minHeight="500px" customClass="testframe"/>
   </tc:object>
+  <tc:button label="Close Test" link="#{param['base']}.xhtml" autoSpacing="false"/>
 </ui:composition>
