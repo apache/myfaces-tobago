@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2019 Pivotal Labs
+Copyright (c) 2008-2022 Pivotal Labs
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -20,6 +20,8 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+var jasmineRequire = window.jasmineRequire || require('./jasmine.js');
+
 jasmineRequire.html = function(j$) {
   j$.ResultsNode = jasmineRequire.ResultsNode();
   j$.HtmlReporter = jasmineRequire.HtmlReporter(j$);
@@ -67,6 +69,12 @@ jasmineRequire.HtmlReporter = function(j$) {
 
     if (result.status == 'pending') {
       this.pendingSpecCount++;
+    }
+  };
+
+  ResultsStateBuilder.prototype.jasmineDone = function(result) {
+    if (result.failedExpectations) {
+      this.failureCount += result.failedExpectations.length;
     }
   };
 
@@ -130,7 +138,7 @@ jasmineRequire.HtmlReporter = function(j$) {
       if (result.status === 'failed') {
         failures.push(failureDom(result));
       }
-      addDeprecationWarnings(result);
+      addDeprecationWarnings(result, 'suite');
     };
 
     this.specStarted = function(result) {
@@ -166,7 +174,7 @@ jasmineRequire.HtmlReporter = function(j$) {
         failures.push(failureDom(result));
       }
 
-      addDeprecationWarnings(result);
+      addDeprecationWarnings(result, 'spec');
     };
 
     this.displaySpecInCorrectFormat = function(result) {
@@ -185,6 +193,7 @@ jasmineRequire.HtmlReporter = function(j$) {
     };
 
     this.jasmineDone = function(doneResult) {
+      stateBuilder.jasmineDone(doneResult);
       var banner = find('.jasmine-banner');
       var alert = find('.jasmine-alert');
       var order = doneResult && doneResult.order;
@@ -206,7 +215,10 @@ jasmineRequire.HtmlReporter = function(j$) {
           ' of ' +
           totalSpecsDefined +
           ' specs - run all';
-        var skippedLink = addToExistingQueryString('spec', '');
+        // include window.location.pathname to fix issue with karma-jasmine-html-reporter in angular: see https://github.com/jasmine/jasmine/issues/1906
+        var skippedLink =
+          (window.location.pathname || '') +
+          addToExistingQueryString('spec', '');
         alert.appendChild(
           createDom(
             'span',
@@ -298,21 +310,47 @@ jasmineRequire.HtmlReporter = function(j$) {
           } else {
             return prefix;
           }
-        } else {
+        } else if (failure.globalErrorType === 'afterAll') {
           return afterAllMessagePrefix + failure.message;
+        } else {
+          return failure.message;
         }
       }
 
       addDeprecationWarnings(doneResult);
 
-      var warningBarClassName = 'jasmine-bar jasmine-warning';
       for (i = 0; i < deprecationWarnings.length; i++) {
-        var warning = deprecationWarnings[i];
+        var children = [],
+          context;
+
+        switch (deprecationWarnings[i].runnableType) {
+          case 'spec':
+            context = '(in spec: ' + deprecationWarnings[i].runnableName + ')';
+            break;
+          case 'suite':
+            context = '(in suite: ' + deprecationWarnings[i].runnableName + ')';
+            break;
+          default:
+            context = '';
+        }
+
+        deprecationWarnings[i].message.split('\n').forEach(function(line) {
+          children.push(line);
+          children.push(createDom('br'));
+        });
+
+        children[0] = 'DEPRECATION: ' + children[0];
+        children.push(context);
+
+        if (deprecationWarnings[i].stack) {
+          children.push(createExpander(deprecationWarnings[i].stack));
+        }
+
         alert.appendChild(
           createDom(
             'span',
-            { className: warningBarClassName },
-            'DEPRECATION: ' + warning
+            { className: 'jasmine-bar jasmine-warning' },
+            children
           )
         );
       }
@@ -350,9 +388,11 @@ jasmineRequire.HtmlReporter = function(j$) {
 
         find('.jasmine-failures-menu').onclick = function() {
           setMenuModeTo('jasmine-failure-list');
+          return false;
         };
         find('.jasmine-spec-list-menu').onclick = function() {
           setMenuModeTo('jasmine-spec-list');
+          return false;
         };
 
         setMenuModeTo('jasmine-failure-list');
@@ -403,7 +443,51 @@ jasmineRequire.HtmlReporter = function(j$) {
         );
       }
 
+      if (result.debugLogs) {
+        messages.appendChild(debugLogTable(result.debugLogs));
+      }
+
       return failure;
+    }
+
+    function debugLogTable(debugLogs) {
+      var tbody = createDom('tbody');
+
+      debugLogs.forEach(function(entry) {
+        tbody.appendChild(
+          createDom(
+            'tr',
+            {},
+            createDom('td', {}, entry.timestamp.toString()),
+            createDom('td', {}, entry.message)
+          )
+        );
+      });
+
+      return createDom(
+        'div',
+        { className: 'jasmine-debug-log' },
+        createDom(
+          'div',
+          { className: 'jasmine-debug-log-header' },
+          'Debug logs'
+        ),
+        createDom(
+          'table',
+          {},
+          createDom(
+            'thead',
+            {},
+            createDom(
+              'tr',
+              {},
+              createDom('th', {}, 'Time (ms)'),
+              createDom('th', {}, 'Message')
+            )
+          ),
+          tbody
+        )
+      );
     }
 
     function summaryList(resultsTree, domParent) {
@@ -538,17 +622,20 @@ jasmineRequire.HtmlReporter = function(j$) {
       );
 
       var failFastCheckbox = optionsMenuDom.querySelector('#jasmine-fail-fast');
-      failFastCheckbox.checked = config.failFast;
+      failFastCheckbox.checked = config.stopOnSpecFailure;
       failFastCheckbox.onclick = function() {
-        navigateWithNewParam('failFast', !config.failFast);
+        navigateWithNewParam('stopOnSpecFailure', !config.stopOnSpecFailure);
       };
 
       var throwCheckbox = optionsMenuDom.querySelector(
         '#jasmine-throw-failures'
       );
-      throwCheckbox.checked = config.oneFailurePerSpec;
+      throwCheckbox.checked = config.stopSpecOnExpectationFailure;
       throwCheckbox.onclick = function() {
-        navigateWithNewParam('throwFailures', !config.oneFailurePerSpec);
+        navigateWithNewParam(
+          'stopSpecOnExpectationFailure',
+          !config.stopSpecOnExpectationFailure
+        );
       };
 
       var randomCheckbox = optionsMenuDom.querySelector(
@@ -618,18 +705,53 @@ jasmineRequire.HtmlReporter = function(j$) {
         suite = suite.parent;
       }
 
-      return addToExistingQueryString('spec', els.join(' '));
+      // include window.location.pathname to fix issue with karma-jasmine-html-reporter in angular: see https://github.com/jasmine/jasmine/issues/1906
+      return (
+        (window.location.pathname || '') +
+        addToExistingQueryString('spec', els.join(' '))
+      );
     }
 
-    function addDeprecationWarnings(result) {
+    function addDeprecationWarnings(result, runnableType) {
       if (result && result.deprecationWarnings) {
         for (var i = 0; i < result.deprecationWarnings.length; i++) {
           var warning = result.deprecationWarnings[i].message;
-          if (!j$.util.arrayContains(warning)) {
-            deprecationWarnings.push(warning);
-          }
+          deprecationWarnings.push({
+            message: warning,
+            stack: result.deprecationWarnings[i].stack,
+            runnableName: result.fullName,
+            runnableType: runnableType
+          });
         }
       }
+    }
+
+    function createExpander(stackTrace) {
+      var expandLink = createDom('a', { href: '#' }, 'Show stack trace');
+      var root = createDom(
+        'div',
+        { className: 'jasmine-expander' },
+        expandLink,
+        createDom(
+          'div',
+          { className: 'jasmine-expander-contents jasmine-stack-trace' },
+          stackTrace
+        )
+      );
+
+      expandLink.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        if (root.classList.contains('jasmine-expanded')) {
+          root.classList.remove('jasmine-expanded');
+          expandLink.textContent = 'Show stack trace';
+        } else {
+          root.classList.add('jasmine-expanded');
+          expandLink.textContent = 'Hide stack trace';
+        }
+      });
+
+      return root;
     }
 
     function find(selector) {
@@ -645,11 +767,23 @@ jasmineRequire.HtmlReporter = function(j$) {
       }
     }
 
-    function createDom(type, attrs, childrenVarArgs) {
-      var el = createElement(type);
+    function createDom(type, attrs, childrenArrayOrVarArgs) {
+      var el = createElement(type),
+        children,
+        i;
 
-      for (var i = 2; i < arguments.length; i++) {
-        var child = arguments[i];
+      if (j$.isArray_(childrenArrayOrVarArgs)) {
+        children = childrenArrayOrVarArgs;
+      } else {
+        children = [];
+
+        for (i = 2; i < arguments.length; i++) {
+          children.push(arguments[i]);
+        }
+      }
+
+      for (i = 0; i < children.length; i++) {
+        var child = children[i];
 
         if (typeof child === 'string') {
           el.appendChild(createTextNode(child));
@@ -678,11 +812,19 @@ jasmineRequire.HtmlReporter = function(j$) {
     }
 
     function specHref(result) {
-      return addToExistingQueryString('spec', result.fullName);
+      // include window.location.pathname to fix issue with karma-jasmine-html-reporter in angular: see https://github.com/jasmine/jasmine/issues/1906
+      return (
+        (window.location.pathname || '') +
+        addToExistingQueryString('spec', result.fullName)
+      );
     }
 
     function seedHref(seed) {
-      return addToExistingQueryString('seed', seed);
+      // include window.location.pathname to fix issue with karma-jasmine-html-reporter in angular: see https://github.com/jasmine/jasmine/issues/1906
+      return (
+        (window.location.pathname || '') +
+        addToExistingQueryString('seed', seed)
+      );
     }
 
     function defaultQueryString(key, value) {
