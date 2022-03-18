@@ -59,6 +59,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int DEFAULT_THEME = -114431171;
   private static final int SUPPORTED_THEME = -822303766;
   private static final int THEME_COOKIE = 1930664680;
+  private static final int THEME_SESSION = 753861266;
   private static final int CREATE_SESSION_SECRET = 413906616;
   private static final int CHECK_SESSION_SECRET = 275994924;
   private static final int PREVENT_FRAME_ATTACKS = 270456726;
@@ -290,6 +291,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case DEFAULT_THEME:
       case SUPPORTED_THEME:
       case THEME_COOKIE:
+      case THEME_SESSION:
       case SUPPORTED_MARKUP:
       case MARKUP:
       case CREATE_SESSION_SECRET:
@@ -373,6 +375,10 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
 
       case THEME_COOKIE:
         tobagoConfig.setThemeCookie(text);
+        break;
+
+      case THEME_SESSION:
+        tobagoConfig.setThemeSession(text);
         break;
 
       case CREATE_SESSION_SECRET:

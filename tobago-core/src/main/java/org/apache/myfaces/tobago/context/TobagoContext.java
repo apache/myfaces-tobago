@@ -30,6 +30,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.Locale;
@@ -84,29 +86,63 @@ public class TobagoContext implements Serializable {
 
   public Theme getTheme() {
 
-    if (theme == null) {
-      final FacesContext facesContext = FacesContext.getCurrentInstance();
-      final ExternalContext externalContext = facesContext.getExternalContext();
+    if (theme != null) {
+      return theme;
+    }
 
-      final String themeName;
-      final Object request = externalContext.getRequest();
-      if (request instanceof HttpServletRequest && getTobagoConfig().isThemeCookie()) {
-        themeName = CookieUtils.getThemeNameFromCookie((HttpServletRequest) request);
-      } else {
-        themeName = null;
-      }
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final ExternalContext externalContext = facesContext.getExternalContext();
+    final Object request = externalContext.getRequest();
+    final Object session = externalContext.getSession(false);
 
-      theme = getTobagoConfig().getTheme(themeName);
+    // load theme from session
+    if (session instanceof HttpSession && getTobagoConfig().isThemeSession()) {
+      final String themeName = (String) ((HttpSession) session).getAttribute(Theme.THEME_KEY);
+      theme = getTobagoConfig().getThemeIfExists(themeName);
       if (LOG.isDebugEnabled()) {
-        LOG.debug("theme='{}'", theme.getName());
+        LOG.debug("from session theme='{}'", theme.getName());
       }
     }
 
-    return theme;
+    if (theme != null) {
+      return theme;
+    }
+
+    // or load it from cookie
+    if (request instanceof HttpServletRequest && getTobagoConfig().isThemeCookie()) {
+      final String themeName = CookieUtils.getThemeNameFromCookie((HttpServletRequest) request);
+      theme = getTobagoConfig().getTheme(themeName);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("from cookie theme='{}'", theme.getName());
+      }
+    }
+
+    if (theme != null) {
+      return theme;
+    }
+
+    // or use default
+    return getTobagoConfig().getDefaultTheme();
   }
 
   public void setTheme(final Theme theme) {
     this.theme = theme;
+
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final ExternalContext externalContext = facesContext.getExternalContext();
+    final Object request = externalContext.getRequest();
+    final Object response = externalContext.getResponse();
+    final Object session = externalContext.getSession(false);
+
+    // save theme in cookie
+    if (response instanceof HttpServletResponse && request instanceof HttpServletRequest
+        && getTobagoConfig().isThemeCookie()) {
+      CookieUtils.setThemeNameToCookie((HttpServletRequest) request, (HttpServletResponse) response, theme.getName());
+    }
+    // save theme in session
+    if (session instanceof HttpSession && getTobagoConfig().isThemeSession()) {
+      ((HttpSession) session).setAttribute(Theme.THEME_KEY, theme.getName());
+    }
   }
 
   public UserAgent getUserAgent() {

@@ -34,7 +34,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.component.AbstractUIScript;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
-import org.apache.myfaces.tobago.internal.util.CookieUtils;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -61,8 +60,6 @@ import javax.faces.component.UIOutput;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
@@ -141,10 +138,6 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     }
 
     final Theme theme = tobagoContext.getTheme();
-    if (response instanceof HttpServletResponse && request instanceof HttpServletRequest
-      && tobagoConfig.isThemeCookie()) {
-      CookieUtils.setThemeNameToCookie((HttpServletRequest) request, (HttpServletResponse) response, theme.getName());
-    }
 
     final String clientId = component.getClientId(facesContext);
     final boolean productionMode = facesContext.isProjectStage(ProjectStage.Production);
