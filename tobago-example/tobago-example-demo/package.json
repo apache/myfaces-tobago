@@ -13,7 +13,7 @@
   },
   "homepage": "https://myfaces.apache.org/tobago/",
   "scripts": {
-    "build": "npm-run-all --parallel ts css fa test",
+    "build": "npm-run-all --parallel ts css fa jasmine test",
     "css": "npm-run-all css-compile css-prefix css-minify css-copy-prism",
     "css-lint": "echo 'Not implemented yet!'",
     "css-compile": "sass --style expanded --source-map --embed-sources --no-error-css --load-path=./ src/main/scss/demo.scss:src/main/webapp/css/demo.css",
@@ -25,6 +25,9 @@
     "fa-mkdir": "mkdir -p src/main/webapp/css src/main/webapp/fonts",
     "fa-css": "ncp node_modules/font-awesome/css/ src/main/webapp/css --filter='.*(css|font-awesome\\.).*$'",
     "fa-fonts": "ncp node_modules/font-awesome/fonts src/main/webapp/fonts --filter='.*(fonts|fontawesome-webfont.woff.*)$'",
+    "jasmine": "npm-run-all --parallel jasmine-cp-js jasmine-cp-css",
+    "jasmine-cp-js": "ncp node_modules/jasmine-core/lib/jasmine-core src/main/webapp/js --filter='.*(jasmine-core|/boot..js|/jasmine-html.js|/jasmine.js)$'",
+    "jasmine-cp-css": "ncp node_modules/jasmine-core/lib/jasmine-core/jasmine.css src/main/webapp/css/jasmine.css",
     "ts": "npm-run-all --parallel ts-lint ts-compile --sequential rollup",
     "ts-lint": "tslint --project tsconfig.json --config tslint.json",
     "ts-compile": "tsc --project tsconfig.json",
@@ -33,6 +36,7 @@
   },
   "dependencies": {
     "font-awesome": "4.7.0",
+    "jasmine-core": "^4.0.1",
     "prismjs": "^1.27.0"
   },
   "devDependencies": {

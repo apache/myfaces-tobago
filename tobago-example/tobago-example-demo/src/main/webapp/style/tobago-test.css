@@ -22,3 +22,7 @@
   border: 1px solid;
   margin-bottom: 0.5rem;
 }
+
+.testframe {
+  border: 1px solid silver;
+}

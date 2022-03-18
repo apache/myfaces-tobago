@@ -48,7 +48,7 @@ function testAll() {
     }, function () {
       if (count < maxCount) {
         count++;
-        tpWindow.scrollTo(0, 0)
+        tpWindow.scrollTo(0, Number.MAX_SAFE_INTEGER)
         cycle();
       }
     });
