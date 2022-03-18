@@ -24,6 +24,12 @@ import org.apache.myfaces.tobago.component.Tags;
 import java.util.List;
 
 public interface Theme {
+
+  /**
+   * Internal key to manage the configured theme for the user.
+   */
+  String THEME_KEY = "tobago.theme";
+
   String getName();
 
   List<Theme> getFallbackList();
