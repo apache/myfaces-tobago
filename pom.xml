@@ -699,13 +699,10 @@
               <!-- prism (tobago-example-demo) -->
               <exclude>**/src/main/webapp/*/prism*.*</exclude>
 
-              <!-- qunit (tobago-example-demo) -->
-              <exclude>**/src/main/webapp/script/qunit*.*</exclude>
-              <exclude>**/src/main/webapp/style/qunit*.*</exclude>
-
               <!-- jasmine (tobago-example-demo) -->
-              <exclude>**/src/main/webapp/script/jasmine-*/*.*</exclude>
-              <exclude>**/src/main/webapp/style/jasmine*.*</exclude>
+              <exclude>**/src/main/webapp/js/boot*.js</exclude>
+              <exclude>**/src/main/webapp/js/jasmine*.js</exclude>
+              <exclude>**/src/main/webapp/css/jasmine.css</exclude>
 
               <!-- log files -->
               <exclude>**/*.log</exclude>
