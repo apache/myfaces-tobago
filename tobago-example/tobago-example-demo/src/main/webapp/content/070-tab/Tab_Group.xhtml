@@ -32,16 +32,20 @@
   <tc:section label="Client side">
     <demo-highlight language="markup">&lt;tc:tabGroup></demo-highlight>
     <tc:tabGroup id="tabGroupClient">
-      <tc:tab id="tab1Client" label="Tab One" markup="one">
+      <tc:tab id="tab1Client" label="Tab One">
+        <tc:style customClass="one"/>
         Content of tab one.
       </tc:tab>
-      <tc:tab id="tab2Client" label="Tab Two" disabled="true" markup="two">
+      <tc:tab id="tab2Client" label="Tab Two" disabled="true">
+        <tc:style customClass="two"/>
         Content of tab two.
       </tc:tab>
-      <tc:tab id="tabNoneClient" label="Tab Not Rendered" rendered="false" markup="none">
+      <tc:tab id="tabNoneClient" label="Tab Not Rendered" rendered="false">
+        <tc:style customClass="none"/>
         This tab shouldn't be rendered.
       </tc:tab>
-      <tc:tab id="tab3Client" label="Tab Three" markup="three">
+      <tc:tab id="tab3Client" label="Tab Three">
+        <tc:style customClass="three"/>
         Content of tab three.
       </tc:tab>
     </tc:tabGroup>
@@ -50,16 +54,20 @@
   <tc:section label="AJAX">
     <demo-highlight language="markup">&lt;tabGroup switchType="reloadTab"></demo-highlight>
     <tc:tabGroup id="tabGroupAjax" switchType="reloadTab">
-      <tc:tab id="tab1Ajax" label="Tab One" markup="one">
+      <tc:tab id="tab1Ajax" label="Tab One">
+        <tc:style customClass="one"/>
         Content of tab one.
       </tc:tab>
-      <tc:tab id="tab2Ajax" label="Tab Two" disabled="true" markup="two">
+      <tc:tab id="tab2Ajax" label="Tab Two" disabled="true">
+        <tc:style customClass="two"/>
         Content of tab two.
       </tc:tab>
-      <tc:tab id="tabNoneAjax" label="Tab Not Rendered" rendered="false" markup="none">
+      <tc:tab id="tabNoneAjax" label="Tab Not Rendered" rendered="false">
+        <tc:style customClass="none"/>
         This tab shouldn't be rendered.
       </tc:tab>
-      <tc:tab id="tab3Ajax" label="Tab Three" markup="three">
+      <tc:tab id="tab3Ajax" label="Tab Three">
+        <tc:style customClass="three"/>
         Content of tab three.
       </tc:tab>
     </tc:tabGroup>
@@ -68,16 +76,20 @@
   <tc:section label="Server side">
     <demo-highlight language="markup">&lt;tabGroup switchType="reloadPage"></demo-highlight>
     <tc:tabGroup id="tabGroupFullReload" switchType="reloadPage">
-      <tc:tab id="tab1FullReload" label="Tab One" markup="one">
+      <tc:tab id="tab1FullReload" label="Tab One">
+        <tc:style customClass="one"/>
         Content of tab one.
       </tc:tab>
-      <tc:tab id="tab2FullReload" label="Tab Two" disabled="true" markup="two">
+      <tc:tab id="tab2FullReload" label="Tab Two" disabled="true">
+        <tc:style customClass="two"/>
         Content of tab two.
       </tc:tab>
-      <tc:tab id="tabNoneFullReload" label="Tab Not Rendered" rendered="false" markup="none">
+      <tc:tab id="tabNoneFullReload" label="Tab Not Rendered" rendered="false">
+        <tc:style customClass="none"/>
         This tab shouldn't be rendered.
       </tc:tab>
-      <tc:tab id="tab3FullReload" label="Tab Three" markup="three">
+      <tc:tab id="tab3FullReload" label="Tab Three">
+        <tc:style customClass="three"/>
         <f:facet name="bar">
           <demo-alert value="Not implemented yet!">
             <tc:link image="bi-x-lg" omit="true"/>
