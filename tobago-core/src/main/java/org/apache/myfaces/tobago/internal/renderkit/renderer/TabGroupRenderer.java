@@ -67,7 +67,7 @@ import java.util.Map;
 
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase<T>
-    implements ComponentSystemEventListener {
+  implements ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -92,14 +92,14 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
           case reloadTab:
             final AjaxBehavior ajaxBehavior = new AjaxBehavior();
             final Collection<String> ids = Collections.singleton(
-                UINamingContainer.getSeparatorChar(facesContext) + tabGroup.getClientId(facesContext));
+              UINamingContainer.getSeparatorChar(facesContext) + tabGroup.getClientId(facesContext));
             ajaxBehavior.setExecute(ids);
             ajaxBehavior.setRender(ids);
             tab.addClientBehavior(click.name(), ajaxBehavior);
             break;
           case reloadPage:
             final AbstractUIEvent component = (AbstractUIEvent) ComponentUtils.createComponent(
-                facesContext, Tags.event.componentType(), RendererTypes.Event, "_click");
+              facesContext, Tags.event.componentType(), RendererTypes.Event, "_click");
             component.setEvent(click);
             tab.getChildren().add(component);
             final EventBehavior eventBehavior = new EventBehavior();
@@ -145,10 +145,10 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
     writer.startElement(HtmlElements.TOBAGO_TAB_GROUP);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
-        BootstrapClass.CARD,
-        autoSpacing ? TobagoClass.AUTO__SPACING : null,
-        uiComponent.getCustomClass(),
-        markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
+      BootstrapClass.CARD,
+      autoSpacing ? TobagoClass.AUTO__SPACING : null,
+      uiComponent.getCustomClass(),
+      markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, uiComponent);
     writer.writeAttribute(CustomAttributes.SWITCH_TYPE, switchType.name(), false);
 
@@ -207,9 +207,9 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
   }
 
   private void encodeHeader(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITabGroup tabGroup,
-      final int selectedIndex, final SwitchType switchType)
-      throws IOException {
+    final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITabGroup tabGroup,
+    final int selectedIndex, final SwitchType switchType)
+    throws IOException {
 
     final String tabGroupClientId = tabGroup.getClientId(facesContext);
 
@@ -217,9 +217,9 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
     writer.writeClassAttribute(BootstrapClass.CARD_HEADER);
     writer.startElement(HtmlElements.UL);
     writer.writeClassAttribute(
-        BootstrapClass.NAV,
-        BootstrapClass.NAV_TABS,
-        BootstrapClass.CARD_HEADER_TABS);
+      BootstrapClass.NAV,
+      BootstrapClass.NAV_TABS,
+      BootstrapClass.CARD_HEADER_TABS);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TABLIST.toString(), false);
 
     int index = 0;
@@ -235,7 +235,7 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
           Markup markup = tab.getMarkup() != null ? tab.getMarkup() : Markup.NULL;
 
           final FacesMessage.Severity maxSeverity
-              = ComponentUtils.getMaximumSeverityOfChildrenMessages(facesContext, tab);
+            = ComponentUtils.getMaximumSeverityOfChildrenMessages(facesContext, tab);
           if (maxSeverity != null) {
             markup = markup.add(ComponentUtils.markupOfSeverity(maxSeverity));
           }
@@ -243,9 +243,9 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
           writer.startElement(HtmlElements.TOBAGO_TAB);
           writer.writeIdAttribute(tabId);
           writer.writeClassAttribute(
-              BootstrapClass.NAV_ITEM,
-              barFacet != null ? TobagoClass.BAR : null,
-              tab.getCustomClass());
+            BootstrapClass.NAV_ITEM,
+            barFacet != null ? TobagoClass.BAR : null,
+            tab.getCustomClass());
           writer.writeAttribute(HtmlAttributes.FOR, tabGroupClientId, true);
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
           writer.writeAttribute(CustomAttributes.INDEX, index);
@@ -268,7 +268,7 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
           if (!disabled && switchType == SwitchType.client) {
             writer.writeAttribute(HtmlAttributes.HREF, '#' + getTabPanelId(facesContext, tab), false);
             writer.writeAttribute(
-                DataAttributes.TARGET, '#' + getTabPanelId(facesContext, tab).replaceAll(":", "\\\\:"), false);
+              DataAttributes.TARGET, '#' + getTabPanelId(facesContext, tab).replaceAll(":", "\\\\:"), false);
           }
 
           if (!disabled && label.getAccessKey() != null) {
@@ -322,8 +322,8 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
   }
 
   protected void encodeContent(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITabGroup tabGroup,
-      final int selectedIndex, final SwitchType switchType) throws IOException {
+    final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITabGroup tabGroup,
+    final int selectedIndex, final SwitchType switchType) throws IOException {
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.CARD_BODY, BootstrapClass.TAB_CONTENT);
     int index = 0;
@@ -335,8 +335,9 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
 
           writer.startElement(HtmlElements.DIV);
           writer.writeClassAttribute(
-              BootstrapClass.TAB_PANE,
-              index == selectedIndex ? BootstrapClass.ACTIVE : null);
+            BootstrapClass.TAB_PANE,
+            index == selectedIndex ? BootstrapClass.ACTIVE : null,
+            tab.getCustomClass());
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TABPANEL.toString(), false);
           writer.writeIdAttribute(getTabPanelId(facesContext, tab));
 
