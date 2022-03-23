@@ -42,7 +42,6 @@
     <supported-theme>speyside</supported-theme>
     <supported-theme>roxborough</supported-theme>
     <supported-theme>charlotteville</supported-theme>
-    <theme-cookie>true</theme-cookie>
   </theme-config>
 
   <!-- This is needed for the testing functionality of the demo, it works with iframes -->

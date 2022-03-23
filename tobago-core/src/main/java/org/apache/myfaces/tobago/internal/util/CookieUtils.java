@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
+import org.apache.myfaces.tobago.context.Theme;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,8 +31,6 @@ import java.lang.invoke.MethodHandles;
 public class CookieUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
-  private static final String THEME_PARAMETER = "tobago.theme";
 
   private static final int ONE_YEAR_IN_SECONDS = 365 * 24 * 60 * 60;
 
@@ -48,10 +47,10 @@ public class CookieUtils {
           LOG.debug("cookie value ='{}'", cookie.getValue());
           LOG.debug("cookie path  ='{}'", cookie.getPath());
         }
-        if (THEME_PARAMETER.equals(cookie.getName())) {
+        if (Theme.THEME_KEY.equals(cookie.getName())) {
           themeName = cookie.getValue();
           if (LOG.isDebugEnabled()) {
-            LOG.debug("theme from cookie {}='{}'", THEME_PARAMETER, themeName);
+            LOG.debug("theme from cookie {}='{}'", Theme.THEME_KEY, themeName);
           }
           break;
         }
@@ -69,10 +68,10 @@ public class CookieUtils {
     final Cookie[] cookies = request.getCookies();
     if (cookies != null) {
       for (final Cookie cookie : cookies) {
-        if (THEME_PARAMETER.equals(cookie.getName())) {
+        if (Theme.THEME_KEY.equals(cookie.getName())) {
           if (found) {
             if (LOG.isDebugEnabled()) {
-              LOG.debug("Found more than one cookie {}, try to remove them...", THEME_PARAMETER);
+              LOG.debug("Found more than one cookie {}, try to remove them...", Theme.THEME_KEY);
             }
             cookie.setMaxAge(0);
           } else {
@@ -97,7 +96,7 @@ public class CookieUtils {
       }
     }
     if (!found) {
-      final Cookie cookie = new Cookie(THEME_PARAMETER, themeName);
+      final Cookie cookie = new Cookie(Theme.THEME_KEY, themeName);
       cookie.setPath(path);
       cookie.setMaxAge(ONE_YEAR_IN_SECONDS);
       cookie.setSecure(request.isSecure());
@@ -111,7 +110,7 @@ public class CookieUtils {
     final Cookie[] cookies = request.getCookies();
     if (cookies != null) {
       for (final Cookie cookie : cookies) {
-        if (THEME_PARAMETER.equals(cookie.getName())) {
+        if (Theme.THEME_KEY.equals(cookie.getName())) {
           cookie.setMaxAge(0);
           cookie.setValue(null);
           cookie.setSecure(request.isSecure());
