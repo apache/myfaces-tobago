@@ -239,6 +239,13 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
+      <xs:element name="theme-session" type="xs:boolean" minOccurs="0" maxOccurs="1" default="false">
+        <xs:annotation>
+          <xs:documentation>
+            Store the active theme the server session.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
 
