@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.internal.util;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class AuthorizationHelperTest {
+class AuthorizationHelperUnitTest {
 
   @Test
   public void testSkipBrackets() {
