@@ -111,8 +111,11 @@ public class AuthorizationHelper {
     return true;
   }
 
-  private Annotation getSecurityAnnotation(final FacesContext facesContext, final UIComponent component,
-                                           final String expression) {
+  private Annotation getSecurityAnnotation(
+    final FacesContext facesContext, final UIComponent component, final String expressionFull) {
+
+    final String expression = skipParameterPart(expressionFull);
+
     Annotation securityAnnotation = null;
 
     if (cache.containsKey(expression)) {
@@ -177,6 +180,25 @@ public class AuthorizationHelper {
       }
     } else {
       return securityAnnotation;
+    }
+  }
+
+  /**
+   * Problems with brackets are not processed!
+   */
+  protected static String skipParameterPart(String expressionFull) {
+    final int open = expressionFull.indexOf('(');
+    final int close = expressionFull.lastIndexOf(')');
+    if (open == -1 && close == -1) {
+      return expressionFull;
+    } else if (open > -1 && close == -1 || open == -1 /*&& close > -1 (always true) */) {
+      LOG.warn("Invalid brackets in expression (unbalanced): '{}'", expressionFull);
+      return expressionFull;
+    } else if (close < open) {
+      LOG.warn("Invalid brackets in expression (disordered): '{}'", expressionFull);
+      return expressionFull;
+    } else {
+      return expressionFull.substring(0, open) + expressionFull.substring(close + 1);
     }
   }
 
