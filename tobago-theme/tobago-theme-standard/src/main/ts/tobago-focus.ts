@@ -112,7 +112,8 @@ export class Focus extends HTMLElement {
   private get focusableElement(): HTMLElement {
     const root = this.getRootNode() as ShadowRoot | Document;
     const elements: NodeListOf<HTMLElement> = root.querySelectorAll(
-        `input:not([type='hidden']):not([disabled]):not([tabindex='-1']),select:not([disabled]):not([tabindex='-1']),textarea:not([disabled]):not([tabindex='-1'])`);
+      "input:not([type='hidden']):not([disabled]):not([tabindex='-1']),"
+      + "select:not([disabled]):not([tabindex='-1']),textarea:not([disabled]):not([tabindex='-1'])");
 
     for (const element of elements) {
       if (this.isVisible(element)) {
