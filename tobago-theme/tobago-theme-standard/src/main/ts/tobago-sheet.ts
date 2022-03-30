@@ -486,7 +486,7 @@ Type: ${data.type}`);
 
   isColumnRendered(): boolean[] {
     const hidden = document.getElementById(this.id + "::rendered");
-    return JSON.parse(hidden.getAttribute("value"));
+    return JSON.parse(hidden.getAttribute("value")) as boolean[];
   }
 
   addHeaderFillerWidth(): void {
