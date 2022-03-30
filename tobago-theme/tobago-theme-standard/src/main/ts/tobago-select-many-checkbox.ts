@@ -28,12 +28,10 @@ class SelectManyCheckbox extends HTMLElement {
       input.addEventListener("focus", Focus.setLastFocusId);
 
       if (input.readOnly) {
-        input.addEventListener("click", preventClick);
-      }
-
-      function preventClick(event: MouseEvent): void {
-        // in the "readonly" case, prevent the default, which is changing the "checked" state
-        event.preventDefault();
+        input.addEventListener("click", (event: MouseEvent) => {
+          // in the "readonly" case, prevent the default, which is changing the "checked" state
+          event.preventDefault();
+        });
       }
     }
   }
