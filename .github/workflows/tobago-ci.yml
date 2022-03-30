@@ -20,10 +20,18 @@ name: Tobago CI
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
+      - tobago-5.x
+      - tobago-4.x
+      - tobago-2.x
   pull_request:
-    branches: [ master ]
-  workflow_dispatch:  
+    branches:
+      - master
+      - tobago-5.x
+      - tobago-4.x
+      - tobago-2.x
+  workflow_dispatch:
 
 jobs:
   build:
