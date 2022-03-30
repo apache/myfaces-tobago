@@ -35,8 +35,8 @@ module.exports = {
     "no-irregular-whitespace": "warn",
     "no-constant-condition": "warn",
     "no-inner-declarations": "warn",
-    "@typescript-eslint/ban-ts-comment": "warn",
-    "@typescript-eslint/no-implied-eval": "warn",
+    "@typescript-eslint/ban-ts-comment": "error",
+    "@typescript-eslint/no-implied-eval": "error",
     "@typescript-eslint/unbound-method": "warn",
     "@typescript-eslint/no-unsafe-call": "warn",
     "@typescript-eslint/no-unsafe-assignment": "warn",
@@ -64,10 +64,10 @@ module.exports = {
     "@typescript-eslint/no-unnecessary-type-assertion": ["warn"],
     "@typescript-eslint/no-empty-function": "warn",
     "@typescript-eslint/no-inferrable-types": "warn",
-    "@typescript-eslint/restrict-plus-operands": "warn",
+    "@typescript-eslint/restrict-plus-operands": "error",
     "@typescript-eslint/no-unsafe-return": "warn",
     "@typescript-eslint/quotes": [
-      "warn",
+      "error",
       "double"
     ],
     "@typescript-eslint/semi": [
@@ -75,7 +75,7 @@ module.exports = {
       "always"
     ],
     "max-len": [
-      "warn",
+      "error",
       {
         "code": 120
       }

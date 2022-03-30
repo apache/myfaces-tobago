@@ -41,8 +41,8 @@ class Overlay extends HTMLElement {
 
   render(): void {
     const icon = this.error
-        ? `<i class="bi-flash fs-1"></i>`
-        : `<span class="spinner-border"></span>`;
+        ? "<i class='bi-flash fs-1'></i>"
+        : "<span class='spinner-border'></span>";
 
     this.insertAdjacentHTML("afterbegin", `<div>${icon}</div>`);
   }
