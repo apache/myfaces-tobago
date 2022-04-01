@@ -11602,7 +11602,7 @@ tobago-flex-layout > tobago-flex-layout {
 .tobago-label-container > label {
   width: 155px;
 }
-.tobago-label-container > .form-control, .tobago-label-container > .form-control-plaintext,
+.tobago-label-container > .form-control, .tobago-label-container > .form-select, .tobago-label-container > .form-control-plaintext,
 .tobago-label-container > .input-group, .tobago-label-container > .tobago-messages-container {
   flex: 1 0 0px;
 }
