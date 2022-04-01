@@ -80,7 +80,7 @@ public class SelectOneChoiceRenderer<T extends AbstractUISelectOneChoice> extend
     writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
 
     writer.writeClassAttribute(
-        isInside(facesContext, HtmlElements.TOBAGO_IN) ? BootstrapClass.FORM_SELECT : BootstrapClass.FORM_CONTROL,
+        BootstrapClass.FORM_SELECT,
         BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
         component.getCustomClass());
     if (title != null) {
