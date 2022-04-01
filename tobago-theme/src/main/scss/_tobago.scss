@@ -400,7 +400,7 @@ tobago-flex-layout {
   }
 
   > {
-    .form-control, .form-control-plaintext,
+    .form-control, .form-select, .form-control-plaintext,
     .input-group, .tobago-messages-container {
       flex: 1 0 0px;
     }
