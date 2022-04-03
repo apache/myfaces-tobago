@@ -12620,6 +12620,22 @@ tobago-tab-group tobago-tab > .nav-link > i + span {
   margin-left: 0.4em;
 }
 
+tobago-textarea {
+  display: block;
+}
+tobago-textarea textarea.border-danger:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 0, 190, 0.25);
+}
+tobago-textarea textarea.border-warning:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 0, 190, 0.25);
+}
+tobago-textarea textarea.border-info:focus {
+  box-shadow: 0 0 0 0.25rem rgba(56, 156, 48, 0.25);
+}
+tobago-textarea textarea:disabled {
+  color: rgba(160, 160, 160, 0.5);
+}
+
 /* tree ---------------------------------------------------------------------- */
 tobago-tree tobago-tree-node[data-tobago-level="0"] {
   margin-left: 0rem;
@@ -12713,20 +12729,6 @@ tobago-tree-listbox .tobago-level {
 }
 tobago-tree-listbox .tobago-selected {
   width: 100%;
-}
-
-/* textarea --------------------------------------------------------- */
-tobago-textarea textarea.border-danger:focus {
-  box-shadow: 0 0 0 0.25rem rgba(255, 0, 190, 0.25);
-}
-tobago-textarea textarea.border-warning:focus {
-  box-shadow: 0 0 0 0.25rem rgba(255, 0, 190, 0.25);
-}
-tobago-textarea textarea.border-info:focus {
-  box-shadow: 0 0 0 0.25rem rgba(56, 156, 48, 0.25);
-}
-tobago-textarea textarea:disabled {
-  color: rgba(160, 160, 160, 0.5);
 }
 
 /* scroll --------------------------------------------------------- */
