@@ -1477,6 +1477,15 @@ tobago-tab-group {
   }
 }
 
+tobago-textarea {
+  display: block;
+
+  textarea {
+    @include messageShadow();
+    @include formControlDisabled();
+  }
+}
+
 /* tree ---------------------------------------------------------------------- */
 
 tobago-tree {
@@ -1529,12 +1538,6 @@ tobago-tree-listbox {
   .tobago-selected {
     width: 100%;
   }
-}
-
-/* textarea --------------------------------------------------------- */
-tobago-textarea textarea {
-  @include messageShadow();
-  @include formControlDisabled();
 }
 
 /* scroll --------------------------------------------------------- */
