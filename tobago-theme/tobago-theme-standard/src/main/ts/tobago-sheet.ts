@@ -100,12 +100,17 @@ export class Sheet extends HTMLElement {
       const headerCols = this.getHeaderCols();
       const bodyTable = this.getBodyTable();
       const bodyCols = this.getBodyCols();
+      const borderLeftWidth
+        = Number(getComputedStyle(bodyTable.querySelector("td:first-child")).borderLeftWidth.slice(0, -2));
+      const borderRightWidth
+        = Number(getComputedStyle(bodyTable.querySelector("td:last-child")).borderRightWidth.slice(0, -2));
+      const tableWidth = bodyTable.offsetWidth - (borderLeftWidth + borderRightWidth) / 2;
 
       console.assert(headerCols.length - 1 === bodyCols.length,
           "header and body column number doesn't match: %d != %d ", headerCols.length - 1, bodyCols.length);
 
       let sumRelative = 0; // tbd: is this needed?
-      let widthRelative = bodyTable.offsetWidth;
+      let widthRelative = tableWidth;
       let r = 0;
       for (let i = 0; i < tokens.length; i++) {
         if (columnRendered[i]) {
@@ -116,9 +121,9 @@ export class Sheet extends HTMLElement {
             if (tokens[i].measure.lastIndexOf("px") > 0) {
               widthRelative -= intValue;
             } else if (tokens[i].measure.lastIndexOf("%") > 0) {
-              widthRelative -= bodyTable.offsetWidth * intValue / 100;
+              widthRelative -= tableWidth * intValue / 100;
             }
-          } else if(tokens[i] === "auto") {
+          } else if (tokens[i] === "auto") {
             const value = headerCols.item(r).offsetWidth;
             widthRelative -= value;
             tokens[i] = {measure: `${value}px`}; // converting "auto" to a specific value
@@ -142,7 +147,7 @@ export class Sheet extends HTMLElement {
             if (tokens[i].measure.lastIndexOf("px") > 0) {
               colWidth = intValue;
             } else if (tokens[i].measure.lastIndexOf("%") > 0) {
-              colWidth = bodyTable.offsetWidth * intValue / 100;
+              colWidth = tableWidth * intValue / 100;
             }
           } else {
             console.debug("(layout columns b) auto? token[i]='%s' i=%i", tokens[i], i);
