@@ -89,6 +89,7 @@ td.demo-lightred {
 tobago-tree {
   .tobago-selected {
     font-weight: bold;
+
     a {
       background-color: #ceecf5;
     }
@@ -100,4 +101,11 @@ tobago-tree {
   border: 1px solid;
   text-align: center;
   margin-bottom: 2px;
+}
+
+#page\:testSheetColumnWidth {
+  td {
+    border-left: 7px solid;
+    border-right: 13px solid;
+  }
 }
