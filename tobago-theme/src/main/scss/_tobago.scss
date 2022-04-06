@@ -1260,6 +1260,9 @@ p.tobago-separator {
 /* sheet -------------------------------------------------------------- */
 
 tobago-sheet {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: $spacer;
 
   .tobago-expanded {
   }
@@ -1306,40 +1309,49 @@ tobago-sheet {
     overflow-y: auto;
     flex: 1 1 auto;
 
-    td {
-      overflow: hidden;
+    .table {
+      margin-bottom: 0; //remove bootstrap styling; margins are set on tobago-sheet
 
-      @include treeNodeMarginLeftLevel();
+      td {
+        overflow: hidden;
 
-      > tobago-out {
-        display: block;
-      }
+        @include treeNodeMarginLeftLevel();
 
-      > tobago-tree-node {
-        display: flex;
-        align-items: center;
+        > tobago-out {
+          display: block;
+        }
 
-        @include tobagoTreeNodeToggle();
+        > tobago-tree-node {
+          display: flex;
+          align-items: center;
 
-        .tobago-toggle {
-          padding-right: 5px;
+          @include tobagoTreeNodeToggle();
+
+          .tobago-toggle {
+            padding-right: 5px;
+          }
         }
       }
     }
   }
 
   footer {
-    text-align: center;
-  }
+    display: flex;
 
-  .tobago-paging {
-    cursor: pointer;
+    .pagination {
+      margin-top: 1rem;
+      margin-bottom: 0;
 
-    input {
-      text-align: center;
-      display: none;
-      margin: -4px 0;
-      width: 3em;
+      .tobago-paging {
+        cursor: pointer;
+
+        input {
+          text-align: center;
+          display: none;
+          margin: -4px 0;
+          width: 3em;
+        }
+      }
     }
   }
 }
@@ -1359,16 +1371,6 @@ tobago-sheet {
 .tobago-descending::after {
   content: $icon-sort-descending;
   color: inherit;
-}
-
-tobago-sheet {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: $spacer;
-
-  .table {
-    margin-bottom: 0;
-  }
 }
 
 .tobago-tableLayout-fixed {

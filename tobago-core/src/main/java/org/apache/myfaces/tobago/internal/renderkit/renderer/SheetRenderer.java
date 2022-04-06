@@ -364,7 +364,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
         writer.startElement(HtmlElements.UL);
         writer.writeClassAttribute(
-            BootstrapClass.D_INLINE_FLEX,
             cssForLeftCenterRight(showPositionRowRange),
             BootstrapClass.PAGINATION);
         writer.startElement(HtmlElements.LI);
@@ -423,7 +422,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       if (showPositionDirectLinks != ShowPosition.none) {
         writer.startElement(HtmlElements.UL);
         writer.writeClassAttribute(
-            BootstrapClass.D_INLINE_FLEX,
             cssForLeftCenterRight(showPositionDirectLinks),
             BootstrapClass.PAGINATION);
         if (component.isShowDirectLinksArrows()) {
@@ -451,7 +449,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
         writer.startElement(HtmlElements.UL);
         writer.writeClassAttribute(
-            BootstrapClass.D_INLINE_FLEX,
             cssForLeftCenterRight(showPositionPageRange),
             BootstrapClass.PAGINATION);
         if (component.isShowPageRangeArrows()) {
@@ -962,10 +959,11 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
   private CssItem cssForLeftCenterRight(final ShowPosition position) {
     switch (position) {
       case left:
-        return BootstrapClass.FLOAT_START;
-      case right:
-        return BootstrapClass.FLOAT_END;
+        return BootstrapClass.ME_AUTO;
       case center:
+        return BootstrapClass.MX_AUTO;
+      case right:
+        return BootstrapClass.MS_AUTO;
       default:
         return null;
     }
