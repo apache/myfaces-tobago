@@ -38,7 +38,7 @@
     <myfaces20.version>2.0.25</myfaces20.version>
     <myfaces21.version>2.1.18</myfaces21.version>
     <myfaces22.version>2.2.14</myfaces22.version>
-    <myfaces23.version>2.3.9</myfaces23.version>
+    <myfaces23.version>2.3.10</myfaces23.version>
     <mojarra20.version>2.0.11-04</mojarra20.version>
     <mojarra21.version>2.1.29-11</mojarra21.version>
     <mojarra22.version>2.2.20</mojarra22.version>
@@ -49,16 +49,16 @@
     <commons-lang.version>2.6</commons-lang.version>
     <commons-logging.version>1.2</commons-logging.version>
     <commons-collection.version>3.2.2</commons-collection.version>
-    <maven.compile.source>1.5</maven.compile.source>
-    <maven.compile.target>1.5</maven.compile.target>
+    <maven.compile.source>1.7</maven.compile.source>
+    <maven.compile.target>1.7</maven.compile.target>
     <maven.compile.encoding>UTF-8</maven.compile.encoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jsf.target>2.0</jsf.target>
-    <required.maven.version>3.3.1</required.maven.version>
+    <required.maven.version>3.8.1</required.maven.version>
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
     <checkstyle.version>9.3</checkstyle.version>
-    <!-- XXX use 16, if released -->
-    <checkstyle-rules.version>16</checkstyle-rules.version>
+    <!-- XXX use 17, if released -->
+    <checkstyle-rules.version>17-SNAPSHOT</checkstyle-rules.version>
     <tobago.basedir>${project.basedir}</tobago.basedir>
   </properties>
 
@@ -289,7 +289,7 @@
         <!-- jsoup HTML parser library -->
         <groupId>org.jsoup</groupId>
         <artifactId>jsoup</artifactId>
-        <version>1.14.3</version>
+        <version>1.15.1</version>
       </dependency>
       <dependency>
         <groupId>net.sourceforge.maven-taglib</groupId>
@@ -427,7 +427,6 @@
             <configuration>
               <rules>
                 <requireMavenVersion>
-                  <!-- 3.3.1 is only required for a release, for a normal build 2.2.1 should be okay -->
                   <version>${required.maven.version}</version>
                 </requireMavenVersion>
                 <requirePluginVersions>
@@ -441,7 +440,7 @@
                 </requirePluginVersions>
                 <requireJavaVersion>
                   <message>Tobago must be compiled with Java 8</message>
-                  <version>[1.8.0-100,1.8.0-999]</version>
+                  <version>[1.8.0-100,17.99.999]</version>
                 </requireJavaVersion>
               </rules>
             </configuration>
@@ -506,7 +505,7 @@
         <configuration>
           <signature>
             <groupId>org.codehaus.mojo.signature</groupId>
-            <artifactId>java15</artifactId>
+            <artifactId>java17</artifactId>
             <version>1.0</version>
           </signature>
         </configuration>
@@ -552,7 +551,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-pmd-plugin</artifactId>
-          <version>3.16.0</version>
+          <version>3.17.0</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
@@ -682,7 +681,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-clean-plugin</artifactId>
-          <version>3.1.0</version>
+          <version>3.2.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-source-plugin</artifactId>
@@ -708,7 +707,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-scm-plugin</artifactId>
-          <version>1.12.2</version>
+          <version>1.13.0</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -759,6 +758,9 @@
 
               <!-- jetty key store for testing -->
               <exclude>**/jettykeystore</exclude>
+
+              <!-- readme -->
+              <exclude>**/README.md</exclude>
             </excludes>
           </configuration>
         </plugin>
@@ -786,12 +788,12 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
-          <version>3.11.0</version>
+          <version>3.12.0</version>
         </plugin>
         <plugin>
           <groupId>org.owasp</groupId>
           <artifactId>dependency-check-maven</artifactId>
-          <version>7.0.1</version>
+          <version>7.1.0</version>
           <configuration>
             <failBuildOnCVSS>0</failBuildOnCVSS>
             <suppressionFile>tobago/dependency-check-suppression-for-tobago-2.x.xml</suppressionFile>
@@ -858,9 +860,6 @@
              </properties>
            </profile>
        -->
-      <properties>
-        <required.maven.version>3.3.1</required.maven.version>
-      </properties>
       <build>
         <plugins>
           <plugin>

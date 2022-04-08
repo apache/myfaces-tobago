@@ -26,8 +26,16 @@
   <name>Tobago Examples</name>
   <artifactId>tobago-example</artifactId>
 
+  <properties>
+    <tobago.basedir>${project.basedir}/..</tobago.basedir>
+    <jetty.version>9.4.46.v20220331</jetty.version>
+  </properties>
+
   <modules>
-    <module>tobago-example-addressbook</module>
+    <!--disable tobago-example-addressbook because of
+    CVE-2022-22968(5.3), CVE-2022-22965(9.8), CVE-2016-1000027(9.8),
+    CVE-2022-22968(5.3), CVE-2022-22965(9.8), CVE-2016-1000027(9.8)
+    <module>tobago-example-addressbook</module>-->
     <module>tobago-example-addressbook-cdi</module>
     <module>tobago-example-blank</module>
     <module>tobago-example-data</module>
@@ -89,10 +97,17 @@
         <plugin>
           <groupId>org.eclipse.jetty</groupId>
           <artifactId>jetty-maven-plugin</artifactId>
-          <version>9.4.45.v20220203</version>
+          <version>${jetty.version}</version>
           <configuration>
             <scanIntervalSeconds>5</scanIntervalSeconds>
           </configuration>
+          <dependencies>
+            <dependency> <!-- add JAXB to run the demo with Java 11 and higher -->
+              <groupId>javax.xml.bind</groupId>
+              <artifactId>jaxb-api</artifactId>
+              <version>2.3.1</version>
+            </dependency>
+          </dependencies>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -275,6 +290,9 @@
           <value>myfaces-2.3</value>
         </property>
       </activation>
+      <properties>
+        <jetty.version>10.0.9</jetty.version>
+      </properties>
       <dependencies>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
@@ -457,7 +475,4 @@
 -->
 
   </profiles>
-  <properties>
-    <tobago.basedir>${project.basedir}/..</tobago.basedir>
-  </properties>
 </project>

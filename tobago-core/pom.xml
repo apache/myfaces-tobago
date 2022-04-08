@@ -179,7 +179,7 @@
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
-      <version>3.4.1</version>
+      <version>3.4.2</version>
     </dependency>
     <!--dependency>
       <groupId>com.google.caliper</groupId>
@@ -218,8 +218,8 @@
                 <phase>generate-sources</phase>
                 <configuration>
                   <!-- https://issues.apache.org/jira/browse/MCOMPILER-168 -->
-                  <source>1.6</source>
-                  <target>1.6</target>
+                  <source>1.7</source>
+                  <target>1.7</target>
                   <proc>only</proc>
                   <useIncrementalCompilation>false</useIncrementalCompilation><!-- see MCOMPILER-209 and MCOMPILER-235 -->
                   <!-- source output directory -->

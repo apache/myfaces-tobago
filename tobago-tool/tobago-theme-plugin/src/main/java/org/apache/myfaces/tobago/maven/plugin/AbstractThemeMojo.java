@@ -20,29 +20,28 @@
 package org.apache.myfaces.tobago.maven.plugin;
 
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.DirectoryScanner;
 
 import java.io.File;
 
 public abstract class AbstractThemeMojo extends AbstractMojo {
+
   /**
-   * The maven project.
-   *
-   * @parameter expression="${project}"
-   * @required
-   * @readonly
+   * The Maven project.
    */
+  @Parameter(defaultValue = "${project}", readonly = true, required = true)
   private MavenProject project;
 
   private static final String[] INCLUDES = new String[]{
-      "**"
+    "**"
   };
   private static final String[] EXCLUDES = new String[]{
-      "META-INF/**/*",
-      "**/*.properties",
-      "**/*.xml",
-      "**/*.class"
+    "META-INF/**/*",
+    "**/*.properties",
+    "**/*.xml",
+    "**/*.class"
   };
 
   public MavenProject getProject() {

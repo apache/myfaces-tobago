@@ -21,6 +21,11 @@ package org.apache.myfaces.tobago.maven.plugin;
 
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.codehaus.plexus.archiver.ArchiverException;
 import org.codehaus.plexus.archiver.UnArchiver;
 import org.codehaus.plexus.archiver.manager.ArchiverManager;
@@ -45,92 +50,72 @@ import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-/**
- * @goal resources
- * @phase process-resources
- * @requiresDependencyResolution runtime
- */
+@Mojo(
+  name = "resources",
+  defaultPhase = LifecyclePhase.PROCESS_RESOURCES,
+  requiresDependencyResolution = ResolutionScope.RUNTIME)
 public class UnPackThemeMojo extends AbstractThemeMojo {
+
   /**
    * To look up Archiver/UnArchiver implementations
-   *
-   * @parameter expression="${component.org.codehaus.plexus.archiver.manager.ArchiverManager}"
-   * @required
    */
+  @Component
   private ArchiverManager archiverManager;
 
   /**
    * Directory to unpack JARs into if needed
-   *
-   * @parameter expression="${project.build.directory}/theme/work"
-   * @required
    */
+  @Parameter(defaultValue = "${project.build.directory}/theme/work", required = true)
   private File workDirectory;
 
   /**
    * The directory where the webapp is built.
-   *
-   * @parameter expression="${project.build.directory}/${project.build.finalName}"
-   * @required
    */
+  @Parameter(defaultValue = "${project.build.directory}/${project.build.finalName}", required = true)
   private File webappDirectory;
 
   /**
    * Don't use the versioned information of the themes..
-   *
-   * @parameter
    */
+  @Parameter
   private boolean ignoreVersioned;
 
 
   private String getThemeDescriptor(final File jarFile) throws MojoExecutionException {
-    ZipFile zip = null;
-    try {
-      zip = new ZipFile(jarFile);
-      final Enumeration files = zip.entries();
+    try (ZipFile zip = new ZipFile(jarFile)) {
+      final Enumeration<? extends ZipEntry> files = zip.entries();
       while (files.hasMoreElements()) {
-        final ZipEntry nextEntry = (ZipEntry) files.nextElement();
+        final ZipEntry nextEntry = files.nextElement();
         if (nextEntry == null || nextEntry.isDirectory()) {
           continue;
         }
         final String name = nextEntry.getName();
         if (name.equals("META-INF/tobago-theme.xml") || name.equals("META-INF/tobago-config.xml")) {
-          XmlStreamReader xsr = null;
-          try {
+          try (XmlStreamReader xsr = ReaderFactory.newXmlReader(zip.getInputStream(nextEntry))) {
             final StringWriter stringWriter = new StringWriter();
-            xsr = ReaderFactory.newXmlReader(zip.getInputStream(nextEntry));
             IOUtil.copy(xsr, stringWriter);
             return stringWriter.toString();
-          } finally {
-            IOUtil.close(xsr);
           }
         }
       }
     } catch (final IOException e) {
       throw new MojoExecutionException("Error find ThemeDescriptor in " + jarFile, e);
-    } finally {
-      if (zip != null) {
-        try {
-          zip.close();
-        } catch (final IOException e) {
-          // ignore
-        }
-      }
     }
+    // ignore
     return null;
   }
 
   public void execute() throws MojoExecutionException {
     try {
-      final Iterator artifacts =  getProject().getRuntimeClasspathElements().iterator();
+      final Iterator<String> artifacts = getProject().getRuntimeClasspathElements().iterator();
       if (!workDirectory.exists()) {
         workDirectory.mkdirs();
       }
       while (artifacts.hasNext()) {
 
-        final String artifact = (String) artifacts.next();
+        final String artifact = artifacts.next();
         if (getLog().isDebugEnabled()) {
-          getLog().debug("Testing jar "+ artifact);
+          getLog().debug("Testing jar " + artifact);
         }
 
         final File file = new File(artifact);
@@ -169,19 +154,17 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
                           version = properties.getProperty("Implementation-Version");
                           if (version == null) {
                             getLog().error("No Implementation-Version found in Manifest-File for theme: '"
-                                + name + "'.");
+                              + name + "'.");
                           }
                         }
                       }
                     }
                   }
-                } catch (final IOException e) {
-                  getLog().error(e);
-                } catch (final XmlPullParserException e) {
+                } catch (final IOException | XmlPullParserException e) {
                   getLog().error(e);
                 }
                 if (getLog().isDebugEnabled()) {
-                  getLog().debug("Expanding theme: "+ name);
+                  getLog().debug("Expanding theme: " + name);
                   getLog().debug("Version: " + version);
                   getLog().debug("ResourcePath: " + resourcePath);
                 }
@@ -190,7 +173,7 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
                   final File fromFile = new File(tempLocation, fileName);
                   String toFileName = fileName;
                   if (resourcePath != null && version != null && toFileName.startsWith(resourcePath)
-                      && !fileName.endsWith("blank.html")) {
+                    && !fileName.endsWith("blank.html")) {
                     toFileName = resourcePath + "/" + version + "/" + toFileName.substring(resourcePath.length() + 1);
                   }
                   if (getLog().isDebugEnabled()) {
@@ -216,7 +199,7 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
   }
 
   private void unpack(final File file, final File location)
-      throws MojoExecutionException, NoSuchArchiverException {
+    throws MojoExecutionException, NoSuchArchiverException {
     final String archiveExt = FileUtils.getExtension(file.getAbsolutePath()).toLowerCase(Locale.ENGLISH);
     try {
       final UnArchiver unArchiver = archiverManager.getUnArchiver(archiveExt);
