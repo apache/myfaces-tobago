@@ -284,13 +284,11 @@ tobago-panel.tobago-collapsed {
 /* date -------------------------------------------------------------- */
 
 tobago-date {
-
-  @include messageShadow();
-
   display: block;
 
   input {
     @include formControlDisabled();
+    @include messageShadow();
 
     min-width: 7em;
 
@@ -355,6 +353,10 @@ tobago-file {
 
   > .input-group {
     flex: 1 0 0px;
+  }
+
+  input[type='file'] {
+    @include messageShadow();
   }
 }
 
@@ -1091,12 +1093,20 @@ tobago-stars {
 tobago-select-boolean-checkbox {
   display: block;
   @include adjustCustomControlLabel();
+
+  input[type='checkbox'] {
+    @include messageShadow();
+  }
 }
 
 /* selectBooleanToggle ---------------------------------------------------- */
 tobago-select-boolean-toggle {
   display: block;
   @include adjustCustomControlLabel();
+
+  input[type='checkbox'] {
+    @include messageShadow();
+  }
 }
 
 /* selectOneChoice --------------------------------------------------------- */
@@ -1105,6 +1115,7 @@ tobago-select-one-choice {
 
   select {
     @include formControlDisabled();
+    @include messageShadow();
   }
 }
 
@@ -1124,6 +1135,7 @@ tobago-select-one-listbox {
 
   select {
     @include formControlSelectListDisabled();
+    @include messageShadow();
   }
 }
 
@@ -1138,6 +1150,10 @@ tobago-select-one-radio {
       @include inlinePadding();
     }
   }
+
+  input[type='radio'] {
+    @include messageShadow();
+  }
 }
 
 /* selectManyCheckbox ----------------------------------------------------- */
@@ -1151,6 +1167,10 @@ tobago-select-many-checkbox {
       @include inlinePadding();
     }
   }
+
+  input[type='checkbox'] {
+    @include messageShadow();
+  }
 }
 
 .tobago-selectManyCheckbox {
@@ -1162,6 +1182,7 @@ tobago-select-many-listbox {
 
   select {
     @include formControlSelectListDisabled();
+    @include messageShadow();
   }
 }
 
