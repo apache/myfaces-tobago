@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -98,7 +99,9 @@ public abstract class SelectBooleanRendererBase<T extends AbstractUISelectBoolea
     }
 
     writer.startElement(HtmlElements.INPUT);
-    writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
+    writer.writeClassAttribute(
+      BootstrapClass.FORM_CHECK_INPUT,
+      BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)));
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
     writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
     writer.writeNameAttribute(clientId);
