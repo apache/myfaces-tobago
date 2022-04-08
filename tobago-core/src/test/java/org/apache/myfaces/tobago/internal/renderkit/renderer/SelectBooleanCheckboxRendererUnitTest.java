@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import javax.faces.application.FacesMessage;
 import java.io.IOException;
 
 public class SelectBooleanCheckboxRendererUnitTest extends RendererTestBase {
@@ -53,5 +54,65 @@ public class SelectBooleanCheckboxRendererUnitTest extends RendererTestBase {
 
     Assertions.assertEquals(loadHtml("renderer/selectBooleanCheckbox/selectBooleanCheckboxItemLabel.html"),
         formattedResult());
+  }
+
+  @Test
+  public void messageFatal() throws IOException {
+    final UISelectBooleanCheckbox c = (UISelectBooleanCheckbox) ComponentUtils.createComponent(
+      facesContext, Tags.selectBooleanCheckbox.componentType(), RendererTypes.SelectBooleanCheckbox, "id");
+
+    final FacesMessage message = new FacesMessage(
+      FacesMessage.SEVERITY_FATAL, "Custom fatal", "This is a custom fatal error");
+    facesContext.addMessage(c.getClientId(facesContext), message);
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/selectBooleanCheckbox/selectBooleanCheckboxFatal.html"),
+      formattedResult());
+  }
+
+  @Test
+  public void messageError() throws IOException {
+    final UISelectBooleanCheckbox c = (UISelectBooleanCheckbox) ComponentUtils.createComponent(
+      facesContext, Tags.selectBooleanCheckbox.componentType(), RendererTypes.SelectBooleanCheckbox, "id");
+
+    final FacesMessage message = new FacesMessage(
+      FacesMessage.SEVERITY_ERROR, "Custom error", "This is a custom error");
+    facesContext.addMessage(c.getClientId(facesContext), message);
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/selectBooleanCheckbox/selectBooleanCheckboxError.html"),
+      formattedResult());
+  }
+
+  @Test
+  public void messageWarning() throws IOException {
+    final UISelectBooleanCheckbox c = (UISelectBooleanCheckbox) ComponentUtils.createComponent(
+      facesContext, Tags.selectBooleanCheckbox.componentType(), RendererTypes.SelectBooleanCheckbox, "id");
+
+    final FacesMessage message = new FacesMessage(
+      FacesMessage.SEVERITY_WARN, "Custom warning", "This is a custom warning");
+    facesContext.addMessage(c.getClientId(facesContext), message);
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/selectBooleanCheckbox/selectBooleanCheckboxWarning.html"),
+      formattedResult());
+  }
+
+  @Test
+  public void messageInfo() throws IOException {
+    final UISelectBooleanCheckbox c = (UISelectBooleanCheckbox) ComponentUtils.createComponent(
+      facesContext, Tags.selectBooleanCheckbox.componentType(), RendererTypes.SelectBooleanCheckbox, "id");
+
+    final FacesMessage message = new FacesMessage(
+      FacesMessage.SEVERITY_INFO, "Custom info", "This is a custom information");
+    facesContext.addMessage(c.getClientId(facesContext), message);
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/selectBooleanCheckbox/selectBooleanCheckboxInfo.html"),
+      formattedResult());
   }
 }
