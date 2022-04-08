@@ -132,7 +132,9 @@ public class SelectOneRadioRenderer<T extends AbstractUISelectOneRadio> extends 
             inline ? BootstrapClass.FORM_CHECK_INLINE : null,
             isInsideCommand ? BootstrapClass.DROPDOWN_ITEM : null);
         writer.startElement(HtmlElements.INPUT);
-        writer.writeClassAttribute(BootstrapClass.FORM_CHECK_INPUT);
+        writer.writeClassAttribute(
+          BootstrapClass.FORM_CHECK_INPUT,
+          BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)));
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
         final String formattedValue = getFormattedValue(facesContext, component, item.getValue());
         final boolean checked;
