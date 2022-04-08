@@ -11999,7 +11999,7 @@ tobago-overlay {
   opacity: 0.8;
 }
 tobago-overlay > div {
-  background-color: #8884;
+  background-color: rgba(136, 136, 136, 0.2666666667);
   display: table-cell;
   text-align: center;
   vertical-align: middle;
@@ -12400,6 +12400,11 @@ p.tobago-separator:after {
 }
 
 /* sheet -------------------------------------------------------------- */
+tobago-sheet {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
 tobago-sheet header {
   overflow-x: hidden;
   flex-shrink: 0;
@@ -12435,92 +12440,99 @@ tobago-sheet .tobago-body {
   overflow-y: auto;
   flex: 1 1 auto;
 }
-tobago-sheet .tobago-body td {
+tobago-sheet .tobago-body .table {
+  margin-bottom: 0;
+}
+tobago-sheet .tobago-body .table td {
   overflow: hidden;
 }
-tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="0"] {
+tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="0"] {
   margin-left: 0rem;
 }
-tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="1"] {
+tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="1"] {
   margin-left: 1rem;
 }
-tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="2"] {
+tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="2"] {
   margin-left: 2rem;
 }
-tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="3"] {
+tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="3"] {
   margin-left: 3rem;
 }
-tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="4"] {
+tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="4"] {
   margin-left: 4rem;
 }
-tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="5"] {
+tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="5"] {
   margin-left: 5rem;
 }
-tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="6"] {
+tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="6"] {
   margin-left: 6rem;
 }
-tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="7"] {
+tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="7"] {
   margin-left: 7rem;
 }
-tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="8"] {
+tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="8"] {
   margin-left: 8rem;
 }
-tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="9"] {
+tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="9"] {
   margin-left: 9rem;
 }
-tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="10"] {
+tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="10"] {
   margin-left: 10rem;
 }
-tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="11"] {
+tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="11"] {
   margin-left: 11rem;
 }
-tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="12"] {
+tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="12"] {
   margin-left: 12rem;
 }
-tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="13"] {
+tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="13"] {
   margin-left: 13rem;
 }
-tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="14"] {
+tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="14"] {
   margin-left: 14rem;
 }
-tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="15"] {
+tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="15"] {
   margin-left: 15rem;
 }
-tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="16"] {
+tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="16"] {
   margin-left: 16rem;
 }
-tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="17"] {
+tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="17"] {
   margin-left: 17rem;
 }
-tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="18"] {
+tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="18"] {
   margin-left: 18rem;
 }
-tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="19"] {
+tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="19"] {
   margin-left: 19rem;
 }
-tobago-sheet .tobago-body td tobago-tree-node[data-tobago-level="20"] {
+tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="20"] {
   margin-left: 20rem;
 }
-tobago-sheet .tobago-body td > tobago-out {
+tobago-sheet .tobago-body .table td > tobago-out {
   display: block;
 }
-tobago-sheet .tobago-body td > tobago-tree-node {
+tobago-sheet .tobago-body .table td > tobago-tree-node {
   display: flex;
   align-items: center;
 }
-tobago-sheet .tobago-body td > tobago-tree-node .tobago-toggle:not(.invisible) {
+tobago-sheet .tobago-body .table td > tobago-tree-node .tobago-toggle:not(.invisible) {
   cursor: pointer;
 }
-tobago-sheet .tobago-body td > tobago-tree-node .tobago-toggle {
+tobago-sheet .tobago-body .table td > tobago-tree-node .tobago-toggle {
   padding-right: 5px;
 }
 tobago-sheet footer {
-  text-align: center;
+  display: flex;
 }
-tobago-sheet .tobago-paging {
+tobago-sheet footer .pagination {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+tobago-sheet footer .pagination .tobago-paging {
   cursor: pointer;
 }
-tobago-sheet .tobago-paging input {
+tobago-sheet footer .pagination .tobago-paging input {
   text-align: center;
   display: none;
   margin: -4px 0;
@@ -12542,15 +12554,6 @@ tobago-sheet .tobago-paging input {
 .tobago-descending::after {
   content: "\f22c";
   color: inherit;
-}
-
-tobago-sheet {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-}
-tobago-sheet .table {
-  margin-bottom: 0;
 }
 
 .tobago-tableLayout-fixed {
