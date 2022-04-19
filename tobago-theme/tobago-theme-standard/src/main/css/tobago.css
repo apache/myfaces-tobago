@@ -11481,20 +11481,20 @@ tobago-panel.tobago-collapsed {
 tobago-date {
   display: block;
 }
-tobago-date.border-danger:focus {
-  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
-}
-tobago-date.border-warning:focus {
-  box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
-}
-tobago-date.border-info:focus {
-  box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25);
-}
 tobago-date input {
   min-width: 7em;
 }
 tobago-date input:disabled {
   color: rgba(33, 37, 41, 0.5);
+}
+tobago-date input.border-danger:focus {
+  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
+tobago-date input.border-warning:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+}
+tobago-date input.border-info:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25);
 }
 tobago-date input::-ms-clear {
   /* Remove IE10's "clear field" X button */
@@ -11546,6 +11546,15 @@ tobago-file {
 }
 tobago-file > .input-group {
   flex: 1 0 0px;
+}
+tobago-file input[type=file].border-danger:focus {
+  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
+tobago-file input[type=file].border-warning:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+}
+tobago-file input[type=file].border-info:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25);
 }
 
 /* flexLayout -------------------------------------------------------------- */
@@ -12184,6 +12193,15 @@ tobago-select-boolean-checkbox .form-check-label:after {
 tobago-select-boolean-checkbox .form-check-label img {
   padding-right: 0.3em;
 }
+tobago-select-boolean-checkbox input[type=checkbox].border-danger:focus {
+  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
+tobago-select-boolean-checkbox input[type=checkbox].border-warning:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+}
+tobago-select-boolean-checkbox input[type=checkbox].border-info:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25);
+}
 
 /* selectBooleanToggle ---------------------------------------------------- */
 tobago-select-boolean-toggle {
@@ -12195,6 +12213,15 @@ tobago-select-boolean-toggle .form-check-label:after {
 tobago-select-boolean-toggle .form-check-label img {
   padding-right: 0.3em;
 }
+tobago-select-boolean-toggle input[type=checkbox].border-danger:focus {
+  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
+tobago-select-boolean-toggle input[type=checkbox].border-warning:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+}
+tobago-select-boolean-toggle input[type=checkbox].border-info:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25);
+}
 
 /* selectOneChoice --------------------------------------------------------- */
 tobago-select-one-choice {
@@ -12202,6 +12229,15 @@ tobago-select-one-choice {
 }
 tobago-select-one-choice select:disabled {
   color: rgba(33, 37, 41, 0.5);
+}
+tobago-select-one-choice select.border-danger:focus {
+  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
+tobago-select-one-choice select.border-warning:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+}
+tobago-select-one-choice select.border-info:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25);
 }
 
 /* selectOneListbox -------------------------------------------------------- */
@@ -12221,6 +12257,15 @@ tobago-select-one-listbox {
 tobago-select-one-listbox select:disabled option, tobago-select-one-listbox select option:disabled {
   color: rgba(33, 37, 41, 0.5);
 }
+tobago-select-one-listbox select.border-danger:focus {
+  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
+tobago-select-one-listbox select.border-warning:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+}
+tobago-select-one-listbox select.border-info:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25);
+}
 
 /* selectOneRadio ---------------------------------------------------------- */
 tobago-select-one-radio {
@@ -12238,6 +12283,15 @@ tobago-select-one-radio label + .form-check-inline {
 tobago-select-one-radio.tobago-label-container .form-check-inline {
   padding-top: calc(0.375rem + 1px);
   padding-bottom: calc(0.375rem + 1px);
+}
+tobago-select-one-radio input[type=radio].border-danger:focus {
+  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
+tobago-select-one-radio input[type=radio].border-warning:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+}
+tobago-select-one-radio input[type=radio].border-info:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25);
 }
 
 /* selectManyCheckbox ----------------------------------------------------- */
@@ -12257,6 +12311,15 @@ tobago-select-many-checkbox.tobago-label-container .form-check-inline {
   padding-top: calc(0.375rem + 1px);
   padding-bottom: calc(0.375rem + 1px);
 }
+tobago-select-many-checkbox input[type=checkbox].border-danger:focus {
+  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
+tobago-select-many-checkbox input[type=checkbox].border-warning:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+}
+tobago-select-many-checkbox input[type=checkbox].border-info:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25);
+}
 
 /* selectManyListbox ----------------------------------------------------------- */
 tobago-select-many-listbox {
@@ -12264,6 +12327,15 @@ tobago-select-many-listbox {
 }
 tobago-select-many-listbox select:disabled option, tobago-select-many-listbox select option:disabled {
   color: rgba(33, 37, 41, 0.5);
+}
+tobago-select-many-listbox select.border-danger:focus {
+  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
+tobago-select-many-listbox select.border-warning:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+}
+tobago-select-many-listbox select.border-info:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25);
 }
 
 .tobago-selectManyListbox.border-danger:focus {
