@@ -152,6 +152,7 @@ getJasmineRequireObj().requireMatchers = function(jRequire, j$) {
       'toHaveBeenCalledTimes',
       'toHaveBeenCalledWith',
       'toHaveClass',
+      'toHaveSpyInteractions',
       'toMatch',
       'toThrow',
       'toThrowError',
@@ -640,6 +641,8 @@ getJasmineRequireObj().util = function(j$) {
       // All falsey values are either primitives, `null`, or `undefined.
       if (!argsAsArray[i] || str.match(primitives)) {
         clonedArgs.push(argsAsArray[i]);
+      } else if (str === '[object Date]') {
+        clonedArgs.push(new Date(argsAsArray[i].valueOf()));
       } else {
         clonedArgs.push(j$.util.clone(argsAsArray[i]));
       }
@@ -1039,7 +1042,7 @@ getJasmineRequireObj().Spec = function(j$) {
       boilerplateEnd =
         boilerplateStart + Spec.pendingSpecExceptionMessage.length;
 
-    return fullMessage.substr(boilerplateEnd);
+    return fullMessage.slice(boilerplateEnd);
   };
 
   Spec.pendingSpecExceptionMessage = '=> marked Pending';
@@ -2169,7 +2172,10 @@ getJasmineRequireObj().Env = function(j$) {
       }
       addSpecsToSuite(suite, specDefinitions);
       if (suite.parentSuite && !suite.children.length) {
-        throw new Error('describe with no children (describe() or it())');
+        throw new Error(
+          'describe with no children (describe() or it()): ' +
+            suite.getFullName()
+        );
       }
       return suite.metadata;
     };
@@ -5576,17 +5582,16 @@ getJasmineRequireObj().MatchersUtil = function(j$) {
   };
 
   function keys(obj, isArray) {
-    var allKeys = Object.keys
-      ? Object.keys(obj)
-      : (function(o) {
-          var keys = [];
-          for (var key in o) {
-            if (j$.util.has(o, key)) {
-              keys.push(key);
-            }
-          }
-          return keys;
-        })(obj);
+    var allKeys = (function(o) {
+      var keys = [];
+      for (var key in o) {
+        if (j$.util.has(o, key)) {
+          keys.push(key);
+        }
+      }
+      // eslint-disable-next-line compat/compat
+      return keys.concat(Object.getOwnPropertySymbols(o));
+    })(obj);
 
     if (!isArray) {
       return allKeys;
@@ -5954,6 +5959,14 @@ getJasmineRequireObj().toBeCloseTo = function() {
               expected +
               ').'
           );
+        }
+
+        // Infinity is close to Infinity and -Infinity is close to -Infinity,
+        // regardless of the precision.
+        if (expected === Infinity || expected === -Infinity) {
+          return {
+            pass: actual === expected
+          };
         }
 
         var pow = Math.pow(10, precision + 1);
@@ -6926,6 +6939,82 @@ getJasmineRequireObj().toHaveSize = function(j$) {
   return toHaveSize;
 };
 
+getJasmineRequireObj().toHaveSpyInteractions = function(j$) {
+  var getErrorMsg = j$.formatErrorMsg(
+    '<toHaveSpyInteractions>',
+    'expect(<spyObj>).toHaveSpyInteractions()'
+  );
+
+  /**
+   * {@link expect} the actual (a {@link SpyObj}) spies to have been called.
+   * @function
+   * @name matchers#toHaveSpyInteractions
+   * @since 4.1.0
+   * @example
+   * expect(mySpyObj).toHaveSpyInteractions();
+   * expect(mySpyObj).not.toHaveSpyInteractions();
+   */
+  function toHaveSpyInteractions(matchersUtil) {
+    return {
+      compare: function(actual) {
+        var result = {};
+
+        if (!j$.isObject_(actual)) {
+          throw new Error(
+            getErrorMsg('Expected a spy object, but got ' + typeof actual + '.')
+          );
+        }
+
+        if (arguments.length > 1) {
+          throw new Error(getErrorMsg('Does not take arguments'));
+        }
+
+        result.pass = false;
+        let hasSpy = false;
+        const calledSpies = [];
+        for (const spy of Object.values(actual)) {
+          if (!j$.isSpy(spy)) continue;
+          hasSpy = true;
+
+          if (spy.calls.any()) {
+            result.pass = true;
+            calledSpies.push([spy.and.identity, spy.calls.count()]);
+          }
+        }
+
+        if (!hasSpy) {
+          throw new Error(
+            getErrorMsg(
+              'Expected a spy object with spies, but object has no spies.'
+            )
+          );
+        }
+
+        let resultMessage;
+        if (result.pass) {
+          resultMessage =
+            'Expected spy object spies not to have been called, ' +
+            'but the following spies were called: ';
+          resultMessage += calledSpies
+            .map(([spyName, spyCount]) => {
+              return `${spyName} called ${spyCount} time(s)`;
+            })
+            .join(', ');
+        } else {
+          resultMessage =
+            'Expected spy object spies to have been called, ' +
+            'but no spies were called.';
+        }
+        result.message = resultMessage;
+
+        return result;
+      }
+    };
+  }
+
+  return toHaveSpyInteractions;
+};
+
 getJasmineRequireObj().toMatch = function(j$) {
   var getErrorMsg = j$.formatErrorMsg(
     '<toMatch>',
@@ -7488,7 +7577,7 @@ getJasmineRequireObj().makePrettyPrinter = function(j$) {
         this.emitScalar('<global>');
       } else if (value.jasmineToString) {
         this.emitScalar(value.jasmineToString(this.pp_));
-      } else if (typeof value === 'string') {
+      } else if (j$.isString_(value)) {
         this.emitString(value);
       } else if (j$.isSpy(value)) {
         this.emitScalar('spy on ' + value.and.identity);
@@ -10199,5 +10288,5 @@ getJasmineRequireObj().UserContext = function(j$) {
 };
 
 getJasmineRequireObj().version = function() {
-  return '4.0.1';
+  return '4.1.0';
 };
