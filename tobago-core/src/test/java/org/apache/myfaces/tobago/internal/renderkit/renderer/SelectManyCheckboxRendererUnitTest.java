@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
-import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.component.UISelectItem;
 import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -49,7 +48,8 @@ public class SelectManyCheckboxRendererUnitTest extends RendererTestBase {
 
     c.encodeAll(facesContext);
 
-    Assertions.assertEquals(loadHtml("renderer/selectManyCheckbox/selectManyCheckboxItemLabel.html"), formattedResult());
+    Assertions.assertEquals(loadHtml("renderer/selectManyCheckbox/selectManyCheckboxItemLabel.html"),
+      formattedResult());
   }
 
   @Test
