@@ -27,9 +27,9 @@ $icon-star-fill: "\f586";
 $icon-star-sep: " ";
 $icon-stars: $icon-star-fill + $icon-star-sep + $icon-star-fill + $icon-star-sep + $icon-star-fill + $icon-star-sep + $icon-star-fill + $icon-star-sep + $icon-star-fill;
 $icon-trash: "\f5de";
-$icon-sort: "\f2f1";
-$icon-sort-ascending: "\f238";
-$icon-sort-descending: "\f22c";
+$icon-sort: "\F127";
+$icon-sort-ascending: "\F57B";
+$icon-sort-descending: "\F575";
 
 /* non-bootstrap variables --------------------------------------- */
 
@@ -1326,6 +1326,28 @@ tobago-sheet {
     cursor: col-resize;
   }
 
+  .tobago-sortable {
+    &:after {
+      font-family: bootstrap-icons;
+      content: $icon-sort;
+      font-weight: normal;
+      -webkit-font-smoothing: antialiased;
+      vertical-align: -0.125em;
+      margin-left: 0.5rem;
+      opacity: 0.5;
+    }
+
+    &.tobago-ascending::after {
+      content: $icon-sort-ascending;
+      opacity: 1;
+    }
+
+    &.tobago-descending::after {
+      content: $icon-sort-descending;
+      opacity: 1;
+    }
+  }
+
   .tobago-body {
     overflow-y: auto;
     flex: 1 1 auto;
@@ -1375,23 +1397,6 @@ tobago-sheet {
       }
     }
   }
-}
-
-.tobago-sortable::after {
-  content: $icon-sort;
-  font-family: bootstrap-icons;
-  color: $gray-300;
-  margin-left: $spacer;
-}
-
-.tobago-ascending::after {
-  content: $icon-sort-ascending;
-  color: inherit;
-}
-
-.tobago-descending::after {
-  content: $icon-sort-descending;
-  color: inherit;
 }
 
 .tobago-tableLayout-fixed {
