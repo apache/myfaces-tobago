@@ -12438,15 +12438,15 @@ tobago-sheet header {
   overflow-x: hidden;
   flex-shrink: 0;
 }
-tobago-sheet header table {
+tobago-sheet header .table {
   margin-bottom: 0;
 }
-tobago-sheet header table th {
+tobago-sheet header .table th {
   font-weight: normal;
   position: relative;
   overflow: hidden;
 }
-tobago-sheet header table th tobago-out {
+tobago-sheet header .table th tobago-out {
   font-weight: bold;
 }
 tobago-sheet header:hover .tobago-resize {
@@ -12464,6 +12464,23 @@ tobago-sheet .tobago-resize {
   height: 100%;
   z-index: 1;
   cursor: col-resize;
+}
+tobago-sheet .tobago-sortable:after {
+  font-family: bootstrap-icons;
+  content: "\f127";
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  vertical-align: -0.125em;
+  margin-left: 0.5rem;
+  opacity: 0.5;
+}
+tobago-sheet .tobago-sortable.tobago-ascending::after {
+  content: "\f57b";
+  opacity: 1;
+}
+tobago-sheet .tobago-sortable.tobago-descending::after {
+  content: "\f575";
+  opacity: 1;
 }
 tobago-sheet .tobago-body {
   overflow-y: auto;
@@ -12566,23 +12583,6 @@ tobago-sheet footer .pagination .tobago-paging input {
   display: none;
   margin: -4px 0;
   width: 3em;
-}
-
-.tobago-sortable::after {
-  content: "\f2f1";
-  font-family: bootstrap-icons;
-  color: #dee2e6;
-  margin-left: 1rem;
-}
-
-.tobago-ascending::after {
-  content: "\f238";
-  color: inherit;
-}
-
-.tobago-descending::after {
-  content: "\f22c";
-  color: inherit;
 }
 
 .tobago-tableLayout-fixed {
