@@ -38,6 +38,7 @@ public class SelectManyShuttleController implements Serializable {
   private SolarObject[] selectedPlanets = new SolarObject[0];
   private List<String> stars = Arrays.asList("Proxima Centauri", "Alpha Centauri", "Wolf 359", "Sirius");
   private String[] selectedStars = new String[0];
+  private int countPageReload = 0;
 
   @PostConstruct
   public void init() {
@@ -74,5 +75,9 @@ public class SelectManyShuttleController implements Serializable {
 
   public String getSelectedStarsAsString() {
     return Arrays.toString(selectedStars);
+  }
+
+  public int getCountPageReload() {
+    return countPageReload++;
   }
 }

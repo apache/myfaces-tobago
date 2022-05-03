@@ -24,6 +24,13 @@ class SelectManyShuttle extends HTMLElement {
   }
 
   connectedCallback(): void {
+    /*
+     * Event bubbling must be stopped, because a change event is dispatched if an option tag is clicked.
+     * But the change event should only be executed if an entry is moved to/from the right side.
+     */
+    this.unselectedSelect.onchange = (event) => event.stopPropagation();
+    this.selectedSelect.onchange = (event) => event.stopPropagation();
+
     this.unselectedSelect.addEventListener("focus", Focus.setLastFocusId);
     this.selectedSelect.addEventListener("focus", Focus.setLastFocusId);
 
