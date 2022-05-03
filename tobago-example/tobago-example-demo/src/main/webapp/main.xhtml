@@ -52,11 +52,9 @@
       <ui:include src="/menu.xhtml"/>
 
       <tc:panel>
-        <tc:style maxWidth="#{navigationState.viewSource ? '' : '1140px'}"
-                  marginLeft="auto"
-                  marginRight="auto"/>
+        <tc:style customClass="#{navigationState.viewSource ? '' : 'container-lg'}"/>
 
-        <tc:segmentLayout small="#{navigationState.viewSource ? '2seg 10seg' : 'auto 1fr'}">
+        <tc:segmentLayout small="4seg 8seg" medium="3seg 9seg" large="2seg 10seg">
           <tc:panel>
             <ui:include src="/navigation.xhtml"/>
           </tc:panel>
