@@ -1380,6 +1380,7 @@ tobago-sheet {
 
   footer {
     display: flex;
+    flex-wrap: wrap;
 
     .pagination {
       margin-top: 1rem;
