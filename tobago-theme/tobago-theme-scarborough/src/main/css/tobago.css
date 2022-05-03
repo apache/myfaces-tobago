@@ -12600,6 +12600,7 @@ tobago-sheet .tobago-body .table td > tobago-tree-node .tobago-toggle {
 }
 tobago-sheet footer {
   display: flex;
+  flex-wrap: wrap;
 }
 tobago-sheet footer .pagination {
   margin-top: 1rem;
