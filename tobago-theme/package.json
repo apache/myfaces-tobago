@@ -72,7 +72,7 @@
     "@popperjs/core": "^2.11.5",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-replace": "^4.0.0",
-    "@types/jest": "^27.4.1",
+    "@types/jest": "^27.5.0",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
     "autoprefixer": "^10.4.7",
