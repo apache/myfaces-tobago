@@ -12472,10 +12472,6 @@ tobago-sheet header .table th tobago-out {
 tobago-sheet header:hover .tobago-resize {
   background-color: #d0d0d0;
 }
-tobago-sheet .tobago-selected {
-  margin-top: 0.75rem;
-  margin-bottom: 0.75rem;
-}
 tobago-sheet .tobago-resize {
   position: absolute;
   right: -5px;
@@ -12574,6 +12570,10 @@ tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="19"] {
 }
 tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="20"] {
   margin-left: 20rem;
+}
+tobago-sheet .tobago-body .table td > input.tobago-selected {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 tobago-sheet .tobago-body .table td > tobago-out {
   display: block;
