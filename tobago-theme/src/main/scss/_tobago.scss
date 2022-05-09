@@ -1311,11 +1311,6 @@ tobago-sheet {
     background-color: $gray-200;
   }
 
-  .tobago-selected {
-    margin-top: ($spacer * 0.75);
-    margin-bottom: ($spacer * 0.75);
-  }
-
   .tobago-resize {
     position: absolute;
     right: -5px;
@@ -1359,6 +1354,11 @@ tobago-sheet {
         overflow: hidden;
 
         @include treeNodeMarginLeftLevel();
+
+        > input.tobago-selected {
+          margin-top: ($spacer * 0.75);
+          margin-bottom: ($spacer * 0.75);
+        }
 
         > tobago-out {
           display: block;
