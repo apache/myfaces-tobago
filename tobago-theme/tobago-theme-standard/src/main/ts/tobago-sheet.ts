@@ -766,7 +766,7 @@ Type: ${data.type}`);
 
   toggleSelection(row: HTMLTableRowElement, checkbox: HTMLInputElement): void {
     this.dataset.tobagoLastClickedRowIndex = String(row.sectionRowIndex);
-    if (checkbox && !checkbox.disabled) {
+    if (checkbox === null || !checkbox.disabled) {
       const selected = this.getHiddenSelected();
       const rowIndex = Number(row.getAttribute("row-index"));
       if (this.isSelected(rowIndex)) {
@@ -793,14 +793,14 @@ Type: ${data.type}`);
   }
 
   selectRange(
-      rows: NodeListOf<HTMLTableRowElement>, first: number, last: number, selectDeselected: boolean,
-      deselectSelected: boolean): void {
+    rows: NodeListOf<HTMLTableRowElement>, first: number, last: number, selectDeselected: boolean,
+    deselectSelected: boolean): void {
     const selected = this.getHiddenSelected();
     const value = new Set<number>(JSON.parse(selected.value));
     for (let i = first; i <= last; i++) {
       const row = rows.item(i);
       const checkbox = this.getSelectorCheckbox(row);
-      if (checkbox && !checkbox.disabled) {
+      if (checkbox === null || !checkbox.disabled) {
         const rowIndex = Number(row.getAttribute("row-index"));
         const on = value.has(rowIndex);
         if (selectDeselected && !on) {
@@ -818,15 +818,17 @@ Type: ${data.type}`);
    * @param row tr-element: the row.
    * @param checkbox input-element: selector in the row.
    */
-  selectRow(selected: HTMLInputElement, rowIndex: number, row: HTMLTableRowElement, checkbox: HTMLInputElement): void {
+  selectRow(selected: HTMLInputElement, rowIndex: number, row: HTMLTableRowElement, checkbox?: HTMLInputElement): void {
     const selectedSet = new Set<number>(JSON.parse(selected.value));
     selected.value = JSON.stringify(Array.from(selectedSet.add(rowIndex)));
     row.classList.add("tobago-selected");
     row.classList.add("table-info");
-    checkbox.checked = true;
-    setTimeout(function ():void {
+    if (checkbox) {
       checkbox.checked = true;
-    }, 0);
+      setTimeout(function (): void {
+        checkbox.checked = true;
+      }, 0);
+    }
   }
 
   /**
@@ -836,19 +838,20 @@ Type: ${data.type}`);
    * @param checkbox input-element: selector in the row.
    */
   deselectRow(
-      selected: HTMLInputElement, rowIndex: number, row: HTMLTableRowElement, checkbox: HTMLInputElement): void {
+    selected: HTMLInputElement, rowIndex: number, row: HTMLTableRowElement, checkbox?: HTMLInputElement): void {
     const selectedSet = new Set<number>(JSON.parse(selected.value));
     selectedSet.delete(rowIndex);
     selected.value = JSON.stringify(Array.from(selectedSet));
     row.classList.remove("tobago-selected");
     row.classList.remove("table-info");
-    checkbox.checked = false;
-    // XXX check if this is still needed... Async because of TOBAGO-1312
-    setTimeout(function (): void {
+    if (checkbox) {
       checkbox.checked = false;
-    }, 0);
+      // XXX check if this is still needed... Async because of TOBAGO-1312
+      setTimeout(function (): void {
+        checkbox.checked = false;
+      }, 0);
+    }
   }
-
 }
 
 document.addEventListener("tobago.init", function (event: Event): void {
