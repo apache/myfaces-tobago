@@ -622,11 +622,13 @@ Type: ${data.type}`);
     const row = event.currentTarget as HTMLTableRowElement;
     if (row.classList.contains("tobago-selected") || !Sheet.isInputElement(row)) {
 
-      if (Math.abs(this.mousedownOnRowData.x - event.clientX)
+      if (this.mousedownOnRowData) { // integration test: mousedownOnRowData may be 'null'
+        if (Math.abs(this.mousedownOnRowData.x - event.clientX)
           + Math.abs(this.mousedownOnRowData.y - event.clientY) > 5) {
-        // The user has moved the mouse. We assume, the user want to select some text inside the sheet,
-        // so we doesn't select the row.
-        return;
+          // The user has moved the mouse. We assume, the user want to select some text inside the sheet,
+          // so we doesn't select the row.
+          return;
+        }
       }
 
       if (window.getSelection) {
