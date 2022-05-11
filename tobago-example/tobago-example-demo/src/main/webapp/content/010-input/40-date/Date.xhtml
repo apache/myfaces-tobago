@@ -34,12 +34,11 @@
   </p>
 
   <tc:section label="Basics">
-    <p>In general, a date has a label. To get a label use the <code>label</code> attribute.</p>
+    <p>A date can have a label. To get a label use the <code>label</code> attribute.</p>
         <demo-highlight language="markup">&lt;tc:date label="Date" value="\#{dateController.sputnikLd}"/&gt;</demo-highlight>
     <tc:date id="dNormal" label="Date" value="#{dateController.sputnikLd}"/>
     <tc:date id="dReadonly" label="Read Only" readonly="true" value="#{dateController.now}"/>
     <tc:date id="d3" label="Disabled" disabled="true" value="#{dateController.now}"/>
-      Without a label:
     <tc:date id="d4" value="#{dateController.now}"/>
   </tc:section>
   <tc:section label="Focus">
@@ -86,9 +85,7 @@
       </f:facet>
     </tc:in>
     <tc:date id="typeDate" label="Date (as date)" value="#{dateController.typeDate}"/>
-    <tc:date id="typeDateAsTimeC" label="Date (as time)" value="#{dateController.typeDate}">
-      <f:convertDateTime type="time"/>
-    </tc:date>
+    <tc:date id="typeDateAsTimeC" type="time" label="Date (as time)" value="#{dateController.typeDate}"/>
     <tc:date id="typeLong" label="Long" value="#{dateController.typeLong}"/>
     <tc:date id="typeString" label="String" value="#{dateController.typeString}"/>
   </tc:section>
@@ -140,63 +137,22 @@
       </tc:label>
     </tc:section>
   </tc:section>
-  <tc:section label="Pattern And Button">
-    <p>Here are some examples for different pattern. The format is used from
-      <tc:link label="java.text.SimpleDateFormat" link="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/SimpleDateFormat.html"/>.</p>
-    <p>Also the type of the button changed with the <code>type</code> attribute.</p>
-    <tc:section label="Month">
-            <demo-highlight language="markup">&lt;tc:date label="Month" value="\#{dateController.today}"&gt;
-  &lt;f:convertDateTime pattern="MM/yyyy" type="date"/&gt;
-&lt;/tc:date&gt;</demo-highlight>
-      <tc:date id="d6" label="Month" value="#{dateController.now}">
-        <f:convertDateTime pattern="MM/yyyy" type="date"/>
-      </tc:date>
-    </tc:section>
-    <tc:section label="Minutes">
-            <demo-highlight language="markup">&lt;tc:date label="Time" value="\#{dateController.today}"&gt;
-  &lt;f:convertDateTime pattern="HH:mm" type="time"/&gt;
-&lt;/tc:date&gt;</demo-highlight>
-      <tc:date id="d7" label="Time" value="#{dateController.now}">
-        <f:convertDateTime pattern="HH:mm" type="time"/>
-      </tc:date>
-    </tc:section>
-    <tc:section label="Seconds">
-            <demo-highlight language="markup">&lt;tc:date label="Time" value="\#{dateController.today}"&gt;
-  &lt;f:convertDateTime pattern="HH:mm:ss" type="time"/&gt;
-&lt;/tc:date&gt;</demo-highlight>
-      <tc:date id="d8" label="Time" value="#{dateController.now}">
-        <f:convertDateTime pattern="HH:mm:ss" type="time"/>
-      </tc:date>
-    </tc:section>
-    <tc:section label="Month with minutes">
-            <demo-highlight language="markup">&lt;tc:date label="Date and time" value="\#{dateController.today}"&gt;
-  &lt;f:convertDateTime pattern="dd.MM. - HH:mm" type="both"/&gt;
-&lt;/tc:date&gt;</demo-highlight>
-      <tc:date id="dateTimePattern" label="Date and time" value="#{dateController.now}">
-        <f:convertDateTime pattern="dd.MM. - HH:mm" type="both"/>
-      </tc:date>
-    </tc:section>
-    <tc:section label="Today (or Now) Button">
-      <p>Display a today-/now-button on the datepicker with the attribute <code>todayButton=true</code>.</p>
-      <tc:date id="dateTodayButton" label="Today Button" value="#{dateController.todayDate}" todayButton="true"/>
-      <tc:date id="timeNowButton" label="Now Button" value="#{dateController.nowTime}" todayButton="true"/>
-    </tc:section>
-  </tc:section>
   <tc:section label="Styles">
     <p>Styles can be set with the attributes <code>dateStyle</code> and <code>timeStyle</code>.
-      Possible values are 'short', 'medium', 'long' and 'full'.</p>
-    <tc:date id="d10" label="Short style" value="#{dateController.now}">
+      Possible values are 'short', 'medium', 'long' and 'full'. It does not work with
+      <code class="language-markup">&lt;tc:date/&gt;</code>, so here we use an output field.</p>
+    <tc:out id="d10" label="Short style" value="#{dateController.now}">
       <f:convertDateTime dateStyle="short" timeStyle="short" type="both"/>
-    </tc:date>
-    <tc:date id="d11" label="Medium Style" value="#{dateController.now}">
+    </tc:out>
+    <tc:out id="d11" label="Medium Style" value="#{dateController.now}">
       <f:convertDateTime dateStyle="medium" timeStyle="medium" type="both"/>
-    </tc:date>
-    <tc:date id="d12" label="Long Style" value="#{dateController.now}">
+    </tc:out>
+    <tc:out id="d12" label="Long Style" value="#{dateController.now}">
       <f:convertDateTime dateStyle="long" timeStyle="long" type="both"/>
-    </tc:date>
-    <tc:date id="d13" label="Full Style" value="#{dateController.now}">
+    </tc:out>
+    <tc:out id="d13" label="Full Style" value="#{dateController.now}">
       <f:convertDateTime dateStyle="full" timeStyle="full" type="both"/>
-    </tc:date>
+    </tc:out>
   </tc:section>
   <tc:section label="Min and Max">
     <p>
