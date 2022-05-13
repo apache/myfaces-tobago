@@ -929,7 +929,6 @@ tobago-range {
   }
 }
 
-.tobago-required label:after,
 label.tobago-required:after {
   content: "*";
   color: $danger;

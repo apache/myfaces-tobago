@@ -398,4 +398,149 @@ public class InRendererUnitTest extends RendererTestBase {
     Assertions.assertEquals(loadHtml("renderer/in/ajax.html"), formattedResult());
   }
 
+  @Test
+  public void requiredLabelLayoutFlexLeft() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+    c.setLabel("label");
+    c.setRequired(true);
+    c.setLabelLayout(LabelLayout.flexLeft); // same as default
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/in/required-label-flexLeft.html"), formattedResult());
+  }
+
+  @Test
+  public void requiredLabelLayoutFlexRight() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+    c.setLabel("label");
+    c.setRequired(true);
+    c.setLabelLayout(LabelLayout.flexRight);
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/in/required-label-flexRight.html"), formattedResult());
+  }
+
+  @Test
+  public void requiredLabelLayoutFlowLeft() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+    c.setLabel("label");
+    c.setRequired(true);
+    c.setLabelLayout(LabelLayout.flowLeft);
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/in/required-label-flowLeft.html"), formattedResult());
+  }
+
+  @Test
+  public void requiredLabelLayoutFlowRight() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+    c.setLabel("label");
+    c.setRequired(true);
+    c.setLabelLayout(LabelLayout.flowRight);
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/in/required-label-flowRight.html"), formattedResult());
+  }
+
+  @Test
+  public void requiredLabelLayoutTop() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+    c.setLabel("label");
+    c.setRequired(true);
+    c.setLabelLayout(LabelLayout.top);
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/in/required-label-top.html"), formattedResult());
+  }
+
+  @Test
+  public void requiredLabelLayoutGridLeft() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+    c.setLabel("label");
+    c.setRequired(true);
+    c.setLabelLayout(LabelLayout.gridLeft);
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/in/required-label-gridLeft.html"), formattedResult());
+  }
+
+  @Test
+  public void requiredLabelLayoutGridRight() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+    c.setLabel("label");
+    c.setRequired(true);
+    c.setLabelLayout(LabelLayout.gridRight);
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/in/required-label-gridRight.html"), formattedResult());
+  }
+
+  @Test
+  public void requiredLabelLayoutGridTop() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+    c.setLabel("label");
+    c.setRequired(true);
+    c.setLabelLayout(LabelLayout.gridTop);
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/in/required-label-gridTop.html"), formattedResult());
+  }
+
+  @Test
+  public void requiredLabelLayoutGridBottom() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+    c.setLabel("label");
+    c.setRequired(true);
+    c.setLabelLayout(LabelLayout.gridBottom);
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/in/required-label-gridBottom.html"), formattedResult());
+  }
+
+  @Test
+  public void requiredLabelLayoutSegmentLeft() throws IOException {
+
+    final UISegmentLayout l = (UISegmentLayout) ComponentUtils.createComponent(
+      facesContext, Tags.segmentLayout.componentType(), RendererTypes.SegmentLayout, "segid");
+    l.setMedium(SegmentMeasureList.parse("3seg 9seg"));
+
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+    c.setLabel("label");
+    c.setRequired(true);
+    c.setLabelLayout(LabelLayout.segmentLeft);
+
+    l.getChildren().add(c);
+    l.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/in/required-label-segmentLeft.html"), formattedResult());
+  }
+
+  @Test
+  public void requiredLabelLayoutSegmentRight() throws IOException {
+
+    final UISegmentLayout l = (UISegmentLayout) ComponentUtils.createComponent(
+      facesContext, Tags.segmentLayout.componentType(), RendererTypes.SegmentLayout, "segid");
+    l.setMedium(SegmentMeasureList.parse("9seg 3seg"));
+
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+    c.setLabel("label");
+    c.setRequired(true);
+    c.setLabelLayout(LabelLayout.segmentRight);
+
+    l.getChildren().add(c);
+    l.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/in/required-label-segmentRight.html"), formattedResult());
+  }
 }
