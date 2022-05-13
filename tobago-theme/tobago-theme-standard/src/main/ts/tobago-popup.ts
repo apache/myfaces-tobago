@@ -15,10 +15,6 @@
  * limitations under the License.
  */
 
-// import * as bootstrap from "bootstrap/dist/js/bootstrap.esm";
-// import "bootstrap/dist/js/bootstrap.esm";
-// import "bootstrap/dist/js/bootstrap";
-// import {Modal} from "bootstrap/dist/js/bootstrap.bundle";
 import {Modal} from "bootstrap";
 import {BehaviorMode} from "./tobago-behavior-mode";
 import {CollapseOperation} from "./tobago-collapsible-operation";
@@ -35,19 +31,18 @@ export class Popup extends HTMLElement {
     const options = {};
     this.modal = new Modal(this, options);
     if (!this.collapsed) {
-      this.show();
+      this.clientBehaviorShow();
     }
   }
 
   disconnectedCallback(): void {
-    this.hide();
+    this.clientBehaviorHide();
     // dispose seems to make trouble here: Scrolling is out or order after this call.
     // this.modal.dispose();
   }
 
-  show(behaviorMode?: BehaviorMode): void {
-    console.log("show");
-    console.log("behaviorMode", behaviorMode, BehaviorMode.client);
+  clientBehaviorShow(behaviorMode?: BehaviorMode): void { //this method must not named 'show' (TOBAGO-2148)
+    console.debug("show - behaviorMode:", behaviorMode);
     if (behaviorMode == null || behaviorMode == BehaviorMode.client) {
       this.modal.show();
     } else {
@@ -55,9 +50,8 @@ export class Popup extends HTMLElement {
     }
   }
 
-  hide(behaviorMode?: BehaviorMode): void {
-    console.log("hide");
-    console.log("behaviorMode", behaviorMode, BehaviorMode.client);
+  clientBehaviorHide(behaviorMode?: BehaviorMode): void { //this method must not named 'hide' (TOBAGO-2148)
+    console.debug("hide - behaviorMode:", behaviorMode);
     if (behaviorMode == null || behaviorMode == BehaviorMode.client) {
       this.modal.hide();
     } else {
@@ -98,13 +92,13 @@ export class Collapse {
     }
     if (newCollapsed) {
       if (target instanceof Popup) {
-        target.hide(behaviorMode);
+        target.clientBehaviorHide(behaviorMode);
       } else {
         target.classList.add("tobago-collapsed");
       }
     } else {
       if (target instanceof Popup) {
-        target.show(behaviorMode);
+        target.clientBehaviorShow(behaviorMode);
       } else {
         target.classList.remove("tobago-collapsed");
       }

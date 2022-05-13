@@ -702,6 +702,9 @@
               <exclude>**/src/main/webapp/js/jasmine*.js</exclude>
               <exclude>**/src/main/webapp/css/jasmine.css</exclude>
 
+              <!-- jQuery (tobago-example-demo) -->
+              <exclude>**/src/main/webapp/*/jquery*.*</exclude>
+
               <!-- log files -->
               <exclude>**/*.log</exclude>
               <exclude>**/test-scenarios-locally/**/*</exclude>
