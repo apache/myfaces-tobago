@@ -662,18 +662,6 @@ getJasmineRequireObj().util = function(j$) {
     return descriptor;
   };
 
-  util.objectDifference = function(obj, toRemove) {
-    var diff = {};
-
-    for (var key in obj) {
-      if (util.has(obj, key) && !util.has(toRemove, key)) {
-        diff[key] = obj[key];
-      }
-    }
-
-    return diff;
-  };
-
   util.has = function(obj, key) {
     return Object.prototype.hasOwnProperty.call(obj, key);
   };
@@ -5540,12 +5528,12 @@ getJasmineRequireObj().MatchersUtil = function(j$) {
     }
 
     // Deep compare objects.
-    var aKeys = keys(a, className == '[object Array]'),
+    var aKeys = MatchersUtil.keys(a, className == '[object Array]'),
       key;
     size = aKeys.length;
 
     // Ensure that both objects contain the same number of properties before comparing deep equality.
-    if (keys(b, className == '[object Array]').length !== size) {
+    if (MatchersUtil.keys(b, className == '[object Array]').length !== size) {
       diffBuilder.recordMismatch(
         objectKeysAreDifferentFormatter.bind(null, this.pp)
       );
@@ -5581,7 +5569,7 @@ getJasmineRequireObj().MatchersUtil = function(j$) {
     return result;
   };
 
-  function keys(obj, isArray) {
+  MatchersUtil.keys = function(obj, isArray) {
     var allKeys = (function(o) {
       var keys = [];
       for (var key in o) {
@@ -5589,8 +5577,15 @@ getJasmineRequireObj().MatchersUtil = function(j$) {
           keys.push(key);
         }
       }
-      // eslint-disable-next-line compat/compat
-      return keys.concat(Object.getOwnPropertySymbols(o));
+
+      var symbols = Object.getOwnPropertySymbols(o);
+      for (var i = 0; i < symbols.length; i++) {
+        if (o.propertyIsEnumerable(symbols[i])) {
+          keys.push(symbols[i]);
+        }
+      }
+
+      return keys;
     })(obj);
 
     if (!isArray) {
@@ -5603,21 +5598,29 @@ getJasmineRequireObj().MatchersUtil = function(j$) {
 
     var extraKeys = [];
     for (var i = 0; i < allKeys.length; i++) {
-      if (!/^[0-9]+$/.test(allKeys[i])) {
+      if (typeof allKeys[i] === 'symbol' || !/^[0-9]+$/.test(allKeys[i])) {
         extraKeys.push(allKeys[i]);
       }
     }
 
     return extraKeys;
-  }
+  };
 
   function isFunction(obj) {
     return typeof obj === 'function';
   }
 
+  // Returns an array of [k, v] pairs for eacch property that's in objA
+  // and not in objB.
+  function extraKeysAndValues(objA, objB) {
+    return MatchersUtil.keys(objA)
+      .filter(key => !j$.util.has(objB, key))
+      .map(key => [key, objA[key]]);
+  }
+
   function objectKeysAreDifferentFormatter(pp, actual, expected, path) {
-    var missingProperties = j$.util.objectDifference(expected, actual),
-      extraProperties = j$.util.objectDifference(actual, expected),
+    var missingProperties = extraKeysAndValues(expected, actual),
+      extraProperties = extraKeysAndValues(actual, expected),
       missingPropertiesMessage = formatKeyValuePairs(pp, missingProperties),
       extraPropertiesMessage = formatKeyValuePairs(pp, extraProperties),
       messages = [];
@@ -5667,11 +5670,13 @@ getJasmineRequireObj().MatchersUtil = function(j$) {
     );
   }
 
-  function formatKeyValuePairs(pp, obj) {
-    var formatted = '';
-    for (var key in obj) {
-      formatted += '\n    ' + key + ': ' + pp(obj[key]);
+  function formatKeyValuePairs(pp, keyValuePairs) {
+    let formatted = '';
+
+    for (const [key, value] of keyValuePairs) {
+      formatted += '\n    ' + key.toString() + ': ' + pp(value);
     }
+
     return formatted;
   }
 
@@ -5849,8 +5854,8 @@ getJasmineRequireObj().ObjectPath = function(j$) {
   };
 
   function formatPropertyAccess(prop) {
-    if (typeof prop === 'number') {
-      return '[' + prop + ']';
+    if (typeof prop === 'number' || typeof prop === 'symbol') {
+      return '[' + prop.toString() + ']';
     }
 
     if (isValidIdentifier(prop)) {
@@ -7643,7 +7648,7 @@ getJasmineRequireObj().makePrettyPrinter = function(j$) {
   };
 
   SinglePrettyPrintRun.prototype.iterateObject = function(obj, fn) {
-    var objKeys = keys(obj, j$.isArray_(obj));
+    var objKeys = j$.MatchersUtil.keys(obj, j$.isArray_(obj));
     var isGetter = function isGetter(prop) {};
 
     if (obj.__lookupGetter__) {
@@ -7838,8 +7843,14 @@ getJasmineRequireObj().makePrettyPrinter = function(j$) {
     property,
     isGetter
   ) {
-    this.append(property);
+    if (typeof property === 'symbol') {
+      this.append(property.toString());
+    } else {
+      this.append(property);
+    }
+
     this.append(': ');
+
     if (isGetter) {
       this.append('<getter>');
     } else {
@@ -7880,37 +7891,6 @@ getJasmineRequireObj().makePrettyPrinter = function(j$) {
   }
 
   MaxCharsReachedError.prototype = new Error();
-
-  function keys(obj, isArray) {
-    var allKeys = Object.keys
-      ? Object.keys(obj)
-      : (function(o) {
-          var keys = [];
-          for (var key in o) {
-            if (j$.util.has(o, key)) {
-              keys.push(key);
-            }
-          }
-          return keys;
-        })(obj);
-
-    if (!isArray) {
-      return allKeys;
-    }
-
-    if (allKeys.length === 0) {
-      return allKeys;
-    }
-
-    var extraKeys = [];
-    for (var i = 0; i < allKeys.length; i++) {
-      if (!/^[0-9]+$/.test(allKeys[i])) {
-        extraKeys.push(allKeys[i]);
-      }
-    }
-
-    return extraKeys;
-  }
 
   function customFormat(value, customObjectFormatters) {
     var i, result;
@@ -10288,5 +10268,5 @@ getJasmineRequireObj().UserContext = function(j$) {
 };
 
 getJasmineRequireObj().version = function() {
-  return '4.1.0';
+  return '4.1.1';
 };

@@ -12098,7 +12098,6 @@ tobago-range .tobago-tooltip {
   border-radius: 0.25rem;
 }
 
-.tobago-required label:after,
 label.tobago-required:after {
   content: "*";
   color: #ffb243;
