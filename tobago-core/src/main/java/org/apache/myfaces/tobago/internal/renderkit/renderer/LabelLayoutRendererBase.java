@@ -237,7 +237,9 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
         writer.writeIdAttribute(labelId);
       }
       writer.writeAttribute(HtmlAttributes.FOR, getFieldId(facesContext, component), false);
-      writer.writeClassAttribute(BootstrapClass.COL_FORM_LABEL);
+      writer.writeClassAttribute(
+        ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,
+        BootstrapClass.COL_FORM_LABEL);
       if (component instanceof SupportsAccessKey) {
         final LabelWithAccessKey labelWithAccessKey = new LabelWithAccessKey((SupportsAccessKey) component);
         HtmlRendererUtils.writeLabelWithAccessKey(writer, labelWithAccessKey);
