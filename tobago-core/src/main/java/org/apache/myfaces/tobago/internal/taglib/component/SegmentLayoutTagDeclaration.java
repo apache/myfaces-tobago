@@ -101,6 +101,15 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
   void setExtraLarge(String extraLarge);
 
   /**
+   * The space separated definition of the columns for extra extra large devices.
+   * Possible values are: [1-12]seg, 'auto' and &lt;n&gt;fr. Where &lt;n&gt; is a positive integer.
+   * Example: '1seg 5seg 1fr auto'
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
+  void setExtraExtraLarge(String extraLarge);
+
+  /**
    * The space separated definition of the column margins for extra small devices.
    * Allowed values are: none, left, right, both
    * Example: 'left none both'
@@ -144,6 +153,15 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
   @TagAttribute
   @UIComponentTagAttribute
   void setMarginExtraLarge(String marginExtraLarge);
+
+  /**
+   * The space separated definition of the column margins for extra extra large devices.
+   * Allowed values are: none, left, right, both
+   * Example: 'left none both'
+   */
+  @TagAttribute
+  @UIComponentTagAttribute
+  void setMarginExtraExtraLarge(String marginExtraExtraLarge);
 
   /**
    * The horizontal alignment of the elements inside of the grid, possible values are:

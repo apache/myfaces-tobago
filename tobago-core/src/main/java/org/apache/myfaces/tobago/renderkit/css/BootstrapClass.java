@@ -213,6 +213,20 @@ public enum BootstrapClass implements CssItem {
   COL_XL_11("col-xl-11"),
   COL_XL_12("col-xl-12"),
   COL_XL_AUTO("col-xl-auto"),
+  COL_XXL("col-xxl"),
+  COL_XXL_1("col-xxl-1"),
+  COL_XXL_2("col-xxl-2"),
+  COL_XXL_3("col-xxl-3"),
+  COL_XXL_4("col-xxl-4"),
+  COL_XXL_5("col-xxl-5"),
+  COL_XXL_6("col-xxl-6"),
+  COL_XXL_7("col-xxl-7"),
+  COL_XXL_8("col-xxl-8"),
+  COL_XXL_9("col-xxl-9"),
+  COL_XXL_10("col-xxl-10"),
+  COL_XXL_11("col-xxl-11"),
+  COL_XXL_12("col-xxl-12"),
+  COL_XXL_AUTO("col-xxl-auto"),
   COL("col"),
   COL_1("col-1"),
   COL_2("col-2"),
@@ -527,6 +541,18 @@ public enum BootstrapClass implements CssItem {
   OFFSET_XL_9("offset-xl-9"),
   OFFSET_XL_10("offset-xl-10"),
   OFFSET_XL_11("offset-xl-11"),
+  OFFSET_XXL_0("offset-xxl-0"),
+  OFFSET_XXL_1("offset-xxl-1"),
+  OFFSET_XXL_2("offset-xxl-2"),
+  OFFSET_XXL_3("offset-xxl-3"),
+  OFFSET_XXL_4("offset-xxl-4"),
+  OFFSET_XXL_5("offset-xxl-5"),
+  OFFSET_XXL_6("offset-xxl-6"),
+  OFFSET_XXL_7("offset-xxl-7"),
+  OFFSET_XXL_8("offset-xxl-8"),
+  OFFSET_XXL_9("offset-xxl-9"),
+  OFFSET_XXL_10("offset-xxl-10"),
+  OFFSET_XXL_11("offset-xxl-11"),
   PAGE_ITEM("page-item"),
   PAGE_LINK("page-link"),
   PAGINATION("pagination"),
@@ -768,39 +794,45 @@ public enum BootstrapClass implements CssItem {
         OFFSET_XL_0, OFFSET_XL_1, OFFSET_XL_2, OFFSET_XL_3, OFFSET_XL_4, OFFSET_XL_5,
         OFFSET_XL_6, OFFSET_XL_7, OFFSET_XL_8, OFFSET_XL_9, OFFSET_XL_10, OFFSET_XL_11
     };
+    private static final BootstrapClass[] OFFSET_EXTRA_EXTRA_LARGE = new BootstrapClass[]{
+      OFFSET_XXL_0, OFFSET_XXL_1, OFFSET_XXL_2, OFFSET_XXL_3, OFFSET_XXL_4, OFFSET_XXL_5,
+      OFFSET_XXL_6, OFFSET_XXL_7, OFFSET_XXL_8, OFFSET_XXL_9, OFFSET_XXL_10, OFFSET_XXL_11
+    };
 
     private final MeasureList extraSmall;
     private final MeasureList small;
     private final MeasureList medium;
     private final MeasureList large;
     private final MeasureList extraLarge;
+    private final MeasureList extraExtraLarge;
     private final MarginTokens marginExtraSmall;
     private final MarginTokens marginSmall;
     private final MarginTokens marginMedium;
     private final MarginTokens marginLarge;
     private final MarginTokens marginExtraLarge;
+    private final MarginTokens marginExtraExtraLarge;
 
     private int index = 0;
 
-    public Generator(
-        final MeasureList extraSmall, final MeasureList small, final MeasureList medium,
-        final MeasureList large, final MeasureList extraLarge,
-        final MarginTokens marginExtraSmall, final MarginTokens marginSmall, final MarginTokens marginMedium,
-        final MarginTokens marginLarge, final MarginTokens marginExtraLarge) {
-      if (extraSmall == null && small == null && medium == null && large == null && extraLarge == null) {
-        this.extraSmall = MeasureList.parse("*"); // TBD: is this needed? if yes, use Measure.FRACTION1
-      } else {
-        this.extraSmall = extraSmall;
-      }
-      this.small = small;
-      this.medium = medium;
-      this.large = large;
-      this.extraLarge = extraLarge;
-      this.marginExtraSmall = marginExtraSmall;
-      this.marginSmall = marginSmall;
-      this.marginMedium = marginMedium;
-      this.marginLarge = marginLarge;
-      this.marginExtraLarge = marginExtraLarge;
+    /**
+     * Generator to set segment layout CSS classes.
+     *
+     * @param measureLists from extraSmall to extraExtraLarge
+     * @param marginTokens from extraSmall to extraExtraLarge
+     */
+    public Generator(final MeasureList[] measureLists, final MarginTokens[] marginTokens) {
+      this.extraSmall = measureLists[0];
+      this.small = measureLists[1];
+      this.medium = measureLists[2];
+      this.large = measureLists[3];
+      this.extraLarge = measureLists[4];
+      this.extraExtraLarge = measureLists[5];
+      this.marginExtraSmall = marginTokens[0];
+      this.marginSmall = marginTokens[1];
+      this.marginMedium = marginTokens[2];
+      this.marginLarge = marginTokens[3];
+      this.marginExtraLarge = marginTokens[4];
+      this.marginExtraExtraLarge = marginTokens[5];
     }
 
     public void reset() {
@@ -819,18 +851,21 @@ public enum BootstrapClass implements CssItem {
       generate(result, medium, attributes, Attributes.overwriteMedium);
       generate(result, large, attributes, Attributes.overwriteLarge);
       generate(result, extraLarge, attributes, Attributes.overwriteExtraLarge);
+      generate(result, extraExtraLarge, attributes, Attributes.overwriteExtraExtraLarge);
 
       generate(result, marginExtraSmall, attributes, Attributes.overwriteMarginExtraSmall);
       generate(result, marginSmall, attributes, Attributes.overwriteMarginSmall);
       generate(result, marginMedium, attributes, Attributes.overwriteMarginMedium);
       generate(result, marginLarge, attributes, Attributes.overwriteMarginLarge);
       generate(result, marginExtraLarge, attributes, Attributes.overwriteMarginExtraLarge);
+      generate(result, marginExtraExtraLarge, attributes, Attributes.overwriteMarginExtraExtraLarge);
 
       generateOffset(result, attributes.get(Attributes.offsetExtraSmall.name()), OFFSET_EXTRA_SMALL);
       generateOffset(result, attributes.get(Attributes.offsetSmall.name()), OFFSET_SMALL);
       generateOffset(result, attributes.get(Attributes.offsetMedium.name()), OFFSET_MEDIUM);
       generateOffset(result, attributes.get(Attributes.offsetLarge.name()), OFFSET_LARGE);
       generateOffset(result, attributes.get(Attributes.offsetExtraLarge.name()), OFFSET_EXTRA_LARGE);
+      generateOffset(result, attributes.get(Attributes.offsetExtraExtraLarge.name()), OFFSET_EXTRA_EXTRA_LARGE);
       return result.toArray(new BootstrapClass[0]);
     }
 
@@ -924,6 +959,11 @@ public enum BootstrapClass implements CssItem {
 
   private static String getSizeSuffix(final Attributes attribute) {
     switch (attribute) {
+      case extraExtraLarge:
+      case marginExtraExtraLarge:
+      case overwriteExtraExtraLarge:
+      case overwriteMarginExtraExtraLarge:
+        return "_XXL";
       case extraLarge:
       case marginExtraLarge:
       case overwriteExtraLarge:

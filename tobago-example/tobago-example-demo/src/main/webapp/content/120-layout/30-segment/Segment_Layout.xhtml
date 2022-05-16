@@ -24,7 +24,8 @@
 
   <p>The segment layout is a grid with 12 columns.
     The number and the proportion of the columns can be set with the attributes
-    <code>extraSmall</code>, <code>small</code>, <code>medium</code>, <code>large</code> and <code>extraLarge</code>.
+    <code>extraSmall</code>, <code>small</code>, <code>medium</code>, <code>large</code>, <code>extraLarge</code>
+    and <code>extraExtraLarge</code>.
     The value is a space separated list. Allowed are '1seg' to '12seg', 'auto' and '1fr'.</p>
   <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
            link="#{apiController.tldBase}/#{apiController.currentRelease}/tld/tc/segmentLayout.html"/>
@@ -79,18 +80,19 @@
   </tc:section>
 
   <tc:section label="Screen Size">
-    <p>For the different kinds of screen sizes, the segment layout has five attributes:
-      <code>extraSmall</code>, <code>small</code>, <code>medium</code>, <code>large</code> and <code>extraLarge</code>.
-      The first three should be used for desktops. The last two should be used for tablets and phones.
-      Notice, that only the browser size matters. So a small browser window on a big screen also reacts with
-      <code>small</code> and <code>extraSmall</code>.</p>
+    <p>For the different kinds of screen sizes, the segment layout has the attributes:
+      <code>extraSmall</code>, <code>small</code>, <code>medium</code>, <code>large</code>, <code>extraLarge</code>
+      and <code>extraExtraLarge</code>.</p>
     <p>In the following example, all attributes are used. If you are on a desktop you can see the different
       behavior by changing the size of the browser window.</p>
-    <demo-highlight language="markup">&lt;tc:segmentLayout extraLarge="1seg" large="2seg"
-      medium="3seg" small="4seg" extraSmall="6seg">
-    ...</demo-highlight>
+    <demo-highlight
+      language="markup">&lt;tc:segmentLayout extraExtraLarge="1seg" extraLarge="2seg"
+      large="3seg" medium="4seg" small="5seg" extraSmall="6seg">
+      ...
+    </demo-highlight>
 
-    <tc:segmentLayout extraLarge="1seg" large="2seg" medium="3seg" small="4seg" extraSmall="6seg">
+    <tc:segmentLayout extraExtraLarge="1seg" extraLarge="2seg" large="3seg" medium="4seg" small="5seg"
+                      extraSmall="6seg">
       <tc:in value="1"/>
       <tc:in value="2"/>
       <tc:in value="3"/>
@@ -108,13 +110,14 @@
 
   <tc:section id="marginConcept" label="Margin">
     <p>A margin can be set for the different proportions with the attributes
-      <code>marginExtraSmall</code>, <code>marginSmall</code>, <code>marginMedium</code>, <code>marginLarge</code> and
-      <code>marginExtraLarge</code>.</p>
+      <code>marginExtraSmall</code>, <code>marginSmall</code>, <code>marginMedium</code>, <code>marginLarge</code>,
+      <code>marginExtraLarge</code> and <code>marginExtraExtraLarge</code>.</p>
     <p>Possible values are <code>none</code>, <code>left</code>, <code>right</code> and <code>both</code>.</p>
 
     <demo-highlight language="markup">&lt;tc:segmentLayout extraSmall="5seg 3seg"
       marginExtraSmall="none both left both">
-    ...</demo-highlight>
+      ...
+    </demo-highlight>
     <tc:segmentLayout extraSmall="5seg 3seg" marginExtraSmall="none both left both">
       <tc:in value="none"/>
       <tc:in value="both"/>
@@ -128,19 +131,20 @@
   <tc:section label="Offset">
     <p>An offset can be set for the different proportions with the
       <code class="language-markup">&lt;tc:segmentLayoutConstraint/></code> tag which can have the attributes
-      <code>offsetExtraSmall</code>, <code>offsetSmall</code>,<code>offsetMedium</code>, <code>offsetLarge</code> and
-      <code>offsetExtraLarge</code>.</p>
+      <code>offsetExtraSmall</code>, <code>offsetSmall</code>,<code>offsetMedium</code>, <code>offsetLarge</code>,
+      <code>offsetExtraLarge</code> and <code>offsetExtraExtraLarge</code>.</p>
     <p>Possible values are from 1 to 11 for <code>offsetExtraSmall</code>.<br/>
       For the other attributes possible values are from 0 to 11.<br/>
       A <code>offsetMedium="0"</code> overwrite the offset from smaller proportions.</p>
     <demo-highlight language="markup">&lt;tc:segmentLayout extraSmall="2seg 2seg 2seg 2seg 2seg 2seg">
-  &lt;tc:in value="1"/>
-  &lt;tc:in value="2">
-    &lt;tc:segmentLayoutConstraint offsetExtraSmall="1" offsetSmall="2"
+      &lt;tc:in value="1"/>
+      &lt;tc:in value="2">
+      &lt;tc:segmentLayoutConstraint offsetExtraSmall="1" offsetSmall="2"
       offsetMedium="3" offsetLarge="4" offsetExtraLarge="5"/>
-  &lt;/tc:in>
-  ...
-&lt;/tc:segmentLayout></demo-highlight>
+      &lt;/tc:in>
+      ...
+      &lt;/tc:segmentLayout>
+    </demo-highlight>
     <tc:segmentLayout extraSmall="2seg 2seg 2seg 2seg 2seg 2seg">
       <tc:in value="1"/>
       <tc:in value="2">
@@ -163,18 +167,19 @@
   <tc:section label="Overwrite default layout">
     <p>The default layout and margins can be overwritten by the
       <code class="language-markup">&lt;tc:segmentLayoutConstraint/></code> tag.
-      Possible attributes are <code>extraSmall</code>, <code>small</code>, <code>medium</code>, <code>large</code> and
-      <code>extraLarge</code> for the layout.<br/>
+      Possible attributes are <code>extraSmall</code>, <code>small</code>, <code>medium</code>, <code>large</code>,
+      <code>extraLarge</code> and <code>extraExtraLarge</code> for the layout.<br/>
       And: <code>marginExtraSmall</code>, <code>marginSmall</code>, <code>marginMedium</code>, <code>marginLarge</code>,
-      <code>marginExtraLarge</code> for the margins.</p>
+      <code>marginExtraLarge</code> and <code>marginExtraExtraLarge</code> for the margins.</p>
     <demo-highlight language="markup">&lt;tc:segmentLayout extraSmall="4seg 8seg">
-  &lt;tc:in value="4"/>
-  &lt;tc:in value="8"/>
-  &lt;tc:in value="3 - both">
-    &lt;tc:segmentLayoutConstraint extraSmall="3seg" marginExtraSmall="both"/>
-  &lt;/tc:in>
-  &lt;tc:in value="8"/>
-&lt;/tc:segmentLayout></demo-highlight>
+      &lt;tc:in value="4"/>
+      &lt;tc:in value="8"/>
+      &lt;tc:in value="3 - both">
+      &lt;tc:segmentLayoutConstraint extraSmall="3seg" marginExtraSmall="both"/>
+      &lt;/tc:in>
+      &lt;tc:in value="8"/>
+      &lt;/tc:segmentLayout>
+    </demo-highlight>
     <tc:segmentLayout extraSmall="4seg 8seg">
       <tc:in value="4"/>
       <tc:in value="8"/>
@@ -186,37 +191,39 @@
   </tc:section>
 
   <tc:section label="Justify">
-    <p>The horizontal alignment can be set with <code>justify</code>. Possible attributes are none, start, center, end, around and between.
-    The default value is none.</p>
+    <p>The horizontal alignment can be set with
+      <code>justify</code>. Possible attributes are none, start, center, end, around and between.
+      The default value is none.</p>
     <demo-highlight language="markup">&lt;tc:segmentLayout extraSmall="4seg 4seg" justify="none">
-  &lt;tc:in value="A"/>
-  &lt;tc:in value="B"/>
-&lt;/tc:segmentLayout>
+      &lt;tc:in value="A"/>
+      &lt;tc:in value="B"/>
+      &lt;/tc:segmentLayout>
 
-&lt;tc:segmentLayout extraSmall="4seg 4seg" justify="start">
-  &lt;tc:in value="A"/>
-  &lt;tc:in value="B"/>
-&lt;/tc:segmentLayout>
+      &lt;tc:segmentLayout extraSmall="4seg 4seg" justify="start">
+      &lt;tc:in value="A"/>
+      &lt;tc:in value="B"/>
+      &lt;/tc:segmentLayout>
 
-&lt;tc:segmentLayout extraSmall="4seg 4seg" justify="center">
-  &lt;tc:in value="A"/>
-  &lt;tc:in value="B"/>
-&lt;/tc:segmentLayout>
+      &lt;tc:segmentLayout extraSmall="4seg 4seg" justify="center">
+      &lt;tc:in value="A"/>
+      &lt;tc:in value="B"/>
+      &lt;/tc:segmentLayout>
 
-&lt;tc:segmentLayout extraSmall="4seg 4seg" justify="end">
-  &lt;tc:in value="A"/>
-  &lt;tc:in value="B"/>
-&lt;/tc:segmentLayout>
+      &lt;tc:segmentLayout extraSmall="4seg 4seg" justify="end">
+      &lt;tc:in value="A"/>
+      &lt;tc:in value="B"/>
+      &lt;/tc:segmentLayout>
 
-&lt;tc:segmentLayout extraSmall="4seg 4seg" justify="around">
-  &lt;tc:in value="A"/>
-  &lt;tc:in value="B"/>
-&lt;/tc:segmentLayout>
+      &lt;tc:segmentLayout extraSmall="4seg 4seg" justify="around">
+      &lt;tc:in value="A"/>
+      &lt;tc:in value="B"/>
+      &lt;/tc:segmentLayout>
 
-&lt;tc:segmentLayout extraSmall="4seg 4seg" justify="between">
-  &lt;tc:in value="A"/>
-  &lt;tc:in value="B"/>
-&lt;/tc:segmentLayout></demo-highlight>
+      &lt;tc:segmentLayout extraSmall="4seg 4seg" justify="between">
+      &lt;tc:in value="A"/>
+      &lt;tc:in value="B"/>
+      &lt;/tc:segmentLayout>
+    </demo-highlight>
     <tc:segmentLayout extraSmall="4seg 4seg" justify="none">
       <tc:in value="A"/>
       <tc:in value="B"/>
