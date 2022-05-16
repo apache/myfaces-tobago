@@ -100,6 +100,7 @@ public enum Attributes {
   expanded,
   execute,
   event,
+  extraExtraLarge,
   extraLarge,
   extraSmall,
   fieldId,
@@ -165,6 +166,10 @@ public enum Attributes {
   /**
    * Used by a layout manager
    */
+  marginExtraExtraLarge,
+  /**
+   * Used by a layout manager
+   */
   marginExtraLarge,
   /**
    * Used by a layout manager
@@ -224,6 +229,10 @@ public enum Attributes {
   /**
    * Used by a layout manager
    */
+  offsetExtraExtraLarge,
+  /**
+   * Used by a layout manager
+   */
   offsetExtraSmall,
   /**
    * Used by a layout manager
@@ -244,6 +253,10 @@ public enum Attributes {
   /**
    * Used by a layout manager
    */
+  overwriteExtraExtraLarge,
+  /**
+   * Used by a layout manager
+   */
   overwriteExtraLarge,
   /**
    * Used by a layout manager
@@ -253,6 +266,10 @@ public enum Attributes {
    * Used by a layout manager
    */
   overwriteLarge,
+  /**
+   * Used by a layout manager
+   */
+  overwriteMarginExtraExtraLarge,
   /**
    * Used by a layout manager
    */
