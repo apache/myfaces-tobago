@@ -50,8 +50,12 @@ public abstract class AbstractUISegmentLayout extends AbstractUILayoutBase {
       builder.append("\n        large=");
       builder.append(getLarge());
     }
-    if (getLarge() != null) {
+    if (getExtraLarge() != null) {
       builder.append("\n        extraLarge=");
+      builder.append(getExtraLarge());
+    }
+    if (getExtraExtraLarge() != null) {
+      builder.append("\n        extraExtraLarge=");
       builder.append(getExtraLarge());
     }
     return builder.toString();
@@ -67,6 +71,8 @@ public abstract class AbstractUISegmentLayout extends AbstractUILayoutBase {
 
   public abstract MeasureList getExtraLarge();
 
+  public abstract MeasureList getExtraExtraLarge();
+
   public abstract String getMarginExtraSmall();
 
   public abstract String getMarginSmall();
@@ -76,6 +82,8 @@ public abstract class AbstractUISegmentLayout extends AbstractUILayoutBase {
   public abstract String getMarginLarge();
 
   public abstract String getMarginExtraLarge();
+
+  public abstract String getMarginExtraExtraLarge();
 
   public abstract SegmentJustify getJustify();
 }
