@@ -23,8 +23,6 @@ import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
-import org.apache.myfaces.tobago.layout.MarginTokens;
-import org.apache.myfaces.tobago.layout.MeasureList;
 import org.apache.myfaces.tobago.layout.SegmentJustify;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -74,22 +72,7 @@ public class SegmentLayoutRenderer<T extends AbstractUISegmentLayout> extends Re
     }
 
     final List<UIComponent> children = ComponentUtils.findLayoutChildren(component);
-    MeasureList[] measureLists = {
-      component.getExtraSmall(),
-      component.getSmall(),
-      component.getMedium(),
-      component.getLarge(),
-      component.getExtraLarge(),
-      component.getExtraExtraLarge()};
-    MarginTokens[] marginTokens = {
-      MarginTokens.parse(component.getMarginExtraSmall()),
-      MarginTokens.parse(component.getMarginSmall()),
-      MarginTokens.parse(component.getMarginMedium()),
-      MarginTokens.parse(component.getMarginLarge()),
-      MarginTokens.parse(component.getMarginExtraLarge()),
-      MarginTokens.parse(component.getMarginExtraExtraLarge())
-    };
-    final BootstrapClass.Generator generator = new BootstrapClass.Generator(measureLists, marginTokens);
+    final BootstrapClass.Generator generator = new BootstrapClass.Generator(component);
     for (final UIComponent child : children) {
       if (child.isRendered()) {
         encodeChild(facesContext, writer, generator, child);

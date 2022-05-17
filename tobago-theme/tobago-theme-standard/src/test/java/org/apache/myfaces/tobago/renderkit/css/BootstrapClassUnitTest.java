@@ -102,8 +102,8 @@ public class BootstrapClassUnitTest {
     Assertions.assertEquals(BootstrapClass.COL_XL_AUTO,
         BootstrapClass.valueOf(Measure.valueOf("auto"), Attributes.extraLarge));
     Assertions.assertEquals(BootstrapClass.COL_XXL_5,
-      BootstrapClass.valueOf(new Measure("5", Measure.Unit.SEG), Attributes.extraExtraLarge));
+      BootstrapClass.valueOf(new Measure("5", Measure.Unit.SEG), Attributes.extra2Large));
     Assertions.assertEquals(BootstrapClass.COL_XXL_AUTO,
-      BootstrapClass.valueOf(Measure.valueOf("auto"), Attributes.extraExtraLarge));
+      BootstrapClass.valueOf(Measure.valueOf("auto"), Attributes.extra2Large));
   }
 }
