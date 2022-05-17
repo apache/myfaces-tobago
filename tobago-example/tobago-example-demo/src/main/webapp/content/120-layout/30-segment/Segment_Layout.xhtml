@@ -25,7 +25,7 @@
   <p>The segment layout is a grid with 12 columns.
     The number and the proportion of the columns can be set with the attributes
     <code>extraSmall</code>, <code>small</code>, <code>medium</code>, <code>large</code>, <code>extraLarge</code>
-    and <code>extraExtraLarge</code>.
+    and <code>extra2Large</code>.
     The value is a space separated list. Allowed are '1seg' to '12seg', 'auto' and '1fr'.</p>
   <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
            link="#{apiController.tldBase}/#{apiController.currentRelease}/tld/tc/segmentLayout.html"/>
@@ -82,16 +82,16 @@
   <tc:section label="Screen Size">
     <p>For the different kinds of screen sizes, the segment layout has the attributes:
       <code>extraSmall</code>, <code>small</code>, <code>medium</code>, <code>large</code>, <code>extraLarge</code>
-      and <code>extraExtraLarge</code>.</p>
+      and <code>extra2Large</code>.</p>
     <p>In the following example, all attributes are used. If you are on a desktop you can see the different
       behavior by changing the size of the browser window.</p>
     <demo-highlight
-      language="markup">&lt;tc:segmentLayout extraExtraLarge="1seg" extraLarge="2seg"
+      language="markup">&lt;tc:segmentLayout extra2Large="1seg" extraLarge="2seg"
       large="3seg" medium="4seg" small="5seg" extraSmall="6seg">
       ...
     </demo-highlight>
 
-    <tc:segmentLayout extraExtraLarge="1seg" extraLarge="2seg" large="3seg" medium="4seg" small="5seg"
+    <tc:segmentLayout extra2Large="1seg" extraLarge="2seg" large="3seg" medium="4seg" small="5seg"
                       extraSmall="6seg">
       <tc:in value="1"/>
       <tc:in value="2"/>
@@ -111,7 +111,7 @@
   <tc:section id="marginConcept" label="Margin">
     <p>A margin can be set for the different proportions with the attributes
       <code>marginExtraSmall</code>, <code>marginSmall</code>, <code>marginMedium</code>, <code>marginLarge</code>,
-      <code>marginExtraLarge</code> and <code>marginExtraExtraLarge</code>.</p>
+      <code>marginExtraLarge</code> and <code>marginExtra2Large</code>.</p>
     <p>Possible values are <code>none</code>, <code>left</code>, <code>right</code> and <code>both</code>.</p>
 
     <demo-highlight language="markup">&lt;tc:segmentLayout extraSmall="5seg 3seg"
@@ -132,7 +132,7 @@
     <p>An offset can be set for the different proportions with the
       <code class="language-markup">&lt;tc:segmentLayoutConstraint/></code> tag which can have the attributes
       <code>offsetExtraSmall</code>, <code>offsetSmall</code>,<code>offsetMedium</code>, <code>offsetLarge</code>,
-      <code>offsetExtraLarge</code> and <code>offsetExtraExtraLarge</code>.</p>
+      <code>offsetExtraLarge</code> and <code>offsetExtra2Large</code>.</p>
     <p>Possible values are from 1 to 11 for <code>offsetExtraSmall</code>.<br/>
       For the other attributes possible values are from 0 to 11.<br/>
       A <code>offsetMedium="0"</code> overwrite the offset from smaller proportions.</p>
@@ -168,9 +168,9 @@
     <p>The default layout and margins can be overwritten by the
       <code class="language-markup">&lt;tc:segmentLayoutConstraint/></code> tag.
       Possible attributes are <code>extraSmall</code>, <code>small</code>, <code>medium</code>, <code>large</code>,
-      <code>extraLarge</code> and <code>extraExtraLarge</code> for the layout.<br/>
+      <code>extraLarge</code> and <code>extra2Large</code> for the layout.<br/>
       And: <code>marginExtraSmall</code>, <code>marginSmall</code>, <code>marginMedium</code>, <code>marginLarge</code>,
-      <code>marginExtraLarge</code> and <code>marginExtraExtraLarge</code> for the margins.</p>
+      <code>marginExtraLarge</code> and <code>marginExtra2Large</code> for the margins.</p>
     <demo-highlight language="markup">&lt;tc:segmentLayout extraSmall="4seg 8seg">
       &lt;tc:in value="4"/>
       &lt;tc:in value="8"/>

@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.css;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.SupportsSegmentLayout;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.layout.AlignItems;
 import org.apache.myfaces.tobago.layout.JustifyContent;
@@ -804,35 +805,29 @@ public enum BootstrapClass implements CssItem {
     private final MeasureList medium;
     private final MeasureList large;
     private final MeasureList extraLarge;
-    private final MeasureList extraExtraLarge;
+    private final MeasureList extra2Large;
     private final MarginTokens marginExtraSmall;
     private final MarginTokens marginSmall;
     private final MarginTokens marginMedium;
     private final MarginTokens marginLarge;
     private final MarginTokens marginExtraLarge;
-    private final MarginTokens marginExtraExtraLarge;
+    private final MarginTokens marginExtra2Large;
 
     private int index = 0;
 
-    /**
-     * Generator to set segment layout CSS classes.
-     *
-     * @param measureLists from extraSmall to extraExtraLarge
-     * @param marginTokens from extraSmall to extraExtraLarge
-     */
-    public Generator(final MeasureList[] measureLists, final MarginTokens[] marginTokens) {
-      this.extraSmall = measureLists[0];
-      this.small = measureLists[1];
-      this.medium = measureLists[2];
-      this.large = measureLists[3];
-      this.extraLarge = measureLists[4];
-      this.extraExtraLarge = measureLists[5];
-      this.marginExtraSmall = marginTokens[0];
-      this.marginSmall = marginTokens[1];
-      this.marginMedium = marginTokens[2];
-      this.marginLarge = marginTokens[3];
-      this.marginExtraLarge = marginTokens[4];
-      this.marginExtraExtraLarge = marginTokens[5];
+    public Generator(final SupportsSegmentLayout component) {
+      this.extraSmall = component.getExtraSmall();
+      this.small = component.getSmall();
+      this.medium = component.getMedium();
+      this.large = component.getLarge();
+      this.extraLarge = component.getExtraLarge();
+      this.extra2Large = component.getExtra2Large();
+      this.marginExtraSmall = MarginTokens.parse(component.getMarginExtraSmall());
+      this.marginSmall = MarginTokens.parse(component.getMarginSmall());
+      this.marginMedium = MarginTokens.parse(component.getMarginMedium());
+      this.marginLarge = MarginTokens.parse(component.getMarginLarge());
+      this.marginExtraLarge = MarginTokens.parse(component.getMarginExtraLarge());
+      this.marginExtra2Large = MarginTokens.parse(component.getMarginExtra2Large());
     }
 
     public void reset() {
@@ -851,21 +846,21 @@ public enum BootstrapClass implements CssItem {
       generate(result, medium, attributes, Attributes.overwriteMedium);
       generate(result, large, attributes, Attributes.overwriteLarge);
       generate(result, extraLarge, attributes, Attributes.overwriteExtraLarge);
-      generate(result, extraExtraLarge, attributes, Attributes.overwriteExtraExtraLarge);
+      generate(result, extra2Large, attributes, Attributes.overwriteExtra2Large);
 
       generate(result, marginExtraSmall, attributes, Attributes.overwriteMarginExtraSmall);
       generate(result, marginSmall, attributes, Attributes.overwriteMarginSmall);
       generate(result, marginMedium, attributes, Attributes.overwriteMarginMedium);
       generate(result, marginLarge, attributes, Attributes.overwriteMarginLarge);
       generate(result, marginExtraLarge, attributes, Attributes.overwriteMarginExtraLarge);
-      generate(result, marginExtraExtraLarge, attributes, Attributes.overwriteMarginExtraExtraLarge);
+      generate(result, marginExtra2Large, attributes, Attributes.overwriteMarginExtra2Large);
 
       generateOffset(result, attributes.get(Attributes.offsetExtraSmall.name()), OFFSET_EXTRA_SMALL);
       generateOffset(result, attributes.get(Attributes.offsetSmall.name()), OFFSET_SMALL);
       generateOffset(result, attributes.get(Attributes.offsetMedium.name()), OFFSET_MEDIUM);
       generateOffset(result, attributes.get(Attributes.offsetLarge.name()), OFFSET_LARGE);
       generateOffset(result, attributes.get(Attributes.offsetExtraLarge.name()), OFFSET_EXTRA_LARGE);
-      generateOffset(result, attributes.get(Attributes.offsetExtraExtraLarge.name()), OFFSET_EXTRA_EXTRA_LARGE);
+      generateOffset(result, attributes.get(Attributes.offsetExtra2Large.name()), OFFSET_EXTRA_EXTRA_LARGE);
       return result.toArray(new BootstrapClass[0]);
     }
 
@@ -959,10 +954,10 @@ public enum BootstrapClass implements CssItem {
 
   private static String getSizeSuffix(final Attributes attribute) {
     switch (attribute) {
-      case extraExtraLarge:
-      case marginExtraExtraLarge:
-      case overwriteExtraExtraLarge:
-      case overwriteMarginExtraExtraLarge:
+      case extra2Large:
+      case marginExtra2Large:
+      case overwriteExtra2Large:
+      case overwriteMarginExtra2Large:
         return "_XXL";
       case extraLarge:
       case marginExtraLarge:
