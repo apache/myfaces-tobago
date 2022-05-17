@@ -27,7 +27,10 @@
   <artifactId>tobago-example</artifactId>
 
   <modules>
-    <module>tobago-example-addressbook</module>
+    <!--disable tobago-example-addressbook because of
+    CVE-2022-22968(5.3), CVE-2022-22965(9.8), CVE-2016-1000027(9.8),
+    CVE-2022-22968(5.3), CVE-2022-22965(9.8), CVE-2016-1000027(9.8)
+    <module>tobago-example-addressbook</module>-->
     <module>tobago-example-addressbook-cdi</module>
     <module>tobago-example-blank</module>
     <module>tobago-example-data</module>
