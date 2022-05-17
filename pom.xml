@@ -176,7 +176,7 @@
       <dependency>
         <groupId>jakarta.el</groupId>
         <artifactId>jakarta.el-api</artifactId>
-        <version>4.0.0</version>
+        <version>5.0.0</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
