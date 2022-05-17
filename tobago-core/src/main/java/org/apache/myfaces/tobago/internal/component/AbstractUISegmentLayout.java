@@ -19,15 +19,14 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.layout.MeasureList;
-import org.apache.myfaces.tobago.layout.SegmentJustify;
+import org.apache.myfaces.tobago.component.SupportsSegmentLayout;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SegmentLayoutTagDeclaration}
  *
  * @since 3.0.0
  */
-public abstract class AbstractUISegmentLayout extends AbstractUILayoutBase {
+public abstract class AbstractUISegmentLayout extends AbstractUILayoutBase implements SupportsSegmentLayout {
 
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.SegmentLayout";
 
@@ -54,36 +53,10 @@ public abstract class AbstractUISegmentLayout extends AbstractUILayoutBase {
       builder.append("\n        extraLarge=");
       builder.append(getExtraLarge());
     }
-    if (getExtraExtraLarge() != null) {
-      builder.append("\n        extraExtraLarge=");
+    if (getExtra2Large() != null) {
+      builder.append("\n        extra2Large=");
       builder.append(getExtraLarge());
     }
     return builder.toString();
   }
-
-  public abstract MeasureList getExtraSmall();
-
-  public abstract MeasureList getSmall();
-
-  public abstract MeasureList getMedium();
-
-  public abstract MeasureList getLarge();
-
-  public abstract MeasureList getExtraLarge();
-
-  public abstract MeasureList getExtraExtraLarge();
-
-  public abstract String getMarginExtraSmall();
-
-  public abstract String getMarginSmall();
-
-  public abstract String getMarginMedium();
-
-  public abstract String getMarginLarge();
-
-  public abstract String getMarginExtraLarge();
-
-  public abstract String getMarginExtraExtraLarge();
-
-  public abstract SegmentJustify getJustify();
 }
