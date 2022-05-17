@@ -107,7 +107,7 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.SegmentMeasureList")
-  void setExtraExtraLarge(String extraLarge);
+  void setExtra2Large(String extraLarge);
 
   /**
    * The space separated definition of the column margins for extra small devices.
@@ -161,7 +161,7 @@ public interface SegmentLayoutTagDeclaration extends HasIdBindingAndRendered, Is
    */
   @TagAttribute
   @UIComponentTagAttribute
-  void setMarginExtraExtraLarge(String marginExtraExtraLarge);
+  void setMarginExtra2Large(String marginExtra2Large);
 
   /**
    * The horizontal alignment of the elements inside of the grid, possible values are:
