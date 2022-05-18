@@ -47,7 +47,7 @@ public class TobagoConfigMerger {
     // default sanitizer
     String sanitizerClass = JsoupSanitizer.class.getName();
     Properties sanitizerProperties = new Properties();
-    sanitizerProperties.setProperty("whitelist", "relaxed");
+    sanitizerProperties.setProperty("safelist", "relaxed");
 
     for (final TobagoConfigFragment fragment : list) {
 
