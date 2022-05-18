@@ -77,7 +77,7 @@
       &lt;!&ndash;
        Use one of: basic, basicWithImages, relaxed, simpleText or none
        &ndash;&gt;
-      <entry key="whitelist">relaxed</entry>
+      <entry key="safelist">relaxed</entry>
     </properties>
   </sanitizer>
 -->
