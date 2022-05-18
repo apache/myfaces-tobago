@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.sanitizer;
 
 import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
+import org.jsoup.safety.Safelist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,14 +34,14 @@ public class JsoupSanitizer implements Sanitizer {
 
   private static final Logger LOG = LoggerFactory.getLogger(JsoupSanitizer.class);
 
-  private Whitelist whitelist;
-  private String whitelistName;
+  private Safelist safelist;
+  private String safelistName;
 
   private boolean unmodifiable = false;
 
   public String sanitize(final String html) {
 
-    final String safe = Jsoup.clean(html, whitelist);
+    final String safe = Jsoup.clean(html, safelist);
     if (LOG.isDebugEnabled()) {
       LOG.debug("Sanitized: " + safe);
     }
@@ -57,20 +57,23 @@ public class JsoupSanitizer implements Sanitizer {
     while (enumeration.hasMoreElements()) {
       String key = enumeration.nextElement();
       if ("whitelist".equals(key)) {
-        whitelistName = configuration.getProperty(key);
-        if ("basic".equals(whitelistName)) {
-          whitelist = Whitelist.basic();
-        } else if ("basicWithImages".equals(whitelistName)) {
-          whitelist = Whitelist.basicWithImages();
-        } else if ("none".equals(whitelistName)) {
-          whitelist = Whitelist.none();
-        } else if ("relaxed".equals(whitelistName)) {
-          whitelist = Whitelist.relaxed();
-        } else if ("simpleText".equals(whitelistName)) {
-          whitelist = Whitelist.simpleText();
+        key = "safelist";
+      }
+      if ("safelist".equals(key)) {
+        safelistName = configuration.getProperty(key);
+        if ("basic".equals(safelistName)) {
+          safelist = Safelist.basic();
+        } else if ("basicWithImages".equals(safelistName)) {
+          safelist = Safelist.basicWithImages();
+        } else if ("none".equals(safelistName)) {
+          safelist = Safelist.none();
+        } else if ("relaxed".equals(safelistName)) {
+          safelist = Safelist.relaxed();
+        } else if ("simpleText".equals(safelistName)) {
+          safelist = Safelist.simpleText();
         } else {
           throw new RuntimeException(
-              "Unknown configuration value for 'whitelist' in tobago-config.xml found! value='" + whitelistName + "'");
+            "Unknown configuration value for 'safelist' in tobago-config.xml found! value='" + safelistName + "'");
         }
       } else {
         throw new RuntimeException("Unknown configuration key in tobago-config.xml found! key='" + key + "'");
@@ -78,7 +81,7 @@ public class JsoupSanitizer implements Sanitizer {
     }
 
     if (LOG.isInfoEnabled()) {
-      LOG.warn("Using whitelist '" + whitelistName + "' for sanitizing!");
+      LOG.warn("Using safelist '" + safelistName + "' for sanitizing!");
     }
   }
 
@@ -90,7 +93,6 @@ public class JsoupSanitizer implements Sanitizer {
 
   @Override
   public String toString() {
-    return getClass().getSimpleName() + " whitelist='" + whitelistName + "'";
+    return getClass().getSimpleName() + " safelist='" + safelistName + "'";
   }
-
 }
