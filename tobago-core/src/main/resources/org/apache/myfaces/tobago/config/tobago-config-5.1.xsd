@@ -128,7 +128,7 @@
             <sanitizer>
               <sanitizer-class>org.apache.myfaces.tobago.sanitizer.JsoupSanitizer</sanitizer-class>
               <properties>
-                <entry key="whitelist">relaxed</entry>
+                <entry key="safelist">relaxed</entry>
               </properties>
             </sanitizer>
             ]]>
