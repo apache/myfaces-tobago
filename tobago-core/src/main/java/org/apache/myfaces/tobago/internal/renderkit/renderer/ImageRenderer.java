@@ -43,8 +43,8 @@ public class ImageRenderer<T extends AbstractUIImage> extends RendererBase<T> {
     final String value = component.getUrl();
     final boolean isIcon = Icons.matches(value);
     final boolean disabled = component.isDisabled()
-        || (component.getParent() instanceof AbstractUICommandBase
-        && ((AbstractUICommandBase) component.getParent()).isDisabled());
+        || component.getParent() instanceof AbstractUICommandBase
+        && ((AbstractUICommandBase) component.getParent()).isDisabled();
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     final Markup markup = component.getMarkup();
     if (isIcon) {
