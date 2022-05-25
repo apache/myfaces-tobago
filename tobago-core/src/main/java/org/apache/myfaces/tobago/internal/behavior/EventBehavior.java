@@ -135,7 +135,7 @@ public class EventBehavior extends ClientBehaviorBase {
     }
 
     final Map<String, Object> bindings = (Map<String, Object>) getStateHelper().
-        get(EventBehavior.PropertyKeys.bindings);
+      get(EventBehavior.PropertyKeys.bindings);
     if (bindings != null) {
       return (ValueExpression) bindings.get(name);
     } else {
@@ -187,7 +187,7 @@ public class EventBehavior extends ClientBehaviorBase {
   }
 
   public boolean isImmediateSet() {
-    return (getStateHelper().get(ATTR_IMMEDIATE) != null) || (getValueExpression(ATTR_IMMEDIATE) != null);
+    return getStateHelper().get(ATTR_IMMEDIATE) != null || getValueExpression(ATTR_IMMEDIATE) != null;
   }
 
   public String getFor() {
@@ -287,7 +287,7 @@ public class EventBehavior extends ClientBehaviorBase {
       return getCollectionFromSpaceSplitString((String) value);
     } else {
       throw new IllegalArgumentException("Type " + value.getClass()
-          + " not supported for attribute " + attributeName);
+        + " not supported for attribute " + attributeName);
     }
   }
 
