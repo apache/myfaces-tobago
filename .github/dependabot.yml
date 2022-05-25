@@ -36,6 +36,10 @@ updates:
       - dependency-name: "org.apache.maven.plugins:maven-enforcer-plugin"
         versions:
           - ">= 3.0.0"
+      # checkstyle 10 needs Java 11
+      - dependency-name: "com.puppycrawl.tools:checkstyle"
+        versions:
+          - ">= 10.0"
       # todo: update quarkus
       - dependency-name: "io.quarkus:quarkus-maven-plugin"
         versions:
