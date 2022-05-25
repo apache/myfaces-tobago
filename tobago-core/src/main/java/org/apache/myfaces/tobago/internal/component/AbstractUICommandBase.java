@@ -117,7 +117,7 @@ public abstract class AbstractUICommandBase extends UICommand
       }
     }
     return disabled != null && disabled
-        || (tobagoConfig.getSecurityAnnotation() == SecurityAnnotation.disable && !isAllowed());
+        || tobagoConfig.getSecurityAnnotation() == SecurityAnnotation.disable && !isAllowed();
   }
 
   private boolean isAllowed() {
