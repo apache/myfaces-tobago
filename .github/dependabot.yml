@@ -114,6 +114,10 @@ updates:
       - dependency-name: "org.apache.maven.plugins:maven-enforcer-plugin"
         versions:
           - ">= 3.0.0"
+      # checkstyle 10 needs Java 11
+      - dependency-name: "com.puppycrawl.tools:checkstyle"
+        versions:
+          - ">= 10.0"
       # todo: update quarkus
       - dependency-name: "io.quarkus:quarkus-maven-plugin"
         versions:
@@ -192,6 +196,10 @@ updates:
       - dependency-name: "org.apache.maven.plugins:maven-enforcer-plugin"
         versions:
           - ">= 3.0.0"
+      # checkstyle 10 needs Java 11
+      - dependency-name: "com.puppycrawl.tools:checkstyle"
+        versions:
+          - ">= 10.0"
       - dependency-name: "org.seleniumhq.selenium:selenium-java"
         versions:
           - ">= 4.0.0"
@@ -260,6 +268,10 @@ updates:
       - dependency-name: "org.eclipse.jetty:jetty-maven-plugin"
         versions:
           - ">= 10.0.0"
+      # checkstyle 10 needs Java 11
+      - dependency-name: "com.puppycrawl.tools:checkstyle"
+        versions:
+          - ">= 10.0"
       - dependency-name: "org.seleniumhq.selenium:selenium-java"
         versions:
           - ">= 3.0.0"
