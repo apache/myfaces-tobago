@@ -53,9 +53,9 @@ public class SelectableUnitTest extends EnumUnitTest {
 
     StringBuilder stringBuilder = new StringBuilder();
     for (char c : fileContent.toCharArray()) {
-      if (('0' <= c && c <= '9')
-        || ('A' <= c && c <= 'Z')
-        || ('a' <= c && c <= 'z')) {
+      if ('0' <= c && c <= '9'
+        || 'A' <= c && c <= 'Z'
+        || 'a' <= c && c <= 'z') {
         stringBuilder.append(c);
       } else {
         if (stringBuilder.length() > 0) {

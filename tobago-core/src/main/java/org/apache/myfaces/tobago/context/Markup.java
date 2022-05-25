@@ -213,7 +213,7 @@ public final class Markup implements Serializable, Iterable<String> {
     boolean forbiddenCharFound = false;
     for (int i = 0; i < string.length(); i++) {
       final char c = string.charAt(i);
-      if (('0' <= c && c <= '9') || ('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z')) {
+      if ('0' <= c && c <= '9' || 'A' <= c && c <= 'Z' || 'a' <= c && c <= 'z') {
         stringBuilder.append(c);
       } else {
         forbiddenCharFound = true;
@@ -222,7 +222,7 @@ public final class Markup implements Serializable, Iterable<String> {
     if (forbiddenCharFound) {
       final String newString = stringBuilder.toString();
       LOG.warn("Only numeric and alphabetic characters are allowed for markups: '{}' converted to '{}'.", string,
-          newString);
+        newString);
       return newString;
     } else {
       return string;
