@@ -43,6 +43,10 @@ updates:
       - dependency-name: "org.seleniumhq.selenium:selenium-java"
         versions:
           - ">= 4.0.0"
+      # jakarta.servlet.jsp.jstl-api 3.0.0 is Jakarta EE 10
+      - dependency-name: "jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api"
+        versions:
+          - ">= 3.0.0"
       # jakarta.annotation-api 2.1 is Jakarta EE 10
       - dependency-name: "jakarta.annotation:jakarta.annotation-api"
         versions:
