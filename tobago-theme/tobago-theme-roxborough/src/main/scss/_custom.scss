@@ -38,14 +38,14 @@ $dark: $gray-800;
 
 $theme-colors: ();
 $theme-colors: map-merge((
-        "primary": $primary,
-        "secondary": $secondary,
-        "success": $success,
-        "info": $info,
-        "warning": $warning,
-        "danger": $danger,
-        "light": $light,
-        "dark": $dark
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "light": $light,
+  "dark": $dark
 ), $theme-colors);
 
 $border-width: 2px;
@@ -57,15 +57,15 @@ $body-bg: $black;
 //$input-disabled-bg: $gray-800;
 //$input-disabled-border-color: $input-border-color;
 
-$input-bg:                              $body-bg;
-$input-disabled-bg:                     $gray-800;
-$input-color:                           $gray-400;
-$input-border-color:                    $gray-600;
-$input-btn-border-width:                $border-width;
-$input-focus-bg:                        $input-bg;
-$input-focus-border-color:              lighten($primary, 25%);
-$input-focus-color:                     $gray-400;
-$input-placeholder-color:               $gray-600;
+$input-bg: $body-bg;
+$input-disabled-bg: $gray-800;
+$input-color: $gray-400;
+$input-border-color: $gray-600;
+$input-btn-border-width: $border-width;
+$input-focus-bg: $input-bg;
+$input-focus-border-color: lighten($primary, 25%);
+$input-focus-color: $gray-400;
+$input-placeholder-color: $gray-600;
 
 $link-color: lighten($secondary, 20%);
 $link-hover-color: lighten($link-color, 25%);
@@ -127,6 +127,6 @@ $input-plaintext-color: $body-color;
   src: url('../fonts/Amaranth-BoldItalic.otf') format('opentype');
 }
 
-.tobago-section-header, .tobago-box-header {
+.tobago-box-header {
   font-family: Amaranth, Arial, serif;
 }

@@ -38,13 +38,16 @@ tobago-header.sticky-top {
     flex-wrap: nowrap;
     justify-content: flex-start;
   }
+
   .form-group {
     margin-bottom: 0;
   }
+
   .tobago-link > i.fa {
     font-size: 1.345em;
     margin-right: 0.5rem;
   }
+
   button.tobago-link.dropdown-item {
     color: theme-color("primary");
     background-color: transparent;
@@ -52,17 +55,21 @@ tobago-header.sticky-top {
     &:active {
       color: $navbar-light-active-color;
     }
+
     &:hover, &:focus {
       color: $navbar-light-hover-color;
     }
   }
+
   .tobago-dropdown-submenu.dropdown-item {
     background-color: transparent;
   }
+
   .nav-link {
     padding-top: 0;
     padding-bottom: 0;
   }
+
   .nav-item {
     font-size: 1.16em;
     float: left;
@@ -127,23 +134,14 @@ td button {
   }
 }
 
-.form-group, tobago-label {
+.form-group {
   ~ a.tobago-link {
     padding-top: 0.46em;
     margin-bottom: 0;
   }
+
   ~ button.tobago-link {
     margin-bottom: 1rem;
-  }
-}
-
-.tobago-sheet {
-  .tobago-body {
-    td {
-      button.tobago-link {
-        margin-bottom: 0;
-      }
-    }
   }
 }
 
@@ -223,6 +221,7 @@ tobago-header.sticky-top {
     &.show, .show {
       display: inline;
     }
+
     > ul {
       visibility: hidden;
       opacity: 0;
@@ -236,9 +235,11 @@ tobago-header.sticky-top {
       margin-top: 2em;
       z-index: 2000;
     }
+
     ul {
       display: none;
     }
+
     > ul.showhide {
       visibility: visible;
       transition: visibility 0s 0s, opacity 0.2s ease;
@@ -252,12 +253,14 @@ tobago-header.sticky-top {
     ul > li:hover > ul {
       display: inline !important;
     }
+
     .nav .dropdown-item {
       /* Custom sidemenu styling */
       display: inline;
       font-size: small;
       color: #788c94;
     }
+
     a:focus {
       color: #788c94;
     }
@@ -265,6 +268,7 @@ tobago-header.sticky-top {
     .active.dropdown-item {
       background-color: transparent;
     }
+
     .active.dropdown-item, .nav .dropdown-item {
       &:focus, &:hover {
         background-color: transparent;
@@ -277,29 +281,37 @@ tobago-header.sticky-top {
         border-left: 2px solid $darkgreen !important;
         color: $darkgreen !important;
       }
+
       li a.active {
         padding-left: 18px !important;
       }
+
       li li a.active {
         padding-left: 38px !important;
       }
+
       a {
         padding-left: 5px;
+
         &:hover {
           padding-left: 4px;
           border-left: 1px solid $darkgreen;
           color: $darkgreen !important;
         }
       }
+
       li li a:hover {
         padding-left: 39px;
       }
+
       li a:hover {
         padding-left: 19px;
       }
+
       li a {
         padding-left: 20px;
       }
+
       li li a {
         padding-left: 40px;
       }
@@ -315,6 +327,7 @@ tobago-header.sticky-top {
     top: 0px;
     left: 0px;
     position: fixed;
+
     &.blur {
       display: block;
     }
@@ -348,6 +361,7 @@ tobago-header.sticky-top {
       .navbar-toggler {
         display: none;
       }
+
       .navbar-nav {
         flex-direction: row;
       }
@@ -485,6 +499,7 @@ tobago-header.sticky-top {
     }
 
   }
+
   .nav-item {
     float: none;
     display: inline;
@@ -520,10 +535,12 @@ p, .control-label {
         cursor: pointer;
       }
     }
+
     .nav-link.active {
       background-color: white;
     }
   }
+
   .nav-item .nav-link.disabled {
     background-color: $gray-100;
     color: $gray-300;
@@ -565,11 +582,14 @@ tobago-tab-group .nav-tabs .nav-item {
       color: $orange;
     }
   }
+
   .nav-link.active:hover {
     color: $darkgreen;
   }
+
   .nav-link.disabled {
     color: $gray-300;
+
     &:hover {
       color: $gray-300;
     }
@@ -606,6 +626,7 @@ tobago-tab.tobago-bar {
   h3 {
     display: inline;
   }
+
   > .navbar, > tobago-links {
     float: right;
 
@@ -613,10 +634,12 @@ tobago-tab.tobago-bar {
       padding: 0 .5rem;
     }
   }
+
   .navbar {
     .navbar-toggler {
       display: none;
     }
+
     .navbar-collapse.collapse {
       display: flex;
       flex-basis: auto;
@@ -645,6 +668,7 @@ tobago-tab.tobago-bar {
         float: left;
       }
     }
+
     .card-body {
       .tobago-in-markup-disabled {
         border-color: $input-border-color;
@@ -744,10 +768,12 @@ li:last-child {
 .form-control {
   &:disabled, &[readonly] {
     border-color: $gray-100;
+
     &:focus {
       border-color: $gray-100;
     }
   }
+
   &:focus {
     border-color: $orange-light;
     box-shadow: 0 0 0 0.2rem $orange-lighter;
@@ -799,20 +825,25 @@ li:last-child {
         left: 13px;
       }
     }
+
     input[type="checkbox"]:checked + .tobago-inputPseudo {
       border-color: $dropdown-link-active-bg;
+
       &:before {
         content: "\f00c";
       }
     }
+
     input[type="checkbox"]:active + .tobago-inputPseudo,
     input[type="checkbox"]:focus + .tobago-inputPseudo {
       border-color: $orange-light;
     }
+
     input[type="checkbox"]:active:not(:disabled) + .tobago-inputPseudo:before,
     input[type="checkbox"]:focus:not(:disabled) + .tobago-inputPseudo:before {
       text-shadow: none;
     }
+
     input[type="checkbox"] {
       &[readonly], &[disabled] {
         & + .tobago-inputPseudo {
@@ -829,17 +860,21 @@ li:last-child {
     .tobago-inputPseudo {
       border-radius: 100%;
     }
+
     input[type="radio"]:checked + .tobago-inputPseudo {
       background: $dropdown-link-active-bg;
       border: 0;
+
       &:before {
         content: "";
       }
     }
+
     input[type="radio"]:active + .tobago-inputPseudo,
     input[type="radio"]:focus + .tobago-inputPseudo {
       border: 1px solid $orange-light;
     }
+
     input[type="radio"] {
       &[readonly], &[disabled] {
         & + .tobago-inputPseudo {
@@ -878,18 +913,4 @@ li:last-child {
 .tobago-selectOneRadio-inline,
 .slider {
   min-height: 26px;
-}
-
-.tobago-section-header {
-  border-bottom: 1px solid rgba(1, 1, 1, 0.05);
-  margin-bottom: .5rem;
-
-  h1 {
-    margin-bottom: 0;
-  }
-
-  h2, h3, h4, h5, h6 {
-    margin-top: 1rem;
-    margin-bottom: 0;
-  }
 }
