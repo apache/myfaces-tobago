@@ -284,7 +284,7 @@ updates:
     directory: "/"
     schedule:
       # Check for updates to GitHub Actions every day
-      interval: "daily"
+      interval: "weekly"
 
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -336,7 +336,7 @@ updates:
       include: "scope"
     # Check the npm registry for updates every day (weekdays)
     schedule:
-      interval: "daily"
+      interval: "weekly"
   - package-ecosystem: "npm"
     directory: "/tobago-example/tobago-example-demo"
     target-branch: "tobago-5.x"
