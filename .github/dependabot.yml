@@ -219,6 +219,9 @@ updates:
       - dependency-name: "org.seleniumhq.selenium:selenium-java"
         versions:
           - ">= 4.0.0"
+      - dependency-name: "org.wildfly.plugins:wildfly-maven-plugin"
+        versions:
+          - ">= 3.0.0"
 
   - package-ecosystem: "maven"
     directory: "/"
