@@ -1,4 +1,4 @@
-# (WIP) Contributing Info 
+# (WIP) Contributing Info
 
 ## Semantic Commit Messages
 
@@ -27,15 +27,13 @@ Must be one of the following:
 
 * **feat**: A new feature
 * **fix**: A bug fix
-* **docs**: Documentation only changes
-* **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing
-  semi-colons, etc)
 * **refactor**: A code change that neither fixes a bug nor adds a feature
-* **perf**: A code change that improves performance
-* **test**: Adding missing tests
-* **chore**: Changes to the auxiliary tools such as release scripts
+* **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+* **test**: Changes tests only
+* **docs**: Changes to the documentation
 * **build**: Changes to the dependencies, devDependencies, or build tooling
 * **ci**: Changes to our Continuous Integration configuration
+* **chore**: Changes to the auxiliary tools such as release scripts
 
 ##### Scope
 
