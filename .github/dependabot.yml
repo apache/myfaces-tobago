@@ -67,7 +67,6 @@ updates:
       - dependency-name: "org.jboss.weld.servlet:weld-servlet-shaded"
         versions:
           - ">= 5.0.0"
-          - "5.0.0.SP1"
 
   - package-ecosystem: "maven"
     directory: "/"
