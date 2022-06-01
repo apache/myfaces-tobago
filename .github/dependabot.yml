@@ -47,6 +47,10 @@ updates:
       - dependency-name: "org.seleniumhq.selenium:selenium-java"
         versions:
           - ">= 4.0.0"
+      # jakarta.el-api 5.0.0 is Jakarta EE 10
+      - dependency-name: "jakarta.el:jakarta.el-api"
+        versions:
+          - ">= 5.0.0"
       # jakarta.enterprise.cdi-api 4.0.0 is Jakarta EE 10
       - dependency-name: "jakarta.enterprise:jakarta.enterprise.cdi-api"
         versions:
