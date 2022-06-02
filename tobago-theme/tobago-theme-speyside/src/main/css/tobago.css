@@ -11287,6 +11287,18 @@ tobago-file input[type=file].border-info:focus {
   box-shadow: 0 0 0 0.25rem rgba(91, 192, 222, 0.25);
 }
 
+tobago-file[drop-zone] > .input-group {
+  border: 3px dotted #acacac;
+  border-radius: 0.25rem;
+  text-align: center;
+}
+tobago-file[drop-zone] > .input-group input, tobago-file[drop-zone] > .input-group label {
+  display: none !important;
+}
+tobago-file[drop-zone] > .input-group:hover {
+  background-color: #e3e4e5;
+}
+
 /* flexLayout -------------------------------------------------------------- */
 tobago-flex-layout {
   display: flex;
@@ -12754,16 +12766,12 @@ td button.tobago-link, td button.tobago-command {
   margin-bottom: 12px;
 }
 
-.form-group ~ a.tobago-link, tobago-label ~ a.tobago-link {
+.form-group ~ a.tobago-link {
   padding-top: 0.46em;
   margin-bottom: 0;
 }
-.form-group ~ button.tobago-link, tobago-label ~ button.tobago-link {
+.form-group ~ button.tobago-link {
   margin-bottom: 1rem;
-}
-
-.tobago-sheet .tobago-body td button.tobago-link {
-  margin-bottom: 0;
 }
 
 tobago-header.sticky-top a[disabled], tobago-header.sticky-top a[disabled]:hover, tobago-header.sticky-top button[disabled], tobago-header.sticky-top button[disabled]:hover {
@@ -13371,18 +13379,6 @@ li:last-child {
 .tobago-selectOneRadio-inline,
 .slider {
   min-height: 26px;
-}
-
-.tobago-section-header {
-  border-bottom: 1px solid rgba(1, 1, 1, 0.05);
-  margin-bottom: 0.5rem;
-}
-.tobago-section-header h1, .tobago-section-header .h1 {
-  margin-bottom: 0;
-}
-.tobago-section-header h2, .tobago-section-header .h2, .tobago-section-header h3, .tobago-section-header .h3, .tobago-section-header h4, .tobago-section-header .h4, .tobago-section-header h5, .tobago-section-header .h5, .tobago-section-header h6, .tobago-section-header .h6 {
-  margin-top: 1rem;
-  margin-bottom: 0;
 }
 
 /*# sourceMappingURL=tobago.css.map */

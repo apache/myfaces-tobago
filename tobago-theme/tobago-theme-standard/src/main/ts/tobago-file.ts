@@ -21,12 +21,50 @@ export class File extends HTMLElement {
     super();
   }
 
-  connectedCallback(): void {
-    this.input.form.enctype = "multipart/form-data";
+  get input(): HTMLInputElement {
+    return this.querySelector("input[type=file]");
   }
 
-  get input(): HTMLInputElement {
-    return this.querySelector("input");
+  get dropZone(): HTMLElement {
+    const id = this.getAttribute("drop-zone");
+    const rootNode = this.getRootNode() as ShadowRoot | Document;
+    return rootNode.getElementById(id);
+  }
+
+  connectedCallback(): void {
+    this.input.form.enctype = "multipart/form-data";
+
+    // initialize drag&drop EventListener
+    const dropZone = this.dropZone;
+    if (dropZone) {
+      dropZone.addEventListener("dragover", this.dragover.bind(this));
+      dropZone.addEventListener("drop", this.drop.bind(this));
+    }
+  }
+
+  dragover(event: DragEvent): void {
+    event.stopPropagation();
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "copy";
+  }
+
+  drop(event: DragEvent): void {
+    console.debug(event);
+    event.stopPropagation();
+    event.preventDefault();
+
+    this.input.files = event.dataTransfer.files;
+/* todo: feature? show list of dropped files
+    const output = [];
+    for (let i = 0; files.item(i); i++) {
+      const file = files.item(i);
+      output.push("<li><strong>", escape(file.name), "</strong> (", file.type || "n/a", ") - ",
+        file.size, " bytes, last modified: ",
+        new Date(file.lastModified).toLocaleDateString(), "</li>");
+    }
+    document.getElementById("list").innerHTML = "<ul>" + output.join("") + "</ul>";
+ */
+    this.input.dispatchEvent(new Event("change"));
   }
 }
 

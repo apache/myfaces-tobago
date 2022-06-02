@@ -11577,6 +11577,18 @@ tobago-file input[type=file].border-info:focus {
   box-shadow: 0 0 0 0.25rem rgba(56, 156, 48, 0.25);
 }
 
+tobago-file[drop-zone] > .input-group {
+  border: 3px dotted #adb5bd;
+  border-radius: 0.25rem;
+  text-align: center;
+}
+tobago-file[drop-zone] > .input-group input, tobago-file[drop-zone] > .input-group label {
+  display: none !important;
+}
+tobago-file[drop-zone] > .input-group:hover {
+  background-color: #d0d0d0;
+}
+
 /* flexLayout -------------------------------------------------------------- */
 tobago-flex-layout {
   display: flex;

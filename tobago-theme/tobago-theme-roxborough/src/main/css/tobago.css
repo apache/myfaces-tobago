@@ -54,7 +54,7 @@
   font-weight: bold;
   src: url("../fonts/Amaranth-BoldItalic.otf") format("opentype");
 }
-.tobago-section-header, .tobago-box-header {
+.tobago-box-header {
   font-family: Amaranth, Arial, serif;
 }
 
@@ -11598,6 +11598,18 @@ tobago-file input[type=file].border-warning:focus {
 }
 tobago-file input[type=file].border-info:focus {
   box-shadow: 0 0 0 0.25rem rgba(19, 14, 143, 0.25);
+}
+
+tobago-file[drop-zone] > .input-group {
+  border: 3px dotted #adb5bd;
+  border-radius: 0.25rem;
+  text-align: center;
+}
+tobago-file[drop-zone] > .input-group input, tobago-file[drop-zone] > .input-group label {
+  display: none !important;
+}
+tobago-file[drop-zone] > .input-group:hover {
+  background-color: #e9ecef;
 }
 
 /* flexLayout -------------------------------------------------------------- */

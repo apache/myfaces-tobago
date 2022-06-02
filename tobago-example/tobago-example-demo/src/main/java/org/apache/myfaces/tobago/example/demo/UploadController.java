@@ -43,6 +43,8 @@ public class UploadController implements Serializable {
   private Part fileContentType;
   private Part[] fileMulti;
   private Part fileAjax;
+  private Part fileDropZone;
+  private Part[] fileDropZoneAjax;
   private List<UploadItem> uploadItems = new ArrayList<>();
 
   public String uploadBasic() {
@@ -60,6 +62,16 @@ public class UploadController implements Serializable {
       upload(part);
     }
     return null;
+  }
+
+  public void uploadDropZone() {
+    upload(fileDropZone);
+  }
+
+  public void uploadDropZoneAjax(final AjaxBehaviorEvent event) {
+    for (final Part part : fileDropZoneAjax) {
+      upload(part);
+    }
   }
 
   public void uploadAjax(final AjaxBehaviorEvent event) {
@@ -111,6 +123,22 @@ public class UploadController implements Serializable {
 
   public void setFileAjax(final Part fileAjax) {
     this.fileAjax = fileAjax;
+  }
+
+  public Part getFileDropZone() {
+    return fileDropZone;
+  }
+
+  public void setFileDropZone(Part fileDropZone) {
+    this.fileDropZone = fileDropZone;
+  }
+
+  public Part[] getFileDropZoneAjax() {
+    return fileDropZoneAjax;
+  }
+
+  public void setFileDropZoneAjax(Part[] fileDropZoneAjax) {
+    this.fileDropZoneAjax = fileDropZoneAjax;
   }
 
   public List<UploadItem> getUploadItems() {

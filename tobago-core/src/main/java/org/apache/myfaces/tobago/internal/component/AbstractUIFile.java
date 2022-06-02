@@ -71,6 +71,8 @@ public abstract class AbstractUIFile extends UIInput implements SupportsLabelLay
 
   public abstract Integer getTabIndex();
 
+  public abstract String getDropZone();
+
   @Override
   public String getFieldId(final FacesContext facesContext) {
     return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";

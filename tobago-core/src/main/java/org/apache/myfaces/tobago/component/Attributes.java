@@ -95,6 +95,7 @@ public enum Attributes {
   directLinkCount,
   disabled,
   display,
+  dropZone,
   enctype,
   escape,
   expanded,
