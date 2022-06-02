@@ -95,4 +95,11 @@ public interface FileTagDeclaration
       type = { "jakarta.servlet.http.Part", "jakarta.servlet.http.Part[]" },
       expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
+
+  /**
+   * The id of the HTMLElement in the Browser to drop the file.
+   */
+  @TagAttribute()
+  @UIComponentTagAttribute()
+  void setDropZone(String dropZone);
 }

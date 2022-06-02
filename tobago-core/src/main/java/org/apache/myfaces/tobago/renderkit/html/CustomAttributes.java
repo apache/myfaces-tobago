@@ -27,6 +27,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
   CLIENT_ID("client-id"),
   DATE_PATTERN("date-pattern"),
   DELAY("delay"),
+  DROP_ZONE("drop-zone"),
   EVENT("event"),
   /**
    * &lt;f:ajax&gt; attribute

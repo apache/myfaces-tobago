@@ -22,8 +22,10 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIFile;
+import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -38,5 +40,54 @@ public class FileRendererUnitTest extends RendererTestBase {
     c.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/file/file-label.html"), formattedResult());
+  }
+
+  @Test
+  public void fileDropZoneThis() throws IOException {
+    final UIPanel panel = (UIPanel) ComponentUtils.createComponent(
+      facesContext, Tags.panel.componentType(), RendererTypes.Panel, "drop-zone");
+
+    final UIFile c = (UIFile) ComponentUtils.createComponent(
+        facesContext, Tags.file.componentType(), RendererTypes.File, "id");
+    c.setDropZone("drop-zone");
+
+    panel.getChildren().add(c);
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/file/file-drop-zone.html"), formattedResult());
+  }
+
+  @Test
+  public void fileDropZoneId() throws IOException {
+    final UIPanel panel = (UIPanel) ComponentUtils.createComponent(
+      facesContext, Tags.panel.componentType(), RendererTypes.Panel, "drop-zone");
+
+    final UIFile c = (UIFile) ComponentUtils.createComponent(
+        facesContext, Tags.file.componentType(), RendererTypes.File, "id");
+    c.setDropZone("drop-zone");
+
+    panel.getChildren().add(c);
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/file/file-drop-zone.html"), formattedResult());
+  }
+
+  @Test
+  @Disabled // XXX
+  public void fileDropZoneParent() throws IOException {
+    final UIPanel panel = (UIPanel) ComponentUtils.createComponent(
+      facesContext, Tags.panel.componentType(), RendererTypes.Panel, "drop-zone");
+
+    final UIFile c = (UIFile) ComponentUtils.createComponent(
+        facesContext, Tags.file.componentType(), RendererTypes.File, "id");
+    c.setDropZone("@parent");
+
+    panel.getChildren().add(c);
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/file/file-drop-zone.html"), formattedResult());
   }
 }
