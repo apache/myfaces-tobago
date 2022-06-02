@@ -357,6 +357,18 @@ tobago-file {
   }
 }
 
+tobago-file[drop-zone] > .input-group {
+  input, label {
+    display: none !important;
+  }
+  border: 3px dotted $gray-500;
+  border-radius: 0.25rem;
+  text-align: center;
+  &:hover {
+    background-color: $gray-200;
+  }
+}
+
 /* flexLayout -------------------------------------------------------------- */
 
 tobago-flex-layout {

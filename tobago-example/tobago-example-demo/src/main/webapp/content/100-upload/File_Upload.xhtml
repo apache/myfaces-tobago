@@ -33,7 +33,8 @@
   &lt;max-request-size>418018841&lt;/max-request-size>
   &lt;location>/tmp&lt;/location>
   &lt;file-size-threshold>1048576&lt;/file-size-threshold>
-&lt;/multipart-config></demo-highlight>
+  &lt;/multipart-config>
+  </demo-highlight>
   <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
            link="#{apiController.tldBase}/#{apiController.currentRelease}/tld/tc/file.html"/>
 
@@ -72,27 +73,46 @@
   </tc:section>
 
   <tc:section id="s3" label="Ajax">
-
     <p>Ajax can be activated by adding <code class="language-markup">&lt;f:ajax/></code>
       to the <code class="language-markup">&lt;tc:file/></code> tag.</p>
     <p><tc:badge value="Warning" markup="warning"/> The Ajax feature of file upload works with JSF 2.2 or higher!</p>
 
     <tc:file label="Ajax" value="#{uploadController.fileAjax}" id="fileAjax">
-      <f:ajax listener="#{uploadController.uploadAjax}" render="s3 :page:messages"/>
+      <f:ajax listener="#{uploadController.uploadAjax}" render="s3 list :page:messages"/>
     </tc:file>
-
-    <tc:section id="s4" label="Uploaded Files">
-      <tc:sheet value="#{uploadController.uploadItems}" var="item">
-        <tc:column label="Name">
-          <tc:out value="#{item.name}"/>
-        </tc:column>
-        <tc:column label="Type">
-          <tc:out value="#{item.type}"/>
-        </tc:column>
-        <tc:column label="Size">
-          <tc:out value="#{item.size}"/>
-        </tc:column>
-      </tc:sheet>
-    </tc:section>
   </tc:section>
+
+  <tc:section id="dropZone" label="Drop Zone">
+    <tc:file label="Upload image" value="#{uploadController.fileDropZone}"
+             dropZone="@this"/>
+    <tc:button label="Upload" action="#{uploadController.uploadDropZone}"/>
+  </tc:section>
+
+  <tc:section id="dropZoneNoLabel" label="Drop Zone without Label">
+    <tc:file value="#{uploadController.fileDropZone}"
+             dropZone="@this"/>
+    <tc:button label="Upload" action="#{uploadController.uploadDropZone}"/>
+  </tc:section>
+
+  <tc:section id="dropZoneAjax" label="Drop Zone with Ajax">
+    <tc:file label="Ajax" value="#{uploadController.fileDropZoneAjax}" id="dzAjax"
+             dropZone="@this" multiple="true">
+      <f:ajax listener="#{uploadController.uploadDropZoneAjax}" render="dropZoneAjax list :page:messages"/>
+    </tc:file>
+  </tc:section>
+
+  <tc:section id="list" label="Uploaded Files">
+    <tc:sheet value="#{uploadController.uploadItems}" var="item">
+      <tc:column label="Name">
+        <tc:out value="#{item.name}"/>
+      </tc:column>
+      <tc:column label="Type">
+        <tc:out value="#{item.type}"/>
+      </tc:column>
+      <tc:column label="Size">
+        <tc:out value="#{item.size}"/>
+      </tc:column>
+    </tc:sheet>
+  </tc:section>
+
 </ui:composition>

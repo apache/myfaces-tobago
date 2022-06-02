@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.internal.util.HttpPartWrapper;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
+import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -35,6 +36,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.ComponentSystemEventListener;
@@ -178,6 +180,13 @@ public class FileRenderer<T extends AbstractUIFile>
     writer.endElement(HtmlElements.I);
     writer.endElement(HtmlElements.SPAN);
     writer.endElement(HtmlElements.LABEL);
+
+    if (component.getDropZone() != null) {
+      writer.startElement(HtmlElements.DIV);
+      writer.writeClassAttribute(BootstrapClass.FORM_CONTROL);
+      writer.writeText(">>> drop here <<<");
+      writer.endElement(HtmlElements.DIV);
+    }
   }
 
   private String createAcceptFromValidators(final AbstractUIFile file) {
@@ -202,6 +211,23 @@ public class FileRenderer<T extends AbstractUIFile>
   protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
+  }
+
+  @Override
+  protected void writeAdditionalAttributes(
+      final FacesContext facesContext, final TobagoResponseWriter writer, final T input)
+      throws IOException {
+    super.writeAdditionalAttributes(facesContext, writer, input);
+    final String dropZone = input.getDropZone();
+    if (dropZone != null) {
+      UIComponent component = ComponentUtils.findComponent(input, dropZone);
+      if (component == null) {
+        LOG.warn("Can't find component for dropZone='{}'", dropZone);
+        component = input;
+      }
+      final String id = component.getClientId(facesContext);
+      writer.writeAttribute(CustomAttributes.DROP_ZONE, id, true);
+    }
   }
 
   @Override
