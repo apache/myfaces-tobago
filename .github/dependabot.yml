@@ -63,6 +63,10 @@ updates:
       - dependency-name: "jakarta.annotation:jakarta.annotation-api"
         versions:
           - ">= 2.1.0"
+      # jakarta.servlet:jakarta.servlet-api 6.x is Jakarta EE 10
+      - dependency-name: "jakarta.servlet:jakarta.servlet-api"
+        versions:
+          - ">= 6.0.0"
       # weld 5 is CDI 4 is Jakarta EE 10
       - dependency-name: "org.jboss.weld.servlet:weld-servlet-shaded"
         versions:
