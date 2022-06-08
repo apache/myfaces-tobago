@@ -43,7 +43,7 @@
     <maven.compile.encoding>UTF-8</maven.compile.encoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <required.maven.version>3.3.1</required.maven.version>
+    <required.maven.version>3.8.1</required.maven.version>
     <maven-pmd-plugin.version>3.17.0</maven-pmd-plugin.version>
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
     <checkstyle-rules.version>17-SNAPSHOT</checkstyle-rules.version>
@@ -397,7 +397,6 @@
             <configuration>
               <rules>
                 <requireMavenVersion>
-                  <!-- 3.3.1 is only required for a release, for a normal build 3.0.4 should be okay -->
                   <version>${required.maven.version}</version>
                 </requireMavenVersion>
                 <requirePluginVersions>
@@ -875,9 +874,6 @@
              </properties>
            </profile>
        -->
-      <properties>
-        <required.maven.version>3.3.1</required.maven.version>
-      </properties>
       <build>
         <plugins>
           <plugin>
