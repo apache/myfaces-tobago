@@ -754,6 +754,9 @@
 
               <!-- jetty key store for testing -->
               <exclude>**/jettykeystore</exclude>
+
+              <!-- readme -->
+              <exclude>**/README.md</exclude>
             </excludes>
           </configuration>
         </plugin>
