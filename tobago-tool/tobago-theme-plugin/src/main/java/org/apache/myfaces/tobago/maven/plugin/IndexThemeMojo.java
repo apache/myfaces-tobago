@@ -19,46 +19,41 @@
 
 package org.apache.myfaces.tobago.maven.plugin;
 
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.plexus.util.DirectoryScanner;
 import org.codehaus.plexus.util.FileUtils;
-import org.codehaus.plexus.util.IOUtil;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 
-/**
- * @goal index
- * @phase prepare-package
- */
+@Mojo(name = "index", defaultPhase = LifecyclePhase.PREPARE_PACKAGE)
 public class IndexThemeMojo extends AbstractThemeMojo {
 
   private static final char FILE_SEPARATOR = System.getProperty("file.separator").charAt(0);
   private static final boolean FILE_SEPARATOR_IS_SLASH = FILE_SEPARATOR == '/';
 
   private static final String[] EXCLUDES = new String[]{
-      "META-INF/**/*",
-      "**/*.class"
+    "META-INF/**/*",
+    "**/*.class"
   };
 
   /**
    * Directory containing the resource files that should be listed into the tobago-resources.properties.
-   *
-   * @parameter default-value="${project.build.outputDirectory}"
-   * @required
    */
+  @Parameter(defaultValue = "${project.build.outputDirectory}", required = true)
   private File outputDirectory;
 
   /**
-   * @parameter default-value="${project.build.outputDirectory}/META-INF/tobago-resource-index.txt"
-   * @required
+   * Index file.
    */
+  @Parameter(defaultValue = "${project.build.outputDirectory}/META-INF/tobago-resource-index.txt", required = true)
   private File tobagoResourcesFile;
 
-  public void execute() throws MojoExecutionException, MojoFailureException {
+  public void execute() {
     if ("pom".equalsIgnoreCase(getProject().getPackaging())) {
       getLog().info("Not creating " + tobagoResourcesFile.getName() + " as the project is a pom package");
       return;
@@ -93,10 +88,8 @@ public class IndexThemeMojo extends AbstractThemeMojo {
           getLog().error("Error creating directory " + metaInf.getName());
         }
       }
-      BufferedWriter bufferedWriter = null;
-      try {
-        final StringWriter stringWriter = new StringWriter();
-        bufferedWriter = new BufferedWriter(stringWriter);
+      final StringWriter stringWriter = new StringWriter();
+      try (BufferedWriter bufferedWriter = new BufferedWriter(stringWriter)) {
         for (final String file : fileNames) {
           bufferedWriter.append('/');
           if (FILE_SEPARATOR_IS_SLASH) {
@@ -110,8 +103,6 @@ public class IndexThemeMojo extends AbstractThemeMojo {
         FileUtils.fileWrite(tobagoResourcesFile, "utf-8", stringWriter.toString());
       } catch (final IOException e) {
         getLog().error("Error creating resource file " + tobagoResourcesFile.getName(), e);
-      } finally {
-        IOUtil.close(bufferedWriter);
       }
     } else {
       getLog().info("Skipping create resource file " + tobagoResourcesFile.getName());
@@ -127,7 +118,7 @@ public class IndexThemeMojo extends AbstractThemeMojo {
   }
 
   private static class StaleCheckDirectoryScanner extends DirectoryScanner {
-    private long lastModified;
+    private final long lastModified;
     private boolean isUp2date = true;
 
     private StaleCheckDirectoryScanner(final long lastModified) {
