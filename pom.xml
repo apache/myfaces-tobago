@@ -38,7 +38,7 @@
     <myfaces20.version>2.0.25</myfaces20.version>
     <myfaces21.version>2.1.18</myfaces21.version>
     <myfaces22.version>2.2.14</myfaces22.version>
-    <myfaces23.version>2.3.9</myfaces23.version>
+    <myfaces23.version>2.3.10</myfaces23.version>
     <mojarra20.version>2.0.11-04</mojarra20.version>
     <mojarra21.version>2.1.29-11</mojarra21.version>
     <mojarra22.version>2.2.20</mojarra22.version>
@@ -49,8 +49,8 @@
     <commons-lang.version>2.6</commons-lang.version>
     <commons-logging.version>1.2</commons-logging.version>
     <commons-collection.version>3.2.2</commons-collection.version>
-    <maven.compile.source>1.5</maven.compile.source>
-    <maven.compile.target>1.5</maven.compile.target>
+    <maven.compile.source>1.7</maven.compile.source>
+    <maven.compile.target>1.7</maven.compile.target>
     <maven.compile.encoding>UTF-8</maven.compile.encoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jsf.target>2.0</jsf.target>
@@ -440,7 +440,7 @@
                 </requirePluginVersions>
                 <requireJavaVersion>
                   <message>Tobago must be compiled with Java 8</message>
-                  <version>[1.8.0-100,1.8.0-999]</version>
+                  <version>[1.8.0-100,17.99.999]</version>
                 </requireJavaVersion>
               </rules>
             </configuration>
