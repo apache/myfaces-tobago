@@ -35,13 +35,11 @@
     <frontend.skip>true</frontend.skip>
     <!-- old main branch of MyFaces -->
     <myfaces23.version>2.3.10</myfaces23.version>
-    <myfaces-test23.version>1.0.8</myfaces-test23.version>
     <!-- new main branch of MyFaces "next" -->
-<!--    <myfaces23.version>2.3-next-M6</myfaces23.version>-->
-    <myfaces23x.version>2.3-next-M6</myfaces23x.version>
-
+    <myfaces23x.version>2.3-next-M7</myfaces23x.version>
+    <myfaces-test23.version>1.0.8</myfaces-test23.version>
     <mojarra23.version>2.3.17</mojarra23.version>
-    <openwebbeans.version>2.0.26</openwebbeans.version>
+    <openwebbeans.version>2.0.27</openwebbeans.version>
     <slf4j.version>1.7.36</slf4j.version>
     <logback.version>1.2.11</logback.version>
     <maven.compile.source>1.8</maven.compile.source>
