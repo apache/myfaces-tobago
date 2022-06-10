@@ -19,7 +19,6 @@
 
 <ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="Select2 Controls"/>
@@ -152,7 +151,7 @@
           <tc:gridLayout columns="400px;1*" rows="45px"/>
         </f:facet>
 
-        <tc:label value="TokenSeparators ',', ' ', '-'" for="many_3"/>
+        <tc:label value="Token Separators ',', ' ', '-'" for="many_3"/>
         <tc:selectManyBox id="many_3"
                           placeholder="Custom input allowed"
                           tokenSeparators=", -"
@@ -165,7 +164,7 @@
           <tc:gridLayout columns="400px;1*" rows="45px"/>
         </f:facet>
 
-        <tc:label value="Hiden dropdown" for="many_4"/>
+        <tc:label value="Hidden dropdown" for="many_4"/>
         <tc:selectManyBox id="many_4"
                           placeholder="Enter your values!"
                           tokenSeparators=", -"
@@ -182,7 +181,7 @@
 
         <tc:label value="Case sensitive" for="many_6"/>
         <tc:selectManyBox id="many_6"
-                          placeholder="Enter your case senditive values!"
+                          placeholder="Enter your case sensitive values!"
                           tokenSeparators=", -"
                           allowCustom="true"
                           hideDropdown="true">
