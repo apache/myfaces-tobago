@@ -251,11 +251,15 @@ public final class DataAttributes {
 
   public static final String SUGGEST_DELAY = "data-tobago-suggest-delay";
 
+  public static final String SUGGEST_ID = "data-tobago-suggest-id";
+
   public static final String SUGGEST_ITEM_FOR = "data-tobago-suggest-item-for";
 
   public static final String SUGGEST_MAX_ITEMS = "data-tobago-suggest-max-items";
 
   public static final String SUGGEST_MIN_CHARS = "data-tobago-suggest-min-chars";
+
+  public static final String SUGGEST_RESPONSE_DATA = "data-tobago-suggest-response-data";
 
   public static final String SUGGEST_TOTAL_COUNT = "data-tobago-suggest-total-count";
 

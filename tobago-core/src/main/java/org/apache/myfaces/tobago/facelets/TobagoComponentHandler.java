@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.event.TabChangeSource;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFlowLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyBox;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
 
 import javax.faces.component.EditableValueHolder;
@@ -84,6 +85,9 @@ public class TobagoComponentHandler extends ComponentHandler {
     }
     if (SupportsRenderedPartially.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SupportsRenderedPartiallyRule.INSTANCE);
+    }
+    if (AbstractUISelectManyBox.class.isAssignableFrom(aClass)) {
+      metaRuleset.addRule(SelectManyBoxRule.INSTANCE);
     }
     return metaRuleset;
   }

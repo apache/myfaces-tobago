@@ -497,6 +497,36 @@ li.tobago-menu-markup-selected {
   color: @disabledTextColor;
 }
 
+/* selectManyBox ------------------------------------------------------- */
+
+.tobago-selectManyBox-container .select2-selection--multiple {
+  border: 1px solid darken(@borderColor, 10%) !important;
+  font: @font;
+  padding-top: -1px;
+  color: @textColor !important;
+  height: 21px;
+  .border-radius;
+  .transition
+  &:focus {
+    outline: none;
+    border-color: @focusColor !important;
+    .field-focus-shadow;
+  }
+}
+
+.tobago-selectManyBox-container-markup-disabled .select2-selection--multiple {
+  background-color: @disabledBackgroundColor !important;
+  color: @disabledTextColor;
+}
+
+.tobago-selectManyBox-container-markup-readonly .select2-selection--multiple {
+  background-color: @readonlyBackgroundColor !important;
+}
+
+.tobago-selectManyBox-container-markup-error .select2-selection--multiple {
+  border-color: @errorColor !important;
+}
+
 /* selectManyListbox ------------------------------------------------------- */
 
 .tobago-selectManyListbox {
@@ -1040,3 +1070,30 @@ input.tobago-time-markup-error, input.tobago-time-markup-fatal {
 .tobago-treeMenuNode-markup-disabled {
   background-color: transparent;
 }
+
+/* select2 */
+
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-selection--multiple {
+    border: 1px solid darken(@borderColor, 10%);
+    font: @font;
+    .border-radius;
+}
+.select2-container--default .select2-selection--single {
+  height: 20px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  color: @textColor;
+  line-height: 18px;
+  padding-left: 3px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 18px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+  border-color: @textColor transparent transparent transparent;
+}
+

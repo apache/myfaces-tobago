@@ -19,6 +19,9 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.component.UISuggest;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
@@ -29,35 +32,43 @@ import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.el.MethodExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class SuggestRenderer extends InputRendererBase {
+
+  private static final Logger LOG = LoggerFactory.getLogger(SuggestRenderer.class);
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UISuggest suggest = (UISuggest) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    final String id = suggest.getClientId(facesContext);
-    final UIIn in = (UIIn) suggest.getParent();
-    String inClientId = in.getClientId(facesContext);
-    final MethodExpression suggestMethodExpression = suggest.getSuggestMethodExpression();
-    final AutoSuggestItems items
-        = createAutoSuggestItems(suggestMethodExpression.invoke(facesContext.getELContext(), new Object[]{in}));
     // todo: declare unused/unsupported stuff deprecated
+
+    if (suggest.getParent() instanceof UIIn) {
+      writeInSuggestElements(facesContext, writer, suggest);
+    } else if (suggest.isSelect2()) {
+      writeSelect2SuggestElements(facesContext, writer, suggest);
+    } else {
+    }
+  }
+
+  public void writeInSuggestElements(FacesContext facesContext, TobagoResponseWriter writer, UISuggest suggest)
+      throws IOException {
+    final UIIn in = (UIIn) suggest.getParent();
+    final String inClientId = in.getClientId(facesContext);
+
+    final AutoSuggestItems items = suggest.getSuggestItems(facesContext);
 
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(suggest));
-    writer.writeIdAttribute(id);
+    writer.writeIdAttribute(suggest.getClientId(facesContext));
     writer.writeAttribute(DataAttributes.FOR, inClientId, false);
     writer.writeAttribute(DataAttributes.SUGGEST_MIN_CHARS, suggest.getMinimumCharacters());
     writer.writeAttribute(DataAttributes.SUGGEST_DELAY, suggest.getDelay());
@@ -107,32 +118,51 @@ public class SuggestRenderer extends InputRendererBase {
     writer.endElement(HtmlElements.DIV);
   }
 
-  private AutoSuggestItems createAutoSuggestItems(final Object object) {
-    if (object instanceof AutoSuggestItems) {
-      return (AutoSuggestItems) object;
+  public void writeSelect2SuggestElements(
+      FacesContext facesContext, TobagoResponseWriter writer, UISuggest suggest)
+      throws IOException {
+    final UIComponent selectManyBox = (UIComponent) suggest.getParent();
+    final String inClientId = selectManyBox.getClientId(facesContext);
+    String id = suggest.getClientId(facesContext);
+
+    final AutoSuggestItems items = suggest.getSuggestItems(facesContext);
+
+    writer.startElement(HtmlElements.INPUT, null);
+    writer.writeClassAttribute(Classes.create(suggest));
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.writeNameAttribute(id);
+    writer.writeIdAttribute(id);
+    writer.writeAttribute(DataAttributes.FOR, inClientId, false);
+    writer.writeAttribute(DataAttributes.SUGGEST_MIN_CHARS, suggest.getMinimumCharacters());
+    writer.writeAttribute(DataAttributes.SUGGEST_DELAY, suggest.getDelay());
+    writer.writeAttribute(DataAttributes.SUGGEST_MAX_ITEMS, suggest.getMaximumItems());
+    writer.writeAttribute(DataAttributes.SUGGEST_UPDATE, Boolean.toString(suggest.isUpdate()), false);
+    int totalCount = suggest.getTotalCount();
+    if (totalCount == -1) {
+      totalCount = items.getItems().size();
     }
-    final AutoSuggestItems autoSuggestItems = new AutoSuggestItems();
-    if (object instanceof List && !((List) object).isEmpty()) {
-      if (((List) object).get(0) instanceof AutoSuggestItem) {
-        //noinspection unchecked
-        autoSuggestItems.setItems((List<AutoSuggestItem>) object);
-      } else if (((List) object).get(0) instanceof String) {
-        final List<AutoSuggestItem> items = new ArrayList<AutoSuggestItem>(((List) object).size());
-        for (int i = 0; i < ((List) object).size(); i++) {
-          final AutoSuggestItem item = new AutoSuggestItem();
-          item.setLabel((String) ((List) object).get(i));
-          item.setValue((String) ((List) object).get(i));
-          items.add(item);
-        }
-        autoSuggestItems.setItems(items);
-      } else {
-        throw new ClassCastException("Can't create AutoSuggestItems from '" + object + "'. "
-            + "Elements needs to be " + String.class.getName() + " or " + AutoSuggestItem.class.getName());
-      }
-    } else {
-      autoSuggestItems.setItems(Collections.<AutoSuggestItem>emptyList());
+    writer.writeAttribute(DataAttributes.SUGGEST_TOTAL_COUNT, totalCount);
+
+    StringBuilder builder = new StringBuilder("{\"results\":[");
+    for (final AutoSuggestItem item : items.getItems()) {
+      builder.append("{");
+
+      builder.append("\"id\":\"").append(encode(item.getValue())).append("\",");
+      builder.append("\"text\":\"").append(encode(item.getLabel())).append("\"");
+
+      builder.append("},");
     }
-    return autoSuggestItems;
+    if (builder.toString().endsWith(",")) {
+      builder.setLength(builder.length() - 1);
+    }
+    builder.append("]}");
+    writer.writeAttribute(DataAttributes.SUGGEST_RESPONSE_DATA, builder.toString(), true);
+
+    writer.endElement(HtmlElements.INPUT);
+  }
+
+  private String encode(String value) {
+    return value.replace("\\", "\\\\").replace("\"", "\\\"");
   }
 
 }

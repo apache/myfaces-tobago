@@ -19,5 +19,166 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-public abstract class AbstractUISelectOneChoice extends AbstractUISelectOneBase {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.apache.myfaces.tobago.internal.util.UISelect2ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
+
+import javax.faces.component.StateHelper;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
+
+public abstract class AbstractUISelectOneChoice extends AbstractUISelectOneBase implements UISelect2Component {
+
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractUISelectOneChoice.class);
+
+  enum Select2Keys {
+    allowClear,
+    allowCustom,
+    hideDropdown,
+    isSelect2,
+    language,
+    matcher,
+    maximumInputLength,
+    minimumInputLength,
+    maximumSelectionLength,
+    minimumResultsForSearch,
+    tokenizer,
+    tokenSeparators
+  }
+
+  public AbstractUISuggest getSuggest() {
+    return ComponentUtils.findDescendant(this, AbstractUISuggest.class);
+  }
+
+  @Override
+  protected void validateValue(FacesContext facesContext, Object value) {
+    UISelect2ComponentUtil.ensureCustomItemsContainer(facesContext, this);
+    super.validateValue(facesContext, UISelect2ComponentUtil.ensureCustomValue(facesContext, this, value));
+  }
+
+  @Override
+  public Object getValue() {
+    return UISelect2ComponentUtil.ensureCustomValue(FacesContext.getCurrentInstance(), this, super.getValue());
+  }
+
+  @Override
+  public void encodeChildren(FacesContext facesContext) throws IOException {
+    UISelect2ComponentUtil.ensureCustomItemsContainer(facesContext, this);
+    super.encodeChildren(facesContext);
+  }
+
+  public StateHelper getComponentStateHelper() {
+    return getStateHelper();
+  }
+
+  public boolean isAllowClear() {
+    Boolean allowClear = (Boolean) getStateHelper().eval(Select2Keys.allowClear);
+    if (allowClear != null) {
+      return allowClear;
+    }
+    return false;
+  }
+  public boolean isAllowClearSet() {
+    return getStateHelper().eval(Select2Keys.allowClear) != null;
+  }
+
+  public void setAllowClear(boolean allowClear) {
+    getStateHelper().put(Select2Keys.allowClear, allowClear);
+  }
+
+
+  public boolean isAllowCustom() {
+    Boolean allowCustom = (Boolean) getStateHelper().eval(Select2Keys.allowCustom);
+    if (allowCustom != null) {
+      return allowCustom;
+    }
+    return false;
+  }
+  public boolean isAllowCustomSet() {
+    return getStateHelper().eval(Select2Keys.allowCustom) != null;
+  }
+
+  public void setAllowCustom(boolean allowCustom) {
+    getStateHelper().put(Select2Keys.allowCustom, allowCustom);
+  }
+
+  public String getMatcher() {
+    String matcher = (String) getStateHelper().eval(Select2Keys.matcher);
+    if (matcher != null) {
+      return matcher;
+    }
+    return null;
+  }
+
+  public boolean isMatcherSet() {
+    return getStateHelper().eval(Select2Keys.matcher) != null;
+  }
+
+  public void setMatcher(String matcher) {
+    getStateHelper().put(Select2Keys.matcher, matcher);
+  }
+
+  public int getMaximumInputLength() {
+    Integer maximumInputLength = (Integer) getStateHelper().eval(Select2Keys.maximumInputLength);
+    if (maximumInputLength != null) {
+      return maximumInputLength;
+    }
+    return 0;
+  }
+  public boolean isMaximumInputLengthSet() {
+    return getStateHelper().eval(Select2Keys.maximumInputLength) != null;
+  }
+
+  public void setMaximumInputLength(int minimumInputLength) {
+    getStateHelper().put(Select2Keys.maximumInputLength, minimumInputLength);
+  }
+
+  public int getMinimumInputLength() {
+    Integer minimumInputLength = (Integer) getStateHelper().eval(Select2Keys.minimumInputLength);
+    if (minimumInputLength != null) {
+      return minimumInputLength;
+    }
+    return 0;
+  }
+  public boolean isMinimumInputLengthSet() {
+    return getStateHelper().eval(Select2Keys.minimumInputLength) != null;
+  }
+
+  public void setMinimumInputLength(int minimumInputLength) {
+    getStateHelper().put(Select2Keys.minimumInputLength, minimumInputLength);
+  }
+
+  public int getMaximumSelectionLength() {
+    Integer maximumSelectionLength = (Integer) getStateHelper().eval(Select2Keys.maximumSelectionLength);
+    if (maximumSelectionLength != null) {
+      return maximumSelectionLength;
+    }
+    return 0;
+  }
+  public boolean isMaximumSelectionLengthSet() {
+    return getStateHelper().eval(Select2Keys.maximumSelectionLength) != null;
+  }
+
+  public void setMaximumSelectionLength(int maximumSelectionLength) {
+    getStateHelper().put(Select2Keys.maximumSelectionLength, maximumSelectionLength);
+  }
+
+  public void setMinimumResultsForSearch(int minimumResultsForSearch) {
+    getStateHelper().put(Select2Keys.minimumResultsForSearch, minimumResultsForSearch);
+  }
+
+  public int getMinimumResultsForSearch() {
+    Integer minimumResultsForSearch = (Integer) getStateHelper().eval(Select2Keys.minimumResultsForSearch);
+    if (minimumResultsForSearch != null) {
+      return minimumResultsForSearch;
+    }
+    return 20;
+  }
+
+  public boolean isMinimumResultsForSearchSet() {
+    return getStateHelper().eval(Select2Keys.minimumResultsForSearch) != null;
+  }
+
 }

@@ -801,6 +801,29 @@ li.tobago-menu-markup-selected {
   border: 1px solid #FF0000;
 }
 
+/* selectManyBox ------------------------------------------------------- */
+
+.tobago-selectManyBox-container .select2-selection--multiple {
+  font-family: arial, helvetica, sans-serif;
+  color: #000000 !important;
+  background: #ffffff !important;
+  height: 25px;
+}
+
+.tobago-selectManyBox-container-markup-readonly .select2-selection--multiple {
+  background-color: #bbccdd !important;
+}
+
+.tobago-selectManyBox-container-markup-disabled .select2-selection--multiple {
+  color: #778899 !important;
+  background: #bbccdd !important;
+}
+
+.tobago-selectManyBox-container-markup-error .select2-selection--multiple {
+  border-style: solid;
+  border-color: #ff0000 !important;
+}
+
 /* selectManyListbox ------------------------------------------------------- */
 
 .tobago-selectManyListbox {

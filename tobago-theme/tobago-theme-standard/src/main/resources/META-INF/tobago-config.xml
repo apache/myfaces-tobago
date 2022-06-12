@@ -192,6 +192,21 @@
           </supported-markup>
         </renderer>
         <renderer>
+          <name>SelectManyBox</name>
+          <supported-markup>
+            <markup>container</markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+            <markup>selected</markup>
+            <markup>inline</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
           <name>SelectManyCheckbox</name>
           <supported-markup>
             <markup>disabled</markup>
@@ -387,9 +402,11 @@
         <script priority="10" name="script/contrib/jquery-3.6.0.js"/>
         <script priority="20" name="script/contrib/jquery-ui-1.13.1.custom.js"/>
         <script priority="30" name="script/contrib/jquery-ui-timepicker-addon-1.6.3.js"/>
+        <script priority="35" name="script/contrib/select2/select2.full.js"/>
         <script priority="40" name="script/tobago.js"/>
         <style priority="10" name="style/contrib/ui-lightness/jquery-ui-1.13.1.custom.css"/>
         <style priority="20" name="style/contrib/jquery-ui-timepicker-addon-1.6.3.css"/>
+        <style priority="25" name="style/contrib/select2/select2.css"/>
         <style priority="30" name="style/tobago.css"/>
         <!-- backward compatibility -->
         <style priority="40" name="style/style.css"/>
@@ -398,6 +415,7 @@
         <script priority="10" name="script/contrib/jquery-3.6.0.js"/>
         <script priority="20" name="script/contrib/jquery-ui-1.13.1.custom.js"/>
         <script priority="30" name="script/contrib/jquery-ui-timepicker-addon-1.6.3.js"/>
+        <script priority="35" name="script/contrib/select2/select2.full.js"/>
         <script priority="40" name="script/tobago.js"/>
         <script priority="50" name="script/tobago-calendar.js"/>
         <script priority="60" name="script/tobago-console.js"/>
@@ -408,6 +426,7 @@
         <script priority="100" name="script/tobago-menu.js"/>
         <script priority="110" name="script/tobago-overlay.js"/>
         <script priority="120" name="script/tobago-popup.js"/>
+        <script priority="125" name="script/tobago-select2.js"/>
         <script priority="130" name="script/tobago-sheet.js"/>
         <script priority="140" name="script/tobago-suggest.js"/>
         <script priority="150" name="script/tobago-tab.js"/>
@@ -416,6 +435,7 @@
         <script priority="180" name="script/tobago-logging.js"/>
         <style priority="10" name="style/contrib/ui-lightness/jquery-ui-1.13.1.custom.css"/>
         <style priority="20" name="style/contrib/jquery-ui-timepicker-addon-1.6.3.css"/>
+        <style priority="25" name="style/contrib/select2/select2.css"/>
         <style priority="30" name="style/tobago.css"/>
         <!-- backward compatibility -->
         <style priority="40" name="style/style.css"/>

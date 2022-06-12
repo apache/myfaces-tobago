@@ -50,5 +50,6 @@ public abstract class AbstractUISelectOneBase extends javax.faces.component.UISe
     super.validate(facesContext);
   }
 
+
   public abstract boolean isReadonly();
 }

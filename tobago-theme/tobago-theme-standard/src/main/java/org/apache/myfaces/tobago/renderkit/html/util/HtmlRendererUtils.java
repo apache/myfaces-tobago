@@ -33,7 +33,9 @@ import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.apache.myfaces.tobago.internal.util.UISelect2ComponentUtil;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
+import org.apache.myfaces.tobago.model.SubmittedItem;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -403,7 +405,7 @@ public final class HtmlRendererUtils {
       throws IOException {
     renderSelectItems(component, items, values, null, onlySelected, writer, facesContext);
   }
-  public static void renderSelectItems(final UIInput component, final Iterable<SelectItem> items, final Object[] values,
+  public static void renderSelectItems(final UIInput component, Iterable<SelectItem> items, final Object[] values,
       final String[] submittedValues, final Boolean onlySelected, final TobagoResponseWriter writer,
       final FacesContext facesContext) throws IOException {
 
@@ -412,7 +414,9 @@ public final class HtmlRendererUtils {
       LOG.debug("values = '{}'", Arrays.toString(values));
       LOG.debug("submittedValues = '{}'", Arrays.toString(submittedValues));
     }
-    for (final SelectItem item : items) {
+    Iterable<SelectItem> iterableItems
+      = UISelect2ComponentUtil.ensureSubmittedValues(facesContext, component, items, submittedValues);
+    for (final SelectItem item : iterableItems) {
       if (item instanceof SelectItemGroup) {
         writer.startElement(HtmlElements.OPTGROUP, null);
         writer.writeAttribute(HtmlAttributes.LABEL, item.getLabel(), true);
@@ -430,7 +434,12 @@ public final class HtmlRendererUtils {
         if (itemValue instanceof String && values != null && values.length > 0 && !(values[0] instanceof String)) {
           itemValue = ComponentUtils.getConvertedValue(facesContext, component, (String) itemValue);
         }
-        final String formattedValue = RenderUtils.getFormattedValue(facesContext, component, itemValue);
+        final String formattedValue;
+        if (item instanceof SubmittedItem) {
+          formattedValue = item.getLabel();
+        } else {
+          formattedValue = RenderUtils.getFormattedValue(facesContext, component, itemValue);
+        }
         boolean contains;
         if (submittedValues == null) {
           contains = RenderUtils.contains(values, itemValue);
@@ -956,11 +965,15 @@ public final class HtmlRendererUtils {
     for (final Map.Entry<Object, Object> entry : dataAttributes.entrySet()) {
       final Object mapKey = entry.getKey();
       final String name = mapKey instanceof ValueExpression
-          ? ((ValueExpression) mapKey).getValue(elContext).toString() : mapKey.toString();
-      final Object mapValue = entry.getValue();
-      final String value = mapValue instanceof ValueExpression
-          ? ((ValueExpression) mapValue).getValue(elContext).toString() : mapValue.toString();
-      writer.writeAttribute("data-" + name, value, true);
+          ? ((ValueExpression) mapKey).getValue(elContext).toString()
+          : mapKey.toString();
+      Object mapValue = entry.getValue();
+      mapValue = mapValue instanceof ValueExpression ? ((ValueExpression) mapValue).getValue(elContext) : mapValue;
+      if (mapValue == null) {
+        throw new NullPointerException("Data attribute value of " + name + " is null on component "
+            + component.getClass().getName() + " [" + component.getClientId(context) + "]");
+      }
+      writer.writeAttribute("data-" + name, mapValue.toString(), true);
     }
   }
 }
