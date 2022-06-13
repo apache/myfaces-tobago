@@ -440,7 +440,7 @@
                 </requirePluginVersions>
                 <requireJavaVersion>
                   <message>Tobago must be compiled with Java 8</message>
-                  <version>[1.8.0-100,17.99.999]</version>
+                  <version>[1.8.0-100,)</version>
                 </requireJavaVersion>
               </rules>
             </configuration>
