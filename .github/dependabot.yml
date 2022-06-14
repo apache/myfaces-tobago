@@ -71,6 +71,10 @@ updates:
       - dependency-name: "org.jboss.weld.servlet:weld-servlet-shaded"
         versions:
           - ">= 5.0.0"
+      # Jakarta Faces 4.0 is Jakarta EE 10
+      - dependency-name: "org.glassfish:jakarta.faces"
+        versions:
+          - ">= 4.0.0"
 
   - package-ecosystem: "maven"
     directory: "/"
