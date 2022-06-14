@@ -25,7 +25,7 @@ updates:
       prefix-development: "build"
       include: "scope"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     ignore:
       - dependency-name: "org.antlr:stringtemplate"
         versions:
@@ -84,7 +84,7 @@ updates:
       prefix-development: "build"
       include: "scope"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     ignore:
       # Jetty >= 10 requires jdk 11
       - dependency-name: "org.eclipse.jetty:jetty-maven-plugin"
@@ -161,7 +161,7 @@ updates:
       prefix-development: "build"
       include: "scope"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     ignore:
       - dependency-name: "com.sun.faces:jsf-api"
       - dependency-name: "com.sun.faces:jsf-impl"
@@ -239,7 +239,7 @@ updates:
       prefix-development: "build"
       include: "scope"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     ignore:
       - dependency-name: "org.apache.myfaces.core:myfaces-api"
         versions:
@@ -307,28 +307,28 @@ updates:
     directory: "/"
     schedule:
       # Check for updates to GitHub Actions every day
-      interval: "weekly"
+      interval: "monthly"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     target-branch: "tobago-5.x"
     schedule:
       # Check for updates to GitHub Actions every day
-      interval: "weekly"
+      interval: "monthly"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     target-branch: "tobago-4.x"
     schedule:
       # Check for updates to GitHub Actions every day
-      interval: "weekly"
+      interval: "monthly"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     target-branch: "tobago-2.x"
     schedule:
       # Check for updates to GitHub Actions every day
-      interval: "weekly"
+      interval: "monthly"
 
   - package-ecosystem: "npm"
     # Look for `package.json` and `lock` files in the `root` directory
@@ -339,7 +339,7 @@ updates:
       include: "scope"
     # Check the npm registry for updates every day (weekdays)
     schedule:
-      interval: "weekly"
+      interval: "monthly"
   - package-ecosystem: "npm"
     directory: "/tobago-example/tobago-example-demo"
     commit-message:
@@ -347,7 +347,7 @@ updates:
       prefix-development: "build"
       include: "scope"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
 
   - package-ecosystem: "npm"
     # Look for `package.json` and `lock` files in the `root` directory
@@ -359,7 +359,7 @@ updates:
       include: "scope"
     # Check the npm registry for updates every day (weekdays)
     schedule:
-      interval: "weekly"
+      interval: "monthly"
   - package-ecosystem: "npm"
     directory: "/tobago-example/tobago-example-demo"
     target-branch: "tobago-5.x"
@@ -368,4 +368,4 @@ updates:
       prefix-development: "build"
       include: "scope"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
