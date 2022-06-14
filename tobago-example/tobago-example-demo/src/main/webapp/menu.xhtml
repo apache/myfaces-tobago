@@ -48,7 +48,7 @@
                 <tc:selectItems value="#{themeController.themeItems}"/>
               </tc:selectOneRadio>
             </tc:link>
-            <tc:link label="Locale">
+            <tc:link label="Locale" omit="true">
               <tc:selectOneRadio value="#{localeController.locale}">
                 <tc:event action="#{localeController.submit}"/>
                 <tc:selectItems value="#{localeController.localeItems}"/>
