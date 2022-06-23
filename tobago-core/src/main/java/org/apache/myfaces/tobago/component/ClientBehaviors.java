@@ -28,6 +28,9 @@ public enum ClientBehaviors {
   complete,
   dblclick,
   focus,
+  keydown,
+  keypress,
+  keyup,
   input,
   load,
   mouseover,
@@ -43,6 +46,9 @@ public enum ClientBehaviors {
   public static final String COMPLETE = "complete";
   public static final String DBLCLICK = "dblclick";
   public static final String FOCUS = "focus";
+  public static final String KEYDOWN = "keydown";
+  public static final String KEYPRESS = "keypress";
+  public static final String KEYUP = "keyup";
   public static final String INPUT = "input";
   public static final String LOAD = "load";
   public static final String MOUSEOVER = "mouseover";
