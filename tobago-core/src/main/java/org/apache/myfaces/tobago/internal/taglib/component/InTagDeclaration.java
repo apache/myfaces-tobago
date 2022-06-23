@@ -87,6 +87,12 @@ import jakarta.faces.component.UIInput;
         @Behavior(
             name = ClientBehaviors.FOCUS),
         @Behavior(
+          name = ClientBehaviors.KEYDOWN),
+        @Behavior(
+          name = ClientBehaviors.KEYPRESS),
+        @Behavior(
+          name = ClientBehaviors.KEYUP),
+        @Behavior(
             name = ClientBehaviors.BLUR)
     })
 public interface InTagDeclaration
