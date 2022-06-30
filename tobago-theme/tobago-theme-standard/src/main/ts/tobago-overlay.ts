@@ -29,7 +29,7 @@ import {Config} from "./tobago-config";
 Config.set("Tobago.waitOverlayDelay", 1000);
 Config.set("Ajax.waitOverlayDelay", 1000);
 
-class Overlay extends HTMLElement {
+export class Overlay extends HTMLElement {
 
   constructor() {
     super();
@@ -39,12 +39,36 @@ class Overlay extends HTMLElement {
     setTimeout(this.render.bind(this), this.delay);
   }
 
+  disconnectedCallback() {
+    console.log("disconnected from the DOM");
+    const forElement = document.getElementById(this.for);
+    if (forElement) {
+      forElement.classList.remove("position-relative");
+    }
+  }
+
   render(): void {
-    const icon = this.error
-        ? "<i class='bi-flash fs-1'></i>"
-        : "<span class='spinner-border'></span>";
+    let icon;
+    switch (this.type) {
+      case "error":
+        icon = "<i class='bi-flash fs-1'></i>";
+        break;
+      case "drop-zone":
+        icon = "<i class='bi-upload fs-1'></i>";
+        break;
+      case "wait":
+        icon = "<span class='spinner-border'></span>";
+        break;
+      default:
+        icon = "";
+    }
 
     this.insertAdjacentHTML("afterbegin", `<div>${icon}</div>`);
+
+    const forElement = document.getElementById(this.for);
+    if (forElement) {
+      forElement.classList.add("position-relative");
+    }
   }
 
   get for(): string {
@@ -56,35 +80,54 @@ class Overlay extends HTMLElement {
   }
 
   /**
+   * Examples:
+   * wait, error, ajax, drop-zone
+   */
+  get type(): string {
+    let attribute = this.getAttribute("type");
+    if (attribute) {
+      return attribute;
+    } else {
+      return "wait";
+    }
+  }
+
+  set type(type: string) {
+    this.setAttribute("type", type);
+  }
+
+  /**
    * Is this overlay for an AJAX request, or an normal submit?
    * We need this information, because AJAX need to clone the animated image, but for a normal submit
    * we must not clone it, because the animation stops in some browsers.
+   *
+   * @deprecated please use type
    */
   get ajax(): boolean {
-    return this.hasAttribute("ajax");
+    return this.type === "ajax";
   }
 
+  /**
+   * @deprecated please use type
+   */
   set ajax(ajax: boolean) {
-    if (ajax) {
-      this.setAttribute("ajax", "");
-    } else {
-      this.removeAttribute("ajax");
-    }
+    this.type = "ajax";
   }
 
   /**
    * This boolean indicates, if the overlay is "error" or "wait".
+   *
+   * @deprecated please use type
    */
   get error(): boolean {
-    return this.hasAttribute("error");
+    return this.type === "error";
   }
 
+  /**
+   * @deprecated please use type
+   */
   set error(error: boolean) {
-    if (error) {
-      this.setAttribute("error", "");
-    } else {
-      this.removeAttribute("error");
-    }
+    this.type = "error";
   }
 
   /**
