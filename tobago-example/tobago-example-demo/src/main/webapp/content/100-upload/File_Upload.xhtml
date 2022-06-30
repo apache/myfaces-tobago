@@ -75,8 +75,6 @@
   <tc:section id="s3" label="Ajax">
     <p>Ajax can be activated by adding <code class="language-markup">&lt;f:ajax/></code>
       to the <code class="language-markup">&lt;tc:file/></code> tag.</p>
-    <p><tc:badge value="Warning" markup="warning"/> The Ajax feature of file upload works with JSF 2.2 or higher!</p>
-
     <tc:file label="Ajax" value="#{uploadController.fileAjax}" id="fileAjax">
       <f:ajax listener="#{uploadController.uploadAjax}" render="s3 list :page:messages"/>
     </tc:file>
@@ -94,25 +92,30 @@
     <tc:button label="Upload" action="#{uploadController.uploadDropZone}"/>
   </tc:section>
 
-  <tc:section id="dropZoneAjax" label="Drop Zone with Ajax">
-    <tc:file label="Ajax" value="#{uploadController.fileDropZoneAjax}" id="dzAjax"
-             dropZone="@this" multiple="true">
-      <f:ajax listener="#{uploadController.uploadDropZoneAjax}" render="dropZoneAjax list :page:messages"/>
-    </tc:file>
-  </tc:section>
+  <tc:panel id="dropZoneAjax">
+    <tc:section label="Drop Zone with Ajax">
+      <tc:file label="Ajax" value="#{uploadController.fileDropZoneAjax}" id="dzAjax"
+               dropZone="dropZoneAjax" multiple="true">
+        <f:ajax listener="#{uploadController.uploadDropZoneAjax}" render="dropZoneAjax list :page:messages"/>
+      </tc:file>
+    </tc:section>
 
-  <tc:section id="list" label="Uploaded Files">
-    <tc:sheet value="#{uploadController.uploadItems}" var="item">
-      <tc:column label="Name">
-        <tc:out value="#{item.name}"/>
-      </tc:column>
-      <tc:column label="Type">
-        <tc:out value="#{item.type}"/>
-      </tc:column>
-      <tc:column label="Size">
-        <tc:out value="#{item.size}"/>
-      </tc:column>
-    </tc:sheet>
-  </tc:section>
+    <tc:section id="list" label="Uploaded Files">
+      <tc:sheet value="#{uploadController.uploadItems}" var="item">
+        <tc:column label="Name">
+          <tc:out value="#{item.name}"/>
+        </tc:column>
+        <tc:column label="Type">
+          <tc:out value="#{item.type}"/>
+        </tc:column>
+        <tc:column label="Size">
+          <tc:out value="#{item.size}"/>
+        </tc:column>
+        <tc:column label="Used Action">
+          <tc:out value="#{item.action}"/>
+        </tc:column>
+      </tc:sheet>
+    </tc:section>
+  </tc:panel>
 
 </ui:composition>
