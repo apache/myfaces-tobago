@@ -45,40 +45,40 @@ public class UploadController implements Serializable {
   private Part fileAjax;
   private Part fileDropZone;
   private Part[] fileDropZoneAjax;
-  private List<UploadItem> uploadItems = new ArrayList<>();
+  private final List<UploadItem> uploadItems = new ArrayList<>();
 
   public String uploadBasic() {
-    upload(fileBasic);
+    upload(fileBasic, "uploadBasic");
     return null;
   }
 
   public String uploadContentType() {
-    upload(fileContentType);
+    upload(fileContentType, "uploadContentType");
     return null;
   }
 
   public String uploadMulti() {
     for (final Part part : fileMulti) {
-      upload(part);
+      upload(part, "uploadMulti");
     }
     return null;
   }
 
   public void uploadDropZone() {
-    upload(fileDropZone);
+    upload(fileDropZone, "uploadDropZone");
   }
 
   public void uploadDropZoneAjax(final AjaxBehaviorEvent event) {
     for (final Part part : fileDropZoneAjax) {
-      upload(part);
+      upload(part, "uploadDropZoneAjax");
     }
   }
 
   public void uploadAjax(final AjaxBehaviorEvent event) {
-    upload(fileAjax);
+    upload(fileAjax, "uploadAjax");
   }
 
-  private void upload(final Part part) {
+  private void upload(final Part part, final String action) {
     LOG.info("checking file item");
     if (part == null || part.getSize() == 0) {
       return;
@@ -88,7 +88,7 @@ public class UploadController implements Serializable {
     LOG.info("cd = " + part.getHeader("Content-Disposition"));
     final String submittedFileName = part.getSubmittedFileName();
     LOG.info("name=" + submittedFileName);
-    uploadItems.add(new UploadItem(submittedFileName, part.getSize(), part.getContentType()));
+    uploadItems.add(new UploadItem(submittedFileName, part.getSize(), part.getContentType(), action));
     FacesContext.getCurrentInstance().addMessage(
             null, new FacesMessage(FacesMessage.SEVERITY_INFO, "File was uploaded: " + submittedFileName, null));
   }

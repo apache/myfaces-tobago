@@ -26,11 +26,13 @@ public class UploadItem implements Serializable {
   private String name;
   private long size;
   private String type;
+  private String action;
 
-  public UploadItem(final String name, final long size, final String type) {
+  public UploadItem(final String name, final long size, final String type, final String action) {
     this.name = name;
     this.size = size;
     this.type = type;
+    this.action = action;
   }
 
   public String getName() {
@@ -55,5 +57,13 @@ public class UploadItem implements Serializable {
 
   public void setType(final String type) {
     this.type = type;
+  }
+
+  public String getAction() {
+    return action;
+  }
+
+  public void setAction(String action) {
+    this.action = action;
   }
 }
