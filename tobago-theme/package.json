@@ -58,6 +58,7 @@
     "ts-compile": "tsc --project tsconfig.development.json",
     "rollup": "rollup --config",
     "test": "jest",
+    "dev": "npm-run-all dev-css dev-ts",
     "dev-css": "npm-run-all css dev-css-cp",
     "dev-css-cp": "ncp tobago-theme-standard/src/main/css ../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/${npm_package_version}/css",
     "dev-ts": "npm-run-all ts dev-ts-cp",

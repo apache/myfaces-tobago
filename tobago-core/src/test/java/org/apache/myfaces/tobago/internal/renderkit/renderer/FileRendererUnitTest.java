@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.component.UIFile;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -75,14 +74,13 @@ public class FileRendererUnitTest extends RendererTestBase {
   }
 
   @Test
-  @Disabled // XXX
   public void fileDropZoneParent() throws IOException {
     final UIPanel panel = (UIPanel) ComponentUtils.createComponent(
       facesContext, Tags.panel.componentType(), RendererTypes.Panel, "drop-zone");
 
     final UIFile c = (UIFile) ComponentUtils.createComponent(
         facesContext, Tags.file.componentType(), RendererTypes.File, "id");
-    c.setDropZone("@parent");
+    c.setDropZone("drop-zone");
 
     panel.getChildren().add(c);
 
