@@ -36,7 +36,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ComponentSystemEventListener;
@@ -180,13 +179,6 @@ public class FileRenderer<T extends AbstractUIFile>
     writer.endElement(HtmlElements.I);
     writer.endElement(HtmlElements.SPAN);
     writer.endElement(HtmlElements.LABEL);
-
-    if (component.getDropZone() != null) {
-      writer.startElement(HtmlElements.DIV);
-      writer.writeClassAttribute(BootstrapClass.FORM_CONTROL);
-      writer.writeText(">>> drop here <<<");
-      writer.endElement(HtmlElements.DIV);
-    }
   }
 
   private String createAcceptFromValidators(final AbstractUIFile file) {
@@ -220,13 +212,8 @@ public class FileRenderer<T extends AbstractUIFile>
     super.writeAdditionalAttributes(facesContext, writer, input);
     final String dropZone = input.getDropZone();
     if (dropZone != null) {
-      UIComponent component = ComponentUtils.findComponent(input, dropZone);
-      if (component == null) {
-        LOG.warn("Can't find component for dropZone='{}'", dropZone);
-        component = input;
-      }
-      final String id = component.getClientId(facesContext);
-      writer.writeAttribute(CustomAttributes.DROP_ZONE, id, true);
+      final String forId = ComponentUtils.evaluateClientId(facesContext, input, dropZone);
+      writer.writeAttribute(CustomAttributes.DROP_ZONE, forId, true);
     }
   }
 

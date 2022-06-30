@@ -28,7 +28,21 @@ export class File extends HTMLElement {
   get dropZone(): HTMLElement {
     const id = this.getAttribute("drop-zone");
     const rootNode = this.getRootNode() as ShadowRoot | Document;
-    return rootNode.getElementById(id);
+    const element = rootNode.getElementById(id);
+    const dropZone = element ? element : this;
+    dropZone.classList.add("tobago-drop-zone");
+    return dropZone;
+  }
+
+  static isTypeFile(event: DragEvent): boolean {
+    if (event.dataTransfer) {
+      for (const item of event.dataTransfer.items) {
+        if (item.kind === "file") {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   connectedCallback(): void {
@@ -38,33 +52,52 @@ export class File extends HTMLElement {
     const dropZone = this.dropZone;
     if (dropZone) {
       dropZone.addEventListener("dragover", this.dragover.bind(this));
+      dropZone.addEventListener("dragleave", this.dragleave.bind(this));
       dropZone.addEventListener("drop", this.drop.bind(this));
     }
   }
 
   dragover(event: DragEvent): void {
-    event.stopPropagation();
-    event.preventDefault();
-    event.dataTransfer.dropEffect = "copy";
+    if (File.isTypeFile(event)) {
+      event.stopPropagation();
+      event.preventDefault();
+      event.dataTransfer.dropEffect = "copy";
+
+      const dropZone = this.dropZone;
+      if (dropZone) {
+        if (dropZone.querySelector("tobago-overlay") == null) {
+          console.info("DRAGOVER", event.dataTransfer.items);
+          dropZone.insertAdjacentHTML(
+            "beforeend", `<tobago-overlay for='${dropZone.id}' delay="0" type="drop-zone"></tobago-overlay>`);
+        }
+      }
+    }
+  }
+
+  dragleave(event: DragEvent): void {
+    if (File.isTypeFile(event)) {
+      event.stopPropagation();
+      event.preventDefault();
+      event.dataTransfer.dropEffect = "none";
+
+      const dropZone = this.dropZone;
+      const element = dropZone.querySelector("tobago-overlay");
+      if (element) {
+        console.info("DRAGLEAVE -> REMOVE CHILD");
+        dropZone.removeChild(element);
+      }
+    }
   }
 
   drop(event: DragEvent): void {
-    console.debug(event);
-    event.stopPropagation();
-    event.preventDefault();
+    if (File.isTypeFile(event)) {
+      console.debug(event);
+      event.stopPropagation();
+      event.preventDefault();
 
-    this.input.files = event.dataTransfer.files;
-/* todo: feature? show list of dropped files
-    const output = [];
-    for (let i = 0; files.item(i); i++) {
-      const file = files.item(i);
-      output.push("<li><strong>", escape(file.name), "</strong> (", file.type || "n/a", ") - ",
-        file.size, " bytes, last modified: ",
-        new Date(file.lastModified).toLocaleDateString(), "</li>");
+      this.input.files = event.dataTransfer.files;
+      this.input.dispatchEvent(new Event("change"));
     }
-    document.getElementById("list").innerHTML = "<ul>" + output.join("") + "</ul>";
- */
-    this.input.dispatchEvent(new Event("change"));
   }
 }
 
