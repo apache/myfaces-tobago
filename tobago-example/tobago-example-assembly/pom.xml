@@ -28,7 +28,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>4.5.5-SNAPSHOT</version>
+    <version>4.5.5</version>
   </parent>
 
   <profiles>
