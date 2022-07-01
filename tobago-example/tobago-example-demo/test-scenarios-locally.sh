@@ -35,12 +35,6 @@ if [ $? != 0 ]; then
   exit 1
 fi
 
-${JAVA_HOME_16}/bin/java -version
-if [ $? != 0 ]; then
-  echo "Java 16 not found!"
-  exit 1
-fi
-
 ${JAVA_HOME_17}/bin/java -version
 if [ $? != 0 ]; then
   echo "Java 17 (LTS) not found!"
@@ -115,9 +109,6 @@ check() {
   11)
     export JAVA_HOME=${JAVA_HOME_11}
     ;;
-  16)
-    export JAVA_HOME=${JAVA_HOME_16}
-    ;;
   17)
     export JAVA_HOME=${JAVA_HOME_17}
     ;;
@@ -174,7 +165,7 @@ check() {
 
 # xxx -Pprod doesn't exist, but this is no problem
 for MODE in "dev" "prod" ; do
-  for JAVA_VERSION in 8 11 16 17 ; do
+  for JAVA_VERSION in 8 11 17 ; do
 
     check ${JAVA_VERSION} "mvn clean jetty:run -P${MODE} -Pjetty"              "Jetty 9 with MyFaces 2.3"
 
