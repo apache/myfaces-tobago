@@ -71,8 +71,14 @@ class Behavior extends HTMLElement {
             const partialId = partialIds[i];
             const partialElement = document.getElementById(partialId);
             if (partialElement) {
-              partialElement.insertAdjacentHTML(
-                  "beforeend", `<tobago-overlay for='${partialElement.id}'></tobago-overlay>`);
+              let id: string;
+              if (partialElement.tagName === "TOBAGO-POPUP") {
+                // popup needs no overlay, is has no area to show
+                id = partialElement.querySelector(".modal-dialog").id;
+              } else {
+                id = partialElement.id;
+              }
+              partialElement.insertAdjacentHTML("beforeend", `<tobago-overlay for='${id}'></tobago-overlay>`);
             } else {
               console.warn("No element found by id='%s' for overlay!", partialId);
             }
