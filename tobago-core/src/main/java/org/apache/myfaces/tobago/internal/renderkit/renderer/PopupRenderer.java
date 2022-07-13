@@ -58,6 +58,8 @@ public class PopupRenderer<T extends AbstractUIPopup> extends CollapsiblePanelRe
         BootstrapClass.MODAL,
         BootstrapClass.FADE,
         component.getCustomClass());
+    // this id is needed for the <tobago-overlay> in tobago-behaviour.ts
+    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "dialog");
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.DIALOG.toString(), false);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
