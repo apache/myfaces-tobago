@@ -46,28 +46,55 @@
     &lt;tc:selectItems value="\#{suggestController.solarObjects}" var="name" itemValue="\#{name}"/>
   &lt;/tc:suggest>
 &lt;/tc:in></demo-highlight>
-    <tc:in id="inBasic">
+    <tc:in id="inBasic" placeholder="type some character, like an 'a' or 'b'">
       <tc:suggest totalCount="10" query="#{suggestController.query}">
         <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
       </tc:suggest>
     </tc:in>
   </tc:section>
 
-  <tc:section label="Advanced">
-    <p>This example differs in a few points from the one in the 'Basics' section.
-      There are only two suggestions shown to the user, because the
-      <code>maximumItems</code> attribute is set to '2'.
-      Also you need to type two characters before suggestions are made,
-      because of the <code>minimumCharacters</code> attribute which has the value '2'.
-      And by setting the <code>delay</code> to '2000', the user have to wait two seconds,
-      before the suggestion list is shown.</p>
-    <demo-highlight language="markup">&lt;tc:suggest query="\#{suggestController.query}"
-            maximumItems="2" minimumCharacters="2" delay="2000">
-  &lt;tc:selectItems value="\#{suggestController.solarObjects}" var="name" itemValue="\#{name}"/>
-&lt;/tc:suggest></demo-highlight>
-    <tc:in id="inAdvanced" label="Solar Objects">
-      <tc:suggest query="#{suggestController.query}"
-                  maximumItems="2" minimumCharacters="2" delay="2000">
+  <tc:section label="Maximum Items">
+    <p>The attribute
+      <code>maximumItems</code> is here set to <code>5</code> to limit the list of matching items.
+      The default value is <code>10</code>.
+    </p>
+    <tc:in id="maximumItems" label="Solar Objects" placeholder="type an 'a' for Earth, Mars, ...">
+      <tc:suggest query="#{suggestController.query}" maximumItems="5">
+        <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
+      </tc:suggest>
+    </tc:in>
+  </tc:section>
+
+  <tc:section label="Delay">
+    <p>The attribute
+      <code>delay</code> (in milliseconds) is here set to <code>2000</code>
+      to set the waiting time to 2 seconds, before the list is shown.
+      The default value is <code>200</code>.
+    </p>
+    <tc:in id="delay" label="Solar Objects" placeholder="type an 's' and wait 2 seconds ...">
+      <tc:suggest query="#{suggestController.query}" delay="2000">
+        <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
+      </tc:suggest>
+    </tc:in>
+  </tc:section>
+
+  <tc:section label="Minimum Characters">
+    <p>The attribute
+      <code>minimumCharacters</code> is here set to <code>2</code>.
+      You need to type at least 2 charaters before the list is shown.
+      The default value is <code>1</code>.
+    </p>
+    <tc:in id="minimumCharacters" label="Solar Objects" placeholder="type 'sa' ...">
+      <tc:suggest query="#{suggestController.query}" minimumCharacters="2">
+        <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
+      </tc:suggest>
+    </tc:in>
+    <p>The attribute
+      <code>minimumCharacters</code> is here set to <code>0</code>.
+      In this case the list will shown at focus of the field.
+    </p>
+    <tc:in id="minimumCharacters0" label="Solar Objects" placeholder="just click">
+      <tc:suggest query="#{suggestController.query}" minimumCharacters="0">
         <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
       </tc:suggest>
     </tc:in>
