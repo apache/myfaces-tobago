@@ -61,7 +61,7 @@ public interface SuggestTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * Minimum number of characters to type before the list will be requested.
-   * If the value is 0, there will be send an initial list to the client.
+   * If the value is 0, there will be sent an initial list to the client.
    * So, if you set <pre>update="false"</pre> this value should be 0.
    */
   @TagAttribute
@@ -69,14 +69,14 @@ public interface SuggestTagDeclaration extends HasIdBindingAndRendered {
   void setMinimumCharacters(String minimumCharacters);
 
   /**
-   * Time in milli seconds before the list will be requested (by AJAX).
+   * Time in milliseconds before the list will be requested (by AJAX).
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "200")
   void setDelay(String delay);
 
   /**
-   * The maximum number of item to display in the drop down list.
+   * The maximum number of item to display in the drop-down list.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "10")
@@ -84,7 +84,7 @@ public interface SuggestTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * The real size of the result list.
-   * Typically the result list will be cropped (in the backend) to save memory.
+   * Typically, the result list will be cropped (in the backend) to save memory.
    * This value can be set, to show the user there are more results for the given string.
    * If the value is -1, no hint will be displayed.
    */
