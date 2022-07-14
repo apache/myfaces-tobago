@@ -43,8 +43,7 @@ export class Suggest {
     const options = {
       search: (input: string) => {
         console.debug("[tobago-suggest] input = '%s'", input);
-        const minChars = this.minChars ? this.minChars : 1;
-        if (input.length < minChars) {
+        if (input.length < this.minChars) {
           return [];
         }
         this.hiddenInput.value = input.toLowerCase();
@@ -52,9 +51,6 @@ export class Suggest {
         this.positioningSpinner();
 
         return new Promise(resolve => {
-          if (input.length < 1) {
-            return resolve([]);
-          }
 
           if (this.update) {
             this.resolve = resolve;
