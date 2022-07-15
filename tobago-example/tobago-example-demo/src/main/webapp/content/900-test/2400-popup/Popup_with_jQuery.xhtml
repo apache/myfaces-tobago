@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <tc:script file="#{request.contextPath}/js/jquery-3.6.0.js" type="module"/>
+
+  <tc:button id="openClientPopup" label="Open Client Sided Popup" omit="true">
+    <tc:operation name="show" for="clientPopup"/>
+  </tc:button>
+  <tc:popup id="clientPopup" collapsedMode="hidden">
+    <f:facet name="label">
+      Client Sided Popup
+    </f:facet>
+    <f:facet name="bar">
+      <tc:link image="bi-x-lg" omit="true">
+        <tc:operation name="hide" for="clientPopup"/>
+      </tc:link>
+    </f:facet>
+    Content of Client Sided Popup
+    <f:facet name="footer">
+      <tc:button id="closeClientPopup" label="Close" omit="true">
+        <tc:operation name="hide" for="clientPopup"/>
+      </tc:button>
+    </f:facet>
+  </tc:popup>
+
+  <tc:button id="openAjaxPopup" label="Open Ajax Popup">
+    <tc:operation name="show" for="ajaxPopup"/>
+    <f:ajax execute="ajaxPopup" render="ajaxPopup"/>
+  </tc:button>
+  <tc:popup id="ajaxPopup" collapsedMode="absent">
+    <f:facet name="label">
+      Ajax Popup
+    </f:facet>
+    <f:facet name="bar">
+      <tc:link image="bi-x-lg">
+        <tc:operation name="hide" for="ajaxPopup"/>
+        <f:ajax execute="ajaxPopup" render="ajaxPopup"/>
+      </tc:link>
+    </f:facet>
+    Content of Ajax Popup
+    <f:facet name="footer">
+      <tc:button id="closeAjaxPopup" label="Close">
+        <tc:operation name="hide" for="ajaxPopup"/>
+        <f:ajax execute="ajaxPopup" render="ajaxPopup"/>
+      </tc:button>
+    </f:facet>
+  </tc:popup>
+
+  <tc:button id="openServerPopup" label="Open Server Popup">
+    <tc:operation name="show" for="serverPopup"/>
+  </tc:button>
+  <tc:popup id="serverPopup" collapsedMode="absent">
+    <f:facet name="label">
+      Server Popup
+    </f:facet>
+    <f:facet name="bar">
+      <tc:link image="bi-x-lg">
+        <tc:operation name="hide" for="serverPopup"/>
+      </tc:link>
+    </f:facet>
+    Content of Server Popup
+    <f:facet name="footer">
+      <tc:button id="closeServerPopup" label="Close">
+        <tc:operation name="hide" for="serverPopup"/>
+      </tc:button>
+    </f:facet>
+  </tc:popup>
+</ui:composition>
