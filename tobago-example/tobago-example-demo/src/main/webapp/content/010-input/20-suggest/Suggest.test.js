@@ -114,8 +114,8 @@ it("Basics: Add 'eus' and click first entry.", function (done) {
   test.start();
 });
 
-it("Advanced: 'C'", function (done) {
-  const inputFn = elementByIdFn("page:mainForm:inAdvanced::field");
+it("Minimum Characters: 'C'", function (done) {
+  const inputFn = elementByIdFn("page:mainForm:minimumCharacters::field");
   const resultId = inputFn().getAttribute("aria-owns");
   const resultListFn = querySelectorAllFn("#" + resultId + " .autocomplete-result");
 
@@ -128,8 +128,8 @@ it("Advanced: 'C'", function (done) {
   test.start();
 });
 
-it("Advanced: 'Ca'", function (done) {
-  const inputFn = elementByIdFn("page:mainForm:inAdvanced::field");
+it("Minimum Characters: 'Ca'", function (done) {
+  const inputFn = elementByIdFn("page:mainForm:minimumCharacters::field");
   const resultId = inputFn().getAttribute("aria-owns");
   const resultListFn = querySelectorAllFn("#" + resultId + " .autocomplete-result");
 
@@ -146,6 +146,19 @@ it("Advanced: 'Ca'", function (done) {
   test.do(() => expect(resultListFn()[4].textContent).toBe("Calypso"));
   test.do(() => expect(resultListFn()[5].textContent).toBe("Bianca"));
   test.do(() => expect(resultListFn()[6].textContent).toBe("Caliban"));
+  test.event("blur", inputFn, () => resultListFn().length === 0);
+  test.start();
+});
+
+it("Minimum Characters: Zero", function (done) {
+  const inputFn = elementByIdFn("page:mainForm:minimumCharacters0::field");
+  const resultId = inputFn().getAttribute("aria-owns");
+  const resultListFn = querySelectorAllFn("#" + resultId + " .autocomplete-result");
+
+  const test = new JasmineTestTool(done);
+  test.setup(() => resultListFn().length === 0, () => inputFn().value = "", "blur", inputFn);
+  test.event("focus", inputFn, () => resultListFn().length > 0);
+  test.do(() => expect(resultListFn().length).toBeGreaterThan(0));
   test.event("blur", inputFn, () => resultListFn().length === 0);
   test.start();
 });
