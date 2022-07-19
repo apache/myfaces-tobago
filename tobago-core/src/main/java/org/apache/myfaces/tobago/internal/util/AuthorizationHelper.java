@@ -19,19 +19,21 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import jakarta.annotation.security.DenyAll;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.el.ELContext;
+import jakarta.el.MethodExpression;
+import jakarta.el.ValueExpression;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.spi.Bean;
 import jakarta.enterprise.inject.spi.BeanManager;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.annotation.Annotation;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.AnnotatedElement;
@@ -165,16 +167,29 @@ public class AuthorizationHelper {
       UIComponent compositeComponent = getParentCompositeComponent(component);
       if (compositeComponent != null) {
         final int attrNameStart = expression.indexOf(CC_ATTRS) + CC_ATTRS.length();
-        final int attrNameEnd = attrNameStart + expression.substring(attrNameStart).indexOf(".");
+        final int attrNameEnd = expression.substring(attrNameStart).contains(".")
+          ? attrNameStart + expression.substring(attrNameStart).indexOf(".")
+          : attrNameStart + expression.substring(attrNameStart).indexOf("}");
         final String attrName = expression.substring(attrNameStart, attrNameEnd);
 
-        final String ccExpression = compositeComponent.getValueExpression(attrName).getExpressionString();
-        final int bracketStart = ccExpression.indexOf('{');
-        final int bracketEnd = ccExpression.indexOf("}");
-        final String trimmedCcExpression = ccExpression.substring(bracketStart + 1, bracketEnd).trim();
+        ValueExpression valueExpression = compositeComponent.getValueExpression(attrName);
+        if (valueExpression != null) {
+          final String ccExpression = valueExpression.getExpressionString();
+          final int bracketStart = ccExpression.indexOf('{');
+          final int bracketEnd = ccExpression.indexOf("}");
+          final String trimmedCcExpression = ccExpression.substring(bracketStart + 1, bracketEnd).trim();
 
-        return getSecurityAnnotation(facesContext, component,
+          return getSecurityAnnotation(facesContext, component,
             expression.replace(CC_ATTRS + attrName, trimmedCcExpression));
+        }
+
+        MethodExpression methodExpression = (MethodExpression) compositeComponent.getAttributes().get(attrName);
+        if (methodExpression != null) {
+          return getSecurityAnnotation(facesContext, component,
+            methodExpression.getExpressionString().replaceAll(" ", ""));
+        }
+
+        return securityAnnotation;
       } else {
         return securityAnnotation;
       }
