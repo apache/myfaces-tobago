@@ -26,6 +26,8 @@ import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.el.ELContext;
+import javax.el.MethodExpression;
+import javax.el.ValueExpression;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
@@ -73,7 +75,7 @@ public class AuthorizationHelper {
   public static AuthorizationHelper getInstance(final FacesContext facesContext) {
     final ELContext elContext = facesContext.getELContext();
     return (AuthorizationHelper)
-        elContext.getELResolver().getValue(elContext, null, AUTHORIZATION_HELPER);
+      elContext.getELResolver().getValue(elContext, null, AUTHORIZATION_HELPER);
   }
 
   public boolean isAuthorized(final FacesContext facesContext, final UIComponent component, final String expression) {
@@ -142,7 +144,7 @@ public class AuthorizationHelper {
               break;
             default:
               LOG.warn("Method name ambiguous '" + methodString + "' in class " + bean.getClass()
-                  + ". Found " + methods.size() + " but only 1 is supported, yet.");
+                + ". Found " + methods.size() + " but only 1 is supported, yet.");
           }
           // if not set, try from class
           if (securityAnnotation == null) {
@@ -165,16 +167,29 @@ public class AuthorizationHelper {
       UIComponent compositeComponent = getParentCompositeComponent(component);
       if (compositeComponent != null) {
         final int attrNameStart = expression.indexOf(CC_ATTRS) + CC_ATTRS.length();
-        final int attrNameEnd = attrNameStart + expression.substring(attrNameStart).indexOf(".");
+        final int attrNameEnd = expression.substring(attrNameStart).contains(".")
+          ? attrNameStart + expression.substring(attrNameStart).indexOf(".")
+          : attrNameStart + expression.substring(attrNameStart).indexOf("}");
         final String attrName = expression.substring(attrNameStart, attrNameEnd);
 
-        final String ccExpression = compositeComponent.getValueExpression(attrName).getExpressionString();
-        final int bracketStart = ccExpression.indexOf('{');
-        final int bracketEnd = ccExpression.indexOf("}");
-        final String trimmedCcExpression = ccExpression.substring(bracketStart + 1, bracketEnd).trim();
+        ValueExpression valueExpression = compositeComponent.getValueExpression(attrName);
+        if (valueExpression != null) {
+          final String ccExpression = valueExpression.getExpressionString();
+          final int bracketStart = ccExpression.indexOf('{');
+          final int bracketEnd = ccExpression.indexOf("}");
+          final String trimmedCcExpression = ccExpression.substring(bracketStart + 1, bracketEnd).trim();
 
-        return getSecurityAnnotation(facesContext, component,
+          return getSecurityAnnotation(facesContext, component,
             expression.replace(CC_ATTRS + attrName, trimmedCcExpression));
+        }
+
+        MethodExpression methodExpression = (MethodExpression) compositeComponent.getAttributes().get(attrName);
+        if (methodExpression != null) {
+          return getSecurityAnnotation(facesContext, component,
+            methodExpression.getExpressionString().replaceAll(" ", ""));
+        }
+
+        return securityAnnotation;
       } else {
         return securityAnnotation;
       }
@@ -208,7 +223,7 @@ public class AuthorizationHelper {
 
     try {
       BeanManager beanManager = (BeanManager) FacesContext.getCurrentInstance().getExternalContext().getApplicationMap()
-          .get(BeanManager.class.getName());
+        .get(BeanManager.class.getName());
 
       if (beanManager != null) {
         for (final Bean<?> entry : beanManager.getBeans(beanName)) {
