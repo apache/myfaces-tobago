@@ -26,18 +26,20 @@ QUnit.test("RolesAllowed as 'guest'", function (assert) {
   var ccOutputLabelFn = jQueryFrameFn("#page\\:mainForm\\:ccRolesTest\\:out label");
   var ccOutputValueFn = jQueryFrameFn("#page\\:mainForm\\:ccRolesTest\\:out .tobago-out");
   var ccButtonFn = jQueryFrameFn("#page\\:mainForm\\:ccRolesTest\\:submit");
+  var ccButton2Fn = jQueryFrameFn("#page\\:mainForm\\:ccRolesTest\\:submit2");
 
   var url = document.getElementById("page:testframe").contentWindow.location.href;
   var time;
 
   assert.expect(5);
   var TTT = new TobagoTestTool(assert);
-  TTT.asserts(5, function () {
+  TTT.asserts(6, function () {
     assert.equal(loginFn().length, 1, "user must be logged out");
     assert.equal(outputLabelFn().text(), "Output label");
     assert.equal(buttonFn().attr("disabled"), "disabled");
     assert.equal(ccOutputLabelFn().text(), "Label");
     assert.equal(ccButtonFn().attr("disabled"), "disabled");
+    assert.equal(ccButton2Fn().attr("disabled"), "disabled");
   });
   TTT.action(function () {
     userFn().val("guest");
@@ -50,12 +52,13 @@ QUnit.test("RolesAllowed as 'guest'", function (assert) {
   });
   TTT.waitForResponse();
   TTT.waitMs(2000);
-  TTT.asserts(5, function () {
+  TTT.asserts(6, function () {
     assert.equal(logoutFn().length, 1, "user must be logged in");
     assert.equal(outputLabelFn().text(), "Output label");
     assert.equal(buttonFn().attr("disabled"), undefined);
     assert.equal(ccOutputLabelFn().text(), "Label");
     assert.equal(ccButtonFn().attr("disabled"), undefined);
+    assert.equal(ccButton2Fn().attr("disabled"), undefined);
   });
   TTT.action(function () {
     time = outputValueFn().text();
