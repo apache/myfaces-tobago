@@ -25,6 +25,7 @@
   <ui:param name="title" value="Composite Components"/>
 
   <tc:box label="Login">
+    <p>user=guest; pw=guest</p>
     <tc:panel rendered="#{request.userPrincipal == null}">
       <tc:in id="username" value="#{loginController.username}" label="User" required="true"/>
       <tc:in id="password" value="#{loginController.password}" password="true" label="Password" required="true"/>
@@ -41,7 +42,8 @@
     <tc:button id="button" label="Reload" action="#{roleController.refreshTime}"/>
   </tc:section>
 
-  <tc:section label="RolesTest Composite Component">
-    <dc:rolesTest id="ccRolesTest" label="Label" controller="#{roleController}"/>
+  <tc:section label="RolesTest1 Composite Component">
+    <dc:rolesTest id="ccRolesTest" label="Label" controller="#{ roleController }"
+                  action="#{ roleController.refreshTime }"/>
   </tc:section>
 </ui:composition>
