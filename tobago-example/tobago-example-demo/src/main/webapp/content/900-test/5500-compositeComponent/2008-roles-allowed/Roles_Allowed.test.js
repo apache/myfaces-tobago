@@ -29,6 +29,7 @@ it("RolesAllowed as 'guest'", function (done) {
   const ccOutputLabelFn = querySelectorFn("#page\\:mainForm\\:ccRolesTest\\:out label");
   const ccOutputValueFn = querySelectorFn("#page\\:mainForm\\:ccRolesTest\\:out .form-control-plaintext");
   const ccButtonFn = elementByIdFn("page:mainForm:ccRolesTest:submit");
+  const ccButton2Fn = elementByIdFn("page:mainForm:ccRolesTest:submit2");
 
   const url = document.getElementById("page:testframe").contentWindow.location.href;
   let time;
@@ -41,6 +42,7 @@ it("RolesAllowed as 'guest'", function (done) {
   test.do(() => expect(buttonFn().disabled).toBeTrue());
   test.do(() => expect(ccOutputLabelFn().textContent).toBe("Label"));
   test.do(() => expect(ccButtonFn().disabled).toBeTrue());
+  test.do(() => expect(ccButton2Fn().disabled).toBeTrue());
 
   test.do(() => userFn().value = "guest");
   test.do(() => passwordFn().value = "guest");
@@ -53,6 +55,7 @@ it("RolesAllowed as 'guest'", function (done) {
   test.do(() => expect(buttonFn().disabled).toBeFalse());
   test.do(() => expect(ccOutputLabelFn().textContent).toBe("Label"));
   test.do(() => expect(ccButtonFn().disabled).toBeFalse());
+  test.do(() => expect(ccButton2Fn().disabled).toBeFalse());
 
   test.do(() => time = outputValueFn().textContent);
   test.event("click", buttonFn, () => outputValueFn().textContent !== time);
