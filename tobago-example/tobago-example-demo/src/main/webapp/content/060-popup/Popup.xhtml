@@ -122,9 +122,13 @@
 
   <tc:section id="markup" label="Markup">
     <p>The width of the popups can be changed by markups.</p>
-    <p><code class="language-markup">&lt;tc:popup ... markup="large"></code> or
-      <code class="language-markup">&lt;tc:popup ... markup="small"></code></p>
+    <p><code class="language-markup">&lt;tc:popup ... markup="extraLarge"></code> or
+      <code class="language-markup">"large"</code> or
+      <code class="language-markup">"small"</code></p>
     <tc:button id="dropdownButton" label="Open" omit="true">
+      <tc:link id="extraLargePopupLink" label="Extra Large Popup" omit="true">
+        <tc:operation name="show" for="extraLargePopup"/>
+      </tc:link>
       <tc:link id="largePopupLink" label="Large Popup" omit="true">
         <tc:operation name="show" for="largePopup"/>
       </tc:link>
@@ -132,6 +136,14 @@
         <tc:operation name="show" for="smallPopup"/>
       </tc:link>
     </tc:button>
+    <tc:popup id="extraLargePopup" collapsedMode="hidden" markup="extraLarge">
+      <tc:box label="Extra Large">
+        <p>A popup with markup <code>extraLarge</code>.</p>
+        <tc:button id="closeExtraLargePopup" label="Close" omit="true">
+          <tc:operation name="hide" for="extraLargePopup"/>
+        </tc:button>
+      </tc:box>
+    </tc:popup>
     <tc:popup id="largePopup" collapsedMode="hidden" markup="large">
       <tc:box label="Large">
         <p>A popup with markup <code>large</code>.</p>
