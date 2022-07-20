@@ -345,6 +345,7 @@ public enum BootstrapClass implements CssItem {
   MODAL_DIALOG("modal-dialog"),
   MODAL_LG("modal-lg"),
   MODAL_SM("modal-sm"),
+  MODAL_XL("modal-xl"),
   MR_AUTO("mr-auto"),
   MR_LG_AUTO("mr-lg-auto"),
   MR_MD_AUTO("mr-md-auto"),
