@@ -67,6 +67,7 @@ public class PopupRenderer<T extends AbstractUIPopup> extends CollapsiblePanelRe
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "dialog");
     writer.writeClassAttribute(
         BootstrapClass.MODAL_DIALOG,
+        markup != null && markup.contains(Markup.EXTRA_LARGE) ? BootstrapClass.MODAL_XL : null,
         markup != null && markup.contains(Markup.LARGE) ? BootstrapClass.MODAL_LG : null,
         markup != null && markup.contains(Markup.SMALL) ? BootstrapClass.MODAL_SM : null);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.DOCUMENT.toString(), false);

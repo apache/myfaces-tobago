@@ -436,6 +436,7 @@ public enum BootstrapClass implements CssItem {
   MODAL_HEADER("modal-header"),
   MODAL_LG("modal-lg"),
   MODAL_SM("modal-sm"),
+  MODAL_XL("modal-xl"),
   MODAL_TITLE("modal-title"),
   ME_0("me-0"),
   ME_1("me-1"),
