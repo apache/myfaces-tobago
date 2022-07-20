@@ -27,7 +27,7 @@
   <artifactId>tobago-theme</artifactId>
 
   <properties>
-    <bootstrap.version>4.6.0</bootstrap.version>
+    <bootstrap.version>4.6.2</bootstrap.version>
     <theme.name>undefined-theme-name</theme.name>
   </properties>
 
@@ -114,7 +114,7 @@
                   <url>https://github.com/twbs/bootstrap/archive/v${bootstrap.version}.zip</url>
                   <unpack>true</unpack>
                   <outputDirectory>${project.build.directory}</outputDirectory>
-                  <md5>4304c073e2890cdb9ede8c1ebf9f5bfd</md5>
+                  <md5>b47a3dee17f57244c82ba64abd73612e</md5>
                 </configuration>
               </execution>
             </executions>
