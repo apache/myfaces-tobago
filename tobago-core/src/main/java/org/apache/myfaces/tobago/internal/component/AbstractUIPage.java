@@ -96,6 +96,24 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Clien
       LOG.warn("No sourceId found!");
     }
 
+    // TODO: Remove this if block if proven this never happens anymore
+    // TODO: This workaround is stil needed for Mojarra
+    // TODO: Otherwise actions in tree/sheet will not be detected
+    if (command == null
+      && sourceId != null && sourceId.matches(".*:\\d+:.*")) {
+      // If currentActionId component was inside a sheet the id contains the
+      // rowIndex and is therefore not found here.
+      // We do not need the row here because we want just to find the
+      // related form, so removing the rowIndex will help here.
+      sourceId = sourceId.replaceAll(":\\d+:", ":");
+      try {
+        command = viewRoot.findComponent(sourceId);
+        //LOG.info("command = \"" + command + "\"", new Exception());
+      } catch (final Exception e) {
+        // ignore
+      }
+    }
+
     if (LOG.isTraceEnabled()) {
       LOG.trace(sourceId);
       LOG.trace("command:{}", command);
