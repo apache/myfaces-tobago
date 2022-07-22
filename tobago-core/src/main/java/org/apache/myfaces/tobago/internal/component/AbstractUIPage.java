@@ -96,9 +96,11 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Clien
       LOG.warn("No sourceId found!");
     }
 
-    // TODO: remove this if block if proven this never happens anymore
+    // TODO: Remove this if block if proven this never happens anymore
+    // TODO: This workaround is stil needed for Mojarra
+    // TODO: Otherwise actions in tree/sheet will not be detected
     if (command == null
-        && sourceId != null && sourceId.matches(".*:\\d+:.*")) {
+      && sourceId != null && sourceId.matches(".*:\\d+:.*")) {
       // If currentActionId component was inside a sheet the id contains the
       // rowIndex and is therefore not found here.
       // We do not need the row here because we want just to find the
@@ -120,7 +122,11 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Clien
 
     if (command != null) {
       final AbstractUIFormBase form = ComponentUtils.findForm(command);
-      form.setSubmitted(true);
+      if (form != null) {
+        form.setSubmitted(true);
+      } else {
+        LOG.warn("No form found - this actually can not happen, because there is a form on each page!");
+      }
 
       if (LOG.isTraceEnabled()) {
         LOG.trace("form:{}", form);

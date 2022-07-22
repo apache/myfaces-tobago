@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 import jakarta.faces.FacesException;
 import jakarta.faces.component.ContextCallback;
 import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UINamingContainer;
 import jakarta.faces.component.visit.VisitCallback;
 import jakarta.faces.component.visit.VisitContext;
 import jakarta.faces.context.FacesContext;
@@ -192,6 +193,31 @@ public abstract class AbstractUIData extends jakarta.faces.component.UIData impl
    */
   public boolean isRendersRowContainer() {
     return false;
+  }
+
+  @Override
+  public UIComponent findComponent(final String searchId) {
+    final String expr = stripRowIndex(searchId);
+    LOG.info("searchid '{}'" , searchId);
+    LOG.info("expr     '{}'" , expr);
+    return super.findComponent(expr);
+  }
+
+  public String stripRowIndex(final String initialSearchId) {
+    String searchId = initialSearchId;
+    if (searchId.length() > 0 && Character.isDigit(searchId.charAt(0))) {
+      for (int i = 1; i < searchId.length(); ++i) {
+        final char c = searchId.charAt(i);
+        if (c == UINamingContainer.getSeparatorChar(getFacesContext())) {
+          searchId = searchId.substring(i + 1);
+          break;
+        }
+        if (!Character.isDigit(c)) {
+          break;
+        }
+      }
+    }
+    return searchId;
   }
 
   @Override

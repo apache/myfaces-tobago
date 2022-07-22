@@ -19,14 +19,17 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import jakarta.el.ELContext;
+import jakarta.el.MethodExpression;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.UIColumn;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.*;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.event.PageActionEvent;
-import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
-import org.apache.myfaces.tobago.event.SheetStateChangeListener;
-import org.apache.myfaces.tobago.event.SheetStateChangeSource;
-import org.apache.myfaces.tobago.event.SortActionEvent;
-import org.apache.myfaces.tobago.event.SortActionSource;
+import org.apache.myfaces.tobago.event.*;
 import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.internal.layout.OriginCell;
 import org.apache.myfaces.tobago.internal.util.SortingUtils;
@@ -41,21 +44,6 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jakarta.el.ELContext;
-import jakarta.el.MethodExpression;
-import jakarta.el.ValueExpression;
-import jakarta.faces.component.UIColumn;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UINamingContainer;
-import jakarta.faces.component.behavior.ClientBehaviorHolder;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.AbortProcessingException;
-import jakarta.faces.event.ComponentSystemEvent;
-import jakarta.faces.event.ComponentSystemEventListener;
-import jakarta.faces.event.FacesEvent;
-import jakarta.faces.event.ListenerFor;
-import jakarta.faces.event.PhaseId;
-import jakarta.faces.event.PreRenderComponentEvent;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
@@ -473,28 +461,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   @Override
   public void removeStateChangeListener(final SheetStateChangeListener listener) {
     removeFacesListener(listener);
-  }
-
-  @Override
-  public UIComponent findComponent(final String searchId) {
-    return super.findComponent(stripRowIndex(searchId));
-  }
-
-  public String stripRowIndex(final String initialSearchId) {
-    String searchId = initialSearchId;
-    if (searchId.length() > 0 && Character.isDigit(searchId.charAt(0))) {
-      for (int i = 1; i < searchId.length(); ++i) {
-        final char c = searchId.charAt(i);
-        if (c == UINamingContainer.getSeparatorChar(getFacesContext())) {
-          searchId = searchId.substring(i + 1);
-          break;
-        }
-        if (!Character.isDigit(c)) {
-          break;
-        }
-      }
-    }
-    return searchId;
   }
 
   public void performPaging(final PageActionEvent pageEvent) {
