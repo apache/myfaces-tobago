@@ -197,10 +197,7 @@ public abstract class AbstractUIData extends jakarta.faces.component.UIData impl
 
   @Override
   public UIComponent findComponent(final String searchId) {
-    final String expr = stripRowIndex(searchId);
-    LOG.info("searchid '{}'" , searchId);
-    LOG.info("expr     '{}'" , expr);
-    return super.findComponent(expr);
+    return super.findComponent(stripRowIndex(searchId));
   }
 
   public String stripRowIndex(final String initialSearchId) {
