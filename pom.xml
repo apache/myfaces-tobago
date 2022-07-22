@@ -979,7 +979,7 @@
 
             <!-- optional -->
             <configuration>
-              <nodeVersion>v16.13.0</nodeVersion> <!-- contains npm version 8.1.0 -->
+              <nodeVersion>v16.16.0</nodeVersion> <!-- contains npm version 8.11.0 -->
 
               <!-- optional: Where to download Node.js binary from. Defaults to http://nodejs.org/dist/ -->
               <!--<nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>-->
