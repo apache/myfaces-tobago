@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
-    <version>5.2.0</version>
+    <version>5.2.1-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-theme-speyside</artifactId>
   <packaging>jar</packaging>
