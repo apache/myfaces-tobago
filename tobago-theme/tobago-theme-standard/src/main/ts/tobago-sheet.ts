@@ -631,10 +631,6 @@ Type: ${data.type}`);
         }
       }
 
-      if (window.getSelection) {
-        window.getSelection().removeAllRanges();
-      }
-
       const rows = this.getRowElements();
       const selector = this.getSelectorCheckbox(row);
       const selectionMode = this.dataset.tobagoSelectionMode;
