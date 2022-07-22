@@ -46,7 +46,6 @@ import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
@@ -473,28 +472,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   @Override
   public void removeStateChangeListener(final SheetStateChangeListener listener) {
     removeFacesListener(listener);
-  }
-
-  @Override
-  public UIComponent findComponent(final String searchId) {
-    return super.findComponent(stripRowIndex(searchId));
-  }
-
-  public String stripRowIndex(final String initialSearchId) {
-    String searchId = initialSearchId;
-    if (searchId.length() > 0 && Character.isDigit(searchId.charAt(0))) {
-      for (int i = 1; i < searchId.length(); ++i) {
-        final char c = searchId.charAt(i);
-        if (c == UINamingContainer.getSeparatorChar(getFacesContext())) {
-          searchId = searchId.substring(i + 1);
-          break;
-        }
-        if (!Character.isDigit(c)) {
-          break;
-        }
-      }
-    }
-    return searchId;
   }
 
   public void performPaging(final PageActionEvent pageEvent) {

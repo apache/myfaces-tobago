@@ -96,22 +96,6 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Clien
       LOG.warn("No sourceId found!");
     }
 
-    // TODO: remove this if block if proven this never happens anymore
-    if (command == null
-        && sourceId != null && sourceId.matches(".*:\\d+:.*")) {
-      // If currentActionId component was inside a sheet the id contains the
-      // rowIndex and is therefore not found here.
-      // We do not need the row here because we want just to find the
-      // related form, so removing the rowIndex will help here.
-      sourceId = sourceId.replaceAll(":\\d+:", ":");
-      try {
-        command = viewRoot.findComponent(sourceId);
-        //LOG.info("command = \"" + command + "\"", new Exception());
-      } catch (final Exception e) {
-        // ignore
-      }
-    }
-
     if (LOG.isTraceEnabled()) {
       LOG.trace(sourceId);
       LOG.trace("command:{}", command);
@@ -120,7 +104,11 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Clien
 
     if (command != null) {
       final AbstractUIFormBase form = ComponentUtils.findForm(command);
-      form.setSubmitted(true);
+      if (form != null) {
+        form.setSubmitted(true);
+      } else {
+        LOG.warn("No form found - this actually can not happen, because there is a form on each page!");
+      }
 
       if (LOG.isTraceEnabled()) {
         LOG.trace("form:{}", form);
