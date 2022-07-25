@@ -37,7 +37,12 @@ export class Suggest {
     this.registerAjaxListener();
     this.base.classList.add("autocomplete");
     this.suggestInput.classList.add("autocomplete-input");
-    this.suggestInput.insertAdjacentHTML("beforebegin", "<div class=\"autocomplete-pseudo-container\"></div>");
+
+    if (this.isInputGroup && this.suggestInput.previousElementSibling === null) {
+      this.suggestInput.insertAdjacentHTML("afterend", "<div class=\"autocomplete-pseudo-container\"></div>");
+    } else {
+      this.suggestInput.insertAdjacentHTML("beforebegin", "<div class=\"autocomplete-pseudo-container\"></div>");
+    }
     this.suggestInput.insertAdjacentHTML("afterend", "<ul class=\"autocomplete-result-list\"></ul>");
 
     const options = {
@@ -140,7 +145,7 @@ export class Suggest {
       this.resultList.style.left = `${suggestInputRect.left}px`;
       if (this.resultListPosition === "below") {
         this.resultList.style.marginTop =
-            `${window.scrollY + suggestInputRect.top + suggestInputRect.height + space}px`;
+          `${window.scrollY + suggestInputRect.top + suggestInputRect.height + space}px`;
         this.resultList.style.marginBottom = null;
       } else if (this.resultListPosition === "above") {
         this.resultList.style.marginTop = null;
@@ -223,5 +228,9 @@ export class Suggest {
 
   private get filter(): SuggestFilter {
     return SuggestFilter[this.suggest.getAttribute("filter")] as SuggestFilter;
+  }
+
+  private get isInputGroup(): boolean {
+    return this.suggestInput.parentElement.classList.contains("input-group");
   }
 }
