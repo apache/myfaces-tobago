@@ -158,6 +158,13 @@
     <p>
       To define the earliest or latest acceptable date, the attributes <code>min</code>
       and <code>max</code> can be used.
+      The range in this example is from
+      <tc:out plain="true" value="#{dateController.partyMin}">
+        <f:convertDateTime type="localDate"/>
+      </tc:out>
+      to <tc:out plain="true" value="#{dateController.partyMax}">
+      <f:convertDateTime type="localDate"/>
+    </tc:out>.
     </p>
       <tc:date id="minmax" label="Party" value="#{dateController.party}" tip="Pick a date in the next 3 to 10 days"
       min="#{dateController.partyMin}" max="#{dateController.partyMax}"/>
@@ -166,11 +173,9 @@
     <tc:form id="formSubmit">
       <p>Press the button to submit the date to the server. The output field show the current value.
         The date can be changed with the datepicker or by entering a valid date in the textfield.</p>
-      <tc:date id="input" label="Input" value="#{dateController.submitDate}">
-        <f:convertDateTime pattern="dd.MM.yyyy"/>
-      </tc:date>
+      <tc:date id="input" label="Input" value="#{dateController.submitDate}"/>
       <tc:out id="output" label="Output" value="#{dateController.submitDate}">
-        <f:convertDateTime pattern="dd.MM.yyyy"/>
+        <f:convertDateTime type="date"/>
       </tc:out>
       <tc:button id="button" label="Submit"/>
     </tc:form>
