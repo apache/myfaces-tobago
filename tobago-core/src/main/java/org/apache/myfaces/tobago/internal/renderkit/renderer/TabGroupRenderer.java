@@ -266,7 +266,6 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
             writer.writeClassAttribute(BootstrapClass.NAV_LINK);
           }
           if (!disabled && switchType == SwitchType.client) {
-            writer.writeAttribute(HtmlAttributes.HREF, '#' + getTabPanelId(facesContext, tab), false);
             writer.writeAttribute(
               DataAttributes.TARGET, '#' + getTabPanelId(facesContext, tab).replaceAll(":", "\\\\:"), false);
           }
