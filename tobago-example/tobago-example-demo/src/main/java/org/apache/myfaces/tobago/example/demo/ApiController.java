@@ -70,6 +70,14 @@ public class ApiController implements Serializable {
     return "https://myfaces.apache.org/tobago/doc";
   }
 
+  public String getTobagoTld() {
+    return getTldBase() + "/" + getCurrentRelease() + "/tld";
+  }
+
+  public String getFacesTld() {
+    return "https://jakarta.ee/specifications/faces/2.3/vdldoc";
+  }
+
   public boolean isOnlyCurrent() {
     return onlyCurrent;
   }
