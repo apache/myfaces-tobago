@@ -23,7 +23,8 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
   <p>Create an image with <code class="language-markup">&lt;tc:image/&gt;</code>.</p>
-  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png" link="#{apiController.tldBase}/#{apiController.currentRelease}/tld/tc/image.html"/>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+           link="#{apiController.tobagoTld}/tc/image.html"/>
   <tc:section label="Basics">
     <demo-highlight language="markup">&lt;tc:image value="\#{request.contextPath}/image/tobago_head.png"/&gt;</demo-highlight>
     <tc:image id="i1" value="#{request.contextPath}/image/tobago_head.png"/>
