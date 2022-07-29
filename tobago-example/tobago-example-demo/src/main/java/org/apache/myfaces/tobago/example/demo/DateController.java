@@ -31,8 +31,6 @@ import javax.faces.validator.ValidatorException;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -47,13 +45,13 @@ public class DateController implements Serializable {
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final LocalDateTime SPUTNIK_LOCAL_DATE_TIME
-      = LocalDateTime.of(1957, 10, 5, 0, 28, 34, 123456789);
+    = LocalDateTime.of(1957, 10, 5, 0, 28, 34, 123456789);
   private static final LocalDateTime APOLLO11_LOCAL_DATE_TIME
-      = LocalDateTime.of(1969, 7, 20, 20, 17, 40, 123456789);
+    = LocalDateTime.of(1969, 7, 20, 20, 17, 40, 123456789);
 
   private Date once;
-  private Date onchange;
-  private Date submitDate;
+  private LocalDate onchange;
+  private LocalDate submitDate;
 
   private LocalDateTime sputnikLdt = SPUTNIK_LOCAL_DATE_TIME;
   private LocalDate sputnikLd = APOLLO11_LOCAL_DATE_TIME.toLocalDate();
@@ -78,12 +76,7 @@ public class DateController implements Serializable {
 
   public DateController() {
     once = new Date();
-    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    try {
-      submitDate = sdf.parse("2016-05-22");
-    } catch (final ParseException e) {
-      LOG.error("Unexpected parse exception", e);
-    }
+    submitDate = LocalDate.of(2016, 5, 22);
     timeZoneChanged();
   }
 
@@ -95,7 +88,7 @@ public class DateController implements Serializable {
   }
 
   public void timeZoneValidator(
-      final FacesContext facesContext, final UIComponent uiComponent, final Object string) throws ValidatorException {
+    final FacesContext facesContext, final UIComponent uiComponent, final Object string) throws ValidatorException {
     try {
       ZoneId.of((String) string);
     } catch (Exception e) {
@@ -115,11 +108,11 @@ public class DateController implements Serializable {
     this.once = once;
   }
 
-  public Date getOnchange() {
+  public LocalDate getOnchange() {
     return onchange;
   }
 
-  public void setOnchange(final Date onchange) {
+  public void setOnchange(final LocalDate onchange) {
     this.onchange = onchange;
   }
 
@@ -127,11 +120,11 @@ public class DateController implements Serializable {
     return new Date();
   }
 
-  public Date getSubmitDate() {
+  public LocalDate getSubmitDate() {
     return submitDate;
   }
 
-  public void setSubmitDate(final Date submitDate) {
+  public void setSubmitDate(final LocalDate submitDate) {
     this.submitDate = submitDate;
   }
 

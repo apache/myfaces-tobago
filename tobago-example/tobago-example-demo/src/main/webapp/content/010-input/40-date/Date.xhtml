@@ -175,9 +175,7 @@
       <p>Press the button to submit the date to the server. The output field show the current value.
         The date can be changed with the datepicker or by entering a valid date in the textfield.</p>
       <tc:date id="input" label="Input" value="#{dateController.submitDate}"/>
-      <tc:out id="output" label="Output" value="#{dateController.submitDate}">
-        <f:convertDateTime type="date"/>
-      </tc:out>
+      <tc:out id="output" label="Output" value="#{dateController.submitDate}"/>
       <tc:button id="button" label="Submit"/>
     </tc:form>
   </tc:section>
@@ -197,8 +195,6 @@
     <tc:date id="ajaxinput" label="On Change" value="#{dateController.onchange}">
       <f:ajax render="outputfield"/>
     </tc:date>
-    <tc:out id="outputfield" label="On Server" value="#{dateController.onchange}">
-      <f:convertDateTime pattern="dd.MM.yyyy"/>
-    </tc:out>
+    <tc:out id="outputfield" label="On Server" value="#{dateController.onchange}"/>
   </tc:section>
 </ui:composition>
