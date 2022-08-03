@@ -58,6 +58,8 @@ public class DateController implements Serializable {
 
   private final LocalDate today = LocalDate.now();
 
+  private LocalDate quick;
+
   private LocalDate party;
   private final LocalDate partyMin = today.plusDays(3);
   private final LocalDate partyMax = today.plusDays(10);
@@ -146,6 +148,14 @@ public class DateController implements Serializable {
 
   public LocalDate getToday() {
     return today;
+  }
+
+  public LocalDate getQuick() {
+    return quick;
+  }
+
+  public void setQuick(LocalDate quick) {
+    this.quick = quick;
   }
 
   public LocalDate getParty() {
