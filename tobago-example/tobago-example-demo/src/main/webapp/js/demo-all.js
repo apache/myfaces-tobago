@@ -16,6 +16,7 @@
  */
 import "./demo-alert";
 import "./demo-copy-to-clipboard";
+import "./demo-date";
 import "./demo-highlight";
 import "./demo-inspect";
 import "./demo-login";
