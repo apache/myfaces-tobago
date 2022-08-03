@@ -59,20 +59,15 @@ public class NavigationTree implements Serializable {
   @Inject
   private Event<NavigationNode> events;
 
-  /**
-   * todo: Seems not working with Java EE 6, needs Java EE 7?
-   */
-//  @Inject
-//  private ServletContext servletContext;
+  @Inject
+  private ServletContext servletContext;
+
   public NavigationTree() {
     LOG.info("<init> " + this);
   }
 
   @PostConstruct
   protected void postConstruct() {
-    // todo: refactor with Java EE 7
-    final ServletContext servletContext;
-    servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
 
     final List<NavigationNode> nodes = new ArrayList<>();
 

@@ -42,10 +42,8 @@ public enum DockerServer implements Serializable {
       0,
       "tomee",
       new String[]{
-          "8-jre-1.7.5-plus",
-          "8-jre-7.0.5-plus",
-          "8-jre-7.1.0-plus",
-          "11-jre-8.0.0-M3-plus"},
+          "8.0-jre8-plus",
+          "9.0-jre11-plus"},
       false,
       " -Djsf=provided"),
   liberty(
