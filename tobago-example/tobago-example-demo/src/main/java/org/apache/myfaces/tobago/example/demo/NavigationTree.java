@@ -74,7 +74,6 @@ public class NavigationTree implements Serializable {
     final List<String> listWar = locateResourcesInWar("/content", new ArrayList<>());
     addToResult(listWar, nodes);
 
-
     final List<String> listClasspath = getResourcesFromClasspath();
     addToResult(listClasspath, nodes);
 
