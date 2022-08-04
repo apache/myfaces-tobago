@@ -71,9 +71,8 @@ public class NavigationTree implements Serializable {
 
     final List<NavigationNode> nodes = new ArrayList<>();
 
-    final List<String> listWar = locateResourcesInWar(servletContext, "/content", new ArrayList<>());
+    final List<String> listWar = locateResourcesInWar("/content", new ArrayList<>());
     addToResult(listWar, nodes);
-
 
     final List<String> listClasspath = getResourcesFromClasspath();
     addToResult(listClasspath, nodes);
@@ -106,8 +105,7 @@ public class NavigationTree implements Serializable {
     }
   }
 
-  protected List<String> locateResourcesInWar(
-      final ServletContext servletContext, final String directory, final List<String> result) {
+  protected List<String> locateResourcesInWar(final String directory, final List<String> result) {
 
     final Set<String> resourcePaths = servletContext.getResourcePaths(directory);
 
@@ -118,7 +116,7 @@ public class NavigationTree implements Serializable {
 
         if (path.endsWith("/")  // is directory
             || path.lastIndexOf('.') < path.lastIndexOf('/')) { // quarkus has no '/' at the end of a dir.
-          locateResourcesInWar(servletContext, path.substring(path.indexOf("/content")), result);
+          locateResourcesInWar(path.substring(path.indexOf("/content")), result);
           continue;
         }
 
