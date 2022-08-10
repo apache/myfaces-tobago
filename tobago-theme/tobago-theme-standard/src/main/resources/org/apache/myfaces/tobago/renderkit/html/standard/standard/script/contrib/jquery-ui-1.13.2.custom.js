@@ -1,4 +1,4 @@
-/*! jQuery UI - v1.13.1 - 2022-02-09
+/*! jQuery UI - v1.13.2 - 2022-08-10
 * http://jqueryui.com
 * Includes: widget.js, position.js, data.js, jquery-patch.js, keycode.js, scroll-parent.js, widgets/draggable.js, widgets/datepicker.js, widgets/mouse.js, widgets/slider.js
 * Copyright jQuery Foundation and other contributors; Licensed MIT */
@@ -20,11 +20,11 @@
 
   $.ui = $.ui || {};
 
-  var version = $.ui.version = "1.13.1";
+  var version = $.ui.version = "1.13.2";
 
 
   /*!
- * jQuery UI Widget 1.13.1
+ * jQuery UI Widget 1.13.2
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -766,7 +766,7 @@
 
 
   /*!
- * jQuery UI Position 1.13.1
+ * jQuery UI Position 1.13.2
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -1263,7 +1263,7 @@
 
 
   /*!
- * jQuery UI :data 1.13.1
+ * jQuery UI :data 1.13.2
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -1292,7 +1292,7 @@
   } );
 
   /*!
- * jQuery UI Support for jQuery core 1.8.x and newer 1.13.1
+ * jQuery UI Support for jQuery core 1.8.x and newer 1.13.2
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -1367,7 +1367,7 @@
 
   ;
   /*!
- * jQuery UI Keycode 1.13.1
+ * jQuery UI Keycode 1.13.2
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -1402,7 +1402,7 @@
 
 
   /*!
- * jQuery UI Scroll Parent 1.13.1
+ * jQuery UI Scroll Parent 1.13.2
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -1440,7 +1440,7 @@
   var ie = $.ui.ie = !!/msie [\w.]+/.exec( navigator.userAgent.toLowerCase() );
 
   /*!
- * jQuery UI Mouse 1.13.1
+ * jQuery UI Mouse 1.13.2
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -1460,7 +1460,7 @@
   } );
 
   var widgetsMouse = $.widget( "ui.mouse", {
-    version: "1.13.1",
+    version: "1.13.2",
     options: {
       cancel: "input, textarea, button, select, option",
       distance: 1,
@@ -1732,7 +1732,7 @@
 
 
   /*!
- * jQuery UI Draggable 1.13.1
+ * jQuery UI Draggable 1.13.2
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -1749,7 +1749,7 @@
 
 
   $.widget( "ui.draggable", $.ui.mouse, {
-    version: "1.13.1",
+    version: "1.13.2",
     widgetEventPrefix: "drag",
     options: {
       addClasses: true,
@@ -2968,7 +2968,7 @@
 
   /* eslint-disable max-len, camelcase */
   /*!
- * jQuery UI Datepicker 1.13.1
+ * jQuery UI Datepicker 1.13.2
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -2986,7 +2986,7 @@
 //>>css.theme: ../../themes/base/theme.css
 
 
-  $.extend( $.ui, { datepicker: { version: "1.13.1" } } );
+  $.extend( $.ui, { datepicker: { version: "1.13.2" } } );
 
   var datepicker_instActive;
 
@@ -5183,13 +5183,13 @@
   $.datepicker = new Datepicker(); // singleton instance
   $.datepicker.initialized = false;
   $.datepicker.uuid = new Date().getTime();
-  $.datepicker.version = "1.13.1";
+  $.datepicker.version = "1.13.2";
 
   var widgetsDatepicker = $.datepicker;
 
 
   /*!
- * jQuery UI Slider 1.13.1
+ * jQuery UI Slider 1.13.2
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -5208,7 +5208,7 @@
 
 
   var widgetsSlider = $.widget( "ui.slider", $.ui.mouse, {
-    version: "1.13.1",
+    version: "1.13.2",
     widgetEventPrefix: "slide",
 
     options: {

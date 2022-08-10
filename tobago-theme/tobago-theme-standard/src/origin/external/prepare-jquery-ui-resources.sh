@@ -17,9 +17,9 @@
 
 # Please call this script in its directory
 
-# Click "Download" on this site https://jqueryui.com/download/#!version=1.13.1&components=111000110100100000000010010010000000000000000000
+# Click "Download" on this site https://jqueryui.com/download/#!version=1.13.2&components=111000110100100000000010010010000000000000000000
 # Unpack the ZIP in a directory and set it here:
-VERSION=1.13.1
+VERSION=1.13.2
 SOURCE=~/Downloads/jquery-ui-${VERSION}.custom
 TARGET=../../main/resources/org/apache/myfaces/tobago/renderkit/html/standard/standard
 
