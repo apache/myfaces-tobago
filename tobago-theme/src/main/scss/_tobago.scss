@@ -19,17 +19,27 @@
 
 /* used bootstrap icons ---------------------------------------------------- */
 
+$icon-nbsp: " ";
 $icon-alert-info: "\f646";
 $icon-alert-warning: "\f33a";
 $icon-alert-danger: "\f622";
 $icon-star: "\f588";
 $icon-star-fill: "\f586";
-$icon-star-sep: " ";
+$icon-star-sep: $icon-nbsp;
 $icon-stars: $icon-star-fill + $icon-star-sep + $icon-star-fill + $icon-star-sep + $icon-star-fill + $icon-star-sep + $icon-star-fill + $icon-star-sep + $icon-star-fill;
 $icon-trash: "\f5de";
 $icon-sort: "\F127";
-$icon-sort-ascending: "\F57B";
-$icon-sort-descending: "\F575";
+$icon-sort-ascending: "\f57a";
+$icon-sort-descending: "\f574";
+$icon-sort-1: "\f797";
+$icon-sort-2: "\f79d";
+$icon-sort-3: "\f7a3";
+$icon-sort-4: "\f7a9";
+$icon-sort-5: "\f7af";
+$icon-sort-6: "\f7b5";
+$icon-sort-7: "\f7bb";
+$icon-sort-8: "\f7c1";
+$icon-sort-9: "\f7c7";
 
 /* non-bootstrap variables --------------------------------------- */
 
@@ -1342,14 +1352,72 @@ tobago-sheet {
       opacity: 0.5;
     }
 
-    &.tobago-ascending::after {
-      content: $icon-sort-ascending;
-      opacity: 1;
+    &.tobago-ascending {
+      &::after {
+        content: $icon-sort-ascending;
+        opacity: 1;
+      }
+      &.tobago-circle-1::after {
+        content: $icon-sort-ascending + $icon-nbsp + $icon-sort-1;
+      }
+      &.tobago-circle-2::after {
+        content: $icon-sort-ascending + $icon-nbsp + $icon-sort-2;
+      }
+      &.tobago-circle-3::after {
+        content: $icon-sort-ascending + $icon-nbsp + $icon-sort-3;
+      }
+      &.tobago-circle-4::after {
+        content: $icon-sort-ascending + $icon-nbsp + $icon-sort-4;
+      }
+      &.tobago-circle-5::after {
+        content: $icon-sort-ascending + $icon-nbsp + $icon-sort-5;
+      }
+      &.tobago-circle-6::after {
+        content: $icon-sort-ascending + $icon-nbsp + $icon-sort-6;
+      }
+      &.tobago-circle-7::after {
+        content: $icon-sort-ascending + $icon-nbsp + $icon-sort-7;
+      }
+      &.tobago-circle-8::after {
+        content: $icon-sort-ascending + $icon-nbsp + $icon-sort-8;
+      }
+      &.tobago-circle-9::after {
+        content: $icon-sort-ascending + $icon-nbsp + $icon-sort-9;
+      }
     }
 
-    &.tobago-descending::after {
-      content: $icon-sort-descending;
-      opacity: 1;
+    &.tobago-descending {
+      &::after {
+        content: $icon-sort-descending;
+        opacity: 1;
+      }
+      &.tobago-circle-1::after {
+        content: $icon-sort-descending + $icon-nbsp + $icon-sort-1;
+      }
+      &.tobago-circle-2::after {
+        content: $icon-sort-descending + $icon-nbsp + $icon-sort-2;
+      }
+      &.tobago-circle-3::after {
+        content: $icon-sort-descending + $icon-nbsp + $icon-sort-3;
+      }
+      &.tobago-circle-4::after {
+        content: $icon-sort-descending + $icon-nbsp + $icon-sort-4;
+      }
+      &.tobago-circle-5::after {
+        content: $icon-sort-descending + $icon-nbsp + $icon-sort-5;
+      }
+      &.tobago-circle-6::after {
+        content: $icon-sort-descending + $icon-nbsp + $icon-sort-6;
+      }
+      &.tobago-circle-7::after {
+        content: $icon-sort-descending + $icon-nbsp + $icon-sort-7;
+      }
+      &.tobago-circle-8::after {
+        content: $icon-sort-descending + $icon-nbsp + $icon-sort-8;
+      }
+      &.tobago-circle-9::after {
+        content: $icon-sort-descending + $icon-nbsp + $icon-sort-9;
+      }
     }
   }
 

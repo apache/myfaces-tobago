@@ -408,6 +408,7 @@ public enum Attributes {
   sortable,
   sortActionListener,
   sortActionListenerExpression,
+  maxSortColumns,
   small,
   spanX,
   spanY,
@@ -451,7 +452,7 @@ public enum Attributes {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  private final String explicit;
+    private final String explicit;
 
   Attributes() {
     this(null);
