@@ -286,4 +286,12 @@ public interface SheetTagDeclaration
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setShowPageRangeArrows(String showPageRangeArrows);
 
+  /**
+   * The maximum count of multi-sorted columns to indicate.
+   * @since 5.3.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "0")
+  void setMaxSortColumns(String maxSortColumns);
+
 }

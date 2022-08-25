@@ -11473,12 +11473,66 @@ tobago-sheet .tobago-sortable:after {
   opacity: 0.5;
 }
 tobago-sheet .tobago-sortable.tobago-ascending::after {
-  content: "\f57b";
+  content: "\f57a";
   opacity: 1;
 }
+tobago-sheet .tobago-sortable.tobago-ascending.tobago-circle-1::after {
+  content: "\f57a \f797";
+}
+tobago-sheet .tobago-sortable.tobago-ascending.tobago-circle-2::after {
+  content: "\f57a \f79d";
+}
+tobago-sheet .tobago-sortable.tobago-ascending.tobago-circle-3::after {
+  content: "\f57a \f7a3";
+}
+tobago-sheet .tobago-sortable.tobago-ascending.tobago-circle-4::after {
+  content: "\f57a \f7a9";
+}
+tobago-sheet .tobago-sortable.tobago-ascending.tobago-circle-5::after {
+  content: "\f57a \f7af";
+}
+tobago-sheet .tobago-sortable.tobago-ascending.tobago-circle-6::after {
+  content: "\f57a \f7b5";
+}
+tobago-sheet .tobago-sortable.tobago-ascending.tobago-circle-7::after {
+  content: "\f57a \f7bb";
+}
+tobago-sheet .tobago-sortable.tobago-ascending.tobago-circle-8::after {
+  content: "\f57a \f7c1";
+}
+tobago-sheet .tobago-sortable.tobago-ascending.tobago-circle-9::after {
+  content: "\f57a \f7c7";
+}
 tobago-sheet .tobago-sortable.tobago-descending::after {
-  content: "\f575";
+  content: "\f574";
   opacity: 1;
+}
+tobago-sheet .tobago-sortable.tobago-descending.tobago-circle-1::after {
+  content: "\f574 \f797";
+}
+tobago-sheet .tobago-sortable.tobago-descending.tobago-circle-2::after {
+  content: "\f574 \f79d";
+}
+tobago-sheet .tobago-sortable.tobago-descending.tobago-circle-3::after {
+  content: "\f574 \f7a3";
+}
+tobago-sheet .tobago-sortable.tobago-descending.tobago-circle-4::after {
+  content: "\f574 \f7a9";
+}
+tobago-sheet .tobago-sortable.tobago-descending.tobago-circle-5::after {
+  content: "\f574 \f7af";
+}
+tobago-sheet .tobago-sortable.tobago-descending.tobago-circle-6::after {
+  content: "\f574 \f7b5";
+}
+tobago-sheet .tobago-sortable.tobago-descending.tobago-circle-7::after {
+  content: "\f574 \f7bb";
+}
+tobago-sheet .tobago-sortable.tobago-descending.tobago-circle-8::after {
+  content: "\f574 \f7c1";
+}
+tobago-sheet .tobago-sortable.tobago-descending.tobago-circle-9::after {
+  content: "\f574 \f7c7";
 }
 tobago-sheet .tobago-body {
   overflow-y: auto;

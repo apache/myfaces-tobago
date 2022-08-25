@@ -51,6 +51,8 @@ import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.model.SheetState;
+import org.apache.myfaces.tobago.model.SortedColumn;
+import org.apache.myfaces.tobago.model.SortedColumnList;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -89,6 +91,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
@@ -835,6 +838,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
             boolean sortable = false;
             boolean ascending = false;
             boolean descending = false;
+            CssItem sortPosition = null;
             String tip = ComponentUtils.getStringAttribute(column, Attributes.tip);
             // sorter icons should only displayed when there is only 1 column and not input
             CommandMap behaviorCommands = null;
@@ -864,16 +868,57 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
                 tip += ResourceUtils.getString(facesContext, "sheet.sorting");
 
                 final SheetState sheetState = sheet.getSheetState(facesContext);
-                if (column.getId().equals(sheetState.getSortedColumnId())) {
-                  final String sortTitle;
-                  if (sheetState.isAscending()) {
-                    sortTitle = ResourceUtils.getString(facesContext, "sheet.ascending");
-                    ascending = true;
-                  } else {
-                    sortTitle = ResourceUtils.getString(facesContext, "sheet.descending");
-                    descending = true;
+                final SortedColumnList sortedColumnList = sheetState.getSortedColumnList();
+
+                final int index = sortedColumnList.indexOf(column.getId());
+                if (index >= 0) {
+                  if (sortedColumnList.isShowNumbers()) { // ignore number circles otherwise
+                    switch (index) {
+                      case 0:
+                        sortPosition = TobagoClass.CIRCLE__1;
+                        break;
+                      case 1:
+                        sortPosition = TobagoClass.CIRCLE__2;
+                        break;
+                      case 2:
+                        sortPosition = TobagoClass.CIRCLE__3;
+                        break;
+                      case 3:
+                        sortPosition = TobagoClass.CIRCLE__4;
+                        break;
+                      case 4:
+                        sortPosition = TobagoClass.CIRCLE__5;
+                        break;
+                      case 5:
+                        sortPosition = TobagoClass.CIRCLE__6;
+                        break;
+                      case 6:
+                        sortPosition = TobagoClass.CIRCLE__7;
+                        break;
+                      case 7:
+                        sortPosition = TobagoClass.CIRCLE__8;
+                        break;
+                      case 8:
+                        sortPosition = TobagoClass.CIRCLE__9;
+                        break;
+                      default:
+                        // should not happen
+                        LOG.warn("Index {} not supported!", index);
+                    }
                   }
-                  tip += " - " + sortTitle;
+
+                  final SortedColumn sortedColumn = sortedColumnList.get(index);
+                  if (Objects.equals(column.getId(), sortedColumn.getId())) {
+                    final String sortTitle;
+                    if (sortedColumn.isAscending()) {
+                      sortTitle = ResourceUtils.getString(facesContext, "sheet.ascending");
+                      ascending = true;
+                    } else {
+                      sortTitle = ResourceUtils.getString(facesContext, "sheet.descending");
+                      descending = true;
+                    }
+                    tip += " - " + sortTitle;
+                  }
                 }
               }
             }
@@ -881,7 +926,8 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
             writer.writeClassAttribute(
                 sortable ? TobagoClass.SORTABLE : null,
                 ascending ? TobagoClass.ASCENDING : null,
-                descending ? TobagoClass.DESCENDING : null);
+                descending ? TobagoClass.DESCENDING : null,
+                sortPosition);
             writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
 
             encodeBehavior(writer, behaviorCommands);
