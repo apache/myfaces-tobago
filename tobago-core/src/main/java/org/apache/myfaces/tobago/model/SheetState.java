@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.model;
 
 import org.apache.myfaces.tobago.event.SortActionEvent;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 
 import java.io.Serializable;
@@ -31,24 +32,36 @@ public class SheetState implements Serializable, ScrollPositionState {
   private static final long serialVersionUID = 2L;
 
   private int first;
-  private String sortedColumnId;
-  private boolean ascending;
-  private boolean toBeSorted;
+  private SortedColumnList sortedColumnList;
   private List<Integer> columnWidths;
   private List<Integer> selectedRows;
   private ScrollPosition scrollPosition;
   private ExpandedState expandedState;
   private SelectedState selectedState;
 
+  /**
+   * @deprecated since 5.3.0
+   */
+  @Deprecated
   public SheetState() {
-    reset();
+    this(1);
   }
 
+  public SheetState(final int maxSortColumns) {
+    reset(maxSortColumns);
+  }
+
+  /**
+   * @deprecated since 5.3.0
+   */
+  @Deprecated
   public void reset() {
+    reset(1);
+  }
+
+  public void reset(final int maxSortColumns) {
     first = -1;
-    sortedColumnId = null;
-    ascending = true;
-    toBeSorted = false;
+    sortedColumnList = new SortedColumnList(maxSortColumns);
     columnWidths = new ArrayList<>();
     resetSelected();
     if (expandedState != null) {
@@ -77,26 +90,63 @@ public class SheetState implements Serializable, ScrollPositionState {
     this.selectedRows = selectedRows;
   }
 
+  /**
+   * @deprecated since 5.3.0
+   */
+  @Deprecated
   public String getSortedColumnId() {
-    return sortedColumnId;
+    if (sortedColumnList.isEmpty()) {
+      return null;
+    } else {
+      return sortedColumnList.getFirst().getId();
+    }
   }
 
+  /**
+   * @deprecated since 5.3.0, please use {@link #updateSortState(String id)}
+   */
+  @Deprecated
   public void setSortedColumnId(final String sortedColumnId) {
-    if (StringUtils.notEquals(this.sortedColumnId, sortedColumnId)) {
-      this.sortedColumnId = sortedColumnId;
-      toBeSorted = true;
+    Deprecation.LOG.warn("Method SheetState.setSortedColumnId() should not be called!");
+    if (sortedColumnList.isEmpty()) {
+      sortedColumnList.add(sortedColumnId, true);
+    } else {
+      if (StringUtils.notEquals(sortedColumnList.getFirst().getId(), sortedColumnId)) {
+        sortedColumnList.getFirst().setId(sortedColumnId);
+      }
     }
   }
 
+  /**
+   * @deprecated since 5.3.0
+   */
+  @Deprecated
   public boolean isAscending() {
-    return ascending;
+    if (sortedColumnList.isEmpty()) {
+      return true;
+    } else {
+      return sortedColumnList.getFirst().isAscending();
+    }
   }
 
+  /**
+   * @param ascending
+   * @deprecated since 5.3.0, please use {@link #updateSortState(String id)}
+   */
+  @Deprecated
   public void setAscending(final boolean ascending) {
-    if (this.ascending != ascending) {
-      this.ascending = ascending;
-      toBeSorted = true;
+    Deprecation.LOG.warn("Method SheetState.setAscending() should not be called!");
+    if (sortedColumnList.isEmpty()) {
+      sortedColumnList.add(null, ascending);
+    } else {
+      if (sortedColumnList.getFirst().isAscending() != ascending) {
+        sortedColumnList.getFirst().setAscending(ascending);
+      }
     }
+  }
+
+  public SortedColumnList getSortedColumnList() {
+    return sortedColumnList;
   }
 
   public List<Integer> getColumnWidths() {
@@ -133,17 +183,11 @@ public class SheetState implements Serializable, ScrollPositionState {
   }
 
   public void updateSortState(final String columnId) {
-    if (columnId.equals(sortedColumnId)) {
-      setAscending(!isAscending());
-    } else {
-      setAscending(true);
-      setSortedColumnId(columnId);
-    }
+    sortedColumnList.updateSortState(columnId);
   }
 
   public void resetSortState() {
-    setAscending(true);
-    setSortedColumnId(null);
+    sortedColumnList.clear();
   }
 
   @Override
@@ -177,11 +221,31 @@ public class SheetState implements Serializable, ScrollPositionState {
     this.selectedState = selectedState;
   }
 
+  /**
+   * @deprecated since 5.3.0, please use {@link #getToBeSortedLevel()}
+   */
+  @Deprecated
   public boolean isToBeSorted() {
-    return toBeSorted;
+    return getToBeSortedLevel() > 0;
   }
 
+  /**
+   * @deprecated since 5.3.0, please use {@link #sorted()}
+   */
+  @Deprecated
   public void setToBeSorted(final boolean toBeSorted) {
-    this.toBeSorted = toBeSorted;
+    if (toBeSorted) {
+      sortedColumnList.setToBeSortedLevel(Math.max(1, sortedColumnList.getToBeSortedLevel()));
+    } else {
+      sorted();
+    }
+  }
+
+  public int getToBeSortedLevel() {
+    return sortedColumnList.getToBeSortedLevel();
+  }
+
+  public void sorted() {
+    sortedColumnList.sorted();
   }
 }

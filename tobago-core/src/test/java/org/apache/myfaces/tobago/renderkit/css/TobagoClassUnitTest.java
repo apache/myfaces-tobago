@@ -31,8 +31,8 @@ public class TobagoClassUnitTest {
   @Test
   public void testNames() throws NoSuchFieldException {
 
-    final String fieldRegex = "[A-Z_]*[A-Z]";
-    final String nameRegex = "[a-z][a-zA-Z\\-]*[a-z]";
+    final String fieldRegex = "[A-Z][A-Z_0-9]*";
+    final String nameRegex = "[a-z][a-zA-Z\\-]*[a-z0-9]";
 
     for (final TobagoClass value : TobagoClass.values()) {
       final boolean ignoreByTest = TobagoClass.class.getField(value.name()).isAnnotationPresent(Deprecated.class);
