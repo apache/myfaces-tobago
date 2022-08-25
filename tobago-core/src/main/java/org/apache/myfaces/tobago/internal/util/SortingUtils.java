@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
 import org.apache.myfaces.tobago.model.SheetState;
+import org.apache.myfaces.tobago.model.SortedColumn;
 import org.apache.myfaces.tobago.util.MessageUtils;
 import org.apache.myfaces.tobago.util.ValueExpressionComparator;
 import org.slf4j.Logger;
@@ -57,26 +58,30 @@ public class SortingUtils {
 
   public static void sort(final AbstractUISheet sheet, final Comparator comparator) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
-    Object data = sheet.getValue();
-    if (data instanceof DataModel) {
-      data = ((DataModel) data).getWrappedData();
-    }
+    final Object value = sheet.getValue();
+    final Object data = value instanceof DataModel ? ((DataModel) value).getWrappedData() : value;
     final SheetState sheetState = sheet.getSheetState(facesContext);
 
-    final String sortedColumnId = sheetState.getSortedColumnId();
-    LOG.debug("sorterId = '{}'", sortedColumnId);
-
     boolean success = false;
-    if (sortedColumnId != null) {
-      final UIColumn column = (UIColumn) sheet.findComponent(sortedColumnId);
-      if (column != null) {
-        success = sort(facesContext, sheet, data, column, sheetState, comparator);
-      } else {
-        LOG.error("No column to sort found, sorterId = '{}'!", sortedColumnId);
-        addNotSortableMessage(facesContext, null);
+    if (sheetState.getToBeSortedLevel() > 0) {
+      UIColumn column = null;
+      try {
+        for (int i = sheetState.getToBeSortedLevel() - 1; i >= 0; i--) {
+          final SortedColumn sortedColumn = sheetState.getSortedColumnList().get(i);
+          column = (UIColumn) sheet.findComponent(sortedColumn.getId());
+          if (column != null) {
+            success = sort(facesContext, sheet, data, column, sortedColumn.isAscending(), sheetState, comparator);
+          } else {
+            LOG.error("No column to sort found, sorterId = '{}'!", sortedColumn.getId());
+            addNotSortableMessage(facesContext, null);
+          }
+        }
+      } catch (Exception e) {
+        LOG.error("Error while extracting sortMethod :" + e.getMessage(), e);
+        addNotSortableMessage(facesContext, column);
       }
     } else {
-      LOG.debug("No sorterId!");
+      LOG.debug("Not to be sorted!");
     }
 
     if (!success) {
@@ -86,7 +91,7 @@ public class SortingUtils {
 
   private static boolean sort(
       final FacesContext facesContext, final AbstractUISheet sheet, final Object data, final UIColumn column,
-      final SheetState sheetState, Comparator comparator) {
+      final boolean ascending, final SheetState sheetState, Comparator comparator) {
 
     final Comparator actualComparator;
 
@@ -94,7 +99,6 @@ public class SortingUtils {
       try {
         final UIComponent child = getFirstSortableChild(column.getChildren());
         if (child != null) {
-          final boolean descending = !sheetState.isAscending();
           final String attribute = (child instanceof AbstractUICommand ? Attributes.label : Attributes.value).getName();
           final ValueExpression expression = child.getValueExpression(attribute);
           if (expression != null) {
@@ -104,7 +108,7 @@ public class SortingUtils {
                 addNotSortableMessage(facesContext, column);
                 return false;
             }
-            actualComparator = new ValueExpressionComparator(facesContext, var, expression, descending, comparator);
+            actualComparator = new ValueExpressionComparator(facesContext, var, expression, !ascending, comparator);
           } else {
             LOG.error("No sorting performed, because no expression found for "
                     + "attribute '{}' in component '{}' with id='{}'! You may check the type of the component!",
@@ -118,8 +122,6 @@ public class SortingUtils {
           return false;
         }
       } catch (final Exception e) {
-        LOG.error("Error while extracting sortMethod :" + e.getMessage(), e);
-        addNotSortableMessage(facesContext, column);
         return false;
       }
 

@@ -142,13 +142,13 @@ public abstract class AbstractUISheet extends AbstractUIData
       final ELContext elContext = facesContext.getELContext();
       SheetState sheetState = (SheetState) expression.getValue(elContext);
       if (sheetState == null) {
-        sheetState = new SheetState();
+        sheetState = new SheetState(getMaxSortColumns());
         expression.setValue(elContext, sheetState);
       }
       return sheetState;
     }
 
-    state = new SheetState();
+    state = new SheetState(getMaxSortColumns());
     return state;
   }
 
@@ -439,7 +439,7 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   protected void sort(final FacesContext facesContext, final SortActionEvent event) {
     final SheetState sheetState = getSheetState(getFacesContext());
-    if (sheetState.isToBeSorted()) {
+    if (sheetState.getToBeSortedLevel() > 0) {
       final MethodExpression expression = getSortActionListenerExpression();
       if (expression != null) {
         try {
@@ -455,7 +455,7 @@ public abstract class AbstractUISheet extends AbstractUIData
       } else {
         SortingUtils.sort(this, null);
       }
-      sheetState.setToBeSorted(false);
+      sheetState.sorted();
     }
   }
 
@@ -577,4 +577,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   public abstract ShowPosition getShowDirectLinks();
 
   public abstract boolean isLazy();
+
+  public abstract Integer getMaxSortColumns();
 }

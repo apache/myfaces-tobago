@@ -20,7 +20,8 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
   <p>Sorting can be enable via the <code>sortable</code> attribute in the
     <code class="language-markup">&lt;tc:column/></code>.
@@ -28,7 +29,7 @@
     <code class="language-markup">&lt;tc:sheet/></code>.</p>
   <p>It's important to have a component inside the <code class="language-markup">&lt;tc:column/></code>,
     e. g. <code class="language-markup">&lt;tc:out value="\#{object.name}"/></code>.
-  If there is only a fragment like <code class="language-markup">\#{object.name}</code>,
+    If there is only a fragment like <code class="language-markup">\#{object.name}</code>,
     sorting will not be possible!</p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:sheet/>" image="#{request.contextPath}/image/feather-leaf.png"
@@ -62,8 +63,8 @@
       Now, the sign for period numbers is ignored by sorting.</p>
 
     <demo-highlight language="markup">&lt;tc:sheet value="\#{sheetController.solarList}"
-    var="solarobject" rows="4"
-    sortActionListener="\#{sheetController.sheetSorter}">
+      var="solarobject" rows="4"
+      sortActionListener="\#{sheetController.sheetSorter}">
       &lt;tc:column id="namecol" label="Name" sortable="true">
       ...
     </demo-highlight>
@@ -81,6 +82,40 @@
       </tc:column>
       <tc:column id="customColumnYear" label="Discovery Year" sortable="true">
         <tc:out value="#{object.discoverYear}" labelLayout="skip"/>
+      </tc:column>
+    </tc:sheet>
+  </tc:section>
+
+  <tc:section label="Multi-Column Sorting">
+    <p>
+      With the attribute <code>maxSortColumns</code> it is possible to visualize
+      more than one sorting column. In this example you can sort by 3 columns.
+      It works by clicking the column header in the reverse order. It's also possible
+      to use ascending and descanding orders mixed.
+    </p>
+    <p>
+      It is also possible to use this via the API from the application like the button below shows.
+    </p>
+    <tc:button label="Shuffle" action="#{sheetMultiSortingController.shuffle}">
+      <f:ajax render="multi-column-sorting" execute="@this"/>
+    </tc:button>
+    <tc:button label="Sort by API" action="#{sheetMultiSortingController.sortByApi}">
+      <f:ajax render="multi-column-sorting" execute="@this"/>
+    </tc:button>
+    <tc:sheet id="multi-column-sorting" value="#{sheetMultiSortingController.animalList}" var="object"
+              state="#{sheetMultiSortingController.sheetState}"
+              markup="small" maxSortColumns="3">
+      <tc:column id="name" label="Name" sortable="true">
+        <tc:out value="#{object.name}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column id="species" label="Species" sortable="true">
+        <tc:out value="#{object.species}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column id="gender" label="Gender" sortable="true">
+        <tc:out value="#{object.gender}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column id="age" label="Age" sortable="true">
+        <tc:out value="#{object.age}" labelLayout="skip"/>
       </tc:column>
     </tc:sheet>
   </tc:section>
