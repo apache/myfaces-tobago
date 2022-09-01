@@ -37,7 +37,7 @@
   "dependencies": {
     "font-awesome": "4.7.0",
     "jasmine-core": "^4.3.0",
-    "prismjs": "^1.28.0"
+    "prismjs": "^1.29.0"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^13.3.0",
