@@ -797,7 +797,7 @@
         <plugin>
           <groupId>org.owasp</groupId>
           <artifactId>dependency-check-maven</artifactId>
-          <version>7.1.1</version>
+          <version>7.1.2</version>
           <configuration>
             <failBuildOnCVSS>0</failBuildOnCVSS>
             <suppressionFile>tobago/dependency-check-suppression-for-tobago-5.x.xml</suppressionFile>
