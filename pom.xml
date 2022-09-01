@@ -40,7 +40,7 @@
     <myfaces-test23.version>1.0.8</myfaces-test23.version>
     <mojarra23.version>2.3.18</mojarra23.version>
     <openwebbeans.version>2.0.27</openwebbeans.version>
-    <slf4j.version>1.7.36</slf4j.version>
+    <slf4j.version>2.0.0</slf4j.version>
     <logback.version>1.2.11</logback.version>
     <maven.compile.source>1.8</maven.compile.source>
     <maven.compile.target>1.8</maven.compile.target>
