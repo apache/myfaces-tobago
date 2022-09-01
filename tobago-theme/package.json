@@ -76,7 +76,7 @@
     "@types/bootstrap": "^5.1.13",
     "@types/jest": "^28.1.6",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
-    "@typescript-eslint/parser": "^5.32.0",
+    "@typescript-eslint/parser": "^5.36.1",
     "autoprefixer": "^10.4.8",
     "clean-css-cli": "^5.6.1",
     "eslint": "^8.21.0",
