@@ -54,8 +54,8 @@
 
     <!-- Note: defined here in master pom, because of problems with enforcer plugin -->
     <jetty.version>9.4.48.v20220622</jetty.version>
-    <joinfaces.version>4.7.2</joinfaces.version>
-    <spring-boot.version>2.7.2</spring-boot.version>
+    <joinfaces.version>4.7.3</joinfaces.version>
+    <spring-boot.version>2.7.3</spring-boot.version>
 
   </properties>
 
