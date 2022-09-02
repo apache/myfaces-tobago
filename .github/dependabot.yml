@@ -25,7 +25,7 @@ updates:
       prefix-development: "build"
       include: "scope"
     schedule:
-      interval: "monthly"
+      interval: "daily"
     ignore:
       - dependency-name: "org.antlr:stringtemplate"
         versions:
@@ -84,7 +84,7 @@ updates:
       prefix-development: "build"
       include: "scope"
     schedule:
-      interval: "monthly"
+      interval: "daily"
     ignore:
       # Jetty >= 10 requires jdk 11
       - dependency-name: "org.eclipse.jetty:jetty-maven-plugin"
@@ -161,7 +161,7 @@ updates:
       prefix-development: "build"
       include: "scope"
     schedule:
-      interval: "monthly"
+      interval: "daily"
     ignore:
       - dependency-name: "com.sun.faces:jsf-api"
       - dependency-name: "com.sun.faces:jsf-impl"
@@ -239,7 +239,7 @@ updates:
       prefix-development: "build"
       include: "scope"
     schedule:
-      interval: "monthly"
+      interval: "daily"
     ignore:
       - dependency-name: "org.apache.myfaces.core:myfaces-api"
         versions:
