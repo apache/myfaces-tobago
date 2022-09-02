@@ -609,16 +609,17 @@ Type: ${data.type}`);
   }
 
   clickOnCheckboxForAll(event: MouseEvent): void {
+    const selectedSet = new Set<number>(JSON.parse(this.getHiddenSelected().value));
     const checkbox = event.currentTarget as HTMLInputElement;
     if (checkbox.checked) {
-      this.selectAll();
+      this.selectAll(selectedSet);
     } else {
-      this.deselectAll();
+      this.deselectAll(selectedSet);
     }
+    this.getHiddenSelected().value = JSON.stringify(Array.from(selectedSet)); // write back to element
   }
 
   clickOnRow(event: MouseEvent): void {
-
     const row = event.currentTarget as HTMLTableRowElement;
     if (row.classList.contains("tobago-selected") || !Sheet.isInputElement(row)) {
 
@@ -634,23 +635,27 @@ Type: ${data.type}`);
       const rows = this.getRowElements();
       const selector = this.getSelectorCheckbox(row);
       const selectionMode = this.dataset.tobagoSelectionMode;
+      const selectedSet = new Set<number>(JSON.parse(this.getHiddenSelected().value));
 
       if ((!event.ctrlKey && !event.metaKey && !selector)
           || selectionMode === "single" || selectionMode === "singleOrNone") {
-        this.deselectAll();
-        this.resetSelected();
+        this.deselectAll(selectedSet);
+        this.resetSelected(selectedSet);
       }
 
       const lastClickedRowIndex = parseInt(this.dataset.tobagoLastClickedRowIndex);
       if (event.shiftKey && selectionMode === "multi" && lastClickedRowIndex > -1) {
         if (lastClickedRowIndex <= row.sectionRowIndex) {
-          this.selectRange(rows, lastClickedRowIndex, row.sectionRowIndex, true, false);
+          this.selectRange(
+            selectedSet, rows, lastClickedRowIndex, row.sectionRowIndex, true, false);
         } else {
-          this.selectRange(rows, row.sectionRowIndex, lastClickedRowIndex, true, false);
+          this.selectRange(
+            selectedSet, rows, row.sectionRowIndex, lastClickedRowIndex, true, false);
         }
-      } else if (selectionMode !== "singleOrNone" || !this.isRowSelected(row)) {
-        this.toggleSelection(row, selector);
+      } else if (selectionMode !== "singleOrNone" || !this.isRowSelected(selectedSet, row)) {
+        this.toggleSelection(selectedSet, row, selector);
       }
+      this.getHiddenSelected().value = JSON.stringify(Array.from(selectedSet)); // write back to element
     }
   }
 
@@ -749,76 +754,68 @@ Type: ${data.type}`);
     return parseInt(this.dataset.tobagoFirst);
   }
 
-  isRowSelected(row: HTMLTableRowElement): boolean {
-    return this.isSelected(parseInt(row.dataset.tobagoRowIndex));
+  isRowSelected(selectedSet: Set<number>, row: HTMLTableRowElement): boolean {
+    return selectedSet.has(parseInt(row.dataset.tobagoRowIndex));
   }
 
-  isSelected(rowIndex: number): boolean {
-    const value = <number[]>JSON.parse(this.getHiddenSelected().value);
-    return value.indexOf(rowIndex) > -1;
+  resetSelected(selectedSet: Set<number>):void {
+    selectedSet.clear();
   }
 
-  resetSelected():void {
-    this.getHiddenSelected().value = JSON.stringify([]);
-  }
-
-  toggleSelection(row: HTMLTableRowElement, checkbox: HTMLInputElement): void {
+  toggleSelection(selectedSet: Set<number>, row: HTMLTableRowElement, checkbox: HTMLInputElement): void {
     this.dataset.tobagoLastClickedRowIndex = String(row.sectionRowIndex);
     if (checkbox === null || !checkbox.disabled) {
-      const selected = this.getHiddenSelected();
       const rowIndex = Number(row.getAttribute("row-index"));
-      if (this.isSelected(rowIndex)) {
-        this.deselectRow(selected, rowIndex, row, checkbox);
+      if (selectedSet.has(rowIndex)) {
+        this.deselectRow(selectedSet, rowIndex, row, checkbox);
       } else {
-        this.selectRow(selected, rowIndex, row, checkbox);
+        this.selectRow(selectedSet, rowIndex, row, checkbox);
       }
     }
   }
 
-  selectAll(): void {
+  selectAll(selectedSet: Set<number>): void {
     const rows = this.getRowElements();
-    this.selectRange(rows, 0, rows.length - 1, true, false);
+    this.selectRange(selectedSet, rows, 0, rows.length - 1, true, false);
   }
 
-  deselectAll(): void {
+  deselectAll(selectedSet: Set<number>): void {
     const rows = this.getRowElements();
-    this.selectRange(rows, 0, rows.length - 1, false, true);
+    this.selectRange(selectedSet, rows, 0, rows.length - 1, false, true);
   }
 
-  toggleAll(): void {
+  toggleAll(selectedSet: Set<number>): void {
     const rows = this.getRowElements();
-    this.selectRange(rows, 0, rows.length - 1, true, true);
+    this.selectRange(selectedSet, rows, 0, rows.length - 1, true, true);
   }
 
   selectRange(
-    rows: NodeListOf<HTMLTableRowElement>, first: number, last: number, selectDeselected: boolean,
-    deselectSelected: boolean): void {
-    const selected = this.getHiddenSelected();
-    const value = new Set<number>(JSON.parse(selected.value));
+      selectedSet: Set<number>, rows: NodeListOf<HTMLTableRowElement>, first: number, last: number,
+      selectDeselected: boolean, deselectSelected: boolean): void {
     for (let i = first; i <= last; i++) {
-      const row = rows.item(i);
-      const checkbox = this.getSelectorCheckbox(row);
+      const row: HTMLTableRowElement = rows.item(i);
+      const checkbox: HTMLInputElement = this.getSelectorCheckbox(row);
       if (checkbox === null || !checkbox.disabled) {
         const rowIndex = Number(row.getAttribute("row-index"));
-        const on = value.has(rowIndex);
+        const on = selectedSet.has(rowIndex);
         if (selectDeselected && !on) {
-          this.selectRow(selected, rowIndex, row, checkbox);
+          this.selectRow(selectedSet, rowIndex, row, checkbox);
         } else if (deselectSelected && on) {
-          this.deselectRow(selected, rowIndex, row, checkbox);
+          this.deselectRow(selectedSet, rowIndex, row, checkbox);
         }
       }
     }
   }
 
   /**
-   * @param selected input-element type=hidden: Hidden field with the selection state information
+   * @param selectedSet value of the hidden input-element to store the selection.
    * @param rowIndex int: zero based index of the row.
    * @param row tr-element: the row.
    * @param checkbox input-element: selector in the row.
    */
-  selectRow(selected: HTMLInputElement, rowIndex: number, row: HTMLTableRowElement, checkbox?: HTMLInputElement): void {
-    const selectedSet = new Set<number>(JSON.parse(selected.value));
-    selected.value = JSON.stringify(Array.from(selectedSet.add(rowIndex)));
+  selectRow(
+      selectedSet: Set<number>, rowIndex: number, row: HTMLTableRowElement, checkbox?: HTMLInputElement): void {
+    selectedSet.add(rowIndex);
     row.classList.add("tobago-selected");
     row.classList.add("table-info");
     if (checkbox) {
@@ -830,16 +827,14 @@ Type: ${data.type}`);
   }
 
   /**
-   * @param selected input-element type=hidden: Hidden field with the selection state information
+   * @param selectedSet value of the hidden input-element to store the selection.
    * @param rowIndex int: zero based index of the row.
    * @param row tr-element: the row.
    * @param checkbox input-element: selector in the row.
    */
   deselectRow(
-    selected: HTMLInputElement, rowIndex: number, row: HTMLTableRowElement, checkbox?: HTMLInputElement): void {
-    const selectedSet = new Set<number>(JSON.parse(selected.value));
+      selectedSet: Set<number>, rowIndex: number, row: HTMLTableRowElement, checkbox?: HTMLInputElement): void {
     selectedSet.delete(rowIndex);
-    selected.value = JSON.stringify(Array.from(selectedSet));
     row.classList.remove("tobago-selected");
     row.classList.remove("table-info");
     if (checkbox) {
