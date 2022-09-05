@@ -1482,7 +1482,10 @@
     							pattern: /^=/,
     							alias: 'attr-equals'
     						},
-    						/"|'/
+    						{
+    							pattern: /^(\s*)["']|["']$/,
+    							lookbehind: true
+    						}
     					]
     				}
     			},
@@ -1625,7 +1628,7 @@
     	Prism.languages.css = {
     		'comment': /\/\*[\s\S]*?\*\//,
     		'atrule': {
-    			pattern: /@[\w-](?:[^;{\s]|\s+(?![\s{]))*(?:;|(?=\s*\{))/,
+    			pattern: RegExp('@[\\w-](?:' + /[^;{\s"']|\s+(?!\s)/.source + '|' + string.source + ')*?' + /(?:;|(?=\s*\{))/.source),
     			inside: {
     				'rule': /^@[\w-]+/,
     				'selector-function-argument': {
