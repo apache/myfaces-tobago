@@ -609,8 +609,6 @@ Type: ${data.type}`);
   }
 
   clickOnCheckboxForAll(event: MouseEvent): void {
-    console.log("clickOnCheckboxForAll ***********");
-    console.time("clickOnCheckboxForAll");
     const selectedSet = new Set<number>(JSON.parse(this.getHiddenSelected().value));
     const checkbox = event.currentTarget as HTMLInputElement;
     if (checkbox.checked) {
@@ -619,12 +617,9 @@ Type: ${data.type}`);
       this.deselectAll(selectedSet);
     }
     this.getHiddenSelected().value = JSON.stringify(Array.from(selectedSet)); // write back to element
-    console.timeEnd("clickOnCheckboxForAll");
   }
 
   clickOnRow(event: MouseEvent): void {
-    console.log("clickOnRow ***********");
-    console.time("clickOnRow");
     const row = event.currentTarget as HTMLTableRowElement;
     if (row.classList.contains("tobago-selected") || !Sheet.isInputElement(row)) {
 
@@ -662,7 +657,6 @@ Type: ${data.type}`);
       }
       this.getHiddenSelected().value = JSON.stringify(Array.from(selectedSet)); // write back to element
     }
-    console.timeEnd("clickOnRow");
   }
 
   clickOnPaging(event: MouseEvent): void {
