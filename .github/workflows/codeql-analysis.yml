@@ -27,12 +27,12 @@ name: "CodeQL"
 on:
   push:
     branches:
-      - master
+      - main
       - tobago-5.x
   pull_request:
     # The branches below must be a subset of the branches above
     branches:
-      - master
+      - main
       - tobago-5.x
   schedule:
     - cron: '31 15 * * 5'
