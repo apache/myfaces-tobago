@@ -55,6 +55,8 @@ public class SolarObject implements Serializable {
 
   private List<Element> chemicalComposition;
 
+  private SolarType type;
+
   public SolarObject(
       final String name, final String number, final String orbit, final Integer distance, final Double period,
       final Double incl, final Double eccen, final String discoverer, final Integer discoverYear) {
@@ -188,6 +190,13 @@ public class SolarObject implements Serializable {
 
   public void setChemicalComposition(final List<Element> chemicalComposition) {
     this.chemicalComposition = chemicalComposition;
+  }
+
+  public SolarType getType() {
+    if (type == null) {
+      type = name.equals("Sun") ? SolarType.STAR : orbit.equals("Sun") ? SolarType.PLANET : SolarType.MOON;
+    }
+    return type;
   }
 
   public String toString() {
