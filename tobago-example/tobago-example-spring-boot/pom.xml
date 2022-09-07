@@ -44,6 +44,15 @@
                         </execution>
                     </executions>
                 </plugin>
+              <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <configuration>
+                  <!-- the spring-boot demo is not part of the release,
+                  so spring-boot dependencies are not relevant to let the build fail -->
+                  <failBuildOnCVSS>8</failBuildOnCVSS>
+                </configuration>
+              </plugin>
             </plugins>
         </pluginManagement>
 
@@ -79,14 +88,6 @@
                 <version>${joinfaces.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <!-- Because of CVE-2022-25857
-               TODO: can be removed after jsf-spring-boot-starter has updated its dependencies -->
-            <dependency>
-              <groupId>org.yaml</groupId>
-              <artifactId>snakeyaml</artifactId>
-              <version>1.31</version>
             </dependency>
 
         </dependencies>
