@@ -152,6 +152,14 @@ updates:
       - dependency-name: "org.apache.tomcat.embed:*"
         versions:
           - ">= 10.0.0"
+      # SLF4j >= 2
+      - dependency-name: "org.slf4j:*"
+        versions:
+          - ">= 2.0.0"
+      # Logback >= 1.4 requires jdk 11
+      - dependency-name: "ch.qos.logback:*"
+        versions:
+          - ">= 1.4.0"
 
   - package-ecosystem: "maven"
     directory: "/"
@@ -230,6 +238,14 @@ updates:
       - dependency-name: "org.wildfly.plugins:wildfly-maven-plugin"
         versions:
           - ">= 3.0.0"
+      # SLF4j >= 2
+      - dependency-name: "org.slf4j:*"
+        versions:
+          - ">= 2.0.0"
+      # Logback >= 1.4 requires jdk 11
+      - dependency-name: "ch.qos.logback:*"
+        versions:
+          - ">= 1.4.0"
 
   - package-ecosystem: "maven"
     directory: "/"
@@ -302,6 +318,14 @@ updates:
       - dependency-name: "com.puppycrawl.tools:checkstyle"
         versions:
           - ">= 10.0"
+      # SLF4j >= 2
+      - dependency-name: "org.slf4j:*"
+        versions:
+          - ">= 2.0.0"
+      # Logback >= 1.4 requires jdk 11
+      - dependency-name: "ch.qos.logback:*"
+        versions:
+          - ">= 1.4.0"
 
   - package-ecosystem: "github-actions"
     directory: "/"
