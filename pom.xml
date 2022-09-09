@@ -408,8 +408,8 @@
                   </unCheckedPlugins>
                 </requirePluginVersions>
                 <requireJavaVersion>
-                  <message>Tobago must be compiled with Java 8 or higher</message>
-                  <version>[1.8,)</version>
+                  <message>Tobago must be built with Java 11 or higher</message>
+                  <version>[11,)</version>
                 </requireJavaVersion>
               </rules>
             </configuration>
