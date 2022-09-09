@@ -43,9 +43,9 @@ pipeline {
                 axes {
                     axis {
                         name 'JAVA_VERSION'
-//                        values 'jdk_1.8_latest', 'jdk_11_latest', 'jdk_16_latest' 
-//                        XXX turned off because of Jenkins random fails
-                        values 'jdk_1.8_latest'
+//                        values 'jdk_11_latest', 'jdk_17_latest'
+//                        XXX turned off because of Jenkins randomly fails
+                        values 'jdk_1.11_latest'
                     }
                 }
 
