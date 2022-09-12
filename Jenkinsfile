@@ -45,7 +45,7 @@ pipeline {
                         name 'JAVA_VERSION'
 //                        values 'jdk_11_latest', 'jdk_17_latest'
 //                        XXX turned off because of Jenkins randomly fails
-                        values 'jdk_1.11_latest'
+                        values 'jdk_11_latest'
                     }
                 }
 
