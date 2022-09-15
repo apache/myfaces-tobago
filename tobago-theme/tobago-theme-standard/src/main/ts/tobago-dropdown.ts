@@ -34,6 +34,12 @@ class Dropdown extends HTMLElement {
       this.addEventListener("shown.bs.dropdown", this.openDropdown.bind(this));
       this.addEventListener("hidden.bs.dropdown", this.closeDropdown.bind(this));
     }
+    // the click should not sort the column of a table - XXX not very nice - may look for a better solution
+    if (this.closest("tr") != null) {
+      this.addEventListener("click", (event) => {
+        event.stopPropagation();
+      });
+    }
   }
 
   openDropdown(): void {
