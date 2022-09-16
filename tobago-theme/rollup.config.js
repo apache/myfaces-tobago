@@ -19,6 +19,7 @@ import replace from '@rollup/plugin-replace';
 import {nodeResolve} from "@rollup/plugin-node-resolve";
 import typescript from 'rollup-plugin-typescript2';
 import {terser} from 'rollup-plugin-terser';
+import commonjs from "@rollup/plugin-commonjs";
 
 export default {
   input: 'tobago-theme-standard/src/main/ts/tobago-all.ts',
@@ -35,6 +36,7 @@ export default {
     }
   ],
   plugins: [
+    commonjs(),
     nodeResolve(),
     replace({
       // XXX workaround for popper2 included by bootstrap, otherwise be get an error: process is not defined at runtime
