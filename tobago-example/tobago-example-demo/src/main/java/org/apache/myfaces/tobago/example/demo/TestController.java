@@ -136,8 +136,8 @@ public class TestController implements Serializable {
       this.id = id;
       this.base = base;
       String back = label.startsWith("content/") ? label.substring("content/".length()) : label;
-      this.label = StringUtils.abbreviateMiddle(back,"...", 50);
-      this.shortLabel = StringUtils.abbreviateMiddle(back,"...", 30);
+      this.label = StringUtils.abbreviateMiddle(back, "...", 50);
+      this.shortLabel = StringUtils.abbreviateMiddle(back, "...", 30);
     }
 
     public String getId() {
