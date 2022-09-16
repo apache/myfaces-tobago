@@ -30,7 +30,8 @@
       <tc:panel>
         <tc:style customClass="testframe-wrapper"/>
         <tc:panel>
-          <tc:link label="open in new tab" outcome="/#{testPage.base}.xhtml" target="_blank"/>
+          <tc:link image="bi-box-arrow-up-right" tip="open in new tab"
+                   label="#{testPage.label}" outcome="/#{testPage.base}.xhtml" target="_blank"/>
         </tc:panel>
         <tc:object id="#{testPage.id}" name="test.xhtml?base=#{testPage.base}">
           <tc:style height="300px" width="500px"/>
