@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,7 +71,10 @@ public class TestController implements Serializable {
       int idCount = 1;
       for (final String page : getXHTMLs(rootDir)) {
         final String base = page.substring(realPath.length(), page.length() - ".xhtml".length());
-        pages.add(new TestPage("tp" + idCount++, URLEncoder.encode(base, StandardCharsets.UTF_8.name())));
+        pages.add(new TestPage(
+          "tp" + idCount++,
+          URLEncoder.encode(base, StandardCharsets.UTF_8.name()),
+          base));
         // todo: StandardCharsets.UTF_8.name() can be simplified with Java 10
       }
     }
@@ -100,7 +104,10 @@ public class TestController implements Serializable {
       int idCount = 1;
       for (final String testJs : getTestJs(rootDir)) {
         final String base = testJs.substring(realPath.length(), testJs.length() - ".test.js".length());
-        testPages.add(new TestPage("tp" + idCount++, URLEncoder.encode(base, StandardCharsets.UTF_8.name())));
+        testPages.add(new TestPage(
+          "tp" + idCount++,
+          URLEncoder.encode(base, StandardCharsets.UTF_8.name()),
+          base));
         // todo: StandardCharsets.UTF_8.name() can be simplified with Java 10
       }
     }
@@ -122,10 +129,15 @@ public class TestController implements Serializable {
   public class TestPage {
     private final String id;
     private final String base;
+    private final String label;
+    private final String shortLabel;
 
-    TestPage(final String id, final String base) {
+    TestPage(final String id, final String base, final String label) {
       this.id = id;
       this.base = base;
+      String back = label.startsWith("content/") ? label.substring("content/".length()) : label;
+      this.label = StringUtils.abbreviateMiddle(back,"...", 50);
+      this.shortLabel = StringUtils.abbreviateMiddle(back,"...", 30);
     }
 
     public String getId() {
@@ -134,6 +146,14 @@ public class TestController implements Serializable {
 
     public String getBase() {
       return base;
+    }
+
+    public String getLabel() {
+      return label;
+    }
+
+    public String getShortLabel() {
+      return shortLabel;
     }
   }
 }
