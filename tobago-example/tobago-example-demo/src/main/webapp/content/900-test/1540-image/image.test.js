@@ -26,3 +26,27 @@ it("Images must be among themselves", function (done) {
   test.do(() => expect(image2().offsetTop).toBeGreaterThan(image1().offsetTop + image1().height));
   test.start();
 });
+
+it("Image sizes", function (done) {
+  const image1 = querySelectorFn("#page\\:mainForm\\:image1 img");
+  const image2 = querySelectorFn("#page\\:mainForm\\:image2 img");
+  const image3 = querySelectorFn("#page\\:mainForm\\:image3 img");
+  const image4 = querySelectorFn("#page\\:mainForm\\:image4 img");
+  const image5 = querySelectorFn("#page\\:mainForm\\:image5 img");
+  const image6 = querySelectorFn("#page\\:mainForm\\:image6 img");
+
+  let test = new JasmineTestTool(done);
+  test.do(() => expect(image1().width).toBe(24));
+  test.do(() => expect(image1().height).toBe(10));
+  test.do(() => expect(image2().width).toBe(480));
+  test.do(() => expect(image2().height).toBe(200));
+  test.do(() => expect(image3().width).toBe(300));
+  test.do(() => expect(image3().height).toBe(125));
+  test.do(() => expect(image4().width).toBe(30));
+  test.do(() => expect(image4().height).toBe(2));
+  test.do(() => expect(image5().width).toBe(60));
+  test.do(() => expect(image5().height).toBe(25));
+  test.do(() => expect(image6().width).toBe(240));
+  test.do(() => expect(image6().height).toBe(100));
+  test.start();
+});

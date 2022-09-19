@@ -20,9 +20,46 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
   <ui:param name="title" value="Image"/>
-  <tc:image id="image1" value="#{request.contextPath}/image/alps.png">
-    <tc:style maxHeight="10px"/>
-  </tc:image>
-  <p>Images should be among themselves.</p>
-  <tc:image id="image2" value="#{request.contextPath}/image/alps.png"/>
+  <tc:figure label="maxHeight='10px'">
+    <tc:image id="image1" value="#{request.contextPath}/image/alps.png">
+      <tc:style maxHeight="10px"/>
+    </tc:image>
+  </tc:figure>
+  <p/>
+  <tc:figure label="no style">
+    <tc:image id="image2" value="#{request.contextPath}/image/alps.png"/>
+  </tc:figure>
+  <p/>
+  <tc:figure label="width='50%' within a 600px-panel">
+    <tc:panel>
+      <tc:style width="600px"/>
+      <tc:image id="image3" value="#{request.contextPath}/image/alps.png">
+        <tc:style width="50%"/>
+      </tc:image>
+    </tc:panel>
+  </tc:figure>
+  <p/>
+  <tc:figure label="width='30px' height='2px'">
+    <tc:image id="image4" value="#{request.contextPath}/image/alps.png">
+      <tc:style width="30px" height="2px"/>
+    </tc:image>
+  </tc:figure>
+  <p/>
+  <tc:figure label="width='50%' maxWidth='600px' within a 120px-panel">
+    <tc:panel>
+      <tc:style width="120px"/>
+      <tc:image id="image5" value="#{request.contextPath}/image/alps.png">
+        <tc:style width="50%" maxWidth="600px"/>
+      </tc:image>
+    </tc:panel>
+  </tc:figure>
+  <p/>
+  <tc:figure label="minWidth='200px' within a 120px-panel">
+    <tc:panel>
+      <tc:style width="120px"/>
+      <tc:image id="image6" value="#{request.contextPath}/image/alps.png">
+        <tc:style minWidth="240px"/>
+      </tc:image>
+    </tc:panel>
+  </tc:figure>
 </ui:composition>
