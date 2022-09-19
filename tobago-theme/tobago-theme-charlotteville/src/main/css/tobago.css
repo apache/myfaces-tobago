@@ -11265,10 +11265,8 @@ tobago-image {
   display: inline-block;
 }
 tobago-image > img {
-  width: inherit;
-  height: inherit;
-  min-width: inherit;
-  min-height: inherit;
+  width: 100%;
+  height: 100%;
   max-width: inherit;
   max-height: inherit;
 }
