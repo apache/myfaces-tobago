@@ -53,7 +53,7 @@
     <checkstyle-rules.version>18-SNAPSHOT</checkstyle-rules.version>
 
     <!-- Note: defined here in master pom, because of problems with enforcer plugin -->
-    <jetty.version>9.4.48.v20220622</jetty.version>
+    <jetty.version>9.4.49.v20220914</jetty.version>
     <joinfaces.version>4.7.3</joinfaces.version>
     <spring-boot.version>2.7.3</spring-boot.version>
 
