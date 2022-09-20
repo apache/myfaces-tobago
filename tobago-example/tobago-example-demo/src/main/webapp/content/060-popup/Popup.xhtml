@@ -170,7 +170,7 @@
   <tc:section label="Popup opend after AJAX call">
     <tc:button label="Open Popup" immediate="true" id="ajaxButton">
       <tc:operation name="show" for="ajaxPopup"/>
-      <f:ajax render="@this ajaxPopup" execute="@this ajaxPopup"/>
+      <f:ajax render="ajaxPopup" execute="ajaxPopup"/>
     </tc:button>
 
     <tc:popup id="ajaxPopup" collapsedMode="absent" markup="small">
@@ -195,23 +195,20 @@
     (<tc:link link="https://issues.apache.org/jira/browse/TOBAGO-2083" label="Jira TOBAGO-2083" image="bi-box-arrow-up-right"/>)
     </p>
 
-    <tc:button label="Open Popup (to dicuss)" immediate="true">
+    <tc:button id="openRefreshPopup" label="Open Popup" immediate="true">
       <tc:operation name="show" for="refreshPopup"/>
-      <f:ajax render="refreshPopup:refreshPopupContent" listener="#{popupController.refreshContent}"/>
+      <f:ajax render="@this refreshPopup" execute="refreshPopup" listener="#{popupController.refreshContent}"/>
     </tc:button>
 
-    <tc:button label="Open Popup (alternative)" immediate="true">
-      <tc:operation name="show" for="refreshPopup"/>
-      <f:ajax render="@this refreshPopup" execute="@this refreshPopup" listener="#{popupController.refreshContent}"/>
-    </tc:button>
-
-    <tc:popup id="refreshPopup" collapsedMode="absent" markup="small">
-      <tc:box id="refreshPopupContent" label="Current Time">
-        <tc:out label="Current Time" value="#{popupController.time}"/>
-        <tc:button label="Close" omit="true">
-          <tc:operation name="hide" for="refreshPopup"/>
-        </tc:button>
-      </tc:box>
-    </tc:popup>
+    <tc:panel id="wrapperForIntegrationTest">
+      <tc:popup id="refreshPopup" collapsedMode="absent" markup="small">
+        <tc:box id="refreshPopupContent" label="Current Time">
+          <tc:out label="Current Time" value="#{popupController.time}"/>
+          <tc:button id="closeRefreshPopup" label="Close" omit="true">
+            <tc:operation name="hide" for="refreshPopup"/>
+          </tc:button>
+        </tc:box>
+      </tc:popup>
+    </tc:panel>
   </tc:section>
 </ui:composition>
