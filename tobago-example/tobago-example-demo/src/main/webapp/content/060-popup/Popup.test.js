@@ -32,8 +32,8 @@ it("Open 'Client Popup' and press 'Cancel'.", function (done) {
   const test = new JasmineTestTool(done);
   test.do(() => hiddenEventCount = 1);
   test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
-      () => hiddenEventCount = 0,
-      "click", cancelButtonFn);
+    () => hiddenEventCount = 0,
+    "click", cancelButtonFn);
   test.do(() => expect(popupFn().classList).not.toContain("show"));
   test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
 
@@ -69,8 +69,8 @@ it("Open 'Client Popup', press 'Submit' while field is empty. Press 'Cancel'.", 
   const test = new JasmineTestTool(done);
   test.do(() => hiddenEventCount = 1);
   test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
-      () => hiddenEventCount = 0,
-      "click", cancelButtonFn);
+    () => hiddenEventCount = 0,
+    "click", cancelButtonFn);
   test.setup(() => messagesFn().length === 0, null, "click", messageCloseFn);
   test.do(() => expect(popupFn().classList).not.toContain("show"));
   test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
@@ -111,11 +111,11 @@ it("Open 'Client Popup', press 'Submit' while field has content. Press 'Cancel'.
   const test = new JasmineTestTool(done);
   test.do(() => hiddenEventCount = 1);
   test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
-      () => hiddenEventCount = 0,
-      "click", cancelButtonFn);
+    () => hiddenEventCount = 0,
+    "click", cancelButtonFn);
   test.setup(() => outputFn().value !== "Tobago",
-      () => inputFieldFn().value = "Trinidad",
-      "click", submitButtonFn);
+    () => inputFieldFn().value = "Trinidad",
+    "click", submitButtonFn);
   test.do(() => expect(popupFn().classList).not.toContain("show"));
   test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
   test.do(() => expect(outputFn().value).not.toBe("Tobago"));
@@ -157,8 +157,8 @@ it("Open 'Client Popup', press 'Submit & Close' while field is empty.", function
   const test = new JasmineTestTool(done);
   test.do(() => hiddenEventCount = 1);
   test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
-      () => hiddenEventCount = 0,
-      "click", cancelButtonFn);
+    () => hiddenEventCount = 0,
+    "click", cancelButtonFn);
   test.setup(() => messagesFn().length === 0, null, "click", messageCloseFn);
   test.do(() => expect(popupFn().classList).not.toContain("show"));
   test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
@@ -198,11 +198,11 @@ it("Open 'Client Popup', press 'Submit & Close' while field has content.", funct
   const test = new JasmineTestTool(done);
   test.do(() => hiddenEventCount = 1);
   test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
-      () => hiddenEventCount = 0,
-      "click", cancelButtonFn);
+    () => hiddenEventCount = 0,
+    "click", cancelButtonFn);
   test.setup(() => outputFn().value !== "Little Tobago",
-      () => inputFieldFn().value = "Charlotteville",
-      "click", submitButtonFn);
+    () => inputFieldFn().value = "Charlotteville",
+    "click", submitButtonFn);
   test.do(() => expect(popupFn().classList).not.toContain("show"));
   test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
   test.do(() => expect(outputFn().value).not.toBe("Little Tobago"));
@@ -238,10 +238,10 @@ it("Open 'Large Popup'.", function (done) {
   const test = new JasmineTestTool(done);
   test.do(() => hiddenEventCount = 1);
   test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
-      () => hiddenEventCount = 0,
-      "click", closeButtonFn);
+    () => hiddenEventCount = 0,
+    "click", closeButtonFn);
   test.setup(() => !dropdownMenuFn().classList.contains("show"),
-      null, "click", dropdownButtonFn);
+    null, "click", dropdownButtonFn);
   test.do(() => expect(popupFn().classList).not.toContain("show"));
   test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
   test.do(() => expect(dropdownMenuFn().classList).not.toContain("show"));
@@ -278,10 +278,10 @@ it("Open 'Small Popup'.", function (done) {
   const test = new JasmineTestTool(done);
   test.do(() => hiddenEventCount = 1);
   test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
-      () => hiddenEventCount = 0,
-      "click", closeButtonFn);
+    () => hiddenEventCount = 0,
+    "click", closeButtonFn);
   test.setup(() => !dropdownMenuFn().classList.contains("show"),
-      null, "click", dropdownButtonFn);
+    null, "click", dropdownButtonFn);
   test.do(() => expect(popupFn().classList).not.toContain("show"));
   test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
   test.do(() => expect(dropdownMenuFn().classList).not.toContain("show"));
@@ -294,6 +294,38 @@ it("Open 'Small Popup'.", function (done) {
   test.do(() => expect(popupFn().classList).toContain("show"));
   test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
   test.do(() => expect(dropdownMenuFn().classList).not.toContain("show"));
+
+  test.do(() => hiddenEventCount = 0);
+  test.event("click", closeButtonFn, () => hiddenEventCount > 0);
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+  test.start();
+});
+
+it("open 'refresh content popup' and press 'close'", function (done) {
+  const wrapperFn = elementByIdFn("page:mainForm:wrapperForIntegrationTest");
+  const popupFn = elementByIdFn("page:mainForm:refreshPopup");
+  const collapseFn = elementByIdFn("page:mainForm:refreshPopup::collapse");
+  const openButtonFn = elementByIdFn("page:mainForm:openRefreshPopup");
+  const closeButtonFn = elementByIdFn("page:mainForm:refreshPopup:closeRefreshPopup");
+
+  let shownEventCount = 0;
+  let hiddenEventCount = 0;
+  wrapperFn().addEventListener("shown.bs.modal", () => shownEventCount++);
+  wrapperFn().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
+
+  const test = new JasmineTestTool(done);
+  test.do(() => hiddenEventCount = 1);
+  test.setup(() => collapseFn().getAttribute("value") === "true" && hiddenEventCount === 1,
+    () => hiddenEventCount = 0,
+    "click", closeButtonFn);
+  test.do(() => expect(popupFn().classList).not.toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("true"));
+
+  test.do(() => shownEventCount = 0);
+  test.event("click", openButtonFn, () => shownEventCount > 0);
+  test.do(() => expect(popupFn().classList).toContain("show"));
+  test.do(() => expect(collapseFn().getAttribute("value")).toBe("false"));
 
   test.do(() => hiddenEventCount = 0);
   test.event("click", closeButtonFn, () => hiddenEventCount > 0);
