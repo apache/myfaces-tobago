@@ -156,10 +156,10 @@ updates:
       - dependency-name: "org.slf4j:*"
         versions:
           - ">= 2.0.0"
-      # Logback >= 1.4 requires jdk 11
+      # Logback >= 1.3 requires SLF4J 2.x
       - dependency-name: "ch.qos.logback:*"
         versions:
-          - ">= 1.4.0"
+          - ">= 1.3.0"
 
   - package-ecosystem: "maven"
     directory: "/"
@@ -242,10 +242,10 @@ updates:
       - dependency-name: "org.slf4j:*"
         versions:
           - ">= 2.0.0"
-      # Logback >= 1.4 requires jdk 11
+      # Logback >= 1.3 requires SLF4J 2.x
       - dependency-name: "ch.qos.logback:*"
         versions:
-          - ">= 1.4.0"
+          - ">= 1.3.0"
 
   - package-ecosystem: "maven"
     directory: "/"
@@ -322,10 +322,10 @@ updates:
       - dependency-name: "org.slf4j:*"
         versions:
           - ">= 2.0.0"
-      # Logback >= 1.4 requires jdk 11
+      # Logback >= 1.3 requires SLF4J 2.x
       - dependency-name: "ch.qos.logback:*"
         versions:
-          - ">= 1.4.0"
+          - ">= 1.3.0"
 
   - package-ecosystem: "github-actions"
     directory: "/"
