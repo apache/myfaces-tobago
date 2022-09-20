@@ -74,7 +74,7 @@
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-node-resolve": "^14.1.0",
     "@rollup/plugin-replace": "^4.0.0",
-    "@types/bootstrap": "^5.2.3",
+    "@types/bootstrap": "^5.2.4",
     "@types/jest": "^28.1.8",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
