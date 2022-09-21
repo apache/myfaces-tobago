@@ -67,6 +67,10 @@ updates:
       - dependency-name: "jakarta.servlet:jakarta.servlet-api"
         versions:
           - ">= 6.0.0"
+      # hibernate-validator 8 is Jakarta EE 10
+      - dependency-name: "org.hibernate.validator:hibernate-validator"
+        versions:
+          - ">= 8.0.0"
       # weld 5 is CDI 4 is Jakarta EE 10
       - dependency-name: "org.jboss.weld.servlet:weld-servlet-shaded"
         versions:
