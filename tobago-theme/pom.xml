@@ -294,7 +294,7 @@
 
             <!-- optional -->
             <configuration>
-              <nodeVersion>v14.15.4</nodeVersion> <!-- contains npm version 6.14.10 -->
+              <nodeVersion>v16.17.0</nodeVersion> <!-- (includes npm 8.15.0) -->
 
               <!-- optional: Where to download Node.js binary from. Defaults to http://nodejs.org/dist/ -->
               <!--<nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>-->
