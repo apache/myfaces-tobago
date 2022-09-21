@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIDate;
+import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -88,6 +89,42 @@ public class DateRendererUnitTest extends RendererTestBase {
     d.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/date/dateDate.html"), formattedResult());
+  }
+
+  @Test
+  public void dateFacetBefore() throws IOException {
+
+    final UIDate d = (UIDate) ComponentUtils.createComponent(
+        facesContext, Tags.date.componentType(), RendererTypes.Date, "id");
+    d.setValue(SPUTNIK_DATE);
+
+    final UIOut out = (UIOut) ComponentUtils.createComponent(
+      facesContext, Tags.out.componentType(), RendererTypes.Out, "out");
+    d.getFacets().put("before", out);
+    out.setValue("before");
+
+    log(d);
+    d.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/date/dateFacetBefore.html"), formattedResult());
+  }
+
+  @Test
+  public void dateFacetAfter() throws IOException {
+
+    final UIDate d = (UIDate) ComponentUtils.createComponent(
+        facesContext, Tags.date.componentType(), RendererTypes.Date, "id");
+    d.setValue(SPUTNIK_DATE);
+
+    final UIOut out = (UIOut) ComponentUtils.createComponent(
+      facesContext, Tags.out.componentType(), RendererTypes.Out, "out");
+    out.setValue("after");
+    d.getFacets().put("after", out);
+
+    log(d);
+    d.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/date/dateFacetAfter.html"), formattedResult());
   }
 
   @Test
