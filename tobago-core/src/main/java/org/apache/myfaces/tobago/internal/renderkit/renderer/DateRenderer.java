@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUIDate;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
@@ -37,6 +38,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jakarta.el.ValueExpression;
+import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.DateTimeConverter;
@@ -85,8 +87,13 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
   protected void encodeBeginField(final FacesContext facesContext, final T date) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
+    final UIComponent after = ComponentUtils.getFacet(date, Facets.after);
+    final UIComponent before = ComponentUtils.getFacet(date, Facets.before);
+
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
+
+    encodeGroupAddon(facesContext, writer, before, false);
 
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, date);
     final DateType type = date.getType();
@@ -132,6 +139,8 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
     writer.endElement(HtmlElements.INPUT);
 
     encodeBehavior(writer, facesContext, date);
+
+    encodeGroupAddon(facesContext, writer, after, true);
 
     if (date.isTodayButton()) {
       encodeButton(facesContext, date, type);

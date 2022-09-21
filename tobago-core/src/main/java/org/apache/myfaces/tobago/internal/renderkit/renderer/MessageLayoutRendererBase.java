@@ -19,10 +19,15 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
 import org.apache.myfaces.tobago.component.SupportsHelp;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
+import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
+import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneChoice;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
@@ -228,4 +233,28 @@ public abstract class MessageLayoutRendererBase<T extends UIComponent & Supports
 
     writer.endElement(HtmlElements.TOBAGO_POPOVER);
   }
+
+  protected void encodeGroupAddon(
+      final FacesContext facesContext, final TobagoResponseWriter writer,
+      final UIComponent addon, final boolean isAfterFacet) throws IOException {
+    if (addon != null) {
+      for (final UIComponent child : RenderUtils.getFacetChildren(addon)) {
+        insideBegin(facesContext, isAfterFacet ? Facets.after : Facets.before);
+        if (child instanceof AbstractUIButton) {
+          child.encodeAll(facesContext);
+        } else if (child instanceof AbstractUIOut) {
+          child.encodeAll(facesContext);
+        } else if (child instanceof AbstractUISelectOneChoice) {
+          child.encodeAll(facesContext);
+        } else {
+          writer.startElement(HtmlElements.SPAN);
+          writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_TEXT);
+          child.encodeAll(facesContext);
+          writer.endElement(HtmlElements.SPAN);
+        }
+        insideEnd(facesContext, isAfterFacet ? Facets.after : Facets.before);
+      }
+    }
+  }
+
 }
