@@ -52,6 +52,7 @@
     <required.maven.version>3.0.4</required.maven.version>
     <maven-pmd-plugin.version>3.19.0</maven-pmd-plugin.version>
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
+    <junit-jupiter.version>5.9.1</junit-jupiter.version>
     <checkstyle-rules.version>18-SNAPSHOT</checkstyle-rules.version>
   </properties>
 
@@ -206,13 +207,13 @@
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
-        <version>5.9.1</version>
+        <version>${junit-jupiter.version}</version>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-params</artifactId>
-        <version>5.9.1</version>
+        <version>${junit-jupiter.version}</version>
         <scope>test</scope>
       </dependency>
       <dependency>
