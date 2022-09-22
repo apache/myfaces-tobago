@@ -241,9 +241,7 @@ export class Sheet extends HTMLElement {
 
     // ---------------------------------------------------------------------------------------- //
 
-    console.error("want adding checkbox");
     for (const checkbox of this.querySelectorAll("thead .tobago-selected")) {
-      console.error("adding checkbox", checkbox);
       checkbox.addEventListener("click", this.clickOnCheckboxForAll.bind(this));
     }
 
