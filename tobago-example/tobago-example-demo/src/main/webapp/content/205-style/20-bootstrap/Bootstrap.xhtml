@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+  <tc:section label="Example: Classes for Displaying Dependent on Screen Size">
+
+    <tc:link label="Bootstrap: Display property" image="bi-bootstrap"
+             link="https://getbootstrap.com/docs/5.2/utilities/display/"/>
+
+    <demo-highlight language="markup">&lt;tc:badge value="small"&gt;
+      &lt;tc:style customClass="d-none d-sm-inline"/&gt;
+      &lt;/tc:badge&gt;
+    </demo-highlight>
+
+    <p>
+      Resizing the browser window shows and hides some components.
+    </p>
+
+    <tc:badge value="normal"/> 
+    <tc:badge value="small">
+      <tc:style customClass="d-none d-sm-inline"/>
+    </tc:badge> 
+    <tc:badge value="medium">
+      <tc:style customClass="d-none d-md-inline"/>
+    </tc:badge> 
+    <tc:badge value="large">
+      <tc:style customClass="d-none d-lg-inline"/>
+    </tc:badge> 
+    <tc:badge value="xl">
+      <tc:style customClass="d-none d-xl-inline"/>
+    </tc:badge> 
+    <tc:badge value="xxl">
+      <tc:style customClass="d-none d-xxl-inline"/>
+    </tc:badge>
+
+    <tc:sheet id="sheet" value="#{sheetController.solarList}" var="object" rows="4">
+      <tc:style maxHeight="500px"/>
+      <tc:column label="normal">
+        <tc:out value="#{object.name}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="small">
+        <tc:style customClass="d-none d-sm-table-cell"/>
+        <tc:out value="#{object.orbit}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="medium">
+        <tc:style customClass="d-none d-md-table-cell"/>
+        <tc:out value="#{object.period}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="large">
+        <tc:style customClass="d-none d-lg-table-cell"/>
+        <tc:out value="#{object.distance}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="xl">
+        <tc:style customClass="d-none d-xl-table-cell"/>
+        <tc:out value="#{object.discoverer}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="xxl">
+        <tc:style customClass="d-none d-xxl-table-cell"/>
+        <tc:out value="#{object.discoverYear}" labelLayout="skip"/>
+      </tc:column>
+    </tc:sheet>
+
+  </tc:section>
+
+</ui:composition>
