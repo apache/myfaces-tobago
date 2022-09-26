@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+  <p>
+    <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tobagoTld}/tc/style.html"/>
+  </p>
+  <p>
+    The <code>&lt;tc:style&gt;</code> tag is used inside visual components (the component implements the
+    <tc:link label="Visual" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.apiBase}/latest/org/apache/myfaces/tobago/component/Visual.html"/>
+    interface).
+  </p>
+  <ul>
+    <li>
+      With the attribute <code>customClass</code> a CSS class can be set.
+    </li>
+    <li>
+      The attribute <code>file</code> includes a CSS file into the page.
+    </li>
+    <li>
+      Apart from the generic attributes <code>binding</code> and <code>id</code>
+      all other attributes are CSS properties. These properties will be set in
+      the parent component with respect to
+      <tc:link label="Content Security Policy"
+               outcome="/content/280-security/05-csp/Content_Security_Policy.xhtml"/> (CSP).
+    </li>
+  </ul>
+
+</ui:composition>
