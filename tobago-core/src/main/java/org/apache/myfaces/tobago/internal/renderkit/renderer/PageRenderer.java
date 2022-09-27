@@ -68,8 +68,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-// using jsf.js from a specific MyFaces version instead, to avoid old bugs
-//@ResourceDependency(name="jsf.js", library="javax.faces", target="head")
+// using faces.js from a specific MyFaces version instead, to avoid old bugs
+//@ResourceDependency(name="faces.js", library="javax.faces", target="head")
 public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -307,7 +307,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     writer.endElement(HtmlElements.DIV);
 
     writer.startElement(HtmlElements.SPAN);
-    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "jsf-state-container");
+    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "faces-state-container");
     writer.flush();
     if (!ajax) {
       viewHandler.writeState(facesContext);
@@ -367,11 +367,11 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
           if (uiComponent instanceof UIOutput) {
             final Map<String, Object> attributes = uiComponent.getAttributes();
             if ("javax.faces".equals(attributes.get("library"))
-              && "jsf.js".equals(attributes.get("name"))) {
+              && "faces.js".equals(attributes.get("name"))) {
               // workaround for WebSphere
-              // We don't need jsf.js from the JSF impl, because Tobago comes with its own jsf.js
+              // We don't need faces.js from the JSF impl, because Tobago comes with its own faces.js
               if (LOG.isDebugEnabled()) {
-                LOG.debug("Skip rendering resource jsf.js");
+                LOG.debug("Skip rendering resource faces.js");
               }
               continue;
             }

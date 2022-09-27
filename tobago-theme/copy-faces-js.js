@@ -17,12 +17,12 @@
 
 const sourceDir = "node_modules/jsf.js_next_gen/dist/window/";
 const targetDir = "tobago-theme-standard/src/main/js/";
-const jsFile = "jsf.js";
-const mapFile = "jsf.js.map";
+const jsFile = "faces.js";
+const mapFile = "faces.js.map";
 
 const fs = require('fs')
 
-// copy and patch jsf.js
+// copy and patch faces.js
 fs.readFile(sourceDir + jsFile, "utf8", function (e, data) {
   if (e) {
     console.error(e);
@@ -41,7 +41,7 @@ fs.readFile(sourceDir + jsFile, "utf8", function (e, data) {
   }
 });
 
-// copy jsf.js.map
+// copy faces.js.map
 fs.copyFile(sourceDir + mapFile, targetDir + mapFile, function (e) {
   if (e) {
     console.error(e);

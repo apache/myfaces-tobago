@@ -683,8 +683,8 @@
               <exclude>**/*.map</exclude>
               <exclude>**/*.min.css</exclude>
 
-              <!-- jsf.js XXX check for official release -->
-              <exclude>**/jsf.js</exclude>
+              <!-- faces.js XXX check for official release -->
+              <exclude>**/faces.js</exclude>
               <exclude>**/tobago.js</exclude>
 
               <!-- jettykeystore -->
