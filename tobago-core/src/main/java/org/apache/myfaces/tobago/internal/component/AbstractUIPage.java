@@ -85,7 +85,7 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Clien
     // reset old submitted state
     setSubmitted(false);
 
-    String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
+    String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("jakarta.faces.source");
     UIComponent command = null;
     if (sourceId != null) {
       if (LOG.isDebugEnabled()) {

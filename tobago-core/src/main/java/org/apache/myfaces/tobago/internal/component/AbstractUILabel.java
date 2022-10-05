@@ -32,7 +32,7 @@ public abstract class AbstractUILabel
   /*
    * Need to set the name to 'forComponent' which comes from UILabel.PropertyKeys.forComponent.
    * TODO a better way would be to improve the UILabel.PropertyKeys, so an exact string could be specified.
-   * As an example, look at: javax.faces.component.UIMessages
+   * As an example, look at: jakarta.faces.component.UIMessages
    */
   @Override
   public void setValueExpression(String name, ValueExpression expression) {

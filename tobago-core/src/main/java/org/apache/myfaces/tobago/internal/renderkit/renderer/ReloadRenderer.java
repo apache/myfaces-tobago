@@ -40,7 +40,7 @@ public class ReloadRenderer<T extends AbstractUIReload> extends RendererBase<T> 
   @Override
   public void decodeInternal(final FacesContext facesContext, final T component) {
 
-    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
+    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("jakarta.faces.source");
     final String clientId = component.getClientId(facesContext);
     if (clientId.equals(sourceId)) {
       if (LOG.isDebugEnabled()) {

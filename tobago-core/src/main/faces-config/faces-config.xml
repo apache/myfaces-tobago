@@ -55,7 +55,7 @@
 
   <render-kit>
     <client-behavior-renderer>
-      <!--<client-behavior-renderer-type>javax.faces.behavior.Ajax</client-behavior-renderer-type>-->
+      <!--<client-behavior-renderer-type>jakarta.faces.behavior.Ajax</client-behavior-renderer-type>-->
       <client-behavior-renderer-type>org.apache.myfaces.tobago.behavior.Ajax</client-behavior-renderer-type>
       <client-behavior-renderer-class>org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer</client-behavior-renderer-class>
     </client-behavior-renderer>

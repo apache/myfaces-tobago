@@ -88,7 +88,7 @@ class Behavior extends HTMLElement {
             this.actionElement,
             event,
             {
-              "javax.faces.behavior.event": this.event,
+              "jakarta.faces.behavior.event": this.event,
               execute: this.execute,
               render: this.render
             });
@@ -113,7 +113,7 @@ class Behavior extends HTMLElement {
       const actionId = this.fieldId != null ? this.fieldId : this.clientId;
       const form = page.form;
       const oldTarget = form.getAttribute("target");
-      const sourceHidden = document.getElementById("javax.faces.source") as HTMLInputElement;
+      const sourceHidden = document.getElementById("jakarta.faces.source") as HTMLInputElement;
       sourceHidden.disabled = false;
       sourceHidden.value = actionId;
       if (this.target != null) {

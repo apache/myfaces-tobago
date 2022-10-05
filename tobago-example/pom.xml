@@ -82,9 +82,9 @@
           </configuration>
           <dependencies>
             <dependency> <!-- add JAXB to run the demo with Java 11 and higher -->
-              <groupId>javax.xml.bind</groupId>
-              <artifactId>jaxb-api</artifactId>
-              <version>2.3.1</version>
+              <groupId>jakarta.xml.bind</groupId>
+              <artifactId>jakarta.xml.bind-api</artifactId>
+              <version>3.0.1</version>
             </dependency>
           </dependencies>
         </plugin>
@@ -462,9 +462,9 @@
           <version>${project.version}</version>
         </dependency>
         <dependency> <!-- add JAXB to run the demo with Java 11 and higher -->
-          <groupId>javax.xml.bind</groupId>
-          <artifactId>jaxb-api</artifactId>
-          <version>2.3.1</version>
+          <groupId>jakarta.xml.bind</groupId>
+          <artifactId>jakarta.xml.bind-api</artifactId>
+          <version>3.0.1</version>
         </dependency>
       </dependencies>
     </profile>

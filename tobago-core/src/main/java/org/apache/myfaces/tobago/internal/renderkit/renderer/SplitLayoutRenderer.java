@@ -53,7 +53,7 @@ public class SplitLayoutRenderer<T extends AbstractUISplitLayout> extends Render
 
   @Override
   public void decodeInternal(final FacesContext facesContext, final T component) {
-    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
+    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("jakarta.faces.source");
     final String clientId = component.getClientId() + SUFFIX_SIZES;
     if (clientId.equals(sourceId)) {
       // only decode and update layout at resize request

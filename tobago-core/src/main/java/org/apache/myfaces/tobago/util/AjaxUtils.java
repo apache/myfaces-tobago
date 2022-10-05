@@ -42,7 +42,7 @@ public class AjaxUtils {
       requestType = httpServletRequest.getHeader("Faces-Request");
     }
     return "partial/ajax".equalsIgnoreCase(requestType)
-        || "true".equalsIgnoreCase(request.getParameter("javax.faces.partial.ajax"));
+        || "true".equalsIgnoreCase(request.getParameter("jakarta.faces.partial.ajax"));
   }
 
   public static void addRenderIds(final String... renderIds) {
