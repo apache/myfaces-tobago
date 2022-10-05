@@ -28,9 +28,9 @@ import jakarta.inject.Named;
 @ApplicationScoped
 public class Version {
 
-  private static final boolean CDI10 = hasClass("javax.enterprise.context.Conversation");
-  private static final boolean CDI1112 = hasClass("javax.enterprise.context.Destroyed");
-  private static final boolean CDI20 = hasClass("javax.enterprise.context.BeforeDestroyed");
+  private static final boolean CDI10 = hasClass("jakarta.enterprise.context.Conversation");
+  private static final boolean CDI1112 = hasClass("jakarta.enterprise.context.Destroyed");
+  private static final boolean CDI20 = hasClass("jakarta.enterprise.context.BeforeDestroyed");
 
   private static boolean hasClass(String clazz) {
     try {

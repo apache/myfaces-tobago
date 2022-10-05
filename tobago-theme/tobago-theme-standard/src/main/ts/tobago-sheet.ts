@@ -461,7 +461,7 @@ Type: ${data.type}`);
         source.id,
         null,
         {
-          "javax.faces.behavior.event": "reload",
+          "jakarta.faces.behavior.event": "reload",
           execute: executeIds,
           render: renderIds,
           onevent: lazy ? this.lazyResponse.bind(this) : undefined,
@@ -679,7 +679,7 @@ Type: ${data.type}`);
           input.id,
           null,
           {
-            "javax.faces.behavior.event": "reload",
+            "jakarta.faces.behavior.event": "reload",
             execute: this.id,
             render: this.id
           });

@@ -144,7 +144,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
     decodeSheetAction(facesContext, component);
     decodeColumnAction(facesContext, columns);
-/* this will be done by the javax.faces.component.UIData.processDecodes() because these are facets.
+/* this will be done by the jakarta.faces.component.UIData.processDecodes() because these are facets.
     for (UIComponent facet : sheet.getFacets().values()) {
       facet.decode(facesContext);
     }
@@ -155,7 +155,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     for (final AbstractUIColumnBase column : columns) {
       final boolean sortable = ComponentUtils.getBooleanAttribute(column, Attributes.sortable);
       if (sortable) {
-        final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
+        final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("jakarta.faces.source");
         final String columnId = column.getClientId(facesContext);
         final String sorterId = columnId + "_" + AbstractUISheet.SORTER_ID;
 
@@ -169,7 +169,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
 
   private void decodeSheetAction(final FacesContext facesContext, final AbstractUISheet component) {
-    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
+    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("jakarta.faces.source");
 
     final String clientId = component.getClientId(facesContext);
     if (LOG.isDebugEnabled()) {

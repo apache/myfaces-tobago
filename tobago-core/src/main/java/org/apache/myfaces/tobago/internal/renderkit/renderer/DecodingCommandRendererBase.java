@@ -41,7 +41,7 @@ public abstract class DecodingCommandRendererBase<T extends UIComponent> extends
         && ((AbstractUICommandBase) component).isDisabled()) {
       return;
     }
-    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
+    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("jakarta.faces.source");
     final String clientId = component.getClientId(facesContext);
     if (LOG.isDebugEnabled()) {
       LOG.debug("sourceId = '{}", sourceId);

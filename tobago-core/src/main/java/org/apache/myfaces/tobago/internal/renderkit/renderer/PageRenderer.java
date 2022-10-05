@@ -69,7 +69,7 @@ import java.util.Locale;
 import java.util.Map;
 
 // using faces.js from a specific MyFaces version instead, to avoid old bugs
-//@ResourceDependency(name="faces.js", library="javax.faces", target="head")
+//@ResourceDependency(name="faces.js", library="jakarta.faces", target="head")
 public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -240,8 +240,8 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
 
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-    writer.writeNameAttribute("javax.faces.source");
-    writer.writeIdAttribute("javax.faces.source");
+    writer.writeNameAttribute("jakarta.faces.source");
+    writer.writeIdAttribute("jakarta.faces.source");
     writer.writeAttribute(HtmlAttributes.DISABLED, true);
     writer.endElement(HtmlElements.INPUT);
 
@@ -366,7 +366,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
         } else {
           if (uiComponent instanceof UIOutput) {
             final Map<String, Object> attributes = uiComponent.getAttributes();
-            if ("javax.faces".equals(attributes.get("library"))
+            if ("jakarta.faces".equals(attributes.get("library"))
               && "faces.js".equals(attributes.get("name"))) {
               // workaround for WebSphere
               // We don't need faces.js from the JSF impl, because Tobago comes with its own faces.js

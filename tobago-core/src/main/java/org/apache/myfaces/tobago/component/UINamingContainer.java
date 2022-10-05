@@ -22,6 +22,6 @@ package org.apache.myfaces.tobago.component;
 public class UINamingContainer
     extends jakarta.faces.component.UINamingContainer {
 
-  public static final String COMPONENT_TYPE = "javax.faces.NamingContainer";
+  public static final String COMPONENT_TYPE = "jakarta.faces.NamingContainer";
 
 }

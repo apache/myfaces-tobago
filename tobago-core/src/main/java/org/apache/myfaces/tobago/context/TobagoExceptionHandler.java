@@ -74,11 +74,11 @@ public class TobagoExceptionHandler extends ExceptionHandlerWrapper {
               final HttpServletResponse response =
                   (HttpServletResponse) facesContext.getExternalContext().getResponse();
 
-              request.setAttribute("javax.servlet.error.exception", exception);
-              request.setAttribute("javax.servlet.error.exception_type", exception.getClass());
-              request.setAttribute("javax.servlet.error.message", exception.getMessage());
-              request.setAttribute("javax.servlet.error.request_uri", request.getRequestURI());
-              request.setAttribute("javax.servlet.error.status_code", HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+              request.setAttribute("jakarta.servlet.error.exception", exception);
+              request.setAttribute("jakarta.servlet.error.exception_type", exception.getClass());
+              request.setAttribute("jakarta.servlet.error.message", exception.getMessage());
+              request.setAttribute("jakarta.servlet.error.request_uri", request.getRequestURI());
+              request.setAttribute("jakarta.servlet.error.status_code", HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 
               response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 

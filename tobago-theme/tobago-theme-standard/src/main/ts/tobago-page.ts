@@ -187,12 +187,12 @@ document.addEventListener("tobago.init", (event: Event): void => {
 
 class JsfParameter {
 
-  static VIEW_STATE = "javax.faces.ViewState";
-  static CLIENT_WINDOW = "javax.faces.ClientWindow";
-  static VIEW_ROOT = "javax.faces.ViewRoot";
-  static VIEW_HEAD = "javax.faces.ViewHead";
-  static VIEW_BODY = "javax.faces.ViewBody";
-  static RESOURCE = "javax.faces.Resource";
+  static VIEW_STATE = "jakarta.faces.ViewState";
+  static CLIENT_WINDOW = "jakarta.faces.ClientWindow";
+  static VIEW_ROOT = "jakarta.faces.ViewRoot";
+  static VIEW_HEAD = "jakarta.faces.ViewHead";
+  static VIEW_BODY = "jakarta.faces.ViewBody";
+  static RESOURCE = "jakarta.faces.Resource";
 
   static isJsfId(id: string): boolean {
     switch (id) {

@@ -25,7 +25,7 @@
   <display-name>Tobago Demo Application</display-name>
 
   <!-- for local development you can set a Maven profile with -Pdev to set the
-  javax.faces.PROJECT_STAGE to Development -->
+  jakarta.faces.PROJECT_STAGE to Development -->
 
   <context-param>
     <param-name>com.sun.faces.validateXml</param-name>
@@ -34,7 +34,7 @@
 
 <!-- enable for websockets -->
   <context-param>
-    <param-name>javax.faces.ENABLE_WEBSOCKET_ENDPOINT</param-name>
+    <param-name>jakarta.faces.ENABLE_WEBSOCKET_ENDPOINT</param-name>
     <param-value>true</param-value>
   </context-param>
 
@@ -45,22 +45,22 @@
   </context-param>
 
   <context-param>
-    <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+    <param-name>jakarta.faces.FACELETS_SKIP_COMMENTS</param-name>
     <param-value>true</param-value>
   </context-param>
 
   <context-param>
-    <param-name>javax.faces.FACELETS_VIEW_MAPPINGS</param-name>
+    <param-name>jakarta.faces.FACELETS_VIEW_MAPPINGS</param-name>
     <param-value>*.xhtml</param-value>
   </context-param>
 
   <context-param>
-    <param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
+    <param-name>jakarta.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
     <param-value>true</param-value>
   </context-param>
 
   <context-param>
-    <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+    <param-name>jakarta.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
     <param-value>true</param-value>
   </context-param>
 
@@ -75,7 +75,7 @@
   </context-param>
 
   <context-param>
-    <param-name>javax.faces.CLIENT_WINDOW_MODE</param-name>
+    <param-name>jakarta.faces.CLIENT_WINDOW_MODE</param-name>
     <param-value>url</param-value>
   </context-param>
 

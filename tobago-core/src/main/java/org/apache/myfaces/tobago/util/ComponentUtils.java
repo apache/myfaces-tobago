@@ -88,7 +88,7 @@ public final class ComponentUtils {
    *
    * @since 2.0.0
    */
-  public static final String DATA_ATTRIBUTES_KEY = "javax.faces.component.DATA_ATTRIBUTES_KEY";
+  public static final String DATA_ATTRIBUTES_KEY = "jakarta.faces.component.DATA_ATTRIBUTES_KEY";
 
   private ComponentUtils() {
   }

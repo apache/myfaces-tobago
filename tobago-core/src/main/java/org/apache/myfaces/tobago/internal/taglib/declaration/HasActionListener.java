@@ -34,6 +34,6 @@ public interface HasActionListener {
   @UIComponentTagAttribute(
       type = {},
       expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
-      methodSignature = "javax.faces.event.ActionEvent")
+      methodSignature = "jakarta.faces.event.ActionEvent")
   void setActionListener(String actionListener);
 }
