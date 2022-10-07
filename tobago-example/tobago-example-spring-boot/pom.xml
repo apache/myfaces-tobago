@@ -50,7 +50,9 @@
                 <configuration>
                   <!-- the spring-boot demo is not part of the release,
                   so spring-boot dependencies are not relevant to let the build fail -->
-                  <failBuildOnCVSS>8</failBuildOnCVSS>
+                  <excludes>
+                    <exclude>*:snakeyaml:*</exclude>
+                  </excludes>
                 </configuration>
               </plugin>
             </plugins>
@@ -178,7 +180,7 @@
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
-        <version>2.13.4</version>
+        <version>2.14.0-rc1</version>
       </dependency>
       <dependency> <!-- add JAXB to run the demo with Java 11 and higher -->
             <groupId>javax.xml.bind</groupId>
