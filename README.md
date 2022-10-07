@@ -18,6 +18,19 @@ mvn clean install
 to run the install target on all sub projects. This will
 put all necessary artifacts into your local repository.
 
+## Demo - TomEE
+### ⚠ some problems ⚠
+* AJAX is not working
+
+Switch to sub-directory and call Maven to run the demo:
+
+```
+cd tobago-example/tobago-example-demo
+mvn clean package tomee:run -Ptomee -Pdev
+```
+
+Browse to the local URL http://localhost:8080/
+
 ## Demo - Jetty - MyFaces - OWB
 ### ⚠ currently broken ⚠
 * Problem with CDI
