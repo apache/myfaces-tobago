@@ -31,7 +31,7 @@ fs.readFile(sourceDir + jsFile, "utf8", function (e, data) {
     // This replace is, because the last line refers to a sourceMappingURL which is not available in Tobago.
     // In Safari, with open Development Console, we got an 404.xhtml request otherwise (not shown in network section).
 
-    const result = data.replace(/\n\/\/# sourceMappingURL=jsf\.js\.map\.jsf\?ln=scripts/g, "");
+    const result = data.replace(/\n\/\/# sourceMappingURL=jsf\.js\.map\.jsf\?ln=.*/g, "");
 
     fs.writeFile(targetDir + jsFile, result, 'utf8', function (e) {
       if (e) {
