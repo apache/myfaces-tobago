@@ -75,7 +75,7 @@
     "@rollup/plugin-node-resolve": "^14.1.0",
     "@rollup/plugin-replace": "^4.0.0",
     "@types/bootstrap": "^5.2.5",
-    "@types/jest": "^29.1.1",
+    "@types/jest": "^29.1.2",
     "@typescript-eslint/eslint-plugin": "^5.39.0",
     "@typescript-eslint/parser": "^5.39.0",
     "autoprefixer": "^10.4.12",
