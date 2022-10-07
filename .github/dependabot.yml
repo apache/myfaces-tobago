@@ -83,6 +83,10 @@ updates:
       - dependency-name: "jakarta.persistence:jakarta.persistence-api"
         versions:
           - ">= 3.1.0"
+      # Jakarta XML Binding 4.0 is Jakarta EE 10
+      - dependency-name: "jakarta.xml.bind:jakarta.xml.bind-api"
+        versions:
+          - ">= 4.0.0"
 
   - package-ecosystem: "maven"
     directory: "/"
