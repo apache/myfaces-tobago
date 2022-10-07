@@ -178,7 +178,7 @@
       <dependency>
         <groupId>org.yaml</groupId>
         <artifactId>snakeyaml</artifactId>
-        <version>1.32</version>
+        <version>1.33</version>
       </dependency>
       <dependency> <!-- add JAXB to run the demo with Java 11 and higher -->
             <groupId>javax.xml.bind</groupId>
