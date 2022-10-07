@@ -44,17 +44,6 @@
                         </execution>
                     </executions>
                 </plugin>
-              <plugin>
-                <groupId>org.owasp</groupId>
-                <artifactId>dependency-check-maven</artifactId>
-                <configuration>
-                  <!-- the spring-boot demo is not part of the release,
-                  so spring-boot dependencies are not relevant to let the build fail -->
-                  <excludes>
-                    <exclude>*:snakeyaml:*</exclude>
-                  </excludes>
-                </configuration>
-              </plugin>
             </plugins>
         </pluginManagement>
 
