@@ -164,12 +164,12 @@ public class FacesConfigGenerator extends AbstractGenerator {
 
     final org.jdom2.Element rootElement = document.getRootElement();
 
-    rootElement.setNamespace(Namespace.getNamespace("http://xmlns.jcp.org/xml/ns/javaee"));
+    rootElement.setNamespace(Namespace.getNamespace("https://jakarta.ee/xml/ns/jakartaee"));
     final Namespace xsi = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 //    rootElement.addNamespaceDeclaration(Namespace.getNamespace("xi", "http://www.w3.org/2001/XInclude"));
     rootElement.setAttribute(new Attribute("schemaLocation",
-        "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd", xsi));
-    rootElement.setAttribute("version", "2.3");
+        "https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd", xsi));
+    rootElement.setAttribute("version", "3.0");
 
     final Namespace namespace = rootElement.getNamespace();
     applyNamespace(rootElement, namespace);
