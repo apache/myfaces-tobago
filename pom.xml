@@ -57,7 +57,7 @@
     <required.maven.version>3.8.1</required.maven.version>
     <maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
     <checkstyle.version>9.3</checkstyle.version>
-    <checkstyle-rules.version>18-SNAPSHOT</checkstyle-rules.version>
+    <checkstyle-rules.version>19</checkstyle-rules.version>
     <tobago.basedir>${project.basedir}</tobago.basedir>
   </properties>
 
