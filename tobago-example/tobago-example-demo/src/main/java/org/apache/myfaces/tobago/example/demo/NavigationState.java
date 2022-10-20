@@ -34,6 +34,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
+import java.util.List;
 
 @SessionScoped
 @Named
@@ -49,6 +50,13 @@ public class NavigationState implements Serializable {
   private TreeState state = new TreeState(new ExpandedState(1), new SelectedState());
 
   private boolean viewSource = false;
+
+  private String searchString;
+  private List<NavigationNode> searchResult;
+
+  public List<NavigationNode> getSearchResult() {
+    return searchResult;
+  }
 
   @PostConstruct
   public void init() {
@@ -116,6 +124,11 @@ public class NavigationState implements Serializable {
     }
   }
 
+  public String search() {
+    searchResult = tree.search(this.searchString);
+    return Outcome.SEARCH.toString();
+  }
+
   public boolean isFirst() {
     if (currentNode == null) {
       return false;
@@ -147,5 +160,13 @@ public class NavigationState implements Serializable {
 
   public void setViewSource(final boolean viewSource) {
     this.viewSource = viewSource;
+  }
+
+  public String getSearchString() {
+    return searchString;
+  }
+
+  public void setSearchString(String searchString) {
+    this.searchString = searchString;
   }
 }

@@ -106,8 +106,9 @@
             <tc:link omit="true" label="Client Info" id="headerInfo">
               <tc:operation name="show" for=":::info"/>
             </tc:link>
-            <tc:link outcome="/server-info.xhtml" immediate="true" label="Server Info" disabled="#{! serverInfo.enabled}"/>
-            <tc:link outcome="/logging-info.xhtml" immediate="true" label="Logging Info"
+            <tc:link outcome="/content/000-intro/93-server-info/Server_Info.xhtml" immediate="true" label="Server Info"
+                     disabled="#{! serverInfo.enabled}"/>
+            <tc:link outcome="/content/000-intro/96-logging-info/Logging_Info.xhtml" immediate="true" label="Logging Info"
                      disabled="#{! serverInfo.enabled}"/>
             <tc:separator/>
             <tc:link link="http://myfaces.apache.org/tobago" label="Tobago Home"/>
@@ -119,15 +120,14 @@
 
       <f:facet name="after">
         <tc:flexLayout columns="auto auto">
-          <tc:form id="search">
+          <tc:form id="searchForm">
             <tc:flexLayout columns="200px auto">
-              <demo-search>
-                <tc:in id="searchField" placeholder="Search by Google" labelLayout="skip">
-                    <f:facet name="after">
-                      <tc:button id="searchCommand" defaultCommand="true" label="go" link="test"/>
-                    </f:facet>
-                </tc:in>
-              </demo-search>
+              <tc:in placeholder="Search" required="true" value="#{navigationState.searchString}" labelLayout="none"
+              label="Search" id="search">
+                <f:facet name="after">
+                  <tc:button label="go" action="#{navigationState.search}" defaultCommand="true"/>
+                </f:facet>
+              </tc:in>
             </tc:flexLayout>
           </tc:form>
           <tc:form id="navbtns">
