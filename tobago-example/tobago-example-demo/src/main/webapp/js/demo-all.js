@@ -20,6 +20,5 @@ import "./demo-date";
 import "./demo-highlight";
 import "./demo-inspect";
 import "./demo-login";
-import "./demo-search";
 import "./demo-test";
 //# sourceMappingURL=demo-all.js.map
