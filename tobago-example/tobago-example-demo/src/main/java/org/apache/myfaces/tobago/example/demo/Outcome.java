@@ -24,6 +24,8 @@ package org.apache.myfaces.tobago.example.demo;
  */
 public enum Outcome {
 
+  SEARCH(
+      "/content/000-intro/05-search/Search.xhtml?faces-redirect=true"),
   COMMAND(
       "/content/040-command/Command.xhtml?faces-redirect=true"),
   CONCEPT_LOCALE(

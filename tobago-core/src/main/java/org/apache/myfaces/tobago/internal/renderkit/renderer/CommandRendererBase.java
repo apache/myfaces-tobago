@@ -130,7 +130,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
       if (form != null) {
         writer.writeAttribute(DataAttributes.DEFAULT, form.getClientId(facesContext), false);
       } else {
-        LOG.warn("No from found for {}", clientId);
+        LOG.warn("No form found for {}", clientId);
       }
     }
 

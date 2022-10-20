@@ -62,6 +62,8 @@ public class NavigationTree implements Serializable {
   @Inject
   private ServletContext servletContext;
 
+  private final SearchIndex searchIndex = new SearchIndex();
+
   public NavigationTree() {
     LOG.info("<init> " + this);
   }
@@ -82,8 +84,8 @@ public class NavigationTree implements Serializable {
     // after sorting the first node is the root node.
     root = nodes.size() > 0 ? nodes.get(0) : null;
 
+    // (why?)
     final Map<String, NavigationNode> map = new HashMap<>();
-
     for (final NavigationNode node : nodes) {
 //      LOG.debug("Creating node='{}' branch='{}'", node.getName(), node.getBranch());
       map.put(node.getBranch(), node);
@@ -93,6 +95,23 @@ public class NavigationTree implements Serializable {
       }
       node.evaluateTreePath();
     }
+
+    for (final NavigationNode node : nodes) {
+      searchIndex.add(node);
+    }
+  }
+
+  public List<NavigationNode> search(final String searchString) {
+    List<NavigationNode> result = new ArrayList<>(20);
+    for (String s : searchIndex.keySet()) {
+      if (s.contains(searchString.toLowerCase())) {
+        result.add(searchIndex.get(s));
+      }
+      if (result.size() >= 20) {
+        break;
+      }
+    }
+    return result;
   }
 
   private void addToResult(List<String> listWar, List<NavigationNode> nodes) {
