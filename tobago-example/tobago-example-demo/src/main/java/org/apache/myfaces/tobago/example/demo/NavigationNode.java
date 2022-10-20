@@ -21,19 +21,23 @@ package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.model.TreePath;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class NavigationNode extends DefaultMutableTreeNode implements Comparable<NavigationNode> {
+  private static final Logger LOG = LoggerFactory.getLogger(NavigationNode.class);
 
   private final String name;
   private final String label;
+  private String labelPath;
   private final String branch;
   private final String outcome;
 
-  private NavigationTree tree;
+  private final NavigationTree tree;
 
   /** Cache the TreePath for optimization. */
   private TreePath treePath;
@@ -64,6 +68,14 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
 
   public void evaluateTreePath() {
     treePath = new TreePath(this);
+
+    final StringBuilder builder = new StringBuilder(this.getLabel());
+    NavigationNode parent = (NavigationNode) this.getParent();
+    while (parent != null && parent != tree.getTree()) {
+      builder.insert(0, parent.getLabel() + " → ");
+      parent = (NavigationNode) parent.getParent();
+    }
+    labelPath = builder.toString();
   }
 
   @Override
@@ -86,6 +98,10 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
 
   public String getLabel() {
     return label;
+  }
+
+  public String getLabelPath() {
+    return labelPath;
   }
 
   public String getOutcome() {

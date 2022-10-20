@@ -50,23 +50,9 @@
     </tc:section>
   </tc:section>
 
-  <tc:section label="Local Demo">
-    <p>In case that this demo already runs on your local machine,
-      you can follow the link to the
-      <tc:link label="public demo" link="http://tobago-vm.apache.org/"/>.</p>
-    <p>If this is the public demo and you want to build it on your own, read the following instructions.</p>
-    <tc:section label="Instructions">
-      <p>First of all you need
-        <tc:link label="Maven" link="https://maven.apache.org/"/> (at least version 3.0.4) and
-        <tc:link label="Java SE 8" link="http://www.oracle.com/technetwork/java/javase/downloads/"/> or higher.</p>
-      <p>After that, check out the source code from subversion repository.
-        <br/>
-        <code>git clone https://github.com/apache/myfaces-tobago</code>
-        <br/>
-        Alternatively you can get the source code from the
-        <tc:link label="download section" link="https://myfaces.apache.org/tobago/download.html"/>.</p>
-      <p>Go to the tobago3 directory, and build Tobago with <code>mvn install</code>.</p>
-      <p>Go to 'tobago3/tobago-example/tobago-example-demo' and start the demo with <code>mvn jetty:run</code>.</p>
-    </tc:section>
-  </tc:section>
+  <tc:in placeholder="Search" required="true" value="#{navigationState.searchString}" labelLayout="none"
+         label="Search" id="search">
+  </tc:in>
+  <tc:button id="go" label="go" action="#{navigationState.search}" defaultCommand="true"/>
+
 </ui:composition>
