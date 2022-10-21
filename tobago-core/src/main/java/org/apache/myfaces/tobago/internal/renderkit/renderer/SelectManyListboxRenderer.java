@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -122,5 +123,12 @@ public class SelectManyListboxRenderer<T extends AbstractUISelectManyListbox> ex
   @Override
   protected String getFieldId(final FacesContext facesContext, final T component) {
     return component.getFieldId(facesContext);
+  }
+
+  @Override
+  protected void writeAdditionalAttributes(
+    final FacesContext facesContext, final TobagoResponseWriter writer, final T component)
+    throws IOException {
+    writer.writeAttribute(CustomAttributes.FILTER, component.getFilter(), true);
   }
 }
