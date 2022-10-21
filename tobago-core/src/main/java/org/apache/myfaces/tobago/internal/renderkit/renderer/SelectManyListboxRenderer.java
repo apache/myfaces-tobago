@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -53,14 +54,30 @@ public class SelectManyListboxRenderer<T extends AbstractUISelectManyListbox> ex
 
     final String clientId = component.getClientId(facesContext);
     final String fieldId = component.getFieldId(facesContext);
+    final String filterId = clientId + ComponentUtils.SUB_SEPARATOR + "filter";
     final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, component);
     final boolean readonly = component.isReadonly();
     final boolean disabled = !items.iterator().hasNext() || component.isDisabled() || readonly;
     final Markup markup = component.getMarkup();
+    final boolean filter = component.getId().startsWith("filter");
     Integer size = component.getSize();
     size = Math.max(size != null ? size : items.size(), 2); // must be > 1
 
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
+
+    if (filter) {
+      writer.startElement(HtmlElements.DIV);
+      writer.writeClassAttribute(
+        BootstrapClass.VSTACK,
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)));
+      writer.startElement(HtmlElements.INPUT);
+      writer.writeIdAttribute(filterId);
+      writer.writeNameAttribute(clientId);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
+      writer.writeClassAttribute(BootstrapClass.FORM_CONTROL, TobagoClass.SQUARED__BOTTOM);
+      writer.endElement(HtmlElements.INPUT);
+    }
+
     writer.startElement(HtmlElements.SELECT);
     writer.writeIdAttribute(fieldId);
     writer.writeNameAttribute(clientId);
@@ -72,10 +89,11 @@ public class SelectManyListboxRenderer<T extends AbstractUISelectManyListbox> ex
     writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
 
     writer.writeClassAttribute(
-        BootstrapClass.FORM_CONTROL,
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
-        component.getCustomClass(),
-        markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
+      BootstrapClass.FORM_CONTROL,
+      filter ? TobagoClass.SQUARED__TOP : null,
+      filter ? null : BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
+      component.getCustomClass(),
+      markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
@@ -83,14 +101,20 @@ public class SelectManyListboxRenderer<T extends AbstractUISelectManyListbox> ex
     final String[] submittedValues = getSubmittedValues(component);
 
     renderSelectItems(
-        component, TobagoClass.SELECT_MANY_LISTBOX__OPTION, items, values, submittedValues, writer, facesContext);
+      component, TobagoClass.SELECT_MANY_LISTBOX__OPTION, items, values, submittedValues, writer, facesContext);
   }
 
   @Override
   public void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
+    final boolean filter = component.getId().startsWith("filter");
+
     writer.endElement(HtmlElements.SELECT);
+
+    if (filter) {
+      writer.endElement(HtmlElements.DIV);
+    }
 
     encodeBehavior(writer, facesContext, component);
   }

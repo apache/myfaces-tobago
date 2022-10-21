@@ -609,7 +609,8 @@ public enum BootstrapClass implements CssItem {
   TABLE_SM("table-sm"),
   TABLE_STRIPED("table-striped"),
   TOOLTIP_ARROW("tooltip-arrow"),
-  VISUALLY_HIDDEN("visually-hidden");
+  VISUALLY_HIDDEN("visually-hidden"),
+  VSTACK("vstack");
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 

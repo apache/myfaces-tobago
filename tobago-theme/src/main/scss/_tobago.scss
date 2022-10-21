@@ -176,6 +176,16 @@ $tobago-flex-layout-spacing: 0.5rem;
   margin-bottom: $spacer;
 }
 
+.tobago-squared-top {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.tobago-squared-bottom {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 tobago-badge {
   @include badge();
 
@@ -1355,30 +1365,39 @@ tobago-sheet {
         content: $icon-sort-ascending;
         opacity: 1;
       }
+
       &.tobago-circle-1::after {
         content: $icon-sort-ascending + $icon-nbsp + $icon-sort-1;
       }
+
       &.tobago-circle-2::after {
         content: $icon-sort-ascending + $icon-nbsp + $icon-sort-2;
       }
+
       &.tobago-circle-3::after {
         content: $icon-sort-ascending + $icon-nbsp + $icon-sort-3;
       }
+
       &.tobago-circle-4::after {
         content: $icon-sort-ascending + $icon-nbsp + $icon-sort-4;
       }
+
       &.tobago-circle-5::after {
         content: $icon-sort-ascending + $icon-nbsp + $icon-sort-5;
       }
+
       &.tobago-circle-6::after {
         content: $icon-sort-ascending + $icon-nbsp + $icon-sort-6;
       }
+
       &.tobago-circle-7::after {
         content: $icon-sort-ascending + $icon-nbsp + $icon-sort-7;
       }
+
       &.tobago-circle-8::after {
         content: $icon-sort-ascending + $icon-nbsp + $icon-sort-8;
       }
+
       &.tobago-circle-9::after {
         content: $icon-sort-ascending + $icon-nbsp + $icon-sort-9;
       }
@@ -1389,30 +1408,39 @@ tobago-sheet {
         content: $icon-sort-descending;
         opacity: 1;
       }
+
       &.tobago-circle-1::after {
         content: $icon-sort-descending + $icon-nbsp + $icon-sort-1;
       }
+
       &.tobago-circle-2::after {
         content: $icon-sort-descending + $icon-nbsp + $icon-sort-2;
       }
+
       &.tobago-circle-3::after {
         content: $icon-sort-descending + $icon-nbsp + $icon-sort-3;
       }
+
       &.tobago-circle-4::after {
         content: $icon-sort-descending + $icon-nbsp + $icon-sort-4;
       }
+
       &.tobago-circle-5::after {
         content: $icon-sort-descending + $icon-nbsp + $icon-sort-5;
       }
+
       &.tobago-circle-6::after {
         content: $icon-sort-descending + $icon-nbsp + $icon-sort-6;
       }
+
       &.tobago-circle-7::after {
         content: $icon-sort-descending + $icon-nbsp + $icon-sort-7;
       }
+
       &.tobago-circle-8::after {
         content: $icon-sort-descending + $icon-nbsp + $icon-sort-8;
       }
+
       &.tobago-circle-9::after {
         content: $icon-sort-descending + $icon-nbsp + $icon-sort-9;
       }
