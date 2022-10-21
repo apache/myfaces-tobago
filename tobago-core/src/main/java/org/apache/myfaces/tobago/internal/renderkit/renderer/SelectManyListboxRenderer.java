@@ -59,7 +59,7 @@ public class SelectManyListboxRenderer<T extends AbstractUISelectManyListbox> ex
     final boolean readonly = component.isReadonly();
     final boolean disabled = !items.iterator().hasNext() || component.isDisabled() || readonly;
     final Markup markup = component.getMarkup();
-    final boolean filter = component.getId().startsWith("filter");
+    final boolean filter = component.getFilter() != null;
     Integer size = component.getSize();
     size = Math.max(size != null ? size : items.size(), 2); // must be > 1
 
@@ -108,7 +108,7 @@ public class SelectManyListboxRenderer<T extends AbstractUISelectManyListbox> ex
   public void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    final boolean filter = component.getId().startsWith("filter");
+    final boolean filter = component.getFilter() != null;
 
     writer.endElement(HtmlElements.SELECT);
 

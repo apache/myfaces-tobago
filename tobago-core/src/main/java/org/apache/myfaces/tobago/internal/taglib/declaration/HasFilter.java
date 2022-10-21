@@ -17,26 +17,13 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.internal.taglib.declaration;
 
-import org.apache.myfaces.tobago.component.SupportFieldId;
-import org.apache.myfaces.tobago.component.SupportsFilter;
-import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-import javax.faces.context.FacesContext;
-
-/**
- * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectManyListboxTagDeclaration}
- */
-public abstract class AbstractUISelectManyListbox extends AbstractUISelectManyBase
-  implements SupportFieldId, SupportsFilter {
-
-  @Override
-  public String getFieldId(final FacesContext facesContext) {
-    return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
-  }
-
-  public abstract Integer getSize();
-
-  public abstract String getFilter();
+public interface HasFilter {
+  @TagAttribute
+  @UIComponentTagAttribute
+  void setFilter(String filter);
 }
