@@ -32,7 +32,7 @@ public class SortedColumnList implements Serializable {
 
   public SortedColumnList(final int max) {
     this.max = Math.max(max, 1);
-    this.showNumbers = max >= 1;
+    this.showNumbers = max > 1;
     this.list = new ArrayList<>(max);
     this.toBeSortedLevel = 0;
   }
