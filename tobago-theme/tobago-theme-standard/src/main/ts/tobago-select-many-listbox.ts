@@ -18,6 +18,53 @@
 import {SelectOneListbox} from "./tobago-select-one-listbox";
 
 class SelectManyListbox extends SelectOneListbox {
+
+  constructor() {
+    super();
+  }
+
+  connectedCallback(): void {
+    if (this.filter != null) {
+      const input = this.filterInput;
+      input.addEventListener("keyup", this.filterEvent.bind(this));
+    }
+
+    FilterRegistry.set("contains",
+      (candidate: string, value: string): boolean =>
+        candidate.indexOf(value) >= 0
+    );
+
+    FilterRegistry.set("prefix",
+      (candidate: string, value: string): boolean =>
+        candidate.indexOf(value) == 0
+    );
+  }
+
+  filterEvent(event: Event): void {
+    const input = event.currentTarget as HTMLInputElement;
+    const searchString = input.value;
+    console.info("searchString", searchString);
+    const filterFunction = FilterRegistry.get(this.filter);
+    // XXX todo: if filterFunction not found?
+    if (filterFunction != null) {
+      this.querySelectorAll("option").forEach(option => {
+        if (filterFunction(option.textContent.toLowerCase(), searchString)) {
+          option.classList.remove("d-none");
+        } else {
+          option.classList.add("d-none");
+        }
+      });
+    }
+  }
+
+  get filter(): string {
+    return this.getAttribute("filter");
+  }
+
+  get filterInput(): HTMLInputElement {
+    const root = this.getRootNode() as ShadowRoot | Document;
+    return <HTMLInputElement>root.getElementById(this.id + "::filter");
+  }
 }
 
 document.addEventListener("tobago.init", function (event: Event): void {
@@ -25,3 +72,24 @@ document.addEventListener("tobago.init", function (event: Event): void {
     window.customElements.define("tobago-select-many-listbox", SelectManyListbox);
   }
 });
+
+class FilterRegistry {
+
+  // function(string, string): boolean
+  private static map: Map<string, any> = new Map<string, any>();
+
+  static set(key: string, value: any): void {
+    this.map.set(key, value);
+  }
+
+  static get(key: string): any {
+    const value = this.map.get(key);
+    if (value) {
+      return value;
+    } else {
+      console.warn("FilterRegistry.get(" + key + ") = undefined");
+      return null;
+    }
+  }
+
+}

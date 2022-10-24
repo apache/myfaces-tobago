@@ -32,16 +32,17 @@ import java.util.List;
 public class SelectManyListboxController implements Serializable {
 
   private List<String> celestials = new ArrayList<>();
+  private List<String> celestialsFilter= new ArrayList<>();
   private SelectItem[] deserts;
   private List<String> selectedDeserts = new ArrayList<>();
 
   public SelectManyListboxController() {
     deserts = new SelectItem[]{
-            new SelectItem("Antarctic Desert"),
-            new SelectItem("Arctic"),
-            new SelectItem("Sahara"),
-            new SelectItem("Arabian Desert"),
-            new SelectItem("Gobi Desert")
+      new SelectItem("Antarctic Desert"),
+      new SelectItem("Arctic"),
+      new SelectItem("Sahara"),
+      new SelectItem("Arabian Desert"),
+      new SelectItem("Gobi Desert")
     };
   }
 
@@ -59,6 +60,14 @@ public class SelectManyListboxController implements Serializable {
       retValue = retValue.concat(s);
     }
     return retValue;
+  }
+
+  public List<String> getCelestialsFilter() {
+    return celestialsFilter;
+  }
+
+  public void setCelestialsFilter(List<String> celestialsFilter) {
+    this.celestialsFilter = celestialsFilter;
   }
 
   public SelectItem[] getDeserts() {

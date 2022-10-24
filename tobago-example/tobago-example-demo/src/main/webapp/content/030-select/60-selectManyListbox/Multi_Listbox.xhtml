@@ -60,10 +60,10 @@
   <tc:section label="Simple Usage">
     <p>Select an entry and press the submit-button. The text in the output field depends on the selection.</p>
     <demo-highlight language="markup">&lt;tc:selectManyListbox label="List" value="\#{selectManyListboxController.celestials}">
-  &lt;tc:selectItem itemLabel="Sun" itemValue="The sun, "/>
-  ...
-&lt;/tc:selectManyListbox>
-&lt;tc:out label="Selection" value="\#{selectManyListboxController.celestial}"/></demo-highlight>
+      &lt;tc:selectItem itemLabel="Sun" itemValue="The sun, "/>
+      ...
+      &lt;/tc:selectManyListbox>
+      &lt;tc:out label="Selection" value="\#{selectManyListboxController.celestial}"/></demo-highlight>
     <tc:selectManyListbox id="s4" label="List" value="#{selectManyListboxController.celestials}">
       <tc:selectItem itemLabel="Sun" itemValue="The sun, "/>
       <tc:selectItem itemLabel="Moon" itemValue="the moon, "/>
@@ -71,6 +71,14 @@
     </tc:selectManyListbox>
     <tc:out id="o1" label="Selection" value="#{selectManyListboxController.celestial}"/>
     <tc:button id="b1" label="Submit"/>
+  </tc:section>
+
+  <tc:section label="Filtering" id="filter">
+    <tc:selectManyListbox filter="contains"
+                          id="select-filter" label="Filter" value="#{selectManyListboxController.celestialsFilter}">
+      <tc:selectItems value="#{suggestController.allSolarObjects}"/>
+      <tc:style maxHeight="200px"/>
+    </tc:selectManyListbox>
   </tc:section>
 
   <tc:section label="Ajax" id="ajax">
@@ -87,4 +95,5 @@
     </tc:selectManyListbox>
     <tc:out id="desertOutput" label="Selected Desets" value="#{selectManyListboxController.selectedDeserts}"/>
   </tc:section>
+
 </ui:composition>
