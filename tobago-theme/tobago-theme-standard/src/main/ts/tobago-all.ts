@@ -36,6 +36,7 @@ import "./tobago-reload";
 import "./tobago-scroll";
 import "./tobago-select-boolean-checkbox";
 import "./tobago-select-boolean-toggle";
+import "./tobago-select-many-list";
 import "./tobago-select-many-checkbox";
 import "./tobago-select-many-listbox";
 import "./tobago-select-many-shuttle";

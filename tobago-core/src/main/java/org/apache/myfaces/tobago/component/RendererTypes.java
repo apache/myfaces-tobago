@@ -68,6 +68,7 @@ public enum RendererTypes {
   SelectBooleanCheckbox,
   SelectBooleanToggle,
   SelectManyCheckbox,
+  SelectManyList,
   SelectManyListbox,
   SelectManyShuttle,
   SelectOneChoice,
@@ -141,6 +142,7 @@ public enum RendererTypes {
   public static final String SELECT_BOOLEAN_CHECKBOX = "SelectBooleanCheckbox";
   public static final String SELECT_BOOLEAN_TOGGLE = "SelectBooleanToggle";
   public static final String SELECT_MANY_CHECKBOX = "SelectManyCheckbox";
+  public static final String SELECT_MANY_LIST = "SelectManyList";
   public static final String SELECT_MANY_LISTBOX = "SelectManyListbox";
   public static final String SELECT_MANY_SHUTTLE = "SelectManyShuttle";
   public static final String SELECT_ONE_CHOICE = "SelectOneChoice";
