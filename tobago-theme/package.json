@@ -73,7 +73,7 @@
     "@popperjs/core": "^2.11.6",
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-node-resolve": "^14.1.0",
-    "@rollup/plugin-replace": "^4.0.0",
+    "@rollup/plugin-replace": "^5.0.1",
     "@types/bootstrap": "^5.2.5",
     "@types/jest": "^29.2.1",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
