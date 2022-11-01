@@ -36,11 +36,6 @@ class TobagoRange extends HTMLElement {
     return this.querySelector(".tobago-tooltip");
   }
 
-  private get menuStore(): HTMLDivElement {
-    const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(".tobago-page-menuStore");
-  }
-
   private updateTooltip(): void {
     this.tooltip.textContent = this.range.value;
 
