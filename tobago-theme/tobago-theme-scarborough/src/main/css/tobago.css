@@ -4738,12 +4738,6 @@ textarea.form-control-lg {
   color: #101214;
 }
 
-@-webkit-keyframes progress-bar-stripes {
-  0% {
-    background-position-x: 1rem;
-  }
-}
-
 @keyframes progress-bar-stripes {
   0% {
     background-position-x: 1rem;
@@ -4789,12 +4783,10 @@ textarea.form-control-lg {
 }
 
 .progress-bar-animated {
-  -webkit-animation: 1s linear infinite progress-bar-stripes;
   animation: 1s linear infinite progress-bar-stripes;
 }
 @media (prefers-reduced-motion: reduce) {
   .progress-bar-animated {
-    -webkit-animation: none;
     animation: none;
   }
 }
@@ -5221,7 +5213,6 @@ textarea.form-control-lg {
   --bs-toast-zindex: 1090;
   position: absolute;
   z-index: var(--bs-toast-zindex);
-  width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
   max-width: 100%;
@@ -6017,14 +6008,7 @@ textarea.form-control-lg {
   height: var(--bs-spinner-height);
   vertical-align: var(--bs-spinner-vertical-align);
   border-radius: 50%;
-  -webkit-animation: var(--bs-spinner-animation-speed) linear infinite var(--bs-spinner-animation-name);
   animation: var(--bs-spinner-animation-speed) linear infinite var(--bs-spinner-animation-name);
-}
-
-@-webkit-keyframes spinner-border {
-  to {
-    transform: rotate(360deg) /* rtl:ignore */;
-  }
 }
 
 @keyframes spinner-border {
@@ -6047,16 +6031,6 @@ textarea.form-control-lg {
   --bs-spinner-width: 1rem;
   --bs-spinner-height: 1rem;
   --bs-spinner-border-width: 0.2em;
-}
-
-@-webkit-keyframes spinner-grow {
-  0% {
-    transform: scale(0);
-  }
-  50% {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 @keyframes spinner-grow {
@@ -6665,14 +6639,7 @@ textarea.form-control-lg {
 }
 
 .placeholder-glow .placeholder {
-  -webkit-animation: placeholder-glow 2s ease-in-out infinite;
   animation: placeholder-glow 2s ease-in-out infinite;
-}
-
-@-webkit-keyframes placeholder-glow {
-  50% {
-    opacity: 0.2;
-  }
 }
 
 @keyframes placeholder-glow {
@@ -6685,15 +6652,7 @@ textarea.form-control-lg {
   mask-image: linear-gradient(130deg, #000 55%, rgba(0, 0, 0, 0.8) 75%, #000 95%);
   -webkit-mask-size: 200% 100%;
   mask-size: 200% 100%;
-  -webkit-animation: placeholder-wave 2s linear infinite;
   animation: placeholder-wave 2s linear infinite;
-}
-
-@-webkit-keyframes placeholder-wave {
-  100% {
-    -webkit-mask-position: -200% 0%;
-    mask-position: -200% 0%;
-  }
 }
 
 @keyframes placeholder-wave {
@@ -11328,7 +11287,6 @@ tobago-in.autocomplete[data-loading=true] .autocomplete-pseudo-container:after {
   position: absolute;
   z-index: 5;
   transform: translateY(-50%);
-  -webkit-animation: rotate 1s linear infinite;
   animation: rotate 1s linear infinite;
 }
 tobago-in .autocomplete-result-list {
@@ -11336,15 +11294,6 @@ tobago-in .autocomplete-result-list {
 }
 tobago-in tobago-suggest {
   display: none;
-}
-
-@-webkit-keyframes rotate {
-  0% {
-    transform: translateY(-50%) rotate(0deg);
-  }
-  to {
-    transform: translateY(-50%) rotate(359deg);
-  }
 }
 
 @keyframes rotate {
@@ -11468,7 +11417,6 @@ button.nav-link { /* bootstrap don't know button.nav-link*/
 
 .tobago-popover-box {
   display: none;
-  width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
 }
