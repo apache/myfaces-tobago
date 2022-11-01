@@ -20,6 +20,8 @@
 // import Popover from "bootstrap/dist/js/bootstrap.bundle";
 // import {createPopper} from "@popperjs/core/dist/esm/popper";
 import {Popover} from "bootstrap";
+import {MenuStore} from "./tobago-menu-store";
+
 // import {Popover} from "bootstrap/dist/js/bootstrap.bundle";
 
 class TobagoPopover extends HTMLElement {
@@ -32,17 +34,12 @@ class TobagoPopover extends HTMLElement {
 
   connectedCallback(): void {
     this.popover = new Popover(this.trigger, {
-      container: this.menuStore
+      container: MenuStore.get()
     });
   }
 
   get trigger(): HTMLElement {
     return this;
-  }
-
-  private get menuStore(): HTMLDivElement {
-    const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(".tobago-page-menuStore");
   }
 }
 

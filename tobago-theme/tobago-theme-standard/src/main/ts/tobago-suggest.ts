@@ -17,6 +17,7 @@
 
 import Autocomplete from "@trevoreyre/autocomplete-js";
 import {SuggestFilter} from "./tobago-suggest-filter";
+import {MenuStore} from "./tobago-menu-store";
 
 export class Suggest {
 
@@ -86,7 +87,7 @@ export class Suggest {
 
     new Autocomplete(this.base, options);
     if (!this.localMenu) {
-      this.menuStore.append(this.resultList);
+      MenuStore.appendChild(this.resultList);
     }
   }
 
@@ -199,11 +200,6 @@ export class Suggest {
 
   private get resultListPosition(): string {
     return this.base.dataset.position;
-  }
-
-  private get menuStore(): HTMLDivElement {
-    const root = this.base.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(".tobago-page-menuStore");
   }
 
   private get update(): boolean {

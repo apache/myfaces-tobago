@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import {MenuStore} from "./tobago-menu-store";
+
 const TobagoDropdownEvent = {
   HIDE: "tobago.dropdown.hide",
   HIDDEN: "tobago.dropdown.hidden",
@@ -46,7 +48,7 @@ class Dropdown extends HTMLElement {
     this.dispatchEvent(new CustomEvent(TobagoDropdownEvent.SHOW));
 
     if (!this.insideNavbar()) {
-      this.menuStore.appendChild(this.dropdownMenu);
+      MenuStore.appendChild(this.dropdownMenu);
     }
 
     this.dispatchEvent(new CustomEvent(TobagoDropdownEvent.SHOWN));
@@ -72,11 +74,6 @@ class Dropdown extends HTMLElement {
   private get dropdownMenu(): HTMLDivElement {
     const root = this.getRootNode() as ShadowRoot | Document;
     return root.querySelector(`.dropdown-menu[name='${this.id}']`);
-  }
-
-  private get menuStore(): HTMLDivElement {
-    const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(".tobago-page-menuStore");
   }
 }
 
