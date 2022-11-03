@@ -66,18 +66,9 @@ $tobago-flex-layout-spacing: 0.5rem;
   }
 }
 
-@mixin badge() {
-  &.badge {
-    @each $color, $value in $theme-colors {
-      &.bg-#{$color}, &.btn-#{$color} {
-        // set text color to make sure there is no white text on white background
-        color: color-contrast($value);
-      }
-    }
-
-    &.btn {
-      border: 0; //badge have no border; a button with markup badge should also have no border
-    }
+@mixin badgeBtn() {
+  &.badge.btn {
+    --#{$prefix}btn-border-width: 0; //badge have no border; a button with markup badge should also have no border
   }
 }
 
@@ -177,7 +168,7 @@ $tobago-flex-layout-spacing: 0.5rem;
 }
 
 tobago-badge {
-  @include badge();
+  @include badgeBtn();
 
   &.btn {
     cursor: initial; //revert cursor attribute on .btn class
@@ -244,11 +235,18 @@ tobago-box {
   }
 }
 
-/* button, link ------------------------------------------------------- */
 .tobago-button {
   @include buttonLinkDisabledCursor();
   @include buttonLinkImageTextSpacing();
-  @include badge();
+  @include badgeBtn();
+
+  &.badge {
+    @each $color, $value in $theme-colors {
+      &.btn-#{$color} {
+        --#{$prefix}badge-color: #{color-contrast($value)};
+      }
+    }
+  }
 }
 
 /* button -------------------------------------------------------------- */
@@ -1355,30 +1353,39 @@ tobago-sheet {
         content: $icon-sort-ascending;
         opacity: 1;
       }
+
       &.tobago-circle-1::after {
         content: $icon-sort-ascending + $icon-nbsp + $icon-sort-1;
       }
+
       &.tobago-circle-2::after {
         content: $icon-sort-ascending + $icon-nbsp + $icon-sort-2;
       }
+
       &.tobago-circle-3::after {
         content: $icon-sort-ascending + $icon-nbsp + $icon-sort-3;
       }
+
       &.tobago-circle-4::after {
         content: $icon-sort-ascending + $icon-nbsp + $icon-sort-4;
       }
+
       &.tobago-circle-5::after {
         content: $icon-sort-ascending + $icon-nbsp + $icon-sort-5;
       }
+
       &.tobago-circle-6::after {
         content: $icon-sort-ascending + $icon-nbsp + $icon-sort-6;
       }
+
       &.tobago-circle-7::after {
         content: $icon-sort-ascending + $icon-nbsp + $icon-sort-7;
       }
+
       &.tobago-circle-8::after {
         content: $icon-sort-ascending + $icon-nbsp + $icon-sort-8;
       }
+
       &.tobago-circle-9::after {
         content: $icon-sort-ascending + $icon-nbsp + $icon-sort-9;
       }
@@ -1389,30 +1396,39 @@ tobago-sheet {
         content: $icon-sort-descending;
         opacity: 1;
       }
+
       &.tobago-circle-1::after {
         content: $icon-sort-descending + $icon-nbsp + $icon-sort-1;
       }
+
       &.tobago-circle-2::after {
         content: $icon-sort-descending + $icon-nbsp + $icon-sort-2;
       }
+
       &.tobago-circle-3::after {
         content: $icon-sort-descending + $icon-nbsp + $icon-sort-3;
       }
+
       &.tobago-circle-4::after {
         content: $icon-sort-descending + $icon-nbsp + $icon-sort-4;
       }
+
       &.tobago-circle-5::after {
         content: $icon-sort-descending + $icon-nbsp + $icon-sort-5;
       }
+
       &.tobago-circle-6::after {
         content: $icon-sort-descending + $icon-nbsp + $icon-sort-6;
       }
+
       &.tobago-circle-7::after {
         content: $icon-sort-descending + $icon-nbsp + $icon-sort-7;
       }
+
       &.tobago-circle-8::after {
         content: $icon-sort-descending + $icon-nbsp + $icon-sort-8;
       }
+
       &.tobago-circle-9::after {
         content: $icon-sort-descending + $icon-nbsp + $icon-sort-9;
       }
