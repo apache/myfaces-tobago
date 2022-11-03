@@ -10888,32 +10888,8 @@ textarea.form-control-lg {
 tobago-badge {
   background-color: #6c757d;
 }
-tobago-badge.badge.bg-primary, tobago-badge.badge.btn-primary {
-  color: #fff;
-}
-tobago-badge.badge.bg-secondary, tobago-badge.badge.btn-secondary {
-  color: #fff;
-}
-tobago-badge.badge.bg-success, tobago-badge.badge.btn-success {
-  color: #fff;
-}
-tobago-badge.badge.bg-info, tobago-badge.badge.btn-info {
-  color: #000;
-}
-tobago-badge.badge.bg-warning, tobago-badge.badge.btn-warning {
-  color: #000;
-}
-tobago-badge.badge.bg-danger, tobago-badge.badge.btn-danger {
-  color: #fff;
-}
-tobago-badge.badge.bg-light, tobago-badge.badge.btn-light {
-  color: #000;
-}
-tobago-badge.badge.bg-dark, tobago-badge.badge.btn-dark {
-  color: #fff;
-}
 tobago-badge.badge.btn {
-  border: 0;
+  --bs-btn-border-width: 0;
 }
 tobago-badge.btn {
   cursor: initial;
@@ -10964,7 +10940,6 @@ tobago-box > .card-body {
   padding: 0;
 }
 
-/* button, link ------------------------------------------------------- */
 .tobago-button:disabled {
   pointer-events: auto;
 }
@@ -10977,32 +10952,32 @@ tobago-box > .card-body {
 .tobago-button > i + span {
   margin-left: 0.4em;
 }
-.tobago-button.badge.bg-primary, .tobago-button.badge.btn-primary {
-  color: #fff;
-}
-.tobago-button.badge.bg-secondary, .tobago-button.badge.btn-secondary {
-  color: #fff;
-}
-.tobago-button.badge.bg-success, .tobago-button.badge.btn-success {
-  color: #fff;
-}
-.tobago-button.badge.bg-info, .tobago-button.badge.btn-info {
-  color: #000;
-}
-.tobago-button.badge.bg-warning, .tobago-button.badge.btn-warning {
-  color: #000;
-}
-.tobago-button.badge.bg-danger, .tobago-button.badge.btn-danger {
-  color: #fff;
-}
-.tobago-button.badge.bg-light, .tobago-button.badge.btn-light {
-  color: #000;
-}
-.tobago-button.badge.bg-dark, .tobago-button.badge.btn-dark {
-  color: #fff;
-}
 .tobago-button.badge.btn {
-  border: 0;
+  --bs-btn-border-width: 0;
+}
+.tobago-button.badge.btn-primary {
+  --bs-badge-color: #fff;
+}
+.tobago-button.badge.btn-secondary {
+  --bs-badge-color: #fff;
+}
+.tobago-button.badge.btn-success {
+  --bs-badge-color: #fff;
+}
+.tobago-button.badge.btn-info {
+  --bs-badge-color: #000;
+}
+.tobago-button.badge.btn-warning {
+  --bs-badge-color: #000;
+}
+.tobago-button.badge.btn-danger {
+  --bs-badge-color: #fff;
+}
+.tobago-button.badge.btn-light {
+  --bs-badge-color: #000;
+}
+.tobago-button.badge.btn-dark {
+  --bs-badge-color: #fff;
 }
 
 /* button -------------------------------------------------------------- */
