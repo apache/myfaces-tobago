@@ -42,11 +42,11 @@ public class BadgeRenderer<T extends AbstractUIBadge> extends RendererBase<T> {
     writer.startElement(HtmlElements.TOBAGO_BADGE);
     writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeClassAttribute(
-        BootstrapClass.BADGE,
-        getBadgeColor(markup),
-        markup.contains(Markup.PILL) ? BootstrapClass.ROUNDED_PILL : null,
-        isInside(facesContext, HtmlElements.TOBAGO_BUTTONS) ? BootstrapClass.BTN : null,
-        component.getCustomClass());
+      BootstrapClass.BADGE,
+      getBadgeColor(markup),
+      markup.contains(Markup.PILL) ? BootstrapClass.ROUNDED_PILL : null,
+      isInside(facesContext, HtmlElements.TOBAGO_BUTTONS) ? BootstrapClass.BTN : null,
+      component.getCustomClass());
 
     if (tip != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
@@ -66,21 +66,21 @@ public class BadgeRenderer<T extends AbstractUIBadge> extends RendererBase<T> {
     if (markup.contains(Markup.NONE)) {
       return null;
     } else if (markup.contains(Markup.PRIMARY)) {
-      return BootstrapClass.BG_PRIMARY;
+      return BootstrapClass.TEXT_BG_PRIMARY;
     } else if (markup.contains(Markup.SECONDARY)) {
-      return BootstrapClass.BG_SECONDARY;
+      return BootstrapClass.TEXT_BG_SECONDARY;
     } else if (markup.contains(Markup.SUCCESS)) {
-      return BootstrapClass.BG_SUCCESS;
+      return BootstrapClass.TEXT_BG_SUCCESS;
     } else if (markup.contains(Markup.DANGER)) {
-      return BootstrapClass.BG_DANGER;
+      return BootstrapClass.TEXT_BG_DANGER;
     } else if (markup.contains(Markup.WARNING)) {
-      return BootstrapClass.BG_WARNING;
+      return BootstrapClass.TEXT_BG_WARNING;
     } else if (markup.contains(Markup.INFO)) {
-      return BootstrapClass.BG_INFO;
+      return BootstrapClass.TEXT_BG_INFO;
     } else if (markup.contains(Markup.LIGHT)) {
-      return BootstrapClass.BG_LIGHT;
+      return BootstrapClass.TEXT_BG_LIGHT;
     } else if (markup.contains(Markup.DARK)) {
-      return BootstrapClass.BG_DARK;
+      return BootstrapClass.TEXT_BG_DARK;
     } else {
       return null;
     }
