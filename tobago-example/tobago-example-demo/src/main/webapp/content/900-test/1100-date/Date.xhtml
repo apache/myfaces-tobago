@@ -22,119 +22,117 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-  <tc:form>
-    <tc:button label="Reset"></tc:button>
+  <tc:form id="resetButtonFrom">
+    <tc:button id="resetButton" label="Reset"/>
   </tc:form>
 
   <tc:segmentLayout large="6seg 6seg" medium="12seg">
-
-    <tc:form>
+    <tc:form id="localDateForm">
       <tc:box label="#1 model=java.time.LocalDate">
         <tc:date id="localDate" label="LocalDate" value="#{dateTestController.localDate}" required="true"/>
-        <tc:out label="Output" value="#{dateTestController.localDate}"/>
+        <tc:out id="localDateOutput" label="Output" value="#{dateTestController.localDate}"/>
         <tc:button defaultCommand="true" id="localDateButton" label="Submit"/>
       </tc:box>
     </tc:form>
 
-    <tc:form>
+    <tc:form id="localTimeForm">
       <tc:box label="#2 model=java.time.LocalTime">
         <tc:date id="localTime" label="LocalTime" value="#{dateTestController.localTime}" required="true"/>
-        <tc:out label="Output" value="#{dateTestController.localTime}"/>
+        <tc:out id="localTimeOutput" label="Output" value="#{dateTestController.localTime}"/>
         <tc:button defaultCommand="true" id="localTimeButton" label="Submit"/>
       </tc:box>
     </tc:form>
 
-    <tc:form>
+    <tc:form id="localTimeStepAForm">
       <tc:box label="#3 model=java.time.LocalTime step=1">
         <tc:date id="localTimeStepA" label="LocalTime" value="#{dateTestController.localTimeStepA}" step="1"
                  required="true"/>
-        <tc:out label="Output" value="#{dateTestController.localTimeStepA}">
+        <tc:out id="localTimeStepAOutput" label="Output" value="#{dateTestController.localTimeStepA}">
           <f:convertDateTime pattern="hh:mm:ss" type="localTime"/>
         </tc:out>
         <tc:button defaultCommand="true" id="localTimeButtonStepA" label="Submit"/>
       </tc:box>
     </tc:form>
 
-    <tc:form>
+    <tc:form id="localTimeStepBForm">
       <tc:box label="#4 model=java.time.LocalTime step=0.001">
         <tc:date id="localTimeStepB" label="LocalTime" value="#{dateTestController.localTimeStepB}" step="0.001"
                  required="true"/>
-        <tc:out label="Output" value="#{dateTestController.localTimeStepB}">
+        <tc:out id="localTimeStepBOutput" label="Output" value="#{dateTestController.localTimeStepB}">
           <f:convertDateTime pattern="hh:mm:ss.SSS" type="localDateTime"/>
         </tc:out>
         <tc:button defaultCommand="true" id="localTimeButtonStepB" label="Submit"/>
       </tc:box>
     </tc:form>
 
-    <tc:form>
+    <tc:form id="localDateTimeForm">
       <tc:box label="#5 model=java.time.LocalDateTime">
         <tc:date id="localDateTime" label="LocalDateTime" value="#{dateTestController.localDateTime}" required="true"/>
-        <tc:out label="Output" value="#{dateTestController.localDateTime}"/>
+        <tc:out id="localDateTimeOutput" label="Output" value="#{dateTestController.localDateTime}"/>
         <tc:button defaultCommand="true" id="localDateTimeButton" label="Submit"/>
       </tc:box>
     </tc:form>
 
-    <tc:form>
+    <tc:form id="localDateTimeStepAForm">
       <tc:box label="#6 model=java.time.LocalDateTime step=1">
         <tc:date id="localDateTimeStepA" label="LocalDateTime" value="#{dateTestController.localDateTimeStepA}"
                  required="true" step="1"/>
-        <tc:out label="Output" value="#{dateTestController.localDateTimeStepA}">
+        <tc:out id="localDateTimeStepAOutput" label="Output" value="#{dateTestController.localDateTimeStepA}">
           <f:convertDateTime pattern="yyyy-MM-dd'T'hh:mm:ss" type="localDateTime"/>
         </tc:out>
         <tc:button defaultCommand="true" id="localDateTimeButtonStepA" label="Submit"/>
       </tc:box>
     </tc:form>
 
-    <tc:form>
+    <tc:form id="localDateTimeStepBForm">
       <tc:box label="#7 model=java.time.LocalDateTime step=0.001">
         <tc:date id="localDateTimeStepB" label="LocalDateTime" value="#{dateTestController.localDateTimeStepB}"
                  required="true" step="0.001"/>
-        <tc:out label="Output" value="#{dateTestController.localDateTimeStepB}">
+        <tc:out id="localDateTimeStepBOutput" label="Output" value="#{dateTestController.localDateTimeStepB}">
           <f:convertDateTime pattern="yyyy-MM-dd'T'hh:mm:ss.SSS" type="localDateTime"/>
         </tc:out>
         <tc:button defaultCommand="true" id="localDateTimeButtonStepB" label="Submit"/>
       </tc:box>
     </tc:form>
 
-    <tc:form>
+    <tc:form id="monthForm">
       <tc:box label="#8 model=java.time.LocalDate type=month">
         <p>
           <tc:badge markup="warning" value="Attention:"/>
           Work in progress.
         </p>
         <tc:date id="month" label="Month" value="#{dateTestController.month}" type="month" required="true"/>
-        <tc:out label="Output" value="#{dateTestController.month}"/>
+        <tc:out id="monthOutput" label="Output" value="#{dateTestController.month}"/>
         <tc:button defaultCommand="true" id="monthButton" label="Submit"/>
       </tc:box>
     </tc:form>
 
-    <tc:form>
+    <tc:form id="weekForm">
       <tc:box label="#9 model=java.time.LocalDate type=week">
         <p>
           <tc:badge markup="warning" value="Attention:"/>
           Work in progress.
         </p>
         <tc:date id="week" label="Week" value="#{dateTestController.week}" type="week" required="true"/>
-        <tc:out label="Output" value="#{dateTestController.week}"/>
-        <tc:out label="Output" value="#{dateTestController.week}">
+        <tc:out id="weekOutput" label="Output" value="#{dateTestController.week}"/>
+        <tc:out id="weekOutputPattern" label="Output" value="#{dateTestController.week}">
           <f:convertDateTime pattern="yyyy-'W'ww" type="localDateTime"/>
         </tc:out>
         <tc:button defaultCommand="true" id="weekButton" label="Submit"/>
       </tc:box>
     </tc:form>
 
-    <tc:form>
+    <tc:form id="longForm">
       <tc:box label="#10 model=java.lang.Long type=date">
         <p>
           <tc:badge markup="warning" value="Attention:"/>
           Work in progress.
         </p>
         <tc:date id="long" label="Long" value="#{dateTestController.longValue}" type="date" required="true"/>
-        <tc:out label="Output" value="#{dateTestController.longValue}"/>
+        <tc:out id="longOutput" label="Output" value="#{dateTestController.longValue}"/>
         <tc:button defaultCommand="true" id="longButton" label="Submit"/>
       </tc:box>
     </tc:form>
-
   </tc:segmentLayout>
 
 </ui:composition>
