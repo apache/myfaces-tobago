@@ -33,7 +33,7 @@
 
     <ul>
       <ui:repeat value="#{navigationState.searchResult}" var="node">
-        <tc:link label="#{node.labelPath}" link="#{node.outcome}"/><br/>
+        <tc:link label="#{node.labelPath}" link="#{request.contextPath}#{node.outcome}"/><br/>
       </ui:repeat>
     </ul>
 
