@@ -46,13 +46,9 @@ $icon-sort-numbers: (
 
 /* non-bootstrap variables --------------------------------------- */
 
-$tobago-form-disabled-alpha: 0.5;
 $tobago-page-padding-top: 1rem;
 $tobago-header-margin-bottom: $tobago-page-padding-top;
 $tobago-flex-layout-spacing: 0.5rem;
-
-/* bootstrap variables --------------------------------------- */
-$form-select-disabled-color: rgba($form-select-color, $tobago-form-disabled-alpha) !default;
 
 /* utilities ----------------------------------------------------- */
 .tobago-display-inline-block {
@@ -109,12 +105,6 @@ $form-select-disabled-color: rgba($form-select-color, $tobago-form-disabled-alph
   }
 }
 
-@mixin formControlDisabled() {
-  &:disabled {
-    color: rgba($input-color, $tobago-form-disabled-alpha);
-  }
-}
-
 @mixin formControlFocusShadows() {
   //_form-control:focus from bootstrap
   @if $enable-shadows {
@@ -132,12 +122,6 @@ $form-select-disabled-color: rgba($form-select-color, $tobago-form-disabled-alph
   border-color: $input-focus-border-color;
   outline: 0;
   @include formControlFocusShadows();
-}
-
-@mixin formControlSelectListDisabled() {
-  &:disabled option, option:disabled {
-    color: rgba($input-color, $tobago-form-disabled-alpha);
-  }
 }
 
 @mixin inlinePadding() {
@@ -487,7 +471,6 @@ tobago-date {
   display: block;
 
   input {
-    @include formControlDisabled();
     min-width: 7em;
 
     &::-ms-clear {
@@ -716,12 +699,7 @@ tobago-image {
 tobago-in {
   display: block;
 
-  input[type='text'] {
-    @include formControlDisabled();
-  }
-
   .input-group {
-
     > tobago-dropdown {
       /* fix corner styling, because tobago-dropdown use a surrounding container inside an input group */
       &:not(:last-child) > .tobago-button {
@@ -1334,10 +1312,6 @@ tobago-select-boolean-toggle {
 
 tobago-select-one-choice {
   display: block;
-
-  select {
-    @include formControlDisabled();
-  }
 }
 
 tobago-select-one-list {
@@ -1346,10 +1320,6 @@ tobago-select-one-list {
 
 tobago-select-one-listbox {
   display: block;
-
-  select {
-    @include formControlSelectListDisabled();
-  }
 }
 
 /* selectOneRadio ---------------------------------------------------------- */
@@ -1396,10 +1366,6 @@ tobago-select-many-checkbox {
 
 tobago-select-many-listbox {
   display: block;
-
-  select {
-    @include formControlSelectListDisabled();
-  }
 }
 
 /* selectManyShuttle ----------------------------------------------------------- */
@@ -1416,11 +1382,6 @@ tobago-select-many-shuttle {
     }
 
     .tobago-unselected {
-      @include formControlSelectListDisabled();
-    }
-
-    .tobago-selected {
-      @include formControlSelectListDisabled();
     }
   }
 
@@ -1713,10 +1674,6 @@ tobago-tab-group {
 
 tobago-textarea {
   display: block;
-
-  textarea {
-    @include formControlDisabled();
-  }
 }
 
 /* tree ---------------------------------------------------------------------- */
