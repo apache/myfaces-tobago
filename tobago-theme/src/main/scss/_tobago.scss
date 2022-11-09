@@ -409,10 +409,12 @@ tobago-flex-layout {
 
   > label:first-child {
     margin-right: $tobago-flex-layout-spacing;
+    align-self: flex-start;
   }
 
   > label:last-child {
     margin-left: $tobago-flex-layout-spacing;
+    align-self: flex-start;
   }
 
   > label {
