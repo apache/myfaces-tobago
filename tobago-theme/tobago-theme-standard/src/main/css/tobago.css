@@ -11112,9 +11112,11 @@ tobago-flex-layout > tobago-flex-layout {
 }
 .tobago-label-container > label:first-child {
   margin-right: 0.5rem;
+  align-self: flex-start;
 }
 .tobago-label-container > label:last-child {
   margin-left: 0.5rem;
+  align-self: flex-start;
 }
 .tobago-label-container > label {
   width: 155px;
