@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {querySelectorFn} from "/script/tobago-test.js";
+import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("#1 model=java.time.LocalDate", function (done) {
@@ -120,5 +120,69 @@ it("#7 model=java.time.LocalDateTime step=0.001", function (done) {
   test.do(() => inputFieldFn().value = time);
   test.event("click", submitButtonFn, () => outPutFn().textContent !== "");
   test.do(() => expect(outPutFn().textContent === time));
+  test.start();
+});
+
+it("#11 model=java.util.Date type=time", function (done) {
+  const dateFn = elementByIdFn("page:mainForm:dateTimeForm:dateTime::field");
+  const outputFn = querySelectorFn("#page\\:mainForm\\:dateTimeForm\\:dateTimeOutput .form-control-plaintext");
+  const submitButtonFn = elementByIdFn("page:mainForm:dateTimeForm:dateTimeButton");
+  const resetButtonFn = elementByIdFn("page:mainForm:resetButtonFrom:resetButton");
+
+  const time = "12:34";
+
+  const test = new JasmineTestTool(done);
+  test.setup(() => outputFn().textContent === "", null, "click", resetButtonFn);
+  test.do(() => dateFn().value = time);
+  test.event("click", submitButtonFn, () => outputFn().textContent === time);
+  test.do(() => expect(outputFn().textContent === time));
+  test.start();
+});
+
+it("#12 model=java.util.Date type=time step=1", function (done) {
+  const dateFn = elementByIdFn("page:mainForm:dateTimeStep1Form:dateTimeStep1::field");
+  const outputFn = querySelectorFn("#page\\:mainForm\\:dateTimeStep1Form\\:dateTimeStep1Output .form-control-plaintext");
+  const submitButtonFn = elementByIdFn("page:mainForm:dateTimeStep1Form:dateTimeStep1Button");
+  const resetButtonFn = elementByIdFn("page:mainForm:resetButtonFrom:resetButton");
+
+  const time = "12:34:56";
+
+  const test = new JasmineTestTool(done);
+  test.setup(() => outputFn().textContent === "", null, "click", resetButtonFn);
+  test.do(() => dateFn().value = time);
+  test.event("click", submitButtonFn, () => outputFn().textContent === time);
+  test.do(() => expect(outputFn().textContent === time));
+  test.start();
+});
+
+it("#13 model=java.util.Date type=datetime-local", function (done) {
+  const dateFn = elementByIdFn("page:mainForm:dateDateTimeForm:dateDateTime::field");
+  const outputFn = querySelectorFn("#page\\:mainForm\\:dateDateTimeForm\\:dateDateTimeOutput .form-control-plaintext");
+  const submitButtonFn = elementByIdFn("page:mainForm:dateDateTimeForm:dateDateTimeButton");
+  const resetButtonFn = elementByIdFn("page:mainForm:resetButtonFrom:resetButton");
+
+  const time = "2010-05-30T23:45";
+
+  const test = new JasmineTestTool(done);
+  test.setup(() => outputFn().textContent === "", null, "click", resetButtonFn);
+  test.do(() => dateFn().value = time);
+  test.event("click", submitButtonFn, () => outputFn().textContent === time);
+  test.do(() => expect(outputFn().textContent === time));
+  test.start();
+});
+
+it("#14 model=java.util.Date type=datetime-local step=1", function (done) {
+  const dateFn = elementByIdFn("page:mainForm:dateDateTimeStep1Form:dateDateTimeStep1::field");
+  const outputFn = querySelectorFn("#page\\:mainForm\\:dateDateTimeStep1Form\\:dateDateTimeStep1Output .form-control-plaintext");
+  const submitButtonFn = elementByIdFn("page:mainForm:dateDateTimeStep1Form:dateDateTimeStep1Button");
+  const resetButtonFn = elementByIdFn("page:mainForm:resetButtonFrom:resetButton");
+
+  const time = "2010-05-30T23:45:32";
+
+  const test = new JasmineTestTool(done);
+  test.setup(() => outputFn().textContent === "", null, "click", resetButtonFn);
+  test.do(() => dateFn().value = time);
+  test.event("click", submitButtonFn, () => outputFn().textContent === time);
+  test.do(() => expect(outputFn().textContent === time));
   test.start();
 });

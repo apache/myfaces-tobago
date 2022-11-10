@@ -133,6 +133,49 @@
         <tc:button defaultCommand="true" id="longButton" label="Submit"/>
       </tc:box>
     </tc:form>
+
+    <tc:form id="dateTimeForm">
+      <tc:box label="#11 model=java.util.Date type=time">
+        <tc:date id="dateTime" type="time" label="Date (time)" value="#{dateTestController.dateTime}" required="true"/>
+        <tc:out id="dateTimeOutput" label="Output" value="#{dateTestController.dateTime}">
+          <f:convertDateTime pattern="HH:mm"/>
+        </tc:out>
+        <tc:button defaultCommand="true" id="dateTimeButton" label="Submit"/>
+      </tc:box>
+    </tc:form>
+
+    <tc:form id="dateTimeStep1Form">
+      <tc:box label="#12 model=java.util.Date type=time step=1">
+        <tc:date id="dateTimeStep1" type="time" step="1" label="Date (time)" value="#{dateTestController.dateTime}"
+                 required="true"/>
+        <tc:out id="dateTimeStep1Output" label="Output" value="#{dateTestController.dateTime}">
+          <f:convertDateTime pattern="HH:mm:ss"/>
+        </tc:out>
+        <tc:button defaultCommand="true" id="dateTimeStep1Button" label="Submit"/>
+      </tc:box>
+    </tc:form>
+
+    <tc:form id="dateDateTimeForm">
+      <tc:box label="#13 model=java.util.Date type=datetime-local">
+        <tc:date id="dateDateTime" type="datetime-local" label="Date (datetime-local)"
+                 value="#{dateTestController.dateTime}" required="true"/>
+        <tc:out id="dateDateTimeOutput" label="Output" value="#{dateTestController.dateTime}">
+          <f:convertDateTime pattern="yyyy-MM-dd'T'HH:mm"/>
+        </tc:out>
+        <tc:button defaultCommand="true" id="dateDateTimeButton" label="Submit"/>
+      </tc:box>
+    </tc:form>
+
+    <tc:form id="dateDateTimeStep1Form">
+      <tc:box label="#14 model=java.util.Date type=datetime-local step=1">
+        <tc:date id="dateDateTimeStep1" type="datetime-local" step="1" label="Date (datetime-local)"
+                 value="#{dateTestController.dateTime}" required="true"/>
+        <tc:out id="dateDateTimeStep1Output" label="Output" value="#{dateTestController.dateTime}">
+          <f:convertDateTime pattern="yyyy-MM-dd'T'HH:mm:ss"/>
+        </tc:out>
+        <tc:button defaultCommand="true" id="dateDateTimeStep1Button" label="Submit"/>
+      </tc:box>
+    </tc:form>
   </tc:segmentLayout>
 
 </ui:composition>
