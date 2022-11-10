@@ -41,6 +41,18 @@ $icon-sort-7: "\f7bb";
 $icon-sort-8: "\f7c1";
 $icon-sort-9: "\f7c7";
 
+$circles: (
+  1: $icon-sort-1,
+  2: $icon-sort-2,
+  3: $icon-sort-3,
+  4: $icon-sort-4,
+  5: $icon-sort-5,
+  6: $icon-sort-6,
+  7: $icon-sort-7,
+  8: $icon-sort-8,
+  9: $icon-sort-9
+);
+
 /* non-bootstrap variables --------------------------------------- */
 
 $tobago-form-disabled-alpha: 0.5;
@@ -1350,46 +1362,36 @@ tobago-sheet {
       opacity: 0.5;
     }
 
+    &.tobago-circle-1,
+    &.tobago-circle-2,
+    &.tobago-circle-3,
+    &.tobago-circle-4,
+    &.tobago-circle-5,
+    &.tobago-circle-6,
+    &.tobago-circle-7,
+    &.tobago-circle-8,
+    &.tobago-circle-9 {}
+
+    @mixin tobago-circle-asc($number, $icon) {
+      &.tobago-circle-#{$number}::after {
+        content: $icon-sort-ascending + $icon-nbsp + $icon;
+      }
+    }
+
+    @mixin tobago-circle-desc($number, $icon) {
+      &.tobago-circle-#{$number}::after {
+        content: $icon-sort-descending + $icon-nbsp + $icon;
+      }
+    }
+
     &.tobago-ascending {
       &::after {
         content: $icon-sort-ascending;
         opacity: 1;
       }
 
-      &.tobago-circle-1::after {
-        content: $icon-sort-ascending + $icon-nbsp + $icon-sort-1;
-      }
-
-      &.tobago-circle-2::after {
-        content: $icon-sort-ascending + $icon-nbsp + $icon-sort-2;
-      }
-
-      &.tobago-circle-3::after {
-        content: $icon-sort-ascending + $icon-nbsp + $icon-sort-3;
-      }
-
-      &.tobago-circle-4::after {
-        content: $icon-sort-ascending + $icon-nbsp + $icon-sort-4;
-      }
-
-      &.tobago-circle-5::after {
-        content: $icon-sort-ascending + $icon-nbsp + $icon-sort-5;
-      }
-
-      &.tobago-circle-6::after {
-        content: $icon-sort-ascending + $icon-nbsp + $icon-sort-6;
-      }
-
-      &.tobago-circle-7::after {
-        content: $icon-sort-ascending + $icon-nbsp + $icon-sort-7;
-      }
-
-      &.tobago-circle-8::after {
-        content: $icon-sort-ascending + $icon-nbsp + $icon-sort-8;
-      }
-
-      &.tobago-circle-9::after {
-        content: $icon-sort-ascending + $icon-nbsp + $icon-sort-9;
+      @each $number, $circle in $circles {
+        @include tobago-circle-asc($number, $circle);
       }
     }
 
@@ -1399,40 +1401,8 @@ tobago-sheet {
         opacity: 1;
       }
 
-      &.tobago-circle-1::after {
-        content: $icon-sort-descending + $icon-nbsp + $icon-sort-1;
-      }
-
-      &.tobago-circle-2::after {
-        content: $icon-sort-descending + $icon-nbsp + $icon-sort-2;
-      }
-
-      &.tobago-circle-3::after {
-        content: $icon-sort-descending + $icon-nbsp + $icon-sort-3;
-      }
-
-      &.tobago-circle-4::after {
-        content: $icon-sort-descending + $icon-nbsp + $icon-sort-4;
-      }
-
-      &.tobago-circle-5::after {
-        content: $icon-sort-descending + $icon-nbsp + $icon-sort-5;
-      }
-
-      &.tobago-circle-6::after {
-        content: $icon-sort-descending + $icon-nbsp + $icon-sort-6;
-      }
-
-      &.tobago-circle-7::after {
-        content: $icon-sort-descending + $icon-nbsp + $icon-sort-7;
-      }
-
-      &.tobago-circle-8::after {
-        content: $icon-sort-descending + $icon-nbsp + $icon-sort-8;
-      }
-
-      &.tobago-circle-9::after {
-        content: $icon-sort-descending + $icon-nbsp + $icon-sort-9;
+      @each $number, $circle in $circles {
+        @include tobago-circle-desc($number, $circle);
       }
     }
   }
