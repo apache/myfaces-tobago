@@ -24,6 +24,7 @@ import jakarta.enterprise.context.RequestScoped;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
 
 @RequestScoped
 @Named
@@ -39,6 +40,7 @@ public class DateTestController {
   private LocalDate month;
   private LocalDate week;
   private Long longValue;
+  private Date dateTime;
 
   public LocalDate getLocalDate() {
     return localDate;
@@ -118,5 +120,13 @@ public class DateTestController {
 
   public void setLongValue(Long longValue) {
     this.longValue = longValue;
+  }
+
+  public Date getDateTime() {
+    return dateTime;
+  }
+
+  public void setDateTime(Date dateTime) {
+    this.dateTime = dateTime;
   }
 }

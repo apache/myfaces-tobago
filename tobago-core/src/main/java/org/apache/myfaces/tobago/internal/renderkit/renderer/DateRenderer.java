@@ -257,7 +257,28 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
           dateTimeConverter.setPattern(DateType.PATTERN_DATE);
         } else if (estimatedType.isAssignableFrom(Date.class)) {
           dateTimeConverter.setType("date");
-          dateTimeConverter.setPattern(DateType.PATTERN_DATE);
+          final DateType type = component.getType();
+          if (DateType.DATETIME_LOCAL.equals(type)) {
+            final Double step = component.getStep();
+            if (step == null || step >= 60) {
+              dateTimeConverter.setPattern(DateType.PATTERN_DATETIME_LOCAL);
+            } else if (step >= 1) {
+              dateTimeConverter.setPattern(DateType.PATTERN_DATETIME_LOCAL_SECONDS);
+            } else {
+              dateTimeConverter.setPattern(DateType.PATTERN_DATETIME_LOCAL_MILLIS);
+            }
+          } else if (DateType.TIME.equals(type)) {
+            final Double step = component.getStep();
+            if (step == null || step >= 60) {
+              dateTimeConverter.setPattern(DateType.PATTERN_TIME);
+            } else if (step >= 1) {
+              dateTimeConverter.setPattern(DateType.PATTERN_TIME_SECONDS);
+            } else {
+              dateTimeConverter.setPattern(DateType.PATTERN_TIME_MILLIS);
+            }
+          } else {
+            dateTimeConverter.setPattern(DateType.PATTERN_DATE);
+          }
         } else if (estimatedType.isAssignableFrom(Number.class)) {
           LOG.error("date");
           dateTimeConverter.setType("date");
