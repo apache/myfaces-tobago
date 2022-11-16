@@ -19,11 +19,11 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
-import jakarta.inject.Singleton;
 import java.io.Serializable;
 
-@Singleton
+@ApplicationScoped
 @Named
 public class Migration5Controller extends SourceFileReader implements Serializable {
 
