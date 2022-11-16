@@ -22,16 +22,21 @@ package org.apache.myfaces.tobago.example.demo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 
-@RequestScoped
+@SessionScoped
 @Named
 public class TextareaController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+  private String text1 = "Some text with more than one row.\nThis is the 2nd row.";
+  private String text2 = "Some text (read-only).";
+  private String text3 = "Some text (disabled).";
+  private String text4 = "Some text without a label at the control.";
 
   private String longText;
   private String ajaxValue;
@@ -57,6 +62,38 @@ public class TextareaController implements Serializable {
   public String submit() {
     LOG.info("Submit Textarea");
     return null;
+  }
+
+  public String getText1() {
+    return text1;
+  }
+
+  public void setText1(String text1) {
+    this.text1 = text1;
+  }
+
+  public String getText2() {
+    return text2;
+  }
+
+  public void setText2(String text2) {
+    this.text2 = text2;
+  }
+
+  public String getText3() {
+    return text3;
+  }
+
+  public void setText3(String text3) {
+    this.text3 = text3;
+  }
+
+  public String getText4() {
+    return text4;
+  }
+
+  public void setText4(String text4) {
+    this.text4 = text4;
   }
 
   public String getLongText() {
