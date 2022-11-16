@@ -33,13 +33,13 @@
                                       outcome="/content/010-input/10-in/In.xhtml"/> there is no placeholder attribute to describe the meaning of a textarea, when no label is set.</p>
     <demo-highlight language="markup">&lt;tc:textarea label="Text Area" value="Some text, some text, ..."/&gt;</demo-highlight>
     <tc:textarea id="t1" label="Text Area"
-                 value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
+                 value="#{textareaController.text1}"/>
     <tc:textarea id="t2" label="Read Only" readonly="true"
-                 value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
+                 value="#{textareaController.text2}"/>
     <tc:textarea id="t3" label="Disabled" disabled="true"
-                 value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
+                 value="#{textareaController.text3}"/>
     <tc:textarea id="t4"
-                 value="Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, Text Area without a label, ..."/>
+                 value="#{textareaController.text4}"/>
   </tc:section>
   <tc:section label="Focus">
     <p>The following textarea should be selected after reloading this page. Use the <code>focus</code> attribute.</p>
