@@ -19,6 +19,10 @@ import {Focus} from "./tobago-focus";
 
 class SelectOneRadio extends HTMLElement {
 
+  private readonly Key = {
+    SPACE: " "
+  };
+
   private oldCheckedId = "";
 
   constructor() {
@@ -30,6 +34,7 @@ class SelectOneRadio extends HTMLElement {
     for (const radio of this.radioGroup) {
       radio.addEventListener("focus", Focus.setLastFocusId);
       radio.addEventListener("click", this.clickSelection.bind(this));
+      radio.addEventListener("keydown", this.keySelection.bind(this));
     }
   }
 
@@ -41,6 +46,21 @@ class SelectOneRadio extends HTMLElement {
     } else if (!radio.disabled && !radio.required && radio.id === this.oldCheckedId) {
       radio.checked = false;
       this.oldCheckedId = "";
+    }
+
+    this.saveSelection();
+  }
+
+  private keySelection(event: KeyboardEvent): void {
+    if (event.key === this.Key.SPACE) {
+      event.preventDefault();
+    }
+    const radio = event.currentTarget as HTMLInputElement;
+
+    if (radio.readOnly) {
+      this.revertSelection();
+    } else if (!radio.disabled && !radio.required && event.key === " ") {
+      radio.checked = !radio.checked;
     }
 
     this.saveSelection();
