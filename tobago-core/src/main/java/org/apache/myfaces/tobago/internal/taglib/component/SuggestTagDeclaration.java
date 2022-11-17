@@ -31,7 +31,7 @@ import javax.faces.component.UIInput;
 
 /**
  * Renders a list of suggested texts for a given input field.
- *
+ * <p>
  * Basic features:
  * <ul>
  *   <li>provide a list directly while rendering (not AJAX needed) [todo]</li>

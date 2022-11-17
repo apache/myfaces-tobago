@@ -65,7 +65,7 @@ import javax.faces.component.UISelectOne;
     allowedChildComponenents = {
         "javax.faces.SelectItem",
         "javax.faces.SelectItems"
-        },
+    },
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CHANGE,

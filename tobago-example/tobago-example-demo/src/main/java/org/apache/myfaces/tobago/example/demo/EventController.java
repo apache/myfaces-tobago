@@ -155,7 +155,6 @@ public class EventController implements Serializable {
     eventsOnComponents.add(new EventsOnComponent(new UITreeListbox()));
     eventsOnComponents.add(new EventsOnComponent(new UITreeSelect()));
 
-
     planets.add(new SolarObject("Mercury", "I", "Sun", 57910, 87.97, 7.00, 0.21, "-", null));
     planets.add(new SolarObject("Venus", "II", "Sun", 108200, 224.70, 3.39, 0.01, "-", null));
     planets.add(new SolarObject("Earth", "III", "Sun", 149600, 365.26, 0.00, 0.02, "-", null));

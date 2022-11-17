@@ -33,8 +33,9 @@ import org.apache.myfaces.tobago.layout.SegmentJustify;
 /**
  * Renders a layout using a 12 columns grid.
  * Find more information on how the grid works in the Twitter Bootstrap documentation.
- *
+ * <p>
  * If no attribute is defined, extraSmall="12seg" will be used as default.
+ *
  * @since 3.0.0
  */
 @Tag(name = "segmentLayout")

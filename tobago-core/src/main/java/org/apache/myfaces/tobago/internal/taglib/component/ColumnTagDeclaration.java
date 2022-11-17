@@ -50,8 +50,8 @@ import javax.faces.component.UIColumn;
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
     facets = {
-      @Facet(name = Facets.BAR,
-        description = "Contains some code to be placed in the header at the bar position.")
+        @Facet(name = Facets.BAR,
+            description = "Contains some code to be placed in the header at the bar position.")
     }
 )
 public interface ColumnTagDeclaration

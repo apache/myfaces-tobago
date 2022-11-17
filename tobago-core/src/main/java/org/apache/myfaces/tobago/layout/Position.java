@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.layout;
 
 /**
  * Values for position used with CSS.
- *
+ * <p>
  * Note: the enums are not capitalized, because of problems with {@link java.beans.PropertyEditor}.
  */
 public enum Position {

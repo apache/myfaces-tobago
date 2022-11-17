@@ -56,7 +56,7 @@ public class ValueExpressionResetInputActionListener extends AbstractResetInputA
     if (obj instanceof String[]) {
       clientIds = (String[]) obj;
     } else if (obj instanceof String) {
-      clientIds= StringUtils.split((String) obj, ", ");
+      clientIds = StringUtils.split((String) obj, ", ");
     } else {
       LOG.error("Ignore unknown value of " + obj + " for reset.");
       return;

@@ -30,7 +30,7 @@ import javax.faces.event.PostAddToViewEvent;
  * <p>
  * WARNING: This component is preliminary and may be changed without a major release.
  * </p>
- *
+ * <p>
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SplitLayoutTagDeclaration}
  */
 @Preliminary

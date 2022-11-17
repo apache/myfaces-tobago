@@ -42,13 +42,13 @@ public class ValidationController implements Serializable {
   }
 
   public void customValidator(final FacesContext facesContext, final UIComponent component, final Object value)
-          throws ValidatorException {
+      throws ValidatorException {
     if (value == null) {
       return;
     }
     if (!"tobago".equalsIgnoreCase(value.toString())) {
       throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please type in 'Tobago'",
-              "Please type in 'Tobago'"));
+          "Please type in 'Tobago'"));
     }
   }
 

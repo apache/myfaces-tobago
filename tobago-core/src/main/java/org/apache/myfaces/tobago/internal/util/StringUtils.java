@@ -416,10 +416,10 @@ public final class StringUtils {
    * StringUtils.containsAny("aba","z")          = false
    * </pre>
    *
-   * @param str the String to check, may be null
+   * @param str         the String to check, may be null
    * @param searchChars the chars to search for, may be null
    * @return the <code>true</code> if any of the chars are found, <code>false</code> if no match or null input
-   *
+   * <p>
    * Basically taken from commons-lang
    */
   public static boolean containsAny(final String str, final String searchChars) {
@@ -463,7 +463,7 @@ public final class StringUtils {
    *
    * @param ch the character to test.
    * @return {@code true} if {@code ch} is a high-surrogate code unit;
-   *         {@code false} otherwise.
+   * {@code false} otherwise.
    */
   private static boolean isHighSurrogate(final char ch) {
     return '\uD800' <= ch && '\uDBFF' >= ch;

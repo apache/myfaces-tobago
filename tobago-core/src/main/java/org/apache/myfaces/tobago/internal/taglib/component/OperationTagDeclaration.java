@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 
 /**
  * An operation describes an Tobago command, which will usually executed on client side.
- *
+ * <p>
  * ********************* &lt;br/&gt;
  * WARNING &lt;br/&gt;
  * ********************* &lt;br/&gt;

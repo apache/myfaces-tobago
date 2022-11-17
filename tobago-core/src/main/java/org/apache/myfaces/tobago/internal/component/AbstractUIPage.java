@@ -70,7 +70,7 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Clien
     markSubmittedForm(context);
 
     // invoke processDecodes() on children
-    for (final Iterator<UIComponent> kids = getFacetsAndChildren(); kids.hasNext();) {
+    for (final Iterator<UIComponent> kids = getFacetsAndChildren(); kids.hasNext(); ) {
       final UIComponent kid = kids.next();
       kid.processDecodes(context);
     }
@@ -100,7 +100,7 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Clien
     // TODO: This workaround is stil needed for Mojarra
     // TODO: Otherwise actions in tree/sheet will not be detected
     if (command == null
-      && sourceId != null && sourceId.matches(".*:\\d+:.*")) {
+        && sourceId != null && sourceId.matches(".*:\\d+:.*")) {
       // If currentActionId component was inside a sheet the id contains the
       // rowIndex and is therefore not found here.
       // We do not need the row here because we want just to find the

@@ -69,7 +69,7 @@ public class NavigationState implements Serializable {
       final TreePath treePath = currentNode.getTreePath();
       state.getSelectedState().clearAndSelect(treePath);
       if (!treePath.isRoot()) {
-      state.getExpandedState().collapseAllButRoot();
+        state.getExpandedState().collapseAllButRoot();
         state.getExpandedState().expand(treePath, true);
       }
     }

@@ -298,7 +298,6 @@ public class TobagoConfigSorterUnitTest {
     speyside.getAfter().add(standard.getName());
     standard.getAfter().add(core.getName());
 
-
     final List<TobagoConfigFragment> list = new ArrayList<>();
     list.add(blank);
     list.add(charlotteville);

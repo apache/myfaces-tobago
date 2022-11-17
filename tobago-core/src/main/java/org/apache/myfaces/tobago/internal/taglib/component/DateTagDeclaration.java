@@ -67,14 +67,14 @@ import javax.faces.component.UIInput;
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.DATE,
     allowedChildComponenents = "NONE",
-  facets = {
-    @Facet(name = Facets.BEFORE,
-      description =
-        "This facet can contain a part for input groups."),
-    @Facet(name = Facets.AFTER,
-      description =
-        "This facet can contain a part for input groups.")
-  },
+    facets = {
+        @Facet(name = Facets.BEFORE,
+            description =
+                "This facet can contain a part for input groups."),
+        @Facet(name = Facets.AFTER,
+            description =
+                "This facet can contain a part for input groups.")
+    },
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CHANGE,
@@ -162,7 +162,7 @@ public interface DateTagDeclaration
 
   /**
    * Type of the date/time input.
-   *
+   * <p>
    * Warning: month and week currently not supported.
    */
   @TagAttribute

@@ -31,7 +31,7 @@ import java.util.Stack;
 
 /**
  * This is a demo of the logic of a sudoku game.
- *
+ * <p>
  * The basic idea is not to write yet an other sudoku, but to demonstrate application specific controls.
  */
 public class Sudoku {
@@ -122,7 +122,6 @@ public class Sudoku {
     depth--;
     return result;
   }
-
 
   private boolean checkRules() {
     return checkRowRules() && checkColumnRules() && checkSquareRules();

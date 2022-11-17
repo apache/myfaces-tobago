@@ -658,7 +658,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         }
       }
       // the row client id depends from the existence of an UIRow component! TBD: is this good?
-      writer.writeIdAttribute(row != null ? row.getClientId(facesContext): sheet.getRowClientId());
+      writer.writeIdAttribute(row != null ? row.getClientId(facesContext) : sheet.getRowClientId());
       writer.writeClassAttribute(
           selected ? TobagoClass.SELECTED : null,
           selected ? BootstrapClass.TABLE_INFO : null,

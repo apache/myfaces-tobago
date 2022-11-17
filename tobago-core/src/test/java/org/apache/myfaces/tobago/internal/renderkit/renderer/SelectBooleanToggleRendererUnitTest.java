@@ -30,7 +30,6 @@ import java.io.IOException;
 
 public class SelectBooleanToggleRendererUnitTest extends RendererTestBase {
 
-
   @Test
   public void label() throws IOException {
     final UISelectBooleanToggle c = (UISelectBooleanToggle) ComponentUtils.createComponent(

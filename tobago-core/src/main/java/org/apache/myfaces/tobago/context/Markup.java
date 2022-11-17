@@ -222,7 +222,7 @@ public final class Markup implements Serializable, Iterable<String> {
     if (forbiddenCharFound) {
       final String newString = stringBuilder.toString();
       LOG.warn("Only numeric and alphabetic characters are allowed for markups: '{}' converted to '{}'.", string,
-        newString);
+          newString);
       return newString;
     } else {
       return string;

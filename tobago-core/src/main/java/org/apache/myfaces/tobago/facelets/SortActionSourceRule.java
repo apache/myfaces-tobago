@@ -35,8 +35,9 @@ public class SortActionSourceRule extends MetaRule {
   public static final SortActionSourceRule INSTANCE = new SortActionSourceRule();
 
   @Override
-  public Metadata applyRule(final String name, final TagAttribute attribute,
-                            final MetadataTarget metadataTarget) {
+  public Metadata applyRule(
+      final String name, final TagAttribute attribute,
+      final MetadataTarget metadataTarget) {
     if (metadataTarget.isTargetInstanceOf(SortActionSource.class)) {
       if ("sortActionListener".equals(name)) {
         return new SortActionListenerMapper(attribute);

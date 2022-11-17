@@ -36,6 +36,7 @@ public interface Visual {
   /**
    * The renderer is an id that is used by Tobago to gather information about the components which are
    * configured in the theme configuration files. E. g. the preferredWidth of a component.
+   *
    * @return The renderer type.
    */
   String getRendererType();

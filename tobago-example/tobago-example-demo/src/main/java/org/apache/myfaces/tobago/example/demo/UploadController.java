@@ -90,7 +90,7 @@ public class UploadController implements Serializable {
     LOG.info("name=" + submittedFileName);
     uploadItems.add(new UploadItem(submittedFileName, part.getSize(), part.getContentType(), action));
     FacesContext.getCurrentInstance().addMessage(
-            null, new FacesMessage(FacesMessage.SEVERITY_INFO, "File was uploaded: " + submittedFileName, null));
+        null, new FacesMessage(FacesMessage.SEVERITY_INFO, "File was uploaded: " + submittedFileName, null));
   }
 
   public Part getFileBasic() {

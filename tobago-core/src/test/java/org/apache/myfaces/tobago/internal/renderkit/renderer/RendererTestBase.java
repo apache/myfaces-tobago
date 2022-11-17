@@ -105,7 +105,7 @@ public abstract class RendererTestBase extends AbstractTobagoTestBase {
   protected List<Item> getSheetSample(final int count) {
     final List<Item> list = new ArrayList<Item>();
     for (int i = 0; i < count; i++) {
-       list.add(new Item("Name " + i));
+      list.add(new Item("Name " + i));
 
     }
     return list;

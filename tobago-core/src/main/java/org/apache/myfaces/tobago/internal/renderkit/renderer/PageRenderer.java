@@ -175,7 +175,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     for (final ThemeStyle themeStyle : theme.getStyleResources(productionMode)) {
       if (style == null) {
         style = (AbstractUIStyle) facesContext.getApplication()
-           .createComponent(facesContext, Tags.style.componentType(), RendererTypes.Style.name());
+            .createComponent(facesContext, Tags.style.componentType(), RendererTypes.Style.name());
         style.setTransient(true);
       }
       style.setFile(contextPath + themeStyle.getName());

@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 
 /**
  * Update the parent component
- *
+ * <p>
  * ********************* &lt;br/&gt;
  * WARNING &lt;br/&gt;
  * ********************* &lt;br/&gt;

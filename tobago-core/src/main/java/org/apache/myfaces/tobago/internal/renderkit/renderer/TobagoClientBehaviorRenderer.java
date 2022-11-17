@@ -144,7 +144,8 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
   }
 
   @Override
-  public void decode(final FacesContext facesContext, final UIComponent component,
+  public void decode(
+      final FacesContext facesContext, final UIComponent component,
       final ClientBehavior clientBehavior) {
     if (clientBehavior instanceof AjaxBehavior) {
       AjaxBehavior ajaxBehavior = (AjaxBehavior) clientBehavior;

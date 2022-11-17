@@ -163,8 +163,9 @@ public abstract class WriterHelper {
     writeEncodedValue(text, start, length, false);
   }
 
-  protected abstract void writeEncodedValue(char[] text, int start,
-                                            int length, boolean isAttribute)
+  protected abstract void writeEncodedValue(
+      char[] text, int start,
+      int length, boolean isAttribute)
       throws IOException;
 
   /**

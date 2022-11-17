@@ -35,7 +35,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
  * <p>
  * WARNING: This component is preliminary and may be changed without a major release.
  * </p>
- *
+ * <p>
  * Renders a SplitLayout.
  * A area with two child components rendered horizontally or vertically and allows to change the
  * layout relation of this two components on the client.
@@ -54,7 +54,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
         )
     })
 public interface SplitLayoutTagDeclaration
-      extends HasId, HasSpacing, HasBinding, IsVisual {
+    extends HasId, HasSpacing, HasBinding, IsVisual {
 
   /**
    * This value defines the layout constraints for column layout.

@@ -356,10 +356,10 @@ public final class UserAgent implements Serializable {
 
   private enum CspHeader {
 
-    NOT_SUPPORTED(new String[] {}),
-    X(new String[] {"Content-Security-Policy", "X-Content-Security-Policy"}),
-    WEBKIT(new String[] {"Content-Security-Policy", "X-WebKit-CSP"}),
-    STANDARD(new String[] {"Content-Security-Policy"});
+    NOT_SUPPORTED(new String[]{}),
+    X(new String[]{"Content-Security-Policy", "X-Content-Security-Policy"}),
+    WEBKIT(new String[]{"Content-Security-Policy", "X-WebKit-CSP"}),
+    STANDARD(new String[]{"Content-Security-Policy"});
 
     private String[] names;
 
@@ -374,10 +374,10 @@ public final class UserAgent implements Serializable {
 
   private enum CsproHeader {
 
-    NOT_SUPPORTED(new String[] {}),
-    X(new String[] {"Content-Security-Policy-Report-Only", "X-Content-Security-Policy-Report-Only"}),
-    WEBKIT(new String[] {"Content-Security-Policy-Report-Only", "X-WebKit-CSP-Report-Only"}),
-    STANDARD(new String[] {"Content-Security-Policy-Report-Only"});
+    NOT_SUPPORTED(new String[]{}),
+    X(new String[]{"Content-Security-Policy-Report-Only", "X-Content-Security-Policy-Report-Only"}),
+    WEBKIT(new String[]{"Content-Security-Policy-Report-Only", "X-WebKit-CSP-Report-Only"}),
+    STANDARD(new String[]{"Content-Security-Policy-Report-Only"});
 
     private String[] names;
 

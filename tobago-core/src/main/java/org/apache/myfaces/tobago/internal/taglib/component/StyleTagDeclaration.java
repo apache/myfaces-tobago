@@ -316,7 +316,8 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
    * @since 4.0.0
    */
   @TagAttribute
-  @UIComponentTagAttribute//(type = "org.apache.myfaces.tobago.layout.TBD")
+  @UIComponentTagAttribute
+//(type = "org.apache.myfaces.tobago.layout.TBD")
   void setGridTemplateColumns(String gridTemplateColumns);
 
   /**
@@ -325,7 +326,8 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
    * @since 4.0.0
    */
   @TagAttribute
-  @UIComponentTagAttribute//(type = "org.apache.myfaces.tobago.layout.TBD")
+  @UIComponentTagAttribute
+//(type = "org.apache.myfaces.tobago.layout.TBD")
   void setGridTemplateRows(String gridTemplateRows);
 
   /**

@@ -578,7 +578,8 @@ public final class ComponentUtils {
     return getRenderer(facesContext, component.getFamily(), component.getRendererType());
   }
 
-  public static RendererBase getRenderer(final FacesContext facesContext, final String family,
+  public static RendererBase getRenderer(
+      final FacesContext facesContext, final String family,
       final String rendererType) {
     if (rendererType == null) {
       return null;

@@ -26,7 +26,7 @@ public interface IsVisual {
 
   /**
    * Sets a CSS class in its parent, if the parent supports it.
-   *
+   * <p>
    * Which this feature it is possible to put a CSS class name into a component with the &lt;tc:style&gt; tag. Example:
    *
    * <pre>
@@ -34,7 +34,7 @@ public interface IsVisual {
    *   &lt;tc:style customClass="my-emphasized"/&gt;
    * &lt;/tc:in&gt;
    * </pre>
-   *
+   * <p>
    * One capability is, to used external CSS libs.
    * <br>
    * This feature should not be used imprudent.

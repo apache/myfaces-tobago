@@ -270,7 +270,7 @@ public class StyleRenderer<T extends AbstractUIStyle> extends RendererBase<T> {
     writer.writeText(";");
   }
 
-// XXX remove me
+  // XXX remove me
   private void encodeStyle(final TobagoResponseWriter writer, final String name, final String value)
       throws IOException {
     writer.writeText(name);
@@ -279,7 +279,7 @@ public class StyleRenderer<T extends AbstractUIStyle> extends RendererBase<T> {
     writer.writeText(";");
   }
 
-// XXX remove me
+  // XXX remove me
   private void encodeStyle(final TobagoResponseWriter writer, final String name, final Integer value)
       throws IOException {
     if (value != null) {

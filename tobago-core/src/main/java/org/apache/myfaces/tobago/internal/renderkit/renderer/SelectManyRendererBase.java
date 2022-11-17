@@ -125,8 +125,9 @@ public abstract class SelectManyRendererBase<T extends AbstractUISelectManyBase>
   static final String COLLECTION_TYPE_KEY = "collectionType";
   static final String VALUE_TYPE_KEY = "valueType";
 
-  static Object getConvertedUISelectManyValue(final FacesContext facesContext, final UISelectMany component,
-                                              final String[] submittedValue) throws ConverterException {
+  static Object getConvertedUISelectManyValue(
+      final FacesContext facesContext, final UISelectMany component,
+      final String[] submittedValue) throws ConverterException {
     return getConvertedUISelectManyValue(facesContext, component,
         submittedValue, false);
   }
@@ -138,8 +139,9 @@ public abstract class SelectManyRendererBase<T extends AbstractUISelectManyBase>
    *
    * @throws ConverterException
    */
-  static Object getConvertedUISelectManyValue(final FacesContext facesContext, final UISelectMany component,
-                                              final String[] submittedValue, final boolean considerValueType)
+  static Object getConvertedUISelectManyValue(
+      final FacesContext facesContext, final UISelectMany component,
+      final String[] submittedValue, final boolean considerValueType)
       throws ConverterException {
     // Attention!
     // This code is duplicated in shared renderkit package (except for considerValueType).
@@ -324,8 +326,9 @@ public abstract class SelectManyRendererBase<T extends AbstractUISelectManyBase>
    * @throws FacesException if the value is a String and the represented
    *                        class cannot be found
    */
-  static Class<?> getClassFromAttribute(final FacesContext facesContext,
-                                        final Object attribute) throws FacesException {
+  static Class<?> getClassFromAttribute(
+      final FacesContext facesContext,
+      final Object attribute) throws FacesException {
     // Attention!
     // This code is duplicated in shared renderkit package.
     // If you change something here please do the same in the other class!

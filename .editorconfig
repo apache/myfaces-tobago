@@ -21,11 +21,16 @@ root = true
 [*]
 charset = utf-8
 indent_style = space
-indent_size = 2
+tab_width = 2
+indent_size = tab
+ij_continuation_indent_size = 4
 end_of_line = lf
 trim_trailing_whitespace = true
 insert_final_newline = true
+ij_any_keep_blank_lines_in_declarations = 1
+ij_any_keep_blank_lines_in_code = 1
+ij_any_for_brace_force = always
+ij_any_if_brace_force = always
 
-# Ignore indent_size for java files
 [*.java]
-indent_size = unset
+ij_java_method_parameters_new_line_after_left_paren = true

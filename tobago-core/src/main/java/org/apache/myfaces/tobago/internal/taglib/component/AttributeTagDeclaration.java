@@ -51,6 +51,7 @@ public interface AttributeTagDeclaration {
    */
   @TagAttribute(required = true, name = "value", type = "java.lang.String")
   void setValue(ValueExpression value);
+
   /**
    * Allowed values are "action", "actionListener", "actionFromValue", "isNotSet", "isSet", "valueIfSet".
    * <br>
