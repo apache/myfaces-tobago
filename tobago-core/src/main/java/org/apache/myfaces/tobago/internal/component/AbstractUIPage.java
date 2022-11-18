@@ -95,19 +95,20 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Clien
       LOG.warn("No sourceId found!");
     }
 
-    // TODO: remove this if block if proven this never happens anymore
-    if (command == null
-        && sourceId != null && sourceId.matches(".*:\\d+:.*")) {
+    if (command == null && sourceId != null) {
       // If currentActionId component was inside a sheet the id contains the
       // rowIndex and is therefore not found here.
       // We do not need the row here because we want just to find the
       // related form, so removing the rowIndex will help here.
-      sourceId = sourceId.replaceAll(":\\d+:", ":");
+      sourceId = cutIteratorFromId(sourceId);
       try {
         command = viewRoot.findComponent(sourceId);
-        //LOG.info("command = \"" + command + "\"", new Exception());
       } catch (final Exception e) {
         // ignore
+        if (LOG.isTraceEnabled()) {
+          LOG.trace("sourceId='{}'", sourceId);
+          LOG.trace("Exception in findComponent", e);
+        }
       }
     }
 
@@ -130,6 +131,40 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Clien
         LOG.debug("Illegal actionId! Render response...");
       }
       facesContext.renderResponse();
+    }
+  }
+
+  // TODO: Remove this method if proven this never happens anymore
+  // TODO: This workaround is stil needed for Mojarra
+  // TODO: Otherwise actions in tree/sheet will not be detected
+  protected String cutIteratorFromId(final String sourceId) {
+
+    final char[] chars = sourceId.toCharArray();
+    final int n = chars.length;
+    final char colon = ':';
+    final StringBuilder builder = new StringBuilder(n);
+    char lastInBuilder = ' '; // any non-colon
+    for (char c : chars) {
+      if (c == colon) { // colon
+        if (lastInBuilder != colon) {
+          builder.append(c);
+          lastInBuilder = c;
+        }
+      } else if ('0' <= c && c <= '9') { // number
+
+      } else { // any other
+        builder.append(c);
+        lastInBuilder = c;
+      }
+    }
+
+    if (builder.length() == n) {
+      return sourceId;
+    } else if (lastInBuilder == colon) {
+      builder.deleteCharAt(builder.length() - 1);
+      return builder.toString();
+    } else {
+      return builder.toString();
     }
   }
 
