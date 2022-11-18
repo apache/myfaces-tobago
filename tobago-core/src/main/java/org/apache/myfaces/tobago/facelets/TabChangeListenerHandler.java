@@ -41,7 +41,6 @@ public class TabChangeListenerHandler extends TagHandler {
 
   private final TagAttribute binding;
 
-
   public TabChangeListenerHandler(final TagConfig config) {
     super(config);
     binding = getAttribute("binding");

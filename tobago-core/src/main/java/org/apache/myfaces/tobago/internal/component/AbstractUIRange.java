@@ -25,6 +25,8 @@ package org.apache.myfaces.tobago.internal.component;
 public abstract class AbstractUIRange extends AbstractUIInput {
 
   public abstract Integer getMin();
+
   public abstract Integer getMax();
+
   public abstract Integer getStep();
 }

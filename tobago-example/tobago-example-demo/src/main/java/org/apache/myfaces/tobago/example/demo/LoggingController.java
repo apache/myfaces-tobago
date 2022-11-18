@@ -183,8 +183,9 @@ public class LoggingController {
     private String factoryMethod;
     private boolean usesString; // is false it uses "Object" for logging
 
-    public LoggingInfo(final String id, final String factoryClassName, final String factoryMethod,
-                       final String category, final boolean usesString, final String... calls) {
+    public LoggingInfo(
+        final String id, final String factoryClassName, final String factoryMethod,
+        final String category, final boolean usesString, final String... calls) {
       this.id = id;
       this.calls = calls;
       this.factoryClassName = factoryClassName;

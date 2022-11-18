@@ -38,13 +38,13 @@ public class HtmlElementsUnitTest {
       final HtmlElements element = (HtmlElements) field.get(null);
       final String value = element.getValue();
       Assertions.assertEquals(
-        value,
-        element.name().toLowerCase().replaceAll("_", "-"),
-        "Check to lower: '" + element + "'");
+          value,
+          element.name().toLowerCase().replaceAll("_", "-"),
+          "Check to lower: '" + element + "'");
       Assertions.assertEquals(
-        value.toUpperCase().replaceAll("-", "_"),
-        element.name(),
-        "Check to upper: '" + element + "'");
+          value.toUpperCase().replaceAll("-", "_"),
+          element.name(),
+          "Check to upper: '" + element + "'");
     }
   }
 
@@ -53,9 +53,9 @@ public class HtmlElementsUnitTest {
 
     // list from spec.
     final List<String> voids = Arrays.asList(
-      "area", "base", "br", "col", "command", "embed",
-      "hr", "img", "input", "keygen", "link", "meta",
-      "param", "source", "track", "wbr");
+        "area", "base", "br", "col", "command", "embed",
+        "hr", "img", "input", "keygen", "link", "meta",
+        "param", "source", "track", "wbr");
 
     for (final Field field : HtmlElements.class.getFields()) {
       final HtmlElements element = (HtmlElements) field.get(null);
@@ -88,10 +88,10 @@ public class HtmlElementsUnitTest {
 
   private boolean containsTagName(final String content, final String tagName) {
     return content.contains(tagName + " ")
-      || content.contains(tagName + "{")
-      || content.contains(tagName + ",")
-      || content.contains(tagName + ":")
-      || content.contains(tagName + ".")
-      || content.contains(tagName + ">");
+        || content.contains(tagName + "{")
+        || content.contains(tagName + ",")
+        || content.contains(tagName + ":")
+        || content.contains(tagName + ".")
+        || content.contains(tagName + ">");
   }
 }

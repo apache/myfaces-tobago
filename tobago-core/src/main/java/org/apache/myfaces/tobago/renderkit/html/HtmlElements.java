@@ -46,7 +46,9 @@ public enum HtmlElements {
   CODE("code", Qualifier.INLINE),
   COL("col", Qualifier.VOID),
   COLGROUP("colgroup"),
-  /** @deprecated */
+  /**
+   * @deprecated
+   */
   @Deprecated
   COMMAND("command", Qualifier.VOID),
   DATALIST("datalist"),
@@ -149,7 +151,7 @@ public enum HtmlElements {
   TOBAGO_FOOTER("tobago-footer"),
   TOBAGO_FORM("tobago-form"),
   TOBAGO_GRID_LAYOUT("tobago-grid-layout"),
-//  TOBAGO_LABEL("tobago-label"),
+  //  TOBAGO_LABEL("tobago-label"),
   TOBAGO_HEADER("tobago-header"),
   TOBAGO_IMAGE("tobago-image"),
   TOBAGO_IN("tobago-in"),

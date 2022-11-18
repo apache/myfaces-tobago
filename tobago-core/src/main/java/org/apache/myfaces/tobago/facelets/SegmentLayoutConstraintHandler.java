@@ -86,8 +86,9 @@ public class SegmentLayoutConstraintHandler extends TagHandler {
     apply(faceletContext, parent, offsetExtraLarge, Attributes.offsetExtraLarge, Integer.TYPE);
   }
 
-  private void apply(final FaceletContext faceletContext, final UIComponent parent, final TagAttribute tagAttribute,
-                     final Attributes attribute, final Class type) {
+  private void apply(
+      final FaceletContext faceletContext, final UIComponent parent, final TagAttribute tagAttribute,
+      final Attributes attribute, final Class type) {
     if (tagAttribute != null) {
       if (tagAttribute.isLiteral()) {
         parent.getAttributes().put(attribute.getName(), tagAttribute.getValue());

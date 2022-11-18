@@ -48,7 +48,7 @@ public class RangeRenderer<T extends AbstractUIRange> extends MessageLayoutRende
 
   @Override
   protected void encodeBeginField(final FacesContext facesContext, final T component)
-    throws IOException {
+      throws IOException {
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     final String currentValue = getCurrentValue(facesContext, component);
     final String clientId = component.getClientId(facesContext);
@@ -91,10 +91,10 @@ public class RangeRenderer<T extends AbstractUIRange> extends MessageLayoutRende
 
     final CssItem rendererCssClass = getRendererCssClass();
     writer.writeClassAttribute(
-      rendererCssClass,
-      BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
-      BootstrapClass.FORM_RANGE,
-      component.getCustomClass());
+        rendererCssClass,
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
+        BootstrapClass.FORM_RANGE,
+        component.getCustomClass());
 
     renderFocus(clientId, component.isFocus(), component.isError(), facesContext, writer);
 

@@ -76,7 +76,6 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
       final NavigationHandler navigationHandler = application.getNavigationHandler();
       navigationHandler.handleNavigation(facesContext, null, outcome);
 
-
       lifecycle.render(facesContext);
     } finally {
       facesContext.release();

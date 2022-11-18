@@ -104,9 +104,9 @@ public class SortingUtils {
           if (expression != null) {
             final String var = sheet.getVar();
             if (var == null) {
-                LOG.error("No sorting performed. Property var of sheet is not set!");
-                addNotSortableMessage(facesContext, column);
-                return false;
+              LOG.error("No sorting performed. Property var of sheet is not set!");
+              addNotSortableMessage(facesContext, column);
+              return false;
             }
             actualComparator = new ValueExpressionComparator(facesContext, var, expression, !ascending, comparator);
           } else {

@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
 public final class DebugUtils {
 
   private DebugUtils() {
@@ -82,7 +81,7 @@ public final class DebugUtils {
     buf.append(" ");
 //      buf.append(component.getId());
 //      buf.append(" ");
-      buf.append(component.getClientId(FacesContext.getCurrentInstance()));
+    buf.append(component.getClientId(FacesContext.getCurrentInstance()));
     if (component instanceof javax.faces.component.UIViewRoot) {
       buf.append(" viewId=");
       buf.append(((javax.faces.component.UIViewRoot) component).getViewId());

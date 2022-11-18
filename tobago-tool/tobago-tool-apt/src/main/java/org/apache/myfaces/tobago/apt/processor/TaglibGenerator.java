@@ -147,7 +147,7 @@ public class TaglibGenerator extends AbstractGenerator {
     if ("http://myfaces.apache.org/tobago/component".equals(taglibAnnotation.uri())) {
       for (int i = 1; i < 10; i++) {
         addFunction(document, taglib, "format" + i, "org.apache.myfaces.tobago.util.MessageFormat",
-            "java.lang.String format(java.lang.String"+ StringUtils.repeat(", java.lang.Object", i) +")");
+            "java.lang.String format(java.lang.String" + StringUtils.repeat(", java.lang.Object", i) + ")");
       }
     }
 
@@ -160,11 +160,11 @@ public class TaglibGenerator extends AbstractGenerator {
 
     // writing the XML document
 
-      String target = targetTaglib;
-      target = StringUtils.isNotBlank(target) ? target + '/' : "";
-      final String name = target + taglibAnnotation.name() + ".taglib.xml";
-      final FileObject resource = processingEnv.getFiler().createResource(StandardLocation.SOURCE_OUTPUT, "", name);
-      info("Writing to file: " + resource.toUri());
+    String target = targetTaglib;
+    target = StringUtils.isNotBlank(target) ? target + '/' : "";
+    final String name = target + taglibAnnotation.name() + ".taglib.xml";
+    final FileObject resource = processingEnv.getFiler().createResource(StandardLocation.SOURCE_OUTPUT, "", name);
+    info("Writing to file: " + resource.toUri());
 
     try (Writer writer = resource.openWriter()) {
       final TransformerFactory transFactory = TransformerFactory.newInstance();

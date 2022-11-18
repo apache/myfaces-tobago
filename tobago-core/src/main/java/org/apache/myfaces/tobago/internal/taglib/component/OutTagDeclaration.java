@@ -80,6 +80,7 @@ public interface OutTagDeclaration
    * (e. g. an span or div tag around the output text).
    * Use true, if you enable the possibility to apply styles to the output.
    * Use false, if you want to keep the code small (especially inside of sheets).
+   *
    * @deprecated after 4.0.0 release. Use attribute 'plain' instead ({@link IsPlain#setPlain(String)}).
    */
   @Deprecated

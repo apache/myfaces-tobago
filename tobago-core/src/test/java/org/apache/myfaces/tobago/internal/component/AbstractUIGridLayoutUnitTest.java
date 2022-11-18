@@ -67,7 +67,6 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
     Assertions.assertEquals(d, cells[2][1]);
   }
 
-
   @Test
   public void test2() {
     final AbstractUIGridLayout grid = (AbstractUIGridLayout) ComponentUtils.createComponent(

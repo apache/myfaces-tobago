@@ -29,5 +29,6 @@ import javax.faces.component.UIGraphic;
 public abstract class AbstractUIImage extends UIGraphic implements Visual {
 
   public abstract boolean isDisabled();
+
   public abstract String getAlt();
 }

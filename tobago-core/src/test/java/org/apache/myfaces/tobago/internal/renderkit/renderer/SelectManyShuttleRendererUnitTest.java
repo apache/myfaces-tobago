@@ -72,7 +72,6 @@ public class SelectManyShuttleRendererUnitTest extends RendererTestBase {
   }
   //help
 
-
   @Test
   public void errorMessage() throws IOException {
     final UISelectManyShuttle c = (UISelectManyShuttle) ComponentUtils.createComponent(
