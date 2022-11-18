@@ -40,6 +40,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -220,7 +221,8 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
     }
   }
 
-  protected void encodeLabel(final FacesContext facesContext, final T component,
+  protected void encodeLabel(
+      final FacesContext facesContext, final T component,
       final TobagoResponseWriter writer, final LabelLayout labelLayout)
       throws IOException {
     // TBD: maybe use an interface for getLabel()
@@ -238,8 +240,8 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
       }
       writer.writeAttribute(HtmlAttributes.FOR, getFieldId(facesContext, component), false);
       writer.writeClassAttribute(
-        ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,
-        BootstrapClass.COL_FORM_LABEL);
+          ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,
+          BootstrapClass.COL_FORM_LABEL);
       if (component instanceof SupportsAccessKey) {
         final LabelWithAccessKey labelWithAccessKey = new LabelWithAccessKey((SupportsAccessKey) component);
         HtmlRendererUtils.writeLabelWithAccessKey(writer, labelWithAccessKey);

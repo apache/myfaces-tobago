@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
+
 import java.io.IOException;
 
 public class FigureRenderer<T extends AbstractUIFigure> extends RendererBase<T> {

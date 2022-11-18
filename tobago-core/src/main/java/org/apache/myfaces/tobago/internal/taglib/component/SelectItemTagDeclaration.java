@@ -45,6 +45,7 @@ public interface SelectItemTagDeclaration extends HasBinding, HasId, IsVisual, H
 
   /**
    * Description of an item, might be rendered as a tool tip.
+   *
    * @deprecated since 2.0.0, please use itemTip.
    */
   @Deprecated

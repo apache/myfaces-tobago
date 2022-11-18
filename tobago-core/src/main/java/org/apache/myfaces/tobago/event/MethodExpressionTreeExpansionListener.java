@@ -26,7 +26,6 @@ import jakarta.el.MethodExpression;
 import jakarta.faces.component.StateHolder;
 import jakarta.faces.context.FacesContext;
 
-
 public class MethodExpressionTreeExpansionListener implements TreeExpansionListener, StateHolder {
 
   private MethodExpression methodExpression;

@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.example.demo;
 import jakarta.enterprise.context.Conversation;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
+
 import java.io.Serializable;
 
 // XXX a solution might be putting this example to its own small JAR.
@@ -31,7 +32,7 @@ import java.io.Serializable;
 @Named
 public class ConversationController implements Serializable {
 
-//  @Inject // XXX
+  //  @Inject // XXX
   private Conversation conversation;
   private int count = 0;
 

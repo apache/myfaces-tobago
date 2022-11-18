@@ -31,6 +31,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.AbortProcessingException;
 import jakarta.faces.event.ActionEvent;
 import jakarta.faces.event.ActionListener;
+
 import java.lang.invoke.MethodHandles;
 
 public class CollapsibleActionListener implements ActionListener, StateHolder {

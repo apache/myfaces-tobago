@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import jakarta.faces.context.FacesContext;
+
 import java.io.IOException;
 
 public class StarsRenderer<T extends AbstractUIStars> extends MessageLayoutRendererBase<T> {

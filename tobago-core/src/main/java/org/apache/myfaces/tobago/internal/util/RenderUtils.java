@@ -49,6 +49,7 @@ import jakarta.faces.component.behavior.ClientBehaviorHolder;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.ClientBehaviorRenderer;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.invoke.MethodHandles;
@@ -298,7 +299,8 @@ public final class RenderUtils {
    * @deprecated since 5.0.0
    */
   @Deprecated
-  public static CommandMap getBehaviorCommands(final FacesContext facesContext,
+  public static CommandMap getBehaviorCommands(
+      final FacesContext facesContext,
       final ClientBehaviorHolder clientBehaviorHolder) {
     CommandMap commandMap = null;
 
@@ -353,14 +355,16 @@ public final class RenderUtils {
    * @deprecated since 5.0.0
    */
   @Deprecated
-  private static ClientBehaviorContext getClientBehaviorContext(final FacesContext facesContext,
+  private static ClientBehaviorContext getClientBehaviorContext(
+      final FacesContext facesContext,
       final ClientBehaviorHolder clientBehaviorHolder, final String eventName) {
     UIComponent component = (UIComponent) clientBehaviorHolder;
     return ClientBehaviorContext.createClientBehaviorContext(facesContext, component, eventName,
         component.getClientId(facesContext), null);
   }
 
-  public static AbstractUIEvent getAbstractUIEvent(final UIComponent parent,
+  public static AbstractUIEvent getAbstractUIEvent(
+      final UIComponent parent,
       final EventBehavior eventBehavior) {
     return (AbstractUIEvent) parent.getChildren().stream()
         .filter(child -> child instanceof AbstractUIEvent)
@@ -372,7 +376,8 @@ public final class RenderUtils {
    * @deprecated since 5.0.0
    */
   @Deprecated
-  private static CommandMap getCommandMap(final FacesContext facesContext,
+  private static CommandMap getCommandMap(
+      final FacesContext facesContext,
       final ClientBehaviorContext clientBehaviorContext, final ClientBehavior clientBehavior) {
     if (clientBehavior instanceof ClientBehaviorBase) {
       String type = ((ClientBehaviorBase) clientBehavior).getRendererType();

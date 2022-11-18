@@ -35,6 +35,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jakarta.faces.context.FacesContext;
+
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 
@@ -100,8 +101,8 @@ public abstract class SelectBooleanRendererBase<T extends AbstractUISelectBoolea
 
     writer.startElement(HtmlElements.INPUT);
     writer.writeClassAttribute(
-      BootstrapClass.FORM_CHECK_INPUT,
-      BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)));
+        BootstrapClass.FORM_CHECK_INPUT,
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)));
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
     writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
     writer.writeNameAttribute(clientId);

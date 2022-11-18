@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.example.demo.info;
 
 import jakarta.servlet.http.HttpSession;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -43,7 +44,7 @@ public class Activity implements Serializable {
   }
 
   public void executeAjaxRequest() {
-      ajaxRequest++;
+    ajaxRequest++;
   }
 
   public String getSessionId() {

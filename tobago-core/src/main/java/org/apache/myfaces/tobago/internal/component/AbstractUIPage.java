@@ -28,6 +28,7 @@ import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
 import jakarta.faces.context.FacesContext;
+
 import java.lang.invoke.MethodHandles;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -70,7 +71,7 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Clien
     markSubmittedForm(context);
 
     // invoke processDecodes() on children
-    for (final Iterator<UIComponent> kids = getFacetsAndChildren(); kids.hasNext();) {
+    for (final Iterator<UIComponent> kids = getFacetsAndChildren(); kids.hasNext(); ) {
       final UIComponent kid = kids.next();
       kid.processDecodes(context);
     }

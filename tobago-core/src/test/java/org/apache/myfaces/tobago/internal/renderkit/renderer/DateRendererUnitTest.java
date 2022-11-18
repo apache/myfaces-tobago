@@ -99,7 +99,7 @@ public class DateRendererUnitTest extends RendererTestBase {
     d.setValue(SPUTNIK_DATE);
 
     final UIOut out = (UIOut) ComponentUtils.createComponent(
-      facesContext, Tags.out.componentType(), RendererTypes.Out, "out");
+        facesContext, Tags.out.componentType(), RendererTypes.Out, "out");
     d.getFacets().put("before", out);
     out.setValue("before");
 
@@ -117,7 +117,7 @@ public class DateRendererUnitTest extends RendererTestBase {
     d.setValue(SPUTNIK_DATE);
 
     final UIOut out = (UIOut) ComponentUtils.createComponent(
-      facesContext, Tags.out.componentType(), RendererTypes.Out, "out");
+        facesContext, Tags.out.componentType(), RendererTypes.Out, "out");
     out.setValue("after");
     d.getFacets().put("after", out);
 

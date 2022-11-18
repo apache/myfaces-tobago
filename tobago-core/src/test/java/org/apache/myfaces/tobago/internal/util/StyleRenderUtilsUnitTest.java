@@ -25,6 +25,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import jakarta.faces.context.FacesContext;
+
 import java.io.IOException;
 
 public class StyleRenderUtilsUnitTest extends AbstractTobagoTestBase {

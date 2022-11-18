@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.context;
 
-
 import jakarta.faces.component.StateHolder;
 import jakarta.faces.context.FacesContext;
+
 import java.io.Serializable;
 
 public class TransientStateHolder implements StateHolder, Serializable {

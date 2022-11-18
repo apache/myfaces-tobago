@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import jakarta.faces.context.FacesContext;
+
 import java.io.IOException;
 
 public class RangeRenderer<T extends AbstractUIRange> extends MessageLayoutRendererBase<T> {
@@ -48,7 +49,7 @@ public class RangeRenderer<T extends AbstractUIRange> extends MessageLayoutRende
 
   @Override
   protected void encodeBeginField(final FacesContext facesContext, final T component)
-    throws IOException {
+      throws IOException {
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     final String currentValue = getCurrentValue(facesContext, component);
     final String clientId = component.getClientId(facesContext);
@@ -91,10 +92,10 @@ public class RangeRenderer<T extends AbstractUIRange> extends MessageLayoutRende
 
     final CssItem rendererCssClass = getRendererCssClass();
     writer.writeClassAttribute(
-      rendererCssClass,
-      BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
-      BootstrapClass.FORM_RANGE,
-      component.getCustomClass());
+        rendererCssClass,
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
+        BootstrapClass.FORM_RANGE,
+        component.getCustomClass());
 
     renderFocus(clientId, component.isFocus(), component.isError(), facesContext, writer);
 

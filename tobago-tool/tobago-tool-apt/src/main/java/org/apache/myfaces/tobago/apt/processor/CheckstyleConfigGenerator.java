@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.apt.processor;
 
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.myfaces.tobago.apt.annotation.ConverterTag;
 import org.apache.myfaces.tobago.apt.annotation.SimpleTag;

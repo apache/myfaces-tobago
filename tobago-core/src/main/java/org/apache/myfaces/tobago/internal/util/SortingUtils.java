@@ -42,6 +42,7 @@ import jakarta.faces.component.UISelectMany;
 import jakarta.faces.component.UISelectOne;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.model.DataModel;
+
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -104,9 +105,9 @@ public class SortingUtils {
           if (expression != null) {
             final String var = sheet.getVar();
             if (var == null) {
-                LOG.error("No sorting performed. Property var of sheet is not set!");
-                addNotSortableMessage(facesContext, column);
-                return false;
+              LOG.error("No sorting performed. Property var of sheet is not set!");
+              addNotSortableMessage(facesContext, column);
+              return false;
             }
             actualComparator = new ValueExpressionComparator(facesContext, var, expression, !ascending, comparator);
           } else {

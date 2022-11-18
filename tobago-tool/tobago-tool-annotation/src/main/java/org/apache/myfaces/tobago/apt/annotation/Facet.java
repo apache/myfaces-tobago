@@ -28,13 +28,14 @@ import java.lang.annotation.ElementType;
 @Target(value = ElementType.TYPE)
 public @interface Facet {
   String name();
+
   String description() default "";
 
   /**
-    * Array of supported component-types that explictly enumerates the
-    * set of allowd component children for this component. Other possible values are: ALL...
+   * Array of supported component-types that explictly enumerates the
+   * set of allowd component children for this component. Other possible values are: ALL...
    */
-  String[] allowedChildComponenents() default { "ALL" };
+  String[] allowedChildComponenents() default {"ALL"};
 
   /**
    * Specifies whether this component should be available on a component palette.

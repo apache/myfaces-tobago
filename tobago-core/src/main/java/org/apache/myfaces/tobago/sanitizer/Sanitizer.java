@@ -29,5 +29,7 @@ public interface Sanitizer {
 
   default String getInfo() {
     return toString();
-  };
+  }
+
+  ;
 }

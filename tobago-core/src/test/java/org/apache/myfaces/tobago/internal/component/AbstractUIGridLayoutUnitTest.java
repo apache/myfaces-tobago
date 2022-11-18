@@ -28,6 +28,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import jakarta.faces.component.UIComponent;
+
 import java.util.Arrays;
 
 public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
@@ -66,7 +67,6 @@ public class AbstractUIGridLayoutUnitTest extends AbstractTobagoTestBase {
     Assertions.assertEquals(e, cells[2][0]);
     Assertions.assertEquals(d, cells[2][1]);
   }
-
 
   @Test
   public void test2() {

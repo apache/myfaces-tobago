@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.model.Selectable;
 
 import jakarta.faces.model.SelectItem;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -80,7 +81,6 @@ public class SheetConfig {
     }
     return items;
   }
-
 
   public boolean isSheetShowHeader() {
     return sheetShowHeader;

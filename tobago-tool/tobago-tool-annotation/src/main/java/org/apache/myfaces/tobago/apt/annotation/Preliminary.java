@@ -27,7 +27,6 @@ import java.lang.annotation.ElementType;
 /**
  * Mark the code as 'Preliminary'.
  * The interface maybe subject to changed in a future version.
- *
  */
 @Retention(value = RetentionPolicy.SOURCE)
 @Target(value = {ElementType.TYPE, ElementType.METHOD})

@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.example.demo;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.event.ActionEvent;
 import jakarta.inject.Named;
+
 import java.io.Serializable;
 
 @RequestScoped

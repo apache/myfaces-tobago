@@ -29,6 +29,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import jakarta.faces.component.UIPanel;
+
 import java.io.IOException;
 
 public class SelectOneRadioRendererUnitTest extends RendererTestBase {

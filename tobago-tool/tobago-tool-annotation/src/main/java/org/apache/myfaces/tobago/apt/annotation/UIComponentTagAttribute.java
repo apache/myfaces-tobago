@@ -29,15 +29,19 @@ import java.lang.annotation.ElementType;
 
 public @interface UIComponentTagAttribute {
 
-  /** type of attribute in the UIComponent */
+  /**
+   * type of attribute in the UIComponent
+   */
   String[] type() default {"java.lang.String"};
 
-  String[] allowedValues() default { };
+  String[] allowedValues() default {};
 
-  /** allow faces expression language, e.g. #{bean.value}  */
+  /**
+   * allow faces expression language, e.g. #{bean.value}
+   */
   DynamicExpression expression() default DynamicExpression.VALUE_EXPRESSION;
 
-  String[] methodSignature() default { };
+  String[] methodSignature() default {};
 
   String methodReturnType() default "void";
 

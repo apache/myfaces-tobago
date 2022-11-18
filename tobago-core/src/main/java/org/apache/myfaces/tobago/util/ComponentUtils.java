@@ -58,6 +58,7 @@ import jakarta.faces.render.RenderKit;
 import jakarta.faces.render.RenderKitFactory;
 import jakarta.faces.render.Renderer;
 import jakarta.faces.view.facelets.FaceletContext;
+
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -578,7 +579,8 @@ public final class ComponentUtils {
     return getRenderer(facesContext, component.getFamily(), component.getRendererType());
   }
 
-  public static RendererBase getRenderer(final FacesContext facesContext, final String family,
+  public static RendererBase getRenderer(
+      final FacesContext facesContext, final String family,
       final String rendererType) {
     if (rendererType == null) {
       return null;
@@ -600,7 +602,6 @@ public final class ComponentUtils {
     }
     return renderer;
   }
-
 
   private static Renderer getRendererInternal(
       final FacesContext facesContext, final String family, final String rendererType) {

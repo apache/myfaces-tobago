@@ -32,6 +32,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import jakarta.faces.component.behavior.AjaxBehavior;
+
 import java.io.IOException;
 
 public class TreeSelectRendererUnitTest extends RendererTestBase {

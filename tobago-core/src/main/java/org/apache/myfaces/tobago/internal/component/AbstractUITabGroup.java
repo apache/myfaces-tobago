@@ -39,6 +39,7 @@ import jakarta.faces.event.AbortProcessingException;
 import jakarta.faces.event.ActionListener;
 import jakarta.faces.event.FacesEvent;
 import jakarta.faces.event.PhaseId;
+
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
@@ -61,7 +62,6 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
     super.encodeEnd(facesContext);
     setRenderedIndex(getSelectedIndex());
   }
-
 
   @Override
   public boolean getRendersChildren() {
@@ -98,7 +98,6 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   public AbstractUITab getActiveTab() {
     return getTab(getSelectedIndex());
   }
-
 
   @Override
   public void processDecodes(final FacesContext context) {

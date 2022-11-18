@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.model.SelectItem;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +38,11 @@ public class SelectManyListboxController implements Serializable {
 
   public SelectManyListboxController() {
     deserts = new SelectItem[]{
-            new SelectItem("Antarctic Desert"),
-            new SelectItem("Arctic"),
-            new SelectItem("Sahara"),
-            new SelectItem("Arabian Desert"),
-            new SelectItem("Gobi Desert")
+        new SelectItem("Antarctic Desert"),
+        new SelectItem("Arctic"),
+        new SelectItem("Sahara"),
+        new SelectItem("Arabian Desert"),
+        new SelectItem("Gobi Desert")
     };
   }
 

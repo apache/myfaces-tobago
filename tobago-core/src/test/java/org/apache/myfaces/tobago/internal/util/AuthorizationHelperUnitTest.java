@@ -27,31 +27,31 @@ class AuthorizationHelperUnitTest {
   @Test
   public void testSkipBrackets() {
     Assertions.assertEquals(
-      "#{controller.viewDetails}",
-      AuthorizationHelper.skipParameterPart("#{controller.viewDetails(cc.attrs.value, facesContext)}"));
+        "#{controller.viewDetails}",
+        AuthorizationHelper.skipParameterPart("#{controller.viewDetails(cc.attrs.value, facesContext)}"));
     Assertions.assertEquals(
-      "#{x}",
-      AuthorizationHelper.skipParameterPart("#{x}"));
+        "#{x}",
+        AuthorizationHelper.skipParameterPart("#{x}"));
     Assertions.assertEquals(
-      "controller.viewDetails",
-      AuthorizationHelper.skipParameterPart("controller.viewDetails(cc.attrs.value, facesContext)"));
+        "controller.viewDetails",
+        AuthorizationHelper.skipParameterPart("controller.viewDetails(cc.attrs.value, facesContext)"));
     Assertions.assertEquals(
-      "x",
-      AuthorizationHelper.skipParameterPart("x"));
+        "x",
+        AuthorizationHelper.skipParameterPart("x"));
     Assertions.assertEquals(
-      "",
-      AuthorizationHelper.skipParameterPart(""));
+        "",
+        AuthorizationHelper.skipParameterPart(""));
     Assertions.assertEquals(
-      "#{x.a}",
-      AuthorizationHelper.skipParameterPart("#{x.a()}"));
+        "#{x.a}",
+        AuthorizationHelper.skipParameterPart("#{x.a()}"));
     Assertions.assertEquals(
-      "#{x.a)(}",
-      AuthorizationHelper.skipParameterPart("#{x.a)(}"));
+        "#{x.a)(}",
+        AuthorizationHelper.skipParameterPart("#{x.a)(}"));
     Assertions.assertEquals(
-      "#{x.a)}",
-      AuthorizationHelper.skipParameterPart("#{x.a)}"));
+        "#{x.a)}",
+        AuthorizationHelper.skipParameterPart("#{x.a)}"));
     Assertions.assertEquals(
-      "#{x.a(}",
-      AuthorizationHelper.skipParameterPart("#{x.a(}"));
+        "#{x.a(}",
+        AuthorizationHelper.skipParameterPart("#{x.a(}"));
   }
 }

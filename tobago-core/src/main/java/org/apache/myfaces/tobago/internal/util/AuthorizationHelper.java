@@ -114,7 +114,7 @@ public class AuthorizationHelper {
   }
 
   private Annotation getSecurityAnnotation(
-    final FacesContext facesContext, final UIComponent component, final String expressionFull) {
+      final FacesContext facesContext, final UIComponent component, final String expressionFull) {
 
     final String expression = skipParameterPart(expressionFull);
 
@@ -168,8 +168,8 @@ public class AuthorizationHelper {
       if (compositeComponent != null) {
         final int attrNameStart = expression.indexOf(CC_ATTRS) + CC_ATTRS.length();
         final int attrNameEnd = expression.substring(attrNameStart).contains(".")
-          ? attrNameStart + expression.substring(attrNameStart).indexOf(".")
-          : attrNameStart + expression.substring(attrNameStart).indexOf("}");
+            ? attrNameStart + expression.substring(attrNameStart).indexOf(".")
+            : attrNameStart + expression.substring(attrNameStart).indexOf("}");
         final String attrName = expression.substring(attrNameStart, attrNameEnd);
 
         ValueExpression valueExpression = compositeComponent.getValueExpression(attrName);
@@ -180,13 +180,13 @@ public class AuthorizationHelper {
           final String trimmedCcExpression = ccExpression.substring(bracketStart + 1, bracketEnd).trim();
 
           return getSecurityAnnotation(facesContext, component,
-            expression.replace(CC_ATTRS + attrName, trimmedCcExpression));
+              expression.replace(CC_ATTRS + attrName, trimmedCcExpression));
         }
 
         MethodExpression methodExpression = (MethodExpression) compositeComponent.getAttributes().get(attrName);
         if (methodExpression != null) {
           return getSecurityAnnotation(facesContext, component,
-            methodExpression.getExpressionString().replaceAll(" ", ""));
+              methodExpression.getExpressionString().replaceAll(" ", ""));
         }
 
         return securityAnnotation;

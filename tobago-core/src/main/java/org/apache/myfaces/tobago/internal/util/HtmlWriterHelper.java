@@ -70,7 +70,8 @@ public final class HtmlWriterHelper extends WriterHelper {
   }
 
   @Override
-  protected void writeEncodedValue(final char[] text, final int start,
+  protected void writeEncodedValue(
+      final char[] text, final int start,
       final int length, final boolean isAttribute) throws IOException {
 
     int localIndex = -1;

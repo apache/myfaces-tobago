@@ -31,7 +31,9 @@ import java.net.URL;
 
 public class TobagoConfigVersion extends TobagoConfigEntityResolver {
 
-  /** Schema or DTD? */
+  /**
+   * Schema or DTD?
+   */
   private boolean schema;
 
   private String version;

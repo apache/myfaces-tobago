@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.model.SelectItem;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
+
 import java.io.Serializable;
 
 @RequestScoped
@@ -33,15 +34,15 @@ public class SelectController implements Serializable {
 
   public SelectController() {
     entries = new SelectItem[]{
-            new SelectItem("1", "Entry One"),
-            new SelectItem("2", "Entry Two"),
-            new SelectItem("3", "Entry Three"),
-            new SelectItem("4", "Entry Four"),
-            new SelectItem("5", "Entry Five"),
-            new SelectItem("6", "Entry Six"),
-            new SelectItem("7", "Entry Seven"),
-            new SelectItem("8", "Entry Eight"),
-            new SelectItem("9", "Entry Nine")
+        new SelectItem("1", "Entry One"),
+        new SelectItem("2", "Entry Two"),
+        new SelectItem("3", "Entry Three"),
+        new SelectItem("4", "Entry Four"),
+        new SelectItem("5", "Entry Five"),
+        new SelectItem("6", "Entry Six"),
+        new SelectItem("7", "Entry Seven"),
+        new SelectItem("8", "Entry Eight"),
+        new SelectItem("9", "Entry Nine")
     };
   }
 

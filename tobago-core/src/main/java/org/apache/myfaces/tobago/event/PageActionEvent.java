@@ -19,10 +19,8 @@
 
 package org.apache.myfaces.tobago.event;
 
-
 import jakarta.faces.event.ActionEvent;
 import jakarta.faces.component.UIComponent;
-
 
 public class PageActionEvent extends ActionEvent {
 

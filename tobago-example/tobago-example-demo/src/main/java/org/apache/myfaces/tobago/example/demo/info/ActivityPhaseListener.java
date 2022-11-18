@@ -29,6 +29,7 @@ import jakarta.faces.event.PhaseId;
 import jakarta.faces.event.PhaseListener;
 import jakarta.inject.Inject;
 import jakarta.servlet.http.HttpSession;
+
 import java.lang.invoke.MethodHandles;
 
 // XXX @Inject in PhaseListener doesn't work with Quarkus

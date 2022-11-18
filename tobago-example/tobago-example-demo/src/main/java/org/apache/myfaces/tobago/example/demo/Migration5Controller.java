@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.example.demo;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
+
 import java.io.Serializable;
 
 @ApplicationScoped

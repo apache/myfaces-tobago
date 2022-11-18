@@ -27,6 +27,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
+
 import java.io.File;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -72,9 +73,9 @@ public class TestController implements Serializable {
       for (final String page : getXHTMLs(rootDir)) {
         final String base = page.substring(realPath.length(), page.length() - ".xhtml".length());
         pages.add(new TestPage(
-          "tp" + idCount++,
-          URLEncoder.encode(base, StandardCharsets.UTF_8.name()),
-          base));
+            "tp" + idCount++,
+            URLEncoder.encode(base, StandardCharsets.UTF_8.name()),
+            base));
         // todo: StandardCharsets.UTF_8.name() can be simplified with Java 10
       }
     }
@@ -105,9 +106,9 @@ public class TestController implements Serializable {
       for (final String testJs : getTestJs(rootDir)) {
         final String base = testJs.substring(realPath.length(), testJs.length() - ".test.js".length());
         testPages.add(new TestPage(
-          "tp" + idCount++,
-          URLEncoder.encode(base, StandardCharsets.UTF_8.name()),
-          base));
+            "tp" + idCount++,
+            URLEncoder.encode(base, StandardCharsets.UTF_8.name()),
+            base));
         // todo: StandardCharsets.UTF_8.name() can be simplified with Java 10
       }
     }

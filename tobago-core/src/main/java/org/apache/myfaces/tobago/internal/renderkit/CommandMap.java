@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.renderkit;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 
 import jakarta.faces.context.FacesContext;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -84,6 +85,7 @@ public class CommandMap {
    * Merges these two maps.
    * If one is null, the other one will be return. It may also return null.
    * If both are not null, m1 will be filled with the data of m2.
+   *
    * @param m1 map 1
    * @param m2 map 2
    * @return m1 or m2

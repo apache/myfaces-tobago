@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.inject.Named;
+
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;

@@ -24,18 +24,18 @@ package org.apache.myfaces.tobago.internal.config;
  */
 public enum SecurityAnnotation {
 
-    /**
-     * Hides forbidden commands.
-     */
-    hide,
+  /**
+   * Hides forbidden commands.
+   */
+  hide,
 
-    /**
-     * Disables forbidden commands.
-     */
-    disable,
+  /**
+   * Disables forbidden commands.
+   */
+  disable,
 
-    /**
-     * Tobago ignores the role annotation.
-     */
-    ignore
+  /**
+   * Tobago ignores the role annotation.
+   */
+  ignore
 }

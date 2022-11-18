@@ -23,6 +23,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
 import java.io.Serializable;
 
 @RequestScoped

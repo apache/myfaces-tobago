@@ -31,6 +31,7 @@ import jakarta.faces.view.facelets.TagAttributeException;
 import jakarta.faces.view.facelets.TagConfig;
 import jakarta.faces.view.facelets.TagException;
 import jakarta.faces.view.facelets.TagHandler;
+
 import java.io.IOException;
 
 public class TabChangeListenerHandler extends TagHandler {
@@ -40,7 +41,6 @@ public class TabChangeListenerHandler extends TagHandler {
   private final TagAttribute type;
 
   private final TagAttribute binding;
-
 
   public TabChangeListenerHandler(final TagConfig config) {
     super(config);

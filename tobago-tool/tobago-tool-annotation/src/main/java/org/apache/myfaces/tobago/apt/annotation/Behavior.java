@@ -28,6 +28,8 @@ import java.lang.annotation.Target;
 @Target(value = ElementType.TYPE)
 public @interface Behavior {
   String name();
+
   String description() default "";
+
   boolean isDefault() default false;
 }

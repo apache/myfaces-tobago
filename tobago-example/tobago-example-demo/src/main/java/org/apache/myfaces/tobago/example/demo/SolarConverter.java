@@ -29,6 +29,7 @@ import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.ConverterException;
 import jakarta.faces.convert.FacesConverter;
 import jakarta.inject.Inject;
+
 import java.lang.invoke.MethodHandles;
 
 @FacesConverter(forClass = SolarObject.class)// XXX fixme: is not running with Quarkus!

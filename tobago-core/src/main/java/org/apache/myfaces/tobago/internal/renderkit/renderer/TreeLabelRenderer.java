@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import jakarta.faces.context.FacesContext;
+
 import java.io.IOException;
 
 public class TreeLabelRenderer<T extends AbstractUITreeLabel> extends RendererBase<T> {

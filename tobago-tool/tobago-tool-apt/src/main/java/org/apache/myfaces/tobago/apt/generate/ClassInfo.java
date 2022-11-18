@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.apt.generate;
 import java.util.HashSet;
 import java.util.Set;
 
-
 public class ClassInfo {
   private String className;
   private String packageName;

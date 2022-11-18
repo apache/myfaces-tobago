@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import jakarta.faces.application.NavigationHandler;
 import jakarta.faces.context.FacesContext;
+
 import java.lang.invoke.MethodHandles;
 
 public class DebugNavigationHandler extends NavigationHandler {
@@ -45,7 +46,7 @@ public class DebugNavigationHandler extends NavigationHandler {
 
     // TBD: is this correct?
     if (outcome != null && facesContext.getPartialViewContext().isAjaxRequest()) {
-        LOG.warn("An AJAX-Request should not have an outcome set: outcome='" + outcome + "'");
+      LOG.warn("An AJAX-Request should not have an outcome set: outcome='" + outcome + "'");
     }
 
     navigationHandler.handleNavigation(facesContext, fromAction, outcome);

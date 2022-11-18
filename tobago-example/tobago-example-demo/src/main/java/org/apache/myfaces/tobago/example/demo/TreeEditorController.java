@@ -26,6 +26,7 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
@@ -41,7 +42,6 @@ public class TreeEditorController implements Serializable {
   private String name;
   private DefaultMutableTreeNode copyNode;
   private DefaultMutableTreeNode cutNode;
-
 
   public TreeEditorController() {
     this.categoryTree = CategoryTree.createSample();
@@ -77,7 +77,7 @@ public class TreeEditorController implements Serializable {
         node.removeFromParent();
       } else {
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "Root node cannot be removed", null));
+            new FacesMessage(FacesMessage.SEVERITY_INFO, "Root node cannot be removed", null));
       }
     } else {
       LOG.warn("No node selected.");
@@ -128,7 +128,7 @@ public class TreeEditorController implements Serializable {
       if (cutNode != null) {
         if (isBaseNodeContainSelectedNode(cutNode, node)) {
           FacesContext.getCurrentInstance().addMessage(null,
-                  new FacesMessage(FacesMessage.SEVERITY_INFO, "Cannot past a cut node into itself.", null));
+              new FacesMessage(FacesMessage.SEVERITY_INFO, "Cannot past a cut node into itself.", null));
         } else {
           node.insert(cutNode, 0);
           cutNode = null;
@@ -178,7 +178,7 @@ public class TreeEditorController implements Serializable {
         parent.insert(node, parent.getIndex(previousSibling));
       } else {
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "The node cannot moved up further.", null));
+            new FacesMessage(FacesMessage.SEVERITY_INFO, "The node cannot moved up further.", null));
       }
     }
     return null;
@@ -193,7 +193,7 @@ public class TreeEditorController implements Serializable {
         parent.insert(node, parent.getIndex(nextSibling));
       } else {
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "The node cannot moved down further.", null));
+            new FacesMessage(FacesMessage.SEVERITY_INFO, "The node cannot moved down further.", null));
       }
     }
     return null;

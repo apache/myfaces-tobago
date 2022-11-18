@@ -30,6 +30,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+
 import java.lang.invoke.MethodHandles;
 import java.util.Date;
 
@@ -120,7 +121,6 @@ public class PartialReloadController {
     LOG.info("Return navigate value: " + navValue + "");
     return navValue;
   }
-
 
   public String getNavigateActionValue() {
     return navigateActionValue;

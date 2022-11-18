@@ -39,7 +39,9 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
 
   private final NavigationTree tree;
 
-  /** Cache the TreePath for optimization. */
+  /**
+   * Cache the TreePath for optimization.
+   */
   private TreePath treePath;
 
   public NavigationNode(final String path, final NavigationTree tree) {

@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.internal.util.RandomUtils;
 
 import jakarta.faces.context.FacesContext;
 import jakarta.servlet.http.HttpSession;
+
 import java.io.Serializable;
 
 public final class Secret implements Serializable {

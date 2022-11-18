@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.example.demo;
 
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
+
 import java.io.Serializable;
 
 @Singleton

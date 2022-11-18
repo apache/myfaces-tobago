@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
+
 import java.lang.invoke.MethodHandles;
 
 @RequestScoped

@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.internal.taglib.declaration;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-
 public interface HasRequiredMessageForSelect {
   /**
    * An expression that specifies the required message

@@ -26,6 +26,7 @@ import jakarta.faces.component.StateHelper;
 import jakarta.faces.component.StateHolder;
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.context.FacesContext;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -184,8 +185,6 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
 
   /**
    * Used to create delta map on demand
-   *
-   * @return
    */
   private boolean createDeltas() {
     if (isInitialStateMarked()) {

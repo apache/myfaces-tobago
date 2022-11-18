@@ -130,7 +130,6 @@ public class SheetState implements Serializable, ScrollPositionState {
   }
 
   /**
-   * @param ascending
    * @deprecated since 5.3.0, please use {@link #updateSortState(String id)}
    */
   @Deprecated

@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
+
 import java.io.IOException;
 
 public class BoxRenderer<T extends AbstractUIBox> extends CollapsiblePanelRendererBase<T> {
