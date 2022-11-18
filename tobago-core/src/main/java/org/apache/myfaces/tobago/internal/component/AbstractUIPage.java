@@ -70,7 +70,7 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Clien
     markSubmittedForm(context);
 
     // invoke processDecodes() on children
-    for (final Iterator<UIComponent> kids = getFacetsAndChildren(); kids.hasNext(); ) {
+    for (final Iterator<UIComponent> kids = getFacetsAndChildren(); kids.hasNext();) {
       final UIComponent kid = kids.next();
       kid.processDecodes(context);
     }
