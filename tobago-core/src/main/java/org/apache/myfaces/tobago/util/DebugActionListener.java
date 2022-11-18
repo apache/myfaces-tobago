@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import jakarta.faces.event.ActionListener;
 import jakarta.faces.event.ActionEvent;
 import jakarta.faces.event.AbortProcessingException;
+
 import java.lang.invoke.MethodHandles;
 
 public class DebugActionListener implements ActionListener {
@@ -32,7 +33,6 @@ public class DebugActionListener implements ActionListener {
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private final ActionListener actionListener;
-
 
   public DebugActionListener(final ActionListener actionListener) {
     this.actionListener = actionListener;

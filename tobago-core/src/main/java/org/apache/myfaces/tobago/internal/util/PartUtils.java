@@ -40,7 +40,6 @@ public final class PartUtils {
    * If you have at least Servlet 3.1, you wouldn't need this function.
    *
    * @since Tobago 3.0.0
-   *
    * @deprecated since 5.0.0. Servlet 3.1 or higher is required.
    */
   @Deprecated

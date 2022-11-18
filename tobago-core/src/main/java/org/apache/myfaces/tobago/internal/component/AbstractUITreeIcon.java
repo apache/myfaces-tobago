@@ -24,7 +24,7 @@ package org.apache.myfaces.tobago.internal.component;
  */
 public abstract class AbstractUITreeIcon extends AbstractUIImage {
 
- public abstract String getOpen();
+  public abstract String getOpen();
 
- public abstract String getClosed();
+  public abstract String getClosed();
 }

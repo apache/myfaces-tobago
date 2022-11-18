@@ -65,8 +65,10 @@ public abstract class AbstractUIScript extends UIComponentBase {
   }
 
   public abstract String getFile();
+
   public abstract void setFile(String file);
 
   public abstract String getType();
+
   public abstract void setType(String type);
 }

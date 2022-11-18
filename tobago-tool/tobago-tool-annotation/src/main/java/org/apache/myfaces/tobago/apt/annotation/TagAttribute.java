@@ -28,10 +28,14 @@ import java.lang.annotation.Target;
 @Target(value = ElementType.METHOD)
 
 public @interface TagAttribute {
-  /** type of the Tag  */
+  /**
+   * type of the Tag
+   */
   String type() default "java.lang.String";
 
-  /** allow JSP expression */
+  /**
+   * allow JSP expression
+   */
   boolean rtexprvalue() default false;
 
   boolean required() default false;

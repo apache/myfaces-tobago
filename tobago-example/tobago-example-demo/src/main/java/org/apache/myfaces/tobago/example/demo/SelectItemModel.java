@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.model.SelectItem;
 
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
+
 import java.io.Serializable;
 import java.util.Currency;
 

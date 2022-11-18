@@ -80,6 +80,7 @@ import jakarta.faces.event.ActionEvent;
 import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.faces.event.ValueChangeEvent;
 import jakarta.inject.Named;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -154,7 +155,6 @@ public class EventController implements Serializable {
     eventsOnComponents.add(new EventsOnComponent(new UITreeLabel()));
     eventsOnComponents.add(new EventsOnComponent(new UITreeListbox()));
     eventsOnComponents.add(new EventsOnComponent(new UITreeSelect()));
-
 
     planets.add(new SolarObject("Mercury", "I", "Sun", 57910, 87.97, 7.00, 0.21, "-", null));
     planets.add(new SolarObject("Venus", "II", "Sun", 108200, 224.70, 3.39, 0.01, "-", null));

@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
+
 import javax.swing.DefaultBoundedRangeModel;
 import java.io.Serializable;
 

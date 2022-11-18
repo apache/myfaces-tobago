@@ -132,6 +132,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
 
   /**
    * The selectable attribute e. g. for trees.
+   *
    * @deprecated since 5.0.0, please use {@link CustomAttributes#SELECTABLE}
    */
   @Deprecated
@@ -144,6 +145,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
 
   /**
    * A way to transport style data in JSON format to the browser. With CSP the normal style attribute isn't allowed.
+   *
    * @deprecated since 4.0.0. UIStyle now renders itself.
    */
   @Deprecated
@@ -165,6 +167,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
 
   /**
    * Id of the parent node in a tree node.
+   *
    * @deprecated since 5.0.0, please use {@link CustomAttributes#PARENT}
    */
   @Deprecated

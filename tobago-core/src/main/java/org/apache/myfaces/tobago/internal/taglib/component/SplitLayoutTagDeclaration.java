@@ -54,7 +54,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
         )
     })
 public interface SplitLayoutTagDeclaration
-      extends HasId, HasSpacing, HasBinding, IsVisual {
+    extends HasId, HasSpacing, HasBinding, IsVisual {
 
   /**
    * This value defines the layout constraints for column layout.

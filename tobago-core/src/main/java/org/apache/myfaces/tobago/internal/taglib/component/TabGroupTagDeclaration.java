@@ -88,6 +88,7 @@ public interface TabGroupTagDeclaration
    *   <dt>reloadTab</dt>
    *   <dd>Tab switching is done by server request. Only the Tab is reloaded.</dd>
    * </dl>
+   *
    * @param switchType Sets the switching type.
    */
   @TagAttribute
@@ -98,10 +99,8 @@ public interface TabGroupTagDeclaration
   void setSwitchType(String switchType);
 
   /**
-   *
    * <strong>ValueBindingExpression</strong> pointing to a Integer to save the
    * component's selected Tab.
-   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "0")

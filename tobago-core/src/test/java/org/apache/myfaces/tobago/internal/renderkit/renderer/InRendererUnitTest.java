@@ -38,6 +38,7 @@ import org.junit.jupiter.api.Test;
 
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.behavior.AjaxBehavior;
+
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -401,7 +402,7 @@ public class InRendererUnitTest extends RendererTestBase {
   @Test
   public void requiredLabelLayoutFlexLeft() throws IOException {
     final UIIn c = (UIIn) ComponentUtils.createComponent(
-      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.setLabel("label");
     c.setRequired(true);
     c.setLabelLayout(LabelLayout.flexLeft); // same as default
@@ -413,7 +414,7 @@ public class InRendererUnitTest extends RendererTestBase {
   @Test
   public void requiredLabelLayoutFlexRight() throws IOException {
     final UIIn c = (UIIn) ComponentUtils.createComponent(
-      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.setLabel("label");
     c.setRequired(true);
     c.setLabelLayout(LabelLayout.flexRight);
@@ -425,7 +426,7 @@ public class InRendererUnitTest extends RendererTestBase {
   @Test
   public void requiredLabelLayoutFlowLeft() throws IOException {
     final UIIn c = (UIIn) ComponentUtils.createComponent(
-      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.setLabel("label");
     c.setRequired(true);
     c.setLabelLayout(LabelLayout.flowLeft);
@@ -437,7 +438,7 @@ public class InRendererUnitTest extends RendererTestBase {
   @Test
   public void requiredLabelLayoutFlowRight() throws IOException {
     final UIIn c = (UIIn) ComponentUtils.createComponent(
-      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.setLabel("label");
     c.setRequired(true);
     c.setLabelLayout(LabelLayout.flowRight);
@@ -449,7 +450,7 @@ public class InRendererUnitTest extends RendererTestBase {
   @Test
   public void requiredLabelLayoutTop() throws IOException {
     final UIIn c = (UIIn) ComponentUtils.createComponent(
-      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.setLabel("label");
     c.setRequired(true);
     c.setLabelLayout(LabelLayout.top);
@@ -461,7 +462,7 @@ public class InRendererUnitTest extends RendererTestBase {
   @Test
   public void requiredLabelLayoutGridLeft() throws IOException {
     final UIIn c = (UIIn) ComponentUtils.createComponent(
-      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.setLabel("label");
     c.setRequired(true);
     c.setLabelLayout(LabelLayout.gridLeft);
@@ -473,7 +474,7 @@ public class InRendererUnitTest extends RendererTestBase {
   @Test
   public void requiredLabelLayoutGridRight() throws IOException {
     final UIIn c = (UIIn) ComponentUtils.createComponent(
-      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.setLabel("label");
     c.setRequired(true);
     c.setLabelLayout(LabelLayout.gridRight);
@@ -485,7 +486,7 @@ public class InRendererUnitTest extends RendererTestBase {
   @Test
   public void requiredLabelLayoutGridTop() throws IOException {
     final UIIn c = (UIIn) ComponentUtils.createComponent(
-      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.setLabel("label");
     c.setRequired(true);
     c.setLabelLayout(LabelLayout.gridTop);
@@ -497,7 +498,7 @@ public class InRendererUnitTest extends RendererTestBase {
   @Test
   public void requiredLabelLayoutGridBottom() throws IOException {
     final UIIn c = (UIIn) ComponentUtils.createComponent(
-      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.setLabel("label");
     c.setRequired(true);
     c.setLabelLayout(LabelLayout.gridBottom);
@@ -510,11 +511,11 @@ public class InRendererUnitTest extends RendererTestBase {
   public void requiredLabelLayoutSegmentLeft() throws IOException {
 
     final UISegmentLayout l = (UISegmentLayout) ComponentUtils.createComponent(
-      facesContext, Tags.segmentLayout.componentType(), RendererTypes.SegmentLayout, "segid");
+        facesContext, Tags.segmentLayout.componentType(), RendererTypes.SegmentLayout, "segid");
     l.setMedium(SegmentMeasureList.parse("3seg 9seg"));
 
     final UIIn c = (UIIn) ComponentUtils.createComponent(
-      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.setLabel("label");
     c.setRequired(true);
     c.setLabelLayout(LabelLayout.segmentLeft);
@@ -529,11 +530,11 @@ public class InRendererUnitTest extends RendererTestBase {
   public void requiredLabelLayoutSegmentRight() throws IOException {
 
     final UISegmentLayout l = (UISegmentLayout) ComponentUtils.createComponent(
-      facesContext, Tags.segmentLayout.componentType(), RendererTypes.SegmentLayout, "segid");
+        facesContext, Tags.segmentLayout.componentType(), RendererTypes.SegmentLayout, "segid");
     l.setMedium(SegmentMeasureList.parse("9seg 3seg"));
 
     final UIIn c = (UIIn) ComponentUtils.createComponent(
-      facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.setLabel("label");
     c.setRequired(true);
     c.setLabelLayout(LabelLayout.segmentRight);

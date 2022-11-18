@@ -30,10 +30,12 @@ import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
 import jakarta.faces.application.ViewHandler;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.servlet.ServletContext;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.invoke.MethodHandles;
@@ -144,7 +146,7 @@ public class WebXmlUtils {
       factory.setExpandEntityReferences(false);
     } catch (ParserConfigurationException e) {
       LOG.info("ParserConfigurationException was thrown. A feature is probably not supported by your XML processor. "
-              + e.getMessage());
+          + e.getMessage());
     }
     final DocumentBuilder documentBuilder = factory.newDocumentBuilder();
     for (final URL url : getWebXmlUrls(facesContext)) {

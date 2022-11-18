@@ -87,7 +87,7 @@ public class ExpandedState implements Serializable {
   /**
    * Expands a single node.
    *
-   * @param node The node to expand.
+   * @param node    The node to expand.
    * @param parents Should the parents also be expanded?
    */
   public void expand(final TreeNode node, final boolean parents) {
@@ -107,7 +107,7 @@ public class ExpandedState implements Serializable {
   /**
    * Expands a single node.
    *
-   * @param path The path of the node to expand.
+   * @param path    The path of the node to expand.
    * @param parents Should the parents also be expanded?
    */
   public void expand(final TreePath path, final boolean parents) {

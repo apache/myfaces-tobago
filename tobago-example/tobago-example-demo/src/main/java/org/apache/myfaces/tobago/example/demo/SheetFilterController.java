@@ -33,6 +33,7 @@ import jakarta.faces.convert.ConverterException;
 import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ import java.util.stream.Collectors;
 
 @SessionScoped
 @Named
-public class  SheetFilterController implements Serializable {
+public class SheetFilterController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 

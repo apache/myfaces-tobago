@@ -38,6 +38,7 @@ import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.ConverterException;
 import jakarta.faces.model.SelectItem;
 import jakarta.faces.model.SelectItemGroup;
+
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
@@ -125,8 +126,9 @@ public abstract class SelectManyRendererBase<T extends AbstractUISelectManyBase>
   static final String COLLECTION_TYPE_KEY = "collectionType";
   static final String VALUE_TYPE_KEY = "valueType";
 
-  static Object getConvertedUISelectManyValue(final FacesContext facesContext, final UISelectMany component,
-                                              final String[] submittedValue) throws ConverterException {
+  static Object getConvertedUISelectManyValue(
+      final FacesContext facesContext, final UISelectMany component,
+      final String[] submittedValue) throws ConverterException {
     return getConvertedUISelectManyValue(facesContext, component,
         submittedValue, false);
   }
@@ -135,11 +137,10 @@ public abstract class SelectManyRendererBase<T extends AbstractUISelectManyBase>
    * Gets the converted value of a UISelectMany component.
    * If the considerValueType is true, this method will also consider the
    * valueType attribute of Tomahawk UISelectMany components.
-   *
-   * @throws ConverterException
    */
-  static Object getConvertedUISelectManyValue(final FacesContext facesContext, final UISelectMany component,
-                                              final String[] submittedValue, final boolean considerValueType)
+  static Object getConvertedUISelectManyValue(
+      final FacesContext facesContext, final UISelectMany component,
+      final String[] submittedValue, final boolean considerValueType)
       throws ConverterException {
     // Attention!
     // This code is duplicated in shared renderkit package (except for considerValueType).
@@ -324,8 +325,9 @@ public abstract class SelectManyRendererBase<T extends AbstractUISelectManyBase>
    * @throws FacesException if the value is a String and the represented
    *                        class cannot be found
    */
-  static Class<?> getClassFromAttribute(final FacesContext facesContext,
-                                        final Object attribute) throws FacesException {
+  static Class<?> getClassFromAttribute(
+      final FacesContext facesContext,
+      final Object attribute) throws FacesException {
     // Attention!
     // This code is duplicated in shared renderkit package.
     // If you change something here please do the same in the other class!
@@ -356,10 +358,6 @@ public abstract class SelectManyRendererBase<T extends AbstractUISelectManyBase>
   /**
    * Uses the valueType attribute of the given UISelectMany component to
    * get a by-type converter.
-   *
-   * @param facesContext
-   * @param component
-   * @return
    */
   static Converter getValueTypeConverter(final FacesContext facesContext, final UISelectMany component) {
     Converter converter = null;
@@ -397,8 +395,6 @@ public abstract class SelectManyRendererBase<T extends AbstractUISelectManyBase>
    * Iterates through the SelectItems with the given Iterator and tries to obtain
    * a by-class-converter based on the Class of SelectItem.getValue().
    *
-   * @param iterator
-   * @param facesContext
    * @return The first suitable Converter for the given SelectItems or null.
    */
   static Converter getSelectItemsValueConverter(final Iterator<SelectItem> iterator, final FacesContext facesContext) {

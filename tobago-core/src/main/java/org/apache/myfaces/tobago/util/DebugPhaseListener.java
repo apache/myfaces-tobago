@@ -31,6 +31,7 @@ import jakarta.faces.event.PhaseId;
 import jakarta.faces.event.PhaseListener;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.lang.invoke.MethodHandles;
 import java.text.MessageFormat;
 import java.util.Iterator;
@@ -77,15 +78,15 @@ public class DebugPhaseListener implements PhaseListener {
           LOG.info("Total response time : " + (end - start + " milliseconds"));
         }
       }
-      for (final Iterator<String> iterator = facesContext.getClientIdsWithMessages(); iterator.hasNext();) {
+      for (final Iterator<String> iterator = facesContext.getClientIdsWithMessages(); iterator.hasNext(); ) {
         final String clientId = iterator.next();
 
         for (final Iterator<FacesMessage> messageIterator
-             = facesContext.getMessages(clientId); messageIterator.hasNext();) {
+             = facesContext.getMessages(clientId); messageIterator.hasNext(); ) {
           final FacesMessage msg = messageIterator.next();
           LOG.info(MessageFormat.format("Faces message found."
-              + "\n  Component: {0} \n  Severity : {1}"
-              + "\n  Summary  : {2} \n  Detail   : {3}",
+                  + "\n  Component: {0} \n  Severity : {1}"
+                  + "\n  Summary  : {2} \n  Detail   : {3}",
               clientId, msg.getSeverity(), msg.getSummary(), msg.getDetail()));
         }
       }

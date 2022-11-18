@@ -53,7 +53,7 @@ import jakarta.faces.component.UIData;
     },
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.TreeNode"
-        })
+    })
 public interface TreeTagDeclaration
     extends HasIdBindingAndRendered, HasValue, HasVar, IsVisual,
     IsShowRoot, IsShowRootJunction {

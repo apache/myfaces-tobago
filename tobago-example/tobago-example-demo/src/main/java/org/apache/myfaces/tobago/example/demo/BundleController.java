@@ -24,6 +24,7 @@ import jakarta.enterprise.event.Observes;
 import jakarta.faces.application.Application;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Enumeration;

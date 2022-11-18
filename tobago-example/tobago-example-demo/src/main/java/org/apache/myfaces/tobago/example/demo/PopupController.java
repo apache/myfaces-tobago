@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.inject.Named;
+
 import java.io.Serializable;
 import java.time.LocalTime;
 

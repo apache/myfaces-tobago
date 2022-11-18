@@ -30,6 +30,7 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.component.UIInput;
 import jakarta.faces.model.SelectItem;
 import jakarta.inject.Named;
+
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
@@ -61,7 +62,6 @@ public class InputSuggestController implements Serializable {
       {"25860 Olderup", "25860", "Olderup", "Schleswig Holstein"},
       {"66851 Olenkorb", "66851", "Olenkorb", "Rheinland-Pfalz"}
   };
-
 
   public String getSimpleValue() {
     return simpleValue;
@@ -140,8 +140,6 @@ public class InputSuggestController implements Serializable {
     item.setNextFocusId("page:txarea");
     return item;
   }
-
-
 
   public AutoSuggestItems getCitySuggestItems(final UIInput component) {
     final String prefix = (String) component.getSubmittedValue();

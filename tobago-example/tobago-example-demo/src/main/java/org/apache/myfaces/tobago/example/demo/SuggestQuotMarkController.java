@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
+
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;

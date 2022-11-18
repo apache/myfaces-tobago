@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.example.demo;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
+
 import java.io.Serializable;
 import java.time.LocalTime;
 

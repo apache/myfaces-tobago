@@ -123,7 +123,6 @@ public class Sudoku {
     return result;
   }
 
-
   private boolean checkRules() {
     return checkRowRules() && checkColumnRules() && checkSquareRules();
   }

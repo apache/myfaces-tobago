@@ -44,6 +44,7 @@ import jakarta.faces.component.behavior.ClientBehaviorContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.faces.event.PhaseId;
+
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -144,7 +145,8 @@ public class TobagoClientBehaviorRenderer extends jakarta.faces.render.ClientBeh
   }
 
   @Override
-  public void decode(final FacesContext facesContext, final UIComponent component,
+  public void decode(
+      final FacesContext facesContext, final UIComponent component,
       final ClientBehavior clientBehavior) {
     if (clientBehavior instanceof AjaxBehavior) {
       AjaxBehavior ajaxBehavior = (AjaxBehavior) clientBehavior;

@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
+
 import java.io.IOException;
 
 public class SelectReferenceRenderer<T extends AbstractUISelectReference> extends RendererBase<T> {

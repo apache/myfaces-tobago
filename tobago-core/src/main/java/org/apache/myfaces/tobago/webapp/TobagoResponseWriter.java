@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.ResponseWriter;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
@@ -169,21 +170,24 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   /**
    * Write the class attribute. The value will not escaped.
    */
-  public void writeClassAttribute(final CssItem first, final CssItem[] second, final CssItem[] third,
-                                  final CssItem... fourth) throws IOException {
+  public void writeClassAttribute(
+      final CssItem first, final CssItem[] second, final CssItem[] third,
+      final CssItem... fourth) throws IOException {
     writeClassAttribute(first, second, third, null, null, fourth);
   }
 
   /**
    * Write the class attribute. The value will not escaped.
    */
-  public void writeClassAttribute(final CssItem first, final CssItem[] second, final CssItem[] third,
-                                  final CssItem[] fourth, final CssItem... fifth) throws IOException {
+  public void writeClassAttribute(
+      final CssItem first, final CssItem[] second, final CssItem[] third,
+      final CssItem[] fourth, final CssItem... fifth) throws IOException {
     writeClassAttribute(first, second, third, fourth, null, fifth);
   }
 
-  public void writeClassAttribute(final CssItem first, final CssItem[] second, final CssItem[] third,
-                                  final CssItem[] fourth, final CssItem[] fifth, final CssItem... sixth)
+  public void writeClassAttribute(
+      final CssItem first, final CssItem[] second, final CssItem[] third,
+      final CssItem[] fourth, final CssItem[] fifth, final CssItem... sixth)
       throws IOException {
     final StringBuilder builder = new StringBuilder();
     boolean render = false;

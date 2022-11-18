@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.util;
 
 import jakarta.faces.application.Application;
 import jakarta.faces.context.FacesContext;
+
 import java.util.ResourceBundle;
 
 public class ResourceUtils {

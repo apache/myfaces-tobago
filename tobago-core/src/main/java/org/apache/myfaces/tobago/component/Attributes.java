@@ -157,7 +157,9 @@ public enum Attributes {
   lang,
   link,
   localMenu,
-  /** @deprecated since 2.0.0 */
+  /**
+   * @deprecated since 2.0.0
+   */
   @Deprecated
   margin,
   /**
@@ -447,12 +449,14 @@ public enum Attributes {
   widthList,
   zIndex;
 
-  /** This constants are needed for annotations, because they can't use the enums. */
+  /**
+   * This constants are needed for annotations, because they can't use the enums.
+   */
   public static final String EXECUTE = "execute";
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    private final String explicit;
+  private final String explicit;
 
   Attributes() {
     this(null);

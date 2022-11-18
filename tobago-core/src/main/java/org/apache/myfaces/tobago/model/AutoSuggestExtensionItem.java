@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.model;
 
-
 public class AutoSuggestExtensionItem {
   private String id;
   private String value;

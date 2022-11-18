@@ -81,6 +81,6 @@ import jakarta.faces.component.UICommand;
     })
 public interface LinkTagDeclaration
     extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand, HasConfirmation,
-            HasLink, HasOutcome, HasFragment, IsTransition, HasTarget, IsDisabledBySecurity,
-            IsOmit, HasImage, HasTabIndex, IsVisual, HasLabel, HasAccessKey, HasTip, HasAutoSpacing {
+    HasLink, HasOutcome, HasFragment, IsTransition, HasTarget, IsDisabledBySecurity,
+    IsOmit, HasImage, HasTabIndex, IsVisual, HasLabel, HasAccessKey, HasTip, HasAutoSpacing {
 }

@@ -34,7 +34,9 @@ public enum HtmlInputTypes implements HtmlTypes {
   BUTTON("button"),
   COLOR("color"),
   DATE("date"),
-  /** @deprecated */
+  /**
+   * @deprecated
+   */
   @Deprecated
   DATETIME("datetime"),
   DATETIME_LOCAL("datetime-local"),
@@ -60,7 +62,9 @@ public enum HtmlInputTypes implements HtmlTypes {
   public static final String STRING_BUTTON = "button";
   public static final String STRING_COLOR = "color";
   public static final String STRING_DATE = "date";
-  /** @deprecated */
+  /**
+   * @deprecated
+   */
   @Deprecated
   public static final String STRING_DATETIME = "datetime";
   public static final String STRING_DATETIME_LOCAL = "datetime-local";

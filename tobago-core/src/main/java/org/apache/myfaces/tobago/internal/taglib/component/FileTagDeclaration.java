@@ -92,7 +92,7 @@ public interface FileTagDeclaration
    */
   @TagAttribute()
   @UIComponentTagAttribute(
-      type = { "jakarta.servlet.http.Part", "jakarta.servlet.http.Part[]" },
+      type = {"jakarta.servlet.http.Part", "jakarta.servlet.http.Part[]"},
       expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
 

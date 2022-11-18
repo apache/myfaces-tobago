@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import jakarta.faces.context.FacesContext;
+
 import java.io.IOException;
 
 public class HiddenRenderer<T extends AbstractUIHidden> extends DecodingInputRendererBase<T> {

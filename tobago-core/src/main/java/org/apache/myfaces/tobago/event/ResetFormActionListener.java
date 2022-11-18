@@ -23,9 +23,10 @@ import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIForm;
 import jakarta.faces.event.AbortProcessingException;
 import jakarta.faces.event.ActionEvent;
+
 import java.io.Serializable;
 
-public class ResetFormActionListener extends AbstractResetInputActionListener implements Serializable{
+public class ResetFormActionListener extends AbstractResetInputActionListener implements Serializable {
 
   @Override
   public void processAction(final ActionEvent actionEvent) throws AbortProcessingException {

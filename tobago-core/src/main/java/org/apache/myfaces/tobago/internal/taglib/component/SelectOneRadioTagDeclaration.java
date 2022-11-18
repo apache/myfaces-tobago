@@ -66,7 +66,7 @@ import jakarta.faces.component.UISelectOne;
     allowedChildComponenents = {
         "jakarta.faces.SelectItem",
         "jakarta.faces.SelectItems"
-        },
+    },
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CHANGE,

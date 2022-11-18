@@ -80,7 +80,6 @@ public class ComponentUtilsUnitTest extends AbstractTobagoTestBase {
     input.setValid(false);
     Assertions.assertEquals(FacesMessage.SEVERITY_FATAL, ComponentUtils.getMaximumSeverity(input));
 
-
     final UIOut output = new UIOut();
     final String outputId = "OutputID";
     output.setId(outputId);

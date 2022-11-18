@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
+
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -183,8 +184,9 @@ public class LoggingController {
     private String factoryMethod;
     private boolean usesString; // is false it uses "Object" for logging
 
-    public LoggingInfo(final String id, final String factoryClassName, final String factoryMethod,
-                       final String category, final boolean usesString, final String... calls) {
+    public LoggingInfo(
+        final String id, final String factoryClassName, final String factoryMethod,
+        final String category, final boolean usesString, final String... calls) {
       this.id = id;
       this.calls = calls;
       this.factoryClassName = factoryClassName;

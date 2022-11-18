@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpServletResponseWrapper;
+
 import java.lang.invoke.MethodHandles;
 
 public class DebugContentTypeResponse extends HttpServletResponseWrapper {

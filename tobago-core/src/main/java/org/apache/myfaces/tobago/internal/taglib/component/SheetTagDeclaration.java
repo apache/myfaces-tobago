@@ -272,6 +272,7 @@ public interface SheetTagDeclaration
 
   /**
    * Flag indicating if paging arrows are shown near direct links
+   *
    * @since 2.0.0
    */
   @TagAttribute
@@ -280,6 +281,7 @@ public interface SheetTagDeclaration
 
   /**
    * Flag indicating if paging arrows are shown near page range
+   *
    * @since 2.0.0
    */
   @TagAttribute
@@ -288,6 +290,7 @@ public interface SheetTagDeclaration
 
   /**
    * The maximum count of multi-sorted columns to indicate.
+   *
    * @since 5.3.0
    */
   @TagAttribute

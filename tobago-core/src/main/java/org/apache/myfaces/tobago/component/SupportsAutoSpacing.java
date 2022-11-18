@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.component;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 
 import jakarta.faces.context.FacesContext;
+
 import java.util.Map;
 
 public interface SupportsAutoSpacing {

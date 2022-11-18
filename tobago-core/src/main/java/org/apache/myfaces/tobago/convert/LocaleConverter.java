@@ -25,11 +25,11 @@ import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.ConverterException;
+
 import java.util.Locale;
 
 @org.apache.myfaces.tobago.apt.annotation.Converter(forClass = "java.util.Locale")
 public class LocaleConverter implements Converter<Locale> {
-
 
   @Override
   public Locale getAsObject(

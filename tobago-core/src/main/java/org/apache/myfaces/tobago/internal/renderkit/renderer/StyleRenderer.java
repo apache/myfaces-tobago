@@ -36,6 +36,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import jakarta.faces.context.FacesContext;
+
 import java.io.IOException;
 
 public class StyleRenderer<T extends AbstractUIStyle> extends RendererBase<T> {
@@ -270,7 +271,7 @@ public class StyleRenderer<T extends AbstractUIStyle> extends RendererBase<T> {
     writer.writeText(";");
   }
 
-// XXX remove me
+  // XXX remove me
   private void encodeStyle(final TobagoResponseWriter writer, final String name, final String value)
       throws IOException {
     writer.writeText(name);
@@ -279,7 +280,7 @@ public class StyleRenderer<T extends AbstractUIStyle> extends RendererBase<T> {
     writer.writeText(";");
   }
 
-// XXX remove me
+  // XXX remove me
   private void encodeStyle(final TobagoResponseWriter writer, final String name, final Integer value)
       throws IOException {
     if (value != null) {

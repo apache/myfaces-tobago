@@ -41,7 +41,7 @@ public class SelectableUnitTest extends EnumUnitTest {
 
     for (Selectable selectable : Selectable.values()) {
       Assertions.assertTrue(words.contains(selectable.name()),
-        selectable.name() + " should be found in tobago-selectable.ts");
+          selectable.name() + " should be found in tobago-selectable.ts");
     }
   }
 
@@ -49,13 +49,13 @@ public class SelectableUnitTest extends EnumUnitTest {
 
     final List<String> words = new ArrayList<>();
     final String fileContent
-      = FileTestUtils.fileToString("../tobago-theme/tobago-theme-standard/src/main/ts/tobago-selectable.ts");
+        = FileTestUtils.fileToString("../tobago-theme/tobago-theme-standard/src/main/ts/tobago-selectable.ts");
 
     StringBuilder stringBuilder = new StringBuilder();
     for (char c : fileContent.toCharArray()) {
       if ('0' <= c && c <= '9'
-        || 'A' <= c && c <= 'Z'
-        || 'a' <= c && c <= 'z') {
+          || 'A' <= c && c <= 'Z'
+          || 'a' <= c && c <= 'z') {
         stringBuilder.append(c);
       } else {
         if (stringBuilder.length() > 0) {

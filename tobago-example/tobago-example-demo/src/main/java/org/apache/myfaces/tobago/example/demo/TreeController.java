@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.example.demo;
 
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.Serializable;
 

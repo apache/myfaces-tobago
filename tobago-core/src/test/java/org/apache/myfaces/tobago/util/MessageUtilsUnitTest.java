@@ -25,6 +25,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import jakarta.faces.application.FacesMessage;
+
 import java.util.Locale;
 
 public class MessageUtilsUnitTest extends AbstractTobagoTestBase {

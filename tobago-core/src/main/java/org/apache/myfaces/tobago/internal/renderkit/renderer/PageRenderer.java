@@ -60,6 +60,7 @@ import jakarta.faces.component.UIOutput;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
+
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
@@ -86,7 +87,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
 
     // last focus
     final String lastFocusId =
-      externalContext.getRequestParameterMap().get(clientId + ComponentUtils.SUB_SEPARATOR + LAST_FOCUS_ID);
+        externalContext.getRequestParameterMap().get(clientId + ComponentUtils.SUB_SEPARATOR + LAST_FOCUS_ID);
     if (lastFocusId != null) {
       TobagoContext.getInstance(facesContext).setFocusId(lastFocusId);
     }
@@ -158,7 +159,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     writer.startElement(HtmlElements.HEAD);
 
     final HeadResources headResources = new HeadResources(
-      facesContext, viewRoot.getComponentResources(facesContext, HEAD_TARGET), writer.getCharacterEncoding());
+        facesContext, viewRoot.getComponentResources(facesContext, HEAD_TARGET), writer.getCharacterEncoding());
 
     // meta tags
     for (final UIComponent metas : headResources.getMetas()) {
@@ -175,7 +176,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     for (final ThemeStyle themeStyle : theme.getStyleResources(productionMode)) {
       if (style == null) {
         style = (AbstractUIStyle) facesContext.getApplication()
-          .createComponent(facesContext, Tags.style.componentType(), RendererTypes.Style.name());
+            .createComponent(facesContext, Tags.style.componentType(), RendererTypes.Style.name());
         style.setTransient(true);
       }
       style.setFile(contextPath + themeStyle.getName());
@@ -190,7 +191,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     // script files from theme
     for (final ThemeScript themeScript : theme.getScriptResources(productionMode)) {
       final AbstractUIScript script = (AbstractUIScript) facesContext.getApplication()
-        .createComponent(facesContext, Tags.script.componentType(), RendererTypes.Script.name());
+          .createComponent(facesContext, Tags.script.componentType(), RendererTypes.Script.name());
       script.setTransient(true);
       script.setFile(contextPath + themeScript.getName());
       script.setType(themeScript.getType());
@@ -215,9 +216,9 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
 
     writer.writeAttribute(CustomAttributes.LOCALE, locale.toString(), false);
     writer.writeClassAttribute(
-      BootstrapClass.CONTAINER_FLUID,
-      spread,
-      component.getCustomClass());
+        BootstrapClass.CONTAINER_FLUID,
+        spread,
+        component.getCustomClass());
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
@@ -355,7 +356,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     private List<UIComponent> misc = new ArrayList<>();
 
     HeadResources(
-      final FacesContext facesContext, final Collection<? extends UIComponent> collection, final String charset) {
+        final FacesContext facesContext, final Collection<? extends UIComponent> collection, final String charset) {
       for (final UIComponent uiComponent : collection) {
         if (uiComponent instanceof AbstractUIMeta || uiComponent instanceof AbstractUIMetaLink) {
           metas.add(uiComponent);
@@ -367,7 +368,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
           if (uiComponent instanceof UIOutput) {
             final Map<String, Object> attributes = uiComponent.getAttributes();
             if ("jakarta.faces".equals(attributes.get("library"))
-              && "faces.js".equals(attributes.get("name"))) {
+                && "faces.js".equals(attributes.get("name"))) {
               // workaround for WebSphere
               // We don't need faces.js from the JSF impl, because Tobago comes with its own faces.js
               if (LOG.isDebugEnabled()) {
@@ -382,7 +383,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
 
       if (!containsNameViewport(metas)) {
         final AbstractUIMeta viewportMeta = (AbstractUIMeta) facesContext.getApplication()
-          .createComponent(facesContext, Tags.meta.componentType(), RendererTypes.Meta.name());
+            .createComponent(facesContext, Tags.meta.componentType(), RendererTypes.Meta.name());
         viewportMeta.setName("viewport");
         viewportMeta.setContent("width=device-width, initial-scale=1.0");
         viewportMeta.setTransient(true);
@@ -391,7 +392,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
 
       if (!containsCharset(metas)) {
         final AbstractUIMeta charsetMeta = (AbstractUIMeta) facesContext.getApplication()
-          .createComponent(facesContext, Tags.meta.componentType(), RendererTypes.Meta.name());
+            .createComponent(facesContext, Tags.meta.componentType(), RendererTypes.Meta.name());
         charsetMeta.setCharset(charset);
         charsetMeta.setTransient(true);
         metas.add(0, charsetMeta);
@@ -417,7 +418,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     private boolean containsCharset(final List<UIComponent> headComponents) {
       for (final UIComponent headComponent : headComponents) {
         if (headComponent instanceof AbstractUIMeta
-          && ((AbstractUIMeta) headComponent).getCharset() != null) {
+            && ((AbstractUIMeta) headComponent).getCharset() != null) {
           return true;
         }
       }
@@ -427,7 +428,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     private boolean containsNameViewport(final List<UIComponent> headComponents) {
       for (final UIComponent headComponent : headComponents) {
         if (headComponent instanceof AbstractUIMeta
-          && "viewport".equals(((AbstractUIMeta) headComponent).getName())) {
+            && "viewport".equals(((AbstractUIMeta) headComponent).getName())) {
           return true;
         }
       }

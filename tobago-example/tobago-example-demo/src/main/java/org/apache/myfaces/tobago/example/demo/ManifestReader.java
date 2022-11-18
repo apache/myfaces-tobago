@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
+
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.net.URL;

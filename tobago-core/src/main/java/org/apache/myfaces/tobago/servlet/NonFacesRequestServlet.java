@@ -34,6 +34,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.FacesContextFactory;
 import jakarta.faces.lifecycle.Lifecycle;
 import jakarta.faces.lifecycle.LifecycleFactory;
+
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 
@@ -75,7 +76,6 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
 
       final NavigationHandler navigationHandler = application.getNavigationHandler();
       navigationHandler.handleNavigation(facesContext, null, outcome);
-
 
       lifecycle.render(facesContext);
     } finally {

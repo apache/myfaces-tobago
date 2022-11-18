@@ -23,7 +23,6 @@ import java.text.CollationKey;
 import java.text.Collator;
 import java.util.Comparator;
 
-
 public abstract class ComparatorBase implements Comparator {
 
   private Comparator comparator;

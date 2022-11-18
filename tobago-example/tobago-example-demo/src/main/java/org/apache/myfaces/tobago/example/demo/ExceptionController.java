@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.example.demo;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
+
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
@@ -32,7 +33,7 @@ public class ExceptionController implements Serializable {
 
   public String getStackTrace() {
     final Throwable exception = (Throwable) FacesContext.getCurrentInstance().getExternalContext()
-            .getRequestMap().get("jakarta.servlet.error.exception");
+        .getRequestMap().get("jakarta.servlet.error.exception");
     final StringWriter stringWriter = new StringWriter();
     final PrintWriter printWriter = new PrintWriter(stringWriter);
     if (exception != null) {

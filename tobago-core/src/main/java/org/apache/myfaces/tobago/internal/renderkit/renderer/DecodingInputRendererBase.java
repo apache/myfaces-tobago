@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import jakarta.faces.component.EditableValueHolder;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
+
 import java.lang.invoke.MethodHandles;
 import java.util.Map;
 
@@ -66,7 +67,7 @@ public abstract class DecodingInputRendererBase<T extends UIComponent> extends R
   protected abstract boolean isOutputOnly(T component);
 
   protected void setSubmittedValue(
-          final FacesContext facesContext, final EditableValueHolder component, final String newValue) {
+      final FacesContext facesContext, final EditableValueHolder component, final String newValue) {
     component.setSubmittedValue(newValue);
   }
 

@@ -36,6 +36,7 @@ import org.slf4j.LoggerFactory;
 
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
+
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
@@ -669,8 +670,9 @@ public enum BootstrapClass implements CssItem {
     return getSeverityCssItem(severity, BTN_INFO, BTN_WARNING, BTN_DANGER);
   }
 
-  private static CssItem getSeverityCssItem(FacesMessage.Severity severity,
-                                            BootstrapClass info, BootstrapClass warning, BootstrapClass error) {
+  private static CssItem getSeverityCssItem(
+      FacesMessage.Severity severity,
+      BootstrapClass info, BootstrapClass warning, BootstrapClass error) {
     if (severity.equals(FacesMessage.SEVERITY_INFO)) {
       return info;
     } else if (severity.equals(FacesMessage.SEVERITY_WARN)) {
@@ -805,8 +807,8 @@ public enum BootstrapClass implements CssItem {
         OFFSET_XL_6, OFFSET_XL_7, OFFSET_XL_8, OFFSET_XL_9, OFFSET_XL_10, OFFSET_XL_11
     };
     private static final BootstrapClass[] OFFSET_EXTRA_EXTRA_LARGE = new BootstrapClass[]{
-      OFFSET_XXL_0, OFFSET_XXL_1, OFFSET_XXL_2, OFFSET_XXL_3, OFFSET_XXL_4, OFFSET_XXL_5,
-      OFFSET_XXL_6, OFFSET_XXL_7, OFFSET_XXL_8, OFFSET_XXL_9, OFFSET_XXL_10, OFFSET_XXL_11
+        OFFSET_XXL_0, OFFSET_XXL_1, OFFSET_XXL_2, OFFSET_XXL_3, OFFSET_XXL_4, OFFSET_XXL_5,
+        OFFSET_XXL_6, OFFSET_XXL_7, OFFSET_XXL_8, OFFSET_XXL_9, OFFSET_XXL_10, OFFSET_XXL_11
     };
 
     private final MeasureList extraSmall;
@@ -903,8 +905,9 @@ public enum BootstrapClass implements CssItem {
       return measure;
     }
 
-    private void generate(final List<BootstrapClass> result, final MarginTokens margins,
-                          final Map<String, Object> attributes, final Attributes attribute) {
+    private void generate(
+        final List<BootstrapClass> result, final MarginTokens margins,
+        final Map<String, Object> attributes, final Attributes attribute) {
       final Object overwrite = attributes.get(attribute.name());
 
       if (overwrite != null) {

@@ -71,7 +71,7 @@ public interface MessagesTagDeclaration
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setShowSummary(String showSummary);
 
-   /**
+  /**
    * Sets the mininum severity to be shown. E. g. "warn" shows only "warn", "error" and "fatal".
    */
   @TagAttribute
@@ -79,24 +79,24 @@ public interface MessagesTagDeclaration
       defaultCode = "jakarta.faces.application.FacesMessage.SEVERITY_INFO")
   void setMinSeverity(String minSeverity);
 
-   /**
+  /**
    * Sets the maximum severity to be shown. E. g. "warn" shows only "warn" and "info".
-    * When setting this attribute you usually shoud take care, that you have a second message tag to show the
-    * higher severity levels.
+   * When setting this attribute you usually shoud take care, that you have a second message tag to show the
+   * higher severity levels.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "jakarta.faces.application.FacesMessage$Severity", defaultValue = "fatal",
       defaultCode = "jakarta.faces.application.FacesMessage.SEVERITY_FATAL")
   void setMaxSeverity(String maxSeverity);
 
-   /**
+  /**
    * Sets the maximum number of messages to show.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "2147483647")
   void setMaxNumber(String maxNumber);
 
-   /**
+  /**
    * Sets the order of the messages.
    */
   @TagAttribute

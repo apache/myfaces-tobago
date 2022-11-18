@@ -36,6 +36,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import jakarta.faces.context.FacesContext;
+
 import java.io.IOException;
 
 public class ProgressRenderer<T extends AbstractUIProgress> extends RendererBase<T> {

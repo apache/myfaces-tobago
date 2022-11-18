@@ -32,6 +32,7 @@ import jakarta.enterprise.event.Observes;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.List;
@@ -69,7 +70,7 @@ public class NavigationState implements Serializable {
       final TreePath treePath = currentNode.getTreePath();
       state.getSelectedState().clearAndSelect(treePath);
       if (!treePath.isRoot()) {
-      state.getExpandedState().collapseAllButRoot();
+        state.getExpandedState().collapseAllButRoot();
         state.getExpandedState().expand(treePath, true);
       }
     }
