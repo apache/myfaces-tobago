@@ -92,7 +92,6 @@ public final class UserAgent implements Serializable {
   @Deprecated
   public static final UserAgent MSIE_6_0_MAC = new UserAgent("msie", "6_0_mac");
 
-
   /**
    * e. g. Opera 10
    */

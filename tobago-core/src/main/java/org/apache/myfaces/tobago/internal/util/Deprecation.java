@@ -24,7 +24,6 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.invoke.MethodHandles;
 
-
 public final class Deprecation {
 
   // to prevent instantiation

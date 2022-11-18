@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.component;
 
-
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.renderkit.css.CustomClass;
 

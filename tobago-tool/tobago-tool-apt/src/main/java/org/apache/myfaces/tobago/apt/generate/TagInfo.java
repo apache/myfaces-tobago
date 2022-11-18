@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.apt.generate;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class TagInfo extends RendererInfo {
   private List<PropertyInfo> properties = new ArrayList<>();
   private String componentClassName;

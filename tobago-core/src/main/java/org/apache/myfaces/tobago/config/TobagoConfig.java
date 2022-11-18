@@ -265,7 +265,6 @@ public class TobagoConfig {
     this.checkSessionSecret = checkSessionSecret;
   }
 
-
   public boolean isPreventFrameAttacks() {
     return preventFrameAttacks;
   }

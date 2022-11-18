@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.util;
 
-
 import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 

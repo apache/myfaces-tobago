@@ -167,7 +167,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     }
   }
 
-
   private void decodeSheetAction(final FacesContext facesContext, final AbstractUISheet component) {
     final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
 

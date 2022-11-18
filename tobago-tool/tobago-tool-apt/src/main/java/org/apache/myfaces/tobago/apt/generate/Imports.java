@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.apt.generate;
 import java.util.TreeSet;
 import java.util.Set;
 
-
 public class Imports {
 
   private Set<String> imports = new TreeSet<>();

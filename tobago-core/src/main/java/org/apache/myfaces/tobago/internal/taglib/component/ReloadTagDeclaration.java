@@ -44,7 +44,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
     allowedChildComponenents = "NONE")
 public interface ReloadTagDeclaration extends HasIdBindingAndRendered {
 
-
   /**
    * Time in milliseconds after which the parent component is automatically reloaded.
    */

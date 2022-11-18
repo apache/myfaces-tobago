@@ -602,7 +602,6 @@ public final class ComponentUtils {
     return renderer;
   }
 
-
   private static Renderer getRendererInternal(
       final FacesContext facesContext, final String family, final String rendererType) {
     final RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);

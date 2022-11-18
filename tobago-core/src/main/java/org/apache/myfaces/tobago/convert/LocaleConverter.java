@@ -30,7 +30,6 @@ import java.util.Locale;
 @org.apache.myfaces.tobago.apt.annotation.Converter(forClass = "java.util.Locale")
 public class LocaleConverter implements Converter<Locale> {
 
-
   @Override
   public Locale getAsObject(
       final FacesContext facesContext, final UIComponent component, final String value) {
