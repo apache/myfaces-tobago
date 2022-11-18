@@ -29,11 +29,15 @@ on:
     branches:
       - main
       - tobago-5.x
+      - tobago-4.x
+      - tobago-2.x
   pull_request:
     # The branches below must be a subset of the branches above
     branches:
       - main
       - tobago-5.x
+      - tobago-4.x
+      - tobago-2.x
   schedule:
     - cron: '31 15 * * 5'
 
