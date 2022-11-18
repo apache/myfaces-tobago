@@ -33,7 +33,7 @@ public class CommandUnitTest {
         new Collapse(Collapse.Operation.show, "a collapse"), false);
 
     final Command b = new Command(
-    "b client id", "b field id", null, null, "b execute", null, "b conf", null,
+        "b client id", "b field id", null, null, "b execute", null, "b conf", null,
         new Collapse(Collapse.Operation.show, "b collapse"), false);
 
     a.merge(b);

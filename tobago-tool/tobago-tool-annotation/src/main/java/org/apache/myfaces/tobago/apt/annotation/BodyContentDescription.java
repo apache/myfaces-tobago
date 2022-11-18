@@ -29,6 +29,7 @@ import java.lang.annotation.ElementType;
 public @interface BodyContentDescription {
 
   String anyTagOf() default "";
+
   String contentType() default "";
 
   // TODO should be Class see http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=5089128

@@ -191,7 +191,7 @@ public abstract class AbstractUISheet extends AbstractUIData
    * The rowIndex of the last row on the current page plus one (because of zero based iterating).
    *
    * @throws IllegalArgumentException If the number of rows in the model returned by {@link #getRowCount()} is -1
-   * (undefined).
+   *                                  (undefined).
    */
   public int getLastRowIndexOfCurrentPage() {
     if (!hasRowCount()) {
@@ -226,7 +226,7 @@ public abstract class AbstractUISheet extends AbstractUIData
    * The number of pages to render.
    *
    * @throws IllegalArgumentException If the number of rows in the model returned by {@link #getRowCount()} is -1
-   * (undefined).
+   *                                  (undefined).
    */
   public int getPages() {
     if (isRowsUnlimited()) {
@@ -304,7 +304,7 @@ public abstract class AbstractUISheet extends AbstractUIData
    *
    * @return The index of the first row of the last paging page.
    * @throws IllegalArgumentException If the number of rows in the model returned by {@link #getRowCount()} is -1
-   * (undefined).
+   *                                  (undefined).
    */
   public int getFirstRowIndexOfLastPage() {
     if (isRowsUnlimited()) {

@@ -47,10 +47,10 @@ class CssClassUtils {
 
   private static boolean containsClassName(final String content, final String className) {
     return content.contains("." + className + " ")
-      || content.contains("." + className + "{")
-      || content.contains("." + className + ",")
-      || content.contains("." + className + ":")
-      || content.contains("." + className + ".")
-      || content.contains("." + className + ">");
+        || content.contains("." + className + "{")
+        || content.contains("." + className + ",")
+        || content.contains("." + className + ":")
+        || content.contains("." + className + ".")
+        || content.contains("." + className + ">");
   }
 }

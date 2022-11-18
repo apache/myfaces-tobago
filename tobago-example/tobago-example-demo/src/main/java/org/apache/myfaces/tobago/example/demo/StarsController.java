@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.swing.DefaultBoundedRangeModel;

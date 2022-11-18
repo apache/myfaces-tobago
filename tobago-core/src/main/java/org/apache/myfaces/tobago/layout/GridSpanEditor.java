@@ -26,9 +26,9 @@ import java.beans.PropertyEditorSupport;
  */
 public class GridSpanEditor extends PropertyEditorSupport {
 
-    @Override
-    public void setAsText(final String text) throws IllegalArgumentException {
-        setValue(GridSpan.valueOf(text));
-    }
+  @Override
+  public void setAsText(final String text) throws IllegalArgumentException {
+    setValue(GridSpan.valueOf(text));
+  }
 
 }

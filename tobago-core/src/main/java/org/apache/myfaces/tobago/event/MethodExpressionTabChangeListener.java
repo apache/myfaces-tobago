@@ -41,7 +41,7 @@ public class MethodExpressionTabChangeListener implements TabChangeListener, Sta
 
   @Override
   public void processTabChange(final TabChangeEvent actionEvent) throws AbortProcessingException {
-     FacesELUtils.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, actionEvent);
+    FacesELUtils.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, actionEvent);
   }
 
   @Override

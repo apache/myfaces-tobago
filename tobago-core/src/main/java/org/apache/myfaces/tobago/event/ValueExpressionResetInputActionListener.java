@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.event;
 
-
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
@@ -56,7 +55,7 @@ public class ValueExpressionResetInputActionListener extends AbstractResetInputA
     if (obj instanceof String[]) {
       clientIds = (String[]) obj;
     } else if (obj instanceof String) {
-      clientIds= StringUtils.split((String) obj, ", ");
+      clientIds = StringUtils.split((String) obj, ", ");
     } else {
       LOG.error("Ignore unknown value of " + obj + " for reset.");
       return;
@@ -86,7 +85,6 @@ public class ValueExpressionResetInputActionListener extends AbstractResetInputA
     values[0] = UIComponentBase.saveAttachedState(context, clientIdsExpression);
     return values;
   }
-
 
   @Override
   public void setTransient(final boolean newTransientValue) {

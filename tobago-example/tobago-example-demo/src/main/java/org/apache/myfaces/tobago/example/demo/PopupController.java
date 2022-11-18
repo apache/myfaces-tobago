@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;

@@ -72,7 +72,7 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
 
   @Override
   protected void encodeBeginField(final FacesContext facesContext, final T component)
-    throws IOException {
+      throws IOException {
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     final String currentValue = getCurrentValue(facesContext, component);
     final boolean password = component.isPassword();
@@ -143,10 +143,10 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
     }
 
     writer.writeClassAttribute(
-      markup != null && markup.contains(Markup.NUMBER) ? TobagoClass.NUMBER : null,
-      BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
-      BootstrapClass.FORM_CONTROL,
-      component.getCustomClass());
+        markup != null && markup.contains(Markup.NUMBER) ? TobagoClass.NUMBER : null,
+        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
+        BootstrapClass.FORM_CONTROL,
+        component.getCustomClass());
 
     writer.writeAttribute(HtmlAttributes.REQUIRED, required);
     renderFocus(clientId, component.isFocus(), component.isError(), facesContext, writer);

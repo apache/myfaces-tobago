@@ -83,8 +83,8 @@ public class SelectManyCheckboxRenderer<T extends AbstractUISelectManyCheckbox> 
             isInsideCommand ? BootstrapClass.DROPDOWN_ITEM : null);
         writer.startElement(HtmlElements.INPUT);
         writer.writeClassAttribute(
-          BootstrapClass.FORM_CHECK_INPUT,
-          BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)));
+            BootstrapClass.FORM_CHECK_INPUT,
+            BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)));
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
         final String formattedValue = getFormattedValue(facesContext, component, item.getValue());
         final boolean checked;

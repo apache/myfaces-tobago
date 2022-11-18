@@ -62,7 +62,6 @@ public class InputSuggestController implements Serializable {
       {"66851 Olenkorb", "66851", "Olenkorb", "Rheinland-Pfalz"}
   };
 
-
   public String getSimpleValue() {
     return simpleValue;
   }
@@ -140,8 +139,6 @@ public class InputSuggestController implements Serializable {
     item.setNextFocusId("page:txarea");
     return item;
   }
-
-
 
   public AutoSuggestItems getCitySuggestItems(final UIInput component) {
     final String prefix = (String) component.getSubmittedValue();

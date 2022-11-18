@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.context;
 
-
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;

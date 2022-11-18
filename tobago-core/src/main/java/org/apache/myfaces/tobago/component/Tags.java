@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.internal.util.StringUtils;
 
 /**
  * Constants for the component type.
+ *
  * @since 4.4.0
  */
 public enum Tags {

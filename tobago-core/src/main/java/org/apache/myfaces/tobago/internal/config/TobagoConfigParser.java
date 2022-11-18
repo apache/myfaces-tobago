@@ -447,7 +447,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
           tobagoConfig.setSanitizerProperties(properties);
           if (properties.get("whitelist") != null) {
             LOG.warn("<sanitizer><properties><entry key=\"whitelist\"> is deprecated:"
-              + " use <sanitizer><properties><entry key=\"safelist\"> instead.");
+                + " use <sanitizer><properties><entry key=\"safelist\"> instead.");
           }
         }
         properties = null;

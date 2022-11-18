@@ -33,7 +33,6 @@ public class DebugActionListener implements ActionListener {
 
   private final ActionListener actionListener;
 
-
   public DebugActionListener(final ActionListener actionListener) {
     this.actionListener = actionListener;
   }

@@ -37,11 +37,11 @@ public class SelectManyListboxController implements Serializable {
 
   public SelectManyListboxController() {
     deserts = new SelectItem[]{
-            new SelectItem("Antarctic Desert"),
-            new SelectItem("Arctic"),
-            new SelectItem("Sahara"),
-            new SelectItem("Arabian Desert"),
-            new SelectItem("Gobi Desert")
+        new SelectItem("Antarctic Desert"),
+        new SelectItem("Arctic"),
+        new SelectItem("Sahara"),
+        new SelectItem("Arabian Desert"),
+        new SelectItem("Gobi Desert")
     };
   }
 

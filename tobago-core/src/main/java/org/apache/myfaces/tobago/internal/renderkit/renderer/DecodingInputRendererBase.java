@@ -66,7 +66,7 @@ public abstract class DecodingInputRendererBase<T extends UIComponent> extends R
   protected abstract boolean isOutputOnly(T component);
 
   protected void setSubmittedValue(
-          final FacesContext facesContext, final EditableValueHolder component, final String newValue) {
+      final FacesContext facesContext, final EditableValueHolder component, final String newValue) {
     component.setSubmittedValue(newValue);
   }
 

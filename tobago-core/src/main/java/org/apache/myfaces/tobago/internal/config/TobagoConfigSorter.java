@@ -110,7 +110,6 @@ public class TobagoConfigSorter {
     }
   }
 
-
   private void createEdges() {
 
     // collecting all relations, which are relevant for us. We don't need "before" and "after" of unknown names.

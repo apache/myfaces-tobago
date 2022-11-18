@@ -40,7 +40,7 @@ public class SheetActionController implements Serializable {
     LOG.info("deleteAction called for {}, but we do not delete objects here in this demo.", solarObject.getName());
 
     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-      "We do not delete in this demo! (object='" + solarObject.getName() + "')", null));
+        "We do not delete in this demo! (object='" + solarObject.getName() + "')", null));
 
     return null;
   }

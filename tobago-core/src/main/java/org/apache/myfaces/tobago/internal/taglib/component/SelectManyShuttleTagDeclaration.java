@@ -103,7 +103,6 @@ public interface SelectManyShuttleTagDeclaration extends
   @UIComponentTagAttribute()
   void setUnselectedLabel(String label);
 
-
   /**
    * A localized user presentable label for the right select box.
    */

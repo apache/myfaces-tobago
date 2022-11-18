@@ -40,10 +40,10 @@ public class ExecuteController implements Serializable {
 
   public Outcome clear() {
     LOG.info("action");
-    value1=null;
-    value2=null;
-    value3=null;
-    value4=null;
+    value1 = null;
+    value2 = null;
+    value3 = null;
+    value4 = null;
     log();
     return Outcome.TEST_JAVA_AJAX_EXECUTE;
   }

@@ -184,8 +184,6 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
 
   /**
    * Used to create delta map on demand
-   *
-   * @return
    */
   private boolean createDeltas() {
     if (isInitialStateMarked()) {

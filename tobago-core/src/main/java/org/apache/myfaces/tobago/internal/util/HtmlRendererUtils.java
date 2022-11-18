@@ -110,7 +110,8 @@ public final class HtmlRendererUtils {
    * @deprecated since 5.0.0. Please use {@link RendererBase#renderSelectItems}
    */
   @Deprecated
-  public static void renderSelectItems(final UIInput component, final TobagoClass optionClass,
+  public static void renderSelectItems(
+      final UIInput component, final TobagoClass optionClass,
       final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
       final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
     renderSelectItems(component, optionClass, items, values, submittedValues, null, writer, facesContext);
@@ -120,7 +121,8 @@ public final class HtmlRendererUtils {
    * @deprecated since 5.0.0. Please use {@link RendererBase#renderSelectItems}
    */
   @Deprecated
-  public static void renderSelectItems(final UIInput component, final TobagoClass optionClass,
+  public static void renderSelectItems(
+      final UIInput component, final TobagoClass optionClass,
       final Iterable<SelectItem> items, final Object value, final String submittedValue,
       final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
     renderSelectItems(component, optionClass, items, value != null ? new Object[]{value} : null,
@@ -131,14 +133,16 @@ public final class HtmlRendererUtils {
    * @deprecated since 5.0.0. Please use {@link RendererBase#renderSelectItems}
    */
   @Deprecated
-  public static void renderSelectItems(final UIInput component, final TobagoClass optionClass,
+  public static void renderSelectItems(
+      final UIInput component, final TobagoClass optionClass,
       final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
       final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext)
       throws IOException {
     new RendererBase<UIComponent>() {
-      public void fake(final UIInput component, final TobagoClass optionClass,
-                       final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
-                       final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext)
+      public void fake(
+          final UIInput component, final TobagoClass optionClass,
+          final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
+          final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext)
           throws IOException {
         renderSelectItems(component, optionClass, items, values, submittedValues, onlySelected, writer, facesContext);
       }

@@ -135,7 +135,7 @@ public class EventBehavior extends ClientBehaviorBase {
     }
 
     final Map<String, Object> bindings = (Map<String, Object>) getStateHelper().
-      get(EventBehavior.PropertyKeys.bindings);
+        get(EventBehavior.PropertyKeys.bindings);
     if (bindings != null) {
       return (ValueExpression) bindings.get(name);
     } else {
@@ -287,7 +287,7 @@ public class EventBehavior extends ClientBehaviorBase {
       return getCollectionFromSpaceSplitString((String) value);
     } else {
       throw new IllegalArgumentException("Type " + value.getClass()
-        + " not supported for attribute " + attributeName);
+          + " not supported for attribute " + attributeName);
     }
   }
 

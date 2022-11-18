@@ -384,7 +384,6 @@ public class FacesConfigGenerator extends AbstractGenerator {
     }
   }
 
-
   private org.jdom2.Element createElementExtension(
       final TypeElement typeElement, final UIComponentTag uiComponentTag,
       final Namespace namespace) {

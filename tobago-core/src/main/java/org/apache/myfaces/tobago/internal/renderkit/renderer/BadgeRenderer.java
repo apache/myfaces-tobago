@@ -42,11 +42,11 @@ public class BadgeRenderer<T extends AbstractUIBadge> extends RendererBase<T> {
     writer.startElement(HtmlElements.TOBAGO_BADGE);
     writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeClassAttribute(
-      BootstrapClass.BADGE,
-      getBadgeColor(markup),
-      markup.contains(Markup.PILL) ? BootstrapClass.ROUNDED_PILL : null,
-      isInside(facesContext, HtmlElements.TOBAGO_BUTTONS) ? BootstrapClass.BTN : null,
-      component.getCustomClass());
+        BootstrapClass.BADGE,
+        getBadgeColor(markup),
+        markup.contains(Markup.PILL) ? BootstrapClass.ROUNDED_PILL : null,
+        isInside(facesContext, HtmlElements.TOBAGO_BUTTONS) ? BootstrapClass.BTN : null,
+        component.getCustomClass());
 
     if (tip != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, tip, true);

@@ -144,7 +144,7 @@ public class WebXmlUtils {
       factory.setExpandEntityReferences(false);
     } catch (ParserConfigurationException e) {
       LOG.info("ParserConfigurationException was thrown. A feature is probably not supported by your XML processor. "
-              + e.getMessage());
+          + e.getMessage());
     }
     final DocumentBuilder documentBuilder = factory.newDocumentBuilder();
     for (final URL url : getWebXmlUrls(facesContext)) {

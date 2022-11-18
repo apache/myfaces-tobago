@@ -35,6 +35,7 @@ import org.apache.myfaces.tobago.layout.SegmentJustify;
  * Find more information on how the grid works in the Twitter Bootstrap documentation.
  *
  * If no attribute is defined, extraSmall="12seg" will be used as default.
+ *
  * @since 3.0.0
  */
 @Tag(name = "segmentLayout")

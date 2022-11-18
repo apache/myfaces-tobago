@@ -45,6 +45,7 @@ public abstract class AbstractUITree extends AbstractUIData implements NamingCon
 
   /**
    * Workaround for mojarra: UIData.getClientId() returns the clientId + row index if an index is set.
+   *
    * @return clientId without row index
    */
   public String getBaseClientId(final FacesContext facesContext) {
