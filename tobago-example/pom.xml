@@ -92,6 +92,17 @@
     </pluginManagement>
   </build>
 
+  <dependencyManagement>
+    <!-- todo: replace with implementation of bean validation 3.0 -->
+    <dependencies>
+      <dependency>
+        <groupId>org.apache.bval</groupId>
+        <artifactId>bval-jsr</artifactId>
+        <version>2.0.6</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
@@ -346,6 +357,12 @@
           <artifactId>jakarta.enterprise.cdi-api</artifactId>
           <scope>compile</scope>
         </dependency>
+        <dependency>
+          <!-- todo: replace with implementation of bean validation 3.0 -->
+          <groupId>org.apache.bval</groupId>
+          <artifactId>bval-jsr</artifactId>
+          <scope>compile</scope>
+        </dependency>
       </dependencies>
     </profile>
 
@@ -455,6 +472,12 @@
           <artifactId>jakarta.enterprise.cdi-api</artifactId>
           <scope>compile</scope>
         </dependency>
+        <dependency>
+          <!-- todo: replace with implementation of bean validation 3.0 -->
+          <groupId>org.apache.bval</groupId>
+          <artifactId>bval-jsr</artifactId>
+          <scope>compile</scope>
+        </dependency>
         <!-- this enables the development mode -->
         <dependency>
           <groupId>org.apache.myfaces.tobago</groupId>
@@ -522,6 +545,41 @@
       </build>
     </profile>
 
+    <profile>
+      <id>liberty</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>io.openliberty.tools</groupId>
+            <artifactId>liberty-maven-plugin</artifactId>
+            <version>3.7.1</version>
+            <configuration>
+              <serverXmlFile>${project.basedir}/src/test/liberty/config/server.xml</serverXmlFile>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.myfaces.core</groupId>
+          <artifactId>myfaces-api</artifactId>
+          <version>${myfaces30.version}</version>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.core</groupId>
+          <artifactId>myfaces-impl</artifactId>
+          <version>${myfaces30.version}</version>
+          <scope>provided</scope>
+        </dependency>
+        <!-- this enables the development mode -->
+        <dependency>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-config-dev</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
     <!--
     todo: profile for meecrowave?
     todo: profile for wildfly?
