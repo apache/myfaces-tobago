@@ -82,6 +82,17 @@ mvn -f tobago-example/tobago-example-demo/pom.xml clean package jetty:run -Pjett
 mvn -f tobago-example/tobago-example-demo/pom.xml clean package jetty:run -Pjetty -Djsf=mojarra-3.0
 ```
 
+**TomEE**
+```shell
+mvn -f tobago-example/tobago-example-demo/pom.xml clean package -Ptomee tomee:run
+```
+
+**Open Liberty **
+```shell
+mvn -f tobago-example/tobago-example-demo/pom.xml clean -Pliberty liberty:run
+```
+Browse to the local URL http://localhost:9080/
+
 **Tomcat, Mojarra and Weld (in Docker)**
 ```
 cd tobago-example/tobago-example-demo
