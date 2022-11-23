@@ -35,4 +35,4 @@ public enum HtmlButtonTypes implements HtmlTypes {
   public String getValue() {
     return value;
   }
-  }
+}

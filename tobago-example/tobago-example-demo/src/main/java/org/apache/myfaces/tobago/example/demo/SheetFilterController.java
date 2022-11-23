@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
 
 @SessionScoped
 @Named
-public class  SheetFilterController implements Serializable {
+public class SheetFilterController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 

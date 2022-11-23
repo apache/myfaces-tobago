@@ -50,7 +50,7 @@ public class RenderUtilsUnitTest extends AbstractTobagoTestBase {
     body.setName("body");
     body.setValue("Hi, folks,\n"
         + "\n"
-          + "we plan to build version 5.0.0 of Tobago soon.");
+        + "we plan to build version 5.0.0 of Tobago soon.");
     link.getChildren().add(body);
 
     final String url = RenderUtils.generateUrl(getFacesContext(), link);

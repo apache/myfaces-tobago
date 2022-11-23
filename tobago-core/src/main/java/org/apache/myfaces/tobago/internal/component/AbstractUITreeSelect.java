@@ -40,6 +40,7 @@ public abstract class AbstractUITreeSelect extends UISelectBoolean implements Vi
   /**
    * The value is stored in the state of the parent UITree, if the value attribute has not a value expression.
    * The value is stored normally, if there is a value expression.
+   *
    * @return Is the value stored in the state of the UITree parent object?
    */
   public boolean isValueStoredInState() {

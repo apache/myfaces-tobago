@@ -44,7 +44,7 @@ public class FileRendererUnitTest extends RendererTestBase {
   @Test
   public void fileDropZoneThis() throws IOException {
     final UIPanel panel = (UIPanel) ComponentUtils.createComponent(
-      facesContext, Tags.panel.componentType(), RendererTypes.Panel, "drop-zone");
+        facesContext, Tags.panel.componentType(), RendererTypes.Panel, "drop-zone");
 
     final UIFile c = (UIFile) ComponentUtils.createComponent(
         facesContext, Tags.file.componentType(), RendererTypes.File, "id");
@@ -60,7 +60,7 @@ public class FileRendererUnitTest extends RendererTestBase {
   @Test
   public void fileDropZoneId() throws IOException {
     final UIPanel panel = (UIPanel) ComponentUtils.createComponent(
-      facesContext, Tags.panel.componentType(), RendererTypes.Panel, "drop-zone");
+        facesContext, Tags.panel.componentType(), RendererTypes.Panel, "drop-zone");
 
     final UIFile c = (UIFile) ComponentUtils.createComponent(
         facesContext, Tags.file.componentType(), RendererTypes.File, "id");
@@ -76,7 +76,7 @@ public class FileRendererUnitTest extends RendererTestBase {
   @Test
   public void fileDropZoneParent() throws IOException {
     final UIPanel panel = (UIPanel) ComponentUtils.createComponent(
-      facesContext, Tags.panel.componentType(), RendererTypes.Panel, "drop-zone");
+        facesContext, Tags.panel.componentType(), RendererTypes.Panel, "drop-zone");
 
     final UIFile c = (UIFile) ComponentUtils.createComponent(
         facesContext, Tags.file.componentType(), RendererTypes.File, "id");

@@ -26,7 +26,6 @@ import javax.el.MethodExpression;
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
 
-
 public class MethodExpressionTreeExpansionListener implements TreeExpansionListener, StateHolder {
 
   private MethodExpression methodExpression;

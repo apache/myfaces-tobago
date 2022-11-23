@@ -55,7 +55,8 @@ public class AstroData implements Serializable {
         = new InputStreamReader(AstroData.class.getResourceAsStream("astro-data.json"));
 
     Gson gson = new GsonBuilder().create();
-    dataList = gson.fromJson(reader, new TypeToken<ArrayList<SolarObject>>(){}.getType());
+    dataList = gson.fromJson(reader, new TypeToken<ArrayList<SolarObject>>() {
+    }.getType());
     dataMap = new HashMap<>(dataList.size());
     for (SolarObject solarObject : dataList) {
       dataMap.put(solarObject.getName(), solarObject);
@@ -116,7 +117,6 @@ public class AstroData implements Serializable {
     }
     return collect;
   }
-
 
   private List<SelectItem> createSelectItems(final List<SolarObject> objects) {
     final List<SelectItem> list = new ArrayList<>();

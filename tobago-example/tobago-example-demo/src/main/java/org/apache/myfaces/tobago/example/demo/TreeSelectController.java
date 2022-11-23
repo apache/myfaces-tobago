@@ -31,12 +31,12 @@ import java.io.Serializable;
 public class TreeSelectController implements Serializable {
 
   private static final Selectable[] TREE_SELECT_MODE_KEYS = {
-    Selectable.none,
-    Selectable.single,
-    Selectable.singleLeafOnly,
-    Selectable.multi,
-    Selectable.multiLeafOnly,
-    Selectable.multiCascade
+      Selectable.none,
+      Selectable.single,
+      Selectable.singleLeafOnly,
+      Selectable.multi,
+      Selectable.multiLeafOnly,
+      Selectable.multiCascade
   };
 
   private DefaultMutableTreeNode sample;

@@ -21,8 +21,8 @@ package org.apache.myfaces.tobago.internal.util;
 
 public class Pear implements Fruit {
 
-  public static final Pear WILLIAMS_CHRIST =new Pear("Williams Christ");
-  public static final Pear KOESTLICHE_AUS_CHARNEUX =new Pear("Köstliche aus Charneux");
+  public static final Pear WILLIAMS_CHRIST = new Pear("Williams Christ");
+  public static final Pear KOESTLICHE_AUS_CHARNEUX = new Pear("Köstliche aus Charneux");
 
   private String name;
 

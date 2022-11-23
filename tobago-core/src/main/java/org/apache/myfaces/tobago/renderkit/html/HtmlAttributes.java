@@ -62,40 +62,64 @@ public enum HtmlAttributes implements MarkupLanguageAttributes {
   NONCE("nonce"),
   MIN("min"),
   MINLENGTH("minlength"),
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   ONBLUR("onblur"),
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   ONCHANGE("onchange"),
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   ONCLICK("onclick"),
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   ONDBLCLICK("ondblclick"),
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   ONFOCUS("onfocus"),
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   ONFOCUSIN("onfocusin"),
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   ONKEYDOWN("onkeydown"),
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   ONKEYPRESS("onkeypress"),
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   ONKEYUP("onkeyup"),
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   ONLOAD("onload"),
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   ONMOUSEOVER("onmouseover"),
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   ONMOUSEOUT("onmouseout"),
   PATTERN("pattern"),
@@ -113,7 +137,9 @@ public enum HtmlAttributes implements MarkupLanguageAttributes {
   SIZE("size"),
   SRC("src"),
   STEP("step"),
-  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  /**
+   * @deprecated Since 2.0.0. This attribute work not with SCP
+   */
   @Deprecated
   STYLE("style"),
   SUMMARY("summary"),

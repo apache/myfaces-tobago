@@ -31,7 +31,7 @@ import java.io.Serializable;
 @Named
 public class ConversationController implements Serializable {
 
-//  @Inject // XXX
+  //  @Inject // XXX
   private Conversation conversation;
   private int count = 0;
 

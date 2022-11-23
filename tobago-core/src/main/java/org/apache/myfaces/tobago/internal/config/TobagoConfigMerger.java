@@ -217,7 +217,7 @@ public class TobagoConfigMerger {
   }
 
   private void checkThemeIsAvailable(
-      final String name, final Theme theme, final Map<String, ThemeImpl>availableThemes) {
+      final String name, final Theme theme, final Map<String, ThemeImpl> availableThemes) {
     if (theme == null) {
       final String error = "Theme not found! name: '" + name + "'. "
           + "Please ensure you have a tobago-config.xml with a theme-definition in your "

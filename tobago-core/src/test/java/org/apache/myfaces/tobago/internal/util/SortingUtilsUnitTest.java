@@ -33,125 +33,125 @@ import java.util.List;
 
 public class SortingUtilsUnitTest extends AbstractTobagoTestBase {
 
-    @Test
-    public void testSheetValueNull() {
-        final UISheet sheet = new UISheet();
-        final UIColumn column = new UIColumn();
-        sheet.getChildren().add(column);
-        SortingUtils.sort(sheet, null);
-    }
+  @Test
+  public void testSheetValueNull() {
+    final UISheet sheet = new UISheet();
+    final UIColumn column = new UIColumn();
+    sheet.getChildren().add(column);
+    SortingUtils.sort(sheet, null);
+  }
 
-    @Test
-    public void testNoChild() {
-        final List<Fruit> list = Fruit.getFreshFruits();
+  @Test
+  public void testNoChild() {
+    final List<Fruit> list = Fruit.getFreshFruits();
 
-        final UISheet sheet = new UISheet();
-        sheet.getState().updateSortState("id");
-        final UIColumn column = new UIColumn();
-        column.setId("id");
-        sheet.getChildren().add(column);
-        sheet.setValue(list);
-        SortingUtils.sort(sheet, null);
+    final UISheet sheet = new UISheet();
+    sheet.getState().updateSortState("id");
+    final UIColumn column = new UIColumn();
+    column.setId("id");
+    sheet.getChildren().add(column);
+    sheet.setValue(list);
+    SortingUtils.sort(sheet, null);
 
-        // not sorted
-        Assertions.assertEquals(Apple.GOLDEN_DELICIOUS, list.get(0));
-        Assertions.assertEquals(Apple.SCHOENER_AUS_BOSKOOP, list.get(1));
-        Assertions.assertEquals(Pear.WILLIAMS_CHRIST, list.get(2));
-        Assertions.assertEquals(Pear.KOESTLICHE_AUS_CHARNEUX, list.get(3));
-    }
+    // not sorted
+    Assertions.assertEquals(Apple.GOLDEN_DELICIOUS, list.get(0));
+    Assertions.assertEquals(Apple.SCHOENER_AUS_BOSKOOP, list.get(1));
+    Assertions.assertEquals(Pear.WILLIAMS_CHRIST, list.get(2));
+    Assertions.assertEquals(Pear.KOESTLICHE_AUS_CHARNEUX, list.get(3));
+  }
 
   /**
    * @deprecated
    */
   @Test
-    @Deprecated
-    public void testUIOutDeprected() {
-        final List<Fruit> list = Fruit.getFreshFruits();
-        final UISheet sheet = new UISheet();
-        sheet.setMaxSortColumns(1);
-        sheet.getState().setSortedColumnId("id");
-        sheet.setVar("var");
-        final UIColumn column = new UIColumn();
-        column.setId("id");
-        sheet.getChildren().add(column);
-        sheet.setValue(list);
-        final UIOut out = new UIOut();
-        column.getChildren().add(out);
-        out.setValueExpression(Attributes.value.getName(),
-            new MockValueExpression("#{var.name}", String.class));
-        Assertions.assertNotNull(out.getValueExpression(Attributes.value.getName()));
+  @Deprecated
+  public void testUIOutDeprected() {
+    final List<Fruit> list = Fruit.getFreshFruits();
+    final UISheet sheet = new UISheet();
+    sheet.setMaxSortColumns(1);
+    sheet.getState().setSortedColumnId("id");
+    sheet.setVar("var");
+    final UIColumn column = new UIColumn();
+    column.setId("id");
+    sheet.getChildren().add(column);
+    sheet.setValue(list);
+    final UIOut out = new UIOut();
+    column.getChildren().add(out);
+    out.setValueExpression(Attributes.value.getName(),
+        new MockValueExpression("#{var.name}", String.class));
+    Assertions.assertNotNull(out.getValueExpression(Attributes.value.getName()));
 
-        SortingUtils.sort(sheet, null);
+    SortingUtils.sort(sheet, null);
 
-        Assertions.assertEquals(Apple.GOLDEN_DELICIOUS, list.get(0));
-        Assertions.assertEquals(Pear.KOESTLICHE_AUS_CHARNEUX, list.get(1));
-        Assertions.assertEquals(Apple.SCHOENER_AUS_BOSKOOP, list.get(2));
-        Assertions.assertEquals(Pear.WILLIAMS_CHRIST, list.get(3));
+    Assertions.assertEquals(Apple.GOLDEN_DELICIOUS, list.get(0));
+    Assertions.assertEquals(Pear.KOESTLICHE_AUS_CHARNEUX, list.get(1));
+    Assertions.assertEquals(Apple.SCHOENER_AUS_BOSKOOP, list.get(2));
+    Assertions.assertEquals(Pear.WILLIAMS_CHRIST, list.get(3));
 
-        sheet.getState().setAscending(false);
-        SortingUtils.sort(sheet, null);
+    sheet.getState().setAscending(false);
+    SortingUtils.sort(sheet, null);
 
-        Assertions.assertEquals(Pear.WILLIAMS_CHRIST, list.get(0));
-        Assertions.assertEquals(Apple.SCHOENER_AUS_BOSKOOP, list.get(1));
-        Assertions.assertEquals(Pear.KOESTLICHE_AUS_CHARNEUX, list.get(2));
-        Assertions.assertEquals(Apple.GOLDEN_DELICIOUS, list.get(3));
-    }
+    Assertions.assertEquals(Pear.WILLIAMS_CHRIST, list.get(0));
+    Assertions.assertEquals(Apple.SCHOENER_AUS_BOSKOOP, list.get(1));
+    Assertions.assertEquals(Pear.KOESTLICHE_AUS_CHARNEUX, list.get(2));
+    Assertions.assertEquals(Apple.GOLDEN_DELICIOUS, list.get(3));
+  }
 
-    @Test
-    public void testUIOut() {
-        final List<Fruit> list = Fruit.getFreshFruits();
-        final UISheet sheet = new UISheet();
-        sheet.setMaxSortColumns(1);
-        sheet.getState().updateSortState("id");
-        sheet.setVar("var");
-        final UIColumn column = new UIColumn();
-        column.setId("id");
-        sheet.getChildren().add(column);
-        sheet.setValue(list);
-        final UIOut out = new UIOut();
-        column.getChildren().add(out);
-        out.setValueExpression(Attributes.value.getName(),
-            new MockValueExpression("#{var.name}", String.class));
-        Assertions.assertNotNull(out.getValueExpression(Attributes.value.getName()));
+  @Test
+  public void testUIOut() {
+    final List<Fruit> list = Fruit.getFreshFruits();
+    final UISheet sheet = new UISheet();
+    sheet.setMaxSortColumns(1);
+    sheet.getState().updateSortState("id");
+    sheet.setVar("var");
+    final UIColumn column = new UIColumn();
+    column.setId("id");
+    sheet.getChildren().add(column);
+    sheet.setValue(list);
+    final UIOut out = new UIOut();
+    column.getChildren().add(out);
+    out.setValueExpression(Attributes.value.getName(),
+        new MockValueExpression("#{var.name}", String.class));
+    Assertions.assertNotNull(out.getValueExpression(Attributes.value.getName()));
 
-        SortingUtils.sort(sheet, null);
+    SortingUtils.sort(sheet, null);
 
-        Assertions.assertEquals(Apple.GOLDEN_DELICIOUS, list.get(0));
-        Assertions.assertEquals(Pear.KOESTLICHE_AUS_CHARNEUX, list.get(1));
-        Assertions.assertEquals(Apple.SCHOENER_AUS_BOSKOOP, list.get(2));
-        Assertions.assertEquals(Pear.WILLIAMS_CHRIST, list.get(3));
+    Assertions.assertEquals(Apple.GOLDEN_DELICIOUS, list.get(0));
+    Assertions.assertEquals(Pear.KOESTLICHE_AUS_CHARNEUX, list.get(1));
+    Assertions.assertEquals(Apple.SCHOENER_AUS_BOSKOOP, list.get(2));
+    Assertions.assertEquals(Pear.WILLIAMS_CHRIST, list.get(3));
 
-        sheet.getState().updateSortState("id");
-        SortingUtils.sort(sheet, null);
+    sheet.getState().updateSortState("id");
+    SortingUtils.sort(sheet, null);
 
-        Assertions.assertEquals(Pear.WILLIAMS_CHRIST, list.get(0));
-        Assertions.assertEquals(Apple.SCHOENER_AUS_BOSKOOP, list.get(1));
-        Assertions.assertEquals(Pear.KOESTLICHE_AUS_CHARNEUX, list.get(2));
-        Assertions.assertEquals(Apple.GOLDEN_DELICIOUS, list.get(3));
-    }
+    Assertions.assertEquals(Pear.WILLIAMS_CHRIST, list.get(0));
+    Assertions.assertEquals(Apple.SCHOENER_AUS_BOSKOOP, list.get(1));
+    Assertions.assertEquals(Pear.KOESTLICHE_AUS_CHARNEUX, list.get(2));
+    Assertions.assertEquals(Apple.GOLDEN_DELICIOUS, list.get(3));
+  }
 
-    @Test
-    public void testUILink() {
-        final List<Fruit> list = Fruit.getFreshFruits();
-        final UISheet sheet = new UISheet();
-        sheet.getState().updateSortState("id");
-        final UIColumn column = new UIColumn();
-        column.setId("id");
-        sheet.getChildren().add(column);
-        sheet.setValue(list);
-        final UILink link = new UILink();
-        column.getChildren().add(link);
-        link.setValueExpression(Attributes.label.getName(),
-            new MockValueExpression("#{var.name}", String.class));
+  @Test
+  public void testUILink() {
+    final List<Fruit> list = Fruit.getFreshFruits();
+    final UISheet sheet = new UISheet();
+    sheet.getState().updateSortState("id");
+    final UIColumn column = new UIColumn();
+    column.setId("id");
+    sheet.getChildren().add(column);
+    sheet.setValue(list);
+    final UILink link = new UILink();
+    column.getChildren().add(link);
+    link.setValueExpression(Attributes.label.getName(),
+        new MockValueExpression("#{var.name}", String.class));
 
-        Assertions.assertNotNull(link.getValueExpression(Attributes.label.getName()));
+    Assertions.assertNotNull(link.getValueExpression(Attributes.label.getName()));
 
-        SortingUtils.sort(sheet, null);
+    SortingUtils.sort(sheet, null);
 
-        Assertions.assertEquals(Apple.GOLDEN_DELICIOUS, list.get(0));
-        Assertions.assertEquals(Apple.SCHOENER_AUS_BOSKOOP, list.get(1));
-        Assertions.assertEquals(Pear.WILLIAMS_CHRIST, list.get(2));
-        Assertions.assertEquals(Pear.KOESTLICHE_AUS_CHARNEUX, list.get(3));
-    }
+    Assertions.assertEquals(Apple.GOLDEN_DELICIOUS, list.get(0));
+    Assertions.assertEquals(Apple.SCHOENER_AUS_BOSKOOP, list.get(1));
+    Assertions.assertEquals(Pear.WILLIAMS_CHRIST, list.get(2));
+    Assertions.assertEquals(Pear.KOESTLICHE_AUS_CHARNEUX, list.get(3));
+  }
 
 }

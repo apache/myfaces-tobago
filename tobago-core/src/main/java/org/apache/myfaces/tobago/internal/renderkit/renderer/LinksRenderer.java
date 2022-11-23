@@ -45,12 +45,12 @@ public class LinksRenderer<T extends AbstractUILinks> extends RendererBase<T> {
     writer.startElement(HtmlElements.TOBAGO_LINKS);
     writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeClassAttribute(
-        Orientation.vertical.equals(component.getOrientation()) ? BootstrapClass.FLEX_COLUMN : null,
         autoSpacing ? TobagoClass.AUTO__SPACING : null,
         component.getCustomClass());
     writer.startElement(HtmlElements.UL);
     writer.writeClassAttribute(
-        insideBar ? BootstrapClass.NAVBAR_NAV : BootstrapClass.NAV);
+        insideBar ? BootstrapClass.NAVBAR_NAV : BootstrapClass.NAV,
+        Orientation.vertical.equals(component.getOrientation()) ? BootstrapClass.FLEX_COLUMN : null);
   }
 
   @Override

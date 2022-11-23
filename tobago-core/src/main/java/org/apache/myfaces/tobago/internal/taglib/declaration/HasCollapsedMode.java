@@ -30,8 +30,8 @@ public interface HasCollapsedMode {
    */
   @TagAttribute
   @UIComponentTagAttribute(
-          type = "org.apache.myfaces.tobago.model.CollapseMode",
-          defaultValue = CollapseMode.NONE,
-          defaultCode = "org.apache.myfaces.tobago.model.CollapseMode.none")
+      type = "org.apache.myfaces.tobago.model.CollapseMode",
+      defaultValue = CollapseMode.NONE,
+      defaultCode = "org.apache.myfaces.tobago.model.CollapseMode.none")
   void setCollapsedMode(String collapsed);
 }

@@ -43,7 +43,7 @@ public class Activity implements Serializable {
   }
 
   public void executeAjaxRequest() {
-      ajaxRequest++;
+    ajaxRequest++;
   }
 
   public String getSessionId() {

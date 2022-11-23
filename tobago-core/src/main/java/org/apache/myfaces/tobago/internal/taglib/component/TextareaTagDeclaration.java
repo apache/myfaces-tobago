@@ -75,11 +75,11 @@ import javax.faces.component.UIInput;
         @Behavior(
             name = ClientBehaviors.FOCUS),
         @Behavior(
-          name = ClientBehaviors.KEYDOWN),
+            name = ClientBehaviors.KEYDOWN),
         @Behavior(
-          name = ClientBehaviors.KEYPRESS),
+            name = ClientBehaviors.KEYPRESS),
         @Behavior(
-          name = ClientBehaviors.KEYUP),
+            name = ClientBehaviors.KEYUP),
         @Behavior(
             name = ClientBehaviors.BLUR)
     },

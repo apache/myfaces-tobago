@@ -78,25 +78,25 @@ public interface RangeTagDeclaration
     HasAccessKey, HasValidator, HasValue, HasValueChangeListener, HasTabIndex, IsFocus, IsVisual,
     HasValidatorMessage, HasConverterMessage, HasLabel, HasLabelLayout, HasAutoSpacing {
 
-    /**
-     * Sets the minimum value of the range.
-     */
-    @TagAttribute
-    @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "0")
-    void setMin(String min);
+  /**
+   * Sets the minimum value of the range.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "0")
+  void setMin(String min);
 
-    /**
-     * Sets the maximum value of the range.
-     */
-    @TagAttribute
-    @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "100")
-    void setMax(String max);
+  /**
+   * Sets the maximum value of the range.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "100")
+  void setMax(String max);
 
-    /**
-     * Sets the step size of the range.
-     */
-    @TagAttribute
-    @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "1")
-    void setStep(String step);
+  /**
+   * Sets the step size of the range.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "1")
+  void setStep(String step);
 
 }

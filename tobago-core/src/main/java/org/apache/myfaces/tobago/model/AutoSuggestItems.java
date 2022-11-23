@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.model;
 
-
 import java.util.List;
 
 public class AutoSuggestItems {

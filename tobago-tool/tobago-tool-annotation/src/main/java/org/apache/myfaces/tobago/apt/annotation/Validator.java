@@ -28,5 +28,6 @@ import java.lang.annotation.ElementType;
 @Target(value = ElementType.TYPE)
 public @interface Validator {
   String id() default "";
+
   String forClass() default "";
 }

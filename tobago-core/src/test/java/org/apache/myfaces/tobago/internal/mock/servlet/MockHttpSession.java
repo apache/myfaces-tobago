@@ -61,21 +61,27 @@ public class MockHttpSession implements HttpSession {
     return 0;
   }
 
-  /** @deprecated */
+  /**
+   * @deprecated
+   */
   @Deprecated
   @Override
   public HttpSessionContext getSessionContext() {
     return null;
   }
 
-  /** @deprecated */
+  /**
+   * @deprecated
+   */
   @Deprecated
   @Override
   public Object getValue(final String s) {
     return null;
   }
 
-  /** @deprecated */
+  /**
+   * @deprecated
+   */
   @Deprecated
   @Override
   public String[] getValueNames() {
@@ -91,7 +97,9 @@ public class MockHttpSession implements HttpSession {
     return false;
   }
 
-  /** @deprecated */
+  /**
+   * @deprecated
+   */
   @Deprecated
   @Override
   public void putValue(final String s, final Object o) {

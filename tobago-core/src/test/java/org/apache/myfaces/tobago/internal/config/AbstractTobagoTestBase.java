@@ -64,7 +64,9 @@ import org.apache.myfaces.tobago.component.UITreeIndent;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.config.TobagoConfig;
+
 import static org.apache.myfaces.tobago.config.TobagoConfig.TOBAGO_CONFIG;
+
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.BadgeRenderer;
@@ -106,7 +108,9 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.TreeNodeRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TreeRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TreeSelectRenderer;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
+
 import static org.apache.myfaces.tobago.util.ResourceUtils.TOBAGO_RESOURCE_BUNDLE;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 

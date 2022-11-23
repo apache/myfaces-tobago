@@ -99,7 +99,7 @@ public class TobagoConfig {
 
   /**
    * @param servletContext From the container. If null, the WEB-INF/tobago-config.xml will be ignored.
-   * @param alternative Alternative tobago-config-files, only needed for testing.
+   * @param alternative    Alternative tobago-config-files, only needed for testing.
    */
   public TobagoConfig(final ServletContext servletContext, final String... alternative) {
 
@@ -264,7 +264,6 @@ public class TobagoConfig {
     checkUnlocked();
     this.checkSessionSecret = checkSessionSecret;
   }
-
 
   public boolean isPreventFrameAttacks() {
     return preventFrameAttacks;

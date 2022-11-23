@@ -28,6 +28,7 @@ public interface HasPlaceholder {
    * <p>
    * Displays a short text in the input field, that describes the meaning of this field.
    * </p>
+   *
    * @param placeholder The text to display
    */
   @TagAttribute

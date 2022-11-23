@@ -31,7 +31,7 @@ class AttachedStateWrapper implements Serializable {
   private Object wrappedStateObject;
 
   /**
-   * @param clazz              null means wrappedStateObject is a List of state objects
+   * @param clazz null means wrappedStateObject is a List of state objects
    */
   AttachedStateWrapper(final Class<?> clazz, final Object wrappedStateObject) {
     if (wrappedStateObject != null && !(wrappedStateObject instanceof Serializable)) {

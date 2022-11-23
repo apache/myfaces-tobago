@@ -62,7 +62,6 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
     setRenderedIndex(getSelectedIndex());
   }
 
-
   @Override
   public boolean getRendersChildren() {
     return true;
@@ -98,7 +97,6 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   public AbstractUITab getActiveTab() {
     return getTab(getSelectedIndex());
   }
-
 
   @Override
   public void processDecodes(final FacesContext context) {

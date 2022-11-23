@@ -29,7 +29,7 @@ public enum Facets {
   confirmation,
   constraints,
   /**
-  * @deprecated currently not supported
+   * @deprecated currently not supported
    */
   @Deprecated
   contextMenu,

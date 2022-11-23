@@ -39,7 +39,7 @@ public class ResetInputActionListener extends AbstractResetInputActionListener i
   }
 
   public ResetInputActionListener(final Collection<String> clientIds) {
-     this.clientIds = clientIds.toArray(new String[0]);
+    this.clientIds = clientIds.toArray(new String[0]);
   }
 
   @Override

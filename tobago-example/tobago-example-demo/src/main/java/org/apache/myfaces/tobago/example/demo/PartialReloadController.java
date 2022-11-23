@@ -121,7 +121,6 @@ public class PartialReloadController {
     return navValue;
   }
 
-
   public String getNavigateActionValue() {
     return navigateActionValue;
   }
