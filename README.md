@@ -11,8 +11,8 @@ You need Maven 3 (at least 3.0.4) and Java 8 or later to build Tobago.
 
 In the project directory you can use:
 
-```  
-mvn install  
+```
+mvn install
 
 ```
 
@@ -29,6 +29,28 @@ mvn clean jetty:run -Pjetty
 ```
 
 Browse to the local URL http://localhost:8080/
+
+## Demo - TomEE
+
+Switch to sub-directory and call Maven to run the demo:
+
+```
+cd tobago-example/tobago-example-demo
+mvn clean package -Ptomee tomee:run
+```
+
+Browse to the local URL http://localhost:8080/
+
+## Demo - Open Liberty
+
+Switch to sub-directory and call Maven to run the demo:
+
+```
+cd tobago-example/tobago-example-demo
+mvn clean -Pliberty liberty:run
+```
+
+Browse to the local URL http://localhost:9080/
 
 ## Demo - Tomcat in Docker
 
