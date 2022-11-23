@@ -30,6 +30,9 @@
     </application-bnd>
   </webApplication>
 
+  <!-- fix for TOBAGO-2171 -->
+  <webContainer keepSeparatorMultipartFormField="true"/>
+
   <basicRegistry>
     <user name="admin" password="admin"/>
     <user name="guest" password="guest"/>
