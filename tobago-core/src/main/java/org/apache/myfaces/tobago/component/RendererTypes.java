@@ -29,6 +29,7 @@ public enum RendererTypes {
   Box,
   Button,
   Buttons,
+  Config,
   Calendar,
   Column,
   ColumnSelector,
@@ -101,6 +102,7 @@ public enum RendererTypes {
   public static final String BOX = "Box";
   public static final String BUTTON = "Button";
   public static final String BUTTONS = "Buttons";
+  public static final String CONFIG = "Config";
   public static final String CALENDAR = "Calendar";
   public static final String COLUMN = "Column";
   public static final String COLUMN_SELECTOR = "ColumnSelector";

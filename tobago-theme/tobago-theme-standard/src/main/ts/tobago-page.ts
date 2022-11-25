@@ -177,6 +177,31 @@ export class Page extends HTMLElement {
     }
     return locale;
   }
+
+  get focusOnError(): boolean {
+    return this.getAttribute("focus-on-error") === "true";
+  }
+
+  set focusOnError(focusOnError: boolean) {
+    this.setAttribute("focus-on-error", String(focusOnError));
+  }
+
+  get waitOverlayDelayFull(): number {
+    return parseInt(this.getAttribute("wait-overlay-delay-full")) || 1000;
+  }
+
+  set waitOverlayDelayFull(waitOverlayDelayFull: number) {
+    this.setAttribute("wait-overlay-delay-full", String(waitOverlayDelayFull));
+  }
+
+  get waitOverlayDelayAjax(): number {
+    return parseInt(this.getAttribute("wait-overlay-delay-ajax")) || 1000;
+  }
+
+  set waitOverlayDelayAjax(waitOverlayDelayAjax: number) {
+    this.setAttribute("wait-overlay-delay-ajax", waitOverlayDelayAjax.toString());
+  }
+
 }
 
 document.addEventListener("tobago.init", (event: Event): void => {
