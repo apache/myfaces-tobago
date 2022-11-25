@@ -43,6 +43,7 @@ public enum HtmlAttributes implements MarkupLanguageAttributes {
   DEFER("defer"),
   DISABLED("disabled"),
   ENCTYPE("enctype"),
+  FOCUS_ON_ERROR("focus-on-error"),
   FOR("for"),
   FRAMEBORDER("frameborder"),
   FREQUENCY("frequency"),
@@ -149,6 +150,8 @@ public enum HtmlAttributes implements MarkupLanguageAttributes {
   TYPE("type"),
   VALIGN("valign"),
   VALUE("value"),
+  WAIT_OVERLAY_DELAY_AJAX("wait-overlay-delay-ajax"),
+  WAIT_OVERLAY_DELAY_FULL("wait-overlay-delay-full"),
   WIDTH("width"),
   XMLNS("xmlns");
 

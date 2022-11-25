@@ -34,6 +34,7 @@ public enum Tags {
   button,
   buttons,
   calendar,
+  config,
   column,
   columnNode,
   columnSelector,
@@ -105,6 +106,7 @@ public enum Tags {
   public static final String BUTTON = "button";
   public static final String BUTTONS = "buttons";
   public static final String CALENDAR = "calendar";
+  public static final String CONFIG = "config";
   public static final String COLUMN = "column";
   public static final String COLUMN_NODE = "columnNode";
   public static final String COLUMN_SELECTOR = "columnSelector";

@@ -222,6 +222,11 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
+    // write the config
+    writer.writeAttribute(HtmlAttributes.FOCUS_ON_ERROR, Boolean.toString(tobagoContext.getFocusOnError()), false);
+    writer.writeAttribute(HtmlAttributes.WAIT_OVERLAY_DELAY_FULL, tobagoContext.getWaitOverlayDelayFull());
+    writer.writeAttribute(HtmlAttributes.WAIT_OVERLAY_DELAY_AJAX, tobagoContext.getWaitOverlayDelayAjax());
+
     encodeBehavior(writer, facesContext, component);
 
     writer.startElement(HtmlElements.FORM);

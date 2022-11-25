@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.context;
 
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.util.CookieUtils;
 import org.slf4j.Logger;
@@ -180,6 +181,66 @@ public class TobagoContext implements Serializable {
   public void setEnctype(final String enctype) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     facesContext.getAttributes().put(ENCTYPE_KEY, enctype);
+  }
+
+  /**
+   * @since 5.4.0
+   */
+  public Boolean getFocusOnError() {
+    final Boolean focusOnError = (Boolean) FacesContext.getCurrentInstance().getAttributes().get(Attributes.focusOnError);
+    if (focusOnError != null) {
+      return focusOnError;
+    } else {
+      // todo: get default from TobagoConfig
+      return true;
+    }
+  }
+
+  /**
+   * @since 5.4.0
+   */
+  public void setFocusOnError(final Boolean focusOnError) {
+    FacesContext.getCurrentInstance().getAttributes().put(Attributes.focusOnError, focusOnError);
+  }
+
+  /**
+   * @since 5.4.0
+   */
+  public Integer getWaitOverlayDelayFull() {
+    final Integer waitOverlayDelayFull = (Integer) FacesContext.getCurrentInstance().getAttributes().get(Attributes.waitOverlayDelayFull);
+    if (waitOverlayDelayFull != null) {
+      return waitOverlayDelayFull;
+    } else {
+      // todo: get default from TobagoConfig
+      return 1000;
+    }
+  }
+
+  /**
+   * @since 5.4.0
+   */
+  public void setWaitOverlayDelayFull(final Integer waitOverlayDelayFull) {
+    FacesContext.getCurrentInstance().getAttributes().put(Attributes.waitOverlayDelayFull, waitOverlayDelayFull);
+  }
+
+  /**
+   * @since 5.4.0
+   */
+  public Integer getWaitOverlayDelayAjax() {
+    final Integer waitOverlayDelayAjax = (Integer) FacesContext.getCurrentInstance().getAttributes().get(Attributes.waitOverlayDelayAjax);
+    if (waitOverlayDelayAjax != null) {
+      return waitOverlayDelayAjax;
+    } else {
+      // todo: get default from TobagoConfig
+      return 1000;
+    }
+  }
+
+  /**
+   * @since 5.4.0
+   */
+  public void setWaitOverlayDelayAjax(final Integer waitOverlayDelayAjax) {
+    FacesContext.getCurrentInstance().getAttributes().put(Attributes.waitOverlayDelayAjax, waitOverlayDelayAjax);
   }
 
   public static TobagoContext getInstance(final FacesContext facesContext) {
