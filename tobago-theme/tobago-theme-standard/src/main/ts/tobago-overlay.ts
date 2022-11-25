@@ -19,15 +19,12 @@
  * Create a overlay barrier and animate it.
  */
 
-import {Config} from "./tobago-config";
+import {Page} from "./tobago-page";
 
 // XXX issue: if a ajax call is scheduled on the same element, the animation arrow will stacking and not desapearing.
 // XXX issue: "error" is not implemented correctly
 // see http://localhost:8080/demo-5-snapshot/content/140-partial/Partial_Ajax.xhtml to use this feature
 // XXX todo: check full page transitions
-
-Config.set("Tobago.waitOverlayDelay", 1000);
-Config.set("Ajax.waitOverlayDelay", 1000);
 
 export class Overlay extends HTMLElement {
 
@@ -131,13 +128,15 @@ export class Overlay extends HTMLElement {
   }
 
   /**
-   * The delay for the wait overlay. If not set the default delay is read from Tobago.Config.
+   * The delay for the wait overlay. If not set the default delay is read from config.
    */
   get delay(): number {
     if (this.hasAttribute("delay")) {
       return parseInt(this.getAttribute("delay"));
+    } else if (this.ajax) {
+      return Page.page(this).waitOverlayDelayAjax;
     } else {
-      return Config.get(this.ajax ? "Ajax.waitOverlayDelay" : "Tobago.waitOverlayDelay");
+      return Page.page(this).waitOverlayDelayFull;
     }
   }
 

@@ -115,6 +115,7 @@ public enum Attributes {
   fragment,
   frequency,
   focus,
+  focusOnError,
   focusId,
   formatPattern,
   forValue("for"),
@@ -445,6 +446,8 @@ public enum Attributes {
   update,
   validator,
   viewport,
+  waitOverlayDelayAjax,
+  waitOverlayDelayFull,
   width,
   widthList,
   zIndex;
