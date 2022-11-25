@@ -23,12 +23,12 @@ import org.apache.myfaces.tobago.context.TobagoContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIOutput;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.PostAddToViewEvent;
-import javax.faces.event.PostRestoreStateEvent;
-import javax.faces.event.PreRenderViewEvent;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.faces.event.PostRestoreStateEvent;
+import jakarta.faces.event.PreRenderViewEvent;
 import java.lang.invoke.MethodHandles;
 
 /**
