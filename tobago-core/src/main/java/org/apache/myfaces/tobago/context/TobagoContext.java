@@ -186,7 +186,8 @@ public class TobagoContext implements Serializable {
    * @since 5.4.0
    */
   public Boolean getFocusOnError() {
-    final Boolean focusOnError = (Boolean) FacesContext.getCurrentInstance().getAttributes().get(Attributes.focusOnError);
+    final Boolean focusOnError
+        = (Boolean) FacesContext.getCurrentInstance().getAttributes().get(Attributes.focusOnError);
     if (focusOnError != null) {
       return focusOnError;
     } else {
@@ -206,7 +207,8 @@ public class TobagoContext implements Serializable {
    * @since 5.4.0
    */
   public Integer getWaitOverlayDelayFull() {
-    final Integer waitOverlayDelayFull = (Integer) FacesContext.getCurrentInstance().getAttributes().get(Attributes.waitOverlayDelayFull);
+    final Integer waitOverlayDelayFull
+        = (Integer) FacesContext.getCurrentInstance().getAttributes().get(Attributes.waitOverlayDelayFull);
     if (waitOverlayDelayFull != null) {
       return waitOverlayDelayFull;
     } else {
@@ -226,7 +228,8 @@ public class TobagoContext implements Serializable {
    * @since 5.4.0
    */
   public Integer getWaitOverlayDelayAjax() {
-    final Integer waitOverlayDelayAjax = (Integer) FacesContext.getCurrentInstance().getAttributes().get(Attributes.waitOverlayDelayAjax);
+    final Integer waitOverlayDelayAjax
+        = (Integer) FacesContext.getCurrentInstance().getAttributes().get(Attributes.waitOverlayDelayAjax);
     if (waitOverlayDelayAjax != null) {
       return waitOverlayDelayAjax;
     } else {
