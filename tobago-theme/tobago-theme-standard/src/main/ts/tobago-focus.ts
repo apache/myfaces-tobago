@@ -16,6 +16,7 @@
  */
 
 import {Page} from "./tobago-page";
+import {Config} from "./tobago-config";
 
 export class Focus extends HTMLElement {
 
@@ -53,10 +54,12 @@ export class Focus extends HTMLElement {
    * - first (the first input element (without tabindex=-1) gets the focus, not AJAX)
    */
   connectedCallback(): void {
-    const errorElement = this.errorElement;
-    if (errorElement) {
-      errorElement.focus();
-      return;
+    if (Page.page(this).focusOnError) {
+      const errorElement = this.errorElement;
+      if (errorElement) {
+        errorElement.focus();
+        return;
+      }
     }
 
     if (this.autofocusElements.length > 0) {

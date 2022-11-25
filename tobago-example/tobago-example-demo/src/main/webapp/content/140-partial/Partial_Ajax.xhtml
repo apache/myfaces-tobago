@@ -52,12 +52,12 @@
 
     <tc:flowLayout>
       <p>Click on <tc:link label="Reload left" tip="Reload left side box"
-                            action="#{partialReloadController.reload}">
+                           action="#{partialReloadController.reload}">
         <f:ajax render="left :page:header:headerInfo"/>
       </tc:link> to reload the left panel.</p>
 
       <p>Click on <tc:link label="Reload right" tip="Reload right side box"
-                            action="#{partialReloadController.reload}">
+                           action="#{partialReloadController.reload}">
         <f:ajax render="right :page:header:headerInfo"/>
       </tc:link> to reload the right panel.</p>
 
@@ -68,8 +68,8 @@
       </tc:link> to reload both panels parent container.</p>
 
       <p>Click <tc:link label="Reload full panel"
-                          tip="Reload the full area inside the outer box"
-                          action="#{partialReloadController.reload}">
+                        tip="Reload the full area inside the outer box"
+                        action="#{partialReloadController.reload}">
         <f:ajax render="parent :page:header:headerInfo"/>
         <tc:gridLayoutConstraint columnSpan="2"/>
       </tc:link> to reload both panels via the parent component.</p>
@@ -84,7 +84,7 @@
         See the wait animation.
       </p>
 
-      <p><tc:badge value="timeout demo currently not working" markup="warning"/>  Click
+      <p><tc:badge value="timeout demo currently not working" markup="warning"/> Click
         <tc:link label="Reload both (wait 7 s, timeout)"
                  action="#{partialReloadController.waitAndReload7}">
           <f:ajax render="left right :page:header:headerInfo"/>
@@ -109,9 +109,9 @@
         </tc:selectOneChoice>
       </p>
 
-<p>
-      <tc:badge value="Error handling currently not working" markup="warning"/>
-</p>
+      <p>
+        <tc:badge value="Error handling currently not working" markup="warning"/>
+      </p>
 
       <tc:button label="Error left" tip="Reload left side box, but an exception occures"
                  action="#{partialReloadController.error}">
