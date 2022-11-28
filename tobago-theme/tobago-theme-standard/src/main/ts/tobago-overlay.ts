@@ -20,6 +20,7 @@
  */
 
 import {Page} from "./tobago-page";
+import {OverlayType} from "./tobago-overlay-type";
 
 // XXX issue: if a ajax call is scheduled on the same element, the animation arrow will stacking and not desapearing.
 // XXX issue: "error" is not implemented correctly
@@ -27,6 +28,14 @@ import {Page} from "./tobago-page";
 // XXX todo: check full page transitions
 
 export class Overlay extends HTMLElement {
+  private readonly CssClass = {
+    SHOW: "show",
+    POSITION_RELATIVE: "position-relative"
+  };
+
+  static htmlText(id: string, type: OverlayType, delay: number): string {
+    return `<tobago-overlay type='${type}' for='${id}' delay='${delay}' class='modal-backdrop fade'></tobago-overlay>`;
+  }
 
   constructor() {
     super();
@@ -40,11 +49,13 @@ export class Overlay extends HTMLElement {
     console.log("disconnected from the DOM");
     const forElement = document.getElementById(this.for);
     if (forElement) {
-      forElement.classList.remove("position-relative");
+      forElement.classList.remove(this.CssClass.POSITION_RELATIVE);
     }
+    this.showScrollbar();
   }
 
   render(): void {
+    this.classList.add(this.CssClass.SHOW);
     let icon;
     switch (this.type) {
       case "error":
@@ -60,12 +71,34 @@ export class Overlay extends HTMLElement {
         icon = "";
     }
 
-    this.insertAdjacentHTML("afterbegin", `<div>${icon}</div>`);
+    this.insertAdjacentHTML("afterbegin", icon);
 
     const forElement = document.getElementById(this.for);
     if (forElement) {
-      forElement.classList.add("position-relative");
+      forElement.classList.add(this.CssClass.POSITION_RELATIVE);
+      if (forElement.tagName === "TOBAGO-PAGE") {
+        this.hideScrollbar();
+      } else {
+        this.style.position = "absolute";
+        const boundingClientRect = forElement.getBoundingClientRect();
+        this.style.width = `${boundingClientRect.width}px`;
+        this.style.height = `${boundingClientRect.height}px`;
+      }
     }
+  }
+
+  private hideScrollbar() {
+    document.body.style.overflow = "hidden";
+    document.body.style.paddingRight = `${this.scrollbarWidth}px`;
+  }
+
+  private showScrollbar() {
+    document.body.style.overflow = null;
+    document.body.style.paddingRight = null;
+  }
+
+  get scrollbarWidth(): number {
+    return window.innerWidth - document.documentElement.clientWidth;
   }
 
   get for(): string {

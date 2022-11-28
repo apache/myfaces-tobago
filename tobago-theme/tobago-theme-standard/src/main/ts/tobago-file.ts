@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {Overlay} from "./tobago-overlay";
+import {OverlayType} from "./tobago-overlay-type";
+
 export class File extends HTMLElement {
 
   constructor() {
@@ -67,8 +70,7 @@ export class File extends HTMLElement {
       if (dropZone) {
         if (dropZone.querySelector("tobago-overlay") == null) {
           console.info("DRAGOVER", event.dataTransfer.items);
-          dropZone.insertAdjacentHTML(
-            "beforeend", `<tobago-overlay for='${dropZone.id}' delay="0" type="drop-zone"></tobago-overlay>`);
+          dropZone.insertAdjacentHTML("beforeend", Overlay.htmlText(dropZone.id, OverlayType.dropZone, 0));
         }
       }
     }
