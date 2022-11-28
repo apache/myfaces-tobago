@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+import {Overlay} from "./tobago-overlay";
+import {OverlayType} from "./tobago-overlay-type";
+
 export class Page extends HTMLElement {
 
   submitActive = false;
@@ -111,7 +114,8 @@ export class Page extends HTMLElement {
   beforeSubmit(event: Event, decoupled = false): void {
     this.submitActive = true;
     if (!decoupled) {
-      this.body.insertAdjacentHTML("beforeend", `<tobago-overlay for='${this.id}'></tobago-overlay>`);
+      this.body.insertAdjacentHTML("beforeend",
+          Overlay.htmlText(this.id, OverlayType.wait, this.waitOverlayDelayFull));
     }
     console.debug(this.body.querySelector("tobago-overlay"));
   }
