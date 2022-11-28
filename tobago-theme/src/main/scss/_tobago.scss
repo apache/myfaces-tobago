@@ -32,15 +32,15 @@ $icon-sort: "\F127";
 $icon-sort-ascending: "\f57a";
 $icon-sort-descending: "\f574";
 $circles: (
-  1: "\f797",
-  2: "\f79d",
-  3: "\f7a3",
-  4: "\f7a9",
-  5: "\f7af",
-  6: "\f7b5",
-  7: "\f7bb",
-  8: "\f7c1",
-  9: "\f7c7"
+    1: "\f797",
+    2: "\f79d",
+    3: "\f7a3",
+    4: "\f7a9",
+    5: "\f7af",
+    6: "\f7b5",
+    7: "\f7bb",
+    8: "\f7c1",
+    9: "\f7c7"
 );
 
 /* non-bootstrap variables --------------------------------------- */
@@ -823,30 +823,16 @@ span.tobago-out:empty:before {
   // was in bs4: color: $table-dark-color;
 }
 
-/* overlay ----------------------------------------------------------- */
-
 tobago-overlay {
-  display: table;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100%;
-  /* TODO: better z-index strategy */
-  z-index: 500; /* less than the bootstrap navbar */
-  //transition-delay: 1s;
-  //transition-duration: 250ms;
-  //transition-property: opacity;
-  opacity: 0.8;
 
-  > div {
-    background-color: #8884;
-    display: table-cell;
-    text-align: center;
-    vertical-align: middle;
-    width: 100%;
-    /* TODO: better z-index strategy */
-    z-index: 500; /* less than the bootstrap navbar */
+  &.modal-backdrop.show {
+    --#{$prefix}backdrop-zindex: #{$zindex-sticky - 1}; //less than the bootstrap navbar
+    --#{$prefix}backdrop-bg: rgba(#{red($gray-400)}, #{green($gray-400)}, #{blue($gray-400)}, #{$modal-backdrop-opacity});
+    opacity: 1;
   }
 }
 
