@@ -11204,26 +11204,16 @@ span.tobago-out:empty:before {
   color: #fff;
 }
 
-/* overlay ----------------------------------------------------------- */
 tobago-overlay {
-  display: table;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100%;
-  /* TODO: better z-index strategy */
-  z-index: 500; /* less than the bootstrap navbar */
-  opacity: 0.8;
 }
-tobago-overlay > div {
-  background-color: rgba(136, 136, 136, 0.2666666667);
-  display: table-cell;
-  text-align: center;
-  vertical-align: middle;
-  width: 100%;
-  /* TODO: better z-index strategy */
-  z-index: 500; /* less than the bootstrap navbar */
+tobago-overlay.modal-backdrop.show {
+  --bs-backdrop-zindex: 1019;
+  --bs-backdrop-bg: rgba(206, 212, 218, 0.5);
+  opacity: 1;
 }
 
 /* page ----------------------------------------------------------- */
