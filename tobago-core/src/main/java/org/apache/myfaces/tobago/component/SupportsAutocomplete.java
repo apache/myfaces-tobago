@@ -39,7 +39,6 @@ public interface SupportsAutocomplete {
         return string;
       }
     } else {
-      LOG.warn();
       return Objects.toString(object);
     }
   }
