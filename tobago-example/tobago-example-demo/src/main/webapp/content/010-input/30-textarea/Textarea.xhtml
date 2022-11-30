@@ -56,6 +56,18 @@
     <tc:button label="Submit" action="#{textareaController.submit}"/>
   </tc:section>
 
+  <tc:section label="Autocomplete">
+    <p>The <code>autocomplete</code> attribute can be used for explaining a user the meaning of a field.</p>
+
+    <tc:textarea id="a1" label="on" autocomplete="true" />
+    <tc:textarea id="a2" label="off" autocomplete="false" />
+    <tc:textarea id="a3" label="name" autocomplete="name" />
+
+    The values are documented in
+    <tc:link label="MDN" image="bi-box-arrow-up-right"
+             link="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete#values"/>.
+  </tc:section>
+
   <tc:section label="Ajax">
     <p>Ajax update by the change event:</p>
     <tc:textarea id="tajax" label="Text Area" value="#{textareaController.ajaxValue}">
