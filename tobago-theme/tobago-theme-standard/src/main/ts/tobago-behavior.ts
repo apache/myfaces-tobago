@@ -19,6 +19,8 @@ import {Collapse} from "./tobago-popup";
 import {Page} from "./tobago-page";
 import {CollapseOperation} from "./tobago-collapsible-operation";
 import {BehaviorMode} from "./tobago-behavior-mode";
+import {Overlay} from "./tobago-overlay";
+import {OverlayType} from "./tobago-overlay-type";
 
 class Behavior extends HTMLElement {
 
@@ -78,7 +80,8 @@ class Behavior extends HTMLElement {
               } else {
                 id = partialElement.id;
               }
-              partialElement.insertAdjacentHTML("beforeend", `<tobago-overlay for='${id}'></tobago-overlay>`);
+              partialElement.insertAdjacentHTML("beforeend",
+                  Overlay.htmlText(id, OverlayType.wait, Page.page(this).waitOverlayDelayAjax));
             } else {
               console.warn("No element found by id='%s' for overlay!", partialId);
             }
