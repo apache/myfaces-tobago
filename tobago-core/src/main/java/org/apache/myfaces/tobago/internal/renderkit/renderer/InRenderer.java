@@ -141,6 +141,7 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
     if (!disabled && !readonly) {
       writer.writeAttribute(HtmlAttributes.PLACEHOLDER, component.getPlaceholder(), true);
     }
+    writer.writeAttribute(HtmlAttributes.AUTOCOMPLETE, component.getAutocompleteString(), true);
 
     writer.writeClassAttribute(
         markup != null && markup.contains(Markup.NUMBER) ? TobagoClass.NUMBER : null,

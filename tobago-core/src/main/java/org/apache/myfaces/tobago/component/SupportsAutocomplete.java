@@ -17,14 +17,32 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.taglib.declaration;
+package org.apache.myfaces.tobago.component;
 
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import java.util.Objects;
 
-public interface HasAutocomplete {
+public interface SupportsAutocomplete {
 
-  @TagAttribute
-  @UIComponentTagAttribute(type = {"java.lang.Boolean", "java.lang.String"})
-  void setAutocomplete(String action);
+  default String getAutocompleteString() {
+    final Object object = getAutocomplete();
+    if (object == null) {
+      return null;
+    } else if (object instanceof Boolean) {
+      return ((Boolean) object) ? "on" : "off";
+    } else if (object instanceof String) {
+      final String string = (String) object;
+      if (string.equals("true")) {
+        return "on";
+      } else if (string.equals("false")) {
+        return "off";
+      } else {
+        return string;
+      }
+    } else {
+      LOG.warn();
+      return Objects.toString(object);
+    }
+  }
+
+  Object getAutocomplete();
 }
