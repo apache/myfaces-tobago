@@ -544,4 +544,15 @@ public class InRendererUnitTest extends RendererTestBase {
 
     Assertions.assertEquals(loadHtml("renderer/in/required-label-segmentRight.html"), formattedResult());
   }
+
+  @Test
+  public void autocompleteTrue() throws IOException {
+
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+    c.setAutocomplete(true);
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/in/autocomplete-on.html"), formattedResult());
+  }
 }
