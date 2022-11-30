@@ -96,6 +96,7 @@ public class TextareaRenderer<T extends AbstractUITextarea> extends MessageLayou
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.REQUIRED, component.isRequired());
     writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
+    writer.writeAttribute(HtmlAttributes.AUTOCOMPLETE, component.getAutocompleteString(), true);
 
     if (component.getAccessKey() != null) {
       writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(component.getAccessKey()), false);

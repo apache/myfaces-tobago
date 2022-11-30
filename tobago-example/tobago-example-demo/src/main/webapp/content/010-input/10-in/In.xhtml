@@ -71,6 +71,18 @@
     <tc:in id="i7" label="Placeholder" placeholder="Short description of the field." />
   </tc:section>
 
+  <tc:section label="Autocomplete">
+    <p>The <code>autocomplete</code> attribute can be used for explaining a user the meaning of a field.</p>
+
+    <tc:in id="a1" label="on" autocomplete="true" />
+    <tc:in id="a2" label="off" autocomplete="false" />
+    <tc:in id="a3" label="name" autocomplete="name" />
+
+    The values are documented in
+    <tc:link label="MDN" image="bi-box-arrow-up-right"
+             link="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete#values"/>.
+  </tc:section>
+
   <tc:section label="Ajax">
     <p>The output field in this example, displays the given value on the server.
       With <code class="language-markup">&lt;f:ajax render="outputAjax" listener="\#{inController.update}"/></code>,

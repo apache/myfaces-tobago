@@ -19,12 +19,13 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.SupportsAutocomplete;
 import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.TextareaTagDeclaration}
  */
-public abstract class AbstractUITextarea extends AbstractUIInput {
+public abstract class AbstractUITextarea extends AbstractUIInput implements SupportsAutocomplete {
 
   public abstract String getPlaceholder();
 

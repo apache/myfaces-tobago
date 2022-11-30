@@ -19,10 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.SupportsAutocomplete;
+
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.InTagDeclaration}
  */
-public abstract class AbstractUIIn extends AbstractUIInput {
+public abstract class AbstractUIIn extends AbstractUIInput implements SupportsAutocomplete {
 
   public abstract String getPlaceholder();
 

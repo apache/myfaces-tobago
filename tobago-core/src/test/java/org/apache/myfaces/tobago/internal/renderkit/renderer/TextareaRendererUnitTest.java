@@ -40,4 +40,14 @@ public class TextareaRendererUnitTest extends RendererTestBase {
     Assertions.assertEquals(loadHtml("renderer/textarea/with-label.html"), formattedResult());
   }
 
+  @Test
+  public void autocomplete() throws IOException {
+    final UITextarea c = (UITextarea) ComponentUtils.createComponent(
+        facesContext, Tags.textarea.componentType(), RendererTypes.Textarea, "id");
+    c.setAutocomplete("impp");
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/textarea/autocomplete-impp.html"), formattedResult());
+  }
+
 }
