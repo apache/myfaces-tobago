@@ -470,6 +470,11 @@
           <artifactId>jakarta.enterprise.cdi-api</artifactId>
           <scope>compile</scope>
         </dependency>
+        <dependency>
+          <groupId>org.apache.bval</groupId>
+          <artifactId>bval-jsr</artifactId>
+          <scope>compile</scope>
+        </dependency>
         <!-- this enables the development mode -->
         <dependency>
           <groupId>org.apache.myfaces.tobago</groupId>
