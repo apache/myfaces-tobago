@@ -10896,6 +10896,7 @@ textarea.form-control-lg {
  */
 /* used bootstrap icons ---------------------------------------------------- */
 /* non-bootstrap variables --------------------------------------- */
+/* bootstrap variables --------------------------------------- */
 /* utilities ----------------------------------------------------- */
 .tobago-display-inline-block {
   display: inline-block;
@@ -11833,6 +11834,126 @@ tobago-select-one-radio input[type=radio].border-warning:focus {
 }
 tobago-select-one-radio input[type=radio].border-info:focus {
   box-shadow: 0 0 0 0.25rem rgba(19, 14, 143, 0.25);
+}
+
+tobago-select-many-list {
+  display: block;
+}
+tobago-select-many-list.tobago-label-container .dropdown, tobago-select-many-list.tobago-label-container .list-group {
+  flex: 1 0 0;
+}
+tobago-select-many-list.tobago-focus .dropdown .tobago-select-field {
+  color: #a0a0a0;
+  background-color: #000000;
+  border-color: #ffbd57;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(214, 130, 0, 0.25);
+}
+tobago-select-many-list.tobago-focus .dropdown .tobago-select-field.border-danger {
+  box-shadow: 0 0 0 0.25rem rgba(255, 178, 67, 0.25);
+}
+tobago-select-many-list.tobago-focus .dropdown .tobago-select-field.border-warning {
+  box-shadow: 0 0 0 0.25rem rgba(178, 104, 18, 0.25);
+}
+tobago-select-many-list.tobago-focus .dropdown .tobago-select-field.border-info {
+  box-shadow: 0 0 0 0.25rem rgba(19, 14, 143, 0.25);
+}
+tobago-select-many-list.tobago-focus .list-group {
+  --bs-list-group-color: #a0a0a0;
+  --bs-list-group-bg: #000000;
+  --bs-list-group-border-color: #ffbd57;
+  box-shadow: 0 0 0 0.25rem rgba(214, 130, 0, 0.25);
+}
+tobago-select-many-list.tobago-focus .list-group.border-danger {
+  box-shadow: 0 0 0 0.25rem rgba(255, 178, 67, 0.25);
+}
+tobago-select-many-list.tobago-focus .list-group.border-warning {
+  box-shadow: 0 0 0 0.25rem rgba(178, 104, 18, 0.25);
+}
+tobago-select-many-list.tobago-focus .list-group.border-info {
+  box-shadow: 0 0 0 0.25rem rgba(19, 14, 143, 0.25);
+}
+tobago-select-many-list.tobago-disabled .tobago-select-field {
+  color: rgba(160, 160, 160, 0.5);
+  background-color: #e9ecef;
+}
+tobago-select-many-list .list-group {
+  height: inherit;
+  max-height: inherit;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  tobago-select-many-list .list-group {
+    transition: none;
+  }
+}
+tobago-select-many-list .list-group.border-danger .list-group-item, tobago-select-many-list .list-group.border-warning .list-group-item, tobago-select-many-list .list-group.border-info .list-group-item {
+  border-color: inherit;
+}
+tobago-select-many-list .list-group .list-group-item.tobago-select-field {
+  border-bottom-color: rgba(0, 0, 0, 0.125);
+}
+tobago-select-many-list .tobago-select-field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+tobago-select-many-list .tobago-select-field.dropdown-toggle::after {
+  content: none;
+}
+tobago-select-many-list .tobago-select-field.list-group-item.form-control {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+}
+tobago-select-many-list .tobago-select-field .btn-group + .tobago-filter {
+  margin-left: 0.25rem;
+}
+tobago-select-many-list .tobago-select-field .btn-group {
+  margin-right: 0.25rem;
+}
+tobago-select-many-list .tobago-select-field .tobago-filter {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  flex: 1 0 0;
+  min-width: 8rem;
+  background-color: transparent;
+}
+tobago-select-many-list .tobago-select-field .tobago-filter:focus {
+  box-shadow: none;
+}
+tobago-select-many-list .tobago-select-field .tobago-filter:-moz-read-only {
+  width: 0;
+  min-width: 0;
+}
+tobago-select-many-list .tobago-select-field .tobago-filter:read-only {
+  width: 0;
+  min-width: 0;
+}
+tobago-select-many-list .tobago-options.list-group-item {
+  padding: 0;
+  overflow-y: auto;
+}
+tobago-select-many-list .tobago-options .table {
+  margin-bottom: 0;
+}
+tobago-select-many-list .tobago-options .table tr {
+  cursor: pointer;
+}
+tobago-select-many-list .tobago-options .table tr.tobago-disabled {
+  color: rgba(160, 160, 160, 0.5);
+  background-color: #e9ecef;
+  cursor: initial;
+  pointer-events: none;
+}
+tobago-select-many-list .tobago-options .table tr.tobago-mark {
+  --bs-table-accent-bg: var(--bs-table-hover-bg);
+  color: var(--bs-table-hover-color);
+}
+tobago-select-many-list .tobago-options .table tr:last-of-type td {
+  border-bottom-width: 0;
 }
 
 /* selectManyCheckbox ----------------------------------------------------- */
