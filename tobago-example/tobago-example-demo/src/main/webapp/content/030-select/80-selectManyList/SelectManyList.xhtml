@@ -27,22 +27,22 @@
   <tc:badge markup="warning"
             value="Preliminary feature, may be subject to change!"/><br/>
 
-  <tc:section label="not inline / no filter">
+  <tc:section label="not expanded / no filter">
     <tc:selectManyList id="selected1" value="#{selectManyListController.selected1}">
       <tc:selectItems value="#{selectManyListController.planets}"
                       var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
     </tc:selectManyList>
   </tc:section>
 
-  <tc:section label="inline / no filter">
-    <tc:selectManyList id="selected2" value="#{selectManyListController.selected2}" inline="true">
+  <tc:section label="expanded / no filter">
+    <tc:selectManyList id="selected2" value="#{selectManyListController.selected2}" expanded="true">
       <tc:selectItems value="#{selectManyListController.planets}"
                       var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
     </tc:selectManyList>
     <tc:button label="Submit"/>
   </tc:section>
 
-  <tc:section label="not inline / with filter">
+  <tc:section label="not expanded / with filter">
     <tc:selectManyList id="selected3" value="#{selectManyListController.selected3}" filter="contains">
       <tc:selectItems value="#{selectManyListController.planets}"
                       var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
@@ -50,8 +50,8 @@
     <tc:button label="Submit"/>
   </tc:section>
 
-  <tc:section label="inline / with filter:">
-    <tc:selectManyList id="selected4" value="#{selectManyListController.selected4}" filter="contains" inline="true">
+  <tc:section label="expanded / with filter:">
+    <tc:selectManyList id="selected4" value="#{selectManyListController.selected4}" filter="contains" expanded="true">
       <tc:selectItems value="#{selectManyListController.planets}"
                       var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
     </tc:selectManyList>
@@ -68,7 +68,7 @@
       <f:ajax render="filter" execute="filter"/>
     </tc:selectOneRadio>
     <tc:selectManyList id="selected5" value="#{selectManyListController.selected5}"
-                       filter="#{selectManyListController.filterType}" inline="true">
+                       filter="#{selectManyListController.filterType}" expanded="true">
       <tc:selectItems value="#{selectManyListController.names}"
                       var="name" itemLabel="#{name}" itemValue="#{name}"/>
       <tc:style maxHeight="300px"/>
