@@ -75,6 +75,7 @@ public enum Tags {
   selectItem,
   selectItems,
   selectManyCheckbox,
+  selectManyList,
   selectManyListbox,
   selectManyShuttle,
   selectOneChoice,
@@ -147,6 +148,7 @@ public enum Tags {
   public static final String SELECT_ITEM = "selectItem";
   public static final String SELECT_ITEMS = "selectItems";
   public static final String SELECT_MANY_CHECKBOX = "selectManyCheckbox";
+  public static final String SELECT_MANY_LIST = "selectManyList";
   public static final String SELECT_MANY_LISTBOX = "selectManyListbox";
   public static final String SELECT_MANY_SHUTTLE = "selectManyShuttle";
   public static final String SELECT_ONE_CHOICE = "selectOneChoice";

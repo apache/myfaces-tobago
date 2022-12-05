@@ -50,6 +50,9 @@ $tobago-page-padding-top: 1rem;
 $tobago-header-margin-bottom: $tobago-page-padding-top;
 $tobago-flex-layout-spacing: 0.5rem;
 
+/* bootstrap variables --------------------------------------- */
+$form-select-disabled-color: rgba($form-select-color, $tobago-form-disabled-alpha) !default;
+
 /* utilities ----------------------------------------------------- */
 .tobago-display-inline-block {
   display: inline-block;
@@ -109,6 +112,25 @@ $tobago-flex-layout-spacing: 0.5rem;
   &:disabled {
     color: rgba($input-color, $tobago-form-disabled-alpha);
   }
+}
+
+@mixin formControlFocusShadows() {
+  //_form-control:focus from bootstrap
+  @if $enable-shadows {
+    @include box-shadow($input-box-shadow, $input-focus-box-shadow);
+  } @else {
+    // Avoid using mixin so we can pass custom focus shadow properly
+    box-shadow: $input-focus-box-shadow;
+  }
+}
+
+@mixin formControlFocus() {
+  //_form-control:focus from bootstrap
+  color: $input-focus-color;
+  background-color: $input-focus-bg;
+  border-color: $input-focus-border-color;
+  outline: 0;
+  @include formControlFocusShadows();
 }
 
 @mixin formControlSelectListDisabled() {
@@ -1159,6 +1181,145 @@ tobago-select-one-radio {
 
   input[type='radio'] {
     @include messageShadow();
+  }
+}
+
+tobago-select-many-list {
+  display: block;
+
+  &.tobago-label-container {
+    .dropdown, .list-group {
+      flex: 1 0 0;
+    }
+  }
+
+  &.tobago-focus {
+    @mixin borderColorShadow($name, $color) {
+      &.border-#{$name} {
+        box-shadow: 0 0 $input-btn-focus-blur $input-focus-width rgba($color, $input-btn-focus-color-opacity);
+      }
+    }
+
+    .dropdown .tobago-select-field {
+      @include formControlFocus();
+      @include borderColorShadow("danger", $danger);
+      @include borderColorShadow("warning", $warning);
+      @include borderColorShadow("info", $info);
+    }
+
+    .list-group {
+      --bs-list-group-color: #{$input-focus-color};
+      --bs-list-group-bg: #{$input-focus-bg};
+      --bs-list-group-border-color: #{$input-focus-border-color};
+
+      @include formControlFocusShadows();
+      @include borderColorShadow("danger", $danger);
+      @include borderColorShadow("warning", $warning);
+      @include borderColorShadow("info", $info);
+    }
+  }
+
+  &.tobago-disabled {
+    .tobago-select-field {
+      color: $form-select-disabled-color;
+      background-color: $form-select-disabled-bg;
+      border-color: $form-select-disabled-border-color;
+    }
+  }
+
+  .list-group {
+    height: inherit;
+    max-height: inherit;
+    @include box-shadow($form-select-box-shadow);
+    @include transition($form-select-transition);
+
+    &.border-danger, &.border-warning, &.border-info {
+      .list-group-item {
+        border-color: inherit;
+      }
+    }
+
+    .list-group-item.tobago-select-field {
+      border-bottom-color: $list-group-border-color;
+    }
+  }
+
+  .tobago-select-field {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    &.dropdown-toggle::after {
+      content: none;
+    }
+
+    &.list-group-item.form-control {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+
+      padding: $form-select-padding-y $form-select-indicator-padding $form-select-padding-y $form-select-padding-x;
+    }
+
+    .btn-group + .tobago-filter {
+      margin-left: 0.25rem;
+    }
+
+    .btn-group {
+      margin-right: 0.25rem;
+    }
+
+    .tobago-filter {
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      flex: 1 0 0;
+      min-width: 8rem;
+      background-color: transparent;
+
+      &:focus {
+        box-shadow: none;
+      }
+
+      &:read-only {
+        width: 0;
+        min-width: 0;
+      }
+    }
+  }
+
+  .tobago-options {
+    &.list-group-item {
+      padding: 0;
+      overflow-y: auto;
+    }
+
+    .table {
+      margin-bottom: 0;
+
+      tr {
+        cursor: pointer;
+
+        &.tobago-disabled {
+          color: $form-select-disabled-color;
+          background-color: $form-select-disabled-bg;
+          border-color: $form-select-disabled-border-color;
+          cursor: initial;
+          pointer-events: none;
+        }
+
+        &.tobago-mark {
+          --bs-table-accent-bg: var(--bs-table-hover-bg);
+          color: var(--bs-table-hover-color);
+        }
+
+        &:last-of-type {
+          td {
+            border-bottom-width: 0;
+          }
+        }
+      }
+    }
   }
 }
 
