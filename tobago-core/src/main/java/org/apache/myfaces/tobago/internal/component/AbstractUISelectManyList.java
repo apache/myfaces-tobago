@@ -60,7 +60,7 @@ public abstract class AbstractUISelectManyList extends AbstractUISelectManyBase
 
   public abstract boolean isDisabled();
 
-  public abstract boolean isInline();
+  public abstract boolean isExpanded();
 
   public boolean isError() {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
