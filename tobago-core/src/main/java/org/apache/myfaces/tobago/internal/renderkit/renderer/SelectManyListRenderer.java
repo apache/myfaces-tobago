@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyList;
 import org.apache.myfaces.tobago.internal.util.ArrayUtils;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
@@ -76,8 +75,7 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, component);
     final boolean disabled = !items.iterator().hasNext() || component.isDisabled() || component.isReadonly();
     final String filter = component.getFilter();
-    final boolean inline = component.isInline();
-    final Markup markup = component.getMarkup();
+    final boolean expanded = component.isExpanded();
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     final Integer tabIndex = component.getTabIndex();
 
@@ -85,11 +83,12 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(
-        inline ? BootstrapClass.LIST_GROUP : BootstrapClass.DROPDOWN,
-        inline ? BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)) : null);
+        expanded ? BootstrapClass.LIST_GROUP : BootstrapClass.DROPDOWN,
+        expanded ? BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)) : null);
 
-    encodeSelectField(facesContext, component, clientId, fieldId, filterId, filter, disabled, inline, title, tabIndex);
-    encodeOptions(facesContext, component, items, clientId, inline, disabled);
+    encodeSelectField(facesContext, component,
+        clientId, fieldId, filterId, filter, disabled, expanded, title, tabIndex);
+    encodeOptions(facesContext, component, items, clientId, expanded, disabled);
 
     writer.endElement(HtmlElements.DIV);
   }
@@ -101,7 +100,8 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     writer.writeAttribute(CustomAttributes.FILTER, input.getFilter(), true);
   }
 
-  private void encodeHiddenSelect(final FacesContext facesContext, final T component, final List<SelectItem> items,
+  private void encodeHiddenSelect(
+      final FacesContext facesContext, final T component, final List<SelectItem> items,
       final String clientId, final String selectedId, final boolean disabled) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -119,9 +119,10 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     writer.endElement(HtmlElements.SELECT);
   }
 
-  private void encodeSelectField(final FacesContext facesContext, final T component,
+  private void encodeSelectField(
+      final FacesContext facesContext, final T component,
       final String clientId, final String fieldId, final String filterId, final String filter, final boolean disabled,
-      final boolean inline, final String title, final Integer tabIndex) throws IOException {
+      final boolean expanded, final String title, final Integer tabIndex) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
@@ -129,10 +130,10 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     writer.writeNameAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeClassAttribute(
-        inline ? BootstrapClass.FORM_CONTROL : BootstrapClass.FORM_SELECT,
+        expanded ? BootstrapClass.FORM_CONTROL : BootstrapClass.FORM_SELECT,
         TobagoClass.SELECT__FIELD,
-        inline ? BootstrapClass.LIST_GROUP_ITEM : BootstrapClass.DROPDOWN_TOGGLE,
-        inline ? null : BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
+        expanded ? BootstrapClass.LIST_GROUP_ITEM : BootstrapClass.DROPDOWN_TOGGLE,
+        expanded ? null : BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
         component.getCustomClass());
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     writer.writeAttribute(Arias.EXPANDED, Boolean.FALSE.toString(), false);
@@ -153,14 +154,15 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     writer.endElement(HtmlElements.DIV);
   }
 
-  private void encodeOptions(final FacesContext facesContext, final T component, final List<SelectItem> items,
-      final String clientId, final boolean inline, final boolean disabled) throws IOException {
+  private void encodeOptions(
+      final FacesContext facesContext, final T component, final List<SelectItem> items,
+      final String clientId, final boolean expanded, final boolean disabled) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(
         TobagoClass.OPTIONS,
-        inline ? BootstrapClass.LIST_GROUP_ITEM : BootstrapClass.DROPDOWN_MENU);
+        expanded ? BootstrapClass.LIST_GROUP_ITEM : BootstrapClass.DROPDOWN_MENU);
     writer.writeNameAttribute(clientId);
 
     writer.startElement(HtmlElements.TABLE);
