@@ -52,13 +52,15 @@
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
     <junit-jupiter.version>5.9.1</junit-jupiter.version>
     <testcontainers.version>1.17.6</testcontainers.version>
-    <checkstyle-rules.version>20-SNAPSHOT</checkstyle-rules.version>
+    <checkstyle-rules.version>20</checkstyle-rules.version>
 
     <!-- Note: defined here in master pom, because of problems with enforcer plugin -->
     <jetty.version>9.4.49.v20220914</jetty.version>
+    <tomcat9.version>9.0.70</tomcat9.version>
     <joinfaces.version>4.7.5</joinfaces.version>
     <spring-boot.version>2.7.5</spring-boot.version>
-
+    <spring.version>5.3.24</spring.version>
+    <jackson.version>2.14.0</jackson.version>
   </properties>
 
   <issueManagement>
@@ -734,6 +736,9 @@
               <!-- readme -->
               <exclude>**/readme.*</exclude>
               <exclude>**/*.md</exclude>
+
+              <!-- banner -->
+              <exclude>**/banner.txt</exclude>
 
               <!-- tobago-vm index page -->
               <exclude>**/tobago-vm/docker/apache-proxy/bootstrap*.css</exclude>

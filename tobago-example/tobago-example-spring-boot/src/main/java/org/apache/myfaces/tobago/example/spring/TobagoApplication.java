@@ -21,14 +21,34 @@ package org.apache.myfaces.tobago.example.spring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletContextInitializer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration;
 
 @SpringBootApplication
 @ComponentScan(basePackages = "org.apache.myfaces.tobago")
 public class TobagoApplication {
 
+  public static final String FACES_SERVLET_NAME = "FacesServlet";
+
   public static void main(String[] args) {
     SpringApplication.run(TobagoApplication.class, args);
   }
 
+  /**
+   * This is to put &lt;multipart-config> into the FacesServlet.
+   * This "normally" happens in the web.xml file.
+   */
+  @Bean
+  public ServletContextInitializer multipartServletContextInitializer(MultipartConfigElement multipartConfigElement) {
+    return servletContext -> {
+      ServletRegistration servletRegistration = servletContext.getServletRegistration(FACES_SERVLET_NAME);
+      if (servletRegistration instanceof ServletRegistration.Dynamic) {
+        ((ServletRegistration.Dynamic) servletRegistration).setMultipartConfig(multipartConfigElement);
+      }
+    };
+  }
 }
