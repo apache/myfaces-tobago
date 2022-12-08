@@ -34,6 +34,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
+import java.util.Collections;
 import java.util.List;
 
 @SessionScoped
@@ -126,6 +127,7 @@ public class NavigationState implements Serializable {
 
   public String search() {
     searchResult = tree.search(this.searchString);
+    Collections.sort(searchResult);
     return Outcome.SEARCH.toString();
   }
 

@@ -107,9 +107,9 @@ public class NavigationTree implements Serializable {
       if (s.contains(searchString.toLowerCase())) {
         result.add(searchIndex.get(s));
       }
-      if (result.size() >= 20) {
-        break;
-      }
+//      if (result.size() >= 20) {
+//        break;
+//      }
     }
     return result;
   }
