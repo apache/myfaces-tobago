@@ -15,174 +15,272 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.apache.myfaces.tobago</groupId>
-        <artifactId>tobago-example</artifactId>
-        <version>5.4.0-SNAPSHOT</version>
-    </parent>
-    <artifactId>tobago-example-spring-boot</artifactId>
-    <packaging>jar</packaging>
-    <name>Tobago Example Spring Boot</name>
-    <description>A minimal Tobago application with spring boot</description>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.apache.myfaces.tobago</groupId>
+    <artifactId>tobago-example</artifactId>
+    <version>5.4.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>tobago-example-spring-boot</artifactId>
+  <packaging>jar</packaging>
+  <name>Tobago Example Spring Boot</name>
+  <description>A minimal Tobago application with spring boot</description>
 
-    <build>
-        <finalName>tobago-example-spring-boot</finalName>
+  <build>
+    <finalName>tobago-example-spring-boot</finalName>
 
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.joinfaces</groupId>
-                    <artifactId>joinfaces-maven-plugin</artifactId>
-                    <version>${joinfaces.version}</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>classpath-scan</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.joinfaces</groupId>
+          <artifactId>joinfaces-maven-plugin</artifactId>
+          <version>${joinfaces.version}</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>classpath-scan</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
 
-        <plugins>
-            <plugin>
-                <groupId>org.joinfaces</groupId>
-                <artifactId>joinfaces-maven-plugin</artifactId>
-                <version>${joinfaces.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
-            </plugin>
-        </plugins>
-    </build>
+    <plugins>
+      <plugin>
+        <groupId>org.joinfaces</groupId>
+        <artifactId>joinfaces-maven-plugin</artifactId>
+        <version>${joinfaces.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${spring-boot.version}</version>
+      </plugin>
+    </plugins>
+  </build>
 
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <!-- Import dependency management from Spring Boot -->
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.joinfaces</groupId>
-                <artifactId>joinfaces-dependencies</artifactId>
-                <version>${joinfaces.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-        </dependencies>
-    </dependencyManagement>
-
+  <dependencyManagement>
     <dependencies>
-        <dependency>
-            <groupId>org.joinfaces</groupId>
-            <artifactId>jsf-spring-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>jarkata.faces</groupId>
-                    <artifactId>jakarta.faces-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.glassfish</groupId>
-                    <artifactId>jakarta.faces</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.joinfaces</groupId>
-                    <artifactId>mojarra-spring-boot-starter</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.joinfaces</groupId>
-            <artifactId>myfaces-spring-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.enterprise</groupId>
-                    <artifactId>cdi-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.joinfaces</groupId>
-            <artifactId>tomcat-spring-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.glassfish</groupId>
-                    <artifactId>jakarta.el</artifactId>
-                </exclusion>
-            <!-- tomcat version set where: fix CVE in tomcat-spring-boot-starter -->
-                <!--
-                <exclusion>
-                    <groupId>org.apache.tomcat.embed</groupId>
-                    <artifactId>tomcat-embed-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.tomcat.embed</groupId>
-                    <artifactId>tomcat-embed-jasper</artifactId>
-                </exclusion>
-              <exclusion>
-                  <groupId>org.apache.tomcat.embed</groupId>
-                  <artifactId>tomcat-embed-websocket</artifactId>
-              </exclusion>
-              -->
-          </exclusions>
+      <dependency>
+        <!-- Import dependency management from Spring Boot -->
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
-      <!-- tomcat version set where: fix CVE in tomcat-spring-boot-starter -->
+
+      <dependency>
+        <groupId>org.joinfaces</groupId>
+        <artifactId>joinfaces-dependencies</artifactId>
+        <version>${joinfaces.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.joinfaces</groupId>
+      <artifactId>jsf-spring-boot-starter</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>jarkata.faces</groupId>
+          <artifactId>jakarta.faces-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.glassfish</groupId>
+          <artifactId>jakarta.faces</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.joinfaces</groupId>
+          <artifactId>mojarra-spring-boot-starter</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.joinfaces</groupId>
+      <artifactId>myfaces-spring-boot-starter</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>javax.enterprise</groupId>
+          <artifactId>cdi-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.joinfaces</groupId>
+      <artifactId>tomcat-spring-boot-starter</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.glassfish</groupId>
+          <artifactId>jakarta.el</artifactId>
+        </exclusion>
+        <!-- tomcat version set where: fix CVE in tomcat-spring-boot-starter -->
         <!--
-        <dependency>
+        <exclusion>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
-            <version>9.0.60</version>
-        </dependency>
-        <dependency>
+        </exclusion>
+        <exclusion>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
-            <version>9.0.60</version>
+        </exclusion>
+      <exclusion>
+          <groupId>org.apache.tomcat.embed</groupId>
+          <artifactId>tomcat-embed-websocket</artifactId>
+      </exclusion>
+      -->
+      </exclusions>
+    </dependency>
+    <!-- tomcat version set where: fix CVE in tomcat-spring-boot-starter -->
+    <!--
+    <dependency>
+        <groupId>org.apache.tomcat.embed</groupId>
+        <artifactId>tomcat-embed-core</artifactId>
+        <version>9.0.60</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.tomcat.embed</groupId>
+        <artifactId>tomcat-embed-jasper</artifactId>
+        <version>9.0.60</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.tomcat.embed</groupId>
+        <artifactId>tomcat-embed-websocket</artifactId>
+        <version>9.0.60</version>
+    </dependency>
+    -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.yaml</groupId>
+          <artifactId>snakeyaml</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.14.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.yaml</groupId>
+      <artifactId>snakeyaml</artifactId>
+      <version>1.33</version>
+    </dependency>
+    <dependency> <!-- add JAXB to run the demo with Java 11 and higher -->
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+    </dependency>
+  </dependencies>
+
+  <profiles>
+    <profile>
+      <id>v2</id>
+      <dependencies>
+        <dependency>
+          <groupId>org.joinfaces</groupId>
+          <artifactId>joinfaces-autoconfigure</artifactId>
+          <version>${joinfaces.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-websocket</artifactId>
-            <version>9.0.60</version>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot</artifactId>
+          <version>${spring-boot.version}</version>
         </dependency>
-        -->
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
-        <exclusions>
-          <exclusion>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-databind</artifactId>
-        <version>2.14.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.yaml</groupId>
-        <artifactId>snakeyaml</artifactId>
-        <version>1.33</version>
-      </dependency>
-      <dependency> <!-- add JAXB to run the demo with Java 11 and higher -->
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-core</artifactId>
+          <version>${spring.version}</version>
         </dependency>
-    </dependencies>
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-web</artifactId>
+          <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.yaml</groupId>
+          <artifactId>snakeyaml</artifactId>
+          <version>1.33</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.tomcat.embed</groupId>
+          <artifactId>tomcat-embed-core</artifactId>
+          <version>${tomcat9.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.tomcat.embed</groupId>
+          <artifactId>tomcat-embed-el</artifactId>
+          <version>${tomcat9.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.tomcat.embed</groupId>
+          <artifactId>tomcat-embed-websocket</artifactId>
+          <version>${tomcat9.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.tomcat.embed</groupId>
+          <artifactId>tomcat-embed-jasper</artifactId>
+          <version>${tomcat9.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-core</artifactId>
+          <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+          <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>com.fasterxml.jackson.datatype</groupId>
+          <artifactId>jackson-datatype-jdk8</artifactId>
+          <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>com.fasterxml.jackson.datatype</groupId>
+          <artifactId>jackson-datatype-jsr310</artifactId>
+          <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>com.fasterxml.jackson.module</groupId>
+          <artifactId>jackson-module-parameter-names</artifactId>
+          <version>${jackson.version}</version>
+        </dependency>
+        <dependency> <!-- add JAXB to run the demo with Java 11 and higher -->
+          <groupId>javax.xml.bind</groupId>
+          <artifactId>jaxb-api</artifactId>
+          <version>2.3.1</version>
+        </dependency>
+        <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>jul-to-slf4j</artifactId>
+          <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>log4j-over-slf4j</artifactId>
+          <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>ch.qos.reload4j</groupId>
+          <artifactId>reload4j</artifactId>
+          <version>1.2.24</version>
+        </dependency>
+      </dependencies>
+    </profile>
+  </profiles>
+
 </project>
