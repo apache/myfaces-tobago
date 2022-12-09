@@ -27,7 +27,8 @@ import jakarta.faces.context.FacesContext;
 
 import java.lang.invoke.MethodHandles;
 
-public abstract class SelectOneRendererBase<T extends AbstractUISelectOneBase> extends MessageLayoutRendererBase<T> {
+public abstract class SelectOneRendererBase<T extends AbstractUISelectOneBase> extends
+    DecorationPositionRendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 

@@ -19,6 +19,12 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
+import org.apache.myfaces.tobago.component.DecorationPosition;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
+
 /**
  * Declaration of the Tobago CSS classes.
  *
@@ -53,6 +59,7 @@ public enum TobagoClass implements CssItem {
   FOLDER("tobago-folder"),
   FILTER("tobago-filter"),
   HEADER("tobago-header"),
+  HELP__CONTAINER("tobago-help-container"),
   LABEL("tobago-label"),
   LABEL__CONTAINER("tobago-label-container"),
   LEVEL("tobago-level"),
@@ -61,6 +68,7 @@ public enum TobagoClass implements CssItem {
   MESSAGES__CONTAINER("tobago-messages-container"),
   NOW("tobago-now"),
   NUMBER("tobago-number"),
+  NONE("tobago-none"),
   OBJECT("tobago-object"),
   OPTIONS("tobago-options"),
   OUT("tobago-out"),
@@ -70,6 +78,8 @@ public enum TobagoClass implements CssItem {
   PAGING("tobago-paging"),
   PANEL("tobago-panel"),
   POPOVER__BOX("tobago-popover-box"),
+  BUTTON__LEFT("tobago-button-left"),
+  BUTTON__RIGHT("tobago-button-right"),
   RANGE("tobago-range"),
   REQUIRED("tobago-required"),
   RESIZE("tobago-resize"),
@@ -88,10 +98,14 @@ public enum TobagoClass implements CssItem {
   STARS__TOOLTIP("tobago-stars-tooltip"),
   STARS__UNSELECTED("tobago-stars-unselected"),
   TABLE_LAYOUT__FIXED("tobago-tableLayout-fixed"),
+  TEXT__BOTTOM("tobago-text-bottom"),
   TEXT__JUSTIFY("tobago-text-justify"),
+  TEXT__TOP("tobago-text-top"),
   TOGGLE("tobago-toggle"),
   TOOLTIP("tobago-tooltip"),
   UNSELECTED("tobago-unselected");
+
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private final String name;
 
@@ -102,5 +116,29 @@ public enum TobagoClass implements CssItem {
   @Override
   public String getName() {
     return name;
+  }
+
+  public static CssItem valueOf(final DecorationPosition decorationPosition) {
+    if (decorationPosition == null) {
+      return null;
+    } else {
+      switch (decorationPosition) {
+        case none:
+          return NONE;
+        case buttonLeft:
+          return BUTTON__LEFT;
+        case buttonRight:
+          return BUTTON__RIGHT;
+        case tooltip:
+          return TOOLTIP;
+        case textTop:
+          return TEXT__TOP;
+        case textBottom:
+          return TEXT__BOTTOM;
+        default:
+          LOG.warn("Undefined decoration position: '{}'.", decorationPosition);
+          return null;
+      }
+    }
   }
 }

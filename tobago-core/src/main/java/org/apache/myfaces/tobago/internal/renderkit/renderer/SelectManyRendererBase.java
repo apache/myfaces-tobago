@@ -55,7 +55,8 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public abstract class SelectManyRendererBase<T extends AbstractUISelectManyBase> extends MessageLayoutRendererBase<T> {
+public abstract class SelectManyRendererBase<T extends AbstractUISelectManyBase> extends
+    DecorationPositionRendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 

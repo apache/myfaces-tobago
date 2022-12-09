@@ -19,8 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.component.DecorationPosition;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
+import org.apache.myfaces.tobago.component.SupportsDecorationPosition;
 import org.apache.myfaces.tobago.component.SupportsHelp;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
@@ -48,7 +50,7 @@ import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class MessageLayoutRendererBase<T extends UIComponent & SupportsLabelLayout & SupportsAutoSpacing>
+public abstract class DecorationPositionRendererBase<T extends UIComponent & SupportsLabelLayout & SupportsAutoSpacing>
     extends LabelLayoutRendererBase<T> {
 
   @Override
@@ -71,54 +73,129 @@ public abstract class MessageLayoutRendererBase<T extends UIComponent & Supports
 
   @Override
   public void encodeBeginMessageField(final FacesContext facesContext, final T component) throws IOException {
-    encodeBeginMessagesContainer(facesContext, component);
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final Integer tabIndex = component instanceof AbstractUIInput ? ((AbstractUIInput) component).getTabIndex() : null;
+    final SupportsDecorationPosition supportsDecorationPosition = component instanceof SupportsDecorationPosition
+        ? ((SupportsDecorationPosition) component) : null;
+
+    final DecorationPosition helpPosition = supportsDecorationPosition != null
+        ? supportsDecorationPosition.getHelpPosition() : DecorationPosition.none;
+    final String help = component instanceof SupportsHelp ? ((SupportsHelp) component).getHelp() : null;
+
+    if (!StringUtils.isEmpty(help)) {
+      writer.startElement(HtmlElements.DIV);
+      writer.writeClassAttribute(TobagoClass.HELP__CONTAINER, TobagoClass.valueOf(helpPosition));
+      writer.writeAttribute(DataAttributes.HELP, help, true);
+
+      switch (helpPosition) {
+        case buttonLeft:
+          final String title = ResourceUtils.getString(facesContext, "help.title");
+          encodePopover(writer, BootstrapClass.BTN_OUTLINE_INFO, Icons.QUESTION_LG, title, help, tabIndex);
+          break;
+        case textTop:
+          writer.startElement(HtmlElements.DIV);
+          writer.writeClassAttribute(BootstrapClass.HELP_FEEDBACK);
+          writer.writeText(help);
+          writer.endElement(HtmlElements.DIV);
+        default:
+      }
+    }
+
+    final DecorationPosition messagePosition = supportsDecorationPosition != null
+        ? supportsDecorationPosition.getMessagePosition() : DecorationPosition.none;
+    final String clientId = component.getClientId();
+    final List<FacesMessage> messages = facesContext.getMessageList(clientId);
+    final String message = getMessage(messages);
+    final FacesMessage.Severity severity = ComponentUtils.getMaximumSeverity(messages);
+
+    if (!StringUtils.isEmpty(message)) {
+      writer.startElement(HtmlElements.DIV);
+      writer.writeClassAttribute(TobagoClass.MESSAGES__CONTAINER, TobagoClass.valueOf(messagePosition));
+      writer.writeAttribute(DataAttributes.FACES_MESSAGE, message, true);
+
+      switch (messagePosition) {
+        case buttonLeft:
+          final CssItem buttonColor = BootstrapClass.buttonColor(severity);
+          encodePopover(writer, buttonColor, Icons.EXCLAMATION_LG, getTitle(messages), message, tabIndex);
+          break;
+        case textTop:
+          final CssItem feedback = BootstrapClass.feedbackColor(severity);
+          writer.startElement(HtmlElements.DIV);
+          writer.writeClassAttribute(feedback);
+          writer.writeText(message);
+          writer.endElement(HtmlElements.DIV);
+        default:
+      }
+    }
+
     encodeBeginField(facesContext, component);
   }
 
   @Override
   public void encodeEndMessageField(final FacesContext facesContext, final T component) throws IOException {
+    final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final Integer tabIndex = component instanceof AbstractUIInput ? ((AbstractUIInput) component).getTabIndex() : null;
+    final SupportsDecorationPosition supportsDecorationPosition = component instanceof SupportsDecorationPosition
+        ? ((SupportsDecorationPosition) component) : null;
+
     encodeEndField(facesContext, component);
-    encodeEndMessagesContainer(facesContext, component);
-  }
 
-  private void encodeBeginMessagesContainer(final FacesContext facesContext, final T component)
-      throws IOException {
-    final TobagoResponseWriter writer = getResponseWriter(facesContext);
-
+    final DecorationPosition messagePosition = supportsDecorationPosition != null
+        ? supportsDecorationPosition.getMessagePosition() : DecorationPosition.none;
     final String clientId = component.getClientId();
     final List<FacesMessage> messages = facesContext.getMessageList(clientId);
-    final String help = component instanceof SupportsHelp ? ((SupportsHelp) component).getHelp() : null;
-    final boolean hasMessage = !messages.isEmpty();
-    final boolean hasHelp = !StringUtils.isEmpty(help);
+    final String message = getMessage(messages);
+    final FacesMessage.Severity severity = ComponentUtils.getMaximumSeverity(messages);
 
-    if (hasMessage || hasHelp) {
-      writer.startElement(HtmlElements.DIV);
-      writer.writeClassAttribute(TobagoClass.MESSAGES__CONTAINER);
+    if (!StringUtils.isEmpty(message)) {
+      switch (messagePosition) {
+        case buttonRight:
+          final CssItem buttonColor = BootstrapClass.buttonColor(severity);
+          encodePopover(writer, buttonColor, Icons.EXCLAMATION_LG, getTitle(messages), message, tabIndex);
+          break;
+        case tooltip:
+          final CssItem tooltip = BootstrapClass.tooltipColor(severity);
+          writer.startElement(HtmlElements.DIV);
+          writer.writeClassAttribute(tooltip);
+          writer.writeText(message);
+          writer.endElement(HtmlElements.DIV);
+          break;
+        case textBottom:
+          final CssItem feedback = BootstrapClass.feedbackColor(severity);
+          writer.startElement(HtmlElements.DIV);
+          writer.writeClassAttribute(feedback);
+          writer.writeText(message);
+          writer.endElement(HtmlElements.DIV);
+        default:
+      }
+
+      writer.endElement(HtmlElements.DIV);
     }
-  }
 
-  private void encodeEndMessagesContainer(final FacesContext facesContext, final T component)
-      throws IOException {
-    final TobagoResponseWriter writer = getResponseWriter(facesContext);
-
-    final String clientId = component.getClientId();
-    final List<FacesMessage> messages = facesContext.getMessageList(clientId);
+    final DecorationPosition helpPosition = supportsDecorationPosition != null
+        ? supportsDecorationPosition.getHelpPosition() : DecorationPosition.none;
+    final String title = ResourceUtils.getString(facesContext, "help.title");
     final String help = component instanceof SupportsHelp ? ((SupportsHelp) component).getHelp() : null;
-    final boolean hasMessage = !messages.isEmpty();
-    final boolean hasHelp = !StringUtils.isEmpty(help);
 
-    if (hasMessage || hasHelp) {
-      Integer tabIndex = (component instanceof AbstractUIInput) ? ((AbstractUIInput) component).getTabIndex() : null;
-      if (hasMessage) {
-        encodePopover(writer,
-            BootstrapClass.buttonColor(ComponentUtils.getMaximumSeverity(messages)),
-            Icons.EXCLAMATION_LG, getTitle(messages), getMessage(messages), tabIndex);
+    if (!StringUtils.isEmpty(help)) {
+      switch (helpPosition) {
+        case buttonRight:
+          encodePopover(writer, BootstrapClass.BTN_OUTLINE_INFO, Icons.QUESTION_LG, title, help, tabIndex);
+          break;
+        case tooltip:
+          writer.startElement(HtmlElements.DIV);
+          writer.writeClassAttribute(BootstrapClass.HELP_TOOLTIP);
+          writer.writeText(help);
+          writer.endElement(HtmlElements.DIV);
+          break;
+        case textBottom:
+          writer.startElement(HtmlElements.DIV);
+          writer.writeClassAttribute(BootstrapClass.HELP_FEEDBACK);
+          writer.writeText(help);
+          writer.endElement(HtmlElements.DIV);
+        default:
       }
-      if (hasHelp) {
-        encodePopover(writer,
-            BootstrapClass.BTN_OUTLINE_INFO, Icons.QUESTION_LG,
-            ResourceUtils.getString(facesContext, "help.title"), help, tabIndex);
-      }
+
       writer.endElement(HtmlElements.DIV);
     }
   }
@@ -215,8 +292,7 @@ public abstract class MessageLayoutRendererBase<T extends UIComponent & Supports
 
   private void encodePopover(
       final TobagoResponseWriter writer, final CssItem buttonColor, final Icons icon, final String title,
-      final String content, final Integer tabIndex)
-      throws IOException {
+      final String content, final Integer tabIndex) throws IOException {
     writer.startElement(HtmlElements.TOBAGO_POPOVER);
     writer.writeAttribute(DataAttributes.BS_TOGGLE, "popover", false);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
@@ -236,8 +312,8 @@ public abstract class MessageLayoutRendererBase<T extends UIComponent & Supports
   }
 
   protected void encodeGroupAddon(
-      final FacesContext facesContext, final TobagoResponseWriter writer,
-      final UIComponent addon, final boolean isAfterFacet) throws IOException {
+      final FacesContext facesContext, final TobagoResponseWriter writer, final UIComponent addon,
+      final boolean isAfterFacet) throws IOException {
     if (addon != null) {
       for (final UIComponent child : RenderUtils.getFacetChildren(addon)) {
         insideBegin(facesContext, isAfterFacet ? Facets.after : Facets.before);

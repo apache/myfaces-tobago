@@ -35,7 +35,7 @@ import jakarta.faces.context.FacesContext;
 
 import java.io.IOException;
 
-public class RangeRenderer<T extends AbstractUIRange> extends MessageLayoutRendererBase<T> {
+public class RangeRenderer<T extends AbstractUIRange> extends DecorationPositionRendererBase<T> {
 
   @Override
   protected boolean isOutputOnly(T component) {

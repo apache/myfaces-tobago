@@ -312,6 +312,8 @@ public enum BootstrapClass implements CssItem {
   DROPDOWN_MENU("dropdown-menu"),
   DROPDOWN_MENU_END("dropdown-menu-end"),
   DROPDOWN_TOGGLE("dropdown-toggle"),
+  ERROR_FEEDBACK("error-feedback"),
+  ERROR_TOOLTIP("error-tooltip"),
   FADE("fade"),
   FIGURE("figure"),
   FIGURE_CAPTION("figure-caption"),
@@ -393,6 +395,10 @@ public enum BootstrapClass implements CssItem {
   FW_NORMAL("fw-normal"),
   FW_LIGHT("fw-light"),
   FW_LIGHTER("fw-lighter"),
+  HELP_FEEDBACK("help-feedback"),
+  HELP_TOOLTIP("help-tooltip"),
+  INFO_FEEDBACK("info-feedback"),
+  INFO_TOOLTIP("info-tooltip"),
   INPUT_GROUP("input-group"),
   /**
    * @deprecated since 5.0.0
@@ -624,7 +630,9 @@ public enum BootstrapClass implements CssItem {
   TABLE_SM("table-sm"),
   TABLE_STRIPED("table-striped"),
   TOOLTIP_ARROW("tooltip-arrow"),
-  VISUALLY_HIDDEN("visually-hidden");
+  VISUALLY_HIDDEN("visually-hidden"),
+  WARNING_FEEDBACK("warning-feedback"),
+  WARNING_TOOLTIP("warning-tooltip");
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -681,6 +689,20 @@ public enum BootstrapClass implements CssItem {
       return null;
     }
     return getSeverityCssItem(severity, BTN_INFO, BTN_WARNING, BTN_DANGER);
+  }
+
+  public static CssItem feedbackColor(final FacesMessage.Severity severity) {
+    if (severity == null) {
+      return null;
+    }
+    return getSeverityCssItem(severity, INFO_FEEDBACK, WARNING_FEEDBACK, ERROR_FEEDBACK);
+  }
+
+  public static CssItem tooltipColor(final FacesMessage.Severity severity) {
+    if (severity == null) {
+      return null;
+    }
+    return getSeverityCssItem(severity, INFO_TOOLTIP, WARNING_TOOLTIP, ERROR_TOOLTIP);
   }
 
   private static CssItem getSeverityCssItem(

@@ -423,6 +423,10 @@ LabelLayoutProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+DecorationPositionProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 ClientBehaviorsProperty(property) ::= <<
 <NormalProperty(property)>
 >>
