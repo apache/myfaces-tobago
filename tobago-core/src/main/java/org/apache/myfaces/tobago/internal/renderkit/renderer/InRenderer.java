@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 
-public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBase<T> {
+public class InRenderer<T extends AbstractUIIn> extends DecorationPositionRendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 

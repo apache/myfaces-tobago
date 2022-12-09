@@ -43,7 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class OutRenderer<T extends AbstractUIOut> extends MessageLayoutRendererBase<T> {
+public class OutRenderer<T extends AbstractUIOut> extends DecorationPositionRendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 

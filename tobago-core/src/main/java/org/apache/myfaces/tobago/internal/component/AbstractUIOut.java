@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
+import org.apache.myfaces.tobago.component.SupportsDecorationPosition;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 
@@ -29,7 +30,8 @@ import jakarta.faces.component.UIOutput;
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.OutTagDeclaration}
  */
-public abstract class AbstractUIOut extends UIOutput implements SupportsLabelLayout, Visual, SupportsAutoSpacing {
+public abstract class AbstractUIOut extends UIOutput implements SupportsLabelLayout, Visual, SupportsAutoSpacing,
+    SupportsDecorationPosition {
 
   private transient boolean nextToRenderIsLabel;
 

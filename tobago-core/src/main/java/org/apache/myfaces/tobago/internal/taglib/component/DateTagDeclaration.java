@@ -36,6 +36,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasHelp;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasDecorationPosition;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasPlaceholder;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
@@ -93,7 +94,7 @@ import jakarta.faces.component.UIInput;
 public interface DateTagDeclaration
     extends HasAccessKey, HasValidator, HasValue, HasValueChangeListener, HasTabIndex, IsFocus, IsVisual,
     HasValidatorMessage, HasConverterMessage, HasRequiredMessage, HasIdBindingAndRendered, IsReadonly,
-    IsDisabled, HasConverter, HasLabel, HasHelp, HasLabelLayout,
+    IsDisabled, HasConverter, HasLabel, HasHelp, HasLabelLayout, HasDecorationPosition,
     HasTip, IsRequired, HasPlaceholder, HasAutoSpacing {
 
   /**

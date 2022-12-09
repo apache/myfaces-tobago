@@ -52,7 +52,7 @@ import java.util.List;
 
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public class FileRenderer<T extends AbstractUIFile>
-    extends MessageLayoutRendererBase<T> implements ComponentSystemEventListener {
+    extends DecorationPositionRendererBase<T> implements ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 

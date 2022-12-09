@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
 import org.apache.myfaces.tobago.component.SupportsHelp;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
+import org.apache.myfaces.tobago.component.SupportsDecorationPosition;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.MessageUtils;
@@ -37,7 +38,7 @@ import jakarta.servlet.http.Part;
  * {@link org.apache.myfaces.tobago.internal.taglib.component.FileTagDeclaration}
  */
 public abstract class AbstractUIFile extends UIInput implements SupportsLabelLayout, Visual, ClientBehaviorHolder,
-    SupportFieldId, SupportsHelp, SupportsAutoSpacing {
+    SupportFieldId, SupportsHelp, SupportsAutoSpacing, SupportsDecorationPosition {
 
   private transient boolean nextToRenderIsLabel;
 

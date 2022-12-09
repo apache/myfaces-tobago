@@ -151,6 +151,44 @@ $form-select-disabled-color: rgba($form-select-color, $tobago-form-disabled-alph
   }
 }
 
+@mixin messagesHelpContainer($tobago-form-validation-states) {
+  @each $state, $data in $tobago-form-validation-states {
+    @include form-validation-state($state, $data...);
+  }
+
+  width: 100%;
+
+  &.tobago-button-left, &.tobago-button-right {
+    @include messageLayoutPopover();
+    display: flex;
+    align-items: flex-start;
+  }
+
+  &.tobago-tooltip {
+    position: relative;
+  }
+
+  .tobago-none {
+    //this is for TobagoClassUnitTest
+  }
+}
+
+@mixin messageLayoutPopover() {
+  &.tobago-button-left {
+    > tobago-popover {
+      margin-right: 0.75rem;
+    }
+  }
+  &.tobago-button-right {
+    > tobago-popover {
+      margin-left: 0.75rem;
+    }
+  }
+  tobago-popover > a {
+    --bs-btn-padding-x: .4rem;
+  }
+}
+
 @mixin radioCheckboxInline() {
   label + .form-check-inline {
     display: block; // must be 'block' to make labelLayout=top work for inline=true
@@ -423,8 +461,6 @@ tobago-flex-layout {
   }
 }
 
-/* flowLayout ---------------------------------------------------------- */
-
 tobago-flow-layout {
   &.tobago-text-justify {
     /* added here, because Bootstrap has removed .text-justify */
@@ -438,8 +474,6 @@ tobago-flow-layout {
 tobago-focus {
   display: none;
 }
-
-/* footer -------------------------------------------------------------- */
 
 tobago-footer {
   display: block;
@@ -482,6 +516,36 @@ tobago-header {
     margin-top: -$tobago-page-padding-top;
     margin-left: -($grid-gutter-width * .5);
     margin-right: -($grid-gutter-width * .5);
+  }
+}
+
+.tobago-help-container {
+  @function exclamation-circle-icon($color) {
+    @return url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='#{$color}'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='#{$color}' stroke='none'/></svg>");
+  }
+  $tobago-form-validation-states: (
+      "help": (
+          "color": $info,
+          "icon": none
+      )
+  );
+
+  @include messagesHelpContainer($tobago-form-validation-states);
+
+  &.tobago-tooltip .help-tooltip {
+    display: block;
+  }
+
+  &.tobago-text-top, &.tobago-text-bottom {
+    .help-feedback {
+      display: block;
+    }
+  }
+
+  &.tobago-text-top {
+    .help-feedback {
+      margin-bottom: $form-feedback-margin-top;
+    }
   }
 }
 
@@ -678,8 +742,6 @@ button {
   padding-right: 0;
 }
 
-/* messages / help text ----------------------------------------------- */
-$enable-validation-icons: false;
 .tobago-messages-container {
   @function exclamation-circle-icon($color) {
     @return url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='#{$color}'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='#{$color}' stroke='none'/></svg>");
@@ -699,24 +761,30 @@ $enable-validation-icons: false;
       )
   );
 
-  @each $state, $data in $tobago-form-validation-states {
-    @include form-validation-state($state, $data...);
+  @include messagesHelpContainer($tobago-form-validation-states);
+
+  &.tobago-button-left, &.tobago-button-right {
+    .form-control {
+      padding-right: $input-padding-x;
+      background-image: none;
+    }
   }
 
-  display: flex;
-  align-items: flex-start;
-
-  .tobago-messages:first-child small label {
-    margin-right: 0; /* for tc:in margin 5px is already set */
-    margin-bottom: 5px;
+  &.tobago-tooltip {
+    .error-tooltip, .warning-tooltip, .info-tooltip {
+      display: block;
+    }
   }
 
-  tobago-popover {
-    margin-left: 0.75rem;
+  &.tobago-text-top, &.tobago-text-bottom {
+    .error-feedback, .warning-feedback, .info-feedback {
+      display: block;
+    }
+  }
 
-    .btn {
-      padding-left: 0.4rem;
-      padding-right: 0.4rem;
+  &.tobago-text-top {
+    .error-feedback, .warning-feedback, .info-feedback {
+      margin-bottom: $form-feedback-margin-top;
     }
   }
 }
@@ -772,6 +840,10 @@ tobago-messages {
     &.alert-info:before {
       content: $icon-alert-info;
     }
+  }
+
+  .tobago-messages {
+    //this is for TobagoClassUnitTest
   }
 }
 
@@ -1327,7 +1399,7 @@ tobago-select-many-shuttle {
     }
   }
 
-  &.tobago-label-container, .tobago-messages-container {
+  &.tobago-label-container, .tobago-help-container, .tobago-messages-container {
     > .tobago-body {
       flex: 1 0 0px;
     }

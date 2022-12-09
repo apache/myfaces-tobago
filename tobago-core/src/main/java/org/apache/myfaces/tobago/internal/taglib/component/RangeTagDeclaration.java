@@ -35,6 +35,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasHelp;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasDecorationPosition;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidator;
@@ -76,7 +77,7 @@ import jakarta.faces.component.UIInput;
 public interface RangeTagDeclaration
     extends HasIdBindingAndRendered, HasConverter, IsReadonly, IsDisabled, HasHelp, HasTip,
     HasAccessKey, HasValidator, HasValue, HasValueChangeListener, HasTabIndex, IsFocus, IsVisual,
-    HasValidatorMessage, HasConverterMessage, HasLabel, HasLabelLayout, HasAutoSpacing {
+    HasValidatorMessage, HasConverterMessage, HasLabel, HasLabelLayout, HasDecorationPosition, HasAutoSpacing {
 
   /**
    * Sets the minimum value of the range.

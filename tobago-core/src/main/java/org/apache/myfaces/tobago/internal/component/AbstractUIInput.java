@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
 import org.apache.myfaces.tobago.component.SupportsHelp;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
+import org.apache.myfaces.tobago.component.SupportsDecorationPosition;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -35,7 +36,7 @@ import jakarta.faces.context.FacesContext;
  */
 public abstract class AbstractUIInput extends jakarta.faces.component.UIInput
     implements SupportsAccessKey, SupportsAutoSpacing, SupportsLabelLayout, Visual, ClientBehaviorHolder,
-    SupportFieldId, SupportsHelp {
+    SupportFieldId, SupportsHelp, SupportsDecorationPosition {
 
   private transient boolean nextToRenderIsLabel;
 

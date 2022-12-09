@@ -42,7 +42,7 @@ import jakarta.faces.validator.Validator;
 
 import java.io.IOException;
 
-public class TextareaRenderer<T extends AbstractUITextarea> extends MessageLayoutRendererBase<T> {
+public class TextareaRenderer<T extends AbstractUITextarea> extends DecorationPositionRendererBase<T> {
 
   @Override
   protected boolean isOutputOnly(T component) {

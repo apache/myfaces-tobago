@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasDecorationPosition;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasSanitize;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
@@ -57,7 +58,7 @@ import java.text.MessageFormat;
 
 public interface OutTagDeclaration
     extends HasIdBindingAndRendered, HasConverter, HasTip, HasValue, IsVisual,
-    HasSanitize, HasLabel, HasLabelLayout, IsPlain, HasAutoSpacing {
+    HasSanitize, HasLabel, HasLabelLayout, IsPlain, HasAutoSpacing, HasDecorationPosition {
 
   /**
    * Flag indicating that characters that are
