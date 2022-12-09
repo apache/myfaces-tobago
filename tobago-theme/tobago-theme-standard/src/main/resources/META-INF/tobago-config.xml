@@ -55,51 +55,83 @@
       <tags>
         <tag name="date">
           <attribute name="labelLayout" default="flexLeft"/>
+          <attribute name="messagePosition" default="buttonRight"/>
+          <attribute name="helpPosition" default="buttonRight"/>
         </tag>
         <tag name="file">
           <attribute name="labelLayout" default="flexLeft"/>
+          <attribute name="messagePosition" default="buttonRight"/>
+          <attribute name="helpPosition" default="buttonRight"/>
         </tag>
         <tag name="in">
           <attribute name="labelLayout" default="flexLeft"/>
+          <attribute name="messagePosition" default="buttonRight"/>
+          <attribute name="helpPosition" default="buttonRight"/>
         </tag>
         <tag name="out">
           <attribute name="labelLayout" default="flexLeft"/>
+          <attribute name="messagePosition" default="buttonRight"/>
+          <attribute name="helpPosition" default="buttonRight"/>
         </tag>
         <tag name="range">
           <attribute name="labelLayout" default="flexLeft"/>
+          <attribute name="messagePosition" default="buttonRight"/>
+          <attribute name="helpPosition" default="buttonRight"/>
         </tag>
         <tag name="selectBooleanCheckbox">
           <attribute name="labelLayout" default="flexLeft"/>
+          <attribute name="messagePosition" default="buttonRight"/>
+          <attribute name="helpPosition" default="buttonRight"/>
         </tag>
         <tag name="selectBooleanToggle">
           <attribute name="labelLayout" default="flexLeft"/>
+          <attribute name="messagePosition" default="buttonRight"/>
+          <attribute name="helpPosition" default="buttonRight"/>
         </tag>
         <tag name="selectManyCheckbox">
           <attribute name="labelLayout" default="flexLeft"/>
+          <attribute name="messagePosition" default="buttonRight"/>
+          <attribute name="helpPosition" default="buttonRight"/>
         </tag>
         <tag name="selectManyList">
           <attribute name="labelLayout" default="flexLeft"/>
+          <attribute name="messagePosition" default="buttonRight"/>
+          <attribute name="helpPosition" default="buttonRight"/>
         </tag>
         <tag name="selectManyListbox">
           <attribute name="labelLayout" default="flexLeft"/>
+          <attribute name="messagePosition" default="buttonRight"/>
+          <attribute name="helpPosition" default="buttonRight"/>
         </tag>
         <tag name="selectManyShuttle">
           <attribute name="labelLayout" default="flexLeft"/>
+          <attribute name="messagePosition" default="buttonRight"/>
+          <attribute name="helpPosition" default="buttonRight"/>
         </tag>
         <tag name="selectOneChoice">
           <attribute name="labelLayout" default="flexLeft"/>
+          <attribute name="messagePosition" default="buttonRight"/>
+          <attribute name="helpPosition" default="buttonRight"/>
         </tag>
         <tag name="selectOneListbox">
           <attribute name="labelLayout" default="flexLeft"/>
+          <attribute name="messagePosition" default="buttonRight"/>
+          <attribute name="helpPosition" default="buttonRight"/>
         </tag>
         <tag name="selectOneRadio">
           <attribute name="labelLayout" default="flexLeft"/>
+          <attribute name="messagePosition" default="buttonRight"/>
+          <attribute name="helpPosition" default="buttonRight"/>
         </tag>
         <tag name="stars">
           <attribute name="labelLayout" default="flexLeft"/>
+          <attribute name="messagePosition" default="buttonRight"/>
+          <attribute name="helpPosition" default="buttonRight"/>
         </tag>
         <tag name="textarea">
           <attribute name="labelLayout" default="flexLeft"/>
+          <attribute name="messagePosition" default="buttonRight"/>
+          <attribute name="helpPosition" default="buttonRight"/>
         </tag>
       </tags>
     </theme-definition>

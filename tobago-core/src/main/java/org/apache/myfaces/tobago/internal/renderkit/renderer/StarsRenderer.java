@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class StarsRenderer<T extends AbstractUIStars> extends MessageLayoutRendererBase<T> {
+public class StarsRenderer<T extends AbstractUIStars> extends DecorationPositionRendererBase<T> {
 
   @Override
   protected boolean isOutputOnly(T component) {

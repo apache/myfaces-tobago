@@ -51,7 +51,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendererBase<T> {
+public class DateRenderer<T extends AbstractUIDate> extends DecorationPositionRendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 

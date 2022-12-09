@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
 import org.apache.myfaces.tobago.component.SupportsHelp;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
+import org.apache.myfaces.tobago.component.SupportsDecorationPosition;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.MessageUtils;
@@ -36,7 +37,7 @@ import javax.faces.context.FacesContext;
 
 public abstract class AbstractUISelectBoolean extends UISelectBoolean
     implements SupportsAutoSpacing, Visual, ClientBehaviorHolder, SupportFieldId, SupportsAccessKey,
-    SupportsLabelLayout, SupportsHelp {
+    SupportsLabelLayout, SupportsHelp, SupportsDecorationPosition {
 
   private transient boolean nextToRenderIsLabel;
 
