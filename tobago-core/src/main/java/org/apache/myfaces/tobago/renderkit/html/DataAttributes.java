@@ -67,6 +67,10 @@ public enum DataAttributes implements MarkupLanguageAttributes {
 
   DELAY("data-tobago-delay"),
 
+  /**
+   * Faces message for further use with custom JavaScript.
+   */
+  FACES_MESSAGE("data-tobago-faces-message"),
   FOR("data-tobago-for"),
 
   /**
@@ -78,6 +82,11 @@ public enum DataAttributes implements MarkupLanguageAttributes {
    * Holds the first day of a week of a calendar control.
    */
   FIRST_DAY_OF_WEEK("data-tobago-first-day-of-week"),
+
+  /**
+   * Help message for further use with custom JavaScript.
+   */
+  HELP("data-tobago-help"),
 
   /**
    * Defines e.g. the index of a tab inside a tab group.

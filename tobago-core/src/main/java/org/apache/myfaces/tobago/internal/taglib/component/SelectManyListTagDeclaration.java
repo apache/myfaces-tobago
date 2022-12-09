@@ -36,6 +36,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasHelp;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasDecorationPosition;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessageForSelect;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
@@ -58,32 +59,32 @@ import javax.faces.component.UISelectMany;
 @Preliminary
 @Tag(name = "selectManyList")
 @UIComponentTag(
-  uiComponent = "org.apache.myfaces.tobago.component.UISelectManyList",
-  uiComponentFacesClass = "javax.faces.component.UISelectMany",
-  componentFamily = UISelectMany.COMPONENT_FAMILY,
-  rendererType = RendererTypes.SELECT_MANY_LIST,
-  allowedChildComponenents = {"javax.faces.SelectItem", "javax.faces.SelectItems"},
-  behaviors = {
-    @Behavior(
-      name = ClientBehaviors.CHANGE,
-      isDefault = true),
-    @Behavior(
-      name = ClientBehaviors.INPUT),
-    @Behavior(
-      name = ClientBehaviors.CLICK),
-    @Behavior(
-      name = ClientBehaviors.DBLCLICK),
-    @Behavior(
-      name = ClientBehaviors.FOCUS),
-    @Behavior(
-      name = ClientBehaviors.BLUR)
-  })
+    uiComponent = "org.apache.myfaces.tobago.component.UISelectManyList",
+    uiComponentFacesClass = "javax.faces.component.UISelectMany",
+    componentFamily = UISelectMany.COMPONENT_FAMILY,
+    rendererType = RendererTypes.SELECT_MANY_LIST,
+    allowedChildComponenents = {"javax.faces.SelectItem", "javax.faces.SelectItems"},
+    behaviors = {
+        @Behavior(
+            name = ClientBehaviors.CHANGE,
+            isDefault = true),
+        @Behavior(
+            name = ClientBehaviors.INPUT),
+        @Behavior(
+            name = ClientBehaviors.CLICK),
+        @Behavior(
+            name = ClientBehaviors.DBLCLICK),
+        @Behavior(
+            name = ClientBehaviors.FOCUS),
+        @Behavior(
+            name = ClientBehaviors.BLUR)
+    })
 
 public interface SelectManyListTagDeclaration
-  extends HasId, IsDisabled, IsRendered, HasBinding, HasTip, HasHelp,
-  IsReadonly, HasConverter, IsRequiredForSelect, HasLabel, HasValidator, HasValueChangeListener, HasLabelLayout,
-  HasValidatorMessage, HasConverterMessage, HasRequiredMessageForSelect, HasTabIndex, IsFocus, IsVisual,
-  HasAutoSpacing, HasFilter, IsExpanded {
+    extends HasId, IsDisabled, IsRendered, HasBinding, HasTip, HasHelp,
+    IsReadonly, HasConverter, IsRequiredForSelect, HasLabel, HasValidator, HasValueChangeListener, HasLabelLayout,
+    HasValidatorMessage, HasConverterMessage, HasRequiredMessageForSelect, HasTabIndex, IsFocus, IsVisual,
+    HasAutoSpacing, HasFilter, IsExpanded, HasDecorationPosition {
 
   /**
    * The value of the multi select.

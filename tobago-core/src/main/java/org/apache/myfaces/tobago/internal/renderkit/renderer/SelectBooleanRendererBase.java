@@ -39,7 +39,7 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 
 public abstract class SelectBooleanRendererBase<T extends AbstractUISelectBoolean>
-    extends MessageLayoutRendererBase<T> {
+    extends DecorationPositionRendererBase<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
