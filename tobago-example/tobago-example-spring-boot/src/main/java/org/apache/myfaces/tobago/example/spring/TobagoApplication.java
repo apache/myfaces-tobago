@@ -39,7 +39,7 @@ public class TobagoApplication {
   }
 
   /**
-   * This is to put &lt;multipart-config> into the FacesServlet.
+   * This is to put &lt;multipart-config&gt; into the FacesServlet.
    * This "normally" happens in the web.xml file.
    */
   @Bean
