@@ -19,7 +19,7 @@
 
 /**
  * <b>Tobago Framework Component Tag Library 5.4.1-SNAPSHOT -
- * (C) Copyright 2005-2021 The Apache Software Foundation</b>
+ * (C) Copyright 2005-2022 The Apache Software Foundation</b>
  */
 @org.apache.myfaces.tobago.apt.annotation.Taglib(
     shortName = "tc",
