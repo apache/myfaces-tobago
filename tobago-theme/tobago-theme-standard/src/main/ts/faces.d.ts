@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-// JSF JS declarations. It's the best of what I've found out - with no guaranty!
+// Faces JS declarations. It's the best of what I've found out - with no guaranty!
 
 declare type Context = {
   [key: string]: any;
@@ -43,9 +43,9 @@ declare interface ErrorData {
   responseCode: number;
 }
 
-declare let jsf: jsf;
+declare let faces: faces;
 
-interface jsf {
+interface faces {
   ajax: {
     request(
         element: Element,

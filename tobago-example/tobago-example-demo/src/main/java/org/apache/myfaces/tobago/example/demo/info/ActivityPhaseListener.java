@@ -56,7 +56,7 @@ public class ActivityPhaseListener implements PhaseListener {
       activityList.executeAjaxRequest(sessionId);
     } else {
       LOG.debug("Normal request for sessionId='{}'", sessionId);
-      activityList.executeJsfRequest(sessionId);
+      activityList.executeFacesRequest(sessionId);
     }
   }
 

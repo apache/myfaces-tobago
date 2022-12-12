@@ -61,7 +61,7 @@ export class Suggest {
           if (this.update) {
             this.resolve = resolve;
             const suggestId = this.suggest.id;
-            jsf.ajax.request(suggestId, null, {
+            faces.ajax.request(suggestId, null, {
               "jakarta.faces.behavior.event": "suggest",
               execute: suggestId,
               render: suggestId
@@ -92,7 +92,7 @@ export class Suggest {
   }
 
   private registerAjaxListener(): void {
-    jsf.ajax.addOnEvent(this.resolvePromise.bind(this));
+    faces.ajax.addOnEvent(this.resolvePromise.bind(this));
   }
 
   private resolvePromise(event: EventData): void {

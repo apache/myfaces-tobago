@@ -129,34 +129,34 @@ export class Page extends HTMLElement {
   }
 
   registerAjaxListener(): void {
-    jsf.ajax.addOnEvent(this.jsfResponse.bind(this));
+    faces.ajax.addOnEvent(this.facesResponse.bind(this));
   }
 
-  jsfResponse(event: EventData): void {
-    console.timeEnd("[tobago-jsf] jsf-ajax");
-    console.time("[tobago-jsf] jsf-ajax");
-    console.debug("[tobago-jsf] JSF event status: '%s'", event.status);
+  facesResponse(event: EventData): void {
+    console.timeEnd("[tobago-faces] faces-ajax");
+    console.time("[tobago-faces] faces-ajax");
+    console.debug("[tobago-faces] Faces event status: '%s'", event.status);
     if (event.status === "success") {
-      event.responseXML.querySelectorAll("update").forEach(this.jsfResponseSuccess.bind(this));
+      event.responseXML.querySelectorAll("update").forEach(this.facesResponseSuccess.bind(this));
     } else if (event.status === "complete") {
-      event.responseXML.querySelectorAll("update").forEach(this.jsfResponseComplete.bind(this));
+      event.responseXML.querySelectorAll("update").forEach(this.facesResponseComplete.bind(this));
     }
   }
 
-  jsfResponseSuccess(update: Element): void {
+  facesResponseSuccess(update: Element): void {
     const id = update.id;
     let rootNode = this.getRootNode() as ShadowRoot | Document;
     // XXX in case of "this" is tobago-page (e.g. ajax exception handling) rootNode is not set correctly???
     if (!rootNode.getElementById) {
       rootNode = document;
     }
-    console.debug("[tobago-jsf] Update after jsf.ajax success: %s", id);
+    console.debug("[tobago-faces] Update after faces.ajax success: %s", id);
   }
 
-  jsfResponseComplete(update: Element): void {
+  facesResponseComplete(update: Element): void {
     const id = update.id;
-    if (JsfParameter.isJsfId(id)) {
-      console.debug("[tobago-jsf] Update after jsf.ajax complete: #", id);
+    if (FacesParameter.isFacesId(id)) {
+      console.debug("[tobago-faces] Update after faces.ajax complete: #", id);
       const overlay = this.querySelector(`tobago-overlay[for='${id}']`);
       if (overlay) {
         overlay.remove();
@@ -214,7 +214,7 @@ document.addEventListener("tobago.init", (event: Event): void => {
   }
 });
 
-class JsfParameter {
+class FacesParameter {
 
   static VIEW_STATE = "jakarta.faces.ViewState";
   static CLIENT_WINDOW = "jakarta.faces.ClientWindow";
@@ -223,24 +223,24 @@ class JsfParameter {
   static VIEW_BODY = "jakarta.faces.ViewBody";
   static RESOURCE = "jakarta.faces.Resource";
 
-  static isJsfId(id: string): boolean {
+  static isFacesId(id: string): boolean {
     switch (id) {
-      case JsfParameter.VIEW_STATE:
-      case JsfParameter.CLIENT_WINDOW:
-      case JsfParameter.VIEW_ROOT:
-      case JsfParameter.VIEW_HEAD:
-      case JsfParameter.VIEW_BODY:
-      case JsfParameter.RESOURCE:
+      case FacesParameter.VIEW_STATE:
+      case FacesParameter.CLIENT_WINDOW:
+      case FacesParameter.VIEW_ROOT:
+      case FacesParameter.VIEW_HEAD:
+      case FacesParameter.VIEW_BODY:
+      case FacesParameter.RESOURCE:
         return false;
       default:
         return true;
     }
   }
 
-  static isJsfBody(id): boolean {
+  static isFacesBody(id): boolean {
     switch (id) {
-      case JsfParameter.VIEW_ROOT:
-      case JsfParameter.VIEW_BODY:
+      case FacesParameter.VIEW_ROOT:
+      case FacesParameter.VIEW_BODY:
         return true;
       default:
         return false;

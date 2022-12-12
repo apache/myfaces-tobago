@@ -75,7 +75,7 @@ export class TreeNode extends HTMLElement {
   }
 
   private ajax(event: Event, renderTree: boolean): void {
-    jsf.ajax.request(
+    faces.ajax.request(
         this.id,
         event,
         {
