@@ -51,7 +51,7 @@
     <checkstyle-rules.version>21-SNAPSHOT</checkstyle-rules.version>
 
     <!-- Note: defined here in master pom, because of problems with enforcer plugin -->
-    <jetty.version>11.0.12</jetty.version>
+    <jetty.version>11.0.13</jetty.version>
     <joinfaces.version>4.5.5</joinfaces.version>
     <!-- Spring with Jakarta EE 9: ... for their general availability in Q4 2022 -->
     <spring-boot.version>2.5.5</spring-boot.version>
