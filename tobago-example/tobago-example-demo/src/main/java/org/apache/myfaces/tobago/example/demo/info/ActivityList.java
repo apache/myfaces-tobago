@@ -56,10 +56,10 @@ public class ActivityList implements Serializable {
     return new ArrayList<>(data.values());
   }
 
-  public void executeJsfRequest(final String sessionId) {
+  public void executeFacesRequest(final String sessionId) {
     final Activity activity = data.get(sessionId);
     if (activity != null) {
-      activity.executeJsfRequest();
+      activity.executeFacesRequest();
     } else {
       LOG.error("Ignoring sessionId='{}'", sessionId);
     }

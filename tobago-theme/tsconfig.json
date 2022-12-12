@@ -15,7 +15,7 @@
   },
   "include": [
 //    "tobago-theme-standard/src/main/ts/tobago-all.ts",
-//    "tobago-theme-standard/src/main/ts/jsf.d.ts",
+//    "tobago-theme-standard/src/main/ts/faces.d.ts",
     "tobago-theme-standard/src/main/ts/*.ts"
   ],
   "exclude": [

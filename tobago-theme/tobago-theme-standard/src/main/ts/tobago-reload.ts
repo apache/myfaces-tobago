@@ -44,7 +44,7 @@ class TobagoReload extends HTMLElement {
       // add new schedule
       const timeout = window.setTimeout(function (): void {
         console.debug("reloading #'%s'", componentId);
-        jsf.ajax.request(
+        faces.ajax.request(
             reloadId,
             null,
             {

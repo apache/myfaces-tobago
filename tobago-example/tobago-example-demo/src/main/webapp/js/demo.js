@@ -2199,7 +2199,7 @@
     }
     document.addEventListener("DOMContentLoaded", function (event) {
         let element = document.documentElement; // XXX fixme
-        // XXX init areas after JSF AJAX update not implemented yet!
+        // XXX init areas after Faces AJAX update not implemented yet!
         DemoInspect.initInspect(element); //TODO fix inspection
     });
 
@@ -2295,7 +2295,7 @@
     }
     document.addEventListener("DOMContentLoaded", function (event) {
         let element = document.documentElement; // XXX fixme
-        // XXX init areas after JSF AJAX update not implemented yet!
+        // XXX init areas after Faces AJAX update not implemented yet!
         DemoTest.initTestLinks(element);
         DemoTest.initTestFrame(element);
     });

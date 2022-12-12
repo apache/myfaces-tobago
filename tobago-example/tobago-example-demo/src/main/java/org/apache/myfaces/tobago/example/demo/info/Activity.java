@@ -30,7 +30,7 @@ public class Activity implements Serializable {
 
   private Date creationDate;
 
-  private int jsfRequest;
+  private int facesRequest;
 
   private int ajaxRequest;
 
@@ -39,8 +39,8 @@ public class Activity implements Serializable {
     this.creationDate = new Date(session.getCreationTime());
   }
 
-  public void executeJsfRequest() {
-    jsfRequest++;
+  public void executeFacesRequest() {
+    facesRequest++;
   }
 
   public void executeAjaxRequest() {
@@ -63,12 +63,12 @@ public class Activity implements Serializable {
     this.creationDate = creationDate;
   }
 
-  public int getJsfRequest() {
-    return jsfRequest;
+  public int getFacesRequest() {
+    return facesRequest;
   }
 
-  public void setJsfRequest(final int jsfRequest) {
-    this.jsfRequest = jsfRequest;
+  public void setFacesRequest(final int facesRequest) {
+    this.facesRequest = facesRequest;
   }
 
   public int getAjaxRequest() {

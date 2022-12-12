@@ -398,8 +398,8 @@ export class Sheet extends HTMLElement {
       for (let i = 0; i < updates.length; i++) {
         const update = updates[i];
         const id = update.getAttribute("id");
-        if (id.indexOf(":") > -1) { // is a JSF element id, but not a technical id from the framework
-          console.debug(`[tobago-sheet][complete] Update after jsf.ajax complete: #${id}`); // @DEV_ONLY
+        if (id.indexOf(":") > -1) { // is a Faces element id, but not a technical id from the framework
+          console.debug(`[tobago-sheet][complete] Update after faces.ajax complete: #${id}`); // @DEV_ONLY
 
           const sheet = document.getElementById(id);
           sheet.id = `${id}::lazy-temporary`;
@@ -414,8 +414,8 @@ export class Sheet extends HTMLElement {
       for (let i = 0; i < updates.length; i++) {
         const update = updates[i];
         const id = update.getAttribute("id");
-        if (id.indexOf(":") > -1) { // is a JSF element id, but not a technical id from the framework
-          console.debug(`[tobago-sheet][success] Update after jsf.ajax complete: #${id}`); // @DEV_ONLY
+        if (id.indexOf(":") > -1) { // is a Faces element id, but not a technical id from the framework
+          console.debug(`[tobago-sheet][success] Update after faces.ajax complete: #${id}`); // @DEV_ONLY
 
           // sync the new rows into the sheet
           const sheetLoader = document.getElementById(id);
@@ -457,7 +457,7 @@ Type: ${data.type}`);
     const renderIds = this.id;
     const lazy = this.lazy;
 
-    jsf.ajax.request(
+    faces.ajax.request(
         source.id,
         null,
         {
@@ -675,7 +675,7 @@ Type: ${data.type}`);
     if (output.innerHTML !== input.value) {
       console.debug("Reloading sheet '%s' old value='%s' new value='%s'", this.id, output.innerHTML, input.value);
       output.innerHTML = input.value;
-      jsf.ajax.request(
+      faces.ajax.request(
           input.id,
           null,
           {

@@ -87,7 +87,7 @@ class Behavior extends HTMLElement {
             }
           }
         }
-        jsf.ajax.request(
+        faces.ajax.request(
             this.actionElement,
             event,
             {
