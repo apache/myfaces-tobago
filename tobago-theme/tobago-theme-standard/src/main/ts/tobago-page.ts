@@ -155,7 +155,7 @@ export class Page extends HTMLElement {
 
   facesResponseComplete(update: Element): void {
     const id = update.id;
-    if (FacesParameter.isFacesId(id)) {
+    if (!FacesParameter.isInternalFacesId(id)) {
       console.debug("[tobago-faces] Update after faces.ajax complete: #", id);
       const overlay = this.querySelector(`tobago-overlay[for='${id}']`);
       if (overlay) {
@@ -223,18 +223,8 @@ class FacesParameter {
   static VIEW_BODY = "jakarta.faces.ViewBody";
   static RESOURCE = "jakarta.faces.Resource";
 
-  static isFacesId(id: string): boolean {
-    switch (id) {
-      case FacesParameter.VIEW_STATE:
-      case FacesParameter.CLIENT_WINDOW:
-      case FacesParameter.VIEW_ROOT:
-      case FacesParameter.VIEW_HEAD:
-      case FacesParameter.VIEW_BODY:
-      case FacesParameter.RESOURCE:
-        return false;
-      default:
-        return true;
-    }
+  static isInternalFacesId(id: string): boolean {
+    return id.indexOf("jakarta.faces.") !== -1;
   }
 
   static isFacesBody(id): boolean {
