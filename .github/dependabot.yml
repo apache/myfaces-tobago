@@ -172,6 +172,18 @@ updates:
       - dependency-name: "ch.qos.logback:*"
         versions:
           - ">= 1.3.0"
+      # needs jakarta namespace
+      - dependency-name: "org.springframework.boot:*"
+        versions:
+          - ">= 3.0.0"
+      # needs jakarta namespace
+      - dependency-name: "org.springframework:*"
+        versions:
+          - ">= 6.0.0"
+      # needs jakarta namespace
+      - dependency-name: "org.joinfaces:*"
+        versions:
+          - ">= 5.0.0"
 
   - package-ecosystem: "maven"
     directory: "/"
