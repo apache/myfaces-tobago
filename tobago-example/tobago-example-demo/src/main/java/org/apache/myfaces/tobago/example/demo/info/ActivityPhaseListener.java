@@ -19,44 +19,41 @@
 
 package org.apache.myfaces.tobago.example.demo.info;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import jakarta.enterprise.inject.spi.CDI;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.PhaseEvent;
 import jakarta.faces.event.PhaseId;
 import jakarta.faces.event.PhaseListener;
-import jakarta.inject.Inject;
 import jakarta.servlet.http.HttpSession;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.invoke.MethodHandles;
 
-// XXX @Inject in PhaseListener doesn't work with Quarkus
 public class ActivityPhaseListener implements PhaseListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  @Inject
-  private ActivityList activityList;
-
   @Override
   public void beforePhase(final PhaseEvent event) {
 
-    if (activityList == null) {
-      LOG.warn("The activityList was not set by CDI");
-      activityList = CDI.current().select(ActivityList.class).get();
-    }
-
     final FacesContext facesContext = event.getFacesContext();
+
+    final ActivityList activityList
+        = (ActivityList) VariableResolverUtils.resolveVariable(facesContext, "activityList");
+
     final String sessionId = ((HttpSession) facesContext.getExternalContext().getSession(true)).getId();
 
-    if (facesContext.getPartialViewContext().isAjaxRequest()) {
-      LOG.debug("AJAX request for sessionId='{}'", sessionId);
-      activityList.executeAjaxRequest(sessionId);
+    if (activityList == null) {
+      LOG.warn("Bean activityList not found!");
     } else {
-      LOG.debug("Normal request for sessionId='{}'", sessionId);
-      activityList.executeFacesRequest(sessionId);
+      if (facesContext.getPartialViewContext().isAjaxRequest()) {
+        LOG.debug("AJAX request for sessionId='{}'", sessionId);
+        activityList.executeAjaxRequest(sessionId);
+      } else {
+        LOG.debug("Normal request for sessionId='{}'", sessionId);
+        activityList.executeFacesRequest(sessionId);
+      }
     }
   }
 
