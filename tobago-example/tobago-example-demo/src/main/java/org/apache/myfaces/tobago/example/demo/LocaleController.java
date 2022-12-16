@@ -19,13 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.internal.util.ObjectUtils;
-import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import jakarta.enterprise.context.SessionScoped;
-import jakarta.enterprise.event.Event;
 import jakarta.faces.application.Application;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIViewRoot;
@@ -34,6 +28,9 @@ import jakarta.faces.model.SelectItem;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.ServletContext;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
@@ -53,7 +50,7 @@ public class LocaleController implements Serializable {
   private Locale locale;
 
   @Inject
-  private Event<LocaleChanged> events;
+  private BundleController bundleController;
 
   public LocaleController() {
 
@@ -118,10 +115,6 @@ public class LocaleController implements Serializable {
     }
   }
 
-  public Locale getLocale() {
-    return locale;
-  }
-
   public String getLocalizedLocale() {
     if (locale != null) {
       return locale.getDisplayName(locale);
@@ -150,10 +143,12 @@ public class LocaleController implements Serializable {
     return url;
   }
 
+  public Locale getLocale() {
+    return locale;
+  }
+
   public void setLocale(final Locale locale) {
-    if (!ObjectUtils.equals(this.locale, locale)) {
-      events.fire(new LocaleChanged());
-    }
+    bundleController.clear();
     this.locale = locale;
   }
 

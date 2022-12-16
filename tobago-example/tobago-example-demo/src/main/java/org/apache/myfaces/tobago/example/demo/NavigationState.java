@@ -19,19 +19,18 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.SessionScoped;
-import jakarta.enterprise.event.Observes;
-import jakarta.faces.context.FacesContext;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
 
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
@@ -55,6 +54,10 @@ public class NavigationState implements Serializable {
 
   private String searchString;
   private List<NavigationNode> searchResult;
+
+  public void sync(ComponentSystemEvent event) {
+    init();
+  }
 
   public List<NavigationNode> getSearchResult() {
     return searchResult;
@@ -113,7 +116,7 @@ public class NavigationState implements Serializable {
     }
   }
 
-  public String gotoNode(@Observes final NavigationNode node) {
+  public String gotoNode(final NavigationNode node) {
     if (node == null) {
       return gotoFirst();
     } else {

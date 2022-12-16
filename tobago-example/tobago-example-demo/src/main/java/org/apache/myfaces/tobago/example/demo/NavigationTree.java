@@ -19,18 +19,16 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.event.Event;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.ServletContext;
+import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -58,9 +56,6 @@ public class NavigationTree implements Serializable {
   private NavigationNode root;
 
   @Inject
-  private Event<NavigationNode> events;
-
-  @Inject
   private ServletContext servletContext;
 
   private final SearchIndex searchIndex = new SearchIndex();
@@ -72,32 +67,34 @@ public class NavigationTree implements Serializable {
   @PostConstruct
   protected void postConstruct() {
 
-    final List<NavigationNode> nodes = new ArrayList<>();
+    final Map<String, NavigationNode> collectedNodes = new HashMap<>();
 
     final List<String> listWar = locateResourcesInWar("/content", new ArrayList<>());
-    addToResult(listWar, nodes);
+    addToResult(listWar, collectedNodes);
 
     final List<String> listClasspath = getResourcesFromClasspath();
-    addToResult(listClasspath, nodes);
+    addToResult(listClasspath, collectedNodes);
 
-    Collections.sort(nodes);
+    final List<NavigationNode> sortedNodes = new ArrayList<>(collectedNodes.values());
+    Collections.sort(sortedNodes);
 
     // after sorting the first node is the root node.
-    root = nodes.get(0);
+    root = sortedNodes.size() > 0 ? sortedNodes.get(0) : null;
 
-    // (why?)
+    // build the tree from the list
     final Map<String, NavigationNode> map = new HashMap<>();
-    for (final NavigationNode node : nodes) {
-//      LOG.debug("Creating node='{}' branch='{}'", node.getName(), node.getBranch());
-      map.put(node.getBranch(), node);
-      final String parent = node.getBranch().substring(0, node.getBranch().lastIndexOf('/'));
+    for (final NavigationNode node : sortedNodes) {
+      final String branch = node.getBranch();
+//      LOG.debug("Creating node='{}' branch='{}'", node.getName(), branch);
+      map.put(branch, node);
+      final String parent = branch.substring(0, branch.lastIndexOf('/'));
       if (!parent.equals("")) { // is root
         map.get(parent).add(node);
       }
       node.evaluateTreePath();
     }
 
-    for (final NavigationNode node : nodes) {
+    for (final NavigationNode node : sortedNodes) {
       searchIndex.add(node);
     }
   }
@@ -115,13 +112,17 @@ public class NavigationTree implements Serializable {
     return result;
   }
 
-  private void addToResult(List<String> listWar, List<NavigationNode> nodes) {
+  private void addToResult(List<String> listWar, Map<String, NavigationNode> nodes) {
     for (final String path : listWar) {
       if (path.contains("/x-") || !path.contains(".xhtml")) {
         // ignoring excluded files
         continue;
       }
-      nodes.add(new NavigationNode(path, this));
+      if (nodes.containsKey(path)) {
+        // ignoring duplicate
+        continue;
+      }
+      nodes.put(path, new NavigationNode(path, this));
     }
   }
 
@@ -161,14 +162,6 @@ public class NavigationTree implements Serializable {
 
   public NavigationNode getTree() {
     return root;
-  }
-
-  public void gotoNode(final NavigationNode node) {
-    if (node != null) {
-      events.fire(node);
-    } else {
-      events.fire(root);
-    }
   }
 
   public String getSource() {
