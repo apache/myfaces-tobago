@@ -19,35 +19,29 @@
 
 package org.apache.myfaces.tobago.example.demo.info;
 
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.inject.spi.CDI;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
-import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import java.lang.invoke.MethodHandles;
 
-// XXX @Inject in PhaseListener doesn't work with Quarkus
 public class ActivityPhaseListener implements PhaseListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  @Inject
-  private ActivityList activityList;
-
   @Override
   public void beforePhase(final PhaseEvent event) {
 
-    if (activityList == null) {
-      LOG.warn("The activityList was not set by CDI");
-      activityList = CDI.current().select(ActivityList.class).get();
-    }
-
     final FacesContext facesContext = event.getFacesContext();
+
+    final ActivityList activityList
+        = (ActivityList) VariableResolverUtils.resolveVariable(facesContext, "activityList");
+
     final String sessionId = ((HttpSession) facesContext.getExternalContext().getSession(true)).getId();
 
     if (facesContext.getPartialViewContext().isAjaxRequest()) {

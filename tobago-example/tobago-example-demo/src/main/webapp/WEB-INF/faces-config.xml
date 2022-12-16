@@ -66,7 +66,6 @@
   </application>
 
   <lifecycle>
-    <phase-listener>org.apache.myfaces.tobago.example.demo.SynchronizeNavigationPhaseListener</phase-listener>
     <phase-listener>org.apache.myfaces.tobago.example.demo.info.ActivityPhaseListener</phase-listener>
     <!--<phase-listener>org.apache.myfaces.tobago.util.DebugPhaseListener</phase-listener>-->
   </lifecycle>
