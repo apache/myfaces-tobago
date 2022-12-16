@@ -64,6 +64,18 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
+      <artifactId>tobago-example-demo</artifactId>
+      <version>${project.version}</version>
+      <classifier>export</classifier>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.servlet.jsp.jstl</groupId>
+      <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+      <version>1.2.7</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.joinfaces</groupId>
       <artifactId>joinfaces-autoconfigure</artifactId>
       <version>${joinfaces.version}</version>

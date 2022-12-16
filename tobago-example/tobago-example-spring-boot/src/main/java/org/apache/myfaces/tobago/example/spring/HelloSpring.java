@@ -32,20 +32,9 @@ public class HelloSpring {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  private String name;
+  public String getHello() {
+    LOG.info("Getter was called!");
 
-  public String sayHello() {
-    LOG.info("Action was called, name is '{}'", name);
-    return "/result.xhtml";
-  }
-
-  public String getName() {
-    LOG.info("Getter was called, name is '{}'", name);
-    return name;
-  }
-
-  public void setName(final String name) {
-    LOG.info("Setter was called, name is '{}'", name);
-    this.name = name;
+    return "Hello Spring";
   }
 }

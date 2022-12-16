@@ -21,12 +21,15 @@
         xmlns:tc="http://myfaces.apache.org/tobago/component">
 
   <tc:page>
-    <tc:messages/>
-    <tc:in label="Name" value="#{helloSpring.name}" required="true">
-      <f:facet name="after">
-        <tc:button label="Submit" defaultCommand="true" action="#{helloSpring.sayHello}"/>
-      </f:facet>
-    </tc:in>
+    <h1>
+      This is the Spring Boot variant of the Tobago demo.
+    </h1>
+    <p>
+      Quite all of the content comes from the sister project "tobago-example-demo" by a JAR dependency.
+    </p>
+    <p>
+      What says the bean "helloSpring"?: <tc:out value="#{helloSpring.hello}"/>.
+    </p>
   </tc:page>
 
 </f:view>

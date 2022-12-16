@@ -32,16 +32,12 @@
       <name>tobago-theme-roxborough</name>
       <name>tobago-theme-speyside</name>
       <name>tobago-theme-scarborough</name>
+      <name>tobago-example-demo</name>
     </after>
   </ordering>
 
   <theme-config>
-    <default-theme>speyside</default-theme>
+    <default-theme>scarborough</default-theme>
   </theme-config>
-
-<!--
-  <create-session-secret>false</create-session-secret>
-  <check-session-secret>false</check-session-secret>
--->
 
 </tobago-config>

@@ -12,16 +12,16 @@ You need Maven 3 (at least 3.0.4) and Java 8 or later to build Tobago.
 In the project directory you can use:
 
 ```
-mvn install
+mvn clean install
 
 ```
 
-to run the install target on all sub projects. This will
+to run the **install** target on all subprojects. This will
 put all necessary artifacts into your local repository.
 
 ## Demo - Jetty
 
-Switch to sub-directory and call Maven to run the demo:
+Switch to subdirectory and call Maven to run the demo:
 
 ```
 cd tobago-example/tobago-example-demo
@@ -32,7 +32,7 @@ Browse to the local URL http://localhost:8080/
 
 ## Demo - TomEE
 
-Switch to sub-directory and call Maven to run the demo:
+Switch to subdirectory and call Maven to run the demo:
 
 ```
 cd tobago-example/tobago-example-demo
@@ -43,7 +43,7 @@ Browse to the local URL http://localhost:8080/
 
 ## Demo - Open Liberty
 
-Switch to sub-directory and call Maven to run the demo:
+Switch to subdirectory and call Maven to run the demo:
 
 ```
 cd tobago-example/tobago-example-demo
@@ -54,7 +54,7 @@ Browse to the local URL http://localhost:9080/
 
 ## Demo - Tomcat in Docker
 
-Switch to sub-directory and call Maven to run the demo:
+Switch to subdirectory and call Maven to run the demo:
 
 ```
 cd tobago-example/tobago-example-demo
@@ -66,12 +66,23 @@ Browse to the local URL http://localhost:8080/tobago-example-demo/
 
 ## Demo - Quarkus
 
-Switch to sub-directory and call Maven to run the demo:
+Switch to subdirectory and call Maven to run the demo:
 
 ```
 cd tobago-example/tobago-example-demo
 mvn clean install -Pquarkus
 java -jar ./target/tobago-example-demo-runner.jar
+```
+
+Browse to the local URL http://localhost:8080/
+
+## Demo - Spring Boot
+
+Switch to **special** subdirectory and call Maven to run the demo:
+
+```
+cd tobago-example/tobago-example-spring-boot
+mvn clean spring-boot:run
 ```
 
 Browse to the local URL http://localhost:8080/
