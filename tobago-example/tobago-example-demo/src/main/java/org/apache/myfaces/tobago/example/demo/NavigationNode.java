@@ -63,11 +63,6 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
     return branch.compareTo(other.getBranch());
   }
 
-  public String action() {
-    tree.gotoNode(this);
-    return outcome;
-  }
-
   public void evaluateTreePath() {
     treePath = new TreePath(this);
 

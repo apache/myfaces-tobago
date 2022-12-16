@@ -19,13 +19,11 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.SessionScoped;
-import javax.enterprise.event.Event;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIViewRoot;
@@ -52,7 +50,7 @@ public class LocaleController implements Serializable {
   private Locale locale;
 
   @Inject
-  private Event<LocaleChanged> events;
+  private BundleController bundleController;
 
   public LocaleController() {
 
@@ -117,10 +115,6 @@ public class LocaleController implements Serializable {
     }
   }
 
-  public Locale getLocale() {
-    return locale;
-  }
-
   public String getLocalizedLocale() {
     if (locale != null) {
       return locale.getDisplayName(locale);
@@ -149,10 +143,12 @@ public class LocaleController implements Serializable {
     return url;
   }
 
+  public Locale getLocale() {
+    return locale;
+  }
+
   public void setLocale(final Locale locale) {
-    if (!ObjectUtils.equals(this.locale, locale)) {
-      events.fire(new LocaleChanged());
-    }
+    bundleController.clear();
     this.locale = locale;
   }
 

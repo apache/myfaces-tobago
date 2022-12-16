@@ -19,8 +19,9 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.myfaces.tobago.util.ResourceUtils;
+
 import javax.enterprise.context.SessionScoped;
-import javax.enterprise.event.Observes;
 import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -31,16 +32,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import static org.apache.myfaces.tobago.util.ResourceUtils.TOBAGO_RESOURCE_BUNDLE;
-
 @Named
 @SessionScoped
 public class BundleController implements Serializable {
 
-  private List<BundleEntry> resources = new ArrayList<>();
-  private List<BundleEntry> messages = new ArrayList<>();
+  private final List<BundleEntry> resources = new ArrayList<>();
+  private final List<BundleEntry> messages = new ArrayList<>();
 
-  public void clear(@Observes LocaleChanged event) {
+  public void clear() {
     resources.clear();
     messages.clear();
   }
@@ -49,7 +48,7 @@ public class BundleController implements Serializable {
     if (resources.size() == 0) {
       final FacesContext facesContext = FacesContext.getCurrentInstance();
       final ResourceBundle bundle =
-          facesContext.getApplication().getResourceBundle(facesContext, TOBAGO_RESOURCE_BUNDLE);
+          facesContext.getApplication().getResourceBundle(facesContext, ResourceUtils.TOBAGO_RESOURCE_BUNDLE);
       final Enumeration<String> keys = bundle.getKeys();
       while (keys.hasMoreElements()) {
         final String key = keys.nextElement();
@@ -75,5 +74,4 @@ public class BundleController implements Serializable {
     }
     return messages;
   }
-
 }

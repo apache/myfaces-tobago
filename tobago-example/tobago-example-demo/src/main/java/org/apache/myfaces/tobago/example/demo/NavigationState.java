@@ -28,8 +28,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.enterprise.event.Observes;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -54,6 +54,10 @@ public class NavigationState implements Serializable {
 
   private String searchString;
   private List<NavigationNode> searchResult;
+
+  public void sync(ComponentSystemEvent event) {
+    init();
+  }
 
   public List<NavigationNode> getSearchResult() {
     return searchResult;
@@ -112,7 +116,7 @@ public class NavigationState implements Serializable {
     }
   }
 
-  public String gotoNode(@Observes final NavigationNode node) {
+  public String gotoNode(final NavigationNode node) {
     if (node == null) {
       return gotoFirst();
     } else {

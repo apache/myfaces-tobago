@@ -55,6 +55,7 @@
         <tc:style customClass="#{navigationState.viewSource ? '' : 'container-lg'}"/>
 
         <tc:segmentLayout small="4seg 8seg" medium="3seg 9seg" large="2seg 10seg">
+          <f:event type="preRenderView" listener="#{navigationState.sync}"/>
           <tc:panel>
             <ui:include src="/navigation.xhtml"/>
           </tc:panel>
