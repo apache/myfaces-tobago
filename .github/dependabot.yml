@@ -44,9 +44,6 @@ updates:
       - dependency-name: "io.quarkus:quarkus-maven-plugin"
         versions:
           - ">= 2.0.0"
-      - dependency-name: "org.seleniumhq.selenium:selenium-java"
-        versions:
-          - ">= 4.0.0"
       # jakarta.el-api 5.0.0 is Jakarta EE 10
       - dependency-name: "jakarta.el:jakarta.el-api"
         versions:
@@ -158,9 +155,6 @@ updates:
       - dependency-name: "io.quarkus:quarkus-maven-plugin"
         versions:
           - ">= 2.0.0"
-      - dependency-name: "org.seleniumhq.selenium:selenium-java"
-        versions:
-          - ">= 4.0.0"
       - dependency-name: "org.apache.tomcat.embed:*"
         versions:
           - ">= 10.0.0"
