@@ -121,7 +121,7 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
     writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
     writer.writeClassAttribute(
         TobagoClass.SELECTED,
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
+        BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(component)),
         BootstrapClass.FORM_CONTROL);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);

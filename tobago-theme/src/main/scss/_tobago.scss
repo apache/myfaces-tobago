@@ -16,6 +16,7 @@
  */
 
 @import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins/forms";
 
 /* used bootstrap icons ---------------------------------------------------- */
 
@@ -58,7 +59,7 @@ $form-select-disabled-color: rgba($form-select-color, $tobago-form-disabled-alph
   display: inline-block;
 }
 
-/* main ---------------------------------------------------------- */
+/* mixins ---------------------------------------------------------- */
 @mixin adjustCustomControlLabel() {
   .form-check-label {
     &:after {
@@ -147,20 +148,6 @@ $form-select-disabled-color: rgba($form-select-color, $tobago-form-disabled-alph
 @mixin linkWithoutUnderline() {
   > .tobago-link {
     text-decoration: none;
-  }
-}
-
-@mixin messageShadow() {
-  &.border-danger:focus {
-    box-shadow: 0 0 $input-btn-focus-blur $input-focus-width rgba($danger, $input-btn-focus-color-opacity);
-  }
-
-  &.border-warning:focus {
-    box-shadow: 0 0 $input-btn-focus-blur $input-focus-width rgba($warning, $input-btn-focus-color-opacity);
-  }
-
-  &.border-info:focus {
-    box-shadow: 0 0 $input-btn-focus-blur $input-focus-width rgba($info, $input-btn-focus-color-opacity);
   }
 }
 
@@ -317,8 +304,6 @@ tobago-date {
 
   input {
     @include formControlDisabled();
-    @include messageShadow();
-
     min-width: 7em;
 
     &::-ms-clear {
@@ -373,35 +358,13 @@ tobago-dropdown {
   // deprecated; must be added for test
 }
 
-/* figure -------------------------------------------------------------- */
-
-/* file -------------------------------------------------------------- */
-
 tobago-file {
   display: block;
 
   > .input-group {
     flex: 1 0 0px;
   }
-
-  input[type='file'] {
-    @include messageShadow();
-  }
 }
-
-/*
-tobago-file[drop-zone] > .input-group {
-  input, label {
-    display: none !important;
-  }
-  border: 3px dotted $gray-500;
-  border-radius: 0.25rem;
-  text-align: center;
-  &:hover {
-    background-color: $gray-200;
-  }
-}
-*/
 
 /* flexLayout -------------------------------------------------------------- */
 
@@ -544,7 +507,6 @@ tobago-in {
   display: block;
 
   input[type='text'] {
-    @include messageShadow();
     @include formControlDisabled();
   }
 
@@ -717,7 +679,30 @@ button {
 }
 
 /* messages / help text ----------------------------------------------- */
+$enable-validation-icons: false;
 .tobago-messages-container {
+  @function exclamation-circle-icon($color) {
+    @return url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='#{$color}'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='#{$color}' stroke='none'/></svg>");
+  }
+  $tobago-form-validation-states: (
+      "error": (
+          "color": $danger,
+          "icon": exclamation-circle-icon($danger)
+      ),
+      "warning": (
+          "color": $warning,
+          "icon": exclamation-circle-icon($warning)
+      ),
+      "info": (
+          "color": $info,
+          "icon": exclamation-circle-icon($info)
+      )
+  );
+
+  @each $state, $data in $tobago-form-validation-states {
+    @include form-validation-state($state, $data...);
+  }
+
   display: flex;
   align-items: flex-start;
 
@@ -1121,41 +1106,20 @@ tobago-stars {
 tobago-select-boolean-checkbox {
   display: block;
   @include adjustCustomControlLabel();
-
-  input[type='checkbox'] {
-    @include messageShadow();
-  }
 }
 
 /* selectBooleanToggle ---------------------------------------------------- */
 tobago-select-boolean-toggle {
   display: block;
   @include adjustCustomControlLabel();
-
-  input[type='checkbox'] {
-    @include messageShadow();
-  }
 }
 
-/* selectOneChoice --------------------------------------------------------- */
 tobago-select-one-choice {
   display: block;
 
   select {
     @include formControlDisabled();
-    @include messageShadow();
   }
-}
-
-/* selectOneListbox -------------------------------------------------------- */
-
-//xxx remove me
-.tobago-selectOneListbox {
-  @include messageShadow();
-}
-
-//xxx remove me
-.tobago-selectOneListbox-option {
 }
 
 tobago-select-one-listbox {
@@ -1163,7 +1127,6 @@ tobago-select-one-listbox {
 
   select {
     @include formControlSelectListDisabled();
-    @include messageShadow();
   }
 }
 
@@ -1177,10 +1140,6 @@ tobago-select-one-radio {
     .form-check-inline {
       @include inlinePadding();
     }
-  }
-
-  input[type='radio'] {
-    @include messageShadow();
   }
 }
 
@@ -1323,7 +1282,6 @@ tobago-select-many-list {
   }
 }
 
-/* selectManyCheckbox ----------------------------------------------------- */
 tobago-select-many-checkbox {
   display: block;
   @include adjustCustomControlLabel();
@@ -1334,31 +1292,17 @@ tobago-select-many-checkbox {
       @include inlinePadding();
     }
   }
-
-  input[type='checkbox'] {
-    @include messageShadow();
-  }
 }
 
 .tobago-selectManyCheckbox {
 }
 
-/* selectManyListbox ----------------------------------------------------------- */
 tobago-select-many-listbox {
   display: block;
 
   select {
     @include formControlSelectListDisabled();
-    @include messageShadow();
   }
-}
-
-.tobago-selectManyListbox,
-.tobago-selectManyListbox-option {
-}
-
-.tobago-selectManyListbox {
-  @include messageShadow();
 }
 
 /* selectManyShuttle ----------------------------------------------------------- */
@@ -1379,7 +1323,6 @@ tobago-select-many-shuttle {
     }
 
     .tobago-selected {
-      @include messageShadow();
       @include formControlSelectListDisabled();
     }
   }
@@ -1698,7 +1641,6 @@ tobago-textarea {
   display: block;
 
   textarea {
-    @include messageShadow();
     @include formControlDisabled();
   }
 }

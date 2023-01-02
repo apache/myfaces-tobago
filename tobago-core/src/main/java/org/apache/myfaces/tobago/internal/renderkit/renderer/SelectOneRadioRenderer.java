@@ -135,7 +135,7 @@ public class SelectOneRadioRenderer<T extends AbstractUISelectOneRadio> extends 
         writer.startElement(HtmlElements.INPUT);
         writer.writeClassAttribute(
             BootstrapClass.FORM_CHECK_INPUT,
-            BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)));
+            BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(component)));
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
         final String formattedValue = getFormattedValue(facesContext, component, item.getValue());
         final boolean checked;
