@@ -129,7 +129,7 @@ public class DateRenderer<T extends AbstractUIDate> extends MessageLayoutRendere
     writer.writeAttribute(HtmlAttributes.MAX, convertToString(date.getMax()), true);
 
     writer.writeClassAttribute(
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(date)),
+        BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(date)),
         BootstrapClass.FORM_CONTROL,
         date.getCustomClass());
 

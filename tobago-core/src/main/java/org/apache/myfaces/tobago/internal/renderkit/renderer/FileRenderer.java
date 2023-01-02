@@ -154,7 +154,7 @@ public class FileRenderer<T extends AbstractUIFile>
     writer.writeIdAttribute(fieldId);
     writer.writeClassAttribute(
         BootstrapClass.FORM_CONTROL,
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)));
+        BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(component)));
     writer.writeNameAttribute(clientId);
     // readonly seems not making sense in browsers.
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled || readonly);

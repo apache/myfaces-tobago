@@ -81,7 +81,7 @@ public class SelectOneChoiceRenderer<T extends AbstractUISelectOneChoice> extend
 
     writer.writeClassAttribute(
         BootstrapClass.FORM_SELECT,
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
+        BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(component)),
         component.getCustomClass());
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
