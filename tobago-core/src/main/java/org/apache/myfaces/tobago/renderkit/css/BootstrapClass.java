@@ -405,6 +405,9 @@ public enum BootstrapClass implements CssItem {
   INPUT_GROUP_PREPEND("input-group-prepend"),
   INPUT_GROUP_TEXT("input-group-text"),
   INVISIBLE("invisible"),
+  IS_ERROR("is-error"),
+  IS_INFO("is-info"),
+  IS_WARNING("is-warning"),
   JUSTIFY_CONTENT_AROUND("justify-content-around"),
   JUSTIFY_CONTENT_BETWEEN("justify-content-between"),
   JUSTIFY_CONTENT_CENTER("justify-content-center"),
@@ -656,6 +659,13 @@ public enum BootstrapClass implements CssItem {
     } else {
       return null;
     }
+  }
+
+  public static CssItem validationColor(final FacesMessage.Severity severity) {
+    if (severity == null) {
+      return null;
+    }
+    return getSeverityCssItem(severity, IS_INFO, IS_WARNING, IS_ERROR);
   }
 
   public static CssItem borderColor(final FacesMessage.Severity severity) {

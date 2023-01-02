@@ -101,7 +101,7 @@ public abstract class SelectBooleanRendererBase<T extends AbstractUISelectBoolea
     writer.startElement(HtmlElements.INPUT);
     writer.writeClassAttribute(
         BootstrapClass.FORM_CHECK_INPUT,
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)));
+        BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(component)));
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
     writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
     writer.writeNameAttribute(clientId);

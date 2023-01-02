@@ -73,7 +73,7 @@ public class SelectManyListboxRenderer<T extends AbstractUISelectManyListbox> ex
 
     writer.writeClassAttribute(
         BootstrapClass.FORM_CONTROL,
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
+        BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(component)),
         component.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
@@ -82,8 +82,7 @@ public class SelectManyListboxRenderer<T extends AbstractUISelectManyListbox> ex
     final Object[] values = component.getSelectedValues();
     final String[] submittedValues = getSubmittedValues(component);
 
-    renderSelectItems(
-        component, TobagoClass.SELECT_MANY_LISTBOX__OPTION, items, values, submittedValues, writer, facesContext);
+    renderSelectItems(component, null, items, values, submittedValues, writer, facesContext);
   }
 
   @Override

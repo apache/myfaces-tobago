@@ -32,10 +32,10 @@ it("Check severity CSS classes", function (done) {
 
   let test = new JasmineTestTool(done);
   test.setup(() => alertsFn().length > 0, null, "click", submitFn);
-  test.do(() => expect(fatalInputFieldFn().classList).toContain("border-danger"));
-  test.do(() => expect(errorInputFieldFn().classList).toContain("border-danger"));
-  test.do(() => expect(warnInputFieldFn().classList).toContain("border-warning"));
-  test.do(() => expect(infoInputFieldFn().classList).toContain("border-info"));
+  test.do(() => expect(fatalInputFieldFn().classList).toContain("is-error"));
+  test.do(() => expect(errorInputFieldFn().classList).toContain("is-error"));
+  test.do(() => expect(warnInputFieldFn().classList).toContain("is-warning"));
+  test.do(() => expect(infoInputFieldFn().classList).toContain("is-info"));
   test.do(() => expect(fatalButtonFn().classList).toContain("btn-danger"));
   test.do(() => expect(errorButtonFn().classList).toContain("btn-danger"));
   test.do(() => expect(warnButtonFn().classList).toContain("btn-warning"));
