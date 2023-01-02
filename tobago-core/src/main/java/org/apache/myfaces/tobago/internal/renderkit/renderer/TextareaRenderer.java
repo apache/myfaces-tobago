@@ -104,7 +104,7 @@ public class TextareaRenderer<T extends AbstractUITextarea> extends MessageLayou
     }
 
     writer.writeClassAttribute(
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
+        BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(component)),
         BootstrapClass.FORM_CONTROL,
         component.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);

@@ -73,7 +73,7 @@ public class SelectOneListboxRenderer<T extends AbstractUISelectOneListbox> exte
 
     writer.writeClassAttribute(
         BootstrapClass.FORM_CONTROL,
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
+        BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(component)),
         component.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);

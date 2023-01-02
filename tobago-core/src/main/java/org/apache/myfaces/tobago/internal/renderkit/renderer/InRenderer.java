@@ -145,7 +145,7 @@ public class InRenderer<T extends AbstractUIIn> extends MessageLayoutRendererBas
 
     writer.writeClassAttribute(
         markup != null && markup.contains(Markup.NUMBER) ? TobagoClass.NUMBER : null,
-        BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
+        BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(component)),
         BootstrapClass.FORM_CONTROL,
         component.getCustomClass());
 
