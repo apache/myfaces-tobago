@@ -89,8 +89,6 @@ tobago-tree .tobago-selected {
 }
 tobago-tree .tobago-selected a {
   background-color: #ceecf5;
-  padding-left: 1px;
-  padding-right: 4px;
 }
 
 .testframe-wrapper {
