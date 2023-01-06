@@ -23,26 +23,39 @@ class Footer extends HTMLElement {
     super();
   }
 
+  get fixed(): boolean {
+    return this.classList.contains("fixed-bottom");
+  }
+
+  get height(): number {
+    const style: CSSStyleDeclaration = getComputedStyle(this);
+    return this.offsetHeight + Number.parseInt(style.marginTop) + Number.parseInt(style.marginBottom);
+  }
+
   connectedCallback(): void {
-    if (this.isFixed) {
-      // call now
+    if (this.fixed) {
       this.adjustMargin();
-      // and after resize
       window.addEventListener("resize", this.adjustMargin.bind(this));
     }
   }
 
-  private adjustMargin(event?: MouseEvent): void {
-    const style: CSSStyleDeclaration = window.getComputedStyle(this);
-    const maxFooterHeight = this.offsetHeight + Number.parseInt(style.marginTop) + Number.parseInt(style.marginBottom);
-    if (maxFooterHeight !== this.lastMaxFooterHeight) {
-      this.lastMaxFooterHeight = maxFooterHeight;
-      this.closest("body").style.marginBottom = `${maxFooterHeight}px`;
+  private adjustMargin(event?: Event): void {
+    if (this.hasBiggestFixedFooterHeight()) {
+      const root = this.getRootNode() as ShadowRoot | Document;
+      const body = root.querySelector<HTMLBodyElement>("body");
+      body.style.marginBottom = `${this.height}px`;
     }
   }
 
-  private isFixed(): boolean {
-    return this.classList.contains("fixed-bottom");
+  private hasBiggestFixedFooterHeight(): boolean {
+    const root = this.getRootNode() as ShadowRoot | Document;
+    const footers = root.querySelectorAll<Footer>("tobago-footer");
+    for (const footer of footers) {
+      if (footer.fixed && footer.height > this.height) {
+        return false;
+      }
+    }
+    return true;
   }
 }
 
