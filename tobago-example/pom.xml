@@ -532,7 +532,7 @@
                  -->
             <groupId>org.apache.tomee.maven</groupId>
             <artifactId>tomee-maven-plugin</artifactId>
-            <version>9.0.0.RC1</version>
+            <version>9.0.0</version>
             <configuration>
               <tomeeClassifier>plus</tomeeClassifier>
               <!--<tomeeHttpPort>9090</tomeeHttpPort>-->
