@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIBadge;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -48,7 +49,7 @@ public class BadgeRenderer<T extends AbstractUIBadge> extends RendererBase<T> {
         markup.contains(Markup.PILL) ? BootstrapClass.ROUNDED_PILL : null,
         isInside(facesContext, HtmlElements.TOBAGO_BUTTONS) ? BootstrapClass.BTN : null,
         component.getCustomClass());
-
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     if (tip != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     }
