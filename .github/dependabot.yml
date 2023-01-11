@@ -147,6 +147,10 @@ updates:
       - dependency-name: "org.apache.maven.plugins:maven-enforcer-plugin"
         versions:
           - ">= 3.0.0"
+      # needs jakarta namespace
+      - dependency-name: "org.apache.tomee.maven:tomee-maven-plugin"
+        versions:
+          - ">= 9.0.0"
       # checkstyle 10 needs Java 11
       - dependency-name: "com.puppycrawl.tools:checkstyle"
         versions:
