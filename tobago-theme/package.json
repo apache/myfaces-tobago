@@ -94,7 +94,7 @@
     "postcss": "^8.4.20",
     "postcss-cli": "^10.1.0",
     "rollup": "^3.9.1",
-    "sass": "^1.56.2",
+    "sass": "^1.57.1",
     "ts-jest": "^29.0.3",
     "tslib": "^2.4.1",
     "typescript": "^4.9.4",
