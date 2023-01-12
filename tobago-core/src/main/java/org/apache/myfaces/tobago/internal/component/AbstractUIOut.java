@@ -49,6 +49,8 @@ public abstract class AbstractUIOut extends UIOutput implements SupportsLabelLay
   @Deprecated
   public abstract boolean isCompact();
 
+  public abstract boolean isMessageFormat();
+
   public abstract SanitizeMode getSanitize();
 
   @Override
