@@ -20,7 +20,8 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
 
   <p>The <code class="language-markup">&lt;tc:out/></code> display an outputtext combined with a label.</p>
   <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
@@ -65,6 +66,17 @@
     <tc:segmentLayout>
       <tc:out value="combination: deleted danger italic" markup="deleted danger italic"/>
     </tc:segmentLayout>
+  </tc:section>
+  <tc:section label="Message Format">
+    Using message formatting for i18n strings.
+    <demo-highlight language="markup">&lt;tc:out value="\#{demoBundle.message_format_example}" messageFormat="true"&gt;
+  &lt;f:param value="Mrs"/&gt;
+  &lt;f:param value="Smith"/&gt;
+&lt;/tc:out&gt;</demo-highlight>
+    <tc:out value="#{demoBundle.message_format_example}" messageFormat="true">
+      <f:param value="Mrs"/>
+      <f:param value="Smith"/>
+    </tc:out>
   </tc:section>
   <tc:section label="Escape">
     <p>If the given string to the output field is HTML/XML code, it will be escaped by default.
