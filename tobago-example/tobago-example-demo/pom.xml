@@ -361,6 +361,7 @@
             <artifactId>docker-maven-plugin</artifactId>
             <version>0.40.3</version>
             <configuration>
+              <verbose>true</verbose>
               <images>
                 <image>
                   <name>myfaces/%a:%l</name>
