@@ -72,7 +72,6 @@
     "bootstrap-icons": "1.10.3"
   },
   "devDependencies": {
-    "@popperjs/core": "^2.11.6",
     "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-replace": "^5.0.2",
@@ -88,16 +87,12 @@
     "eslint-plugin-compat": "^4.0.2",
     "jest": "^29.3.1",
     "jsf.js_next_gen": "^4.0.0-RC.20",
-    "lodash": "^4.17.21",
     "ncp": "^2.0.0",
     "npm-run-all": "^4.1.5",
-    "postcss": "^8.4.21",
     "postcss-cli": "^10.1.0",
     "rollup": "^3.9.1",
     "sass": "^1.57.1",
     "ts-jest": "^29.0.3",
-    "tslib": "^2.4.1",
-    "typescript": "^4.9.4",
-    "uglify-js": "^3.17.4"
+    "typescript": "^4.9.4"
   }
 }
