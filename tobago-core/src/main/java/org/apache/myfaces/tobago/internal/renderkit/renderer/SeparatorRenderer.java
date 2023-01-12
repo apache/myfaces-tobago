@@ -42,32 +42,27 @@ public class SeparatorRenderer<T extends AbstractUISeparator> extends RendererBa
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final String clientId = component.getClientId(facesContext);
 
+    writer.startElement(HtmlElements.TOBAGO_SEPARATOR);
+    writer.writeIdAttribute(clientId);
+
     if (isInside(facesContext, HtmlElements.COMMAND)) {
-      writer.startElement(HtmlElements.TOBAGO_SEPARATOR);
-      writer.writeIdAttribute(clientId);
-      writer.writeClassAttribute(
-          BootstrapClass.DROPDOWN_DIVIDER,
-          component.getCustomClass());
-      writer.endElement(HtmlElements.TOBAGO_SEPARATOR);
+      writer.writeClassAttribute(BootstrapClass.DROPDOWN_DIVIDER, component.getCustomClass());
     } else {
+      writer.writeClassAttribute(component.getCustomClass());
+      writer.startElement(HtmlElements.HR);
+      writer.endElement(HtmlElements.HR);
+
       final String label = getLabel(component);
       if (label != null) {
-        writer.startElement(HtmlElements.P);
-        writer.writeIdAttribute(clientId);
-        writer.writeClassAttribute(
-            TobagoClass.SEPARATOR,
-            component.getCustomClass());
+        writer.startElement(HtmlElements.DIV);
+        writer.writeClassAttribute(TobagoClass.LABEL);
         writer.writeText(label);
-        writer.endElement(HtmlElements.P);
-      } else {
+        writer.endElement(HtmlElements.DIV);
         writer.startElement(HtmlElements.HR);
-        writer.writeIdAttribute(clientId);
-        writer.writeClassAttribute(
-            TobagoClass.SEPARATOR,
-            component.getCustomClass());
         writer.endElement(HtmlElements.HR);
       }
     }
+    writer.endElement(HtmlElements.TOBAGO_SEPARATOR);
   }
 
   private String getLabel(final AbstractUISeparator separator) {
