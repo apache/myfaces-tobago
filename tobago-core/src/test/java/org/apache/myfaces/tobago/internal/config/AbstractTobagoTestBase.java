@@ -114,6 +114,7 @@ import static org.apache.myfaces.tobago.util.ResourceUtils.TOBAGO_RESOURCE_BUNDL
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
+import javax.faces.component.UIParameter;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.convert.DateTimeConverter;
 import javax.faces.render.RenderKit;
@@ -200,6 +201,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.treeNode.componentType(), UITreeNode.class.getName());
     application.addComponent(Tags.treeIndent.componentType(), UITreeIndent.class.getName());
     application.addComponent(Tags.treeSelect.componentType(), UITreeSelect.class.getName());
+    application.addComponent(UIParameter.COMPONENT_TYPE, UIParameter.class.getName());
 
     application.addBehavior(AjaxBehavior.BEHAVIOR_ID, AjaxBehavior.class.getName());
     application.addBehavior(EventBehavior.BEHAVIOR_ID, EventBehavior.class.getName());
