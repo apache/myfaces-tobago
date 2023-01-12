@@ -37,6 +37,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsPlain;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIOutput;
+import java.text.MessageFormat;
 
 /**
  * Renders a text
@@ -98,4 +99,14 @@ public interface OutTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setCompact(String compact);
+
+  /**
+   * Activates formatting of the value with the method {@link MessageFormat#format(String, Object...)}
+   * A parameters the values of the children of type {@link javax.faces.component.UIParameter} are used.
+   *
+   * @since 5.5.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  void setMessageFormat(String messageFormat);
 }

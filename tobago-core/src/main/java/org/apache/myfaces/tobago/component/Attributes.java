@@ -215,6 +215,7 @@ public enum Attributes {
   maxWidth,
   media,
   method,
+  messageFormat,
   min,
   minHeight,
   minWidth,
