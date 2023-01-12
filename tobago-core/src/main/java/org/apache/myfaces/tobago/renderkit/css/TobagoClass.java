@@ -53,6 +53,7 @@ public enum TobagoClass implements CssItem {
   FOLDER("tobago-folder"),
   FILTER("tobago-filter"),
   HEADER("tobago-header"),
+  LABEL("tobago-label"),
   LABEL__CONTAINER("tobago-label-container"),
   LEVEL("tobago-level"),
   LINK("tobago-link"),
