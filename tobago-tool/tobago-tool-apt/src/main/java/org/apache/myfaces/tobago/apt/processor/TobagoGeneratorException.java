@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.apt.processor;
 
 /**
- * @since Tobago 4.0.0
+ * @since 4.0.0
  */
 public class TobagoGeneratorException extends RuntimeException {
 
