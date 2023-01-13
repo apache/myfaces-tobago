@@ -57,11 +57,15 @@
       </tc:selectManyListbox>
     </tc:segmentLayout>
     <tc:segmentLayout medium="6seg">
-      <tc:file id="fatalFile" validator="#{severityController.addFatal}"/>
+      <tc:file id="fatalFile" validator="#{severityController.addFatal}" required="true"/>
       <tc:selectManyShuttle id="fatalShuttle" validator="#{severityController.addFatal}">
         <tc:selectItem itemValue="Entry One"/>
         <tc:selectItem itemValue="Entry Two"/>
       </tc:selectManyShuttle>
+    </tc:segmentLayout>
+    <tc:segmentLayout medium="6seg">
+      <tc:range id="fatalRange" validator="#{severityController.addFatal}"/>
+      <tc:stars id="fatalStars" validator="#{severityController.addFatal}"/>
     </tc:segmentLayout>
   </tc:section>
 
@@ -98,11 +102,15 @@
       </tc:selectManyListbox>
     </tc:segmentLayout>
     <tc:segmentLayout medium="6seg">
-      <tc:file id="errorFile" validator="#{severityController.addError}"/>
+      <tc:file id="errorFile" validator="#{severityController.addError}" required="true"/>
       <tc:selectManyShuttle id="errorShuttle" validator="#{severityController.addError}">
         <tc:selectItem itemValue="Entry One"/>
         <tc:selectItem itemValue="Entry Two"/>
       </tc:selectManyShuttle>
+    </tc:segmentLayout>
+    <tc:segmentLayout medium="6seg">
+      <tc:range id="errorRange" validator="#{severityController.addError}"/>
+      <tc:stars id="errorStars" validator="#{severityController.addError}"/>
     </tc:segmentLayout>
   </tc:section>
 
@@ -139,11 +147,15 @@
       </tc:selectManyListbox>
     </tc:segmentLayout>
     <tc:segmentLayout medium="6seg">
-      <tc:file id="warnFile" validator="#{severityController.addWarn}"/>
+      <tc:file id="warnFile" validator="#{severityController.addWarn}" required="true"/>
       <tc:selectManyShuttle id="warnShuttle" validator="#{severityController.addWarn}">
         <tc:selectItem itemValue="Entry One"/>
         <tc:selectItem itemValue="Entry Two"/>
       </tc:selectManyShuttle>
+    </tc:segmentLayout>
+    <tc:segmentLayout medium="6seg">
+      <tc:range id="warnRange" validator="#{severityController.addWarn}"/>
+      <tc:stars id="warnStars" validator="#{severityController.addWarn}"/>
     </tc:segmentLayout>
   </tc:section>
 
@@ -180,11 +192,15 @@
       </tc:selectManyListbox>
     </tc:segmentLayout>
     <tc:segmentLayout medium="6seg">
-      <tc:file id="infoFile" validator="#{severityController.addInfo}"/>
+      <tc:file id="infoFile" validator="#{severityController.addInfo}" required="true"/>
       <tc:selectManyShuttle id="infoShuttle" validator="#{severityController.addInfo}">
         <tc:selectItem itemValue="Entry One"/>
         <tc:selectItem itemValue="Entry Two"/>
       </tc:selectManyShuttle>
+    </tc:segmentLayout>
+    <tc:segmentLayout medium="6seg">
+      <tc:range id="infoRange" validator="#{severityController.addInfo}"/>
+      <tc:stars id="infoStars" validator="#{severityController.addInfo}"/>
     </tc:segmentLayout>
   </tc:section>
 </ui:composition>
