@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import jakarta.faces.component.UIParameter;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIOut;
@@ -89,6 +90,28 @@ public class OutRendererUnitTest extends RendererTestBase {
     c.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/out/outSanitizeNever.html"), formattedResult());
+  }
+
+  @Test
+  public void outFormat() throws IOException {
+    final UIOut c = (UIOut) ComponentUtils.createComponent(
+        facesContext, Tags.out.componentType(), RendererTypes.Out, "id");
+    c.setValue("Hello {0} {1}!");
+    c.setMessageFormat(true);
+
+    final UIParameter p0 = (UIParameter) ComponentUtils.createComponent(
+        facesContext, UIParameter.COMPONENT_TYPE, null, "p0");
+    p0.setValue("Mrs");
+    c.getChildren().add(p0);
+
+    final UIParameter p1 = (UIParameter) ComponentUtils.createComponent(
+        facesContext, UIParameter.COMPONENT_TYPE, null, "p1");
+    p1.setValue("Smith");
+    c.getChildren().add(p1);
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/out/outFormat.html"), formattedResult());
   }
 
 }

@@ -19,6 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIParameter;
+import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
@@ -30,13 +33,21 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-
-import jakarta.faces.context.FacesContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class OutRenderer<T extends AbstractUIOut> extends MessageLayoutRendererBase<T> {
+
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+  private static final Object[] EMPTY_OBJECT_ARRAY = new Object[0];
 
   @Override
   protected boolean isOutputOnly(T component) {
@@ -106,6 +117,10 @@ public class OutRenderer<T extends AbstractUIOut> extends MessageLayoutRendererB
       text = "";
     }
 
+    if (out.isMessageFormat()) {
+      text = getOutputFormatText(facesContext, text, out);
+    }
+
     if (escape) {
       if (keepLineBreaks) {
         final StringTokenizer tokenizer = new StringTokenizer(text, "\r\n");
@@ -128,6 +143,49 @@ public class OutRenderer<T extends AbstractUIOut> extends MessageLayoutRendererB
       }
       writer.write(text);
     }
+  }
+
+  private String getOutputFormatText(final FacesContext facesContext, final String pattern, final T out) {
+    final Object[] args;
+    if (out.getChildCount() > 0) {
+      final List<UIParameter> validParams = getValidUIParameterChildren(out);
+      if (!validParams.isEmpty()) {
+        List<Object> argsList = new ArrayList<>(validParams.size());
+        for (UIParameter param : validParams) {
+          argsList.add(param.getValue());
+        }
+        args = argsList.toArray(EMPTY_OBJECT_ARRAY);
+      } else {
+        args = EMPTY_OBJECT_ARRAY;
+      }
+    } else {
+      args = EMPTY_OBJECT_ARRAY;
+    }
+
+    final MessageFormat format = new MessageFormat(pattern, facesContext.getViewRoot().getLocale());
+    try {
+      return format.format(args);
+    } catch (Exception e) {
+      LOG.error("Error formatting message of component with clientId='{}'", out.getClientId(facesContext));
+      return pattern;
+    }
+  }
+
+  private List<UIParameter> getValidUIParameterChildren(T out) {
+
+    List<UIParameter> parameters = new ArrayList<>();
+    for (UIComponent child : out.getChildren()) {
+      if (child instanceof UIParameter) {
+        UIParameter param = (UIParameter) child;
+        if (param.isDisable() || !param.isRendered()) {
+          // ignore
+          continue;
+        }
+        parameters.add(param);
+      }
+    }
+
+    return parameters;
   }
 
   @Override

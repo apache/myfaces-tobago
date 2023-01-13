@@ -19,12 +19,14 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import jakarta.faces.component.UIOutput;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
@@ -32,11 +34,10 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasSanitize;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsPlain;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
-import jakarta.faces.component.UIOutput;
+import java.text.MessageFormat;
 
 /**
  * Renders a text
@@ -98,4 +99,14 @@ public interface OutTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setCompact(String compact);
+
+  /**
+   * Activates formatting of the value with the method {@link MessageFormat#format(String, Object...)}
+   * A parameters the values of the children of type {@link jakarta.faces.component.UIParameter} are used.
+   *
+   * @since 5.5.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  void setMessageFormat(String messageFormat);
 }
