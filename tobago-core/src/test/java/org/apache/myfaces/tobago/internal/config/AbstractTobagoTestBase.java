@@ -19,6 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
+import jakarta.faces.component.UIParameter;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.convert.DateTimeConverter;
+import jakarta.faces.render.RenderKit;
+import jakarta.servlet.ServletContext;
 import org.apache.myfaces.test.base.junit4.AbstractJsfTestCase;
 import org.apache.myfaces.test.config.ResourceBundleVarNames;
 import org.apache.myfaces.test.mock.MockFacesContext;
@@ -64,9 +69,6 @@ import org.apache.myfaces.tobago.component.UITreeIndent;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-
-import static org.apache.myfaces.tobago.config.TobagoConfig.TOBAGO_CONFIG;
-
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.BadgeRenderer;
@@ -108,22 +110,17 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.TreeNodeRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TreeRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TreeSelectRenderer;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
-
-import static org.apache.myfaces.tobago.util.ResourceUtils.TOBAGO_RESOURCE_BUNDLE;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-
-import jakarta.faces.component.behavior.AjaxBehavior;
-import jakarta.faces.convert.DateTimeConverter;
-import jakarta.faces.render.RenderKit;
-import jakarta.servlet.ServletContext;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Locale;
+
+import static org.apache.myfaces.tobago.config.TobagoConfig.TOBAGO_CONFIG;
+import static org.apache.myfaces.tobago.util.ResourceUtils.TOBAGO_RESOURCE_BUNDLE;
 
 /**
  * <p>Abstract JUnit test case base class, which sets up the JavaServer Faces
@@ -201,6 +198,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.treeNode.componentType(), UITreeNode.class.getName());
     application.addComponent(Tags.treeIndent.componentType(), UITreeIndent.class.getName());
     application.addComponent(Tags.treeSelect.componentType(), UITreeSelect.class.getName());
+    application.addComponent(UIParameter.COMPONENT_TYPE, UIParameter.class.getName());
 
     application.addBehavior(AjaxBehavior.BEHAVIOR_ID, AjaxBehavior.class.getName());
     application.addBehavior(EventBehavior.BEHAVIOR_ID, EventBehavior.class.getName());
