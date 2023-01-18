@@ -69,7 +69,8 @@
   "dependencies": {
     "@trevoreyre/autocomplete-js": "^2.4.1",
     "bootstrap": "5.2.3",
-    "bootstrap-icons": "1.10.3"
+    "bootstrap-icons": "1.10.3",
+    "lit-html": "^2.6.1"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^24.0.0",
