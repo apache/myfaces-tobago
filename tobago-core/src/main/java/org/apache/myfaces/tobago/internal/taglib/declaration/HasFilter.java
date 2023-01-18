@@ -19,11 +19,19 @@
 
 package org.apache.myfaces.tobago.internal.taglib.declaration;
 
+import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 public interface HasFilter {
+
+  /**
+   * The name of the current filter.
+   * There are some predefined filters: contains, startsWith, containsExact, startsWithExact
+   * The TobagoFilterRegistry (tobago-filter-registry.ts) can be used to add a custom filter.
+   */
   @TagAttribute
   @UIComponentTagAttribute
+  @Preliminary
   void setFilter(String filter);
 }
