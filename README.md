@@ -1,9 +1,11 @@
-# Apache Tobago
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-![Tobago CI](https://github.com/apache/myfaces-tobago/workflows/Tobago%20CI/badge.svg)
-![CodeQL](https://github.com/apache/myfaces-tobago/workflows/CodeQL/badge.svg)
+[![Tobago CI](https://github.com/apache/myfaces-tobago/actions/workflows/tobago-ci.yml/badge.svg?branch=tobago-5.x)](https://github.com/apache/myfaces-tobago/actions/workflows/tobago-ci.yml)
+[![CodeQL](https://github.com/apache/myfaces-tobago/actions/workflows/codeql-analysis.yml/badge.svg?branch=tobago-5.x)](https://github.com/apache/myfaces-tobago/actions/workflows/codeql-analysis.yml)
 [![Build Status ASF](https://ci-builds.apache.org/buildStatus/icon?subject=ASF-Build&job=MyFaces%2FTobago+pipeline%2Ftobago-5.x)](https://ci-builds.apache.org/job/MyFaces/job/Tobago%20pipeline/job/tobago-5.x/)
+
+# Apache Tobago
+
 
 ## Building
 
