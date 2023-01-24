@@ -18,21 +18,21 @@
 @import "node_modules/bootstrap/scss/variables";
 @import "node_modules/bootstrap/scss/mixins/forms";
 
-/* used bootstrap icons ---------------------------------------------------- */
-
-$icon-nbsp: " ";
-$icon-alert-info: "\f646";
-$icon-alert-warning: "\f33a";
-$icon-alert-danger: "\f622";
-$icon-star: "\f588";
-$icon-star-fill: "\f586";
-$icon-star-sep: $icon-nbsp;
-$icon-stars: $icon-star-fill + $icon-star-sep + $icon-star-fill + $icon-star-sep + $icon-star-fill + $icon-star-sep + $icon-star-fill + $icon-star-sep + $icon-star-fill;
-$icon-trash: "\f5de";
-$icon-sort: "\F127";
-$icon-sort-ascending: "\f57a";
-$icon-sort-descending: "\f574";
-$circles: (
+/* icon variables ---------------------------------------------------- */
+$icon-required: "*" !default;
+$icon-nbsp: " " !default;
+$icon-alert-info: "\f646" !default;
+$icon-alert-warning: "\f33a" !default;
+$icon-alert-danger: "\f622" !default;
+$icon-star: "\f588" !default;
+$icon-star-fill: "\f586" !default;
+$icon-star-sep: $icon-nbsp !default;
+$icon-stars: $icon-star-fill + $icon-star-sep + $icon-star-fill + $icon-star-sep + $icon-star-fill + $icon-star-sep + $icon-star-fill + $icon-star-sep + $icon-star-fill !default;
+$icon-trash: "\f5de" !default;
+$icon-sort: "\F127" !default;
+$icon-sort-ascending: "\f57a" !default;
+$icon-sort-descending: "\f574" !default;
+$icon-sort-numbers: (
     1: "\f797",
     2: "\f79d",
     3: "\f7a3",
@@ -42,7 +42,7 @@ $circles: (
     7: "\f7bb",
     8: "\f7c1",
     9: "\f7c7"
-);
+) !default;
 
 /* non-bootstrap variables --------------------------------------- */
 
@@ -1016,7 +1016,7 @@ tobago-range {
 }
 
 label.tobago-required:after {
-  content: "*";
+  content: $icon-required;
   color: $danger;
 }
 
@@ -1506,7 +1506,7 @@ tobago-sheet {
         opacity: 1;
       }
 
-      @each $number, $circle in $circles {
+      @each $number, $circle in $icon-sort-numbers {
         @include tobago-circle($icon-sort-ascending, $number, $circle);
       }
     }
@@ -1517,7 +1517,7 @@ tobago-sheet {
         opacity: 1;
       }
 
-      @each $number, $circle in $circles {
+      @each $number, $circle in $icon-sort-numbers {
         @include tobago-circle($icon-sort-descending, $number, $circle);
       }
     }
