@@ -34,7 +34,7 @@
   <properties>
     <frontend.skip>true</frontend.skip>
     <myfaces30.version>3.0.2</myfaces30.version>
-    <mojarra30.version>3.0.3</mojarra30.version>
+    <mojarra30.version>3.0.4</mojarra30.version>
     <openwebbeans.version>2.0.27</openwebbeans.version>
     <slf4j.version>2.0.6</slf4j.version>
     <logback.version>1.4.5</logback.version>
