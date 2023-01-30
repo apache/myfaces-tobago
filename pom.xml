@@ -52,7 +52,7 @@
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
     <junit-jupiter.version>5.9.2</junit-jupiter.version>
     <testcontainers.version>1.17.6</testcontainers.version>
-    <checkstyle-rules.version>21-SNAPSHOT</checkstyle-rules.version>
+    <checkstyle-rules.version>21</checkstyle-rules.version>
 
     <!-- Note: defined here in master pom, because of problems with enforcer plugin -->
     <jetty.version>9.4.50.v20221201</jetty.version>
