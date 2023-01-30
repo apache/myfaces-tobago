@@ -60,7 +60,7 @@
     <joinfaces.version>4.7.8</joinfaces.version>
     <spring-boot.version>2.7.8</spring-boot.version>
     <spring.version>5.3.25</spring.version>
-    <jackson.version>2.14.1</jackson.version>
+    <jackson.version>2.14.2</jackson.version>
   </properties>
 
   <issueManagement>
