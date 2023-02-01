@@ -67,7 +67,7 @@
     "dev-ts-cp": "ncp tobago-theme-standard/src/main/js ../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/${npm_package_version}/js"
   },
   "dependencies": {
-    "@trevoreyre/autocomplete-js": "^2.4.0",
+    "@trevoreyre/autocomplete-js": "^2.4.1",
     "bootstrap": "5.2.3",
     "bootstrap-icons": "1.10.3"
   },
