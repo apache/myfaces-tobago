@@ -126,7 +126,13 @@ public class DateRenderer<T extends AbstractUIDate> extends DecorationPositionRe
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.TABINDEX, date.getTabIndex());
     writer.writeAttribute(HtmlAttributes.MIN, convertToString(date.getMin()), true);
-    writer.writeAttribute(HtmlAttributes.MAX, convertToString(date.getMax()), true);
+    if (date.getMax() == null && DateType.DATE.equals(type)) {
+      writer.writeAttribute(HtmlAttributes.MAX, "9999-12-31", false);
+    } else if (date.getMax() == null && DateType.DATETIME_LOCAL.equals(type)) {
+      writer.writeAttribute(HtmlAttributes.MAX, "9999-12-31T23:59", false);
+    } else {
+      writer.writeAttribute(HtmlAttributes.MAX, convertToString(date.getMax()), true);
+    }
 
     writer.writeClassAttribute(
         BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(date)),
