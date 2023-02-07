@@ -54,7 +54,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import javax.faces.component.UISelectMany;
 
 /**
- * Render a multi selection option listbox.
+ * Render a multi selection option list.
  */
 @Preliminary
 @Tag(name = "selectManyList")
