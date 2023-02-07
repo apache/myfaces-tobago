@@ -16,83 +16,19 @@
  */
 
 import {TobagoFilterRegistry} from "./tobago-filter-registry";
-import {createPopper, Instance} from "@popperjs/core";
+import {SelectListBase} from "./tobago-select-list-base";
 
-class SelectManyList extends HTMLElement {
-  private popper: Instance;
-
-  private readonly CssClass = {
-    DROPDOWN_MENU: "dropdown-menu",
-    SHOW: "show",
-    TABLE_ACTIVE: "table-active",
-    TABLE_PRIMARY: "table-primary",
-    TOBAGO_DISABLED: "tobago-disabled",
-    TOBAGO_FOCUS: "tobago-focus",
-    TOBAGO_PRESELECT: "tobago-preselect",
-    TOBAGO_OPTIONS: "tobago-options"
-  };
-
-  private readonly Key = {
-    ARROW_DOWN: "ArrowDown",
-    ARROW_UP: "ArrowUp",
-    ENTER: "Enter",
-    ESCAPE: "Escape",
-    SPACE: " ",
-    TAB: "Tab"
-  };
-
+class SelectManyList extends SelectListBase {
   constructor() {
     super();
-  }
-
-  get hiddenSelect(): HTMLSelectElement {
-    return this.querySelector("select");
-  }
-
-  get selectField(): HTMLDivElement {
-    return this.querySelector(".tobago-select-field");
   }
 
   get badgeCloseButtons(): NodeListOf<HTMLButtonElement> {
     return this.selectField.querySelectorAll("button.btn.badge");
   }
 
-  get filter(): string {
-    return this.getAttribute("filter");
-  }
-
-  get filterInput(): HTMLInputElement {
-    return this.querySelector(".tobago-filter");
-  }
-
-  get dropdownMenu(): HTMLDivElement {
-    const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(`.dropdown-menu[name='${this.id}']`);
-  }
-
-  get menuStore(): HTMLDivElement {
-    const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(".tobago-page-menuStore");
-  }
-
-  get tbody(): HTMLElement {
-    const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(`.tobago-options[name='${this.id}'] tbody`);
-  }
-
-  get enabledRows(): NodeListOf<HTMLTableRowElement> {
-    return this.tbody.querySelectorAll<HTMLTableRowElement>("tr:not(.tobago-disabled)");
-  }
-
-  get preselectedRow(): HTMLTableRowElement {
-    return this.tbody.querySelector<HTMLTableRowElement>("." + this.CssClass.TOBAGO_PRESELECT);
-  }
-
   connectedCallback(): void {
-    if (this.dropdownMenu) {
-      this.popper = createPopper(this.selectField, this.dropdownMenu, {});
-      window.addEventListener("resize", this.resizeEvent.bind(this));
-    }
+    super.connectedCallback();
     document.addEventListener("click", this.clickEvent.bind(this));
     this.filterInput.addEventListener("focus", this.focusEvent.bind(this));
     this.filterInput.addEventListener("blur", this.blurEvent.bind(this));
@@ -105,10 +41,8 @@ class SelectManyList extends HTMLElement {
 
     this.initList();
 
-    // init filter
     if (this.filter) {
-      const input = this.filterInput;
-      input.addEventListener("keyup", this.filterEvent.bind(this));
+      this.filterInput.addEventListener("input", this.filterEvent.bind(this));
     }
 
     // handle autofocus; trigger focus event
@@ -179,7 +113,7 @@ class SelectManyList extends HTMLElement {
       row.classList.remove(this.CssClass.TABLE_PRIMARY);
     }
 
-    if (!this.classList.contains(this.CssClass.TOBAGO_DISABLED) && !this.filter) {
+    if (!this.disabled && !this.filter) {
       // disable input field to prevent focus.
       if (this.badgeCloseButtons.length > 0 && this.filterInput.id === document.activeElement.id) {
         this.badgeCloseButtons.item(this.badgeCloseButtons.length - 1).focus();
@@ -212,30 +146,31 @@ class SelectManyList extends HTMLElement {
       this.querySelectorAll("tr").forEach(row => {
         const itemValue = row.dataset.tobagoValue;
         if (filterFunction(itemValue, searchString)) {
-          row.classList.remove("d-none");
+          row.classList.remove(this.CssClass.D_NONE);
         } else {
-          row.classList.add("d-none");
+          row.classList.add(this.CssClass.D_NONE);
         }
       });
     }
   }
 
   private clickEvent(event: MouseEvent): void {
-    if (this.isDeleted(event.target as Element)) {
-      // do nothing, this is probably a removed badge
-    } else if (this.isPartOfSelectField(event.target as Element)
-        || this.isPartOfTobagoOptions(event.target as Element)) {
+    if (!this.disabled) {
+      if (this.isDeleted(event.target as Element)) {
+        // do nothing, this is probably a removed badge
+      } else if (this.isPartOfSelectField(event.target as Element)
+          || this.isPartOfTobagoOptions(event.target as Element)) {
 
-      if (!this.filterInput.disabled) {
-        this.filterInput.focus();
-      } else if (this.badgeCloseButtons.length > 0) {
-        this.badgeCloseButtons[0].focus();
+        if (!this.filterInput.disabled) {
+          this.filterInput.focus();
+        } else if (this.badgeCloseButtons.length > 0) {
+          this.badgeCloseButtons[0].focus();
+        }
+        this.showDropdown();
+
+      } else {
+        this.leaveComponent();
       }
-      this.showDropdown();
-
-    } else {
-      this.hideDropdown();
-      this.setFocus(false);
     }
   }
 
@@ -273,125 +208,15 @@ class SelectManyList extends HTMLElement {
     }
   }
 
-  private preselectNextTableRow(): void {
-    const rows = this.enabledRows;
-    const index = this.preselectIndex(rows);
-    if (index >= 0) {
-      if (index + 1 < rows.length) {
-        rows.item(index).classList.remove(this.CssClass.TOBAGO_PRESELECT);
-        this.preselect(rows.item(index + 1));
-      } else {
-        rows.item(rows.length - 1).classList.remove(this.CssClass.TOBAGO_PRESELECT);
-        this.preselect(rows.item(0));
-      }
-    } else if (rows.length > 0) {
-      this.preselect(rows.item(0));
-    }
-  }
-
-  private preselectPreviousTableRow(): void {
-    const rows = this.enabledRows;
-    const index = this.preselectIndex(rows);
-    if (index >= 0) {
-      if ((index - 1) >= 0) {
-        rows.item(index).classList.remove(this.CssClass.TOBAGO_PRESELECT);
-        this.preselect(rows.item(index - 1));
-      } else {
-        rows.item(0).classList.remove(this.CssClass.TOBAGO_PRESELECT);
-        this.preselect(rows.item(rows.length - 1));
-      }
-    } else if (rows.length > 0) {
-      this.preselect(rows.item(rows.length - 1));
-    }
-  }
-
-  private preselect(row: HTMLTableRowElement): void {
-    row.classList.add(this.CssClass.TOBAGO_PRESELECT);
-    if (!this.dropdownMenu) {
-      row.scrollIntoView({block: "center"});
-    }
-
-    this.filterInput.disabled = false;
-    this.filterInput.focus({preventScroll: true});
-  }
-
-  private removePreselection(): void {
-    this.preselectedRow?.classList.remove(this.CssClass.TOBAGO_PRESELECT);
-  }
-
-  private preselectIndex(rows: NodeListOf<HTMLTableRowElement>): number {
-    for (let i = 0; i < rows.length; i++) {
-      if (rows.item(i).classList.contains(this.CssClass.TOBAGO_PRESELECT)) {
-        return i;
-      }
-    }
-    return -1;
-  }
-
-  private isPartOfSelectField(element: Element): boolean {
-    if (element) {
-      if (this.selectField.id === element.id) {
-        return true;
-      } else {
-        return element.parentElement ? this.isPartOfSelectField(element.parentElement) : false;
-      }
-    } else {
-      return false;
-    }
-  }
-
-  private isPartOfTobagoOptions(element: Element): boolean {
-    if (element) {
-      if (element.classList.contains(this.CssClass.TOBAGO_OPTIONS)
-          && this.id === element.getAttribute("name")) {
-        return true;
-      } else {
-        return element.parentElement ? this.isPartOfTobagoOptions(element.parentElement) : false;
-      }
-    } else {
-      return false;
-    }
+  private leaveComponent(): void {
+    this.setFocus(false);
+    this.filterInput.value = null;
+    this.filterInput.dispatchEvent(new Event("input"));
+    this.hideDropdown();
   }
 
   private isDeleted(element: Element): boolean {
     return element.closest("html") === null;
-  }
-
-  private showDropdown(): void {
-    if (this.dropdownMenu && !this.dropdownMenu.classList.contains(this.CssClass.SHOW)) {
-      this.selectField.classList.add(this.CssClass.SHOW);
-      this.selectField.ariaExpanded = "true";
-      this.dropdownMenu.classList.add(this.CssClass.SHOW);
-      this.updateDropdownMenuWidth();
-      this.popper.update();
-    }
-  }
-
-  private hideDropdown(): void {
-    if (this.dropdownMenu?.classList.contains(this.CssClass.SHOW)) {
-      this.selectField.classList.remove(this.CssClass.SHOW);
-      this.selectField.ariaExpanded = "false";
-      this.dropdownMenu.classList.remove(this.CssClass.SHOW);
-    }
-  }
-
-  private resizeEvent(event: UIEvent): void {
-    this.updateDropdownMenuWidth();
-  }
-
-  private updateDropdownMenuWidth(): void {
-    if (this.dropdownMenu) {
-      this.dropdownMenu.style.width = `${this.selectField.offsetWidth}px`;
-    }
-  }
-
-  private focusEvent(): void {
-    if (!this.hiddenSelect.disabled) {
-      if (!this.classList.contains(this.CssClass.TOBAGO_FOCUS)) {
-        this.setFocus(true);
-        this.showDropdown();
-      }
-    }
   }
 
   private blurEvent(event: FocusEvent): void {
@@ -399,17 +224,8 @@ class SelectManyList extends HTMLElement {
       //relatedTarget is the new focused element; null indicate a mouseclick or an inactive browser window
       if (!this.isPartOfSelectField(event.relatedTarget as Element)
           && !this.isPartOfTobagoOptions(event.relatedTarget as Element)) {
-        this.setFocus(false);
-        this.hideDropdown();
+        this.leaveComponent();
       }
-    }
-  }
-
-  private setFocus(focus: boolean): void {
-    if (focus) {
-      this.classList.add(this.CssClass.TOBAGO_FOCUS);
-    } else {
-      this.classList.remove(this.CssClass.TOBAGO_FOCUS);
     }
   }
 

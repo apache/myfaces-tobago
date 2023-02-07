@@ -41,6 +41,7 @@ import "./tobago-select-many-checkbox";
 import "./tobago-select-many-listbox";
 import "./tobago-select-many-shuttle";
 import "./tobago-select-one-choice";
+import "./tobago-select-one-list";
 import "./tobago-select-one-listbox";
 import "./tobago-select-one-radio";
 import "./tobago-sheet";
