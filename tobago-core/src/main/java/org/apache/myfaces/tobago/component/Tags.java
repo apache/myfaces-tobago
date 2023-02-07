@@ -80,6 +80,7 @@ public enum Tags {
   selectManyShuttle,
   selectOneChoice,
   selectOneRadio,
+  selectOneList,
   selectOneListbox,
   selectReference,
   separator,
@@ -153,6 +154,7 @@ public enum Tags {
   public static final String SELECT_MANY_SHUTTLE = "selectManyShuttle";
   public static final String SELECT_ONE_CHOICE = "selectOneChoice";
   public static final String SELECT_ONE_RADIO = "selectOneRadio";
+  public static final String SELECT_ONE_LIST = "selectOneList";
   public static final String SELECT_ONE_LISTBOX = "selectOneListbox";
   public static final String SELECT_REFERENCE = "selectReference";
   public static final String SEPARATOR = "separator";
