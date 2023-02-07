@@ -113,6 +113,11 @@
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
         </tag>
+        <tag name="selectOneList">
+          <attribute name="labelLayout" default="flexLeft"/>
+          <attribute name="messagePosition" default="buttonRight"/>
+          <attribute name="helpPosition" default="buttonRight"/>
+        </tag>
         <tag name="selectOneListbox">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>

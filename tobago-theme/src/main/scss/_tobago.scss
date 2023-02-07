@@ -195,6 +195,137 @@ $form-select-disabled-color: rgba($form-select-color, $tobago-form-disabled-alph
   }
 }
 
+@mixin selectListBase() {
+  display: block;
+
+  &.tobago-label-container {
+    .dropdown, .list-group {
+      flex: 1 0 0;
+    }
+  }
+
+  &.tobago-focus {
+    .dropdown .tobago-select-field {
+      @include formControlFocus();
+      @include selectListBorderColorShadow("danger", $danger);
+      @include selectListBorderColorShadow("warning", $warning);
+      @include selectListBorderColorShadow("info", $info);
+    }
+
+    .list-group {
+      --bs-list-group-color: #{$input-focus-color};
+      --bs-list-group-bg: #{$input-focus-bg};
+      --bs-list-group-border-color: #{$input-focus-border-color};
+
+      @include formControlFocusShadows();
+      @include selectListBorderColorShadow("danger", $danger);
+      @include selectListBorderColorShadow("warning", $warning);
+      @include selectListBorderColorShadow("info", $info);
+    }
+  }
+
+  &.tobago-disabled {
+    .tobago-select-field {
+      color: $form-select-disabled-color;
+      background-color: $form-select-disabled-bg;
+      border-color: $form-select-disabled-border-color;
+    }
+  }
+
+  .list-group {
+    height: inherit;
+    max-height: inherit;
+    @include box-shadow($form-select-box-shadow);
+    @include transition($form-select-transition);
+
+    &.border-danger, &.border-warning, &.border-info {
+      .list-group-item {
+        border-color: inherit;
+      }
+    }
+
+    .list-group-item.tobago-select-field {
+      border-bottom-color: $list-group-border-color;
+    }
+  }
+
+  .tobago-select-field {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    &.dropdown-toggle::after {
+      content: none;
+    }
+
+    &.list-group-item.form-control {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+
+      padding: $form-select-padding-y $form-select-indicator-padding $form-select-padding-y $form-select-padding-x;
+    }
+
+    .tobago-filter {
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      flex: 1 0 0;
+      min-width: 8rem;
+      background-color: transparent;
+
+      &:focus {
+        box-shadow: none;
+      }
+
+      &:read-only {
+        width: 0;
+        min-width: 0;
+      }
+    }
+  }
+
+  .tobago-options {
+    &.list-group-item {
+      padding: 0;
+      overflow-y: auto;
+    }
+
+    .table {
+      margin-bottom: 0;
+
+      tr {
+        cursor: pointer;
+
+        &.tobago-disabled {
+          color: $form-select-disabled-color;
+          background-color: $form-select-disabled-bg;
+          border-color: $form-select-disabled-border-color;
+          cursor: initial;
+          pointer-events: none;
+        }
+
+        &.tobago-preselect {
+          --bs-table-accent-bg: var(--bs-table-hover-bg);
+          color: var(--bs-table-hover-color);
+        }
+
+        &:last-of-type {
+          td {
+            border-bottom-width: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin selectListBorderColorShadow($name, $color) {
+  &.border-#{$name} {
+    box-shadow: 0 0 $input-btn-focus-blur $input-focus-width rgba($color, $input-btn-focus-color-opacity);
+  }
+}
+
 @mixin tobagoTreeNodeToggle() {
   .tobago-toggle:not(.invisible) {
     cursor: pointer;
@@ -1194,6 +1325,10 @@ tobago-select-one-choice {
   }
 }
 
+tobago-select-one-list {
+  @include selectListBase();
+}
+
 tobago-select-one-listbox {
   display: block;
 
@@ -1216,140 +1351,15 @@ tobago-select-one-radio {
 }
 
 tobago-select-many-list {
-  display: block;
-
-  &.tobago-label-container {
-    .dropdown, .list-group {
-      flex: 1 0 0;
-    }
-  }
-
-  &.tobago-focus {
-    @mixin borderColorShadow($name, $color) {
-      &.border-#{$name} {
-        box-shadow: 0 0 $input-btn-focus-blur $input-focus-width rgba($color, $input-btn-focus-color-opacity);
-      }
-    }
-
-    .dropdown .tobago-select-field {
-      @include formControlFocus();
-      @include borderColorShadow("danger", $danger);
-      @include borderColorShadow("warning", $warning);
-      @include borderColorShadow("info", $info);
-    }
-
-    .list-group {
-      --bs-list-group-color: #{$input-focus-color};
-      --bs-list-group-bg: #{$input-focus-bg};
-      --bs-list-group-border-color: #{$input-focus-border-color};
-
-      @include formControlFocusShadows();
-      @include borderColorShadow("danger", $danger);
-      @include borderColorShadow("warning", $warning);
-      @include borderColorShadow("info", $info);
-    }
-  }
-
-  &.tobago-disabled {
-    .tobago-select-field {
-      color: $form-select-disabled-color;
-      background-color: $form-select-disabled-bg;
-      border-color: $form-select-disabled-border-color;
-    }
-  }
-
-  .list-group {
-    height: inherit;
-    max-height: inherit;
-    @include box-shadow($form-select-box-shadow);
-    @include transition($form-select-transition);
-
-    &.border-danger, &.border-warning, &.border-info {
-      .list-group-item {
-        border-color: inherit;
-      }
-    }
-
-    .list-group-item.tobago-select-field {
-      border-bottom-color: $list-group-border-color;
-    }
-  }
+  @include selectListBase();
 
   .tobago-select-field {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-
-    &.dropdown-toggle::after {
-      content: none;
-    }
-
-    &.list-group-item.form-control {
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-
-      padding: $form-select-padding-y $form-select-indicator-padding $form-select-padding-y $form-select-padding-x;
-    }
-
     .btn-group + .tobago-filter {
       margin-left: 0.25rem;
     }
 
     .btn-group {
       margin-right: 0.25rem;
-    }
-
-    .tobago-filter {
-      margin: 0;
-      border: 0;
-      border-radius: 0;
-      padding: 0;
-      flex: 1 0 0;
-      min-width: 8rem;
-      background-color: transparent;
-
-      &:focus {
-        box-shadow: none;
-      }
-
-      &:read-only {
-        width: 0;
-        min-width: 0;
-      }
-    }
-  }
-
-  .tobago-options {
-    &.list-group-item {
-      padding: 0;
-      overflow-y: auto;
-    }
-
-    .table {
-      margin-bottom: 0;
-
-      tr {
-        cursor: pointer;
-
-        &.tobago-disabled {
-          color: $form-select-disabled-color;
-          background-color: $form-select-disabled-bg;
-          border-color: $form-select-disabled-border-color;
-          cursor: initial;
-          pointer-events: none;
-        }
-
-        &.tobago-preselect {
-          --bs-table-accent-bg: var(--bs-table-hover-bg);
-          color: var(--bs-table-hover-color);
-        }
-
-        &:last-of-type {
-          td {
-            border-bottom-width: 0;
-          }
-        }
-      }
     }
   }
 }

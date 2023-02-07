@@ -73,6 +73,7 @@ public enum RendererTypes {
   SelectManyShuttle,
   SelectOneChoice,
   SelectOneRadio,
+  SelectOneList,
   SelectOneListbox,
   SelectReference,
   Separator,
@@ -147,6 +148,7 @@ public enum RendererTypes {
   public static final String SELECT_MANY_SHUTTLE = "SelectManyShuttle";
   public static final String SELECT_ONE_CHOICE = "SelectOneChoice";
   public static final String SELECT_ONE_RADIO = "SelectOneRadio";
+  public static final String SELECT_ONE_LIST = "SelectOneList";
   public static final String SELECT_ONE_LISTBOX = "SelectOneListbox";
   public static final String SELECT_REFERENCE = "SelectReference";
   public static final String SEPARATOR = "Separator";
