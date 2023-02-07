@@ -53,7 +53,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequiredForSelect
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 /**
- * Render a multi selection option listbox.
+ * Render a multi selection option list.
  */
 @Preliminary
 @Tag(name = "selectManyList")
