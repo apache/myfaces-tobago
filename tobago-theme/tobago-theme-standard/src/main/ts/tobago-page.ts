@@ -17,6 +17,7 @@
 
 import {Overlay} from "./tobago-overlay";
 import {OverlayType} from "./tobago-overlay-type";
+import {Key} from "./tobago-key";
 
 export class Page extends HTMLElement {
 
@@ -82,11 +83,7 @@ export class Page extends HTMLElement {
     window.addEventListener("unload", this.beforeUnload.bind(this));
 
     this.addEventListener("keypress", (event: KeyboardEvent): boolean => {
-      let code = event.which; // XXX deprecated
-      if (code === 0) {
-        code = event.keyCode;
-      }
-      if (code === 13) {
+      if (event.key === Key.ENTER) {
         const target = event.target as HTMLElement;
         if (target.tagName === "A" || target.tagName === "BUTTON") {
           return;
