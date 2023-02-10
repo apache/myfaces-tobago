@@ -37,7 +37,8 @@ class SelectManyList extends HTMLElement {
     ARROW_UP: "ArrowUp",
     ENTER: "Enter",
     ESCAPE: "Escape",
-    SPACE: " "
+    SPACE: " ",
+    TAB: "Tab"
   };
 
   constructor() {
@@ -183,7 +184,9 @@ class SelectManyList extends HTMLElement {
       if (this.badgeCloseButtons.length > 0 && this.filterInput.id === document.activeElement.id) {
         this.badgeCloseButtons.item(this.badgeCloseButtons.length - 1).focus();
       }
-      this.filterInput.disabled = this.badgeCloseButtons.length > 0;
+      if (!this.preselectedRow) {
+        this.filterInput.disabled = this.badgeCloseButtons.length > 0;
+      }
     }
   }
 
@@ -258,9 +261,14 @@ class SelectManyList extends HTMLElement {
           event.preventDefault();
           const row = this.tbody.querySelector<HTMLTableRowElement>("." + this.CssClass.TOBAGO_PRESELECT);
           this.selectRow(row);
+          this.filterInput.disabled = false;
+          this.filterInput.focus({preventScroll: true});
         } else if (document.activeElement.id === this.filterInput.id) {
           this.showDropdown();
         }
+        break;
+      case this.Key.TAB:
+        this.removePreselection();
         break;
     }
   }
@@ -302,6 +310,9 @@ class SelectManyList extends HTMLElement {
     if (!this.dropdownMenu) {
       row.scrollIntoView({block: "center"});
     }
+
+    this.filterInput.disabled = false;
+    this.filterInput.focus({preventScroll: true});
   }
 
   private removePreselection(): void {
