@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import {Css} from "./tobago-css";
+
 class Footer extends HTMLElement {
 
   private lastMaxFooterHeight: number;
@@ -24,7 +26,7 @@ class Footer extends HTMLElement {
   }
 
   get fixed(): boolean {
-    return this.classList.contains("fixed-bottom");
+    return this.classList.contains(Css.FIXED_BOTTOM);
   }
 
   get height(): number {

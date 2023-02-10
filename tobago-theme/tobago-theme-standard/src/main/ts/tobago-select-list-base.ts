@@ -16,24 +16,13 @@
  */
 
 import {createPopper, Instance} from "@popperjs/core";
+import {Css} from "./tobago-css";
 
 export class SelectListBase extends HTMLElement {
-  protected readonly CssClass = {
-    D_NONE: "d-none",
-    DROPDOWN_MENU: "dropdown-menu",
-    SHOW: "show",
-    TABLE_ACTIVE: "table-active",
-    TABLE_PRIMARY: "table-primary",
-    TOBAGO_DISABLED: "tobago-disabled",
-    TOBAGO_FOCUS: "tobago-focus",
-    TOBAGO_PRESELECT: "tobago-preselect",
-    TOBAGO_OPTIONS: "tobago-options"
-  };
-
   private popper: Instance;
 
   get disabled(): boolean {
-    return this.classList.contains(this.CssClass.TOBAGO_DISABLED);
+    return this.classList.contains(Css.TOBAGO_DISABLED);
   }
 
   get hiddenSelect(): HTMLSelectElement {
@@ -80,11 +69,11 @@ export class SelectListBase extends HTMLElement {
   }
 
   get enabledRows(): NodeListOf<HTMLTableRowElement> {
-    return this.tbody.querySelectorAll<HTMLTableRowElement>("tr:not(." + this.CssClass.D_NONE + ")");
+    return this.tbody.querySelectorAll<HTMLTableRowElement>("tr:not(." + Css.D_NONE + ")");
   }
 
   get preselectedRow(): HTMLTableRowElement {
-    return this.tbody.querySelector<HTMLTableRowElement>("." + this.CssClass.TOBAGO_PRESELECT);
+    return this.tbody.querySelector<HTMLTableRowElement>("." + Css.TOBAGO_PRESELECT);
   }
 
   connectedCallback(): void {
@@ -96,7 +85,7 @@ export class SelectListBase extends HTMLElement {
 
   protected focusEvent(): void {
     if (!this.hiddenSelect.disabled) {
-      if (!this.classList.contains(this.CssClass.TOBAGO_FOCUS)) {
+      if (!this.classList.contains(Css.TOBAGO_FOCUS)) {
         this.setFocus(true);
       }
     }
@@ -104,9 +93,9 @@ export class SelectListBase extends HTMLElement {
 
   protected setFocus(focus: boolean): void {
     if (focus) {
-      this.classList.add(this.CssClass.TOBAGO_FOCUS);
+      this.classList.add(Css.TOBAGO_FOCUS);
     } else {
-      this.classList.remove(this.CssClass.TOBAGO_FOCUS);
+      this.classList.remove(Css.TOBAGO_FOCUS);
     }
   }
 
@@ -115,10 +104,10 @@ export class SelectListBase extends HTMLElement {
     const index = this.preselectIndex(rows);
     if (index >= 0) {
       if (index + 1 < rows.length) {
-        rows.item(index).classList.remove(this.CssClass.TOBAGO_PRESELECT);
+        rows.item(index).classList.remove(Css.TOBAGO_PRESELECT);
         this.preselect(rows.item(index + 1));
       } else {
-        rows.item(rows.length - 1).classList.remove(this.CssClass.TOBAGO_PRESELECT);
+        rows.item(rows.length - 1).classList.remove(Css.TOBAGO_PRESELECT);
         this.preselect(rows.item(0));
       }
     } else if (rows.length > 0) {
@@ -131,10 +120,10 @@ export class SelectListBase extends HTMLElement {
     const index = this.preselectIndex(rows);
     if (index >= 0) {
       if ((index - 1) >= 0) {
-        rows.item(index).classList.remove(this.CssClass.TOBAGO_PRESELECT);
+        rows.item(index).classList.remove(Css.TOBAGO_PRESELECT);
         this.preselect(rows.item(index - 1));
       } else {
-        rows.item(0).classList.remove(this.CssClass.TOBAGO_PRESELECT);
+        rows.item(0).classList.remove(Css.TOBAGO_PRESELECT);
         this.preselect(rows.item(rows.length - 1));
       }
     } else if (rows.length > 0) {
@@ -143,7 +132,7 @@ export class SelectListBase extends HTMLElement {
   }
 
   protected removePreselection(): void {
-    this.preselectedRow?.classList.remove(this.CssClass.TOBAGO_PRESELECT);
+    this.preselectedRow?.classList.remove(Css.TOBAGO_PRESELECT);
   }
 
   protected isPartOfSelectField(element: Element): boolean {
@@ -160,7 +149,7 @@ export class SelectListBase extends HTMLElement {
 
   protected isPartOfTobagoOptions(element: Element): boolean {
     if (element) {
-      if (element.classList.contains(this.CssClass.TOBAGO_OPTIONS)
+      if (element.classList.contains(Css.TOBAGO_OPTIONS)
           && this.id === element.getAttribute("name")) {
         return true;
       } else {
@@ -172,25 +161,25 @@ export class SelectListBase extends HTMLElement {
   }
 
   protected showDropdown(): void {
-    if (this.dropdownMenu && !this.dropdownMenu.classList.contains(this.CssClass.SHOW)) {
-      this.selectField.classList.add(this.CssClass.SHOW);
+    if (this.dropdownMenu && !this.dropdownMenu.classList.contains(Css.SHOW)) {
+      this.selectField.classList.add(Css.SHOW);
       this.selectField.ariaExpanded = "true";
-      this.dropdownMenu.classList.add(this.CssClass.SHOW);
+      this.dropdownMenu.classList.add(Css.SHOW);
       this.updateDropdownMenuWidth();
       this.popper.update();
     }
   }
 
   protected hideDropdown(): void {
-    if (this.dropdownMenu?.classList.contains(this.CssClass.SHOW)) {
-      this.selectField.classList.remove(this.CssClass.SHOW);
+    if (this.dropdownMenu?.classList.contains(Css.SHOW)) {
+      this.selectField.classList.remove(Css.SHOW);
       this.selectField.ariaExpanded = "false";
-      this.dropdownMenu.classList.remove(this.CssClass.SHOW);
+      this.dropdownMenu.classList.remove(Css.SHOW);
     }
   }
 
   private preselect(row: HTMLTableRowElement): void {
-    row.classList.add(this.CssClass.TOBAGO_PRESELECT);
+    row.classList.add(Css.TOBAGO_PRESELECT);
     if (!this.dropdownMenu) {
       row.scrollIntoView({block: "center"});
     }
@@ -201,7 +190,7 @@ export class SelectListBase extends HTMLElement {
 
   private preselectIndex(rows: NodeListOf<HTMLTableRowElement>): number {
     for (let i = 0; i < rows.length; i++) {
-      if (rows.item(i).classList.contains(this.CssClass.TOBAGO_PRESELECT)) {
+      if (rows.item(i).classList.contains(Css.TOBAGO_PRESELECT)) {
         return i;
       }
     }

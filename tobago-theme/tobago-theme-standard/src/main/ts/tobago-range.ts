@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import {Css} from "./tobago-css";
+
 class TobagoRange extends HTMLElement {
 
   private timer: ReturnType<typeof setTimeout>;
@@ -41,12 +43,12 @@ class TobagoRange extends HTMLElement {
 
     this.tooltip.style.top = String(this.range.offsetTop - this.tooltip.offsetHeight) + "px";
     this.tooltip.style.left = String(this.range.offsetLeft + this.range.offsetWidth / 2
-      - this.tooltip.offsetWidth / 2) + "px";
-    this.tooltip.classList.add("show");
+        - this.tooltip.offsetWidth / 2) + "px";
+    this.tooltip.classList.add(Css.SHOW);
 
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
-      this.tooltip.classList.remove("show");
+      this.tooltip.classList.remove(Css.SHOW);
     }, 1000);
   }
 }
