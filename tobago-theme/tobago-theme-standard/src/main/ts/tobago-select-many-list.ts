@@ -15,9 +15,7 @@
  * limitations under the License.
  */
 
-import {TobagoFilterRegistry} from "./tobago-filter-registry";
 import {SelectListBase} from "./tobago-select-list-base";
-import {Key} from "./tobago-key";
 import {Css} from "./tobago-css";
 
 class SelectManyList extends SelectListBase {
@@ -31,51 +29,40 @@ class SelectManyList extends SelectListBase {
 
   connectedCallback(): void {
     super.connectedCallback();
-    document.addEventListener("click", this.clickEvent.bind(this));
-    this.filterInput.addEventListener("focus", this.focusEvent.bind(this));
-    this.filterInput.addEventListener("blur", this.blurEvent.bind(this));
-    this.selectField.addEventListener("keydown", this.keydownEvent.bind(this));
 
     // init badges
     this.querySelectorAll("option:checked").forEach(
         option => this.sync(<HTMLOptionElement>option)
     );
+  }
 
-    this.initList();
+  protected globalClickEvent(event: MouseEvent): void {
+    if (!this.disabled) {
+      if (this.isDeleted(event.target as Element)) {
+        // do nothing, this is probably a removed badge
+      } else if (this.isPartOfSelectField(event.target as Element)
+          || this.isPartOfTobagoOptions(event.target as Element)) {
 
-    if (this.filter) {
-      this.filterInput.addEventListener("input", this.filterEvent.bind(this));
-    }
+        if (!this.filterInput.disabled) {
+          this.filterInput.focus();
+        } else if (this.badgeCloseButtons.length > 0) {
+          this.badgeCloseButtons[0].focus();
+        }
+        this.showDropdown();
 
-    // handle autofocus; trigger focus event
-    if (document.activeElement.id === this.filterInput.id) {
-      this.focusEvent();
+      } else {
+        this.leaveComponent();
+      }
     }
   }
 
-  select(event: MouseEvent): void {
-    const target = <HTMLElement>event.target;
-    const row = target.closest("tr");
-    this.selectRow(row);
-  }
-
-  selectRow(row: HTMLTableRowElement): void {
+  protected select(row: HTMLTableRowElement): void {
     const itemValue = row.dataset.tobagoValue;
-    console.info("itemValue", itemValue);
-    const select = this.hiddenSelect;
-    const option: HTMLOptionElement = select.querySelector(`[value="${itemValue}"]`);
+    const option: HTMLOptionElement = this.hiddenSelect.querySelector(`[value="${itemValue}"]`);
     option.selected = !option.selected;
     this.sync(option);
-  }
-
-  removeBadge(event: MouseEvent): void {
-    const target = <HTMLElement>event.target;
-    const group: HTMLElement = target.closest(".btn-group");
-    const itemValue = group.dataset.tobagoValue;
-    const select = this.hiddenSelect;
-    const option: HTMLOptionElement = select.querySelector(`[value="${itemValue}"]`);
-    option.selected = false;
-    this.sync(option);
+    this.filterInput.disabled = false;
+    this.filterInput.focus({preventScroll: true});
   }
 
   sync(option: HTMLOptionElement) {
@@ -94,8 +81,7 @@ class SelectManyList extends SelectListBase {
       closeButton?.addEventListener("focus", this.focusEvent.bind(this));
       closeButton?.addEventListener("blur", this.blurEvent.bind(this));
 
-      // highlight list row
-      row.classList.add(Css.TABLE_PRIMARY);
+      row.classList.add(Css.TABLE_PRIMARY); // highlight list row
     } else {
       // remove badge
       const badge = this.selectField.querySelector(`[data-tobago-value="${itemValue}"]`);
@@ -111,8 +97,7 @@ class SelectManyList extends SelectListBase {
         this.filterInput.focus();
       }
 
-      // remove highlight list row
-      row.classList.remove(Css.TABLE_PRIMARY);
+      row.classList.remove(Css.TABLE_PRIMARY); // remove highlight list row
     }
 
     if (!this.disabled && !this.filter) {
@@ -138,81 +123,17 @@ class SelectManyList extends SelectListBase {
 </span>`;
   }
 
-  filterEvent(event: Event): void {
-    const input = event.currentTarget as HTMLInputElement;
-    const searchString = input.value;
-    console.info("searchString", searchString);
-    const filterFunction = TobagoFilterRegistry.get(this.filter);
-    // XXX todo: if filterFunction not found?
-    if (filterFunction != null) {
-      this.querySelectorAll("tr").forEach(row => {
-        const itemValue = row.dataset.tobagoValue;
-        if (filterFunction(itemValue, searchString)) {
-          row.classList.remove(Css.D_NONE);
-        } else {
-          row.classList.add(Css.D_NONE);
-          row.classList.remove(Css.TOBAGO_PRESELECT);
-        }
-      });
-    }
+  removeBadge(event: MouseEvent): void {
+    const target = <HTMLElement>event.target;
+    const group: HTMLElement = target.closest(".btn-group");
+    const itemValue = group.dataset.tobagoValue;
+    const option: HTMLOptionElement = this.hiddenSelect.querySelector(`[value="${itemValue}"]`);
+    option.selected = false;
+    this.sync(option);
   }
 
-  private clickEvent(event: MouseEvent): void {
-    if (!this.disabled) {
-      if (this.isDeleted(event.target as Element)) {
-        // do nothing, this is probably a removed badge
-      } else if (this.isPartOfSelectField(event.target as Element)
-          || this.isPartOfTobagoOptions(event.target as Element)) {
-
-        if (!this.filterInput.disabled) {
-          this.filterInput.focus();
-        } else if (this.badgeCloseButtons.length > 0) {
-          this.badgeCloseButtons[0].focus();
-        }
-        this.showDropdown();
-
-      } else {
-        this.leaveComponent();
-      }
-    }
-  }
-
-  private keydownEvent(event: KeyboardEvent) {
-    switch (event.key) {
-      case Key.ESCAPE:
-        this.hideDropdown();
-        this.removePreselection();
-        break;
-      case Key.ARROW_DOWN:
-        event.preventDefault();
-        this.showDropdown();
-        this.preselectNextTableRow();
-        break;
-      case Key.ARROW_UP:
-        event.preventDefault();
-        this.showDropdown();
-        this.preselectPreviousTableRow();
-        break;
-      case Key.ENTER:
-      case Key.SPACE:
-        if (this.preselectedRow) {
-          event.preventDefault();
-          const row = this.tbody.querySelector<HTMLTableRowElement>("." + Css.TOBAGO_PRESELECT);
-          this.selectRow(row);
-          this.filterInput.disabled = false;
-          this.filterInput.focus({preventScroll: true});
-        } else if (document.activeElement.id === this.filterInput.id) {
-          this.showDropdown();
-        }
-        break;
-      case Key.TAB:
-        this.removePreselection();
-        break;
-    }
-  }
-
-  private leaveComponent(): void {
-    this.setFocus(false);
+  protected leaveComponent(): void {
+    this.focused = false;
     this.filterInput.value = null;
     this.filterInput.dispatchEvent(new Event("input"));
     this.hideDropdown();
@@ -220,24 +141,6 @@ class SelectManyList extends SelectListBase {
 
   private isDeleted(element: Element): boolean {
     return element.closest("html") === null;
-  }
-
-  private blurEvent(event: FocusEvent): void {
-    if (event.relatedTarget !== null) {
-      //relatedTarget is the new focused element; null indicate a mouseclick or an inactive browser window
-      if (!this.isPartOfSelectField(event.relatedTarget as Element)
-          && !this.isPartOfTobagoOptions(event.relatedTarget as Element)) {
-        this.leaveComponent();
-      }
-    }
-  }
-
-  private initList() {
-    const tbody = this.tbody;
-    tbody.addEventListener("click", this.select.bind(this));
-    tbody.querySelectorAll("tr").forEach((row: HTMLTableRowElement) => {
-      // row stuff
-    });
   }
 }
 
