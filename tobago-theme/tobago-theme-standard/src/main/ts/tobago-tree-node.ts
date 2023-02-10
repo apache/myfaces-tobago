@@ -17,6 +17,7 @@
 
 import {Sheet} from "./tobago-sheet";
 import {Tree} from "./tobago-tree";
+import {Css} from "./tobago-css";
 
 export class TreeNode extends HTMLElement {
 
@@ -45,7 +46,7 @@ export class TreeNode extends HTMLElement {
       }
 
       this.deleteExpandedNode(this.index);
-      this.classList.remove("tobago-expanded");
+      this.classList.remove(Css.TOBAGO_EXPANDED);
 
       this.hideNodes(this.treeChildNodes);
       if (this.tree) {
@@ -65,7 +66,7 @@ export class TreeNode extends HTMLElement {
       }
 
       this.addExpandedNode(this.index);
-      this.classList.add("tobago-expanded");
+      this.classList.add(Css.TOBAGO_EXPANDED);
 
       this.showNodes(this.treeChildNodes);
       if (this.tree) {
@@ -89,9 +90,9 @@ export class TreeNode extends HTMLElement {
     for (const treeChildNode of treeChildNodes) {
 
       if (treeChildNode.sheet) {
-        treeChildNode.closest("tr").classList.add("d-none");
+        treeChildNode.closest("tr").classList.add(Css.D_NONE);
       } else {
-        treeChildNode.classList.add("d-none");
+        treeChildNode.classList.add(Css.D_NONE);
       }
 
       this.hideNodes(treeChildNode.treeChildNodes);
@@ -102,9 +103,9 @@ export class TreeNode extends HTMLElement {
     for (const treeChildNode of treeChildNodes) {
 
       if (treeChildNode.sheet) {
-        treeChildNode.closest("tr").classList.remove("d-none");
+        treeChildNode.closest("tr").classList.remove(Css.D_NONE);
       } else {
-        treeChildNode.classList.remove("d-none");
+        treeChildNode.classList.remove(Css.D_NONE);
       }
 
       this.showNodes(treeChildNode.treeChildNodes);

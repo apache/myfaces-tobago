@@ -15,8 +15,7 @@
  * limitations under the License.
  */
 
-import {Page} from "./tobago-page";
-import {Overlay} from "./tobago-overlay";
+import {Css} from "./tobago-css";
 
 class File2 extends HTMLElement {
 
@@ -35,7 +34,7 @@ class File2 extends HTMLElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
     const element = rootNode.getElementById(id);
     const dropZone = element ? element : this;
-    dropZone.classList.add("tobago-drop-zone");
+    dropZone.classList.add(Css.TOBAGO_DROP_ZONE);
     return dropZone;
   }
 
@@ -62,7 +61,7 @@ class File2 extends HTMLElement {
           if (dropZone.querySelector("tobago-overlay") == null) {
             console.info("DRAGOVER", event.dataTransfer.items);
             dropZone.insertAdjacentHTML(
-              "beforeend", `<tobago-overlay for='${dropZone.id}' delay="0"></tobago-overlay>`);
+                "beforeend", `<tobago-overlay for='${dropZone.id}' delay="0"></tobago-overlay>`);
           }
         }
 
@@ -101,8 +100,8 @@ class File2 extends HTMLElement {
     }
   }
 
-static  pageDrop(event: DragEvent): void {
-  console.info("*** PAGE DROP *** ");
+  static pageDrop(event: DragEvent): void {
+    console.info("*** PAGE DROP *** ");
     if (File2.isTypeFile(event)) {
       event.stopPropagation();
       event.preventDefault();
@@ -120,8 +119,8 @@ static  pageDrop(event: DragEvent): void {
             console.info("*** PAGE DROP *************** found ", found.tagName);
 
             const foundFile = found.tagName === "TOBAGO-FILE"
-              ? found
-              : found.querySelector("tobago-file");
+                ? found
+                : found.querySelector("tobago-file");
 
             console.info("*** PAGE DROP *************** looking ", foundFile);
             console.info("*** PAGE DROP *************** looking ", file);
@@ -161,67 +160,68 @@ static  pageDrop(event: DragEvent): void {
     // this.dropZone.addEventListener("dragleave", this.fileDragLeave.bind(this));
     // this.dropZone.addEventListener("drop", this.fileDrop.bind(this));
   }
-/*
-  fileDragOver(event: DragEvent): void {
-    console.info("DROPZONE OVER target", event.target);
-    console.info("DROPZONE OVER current", event.currentTarget);
-    console.info("DROPZONE OVER data", event.dataTransfer);
-    console.info("DROPZONE OVER related", event.relatedTarget);
-    if (File2.isTypeFile(event)) {
-      event.stopPropagation();
-      event.preventDefault();
-      event.dataTransfer.dropEffect = "copy";
 
-      const dropZone = this.dropZone;
-      const overlay = dropZone.querySelector("tobago-overlay") as Overlay;
-      if (overlay) {
-        overlay.setAttribute("active", "");
-        overlay.style.backgroundColor = "#0f0";
+  /*
+    fileDragOver(event: DragEvent): void {
+      console.info("DROPZONE OVER target", event.target);
+      console.info("DROPZONE OVER current", event.currentTarget);
+      console.info("DROPZONE OVER data", event.dataTransfer);
+      console.info("DROPZONE OVER related", event.relatedTarget);
+      if (File2.isTypeFile(event)) {
+        event.stopPropagation();
+        event.preventDefault();
+        event.dataTransfer.dropEffect = "copy";
+
+        const dropZone = this.dropZone;
+        const overlay = dropZone.querySelector("tobago-overlay") as Overlay;
+        if (overlay) {
+          overlay.setAttribute("active", "");
+          overlay.style.backgroundColor = "#0f0";
+        }
       }
     }
-  }
 
-  fileDragLeave(event: DragEvent): void {
-    console.info("DROPZONE LEAVE");
-    if (File2.isTypeFile(event)) {
-      event.stopPropagation();
-      event.preventDefault();
+    fileDragLeave(event: DragEvent): void {
+      console.info("DROPZONE LEAVE");
+      if (File2.isTypeFile(event)) {
+        event.stopPropagation();
+        event.preventDefault();
 
-      const dropZone = this.dropZone;
-      const overlay = dropZone.querySelector("tobago-overlay") as Overlay;
-      if (overlay) {
-        console.info("DROPZONE LEAVE -> remove active and background");
+        const dropZone = this.dropZone;
+        const overlay = dropZone.querySelector("tobago-overlay") as Overlay;
+        if (overlay) {
+          console.info("DROPZONE LEAVE -> remove active and background");
 
-        overlay.removeAttribute("active");
-        overlay.style.removeProperty("background-color");
+          overlay.removeAttribute("active");
+          overlay.style.removeProperty("background-color");
+        }
       }
     }
-  }
-*/
+  */
 
-/*
-  fileDrop(event: DragEvent): void {
-    console.info("###########################################################");
-    if (File2.isTypeFile(event)) {
-      event.stopPropagation();
-      event.preventDefault();
-
+  /*
+    fileDrop(event: DragEvent): void {
       console.info("###########################################################");
-      const target = event.target as HTMLElement;
+      if (File2.isTypeFile(event)) {
+        event.stopPropagation();
+        event.preventDefault();
 
-      // matching
-      if (this.dropZone.contains(target)) {
-        console.info("DROP", event.dataTransfer.files);
+        console.info("###########################################################");
+        const target = event.target as HTMLElement;
 
-        this.input.files = event.dataTransfer.files;
-        this.input.dispatchEvent(new Event("change"));
+        // matching
+        if (this.dropZone.contains(target)) {
+          console.info("DROP", event.dataTransfer.files);
+
+          this.input.files = event.dataTransfer.files;
+          this.input.dispatchEvent(new Event("change"));
+        }
+
+        // cleanup
+  //      Page.page(this).dispatchEvent(new Event("dragleave"));
       }
-
-      // cleanup
-//      Page.page(this).dispatchEvent(new Event("dragleave"));
     }
-  }
-*/
+  */
 }
 
 /* todo: feature? show list of dropped files

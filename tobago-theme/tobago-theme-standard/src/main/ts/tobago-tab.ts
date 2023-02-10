@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import {Css} from "./tobago-css";
+
 class TabGroup extends HTMLElement {
 
   private hiddenInput: HTMLInputElement;
@@ -54,7 +56,7 @@ export class Tab extends HTMLElement {
 
   connectedCallback(): void {
     const navLink = this.navLink;
-    if (!navLink.classList.contains("disabled")) {
+    if (!navLink.classList.contains(Css.DISABLED)) {
       navLink.addEventListener("click", this.select.bind(this));
     }
   }
@@ -78,10 +80,10 @@ export class Tab extends HTMLElement {
 
     switch (tabGroup.switchType) {
       case "client":
-        old.navLink.classList.remove("active");
-        this.navLink.classList.add("active");
-        old.content.classList.remove("active");
-        this.content.classList.add("active");
+        old.navLink.classList.remove(Css.ACTIVE);
+        this.navLink.classList.add(Css.ACTIVE);
+        old.content.classList.remove(Css.ACTIVE);
+        this.content.classList.add(Css.ACTIVE);
         break;
       case "reloadTab":
         // will be done by <tobago-behavior>

@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import {Css} from "./tobago-css";
+
 class TreeListbox extends HTMLElement {
 
   constructor() {
@@ -100,7 +102,7 @@ class TreeListbox extends HTMLElement {
   }
 
   private show(select: HTMLSelectElement, check: number): void {
-    select.classList.remove("d-none");
+    select.classList.remove(Css.D_NONE);
     const checkedOption = select.querySelector<HTMLOptionElement>("option:checked");
     if (checkedOption && checkedOption.index !== check) {
       checkedOption.selected = false;
@@ -111,7 +113,7 @@ class TreeListbox extends HTMLElement {
   }
 
   private hide(select: HTMLSelectElement): void {
-    select.classList.add("d-none");
+    select.classList.add(Css.D_NONE);
     const checkedOption = select.querySelector<HTMLOptionElement>("option:checked");
     if (checkedOption) {
       checkedOption.selected = false;

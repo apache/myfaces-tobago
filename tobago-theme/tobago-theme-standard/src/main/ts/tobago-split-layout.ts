@@ -16,6 +16,7 @@
  */
 
 import {Page} from "./tobago-page";
+import {Css} from "./tobago-css";
 
 class SplitLayout extends HTMLElement {
 
@@ -132,7 +133,7 @@ class SplitLayoutMousedown {
   }
 
   static save(event: MouseEvent, splitter: HTMLElement): SplitLayoutMousedown {
-    const horizontal = splitter.classList.contains("tobago-splitLayout-horizontal");
+    const horizontal = splitter.classList.contains(Css.TOBAGO_SPLITLAYOUT_HORIZONTAL);
     const previous = SplitLayout.previousElementSibling(splitter);
     const data: SplitLayoutMousedownData = {
       splitLayoutId: splitter.parentElement.id,
@@ -144,12 +145,12 @@ class SplitLayoutMousedown {
   }
 
   static load(): SplitLayoutMousedown {
-    const element : HTMLElement = document.documentElement; // XXX this might be the wrong element in case of shadow dom
+    const element: HTMLElement = document.documentElement; // XXX this might be the wrong element in case of shadow dom
     return new SplitLayoutMousedown(Page.page(element).dataset.SplitLayoutMousedownData);
   }
 
   static remove(): void {
-    const element : HTMLElement = document.documentElement; // XXX this might be the wrong element in case of shadow dom
+    const element: HTMLElement = document.documentElement; // XXX this might be the wrong element in case of shadow dom
     Page.page(element).dataset.SplitLayoutMousedownData = null;
   }
 

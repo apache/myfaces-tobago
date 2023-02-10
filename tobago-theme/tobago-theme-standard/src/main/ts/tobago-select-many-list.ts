@@ -18,6 +18,7 @@
 import {TobagoFilterRegistry} from "./tobago-filter-registry";
 import {SelectListBase} from "./tobago-select-list-base";
 import {Key} from "./tobago-key";
+import {Css} from "./tobago-css";
 
 class SelectManyList extends SelectListBase {
   constructor() {
@@ -94,7 +95,7 @@ class SelectManyList extends SelectListBase {
       closeButton?.addEventListener("blur", this.blurEvent.bind(this));
 
       // highlight list row
-      row.classList.add(this.CssClass.TABLE_PRIMARY);
+      row.classList.add(Css.TABLE_PRIMARY);
     } else {
       // remove badge
       const badge = this.selectField.querySelector(`[data-tobago-value="${itemValue}"]`);
@@ -111,7 +112,7 @@ class SelectManyList extends SelectListBase {
       }
 
       // remove highlight list row
-      row.classList.remove(this.CssClass.TABLE_PRIMARY);
+      row.classList.remove(Css.TABLE_PRIMARY);
     }
 
     if (!this.disabled && !this.filter) {
@@ -147,9 +148,9 @@ class SelectManyList extends SelectListBase {
       this.querySelectorAll("tr").forEach(row => {
         const itemValue = row.dataset.tobagoValue;
         if (filterFunction(itemValue, searchString)) {
-          row.classList.remove(this.CssClass.D_NONE);
+          row.classList.remove(Css.D_NONE);
         } else {
-          row.classList.add(this.CssClass.D_NONE);
+          row.classList.add(Css.D_NONE);
         }
       });
     }
@@ -195,7 +196,7 @@ class SelectManyList extends SelectListBase {
       case Key.SPACE:
         if (this.preselectedRow) {
           event.preventDefault();
-          const row = this.tbody.querySelector<HTMLTableRowElement>("." + this.CssClass.TOBAGO_PRESELECT);
+          const row = this.tbody.querySelector<HTMLTableRowElement>("." + Css.TOBAGO_PRESELECT);
           this.selectRow(row);
           this.filterInput.disabled = false;
           this.filterInput.focus({preventScroll: true});

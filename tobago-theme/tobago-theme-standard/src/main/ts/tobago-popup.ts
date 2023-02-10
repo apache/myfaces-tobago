@@ -18,6 +18,7 @@
 import {Modal} from "bootstrap";
 import {BehaviorMode} from "./tobago-behavior-mode";
 import {CollapseOperation} from "./tobago-collapsible-operation";
+import {Css} from "./tobago-css";
 
 export class Popup extends HTMLElement {
 
@@ -94,13 +95,13 @@ export class Collapse {
       if (target instanceof Popup) {
         target.clientBehaviorHide(behaviorMode);
       } else {
-        target.classList.add("tobago-collapsed");
+        target.classList.add(Css.TOBAGO_COLLAPSED);
       }
     } else {
       if (target instanceof Popup) {
         target.clientBehaviorShow(behaviorMode);
       } else {
-        target.classList.remove("tobago-collapsed");
+        target.classList.remove(Css.TOBAGO_COLLAPSED);
       }
     }
     hidden.value = newCollapsed;

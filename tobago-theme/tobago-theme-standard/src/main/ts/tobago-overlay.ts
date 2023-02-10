@@ -21,6 +21,7 @@
 
 import {Page} from "./tobago-page";
 import {OverlayType} from "./tobago-overlay-type";
+import {Css} from "./tobago-css";
 
 // XXX issue: if a ajax call is scheduled on the same element, the animation arrow will stacking and not desapearing.
 // XXX issue: "error" is not implemented correctly
@@ -28,11 +29,6 @@ import {OverlayType} from "./tobago-overlay-type";
 // XXX todo: check full page transitions
 
 export class Overlay extends HTMLElement {
-  private readonly CssClass = {
-    SHOW: "show",
-    POSITION_RELATIVE: "position-relative"
-  };
-
   static htmlText(id: string, type: OverlayType, delay: number): string {
     return `<tobago-overlay type='${type}' for='${id}' delay='${delay}' class='modal-backdrop fade'></tobago-overlay>`;
   }
@@ -49,13 +45,13 @@ export class Overlay extends HTMLElement {
     console.log("disconnected from the DOM");
     const forElement = document.getElementById(this.for);
     if (forElement) {
-      forElement.classList.remove(this.CssClass.POSITION_RELATIVE);
+      forElement.classList.remove(Css.POSITION_RELATIVE);
     }
     this.showScrollbar();
   }
 
   render(): void {
-    this.classList.add(this.CssClass.SHOW);
+    this.classList.add(Css.SHOW);
     let icon;
     switch (this.type) {
       case "error":
@@ -75,7 +71,7 @@ export class Overlay extends HTMLElement {
 
     const forElement = document.getElementById(this.for);
     if (forElement) {
-      forElement.classList.add(this.CssClass.POSITION_RELATIVE);
+      forElement.classList.add(Css.POSITION_RELATIVE);
       if (forElement.tagName === "TOBAGO-PAGE") {
         this.hideScrollbar();
       } else {

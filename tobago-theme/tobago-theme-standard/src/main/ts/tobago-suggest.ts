@@ -18,6 +18,7 @@
 import Autocomplete from "@trevoreyre/autocomplete-js";
 import {SuggestFilter} from "./tobago-suggest-filter";
 import {MenuStore} from "./tobago-menu-store";
+import {Css} from "./tobago-css";
 
 export class Suggest {
 
@@ -36,8 +37,8 @@ export class Suggest {
     }
 
     this.registerAjaxListener();
-    this.base.classList.add("autocomplete");
-    this.suggestInput.classList.add("autocomplete-input");
+    this.base.classList.add(Css.AUTOCOMPLETE);
+    this.suggestInput.classList.add(Css.AUTOCOMPLETE_INPUT);
 
     if (this.isInputGroup && this.suggestInput.previousElementSibling === null) {
       this.suggestInput.insertAdjacentHTML("afterend", "<div class=\"autocomplete-pseudo-container\"></div>");
@@ -146,7 +147,7 @@ export class Suggest {
       this.resultList.style.left = `${suggestInputRect.left}px`;
       if (this.resultListPosition === "below") {
         this.resultList.style.marginTop =
-          `${window.scrollY + suggestInputRect.top + suggestInputRect.height + space}px`;
+            `${window.scrollY + suggestInputRect.top + suggestInputRect.height + space}px`;
         this.resultList.style.marginBottom = null;
       } else if (this.resultListPosition === "above") {
         this.resultList.style.marginTop = null;
@@ -227,6 +228,6 @@ export class Suggest {
   }
 
   private get isInputGroup(): boolean {
-    return this.suggestInput.parentElement.classList.contains("input-group");
+    return this.suggestInput.parentElement.classList.contains(Css.INPUT_GROUP);
   }
 }
