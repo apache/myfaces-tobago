@@ -15,14 +15,9 @@
  * limitations under the License.
  */
 
+import {Css} from "./tobago-css";
+
 class Bar extends HTMLElement {
-
-  private readonly CssClass = {
-    SHOW: "show",
-    COLLAPSE: "collapse",
-    COLLAPSING: "collapsing"
-  };
-
   private timeout: number;
   private expanded: boolean;
 
@@ -42,26 +37,26 @@ class Bar extends HTMLElement {
       this.expanded = false;
       this.navbarContent.style.height = `${this.navbarContent.scrollHeight}px`;
       this.navbarContent.offsetHeight; //force reflow, to make sure height is set
-      this.navbarContent.classList.add(this.CssClass.COLLAPSING);
-      this.navbarContent.classList.remove(this.CssClass.COLLAPSE);
-      this.navbarContent.classList.remove(this.CssClass.SHOW);
+      this.navbarContent.classList.add(Css.COLLAPSING);
+      this.navbarContent.classList.remove(Css.COLLAPSE);
+      this.navbarContent.classList.remove(Css.SHOW);
       this.navbarContent.style.height = null;
 
       this.timeout = window.setTimeout(() => {
-        this.navbarContent.classList.remove(this.CssClass.COLLAPSING);
-        this.navbarContent.classList.add(this.CssClass.COLLAPSE);
+        this.navbarContent.classList.remove(Css.COLLAPSING);
+        this.navbarContent.classList.add(Css.COLLAPSE);
         this.toggleButton.ariaExpanded = "false";
       }, this.evaluateTransitionTime());
     } else {
       this.expanded = true;
-      this.navbarContent.classList.remove(this.CssClass.COLLAPSE);
-      this.navbarContent.classList.add(this.CssClass.COLLAPSING);
+      this.navbarContent.classList.remove(Css.COLLAPSE);
+      this.navbarContent.classList.add(Css.COLLAPSING);
       this.navbarContent.style.height = `${this.navbarContent.scrollHeight}px`;
 
       this.timeout = window.setTimeout(() => {
-        this.navbarContent.classList.remove(this.CssClass.COLLAPSING);
-        this.navbarContent.classList.add(this.CssClass.COLLAPSE);
-        this.navbarContent.classList.add(this.CssClass.SHOW);
+        this.navbarContent.classList.remove(Css.COLLAPSING);
+        this.navbarContent.classList.add(Css.COLLAPSE);
+        this.navbarContent.classList.add(Css.SHOW);
         this.navbarContent.style.height = null;
         this.toggleButton.ariaExpanded = "true";
       }, this.evaluateTransitionTime());

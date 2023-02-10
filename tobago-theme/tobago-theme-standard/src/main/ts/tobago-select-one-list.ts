@@ -18,6 +18,7 @@
 import {TobagoFilterRegistry} from "./tobago-filter-registry";
 import {SelectListBase} from "./tobago-select-list-base";
 import {Key} from "./tobago-key";
+import {Css} from "./tobago-css";
 
 class SelectOneList extends SelectListBase {
   constructor() {
@@ -70,9 +71,9 @@ class SelectOneList extends SelectListBase {
     this.rows.forEach((row) => {
       if (row.dataset.tobagoValue === this.hiddenSelect.value) {
         this.spanText = this.hiddenSelect.value;
-        row.classList.add(this.CssClass.TABLE_PRIMARY); // highlight list row
+        row.classList.add(Css.TABLE_PRIMARY); // highlight list row
       } else {
-        row.classList.remove(this.CssClass.TABLE_PRIMARY); // remove highlight list row
+        row.classList.remove(Css.TABLE_PRIMARY); // remove highlight list row
       }
     });
   }
@@ -90,9 +91,9 @@ class SelectOneList extends SelectListBase {
       this.querySelectorAll("tr").forEach(row => {
         const itemValue = row.dataset.tobagoValue;
         if (filterFunction(itemValue, searchString)) {
-          row.classList.remove(this.CssClass.D_NONE);
+          row.classList.remove(Css.D_NONE);
         } else {
-          row.classList.add(this.CssClass.D_NONE);
+          row.classList.add(Css.D_NONE);
         }
       });
     }
@@ -137,7 +138,7 @@ class SelectOneList extends SelectListBase {
       case Key.SPACE:
         if (this.preselectedRow) {
           event.preventDefault();
-          const row = this.tbody.querySelector<HTMLTableRowElement>("." + this.CssClass.TOBAGO_PRESELECT);
+          const row = this.tbody.querySelector<HTMLTableRowElement>("." + Css.TOBAGO_PRESELECT);
           this.selectRow(row);
         } else if (document.activeElement.id === this.filterInput.id) {
           this.showDropdown();

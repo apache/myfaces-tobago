@@ -17,6 +17,7 @@
 
 import {Page} from "./tobago-page";
 import {Key} from "./tobago-key";
+import {Css} from "./tobago-css";
 
 interface MousemoveData {
   columnIndex: number;
@@ -620,7 +621,7 @@ Type: ${data.type}`);
 
   clickOnRow(event: MouseEvent): void {
     const row = event.currentTarget as HTMLTableRowElement;
-    if (row.classList.contains("tobago-selected") || !Sheet.isInputElement(row)) {
+    if (row.classList.contains(Css.TOBAGO_SELECTED) || !Sheet.isInputElement(row)) {
 
       if (this.mousedownOnRowData) { // integration test: mousedownOnRowData may be 'null'
         if (Math.abs(this.mousedownOnRowData.x - event.clientX)
@@ -815,8 +816,8 @@ Type: ${data.type}`);
   selectRow(
       selectedSet: Set<number>, rowIndex: number, row: HTMLTableRowElement, checkbox?: HTMLInputElement): void {
     selectedSet.add(rowIndex);
-    row.classList.add("tobago-selected");
-    row.classList.add("table-info");
+    row.classList.add(Css.TOBAGO_SELECTED);
+    row.classList.add(Css.TABLE_INFO);
     if (checkbox) {
       checkbox.checked = true;
       setTimeout(function (): void {
@@ -834,8 +835,8 @@ Type: ${data.type}`);
   deselectRow(
       selectedSet: Set<number>, rowIndex: number, row: HTMLTableRowElement, checkbox?: HTMLInputElement): void {
     selectedSet.delete(rowIndex);
-    row.classList.remove("tobago-selected");
-    row.classList.remove("table-info");
+    row.classList.remove(Css.TOBAGO_SELECTED);
+    row.classList.remove(Css.TABLE_INFO);
     if (checkbox) {
       checkbox.checked = false;
       // XXX check if this is still needed... Async because of TOBAGO-1312

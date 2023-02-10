@@ -17,6 +17,7 @@
 
 import {Overlay} from "./tobago-overlay";
 import {OverlayType} from "./tobago-overlay-type";
+import {Css} from "./tobago-css";
 
 export class File extends HTMLElement {
 
@@ -33,7 +34,7 @@ export class File extends HTMLElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
     const element = rootNode.getElementById(id);
     const dropZone = element ? element : this;
-    dropZone.classList.add("tobago-drop-zone");
+    dropZone.classList.add(Css.TOBAGO_DROP_ZONE);
     return dropZone;
   }
 
