@@ -30,16 +30,6 @@ export class SelectListBase extends HTMLElement {
     TOBAGO_OPTIONS: "tobago-options"
   };
 
-  protected readonly Key = {
-    ARROW_DOWN: "ArrowDown",
-    ARROW_UP: "ArrowUp",
-    BACKSPACE: "Backspace",
-    ENTER: "Enter",
-    ESCAPE: "Escape",
-    SPACE: " ",
-    TAB: "Tab"
-  };
-
   private popper: Instance;
 
   get disabled(): boolean {

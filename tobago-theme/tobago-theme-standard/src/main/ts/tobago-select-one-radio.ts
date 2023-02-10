@@ -16,13 +16,9 @@
  */
 
 import {Focus} from "./tobago-focus";
+import {Key} from "./tobago-key";
 
 class SelectOneRadio extends HTMLElement {
-
-  private readonly Key = {
-    SPACE: " "
-  };
-
   private oldCheckedId = "";
 
   constructor() {
@@ -52,7 +48,7 @@ class SelectOneRadio extends HTMLElement {
   }
 
   private keySelection(event: KeyboardEvent): void {
-    if (event.key === this.Key.SPACE) {
+    if (event.key === Key.SPACE) {
       event.preventDefault();
     }
     const radio = event.currentTarget as HTMLInputElement;
