@@ -16,6 +16,7 @@
  */
 
 import {Page} from "./tobago-page";
+import {Key} from "./tobago-key";
 
 interface MousemoveData {
   columnIndex: number;
@@ -66,7 +67,7 @@ export class Sheet extends HTMLElement {
     return ["INPUT", "TEXTAREA", "SELECT", "A", "BUTTON"].indexOf(element.tagName) > -1;
   }
 
-  private static getRowTemplate(columns: number, rowIndex: number) : string {
+  private static getRowTemplate(columns: number, rowIndex: number): string {
     return `<tr row-index="${rowIndex}" dummy="dummy">
 <td colspan="${columns}"> </td>
 </tr>`;
@@ -101,9 +102,9 @@ export class Sheet extends HTMLElement {
       const bodyTable = this.getBodyTable();
       const bodyCols = this.getBodyCols();
       const borderLeftWidth
-        = Number(getComputedStyle(bodyTable.querySelector("td:first-child")).borderLeftWidth.slice(0, -2));
+          = Number(getComputedStyle(bodyTable.querySelector("td:first-child")).borderLeftWidth.slice(0, -2));
       const borderRightWidth
-        = Number(getComputedStyle(bodyTable.querySelector("td:last-child")).borderRightWidth.slice(0, -2));
+          = Number(getComputedStyle(bodyTable.querySelector("td:last-child")).borderRightWidth.slice(0, -2));
       const tableWidth = bodyTable.offsetWidth - (borderLeftWidth + borderRightWidth) / 2;
 
       console.assert(headerCols.length - 1 === bodyCols.length,
@@ -255,7 +256,7 @@ export class Sheet extends HTMLElement {
       pagingInput.addEventListener("blur", this.blurPaging.bind(this));
 
       pagingInput.addEventListener("keydown", function (event: KeyboardEvent): void {
-        if (event.keyCode === 13) {
+        if (event.key === Key.ENTER) {
           event.stopPropagation();
           event.preventDefault();
           event.currentTarget.dispatchEvent(new Event("blur"));
@@ -266,11 +267,11 @@ export class Sheet extends HTMLElement {
 
   // attribute getter + setter ---------------------------------------------------------- //
 
-  get lazyActive():boolean {
+  get lazyActive(): boolean {
     return this.hasAttribute("lazy-active");
   }
 
-  set lazyActive(update:boolean) {
+  set lazyActive(update: boolean) {
     if (update) {
       this.setAttribute("lazy-active", "");
     } else {
@@ -278,11 +279,11 @@ export class Sheet extends HTMLElement {
     }
   }
 
-  get lazy():boolean {
+  get lazy(): boolean {
     return this.hasAttribute("lazy");
   }
 
-  set lazy(update:boolean) {
+  set lazy(update: boolean) {
     if (update) {
       this.setAttribute("lazy", "");
     } else {
@@ -290,15 +291,15 @@ export class Sheet extends HTMLElement {
     }
   }
 
-  get lazyUpdate():boolean {
+  get lazyUpdate(): boolean {
     return this.hasAttribute("lazy-update");
   }
 
-  get rows():number {
+  get rows(): number {
     return parseInt(this.getAttribute("rows"));
   }
 
-  get rowCount():number {
+  get rowCount(): number {
     return parseInt(this.getAttribute("row-count"));
   }
 
@@ -623,7 +624,7 @@ Type: ${data.type}`);
 
       if (this.mousedownOnRowData) { // integration test: mousedownOnRowData may be 'null'
         if (Math.abs(this.mousedownOnRowData.x - event.clientX)
-          + Math.abs(this.mousedownOnRowData.y - event.clientY) > 5) {
+            + Math.abs(this.mousedownOnRowData.y - event.clientY) > 5) {
           // The user has moved the mouse. We assume, the user want to select some text inside the sheet,
           // so we doesn't select the row.
           return;
@@ -645,10 +646,10 @@ Type: ${data.type}`);
       if (event.shiftKey && selectionMode === "multi" && lastClickedRowIndex > -1) {
         if (lastClickedRowIndex <= row.sectionRowIndex) {
           this.selectRange(
-            selectedSet, rows, lastClickedRowIndex, row.sectionRowIndex, true, false);
+              selectedSet, rows, lastClickedRowIndex, row.sectionRowIndex, true, false);
         } else {
           this.selectRange(
-            selectedSet, rows, row.sectionRowIndex, lastClickedRowIndex, true, false);
+              selectedSet, rows, row.sectionRowIndex, lastClickedRowIndex, true, false);
         }
       } else if (selectionMode !== "singleOrNone" || !this.isRowSelected(selectedSet, row)) {
         this.toggleSelection(selectedSet, row, selector);
@@ -724,7 +725,7 @@ Type: ${data.type}`);
 
   getHiddenSelected(): HTMLInputElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
-    return rootNode.getElementById(this.id + "::selected")  as HTMLInputElement;
+    return rootNode.getElementById(this.id + "::selected") as HTMLInputElement;
   }
 
   getHiddenScrollPosition(): HTMLInputElement {
@@ -756,7 +757,7 @@ Type: ${data.type}`);
     return selectedSet.has(parseInt(row.dataset.tobagoRowIndex));
   }
 
-  resetSelected(selectedSet: Set<number>):void {
+  resetSelected(selectedSet: Set<number>): void {
     selectedSet.clear();
   }
 

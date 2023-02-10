@@ -17,6 +17,7 @@
 
 import {TobagoFilterRegistry} from "./tobago-filter-registry";
 import {SelectListBase} from "./tobago-select-list-base";
+import {Key} from "./tobago-key";
 
 class SelectOneList extends SelectListBase {
   constructor() {
@@ -112,28 +113,28 @@ class SelectOneList extends SelectListBase {
 
   private keydownEvent(event: KeyboardEvent) {
     switch (event.key) {
-      case this.Key.ESCAPE:
+      case Key.ESCAPE:
         this.hideDropdown();
         this.removePreselection();
         break;
-      case this.Key.ARROW_DOWN:
+      case Key.ARROW_DOWN:
         event.preventDefault();
         this.showDropdown();
         this.preselectNextTableRow();
         break;
-      case this.Key.ARROW_UP:
+      case Key.ARROW_UP:
         event.preventDefault();
         this.showDropdown();
         this.preselectPreviousTableRow();
         break;
-      case this.Key.BACKSPACE:
+      case Key.BACKSPACE:
         if (this.filterInput.value.length === 0) {
           this.spanText = null;
           this.filterInput.dispatchEvent(new Event("input"));
         }
         break;
-      case this.Key.ENTER:
-      case this.Key.SPACE:
+      case Key.ENTER:
+      case Key.SPACE:
         if (this.preselectedRow) {
           event.preventDefault();
           const row = this.tbody.querySelector<HTMLTableRowElement>("." + this.CssClass.TOBAGO_PRESELECT);
