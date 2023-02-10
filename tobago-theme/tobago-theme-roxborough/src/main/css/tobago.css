@@ -12175,7 +12175,7 @@ tobago-select-many-list .tobago-options .table tr.tobago-disabled {
   cursor: initial;
   pointer-events: none;
 }
-tobago-select-many-list .tobago-options .table tr.tobago-mark {
+tobago-select-many-list .tobago-options .table tr.tobago-preselect {
   --bs-table-accent-bg: var(--bs-table-hover-bg);
   color: var(--bs-table-hover-color);
 }
