@@ -99,7 +99,7 @@ class SelectManyList extends HTMLElement {
 
     // init badges
     this.querySelectorAll("option:checked").forEach(
-      option => this.sync(<HTMLOptionElement>option)
+        option => this.sync(<HTMLOptionElement>option)
     );
 
     this.initList();
@@ -148,11 +148,11 @@ class SelectManyList extends HTMLElement {
       // create badge
       const tabIndex: number = this.filterInput.tabIndex;
       this.filterInput.insertAdjacentHTML("beforebegin",
-        this.getRowTemplate(itemValue, row.innerText, option.disabled || this.hiddenSelect.disabled, tabIndex));
+          this.getRowTemplate(itemValue, row.innerText, option.disabled || this.hiddenSelect.disabled, tabIndex));
 
       // todo: nicer adding the @click with lit-html
       const closeButton = this.selectField
-        .querySelector(".btn-group[data-tobago-value='" + itemValue + "'] button.btn.badge");
+          .querySelector(".btn-group[data-tobago-value='" + itemValue + "'] button.btn.badge");
       closeButton?.addEventListener("click", this.removeBadge.bind(this));
       closeButton?.addEventListener("focus", this.focusEvent.bind(this));
       closeButton?.addEventListener("blur", this.blurEvent.bind(this));
@@ -221,7 +221,7 @@ class SelectManyList extends HTMLElement {
     if (this.isDeleted(event.target as Element)) {
       // do nothing, this is probably a removed badge
     } else if (this.isPartOfSelectField(event.target as Element)
-      || this.isPartOfTobagoOptions(event.target as Element)) {
+        || this.isPartOfTobagoOptions(event.target as Element)) {
 
       if (!this.filterInput.disabled) {
         this.filterInput.focus();
@@ -336,7 +336,7 @@ class SelectManyList extends HTMLElement {
   private isPartOfTobagoOptions(element: Element): boolean {
     if (element) {
       if (element.classList.contains(this.CssClass.TOBAGO_OPTIONS)
-        && this.id === element.getAttribute("name")) {
+          && this.id === element.getAttribute("name")) {
         return true;
       } else {
         return element.parentElement ? this.isPartOfTobagoOptions(element.parentElement) : false;
@@ -391,7 +391,7 @@ class SelectManyList extends HTMLElement {
     if (event.relatedTarget !== null) {
       //relatedTarget is the new focused element; null indicate a mouseclick or an inactive browser window
       if (!this.isPartOfSelectField(event.relatedTarget as Element)
-        && !this.isPartOfTobagoOptions(event.relatedTarget as Element)) {
+          && !this.isPartOfTobagoOptions(event.relatedTarget as Element)) {
         this.setFocus(false);
         this.hideDropdown();
       }
