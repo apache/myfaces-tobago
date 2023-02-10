@@ -1339,7 +1339,7 @@ tobago-select-many-list {
           pointer-events: none;
         }
 
-        &.tobago-mark {
+        &.tobago-preselect {
           --bs-table-accent-bg: var(--bs-table-hover-bg);
           color: var(--bs-table-hover-color);
         }

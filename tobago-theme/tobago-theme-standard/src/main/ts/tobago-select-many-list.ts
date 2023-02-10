@@ -28,7 +28,7 @@ class SelectManyList extends HTMLElement {
     TABLE_PRIMARY: "table-primary",
     TOBAGO_DISABLED: "tobago-disabled",
     TOBAGO_FOCUS: "tobago-focus",
-    TOBAGO_MARK: "tobago-mark",
+    TOBAGO_PRESELECT: "tobago-preselect",
     TOBAGO_OPTIONS: "tobago-options"
   };
 
@@ -83,8 +83,8 @@ class SelectManyList extends HTMLElement {
     return this.tbody.querySelectorAll<HTMLTableRowElement>("tr:not(.tobago-disabled)");
   }
 
-  get markedRow(): HTMLTableRowElement {
-    return this.tbody.querySelector<HTMLTableRowElement>("." + this.CssClass.TOBAGO_MARK);
+  get preselectedRow(): HTMLTableRowElement {
+    return this.tbody.querySelector<HTMLTableRowElement>("." + this.CssClass.TOBAGO_PRESELECT);
   }
 
   connectedCallback(): void {
@@ -240,23 +240,24 @@ class SelectManyList extends HTMLElement {
     switch (event.key) {
       case this.Key.ESCAPE:
         this.hideDropdown();
-        this.removeTableRowMark();
+        this.removePreselection();
         break;
       case this.Key.ARROW_DOWN:
         event.preventDefault();
         this.showDropdown();
-        this.markNextTableRow();
+        this.preselectNextTableRow();
         break;
       case this.Key.ARROW_UP:
         event.preventDefault();
         this.showDropdown();
-        this.markPreviousTableRow();
+        this.preselectPreviousTableRow();
         break;
       case this.Key.ENTER:
       case this.Key.SPACE:
-        if (this.markedRow) {
+        if (this.preselectedRow) {
           event.preventDefault();
-          this.selectMarkedOption();
+          const row = this.tbody.querySelector<HTMLTableRowElement>("." + this.CssClass.TOBAGO_PRESELECT);
+          this.selectRow(row);
         } else if (document.activeElement.id === this.filterInput.id) {
           this.showDropdown();
         }
@@ -264,57 +265,52 @@ class SelectManyList extends HTMLElement {
     }
   }
 
-  private markNextTableRow(): void {
+  private preselectNextTableRow(): void {
     const rows = this.enabledRows;
-    const indexOfMark = this.indexOfTobagoMark(rows);
-    if (indexOfMark >= 0) {
-      if (indexOfMark + 1 < rows.length) {
-        rows.item(indexOfMark).classList.remove(this.CssClass.TOBAGO_MARK);
-        this.addTableRowMark(rows.item(indexOfMark + 1));
+    const index = this.preselectIndex(rows);
+    if (index >= 0) {
+      if (index + 1 < rows.length) {
+        rows.item(index).classList.remove(this.CssClass.TOBAGO_PRESELECT);
+        this.preselect(rows.item(index + 1));
       } else {
-        rows.item(rows.length - 1).classList.remove(this.CssClass.TOBAGO_MARK);
-        this.addTableRowMark(rows.item(0));
+        rows.item(rows.length - 1).classList.remove(this.CssClass.TOBAGO_PRESELECT);
+        this.preselect(rows.item(0));
       }
     } else if (rows.length > 0) {
-      this.addTableRowMark(rows.item(0));
+      this.preselect(rows.item(0));
     }
   }
 
-  private markPreviousTableRow(): void {
+  private preselectPreviousTableRow(): void {
     const rows = this.enabledRows;
-    const indexOfMark = this.indexOfTobagoMark(rows);
-    if (indexOfMark >= 0) {
-      if ((indexOfMark - 1) >= 0) {
-        rows.item(indexOfMark).classList.remove(this.CssClass.TOBAGO_MARK);
-        this.addTableRowMark(rows.item(indexOfMark - 1));
+    const index = this.preselectIndex(rows);
+    if (index >= 0) {
+      if ((index - 1) >= 0) {
+        rows.item(index).classList.remove(this.CssClass.TOBAGO_PRESELECT);
+        this.preselect(rows.item(index - 1));
       } else {
-        rows.item(0).classList.remove(this.CssClass.TOBAGO_MARK);
-        this.addTableRowMark(rows.item(rows.length - 1));
+        rows.item(0).classList.remove(this.CssClass.TOBAGO_PRESELECT);
+        this.preselect(rows.item(rows.length - 1));
       }
     } else if (rows.length > 0) {
-      this.addTableRowMark(rows.item(rows.length - 1));
+      this.preselect(rows.item(rows.length - 1));
     }
   }
 
-  private addTableRowMark(row: HTMLTableRowElement): void {
-    row.classList.add(this.CssClass.TOBAGO_MARK);
+  private preselect(row: HTMLTableRowElement): void {
+    row.classList.add(this.CssClass.TOBAGO_PRESELECT);
     if (!this.dropdownMenu) {
       row.scrollIntoView({block: "center"});
     }
   }
 
-  private removeTableRowMark(): void {
-    this.markedRow?.classList.remove(this.CssClass.TOBAGO_MARK);
+  private removePreselection(): void {
+    this.preselectedRow?.classList.remove(this.CssClass.TOBAGO_PRESELECT);
   }
 
-  private selectMarkedOption(): void {
-    const row = this.tbody.querySelector<HTMLTableRowElement>("." + this.CssClass.TOBAGO_MARK);
-    this.selectRow(row);
-  }
-
-  private indexOfTobagoMark(rows: NodeListOf<HTMLTableRowElement>): number {
+  private preselectIndex(rows: NodeListOf<HTMLTableRowElement>): number {
     for (let i = 0; i < rows.length; i++) {
-      if (rows.item(i).classList.contains(this.CssClass.TOBAGO_MARK)) {
+      if (rows.item(i).classList.contains(this.CssClass.TOBAGO_PRESELECT)) {
         return i;
       }
     }
