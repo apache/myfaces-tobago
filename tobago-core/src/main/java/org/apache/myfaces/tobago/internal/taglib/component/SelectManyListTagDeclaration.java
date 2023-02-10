@@ -62,7 +62,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
     uiComponentFacesClass = "jakarta.faces.component.UISelectMany",
     componentFamily = UISelectMany.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_MANY_LIST,
-    allowedChildComponenents = {"javax.faces.SelectItem", "javax.faces.SelectItems"},
+    allowedChildComponenents = {"jakarta.faces.SelectItem", "jakarta.faces.SelectItems"},
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CHANGE,
