@@ -16,6 +16,7 @@
  */
 
 import {MenuStore} from "./tobago-menu-store";
+import {Css} from "./tobago-css";
 
 const TobagoDropdownEvent = {
   HIDE: "tobago.dropdown.hide",
@@ -32,7 +33,7 @@ class Dropdown extends HTMLElement {
 
   constructor() {
     super();
-    if (!this.classList.contains("tobago-dropdown-submenu")) { // ignore submenus
+    if (!this.classList.contains(Css.TOBAGO_DROPDOWN_SUBMENU)) { // ignore submenus
       this.addEventListener("shown.bs.dropdown", this.openDropdown.bind(this));
       this.addEventListener("hidden.bs.dropdown", this.closeDropdown.bind(this));
     }

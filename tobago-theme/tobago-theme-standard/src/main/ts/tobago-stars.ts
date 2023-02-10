@@ -15,12 +15,13 @@
  * limitations under the License.
  */
 
+import {Css} from "./tobago-css";
+
 class Stars extends HTMLElement {
 
   constructor() {
     super();
   }
-
 
   private static leftOffset(element: HTMLElement): number {
     let left = 0;
@@ -62,7 +63,7 @@ class Stars extends HTMLElement {
       unselected.style["left"] = `${percentValue}%`;
       unselected.style["width"] = `${100 - percentValue}%`;
     } else if (placeholder) {
-      selected.classList.add("tobago-placeholder");
+      selected.classList.add(Css.TOBAGO_PLACEHOLDER);
       const placeholderValue = 100 * placeholder / max;
       selected.style["width"] = `${placeholderValue}%`;
       unselected.style["left"] = `${placeholderValue}%`;
@@ -117,33 +118,33 @@ class Stars extends HTMLElement {
     }
 
     function preselectStars(): void {
-      tooltip.classList.add("show");
+      tooltip.classList.add(Css.SHOW);
 
       if (parseInt(slider.value) > 0) {
-        tooltip.classList.remove("trash");
+        tooltip.classList.remove(Css.TRASH);
         tooltip.textContent = (5 * (parseInt(slider.value)) / max).toFixed(2);
 
-        preselected.classList.add("show");
+        preselected.classList.add(Css.SHOW);
         preselected.style["width"] = `${100 * parseInt(slider.value) / max}%`;
       } else {
         tooltip.textContent = "";
-        tooltip.classList.add("trash");
+        tooltip.classList.add(Css.TRASH);
 
         if (placeholder) {
-          preselected.classList.add("show");
+          preselected.classList.add(Css.SHOW);
           preselected.style["width"] = `${100 * placeholder / max}%`;
         } else {
-          preselected.classList.remove("show");
+          preselected.classList.remove(Css.SHOW);
         }
       }
     }
 
     function selectStars(): void {
-      tooltip.classList.remove("show");
-      preselected.classList.remove("show");
+      tooltip.classList.remove(Css.SHOW);
+      preselected.classList.remove(Css.SHOW);
 
       if (parseInt(slider.value) > 0) {
-        selected.classList.remove("tobago-placeholder");
+        selected.classList.remove(Css.TOBAGO_PLACEHOLDER);
 
         const percentValue = 100 * parseInt(slider.value) / max;
         selected.style["width"] = `${percentValue}%`;
@@ -153,13 +154,13 @@ class Stars extends HTMLElement {
         hiddenInput.value = slider.value;
       } else {
         if (placeholder) {
-          selected.classList.add("tobago-placeholder");
+          selected.classList.add(Css.TOBAGO_PLACEHOLDER);
           const placeholderValue = 100 * placeholder / max;
           selected.style["width"] = `${placeholderValue}%`;
           unselected.style["left"] = `${placeholderValue}%`;
           unselected.style["width"] = `${100 - placeholderValue}%`;
         } else {
-          selected.classList.remove("tobago-placeholder");
+          selected.classList.remove(Css.TOBAGO_PLACEHOLDER);
           selected.style["width"] = "";
           unselected.style["left"] = "";
           unselected.style["width"] = "";
