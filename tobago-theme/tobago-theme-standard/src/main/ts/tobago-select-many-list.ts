@@ -228,6 +228,7 @@ class SelectManyList extends HTMLElement {
       } else if (this.badgeCloseButtons.length > 0) {
         this.badgeCloseButtons[0].focus();
       }
+      this.showDropdown();
 
     } else {
       this.hideDropdown();
