@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
-import {TobagoFilterRegistry} from "./tobago-filter-registry";
 import {SelectListBase} from "./tobago-select-list-base";
 import {Key} from "./tobago-key";
 import {Css} from "./tobago-css";
@@ -35,33 +34,47 @@ class SelectOneList extends SelectListBase {
 
   connectedCallback(): void {
     super.connectedCallback();
-    document.addEventListener("click", this.clickEvent.bind(this));
-    this.filterInput.addEventListener("focus", this.focusEvent.bind(this));
-    this.filterInput.addEventListener("blur", this.blurEvent.bind(this));
     this.selectField.addEventListener("keydown", this.keydownEvent.bind(this));
-    this.tbody.addEventListener("click", this.select.bind(this));
+    if (this.filter) {
+      this.filterInput.addEventListener("input", this.clearSpan.bind(this));
+    }
 
     this.sync();
+  }
 
-    if (this.filter) {
-      this.filterInput.addEventListener("input", this.filterEvent.bind(this));
-    }
-
-    if (document.activeElement.id === this.filterInput.id) {
-      this.focusEvent();
+  protected globalClickEvent(event: MouseEvent): void {
+    if (!this.disabled) {
+      if (this.isPartOfSelectField(event.target as Element) || this.isPartOfTobagoOptions(event.target as Element)) {
+        if (!this.filterInput.disabled) {
+          this.filterInput.focus();
+        }
+        this.showDropdown();
+      } else {
+        this.leaveComponent();
+      }
     }
   }
 
-  select(event: MouseEvent): void {
-    const target = <HTMLElement>event.target;
-    const row = target.closest("tr");
-    this.selectRow(row);
+  private keydownEvent(event: KeyboardEvent) {
+    switch (event.key) {
+      case Key.ESCAPE:
+        this.spanText = this.hiddenSelect.value;
+        break;
+      case Key.BACKSPACE:
+        if (this.filterInput.value.length === 0) {
+          this.filterInput.dispatchEvent(new Event("input"));
+        }
+        break;
+    }
   }
 
-  selectRow(row: HTMLTableRowElement): void {
+  private clearSpan(): void {
+    this.spanText = null;
+  }
+
+  protected select(row: HTMLTableRowElement): void {
     const itemValue = row.dataset.tobagoValue;
-    const select = this.hiddenSelect;
-    const option: HTMLOptionElement = select.querySelector(`[value="${itemValue}"]`);
+    const option: HTMLOptionElement = this.hiddenSelect.querySelector(`[value="${itemValue}"]`);
     option.selected = true;
     this.filterInput.value = null;
     this.sync();
@@ -78,92 +91,12 @@ class SelectOneList extends SelectListBase {
     });
   }
 
-  filterEvent(event: Event): void {
-    const input = event.currentTarget as HTMLInputElement;
-    const searchString = input.value;
-    if (searchString !== null) {
-      this.spanText = null;
-      this.showDropdown();
-    }
-    const filterFunction = TobagoFilterRegistry.get(this.filter);
-    // XXX todo: if filterFunction not found?
-    if (filterFunction != null) {
-      this.querySelectorAll("tr").forEach(row => {
-        const itemValue = row.dataset.tobagoValue;
-        if (filterFunction(itemValue, searchString)) {
-          row.classList.remove(Css.D_NONE);
-        } else {
-          row.classList.add(Css.D_NONE);
-          row.classList.remove(Css.TOBAGO_PRESELECT);
-        }
-      });
-    }
-  }
-
-  private clickEvent(event: MouseEvent): void {
-    if (!this.disabled) {
-      if (this.isPartOfSelectField(event.target as Element) || this.isPartOfTobagoOptions(event.target as Element)) {
-        if (!this.filterInput.disabled) {
-          this.filterInput.focus();
-        }
-        this.showDropdown();
-      } else {
-        this.leaveComponent();
-      }
-    }
-  }
-
-  private keydownEvent(event: KeyboardEvent) {
-    switch (event.key) {
-      case Key.ESCAPE:
-        this.hideDropdown();
-        this.removePreselection();
-        break;
-      case Key.ARROW_DOWN:
-        event.preventDefault();
-        this.showDropdown();
-        this.preselectNextTableRow();
-        break;
-      case Key.ARROW_UP:
-        event.preventDefault();
-        this.showDropdown();
-        this.preselectPreviousTableRow();
-        break;
-      case Key.BACKSPACE:
-        if (this.filterInput.value.length === 0) {
-          this.spanText = null;
-          this.filterInput.dispatchEvent(new Event("input"));
-        }
-        break;
-      case Key.ENTER:
-      case Key.SPACE:
-        if (this.preselectedRow) {
-          event.preventDefault();
-          const row = this.tbody.querySelector<HTMLTableRowElement>("." + Css.TOBAGO_PRESELECT);
-          this.selectRow(row);
-        } else if (document.activeElement.id === this.filterInput.id) {
-          this.showDropdown();
-        }
-        break;
-    }
-  }
-
-  private leaveComponent(): void {
-    this.setFocus(false);
+  protected leaveComponent(): void {
+    this.focused = false;
     this.filterInput.value = null;
     this.filterInput.dispatchEvent(new Event("input"));
     this.spanText = this.hiddenSelect.value;
     this.hideDropdown();
-  }
-
-  private blurEvent(event: FocusEvent): void {
-    if (event.relatedTarget !== null) {
-      //relatedTarget is the new focused element; null indicate a mouseclick or an inactive browser window
-      if (!this.isPartOfSelectField(event.relatedTarget as Element)
-          && !this.isPartOfTobagoOptions(event.relatedTarget as Element)) {
-        this.leaveComponent();
-      }
-    }
   }
 }
 
