@@ -18,13 +18,13 @@
  */
 
 /**
- * <b>Tobago Framework Component Tag Library 5.5.1-SNAPSHOT -
+ * <b>Tobago Framework Component Tag Library 5.6.0-SNAPSHOT -
  * (C) Copyright 2005-2023 The Apache Software Foundation</b>
  */
 @org.apache.myfaces.tobago.apt.annotation.Taglib(
     shortName = "tc",
     uri = "http://myfaces.apache.org/tobago/component",
     name = "tobago",
-    displayName = "Tobago Components 5.5.1-SNAPSHOT")
+    displayName = "Tobago Components 5.6.0-SNAPSHOT")
 
 package org.apache.myfaces.tobago.internal.taglib.component;
