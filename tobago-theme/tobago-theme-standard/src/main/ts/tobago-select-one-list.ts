@@ -80,7 +80,7 @@ class SelectOneList extends SelectListBase {
     this.sync();
   }
 
-  sync() {
+  private sync() {
     this.rows.forEach((row) => {
       if (row.dataset.tobagoValue === this.hiddenSelect.value) {
         this.spanText = this.hiddenSelect.value;
