@@ -65,7 +65,7 @@ class SelectManyList extends SelectListBase {
     this.filterInput.focus({preventScroll: true});
   }
 
-  sync(option: HTMLOptionElement) {
+  private sync(option: HTMLOptionElement) {
     const itemValue = option.value;
     const row: HTMLTableRowElement = this.tbody.querySelector(`[data-tobago-value="${itemValue}"]`);
     if (option.selected) {
@@ -111,7 +111,7 @@ class SelectManyList extends SelectListBase {
     }
   }
 
-  getRowTemplate(value: string, text: string, disabled: boolean, tabIndex: number): string {
+  private getRowTemplate(value: string, text: string, disabled: boolean, tabIndex: number): string {
     return disabled ? `
 <span class="btn-group" role="group" data-tobago-value="${value}">
   <tobago-badge class="badge text-bg-primary btn disabled">${text}</tobago-badge>
@@ -123,7 +123,7 @@ class SelectManyList extends SelectListBase {
 </span>`;
   }
 
-  removeBadge(event: MouseEvent): void {
+  private removeBadge(event: MouseEvent): void {
     const target = <HTMLElement>event.target;
     const group: HTMLElement = target.closest(".btn-group");
     const itemValue = group.dataset.tobagoValue;
