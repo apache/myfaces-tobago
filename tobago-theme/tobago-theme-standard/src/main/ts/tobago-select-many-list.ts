@@ -151,6 +151,7 @@ class SelectManyList extends SelectListBase {
           row.classList.remove(Css.D_NONE);
         } else {
           row.classList.add(Css.D_NONE);
+          row.classList.remove(Css.TOBAGO_PRESELECT);
         }
       });
     }
