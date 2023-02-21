@@ -17,6 +17,7 @@
 
 import {SelectListBase} from "./tobago-select-list-base";
 import {Css} from "./tobago-css";
+import {html, HTMLTemplateResult, render, TemplateResult} from "lit-html";
 
 class SelectManyList extends SelectListBase {
   constructor() {
@@ -71,15 +72,20 @@ class SelectManyList extends SelectListBase {
     if (option.selected) {
       // create badge
       const tabIndex: number = this.filterInput.tabIndex;
-      this.filterInput.insertAdjacentHTML("beforebegin",
-          this.getRowTemplate(itemValue, row.innerText, option.disabled || this.hiddenSelect.disabled, tabIndex));
+      const span = document.createElement("span");
+      span.className = "btn-group";
+      span.role="group";
+      span.dataset.tobagoValue = itemValue;
+      this.filterInput.insertAdjacentElement("beforebegin", span);
+      render(
+          this.getRowTemplate(row.innerText, option.disabled || this.hiddenSelect.disabled, tabIndex), span);
 
       // todo: nicer adding the @click with lit-html
-      const closeButton = this.selectField
-          .querySelector(".btn-group[data-tobago-value='" + itemValue + "'] button.btn.badge");
-      closeButton?.addEventListener("click", this.removeBadge.bind(this));
-      closeButton?.addEventListener("focus", this.focusEvent.bind(this));
-      closeButton?.addEventListener("blur", this.blurEvent.bind(this));
+      // const closeButton = this.selectField
+      //     .querySelector(".btn-group[data-tobago-value='" + itemValue + "'] button.btn.badge");
+      // closeButton?.addEventListener("click", this.removeBadge.bind(this));
+      // closeButton?.addEventListener("focus", this.focusEvent.bind(this));
+      // closeButton?.addEventListener("blur", this.blurEvent.bind(this));
 
       row.classList.add(Css.TABLE_PRIMARY); // highlight list row
     } else {
@@ -111,16 +117,18 @@ class SelectManyList extends SelectListBase {
     }
   }
 
-  private getRowTemplate(value: string, text: string, disabled: boolean, tabIndex: number): string {
-    return disabled ? `
-<span class="btn-group" role="group" data-tobago-value="${value}">
-  <tobago-badge class="badge text-bg-primary btn disabled">${text}</tobago-badge>
-</span>` : `
-<span class="btn-group" role="group" data-tobago-value="${value}">
-  <tobago-badge class="badge text-bg-primary btn">${text}</tobago-badge>
-  <button type='button' class='tobago-button btn btn-secondary badge'
-  ${tabIndex > 0 ? " tabindex='" + String(tabIndex) + "'" : ""}><i class='bi-x-lg'></i></button>
-</span>`;
+
+ private getRowTemplate(text: string, disabled: boolean, tabIndex: number): HTMLTemplateResult {
+    console.debug("creating span: ", text, disabled, tabIndex);
+    return disabled
+        ? html`<tobago-badge class="badge text-bg-primary btn disabled">${text}</tobago-badge>`
+        : html`<tobago-badge class="badge text-bg-primary btn">${text}</tobago-badge>
+  <button type='button'
+      class='tobago-button btn btn-secondary badge'
+      ${tabIndex > 0 ? " tabindex='" + String(tabIndex) + "'" : ""}
+      @click="${this.removeBadge.bind(this)}"
+      @focus="${this.focusEvent.bind(this)}"
+      @blur="${this.blurEvent.bind(this)}"><i class='bi-x-lg'></i></button>`;
   }
 
   private removeBadge(event: MouseEvent): void {
