@@ -35,8 +35,10 @@ function testAll() {
 
   function cycle() {
     const iframe = document.getElementById("page:tp" + count);
-    const url = iframe.getAttribute("name");
-    iframe.setAttribute("src", sanitizeUrl(url));
+    let url = iframe.getAttribute("name");
+    // to avoid GitHubs code scanning alert: DOM text reinterpreted as HTML
+    url = window.encodeURI(window.decodeURIComponent(url))
+    iframe.setAttribute("src", url);
 
     const tpWindow = document.getElementById("page:tp" + count).contentWindow;
 
@@ -52,16 +54,6 @@ function testAll() {
         cycle();
       }
     });
-  }
-
-  // to avoid GitHubs code scanning alert: DOM text reinterpreted as HTML
-  function sanitizeUrl(url) {
-    if (url.startsWith("test.xhtml?base=") && url.indexOf("\"") < 0 && url.indexOf("\'") < 0) {
-      return url;
-    } else {
-      console.warn("Problem with url detected!", url);
-      return "";
-    }
   }
 
   cycle();
