@@ -68,6 +68,7 @@ public enum TobagoClass implements CssItem {
   MESSAGES__CONTAINER("tobago-messages-container"),
   NOW("tobago-now"),
   NUMBER("tobago-number"),
+  NO__ENTRIES("tobago-no-entries"),
   NONE("tobago-none"),
   OBJECT("tobago-object"),
   OPTIONS("tobago-options"),

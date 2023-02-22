@@ -17,7 +17,7 @@
 
 import {SelectListBase} from "./tobago-select-list-base";
 import {Css} from "./tobago-css";
-import {html, HTMLTemplateResult, render, TemplateResult} from "lit-html";
+import {html, HTMLTemplateResult, render} from "lit-html";
 
 class SelectManyList extends SelectListBase {
   constructor() {
@@ -74,18 +74,10 @@ class SelectManyList extends SelectListBase {
       const tabIndex: number = this.filterInput.tabIndex;
       const span = document.createElement("span");
       span.className = "btn-group";
-      span.role="group";
+      span.role = "group";
       span.dataset.tobagoValue = itemValue;
       this.filterInput.insertAdjacentElement("beforebegin", span);
-      render(
-          this.getRowTemplate(row.innerText, option.disabled || this.hiddenSelect.disabled, tabIndex), span);
-
-      // todo: nicer adding the @click with lit-html
-      // const closeButton = this.selectField
-      //     .querySelector(".btn-group[data-tobago-value='" + itemValue + "'] button.btn.badge");
-      // closeButton?.addEventListener("click", this.removeBadge.bind(this));
-      // closeButton?.addEventListener("focus", this.focusEvent.bind(this));
-      // closeButton?.addEventListener("blur", this.blurEvent.bind(this));
+      render(this.getRowTemplate(row.innerText, option.disabled || this.hiddenSelect.disabled, tabIndex), span);
 
       row.classList.add(Css.TABLE_PRIMARY); // highlight list row
     } else {
@@ -117,8 +109,7 @@ class SelectManyList extends SelectListBase {
     }
   }
 
-
- private getRowTemplate(text: string, disabled: boolean, tabIndex: number): HTMLTemplateResult {
+  private getRowTemplate(text: string, disabled: boolean, tabIndex: number): HTMLTemplateResult {
     console.debug("creating span: ", text, disabled, tabIndex);
     return disabled
         ? html`<tobago-badge class="badge text-bg-primary btn disabled">${text}</tobago-badge>`
