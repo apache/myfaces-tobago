@@ -64,9 +64,13 @@ export abstract class SelectListBase extends HTMLElement {
     return root.querySelector(`.dropdown-menu[name='${this.id}']`);
   }
 
-  get tbody(): HTMLElement {
+  get options(): HTMLElement {
     const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(`.tobago-options[name='${this.id}'] tbody`);
+    return root.querySelector(`.tobago-options[name='${this.id}'] table`);
+  }
+
+  get tbody(): HTMLElement {
+    return this.options.querySelector("tbody");
   }
 
   get rows(): NodeListOf<HTMLTableRowElement> {
@@ -162,16 +166,26 @@ export abstract class SelectListBase extends HTMLElement {
     this.showDropdown();
     const filterFunction = TobagoFilterRegistry.get(this.filter);
     // XXX todo: if filterFunction not found?
+
+    let entriesCount = 0;
     if (filterFunction != null) {
-      this.querySelectorAll("tr").forEach(row => {
+      this.rows.forEach(row => {
         const itemValue = row.dataset.tobagoValue;
         if (filterFunction(itemValue, searchString)) {
           row.classList.remove(Css.D_NONE);
+          entriesCount++;
         } else {
           row.classList.add(Css.D_NONE);
           row.classList.remove(Css.TOBAGO_PRESELECT);
         }
       });
+    }
+
+    const noEntriesHint = this.options.querySelector("." + Css.TOBAGO_NO_ENTRIES);
+    if (entriesCount === 0) {
+      noEntriesHint.classList.remove(Css.D_NONE);
+    } else {
+      noEntriesHint.classList.add(Css.D_NONE);
     }
   }
 
