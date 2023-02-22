@@ -11830,20 +11830,27 @@ tobago-select-one-list .tobago-options.list-group-item {
 tobago-select-one-list .tobago-options .table {
   margin-bottom: 0;
 }
-tobago-select-one-list .tobago-options .table tr {
+tobago-select-one-list .tobago-options .table tbody tr {
   cursor: pointer;
 }
-tobago-select-one-list .tobago-options .table tr.tobago-disabled {
+tobago-select-one-list .tobago-options .table tbody tr.tobago-disabled {
   color: rgba(33, 37, 41, 0.5);
   background-color: #e3e4e5;
   cursor: initial;
   pointer-events: none;
 }
-tobago-select-one-list .tobago-options .table tr.tobago-preselect {
+tobago-select-one-list .tobago-options .table tbody tr.tobago-preselect {
   --bs-table-accent-bg: var(--bs-table-hover-bg);
   color: var(--bs-table-hover-color);
 }
-tobago-select-one-list .tobago-options .table tr:last-of-type td {
+tobago-select-one-list .tobago-options .table tbody tr:last-of-type td {
+  border-bottom-width: 0;
+}
+tobago-select-one-list .tobago-options .table tfoot tr.tobago-no-entries {
+  color: #acacac;
+  text-align: center;
+}
+tobago-select-one-list .tobago-options .table tfoot tr.tobago-no-entries td {
   border-bottom-width: 0;
 }
 
@@ -11969,20 +11976,27 @@ tobago-select-many-list .tobago-options.list-group-item {
 tobago-select-many-list .tobago-options .table {
   margin-bottom: 0;
 }
-tobago-select-many-list .tobago-options .table tr {
+tobago-select-many-list .tobago-options .table tbody tr {
   cursor: pointer;
 }
-tobago-select-many-list .tobago-options .table tr.tobago-disabled {
+tobago-select-many-list .tobago-options .table tbody tr.tobago-disabled {
   color: rgba(33, 37, 41, 0.5);
   background-color: #e3e4e5;
   cursor: initial;
   pointer-events: none;
 }
-tobago-select-many-list .tobago-options .table tr.tobago-preselect {
+tobago-select-many-list .tobago-options .table tbody tr.tobago-preselect {
   --bs-table-accent-bg: var(--bs-table-hover-bg);
   color: var(--bs-table-hover-color);
 }
-tobago-select-many-list .tobago-options .table tr:last-of-type td {
+tobago-select-many-list .tobago-options .table tbody tr:last-of-type td {
+  border-bottom-width: 0;
+}
+tobago-select-many-list .tobago-options .table tfoot tr.tobago-no-entries {
+  color: #acacac;
+  text-align: center;
+}
+tobago-select-many-list .tobago-options .table tfoot tr.tobago-no-entries td {
   border-bottom-width: 0;
 }
 tobago-select-many-list .tobago-select-field .btn-group + .tobago-filter {
