@@ -198,6 +198,14 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     }
 
     writer.endElement(HtmlElements.TBODY);
+    writer.startElement(HtmlElements.TFOOT);
+    writer.startElement(HtmlElements.TR);
+    writer.writeClassAttribute(TobagoClass.NO__ENTRIES, BootstrapClass.D_NONE);
+    writer.startElement(HtmlElements.TD);
+    writer.writeText("---");
+    writer.endElement(HtmlElements.TD);
+    writer.endElement(HtmlElements.TR);
+    writer.endElement(HtmlElements.TFOOT);
     writer.endElement(HtmlElements.TABLE);
     writer.endElement(HtmlElements.DIV);
   }

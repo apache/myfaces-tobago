@@ -294,7 +294,7 @@ $form-select-disabled-color: rgba($form-select-color, $tobago-form-disabled-alph
     .table {
       margin-bottom: 0;
 
-      tr {
+      tbody tr {
         cursor: pointer;
 
         &.tobago-disabled {
@@ -314,6 +314,15 @@ $form-select-disabled-color: rgba($form-select-color, $tobago-form-disabled-alph
           td {
             border-bottom-width: 0;
           }
+        }
+      }
+
+      tfoot tr.tobago-no-entries {
+        color: $dropdown-link-disabled-color;
+        text-align: center;
+
+        td {
+          border-bottom-width: 0;
         }
       }
     }
