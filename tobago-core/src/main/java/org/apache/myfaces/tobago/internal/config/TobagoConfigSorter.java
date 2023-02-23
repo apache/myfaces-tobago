@@ -56,9 +56,30 @@ public class TobagoConfigSorter {
     checkCycles();
 
     List<TobagoConfigFragment> result = new ArrayList<>();
+    List<Vertex> singles = new ArrayList<>();
 
     for (Vertex vertex : vertices) {
-      topologicalSort0(vertex, result);
+
+      // single notes will be added at the end, we collect them here.
+      // The reason is more practically, but not theoretically. A single note may be anywhere in the list, but
+      // people sometimes forgot to add a order tag in there tobago-config.xml, most properly they want to
+      // override configurations. See TOBAGO-2187
+      if (vertex.adjacencyList.isEmpty()) {
+        singles.add(vertex);
+      } else {
+        topologicalSort0(vertex, result);
+        LOG.debug("after sorting vertex {}: result={}", vertex, result);
+      }
+    }
+
+    for (Vertex vertex : singles) {
+      if (!vertex.isVisited()) {
+        LOG.warn("Found tobago-config.xml without ordering. "
+            + "The order should always be specified, as configurations can override each other. "
+            + "Name: '{}', file: '{}'", vertex.getFragment().getName(), vertex.getFragment().getUrl());
+        topologicalSort0(vertex, result);
+        LOG.debug("after sorting vertex {}: result={}", vertex, result);
+      }
     }
 
     logResult(result);
@@ -86,27 +107,36 @@ public class TobagoConfigSorter {
 
   private void logResult(List<TobagoConfigFragment> result) {
     if (LOG.isInfoEnabled()) {
-      StringBuilder builder = new StringBuilder("Order of the Tobago config files: ");
+      final boolean debug = LOG.isDebugEnabled();
+      final StringBuilder builder = new StringBuilder("Order of the Tobago config files: [");
       for (TobagoConfigFragment fragment : result) {
         final String name = fragment.getName();
-        if (LOG.isDebugEnabled()) {
-          builder.append("name=");
+        if (debug) {
+          builder.append("{");
+          builder.append("'name': ");
           if (name == null) {
-            builder.append("<unnamed>");
+            builder.append("'<unnamed>'");
           } else {
             builder.append("'");
             builder.append(name);
-            builder.append("'");
+            builder.append("',");
           }
-          builder.append(" url='");
+          builder.append(" 'url': '");
           builder.append(fragment.getUrl());
           builder.append("'");
+          builder.append("},");
         } else {
+          builder.append("'");
           builder.append(name);
-          builder.append(", ");
+          builder.append("',");
         }
       }
-      LOG.info(builder.toString());
+      if (builder.charAt(builder.length() - 1) == ',') {
+        builder.deleteCharAt(builder.length() - 1);
+      }
+      builder.append("]");
+      final String prepared = builder.toString();
+      LOG.info(prepared.replace('\'', '"'));
     }
   }
 
@@ -120,19 +150,21 @@ public class TobagoConfigSorter {
         final TobagoConfigFragment before = findByName(befores);
         if (before != null) {
           findVertex(before).addAdjacent(findVertex(current));
+          LOG.debug("b: {} <- {}", before, current);
         }
       }
       for (final String afters : current.getAfter()) {
         final TobagoConfigFragment after = findByName(afters);
         if (after != null) {
           findVertex(current).addAdjacent(findVertex(after));
+          LOG.debug("a: {} <- {}", current, after);
         }
       }
     }
   }
 
   /**
-   * Cycle detection: if the base in reachable form its own, than there is a cycle.
+   * Cycle detection: if the base in reachable form its own, then there is a cycle.
    *
    * @throws IllegalStateException When detecting a cycle.
    */
