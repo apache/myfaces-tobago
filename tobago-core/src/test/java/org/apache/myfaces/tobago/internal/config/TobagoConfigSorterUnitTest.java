@@ -32,6 +32,70 @@ public class TobagoConfigSorterUnitTest {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+  /**
+   * a before b
+   * b after a
+   * single: no1, no2, no3
+   * expected: a, b, no1, no2, no3
+   */
+  @Test
+  public void testCompare3() {
+
+    // config + names
+
+    final TobagoConfigFragment a = new TobagoConfigFragment();
+    a.setName("a");
+
+    final TobagoConfigFragment b = new TobagoConfigFragment();
+    b.setName("b");
+
+    // no ordering
+    final TobagoConfigFragment no1 = new TobagoConfigFragment();
+    no1.setName("no1");
+    final TobagoConfigFragment no2 = new TobagoConfigFragment();
+    no2.setName("no2");
+    final TobagoConfigFragment no3 = new TobagoConfigFragment();
+    no3.setName("no3");
+
+    // before
+    a.getBefore().add("b");
+
+    // after
+    b.getAfter().add("a");
+
+    final List<TobagoConfigFragment> list = new ArrayList<>();
+    list.add(no1);
+    list.add(b);
+    list.add(no2);
+    list.add(a);
+    list.add(no3);
+    int size = list.size();
+
+    TobagoConfigSorter.sort(list);
+
+    Assertions.assertEquals(a, list.get(0));
+    Assertions.assertEquals(b, list.get(1));
+    Assertions.assertEquals(no1, list.get(2));
+    Assertions.assertEquals(no2, list.get(3));
+    Assertions.assertEquals(no3, list.get(4));
+    Assertions.assertEquals(size, list.size());
+  }
+
+  /**
+   * a before b
+   * b before c
+   * u1 before d
+   * u2 before d
+   * u2 before y // not in list
+   * e after d
+   * f after e
+   * u1 after c
+   * u2 after c
+   * u2 after z // not in list
+   * n after m
+   * single: no1, no2
+   * expected: a, b, c, ...
+   */
   @Test
   public void testCompare() {
 
@@ -64,7 +128,12 @@ public class TobagoConfigSorterUnitTest {
     // unnamed
     final TobagoConfigFragment u1 = new TobagoConfigFragment();
     final TobagoConfigFragment u2 = new TobagoConfigFragment();
-    final TobagoConfigFragment u3 = new TobagoConfigFragment();
+
+    // no ordering
+    final TobagoConfigFragment no1 = new TobagoConfigFragment();
+    no1.setName("no1");
+    final TobagoConfigFragment no2 = new TobagoConfigFragment();
+    no2.setName("no2");
 
     // before
     a.getBefore().add("b");
@@ -89,15 +158,17 @@ public class TobagoConfigSorterUnitTest {
     final List<TobagoConfigFragment> list = new ArrayList<>();
     list.add(a);
     list.add(b);
+    list.add(no1);
     list.add(c);
     list.add(d);
+    list.add(no2);
     list.add(e);
     list.add(f);
     list.add(u1);
     list.add(u2);
-    list.add(u3);
     list.add(m);
     list.add(n);
+    int size = list.size();
 
     TobagoConfigSorter.sort(list);
 
@@ -109,9 +180,11 @@ public class TobagoConfigSorterUnitTest {
     Assertions.assertEquals(d, list.get(5));
     Assertions.assertEquals(e, list.get(6));
     Assertions.assertEquals(f, list.get(7));
-    Assertions.assertEquals(u3, list.get(8));
-    Assertions.assertEquals(m, list.get(9));
-    Assertions.assertEquals(n, list.get(10));
+    Assertions.assertEquals(m, list.get(8));
+    Assertions.assertEquals(n, list.get(9));
+    Assertions.assertEquals(no1, list.get(10));
+    Assertions.assertEquals(no2, list.get(11));
+    Assertions.assertEquals(size, list.size());
   }
 
   @Test
