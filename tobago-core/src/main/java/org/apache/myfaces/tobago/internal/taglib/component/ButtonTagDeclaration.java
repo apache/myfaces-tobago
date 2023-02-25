@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConfirmation;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasFragment;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
@@ -41,7 +42,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasOutcome;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTarget;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDefaultCommand;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabledBySecurity;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsImmediateCommand;
@@ -115,6 +115,38 @@ import jakarta.faces.component.UICommand;
         @Markup(
             name = org.apache.myfaces.tobago.context.Markup.STRING_DARK,
             description = "Set button color to dark color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_OUTLINE_PRIMARY,
+            description = "Set button color to outline primary color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_OUTLINE_SECONDARY,
+            description = "Set button color to outline secondary color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_OUTLINE_SUCCESS,
+            description = "Set button color to outline success color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_OUTLINE_DANGER,
+            description = "Set button color to outline danger color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_OUTLINE_WARNING,
+            description = "Set button color to outline warning color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_OUTLINE_INFO,
+            description = "Set button color to outline info color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_OUTLINE_LIGHT,
+            description = "Set button color to outline light color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_OUTLINE_DARK,
+            description = "Set button color to outline dark color of the theme."
         ),
         @Markup(
             name = org.apache.myfaces.tobago.context.Markup.STRING_NONE,

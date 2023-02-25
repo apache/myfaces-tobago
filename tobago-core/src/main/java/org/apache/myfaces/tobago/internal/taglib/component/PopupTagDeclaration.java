@@ -46,6 +46,10 @@ import org.apache.myfaces.tobago.model.CollapseMode;
     rendererType = RendererTypes.POPUP,
     markups = {
         @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_EXTRA_LARGE,
+            description = "Extra large popup"
+        ),
+        @Markup(
             name = org.apache.myfaces.tobago.context.Markup.STRING_LARGE,
             description = "Large popup"
         ),

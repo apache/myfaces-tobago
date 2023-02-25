@@ -74,6 +74,10 @@ import jakarta.faces.component.UIPanel;
         @Markup(
             name = org.apache.myfaces.tobago.context.Markup.STRING_EXTRA_LARGE,
             description = "Bar collapse at a extra large size."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_TOGGLER_LEFT,
+            description = "Toggler for a collapsed bar is left-aligned."
         )
     })
 public interface BarTagDeclaration
