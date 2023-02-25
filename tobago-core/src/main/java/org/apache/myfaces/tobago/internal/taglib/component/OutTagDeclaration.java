@@ -20,20 +20,21 @@
 package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasDecorationPosition;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasDecorationPosition;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasSanitize;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsPlain;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
@@ -54,7 +55,61 @@ import java.text.MessageFormat;
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "javax.faces.component.behavior.ClientBehaviorHolder"
     },
-    allowedChildComponenents = "NONE")
+    allowedChildComponenents = "NONE",
+    markups = {
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_PRIMARY,
+            description = "Set text color to primary color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SECONDARY,
+            description = "Set text color to secondary color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SUCCESS,
+            description = "Set text color to success color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_DANGER,
+            description = "Set text color to danger color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_WARNING,
+            description = "Set text color to warning color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_INFO,
+            description = "Set text color to info color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_LIGHT,
+            description = "Set text color to light color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_DARK,
+            description = "Set text color to dark color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_BOLD,
+            description = "Set font to bold."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_THIN,
+            description = "Set font to thin."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_ITALIC,
+            description = "Set font to italic."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_NUMBER,
+            description = "Align text to the right."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_DELETED,
+            description = "Strike text through."
+        )
+    })
 
 public interface OutTagDeclaration
     extends HasIdBindingAndRendered, HasConverter, HasTip, HasValue, IsVisual,
