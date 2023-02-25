@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
+import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
@@ -30,6 +31,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConfirmation;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasFragment;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
@@ -40,7 +42,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasOutcome;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTarget;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabledBySecurity;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsImmediateCommand;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsOmit;
@@ -78,6 +79,52 @@ import jakarta.faces.component.UICommand;
             name = ClientBehaviors.FOCUS),
         @Behavior(
             name = ClientBehaviors.BLUR)
+    },
+    markups = {
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_PRIMARY,
+            description = "Set text color to primary color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SECONDARY,
+            description = "Set text color to secondary color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SUCCESS,
+            description = "Set text color to success color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_DANGER,
+            description = "Set text color to danger color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_WARNING,
+            description = "Set text color to warning color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_INFO,
+            description = "Set text color to info color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_LIGHT,
+            description = "Set text color to light color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_DARK,
+            description = "Set text color to dark color of the theme."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_BOLD,
+            description = "Set font to bold."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_THIN,
+            description = "Set font to thin."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_ITALIC,
+            description = "Set font to italic."
+        )
     })
 public interface LinkTagDeclaration
     extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand, HasConfirmation,

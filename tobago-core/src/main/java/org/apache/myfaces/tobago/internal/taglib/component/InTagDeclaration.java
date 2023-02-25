@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
+import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
@@ -32,11 +33,11 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutocomplete;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasDecorationPosition;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasHelp;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasDecorationPosition;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasPlaceholder;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
@@ -95,6 +96,12 @@ import jakarta.faces.component.UIInput;
             name = ClientBehaviors.KEYUP),
         @Behavior(
             name = ClientBehaviors.BLUR)
+    },
+    markups = {
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_NUMBER,
+            description = "Align text to the right."
+        )
     })
 public interface InTagDeclaration
     extends HasIdBindingAndRendered, HasConverter, IsReadonly, IsDisabled, IsRequired, HasHelp, HasTip, IsPassword,
