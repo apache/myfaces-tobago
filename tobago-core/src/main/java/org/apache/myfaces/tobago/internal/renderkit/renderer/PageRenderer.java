@@ -19,6 +19,14 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import jakarta.faces.application.Application;
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
@@ -51,15 +59,6 @@ import org.apache.myfaces.tobago.webapp.Secret;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import jakarta.faces.application.Application;
-import jakarta.faces.application.ProjectStage;
-import jakarta.faces.application.ViewHandler;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIOutput;
-import jakarta.faces.component.UIViewRoot;
-import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
 
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
@@ -131,6 +130,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     final UIViewRoot viewRoot = facesContext.getViewRoot();
     final String viewId = viewRoot.getViewId();
     final String formAction = externalContext.encodeActionURL(viewHandler.getActionURL(facesContext, viewId));
+    final boolean ajax = facesContext.getPartialViewContext().isAjaxRequest();
 
     final String contentType = writer.getContentTypeWithCharSet();
     ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
@@ -276,6 +276,19 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
       }
     }
 
+    // placeholder for menus
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(TobagoClass.PAGE__MENU_STORE);
+    writer.endElement(HtmlElements.DIV);
+
+    writer.startElement(HtmlElements.SPAN);
+    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "faces-state-container");
+    writer.flush();
+    if (!ajax) {
+      viewHandler.writeState(facesContext);
+    }
+    writer.endElement(HtmlElements.SPAN);
+
     if (component.getFacet("backButtonDetector") != null) {
       final UIComponent hidden = component.getFacet("backButtonDetector");
       hidden.encodeAll(facesContext);
@@ -302,23 +315,6 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
 
     final UIViewRoot viewRoot = facesContext.getViewRoot();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final String clientId = component.getClientId(facesContext);
-    final Application application = facesContext.getApplication();
-    final ViewHandler viewHandler = application.getViewHandler();
-    final boolean ajax = facesContext.getPartialViewContext().isAjaxRequest();
-
-    // placeholder for menus
-    writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(TobagoClass.PAGE__MENU_STORE);
-    writer.endElement(HtmlElements.DIV);
-
-    writer.startElement(HtmlElements.SPAN);
-    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "faces-state-container");
-    writer.flush();
-    if (!ajax) {
-      viewHandler.writeState(facesContext);
-    }
-    writer.endElement(HtmlElements.SPAN);
 
     writer.endElement(HtmlElements.FORM);
 
