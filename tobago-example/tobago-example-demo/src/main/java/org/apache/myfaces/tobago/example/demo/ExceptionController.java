@@ -30,6 +30,8 @@ import java.io.StringWriter;
 @Named
 public class ExceptionController implements Serializable {
 
+  private boolean returnNpe;
+
   public String getStackTrace() {
     final Throwable exception = (Throwable) FacesContext.getCurrentInstance().getExternalContext()
         .getRequestMap().get("javax.servlet.error.exception");
@@ -39,5 +41,16 @@ public class ExceptionController implements Serializable {
       exception.printStackTrace(printWriter);
     }
     return stringWriter.toString();
+  }
+
+  public String getStringOrNpe() {
+    if (returnNpe) {
+      throw new NullPointerException("The exception is thrown by purpose.");
+    }
+    return "no NPE";
+  }
+
+  public void returnNpe() {
+    returnNpe = true;
   }
 }
