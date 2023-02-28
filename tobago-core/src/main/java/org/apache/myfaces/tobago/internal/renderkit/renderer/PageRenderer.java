@@ -130,6 +130,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     final UIViewRoot viewRoot = facesContext.getViewRoot();
     final String viewId = viewRoot.getViewId();
     final String formAction = externalContext.encodeActionURL(viewHandler.getActionURL(facesContext, viewId));
+    final boolean ajax = facesContext.getPartialViewContext().isAjaxRequest();
 
     final String contentType = writer.getContentTypeWithCharSet();
     ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
@@ -275,6 +276,19 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
       }
     }
 
+    // placeholder for menus
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(TobagoClass.PAGE__MENU_STORE);
+    writer.endElement(HtmlElements.DIV);
+
+    writer.startElement(HtmlElements.SPAN);
+    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "jsf-state-container");
+    writer.flush();
+    if (!ajax) {
+      viewHandler.writeState(facesContext);
+    }
+    writer.endElement(HtmlElements.SPAN);
+
     if (component.getFacet("backButtonDetector") != null) {
       final UIComponent hidden = component.getFacet("backButtonDetector");
       hidden.encodeAll(facesContext);
@@ -301,23 +315,6 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
 
     final UIViewRoot viewRoot = facesContext.getViewRoot();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final String clientId = component.getClientId(facesContext);
-    final Application application = facesContext.getApplication();
-    final ViewHandler viewHandler = application.getViewHandler();
-    final boolean ajax = facesContext.getPartialViewContext().isAjaxRequest();
-
-    // placeholder for menus
-    writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute(TobagoClass.PAGE__MENU_STORE);
-    writer.endElement(HtmlElements.DIV);
-
-    writer.startElement(HtmlElements.SPAN);
-    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "jsf-state-container");
-    writer.flush();
-    if (!ajax) {
-      viewHandler.writeState(facesContext);
-    }
-    writer.endElement(HtmlElements.SPAN);
 
     writer.endElement(HtmlElements.FORM);
 
