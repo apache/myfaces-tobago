@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM tomcat:9.0-jdk11
+FROM tomcat:10-jdk11
 
 COPY tobago-example-demo.war /usr/local/tomcat/webapps/ROOT.war
 COPY tomcat-users.xml /usr/local/tomcat/conf/
