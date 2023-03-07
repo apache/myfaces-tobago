@@ -53,6 +53,7 @@ public enum TobagoClass implements CssItem {
   DESCENDING("tobago-descending"),
   DISABLED("tobago-disabled"),
   DISPLAY__INLINE__BLOCK("tobago-display-inline-block"),
+  DROPDOWN__MENU("tobago-dropdown-menu"),
   DROPDOWN__SUBMENU("tobago-dropdown-submenu"),
   EXPANDED("tobago-expanded"),
   FOCUS("tobago-focus"),
