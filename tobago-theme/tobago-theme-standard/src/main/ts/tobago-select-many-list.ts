@@ -62,8 +62,6 @@ class SelectManyList extends SelectListBase {
     const option: HTMLOptionElement = this.hiddenSelect.querySelector(`[value="${itemValue}"]`);
     option.selected = !option.selected;
     this.sync(option);
-    this.filterInput.disabled = false;
-    this.filterInput.focus({preventScroll: true});
   }
 
   private sync(option: HTMLOptionElement) {
@@ -83,17 +81,7 @@ class SelectManyList extends SelectListBase {
     } else {
       // remove badge
       const badge = this.selectField.querySelector(`[data-tobago-value="${itemValue}"]`);
-      const previousBadge = badge.previousElementSibling;
-      const nextBadge = badge.nextElementSibling.tagName === "SPAN" ? badge.nextElementSibling : null;
       badge.remove();
-      if (previousBadge) {
-        previousBadge.querySelector<HTMLButtonElement>("button.btn.badge").focus();
-      } else if (nextBadge) {
-        nextBadge.querySelector<HTMLButtonElement>("button.btn.badge").focus();
-      } else {
-        this.filterInput.disabled = false;
-        this.filterInput.focus();
-      }
 
       row.classList.remove(Css.TABLE_PRIMARY); // remove highlight list row
     }
@@ -103,9 +91,7 @@ class SelectManyList extends SelectListBase {
       if (this.badgeCloseButtons.length > 0 && this.filterInput.id === document.activeElement.id) {
         this.badgeCloseButtons.item(this.badgeCloseButtons.length - 1).focus();
       }
-      if (!this.preselectedRow) {
-        this.filterInput.disabled = this.badgeCloseButtons.length > 0;
-      }
+      this.filterInput.disabled = this.badgeCloseButtons.length > 0;
     }
   }
 
@@ -115,7 +101,7 @@ class SelectManyList extends SelectListBase {
         ? html`<tobago-badge class="badge text-bg-primary btn disabled">${text}</tobago-badge>`
         : html`<tobago-badge class="badge text-bg-primary btn">${text}</tobago-badge>
   <button type='button'
-      class='tobago-button btn btn-secondary badge'
+      class='tobago-button btn btn-secondary badge' aria-label='deselect ${text}'
       ${tabIndex > 0 ? " tabindex='" + String(tabIndex) + "'" : ""}
       @click="${this.removeBadge.bind(this)}"
       @focus="${this.focusEvent.bind(this)}"
@@ -128,6 +114,19 @@ class SelectManyList extends SelectListBase {
     const itemValue = group.dataset.tobagoValue;
     const option: HTMLOptionElement = this.hiddenSelect.querySelector(`[value="${itemValue}"]`);
     option.selected = false;
+
+    const badge = this.selectField.querySelector(`[data-tobago-value="${itemValue}"]`);
+    const previousBadge = badge.previousElementSibling;
+    const nextBadge = badge.nextElementSibling.tagName === "SPAN" ? badge.nextElementSibling : null;
+    if (previousBadge) {
+      previousBadge.querySelector<HTMLButtonElement>("button.btn.badge").focus();
+    } else if (nextBadge) {
+      nextBadge.querySelector<HTMLButtonElement>("button.btn.badge").focus();
+    } else {
+      this.filterInput.disabled = false;
+      this.filterInput.focus();
+    }
+
     this.sync(option);
   }
 

@@ -112,7 +112,7 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
     writer.endElement(HtmlElements.SPAN);
 
     writer.startElement(HtmlElements.INPUT);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.SEARCH);
     writer.writeIdAttribute(filterId);
     writer.writeClassAttribute(TobagoClass.FILTER, BootstrapClass.FORM_CONTROL);
     writer.writeAttribute(HtmlAttributes.AUTOCOMPLETE, "off", false);
@@ -134,7 +134,7 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(
         TobagoClass.OPTIONS,
-        expanded ? BootstrapClass.LIST_GROUP_ITEM : BootstrapClass.DROPDOWN_MENU);
+        expanded ? BootstrapClass.LIST_GROUP_ITEM : TobagoClass.DROPDOWN__MENU);
     writer.writeNameAttribute(clientId);
 
     writer.startElement(HtmlElements.TABLE);
@@ -161,6 +161,7 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
       writer.writeClassAttribute(
           contains ? BootstrapClass.TABLE_PRIMARY : null,
           disabled || item.isDisabled() ? TobagoClass.DISABLED : null);
+      writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
 
       writer.startElement(HtmlElements.TD);
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
