@@ -61,7 +61,7 @@ export abstract class SelectListBase extends HTMLElement {
 
   get dropdownMenu(): HTMLDivElement {
     const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(`.dropdown-menu[name='${this.id}']`);
+    return root.querySelector(`.tobago-dropdown-menu[name='${this.id}']`);
   }
 
   get options(): HTMLElement {
@@ -99,6 +99,8 @@ export abstract class SelectListBase extends HTMLElement {
     this.selectField.addEventListener("keydown", this.keydownEventBase.bind(this));
     this.filterInput.addEventListener("focus", this.focusEvent.bind(this));
     this.filterInput.addEventListener("blur", this.blurEvent.bind(this));
+    this.options.addEventListener("keydown", this.keydownEventBase.bind(this));
+    this.rows.forEach(row => row.addEventListener("blur", this.blurEvent.bind(this)));
     if (this.filter) {
       this.filterInput.addEventListener("input", this.filterEvent.bind(this));
     }
@@ -117,6 +119,7 @@ export abstract class SelectListBase extends HTMLElement {
       case Key.ESCAPE:
         this.hideDropdown();
         this.removePreselection();
+        this.filterInput.focus({preventScroll: true});
         break;
       case Key.ARROW_DOWN:
         event.preventDefault();
@@ -141,6 +144,8 @@ export abstract class SelectListBase extends HTMLElement {
       case Key.TAB:
         this.removePreselection();
         break;
+      default:
+        this.filterInput.focus({preventScroll: true});
     }
   }
 
@@ -242,12 +247,7 @@ export abstract class SelectListBase extends HTMLElement {
 
   private preselect(row: HTMLTableRowElement): void {
     row.classList.add(Css.TOBAGO_PRESELECT);
-    if (!this.dropdownMenu) {
-      row.scrollIntoView({block: "center"});
-    }
-
-    this.filterInput.disabled = false;
-    this.filterInput.focus({preventScroll: true});
+    row.focus();
   }
 
   protected removePreselection(): void {
