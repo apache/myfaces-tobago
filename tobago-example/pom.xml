@@ -15,7 +15,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
@@ -38,7 +39,7 @@
     <!-- XXX the spring-boot demo was temporarily removed, because it doesn't support Jakarta EE 9
     See: https://spring.io/blog/2021/09/02/a-java-17-and-jakarta-ee-9-baseline-for-spring-framework-6
      -->
-<!--    <module>tobago-example-spring-boot</module>-->
+    <!--    <module>tobago-example-spring-boot</module>-->
   </modules>
 
   <build>
@@ -50,19 +51,19 @@
       <plugin>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
-          <configuration>
-            <!-- use this to change the context path: -->
-<!--
-            <webApp>
-              <contextPath>/example</contextPath>
-            </webApp>
--->
-            <!-- use this to change the port: -->
-<!--
-            <httpConnector>
-              <port>7080</port>
-            </httpConnector>
--->
+        <configuration>
+          <!-- use this to change the context path: -->
+          <!--
+                      <webApp>
+                        <contextPath>/example</contextPath>
+                      </webApp>
+          -->
+          <!-- use this to change the port: -->
+          <!--
+                      <httpConnector>
+                        <port>7080</port>
+                      </httpConnector>
+          -->
         </configuration>
       </plugin>
     </plugins>
@@ -98,6 +99,7 @@
       <dependency>
         <groupId>org.apache.bval</groupId>
         <artifactId>bval-jsr</artifactId>
+        <classifier>jakarta</classifier>
         <version>2.0.6</version>
       </dependency>
     </dependencies>
@@ -193,8 +195,8 @@
       <activation>
         <property>
           <name>!jsf</name>
-<!--          <name>jsf</name>-->
-<!--          <value>myfaces-3.0</value>-->
+          <!--          <name>jsf</name>-->
+          <!--          <value>myfaces-3.0</value>-->
         </property>
       </activation>
       <dependencies>
@@ -361,6 +363,7 @@
           <!-- todo: replace with implementation of bean validation 3.0 -->
           <groupId>org.apache.bval</groupId>
           <artifactId>bval-jsr</artifactId>
+          <classifier>jakarta</classifier>
           <scope>compile</scope>
         </dependency>
       </dependencies>
@@ -371,6 +374,29 @@
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <!--
+            usage: to build a war for separate deployment
+            mvn clean package -Ptomcat
+
+            usage: to run on localhost 8080, change port see below (ONLY JAVA 11)
+            mvn clean package -Ptomcat cargo:run
+            Browse to the local URL http://localhost:8080/tobago-example-demo/
+            -->
+            <groupId>org.codehaus.cargo</groupId>
+            <artifactId>cargo-maven3-plugin</artifactId>
+            <version>1.10.5</version>
+            <configuration>
+              <container>
+                <containerId>tomcat10x</containerId>
+                <type>embedded</type>
+              </container>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
       <dependencies>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
@@ -388,8 +414,19 @@
           <groupId>org.slf4j</groupId>
           <artifactId>jcl-over-slf4j</artifactId>
         </dependency>
-
-        <!-- openwebbeans -->
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-el22</artifactId>
+          <classifier>jakarta</classifier>
+          <version>${openwebbeans.version}</version>
+          <scope>runtime</scope>
+          <exclusions>
+            <exclusion>
+              <groupId>org.apache.openwebbeans</groupId>
+              <artifactId>*</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>
         <dependency>
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-jsf</artifactId>
@@ -455,7 +492,6 @@
             </exclusion>
           </exclusions>
         </dependency>
-
         <dependency>
           <groupId>org.apache.myfaces.tobago</groupId>
           <artifactId>tobago-config-owb</artifactId>
@@ -473,9 +509,9 @@
           <scope>compile</scope>
         </dependency>
         <dependency>
-          <!-- todo: replace with implementation of bean validation 3.0 -->
           <groupId>org.apache.bval</groupId>
           <artifactId>bval-jsr</artifactId>
+          <classifier>jakarta</classifier>
           <scope>compile</scope>
         </dependency>
         <!-- this enables the development mode -->
