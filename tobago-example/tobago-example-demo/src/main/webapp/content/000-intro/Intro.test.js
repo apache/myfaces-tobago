@@ -15,13 +15,15 @@
  * limitations under the License.
  */
 
-import {querySelectorFn} from "/script/tobago-test.js";
+import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("First section title is 'Intro'", function (done) {
-  let titleOfFirstSectionHeader = querySelectorFn("tobago-section h1");
+  const titleOfFirstSectionHeader = querySelectorFn("tobago-section h1");
+  const introLinkFn = elementByIdFn("page:navigator:nav:1:cmd");
 
-  let test = new JasmineTestTool(done);
+  const test = new JasmineTestTool(done);
+  test.setup(() => titleOfFirstSectionHeader().textContent.trim() === "Intro", null, "click", introLinkFn);
   test.do(() => expect(titleOfFirstSectionHeader().textContent.trim()).toEqual("Intro"));
   test.start();
 });
