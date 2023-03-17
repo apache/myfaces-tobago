@@ -79,7 +79,21 @@
           <f:ajax render="counter operationTestBox" listener="#{behaviorTestController.countAjaxListener1}"/>
         </tc:event>
       </tc:button>
-      <p/>
+
+      <tc:button id="dropdown" label="Dropdown" omit="true">
+        <tc:link id="simpleEventEntry" label="Simple Event">
+          <tc:event action="#{behaviorTestController.countAction1}"
+                    actionListener="#{behaviorTestController.countActionListener1}"/>
+        </tc:link>
+        <tc:link id="simpleAjaxEntry" label="Simple Ajax">
+          <f:ajax render="counter operationTestBox" listener="#{behaviorTestController.countAjaxListener1}"/>
+        </tc:link>
+        <tc:link id="simpleEventAjaxEntry" label="Simple EventAjax">
+          <tc:event>
+            <f:ajax render="counter operationTestBox" listener="#{behaviorTestController.countAjaxListener1}"/>
+          </tc:event>
+        </tc:link>
+      </tc:button>
     </tc:section>
 
     <tc:section label="Advanced">
