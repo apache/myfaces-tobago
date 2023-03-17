@@ -19,69 +19,80 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+  <p>
+    <tc:badge markup="warning" value="Preliminary feature, may be subject to change!"/>
+  </p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:selectManyList/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tobagoTld}/tc/selectManyList.html"/>
+    |
+    <tc:link label="&lt;tc:selectItem/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tobagoTld}/tc/selectItem.html"/>
+    |
+    <tc:link label="&lt;tc:selectItems/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tobagoTld}/tc/selectItems.html"/></p>
 
-  <!-- todo -->
-  <tc:badge markup="warning"
-            value="Preliminary feature, may be subject to change!"/><br/>
+  <tc:section label="Basic">
+    <tc:form id="basic">
+      <tc:selectManyList id="selectedStandard" label="Standard" value="#{selectManyListController.selectedPlanets}">
+        <tc:selectItems value="#{selectManyListController.planets}"
+                        var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+      </tc:selectManyList>
+      <tc:selectManyList id="selectedDisabled" label="Disabled" value="#{selectManyListController.selectedPlanets}"
+                         disabled="true">
+        <tc:selectItems value="#{selectManyListController.planets}"
+                        var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+      </tc:selectManyList>
+      <tc:button id="submit" label="Submit"/>
+      <tc:button id="reset" label="reset for test" action="#{selectManyListController.resetSelectedPlanets()}">
+        <tc:style customClass="d-none"/>
+      </tc:button>
+    </tc:form>
+  </tc:section>
 
-  <tc:section label="not expanded / no filter">
-    <tc:selectManyList id="selected1" value="#{selectManyListController.selected1}">
+  <tc:section label="Filter">
+    <p>The <code class="language-markup">&lt;tc:selectManyList/></code> component has a <code
+        class="language-markup">filter</code> attribute with four predefined values:
+      contains, startsWith, containsExact, startsWithExact</p>
+    <tc:selectManyList id="selectedFilter" label="Filter (contains)" filter="contains">
+      <tc:selectItems value="#{selectManyListController.planets}"
+                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+    </tc:selectManyList>
+    <tc:separator/>
+    <p>Choose between different filter types.</p>
+    <tc:segmentLayout id="advancedFilterExample" medium="4seg 8seg">
+      <tc:selectOneRadio label="Filter type" value="#{selectManyListController.filterType}" required="true"
+                         labelLayout="top">
+        <tc:selectItem itemValue="contains"/>
+        <tc:selectItem itemValue="startsWith"/>
+        <tc:selectItem itemValue="containsExact"/>
+        <tc:selectItem itemValue="startsWithExact"/>
+        <f:ajax render="advancedFilterExample" execute="advancedFilterExample"/>
+      </tc:selectOneRadio>
+      <tc:panel>
+        <tc:selectManyList value="#{selectManyListController.selectedNames}"
+                           filter="#{selectManyListController.filterType}" expanded="false">
+          <tc:selectItems value="#{selectManyListController.names}"
+                          var="name" itemLabel="#{name}" itemValue="#{name}"/>
+          <tc:style maxHeight="300px"/>
+        </tc:selectManyList>
+
+        Dependent of the type of the filter:
+        Ignores case.
+        Ignores acute (é), grave (è), circumflex (â, î or ô), tilde (ñ), umlaut and
+        dieresis (ü or ï), and cedilla (ç).
+      </tc:panel>
+    </tc:segmentLayout>
+    <!-- todo custom filter types -->
+  </tc:section>
+
+  <tc:section label="Expanded">
+    <tc:selectManyList id="selectedExpanded" expanded="true">
       <tc:selectItems value="#{selectManyListController.planets}"
                       var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
     </tc:selectManyList>
   </tc:section>
-
-  <tc:section label="expanded / no filter">
-    <tc:selectManyList id="selected2" value="#{selectManyListController.selected2}" expanded="true">
-      <tc:selectItems value="#{selectManyListController.planets}"
-                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
-    </tc:selectManyList>
-    <tc:button label="Submit"/>
-  </tc:section>
-
-  <tc:section label="not expanded / with filter">
-    <tc:selectManyList id="selected3" value="#{selectManyListController.selected3}" filter="contains">
-      <tc:selectItems value="#{selectManyListController.planets}"
-                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
-    </tc:selectManyList>
-    <tc:button label="Submit"/>
-  </tc:section>
-
-  <tc:section label="expanded / with filter:">
-    <tc:selectManyList id="selected4" value="#{selectManyListController.selected4}" filter="contains" expanded="true">
-      <tc:selectItems value="#{selectManyListController.planets}"
-                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
-    </tc:selectManyList>
-    <tc:button label="Submit"/>
-  </tc:section>
-
-  <tc:section id="filter" label="Filter types: contains, startsWith, containsExact, startsWithExact">
-    <tc:selectOneRadio label="Filter type" value="#{selectManyListController.filterType}">
-      <tc:selectItem itemValue="#{null}" itemLabel="please select"/>
-      <tc:selectItem itemValue="contains"/>
-      <tc:selectItem itemValue="startsWith"/>
-      <tc:selectItem itemValue="containsExact"/>
-      <tc:selectItem itemValue="startsWithExact"/>
-      <f:ajax render="filter" execute="filter"/>
-    </tc:selectOneRadio>
-    <tc:selectManyList id="selected5" value="#{selectManyListController.selected5}"
-                       filter="#{selectManyListController.filterType}" expanded="true">
-      <tc:selectItems value="#{selectManyListController.names}"
-                      var="name" itemLabel="#{name}" itemValue="#{name}"/>
-      <tc:style maxHeight="300px"/>
-    </tc:selectManyList>
-
-    Dependent of the type of the filter:
-    Ignores case.
-    Ignores acute (é), grave (è), circumflex (â, î or ô), tilde (ñ), umlaut and
-    dieresis (ü or ï), and cedilla (ç).
-  </tc:section>
-
-  <tc:section label="Filter types: custom">
-    todo
-  </tc:section>
-
 </ui:composition>
