@@ -46,20 +46,17 @@ public class SelectOneListController implements Serializable {
   private AstroData astroData;
 
   private List<SolarObject> planets;
-  private SolarObject selected1;
-  private SolarObject selected2;
-  private SolarObject selected3;
-  private SolarObject selected4;
-  private List<String> names;
-  private String selected5;
+  private SolarObject selectedPlanet;
 
-  private String filterType;
+  private String filterType = "contains";
+  private final List<String> names = new ArrayList<>();
+  private String selectedName;
 
   @PostConstruct
   public void init() {
     planets = astroData.getSatellites("Sun");
+    selectedPlanet = planets.get(7);
 
-    names = new ArrayList<>();
     try (BufferedReader reader = new BufferedReader(new InputStreamReader(
         Thread.currentThread().getContextClassLoader().getResourceAsStream(
             "org/apache/myfaces/tobago/example/demo/names.txt"), StandardCharsets.UTF_8))) {
@@ -79,36 +76,20 @@ public class SelectOneListController implements Serializable {
     return planets;
   }
 
-  public SolarObject getSelected1() {
-    return selected1;
+  public SolarObject getSelectedPlanet() {
+    return selectedPlanet;
   }
 
-  public void setSelected1(SolarObject selected1) {
-    this.selected1 = selected1;
+  public void setSelectedPlanet(SolarObject selectedPlanet) {
+    this.selectedPlanet = selectedPlanet;
   }
 
-  public SolarObject getSelected2() {
-    return selected2;
+  public String getFilterType() {
+    return filterType;
   }
 
-  public void setSelected2(SolarObject selected2) {
-    this.selected2 = selected2;
-  }
-
-  public SolarObject getSelected3() {
-    return selected3;
-  }
-
-  public void setSelected3(SolarObject selected3) {
-    this.selected3 = selected3;
-  }
-
-  public SolarObject getSelected4() {
-    return selected4;
-  }
-
-  public void setSelected4(SolarObject selected4) {
-    this.selected4 = selected4;
+  public void setFilterType(String filterType) {
+    this.filterType = filterType;
   }
 
   public List<String> getNames() {
@@ -120,19 +101,11 @@ public class SelectOneListController implements Serializable {
     return names;
   }
 
-  public String getSelected5() {
-    return selected5;
+  public String getSelectedName() {
+    return selectedName;
   }
 
-  public void setSelected5(String selected5) {
-    this.selected5 = selected5;
-  }
-
-  public String getFilterType() {
-    return filterType;
-  }
-
-  public void setFilterType(String filterType) {
-    this.filterType = filterType;
+  public void setSelectedName(String selectedName) {
+    this.selectedName = selectedName;
   }
 }
