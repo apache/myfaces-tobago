@@ -78,6 +78,88 @@ it("Simple EventAjax", function (done) {
   test.start();
 });
 
+it("Dropdown: Simple Event", function (done) {
+  const dropdownButtonFn = elementByIdFn("page:mainForm:dropdown::command");
+  const dropdownMenuFn = querySelectorFn(".dropdown-menu[name='page:mainForm:dropdown']");
+  const entryFn = elementByIdFn("page:mainForm:simpleEventEntry");
+  const oldCounterValues = getCounterValues();
+
+  const test = new JasmineTestTool(done);
+  test.event("click", dropdownButtonFn, () => dropdownMenuFn().parentElement.classList.contains("tobago-page-menuStore"))
+  test.do(() => expect(dropdownMenuFn().parentElement.tagName).not.toEqual("TOBAGO-DROPDOWN"));
+  test.do(() => expect(dropdownMenuFn().parentElement.classList.contains("tobago-page-menuStore")).toBeTrue());
+
+  test.event("click", entryFn, () => getCounterValues().action1 > oldCounterValues.action1)
+  test.do(() => expect(getCounterValues().buttonAction).toBe(oldCounterValues.buttonAction));
+  test.do(() => expect(getCounterValues().buttonActionListener).toBe(oldCounterValues.buttonActionListener));
+  test.do(() => expect(getCounterValues().action1).toBe(oldCounterValues.action1 + 1));
+  test.do(() => expect(getCounterValues().actionListener1).toBe(oldCounterValues.actionListener1 + 1));
+  test.do(() => expect(getCounterValues().ajaxListener1).toBe(oldCounterValues.ajaxListener1));
+  test.do(() => expect(getCounterValues().action2).toBe(oldCounterValues.action2));
+  test.do(() => expect(getCounterValues().actionListener2).toBe(oldCounterValues.actionListener2));
+  test.do(() => expect(getCounterValues().ajaxListener2).toBe(oldCounterValues.ajaxListener2));
+  test.do(() => expect(getCounterValues().action3).toBe(oldCounterValues.action3));
+  test.do(() => expect(getCounterValues().actionListener3).toBe(oldCounterValues.actionListener3));
+  test.do(() => expect(getCounterValues().ajaxListener3).toBe(oldCounterValues.ajaxListener3));
+  test.do(() => expect(dropdownMenuFn().parentElement.tagName).toEqual("TOBAGO-DROPDOWN"));
+  test.do(() => expect(dropdownMenuFn().parentElement.classList.contains("tobago-page-menuStore")).toBeFalse());
+  test.start();
+});
+
+it("Dropdown: Simple Ajax", function (done) {
+  const dropdownButtonFn = elementByIdFn("page:mainForm:dropdown::command");
+  const dropdownMenuFn = querySelectorFn(".dropdown-menu[name='page:mainForm:dropdown']");
+  const entryFn = elementByIdFn("page:mainForm:simpleAjaxEntry");
+  const oldCounterValues = getCounterValues();
+
+  const test = new JasmineTestTool(done);
+  test.event("click", dropdownButtonFn, () => dropdownMenuFn().parentElement.classList.contains("tobago-page-menuStore"))
+  test.do(() => expect(dropdownMenuFn().parentElement.tagName).not.toEqual("TOBAGO-DROPDOWN"));
+  test.do(() => expect(dropdownMenuFn().parentElement.classList.contains("tobago-page-menuStore")).toBeTrue());
+
+  test.event("click", entryFn, () => getCounterValues().ajaxListener1 > oldCounterValues.ajaxListener1)
+  test.do(() => expect(getCounterValues().buttonAction).toBe(oldCounterValues.buttonAction));
+  test.do(() => expect(getCounterValues().buttonActionListener).toBe(oldCounterValues.buttonActionListener));
+  test.do(() => expect(getCounterValues().action1).toBe(oldCounterValues.action1));
+  test.do(() => expect(getCounterValues().actionListener1).toBe(oldCounterValues.actionListener1));
+  test.do(() => expect(getCounterValues().ajaxListener1).toBe(oldCounterValues.ajaxListener1 + 1));
+  test.do(() => expect(getCounterValues().action2).toBe(oldCounterValues.action2));
+  test.do(() => expect(getCounterValues().actionListener2).toBe(oldCounterValues.actionListener2));
+  test.do(() => expect(getCounterValues().ajaxListener2).toBe(oldCounterValues.ajaxListener2));
+  test.do(() => expect(getCounterValues().action3).toBe(oldCounterValues.action3));
+  test.do(() => expect(getCounterValues().actionListener3).toBe(oldCounterValues.actionListener3));
+  test.do(() => expect(getCounterValues().ajaxListener3).toBe(oldCounterValues.ajaxListener3));
+  test.do(() => expect(dropdownMenuFn().parentElement.tagName).toEqual("TOBAGO-DROPDOWN"));
+  test.do(() => expect(dropdownMenuFn().parentElement.classList.contains("tobago-page-menuStore")).toBeFalse());
+  test.start();
+});
+
+it("Dropdown: Simple EventAjax", function (done) {
+  const dropdownButtonFn = elementByIdFn("page:mainForm:dropdown::command");
+  const dropdownMenuFn = querySelectorFn(".dropdown-menu[name='page:mainForm:dropdown']");
+  const entryFn = elementByIdFn("page:mainForm:simpleEventAjaxEntry");
+  const oldCounterValues = getCounterValues();
+
+  const test = new JasmineTestTool(done);
+  test.event("click", dropdownButtonFn, () => dropdownMenuFn().parentElement.classList.contains("tobago-page-menuStore"))
+  test.do(() => expect(dropdownMenuFn().parentElement.tagName).not.toEqual("TOBAGO-DROPDOWN"));
+  test.do(() => expect(dropdownMenuFn().parentElement.classList.contains("tobago-page-menuStore")).toBeTrue());
+
+  test.event("click", entryFn, () => getCounterValues().ajaxListener1 > oldCounterValues.ajaxListener1)
+  test.do(() => expect(getCounterValues().buttonAction).toBe(oldCounterValues.buttonAction));
+  test.do(() => expect(getCounterValues().buttonActionListener).toBe(oldCounterValues.buttonActionListener));
+  test.do(() => expect(getCounterValues().action1).toBe(oldCounterValues.action1));
+  test.do(() => expect(getCounterValues().actionListener1).toBe(oldCounterValues.actionListener1));
+  test.do(() => expect(getCounterValues().ajaxListener1).toBe(oldCounterValues.ajaxListener1 + 1));
+  test.do(() => expect(getCounterValues().action2).toBe(oldCounterValues.action2));
+  test.do(() => expect(getCounterValues().actionListener2).toBe(oldCounterValues.actionListener2));
+  test.do(() => expect(getCounterValues().ajaxListener2).toBe(oldCounterValues.ajaxListener2));
+  test.do(() => expect(getCounterValues().action3).toBe(oldCounterValues.action3));
+  test.do(() => expect(getCounterValues().actionListener3).toBe(oldCounterValues.actionListener3));
+  test.do(() => expect(getCounterValues().ajaxListener3).toBe(oldCounterValues.ajaxListener3));
+  test.start();
+});
+
 it("Advanced Button: Option 1", function (done) {
   const optionId = 0; //Event 1 + no Ajax enabled
   const buttonFn = elementByIdFn("page:mainForm:advancedButton");
