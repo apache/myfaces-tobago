@@ -23,6 +23,7 @@ import {Overlay} from "./tobago-overlay";
 import {OverlayType} from "./tobago-overlay-type";
 
 class Behavior extends HTMLElement {
+  private eventListener: EventListenerOrEventListenerObject;
 
   constructor() {
     super();
@@ -38,15 +39,26 @@ class Behavior extends HTMLElement {
         break;
       default: {
         const eventElement = this.eventElement;
+        this.eventListener = this.callback.bind(this);
+
         if (eventElement) {
-          eventElement.addEventListener(this.event, this.callback.bind(this));
+          eventElement.addEventListener(this.event, this.eventListener);
         } else {
           // if the clientId doesn't exists in DOM, it's probably the id of tobago-behavior custom element
-          this.parentElement.addEventListener(this.event, this.callback.bind(this));
+          this.parentElement.addEventListener(this.event, this.eventListener);
           // todo: not sure if this warning can be removed;
           console.warn("Can't find an element for the event. Use parentElement instead.", this);
         }
       }
+    }
+  }
+
+  disconnectedCallback(): void {
+    const eventElement = this.eventElement;
+    if (eventElement) {
+      eventElement.removeEventListener(this.event, this.eventListener);
+    } else {
+      this.parentElement.removeEventListener(this.event, this.eventListener);
     }
   }
 
