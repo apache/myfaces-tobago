@@ -10596,7 +10596,6 @@ textarea.form-control-lg {
  */
 /* icon variables ---------------------------------------------------- */
 /* non-bootstrap variables --------------------------------------- */
-/* bootstrap variables --------------------------------------- */
 /* utilities ----------------------------------------------------- */
 .tobago-display-inline-block {
   display: inline-block;
@@ -10740,9 +10739,6 @@ tobago-date {
 }
 tobago-date input {
   min-width: 7em;
-}
-tobago-date input:disabled {
-  color: rgba(33, 37, 41, 0.5);
 }
 tobago-date input::-ms-clear {
   /* Remove IE10's "clear field" X button */
@@ -11005,9 +11001,6 @@ tobago-image > img {
 /* in ----------------------------------------------------------- */
 tobago-in {
   display: block;
-}
-tobago-in input[type=text]:disabled {
-  color: rgba(33, 37, 41, 0.5);
 }
 tobago-in .input-group > tobago-dropdown {
   /* fix corner styling, because tobago-dropdown use a surrounding container inside an input group */
@@ -11729,9 +11722,6 @@ tobago-select-boolean-toggle .form-check-label img {
 tobago-select-one-choice {
   display: block;
 }
-tobago-select-one-choice select:disabled {
-  color: rgba(33, 37, 41, 0.5);
-}
 
 tobago-select-one-list {
   display: block;
@@ -11771,7 +11761,6 @@ tobago-select-one-list.tobago-focus .list-group.border-info {
   box-shadow: 0 0 0 0.25rem rgba(91, 192, 222, 0.25);
 }
 tobago-select-one-list.tobago-disabled .tobago-select-field {
-  color: rgba(33, 37, 41, 0.5);
   background-color: #e3e4e5;
 }
 tobago-select-one-list .list-group {
@@ -11838,7 +11827,6 @@ tobago-select-one-list .tobago-options .table tbody tr {
   cursor: pointer;
 }
 tobago-select-one-list .tobago-options .table tbody tr.tobago-disabled {
-  color: rgba(33, 37, 41, 0.5);
   background-color: #e3e4e5;
   cursor: initial;
   pointer-events: none;
@@ -11860,9 +11848,6 @@ tobago-select-one-list .tobago-options .table tfoot tr.tobago-no-entries td {
 
 tobago-select-one-listbox {
   display: block;
-}
-tobago-select-one-listbox select:disabled option, tobago-select-one-listbox select option:disabled {
-  color: rgba(33, 37, 41, 0.5);
 }
 
 /* selectOneRadio ---------------------------------------------------------- */
@@ -11921,7 +11906,6 @@ tobago-select-many-list.tobago-focus .list-group.border-info {
   box-shadow: 0 0 0 0.25rem rgba(91, 192, 222, 0.25);
 }
 tobago-select-many-list.tobago-disabled .tobago-select-field {
-  color: rgba(33, 37, 41, 0.5);
   background-color: #e3e4e5;
 }
 tobago-select-many-list .list-group {
@@ -11988,7 +11972,6 @@ tobago-select-many-list .tobago-options .table tbody tr {
   cursor: pointer;
 }
 tobago-select-many-list .tobago-options .table tbody tr.tobago-disabled {
-  color: rgba(33, 37, 41, 0.5);
   background-color: #e3e4e5;
   cursor: initial;
   pointer-events: none;
@@ -12034,9 +12017,6 @@ tobago-select-many-checkbox.tobago-label-container .form-check-inline {
 tobago-select-many-listbox {
   display: block;
 }
-tobago-select-many-listbox select:disabled option, tobago-select-many-listbox select option:disabled {
-  color: rgba(33, 37, 41, 0.5);
-}
 
 /* selectManyShuttle ----------------------------------------------------------- */
 tobago-select-many-shuttle {
@@ -12049,12 +12029,6 @@ tobago-select-many-shuttle .tobago-body {
 tobago-select-many-shuttle .tobago-body .btn-group-vertical {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-}
-tobago-select-many-shuttle .tobago-body .tobago-unselected:disabled option, tobago-select-many-shuttle .tobago-body .tobago-unselected option:disabled {
-  color: rgba(33, 37, 41, 0.5);
-}
-tobago-select-many-shuttle .tobago-body .tobago-selected:disabled option, tobago-select-many-shuttle .tobago-body .tobago-selected option:disabled {
-  color: rgba(33, 37, 41, 0.5);
 }
 tobago-select-many-shuttle.tobago-label-container > .tobago-body, tobago-select-many-shuttle .tobago-help-container > .tobago-body, tobago-select-many-shuttle .tobago-messages-container > .tobago-body {
   flex: 1 0 0px;
@@ -12384,9 +12358,6 @@ tobago-tab-group tobago-tab > .nav-link > i + span {
 
 tobago-textarea {
   display: block;
-}
-tobago-textarea textarea:disabled {
-  color: rgba(33, 37, 41, 0.5);
 }
 
 /* tree ---------------------------------------------------------------------- */
