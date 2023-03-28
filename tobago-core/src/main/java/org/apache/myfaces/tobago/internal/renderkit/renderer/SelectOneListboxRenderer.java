@@ -71,7 +71,7 @@ public class SelectOneListboxRenderer<T extends AbstractUISelectOneListbox> exte
     writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
 
     writer.writeClassAttribute(
-        BootstrapClass.FORM_CONTROL,
+        BootstrapClass.FORM_SELECT,
         BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(component)),
         component.getCustomClass(),
         markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);

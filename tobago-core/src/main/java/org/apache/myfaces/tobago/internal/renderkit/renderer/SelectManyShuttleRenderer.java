@@ -85,7 +85,7 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
     // TODO tabIndex
     writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
 
-    writer.writeClassAttribute(TobagoClass.UNSELECTED, BootstrapClass.FORM_CONTROL);
+    writer.writeClassAttribute(TobagoClass.UNSELECTED, BootstrapClass.FORM_SELECT);
 
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
@@ -121,7 +121,7 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
     writer.writeClassAttribute(
         TobagoClass.SELECTED,
         BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(component)),
-        BootstrapClass.FORM_CONTROL);
+        BootstrapClass.FORM_SELECT);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
     renderSelectItems(component, null, items, values, submittedValues, true, writer, facesContext);
