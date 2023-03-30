@@ -443,6 +443,10 @@ NumberProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+FloatProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 MethodExpressionProperty(property) ::= <<
 
 public <property.type> get<property.upperCamelCaseName>Expression() {
