@@ -32,6 +32,7 @@ public enum RendererTypes {
   Config,
   Calendar,
   Column,
+  ColumnPanel,
   ColumnSelector,
   Date,
   Event,
@@ -107,6 +108,7 @@ public enum RendererTypes {
   public static final String CONFIG = "Config";
   public static final String CALENDAR = "Calendar";
   public static final String COLUMN = "Column";
+  public static final String COLUMN_PANEL = "ColumnPanel";
   public static final String COLUMN_SELECTOR = "ColumnSelector";
   public static final String EVENT = "Event";
   public static final String DATE = "Date";

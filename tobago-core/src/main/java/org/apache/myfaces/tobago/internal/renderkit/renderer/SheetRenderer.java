@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnNode;
+import org.apache.myfaces.tobago.internal.component.AbstractUIColumnPanel;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnSelector;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUILink;
@@ -664,10 +665,14 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
           row != null ? row.getCustomClass() : null,
           sheet.isRowVisible() ? null : BootstrapClass.D_NONE);
 
+      int colSpan = 0;
+      AbstractUIColumnPanel panel = null;
+
       for (final AbstractUIColumnBase column : columns) {
         if (column.isRendered()) {
           if (column instanceof AbstractUIColumn || column instanceof AbstractUIColumnSelector
               || column instanceof AbstractUIColumnNode) {
+            colSpan++;
             writer.startElement(HtmlElements.TD);
             Markup markup = column.getMarkup();
             if (markup == null) {
@@ -705,10 +710,13 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
             }*/
 
             writer.endElement(HtmlElements.TD);
+          } else if (column instanceof AbstractUIColumnPanel) {
+            panel = (AbstractUIColumnPanel) column;
           }
         }
       }
 
+      colSpan++;
       writer.startElement(HtmlElements.TD);
       writer.startElement(HtmlElements.DIV);
       writer.endElement(HtmlElements.DIV);
@@ -716,6 +724,16 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       writer.endElement(HtmlElements.TD);
 
       writer.endElement(HtmlElements.TR);
+
+      if (panel != null) {
+        writer.startElement(HtmlElements.TR);
+        writer.writeClassAttribute(panel.getCustomClass());
+        writer.startElement(HtmlElements.TD);
+        writer.writeAttribute(HtmlAttributes.COLSPAN, colSpan);
+        panel.encodeAll(facesContext);
+        writer.endElement(HtmlElements.TD);
+        writer.endElement(HtmlElements.TR);
+      }
     }
 
     sheet.setRowIndex(-1);
