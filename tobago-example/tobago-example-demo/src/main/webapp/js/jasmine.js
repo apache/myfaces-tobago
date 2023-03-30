@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2022 Pivotal Labs
+Copyright (c) 2008-2023 Pivotal Labs
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -741,6 +741,8 @@ getJasmineRequireObj().Spec = function(j$) {
     this.asyncExpectationFactory = attrs.asyncExpectationFactory;
     this.resultCallback = attrs.resultCallback || function() {};
     this.id = attrs.id;
+    this.filename = attrs.filename;
+    this.parentSuiteId = attrs.parentSuiteId;
     this.description = attrs.description || '';
     this.queueableFn = attrs.queueableFn;
     this.beforeAndAfterFns =
@@ -774,35 +776,7 @@ getJasmineRequireObj().Spec = function(j$) {
       this.exclude();
     }
 
-    /**
-     * @typedef SpecResult
-     * @property {String} id - The unique id of this spec.
-     * @property {String} description - The description passed to the {@link it} that created this spec.
-     * @property {String} fullName - The full description including all ancestors of this spec.
-     * @property {Expectation[]} failedExpectations - The list of expectations that failed during execution of this spec.
-     * @property {Expectation[]} passedExpectations - The list of expectations that passed during execution of this spec.
-     * @property {Expectation[]} deprecationWarnings - The list of deprecation warnings that occurred during execution this spec.
-     * @property {String} pendingReason - If the spec is {@link pending}, this will be the reason.
-     * @property {String} status - Once the spec has completed, this string represents the pass/fail status of this spec.
-     * @property {number} duration - The time in ms used by the spec execution, including any before/afterEach.
-     * @property {Object} properties - User-supplied properties, if any, that were set using {@link Env#setSpecProperty}
-     * @property {DebugLogEntry[]|null} debugLogs - Messages, if any, that were logged using {@link jasmine.debugLog} during a failing spec.
-     * @since 2.0.0
-     */
-    this.result = {
-      id: this.id,
-      description: this.description,
-      fullName: this.getFullName(),
-      failedExpectations: [],
-      passedExpectations: [],
-      deprecationWarnings: [],
-      pendingReason: '',
-      duration: null,
-      properties: null,
-      debugLogs: null
-    };
-
-    this.reportedDone = false;
+    this.reset();
   }
 
   Spec.prototype.addExpectationResult = function(passed, data, isError) {
@@ -912,14 +886,33 @@ getJasmineRequireObj().Spec = function(j$) {
   };
 
   Spec.prototype.reset = function() {
+    /**
+     * @typedef SpecResult
+     * @property {String} id - The unique id of this spec.
+     * @property {String} description - The description passed to the {@link it} that created this spec.
+     * @property {String} fullName - The full description including all ancestors of this spec.
+     * @property {String|null} parentSuiteId - The ID of the suite containing this spec, or null if this spec is not in a describe().
+     * @property {String} filename - The name of the file the spec was defined in.
+     * @property {Expectation[]} failedExpectations - The list of expectations that failed during execution of this spec.
+     * @property {Expectation[]} passedExpectations - The list of expectations that passed during execution of this spec.
+     * @property {Expectation[]} deprecationWarnings - The list of deprecation warnings that occurred during execution this spec.
+     * @property {String} pendingReason - If the spec is {@link pending}, this will be the reason.
+     * @property {String} status - Once the spec has completed, this string represents the pass/fail status of this spec.
+     * @property {number} duration - The time in ms used by the spec execution, including any before/afterEach.
+     * @property {Object} properties - User-supplied properties, if any, that were set using {@link Env#setSpecProperty}
+     * @property {DebugLogEntry[]|null} debugLogs - Messages, if any, that were logged using {@link jasmine.debugLog} during a failing spec.
+     * @since 2.0.0
+     */
     this.result = {
       id: this.id,
       description: this.description,
       fullName: this.getFullName(),
+      parentSuiteId: this.parentSuiteId,
+      filename: this.filename,
       failedExpectations: [],
       passedExpectations: [],
       deprecationWarnings: [],
-      pendingReason: this.excludeMessage,
+      pendingReason: this.excludeMessage || '',
       duration: null,
       properties: null,
       debugLogs: null
@@ -1816,17 +1809,23 @@ getJasmineRequireObj().Env = function(j$) {
 
     this.describe = function(description, definitionFn) {
       ensureIsNotNested('describe');
-      return suiteBuilder.describe(description, definitionFn).metadata;
+      const filename = callerCallerFilename();
+      return suiteBuilder.describe(description, definitionFn, filename)
+        .metadata;
     };
 
     this.xdescribe = function(description, definitionFn) {
       ensureIsNotNested('xdescribe');
-      return suiteBuilder.xdescribe(description, definitionFn).metadata;
+      const filename = callerCallerFilename();
+      return suiteBuilder.xdescribe(description, definitionFn, filename)
+        .metadata;
     };
 
     this.fdescribe = function(description, definitionFn) {
       ensureIsNotNested('fdescribe');
-      return suiteBuilder.fdescribe(description, definitionFn).metadata;
+      const filename = callerCallerFilename();
+      return suiteBuilder.fdescribe(description, definitionFn, filename)
+        .metadata;
     };
 
     function specResultCallback(spec, result, next) {
@@ -1853,17 +1852,20 @@ getJasmineRequireObj().Env = function(j$) {
 
     this.it = function(description, fn, timeout) {
       ensureIsNotNested('it');
-      return suiteBuilder.it(description, fn, timeout).metadata;
+      const filename = callerCallerFilename();
+      return suiteBuilder.it(description, fn, timeout, filename).metadata;
     };
 
     this.xit = function(description, fn, timeout) {
       ensureIsNotNested('xit');
-      return suiteBuilder.xit(description, fn, timeout).metadata;
+      const filename = callerCallerFilename();
+      return suiteBuilder.xit(description, fn, timeout, filename).metadata;
     };
 
     this.fit = function(description, fn, timeout) {
       ensureIsNotNested('fit');
-      return suiteBuilder.fit(description, fn, timeout).metadata;
+      const filename = callerCallerFilename();
+      return suiteBuilder.fit(description, fn, timeout, filename).metadata;
     };
 
     /**
@@ -2001,6 +2003,10 @@ getJasmineRequireObj().Env = function(j$) {
         globalErrors.uninstall();
       }
     };
+  }
+
+  function callerCallerFilename() {
+    return new j$.StackTrace(new Error()).frames[3].file;
   }
 
   return Env;
@@ -9530,6 +9536,8 @@ getJasmineRequireObj().Suite = function(j$) {
     this.id = attrs.id;
     this.parentSuite = attrs.parentSuite;
     this.description = attrs.description;
+    this.reportedParentSuiteId = attrs.reportedParentSuiteId;
+    this.filename = attrs.filename;
     this.expectationFactory = attrs.expectationFactory;
     this.asyncExpectationFactory = attrs.asyncExpectationFactory;
     this.throwOnExpectationFailure = !!attrs.throwOnExpectationFailure;
@@ -9635,6 +9643,8 @@ getJasmineRequireObj().Suite = function(j$) {
      * @property {String} id - The unique id of this suite.
      * @property {String} description - The description text passed to the {@link describe} that made this suite.
      * @property {String} fullName - The full description including all ancestors of this suite.
+     * @property {String|null} parentSuiteId - The ID of the suite containing this suite, or null if this is not in another describe().
+     * @property {String} filename - The name of the file the suite was defined in.
      * @property {Expectation[]} failedExpectations - The list of expectations that failed in an {@link afterAll} for this suite.
      * @property {Expectation[]} deprecationWarnings - The list of deprecation warnings that occurred on this suite.
      * @property {String} status - Once the suite has completed, this string represents the pass/fail status of this suite.
@@ -9646,6 +9656,8 @@ getJasmineRequireObj().Suite = function(j$) {
       id: this.id,
       description: this.description,
       fullName: this.getFullName(),
+      parentSuiteId: this.reportedParentSuiteId,
+      filename: this.filename,
       failedExpectations: [],
       deprecationWarnings: [],
       duration: null,
@@ -9873,9 +9885,9 @@ getJasmineRequireObj().SuiteBuilder = function(j$) {
       this.focusedRunables = [];
     }
 
-    describe(description, definitionFn) {
+    describe(description, definitionFn, filename) {
       ensureIsFunction(definitionFn, 'describe');
-      const suite = this.suiteFactory_(description);
+      const suite = this.suiteFactory_(description, filename);
       if (definitionFn.length > 0) {
         throw new Error('describe does not expect any arguments');
       }
@@ -9886,9 +9898,9 @@ getJasmineRequireObj().SuiteBuilder = function(j$) {
       return suite;
     }
 
-    fdescribe(description, definitionFn) {
+    fdescribe(description, definitionFn, filename) {
       ensureIsFunction(definitionFn, 'fdescribe');
-      const suite = this.suiteFactory_(description);
+      const suite = this.suiteFactory_(description, filename);
       suite.isFocused = true;
 
       this.focusedRunables.push(suite.id);
@@ -9898,37 +9910,37 @@ getJasmineRequireObj().SuiteBuilder = function(j$) {
       return suite;
     }
 
-    xdescribe(description, definitionFn) {
+    xdescribe(description, definitionFn, filename) {
       ensureIsFunction(definitionFn, 'xdescribe');
-      const suite = this.suiteFactory_(description);
+      const suite = this.suiteFactory_(description, filename);
       suite.exclude();
       this.addSpecsToSuite_(suite, definitionFn);
 
       return suite;
     }
 
-    it(description, fn, timeout) {
+    it(description, fn, timeout, filename) {
       // it() sometimes doesn't have a fn argument, so only check the type if
       // it's given.
       if (arguments.length > 1 && typeof fn !== 'undefined') {
         ensureIsFunctionOrAsync(fn, 'it');
       }
 
-      return this.it_(description, fn, timeout);
+      return this.it_(description, fn, timeout, filename);
     }
 
-    xit(description, fn, timeout) {
+    xit(description, fn, timeout, filename) {
       // xit(), like it(), doesn't always have a fn argument, so only check the
       // type when needed.
       if (arguments.length > 1 && typeof fn !== 'undefined') {
         ensureIsFunctionOrAsync(fn, 'xit');
       }
-      const spec = this.it_(description, fn, timeout);
+      const spec = this.it_(description, fn, timeout, filename);
       spec.exclude('Temporarily disabled with xit');
       return spec;
     }
 
-    fit(description, fn, timeout) {
+    fit(description, fn, timeout, filename) {
       // Unlike it and xit, the function is required because it doesn't make
       // sense to focus on nothing.
       ensureIsFunctionOrAsync(fn, 'fit');
@@ -9936,7 +9948,7 @@ getJasmineRequireObj().SuiteBuilder = function(j$) {
       if (timeout) {
         j$.util.validateTimeout(timeout);
       }
-      const spec = this.specFactory_(description, fn, timeout);
+      const spec = this.specFactory_(description, fn, timeout, filename);
       this.currentDeclarationSuite_.addChild(spec);
       this.focusedRunables.push(spec.id);
       this.unfocusAncestor_();
@@ -9996,12 +10008,12 @@ getJasmineRequireObj().SuiteBuilder = function(j$) {
       });
     }
 
-    it_(description, fn, timeout) {
+    it_(description, fn, timeout, filename) {
       if (timeout) {
         j$.util.validateTimeout(timeout);
       }
 
-      const spec = this.specFactory_(description, fn, timeout);
+      const spec = this.specFactory_(description, fn, timeout, filename);
       if (this.currentDeclarationSuite_.markedExcluding) {
         spec.exclude();
       }
@@ -10010,12 +10022,17 @@ getJasmineRequireObj().SuiteBuilder = function(j$) {
       return spec;
     }
 
-    suiteFactory_(description) {
+    suiteFactory_(description, filename) {
       const config = this.env_.configuration();
+      const parentSuite = this.currentDeclarationSuite_;
+      const reportedParentSuiteId =
+        parentSuite === this.topSuite ? null : parentSuite.id;
       return new j$.Suite({
         id: 'suite' + this.nextSuiteId_++,
         description,
-        parentSuite: this.currentDeclarationSuite_,
+        filename,
+        parentSuite,
+        reportedParentSuiteId,
         timer: new j$.Timer(),
         expectationFactory: this.expectationFactory_,
         asyncExpectationFactory: this.suiteAsyncExpectationFactory_,
@@ -10047,12 +10064,15 @@ getJasmineRequireObj().SuiteBuilder = function(j$) {
       this.currentDeclarationSuite_ = parentSuite;
     }
 
-    specFactory_(description, fn, timeout) {
+    specFactory_(description, fn, timeout, filename) {
       this.totalSpecsDefined++;
       const config = this.env_.configuration();
       const suite = this.currentDeclarationSuite_;
+      const parentSuiteId = suite === this.topSuite ? null : suite.id;
       const spec = new j$.Spec({
         id: 'spec' + this.nextSpecId_++,
+        filename,
+        parentSuiteId,
         beforeAndAfterFns: beforeAndAfterFns(suite),
         expectationFactory: this.expectationFactory_,
         asyncExpectationFactory: this.specAsyncExpectationFactory_,
@@ -10464,5 +10484,5 @@ getJasmineRequireObj().UserContext = function(j$) {
 };
 
 getJasmineRequireObj().version = function() {
-  return '4.5.0';
+  return '4.6.0';
 };
