@@ -166,13 +166,13 @@ public abstract class AbstractUIStyle extends UIComponentBase {
 
   public abstract void setBackgroundImage(String backgroundImage);
 
-  public abstract Number getFlexGrow();
+  public abstract Float getFlexGrow();
 
-  public abstract void setFlexGrow(Number flexGrow);
+  public abstract void setFlexGrow(Float flexGrow);
 
-  public abstract Number getFlexShrink();
+  public abstract Float getFlexShrink();
 
-  public abstract void setFlexShrink(Number flexShrink);
+  public abstract void setFlexShrink(Float flexShrink);
 
   public abstract Measure getFlexBasis();
 

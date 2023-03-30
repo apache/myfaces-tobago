@@ -79,7 +79,7 @@ public abstract class AbstractUIFlexLayout extends AbstractUILayoutBase {
               if (unit == Measure.Unit.FR) {
                 final float factor = token.getValue();
                 style.setFlexGrow(factor);
-                style.setFlexShrink(0);
+                style.setFlexShrink(0f);
                 style.setFlexBasis(Measure.ZERO);
 //                style.setFlexBasis(Measure.AUTO); // is unbalanced when mixing e.g. <p> with <textarea>
               } else {
