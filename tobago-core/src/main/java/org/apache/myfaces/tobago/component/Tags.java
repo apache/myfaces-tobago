@@ -37,6 +37,7 @@ public enum Tags {
   config,
   column,
   columnNode,
+  columnPanel,
   columnSelector,
   date,
   event,
@@ -111,6 +112,7 @@ public enum Tags {
   public static final String CONFIG = "config";
   public static final String COLUMN = "column";
   public static final String COLUMN_NODE = "columnNode";
+  public static final String COLUMN_PANEL = "columnPanel";
   public static final String COLUMN_SELECTOR = "columnSelector";
   public static final String EVENT = "event";
   public static final String DATE = "date";
