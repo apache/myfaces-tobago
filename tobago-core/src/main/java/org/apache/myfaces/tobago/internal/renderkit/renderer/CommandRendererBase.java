@@ -141,7 +141,14 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
     final String image = component.getImage();
     HtmlRendererUtils.encodeIconOrImage(writer, image);
 
-    if (label.getLabel() != null) {
+    final UIComponent labelFacet = ComponentUtils.getFacet(component, Facets.label);
+    if (labelFacet != null) {
+      insideBegin(facesContext, Facets.label);
+      for (final UIComponent child : RenderUtils.getFacetChildren(labelFacet)) {
+        child.encodeAll(facesContext);
+      }
+      insideEnd(facesContext, Facets.label);
+    } else if (label.getLabel() != null) {
       writer.startElement(HtmlElements.SPAN);
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
       writer.endElement(HtmlElements.SPAN);
