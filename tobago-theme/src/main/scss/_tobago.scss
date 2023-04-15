@@ -135,6 +135,12 @@ $tobago-flex-layout-spacing: 0.5rem;
   }
 }
 
+@mixin markupHideToggleIcon() {
+  &.tobago-hideToggleIcon:after {
+    content: none;
+  }
+}
+
 @mixin messagesHelpContainer($tobago-form-validation-states) {
   @each $state, $data in $tobago-form-validation-states {
     @include form-validation-state($state, $data...);
@@ -418,6 +424,7 @@ tobago-box {
   @include buttonLinkDisabledCursor();
   @include buttonLinkImageTextSpacing();
   @include badgeBtn();
+  @include markupHideToggleIcon();
 
   &.badge {
     @each $color, $value in $theme-colors {
@@ -808,6 +815,7 @@ tobago-links {
 
 .tobago-link {
   @include buttonLinkImageTextSpacing();
+  @include markupHideToggleIcon();
   white-space: nowrap;
 
   span {

@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIBadge;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFormBase;
@@ -74,6 +75,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
     final boolean autoSpacing = component.getAutoSpacing(facesContext);
     final boolean parentOfCommands = component.isParentOfCommands();
     final boolean dropdownSubmenu = isInside(facesContext, HtmlElements.COMMAND);
+    final Markup markup = component.getMarkup() != null ? component.getMarkup() : Markup.NULL;
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -124,6 +126,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
         autoSpacing && !dropdownSubmenu ? TobagoClass.AUTO__SPACING : null,
         dropdownSubmenu ? BootstrapClass.DROPDOWN_ITEM : null,
         parentOfCommands && !dropdownSubmenu ? BootstrapClass.DROPDOWN_TOGGLE : null,
+        markup.contains(Markup.HIDE_TOGGLE_ICON) ? TobagoClass.HIDE_TOGGLE_ICON : null,
         label.getLabel() == null && image == null && labelFacet == null ? BootstrapClass.DROPDOWN_TOGGLE_SPLIT : null,
         component.getCustomClass(),
         isInside(facesContext, HtmlElements.TOBAGO_LINKS) && !dropdownSubmenu ? BootstrapClass.NAV_LINK : null);
