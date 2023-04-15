@@ -11019,6 +11019,10 @@ button.tobago-button:disabled img, button.tobago-button:disabled span {
 tobago-buttons > .tobago-button {
   display: inline-block;
 }
+tobago-buttons > tobago-dropdown:last-child > .tobago-button.dropdown-toggle-split:first-child {
+  border-top-right-radius: var(--bs-btn-border-radius);
+  border-bottom-right-radius: var(--bs-btn-border-radius);
+}
 
 /* collapsible -------------------------------------------------------------- */
 tobago-box.tobago-collapsed .card-body,
