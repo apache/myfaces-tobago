@@ -10979,6 +10979,9 @@ tobago-box > .card-body {
 .tobago-button.badge.btn {
   --bs-btn-border-width: 0;
 }
+.tobago-button.tobago-hideToggleIcon:after {
+  content: none;
+}
 .tobago-button.badge.btn-primary {
   --bs-badge-color: #000000;
 }
@@ -11397,6 +11400,9 @@ tobago-links .nav .nav-item .nav-link {
 }
 .tobago-link > i + span {
   margin-left: 0.4em;
+}
+.tobago-link.tobago-hideToggleIcon:after {
+  content: none;
 }
 .tobago-link span {
   white-space: normal;
