@@ -455,6 +455,12 @@ tobago-buttons {
   > .tobago-button {
     display: inline-block;
   }
+
+  > tobago-dropdown:last-child > .tobago-button.dropdown-toggle-split:first-child {
+    //split buttons in Tobago have a tobago-dropdown tag included, which leads to an issue with border-radius
+    border-top-right-radius: var(--bs-btn-border-radius);
+    border-bottom-right-radius: var(--bs-btn-border-radius);
+  }
 }
 
 /* collapsible -------------------------------------------------------------- */
