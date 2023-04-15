@@ -59,31 +59,65 @@
     </tc:buttons>
   </tc:section>
 
-  <tc:section label="Dropdown Button">
-    <p>A dropdown button can also be placed in a <code class="language-markup">&lt;tc:buttons/></code> tag.</p>
+  <tc:section label="Split buttons">
+    <p>A dropdown button can also be placed in a <code class="language-markup">&lt;tc:buttons/></code> tag to create a
+      split button.</p>
     <demo-highlight language="markup">&lt;tc:buttons>
-  &lt;tc:button label="Dropdown" omit="true">
-    &lt;tc:link label="Action 1"/>
-    ...
-    &lt;tc:separator/>
-    &lt;tc:link label="Other Action"/>
+  &lt;tc:button label="Primary" markup="primary"/>
+  &lt;tc:button omit="true" markup="primary">
+    &lt;tc:link label="Entry 1"/>
+    &lt;tc:link label="Entry 2"/>
+    &lt;tc:link label="Entry 3"/>
   &lt;/tc:button>
-  &lt;tc:button label="Center"/>
-  &lt;tc:button label="Right"/>
-&lt;/tc:buttons></demo-highlight>
-    <tc:buttons>
-      <tc:button id="buttonWithLinks" label="Dropdown" omit="true">
-        <tc:link label="Action 1"/>
-        <tc:link label="Action 2"/>
-        <tc:link label="Action 3">
-          <tc:link label="Action 3.1"/>
-          <tc:link label="Action 3.2"/>
-        </tc:link>
-        <tc:separator/>
-        <tc:link label="Other Action"/>
+&lt;/tc:buttons>
+    </demo-highlight>
+    <tc:buttons id="splitButtonsPrimary">
+      <tc:button label="Primary" markup="primary"/>
+      <tc:button id="splitPrimary" omit="true" markup="primary">
+        <tc:link label="Entry 1"/>
+        <tc:link label="Entry 2"/>
+        <tc:link label="Entry 3"/>
       </tc:button>
-      <tc:button label="Center"/>
-      <tc:button label="Right"/>
+    </tc:buttons>
+    <tc:buttons>
+      <tc:button label="Secondary" markup="secondary"/>
+      <tc:button omit="true" markup="secondary">
+        <tc:link label="Entry 1"/>
+        <tc:link label="Entry 2"/>
+        <tc:link label="Entry 3"/>
+      </tc:button>
+    </tc:buttons>
+    <tc:buttons>
+      <tc:button label="Success" markup="success"/>
+      <tc:button omit="true" markup="success">
+        <tc:link label="Entry 1"/>
+        <tc:link label="Entry 2"/>
+        <tc:link label="Entry 3"/>
+      </tc:button>
+    </tc:buttons>
+    <tc:buttons>
+      <tc:button label="Info" markup="info"/>
+      <tc:button omit="true" markup="info">
+        <tc:link label="Entry 1"/>
+        <tc:link label="Entry 2"/>
+        <tc:link label="Entry 3"/>
+      </tc:button>
+    </tc:buttons>
+    <tc:buttons>
+      <tc:button label="Warning" markup="warning"/>
+      <tc:button omit="true" markup="warning">
+        <tc:link label="Entry 1"/>
+        <tc:link label="Entry 2"/>
+        <tc:link label="Entry 3"/>
+      </tc:button>
+    </tc:buttons>
+    <tc:buttons>
+      <tc:button label="Danger" markup="danger"/>
+      <tc:button omit="true" markup="danger">
+        <tc:link label="Entry 1"/>
+        <tc:link label="Entry 2"/>
+        <tc:link label="Entry 3"/>
+      </tc:button>
     </tc:buttons>
   </tc:section>
 

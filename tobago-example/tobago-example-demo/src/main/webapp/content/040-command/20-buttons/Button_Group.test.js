@@ -15,13 +15,25 @@
  * limitations under the License.
  */
 
-import {querySelectorFn} from "/script/tobago-test.js";
+import {elementByIdFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("Dropdown button has 'btn-group'", function (done) {
-  let buttonFn = querySelectorFn("#page\\:mainForm\\:buttonWithLinks");
+  const dropdownFn = elementByIdFn("page:mainForm:splitPrimary");
 
-  let test = new JasmineTestTool(done);
-  test.do(() => expect(buttonFn().classList.contains("btn-group")).toBe(true, "id=buttonWithLinks must have 'btn-group'"));
+  const test = new JasmineTestTool(done);
+  test.do(() => expect(dropdownFn().classList.contains("btn-group")).toBe(true, "id=buttonWithLinks must have 'btn-group'"));
+  test.start();
+});
+
+it("Split button has rounded corners", function (done) {
+  const buttonFn = elementByIdFn("page:mainForm:splitPrimary::command");
+  const buttonStyle = getComputedStyle(buttonFn());
+
+  const test = new JasmineTestTool(done);
+  test.do(() => expect(buttonStyle.borderTopLeftRadius).toBe("0px"));
+  test.do(() => expect(buttonStyle.borderBottomLeftRadius).toBe("0px"));
+  test.do(() => expect(buttonStyle.borderTopRightRadius).toBe("6px"));
+  test.do(() => expect(buttonStyle.borderBottomRightRadius).toBe("6px"));
   test.start();
 });
