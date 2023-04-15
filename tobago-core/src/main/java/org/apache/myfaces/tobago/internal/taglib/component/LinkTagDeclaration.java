@@ -124,6 +124,10 @@ import javax.faces.component.UICommand;
         @Markup(
             name = org.apache.myfaces.tobago.context.Markup.STRING_ITALIC,
             description = "Set font to italic."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_HIDE_TOGGLE_ICON,
+            description = "Hide the toggle icon of a dropdown menu."
         )
     })
 public interface LinkTagDeclaration

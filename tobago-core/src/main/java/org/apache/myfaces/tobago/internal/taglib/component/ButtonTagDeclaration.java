@@ -159,6 +159,10 @@ import javax.faces.component.UICommand;
         @Markup(
             name = org.apache.myfaces.tobago.context.Markup.STRING_PILL,
             description = "Make badges more rounded if button is displayed as a badge."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_HIDE_TOGGLE_ICON,
+            description = "Hide the toggle icon of a dropdown menu."
         )
     })
 public interface ButtonTagDeclaration
