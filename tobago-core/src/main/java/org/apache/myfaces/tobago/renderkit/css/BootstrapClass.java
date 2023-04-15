@@ -312,6 +312,7 @@ public enum BootstrapClass implements CssItem {
   DROPDOWN_MENU("dropdown-menu"),
   DROPDOWN_MENU_END("dropdown-menu-end"),
   DROPDOWN_TOGGLE("dropdown-toggle"),
+  DROPDOWN_TOGGLE_SPLIT("dropdown-toggle-split"),
   ERROR_FEEDBACK("error-feedback"),
   ERROR_TOOLTIP("error-tooltip"),
   FADE("fade"),

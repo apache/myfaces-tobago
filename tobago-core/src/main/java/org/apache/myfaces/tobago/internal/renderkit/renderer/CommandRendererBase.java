@@ -67,6 +67,8 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
     final String clientId = component.getClientId(facesContext);
     final boolean disabled = component.isDisabled();
     final LabelWithAccessKey label = new LabelWithAccessKey(component);
+    final String image = component.getImage();
+    final UIComponent labelFacet = ComponentUtils.getFacet(component, Facets.label);
     final boolean anchor = (component.getLink() != null || component.getOutcome() != null) && !disabled;
     final String target = component.getTarget();
     final boolean autoSpacing = component.getAutoSpacing(facesContext);
@@ -122,6 +124,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
         autoSpacing && !dropdownSubmenu ? TobagoClass.AUTO__SPACING : null,
         dropdownSubmenu ? BootstrapClass.DROPDOWN_ITEM : null,
         parentOfCommands && !dropdownSubmenu ? BootstrapClass.DROPDOWN_TOGGLE : null,
+        label.getLabel() == null && image == null && labelFacet == null ? BootstrapClass.DROPDOWN_TOGGLE_SPLIT : null,
         component.getCustomClass(),
         isInside(facesContext, HtmlElements.TOBAGO_LINKS) && !dropdownSubmenu ? BootstrapClass.NAV_LINK : null);
 
@@ -139,10 +142,8 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
       encodeBehavior(writer, facesContext, component);
     }
 
-    final String image = component.getImage();
     HtmlRendererUtils.encodeIconOrImage(writer, image);
 
-    final UIComponent labelFacet = ComponentUtils.getFacet(component, Facets.label);
     if (labelFacet != null) {
       insideBegin(facesContext, Facets.label);
       for (final UIComponent child : RenderUtils.getFacetChildren(labelFacet)) {
