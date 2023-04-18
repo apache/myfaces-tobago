@@ -20,7 +20,7 @@ import {elementByIdFn, querySelectorAllFn, querySelectorFn} from "/script/tobago
 
 it("Execute 'AJAX' entry in dropdown menu", function (done) {
   let dropdownButtonFn = elementByIdFn("page:mainForm:dropdownButton::command");
-  let dropdownMenuFn = querySelectorFn(".dropdown-menu[name=page\\:mainForm\\:dropdownButton]");
+  let dropdownMenuFn = querySelectorFn(".tobago-dropdown-menu[name=page\\:mainForm\\:dropdownButton]");
   let dropdownAjaxEntryFn = elementByIdFn("page:mainForm:ajaxEntry");
   let inputFn = elementByIdFn("page:mainForm:inputAjax::field");
   let outputFn = querySelectorFn("#page\\:mainForm\\:outputAjax .form-control-plaintext");
