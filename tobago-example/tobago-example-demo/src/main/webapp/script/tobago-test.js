@@ -19,25 +19,44 @@
 
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
+/**
+ * @param expression
+ * @returns {function(): HTMLElement}
+ */
 function elementByIdFn(expression) {
   return function () {
     return document.getElementById("page:testframe").contentWindow.document.getElementById(expression);
   }
 }
 
+/**
+ * @param expression
+ * @returns {function(): *}
+ */
 function querySelectorFn(expression) {
   return function () {
     return document.getElementById("page:testframe").contentWindow.document.querySelector(expression);
   }
 }
 
+/**
+ * @param expression
+ * @returns {function(): NodeListOf<*>}
+ */
 function querySelectorAllFn(expression) {
   return function () {
     return document.getElementById("page:testframe").contentWindow.document.querySelectorAll(expression);
   }
 }
 
-export {elementByIdFn, querySelectorFn, querySelectorAllFn};
+/**
+ * @returns {HTMLElement}
+ */
+function activeElementFn() {
+  return document.getElementById("page:testframe").contentWindow.document.activeElement;
+}
+
+export {elementByIdFn, querySelectorFn, querySelectorAllFn, activeElementFn};
 
 beforeEach(function (done) {
   const test = new JasmineTestTool(done);

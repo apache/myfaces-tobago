@@ -80,7 +80,7 @@ it("Simple EventAjax", function (done) {
 
 it("Dropdown: Simple Event", function (done) {
   const dropdownButtonFn = elementByIdFn("page:mainForm:dropdown::command");
-  const dropdownMenuFn = querySelectorFn(".dropdown-menu[name='page:mainForm:dropdown']");
+  const dropdownMenuFn = querySelectorFn(".tobago-dropdown-menu[name='page:mainForm:dropdown']");
   const entryFn = elementByIdFn("page:mainForm:simpleEventEntry");
   const oldCounterValues = getCounterValues();
 
@@ -108,7 +108,7 @@ it("Dropdown: Simple Event", function (done) {
 
 it("Dropdown: Simple Ajax", function (done) {
   const dropdownButtonFn = elementByIdFn("page:mainForm:dropdown::command");
-  const dropdownMenuFn = querySelectorFn(".dropdown-menu[name='page:mainForm:dropdown']");
+  const dropdownMenuFn = querySelectorFn(".tobago-dropdown-menu[name='page:mainForm:dropdown']");
   const entryFn = elementByIdFn("page:mainForm:simpleAjaxEntry");
   const oldCounterValues = getCounterValues();
 
@@ -136,7 +136,7 @@ it("Dropdown: Simple Ajax", function (done) {
 
 it("Dropdown: Simple EventAjax", function (done) {
   const dropdownButtonFn = elementByIdFn("page:mainForm:dropdown::command");
-  const dropdownMenuFn = querySelectorFn(".dropdown-menu[name='page:mainForm:dropdown']");
+  const dropdownMenuFn = querySelectorFn(".tobago-dropdown-menu[name='page:mainForm:dropdown']");
   const entryFn = elementByIdFn("page:mainForm:simpleEventAjaxEntry");
   const oldCounterValues = getCounterValues();
 
