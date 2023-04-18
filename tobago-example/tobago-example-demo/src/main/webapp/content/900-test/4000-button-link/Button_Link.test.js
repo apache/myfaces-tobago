@@ -115,8 +115,8 @@ function getTargetFrameInput() {
 }
 
 it("Style must not be a dropdown item", function (done) {
-  const dropdownMenuFn = querySelectorFn("#page\\:mainForm\\:dropdownWithStyle .dropdown-menu");
-  const styleAsItemFn = querySelectorFn("#page\\:mainForm\\:dropdownWithStyle .dropdown-menu .dropdown-item > style");
+  const dropdownMenuFn = querySelectorFn("#page\\:mainForm\\:dropdownWithStyle .tobago-dropdown-menu");
+  const styleAsItemFn = querySelectorFn("#page\\:mainForm\\:dropdownWithStyle .tobago-dropdown-menu .dropdown-item > style");
   const buttonFn = elementByIdFn("page:mainForm:dropdownWithStyle::command");
 
   const test = new JasmineTestTool(done);

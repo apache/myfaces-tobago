@@ -37,7 +37,7 @@ it("ajax: chat send button", function (done) {
 it("ajax: dropdown button", function (done) {
   let buttonFn = querySelectorFn("#page\\:mainForm\\:lsendtoc\\:\\:command");
   let buttonLabelFn = querySelectorFn("#page\\:mainForm\\:lsendtoc\\:\\:command span");
-  let dropdownMenu = querySelectorFn(".dropdown-menu[name='page:mainForm:lsendtoc']");
+  let dropdownMenu = querySelectorFn(".tobago-dropdown-menu[name='page:mainForm:lsendtoc']");
   let sendToPeterFn = querySelectorFn("#page\\:mainForm\\:sendToPeter");
   let sendToBobFn = querySelectorFn("#page\\:mainForm\\:sendToBob");
   let sendToAllFn = querySelectorFn("#page\\:mainForm\\:sendToAll");

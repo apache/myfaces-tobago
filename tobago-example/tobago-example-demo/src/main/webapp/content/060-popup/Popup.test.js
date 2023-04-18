@@ -224,7 +224,7 @@ it("Open 'Client Popup', press 'Submit & Close' while field has content.", funct
 
 it("Open 'Large Popup'.", function (done) {
   let dropdownButtonFn = elementByIdFn("page:mainForm:dropdownButton::command");
-  let dropdownMenuFn = querySelectorFn(".dropdown-menu[name=page\\:mainForm\\:dropdownButton]");
+  let dropdownMenuFn = querySelectorFn(".tobago-dropdown-menu[name=page\\:mainForm\\:dropdownButton]");
   let openButtonFn = elementByIdFn("page:mainForm:largePopupLink");
   let popupFn = elementByIdFn("page:mainForm:largePopup");
   let collapseFn = elementByIdFn("page:mainForm:largePopup::collapse");
@@ -264,7 +264,7 @@ it("Open 'Large Popup'.", function (done) {
 
 it("Open 'Small Popup'.", function (done) {
   let dropdownButtonFn = elementByIdFn("page:mainForm:dropdownButton::command");
-  let dropdownMenuFn = querySelectorFn(".dropdown-menu[name=page\\:mainForm\\:dropdownButton]");
+  let dropdownMenuFn = querySelectorFn(".tobago-dropdown-menu[name=page\\:mainForm\\:dropdownButton]");
   let openButtonFn = elementByIdFn("page:mainForm:smallPopupLink");
   let popupFn = elementByIdFn("page:mainForm:smallPopup");
   let collapseFn = elementByIdFn("page:mainForm:smallPopup::collapse");
