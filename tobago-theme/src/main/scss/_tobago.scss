@@ -93,18 +93,6 @@ $tobago-flex-layout-spacing: 0.5rem;
   }
 }
 
-@mixin dropdownMenuFormCheckComponents() {
-  .dropdown-menu .form-check {
-    /* move form-check components to the right, so checkbox/radio buttons are inside dropdown-menu */
-    $paddingLeftCheckboxRadio: (divide($dropdown-item-padding-x, 1rem) + $form-check-padding-start);
-    padding-left: $paddingLeftCheckboxRadio;
-
-    &.form-switch {
-      padding-left: $paddingLeftCheckboxRadio + ($form-switch-width - $form-check-input-width);
-    }
-  }
-}
-
 @mixin formControlFocusShadows() {
   //_form-control:focus from bootstrap
   @if $enable-shadows {
@@ -331,6 +319,28 @@ $tobago-flex-layout-spacing: 0.5rem;
   }
 }
 
+@mixin tobagoDropdownMenu() {
+  .tobago-dropdown-menu {
+    /* Use .tobago-dropdown-menu instead of .dropdown-menu to prevent Bootstrap from creating a dropdown instance.
+       This leads to javascript error if arrow up/down is pressed. */
+    @extend .dropdown-menu;
+
+    .form-check {
+      /* move form-check components to the right, so checkbox/radio buttons are inside dropdown-menu */
+      $paddingLeftCheckboxRadio: (divide($dropdown-item-padding-x, 1rem) + $form-check-padding-start);
+      padding-left: $paddingLeftCheckboxRadio;
+
+      &.form-switch {
+        padding-left: $paddingLeftCheckboxRadio + ($form-switch-width - $form-check-input-width);
+      }
+    }
+
+    label[for] {
+      width: 100%; //increased clickable area for checkbox/radio button label
+    }
+  }
+}
+
 @mixin tobagoTreeNodeToggle() {
   .tobago-toggle:not(.invisible) {
     cursor: pointer;
@@ -497,11 +507,10 @@ tobago-date {
   // dummy for unit tests
 }
 
-/* dropdown ------------------------------------------------------- */
 tobago-dropdown {
   display: inline-block; //make tobago-dropdown height the same the inner button. Important for dropdown-menu position
 
-  @include dropdownMenuFormCheckComponents();
+  @include tobagoDropdownMenu();
 
   &.tobago-dropdown-submenu {
     cursor: pointer;
@@ -512,12 +521,8 @@ tobago-dropdown {
     &:hover {
       background-color: $dropdown-link-hover-bg;
 
-      > .dropdown-menu {
+      > .tobago-dropdown-menu:not(.tobago-disabled) {
         display: block;
-        top: 0;
-        left: 100%;
-        margin-top: -0.5rem;
-        margin-left: -1px;
       }
     }
 
@@ -530,6 +535,13 @@ tobago-dropdown {
       border-left-color: #cccccc;
       margin-top: 7px;
       margin-right: -10px;
+    }
+
+    > .tobago-dropdown-menu {
+      top: 0;
+      left: 100%;
+      margin-top: -0.5rem;
+      margin-left: -1px;
     }
   }
 }
@@ -1007,7 +1019,7 @@ tobago-messages {
   }
 }
 
-.dropdown-menu .form-check {
+.tobago-dropdown-menu .form-check {
   display: block;
 }
 
@@ -1082,9 +1094,8 @@ tobago-page {
   }
 }
 
-/* menuStore -------------------------------------------------------- */
 .tobago-page-menuStore {
-  @include dropdownMenuFormCheckComponents();
+  @include tobagoDropdownMenu();
 
   position: absolute;
   top: 0;

@@ -113,7 +113,6 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
     if (parentOfCommands) {
-      writer.writeAttribute(DataAttributes.BS_TOGGLE, "dropdown", false);
       writer.writeAttribute(Arias.EXPANDED, Boolean.FALSE.toString(), false);
     }
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
@@ -174,6 +173,9 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
   @Override
   public void encodeChildrenInternal(final FacesContext facesContext, final T component) throws IOException {
     final boolean parentOfCommands = component.isParentOfCommands();
+    final boolean isInsideInputAfter = isInside(facesContext, HtmlElements.TOBAGO_IN)
+        && isInside(facesContext, Facets.after);
+    final boolean disabled = component.isDisabled();
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -181,9 +183,10 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
       List<UIComponent> renderLater = null;
 
       writer.startElement(HtmlElements.DIV);
-      writer.writeClassAttribute(BootstrapClass.DROPDOWN_MENU,
-          isInside(facesContext, HtmlElements.TOBAGO_IN) && isInside(facesContext, Facets.after)
-              ? BootstrapClass.DROPDOWN_MENU_END : null);
+      writer.writeClassAttribute(
+          TobagoClass.DROPDOWN__MENU,
+          isInsideInputAfter ? BootstrapClass.DROPDOWN_MENU_END : null,
+          disabled ? TobagoClass.DISABLED : null);
       writer.writeAttribute(Arias.LABELLEDBY, component.getFieldId(facesContext), false);
       writer.writeAttribute(HtmlAttributes.NAME, component.getClientId(facesContext), false);
 
