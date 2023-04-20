@@ -32,6 +32,11 @@ class SelectOneList extends SelectListBase {
     this.selectField.querySelector("span").textContent = text;
   }
 
+  get selectedOption() :HTMLOptionElement {
+    const value = this.hiddenSelect.value;
+    return this.hiddenSelect.querySelector(`[value="${value}"]`);
+  }
+
   connectedCallback(): void {
     super.connectedCallback();
     this.selectField.addEventListener("keydown", this.keydownEvent.bind(this));
@@ -58,7 +63,7 @@ class SelectOneList extends SelectListBase {
   private keydownEvent(event: KeyboardEvent) {
     switch (event.key) {
       case Key.ESCAPE:
-        this.spanText = this.hiddenSelect.value;
+        this.spanText = this.selectedOption.textContent;
         break;
       case Key.BACKSPACE:
         if (this.filterInput.value.length === 0) {
@@ -83,7 +88,7 @@ class SelectOneList extends SelectListBase {
   private sync() {
     this.rows.forEach((row) => {
       if (row.dataset.tobagoValue === this.hiddenSelect.value) {
-        this.spanText = this.hiddenSelect.value;
+        this.spanText = this.selectedOption.textContent;
         row.classList.add(Css.TABLE_PRIMARY); // highlight list row
       } else {
         row.classList.remove(Css.TABLE_PRIMARY); // remove highlight list row
@@ -95,7 +100,7 @@ class SelectOneList extends SelectListBase {
     this.focused = false;
     this.filterInput.value = null;
     this.filterInput.dispatchEvent(new Event("input"));
-    this.spanText = this.hiddenSelect.value;
+    this.spanText = this.selectedOption.textContent;
     this.hideDropdown();
   }
 }
