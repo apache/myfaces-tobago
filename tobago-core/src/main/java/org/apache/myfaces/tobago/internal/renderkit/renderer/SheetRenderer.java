@@ -446,7 +446,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
       // show page range
       final ShowPosition showPositionPageRange = component.getShowPageRange();
-      if (showPositionRowRange != ShowPosition.none) {
+      if (showPositionPageRange != ShowPosition.none) {
         final AbstractUILink command
             = ensurePagingCommand(facesContext, component, Facets.pagerPage.name(), SheetAction.toPage.name(), false);
         final String pagerCommandId = command.getClientId(facesContext);
