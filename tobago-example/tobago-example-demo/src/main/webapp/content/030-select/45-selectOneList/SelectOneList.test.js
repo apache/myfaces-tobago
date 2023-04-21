@@ -27,7 +27,7 @@ it("Standard: select 'Mars', select 'Saturn'", function (done) {
   const submitFn = elementByIdFn("page:mainForm:basic:submit");
 
   const test = new JasmineTestTool(done);
-  test.setup(() => selectedFieldFn().textContent.trim() === "Neptune", neptuneRowFn().click(), "click", submitFn);
+  test.setup(() => disabledSelectedFieldFn().textContent.trim() === "Neptune", () => neptuneRowFn().click(), "click", submitFn);
 
   test.do(() => expect(selectedFieldFn().textContent.trim()).toEqual("Neptune"));
   test.do(() => expect(disabledSelectedFieldFn().textContent.trim()).toEqual("Neptune"));
