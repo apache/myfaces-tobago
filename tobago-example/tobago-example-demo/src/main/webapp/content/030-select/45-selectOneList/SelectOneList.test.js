@@ -27,20 +27,20 @@ it("Standard: select 'Mars', select 'Saturn'", function (done) {
   const submitFn = elementByIdFn("page:mainForm:basic:submit");
 
   const test = new JasmineTestTool(done);
-  test.setup(() => selectedFieldFn().textContent === "Neptune", neptuneRowFn().click(), "click", submitFn);
+  test.setup(() => selectedFieldFn().textContent.trim() === "Neptune", neptuneRowFn().click(), "click", submitFn);
 
-  test.do(() => expect(selectedFieldFn().textContent).toEqual("Neptune"));
-  test.do(() => expect(disabledSelectedFieldFn().textContent).toEqual("Neptune"));
+  test.do(() => expect(selectedFieldFn().textContent.trim()).toEqual("Neptune"));
+  test.do(() => expect(disabledSelectedFieldFn().textContent.trim()).toEqual("Neptune"));
 
   test.do(() => marsRowFn().click());
-  test.event("click", submitFn, () => disabledSelectedFieldFn().textContent === "Mars");
-  test.do(() => expect(selectedFieldFn().textContent).toEqual("Mars"));
-  test.do(() => expect(disabledSelectedFieldFn().textContent).toEqual("Mars"));
+  test.event("click", submitFn, () => disabledSelectedFieldFn().textContent.trim() === "Mars");
+  test.do(() => expect(selectedFieldFn().textContent.trim()).toEqual("Mars"));
+  test.do(() => expect(disabledSelectedFieldFn().textContent.trim()).toEqual("Mars"));
 
   test.do(() => saturnRowFn().click());
-  test.event("click", submitFn, () => disabledSelectedFieldFn().textContent === "Saturn");
-  test.do(() => expect(selectedFieldFn().textContent).toEqual("Saturn"));
-  test.do(() => expect(disabledSelectedFieldFn().textContent).toEqual("Saturn"));
+  test.event("click", submitFn, () => disabledSelectedFieldFn().textContent.trim() === "Saturn");
+  test.do(() => expect(selectedFieldFn().textContent.trim()).toEqual("Saturn"));
+  test.do(() => expect(disabledSelectedFieldFn().textContent.trim()).toEqual("Saturn"));
 
   test.start();
 });
