@@ -152,7 +152,7 @@ export class Page extends HTMLElement {
 
   jsfResponseComplete(update: Element): void {
     const id = update.id;
-    if (JsfParameter.isJsfId(id)) {
+    if (!JsfParameter.isInternalJsfId(id)) {
       console.debug("[tobago-jsf] Update after jsf.ajax complete: #", id);
       const overlay = this.querySelector(`tobago-overlay[for='${id}']`);
       if (overlay) {
@@ -220,18 +220,8 @@ class JsfParameter {
   static VIEW_BODY = "javax.faces.ViewBody";
   static RESOURCE = "javax.faces.Resource";
 
-  static isJsfId(id: string): boolean {
-    switch (id) {
-      case JsfParameter.VIEW_STATE:
-      case JsfParameter.CLIENT_WINDOW:
-      case JsfParameter.VIEW_ROOT:
-      case JsfParameter.VIEW_HEAD:
-      case JsfParameter.VIEW_BODY:
-      case JsfParameter.RESOURCE:
-        return false;
-      default:
-        return true;
-    }
+  static isInternalJsfId(id: string): boolean {
+    return id.indexOf("javax.faces.") !== -1;
   }
 
   static isJsfBody(id): boolean {
