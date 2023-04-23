@@ -175,7 +175,7 @@ export abstract class SelectListBase extends HTMLElement {
     let entriesCount = 0;
     if (filterFunction != null) {
       this.rows.forEach(row => {
-        const itemValue = row.dataset.tobagoValue;
+        const itemValue = row.cells.item(0).textContent;
         if (filterFunction(itemValue, searchString)) {
           row.classList.remove(Css.D_NONE);
           entriesCount++;
