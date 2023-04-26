@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -39,6 +40,7 @@ import javax.faces.component.UIColumn;
     componentFamily = UIColumn.COMPONENT_FAMILY,
     rendererType = RendererTypes.COLUMN_PANEL
 )
+@Preliminary
 public interface ColumnPanelTagDeclaration
     extends HasIdBindingAndRendered, HasTip, IsVisual {
 }

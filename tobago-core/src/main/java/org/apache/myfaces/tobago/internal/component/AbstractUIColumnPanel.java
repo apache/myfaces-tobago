@@ -19,8 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Preliminary;
+
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.ColumnPanelTagDeclaration}
  */
+@Preliminary
 public abstract class AbstractUIColumnPanel extends AbstractUIColumnBase {
 }

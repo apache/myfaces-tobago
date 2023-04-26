@@ -19,8 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanel;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
+@Preliminary
 public class ColumnPanelRenderer<T extends AbstractUIPanel> extends RendererBase<T> {
 }
