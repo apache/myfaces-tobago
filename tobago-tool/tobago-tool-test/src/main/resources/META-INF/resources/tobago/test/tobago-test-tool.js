@@ -93,6 +93,14 @@ class JasmineTestTool {
           eventElement().dispatchEvent(new Event(eventType, {bubbles: true}))
         }
       }
+    } else if (eventType === "focus") {
+      eventFn = () => {
+        if (eventElement().tagName === "A" || eventElement().tagName === "BUTTON") {
+          eventElement().focus();
+        } else {
+          eventElement().dispatchEvent(new Event(eventType, {bubbles: true}))
+        }
+      }
     } else {
       eventFn = () => eventElement().dispatchEvent(new Event(eventType, {bubbles: true}));
     }
@@ -121,6 +129,14 @@ class JasmineTestTool {
       eventFn = () => {
         if (element().getAttribute("href")) {
           element().click(); //links are only executed with 'click()'
+        } else {
+          element().dispatchEvent(new Event(type, {bubbles: true}))
+        }
+      }
+    } else if (type === "focus") {
+      eventFn = () => {
+        if (element().tagName === "A" || element().tagName === "BUTTON") {
+          element().focus();
         } else {
           element().dispatchEvent(new Event(type, {bubbles: true}))
         }
