@@ -83,6 +83,8 @@ class SelectOneList extends SelectListBase {
     option.selected = true;
     this.filterInput.value = null;
     this.sync();
+    const e = new Event("change");
+    this.hiddenSelect.dispatchEvent(e);
   }
 
   private sync() {

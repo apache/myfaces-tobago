@@ -30,6 +30,11 @@ public abstract class AbstractUISelectOneList extends AbstractUISelectOneBase im
     return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
   }
 
+  @Override
+  public String getFieldIdForBehavior(FacesContext facesContext) {
+    return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "selected";
+  }
+
   public abstract String getFilter();
 
   public abstract boolean isExpanded();
