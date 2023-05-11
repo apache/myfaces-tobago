@@ -62,6 +62,8 @@ class SelectManyList extends SelectListBase {
     const option: HTMLOptionElement = this.hiddenSelect.querySelector(`[value="${itemValue}"]`);
     option.selected = !option.selected;
     this.sync(option);
+    const e = new Event("change");
+    this.hiddenSelect.dispatchEvent(e);
   }
 
   private sync(option: HTMLOptionElement) {

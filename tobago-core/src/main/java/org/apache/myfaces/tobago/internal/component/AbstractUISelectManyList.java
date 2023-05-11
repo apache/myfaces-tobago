@@ -56,6 +56,11 @@ public abstract class AbstractUISelectManyList extends AbstractUISelectManyBase
     return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
   }
 
+  @Override
+  public String getFieldIdForBehavior(FacesContext facesContext) {
+    return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "selected";
+  }
+
   public abstract Integer getTabIndex();
 
   public abstract boolean isDisabled();
