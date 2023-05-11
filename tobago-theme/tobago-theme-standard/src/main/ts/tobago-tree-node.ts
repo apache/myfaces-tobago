@@ -50,7 +50,9 @@ export class TreeNode extends HTMLElement {
 
       this.hideNodes(this.treeChildNodes);
       if (this.tree) {
-        this.ajax(event, false);
+        this.ajax(event, this.tree.id, false);
+      } else if (this.sheet) {
+        this.ajax(event, this.sheet.id, false);
       }
     } else {
       for (const icon of this.icons) {
@@ -70,19 +72,21 @@ export class TreeNode extends HTMLElement {
 
       this.showNodes(this.treeChildNodes);
       if (this.tree) {
-        this.ajax(event, this.treeChildNodes.length === 0);
+        this.ajax(event, this.tree.id, this.treeChildNodes.length === 0);
+      } else if (this.sheet) {
+        this.ajax(event, this.sheet.id, this.treeChildNodes.length === 0);
       }
     }
   }
 
-  private ajax(event: Event, renderTree: boolean): void {
+  private ajax(event: Event, parentId: string, render: boolean): void {
     jsf.ajax.request(
         this.id,
         event,
         {
           "javax.faces.behavior.event": "change",
-          execute: this.tree.id,
-          render: renderTree ? this.tree.id : null
+          execute: parentId,
+          render: render ? parentId : null
         });
   }
 
