@@ -48,9 +48,11 @@ import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.component.UISelectBooleanToggle;
 import org.apache.myfaces.tobago.component.UISelectItem;
 import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
+import org.apache.myfaces.tobago.component.UISelectManyList;
 import org.apache.myfaces.tobago.component.UISelectManyListbox;
 import org.apache.myfaces.tobago.component.UISelectManyShuttle;
 import org.apache.myfaces.tobago.component.UISelectOneChoice;
+import org.apache.myfaces.tobago.component.UISelectOneList;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
 import org.apache.myfaces.tobago.component.UISelectReference;
 import org.apache.myfaces.tobago.component.UISeparator;
@@ -91,9 +93,11 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.SegmentLayoutRender
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectBooleanCheckboxRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectBooleanToggleRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectManyCheckboxRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectManyListRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectManyListboxRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectManyShuttleRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectOneChoiceRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectOneListRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectOneRadioRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SelectReferenceRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SeparatorRenderer;
@@ -187,9 +191,11 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.selectBooleanToggle.componentType(), UISelectBooleanToggle.class.getName());
     application.addComponent(Tags.selectManyCheckbox.componentType(), UISelectManyCheckbox.class.getName());
     application.addComponent(Tags.selectManyListbox.componentType(), UISelectManyListbox.class.getName());
+    application.addComponent(Tags.selectManyList.componentType(), UISelectManyList.class.getName());
     application.addComponent(Tags.selectManyShuttle.componentType(), UISelectManyShuttle.class.getName());
     application.addComponent(Tags.selectOneRadio.componentType(), UISelectOneRadio.class.getName());
     application.addComponent(Tags.selectOneChoice.componentType(), UISelectOneChoice.class.getName());
+    application.addComponent(Tags.selectOneList.componentType(), UISelectOneList.class.getName());
     application.addComponent(Tags.selectReference.componentType(), UISelectReference.class.getName());
     application.addComponent(Tags.separator.componentType(), UISeparator.class.getName());
     application.addComponent(Tags.sheet.componentType(), UISheet.class.getName());
@@ -239,12 +245,16 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
         new SelectManyCheckboxRenderer<UISelectManyCheckbox>());
     renderKit.addRenderer(UISelectManyListbox.COMPONENT_FAMILY, RendererTypes.SELECT_MANY_LISTBOX,
         new SelectManyListboxRenderer<UISelectManyListbox>());
+    renderKit.addRenderer(UISelectManyList.COMPONENT_FAMILY, RendererTypes.SELECT_MANY_LIST,
+        new SelectManyListRenderer<UISelectManyList>());
     renderKit.addRenderer(UISelectManyListbox.COMPONENT_FAMILY, RendererTypes.SELECT_MANY_SHUTTLE,
         new SelectManyShuttleRenderer<UISelectManyShuttle>());
     renderKit.addRenderer(UISelectOneRadio.COMPONENT_FAMILY, RendererTypes.SELECT_ONE_RADIO,
         new SelectOneRadioRenderer<UISelectOneRadio>());
     renderKit.addRenderer(UISelectOneChoice.COMPONENT_FAMILY, RendererTypes.SELECT_ONE_CHOICE,
         new SelectOneChoiceRenderer<UISelectOneChoice>());
+    renderKit.addRenderer(UISelectOneList.COMPONENT_FAMILY, RendererTypes.SELECT_ONE_LIST,
+        new SelectOneListRenderer<UISelectOneList>());
     renderKit.addRenderer(UISelectReference.COMPONENT_FAMILY, RendererTypes.SELECT_REFERENCE,
         new SelectReferenceRenderer<UISelectReference>());
     renderKit.addRenderer(UISeparator.COMPONENT_FAMILY, RendererTypes.SEPARATOR, new SeparatorRenderer<UISeparator>());

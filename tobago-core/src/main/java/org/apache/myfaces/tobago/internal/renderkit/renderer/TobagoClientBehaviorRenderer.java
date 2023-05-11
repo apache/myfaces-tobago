@@ -86,7 +86,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
       final Collection<String> render = ajaxBehavior.getRender();
       clientId = uiComponent.getClientId(facesContext);
       if (uiComponent instanceof SupportFieldId) {
-        fieldId = ((SupportFieldId) uiComponent).getFieldId(facesContext);
+        fieldId = ((SupportFieldId) uiComponent).getFieldIdForBehavior(facesContext);
       }
 
       executeIds = ComponentUtils.evaluateClientIds(facesContext, uiComponent, execute.toArray(new String[0]));
