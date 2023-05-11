@@ -90,6 +90,7 @@
     <tc:selectOneList id="selectedExpanded" expanded="true">
       <tc:selectItems value="#{selectOneListController.planets}"
                       var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+      <f:ajax render="@this" />
     </tc:selectOneList>
   </tc:section>
 </ui:composition>
