@@ -53,6 +53,9 @@ class Dropdown extends HTMLElement {
       this.dropdownMenu.addEventListener("keydown", this.keydownEvent.bind(this));
       this.getAllDropdownItems(this.dropdownItems).forEach((dropdownItem) => {
         dropdownItem.element.addEventListener("focus", this.focusEvent.bind(this));
+        if (dropdownItem.children) {
+          dropdownItem.element.addEventListener("mouseenter", this.mouseenterEvent.bind(this));
+        }
       });
     }
     // the click should not sort the column of a table - XXX not very nice - may look for a better solution
@@ -162,6 +165,7 @@ class Dropdown extends HTMLElement {
   private showDropdown(): void {
     this.dispatchEvent(new CustomEvent(TobagoDropdownEvent.SHOW));
 
+    // use Css.SHOW instead of Css.TOBAGO_SHOW for first dropdown menu to use bootstrap CSS
     if (!this.insideNavbar() && !this.dropdownMenu.classList.contains(Css.SHOW)) {
       MenuStore.appendChild(this.dropdownMenu);
     }
@@ -176,6 +180,7 @@ class Dropdown extends HTMLElement {
   private hideDropdown(): void {
     this.dispatchEvent(new CustomEvent(TobagoDropdownEvent.HIDE));
 
+    // use Css.SHOW instead of Css.TOBAGO_SHOW for first dropdown menu to use bootstrap CSS
     this.toggle.classList.remove(Css.SHOW);
     this.toggle.ariaExpanded = "false";
     this.dropdownMenu.classList.remove(Css.SHOW);
@@ -248,6 +253,15 @@ class Dropdown extends HTMLElement {
 
   private focusEvent(event: FocusEvent): void {
     const dropdownItem = new DropdownItem(event.target as HTMLElement);
+    this.handleSubMenuShowState(dropdownItem);
+  }
+
+  private mouseenterEvent(event: MouseEvent): void {
+    const dropdownItem = new DropdownItem(event.target as HTMLElement);
+    this.handleSubMenuShowState(dropdownItem);
+  }
+
+  private handleSubMenuShowState(dropdownItem: DropdownItem) {
     const ancestors: DropdownItem[] = dropdownItem.ancestors;
     const allDropdownItems: DropdownItem[] = this.getAllDropdownItems(this.dropdownItems);
     allDropdownItems.forEach((dropdownItem) => {

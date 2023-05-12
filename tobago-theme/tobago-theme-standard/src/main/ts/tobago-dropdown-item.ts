@@ -82,12 +82,14 @@ export class DropdownItem {
   }
 
   showSubMenu(): void {
-    if (!this.disabled) {
-      this.dropdownMenu?.classList.add(Css.SHOW);
+    if (!this.disabled && this.dropdownMenu) {
+      this.element.parentElement.classList.add(Css.TOBAGO_SHOW);
     }
   }
 
   hideSubMenu(): void {
-    this.dropdownMenu?.classList.remove(Css.SHOW);
+    if (this.dropdownMenu) {
+      this.element.parentElement.classList.remove(Css.TOBAGO_SHOW);
+    }
   }
 }
