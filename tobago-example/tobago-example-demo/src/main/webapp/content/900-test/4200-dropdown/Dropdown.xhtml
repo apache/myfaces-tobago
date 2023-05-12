@@ -18,6 +18,7 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:dc="http://xmlns.jcp.org/jsf/composite/demo-components"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
@@ -119,5 +120,13 @@
       <tc:selectBooleanCheckbox itemLabel="Checkbox 2-1"/>
       <tc:selectBooleanCheckbox itemLabel="Checkbox 2-2"/>
     </tc:link>
+  </tc:button>
+
+  <tc:button label="Composite Component" omit="true">
+    <tc:link label="Sub reference" omit="true">
+      <tc:link label="Entry 1"/>
+      <tc:link label="Entry 2"/>
+    </tc:link>
+    <dc:dropdown-dummy label="Sub Composite"/>
   </tc:button>
 </ui:composition>
