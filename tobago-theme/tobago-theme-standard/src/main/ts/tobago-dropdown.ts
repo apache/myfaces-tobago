@@ -51,6 +51,7 @@ class Dropdown extends HTMLElement {
       document.addEventListener("click", this.globalClickEventListener);
       this.addEventListener("keydown", this.keydownEvent.bind(this));
       this.dropdownMenu.addEventListener("keydown", this.keydownEvent.bind(this));
+      this.toggle.addEventListener("keydown", this.tabHandling.bind(this));
       this.getAllDropdownItems(this.dropdownItems).forEach((dropdownItem) => {
         dropdownItem.element.addEventListener("focus", this.focusEvent.bind(this));
         if (dropdownItem.children) {
@@ -159,6 +160,17 @@ class Dropdown extends HTMLElement {
         break;
       default:
         break;
+    }
+  }
+
+  private tabHandling(event: KeyboardEvent): void {
+    if (event.key === Key.TAB) {
+      if (event.shiftKey) {
+        this.hideDropdown();
+      } else if (this.dropdownMenu.classList.contains(Css.SHOW)) {
+        event.preventDefault(); //avoid selecting second element
+        this.getNextDropdownItem()?.focus();
+      }
     }
   }
 
