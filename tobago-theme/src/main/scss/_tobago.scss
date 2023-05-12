@@ -518,7 +518,7 @@ tobago-dropdown {
     width: 100%;
     float: right;
 
-    &:hover {
+    &.tobago-show {
       background-color: $dropdown-link-hover-bg;
 
       > .tobago-dropdown-menu:not(.tobago-disabled) {
