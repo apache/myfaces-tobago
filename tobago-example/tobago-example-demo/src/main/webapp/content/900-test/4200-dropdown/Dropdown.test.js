@@ -29,12 +29,12 @@ it("Dropdown key events", function (done) {
   const multiCheckboxFn = elementByIdFn("page:mainForm:multiCheckbox::0");
   const entry2Fn = elementByIdFn("page:mainForm:entry2");
   const entry3Fn = elementByIdFn("page:mainForm:entry3::command");
-  const entry3DropdownMenuFn = querySelectorFn(".tobago-dropdown-menu[name='page:mainForm:entry3']");
+  const entry3ParentFn = elementByIdFn("page:mainForm:entry3");
   const subFn = elementByIdFn("page:mainForm:sub::command");
-  const subDropdownMenuFn = querySelectorFn(".tobago-dropdown-menu[name='page:mainForm:sub']");
+  const subParentFn = elementByIdFn("page:mainForm:sub");
   const link311Fn = elementByIdFn("page:mainForm:link311");
   const link312Fn = elementByIdFn("page:mainForm:link312::command");
-  const link312DropdownMenuFn = querySelectorFn(".tobago-dropdown-menu[name='page:mainForm:link312']");
+  const link312ParentFn = elementByIdFn("page:mainForm:link312");
   const link313Fn = elementByIdFn("page:mainForm:link313");
 
   const test = new JasmineTestTool(done);
@@ -81,19 +81,19 @@ it("Dropdown key events", function (done) {
   test.wait(() => activeElementFn() === entry2Fn());
   test.do(() => expect(activeElementFn()).toEqual(entry2Fn()));
 
-  test.do(() => expect(entry3DropdownMenuFn().classList).not.toContain("show"));
+  test.do(() => expect(entry3ParentFn().classList).not.toContain("tobago-show"));
   test.do(() => activeElementFn().dispatchEvent(
       new KeyboardEvent("keydown", {bubbles: true, key: 'ArrowDown'})));
   test.wait(() => activeElementFn() === entry3Fn());
   test.do(() => expect(activeElementFn()).toEqual(entry3Fn()));
-  test.do(() => expect(entry3DropdownMenuFn().classList).toContain("show"));
+  test.do(() => expect(entry3ParentFn().classList).toContain("tobago-show"));
 
-  test.do(() => expect(subDropdownMenuFn().classList).not.toContain("show"));
+  test.do(() => expect(subParentFn().classList).not.toContain("tobago-show"));
   test.do(() => activeElementFn().dispatchEvent(
       new KeyboardEvent("keydown", {bubbles: true, key: 'ArrowRight'})));
   test.wait(() => activeElementFn() === subFn());
   test.do(() => expect(activeElementFn()).toEqual(subFn()));
-  test.do(() => expect(subDropdownMenuFn().classList).toContain("show"));
+  test.do(() => expect(subParentFn().classList).toContain("tobago-show"));
 
   test.do(() => activeElementFn().dispatchEvent(
       new KeyboardEvent("keydown", {bubbles: true, key: 'ArrowRight'})));
@@ -105,30 +105,30 @@ it("Dropdown key events", function (done) {
   test.wait(() => activeElementFn() === link313Fn());
   test.do(() => expect(activeElementFn()).toEqual(link313Fn()));
 
-  test.do(() => expect(link312DropdownMenuFn().classList).not.toContain("show"));
+  test.do(() => expect(link312ParentFn().classList).not.toContain("tobago-show"));
   test.do(() => activeElementFn().dispatchEvent(
       new KeyboardEvent("keydown", {bubbles: true, key: 'ArrowUp'})));
   test.wait(() => activeElementFn() === link312Fn());
   test.do(() => expect(activeElementFn()).toEqual(link312Fn()));
-  test.do(() => expect(link312DropdownMenuFn().classList).toContain("show"));
+  test.do(() => expect(link312ParentFn().classList).toContain("tobago-show"));
 
-  test.do(() => expect(entry3DropdownMenuFn().classList).toContain("show"));
-  test.do(() => expect(subDropdownMenuFn().classList).toContain("show"));
-  test.do(() => expect(link312DropdownMenuFn().classList).toContain("show"));
+  test.do(() => expect(entry3ParentFn().classList).toContain("tobago-show"));
+  test.do(() => expect(subParentFn().classList).toContain("tobago-show"));
+  test.do(() => expect(link312ParentFn().classList).toContain("tobago-show"));
   test.do(() => activeElementFn().dispatchEvent(
       new KeyboardEvent("keydown", {bubbles: true, key: 'ArrowLeft'})));
   test.wait(() => activeElementFn() === subFn());
   test.do(() => expect(activeElementFn()).toEqual(subFn()));
-  test.do(() => expect(entry3DropdownMenuFn().classList).toContain("show"));
-  test.do(() => expect(subDropdownMenuFn().classList).toContain("show"));
-  test.do(() => expect(link312DropdownMenuFn().classList).not.toContain("show"));
+  test.do(() => expect(entry3ParentFn().classList).toContain("tobago-show"));
+  test.do(() => expect(subParentFn().classList).toContain("tobago-show"));
+  test.do(() => expect(link312ParentFn().classList).not.toContain("tobago-show"));
 
   test.do(() => activeElementFn().dispatchEvent(
       new KeyboardEvent("keydown", {bubbles: true, key: 'Escape'})));
   test.do(() => expect(dropdownMenuFn().classList).not.toContain("show"));
-  test.do(() => expect(entry3DropdownMenuFn().classList).not.toContain("show"));
-  test.do(() => expect(subDropdownMenuFn().classList).not.toContain("show"));
-  test.do(() => expect(link312DropdownMenuFn().classList).not.toContain("show"));
+  test.do(() => expect(entry3ParentFn().classList).not.toContain("tobago-show"));
+  test.do(() => expect(subParentFn().classList).not.toContain("tobago-show"));
+  test.do(() => expect(link312ParentFn().classList).not.toContain("tobago-show"));
 
   test.start();
 });
