@@ -10998,10 +10998,10 @@ tobago-dropdown.tobago-dropdown-submenu {
   width: 100%;
   float: right;
 }
-tobago-dropdown.tobago-dropdown-submenu:hover {
+tobago-dropdown.tobago-dropdown-submenu.tobago-show {
   background-color: #d0d0d0;
 }
-tobago-dropdown.tobago-dropdown-submenu:hover > .tobago-dropdown-menu:not(.tobago-disabled) {
+tobago-dropdown.tobago-dropdown-submenu.tobago-show > .tobago-dropdown-menu:not(.tobago-disabled) {
   display: block;
 }
 tobago-dropdown.tobago-dropdown-submenu > .dropdown-item::after {
