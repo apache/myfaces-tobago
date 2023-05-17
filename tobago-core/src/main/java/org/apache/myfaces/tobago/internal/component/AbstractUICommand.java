@@ -50,7 +50,9 @@ public abstract class AbstractUICommand extends AbstractUICommandBase
       for (final UIComponent child : getChildren()) {
         if (child.isRendered()
             && !(child instanceof AbstractUIEvent)
-            && (child instanceof UICommand || child instanceof UIInput)) {
+            && (child instanceof UICommand || child instanceof UIInput
+            // guessing composite component child is containing commands
+            || UIComponent.isCompositeComponent(child))) {
           parentOfCommands = true;
           break;
         }

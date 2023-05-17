@@ -204,7 +204,9 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
               || child instanceof AbstractUISelectBooleanToggle
               || child instanceof AbstractUISelectManyCheckbox
               || child instanceof AbstractUISelectOneRadio
-              || child instanceof AbstractUISeparator) {
+              || child instanceof AbstractUISeparator
+              // rendering with inside command is best compromise for composite components
+              || UIComponent.isCompositeComponent(child)) {
             insideBegin(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
             child.encodeAll(facesContext);
             insideEnd(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
