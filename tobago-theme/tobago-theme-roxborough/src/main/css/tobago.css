@@ -11755,12 +11755,14 @@ tobago-overlay {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
 }
-tobago-overlay.modal-backdrop.show {
+tobago-overlay.modal-backdrop {
   --bs-backdrop-zindex: 1019;
   --bs-backdrop-bg: rgba(160, 160, 160, 0.5);
-  opacity: 1;
+  --bs-backdrop-opacity: 1;
+}
+tobago-overlay.modal-backdrop:not(.show) {
+  display: none;
 }
 
 /* page ----------------------------------------------------------- */
