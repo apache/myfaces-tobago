@@ -1056,12 +1056,15 @@ tobago-overlay {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
 
-  &.modal-backdrop.show {
+  &.modal-backdrop {
     --#{$prefix}backdrop-zindex: #{$zindex-sticky - 1}; //less than the bootstrap navbar
     --#{$prefix}backdrop-bg: rgba(#{red($gray-400)}, #{green($gray-400)}, #{blue($gray-400)}, #{$modal-backdrop-opacity});
-    opacity: 1;
+    --#{$prefix}backdrop-opacity: 1;
+
+    &:not(.show) {
+      display: none;
+    }
   }
 }
 
