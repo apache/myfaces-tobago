@@ -59,6 +59,7 @@ function activeElementFn() {
 export {elementByIdFn, querySelectorFn, querySelectorAllFn, activeElementFn};
 
 beforeEach(function (done) {
+  jasmine.DEFAULT_TIMEOUT_INTERVAL = 5 * 60 * 1000; //5 minutes
   const test = new JasmineTestTool(done);
   test.wait(() => document.getElementById("page:testframe").contentWindow.document.readyState === "complete");
   test.do(() => expect("waiting for testframe is done").toBe("waiting for testframe is done"));

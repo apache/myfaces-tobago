@@ -34,6 +34,8 @@
               disabled="#{eventName != 'focus'}"/>
       <f:ajax event="blur" render="metrics" listener="#{eventController.ajaxListener}"
               disabled="#{eventName != 'blur'}"/>
+      <f:ajax event="input" render="metrics" listener="#{eventController.ajaxListener}"
+              disabled="#{eventName != 'input'}"/>
     </c:if>
     <c:if test="#{eventType == 'event'}">
       <tc:event event="change" action="#{eventController.action}" actionListener="#{eventController.actionListener}"
@@ -46,6 +48,8 @@
                 rendered="#{eventName == 'focus'}"/>
       <tc:event event="blur" action="#{eventController.action}" actionListener="#{eventController.actionListener}"
                 rendered="#{eventName == 'blur'}"/>
+      <tc:event event="input" action="#{eventController.action}" actionListener="#{eventController.actionListener}"
+                rendered="#{eventName == 'input'}"/>
     </c:if>
   </tc:textarea>
 </ui:composition>
