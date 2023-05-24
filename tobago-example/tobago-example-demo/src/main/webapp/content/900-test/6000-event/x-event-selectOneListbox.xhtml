@@ -18,6 +18,38 @@
 -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-  <p>Not implemented yet!</p>
+  <tc:selectOneListbox id="selectOneListbox#{eventType}" valueChangeListener="#{eventController.valueChangeListener}">
+    <tc:selectItem itemValue="alpha" itemLabel="Alpha"/>
+    <tc:selectItem itemValue="beta" itemLabel="Beta"/>
+    <tc:selectItem itemValue="gamma" itemLabel="Gamma"/>
+    <tc:selectItem itemValue="delta" itemLabel="Delta"/>
+    <c:if test="#{eventType == 'ajax'}">
+      <f:ajax event="change" render="metrics" listener="#{eventController.ajaxListener}"
+              disabled="#{eventName != 'change'}"/>
+      <f:ajax event="click" render="metrics" listener="#{eventController.ajaxListener}"
+              disabled="#{eventName != 'click'}"/>
+      <f:ajax event="dblclick" render="metrics" listener="#{eventController.ajaxListener}"
+              disabled="#{eventName != 'dblclick'}"/>
+      <f:ajax event="focus" render="metrics" listener="#{eventController.ajaxListener}"
+              disabled="#{eventName != 'focus'}"/>
+      <f:ajax event="blur" render="metrics" listener="#{eventController.ajaxListener}"
+              disabled="#{eventName != 'blur'}"/>
+    </c:if>
+    <c:if test="#{eventType == 'event'}">
+      <tc:event event="change" action="#{eventController.action}" actionListener="#{eventController.actionListener}"
+                rendered="#{eventName == 'change'}"/>
+      <tc:event event="click" action="#{eventController.action}" actionListener="#{eventController.actionListener}"
+                rendered="#{eventName == 'click'}"/>
+      <tc:event event="dblclick" action="#{eventController.action}" actionListener="#{eventController.actionListener}"
+                rendered="#{eventName == 'dblclick'}"/>
+      <tc:event event="focus" action="#{eventController.action}" actionListener="#{eventController.actionListener}"
+                rendered="#{eventName == 'focus'}"/>
+      <tc:event event="blur" action="#{eventController.action}" actionListener="#{eventController.actionListener}"
+                rendered="#{eventName == 'blur'}"/>
+    </c:if>
+  </tc:selectOneListbox>
 </ui:composition>
