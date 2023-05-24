@@ -54,9 +54,11 @@ import org.apache.myfaces.tobago.component.UISection;
 import org.apache.myfaces.tobago.component.UISegmentLayout;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
+import org.apache.myfaces.tobago.component.UISelectManyList;
 import org.apache.myfaces.tobago.component.UISelectManyListbox;
 import org.apache.myfaces.tobago.component.UISelectManyShuttle;
 import org.apache.myfaces.tobago.component.UISelectOneChoice;
+import org.apache.myfaces.tobago.component.UISelectOneList;
 import org.apache.myfaces.tobago.component.UISelectOneListbox;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
 import org.apache.myfaces.tobago.component.UISeparator;
@@ -138,9 +140,11 @@ public class EventController implements Serializable {
     eventsOnComponents.add(new EventsOnComponent(new UISelectBooleanCheckbox()));
     eventsOnComponents.add(new EventsOnComponent(new UISelectManyCheckbox()));
     eventsOnComponents.add(new EventsOnComponent(new UISelectManyListbox()));
+    eventsOnComponents.add(new EventsOnComponent(new UISelectManyList()));
     eventsOnComponents.add(new EventsOnComponent(new UISelectManyShuttle()));
     eventsOnComponents.add(new EventsOnComponent(new UISelectOneChoice()));
     eventsOnComponents.add(new EventsOnComponent(new UISelectOneListbox()));
+    eventsOnComponents.add(new EventsOnComponent(new UISelectOneList()));
     eventsOnComponents.add(new EventsOnComponent(new UISelectOneRadio()));
     eventsOnComponents.add(new EventsOnComponent(new UISeparator()));
     eventsOnComponents.add(new EventsOnComponent(new UISheet()));
@@ -266,6 +270,10 @@ public class EventController implements Serializable {
       return eventNames.contains(CommonEvent.focus.name());
     }
 
+    public boolean hasInputEvent() {
+      return eventNames.contains(CommonEvent.input.name());
+    }
+
     public boolean hasKeydownEvent() {
       return eventNames.contains(CommonEvent.keydown.name());
     }
@@ -341,6 +349,7 @@ public class EventController implements Serializable {
     change,
     click, dblclick,
     focus, blur,
+    input,
     keydown, keypress, keyup,
     mousedown, mousemove, mouseout, mouseover, mouseup,
     select

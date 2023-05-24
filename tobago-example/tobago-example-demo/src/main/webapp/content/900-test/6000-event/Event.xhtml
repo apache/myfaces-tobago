@@ -103,6 +103,14 @@
       <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasBlurEvent()}"/>
       <tc:style customClass="#{comp.hasBlurEvent() ? 'demo-lightgreen' : 'demo-lightred'}"/>
     </tc:column>
+    <tc:column label="input" align="center">
+      <tc:button id="inputBehavior" label="X"
+                 actionListener="#{eventController.selectComponent}" rendered="#{comp.hasInputEvent()}">
+        <f:attribute name="eventName" value="input"/>
+      </tc:button>
+      <tc:out value="-" labelLayout="skip" rendered="#{!comp.hasInputEvent()}"/>
+      <tc:style customClass="#{comp.hasInputEvent() ? 'demo-lightgreen' : 'demo-lightred'}"/>
+    </tc:column>
     <tc:column label="key down" align="center">
       <tc:button id="keydownBehavior" label="X"
                  actionListener="#{eventController.selectComponent}" rendered="#{comp.hasKeydownEvent()}">
