@@ -71,8 +71,26 @@ it("tc:selectBooleanCheckbox", function (done) {
   test.start();
 });
 
-it("tc:textarea", function (done) {
+it("tc:selectOneListbox", function (done) {
   const eventNames = ["change", "click", "dblclick", "focus", "blur"];
+  const eventComponentFn = elementByIdFn("page:mainForm:selectOneListboxevent::field");
+  const ajaxComponentFn = elementByIdFn("page:mainForm:selectOneListboxajax::field");
+
+  const changeValueFn = function (componentFn) {
+    if (componentFn().querySelectorAll("option")[0].selected) {
+      componentFn().querySelectorAll("option")[1].selected = true;
+    } else {
+      componentFn().querySelectorAll("option")[0].selected = true;
+    }
+  };
+
+  const test = new JasmineTestTool(done);
+  createSteps(test, "selectOneListbox", eventNames, eventComponentFn, ajaxComponentFn, changeValueFn);
+  test.start();
+});
+
+it("tc:textarea", function (done) {
+  const eventNames = ["change", "click", "dblclick", "focus", "blur", "input"];
   const eventComponentFn = elementByIdFn("page:mainForm:textareaevent::field");
   const ajaxComponentFn = elementByIdFn("page:mainForm:textareaajax::field");
 
@@ -108,10 +126,9 @@ function createSteps(test, componentName, eventNames, eventComponentFn, ajaxComp
     const eventName = eventNames[i];
     let rowIdPrefix;
 
-    const tobagoSheetRow = rows();
-    Array.prototype.forEach.call(tobagoSheetRow, (element, i) => {
-      const tobagoOut = element.querySelector("tobago-out");
-      if (tobagoOut.querySelector(".form-control-plaintext").textContent === componentName) {
+    rows().forEach((row) => {
+      const tobagoOut = row.querySelector("tobago-out");
+      if (row.querySelector("tobago-out .form-control-plaintext").textContent === componentName) {
         rowIdPrefix = tobagoOut.id.slice(0, tobagoOut.id.lastIndexOf(":"));
       }
     });
