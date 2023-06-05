@@ -31,12 +31,12 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasDecorationPosition;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasFilter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasHelp;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasDecorationPosition;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessageForSelect;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
@@ -65,19 +65,11 @@ import javax.faces.component.UISelectMany;
     rendererType = RendererTypes.SELECT_MANY_LIST,
     allowedChildComponenents = {"javax.faces.SelectItem", "javax.faces.SelectItems"},
     behaviors = {
-        @Behavior(
-            name = ClientBehaviors.CHANGE,
-            isDefault = true),
-        @Behavior(
-            name = ClientBehaviors.INPUT),
-        @Behavior(
-            name = ClientBehaviors.CLICK),
-        @Behavior(
-            name = ClientBehaviors.DBLCLICK),
-        @Behavior(
-            name = ClientBehaviors.FOCUS),
-        @Behavior(
-            name = ClientBehaviors.BLUR)
+        @Behavior(name = ClientBehaviors.CHANGE, isDefault = true),
+        @Behavior(name = ClientBehaviors.CLICK),
+        @Behavior(name = ClientBehaviors.DBLCLICK),
+        @Behavior(name = ClientBehaviors.FOCUS),
+        @Behavior(name = ClientBehaviors.BLUR)
     })
 
 public interface SelectManyListTagDeclaration

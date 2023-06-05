@@ -70,8 +70,8 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
 
     final String clientId = component.getClientId(facesContext);
     final String fieldId = component.getFieldId(facesContext);
+    final String selectFieldId = clientId + ComponentUtils.SUB_SEPARATOR + "selectField";
     final String filterId = clientId + ComponentUtils.SUB_SEPARATOR + "filter";
-    final String selectedId = clientId + ComponentUtils.SUB_SEPARATOR + "selected";
     final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, component);
     final boolean disabled = !items.iterator().hasNext() || component.isDisabled() || component.isReadonly();
     final String filter = component.getFilter();
@@ -79,7 +79,7 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     final Integer tabIndex = component.getTabIndex();
 
-    encodeHiddenSelect(facesContext, component, items, clientId, selectedId, disabled);
+    encodeHiddenSelect(facesContext, component, items, clientId, fieldId, disabled);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(
@@ -87,7 +87,7 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
         expanded ? BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)) : null);
 
     encodeSelectField(facesContext, component,
-        clientId, fieldId, filterId, filter, disabled, expanded, title, tabIndex);
+        clientId, selectFieldId, filterId, filter, disabled, expanded, title, tabIndex);
     encodeOptions(facesContext, component, items, clientId, expanded, disabled);
 
     writer.endElement(HtmlElements.DIV);
@@ -102,11 +102,11 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
 
   private void encodeHiddenSelect(
       final FacesContext facesContext, final T component, final List<SelectItem> items,
-      final String clientId, final String selectedId, final boolean disabled) throws IOException {
+      final String clientId, final String fieldId, final boolean disabled) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.SELECT);
-    writer.writeIdAttribute(selectedId);
+    writer.writeIdAttribute(fieldId);
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.REQUIRED, component.isRequired());
@@ -121,12 +121,12 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
 
   private void encodeSelectField(
       final FacesContext facesContext, final T component,
-      final String clientId, final String fieldId, final String filterId, final String filter, final boolean disabled,
-      final boolean expanded, final String title, final Integer tabIndex) throws IOException {
+      final String clientId, final String selectFieldId, final String filterId, final String filter,
+      final boolean disabled, final boolean expanded, final String title, final Integer tabIndex) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeIdAttribute(fieldId);
+    writer.writeIdAttribute(selectFieldId);
     writer.writeNameAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeClassAttribute(

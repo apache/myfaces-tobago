@@ -24,8 +24,4 @@ import javax.faces.context.FacesContext;
 public interface SupportFieldId {
 
   String getFieldId(FacesContext facesContext);
-
-  default String getFieldIdForBehavior(FacesContext facesContext) {
-    return getFieldId(facesContext);
-  }
 }

@@ -71,6 +71,28 @@ it("tc:selectBooleanCheckbox", function (done) {
   test.start();
 });
 
+it("tc:selectOneList", function (done) {
+  const eventNames = ["change", "focus", "blur"];
+  const eventComponentFn = elementByIdFn("page:mainForm:selectOneListevent::field");
+  const ajaxComponentFn = elementByIdFn("page:mainForm:selectOneListajax::field");
+
+  const clickEventNames = ["click", "dblclick"];
+  const clickEventComponentFn = elementByIdFn("page:mainForm:selectOneListevent::selectField");
+
+  const changeValueFn = function (componentFn) {
+    if (componentFn().closest("tobago-select-one-list").querySelectorAll("option")[0].selected) {
+      componentFn().closest("tobago-select-one-list").querySelectorAll("option")[1].selected = true;
+    } else {
+      componentFn().closest("tobago-select-one-list").querySelectorAll("option")[0].selected = true;
+    }
+  };
+
+  const test = new JasmineTestTool(done);
+  createSteps(test, "selectOneList", eventNames, eventComponentFn, ajaxComponentFn, changeValueFn);
+  createSteps(test, "selectOneList", clickEventNames, clickEventComponentFn, ajaxComponentFn, changeValueFn);
+  test.start();
+});
+
 it("tc:selectOneListbox", function (done) {
   const eventNames = ["change", "click", "dblclick", "focus", "blur"];
   const eventComponentFn = elementByIdFn("page:mainForm:selectOneListboxevent::field");
@@ -109,6 +131,7 @@ it("tc:textarea", function (done) {
 });
 
 function createSteps(test, componentName, eventNames, eventComponentFn, ajaxComponentFn, changeValueFn) {
+  const resetButtonFn = elementByIdFn("page:mainForm:reset");
   const actionCountFn = elementByIdFn("page:mainForm:inAction::field");
   const actionListenerCountFn = elementByIdFn("page:mainForm:inActionListener::field");
   const ajaxListenerCountFn = elementByIdFn("page:mainForm:inAjaxListener::field");
@@ -137,6 +160,13 @@ function createSteps(test, componentName, eventNames, eventComponentFn, ajaxComp
 
     test.do(() => oldTimestamp = parseInt(timestampFn().value));
     test.event("click", selectorButton, () => parseInt(timestampFn().value) > oldTimestamp);
+
+    test.setup(() =>
+            parseInt(actionCountFn().value)
+            + parseInt(actionListenerCountFn().value)
+            + parseInt(ajaxListenerCountFn().value)
+            + parseInt(valueChangeListenerCountFn().value) === 0,
+        null, "click", resetButtonFn);
 
     test.do(() => oldActionCount = parseInt(actionCountFn().value));
     test.do(() => oldActionListenerCount = parseInt(actionListenerCountFn().value));

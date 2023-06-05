@@ -27,7 +27,7 @@
 
   <tc:box id="metrics" label="Metrics">
     <f:facet name="bar">
-      <tc:button label="Reset" action="#{eventController.reset}"/>
+      <tc:button id="reset" label="Reset" action="#{eventController.reset}"/>
     </f:facet>
     <tc:in id="inAction" label="Action" value="#{eventController.actionCount}" readonly="true" focus="true"/>
     <tc:in id="inActionListener" label="ActionListener" value="#{eventController.actionListenerCount}"
