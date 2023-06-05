@@ -2118,6 +2118,7 @@
      * See the License for the specific language governing permissions and
      * limitations under the License.
      */
+    // this import seems to initialize and do the highlighting?!?
     class DemoHighlight extends HTMLElement {
         constructor() {
             super();
