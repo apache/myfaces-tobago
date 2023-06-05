@@ -64,7 +64,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
     allowedChildComponenents = {"jakarta.faces.SelectItem", "jakarta.faces.SelectItems"},
     behaviors = {
         @Behavior(name = ClientBehaviors.CHANGE, isDefault = true),
-        @Behavior(name = ClientBehaviors.INPUT),
         @Behavior(name = ClientBehaviors.CLICK),
         @Behavior(name = ClientBehaviors.DBLCLICK),
         @Behavior(name = ClientBehaviors.FOCUS),

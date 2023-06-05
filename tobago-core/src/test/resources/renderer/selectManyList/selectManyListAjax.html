@@ -16,13 +16,13 @@
 -->
 
 <tobago-select-many-list id='id' class='tobago-auto-spacing'>
-  <select id='id::selected' name='id' class='d-none' multiple='multiple'>
+  <select id='id::field' name='id' class='d-none' multiple='multiple'>
     <option value='Stratocaster'>Stratocaster
     </option>
     <option value='Telecaster'>Telecaster
     </option></select>
   <div class='dropdown'>
-    <div id='id::field' name='id' class='form-select tobago-select-field dropdown-toggle' aria-expanded='false'>
+    <div id='id::selectField' name='id' class='form-select tobago-select-field dropdown-toggle' aria-expanded='false'>
       <input type='search' id='id::filter' class='tobago-filter form-control' autocomplete='off' readonly='readonly'>
     </div>
     <div class='tobago-options tobago-dropdown-menu' name='id'>
@@ -46,5 +46,5 @@
       </table>
     </div>
   </div>
-  <tobago-behavior event='change' client-id='id' field-id='id::selected' execute='id'></tobago-behavior>
+  <tobago-behavior event='change' client-id='id' field-id='id::field' execute='id'></tobago-behavior>
 </tobago-select-many-list>
