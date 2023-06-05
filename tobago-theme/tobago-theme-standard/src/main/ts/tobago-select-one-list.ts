@@ -32,7 +32,7 @@ class SelectOneList extends SelectListBase {
     this.selectField.querySelector("span").textContent = text;
   }
 
-  get selectedOption() :HTMLOptionElement {
+  get selectedOption(): HTMLOptionElement {
     const value = this.hiddenSelect.value;
     return this.hiddenSelect.querySelector(`[value="${value}"]`);
   }
@@ -60,6 +60,13 @@ class SelectOneList extends SelectListBase {
     }
   }
 
+  protected labelClickEvent(event: MouseEvent): void {
+    event.stopPropagation(); // stop propagation to avoid execution of globalClickEvent()
+    if (!this.filterInput.disabled) {
+      this.filterInput.focus();
+    }
+  }
+
   private keydownEvent(event: KeyboardEvent) {
     switch (event.key) {
       case Key.ESCAPE:
@@ -83,8 +90,7 @@ class SelectOneList extends SelectListBase {
     option.selected = true;
     this.filterInput.value = null;
     this.sync();
-    const e = new Event("change");
-    this.hiddenSelect.dispatchEvent(e);
+    this.hiddenSelect.dispatchEvent(new Event("change", {bubbles: true}));
   }
 
   private sync() {

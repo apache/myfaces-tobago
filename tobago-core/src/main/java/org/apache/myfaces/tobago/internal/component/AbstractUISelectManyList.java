@@ -36,8 +36,8 @@ import java.util.Collection;
  * {@link SelectManyListTagDeclaration}
  */
 public abstract class AbstractUISelectManyList extends AbstractUISelectManyBase
-  implements SupportsAutoSpacing, Visual, SupportsLabelLayout, ClientBehaviorHolder, SupportsHelp, SupportFieldId,
-  SupportsFilter {
+    implements SupportsAutoSpacing, Visual, SupportsLabelLayout, ClientBehaviorHolder, SupportsHelp, SupportFieldId,
+    SupportsFilter {
 
   private transient boolean nextToRenderIsLabel;
 
@@ -56,11 +56,6 @@ public abstract class AbstractUISelectManyList extends AbstractUISelectManyBase
     return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
   }
 
-  @Override
-  public String getFieldIdForBehavior(FacesContext facesContext) {
-    return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "selected";
-  }
-
   public abstract Integer getTabIndex();
 
   public abstract boolean isDisabled();
@@ -69,8 +64,7 @@ public abstract class AbstractUISelectManyList extends AbstractUISelectManyBase
 
   public boolean isError() {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
-    return !isValid()
-      || !facesContext.getMessageList(getClientId(facesContext)).isEmpty();
+    return !isValid() || !facesContext.getMessageList(getClientId(facesContext)).isEmpty();
   }
 
   public abstract boolean isFocus();

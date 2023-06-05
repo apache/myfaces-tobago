@@ -32,10 +32,12 @@ export abstract class SelectListBase extends HTMLElement {
   }
 
   set focused(focused: boolean) {
-    if (focused) {
+    if (focused && !this.focused) {
       this.classList.add(Css.TOBAGO_FOCUS);
-    } else {
+      this.hiddenSelect.dispatchEvent(new Event("focus", {bubbles: true}));
+    } else if (!focused && this.focused) {
       this.classList.remove(Css.TOBAGO_FOCUS);
+      this.hiddenSelect.dispatchEvent(new Event("blur", {bubbles: true}));
     }
   }
 
@@ -96,6 +98,7 @@ export abstract class SelectListBase extends HTMLElement {
       window.addEventListener("resize", () => this.updateDropdownMenuWidth());
     }
     document.addEventListener("click", this.globalClickEvent.bind(this));
+    this.hiddenSelect.addEventListener("click", this.labelClickEvent.bind(this));
     this.selectField.addEventListener("keydown", this.keydownEventBase.bind(this));
     this.filterInput.addEventListener("focus", this.focusEvent.bind(this));
     this.filterInput.addEventListener("blur", this.blurEvent.bind(this));
@@ -110,9 +113,24 @@ export abstract class SelectListBase extends HTMLElement {
     if (document.activeElement.id === this.filterInput.id) {
       this.focusEvent();
     }
+
+    // redirect click events for ajax behavior
+    this.selectField.addEventListener("click", () => this.hiddenSelect.dispatchEvent(new Event("click")));
+    this.options.addEventListener("click", () => this.hiddenSelect.dispatchEvent(new Event("click")));
+    this.selectField.addEventListener("dblclick", () => this.hiddenSelect.dispatchEvent(new Event("dblclick")));
+    this.options.addEventListener("dblclick", () => this.hiddenSelect.dispatchEvent(new Event("dblclick")));
   }
 
   protected abstract globalClickEvent(event: MouseEvent): void;
+
+  /**
+   * The label for attribute targets the hidden select field, so an event which is dispatched on the label is also
+   * dispatched on the hidden select field. This method must ensure that a click on a label focus the
+   * Select[One/Many]List component.
+   * @param event
+   * @protected
+   */
+  protected abstract labelClickEvent(event: MouseEvent): void;
 
   private keydownEventBase(event: KeyboardEvent) {
     switch (event.key) {

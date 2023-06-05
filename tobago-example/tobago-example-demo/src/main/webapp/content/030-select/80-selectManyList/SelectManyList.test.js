@@ -19,14 +19,14 @@ import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 import {elementByIdFn, querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 
 it("Standard: remove 'Earth'", function (done) {
-  const removeEarthButtonFn = querySelectorFn("#page\\:mainForm\\:basic\\:selectedStandard\\:\\:field .btn-group[data-tobago-value='Earth'] .tobago-button");
-  const badgeVenusFn = querySelectorFn("#page\\:mainForm\\:basic\\:selectedStandard\\:\\:field .btn-group[data-tobago-value='Venus']");
-  const badgeEarthFn = querySelectorFn("#page\\:mainForm\\:basic\\:selectedStandard\\:\\:field .btn-group[data-tobago-value='Earth']");
-  const badgeJupiterFn = querySelectorFn("#page\\:mainForm\\:basic\\:selectedStandard\\:\\:field .btn-group[data-tobago-value='Jupiter']");
+  const removeEarthButtonFn = querySelectorFn("#page\\:mainForm\\:basic\\:selectedStandard\\:\\:selectField .btn-group[data-tobago-value='Earth'] .tobago-button");
+  const badgeVenusFn = querySelectorFn("#page\\:mainForm\\:basic\\:selectedStandard\\:\\:selectField .btn-group[data-tobago-value='Venus']");
+  const badgeEarthFn = querySelectorFn("#page\\:mainForm\\:basic\\:selectedStandard\\:\\:selectField .btn-group[data-tobago-value='Earth']");
+  const badgeJupiterFn = querySelectorFn("#page\\:mainForm\\:basic\\:selectedStandard\\:\\:selectField .btn-group[data-tobago-value='Jupiter']");
   const selectedRowsFn = querySelectorAllFn("#page\\:mainForm\\:basic\\:selectedStandard tr.table-primary");
-  const disabledBadgeVenusFn = querySelectorFn("#page\\:mainForm\\:basic\\:selectedDisabled\\:\\:field .btn-group[data-tobago-value='Venus']");
-  const disabledBadgeEarthFn = querySelectorFn("#page\\:mainForm\\:basic\\:selectedDisabled\\:\\:field .btn-group[data-tobago-value='Earth']");
-  const disabledBadgeJupiterFn = querySelectorFn("#page\\:mainForm\\:basic\\:selectedDisabled\\:\\:field .btn-group[data-tobago-value='Jupiter']");
+  const disabledBadgeVenusFn = querySelectorFn("#page\\:mainForm\\:basic\\:selectedDisabled\\:\\:selectField .btn-group[data-tobago-value='Venus']");
+  const disabledBadgeEarthFn = querySelectorFn("#page\\:mainForm\\:basic\\:selectedDisabled\\:\\:selectField .btn-group[data-tobago-value='Earth']");
+  const disabledBadgeJupiterFn = querySelectorFn("#page\\:mainForm\\:basic\\:selectedDisabled\\:\\:selectField .btn-group[data-tobago-value='Jupiter']");
   const submitFn = elementByIdFn("page:mainForm:basic:submit");
   const resetFn = elementByIdFn("page:mainForm:basic:reset");
 
