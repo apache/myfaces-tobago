@@ -57,13 +57,21 @@ class SelectManyList extends SelectListBase {
     }
   }
 
+  protected labelClickEvent(event: MouseEvent): void {
+    event.stopPropagation(); // stop propagation to avoid execution of globalClickEvent()
+    if (!this.filterInput.disabled) {
+      this.filterInput.focus();
+    } else if (this.badgeCloseButtons.length > 0) {
+      this.badgeCloseButtons[0].focus();
+    }
+  }
+
   protected select(row: HTMLTableRowElement): void {
     const itemValue = row.dataset.tobagoValue;
     const option: HTMLOptionElement = this.hiddenSelect.querySelector(`[value="${itemValue}"]`);
     option.selected = !option.selected;
     this.sync(option);
-    const e = new Event("change");
-    this.hiddenSelect.dispatchEvent(e);
+    this.hiddenSelect.dispatchEvent(new Event("change", {bubbles: true}));
   }
 
   private sync(option: HTMLOptionElement) {
