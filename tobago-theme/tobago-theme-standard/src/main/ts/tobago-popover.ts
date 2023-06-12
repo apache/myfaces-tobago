@@ -15,10 +15,6 @@
  * limitations under the License.
  */
 
-// XXX which? nothing works...
-// import * as bootstrap from "bootstrap/dist/js/bootstrap";
-// import Popover from "bootstrap/dist/js/bootstrap.bundle";
-// import {createPopper} from "@popperjs/core/dist/esm/popper";
 import {Popover} from "bootstrap";
 import {MenuStore} from "./tobago-menu-store";
 
@@ -26,14 +22,14 @@ import {MenuStore} from "./tobago-menu-store";
 
 class TobagoPopover extends HTMLElement {
 
-  private popover: Popover;
+  private instance: Popover;
 
   constructor() {
     super();
   }
 
   connectedCallback(): void {
-    this.popover = new Popover(this.trigger, {
+    this.instance = new Popover(this.trigger, {
       container: MenuStore.get()
     });
   }
