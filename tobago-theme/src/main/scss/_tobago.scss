@@ -179,6 +179,7 @@ $tobago-flex-layout-spacing: 0.5rem;
   &.tobago-label-container {
     .dropdown, .list-group {
       flex: 1 0 0;
+      min-width: 0;
     }
   }
 
@@ -227,6 +228,10 @@ $tobago-flex-layout-spacing: 0.5rem;
     }
   }
 
+  .dropdown {
+    min-width: 0;
+  }
+
   .tobago-select-field {
     display: flex;
     flex-wrap: wrap;
@@ -243,13 +248,19 @@ $tobago-flex-layout-spacing: 0.5rem;
       padding: $form-select-padding-y $form-select-indicator-padding $form-select-padding-y $form-select-padding-x;
     }
 
+    span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     .tobago-filter {
       margin: 0;
       border: 0;
       border-radius: 0;
       padding: 0;
       flex: 1 0 0;
-      min-width: 8rem;
+      min-width: 1rem;
       background-color: transparent;
 
       &:focus {
@@ -1344,6 +1355,16 @@ tobago-select-one-choice {
 
 tobago-select-one-list {
   @include selectListBase();
+
+  .tobago-select-field {
+    flex-wrap: nowrap;
+
+    span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
 }
 
 tobago-select-one-listbox {
@@ -1373,6 +1394,11 @@ tobago-select-many-list {
 
     .btn-group {
       margin-right: 0.25rem;
+
+      tobago-badge {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
 }
