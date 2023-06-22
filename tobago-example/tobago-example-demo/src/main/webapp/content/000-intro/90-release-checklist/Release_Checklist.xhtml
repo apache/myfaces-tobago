@@ -105,86 +105,28 @@ ${content}
             </tc:popup>
           </li>
 
-          <li>Install (or unpack) a jdk 1.4 on your computer (only for Tobago 1.0.x).
-          </li>
-
-          <li>Please switch to a jdk depending of the version to build:
-          </li>
-
-          <li>for Tobago 1.0.x:
-            <ul>
-              <li>use jdk 1.5 or 1.6 for build</li>
-              <li>use jdk 1.7 for deployment</li>
-            </ul>
-          </li>
-
-          <li>for Tobago 1.5.x use jdk 1.7.
-          </li>
-
-          <li>for Tobago 2.x and higher use jdk 1.8 or higher.
-          </li>
+          <li>for Tobago 2.x and higher use jdk 1.8 or higher.</li>
 
           <li>Perform basic checks on an unmodified checkout for all modules:
 
-            <demo-highlight language="bash"># for Tobago 1.0.x
-$ mvn checkstyle:check rat:check -Pall-modules
-
-# for Tobago 1.5.x and higher
-$ mvn clean install -Pall-modules &amp;&amp; mvn checkstyle:check apache-rat:check animal-sniffer:check -Pall-modules
-
-# for Tobago 2.0.9 and higher
-$ mvn clean install &amp;&amp; mvn checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check
-
-# for Tobago 3.0.0 and higher
-$ mvn clean install -Pall-modules &amp;&amp; mvn checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check -Pall-modules
-
-# for Tobago 4.2.0 and higher
+            <demo-highlight language="bash"># for Tobago 2.x, 4.x and higher
 $ mvn clean install &amp;&amp; mvn checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check
 </demo-highlight>
           </li>
         </ul>
       </tc:section>
-      <tc:section label="Building the Release (Tobago 1.0.x to 2.0.8)">
-        <tc:badge value="Todo:" markup="warning"/> Migrate this docs to use git!
+
+      <tc:section label="Building the Release">
         <ul>
-          <li>Prepare the release with:
-
-            <demo-highlight language="bash">$ mvn release:prepare -Pall-modules</demo-highlight>
-          </li>
-
-          <li>Check out a fresh copy of the svn tag:
-
-            <demo-highlight language="bash">cd ..
-svn co https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-&lt;version>
-cd tobago-&lt;version>
-</demo-highlight>
-          </li>
-
-          <li>Deploy the fresh copy to the Nexus repository with the apache-release profile (we are not using release:perform here, because of some different options):
-
-            <demo-highlight language="bash"># for Tobago 1.0.x
-# "install" with Java 1.6 and Maven 2
-$ mvn install -Papache-release,jdk14retro,generate-assembly --no-plugin-updates -Dnon-default-modules -Djava14.home=\${java14.jre}
-# "deploy" with Java 1.7 and Maven 3 (hotfix: also comment out the maven-apt-plugin stuff)
-$ mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-default-modules
-
-# for Tobago 1.5.x to 2.0.8
-$ mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-default-modules
-</demo-highlight>
-          </li>
-        </ul>
-      </tc:section>
-
-      <tc:section label="Building the Release (Tobago 2.0.9 and higher)">
-        <ul>
+          <li>Do not use your forked repository for the following steps to keep the history of the release process.</li>
           <li>Commit: "chore(release): prepare"
             <ul>
-              <li>Check version info in these files manually:
-                <demo-highlight>package.json</demo-highlight>
-                <demo-highlight>package-lock.json</demo-highlight>
-                <demo-highlight>package-info.java</demo-highlight>
-                <demo-highlight>Release.java</demo-highlight>
-                <demo-highlight>ApiController.java</demo-highlight>
+              <li>Check version info in these files manually (set to release version without SNAPSHOT suffix):
+                <demo-highlight>package.json
+package-lock.json
+package-info.java
+Release.java
+ApiController.java</demo-highlight>
               </li>
             </ul>
           </li>
@@ -203,7 +145,8 @@ $ mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-defaul
           </li>
           <li>Set next SNAPSHOT version in:
               <demo-highlight>package.json
-package-lock.json</demo-highlight>
+package-lock.json
+package-info.java</demo-highlight>
               and commit: "chore(release): set next SNAPSHOT version"
           </li>
         </ul>
@@ -213,9 +156,6 @@ package-lock.json</demo-highlight>
         <ul>
           <li><i>Close</i> the repository on the <tc:link label="Nexus" link="https://repository.apache.org/"
                                                           image="bi-box-arrow-up-right"/> instance for staging (you will receive a mail with the staging location).
-          </li>
-
-          <li>Update the staging and snapshot version on tobago-vm.apache.org
           </li>
         </ul>
       </tc:section>
@@ -337,8 +277,9 @@ ${content}</demo-highlight>
                 </ul>
               </li>
 
-              <li>Updating 'tobago.md' in the MyFaces homepage project 'myfaces-homepage'.:
-                <demo-highlight language="bash">myfaces-homepage/tobago.md</demo-highlight>
+              <li>Updating 'tobago.md' and 'tobago-download.md' in the MyFaces homepage project 'myfaces-homepage'.:
+                <demo-highlight language="bash">myfaces-homepage/tobago.md
+myfaces-homepage/tobago-download.md</demo-highlight>
               </li>
             </ul>
           </li>
