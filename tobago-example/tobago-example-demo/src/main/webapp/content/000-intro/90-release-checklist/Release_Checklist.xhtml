@@ -118,14 +118,15 @@ $ mvn clean install &amp;&amp; mvn checkstyle:check apache-rat:check animal-snif
 
       <tc:section label="Building the Release">
         <ul>
+          <li>Do not use your forked repository for the following steps to keep the history of the release process.</li>
           <li>Commit: "chore(release): prepare"
             <ul>
               <li>Check version info in these files manually (set to release version without SNAPSHOT suffix):
-                <demo-highlight>package.json</demo-highlight>
-                <demo-highlight>package-lock.json</demo-highlight>
-                <demo-highlight>package-info.java</demo-highlight>
-                <demo-highlight>Release.java</demo-highlight>
-                <demo-highlight>ApiController.java</demo-highlight>
+                <demo-highlight>package.json
+package-lock.json
+package-info.java
+Release.java
+ApiController.java</demo-highlight>
               </li>
             </ul>
           </li>
@@ -144,7 +145,8 @@ $ mvn clean install &amp;&amp; mvn checkstyle:check apache-rat:check animal-snif
           </li>
           <li>Set next SNAPSHOT version in:
               <demo-highlight>package.json
-package-lock.json</demo-highlight>
+package-lock.json
+package-info.java</demo-highlight>
               and commit: "chore(release): set next SNAPSHOT version"
           </li>
         </ul>
@@ -154,9 +156,6 @@ package-lock.json</demo-highlight>
         <ul>
           <li><i>Close</i> the repository on the <tc:link label="Nexus" link="https://repository.apache.org/"
                                                           image="bi-box-arrow-up-right"/> instance for staging (you will receive a mail with the staging location).
-          </li>
-
-          <li>Update the staging and snapshot version on tobago-vm.apache.org
           </li>
         </ul>
       </tc:section>
@@ -278,8 +277,9 @@ ${content}</demo-highlight>
                 </ul>
               </li>
 
-              <li>Updating 'tobago.md' in the MyFaces homepage project 'myfaces-homepage'.:
-                <demo-highlight language="bash">myfaces-homepage/tobago.md</demo-highlight>
+              <li>Updating 'tobago.md' and 'tobago-download.md' in the MyFaces homepage project 'myfaces-homepage'.:
+                <demo-highlight language="bash">myfaces-homepage/tobago.md
+myfaces-homepage/tobago-download.md</demo-highlight>
               </li>
             </ul>
           </li>
