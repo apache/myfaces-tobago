@@ -6063,7 +6063,6 @@ textarea.form-control-lg {
   float: left;
   width: 100%;
   margin-right: -100%;
-  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   transition: transform 0.6s ease-in-out;
 }
@@ -7004,7 +7003,6 @@ textarea.form-control-lg {
   align-items: center;
   text-decoration-color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 0.5));
   text-underline-offset: 0.25em;
-  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 .icon-link > .bi {
