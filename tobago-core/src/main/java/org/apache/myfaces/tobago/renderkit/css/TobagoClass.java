@@ -94,6 +94,7 @@ public enum TobagoClass implements CssItem {
   SMALL("tobago-small"),
   SORTABLE("tobago-sortable"),
   SPREAD("tobago-spread"),
+  SQUARE("tobago-square"),
   STARS("tobago-stars"),
   STARS__CONTAINER("tobago-stars-container"),
   STARS__FOCUS_BOX("tobago-stars-focusBox"),

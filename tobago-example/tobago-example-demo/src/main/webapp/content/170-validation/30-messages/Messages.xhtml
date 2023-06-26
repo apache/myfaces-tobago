@@ -32,15 +32,15 @@
   <tc:section label="Show Messages in different style">
     <tc:box label="Create a message">
       <tc:buttons>
-      <tc:button label="Fatal" action="#{messagesController.createFatalMessage}"/>
-      <tc:button label="Error" action="#{messagesController.createErrorMessage}"/>
-      <tc:button label="Warn" action="#{messagesController.createWarnMessage}"/>
-      <tc:button label="Info" action="#{messagesController.createInfoMessage}"/>
-      <tc:button id="add7messages" label="7 Messages" action="#{messagesController.createSevenMessages}"/>
-      <tc:button label="7 Messages (Ajax)" action="#{messagesController.createSevenMessages}">
-        <f:ajax render="tabGroup"/>
-      </tc:button>
-      <tc:button label="Summary/Details" action="#{messagesController.createSummaryDetailMessages}"/>
+        <tc:button label="Fatal" action="#{messagesController.createFatalMessage}"/>
+        <tc:button label="Error" action="#{messagesController.createErrorMessage}"/>
+        <tc:button label="Warn" action="#{messagesController.createWarnMessage}"/>
+        <tc:button label="Info" action="#{messagesController.createInfoMessage}"/>
+        <tc:button id="add7messages" label="7 Messages" action="#{messagesController.createSevenMessages}"/>
+        <tc:button label="7 Messages (Ajax)" action="#{messagesController.createSevenMessages}">
+          <f:ajax render="tabGroup"/>
+        </tc:button>
+        <tc:button label="Summary/Details" action="#{messagesController.createSummaryDetailMessages}"/>
       </tc:buttons>
 
       <p>To create messages, press one of the buttons. The message will be displayed in the tab group below.</p>
@@ -55,7 +55,11 @@
     <tc:tab id="woAttr" label="Without attributes">
       <p>On this tab, you can see how messages are displayed if no attribute are set for the
         <code class="language-markup">&lt;tc:messages/></code> tag.</p>
-      <tc:messages id="woAttrMessage"/>
+      <tc:messages id="woAttrMessage" var="message">
+        <f:facet name="label">
+          yooo #{message.summary}
+        </f:facet>
+      </tc:messages>
     </tc:tab>
 
     <tc:tab label="Number of messages">
@@ -67,7 +71,9 @@
     <tc:tab label="Severity">
       <p>The range, which severities are displayed, can be set with <code>minSeverity</code> and
         <code>maxSeverity</code>. In this example, only warnings and error should be displayed.</p>
-      <demo-highlight language="markup">&lt;tc:messages minSeverity="#{messagesController.severityWarn}" maxSeverity="#{messagesController.severityError}"/></demo-highlight>
+      <demo-highlight
+          language="markup">&lt;tc:messages minSeverity="#{messagesController.severityWarn}" maxSeverity="#{messagesController.severityError}"/>
+      </demo-highlight>
       <tc:messages minSeverity="#{messagesController.severityWarn}" maxSeverity="#{messagesController.severityError}"/>
     </tc:tab>
 
@@ -97,6 +103,21 @@
           <tc:messages orderBy="occurrence"/>
         </tc:box>
       </tc:segmentLayout>
+    </tc:tab>
+
+    <tc:tab label="Toast">
+      <p>There a two types of messages. The default is <code>alert</code> but it can be changed to
+        <code>toast</code>. If <code>toast</code> is used, two additional attributes are available:
+        <code>placement</code> and <code>disposeDelay</code>.</p>
+      <p>
+        With <code>placement</code> the position of the toast can be set. The default is <code>bottomRight</code>.
+        <br/>
+        With <code>disposeDelay</code> the time in milliseconds can be set, after which the toast disappears. Default is
+        <code>5000</code> (5 seconds). If set to <code>-1</code>, the toast will not disappear automatically.
+      </p>
+      <demo-highlight language="markup">&lt;tc:messages type="toast" showSummary="true" showDetail="true"/>
+      </demo-highlight>
+      <tc:messages type="toast" showSummary="true" showDetail="true"/>
     </tc:tab>
   </tc:tabGroup>
 </ui:composition>

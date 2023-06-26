@@ -27,7 +27,9 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasFor;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
+import org.apache.myfaces.tobago.layout.MessageType;
 import org.apache.myfaces.tobago.layout.OrderBy;
+import org.apache.myfaces.tobago.layout.Placement;
 
 import javax.faces.component.UIMessages;
 
@@ -48,6 +50,10 @@ import javax.faces.component.UIMessages;
 
 public interface MessagesTagDeclaration
     extends HasIdBindingAndRendered, HasFor, IsVisual {
+
+  @TagAttribute
+  @UIComponentTagAttribute()
+  void setVar(String var);
 
   /**
    * Flag indicating that only messages that are not associated to any
@@ -115,4 +121,38 @@ public interface MessagesTagDeclaration
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setConfirmation(String confirmation);
 
+  /**
+   * Defines the message type. Allowed values are "alert" (default) and "toast".
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.MessageType",
+      allowedValues = {
+          MessageType.ALERT, MessageType.TOAST
+      })
+  void setType(String type);
+
+  /**
+   * Defines the placement of containing toasts. Only have an effect if message type is "toast".
+   * Default is "bottomRight".
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.Placement",
+      allowedValues = {
+          Placement.TOP_LEFT, Placement.TOP_CENTER, Placement.TOP_RIGHT,
+          Placement.MIDDLE_LEFT, Placement.MIDDLE_CENTER, Placement.MIDDLE_RIGHT,
+          Placement.BOTTOM_LEFT, Placement.BOTTOM_CENTER, Placement.BOTTOM_RIGHT
+      },
+      defaultValue = Placement.BOTTOM_RIGHT,
+      defaultCode = "org.apache.myfaces.tobago.layout.Placement.bottomRight")
+  void setPlacement(String placement);
+
+  /**
+   * Delay in milliseconds before hiding the toast. Only have an effect if message type is "toast". Default is "5000".
+   * Set to "-1" to never automatically hide the toast.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "5000")
+  void setDisposeDelay(String disposeDelay);
 }

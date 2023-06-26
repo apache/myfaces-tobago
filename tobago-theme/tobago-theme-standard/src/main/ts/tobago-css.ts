@@ -36,6 +36,7 @@ export enum Css {
   TABLE_ACTIVE = "table-active",
   TABLE_INFO = "table-info",
   TABLE_PRIMARY = "table-primary",
+  TOAST_CONTAINER = "toast-container",
   TOBAGO_COLLAPSED = "tobago-collapsed",
   TOBAGO_DISABLED = "tobago-disabled",
   TOBAGO_DROP_ZONE = "tobago-drop-zone",

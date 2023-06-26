@@ -15,24 +15,49 @@
  * limitations under the License.
  */
 
+import {Css} from "./tobago-css";
+import {Alert, Toast} from "bootstrap";
+
+enum Type {
+  alert, toast
+}
+
 class Messages extends HTMLElement {
 
   constructor() {
     super();
   }
 
+  get type(): Type {
+    return this.classList.contains(Css.TOAST_CONTAINER) ? Type.toast : Type.alert;
+  }
+
+  get alerts(): NodeListOf<HTMLDivElement> {
+    return this.querySelectorAll(".alert");
+  }
+
+  get toasts(): NodeListOf<HTMLDivElement> {
+    return this.querySelectorAll(".toast");
+  }
+
   connectedCallback(): void {
-    for (const closeButton of this.closeButtons) {
-      closeButton.addEventListener("click", this.closeAlert);
+    if (this.type === Type.alert) {
+      for (const alert of this.alerts) {
+        new Alert(alert);
+      }
+    } else {
+      for (const toastElement of this.toasts) {
+        const disposeDelay = Number(toastElement.dataset.tobagoDisposeDelay);
+        const delay = disposeDelay >= 0 ? disposeDelay : 0;
+        const options: Toast.Options = {animation: true, autohide: disposeDelay >= 0, delay: delay};
+        const toast = new Toast(toastElement, options);
+        toast.show();
+
+        toastElement.addEventListener("hidden.bs.toast", function (event: Event): void {
+          toastElement.remove();
+        });
+      }
     }
-  }
-
-  private closeAlert(event: MouseEvent): void {
-    this.closest(".alert").remove();
-  }
-
-  get closeButtons(): NodeListOf<HTMLButtonElement> {
-    return this.querySelectorAll(".alert button.btn-close");
   }
 }
 

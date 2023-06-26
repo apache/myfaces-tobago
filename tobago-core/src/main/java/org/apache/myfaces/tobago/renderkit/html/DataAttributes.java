@@ -27,6 +27,7 @@ package org.apache.myfaces.tobago.renderkit.html;
 public enum DataAttributes implements MarkupLanguageAttributes {
 
   BS_CONTENT("data-bs-content"),
+  BS_DISMISS("data-bs-dismiss"),
   BS_TOGGLE("data-bs-toggle"),
   BS_TRIGGER("data-bs-trigger"),
 
@@ -59,6 +60,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   DISABLED("data-tobago-disabled"),
 
   DISMISS("data-dismiss"),
+  DISPOSE_DELAY("data-tobago-dispose-delay"),
 
   /**
    * Custom form attribute. Used to show the virtual form of the component.

@@ -21,8 +21,11 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUIMessages;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.layout.MessageType;
+import org.apache.myfaces.tobago.layout.Placement;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -53,61 +56,24 @@ public class MessagesRenderer<T extends AbstractUIMessages> extends RendererBase
     }
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final MessageType messageType = component.getType();
+    final Placement placement = component.getPlacement();
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("facesContext is " + facesContext.getClass().getName());
     }
     final List<AbstractUIMessages.Item> messageList = component.createMessageList(facesContext);
 
-    // with id
-      /*String focusId = null;
-      Iterator clientIds;
-      if (ComponentUtils.getBooleanAttribute(messages, Attributes.globalOnly)) {
-        ArrayList<String> list = new ArrayList<String>(1);
-        list.add(null);
-        clientIds = list.iterator();
-      } else {
-        clientIds = facesContext.getClientIdsWithMessages();
-      }*/
-
     writer.startElement(HtmlElements.TOBAGO_MESSAGES);
     writer.writeIdAttribute(component.getClientId(facesContext));
-    writer.writeClassAttribute(component.getCustomClass());
+    writer.writeClassAttribute(
+        component.getCustomClass(),
+        BootstrapClass.toastPlacement(placement),
+        MessageType.toast.equals(messageType) ? BootstrapClass.TOAST_CONTAINER : null,
+        MessageType.toast.equals(messageType) ? BootstrapClass.POSITION_FIXED : null,
+        MessageType.toast.equals(messageType) ? BootstrapClass.P_3 : null
+    );
 
-    FacesMessage.Severity lastSeverity = null;
-    boolean first = true;
-
-    for (final AbstractUIMessages.Item item : messageList) {
-      final FacesMessage message = item.getFacesMessage();
-      final FacesMessage.Severity severity = message.getSeverity();
-
-      if (!first && lastSeverity != severity) {
-        writer.endElement(HtmlElements.DIV);
-      }
-
-      if (first || lastSeverity != severity) {
-        writer.startElement(HtmlElements.DIV);
-        writer.writeClassAttribute(
-            BootstrapClass.ALERT, BootstrapClass.ALERT_DISMISSIBLE, BootstrapClass.alert(severity));
-        HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
-        writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.ALERT.toString(), false);
-
-        writer.startElement(HtmlElements.BUTTON);
-        writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
-        writer.writeClassAttribute(BootstrapClass.BTN_CLOSE);
-        writer.writeAttribute(DataAttributes.DISMISS, "alert", false);
-        writer.writeAttribute(Arias.ACTIVEDESCENDANT, "Close", false); // todo: i18n
-        writer.endElement(HtmlElements.BUTTON);
-      }
-
-      encodeMessage(writer, component, message, item.getForId());
-
-      lastSeverity = severity;
-      first = false;
-    }
-    if (messageList.size() > 0) {
-      writer.endElement(HtmlElements.DIV); // close open tag from for-loop
-    }
     if (component.getFor() == null) {
       final String id = component.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "messagesExists";
       writer.startElement(HtmlElements.INPUT);
@@ -117,31 +83,95 @@ public class MessagesRenderer<T extends AbstractUIMessages> extends RendererBase
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
       writer.endElement(HtmlElements.INPUT);
     }
+
+    for (final AbstractUIMessages.Item item : messageList) {
+      if (MessageType.toast.equals(messageType)) {
+        renderToast(facesContext, component, writer, item);
+      } else {
+        renderAlert(facesContext, component, writer, item);
+      }
+    }
+
     writer.endElement(HtmlElements.TOBAGO_MESSAGES);
-/*
-      while(clientIds.hasNext()) {
-        String clientId = (String) clientIds.next();
-        encodeMessagesForId(facesContext, writer, clientId, showSummary, showDetail);
-        if (focusId == null) {
-          focusId = clientId;
-        }
-      }
-  todo: don't forget: focus
-      if (focusId != null) {
-        ComponentUtils.findPage(facesContext, messages).setFocusId(focusId);
-      }
-*/
+  }
+
+  private void renderAlert(
+      final FacesContext facesContext, final T component, final TobagoResponseWriter writer,
+      final AbstractUIMessages.Item item
+  ) throws IOException {
+    final FacesMessage message = item.getFacesMessage();
+    final FacesMessage.Severity severity = message.getSeverity();
+
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(
+        BootstrapClass.ALERT,
+        BootstrapClass.ALERT_DISMISSIBLE,
+        BootstrapClass.alert(severity),
+        BootstrapClass.FADE,
+        BootstrapClass.SHOW);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
+    writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.ALERT.toString(), false);
+
+    encodeMessage(writer, component, message, item.getForId());
+
+    writer.startElement(HtmlElements.BUTTON);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+    writer.writeClassAttribute(BootstrapClass.BTN_CLOSE);
+    writer.writeAttribute(DataAttributes.BS_DISMISS, "alert", false);
+    writer.writeAttribute(Arias.LABEL, "Close", false); // todo: i18n
+    writer.endElement(HtmlElements.BUTTON);
+    writer.endElement(HtmlElements.DIV);
+  }
+
+  private void renderToast(
+      final FacesContext facesContext, final T component, final TobagoResponseWriter writer,
+      final AbstractUIMessages.Item item
+  ) throws IOException {
+    final FacesMessage message = item.getFacesMessage();
+    final FacesMessage.Severity severity = message.getSeverity();
+
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(BootstrapClass.TOAST);
+    writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.ALERT.toString(), false);
+    writer.writeAttribute(Arias.LIVE, "assertive", false);
+    writer.writeAttribute(Arias.ATOMIC, true);
+    writer.writeAttribute(DataAttributes.DISPOSE_DELAY, component.getDisposeDelay());
+
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(BootstrapClass.TOAST_HEADER);
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(TobagoClass.SQUARE,
+        BootstrapClass.ROUNDED,
+        BootstrapClass.ME_2,
+        BootstrapClass.toast(severity));
+    writer.endElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.STRONG);
+    writer.writeClassAttribute(BootstrapClass.ME_2);
+    writer.write(getTitle(severity));
+    writer.endElement(HtmlElements.STRONG);
+    writer.startElement(HtmlElements.BUTTON);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+    writer.writeClassAttribute(BootstrapClass.BTN_CLOSE, BootstrapClass.MS_AUTO);
+    writer.writeAttribute(DataAttributes.BS_DISMISS, "toast", false);
+    writer.writeAttribute(Arias.LABEL, "Close", false); //todo: i18n
+    writer.endElement(HtmlElements.BUTTON);
+    writer.endElement(HtmlElements.DIV);
+
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(BootstrapClass.TOAST_BODY);
+    encodeMessage(writer, component, message, item.getForId());
+    writer.endElement(HtmlElements.DIV);
+
+    writer.endElement(HtmlElements.DIV);
   }
 
   private void encodeMessage(
-      final TobagoResponseWriter writer, final AbstractUIMessages messages, final FacesMessage message,
-      final String forId)
-      throws IOException {
-
+      final TobagoResponseWriter writer, final AbstractUIMessages component, final FacesMessage message,
+      final String forId) throws IOException {
     final String summary = message.getSummary();
     final String detail = message.getDetail();
-    final boolean showSummary = summary != null && messages.isShowSummary() && summary.length() > 0;
-    final boolean showDetails = detail != null && messages.isShowDetail() && detail.length() > 0;
+    final boolean showSummary = summary != null && component.isShowSummary() && summary.length() > 0;
+    final boolean showDetails = detail != null && component.isShowDetail() && detail.length() > 0;
     writer.startElement(HtmlElements.LABEL);
     writer.writeAttribute(HtmlAttributes.FOR, forId, false);
     writer.writeAttribute(HtmlAttributes.TITLE, detail, true);
@@ -161,5 +191,19 @@ public class MessagesRenderer<T extends AbstractUIMessages> extends RendererBase
     writer.endElement(HtmlElements.LABEL);
 
     message.rendered();
+  }
+
+  private String getTitle(final FacesMessage.Severity severity) {
+    if (FacesMessage.SEVERITY_FATAL.equals(severity)) {
+      return "Fatal";
+    } else if (FacesMessage.SEVERITY_ERROR.equals(severity)) {
+      return "Error";
+    } else if (FacesMessage.SEVERITY_WARN.equals(severity)) {
+      return "Warning";
+    } else if (FacesMessage.SEVERITY_INFO.equals(severity)) {
+      return "Information";
+    } else {
+      return null;
+    }
   }
 }

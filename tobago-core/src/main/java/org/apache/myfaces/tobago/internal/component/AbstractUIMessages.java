@@ -21,7 +21,9 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.Visual;
+import org.apache.myfaces.tobago.layout.MessageType;
 import org.apache.myfaces.tobago.layout.OrderBy;
+import org.apache.myfaces.tobago.layout.Placement;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -139,4 +141,10 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
   public abstract OrderBy getOrderBy();
 
   public abstract boolean isConfirmation();
+
+  public abstract MessageType getType();
+
+  public abstract Placement getPlacement();
+
+  public abstract Integer getDisposeDelay();
 }

@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.layout.Margin;
 import org.apache.myfaces.tobago.layout.MarginTokens;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.MeasureList;
+import org.apache.myfaces.tobago.layout.Placement;
 import org.apache.myfaces.tobago.layout.SegmentJustify;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.layout.VerticalAlign;
@@ -124,6 +125,7 @@ public enum BootstrapClass implements CssItem {
   BORDER_DANGER("border-danger"),
   BORDER_INFO("border-info"),
   BORDER_WARNING("border-warning"),
+  BOTTOM_0("bottom-0"),
   BTN("btn"),
   BTN_CLOSE("btn-close"),
   BTN_DANGER("btn-danger"),
@@ -316,6 +318,7 @@ public enum BootstrapClass implements CssItem {
   DROPDOWN_MENU_END("dropdown-menu-end"),
   DROPDOWN_TOGGLE("dropdown-toggle"),
   DROPDOWN_TOGGLE_SPLIT("dropdown-toggle-split"),
+  END_0("end-0"),
   ERROR_FEEDBACK("error-feedback"),
   ERROR_TOOLTIP("error-tooltip"),
   FADE("fade"),
@@ -578,12 +581,15 @@ public enum BootstrapClass implements CssItem {
   PAGE_ITEM("page-item"),
   PAGE_LINK("page-link"),
   PAGINATION("pagination"),
+  P_3("p-3"),
   POPOVER("popover"),
   POPOVER_ARROW("popover-arrow"),
   POPOVER_BODY("popover-body"),
   POPOVER_HEADER("popover-header"),
+  POSITION_FIXED("position-fixed"),
   PROGRESS("progress"),
   PROGRESS_BAR("progress-bar"),
+  ROUNDED("rounded"),
   ROUNDED_PILL("rounded-pill"),
   ROW("row"),
   SHOW("show"),
@@ -592,6 +598,8 @@ public enum BootstrapClass implements CssItem {
    */
   @Deprecated
   SR_ONLY("sr-only"),
+  START_0("start-0"),
+  START_50("start-50"),
   STICKY_TOP("sticky-top"),
   TEXT_BG_DANGER("text-bg-danger"),
   TEXT_BG_DARK("text-bg-dark"),
@@ -637,7 +645,16 @@ public enum BootstrapClass implements CssItem {
   TABLE_PRIMARY("table-primary"),
   TABLE_SM("table-sm"),
   TABLE_STRIPED("table-striped"),
+  TOAST("toast"),
+  TOAST_BODY("toast-body"),
+  TOAST_CONTAINER("toast-container"),
+  TOAST_HEADER("toast-header"),
   TOOLTIP_ARROW("tooltip-arrow"),
+  TOP_0("top-0"),
+  TOP_50("top-50"),
+  TRANSLATE_MIDDLE("translate-middle"),
+  TRANSLATE_MIDDLE_X("translate-middle-x"),
+  TRANSLATE_MIDDLE_Y("translate-middle-y"),
   VISUALLY_HIDDEN("visually-hidden"),
   WARNING_FEEDBACK("warning-feedback"),
   WARNING_TOOLTIP("warning-tooltip");
@@ -675,6 +692,45 @@ public enum BootstrapClass implements CssItem {
       return ALERT_INFO;
     } else {
       return null;
+    }
+  }
+
+  public static CssItem toast(final FacesMessage.Severity severity) {
+    if (severity == null) {
+      return null;
+    } else if (severity.getOrdinal() >= SEVERITY_ERROR) {
+      return BG_DANGER;
+    } else if (severity.getOrdinal() >= SEVERITY_WARN) {
+      return BG_WARNING;
+    } else if (severity.getOrdinal() >= SEVERITY_INFO) {
+      return BG_INFO;
+    } else {
+      return null;
+    }
+  }
+
+  public static CssItem[] toastPlacement(final Placement placement) {
+    switch (placement) {
+      case topLeft:
+        return new BootstrapClass[]{TOP_0, START_0};
+      case topCenter:
+        return new BootstrapClass[]{TOP_0, START_50, TRANSLATE_MIDDLE_X};
+      case topRight:
+        return new BootstrapClass[]{TOP_0, END_0};
+      case middleLeft:
+        return new BootstrapClass[]{TOP_50, START_0, TRANSLATE_MIDDLE_Y};
+      case middleCenter:
+        return new BootstrapClass[]{TOP_50, START_50, TRANSLATE_MIDDLE};
+      case middleRight:
+        return new BootstrapClass[]{TOP_50, END_0, TRANSLATE_MIDDLE_Y};
+      case bottomLeft:
+        return new BootstrapClass[]{BOTTOM_0, START_0};
+      case bottomCenter:
+        return new BootstrapClass[]{BOTTOM_0, START_50, TRANSLATE_MIDDLE_X};
+      case bottomRight:
+        return new BootstrapClass[]{BOTTOM_0, END_0};
+      default:
+        return null;
     }
   }
 
