@@ -408,6 +408,10 @@ tobago-bar {
     on the link itself but on the parent tag. */
     @include linkWithoutUnderline();
   }
+
+  tobago-links.tobago-auto-spacing {
+    margin-bottom: 0;
+  }
 }
 
 tobago-behavior {
