@@ -13799,7 +13799,6 @@ tobago-split-layout {
   z-index: 10000; /* TODO: check, if needed (check also with iframes) */
 }
 
-/* tab / tab-group ----------------------------------------------------------------- */
 tobago-tab .nav-link:not([href]):not([tabindex]) {
   /* fix .nav-links without 'href'; bootstrap tab only works if 'href' is set */
 }
@@ -13829,10 +13828,27 @@ tobago-tab.tobago-bar > .nav-link {
   border-right: 0;
   border-top-right-radius: 0;
 }
+tobago-tab.tobago-bar > .nav-link:hover:not(.disabled):not(.active) + div {
+  border-color: var(--bs-nav-tabs-link-hover-border-color);
+}
+tobago-tab.tobago-bar > .nav-link.active + div {
+  background-color: var(--bs-card-bg);
+  border-color: var(--bs-nav-tabs-link-active-border-color);
+  border-bottom-color: var(--bs-card-bg);
+}
 tobago-tab.tobago-bar > div {
+  padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+  padding-left: 0;
   border: var(--bs-border-width) solid transparent;
   border-top-right-radius: var(--bs-border-radius);
-  padding-right: 1rem;
+  border-left: 0;
+  margin-bottom: calc(-1 * var(--bs-nav-tabs-border-width));
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  tobago-tab.tobago-bar > div {
+    transition: none;
+  }
 }
 tobago-tab.tobago-bar > div > button {
   height: 100%;
@@ -13840,15 +13856,6 @@ tobago-tab.tobago-bar > div > button {
 tobago-tab.tobago-bar > div > a {
   display: inline-block;
   padding-top: 0.5rem;
-}
-tobago-tab.tobago-bar .nav-link.active + div {
-  background-color: var(--bs-body-bg);
-  border-top-color: var(--bs-border-color);
-  border-right-color: var(--bs-border-color);
-}
-tobago-tab.tobago-bar .nav-link:not(.disabled):hover + div {
-  border-top-color: #d0d0d0;
-  border-right-color: #d0d0d0;
 }
 
 tobago-tab-group tobago-tab > .nav-link > img + span {
