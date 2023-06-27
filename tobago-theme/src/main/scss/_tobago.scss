@@ -163,7 +163,7 @@ $tobago-flex-layout-spacing: 0.5rem;
     }
   }
   tobago-popover > a {
-    --bs-btn-padding-x: .4rem;
+    --#{$prefix}btn-padding-x: .4rem;
   }
 }
 
@@ -192,9 +192,9 @@ $tobago-flex-layout-spacing: 0.5rem;
     }
 
     .list-group {
-      --bs-list-group-color: #{$input-focus-color};
-      --bs-list-group-bg: #{$input-focus-bg};
-      --bs-list-group-border-color: #{$input-focus-border-color};
+      --#{$prefix}list-group-color: #{$input-focus-color};
+      --#{$prefix}list-group-bg: #{$input-focus-bg};
+      --#{$prefix}list-group-border-color: #{$input-focus-border-color};
 
       @include formControlFocusShadows();
       @include selectListBorderColorShadow("danger", $danger);
@@ -301,8 +301,8 @@ $tobago-flex-layout-spacing: 0.5rem;
         }
 
         &.tobago-preselect {
-          --bs-table-accent-bg: var(--bs-table-hover-bg);
-          color: var(--bs-table-hover-color);
+          --#{$prefix}table-accent-bg: var(--#{$prefix}table-hover-bg);
+          color: var(--#{$prefix}table-hover-color);
         }
 
         &:last-of-type {
@@ -490,8 +490,8 @@ tobago-buttons {
 
   > tobago-dropdown:last-child > .tobago-button.dropdown-toggle-split:first-child {
     //split buttons in Tobago have a tobago-dropdown tag included, which leads to an issue with border-radius
-    border-top-right-radius: var(--bs-btn-border-radius);
-    border-bottom-right-radius: var(--bs-btn-border-radius);
+    border-top-right-radius: var(--#{$prefix}btn-border-radius);
+    border-bottom-right-radius: var(--#{$prefix}btn-border-radius);
   }
 }
 
