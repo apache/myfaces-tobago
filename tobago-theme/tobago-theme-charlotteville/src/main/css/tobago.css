@@ -12075,6 +12075,9 @@ tobago-bar .navbar-brand {
 tobago-bar .navbar-brand > .tobago-link {
   text-decoration: none;
 }
+tobago-bar tobago-links.tobago-auto-spacing {
+  margin-bottom: 0;
+}
 
 tobago-behavior {
   display: none;
