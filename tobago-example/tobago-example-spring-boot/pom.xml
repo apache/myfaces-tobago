@@ -134,7 +134,7 @@
       <artifactId>jackson-core</artifactId>
       <version>${jackson.version}</version>
     </dependency>
-    <dependency>
+    <!--<dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>${jackson.version}</version>
@@ -153,7 +153,7 @@
       <groupId>com.fasterxml.jackson.module</groupId>
       <artifactId>jackson-module-parameter-names</artifactId>
       <version>${jackson.version}</version>
-    </dependency>
+    </dependency>-->
     <dependency> <!-- add JAXB to run the demo with Java 11 and higher -->
       <groupId>javax.xml.bind</groupId>
       <artifactId>jaxb-api</artifactId>
