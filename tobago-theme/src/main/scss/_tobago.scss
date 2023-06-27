@@ -1656,10 +1656,7 @@ tobago-split-layout {
   z-index: 10000; /* TODO: check, if needed (check also with iframes) */
 }
 
-/* tab / tab-group ----------------------------------------------------------------- */
-
 tobago-tab {
-
   .nav-link:not([href]):not([tabindex]) {
     /* fix .nav-links without 'href'; bootstrap tab only works if 'href' is set */
     &.active {
@@ -1693,12 +1690,26 @@ tobago-tab.tobago-bar {
   > .nav-link {
     border-right: 0;
     border-top-right-radius: 0;
+
+    &:hover:not(.disabled):not(.active) + div {
+      border-color: var(--#{$prefix}nav-tabs-link-hover-border-color);
+    }
+
+    &.active + div {
+      background-color: var(--#{$prefix}card-bg);
+      border-color: var(--#{$prefix}nav-tabs-link-active-border-color);
+      border-bottom-color: var(--#{$prefix}card-bg);
+    }
   }
 
   > div {
+    padding: var(--#{$prefix}nav-link-padding-y) var(--#{$prefix}nav-link-padding-x);
+    padding-left: 0;
     border: $nav-tabs-border-width solid transparent;
     border-top-right-radius: $nav-tabs-border-radius;
-    padding-right: $nav-link-padding-x;
+    border-left: 0;
+    margin-bottom: calc(-1 * var(--bs-nav-tabs-border-width));
+    @include transition($nav-link-transition);
 
     & > button {
       height: 100%;
@@ -1708,17 +1719,6 @@ tobago-tab.tobago-bar {
       display: inline-block;
       padding-top: 0.5rem;
     }
-  }
-
-  .nav-link.active + div {
-    background-color: $nav-tabs-link-active-bg;
-    border-top-color: $nav-tabs-border-color;
-    border-right-color: $nav-tabs-border-color;
-  }
-
-  .nav-link:not(.disabled):hover + div {
-    border-top-color: $gray-200;
-    border-right-color: $gray-200;
   }
 }
 
