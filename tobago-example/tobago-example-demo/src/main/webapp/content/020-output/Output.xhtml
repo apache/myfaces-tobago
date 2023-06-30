@@ -42,8 +42,8 @@
   </tc:section>
 
   <tc:section label="Image">
-    <demo-highlight language="markup">&lt;tc:image value="image/tobago_head.png"/></demo-highlight>
-    <tc:image value="/image/tobago_head.png"/>
+    <demo-highlight language="markup">&lt;tc:image value="\#{request.contextPath}/image/tobago_head.png"/></demo-highlight>
+    <tc:image value="#{request.contextPath}/image/tobago_head.png"/>
   </tc:section>
 
   <tc:section label="Progress">
