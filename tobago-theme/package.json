@@ -94,6 +94,6 @@
     "rollup": "^3.20.2",
     "sass": "^1.62.1",
     "ts-jest": "^29.1.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.1.6"
   }
 }
