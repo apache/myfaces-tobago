@@ -149,6 +149,14 @@ import javax.faces.component.UICommand;
             description = "Set button color to outline dark color of the theme."
         ),
         @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_LARGE,
+            description = "Render a large button."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SMALL,
+            description = "Render a small button."
+        ),
+        @Markup(
             name = org.apache.myfaces.tobago.context.Markup.STRING_NONE,
             description = "Colorless button."
         ),

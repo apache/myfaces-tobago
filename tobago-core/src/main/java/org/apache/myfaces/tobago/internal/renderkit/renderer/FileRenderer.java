@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
@@ -134,6 +135,7 @@ public class FileRenderer<T extends AbstractUIFile>
     final boolean multiple = component.isMultiple() && !component.isRequired();
     final boolean disabled = component.isDisabled();
     final boolean readonly = component.isReadonly();
+    final Markup markup = component.getMarkup() != null ? component.getMarkup() : Markup.NULL;
     if (component.isMultiple() && component.isRequired()) {
       LOG.warn("Required multiple file upload is not supported."); //TODO TOBAGO-1930
     }
@@ -154,6 +156,8 @@ public class FileRenderer<T extends AbstractUIFile>
     writer.writeIdAttribute(fieldId);
     writer.writeClassAttribute(
         BootstrapClass.FORM_CONTROL,
+        markup.contains(Markup.LARGE) ? BootstrapClass.FORM_CONTROL_LG : null,
+        markup.contains(Markup.SMALL) ? BootstrapClass.FORM_CONTROL_SM : null,
         BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(component)));
     writer.writeNameAttribute(clientId);
     // readonly seems not making sense in browsers.

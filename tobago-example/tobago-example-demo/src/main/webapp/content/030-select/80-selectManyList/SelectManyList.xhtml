@@ -46,6 +46,16 @@
         <tc:selectItems value="#{selectManyListController.planets}"
                         var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
       </tc:selectManyList>
+      <tc:selectManyList id="selectedLarge" label="Large" value="#{selectManyListController.selectedPlanets}"
+                         markup="large">
+        <tc:selectItems value="#{selectManyListController.planets}"
+                        var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+      </tc:selectManyList>
+      <tc:selectManyList id="selectedSmall" label="Small" value="#{selectManyListController.selectedPlanets}"
+                         markup="small">
+        <tc:selectItems value="#{selectManyListController.planets}"
+                        var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+      </tc:selectManyList>
       <tc:button id="submit" label="Submit"/>
       <tc:button id="reset" label="reset for test" action="#{selectManyListController.resetSelectedPlanets()}">
         <tc:style customClass="d-none"/>
@@ -91,6 +101,14 @@
 
   <tc:section label="Expanded">
     <tc:selectManyList id="selectedExpanded" expanded="true">
+      <tc:selectItems value="#{selectManyListController.planets}"
+                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+    </tc:selectManyList>
+    <tc:selectManyList id="selectedExpandedLarge" label="Large" expanded="true" markup="large">
+      <tc:selectItems value="#{selectManyListController.planets}"
+                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+    </tc:selectManyList>
+    <tc:selectManyList id="selectedExpandedSmall" label="Small" expanded="true" markup="small">
       <tc:selectItems value="#{selectManyListController.planets}"
                       var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
     </tc:selectManyList>

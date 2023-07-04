@@ -82,7 +82,7 @@ public class TextareaRenderer<T extends AbstractUITextarea> extends DecorationPo
     final Integer rows = component.getRows();
     final boolean readonly = component.isReadonly();
     final boolean disabled = component.isDisabled();
-    final Markup markup = component.getMarkup();
+    final Markup markup = component.getMarkup() != null ? component.getMarkup() : Markup.NULL;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.TEXTAREA);
@@ -106,7 +106,9 @@ public class TextareaRenderer<T extends AbstractUITextarea> extends DecorationPo
         BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(component)),
         BootstrapClass.FORM_CONTROL,
         component.getCustomClass(),
-        markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
+        markup.contains(Markup.LARGE) ? BootstrapClass.FORM_CONTROL_LG : null,
+        markup.contains(Markup.SMALL) ? BootstrapClass.FORM_CONTROL_SM : null,
+        markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     int maxLength = 0;
     int minLength = 0;
     String pattern = null;

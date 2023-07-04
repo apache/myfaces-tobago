@@ -46,6 +46,14 @@
         <tc:selectItems value="#{selectOneListController.planets}"
                         var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
       </tc:selectOneList>
+      <tc:selectOneList id="large" label="Large" value="#{selectOneListController.selectedPlanet}" markup="large">
+        <tc:selectItems value="#{selectOneListController.planets}"
+                        var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+      </tc:selectOneList>
+      <tc:selectOneList id="small" label="Small" value="#{selectOneListController.selectedPlanet}" markup="small">
+        <tc:selectItems value="#{selectOneListController.planets}"
+                        var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+      </tc:selectOneList>
       <tc:button id="submit" label="Submit"/>
     </tc:form>
   </tc:section>
@@ -88,6 +96,14 @@
 
   <tc:section label="Expanded">
     <tc:selectOneList id="selectedExpanded" expanded="true">
+      <tc:selectItems value="#{selectOneListController.planets}"
+                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+    </tc:selectOneList>
+    <tc:selectOneList id="selectedExpandedLarge" label="Large" expanded="true" markup="large">
+      <tc:selectItems value="#{selectOneListController.planets}"
+                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+    </tc:selectOneList>
+    <tc:selectOneList id="selectedExpandedSmall" label="Small" expanded="true" markup="small">
       <tc:selectItems value="#{selectOneListController.planets}"
                       var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
     </tc:selectOneList>

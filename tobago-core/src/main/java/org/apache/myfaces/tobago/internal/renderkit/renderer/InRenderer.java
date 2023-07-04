@@ -84,7 +84,7 @@ public class InRenderer<T extends AbstractUIIn> extends DecorationPositionRender
     final String fieldId = component.getFieldId(facesContext);
     final boolean readonly = component.isReadonly();
     final boolean disabled = component.isDisabled();
-    final Markup markup = component.getMarkup();
+    final Markup markup = component.getMarkup() != null ? component.getMarkup() : Markup.NULL;
     final boolean required = ComponentUtils.getBooleanAttribute(component, Attributes.required);
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
@@ -144,7 +144,9 @@ public class InRenderer<T extends AbstractUIIn> extends DecorationPositionRender
     writer.writeAttribute(HtmlAttributes.AUTOCOMPLETE, component.getAutocompleteString(), true);
 
     writer.writeClassAttribute(
-        markup != null && markup.contains(Markup.NUMBER) ? TobagoClass.NUMBER : null,
+        markup.contains(Markup.NUMBER) ? TobagoClass.NUMBER : null,
+        markup.contains(Markup.LARGE) ? BootstrapClass.FORM_CONTROL_LG : null,
+        markup.contains(Markup.SMALL) ? BootstrapClass.FORM_CONTROL_SM : null,
         BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(component)),
         BootstrapClass.FORM_CONTROL,
         component.getCustomClass());
