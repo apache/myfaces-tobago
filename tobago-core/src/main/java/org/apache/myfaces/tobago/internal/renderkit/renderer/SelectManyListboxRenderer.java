@@ -57,7 +57,7 @@ public class SelectManyListboxRenderer<T extends AbstractUISelectManyListbox> ex
     final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, component);
     final boolean readonly = component.isReadonly();
     final boolean disabled = !items.iterator().hasNext() || component.isDisabled() || readonly;
-    final Markup markup = component.getMarkup();
+    final Markup markup = component.getMarkup() != null ? component.getMarkup() : Markup.NULL;
     Integer size = component.getSize();
     size = Math.max(size != null ? size : items.size(), 2); // must be > 1
 
@@ -74,9 +74,11 @@ public class SelectManyListboxRenderer<T extends AbstractUISelectManyListbox> ex
 
     writer.writeClassAttribute(
         BootstrapClass.FORM_SELECT,
+        markup.contains(Markup.LARGE) ? BootstrapClass.FORM_SELECT_LG : null,
+        markup.contains(Markup.SMALL) ? BootstrapClass.FORM_SELECT_SM : null,
         BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(component)),
         component.getCustomClass(),
-        markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
+        markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);

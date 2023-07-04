@@ -101,6 +101,14 @@ import jakarta.faces.component.UIInput;
         @Markup(
             name = org.apache.myfaces.tobago.context.Markup.STRING_NUMBER,
             description = "Align text to the right."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_LARGE,
+            description = "Render a large input field."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SMALL,
+            description = "Render a small input field."
         )
     })
 public interface InTagDeclaration

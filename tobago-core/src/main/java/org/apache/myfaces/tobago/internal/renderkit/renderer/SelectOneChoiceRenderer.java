@@ -71,7 +71,7 @@ public class SelectOneChoiceRenderer<T extends AbstractUISelectOneChoice> extend
     final Iterable<SelectItem> items = SelectItemUtils.getItemIterator(facesContext, component);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     final boolean disabled = !items.iterator().hasNext() || component.isDisabled() || component.isReadonly();
-    final Markup markup = component.getMarkup();
+    final Markup markup = component.getMarkup() != null ? component.getMarkup() : Markup.NULL;
 
     writer.startElement(HtmlElements.SELECT);
     writer.writeIdAttribute(fieldId);
@@ -82,6 +82,8 @@ public class SelectOneChoiceRenderer<T extends AbstractUISelectOneChoice> extend
 
     writer.writeClassAttribute(
         BootstrapClass.FORM_SELECT,
+        markup.contains(Markup.LARGE) ? BootstrapClass.FORM_SELECT_LG : null,
+        markup.contains(Markup.SMALL) ? BootstrapClass.FORM_SELECT_SM : null,
         BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(component)),
         component.getCustomClass());
     if (title != null) {

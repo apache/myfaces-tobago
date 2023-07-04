@@ -31,11 +31,11 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasDecorationPosition;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasHelp;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasDecorationPosition;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessageForSelect;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasSize;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
@@ -63,24 +63,25 @@ import jakarta.faces.component.UISelectMany;
     rendererType = RendererTypes.SELECT_MANY_LISTBOX,
     allowedChildComponenents = {"jakarta.faces.SelectItem", "jakarta.faces.SelectItems"},
     behaviors = {
-        @Behavior(
-            name = ClientBehaviors.CHANGE,
-            isDefault = true),
-        @Behavior(
-            name = ClientBehaviors.INPUT),
-        @Behavior(
-            name = ClientBehaviors.CLICK),
-        @Behavior(
-            name = ClientBehaviors.DBLCLICK),
-        @Behavior(
-            name = ClientBehaviors.FOCUS),
-        @Behavior(
-            name = ClientBehaviors.BLUR)
+        @Behavior(name = ClientBehaviors.CHANGE, isDefault = true),
+        @Behavior(name = ClientBehaviors.INPUT),
+        @Behavior(name = ClientBehaviors.CLICK),
+        @Behavior(name = ClientBehaviors.DBLCLICK),
+        @Behavior(name = ClientBehaviors.FOCUS),
+        @Behavior(name = ClientBehaviors.BLUR)
     },
     markups = {
         @Markup(
             name = org.apache.myfaces.tobago.context.Markup.STRING_SPREAD,
             description = "Use the full height for the HTML content."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_LARGE,
+            description = "Render a large select component."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SMALL,
+            description = "Render a small select component."
         )
     })
 

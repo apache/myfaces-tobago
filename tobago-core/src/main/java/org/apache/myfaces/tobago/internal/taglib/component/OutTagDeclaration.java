@@ -108,6 +108,14 @@ import java.text.MessageFormat;
         @Markup(
             name = org.apache.myfaces.tobago.context.Markup.STRING_DELETED,
             description = "Strike text through."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_LARGE,
+            description = "Set text size to large."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SMALL,
+            description = "Set text size to small."
         )
     })
 

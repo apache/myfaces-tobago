@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.model.SelectItem;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneList;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
@@ -93,6 +94,7 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
       final String clientId, final String selectFieldId, final String filterId, final String filter,
       final boolean disabled, final boolean expanded, final String title, final Integer tabIndex) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final Markup markup = component.getMarkup() != null ? component.getMarkup() : Markup.NULL;
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(selectFieldId);
@@ -100,6 +102,10 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeClassAttribute(
         expanded ? BootstrapClass.FORM_CONTROL : BootstrapClass.FORM_SELECT,
+        expanded && markup.contains(Markup.LARGE) ? BootstrapClass.FORM_CONTROL_LG : null,
+        expanded && markup.contains(Markup.SMALL) ? BootstrapClass.FORM_CONTROL_SM : null,
+        !expanded && markup.contains(Markup.LARGE) ? BootstrapClass.FORM_SELECT_LG : null,
+        !expanded && markup.contains(Markup.SMALL) ? BootstrapClass.FORM_SELECT_SM : null,
         TobagoClass.SELECT__FIELD,
         expanded ? BootstrapClass.LIST_GROUP_ITEM : BootstrapClass.DROPDOWN_TOGGLE,
         expanded ? null : BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
@@ -130,6 +136,7 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
       final FacesContext facesContext, final T component, final List<SelectItem> items,
       final String clientId, final boolean expanded, final boolean disabled) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final Markup markup = component.getMarkup() != null ? component.getMarkup() : Markup.NULL;
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(
@@ -138,7 +145,10 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
     writer.writeNameAttribute(clientId);
 
     writer.startElement(HtmlElements.TABLE);
-    writer.writeClassAttribute(BootstrapClass.TABLE, BootstrapClass.TABLE_HOVER, BootstrapClass.TABLE_SM);
+    writer.writeClassAttribute(BootstrapClass.TABLE, BootstrapClass.TABLE_HOVER,
+        markup.contains(Markup.LARGE) ? TobagoClass.LARGE : null,
+        markup.contains(Markup.SMALL) ? TobagoClass.SMALL : null,
+        markup.contains(Markup.LARGE) ? null : BootstrapClass.TABLE_SM);
     writer.startElement(HtmlElements.TBODY);
 
     final Object value = component.getValue();
