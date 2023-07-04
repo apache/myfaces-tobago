@@ -13324,6 +13324,12 @@ tobago-select-one-list .tobago-options.list-group-item {
 tobago-select-one-list .tobago-options .table {
   margin-bottom: 0;
 }
+tobago-select-one-list .tobago-options .table.tobago-large {
+  font-size: 1.25rem;
+}
+tobago-select-one-list .tobago-options .table.tobago-small {
+  font-size: 0.875rem;
+}
 tobago-select-one-list .tobago-options .table tbody tr {
   cursor: pointer;
 }
@@ -13487,6 +13493,12 @@ tobago-select-many-list .tobago-options.list-group-item {
 }
 tobago-select-many-list .tobago-options .table {
   margin-bottom: 0;
+}
+tobago-select-many-list .tobago-options .table.tobago-large {
+  font-size: 1.25rem;
+}
+tobago-select-many-list .tobago-options .table.tobago-small {
+  font-size: 0.875rem;
 }
 tobago-select-many-list .tobago-options .table tbody tr {
   cursor: pointer;
