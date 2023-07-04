@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -31,11 +32,11 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasDecorationPosition;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasHelp;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasDecorationPosition;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
@@ -66,19 +67,22 @@ import jakarta.faces.component.UISelectOne;
         "jakarta.faces.SelectItems"
     },
     behaviors = {
-        @Behavior(
-            name = ClientBehaviors.CHANGE,
-            isDefault = true),
-        @Behavior(
-            name = ClientBehaviors.INPUT),
-        @Behavior(
-            name = ClientBehaviors.CLICK),
-        @Behavior(
-            name = ClientBehaviors.DBLCLICK),
-        @Behavior(
-            name = ClientBehaviors.FOCUS),
-        @Behavior(
-            name = ClientBehaviors.BLUR)
+        @Behavior(name = ClientBehaviors.CHANGE, isDefault = true),
+        @Behavior(name = ClientBehaviors.INPUT),
+        @Behavior(name = ClientBehaviors.CLICK),
+        @Behavior(name = ClientBehaviors.DBLCLICK),
+        @Behavior(name = ClientBehaviors.FOCUS),
+        @Behavior(name = ClientBehaviors.BLUR)
+    },
+    markups = {
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_LARGE,
+            description = "Render a large select component."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SMALL,
+            description = "Render a small select component."
+        )
     })
 public interface SelectOneChoiceTagDeclaration
     extends HasValidator, HasValue, HasValueChangeListener, HasTabIndex, IsFocus, IsVisual,

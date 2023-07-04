@@ -54,6 +54,8 @@ public class ButtonRenderer<T extends AbstractUIButton> extends CommandRendererB
     return new CssItem[]{
         BootstrapClass.BTN,
         getButtonColor(command.getMarkup(), defaultCommand),
+        markup.contains(Markup.LARGE) ? BootstrapClass.BTN_LG : null,
+        markup.contains(Markup.SMALL) ? BootstrapClass.BTN_SM : null,
         markup.contains(Markup.BADGE) ? BootstrapClass.BADGE : null,
         markup.contains(Markup.BADGE) && markup.contains(Markup.PILL) ? BootstrapClass.ROUNDED_PILL : null,
     };

@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.component.RenderRange;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
@@ -227,6 +228,10 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
       throws IOException {
     // TBD: maybe use an interface for getLabel()
     final String label = ComponentUtils.getStringAttribute(component, Attributes.label);
+    final Markup markup =
+        component instanceof Visual && ((Visual) component).getMarkup() != null ? ((Visual) component).getMarkup()
+            : Markup.NULL;
+
     if (StringUtils.isNotBlank(label)) {
       writer.startElement(HtmlElements.LABEL);
       if (labelLayout == LabelLayout.gridLeft || labelLayout == LabelLayout.gridRight
@@ -241,7 +246,9 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
       writer.writeAttribute(HtmlAttributes.FOR, getFieldId(facesContext, component), false);
       writer.writeClassAttribute(
           ComponentUtils.getBooleanAttribute(component, Attributes.required) ? TobagoClass.REQUIRED : null,
-          BootstrapClass.COL_FORM_LABEL);
+          BootstrapClass.COL_FORM_LABEL,
+          markup.contains(Markup.LARGE) ? BootstrapClass.COL_FORM_LABEL_LG : null,
+          markup.contains(Markup.SMALL) ? BootstrapClass.COL_FORM_LABEL_SM : null);
       if (component instanceof SupportsAccessKey) {
         final LabelWithAccessKey labelWithAccessKey = new LabelWithAccessKey((SupportsAccessKey) component);
         HtmlRendererUtils.writeLabelWithAccessKey(writer, labelWithAccessKey);

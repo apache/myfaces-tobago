@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
+import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -30,11 +31,11 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasDecorationPosition;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasHelp;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasDecorationPosition;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
@@ -66,19 +67,22 @@ import jakarta.faces.component.UIInput;
     rendererType = RendererTypes.FILE,
     allowedChildComponenents = "NONE",
     behaviors = {
-        @Behavior(
-            name = ClientBehaviors.CHANGE,
-            isDefault = true),
-        @Behavior(
-            name = ClientBehaviors.INPUT),
-        @Behavior(
-            name = ClientBehaviors.CLICK),
-        @Behavior(
-            name = ClientBehaviors.DBLCLICK),
-        @Behavior(
-            name = ClientBehaviors.FOCUS),
-        @Behavior(
-            name = ClientBehaviors.BLUR)
+        @Behavior(name = ClientBehaviors.CHANGE, isDefault = true),
+        @Behavior(name = ClientBehaviors.INPUT),
+        @Behavior(name = ClientBehaviors.CLICK),
+        @Behavior(name = ClientBehaviors.DBLCLICK),
+        @Behavior(name = ClientBehaviors.FOCUS),
+        @Behavior(name = ClientBehaviors.BLUR)
+    },
+    markups = {
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_LARGE,
+            description = "Render a large file input."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SMALL,
+            description = "Render a small file input."
+        )
     })
 public interface FileTagDeclaration
     extends HasValidator, HasValidatorMessage, HasRequiredMessage, HasConverterMessage,

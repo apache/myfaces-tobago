@@ -289,6 +289,14 @@ $tobago-flex-layout-spacing: 0.5rem;
     .table {
       margin-bottom: 0;
 
+      &.tobago-large {
+        font-size: $form-select-font-size-lg;
+      }
+
+      &.tobago-small {
+        font-size: $form-select-font-size-sm;
+      }
+
       tbody tr {
         cursor: pointer;
 
