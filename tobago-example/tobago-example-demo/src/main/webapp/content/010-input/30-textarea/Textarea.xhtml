@@ -56,6 +56,12 @@
     <tc:button label="Submit" action="#{textareaController.submit}"/>
   </tc:section>
 
+  <tc:section id="markup" label="Markups">
+    <p>The size can be changed with markup <code>large</code> or <code>small</code>.</p>
+    <tc:textarea value="large textarea" markup="large"/>
+    <tc:textarea value="small textarea" markup="small"/>
+  </tc:section>
+
   <tc:section label="Autocomplete">
     <p>The <code>autocomplete</code> attribute can be used for explaining a user the meaning of a field.</p>
 

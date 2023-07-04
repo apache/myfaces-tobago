@@ -86,14 +86,16 @@ public class OutRenderer<T extends AbstractUIOut> extends DecorationPositionRend
   @Override
   public void encodeBeginField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final Markup markup = component.getMarkup();
+    final Markup markup = component.getMarkup() != null ? component.getMarkup() : Markup.NULL;
 
     writer.startElement(isInside(facesContext, HtmlElements.TOBAGO_IN) ? HtmlElements.TOBAGO_OUT : HtmlElements.SPAN);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
     writer.writeClassAttribute(
-        markup != null && markup.contains(Markup.DELETED) ? TobagoClass.DELETED : null,
-        markup != null && markup.contains(Markup.NUMBER) ? TobagoClass.NUMBER : null,
+        markup.contains(Markup.DELETED) ? TobagoClass.DELETED : null,
+        markup.contains(Markup.NUMBER) ? TobagoClass.NUMBER : null,
+        markup.contains(Markup.LARGE) ? BootstrapClass.FORM_CONTROL_LG : null,
+        markup.contains(Markup.SMALL) ? BootstrapClass.FORM_CONTROL_SM : null,
         component.getCustomClass(),
         isInside(facesContext, HtmlElements.TOBAGO_IN)
             ? BootstrapClass.INPUT_GROUP_TEXT : BootstrapClass.FORM_CONTROL_PLAINTEXT,

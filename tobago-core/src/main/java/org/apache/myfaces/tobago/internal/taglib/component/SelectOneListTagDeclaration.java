@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
+import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -68,7 +69,17 @@ import javax.faces.component.UISelectMany;
         @Behavior(name = ClientBehaviors.CLICK),
         @Behavior(name = ClientBehaviors.DBLCLICK),
         @Behavior(name = ClientBehaviors.FOCUS),
-        @Behavior(name = ClientBehaviors.BLUR)})
+        @Behavior(name = ClientBehaviors.BLUR)},
+    markups = {
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_LARGE,
+            description = "Render a large select component."
+        ),
+        @Markup(
+            name = org.apache.myfaces.tobago.context.Markup.STRING_SMALL,
+            description = "Render a small select component."
+        )
+    })
 public interface SelectOneListTagDeclaration
     extends HasId, IsDisabled, IsRendered, HasBinding, HasTip, HasHelp, IsReadonly, HasConverter, IsRequiredForSelect,
     HasLabel, HasValidator, HasValue, HasValueChangeListener, HasLabelLayout, HasValidatorMessage, HasConverterMessage,

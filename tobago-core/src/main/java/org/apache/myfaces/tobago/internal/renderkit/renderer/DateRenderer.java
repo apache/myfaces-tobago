@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIDate;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
@@ -104,6 +105,7 @@ public class DateRenderer<T extends AbstractUIDate> extends DecorationPositionRe
     final boolean readonly = date.isReadonly();
     final boolean disabled = date.isDisabled();
     final boolean required = ComponentUtils.getBooleanAttribute(date, Attributes.required);
+    final Markup markup = date.getMarkup() != null ? date.getMarkup() : Markup.NULL;
 
     writer.startElement(HtmlElements.INPUT);
 
@@ -137,6 +139,8 @@ public class DateRenderer<T extends AbstractUIDate> extends DecorationPositionRe
     writer.writeClassAttribute(
         BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(date)),
         BootstrapClass.FORM_CONTROL,
+        markup.contains(Markup.LARGE) ? BootstrapClass.FORM_CONTROL_LG : null,
+        markup.contains(Markup.SMALL) ? BootstrapClass.FORM_CONTROL_SM : null,
         date.getCustomClass());
 
     writer.writeAttribute(HtmlAttributes.REQUIRED, required);
