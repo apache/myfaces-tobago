@@ -83,7 +83,7 @@ export class Focus extends HTMLElement {
   private get errorElement(): HTMLElement {
     const root = this.getRootNode() as ShadowRoot | Document;
     const elements: NodeListOf<HTMLElement> = root.querySelectorAll(
-        ".tobago-messages-container .border-danger:not([disabled]):not([tabindex='-1'])");
+        ".tobago-messages-container .is-error:not([disabled]):not([tabindex='-1'])");
 
     for (const element of elements) {
       const computedStyle = getComputedStyle(element);
