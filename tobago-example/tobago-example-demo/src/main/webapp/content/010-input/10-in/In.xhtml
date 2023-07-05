@@ -95,18 +95,16 @@
 
   <tc:section label="Ajax">
     <p>The output field in this example, displays the given value on the server.
-      With <code class="language-markup">&lt;f:ajax render="outputAjax" listener="\#{inController.update}"/></code>,
+      With <code class="language-markup">&lt;f:ajax event="input" render="outputAjax" listener="\#{inController.update}"/></code>,
       the output field will be rerendered, after the value has been changed.
-      This is because <code>outputAjax</code> is the id of the <code>&lt;tc:out/></code> tag.
-      and the default event for <code class="language-markup">&lt;tc:in/></code> is <code>change</code>.
 
       Additional, the <code>listener</code> attribute is set. The given method is called after the input field
       loose focus.</p>
-    <tc:in id="inputAjax" label="On Change" value="#{inController.changeValue}">
+    <tc:in id="inputAjax" label="Input" value="#{inController.changeValue}">
       <f:facet name="before">AJAX</f:facet>
       <f:facet name="after">on change</f:facet>
-      <f:ajax render="outputAjax" listener="#{inController.update}"/>
+      <f:ajax event="input" render="outputAjax" listener="#{inController.update}"/>
     </tc:in>
-    <tc:out id="outputAjax" label="On Server" value="#{inController.changeValue}"/>
+    <tc:out id="outputAjax" label="Output" value="#{inController.changeValue}"/>
   </tc:section>
 </ui:composition>
