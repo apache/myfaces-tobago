@@ -49,11 +49,16 @@ class SelectOneList extends SelectListBase {
 
   protected globalClickEvent(event: MouseEvent): void {
     if (!this.disabled) {
-      if (this.isPartOfSelectField(event.target as Element) || this.isPartOfTobagoOptions(event.target as Element)) {
+      if (this.isPartOfSelectField(event.target as Element)) {
         if (!this.filterInput.disabled) {
           this.filterInput.focus();
         }
         this.showDropdown();
+      } else if (this.isPartOfTobagoOptions(event.target as Element)) {
+        if (!this.filterInput.disabled) {
+          this.filterInput.focus();
+        }
+        this.hideDropdown();
       } else {
         this.leaveComponent();
       }
