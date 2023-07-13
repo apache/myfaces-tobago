@@ -47,6 +47,7 @@ import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.model.ExpandedState;
@@ -406,9 +407,11 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
             writer.writeNameAttribute(pagerCommandId);
             writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
             writer.writeAttribute(HtmlAttributes.VALUE, first);
+            final int maxLength = Integer.toString(component.getRowCount()).length();
             if (!unknown) {
-              writer.writeAttribute(HtmlAttributes.MAXLENGTH, Integer.toString(component.getRowCount()).length());
+              writer.writeAttribute(HtmlAttributes.MAXLENGTH, maxLength);
             }
+            writer.writeAttribute(HtmlAttributes.PATTERN, StringUtils.positiveNumberRegexp(maxLength), true);
             writer.endElement(HtmlElements.INPUT);
             writer.writeText(formatted.substring(pos + inputMarker.length()));
           } else {

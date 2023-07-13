@@ -469,4 +469,18 @@ public final class StringUtils {
     return '\uD800' <= ch && '\uDBFF' >= ch;
   }
 
+  /**
+   * Create a regexp for positive numbers with maximum length of the given parameter.
+   */
+  public static String positiveNumberRegexp(final int length) {
+    if (length <= 0) {
+      return "";
+    } else if (length == 1) {
+      return "[1-9]";
+    } else if (length == 2) {
+      return "[1-9][0-9]?";
+    } else {
+      return "[1-9][0-9]{0," + (length - 1) + "}";
+    }
+  }
 }
