@@ -88,4 +88,49 @@ public class StringUtilsUnitTest {
     Assertions.assertArrayEquals(ints, StringUtils.getIndices(" "));
   }
 
+  @Test
+  public void testPositiveNumberRegexp() {
+    Assertions.assertEquals("", StringUtils.positiveNumberRegexp(-1));
+    Assertions.assertEquals("", StringUtils.positiveNumberRegexp(0));
+    Assertions.assertEquals("[1-9]", StringUtils.positiveNumberRegexp(1));
+    Assertions.assertEquals("[1-9][0-9]?", StringUtils.positiveNumberRegexp(2));
+    Assertions.assertEquals("[1-9][0-9]{0,2}", StringUtils.positiveNumberRegexp(3));
+    Assertions.assertEquals("[1-9][0-9]{0,3}", StringUtils.positiveNumberRegexp(4));
+    Assertions.assertEquals("[1-9][0-9]{0,10}", StringUtils.positiveNumberRegexp(11));
+  }
+
+  @Test
+  public void testPositiveNumberRegexp1() {
+    final String regexp = StringUtils.positiveNumberRegexp(1);
+    Assertions.assertFalse("0".matches(regexp));
+    Assertions.assertTrue("1".matches(regexp));
+    Assertions.assertTrue("9".matches(regexp));
+    Assertions.assertFalse("10".matches(regexp));
+  }
+
+  @Test
+  public void testPositiveNumberRegexp2() {
+    final String regexp = StringUtils.positiveNumberRegexp(2);
+    Assertions.assertFalse("0".matches(regexp));
+    Assertions.assertTrue("1".matches(regexp));
+    Assertions.assertTrue("9".matches(regexp));
+    Assertions.assertTrue("10".matches(regexp));
+    Assertions.assertTrue("99".matches(regexp));
+    Assertions.assertFalse("100".matches(regexp));
+  }
+
+  @Test
+  public void testPositiveNumberRegexp4() {
+    final String regexp = StringUtils.positiveNumberRegexp(4);
+    Assertions.assertFalse("0".matches(regexp));
+    Assertions.assertTrue("1".matches(regexp));
+    Assertions.assertTrue("9".matches(regexp));
+    Assertions.assertTrue("10".matches(regexp));
+    Assertions.assertTrue("99".matches(regexp));
+    Assertions.assertTrue("100".matches(regexp));
+    Assertions.assertTrue("999".matches(regexp));
+    Assertions.assertTrue("1000".matches(regexp));
+    Assertions.assertTrue("9999".matches(regexp));
+    Assertions.assertFalse("10000".matches(regexp));
+  }
 }
