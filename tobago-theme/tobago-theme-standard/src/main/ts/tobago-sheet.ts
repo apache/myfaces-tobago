@@ -674,9 +674,10 @@ Type: ${data.type}`);
   blurPaging(event: FocusEvent): void {
     const input = event.currentTarget as HTMLInputElement;
     const output: HTMLElement = input.parentElement.querySelector("span");
-    if (output.innerHTML !== input.value) {
-      console.debug("Reloading sheet '%s' old value='%s' new value='%s'", this.id, output.innerHTML, input.value);
-      output.innerHTML = input.value;
+    const number = Number.parseInt(input.value); // sanitizing
+    if (number > 0 && number.toString() !== output.innerHTML) {
+      console.debug("Reloading sheet '%s' old value='%s' new value='%s'", this.id, output.innerHTML, number);
+      output.innerHTML = number.toString();
       faces.ajax.request(
           input.id,
           null,
@@ -687,6 +688,7 @@ Type: ${data.type}`);
           });
     } else {
       console.info("no update needed");
+      input.value = output.innerHTML;
       input.style.display = "none";
       output.style.display = "initial";
     }
