@@ -38,10 +38,10 @@
 
   <tc:section label="Basics">
     <p>After writing some text into the textfield, the user can press 'ENTER' to activate the submit-button.</p>
-    <tc:form>
-      <tc:in id="i1" label="Textfield" placeholder="add some text..." value="#{defaultCommandController.value1}"/>
-      <tc:out id="o2" label="Value Textfield" value="#{defaultCommandController.value1}"/>
-      <tc:button id="submit1" label="Submit 1" defaultCommand="true"
+    <tc:form id="basics">
+      <tc:in id="binput" label="Textfield" placeholder="add some text..." value="#{defaultCommandController.value1}"/>
+      <tc:out id="boutput" label="Value Textfield" value="#{defaultCommandController.value1}"/>
+      <tc:button id="bsubmit" label="Submit" defaultCommand="true"
                  actionListener="#{defaultCommandController.click}"/>
     </tc:form>
   </tc:section>
@@ -56,19 +56,21 @@
       Therefor only the 'Textfield A'-value will be submitted.</p>
     <p>If the cursor is in 'Textfield B' and the enter key is pressed, the 'Submit B'-button is activated.
       This will submit the 'Textfield A'-value as well as the 'Textfield B'-value.</p>
-    <tc:form>
+    <tc:form id="outerform">
       <tc:box>
-        <tc:form>
-          <tc:in id="i2" label="Textfield A" placeholder="add some text..." value="#{defaultCommandController.value2}"/>
-          <tc:out id="o3" label="Value Textfield A" value="#{defaultCommandController.value2}"/>
+        <tc:form id="forma">
+          <tc:in id="inputA" label="Textfield A" placeholder="add some text..."
+                 value="#{defaultCommandController.value2}"/>
+          <tc:out id="outputA" label="Value Textfield A" value="#{defaultCommandController.value2}"/>
           <tc:button id="submitA" label="Submit A" defaultCommand="true"
                      actionListener="#{defaultCommandController.click}"/>
         </tc:form>
       </tc:box>
       <tc:box>
-        <tc:form>
-          <tc:in id="i3" label="Textfield B" placeholder="add some text..." value="#{defaultCommandController.value3}"/>
-          <tc:out id="o4" label="Value Textfield B" value="#{defaultCommandController.value3}"/>
+        <tc:form id="formb">
+          <tc:in id="inputB" label="Textfield B" placeholder="add some text..."
+                 value="#{defaultCommandController.value3}"/>
+          <tc:out id="outputB" label="Value Textfield B" value="#{defaultCommandController.value3}"/>
         </tc:form>
       </tc:box>
       <tc:button id="submitB" label="Submit B" defaultCommand="true"
