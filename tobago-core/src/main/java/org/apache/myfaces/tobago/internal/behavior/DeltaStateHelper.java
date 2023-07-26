@@ -19,13 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.behavior;
 
-import org.apache.myfaces.tobago.exception.TobagoException;
-
 import jakarta.el.ValueExpression;
 import jakarta.faces.component.StateHelper;
 import jakarta.faces.component.StateHolder;
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.context.FacesContext;
+import org.apache.myfaces.tobago.exception.TobagoException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -34,6 +33,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 // todo: clean up (is a copy of MyFaces, but not all stuff is refactored)
 
@@ -252,6 +252,11 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
           .getELContext());
     }
     return defaultValue;
+  }
+
+  @Override
+  public Object eval(Serializable serializable, Supplier<Object> supplier) {
+    return eval(serializable, supplier.get());
   }
 
   @Override

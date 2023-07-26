@@ -24,7 +24,7 @@ import jakarta.faces.component.behavior.AjaxBehavior;
 import jakarta.faces.convert.DateTimeConverter;
 import jakarta.faces.render.RenderKit;
 import jakarta.servlet.ServletContext;
-import org.apache.myfaces.test.base.junit4.AbstractJsfTestCase;
+import org.apache.myfaces.test.base.junit.AbstractJsfTestCase;
 import org.apache.myfaces.test.config.ResourceBundleVarNames;
 import org.apache.myfaces.test.mock.MockFacesContext;
 import org.apache.myfaces.test.mock.MockHttpServletRequest;
