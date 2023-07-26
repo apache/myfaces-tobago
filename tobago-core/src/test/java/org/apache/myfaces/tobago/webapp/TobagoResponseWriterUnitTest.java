@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.webapp;
 
-import org.apache.myfaces.test.base.junit4.AbstractJsfTestCase;
+import org.apache.myfaces.test.base.junit.AbstractJsfTestCase;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
 import org.apache.myfaces.tobago.internal.webapp.XmlResponseWriter;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;

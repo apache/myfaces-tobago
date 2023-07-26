@@ -178,49 +178,49 @@
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-api</artifactId>
-          <version>${myfaces30.version}</version>
+          <version>${myfaces40.version}</version>
           <scope>provided</scope>
         </dependency>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
-          <version>${myfaces30.version}</version>
+          <version>${myfaces40.version}</version>
           <scope>provided</scope>
         </dependency>
       </dependencies>
     </profile>
 
     <profile>
-      <id>myfaces-3.0</id>
+      <id>myfaces-4.0</id>
       <activation>
         <property>
           <name>!jsf</name>
           <!--          <name>jsf</name>-->
-          <!--          <value>myfaces-3.0</value>-->
+          <!--          <value>myfaces-4.0</value>-->
         </property>
       </activation>
       <dependencies>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-api</artifactId>
-          <version>${myfaces30.version}</version>
+          <version>${myfaces40.version}</version>
           <scope>compile</scope>
         </dependency>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
-          <version>${myfaces30.version}</version>
+          <version>${myfaces40.version}</version>
           <scope>runtime</scope>
         </dependency>
       </dependencies>
     </profile>
 
     <profile>
-      <id>mojarra-3.0</id>
+      <id>mojarra-4.0</id>
       <activation>
         <property>
           <name>jsf</name>
-          <value>mojarra-3.0</value>
+          <value>mojarra-4.0</value>
         </property>
       </activation>
       <dependencies>
@@ -401,13 +401,13 @@
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-api</artifactId>
-          <version>${myfaces30.version}</version>
+          <version>${myfaces40.version}</version>
           <scope>compile</scope>
         </dependency>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
-          <version>${myfaces30.version}</version>
+          <version>${myfaces40.version}</version>
           <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -539,13 +539,13 @@
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-api</artifactId>
-          <version>${myfaces30.version}</version>
+          <version>${myfaces40.version}</version>
           <scope>provided</scope>
         </dependency>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
-          <version>${myfaces30.version}</version>
+          <version>${myfaces40.version}</version>
           <scope>provided</scope>
         </dependency>
         <dependency>
@@ -604,13 +604,13 @@
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-api</artifactId>
-          <version>${myfaces30.version}</version>
+          <version>${myfaces40.version}</version>
           <scope>provided</scope>
         </dependency>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
-          <version>${myfaces30.version}</version>
+          <version>${myfaces40.version}</version>
           <scope>provided</scope>
         </dependency>
         <!-- this enables the development mode -->
