@@ -162,12 +162,24 @@ public final class HtmlRendererUtils {
 
     for (final Map.Entry<Object, Object> entry : dataAttributes.entrySet()) {
       final Object mapKey = entry.getKey();
-      final String name = mapKey instanceof ValueExpression
-          ? ((ValueExpression) mapKey).getValue(elContext).toString() : mapKey.toString();
+      final String name;
+      if (mapKey instanceof ValueExpression) {
+        Object expressionValue = ((ValueExpression) mapKey).getValue(elContext);
+        name = expressionValue != null ? expressionValue.toString() : null;
+      } else {
+        name = mapKey.toString();
+      }
       final Object mapValue = entry.getValue();
-      final String value = mapValue instanceof ValueExpression
-          ? ((ValueExpression) mapValue).getValue(elContext).toString() : mapValue.toString();
-      writer.writeAttribute(DataAttributes.dynamic(name), value, true);
+      final String value;
+      if (mapValue instanceof ValueExpression) {
+        Object expressionValue = ((ValueExpression) mapValue).getValue(elContext);
+        value = expressionValue !=null ? expressionValue.toString() : null;
+      } else {
+        value = mapValue.toString();
+      }
+      if (name != null && value != null) {
+        writer.writeAttribute(DataAttributes.dynamic(name), value, true);
+      }
     }
   }
 }
