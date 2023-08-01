@@ -33,8 +33,6 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.lang.invoke.MethodHandles;
 import java.net.MalformedURLException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,10 +70,7 @@ public class TestController implements Serializable {
       int idCount = 1;
       for (final String page : getXHTMLs(rootDir)) {
         final String base = page.substring(realPath.length(), page.length() - ".xhtml".length());
-        pages.add(new TestPage(
-            "tp" + idCount++,
-            URLEncoder.encode(base, StandardCharsets.UTF_8.name()),
-            base));
+        pages.add(new TestPage("tp" + idCount++, base));
         // todo: StandardCharsets.UTF_8.name() can be simplified with Java 10
       }
     }
@@ -105,10 +100,7 @@ public class TestController implements Serializable {
       int idCount = 1;
       for (final String testJs : getTestJs(rootDir)) {
         final String base = testJs.substring(realPath.length(), testJs.length() - ".test.js".length());
-        testPages.add(new TestPage(
-            "tp" + idCount++,
-            URLEncoder.encode(base, StandardCharsets.UTF_8.name()),
-            base));
+        testPages.add(new TestPage("tp" + idCount++, base));
         // todo: StandardCharsets.UTF_8.name() can be simplified with Java 10
       }
     }
@@ -133,12 +125,12 @@ public class TestController implements Serializable {
     private final String label;
     private final String shortLabel;
 
-    TestPage(final String id, final String base, final String label) {
+    TestPage(final String id, final String base) {
       this.id = id;
       this.base = base;
-      String back = label.startsWith("content/") ? label.substring("content/".length()) : label;
-      this.label = StringUtils.abbreviateMiddle(back, "...", 50);
-      this.shortLabel = StringUtils.abbreviateMiddle(back, "...", 30);
+      String noPrefixBase = base.startsWith("content/") ? base.substring("content/".length()) : base;
+      this.label = StringUtils.abbreviateMiddle(noPrefixBase, "...", 50);
+      this.shortLabel = StringUtils.abbreviateMiddle(noPrefixBase, "...", 30);
     }
 
     public String getId() {
