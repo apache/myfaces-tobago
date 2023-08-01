@@ -51,7 +51,7 @@ cd tobago-example/tobago-example-demo
 mvn clean -Pliberty liberty:run
 ```
 
-Browse to the local URL http://localhost:9080/
+Browse to the local URL http://localhost:9080/tobago-example-demo/
 
 ## Demo - Tomcat in Docker
 
