@@ -87,7 +87,7 @@ mvn -f tobago-example/tobago-example-demo/pom.xml clean package jetty:run -Pjett
 mvn -f tobago-example/tobago-example-demo/pom.xml clean package -Ptomee tomee:run
 ```
 
-**Open Liberty **
+**Open Liberty**
 ```shell
 mvn -f tobago-example/tobago-example-demo/pom.xml clean -Pliberty liberty:run
 ```

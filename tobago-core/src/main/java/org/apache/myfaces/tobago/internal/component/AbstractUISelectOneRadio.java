@@ -41,4 +41,21 @@ public abstract class AbstractUISelectOneRadio extends AbstractUISelectOneBase i
   public AbstractUISelectReference getRenderRangeReference() {
     return renderRangeReference;
   }
+
+  /**
+   * This fixes an NPE with MyFaces 4.0.1 #{jakarta.faces.component.UISelectOne.processValidators} where the group is
+   * "null" and an .equals() is called.
+   * todo: remove this method, if the bug is fixed in MyFaces
+   *
+   * @return never null; either the group name or an empty string
+   */
+  @Override
+  public String getGroup() {
+    final String group = super.getGroup();
+    if (group != null) {
+      return group;
+    } else {
+      return "";
+    }
+  }
 }
