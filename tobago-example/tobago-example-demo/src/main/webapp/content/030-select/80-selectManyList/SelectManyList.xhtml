@@ -46,13 +46,11 @@
         <tc:selectItems value="#{selectManyListController.planets}"
                         var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
       </tc:selectManyList>
-      <tc:selectManyList id="selectedLarge" label="Large" value="#{selectManyListController.selectedPlanets}"
-                         markup="large">
+      <tc:selectManyList id="selectedLarge" label="Large" markup="large">
         <tc:selectItems value="#{selectManyListController.planets}"
                         var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
       </tc:selectManyList>
-      <tc:selectManyList id="selectedSmall" label="Small" value="#{selectManyListController.selectedPlanets}"
-                         markup="small">
+      <tc:selectManyList id="selectedSmall" label="Small" markup="small">
         <tc:selectItems value="#{selectManyListController.planets}"
                         var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
       </tc:selectManyList>
