@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "font-awesome": "4.7.0",
-    "jasmine-core": "^5.0.1",
+    "jasmine-core": "^5.1.0",
     "prismjs": "^1.29.0"
   },
   "devDependencies": {
