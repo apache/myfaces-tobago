@@ -621,8 +621,8 @@ Type: ${data.type}`);
     } else {
       this.deselectAll(selectedSet);
     }
-    this.fireSelectionChange(oldSelectedSet, selectedSet);
     this.getHiddenSelected().value = JSON.stringify(Array.from(selectedSet)); // write back to element
+    this.fireSelectionChange(oldSelectedSet, selectedSet);
   }
 
   clickOnRow(event: MouseEvent): void {
@@ -661,8 +661,8 @@ Type: ${data.type}`);
       } else if (selectionMode !== "singleOrNone" || !this.isRowSelected(selectedSet, row)) {
         this.toggleSelection(selectedSet, row, selector);
       }
-      this.fireSelectionChange(oldSelectedSet, selectedSet);
       this.getHiddenSelected().value = JSON.stringify(Array.from(selectedSet)); // write back to element
+      this.fireSelectionChange(oldSelectedSet, selectedSet);
     }
   }
 
