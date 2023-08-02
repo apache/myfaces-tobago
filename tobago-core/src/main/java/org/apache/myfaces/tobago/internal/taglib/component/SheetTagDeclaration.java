@@ -62,7 +62,8 @@ import jakarta.faces.component.UIData;
     behaviors = {
         @Behavior(
             name = ClientBehaviors.RELOAD, // XXX replace by click
-            isDefault = true)
+            isDefault = true),
+        @Behavior(name = ClientBehaviors.TOBAGO_SHEET_SELECTION_CHANGE)
     },
     markups = {
         @Markup(

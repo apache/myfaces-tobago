@@ -57,4 +57,5 @@ public enum ClientBehaviors {
   public static final String RESIZE = "resize";
   public static final String SUGGEST = "suggest"; // tbd
 
+  public static final String TOBAGO_SHEET_SELECTION_CHANGE = "tobago.sheet.selection.change";
 }
