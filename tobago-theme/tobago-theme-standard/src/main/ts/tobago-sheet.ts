@@ -32,6 +32,10 @@ interface MousedownOnRowData {
   y: number;
 }
 
+const TobagoSheetEvent = {
+  SELECTION_CHANGE: "tobago.sheet.selection.change"
+};
+
 export class Sheet extends HTMLElement {
 
   static readonly SCROLL_BAR_SIZE: number = Sheet.getScrollBarSize();
@@ -610,12 +614,14 @@ Type: ${data.type}`);
 
   clickOnCheckboxForAll(event: MouseEvent): void {
     const selectedSet = new Set<number>(JSON.parse(this.getHiddenSelected().value));
+    const oldSelectedSet = new Set<number>(selectedSet);
     const checkbox = event.currentTarget as HTMLInputElement;
     if (checkbox.checked) {
       this.selectAll(selectedSet);
     } else {
       this.deselectAll(selectedSet);
     }
+    this.fireSelectionChange(oldSelectedSet, selectedSet);
     this.getHiddenSelected().value = JSON.stringify(Array.from(selectedSet)); // write back to element
   }
 
@@ -636,7 +642,7 @@ Type: ${data.type}`);
       const selector = this.getSelectorCheckbox(row);
       const selectionMode = this.dataset.tobagoSelectionMode;
       const selectedSet = new Set<number>(JSON.parse(this.getHiddenSelected().value));
-
+      const oldSelectedSet = new Set<number>(selectedSet);
       if ((!event.ctrlKey && !event.metaKey && !selector)
           || selectionMode === "single" || selectionMode === "singleOrNone") {
         this.deselectAll(selectedSet);
@@ -655,7 +661,20 @@ Type: ${data.type}`);
       } else if (selectionMode !== "singleOrNone" || !this.isRowSelected(selectedSet, row)) {
         this.toggleSelection(selectedSet, row, selector);
       }
+      this.fireSelectionChange(oldSelectedSet, selectedSet);
       this.getHiddenSelected().value = JSON.stringify(Array.from(selectedSet)); // write back to element
+    }
+  }
+
+  private fireSelectionChange(oldSelectedSet: Set<number>, newSelectedSet: Set<number>) {
+    const fireEvent = (oldSelectedSet, newSelectedSet) =>
+        oldSelectedSet.size == newSelectedSet.size && [...oldSelectedSet].every((x) => newSelectedSet.has(x));
+    if (fireEvent) {
+      this.dispatchEvent(new CustomEvent(TobagoSheetEvent.SELECTION_CHANGE, {
+        detail: {
+          selection: newSelectedSet,
+        },
+      }));
     }
   }
 
