@@ -33,7 +33,7 @@ interface MousedownOnRowData {
 }
 
 const TobagoSheetEvent = {
-  SELECTION_CHANGE: "tobago.sheet.selection.change"
+  SELECTIONCHANGE: "selectionchange"
 };
 
 export class Sheet extends HTMLElement {
@@ -670,7 +670,7 @@ Type: ${data.type}`);
     const fireEvent = (oldSelectedSet, newSelectedSet) =>
         oldSelectedSet.size == newSelectedSet.size && [...oldSelectedSet].every((x) => newSelectedSet.has(x));
     if (fireEvent) {
-      this.dispatchEvent(new CustomEvent(TobagoSheetEvent.SELECTION_CHANGE, {
+      this.dispatchEvent(new CustomEvent(TobagoSheetEvent.SELECTIONCHANGE, {
         detail: {
           selection: newSelectedSet,
         },

@@ -37,7 +37,9 @@ public enum ClientBehaviors {
   mouseout,
   reload, // tbd - may be called timeout?
   resize,
-  suggest; // tbd
+  suggest,
+  selectionchange;
+  // tbd
 
   public static final String ACTION = "action";
   public static final String BLUR = "blur";
@@ -57,5 +59,5 @@ public enum ClientBehaviors {
   public static final String RESIZE = "resize";
   public static final String SUGGEST = "suggest"; // tbd
 
-  public static final String TOBAGO_SHEET_SELECTION_CHANGE = "tobago.sheet.selection.change";
+  public static final String SELECTIONCHANGE = "selectionchange";
 }
