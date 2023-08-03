@@ -62,6 +62,9 @@ public enum Tags {
   operation,
   out,
   page,
+  paginatorList,
+  paginatorNumber,
+  paginatorRow,
   panel,
   popover,
   popup,
@@ -138,6 +141,9 @@ public enum Tags {
   public static final String OPERATION = "operation";
   public static final String OUT = "out";
   public static final String PAGE = "page";
+  public static final String PAGINATOR_LIST = "paginatorList";
+  public static final String PAGINATOR_NUMBER = "paginatorNumber";
+  public static final String PAGINATOR_ROW = "paginatorRow";
   public static final String PANEL = "panel";
   public static final String POPOVER = "popover";
   public static final String POPUP = "popup";

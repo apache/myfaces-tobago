@@ -58,7 +58,14 @@ import javax.faces.component.UIData;
         @Facet(
             name = Facets.RELOAD,
             description = "Contains an instance of UIReload",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Reload")},
+            allowedChildComponenents = "org.apache.myfaces.tobago.Reload"),
+        @Facet(
+            name = Facets.BEFORE,
+            description = "Components to be rendered before the sheet, e.g. paginators"),
+        @Facet(
+            name = Facets.AFTER,
+            description = "Components to be rendered after the sheet, e.g. paginators")
+    },
     behaviors = {
         @Behavior(
             name = ClientBehaviors.RELOAD, // XXX replace by click
@@ -305,4 +312,10 @@ public interface SheetTagDeclaration
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "0")
   void setMaxSortColumns(String maxSortColumns);
 
+  /**
+   * Create paginator components automatically like configured by the show-attributes.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
+  void setAutoPaginator(String autoPaginator);
 }

@@ -22,8 +22,12 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.LabelLayout;
+import org.apache.myfaces.tobago.component.Pageable;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
+import org.apache.myfaces.tobago.component.UIPaginatorList;
+import org.apache.myfaces.tobago.component.UIPaginatorNumber;
+import org.apache.myfaces.tobago.component.UIPaginatorRow;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.SheetAction;
@@ -36,6 +40,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIColumnSelector;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUILink;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPanel;
 import org.apache.myfaces.tobago.internal.component.AbstractUIReload;
 import org.apache.myfaces.tobago.internal.component.AbstractUIRow;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
@@ -59,6 +64,7 @@ import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
+import org.apache.myfaces.tobago.renderkit.css.CustomClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
@@ -82,8 +88,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 import javax.faces.component.UINamingContainer;
 import javax.faces.component.behavior.AjaxBehavior;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
@@ -105,7 +109,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
   private static final String SUFFIX_SELECTED = ComponentUtils.SUB_SEPARATOR + "selected";
   private static final String SUFFIX_LAZY = NamingContainer.SEPARATOR_CHAR + "pageActionlazy";
   private static final String SUFFIX_LAZY_SCROLL_POSITION = ComponentUtils.SUB_SEPARATOR + "lazyScrollPosition";
-  private static final String SUFFIX_PAGE_ACTION = "pageAction";
   private static final String SUFFIX_COLUMN_SELECTOR = ComponentUtils.SUB_SEPARATOR + "columnSelector";
 
   @Override
@@ -193,7 +196,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     }
 
     final String sheetClientIdWithAction
-        = clientId + UINamingContainer.getSeparatorChar(facesContext) + SUFFIX_PAGE_ACTION;
+        = clientId + UINamingContainer.getSeparatorChar(facesContext) + Pageable.SUFFIX_PAGE_ACTION;
     if (sourceId != null && sourceId.startsWith(sheetClientIdWithAction)) {
       String actionString = sourceId.substring(sheetClientIdWithAction.length());
       int index = actionString.indexOf('-');
@@ -245,7 +248,34 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     final String sheetId = component.getClientId(facesContext);
     final Markup markup = component.getMarkup();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    final AbstractUIReload reload = ComponentUtils.getReloadFacet(component);
+
+    final boolean autoPaginator = component.isAutoPaginator();
+    LOG.info("autoPaginator={}", autoPaginator);
+    if (autoPaginator) {
+      UIComponent after = component.getFacet(Facets.AFTER);
+      LOG.info("after={}", after);
+      if (after == null) {
+        after = ComponentUtils.createComponent(facesContext, Tags.panel.componentType(), RendererTypes.Panel, "_after");
+        if (after instanceof AbstractUIPanel) {
+          ((AbstractUIPanel)after).setCustomClass(new CustomClass(
+              BootstrapClass.JUSTIFY_CONTENT_BETWEEN.getName() + " "
+                  + BootstrapClass.D_FLEX.getName()));
+        }
+        component.getFacets().put(Facets.AFTER, after);
+      }
+      final UIPaginatorRow row = (UIPaginatorRow) ComponentUtils.createComponent(
+          facesContext, Tags.paginatorRow.componentType(), RendererTypes.PaginatorRow, "_paginator_row");
+      row.setTransient(true);
+      after.getChildren().add(row);
+      final UIPaginatorList list = (UIPaginatorList) ComponentUtils.createComponent(
+          facesContext, Tags.paginatorList.componentType(), RendererTypes.PaginatorList, "_paginator_list");
+      list.setTransient(true);
+      after.getChildren().add(list);
+      final UIPaginatorNumber number = (UIPaginatorNumber) ComponentUtils.createComponent(
+          facesContext, Tags.paginatorNumber.componentType(), RendererTypes.PaginatorNumber, "_paginator_number");
+      number.setTransient(true);
+      after.getChildren().add(number);
+    }
 
     UIComponent header = component.getHeader();
     if (header == null) {
@@ -303,8 +333,14 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
     encodeBehavior(writer, facesContext, component);
 
+    final AbstractUIReload reload = ComponentUtils.getReloadFacet(component);
     if (reload != null) {
       reload.encodeAll(facesContext);
+    }
+
+    final UIComponent before = component.getFacet(Facets.BEFORE);
+    if (before != null) {
+      before.encodeAll(facesContext);
     }
   }
 
@@ -370,14 +406,19 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         facesContext, component, writer, sheetId, selectable, columnWidths, selectedRows, columns, autoLayout,
         expandedValue);
 
+    final boolean force = false;//!component.isAutoPaginator();
+    LOG.info("force={}", force);
+
     if (component.isPagingVisible()) {
       writer.startElement(HtmlElements.FOOTER);
 
+      // XXX this block is old and replaced by Paginator*Renderer
+      // XXX TOBAGO-2243
       // show row range
       final ShowPosition showPositionRowRange = component.getShowRowRange();
-      if (showPositionRowRange != ShowPosition.none) {
+      if (force && showPositionRowRange != ShowPosition.none) {
         final AbstractUILink command
-            = ensurePagingCommand(facesContext, component, Facets.pagerRow.name(), SheetAction.toRow.name(), false);
+            = component.ensurePagingCommand(facesContext, component, Facets.pagerRow.name(), SheetAction.toRow.name(), false);
         final String pagerCommandId = command.getClientId(facesContext);
 
         writer.startElement(HtmlElements.UL);
@@ -437,9 +478,11 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         writer.endElement(HtmlElements.UL);
       }
 
+      // XXX this block is old and replaced by Paginator*Renderer
+      // XXX TOBAGO-2243
       // show direct links
       final ShowPosition showPositionDirectLinks = component.getShowDirectLinks();
-      if (showPositionDirectLinks != ShowPosition.none) {
+      if (force && showPositionDirectLinks != ShowPosition.none) {
         writer.startElement(HtmlElements.UL);
         writer.writeClassAttribute(
             cssForLeftCenterRight(showPositionDirectLinks),
@@ -462,9 +505,9 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
       // show page range
       final ShowPosition showPositionPageRange = component.getShowPageRange();
-      if (showPositionPageRange != ShowPosition.none) {
+      if (force && showPositionPageRange != ShowPosition.none) {
         final AbstractUILink command
-            = ensurePagingCommand(facesContext, component, Facets.pagerPage.name(), SheetAction.toPage.name(), false);
+            = component.ensurePagingCommand(facesContext, component, Facets.pagerPage.name(), SheetAction.toPage.name(), false);
         final String pagerCommandId = command.getClientId(facesContext);
 
         writer.startElement(HtmlElements.UL);
@@ -544,6 +587,11 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       writer.writeClassAttribute(TobagoClass.EXPANDED);
       writer.writeAttribute(HtmlAttributes.VALUE, JsonUtils.encode(expandedValue), false);
       writer.endElement(HtmlElements.INPUT);
+    }
+
+    final UIComponent after = component.getFacet(Facets.AFTER);
+    if (after != null) {
+      after.encodeAll(facesContext);
     }
 
     writer.endElement(HtmlElements.TOBAGO_SHEET);
@@ -915,7 +963,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
                   sortCommand = (AbstractUILink) ComponentUtils.createComponent(
                       facesContext, Tags.link.componentType(), RendererTypes.Link, sorterId);
                   sortCommand.setTransient(true);
-                  final AjaxBehavior reloadBehavior = createReloadBehavior(sheet);
+                  final AjaxBehavior reloadBehavior = sheet.createReloadBehavior(sheet);
                   sortCommand.addClientBehavior("click", reloadBehavior);
                   ComponentUtils.setFacet(column, Facets.sorter, sortCommand);
                 }
@@ -1108,6 +1156,8 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     return selected;
   }
 
+  // XXX this block is old and replaced by Paginator*Renderer
+  // XXX TOBAGO-2243
   private void encodeLink(
       final FacesContext facesContext, final AbstractUISheet data, final Application application,
       final boolean disabled, final SheetAction action, final Integer target, final Icons icon, final CssItem liClass)
@@ -1116,7 +1166,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     final String facet = action == SheetAction.toPage || action == SheetAction.toRow
         ? action.name() + "-" + target
         : action.name();
-    final AbstractUILink command = ensurePagingCommand(facesContext, data, facet, facet, disabled);
+    final AbstractUILink command = data.ensurePagingCommand(facesContext, data, facet, facet, disabled);
     if (target != null) {
       ComponentUtils.setAttribute(command, Attributes.pagingTarget, target);
     }
@@ -1232,55 +1282,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         skip = pages;
       }
       encodeLink(facesContext, sheet, application, false, SheetAction.toPage, skip, Icons.THREE_DOTS, null);
-    }
-  }
-
-  private AbstractUILink ensurePagingCommand(
-      final FacesContext facesContext, final AbstractUISheet sheet, final String facet, final String id,
-      final boolean disabled) {
-
-    final Map<String, UIComponent> facets = sheet.getFacets();
-    AbstractUILink command = (AbstractUILink) facets.get(facet);
-    if (command == null) {
-      command = (AbstractUILink) ComponentUtils.createComponent(facesContext, Tags.link.componentType(),
-          RendererTypes.Link, SUFFIX_PAGE_ACTION + id);
-      command.setRendered(true);
-      command.setDisabled(disabled);
-      command.setTransient(true);
-      facets.put(facet, command);
-
-      // add AjaxBehavior
-      final AjaxBehavior behavior = createReloadBehavior(sheet);
-      command.addClientBehavior("click", behavior);
-    }
-    return command;
-  }
-
-  private AjaxBehavior createReloadBehavior(final AbstractUISheet sheet) {
-    final AjaxBehavior reloadBehavior = findReloadBehavior(sheet);
-    final ArrayList<String> renderIds = new ArrayList<>();
-    renderIds.add(sheet.getId());
-    if (reloadBehavior != null) {
-      renderIds.addAll(reloadBehavior.getRender());
-    }
-    final ArrayList<String> executeIds = new ArrayList<>();
-    executeIds.add(sheet.getId());
-    if (reloadBehavior != null) {
-      executeIds.addAll(reloadBehavior.getExecute());
-    }
-    final AjaxBehavior behavior = new AjaxBehavior();
-    behavior.setExecute(executeIds);
-    behavior.setRender(renderIds);
-    behavior.setTransient(true);
-    return behavior;
-  }
-
-  private AjaxBehavior findReloadBehavior(final ClientBehaviorHolder holder) {
-    final List<ClientBehavior> reload = holder.getClientBehaviors().get("reload");
-    if (reload != null && !reload.isEmpty() && reload.get(0) instanceof AjaxBehavior) {
-      return (AjaxBehavior) reload.get(0);
-    } else {
-      return null;
     }
   }
 }
