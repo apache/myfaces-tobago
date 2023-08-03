@@ -33,7 +33,8 @@
     </f:metadata>
     -->
 
-    <tc:page label="#{'Tobago Demo - '.concat(navigationState.currentNode.label)}" id="page">
+    <tc:page id="page"
+             label="#{'Tobago Demo - '.concat(navigationState.currentNode.label != null ? navigationState.currentNode.label : '')}">
 
       <!--
             <tc:dataAttribute name="tobago-log-level" value="DEBUG"/>

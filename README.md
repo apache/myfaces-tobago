@@ -66,23 +66,23 @@ Browse to the local URL http://localhost:8080/
 
 You can also run the demo with different servers and JSF implementations
 
-**Jetty, OpenWebBeans (⚠ currently broken ⚠)**
+**Jetty, MyFaces and Weld**
 
 ```shell
 mvn -f tobago-example/tobago-example-demo/pom.xml clean package jetty:run -Pjetty
 ```
 
-**Jetty, MyFaces and OpenWebBeans**
+**Jetty, Mojarra and Weld**
 ```shell
-mvn -f tobago-example/tobago-example-demo/pom.xml clean package jetty:run -Pjetty
+mvn -f tobago-example/tobago-example-demo/pom.xml clean package jetty:run -Pjetty -Djsf=mojarra-4.0
 ```
 
-**Jetty, Mojarra and Weld (⚠ some problems ⚠)**
+**Tomcat**
 ```shell
-mvn -f tobago-example/tobago-example-demo/pom.xml clean package jetty:run -Pjetty -Djsf=mojarra-3.0
+mvn -f tobago-example/tobago-example-demo/pom.xml package -Ptomcat cargo:run
 ```
 
-**TomEE**
+**TomEE (currently broken)**
 ```shell
 mvn -f tobago-example/tobago-example-demo/pom.xml clean package -Ptomee tomee:run
 ```
@@ -93,13 +93,14 @@ mvn -f tobago-example/tobago-example-demo/pom.xml clean -Pliberty liberty:run
 ```
 Browse to the local URL http://localhost:9080/
 
-**Tomcat, Mojarra and Weld (in Docker)**
+**Tomcat in Docker**
+
 ```
-cd tobago-example/tobago-example-demo
-mvn clean install -Djsf=mojarra-3.0
-docker run -it --rm -p 8080:8080 -v `pwd`/target/tobago-example-demo.war:/usr/local/tomcat/webapps/tobago-example-demo.war --name tobago-example-demo tomcat:10.0-jre11
+mvn -f tobago-example/tobago-example-demo/pom.xml clean package -Pdocker
+docker run -p 8080:8080 myfaces/tobago-example-demo:latest
 ```
-Browse to the local URL http://localhost:8080/tobago-example-demo/
+
+Browse to the local URL http://localhost:8080/
 
 # Issue Tracking
 

@@ -81,26 +81,23 @@
              -->
             <scanIntervalSeconds>5</scanIntervalSeconds>
           </configuration>
-          <dependencies>
-            <dependency> <!-- add JAXB to run the demo with Java 11 and higher -->
-              <groupId>jakarta.xml.bind</groupId>
-              <artifactId>jakarta.xml.bind-api</artifactId>
-              <version>3.0.1</version>
-            </dependency>
-          </dependencies>
         </plugin>
       </plugins>
     </pluginManagement>
   </build>
 
   <dependencyManagement>
-    <!-- todo: replace with implementation of bean validation 3.0 -->
     <dependencies>
       <dependency>
-        <groupId>org.apache.bval</groupId>
-        <artifactId>bval-jsr</artifactId>
-        <classifier>jakarta</classifier>
-        <version>2.0.6</version>
+        <groupId>org.jboss.weld.servlet</groupId>
+        <artifactId>weld-servlet-shaded</artifactId>
+        <version>5.1.1.SP1</version>
+      </dependency>
+      <dependency>
+        <!-- Jakarta Bean Validation 3.0 implementation -->
+        <groupId>org.hibernate.validator</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>7.0.5.Final</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -275,80 +272,6 @@
           <groupId>org.slf4j</groupId>
           <artifactId>jcl-over-slf4j</artifactId>
         </dependency>
-
-        <!-- openwebbeans -->
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-jsf</artifactId>
-          <classifier>jakarta</classifier>
-          <version>${openwebbeans.version}</version>
-          <scope>runtime</scope>
-          <exclusions>
-            <exclusion>
-              <groupId>org.apache.openwebbeans</groupId>
-              <artifactId>*</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-impl</artifactId>
-          <classifier>jakarta</classifier>
-          <version>${openwebbeans.version}</version>
-          <scope>runtime</scope>
-          <exclusions>
-            <exclusion>
-              <groupId>org.apache.openwebbeans</groupId>
-              <artifactId>*</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-web</artifactId>
-          <classifier>jakarta</classifier>
-          <version>${openwebbeans.version}</version>
-          <scope>runtime</scope>
-          <exclusions>
-            <exclusion>
-              <groupId>org.apache.openwebbeans</groupId>
-              <artifactId>*</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-resource</artifactId>
-          <classifier>jakarta</classifier>
-          <version>${openwebbeans.version}</version>
-          <scope>runtime</scope>
-          <exclusions>
-            <exclusion>
-              <groupId>org.apache.openwebbeans</groupId>
-              <artifactId>*</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-spi</artifactId>
-          <classifier>jakarta</classifier>
-          <version>${openwebbeans.version}</version>
-          <scope>runtime</scope>
-          <exclusions>
-            <exclusion>
-              <groupId>org.apache.openwebbeans</groupId>
-              <artifactId>*</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-
-        <dependency>
-          <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>tobago-config-owb</artifactId>
-          <version>${project.version}</version>
-          <scope>runtime</scope>
-        </dependency>
         <dependency>
           <groupId>jakarta.inject</groupId>
           <artifactId>jakarta.inject-api</artifactId>
@@ -360,10 +283,13 @@
           <scope>compile</scope>
         </dependency>
         <dependency>
-          <!-- todo: replace with implementation of bean validation 3.0 -->
-          <groupId>org.apache.bval</groupId>
-          <artifactId>bval-jsr</artifactId>
-          <classifier>jakarta</classifier>
+          <groupId>org.jboss.weld.servlet</groupId>
+          <artifactId>weld-servlet-shaded</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.hibernate.validator</groupId>
+          <artifactId>hibernate-validator</artifactId>
           <scope>compile</scope>
         </dependency>
       </dependencies>
@@ -393,6 +319,16 @@
                 <containerId>tomcat10x</containerId>
                 <type>embedded</type>
               </container>
+              <deployables>
+                <deployable>
+                  <groupId>org.apache.myfaces.tobago</groupId>
+                  <artifactId>tobago-example-demo</artifactId>
+                  <type>war</type>
+                  <properties>
+                    <context>/</context>
+                  </properties>
+                </deployable>
+              </deployables>
             </configuration>
           </plugin>
         </plugins>
@@ -415,90 +351,6 @@
           <artifactId>jcl-over-slf4j</artifactId>
         </dependency>
         <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-el22</artifactId>
-          <classifier>jakarta</classifier>
-          <version>${openwebbeans.version}</version>
-          <scope>runtime</scope>
-          <exclusions>
-            <exclusion>
-              <groupId>org.apache.openwebbeans</groupId>
-              <artifactId>*</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-jsf</artifactId>
-          <classifier>jakarta</classifier>
-          <version>${openwebbeans.version}</version>
-          <scope>runtime</scope>
-          <exclusions>
-            <exclusion>
-              <groupId>org.apache.openwebbeans</groupId>
-              <artifactId>*</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-impl</artifactId>
-          <classifier>jakarta</classifier>
-          <version>${openwebbeans.version}</version>
-          <scope>runtime</scope>
-          <exclusions>
-            <exclusion>
-              <groupId>org.apache.openwebbeans</groupId>
-              <artifactId>*</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-web</artifactId>
-          <classifier>jakarta</classifier>
-          <version>${openwebbeans.version}</version>
-          <scope>runtime</scope>
-          <exclusions>
-            <exclusion>
-              <groupId>org.apache.openwebbeans</groupId>
-              <artifactId>*</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-resource</artifactId>
-          <classifier>jakarta</classifier>
-          <version>${openwebbeans.version}</version>
-          <scope>runtime</scope>
-          <exclusions>
-            <exclusion>
-              <groupId>org.apache.openwebbeans</groupId>
-              <artifactId>*</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-spi</artifactId>
-          <classifier>jakarta</classifier>
-          <version>${openwebbeans.version}</version>
-          <scope>runtime</scope>
-          <exclusions>
-            <exclusion>
-              <groupId>org.apache.openwebbeans</groupId>
-              <artifactId>*</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>tobago-config-owb</artifactId>
-          <version>${project.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
           <groupId>jakarta.inject</groupId>
           <artifactId>jakarta.inject-api</artifactId>
           <scope>compile</scope>
@@ -514,9 +366,13 @@
           <scope>runtime</scope>
         </dependency>
         <dependency>
-          <groupId>org.apache.bval</groupId>
-          <artifactId>bval-jsr</artifactId>
-          <classifier>jakarta</classifier>
+          <groupId>org.jboss.weld.servlet</groupId>
+          <artifactId>weld-servlet-shaded</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.hibernate.validator</groupId>
+          <artifactId>hibernate-validator</artifactId>
           <scope>compile</scope>
         </dependency>
         <!-- this enables the development mode -->
@@ -524,11 +380,6 @@
           <groupId>org.apache.myfaces.tobago</groupId>
           <artifactId>tobago-config-dev</artifactId>
           <version>${project.version}</version>
-        </dependency>
-        <dependency> <!-- add JAXB to run the demo with Java 11 and higher -->
-          <groupId>jakarta.xml.bind</groupId>
-          <artifactId>jakarta.xml.bind-api</artifactId>
-          <version>3.0.1</version>
         </dependency>
       </dependencies>
     </profile>
