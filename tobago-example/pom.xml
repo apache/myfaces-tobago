@@ -516,6 +516,12 @@
           <artifactId>bval-jsr</artifactId>
           <scope>compile</scope>
         </dependency>
+        <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jstl</artifactId>
+          <version>1.2</version>
+          <scope>runtime</scope>
+        </dependency>
         <!-- this enables the development mode -->
         <dependency>
           <groupId>org.apache.myfaces.tobago</groupId>
