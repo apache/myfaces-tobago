@@ -40,6 +40,9 @@ import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UILinks;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIPaginatorList;
+import org.apache.myfaces.tobago.component.UIPaginatorNumber;
+import org.apache.myfaces.tobago.component.UIPaginatorRow;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.component.UIRange;
@@ -69,6 +72,9 @@ import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.config.TobagoConfig;
+
+import static org.apache.myfaces.tobago.config.TobagoConfig.TOBAGO_CONFIG;
+
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.BadgeRenderer;
@@ -86,6 +92,9 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.LinkRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.LinksRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.OutRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PageRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.PaginatorListRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.PaginatorNumberRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.PaginatorRowRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PanelRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PopupRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.RangeRenderer;
@@ -115,6 +124,7 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.TreeNodeRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TreeRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TreeSelectRenderer;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
+import static org.apache.myfaces.tobago.util.ResourceUtils.TOBAGO_RESOURCE_BUNDLE;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -185,6 +195,9 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.links.componentType(), UILinks.class.getName());
     application.addComponent(Tags.out.componentType(), UIOut.class.getName());
     application.addComponent(Tags.page.componentType(), UIPage.class.getName());
+    application.addComponent(Tags.paginatorList.componentType(), UIPaginatorList.class.getName());
+    application.addComponent(Tags.paginatorNumber.componentType(), UIPaginatorNumber.class.getName());
+    application.addComponent(Tags.paginatorRow.componentType(), UIPaginatorRow.class.getName());
     application.addComponent(Tags.panel.componentType(), UIPanel.class.getName());
     application.addComponent(Tags.popup.componentType(), UIPopup.class.getName());
     application.addComponent(Tags.range.componentType(), UIRange.class.getName());
@@ -238,6 +251,12 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     renderKit.addRenderer(UILinks.COMPONENT_FAMILY, RendererTypes.LINKS, new LinksRenderer<UILinks>());
     renderKit.addRenderer(UIOut.COMPONENT_FAMILY, RendererTypes.OUT, new OutRenderer<UIOut>());
     renderKit.addRenderer(UIPage.COMPONENT_FAMILY, RendererTypes.PAGE, new PageRenderer<UIPage>());
+    renderKit.addRenderer(UIPaginatorList.COMPONENT_FAMILY, RendererTypes.PAGINATOR_LIST,
+        new PaginatorListRenderer<UIPaginatorList>());
+    renderKit.addRenderer(UIPaginatorNumber.COMPONENT_FAMILY, RendererTypes.PAGINATOR_NUMBER,
+        new PaginatorNumberRenderer<UIPaginatorNumber>());
+    renderKit.addRenderer(UIPaginatorRow.COMPONENT_FAMILY, RendererTypes.PAGINATOR_ROW,
+        new PaginatorRowRenderer<UIPaginatorRow>());
     renderKit.addRenderer(UIPanel.COMPONENT_FAMILY, RendererTypes.PANEL, new PanelRenderer<UIPanel>());
     renderKit.addRenderer(UIPopup.COMPONENT_FAMILY, RendererTypes.POPUP, new PopupRenderer<UIPopup>());
     renderKit.addRenderer(UIRange.COMPONENT_FAMILY, RendererTypes.RANGE, new RangeRenderer<UIRange>());

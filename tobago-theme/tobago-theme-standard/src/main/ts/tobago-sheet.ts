@@ -238,13 +238,17 @@ export class Sheet extends HTMLElement {
 
     // init paging by pages ---------------------------------------------------------------------------------------- //
 
+/*
     for (const pagingText of this.querySelectorAll(".tobago-paging")) {
 
+      console.warn("register ************** click on paging");
       pagingText.addEventListener("click", this.clickOnPaging.bind(this));
 
       const pagingInput = pagingText.querySelector("input");
+      console.warn("register ************** blur on paging");
       pagingInput.addEventListener("blur", this.blurPaging.bind(this));
 
+      console.warn("register ************** keydown on paging");
       pagingInput.addEventListener("keydown", function (event: KeyboardEvent): void {
         if (event.key === Key.ENTER) {
           event.stopPropagation();
@@ -253,6 +257,7 @@ export class Sheet extends HTMLElement {
         }
       });
     }
+*/
   }
 
   // attribute getter + setter ---------------------------------------------------------- //
@@ -872,9 +877,11 @@ Type: ${data.type}`);
     }
   }
 
+/*
   clickOnPaging(event: MouseEvent): void {
     const element = event.currentTarget as HTMLElement;
 
+    console.warn("execute  ************** click on paging");
     const output: HTMLElement = element.querySelector("span");
     output.style.display = "none";
 
@@ -883,8 +890,11 @@ Type: ${data.type}`);
     input.focus();
     input.select();
   }
+*/
 
+/*
   blurPaging(event: FocusEvent): void {
+    console.warn("execute  ************** blur on paging");
     const input = event.currentTarget as HTMLInputElement;
     const output: HTMLElement = input.parentElement.querySelector("span");
     const number = Number.parseInt(input.value); // sanitizing
@@ -906,6 +916,7 @@ Type: ${data.type}`);
       output.style.display = "initial";
     }
   }
+*/
 
   syncScrolling(): void {
     // sync scrolling of body to header

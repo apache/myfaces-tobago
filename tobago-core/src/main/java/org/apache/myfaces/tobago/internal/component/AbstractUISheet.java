@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.Pageable;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
@@ -46,6 +47,8 @@ import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.AjaxBehavior;
+import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
@@ -66,7 +69,7 @@ import java.util.List;
  */
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class AbstractUISheet extends AbstractUIData
-    implements SheetStateChangeSource, SortActionSource, ClientBehaviorHolder, Visual,
+    implements SheetStateChangeSource, SortActionSource, ClientBehaviorHolder, Visual, Pageable,
     ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -571,6 +574,34 @@ public abstract class AbstractUISheet extends AbstractUIData
     this.lazyFirstRow = lazyFirstRow;
   }
 
+  public AjaxBehavior createReloadBehavior(final AbstractUISheet sheet) {
+    final AjaxBehavior reloadBehavior = findReloadBehavior(sheet);
+    final ArrayList<String> renderIds = new ArrayList<>();
+    renderIds.add(sheet.getId());
+    if (reloadBehavior != null) {
+      renderIds.addAll(reloadBehavior.getRender());
+    }
+    final ArrayList<String> executeIds = new ArrayList<>();
+    executeIds.add(sheet.getId());
+    if (reloadBehavior != null) {
+      executeIds.addAll(reloadBehavior.getExecute());
+    }
+    final AjaxBehavior behavior = new AjaxBehavior();
+    behavior.setExecute(executeIds);
+    behavior.setRender(renderIds);
+    behavior.setTransient(true);
+    return behavior;
+  }
+
+  private AjaxBehavior findReloadBehavior(final ClientBehaviorHolder holder) {
+    final List<ClientBehavior> reload = holder.getClientBehaviors().get("reload");
+    if (reload != null && !reload.isEmpty() && reload.get(0) instanceof AjaxBehavior) {
+      return (AjaxBehavior) reload.get(0);
+    } else {
+      return null;
+    }
+  }
+
   @Override
   public boolean isRendersRowContainer() {
     return true;
@@ -611,4 +642,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   public abstract Integer getMaxSortColumns();
 
   public abstract Integer getLazyRows();
+
+  public abstract boolean isAutoPaginator();
 }

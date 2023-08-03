@@ -605,6 +605,7 @@ public enum BootstrapClass implements CssItem {
   TEXT_DARK("text-dark"),
   TEXT_INFO("text-info"),
   TEXT_LIGHT("text-light"),
+  TEXT_NOWRAP("text-nowrap"),
   TEXT_PRIMARY("text-primary"),
   TEXT_SECONDARY("text-secondary"),
   TEXT_SUCCESS("text-success"),
