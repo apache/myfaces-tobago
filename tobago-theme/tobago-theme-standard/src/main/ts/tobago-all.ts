@@ -27,6 +27,8 @@ import "./tobago-footer";
 import "./tobago-in";
 import "./tobago-messages";
 import "./tobago-overlay";
+import "./tobago-paginator-number";
+import "./tobago-paginator-row";
 import "./tobago-panel";
 import "./tobago-polyfill";
 import "./tobago-popover";

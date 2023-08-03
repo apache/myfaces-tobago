@@ -57,6 +57,9 @@ public enum RendererTypes {
   Operation,
   Out,
   Page,
+  PaginatorList,
+  PaginatorNumber,
+  PaginatorRow,
   Panel,
   Popup,
   Progress,
@@ -133,6 +136,9 @@ public enum RendererTypes {
   public static final String OPERATION = "Operation";
   public static final String OUT = "Out";
   public static final String PAGE = "Page";
+  public static final String PAGINATOR_LIST = "PaginatorList";
+  public static final String PAGINATOR_NUMBER = "PaginatorNumber";
+  public static final String PAGINATOR_ROW = "PaginatorRow";
   public static final String PANEL = "Panel";
   public static final String POPUP = "Popup";
   public static final String PROGRESS = "Progress";

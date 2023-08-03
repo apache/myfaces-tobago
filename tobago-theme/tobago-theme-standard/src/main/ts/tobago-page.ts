@@ -82,15 +82,15 @@ export class Page extends HTMLElement {
 
     window.addEventListener("unload", this.beforeUnload.bind(this));
 
-    this.addEventListener("keypress", (event: KeyboardEvent): boolean => {
+    window.addEventListener("keydown", (event: KeyboardEvent): boolean => {
       if (event.key === Key.ENTER) {
         const target = event.target as HTMLElement;
         if (target.tagName === "A" || target.tagName === "BUTTON") {
-          return;
+          return true;
         }
         if (target.tagName === "TEXTAREA") {
           if (!event.metaKey && !event.ctrlKey) {
-            return;
+            return true;
           }
         }
         const name = target.getAttribute("name");
@@ -99,11 +99,11 @@ export class Page extends HTMLElement {
           const command = document.querySelector(`[data-tobago-default='${id}']`);
           if (command) {
             command.dispatchEvent(new MouseEvent("click"));
-            break;
+            return false;
           }
           id = Page.getNamingContainerId(id);
         }
-        return false;
+        document.querySelector("[data-tobago-default]");
       }
     });
   }
