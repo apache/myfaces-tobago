@@ -72,9 +72,7 @@ import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-
 import static org.apache.myfaces.tobago.config.TobagoConfig.TOBAGO_CONFIG;
-
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.BadgeRenderer;
