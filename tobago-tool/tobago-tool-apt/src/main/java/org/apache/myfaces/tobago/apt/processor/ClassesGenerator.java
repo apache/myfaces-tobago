@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.apt.processor;
 
+import jakarta.faces.component.UIComponent;
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
@@ -41,9 +42,6 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.tools.FileObject;
-
-import jakarta.faces.component.UIComponent;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -52,6 +50,7 @@ import java.io.Writer;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -152,9 +151,18 @@ public class ClassesGenerator extends AbstractGenerator {
 
       for (final PropertyInfo info : properties.values()) {
         final String infoType = info.getType();
-        final String methodName
-            = ((infoType.equals("java.lang.Boolean") || infoType.equals("boolean")) ? "is" : "get")
-            + info.getUpperCamelCaseName();
+        final String methodName;
+        if (infoType.equals("jakarta.el.MethodExpression") && Arrays.stream(facesClass.getMethods())
+            .anyMatch(method -> method.getName().equals("get" + info.getUpperCamelCaseName() + "Expression"))) {
+          methodName = "get" + info.getUpperCamelCaseName() + "Expression";
+        } else if (infoType.equals("jakarta.el.MethodExpression") && Arrays.stream(facesClass.getMethods())
+            .anyMatch(method -> method.getName().equals("get" + info.getUpperCamelCaseName() + "s"))) {
+          methodName = "get" + info.getUpperCamelCaseName() + "s";
+        } else if (infoType.equals("java.lang.Boolean") || infoType.equals("boolean")) {
+          methodName = "is" + info.getUpperCamelCaseName();
+        } else {
+          methodName = "get" + info.getUpperCamelCaseName();
+        }
 
         boolean generate = info.isGenerate();
 //        boolean ex = false;

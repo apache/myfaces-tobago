@@ -439,9 +439,6 @@ public class FacesConfigGenerator extends AbstractGenerator {
             attribute.addContent(defaultValue);
           }
 
-          attribute.addContent(createPropertyOrAttributeExtension(ATTRIBUTE_EXTENSION, executableElement,
-              componentAttribute, namespace));
-
           attributes.add(attribute);
         } else {
           final org.jdom2.Element property = new org.jdom2.Element(PROPERTY, namespace);
