@@ -50,6 +50,7 @@ import "./tobago-stars";
 import "./tobago-suggest";
 import "./tobago-tab";
 import "./tobago-textarea";
+import "./tobago-toasts";
 import "./tobago-tree";
 import "./tobago-tree-listbox";
 import "./tobago-tree-node";

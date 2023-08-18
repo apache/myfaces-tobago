@@ -1091,12 +1091,45 @@ tobago-overlay {
   }
 }
 
-/* page ----------------------------------------------------------- */
-
 tobago-page {
   display: block;
   padding-top: $tobago-page-padding-top;
   padding-bottom: 1rem;
+
+  .tobago-page-menuStore {
+    @include tobagoDropdownMenu();
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    z-index: $zindex-popover;
+  }
+
+  .tobago-page-toastStore {
+    .toast {
+      &.tobago-hideCloseButton .tobago-close {
+        display: none;
+      }
+
+      .toast-header {
+        .tobago-close {
+          margin-left: auto;
+        }
+      }
+
+      .toast-body {
+        .tobago-close {
+          float: right;
+        }
+      }
+
+      .tobago-auto-spacing {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 
 .tobago-page-noscript {
@@ -1118,17 +1151,6 @@ tobago-page {
     overflow-x: hidden;
     overflow-y: auto;
   }
-}
-
-.tobago-page-menuStore {
-  @include tobagoDropdownMenu();
-
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  z-index: $zindex-popover;
 }
 
 /* panel ------------------------------------------------------------- */
@@ -1740,6 +1762,10 @@ tobago-tab-group {
 
 tobago-textarea {
   display: block;
+}
+
+tobago-toasts {
+  display: none;
 }
 
 /* tree ---------------------------------------------------------------------- */
