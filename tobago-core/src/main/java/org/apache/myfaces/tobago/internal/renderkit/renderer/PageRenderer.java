@@ -281,6 +281,11 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     writer.writeClassAttribute(TobagoClass.PAGE__MENU_STORE);
     writer.endElement(HtmlElements.DIV);
 
+    // placeholder for toasts
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(TobagoClass.PAGE__TOAST_STORE);
+    writer.endElement(HtmlElements.DIV);
+
     writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "faces-state-container");
     writer.flush();
@@ -435,6 +440,5 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
       }
       return false;
     }
-
   }
 }

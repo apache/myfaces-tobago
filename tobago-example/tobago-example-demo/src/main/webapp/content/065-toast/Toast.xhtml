@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <p>Toasts represent a type of notification message, commonly associated with push notifications on mobile devices.
+    The <code>value</code> attribute of the <code
+        class="language-markup">&lt;tc:toasts/></code> tag contains a list of toasts
+    objects, each representing a single toast.
+    A toast object MUST implement the <code>org.apache.myfaces.tobago.application.Toast</code> interface.
+    If a toast has been closed, the corresponding object is removed from the list.
+    The content of the toasts is fully customizable.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:toasts/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tobagoTld}/tc/toasts.html"/></p>
+
+  <tc:section label="ToastFacesMessage">
+    <p>FacesMessage but as a toast.</p>
+    <tc:selectOneChoice label="Severity" value="#{toastsController.severity}">
+      <tc:selectItem itemLabel="Information" itemValue="info"/>
+      <tc:selectItem itemLabel="Warning" itemValue="warn"/>
+      <tc:selectItem itemLabel="Error" itemValue="error"/>
+      <tc:selectItem itemLabel="Fatal" itemValue="fatal"/>
+      <f:ajax/>
+    </tc:selectOneChoice>
+    <tc:button label="ToastFacesMessage" action="#{toastsController.createToastFacesMessage()}"/>
+    <tc:button label="ToastFacesMessage (AJAX)" action="#{toastsController.createToastFacesMessage()}">
+      <f:ajax execute="toastFacesMessages" render="toastFacesMessages"/>
+    </tc:button>
+
+    <tc:toasts id="toastFacesMessages" value="#{toastsController.toastFacesMessages}" var="toastFacesMessage"
+               placement="bottomLeft">
+      <f:facet name="header">
+        <tc:panel>
+          <tc:style customClass="rounded me-2 #{toastFacesMessage.severityColor}"
+                    width="1.25rem" height="1.25rem"/>
+        </tc:panel>
+        <strong>
+          <tc:out value="#{toastFacesMessage.severityText}" plain="true"/>
+        </strong>
+      </f:facet>
+      <tc:out value="#{toastFacesMessage.text}" plain="true"/>
+    </tc:toasts>
+  </tc:section>
+
+  <tc:section label="Progress bar">
+    <p>Create a toast with a progress bar. The toast is removed after the progress is 100%.
+      The close button is hidden.</p>
+    <tc:button label="Progress bar toast" action="#{toastsController.createProgressBarToast()}"/>
+    <tc:button label="Progress bar toast (AJAX)" action="#{toastsController.createProgressBarToast()}">
+      <f:ajax execute="progressBarToasts" render="progressBarToasts"/>
+    </tc:button>
+
+    <tc:toasts id="progressBarToasts" value="#{toastsController.progressBars}" var="progress" disposeDelay="-1"
+               markup="hideCloseButton">
+      <f:facet name="reload">
+        <tc:reload frequency="100"/>
+      </f:facet>
+      <f:facet name="header">
+        <tc:out value="Progress" plain="true"/>
+      </f:facet>
+      <tc:progress value="#{progress.value}" max="#{progress.max}"/>
+    </tc:toasts>
+  </tc:section>
+
+  <tc:section label="Custom toast">
+    <p>Create a custom toast. The message can be written in the input field. The toast also contains an AJAX refresh
+      button for the following timestamp.</p>
+    <tc:in id="customToastMessage" label="Message" value="#{toastsController.customToastMessage}"/>
+    <tc:button label="Custom toast" action="#{toastsController.createCustomToast()}"/>
+    <tc:button label="Custom toast (AJAX)" action="#{toastsController.createCustomToast()}">
+      <f:ajax execute="customToastMessage customToasts" render="customToasts"/>
+    </tc:button>
+
+    <tc:out id="now" label="Timestamp" value="#{eventController.currentTimestamp}"/>
+
+    <tc:toasts id="customToasts" value="#{toastsController.customToasts}" var="customToast" disposeDelay="-1">
+      <tc:style customClass="customCssClass"/>
+      <f:facet name="header">
+        <tc:out value="Custom toast" plain="true"/>
+      </f:facet>
+      <tc:out value="Message: #{customToast.text}" plain="true"/>
+      <tc:panel>
+        <tc:style height="1rem"/>
+      </tc:panel>
+      <tc:button label="refresh timestamp">
+        <f:ajax render=":::now"/>
+      </tc:button>
+    </tc:toasts>
+  </tc:section>
+</ui:composition>

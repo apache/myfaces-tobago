@@ -86,6 +86,7 @@ public enum RendererTypes {
   Textarea,
   Tab,
   TabGroup,
+  Toasts,
   ToolBar,
   Tree,
   /**
@@ -162,6 +163,7 @@ public enum RendererTypes {
   public static final String TEXTAREA = "Textarea";
   public static final String TAB = "Tab";
   public static final String TAB_GROUP = "TabGroup";
+  public static final String TOASTS = "Toasts";
   public static final String TOOL_BAR = "ToolBar";
   public static final String TREE = "Tree";
   /**
