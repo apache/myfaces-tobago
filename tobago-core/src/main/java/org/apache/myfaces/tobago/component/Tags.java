@@ -94,6 +94,7 @@ public enum Tags {
   textarea,
   tab,
   tabGroup,
+  toasts,
   toolBar,
   tree,
   treeIcon,
@@ -169,6 +170,7 @@ public enum Tags {
   public static final String TEXTAREA = "textarea";
   public static final String TAB = "tab";
   public static final String TAB_GROUP = "tabGroup";
+  public static final String TOASTS = "toasts";
   public static final String TOOL_BAR = "toolBar";
   public static final String TREE = "tree";
   public static final String TREE_ICON = "treeIcon";
