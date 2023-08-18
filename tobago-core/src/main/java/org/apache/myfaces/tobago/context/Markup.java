@@ -81,6 +81,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup EXTRA_LARGE = valueOf("extraLarge");
   public static final Markup FATAL = valueOf("fatal");
   public static final Markup FOLDER = valueOf("folder");
+  public static final Markup HIDE_CLOSE_BUTTON = valueOf("hideCloseButton");
   public static final Markup HIDE_TOGGLE_ICON = valueOf("hideToggleIcon");
   public static final Markup HOVER = valueOf("hover");
   public static final Markup INFO = valueOf("info");
@@ -144,6 +145,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final String STRING_EXTRA_LARGE = "extraLarge";
   public static final String STRING_FATAL = "fatal";
   public static final String STRING_FOLDER = "folder";
+  public static final String STRING_HIDE_CLOSE_BUTTON = "hideCloseButton";
   public static final String STRING_HIDE_TOGGLE_ICON = "hideToggleIcon";
   public static final String STRING_HOVER = "hover";
   public static final String STRING_INFO = "info";
