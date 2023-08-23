@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,7 +98,7 @@ public class MessagesRenderer<T extends AbstractUIMessages> extends RendererBase
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
         writer.writeClassAttribute(BootstrapClass.BTN_CLOSE);
         writer.writeAttribute(DataAttributes.DISMISS, "alert", false);
-        writer.writeAttribute(Arias.ACTIVEDESCENDANT, "Close", false); // todo: i18n
+        writer.writeAttribute(Arias.LABEL, ResourceUtils.getString(facesContext, "alert.close"), false);
         writer.endElement(HtmlElements.BUTTON);
       }
 
