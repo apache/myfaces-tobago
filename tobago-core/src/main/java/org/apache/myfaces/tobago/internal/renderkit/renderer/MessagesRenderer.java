@@ -89,14 +89,18 @@ public class MessagesRenderer<T extends AbstractUIMessages> extends RendererBase
       if (first || lastSeverity != severity) {
         writer.startElement(HtmlElements.DIV);
         writer.writeClassAttribute(
-            BootstrapClass.ALERT, BootstrapClass.ALERT_DISMISSIBLE, BootstrapClass.alert(severity));
+            BootstrapClass.ALERT,
+            BootstrapClass.ALERT_DISMISSIBLE,
+            BootstrapClass.alert(severity),
+            BootstrapClass.FADE,
+            BootstrapClass.SHOW);
         HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
         writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.ALERT.toString(), false);
 
         writer.startElement(HtmlElements.BUTTON);
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
         writer.writeClassAttribute(BootstrapClass.BTN_CLOSE);
-        writer.writeAttribute(DataAttributes.DISMISS, "alert", false);
+        writer.writeAttribute(DataAttributes.BS_DISMISS, "alert", false);
         writer.writeAttribute(Arias.LABEL, ResourceUtils.getString(facesContext, "alert.close"), false);
         writer.endElement(HtmlElements.BUTTON);
       }
