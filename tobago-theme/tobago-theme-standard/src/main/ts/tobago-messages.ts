@@ -15,24 +15,22 @@
  * limitations under the License.
  */
 
+import {Alert} from "bootstrap";
+
 class Messages extends HTMLElement {
 
   constructor() {
     super();
   }
 
+  get alerts(): NodeListOf<HTMLDivElement> {
+    return this.querySelectorAll(".alert");
+  }
+
   connectedCallback(): void {
-    for (const closeButton of this.closeButtons) {
-      closeButton.addEventListener("click", this.closeAlert);
+    for (const alert of this.alerts) {
+      new Alert(alert);
     }
-  }
-
-  private closeAlert(event: MouseEvent): void {
-    this.closest(".alert").remove();
-  }
-
-  get closeButtons(): NodeListOf<HTMLButtonElement> {
-    return this.querySelectorAll(".alert button.btn-close");
   }
 }
 

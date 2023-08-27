@@ -116,7 +116,7 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
       switch (messagePosition) {
         case buttonLeft:
           final CssItem buttonColor = BootstrapClass.buttonColor(severity);
-          encodePopover(writer, buttonColor, Icons.EXCLAMATION_LG, getTitle(messages), message, tabIndex);
+          encodePopover(writer, buttonColor, Icons.EXCLAMATION_LG, getTitle(facesContext, messages), message, tabIndex);
           break;
         case textTop:
           final CssItem feedback = BootstrapClass.feedbackColor(severity);
@@ -151,7 +151,7 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
       switch (messagePosition) {
         case buttonRight:
           final CssItem buttonColor = BootstrapClass.buttonColor(severity);
-          encodePopover(writer, buttonColor, Icons.EXCLAMATION_LG, getTitle(messages), message, tabIndex);
+          encodePopover(writer, buttonColor, Icons.EXCLAMATION_LG, getTitle(facesContext, messages), message, tabIndex);
           break;
         case tooltip:
           final CssItem tooltip = BootstrapClass.tooltipColor(severity);
@@ -204,11 +204,16 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
 
   protected abstract void encodeEndField(FacesContext facesContext, T component) throws IOException;
 
-  private String getTitle(final List<FacesMessage> messages) {
+  private String getTitle(FacesContext facesContext, final List<FacesMessage> messages) {
     int fatalCount = 0;
     int errorCount = 0;
     int warningCount = 0;
     int informationCount = 0;
+
+    final String fatal = ResourceUtils.getString(facesContext, "severity.fatal");
+    final String error = ResourceUtils.getString(facesContext, "severity.error");
+    final String warn = ResourceUtils.getString(facesContext, "severity.warn");
+    final String info = ResourceUtils.getString(facesContext, "severity.info");
 
     for (final FacesMessage message : messages) {
       if (FacesMessage.SEVERITY_FATAL.equals(message.getSeverity())) {
@@ -226,8 +231,7 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
 
     if (messages.size() > 1) {
       if (fatalCount > 0) {
-        stringBuilder.append(fatalCount);
-        stringBuilder.append(" Fatal");
+        stringBuilder.append(fatal).append(" (").append(fatalCount).append(")");
 
         if (errorCount + warningCount + informationCount > 0) {
           stringBuilder.append(", ");
@@ -235,11 +239,7 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
       }
 
       if (errorCount > 0) {
-        stringBuilder.append(errorCount);
-        stringBuilder.append(" Error");
-        if (errorCount > 1) {
-          stringBuilder.append("s");
-        }
+        stringBuilder.append(error).append(" (").append(errorCount).append(")");
 
         if (warningCount + informationCount > 0) {
           stringBuilder.append(", ");
@@ -247,11 +247,7 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
       }
 
       if (warningCount > 0) {
-        stringBuilder.append(warningCount);
-        stringBuilder.append(" Warning");
-        if (warningCount > 1) {
-          stringBuilder.append("s");
-        }
+        stringBuilder.append(warn).append(" (").append(warningCount).append(")");
 
         if (informationCount > 0) {
           stringBuilder.append(", ");
@@ -259,18 +255,17 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
       }
 
       if (informationCount > 0) {
-        stringBuilder.append(informationCount);
-        stringBuilder.append(" Information");
+        stringBuilder.append(info).append(" (").append(informationCount).append(")");
       }
     } else {
       if (fatalCount == 1) {
-        stringBuilder.append("Fatal");
+        stringBuilder.append(fatal);
       } else if (errorCount == 1) {
-        stringBuilder.append("Error");
+        stringBuilder.append(error);
       } else if (warningCount == 1) {
-        stringBuilder.append("Warning");
+        stringBuilder.append(warn);
       } else if (informationCount == 1) {
-        stringBuilder.append("Information");
+        stringBuilder.append(info);
       }
     }
     return stringBuilder.toString();

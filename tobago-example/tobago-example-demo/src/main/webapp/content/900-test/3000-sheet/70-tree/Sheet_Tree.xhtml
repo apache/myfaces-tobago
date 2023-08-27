@@ -20,7 +20,7 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                xmlns:ui="jakarta.faces.facelets">
   <tc:button id="reset" label="Reset" outcome="/content/900-test/3000-sheet/70-tree/Sheet_Tree.xhtml"/>
   <tc:sheet id="sheet" value="#{treeController.sample}" var="node" showRoot="true" showRootJunction="true">
     <tc:columnNode id="nameCol" label="Name">

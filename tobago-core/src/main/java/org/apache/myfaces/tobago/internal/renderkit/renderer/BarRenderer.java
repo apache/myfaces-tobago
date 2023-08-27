@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import jakarta.faces.component.UIComponent;
@@ -142,7 +143,7 @@ public class BarRenderer<T extends AbstractUIBar> extends RendererBase<T> {
     writer.writeAttribute(DataAttributes.TARGET, "#" + navbarId, true);
     writer.writeAttribute(Arias.EXPANDED, Boolean.FALSE.toString(), false);
     writer.writeAttribute(Arias.CONTROLS, navbarId, false);
-    writer.writeAttribute(Arias.LABEL, "Toggle navigation", false);
+    writer.writeAttribute(Arias.LABEL, ResourceUtils.getString(facesContext, "bar.toggleNavigation"), false);
 
     writer.startElement(HtmlElements.SPAN);
     writer.writeClassAttribute(BootstrapClass.NAVBAR_TOGGLER_ICON);

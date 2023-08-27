@@ -19,19 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
-import org.apache.myfaces.tobago.event.TabChangeEvent;
-import org.apache.myfaces.tobago.event.TabChangeListener;
-import org.apache.myfaces.tobago.event.TabChangeSource;
-import org.apache.myfaces.tobago.event.TobagoActionSource;
-import org.apache.myfaces.tobago.model.SwitchType;
-import org.apache.myfaces.tobago.util.FacesELUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import jakarta.el.MethodExpression;
 import jakarta.el.ValueExpression;
+import jakarta.faces.component.ActionSource2;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
 import jakarta.faces.context.FacesContext;
@@ -39,6 +29,15 @@ import jakarta.faces.event.AbortProcessingException;
 import jakarta.faces.event.ActionListener;
 import jakarta.faces.event.FacesEvent;
 import jakarta.faces.event.PhaseId;
+import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
+import org.apache.myfaces.tobago.event.TabChangeEvent;
+import org.apache.myfaces.tobago.event.TabChangeListener;
+import org.apache.myfaces.tobago.event.TabChangeSource;
+import org.apache.myfaces.tobago.model.SwitchType;
+import org.apache.myfaces.tobago.util.FacesELUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
@@ -49,7 +48,7 @@ import java.util.List;
  * {@link org.apache.myfaces.tobago.internal.taglib.component.TabGroupTagDeclaration}
  */
 public abstract class AbstractUITabGroup extends AbstractUIPanelBase
-    implements TabChangeSource, TobagoActionSource, ClientBehaviorHolder, SupportsAutoSpacing {
+    implements TabChangeSource, ActionSource2, ClientBehaviorHolder, SupportsAutoSpacing {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
