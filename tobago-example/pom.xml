@@ -224,41 +224,10 @@
           <artifactId>tobago-config-mojarra</artifactId>
           <version>${project.version}</version>
         </dependency>
-        <!-- from https://eclipse-ee4j.github.io/mojarra/ [BEGIN] -->
         <dependency>
           <groupId>org.glassfish</groupId>
           <artifactId>jakarta.faces</artifactId>
         </dependency>
-        <!-- todo: check use of "weld-servlet-core", because "weld-servlet-shaded"
-        has double dependencies with this project.-->
-        <dependency>
-          <groupId>org.jboss.weld.servlet</groupId>
-          <artifactId>weld-servlet-shaded</artifactId>
-          <version>4.0.3.Final</version>
-        </dependency>
-        <dependency>
-          <groupId>jakarta.annotation</groupId>
-          <artifactId>jakarta.annotation-api</artifactId>
-          <scope>provided</scope>
-          <!-- provided, because it's included in weld-servlet-shaded -->
-        </dependency>
-        <dependency>
-          <groupId>jakarta.servlet.jsp.jstl</groupId>
-          <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-          <version>2.0.0</version>
-          <scope>provided</scope>
-        </dependency>
-        <dependency> <!-- Optional, only when <f:websocket> is used. -->
-          <groupId>org.glassfish</groupId>
-          <artifactId>jakarta.json</artifactId>
-          <version>2.0.1</version>
-        </dependency>
-        <dependency> <!-- Optional, only when <f:validateBean> or <f:validateWholeBean> is used. -->
-          <groupId>org.hibernate.validator</groupId>
-          <artifactId>hibernate-validator</artifactId>
-          <version>7.0.5.Final</version>
-        </dependency>
-        <!-- [END] -->
       </dependencies>
     </profile>
 

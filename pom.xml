@@ -34,7 +34,7 @@
   <properties>
     <frontend.skip>true</frontend.skip>
     <myfaces40.version>4.0.1</myfaces40.version>
-    <mojarra40.version>4.0.3</mojarra40.version>
+    <mojarra40.version>4.0.4</mojarra40.version>
     <slf4j.version>2.0.9</slf4j.version>
     <logback.version>1.4.11</logback.version>
     <maven.compile.source>1.8</maven.compile.source>
