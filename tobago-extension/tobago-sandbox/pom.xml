@@ -74,7 +74,7 @@
       <plugin>
         <groupId>org.bsc.maven</groupId>
         <artifactId>maven-processor-plugin</artifactId>
-        <version>4.5-jdk8</version>
+        <version>5.0-jdk8</version>
         <executions>
           <execution>
             <id>process</id>
