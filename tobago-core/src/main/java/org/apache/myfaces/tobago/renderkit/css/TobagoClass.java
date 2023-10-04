@@ -50,6 +50,7 @@ public enum TobagoClass implements CssItem {
   CIRCLE__9("tobago-circle-9"),
   CLOSE("tobago-close"),
   COLLAPSED("tobago-collapsed"),
+  CONTROLS("tobago-controls"),
   DELETED("tobago-deleted"),
   DESCENDING("tobago-descending"),
   DISABLED("tobago-disabled"),
@@ -93,6 +94,7 @@ public enum TobagoClass implements CssItem {
   SECTION__CONTENT("tobago-section-content"),
   SELECT__FIELD("tobago-select-field"),
   SELECTED("tobago-selected"),
+  SELECTED__CONTAINER("tobago-selected-container"),
   SEPARATOR("tobago-separator"),
   SMALL("tobago-small"),
   SORTABLE("tobago-sortable"),
@@ -111,7 +113,8 @@ public enum TobagoClass implements CssItem {
   TEXT__TOP("tobago-text-top"),
   TOGGLE("tobago-toggle"),
   TOOLTIP("tobago-tooltip"),
-  UNSELECTED("tobago-unselected");
+  UNSELECTED("tobago-unselected"),
+  UNSELECTED__CONTAINER("tobago-unselected-container");
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
