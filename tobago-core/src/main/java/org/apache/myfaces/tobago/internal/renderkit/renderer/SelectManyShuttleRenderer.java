@@ -67,6 +67,9 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
     final boolean disabled = !items.iterator().hasNext() || component.isDisabled();
     final boolean readonly = component.isReadonly();
 
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(TobagoClass.UNSELECTED__CONTAINER);
+
     final String unselectedLabel = component.getUnselectedLabel();
     if (unselectedLabel != null) {
       writer.startElement(HtmlElements.DIV);
@@ -99,7 +102,10 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
     renderSelectItems(component, null, items, values, submittedValues, false, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
+    writer.endElement(HtmlElements.DIV);
+
     writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(TobagoClass.CONTROLS);
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(BootstrapClass.BTN_GROUP_VERTICAL);
     createButton(facesContext, component, writer, disabled | readonly, Icons.CHEVRON_DOUBLE_RIGHT, "addAll");
@@ -108,6 +114,9 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
     createButton(facesContext, component, writer, disabled | readonly, Icons.CHEVRON_DOUBLE_LEFT, "removeAll");
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
+
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(TobagoClass.SELECTED__CONTAINER);
     final String selectedLabel = component.getSelectedLabel();
     if (selectedLabel != null) {
       writer.startElement(HtmlElements.DIV);
@@ -133,6 +142,8 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
     renderSelectItems(component, null, items, values, submittedValues, true, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
+    writer.endElement(HtmlElements.DIV);
+
     writer.startElement(HtmlElements.SELECT);
     writer.writeClassAttribute(BootstrapClass.D_NONE);
     final String hiddenClientId = clientId + ComponentUtils.SUB_SEPARATOR + "hidden";
