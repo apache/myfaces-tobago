@@ -2700,11 +2700,7 @@ getJasmineRequireObj().buildExpectationResult = function(j$) {
         } else if (options.stack) {
           error = options;
         } else {
-          try {
-            throw new Error(message());
-          } catch (e) {
-            error = e;
-          }
+          error = new Error(message());
         }
       }
       // Omit the message from the stack trace because it will be
@@ -3228,6 +3224,9 @@ getJasmineRequireObj().CompleteOnFirstErrorSkipPolicy = function(j$) {
   return CompleteOnFirstErrorSkipPolicy;
 };
 
+// Warning: don't add "use strict" to this file. Doing so potentially changes
+// the behavior of user code that does things like setTimeout("var x = 1;")
+// while the mock clock is installed.
 getJasmineRequireObj().DelayedFunctionScheduler = function(j$) {
   function DelayedFunctionScheduler() {
     this.scheduledLookup_ = [];
@@ -3253,6 +3252,9 @@ getJasmineRequireObj().DelayedFunctionScheduler = function(j$) {
     ) {
       let f;
       if (typeof funcToCall === 'string') {
+        // setTimeout("some code") and setInterval("some code") are legal, if
+        // not recommended. We don't do that ourselves, but user code might.
+        // This allows such code to work when the mock clock is installed.
         f = function() {
           // eslint-disable-next-line no-eval
           return eval(funcToCall);
@@ -7159,6 +7161,8 @@ getJasmineRequireObj().NeverSkipPolicy = function(j$) {
 };
 
 getJasmineRequireObj().ParallelReportDispatcher = function(j$) {
+  'use strict';
+
   /**
    * @class ParallelReportDispatcher
    * @implements Reporter
@@ -7177,7 +7181,7 @@ getJasmineRequireObj().ParallelReportDispatcher = function(j$) {
     const ReportDispatcher = deps.ReportDispatcher || j$.ReportDispatcher;
     const QueueRunner = deps.QueueRunner || j$.QueueRunner;
     const globalErrors = deps.globalErrors || new j$.GlobalErrors();
-    const dispatcher = ReportDispatcher(
+    const dispatcher = new ReportDispatcher(
       j$.reporterEvents,
       function(queueRunnerOptions) {
         queueRunnerOptions = {
@@ -7903,6 +7907,8 @@ getJasmineRequireObj().QueueRunner = function(j$) {
 };
 
 getJasmineRequireObj().ReportDispatcher = function(j$) {
+  'use strict';
+
   function ReportDispatcher(methods, queueRunnerFactory, onLateError) {
     const dispatchedMethods = methods || [];
 
@@ -8479,7 +8485,11 @@ getJasmineRequireObj().interface = function(jasmine, env) {
    * @since 1.3.0
    * @function
    * @param {String} [name] - Name to give the spy. This will be displayed in failure messages.
-   * @param {Function} [originalFn] - Function to act as the real implementation.
+   * @param {Function} [originalFn] - The "real" function. This will
+   * be used for subsequent calls to the spy after you call
+   * `mySpy.and.callThrough()`. In most cases you should omit this parameter.
+   * The usual way to supply an original function is to call {@link spyOn}
+   * instead of createSpy.
    * @return {Spy}
    */
   jasmine.createSpy = function(name, originalFn) {
@@ -10802,5 +10812,5 @@ getJasmineRequireObj().UserContext = function(j$) {
 };
 
 getJasmineRequireObj().version = function() {
-  return '5.1.0';
+  return '5.1.1';
 };
