@@ -133,9 +133,9 @@ export class Page extends HTMLElement {
     console.timeEnd("[tobago-jsf] jsf-ajax");
     console.time("[tobago-jsf] jsf-ajax");
     console.debug("[tobago-jsf] JSF event status: '%s'", event.status);
-    if (event.status === "success") {
+    if (event.status === "success" && event.responseXML) {
       event.responseXML.querySelectorAll("update").forEach(this.jsfResponseSuccess.bind(this));
-    } else if (event.status === "complete") {
+    } else if (event.status === "complete" && event.responseXML) {
       event.responseXML.querySelectorAll("update").forEach(this.jsfResponseComplete.bind(this));
     }
   }
