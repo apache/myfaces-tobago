@@ -2197,7 +2197,6 @@ progress {
 .form-control::file-selector-button {
   padding: 0.375rem 0.75rem;
   margin: -0.375rem -0.75rem;
-  -webkit-margin-end: 0.75rem;
   margin-inline-end: 0.75rem;
   color: var(--bs-body-color);
   background-color: var(--bs-tertiary-bg);
@@ -2246,7 +2245,6 @@ progress {
 .form-control-sm::file-selector-button {
   padding: 0.25rem 0.5rem;
   margin: -0.25rem -0.5rem;
-  -webkit-margin-end: 0.5rem;
   margin-inline-end: 0.5rem;
 }
 
@@ -2259,7 +2257,6 @@ progress {
 .form-control-lg::file-selector-button {
   padding: 0.5rem 1rem;
   margin: -0.5rem -1rem;
-  -webkit-margin-end: 1rem;
   margin-inline-end: 1rem;
 }
 
@@ -3411,7 +3408,7 @@ textarea.form-control-lg {
   margin-left: 0;
 }
 
-.dropdown-menu, tobago-select-many-list .tobago-options.tobago-dropdown-menu, tobago-select-one-list .tobago-options.tobago-dropdown-menu, .tobago-page-menuStore .tobago-dropdown-menu, tobago-dropdown .tobago-dropdown-menu {
+.dropdown-menu, tobago-select-many-list .tobago-options.tobago-dropdown-menu, tobago-select-one-list .tobago-options.tobago-dropdown-menu, tobago-page .tobago-page-menuStore .tobago-dropdown-menu, tobago-dropdown .tobago-dropdown-menu {
   --bs-dropdown-zindex: 1000;
   --bs-dropdown-min-width: 10rem;
   --bs-dropdown-padding-x: 0;
@@ -3453,7 +3450,7 @@ textarea.form-control-lg {
   border: var(--bs-dropdown-border-width) solid var(--bs-dropdown-border-color);
   border-radius: var(--bs-dropdown-border-radius);
 }
-.dropdown-menu[data-bs-popper], tobago-select-many-list [data-bs-popper].tobago-options.tobago-dropdown-menu, tobago-select-one-list [data-bs-popper].tobago-options.tobago-dropdown-menu, .tobago-page-menuStore [data-bs-popper].tobago-dropdown-menu, tobago-dropdown [data-bs-popper].tobago-dropdown-menu {
+.dropdown-menu[data-bs-popper], tobago-select-many-list [data-bs-popper].tobago-options.tobago-dropdown-menu, tobago-select-one-list [data-bs-popper].tobago-options.tobago-dropdown-menu, tobago-page .tobago-page-menuStore [data-bs-popper].tobago-dropdown-menu, tobago-dropdown [data-bs-popper].tobago-dropdown-menu {
   top: 100%;
   left: 0;
   margin-top: var(--bs-dropdown-spacer);
@@ -3555,7 +3552,7 @@ textarea.form-control-lg {
     left: auto;
   }
 }
-.dropup .dropdown-menu[data-bs-popper], .dropup tobago-select-many-list [data-bs-popper].tobago-options.tobago-dropdown-menu, tobago-select-many-list .dropup [data-bs-popper].tobago-options.tobago-dropdown-menu, .dropup tobago-select-one-list [data-bs-popper].tobago-options.tobago-dropdown-menu, tobago-select-one-list .dropup [data-bs-popper].tobago-options.tobago-dropdown-menu, .dropup .tobago-page-menuStore [data-bs-popper].tobago-dropdown-menu, .tobago-page-menuStore .dropup [data-bs-popper].tobago-dropdown-menu, .dropup tobago-dropdown [data-bs-popper].tobago-dropdown-menu, tobago-dropdown .dropup [data-bs-popper].tobago-dropdown-menu {
+.dropup .dropdown-menu[data-bs-popper], .dropup tobago-select-many-list [data-bs-popper].tobago-options.tobago-dropdown-menu, tobago-select-many-list .dropup [data-bs-popper].tobago-options.tobago-dropdown-menu, .dropup tobago-select-one-list [data-bs-popper].tobago-options.tobago-dropdown-menu, tobago-select-one-list .dropup [data-bs-popper].tobago-options.tobago-dropdown-menu, .dropup tobago-page .tobago-page-menuStore [data-bs-popper].tobago-dropdown-menu, tobago-page .tobago-page-menuStore .dropup [data-bs-popper].tobago-dropdown-menu, .dropup tobago-dropdown [data-bs-popper].tobago-dropdown-menu, tobago-dropdown .dropup [data-bs-popper].tobago-dropdown-menu {
   top: auto;
   bottom: 100%;
   margin-top: 0;
@@ -3575,7 +3572,7 @@ textarea.form-control-lg {
   margin-left: 0;
 }
 
-.dropend .dropdown-menu[data-bs-popper], .dropend tobago-select-many-list [data-bs-popper].tobago-options.tobago-dropdown-menu, tobago-select-many-list .dropend [data-bs-popper].tobago-options.tobago-dropdown-menu, .dropend tobago-select-one-list [data-bs-popper].tobago-options.tobago-dropdown-menu, tobago-select-one-list .dropend [data-bs-popper].tobago-options.tobago-dropdown-menu, .dropend .tobago-page-menuStore [data-bs-popper].tobago-dropdown-menu, .tobago-page-menuStore .dropend [data-bs-popper].tobago-dropdown-menu, .dropend tobago-dropdown [data-bs-popper].tobago-dropdown-menu, tobago-dropdown .dropend [data-bs-popper].tobago-dropdown-menu {
+.dropend .dropdown-menu[data-bs-popper], .dropend tobago-select-many-list [data-bs-popper].tobago-options.tobago-dropdown-menu, tobago-select-many-list .dropend [data-bs-popper].tobago-options.tobago-dropdown-menu, .dropend tobago-select-one-list [data-bs-popper].tobago-options.tobago-dropdown-menu, tobago-select-one-list .dropend [data-bs-popper].tobago-options.tobago-dropdown-menu, .dropend tobago-page .tobago-page-menuStore [data-bs-popper].tobago-dropdown-menu, tobago-page .tobago-page-menuStore .dropend [data-bs-popper].tobago-dropdown-menu, .dropend tobago-dropdown [data-bs-popper].tobago-dropdown-menu, tobago-dropdown .dropend [data-bs-popper].tobago-dropdown-menu {
   top: 0;
   right: auto;
   left: 100%;
@@ -3599,7 +3596,7 @@ textarea.form-control-lg {
   vertical-align: 0;
 }
 
-.dropstart .dropdown-menu[data-bs-popper], .dropstart tobago-select-many-list [data-bs-popper].tobago-options.tobago-dropdown-menu, tobago-select-many-list .dropstart [data-bs-popper].tobago-options.tobago-dropdown-menu, .dropstart tobago-select-one-list [data-bs-popper].tobago-options.tobago-dropdown-menu, tobago-select-one-list .dropstart [data-bs-popper].tobago-options.tobago-dropdown-menu, .dropstart .tobago-page-menuStore [data-bs-popper].tobago-dropdown-menu, .tobago-page-menuStore .dropstart [data-bs-popper].tobago-dropdown-menu, .dropstart tobago-dropdown [data-bs-popper].tobago-dropdown-menu, tobago-dropdown .dropstart [data-bs-popper].tobago-dropdown-menu {
+.dropstart .dropdown-menu[data-bs-popper], .dropstart tobago-select-many-list [data-bs-popper].tobago-options.tobago-dropdown-menu, tobago-select-many-list .dropstart [data-bs-popper].tobago-options.tobago-dropdown-menu, .dropstart tobago-select-one-list [data-bs-popper].tobago-options.tobago-dropdown-menu, tobago-select-one-list .dropstart [data-bs-popper].tobago-options.tobago-dropdown-menu, .dropstart tobago-page .tobago-page-menuStore [data-bs-popper].tobago-dropdown-menu, tobago-page .tobago-page-menuStore .dropstart [data-bs-popper].tobago-dropdown-menu, .dropstart tobago-dropdown [data-bs-popper].tobago-dropdown-menu, tobago-dropdown .dropstart [data-bs-popper].tobago-dropdown-menu {
   top: 0;
   right: 100%;
   left: auto;
@@ -3668,7 +3665,7 @@ textarea.form-control-lg {
   background-color: transparent;
 }
 
-.dropdown-menu.show, tobago-select-many-list .show.tobago-options.tobago-dropdown-menu, tobago-select-one-list .show.tobago-options.tobago-dropdown-menu, .tobago-page-menuStore .show.tobago-dropdown-menu, tobago-dropdown .show.tobago-dropdown-menu {
+.dropdown-menu.show, tobago-select-many-list .show.tobago-options.tobago-dropdown-menu, tobago-select-one-list .show.tobago-options.tobago-dropdown-menu, tobago-page .tobago-page-menuStore .show.tobago-dropdown-menu, tobago-dropdown .show.tobago-dropdown-menu {
   display: block;
 }
 
@@ -3871,7 +3868,7 @@ textarea.form-control-lg {
   background-color: var(--bs-nav-tabs-link-active-bg);
   border-color: var(--bs-nav-tabs-link-active-border-color);
 }
-.nav-tabs .dropdown-menu, .nav-tabs tobago-select-many-list .tobago-options.tobago-dropdown-menu, tobago-select-many-list .nav-tabs .tobago-options.tobago-dropdown-menu, .nav-tabs tobago-select-one-list .tobago-options.tobago-dropdown-menu, tobago-select-one-list .nav-tabs .tobago-options.tobago-dropdown-menu, .nav-tabs .tobago-page-menuStore .tobago-dropdown-menu, .tobago-page-menuStore .nav-tabs .tobago-dropdown-menu, .nav-tabs tobago-dropdown .tobago-dropdown-menu, tobago-dropdown .nav-tabs .tobago-dropdown-menu {
+.nav-tabs .dropdown-menu, .nav-tabs tobago-select-many-list .tobago-options.tobago-dropdown-menu, tobago-select-many-list .nav-tabs .tobago-options.tobago-dropdown-menu, .nav-tabs tobago-select-one-list .tobago-options.tobago-dropdown-menu, tobago-select-one-list .nav-tabs .tobago-options.tobago-dropdown-menu, .nav-tabs tobago-page .tobago-page-menuStore .tobago-dropdown-menu, tobago-page .tobago-page-menuStore .nav-tabs .tobago-dropdown-menu, .nav-tabs tobago-dropdown .tobago-dropdown-menu, tobago-dropdown .nav-tabs .tobago-dropdown-menu {
   margin-top: calc(-1 * var(--bs-nav-tabs-border-width));
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -4006,7 +4003,7 @@ textarea.form-control-lg {
 .navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
   color: var(--bs-navbar-active-color);
 }
-.navbar-nav .dropdown-menu, .navbar-nav tobago-select-many-list .tobago-options.tobago-dropdown-menu, tobago-select-many-list .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-nav tobago-select-one-list .tobago-options.tobago-dropdown-menu, tobago-select-one-list .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-nav .tobago-page-menuStore .tobago-dropdown-menu, .tobago-page-menuStore .navbar-nav .tobago-dropdown-menu, .navbar-nav tobago-dropdown .tobago-dropdown-menu, tobago-dropdown .navbar-nav .tobago-dropdown-menu {
+.navbar-nav .dropdown-menu, .navbar-nav tobago-select-many-list .tobago-options.tobago-dropdown-menu, tobago-select-many-list .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-nav tobago-select-one-list .tobago-options.tobago-dropdown-menu, tobago-select-one-list .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-nav tobago-page .tobago-page-menuStore .tobago-dropdown-menu, tobago-page .tobago-page-menuStore .navbar-nav .tobago-dropdown-menu, .navbar-nav tobago-dropdown .tobago-dropdown-menu, tobago-dropdown .navbar-nav .tobago-dropdown-menu {
   position: static;
 }
 
@@ -4075,7 +4072,7 @@ textarea.form-control-lg {
   .navbar-expand-sm .navbar-nav {
     flex-direction: row;
   }
-  .navbar-expand-sm .navbar-nav .dropdown-menu, .navbar-expand-sm .navbar-nav tobago-select-many-list .tobago-options.tobago-dropdown-menu, tobago-select-many-list .navbar-expand-sm .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand-sm .navbar-nav tobago-select-one-list .tobago-options.tobago-dropdown-menu, tobago-select-one-list .navbar-expand-sm .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand-sm .navbar-nav .tobago-page-menuStore .tobago-dropdown-menu, .tobago-page-menuStore .navbar-expand-sm .navbar-nav .tobago-dropdown-menu, .navbar-expand-sm .navbar-nav tobago-dropdown .tobago-dropdown-menu, tobago-dropdown .navbar-expand-sm .navbar-nav .tobago-dropdown-menu {
+  .navbar-expand-sm .navbar-nav .dropdown-menu, .navbar-expand-sm .navbar-nav tobago-select-many-list .tobago-options.tobago-dropdown-menu, tobago-select-many-list .navbar-expand-sm .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand-sm .navbar-nav tobago-select-one-list .tobago-options.tobago-dropdown-menu, tobago-select-one-list .navbar-expand-sm .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand-sm .navbar-nav tobago-page .tobago-page-menuStore .tobago-dropdown-menu, tobago-page .tobago-page-menuStore .navbar-expand-sm .navbar-nav .tobago-dropdown-menu, .navbar-expand-sm .navbar-nav tobago-dropdown .tobago-dropdown-menu, tobago-dropdown .navbar-expand-sm .navbar-nav .tobago-dropdown-menu {
     position: absolute;
   }
   .navbar-expand-sm .navbar-nav .nav-link {
@@ -4122,7 +4119,7 @@ textarea.form-control-lg {
   .navbar-expand-md .navbar-nav {
     flex-direction: row;
   }
-  .navbar-expand-md .navbar-nav .dropdown-menu, .navbar-expand-md .navbar-nav tobago-select-many-list .tobago-options.tobago-dropdown-menu, tobago-select-many-list .navbar-expand-md .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand-md .navbar-nav tobago-select-one-list .tobago-options.tobago-dropdown-menu, tobago-select-one-list .navbar-expand-md .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand-md .navbar-nav .tobago-page-menuStore .tobago-dropdown-menu, .tobago-page-menuStore .navbar-expand-md .navbar-nav .tobago-dropdown-menu, .navbar-expand-md .navbar-nav tobago-dropdown .tobago-dropdown-menu, tobago-dropdown .navbar-expand-md .navbar-nav .tobago-dropdown-menu {
+  .navbar-expand-md .navbar-nav .dropdown-menu, .navbar-expand-md .navbar-nav tobago-select-many-list .tobago-options.tobago-dropdown-menu, tobago-select-many-list .navbar-expand-md .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand-md .navbar-nav tobago-select-one-list .tobago-options.tobago-dropdown-menu, tobago-select-one-list .navbar-expand-md .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand-md .navbar-nav tobago-page .tobago-page-menuStore .tobago-dropdown-menu, tobago-page .tobago-page-menuStore .navbar-expand-md .navbar-nav .tobago-dropdown-menu, .navbar-expand-md .navbar-nav tobago-dropdown .tobago-dropdown-menu, tobago-dropdown .navbar-expand-md .navbar-nav .tobago-dropdown-menu {
     position: absolute;
   }
   .navbar-expand-md .navbar-nav .nav-link {
@@ -4169,7 +4166,7 @@ textarea.form-control-lg {
   .navbar-expand-lg .navbar-nav {
     flex-direction: row;
   }
-  .navbar-expand-lg .navbar-nav .dropdown-menu, .navbar-expand-lg .navbar-nav tobago-select-many-list .tobago-options.tobago-dropdown-menu, tobago-select-many-list .navbar-expand-lg .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand-lg .navbar-nav tobago-select-one-list .tobago-options.tobago-dropdown-menu, tobago-select-one-list .navbar-expand-lg .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand-lg .navbar-nav .tobago-page-menuStore .tobago-dropdown-menu, .tobago-page-menuStore .navbar-expand-lg .navbar-nav .tobago-dropdown-menu, .navbar-expand-lg .navbar-nav tobago-dropdown .tobago-dropdown-menu, tobago-dropdown .navbar-expand-lg .navbar-nav .tobago-dropdown-menu {
+  .navbar-expand-lg .navbar-nav .dropdown-menu, .navbar-expand-lg .navbar-nav tobago-select-many-list .tobago-options.tobago-dropdown-menu, tobago-select-many-list .navbar-expand-lg .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand-lg .navbar-nav tobago-select-one-list .tobago-options.tobago-dropdown-menu, tobago-select-one-list .navbar-expand-lg .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand-lg .navbar-nav tobago-page .tobago-page-menuStore .tobago-dropdown-menu, tobago-page .tobago-page-menuStore .navbar-expand-lg .navbar-nav .tobago-dropdown-menu, .navbar-expand-lg .navbar-nav tobago-dropdown .tobago-dropdown-menu, tobago-dropdown .navbar-expand-lg .navbar-nav .tobago-dropdown-menu {
     position: absolute;
   }
   .navbar-expand-lg .navbar-nav .nav-link {
@@ -4216,7 +4213,7 @@ textarea.form-control-lg {
   .navbar-expand-xl .navbar-nav {
     flex-direction: row;
   }
-  .navbar-expand-xl .navbar-nav .dropdown-menu, .navbar-expand-xl .navbar-nav tobago-select-many-list .tobago-options.tobago-dropdown-menu, tobago-select-many-list .navbar-expand-xl .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand-xl .navbar-nav tobago-select-one-list .tobago-options.tobago-dropdown-menu, tobago-select-one-list .navbar-expand-xl .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand-xl .navbar-nav .tobago-page-menuStore .tobago-dropdown-menu, .tobago-page-menuStore .navbar-expand-xl .navbar-nav .tobago-dropdown-menu, .navbar-expand-xl .navbar-nav tobago-dropdown .tobago-dropdown-menu, tobago-dropdown .navbar-expand-xl .navbar-nav .tobago-dropdown-menu {
+  .navbar-expand-xl .navbar-nav .dropdown-menu, .navbar-expand-xl .navbar-nav tobago-select-many-list .tobago-options.tobago-dropdown-menu, tobago-select-many-list .navbar-expand-xl .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand-xl .navbar-nav tobago-select-one-list .tobago-options.tobago-dropdown-menu, tobago-select-one-list .navbar-expand-xl .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand-xl .navbar-nav tobago-page .tobago-page-menuStore .tobago-dropdown-menu, tobago-page .tobago-page-menuStore .navbar-expand-xl .navbar-nav .tobago-dropdown-menu, .navbar-expand-xl .navbar-nav tobago-dropdown .tobago-dropdown-menu, tobago-dropdown .navbar-expand-xl .navbar-nav .tobago-dropdown-menu {
     position: absolute;
   }
   .navbar-expand-xl .navbar-nav .nav-link {
@@ -4263,7 +4260,7 @@ textarea.form-control-lg {
   .navbar-expand-xxl .navbar-nav {
     flex-direction: row;
   }
-  .navbar-expand-xxl .navbar-nav .dropdown-menu, .navbar-expand-xxl .navbar-nav tobago-select-many-list .tobago-options.tobago-dropdown-menu, tobago-select-many-list .navbar-expand-xxl .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand-xxl .navbar-nav tobago-select-one-list .tobago-options.tobago-dropdown-menu, tobago-select-one-list .navbar-expand-xxl .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand-xxl .navbar-nav .tobago-page-menuStore .tobago-dropdown-menu, .tobago-page-menuStore .navbar-expand-xxl .navbar-nav .tobago-dropdown-menu, .navbar-expand-xxl .navbar-nav tobago-dropdown .tobago-dropdown-menu, tobago-dropdown .navbar-expand-xxl .navbar-nav .tobago-dropdown-menu {
+  .navbar-expand-xxl .navbar-nav .dropdown-menu, .navbar-expand-xxl .navbar-nav tobago-select-many-list .tobago-options.tobago-dropdown-menu, tobago-select-many-list .navbar-expand-xxl .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand-xxl .navbar-nav tobago-select-one-list .tobago-options.tobago-dropdown-menu, tobago-select-one-list .navbar-expand-xxl .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand-xxl .navbar-nav tobago-page .tobago-page-menuStore .tobago-dropdown-menu, tobago-page .tobago-page-menuStore .navbar-expand-xxl .navbar-nav .tobago-dropdown-menu, .navbar-expand-xxl .navbar-nav tobago-dropdown .tobago-dropdown-menu, tobago-dropdown .navbar-expand-xxl .navbar-nav .tobago-dropdown-menu {
     position: absolute;
   }
   .navbar-expand-xxl .navbar-nav .nav-link {
@@ -4309,7 +4306,7 @@ textarea.form-control-lg {
 .navbar-expand .navbar-nav {
   flex-direction: row;
 }
-.navbar-expand .navbar-nav .dropdown-menu, .navbar-expand .navbar-nav tobago-select-many-list .tobago-options.tobago-dropdown-menu, tobago-select-many-list .navbar-expand .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand .navbar-nav tobago-select-one-list .tobago-options.tobago-dropdown-menu, tobago-select-one-list .navbar-expand .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand .navbar-nav .tobago-page-menuStore .tobago-dropdown-menu, .tobago-page-menuStore .navbar-expand .navbar-nav .tobago-dropdown-menu, .navbar-expand .navbar-nav tobago-dropdown .tobago-dropdown-menu, tobago-dropdown .navbar-expand .navbar-nav .tobago-dropdown-menu {
+.navbar-expand .navbar-nav .dropdown-menu, .navbar-expand .navbar-nav tobago-select-many-list .tobago-options.tobago-dropdown-menu, tobago-select-many-list .navbar-expand .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand .navbar-nav tobago-select-one-list .tobago-options.tobago-dropdown-menu, tobago-select-one-list .navbar-expand .navbar-nav .tobago-options.tobago-dropdown-menu, .navbar-expand .navbar-nav tobago-page .tobago-page-menuStore .tobago-dropdown-menu, tobago-page .tobago-page-menuStore .navbar-expand .navbar-nav .tobago-dropdown-menu, .navbar-expand .navbar-nav tobago-dropdown .tobago-dropdown-menu, tobago-dropdown .navbar-expand .navbar-nav .tobago-dropdown-menu {
   position: absolute;
 }
 .navbar-expand .navbar-nav .nav-link {
@@ -12967,11 +12964,44 @@ tobago-overlay.modal-backdrop:not(.show) {
   display: none;
 }
 
-/* page ----------------------------------------------------------- */
 tobago-page {
   display: block;
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+tobago-page .tobago-page-menuStore {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 1070;
+}
+tobago-page .tobago-page-menuStore .tobago-dropdown-menu {
+  /* Use .tobago-dropdown-menu instead of .dropdown-menu to prevent Bootstrap from creating a dropdown instance.
+     This leads to javascript error if arrow up/down is pressed. */
+}
+tobago-page .tobago-page-menuStore .tobago-dropdown-menu .form-check {
+  /* move form-check components to the right, so checkbox/radio buttons are inside dropdown-menu */
+  padding-left: 2.5em;
+}
+tobago-page .tobago-page-menuStore .tobago-dropdown-menu .form-check.form-switch {
+  padding-left: 3.5em;
+}
+tobago-page .tobago-page-menuStore .tobago-dropdown-menu label[for] {
+  width: 100%;
+}
+tobago-page .tobago-page-toastStore .toast.tobago-hideCloseButton .tobago-close {
+  display: none;
+}
+tobago-page .tobago-page-toastStore .toast .toast-header .tobago-close {
+  margin-left: auto;
+}
+tobago-page .tobago-page-toastStore .toast .toast-body .tobago-close {
+  float: right;
+}
+tobago-page .tobago-page-toastStore .toast .tobago-auto-spacing {
+  margin-bottom: 0;
 }
 
 .tobago-page-noscript {
@@ -12992,29 +13022,6 @@ tobago-page {
 .tobago-spreadtobago-panel {
   overflow-x: hidden;
   overflow-y: auto;
-}
-
-.tobago-page-menuStore {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  z-index: 1070;
-}
-.tobago-page-menuStore .tobago-dropdown-menu {
-  /* Use .tobago-dropdown-menu instead of .dropdown-menu to prevent Bootstrap from creating a dropdown instance.
-     This leads to javascript error if arrow up/down is pressed. */
-}
-.tobago-page-menuStore .tobago-dropdown-menu .form-check {
-  /* move form-check components to the right, so checkbox/radio buttons are inside dropdown-menu */
-  padding-left: 2.5em;
-}
-.tobago-page-menuStore .tobago-dropdown-menu .form-check.form-switch {
-  padding-left: 3.5em;
-}
-.tobago-page-menuStore .tobago-dropdown-menu label[for] {
-  width: 100%;
 }
 
 /* panel ------------------------------------------------------------- */
@@ -13894,6 +13901,10 @@ tobago-tab-group tobago-tab > .nav-link > i + span {
 
 tobago-textarea {
   display: block;
+}
+
+tobago-toasts {
+  display: none;
 }
 
 /* tree ---------------------------------------------------------------------- */
