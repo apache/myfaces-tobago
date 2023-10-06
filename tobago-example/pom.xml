@@ -410,7 +410,7 @@
           <plugin>
             <groupId>io.openliberty.tools</groupId>
             <artifactId>liberty-maven-plugin</artifactId>
-            <version>3.8.2</version>
+            <version>3.9</version>
             <configuration>
               <serverXmlFile>${project.basedir}/src/test/liberty/config/server.xml</serverXmlFile>
             </configuration>
