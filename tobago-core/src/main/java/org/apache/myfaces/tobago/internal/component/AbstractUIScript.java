@@ -19,8 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.util.FacesVersion;
-
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.FacesContext;
@@ -39,21 +37,18 @@ public abstract class AbstractUIScript extends UIComponentBase {
 
   @Override
   public void processEvent(final ComponentSystemEvent event) {
-
     super.processEvent(event);
 
     if (event instanceof PreRenderViewEvent) {
       addComponentResource();
     } else if (event instanceof PostAddToViewEvent) {
-      if (FacesVersion.supports21() || !FacesVersion.isMyfaces()) {
+      if (!getFacesContext().getPartialViewContext().isAjaxRequest()) {
         // MyFaces core is removing the component resources in head if the view will be recreated before rendering.
-        // The view will be recreated because of expressions. For example  expressins in the ui:include src attribute
+        // The view will be recreated because of expressions. For example expressions in the ui:include src attribute
         // The PostAddToViewEvent will not be broadcasted in this case again.
         // A subscription to the PreRenderViewEvent avoids this problem
-        // NOTE: PreRenderViewEvent can not used in myfaces prior 2.0.3 using PostAddToView for all myfaces 2.0 versions
+        // Must not subscribe if ajax request, otherwise MyFaces will update the component resources.
         getFacesContext().getViewRoot().subscribeToEvent(PreRenderViewEvent.class, this);
-      } else {
-        addComponentResource();
       }
     }
   }

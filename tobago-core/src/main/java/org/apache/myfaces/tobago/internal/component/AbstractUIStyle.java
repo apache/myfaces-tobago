@@ -19,6 +19,15 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.faces.event.PreRenderViewEvent;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -29,19 +38,8 @@ import org.apache.myfaces.tobago.layout.Overflow;
 import org.apache.myfaces.tobago.layout.Position;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.renderkit.css.CustomClass;
-import org.apache.myfaces.tobago.util.FacesVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import jakarta.el.ValueExpression;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIComponentBase;
-import jakarta.faces.component.UIViewRoot;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.ComponentSystemEvent;
-import jakarta.faces.event.ListenerFor;
-import jakarta.faces.event.PostAddToViewEvent;
-import jakarta.faces.event.PreRenderViewEvent;
 
 import java.lang.invoke.MethodHandles;
 
@@ -63,21 +61,17 @@ public abstract class AbstractUIStyle extends UIComponentBase {
     if (event instanceof PreRenderViewEvent) {
       // attribute file
       if (StringUtils.isNotBlank(getFile())) {
-        final UIViewRoot root = facesContext.getViewRoot();
-        root.addComponentResource(facesContext, this);
+        addComponentResource(facesContext);
       }
     } else if (event instanceof PostAddToViewEvent) {
       if (StringUtils.isNotBlank(getFile())) {
         // MyFaces core is removing the component resources in head if the view will be recreated before rendering.
-        // The view will be recreated because of expressions. For example  expressins in the ui:include src attribute
+        // The view will be recreated because of expressions. For example expressions in the ui:include src attribute
         // The PostAddToViewEvent will not be broadcasted in this case again.
         // A subscription to the PreRenderViewEvent avoids this problem
-        // NOTE: PreRenderViewEvent can not used in myfaces prior 2.0.3 using PostAddToView for all myfaces 2.0 versions
-        if (FacesVersion.supports21() || !FacesVersion.isMyfaces()) {
+        // Must not subscribe if ajax request, otherwise MyFaces will update the component resources.
+        if (!facesContext.getPartialViewContext().isAjaxRequest()) {
           facesContext.getViewRoot().subscribeToEvent(PreRenderViewEvent.class, this);
-        } else {
-          final UIViewRoot root = facesContext.getViewRoot();
-          root.addComponentResource(facesContext, this);
         }
       }
       // attribute customClass
@@ -101,6 +95,11 @@ public abstract class AbstractUIStyle extends UIComponentBase {
         }
       }
     }
+  }
+
+  private void addComponentResource(final FacesContext facesContext) {
+    final UIViewRoot root = facesContext.getViewRoot();
+    root.addComponentResource(facesContext, this);
   }
 
   public abstract String getSelector();
