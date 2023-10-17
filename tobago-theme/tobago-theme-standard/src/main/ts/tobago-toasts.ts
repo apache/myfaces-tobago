@@ -93,9 +93,13 @@ class Toasts extends HTMLElement {
   }
 
   private updateToast(storeToast: HTMLDivElement, localToast: HTMLDivElement): void {
-    storeToast.replaceChildren(
-        localToast.querySelector("." + Css.TOAST_HEADER),
-        localToast.querySelector("." + Css.TOAST_BODY));
+    if (localToast.querySelector("." + Css.TOAST_HEADER)) {
+      storeToast.replaceChildren(
+          localToast.querySelector("." + Css.TOAST_HEADER),
+          localToast.querySelector("." + Css.TOAST_BODY));
+    } else {
+      storeToast.replaceChildren(localToast.querySelector("." + Css.TOAST_BODY));
+    }
   }
 
   private showToast(localToast: HTMLDivElement): void {
