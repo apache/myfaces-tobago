@@ -196,6 +196,23 @@ export class Sheet extends HTMLElement {
         row.addEventListener("click", this.clickOnRow.bind(this));
       }
     }
+    if (selectionMode === "multi") {
+      let selected = false;
+      for (const inputSelect of this.getSelectorCheckboxes()) {
+        if (inputSelect.checked) {
+          selected = true;
+        } else {
+          selected = false;
+          break
+        }
+      }
+      if (selected) {
+        const selectorAll = this.getSelectorAllCheckbox();
+        if (selectorAll) {
+          selectorAll.checked = true;
+        }
+      }
+    }
 
     for (const checkbox of this.querySelectorAll(
         ".tobago-body td > input.tobago-selected")) {
@@ -746,6 +763,14 @@ Type: ${data.type}`);
    */
   getSelectorCheckbox(row: HTMLTableRowElement): HTMLInputElement {
     return row.querySelector("tr>td>input.tobago-selected");
+  }
+
+  getSelectorAllCheckbox(): HTMLInputElement {
+    return this.getBodyTable().querySelector("thead>tr>th>span>input.tobago-selected");
+  }
+
+  getSelectorCheckboxes(): NodeListOf<HTMLInputElement> {
+    return this.getBodyTable().querySelectorAll("tbody>tr>td>input.tobago-selected");
   }
 
   getRowElements(): NodeListOf<HTMLTableRowElement> {
