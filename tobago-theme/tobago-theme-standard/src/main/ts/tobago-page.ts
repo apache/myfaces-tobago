@@ -133,9 +133,9 @@ export class Page extends HTMLElement {
     console.timeEnd("[tobago-faces] faces-ajax");
     console.time("[tobago-faces] faces-ajax");
     console.debug("[tobago-faces] Faces event status: '%s'", event.status);
-    if (event.status === "success") {
+    if (event.status === "success" && event.responseXML) {
       event.responseXML.querySelectorAll("update").forEach(this.facesResponseSuccess.bind(this));
-    } else if (event.status === "complete") {
+    } else if (event.status === "complete" && event.responseXML) {
       event.responseXML.querySelectorAll("update").forEach(this.facesResponseComplete.bind(this));
     }
   }

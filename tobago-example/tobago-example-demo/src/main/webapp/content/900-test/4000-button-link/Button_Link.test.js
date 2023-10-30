@@ -111,7 +111,7 @@ it("Target Link Link", function (done) {
 
 function getTargetFrameInput() {
   return elementByIdFn("page:mainForm:targetFrame")().contentWindow
-      .document.getElementById("textInput");
+      .document.getElementById("page:textInput::field");
 }
 
 it("Style must not be a dropdown item", function (done) {

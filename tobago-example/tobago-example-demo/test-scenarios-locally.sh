@@ -23,12 +23,6 @@
 
 WORK=test-scenarios-locally/$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
-${JAVA_HOME_8}/bin/java -version
-if [ $? != 0 ]; then
-  echo "Java 8 (LTS) not found!"
-  exit 1
-fi
-
 ${JAVA_HOME_11}/bin/java -version
 if [ $? != 0 ]; then
   echo "Java 11 (LTS) not found!"
@@ -138,6 +132,8 @@ check() {
   done
 
   echo "Found a process ${PID} on port ${PORT} running!"
+  echo "Wait 10 seconds for startup..."
+  sleep 10
   echo "Now testing..."
 
   STATUS=$(curl -o ${WORK}/JSR_303.xhtml -w "%{http_code}" http://localhost:${PORT}/content/170-validation/01/JSR_303.xhtml)
@@ -165,25 +161,12 @@ check() {
 
 # xxx -Pprod doesn't exist, but this is no problem
 for MODE in "dev" "prod" ; do
-  for JAVA_VERSION in 8 11 17 ; do
-
-    check ${JAVA_VERSION} "mvn clean jetty:run -P${MODE} -Pjetty"              "Jetty 9 with MyFaces 2.3"
-
-    if [[ ${JAVA_VERSION} -ge 11 ]]; then # Jetty 10 needs at least JDK 11
-      check ${JAVA_VERSION} "mvn clean jetty:run -P${MODE} -Pjetty -Pjee8"     "Jetty 10 with MyFaces 2.3"
-    fi
-
-    check ${JAVA_VERSION} "mvn clean jetty:run -P${MODE} -Djsf=mojarra-2.3"    "Jetty 9 with Mojarra 2.3"
-
-    if [[ ${JAVA_VERSION} -le 11 ]]; then # TomEE 8 seems not to run with JDK higher than 11
-      check ${JAVA_VERSION} "mvn clean package tomee:run -P${MODE} -Ptomee"    "TomEE 8 with MyFaces 2.3"
-    fi
+  for JAVA_VERSION in 11 17 ; do
+    check ${JAVA_VERSION} "mvn clean jetty:run -P${MODE} -Pjetty"                     "Jetty 11 with MyFaces 4.0"
+    check ${JAVA_VERSION} "mvn clean jetty:run -P${MODE} -Pjetty -Djsf=mojarra-4.0"   "Jetty 11 with Mojarra 4.0"
+    check ${JAVA_VERSION} "mvn clean package cargo:run -P${MODE} -Ptomcat"             "Tomcat 10 with MyFaces 4.0"
   done
 done
-
-# run with Maven
-
-mvn clean install -Ptomcat -Pdev && docker run -it --rm -p 8080:8080 -v `pwd`/target/tobago-example-demo.war:/usr/local/tomcat/webapps/demo.war tomcat:9-jdk8
 
 echo "+--------------------------------------------------------------------------------------------------+"
 echo "All checks successful!"

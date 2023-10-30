@@ -15,8 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
@@ -36,10 +35,8 @@
     <module>tobago-example-blank</module>
     <module>tobago-example-demo</module>
     <module>tobago-example-assembly</module>
-    <!-- XXX the spring-boot demo was temporarily removed, because it doesn't support Jakarta EE 9
-    See: https://spring.io/blog/2021/09/02/a-java-17-and-jakarta-ee-9-baseline-for-spring-framework-6
-     -->
-    <!--    <module>tobago-example-spring-boot</module>-->
+    <!-- Spring Boot 3 demo deactivated because it requires Java 17. -->
+<!--    <module>tobago-example-spring-boot</module>-->
   </modules>
 
   <build>
@@ -226,41 +223,10 @@
           <artifactId>tobago-config-mojarra</artifactId>
           <version>${project.version}</version>
         </dependency>
-        <!-- from https://eclipse-ee4j.github.io/mojarra/ [BEGIN] -->
         <dependency>
           <groupId>org.glassfish</groupId>
           <artifactId>jakarta.faces</artifactId>
         </dependency>
-        <!-- todo: check use of "weld-servlet-core", because "weld-servlet-shaded"
-        has double dependencies with this project.-->
-        <dependency>
-          <groupId>org.jboss.weld.servlet</groupId>
-          <artifactId>weld-servlet-shaded</artifactId>
-          <version>4.0.3.Final</version>
-        </dependency>
-        <dependency>
-          <groupId>jakarta.annotation</groupId>
-          <artifactId>jakarta.annotation-api</artifactId>
-          <scope>provided</scope>
-          <!-- provided, because it's included in weld-servlet-shaded -->
-        </dependency>
-        <dependency>
-          <groupId>jakarta.servlet.jsp.jstl</groupId>
-          <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-          <version>2.0.0</version>
-          <scope>provided</scope>
-        </dependency>
-        <dependency> <!-- Optional, only when <f:websocket> is used. -->
-          <groupId>org.glassfish</groupId>
-          <artifactId>jakarta.json</artifactId>
-          <version>2.0.1</version>
-        </dependency>
-        <dependency> <!-- Optional, only when <f:validateBean> or <f:validateWholeBean> is used. -->
-          <groupId>org.hibernate.validator</groupId>
-          <artifactId>hibernate-validator</artifactId>
-          <version>7.0.5.Final</version>
-        </dependency>
-        <!-- [END] -->
       </dependencies>
     </profile>
 
@@ -313,7 +279,7 @@
             -->
             <groupId>org.codehaus.cargo</groupId>
             <artifactId>cargo-maven3-plugin</artifactId>
-            <version>1.10.9</version>
+            <version>1.10.10</version>
             <configuration>
               <container>
                 <containerId>tomcat10x</containerId>
@@ -444,7 +410,7 @@
           <plugin>
             <groupId>io.openliberty.tools</groupId>
             <artifactId>liberty-maven-plugin</artifactId>
-            <version>3.8.2</version>
+            <version>3.9</version>
             <configuration>
               <serverXmlFile>${project.basedir}/src/test/liberty/config/server.xml</serverXmlFile>
             </configuration>

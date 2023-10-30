@@ -395,6 +395,10 @@ AlignItemsProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+PlacementProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 LocalDateProperty(property) ::= <<
 <NormalProperty(property)>
 >>

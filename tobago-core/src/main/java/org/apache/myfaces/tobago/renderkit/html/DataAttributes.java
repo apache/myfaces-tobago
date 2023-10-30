@@ -60,6 +60,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   DISABLED("data-tobago-disabled"),
 
   DISMISS("data-dismiss"),
+  DISPOSE_DELAY("data-tobago-dispose-delay"),
 
   /**
    * Custom form attribute. Used to show the virtual form of the component.
@@ -132,6 +133,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
    * Custom attribute to describe a pattern, e. g. for an date input field.
    */
   PATTERN("data-tobago-pattern"),
+  PLACEMENT("data-tobago-placement"),
 
   /**
    * Custom reload attribute. Used to reload a panel.

@@ -35,6 +35,7 @@ public enum Facets {
   contextMenu,
   footer,
   label,
+  header,
   pagerPage,
   pagerPageDirect,
   pagerRow,
@@ -56,6 +57,7 @@ public enum Facets {
   public static final String CONTEXT_MENU = "contextMenu";
   public static final String FOOTER = "footer";
   public static final String LABEL = "label";
+  public static final String HEADER = "header";
   public static final String PAGER_PAGE = "pagerPage";
   public static final String PAGER_PAGE_DIRECT = "pagerPageDirect";
   public static final String PAGER_ROW = "pagerRow";
