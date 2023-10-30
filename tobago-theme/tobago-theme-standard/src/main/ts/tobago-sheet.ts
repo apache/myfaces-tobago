@@ -203,7 +203,7 @@ export class Sheet extends HTMLElement {
           selected = true;
         } else {
           selected = false;
-          break
+          break;
         }
       }
       if (selected) {
