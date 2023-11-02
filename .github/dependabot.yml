@@ -30,67 +30,53 @@ updates:
       - dependency-name: "org.antlr:stringtemplate"
         versions:
           - ">= 4.0.0"
-      - dependency-name: "org.apache.maven.plugins:maven-checkstyle-plugin"
-        versions:
-          - ">=3.1.0"
-      - dependency-name: "org.apache.maven.plugins:maven-enforcer-plugin"
-        versions:
-          - ">= 3.0.0"
-      # checkstyle 10 needs Java 11
-      - dependency-name: "com.puppycrawl.tools:checkstyle"
-        versions:
-          - ">= 10.0"
-      # todo: update quarkus
-      - dependency-name: "io.quarkus:quarkus-maven-plugin"
-        versions:
-          - ">= 2.0.0"
-      # jakarta.el-api 5.0.0 is Jakarta EE 10
+      # jakarta.el-api 5.0 is Jakarta EE 10
       - dependency-name: "jakarta.el:jakarta.el-api"
         versions:
-          - ">= 5.0.0"
-      # jakarta.enterprise.cdi-api 4.0.0 is Jakarta EE 10
+          - ">= 6.0.0"
+      # jakarta.enterprise.cdi-api 4.0 is Jakarta EE 10
       - dependency-name: "jakarta.enterprise:jakarta.enterprise.cdi-api"
         versions:
-          - ">= 4.0.0"
-      # jakarta.servlet.jsp.jstl-api 3.0.0 is Jakarta EE 10
+          - ">= 4.1.0"
+      # jakarta.servlet.jsp.jstl-api 3.0 is Jakarta EE 10
       - dependency-name: "jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api"
         versions:
-          - ">= 3.0.0"
+          - ">= 4.0.0"
       # jakarta.annotation-api 2.1 is Jakarta EE 10
       - dependency-name: "jakarta.annotation:jakarta.annotation-api"
         versions:
-          - ">= 2.1.0"
-      # jakarta.servlet:jakarta.servlet-api 6.x is Jakarta EE 10
+          - ">= 3.0.0"
+      # jakarta.servlet:jakarta.servlet-api 6.0 is Jakarta EE 10
       - dependency-name: "jakarta.servlet:jakarta.servlet-api"
         versions:
-          - ">= 6.0.0"
-      # hibernate-validator 8 is Jakarta EE 10
+          - ">= 6.1.0"
+      # hibernate-validator 7 is Jakarta EE 9/10 Bean Validation 3.0
       - dependency-name: "org.hibernate.validator:hibernate-validator"
         versions:
           - ">= 8.0.0"
-      # weld 5 is CDI 4 is Jakarta EE 10
+      # weld 6 is Jakarta EE 11 CDI 4.1
       - dependency-name: "org.jboss.weld.servlet:weld-servlet-shaded"
         versions:
-          - ">= 5.0.0"
-      # Jakarta Faces 4.0 is Jakarta EE 10
+          - ">= 6.0.0"
+      # Mojarra 4 is Jakarta EE 10 Faces 4.0
       - dependency-name: "org.glassfish:jakarta.faces"
         versions:
-          - ">= 4.0.0"
-      # MyFaces 4.0 is Jakarta EE 10
+          - ">= 5.0.0"
+      # MyFaces 4.0 is Jakarta EE 10 Faces 4.0
       - dependency-name: "org.apache.myfaces.core:myfaces-api"
         versions:
-          - ">= 4.0.0"
+          - ">= 5.0.0"
       - dependency-name: "org.apache.myfaces.core:myfaces-impl"
         versions:
-          - ">= 4.0.0"
+          - ">= 5.0.0"
       # Jakarta Persistence 3.1 is Jakarta EE 10
       - dependency-name: "jakarta.persistence:jakarta.persistence-api"
         versions:
-          - ">= 3.1.0"
+          - ">= 3.2.0"
       # Jakarta XML Binding 4.0 is Jakarta EE 10
       - dependency-name: "jakarta.xml.bind:jakarta.xml.bind-api"
         versions:
-          - ">= 4.0.0"
+          - ">= 5.0.0"
 
   - package-ecosystem: "maven"
     directory: "/"
