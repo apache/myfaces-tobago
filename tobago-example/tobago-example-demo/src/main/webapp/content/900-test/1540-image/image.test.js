@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {querySelectorFn} from "/script/tobago-test.js";
+import {elementByIdFn, querySelectorFn,} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("Images must be among themselves", function (done) {
@@ -34,6 +34,8 @@ it("Image sizes", function (done) {
   const image4 = querySelectorFn("#page\\:mainForm\\:image4 img");
   const image5 = querySelectorFn("#page\\:mainForm\\:image5 img");
   const image6 = querySelectorFn("#page\\:mainForm\\:image6 img");
+  const customClassIcon = elementByIdFn("page:mainForm:customClassIcon");
+  const customClassImage = elementByIdFn("page:mainForm:customClassImage");
 
   let test = new JasmineTestTool(done);
   test.do(() => expect(image1().width).toBe(24));
@@ -48,5 +50,7 @@ it("Image sizes", function (done) {
   test.do(() => expect(image5().height).toBe(25));
   test.do(() => expect(image6().width).toBe(240));
   test.do(() => expect(image6().height).toBe(100));
+  test.do(() => expect(customClassIcon().classList).toContain("my-custom-class"));
+  test.do(() => expect(customClassImage().classList).toContain("my-custom-class"));
   test.start();
 });
