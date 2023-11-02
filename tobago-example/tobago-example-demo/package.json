@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-replace": "^5.0.2",
+    "@rollup/plugin-replace": "^5.0.5",
     "@types/prismjs": "^1.26.2",
     "clean-css-cli": "^5.6.2",
     "ncp": "^2.0.0",
