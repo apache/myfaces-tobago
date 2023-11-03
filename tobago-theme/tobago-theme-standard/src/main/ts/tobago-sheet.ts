@@ -752,7 +752,7 @@ Type: ${data.type}`);
   }
 
   private getSelectorAllCheckbox(): HTMLInputElement {
-    return this.getBodyTable().querySelector("thead>tr>th>span>input.tobago-selected");
+    return this.querySelector("thead>tr>th>span>input.tobago-selected");
   }
 
   private calculateSelectorAllChecked(selectedSet: Set<number>) {
