@@ -196,6 +196,10 @@ export class Sheet extends HTMLElement {
         row.addEventListener("click", this.clickOnRow.bind(this));
       }
     }
+    if (selectionMode === "multi"  && this.getSelectorAllCheckbox()) {
+      const selectedSet = new Set<number>(JSON.parse(this.getHiddenSelected().value));
+      this.calculateSelectorAllChecked(selectedSet);
+    }
 
     for (const checkbox of this.querySelectorAll(
         ".tobago-body td > input.tobago-selected")) {
@@ -265,7 +269,6 @@ export class Sheet extends HTMLElement {
       });
     }
   }
-
   // attribute getter + setter ---------------------------------------------------------- //
 
   get lazyActive(): boolean {
@@ -748,6 +751,30 @@ Type: ${data.type}`);
     return row.querySelector("tr>td>input.tobago-selected");
   }
 
+  private getSelectorAllCheckbox(): HTMLInputElement {
+    return this.querySelector("thead>tr>th>span>input.tobago-selected");
+  }
+
+  private calculateSelectorAllChecked(selectedSet: Set<number>) {
+    const selectorAll = this.getSelectorAllCheckbox();
+    if (selectorAll) {
+      let selected = false;
+      for (const row of this.getRowElements()) {
+        const checkbox: HTMLInputElement = this.getSelectorCheckbox(row);
+        if (checkbox === null || !checkbox.disabled) {
+          const rowIndex = Number(row.getAttribute("row-index"));
+          if (selectedSet.has(rowIndex)) {
+            selected = true;
+          } else {
+            selected = false;
+            break;
+          }
+        }
+      }
+      selectorAll.checked = selected;
+    }
+  }
+
   getRowElements(): NodeListOf<HTMLTableRowElement> {
     return this.getBodyTable().querySelectorAll("tbody>tr");
   }
@@ -774,6 +801,7 @@ Type: ${data.type}`);
         this.selectRow(selectedSet, rowIndex, row, checkbox);
       }
     }
+    this.calculateSelectorAllChecked(selectedSet);
   }
 
   selectAll(selectedSet: Set<number>): void {
@@ -807,6 +835,7 @@ Type: ${data.type}`);
         }
       }
     }
+    this.calculateSelectorAllChecked(selectedSet);
   }
 
   /**
