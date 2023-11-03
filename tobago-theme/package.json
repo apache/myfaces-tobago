@@ -54,7 +54,7 @@
     "bi-fonts": "ncp node_modules/bootstrap-icons/font/fonts tobago-theme-standard/src/main/css/fonts",
     "faces-js": "node copy-faces-js.js",
     "ts": "npm-run-all ts-lint rollup",
-    "ts-lint": "eslint 'tobago-theme-standard/src/main/ts/**/*.ts'",
+    "ts-lint": "eslint tobago-theme-standard/src/main/ts/*.ts",
     "ts-compile": "tsc --project tsconfig.development.json",
     "rollup": "rollup --config",
     "update-check": "npx npm-check-updates",
