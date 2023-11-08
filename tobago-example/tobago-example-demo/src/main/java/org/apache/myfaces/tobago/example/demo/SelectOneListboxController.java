@@ -36,14 +36,13 @@ public class SelectOneListboxController implements Serializable {
   private String mountain;
 
   public SelectOneListboxController() {
-    SelectItemGroup itemGroup = new SelectItemGroup("Mountains",
-        "Mountains", false,
+    mountains = new SelectItem[] {
+        new SelectItemGroup("Mountains", "Mountains", false,
         new SelectItem("8848 m", "Everest"),
         new SelectItem("8611 m", "K2"),
         new SelectItem("8586 m", "Kangchenjunga"),
         new SelectItem("8516 m", "Lhotse"),
-        new SelectItem("8481 m", "Makalu"));
-    mountains = new SelectItem[]{ itemGroup };
+        new SelectItem("8481 m", "Makalu"))};
   }
 
   public String getRiver() {

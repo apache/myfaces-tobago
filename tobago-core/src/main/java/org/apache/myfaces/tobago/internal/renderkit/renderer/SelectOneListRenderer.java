@@ -164,7 +164,7 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
         writer.endElement(HtmlElements.TD);
         writer.endElement(HtmlElements.TR);
         final SelectItem[] selectItems = ((SelectItemGroup) item).getSelectItems();
-        for(SelectItem selectItem : selectItems) {
+        for (SelectItem selectItem : selectItems) {
           encodeSelectItem(facesContext, writer, component, selectItem, value, submittedValue,
               disabled || item.isDisabled(), true);
         }

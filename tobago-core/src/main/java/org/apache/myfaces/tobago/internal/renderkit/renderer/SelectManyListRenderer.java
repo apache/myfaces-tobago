@@ -192,7 +192,7 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
         writer.endElement(HtmlElements.TD);
         writer.endElement(HtmlElements.TR);
         final SelectItem[] selectItems = ((SelectItemGroup) item).getSelectItems();
-        for(SelectItem selectItem : selectItems) {
+        for (SelectItem selectItem : selectItems) {
           encodeSelectItem(facesContext, writer, component, selectItem, values, submittedValues,
               disabled || item.isDisabled(), true);
         }
@@ -214,8 +214,8 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     writer.endElement(HtmlElements.DIV);
   }
 
-  private void encodeSelectItem(FacesContext facesContext, TobagoResponseWriter writer, T component,
-        SelectItem item, Object[] values, String[] submittedValues, boolean disabled, boolean group) throws IOException {
+  private void encodeSelectItem(FacesContext facesContext, TobagoResponseWriter writer, T component, SelectItem item,
+        Object[] values, String[] submittedValues, boolean disabled, boolean group) throws IOException {
     Object itemValue = item.getValue();
     // when using selectItem tag with a literal value: use the converted value
     if (itemValue instanceof String && values != null && values.length > 0 && !(values[0] instanceof String)) {
