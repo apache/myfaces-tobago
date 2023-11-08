@@ -185,7 +185,8 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     for (SelectItem item : items) {
       if (item instanceof SelectItemGroup) {
         writer.startElement(HtmlElements.TR);
-        writer.writeClassAttribute(TobagoClass.SELECT__GROUP);
+        writer.writeClassAttribute(TobagoClass.SELECT__GROUP,
+            disabled || item.isDisabled() ? TobagoClass.DISABLED : null);
         writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
         writer.startElement(HtmlElements.TD);
         writer.writeText(item.getLabel());
