@@ -185,7 +185,7 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     for (SelectItem item : items) {
       if (item instanceof SelectItemGroup) {
         writer.startElement(HtmlElements.TR);
-        writer.writeClassAttribute(TobagoClass.SELECT__GROUP,
+        writer.writeClassAttribute(TobagoClass.SELECT__ITEM__GROUP,
             disabled || item.isDisabled() ? TobagoClass.DISABLED : null);
         writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
         writer.startElement(HtmlElements.TD);
@@ -232,9 +232,9 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     writer.startElement(HtmlElements.TR);
     writer.writeAttribute(DataAttributes.VALUE, formattedValue, true);
     writer.writeClassAttribute(
+        TobagoClass.SELECT__ITEM,
         contains ? BootstrapClass.TABLE_PRIMARY : null,
-        disabled || item.isDisabled() ? TobagoClass.DISABLED : null,
-        group ? TobagoClass.SELECT__GROUP_FIELD : null);
+        disabled || item.isDisabled() ? TobagoClass.DISABLED : null);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
 
     writer.startElement(HtmlElements.TD);

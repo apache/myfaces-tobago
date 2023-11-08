@@ -232,12 +232,12 @@ $tobago-flex-layout-spacing: 0.5rem;
     min-width: 0;
   }
 
-  .tobago-select-group {
+  .tobago-select-item-group {
     font-weight: bold;
   }
 
-  .tobago-select-groupField span {
-    padding-left: 0.5rem
+  .tobago-select-item span {
+    padding-left: 20px
   }
 
   .tobago-select-field {
