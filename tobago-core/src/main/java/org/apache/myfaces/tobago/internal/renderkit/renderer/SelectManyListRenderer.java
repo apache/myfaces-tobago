@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.model.SelectItem;
+import jakarta.faces.model.SelectItemGroup;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyList;
 import org.apache.myfaces.tobago.internal.util.ArrayUtils;
@@ -182,30 +183,22 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     final Object[] values = component.getSelectedValues();
     final String[] submittedValues = getSubmittedValues(component);
     for (SelectItem item : items) {
-      Object itemValue = item.getValue();
-      // when using selectItem tag with a literal value: use the converted value
-      if (itemValue instanceof String && values != null && values.length > 0 && !(values[0] instanceof String)) {
-        itemValue = ComponentUtils.getConvertedValue(facesContext, component, (String) itemValue);
-      }
-      final String formattedValue = getFormattedValue(facesContext, (T) component, itemValue);
-      final boolean contains;
-      if (submittedValues == null) {
-        contains = ArrayUtils.contains(values, itemValue);
+      if (item instanceof SelectItemGroup) {
+        writer.startElement(HtmlElements.TR);
+        writer.writeClassAttribute(TobagoClass.SELECT__GROUP);
+        writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
+        writer.startElement(HtmlElements.TD);
+        writer.writeText(item.getLabel());
+        writer.endElement(HtmlElements.TD);
+        writer.endElement(HtmlElements.TR);
+        final SelectItem[] selectItems = ((SelectItemGroup) item).getSelectItems();
+        for(SelectItem selectItem : selectItems) {
+          encodeSelectItem(facesContext, writer, component, selectItem, values, submittedValues,
+              disabled || item.isDisabled(), true);
+        }
       } else {
-        contains = ArrayUtils.contains(submittedValues, formattedValue);
+        encodeSelectItem(facesContext, writer, component, item, values, submittedValues, disabled, false);
       }
-      writer.startElement(HtmlElements.TR);
-      writer.writeAttribute(DataAttributes.VALUE, formattedValue, true);
-      writer.writeClassAttribute(
-          contains ? BootstrapClass.TABLE_PRIMARY : null,
-          disabled || item.isDisabled() ? TobagoClass.DISABLED : null);
-      writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
-
-      writer.startElement(HtmlElements.TD);
-      writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
-      writer.writeText(item.getLabel());
-      writer.endElement(HtmlElements.TD);
-      writer.endElement(HtmlElements.TR);
     }
 
     writer.endElement(HtmlElements.TBODY);
@@ -219,6 +212,41 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     writer.endElement(HtmlElements.TFOOT);
     writer.endElement(HtmlElements.TABLE);
     writer.endElement(HtmlElements.DIV);
+  }
+
+  private void encodeSelectItem(FacesContext facesContext, TobagoResponseWriter writer, T component,
+        SelectItem item, Object[] values, String[] submittedValues, boolean disabled, boolean group) throws IOException {
+    Object itemValue = item.getValue();
+    // when using selectItem tag with a literal value: use the converted value
+    if (itemValue instanceof String && values != null && values.length > 0 && !(values[0] instanceof String)) {
+      itemValue = ComponentUtils.getConvertedValue(facesContext, component, (String) itemValue);
+    }
+    final String formattedValue = getFormattedValue(facesContext, (T) component, itemValue);
+    final boolean contains;
+    if (submittedValues == null) {
+      contains = ArrayUtils.contains(values, itemValue);
+    } else {
+      contains = ArrayUtils.contains(submittedValues, formattedValue);
+    }
+    writer.startElement(HtmlElements.TR);
+    writer.writeAttribute(DataAttributes.VALUE, formattedValue, true);
+    writer.writeClassAttribute(
+        contains ? BootstrapClass.TABLE_PRIMARY : null,
+        disabled || item.isDisabled() ? TobagoClass.DISABLED : null,
+        group ? TobagoClass.SELECT__GROUP_FIELD : null);
+    writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
+
+    writer.startElement(HtmlElements.TD);
+    writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
+    if (group) {
+      writer.startElement(HtmlElements.SPAN);
+    }
+    writer.writeText(item.getLabel());
+    if (group) {
+      writer.endElement(HtmlElements.SPAN);
+    }
+    writer.endElement(HtmlElements.TD);
+    writer.endElement(HtmlElements.TR);
   }
 
   @Override

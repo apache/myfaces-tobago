@@ -93,6 +93,8 @@ public enum TobagoClass implements CssItem {
   RESIZE("tobago-resize"),
   SECTION__CONTENT("tobago-section-content"),
   SELECT__FIELD("tobago-select-field"),
+  SELECT__GROUP("tobago-select-group"),
+  SELECT__GROUP_FIELD("tobago-select-groupField"),
   SELECTED("tobago-selected"),
   SELECTED__CONTAINER("tobago-selected-container"),
   SEPARATOR("tobago-separator"),

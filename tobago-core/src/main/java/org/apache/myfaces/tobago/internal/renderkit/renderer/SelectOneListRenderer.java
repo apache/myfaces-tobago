@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.model.SelectItem;
+import jakarta.faces.model.SelectItemGroup;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneList;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
@@ -154,30 +155,22 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
     final Object value = component.getValue();
     final Object submittedValue = component.getSubmittedValue();
     for (SelectItem item : items) {
-      Object itemValue = item.getValue();
-      // when using selectItem tag with a literal value: use the converted value
-      if (itemValue instanceof String && value != null && !(value instanceof String)) {
-        itemValue = ComponentUtils.getConvertedValue(facesContext, component, (String) itemValue);
-      }
-      final String formattedValue = getFormattedValue(facesContext, (T) component, itemValue);
-      final boolean contains;
-      if (submittedValue != null) {
-        contains = submittedValue.equals(formattedValue);
+      if (item instanceof SelectItemGroup) {
+        writer.startElement(HtmlElements.TR);
+        writer.writeClassAttribute(TobagoClass.SELECT__GROUP);
+        writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
+        writer.startElement(HtmlElements.TD);
+        writer.writeText(item.getLabel());
+        writer.endElement(HtmlElements.TD);
+        writer.endElement(HtmlElements.TR);
+        final SelectItem[] selectItems = ((SelectItemGroup) item).getSelectItems();
+        for(SelectItem selectItem : selectItems) {
+          encodeSelectItem(facesContext, writer, component, selectItem, value, submittedValue,
+              disabled || item.isDisabled(), true);
+        }
       } else {
-        contains = value != null && value.equals(itemValue);
+        encodeSelectItem(facesContext, writer, component, item,  value, submittedValue, disabled, false);
       }
-      writer.startElement(HtmlElements.TR);
-      writer.writeAttribute(DataAttributes.VALUE, formattedValue, true);
-      writer.writeClassAttribute(
-          contains ? BootstrapClass.TABLE_PRIMARY : null,
-          disabled || item.isDisabled() ? TobagoClass.DISABLED : null);
-      writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
-
-      writer.startElement(HtmlElements.TD);
-      writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
-      writer.writeText(item.getLabel());
-      writer.endElement(HtmlElements.TD);
-      writer.endElement(HtmlElements.TR);
     }
 
     writer.endElement(HtmlElements.TBODY);
@@ -191,6 +184,40 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
     writer.endElement(HtmlElements.TFOOT);
     writer.endElement(HtmlElements.TABLE);
     writer.endElement(HtmlElements.DIV);
+  }
+
+  private void encodeSelectItem(FacesContext facesContext, TobagoResponseWriter writer, T component, SelectItem item,
+        Object value, Object submittedValue, boolean disabled, boolean group) throws IOException {
+    Object itemValue = item.getValue();
+    // when using selectItem tag with a literal value: use the converted value
+    if (itemValue instanceof String && value != null && !(value instanceof String)) {
+      itemValue = ComponentUtils.getConvertedValue(facesContext, component, (String) itemValue);
+    }
+    final String formattedValue = getFormattedValue(facesContext, (T) component, itemValue);
+    final boolean contains;
+    if (submittedValue != null) {
+      contains = submittedValue.equals(formattedValue);
+    } else {
+      contains = value != null && value.equals(itemValue);
+    }
+    writer.startElement(HtmlElements.TR);
+    writer.writeAttribute(DataAttributes.VALUE, formattedValue, true);
+    writer.writeClassAttribute(
+        contains ? BootstrapClass.TABLE_PRIMARY : null,
+        disabled || item.isDisabled() ? TobagoClass.DISABLED : null,
+        group ? TobagoClass.SELECT__GROUP_FIELD : null);
+    writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
+    writer.startElement(HtmlElements.TD);
+    writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
+    if (group) {
+      writer.startElement(HtmlElements.SPAN);
+    }
+    writer.writeText(item.getLabel());
+    if (group) {
+      writer.endElement(HtmlElements.SPAN);
+    }
+    writer.endElement(HtmlElements.TD);
+    writer.endElement(HtmlElements.TR);
   }
 
   @Override

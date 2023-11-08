@@ -232,6 +232,14 @@ $tobago-flex-layout-spacing: 0.5rem;
     min-width: 0;
   }
 
+  .tobago-select-group {
+    font-weight: bold;
+  }
+
+  .tobago-select-groupField span {
+    padding-left: 0.5rem
+  }
+
   .tobago-select-field {
     display: flex;
     flex-wrap: wrap;
