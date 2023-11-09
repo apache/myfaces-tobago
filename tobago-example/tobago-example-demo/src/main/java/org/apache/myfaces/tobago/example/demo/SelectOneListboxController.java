@@ -19,7 +19,8 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.model.SelectItem;
+import jakarta.faces.model.SelectItemGroup;
+import jakarta.faces.model.SelectItem;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -34,13 +35,13 @@ public class SelectOneListboxController implements Serializable {
   private String mountain;
 
   public SelectOneListboxController() {
-    mountains = new SelectItem[]{
+    mountains = new SelectItem[] {
+        new SelectItemGroup("Mountains", "Mountains", false,
         new SelectItem("8848 m", "Everest"),
         new SelectItem("8611 m", "K2"),
         new SelectItem("8586 m", "Kangchenjunga"),
         new SelectItem("8516 m", "Lhotse"),
-        new SelectItem("8481 m", "Makalu")
-    };
+        new SelectItem("8481 m", "Makalu"))};
   }
 
   public String getRiver() {
