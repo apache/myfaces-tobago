@@ -157,8 +157,7 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
     for (SelectItem item : items) {
       if (item instanceof SelectItemGroup) {
         writer.startElement(HtmlElements.TR);
-        writer.writeClassAttribute(TobagoClass.SELECT__ITEM__GROUP,
-            disabled || item.isDisabled() ? TobagoClass.DISABLED : null);
+        writer.writeClassAttribute(TobagoClass.SELECT__ITEM__GROUP, BootstrapClass.DISABLED);
         writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
         writer.startElement(HtmlElements.TD);
         writer.writeText(item.getLabel());
@@ -206,7 +205,7 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
     writer.writeClassAttribute(
         TobagoClass.SELECT__ITEM,
         contains ? BootstrapClass.TABLE_PRIMARY : null,
-        disabled || item.isDisabled() ? TobagoClass.DISABLED : null);
+        disabled || item.isDisabled() ? BootstrapClass.DISABLED : null);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
     writer.startElement(HtmlElements.TD);
     writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);

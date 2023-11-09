@@ -234,6 +234,7 @@ $tobago-flex-layout-spacing: 0.5rem;
 
   .tobago-select-item-group {
     font-weight: bold;
+    pointer-events: none;
   }
 
   .tobago-select-item span {
