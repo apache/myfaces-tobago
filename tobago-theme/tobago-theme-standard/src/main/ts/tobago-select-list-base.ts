@@ -80,7 +80,7 @@ export abstract class SelectListBase extends HTMLElement {
   }
 
   get enabledRows(): NodeListOf<HTMLTableRowElement> {
-    return this.tbody.querySelectorAll<HTMLTableRowElement>("tr:not(." + Css.D_NONE + ")");
+    return this.tbody.querySelectorAll<HTMLTableRowElement>("tr:not(." + Css.D_NONE + "):not(." + Css.DISABLED);
   }
 
   get preselectedRow(): HTMLTableRowElement {
