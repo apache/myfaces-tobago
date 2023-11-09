@@ -188,7 +188,10 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
         writer.writeClassAttribute(TobagoClass.SELECT__ITEM__GROUP, BootstrapClass.DISABLED);
         writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
         writer.startElement(HtmlElements.TD);
-        writer.writeText(item.getLabel());
+        final String label = item.getLabel();
+        if (label != null) {
+          writer.writeText(label);
+        }
         writer.endElement(HtmlElements.TD);
         writer.endElement(HtmlElements.TR);
         final SelectItem[] selectItems = ((SelectItemGroup) item).getSelectItems();
@@ -241,7 +244,10 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     if (group) {
       writer.startElement(HtmlElements.SPAN);
     }
-    writer.writeText(item.getLabel());
+    final String label = item.getLabel();
+    if (label != null) {
+      writer.writeText(label);
+    }
     if (group) {
       writer.endElement(HtmlElements.SPAN);
     }
