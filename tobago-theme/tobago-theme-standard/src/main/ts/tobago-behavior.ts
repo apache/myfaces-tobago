@@ -105,7 +105,8 @@ class Behavior extends HTMLElement {
             {
               "jakarta.faces.behavior.event": this.event,
               execute: this.execute,
-              render: this.render
+              render: this.render,
+              resetValues: this.resetValues
             });
         break;
       case BehaviorMode.full:
@@ -229,6 +230,18 @@ class Behavior extends HTMLElement {
       this.setAttribute("omit", "");
     } else {
       this.removeAttribute("omit");
+    }
+  }
+
+  get resetValues(): boolean {
+    return this.hasAttribute("reset-values");
+  }
+
+  set resetValues(resetValues: boolean) {
+    if (resetValues) {
+      this.setAttribute("reset-values", "");
+    } else {
+      this.removeAttribute("reset-values");
     }
   }
 

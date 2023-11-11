@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import jakarta.faces.component.behavior.AjaxBehavior;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIButton;
@@ -27,6 +28,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Collections;
 
 public class ButtonRendererUnitTest extends RendererTestBase {
 
@@ -99,5 +101,21 @@ public class ButtonRendererUnitTest extends RendererTestBase {
     b.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/button/iconFar.html"), formattedResult());
+  }
+
+  @Test
+  public void ajax() throws IOException {
+    final AjaxBehavior behavior =
+        (AjaxBehavior) facesContext.getApplication().createBehavior(AjaxBehavior.BEHAVIOR_ID);
+    behavior.setExecute(Collections.singletonList("id"));
+    behavior.setRender(Collections.singletonList("id"));
+    behavior.setResetValues(true);
+    final UIButton b = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
+    b.setLabel("button");
+    b.addClientBehavior("click", behavior);
+    b.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/button/ajax.html"), formattedResult());
   }
 }
