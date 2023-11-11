@@ -209,6 +209,11 @@ public class JsonUtils {
       encode(builder, "omit", true);
     }
 
+    final Boolean resetValues = command.getResetValues();
+    if (resetValues != null && resetValues) { // false is the default, so encoding is needed.
+      encode(builder, "resetValues", true);
+    }
+
     if (builder.length() - initialLength > 0) {
       assert builder.charAt(builder.length() - 1) == ',';
       builder.deleteCharAt(builder.length() - 1);
