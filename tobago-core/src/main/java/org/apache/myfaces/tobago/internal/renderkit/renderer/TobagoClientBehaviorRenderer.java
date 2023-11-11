@@ -76,12 +76,15 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
     String clientId = null;
     String fieldId = null;
     boolean omit = false;
+    boolean resetValues = false;
+
     final String confirmation = ComponentUtils.getConfirmation(uiComponent);
     if (behavior instanceof AjaxBehavior) {
       final AjaxBehavior ajaxBehavior = (AjaxBehavior) behavior;
       if (ajaxBehavior.isDisabled()) {
         return null;
       }
+      resetValues = ajaxBehavior.isResetValues();
       final Collection<String> execute = ajaxBehavior.getExecute();
       final Collection<String> render = ajaxBehavior.getRender();
       clientId = uiComponent.getClientId(facesContext);
@@ -134,6 +137,10 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
         null,
         collapse,
         omit);
+
+    if (resetValues) {
+      command.setResetValues(true);
+    }
 
     final CommandMap map = new CommandMap();
     map.addCommand(eventName, command);

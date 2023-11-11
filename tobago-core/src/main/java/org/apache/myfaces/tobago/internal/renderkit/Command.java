@@ -36,6 +36,7 @@ public class Command {
   private Integer delay;
   private Collapse collapse;
   private Boolean omit;
+  private Boolean resetValues;
 
   public Command(
       final String clientId, final String fieldId, final Boolean transition, final String target, final String execute,
@@ -137,6 +138,14 @@ public class Command {
     this.omit = omit;
   }
 
+  public Boolean getResetValues() {
+    return resetValues;
+  }
+
+  public void setResetValues(final Boolean resetValues) {
+    this.resetValues = resetValues;
+  }
+
   public void merge(final Command c) {
 
     //XXX TBD: check if this is okay.
@@ -179,6 +188,9 @@ public class Command {
     }
     if (omit == null) {
       omit = c.omit;
+    }
+    if (resetValues == null) {
+      resetValues = c.resetValues;
     }
   }
 }
