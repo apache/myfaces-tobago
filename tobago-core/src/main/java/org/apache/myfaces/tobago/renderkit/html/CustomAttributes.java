@@ -67,6 +67,8 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
    * &lt;f:ajax&gt; attribute
    */
   RENDER("render"),
+
+  RESET_VALUES("reset-values"),
   /**
    * Number of rows to show/load for lazy loading in sheet.
    */
