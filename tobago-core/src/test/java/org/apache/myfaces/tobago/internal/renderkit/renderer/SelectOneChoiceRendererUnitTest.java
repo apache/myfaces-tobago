@@ -51,4 +51,52 @@ public class SelectOneChoiceRendererUnitTest extends RendererTestBase {
     Assertions.assertEquals(loadHtml("renderer/selectOneChoice/selectOneChoiceLabel.html"), formattedResult());
   }
 
+  @Test
+  public void noSelectionOptionRendered() throws IOException {
+    final UISelectOneChoice c = (UISelectOneChoice) ComponentUtils.createComponent(
+        facesContext, Tags.selectOneChoice.componentType(), RendererTypes.SelectOneChoice, "id");
+    c.setLabel("label");
+
+    final UISelectItem i1 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i1");
+    i1.setItemLabel("Choose a value..");
+    i1.setItemValue(null);
+    i1.setNoSelectionOption(true);
+    c.getChildren().add(i1);
+    final UISelectItem i2 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i2");
+    i2.setItemLabel("Telecaster");
+    c.getChildren().add(i2);
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/selectOneChoice/selectOneChoiceNoSelectionOptionRendered.html"),
+        formattedResult());
+  }
+
+  @Test
+  public void noSelectionOptionNotRendered() throws IOException {
+    final UISelectOneChoice c = (UISelectOneChoice) ComponentUtils.createComponent(
+        facesContext, Tags.selectOneChoice.componentType(), RendererTypes.SelectOneChoice, "id");
+    c.setLabel("label");
+    c.setSubmittedValue("Telecaster");
+
+    final UISelectItem i1 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i1");
+    i1.setItemLabel("Choose a value..");
+    i1.setItemValue(null);
+    i1.setNoSelectionOption(true);
+    c.getChildren().add(i1);
+    final UISelectItem i2 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i2");
+    i2.setItemLabel("Telecaster");
+    i2.setItemValue("Telecaster");
+    c.getChildren().add(i2);
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/selectOneChoice/selectOneChoiceNoSelectionOptionNotRendered.html"),
+        formattedResult());
+  }
+
 }

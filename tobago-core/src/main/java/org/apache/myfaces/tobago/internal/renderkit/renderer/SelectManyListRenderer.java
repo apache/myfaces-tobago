@@ -219,8 +219,8 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
 
   private void encodeSelectItem(FacesContext facesContext, TobagoResponseWriter writer, T component, SelectItem item,
         Object[] values, String[] submittedValues, boolean disabled, boolean group) throws IOException {
-    if (item.isNoSelectionOption() &&
-        ((submittedValues != null && submittedValues.length > 0) || (values != null && values.length > 0))) {
+    if (item.isNoSelectionOption()
+        && (submittedValues != null && submittedValues.length > 0 || values != null && values.length > 0)) {
       // skip the noSelectionOption if there is a value available
       return;
     }
