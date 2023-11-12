@@ -419,7 +419,11 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
             onlySelected, writer, facesContext);
         writer.endElement(HtmlElements.OPTGROUP);
       } else {
-
+        if (item.isNoSelectionOption() && ((submittedValues != null && submittedValues.length > 0)
+            || (values != null && values.length > 0))) {
+          // skip the noSelectionOption if there is a value available
+          return;
+        }
         Object itemValue = item.getValue();
         // when using selectItem tag with a literal value: use the converted value
         if (itemValue instanceof String && values != null && values.length > 0 && !(values[0] instanceof String)) {

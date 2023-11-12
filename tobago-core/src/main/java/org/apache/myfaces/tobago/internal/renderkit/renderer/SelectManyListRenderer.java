@@ -219,6 +219,11 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
 
   private void encodeSelectItem(FacesContext facesContext, TobagoResponseWriter writer, T component, SelectItem item,
         Object[] values, String[] submittedValues, boolean disabled, boolean group) throws IOException {
+    if (item.isNoSelectionOption() &&
+        ((submittedValues != null && submittedValues.length > 0) || (values != null && values.length > 0))) {
+      // skip the noSelectionOption if there is a value available
+      return;
+    }
     Object itemValue = item.getValue();
     // when using selectItem tag with a literal value: use the converted value
     if (itemValue instanceof String && values != null && values.length > 0 && !(values[0] instanceof String)) {

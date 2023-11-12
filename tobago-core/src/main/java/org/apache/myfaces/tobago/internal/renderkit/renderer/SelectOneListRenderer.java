@@ -191,6 +191,11 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
 
   private void encodeSelectItem(FacesContext facesContext, TobagoResponseWriter writer, T component, SelectItem item,
         Object value, Object submittedValue, boolean disabled, boolean group) throws IOException {
+    if (item.isNoSelectionOption() && (submittedValue != null || value != null)) {
+      // skip the noSelectionOption if there is a value available
+      return;
+    }
+
     Object itemValue = item.getValue();
     // when using selectItem tag with a literal value: use the converted value
     if (itemValue instanceof String && value != null && !(value instanceof String)) {
