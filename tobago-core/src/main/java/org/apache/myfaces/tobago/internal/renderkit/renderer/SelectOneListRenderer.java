@@ -213,6 +213,7 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
     writer.writeClassAttribute(
         TobagoClass.SELECT__ITEM,
         contains ? BootstrapClass.TABLE_PRIMARY : null,
+        disabled || item.isDisabled() ? TobagoClass.DISABLED : null,
         disabled || item.isDisabled() ? BootstrapClass.DISABLED : null);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
     writer.startElement(HtmlElements.TD);
