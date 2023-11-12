@@ -236,6 +236,7 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     writer.writeClassAttribute(
         TobagoClass.SELECT__ITEM,
         contains ? BootstrapClass.TABLE_PRIMARY : null,
+        disabled || item.isDisabled() ? TobagoClass.DISABLED : null,
         disabled || item.isDisabled() ? BootstrapClass.DISABLED : null);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
 
