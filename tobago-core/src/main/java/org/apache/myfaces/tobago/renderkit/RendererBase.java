@@ -470,7 +470,10 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
         }
         writer.writeClassAttribute(optionClass);
 
-        writer.writeText(item.getLabel());
+        final String label = item.getLabel();
+        if (label != null) {
+          writer.writeText(label);
+        }
         writer.endElement(HtmlElements.OPTION);
       }
     }
