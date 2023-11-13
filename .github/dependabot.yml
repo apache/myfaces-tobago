@@ -27,6 +27,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # since 3.3.0 maven-source-plugin must not configured twice; try upgrade if using myfaces-master-pom version 20
+      - dependency-name: "org.apache.maven.plugins:maven-source-plugin"
+        versions:
+          - ">= 3.3.0"
       - dependency-name: "org.antlr:stringtemplate"
         versions:
           - ">= 4.0.0"
@@ -88,6 +92,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # since 3.3.0 maven-source-plugin must not configured twice; try upgrade if using myfaces-master-pom version 20
+      - dependency-name: "org.apache.maven.plugins:maven-source-plugin"
+        versions:
+          - ">= 3.3.0"
       # Jetty >= 10 requires jdk 11
       - dependency-name: "org.eclipse.jetty:jetty-maven-plugin"
         versions:
