@@ -191,7 +191,7 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
 
   private void encodeSelectItem(FacesContext facesContext, TobagoResponseWriter writer, T component, SelectItem item,
         Object value, Object submittedValue, boolean disabled, boolean group) throws IOException {
-    if (item.isNoSelectionOption() && (submittedValue != null || value != null)) {
+    if (item.isNoSelectionOption() && value != null) {
       // skip the noSelectionOption if there is a value available
       return;
     }

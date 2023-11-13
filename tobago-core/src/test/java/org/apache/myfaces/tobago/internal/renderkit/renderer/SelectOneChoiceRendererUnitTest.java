@@ -79,7 +79,7 @@ public class SelectOneChoiceRendererUnitTest extends RendererTestBase {
     final UISelectOneChoice c = (UISelectOneChoice) ComponentUtils.createComponent(
         facesContext, Tags.selectOneChoice.componentType(), RendererTypes.SelectOneChoice, "id");
     c.setLabel("label");
-    c.setSubmittedValue("Telecaster");
+    c.setValue("Telecaster");
 
     final UISelectItem i1 = (UISelectItem) ComponentUtils.createComponent(
         facesContext, Tags.selectItem.componentType(), null, "i1");
