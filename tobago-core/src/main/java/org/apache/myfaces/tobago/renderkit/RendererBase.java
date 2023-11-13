@@ -431,8 +431,8 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
         } else {
           contains = ArrayUtils.contains(submittedValues, formattedValue);
         }
-        if (item.isNoSelectionOption() && values != null && values.length > 0 && !contains) {
-          // skip the noSelectionOption if there is a other value available
+        if (item.isNoSelectionOption() && component.isRequired() && values != null && values.length > 0 && !contains) {
+          // skip the noSelectionOption if there is another value selected and required
           continue;
         }
         if (onlySelected != null) {

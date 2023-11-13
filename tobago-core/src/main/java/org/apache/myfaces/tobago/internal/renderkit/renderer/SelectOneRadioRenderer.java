@@ -132,7 +132,7 @@ public class SelectOneRadioRenderer<T extends AbstractUISelectOneRadio> extends 
         } else {
           checked = ObjectUtils.equals(formattedValue, submittedValue);
         }
-        if (item.isNoSelectionOption() && value != null && !checked) {
+        if (item.isNoSelectionOption() && component.isRequired() && value != null && !checked) {
           // skip the noSelectionOption if there is a value available
           continue;
         }

@@ -108,8 +108,9 @@ public class SelectManyCheckboxRendererUnitTest extends RendererTestBase {
   public void noSelectionOptionNotRendered() throws IOException {
     final UISelectManyCheckbox c = (UISelectManyCheckbox) ComponentUtils.createComponent(
         facesContext, Tags.selectManyCheckbox.componentType(), RendererTypes.SelectManyCheckbox, "id");
-
     c.setValue(new String[] {"Entry One"});
+    c.setRequired(true);
+
     final UISelectItem noSelectionOption = (UISelectItem) ComponentUtils.createComponent(
         facesContext, Tags.selectItem.componentType(), null, "noSelectionOption");
     noSelectionOption.setItemLabel("Choose a value..");

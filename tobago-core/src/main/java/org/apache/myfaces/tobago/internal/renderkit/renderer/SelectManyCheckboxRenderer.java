@@ -82,8 +82,8 @@ public class SelectManyCheckboxRenderer<T extends AbstractUISelectManyCheckbox> 
         } else {
           checked = ArrayUtils.contains(submittedValues, formattedValue);
         }
-        if (item.isNoSelectionOption() && values != null && values.length > 0 && !checked) {
-          // skip the noSelectionOption if there is a value available
+        if (item.isNoSelectionOption() && required && values != null && values.length > 0 && !checked) {
+          // skip the noSelectionOption if there is another value selected and required
           continue;
         }
         final boolean itemDisabled = item.isDisabled() || disabled;

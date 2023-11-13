@@ -204,8 +204,8 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
     } else {
       contains = value != null && value.equals(itemValue);
     }
-    if (item.isNoSelectionOption() && value != null && !contains) {
-      // skip the noSelectionOption if there is a value available
+    if (item.isNoSelectionOption() && component.isRequired() && value != null && !contains) {
+      // skip the noSelectionOption if there is another value selected and required
       return;
     }
     writer.startElement(HtmlElements.TR);
