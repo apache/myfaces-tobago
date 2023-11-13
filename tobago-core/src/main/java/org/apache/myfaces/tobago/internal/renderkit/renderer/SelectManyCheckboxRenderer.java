@@ -75,6 +75,10 @@ public class SelectManyCheckboxRenderer<T extends AbstractUISelectManyCheckbox> 
     final int[] renderRange = getRenderRangeList(component, reference);
     for (final SelectItem item : SelectItemUtils.getItemIterator(facesContext, component)) {
       if (renderRange == null || ArrayUtils.contains(renderRange, i)) {
+        if (item.isNoSelectionOption() && values != null && values.length > 0) {
+          // skip the noSelectionOption if there is a value available
+          continue;
+        }
         final boolean itemDisabled = item.isDisabled() || disabled;
         final String itemId = id + ComponentUtils.SUB_SEPARATOR + i;
         writer.startElement(HtmlElements.DIV);

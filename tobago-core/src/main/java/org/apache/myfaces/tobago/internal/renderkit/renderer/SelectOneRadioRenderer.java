@@ -125,6 +125,10 @@ public class SelectOneRadioRenderer<T extends AbstractUISelectOneRadio> extends 
     final int[] renderRange = getRenderRangeList(component, reference);
     for (final SelectItem item : items) {
       if (renderRange == null || ArrayUtils.contains(renderRange, i)) {
+        if (item.isNoSelectionOption() && value != null) {
+          // skip the noSelectionOption if there is a value available
+          continue;
+        }
         final boolean itemDisabled = item.isDisabled() || disabled;
         final String itemId = id + ComponentUtils.SUB_SEPARATOR + i;
         writer.startElement(HtmlElements.DIV);
