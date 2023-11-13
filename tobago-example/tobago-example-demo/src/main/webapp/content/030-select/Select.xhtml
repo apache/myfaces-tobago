@@ -20,7 +20,8 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="jakarta.faces.facelets">
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core">
 
   <p>Tobago provides several ways to select an option.
     Entries are added with <code class="language-markup">&lt;tc:selectItem/></code> or
@@ -40,7 +41,9 @@
   <tc:section label="Dropdown">
     <demo-highlight language="markup">&lt;tc:selectOneChoice label="Dropdown Box"></demo-highlight>
     <tc:selectOneChoice label="Dropdown Box">
+      <f:selectItem itemValue="#{null}" itemLabel="--select--" noSelectionOption="true"/>
       <tc:selectItems value="#{selectController.entries}"/>
+      <f:ajax render="@this" execute="@this"/>
     </tc:selectOneChoice>
   </tc:section>
 
