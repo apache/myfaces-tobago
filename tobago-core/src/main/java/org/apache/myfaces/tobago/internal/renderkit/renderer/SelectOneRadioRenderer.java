@@ -125,7 +125,14 @@ public class SelectOneRadioRenderer<T extends AbstractUISelectOneRadio> extends 
     final int[] renderRange = getRenderRangeList(component, reference);
     for (final SelectItem item : items) {
       if (renderRange == null || ArrayUtils.contains(renderRange, i)) {
-        if (item.isNoSelectionOption() && value != null) {
+        final String formattedValue = getFormattedValue(facesContext, component, item.getValue());
+        final boolean checked;
+        if (submittedValue == null) {
+          checked = ObjectUtils.equals(item.getValue(), value);
+        } else {
+          checked = ObjectUtils.equals(formattedValue, submittedValue);
+        }
+        if (item.isNoSelectionOption() && value != null && !checked) {
           // skip the noSelectionOption if there is a value available
           continue;
         }
@@ -141,13 +148,6 @@ public class SelectOneRadioRenderer<T extends AbstractUISelectOneRadio> extends 
             BootstrapClass.FORM_CHECK_INPUT,
             BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(component)));
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
-        final String formattedValue = getFormattedValue(facesContext, component, item.getValue());
-        final boolean checked;
-        if (submittedValue == null) {
-          checked = ObjectUtils.equals(item.getValue(), value);
-        } else {
-          checked = ObjectUtils.equals(formattedValue, submittedValue);
-        }
         writer.writeAttribute(HtmlAttributes.CHECKED, checked);
         writer.writeNameAttribute(name);
         writer.writeIdAttribute(itemId);
