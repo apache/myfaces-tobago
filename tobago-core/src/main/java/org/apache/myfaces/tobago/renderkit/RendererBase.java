@@ -275,6 +275,11 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
     writer.writeAttribute(CustomAttributes.DELAY, command.getDelay());
     writer.writeAttribute(HtmlAttributes.TARGET, command.getTarget(), true);
 
+    final Boolean resetValues = command.getResetValues();
+
+    if (resetValues != null && resetValues) {
+      writer.writeAttribute(CustomAttributes.RESET_VALUES, resetValues);
+    }
     // todo: all the other attributes
     writer.endElement(HtmlElements.TOBAGO_BEHAVIOR);
   }
@@ -470,7 +475,10 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
         }
         writer.writeClassAttribute(optionClass);
 
-        writer.writeText(item.getLabel());
+        final String label = item.getLabel();
+        if (label != null) {
+          writer.writeText(label);
+        }
         writer.endElement(HtmlElements.OPTION);
       }
     }

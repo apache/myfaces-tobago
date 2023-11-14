@@ -92,14 +92,16 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
         ComponentUtils.createComponent(facesContext, Tags.button.componentType(), RendererTypes.Button, "command");
     ComponentUtils.setAttribute(command, Attributes.popupClose, "immediate");
 
-    map.setClick(new Command(
+    Command click = new Command(
         "ns:actionId",
         null,
         false,
         "_blank",
         StringUtils.join(Arrays.asList("id1", "id2"), ' '),
         StringUtils.join(Arrays.asList("id1", "id2"), ' '),
-        "Really?", 1000, new Collapse(Collapse.Operation.show, "myId"), true));
+        "Really?", 1000, new Collapse(Collapse.Operation.show, "myId"), true);
+    click.setResetValues(true);
+    map.setClick(click);
     final String expected = (
         "{"
             + "'click':{"
@@ -114,7 +116,8 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
             + "},"
             + "'confirmation':'Really?',"
             + "'delay':1000,"
-            + "'omit':true"
+            + "'omit':true,"
+            + "'resetValues':true"
             + "}"
             + "}").replaceAll("'", "\"");
     Assertions.assertEquals(expected, JsonUtils.encode(map));

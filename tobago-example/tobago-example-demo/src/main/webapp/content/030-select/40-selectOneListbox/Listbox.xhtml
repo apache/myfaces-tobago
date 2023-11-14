@@ -99,8 +99,7 @@
       <code class="language-markup">&lt;tc:selectOneListbox/></code> contain a
       <code class="language-markup">&lt;f:ajax render="selectedMountain"/></code>, which rerender the output field.</p>
     <tc:selectOneListbox id="mountainList" label="Mountains" value="#{selectOneListboxController.mountain}">
-      <tc:selectItems value="#{selectOneListboxController.mountains}" var="mountain"
-                      itemLabel="#{mountain.label}" itemValue="#{mountain.value}"/>
+      <tc:selectItems value="#{selectOneListboxController.mountains}"/>
       <f:ajax render="selectedMountain"/>
     </tc:selectOneListbox>
     <tc:out id="selectedMountain" label="Height" value="#{selectOneListboxController.mountain}"/>

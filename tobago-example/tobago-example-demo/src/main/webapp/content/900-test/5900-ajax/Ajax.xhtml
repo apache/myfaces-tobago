@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -15,20 +16,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.apache.myfaces.tobago</groupId>
-    <artifactId>tobago-example</artifactId>
-    <version>6.1.0-SNAPSHOT</version>
-  </parent>
-  <artifactId>tobago-example-blank</artifactId>
-  <packaging>${app.packaging}</packaging>
-  <name>Tobago Example Blank</name>
-  <description>A minimal Tobago application.</description>
 
-  <build>
-    <finalName>tobago-example-blank</finalName>
-  </build>
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-</project>
+  <tc:form id="form">
+    <tc:in id="input" label="Input" value="#{inController.changeValue}"/>
+    <tc:out id="output" label="Output" value="#{inController.changeValue}"/>
+    <tc:button id="submit" label="Submit"/>
+    <tc:button id="reset" label="Reset">
+      <f:ajax resetValues="true" render="form"/>
+    </tc:button>
+  </tc:form>
+
+</ui:composition>

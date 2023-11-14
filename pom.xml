@@ -26,7 +26,7 @@
   <artifactId>tobago</artifactId>
   <packaging>pom</packaging>
   <name>Apache Tobago</name>
-  <version>6.0.0-SNAPSHOT</version>
+  <version>6.1.0-SNAPSHOT</version>
   <description>The goal of Tobago is to provide the community with a well designed set of user interface components based on JSF and run on MyFaces.</description>
   <url>http://myfaces.apache.org/tobago</url>
   <inceptionYear>2002</inceptionYear>
@@ -34,7 +34,7 @@
   <properties>
     <frontend.skip>true</frontend.skip>
     <myfaces40.version>4.0.1</myfaces40.version>
-    <mojarra40.version>4.0.4</mojarra40.version>
+    <mojarra40.version>4.0.5</mojarra40.version>
     <slf4j.version>2.0.9</slf4j.version>
     <logback.version>1.4.11</logback.version>
     <maven.compile.source>1.8</maven.compile.source>
@@ -45,7 +45,7 @@
     <required.maven.version>3.8.1</required.maven.version>
     <maven-pmd-plugin.version>3.20.0</maven-pmd-plugin.version>
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
-    <junit-jupiter.version>5.10.0</junit-jupiter.version>
+    <junit-jupiter.version>5.10.1</junit-jupiter.version>
     <testcontainers.version>1.19.1</testcontainers.version>
     <checkstyle-rules.version>23</checkstyle-rules.version>
 
