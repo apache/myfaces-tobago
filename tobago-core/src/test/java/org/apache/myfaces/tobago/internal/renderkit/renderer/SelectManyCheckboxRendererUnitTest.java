@@ -75,4 +75,62 @@ public class SelectManyCheckboxRendererUnitTest extends RendererTestBase {
     Assertions.assertEquals(loadHtml("renderer/selectManyCheckbox/selectManyCheckboxFatal.html"),
         formattedResult());
   }
+
+  @Test
+  public void noSelectionOptionRendered() throws IOException {
+    final UISelectManyCheckbox c = (UISelectManyCheckbox) ComponentUtils.createComponent(
+        facesContext, Tags.selectManyCheckbox.componentType(), RendererTypes.SelectManyCheckbox, "id");
+
+    final UISelectItem noSelectionOption = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "noSelectionOption");
+    noSelectionOption.setItemLabel("Choose a value..");
+    noSelectionOption.setNoSelectionOption(true);
+    c.getChildren().add(noSelectionOption);
+    final UISelectItem i1 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i1");
+    i1.setItemLabel("Entry One");
+    i1.setItemValue("Entry One");
+    c.getChildren().add(i1);
+    final UISelectItem i2 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i2");
+    i2.setItemLabel("Entry Two");
+    i2.setItemValue("Entry Two");
+    c.getChildren().add(i2);
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(
+        loadHtml("renderer/selectManyCheckbox/selectManyCheckboxNoSelectionOptionRendered.html"),
+        formattedResult());
+  }
+
+  @Test
+  public void noSelectionOptionNotRendered() throws IOException {
+    final UISelectManyCheckbox c = (UISelectManyCheckbox) ComponentUtils.createComponent(
+        facesContext, Tags.selectManyCheckbox.componentType(), RendererTypes.SelectManyCheckbox, "id");
+    c.setValue(new String[] {"Entry One"});
+    c.setRequired(true);
+
+    final UISelectItem noSelectionOption = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "noSelectionOption");
+    noSelectionOption.setItemLabel("Choose a value..");
+    noSelectionOption.setNoSelectionOption(true);
+    c.getChildren().add(noSelectionOption);
+    final UISelectItem i1 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i1");
+    i1.setItemLabel("Entry One");
+    i1.setItemValue("Entry One");
+    c.getChildren().add(i1);
+    final UISelectItem i2 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i2");
+    i2.setItemLabel("Entry Two");
+    i2.setItemValue("Entry Two");
+    c.getChildren().add(i2);
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(
+        loadHtml("renderer/selectManyCheckbox/selectManyCheckboxNoSelectionOptionNotRendered.html"),
+        formattedResult());
+  }
 }

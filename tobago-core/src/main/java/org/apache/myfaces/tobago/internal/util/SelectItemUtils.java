@@ -144,7 +144,7 @@ public class SelectItemUtils {
           final String description = uiSelectItem.getItemDescription();
           final boolean disabled = uiSelectItem.isItemDisabled();
 //          boolean escape = uiSelectItem.isItemEscaped();
-//          boolean noSelectionOption = uiSelectItem.isNoSelectionOption();
+          boolean noSelectionOption = uiSelectItem.isNoSelectionOption();
           if (label == null && itemValue != null) {
             label = itemValue.toString();
           }
@@ -156,7 +156,8 @@ public class SelectItemUtils {
             image = tobagoSelectItem.getItemImage();
             markup = tobagoSelectItem.getMarkup();
           }
-          item = new org.apache.myfaces.tobago.model.SelectItem(itemValue, label, description, disabled, image, markup);
+          item = new org.apache.myfaces.tobago.model.SelectItem(itemValue, label, description, disabled,
+              true, noSelectionOption, image, markup);
         } else if (!(item instanceof SelectItem)) {
           final ValueExpression expression = uiSelectItem.getValueExpression("value");
           throw new IllegalArgumentException("ValueExpression '"
