@@ -69,6 +69,14 @@ public class SelectItem extends javax.faces.model.SelectItem implements Visual {
     this.markup = markup;
   }
 
+  public SelectItem(
+      final Object value, final String label, final String tip, final boolean disabled, final boolean escape,
+      final boolean noSelectionOption, final String image, final Markup markup) {
+    super(value, label, tip, disabled, escape, noSelectionOption);
+    this.image = image;
+    this.markup = markup;
+  }
+
   /**
    * Alias name for description.
    */
