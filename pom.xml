@@ -996,8 +996,8 @@
 
             <!-- optional -->
             <configuration>
-              <nodeVersion>v16.18.1</nodeVersion>
-              <!-- contains npm version 8.19.2 -->
+              <nodeVersion>v20.9.0</nodeVersion>
+              <!-- contains npm version 10.1.0 -->
               <!--
               todo: next version not running on Jenkins ubuntu - https://issues.apache.org/jira/browse/INFRA-23954
               todo: Update Jenkins file to use "docker"
