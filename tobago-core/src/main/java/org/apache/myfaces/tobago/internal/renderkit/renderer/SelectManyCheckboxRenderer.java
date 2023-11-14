@@ -75,6 +75,17 @@ public class SelectManyCheckboxRenderer<T extends AbstractUISelectManyCheckbox> 
     final int[] renderRange = getRenderRangeList(component, reference);
     for (final SelectItem item : SelectItemUtils.getItemIterator(facesContext, component)) {
       if (renderRange == null || ArrayUtils.contains(renderRange, i)) {
+        final String formattedValue = getFormattedValue(facesContext, component, item.getValue());
+        final boolean checked;
+        if (submittedValues == null) {
+          checked = ArrayUtils.contains(values, item.getValue());
+        } else {
+          checked = ArrayUtils.contains(submittedValues, formattedValue);
+        }
+        if (item.isNoSelectionOption() && required && values != null && values.length > 0 && !checked) {
+          // skip the noSelectionOption if there is another value selected and required
+          continue;
+        }
         final boolean itemDisabled = item.isDisabled() || disabled;
         final String itemId = id + ComponentUtils.SUB_SEPARATOR + i;
         writer.startElement(HtmlElements.DIV);
@@ -87,13 +98,6 @@ public class SelectManyCheckboxRenderer<T extends AbstractUISelectManyCheckbox> 
             BootstrapClass.FORM_CHECK_INPUT,
             BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(component)));
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
-        final String formattedValue = getFormattedValue(facesContext, component, item.getValue());
-        final boolean checked;
-        if (submittedValues == null) {
-          checked = ArrayUtils.contains(values, item.getValue());
-        } else {
-          checked = ArrayUtils.contains(submittedValues, formattedValue);
-        }
         writer.writeAttribute(HtmlAttributes.CHECKED, checked);
         writer.writeNameAttribute(id);
         writer.writeIdAttribute(itemId);

@@ -406,6 +406,9 @@ public abstract class SelectManyRendererBase<T extends AbstractUISelectManyBase>
     Converter converter = null;
     while (converter == null && iterator.hasNext()) {
       final SelectItem item = iterator.next();
+      if (item.isNoSelectionOption()) {
+        continue;
+      }
       if (item instanceof SelectItemGroup) {
         final Iterator<SelectItem> groupIterator = Arrays.asList(
             ((SelectItemGroup) item).getSelectItems()).iterator();
