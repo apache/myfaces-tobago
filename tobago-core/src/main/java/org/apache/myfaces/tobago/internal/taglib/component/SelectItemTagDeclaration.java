@@ -77,4 +77,13 @@ public interface SelectItemTagDeclaration extends HasBinding, HasId, IsVisual, H
       type = "javax.faces.model.SelectItem",
       expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
+
+  /**
+   * Flag indicating whether the option created
+   * by this component is a noSelectionOption.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = {"boolean"}, defaultValue = "false")
+  void setNoSelectionOption(String itemDisabled);
+
 }

@@ -231,6 +231,10 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     } else {
       contains = ArrayUtils.contains(submittedValues, formattedValue);
     }
+    if (item.isNoSelectionOption() && component.isRequired() && values != null && values.length > 0 && !contains) {
+      // skip the noSelectionOption if there is another value selected and required
+      return;
+    }
     writer.startElement(HtmlElements.TR);
     writer.writeAttribute(DataAttributes.VALUE, formattedValue, true);
     writer.writeClassAttribute(
