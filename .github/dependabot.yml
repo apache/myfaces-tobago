@@ -81,6 +81,10 @@ updates:
       - dependency-name: "jakarta.xml.bind:jakarta.xml.bind-api"
         versions:
           - ">= 5.0.0"
+      # Tobago 5 and 6 should use the same checkstyle version (checkstyle 10 needs Java 11, so Tobago 5 uses version 9)
+      - dependency-name: "com.puppycrawl.tools:checkstyle"
+        versions:
+          - ">= 10.0"
 
   - package-ecosystem: "maven"
     directory: "/"
