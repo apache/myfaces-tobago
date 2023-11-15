@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIButton;
+import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UIOut;
@@ -246,44 +247,76 @@ public class InRendererUnitTest extends RendererTestBase {
 
   @Test
   public void labelLayoutGridLeft() throws IOException {
+    final UIGridLayout gridLayout =
+        (UIGridLayout) ComponentUtils.createComponent(facesContext, Tags.gridLayout.componentType(),
+            RendererTypes.GridLayout, "gridLayout");
+    gridLayout.setColumns("auto auto");
+    gridLayout.setRows("auto");
+
     final UIIn c = (UIIn) ComponentUtils.createComponent(
         facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.setLabel("label");
     c.setLabelLayout(LabelLayout.gridLeft);
-    c.encodeAll(facesContext);
+
+    gridLayout.getChildren().add(c);
+    gridLayout.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/in/label-gridLeft.html"), formattedResult());
   }
 
   @Test
   public void labelLayoutGridRight() throws IOException {
+    final UIGridLayout gridLayout =
+        (UIGridLayout) ComponentUtils.createComponent(facesContext, Tags.gridLayout.componentType(),
+            RendererTypes.GridLayout, "gridLayout");
+    gridLayout.setColumns("auto auto");
+    gridLayout.setRows("auto");
+
     final UIIn c = (UIIn) ComponentUtils.createComponent(
         facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.setLabel("label");
     c.setLabelLayout(LabelLayout.gridRight);
-    c.encodeAll(facesContext);
+
+    gridLayout.getChildren().add(c);
+    gridLayout.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/in/label-gridRight.html"), formattedResult());
   }
 
   @Test
   public void labelLayoutGridTop() throws IOException {
+    final UIGridLayout gridLayout =
+        (UIGridLayout) ComponentUtils.createComponent(facesContext, Tags.gridLayout.componentType(),
+            RendererTypes.GridLayout, "gridLayout");
+    gridLayout.setColumns("auto auto");
+    gridLayout.setRows("auto");
+
     final UIIn c = (UIIn) ComponentUtils.createComponent(
         facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.setLabel("label");
     c.setLabelLayout(LabelLayout.gridTop);
-    c.encodeAll(facesContext);
+
+    gridLayout.getChildren().add(c);
+    gridLayout.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/in/label-gridTop.html"), formattedResult());
   }
 
   @Test
   public void labelLayoutGridBottom() throws IOException {
+    final UIGridLayout gridLayout =
+        (UIGridLayout) ComponentUtils.createComponent(facesContext, Tags.gridLayout.componentType(),
+            RendererTypes.GridLayout, "gridLayout");
+    gridLayout.setColumns("auto auto");
+    gridLayout.setRows("auto");
+
     final UIIn c = (UIIn) ComponentUtils.createComponent(
         facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.setLabel("label");
     c.setLabelLayout(LabelLayout.gridBottom);
-    c.encodeAll(facesContext);
+
+    gridLayout.getChildren().add(c);
+    gridLayout.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/in/label-gridBottom.html"), formattedResult());
   }
@@ -462,48 +495,80 @@ public class InRendererUnitTest extends RendererTestBase {
 
   @Test
   public void requiredLabelLayoutGridLeft() throws IOException {
+    final UIGridLayout gridLayout =
+        (UIGridLayout) ComponentUtils.createComponent(facesContext, Tags.gridLayout.componentType(),
+            RendererTypes.GridLayout, "gridLayout");
+    gridLayout.setColumns("auto auto");
+    gridLayout.setRows("auto");
+
     final UIIn c = (UIIn) ComponentUtils.createComponent(
         facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.setLabel("label");
     c.setRequired(true);
     c.setLabelLayout(LabelLayout.gridLeft);
-    c.encodeAll(facesContext);
+
+    gridLayout.getChildren().add(c);
+    gridLayout.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/in/required-label-gridLeft.html"), formattedResult());
   }
 
   @Test
   public void requiredLabelLayoutGridRight() throws IOException {
+    final UIGridLayout gridLayout =
+        (UIGridLayout) ComponentUtils.createComponent(facesContext, Tags.gridLayout.componentType(),
+            RendererTypes.GridLayout, "gridLayout");
+    gridLayout.setColumns("auto auto");
+    gridLayout.setRows("auto");
+
     final UIIn c = (UIIn) ComponentUtils.createComponent(
         facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.setLabel("label");
     c.setRequired(true);
     c.setLabelLayout(LabelLayout.gridRight);
-    c.encodeAll(facesContext);
+
+    gridLayout.getChildren().add(c);
+    gridLayout.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/in/required-label-gridRight.html"), formattedResult());
   }
 
   @Test
   public void requiredLabelLayoutGridTop() throws IOException {
+    final UIGridLayout gridLayout =
+        (UIGridLayout) ComponentUtils.createComponent(facesContext, Tags.gridLayout.componentType(),
+            RendererTypes.GridLayout, "gridLayout");
+    gridLayout.setColumns("auto auto");
+    gridLayout.setRows("auto");
+
     final UIIn c = (UIIn) ComponentUtils.createComponent(
         facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.setLabel("label");
     c.setRequired(true);
     c.setLabelLayout(LabelLayout.gridTop);
-    c.encodeAll(facesContext);
+
+    gridLayout.getChildren().add(c);
+    gridLayout.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/in/required-label-gridTop.html"), formattedResult());
   }
 
   @Test
   public void requiredLabelLayoutGridBottom() throws IOException {
+    final UIGridLayout gridLayout =
+        (UIGridLayout) ComponentUtils.createComponent(facesContext, Tags.gridLayout.componentType(),
+            RendererTypes.GridLayout, "gridLayout");
+    gridLayout.setColumns("auto auto");
+    gridLayout.setRows("auto");
+
     final UIIn c = (UIIn) ComponentUtils.createComponent(
         facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.setLabel("label");
     c.setRequired(true);
     c.setLabelLayout(LabelLayout.gridBottom);
-    c.encodeAll(facesContext);
+
+    gridLayout.getChildren().add(c);
+    gridLayout.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/in/required-label-gridBottom.html"), formattedResult());
   }
