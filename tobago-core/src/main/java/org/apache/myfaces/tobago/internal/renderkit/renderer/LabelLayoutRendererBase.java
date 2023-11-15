@@ -42,7 +42,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Manages the rendering of the <b>label</b> and the <b>field</b> together with different possibilities for the position
@@ -76,14 +75,6 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
       // skip, because its only the lable to render
     } else {
       encodeEndMessageField(facesContext, component);
-    }
-
-    // render the styles here, because inside of <select> its not possible.
-    if (component.getRendersChildren()) {
-      final List<AbstractUIStyle> children = ComponentUtils.findDescendantList(component, AbstractUIStyle.class);
-      for (final AbstractUIStyle child : children) {
-        child.encodeAll(facesContext);
-      }
     }
 
     encodeEndSurroundingLabel(facesContext, component);
@@ -132,15 +123,15 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
       case flexRight:
         flex = true;
         break;
+      case gridLeft:
+      case gridRight:
+      case gridTop:
+      case gridBottom:
       case segmentLeft:
       case segmentRight:
         flex = false;
         break;
       case flowLeft:
-      case gridLeft:
-      case gridRight:
-      case gridTop:
-      case gridBottom:
         encodeLabel(facesContext, component, writer, labelLayout);
         flex = false;
         break;
@@ -180,11 +171,11 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
       case flexRight:
       case flowRight:
       case flowLeft:
+        break;
       case gridLeft:
       case gridRight:
       case gridTop:
       case gridBottom:
-        break;
       case segmentLeft:
       case segmentRight:
         if (nextToRenderIsLabel) {

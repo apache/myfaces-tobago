@@ -57,11 +57,6 @@ public class SelectOneChoiceRenderer<T extends AbstractUISelectOneChoice> extend
   }
 
   @Override
-  public boolean getRendersChildren() {
-    return true;
-  }
-
-  @Override
   protected void encodeBeginField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -92,15 +87,13 @@ public class SelectOneChoiceRenderer<T extends AbstractUISelectOneChoice> extend
 
     renderSelectItems(component, null, items, component.getValue(),
         (String) component.getSubmittedValue(), writer, facesContext);
+
+    writer.endElement(HtmlElements.SELECT);
+    encodeBehavior(writer, facesContext, component);
   }
 
   @Override
   protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
-    final TobagoResponseWriter writer = getResponseWriter(facesContext);
-
-    writer.endElement(HtmlElements.SELECT);
-
-    encodeBehavior(writer, facesContext, component);
   }
 
   @Override
