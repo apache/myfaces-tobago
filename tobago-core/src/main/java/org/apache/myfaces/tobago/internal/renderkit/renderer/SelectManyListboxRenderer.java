@@ -43,11 +43,6 @@ public class SelectManyListboxRenderer<T extends AbstractUISelectManyListbox> ex
   }
 
   @Override
-  public boolean getRendersChildren() {
-    return true;
-  }
-
-  @Override
   public void encodeBeginField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -85,15 +80,14 @@ public class SelectManyListboxRenderer<T extends AbstractUISelectManyListbox> ex
     final String[] submittedValues = getSubmittedValues(component);
 
     renderSelectItems(component, null, items, values, submittedValues, writer, facesContext);
+
+    writer.endElement(HtmlElements.SELECT);
+    encodeBehavior(writer, facesContext, component);
   }
 
   @Override
   public void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-
-    writer.endElement(HtmlElements.SELECT);
-
-    encodeBehavior(writer, facesContext, component);
   }
 
   @Override
