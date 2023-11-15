@@ -65,7 +65,7 @@ public class TobagoClientBehaviorRenderer extends jakarta.faces.render.ClientBeh
 
     final FacesContext facesContext = behaviorContext.getFacesContext();
     final UIComponent uiComponent = behaviorContext.getComponent();
-    final ClientBehaviors eventName = ClientBehaviors.valueOf(behaviorContext.getEventName());
+    final ClientBehaviors eventName = ClientBehaviors.getEnum(behaviorContext.getEventName());
 
     //// TBD: is this nice? May be implemented with a JSF behavior?
     Collapse collapse = createCollapsible(facesContext, uiComponent);

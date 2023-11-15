@@ -18,6 +18,7 @@
 import {Page} from "./tobago-page";
 import {Key} from "./tobago-key";
 import {Css} from "./tobago-css";
+import {ClientBehaviors} from "./tobago-client-behaviors";
 
 interface MousemoveData {
   columnIndex: number;
@@ -31,10 +32,6 @@ interface MousedownOnRowData {
   x: number;
   y: number;
 }
-
-const TobagoSheetEvent = {
-  SELECTIONCHANGE: "selectionchange"
-};
 
 export class Sheet extends HTMLElement {
 
@@ -673,7 +670,7 @@ Type: ${data.type}`);
     const fireEvent = (oldSelectedSet, newSelectedSet) =>
         oldSelectedSet.size == newSelectedSet.size && [...oldSelectedSet].every((x) => newSelectedSet.has(x));
     if (fireEvent) {
-      this.dispatchEvent(new CustomEvent(TobagoSheetEvent.SELECTIONCHANGE, {
+      this.dispatchEvent(new CustomEvent(ClientBehaviors.ROW_SELECTION_CHANGE, {
         detail: {
           selection: newSelectedSet,
         },

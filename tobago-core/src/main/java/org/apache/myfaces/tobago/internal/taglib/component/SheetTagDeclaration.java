@@ -63,7 +63,7 @@ import jakarta.faces.component.UIData;
         @Behavior(
             name = ClientBehaviors.RELOAD, // XXX replace by click
             isDefault = true),
-        @Behavior(name = ClientBehaviors.SELECTIONCHANGE)
+        @Behavior(name = ClientBehaviors.ROW_SELECTION_CHANGE)
     },
     markups = {
         @Markup(

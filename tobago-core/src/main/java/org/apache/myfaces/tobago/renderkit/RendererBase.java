@@ -256,7 +256,7 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
       final TobagoResponseWriter writer, final ClientBehaviors behaviors, final Command command)
       throws IOException {
     writer.startElement(HtmlElements.TOBAGO_BEHAVIOR);
-    writer.writeAttribute(CustomAttributes.EVENT, behaviors.name(), false);
+    writer.writeAttribute(CustomAttributes.EVENT, behaviors.getJsEvent(), false);
     writer.writeAttribute(CustomAttributes.CLIENT_ID, command.getClientId(), false);
     if (StringUtils.notEquals(command.getClientId(), command.getFieldId())) {
       writer.writeAttribute(CustomAttributes.FIELD_ID, command.getFieldId(), false);
