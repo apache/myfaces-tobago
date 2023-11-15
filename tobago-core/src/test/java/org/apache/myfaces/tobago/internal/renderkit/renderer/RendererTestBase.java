@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 public abstract class RendererTestBase extends AbstractTobagoTestBase {
 
   protected String formattedResult() throws IOException {
-    return formatCrlf2LfAndTrim(format1To2Indent(getLastWritten()));
+    return format(format1To2Indent(getLastWritten()));
   }
 
   protected String loadHtml(final String fileName) throws IOException {
@@ -48,7 +48,7 @@ public abstract class RendererTestBase extends AbstractTobagoTestBase {
         final String xml = reader.lines().collect(Collectors.joining(System.lineSeparator()))
             .replaceAll("<!--[^>]*-->", "")
             .replaceAll("^\n\n", "");
-        return formatCrlf2LfAndTrim(xml);
+        return format(xml);
       }
     }
   }
@@ -65,8 +65,16 @@ public abstract class RendererTestBase extends AbstractTobagoTestBase {
         .replaceAll("\t", "  ");
   }
 
-  protected String formatCrlf2LfAndTrim(final String xml) {
+  protected String format(final String xml) {
+    return formatCrlf2Lf(removeNonce(xml)).trim();
+  }
+
+  protected String formatCrlf2Lf(final String xml) {
     return xml.replaceAll("\r\n", "\n").trim();
+  }
+
+  protected String removeNonce(final String xml) {
+    return xml.replaceAll("nonce='[\\w=/+]*'", "nonce='dummy'");
   }
 
   protected DefaultMutableTreeNode getTreeSample() {

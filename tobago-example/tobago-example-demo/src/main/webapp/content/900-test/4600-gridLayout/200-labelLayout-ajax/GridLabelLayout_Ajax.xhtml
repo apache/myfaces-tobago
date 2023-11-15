@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+  <tc:out id="timestamp" label="Timestamp" value="#{eventController.currentTimestamp}"/>
+
+  <tc:gridLayout id="grid" columns="100px auto">
+    <tc:in id="gridLeftInput" label="gridLeft label" value="gridLeft input value" labelLayout="gridLeft"/>
+    <tc:in id="gridRightInput" label="gridRight label" value="gridRight input value" labelLayout="gridRight"/>
+    <tc:in id="gridTopInput" label="gridTop label" value="gridTop value" labelLayout="gridTop"/>
+    <tc:in id="gridBottomInput" label="gridBottom label" value="gridBottom value" labelLayout="gridBottom"/>
+    <tc:in id="gridLeftNoLabel" value="gridLeft no label" labelLayout="gridLeft"/>
+  </tc:gridLayout>
+
+  <tc:button id="ajaxGridLeft" label="gridLeftInput" autoSpacing="false">
+    <f:ajax execute="timestamp gridLeftInput" render="timestamp gridLeftInput"/>
+  </tc:button>
+  <tc:button id="ajaxGridRight" label="gridRightInput" autoSpacing="false">
+    <f:ajax execute="timestamp gridRightInput" render="timestamp gridRightInput"/>
+  </tc:button>
+  <tc:button id="ajaxGridTop" label="gridTopInput" autoSpacing="false">
+    <f:ajax execute="timestamp gridTopInput" render="timestamp gridTopInput"/>
+  </tc:button>
+  <tc:button id="ajaxGridBottom" label="gridBottomInput" autoSpacing="false">
+    <f:ajax execute="timestamp gridBottomInput" render="timestamp gridBottomInput"/>
+  </tc:button>
+  <tc:button id="ajaxGridLeftNoLabel" label="gridLeftNoLabel" autoSpacing="false">
+    <f:ajax execute="timestamp gridLeftNoLabel" render="timestamp gridLeftNoLabel"/>
+  </tc:button>
+  <tc:button id="ajaxGridLayout" label="gridLayout" autoSpacing="false">
+    <f:ajax execute="timestamp grid" render="timestamp grid"/>
+  </tc:button>
+</ui:composition>

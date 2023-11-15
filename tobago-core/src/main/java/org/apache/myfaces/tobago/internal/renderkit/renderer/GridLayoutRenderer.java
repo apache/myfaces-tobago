@@ -19,7 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
@@ -32,8 +36,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-
-import jakarta.faces.context.FacesContext;
 
 import java.io.IOException;
 
@@ -71,6 +73,72 @@ public class GridLayoutRenderer<T extends AbstractUIGridLayout> extends Renderer
     style.setGridTemplateColumns(columns.serialize());
     style.setGridTemplateRows(rows.serialize());
     component.getChildren().add(style);
+  }
+
+  @Override
+  public boolean getRendersChildren() {
+    return true;
+  }
+
+  @Override
+  public void encodeChildrenInternal(final FacesContext facesContext, final T component) throws IOException {
+    if (!component.isRendered()) {
+      return;
+    }
+
+    for (final UIComponent child : component.getChildren()) {
+      if (child.isRendered()) {
+        if (child instanceof SupportsLabelLayout
+            && (LabelLayout.isGridTop(child) || LabelLayout.isGridLeft(child))) {
+          final SupportsLabelLayout labeledChild = (SupportsLabelLayout) child;
+
+          // top/left part
+          labeledChild.setNextToRenderIsLabel(true);
+          encodeLabelPart(facesContext, child);
+
+          // right/bottom part
+          labeledChild.setNextToRenderIsLabel(false);
+          encodeFieldPart(facesContext, child);
+        } else if (child instanceof SupportsLabelLayout
+            && (LabelLayout.isGridRight(child) || LabelLayout.isGridBottom(child))) {
+          final SupportsLabelLayout labeledChild = (SupportsLabelLayout) child;
+
+          // top/left part
+          labeledChild.setNextToRenderIsLabel(false);
+          encodeFieldPart(facesContext, child);
+
+          // right/bottom part
+          labeledChild.setNextToRenderIsLabel(true);
+          encodeLabelPart(facesContext, child);
+        } else { // normal case
+          child.encodeAll(facesContext);
+        }
+      }
+    }
+  }
+
+  private void encodeLabelPart(final FacesContext facesContext, final UIComponent child) throws IOException {
+    child.encodeBegin(facesContext);
+    //do not encode children for label, because this is done in field
+    child.encodeEnd(facesContext);
+  }
+
+  private void encodeFieldPart(final FacesContext facesContext, final UIComponent child) throws IOException {
+    child.encodeBegin(facesContext);
+    for (UIComponent fieldChild : child.getChildren()) {
+      if (!(fieldChild instanceof AbstractUIStyle)) {
+        //do not encode styles, because styles are encoded as children of grid layout
+        fieldChild.encodeAll(facesContext);
+      }
+    }
+    child.encodeEnd(facesContext);
+
+    for (UIComponent fieldChild : child.getChildren()) {
+      if (fieldChild instanceof AbstractUIStyle) {
+        //encode styles as children of grid layout
+        fieldChild.encodeAll(facesContext);
+      }
+    }
   }
 
   @Override
