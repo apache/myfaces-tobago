@@ -197,7 +197,7 @@ export class Sheet extends HTMLElement {
         row.addEventListener("click", this.clickOnRow.bind(this));
       }
     }
-    if (selectionMode === "multi"  && this.getSelectorAllCheckbox()) {
+    if (selectionMode === "multi" && this.getSelectorAllCheckbox()) {
       const selectedSet = new Set<number>(JSON.parse(this.getHiddenSelected().value));
       this.calculateSelectorAllChecked(selectedSet);
     }
@@ -219,6 +219,7 @@ export class Sheet extends HTMLElement {
       const sheetBody = this.sheetBody;
       const tableBody = this.tableBody;
       const columns = tableBody.rows[0].cells.length;
+      const firstShownRow = tableBody.rows[0];
       let current: HTMLTableRowElement = tableBody.rows[0]; // current row in this algorithm, begin with first
       // the algorithm goes straight through all rows, not selectors, because of performance
       for (let i = 0; i < rowCount; i++) {
@@ -240,6 +241,7 @@ export class Sheet extends HTMLElement {
         }
       }
 
+      this.sheetBody.scrollTop = firstShownRow.offsetTop;
       sheetBody.addEventListener("scroll", this.lazyCheck.bind(this));
 
       // initial
@@ -270,6 +272,7 @@ export class Sheet extends HTMLElement {
       });
     }
   }
+
   // attribute getter + setter ---------------------------------------------------------- //
 
   get lazyActive(): boolean {
@@ -300,6 +303,22 @@ export class Sheet extends HTMLElement {
     return this.hasAttribute("lazy-update");
   }
 
+  get lazyUpdateUpperRows(): boolean {
+    return this.getAttribute("lazy-update-upper-rows") === "true";
+  }
+
+  set lazyUpdateUpperRows(value: boolean) {
+    this.setAttribute("lazy-update-upper-rows", String(value));
+  }
+
+  get lazyUpdatePreviousBodyScrollHeight(): number {
+    return Number(this.getAttribute("lazy-update-previous-body-scroll-height"));
+  }
+
+  set lazyUpdatePreviousBodyScrollHeight(value: number) {
+    this.setAttribute("lazy-update-previous-body-scroll-height", String(value));
+  }
+
   get rows(): number {
     return parseInt(this.getAttribute("rows"));
   }
@@ -314,6 +333,24 @@ export class Sheet extends HTMLElement {
 
   get tableBody(): HTMLTableSectionElement {
     return this.querySelector(".tobago-body tbody");
+  }
+
+  get firstVisibleRowIndex(): number {
+    const rowElements = this.tableBody.rows;
+    let min = 0;
+    let max = rowElements.length;
+    let rowIndex: number;
+    while (min < max) {
+      rowIndex = Math.round((max - min) / 2) + min;
+      if (rowElements[rowIndex].offsetTop > this.sheetBody.scrollTop) {
+        rowIndex--;
+        max = rowIndex;
+      } else {
+        min = rowIndex;
+      }
+    }
+
+    return rowIndex;
   }
 
   // -------------------------------------------------------------------------------------- //
@@ -351,50 +388,46 @@ export class Sheet extends HTMLElement {
     this.lastCheckMillis = Date.now();
     const next = this.nextLazyLoad();
     // console.info("next %o", next); // @DEV_ONLY
-    if (next) {
+    if (next !== null) {
       this.lazyActive = true;
       const rootNode = this.getRootNode() as ShadowRoot | Document;
       const input = rootNode.getElementById(this.id + ":pageActionlazy") as HTMLInputElement;
-      input.value = String(next);
+      input.value = String(1 + next); //input.value rowIndex starts at 1 (not 0)
+      this.lazyUpdatePreviousBodyScrollHeight = this.sheetBody.scrollHeight;
       this.reloadWithAction(input);
     }
   }
 
   nextLazyLoad(): number {
-    // find first tr in current visible area
     const rows = this.rows;
     const rowElements = this.tableBody.rows;
-    let min = 0;
-    let max = rowElements.length;
-    // binary search
-    let i: number;
-    while (min < max) {
-      i = Math.floor((max - min) / 2) + min;
-      // console.log("min i max -> %d %d %d", min, i, max); // @DEV_ONLY
-      if (this.isRowAboveVisibleArea(rowElements[i])) {
-        min = i + 1;
-      } else {
-        max = i;
+    const firstVisibleRowIndex = this.firstVisibleRowIndex;
+
+    for (let rowIndex = firstVisibleRowIndex + 1; rowIndex < firstVisibleRowIndex + rows; rowIndex++) {
+      if (rowIndex >= 0 && rowIndex < rowElements.length && rowElements[rowIndex].hasAttribute("dummy")) {
+        this.lazyUpdateUpperRows = false;
+        if (rowElements[firstVisibleRowIndex].hasAttribute("dummy")) {
+          return firstVisibleRowIndex;
+        } else if (rowIndex + rows - 1 < rowElements.length) {
+          return rowIndex;
+        } else {
+          return rowElements.length - rows;
+        }
       }
     }
-    for (i = min; i < min + rows && i < rowElements.length; i++) {
-      if (this.isRowDummy(rowElements[i])) {
-        return i + 1;
+
+    for (let rowIndex = firstVisibleRowIndex; rowIndex > firstVisibleRowIndex - rows; rowIndex--) {
+      if (rowIndex >= 0 && rowIndex < rowElements.length && rowElements[rowIndex].hasAttribute("dummy")) {
+        this.lazyUpdateUpperRows = true;
+        if (rowIndex - rows + 1 >= 0) {
+          return rowIndex - rows + 1;
+        } else {
+          return 0;
+        }
       }
     }
 
     return null;
-  }
-
-  isRowAboveVisibleArea(tr: HTMLTableRowElement): boolean {
-    const sheetBody = this.sheetBody;
-    const viewStart = sheetBody.scrollTop;
-    const trEnd = tr.offsetTop + tr.clientHeight;
-    return trEnd < viewStart;
-  }
-
-  isRowDummy(tr: HTMLTableRowElement): boolean {
-    return tr.hasAttribute("dummy");
   }
 
   lazyResponse(event: EventData): void {
@@ -404,7 +437,7 @@ export class Sheet extends HTMLElement {
       for (let i = 0; i < updates.length; i++) {
         const update = updates[i];
         const id = update.getAttribute("id");
-        if (id.indexOf(":") > -1) { // is a JSF element id, but not a technical id from the framework
+        if (this.id === id) { // is a JSF element id, but not a technical id from the framework
           console.debug(`[tobago-sheet][complete] Update after jsf.ajax complete: #${id}`); // @DEV_ONLY
 
           const sheet = document.getElementById(id);
@@ -420,7 +453,7 @@ export class Sheet extends HTMLElement {
       for (let i = 0; i < updates.length; i++) {
         const update = updates[i];
         const id = update.getAttribute("id");
-        if (id.indexOf(":") > -1) { // is a JSF element id, but not a technical id from the framework
+        if (this.id === `${id}::lazy-temporary`) { // is a JSF element id, but not a technical id from the framework
           console.debug(`[tobago-sheet][success] Update after jsf.ajax complete: #${id}`); // @DEV_ONLY
 
           // sync the new rows into the sheet
@@ -442,6 +475,14 @@ export class Sheet extends HTMLElement {
           sheetLoader.parentElement.removeChild(sheetLoader);
           this.lazyActive = false;
         }
+      }
+
+      const scrollTop: number = JSON.parse(this.getHiddenScrollPosition().value)[1];
+      if (this.lazyUpdateUpperRows) {
+        const additionalHeight: number = this.sheetBody.scrollHeight - this.lazyUpdatePreviousBodyScrollHeight;
+        this.sheetBody.scrollTop = scrollTop + additionalHeight;
+      } else {
+        this.sheetBody.scrollTop = scrollTop;
       }
     }
   }
