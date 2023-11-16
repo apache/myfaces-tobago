@@ -172,7 +172,7 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
     final AbstractUIEvent uiEvent = (AbstractUIEvent) component;
     if (uiEvent.getEvent() == null) {
       final ClientBehaviorHolder holder = (ClientBehaviorHolder) parent;
-      uiEvent.setEvent(ClientBehaviors.valueOf(holder.getDefaultEventName()));
+      uiEvent.setEvent(ClientBehaviors.getEnum(holder.getDefaultEventName()));
     }
   }
 

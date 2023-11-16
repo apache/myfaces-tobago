@@ -47,8 +47,12 @@ public abstract class EnumUnitTest {
       final String fieldName = field.getName();
       if (object instanceof String) {
         // case String constant
-        final String value = (String) object;
+        String value = (String) object;
         final String expected = constantCaseToEnum(fieldName);
+        int index = value.lastIndexOf('.');
+        if (index > 0) {
+          value = value.substring(index+1);
+        }
         Assertions.assertEquals(expected, value);
         Assertions.assertNotNull(enumType.getField(value), "exists");
       } else if (object.getClass().isAssignableFrom(enumType)) {
