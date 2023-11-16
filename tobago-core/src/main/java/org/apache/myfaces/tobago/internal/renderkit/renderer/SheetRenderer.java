@@ -67,7 +67,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.util.AjaxUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -136,6 +135,9 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
       ComponentUtils.setAttribute(component, Attributes.selectedListString, selectedRows);
     }
+
+    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
+    component.setLazyUpdate(sourceId != null && sourceId.equals(clientId + SUFFIX_LAZY));
 
     final String value
         = facesContext.getExternalContext().getRequestParameterMap().get(clientId + SUFFIX_SCROLL_POSITION);
@@ -279,7 +281,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     writer.writeAttribute(CustomAttributes.ROWS, component.getRows());
     writer.writeAttribute(CustomAttributes.ROW_COUNT, Integer.toString(component.getRowCount()), false);
     writer.writeAttribute(CustomAttributes.LAZY, component.isLazy());
-    writer.writeAttribute(CustomAttributes.LAZY_UPDATE, component.isLazy() && AjaxUtils.isAjaxRequest(facesContext));
+    writer.writeAttribute(CustomAttributes.LAZY_UPDATE, component.getLazyUpdate());
 
     final boolean autoLayout = component.isAutoLayout();
     if (!autoLayout) {
