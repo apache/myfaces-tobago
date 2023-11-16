@@ -19,6 +19,17 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import jakarta.el.ValueExpression;
+import jakarta.faces.application.Application;
+import jakarta.faces.component.NamingContainer;
+import jakarta.faces.component.UIColumn;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIData;
+import jakarta.faces.component.UINamingContainer;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.LabelLayout;
@@ -67,24 +78,11 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.util.AjaxUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import jakarta.el.ValueExpression;
-import jakarta.faces.application.Application;
-import jakarta.faces.component.NamingContainer;
-import jakarta.faces.component.UIColumn;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIData;
-import jakarta.faces.component.UINamingContainer;
-import jakarta.faces.component.behavior.AjaxBehavior;
-import jakarta.faces.component.behavior.ClientBehavior;
-import jakarta.faces.component.behavior.ClientBehaviorHolder;
-import jakarta.faces.context.FacesContext;
 
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
@@ -137,6 +135,9 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
       ComponentUtils.setAttribute(component, Attributes.selectedListString, selectedRows);
     }
+
+    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("jakarta.faces.source");
+    component.setLazyUpdate(sourceId != null && sourceId.equals(clientId + SUFFIX_LAZY));
 
     final String value
         = facesContext.getExternalContext().getRequestParameterMap().get(clientId + SUFFIX_SCROLL_POSITION);
@@ -280,7 +281,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     writer.writeAttribute(CustomAttributes.ROWS, component.getRows());
     writer.writeAttribute(CustomAttributes.ROW_COUNT, Integer.toString(component.getRowCount()), false);
     writer.writeAttribute(CustomAttributes.LAZY, component.isLazy());
-    writer.writeAttribute(CustomAttributes.LAZY_UPDATE, component.isLazy() && AjaxUtils.isAjaxRequest(facesContext));
+    writer.writeAttribute(CustomAttributes.LAZY_UPDATE, component.getLazyUpdate());
 
     final boolean autoLayout = component.isAutoLayout();
     if (!autoLayout) {
